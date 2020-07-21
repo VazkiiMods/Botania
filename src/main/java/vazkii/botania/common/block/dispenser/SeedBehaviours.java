@@ -18,16 +18,16 @@ public class SeedBehaviours {
 	// Quark's own feature disables itself if Botania is present
 
 	public static void init() {
-		DispenserBlock.registerDispenseBehavior(Items.WHEAT_SEEDS, new BehaviourSeeds(Blocks.WHEAT));
-		DispenserBlock.registerDispenseBehavior(Items.POTATO, new BehaviourSeeds(Blocks.POTATOES));
-		DispenserBlock.registerDispenseBehavior(Items.CARROT, new BehaviourSeeds(Blocks.CARROTS));
-		DispenserBlock.registerDispenseBehavior(Items.NETHER_WART, new BehaviourSeeds(Blocks.NETHER_WART));
-		DispenserBlock.registerDispenseBehavior(Items.PUMPKIN_SEEDS, new BehaviourSeeds(Blocks.PUMPKIN_STEM));
-		DispenserBlock.registerDispenseBehavior(Items.MELON_SEEDS, new BehaviourSeeds(Blocks.MELON_STEM));
-		DispenserBlock.registerDispenseBehavior(Items.BEETROOT_SEEDS, new BehaviourSeeds(Blocks.BEETROOTS));
-		DispenserBlock.registerDispenseBehavior(Blocks.CHORUS_FLOWER, new BehaviourSeeds(Blocks.CHORUS_FLOWER));
+		DispenserBlock.registerBehavior(Items.WHEAT_SEEDS, new BehaviourSeeds(Blocks.WHEAT));
+		DispenserBlock.registerBehavior(Items.POTATO, new BehaviourSeeds(Blocks.POTATOES));
+		DispenserBlock.registerBehavior(Items.CARROT, new BehaviourSeeds(Blocks.CARROTS));
+		DispenserBlock.registerBehavior(Items.NETHER_WART, new BehaviourSeeds(Blocks.NETHER_WART));
+		DispenserBlock.registerBehavior(Items.PUMPKIN_SEEDS, new BehaviourSeeds(Blocks.PUMPKIN_STEM));
+		DispenserBlock.registerBehavior(Items.MELON_SEEDS, new BehaviourSeeds(Blocks.MELON_STEM));
+		DispenserBlock.registerBehavior(Items.BEETROOT_SEEDS, new BehaviourSeeds(Blocks.BEETROOTS));
+		DispenserBlock.registerBehavior(Blocks.CHORUS_FLOWER, new BehaviourSeeds(Blocks.CHORUS_FLOWER));
 
-		DispenserBlock.registerDispenseBehavior(Items.COCOA_BEANS, new BehaviourCocoaBeans());
+		DispenserBlock.registerBehavior(Items.COCOA_BEANS, new BehaviourCocoaBeans());
 	}
 
 }

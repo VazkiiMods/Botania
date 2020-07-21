@@ -8,20 +8,20 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
@@ -47,7 +47,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 
 	private static final DummyPool fallbackPool = new DummyPool();
 
-	public ItemManaMirror(Properties props) {
+	public ItemManaMirror(Settings props) {
 		super(props);
 	}
 
@@ -63,7 +63,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
 
@@ -81,20 +81,20 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
+	public ActionResult useOnBlock(ItemUsageContext ctx) {
 		World world = ctx.getWorld();
 		PlayerEntity player = ctx.getPlayer();
 
-		if (player != null && player.isSneaking() && !world.isRemote) {
-			TileEntity tile = world.getTileEntity(ctx.getPos());
+		if (player != null && player.isSneaking() && !world.isClient) {
+			BlockEntity tile = world.getBlockEntity(ctx.getBlockPos());
 			if (tile instanceof IManaPool) {
-				bindPool(ctx.getItem(), tile);
-				world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
-				return ActionResultType.SUCCESS;
+				bindPool(ctx.getStack(), tile);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
+				return ActionResult.SUCCESS;
 			}
 		}
 
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
 	@Override
@@ -125,11 +125,11 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 		setManaBacklog(stack, getManaBacklog(stack) + mana);
 	}
 
-	public void bindPool(ItemStack stack, TileEntity pool) {
+	public void bindPool(ItemStack stack, BlockEntity pool) {
 		ItemNBTHelper.setInt(stack, TAG_POS_X, pool == null ? 0 : pool.getPos().getX());
 		ItemNBTHelper.setInt(stack, TAG_POS_Y, pool == null ? -1 : pool.getPos().getY());
 		ItemNBTHelper.setInt(stack, TAG_POS_Z, pool == null ? 0 : pool.getPos().getZ());
-		ItemNBTHelper.setString(stack, TAG_DIM, pool == null ? "" : pool.getWorld().func_234923_W_().func_240901_a_().toString());
+		ItemNBTHelper.setString(stack, TAG_DIM, pool == null ? "" : pool.getWorld().getRegistryKey().getValue().toString());
 	}
 
 	public BlockPos getPoolCoords(ItemStack stack) {
@@ -154,11 +154,11 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 			return null;
 		}
 
-		ResourceLocation dim = new ResourceLocation(getDimension(stack));
-		RegistryKey<World> type = RegistryKey.func_240903_a_(Registry.WORLD_KEY, dim);
+		Identifier dim = new Identifier(getDimension(stack));
+		RegistryKey<World> type = RegistryKey.of(Registry.DIMENSION, dim);
 		World world = server.getWorld(type);
 		if (world != null) {
-			TileEntity tile = world.getTileEntity(coords);
+			BlockEntity tile = world.getBlockEntity(coords);
 			if (tile instanceof IManaPool) {
 				return (IManaPool) tile;
 			}
@@ -168,7 +168,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 	}
 
 	@Override
-	public boolean canReceiveManaFromPool(ItemStack stack, TileEntity pool) {
+	public boolean canReceiveManaFromPool(ItemStack stack, BlockEntity pool) {
 		return false;
 	}
 
@@ -178,7 +178,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 	}
 
 	@Override
-	public boolean canExportManaToPool(ItemStack stack, TileEntity pool) {
+	public boolean canExportManaToPool(ItemStack stack, BlockEntity pool) {
 		return false;
 	}
 

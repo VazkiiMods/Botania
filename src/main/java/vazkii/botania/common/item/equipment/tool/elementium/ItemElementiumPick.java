@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ItemElementiumPick extends ItemManasteelPick {
 
-	public ItemElementiumPick(Properties props) {
+	public ItemElementiumPick(Settings props) {
 		super(BotaniaAPI.instance().getElementiumItemTier(), props, -2.8F);
 	}
 

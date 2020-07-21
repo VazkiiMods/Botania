@@ -8,13 +8,15 @@
  */
 package vazkii.botania.common.item.relic;
 
-import net.minecraft.client.util.ITooltipFlag;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Rarity;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.text.Text;
+import net.minecraft.util.Rarity;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -30,9 +32,9 @@ import java.util.UUID;
 
 public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
-	private final ItemRelic dummy = new ItemRelic(new Properties()); // Delegate for relic stuff
+	private final ItemRelic dummy = new ItemRelic(new Settings()); // Delegate for relic stuff
 
-	public ItemRelicBauble(Properties props) {
+	public ItemRelicBauble(Settings props) {
 		super(props);
 	}
 
@@ -47,9 +49,9 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+	public void addHiddenTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext flags) {
 		super.addHiddenTooltip(stack, world, tooltip, flags);
 		dummy.addBindInfo(tooltip, stack);
 	}

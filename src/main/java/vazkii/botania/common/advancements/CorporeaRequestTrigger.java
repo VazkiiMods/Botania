@@ -9,45 +9,49 @@
 package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
-
+import net.minecraft.advancement.criterion.AbstractCriterion;
+import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.advancements.criterion.*;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.loot.ConditionArrayParser;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.predicate.NumberRange;
+import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
+import net.minecraft.predicate.entity.EntityPredicate;
+import net.minecraft.predicate.entity.LocationPredicate;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
-
+import vazkii.botania.common.advancements.CorporeaRequestTrigger.Instance;
 import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class CorporeaRequestTrigger extends AbstractCriterionTrigger<CorporeaRequestTrigger.Instance> {
-	public static final ResourceLocation ID = prefix("corporea_index_request");
+public class CorporeaRequestTrigger extends AbstractCriterion<CorporeaRequestTrigger.Instance> {
+	public static final Identifier ID = prefix("corporea_index_request");
 	public static final CorporeaRequestTrigger INSTANCE = new CorporeaRequestTrigger();
 
 	private CorporeaRequestTrigger() {}
 
 	@Nonnull
 	@Override
-	public ResourceLocation getId() {
+	public Identifier getId() {
 		return ID;
 	}
 
 	@Nonnull
 	@Override
-	protected Instance func_230241_b_(JsonObject json, EntityPredicate.AndPredicate playerPredicate, ConditionArrayParser conditions) {
-		return new Instance(playerPredicate, MinMaxBounds.IntBound.fromJson(json.get("extracted")), LocationPredicate.deserialize(json.get("location")));
+	protected Instance conditionsFromJson(JsonObject json, EntityPredicate.Extended playerPredicate, AdvancementEntityPredicateDeserializer conditions) {
+		return new Instance(playerPredicate, NumberRange.IntRange.fromJson(json.get("extracted")), LocationPredicate.fromJson(json.get("location")));
 	}
 
 	public void trigger(ServerPlayerEntity player, ServerWorld world, BlockPos pos, int count) {
-		this.func_235959_a_(player, instance -> instance.test(world, pos, count));
+		this.test(player, instance -> instance.test(world, pos, count));
 	}
 
-	static class Instance extends CriterionInstance {
-		private final MinMaxBounds.IntBound count;
+	static class Instance extends AbstractCriterionConditions {
+		private final NumberRange.IntRange count;
 		private final LocationPredicate indexPos;
 
-		Instance(EntityPredicate.AndPredicate playerPredicate, MinMaxBounds.IntBound count, LocationPredicate indexPos) {
+		Instance(EntityPredicate.Extended playerPredicate, NumberRange.IntRange count, LocationPredicate indexPos) {
 			super(ID, playerPredicate);
 			this.count = count;
 			this.indexPos = indexPos;
@@ -55,7 +59,7 @@ public class CorporeaRequestTrigger extends AbstractCriterionTrigger<CorporeaReq
 
 		@Nonnull
 		@Override
-		public ResourceLocation getId() {
+		public Identifier getId() {
 			return ID;
 		}
 

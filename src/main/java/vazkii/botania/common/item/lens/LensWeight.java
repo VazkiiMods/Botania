@@ -10,39 +10,38 @@ package vazkii.botania.common.item.lens;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.item.FallingBlockEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.FallingBlockEntity;
+import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particles.BlockParticleData;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.particle.BlockStateParticleEffect;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.server.ServerWorld;
-
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 public class LensWeight extends Lens {
 	@Override
-	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if (!entity.world.isRemote && !burst.isFake() && pos.getType() == RayTraceResult.Type.BLOCK) {
+	public boolean collideBurst(IManaBurst burst, ThrownEntity entity, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+		if (!entity.world.isClient && !burst.isFake() && pos.getType() == HitResult.Type.BLOCK) {
 			int harvestLevel = ConfigHandler.COMMON.harvestLevelWeight.get();
 
-			BlockPos bPos = ((BlockRayTraceResult) pos).getPos();
+			BlockPos bPos = ((BlockHitResult) pos).getBlockPos();
 			Block block = entity.world.getBlockState(bPos).getBlock();
 			BlockState state = entity.world.getBlockState(bPos);
 			int neededHarvestLevel = block.getHarvestLevel(state);
 
-			if (entity.world.isAirBlock(bPos.down())
-					&& state.getBlockHardness(entity.world, bPos) != -1
+			if (entity.world.isAir(bPos.down())
+					&& state.getHardness(entity.world, bPos) != -1
 					&& neededHarvestLevel <= harvestLevel
-					&& entity.world.getTileEntity(bPos) == null) {
+					&& entity.world.getBlockEntity(bPos) == null) {
 				FallingBlockEntity falling = new FallingBlockEntity(entity.world, bPos.getX() + 0.5, bPos.getY(), bPos.getZ() + 0.5, state);
-				falling.fallTime = 1;
+				falling.timeFalling = 1;
 				entity.world.removeBlock(bPos, false);
-				((ServerWorld) entity.world).spawnParticle(new BlockParticleData(ParticleTypes.FALLING_DUST, state), bPos.getX() + 0.5, bPos.getY() + 0.5, bPos.getZ() + 0.5, 10, 0.45, 0.45, 0.45, 5);
-				entity.world.addEntity(falling);
+				((ServerWorld) entity.world).spawnParticles(new BlockStateParticleEffect(ParticleTypes.FALLING_DUST, state), bPos.getX() + 0.5, bPos.getY() + 0.5, bPos.getZ() + 0.5, 10, 0.45, 0.45, 0.45, 5);
+				entity.world.spawnEntity(falling);
 			}
 		}
 

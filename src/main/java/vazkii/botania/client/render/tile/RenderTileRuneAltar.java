@@ -8,41 +8,39 @@
  */
 package vazkii.botania.client.render.tile;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.vector.Vector3f;
-
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.tile.TileRuneAltar;
 
 import javax.annotation.Nonnull;
 
-public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
-	private final ModelRenderer spinningCube = new ModelRenderer(64, 32, 42, 0);
+public class RenderTileRuneAltar extends BlockEntityRenderer<TileRuneAltar> {
+	private final ModelPart spinningCube = new ModelPart(64, 32, 42, 0);
 
-	public RenderTileRuneAltar(TileEntityRendererDispatcher manager) {
+	public RenderTileRuneAltar(BlockEntityRenderDispatcher manager) {
 		super(manager);
-		spinningCube.addBox(0F, 0F, 0F, 1, 1, 1);
-		spinningCube.setRotationPoint(0F, 0F, 0F);
+		spinningCube.addCuboid(0F, 0F, 0F, 1, 1, 1);
+		spinningCube.setPivot(0F, 0F, 0F);
 		spinningCube.setTextureSize(64, 64);
 	}
 
 	@Override
-	public void render(@Nonnull TileRuneAltar altar, float partticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+	public void render(@Nonnull TileRuneAltar altar, float partticks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
 		ms.push();
 
 		int items = 0;
 		for (int i = 0; i < altar.inventorySize(); i++) {
-			if (altar.getItemHandler().getStackInSlot(i).isEmpty()) {
+			if (altar.getItemHandler().getStack(i).isEmpty()) {
 				break;
 			} else {
 				items++;
@@ -61,14 +59,14 @@ public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
 		for (int i = 0; i < altar.inventorySize(); i++) {
 			ms.push();
 			ms.translate(0.5F, 1.25F, 0.5F);
-			ms.rotate(Vector3f.YP.rotationDegrees(angles[i] + (float) time));
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(angles[i] + (float) time));
 			ms.translate(1.125F, 0F, 0.25F);
-			ms.rotate(Vector3f.YP.rotationDegrees(90F));
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
 			ms.translate(0D, 0.075 * Math.sin((time + i * 10) / 5D), 0F);
-			ItemStack stack = altar.getItemHandler().getStackInSlot(i);
-			Minecraft mc = Minecraft.getInstance();
+			ItemStack stack = altar.getItemHandler().getStack(i);
+			MinecraftClient mc = MinecraftClient.getInstance();
 			if (!stack.isEmpty()) {
-				mc.getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.GROUND, light, overlay, ms, buffers);
+				mc.getItemRenderer().renderItem(stack, ModelTransformation.Mode.GROUND, light, overlay, ms, buffers);
 			}
 			ms.pop();
 		}
@@ -90,7 +88,7 @@ public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
 		ms.pop();
 	}
 
-	private void renderSpinningCubes(MatrixStack ms, IRenderTypeBuffer buffers, int overlay, int cubes, int iters) {
+	private void renderSpinningCubes(MatrixStack ms, VertexConsumerProvider buffers, int overlay, int cubes, int iters) {
 		for (int curIter = iters; curIter > 0; curIter--) {
 			final float modifier = 6F;
 			final float rotationModifier = 0.2F;
@@ -118,13 +116,13 @@ public class RenderTileRuneAltar extends TileEntityRenderer<TileRuneAltar> {
 				float yRotate = (float) Math.max(0.6F, Math.sin(ticks * 0.1F) / 2F + 0.5F);
 				float zRotate = (float) Math.cos(ticks * rotationModifier) / 2F;
 
-				ms.rotate(new Vector3f(xRotate, yRotate, zRotate).rotationDegrees(deg));
+				ms.multiply(new Vector3f(xRotate, yRotate, zRotate).getDegreesQuaternion(deg));
 				float alpha = 1;
 				if (curIter < iters) {
 					alpha = (float) curIter / (float) iters * 0.4F;
 				}
 
-				IVertexBuilder buffer = buffers.getBuffer(curIter < iters ? RenderHelper.SPINNING_CUBE_GHOST : RenderHelper.SPINNING_CUBE);
+				VertexConsumer buffer = buffers.getBuffer(curIter < iters ? RenderHelper.SPINNING_CUBE_GHOST : RenderHelper.SPINNING_CUBE);
 				spinningCube.render(ms, buffer, 0xF000F0, overlay, 1, 1, 1, alpha);
 
 				ms.pop();

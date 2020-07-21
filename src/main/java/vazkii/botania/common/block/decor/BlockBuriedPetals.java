@@ -8,14 +8,15 @@
  */
 package vazkii.botania.common.block.decor;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
-import net.minecraft.item.DyeColor;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -26,26 +27,26 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockBuriedPetals extends BushBlock implements IGrowable {
+public class BlockBuriedPetals extends PlantBlock implements Fertilizable {
 
-	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 1.6, 16);
+	private static final VoxelShape SHAPE = createCuboidShape(0, 0, 0, 16, 1.6, 16);
 
 	public final DyeColor color;
 
-	public BlockBuriedPetals(DyeColor color, Properties builder) {
+	public BlockBuriedPetals(DyeColor color, Settings builder) {
 		super(builder);
 		this.color = color;
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getOutlineShape(BlockState state, @Nonnull BlockView world, @Nonnull BlockPos pos, ShapeContext ctx) {
 		return SHAPE;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
+	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
 		int hex = color.getColorValue();
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
@@ -62,20 +63,20 @@ public class BlockBuriedPetals extends BushBlock implements IGrowable {
 	}
 
 	@Override
-	public boolean canGrow(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean fuckifiknow) {
+	public boolean isFertilizable(@Nonnull BlockView world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean fuckifiknow) {
 		return world.getBlockState(pos.up()).isAir(world, pos);
 	}
 
 	@Override
-	public boolean canUseBonemeal(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
-		return canGrow(world, pos, state, false);
+	public boolean canGrow(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return isFertilizable(world, pos, state, false);
 	}
 
 	@Override
 	public void grow(@Nonnull ServerWorld world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
 		Block block = ModBlocks.getDoubleFlower(color);
-		if (block instanceof DoublePlantBlock) {
-			((DoublePlantBlock) block).placeAt(world, pos, 3);
+		if (block instanceof TallPlantBlock) {
+			((TallPlantBlock) block).placeAt(world, pos, 3);
 		}
 	}
 }

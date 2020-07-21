@@ -15,24 +15,24 @@ import vazkii.botania.data.recipes.*;
 public class DataGenerators {
 	public static void gatherData(GatherDataEvent evt) {
 		if (evt.includeServer()) {
-			evt.getGenerator().addProvider(new BlockLootProvider(evt.getGenerator()));
+			evt.getGenerator().install(new BlockLootProvider(evt.getGenerator()));
 			BlockTagProvider blockTagProvider = new BlockTagProvider(evt.getGenerator());
-			evt.getGenerator().addProvider(blockTagProvider);
-			evt.getGenerator().addProvider(new ItemTagProvider(evt.getGenerator(), blockTagProvider));
-			evt.getGenerator().addProvider(new StonecuttingProvider(evt.getGenerator()));
-			evt.getGenerator().addProvider(new RecipeProvider(evt.getGenerator()));
-			evt.getGenerator().addProvider(new SmeltingProvider(evt.getGenerator()));
-			evt.getGenerator().addProvider(new ElvenTradeProvider(evt.getGenerator()));
-			evt.getGenerator().addProvider(new ManaInfusionProvider(evt.getGenerator()));
-			evt.getGenerator().addProvider(new PureDaisyProvider(evt.getGenerator()));
-			evt.getGenerator().addProvider(new BrewProvider(evt.getGenerator()));
-			evt.getGenerator().addProvider(new PetalProvider(evt.getGenerator()));
-			evt.getGenerator().addProvider(new RuneProvider(evt.getGenerator()));
+			evt.getGenerator().install(blockTagProvider);
+			evt.getGenerator().install(new ItemTagProvider(evt.getGenerator(), blockTagProvider));
+			evt.getGenerator().install(new StonecuttingProvider(evt.getGenerator()));
+			evt.getGenerator().install(new RecipeProvider(evt.getGenerator()));
+			evt.getGenerator().install(new SmeltingProvider(evt.getGenerator()));
+			evt.getGenerator().install(new ElvenTradeProvider(evt.getGenerator()));
+			evt.getGenerator().install(new ManaInfusionProvider(evt.getGenerator()));
+			evt.getGenerator().install(new PureDaisyProvider(evt.getGenerator()));
+			evt.getGenerator().install(new BrewProvider(evt.getGenerator()));
+			evt.getGenerator().install(new PetalProvider(evt.getGenerator()));
+			evt.getGenerator().install(new RuneProvider(evt.getGenerator()));
 		}
 		if (evt.includeClient()) {
-			evt.getGenerator().addProvider(new FloatingFlowerModelProvider(evt.getGenerator(), evt.getExistingFileHelper()));
-			evt.getGenerator().addProvider(new BlockstateProvider(evt.getGenerator(), evt.getExistingFileHelper()));
-			evt.getGenerator().addProvider(new ItemModelProvider(evt.getGenerator(), evt.getExistingFileHelper()));
+			evt.getGenerator().install(new FloatingFlowerModelProvider(evt.getGenerator(), evt.getExistingFileHelper()));
+			evt.getGenerator().install(new BlockstateProvider(evt.getGenerator(), evt.getExistingFileHelper()));
+			evt.getGenerator().install(new ItemModelProvider(evt.getGenerator(), evt.getExistingFileHelper()));
 		}
 	}
 

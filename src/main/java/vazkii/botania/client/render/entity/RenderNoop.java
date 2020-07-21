@@ -8,28 +8,27 @@
  */
 package vazkii.botania.client.render.entity;
 
-import net.minecraft.client.renderer.culling.ClippingHelper;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.render.Frustum;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.ResourceLocation;
-
+import net.minecraft.util.Identifier;
 import javax.annotation.Nonnull;
 
 public class RenderNoop<T extends Entity> extends EntityRenderer<T> {
-	public RenderNoop(EntityRendererManager manager) {
+	public RenderNoop(EntityRenderDispatcher manager) {
 		super(manager);
 	}
 
 	@Override
-	public boolean shouldRender(T entity, @Nonnull ClippingHelper clipping, double x, double y, double z) {
+	public boolean shouldRender(T entity, @Nonnull Frustum clipping, double x, double y, double z) {
 		return false;
 	}
 
 	@Nonnull
 	@Override
-	public ResourceLocation getEntityTexture(@Nonnull T entity) {
-		return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
+	public Identifier getTexture(@Nonnull T entity) {
+		return SpriteAtlasTexture.BLOCK_ATLAS_TEX;
 	}
 }

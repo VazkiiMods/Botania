@@ -9,13 +9,11 @@
 package vazkii.botania.client.fx;
 
 import com.mojang.serialization.Codec;
-
-import net.minecraft.client.particle.IAnimatedSprite;
-import net.minecraft.client.particle.IParticleFactory;
 import net.minecraft.client.particle.Particle;
+import net.minecraft.client.particle.ParticleFactory;
+import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particles.ParticleType;
-
+import net.minecraft.particle.ParticleType;
 import javax.annotation.Nonnull;
 
 public class SparkleParticleType extends ParticleType<SparkleParticleData> {
@@ -25,14 +23,14 @@ public class SparkleParticleType extends ParticleType<SparkleParticleData> {
 
 	@Nonnull
 	@Override
-	public Codec<SparkleParticleData> func_230522_e_() {
+	public Codec<SparkleParticleData> method_29138() {
 		return SparkleParticleData.CODEC;
 	}
 
-	public static class Factory implements IParticleFactory<SparkleParticleData> {
-		private final IAnimatedSprite sprite;
+	public static class Factory implements ParticleFactory<SparkleParticleData> {
+		private final SpriteProvider sprite;
 
-		public Factory(IAnimatedSprite sprite) {
+		public Factory(SpriteProvider sprite) {
 			this.sprite = sprite;
 		}
 

@@ -8,15 +8,14 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.tileentity.SkullTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-
 import javax.annotation.Nonnull;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.SkullBlockEntity;
 
-public class TileGaiaHead extends SkullTileEntity {
+public class TileGaiaHead extends SkullBlockEntity {
 	@Nonnull
 	@Override
-	public TileEntityType<TileGaiaHead> getType() {
+	public BlockEntityType<TileGaiaHead> getType() {
 		return ModTiles.GAIA_HEAD;
 	}
 

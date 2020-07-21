@@ -11,18 +11,17 @@ package vazkii.botania.common.block.tile.mana;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.block.FurnaceBlock;
-import net.minecraft.item.crafting.AbstractCookingRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.AbstractFurnaceTileEntity;
-import net.minecraft.tileentity.FurnaceTileEntity;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.SoundCategory;
-
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.FurnaceBlockEntity;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.recipe.AbstractCookingRecipe;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.Tickable;
+import net.minecraft.util.math.Direction;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
@@ -30,7 +29,7 @@ import vazkii.botania.common.core.handler.ExoflameFurnaceHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.mixin.AccessorAbstractFurnaceTileEntity;
 
-public class TileBellows extends TileMod implements ITickableTileEntity {
+public class TileBellows extends TileMod implements Tickable {
 	private static final String TAG_ACTIVE = "active";
 
 	public float movePos;
@@ -50,7 +49,7 @@ public class TileBellows extends TileMod implements ITickableTileEntity {
 	@Override
 	public void tick() {
 		boolean disable = true;
-		TileEntity tile = getLinkedTile();
+		BlockEntity tile = getLinkedTile();
 		if (!active && tile instanceof TilePool) {
 			TilePool pool = (TilePool) tile;
 			boolean transfer = pool.isDoingTransfer;
@@ -72,8 +71,8 @@ public class TileBellows extends TileMod implements ITickableTileEntity {
 				world.playSound(null, pos, ModSounds.bellows, SoundCategory.BLOCKS, 0.1F, 3F);
 			}
 
-			if (tile instanceof AbstractFurnaceTileEntity) {
-				AbstractFurnaceTileEntity furnace = (AbstractFurnaceTileEntity) tile;
+			if (tile instanceof AbstractFurnaceBlockEntity) {
+				AbstractFurnaceBlockEntity furnace = (AbstractFurnaceBlockEntity) tile;
 				Pair<AbstractCookingRecipe, Boolean> p = canSmelt(furnace);
 				if (p != null) {
 					AbstractCookingRecipe recipe = p.getFirst();
@@ -84,20 +83,20 @@ public class TileBellows extends TileMod implements ITickableTileEntity {
 						mFurnace.setBurnTime(Math.max(0, mFurnace.getBurnTime() - 10));
 					}
 
-					if (furnace instanceof FurnaceTileEntity
-							&& furnace.hasWorld() && furnace.getBlockState().get(FurnaceBlock.LIT)) {
+					if (furnace instanceof FurnaceBlockEntity
+							&& furnace.hasWorld() && furnace.getCachedState().get(FurnaceBlock.LIT)) {
 						// [VanillaCopy] BlockFurnace
 						double d0 = (double) pos.getX() + 0.5D;
 						double d1 = (double) pos.getY();
 						double d2 = (double) pos.getZ() + 0.5D;
 
-						Direction enumfacing = furnace.getBlockState().get(FurnaceBlock.FACING);
+						Direction enumfacing = furnace.getCachedState().get(FurnaceBlock.FACING);
 						Direction.Axis enumfacing$axis = enumfacing.getAxis();
 						double d3 = 0.52D;
-						double d4 = world.rand.nextDouble() * 0.6D - 0.3D;
-						double d5 = enumfacing$axis == Direction.Axis.X ? (double) enumfacing.getXOffset() * 0.52D : d4;
-						double d6 = world.rand.nextDouble() * 6.0D / 16.0D;
-						double d7 = enumfacing$axis == Direction.Axis.Z ? (double) enumfacing.getZOffset() * 0.52D : d4;
+						double d4 = world.random.nextDouble() * 0.6D - 0.3D;
+						double d5 = enumfacing$axis == Direction.Axis.X ? (double) enumfacing.getOffsetX() * 0.52D : d4;
+						double d6 = world.random.nextDouble() * 6.0D / 16.0D;
+						double d7 = enumfacing$axis == Direction.Axis.Z ? (double) enumfacing.getOffsetZ() * 0.52D : d4;
 						world.addParticle(ParticleTypes.SMOKE, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
 						world.addParticle(ParticleTypes.FLAME, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
 					}
@@ -124,23 +123,23 @@ public class TileBellows extends TileMod implements ITickableTileEntity {
 
 	}
 
-	public TileEntity getLinkedTile() {
-		Direction side = getBlockState().get(BlockStateProperties.HORIZONTAL_FACING);
-		return world.getTileEntity(getPos().offset(side));
+	public BlockEntity getLinkedTile() {
+		Direction side = getCachedState().get(Properties.HORIZONTAL_FACING);
+		return world.getBlockEntity(getPos().offset(side));
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT cmp) {
+	public void writePacketNBT(CompoundTag cmp) {
 		cmp.putBoolean(TAG_ACTIVE, active);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT cmp) {
+	public void readPacketNBT(CompoundTag cmp) {
 		active = cmp.getBoolean(TAG_ACTIVE);
 	}
 
 	public void setActive(boolean active) {
-		if (!world.isRemote) {
+		if (!world.isClient) {
 			boolean diff = this.active != active;
 			this.active = active;
 			if (diff) {
@@ -149,9 +148,9 @@ public class TileBellows extends TileMod implements ITickableTileEntity {
 		}
 	}
 
-	public static Pair<AbstractCookingRecipe, Boolean> canSmelt(AbstractFurnaceTileEntity furnace) {
-		IRecipeType<? extends AbstractCookingRecipe> rt = ExoflameFurnaceHandler.getRecipeType(furnace);
-		AbstractCookingRecipe recipe = furnace.getWorld().getRecipeManager().getRecipe(rt, furnace, furnace.getWorld()).orElse(null);
+	public static Pair<AbstractCookingRecipe, Boolean> canSmelt(AbstractFurnaceBlockEntity furnace) {
+		RecipeType<? extends AbstractCookingRecipe> rt = ExoflameFurnaceHandler.getRecipeType(furnace);
+		AbstractCookingRecipe recipe = furnace.getWorld().getRecipeManager().getFirstMatch(rt, furnace, furnace.getWorld()).orElse(null);
 		boolean canSmelt = ExoflameFurnaceHandler.canSmelt(furnace, recipe);
 		return Pair.of(recipe, canSmelt);
 	}

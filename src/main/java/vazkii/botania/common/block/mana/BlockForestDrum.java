@@ -10,20 +10,20 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.IShearable;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.Shearable;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IForgeShearable;
 
@@ -48,17 +48,17 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 		CANOPY
 	}
 
-	private static final VoxelShape SHAPE = Block.makeCuboidShape(3, 1, 3, 13, 15, 13);
+	private static final VoxelShape SHAPE = Block.createCuboidShape(3, 1, 3, 13, 15, 13);
 	private final Variant variant;
 
-	public BlockForestDrum(Variant v, Properties builder) {
+	public BlockForestDrum(Variant v, Settings builder) {
 		super(builder);
 		this.variant = v;
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
 		return SHAPE;
 	}
 
@@ -67,7 +67,7 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 		if (burst.isFake()) {
 			return;
 		}
-		if (world.isRemote) {
+		if (world.isClient) {
 			world.addParticle(ParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5D, 1.0 / 24.0, 0, 0);
 			return;
 		}
@@ -77,27 +77,27 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 			ItemHorn.breakGrass(world, new ItemStack(ModItems.leavesHorn), pos);
 		} else {
 			int range = 10;
-			List<MobEntity> entities = world.getEntitiesWithinAABB(MobEntity.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
+			List<MobEntity> entities = world.getNonSpectatingEntities(MobEntity.class, new Box(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
 			List<MobEntity> shearables = new ArrayList<>();
 			ItemStack stack = new ItemStack(ModBlocks.gatheringDrum);
 
 			for (MobEntity entity : entities) {
-				if (entity instanceof IShearable && ((IShearable) entity).func_230262_K__()
-						|| entity instanceof IForgeShearable && ((IForgeShearable) entity).isShearable(stack, world, entity.func_233580_cy_())) {
+				if (entity instanceof Shearable && ((Shearable) entity).isShearable()
+						|| entity instanceof IForgeShearable && ((IForgeShearable) entity).isShearable(stack, world, entity.getBlockPos())) {
 					shearables.add(entity);
 				} else if (entity instanceof CowEntity) {
-					List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, entity.getBoundingBox());
+					List<ItemEntity> items = world.getNonSpectatingEntities(ItemEntity.class, entity.getBoundingBox());
 					for (ItemEntity item : items) {
-						ItemStack itemstack = item.getItem();
-						if (!itemstack.isEmpty() && itemstack.getItem() == Items.BUCKET && !world.isRemote) {
+						ItemStack itemstack = item.getStack();
+						if (!itemstack.isEmpty() && itemstack.getItem() == Items.BUCKET && !world.isClient) {
 							while (itemstack.getCount() > 0) {
-								ItemEntity ent = entity.entityDropItem(new ItemStack(Items.MILK_BUCKET), 1.0F);
-								ent.setMotion(ent.getMotion().add(
-										world.rand.nextFloat() * 0.05F,
-										(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F,
-										(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F
+								ItemEntity ent = entity.dropStack(new ItemStack(Items.MILK_BUCKET), 1.0F);
+								ent.setVelocity(ent.getVelocity().add(
+										world.random.nextFloat() * 0.05F,
+										(world.random.nextFloat() - world.random.nextFloat()) * 0.1F,
+										(world.random.nextFloat() - world.random.nextFloat()) * 0.1F
 								));
-								itemstack.shrink(1);
+								itemstack.decrement(1);
 							}
 							item.remove();
 						}
@@ -113,16 +113,16 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 					break;
 				}
 
-				if (entity instanceof IShearable) {
-					((IShearable) entity).func_230263_a_(SoundCategory.BLOCKS);
+				if (entity instanceof Shearable) {
+					((Shearable) entity).sheared(SoundCategory.BLOCKS);
 				} else {
-					List<ItemStack> stacks = ((IForgeShearable) entity).onSheared(null, stack, world, entity.func_233580_cy_(), 0);
+					List<ItemStack> stacks = ((IForgeShearable) entity).onSheared(null, stack, world, entity.getBlockPos(), 0);
 					for (ItemStack wool : stacks) {
-						ItemEntity ent = entity.entityDropItem(wool, 1.0F);
-						ent.setMotion(ent.getMotion().add(
-								world.rand.nextFloat() * 0.05F,
-								(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F,
-								(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F
+						ItemEntity ent = entity.dropStack(wool, 1.0F);
+						ent.setVelocity(ent.getVelocity().add(
+								world.random.nextFloat() * 0.05F,
+								(world.random.nextFloat() - world.random.nextFloat()) * 0.1F,
+								(world.random.nextFloat() - world.random.nextFloat()) * 0.1F
 						));
 					}
 				}

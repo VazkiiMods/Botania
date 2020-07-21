@@ -10,11 +10,6 @@ package vazkii.botania.client.render.entity;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
-
 import vazkii.botania.client.core.helper.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
@@ -22,8 +17,11 @@ import vazkii.botania.client.model.ModelPixie;
 import vazkii.botania.common.entity.EntityPixie;
 
 import javax.annotation.Nonnull;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.util.Identifier;
 
-public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
+public class RenderPixie extends MobEntityRenderer<EntityPixie, ModelPixie> {
 
 	public static final ShaderCallback SHADER_CALLBACK = shader -> {
 		// Frag Uniforms
@@ -39,13 +37,13 @@ public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
 		RenderSystem.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 	};
 
-	public RenderPixie(EntityRendererManager renderManager) {
+	public RenderPixie(EntityRenderDispatcher renderManager) {
 		super(renderManager, new ModelPixie(), 0.0F);
 	}
 
 	@Nonnull
 	@Override
-	public ResourceLocation getEntityTexture(@Nonnull EntityPixie entity) {
-		return new ResourceLocation(LibResources.MODEL_PIXIE);
+	public Identifier getEntityTexture(@Nonnull EntityPixie entity) {
+		return new Identifier(LibResources.MODEL_PIXIE);
 	}
 }

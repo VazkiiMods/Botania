@@ -9,9 +9,9 @@
 package vazkii.botania.api.item;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.util.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.util.math.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nullable;
@@ -36,16 +36,16 @@ public interface IFloatingFlower {
 	class Storage implements Capability.IStorage<IFloatingFlower> {
 		@Nullable
 		@Override
-		public INBT writeNBT(Capability<IFloatingFlower> capability, IFloatingFlower instance, Direction side) {
-			CompoundNBT ret = new CompoundNBT();
+		public Tag writeNBT(Capability<IFloatingFlower> capability, IFloatingFlower instance, Direction side) {
+			CompoundTag ret = new CompoundTag();
 			ret.putString("islandType", instance.getIslandType().typeName);
 			return ret;
 		}
 
 		@Override
-		public void readNBT(Capability<IFloatingFlower> capability, IFloatingFlower instance, Direction side, INBT nbt) {
-			if (nbt instanceof CompoundNBT) {
-				IslandType t = IslandType.ofType(((CompoundNBT) nbt).getString("islandType"));
+		public void readNBT(Capability<IFloatingFlower> capability, IFloatingFlower instance, Direction side, Tag nbt) {
+			if (nbt instanceof CompoundTag) {
+				IslandType t = IslandType.ofType(((CompoundTag) nbt).getString("islandType"));
 				if (t != null) {
 					instance.setIslandType(t);
 				}

@@ -9,7 +9,6 @@
 package vazkii.botania.client.integration.jei.elventrade;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -18,22 +17,21 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Matrix4f;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
@@ -50,14 +48,14 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeRecipe> {
 
-	public static final ResourceLocation UID = prefix("elven_trade");
+	public static final Identifier UID = prefix("elven_trade");
 	private final String localizedName;
 	private final IDrawable background;
 	private final IDrawable overlay;
 	private final IDrawable icon;
 
 	public ElvenTradeRecipeCategory(IGuiHelper guiHelper) {
-		localizedName = I18n.format("botania.nei.elvenTrade");
+		localizedName = I18n.translate("botania.nei.elvenTrade");
 		background = guiHelper.createBlankDrawable(145, 95);
 		overlay = guiHelper.createDrawable(prefix("textures/gui/elven_trade_overlay.png"), 0, 15, 140, 90);
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.alfPortal));
@@ -65,7 +63,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 
 	@Nonnull
 	@Override
-	public ResourceLocation getUid() {
+	public Identifier getUid() {
 		return UID;
 	}
 
@@ -96,8 +94,8 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 	@Override
 	public void setIngredients(IElvenTradeRecipe recipe, IIngredients iIngredients) {
 		ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
-		for (Ingredient i : recipe.getIngredients()) {
-			builder.add(Arrays.asList(i.getMatchingStacks()));
+		for (Ingredient i : recipe.getPreviewInputs()) {
+			builder.add(Arrays.asList(i.getMatchingStacksClient()));
 		}
 		iIngredients.setInputLists(VanillaTypes.ITEM, builder.build());
 		iIngredients.setOutputs(VanillaTypes.ITEM, ImmutableList.copyOf(recipe.getOutputs()));
@@ -111,20 +109,20 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 
-		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		TextureAtlasSprite sprite = MiscellaneousIcons.INSTANCE.alfPortalTex;
+		MinecraftClient.getInstance().textureManager.bindTexture(SpriteAtlasTexture.BLOCK_ATLAS_TEX);
+		Sprite sprite = MiscellaneousIcons.INSTANCE.alfPortalTex;
 		Tessellator tess = Tessellator.getInstance();
 		BufferBuilder wr = tess.getBuffer();
-		wr.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		wr.begin(GL11.GL_QUADS, VertexFormats.POSITION_TEXTURE);
 		int startX = 22;
 		int startY = 25;
 		int stopX = 70;
 		int stopY = 73;
-		Matrix4f mat = ms.getLast().getMatrix();
-		wr.pos(mat, startX, startY, 0).tex(sprite.getMinU(), sprite.getMinV()).endVertex();
-		wr.pos(mat, startX, stopY, 0).tex(sprite.getMinU(), sprite.getMaxV()).endVertex();
-		wr.pos(mat, stopX, stopY, 0).tex(sprite.getMaxU(), sprite.getMaxV()).endVertex();
-		wr.pos(mat, stopX, startY, 0).tex(sprite.getMaxU(), sprite.getMinV()).endVertex();
+		Matrix4f mat = ms.peek().getModel();
+		wr.vertex(mat, startX, startY, 0).texture(sprite.getMinU(), sprite.getMinV()).next();
+		wr.vertex(mat, startX, stopY, 0).texture(sprite.getMinU(), sprite.getMaxV()).next();
+		wr.vertex(mat, stopX, stopY, 0).texture(sprite.getMaxU(), sprite.getMaxV()).next();
+		wr.vertex(mat, stopX, startY, 0).texture(sprite.getMaxU(), sprite.getMinV()).next();
 		tess.draw();
 	}
 
@@ -145,11 +143,11 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 		}
 
 		int endIndex = index;
-		ResourceLocation recipeId = recipe.getId();
+		Identifier recipeId = recipe.getId();
 		recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
 			if (slotIndex >= endIndex) {
-				if (Minecraft.getInstance().gameSettings.advancedItemTooltips || Screen.hasShiftDown()) {
-					tooltip.add(new TranslationTextComponent("jei.tooltip.recipe.id", recipeId).func_240699_a_(TextFormatting.DARK_GRAY));
+				if (MinecraftClient.getInstance().options.advancedItemTooltips || Screen.hasShiftDown()) {
+					tooltip.add(new TranslatableText("jei.tooltip.recipe.id", recipeId).formatted(Formatting.DARK_GRAY));
 				}
 			}
 		});

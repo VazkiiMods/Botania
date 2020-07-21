@@ -10,12 +10,12 @@ package vazkii.botania.client.gui.box;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.Slot;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Hand;
 
 import vazkii.botania.common.core.handler.EquipmentHandler;
@@ -24,10 +24,10 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class ContainerBaubleBox extends Container {
-	public static ContainerBaubleBox fromNetwork(int windowId, PlayerInventory inv, PacketBuffer buf) {
+public class ContainerBaubleBox extends ScreenHandler {
+	public static ContainerBaubleBox fromNetwork(int windowId, PlayerInventory inv, PacketByteBuf buf) {
 		Hand hand = buf.readBoolean() ? Hand.MAIN_HAND : Hand.OFF_HAND;
-		return new ContainerBaubleBox(windowId, inv, inv.player.getHeldItem(hand));
+		return new ContainerBaubleBox(windowId, inv, inv.player.getStackInHand(hand));
 	}
 
 	private final ItemStack box;
@@ -38,11 +38,11 @@ public class ContainerBaubleBox extends Container {
 		int j;
 
 		this.box = box;
-		IInventory baubleBoxInv;
-		if (!playerInv.player.world.isRemote) {
+		Inventory baubleBoxInv;
+		if (!playerInv.player.world.isClient) {
 			baubleBoxInv = ItemBaubleBox.getInventory(box);
 		} else {
-			baubleBoxInv = new Inventory(ItemBaubleBox.SIZE);
+			baubleBoxInv = new SimpleInventory(ItemBaubleBox.SIZE);
 		}
 
 		for (i = 0; i < 4; ++i) {
@@ -50,7 +50,7 @@ public class ContainerBaubleBox extends Container {
 				int k = j + i * 6;
 				addSlot(new Slot(baubleBoxInv, k, 62 + j * 18, 8 + i * 18) {
 					@Override
-					public boolean isItemValid(@Nonnull ItemStack stack) {
+					public boolean canInsert(@Nonnull ItemStack stack) {
 						return EquipmentHandler.instance.isAccessory(stack);
 					}
 				});
@@ -70,19 +70,19 @@ public class ContainerBaubleBox extends Container {
 	}
 
 	@Override
-	public boolean canInteractWith(@Nonnull PlayerEntity player) {
-		ItemStack main = player.getHeldItemMainhand();
-		ItemStack off = player.getHeldItemOffhand();
+	public boolean canUse(@Nonnull PlayerEntity player) {
+		ItemStack main = player.getMainHandStack();
+		ItemStack off = player.getOffHandStack();
 		return !main.isEmpty() && main == box || !off.isEmpty() && off == box;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack transferStackInSlot(PlayerEntity player, int slotIndex) {
+	public ItemStack transferSlot(PlayerEntity player, int slotIndex) {
 		ItemStack itemstack = ItemStack.EMPTY;
-		Slot slot = inventorySlots.get(slotIndex);
+		Slot slot = slots.get(slotIndex);
 
-		if (slot != null && slot.getHasStack()) {
+		if (slot != null && slot.hasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
@@ -91,26 +91,26 @@ public class ContainerBaubleBox extends Container {
 			int invEnd = boxEnd + 36;
 
 			if (slotIndex < boxEnd) {
-				if (!mergeItemStack(itemstack1, boxEnd, invEnd, true)) {
+				if (!insertItem(itemstack1, boxEnd, invEnd, true)) {
 					return ItemStack.EMPTY;
 				}
 			} else {
-				if (!itemstack1.isEmpty() && EquipmentHandler.instance.isAccessory(itemstack1) && !mergeItemStack(itemstack1, boxStart, boxEnd, false)) {
+				if (!itemstack1.isEmpty() && EquipmentHandler.instance.isAccessory(itemstack1) && !insertItem(itemstack1, boxStart, boxEnd, false)) {
 					return ItemStack.EMPTY;
 				}
 			}
 
 			if (itemstack1.isEmpty()) {
-				slot.putStack(ItemStack.EMPTY);
+				slot.setStack(ItemStack.EMPTY);
 			} else {
-				slot.onSlotChanged();
+				slot.markDirty();
 			}
 
 			if (itemstack1.getCount() == itemstack.getCount()) {
 				return ItemStack.EMPTY;
 			}
 
-			slot.onTake(player, itemstack1);
+			slot.onTakeItem(player, itemstack1);
 		}
 
 		return itemstack;

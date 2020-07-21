@@ -16,17 +16,16 @@ import mezz.jei.api.recipe.IRecipeManager;
 import mezz.jei.api.registration.*;
 import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
-
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -75,7 +74,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 @JeiPlugin
 public class JEIBotaniaPlugin implements IModPlugin {
-	private static final ResourceLocation ID = prefix("main");
+	private static final Identifier ID = prefix("main");
 
 	@Override
 	public void registerItemSubtypes(@Nonnull ISubtypeRegistration registry) {
@@ -110,8 +109,8 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		);
 	}
 
-	public static boolean doesOreExist(ResourceLocation tagId) {
-		return !BlockTags.getCollection().getOrCreate(tagId).getAllElements().isEmpty();
+	public static boolean doesOreExist(Identifier tagId) {
+		return !BlockTags.getContainer().getOrCreate(tagId).values().isEmpty();
 	}
 
 	@Override
@@ -123,13 +122,13 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipes(@Nonnull IRecipeRegistration registry) {
-		World world = Minecraft.getInstance().world;
+		World world = MinecraftClient.getInstance().world;
 		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.BREW_TYPE).values(), BreweryRecipeCategory.UID);
 		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.PURE_DAISY_TYPE).values(), PureDaisyRecipeCategory.UID);
 		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.PETAL_TYPE).values(), PetalApothecaryRecipeCategory.UID);
 		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.ELVEN_TRADE_TYPE).values(), ElvenTradeRecipeCategory.UID);
 		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.RUNE_TYPE).values(), RunicAltarRecipeCategory.UID);
-		registry.addRecipes(TilePool.manaInfusionRecipes(Minecraft.getInstance().world), ManaPoolRecipeCategory.UID);
+		registry.addRecipes(TilePool.manaInfusionRecipes(MinecraftClient.getInstance().world), ManaPoolRecipeCategory.UID);
 
 		registry.addRecipes(
 				BotaniaAPI.instance().getOreWeights().entrySet().stream()
@@ -191,11 +190,11 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
 		IRecipeManager recipeRegistry = jeiRuntime.getRecipeManager();
 		// Hide the return recipes (iron ingot/diamond/ender pearl returns, not lexicon)
-		for (IElvenTradeRecipe recipe : TileAlfPortal.elvenTradeRecipes(Minecraft.getInstance().world)) {
+		for (IElvenTradeRecipe recipe : TileAlfPortal.elvenTradeRecipes(MinecraftClient.getInstance().world)) {
 			if (recipe instanceof LexiconElvenTradeRecipe) {
 				continue;
 			}
-			List<Ingredient> inputs = recipe.getIngredients();
+			List<Ingredient> inputs = recipe.getPreviewInputs();
 			List<ItemStack> outputs = recipe.getOutputs();
 			if (inputs.size() == 1 && outputs.size() == 1 && recipe.containsItem(outputs.get(0))) {
 				recipeRegistry.hideRecipe(recipe, ElvenTradeRecipeCategory.UID);
@@ -205,7 +204,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		CorporeaInputHandler.jeiPanelSupplier = () -> {
 			Object o = jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse();
 
-			if (o == null && Minecraft.getInstance().currentScreen == jeiRuntime.getRecipesGui()) {
+			if (o == null && MinecraftClient.getInstance().currentScreen == jeiRuntime.getRecipesGui()) {
 				o = jeiRuntime.getRecipesGui().getIngredientUnderMouse();
 			}
 
@@ -219,14 +218,14 @@ public class JEIBotaniaPlugin implements IModPlugin {
 			return ItemStack.EMPTY;
 		};
 
-		CorporeaInputHandler.supportedGuiFilter = gui -> gui instanceof ContainerScreen || gui instanceof IRecipesGui;
+		CorporeaInputHandler.supportedGuiFilter = gui -> gui instanceof HandledScreen || gui instanceof IRecipesGui;
 	}
 
-	public static void addDefaultRecipeIdTooltip(IGuiIngredientGroup<?> group, int slot, ResourceLocation recipeId) {
+	public static void addDefaultRecipeIdTooltip(IGuiIngredientGroup<?> group, int slot, Identifier recipeId) {
 		group.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
 			if (slotIndex == slot) {
-				if (Minecraft.getInstance().gameSettings.advancedItemTooltips || Screen.hasShiftDown()) {
-					tooltip.add(new TranslationTextComponent("jei.tooltip.recipe.id", recipeId).func_240699_a_(TextFormatting.DARK_GRAY));
+				if (MinecraftClient.getInstance().options.advancedItemTooltips || Screen.hasShiftDown()) {
+					tooltip.add(new TranslatableText("jei.tooltip.recipe.id", recipeId).formatted(Formatting.DARK_GRAY));
 				}
 			}
 		});
@@ -234,7 +233,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Nonnull
 	@Override
-	public ResourceLocation getPluginUid() {
+	public Identifier getPluginUid() {
 		return ID;
 	}
 }

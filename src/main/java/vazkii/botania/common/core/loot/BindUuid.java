@@ -13,42 +13,41 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootFunction;
-import net.minecraft.loot.LootFunctionType;
-import net.minecraft.loot.LootParameters;
-import net.minecraft.loot.conditions.ILootCondition;
-
+import net.minecraft.loot.condition.LootCondition;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.function.ConditionalLootFunction;
+import net.minecraft.loot.function.LootFunctionType;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.relic.ItemRelic;
 
 import javax.annotation.Nonnull;
 
-public class BindUuid extends LootFunction {
+public class BindUuid extends ConditionalLootFunction {
 
-	protected BindUuid(ILootCondition[] conditionsIn) {
+	protected BindUuid(LootCondition[] conditionsIn) {
 		super(conditionsIn);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack doApply(@Nonnull ItemStack stack, @Nonnull LootContext context) {
-		if (context.get(LootParameters.KILLER_ENTITY) instanceof PlayerEntity) {
-			((ItemRelic) ModItems.dice).bindToUUID(context.get(LootParameters.KILLER_ENTITY).getUniqueID(), stack);
+	public ItemStack process(@Nonnull ItemStack stack, @Nonnull LootContext context) {
+		if (context.get(LootContextParameters.KILLER_ENTITY) instanceof PlayerEntity) {
+			((ItemRelic) ModItems.dice).bindToUUID(context.get(LootContextParameters.KILLER_ENTITY).getUuid(), stack);
 		}
 
 		return stack;
 	}
 
 	@Override
-	public LootFunctionType func_230425_b_() {
+	public LootFunctionType getType() {
 		return ModLootModifiers.BIND_UUID;
 	}
 
-	public static class Serializer extends LootFunction.Serializer<BindUuid> {
+	public static class Serializer extends ConditionalLootFunction.Serializer<BindUuid> {
 		@Nonnull
 		@Override
-		public BindUuid deserialize(@Nonnull JsonObject object, @Nonnull JsonDeserializationContext deserializationContext, @Nonnull ILootCondition[] conditionsIn) {
+		public BindUuid fromJson(@Nonnull JsonObject object, @Nonnull JsonDeserializationContext deserializationContext, @Nonnull LootCondition[] conditionsIn) {
 			return new BindUuid(conditionsIn);
 		}
 	}

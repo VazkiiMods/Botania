@@ -8,12 +8,12 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 
@@ -25,32 +25,32 @@ import javax.annotation.Nonnull;
 
 public class ItemCorporeaSpark extends Item {
 
-	public ItemCorporeaSpark(Properties props) {
+	public ItemCorporeaSpark(Settings props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
+	public ActionResult useOnBlock(ItemUsageContext ctx) {
 		World world = ctx.getWorld();
-		BlockPos pos = ctx.getPos();
+		BlockPos pos = ctx.getBlockPos();
 
-		TileEntity tile = world.getTileEntity(pos);
+		BlockEntity tile = world.getBlockEntity(pos);
 		if (tile != null
 				&& (tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP).isPresent()
 						|| tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).isPresent())
 				&& !CorporeaHelper.instance().doesBlockHaveSpark(world, pos)) {
-			ctx.getItem().shrink(1);
-			if (!world.isRemote) {
+			ctx.getStack().decrement(1);
+			if (!world.isClient) {
 				EntityCorporeaSpark spark = ModEntities.CORPOREA_SPARK.create(world);
 				if (this == ModItems.corporeaSparkMaster) {
 					spark.setMaster(true);
 				}
-				spark.setPosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
-				world.addEntity(spark);
+				spark.updatePosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
+				world.spawnEntity(spark);
 			}
-			return ActionResultType.SUCCESS;
+			return ActionResult.SUCCESS;
 		}
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 }

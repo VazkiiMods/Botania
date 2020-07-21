@@ -10,28 +10,28 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.MovingPistonBlock;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.PushReaction;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.block.Material;
+import net.minecraft.block.PistonExtensionBlock;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.PistonBlockEntity;
+import net.minecraft.block.enums.PistonType;
+import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.datafixer.NbtOps;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.nbt.NBTDynamicOps;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.state.properties.PistonType;
-import net.minecraft.tileentity.PistonTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.dynamic.GlobalPos;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.GlobalPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.PersistentState;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.WorldSavedData;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.TickEvent;
@@ -57,20 +57,20 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 	private final Set<GlobalPos> checkedCoords = new HashSet<>();
 	private final Map<GlobalPos, Integer> coordsToCheck = new HashMap<>();
 
-	public BlockPistonRelay(Properties builder) {
+	public BlockPistonRelay(Settings builder) {
 		super(builder);
 		MinecraftForge.EVENT_BUS.addListener(this::tickEnd);
 	}
 
 	@Override
-	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-		if (!world.isRemote) {
-			mapCoords(world.func_234923_W_(), pos, 2);
+	public void onStateReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+		if (!world.isClient) {
+			mapCoords(world.getRegistryKey(), pos, 2);
 		}
 	}
 
 	private void mapCoords(RegistryKey<World> type, BlockPos pos, int time) {
-		coordsToCheck.put(GlobalPos.func_239648_a_(type, pos), time);
+		coordsToCheck.put(GlobalPos.create(type, pos), time);
 	}
 
 	private void decrCoords(GlobalPos key) {
@@ -87,12 +87,12 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		return coordsToCheck.getOrDefault(key, 0);
 	}
 
-	private TileEntity getTeAt(GlobalPos key) {
+	private BlockEntity getTeAt(GlobalPos key) {
 		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
 		if (server == null) {
 			return null;
 		}
-		return server.getWorld(key.func_239646_a_()).getTileEntity(key.getPos());
+		return server.getWorld(key.getDimension()).getBlockEntity(key.getPos());
 	}
 
 	private BlockState getStateAt(GlobalPos key) {
@@ -100,22 +100,22 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		if (server == null) {
 			return Blocks.AIR.getDefaultState();
 		}
-		return server.getWorld(key.func_239646_a_()).getBlockState(key.getPos());
+		return server.getWorld(key.getDimension()).getBlockState(key.getPos());
 	}
 
 	@Override
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
-		if (world.isRemote) {
+		if (world.isClient) {
 			return false;
 		}
 
 		if (player == null || player.isSneaking()) {
-			spawnAsEntity(world, pos, new ItemStack(this));
-			world.destroyBlock(pos, false);
+			dropStack(world, pos, new ItemStack(this));
+			world.breakBlock(pos, false);
 		} else {
-			GlobalPos clicked = GlobalPos.func_239648_a_(world.func_234923_W_(), pos.toImmutable());
+			GlobalPos clicked = GlobalPos.create(world.getRegistryKey(), pos.toImmutable());
 			if (ItemTwigWand.getBindMode(stack)) {
-				activeBindingAttempts.put(player.getUniqueID(), clicked);
+				activeBindingAttempts.put(player.getUuid(), clicked);
 				world.playSound(null, pos, ModSounds.ding, SoundCategory.BLOCKS, 0.5F, 1F);
 			} else {
 				BlockPos dest = WorldData.get(world).mapping.get(pos);
@@ -131,7 +131,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		return true;
 	}
 
-	public static class WorldData extends WorldSavedData {
+	public static class WorldData extends PersistentState {
 
 		private static final String ID = "PistonRelayPairs";
 		public final Map<BlockPos, BlockPos> mapping = new HashMap<>();
@@ -141,15 +141,15 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		}
 
 		@Override
-		public void read(@Nonnull CompoundNBT cmp) {
+		public void fromTag(@Nonnull CompoundTag cmp) {
 			mapping.clear();
 
-			ListNBT list = cmp.getList("list", Constants.NBT.TAG_INT_ARRAY);
+			ListTag list = cmp.getList("list", Constants.NBT.TAG_INT_ARRAY);
 			for (int i = 0; i < list.size(); i += 2) {
-				INBT from = list.get(i);
-				INBT to = list.get(i + 1);
-				BlockPos fromPos = BlockPos.field_239578_a_.decode(NBTDynamicOps.INSTANCE, from).result().get().getFirst();
-				BlockPos toPos = BlockPos.field_239578_a_.decode(NBTDynamicOps.INSTANCE, to).result().get().getFirst();
+				Tag from = list.get(i);
+				Tag to = list.get(i + 1);
+				BlockPos fromPos = BlockPos.field_25064.decode(NbtOps.INSTANCE, from).result().get().getFirst();
+				BlockPos toPos = BlockPos.field_25064.decode(NbtOps.INSTANCE, to).result().get().getFirst();
 
 				mapping.put(fromPos, toPos);
 			}
@@ -157,11 +157,11 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 
 		@Nonnull
 		@Override
-		public CompoundNBT write(@Nonnull CompoundNBT cmp) {
-			ListNBT list = new ListNBT();
+		public CompoundTag toTag(@Nonnull CompoundTag cmp) {
+			ListTag list = new ListTag();
 			for (Map.Entry<BlockPos, BlockPos> e : mapping.entrySet()) {
-				INBT from = BlockPos.field_239578_a_.encodeStart(NBTDynamicOps.INSTANCE, e.getKey()).result().get();
-				INBT to = BlockPos.field_239578_a_.encodeStart(NBTDynamicOps.INSTANCE, e.getValue()).result().get();
+				Tag from = BlockPos.field_25064.encodeStart(NbtOps.INSTANCE, e.getKey()).result().get();
+				Tag to = BlockPos.field_25064.encodeStart(NbtOps.INSTANCE, e.getValue()).result().get();
 				list.add(from);
 				list.add(to);
 			}
@@ -170,11 +170,11 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		}
 
 		public static WorldData get(World world) {
-			WorldData data = ((ServerWorld) world).getSavedData().get(WorldData::new, ID);
+			WorldData data = ((ServerWorld) world).getPersistentStateManager().get(WorldData::new, ID);
 			if (data == null) {
 				data = new WorldData();
 				data.markDirty();
-				((ServerWorld) world).getSavedData().set(data);
+				((ServerWorld) world).getPersistentStateManager().set(data);
 			}
 			return data;
 		}
@@ -184,7 +184,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		if (event.type == TickEvent.Type.SERVER && event.phase == TickEvent.Phase.END) {
 			MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
 			for (GlobalPos s : coordsToCheck.keySet()) {
-				ServerWorld world = server.getWorld(s.func_239646_a_());
+				ServerWorld world = server.getWorld(s.getDimension());
 				WorldData data = WorldData.get(world);
 
 				decrCoords(s);
@@ -194,8 +194,8 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 
 				BlockState state = getStateAt(s);
 				if (state.getBlock() == Blocks.MOVING_PISTON) {
-					boolean sticky = PistonType.STICKY == state.get(MovingPistonBlock.TYPE);
-					Direction dir = ((PistonTileEntity) getTeAt(s)).getMotionDirection();
+					boolean sticky = PistonType.STICKY == state.get(PistonExtensionBlock.TYPE);
+					Direction dir = ((PistonBlockEntity) getTeAt(s)).getMovementDirection();
 
 					if (getTimeInCoords(s) == 0) {
 						BlockPos newPos;
@@ -204,11 +204,11 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 						{
 							int x = s.getPos().getX(), y = s.getPos().getY(), z = s.getPos().getZ();
 							BlockPos pos = s.getPos();
-							if (world.isAirBlock(pos.offset(dir))) {
+							if (world.isAir(pos.offset(dir))) {
 								world.setBlockState(pos.offset(dir), ModBlocks.pistonRelay.getDefaultState());
 							} else {
 								ItemStack stack = new ItemStack(ModBlocks.pistonRelay);
-								world.addEntity(new ItemEntity(world, x + dir.getXOffset(), y + dir.getYOffset(), z + dir.getZOffset(), stack));
+								world.spawnEntity(new ItemEntity(world, x + dir.getOffsetX(), y + dir.getOffsetY(), z + dir.getOffsetZ(), stack));
 							}
 							checkedCoords.add(s);
 							newPos = pos.offset(dir);
@@ -219,11 +219,11 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 							BlockPos destPos = data.mapping.get(s.getPos());
 
 							BlockState srcState = world.getBlockState(destPos);
-							TileEntity tile = world.getTileEntity(destPos);
+							BlockEntity tile = world.getBlockEntity(destPos);
 
-							if (!sticky && tile == null && srcState.getPushReaction() == PushReaction.NORMAL && srcState.getBlockHardness(world, destPos) != -1 && !srcState.isAir(world, destPos)) {
+							if (!sticky && tile == null && srcState.getPistonBehavior() == PistonBehavior.NORMAL && srcState.getHardness(world, destPos) != -1 && !srcState.isAir(world, destPos)) {
 								Material destMat = world.getBlockState(destPos.offset(dir)).getMaterial();
-								if (world.isAirBlock(destPos.offset(dir)) || destMat.isReplaceable()) {
+								if (world.isAir(destPos.offset(dir)) || destMat.isReplaceable()) {
 									world.setBlockState(destPos, Blocks.AIR.getDefaultState());
 									world.setBlockState(destPos.offset(dir), LensPiston.unWaterlog(srcState));
 									data.mapping.put(s.getPos(), destPos.offset(dir));

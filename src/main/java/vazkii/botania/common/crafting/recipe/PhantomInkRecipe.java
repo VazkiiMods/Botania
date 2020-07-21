@@ -10,10 +10,10 @@ package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.item.crafting.SpecialRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.SpecialRecipeSerializer;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IPhantomInkable;
@@ -21,10 +21,10 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class PhantomInkRecipe extends SpecialRecipe {
+public class PhantomInkRecipe extends SpecialCraftingRecipe {
 	public static final SpecialRecipeSerializer<PhantomInkRecipe> SERIALIZER = new SpecialRecipeSerializer<>(PhantomInkRecipe::new);
 
-	public PhantomInkRecipe(ResourceLocation id) {
+	public PhantomInkRecipe(Identifier id) {
 		super(id);
 	}
 
@@ -33,8 +33,8 @@ public class PhantomInkRecipe extends SpecialRecipe {
 		boolean foundInk = false;
 		boolean foundItem = false;
 
-		for (int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
+		for (int i = 0; i < var1.size(); i++) {
+			ItemStack stack = var1.getStack(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() == ModItems.phantomInk && !foundInk) {
 					foundInk = true;
@@ -58,8 +58,8 @@ public class PhantomInkRecipe extends SpecialRecipe {
 	public ItemStack getCraftingResult(@Nonnull CraftingInventory var1) {
 		ItemStack item = ItemStack.EMPTY;
 
-		for (int i = 0; i < var1.getSizeInventory(); i++) {
-			ItemStack stack = var1.getStackInSlot(i);
+		for (int i = 0; i < var1.size(); i++) {
+			ItemStack stack = var1.getStack(i);
 			if (!stack.isEmpty() && stack.getItem() instanceof IPhantomInkable && item.isEmpty()) {
 				item = stack;
 			}
@@ -72,13 +72,13 @@ public class PhantomInkRecipe extends SpecialRecipe {
 	}
 
 	@Override
-	public boolean canFit(int width, int height) {
+	public boolean fits(int width, int height) {
 		return width * height >= 2;
 	}
 
 	@Nonnull
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 }

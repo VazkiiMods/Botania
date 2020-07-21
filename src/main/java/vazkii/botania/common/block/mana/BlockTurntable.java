@@ -8,16 +8,17 @@
  */
 package vazkii.botania.common.block.mana;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.client.Minecraft;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -29,27 +30,27 @@ import vazkii.botania.common.block.tile.mana.TileTurntable;
 
 import javax.annotation.Nonnull;
 
-public class BlockTurntable extends BlockMod implements ITileEntityProvider, IWandable, IWandHUD {
+public class BlockTurntable extends BlockMod implements BlockEntityProvider, IWandable, IWandHUD {
 
-	public BlockTurntable(Properties builder) {
+	public BlockTurntable(Settings builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TileTurntable();
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
-		((TileTurntable) world.getTileEntity(pos)).renderHUD(ms, mc);
+	public void renderHUD(MatrixStack ms, MinecraftClient mc, World world, BlockPos pos) {
+		((TileTurntable) world.getBlockEntity(pos)).renderHUD(ms, mc);
 	}
 
 	@Override
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
-		((TileTurntable) world.getTileEntity(pos)).onWanded(player, stack, side);
+		((TileTurntable) world.getBlockEntity(pos)).onWanded(player, stack, side);
 		return true;
 	}
 

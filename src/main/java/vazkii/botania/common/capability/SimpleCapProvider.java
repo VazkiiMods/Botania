@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.capability;
 
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
@@ -36,7 +36,7 @@ public class SimpleCapProvider<C> implements ICapabilityProvider {
 		return capability.orEmpty(cap, capOptional);
 	}
 
-	public static <C> void attach(AttachCapabilitiesEvent<?> event, ResourceLocation key, Capability<C> cap, C capInstance) {
+	public static <C> void attach(AttachCapabilitiesEvent<?> event, Identifier key, Capability<C> cap, C capInstance) {
 		SimpleCapProvider<C> provider = new SimpleCapProvider<>(cap, capInstance);
 		event.addCapability(key, provider);
 		event.addListener(provider.capOptional::invalidate);

@@ -8,29 +8,30 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ComparatorBlock;
 import net.minecraft.block.RedstoneWireBlock;
 import net.minecraft.block.RepeaterBlock;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.block.enums.ComparatorMode;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.state.properties.ComparatorMode;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -41,37 +42,37 @@ import vazkii.botania.common.lib.ModTags;
 
 public class ItemMonocle extends ItemBauble implements ICosmeticBauble {
 
-	public ItemMonocle(Properties props) {
+	public ItemMonocle(Settings props) {
 		super(props);
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		bipedModel.bipedHead.translateRotate(ms);
+	@Environment(EnvType.CLIENT)
+	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		bipedModel.head.rotate(ms);
 		ms.translate(0.15, -0.2, -0.25);
 		ms.scale(0.3F, -0.3F, -0.3F);
-		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, light, OverlayTexture.NO_OVERLAY, ms, buffers);
+		MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.NONE, light, OverlayTexture.DEFAULT_UV, ms, buffers);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public static void renderHUD(MatrixStack ms, PlayerEntity player) {
-		Minecraft mc = Minecraft.getInstance();
-		RayTraceResult ray = mc.objectMouseOver;
-		if (ray == null || ray.getType() != RayTraceResult.Type.BLOCK) {
+		MinecraftClient mc = MinecraftClient.getInstance();
+		HitResult ray = mc.crosshairTarget;
+		if (ray == null || ray.getType() != HitResult.Type.BLOCK) {
 			return;
 		}
-		BlockPos pos = ((BlockRayTraceResult) ray).getPos();
+		BlockPos pos = ((BlockHitResult) ray).getBlockPos();
 		BlockState state = player.world.getBlockState(pos);
 		Block block = state.getBlock();
-		player.world.getTileEntity(pos);
+		player.world.getBlockEntity(pos);
 
 		ItemStack dispStack = ItemStack.EMPTY;
 		String text = "";
 
 		if (block == Blocks.REDSTONE_WIRE) {
 			dispStack = new ItemStack(Items.REDSTONE);
-			text = TextFormatting.RED + "" + state.get(RedstoneWireBlock.POWER);
+			text = Formatting.RED + "" + state.get(RedstoneWireBlock.POWER);
 		} else if (block == Blocks.REPEATER) {
 			dispStack = new ItemStack(Blocks.REPEATER);
 			text = "" + state.get(RepeaterBlock.DELAY);
@@ -84,12 +85,12 @@ public class ItemMonocle extends ItemBauble implements ICosmeticBauble {
 			return;
 		}
 
-		int x = mc.getMainWindow().getScaledWidth() / 2 + 15;
-		int y = mc.getMainWindow().getScaledHeight() / 2 - 8;
+		int x = mc.getWindow().getScaledWidth() / 2 + 15;
+		int y = mc.getWindow().getScaledHeight() / 2 - 8;
 
-		mc.getItemRenderer().renderItemAndEffectIntoGUI(dispStack, x, y);
+		mc.getItemRenderer().renderInGuiWithOverrides(dispStack, x, y);
 
-		mc.fontRenderer.drawStringWithShadow(ms, text, x + 20, y + 4, 0xFFFFFF);
+		mc.textRenderer.drawWithShadow(ms, text, x + 20, y + 4, 0xFFFFFF);
 	}
 
 	public static boolean hasMonocle(LivingEntity living) {

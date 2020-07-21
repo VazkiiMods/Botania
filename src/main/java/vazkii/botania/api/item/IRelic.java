@@ -9,8 +9,7 @@
 package vazkii.botania.api.item;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-
+import net.minecraft.util.Identifier;
 import javax.annotation.Nullable;
 
 import java.util.UUID;
@@ -41,7 +40,7 @@ public interface IRelic {
 	 * Get the advancement granted when this relic binds
 	 */
 	@Nullable
-	default ResourceLocation getAdvancement() {
+	default Identifier getAdvancement() {
 		return null;
 	}
 

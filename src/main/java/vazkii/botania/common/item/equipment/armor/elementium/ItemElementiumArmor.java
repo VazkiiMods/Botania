@@ -8,15 +8,17 @@
  */
 package vazkii.botania.common.item.equipment.armor.elementium;
 
-import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.LazyValue;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Lazy;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -31,22 +33,22 @@ import java.util.List;
 
 public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 
-	public ItemElementiumArmor(EquipmentSlotType type, Properties props) {
+	public ItemElementiumArmor(EquipmentSlot type, Settings props) {
 		super(type, BotaniaAPI.instance().getElementiumArmorMaterial(), props);
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public BipedModel<?> provideArmorModelForSlot(EquipmentSlotType slot) {
+	@Environment(EnvType.CLIENT)
+	public BipedEntityModel<?> provideArmorModelForSlot(EquipmentSlot slot) {
 		return new ModelArmorElementium(slot);
 	}
 
 	@Override
-	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlotType slot) {
-		return ConfigHandler.CLIENT.enableArmorModels.get() ? LibResources.MODEL_ELEMENTIUM_NEW : slot == EquipmentSlotType.LEGS ? LibResources.MODEL_ELEMENTIUM_1 : LibResources.MODEL_ELEMENTIUM_0;
+	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
+		return ConfigHandler.CLIENT.enableArmorModels.get() ? LibResources.MODEL_ELEMENTIUM_NEW : slot == EquipmentSlot.LEGS ? LibResources.MODEL_ELEMENTIUM_1 : LibResources.MODEL_ELEMENTIUM_0;
 	}
 
-	private static final LazyValue<ItemStack[]> armorSet = new LazyValue<>(() -> new ItemStack[] {
+	private static final Lazy<ItemStack[]> armorSet = new Lazy<>(() -> new ItemStack[] {
 			new ItemStack(ModItems.elementiumHelm),
 			new ItemStack(ModItems.elementiumChest),
 			new ItemStack(ModItems.elementiumLegs),
@@ -55,16 +57,16 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 
 	@Override
 	public ItemStack[] getArmorSetStacks() {
-		return armorSet.getValue();
+		return armorSet.get();
 	}
 
 	@Override
-	public boolean hasArmorSetItem(PlayerEntity player, EquipmentSlotType slot) {
+	public boolean hasArmorSetItem(PlayerEntity player, EquipmentSlot slot) {
 		if (player == null) {
 			return false;
 		}
 
-		ItemStack stack = player.getItemStackFromSlot(slot);
+		ItemStack stack = player.getEquippedStack(slot);
 		if (stack.isEmpty()) {
 			return false;
 		}
@@ -84,15 +86,15 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 	}
 
 	@Override
-	public IFormattableTextComponent getArmorSetName() {
-		return new TranslationTextComponent("botania.armorset.elementium.name");
+	public MutableText getArmorSetName() {
+		return new TranslatableText("botania.armorset.elementium.name");
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void addArmorSetDescription(ItemStack stack, List<ITextComponent> list) {
+	public void addArmorSetDescription(ItemStack stack, List<Text> list) {
 		super.addArmorSetDescription(stack, list);
-		list.add(new TranslationTextComponent("botania.armorset.elementium.desc").func_240699_a_(TextFormatting.GRAY));
+		list.add(new TranslatableText("botania.armorset.elementium.desc").formatted(Formatting.GRAY));
 	}
 
 }

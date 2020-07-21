@@ -28,7 +28,7 @@ public class SubTileBergamute extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isRemote) {
+		if (getWorld().isClient) {
 			if (!existingFlowers.contains(this)) {
 				existingFlowers.add(this);
 			}
@@ -36,8 +36,8 @@ public class SubTileBergamute extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public void remove() {
-		super.remove();
+	public void markRemoved() {
+		super.markRemoved();
 		existingFlowers.remove(this);
 	}
 
@@ -45,7 +45,7 @@ public class SubTileBergamute extends TileEntityFunctionalFlower {
 	protected static SubTileBergamute getBergamuteNearby(double x, double y, double z) {
 		return existingFlowers.stream()
 				.filter(f -> f.redstoneSignal == 0)
-				.filter(f -> f.getEffectivePos().distanceSq(x, y, z, false) <= RANGE * RANGE)
+				.filter(f -> f.getEffectivePos().getSquaredDistance(x, y, z, false) <= RANGE * RANGE)
 				.findAny().orElse(null);
 	}
 

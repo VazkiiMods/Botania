@@ -9,7 +9,6 @@
 package vazkii.botania.client.integration.jei.manapool;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -20,11 +19,11 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.ResourceLocation;
-
+import net.minecraft.util.Identifier;
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
@@ -41,7 +40,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionRecipe> {
 
-	public static final ResourceLocation UID = prefix("mana_pool");
+	public static final Identifier UID = prefix("mana_pool");
 	private final IDrawable background;
 	private final String localizedName;
 	private final IDrawable overlay;
@@ -50,7 +49,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 
 	public ManaPoolRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(168, 64);
-		localizedName = I18n.format("botania.nei.manaPool");
+		localizedName = I18n.translate("botania.nei.manaPool");
 		overlay = guiHelper.createDrawable(prefix("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
 		ItemNBTHelper.setBoolean(renderStack, "RenderFull", true);
@@ -59,7 +58,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 
 	@Nonnull
 	@Override
-	public ResourceLocation getUid() {
+	public Identifier getUid() {
 		return UID;
 	}
 
@@ -91,7 +90,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 	public void setIngredients(IManaInfusionRecipe recipe, IIngredients iIngredients) {
 		ImmutableList.Builder<List<ItemStack>> builder = ImmutableList.builder();
 
-		builder.add(Arrays.asList(recipe.getIngredients().get(0).getMatchingStacks()));
+		builder.add(Arrays.asList(recipe.getPreviewInputs().get(0).getMatchingStacksClient()));
 
 		if (recipe.getCatalyst() != null) {
 			Block block = recipe.getCatalyst().getBlock();
@@ -101,7 +100,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 		}
 
 		iIngredients.setInputLists(VanillaTypes.ITEM, builder.build());
-		iIngredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
+		iIngredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
 	}
 
 	@Override

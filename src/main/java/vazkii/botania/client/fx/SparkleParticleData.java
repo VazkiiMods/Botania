@@ -12,17 +12,16 @@ import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ParticleType;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleType;
 import net.minecraft.util.registry.Registry;
 
 import javax.annotation.Nonnull;
 
 import java.util.Locale;
 
-public class SparkleParticleData implements IParticleData {
+public class SparkleParticleData implements ParticleEffect {
 	public static final Codec<SparkleParticleData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			Codec.FLOAT.fieldOf("size").forGetter(d -> d.size),
 			Codec.FLOAT.fieldOf("r").forGetter(d -> d.r),
@@ -74,7 +73,7 @@ public class SparkleParticleData implements IParticleData {
 	}
 
 	@Override
-	public void write(PacketBuffer buf) {
+	public void write(PacketByteBuf buf) {
 		buf.writeFloat(size);
 		buf.writeFloat(r);
 		buf.writeFloat(g);
@@ -87,15 +86,15 @@ public class SparkleParticleData implements IParticleData {
 
 	@Nonnull
 	@Override
-	public String getParameters() {
+	public String asString() {
 		return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f %d %s %s %s",
-				Registry.PARTICLE_TYPE.getKey(this.getType()), this.size, this.r, this.g, this.b, this.m, this.noClip, this.fake, this.corrupt);
+				Registry.PARTICLE_TYPE.getId(this.getType()), this.size, this.r, this.g, this.b, this.m, this.noClip, this.fake, this.corrupt);
 	}
 
-	public static final IDeserializer<SparkleParticleData> DESERIALIZER = new IDeserializer<SparkleParticleData>() {
+	public static final Factory<SparkleParticleData> DESERIALIZER = new Factory<SparkleParticleData>() {
 		@Nonnull
 		@Override
-		public SparkleParticleData deserialize(@Nonnull ParticleType<SparkleParticleData> type, @Nonnull StringReader reader) throws CommandSyntaxException {
+		public SparkleParticleData read(@Nonnull ParticleType<SparkleParticleData> type, @Nonnull StringReader reader) throws CommandSyntaxException {
 			reader.expect(' ');
 			float size = reader.readFloat();
 			reader.expect(' ');
@@ -117,7 +116,7 @@ public class SparkleParticleData implements IParticleData {
 		}
 
 		@Override
-		public SparkleParticleData read(@Nonnull ParticleType<SparkleParticleData> type, PacketBuffer buf) {
+		public SparkleParticleData read(@Nonnull ParticleType<SparkleParticleData> type, PacketByteBuf buf) {
 			return new SparkleParticleData(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readInt(), buf.readBoolean(), buf.readBoolean(), buf.readBoolean());
 		}
 	};

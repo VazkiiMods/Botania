@@ -9,53 +9,52 @@
 package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
-
-import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
-import net.minecraft.advancements.criterion.CriterionInstance;
-import net.minecraft.advancements.criterion.EntityPredicate;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.advancement.criterion.AbstractCriterion;
+import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.ConditionArrayParser;
-import net.minecraft.util.ResourceLocation;
-
+import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
+import net.minecraft.predicate.entity.EntityPredicate;
+import net.minecraft.predicate.item.ItemPredicate;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
+import vazkii.botania.common.advancements.RelicBindTrigger.Instance;
 import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class RelicBindTrigger extends AbstractCriterionTrigger<RelicBindTrigger.Instance> {
-	public static final ResourceLocation ID = prefix("relic_bind");
+public class RelicBindTrigger extends AbstractCriterion<RelicBindTrigger.Instance> {
+	public static final Identifier ID = prefix("relic_bind");
 	public static final RelicBindTrigger INSTANCE = new RelicBindTrigger();
 
 	private RelicBindTrigger() {}
 
 	@Nonnull
 	@Override
-	public ResourceLocation getId() {
+	public Identifier getId() {
 		return ID;
 	}
 
 	@Nonnull
 	@Override
-	public Instance func_230241_b_(@Nonnull JsonObject json, @Nonnull EntityPredicate.AndPredicate playerPred, ConditionArrayParser conditions) {
-		return new Instance(playerPred, ItemPredicate.deserialize(json.get("relic")));
+	public Instance conditionsFromJson(@Nonnull JsonObject json, @Nonnull EntityPredicate.Extended playerPred, AdvancementEntityPredicateDeserializer conditions) {
+		return new Instance(playerPred, ItemPredicate.fromJson(json.get("relic")));
 	}
 
 	public void trigger(ServerPlayerEntity player, ItemStack relic) {
-		func_235959_a_(player, instance -> instance.test(relic));
+		test(player, instance -> instance.test(relic));
 	}
 
-	static class Instance extends CriterionInstance {
+	static class Instance extends AbstractCriterionConditions {
 		private final ItemPredicate predicate;
 
-		Instance(EntityPredicate.AndPredicate playerPred, ItemPredicate predicate) {
+		Instance(EntityPredicate.Extended playerPred, ItemPredicate predicate) {
 			super(ID, playerPred);
 			this.predicate = predicate;
 		}
 
 		@Nonnull
 		@Override
-		public ResourceLocation getId() {
+		public Identifier getId() {
 			return ID;
 		}
 

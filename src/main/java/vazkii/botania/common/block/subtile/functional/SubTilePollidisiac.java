@@ -8,11 +8,10 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.AxisAlignedBB;
-
+import net.minecraft.util.math.Box;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
@@ -32,10 +31,10 @@ public class SubTilePollidisiac extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getWorld().isRemote) {
+		if (!getWorld().isClient) {
 
-			List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
-			List<AnimalEntity> animals = getWorld().getEntitiesWithinAABB(AnimalEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<ItemEntity> items = getWorld().getNonSpectatingEntities(ItemEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<AnimalEntity> animals = getWorld().getNonSpectatingEntities(AnimalEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			int slowdown = getSlowdownFactor();
 
 			for (AnimalEntity animal : animals) {
@@ -43,20 +42,20 @@ public class SubTilePollidisiac extends TileEntityFunctionalFlower {
 					break;
 				}
 
-				if (animal.getGrowingAge() == 0 && !animal.isInLove()) {
+				if (animal.getBreedingAge() == 0 && !animal.isInLove()) {
 					for (ItemEntity item : items) {
 						int age = ((AccessorItemEntity) item).getAge();
 						if (age < 60 + slowdown || !item.isAlive()) {
 							continue;
 						}
 
-						ItemStack stack = item.getItem();
+						ItemStack stack = item.getStack();
 						if (!stack.isEmpty() && animal.isBreedingItem(stack)) {
-							stack.shrink(1);
+							stack.decrement(1);
 
 							addMana(-MANA_COST);
-							animal.setInLove(1200);
-							getWorld().setEntityState(animal, (byte) 18);
+							animal.setLoveTicks(1200);
+							getWorld().sendEntityStatus(animal, (byte) 18);
 						}
 					}
 				}

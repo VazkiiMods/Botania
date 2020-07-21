@@ -10,22 +10,22 @@ package vazkii.botania.common.block.dispenser;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.DispenserBlock;
-import net.minecraft.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.wand.IWandable;
 
 import javax.annotation.Nonnull;
 
-public class BehaviourWand extends DefaultDispenseItemBehavior {
+public class BehaviourWand extends ItemDispenserBehavior {
 
 	@Nonnull
 	@Override
-	protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
+	protected ItemStack dispenseSilently(BlockPointer source, ItemStack stack) {
 		World world = source.getWorld();
 		Direction facing = world.getBlockState(source.getBlockPos()).get(DispenserBlock.FACING);
 		BlockPos pos = source.getBlockPos().offset(facing);
@@ -35,7 +35,7 @@ public class BehaviourWand extends DefaultDispenseItemBehavior {
 			return stack;
 		}
 
-		return super.dispenseStack(source, stack);
+		return super.dispenseSilently(source, stack);
 	}
 
 }

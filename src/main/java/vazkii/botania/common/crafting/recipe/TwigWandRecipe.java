@@ -14,13 +14,13 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ICraftingRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipe;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.CraftingRecipe;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.ShapedRecipe;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -32,8 +32,8 @@ import vazkii.botania.common.item.material.ItemPetal;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TwigWandRecipe implements ICraftingRecipe {
-	public static final IRecipeSerializer<TwigWandRecipe> SERIALIZER = new Serializer();
+public class TwigWandRecipe implements CraftingRecipe {
+	public static final RecipeSerializer<TwigWandRecipe> SERIALIZER = new Serializer();
 	private final ShapedRecipe compose;
 
 	public TwigWandRecipe(ShapedRecipe compose) {
@@ -49,8 +49,8 @@ public class TwigWandRecipe implements ICraftingRecipe {
 	@Override
 	public ItemStack getCraftingResult(CraftingInventory inv) {
 		int first = -1;
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stack = inv.getStack(i);
 			Item item = stack.getItem();
 
 			int colorId;
@@ -71,32 +71,32 @@ public class TwigWandRecipe implements ICraftingRecipe {
 	}
 
 	@Override
-	public boolean canFit(int width, int height) {
-		return compose.canFit(width, height);
+	public boolean fits(int width, int height) {
+		return compose.fits(width, height);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getRecipeOutput() {
+	public ItemStack getOutput() {
 		return new ItemStack(ModItems.twigWand);
 	}
 
 	@Nonnull
 	@Override
-	public ResourceLocation getId() {
+	public Identifier getId() {
 		return compose.getId();
 	}
 
 	@Nonnull
 	@Override
-	public NonNullList<ItemStack> getRemainingItems(CraftingInventory inv) {
-		return compose.getRemainingItems(inv);
+	public DefaultedList<ItemStack> getRemainingItems(CraftingInventory inv) {
+		return compose.getRemainingStacks(inv);
 	}
 
 	@Nonnull
 	@Override
-	public NonNullList<Ingredient> getIngredients() {
-		return compose.getIngredients();
+	public DefaultedList<Ingredient> getPreviewInputs() {
+		return compose.getPreviewInputs();
 	}
 
 	@Nonnull
@@ -107,32 +107,32 @@ public class TwigWandRecipe implements ICraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getIcon() {
-		return compose.getIcon();
+	public ItemStack getRecipeKindIcon() {
+		return compose.getRecipeKindIcon();
 	}
 
 	@Nonnull
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 
-	private static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<TwigWandRecipe> {
+	private static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<TwigWandRecipe> {
 		@Nonnull
 		@Override
-		public TwigWandRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
-			return new TwigWandRecipe(CRAFTING_SHAPED.read(recipeId, json));
+		public TwigWandRecipe read(@Nonnull Identifier recipeId, @Nonnull JsonObject json) {
+			return new TwigWandRecipe(SHAPED.read(recipeId, json));
 		}
 
 		@Nullable
 		@Override
-		public TwigWandRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull PacketBuffer buffer) {
-			return new TwigWandRecipe(CRAFTING_SHAPED.read(recipeId, buffer));
+		public TwigWandRecipe read(@Nonnull Identifier recipeId, @Nonnull PacketByteBuf buffer) {
+			return new TwigWandRecipe(SHAPED.read(recipeId, buffer));
 		}
 
 		@Override
-		public void write(@Nonnull PacketBuffer buffer, @Nonnull TwigWandRecipe recipe) {
-			CRAFTING_SHAPED.write(buffer, recipe.compose);
+		public void write(@Nonnull PacketByteBuf buffer, @Nonnull TwigWandRecipe recipe) {
+			SHAPED.write(buffer, recipe.compose);
 		}
 	}
 }

@@ -9,15 +9,14 @@
 package vazkii.botania.client.core.helper;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.shader.IShaderManager;
-import net.minecraft.client.shader.ShaderLinkHelper;
-import net.minecraft.client.shader.ShaderLoader;
-import net.minecraft.resources.IReloadableResourceManager;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.resources.IResourceManagerReloadListener;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.GlProgram;
+import net.minecraft.client.gl.GlProgramManager;
+import net.minecraft.client.gl.GlShader;
+import net.minecraft.resource.ReloadableResourceManager;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.resource.SynchronousResourceReloadListener;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.fml.ModList;
 
 import org.lwjgl.system.MemoryUtil;
@@ -70,18 +69,18 @@ public final class ShaderHelper {
 	@SuppressWarnings("deprecation")
 	public static void initShaders() {
 		// Can be null when running datagenerators due to the unfortunate time we call this
-		if (Minecraft.getInstance() != null
-				&& Minecraft.getInstance().getResourceManager() instanceof IReloadableResourceManager) {
-			((IReloadableResourceManager) Minecraft.getInstance().getResourceManager()).addReloadListener(
-					(IResourceManagerReloadListener) manager -> {
-						PROGRAMS.values().forEach(ShaderLinkHelper::deleteShader);
+		if (MinecraftClient.getInstance() != null
+				&& MinecraftClient.getInstance().getResourceManager() instanceof ReloadableResourceManager) {
+			((ReloadableResourceManager) MinecraftClient.getInstance().getResourceManager()).registerListener(
+					(SynchronousResourceReloadListener) manager -> {
+						PROGRAMS.values().forEach(GlProgramManager::deleteProgram);
 						PROGRAMS.clear();
 						loadShaders(manager);
 					});
 		}
 	}
 
-	private static void loadShaders(IResourceManager manager) {
+	private static void loadShaders(ResourceManager manager) {
 		if (!useShaders()) {
 			return;
 		}
@@ -101,11 +100,11 @@ public final class ShaderHelper {
 			return;
 		}
 
-		int program = prog.getProgram();
-		ShaderLinkHelper.func_227804_a_(program);
+		int program = prog.getProgramRef();
+		GlProgramManager.useProgram(program);
 
 		int time = GlStateManager.getUniformLocation(program, "time");
-		GlStateManager.uniform1i(time, ClientTickHandler.ticksInGame);
+		GlStateManager.uniform1(time, ClientTickHandler.ticksInGame);
 
 		if (callback != null) {
 			callback.call(program);
@@ -117,7 +116,7 @@ public final class ShaderHelper {
 	}
 
 	public static void releaseShader() {
-		ShaderLinkHelper.func_227804_a_(0);
+		GlProgramManager.useProgram(0);
 	}
 
 	public static boolean useShaders() {
@@ -133,54 +132,54 @@ public final class ShaderHelper {
 		return !hasIncompatibleMods;
 	}
 
-	private static void createProgram(IResourceManager manager, BotaniaShader shader) {
+	private static void createProgram(ResourceManager manager, BotaniaShader shader) {
 		try {
-			ShaderLoader vert = createShader(manager, shader.vertexShaderPath, ShaderLoader.ShaderType.VERTEX);
-			ShaderLoader frag = createShader(manager, shader.fragmentShaderPath, ShaderLoader.ShaderType.FRAGMENT);
-			int progId = ShaderLinkHelper.createProgram();
+			GlShader vert = createShader(manager, shader.vertexShaderPath, GlShader.Type.VERTEX);
+			GlShader frag = createShader(manager, shader.fragmentShaderPath, GlShader.Type.FRAGMENT);
+			int progId = GlProgramManager.createProgram();
 			ShaderProgram prog = new ShaderProgram(progId, vert, frag);
-			ShaderLinkHelper.linkProgram(prog);
+			GlProgramManager.linkProgram(prog);
 			PROGRAMS.put(shader, prog);
 		} catch (IOException ex) {
 			Botania.LOGGER.error("Failed to load program {}", shader.name(), ex);
 		}
 	}
 
-	private static ShaderLoader createShader(IResourceManager manager, String filename, ShaderLoader.ShaderType shaderType) throws IOException {
-		ResourceLocation loc = prefix(filename);
+	private static GlShader createShader(ResourceManager manager, String filename, GlShader.Type shaderType) throws IOException {
+		Identifier loc = prefix(filename);
 		try (InputStream is = new BufferedInputStream(manager.getResource(loc).getInputStream())) {
-			return ShaderLoader.func_216534_a(shaderType, loc.toString(), is);
+			return GlShader.createFromResource(shaderType, loc.toString(), is);
 		}
 	}
 
-	private static class ShaderProgram implements IShaderManager {
+	private static class ShaderProgram implements GlProgram {
 		private final int program;
-		private final ShaderLoader vert;
-		private final ShaderLoader frag;
+		private final GlShader vert;
+		private final GlShader frag;
 
-		private ShaderProgram(int program, ShaderLoader vert, ShaderLoader frag) {
+		private ShaderProgram(int program, GlShader vert, GlShader frag) {
 			this.program = program;
 			this.vert = vert;
 			this.frag = frag;
 		}
 
 		@Override
-		public int getProgram() {
+		public int getProgramRef() {
 			return program;
 		}
 
 		@Override
-		public void markDirty() {
+		public void markUniformsDirty() {
 
 		}
 
 		@Override
-		public ShaderLoader getVertexShaderLoader() {
+		public GlShader getVertexShader() {
 			return vert;
 		}
 
 		@Override
-		public ShaderLoader getFragmentShaderLoader() {
+		public GlShader getFragmentShader() {
 			return frag;
 		}
 	}

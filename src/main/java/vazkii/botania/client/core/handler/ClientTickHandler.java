@@ -9,10 +9,9 @@
 package vazkii.botania.client.core.handler;
 
 import com.google.common.collect.ImmutableList;
-
-import net.minecraft.client.Minecraft;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.event.TickEvent;
 
 import vazkii.botania.api.mana.IManaCollector;
@@ -42,11 +41,11 @@ public final class ClientTickHandler {
 	}
 
 	public static void renderTick(TickEvent.RenderTickEvent event) {
-		Minecraft mc = Minecraft.getInstance();
+		MinecraftClient mc = MinecraftClient.getInstance();
 		if (event.phase == TickEvent.Phase.START) {
 			partialTicks = event.renderTickTime;
 
-			if (mc.isGamePaused()) {
+			if (mc.isPaused()) {
 				// If game is paused, need to use the saved value. The event is always fired with the "true" value which
 				// keeps updating when paused. See RenderTickEvent fire site for details, remove when MinecraftForge#6991 is resolved
 				partialTicks = ((AccessorMinecraft) mc).getRenderPartialTicksPaused();
@@ -61,19 +60,19 @@ public final class ClientTickHandler {
 			RenderTileRedString.tick();
 			ItemsRemainingRenderHandler.tick();
 
-			if (Minecraft.getInstance().world == null) {
+			if (MinecraftClient.getInstance().world == null) {
 				ManaNetworkHandler.instance.clear();
 				SubTileVinculotus.existingFlowers.clear();
 			}
 
-			if (!Minecraft.getInstance().isGamePaused()) {
+			if (!MinecraftClient.getInstance().isPaused()) {
 				ticksInGame++;
 				partialTicks = 0;
 
-				PlayerEntity player = Minecraft.getInstance().player;
+				PlayerEntity player = MinecraftClient.getInstance().player;
 				if (player != null) {
 					if (PlayerHelper.hasHeldItemClass(player, ModItems.twigWand)) {
-						for (TileEntity tile : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getInstance().world))) {
+						for (BlockEntity tile : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(MinecraftClient.getInstance().world))) {
 							if (tile instanceof IManaCollector) {
 								((IManaCollector) tile).onClientDisplayTick();
 							}

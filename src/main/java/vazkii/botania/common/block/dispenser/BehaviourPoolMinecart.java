@@ -11,14 +11,14 @@ package vazkii.botania.common.block.dispenser;
 import net.minecraft.block.AbstractRailBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DispenserBlock;
-import net.minecraft.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
+import net.minecraft.block.dispenser.ItemDispenserBehavior;
+import net.minecraft.block.enums.RailShape;
+import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.properties.RailShape;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Direction;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.entity.EntityPoolMinecart;
@@ -26,17 +26,17 @@ import vazkii.botania.common.entity.EntityPoolMinecart;
 import javax.annotation.Nonnull;
 
 // [VanillaCopy] ItemMinecart
-public class BehaviourPoolMinecart extends DefaultDispenseItemBehavior {
-	private final DefaultDispenseItemBehavior behaviourDefaultDispenseItem = new DefaultDispenseItemBehavior();
+public class BehaviourPoolMinecart extends ItemDispenserBehavior {
+	private final ItemDispenserBehavior behaviourDefaultDispenseItem = new ItemDispenserBehavior();
 
 	@Nonnull
 	@Override
-	public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
+	public ItemStack dispenseSilently(BlockPointer source, ItemStack stack) {
 		Direction enumfacing = source.getBlockState().get(DispenserBlock.FACING);
 		World world = source.getWorld();
-		double d0 = source.getX() + (double) enumfacing.getXOffset() * 1.125D;
-		double d1 = Math.floor(source.getY()) + (double) enumfacing.getYOffset();
-		double d2 = source.getZ() + (double) enumfacing.getZOffset() * 1.125D;
+		double d0 = source.getX() + (double) enumfacing.getOffsetX() * 1.125D;
+		double d1 = Math.floor(source.getY()) + (double) enumfacing.getOffsetY();
+		double d2 = source.getZ() + (double) enumfacing.getOffsetZ() * 1.125D;
 		BlockPos blockpos = source.getBlockPos().offset(enumfacing);
 		BlockState iblockstate = world.getBlockState(blockpos);
 		RailShape railshape = iblockstate.getBlock() instanceof AbstractRailBlock ? ((AbstractRailBlock) iblockstate.getBlock()).getRailDirection(iblockstate, world, blockpos, null) : RailShape.NORTH_SOUTH;
@@ -62,18 +62,18 @@ public class BehaviourPoolMinecart extends DefaultDispenseItemBehavior {
 		}
 
 		AbstractMinecartEntity entityminecart = new EntityPoolMinecart(world, d0, d1 + d3, d2);
-		if (stack.hasDisplayName()) {
-			entityminecart.setCustomName(stack.getDisplayName());
+		if (stack.hasCustomName()) {
+			entityminecart.setCustomName(stack.getName());
 		}
 
-		world.addEntity(entityminecart);
-		stack.shrink(1);
+		world.spawnEntity(entityminecart);
+		stack.decrement(1);
 		return stack;
 	}
 
 	@Override
-	protected void playDispenseSound(IBlockSource source) {
-		source.getWorld().playEvent(1000, source.getBlockPos(), 0);
+	protected void playSound(BlockPointer source) {
+		source.getWorld().syncWorldEvent(1000, source.getBlockPos(), 0);
 	}
 
 }

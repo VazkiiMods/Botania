@@ -9,14 +9,14 @@
 package vazkii.botania.common.item.equipment.tool;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -29,7 +29,7 @@ public class ItemStarSword extends ItemManasteelSword {
 
 	private static final int MANA_PER_DAMAGE = 120;
 
-	public ItemStarSword(Properties props) {
+	public ItemStarSword(Settings props) {
 		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
 	}
 
@@ -38,34 +38,34 @@ public class ItemStarSword extends ItemManasteelSword {
 		super.inventoryTick(stack, world, entity, slot, selected);
 		if (entity instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) entity;
-			EffectInstance haste = player.getActivePotionEffect(Effects.HASTE);
+			StatusEffectInstance haste = player.getStatusEffect(StatusEffects.HASTE);
 			float check = haste == null ? 0.16666667F : haste.getAmplifier() == 1 ? 0.5F : 0.4F;
 
-			if (player.getHeldItemMainhand() == stack && player.swingProgress == check && !world.isRemote) {
-				BlockRayTraceResult pos = ToolCommons.raytraceFromEntity(player, 48, false);
-				if (pos.getType() == RayTraceResult.Type.BLOCK) {
-					Vector3d posVec = Vector3d.func_237491_b_(pos.getPos());
-					Vector3d motVec = new Vector3d((0.5 * Math.random() - 0.25) * 18, 24, (0.5 * Math.random() - 0.25) * 18);
+			if (player.getMainHandStack() == stack && player.handSwingProgress == check && !world.isClient) {
+				BlockHitResult pos = ToolCommons.raytraceFromEntity(player, 48, false);
+				if (pos.getType() == HitResult.Type.BLOCK) {
+					Vec3d posVec = Vec3d.of(pos.getBlockPos());
+					Vec3d motVec = new Vec3d((0.5 * Math.random() - 0.25) * 18, 24, (0.5 * Math.random() - 0.25) * 18);
 					posVec = posVec.add(motVec);
-					motVec = motVec.normalize().inverse().scale(1.5);
+					motVec = motVec.normalize().negate().multiply(1.5);
 
 					EntityFallingStar star = new EntityFallingStar(player, world);
-					star.setPosition(posVec.x, posVec.y, posVec.z);
-					star.setMotion(motVec);
-					world.addEntity(star);
+					star.updatePosition(posVec.x, posVec.y, posVec.z);
+					star.setVelocity(motVec);
+					world.spawnEntity(star);
 
 					if (!world.isRaining()
-							&& Math.abs(world.getDayTime() - 18000) < 1800
+							&& Math.abs(world.getTimeOfDay() - 18000) < 1800
 							&& Math.random() < 0.125) {
 						EntityFallingStar bonusStar = new EntityFallingStar(player, world);
-						bonusStar.setPosition(posVec.x, posVec.y, posVec.z);
-						bonusStar.setMotion(motVec.x + Math.random() - 0.5,
+						bonusStar.updatePosition(posVec.x, posVec.y, posVec.z);
+						bonusStar.setVelocity(motVec.x + Math.random() - 0.5,
 								motVec.y + Math.random() - 0.5, motVec.z + Math.random() - 0.5);
-						world.addEntity(bonusStar);
+						world.spawnEntity(bonusStar);
 					}
 
 					ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
-					world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.starcaller, SoundCategory.PLAYERS, 0.4F, 1.4F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.starcaller, SoundCategory.PLAYERS, 0.4F, 1.4F);
 				}
 			}
 		}

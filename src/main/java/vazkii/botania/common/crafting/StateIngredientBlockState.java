@@ -12,8 +12,7 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.network.PacketBuffer;
-
+import net.minecraft.network.PacketByteBuf;
 import vazkii.botania.api.recipe.StateIngredient;
 
 import java.util.Collections;
@@ -39,9 +38,9 @@ public class StateIngredientBlockState implements StateIngredient {
 	}
 
 	@Override
-	public void write(PacketBuffer buffer) {
+	public void write(PacketByteBuf buffer) {
 		buffer.writeVarInt(2);
-		buffer.writeVarInt(Block.getStateId(state));
+		buffer.writeVarInt(Block.getRawIdFromState(state));
 	}
 
 	@Override

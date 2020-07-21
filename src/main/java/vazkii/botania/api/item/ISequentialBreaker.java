@@ -10,8 +10,8 @@ package vazkii.botania.api.item;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 
 /**
  * An item that implements this can break multiple blocks at once

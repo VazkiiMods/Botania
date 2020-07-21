@@ -12,8 +12,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -23,26 +23,26 @@ import javax.annotation.Nonnull;
 
 public class ItemOvergrowthSeed extends Item {
 
-	public ItemOvergrowthSeed(Properties props) {
+	public ItemOvergrowthSeed(Settings props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
+	public ActionResult useOnBlock(ItemUsageContext ctx) {
 		World world = ctx.getWorld();
-		BlockPos pos = ctx.getPos();
+		BlockPos pos = ctx.getBlockPos();
 
 		BlockState state = world.getBlockState(pos);
 		if (state.getBlock() == Blocks.GRASS_BLOCK) {
-			if (!world.isRemote) {
-				world.playEvent(2001, pos, Block.getStateId(state));
+			if (!world.isClient) {
+				world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
 				world.setBlockState(pos, ModBlocks.enchantedSoil.getDefaultState());
-				ctx.getItem().shrink(1);
+				ctx.getStack().decrement(1);
 			}
-			return ActionResultType.SUCCESS;
+			return ActionResult.SUCCESS;
 		}
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
 }

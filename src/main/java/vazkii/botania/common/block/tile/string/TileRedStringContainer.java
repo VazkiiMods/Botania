@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.block.tile.string;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -36,13 +36,13 @@ public class TileRedStringContainer extends TileRedString {
 		this(ModTiles.RED_STRING_CONTAINER);
 	}
 
-	public TileRedStringContainer(TileEntityType<?> type) {
+	public TileRedStringContainer(BlockEntityType<?> type) {
 		super(type);
 	}
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
-		TileEntity tile = world.getTileEntity(pos);
+		BlockEntity tile = world.getBlockEntity(pos);
 		return tile != null
 				&& Arrays.stream(Direction.values())
 						.anyMatch(e -> tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e).isPresent());
@@ -91,15 +91,15 @@ public class TileRedStringContainer extends TileRedString {
 	}
 
 	@Override
-	public void remove() {
-		super.remove();
+	public void markRemoved() {
+		super.markRemoved();
 		invalidateLastCap();
 	}
 
 	@Override
 	public void markDirty() {
 		super.markDirty();
-		TileEntity tile = getTileAtBinding();
+		BlockEntity tile = getTileAtBinding();
 		if (tile != null) {
 			tile.markDirty();
 		}

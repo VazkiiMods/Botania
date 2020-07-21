@@ -9,11 +9,10 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.block.Block;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-
+import net.minecraft.util.math.Vec3d;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -27,7 +26,7 @@ import vazkii.botania.common.core.helper.Vector3;
 
 import java.util.Random;
 
-public class TilePylon extends TileEntity implements ITickableTileEntity {
+public class TilePylon extends BlockEntity implements Tickable {
 	boolean activated = false;
 	BlockPos centerPos;
 	private int ticks = 0;
@@ -40,20 +39,20 @@ public class TilePylon extends TileEntity implements ITickableTileEntity {
 	public void tick() {
 		++ticks;
 
-		if (!(getBlockState().getBlock() instanceof BlockPylon)) {
+		if (!(getCachedState().getBlock() instanceof BlockPylon)) {
 			return;
 		}
 
-		BlockPylon.Variant variant = ((BlockPylon) getBlockState().getBlock()).variant;
+		BlockPylon.Variant variant = ((BlockPylon) getCachedState().getBlock()).variant;
 
-		if (activated && world.isRemote) {
+		if (activated && world.isClient) {
 			if (world.getBlockState(centerPos).getBlock() != getBlockForMeta()
 					|| variant == BlockPylon.Variant.NATURA && (portalOff() || !(world.getBlockState(getPos().down()).getBlock() instanceof BlockPool))) {
 				activated = false;
 				return;
 			}
 
-			Vector3d centerBlock = new Vector3d(centerPos.getX() + 0.5, centerPos.getY() + 0.75 + (Math.random() - 0.5 * 0.25), centerPos.getZ() + 0.5);
+			Vec3d centerBlock = new Vec3d(centerPos.getX() + 0.5, centerPos.getY() + 0.75 + (Math.random() - 0.5 * 0.25), centerPos.getZ() + 0.5);
 
 			if (variant == BlockPylon.Variant.NATURA) {
 				if (ConfigHandler.CLIENT.elfPortalParticlesEnabled.get()) {
@@ -65,20 +64,20 @@ public class TilePylon extends TileEntity implements ITickableTileEntity {
 					double x = pos.getX() + 0.5 + Math.cos(worldTime) * r;
 					double z = pos.getZ() + 0.5 + Math.sin(worldTime) * r;
 
-					Vector3d ourCoords = new Vector3d(x, pos.getY() + 0.25, z);
+					Vec3d ourCoords = new Vec3d(x, pos.getY() + 0.25, z);
 					centerBlock = centerBlock.subtract(0, 0.5, 0);
-					Vector3d movementVector = centerBlock.subtract(ourCoords).normalize().scale(0.2);
+					Vec3d movementVector = centerBlock.subtract(ourCoords).normalize().multiply(0.2);
 
 					WispParticleData data = WispParticleData.wisp(0.25F + (float) Math.random() * 0.1F, (float) Math.random() * 0.25F, 0.75F + (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 1);
 					world.addParticle(data, x, pos.getY() + 0.25, z, 0, -(-0.075F - (float) Math.random() * 0.015F), 0);
-					if (world.rand.nextInt(3) == 0) {
+					if (world.random.nextInt(3) == 0) {
 						WispParticleData data1 = WispParticleData.wisp(0.25F + (float) Math.random() * 0.1F, (float) Math.random() * 0.25F, 0.75F + (float) Math.random() * 0.25F, (float) Math.random() * 0.25F);
 						world.addParticle(data1, x, pos.getY() + 0.25, z, (float) movementVector.x, (float) movementVector.y, (float) movementVector.z);
 					}
 				}
 			} else {
-				Vector3d ourCoords = Vector3d.func_237489_a_(getPos()).add(0, 1 + (Math.random() - 0.5 * 0.25), 0);
-				Vector3d movementVector = centerBlock.subtract(ourCoords).normalize().scale(0.2);
+				Vec3d ourCoords = Vec3d.ofCenter(getPos()).add(0, 1 + (Math.random() - 0.5 * 0.25), 0);
+				Vec3d movementVector = centerBlock.subtract(ourCoords).normalize().multiply(0.2);
 
 				Block block = world.getBlockState(pos.down()).getBlock();
 				if (block instanceof BlockModFlower) {
@@ -87,7 +86,7 @@ public class TilePylon extends TileEntity implements ITickableTileEntity {
 					int g = (hex & 0xFF00) >> 8;
 					int b = hex & 0xFF;
 
-					if (world.rand.nextInt(4) == 0) {
+					if (world.random.nextInt(4) == 0) {
 						SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), r / 255F, g / 255F, b / 255F, 8);
 						world.addParticle(data, centerBlock.x + (Math.random() - 0.5) * 0.5, centerBlock.y, centerBlock.z + (Math.random() - 0.5) * 0.5, 0, 0, 0);
 					}
@@ -102,7 +101,7 @@ public class TilePylon extends TileEntity implements ITickableTileEntity {
 			}
 		}
 
-		if (world.rand.nextBoolean() && world.isRemote) {
+		if (world.random.nextBoolean() && world.isClient) {
 			float r = variant == BlockPylon.Variant.GAIA ? 1F : 0.5F;
 			float g = variant == BlockPylon.Variant.NATURA ? 1F : 0.5F;
 			float b = variant == BlockPylon.Variant.NATURA ? 0.5F : 1F;
@@ -112,7 +111,7 @@ public class TilePylon extends TileEntity implements ITickableTileEntity {
 	}
 
 	private Block getBlockForMeta() {
-		return ((BlockPylon) getBlockState().getBlock()).variant == BlockPylon.Variant.MANA ? ModBlocks.enchanter : ModBlocks.alfPortal;
+		return ((BlockPylon) getCachedState().getBlock()).variant == BlockPylon.Variant.MANA ? ModBlocks.enchanter : ModBlocks.alfPortal;
 	}
 
 	private boolean portalOff() {

@@ -9,17 +9,18 @@
 package vazkii.botania.common.integration.curios;
 
 import com.google.common.collect.Multimap;
-import com.mojang.blaze3d.matrix.MatrixStack;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.IEntityRenderer;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.entity.model.EntityModel;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.feature.FeatureRendererContext;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.render.entity.model.EntityModel;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -63,7 +64,7 @@ public class CurioIntegration extends EquipmentHandler {
 	public static void keepCurioDrops(DropRulesEvent event) { //TODO make this less hacky
 		event.addOverride(stack -> {
 			if (ItemKeepIvy.hasIvy(stack)) {
-				stack.removeChildTag(ItemKeepIvy.TAG_KEEP);
+				stack.removeSubTag(ItemKeepIvy.TAG_KEEP);
 				return true;
 			}
 			return false;
@@ -131,7 +132,7 @@ public class CurioIntegration extends EquipmentHandler {
 		}
 
 		@Override
-		public Multimap<Attribute, AttributeModifier> getAttributeModifiers(String identifier) {
+		public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(String identifier) {
 			return getItem().getEquippedAttributeModifiers(stack);
 		}
 
@@ -142,7 +143,7 @@ public class CurioIntegration extends EquipmentHandler {
 
 		@Override
 		public void playRightClickEquipSound(LivingEntity entity) {
-			entity.world.playSound(null, entity.getPosX(), entity.getPosY(), entity.getPosZ(), ModSounds.equipBauble, entity.getSoundCategory(), 0.1F, 1.3F);
+			entity.world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), ModSounds.equipBauble, entity.getSoundCategory(), 0.1F, 1.3F);
 		}
 
 		@Override
@@ -156,14 +157,14 @@ public class CurioIntegration extends EquipmentHandler {
 		}
 
 		@Override
-		@OnlyIn(Dist.CLIENT)
-		public void render(String identifier, int index, MatrixStack matrixStack, IRenderTypeBuffer renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-			EntityRenderer<?> renderer = Minecraft.getInstance().getRenderManager().getRenderer(livingEntity);
-			if (!(renderer instanceof IEntityRenderer<?, ?>)) {
+		@Environment(EnvType.CLIENT)
+		public void render(String identifier, int index, MatrixStack matrixStack, VertexConsumerProvider renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+			EntityRenderer<?> renderer = MinecraftClient.getInstance().getEntityRenderManager().getRenderer(livingEntity);
+			if (!(renderer instanceof FeatureRendererContext<?, ?>)) {
 				return;
 			}
-			EntityModel<?> model = ((IEntityRenderer<?, ?>) renderer).getEntityModel();
-			if (!(model instanceof BipedModel<?>)) {
+			EntityModel<?> model = ((FeatureRendererContext<?, ?>) renderer).getModel();
+			if (!(model instanceof BipedEntityModel<?>)) {
 				return;
 			}
 
@@ -172,7 +173,7 @@ public class CurioIntegration extends EquipmentHandler {
 				cosmetic.getCapability(CuriosCapability.ITEM).ifPresent(
 						curio -> curio.render(identifier, index, matrixStack, renderTypeBuffer, light, livingEntity, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch));
 			} else {
-				getItem().doRender((BipedModel<?>) model, stack, livingEntity, matrixStack, renderTypeBuffer, light, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+				getItem().doRender((BipedEntityModel<?>) model, stack, livingEntity, matrixStack, renderTypeBuffer, light, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
 			}
 		}
 	}

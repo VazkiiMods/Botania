@@ -8,38 +8,36 @@
  */
 package vazkii.botania.client.render.entity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.util.ResourceLocation;
-
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.entity.EntityManaStorm;
 
 import javax.annotation.Nonnull;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 
 public class RenderManaStorm extends EntityRenderer<EntityManaStorm> {
 
-	public RenderManaStorm(EntityRendererManager renderManager) {
+	public RenderManaStorm(EntityRenderDispatcher renderManager) {
 		super(renderManager);
 	}
 
 	@Override
-	public void render(EntityManaStorm storm, float yaw, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light) {
+	public void render(EntityManaStorm storm, float yaw, float pticks, MatrixStack ms, VertexConsumerProvider buffers, int light) {
 		ms.push();
 		float maxScale = 1.95F;
 		float scale = 0.05F + ((float) storm.burstsFired / EntityManaStorm.TOTAL_BURSTS - (storm.deathTime == 0 ? 0 : storm.deathTime + pticks) / EntityManaStorm.DEATH_TIME) * maxScale;
-		RenderHelper.renderStar(ms, buffers, 0x00FF00, scale, scale, scale, storm.getUniqueID().getMostSignificantBits());
+		RenderHelper.renderStar(ms, buffers, 0x00FF00, scale, scale, scale, storm.getUuid().getMostSignificantBits());
 		ms.pop();
 	}
 
 	@Nonnull
 	@Override
-	public ResourceLocation getEntityTexture(@Nonnull EntityManaStorm entity) {
-		return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
+	public Identifier getEntityTexture(@Nonnull EntityManaStorm entity) {
+		return SpriteAtlasTexture.BLOCK_ATLAS_TEX;
 	}
 
 }

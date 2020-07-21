@@ -11,7 +11,7 @@ package vazkii.botania.common.impl.mana;
 import com.google.common.collect.Iterables;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -55,12 +55,12 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			return Collections.emptyList();
 		}
 
-		IInventory acc = BotaniaAPI.instance().getAccessoriesInventory(player);
+		Inventory acc = BotaniaAPI.instance().getAccessoriesInventory(player);
 
-		List<ItemStack> toReturn = new ArrayList<>(acc.getSizeInventory());
+		List<ItemStack> toReturn = new ArrayList<>(acc.size());
 
-		for (int slot = 0; slot < acc.getSizeInventory(); slot++) {
-			ItemStack stackInSlot = acc.getStackInSlot(slot);
+		for (int slot = 0; slot < acc.size(); slot++) {
+			ItemStack stackInSlot = acc.getStack(slot);
 
 			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IManaItem) {
 				toReturn.add(stackInSlot);
@@ -212,8 +212,8 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 	@Override
 	public float getFullDiscountForTools(PlayerEntity player, ItemStack tool) {
 		float discount = 0F;
-		for (int i = 0; i < player.inventory.armorInventory.size(); i++) {
-			ItemStack armor = player.inventory.armorInventory.get(i);
+		for (int i = 0; i < player.inventory.armor.size(); i++) {
+			ItemStack armor = player.inventory.armor.get(i);
 			if (!armor.isEmpty() && armor.getItem() instanceof IManaDiscountArmor) {
 				discount += ((IManaDiscountArmor) armor.getItem()).getDiscount(armor, i, player, tool);
 			}

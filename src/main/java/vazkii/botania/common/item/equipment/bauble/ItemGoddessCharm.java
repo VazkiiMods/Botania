@@ -8,20 +8,21 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.world.Explosion;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.explosion.Explosion;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.world.ExplosionEvent;
@@ -37,14 +38,14 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
 
 	public static final int COST = 1000;
 
-	public ItemGoddessCharm(Properties props) {
+	public ItemGoddessCharm(Settings props) {
 		super(props);
 	}
 
 	public static void onExplosion(ExplosionEvent.Detonate event) {
 		Explosion e = event.getExplosion();
-		Vector3d vec = e.getPosition();
-		List<PlayerEntity> players = event.getWorld().getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(vec.x, vec.y, vec.z, vec.x, vec.y, vec.z).grow(8));
+		Vec3d vec = e.getPosition();
+		List<PlayerEntity> players = event.getWorld().getNonSpectatingEntities(PlayerEntity.class, new Box(vec.x, vec.y, vec.z, vec.x, vec.y, vec.z).expand(8));
 
 		for (PlayerEntity player : players) {
 			ItemStack charm = EquipmentHandler.findOrEmpty(ModItems.goddessCharm, player);
@@ -56,13 +57,13 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		bipedModel.bipedHead.translateRotate(ms);
+	@Environment(EnvType.CLIENT)
+	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		bipedModel.head.rotate(ms);
 		ms.translate(0.275, -0.4, 0);
-		ms.rotate(Vector3f.YP.rotationDegrees(-90F));
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
 		ms.scale(0.55F, -0.55F, -0.55F);
-		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, light, OverlayTexture.NO_OVERLAY, ms, buffers);
+		MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.NONE, light, OverlayTexture.DEFAULT_UV, ms, buffers);
 	}
 
 	@Override

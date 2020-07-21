@@ -12,16 +12,15 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -38,22 +37,22 @@ import java.util.Iterator;
 import java.util.List;
 
 public class RecipeBrew implements IBrewRecipe {
-	private final ResourceLocation id;
+	private final Identifier id;
 	private final Brew brew;
-	private final NonNullList<Ingredient> inputs;
+	private final DefaultedList<Ingredient> inputs;
 
-	public RecipeBrew(ResourceLocation id, Brew brew, Ingredient... inputs) {
+	public RecipeBrew(Identifier id, Brew brew, Ingredient... inputs) {
 		this.id = id;
 		this.brew = brew;
-		this.inputs = NonNullList.from(null, inputs);
+		this.inputs = DefaultedList.copyOf(null, inputs);
 	}
 
 	@Override
-	public boolean matches(IInventory inv, @Nonnull World world) {
+	public boolean matches(Inventory inv, @Nonnull World world) {
 		List<Ingredient> inputsMissing = new ArrayList<>(inputs);
 
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stack = inv.getStack(i);
 			if (stack.isEmpty()) {
 				break;
 			}
@@ -84,25 +83,25 @@ public class RecipeBrew implements IBrewRecipe {
 
 	@Nonnull
 	@Override
-	public NonNullList<Ingredient> getIngredients() {
+	public DefaultedList<Ingredient> getPreviewInputs() {
 		return inputs;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getIcon() {
+	public ItemStack getRecipeKindIcon() {
 		return new ItemStack(ModBlocks.brewery);
 	}
 
 	@Nonnull
 	@Override
-	public ResourceLocation getId() {
+	public Identifier getId() {
 		return id;
 	}
 
 	@Nonnull
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return ModRecipeTypes.BREW_SERIALIZER;
 	}
 
@@ -138,42 +137,42 @@ public class RecipeBrew implements IBrewRecipe {
 				&& inputs.equals(((RecipeBrew) o).inputs);
 	}
 
-	public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<RecipeBrew> {
+	public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<RecipeBrew> {
 		@Nonnull
 		@Override
-		public RecipeBrew read(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {
-			String brewStr = JSONUtils.getString(json, "brew");
-			ResourceLocation brewId = ResourceLocation.tryCreate(brewStr);
-			if (brewId == null || !BotaniaAPI.instance().getBrewRegistry().containsKey(brewId)) {
+		public RecipeBrew read(@Nonnull Identifier id, @Nonnull JsonObject json) {
+			String brewStr = JsonHelper.getString(json, "brew");
+			Identifier brewId = Identifier.tryParse(brewStr);
+			if (brewId == null || !BotaniaAPI.instance().getBrewRegistry().containsId(brewId)) {
 				throw new JsonParseException("Unknown brew " + brewStr);
 			}
-			Brew brew = BotaniaAPI.instance().getBrewRegistry().getOrDefault(brewId);
+			Brew brew = BotaniaAPI.instance().getBrewRegistry().get(brewId);
 
-			JsonArray ingrs = JSONUtils.getJsonArray(json, "ingredients");
+			JsonArray ingrs = JsonHelper.getArray(json, "ingredients");
 			List<Ingredient> inputs = new ArrayList<>();
 			for (JsonElement e : ingrs) {
-				inputs.add(Ingredient.deserialize(e));
+				inputs.add(Ingredient.fromJson(e));
 			}
 			return new RecipeBrew(id, brew, inputs.toArray(new Ingredient[0]));
 		}
 
 		@Override
-		public RecipeBrew read(@Nonnull ResourceLocation id, @Nonnull PacketBuffer buf) {
+		public RecipeBrew read(@Nonnull Identifier id, @Nonnull PacketByteBuf buf) {
 			int intId = buf.readVarInt();
-			Brew brew = BotaniaAPI.instance().getBrewRegistry().getByValue(intId);
+			Brew brew = BotaniaAPI.instance().getBrewRegistry().get(intId);
 			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
 			for (int i = 0; i < inputs.length; i++) {
-				inputs[i] = Ingredient.read(buf);
+				inputs[i] = Ingredient.fromPacket(buf);
 			}
 			return new RecipeBrew(id, brew, inputs);
 		}
 
 		@Override
-		public void write(@Nonnull PacketBuffer buf, @Nonnull RecipeBrew recipe) {
-			int intId = BotaniaAPI.instance().getBrewRegistry().getId(recipe.getBrew());
+		public void write(@Nonnull PacketByteBuf buf, @Nonnull RecipeBrew recipe) {
+			int intId = BotaniaAPI.instance().getBrewRegistry().getRawId(recipe.getBrew());
 			buf.writeVarInt(intId);
-			buf.writeVarInt(recipe.getIngredients().size());
-			for (Ingredient input : recipe.getIngredients()) {
+			buf.writeVarInt(recipe.getPreviewInputs().size());
+			for (Ingredient input : recipe.getPreviewInputs()) {
 				input.write(buf);
 			}
 		}

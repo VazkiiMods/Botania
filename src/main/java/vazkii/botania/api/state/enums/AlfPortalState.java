@@ -8,17 +8,16 @@
  */
 package vazkii.botania.api.state.enums;
 
-import net.minecraft.util.IStringSerializable;
-
 import java.util.Locale;
+import net.minecraft.util.StringIdentifiable;
 
-public enum AlfPortalState implements IStringSerializable {
+public enum AlfPortalState implements StringIdentifiable {
 	OFF,
 	ON_Z,
 	ON_X;
 
 	@Override
-	public String getString() {
+	public String asString() {
 		return name().toLowerCase(Locale.ROOT);
 	}
 

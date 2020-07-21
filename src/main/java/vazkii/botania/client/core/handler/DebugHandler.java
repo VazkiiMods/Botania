@@ -8,11 +8,11 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.ModContainer;
@@ -33,11 +33,11 @@ public final class DebugHandler {
 
 	private DebugHandler() {}
 
-	private static final String PREFIX = TextFormatting.GREEN + "[Botania] " + TextFormatting.RESET;
+	private static final String PREFIX = Formatting.GREEN + "[Botania] " + Formatting.RESET;
 
 	public static void onDrawDebugText(RenderGameOverlayEvent.Text event) {
-		World world = Minecraft.getInstance().world;
-		if (ConfigHandler.CLIENT.debugInfo.get() && Minecraft.getInstance().gameSettings.showDebugInfo) {
+		World world = MinecraftClient.getInstance().world;
+		if (ConfigHandler.CLIENT.debugInfo.get() && MinecraftClient.getInstance().options.debugEnabled) {
 			event.getLeft().add("");
 			String version = ModList.get().getModContainerById(LibMisc.MOD_ID)
 					.map(ModContainer::getModInfo)
@@ -47,9 +47,9 @@ public final class DebugHandler {
 
 			event.getLeft().add(PREFIX + "(CLIENT) netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size() + ", rv: " + version);
 
-			if (Minecraft.getInstance().isSingleplayer()) {
-				RegistryKey<World> dim = Minecraft.getInstance().world.func_234923_W_();
-				ResourceLocation dimName = dim.func_240901_a_();
+			if (MinecraftClient.getInstance().isIntegratedServerRunning()) {
+				RegistryKey<World> dim = MinecraftClient.getInstance().world.getRegistryKey();
+				Identifier dimName = dim.getValue();
 				if (ServerLifecycleHooks.getCurrentServer() != null) {
 					World serverWorld = ServerLifecycleHooks.getCurrentServer().getWorld(dim);
 					event.getLeft().add(PREFIX + String.format("(INTEGRATED SERVER %s) netColl : %d, netPool: %d", dimName, ManaNetworkHandler.instance.getAllCollectorsInWorld(serverWorld).size(), ManaNetworkHandler.instance.getAllPoolsInWorld(serverWorld).size()));
@@ -68,7 +68,7 @@ public final class DebugHandler {
 				event.getLeft().add("  GL_ARB_multitexture: " + caps.GL_ARB_multitexture);
 				event.getLeft().add("  GL_ARB_texture_non_power_of_two: " + caps.GL_ARB_texture_non_power_of_two);
 				event.getLeft().add("  OpenGL13: " + caps.OpenGL13);
-			} else if (Minecraft.IS_RUNNING_ON_MAC) {
+			} else if (MinecraftClient.IS_SYSTEM_MAC) {
 				event.getLeft().add(PREFIX + "SHIFT+CMD for context");
 			} else {
 				event.getLeft().add(PREFIX + "SHIFT+CTRL for context");

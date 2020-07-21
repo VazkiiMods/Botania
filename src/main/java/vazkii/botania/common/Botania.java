@@ -10,22 +10,21 @@ package vazkii.botania.common;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import net.minecraft.entity.attribute.DefaultAttributeRegistry;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.boss.WitherEntity;
-import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.particles.ParticleType;
-import net.minecraft.potion.Effect;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.particle.ParticleType;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.common.MinecraftForge;
@@ -138,25 +137,25 @@ public class Botania {
 		modBus.addListener(DataGenerators::gatherData);
 		modBus.addGenericListener(Feature.class, ModFeatures::registerFeatures);
 		modBus.addGenericListener(Item.class, ModItems::registerItems);
-		modBus.addGenericListener(ContainerType.class, ModItems::registerContainers);
-		modBus.addGenericListener(IRecipeSerializer.class, ModItems::registerRecipeSerializers);
+		modBus.addGenericListener(ScreenHandlerType.class, ModItems::registerContainers);
+		modBus.addGenericListener(RecipeSerializer.class, ModItems::registerRecipeSerializers);
 		modBus.addGenericListener(EntityType.class, ModEntities::registerEntities);
-		modBus.addGenericListener(IRecipeSerializer.class, ModRecipeTypes::register);
+		modBus.addGenericListener(RecipeSerializer.class, ModRecipeTypes::register);
 		modBus.addGenericListener(SoundEvent.class, ModSounds::registerSounds);
 		modBus.addGenericListener(Brew.class, ModBrews::registerBrews);
 		modBus.addListener(ModBrews::registerRegistry);
-		modBus.addGenericListener(Effect.class, ModPotions::registerPotions);
+		modBus.addGenericListener(StatusEffect.class, ModPotions::registerPotions);
 		modBus.addGenericListener(Block.class, ModBlocks::registerBlocks);
 		modBus.addGenericListener(Item.class, ModBlocks::registerItemBlocks);
-		modBus.addGenericListener(TileEntityType.class, ModTiles::registerTiles);
+		modBus.addGenericListener(BlockEntityType.class, ModTiles::registerTiles);
 		modBus.addGenericListener(Block.class, ModFluffBlocks::registerBlocks);
 		modBus.addGenericListener(Item.class, ModFluffBlocks::registerItemBlocks);
 		modBus.addGenericListener(ParticleType.class, ModParticles::registerParticles);
 		modBus.addGenericListener(Block.class, ModSubtiles::registerBlocks);
 		modBus.addGenericListener(Item.class, ModSubtiles::registerItemBlocks);
-		modBus.addGenericListener(TileEntityType.class, ModSubtiles::registerTEs);
+		modBus.addGenericListener(BlockEntityType.class, ModSubtiles::registerTEs);
 		modBus.addGenericListener(GlobalLootModifierSerializer.class, DisposeModifier::register);
-		modBus.addGenericListener(Attribute.class, PixieHandler::registerAttribute);
+		modBus.addGenericListener(EntityAttribute.class, PixieHandler::registerAttribute);
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		forgeBus.addListener(this::serverAboutToStart);
@@ -172,7 +171,7 @@ public class Botania {
 		forgeBus.addListener(ItemVirus::onLivingHurt);
 		forgeBus.addListener(SleepingHandler::trySleep);
 		forgeBus.addListener(PixieHandler::onDamageTaken);
-		forgeBus.addGenericListener(TileEntity.class, ExoflameFurnaceHandler::attachFurnaceCapability);
+		forgeBus.addGenericListener(BlockEntity.class, ExoflameFurnaceHandler::attachFurnaceCapability);
 		forgeBus.addListener(CommonTickHandler::onTick);
 		forgeBus.addListener(PotionBloodthirst::onSpawn);
 		forgeBus.addListener(PotionEmptiness::onSpawn);
@@ -211,21 +210,21 @@ public class Botania {
 		DeferredWorkQueue.runLater(() -> {
 			SkyblockChunkGenerator.init();
 
-			GlobalEntityTypeAttributes.put(ModEntities.DOPPLEGANGER, MobEntity.func_233666_p_()
-					.func_233815_a_(Attributes.MOVEMENT_SPEED, 0.4)
-					.func_233815_a_(Attributes.MAX_HEALTH, EntityDoppleganger.MAX_HP)
-					.func_233815_a_(Attributes.KNOCKBACK_RESISTANCE, 1.0)
-					.func_233813_a_());
-			GlobalEntityTypeAttributes.put(ModEntities.PIXIE, MobEntity.func_233666_p_()
-					.func_233815_a_(Attributes.MAX_HEALTH, 2.0)
-					.func_233813_a_());
-			GlobalEntityTypeAttributes.put(ModEntities.PINK_WITHER, WitherEntity.func_234258_eI_().func_233813_a_());
+			DefaultAttributeRegistry.put(ModEntities.DOPPLEGANGER, MobEntity.createMobAttributes()
+					.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4)
+					.add(EntityAttributes.GENERIC_MAX_HEALTH, EntityDoppleganger.MAX_HP)
+					.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
+					.build());
+			DefaultAttributeRegistry.put(ModEntities.PIXIE, MobEntity.createMobAttributes()
+					.add(EntityAttributes.GENERIC_MAX_HEALTH, 2.0)
+					.build());
+			DefaultAttributeRegistry.put(ModEntities.PINK_WITHER, WitherEntity.createWitherAttributes().build());
 			ModBanners.init();
 			ColorHelper.init();
 
-			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getKey(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.getValue());
-			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getKey(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.getValue());
-			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getKey(ModBlocks.enchanter), TileEnchanter.MULTIBLOCK.getValue());
+			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getId(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.get());
+			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getId(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.get());
+			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getId(ModBlocks.enchanter), TileEnchanter.MULTIBLOCK.get());
 
 			String[][] pat = new String[][] {
 					{

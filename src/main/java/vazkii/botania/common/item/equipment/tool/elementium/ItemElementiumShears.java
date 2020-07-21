@@ -11,14 +11,14 @@ package vazkii.botania.common.item.equipment.tool.elementium;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.IShearable;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.Shearable;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.UseAction;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.UseAction;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IForgeShearable;
 
@@ -33,7 +33,7 @@ import java.util.function.Predicate;
 
 public class ItemElementiumShears extends ItemManasteelShears {
 
-	public ItemElementiumShears(Properties props) {
+	public ItemElementiumShears(Settings props) {
 		super(props);
 	}
 
@@ -44,41 +44,41 @@ public class ItemElementiumShears extends ItemManasteelShears {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getMaxUseTime(ItemStack stack) {
 		return 72000;
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		player.setActiveHand(hand);
-		return ActionResult.resultSuccess(player.getHeldItem(hand));
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
+		player.setCurrentHand(hand);
+		return TypedActionResult.success(player.getStackInHand(hand));
 	}
 
 	@Override
-	public void onUse(World world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int count) {
-		if (world.isRemote) {
+	public void usageTick(World world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int count) {
+		if (world.isClient) {
 			return;
 		}
 
-		if (count != getUseDuration(stack) && count % 5 == 0) {
+		if (count != getMaxUseTime(stack) && count % 5 == 0) {
 			int range = 12;
-			Predicate<Entity> shearablePred = e -> e instanceof IShearable || e instanceof IForgeShearable;
-			List<Entity> shearable = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(living.getPosX() - range, living.getPosY() - range, living.getPosZ() - range, living.getPosX() + range, living.getPosY() + range, living.getPosZ() + range), shearablePred);
+			Predicate<Entity> shearablePred = e -> e instanceof Shearable || e instanceof IForgeShearable;
+			List<Entity> shearable = world.getEntities(Entity.class, new Box(living.getX() - range, living.getY() - range, living.getZ() - range, living.getX() + range, living.getY() + range, living.getZ() + range), shearablePred);
 			if (shearable.size() > 0) {
 				for (Entity entity : shearable) {
-					if (entity instanceof IShearable && ((IShearable) entity).func_230262_K__()) {
-						((IShearable) entity).func_230263_a_(living.getSoundCategory());
+					if (entity instanceof Shearable && ((Shearable) entity).isShearable()) {
+						((Shearable) entity).sheared(living.getSoundCategory());
 						ToolCommons.damageItem(stack, 1, living, MANA_PER_DAMAGE);
 						break;
 					} else {
 						IForgeShearable target = (IForgeShearable) entity;
-						if (target.isShearable(stack, entity.world, entity.func_233580_cy_())) {
+						if (target.isShearable(stack, entity.world, entity.getBlockPos())) {
 							PlayerEntity player = living instanceof PlayerEntity ? (PlayerEntity) living : null;
-							List<ItemStack> drops = target.onSheared(player, stack, entity.world, entity.func_233580_cy_(), EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack));
+							List<ItemStack> drops = target.onSheared(player, stack, entity.world, entity.getBlockPos(), EnchantmentHelper.getLevel(Enchantments.FORTUNE, stack));
 
 							for (ItemStack drop : drops) {
-								entity.entityDropItem(drop, 1.0F);
+								entity.dropStack(drop, 1.0F);
 							}
 
 							ToolCommons.damageItem(stack, 1, living, MANA_PER_DAMAGE);
@@ -92,8 +92,8 @@ public class ItemElementiumShears extends ItemManasteelShears {
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack toRepair, @Nonnull ItemStack repairBy) {
-		return repairBy.getItem() == ModItems.elementium || super.getIsRepairable(toRepair, repairBy);
+	public boolean canRepair(ItemStack toRepair, @Nonnull ItemStack repairBy) {
+		return repairBy.getItem() == ModItems.elementium || super.canRepair(toRepair, repairBy);
 	}
 
 }

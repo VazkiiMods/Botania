@@ -27,7 +27,7 @@ public class SubTileDreadthorn extends SubTileBellethorn {
 
 	@Override
 	public Predicate<Entity> getSelector() {
-		return var1 -> var1 instanceof AnimalEntity && !((AnimalEntity) var1).isChild();
+		return var1 -> var1 instanceof AnimalEntity && !((AnimalEntity) var1).isBaby();
 	}
 
 	@Override

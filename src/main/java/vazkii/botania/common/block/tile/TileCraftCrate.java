@@ -11,13 +11,13 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ICraftingRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.recipe.CraftingRecipe;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -41,22 +41,22 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	@Override
-	protected Inventory createItemHandler() {
-		return new Inventory(9) {
+	protected SimpleInventory createItemHandler() {
+		return new SimpleInventory(9) {
 			@Override
-			public int getInventoryStackLimit() {
+			public int getMaxCountPerStack() {
 				return 1;
 			}
 
 			@Override
-			public boolean isItemValidForSlot(int slot, ItemStack stack) {
+			public boolean isValid(int slot, ItemStack stack) {
 				return !isLocked(slot);
 			}
 		};
 	}
 
 	public CratePattern getPattern() {
-		BlockState state = getBlockState();
+		BlockState state = getCachedState();
 		if (state.getBlock() != ModBlocks.craftCrate) {
 			return CratePattern.NONE;
 		}
@@ -68,20 +68,20 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT tag) {
+	public void readPacketNBT(CompoundTag tag) {
 		super.readPacketNBT(tag);
-		craftResult = ItemStack.read(tag.getCompound(TAG_CRAFTING_RESULT));
+		craftResult = ItemStack.fromTag(tag.getCompound(TAG_CRAFTING_RESULT));
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT tag) {
+	public void writePacketNBT(CompoundTag tag) {
 		super.writePacketNBT(tag);
-		tag.put(TAG_CRAFTING_RESULT, craftResult.write(new CompoundNBT()));
+		tag.put(TAG_CRAFTING_RESULT, craftResult.toTag(new CompoundTag()));
 	}
 
 	@Override
 	public void tick() {
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
 
@@ -92,14 +92,14 @@ public class TileCraftCrate extends TileOpenCrate {
 		int newSignal = 0;
 		for (; newSignal < 9; newSignal++) // dis for loop be derpy
 		{
-			if (!isLocked(newSignal) && getItemHandler().getStackInSlot(newSignal).isEmpty()) {
+			if (!isLocked(newSignal) && getItemHandler().getStack(newSignal).isEmpty()) {
 				break;
 			}
 		}
 
 		if (newSignal != signal) {
 			signal = newSignal;
-			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
+			world.updateComparators(pos, getCachedState().getBlock());
 		}
 	}
 
@@ -108,34 +108,34 @@ public class TileCraftCrate extends TileOpenCrate {
 			return false;
 		}
 
-		CraftingInventory craft = new CraftingInventory(new Container(ContainerType.CRAFTING, -1) {
+		CraftingInventory craft = new CraftingInventory(new ScreenHandler(ScreenHandlerType.CRAFTING, -1) {
 			@Override
-			public boolean canInteractWith(@Nonnull PlayerEntity player) {
+			public boolean canUse(@Nonnull PlayerEntity player) {
 				return false;
 			}
 		}, 3, 3);
-		for (int i = 0; i < craft.getSizeInventory(); i++) {
-			ItemStack stack = getItemHandler().getStackInSlot(i);
+		for (int i = 0; i < craft.size(); i++) {
+			ItemStack stack = getItemHandler().getStack(i);
 
 			if (stack.isEmpty() || isLocked(i) || stack.getItem() == ModItems.placeholder) {
 				continue;
 			}
 
-			craft.setInventorySlotContents(i, stack);
+			craft.setStack(i, stack);
 		}
 
-		Optional<ICraftingRecipe> matchingRecipe = world.getRecipeManager().getRecipe(IRecipeType.CRAFTING, craft, world);
+		Optional<CraftingRecipe> matchingRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, craft, world);
 		matchingRecipe.ifPresent(recipe -> {
-			craftResult = recipe.getCraftingResult(craft);
+			craftResult = recipe.craft(craft);
 
-			List<ItemStack> remainders = recipe.getRemainingItems(craft);
-			for (int i = 0; i < craft.getSizeInventory(); i++) {
+			List<ItemStack> remainders = recipe.getRemainingStacks(craft);
+			for (int i = 0; i < craft.size(); i++) {
 				ItemStack s = remainders.get(i);
-				if (!getItemHandler().getStackInSlot(i).isEmpty()
-						&& getItemHandler().getStackInSlot(i).getItem() == ModItems.placeholder) {
+				if (!getItemHandler().getStack(i).isEmpty()
+						&& getItemHandler().getStack(i).getItem() == ModItems.placeholder) {
 					continue;
 				}
-				getItemHandler().setInventorySlotContents(i, s);
+				getItemHandler().setStack(i, s);
 			}
 		});
 
@@ -143,8 +143,8 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	boolean isFull() {
-		for (int i = 0; i < getItemHandler().getSizeInventory(); i++) {
-			if (!isLocked(i) && getItemHandler().getStackInSlot(i).isEmpty()) {
+		for (int i = 0; i < getItemHandler().size(); i++) {
+			if (!isLocked(i) && getItemHandler().getStack(i).isEmpty()) {
 				return false;
 			}
 		}
@@ -154,11 +154,11 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	private void ejectAll() {
 		for (int i = 0; i < inventorySize(); ++i) {
-			ItemStack stack = getItemHandler().getStackInSlot(i);
+			ItemStack stack = getItemHandler().getStack(i);
 			if (!stack.isEmpty()) {
 				eject(stack, false);
 			}
-			getItemHandler().setInventorySlotContents(i, ItemStack.EMPTY);
+			getItemHandler().setStack(i, ItemStack.EMPTY);
 		}
 		if (!craftResult.isEmpty()) {
 			eject(craftResult, false);
@@ -168,7 +168,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	@Override
 	public boolean onWanded(World world, PlayerEntity player, ItemStack stack) {
-		if (!world.isRemote && canEject()) {
+		if (!world.isClient && canEject()) {
 			craft(false);
 			ejectAll();
 		}
@@ -178,7 +178,7 @@ public class TileCraftCrate extends TileOpenCrate {
 	@Override
 	public void markDirty() {
 		super.markDirty();
-		if (world != null && !world.isRemote) {
+		if (world != null && !world.isClient) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 	}

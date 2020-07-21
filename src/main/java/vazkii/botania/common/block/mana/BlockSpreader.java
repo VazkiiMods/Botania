@@ -9,26 +9,27 @@
 package vazkii.botania.common.block.mana;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.matrix.MatrixStack;
-
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.client.Minecraft;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -48,8 +49,8 @@ import javax.annotation.Nullable;
 
 import java.util.List;
 
-public class BlockSpreader extends BlockModWaterloggable implements ITileEntityProvider, IWandable, IWandHUD, IWireframeAABBProvider {
-	private static final VoxelShape RENDER_SHAPE = makeCuboidShape(1, 1, 1, 15, 15, 15);
+public class BlockSpreader extends BlockModWaterloggable implements BlockEntityProvider, IWandable, IWandHUD, IWireframeAABBProvider {
+	private static final VoxelShape RENDER_SHAPE = createCuboidShape(1, 1, 1, 15, 15, 15);
 
 	public enum Variant {
 		MANA(160, 1000, 0x20FF20, 0x00FF00, 60, 4f, 1f),
@@ -78,21 +79,21 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 
 	public final Variant variant;
 
-	public BlockSpreader(Variant v, Properties builder) {
+	public BlockSpreader(Variant v, Settings builder) {
 		super(builder);
 		this.variant = v;
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getRenderShape(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos) {
+	public VoxelShape getCullingShape(BlockState state, @Nonnull BlockView world, @Nonnull BlockPos pos) {
 		return RENDER_SHAPE;
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-		Direction orientation = placer == null ? Direction.WEST : Direction.getFacingDirections(placer)[0].getOpposite();
-		TileSpreader spreader = (TileSpreader) world.getTileEntity(pos);
+	public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+		Direction orientation = placer == null ? Direction.WEST : Direction.getEntityFacingOrder(placer)[0].getOpposite();
+		TileSpreader spreader = (TileSpreader) world.getBlockEntity(pos);
 
 		switch (orientation) {
 		case DOWN:
@@ -122,56 +123,56 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 	}
 
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		TileEntity tile = world.getTileEntity(pos);
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		BlockEntity tile = world.getBlockEntity(pos);
 		if (!(tile instanceof TileSpreader)) {
-			return ActionResultType.PASS;
+			return ActionResult.PASS;
 		}
 
 		TileSpreader spreader = (TileSpreader) tile;
-		ItemStack lens = spreader.getItemHandler().getStackInSlot(0);
-		ItemStack heldItem = player.getHeldItem(hand);
+		ItemStack lens = spreader.getItemHandler().getStack(0);
+		ItemStack heldItem = player.getStackInHand(hand);
 		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
 		boolean wool = !heldItem.isEmpty() && ColorHelper.WOOL_MAP.containsValue(Block.getBlockFromItem(heldItem.getItem()).delegate);
 
 		if (!heldItem.isEmpty()) {
 			if (heldItem.getItem() == ModItems.twigWand) {
-				return ActionResultType.PASS;
+				return ActionResult.PASS;
 			}
 		}
 
 		if (lens.isEmpty() && isHeldItemLens) {
-			if (!player.abilities.isCreativeMode) {
-				player.setHeldItem(hand, ItemStack.EMPTY);
+			if (!player.abilities.creativeMode) {
+				player.setStackInHand(hand, ItemStack.EMPTY);
 			}
 
-			spreader.getItemHandler().setInventorySlotContents(0, heldItem.copy());
+			spreader.getItemHandler().setStack(0, heldItem.copy());
 		} else if (!lens.isEmpty() && !wool) {
-			player.inventory.placeItemBackInInventory(player.world, lens);
-			spreader.getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
+			player.inventory.offerOrDrop(player.world, lens);
+			spreader.getItemHandler().setStack(0, ItemStack.EMPTY);
 		}
 
 		if (wool && spreader.paddingColor == null) {
 			Block block = Block.getBlockFromItem(heldItem.getItem());
 			spreader.paddingColor = ColorHelper.WOOL_MAP.inverse().get(block.delegate);
-			heldItem.shrink(1);
+			heldItem.decrement(1);
 			if (heldItem.isEmpty()) {
-				player.setHeldItem(hand, ItemStack.EMPTY);
+				player.setStackInHand(hand, ItemStack.EMPTY);
 			}
 		} else if (heldItem.isEmpty() && spreader.paddingColor != null && lens.isEmpty()) {
 			ItemStack pad = new ItemStack(ColorHelper.WOOL_MAP.get(spreader.paddingColor).get());
-			player.inventory.placeItemBackInInventory(player.world, pad);
+			player.inventory.offerOrDrop(player.world, pad);
 			spreader.paddingColor = null;
 			spreader.markDirty();
 		}
 
-		return ActionResultType.SUCCESS;
+		return ActionResult.SUCCESS;
 	}
 
 	@Override
-	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+	public void onStateReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
-			TileEntity tile = world.getTileEntity(pos);
+			BlockEntity tile = world.getBlockEntity(pos);
 			if (!(tile instanceof TileSpreader)) {
 				return;
 			}
@@ -180,35 +181,35 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 
 			if (inv.paddingColor != null) {
 				ItemStack padding = new ItemStack(ColorHelper.WOOL_MAP.get(inv.paddingColor).get());
-				world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), padding));
+				world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), padding));
 			}
 
 			InventoryHelper.dropInventory(inv, world, state, pos);
 
-			super.onReplaced(state, world, pos, newState, isMoving);
+			super.onStateReplaced(state, world, pos, newState, isMoving);
 		}
 	}
 
 	@Override
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
-		((TileSpreader) world.getTileEntity(pos)).onWanded(player, stack);
+		((TileSpreader) world.getBlockEntity(pos)).onWanded(player, stack);
 		return true;
 	}
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TileSpreader();
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
-		((TileSpreader) world.getTileEntity(pos)).renderHUD(ms, mc);
+	public void renderHUD(MatrixStack ms, MinecraftClient mc, World world, BlockPos pos) {
+		((TileSpreader) world.getBlockEntity(pos)).renderHUD(ms, mc);
 	}
 
 	@Override
-	public List<AxisAlignedBB> getWireframeAABB(World world, BlockPos pos) {
-		return ImmutableList.of(new AxisAlignedBB(pos).shrink(1.0 / 16.0));
+	public List<Box> getWireframeAABB(World world, BlockPos pos) {
+		return ImmutableList.of(new Box(pos).contract(1.0 / 16.0));
 	}
 }

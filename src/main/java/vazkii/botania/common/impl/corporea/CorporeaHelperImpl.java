@@ -9,14 +9,13 @@
 package vazkii.botania.common.impl.corporea;
 
 import com.google.common.base.Predicates;
-
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -135,8 +134,8 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 			ICorporeaSpark invSpark = inv.getSpark();
 
 			InvWithLocation originalInventory = inv.getWrappedObject();
-			if (originalInventory.getWorld().getTileEntity(originalInventory.getPos()) instanceof ICorporeaInterceptor) {
-				ICorporeaInterceptor interceptor = (ICorporeaInterceptor) originalInventory.getWorld().getTileEntity(originalInventory.getPos());
+			if (originalInventory.getWorld().getBlockEntity(originalInventory.getPos()) instanceof ICorporeaInterceptor) {
+				ICorporeaInterceptor interceptor = (ICorporeaInterceptor) originalInventory.getWorld().getBlockEntity(originalInventory.getPos());
 				interceptor.interceptRequest(matcher, itemCount, invSpark, spark, stacks, inventories, doit);
 				interceptors.put(interceptor, invSpark);
 			}
@@ -157,13 +156,13 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 
 	@Override
 	public ICorporeaSpark getSparkForInventory(InvWithLocation inv) {
-		TileEntity tile = inv.getWorld().getTileEntity(inv.getPos());
+		BlockEntity tile = inv.getWorld().getBlockEntity(inv.getPos());
 		return getSparkForBlock(tile.getWorld(), tile.getPos());
 	}
 
 	@Override
 	public ICorporeaSpark getSparkForBlock(World world, BlockPos pos) {
-		List<Entity> sparks = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up(), pos.add(1, 2, 1)), Predicates.instanceOf(ICorporeaSpark.class));
+		List<Entity> sparks = world.getEntities(Entity.class, new Box(pos.up(), pos.add(1, 2, 1)), Predicates.instanceOf(ICorporeaSpark.class));
 		return sparks.isEmpty() ? null : (ICorporeaSpark) sparks.get(0);
 	}
 
@@ -179,7 +178,7 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 	}
 
 	@Override
-	public <T extends ICorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundNBT, T> deserializer) {
+	public <T extends ICorporeaRequestMatcher> void registerRequestMatcher(Identifier id, Class<T> clazz, Function<CompoundTag, T> deserializer) {
 		TileCorporeaRetainer.addCorporeaRequestMatcher(id, clazz, deserializer);
 	}
 

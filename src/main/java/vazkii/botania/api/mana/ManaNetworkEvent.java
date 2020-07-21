@@ -8,38 +8,38 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.Event;
 
 public class ManaNetworkEvent extends Event {
 
-	public final TileEntity tile;
+	public final BlockEntity tile;
 	public final ManaBlockType type;
 	public final Action action;
 
-	public ManaNetworkEvent(TileEntity tile, ManaBlockType type, Action action) {
+	public ManaNetworkEvent(BlockEntity tile, ManaBlockType type, Action action) {
 		this.tile = tile;
 		this.type = type;
 		this.action = action;
 	}
 
-	public static void addCollector(TileEntity tile) {
+	public static void addCollector(BlockEntity tile) {
 		ManaNetworkEvent event = new ManaNetworkEvent(tile, ManaBlockType.COLLECTOR, Action.ADD);
 		MinecraftForge.EVENT_BUS.post(event);
 	}
 
-	public static void removeCollector(TileEntity tile) {
+	public static void removeCollector(BlockEntity tile) {
 		ManaNetworkEvent event = new ManaNetworkEvent(tile, ManaBlockType.COLLECTOR, Action.REMOVE);
 		MinecraftForge.EVENT_BUS.post(event);
 	}
 
-	public static void addPool(TileEntity tile) {
+	public static void addPool(BlockEntity tile) {
 		ManaNetworkEvent event = new ManaNetworkEvent(tile, ManaBlockType.POOL, Action.ADD);
 		MinecraftForge.EVENT_BUS.post(event);
 	}
 
-	public static void removePool(TileEntity tile) {
+	public static void removePool(BlockEntity tile) {
 		ManaNetworkEvent event = new ManaNetworkEvent(tile, ManaBlockType.POOL, Action.REMOVE);
 		MinecraftForge.EVENT_BUS.post(event);
 	}

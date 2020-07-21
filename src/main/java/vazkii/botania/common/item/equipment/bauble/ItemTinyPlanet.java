@@ -9,18 +9,19 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.base.Predicates;
-import com.mojang.blaze3d.matrix.MatrixStack;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -36,32 +37,32 @@ public class ItemTinyPlanet extends ItemBauble {
 
 	public static final String TAG_ORBIT = "orbit";
 
-	public ItemTinyPlanet(Properties props) {
+	public ItemTinyPlanet(Settings props) {
 		super(props);
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		double x = player.getPosX();
-		double y = player.getPosY() + player.getEyeHeight();
-		double z = player.getPosZ();
+		double x = player.getX();
+		double y = player.getY() + player.getStandingEyeHeight();
+		double z = player.getZ();
 
 		applyEffect(player.world, x, y, z);
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		bipedModel.bipedHead.translateRotate(ms);
+	@Environment(EnvType.CLIENT)
+	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity living, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		bipedModel.head.rotate(ms);
 		ms.translate(-0.25, -0.4, 0);
 		ms.scale(0.5F, -0.5F, -0.5F);
-		Minecraft.getInstance().getBlockRendererDispatcher().renderBlock(ModBlocks.tinyPlanet.getDefaultState(), ms, buffers, light, OverlayTexture.NO_OVERLAY);
+		MinecraftClient.getInstance().getBlockRenderManager().renderBlockAsEntity(ModBlocks.tinyPlanet.getDefaultState(), ms, buffers, light, OverlayTexture.DEFAULT_UV);
 	}
 
 	public static void applyEffect(World world, double x, double y, double z) {
 		int range = 8;
-		List<ThrowableEntity> entities = world.getEntitiesWithinAABB(ThrowableEntity.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range), Predicates.instanceOf(IManaBurst.class));
-		for (ThrowableEntity entity : entities) {
+		List<ThrownEntity> entities = world.getEntities(ThrownEntity.class, new Box(x - range, y - range, z - range, x + range, y + range, z + range), Predicates.instanceOf(IManaBurst.class));
+		for (ThrownEntity entity : entities) {
 			IManaBurst burst = (IManaBurst) entity;
 			ItemStack lens = burst.getSourceLens();
 			if (lens != null && lens.getItem() instanceof ITinyPlanetExcempt && !((ITinyPlanetExcempt) lens.getItem()).shouldPull(lens)) {
@@ -81,7 +82,7 @@ public class ItemTinyPlanet extends ItemBauble {
 			float zTarget = (float) (z + Math.sin(angle * 10 * Math.PI / 180F) * radius);
 
 			Vector3 targetVec = new Vector3(xTarget, yTarget, zTarget);
-			Vector3 currentVec = new Vector3(entity.getPosX(), entity.getPosY(), entity.getPosZ());
+			Vector3 currentVec = new Vector3(entity.getX(), entity.getY(), entity.getZ());
 			Vector3 moveVector = targetVec.subtract(currentVec);
 
 			burst.setBurstMotion(moveVector.x, moveVector.y, moveVector.z);
@@ -91,7 +92,7 @@ public class ItemTinyPlanet extends ItemBauble {
 	}
 
 	public static int getEntityOrbitTime(Entity entity) {
-		CompoundNBT cmp = entity.getPersistentData();
+		CompoundTag cmp = entity.getPersistentData();
 		if (cmp.contains(TAG_ORBIT)) {
 			return cmp.getInt(TAG_ORBIT);
 		} else {
@@ -100,7 +101,7 @@ public class ItemTinyPlanet extends ItemBauble {
 	}
 
 	public static void incrementOrbitTime(Entity entity) {
-		CompoundNBT cmp = entity.getPersistentData();
+		CompoundTag cmp = entity.getPersistentData();
 		int time = getEntityOrbitTime(entity);
 		cmp.putInt(TAG_ORBIT, time + 1);
 	}

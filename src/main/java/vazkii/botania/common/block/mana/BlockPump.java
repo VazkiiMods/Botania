@@ -9,17 +9,17 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
@@ -27,32 +27,32 @@ import vazkii.botania.common.block.tile.mana.TilePump;
 
 import javax.annotation.Nonnull;
 
-public class BlockPump extends BlockModWaterloggable implements ITileEntityProvider {
+public class BlockPump extends BlockModWaterloggable implements BlockEntityProvider {
 
-	private static final VoxelShape X_SHAPE = makeCuboidShape(0, 0, 4, 16, 8, 12);
-	private static final VoxelShape Z_SHAPE = makeCuboidShape(4, 0, 0, 12, 8, 16);
+	private static final VoxelShape X_SHAPE = createCuboidShape(0, 0, 4, 16, 8, 12);
+	private static final VoxelShape Z_SHAPE = createCuboidShape(4, 0, 0, 12, 8, 16);
 
-	public BlockPump(Properties builder) {
+	public BlockPump(Settings builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
+		setDefaultState(getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.SOUTH));
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		super.fillStateContainer(builder);
-		builder.add(BlockStateProperties.HORIZONTAL_FACING);
-	}
-
-	@Nonnull
-	@Override
-	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		return super.getStateForPlacement(context).with(BlockStateProperties.HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		super.appendProperties(builder);
+		builder.add(Properties.HORIZONTAL_FACING);
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
-		if (state.get(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
+	public BlockState getPlacementState(ItemPlacementContext context) {
+		return super.getPlacementState(context).with(Properties.HORIZONTAL_FACING, context.getPlayerFacing().getOpposite());
+	}
+
+	@Nonnull
+	@Override
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
+		if (state.get(Properties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
 			return X_SHAPE;
 		} else {
 			return Z_SHAPE;
@@ -60,18 +60,18 @@ public class BlockPump extends BlockModWaterloggable implements ITileEntityProvi
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride(BlockState state) {
+	public boolean hasComparatorOutput(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
-		return ((TilePump) world.getTileEntity(pos)).comparator;
+	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+		return ((TilePump) world.getBlockEntity(pos)).comparator;
 	}
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TilePump();
 	}
 }

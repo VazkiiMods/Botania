@@ -15,7 +15,7 @@ import vazkii.botania.api.recipe.ICustomApothecaryColor;
 
 public class ItemRune extends Item implements ICustomApothecaryColor {
 
-	public ItemRune(Item.Properties builder) {
+	public ItemRune(Item.Settings builder) {
 		super(builder);
 	}
 

@@ -8,31 +8,31 @@
  */
 package vazkii.botania.client.render.tile;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Atlases;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Direction.Axis;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.state.property.Properties;
+import net.minecraft.text.LiteralText;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Direction.Axis;
 import net.minecraftforge.common.MinecraftForge;
 
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
@@ -52,16 +52,16 @@ import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TINY_POTATO);
-	private static final ResourceLocation textureGrayscale = new ResourceLocation(LibResources.MODEL_TINY_POTATO_GS);
-	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_TINY_POTATO_HALLOWEEN);
-	private final ModelRenderer potatoModel = new ModelRenderer(16, 16, 0, 0);
+public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
+	private static final Identifier texture = new Identifier(LibResources.MODEL_TINY_POTATO);
+	private static final Identifier textureGrayscale = new Identifier(LibResources.MODEL_TINY_POTATO_GS);
+	private static final Identifier textureHalloween = new Identifier(LibResources.MODEL_TINY_POTATO_HALLOWEEN);
+	private final ModelPart potatoModel = new ModelPart(16, 16, 0, 0);
 
-	public RenderTileTinyPotato(TileEntityRendererDispatcher manager) {
+	public RenderTileTinyPotato(BlockEntityRenderDispatcher manager) {
 		super(manager);
-		potatoModel.addBox(0F, 0F, 0F, 4, 6, 4);
-		potatoModel.setRotationPoint(-2F, 18F, -2F);
+		potatoModel.addCuboid(0F, 0F, 0F, 4, 6, 4);
+		potatoModel.setPivot(-2F, 18F, -2F);
 		potatoModel.setTextureSize(64, 32);
 	}
 
@@ -89,33 +89,33 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		}
 	}
 
-	private static RenderType getRenderLayer(@Nullable ShaderHelper.BotaniaShader shader, String name) {
-		RenderType base;
+	private static RenderLayer getRenderLayer(@Nullable ShaderHelper.BotaniaShader shader, String name) {
+		RenderLayer base;
 		if ("kyle hyde".equals(name)) {
-			base = RenderType.getEntitySolid(textureGrayscale);
+			base = RenderLayer.getEntitySolid(textureGrayscale);
 		} else if (ClientProxy.dootDoot) {
-			base = RenderType.getEntitySolid(textureHalloween);
+			base = RenderLayer.getEntitySolid(textureHalloween);
 		} else {
-			base = RenderType.getEntitySolid(texture);
+			base = RenderLayer.getEntitySolid(texture);
 		}
 		return shader == null || !ShaderHelper.useShaders() ? base : new ShaderWrappedRenderLayer(shader, null, base);
 
 	}
 
 	@Override
-	public void render(@Nonnull TileTinyPotato potato, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+	public void render(@Nonnull TileTinyPotato potato, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
 		ms.push();
 
 		String name = potato.name.getString().toLowerCase().trim();
 		Pair<ShaderHelper.BotaniaShader, String> shaderStrippedName = stripShaderName(name);
 		ShaderHelper.BotaniaShader shader = shaderStrippedName.getFirst();
 		name = shaderStrippedName.getSecond();
-		RenderType layer = getRenderLayer(shader, name);
+		RenderLayer layer = getRenderLayer(shader, name);
 
 		ms.translate(0.5F, 1.5F, 0.5F);
 		ms.scale(1F, -1F, -1F);
 
-		Direction potatoFacing = potato.getBlockState().get(BlockStateProperties.HORIZONTAL_FACING);
+		Direction potatoFacing = potato.getCachedState().get(Properties.HORIZONTAL_FACING);
 		float rotY = 0;
 		switch (potatoFacing) {
 		default:
@@ -131,7 +131,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 			rotY = 90F;
 			break;
 		}
-		ms.rotate(Vector3f.YP.rotationDegrees(rotY));
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(rotY));
 
 		float jump = potato.jumpTicks;
 		if (jump > 0) {
@@ -142,7 +142,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		float rotZ = (float) Math.sin(jump / 10 * Math.PI) * 2;
 
 		ms.translate(0F, up, 0F);
-		ms.rotate(Vector3f.ZP.rotationDegrees(rotZ));
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(rotZ));
 
 		ms.push();
 		float r = 1;
@@ -155,7 +155,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 			break;
 		case "dinnerbone":
 		case "grumm":
-			ms.rotate(Vector3f.ZP.rotationDegrees(180F));
+			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
 			ms.translate(0F, -2.625F, 0F);
 			break;
 		case "aureylian":
@@ -163,7 +163,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 			break;
 		}
 
-		IVertexBuilder buffer = buffers.getBuffer(layer);
+		VertexConsumer buffer = buffers.getBuffer(layer);
 		boolean render = !(name.equals("mami") || name.equals("soaryn") || name.equals("eloraam") && jump != 0);
 		if (render) {
 			potatoModel.render(ms, buffer, light, overlay, r, g, b, 1);
@@ -180,53 +180,53 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		MinecraftForge.EVENT_BUS.post(new TinyPotatoRenderEvent(potato, potato.name, partialTicks, ms, buffers, light, overlay));
 		ms.pop();
 
-		ms.rotate(Vector3f.ZP.rotationDegrees(-rotZ));
-		ms.rotate(Vector3f.YP.rotationDegrees(-rotY));
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(-rotZ));
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-rotY));
 		ms.scale(1F, -1F, -1F);
 
 		renderName(potato, name, ms, buffers, light);
 		ms.pop();
 	}
 
-	private void renderName(TileTinyPotato potato, String name, MatrixStack ms, IRenderTypeBuffer buffers, int light) {
-		Minecraft mc = Minecraft.getInstance();
-		RayTraceResult pos = mc.objectMouseOver;
-		if (!name.isEmpty() && pos != null && pos.getType() == RayTraceResult.Type.BLOCK
-				&& potato.getPos().equals(((BlockRayTraceResult) pos).getPos())) {
+	private void renderName(TileTinyPotato potato, String name, MatrixStack ms, VertexConsumerProvider buffers, int light) {
+		MinecraftClient mc = MinecraftClient.getInstance();
+		HitResult pos = mc.crosshairTarget;
+		if (!name.isEmpty() && pos != null && pos.getType() == HitResult.Type.BLOCK
+				&& potato.getPos().equals(((BlockHitResult) pos).getBlockPos())) {
 			ms.push();
 			ms.translate(0F, -0.6F, 0F);
-			ms.rotate(mc.getRenderManager().getCameraOrientation());
+			ms.multiply(mc.getEntityRenderManager().getRotation());
 			float f1 = 0.016666668F * 1.6F;
 			ms.scale(-f1, -f1, f1);
 			ms.translate(0.0F, 0F / f1, 0.0F);
-			int halfWidth = mc.fontRenderer.getStringWidth(potato.name.getString()) / 2;
+			int halfWidth = mc.textRenderer.getWidth(potato.name.getString()) / 2;
 
-			float opacity = Minecraft.getInstance().gameSettings.getTextBackgroundOpacity(0.25F);
+			float opacity = MinecraftClient.getInstance().options.getTextBackgroundOpacity(0.25F);
 			int opacityRGB = (int) (opacity * 255.0F) << 24;
-			mc.fontRenderer.func_238416_a_(potato.name, -halfWidth, 0, 0x20FFFFFF, false, ms.getLast().getMatrix(), buffers, true, opacityRGB, light);
-			mc.fontRenderer.func_238416_a_(potato.name, -halfWidth, 0, 0xFFFFFFFF, false, ms.getLast().getMatrix(), buffers, false, 0, light);
+			mc.textRenderer.draw(potato.name, -halfWidth, 0, 0x20FFFFFF, false, ms.peek().getModel(), buffers, true, opacityRGB, light);
+			mc.textRenderer.draw(potato.name, -halfWidth, 0, 0xFFFFFFFF, false, ms.peek().getModel(), buffers, false, 0, light);
 			if (name.equals("pahimar") || name.equals("soaryn")) {
 				ms.translate(0F, 14F, 0F);
 				String str = name.equals("pahimar") ? "[WIP]" : "(soon)";
-				halfWidth = mc.fontRenderer.getStringWidth(str) / 2;
+				halfWidth = mc.textRenderer.getWidth(str) / 2;
 
-				mc.fontRenderer.renderString(str, -halfWidth, 0, 0x20FFFFFF, false, ms.getLast().getMatrix(), buffers, true, opacityRGB, light);
-				mc.fontRenderer.renderString(str, -halfWidth, 0, 0xFFFFFFFF, false, ms.getLast().getMatrix(), buffers, true, 0, light);
+				mc.textRenderer.draw(str, -halfWidth, 0, 0x20FFFFFF, false, ms.peek().getModel(), buffers, true, opacityRGB, light);
+				mc.textRenderer.draw(str, -halfWidth, 0, 0xFFFFFFFF, false, ms.peek().getModel(), buffers, true, 0, light);
 			}
 
 			ms.pop();
 		}
 	}
 
-	private void renderItems(TileTinyPotato potato, Direction facing, String name, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+	private void renderItems(TileTinyPotato potato, Direction facing, String name, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
 		ms.push();
-		ms.rotate(Vector3f.ZP.rotationDegrees(180F));
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
 		ms.translate(0F, -1F, 0F);
 		float s = 1F / 3.5F;
 		ms.scale(s, s, s);
 
 		for (int i = 0; i < potato.inventorySize(); i++) {
-			ItemStack stack = potato.getItemHandler().getStackInSlot(i);
+			ItemStack stack = potato.getItemHandler().getStack(i);
 			if (stack.isEmpty()) {
 				continue;
 			}
@@ -234,8 +234,8 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 			ms.push();
 			Direction side = Direction.values()[i];
 			if (side.getAxis() != Axis.Y) {
-				float sideAngle = side.getHorizontalAngle() - facing.getHorizontalAngle();
-				side = Direction.fromAngle(sideAngle);
+				float sideAngle = side.asRotation() - facing.asRotation();
+				side = Direction.fromRotation(sideAngle);
 			}
 
 			boolean block = stack.getItem() instanceof BlockItem;
@@ -280,7 +280,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 				} else if (block) {
 					ms.translate(-0.4F, 0.8F, 0F);
 				} else {
-					ms.rotate(Vector3f.YP.rotationDegrees(-90F));
+					ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
 				}
 				ms.translate(-0.3F, -1.9F, 0.04F);
 				break;
@@ -290,7 +290,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 				} else if (block) {
 					ms.translate(1F, 0.8F, 1F);
 				} else {
-					ms.rotate(Vector3f.YP.rotationDegrees(-90F));
+					ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
 				}
 				ms.translate(-0.3F, -1.9F, -0.92F);
 				break;
@@ -302,7 +302,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 				ms.scale(0.5F, 0.5F, 0.5F);
 			}
 			if (block && side == Direction.NORTH) {
-				ms.rotate(Vector3f.YP.rotationDegrees(180F));
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F));
 			}
 			renderItem(ms, buffers, light, overlay, stack);
 			ms.pop();
@@ -319,39 +319,39 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 			if (name.equals("phi") || name.equals("vazkii")) {
 				ms.push();
 				ms.translate(-0.15, 0.1, 0.4);
-				ms.rotate(Vector3f.YP.rotationDegrees(90F));
-				ms.rotate(new Vector3f(1, 0, 1).rotationDegrees(20));
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
+				ms.multiply(new Vector3f(1, 0, 1).getDegreesQuaternion(20));
 				renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.phiFlowerModel);
 				ms.pop();
 
 				if (name.equals("vazkii")) {
 					ms.scale(1.25F, 1.25F, 1.25F);
-					ms.rotate(Vector3f.XP.rotationDegrees(180F));
-					ms.rotate(Vector3f.YP.rotationDegrees(-90F));
+					ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180F));
+					ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
 					ms.translate(0.2, -1.25, 0);
 					renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.nerfBatModel);
 				}
 			} else if (name.equals("haighyorkie")) {
 				ms.scale(1.25F, 1.25F, 1.25F);
-				ms.rotate(Vector3f.ZP.rotationDegrees(180F));
-				ms.rotate(Vector3f.YP.rotationDegrees(-90F));
+				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
 				ms.translate(-0.5F, -1.2F, -0.075F);
 				renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.goldfishModel);
 			} else if (name.equals("martysgames") || name.equals("marty")) {
 				ms.scale(0.7F, 0.7F, 0.7F);
-				ms.rotate(Vector3f.ZP.rotationDegrees(180F));
+				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
 				ms.translate(-0.3F, -2.7F, -1.2F);
-				ms.rotate(Vector3f.ZP.rotationDegrees(15F));
-				renderItem(ms, buffers, light, overlay, new ItemStack(ModItems.infiniteFruit, 1).setDisplayName(new StringTextComponent("das boot")));
+				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(15F));
+				renderItem(ms, buffers, light, overlay, new ItemStack(ModItems.infiniteFruit, 1).setCustomName(new LiteralText("das boot")));
 			} else if (name.equals("jibril")) {
 				ms.scale(1.5F, 1.5F, 1.5F);
 				ms.translate(0F, -0.8F, 0F);
-				ms.rotate(Vector3f.YP.rotationDegrees(90));
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90));
 				ItemFlightTiara.renderHalo(null, ms, buffers, partialTicks);
 			} else if (name.equals("kingdaddydmac")) {
 				ms.scale(0.5F, 0.5F, 0.5F);
-				ms.rotate(Vector3f.ZP.rotationDegrees(180));
-				ms.rotate(Vector3f.YP.rotationDegrees(90));
+				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90));
 				ms.push();
 				ms.translate(0F, -2.5F, 0.65F);
 				ItemStack ring = new ItemStack(ModItems.manaRing);
@@ -365,25 +365,25 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 			} else {
 				ItemStack icon = ContributorFancinessHandler.getFlower(name);
 				if (!icon.isEmpty()) {
-					ms.rotate(Vector3f.XP.rotationDegrees(180));
-					ms.rotate(Vector3f.YP.rotationDegrees(180));
+					ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
+					ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180));
 					ms.translate(0, -0.75, -0.5);
-					RenderHelper.renderItemModelGold(null, icon, ItemCameraTransforms.TransformType.HEAD, ms, buffers, null, light, overlay);
+					RenderHelper.renderItemModelGold(null, icon, ModelTransformation.Mode.HEAD, ms, buffers, null, light, overlay);
 				}
 			}
 		}
 		ms.pop();
 	}
 
-	private void renderModel(MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay, IBakedModel model) {
-		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffers.getBuffer(Atlases.getTranslucentCullBlockType()), null, model, 1, 1, 1, light, overlay);
+	private void renderModel(MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay, BakedModel model) {
+		MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer().render(ms.peek(), buffers.getBuffer(TexturedRenderLayers.getEntityTranslucentCull()), null, model, 1, 1, 1, light, overlay);
 	}
 
-	private void renderItem(MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay, ItemStack stack) {
-		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.HEAD, light, overlay, ms, buffers);
+	private void renderItem(MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay, ItemStack stack) {
+		MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.HEAD, light, overlay, ms, buffers);
 	}
 
-	private void renderBlock(MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay, Block block) {
-		Minecraft.getInstance().getBlockRendererDispatcher().renderBlock(block.getDefaultState(), ms, buffers, light, overlay);
+	private void renderBlock(MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay, Block block) {
+		MinecraftClient.getInstance().getBlockRenderManager().renderBlockAsEntity(block.getDefaultState(), ms, buffers, light, overlay);
 	}
 }

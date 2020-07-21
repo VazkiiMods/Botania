@@ -9,10 +9,10 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 
 import vazkii.botania.common.item.ItemKeepIvy;
@@ -23,16 +23,16 @@ public final class TooltipHandler {
 
 	public static void onTooltipEvent(ItemTooltipEvent event) {
 		if (ItemKeepIvy.hasIvy(event.getItemStack())) {
-			event.getToolTip().add(new TranslationTextComponent("botaniamisc.hasKeepIvy"));
+			event.getToolTip().add(new TranslatableText("botaniamisc.hasKeepIvy"));
 		}
 	}
 
-	public static ITextComponent getShiftInfoTooltip() {
-		ITextComponent shift = new StringTextComponent("SHIFT").func_240699_a_(TextFormatting.AQUA);
-		return new TranslationTextComponent("botaniamisc.shiftinfo", shift).func_240699_a_(TextFormatting.GRAY);
+	public static Text getShiftInfoTooltip() {
+		Text shift = new LiteralText("SHIFT").formatted(Formatting.AQUA);
+		return new TranslatableText("botaniamisc.shiftinfo", shift).formatted(Formatting.GRAY);
 	}
 
-	public static void addOnShift(List<ITextComponent> tooltip, Runnable lambda) {
+	public static void addOnShift(List<Text> tooltip, Runnable lambda) {
 		if (Screen.hasShiftDown()) {
 			lambda.run();
 		} else {

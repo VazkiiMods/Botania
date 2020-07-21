@@ -8,13 +8,15 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.crafting.CraftingHelper;
@@ -166,7 +168,7 @@ public final class ModItems {
 
 	public static final Item manaTablet = new ItemManaTablet(unstackable());
 	public static final Item manaGun = new ItemManaGun(unstackable().setNoRepair());
-	public static final Item manaCookie = new Item(defaultBuilder().food(new Food.Builder().hunger(0).saturation(0.1F).effect(new EffectInstance(Effects.SATURATION, 20, 0), 1).build()));
+	public static final Item manaCookie = new Item(defaultBuilder().food(new FoodComponent.Builder().hunger(0).saturationModifier(0.1F).statusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 20, 0), 1).build()));
 	public static final Item fertilizer = new ItemFertilizer(defaultBuilder());
 
 	public static final Item grassSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.GRASS, defaultBuilder());
@@ -186,21 +188,21 @@ public final class ModItems {
 	public static final Item snowHorn = new ItemHorn(unstackable());
 	public static final Item manaMirror = new ItemManaMirror(unstackable());
 	public static final Item manasteelHelm = new ItemManasteelHelm(unstackable());
-	public static final Item manasteelChest = new ItemManasteelArmor(EquipmentSlotType.CHEST, unstackable());
-	public static final Item manasteelLegs = new ItemManasteelArmor(EquipmentSlotType.LEGS, unstackable());
-	public static final Item manasteelBoots = new ItemManasteelArmor(EquipmentSlotType.FEET, unstackable());
+	public static final Item manasteelChest = new ItemManasteelArmor(EquipmentSlot.CHEST, unstackable());
+	public static final Item manasteelLegs = new ItemManasteelArmor(EquipmentSlot.LEGS, unstackable());
+	public static final Item manasteelBoots = new ItemManasteelArmor(EquipmentSlot.FEET, unstackable());
 	public static final Item manasteelPick = new ItemManasteelPick(unstackable());
 	public static final Item manasteelShovel = new ItemManasteelShovel(unstackable());
 	public static final Item manasteelAxe = new ItemManasteelAxe(unstackable());
 	public static final Item manasteelSword = new ItemManasteelSword(unstackable());
 	public static final Item manasteelShears = new ItemManasteelShears(unstackable());
-	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable().func_234689_a_());
-	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlotType.CHEST, unstackable().func_234689_a_());
-	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlotType.LEGS, unstackable().func_234689_a_());
-	public static final Item terrasteelBoots = new ItemTerrasteelArmor(EquipmentSlotType.FEET, unstackable().func_234689_a_());
-	public static final Item terraSword = new ItemTerraSword(unstackable().func_234689_a_());
-	public static final Item terraPick = new ItemTerraPick(unstackable().func_234689_a_());
-	public static final Item terraAxe = new ItemTerraAxe(unstackable().func_234689_a_());
+	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable().fireproof());
+	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlot.CHEST, unstackable().fireproof());
+	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlot.LEGS, unstackable().fireproof());
+	public static final Item terrasteelBoots = new ItemTerrasteelArmor(EquipmentSlot.FEET, unstackable().fireproof());
+	public static final Item terraSword = new ItemTerraSword(unstackable().fireproof());
+	public static final Item terraPick = new ItemTerraPick(unstackable().fireproof());
+	public static final Item terraAxe = new ItemTerraAxe(unstackable().fireproof());
 	public static final Item tinyPlanet = new ItemTinyPlanet(unstackable());
 	public static final Item manaRing = new ItemManaRing(unstackable());
 	public static final Item auraRing = new ItemAuraRing(unstackable());
@@ -215,7 +217,7 @@ public final class ModItems {
 	public static final Item miningRing = new ItemMiningRing(unstackable());
 	public static final Item divaCharm = new ItemDivaCharm(unstackable());
 	public static final Item flightTiara = new ItemFlightTiara(unstackable());
-	public static final Item enderDagger = new ItemEnderDagger(unstackable().defaultMaxDamage(69).setNoRepair()); // What you looking at?
+	public static final Item enderDagger = new ItemEnderDagger(unstackable().maxDamageIfAbsent(69).setNoRepair()); // What you looking at?
 	public static final Item darkQuartz = new Item(defaultBuilder());
 	public static final Item manaQuartz = new Item(defaultBuilder());
 	public static final Item blazeQuartz = new Item(defaultBuilder());
@@ -276,9 +278,9 @@ public final class ModItems {
 	public static final Item cobbleRod = new ItemCobbleRod(unstackable());
 	public static final Item smeltRod = new ItemSmeltRod(unstackable());
 	public static final Item worldSeed = new ItemWorldSeed(defaultBuilder());
-	public static final Item spellCloth = new ItemSpellCloth(unstackable().defaultMaxDamage(35).setNoRepair());
-	public static final Item thornChakram = new ItemThornChakram(defaultBuilder().maxStackSize(6));
-	public static final Item flareChakram = new ItemThornChakram(defaultBuilder().maxStackSize(6));
+	public static final Item spellCloth = new ItemSpellCloth(unstackable().maxDamageIfAbsent(35).setNoRepair());
+	public static final Item thornChakram = new ItemThornChakram(defaultBuilder().maxCount(6));
+	public static final Item flareChakram = new ItemThornChakram(defaultBuilder().maxCount(6));
 	public static final Item overgrowthSeed = new ItemOvergrowthSeed(defaultBuilder());
 	public static final Item craftPattern1_1 = new ItemCraftPattern(CratePattern.CRAFTY_1_1, unstackable());
 	public static final Item craftPattern2_2 = new ItemCraftPattern(CratePattern.CRAFTY_2_2, unstackable());
@@ -297,8 +299,8 @@ public final class ModItems {
 	public static final Item ancientWillKaril = new ItemAncientWill(IAncientWillContainer.AncientWillType.KARIL, unstackable());
 	public static final Item corporeaSpark = new ItemCorporeaSpark(defaultBuilder());
 	public static final Item corporeaSparkMaster = new ItemCorporeaSpark(defaultBuilder());
-	public static final Item livingwoodBow = new ItemLivingwoodBow(defaultBuilder().defaultMaxDamage(500));
-	public static final Item crystalBow = new ItemCrystalBow(defaultBuilder().defaultMaxDamage(500));
+	public static final Item livingwoodBow = new ItemLivingwoodBow(defaultBuilder().maxDamageIfAbsent(500));
+	public static final Item crystalBow = new ItemCrystalBow(defaultBuilder().maxDamageIfAbsent(500));
 
 	public static final Item blackBowtie = new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.BLACK_BOWTIE, unstackable());
 	public static final Item blackTie = new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.BLACK_TIE, unstackable());
@@ -339,13 +341,13 @@ public final class ModItems {
 	public static final Item phantomInk = new Item(defaultBuilder());
 	public static final Item poolMinecart = new ItemPoolMinecart(unstackable());
 	public static final Item pinkinator = new ItemPinkinator(unstackable());
-	public static final Item infiniteFruit = new ItemInfiniteFruit(unstackable().func_234689_a_());
-	public static final Item kingKey = new ItemKingKey(unstackable().func_234689_a_());
-	public static final Item flugelEye = new ItemFlugelEye(unstackable().func_234689_a_());
-	public static final Item thorRing = new ItemThorRing(unstackable().func_234689_a_());
-	public static final Item odinRing = new ItemOdinRing(unstackable().func_234689_a_());
-	public static final Item lokiRing = new ItemLokiRing(unstackable().func_234689_a_());
-	public static final Item dice = new ItemDice(unstackable().func_234689_a_());
+	public static final Item infiniteFruit = new ItemInfiniteFruit(unstackable().fireproof());
+	public static final Item kingKey = new ItemKingKey(unstackable().fireproof());
+	public static final Item flugelEye = new ItemFlugelEye(unstackable().fireproof());
+	public static final Item thorRing = new ItemThorRing(unstackable().fireproof());
+	public static final Item odinRing = new ItemOdinRing(unstackable().fireproof());
+	public static final Item lokiRing = new ItemLokiRing(unstackable().fireproof());
+	public static final Item dice = new ItemDice(unstackable().fireproof());
 	public static final Item keepIvy = new ItemKeepIvy(defaultBuilder());
 	public static final Item blackHoleTalisman = new ItemBlackHoleTalisman(unstackable());
 	public static final Item recordGaia1 = new ItemModRecord(1, ModSounds.gaiaMusic1, unstackable());
@@ -361,9 +363,9 @@ public final class ModItems {
 	public static final Item magnetRingGreater = new ItemMagnetRing(unstackable(), 16);
 	public static final Item thunderSword = new ItemThunderSword(unstackable());
 	public static final Item manaweaveHelm = new ItemManaweaveHelm(unstackable());
-	public static final Item manaweaveChest = new ItemManaweaveArmor(EquipmentSlotType.CHEST, unstackable());
-	public static final Item manaweaveLegs = new ItemManaweaveArmor(EquipmentSlotType.LEGS, unstackable());
-	public static final Item manaweaveBoots = new ItemManaweaveArmor(EquipmentSlotType.FEET, unstackable());
+	public static final Item manaweaveChest = new ItemManaweaveArmor(EquipmentSlot.CHEST, unstackable());
+	public static final Item manaweaveLegs = new ItemManaweaveArmor(EquipmentSlot.LEGS, unstackable());
+	public static final Item manaweaveBoots = new ItemManaweaveArmor(EquipmentSlot.FEET, unstackable());
 	public static final Item autocraftingHalo = new ItemAutocraftingHalo(unstackable());
 	public static final Item sextant = new ItemSextant(unstackable());
 	public static final Item speedUpBelt = new ItemSpeedUpBelt(unstackable());
@@ -376,15 +378,15 @@ public final class ModItems {
 	public static final Item astrolabe = new ItemAstrolabe(unstackable());
 	public static final Item goddessCharm = new ItemGoddessCharm(unstackable());
 
-	public static final ContainerType<ContainerFlowerBag> FLOWER_BAG_CONTAINER = IForgeContainerType.create(ContainerFlowerBag::fromNetwork);
-	public static final ContainerType<ContainerBaubleBox> BAUBLE_BOX_CONTAINER = IForgeContainerType.create(ContainerBaubleBox::fromNetwork);
+	public static final ScreenHandlerType<ContainerFlowerBag> FLOWER_BAG_CONTAINER = IForgeContainerType.create(ContainerFlowerBag::fromNetwork);
+	public static final ScreenHandlerType<ContainerBaubleBox> BAUBLE_BOX_CONTAINER = IForgeContainerType.create(ContainerBaubleBox::fromNetwork);
 
-	public static Item.Properties defaultBuilder() {
-		return new Item.Properties().group(BotaniaCreativeTab.INSTANCE);
+	public static Item.Settings defaultBuilder() {
+		return new Item.Settings().group(BotaniaCreativeTab.INSTANCE);
 	}
 
-	private static Item.Properties unstackable() {
-		return defaultBuilder().maxStackSize(1);
+	private static Item.Settings unstackable() {
+		return defaultBuilder().maxCount(1);
 	}
 
 	public static void registerItems(RegistryEvent.Register<Item> evt) {
@@ -681,8 +683,8 @@ public final class ModItems {
 		register(r, LibItemNames.GODDESS_CHARM, goddessCharm);
 	}
 
-	public static void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> evt) {
-		IForgeRegistry<IRecipeSerializer<?>> r = evt.getRegistry();
+	public static void registerRecipeSerializers(RegistryEvent.Register<RecipeSerializer<?>> evt) {
+		IForgeRegistry<RecipeSerializer<?>> r = evt.getRegistry();
 		register(r, "ancient_will_attach", AncientWillRecipe.SERIALIZER);
 		register(r, "armor_upgrade", ArmorUpgradeRecipe.SERIALIZER);
 		register(r, "banner_pattern_apply", BannerRecipe.SERIALIZER);
@@ -706,15 +708,15 @@ public final class ModItems {
 		CraftingHelper.register(prefix("fuzzy_nbt"), FuzzyNBTIngredient.SERIALIZER);
 	}
 
-	public static void registerContainers(RegistryEvent.Register<ContainerType<?>> evt) {
-		IForgeRegistry<ContainerType<?>> r = evt.getRegistry();
+	public static void registerContainers(RegistryEvent.Register<ScreenHandlerType<?>> evt) {
+		IForgeRegistry<ScreenHandlerType<?>> r = evt.getRegistry();
 
-		register(r, Registry.ITEM.getKey(flowerBag), FLOWER_BAG_CONTAINER);
-		register(r, Registry.ITEM.getKey(baubleBox), BAUBLE_BOX_CONTAINER);
+		register(r, Registry.ITEM.getId(flowerBag), FLOWER_BAG_CONTAINER);
+		register(r, Registry.ITEM.getId(baubleBox), BAUBLE_BOX_CONTAINER);
 
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
-			ScreenManager.registerFactory(FLOWER_BAG_CONTAINER, GuiFlowerBag::new);
-			ScreenManager.registerFactory(BAUBLE_BOX_CONTAINER, GuiBaubleBox::new);
+			HandledScreens.register(FLOWER_BAG_CONTAINER, GuiFlowerBag::new);
+			HandledScreens.register(BAUBLE_BOX_CONTAINER, GuiBaubleBox::new);
 		});
 	}
 

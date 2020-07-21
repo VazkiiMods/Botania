@@ -8,14 +8,16 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.item.ItemEntity;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -33,12 +35,12 @@ public class ItemBlackLotus extends Item implements IManaDissolvable {
 	private static final int MANA_PER = 8000;
 	private static final int MANA_PER_T2 = 100000;
 
-	public ItemBlackLotus(Properties props) {
+	public ItemBlackLotus(Settings props) {
 		super(props);
 	}
 
 	@Override
-	public boolean hasEffect(ItemStack stack) {
+	public boolean hasGlint(ItemStack stack) {
 		return stack.getItem() == ModItems.blackerLotus;
 	}
 
@@ -48,22 +50,22 @@ public class ItemBlackLotus extends Item implements IManaDissolvable {
 			return;
 		}
 
-		TileEntity tile = (TileEntity) pool;
+		BlockEntity tile = (BlockEntity) pool;
 		boolean t2 = stack.getItem() == ModItems.blackerLotus;
 
-		if (!item.world.isRemote) {
+		if (!item.world.isClient) {
 			pool.receiveMana(t2 ? MANA_PER_T2 : MANA_PER);
-			stack.shrink(1);
-			PacketHandler.sendToNearby(item.world, item, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.BLACK_LOTUS_DISSOLVE, item.getPosX(), tile.getPos().getY() + 0.5, item.getPosZ()));
+			stack.decrement(1);
+			PacketHandler.sendToNearby(item.world, item, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.BLACK_LOTUS_DISSOLVE, item.getX(), tile.getPos().getY() + 0.5, item.getZ()));
 		}
 
 		item.playSound(ModSounds.blackLotus, 0.5F, t2 ? 0.1F : 1F);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
-		list.add(new TranslationTextComponent("botaniamisc.lotusDesc").func_240699_a_(TextFormatting.GRAY));
+	public void appendTooltip(ItemStack stack, World world, List<Text> list, TooltipContext flags) {
+		list.add(new TranslatableText("botaniamisc.lotusDesc").formatted(Formatting.GRAY));
 	}
 
 }

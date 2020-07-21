@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.core.loot;
 
-import net.minecraft.loot.LootEntry;
 import net.minecraft.loot.LootPool;
-import net.minecraft.loot.TableLootEntry;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.loot.entry.LootPoolEntry;
+import net.minecraft.loot.entry.LootTableEntry;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.event.LootTableLoadEvent;
 
 import vazkii.botania.common.lib.LibMisc;
@@ -44,15 +44,15 @@ public final class LootHandler {
 
 	public static LootPool getInjectPool(String entryName) {
 		return LootPool.builder()
-				.addEntry(getInjectEntry(entryName, 1))
+				.with(getInjectEntry(entryName, 1))
 				.bonusRolls(0, 1)
 				.name("botania_inject")
 				.build();
 	}
 
-	private static LootEntry.Builder<?> getInjectEntry(String name, int weight) {
-		ResourceLocation table = prefix("inject/" + name);
-		return TableLootEntry.builder(table)
+	private static LootPoolEntry.Builder<?> getInjectEntry(String name, int weight) {
+		Identifier table = prefix("inject/" + name);
+		return LootTableEntry.builder(table)
 				.weight(weight);
 	}
 

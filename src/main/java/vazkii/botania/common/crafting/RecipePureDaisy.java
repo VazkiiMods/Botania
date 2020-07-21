@@ -13,10 +13,10 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
@@ -32,7 +32,7 @@ public class RecipePureDaisy implements IPureDaisyRecipe {
 
 	public static final int DEFAULT_TIME = 150;
 
-	private final ResourceLocation id;
+	private final Identifier id;
 	private final StateIngredient input;
 	private final BlockState outputState;
 	private final int time;
@@ -45,7 +45,7 @@ public class RecipePureDaisy implements IPureDaisyRecipe {
 	 *              total time.
 	 *              The Pure Daisy only ticks one block at a time in a round robin fashion.
 	 */
-	public RecipePureDaisy(ResourceLocation id, StateIngredient input, BlockState state, int time) {
+	public RecipePureDaisy(Identifier id, StateIngredient input, BlockState state, int time) {
 		Preconditions.checkArgument(time >= 0, "Time must be nonnegative");
 		this.id = id;
 		this.input = input;
@@ -60,7 +60,7 @@ public class RecipePureDaisy implements IPureDaisyRecipe {
 
 	@Override
 	public boolean set(World world, BlockPos pos, TileEntitySpecialFlower pureDaisy) {
-		if (!world.isRemote) {
+		if (!world.isClient) {
 			world.setBlockState(pos, outputState);
 		}
 		return true;
@@ -82,37 +82,37 @@ public class RecipePureDaisy implements IPureDaisyRecipe {
 	}
 
 	@Override
-	public ResourceLocation getId() {
+	public Identifier getId() {
 		return id;
 	}
 
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return ModRecipeTypes.PURE_DAISY_SERIALIZER;
 	}
 
-	public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<RecipePureDaisy> {
+	public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<RecipePureDaisy> {
 		@Nonnull
 		@Override
-		public RecipePureDaisy read(@Nonnull ResourceLocation id, JsonObject object) {
-			StateIngredient input = StateIngredientHelper.deserialize(JSONUtils.getJsonObject(object, "input"));
-			BlockState output = StateIngredientHelper.readBlockState(JSONUtils.getJsonObject(object, "output"));
-			int time = JSONUtils.getInt(object, "time", DEFAULT_TIME);
+		public RecipePureDaisy read(@Nonnull Identifier id, JsonObject object) {
+			StateIngredient input = StateIngredientHelper.deserialize(JsonHelper.getObject(object, "input"));
+			BlockState output = StateIngredientHelper.readBlockState(JsonHelper.getObject(object, "output"));
+			int time = JsonHelper.getInt(object, "time", DEFAULT_TIME);
 			return new RecipePureDaisy(id, input, output, time);
 		}
 
 		@Override
-		public void write(@Nonnull PacketBuffer buf, RecipePureDaisy recipe) {
+		public void write(@Nonnull PacketByteBuf buf, RecipePureDaisy recipe) {
 			recipe.input.write(buf);
-			buf.writeVarInt(Block.getStateId(recipe.outputState));
+			buf.writeVarInt(Block.getRawIdFromState(recipe.outputState));
 			buf.writeVarInt(recipe.time);
 		}
 
 		@Nullable
 		@Override
-		public RecipePureDaisy read(@Nonnull ResourceLocation id, @Nonnull PacketBuffer buf) {
+		public RecipePureDaisy read(@Nonnull Identifier id, @Nonnull PacketByteBuf buf) {
 			StateIngredient input = StateIngredientHelper.read(buf);
-			BlockState output = Block.getStateById(buf.readVarInt());
+			BlockState output = Block.getStateFromRawId(buf.readVarInt());
 			int time = buf.readVarInt();
 			return new RecipePureDaisy(id, input, output, time);
 		}

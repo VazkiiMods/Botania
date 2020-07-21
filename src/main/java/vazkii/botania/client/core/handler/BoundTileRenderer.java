@@ -8,27 +8,25 @@
  */
 package vazkii.botania.client.core.handler;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Util;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.Matrix4f;
+import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
@@ -45,12 +43,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public final class BoundTileRenderer {
-	private static final IRenderTypeBuffer.Impl LINE_BUFFERS = IRenderTypeBuffer.getImpl(Util.make(() -> {
-		Map<RenderType, BufferBuilder> ret = new IdentityHashMap<>();
-		ret.put(RenderHelper.LINE_1_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_1_NO_DEPTH.getBufferSize()));
-		ret.put(RenderHelper.LINE_4_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_4_NO_DEPTH.getBufferSize()));
-		ret.put(RenderHelper.LINE_5_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_5_NO_DEPTH.getBufferSize()));
-		ret.put(RenderHelper.LINE_8_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_8_NO_DEPTH.getBufferSize()));
+	private static final VertexConsumerProvider.Immediate LINE_BUFFERS = VertexConsumerProvider.immediate(Util.make(() -> {
+		Map<RenderLayer, BufferBuilder> ret = new IdentityHashMap<>();
+		ret.put(RenderHelper.LINE_1_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_1_NO_DEPTH.getExpectedBufferSize()));
+		ret.put(RenderHelper.LINE_4_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_4_NO_DEPTH.getExpectedBufferSize()));
+		ret.put(RenderHelper.LINE_5_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_5_NO_DEPTH.getExpectedBufferSize()));
+		ret.put(RenderHelper.LINE_8_NO_DEPTH, new BufferBuilder(RenderHelper.LINE_8_NO_DEPTH.getExpectedBufferSize()));
 		return ret;
 	}), Tessellator.getInstance().getBuffer());
 
@@ -64,18 +62,18 @@ public final class BoundTileRenderer {
 		MatrixStack ms = event.getMatrixStack();
 		ms.push();
 
-		PlayerEntity player = Minecraft.getInstance().player;
-		int color = 0xFF000000 | MathHelper.hsvToRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
+		PlayerEntity player = MinecraftClient.getInstance().player;
+		int color = 0xFF000000 | MathHelper.hsvToRgb(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
-		if (!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() instanceof ICoordBoundItem) {
-			BlockPos coords = ((ICoordBoundItem) player.getHeldItemMainhand().getItem()).getBinding(player.getHeldItemMainhand());
+		if (!player.getMainHandStack().isEmpty() && player.getMainHandStack().getItem() instanceof ICoordBoundItem) {
+			BlockPos coords = ((ICoordBoundItem) player.getMainHandStack().getItem()).getBinding(player.getMainHandStack());
 			if (coords != null) {
 				renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);
 			}
 		}
 
-		if (!player.getHeldItemOffhand().isEmpty() && player.getHeldItemOffhand().getItem() instanceof ICoordBoundItem) {
-			BlockPos coords = ((ICoordBoundItem) player.getHeldItemOffhand().getItem()).getBinding(player.getHeldItemOffhand());
+		if (!player.getOffHandStack().isEmpty() && player.getOffHandStack().getItem() instanceof ICoordBoundItem) {
+			BlockPos coords = ((ICoordBoundItem) player.getOffHandStack().getItem()).getBinding(player.getOffHandStack());
 			if (coords != null) {
 				renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);
 			}
@@ -86,12 +84,12 @@ public final class BoundTileRenderer {
 
 		ms.pop();
 		RenderSystem.disableDepthTest();
-		LINE_BUFFERS.finish();
+		LINE_BUFFERS.draw();
 	}
 
-	private static void renderWireframeProviders(IInventory inv, PlayerEntity player, MatrixStack ms, int color) {
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stackInSlot = inv.getStackInSlot(i);
+	private static void renderWireframeProviders(Inventory inv, PlayerEntity player, MatrixStack ms, int color) {
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stackInSlot = inv.getStack(i);
 
 			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider) {
 				IWireframeCoordinateListProvider provider = (IWireframeCoordinateListProvider) stackInSlot.getItem();
@@ -108,52 +106,52 @@ public final class BoundTileRenderer {
 		}
 	}
 
-	private static void renderBlockOutlineAt(MatrixStack ms, IRenderTypeBuffer buffers, BlockPos pos, int color) {
+	private static void renderBlockOutlineAt(MatrixStack ms, VertexConsumerProvider buffers, BlockPos pos, int color) {
 		renderBlockOutlineAt(ms, buffers, pos, color, false);
 	}
 
-	private static void renderBlockOutlineAt(MatrixStack ms, IRenderTypeBuffer buffers, BlockPos pos, int color, boolean thick) {
-		double renderPosX = Minecraft.getInstance().getRenderManager().info.getProjectedView().getX();
-		double renderPosY = Minecraft.getInstance().getRenderManager().info.getProjectedView().getY();
-		double renderPosZ = Minecraft.getInstance().getRenderManager().info.getProjectedView().getZ();
+	private static void renderBlockOutlineAt(MatrixStack ms, VertexConsumerProvider buffers, BlockPos pos, int color, boolean thick) {
+		double renderPosX = MinecraftClient.getInstance().getEntityRenderManager().camera.getPos().getX();
+		double renderPosY = MinecraftClient.getInstance().getEntityRenderManager().camera.getPos().getY();
+		double renderPosZ = MinecraftClient.getInstance().getEntityRenderManager().camera.getPos().getZ();
 
 		ms.push();
 		ms.translate(pos.getX() - renderPosX, pos.getY() - renderPosY, pos.getZ() - renderPosZ + 1);
 
-		World world = Minecraft.getInstance().world;
+		World world = MinecraftClient.getInstance().world;
 		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
-		List<AxisAlignedBB> list;
+		List<Box> list;
 
 		if (block instanceof IWireframeAABBProvider) {
 			list = ((IWireframeAABBProvider) block).getWireframeAABB(world, pos);
 		} else {
-			VoxelShape shape = state.getShape(world, pos);
-			list = shape.toBoundingBoxList().stream().map(b -> b.offset(pos)).collect(Collectors.toList());
+			VoxelShape shape = state.getOutlineShape(world, pos);
+			list = shape.getBoundingBoxes().stream().map(b -> b.offset(pos)).collect(Collectors.toList());
 		}
 
 		if (!list.isEmpty()) {
 			ms.scale(1F, 1F, 1F);
 
-			IVertexBuilder buffer = buffers.getBuffer(thick ? RenderHelper.LINE_5_NO_DEPTH : RenderHelper.LINE_1_NO_DEPTH);
-			for (AxisAlignedBB axis : list) {
+			VertexConsumer buffer = buffers.getBuffer(thick ? RenderHelper.LINE_5_NO_DEPTH : RenderHelper.LINE_1_NO_DEPTH);
+			for (Box axis : list) {
 				axis = axis.offset(-pos.getX(), -pos.getY(), -(pos.getZ() + 1));
-				renderBlockOutline(ms.getLast().getMatrix(), buffer, axis, color);
+				renderBlockOutline(ms.peek().getModel(), buffer, axis, color);
 			}
 
 			buffer = buffers.getBuffer(thick ? RenderHelper.LINE_8_NO_DEPTH : RenderHelper.LINE_4_NO_DEPTH);
 			int alpha = 64;
 			color = (color & ~0xff000000) | (alpha << 24);
-			for (AxisAlignedBB axis : list) {
+			for (Box axis : list) {
 				axis = axis.offset(-pos.getX(), -pos.getY(), -(pos.getZ() + 1));
-				renderBlockOutline(ms.getLast().getMatrix(), buffer, axis, color);
+				renderBlockOutline(ms.peek().getModel(), buffer, axis, color);
 			}
 		}
 
 		ms.pop();
 	}
 
-	private static void renderBlockOutline(Matrix4f mat, IVertexBuilder buffer, AxisAlignedBB aabb, int color) {
+	private static void renderBlockOutline(Matrix4f mat, VertexConsumer buffer, Box aabb, int color) {
 		float ix = (float) aabb.minX;
 		float iy = (float) aabb.minY;
 		float iz = (float) aabb.minZ;
@@ -165,40 +163,40 @@ public final class BoundTileRenderer {
 		int g = (color >> 8) & 0xFF;
 		int b = color & 0xFF;
 
-		buffer.pos(mat, ix, iy, iz).color(r, g, b, a).endVertex();
-		buffer.pos(mat, ix, ay, iz).color(r, g, b, a).endVertex();
+		buffer.vertex(mat, ix, iy, iz).color(r, g, b, a).next();
+		buffer.vertex(mat, ix, ay, iz).color(r, g, b, a).next();
 
-		buffer.pos(mat, ix, ay, iz).color(r, g, b, a).endVertex();
-		buffer.pos(mat, ax, ay, iz).color(r, g, b, a).endVertex();
+		buffer.vertex(mat, ix, ay, iz).color(r, g, b, a).next();
+		buffer.vertex(mat, ax, ay, iz).color(r, g, b, a).next();
 
-		buffer.pos(mat, ax, ay, iz).color(r, g, b, a).endVertex();
-		buffer.pos(mat, ax, iy, iz).color(r, g, b, a).endVertex();
+		buffer.vertex(mat, ax, ay, iz).color(r, g, b, a).next();
+		buffer.vertex(mat, ax, iy, iz).color(r, g, b, a).next();
 
-		buffer.pos(mat, ax, iy, iz).color(r, g, b, a).endVertex();
-		buffer.pos(mat, ix, iy, iz).color(r, g, b, a).endVertex();
+		buffer.vertex(mat, ax, iy, iz).color(r, g, b, a).next();
+		buffer.vertex(mat, ix, iy, iz).color(r, g, b, a).next();
 
-		buffer.pos(mat, ix, iy, az).color(r, g, b, a).endVertex();
-		buffer.pos(mat, ix, ay, az).color(r, g, b, a).endVertex();
+		buffer.vertex(mat, ix, iy, az).color(r, g, b, a).next();
+		buffer.vertex(mat, ix, ay, az).color(r, g, b, a).next();
 
-		buffer.pos(mat, ix, iy, az).color(r, g, b, a).endVertex();
-		buffer.pos(mat, ax, iy, az).color(r, g, b, a).endVertex();
+		buffer.vertex(mat, ix, iy, az).color(r, g, b, a).next();
+		buffer.vertex(mat, ax, iy, az).color(r, g, b, a).next();
 
-		buffer.pos(mat, ax, iy, az).color(r, g, b, a).endVertex();
-		buffer.pos(mat, ax, ay, az).color(r, g, b, a).endVertex();
+		buffer.vertex(mat, ax, iy, az).color(r, g, b, a).next();
+		buffer.vertex(mat, ax, ay, az).color(r, g, b, a).next();
 
-		buffer.pos(mat, ix, ay, az).color(r, g, b, a).endVertex();
-		buffer.pos(mat, ax, ay, az).color(r, g, b, a).endVertex();
+		buffer.vertex(mat, ix, ay, az).color(r, g, b, a).next();
+		buffer.vertex(mat, ax, ay, az).color(r, g, b, a).next();
 
-		buffer.pos(mat, ix, iy, iz).color(r, g, b, a).endVertex();
-		buffer.pos(mat, ix, iy, az).color(r, g, b, a).endVertex();
+		buffer.vertex(mat, ix, iy, iz).color(r, g, b, a).next();
+		buffer.vertex(mat, ix, iy, az).color(r, g, b, a).next();
 
-		buffer.pos(mat, ix, ay, iz).color(r, g, b, a).endVertex();
-		buffer.pos(mat, ix, ay, az).color(r, g, b, a).endVertex();
+		buffer.vertex(mat, ix, ay, iz).color(r, g, b, a).next();
+		buffer.vertex(mat, ix, ay, az).color(r, g, b, a).next();
 
-		buffer.pos(mat, ax, iy, iz).color(r, g, b, a).endVertex();
-		buffer.pos(mat, ax, iy, az).color(r, g, b, a).endVertex();
+		buffer.vertex(mat, ax, iy, iz).color(r, g, b, a).next();
+		buffer.vertex(mat, ax, iy, az).color(r, g, b, a).next();
 
-		buffer.pos(mat, ax, ay, iz).color(r, g, b, a).endVertex();
-		buffer.pos(mat, ax, ay, az).color(r, g, b, a).endVertex();
+		buffer.vertex(mat, ax, ay, iz).color(r, g, b, a).next();
+		buffer.vertex(mat, ax, ay, az).color(r, g, b, a).next();
 	}
 }

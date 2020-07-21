@@ -9,11 +9,11 @@
 package vazkii.botania.common.core.helper;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.Vec3d;
 
 public final class MathHelper {
 
-	public static double angleBetween(Vector3d a, Vector3d b) {
+	public static double angleBetween(Vec3d a, Vec3d b) {
 		return Math.acos(a.normalize().dotProduct(b.normalize()));
 	}
 
@@ -33,7 +33,7 @@ public final class MathHelper {
 			finalVector = finalVector.normalize();
 		}
 
-		entity.setMotion(finalVector.multiply(modifier).toVector3d());
+		entity.setVelocity(finalVector.multiply(modifier).toVector3d());
 	}
 
 	public static int multiplyColor(int c1, int c2) {

@@ -8,30 +8,31 @@
  */
 package vazkii.botania.common.block;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.client.Minecraft;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.Properties;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -49,79 +50,79 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockHourglass extends BlockModWaterloggable implements IManaTrigger, ITileEntityProvider, IWandable, IWandHUD {
+public class BlockHourglass extends BlockModWaterloggable implements IManaTrigger, BlockEntityProvider, IWandable, IWandHUD {
 
-	private static final VoxelShape SHAPE = makeCuboidShape(4, 0, 4, 12, 18.4, 12);
+	private static final VoxelShape SHAPE = createCuboidShape(4, 0, 4, 12, 18.4, 12);
 
-	protected BlockHourglass(Properties builder) {
+	protected BlockHourglass(Settings builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(BlockStateProperties.POWERED, false));
+		setDefaultState(getDefaultState().with(Properties.POWERED, false));
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
 		return SHAPE;
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		super.fillStateContainer(builder);
-		builder.add(BlockStateProperties.POWERED);
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		super.appendProperties(builder);
+		builder.add(Properties.POWERED);
 	}
 
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		TileHourglass hourglass = (TileHourglass) world.getTileEntity(pos);
-		ItemStack hgStack = hourglass.getItemHandler().getStackInSlot(0);
-		ItemStack stack = player.getHeldItem(hand);
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		TileHourglass hourglass = (TileHourglass) world.getBlockEntity(pos);
+		ItemStack hgStack = hourglass.getItemHandler().getStack(0);
+		ItemStack stack = player.getStackInHand(hand);
 		if (!stack.isEmpty() && stack.getItem() == ModItems.twigWand) {
-			return ActionResultType.PASS;
+			return ActionResult.PASS;
 		}
 
 		if (hourglass.lock) {
-			if (!player.world.isRemote) {
-				player.sendMessage(new TranslationTextComponent("botaniamisc.hourglassLock"), Util.DUMMY_UUID);
+			if (!player.world.isClient) {
+				player.sendSystemMessage(new TranslatableText("botaniamisc.hourglassLock"), Util.NIL_UUID);
 			}
-			return ActionResultType.FAIL;
+			return ActionResult.FAIL;
 		}
 
 		if (hgStack.isEmpty() && TileHourglass.getStackItemTime(stack) > 0) {
-			hourglass.getItemHandler().setInventorySlotContents(0, stack.copy());
+			hourglass.getItemHandler().setStack(0, stack.copy());
 			stack.setCount(0);
-			return ActionResultType.SUCCESS;
+			return ActionResult.SUCCESS;
 		} else if (!hgStack.isEmpty()) {
-			player.inventory.placeItemBackInInventory(player.world, hgStack);
-			hourglass.getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
-			return ActionResultType.SUCCESS;
+			player.inventory.offerOrDrop(player.world, hgStack);
+			hourglass.getItemHandler().setStack(0, ItemStack.EMPTY);
+			return ActionResult.SUCCESS;
 		}
 
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
 	@Override
-	public boolean canProvidePower(BlockState state) {
+	public boolean emitsRedstonePower(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getWeakPower(BlockState state, IBlockReader world, BlockPos pos, Direction side) {
-		return state.get(BlockStateProperties.POWERED) ? 15 : 0;
+	public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction side) {
+		return state.get(Properties.POWERED) ? 15 : 0;
 	}
 
 	@Override
-	public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-		if (state.get(BlockStateProperties.POWERED)) {
-			world.setBlockState(pos, state.with(BlockStateProperties.POWERED, false));
+	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+		if (state.get(Properties.POWERED)) {
+			world.setBlockState(pos, state.with(Properties.POWERED, false));
 		}
 	}
 
 	@Override
-	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+	public void onStateReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
-			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
+			TileSimpleInventory inv = (TileSimpleInventory) world.getBlockEntity(pos);
 			InventoryHelper.dropInventory(inv, world, state, pos);
-			super.onReplaced(state, world, pos, newState, isMoving);
+			super.onStateReplaced(state, world, pos, newState, isMoving);
 		}
 	}
 
@@ -133,32 +134,32 @@ public class BlockHourglass extends BlockModWaterloggable implements IManaTrigge
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TileHourglass();
 	}
 
 	@Override
 	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
 		if (!burst.isFake()) {
-			TileHourglass tile = (TileHourglass) world.getTileEntity(pos);
+			TileHourglass tile = (TileHourglass) world.getBlockEntity(pos);
 			tile.onManaCollide();
 		}
 	}
 
 	@Override
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
-		TileHourglass tile = (TileHourglass) world.getTileEntity(pos);
+		TileHourglass tile = (TileHourglass) world.getBlockEntity(pos);
 		tile.lock = !tile.lock;
-		if (!world.isRemote) {
+		if (!world.isClient) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
 		}
 		return true;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
-		TileHourglass tile = (TileHourglass) world.getTileEntity(pos);
+	public void renderHUD(MatrixStack ms, MinecraftClient mc, World world, BlockPos pos) {
+		TileHourglass tile = (TileHourglass) world.getBlockEntity(pos);
 		tile.renderHUD(ms);
 	}
 

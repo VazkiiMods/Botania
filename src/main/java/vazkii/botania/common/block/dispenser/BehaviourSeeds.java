@@ -10,16 +10,16 @@ package vazkii.botania.common.block.dispenser;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.DispenserBlock;
-import net.minecraft.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class BehaviourSeeds extends DefaultDispenseItemBehavior {
+public class BehaviourSeeds extends ItemDispenserBehavior {
 	private Block block;
 
 	public BehaviourSeeds(Block block) {
@@ -28,18 +28,18 @@ public class BehaviourSeeds extends DefaultDispenseItemBehavior {
 
 	@Nonnull
 	@Override
-	public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
+	public ItemStack dispenseSilently(BlockPointer source, ItemStack stack) {
 		Direction facing = source.getBlockState().get(DispenserBlock.FACING);
 		BlockPos pos = source.getBlockPos().offset(facing);
 		World world = source.getWorld();
 
-		if (world.isAirBlock(pos) && block.getDefaultState().isValidPosition(world, pos)) {
+		if (world.isAir(pos) && block.getDefaultState().canPlaceAt(world, pos)) {
 			world.setBlockState(pos, block.getDefaultState());
-			stack.shrink(1);
+			stack.decrement(1);
 			return stack;
 		}
 
-		return super.dispenseStack(source, stack);
+		return super.dispenseSilently(source, stack);
 	}
 
 }

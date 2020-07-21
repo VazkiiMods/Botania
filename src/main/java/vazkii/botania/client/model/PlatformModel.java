@@ -11,13 +11,13 @@ package vazkii.botania.client.model;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.model.BakedQuad;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.util.Direction;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.RenderLayers;
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.Random;
 
 public class PlatformModel extends DelegatedModel {
-	public PlatformModel(IBakedModel original) {
+	public PlatformModel(BakedModel original) {
 		super(original);
 	}
 
@@ -44,12 +44,12 @@ public class PlatformModel extends DelegatedModel {
 		}
 
 		if (!(state.getBlock() instanceof BlockPlatform)) {
-			return Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModelManager().getMissingModel().getQuads(state, side, rand);
+			return MinecraftClient.getInstance().getBlockRenderManager().getModels().getModelManager().getMissingModel().getQuads(state, side, rand);
 		}
 
-		RenderType layer = MinecraftForgeClient.getRenderLayer();
+		RenderLayer layer = MinecraftForgeClient.getRenderLayer();
 		if (layer == null) {
-			layer = RenderType.getSolid(); // workaround for when this isn't set (digging, etc.)
+			layer = RenderLayer.getSolid(); // workaround for when this isn't set (digging, etc.)
 		}
 
 		BlockState heldState = data.getData(TilePlatform.HELD_STATE);
@@ -59,8 +59,8 @@ public class PlatformModel extends DelegatedModel {
 			return ImmutableList.of();
 		}
 
-		Minecraft mc = Minecraft.getInstance();
-		if (heldState == null && layer == RenderType.getSolid()) {
+		MinecraftClient mc = MinecraftClient.getInstance();
+		if (heldState == null && layer == RenderLayer.getSolid()) {
 			// No camo
 			return originalModel.getQuads(state, side, rand, data);
 		} else if (heldState != null) {
@@ -70,9 +70,9 @@ public class PlatformModel extends DelegatedModel {
 				return ImmutableList.of();
 			}
 
-			if (RenderTypeLookup.canRenderInLayer(heldState, layer)) {
+			if (RenderLayers.canRenderInLayer(heldState, layer)) {
 				// Steal camo's model
-				IBakedModel model = mc.getBlockRendererDispatcher().getBlockModelShapes().getModel(heldState);
+				BakedModel model = mc.getBlockRenderManager().getModels().getModel(heldState);
 
 				return model.getQuads(heldState, side, rand, EmptyModelData.INSTANCE);
 			}

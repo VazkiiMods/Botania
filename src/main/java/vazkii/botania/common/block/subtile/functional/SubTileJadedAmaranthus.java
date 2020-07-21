@@ -10,7 +10,7 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.item.DyeColor;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -31,26 +31,26 @@ public class SubTileJadedAmaranthus extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isRemote || redstoneSignal > 0) {
+		if (getWorld().isClient || redstoneSignal > 0) {
 			return;
 		}
 
 		if (ticksExisted % 30 == 0 && getMana() >= COST) {
 			BlockPos pos = new BlockPos(
-					getEffectivePos().getX() - RANGE + getWorld().rand.nextInt(RANGE * 2 + 1),
+					getEffectivePos().getX() - RANGE + getWorld().random.nextInt(RANGE * 2 + 1),
 					getEffectivePos().getY() + RANGE,
-					getEffectivePos().getZ() - RANGE + getWorld().rand.nextInt(RANGE * 2 + 1)
+					getEffectivePos().getZ() - RANGE + getWorld().random.nextInt(RANGE * 2 + 1)
 			);
 
 			BlockPos up = pos.up();
 
 			for (int i = 0; i < RANGE * 2; i++) {
-				DyeColor color = DyeColor.byId(getWorld().rand.nextInt(16));
+				DyeColor color = DyeColor.byId(getWorld().random.nextInt(16));
 				BlockState flower = ModBlocks.getFlower(color).getDefaultState();
 
-				if (getWorld().isAirBlock(up) && flower.isValidPosition(getWorld(), up)) {
+				if (getWorld().isAir(up) && flower.canPlaceAt(getWorld(), up)) {
 					if (ConfigHandler.COMMON.blockBreakParticles.get()) {
-						getWorld().playEvent(2001, up, Block.getStateId(flower));
+						getWorld().syncWorldEvent(2001, up, Block.getRawIdFromState(flower));
 					}
 					getWorld().setBlockState(up, flower);
 					addMana(-COST);

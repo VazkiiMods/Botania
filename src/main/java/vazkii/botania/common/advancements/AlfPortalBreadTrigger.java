@@ -9,54 +9,52 @@
 package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
-
-import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
-import net.minecraft.advancements.criterion.CriterionInstance;
-import net.minecraft.advancements.criterion.EntityPredicate;
-import net.minecraft.advancements.criterion.LocationPredicate;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.loot.ConditionArrayParser;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.advancement.criterion.AbstractCriterion;
+import net.minecraft.advancement.criterion.AbstractCriterionConditions;
+import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
+import net.minecraft.predicate.entity.EntityPredicate;
+import net.minecraft.predicate.entity.LocationPredicate;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.server.ServerWorld;
-
 import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class AlfPortalBreadTrigger extends AbstractCriterionTrigger<AlfPortalBreadTrigger.Instance> {
-	public static final ResourceLocation ID = prefix("alf_portal_bread");
+public class AlfPortalBreadTrigger extends AbstractCriterion<AlfPortalBreadTrigger.Instance> {
+	public static final Identifier ID = prefix("alf_portal_bread");
 	public static final AlfPortalBreadTrigger INSTANCE = new AlfPortalBreadTrigger();
 
 	private AlfPortalBreadTrigger() {}
 
 	@Nonnull
 	@Override
-	public ResourceLocation getId() {
+	public Identifier getId() {
 		return ID;
 	}
 
 	@Nonnull
 	@Override
-	public AlfPortalBreadTrigger.Instance func_230241_b_(@Nonnull JsonObject json, EntityPredicate.AndPredicate playerPredicate, ConditionArrayParser conditions) {
-		return new AlfPortalBreadTrigger.Instance(playerPredicate, LocationPredicate.deserialize(json.get("portal_location")));
+	public AlfPortalBreadTrigger.Instance conditionsFromJson(@Nonnull JsonObject json, EntityPredicate.Extended playerPredicate, AdvancementEntityPredicateDeserializer conditions) {
+		return new AlfPortalBreadTrigger.Instance(playerPredicate, LocationPredicate.fromJson(json.get("portal_location")));
 	}
 
 	public void trigger(ServerPlayerEntity player, BlockPos portal) {
-		this.func_235959_a_(player, instance -> instance.test(player.getServerWorld(), portal));
+		this.test(player, instance -> instance.test(player.getServerWorld(), portal));
 	}
 
-	static class Instance extends CriterionInstance {
+	static class Instance extends AbstractCriterionConditions {
 		private final LocationPredicate portal;
 
-		Instance(EntityPredicate.AndPredicate playerPredicate, LocationPredicate portal) {
+		Instance(EntityPredicate.Extended playerPredicate, LocationPredicate portal) {
 			super(ID, playerPredicate);
 			this.portal = portal;
 		}
 
 		@Nonnull
 		@Override
-		public ResourceLocation getId() {
+		public Identifier getId() {
 			return ID;
 		}
 

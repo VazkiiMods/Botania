@@ -11,10 +11,10 @@ package vazkii.botania.common.item;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.entity.EntityVineBall;
@@ -23,26 +23,26 @@ import javax.annotation.Nonnull;
 
 public class ItemVineBall extends Item {
 
-	public ItemVineBall(Properties builder) {
+	public ItemVineBall(Settings builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		if (!player.abilities.isCreativeMode) {
-			player.getHeldItem(hand).shrink(1);
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
+		if (!player.abilities.creativeMode) {
+			player.getStackInHand(hand).decrement(1);
 		}
 
-		world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+		world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (RANDOM.nextFloat() * 0.4F + 0.8F));
 
-		if (!world.isRemote) {
+		if (!world.isClient) {
 			EntityVineBall ball = new EntityVineBall(player, true);
-			ball.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0.0F, 1.5F, 1.0F);
-			world.addEntity(ball);
+			ball.setProperties(player, player.pitch, player.yaw, 0.0F, 1.5F, 1.0F);
+			world.spawnEntity(ball);
 		}
 
-		return ActionResult.resultSuccess(player.getHeldItem(hand));
+		return TypedActionResult.success(player.getStackInHand(hand));
 	}
 
 }

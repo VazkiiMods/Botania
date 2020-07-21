@@ -8,12 +8,11 @@
  */
 package vazkii.botania.client.core.handler;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-
-import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.RenderTooltipEvent;
@@ -36,7 +35,7 @@ public final class TooltipAdditionDisplayHandler {
 		int height = 3;
 		int tooltipX = evt.getX();
 		int tooltipY = evt.getY() - 4;
-		FontRenderer font = evt.getFontRenderer();
+		TextRenderer font = evt.getFontRenderer();
 
 		if (stack.getItem() instanceof ItemTerraPick) {
 			drawTerraPick(ms, stack, tooltipX, tooltipY, width, height, font);
@@ -45,7 +44,7 @@ public final class TooltipAdditionDisplayHandler {
 		}
 	}
 
-	private static void drawTerraPick(MatrixStack ms, ItemStack stack, int mouseX, int mouseY, int width, int height, FontRenderer font) {
+	private static void drawTerraPick(MatrixStack ms, ItemStack stack, int mouseX, int mouseY, int width, int height, TextRenderer font) {
 		int level = ItemTerraPick.getLevel(stack);
 		int max = ItemTerraPick.LEVELS[Math.min(ItemTerraPick.LEVELS.length - 1, level + 1)];
 		boolean ss = level >= ItemTerraPick.LEVELS.length - 1;
@@ -56,22 +55,22 @@ public final class TooltipAdditionDisplayHandler {
 		float hueOff = (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.01F;
 
 		RenderSystem.disableDepthTest();
-		AbstractGui.fill(ms, mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
+		DrawableHelper.fill(ms, mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
 		for (int i = 0; i < rainbowWidth; i++) {
-			AbstractGui.fill(ms, mouseX + i, mouseY - height, mouseX + i + 1, mouseY, 0xFF000000 | MathHelper.hsvToRGB((hueOff + huePer * i) % 1F, 1F, 1F));
+			DrawableHelper.fill(ms, mouseX + i, mouseY - height, mouseX + i + 1, mouseY, 0xFF000000 | MathHelper.hsvToRgb((hueOff + huePer * i) % 1F, 1F, 1F));
 		}
-		AbstractGui.fill(ms, mouseX + rainbowWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
+		DrawableHelper.fill(ms, mouseX + rainbowWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
 
-		String rank = I18n.format("botania.rank" + level).replaceAll("&", "\u00a7");
+		String rank = I18n.translate("botania.rank" + level).replaceAll("&", "\u00a7");
 
 		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
 		RenderSystem.disableLighting();
 		ms.push();
 		ms.translate(0, 0, 300);
-		font.drawStringWithShadow(ms, rank, mouseX, mouseY - 12, 0xFFFFFF);
+		font.drawWithShadow(ms, rank, mouseX, mouseY - 12, 0xFFFFFF);
 		if (!ss) {
-			rank = I18n.format("botania.rank" + (level + 1)).replaceAll("&", "\u00a7");
-			font.drawStringWithShadow(ms, rank, mouseX + width - font.getStringWidth(rank), mouseY - 12, 0xFFFFFF);
+			rank = I18n.translate("botania.rank" + (level + 1)).replaceAll("&", "\u00a7");
+			font.drawWithShadow(ms, rank, mouseX + width - font.getWidth(rank), mouseY - 12, 0xFFFFFF);
 		}
 		ms.pop();
 		RenderSystem.enableLighting();
@@ -84,9 +83,9 @@ public final class TooltipAdditionDisplayHandler {
 		int manaBarWidth = (int) Math.ceil(width * fraction);
 
 		RenderSystem.disableDepthTest();
-		AbstractGui.fill(ms, mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
-		AbstractGui.fill(ms, mouseX, mouseY - height, mouseX + manaBarWidth, mouseY, 0xFF000000 | MathHelper.hsvToRGB(0.528F, ((float) Math.sin((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.3F + 0.4F, 1F));
-		AbstractGui.fill(ms, mouseX + manaBarWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
+		DrawableHelper.fill(ms, mouseX - 1, mouseY - height - 1, mouseX + width + 1, mouseY, 0xFF000000);
+		DrawableHelper.fill(ms, mouseX, mouseY - height, mouseX + manaBarWidth, mouseY, 0xFF000000 | MathHelper.hsvToRgb(0.528F, ((float) Math.sin((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.2) + 1F) * 0.3F + 0.4F, 1F));
+		DrawableHelper.fill(ms, mouseX + manaBarWidth, mouseY - height, mouseX + width, mouseY, 0xFF555555);
 	}
 
 }

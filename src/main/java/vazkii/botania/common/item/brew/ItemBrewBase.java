@@ -10,20 +10,27 @@ package vazkii.botania.common.item.brew;
 
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
-
-import net.minecraft.client.util.ITooltipFlag;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffectUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.UseAction;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.EffectUtils;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -52,7 +59,7 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	private final int drinkSpeed;
 	private final Supplier<Item> baseItem;
 
-	public ItemBrewBase(Properties builder, int swigs, int drinkSpeed, Supplier<Item> baseItem) {
+	public ItemBrewBase(Settings builder, int swigs, int drinkSpeed, Supplier<Item> baseItem) {
 		super(builder);
 		this.swigs = swigs;
 		this.drinkSpeed = drinkSpeed;
@@ -60,7 +67,7 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getMaxUseTime(ItemStack stack) {
 		return drinkSpeed;
 	}
 
@@ -72,33 +79,33 @@ public class ItemBrewBase extends Item implements IBrewItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		player.setActiveHand(hand);
-		return ActionResult.resultSuccess(player.getHeldItem(hand));
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
+		player.setCurrentHand(hand);
+		return TypedActionResult.success(player.getStackInHand(hand));
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World world, LivingEntity living) {
-		if (!world.isRemote) {
-			for (EffectInstance effect : getBrew(stack).getPotionEffects(stack)) {
-				EffectInstance newEffect = new EffectInstance(effect.getPotion(), effect.getDuration(), effect.getAmplifier(), true, true);
-				if (effect.getPotion().isInstant()) {
-					effect.getPotion().affectEntity(living, living, living, newEffect.getAmplifier(), 1F);
+	public ItemStack finishUsing(@Nonnull ItemStack stack, World world, LivingEntity living) {
+		if (!world.isClient) {
+			for (StatusEffectInstance effect : getBrew(stack).getPotionEffects(stack)) {
+				StatusEffectInstance newEffect = new StatusEffectInstance(effect.getEffectType(), effect.getDuration(), effect.getAmplifier(), true, true);
+				if (effect.getEffectType().isInstant()) {
+					effect.getEffectType().applyInstantEffect(living, living, living, newEffect.getAmplifier(), 1F);
 				} else {
-					living.addPotionEffect(newEffect);
+					living.addStatusEffect(newEffect);
 				}
 			}
 
-			if (world.rand.nextBoolean()) {
-				world.playSound(null, living.getPosX(), living.getPosY(), living.getPosZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 1F, 1F);
+			if (world.random.nextBoolean()) {
+				world.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.ENTITY_PLAYER_BURP, SoundCategory.PLAYERS, 1F, 1F);
 			}
 
 			int swigs = getSwigsLeft(stack);
-			if (living instanceof PlayerEntity && !((PlayerEntity) living).abilities.isCreativeMode) {
+			if (living instanceof PlayerEntity && !((PlayerEntity) living).abilities.creativeMode) {
 				if (swigs == 1) {
 					ItemStack result = new ItemStack(baseItem.get());
-					if (!((PlayerEntity) living).inventory.addItemStackToInventory(result)) {
+					if (!((PlayerEntity) living).inventory.insertStack(result)) {
 						return result;
 					} else {
 						return ItemStack.EMPTY;
@@ -113,9 +120,9 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	}
 
 	@Override
-	public void fillItemGroup(ItemGroup tab, NonNullList<ItemStack> list) {
-		if (isInGroup(tab)) {
-			for (ResourceLocation id : BotaniaAPI.instance().getBrewRegistry().keySet()) {
+	public void appendStacks(ItemGroup tab, DefaultedList<ItemStack> list) {
+		if (isIn(tab)) {
+			for (Identifier id : BotaniaAPI.instance().getBrewRegistry().getIds()) {
 				ItemStack stack = new ItemStack(this);
 				setBrew(stack, id);
 				list.add(stack);
@@ -125,89 +132,89 @@ public class ItemBrewBase extends Item implements IBrewItem {
 
 	@Nonnull
 	@Override
-	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
-		return new TranslationTextComponent(getTranslationKey(), new TranslationTextComponent(getBrew(stack).getTranslationKey(stack)),
-				new StringTextComponent(Integer.toString(getSwigsLeft(stack))).func_240699_a_(TextFormatting.BOLD));
+	public Text getName(@Nonnull ItemStack stack) {
+		return new TranslatableText(getTranslationKey(), new TranslatableText(getBrew(stack).getTranslationKey(stack)),
+				new LiteralText(Integer.toString(getSwigsLeft(stack))).formatted(Formatting.BOLD));
 	}
 
 	// [VanillaCopy] PotionUtils.addPotionTooltip, with custom effect list
-	@OnlyIn(Dist.CLIENT)
-	public static void addPotionTooltip(List<EffectInstance> list, List<ITextComponent> lores, float durationFactor) {
-		List<Pair<Attribute, AttributeModifier>> list1 = Lists.newArrayList();
+	@Environment(EnvType.CLIENT)
+	public static void addPotionTooltip(List<StatusEffectInstance> list, List<Text> lores, float durationFactor) {
+		List<Pair<EntityAttribute, EntityAttributeModifier>> list1 = Lists.newArrayList();
 		if (list.isEmpty()) {
-			lores.add((new TranslationTextComponent("effect.none")).func_240699_a_(TextFormatting.GRAY));
+			lores.add((new TranslatableText("effect.none")).formatted(Formatting.GRAY));
 		} else {
-			for (EffectInstance effectinstance : list) {
-				IFormattableTextComponent iformattabletextcomponent = new TranslationTextComponent(effectinstance.getEffectName());
-				Effect effect = effectinstance.getPotion();
-				Map<Attribute, AttributeModifier> map = effect.getAttributeModifierMap();
+			for (StatusEffectInstance effectinstance : list) {
+				MutableText iformattabletextcomponent = new TranslatableText(effectinstance.getTranslationKey());
+				StatusEffect effect = effectinstance.getEffectType();
+				Map<EntityAttribute, EntityAttributeModifier> map = effect.getAttributeModifiers();
 				if (!map.isEmpty()) {
-					for (Map.Entry<Attribute, AttributeModifier> entry : map.entrySet()) {
-						AttributeModifier attributemodifier = entry.getValue();
-						AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), effect.getAttributeModifierAmount(effectinstance.getAmplifier(), attributemodifier), attributemodifier.getOperation());
+					for (Map.Entry<EntityAttribute, EntityAttributeModifier> entry : map.entrySet()) {
+						EntityAttributeModifier attributemodifier = entry.getValue();
+						EntityAttributeModifier attributemodifier1 = new EntityAttributeModifier(attributemodifier.getName(), effect.adjustModifierAmount(effectinstance.getAmplifier(), attributemodifier), attributemodifier.getOperation());
 						list1.add(new Pair<>(entry.getKey(), attributemodifier1));
 					}
 				}
 
 				if (effectinstance.getAmplifier() > 0) {
-					iformattabletextcomponent.func_240702_b_(" ").func_230529_a_(new TranslationTextComponent("potion.potency." + effectinstance.getAmplifier()));
+					iformattabletextcomponent.append(" ").append(new TranslatableText("potion.potency." + effectinstance.getAmplifier()));
 				}
 
 				if (effectinstance.getDuration() > 20) {
-					iformattabletextcomponent.func_240702_b_(" (").func_240702_b_(EffectUtils.getPotionDurationString(effectinstance, durationFactor)).func_240702_b_(")");
+					iformattabletextcomponent.append(" (").append(StatusEffectUtil.durationToString(effectinstance, durationFactor)).append(")");
 				}
 
-				lores.add(iformattabletextcomponent.func_240699_a_(effect.getEffectType().getColor()));
+				lores.add(iformattabletextcomponent.formatted(effect.getType().getFormatting()));
 			}
 		}
 
 		if (!list1.isEmpty()) {
-			lores.add(StringTextComponent.EMPTY);
-			lores.add((new TranslationTextComponent("potion.whenDrank")).func_240699_a_(TextFormatting.DARK_PURPLE));
+			lores.add(LiteralText.EMPTY);
+			lores.add((new TranslatableText("potion.whenDrank")).formatted(Formatting.DARK_PURPLE));
 
-			for (Pair<Attribute, AttributeModifier> pair : list1) {
-				AttributeModifier attributemodifier2 = pair.getSecond();
-				double d0 = attributemodifier2.getAmount();
+			for (Pair<EntityAttribute, EntityAttributeModifier> pair : list1) {
+				EntityAttributeModifier attributemodifier2 = pair.getSecond();
+				double d0 = attributemodifier2.getValue();
 				double d1;
-				if (attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_BASE && attributemodifier2.getOperation() != AttributeModifier.Operation.MULTIPLY_TOTAL) {
-					d1 = attributemodifier2.getAmount();
+				if (attributemodifier2.getOperation() != EntityAttributeModifier.Operation.MULTIPLY_BASE && attributemodifier2.getOperation() != EntityAttributeModifier.Operation.MULTIPLY_TOTAL) {
+					d1 = attributemodifier2.getValue();
 				} else {
-					d1 = attributemodifier2.getAmount() * 100.0D;
+					d1 = attributemodifier2.getValue() * 100.0D;
 				}
 
 				if (d0 > 0.0D) {
-					lores.add((new TranslationTextComponent("attribute.modifier.plus." + attributemodifier2.getOperation().getId(), ItemStack.DECIMALFORMAT.format(d1), new TranslationTextComponent(pair.getFirst().func_233754_c_()))).func_240699_a_(TextFormatting.BLUE));
+					lores.add((new TranslatableText("attribute.modifier.plus." + attributemodifier2.getOperation().getId(), ItemStack.MODIFIER_FORMAT.format(d1), new TranslatableText(pair.getFirst().getTranslationKey()))).formatted(Formatting.BLUE));
 				} else if (d0 < 0.0D) {
 					d1 = d1 * -1.0D;
-					lores.add((new TranslationTextComponent("attribute.modifier.take." + attributemodifier2.getOperation().getId(), ItemStack.DECIMALFORMAT.format(d1), new TranslationTextComponent(pair.getFirst().func_233754_c_()))).func_240699_a_(TextFormatting.RED));
+					lores.add((new TranslatableText("attribute.modifier.take." + attributemodifier2.getOperation().getId(), ItemStack.MODIFIER_FORMAT.format(d1), new TranslatableText(pair.getFirst().getTranslationKey()))).formatted(Formatting.RED));
 				}
 			}
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
+	public void appendTooltip(ItemStack stack, World world, List<Text> list, TooltipContext flags) {
 		addPotionTooltip(getBrew(stack).getPotionEffects(stack), list, 1);
 	}
 
 	@Override
 	public Brew getBrew(ItemStack stack) {
 		String key = ItemNBTHelper.getString(stack, TAG_BREW_KEY, "");
-		return BotaniaAPI.instance().getBrewRegistry().getOrDefault(ResourceLocation.tryCreate(key));
+		return BotaniaAPI.instance().getBrewRegistry().get(Identifier.tryParse(key));
 	}
 
 	public static void setBrew(ItemStack stack, @Nullable Brew brew) {
-		ResourceLocation id;
+		Identifier id;
 		if (brew != null) {
-			id = BotaniaAPI.instance().getBrewRegistry().getKey(brew);
+			id = BotaniaAPI.instance().getBrewRegistry().getId(brew);
 		} else {
 			id = prefix("fallback");
 		}
 		setBrew(stack, id);
 	}
 
-	public static void setBrew(ItemStack stack, ResourceLocation brew) {
+	public static void setBrew(ItemStack stack, Identifier brew) {
 		ItemNBTHelper.setString(stack, TAG_BREW_KEY, brew.toString());
 	}
 

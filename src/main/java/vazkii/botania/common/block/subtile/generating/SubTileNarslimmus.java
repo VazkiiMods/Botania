@@ -9,16 +9,16 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.monster.SlimeEntity;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.SharedSeedRandom;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.entity.mob.SlimeEntity;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.gen.ChunkRandom;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.Event;
 
@@ -42,13 +42,13 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 		super.tickFlower();
 
 		if (ticksExisted % 5 == 0) {
-			List<SlimeEntity> slimes = getWorld().getEntitiesWithinAABB(SlimeEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<SlimeEntity> slimes = getWorld().getNonSpectatingEntities(SlimeEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for (SlimeEntity slime : slimes) {
 				if (slime.getPersistentData().getBoolean(TAG_WORLD_SPAWNED) && slime.isAlive()) {
-					int size = slime.getSlimeSize();
+					int size = slime.getSize();
 					int mul = (int) Math.pow(2, size);
 					int mana = 1200 * mul;
-					if (!slime.world.isRemote) {
+					if (!slime.world.isClient) {
 						slime.remove();
 						slime.playSound(size > 1 ? SoundEvents.ENTITY_SLIME_SQUISH : SoundEvents.ENTITY_SLIME_SQUISH_SMALL, 1, 0.02F);
 						addMana(mana);
@@ -56,12 +56,12 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 					}
 
 					for (int j = 0; j < mul * 8; ++j) {
-						float f = slime.world.rand.nextFloat() * (float) Math.PI * 2.0F;
-						float f1 = slime.world.rand.nextFloat() * 0.5F + 0.5F;
+						float f = slime.world.random.nextFloat() * (float) Math.PI * 2.0F;
+						float f1 = slime.world.random.nextFloat() * 0.5F + 0.5F;
 						float f2 = MathHelper.sin(f) * size * 0.5F * f1;
 						float f3 = MathHelper.cos(f) * size * 0.5F * f1;
-						float f4 = slime.world.rand.nextFloat() * size * 0.5F * f1;
-						slime.world.addParticle(ParticleTypes.ITEM_SLIME, slime.getPosX() + f2, slime.getBoundingBox().minY + f4, slime.getPosZ() + f3, 0.0D, 0.0D, 0.0D);
+						float f4 = slime.world.random.nextFloat() * size * 0.5F * f1;
+						slime.world.addParticle(ParticleTypes.ITEM_SLIME, slime.getX() + f2, slime.getBoundingBox().minY + f4, slime.getZ() + f3, 0.0D, 0.0D, 0.0D);
 					}
 					break;
 				}
@@ -99,7 +99,7 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 
 	public static boolean isSlimeChunk(World world, BlockPos pos) {
 		ChunkPos chunkpos = new ChunkPos(pos);
-		return SharedSeedRandom.seedSlimeChunk(chunkpos.x, chunkpos.z, ((ServerWorld) world).getSeed(), 987234911L).nextInt(10) == 0;
+		return ChunkRandom.getSlimeRandom(chunkpos.x, chunkpos.z, ((ServerWorld) world).getSeed(), 987234911L).nextInt(10) == 0;
 	}
 
 }

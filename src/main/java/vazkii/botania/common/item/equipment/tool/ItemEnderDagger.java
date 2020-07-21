@@ -10,10 +10,10 @@ package vazkii.botania.common.item.equipment.tool;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.EndermanEntity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
@@ -26,19 +26,19 @@ import java.util.function.Consumer;
 
 public class ItemEnderDagger extends ItemManasteelSword {
 
-	public ItemEnderDagger(Properties props) {
+	public ItemEnderDagger(Settings props) {
 		super(BotaniaAPI.instance().getManasteelItemTier(), 3, -1.25F, props);
 	}
 
 	@Override
-	public boolean hitEntity(ItemStack stack, LivingEntity target, @Nonnull LivingEntity attacker) {
-		if (!target.world.isRemote
+	public boolean postHit(ItemStack stack, LivingEntity target, @Nonnull LivingEntity attacker) {
+		if (!target.world.isClient
 				&& target instanceof EndermanEntity
 				&& attacker instanceof PlayerEntity) {
-			target.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) attacker), 20);
+			target.damage(DamageSource.player((PlayerEntity) attacker), 20);
 		}
 
-		stack.damageItem(1, attacker, e -> e.sendBreakAnimation(Hand.MAIN_HAND));
+		stack.damage(1, attacker, e -> e.sendToolBreakStatus(Hand.MAIN_HAND));
 		return true;
 	}
 

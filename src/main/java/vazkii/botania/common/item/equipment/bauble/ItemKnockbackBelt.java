@@ -10,18 +10,19 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -30,33 +31,33 @@ import vazkii.botania.client.lib.LibResources;
 
 public class ItemKnockbackBelt extends ItemBauble {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_KNOCKBACK_BELT);
-	private static BipedModel<LivingEntity> model;
+	private static final Identifier texture = new Identifier(LibResources.MODEL_KNOCKBACK_BELT);
+	private static BipedEntityModel<LivingEntity> model;
 
-	public ItemKnockbackBelt(Properties props) {
+	public ItemKnockbackBelt(Settings props) {
 		super(props);
 	}
 
 	@Override
-	public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
-		Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
-		attributes.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(getBaubleUUID(stack), "Knockback Belt", 1, AttributeModifier.Operation.ADDITION));
+	public Multimap<EntityAttribute, EntityAttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
+		Multimap<EntityAttribute, EntityAttributeModifier> attributes = HashMultimap.create();
+		attributes.put(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, new EntityAttributeModifier(getBaubleUUID(stack), "Knockback Belt", 1, EntityAttributeModifier.Operation.ADDITION));
 		return attributes;
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	@Environment(EnvType.CLIENT)
+	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity living, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		AccessoryRenderHelper.rotateIfSneaking(ms, living);
 		ms.translate(0F, 0.2F, 0F);
 
 		float s = 0.85F;
 		ms.scale(s, s, s);
 		if (model == null) {
-			model = new BipedModel<>(1.0F);
+			model = new BipedEntityModel<>(1.0F);
 		}
 
-		IVertexBuilder buffer = buffers.getBuffer(model.getRenderType(texture));
-		model.bipedBody.render(ms, buffer, light, OverlayTexture.NO_OVERLAY);
+		VertexConsumer buffer = buffers.getBuffer(model.getLayer(texture));
+		model.torso.render(ms, buffer, light, OverlayTexture.DEFAULT_UV);
 	}
 }

@@ -9,12 +9,11 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
@@ -24,25 +23,25 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 
 	private static final int COST = 3;
 
-	public ItemWaterRing(Properties props) {
+	public ItemWaterRing(Settings props) {
 		super(props);
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity living) {
-		if (living.isInWaterOrBubbleColumn()) {
+		if (living.isInsideWaterOrBubbleColumn()) {
 			// only activate for one ring at a time
 			ItemStack result = EquipmentHandler.findOrEmpty(ModItems.waterRing, living);
 			if (result != stack) {
 				return;
 			}
 
-			if (!living.world.isRemote) {
+			if (!living.world.isClient) {
 				if (living instanceof PlayerEntity && !ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) living, COST, true)) {
 					onUnequipped(stack, living);
 				} else {
-					addEffect(living, Effects.CONDUIT_POWER);
-					addEffect(living, Effects.DOLPHINS_GRACE);
+					addEffect(living, StatusEffects.CONDUIT_POWER);
+					addEffect(living, StatusEffects.DOLPHINS_GRACE);
 				}
 			}
 		} else {
@@ -50,11 +49,11 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 		}
 	}
 
-	private static void addEffect(LivingEntity living, Effect effect) {
-		EffectInstance inst = living.getActivePotionEffect(effect);
+	private static void addEffect(LivingEntity living, StatusEffect effect) {
+		StatusEffectInstance inst = living.getStatusEffect(effect);
 		if (inst == null || (inst.getAmplifier() == 0 && inst.getDuration() == 1)) {
-			EffectInstance neweffect = new EffectInstance(effect, 100, 0, true, true);
-			living.addPotionEffect(neweffect);
+			StatusEffectInstance neweffect = new StatusEffectInstance(effect, 100, 0, true, true);
+			living.addStatusEffect(neweffect);
 		}
 	}
 

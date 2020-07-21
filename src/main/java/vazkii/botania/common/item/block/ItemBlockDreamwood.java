@@ -16,7 +16,7 @@ import vazkii.botania.api.recipe.IElvenItem;
 
 public class ItemBlockDreamwood extends BlockItem implements IElvenItem {
 
-	public ItemBlockDreamwood(Block block, Properties props) {
+	public ItemBlockDreamwood(Block block, Settings props) {
 		super(block, props);
 	}
 

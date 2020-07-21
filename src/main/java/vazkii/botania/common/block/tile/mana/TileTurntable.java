@@ -8,16 +8,17 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
-import net.minecraft.client.Minecraft;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Tickable;
+import net.minecraft.util.math.Direction;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -25,7 +26,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TileTurntable extends TileMod implements ITickableTileEntity {
+public class TileTurntable extends TileMod implements Tickable {
 	private static final String TAG_SPEED = "speed";
 	private static final String TAG_BACKWARDS = "backwards";
 
@@ -41,21 +42,21 @@ public class TileTurntable extends TileMod implements ITickableTileEntity {
 		boolean redstone = false;
 
 		for (Direction dir : Direction.values()) {
-			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
+			int redstoneSide = world.getEmittedRedstonePower(pos.offset(dir), dir);
 			if (redstoneSide > 0) {
 				redstone = true;
 			}
 		}
 
 		if (!redstone) {
-			TileEntity tile = world.getTileEntity(pos.up());
+			BlockEntity tile = world.getBlockEntity(pos.up());
 			if (tile instanceof TileSpreader) {
 				TileSpreader spreader = (TileSpreader) tile;
 				spreader.rotationX += speed * (backwards ? -1 : 1);
 				if (spreader.rotationX >= 360F) {
 					spreader.rotationX -= 360F;
 				}
-				if (!world.isRemote) {
+				if (!world.isClient) {
 					spreader.checkForReceiver();
 				}
 			}
@@ -63,13 +64,13 @@ public class TileTurntable extends TileMod implements ITickableTileEntity {
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT cmp) {
+	public void writePacketNBT(CompoundTag cmp) {
 		cmp.putInt(TAG_SPEED, speed);
 		cmp.putBoolean(TAG_BACKWARDS, backwards);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT cmp) {
+	public void readPacketNBT(CompoundTag cmp) {
 		speed = cmp.getInt(TAG_SPEED);
 		backwards = cmp.getBoolean(TAG_BACKWARDS);
 	}
@@ -83,19 +84,19 @@ public class TileTurntable extends TileMod implements ITickableTileEntity {
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(MatrixStack ms, Minecraft mc) {
+	@Environment(EnvType.CLIENT)
+	public void renderHUD(MatrixStack ms, MinecraftClient mc) {
 		int color = 0xAA006600;
 
 		char motion = backwards ? '<' : '>';
-		String speed = TextFormatting.BOLD + "";
+		String speed = Formatting.BOLD + "";
 		for (int i = 0; i < this.speed; i++) {
 			speed = speed + motion;
 		}
 
-		int x = mc.getMainWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(speed) / 2;
-		int y = mc.getMainWindow().getScaledHeight() / 2 - 15;
-		mc.fontRenderer.drawStringWithShadow(ms, speed, x, y, color);
+		int x = mc.getWindow().getScaledWidth() / 2 - mc.textRenderer.getWidth(speed) / 2;
+		int y = mc.getWindow().getScaledHeight() / 2 - 15;
+		mc.textRenderer.drawWithShadow(ms, speed, x, y, color);
 	}
 
 }

@@ -11,8 +11,8 @@ package vazkii.botania.common.block.subtile.generating;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CakeBlock;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -30,13 +30,13 @@ public class SubTileKekimurus extends TileEntityGeneratingFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isRemote) {
+		if (getWorld().isClient) {
 			return;
 		}
 
 		int mana = 1800;
 
-		if (getMaxMana() - this.getMana() >= mana && !getWorld().isRemote && ticksExisted % 80 == 0) {
+		if (getMaxMana() - this.getMana() >= mana && !getWorld().isClient && ticksExisted % 80 == 0) {
 			for (int i = 0; i < RANGE * 2 + 1; i++) {
 				for (int j = 0; j < RANGE * 2 + 1; j++) {
 					for (int k = 0; k < RANGE * 2 + 1; k++) {
@@ -51,7 +51,7 @@ public class SubTileKekimurus extends TileEntityGeneratingFlower {
 								getWorld().setBlockState(pos, state.with(CakeBlock.BITES, nextSlicesEaten));
 							}
 
-							getWorld().playEvent(2001, pos, Block.getStateId(state));
+							getWorld().syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
 							getWorld().playSound(null, getEffectivePos(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
 							addMana(mana);
 							sync();

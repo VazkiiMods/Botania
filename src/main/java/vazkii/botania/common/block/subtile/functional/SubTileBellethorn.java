@@ -8,14 +8,13 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.WitchEntity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.WitchEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.AxisAlignedBB;
-
+import net.minecraft.util.math.Box;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
@@ -27,7 +26,7 @@ public class SubTileBellethorn extends TileEntityFunctionalFlower {
 	public static final int RANGE = 6;
 	public static final int RANGE_MINI = 1;
 
-	public SubTileBellethorn(TileEntityType<?> type) {
+	public SubTileBellethorn(BlockEntityType<?> type) {
 		super(type);
 	}
 
@@ -49,7 +48,7 @@ public class SubTileBellethorn extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isRemote || redstoneSignal > 0) {
+		if (getWorld().isClient || redstoneSignal > 0) {
 			return;
 		}
 
@@ -61,7 +60,7 @@ public class SubTileBellethorn extends TileEntityFunctionalFlower {
 
 		if (ticksExisted % 5 == 0) {
 			int range = getRange();
-			List<LivingEntity> entities = getWorld().getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getEffectivePos().add(-range, -range, -range), getEffectivePos().add(range + 1, range + 1, range + 1)), getSelector());
+			List<LivingEntity> entities = getWorld().getEntities(LivingEntity.class, new Box(getEffectivePos().add(-range, -range, -range), getEffectivePos().add(range + 1, range + 1, range + 1)), getSelector());
 
 			for (LivingEntity entity : entities) {
 				if (entity.hurtTime == 0 && getMana() >= manaToUse) {
@@ -70,7 +69,7 @@ public class SubTileBellethorn extends TileEntityFunctionalFlower {
 						dmg = 20;
 					}
 
-					entity.attackEntityFrom(DamageSource.MAGIC, dmg);
+					entity.damage(DamageSource.MAGIC, dmg);
 					addMana(-manaToUse);
 					break;
 				}

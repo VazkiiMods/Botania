@@ -11,24 +11,24 @@ package vazkii.botania.common.entity;
 import com.google.common.base.Predicates;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BushBlock;
 import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.PlantBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.entity.projectile.thrown.ThrownEntity;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Packet;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -39,10 +39,10 @@ import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class EntityMagicMissile extends ThrowableEntity {
+public class EntityMagicMissile extends ThrownEntity {
 	private static final String TAG_TIME = "time";
-	private static final DataParameter<Boolean> EVIL = EntityDataManager.createKey(EntityMagicMissile.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Integer> TARGET = EntityDataManager.createKey(EntityMagicMissile.class, DataSerializers.VARINT);
+	private static final TrackedData<Boolean> EVIL = DataTracker.registerData(EntityMagicMissile.class, TrackedDataHandlerRegistry.BOOLEAN);
+	private static final TrackedData<Integer> TARGET = DataTracker.registerData(EntityMagicMissile.class, TrackedDataHandlerRegistry.INTEGER);
 
 	double lockX, lockY = -1, lockZ;
 	int time = 0;
@@ -57,32 +57,32 @@ public class EntityMagicMissile extends ThrowableEntity {
 	}
 
 	@Override
-	protected void registerData() {
-		dataManager.register(EVIL, false);
-		dataManager.register(TARGET, 0);
+	protected void initDataTracker() {
+		dataTracker.startTracking(EVIL, false);
+		dataTracker.startTracking(TARGET, 0);
 	}
 
 	@Nonnull
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public Packet<?> createSpawnPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	public void setEvil(boolean evil) {
-		dataManager.set(EVIL, evil);
+		dataTracker.set(EVIL, evil);
 	}
 
 	public boolean isEvil() {
-		return dataManager.get(EVIL);
+		return dataTracker.get(EVIL);
 	}
 
 	public void setTarget(LivingEntity e) {
-		dataManager.set(TARGET, e == null ? -1 : e.getEntityId());
+		dataTracker.set(TARGET, e == null ? -1 : e.getEntityId());
 	}
 
 	public LivingEntity getTargetEntity() {
-		int id = dataManager.get(TARGET);
-		Entity e = world.getEntityByID(id);
+		int id = dataTracker.get(TARGET);
+		Entity e = world.getEntityById(id);
 		if (e != null && e instanceof LivingEntity) {
 			return (LivingEntity) e;
 		}
@@ -92,13 +92,13 @@ public class EntityMagicMissile extends ThrowableEntity {
 
 	@Override
 	public void tick() {
-		double lastTickPosX = this.lastTickPosX;
-		double lastTickPosY = this.lastTickPosY;
-		double lastTickPosZ = this.lastTickPosZ;
+		double lastTickPosX = this.lastRenderX;
+		double lastTickPosY = this.lastRenderY;
+		double lastTickPosZ = this.lastRenderZ;
 
 		super.tick();
 
-		if (!world.isRemote && (!findTarget() || time > 40)) {
+		if (!world.isClient && (!findTarget() || time > 40)) {
 			remove();
 			return;
 		}
@@ -116,7 +116,7 @@ public class EntityMagicMissile extends ThrowableEntity {
 		for (int i = 0; i < steps; i++) {
 			world.addParticle(data, particlePos.x, particlePos.y, particlePos.z, 0, 0, 0);
 
-			if (world.rand.nextInt(steps) <= 1) {
+			if (world.random.nextInt(steps) <= 1) {
 				world.addParticle(data, particlePos.x + (Math.random() - 0.5) * 0.4, particlePos.y + (Math.random() - 0.5) * 0.4, particlePos.z + (Math.random() - 0.5) * 0.4, 0, 0, 0);
 			}
 
@@ -126,27 +126,27 @@ public class EntityMagicMissile extends ThrowableEntity {
 		LivingEntity target = getTargetEntity();
 		if (target != null) {
 			if (lockY == -1) {
-				lockX = target.getPosX();
-				lockY = target.getPosY();
-				lockZ = target.getPosZ();
+				lockX = target.getX();
+				lockY = target.getY();
+				lockZ = target.getZ();
 			}
 
 			Vector3 targetVec = evil ? new Vector3(lockX, lockY, lockZ) : Vector3.fromEntityCenter(target);
 			Vector3 diffVec = targetVec.subtract(thisVec);
 			Vector3 motionVec = diffVec.normalize().multiply(evil ? 0.5 : 0.6);
-			setMotion(motionVec.toVector3d());
+			setVelocity(motionVec.toVector3d());
 			if (time < 10) {
-				setMotion(getMotion().getX(), Math.abs(getMotion().getY()), getMotion().getZ());
+				setVelocity(getVelocity().getX(), Math.abs(getVelocity().getY()), getVelocity().getZ());
 			}
 
-			List<LivingEntity> targetList = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPosX() - 0.5, getPosY() - 0.5, getPosZ() - 0.5, getPosX() + 0.5, getPosY() + 0.5, getPosZ() + 0.5));
+			List<LivingEntity> targetList = world.getNonSpectatingEntities(LivingEntity.class, new Box(getX() - 0.5, getY() - 0.5, getZ() - 0.5, getX() + 0.5, getY() + 0.5, getZ() + 0.5));
 			if (targetList.contains(target)) {
-				Entity thrower = func_234616_v_();
+				Entity thrower = getOwner();
 				if (thrower instanceof LivingEntity) {
 					PlayerEntity player = thrower instanceof PlayerEntity ? (PlayerEntity) thrower : null;
-					target.attackEntityFrom(player == null ? DamageSource.causeMobDamage((LivingEntity) thrower) : DamageSource.causePlayerDamage(player), evil ? 12 : 7);
+					target.damage(player == null ? DamageSource.mob((LivingEntity) thrower) : DamageSource.player(player), evil ? 12 : 7);
 				} else {
-					target.attackEntityFrom(DamageSource.GENERIC, evil ? 12 : 7);
+					target.damage(DamageSource.GENERIC, evil ? 12 : 7);
 				}
 
 				remove();
@@ -161,14 +161,14 @@ public class EntityMagicMissile extends ThrowableEntity {
 	}
 
 	@Override
-	public void writeAdditional(CompoundNBT cmp) {
-		super.writeAdditional(cmp);
+	public void writeCustomDataToTag(CompoundTag cmp) {
+		super.writeCustomDataToTag(cmp);
 		cmp.putInt(TAG_TIME, time);
 	}
 
 	@Override
-	public void readAdditional(CompoundNBT cmp) {
-		super.readAdditional(cmp);
+	public void readCustomDataFromTag(CompoundTag cmp) {
+		super.readCustomDataFromTag(cmp);
 		time = cmp.getInt(TAG_TIME);
 	}
 
@@ -182,15 +182,15 @@ public class EntityMagicMissile extends ThrowableEntity {
 		}
 
 		double range = 12;
-		AxisAlignedBB bounds = new AxisAlignedBB(getPosX() - range, getPosY() - range, getPosZ() - range, getPosX() + range, getPosY() + range, getPosZ() + range);
+		Box bounds = new Box(getX() - range, getY() - range, getZ() - range, getX() + range, getY() + range, getZ() + range);
 		List<Entity> entities;
 		if (isEvil()) {
-			entities = world.getEntitiesWithinAABB(PlayerEntity.class, bounds);
+			entities = world.getNonSpectatingEntities(PlayerEntity.class, bounds);
 		} else {
-			entities = world.getEntitiesWithinAABB(Entity.class, bounds, Predicates.instanceOf(IMob.class));
+			entities = world.getEntities(Entity.class, bounds, Predicates.instanceOf(Monster.class));
 		}
 		while (entities.size() > 0) {
-			Entity e = entities.get(world.rand.nextInt(entities.size()));
+			Entity e = entities.get(world.random.nextInt(entities.size()));
 			if (!(e instanceof LivingEntity) || !e.isAlive()) { // Just in case...
 				entities.remove(e);
 				continue;
@@ -205,17 +205,17 @@ public class EntityMagicMissile extends ThrowableEntity {
 	}
 
 	@Override
-	protected void onImpact(@Nonnull RayTraceResult pos) {
+	protected void onCollision(@Nonnull HitResult pos) {
 		switch (pos.getType()) {
 		case BLOCK: {
-			Block block = world.getBlockState(((BlockRayTraceResult) pos).getPos()).getBlock();
-			if (!(block instanceof BushBlock) && !(block instanceof LeavesBlock)) {
+			Block block = world.getBlockState(((BlockHitResult) pos).getBlockPos()).getBlock();
+			if (!(block instanceof PlantBlock) && !(block instanceof LeavesBlock)) {
 				remove();
 			}
 			break;
 		}
 		case ENTITY: {
-			if (((EntityRayTraceResult) pos).getEntity() == getTargetEntity()) {
+			if (((EntityHitResult) pos).getEntity() == getTargetEntity()) {
 				remove();
 			}
 			break;

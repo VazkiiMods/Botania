@@ -16,7 +16,7 @@ import vazkii.botania.api.mana.spark.SparkUpgradeType;
 public class ItemSparkUpgrade extends Item {
 	public final SparkUpgradeType type;
 
-	public ItemSparkUpgrade(Properties builder, SparkUpgradeType type) {
+	public ItemSparkUpgrade(Settings builder, SparkUpgradeType type) {
 		super(builder);
 		this.type = type;
 	}

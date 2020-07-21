@@ -8,31 +8,32 @@
  */
 package vazkii.botania.common.block.mana;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.client.Minecraft;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootParameters;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
+import net.minecraft.util.function.BooleanBiFunction;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -47,10 +48,10 @@ import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 
-public class BlockPool extends BlockModWaterloggable implements ITileEntityProvider, IWandHUD, IWandable {
-	private static final VoxelShape SLAB = makeCuboidShape(0, 0, 0, 16, 8, 16);
-	private static final VoxelShape CUTOUT = makeCuboidShape(1, 1, 1, 15, 8, 15);
-	private static final VoxelShape REAL_SHAPE = VoxelShapes.combineAndSimplify(SLAB, CUTOUT, IBooleanFunction.ONLY_FIRST);
+public class BlockPool extends BlockModWaterloggable implements BlockEntityProvider, IWandHUD, IWandable {
+	private static final VoxelShape SLAB = createCuboidShape(0, 0, 0, 16, 8, 16);
+	private static final VoxelShape CUTOUT = createCuboidShape(1, 1, 1, 15, 8, 15);
+	private static final VoxelShape REAL_SHAPE = VoxelShapes.combineAndSimplify(SLAB, CUTOUT, BooleanBiFunction.ONLY_FIRST);
 
 	public enum Variant {
 		DEFAULT,
@@ -61,53 +62,53 @@ public class BlockPool extends BlockModWaterloggable implements ITileEntityProvi
 
 	public final Variant variant;
 
-	public BlockPool(Variant v, Properties builder) {
+	public BlockPool(Variant v, Settings builder) {
 		super(builder);
 		this.variant = v;
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
 		return REAL_SHAPE;
 	}
 
 	@Override
-	public List<ItemStack> getDrops(@Nonnull BlockState state, LootContext.Builder builder) {
-		if (builder.get(LootParameters.BLOCK_ENTITY) instanceof TilePool
-				&& ((TilePool) builder.get(LootParameters.BLOCK_ENTITY)).fragile) {
+	public List<ItemStack> getDroppedStacks(@Nonnull BlockState state, LootContext.Builder builder) {
+		if (builder.getNullable(LootContextParameters.BLOCK_ENTITY) instanceof TilePool
+				&& ((TilePool) builder.getNullable(LootContextParameters.BLOCK_ENTITY)).fragile) {
 			return Collections.emptyList();
 		} else {
-			return super.getDrops(state, builder);
+			return super.getDroppedStacks(state, builder);
 		}
 	}
 
 	@Nonnull
 	@Override
-	public ActionResultType onBlockActivated(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult hit) {
-		TileEntity te = world.getTileEntity(pos);
-		ItemStack stack = player.getHeldItem(hand);
+	public ActionResult onUse(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockHitResult hit) {
+		BlockEntity te = world.getBlockEntity(pos);
+		ItemStack stack = player.getStackInHand(hand);
 		if (stack.getItem() instanceof DyeItem && te instanceof TilePool) {
-			DyeColor color = ((DyeItem) stack.getItem()).getDyeColor();
+			DyeColor color = ((DyeItem) stack.getItem()).getColor();
 			if (color != ((TilePool) te).getColor()) {
 				((TilePool) te).setColor(color);
-				stack.shrink(1);
-				return ActionResultType.SUCCESS;
+				stack.decrement(1);
+				return ActionResult.SUCCESS;
 			}
 		}
-		return super.onBlockActivated(state, world, pos, player, hand, hit);
+		return super.onUse(state, world, pos, player, hand, hit);
 	}
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TilePool();
 	}
 
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
 		if (entity instanceof ItemEntity) {
-			TilePool tile = (TilePool) world.getTileEntity(pos);
+			TilePool tile = (TilePool) world.getBlockEntity(pos);
 			tile.collideEntityItem((ItemEntity) entity);
 		}
 	}
@@ -123,25 +124,25 @@ public class BlockPool extends BlockModWaterloggable implements ITileEntityProvi
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride(BlockState state) {
+	public boolean hasComparatorOutput(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
-		TilePool pool = (TilePool) world.getTileEntity(pos);
+	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+		TilePool pool = (TilePool) world.getBlockEntity(pos);
 		return TilePool.calculateComparatorLevel(pool.getCurrentMana(), pool.manaCap);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
-		((TilePool) world.getTileEntity(pos)).renderHUD(ms, mc);
+	public void renderHUD(MatrixStack ms, MinecraftClient mc, World world, BlockPos pos) {
+		((TilePool) world.getBlockEntity(pos)).renderHUD(ms, mc);
 	}
 
 	@Override
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
-		((TilePool) world.getTileEntity(pos)).onWanded(player);
+		((TilePool) world.getBlockEntity(pos)).onWanded(player);
 		return true;
 	}
 }

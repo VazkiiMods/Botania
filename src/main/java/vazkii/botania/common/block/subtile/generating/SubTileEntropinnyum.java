@@ -9,12 +9,11 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.TNTEntity;
+import net.minecraft.entity.TntEntity;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
-
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.Box;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -34,17 +33,17 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getWorld().isRemote && getMana() == 0) {
-			List<TNTEntity> tnts = getWorld().getEntitiesWithinAABB(TNTEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
-			for (TNTEntity tnt : tnts) {
-				FluidState fluid = getWorld().getFluidState(tnt.func_233580_cy_());
-				if (tnt.getFuse() == 1 && tnt.isAlive() && fluid.isEmpty()) {
-					tnt.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 0.2F, (1F + (getWorld().rand.nextFloat() - getWorld().rand.nextFloat()) * 0.2F) * 0.7F);
+		if (!getWorld().isClient && getMana() == 0) {
+			List<TntEntity> tnts = getWorld().getNonSpectatingEntities(TntEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			for (TntEntity tnt : tnts) {
+				FluidState fluid = getWorld().getFluidState(tnt.getBlockPos());
+				if (tnt.getFuseTimer() == 1 && tnt.isAlive() && fluid.isEmpty()) {
+					tnt.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 0.2F, (1F + (getWorld().random.nextFloat() - getWorld().random.nextFloat()) * 0.2F) * 0.7F);
 					tnt.remove();
 					addMana(getMaxMana());
 					sync();
 
-					getWorld().addBlockEvent(getPos(), getBlockState().getBlock(), EXPLODE_EFFECT_EVENT, tnt.getEntityId());
+					getWorld().addSyncedBlockEvent(getPos(), getCachedState().getBlock(), EXPLODE_EFFECT_EVENT, tnt.getEntityId());
 					break;
 				}
 			}
@@ -52,21 +51,21 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public boolean receiveClientEvent(int event, int param) {
+	public boolean onSyncedBlockEvent(int event, int param) {
 		if (event == EXPLODE_EFFECT_EVENT) {
-			if (getWorld().isRemote && getWorld().getEntityByID(param) instanceof TNTEntity) {
-				Entity e = getWorld().getEntityByID(param);
+			if (getWorld().isClient && getWorld().getEntityById(param) instanceof TntEntity) {
+				Entity e = getWorld().getEntityById(param);
 
 				for (int i = 0; i < 50; i++) {
 					SparkleParticleData data = SparkleParticleData.sparkle((float) (Math.random() * 0.65F + 1.25F), 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 12);
-					world.addParticle(data, e.getPosX() + Math.random() * 4 - 2, e.getPosY() + Math.random() * 4 - 2, e.getPosZ() + Math.random() * 4 - 2, 0, 0, 0);
+					world.addParticle(data, e.getX() + Math.random() * 4 - 2, e.getY() + Math.random() * 4 - 2, e.getZ() + Math.random() * 4 - 2, 0, 0, 0);
 				}
 
-				getWorld().addParticle(ParticleTypes.EXPLOSION_EMITTER, e.getPosX(), e.getPosY(), e.getPosZ(), 1D, 0D, 0D);
+				getWorld().addParticle(ParticleTypes.EXPLOSION_EMITTER, e.getX(), e.getY(), e.getZ(), 1D, 0D, 0D);
 			}
 			return true;
 		} else {
-			return super.receiveClientEvent(event, param);
+			return super.onSyncedBlockEvent(event, param);
 		}
 	}
 

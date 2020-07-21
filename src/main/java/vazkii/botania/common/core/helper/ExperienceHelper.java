@@ -14,7 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 public class ExperienceHelper {
 
 	public static int getPlayerXP(PlayerEntity player) {
-		return (int) (getExperienceForLevel(player.experienceLevel) + player.experience * player.xpBarCap());
+		return (int) (getExperienceForLevel(player.experienceLevel) + player.experienceProgress * player.getNextLevelExperience());
 	}
 
 	public static void drainPlayerXP(PlayerEntity player, int amount) {
@@ -23,10 +23,10 @@ public class ExperienceHelper {
 
 	public static void addPlayerXP(PlayerEntity player, int amount) {
 		int experience = getPlayerXP(player) + amount;
-		player.experienceTotal = experience;
+		player.totalExperience = experience;
 		player.experienceLevel = getLevelForExperience(experience);
 		int expForLevel = getExperienceForLevel(player.experienceLevel);
-		player.experience = (float) (experience - expForLevel) / (float) player.xpBarCap();
+		player.experienceProgress = (float) (experience - expForLevel) / (float) player.getNextLevelExperience();
 	}
 
 	public static int getExperienceForLevel(int level) {

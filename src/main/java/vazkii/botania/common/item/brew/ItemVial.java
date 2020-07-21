@@ -17,7 +17,7 @@ import vazkii.botania.common.item.ModItems;
 
 public class ItemVial extends Item implements IBrewContainer {
 
-	public ItemVial(Properties builder) {
+	public ItemVial(Settings builder) {
 		super(builder);
 	}
 

@@ -10,14 +10,14 @@ package vazkii.botania.common.item.rod;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResult;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
@@ -38,45 +38,45 @@ import java.util.Random;
 
 public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWieldable {
 
-	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_DIVINING);
+	private static final Identifier avatarOverlay = new Identifier(LibResources.MODEL_AVATAR_DIVINING);
 
 	static final int COST = 3000;
 
-	public ItemDiviningRod(Properties props) {
+	public ItemDiviningRod(Settings props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity p, @Nonnull Hand hand) {
-		ItemStack stack = p.getHeldItem(hand);
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity p, @Nonnull Hand hand) {
+		ItemStack stack = p.getStackInHand(hand);
 		if (ManaItemHandler.instance().requestManaExactForTool(stack, p, COST, true)) {
-			if (world.isRemote) {
+			if (world.isClient) {
 				int range = IManaProficiencyArmor.hasProficiency(p, stack) ? 20 : 15;
-				long seedxor = world.rand.nextLong();
-				doHighlight(world, p.func_233580_cy_(), range, seedxor);
-				p.swingArm(hand);
+				long seedxor = world.random.nextLong();
+				doHighlight(world, p.getBlockPos(), range, seedxor);
+				p.swingHand(hand);
 			} else {
-				world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), ModSounds.divinationRod, SoundCategory.PLAYERS, 1F, 1F);
+				world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.divinationRod, SoundCategory.PLAYERS, 1F, 1F);
 			}
-			return ActionResult.resultSuccess(stack);
+			return TypedActionResult.success(stack);
 		}
 
-		return ActionResult.resultPass(stack);
+		return TypedActionResult.pass(stack);
 	}
 
 	private void doHighlight(World world, BlockPos pos, int range, long seedxor) {
-		for (BlockPos pos_ : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range),
+		for (BlockPos pos_ : BlockPos.iterate(pos.add(-range, -range, -range),
 				pos.add(range, range, range))) {
 			BlockState state = world.getBlockState(pos_);
 
 			Block block = state.getBlock();
 			if (Tags.Blocks.ORES.contains(block)) {
-				Random rand = new Random(Registry.BLOCK.getKey(block).hashCode() ^ seedxor);
+				Random rand = new Random(Registry.BLOCK.getId(block).hashCode() ^ seedxor);
 				WispParticleData data = WispParticleData.wisp(0.25F, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 8, false);
-				world.addParticle(data, pos_.getX() + world.rand.nextFloat(),
-						pos_.getY() + world.rand.nextFloat(),
-						pos_.getZ() + world.rand.nextFloat(),
+				world.addParticle(data, pos_.getX() + world.random.nextFloat(),
+						pos_.getY() + world.random.nextFloat(),
+						pos_.getZ() + world.random.nextFloat(),
 						0, 0, 0);
 			}
 		}
@@ -89,7 +89,7 @@ public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWiel
 
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
-		TileEntity te = (TileEntity) tile;
+		BlockEntity te = (BlockEntity) tile;
 		World world = te.getWorld();
 		if (tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 200 == 0 && tile.isEnabled()) {
 			doHighlight(world, te.getPos(), 18, te.getPos().hashCode());
@@ -98,7 +98,7 @@ public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWiel
 	}
 
 	@Override
-	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
+	public Identifier getOverlayResource(IAvatarTile tile, ItemStack stack) {
 		return avatarOverlay;
 	}
 }

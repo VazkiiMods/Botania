@@ -10,15 +10,14 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Packet;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -38,7 +37,7 @@ public class EntityMagicLandmine extends Entity {
 
 	@Override
 	public void tick() {
-		setMotion(Vector3d.ZERO);
+		setVelocity(Vec3d.ZERO);
 		super.tick();
 
 		float range = getWidth() / 2;
@@ -49,27 +48,27 @@ public class EntityMagicLandmine extends Entity {
 		//Botania.proxy.wispFX(world, getPosX(), getPosY(), getPosZ(), r, g, b, 0.6F, -0.2F, 1);
 		for (int i = 0; i < 6; i++) {
 			WispParticleData data = WispParticleData.wisp(0.4F, r, g, b, (float) 1);
-			world.addParticle(data, getPosX() - range + Math.random() * range * 2, getPosY(), getPosZ() - range + Math.random() * range * 2, 0, - -0.015F, 0);
+			world.addParticle(data, getX() - range + Math.random() * range * 2, getY(), getZ() - range + Math.random() * range * 2, 0, - -0.015F, 0);
 		}
 
-		if (ticksExisted >= 55) {
-			world.playSound(null, getPosX(), getPosY(), getPosZ(), ModSounds.gaiaTrap, SoundCategory.NEUTRAL, 0.3F, 1F);
+		if (age >= 55) {
+			world.playSound(null, getX(), getY(), getZ(), ModSounds.gaiaTrap, SoundCategory.NEUTRAL, 0.3F, 1F);
 
 			float m = 0.35F;
 			g = 0.4F;
 			for (int i = 0; i < 25; i++) {
 				WispParticleData data = WispParticleData.wisp(0.5F, r, g, b);
-				world.addParticle(data, getPosX(), getPosY() + 1, getPosZ(), (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m);
+				world.addParticle(data, getX(), getY() + 1, getZ(), (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m);
 			}
 
-			if (!world.isRemote) {
-				List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, getBoundingBox());
+			if (!world.isClient) {
+				List<PlayerEntity> players = world.getNonSpectatingEntities(PlayerEntity.class, getBoundingBox());
 				for (PlayerEntity player : players) {
-					player.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, summoner), 10);
-					player.addPotionEffect(new EffectInstance(Effects.BLINDNESS, 25, 0));
-					EffectInstance wither = new EffectInstance(Effects.WITHER, 120, 2);
+					player.damage(DamageSource.magic(this, summoner), 10);
+					player.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 25, 0));
+					StatusEffectInstance wither = new StatusEffectInstance(StatusEffects.WITHER, 120, 2);
 					wither.getCurativeItems().clear();
-					player.addPotionEffect(wither);
+					player.addStatusEffect(wither);
 				}
 			}
 
@@ -78,17 +77,17 @@ public class EntityMagicLandmine extends Entity {
 	}
 
 	@Override
-	protected void registerData() {}
+	protected void initDataTracker() {}
 
 	@Override
-	protected void readAdditional(@Nonnull CompoundNBT var1) {}
+	protected void readCustomDataFromTag(@Nonnull CompoundTag var1) {}
 
 	@Override
-	protected void writeAdditional(@Nonnull CompoundNBT var1) {}
+	protected void writeCustomDataToTag(@Nonnull CompoundTag var1) {}
 
 	@Nonnull
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public Packet<?> createSpawnPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 }

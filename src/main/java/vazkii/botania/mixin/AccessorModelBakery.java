@@ -8,18 +8,17 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.renderer.model.ModelBakery;
-import net.minecraft.client.renderer.model.RenderMaterial;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.Set;
+import net.minecraft.client.render.model.ModelLoader;
+import net.minecraft.client.util.SpriteIdentifier;
 
-@Mixin(ModelBakery.class)
+@Mixin(ModelLoader.class)
 public interface AccessorModelBakery {
 	@Accessor("LOCATIONS_BUILTIN_TEXTURES")
-	static Set<RenderMaterial> getMaterials() {
+	static Set<SpriteIdentifier> getMaterials() {
 		throw new IllegalStateException();
 	}
 }

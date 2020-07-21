@@ -10,13 +10,13 @@ package vazkii.botania.common.item.equipment.tool.terrasteel;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Box;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -38,7 +38,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 
 	private static final int MANA_PER_DAMAGE = 100;
 
-	public ItemTerraSword(Properties props) {
+	public ItemTerraSword(Settings props) {
 		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
 		MinecraftForge.EVENT_BUS.addListener(this::leftClick);
 		MinecraftForge.EVENT_BUS.addListener(this::attackEntity);
@@ -52,19 +52,19 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 	}
 
 	private void attackEntity(AttackEntityEvent evt) {
-		if (!evt.getPlayer().world.isRemote) {
+		if (!evt.getPlayer().world.isClient) {
 			trySpawnBurst(evt.getPlayer());
 		}
 	}
 
 	public void trySpawnBurst(PlayerEntity player) {
-		if (!player.getHeldItemMainhand().isEmpty()
-				&& player.getHeldItemMainhand().getItem() == this
-				&& player.getCooledAttackStrength(0) == 1) {
-			EntityManaBurst burst = getBurst(player, player.getHeldItemMainhand());
-			player.world.addEntity(burst);
-			ToolCommons.damageItem(player.getHeldItemMainhand(), 1, player, MANA_PER_DAMAGE);
-			player.world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.terraBlade, SoundCategory.PLAYERS, 0.4F, 1.4F);
+		if (!player.getMainHandStack().isEmpty()
+				&& player.getMainHandStack().getItem() == this
+				&& player.getAttackCooldownProgress(0) == 1) {
+			EntityManaBurst burst = getBurst(player, player.getMainHandStack());
+			player.world.spawnEntity(burst);
+			ToolCommons.damageItem(player.getMainHandStack(), 1, player, MANA_PER_DAMAGE);
+			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraBlade, SoundCategory.PLAYERS, 0.4F, 1.4F);
 		}
 	}
 
@@ -84,8 +84,8 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		burst.setMinManaLoss(40);
 		burst.setManaLossPerTick(4F);
 		burst.setGravity(0F);
-		burst.setBurstMotion(burst.getMotion().getX() * motionModifier,
-				burst.getMotion().getY() * motionModifier, burst.getMotion().getZ() * motionModifier);
+		burst.setBurstMotion(burst.getVelocity().getX() * motionModifier,
+				burst.getVelocity().getY() * motionModifier, burst.getVelocity().getZ() * motionModifier);
 
 		burst.setSourceLens(stack.copy());
 		return burst;
@@ -95,20 +95,20 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 	public void apply(ItemStack stack, BurstProperties props) {}
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		return dead;
 	}
 
 	@Override
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
-		ThrowableEntity entity = (ThrowableEntity) burst;
-		AxisAlignedBB axis = new AxisAlignedBB(entity.getPosX(), entity.getPosY(), entity.getPosZ(), entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).grow(1);
-		List<LivingEntity> entities = entity.world.getEntitiesWithinAABB(LivingEntity.class, axis);
-		Entity thrower = entity.func_234616_v_();
+		ThrownEntity entity = (ThrownEntity) burst;
+		Box axis = new Box(entity.getX(), entity.getY(), entity.getZ(), entity.lastRenderX, entity.lastRenderY, entity.lastRenderZ).expand(1);
+		List<LivingEntity> entities = entity.world.getNonSpectatingEntities(LivingEntity.class, axis);
+		Entity thrower = entity.getOwner();
 
 		for (LivingEntity living : entities) {
 			if (living == thrower || living instanceof PlayerEntity && thrower instanceof PlayerEntity
-					&& !((PlayerEntity) thrower).canAttackPlayer(((PlayerEntity) living))) {
+					&& !((PlayerEntity) thrower).shouldDamagePlayer(((PlayerEntity) living))) {
 				continue;
 			}
 
@@ -118,14 +118,14 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 				if (mana >= cost) {
 					burst.setMana(mana - cost);
 					float damage = 4F + BotaniaAPI.instance().getTerrasteelItemTier().getAttackDamage();
-					if (!burst.isFake() && !entity.world.isRemote) {
+					if (!burst.isFake() && !entity.world.isClient) {
 						DamageSource source = DamageSource.MAGIC;
 						if (thrower instanceof PlayerEntity) {
-							source = DamageSource.causePlayerDamage((PlayerEntity) thrower);
+							source = DamageSource.player((PlayerEntity) thrower);
 						} else if (thrower instanceof LivingEntity) {
-							source = DamageSource.causeMobDamage((LivingEntity) thrower);
+							source = DamageSource.mob((LivingEntity) thrower);
 						}
-						living.attackEntityFrom(source, damage);
+						living.damage(source, damage);
 						entity.remove();
 						break;
 					}

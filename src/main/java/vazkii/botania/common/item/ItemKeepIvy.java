@@ -8,11 +8,11 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
@@ -29,7 +29,7 @@ public class ItemKeepIvy extends Item {
 	private static final String TAG_DROP_COUNT = "dropCount";
 	private static final String TAG_DROP_PREFIX = "dropPrefix";
 
-	public ItemKeepIvy(Properties props) {
+	public ItemKeepIvy(Settings props) {
 		super(props);
 	}
 
@@ -45,7 +45,7 @@ public class ItemKeepIvy extends Item {
 
 		List<ItemEntity> keeps = new ArrayList<>();
 		for (ItemEntity item : event.getDrops()) {
-			ItemStack stack = item.getItem();
+			ItemStack stack = item.getStack();
 			if (!stack.isEmpty() && stack.hasTag() && ItemNBTHelper.getBoolean(stack, TAG_KEEP, false)) {
 				keeps.add(item);
 			}
@@ -54,42 +54,42 @@ public class ItemKeepIvy extends Item {
 		if (keeps.size() > 0) {
 			event.getDrops().removeAll(keeps);
 
-			CompoundNBT cmp = new CompoundNBT();
+			CompoundTag cmp = new CompoundTag();
 			cmp.putInt(TAG_DROP_COUNT, keeps.size());
 
 			int i = 0;
 			for (ItemEntity keep : keeps) {
-				ItemStack stack = keep.getItem();
-				CompoundNBT cmp1 = stack.write(new CompoundNBT());
+				ItemStack stack = keep.getStack();
+				CompoundTag cmp1 = stack.toTag(new CompoundTag());
 				cmp.put(TAG_DROP_PREFIX + i, cmp1);
 				i++;
 			}
 
-			CompoundNBT data = event.getEntityLiving().getPersistentData();
+			CompoundTag data = event.getEntityLiving().getPersistentData();
 			if (!data.contains(PlayerEntity.PERSISTED_NBT_TAG)) {
-				data.put(PlayerEntity.PERSISTED_NBT_TAG, new CompoundNBT());
+				data.put(PlayerEntity.PERSISTED_NBT_TAG, new CompoundTag());
 			}
 
-			CompoundNBT persist = data.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
+			CompoundTag persist = data.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
 			persist.put(TAG_PLAYER_KEPT_DROPS, cmp);
 		}
 	}
 
 	public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
-		CompoundNBT data = event.getPlayer().getPersistentData();
+		CompoundTag data = event.getPlayer().getPersistentData();
 		if (data.contains(PlayerEntity.PERSISTED_NBT_TAG)) {
-			CompoundNBT cmp = data.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
-			CompoundNBT cmp1 = cmp.getCompound(TAG_PLAYER_KEPT_DROPS);
+			CompoundTag cmp = data.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
+			CompoundTag cmp1 = cmp.getCompound(TAG_PLAYER_KEPT_DROPS);
 
 			int count = cmp1.getInt(TAG_DROP_COUNT);
 			for (int i = 0; i < count; i++) {
-				CompoundNBT cmp2 = cmp1.getCompound(TAG_DROP_PREFIX + i);
-				ItemStack stack = ItemStack.read(cmp2);
+				CompoundTag cmp2 = cmp1.getCompound(TAG_DROP_PREFIX + i);
+				ItemStack stack = ItemStack.fromTag(cmp2);
 				if (!stack.isEmpty()) {
 					ItemStack copy = stack.copy();
-					stack.removeChildTag(TAG_KEEP);
-					if (!event.getPlayer().inventory.addItemStackToInventory(copy)) {
-						event.getPlayer().entityDropItem(copy);
+					stack.removeSubTag(TAG_KEEP);
+					if (!event.getPlayer().inventory.insertStack(copy)) {
+						event.getPlayer().dropStack(copy);
 					}
 				}
 			}

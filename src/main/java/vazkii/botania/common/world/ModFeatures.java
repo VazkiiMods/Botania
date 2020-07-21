@@ -12,10 +12,10 @@ import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.decorator.Decorator;
+import net.minecraft.world.gen.decorator.DecoratorConfig;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.placement.IPlacementConfig;
-import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -47,9 +47,9 @@ public class ModFeatures {
 	public static void addWorldgen() {
 		for (Biome biome : Registry.BIOME) {
 			if (BiomeDictionary.getTypes(biome).stream().noneMatch(TYPE_BLACKLIST::contains)) {
-				biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_FLOWERS.withConfiguration(MysticalFlowerConfig.fromConfig()).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+				biome.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, MYSTICAL_FLOWERS.configure(MysticalFlowerConfig.fromConfig()).createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT)));
 			}
-			biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_MUSHROOMS.withConfiguration(MysticalFlowerConfig.fromConfig()).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
+			biome.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, MYSTICAL_MUSHROOMS.configure(MysticalFlowerConfig.fromConfig()).createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT)));
 		}
 	}
 }

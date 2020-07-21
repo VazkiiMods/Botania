@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.integration.jei.puredaisy;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -21,11 +20,12 @@ import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.FlowingFluidBlock;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.block.FluidBlock;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.fluids.FluidStack;
 
 import vazkii.botania.api.recipe.IPureDaisyRecipe;
@@ -43,7 +43,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe> {
 
-	public static final ResourceLocation UID = prefix("pure_daisy");
+	public static final Identifier UID = prefix("pure_daisy");
 	private final IDrawable background;
 	private final String localizedName;
 	private final IDrawable overlay;
@@ -51,7 +51,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 
 	public PureDaisyRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(168, 46);
-		localizedName = I18n.format("botania.nei.pureDaisy");
+		localizedName = I18n.translate("botania.nei.pureDaisy");
 		overlay = guiHelper.createDrawable(prefix("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModSubtiles.pureDaisy));
@@ -59,7 +59,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 
 	@Nonnull
 	@Override
-	public ResourceLocation getUid() {
+	public Identifier getUid() {
 		return UID;
 	}
 
@@ -100,8 +100,8 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 			BlockState state = input.getDisplayed().get(0);
 			Block b = state.getBlock();
 
-			if (b instanceof FlowingFluidBlock) {
-				iIngredients.setInput(VanillaTypes.FLUID, new FluidStack(((FlowingFluidBlock) b).getFluid(), 1000));
+			if (b instanceof FluidBlock) {
+				iIngredients.setInput(VanillaTypes.FLUID, new FluidStack(((FluidBlock) b).getFluid(), 1000));
 			} else {
 				if (b.asItem() != Items.AIR) {
 					iIngredients.setInput(VanillaTypes.ITEM, new ItemStack(b));
@@ -110,8 +110,8 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 		}
 
 		Block outBlock = recipe.getOutputState().getBlock();
-		if (outBlock instanceof FlowingFluidBlock) {
-			iIngredients.setOutput(VanillaTypes.FLUID, new FluidStack(((FlowingFluidBlock) outBlock).getFluid(), 1000));
+		if (outBlock instanceof FluidBlock) {
+			iIngredients.setOutput(VanillaTypes.FLUID, new FluidStack(((FluidBlock) outBlock).getFluid(), 1000));
 		} else {
 			if (outBlock.asItem() != Items.AIR) {
 				iIngredients.setOutput(VanillaTypes.ITEM, new ItemStack(outBlock));

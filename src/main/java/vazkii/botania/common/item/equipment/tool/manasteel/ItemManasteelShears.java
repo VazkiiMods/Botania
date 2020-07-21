@@ -26,7 +26,7 @@ public class ItemManasteelShears extends ShearsItem implements IManaUsingItem {
 
 	public static final int MANA_PER_DAMAGE = 30;
 
-	public ItemManasteelShears(Properties props) {
+	public ItemManasteelShears(Settings props) {
 		super(props);
 	}
 
@@ -37,14 +37,14 @@ public class ItemManasteelShears extends ShearsItem implements IManaUsingItem {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected) {
-		if (!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.instance().requestManaExactForTool(stack, (PlayerEntity) player, MANA_PER_DAMAGE * 2, true)) {
+		if (!world.isClient && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.instance().requestManaExactForTool(stack, (PlayerEntity) player, MANA_PER_DAMAGE * 2, true)) {
 			stack.setDamage(stack.getDamage() - 1);
 		}
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack shears, ItemStack material) {
-		return material.getItem() == ModItems.manaSteel || super.getIsRepairable(shears, material);
+	public boolean canRepair(ItemStack shears, ItemStack material) {
+		return material.getItem() == ModItems.manaSteel || super.canRepair(shears, material);
 	}
 
 	@Override

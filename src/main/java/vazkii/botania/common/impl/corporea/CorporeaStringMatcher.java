@@ -9,10 +9,9 @@
 package vazkii.botania.common.impl.corporea;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import org.apache.commons.lang3.text.WordUtils;
 
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
@@ -59,29 +58,29 @@ public class CorporeaStringMatcher implements ICorporeaRequestMatcher {
 			return false;
 		}
 
-		String name = stripControlCodes(stack.getDisplayName().getString().toLowerCase().trim());
+		String name = stripControlCodes(stack.getName().getString().toLowerCase().trim());
 		return equalOrContain(name)
 				|| equalOrContain(name + "s")
 				|| equalOrContain(name + "es")
 				|| name.endsWith("y") && equalOrContain(name.substring(0, name.length() - 1) + "ies");
 	}
 
-	public static CorporeaStringMatcher createFromNBT(CompoundNBT tag) {
+	public static CorporeaStringMatcher createFromNBT(CompoundTag tag) {
 		String expression = tag.getString(TAG_REQUEST_CONTENTS);
 		boolean contains = tag.getBoolean(TAG_REQUEST_CONTAINS);
 		return new CorporeaStringMatcher(expression, contains);
 	}
 
 	@Override
-	public void writeToNBT(CompoundNBT tag) {
+	public void writeToNBT(CompoundTag tag) {
 		tag.putString(TAG_REQUEST_CONTENTS, expression);
 		tag.putBoolean(TAG_REQUEST_CONTAINS, contains);
 	}
 
 	@Override
 	@SuppressWarnings("deprecation")
-	public ITextComponent getRequestName() {
-		return new StringTextComponent(WordUtils.capitalizeFully(expression));
+	public Text getRequestName() {
+		return new LiteralText(WordUtils.capitalizeFully(expression));
 	}
 
 	private boolean equalOrContain(String str) {

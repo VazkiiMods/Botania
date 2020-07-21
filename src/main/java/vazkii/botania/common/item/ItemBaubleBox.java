@@ -9,16 +9,16 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.inventory.container.SimpleNamedContainerProvider;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -37,14 +37,14 @@ import javax.annotation.Nullable;
 public class ItemBaubleBox extends Item {
 	public static final int SIZE = 24;
 
-	public ItemBaubleBox(Properties props) {
+	public ItemBaubleBox(Settings props) {
 		super(props);
 	}
 
-	public static Inventory getInventory(ItemStack stack) {
+	public static SimpleInventory getInventory(ItemStack stack) {
 		return new ItemBackedInventory(stack, SIZE) {
 			@Override
-			public boolean isItemValidForSlot(int index, @Nonnull ItemStack stack) {
+			public boolean isValid(int index, @Nonnull ItemStack stack) {
 				return EquipmentHandler.instance.isAccessory(stack);
 			}
 		};
@@ -52,7 +52,7 @@ public class ItemBaubleBox extends Item {
 
 	@Nonnull
 	@Override
-	public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT oldCapNbt) {
+	public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag oldCapNbt) {
 		return new InvProvider(stack);
 	}
 
@@ -72,14 +72,14 @@ public class ItemBaubleBox extends Item {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		if (!world.isRemote) {
-			ItemStack stack = player.getHeldItem(hand);
-			INamedContainerProvider container = new SimpleNamedContainerProvider((w, p, pl) -> new ContainerBaubleBox(w, p, stack), stack.getDisplayName());
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
+		if (!world.isClient) {
+			ItemStack stack = player.getStackInHand(hand);
+			NamedScreenHandlerFactory container = new SimpleNamedScreenHandlerFactory((w, p, pl) -> new ContainerBaubleBox(w, p, stack), stack.getName());
 			NetworkHooks.openGui((ServerPlayerEntity) player, container, b -> {
 				b.writeBoolean(hand == Hand.MAIN_HAND);
 			});
 		}
-		return ActionResult.resultSuccess(player.getHeldItem(hand));
+		return TypedActionResult.success(player.getStackInHand(hand));
 	}
 }

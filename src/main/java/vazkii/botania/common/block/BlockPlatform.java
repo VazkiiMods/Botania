@@ -9,21 +9,19 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.mana.IManaCollisionGhost;
@@ -33,7 +31,7 @@ import vazkii.botania.common.block.tile.TilePlatform;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockPlatform extends BlockMod implements IWandable, IManaCollisionGhost, ITileEntityProvider {
+public class BlockPlatform extends BlockMod implements IWandable, IManaCollisionGhost, BlockEntityProvider {
 
 	public enum Variant {
 		ABSTRUSE,
@@ -43,20 +41,20 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 
 	public final Variant variant;
 
-	public BlockPlatform(Variant v, Properties builder) {
+	public BlockPlatform(Variant v, Settings builder) {
 		super(builder);
 		this.variant = v;
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, ISelectionContext context) {
+	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull BlockView world, @Nonnull BlockPos pos, ShapeContext context) {
 		Entity e = context.getEntity();
 		if (variant == Variant.INFRANGIBLE
 				|| variant == Variant.ABSTRUSE
 						&& e != null
-						&& e.getPosY() > pos.getY() + 0.9
-						&& !context.func_225581_b_()) {
+						&& e.getY() > pos.getY() + 0.9
+						&& !context.isDescending()) {
 			return super.getCollisionShape(state, world, pos, context);
 		} else {
 			return VoxelShapes.empty();
@@ -64,19 +62,19 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 	}
 
 	@Override
-	public boolean canEntityDestroy(BlockState state, IBlockReader world, BlockPos pos, Entity entity) {
+	public boolean canEntityDestroy(BlockState state, BlockView world, BlockPos pos, Entity entity) {
 		return variant != Variant.INFRANGIBLE;
 	}
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TilePlatform();
 	}
 
 	@Override
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
-		TilePlatform tile = (TilePlatform) world.getTileEntity(pos);
+		TilePlatform tile = (TilePlatform) world.getBlockEntity(pos);
 		return tile.onWanded(player);
 	}
 
@@ -86,34 +84,34 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 	}
 
 	public static boolean isValidBlock(@Nullable BlockState state, World world, BlockPos pos) {
-		return state != null && (state.isOpaqueCube(world, pos) || state.getRenderType() == BlockRenderType.MODEL);
+		return state != null && (state.isOpaqueFullCube(world, pos) || state.getRenderType() == BlockRenderType.MODEL);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		TileEntity tile = world.getTileEntity(pos);
-		ItemStack currentStack = player.getHeldItem(hand);
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		BlockEntity tile = world.getBlockEntity(pos);
+		ItemStack currentStack = player.getStackInHand(hand);
 		if (!currentStack.isEmpty()
 				&& Block.getBlockFromItem(currentStack.getItem()) != Blocks.AIR
 				&& tile instanceof TilePlatform) {
 			TilePlatform camo = (TilePlatform) tile;
-			BlockItemUseContext ctx = new BlockItemUseContext(world, player, hand, currentStack, hit);
-			BlockState changeState = Block.getBlockFromItem(currentStack.getItem()).getStateForPlacement(ctx);
+			ItemPlacementContext ctx = new ItemPlacementContext(world, player, hand, currentStack, hit);
+			BlockState changeState = Block.getBlockFromItem(currentStack.getItem()).getPlacementState(ctx);
 
 			if (changeState != null && isValidBlock(changeState, world, pos)
 					&& !(changeState.getBlock() instanceof BlockPlatform)
 					&& changeState.getMaterial() != Material.AIR) {
-				if (!world.isRemote) {
+				if (!world.isClient) {
 					camo.camoState = changeState;
-					world.notifyBlockUpdate(pos, state, state, 3);
+					world.updateListeners(pos, state, state, 3);
 				}
 
-				return ActionResultType.SUCCESS;
+				return ActionResult.SUCCESS;
 			}
 		}
 
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
 }

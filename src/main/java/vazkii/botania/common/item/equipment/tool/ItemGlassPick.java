@@ -10,15 +10,15 @@ package vazkii.botania.common.item.equipment.tool;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.Material;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.ToolMaterial;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
@@ -30,14 +30,14 @@ import java.util.Map;
 public class ItemGlassPick extends ItemManasteelPick {
 	private static final String TAG_SILK_HACK = "botania:silk_hack";
 	private static final int MANA_PER_DAMAGE = 160;
-	private static final IItemTier MATERIAL = new IItemTier() {
+	private static final ToolMaterial MATERIAL = new ToolMaterial() {
 		@Override
-		public int getMaxUses() {
+		public int getDurability() {
 			return 125;
 		}
 
 		@Override
-		public float getEfficiency() {
+		public float getMiningSpeedMultiplier() {
 			return 4.8F;
 		}
 
@@ -47,7 +47,7 @@ public class ItemGlassPick extends ItemManasteelPick {
 		}
 
 		@Override
-		public int getHarvestLevel() {
+		public int getMiningLevel() {
 			return 0;
 		}
 
@@ -57,12 +57,12 @@ public class ItemGlassPick extends ItemManasteelPick {
 		}
 
 		@Override
-		public Ingredient getRepairMaterial() {
-			return Ingredient.fromItems(Blocks.GLASS);
+		public Ingredient getRepairIngredient() {
+			return Ingredient.ofItems(Blocks.GLASS);
 		}
 	};
 
-	public ItemGlassPick(Properties props) {
+	public ItemGlassPick(Settings props) {
 		super(MATERIAL, props, -1);
 	}
 
@@ -76,7 +76,7 @@ public class ItemGlassPick extends ItemManasteelPick {
 	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, PlayerEntity player) {
 		BlockState state = player.world.getBlockState(pos);
 		boolean isGlass = state.getMaterial() == Material.GLASS || Tags.Blocks.GLASS.contains(state.getBlock());
-		boolean hasSilk = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, itemstack) > 0;
+		boolean hasSilk = EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, itemstack) > 0;
 		if (hasSilk || !isGlass) {
 			return super.onBlockStartBreak(itemstack, pos, player);
 		}
@@ -92,9 +92,9 @@ public class ItemGlassPick extends ItemManasteelPick {
 		super.inventoryTick(stack, world, player, slot, selected);
 		if (stack.getOrCreateTag().getBoolean(TAG_SILK_HACK)) {
 			stack.getTag().remove(TAG_SILK_HACK);
-			Map<Enchantment, Integer> ench = EnchantmentHelper.getEnchantments(stack);
+			Map<Enchantment, Integer> ench = EnchantmentHelper.get(stack);
 			ench.remove(Enchantments.SILK_TOUCH);
-			EnchantmentHelper.setEnchantments(ench, stack);
+			EnchantmentHelper.set(ench, stack);
 		}
 	}
 

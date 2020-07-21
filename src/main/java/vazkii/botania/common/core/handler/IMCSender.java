@@ -12,7 +12,7 @@ import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.registries.IRegistryDelegate;
@@ -148,12 +148,12 @@ public class IMCSender {
 	}
 
 	private static void addOreWeight(String oreTag, int weight) {
-		ResourceLocation tag = new ResourceLocation("forge", "ores/" + oreTag);
+		Identifier tag = new Identifier("forge", "ores/" + oreTag);
 		BotaniaAPI.instance().registerOreWeight(tag, weight);
 	}
 
 	private static void addOreWeightNether(String oreTag, int weight) {
-		ResourceLocation tag = new ResourceLocation("forge", "ores/" + oreTag);
+		Identifier tag = new Identifier("forge", "ores/" + oreTag);
 		BotaniaAPI.instance().registerNetherOreWeight(tag, weight);
 	}
 }

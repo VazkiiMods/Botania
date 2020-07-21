@@ -10,12 +10,12 @@ package vazkii.botania.common.block.string;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import vazkii.botania.common.block.tile.string.TileRedString;
@@ -29,13 +29,13 @@ public class BlockRedStringInterceptor extends BlockRedString {
 
 	public BlockRedStringInterceptor(Block.Properties builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(BlockStateProperties.FACING, Direction.DOWN).with(BlockStateProperties.POWERED, false));
+		setDefaultState(getDefaultState().with(Properties.FACING, Direction.DOWN).with(Properties.POWERED, false));
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		super.fillStateContainer(builder);
-		builder.add(BlockStateProperties.POWERED);
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		super.appendProperties(builder);
+		builder.add(Properties.POWERED);
 	}
 
 	public static void onInteract(PlayerInteractEvent.RightClickBlock event) {
@@ -43,23 +43,23 @@ public class BlockRedStringInterceptor extends BlockRedString {
 	}
 
 	@Override
-	public boolean canProvidePower(BlockState state) {
+	public boolean emitsRedstonePower(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getWeakPower(BlockState state, IBlockReader world, BlockPos pos, Direction side) {
-		return state.get(BlockStateProperties.POWERED) ? 15 : 0;
+	public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction side) {
+		return state.get(Properties.POWERED) ? 15 : 0;
 	}
 
 	@Override
-	public void tick(BlockState state, ServerWorld world, BlockPos pos, Random update) {
-		world.setBlockState(pos, state.with(BlockStateProperties.POWERED, false));
+	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random update) {
+		world.setBlockState(pos, state.with(Properties.POWERED, false));
 	}
 
 	@Nonnull
 	@Override
-	public TileRedString createNewTileEntity(@Nonnull IBlockReader world) {
+	public TileRedString createBlockEntity(@Nonnull BlockView world) {
 		return new TileRedStringInterceptor();
 	}
 }

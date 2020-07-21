@@ -8,14 +8,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.util.math.vector.Vector3f;
-
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -23,25 +15,31 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 
 import javax.annotation.Nonnull;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
 
-public class RenderTileTerraPlate extends TileEntityRenderer<TileTerraPlate> {
+public class RenderTileTerraPlate extends BlockEntityRenderer<TileTerraPlate> {
 
-	public RenderTileTerraPlate(TileEntityRendererDispatcher manager) {
+	public RenderTileTerraPlate(BlockEntityRenderDispatcher manager) {
 		super(manager);
 	}
 
 	@Override
-	public void render(@Nonnull TileTerraPlate plate, float f, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+	public void render(@Nonnull TileTerraPlate plate, float f, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
 		float max = TileTerraPlate.MAX_MANA / 10F;
 		float alphaMod = Math.min(max, plate.getCurrentMana()) / max;
 
 		ms.push();
-		ms.rotate(Vector3f.XP.rotationDegrees(90F));
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90F));
 		ms.translate(0F, 0F, -3F / 16F - 0.001F);
 
 		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 5D + 0.6D) * alphaMod;
 
-		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.TERRA_PLATE);
+		VertexConsumer buffer = buffers.getBuffer(RenderHelper.TERRA_PLATE);
 		IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.terraPlateOverlay, 1, 1, alpha);
 
 		ms.pop();

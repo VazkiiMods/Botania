@@ -10,22 +10,21 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.ForgeMod;
 
 public class ItemReachRing extends ItemBauble {
 
-	public ItemReachRing(Properties props) {
+	public ItemReachRing(Settings props) {
 		super(props);
 	}
 
 	@Override
-	public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
-		Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
-		attributes.put(ForgeMod.REACH_DISTANCE.get(), new AttributeModifier(getBaubleUUID(stack), "Reach Ring", 3.5, AttributeModifier.Operation.ADDITION));
+	public Multimap<EntityAttribute, EntityAttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
+		Multimap<EntityAttribute, EntityAttributeModifier> attributes = HashMultimap.create();
+		attributes.put(ForgeMod.REACH_DISTANCE.get(), new EntityAttributeModifier(getBaubleUUID(stack), "Reach Ring", 3.5, EntityAttributeModifier.Operation.ADDITION));
 		return attributes;
 	}
 }

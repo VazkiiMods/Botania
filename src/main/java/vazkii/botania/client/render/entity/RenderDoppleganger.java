@@ -8,28 +8,26 @@
  */
 package vazkii.botania.client.render.entity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.BipedRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.resources.DefaultPlayerSkin;
-import net.minecraft.util.ResourceLocation;
-
 import vazkii.botania.client.core.helper.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
 import vazkii.botania.common.entity.EntityDoppleganger;
 
 import javax.annotation.Nonnull;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.BipedEntityRenderer;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.util.DefaultSkinHelper;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 
-public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger, BipedModel<EntityDoppleganger>> {
+public class RenderDoppleganger extends BipedEntityRenderer<EntityDoppleganger, BipedEntityModel<EntityDoppleganger>> {
 
 	private static final float DEFAULT_GRAIN_INTENSITY = 0.05F;
 	private static final float DEFAULT_DISFIGURATION = 0.025F;
@@ -65,12 +63,12 @@ public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger, BipedM
 		RenderSystem.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 	};
 
-	public RenderDoppleganger(EntityRendererManager renderManager) {
+	public RenderDoppleganger(EntityRenderDispatcher renderManager) {
 		super(renderManager, new Model(), 0F);
 	}
 
 	@Override
-	public void render(@Nonnull EntityDoppleganger dopple, float yaw, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light) {
+	public void render(@Nonnull EntityDoppleganger dopple, float yaw, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light) {
 		int invulTime = dopple.getInvulTime();
 		if (invulTime > 0) {
 			grainIntensity = invulTime > 20 ? 1F : invulTime * 0.05F;
@@ -85,14 +83,14 @@ public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger, BipedM
 
 	@Nonnull
 	@Override
-	public ResourceLocation getEntityTexture(@Nonnull EntityDoppleganger entity) {
-		Minecraft mc = Minecraft.getInstance();
+	public Identifier getEntityTexture(@Nonnull EntityDoppleganger entity) {
+		MinecraftClient mc = MinecraftClient.getInstance();
 
-		if (!(mc.getRenderViewEntity() instanceof AbstractClientPlayerEntity)) {
-			return DefaultPlayerSkin.getDefaultSkin(entity.getUniqueID());
+		if (!(mc.getCameraEntity() instanceof AbstractClientPlayerEntity)) {
+			return DefaultSkinHelper.getTexture(entity.getUuid());
 		}
 
-		return ((AbstractClientPlayerEntity) mc.getRenderViewEntity()).getLocationSkin();
+		return ((AbstractClientPlayerEntity) mc.getCameraEntity()).getSkinTexture();
 	}
 
 	@Override
@@ -100,9 +98,9 @@ public class RenderDoppleganger extends BipedRenderer<EntityDoppleganger, BipedM
 		return true;
 	}
 
-	private static class Model extends BipedModel<EntityDoppleganger> {
-		private static RenderType makeRenderType(ResourceLocation texture) {
-			RenderType normal = RenderType.getEntityTranslucent(texture);
+	private static class Model extends BipedEntityModel<EntityDoppleganger> {
+		private static RenderLayer makeRenderType(Identifier texture) {
+			RenderLayer normal = RenderLayer.getEntityTranslucent(texture);
 			return ShaderHelper.useShaders()
 					? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.DOPPLEGANGER, CALLBACK, normal)
 					: normal;

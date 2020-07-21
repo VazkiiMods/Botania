@@ -8,21 +8,21 @@
  */
 package vazkii.botania.common.block.mana;
 
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.ai.pathing.NavigationType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.pathfinding.PathType;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
@@ -31,58 +31,58 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class BlockTerraPlate extends BlockModWaterloggable implements ITileEntityProvider {
+public class BlockTerraPlate extends BlockModWaterloggable implements BlockEntityProvider {
 
-	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 3, 16);
+	private static final VoxelShape SHAPE = createCuboidShape(0, 0, 0, 16, 3, 16);
 
-	public BlockTerraPlate(Properties builder) {
+	public BlockTerraPlate(Settings builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
 		return SHAPE;
 	}
 
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		ItemStack stack = player.getHeldItem(hand);
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		ItemStack stack = player.getStackInHand(hand);
 		if (!stack.isEmpty()
 				&& (stack.getItem() == ModItems.manaSteel || stack.getItem() == ModItems.manaPearl || stack.getItem() == ModItems.manaDiamond)) {
-			if (!world.isRemote) {
+			if (!world.isClient) {
 				ItemStack target = stack.split(1);
 				ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, target);
 				item.setPickupDelay(40);
-				item.setMotion(Vector3d.ZERO);
-				world.addEntity(item);
+				item.setVelocity(Vec3d.ZERO);
+				world.spawnEntity(item);
 			}
 
-			return ActionResultType.SUCCESS;
+			return ActionResult.SUCCESS;
 		}
 
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
 	@Override
-	public boolean allowsMovement(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, PathType type) {
+	public boolean canPathfindThrough(@Nonnull BlockState state, @Nonnull BlockView world, @Nonnull BlockPos pos, NavigationType type) {
 		return false;
 	}
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TileTerraPlate();
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride(BlockState state) {
+	public boolean hasComparatorOutput(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
-		TileTerraPlate plate = (TileTerraPlate) world.getTileEntity(pos);
+	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+		TileTerraPlate plate = (TileTerraPlate) world.getBlockEntity(pos);
 		int val = (int) ((double) plate.getCurrentMana() / (double) TileTerraPlate.MAX_MANA * 15.0);
 		if (plate.getCurrentMana() > 0) {
 			val = Math.max(val, 1);

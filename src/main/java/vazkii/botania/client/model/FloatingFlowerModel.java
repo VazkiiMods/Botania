@@ -10,17 +10,26 @@ package vazkii.botania.client.model;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.BakedQuad;
+import net.minecraft.client.render.model.ModelBakeSettings;
+import net.minecraft.client.render.model.ModelLoader;
+import net.minecraft.client.render.model.UnbakedModel;
+import net.minecraft.client.render.model.json.JsonUnbakedModel;
+import net.minecraft.client.render.model.json.ModelOverrideList;
+import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.renderer.model.*;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.TransformationMatrix;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.client.util.math.AffineTransformation;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 import net.minecraftforge.client.model.IModelConfiguration;
 import net.minecraftforge.client.model.IModelLoader;
 import net.minecraftforge.client.model.ModelTransformComposition;
@@ -42,36 +51,36 @@ import java.util.function.Function;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class FloatingFlowerModel implements IModelGeometry<FloatingFlowerModel> {
-	private IUnbakedModel unbakedFlower;
-	private final Map<IFloatingFlower.IslandType, IUnbakedModel> unbakedIslands = new HashMap<>();
+	private UnbakedModel unbakedFlower;
+	private final Map<IFloatingFlower.IslandType, UnbakedModel> unbakedIslands = new HashMap<>();
 
-	private FloatingFlowerModel(IUnbakedModel flower) {
+	private FloatingFlowerModel(UnbakedModel flower) {
 		this.unbakedFlower = flower;
 	}
 
 	@Nonnull
 	@Override
-	public Collection<RenderMaterial> getTextures(IModelConfiguration owner, Function<ResourceLocation, IUnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors) {
-		Set<RenderMaterial> ret = new HashSet<>();
-		for (Map.Entry<IFloatingFlower.IslandType, ResourceLocation> e : BotaniaAPIClient.instance().getRegisteredIslandTypeModels().entrySet()) {
-			IUnbakedModel unbakedIsland = modelGetter.apply(e.getValue());
-			ret.addAll(unbakedIsland.getTextures(modelGetter, missingTextureErrors));
+	public Collection<SpriteIdentifier> getTextures(IModelConfiguration owner, Function<Identifier, UnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors) {
+		Set<SpriteIdentifier> ret = new HashSet<>();
+		for (Map.Entry<IFloatingFlower.IslandType, Identifier> e : BotaniaAPIClient.instance().getRegisteredIslandTypeModels().entrySet()) {
+			UnbakedModel unbakedIsland = modelGetter.apply(e.getValue());
+			ret.addAll(unbakedIsland.getTextureDependencies(modelGetter, missingTextureErrors));
 			unbakedIslands.put(e.getKey(), unbakedIsland);
 		}
-		ret.addAll(unbakedFlower.getTextures(modelGetter, missingTextureErrors));
+		ret.addAll(unbakedFlower.getTextureDependencies(modelGetter, missingTextureErrors));
 		return ret;
 	}
 
 	@Nullable
 	@Override
-	public IBakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<RenderMaterial, TextureAtlasSprite> spriteGetter, IModelTransform transform, ItemOverrideList overrides, ResourceLocation name) {
-		final TransformationMatrix moveFlower = new TransformationMatrix(new Vector3f(0F, 0.2F, 0F), null, new Vector3f(0.5F, 0.5F, 0.5F), null);
-		IModelTransform comp = new ModelTransformComposition(new SimpleModelTransform(moveFlower), transform);
-		IBakedModel bakedFlower = unbakedFlower.bakeModel(bakery, spriteGetter, comp, name);
+	public BakedModel bake(IModelConfiguration owner, ModelLoader bakery, Function<SpriteIdentifier, Sprite> spriteGetter, ModelBakeSettings transform, ModelOverrideList overrides, Identifier name) {
+		final AffineTransformation moveFlower = new AffineTransformation(new Vector3f(0F, 0.2F, 0F), null, new Vector3f(0.5F, 0.5F, 0.5F), null);
+		ModelBakeSettings comp = new ModelTransformComposition(new SimpleModelTransform(moveFlower), transform);
+		BakedModel bakedFlower = unbakedFlower.bake(bakery, spriteGetter, comp, name);
 
-		Map<IFloatingFlower.IslandType, IBakedModel> bakedIslands = new HashMap<>();
-		for (Map.Entry<IFloatingFlower.IslandType, IUnbakedModel> e : unbakedIslands.entrySet()) {
-			IBakedModel bakedIsland = e.getValue().bakeModel(bakery, spriteGetter, transform, name);
+		Map<IFloatingFlower.IslandType, BakedModel> bakedIslands = new HashMap<>();
+		for (Map.Entry<IFloatingFlower.IslandType, UnbakedModel> e : unbakedIslands.entrySet()) {
+			BakedModel bakedIsland = e.getValue().bake(bakery, spriteGetter, transform, name);
 			bakedIslands.put(e.getKey(), bakedIsland);
 		}
 		return new Baked(bakedFlower, bakedIslands);
@@ -81,10 +90,10 @@ public class FloatingFlowerModel implements IModelGeometry<FloatingFlowerModel> 
 		private final Map<IFloatingFlower.IslandType, List<BakedQuad>> genQuads = new HashMap<>();
 		private final Map<IFloatingFlower.IslandType, Map<Direction, List<BakedQuad>>> faceQuads = new HashMap<>();
 
-		Baked(IBakedModel flower, Map<IFloatingFlower.IslandType, IBakedModel> islands) {
+		Baked(BakedModel flower, Map<IFloatingFlower.IslandType, BakedModel> islands) {
 			super(flower);
 			Random rand = new Random();
-			for (Map.Entry<IFloatingFlower.IslandType, IBakedModel> e : islands.entrySet()) {
+			for (Map.Entry<IFloatingFlower.IslandType, BakedModel> e : islands.entrySet()) {
 				rand.setSeed(42);
 				List<BakedQuad> gen = new ArrayList<>(flower.getQuads(null, null, rand, EmptyModelData.INSTANCE));
 				rand.setSeed(42);
@@ -127,7 +136,7 @@ public class FloatingFlowerModel implements IModelGeometry<FloatingFlowerModel> 
 
 		@Nonnull
 		@Override
-		public IBakedModel handlePerspective(@Nonnull ItemCameraTransforms.TransformType cameraTransformType, MatrixStack ms) {
+		public BakedModel handlePerspective(@Nonnull ModelTransformation.Mode cameraTransformType, MatrixStack ms) {
 			super.handlePerspective(cameraTransformType, ms);
 			return this;
 		}
@@ -136,15 +145,15 @@ public class FloatingFlowerModel implements IModelGeometry<FloatingFlowerModel> 
 	public enum Loader implements IModelLoader<FloatingFlowerModel> {
 		INSTANCE;
 
-		public static final ResourceLocation ID = prefix("floating_flower");
+		public static final Identifier ID = prefix("floating_flower");
 
 		@Override
-		public void onResourceManagerReload(@Nonnull IResourceManager resourceManager) {}
+		public void apply(@Nonnull ResourceManager resourceManager) {}
 
 		@Nonnull
 		@Override
 		public FloatingFlowerModel read(JsonDeserializationContext ctx, JsonObject model) {
-			BlockModel flower = ctx.deserialize(model.getAsJsonObject("flower"), BlockModel.class);
+			JsonUnbakedModel flower = ctx.deserialize(model.getAsJsonObject("flower"), JsonUnbakedModel.class);
 			return new FloatingFlowerModel(flower);
 		}
 	}

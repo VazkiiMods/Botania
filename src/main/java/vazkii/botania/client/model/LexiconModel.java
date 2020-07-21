@@ -9,16 +9,14 @@
 package vazkii.botania.client.model;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.matrix.MatrixStack;
-
 import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.model.BakedQuad;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.model.ItemOverrideList;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.Direction;
-
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.BakedQuad;
+import net.minecraft.client.render.model.json.ModelOverrideList;
+import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.Direction;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
@@ -26,18 +24,18 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
-public class LexiconModel implements IBakedModel {
-	private final IBakedModel original;
+public class LexiconModel implements BakedModel {
+	private final BakedModel original;
 
-	public LexiconModel(IBakedModel original) {
+	public LexiconModel(BakedModel original) {
 		this.original = original;
 	}
 
 	@Nonnull
 	@Override
-	public IBakedModel handlePerspective(ItemCameraTransforms.TransformType cameraTransformType, MatrixStack stack) {
-		if ((cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND
-				|| cameraTransformType == ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND)
+	public BakedModel handlePerspective(ModelTransformation.Mode cameraTransformType, MatrixStack stack) {
+		if ((cameraTransformType == ModelTransformation.Mode.FIRST_PERSON_RIGHT_HAND
+				|| cameraTransformType == ModelTransformation.Mode.FIRST_PERSON_LEFT_HAND)
 				&& ConfigHandler.CLIENT.lexicon3dModel.get()) {
 			return this;
 		}
@@ -51,41 +49,41 @@ public class LexiconModel implements IBakedModel {
 	}
 
 	@Override
-	public boolean isAmbientOcclusion() {
+	public boolean useAmbientOcclusion() {
 		return false;
 	}
 
 	@Override
-	public boolean isGui3d() {
+	public boolean hasDepth() {
 		return false;
 	}
 
 	@Override
-	public boolean isBuiltInRenderer() {
+	public boolean isBuiltin() {
 		return false;
 	}
 
 	@Override
-	public boolean func_230044_c_() {
-		return original.func_230044_c_();
+	public boolean isSideLit() {
+		return original.isSideLit();
 	}
 
 	@Nonnull
 	@Override
-	public TextureAtlasSprite getParticleTexture() {
-		return original.getParticleTexture();
+	public Sprite getSprite() {
+		return original.getSprite();
 	}
 
 	@SuppressWarnings("deprecation")
 	@Nonnull
 	@Override
-	public ItemCameraTransforms getItemCameraTransforms() {
-		return ItemCameraTransforms.DEFAULT;
+	public ModelTransformation getTransformation() {
+		return ModelTransformation.NONE;
 	}
 
 	@Nonnull
 	@Override
-	public ItemOverrideList getOverrides() {
+	public ModelOverrideList getOverrides() {
 		return original.getOverrides();
 	}
 }

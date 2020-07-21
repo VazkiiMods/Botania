@@ -8,31 +8,34 @@
  */
 package vazkii.botania.common.entity;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.EnvironmentInterface;
 import net.minecraft.block.Block;
-import net.minecraft.block.BushBlock;
 import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.PlantBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.FlyingItemEntity;
 import net.minecraft.entity.IRendersAsItem;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Packet;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -43,14 +46,11 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-@OnlyIn(
-	value = Dist.CLIENT,
-	_interface = IRendersAsItem.class
-)
-public class EntityThornChakram extends ThrowableEntity implements IRendersAsItem {
-	private static final DataParameter<Integer> BOUNCES = EntityDataManager.createKey(EntityThornChakram.class, DataSerializers.VARINT);
-	private static final DataParameter<Boolean> FLARE = EntityDataManager.createKey(EntityThornChakram.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Integer> RETURN_TO = EntityDataManager.createKey(EntityThornChakram.class, DataSerializers.VARINT);
+@EnvironmentInterface(value = EnvType.CLIENT, itf = IRendersAsItem.class)
+public class EntityThornChakram extends ThrownEntity implements FlyingItemEntity {
+	private static final TrackedData<Integer> BOUNCES = DataTracker.registerData(EntityThornChakram.class, TrackedDataHandlerRegistry.INTEGER);
+	private static final TrackedData<Boolean> FLARE = DataTracker.registerData(EntityThornChakram.class, TrackedDataHandlerRegistry.BOOLEAN);
+	private static final TrackedData<Integer> RETURN_TO = DataTracker.registerData(EntityThornChakram.class, TrackedDataHandlerRegistry.INTEGER);
 	private static final int MAX_BOUNCES = 16;
 	private boolean bounced = false;
 	private ItemStack stack = ItemStack.EMPTY;
@@ -65,63 +65,63 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 	}
 
 	@Override
-	protected void registerData() {
-		dataManager.register(BOUNCES, 0);
-		dataManager.register(FLARE, false);
-		dataManager.register(RETURN_TO, -1);
+	protected void initDataTracker() {
+		dataTracker.startTracking(BOUNCES, 0);
+		dataTracker.startTracking(FLARE, false);
+		dataTracker.startTracking(RETURN_TO, -1);
 	}
 
 	@Nonnull
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public Packet<?> createSpawnPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	@Override
-	public boolean isImmuneToExplosions() {
+	public boolean isImmuneToExplosion() {
 		return true;
 	}
 
 	@Override
 	public void tick() {
 		// Standard motion
-		Vector3d old = getMotion();
+		Vec3d old = getVelocity();
 
 		super.tick();
 
 		if (!bounced) {
 			// Reset the drag applied by super
-			setMotion(old);
+			setVelocity(old);
 		}
 
 		bounced = false;
 
 		// Returning motion
 		if (isReturning()) {
-			Entity thrower = func_234616_v_();
+			Entity thrower = getOwner();
 			if (thrower != null) {
 				Vector3 motion = Vector3.fromEntityCenter(thrower).subtract(Vector3.fromEntityCenter(this)).normalize();
-				setMotion(motion.toVector3d());
+				setVelocity(motion.toVector3d());
 			}
 		}
 
 		// Client FX
-		if (world.isRemote && isFire()) {
+		if (world.isClient && isFire()) {
 			double r = 0.1;
 			double m = 0.1;
 			for (int i = 0; i < 3; i++) {
-				world.addParticle(ParticleTypes.FLAME, getPosX() + r * (Math.random() - 0.5), getPosY() + r * (Math.random() - 0.5), getPosZ() + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
+				world.addParticle(ParticleTypes.FLAME, getX() + r * (Math.random() - 0.5), getY() + r * (Math.random() - 0.5), getZ() + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
 			}
 		}
 
 		// Server state control
-		if (!world.isRemote && (getTimesBounced() >= MAX_BOUNCES || ticksExisted > 60)) {
-			Entity thrower = func_234616_v_();
+		if (!world.isClient && (getTimesBounced() >= MAX_BOUNCES || age > 60)) {
+			Entity thrower = getOwner();
 			if (thrower == null) {
 				dropAndKill();
 			} else {
 				setEntityToReturnTo(thrower.getEntityId());
-				if (getDistanceSq(thrower) < 2) {
+				if (squaredDistanceTo(thrower) < 2) {
 					dropAndKill();
 				}
 			}
@@ -130,8 +130,8 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 
 	private void dropAndKill() {
 		ItemStack stack = getItemStack();
-		ItemEntity item = new ItemEntity(world, getPosX(), getPosY(), getPosZ(), stack);
-		world.addEntity(item);
+		ItemEntity item = new ItemEntity(world, getX(), getY(), getZ(), stack);
+		world.spawnEntity(item);
 		remove();
 	}
 
@@ -142,30 +142,30 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 	}
 
 	@Override
-	protected void onImpact(@Nonnull RayTraceResult pos) {
+	protected void onCollision(@Nonnull HitResult pos) {
 		if (isReturning()) {
 			return;
 		}
 
 		switch (pos.getType()) {
 		case BLOCK: {
-			BlockRayTraceResult rtr = (BlockRayTraceResult) pos;
-			Block block = world.getBlockState(rtr.getPos()).getBlock();
-			if (block instanceof BushBlock || block instanceof LeavesBlock) {
+			BlockHitResult rtr = (BlockHitResult) pos;
+			Block block = world.getBlockState(rtr.getBlockPos()).getBlock();
+			if (block instanceof PlantBlock || block instanceof LeavesBlock) {
 				return;
 			}
 
 			int bounces = getTimesBounced();
 			if (bounces < MAX_BOUNCES) {
-				Vector3 currentMovementVec = new Vector3(getMotion());
-				Direction dir = rtr.getFace();
-				Vector3 normalVector = new Vector3(dir.getXOffset(), dir.getYOffset(), dir.getZOffset()).normalize();
+				Vector3 currentMovementVec = new Vector3(getVelocity());
+				Direction dir = rtr.getSide();
+				Vector3 normalVector = new Vector3(dir.getOffsetX(), dir.getOffsetY(), dir.getOffsetZ()).normalize();
 				Vector3 movementVec = normalVector.multiply(-2 * currentMovementVec.dotProduct(normalVector)).add(currentMovementVec);
 
-				setMotion(movementVec.toVector3d());
+				setVelocity(movementVec.toVector3d());
 				bounced = true;
 
-				if (!world.isRemote) {
+				if (!world.isClient) {
 					setTimesBounced(getTimesBounced() + 1);
 				}
 			}
@@ -173,20 +173,20 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 			break;
 		}
 		case ENTITY: {
-			EntityRayTraceResult rtr = (EntityRayTraceResult) pos;
-			if (!world.isRemote && rtr.getEntity() instanceof LivingEntity && rtr.getEntity() != func_234616_v_()) {
-				Entity thrower = func_234616_v_();
+			EntityHitResult rtr = (EntityHitResult) pos;
+			if (!world.isClient && rtr.getEntity() instanceof LivingEntity && rtr.getEntity() != getOwner()) {
+				Entity thrower = getOwner();
 				DamageSource src = DamageSource.GENERIC;
 				if (thrower instanceof PlayerEntity) {
-					src = DamageSource.causeThrownDamage(this, thrower);
+					src = DamageSource.thrownProjectile(this, thrower);
 				} else if (thrower instanceof LivingEntity) {
-					src = DamageSource.causeMobDamage((LivingEntity) thrower);
+					src = DamageSource.mob((LivingEntity) thrower);
 				}
-				rtr.getEntity().attackEntityFrom(src, 12);
+				rtr.getEntity().damage(src, 12);
 				if (isFire()) {
-					rtr.getEntity().setFire(5);
-				} else if (world.rand.nextInt(3) == 0) {
-					((LivingEntity) rtr.getEntity()).addPotionEffect(new EffectInstance(Effects.POISON, 60, 0));
+					rtr.getEntity().setOnFireFor(5);
+				} else if (world.random.nextInt(3) == 0) {
+					((LivingEntity) rtr.getEntity()).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 60, 0));
 				}
 			}
 
@@ -198,24 +198,24 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 	}
 
 	@Override
-	protected float getGravityVelocity() {
+	protected float getGravity() {
 		return 0F;
 	}
 
 	private int getTimesBounced() {
-		return dataManager.get(BOUNCES);
+		return dataTracker.get(BOUNCES);
 	}
 
 	private void setTimesBounced(int times) {
-		dataManager.set(BOUNCES, times);
+		dataTracker.set(BOUNCES, times);
 	}
 
 	public boolean isFire() {
-		return dataManager.get(FLARE);
+		return dataTracker.get(FLARE);
 	}
 
 	public void setFire(boolean fire) {
-		dataManager.set(FLARE, fire);
+		dataTracker.set(FLARE, fire);
 	}
 
 	private boolean isReturning() {
@@ -223,34 +223,34 @@ public class EntityThornChakram extends ThrowableEntity implements IRendersAsIte
 	}
 
 	private int getEntityToReturnTo() {
-		return dataManager.get(RETURN_TO);
+		return dataTracker.get(RETURN_TO);
 	}
 
 	private void setEntityToReturnTo(int entityID) {
-		dataManager.set(RETURN_TO, entityID);
+		dataTracker.set(RETURN_TO, entityID);
 	}
 
 	@Override
-	public void writeAdditional(CompoundNBT compound) {
-		super.writeAdditional(compound);
+	public void writeCustomDataToTag(CompoundTag compound) {
+		super.writeCustomDataToTag(compound);
 		if (!stack.isEmpty()) {
-			compound.put("fly_stack", stack.write(new CompoundNBT()));
+			compound.put("fly_stack", stack.toTag(new CompoundTag()));
 		}
 		compound.putBoolean("flare", isFire());
 	}
 
 	@Override
-	public void readAdditional(CompoundNBT compound) {
-		super.readAdditional(compound);
+	public void readCustomDataFromTag(CompoundTag compound) {
+		super.readCustomDataFromTag(compound);
 		if (compound.contains("fly_stack")) {
-			stack = ItemStack.read(compound.getCompound("fly_stack"));
+			stack = ItemStack.fromTag(compound.getCompound("fly_stack"));
 		}
 		setFire(compound.getBoolean("flare"));
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getItem() {
+	public ItemStack getStack() {
 		return getItemStack();
 	}
 }

@@ -8,25 +8,26 @@
  */
 package vazkii.botania.common.block.mana;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.client.Minecraft;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -39,62 +40,62 @@ import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 
-public class BlockBrewery extends BlockModWaterloggable implements ITileEntityProvider, IWandHUD {
+public class BlockBrewery extends BlockModWaterloggable implements BlockEntityProvider, IWandHUD {
 
-	private static final VoxelShape SHAPE = makeCuboidShape(6, 0.8, 6, 10, 15.2, 10);
+	private static final VoxelShape SHAPE = createCuboidShape(6, 0.8, 6, 10, 15.2, 10);
 
-	public BlockBrewery(Properties builder) {
+	public BlockBrewery(Settings builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(BlockStateProperties.POWERED, false));
+		setDefaultState(getDefaultState().with(Properties.POWERED, false));
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		super.fillStateContainer(builder);
-		builder.add(BlockStateProperties.POWERED);
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		super.appendProperties(builder);
+		builder.add(Properties.POWERED);
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
 		return SHAPE;
 	}
 
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		TileBrewery brew = (TileBrewery) world.getTileEntity(pos);
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		TileBrewery brew = (TileBrewery) world.getBlockEntity(pos);
 
 		if (player.isSneaking()) {
-			if (brew.recipe == null && !state.get(BlockStateProperties.POWERED)) {
+			if (brew.recipe == null && !state.get(Properties.POWERED)) {
 				InventoryHelper.withdrawFromInventory(brew, player);
-				return ActionResultType.SUCCESS;
+				return ActionResult.SUCCESS;
 			}
 		} else {
-			ItemStack stack = player.getHeldItem(hand);
+			ItemStack stack = player.getStackInHand(hand);
 			if (!stack.isEmpty()) {
-				return brew.addItem(player, stack, hand) ? ActionResultType.SUCCESS : ActionResultType.PASS;
+				return brew.addItem(player, stack, hand) ? ActionResult.SUCCESS : ActionResult.PASS;
 			}
 		}
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
 	@Override
-	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+	public void onStateReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
-			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
+			TileSimpleInventory inv = (TileSimpleInventory) world.getBlockEntity(pos);
 			InventoryHelper.dropInventory(inv, world, state, pos);
-			super.onReplaced(state, world, pos, newState, isMoving);
+			super.onStateReplaced(state, world, pos, newState, isMoving);
 		}
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride(BlockState state) {
+	public boolean hasComparatorOutput(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
-		TileBrewery brew = (TileBrewery) world.getTileEntity(pos);
+	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+		TileBrewery brew = (TileBrewery) world.getBlockEntity(pos);
 		return brew.signal;
 	}
 
@@ -106,14 +107,14 @@ public class BlockBrewery extends BlockModWaterloggable implements ITileEntityPr
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TileBrewery();
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
-		((TileBrewery) world.getTileEntity(pos)).renderHUD(ms, mc);
+	public void renderHUD(MatrixStack ms, MinecraftClient mc, World world, BlockPos pos) {
+		((TileBrewery) world.getBlockEntity(pos)).renderHUD(ms, mc);
 	}
 
 }

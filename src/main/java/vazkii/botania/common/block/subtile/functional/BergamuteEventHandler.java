@@ -8,9 +8,17 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.audio.*;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.client.sound.MovingSoundInstance;
+import net.minecraft.client.sound.Sound;
+import net.minecraft.client.sound.SoundInstance;
+import net.minecraft.client.sound.SoundManager;
+import net.minecraft.client.sound.TickableSoundInstance;
+import net.minecraft.client.sound.WeightedSoundSet;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
@@ -31,11 +39,11 @@ public class BergamuteEventHandler {
 	private static final float MULTIPLIER = 0.15F;
 
 	public static void onSoundEvent(PlaySoundEvent evt) {
-		ISound sound = evt.getResultSound();
+		SoundInstance sound = evt.getResultSound();
 
 		if (sound != null && shouldSilence(sound)) {
-			if (sound instanceof ITickableSound) {
-				evt.setResultSound(new WrappedTickableSound((ITickableSound) sound, MULTIPLIER));
+			if (sound instanceof TickableSoundInstance) {
+				evt.setResultSound(new WrappedTickableSound((TickableSoundInstance) sound, MULTIPLIER));
 			} else {
 				SubTileBergamute berg = SubTileBergamute.getBergamuteNearby(sound.getX(), sound.getY(), sound.getZ());
 
@@ -55,7 +63,7 @@ public class BergamuteEventHandler {
 		}
 	}
 
-	private static boolean shouldSilence(ISound sound) {
+	private static boolean shouldSilence(SoundInstance sound) {
 		return sound.getCategory() != SoundCategory.VOICE
 				&& sound.getCategory() != SoundCategory.MUSIC
 				&& sound.getCategory() != SoundCategory.RECORDS
@@ -63,17 +71,17 @@ public class BergamuteEventHandler {
 				&& sound.getClass().getName().startsWith("net.minecraft.client.audio");
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	private static class WrappedSound implements ISound {
+	@Environment(EnvType.CLIENT)
+	private static class WrappedSound implements SoundInstance {
 
-		private final ISound compose;
+		private final SoundInstance compose;
 		private final float volMult;
 		private final boolean recheck;
 
-		private WrappedSound(ISound toWrap, float volMult) {
+		private WrappedSound(SoundInstance toWrap, float volMult) {
 			compose = toWrap;
 			this.volMult = volMult;
-			recheck = toWrap instanceof TickableSound;
+			recheck = toWrap instanceof MovingSoundInstance;
 		}
 
 		@Override
@@ -84,14 +92,14 @@ public class BergamuteEventHandler {
 
 		@Nonnull
 		@Override
-		public ResourceLocation getSoundLocation() {
-			return compose.getSoundLocation();
+		public Identifier getId() {
+			return compose.getId();
 		}
 
 		@Nullable
 		@Override
-		public SoundEventAccessor createAccessor(@Nonnull SoundHandler handler) {
-			return compose.createAccessor(handler);
+		public WeightedSoundSet getSoundSet(@Nonnull SoundManager handler) {
+			return compose.getSoundSet(handler);
 		}
 
 		@Nonnull
@@ -107,13 +115,13 @@ public class BergamuteEventHandler {
 		}
 
 		@Override
-		public boolean canRepeat() {
-			return compose.canRepeat();
+		public boolean isRepeatable() {
+			return compose.isRepeatable();
 		}
 
 		@Override
-		public boolean isGlobal() {
-			return compose.isGlobal();
+		public boolean isLooping() {
+			return compose.isLooping();
 		}
 
 		@Override
@@ -142,8 +150,8 @@ public class BergamuteEventHandler {
 		}
 
 		@Override
-		public boolean canBeSilent() {
-			return compose.canBeSilent();
+		public boolean shouldAlwaysPlay() {
+			return compose.shouldAlwaysPlay();
 		}
 
 		@Nonnull
@@ -153,19 +161,19 @@ public class BergamuteEventHandler {
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	private static class WrappedTickableSound extends WrappedSound implements ITickableSound {
+	@Environment(EnvType.CLIENT)
+	private static class WrappedTickableSound extends WrappedSound implements TickableSoundInstance {
 
-		private final ITickableSound compose;
+		private final TickableSoundInstance compose;
 
-		private WrappedTickableSound(ITickableSound toWrap, float volMult) {
+		private WrappedTickableSound(TickableSoundInstance toWrap, float volMult) {
 			super(toWrap, volMult);
 			compose = toWrap;
 		}
 
 		@Override
-		public boolean isDonePlaying() {
-			return compose.isDonePlaying();
+		public boolean isDone() {
+			return compose.isDone();
 		}
 
 		@Override

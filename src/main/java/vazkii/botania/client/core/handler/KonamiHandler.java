@@ -8,12 +8,11 @@
  */
 package vazkii.botania.client.core.handler;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SimpleSound;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.sound.PositionedSoundInstance;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.event.TickEvent;
 
@@ -45,12 +44,12 @@ public class KonamiHandler {
 	}
 
 	public static void handleInput(InputEvent.KeyInputEvent evt) {
-		Minecraft mc = Minecraft.getInstance();
+		MinecraftClient mc = MinecraftClient.getInstance();
 		if (evt.getModifiers() == 0 && evt.getAction() == GLFW.GLFW_PRESS && ItemLexicon.isOpen()) {
 			if (konamiTime == 0 && evt.getKey() == KONAMI_CODE[nextLetter]) {
 				nextLetter++;
 				if (nextLetter >= KONAMI_CODE.length) {
-					mc.getSoundHandler().play(SimpleSound.master(ModSounds.way, 1.0F));
+					mc.getSoundManager().play(PositionedSoundInstance.master(ModSounds.way, 1.0F));
 					nextLetter = 0;
 					konamiTime = 240;
 				}
@@ -63,17 +62,17 @@ public class KonamiHandler {
 	public static void renderBook(BookDrawScreenEvent evt) {
 		if (konamiTime > 0) {
 			MatrixStack ms = evt.matrixStack;
-			String meme = I18n.format("botania.subtitle.way");
+			String meme = I18n.translate("botania.subtitle.way");
 			RenderSystem.disableDepthTest();
 			ms.push();
-			int fullWidth = Minecraft.getInstance().fontRenderer.getStringWidth(meme);
+			int fullWidth = MinecraftClient.getInstance().textRenderer.getWidth(meme);
 			int left = evt.gui.width;
 			double widthPerTick = (fullWidth + evt.gui.width) / 240;
 			double currWidth = left - widthPerTick * (240 - (konamiTime - evt.partialTicks)) * 3.2;
 
 			ms.translate(currWidth, evt.gui.height / 2 - 10, 0);
 			ms.scale(4, 4, 4);
-			Minecraft.getInstance().fontRenderer.drawStringWithShadow(evt.matrixStack, meme, 0, 0, 0xFFFFFF);
+			MinecraftClient.getInstance().textRenderer.drawWithShadow(evt.matrixStack, meme, 0, 0, 0xFFFFFF);
 			ms.pop();
 			RenderSystem.enableDepthTest();
 		}

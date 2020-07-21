@@ -10,13 +10,11 @@ package vazkii.botania.api.state.enums;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
-
-import net.minecraft.util.IStringSerializable;
-
 import java.util.List;
 import java.util.Locale;
+import net.minecraft.util.StringIdentifiable;
 
-public enum CratePattern implements IStringSerializable {
+public enum CratePattern implements StringIdentifiable {
 	NONE(true, true, true,
 			true, true, true,
 			true, true, true),
@@ -56,7 +54,7 @@ public enum CratePattern implements IStringSerializable {
 	}
 
 	@Override
-	public String getString() {
+	public String asString() {
 		return name().toLowerCase(Locale.ROOT);
 	}
 }

@@ -14,19 +14,19 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ICraftingRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipe;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.CraftingRecipe;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.ShapedRecipe;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 
-public class ArmorUpgradeRecipe implements ICraftingRecipe {
+public class ArmorUpgradeRecipe implements CraftingRecipe {
 	private final ShapedRecipe compose;
 
 	public ArmorUpgradeRecipe(ShapedRecipe compose) {
@@ -41,11 +41,11 @@ public class ArmorUpgradeRecipe implements ICraftingRecipe {
 	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
-		ItemStack out = compose.getCraftingResult(inv);
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
+		ItemStack out = compose.craft(inv);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stack = inv.getStack(i);
 			if (!stack.isEmpty() && stack.getItem() instanceof ArmorItem && stack.hasTag()) {
-				EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(stack), out);
+				EnchantmentHelper.set(EnchantmentHelper.get(stack), out);
 				break;
 			}
 		}
@@ -53,50 +53,50 @@ public class ArmorUpgradeRecipe implements ICraftingRecipe {
 	}
 
 	@Override
-	public boolean canFit(int width, int height) {
-		return compose.canFit(width, height);
+	public boolean fits(int width, int height) {
+		return compose.fits(width, height);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getRecipeOutput() {
-		return compose.getRecipeOutput();
+	public ItemStack getOutput() {
+		return compose.getOutput();
 	}
 
 	@Nonnull
 	@Override
-	public NonNullList<Ingredient> getIngredients() {
-		return compose.getIngredients();
+	public DefaultedList<Ingredient> getPreviewInputs() {
+		return compose.getPreviewInputs();
 	}
 
 	@Nonnull
 	@Override
-	public ResourceLocation getId() {
+	public Identifier getId() {
 		return compose.getId();
 	}
 
 	@Nonnull
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 
-	public static final IRecipeSerializer<ArmorUpgradeRecipe> SERIALIZER = new Serializer();
+	public static final RecipeSerializer<ArmorUpgradeRecipe> SERIALIZER = new Serializer();
 
-	private static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<ArmorUpgradeRecipe> {
+	private static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<ArmorUpgradeRecipe> {
 		@Override
-		public ArmorUpgradeRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
-			return new ArmorUpgradeRecipe(IRecipeSerializer.CRAFTING_SHAPED.read(recipeId, json));
+		public ArmorUpgradeRecipe read(@Nonnull Identifier recipeId, @Nonnull JsonObject json) {
+			return new ArmorUpgradeRecipe(RecipeSerializer.SHAPED.read(recipeId, json));
 		}
 
 		@Override
-		public ArmorUpgradeRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull PacketBuffer buffer) {
-			return new ArmorUpgradeRecipe(IRecipeSerializer.CRAFTING_SHAPED.read(recipeId, buffer));
+		public ArmorUpgradeRecipe read(@Nonnull Identifier recipeId, @Nonnull PacketByteBuf buffer) {
+			return new ArmorUpgradeRecipe(RecipeSerializer.SHAPED.read(recipeId, buffer));
 		}
 
 		@Override
-		public void write(@Nonnull PacketBuffer buffer, @Nonnull ArmorUpgradeRecipe recipe) {
-			IRecipeSerializer.CRAFTING_SHAPED.write(buffer, recipe.compose);
+		public void write(@Nonnull PacketByteBuf buffer, @Nonnull ArmorUpgradeRecipe recipe) {
+			RecipeSerializer.SHAPED.write(buffer, recipe.compose);
 		}
 	};
 }

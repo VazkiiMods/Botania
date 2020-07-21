@@ -9,11 +9,10 @@
 package vazkii.botania.common.crafting;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -28,9 +27,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class LexiconElvenTradeRecipe implements IElvenTradeRecipe {
-	private final ResourceLocation id;
+	private final Identifier id;
 
-	LexiconElvenTradeRecipe(ResourceLocation id) {
+	LexiconElvenTradeRecipe(Identifier id) {
 		this.id = id;
 	}
 
@@ -41,19 +40,19 @@ public class LexiconElvenTradeRecipe implements IElvenTradeRecipe {
 
 	@Nonnull
 	@Override
-	public NonNullList<Ingredient> getIngredients() {
-		return NonNullList.withSize(1, Ingredient.fromItems(ModItems.lexicon));
+	public DefaultedList<Ingredient> getPreviewInputs() {
+		return DefaultedList.ofSize(1, Ingredient.ofItems(ModItems.lexicon));
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getIcon() {
+	public ItemStack getRecipeKindIcon() {
 		return new ItemStack(ModBlocks.alfPortal);
 	}
 
 	@Nonnull
 	@Override
-	public ResourceLocation getId() {
+	public Identifier getId() {
 		return id;
 	}
 
@@ -81,7 +80,7 @@ public class LexiconElvenTradeRecipe implements IElvenTradeRecipe {
 
 	@Nonnull
 	@Override
-	public IRecipeSerializer<LexiconElvenTradeRecipe> getSerializer() {
+	public RecipeSerializer<LexiconElvenTradeRecipe> getSerializer() {
 		return ModRecipeTypes.LEXICON_ELVEN_TRADE_SERIALIZER;
 	}
 }

@@ -8,24 +8,25 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.item.ItemFrameEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.enums.ChestType;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.state.properties.ChestType;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.IItemHandler;
@@ -52,7 +53,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 
 	private int filterType = 0;
 
-	public SubTileHopperhock(TileEntityType<?> type) {
+	public SubTileHopperhock(BlockEntityType<?> type) {
 		super(type);
 	}
 
@@ -64,7 +65,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isRemote || redstoneSignal > 0) {
+		if (getWorld().isClient || redstoneSignal > 0) {
 			return;
 		}
 
@@ -73,16 +74,16 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 
 		BlockPos pos = getEffectivePos();
 
-		List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
+		List<ItemEntity> items = getWorld().getNonSpectatingEntities(ItemEntity.class, new Box(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
 		int slowdown = getSlowdownFactor();
 
 		for (ItemEntity item : items) {
 			int age = ((AccessorItemEntity) item).getAge();
-			if (age < 60 + slowdown || age >= 105 && age < 110 || !item.isAlive() || item.getItem().isEmpty()) {
+			if (age < 60 + slowdown || age >= 105 && age < 110 || !item.isAlive() || item.getStack().isEmpty()) {
 				continue;
 			}
 
-			ItemStack stack = item.getItem();
+			ItemStack stack = item.getStack();
 			IItemHandler invToPutItemIn = null;
 			boolean priorityInv = false;
 			int amountToPutIn = 0;
@@ -119,7 +120,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 			if (invToPutItemIn != null && item.isAlive()) {
 				SubTileSpectranthemum.spawnExplosionParticles(item, 3);
 				ItemHandlerHelper.insertItem(invToPutItemIn, stack.split(amountToPutIn), false);
-				item.setItem(stack); // Just in case someone subclasses EntityItem and changes something important.
+				item.setStack(stack); // Just in case someone subclasses EntityItem and changes something important.
 				pulledAny = true;
 			}
 		}
@@ -148,7 +149,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 				anyFilter = true;
 
 				boolean itemEqual = stack.getItem() == filterEntry.getItem();
-				boolean nbtEqual = ItemStack.areItemStackTagsEqual(filterEntry, stack);
+				boolean nbtEqual = ItemStack.areTagsEqual(filterEntry, stack);
 
 				if (itemEqual && nbtEqual) {
 					return true;
@@ -174,10 +175,10 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 		if (recursiveForDoubleChests) {
 			BlockState chest = getWorld().getBlockState(pos);
 
-			if (chest.func_235901_b_(ChestBlock.TYPE)) {
-				ChestType type = chest.get(ChestBlock.TYPE);
+			if (chest.contains(ChestBlock.CHEST_TYPE)) {
+				ChestType type = chest.get(ChestBlock.CHEST_TYPE);
 				if (type != ChestType.SINGLE) {
-					BlockPos other = pos.offset(ChestBlock.getDirectionToAttached(chest));
+					BlockPos other = pos.offset(ChestBlock.getFacing(chest));
 					if (getWorld().getBlockState(other).getBlock() == chest.getBlock()) {
 						filter.addAll(getFilterForInventory(other, false));
 					}
@@ -186,11 +187,11 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 		}
 
 		for (Direction dir : Direction.values()) {
-			AxisAlignedBB aabb = new AxisAlignedBB(pos.offset(dir));
-			List<ItemFrameEntity> frames = getWorld().getEntitiesWithinAABB(ItemFrameEntity.class, aabb);
+			Box aabb = new Box(pos.offset(dir));
+			List<ItemFrameEntity> frames = getWorld().getNonSpectatingEntities(ItemFrameEntity.class, aabb);
 			for (ItemFrameEntity frame : frames) {
 				if (frame.getHorizontalFacing() == dir) {
-					filter.add(frame.getDisplayedItem());
+					filter.add(frame.getHeldItemStack());
 				}
 			}
 		}
@@ -225,29 +226,29 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundNBT cmp) {
+	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
 
 		cmp.putInt(TAG_FILTER_TYPE, filterType);
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundNBT cmp) {
+	public void readFromPacketNBT(CompoundTag cmp) {
 		super.readFromPacketNBT(cmp);
 
 		filterType = cmp.getInt(TAG_FILTER_TYPE);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void renderHUD(MatrixStack ms, Minecraft mc) {
+	public void renderHUD(MatrixStack ms, MinecraftClient mc) {
 		super.renderHUD(ms, mc);
 
-		String filter = I18n.format("botaniamisc.filter" + filterType);
-		int x = mc.getMainWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(filter) / 2;
-		int y = mc.getMainWindow().getScaledHeight() / 2 + 30;
+		String filter = I18n.translate("botaniamisc.filter" + filterType);
+		int x = mc.getWindow().getScaledWidth() / 2 - mc.textRenderer.getWidth(filter) / 2;
+		int y = mc.getWindow().getScaledHeight() / 2 + 30;
 
-		mc.fontRenderer.drawStringWithShadow(ms, filter, x, y, TextFormatting.GRAY.getColor());
+		mc.textRenderer.drawWithShadow(ms, filter, x, y, Formatting.GRAY.getColorValue());
 		RenderSystem.disableLighting();
 	}
 

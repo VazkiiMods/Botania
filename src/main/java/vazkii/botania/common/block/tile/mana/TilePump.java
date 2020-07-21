@@ -8,16 +8,15 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.Direction;
-
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.util.Tickable;
+import net.minecraft.util.math.Direction;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TilePump extends TileMod implements ITickableTileEntity {
+public class TilePump extends TileMod implements Tickable {
 	private static final String TAG_ACTIVE = "active";
 
 	public float innerRingPos;
@@ -38,7 +37,7 @@ public class TilePump extends TileMod implements ITickableTileEntity {
 	public void tick() {
 		hasRedstone = false;
 		for (Direction dir : Direction.values()) {
-			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
+			int redstoneSide = world.getEmittedRedstonePower(pos.offset(dir), dir);
 			if (redstoneSide > 0) {
 				hasRedstone = true;
 				break;
@@ -83,23 +82,23 @@ public class TilePump extends TileMod implements ITickableTileEntity {
 		hasCartOnTop = false;
 
 		if (comparator != lastComparator) {
-			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
+			world.updateComparators(pos, getCachedState().getBlock());
 		}
 		lastComparator = comparator;
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT cmp) {
+	public void writePacketNBT(CompoundTag cmp) {
 		cmp.putBoolean(TAG_ACTIVE, active);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT cmp) {
+	public void readPacketNBT(CompoundTag cmp) {
 		active = cmp.getBoolean(TAG_ACTIVE);
 	}
 
 	public void setActive(boolean active) {
-		if (!world.isRemote) {
+		if (!world.isClient) {
 			boolean diff = this.active != active;
 			this.active = active;
 			if (diff) {

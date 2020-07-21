@@ -8,17 +8,15 @@
  */
 package vazkii.botania.client.integration.jei.orechid;
 
-import net.minecraft.util.ResourceLocation;
-
 import javax.annotation.Nonnull;
-
+import net.minecraft.util.Identifier;
 import java.util.Map;
 
 // This only exists to hold the map entry
 public class OrechidRecipeWrapper implements Comparable<OrechidRecipeWrapper> {
-	public final Map.Entry<ResourceLocation, Integer> entry;
+	public final Map.Entry<Identifier, Integer> entry;
 
-	public OrechidRecipeWrapper(Map.Entry<ResourceLocation, Integer> entry) {
+	public OrechidRecipeWrapper(Map.Entry<Identifier, Integer> entry) {
 		this.entry = entry;
 	}
 

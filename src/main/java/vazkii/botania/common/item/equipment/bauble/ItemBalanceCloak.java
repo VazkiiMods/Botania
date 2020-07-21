@@ -8,11 +8,13 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -23,30 +25,30 @@ import vazkii.botania.common.core.handler.ModSounds;
 
 public class ItemBalanceCloak extends ItemHolyCloak {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_BALANCE_CLOAK);
-	private static final ResourceLocation textureGlow = new ResourceLocation(LibResources.MODEL_BALANCE_CLOAK_GLOW);
+	private static final Identifier texture = new Identifier(LibResources.MODEL_BALANCE_CLOAK);
+	private static final Identifier textureGlow = new Identifier(LibResources.MODEL_BALANCE_CLOAK_GLOW);
 
-	public ItemBalanceCloak(Properties props) {
+	public ItemBalanceCloak(Settings props) {
 		super(props);
 	}
 
 	public boolean effectOnDamage(LivingHurtEvent event, PlayerEntity player, ItemStack stack) {
-		if (!event.getSource().isMagicDamage()) {
+		if (!event.getSource().getMagic()) {
 			event.setAmount(event.getAmount() / 2);
 
-			if (event.getSource().getTrueSource() != null) {
-				event.getSource().getTrueSource().attackEntityFrom(DamageSource.causeIndirectMagicDamage(player, player), event.getAmount());
+			if (event.getSource().getAttacker() != null) {
+				event.getSource().getAttacker().damage(DamageSource.magic(player, player), event.getAmount());
 			}
 
 			if (event.getAmount() > player.getHealth()) {
 				event.setAmount(player.getHealth() - 1);
 			}
 
-			player.world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
+			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
 			for (int i = 0; i < 30; i++) {
-				double x = player.getPosX() + Math.random() * player.getWidth() * 2 - player.getWidth();
-				double y = player.getPosY() + Math.random() * player.getHeight();
-				double z = player.getPosZ() + Math.random() * player.getWidth() * 2 - player.getWidth();
+				double x = player.getX() + Math.random() * player.getWidth() * 2 - player.getWidth();
+				double y = player.getY() + Math.random() * player.getHeight();
+				double z = player.getZ() + Math.random() * player.getWidth() * 2 - player.getWidth();
 				boolean green = Math.random() > 0.5;
 				float g = green ? 1F : 0.3F;
 				float b = green ? 0.3F : 1F;
@@ -60,14 +62,14 @@ public class ItemBalanceCloak extends ItemHolyCloak {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	ResourceLocation getCloakTexture() {
+	@Environment(EnvType.CLIENT)
+	Identifier getCloakTexture() {
 		return texture;
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	ResourceLocation getCloakGlowTexture() {
+	@Environment(EnvType.CLIENT)
+	Identifier getCloakGlowTexture() {
 		return textureGlow;
 	}
 

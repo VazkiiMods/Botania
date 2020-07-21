@@ -9,12 +9,15 @@
 package vazkii.botania.client.patchouli.processor;
 
 import com.google.common.collect.ImmutableList;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.text.KeybindText;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.text.*;
 
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
@@ -42,12 +45,12 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 		ImmutableList.Builder<IManaInfusionRecipe> builder = ImmutableList.builder();
 		if (variables.has("group")) {
 			String group = variables.get("group").asString();
-			TilePool.manaInfusionRecipes(Minecraft.getInstance().world).stream()
+			TilePool.manaInfusionRecipes(MinecraftClient.getInstance().world).stream()
 					.filter(r -> r.getGroup().equals(group))
 					.forEach(builder::add);
 		} else {
 			for (IVariable s : variables.get("recipes").asListOrSingleton()) {
-				IRecipe<?> recipe = ModRecipeTypes.getRecipes(Minecraft.getInstance().world, ModRecipeTypes.MANA_INFUSION_TYPE).get(new ResourceLocation(s.asString()));
+				Recipe<?> recipe = ModRecipeTypes.getRecipes(MinecraftClient.getInstance().world, ModRecipeTypes.MANA_INFUSION_TYPE).get(new Identifier(s.asString()));
 				if (recipe instanceof IManaInfusionRecipe) {
 					builder.add((IManaInfusionRecipe) recipe);
 				} else {
@@ -68,13 +71,13 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 		switch (key) {
 		case "heading":
 			if (!hasCustomHeading) {
-				return IVariable.from(recipes.get(0).getRecipeOutput().getDisplayName());
+				return IVariable.from(recipes.get(0).getOutput().getName());
 			}
 			return null;
 		case "input":
-			return PatchouliUtils.interweaveIngredients(recipes.stream().map(r -> r.getIngredients().get(0)).collect(Collectors.toList()));
+			return PatchouliUtils.interweaveIngredients(recipes.stream().map(r -> r.getPreviewInputs().get(0)).collect(Collectors.toList()));
 		case "output":
-			return IVariable.wrapList(recipes.stream().map(IManaInfusionRecipe::getRecipeOutput).map(IVariable::from).collect(Collectors.toList()));
+			return IVariable.wrapList(recipes.stream().map(IManaInfusionRecipe::getOutput).map(IVariable::from).collect(Collectors.toList()));
 		case "catalyst":
 			return IVariable.wrapList(recipes.stream().map(IManaInfusionRecipe::getCatalyst)
 					.map(state -> {
@@ -88,12 +91,12 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 		case "mana":
 			return IVariable.wrapList(recipes.stream().mapToInt(IManaInfusionRecipe::getManaToConsume).mapToObj(IVariable::wrap).collect(Collectors.toList()));
 		case "drop":
-			ITextComponent q = new StringTextComponent("(?)").func_240699_a_(TextFormatting.BOLD);
-			return IVariable.from(new TranslationTextComponent("botaniamisc.drop").func_240702_b_(" ").func_230529_a_(q));
+			Text q = new LiteralText("(?)").formatted(Formatting.BOLD);
+			return IVariable.from(new TranslatableText("botaniamisc.drop").append(" ").append(q));
 		case "dropTip0":
 		case "dropTip1":
-			ITextComponent drop = new KeybindTextComponent("key.drop").func_240699_a_(TextFormatting.GREEN);
-			return IVariable.from(new TranslationTextComponent("botaniamisc." + key, drop));
+			Text drop = new KeybindText("key.drop").formatted(Formatting.GREEN);
+			return IVariable.from(new TranslatableText("botaniamisc." + key, drop));
 		}
 		return null;
 	}

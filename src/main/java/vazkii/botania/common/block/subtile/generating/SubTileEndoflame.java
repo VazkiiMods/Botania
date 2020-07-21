@@ -10,13 +10,13 @@ package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.ForgeHooks;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -46,9 +46,9 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 			burnTime--;
 		}
 
-		if (getWorld().isRemote) {
-			if (burnTime > 0 && getWorld().rand.nextInt(10) == 0) {
-				Vector3d offset = getWorld().getBlockState(getEffectivePos()).getOffset(getWorld(), getEffectivePos()).add(0.4, 0.7, 0.4);
+		if (getWorld().isClient) {
+			if (burnTime > 0 && getWorld().random.nextInt(10) == 0) {
+				Vec3d offset = getWorld().getBlockState(getEffectivePos()).getModelOffset(getWorld(), getEffectivePos()).add(0.4, 0.7, 0.4);
 				getWorld().addParticle(ParticleTypes.FLAME, getEffectivePos().getX() + offset.x + Math.random() * 0.2, getEffectivePos().getY() + offset.y, getEffectivePos().getZ() + offset.z + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
 			}
 			return;
@@ -59,10 +59,10 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 				if (getMana() < getMaxMana()) {
 					int slowdown = getSlowdownFactor();
 
-					for (ItemEntity item : getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)))) {
+					for (ItemEntity item : getWorld().getNonSpectatingEntities(ItemEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)))) {
 						int age = ((AccessorItemEntity) item).getAge();
 						if (age >= 59 + slowdown && item.isAlive()) {
-							ItemStack stack = item.getItem();
+							ItemStack stack = item.getStack();
 							if (stack.isEmpty() || stack.getItem().hasContainerItem(stack)) {
 								continue;
 							}
@@ -71,9 +71,9 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 							if (burnTime > 0 && stack.getCount() > 0) {
 								this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
-								stack.shrink(1);
+								stack.decrement(1);
 								getWorld().playSound(null, getEffectivePos(), ModSounds.endoflame, SoundCategory.BLOCKS, 0.2F, 1F);
-								getWorld().addBlockEvent(getPos(), getBlockState().getBlock(), START_BURN_EVENT, item.getEntityId());
+								getWorld().addSyncedBlockEvent(getPos(), getCachedState().getBlock(), START_BURN_EVENT, item.getEntityId());
 								sync();
 
 								return;
@@ -86,16 +86,16 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public boolean receiveClientEvent(int event, int param) {
+	public boolean onSyncedBlockEvent(int event, int param) {
 		if (event == START_BURN_EVENT) {
-			Entity e = getWorld().getEntityByID(param);
+			Entity e = getWorld().getEntityById(param);
 			if (e != null) {
-				e.world.addParticle(ParticleTypes.LARGE_SMOKE, e.getPosX(), e.getPosY() + 0.1, e.getPosZ(), 0.0D, 0.0D, 0.0D);
-				e.world.addParticle(ParticleTypes.FLAME, e.getPosX(), e.getPosY(), e.getPosZ(), 0.0D, 0.0D, 0.0D);
+				e.world.addParticle(ParticleTypes.LARGE_SMOKE, e.getX(), e.getY() + 0.1, e.getZ(), 0.0D, 0.0D, 0.0D);
+				e.world.addParticle(ParticleTypes.FLAME, e.getX(), e.getY(), e.getZ(), 0.0D, 0.0D, 0.0D);
 			}
 			return true;
 		} else {
-			return super.receiveClientEvent(event, param);
+			return super.onSyncedBlockEvent(event, param);
 		}
 	}
 
@@ -120,14 +120,14 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundNBT cmp) {
+	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
 
 		cmp.putInt(TAG_BURN_TIME, burnTime);
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundNBT cmp) {
+	public void readFromPacketNBT(CompoundTag cmp) {
 		super.readFromPacketNBT(cmp);
 
 		burnTime = cmp.getInt(TAG_BURN_TIME);

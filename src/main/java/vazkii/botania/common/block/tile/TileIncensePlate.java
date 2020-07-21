@@ -8,21 +8,20 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SidedInventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
-
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.Tickable;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.client.fx.WispParticleData;
@@ -36,7 +35,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
-public class TileIncensePlate extends TileExposedSimpleInventory implements ISidedInventory, ITickableTileEntity {
+public class TileIncensePlate extends TileExposedSimpleInventory implements SidedInventory, Tickable {
 	private static final String TAG_TIME_LEFT = "timeLeft";
 	private static final String TAG_BURNING = "burning";
 	private static final int RANGE = 32;
@@ -51,29 +50,29 @@ public class TileIncensePlate extends TileExposedSimpleInventory implements ISid
 
 	@Override
 	public void tick() {
-		ItemStack stack = getItemHandler().getStackInSlot(0);
+		ItemStack stack = getItemHandler().getStack(0);
 		if (!stack.isEmpty() && burning) {
-			if (getBlockState().get(BlockStateProperties.WATERLOGGED) && timeLeft > 1) {
+			if (getCachedState().get(Properties.WATERLOGGED) && timeLeft > 1) {
 				timeLeft = 1;
 				spawnSmokeParticles();
 			}
 
 			Brew brew = ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack);
-			EffectInstance effect = brew.getPotionEffects(stack).get(0);
+			StatusEffectInstance effect = brew.getPotionEffects(stack).get(0);
 			if (timeLeft > 0) {
 				timeLeft--;
-				if (!world.isRemote) {
-					List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(pos.getX() + 0.5 - RANGE, pos.getY() + 0.5 - RANGE, pos.getZ() + 0.5 - RANGE, pos.getX() + 0.5 + RANGE, pos.getY() + 0.5 + RANGE, pos.getZ() + 0.5 + RANGE));
+				if (!world.isClient) {
+					List<PlayerEntity> players = world.getNonSpectatingEntities(PlayerEntity.class, new Box(pos.getX() + 0.5 - RANGE, pos.getY() + 0.5 - RANGE, pos.getZ() + 0.5 - RANGE, pos.getX() + 0.5 + RANGE, pos.getY() + 0.5 + RANGE, pos.getZ() + 0.5 + RANGE));
 					for (PlayerEntity player : players) {
-						EffectInstance currentEffect = player.getActivePotionEffect(effect.getPotion());
-						boolean nightVision = effect.getPotion() == Effects.NIGHT_VISION;
+						StatusEffectInstance currentEffect = player.getStatusEffect(effect.getEffectType());
+						boolean nightVision = effect.getEffectType() == StatusEffects.NIGHT_VISION;
 						if (currentEffect == null || currentEffect.getDuration() < (nightVision ? 205 : 3)) {
-							EffectInstance applyEffect = new EffectInstance(effect.getPotion(), nightVision ? 285 : 80, effect.getAmplifier(), true, true);
-							player.addPotionEffect(applyEffect);
+							StatusEffectInstance applyEffect = new StatusEffectInstance(effect.getEffectType(), nightVision ? 285 : 80, effect.getAmplifier(), true, true);
+							player.addStatusEffect(applyEffect);
 						}
 					}
 
-					if (world.rand.nextInt(20) == 0) {
+					if (world.random.nextInt(20) == 0) {
 						world.playSound(null, pos, SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, 0.1F, 1);
 					}
 				} else {
@@ -92,7 +91,7 @@ public class TileIncensePlate extends TileExposedSimpleInventory implements ISid
 					world.addParticle(data, x - (Math.random() - 0.5) * 0.2, y - (Math.random() - 0.5) * 0.2, z - (Math.random() - 0.5) * 0.2, 0.005F - (float) Math.random() * 0.01F, 0.01F + (float) Math.random() * 0.001F, 0.005F - (float) Math.random() * 0.01F);
 				}
 			} else {
-				getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
+				getItemHandler().setStack(0, ItemStack.EMPTY);
 				burning = false;
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			}
@@ -109,7 +108,7 @@ public class TileIncensePlate extends TileExposedSimpleInventory implements ISid
 		}
 		if (comparatorOutput != newComparator) {
 			comparatorOutput = newComparator;
-			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
+			world.updateComparators(pos, getCachedState().getBlock());
 		}
 	}
 
@@ -128,13 +127,13 @@ public class TileIncensePlate extends TileExposedSimpleInventory implements ISid
 	}
 
 	public void ignite() {
-		ItemStack stack = getItemHandler().getStackInSlot(0);
+		ItemStack stack = getItemHandler().getStack(0);
 
 		if (stack.isEmpty() || burning) {
 			return;
 		}
 
-		if (getBlockState().get(BlockStateProperties.WATERLOGGED)) {
+		if (getCachedState().get(Properties.WATERLOGGED)) {
 			spawnSmokeParticles();
 			return;
 		}
@@ -145,14 +144,14 @@ public class TileIncensePlate extends TileExposedSimpleInventory implements ISid
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT tag) {
+	public void writePacketNBT(CompoundTag tag) {
 		super.writePacketNBT(tag);
 		tag.putInt(TAG_TIME_LEFT, timeLeft);
 		tag.putBoolean(TAG_BURNING, burning);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT tag) {
+	public void readPacketNBT(CompoundTag tag) {
 		super.readPacketNBT(tag);
 		timeLeft = tag.getInt(TAG_TIME_LEFT);
 		burning = tag.getBoolean(TAG_BURNING);
@@ -163,10 +162,10 @@ public class TileIncensePlate extends TileExposedSimpleInventory implements ISid
 	}
 
 	@Override
-	protected Inventory createItemHandler() {
-		return new Inventory(1) {
+	protected SimpleInventory createItemHandler() {
+		return new SimpleInventory(1) {
 			@Override
-			public boolean isItemValidForSlot(int index, ItemStack stack) {
+			public boolean isValid(int index, ItemStack stack) {
 				return acceptsItem(stack);
 			}
 		};
@@ -175,13 +174,13 @@ public class TileIncensePlate extends TileExposedSimpleInventory implements ISid
 	@Override
 	public void markDirty() {
 		super.markDirty();
-		if (world != null && !world.isRemote) {
+		if (world != null && !world.isClient) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 	}
 
 	@Override
-	public boolean canExtractItem(int index, @Nonnull ItemStack stack, @Nullable Direction direction) {
+	public boolean canExtract(int index, @Nonnull ItemStack stack, @Nullable Direction direction) {
 		return false;
 	}
 }

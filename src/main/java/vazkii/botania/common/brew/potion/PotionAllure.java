@@ -9,28 +9,27 @@
 package vazkii.botania.common.brew.potion;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FishingBobberEntity;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectType;
-
 import javax.annotation.Nonnull;
 
-public class PotionAllure extends Effect {
+public class PotionAllure extends StatusEffect {
 
 	public PotionAllure() {
-		super(EffectType.BENEFICIAL, 0x0034E4);
+		super(StatusEffectType.BENEFICIAL, 0x0034E4);
 	}
 
 	@Override
-	public boolean isReady(int duration, int amplifier) {
+	public boolean canApplyUpdateEffect(int duration, int amplifier) {
 		return true;
 	}
 
 	@Override
-	public void performEffect(@Nonnull LivingEntity living, int amplified) {
+	public void applyUpdateEffect(@Nonnull LivingEntity living, int amplified) {
 		if (living instanceof PlayerEntity) {
-			FishingBobberEntity hook = ((PlayerEntity) living).fishingBobber;
+			FishingBobberEntity hook = ((PlayerEntity) living).fishHook;
 			if (hook != null) {
 				hook.tick();
 			}

@@ -9,14 +9,13 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.ai.goal.FleeEntityGoal;
+import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.PrioritizedGoal;
-import net.minecraft.entity.monster.CreeperEntity;
+import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
-
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.Box;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
@@ -43,36 +42,36 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isRemote) {
+		if (getWorld().isClient) {
 			return;
 		}
 
-		for (CreeperEntity entity : getWorld().getEntitiesWithinAABB(CreeperEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE), getEffectivePos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)))) {
+		for (CreeperEntity entity : getWorld().getNonSpectatingEntities(CreeperEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE), getEffectivePos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)))) {
 			((AccessorCreeperEntity) entity).setTimeSinceIgnited(2);
-			entity.setAttackTarget(null);
+			entity.setTarget(null);
 
 			if (getMana() >= COST) {
 				boolean did = false;
 
 				Set<PrioritizedGoal> goals = ((AccessorGoalSelector) entity.goalSelector).getGoals();
 				boolean hasRunAwayFromPlayerGoal = goals.stream()
-						.anyMatch(g -> g.getGoal() instanceof AvoidEntityGoal && ((AccessorAvoidEntityGoal) g.getGoal()).getClassToAvoid() == PlayerEntity.class);
+						.anyMatch(g -> g.getGoal() instanceof FleeEntityGoal && ((AccessorAvoidEntityGoal) g.getGoal()).getClassToAvoid() == PlayerEntity.class);
 				if (!hasRunAwayFromPlayerGoal) {
-					entity.goalSelector.addGoal(3, new AvoidEntityGoal<>(entity, PlayerEntity.class, 6, 1, 1.2));
+					entity.goalSelector.add(3, new FleeEntityGoal<>(entity, PlayerEntity.class, 6, 1, 1.2));
 					did = true;
 				}
 
 				for (PrioritizedGoal pg : new ArrayList<>(((AccessorGoalSelector) entity.targetSelector).getGoals())) {
-					if (pg.getGoal() instanceof NearestAttackableTargetGoal
+					if (pg.getGoal() instanceof FollowTargetGoal
 							&& ((AccessorNearestAttackableTarget) pg.getGoal()).getTargetClass() == PlayerEntity.class) {
-						entity.targetSelector.removeGoal(pg.getGoal());
+						entity.targetSelector.remove(pg.getGoal());
 						did = true;
 					}
 				}
 
 				if (did) {
-					entity.playSound(SoundEvents.ENTITY_CREEPER_HURT, 1.0F, (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.0F);
-					world.addBlockEvent(getPos(), getBlockState().getBlock(), SUCCESS_EVENT, entity.getEntityId());
+					entity.playSound(SoundEvents.ENTITY_CREEPER_HURT, 1.0F, (world.random.nextFloat() - world.random.nextFloat()) * 0.2F + 1.0F);
+					world.addSyncedBlockEvent(getPos(), getCachedState().getBlock(), SUCCESS_EVENT, entity.getEntityId());
 					addMana(-COST);
 					sync();
 				}
@@ -81,27 +80,27 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public boolean receiveClientEvent(int id, int payload) {
+	public boolean onSyncedBlockEvent(int id, int payload) {
 		if (id == SUCCESS_EVENT) {
-			if (world.isRemote) {
-				Entity e = world.getEntityByID(payload);
+			if (world.isClient) {
+				Entity e = world.getEntityById(payload);
 				if (e != null) {
 					float r = (getColor() >> 16 & 0xFF) / 255F;
 					float g = (getColor() >> 8 & 0xFF) / 255F;
 					float b = (getColor() & 0xFF) / 255F;
-					SparkleParticleData data = SparkleParticleData.sparkle(world.rand.nextFloat(), r, g, b, 10);
+					SparkleParticleData data = SparkleParticleData.sparkle(world.random.nextFloat(), r, g, b, 10);
 
 					for (int i = 0; i < 50; i++) {
-						double x = e.getPosX() + world.rand.nextDouble() - 0.5;
-						double y = e.getPosY() + e.getHeight() * world.rand.nextDouble();
-						double z = e.getPosZ() + world.rand.nextDouble() - 0.5;
+						double x = e.getX() + world.random.nextDouble() - 0.5;
+						double y = e.getY() + e.getHeight() * world.random.nextDouble();
+						double z = e.getZ() + world.random.nextDouble() - 0.5;
 						world.addParticle(data, x, y, z, 0, 0, 0);
 					}
 				}
 			}
 			return true;
 		}
-		return super.receiveClientEvent(id, payload);
+		return super.onSyncedBlockEvent(id, payload);
 	}
 
 	@Override

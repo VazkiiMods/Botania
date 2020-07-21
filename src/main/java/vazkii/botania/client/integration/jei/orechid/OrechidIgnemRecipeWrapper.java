@@ -8,13 +8,12 @@
  */
 package vazkii.botania.client.integration.jei.orechid;
 
-import net.minecraft.util.ResourceLocation;
-
 import java.util.Map;
+import net.minecraft.util.Identifier;
 
 public class OrechidIgnemRecipeWrapper extends OrechidRecipeWrapper {
 
-	public OrechidIgnemRecipeWrapper(Map.Entry<ResourceLocation, Integer> entry) {
+	public OrechidIgnemRecipeWrapper(Map.Entry<Identifier, Integer> entry) {
 		super(entry);
 	}
 

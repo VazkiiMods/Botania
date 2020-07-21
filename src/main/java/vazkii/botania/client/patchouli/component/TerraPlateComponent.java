@@ -8,8 +8,7 @@
  */
 package vazkii.botania.client.patchouli.component;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 
 import vazkii.patchouli.api.IComponentRenderContext;

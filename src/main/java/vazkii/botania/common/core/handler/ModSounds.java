@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.core.handler;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
@@ -64,7 +64,7 @@ public final class ModSounds {
 	public static final SoundEvent gaiaMusic2 = makeSoundEvent("music.gaia2");
 
 	private static SoundEvent makeSoundEvent(String name) {
-		ResourceLocation loc = prefix(name);
+		Identifier loc = prefix(name);
 		return new SoundEvent(loc).setRegistryName(loc);
 	}
 

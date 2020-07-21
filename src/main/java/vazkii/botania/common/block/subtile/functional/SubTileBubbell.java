@@ -9,10 +9,10 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.material.Material;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -30,7 +30,7 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 
 	int range = 2;
 
-	public SubTileBubbell(TileEntityType<?> type) {
+	public SubTileBubbell(BlockEntityType<?> type) {
 		super(type);
 	}
 
@@ -42,7 +42,7 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isRemote) {
+		if (getWorld().isClient) {
 			return;
 		}
 
@@ -57,12 +57,12 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 				range++;
 			}
 
-			for (BlockPos pos : BlockPos.getAllInBoxMutable(getEffectivePos().add(-range, -range, -range), getEffectivePos().add(range, range, range))) {
-				if (getEffectivePos().distanceSq(pos) < range * range) {
+			for (BlockPos pos : BlockPos.iterate(getEffectivePos().add(-range, -range, -range), getEffectivePos().add(range, range, range))) {
+				if (getEffectivePos().getSquaredDistance(pos) < range * range) {
 					BlockState state = getWorld().getBlockState(pos);
 					if (state.getMaterial() == Material.WATER) {
 						getWorld().setBlockState(pos, ModBlocks.fakeAir.getDefaultState(), 2);
-						TileFakeAir air = (TileFakeAir) getWorld().getTileEntity(pos);
+						TileFakeAir air = (TileFakeAir) getWorld().getBlockEntity(pos);
 						air.setFlower(this);
 					}
 				}
@@ -71,7 +71,7 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 	}
 
 	public static boolean isValidBubbell(World world, BlockPos pos) {
-		TileEntity tile = world.getTileEntity(pos);
+		BlockEntity tile = world.getBlockEntity(pos);
 		if (tile instanceof SubTileBubbell) {
 			return ((SubTileBubbell) tile).getMana() > COST_PER_TICK;
 		}
@@ -80,13 +80,13 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundNBT cmp) {
+	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_RANGE, range);
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundNBT cmp) {
+	public void readFromPacketNBT(CompoundTag cmp) {
 		super.readFromPacketNBT(cmp);
 		range = cmp.getInt(TAG_RANGE);
 	}

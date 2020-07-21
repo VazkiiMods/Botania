@@ -8,10 +8,9 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import net.minecraft.entity.item.ExperienceOrbEntity;
+import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.AxisAlignedBB;
-
+import net.minecraft.util.math.Box;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
@@ -30,13 +29,13 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (world.isRemote || getMana() >= getMaxMana()) {
+		if (world.isClient || getMana() >= getMaxMana()) {
 			return;
 		}
 
-		List<PlayerEntity> players = getWorld().getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		List<PlayerEntity> players = getWorld().getNonSpectatingEntities(PlayerEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		for (PlayerEntity player : players) {
-			if (ExperienceHelper.getPlayerXP(player) >= 1 && player.func_233570_aj_()) {
+			if (ExperienceHelper.getPlayerXP(player) >= 1 && player.isOnGround()) {
 				ExperienceHelper.drainPlayerXP(player, 1);
 				addMana(50);
 				sync();
@@ -44,10 +43,10 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 			}
 		}
 
-		List<ExperienceOrbEntity> orbs = getWorld().getEntitiesWithinAABB(ExperienceOrbEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		List<ExperienceOrbEntity> orbs = getWorld().getNonSpectatingEntities(ExperienceOrbEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		for (ExperienceOrbEntity orb : orbs) {
 			if (orb.isAlive()) {
-				addMana(orb.getXpValue() * 35);
+				addMana(orb.getExperienceAmount() * 35);
 				orb.remove();
 				sync();
 				return;

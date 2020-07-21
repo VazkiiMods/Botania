@@ -9,24 +9,25 @@
 package vazkii.botania.common.item;
 
 import com.mojang.datafixers.util.Pair;
-
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.MobSpawnerBlockEntity;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.MobSpawnerTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -46,17 +47,17 @@ public class ItemSpawnerMover extends Item {
 	private static final String TAG_SPAWN_DATA = "SpawnData";
 	private static final String TAG_ID = "id";
 
-	public ItemSpawnerMover(Properties props) {
+	public ItemSpawnerMover(Settings props) {
 		super(props);
 	}
 
 	@Nullable
-	private static ResourceLocation getEntityId(ItemStack stack) {
-		CompoundNBT tag = stack.getChildTag(TAG_SPAWNER);
+	private static Identifier getEntityId(ItemStack stack) {
+		CompoundTag tag = stack.getSubTag(TAG_SPAWNER);
 		if (tag != null && tag.contains(TAG_SPAWN_DATA)) {
 			tag = tag.getCompound(TAG_SPAWN_DATA);
 			if (tag.contains(TAG_ID)) {
-				return ResourceLocation.tryCreate(tag.getString(TAG_ID));
+				return Identifier.tryParse(tag.getString(TAG_ID));
 			}
 		}
 
@@ -67,47 +68,47 @@ public class ItemSpawnerMover extends Item {
 		return getEntityId(stack) != null;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> infoList, ITooltipFlag flags) {
-		ResourceLocation id = getEntityId(stack);
+	public void appendTooltip(ItemStack stack, World world, List<Text> infoList, TooltipContext flags) {
+		Identifier id = getEntityId(stack);
 		if (id != null) {
-			Registry.ENTITY_TYPE.getValue(id).ifPresent(type -> infoList.add(type.getName()));
+			Registry.ENTITY_TYPE.getOrEmpty(id).ifPresent(type -> infoList.add(type.getName()));
 		}
 	}
 
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
-		if (getEntityId(ctx.getItem()) == null) {
-			return captureSpawner(ctx) ? ActionResultType.SUCCESS : ActionResultType.PASS;
+	public ActionResult useOnBlock(ItemUsageContext ctx) {
+		if (getEntityId(ctx.getStack()) == null) {
+			return captureSpawner(ctx) ? ActionResult.SUCCESS : ActionResult.PASS;
 		} else {
 			return placeSpawner(ctx);
 		}
 	}
 
-	private ActionResultType placeSpawner(ItemUseContext ctx) {
+	private ActionResult placeSpawner(ItemUsageContext ctx) {
 		ItemStack useStack = new ItemStack(Blocks.SPAWNER);
-		Pair<ActionResultType, BlockPos> res = PlayerHelper.substituteUseTrackPos(ctx, useStack);
+		Pair<ActionResult, BlockPos> res = PlayerHelper.substituteUseTrackPos(ctx, useStack);
 
-		if (res.getFirst() == ActionResultType.SUCCESS) {
+		if (res.getFirst() == ActionResult.SUCCESS) {
 			World world = ctx.getWorld();
 			BlockPos pos = res.getSecond();
-			ItemStack mover = ctx.getItem();
+			ItemStack mover = ctx.getStack();
 
-			if (!world.isRemote) {
+			if (!world.isClient) {
 				if (ctx.getPlayer() != null) {
-					ctx.getPlayer().sendBreakAnimation(ctx.getHand());
+					ctx.getPlayer().sendToolBreakStatus(ctx.getHand());
 				}
-				mover.shrink(1);
+				mover.decrement(1);
 
-				TileEntity te = world.getTileEntity(pos);
-				if (te instanceof MobSpawnerTileEntity) {
-					CompoundNBT spawnerTag = ctx.getItem().getChildTag(TAG_SPAWNER).copy();
+				BlockEntity te = world.getBlockEntity(pos);
+				if (te instanceof MobSpawnerBlockEntity) {
+					CompoundTag spawnerTag = ctx.getStack().getSubTag(TAG_SPAWNER).copy();
 					spawnerTag.putInt("x", pos.getX());
 					spawnerTag.putInt("y", pos.getY());
 					spawnerTag.putInt("z", pos.getZ());
-					te.read(world.getBlockState(pos), spawnerTag);
+					te.fromTag(world.getBlockState(pos), spawnerTag);
 				}
 			} else {
 				for (int i = 0; i < 100; i++) {
@@ -120,21 +121,21 @@ public class ItemSpawnerMover extends Item {
 		return res.getFirst();
 	}
 
-	private boolean captureSpawner(ItemUseContext ctx) {
+	private boolean captureSpawner(ItemUsageContext ctx) {
 		World world = ctx.getWorld();
-		BlockPos pos = ctx.getPos();
-		ItemStack stack = ctx.getItem();
+		BlockPos pos = ctx.getBlockPos();
+		ItemStack stack = ctx.getStack();
 		PlayerEntity player = ctx.getPlayer();
 
 		if (world.getBlockState(pos).getBlock() == Blocks.SPAWNER) {
-			if (!world.isRemote) {
-				TileEntity te = world.getTileEntity(pos);
-				stack.getOrCreateTag().put(TAG_SPAWNER, te.write(new CompoundNBT()));
-				world.destroyBlock(pos, false);
+			if (!world.isClient) {
+				BlockEntity te = world.getBlockEntity(pos);
+				stack.getOrCreateTag().put(TAG_SPAWNER, te.toTag(new CompoundTag()));
+				world.breakBlock(pos, false);
 				if (player != null) {
-					player.getCooldownTracker().setCooldown(this, 20);
+					player.getItemCooldownManager().set(this, 20);
 					UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack, (ServerWorld) world, pos.getX(), pos.getY(), pos.getZ());
-					player.sendBreakAnimation(ctx.getHand());
+					player.sendToolBreakStatus(ctx.getHand());
 				}
 			} else {
 				for (int i = 0; i < 50; i++) {

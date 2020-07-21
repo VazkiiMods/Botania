@@ -9,16 +9,17 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.base.Predicates;
-
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Box;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -31,33 +32,33 @@ import java.util.List;
 
 public class ItemUnholyCloak extends ItemHolyCloak {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_UNHOLY_CLOAK);
-	private static final ResourceLocation textureGlow = new ResourceLocation(LibResources.MODEL_UNHOLY_CLOAK_GLOW);
+	private static final Identifier texture = new Identifier(LibResources.MODEL_UNHOLY_CLOAK);
+	private static final Identifier textureGlow = new Identifier(LibResources.MODEL_UNHOLY_CLOAK_GLOW);
 
-	public ItemUnholyCloak(Properties props) {
+	public ItemUnholyCloak(Settings props) {
 		super(props);
 	}
 
 	@Override
 	public boolean effectOnDamage(LivingHurtEvent event, PlayerEntity player, ItemStack stack) {
-		if (!event.getSource().isUnblockable()) {
+		if (!event.getSource().bypassesArmor()) {
 			int range = 6;
 			@SuppressWarnings("unchecked")
-			List<IMob> mobs = (List<IMob>) (List<?>) player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.getPosX() - range, player.getPosY() - range, player.getPosZ() - range, player.getPosX() + range, player.getPosY() + range, player.getPosZ() + range), Predicates.instanceOf(IMob.class));
-			for (IMob mob : mobs) {
+			List<Monster> mobs = (List<Monster>) (List<?>) player.world.getEntities(Entity.class, new Box(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range), Predicates.instanceOf(Monster.class));
+			for (Monster mob : mobs) {
 				if (mob instanceof LivingEntity) {
 					LivingEntity entity = (LivingEntity) mob;
-					entity.attackEntityFrom(DamageSource.causePlayerDamage(player), event.getAmount());
+					entity.damage(DamageSource.player(player), event.getAmount());
 				}
 			}
 
-			player.world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.unholyCloak, SoundCategory.PLAYERS, 1F, 1F);
+			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.unholyCloak, SoundCategory.PLAYERS, 1F, 1F);
 			for (int i = 0; i < 90; i++) {
 				float rad = i * 4F * (float) Math.PI / 180F;
 				float xMotion = (float) Math.cos(rad) * 0.2F;
 				float zMotion = (float) Math.sin(rad) * 0.2F;
 				WispParticleData data = WispParticleData.wisp(0.6F + (float) Math.random() * 0.2F, 0.4F + (float) Math.random() + 0.25F, 0F, 0F);
-				player.world.addParticle(data, player.getPosX(), player.getPosY() + 0.5, player.getPosZ(), xMotion, 0F, zMotion);
+				player.world.addParticle(data, player.getX(), player.getY() + 0.5, player.getZ(), xMotion, 0F, zMotion);
 			}
 
 			return true;
@@ -67,14 +68,14 @@ public class ItemUnholyCloak extends ItemHolyCloak {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	ResourceLocation getCloakTexture() {
+	@Environment(EnvType.CLIENT)
+	Identifier getCloakTexture() {
 		return texture;
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	ResourceLocation getCloakGlowTexture() {
+	@Environment(EnvType.CLIENT)
+	Identifier getCloakGlowTexture() {
 		return textureGlow;
 	}
 

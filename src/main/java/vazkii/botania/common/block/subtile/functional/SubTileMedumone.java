@@ -9,11 +9,10 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.math.AxisAlignedBB;
-
+import net.minecraft.util.math.Box;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
@@ -31,12 +30,12 @@ public class SubTileMedumone extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getWorld().isRemote && getMana() > 0) {
-			List<LivingEntity> entities = getWorld().getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		if (!getWorld().isClient && getMana() > 0) {
+			List<LivingEntity> entities = getWorld().getNonSpectatingEntities(LivingEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 
 			for (LivingEntity entity : entities) {
 				if (!(entity instanceof PlayerEntity)) {
-					entity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 2, 100));
+					entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 2, 100));
 					addMana(-1);
 					if (getMana() == 0) {
 						return;

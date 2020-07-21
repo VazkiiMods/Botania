@@ -10,14 +10,17 @@ package vazkii.botania.api;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.*;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -41,7 +44,7 @@ import java.util.function.Function;
 public interface BotaniaAPI {
 	String MODID = "botania";
 
-	LazyValue<BotaniaAPI> INSTANCE = new LazyValue<>(() -> {
+	Lazy<BotaniaAPI> INSTANCE = new Lazy<>(() -> {
 		try {
 			return (BotaniaAPI) Class.forName("vazkii.botania.common.impl.BotaniaAPIImpl").newInstance();
 		} catch (ReflectiveOperationException e) {
@@ -51,7 +54,7 @@ public interface BotaniaAPI {
 	});
 
 	static BotaniaAPI instance() {
-		return INSTANCE.getValue();
+		return INSTANCE.get();
 	}
 
 	/**
@@ -70,11 +73,11 @@ public interface BotaniaAPI {
 		return null;
 	}
 
-	default Map<ResourceLocation, Integer> getOreWeights() {
+	default Map<Identifier, Integer> getOreWeights() {
 		return Collections.emptyMap();
 	}
 
-	default Map<ResourceLocation, Integer> getNetherOreWeights() {
+	default Map<Identifier, Integer> getNetherOreWeights() {
 		return Collections.emptyMap();
 	}
 
@@ -84,7 +87,7 @@ public interface BotaniaAPI {
 	 * @param tag    Block tag ID containing the ores to register
 	 * @param weight Relative weight of tis entry
 	 */
-	default void registerOreWeight(ResourceLocation tag, int weight) {
+	default void registerOreWeight(Identifier tag, int weight) {
 
 	}
 
@@ -93,16 +96,16 @@ public interface BotaniaAPI {
 	 * 
 	 * @see #registerOreWeight
 	 */
-	default void registerNetherOreWeight(ResourceLocation tag, int weight) {
+	default void registerNetherOreWeight(Identifier tag, int weight) {
 
 	}
 
-	default Map<ResourceLocation, Function<DyeColor, Block>> getPaintableBlocks() {
+	default Map<Identifier, Function<DyeColor, Block>> getPaintableBlocks() {
 		return Collections.emptyMap();
 	}
 
 	default void registerPaintableBlock(Block block, Function<DyeColor, Block> transformer) {
-		registerPaintableBlock(Registry.BLOCK.getKey(block), transformer);
+		registerPaintableBlock(Registry.BLOCK.getId(block), transformer);
 	}
 
 	/**
@@ -112,18 +115,18 @@ public interface BotaniaAPI {
 	 * @param blockId     The block ID
 	 * @param transformer Function from color to a new block
 	 */
-	default void registerPaintableBlock(ResourceLocation blockId, Function<DyeColor, Block> transformer) {
+	default void registerPaintableBlock(Identifier blockId, Function<DyeColor, Block> transformer) {
 
 	}
 
-	IArmorMaterial DUMMY_ARMOR_MATERIAL = new IArmorMaterial() {
+	ArmorMaterial DUMMY_ARMOR_MATERIAL = new ArmorMaterial() {
 		@Override
-		public int getDurability(@Nonnull EquipmentSlotType slot) {
+		public int getDurability(@Nonnull EquipmentSlot slot) {
 			return 0;
 		}
 
 		@Override
-		public int getDamageReductionAmount(@Nonnull EquipmentSlotType slot) {
+		public int getProtectionAmount(@Nonnull EquipmentSlot slot) {
 			return 0;
 		}
 
@@ -134,13 +137,13 @@ public interface BotaniaAPI {
 
 		@Nonnull
 		@Override
-		public SoundEvent getSoundEvent() {
+		public SoundEvent getEquipSound() {
 			return SoundEvents.ITEM_ARMOR_EQUIP_LEATHER;
 		}
 
 		@Nonnull
 		@Override
-		public Ingredient getRepairMaterial() {
+		public Ingredient getRepairIngredient() {
 			return Ingredient.EMPTY;
 		}
 
@@ -155,19 +158,19 @@ public interface BotaniaAPI {
 		}
 
 		@Override
-		public float func_230304_f_() {
+		public float getKnockbackResistance() {
 			return 0;
 		}
 	};
 
-	IItemTier DUMMY_ITEM_TIER = new IItemTier() {
+	ToolMaterial DUMMY_ITEM_TIER = new ToolMaterial() {
 		@Override
-		public int getMaxUses() {
+		public int getDurability() {
 			return 0;
 		}
 
 		@Override
-		public float getEfficiency() {
+		public float getMiningSpeedMultiplier() {
 			return 0;
 		}
 
@@ -177,7 +180,7 @@ public interface BotaniaAPI {
 		}
 
 		@Override
-		public int getHarvestLevel() {
+		public int getMiningLevel() {
 			return 0;
 		}
 
@@ -188,36 +191,36 @@ public interface BotaniaAPI {
 
 		@Nonnull
 		@Override
-		public Ingredient getRepairMaterial() {
+		public Ingredient getRepairIngredient() {
 			return Ingredient.EMPTY;
 		}
 	};
 
-	default IArmorMaterial getManasteelArmorMaterial() {
+	default ArmorMaterial getManasteelArmorMaterial() {
 		return DUMMY_ARMOR_MATERIAL;
 	}
 
-	default IArmorMaterial getElementiumArmorMaterial() {
+	default ArmorMaterial getElementiumArmorMaterial() {
 		return DUMMY_ARMOR_MATERIAL;
 	}
 
-	default IArmorMaterial getManaweaveArmorMaterial() {
+	default ArmorMaterial getManaweaveArmorMaterial() {
 		return DUMMY_ARMOR_MATERIAL;
 	}
 
-	default IArmorMaterial getTerrasteelArmorMaterial() {
+	default ArmorMaterial getTerrasteelArmorMaterial() {
 		return DUMMY_ARMOR_MATERIAL;
 	}
 
-	default IItemTier getManasteelItemTier() {
+	default ToolMaterial getManasteelItemTier() {
 		return DUMMY_ITEM_TIER;
 	}
 
-	default IItemTier getElementiumItemTier() {
+	default ToolMaterial getElementiumItemTier() {
 		return DUMMY_ITEM_TIER;
 	}
 
-	default IItemTier getTerrasteelItemTier() {
+	default ToolMaterial getTerrasteelItemTier() {
 		return DUMMY_ITEM_TIER;
 	}
 
@@ -236,8 +239,8 @@ public interface BotaniaAPI {
 		return 0;
 	}
 
-	default IInventory getAccessoriesInventory(PlayerEntity player) {
-		return new Inventory(0);
+	default Inventory getAccessoriesInventory(PlayerEntity player) {
+		return new SimpleInventory(0);
 	}
 
 	/**

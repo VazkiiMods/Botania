@@ -10,10 +10,10 @@ package vazkii.botania.common.block.string;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.block.tile.string.TileRedString;
@@ -25,22 +25,22 @@ public class BlockRedStringComparator extends BlockRedString {
 
 	public BlockRedStringComparator(Block.Properties builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(BlockStateProperties.FACING, Direction.DOWN));
+		setDefaultState(getDefaultState().with(Properties.FACING, Direction.DOWN));
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride(BlockState state) {
+	public boolean hasComparatorOutput(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
-		return ((TileRedStringComparator) world.getTileEntity(pos)).getComparatorValue();
+	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+		return ((TileRedStringComparator) world.getBlockEntity(pos)).getComparatorValue();
 	}
 
 	@Nonnull
 	@Override
-	public TileRedString createNewTileEntity(@Nonnull IBlockReader world) {
+	public TileRedString createBlockEntity(@Nonnull BlockView world) {
 		return new TileRedStringComparator();
 	}
 

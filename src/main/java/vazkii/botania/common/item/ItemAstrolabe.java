@@ -8,23 +8,26 @@
  */
 package vazkii.botania.common.item;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.nbt.NBTUtil;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.nbt.NbtHelper;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.*;
-import net.minecraft.util.Direction.Axis;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Direction.Axis;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -46,21 +49,21 @@ public class ItemAstrolabe extends Item {
 	private static final String TAG_BLOCKSTATE = "blockstate";
 	private static final String TAG_SIZE = "size";
 
-	public ItemAstrolabe(Properties props) {
+	public ItemAstrolabe(Settings props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
-		ItemStack stack = ctx.getItem();
-		BlockState state = ctx.getWorld().getBlockState(ctx.getPos());
+	public ActionResult useOnBlock(ItemUsageContext ctx) {
+		ItemStack stack = ctx.getStack();
+		BlockState state = ctx.getWorld().getBlockState(ctx.getBlockPos());
 		PlayerEntity player = ctx.getPlayer();
 
 		if (player != null && player.isSneaking()) {
 			if (setBlock(stack, state)) {
 				displayRemainderCounter(player, stack);
-				return ActionResultType.SUCCESS;
+				return ActionResult.SUCCESS;
 			}
 		} else if (player != null) {
 			boolean did = placeAllBlocks(stack, player);
@@ -68,29 +71,29 @@ public class ItemAstrolabe extends Item {
 				displayRemainderCounter(player, stack);
 			}
 
-			return did ? ActionResultType.SUCCESS : ActionResultType.FAIL;
+			return did ? ActionResult.SUCCESS : ActionResult.FAIL;
 		}
 
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @Nonnull Hand hand) {
-		ItemStack stack = playerIn.getHeldItem(hand);
+	public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, @Nonnull Hand hand) {
+		ItemStack stack = playerIn.getStackInHand(hand);
 		if (playerIn.isSneaking()) {
 			playerIn.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5F, 1F);
-			if (!worldIn.isRemote) {
+			if (!worldIn.isClient) {
 				int size = getSize(stack);
 				int newSize = size == 11 ? 3 : size + 2;
 				setSize(stack, newSize);
-				ItemsRemainingRenderHandler.send(playerIn, stack, 0, new StringTextComponent(newSize + "x" + newSize));
+				ItemsRemainingRenderHandler.send(playerIn, stack, 0, new LiteralText(newSize + "x" + newSize));
 			}
 
-			return ActionResult.resultSuccess(stack);
+			return TypedActionResult.success(stack);
 		}
 
-		return ActionResult.resultPass(stack);
+		return TypedActionResult.pass(stack);
 	}
 
 	public boolean placeAllBlocks(ItemStack stack, PlayerEntity player) {
@@ -122,17 +125,17 @@ public class ItemAstrolabe extends Item {
 		Block block = Block.getBlockFromItem(blockToPlace.getItem());
 		BlockState state = block.getDefaultState();
 		player.world.setBlockState(coords, state);
-		player.world.playEvent(2001, coords, Block.getStateId(state));
+		player.world.syncWorldEvent(2001, coords, Block.getRawIdFromState(state));
 
-		if (player.abilities.isCreativeMode) {
+		if (player.abilities.creativeMode) {
 			return;
 		}
 
 		List<ItemStack> stacksToCheck = new ArrayList<>();
-		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
-			ItemStack stackInSlot = player.inventory.getStackInSlot(i);
+		for (int i = 0; i < player.inventory.size(); i++) {
+			ItemStack stackInSlot = player.inventory.getStack(i);
 			if (!stackInSlot.isEmpty() && stackInSlot.getItem() == blockToPlace.getItem()) {
-				stackInSlot.shrink(1);
+				stackInSlot.decrement(1);
 				return;
 			}
 
@@ -152,7 +155,7 @@ public class ItemAstrolabe extends Item {
 	}
 
 	public static boolean hasBlocks(ItemStack stack, PlayerEntity player, List<BlockPos> blocks) {
-		if (player.abilities.isCreativeMode) {
+		if (player.abilities.creativeMode) {
 			return true;
 		}
 
@@ -162,8 +165,8 @@ public class ItemAstrolabe extends Item {
 		int required = blocks.size();
 		int current = 0;
 		List<ItemStack> stacksToCheck = new ArrayList<>();
-		for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
-			ItemStack stackInSlot = player.inventory.getStackInSlot(i);
+		for (int i = 0; i < player.inventory.size(); i++) {
+			ItemStack stackInSlot = player.inventory.getStack(i);
 			if (!stackInSlot.isEmpty() && stackInSlot.getItem() == reqStack.getItem()) {
 				current += stackInSlot.getCount();
 				if (current >= required) {
@@ -194,9 +197,9 @@ public class ItemAstrolabe extends Item {
 
 	public static List<BlockPos> getBlocksToPlace(ItemStack stack, PlayerEntity player) {
 		List<BlockPos> coords = new ArrayList<>();
-		BlockRayTraceResult rtr = ToolCommons.raytraceFromEntity(player, 5, true);
-		if (rtr.getType() == RayTraceResult.Type.BLOCK) {
-			BlockPos pos = rtr.getPos();
+		BlockHitResult rtr = ToolCommons.raytraceFromEntity(player, 5, true);
+		if (rtr.getType() == HitResult.Type.BLOCK) {
+			BlockPos pos = rtr.getBlockPos();
 			BlockState state = player.world.getBlockState(pos);
 			if (state.getMaterial().isReplaceable()) {
 				pos = pos.down();
@@ -204,10 +207,10 @@ public class ItemAstrolabe extends Item {
 
 			int range = (getSize(stack) ^ 1) / 2;
 
-			Direction dir = rtr.getFace();
-			Direction rotationDir = Direction.fromAngle(player.rotationYaw);
+			Direction dir = rtr.getSide();
+			Direction rotationDir = Direction.fromRotation(player.yaw);
 
-			boolean pitchedVertically = player.rotationPitch > 70 || player.rotationPitch < -70;
+			boolean pitchedVertically = player.pitch > 70 || player.pitch < -70;
 
 			boolean axisX = rotationDir.getAxis() == Axis.X;
 			boolean axisZ = rotationDir.getAxis() == Axis.Z;
@@ -219,9 +222,9 @@ public class ItemAstrolabe extends Item {
 			for (int x = -xOff; x < xOff + 1; x++) {
 				for (int y = 0; y < yOff * 2 + 1; y++) {
 					for (int z = -zOff; z < zOff + 1; z++) {
-						int xp = pos.getX() + x + dir.getXOffset();
-						int yp = pos.getY() + y + dir.getYOffset();
-						int zp = pos.getZ() + z + dir.getZOffset();
+						int xp = pos.getX() + x + dir.getOffsetX();
+						int yp = pos.getY() + y + dir.getOffsetY();
+						int zp = pos.getZ() + z + dir.getOffsetZ();
 
 						BlockPos newPos = new BlockPos(xp, yp, zp);
 						BlockState state1 = player.world.getBlockState(newPos);
@@ -241,14 +244,14 @@ public class ItemAstrolabe extends Item {
 	public void displayRemainderCounter(PlayerEntity player, ItemStack stack) {
 		Block block = getBlock(stack);
 		int count = ItemExchangeRod.getInventoryItemCount(player, stack, block);
-		if (!player.world.isRemote) {
+		if (!player.world.isClient) {
 			ItemsRemainingRenderHandler.send(player, new ItemStack(block), count);
 		}
 	}
 
 	private boolean setBlock(ItemStack stack, BlockState state) {
 		if (!state.isAir()) {
-			ItemNBTHelper.setCompound(stack, TAG_BLOCKSTATE, NBTUtil.writeBlockState(state));
+			ItemNBTHelper.setCompound(stack, TAG_BLOCKSTATE, NbtHelper.fromBlockState(state));
 			return true;
 		}
 		return false;
@@ -267,18 +270,18 @@ public class ItemAstrolabe extends Item {
 	}
 
 	public static BlockState getBlockState(ItemStack stack) {
-		return NBTUtil.readBlockState(ItemNBTHelper.getCompound(stack, TAG_BLOCKSTATE, false));
+		return NbtHelper.toBlockState(ItemNBTHelper.getCompound(stack, TAG_BLOCKSTATE, false));
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> tip, ITooltipFlag flags) {
+	@Environment(EnvType.CLIENT)
+	public void appendTooltip(ItemStack stack, World world, List<Text> tip, TooltipContext flags) {
 		Block block = getBlock(stack);
 		int size = getSize(stack);
 
-		tip.add(new StringTextComponent(size + " x " + size));
+		tip.add(new LiteralText(size + " x " + size));
 		if (block != Blocks.AIR) {
-			tip.add(new ItemStack(block).getDisplayName().copyRaw().func_240699_a_(TextFormatting.GRAY));
+			tip.add(new ItemStack(block).getName().copy().formatted(Formatting.GRAY));
 		}
 	}
 

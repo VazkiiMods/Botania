@@ -8,18 +8,6 @@
  */
 package vazkii.botania.client.render.entity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.math.vector.Vector3f;
-
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -27,22 +15,31 @@ import vazkii.botania.common.entity.EntitySparkBase;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Matrix4f;
 import java.util.Random;
 
 public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityRenderer<T> {
 
-	public RenderSparkBase(EntityRendererManager manager) {
+	public RenderSparkBase(EntityRenderDispatcher manager) {
 		super(manager);
 	}
 
 	@Override
-	public void render(@Nonnull T tEntity, float yaw, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light) {
-		TextureAtlasSprite iicon = getBaseIcon(tEntity);
+	public void render(@Nonnull T tEntity, float yaw, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light) {
+		Sprite iicon = getBaseIcon(tEntity);
 
 		ms.push();
 
-		double time = tEntity.world.getDayTime() + partialTicks + new Random(tEntity.getEntityId()).nextInt(200);
+		double time = tEntity.world.getTimeOfDay() + partialTicks + new Random(tEntity.getEntityId()).nextInt(200);
 		float a = 0.1F + (tEntity.isInvisible() ? 0 : 1) * 0.8F;
 
 		int alpha = (int) ((0.7F + 0.3F * (float) (Math.sin(time / 5.0) + 0.5) * 2) * a * 255.0F);
@@ -51,10 +48,10 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 		float scale = 0.75F + 0.1F * (float) Math.sin(time / 10);
 		ms.scale(scale, scale, scale);
 
-		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.SPARK);
+		VertexConsumer buffer = buffers.getBuffer(RenderHelper.SPARK);
 		ms.push();
-		ms.rotate(renderManager.getCameraOrientation());
-		ms.rotate(Vector3f.YP.rotationDegrees(180));
+		ms.multiply(dispatcher.getRotation());
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180));
 		renderIcon(ms, buffer, iicon, iconColor);
 
 		ms.push();
@@ -64,7 +61,7 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 		renderIcon(ms, buffer, MiscellaneousIcons.INSTANCE.corporeaIconStar, starColor);
 		ms.pop();
 
-		TextureAtlasSprite spinningIcon = getSpinningIcon(tEntity);
+		Sprite spinningIcon = getSpinningIcon(tEntity);
 		if (spinningIcon != null) {
 			ms.translate(-0.02F + (float) Math.sin(time / 20) * -0.2F, 0.24F + (float) Math.cos(time / 20) * -0.2F, 0.005F);
 			ms.scale(0.2F, 0.2F, 0.2F);
@@ -77,24 +74,24 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 		ms.pop();
 	}
 
-	protected TextureAtlasSprite getBaseIcon(T entity) {
+	protected Sprite getBaseIcon(T entity) {
 		return MiscellaneousIcons.INSTANCE.sparkWorldIcon;
 	}
 
 	@Nullable
-	protected TextureAtlasSprite getSpinningIcon(T entity) {
+	protected Sprite getSpinningIcon(T entity) {
 		return null;
 	}
 
-	protected void renderCallback(T entity, float pticks, MatrixStack ms, IRenderTypeBuffer buffers) {}
+	protected void renderCallback(T entity, float pticks, MatrixStack ms, VertexConsumerProvider buffers) {}
 
 	@Nonnull
 	@Override
-	public ResourceLocation getEntityTexture(@Nonnull EntitySparkBase entity) {
-		return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
+	public Identifier getEntityTexture(@Nonnull EntitySparkBase entity) {
+		return SpriteAtlasTexture.BLOCK_ATLAS_TEX;
 	}
 
-	private void renderIcon(MatrixStack ms, IVertexBuilder buffer, TextureAtlasSprite icon, int color) {
+	private void renderIcon(MatrixStack ms, VertexConsumer buffer, Sprite icon, int color) {
 		float f = icon.getMinU();
 		float f1 = icon.getMaxU();
 		float f2 = icon.getMinV();
@@ -107,11 +104,11 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 		int r = (color >> 16) & 0xFF;
 		int g = (color >> 8) & 0xFF;
 		int b = color & 0xFF;
-		Matrix4f mat = ms.getLast().getMatrix();
-		buffer.pos(mat, 0.0F - f5, 0.0F - f6, 0.0F).color(r, g, b, a).tex(f, f3).lightmap(fullbright).endVertex();
-		buffer.pos(mat, f4 - f5, 0.0F - f6, 0.0F).color(r, g, b, a).tex(f1, f3).lightmap(fullbright).endVertex();
-		buffer.pos(mat, f4 - f5, f4 - f6, 0.0F).color(r, g, b, a).tex(f1, f2).lightmap(fullbright).endVertex();
-		buffer.pos(mat, 0.0F - f5, f4 - f6, 0.0F).color(r, g, b, a).tex(f, f2).lightmap(fullbright).endVertex();
+		Matrix4f mat = ms.peek().getModel();
+		buffer.vertex(mat, 0.0F - f5, 0.0F - f6, 0.0F).color(r, g, b, a).texture(f, f3).light(fullbright).next();
+		buffer.vertex(mat, f4 - f5, 0.0F - f6, 0.0F).color(r, g, b, a).texture(f1, f3).light(fullbright).next();
+		buffer.vertex(mat, f4 - f5, f4 - f6, 0.0F).color(r, g, b, a).texture(f1, f2).light(fullbright).next();
+		buffer.vertex(mat, 0.0F - f5, f4 - f6, 0.0F).color(r, g, b, a).texture(f, f2).light(fullbright).next();
 	}
 
 }

@@ -9,28 +9,27 @@
 package vazkii.botania.common.block.string;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.Properties;
 import vazkii.botania.common.block.BlockMod;
 
-public abstract class BlockRedString extends BlockMod implements ITileEntityProvider {
+public abstract class BlockRedString extends BlockMod implements BlockEntityProvider {
 
 	public BlockRedString(Block.Properties builder) {
 		super(builder);
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(BlockStateProperties.FACING);
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		builder.add(Properties.FACING);
 	}
 
 	@Override
-	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		return getDefaultState().with(BlockStateProperties.FACING, context.getNearestLookingDirection().getOpposite());
+	public BlockState getPlacementState(ItemPlacementContext context) {
+		return getDefaultState().with(Properties.FACING, context.getPlayerLookDirection().getOpposite());
 	}
 
 }

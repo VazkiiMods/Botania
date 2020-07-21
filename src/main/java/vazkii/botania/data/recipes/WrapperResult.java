@@ -9,38 +9,37 @@
 package vazkii.botania.data.recipes;
 
 import com.google.gson.JsonObject;
-
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 import javax.annotation.Nullable;
 
 import java.util.function.Consumer;
 
-public class WrapperResult implements IFinishedRecipe {
-	private final IFinishedRecipe delegate;
+public class WrapperResult implements RecipeJsonProvider {
+	private final RecipeJsonProvider delegate;
 	@Nullable
-	private final IRecipeSerializer<?> type;
+	private final RecipeSerializer<?> type;
 	@Nullable
 	private final Consumer<JsonObject> transform;
 
 	/**
 	 * Wraps recipe consumer with one that swaps the recipe type to a different one.
 	 */
-	public static Consumer<IFinishedRecipe> ofType(IRecipeSerializer<?> type, Consumer<IFinishedRecipe> parent) {
+	public static Consumer<RecipeJsonProvider> ofType(RecipeSerializer<?> type, Consumer<RecipeJsonProvider> parent) {
 		return recipe -> parent.accept(new WrapperResult(recipe, type, null));
 	}
 
 	/**
 	 * Transforms the resulting recipe json with the specified action, eg. adding NBT to an item result.
 	 */
-	public static Consumer<IFinishedRecipe> transformJson(Consumer<IFinishedRecipe> parent, Consumer<JsonObject> transform) {
+	public static Consumer<RecipeJsonProvider> transformJson(Consumer<RecipeJsonProvider> parent, Consumer<JsonObject> transform) {
 		return recipe -> parent.accept(new WrapperResult(recipe, null, transform));
 	}
 
-	private WrapperResult(IFinishedRecipe delegate, @Nullable IRecipeSerializer<?> type, @Nullable Consumer<JsonObject> transform) {
+	private WrapperResult(RecipeJsonProvider delegate, @Nullable RecipeSerializer<?> type, @Nullable Consumer<JsonObject> transform) {
 		this.delegate = delegate;
 		this.type = type;
 		this.transform = transform;
@@ -55,35 +54,35 @@ public class WrapperResult implements IFinishedRecipe {
 	}
 
 	@Override
-	public JsonObject getRecipeJson() {
+	public JsonObject toJson() {
 		if (type == null) {
-			return IFinishedRecipe.super.getRecipeJson();
+			return RecipeJsonProvider.super.toJson();
 		}
 		JsonObject jsonobject = new JsonObject();
-		jsonobject.addProperty("type", Registry.RECIPE_SERIALIZER.getKey(this.type).toString());
+		jsonobject.addProperty("type", Registry.RECIPE_SERIALIZER.getId(this.type).toString());
 		this.serialize(jsonobject);
 		return jsonobject;
 	}
 
 	@Override
-	public ResourceLocation getID() {
-		return delegate.getID();
+	public Identifier getRecipeId() {
+		return delegate.getRecipeId();
 	}
 
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return type != null ? type : delegate.getSerializer();
 	}
 
 	@Nullable
 	@Override
-	public JsonObject getAdvancementJson() {
-		return delegate.getAdvancementJson();
+	public JsonObject toAdvancementJson() {
+		return delegate.toAdvancementJson();
 	}
 
 	@Nullable
 	@Override
-	public ResourceLocation getAdvancementID() {
-		return delegate.getAdvancementID();
+	public Identifier getAdvancementId() {
+		return delegate.getAdvancementId();
 	}
 }

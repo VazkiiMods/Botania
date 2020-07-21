@@ -10,8 +10,7 @@ package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -50,8 +49,8 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getWorld().isRemote) {
-			if (ticksExisted % SPEED == 0 && getWorld().isBlockPowered(getPos())) {
+		if (!getWorld().isClient) {
+			if (ticksExisted % SPEED == 0 && getWorld().isReceivingRedstonePower(getPos())) {
 				runSimulation();
 			}
 		}
@@ -127,7 +126,7 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 	}
 
 	private int getCellGeneration(BlockPos pos) {
-		TileEntity tile = getWorld().getTileEntity(pos);
+		BlockEntity tile = getWorld().getBlockEntity(pos);
 		if (tile instanceof TileCell) {
 			return ((TileCell) tile).isSameFlower(this) ? ((TileCell) tile).getGeneration() : 0;
 		}
@@ -175,7 +174,7 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 		World world = getWorld();
 		BlockState stateAt = world.getBlockState(pos);
 		Block blockAt = stateAt.getBlock();
-		TileEntity tile = world.getTileEntity(pos);
+		BlockEntity tile = world.getBlockEntity(pos);
 		if (gen == -2) {
 			int val = Math.min(MAX_MANA_GENERATIONS, prevGen) * MANA_PER_GEN;
 			addMana(val);
@@ -187,7 +186,7 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 			}
 		} else if (gen >= 0 && stateAt.isAir(getWorld(), pos)) {
 			world.setBlockState(pos, ModBlocks.cellBlock.getDefaultState());
-			tile = world.getTileEntity(pos);
+			tile = world.getBlockEntity(pos);
 			((TileCell) tile).setGeneration(this, gen);
 		}
 	}

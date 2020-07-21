@@ -9,14 +9,14 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.HurtByTargetGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.RangedAttackGoal;
+import net.minecraft.entity.ai.goal.FollowTargetGoal;
+import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
+import net.minecraft.entity.ai.goal.RevengeGoal;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
@@ -31,47 +31,47 @@ public class EntityPinkWither extends WitherEntity {
 	}
 
 	@Override
-	protected void registerGoals() {
-		super.registerGoals();
+	protected void initGoals() {
+		super.initGoals();
 
 		// Remove firing wither skulls
-		((AccessorGoalSelector) goalSelector).getGoals().removeIf(entry -> entry.getGoal() instanceof RangedAttackGoal);
+		((AccessorGoalSelector) goalSelector).getGoals().removeIf(entry -> entry.getGoal() instanceof ProjectileAttackGoal);
 
 		// Remove revenge and aggro
-		((AccessorGoalSelector) targetSelector).getGoals().removeIf(entry -> entry.getGoal() instanceof HurtByTargetGoal
-				|| entry.getGoal() instanceof NearestAttackableTargetGoal);
+		((AccessorGoalSelector) targetSelector).getGoals().removeIf(entry -> entry.getGoal() instanceof RevengeGoal
+				|| entry.getGoal() instanceof FollowTargetGoal);
 	}
 
 	@Override
-	public void livingTick() {
-		super.livingTick();
+	public void tickMovement() {
+		super.tickMovement();
 
 		if (Math.random() < 0.1) {
 			for (int j = 0; j < 3; ++j) {
 				double x = ((AccessorWitherEntity) this).callGetHeadX(j);
 				double y = ((AccessorWitherEntity) this).callGetHeadY(j);
 				double z = ((AccessorWitherEntity) this).callGetHeadZ(j);
-				world.addParticle(ParticleTypes.HEART, x + rand.nextGaussian() * 0.3, y + rand.nextGaussian() * 0.3, z + rand.nextGaussian() * 0.3, 0.0D, 0.0D, 0.0D);
+				world.addParticle(ParticleTypes.HEART, x + random.nextGaussian() * 0.3, y + random.nextGaussian() * 0.3, z + random.nextGaussian() * 0.3, 0.0D, 0.0D, 0.0D);
 			}
 		}
 	}
 
 	@Override
-	public void updateAITasks() {
-		if (ticksExisted % 20 == 0) {
+	public void mobTick() {
+		if (age % 20 == 0) {
 			heal(1.0F);
 		}
 	}
 
 	@Override
-	protected ActionResultType func_230254_b_(PlayerEntity player, Hand hand) {
+	protected ActionResult interactMob(PlayerEntity player, Hand hand) {
 		if (!player.isSneaking()) {
 			player.startRiding(this);
-			return ActionResultType.SUCCESS;
+			return ActionResult.SUCCESS;
 		}
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
 	@Override
-	public void addTrackingPlayer(@Nonnull ServerPlayerEntity player) {}
+	public void onStartedTrackingBy(@Nonnull ServerPlayerEntity player) {}
 }

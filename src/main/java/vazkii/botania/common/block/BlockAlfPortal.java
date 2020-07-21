@@ -9,19 +9,18 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.wand.IWandable;
@@ -30,28 +29,28 @@ import vazkii.botania.common.block.tile.TileAlfPortal;
 
 import javax.annotation.Nonnull;
 
-public class BlockAlfPortal extends BlockMod implements ITileEntityProvider, IWandable {
+public class BlockAlfPortal extends BlockMod implements BlockEntityProvider, IWandable {
 
-	public BlockAlfPortal(Properties builder) {
+	public BlockAlfPortal(Settings builder) {
 		super(builder);
 		setDefaultState(getDefaultState().with(BotaniaStateProps.ALFPORTAL_STATE, AlfPortalState.OFF));
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		builder.add(BotaniaStateProps.ALFPORTAL_STATE);
 	}
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TileAlfPortal();
 	}
 
 	@Override
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
-		boolean did = ((TileAlfPortal) world.getTileEntity(pos)).onWanded();
-		if (!world.isRemote && did && player instanceof ServerPlayerEntity) {
+		boolean did = ((TileAlfPortal) world.getBlockEntity(pos)).onWanded();
+		if (!world.isClient && did && player instanceof ServerPlayerEntity) {
 			AlfPortalTrigger.INSTANCE.trigger((ServerPlayerEntity) player, (ServerWorld) world, pos, stack);
 		}
 		return did;

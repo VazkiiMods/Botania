@@ -11,16 +11,15 @@ package vazkii.botania.common.crafting.recipe;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
@@ -36,24 +35,24 @@ import java.util.List;
 
 public class HeadRecipe extends RecipeRuneAltar {
 
-	public HeadRecipe(ResourceLocation id, ItemStack output, int mana, Ingredient... inputs) {
+	public HeadRecipe(Identifier id, ItemStack output, int mana, Ingredient... inputs) {
 		super(id, output, mana, inputs);
 	}
 
 	@Override
-	public boolean matches(IInventory inv, @Nonnull World world) {
+	public boolean matches(Inventory inv, @Nonnull World world) {
 		boolean matches = super.matches(inv, world);
 
 		if (matches) {
-			for (int i = 0; i < inv.getSizeInventory(); i++) {
-				ItemStack stack = inv.getStackInSlot(i);
+			for (int i = 0; i < inv.size(); i++) {
+				ItemStack stack = inv.getStack(i);
 				if (stack.isEmpty()) {
 					break;
 				}
 
 				if (stack.getItem() == Items.NAME_TAG) {
-					String defaultName = new TranslationTextComponent(Items.NAME_TAG.getTranslationKey()).getString();
-					if (stack.getDisplayName().getString().equals(defaultName)) {
+					String defaultName = new TranslatableText(Items.NAME_TAG.getTranslationKey()).getString();
+					if (stack.getName().getString().equals(defaultName)) {
 						return false;
 					}
 				}
@@ -65,38 +64,38 @@ public class HeadRecipe extends RecipeRuneAltar {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
-		ItemStack stack = getRecipeOutput().copy();
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack ingr = inv.getStackInSlot(i);
+	public ItemStack craft(@Nonnull Inventory inv) {
+		ItemStack stack = getOutput().copy();
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack ingr = inv.getStack(i);
 			if (ingr.getItem() == Items.NAME_TAG) {
-				ItemNBTHelper.setString(stack, "SkullOwner", ingr.getDisplayName().getString());
+				ItemNBTHelper.setString(stack, "SkullOwner", ingr.getName().getString());
 				break;
 			}
 		}
 		return stack;
 	}
 
-	public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<HeadRecipe> {
+	public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<HeadRecipe> {
 
 		@Nonnull
 		@Override
-		public HeadRecipe read(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {
-			ItemStack output = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "output"), true);
-			int mana = JSONUtils.getInt(json, "mana");
-			JsonArray ingrs = JSONUtils.getJsonArray(json, "ingredients");
+		public HeadRecipe read(@Nonnull Identifier id, @Nonnull JsonObject json) {
+			ItemStack output = CraftingHelper.getItemStack(JsonHelper.getObject(json, "output"), true);
+			int mana = JsonHelper.getInt(json, "mana");
+			JsonArray ingrs = JsonHelper.getArray(json, "ingredients");
 			List<Ingredient> inputs = new ArrayList<>();
 			for (JsonElement e : ingrs) {
-				inputs.add(Ingredient.deserialize(e));
+				inputs.add(Ingredient.fromJson(e));
 			}
 			return new HeadRecipe(id, output, mana, inputs.toArray(new Ingredient[0]));
 		}
 
 		@Override
-		public HeadRecipe read(@Nonnull ResourceLocation id, @Nonnull PacketBuffer buf) {
+		public HeadRecipe read(@Nonnull Identifier id, @Nonnull PacketByteBuf buf) {
 			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
 			for (int i = 0; i < inputs.length; i++) {
-				inputs[i] = Ingredient.read(buf);
+				inputs[i] = Ingredient.fromPacket(buf);
 			}
 			ItemStack output = buf.readItemStack();
 			int mana = buf.readVarInt();
@@ -104,7 +103,7 @@ public class HeadRecipe extends RecipeRuneAltar {
 		}
 
 		@Override
-		public void write(@Nonnull PacketBuffer buf, @Nonnull HeadRecipe recipe) {
+		public void write(@Nonnull PacketByteBuf buf, @Nonnull HeadRecipe recipe) {
 			ModRecipeTypes.RUNE_SERIALIZER.write(buf, recipe);
 		}
 	}

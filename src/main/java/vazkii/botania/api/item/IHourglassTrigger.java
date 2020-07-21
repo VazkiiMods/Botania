@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.item;
 
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -18,6 +18,6 @@ import net.minecraft.world.World;
  */
 public interface IHourglassTrigger {
 
-	public void onTriggeredByHourglass(World world, BlockPos pos, TileEntity hourglass);
+	public void onTriggeredByHourglass(World world, BlockPos pos, BlockEntity hourglass);
 
 }

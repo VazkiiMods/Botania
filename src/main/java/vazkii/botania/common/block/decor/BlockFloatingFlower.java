@@ -8,21 +8,23 @@
  */
 package vazkii.botania.common.block.decor;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -41,19 +43,19 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockFloatingFlower extends BlockModWaterloggable implements ITileEntityProvider {
+public class BlockFloatingFlower extends BlockModWaterloggable implements BlockEntityProvider {
 
-	private static final VoxelShape SHAPE = makeCuboidShape(1.6, 1.6, 1.6, 14.4, 14.4, 14.4);
+	private static final VoxelShape SHAPE = createCuboidShape(1.6, 1.6, 1.6, 14.4, 14.4, 14.4);
 	public final DyeColor color;
 
-	public BlockFloatingFlower(DyeColor color, Properties props) {
+	public BlockFloatingFlower(DyeColor color, Settings props) {
 		super(props);
 		this.color = color;
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
 		return SHAPE;
 	}
 
@@ -63,9 +65,9 @@ public class BlockFloatingFlower extends BlockModWaterloggable implements ITileE
 		return ConfigHandler.CLIENT.staticFloaters.get() ? BlockRenderType.MODEL : BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
+	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
 		int hex = color.getColorValue();
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
@@ -78,9 +80,9 @@ public class BlockFloatingFlower extends BlockModWaterloggable implements ITileE
 	}
 
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		ItemStack stack = player.getHeldItem(hand);
-		TileEntity te = world.getTileEntity(pos);
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		ItemStack stack = player.getStackInHand(hand);
+		BlockEntity te = world.getBlockEntity(pos);
 		if (!stack.isEmpty() && te != null && te.getCapability(TileEntitySpecialFlower.FLOATING_FLOWER_CAP).isPresent()) {
 			IFloatingFlower flower = te.getCapability(TileEntitySpecialFlower.FLOATING_FLOWER_CAP).orElseThrow(IllegalStateException::new);
 			IslandType type = null;
@@ -94,23 +96,23 @@ public class BlockFloatingFlower extends BlockModWaterloggable implements ITileE
 			}
 
 			if (type != null && type != flower.getIslandType()) {
-				if (!world.isRemote) {
+				if (!world.isClient) {
 					flower.setIslandType(type);
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(te);
 				}
 
-				if (!player.abilities.isCreativeMode) {
-					stack.shrink(1);
+				if (!player.abilities.creativeMode) {
+					stack.decrement(1);
 				}
-				return ActionResultType.SUCCESS;
+				return ActionResult.SUCCESS;
 			}
 		}
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TileFloatingFlower();
 	}
 }

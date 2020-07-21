@@ -8,12 +8,19 @@
  */
 package vazkii.botania.common.item.equipment.armor.manaweave;
 
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.util.ITooltipFlag;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.LazyValue;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Lazy;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -33,24 +40,24 @@ import java.util.List;
 
 public class ItemManaweaveArmor extends ItemManasteelArmor {
 
-	public ItemManaweaveArmor(EquipmentSlotType type, Properties props) {
+	public ItemManaweaveArmor(EquipmentSlot type, Settings props) {
 		super(type, BotaniaAPI.instance().getManaweaveArmorMaterial(), props);
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public BipedModel<?> provideArmorModelForSlot(EquipmentSlotType slot) {
+	@Environment(EnvType.CLIENT)
+	public BipedEntityModel<?> provideArmorModelForSlot(EquipmentSlot slot) {
 		return new ModelArmorManaweave(slot);
 	}
 
 	@Override
-	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlotType slot) {
-		return ConfigHandler.CLIENT.enableArmorModels.get() ? ClientProxy.jingleTheBells ? LibResources.MODEL_MANAWEAVE_NEW_HOLIDAY : LibResources.MODEL_MANAWEAVE_NEW : slot == EquipmentSlotType.LEGS ? LibResources.MODEL_MANAWEAVE_1 : LibResources.MODEL_MANAWEAVE_0;
+	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
+		return ConfigHandler.CLIENT.enableArmorModels.get() ? ClientProxy.jingleTheBells ? LibResources.MODEL_MANAWEAVE_NEW_HOLIDAY : LibResources.MODEL_MANAWEAVE_NEW : slot == EquipmentSlot.LEGS ? LibResources.MODEL_MANAWEAVE_1 : LibResources.MODEL_MANAWEAVE_0;
 	}
 
 	@Nonnull
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public String getTranslationKey(ItemStack stack) {
 		String name = super.getTranslationKey(stack);
 		if (ClientProxy.jingleTheBells) {
@@ -59,7 +66,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 		return name;
 	}
 
-	private static final LazyValue<ItemStack[]> armorSet = new LazyValue<>(() -> new ItemStack[] {
+	private static final Lazy<ItemStack[]> armorSet = new Lazy<>(() -> new ItemStack[] {
 			new ItemStack(ModItems.manaweaveHelm),
 			new ItemStack(ModItems.manaweaveChest),
 			new ItemStack(ModItems.manaweaveLegs),
@@ -68,16 +75,16 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 
 	@Override
 	public ItemStack[] getArmorSetStacks() {
-		return armorSet.getValue();
+		return armorSet.get();
 	}
 
 	@Override
-	public boolean hasArmorSetItem(PlayerEntity player, EquipmentSlotType slot) {
+	public boolean hasArmorSetItem(PlayerEntity player, EquipmentSlot slot) {
 		if (player == null) {
 			return false;
 		}
 
-		ItemStack stack = player.getItemStackFromSlot(slot);
+		ItemStack stack = player.getEquippedStack(slot);
 		if (stack.isEmpty()) {
 			return false;
 		}
@@ -97,25 +104,25 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 	}
 
 	@Override
-	public IFormattableTextComponent getArmorSetName() {
-		return new TranslationTextComponent("botania.armorset.manaweave.name");
+	public MutableText getArmorSetName() {
+		return new TranslatableText("botania.armorset.manaweave.name");
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void addInformationAfterShift(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
+	public void addInformationAfterShift(ItemStack stack, World world, List<Text> list, TooltipContext flags) {
 		if (ClientProxy.jingleTheBells) {
-			list.add(new TranslationTextComponent("botaniamisc.santaweaveInfo"));
-			list.add(new StringTextComponent(""));
+			list.add(new TranslatableText("botaniamisc.santaweaveInfo"));
+			list.add(new LiteralText(""));
 		}
 
 		super.addInformationAfterShift(stack, world, list, flags);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void addArmorSetDescription(ItemStack stack, List<ITextComponent> list) {
-		list.add(new TranslationTextComponent("botania.armorset.manaweave.desc0").func_240699_a_(TextFormatting.GRAY));
-		list.add(new TranslationTextComponent("botania.armorset.manaweave.desc1").func_240699_a_(TextFormatting.GRAY));
+	public void addArmorSetDescription(ItemStack stack, List<Text> list) {
+		list.add(new TranslatableText("botania.armorset.manaweave.desc0").formatted(Formatting.GRAY));
+		list.add(new TranslatableText("botania.armorset.manaweave.desc1").formatted(Formatting.GRAY));
 	}
 }

@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.util.LazyOptional;
 
@@ -31,15 +31,15 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isRemote || getMana() <= 2) {
+		if (getWorld().isClient || getMana() <= 2) {
 			return;
 		}
 
 		boolean did = false;
 
-		for (BlockPos pos : BlockPos.getAllInBoxMutable(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE),
+		for (BlockPos pos : BlockPos.iterate(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE),
 				getEffectivePos().add(RANGE, RANGE_Y, RANGE))) {
-			TileEntity tile = getWorld().getTileEntity(pos);
+			BlockEntity tile = getWorld().getBlockEntity(pos);
 			if (tile != null) {
 				LazyOptional<IExoflameHeatable> cap = tile.getCapability(ExoflameFurnaceHandler.CAPABILITY);
 				if (cap.isPresent()) {

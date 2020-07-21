@@ -9,31 +9,30 @@
 package vazkii.botania.common.item.lens;
 
 import net.minecraft.entity.projectile.FireworkRocketEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 public class LensFirework extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if (!entity.world.isRemote && !burst.isFake()) {
+	public boolean collideBurst(IManaBurst burst, ThrownEntity entity, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+		if (!entity.world.isClient && !burst.isFake()) {
 			BlockPos coords = burst.getBurstSourceBlockPos();
-			if (pos.getType() == RayTraceResult.Type.BLOCK
+			if (pos.getType() == HitResult.Type.BLOCK
 					&& !isManaBlock
-					&& !((BlockRayTraceResult) pos).getPos().equals(coords)) {
+					&& !((BlockHitResult) pos).getBlockPos().equals(coords)) {
 				ItemStack fireworkStack = generateFirework(burst.getColor());
 
-				FireworkRocketEntity rocket = new FireworkRocketEntity(entity.world, entity.getPosX(), entity.getPosY(), entity.getPosZ(), fireworkStack);
-				entity.world.addEntity(rocket);
+				FireworkRocketEntity rocket = new FireworkRocketEntity(entity.world, entity.getX(), entity.getY(), entity.getZ(), fireworkStack);
+				entity.world.spawnEntity(rocket);
 			}
 		} else {
 			dead = false;
@@ -44,7 +43,7 @@ public class LensFirework extends Lens {
 
 	private ItemStack generateFirework(int color) {
 		ItemStack stack = new ItemStack(Items.FIREWORK_ROCKET);
-		CompoundNBT explosion = new CompoundNBT();
+		CompoundTag explosion = new CompoundTag();
 		explosion.putIntArray("Colors", new int[] { color });
 
 		int type = 1;
@@ -69,10 +68,10 @@ public class LensFirework extends Lens {
 
 		ItemNBTHelper.setCompound(stack, "Explosion", explosion);
 
-		CompoundNBT fireworks = new CompoundNBT();
+		CompoundTag fireworks = new CompoundTag();
 		fireworks.putInt("Flight", (int) (Math.random() * 3 + 2));
 
-		ListNBT explosions = new ListNBT();
+		ListTag explosions = new ListTag();
 		explosions.add(explosion);
 		fireworks.put("Explosions", explosions);
 

@@ -9,18 +9,18 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
-import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.WallOrFloorItem;
+import net.minecraft.item.WallStandingBlockItem;
 
-public class ItemGaiaHead extends WallOrFloorItem {
+public class ItemGaiaHead extends WallStandingBlockItem {
 
-	public ItemGaiaHead(Block floor, Block wall, Properties props) {
+	public ItemGaiaHead(Block floor, Block wall, Settings props) {
 		super(floor, wall, props);
 	}
 
 	@Override
-	public EquipmentSlotType getEquipmentSlot(ItemStack stack) {
-		return EquipmentSlotType.HEAD;
+	public EquipmentSlot getEquipmentSlot(ItemStack stack) {
+		return EquipmentSlot.HEAD;
 	}
 }

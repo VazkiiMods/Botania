@@ -8,17 +8,19 @@
  */
 package vazkii.botania.common.item.block;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
-import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tag.Tag;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -34,34 +36,34 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemBlockSpecialFlower extends BlockItem {
-	private static final ITag.INamedTag<Item> GENERATING = ModTags.Items.GENERATING_SPECIAL_FLOWERS;
-	private static final ITag.INamedTag<Item> FUNCTIONAL = ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS;
-	private static final ITag.INamedTag<Item> MISC = ModTags.Items.MISC_SPECIAL_FLOWERS;
+	private static final Tag.Identified<Item> GENERATING = ModTags.Items.GENERATING_SPECIAL_FLOWERS;
+	private static final Tag.Identified<Item> FUNCTIONAL = ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS;
+	private static final Tag.Identified<Item> MISC = ModTags.Items.MISC_SPECIAL_FLOWERS;
 
-	public ItemBlockSpecialFlower(Block block1, Properties props) {
+	public ItemBlockSpecialFlower(Block block1, Settings props) {
 		super(block1, props);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void addInformation(@Nonnull ItemStack stack, World world, @Nonnull List<ITextComponent> tooltip, @Nonnull ITooltipFlag flag) {
+	public void appendTooltip(@Nonnull ItemStack stack, World world, @Nonnull List<Text> tooltip, @Nonnull TooltipContext flag) {
 		// Prevent crash when tooltips queried before configs load
 		if (Botania.finishedLoading) {
 			if (world != null) {
 				if (GENERATING.contains(this)) {
-					tooltip.add(new TranslationTextComponent("botania.flowerType.generating").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
+					tooltip.add(new TranslatableText("botania.flowerType.generating").formatted(Formatting.ITALIC, Formatting.BLUE));
 				} else if (FUNCTIONAL.contains(this)) {
-					tooltip.add(new TranslationTextComponent("botania.flowerType.functional").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
+					tooltip.add(new TranslatableText("botania.flowerType.functional").formatted(Formatting.ITALIC, Formatting.BLUE));
 				} else if (MISC.contains(this)) {
-					tooltip.add(new TranslationTextComponent("botania.flowerType.misc").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
+					tooltip.add(new TranslatableText("botania.flowerType.misc").formatted(Formatting.ITALIC, Formatting.BLUE));
 				}
 			}
 
 			if (ConfigHandler.CLIENT.referencesEnabled.get()) {
 				String key = getTranslationKey() + ".reference";
-				IFormattableTextComponent lore = new TranslationTextComponent(key);
+				MutableText lore = new TranslatableText(key);
 				if (!lore.getString().equals(key)) {
-					tooltip.add(lore.func_240701_a_(TextFormatting.ITALIC, TextFormatting.GRAY));
+					tooltip.add(lore.formatted(Formatting.ITALIC, Formatting.GRAY));
 				}
 			}
 		}
@@ -69,13 +71,13 @@ public class ItemBlockSpecialFlower extends BlockItem {
 
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
-		CompoundNBT tag = stack.getChildTag("BlockEntityTag");
+		CompoundTag tag = stack.getSubTag("BlockEntityTag");
 		return tag != null && tag.contains(TileEntityGeneratingFlower.TAG_PASSIVE_DECAY_TICKS);
 	}
 
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
-		CompoundNBT tag = stack.getChildTag("BlockEntityTag");
+		CompoundTag tag = stack.getSubTag("BlockEntityTag");
 		if (tag != null) {
 			return tag.getInt(TileEntityGeneratingFlower.TAG_PASSIVE_DECAY_TICKS) / (double) BotaniaAPI.instance().getPassiveFlowerDecay();
 		}

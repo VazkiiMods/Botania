@@ -19,18 +19,18 @@ import vazkii.botania.common.entity.ModEntities;
 
 public class BlockManaBomb extends BlockMod implements IManaTrigger {
 
-	public BlockManaBomb(Properties builder) {
+	public BlockManaBomb(Settings builder) {
 		super(builder);
 	}
 
 	@Override
 	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
-		if (!burst.isFake() && !world.isRemote) {
-			world.playEvent(2001, pos, Block.getStateId(getDefaultState()));
+		if (!burst.isFake() && !world.isClient) {
+			world.syncWorldEvent(2001, pos, Block.getRawIdFromState(getDefaultState()));
 			world.removeBlock(pos, false);
 			EntityManaStorm storm = ModEntities.MANA_STORM.create(world);
-			storm.setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-			world.addEntity(storm);
+			storm.updatePosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+			world.spawnEntity(storm);
 		}
 	}
 }

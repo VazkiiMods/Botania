@@ -8,12 +8,11 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-
+import net.minecraft.util.math.Vec3d;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.core.helper.Vector3;
@@ -28,22 +27,22 @@ public class LensMagnet extends Lens {
 	private static final String TAG_MAGNETIZED_Z = "botania:magnetized_z";
 
 	@Override
-	public void updateBurst(IManaBurst burst, ThrowableEntity entity, ItemStack stack) {
-		BlockPos basePos = entity.func_233580_cy_();
+	public void updateBurst(IManaBurst burst, ThrownEntity entity, ItemStack stack) {
+		BlockPos basePos = entity.getBlockPos();
 		boolean magnetized = entity.getPersistentData().contains(TAG_MAGNETIZED);
 		int range = 3;
 
 		BlockPos source = burst.getBurstSourceBlockPos();
 		final boolean sourceless = source.getY() == -1;
 
-		Predicate<TileEntity> predicate = tile -> tile instanceof IManaReceiver
-				&& (sourceless || tile.getPos().distanceSq(source) > 9)
+		Predicate<BlockEntity> predicate = tile -> tile instanceof IManaReceiver
+				&& (sourceless || tile.getPos().getSquaredDistance(source) > 9)
 				&& ((IManaReceiver) tile).canReceiveManaFromBursts()
 				&& !((IManaReceiver) tile).isFull();
 
-		TileEntity tile = null;
+		BlockEntity tile = null;
 		if (magnetized) {
-			tile = entity.world.getTileEntity(new BlockPos(
+			tile = entity.world.getBlockEntity(new BlockPos(
 					entity.getPersistentData().getInt(TAG_MAGNETIZED_X),
 					entity.getPersistentData().getInt(TAG_MAGNETIZED_Y),
 					entity.getPersistentData().getInt(TAG_MAGNETIZED_Z)
@@ -56,9 +55,9 @@ public class LensMagnet extends Lens {
 		}
 
 		if (!magnetized) {
-			for (BlockPos pos : BlockPos.getAllInBoxMutable(basePos.add(-range, -range, -range),
+			for (BlockPos pos : BlockPos.iterate(basePos.add(-range, -range, -range),
 					basePos.add(range, range, range))) {
-				tile = entity.world.getTileEntity(pos);
+				tile = entity.world.getBlockEntity(pos);
 				if (predicate.test(tile)) {
 					break;
 				}
@@ -70,17 +69,17 @@ public class LensMagnet extends Lens {
 			return;
 		}
 
-		Vector3d burstVec = entity.getPositionVec();
-		Vector3d tileVec = Vector3d.func_237489_a_(tile.getPos()).add(0, -0.1, 0);
-		Vector3d motionVec = entity.getMotion();
+		Vec3d burstVec = entity.getPos();
+		Vec3d tileVec = Vec3d.ofCenter(tile.getPos()).add(0, -0.1, 0);
+		Vec3d motionVec = entity.getVelocity();
 
-		Vector3d normalMotionVec = motionVec.normalize();
-		Vector3d magnetVec = tileVec.subtract(burstVec).normalize();
-		Vector3d differenceVec = normalMotionVec.subtract(magnetVec).scale(motionVec.length() * 0.1);
+		Vec3d normalMotionVec = motionVec.normalize();
+		Vec3d magnetVec = tileVec.subtract(burstVec).normalize();
+		Vec3d differenceVec = normalMotionVec.subtract(magnetVec).multiply(motionVec.length() * 0.1);
 
-		Vector3d finalMotionVec = motionVec.subtract(differenceVec);
+		Vec3d finalMotionVec = motionVec.subtract(differenceVec);
 		if (!magnetized) {
-			finalMotionVec = finalMotionVec.scale(0.75);
+			finalMotionVec = finalMotionVec.multiply(0.75);
 			entity.getPersistentData().putBoolean(TAG_MAGNETIZED, true);
 			entity.getPersistentData().putInt(TAG_MAGNETIZED_X, tile.getPos().getX());
 			entity.getPersistentData().putInt(TAG_MAGNETIZED_Y, tile.getPos().getY());

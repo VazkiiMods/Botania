@@ -9,11 +9,11 @@
 package vazkii.botania.api.recipe;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
@@ -21,8 +21,8 @@ import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
-public interface IPureDaisyRecipe extends IRecipe<IInventory> {
-	static ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "pure_daisy");
+public interface IPureDaisyRecipe extends Recipe<Inventory> {
+	static Identifier TYPE_ID = new Identifier(BotaniaAPI.MODID, "pure_daisy");
 
 	/**
 	 * This gets called every tick, please be careful with your checks.
@@ -43,27 +43,27 @@ public interface IPureDaisyRecipe extends IRecipe<IInventory> {
 	int getTime();
 
 	@Override
-	default IRecipeType<?> getType() {
-		return Registry.RECIPE_TYPE.getValue(TYPE_ID).get();
+	default RecipeType<?> getType() {
+		return Registry.RECIPE_TYPE.getOrEmpty(TYPE_ID).get();
 	}
 
 	@Override
-	default boolean matches(IInventory p_77569_1_, World p_77569_2_) {
+	default boolean matches(Inventory p_77569_1_, World p_77569_2_) {
 		return false;
 	}
 
 	@Override
-	default ItemStack getCraftingResult(IInventory p_77572_1_) {
+	default ItemStack craft(Inventory p_77572_1_) {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	default boolean canFit(int p_194133_1_, int p_194133_2_) {
+	default boolean fits(int p_194133_1_, int p_194133_2_) {
 		return false;
 	}
 
 	@Override
-	default ItemStack getRecipeOutput() {
+	default ItemStack getOutput() {
 		return ItemStack.EMPTY;
 	}
 }

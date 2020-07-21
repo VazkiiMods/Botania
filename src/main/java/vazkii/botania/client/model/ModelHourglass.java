@@ -8,61 +8,60 @@
  */
 package vazkii.botania.client.model;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.model.Model;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.client.model.Model;
+import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
 
 public class ModelHourglass extends Model {
 
-	public ModelRenderer top;
-	public ModelRenderer glassT;
-	public ModelRenderer ring;
-	public ModelRenderer glassB;
-	public ModelRenderer bottom;
+	public ModelPart top;
+	public ModelPart glassT;
+	public ModelPart ring;
+	public ModelPart glassB;
+	public ModelPart bottom;
 
-	public ModelRenderer sandT;
-	public ModelRenderer sandB;
+	public ModelPart sandT;
+	public ModelPart sandB;
 
 	public ModelHourglass() {
-		super(RenderType::getEntityTranslucent);
+		super(RenderLayer::getEntityTranslucent);
 
 		textureWidth = 64;
 		textureHeight = 32;
 
-		top = new ModelRenderer(this, 20, 0);
-		top.setRotationPoint(0.0F, 0.0F, 0.0F);
-		top.addBox(-3.0F, -6.5F, -3.0F, 6, 1, 6, 0.0F);
-		glassT = new ModelRenderer(this, 0, 0);
-		glassT.setRotationPoint(0.0F, 0.0F, 0.0F);
-		glassT.addBox(-2.5F, -5.5F, -2.5F, 5, 5, 5, 0.0F);
-		ring = new ModelRenderer(this, 0, 20);
-		ring.setRotationPoint(0.0F, 0.0F, 0.0F);
-		ring.addBox(-1.5F, -0.5F, -1.5F, 3, 1, 3, 0.0F);
-		glassB = new ModelRenderer(this, 0, 10);
-		glassB.setRotationPoint(0.0F, 0.0F, 0.0F);
-		glassB.addBox(-2.5F, 0.5F, -2.5F, 5, 5, 5, 0.0F);
-		bottom = new ModelRenderer(this, 20, 7);
-		bottom.setRotationPoint(0.0F, 0.0F, 0.0F);
-		bottom.addBox(-3.0F, 5.5F, -3.0F, 6, 1, 6, 0.0F);
+		top = new ModelPart(this, 20, 0);
+		top.setPivot(0.0F, 0.0F, 0.0F);
+		top.addCuboid(-3.0F, -6.5F, -3.0F, 6, 1, 6, 0.0F);
+		glassT = new ModelPart(this, 0, 0);
+		glassT.setPivot(0.0F, 0.0F, 0.0F);
+		glassT.addCuboid(-2.5F, -5.5F, -2.5F, 5, 5, 5, 0.0F);
+		ring = new ModelPart(this, 0, 20);
+		ring.setPivot(0.0F, 0.0F, 0.0F);
+		ring.addCuboid(-1.5F, -0.5F, -1.5F, 3, 1, 3, 0.0F);
+		glassB = new ModelPart(this, 0, 10);
+		glassB.setPivot(0.0F, 0.0F, 0.0F);
+		glassB.addCuboid(-2.5F, 0.5F, -2.5F, 5, 5, 5, 0.0F);
+		bottom = new ModelPart(this, 20, 7);
+		bottom.setPivot(0.0F, 0.0F, 0.0F);
+		bottom.addCuboid(-3.0F, 5.5F, -3.0F, 6, 1, 6, 0.0F);
 
-		sandT = new ModelRenderer(this, 20, 14);
-		sandT.setRotationPoint(0.0F, 0.0F, 0.0F);
-		sandT.addBox(0.0F, 0.0F, 0.0F, 4, 4, 4, 0.0F); // -2.0F, -5.0F, -2.0F
-		sandB = new ModelRenderer(this, 20, 14);
-		sandB.setRotationPoint(0.0F, 0.0F, 0.0F);
-		sandB.addBox(0.0F, 0.0F, 0.0F, 4, 4, 4, 0.0F); // -2.0F, 1.0F, -2.05F
+		sandT = new ModelPart(this, 20, 14);
+		sandT.setPivot(0.0F, 0.0F, 0.0F);
+		sandT.addCuboid(0.0F, 0.0F, 0.0F, 4, 4, 4, 0.0F); // -2.0F, -5.0F, -2.0F
+		sandB = new ModelPart(this, 20, 14);
+		sandB.setPivot(0.0F, 0.0F, 0.0F);
+		sandB.addCuboid(0.0F, 0.0F, 0.0F, 4, 4, 4, 0.0F); // -2.0F, 1.0F, -2.05F
 	}
 
 	@Override
-	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a) {
+	public void render(MatrixStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
 		render(ms, buffer, light, overlay, r, g, b, a, 0, 1, false);
 	}
 
-	public void render(MatrixStack ms, IVertexBuilder buffer, int light, int overlay, float r, float g, float b, float a, float fract1, float fract2, boolean flip) {
+	public void render(MatrixStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a, float fract1, float fract2, boolean flip) {
 		if (flip) {
 			float tmp = fract1;
 			fract1 = fract2;
@@ -79,7 +78,7 @@ public class ModelHourglass extends Model {
 			if (flip) {
 				ms.translate(-2.0F * f, 1.0F * f, -2.0F * f);
 			} else {
-				ms.rotate(Vector3f.ZP.rotationDegrees(180F));
+				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
 				ms.translate(-2.0F * f, -5.0F * f, -2.0F * f);
 			}
 			ms.scale(1F, fract1, 1F);
@@ -92,7 +91,7 @@ public class ModelHourglass extends Model {
 			if (flip) {
 				ms.translate(-2.0F * f, -5.0F * f, -2.0F * f);
 			} else {
-				ms.rotate(Vector3f.ZP.rotationDegrees(180F));
+				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
 				ms.translate(-2.0F * f, 1.0F * f, -2.0F * f);
 			}
 			ms.scale(1F, fract2, 1F);

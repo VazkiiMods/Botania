@@ -15,8 +15,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICraftingCategoryExtension;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-
+import net.minecraft.util.Identifier;
 import vazkii.botania.common.crafting.recipe.TerraPickTippingRecipe;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
@@ -29,7 +28,7 @@ import java.util.List;
 public class TerraPickTippingRecipeWrapper implements ICraftingCategoryExtension {
 	private final List<List<ItemStack>> inputs;
 	private final ItemStack output;
-	private final ResourceLocation name;
+	private final Identifier name;
 
 	public TerraPickTippingRecipeWrapper(TerraPickTippingRecipe recipe) {
 		inputs = ImmutableList.of(ImmutableList.of(new ItemStack(ModItems.terraPick)), ImmutableList.of(new ItemStack(ModItems.elementiumPick)));
@@ -47,7 +46,7 @@ public class TerraPickTippingRecipeWrapper implements ICraftingCategoryExtension
 
 	@Nullable
 	@Override
-	public ResourceLocation getRegistryName() {
+	public Identifier getRegistryName() {
 		return name;
 	}
 }

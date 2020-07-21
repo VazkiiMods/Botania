@@ -8,19 +8,21 @@
  */
 package vazkii.botania.common.item.relic;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.util.ITooltipFlag;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Rarity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Rarity;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -41,41 +43,41 @@ public class ItemRelic extends Item implements IRelic {
 
 	private static final String TAG_SOULBIND_UUID = "soulbindUUID";
 
-	public ItemRelic(Properties props) {
+	public ItemRelic(Settings props) {
 		super(props);
 	}
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		if (!world.isRemote && entity instanceof PlayerEntity) {
+		if (!world.isClient && entity instanceof PlayerEntity) {
 			updateRelic(stack, (PlayerEntity) entity);
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext flags) {
 		addBindInfo(tooltip, stack);
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	public void addBindInfo(List<ITextComponent> tooltip, ItemStack stack) {
+	@Environment(EnvType.CLIENT)
+	public void addBindInfo(List<Text> tooltip, ItemStack stack) {
 		TooltipHandler.addOnShift(tooltip, () -> {
 			if (!hasUUID(stack)) {
-				tooltip.add(new TranslationTextComponent("botaniamisc.relicUnbound"));
+				tooltip.add(new TranslatableText("botaniamisc.relicUnbound"));
 			} else {
-				if (!getSoulbindUUID(stack).equals(Minecraft.getInstance().player.getUniqueID())) {
-					tooltip.add(new TranslationTextComponent("botaniamisc.notYourSagittarius"));
+				if (!getSoulbindUUID(stack).equals(MinecraftClient.getInstance().player.getUuid())) {
+					tooltip.add(new TranslatableText("botaniamisc.notYourSagittarius"));
 				} else {
-					tooltip.add(new TranslationTextComponent("botaniamisc.relicSoulbound", Minecraft.getInstance().player.getName()));
+					tooltip.add(new TranslatableText("botaniamisc.relicSoulbound", MinecraftClient.getInstance().player.getName()));
 				}
 			}
 
 			if (stack.getItem() == ModItems.dice) {
-				tooltip.add(new StringTextComponent(""));
+				tooltip.add(new LiteralText(""));
 				String name = stack.getTranslationKey() + ".poem";
 				for (int i = 0; i < 4; i++) {
-					tooltip.add(new TranslationTextComponent(name + i).func_240701_a_(TextFormatting.GRAY, TextFormatting.ITALIC));
+					tooltip.add(new TranslatableText(name + i).formatted(Formatting.GRAY, Formatting.ITALIC));
 				}
 			}
 		});
@@ -98,21 +100,21 @@ public class ItemRelic extends Item implements IRelic {
 		boolean rightPlayer = true;
 
 		if (!hasUUID(stack)) {
-			bindToUUID(player.getUniqueID(), stack);
+			bindToUUID(player.getUuid(), stack);
 			if (player instanceof ServerPlayerEntity) {
 				RelicBindTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack);
 			}
-		} else if (!getSoulbindUUID(stack).equals(player.getUniqueID())) {
+		} else if (!getSoulbindUUID(stack).equals(player.getUuid())) {
 			rightPlayer = false;
 		}
 
-		if (!rightPlayer && player.ticksExisted % 10 == 0 && (!(stack.getItem() instanceof ItemRelic) || ((ItemRelic) stack.getItem()).shouldDamageWrongPlayer())) {
-			player.attackEntityFrom(damageSource(), 2);
+		if (!rightPlayer && player.age % 10 == 0 && (!(stack.getItem() instanceof ItemRelic) || ((ItemRelic) stack.getItem()).shouldDamageWrongPlayer())) {
+			player.damage(damageSource(), 2);
 		}
 	}
 
 	public boolean isRightPlayer(PlayerEntity player, ItemStack stack) {
-		return hasUUID(stack) && getSoulbindUUID(stack).equals(player.getUniqueID());
+		return hasUUID(stack) && getSoulbindUUID(stack).equals(player.getUuid());
 	}
 
 	public static DamageSource damageSource() {

@@ -17,13 +17,13 @@ import vazkii.botania.api.mana.ManaItemHandler;
 
 public class ItemAuraRing extends ItemBauble implements IManaGivingItem {
 
-	public ItemAuraRing(Properties props) {
+	public ItemAuraRing(Settings props) {
 		super(props);
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		if (!player.world.isRemote && player instanceof PlayerEntity && player.ticksExisted % 10 == 0) {
+		if (!player.world.isClient && player instanceof PlayerEntity && player.age % 10 == 0) {
 			ManaItemHandler.instance().dispatchManaExact(stack, (PlayerEntity) player, 1, true);
 		}
 	}

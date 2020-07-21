@@ -10,21 +10,22 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.mojang.blaze3d.matrix.MatrixStack;
-
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.util.ITooltipFlag;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.KeybindTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.KeybindText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -53,45 +54,45 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 	private static final String TAG_COSMETIC_ITEM = "cosmeticItem";
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
-	public ItemBauble(Properties props) {
+	public ItemBauble(Settings props) {
 		super(props);
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+	@Environment(EnvType.CLIENT)
+	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext flags) {
 		TooltipHandler.addOnShift(tooltip, () -> addHiddenTooltip(stack, world, tooltip, flags));
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-		ITextComponent key = new KeybindTextComponent("key.curios.open.desc");
-		tooltip.add(new TranslationTextComponent("botania.baubletooltip", key));
+	@Environment(EnvType.CLIENT)
+	public void addHiddenTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext flags) {
+		Text key = new KeybindText("key.curios.open.desc");
+		tooltip.add(new TranslatableText("botania.baubletooltip", key));
 
 		ItemStack cosmetic = getCosmeticItem(stack);
 		if (!cosmetic.isEmpty()) {
-			tooltip.add(new TranslationTextComponent("botaniamisc.hasCosmetic", cosmetic.getDisplayName()));
+			tooltip.add(new TranslatableText("botaniamisc.hasCosmetic", cosmetic.getName()));
 		}
 
 		if (hasPhantomInk(stack)) {
-			tooltip.add(new TranslationTextComponent("botaniamisc.hasPhantomInk"));
+			tooltip.add(new TranslatableText("botaniamisc.hasPhantomInk"));
 		}
 	}
 
 	@Override
 	public ItemStack getCosmeticItem(ItemStack stack) {
-		CompoundNBT cmp = ItemNBTHelper.getCompound(stack, TAG_COSMETIC_ITEM, true);
+		CompoundTag cmp = ItemNBTHelper.getCompound(stack, TAG_COSMETIC_ITEM, true);
 		if (cmp == null) {
 			return ItemStack.EMPTY;
 		}
-		return ItemStack.read(cmp);
+		return ItemStack.fromTag(cmp);
 	}
 
 	@Override
 	public void setCosmeticItem(ItemStack stack, ItemStack cosmetic) {
-		CompoundNBT cmp = new CompoundNBT();
+		CompoundTag cmp = new CompoundTag();
 		if (!cosmetic.isEmpty()) {
-			cmp = cosmetic.write(cmp);
+			cmp = cosmetic.toTag(cmp);
 		}
 		ItemNBTHelper.setCompound(stack, TAG_COSMETIC_ITEM, cmp);
 	}
@@ -132,14 +133,14 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 
 	@Nullable
 	@Override
-	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundNBT nbt) {
+	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
 		return EquipmentHandler.initBaubleCap(stack);
 	}
 
 	public void onWornTick(ItemStack stack, LivingEntity entity) {}
 
 	public void onEquipped(ItemStack stack, LivingEntity entity) {
-		if (!entity.world.isRemote && entity instanceof ServerPlayerEntity) {
+		if (!entity.world.isClient && entity instanceof ServerPlayerEntity) {
 			PlayerHelper.grantCriterion((ServerPlayerEntity) entity, prefix("main/bauble_wear"), "code_triggered");
 		}
 	}
@@ -150,7 +151,7 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 		return true;
 	}
 
-	public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
+	public Multimap<EntityAttribute, EntityAttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
 		return HashMultimap.create();
 	}
 
@@ -160,6 +161,6 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 				&& !living.isInvisible();
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {}
+	@Environment(EnvType.CLIENT)
+	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {}
 }

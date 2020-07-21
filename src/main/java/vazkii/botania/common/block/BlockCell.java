@@ -8,23 +8,22 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockReader;
-
 import vazkii.botania.common.block.tile.TileCell;
 
 import javax.annotation.Nonnull;
+import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.world.BlockView;
 
-public class BlockCell extends BlockMod implements ITileEntityProvider {
+public class BlockCell extends BlockMod implements BlockEntityProvider {
 
-	public BlockCell(Properties builder) {
+	public BlockCell(Settings builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TileCell();
 	}
 

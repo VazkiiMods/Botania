@@ -13,7 +13,7 @@ import com.google.common.collect.HashBiMap;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.item.DyeColor;
+import net.minecraft.util.DyeColor;
 import net.minecraftforge.registries.IRegistryDelegate;
 
 public final class ColorHelper {

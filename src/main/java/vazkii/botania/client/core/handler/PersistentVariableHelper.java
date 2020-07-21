@@ -8,13 +8,12 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.CompressedStreamTools;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtIo;
 
 public final class PersistentVariableHelper {
 
@@ -27,7 +26,7 @@ public final class PersistentVariableHelper {
 	public static boolean dog = true;
 
 	public static void save() throws IOException {
-		CompoundNBT cmp = new CompoundNBT();
+		CompoundTag cmp = new CompoundTag();
 		cmp.putBoolean(TAG_FIRST_LOAD, firstLoad);
 		cmp.putBoolean(TAG_DOG, dog);
 
@@ -35,7 +34,7 @@ public final class PersistentVariableHelper {
 	}
 
 	public static void load() throws IOException {
-		CompoundNBT cmp = getCacheCompound();
+		CompoundTag cmp = getCacheCompound();
 
 		firstLoad = cmp.contains(TAG_FIRST_LOAD) ? cmp.getBoolean(TAG_FIRST_LOAD) : firstLoad;
 		dog = cmp.getBoolean(TAG_DOG);
@@ -53,27 +52,27 @@ public final class PersistentVariableHelper {
 		return cacheFile;
 	}
 
-	private static CompoundNBT getCacheCompound() throws IOException {
+	private static CompoundTag getCacheCompound() throws IOException {
 		return getCacheCompound(getCacheFile());
 	}
 
-	private static CompoundNBT getCacheCompound(File cache) throws IOException {
+	private static CompoundTag getCacheCompound(File cache) throws IOException {
 		if (cache == null) {
 			throw new RuntimeException("No cache file!");
 		}
 
 		try {
-			return CompressedStreamTools.readCompressed(new FileInputStream(cache));
+			return NbtIo.readCompressed(new FileInputStream(cache));
 		} catch (IOException e) {
-			CompoundNBT cmp = new CompoundNBT();
-			CompressedStreamTools.writeCompressed(cmp, new FileOutputStream(cache));
+			CompoundTag cmp = new CompoundTag();
+			NbtIo.writeCompressed(cmp, new FileOutputStream(cache));
 			return getCacheCompound(cache);
 		}
 	}
 
-	private static void injectNBTToFile(CompoundNBT cmp, File f) {
+	private static void injectNBTToFile(CompoundTag cmp, File f) {
 		try {
-			CompressedStreamTools.writeCompressed(cmp, new FileOutputStream(f));
+			NbtIo.writeCompressed(cmp, new FileOutputStream(f));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

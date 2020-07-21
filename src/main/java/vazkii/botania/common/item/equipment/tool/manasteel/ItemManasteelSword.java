@@ -11,9 +11,9 @@ package vazkii.botania.common.item.equipment.tool.manasteel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
+import net.minecraft.item.ToolMaterial;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -27,15 +27,15 @@ public class ItemManasteelSword extends SwordItem implements IManaUsingItem {
 
 	public static final int MANA_PER_DAMAGE = 60;
 
-	public ItemManasteelSword(Properties props) {
+	public ItemManasteelSword(Settings props) {
 		this(BotaniaAPI.instance().getManasteelItemTier(), props);
 	}
 
-	public ItemManasteelSword(IItemTier mat, Properties props) {
+	public ItemManasteelSword(ToolMaterial mat, Settings props) {
 		this(mat, 3, -2.4F, props);
 	}
 
-	public ItemManasteelSword(IItemTier mat, int attackDamage, float attackSpeed, Properties props) {
+	public ItemManasteelSword(ToolMaterial mat, int attackDamage, float attackSpeed, Settings props) {
 		super(mat, attackDamage, attackSpeed, props);
 	}
 
@@ -46,7 +46,7 @@ public class ItemManasteelSword extends SwordItem implements IManaUsingItem {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected) {
-		if (!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.instance().requestManaExactForTool(stack, (PlayerEntity) player, getManaPerDamage() * 2, true)) {
+		if (!world.isClient && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.instance().requestManaExactForTool(stack, (PlayerEntity) player, getManaPerDamage() * 2, true)) {
 			stack.setDamage(stack.getDamage() - 1);
 		}
 	}

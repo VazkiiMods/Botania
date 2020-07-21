@@ -13,12 +13,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -33,14 +33,14 @@ import java.util.List;
 import java.util.Optional;
 
 public class RecipeElvenTrade implements IElvenTradeRecipe {
-	private final ResourceLocation id;
+	private final Identifier id;
 	private final ImmutableList<ItemStack> outputs;
-	private final NonNullList<Ingredient> inputs;
+	private final DefaultedList<Ingredient> inputs;
 
-	public RecipeElvenTrade(ResourceLocation id, ItemStack[] outputs, Ingredient... inputs) {
+	public RecipeElvenTrade(Identifier id, ItemStack[] outputs, Ingredient... inputs) {
 		this.id = id;
 		this.outputs = ImmutableList.copyOf(outputs);
-		this.inputs = NonNullList.create();
+		this.inputs = DefaultedList.of();
 		this.inputs.addAll(Arrays.asList(inputs));
 	}
 
@@ -90,25 +90,25 @@ public class RecipeElvenTrade implements IElvenTradeRecipe {
 
 	@Nonnull
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return ModRecipeTypes.ELVEN_TRADE_SERIALIZER;
 	}
 
 	@Nonnull
 	@Override
-	public NonNullList<Ingredient> getIngredients() {
+	public DefaultedList<Ingredient> getPreviewInputs() {
 		return inputs;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getIcon() {
+	public ItemStack getRecipeKindIcon() {
 		return new ItemStack(ModBlocks.alfPortal);
 	}
 
 	@Nonnull
 	@Override
-	public ResourceLocation getId() {
+	public Identifier getId() {
 		return id;
 	}
 
@@ -122,27 +122,27 @@ public class RecipeElvenTrade implements IElvenTradeRecipe {
 		return getOutputs();
 	}
 
-	public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<RecipeElvenTrade> {
+	public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<RecipeElvenTrade> {
 
 		@Nonnull
 		@Override
-		public RecipeElvenTrade read(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {
+		public RecipeElvenTrade read(@Nonnull Identifier id, @Nonnull JsonObject json) {
 			JsonElement output = json.get("output");
 			List<ItemStack> outputStacks = new ArrayList<>();
 			if (output.isJsonArray()) {
 				for (JsonElement e : output.getAsJsonArray()) {
-					JsonObject o = JSONUtils.getJsonObject(e, "output stack");
+					JsonObject o = JsonHelper.asObject(e, "output stack");
 					outputStacks.add(CraftingHelper.getItemStack(o, true));
 				}
 			} else {
-				JsonObject o = JSONUtils.getJsonObject(output, "output stack");
+				JsonObject o = JsonHelper.asObject(output, "output stack");
 				outputStacks.add(CraftingHelper.getItemStack(o, true));
 			}
 
 			List<Ingredient> inputs = new ArrayList<>();
-			for (JsonElement e : JSONUtils.getJsonArray(json, "ingredients")) {
-				Ingredient ing = Ingredient.deserialize(e);
-				if (!ing.hasNoMatchingItems()) {
+			for (JsonElement e : JsonHelper.getArray(json, "ingredients")) {
+				Ingredient ing = Ingredient.fromJson(e);
+				if (!ing.isEmpty()) {
 					inputs.add(ing);
 				}
 			}
@@ -151,10 +151,10 @@ public class RecipeElvenTrade implements IElvenTradeRecipe {
 		}
 
 		@Override
-		public RecipeElvenTrade read(@Nonnull ResourceLocation id, PacketBuffer buf) {
+		public RecipeElvenTrade read(@Nonnull Identifier id, PacketByteBuf buf) {
 			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
 			for (int i = 0; i < inputs.length; i++) {
-				inputs[i] = Ingredient.read(buf);
+				inputs[i] = Ingredient.fromPacket(buf);
 			}
 			ItemStack[] outputs = new ItemStack[buf.readVarInt()];
 			for (int i = 0; i < outputs.length; i++) {
@@ -164,9 +164,9 @@ public class RecipeElvenTrade implements IElvenTradeRecipe {
 		}
 
 		@Override
-		public void write(PacketBuffer buf, RecipeElvenTrade recipe) {
-			buf.writeVarInt(recipe.getIngredients().size());
-			for (Ingredient input : recipe.getIngredients()) {
+		public void write(PacketByteBuf buf, RecipeElvenTrade recipe) {
+			buf.writeVarInt(recipe.getPreviewInputs().size());
+			for (Ingredient input : recipe.getPreviewInputs()) {
 				input.write(buf);
 			}
 			buf.writeVarInt(recipe.getOutputs().size());

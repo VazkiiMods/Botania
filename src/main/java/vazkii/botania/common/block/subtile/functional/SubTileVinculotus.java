@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.entity.monster.EndermanEntity;
+import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 
@@ -31,7 +31,7 @@ public class SubTileVinculotus extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getWorld().isRemote) {
+		if (!getWorld().isClient) {
 			existingFlowers.add(this);
 		}
 	}
@@ -66,7 +66,7 @@ public class SubTileVinculotus extends TileEntityFunctionalFlower {
 
 				if (flower.redstoneSignal > 0 || flower.getMana() <= cost
 						|| flower.getWorld() != event.getEntityLiving().world
-						|| flower.getWorld().getTileEntity(flower.getPos()) != flower) {
+						|| flower.getWorld().getBlockEntity(flower.getPos()) != flower) {
 					continue;
 				}
 
@@ -80,7 +80,7 @@ public class SubTileVinculotus extends TileEntityFunctionalFlower {
 			}
 
 			if (!possibleFlowers.isEmpty()) {
-				SubTileVinculotus flower = possibleFlowers.get(event.getEntityLiving().world.rand.nextInt(possibleFlowers.size()));
+				SubTileVinculotus flower = possibleFlowers.get(event.getEntityLiving().world.random.nextInt(possibleFlowers.size()));
 				BlockPos activePos = flower.getEffectivePos();
 
 				double x = activePos.getX() + 0.5;

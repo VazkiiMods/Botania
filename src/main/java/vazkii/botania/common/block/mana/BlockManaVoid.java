@@ -8,11 +8,13 @@
  */
 package vazkii.botania.common.block.mana;
 
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.tileentity.TileEntity;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.texture.Sprite;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -24,21 +26,21 @@ import vazkii.botania.common.block.tile.mana.TileManaVoid;
 
 import javax.annotation.Nonnull;
 
-public class BlockManaVoid extends BlockMod implements IPoolOverlayProvider, ITileEntityProvider {
+public class BlockManaVoid extends BlockMod implements IPoolOverlayProvider, BlockEntityProvider {
 
-	public BlockManaVoid(Properties builder) {
+	public BlockManaVoid(Settings builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TileManaVoid();
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public TextureAtlasSprite getIcon(World world, BlockPos pos) {
+	@Environment(EnvType.CLIENT)
+	public Sprite getIcon(World world, BlockPos pos) {
 		return MiscellaneousIcons.INSTANCE.manaVoidOverlay;
 	}
 

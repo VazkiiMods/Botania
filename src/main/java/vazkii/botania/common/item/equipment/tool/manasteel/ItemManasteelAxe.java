@@ -12,10 +12,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
-import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.item.ToolMaterial;
+import net.minecraft.util.ActionResult;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -37,11 +37,11 @@ public class ItemManasteelAxe extends AxeItem implements IManaUsingItem, ISortab
 
 	private static final int MANA_PER_DAMAGE = 60;
 
-	public ItemManasteelAxe(Properties props) {
+	public ItemManasteelAxe(Settings props) {
 		this(BotaniaAPI.instance().getManasteelItemTier(), props);
 	}
 
-	public ItemManasteelAxe(IItemTier mat, Properties props) {
+	public ItemManasteelAxe(ToolMaterial mat, Settings props) {
 		super(mat, 6F, -3.1F, props);
 	}
 
@@ -56,29 +56,29 @@ public class ItemManasteelAxe extends AxeItem implements IManaUsingItem, ISortab
 
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
+	public ActionResult useOnBlock(ItemUsageContext ctx) {
 		PlayerEntity player = ctx.getPlayer();
 		if (player != null) {
-			for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
-				ItemStack stackAt = player.inventory.getStackInSlot(i);
+			for (int i = 0; i < player.inventory.size(); i++) {
+				ItemStack stackAt = player.inventory.getStack(i);
 				if (!stackAt.isEmpty() && SAPLING_PATTERN.matcher(stackAt.getItem().getTranslationKey()).find()) {
 					ItemStack displayStack = stackAt.copy();
-					if (PlayerHelper.substituteUse(ctx, stackAt) == ActionResultType.SUCCESS) {
-						if (!ctx.getWorld().isRemote) {
+					if (PlayerHelper.substituteUse(ctx, stackAt) == ActionResult.SUCCESS) {
+						if (!ctx.getWorld().isClient) {
 							ItemsRemainingRenderHandler.send(player, displayStack, SAPLING_PATTERN);
 						}
-						return ActionResultType.SUCCESS;
+						return ActionResult.SUCCESS;
 					}
 				}
 			}
 		}
 
-		return super.onItemUse(ctx);
+		return super.useOnBlock(ctx);
 	}
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected) {
-		if (!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.instance().requestManaExactForTool(stack, (PlayerEntity) player, getManaPerDamage() * 2, true)) {
+		if (!world.isClient && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.instance().requestManaExactForTool(stack, (PlayerEntity) player, getManaPerDamage() * 2, true)) {
 			stack.setDamage(stack.getDamage() - 1);
 		}
 	}

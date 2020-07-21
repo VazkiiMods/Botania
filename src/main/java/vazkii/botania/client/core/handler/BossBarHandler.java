@@ -8,13 +8,12 @@
  */
 package vazkii.botania.client.core.handler;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
 import org.lwjgl.opengl.GL11;
@@ -37,27 +36,27 @@ public final class BossBarHandler {
 
 	// Only access on the client thread!
 	public static final Set<EntityDoppleganger> bosses = Collections.newSetFromMap(new WeakHashMap<>());
-	public static final ResourceLocation defaultBossBar = new ResourceLocation(LibResources.GUI_BOSS_BAR);
+	public static final Identifier defaultBossBar = new Identifier(LibResources.GUI_BOSS_BAR);
 	private static final BarCallback barUniformCallback = new BarCallback();
 
 	public static void onBarRender(RenderGameOverlayEvent.BossInfo evt) {
-		UUID infoUuid = evt.getBossInfo().getUniqueId();
+		UUID infoUuid = evt.getBossInfo().getUuid();
 		for (EntityDoppleganger currentBoss : bosses) {
 			if (currentBoss.getBossInfoUuid().equals(infoUuid)) {
 				MatrixStack ms = evt.getMatrixStack();
 				evt.setCanceled(true);
 
-				Minecraft mc = Minecraft.getInstance();
+				MinecraftClient mc = MinecraftClient.getInstance();
 				Rectangle bgRect = currentBoss.getBossBarTextureRect();
 				Rectangle fgRect = currentBoss.getBossBarHPTextureRect();
-				ITextComponent name = evt.getBossInfo().getName();
-				int c = Minecraft.getInstance().getMainWindow().getScaledWidth() / 2;
+				Text name = evt.getBossInfo().getName();
+				int c = MinecraftClient.getInstance().getWindow().getScaledWidth() / 2;
 				int x = evt.getX();
 				int y = evt.getY();
 				int xf = x + (bgRect.width - fgRect.width) / 2;
 				int yf = y + (bgRect.height - fgRect.height) / 2;
 				int fw = (int) ((double) fgRect.width * evt.getBossInfo().getPercent());
-				int tx = c - mc.fontRenderer.func_238414_a_(name) / 2;
+				int tx = c - mc.textRenderer.getWidth(name) / 2;
 
 				RenderSystem.color4f(1F, 1F, 1F, 1F);
 				int auxHeight = currentBoss.bossBarRenderCallback(ms, x, y);
@@ -66,9 +65,9 @@ public final class BossBarHandler {
 				mc.textureManager.bindTexture(currentBoss.getBossBarTexture());
 				drawBar(ms, currentBoss, x, y, bgRect.x, bgRect.y, bgRect.width, bgRect.height, true);
 				drawBar(ms, currentBoss, xf, yf, fgRect.x, fgRect.y, fw, fgRect.height, false);
-				mc.fontRenderer.func_238407_a_(ms, name, tx, y - 10, 0xA2018C);
+				mc.textRenderer.drawWithShadow(ms, name, tx, y - 10, 0xA2018C);
 				RenderSystem.enableBlend();
-				evt.setIncrement(Math.max(bgRect.height, fgRect.height) + auxHeight + mc.fontRenderer.FONT_HEIGHT);
+				evt.setIncrement(Math.max(bgRect.height, fgRect.height) + auxHeight + mc.textRenderer.fontHeight);
 			}
 		}
 	}
@@ -98,8 +97,8 @@ public final class BossBarHandler {
 			int startXUniform = GlStateManager.getUniformLocation(shader, "startX");
 			int startYUniform = GlStateManager.getUniformLocation(shader, "startY");
 
-			GlStateManager.uniform1i(startXUniform, x);
-			GlStateManager.uniform1i(startYUniform, y);
+			GlStateManager.uniform1(startXUniform, x);
+			GlStateManager.uniform1(startYUniform, y);
 
 			if (callback != null) {
 				callback.call(shader);

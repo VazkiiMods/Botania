@@ -8,12 +8,11 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Tickable;
 import vazkii.botania.client.fx.WispParticleData;
 
-public class TileManaFlame extends TileMod implements ITickableTileEntity {
+public class TileManaFlame extends TileMod implements Tickable {
 	private static final String TAG_COLOR = "color";
 
 	private int color = 0x20FF20;
@@ -35,7 +34,7 @@ public class TileManaFlame extends TileMod implements ITickableTileEntity {
 	public void tick() {
 		float c = 0.3F;
 
-		if (world.isRemote && Math.random() < c) {
+		if (world.isClient && Math.random() < c) {
 			float v = 0.1F;
 
 			float r = (float) (color >> 16 & 0xFF) / 0xFF;
@@ -73,12 +72,12 @@ public class TileManaFlame extends TileMod implements ITickableTileEntity {
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT cmp) {
+	public void writePacketNBT(CompoundTag cmp) {
 		cmp.putInt(TAG_COLOR, color);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT cmp) {
+	public void readPacketNBT(CompoundTag cmp) {
 		color = cmp.getInt(TAG_COLOR);
 	}
 

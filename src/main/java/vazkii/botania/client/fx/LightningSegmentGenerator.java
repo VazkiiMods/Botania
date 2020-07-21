@@ -12,11 +12,11 @@ import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.core.helper.Vector3;
@@ -158,19 +158,19 @@ public class LightningSegmentGenerator {
 	}
 
 	private float rayTraceResistance(Vector3 start, Vector3 end, float prevresistance) {
-		World world = Minecraft.getInstance().world;
-		RayTraceContext ctx = new RayTraceContext(start.toVector3d(), end.toVector3d(), RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, null);
-		BlockRayTraceResult ray = world.rayTraceBlocks(ctx);
+		World world = MinecraftClient.getInstance().world;
+		RayTraceContext ctx = new RayTraceContext(start.toVector3d(), end.toVector3d(), RayTraceContext.ShapeType.OUTLINE, RayTraceContext.FluidHandling.NONE, null);
+		BlockHitResult ray = world.rayTrace(ctx);
 
-		if (ray.getType() == RayTraceResult.Type.BLOCK) {
-			BlockPos pos = ray.getPos();
+		if (ray.getType() == HitResult.Type.BLOCK) {
+			BlockPos pos = ray.getBlockPos();
 			BlockState state = world.getBlockState(pos);
 
 			if (state.isAir()) {
 				return prevresistance;
 			}
 
-			return prevresistance + state.getBlock().getExplosionResistance() + 0.3F;
+			return prevresistance + state.getBlock().getBlastResistance() + 0.3F;
 		} else {
 			return prevresistance;
 		}

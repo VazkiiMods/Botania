@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 import vazkii.botania.api.corporea.*;
@@ -29,10 +29,10 @@ public class TileCorporeaRetainer extends TileMod {
 	private static final String TAG_REQUEST_TYPE = "requestType";
 	private static final String TAG_REQUEST_COUNT = "requestCount";
 
-	private static final Map<ResourceLocation, Function<CompoundNBT, ? extends ICorporeaRequestMatcher>> corporeaMatcherDeserializers = new ConcurrentHashMap<>();
-	private static final Map<Class<? extends ICorporeaRequestMatcher>, ResourceLocation> corporeaMatcherSerializers = new ConcurrentHashMap<>();
+	private static final Map<Identifier, Function<CompoundTag, ? extends ICorporeaRequestMatcher>> corporeaMatcherDeserializers = new ConcurrentHashMap<>();
+	private static final Map<Class<? extends ICorporeaRequestMatcher>, Identifier> corporeaMatcherSerializers = new ConcurrentHashMap<>();
 
-	private BlockPos requestPos = BlockPos.ZERO;
+	private BlockPos requestPos = BlockPos.ORIGIN;
 	@Nullable
 	private ICorporeaRequestMatcher request;
 	private int requestCount;
@@ -52,7 +52,7 @@ public class TileCorporeaRetainer extends TileMod {
 		this.requestCount = requestCount;
 
 		compValue = CorporeaHelper.instance().signalStrengthForRequestSize(requestCount);
-		world.updateComparatorOutputLevel(getPos(), getBlockState().getBlock());
+		world.updateComparators(getPos(), getCachedState().getBlock());
 	}
 
 	public int getComparatorValue() {
@@ -71,27 +71,27 @@ public class TileCorporeaRetainer extends TileMod {
 		ICorporeaSpark spark = CorporeaHelper.instance().getSparkForBlock(world, requestPos);
 		if (spark != null) {
 			InvWithLocation inv = spark.getSparkInventory();
-			if (inv != null && inv.getWorld().getTileEntity(inv.getPos()) instanceof ICorporeaRequestor) {
-				ICorporeaRequestor requestor = (ICorporeaRequestor) inv.getWorld().getTileEntity(inv.getPos());
+			if (inv != null && inv.getWorld().getBlockEntity(inv.getPos()) instanceof ICorporeaRequestor) {
+				ICorporeaRequestor requestor = (ICorporeaRequestor) inv.getWorld().getBlockEntity(inv.getPos());
 				requestor.doCorporeaRequest(request, requestCount, spark);
 
 				request = null;
 				requestCount = 0;
 				compValue = 0;
-				world.updateComparatorOutputLevel(getPos(), getBlockState().getBlock());
+				world.updateComparators(getPos(), getCachedState().getBlock());
 			}
 		}
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT cmp) {
+	public void writePacketNBT(CompoundTag cmp) {
 		super.writePacketNBT(cmp);
 
 		cmp.putInt(TAG_REQUEST_X, requestPos.getX());
 		cmp.putInt(TAG_REQUEST_Y, requestPos.getY());
 		cmp.putInt(TAG_REQUEST_Z, requestPos.getZ());
 
-		ResourceLocation reqType = request != null ? corporeaMatcherSerializers.get(request.getClass()) : null;
+		Identifier reqType = request != null ? corporeaMatcherSerializers.get(request.getClass()) : null;
 
 		if (reqType != null) {
 			cmp.putString(TAG_REQUEST_TYPE, reqType.toString());
@@ -101,7 +101,7 @@ public class TileCorporeaRetainer extends TileMod {
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT cmp) {
+	public void readPacketNBT(CompoundTag cmp) {
 		super.readPacketNBT(cmp);
 
 		int x = cmp.getInt(TAG_REQUEST_X);
@@ -109,7 +109,7 @@ public class TileCorporeaRetainer extends TileMod {
 		int z = cmp.getInt(TAG_REQUEST_Z);
 		requestPos = new BlockPos(x, y, z);
 
-		ResourceLocation reqType = ResourceLocation.tryCreate(cmp.getString(TAG_REQUEST_TYPE));
+		Identifier reqType = Identifier.tryParse(cmp.getString(TAG_REQUEST_TYPE));
 		if (reqType != null && corporeaMatcherDeserializers.containsKey(reqType)) {
 			request = corporeaMatcherDeserializers.get(reqType).apply(cmp);
 		} else {
@@ -118,7 +118,7 @@ public class TileCorporeaRetainer extends TileMod {
 		requestCount = cmp.getInt(TAG_REQUEST_COUNT);
 	}
 
-	public static <T extends ICorporeaRequestMatcher> void addCorporeaRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundNBT, T> deserializer) {
+	public static <T extends ICorporeaRequestMatcher> void addCorporeaRequestMatcher(Identifier id, Class<T> clazz, Function<CompoundTag, T> deserializer) {
 		corporeaMatcherSerializers.put(clazz, id);
 		corporeaMatcherDeserializers.put(id, deserializer);
 	}

@@ -8,23 +8,27 @@
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.client.util.ITooltipFlag;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.block.Material;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
+import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3i;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -58,9 +62,9 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	private static final int MAX_MANA = Integer.MAX_VALUE;
 	private static final int MANA_PER_DAMAGE = 100;
 
-	private static final List<Material> MATERIALS = Arrays.asList(Material.ROCK, Material.IRON, Material.ICE,
-			Material.GLASS, Material.PISTON, Material.ANVIL, Material.ORGANIC, Material.EARTH, Material.SAND,
-			Material.SNOW, Material.SNOW_BLOCK, Material.CLAY);
+	private static final List<Material> MATERIALS = Arrays.asList(Material.STONE, Material.METAL, Material.ICE,
+			Material.GLASS, Material.PISTON, Material.REPAIR_STATION, Material.SOLID_ORGANIC, Material.SOIL, Material.AGGREGATE,
+			Material.SNOW_LAYER, Material.SNOW_BLOCK, Material.ORGANIC_PRODUCT);
 
 	public static final int[] LEVELS = new int[] {
 			0, 10000, 1000000, 10000000, 100000000, 1000000000
@@ -70,13 +74,13 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 			10000 - 1, 1000000 - 1, 10000000 - 1, 100000000 - 1, 1000000000 - 1, MAX_MANA - 1
 	};
 
-	public ItemTerraPick(Properties props) {
+	public ItemTerraPick(Settings props) {
 		super(BotaniaAPI.instance().getTerrasteelItemTier(), props, -2.8F);
 	}
 
 	@Override
-	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> list) {
-		if (isInGroup(tab)) {
+	public void appendStacks(@Nonnull ItemGroup tab, @Nonnull DefaultedList<ItemStack> list) {
+		if (isIn(tab)) {
 			for (int mana : CREATIVE_MANA) {
 				ItemStack stack = new ItemStack(this);
 				setMana(stack, mana);
@@ -89,40 +93,40 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
-		ITextComponent rank = new TranslationTextComponent("botania.rank" + getLevel(stack));
-		ITextComponent rankFormat = new TranslationTextComponent("botaniamisc.toolRank", rank);
+	public void appendTooltip(ItemStack stack, World world, List<Text> stacks, TooltipContext flags) {
+		Text rank = new TranslatableText("botania.rank" + getLevel(stack));
+		Text rankFormat = new TranslatableText("botaniamisc.toolRank", rank);
 		stacks.add(rankFormat);
 		if (getMana(stack) == Integer.MAX_VALUE) {
-			stacks.add(new TranslationTextComponent("botaniamisc.getALife").func_240699_a_(TextFormatting.RED));
+			stacks.add(new TranslatableText("botaniamisc.getALife").formatted(Formatting.RED));
 		}
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getHeldItem(hand);
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
+		ItemStack stack = player.getStackInHand(hand);
 
 		getMana(stack);
 		int level = getLevel(stack);
 
 		if (level != 0) {
 			setEnabled(stack, !isEnabled(stack));
-			if (!world.isRemote) {
-				world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.terraPickMode, SoundCategory.PLAYERS, 0.5F, 0.4F);
+			if (!world.isClient) {
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraPickMode, SoundCategory.PLAYERS, 0.5F, 0.4F);
 			}
 		}
 
-		return ActionResult.resultSuccess(stack);
+		return TypedActionResult.success(stack);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
-		return ctx.getPlayer() == null || ctx.getPlayer().isSneaking() ? super.onItemUse(ctx)
-				: ActionResultType.PASS;
+	public ActionResult useOnBlock(ItemUsageContext ctx) {
+		return ctx.getPlayer() == null || ctx.getPlayer().isSneaking() ? super.useOnBlock(ctx)
+				: ActionResult.PASS;
 	}
 
 	@Override
@@ -133,7 +137,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 			if (level == 0) {
 				setEnabled(stack, false);
-			} else if (entity instanceof PlayerEntity && !((PlayerEntity) entity).isSwingInProgress) {
+			} else if (entity instanceof PlayerEntity && !((PlayerEntity) entity).handSwinging) {
 				addMana(stack, -level);
 			}
 		}
@@ -141,9 +145,9 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@Override
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
-		BlockRayTraceResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
-		if (!player.world.isRemote && raycast.getType() == RayTraceResult.Type.BLOCK) {
-			Direction face = raycast.getFace();
+		BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
+		if (!player.world.isClient && raycast.getType() == HitResult.Type.BLOCK) {
+			Direction face = raycast.getSide();
 			breakOtherBlock(player, stack, pos, pos, face);
 			BotaniaAPI.instance().breakOnAllCursors(player, stack, pos, face);
 		}
@@ -168,14 +172,14 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 			return;
 		}
 
-		if (world.isAirBlock(pos)) {
+		if (world.isAir(pos)) {
 			return;
 		}
 
 		boolean thor = !ItemThorRing.getThorRing(player).isEmpty();
-		boolean doX = thor || side.getXOffset() == 0;
-		boolean doY = thor || side.getYOffset() == 0;
-		boolean doZ = thor || side.getZOffset() == 0;
+		boolean doX = thor || side.getOffsetX() == 0;
+		boolean doY = thor || side.getOffsetY() == 0;
+		boolean doZ = thor || side.getOffsetZ() == 0;
 
 		int origLevel = getLevel(stack);
 		int level = origLevel + (thor ? 1 : 0);
@@ -190,8 +194,8 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 			return;
 		}
 
-		Vector3i beginDiff = new Vector3i(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
-		Vector3i endDiff = new Vector3i(doX ? range : 0, doY ? rangeY * 2 - 1 : 0, doZ ? range : 0);
+		Vec3i beginDiff = new Vec3i(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
+		Vec3i endDiff = new Vec3i(doX ? range : 0, doY ? rangeY * 2 - 1 : 0, doZ ? range : 0);
 
 		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, state -> MATERIALS.contains(state.getMaterial()), isTipped(stack));
 
@@ -256,7 +260,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	}
 
 	@Override
-	public boolean canReceiveManaFromPool(ItemStack stack, TileEntity pool) {
+	public boolean canReceiveManaFromPool(ItemStack stack, BlockEntity pool) {
 		return true;
 	}
 
@@ -266,7 +270,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	}
 
 	@Override
-	public boolean canExportManaToPool(ItemStack stack, TileEntity pool) {
+	public boolean canExportManaToPool(ItemStack stack, BlockEntity pool) {
 		return false;
 	}
 

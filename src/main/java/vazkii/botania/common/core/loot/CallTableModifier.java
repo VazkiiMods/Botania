@@ -11,11 +11,11 @@ package vazkii.botania.common.core.loot;
 import com.google.gson.JsonObject;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootTable;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.loot.condition.LootCondition;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 
@@ -27,9 +27,9 @@ import java.util.List;
  * Global loot modifier that calls another loot table and appends all of the yielded stacks to the existing loot
  */
 public class CallTableModifier extends LootModifier {
-	private final ResourceLocation tableId;
+	private final Identifier tableId;
 
-	protected CallTableModifier(ILootCondition[] conditionsIn, ResourceLocation table) {
+	protected CallTableModifier(LootCondition[] conditionsIn, Identifier table) {
 		super(conditionsIn);
 		this.tableId = table;
 	}
@@ -37,16 +37,16 @@ public class CallTableModifier extends LootModifier {
 	@Nonnull
 	@Override
 	protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-		LootTable table = context.getWorld().getServer().getLootTableManager().getLootTableFromLocation(tableId);
-		table.generate(context, generatedLoot::add);
+		LootTable table = context.getWorld().getServer().getLootManager().getTable(tableId);
+		table.generateLoot(context, generatedLoot::add);
 		return generatedLoot;
 	}
 
 	public static class Serializer extends GlobalLootModifierSerializer<CallTableModifier> {
 		@Override
-		public CallTableModifier read(ResourceLocation location, JsonObject object, ILootCondition[] ailootcondition) {
-			String table = JSONUtils.getString(object, "table");
-			return new CallTableModifier(ailootcondition, new ResourceLocation(table));
+		public CallTableModifier read(Identifier location, JsonObject object, LootCondition[] ailootcondition) {
+			String table = JsonHelper.getString(object, "table");
+			return new CallTableModifier(ailootcondition, new Identifier(table));
 		}
 	}
 }

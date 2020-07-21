@@ -9,7 +9,7 @@
 package vazkii.botania.api.item;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 
 /**
  * An Item that implements this can be wielded by an Avatar.
@@ -24,6 +24,6 @@ public interface IAvatarWieldable {
 	/**
 	 * Gets the overlay resource to render on top of the avatar tile.
 	 */
-	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack);
+	public Identifier getOverlayResource(IAvatarTile tile, ItemStack stack);
 
 }

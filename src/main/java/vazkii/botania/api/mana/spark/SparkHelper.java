@@ -11,8 +11,8 @@ package vazkii.botania.api.mana.spark;
 import com.google.common.base.Predicates;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.item.DyeColor;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public final class SparkHelper {
 	public static <T> List<T> getEntitiesAround(Class<? extends T> clazz, World world, double x, double y, double z) {
 		int r = SPARK_SCAN_RANGE;
 		@SuppressWarnings("unchecked")
-		List<T> entities = (List<T>) (List<?>) world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(x - r, y - r, z - r, x + r, y + r, z + r), Predicates.instanceOf(clazz));
+		List<T> entities = (List<T>) (List<?>) world.getEntities(Entity.class, new Box(x - r, y - r, z - r, x + r, y + r, z + r), Predicates.instanceOf(clazz));
 		return entities;
 	}
 

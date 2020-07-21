@@ -8,9 +8,9 @@
  */
 package vazkii.botania.api.recipe;
 
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Box;
 import net.minecraftforge.eventbus.api.Event;
 
 import java.util.List;
@@ -25,12 +25,12 @@ public class ElvenPortalUpdateEvent extends Event {
 	/**
 	 * May be casted to TileAlfPortal if you have botania code access aside from the API.
 	 */
-	public final TileEntity portalTile;
-	public final AxisAlignedBB aabb;
+	public final BlockEntity portalTile;
+	public final Box aabb;
 	public final boolean open;
 	public final List<ItemStack> stacksInside;
 
-	public ElvenPortalUpdateEvent(TileEntity te, AxisAlignedBB aabb, boolean open, List<ItemStack> stacks) {
+	public ElvenPortalUpdateEvent(BlockEntity te, Box aabb, boolean open, List<ItemStack> stacks) {
 		portalTile = te;
 		this.aabb = aabb;
 		this.open = open;

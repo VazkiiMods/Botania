@@ -10,26 +10,25 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-
+import net.minecraft.util.Identifier;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 public class ItemSpeedUpBelt extends ItemTravelBelt {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_SPEED_UP_BELT);
+	private static final Identifier texture = new Identifier(LibResources.MODEL_SPEED_UP_BELT);
 
 	private static final String TAG_SPEED = "speed";
 	private static final String TAG_OLD_X = "oldX";
 	private static final String TAG_OLD_Y = "oldY";
 	private static final String TAG_OLD_Z = "oldZ";
 
-	public ItemSpeedUpBelt(Properties props) {
+	public ItemSpeedUpBelt(Settings props) {
 		super(props, 0F, 0.2F, 2F);
 	}
 
 	@Override
-	public ResourceLocation getRenderTexture() {
+	public Identifier getRenderTexture() {
 		return texture;
 	}
 
@@ -58,11 +57,11 @@ public class ItemSpeedUpBelt extends ItemTravelBelt {
 		double oldY = ItemNBTHelper.getDouble(stack, TAG_OLD_Y, 0);
 		double oldZ = ItemNBTHelper.getDouble(stack, TAG_OLD_Z, 0);
 
-		ItemNBTHelper.setDouble(stack, TAG_OLD_X, player.getPosX());
-		ItemNBTHelper.setDouble(stack, TAG_OLD_Y, player.getPosY());
-		ItemNBTHelper.setDouble(stack, TAG_OLD_Z, player.getPosZ());
+		ItemNBTHelper.setDouble(stack, TAG_OLD_X, player.getX());
+		ItemNBTHelper.setDouble(stack, TAG_OLD_Y, player.getY());
+		ItemNBTHelper.setDouble(stack, TAG_OLD_Z, player.getZ());
 
-		return Math.abs(oldX - player.getPosX()) > 0.001 || Math.abs(oldY - player.getPosY()) > 0.001 || Math.abs(oldZ - player.getPosZ()) > 0.001;
+		return Math.abs(oldX - player.getX()) > 0.001 || Math.abs(oldY - player.getY()) > 0.001 || Math.abs(oldZ - player.getZ()) > 0.001;
 	}
 
 }

@@ -10,10 +10,10 @@ package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.item.crafting.SpecialRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.SpecialRecipeSerializer;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.item.ModItems;
@@ -21,16 +21,16 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
 import javax.annotation.Nonnull;
 
-public class TerraPickTippingRecipe extends SpecialRecipe {
+public class TerraPickTippingRecipe extends SpecialCraftingRecipe {
 	public static final SpecialRecipeSerializer<TerraPickTippingRecipe> SERIALIZER = new SpecialRecipeSerializer<>(TerraPickTippingRecipe::new);
 
-	public TerraPickTippingRecipe(ResourceLocation id) {
+	public TerraPickTippingRecipe(Identifier id) {
 		super(id);
 	}
 
 	@Nonnull
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 
@@ -39,8 +39,8 @@ public class TerraPickTippingRecipe extends SpecialRecipe {
 		boolean foundTerraPick = false;
 		boolean foundElementiumPick = false;
 
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stack = inv.getStack(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof ItemTerraPick && !ItemTerraPick.isTipped(stack)) {
 					foundTerraPick = true;
@@ -60,8 +60,8 @@ public class TerraPickTippingRecipe extends SpecialRecipe {
 	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
 		ItemStack terraPick = ItemStack.EMPTY;
 
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stack = inv.getStack(i);
 			if (!stack.isEmpty() && stack.getItem() instanceof ItemTerraPick) {
 				terraPick = stack;
 			}
@@ -77,7 +77,7 @@ public class TerraPickTippingRecipe extends SpecialRecipe {
 	}
 
 	@Override
-	public boolean canFit(int width, int height) {
+	public boolean fits(int width, int height) {
 		return width * height >= 2;
 	}
 }

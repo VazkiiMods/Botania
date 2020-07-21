@@ -12,7 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandler;
 
@@ -20,9 +20,9 @@ import vazkii.botania.client.lib.LibResources;
 
 public class ItemAutocraftingHalo extends ItemCraftingHalo {
 
-	private static final ResourceLocation glowTexture = new ResourceLocation(LibResources.MISC_GLOW_CYAN);
+	private static final Identifier glowTexture = new Identifier(LibResources.MISC_GLOW_CYAN);
 
-	public ItemAutocraftingHalo(Item.Properties props) {
+	public ItemAutocraftingHalo(Item.Settings props) {
 		super(props);
 	}
 
@@ -30,7 +30,7 @@ public class ItemAutocraftingHalo extends ItemCraftingHalo {
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int pos, boolean equipped) {
 		super.inventoryTick(stack, world, entity, pos, equipped);
 
-		if (!world.isRemote && entity instanceof PlayerEntity && !equipped) {
+		if (!world.isClient && entity instanceof PlayerEntity && !equipped) {
 			PlayerEntity player = (PlayerEntity) entity;
 
 			for (int i = 1; i < SEGMENTS; i++) {
@@ -40,7 +40,7 @@ public class ItemAutocraftingHalo extends ItemCraftingHalo {
 	}
 
 	@Override
-	public ResourceLocation getGlowResource() {
+	public Identifier getGlowResource() {
 		return glowTexture;
 	}
 

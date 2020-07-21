@@ -11,17 +11,17 @@ package vazkii.botania.common.item.rod;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IAvatarTile;
@@ -37,30 +37,30 @@ import javax.annotation.Nonnull;
 
 public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider, IAvatarWieldable {
 
-	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_DIRT);
+	private static final Identifier avatarOverlay = new Identifier(LibResources.MODEL_AVATAR_DIRT);
 
 	static final int COST = 75;
 
-	public ItemDirtRod(Properties props) {
+	public ItemDirtRod(Settings props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
+	public ActionResult useOnBlock(ItemUsageContext ctx) {
 		return place(ctx, Blocks.DIRT, COST, 0.35F, 0.2F, 0.05F);
 	}
 
-	public static ActionResultType place(ItemUseContext ctx, Block block, int cost, float r, float g, float b) {
+	public static ActionResult place(ItemUsageContext ctx, Block block, int cost, float r, float g, float b) {
 		PlayerEntity player = ctx.getPlayer();
-		ItemStack stack = ctx.getItem();
+		ItemStack stack = ctx.getStack();
 		World world = ctx.getWorld();
-		Direction side = ctx.getFace();
-		BlockPos pos = ctx.getPos();
+		Direction side = ctx.getSide();
+		BlockPos pos = ctx.getBlockPos();
 
 		if (player != null && ManaItemHandler.instance().requestManaExactForTool(stack, player, cost, false)) {
-			int entities = world.getEntitiesWithinAABB(LivingEntity.class,
-					new AxisAlignedBB(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
+			int entities = world.getNonSpectatingEntities(LivingEntity.class,
+					new Box(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
 
 			if (entities == 0) {
 				ItemStack stackToPlace = new ItemStack(block);
@@ -70,16 +70,16 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 					ManaItemHandler.instance().requestManaExactForTool(stack, player, cost, true);
 					SparkleParticleData data = SparkleParticleData.sparkle(1F, r, g, b, 5);
 					for (int i = 0; i < 6; i++) {
-						world.addParticle(data, pos.getX() + side.getXOffset() + Math.random(), pos.getY() + side.getYOffset() + Math.random(), pos.getZ() + side.getZOffset() + Math.random(), 0, 0, 0);
+						world.addParticle(data, pos.getX() + side.getOffsetX() + Math.random(), pos.getY() + side.getOffsetY() + Math.random(), pos.getZ() + side.getOffsetZ() + Math.random(), 0, 0, 0);
 					}
-					return ActionResultType.SUCCESS;
+					return ActionResult.SUCCESS;
 				}
 			}
 
-			return ActionResultType.FAIL;
+			return ActionResult.FAIL;
 		}
 
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
 	@Override
@@ -105,21 +105,21 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
-		TileEntity te = (TileEntity) tile;
+		BlockEntity te = (BlockEntity) tile;
 		World world = te.getWorld();
-		if (!world.isRemote && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.rand.nextInt(8) == 0 && tile.isEnabled()) {
-			BlockPos pos = ((TileEntity) tile).getPos().offset(tile.getAvatarFacing());
+		if (!world.isClient && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.random.nextInt(8) == 0 && tile.isEnabled()) {
+			BlockPos pos = ((BlockEntity) tile).getPos().offset(tile.getAvatarFacing());
 			BlockState state = world.getBlockState(pos);
 			if (state.getBlock().isAir(state, world, pos)) {
 				world.setBlockState(pos, Blocks.DIRT.getDefaultState());
-				world.playEvent(2001, pos, Block.getStateId(Blocks.DIRT.getDefaultState()));
+				world.syncWorldEvent(2001, pos, Block.getRawIdFromState(Blocks.DIRT.getDefaultState()));
 				tile.receiveMana(-COST);
 			}
 		}
 	}
 
 	@Override
-	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
+	public Identifier getOverlayResource(IAvatarTile tile, ItemStack stack) {
 		return avatarOverlay;
 	}
 

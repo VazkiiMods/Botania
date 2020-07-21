@@ -8,36 +8,35 @@
  */
 package vazkii.botania.common.block.decor;
 
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileStarfield;
 
 import javax.annotation.Nonnull;
 
-public class BlockStarfield extends BlockModWaterloggable implements ITileEntityProvider {
+public class BlockStarfield extends BlockModWaterloggable implements BlockEntityProvider {
 
-	private static final VoxelShape SHAPE = makeCuboidShape(0, 0, 0, 16, 4, 16);
+	private static final VoxelShape SHAPE = createCuboidShape(0, 0, 0, 16, 4, 16);
 
-	public BlockStarfield(Properties builder) {
+	public BlockStarfield(Settings builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
 		return SHAPE;
 	}
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TileStarfield();
 	}
 

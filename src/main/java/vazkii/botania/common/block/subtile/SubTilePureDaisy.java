@@ -10,8 +10,8 @@ package vazkii.botania.common.block.subtile;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -58,7 +58,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isRemote) {
+		if (getWorld().isClient) {
 			for (int i = 0; i < POSITIONS.length; i++) {
 				if (ticksRemaining[i] > 0) {
 					BlockPos coords = getEffectivePos().add(POSITIONS[i]);
@@ -78,10 +78,10 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 		BlockPos acoords = POSITIONS[positionAt];
 		BlockPos coords = getEffectivePos().add(acoords);
 		World world = getWorld();
-		if (!world.isAirBlock(coords)) {
-			world.getProfiler().startSection("findRecipe");
+		if (!world.isAir(coords)) {
+			world.getProfiler().push("findRecipe");
 			IPureDaisyRecipe recipe = findRecipe(coords);
-			world.getProfiler().endSection();
+			world.getProfiler().pop();
 
 			if (recipe != null) {
 				if (ticksRemaining[positionAt] == -1) {
@@ -95,9 +95,9 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 
 					if (recipe.set(world, coords, this)) {
 						if (ConfigHandler.COMMON.blockBreakParticles.get()) {
-							getWorld().playEvent(2001, coords, Block.getStateId(recipe.getOutputState()));
+							getWorld().syncWorldEvent(2001, coords, Block.getRawIdFromState(recipe.getOutputState()));
 						}
-						getWorld().addBlockEvent(getPos(), getBlockState().getBlock(), RECIPE_COMPLETE_EVENT, positionAt);
+						getWorld().addSyncedBlockEvent(getPos(), getCachedState().getBlock(), RECIPE_COMPLETE_EVENT, positionAt);
 					}
 				}
 
@@ -119,7 +119,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	private IPureDaisyRecipe findRecipe(BlockPos coords) {
 		BlockState state = getWorld().getBlockState(coords);
 
-		for (IRecipe<?> recipe : ModRecipeTypes.getRecipes(world, ModRecipeTypes.PURE_DAISY_TYPE).values()) {
+		for (Recipe<?> recipe : ModRecipeTypes.getRecipes(world, ModRecipeTypes.PURE_DAISY_TYPE).values()) {
 			if (recipe instanceof IPureDaisyRecipe && ((IPureDaisyRecipe) recipe).matches(getWorld(), coords, this, state)) {
 				return ((IPureDaisyRecipe) recipe);
 			}
@@ -129,10 +129,10 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public boolean receiveClientEvent(int type, int param) {
+	public boolean onSyncedBlockEvent(int type, int param) {
 		switch (type) {
 		case RECIPE_COMPLETE_EVENT: {
-			if (getWorld().isRemote) {
+			if (getWorld().isClient) {
 				BlockPos coords = getEffectivePos().add(POSITIONS[param]);
 				for (int i = 0; i < 25; i++) {
 					double x = coords.getX() + Math.random();
@@ -147,7 +147,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 			return true;
 		}
 		default:
-			return super.receiveClientEvent(type, param);
+			return super.onSyncedBlockEvent(type, param);
 		}
 	}
 
@@ -157,7 +157,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundNBT cmp) {
+	public void readFromPacketNBT(CompoundTag cmp) {
 		positionAt = cmp.getInt(TAG_POSITION);
 
 		for (int i = 0; i < ticksRemaining.length; i++) {
@@ -166,7 +166,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundNBT cmp) {
+	public void writeToPacketNBT(CompoundTag cmp) {
 		cmp.putInt(TAG_POSITION, positionAt);
 		for (int i = 0; i < ticksRemaining.length; i++) {
 			cmp.putInt(TAG_TICKS_REMAINING + i, ticksRemaining[i]);

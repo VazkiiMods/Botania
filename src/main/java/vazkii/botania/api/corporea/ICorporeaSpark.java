@@ -8,9 +8,8 @@
  */
 package vazkii.botania.api.corporea;
 
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
-
+import net.minecraft.util.DyeColor;
 import java.util.List;
 
 /**

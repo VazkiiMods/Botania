@@ -11,11 +11,12 @@ package vazkii.botania.common.item;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.helper.MathHelper;
 
@@ -23,37 +24,37 @@ import javax.annotation.Nonnull;
 
 public class ItemWorldSeed extends Item {
 
-	public ItemWorldSeed(Properties builder) {
+	public ItemWorldSeed(Settings builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getHeldItem(hand);
-		if (world.isRemote) {
-			return new ActionResult<>(ActionResultType.SUCCESS, stack);
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
+		ItemStack stack = player.getStackInHand(hand);
+		if (world.isClient) {
+			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 
-		BlockPos coords = ((ServerWorld) world).func_241135_u_();
-		if (world.func_234923_W_() == World.field_234918_g_ && MathHelper.pointDistanceSpace(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, player.getPosX(), player.getPosY(), player.getPosZ()) > 24) {
-			player.rotationPitch = 0F;
-			player.rotationYaw = 0F;
-			player.setPositionAndUpdate(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
+		BlockPos coords = ((ServerWorld) world).getSpawnPos();
+		if (world.getRegistryKey() == World.OVERWORLD && MathHelper.pointDistanceSpace(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, player.getX(), player.getY(), player.getZ()) > 24) {
+			player.pitch = 0F;
+			player.yaw = 0F;
+			player.requestTeleport(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
 
-			while (!world.hasNoCollisions(player, player.getBoundingBox())) {
-				player.setPositionAndUpdate(player.getPosX(), player.getPosY() + 1, player.getPosZ());
+			while (!world.doesNotCollide(player, player.getBoundingBox())) {
+				player.requestTeleport(player.getX(), player.getY() + 1, player.getZ());
 			}
 
-			world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
 			SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.25F, 1F, 0.25F, 10);
-			((ServerWorld) world).spawnParticle(data, player.getPosX(), player.getPosY() + player.getHeight() / 2, player.getPosZ(), 50, player.getWidth() / 8, player.getHeight() / 4, player.getWidth() / 8, 0);
+			((ServerWorld) world).spawnParticles(data, player.getX(), player.getY() + player.getHeight() / 2, player.getZ(), 50, player.getWidth() / 8, player.getHeight() / 4, player.getWidth() / 8, 0);
 
-			stack.shrink(1);
-			return new ActionResult<>(ActionResultType.SUCCESS, stack);
+			stack.decrement(1);
+			return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 		}
 
-		return new ActionResult<>(ActionResultType.PASS, stack);
+		return new TypedActionResult<>(ActionResult.PASS, stack);
 	}
 
 }

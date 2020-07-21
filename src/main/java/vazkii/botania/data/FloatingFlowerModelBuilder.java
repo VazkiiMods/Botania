@@ -9,8 +9,7 @@
 package vazkii.botania.data;
 
 import com.google.gson.JsonObject;
-
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelBuilder;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -20,7 +19,7 @@ import vazkii.botania.client.model.FloatingFlowerModel;
 public class FloatingFlowerModelBuilder extends ModelBuilder<FloatingFlowerModelBuilder> {
 	private ModelFile flowerModel;
 
-	public FloatingFlowerModelBuilder(ResourceLocation outputLocation, ExistingFileHelper existingFileHelper) {
+	public FloatingFlowerModelBuilder(Identifier outputLocation, ExistingFileHelper existingFileHelper) {
 		super(outputLocation, existingFileHelper);
 	}
 

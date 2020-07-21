@@ -12,19 +12,21 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.Blockreader;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.BlockView;
+import net.minecraft.world.ChunkRegion;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeManager;
-import net.minecraft.world.biome.provider.BiomeProvider;
-import net.minecraft.world.chunk.IChunk;
+import net.minecraft.world.WorldAccess;
+import net.minecraft.world.biome.source.BiomeAccess;
+import net.minecraft.world.biome.source.BiomeSource;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.*;
-import net.minecraft.world.gen.feature.structure.StructureManager;
-import net.minecraft.world.gen.settings.DimensionStructuresSettings;
-import net.minecraft.world.server.ServerChunkProvider;
-
+import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.chunk.ChunkGeneratorType;
+import net.minecraft.world.gen.chunk.StructuresConfig;
+import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.mixin.AccessorDimensionSettingsPreset;
 
@@ -32,65 +34,65 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class SkyblockChunkGenerator extends ChunkGenerator {
 	// [VanillaCopy] overworld chunk generator codec
-	public static final Codec<SkyblockChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(BiomeProvider.field_235202_a_.fieldOf("biome_source").forGetter((gen) -> gen.biomeProvider),
+	public static final Codec<SkyblockChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(BiomeSource.field_24713.fieldOf("biome_source").forGetter((gen) -> gen.biomeSource),
 			Codec.LONG.fieldOf("seed").stable().forGetter((gen) -> gen.seed),
-			DimensionSettings.field_236098_b_.fieldOf("settings").forGetter((gen) -> gen.settings))
+			ChunkGeneratorType.field_24781.fieldOf("settings").forGetter((gen) -> gen.settings))
 			.apply(instance, instance.stable(SkyblockChunkGenerator::new)));
-	public static DimensionSettings.Preset dimSettingsPreset;
+	public static ChunkGeneratorType.Preset dimSettingsPreset;
 
 	public static void init() {
-		Registry.register(Registry.field_239690_aB_, prefix("skyblock"), SkyblockChunkGenerator.CODEC);
-		dimSettingsPreset = new DimensionSettings.Preset(LibResources.PREFIX_MOD + "skyblock",
-				preset -> AccessorDimensionSettingsPreset.createOverworldSettings(new DimensionStructuresSettings(true), false, preset));
+		Registry.register(Registry.CHUNK_GENERATOR, prefix("skyblock"), SkyblockChunkGenerator.CODEC);
+		dimSettingsPreset = new ChunkGeneratorType.Preset(LibResources.PREFIX_MOD + "skyblock",
+				preset -> AccessorDimensionSettingsPreset.createOverworldSettings(new StructuresConfig(true), false, preset));
 	}
 
 	private final long seed;
-	private final DimensionSettings settings;
+	private final ChunkGeneratorType settings;
 
-	public SkyblockChunkGenerator(BiomeProvider provider, long seed, DimensionSettings settings) {
-		super(provider, provider, settings.func_236108_a_(), seed);
+	public SkyblockChunkGenerator(BiomeSource provider, long seed, ChunkGeneratorType settings) {
+		super(provider, provider, settings.getConfig(), seed);
 		this.seed = seed;
 		this.settings = settings;
 	}
 
 	public static boolean isWorldSkyblock(World world) {
-		return world.getChunkProvider() instanceof ServerChunkProvider
-				&& ((ServerChunkProvider) world.getChunkProvider()).getChunkGenerator() instanceof SkyblockChunkGenerator;
+		return world.getChunkManager() instanceof ServerChunkManager
+				&& ((ServerChunkManager) world.getChunkManager()).getChunkGenerator() instanceof SkyblockChunkGenerator;
 	}
 
 	@Override
-	protected Codec<? extends ChunkGenerator> func_230347_a_() {
+	protected Codec<? extends ChunkGenerator> method_28506() {
 		return CODEC;
 	}
 
 	@Override
-	public ChunkGenerator func_230349_a_(long newSeed) {
-		return new SkyblockChunkGenerator(this.biomeProvider.func_230320_a_(newSeed), newSeed, settings);
+	public ChunkGenerator withSeed(long newSeed) {
+		return new SkyblockChunkGenerator(this.biomeSource.withSeed(newSeed), newSeed, settings);
 	}
 
 	@Override
-	public void func_230352_b_(IWorld world, StructureManager structureManager, IChunk chunk) {
-
-	}
-
-	@Override
-	public void generateSurface(WorldGenRegion region, IChunk chunk) {
+	public void populateNoise(WorldAccess world, StructureAccessor structureManager, Chunk chunk) {
 
 	}
 
 	@Override
-	public void func_230350_a_(long seed, BiomeManager biomes, IChunk chunk, GenerationStage.Carving stage) {}
+	public void buildSurface(ChunkRegion region, Chunk chunk) {
+
+	}
 
 	@Override
-	public void func_230351_a_(WorldGenRegion region, StructureManager structureManager) {}
+	public void carve(long seed, BiomeAccess biomes, Chunk chunk, GenerationStep.Carver stage) {}
 
 	@Override
-	public int func_222529_a(int x, int z, Heightmap.Type heightmapType) {
+	public void generateFeatures(ChunkRegion region, StructureAccessor structureManager) {}
+
+	@Override
+	public int getHeight(int x, int z, Heightmap.Type heightmapType) {
 		return 0;
 	}
 
 	@Override
-	public IBlockReader func_230348_a_(int p_230348_1_, int p_230348_2_) {
-		return new Blockreader(new BlockState[0]);
+	public BlockView getColumnSample(int p_230348_1_, int p_230348_2_) {
+		return new VerticalBlockSample(new BlockState[0]);
 	}
 }

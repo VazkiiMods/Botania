@@ -8,19 +8,21 @@
  */
 package vazkii.botania.common.entity;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.EnvironmentInterface;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.pattern.BlockStateMatcher;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.FlyingItemEntity;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.IPacket;
+import net.minecraft.network.Packet;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -35,11 +37,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@OnlyIn(
-	value = Dist.CLIENT,
-	_interface = IRendersAsItem.class
-)
-public class EntityEnderAirBottle extends ThrowableEntity implements IRendersAsItem {
+@EnvironmentInterface(value = EnvType.CLIENT, itf = IRendersAsItem.class)
+public class EntityEnderAirBottle extends ThrownEntity implements FlyingItemEntity {
 	public EntityEnderAirBottle(EntityType<EntityEnderAirBottle> type, World world) {
 		super(type, world);
 	}
@@ -49,15 +48,15 @@ public class EntityEnderAirBottle extends ThrowableEntity implements IRendersAsI
 	}
 
 	@Override
-	protected void onImpact(@Nonnull RayTraceResult pos) {
-		if (pos.getType() == RayTraceResult.Type.BLOCK && !world.isRemote) {
-			List<BlockPos> coordsList = getCoordsToPut(((BlockRayTraceResult) pos).getPos());
-			world.playEvent(2002, func_233580_cy_(), 8);
+	protected void onCollision(@Nonnull HitResult pos) {
+		if (pos.getType() == HitResult.Type.BLOCK && !world.isClient) {
+			List<BlockPos> coordsList = getCoordsToPut(((BlockHitResult) pos).getBlockPos());
+			world.syncWorldEvent(2002, getBlockPos(), 8);
 
 			for (BlockPos coords : coordsList) {
 				world.setBlockState(coords, Blocks.END_STONE.getDefaultState());
 				if (Math.random() < 0.1) {
-					world.playEvent(2001, coords, Block.getStateId(Blocks.END_STONE.getDefaultState()));
+					world.syncWorldEvent(2001, coords, Block.getRawIdFromState(Blocks.END_STONE.getDefaultState()));
 				}
 			}
 			remove();
@@ -69,7 +68,7 @@ public class EntityEnderAirBottle extends ThrowableEntity implements IRendersAsI
 		int range = 4;
 		int rangeY = 4;
 
-		for (BlockPos bPos : BlockPos.getAllInBoxMutable(pos.add(-range, -rangeY, -range),
+		for (BlockPos bPos : BlockPos.iterate(pos.add(-range, -rangeY, -range),
 				pos.add(range, rangeY, range))) {
 			BlockState state = world.getBlockState(bPos);
 			if (state.getBlock() == Blocks.STONE) {
@@ -77,23 +76,23 @@ public class EntityEnderAirBottle extends ThrowableEntity implements IRendersAsI
 			}
 		}
 
-		Collections.shuffle(possibleCoords, rand);
+		Collections.shuffle(possibleCoords, random);
 
 		return possibleCoords.stream().limit(64).collect(Collectors.toList());
 	}
 
 	@Override
-	protected void registerData() {}
+	protected void initDataTracker() {}
 
 	@Nonnull
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public Packet<?> createSpawnPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getItem() {
+	public ItemStack getStack() {
 		return new ItemStack(ModItems.enderAirBottle);
 	}
 }

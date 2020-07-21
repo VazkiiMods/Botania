@@ -8,7 +8,7 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.player.PlayerEntity;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,7 +24,7 @@ public class MixinPlayerEntity {
 	 * Registers the pixie spawn chance attribute on players
 	 */
 	@Inject(at = @At("RETURN"), method = "func_234570_el_")
-	private static void addPixieAttribute(CallbackInfoReturnable<AttributeModifierMap.MutableAttribute> cir) {
-		cir.getReturnValue().func_233814_a_(PixieHandler.PIXIE_SPAWN_CHANCE);
+	private static void addPixieAttribute(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
+		cir.getReturnValue().add(PixieHandler.PIXIE_SPAWN_CHANCE);
 	}
 }

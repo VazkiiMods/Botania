@@ -8,27 +8,25 @@
  */
 package vazkii.botania.client.render.tile;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.model.ModelBrewery;
 import vazkii.botania.common.block.tile.TileBrewery;
 
 import javax.annotation.Nullable;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 
-public class RenderTileBrewery extends TileEntityRenderer<TileBrewery> {
+public class RenderTileBrewery extends BlockEntityRenderer<TileBrewery> {
 	final ModelBrewery model = new ModelBrewery();
 
-	public RenderTileBrewery(TileEntityRendererDispatcher manager) {
+	public RenderTileBrewery(BlockEntityRenderDispatcher manager) {
 		super(manager);
 	}
 
 	@Override
-	public void render(@Nullable TileBrewery brewery, float f, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+	public void render(@Nullable TileBrewery brewery, float f, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
 		ms.push();
 
 		ms.scale(1F, -1F, -1F);

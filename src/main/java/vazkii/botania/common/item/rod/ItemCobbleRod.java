@@ -13,9 +13,8 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
-
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.util.ActionResult;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -26,13 +25,13 @@ public class ItemCobbleRod extends Item implements IManaUsingItem, IBlockProvide
 
 	static final int COST = 150;
 
-	public ItemCobbleRod(Properties props) {
+	public ItemCobbleRod(Settings props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
+	public ActionResult useOnBlock(ItemUsageContext ctx) {
 		return ItemDirtRod.place(ctx, Blocks.COBBLESTONE, COST, 0.3F, 0.3F, 0.3F);
 	}
 

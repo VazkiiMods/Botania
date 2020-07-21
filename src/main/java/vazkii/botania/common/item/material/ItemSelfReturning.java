@@ -13,12 +13,12 @@ import net.minecraft.item.ItemStack;
 
 public class ItemSelfReturning extends Item {
 
-	public ItemSelfReturning(Item.Properties builder) {
+	public ItemSelfReturning(Item.Settings builder) {
 		super(builder);
 	}
 
 	@Override
-	public boolean hasContainerItem() {
+	public boolean hasRecipeRemainder() {
 		return true;
 	}
 

@@ -8,17 +8,19 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.client.Minecraft;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -53,12 +55,12 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getWorld().isRemote && redstoneSignal == 0 && getWorld().isBlockLoaded(bindPos)) {
+		if (!getWorld().isClient && redstoneSignal == 0 && getWorld().isChunkLoaded(bindPos)) {
 			BlockPos pos = getEffectivePos();
 
 			boolean did = false;
 
-			List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos.add(-RANGE, -RANGE, -RANGE), pos.add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<ItemEntity> items = getWorld().getNonSpectatingEntities(ItemEntity.class, new Box(pos.add(-RANGE, -RANGE, -RANGE), pos.add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			int slowdown = getSlowdownFactor();
 
 			for (ItemEntity item : items) {
@@ -67,7 +69,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 					continue;
 				}
 
-				ItemStack stack = item.getItem();
+				ItemStack stack = item.getStack();
 				if (!stack.isEmpty()) {
 					Item sitem = stack.getItem();
 					if (sitem instanceof IManaItem) {
@@ -77,9 +79,9 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 					int cost = stack.getCount() * COST;
 					if (getMana() >= cost) {
 						spawnExplosionParticles(item, 10);
-						item.setPosition(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
+						item.updatePosition(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
 						item.getPersistentData().putBoolean(TAG_TELEPORTED, true);
-						item.setMotion(Vector3d.ZERO);
+						item.setVelocity(Vec3d.ZERO);
 						spawnExplosionParticles(item, 10);
 						addMana(-cost);
 						did = true;
@@ -94,7 +96,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	}
 
 	static void spawnExplosionParticles(Entity item, int p) {
-		PacketHandler.sendToNearby(item.world, item.func_233580_cy_(), new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ITEM_SMOKE, item.getPosX(), item.getPosY(), item.getPosZ(), item.getEntityId(), p));
+		PacketHandler.sendToNearby(item.world, item.getBlockPos(), new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ITEM_SMOKE, item.getX(), item.getY(), item.getZ(), item.getEntityId(), p));
 	}
 
 	@Override
@@ -103,7 +105,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundNBT cmp) {
+	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_BIND_X, bindPos.getX());
 		cmp.putInt(TAG_BIND_Y, bindPos.getY());
@@ -111,7 +113,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundNBT cmp) {
+	public void readFromPacketNBT(CompoundTag cmp) {
 		super.readFromPacketNBT(cmp);
 		bindPos = new BlockPos(
 				cmp.getInt(TAG_BIND_X),
@@ -139,7 +141,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
 		boolean bound = super.bindTo(player, wand, pos, side);
 
-		if (!bound && !pos.equals(bindPos) && pos.distanceSq(getEffectivePos()) <= BIND_RANGE * BIND_RANGE && !pos.equals(getEffectivePos())) {
+		if (!bound && !pos.equals(bindPos) && pos.getSquaredDistance(getEffectivePos()) <= BIND_RANGE * BIND_RANGE && !pos.equals(getEffectivePos())) {
 			bindPos = pos;
 			sync();
 
@@ -150,9 +152,9 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public BlockPos getBinding() {
-		return Minecraft.getInstance().player.isSneaking() && bindPos.getY() != -1 ? bindPos : super.getBinding();
+		return MinecraftClient.getInstance().player.isSneaking() && bindPos.getY() != -1 ? bindPos : super.getBinding();
 	}
 
 }

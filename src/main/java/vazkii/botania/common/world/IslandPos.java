@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.world;
 
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
 
 public final class IslandPos {
@@ -24,12 +24,12 @@ public final class IslandPos {
 		return new BlockPos(x << 8, 64, z << 8);
 	}
 
-	public static IslandPos fromTag(CompoundNBT tag) {
+	public static IslandPos fromTag(CompoundTag tag) {
 		return new IslandPos(tag.getInt("IslandX"), tag.getInt("IslandZ"));
 	}
 
-	public CompoundNBT toTag() {
-		CompoundNBT tag = new CompoundNBT();
+	public CompoundTag toTag() {
+		CompoundTag tag = new CompoundTag();
 		tag.putInt("IslandX", x);
 		tag.putInt("IslandZ", z);
 		return tag;

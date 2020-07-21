@@ -9,11 +9,11 @@
 package vazkii.botania.common.network;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
@@ -48,22 +48,22 @@ public final class PacketHandler {
 		if (world instanceof ServerWorld) {
 			ServerWorld ws = (ServerWorld) world;
 
-			ws.getChunkProvider().chunkManager.getTrackingPlayers(new ChunkPos(pos), false)
-					.filter(p -> p.getDistanceSq(pos.getX(), pos.getY(), pos.getZ()) < 64 * 64)
+			ws.getChunkManager().threadedAnvilChunkStorage.getPlayersWatchingChunk(new ChunkPos(pos), false)
+					.filter(p -> p.squaredDistanceTo(pos.getX(), pos.getY(), pos.getZ()) < 64 * 64)
 					.forEach(p -> HANDLER.send(PacketDistributor.PLAYER.with(() -> p), toSend));
 		}
 	}
 
 	public static void sendToNearby(World world, Entity e, Object toSend) {
-		sendToNearby(world, e.func_233580_cy_(), toSend);
+		sendToNearby(world, e.getBlockPos(), toSend);
 	}
 
 	public static void sendTo(ServerPlayerEntity playerMP, Object toSend) {
-		HANDLER.sendTo(toSend, playerMP.connection.getNetworkManager(), NetworkDirection.PLAY_TO_CLIENT);
+		HANDLER.sendTo(toSend, playerMP.networkHandler.getConnection(), NetworkDirection.PLAY_TO_CLIENT);
 	}
 
 	public static void sendNonLocal(ServerPlayerEntity playerMP, Object toSend) {
-		if (playerMP.server.isDedicatedServer() || !playerMP.getGameProfile().getName().equals(playerMP.server.getServerOwner())) {
+		if (playerMP.server.isDedicated() || !playerMP.getGameProfile().getName().equals(playerMP.server.getUserName())) {
 			sendTo(playerMP, toSend);
 		}
 	}

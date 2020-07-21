@@ -8,11 +8,11 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -24,30 +24,30 @@ import javax.annotation.Nonnull;
 
 public class ItemSpark extends Item implements IManaGivingItem {
 
-	public ItemSpark(Properties builder) {
+	public ItemSpark(Settings builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
+	public ActionResult useOnBlock(ItemUsageContext ctx) {
 		World world = ctx.getWorld();
-		BlockPos pos = ctx.getPos();
-		TileEntity tile = world.getTileEntity(pos);
+		BlockPos pos = ctx.getBlockPos();
+		BlockEntity tile = world.getBlockEntity(pos);
 		if (tile instanceof ISparkAttachable) {
 			ISparkAttachable attach = (ISparkAttachable) tile;
-			ItemStack stack = ctx.getItem();
+			ItemStack stack = ctx.getStack();
 			if (attach.canAttachSpark(stack) && attach.getAttachedSpark() == null) {
-				if (!world.isRemote) {
-					stack.shrink(1);
+				if (!world.isClient) {
+					stack.decrement(1);
 					EntitySpark spark = new EntitySpark(world);
-					spark.setPosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
-					world.addEntity(spark);
+					spark.updatePosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
+					world.spawnEntity(spark);
 					attach.attachSpark(spark);
 				}
-				return ActionResultType.SUCCESS;
+				return ActionResult.SUCCESS;
 			}
 		}
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 }

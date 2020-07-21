@@ -10,10 +10,10 @@ package vazkii.botania.common.core.proxy;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.util.Rotation;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.text.Text;
+import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.core.helper.Vector3;
@@ -44,9 +44,9 @@ public interface IProxy {
 	int getClientRenderDistance();
 
 	// Side-safe version of world.addParticle with noDistanceLimit flag set to true
-	default void addParticleForce(World world, IParticleData particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {}
+	default void addParticleForce(World world, ParticleEffect particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {}
 
-	default void showMultiblock(IMultiblock mb, ITextComponent name, BlockPos anchor, Rotation rot) {}
+	default void showMultiblock(IMultiblock mb, Text name, BlockPos anchor, BlockRotation rot) {}
 
 	default void clearSextantMultiblock() {}
 }

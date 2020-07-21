@@ -8,15 +8,17 @@
  */
 package vazkii.botania.common.item.brew;
 
-import net.minecraft.client.util.ITooltipFlag;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -37,14 +39,14 @@ public class ItemIncenseStick extends Item implements IBrewItem, IBrewContainer 
 	private static final String TAG_BREW_KEY = "brewKey";
 	public static final int TIME_MULTIPLIER = 60;
 
-	public ItemIncenseStick(Properties builder) {
+	public ItemIncenseStick(Settings builder) {
 		super(builder);
 	}
 
 	@Override
-	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> list) {
-		super.fillItemGroup(tab, list);
-		if (isInGroup(tab)) {
+	public void appendStacks(@Nonnull ItemGroup tab, @Nonnull DefaultedList<ItemStack> list) {
+		super.appendStacks(tab, list);
+		if (isIn(tab)) {
 			for (Brew brew : BotaniaAPI.instance().getBrewRegistry()) {
 				ItemStack brewStack = getItemForBrew(brew, new ItemStack(this));
 				if (!brewStack.isEmpty()) {
@@ -54,36 +56,36 @@ public class ItemIncenseStick extends Item implements IBrewItem, IBrewContainer 
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
+	public void appendTooltip(ItemStack stack, World world, List<Text> list, TooltipContext flags) {
 		Brew brew = getBrew(stack);
 		if (brew == ModBrews.fallbackBrew) {
-			list.add(new TranslationTextComponent("botaniamisc.notInfused").func_240699_a_(TextFormatting.LIGHT_PURPLE));
+			list.add(new TranslatableText("botaniamisc.notInfused").formatted(Formatting.LIGHT_PURPLE));
 			return;
 		}
 
-		list.add(new TranslationTextComponent("botaniamisc.brewOf", new TranslationTextComponent(brew.getTranslationKey(stack))).func_240699_a_(TextFormatting.LIGHT_PURPLE));
+		list.add(new TranslatableText("botaniamisc.brewOf", new TranslatableText(brew.getTranslationKey(stack))).formatted(Formatting.LIGHT_PURPLE));
 		ItemBrewBase.addPotionTooltip(brew.getPotionEffects(stack), list, TIME_MULTIPLIER);
 	}
 
 	@Override
 	public Brew getBrew(ItemStack stack) {
 		String key = ItemNBTHelper.getString(stack, TAG_BREW_KEY, "");
-		return BotaniaAPI.instance().getBrewRegistry().getOrDefault(ResourceLocation.tryCreate(key));
+		return BotaniaAPI.instance().getBrewRegistry().get(Identifier.tryParse(key));
 	}
 
 	public static void setBrew(ItemStack stack, Brew brew) {
-		setBrew(stack, BotaniaAPI.instance().getBrewRegistry().getKey(brew));
+		setBrew(stack, BotaniaAPI.instance().getBrewRegistry().getId(brew));
 	}
 
-	public static void setBrew(ItemStack stack, ResourceLocation brew) {
+	public static void setBrew(ItemStack stack, Identifier brew) {
 		ItemNBTHelper.setString(stack, TAG_BREW_KEY, brew.toString());
 	}
 
 	@Override
 	public ItemStack getItemForBrew(Brew brew, ItemStack stack) {
-		if (!brew.canInfuseIncense() || brew.getPotionEffects(stack).size() != 1 || brew.getPotionEffects(stack).get(0).getPotion().isInstant()) {
+		if (!brew.canInfuseIncense() || brew.getPotionEffects(stack).size() != 1 || brew.getPotionEffects(stack).get(0).getEffectType().isInstant()) {
 			return ItemStack.EMPTY;
 		}
 

@@ -8,17 +8,16 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.gui.screen.BiomeGeneratorTypeScreens;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.List;
+import net.minecraft.client.world.GeneratorType;
 
-@Mixin(BiomeGeneratorTypeScreens.class)
+@Mixin(GeneratorType.class)
 public interface AccessorBiomeGeneratorTypeScreens {
 	@Accessor("field_239068_c_")
-	static List<BiomeGeneratorTypeScreens> getAllTypes() {
+	static List<GeneratorType> getAllTypes() {
 		throw new IllegalStateException();
 	}
 }

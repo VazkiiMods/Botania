@@ -8,47 +8,46 @@
  */
 package vazkii.botania.data.recipes;
 
-import net.minecraft.data.CookingRecipeBuilder;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.RecipeProvider;
-import net.minecraft.item.crafting.Ingredient;
-
+import net.minecraft.data.server.RecipesProvider;
+import net.minecraft.data.server.recipe.CookingRecipeJsonFactory;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.recipe.Ingredient;
 import vazkii.botania.common.block.ModFluffBlocks;
 
 import java.util.function.Consumer;
 
-public class SmeltingProvider extends RecipeProvider {
+public class SmeltingProvider extends RecipesProvider {
 	public SmeltingProvider(DataGenerator generatorIn) {
 		super(generatorIn);
 	}
 
 	@Override
-	protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-		CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(ModFluffBlocks.biomeCobblestoneForest), ModFluffBlocks.biomeStoneForest, 0.1f, 200)
-				.addCriterion("has_item", hasItem(ModFluffBlocks.biomeCobblestoneForest))
-				.build(consumer, "botania:smelting/metamorphic_forest_stone");
-		CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(ModFluffBlocks.biomeCobblestonePlains), ModFluffBlocks.biomeStonePlains, 0.1f, 200)
-				.addCriterion("has_item", hasItem(ModFluffBlocks.biomeCobblestonePlains))
-				.build(consumer, "botania:smelting/metamorphic_plains_stone");
-		CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(ModFluffBlocks.biomeCobblestoneMountain), ModFluffBlocks.biomeStoneMountain, 0.1f, 200)
-				.addCriterion("has_item", hasItem(ModFluffBlocks.biomeCobblestoneMountain))
-				.build(consumer, "botania:smelting/metamorphic_mountain_stone");
-		CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(ModFluffBlocks.biomeCobblestoneFungal), ModFluffBlocks.biomeStoneFungal, 0.1f, 200)
-				.addCriterion("has_item", hasItem(ModFluffBlocks.biomeCobblestoneFungal))
-				.build(consumer, "botania:smelting/metamorphic_fungal_stone");
-		CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(ModFluffBlocks.biomeCobblestoneSwamp), ModFluffBlocks.biomeStoneSwamp, 0.1f, 200)
-				.addCriterion("has_item", hasItem(ModFluffBlocks.biomeCobblestoneSwamp))
-				.build(consumer, "botania:smelting/metamorphic_swamp_stone");
-		CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(ModFluffBlocks.biomeCobblestoneDesert), ModFluffBlocks.biomeStoneDesert, 0.1f, 200)
-				.addCriterion("has_item", hasItem(ModFluffBlocks.biomeCobblestoneDesert))
-				.build(consumer, "botania:smelting/metamorphic_desert_stone");
-		CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(ModFluffBlocks.biomeCobblestoneTaiga), ModFluffBlocks.biomeStoneTaiga, 0.1f, 200)
-				.addCriterion("has_item", hasItem(ModFluffBlocks.biomeCobblestoneTaiga))
-				.build(consumer, "botania:smelting/metamorphic_taiga_stone");
-		CookingRecipeBuilder.smeltingRecipe(Ingredient.fromItems(ModFluffBlocks.biomeCobblestoneMesa), ModFluffBlocks.biomeStoneMesa, 0.1f, 200)
-				.addCriterion("has_item", hasItem(ModFluffBlocks.biomeCobblestoneMesa))
-				.build(consumer, "botania:smelting/metamorphic_mesa_stone");
+	protected void generate(Consumer<RecipeJsonProvider> consumer) {
+		CookingRecipeJsonFactory.createSmelting(Ingredient.ofItems(ModFluffBlocks.biomeCobblestoneForest), ModFluffBlocks.biomeStoneForest, 0.1f, 200)
+				.criterion("has_item", conditionsFromItem(ModFluffBlocks.biomeCobblestoneForest))
+				.offerTo(consumer, "botania:smelting/metamorphic_forest_stone");
+		CookingRecipeJsonFactory.createSmelting(Ingredient.ofItems(ModFluffBlocks.biomeCobblestonePlains), ModFluffBlocks.biomeStonePlains, 0.1f, 200)
+				.criterion("has_item", conditionsFromItem(ModFluffBlocks.biomeCobblestonePlains))
+				.offerTo(consumer, "botania:smelting/metamorphic_plains_stone");
+		CookingRecipeJsonFactory.createSmelting(Ingredient.ofItems(ModFluffBlocks.biomeCobblestoneMountain), ModFluffBlocks.biomeStoneMountain, 0.1f, 200)
+				.criterion("has_item", conditionsFromItem(ModFluffBlocks.biomeCobblestoneMountain))
+				.offerTo(consumer, "botania:smelting/metamorphic_mountain_stone");
+		CookingRecipeJsonFactory.createSmelting(Ingredient.ofItems(ModFluffBlocks.biomeCobblestoneFungal), ModFluffBlocks.biomeStoneFungal, 0.1f, 200)
+				.criterion("has_item", conditionsFromItem(ModFluffBlocks.biomeCobblestoneFungal))
+				.offerTo(consumer, "botania:smelting/metamorphic_fungal_stone");
+		CookingRecipeJsonFactory.createSmelting(Ingredient.ofItems(ModFluffBlocks.biomeCobblestoneSwamp), ModFluffBlocks.biomeStoneSwamp, 0.1f, 200)
+				.criterion("has_item", conditionsFromItem(ModFluffBlocks.biomeCobblestoneSwamp))
+				.offerTo(consumer, "botania:smelting/metamorphic_swamp_stone");
+		CookingRecipeJsonFactory.createSmelting(Ingredient.ofItems(ModFluffBlocks.biomeCobblestoneDesert), ModFluffBlocks.biomeStoneDesert, 0.1f, 200)
+				.criterion("has_item", conditionsFromItem(ModFluffBlocks.biomeCobblestoneDesert))
+				.offerTo(consumer, "botania:smelting/metamorphic_desert_stone");
+		CookingRecipeJsonFactory.createSmelting(Ingredient.ofItems(ModFluffBlocks.biomeCobblestoneTaiga), ModFluffBlocks.biomeStoneTaiga, 0.1f, 200)
+				.criterion("has_item", conditionsFromItem(ModFluffBlocks.biomeCobblestoneTaiga))
+				.offerTo(consumer, "botania:smelting/metamorphic_taiga_stone");
+		CookingRecipeJsonFactory.createSmelting(Ingredient.ofItems(ModFluffBlocks.biomeCobblestoneMesa), ModFluffBlocks.biomeStoneMesa, 0.1f, 200)
+				.criterion("has_item", conditionsFromItem(ModFluffBlocks.biomeCobblestoneMesa))
+				.offerTo(consumer, "botania:smelting/metamorphic_mesa_stone");
 	}
 
 	@Override

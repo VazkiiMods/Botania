@@ -8,16 +8,15 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.world.gen.DimensionSettings;
-import net.minecraft.world.gen.settings.DimensionStructuresSettings;
-
+import net.minecraft.world.gen.chunk.ChunkGeneratorType;
+import net.minecraft.world.gen.chunk.StructuresConfig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(DimensionSettings.Preset.class)
+@Mixin(ChunkGeneratorType.Preset.class)
 public interface AccessorDimensionSettingsPreset {
 	@Invoker("func_236135_a_")
-	static DimensionSettings createOverworldSettings(DimensionStructuresSettings structureSettings, boolean amplified, DimensionSettings.Preset preset) {
+	static ChunkGeneratorType createOverworldSettings(StructuresConfig structureSettings, boolean amplified, ChunkGeneratorType.Preset preset) {
 		throw new IllegalStateException();
 	}
 }

@@ -10,16 +10,20 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.EndGatewayBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileHelper;
-import net.minecraft.network.IPacket;
-import net.minecraft.tileentity.EndGatewayTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.DamageSource;
+import net.minecraft.entity.projectile.ProjectileUtil;
+import net.minecraft.network.Packet;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.*;
+import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -36,9 +40,9 @@ public class EntityThrownItem extends ItemEntity {
 
 	public EntityThrownItem(World world, double x,
 			double y, double z, ItemEntity item) {
-		super(world, x, y, z, item.getItem());
+		super(world, x, y, z, item.getStack());
 		setPickupDelay(((AccessorItemEntity) item).getPickupDelay());
-		setMotion(item.getMotion());
+		setVelocity(item.getVelocity());
 		setInvulnerable(true);
 	}
 
@@ -50,7 +54,7 @@ public class EntityThrownItem extends ItemEntity {
 
 	@Nonnull
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public Packet<?> createSpawnPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
@@ -60,39 +64,39 @@ public class EntityThrownItem extends ItemEntity {
 
 		// [VanillaCopy] derivative from ThrowableEntity
 		int pickupDelay = ((AccessorItemEntity) this).getPickupDelay();
-		Predicate<Entity> filter = e -> !e.isSpectator() && e.isAlive() && e.canBeCollidedWith() && (!(e instanceof PlayerEntity) || pickupDelay == 0);
-		RayTraceResult ray = ProjectileHelper.func_234618_a_(this, filter, RayTraceContext.BlockMode.OUTLINE);
-		if (ray.getType() == RayTraceResult.Type.BLOCK) {
-			BlockPos pos = ((BlockRayTraceResult) ray).getPos();
+		Predicate<Entity> filter = e -> !e.isSpectator() && e.isAlive() && e.collides() && (!(e instanceof PlayerEntity) || pickupDelay == 0);
+		HitResult ray = ProjectileUtil.getCollision(this, filter, RayTraceContext.ShapeType.OUTLINE);
+		if (ray.getType() == HitResult.Type.BLOCK) {
+			BlockPos pos = ((BlockHitResult) ray).getBlockPos();
 			BlockState state = this.world.getBlockState(pos);
-			if (state.isIn(Blocks.NETHER_PORTAL)) {
-				this.setPortal(pos);
-			} else if (state.isIn(Blocks.END_GATEWAY)) {
-				TileEntity tileentity = this.world.getTileEntity(pos);
-				if (tileentity instanceof EndGatewayTileEntity) {
-					((EndGatewayTileEntity) tileentity).teleportEntity(this);
+			if (state.isOf(Blocks.NETHER_PORTAL)) {
+				this.setInNetherPortal(pos);
+			} else if (state.isOf(Blocks.END_GATEWAY)) {
+				BlockEntity tileentity = this.world.getBlockEntity(pos);
+				if (tileentity instanceof EndGatewayBlockEntity) {
+					((EndGatewayBlockEntity) tileentity).tryTeleportingEntity(this);
 				}
 			}
 		}
 
 		// Bonk any entities hit
-		if (!world.isRemote && ray.getType() == RayTraceResult.Type.ENTITY) {
-			Entity bonk = ((EntityRayTraceResult) ray).getEntity();
-			bonk.attackEntityFrom(DamageSource.MAGIC, 2.0F);
-			Entity item = getItem().getItem().createEntity(world, this, getItem());
+		if (!world.isClient && ray.getType() == HitResult.Type.ENTITY) {
+			Entity bonk = ((EntityHitResult) ray).getEntity();
+			bonk.damage(DamageSource.MAGIC, 2.0F);
+			Entity item = getStack().getItem().createEntity(world, this, getStack());
 			if (item == null) {
-				item = new ItemEntity(world, getPosX(), getPosY(), getPosZ(), getItem());
-				world.addEntity(item);
+				item = new ItemEntity(world, getX(), getY(), getZ(), getStack());
+				world.spawnEntity(item);
 			}
-			item.setMotion(getMotion().scale(0.25));
+			item.setVelocity(getVelocity().multiply(0.25));
 			remove();
 			return;
 		}
 
-		if (!world.isRemote && getMotion().length() < 1.0F) {
-			Entity item = new ItemEntity(world, getPosX(), getPosY(), getPosZ(), getItem());
-			world.addEntity(item);
-			item.setMotion(getMotion());
+		if (!world.isClient && getVelocity().length() < 1.0F) {
+			Entity item = new ItemEntity(world, getX(), getY(), getZ(), getStack());
+			world.spawnEntity(item);
+			item.setVelocity(getVelocity());
 			remove();
 		}
 	}

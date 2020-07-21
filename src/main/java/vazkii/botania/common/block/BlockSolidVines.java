@@ -12,10 +12,9 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.VineBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.server.ServerWorld;
-
+import net.minecraft.world.BlockView;
 import vazkii.botania.mixin.AccessorFireBlock;
 
 import javax.annotation.Nonnull;
@@ -24,17 +23,17 @@ import java.util.Random;
 
 public class BlockSolidVines extends VineBlock {
 
-	public BlockSolidVines(Properties builder) {
+	public BlockSolidVines(Settings builder) {
 		super(builder);
 		((AccessorFireBlock) Blocks.FIRE).callSetFireInfo(this, 15, 100);
 	}
 
 	@Override
-	public void tick(@Nonnull BlockState state, ServerWorld world, @Nonnull BlockPos pos, @Nonnull Random rand) {}
+	public void scheduledTick(@Nonnull BlockState state, ServerWorld world, @Nonnull BlockPos pos, @Nonnull Random rand) {}
 
 	@Nonnull
 	@Override
-	public ItemStack getItem(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public ItemStack getPickStack(@Nonnull BlockView world, @Nonnull BlockPos pos, @Nonnull BlockState state) {
 		return new ItemStack(Blocks.VINE);
 	}
 }

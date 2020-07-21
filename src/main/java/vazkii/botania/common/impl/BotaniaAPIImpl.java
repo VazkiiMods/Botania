@@ -10,15 +10,17 @@ package vazkii.botania.common.impl;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.*;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.items.wrapper.EmptyHandler;
 
@@ -52,9 +54,9 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class BotaniaAPIImpl implements BotaniaAPI {
-	private static final LazyValue<Rarity> RELIC_RARITY = new LazyValue<>(() -> Rarity.create("RELIC", TextFormatting.GOLD));
+	private static final Lazy<Rarity> RELIC_RARITY = new Lazy<>(() -> Rarity.create("RELIC", Formatting.GOLD));
 
-	private enum ArmorMaterial implements IArmorMaterial {
+	private enum ArmorMaterial implements net.minecraft.item.ArmorMaterial {
 		MANASTEEL("manasteel", 16, new int[] { 2, 5, 6, 2 }, 18, () -> SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> ModItems.manaSteel, 0),
 		MANAWEAVE("manaweave", 5, new int[] { 1, 2, 2, 1 }, 18, () -> SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, () -> ModItems.manaweaveCloth, 0),
 		ELEMENTIUM("elementium", 18, new int[] { 2, 5, 6, 2 }, 18, () -> SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> ModItems.elementium, 0),
@@ -80,13 +82,13 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		}
 
 		@Override
-		public int getDurability(EquipmentSlotType slot) {
-			return durabilityMultiplier * MAX_DAMAGE_ARRAY[slot.getIndex()];
+		public int getDurability(EquipmentSlot slot) {
+			return durabilityMultiplier * MAX_DAMAGE_ARRAY[slot.getEntitySlotId()];
 		}
 
 		@Override
-		public int getDamageReductionAmount(EquipmentSlotType slot) {
-			return damageReduction[slot.getIndex()];
+		public int getProtectionAmount(EquipmentSlot slot) {
+			return damageReduction[slot.getEntitySlotId()];
 		}
 
 		@Override
@@ -96,14 +98,14 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 		@Nonnull
 		@Override
-		public SoundEvent getSoundEvent() {
+		public SoundEvent getEquipSound() {
 			return equipSound.get();
 		}
 
 		@Nonnull
 		@Override
-		public Ingredient getRepairMaterial() {
-			return Ingredient.fromItems(repairItem.get());
+		public Ingredient getRepairIngredient() {
+			return Ingredient.ofItems(repairItem.get());
 		}
 
 		@Nonnull
@@ -118,12 +120,12 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		}
 
 		@Override
-		public float func_230304_f_() {
+		public float getKnockbackResistance() {
 			return 0;
 		}
 	}
 
-	private enum ItemTier implements IItemTier {
+	private enum ItemTier implements ToolMaterial {
 		MANASTEEL(300, 6.2F, 2, 3, 20, () -> ModItems.manaSteel),
 		ELEMENTIUM(720, 6.2F, 2, 3, 20, () -> ModItems.elementium),
 		TERRASTEEL(2300, 9, 3, 4, 26, () -> ModItems.terrasteel);
@@ -145,12 +147,12 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		}
 
 		@Override
-		public int getMaxUses() {
+		public int getDurability() {
 			return maxUses;
 		}
 
 		@Override
-		public float getEfficiency() {
+		public float getMiningSpeedMultiplier() {
 			return efficiency;
 		}
 
@@ -160,7 +162,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		}
 
 		@Override
-		public int getHarvestLevel() {
+		public int getMiningLevel() {
 			return harvestLevel;
 		}
 
@@ -170,8 +172,8 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		}
 
 		@Override
-		public Ingredient getRepairMaterial() {
-			return Ingredient.fromItems(repairItem.get());
+		public Ingredient getRepairIngredient() {
+			return Ingredient.ofItems(repairItem.get());
 		}
 	}
 
@@ -186,43 +188,43 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	}
 
 	@Override
-	public IArmorMaterial getManasteelArmorMaterial() {
+	public net.minecraft.item.ArmorMaterial getManasteelArmorMaterial() {
 		return ArmorMaterial.MANASTEEL;
 	}
 
 	@Override
-	public IArmorMaterial getElementiumArmorMaterial() {
+	public net.minecraft.item.ArmorMaterial getElementiumArmorMaterial() {
 		return ArmorMaterial.ELEMENTIUM;
 	}
 
 	@Override
-	public IArmorMaterial getManaweaveArmorMaterial() {
+	public net.minecraft.item.ArmorMaterial getManaweaveArmorMaterial() {
 		return ArmorMaterial.MANAWEAVE;
 	}
 
 	@Override
-	public IArmorMaterial getTerrasteelArmorMaterial() {
+	public net.minecraft.item.ArmorMaterial getTerrasteelArmorMaterial() {
 		return ArmorMaterial.TERRASTEEL;
 	}
 
 	@Override
-	public IItemTier getManasteelItemTier() {
+	public ToolMaterial getManasteelItemTier() {
 		return ItemTier.MANASTEEL;
 	}
 
 	@Override
-	public IItemTier getElementiumItemTier() {
+	public ToolMaterial getElementiumItemTier() {
 		return ItemTier.ELEMENTIUM;
 	}
 
 	@Override
-	public IItemTier getTerrasteelItemTier() {
+	public ToolMaterial getTerrasteelItemTier() {
 		return ItemTier.TERRASTEEL;
 	}
 
 	@Override
 	public Rarity getRelicRarity() {
-		return RELIC_RARITY.getValue();
+		return RELIC_RARITY.get();
 	}
 
 	@Override
@@ -236,7 +238,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	}
 
 	@Override
-	public IInventory getAccessoriesInventory(PlayerEntity player) {
+	public Inventory getAccessoriesInventory(PlayerEntity player) {
 		return new CapWrapper(EquipmentHandler.getAllWorn(player).orElseGet(EmptyHandler::new));
 	}
 
@@ -278,37 +280,37 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		return arrayList;
 	}
 
-	private final Map<ResourceLocation, Integer> oreWeights = new ConcurrentHashMap<>();
-	private final Map<ResourceLocation, Integer> netherOreWeights = new ConcurrentHashMap<>();
-	private final Map<ResourceLocation, Function<DyeColor, Block>> paintableBlocks = new ConcurrentHashMap<>();
+	private final Map<Identifier, Integer> oreWeights = new ConcurrentHashMap<>();
+	private final Map<Identifier, Integer> netherOreWeights = new ConcurrentHashMap<>();
+	private final Map<Identifier, Function<DyeColor, Block>> paintableBlocks = new ConcurrentHashMap<>();
 
 	@Override
-	public Map<ResourceLocation, Integer> getOreWeights() {
+	public Map<Identifier, Integer> getOreWeights() {
 		return Collections.unmodifiableMap(oreWeights);
 	}
 
 	@Override
-	public Map<ResourceLocation, Integer> getNetherOreWeights() {
+	public Map<Identifier, Integer> getNetherOreWeights() {
 		return Collections.unmodifiableMap(netherOreWeights);
 	}
 
 	@Override
-	public void registerOreWeight(ResourceLocation tag, int weight) {
+	public void registerOreWeight(Identifier tag, int weight) {
 		oreWeights.put(tag, weight);
 	}
 
 	@Override
-	public void registerNetherOreWeight(ResourceLocation tag, int weight) {
+	public void registerNetherOreWeight(Identifier tag, int weight) {
 		netherOreWeights.put(tag, weight);
 	}
 
 	@Override
-	public Map<ResourceLocation, Function<DyeColor, Block>> getPaintableBlocks() {
+	public Map<Identifier, Function<DyeColor, Block>> getPaintableBlocks() {
 		return Collections.unmodifiableMap(paintableBlocks);
 	}
 
 	@Override
-	public void registerPaintableBlock(ResourceLocation block, Function<DyeColor, Block> transformer) {
+	public void registerPaintableBlock(Identifier block, Function<DyeColor, Block> transformer) {
 		paintableBlocks.put(block, transformer);
 	}
 }

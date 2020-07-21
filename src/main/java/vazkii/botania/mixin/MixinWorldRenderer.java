@@ -8,12 +8,11 @@
  */
 package vazkii.botania.mixin;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.client.renderer.vertex.VertexBuffer;
-import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.VertexBuffer;
+import net.minecraft.client.render.VertexFormat;
+import net.minecraft.client.render.WorldRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.world.World;
 
 import org.spongepowered.asm.mixin.Final;
@@ -45,9 +44,9 @@ public class MixinWorldRenderer {
 	// TODO 1.16 isWorldSkyblock doesnt work on client (needs to be communicated separately)
 	@Unique
 	private static boolean isGogSky() {
-		World world = Minecraft.getInstance().world;
+		World world = MinecraftClient.getInstance().world;
 		return ConfigHandler.CLIENT.enableFancySkybox.get()
-				&& world.func_234923_W_() == World.field_234918_g_
+				&& world.getRegistryKey() == World.OVERWORLD
 				&& (ConfigHandler.CLIENT.enableFancySkyboxInNormalWorlds.get()
 						|| SkyblockChunkGenerator.isWorldSkyblock(world));
 	}
@@ -72,7 +71,7 @@ public class MixinWorldRenderer {
 	)
 	private void renderExtras(MatrixStack ms, float partialTicks, CallbackInfo ci) {
 		if (isGogSky()) {
-			SkyblockSkyRenderer.renderExtra(ms, Minecraft.getInstance().world, partialTicks, 0);
+			SkyblockSkyRenderer.renderExtra(ms, MinecraftClient.getInstance().world, partialTicks, 0);
 		}
 	}
 

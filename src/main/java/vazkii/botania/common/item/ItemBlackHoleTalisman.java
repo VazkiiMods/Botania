@@ -8,18 +8,26 @@
  */
 package vazkii.botania.common.item;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.Items;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
@@ -43,48 +51,48 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 	private static final String TAG_BLOCK_NAME = "blockName";
 	private static final String TAG_BLOCK_COUNT = "blockCount";
 
-	public ItemBlackHoleTalisman(Properties props) {
+	public ItemBlackHoleTalisman(Settings props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getHeldItem(hand);
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
+		ItemStack stack = player.getStackInHand(hand);
 		if (getBlock(stack) != null && player.isSneaking()) {
 			ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, !ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false));
 			player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 0.3F, 0.1F);
-			return ActionResult.resultSuccess(stack);
+			return TypedActionResult.success(stack);
 		}
 
-		return ActionResult.resultPass(stack);
+		return TypedActionResult.pass(stack);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
+	public ActionResult useOnBlock(ItemUsageContext ctx) {
 		World world = ctx.getWorld();
-		BlockPos pos = ctx.getPos();
-		Direction side = ctx.getFace();
+		BlockPos pos = ctx.getBlockPos();
+		Direction side = ctx.getSide();
 		PlayerEntity player = ctx.getPlayer();
 		BlockState state = world.getBlockState(pos);
-		ItemStack stack = ctx.getItem();
+		ItemStack stack = ctx.getStack();
 
 		if (!state.isAir(world, pos) && setBlock(stack, state.getBlock())) {
-			return ActionResultType.SUCCESS;
+			return ActionResult.SUCCESS;
 		} else {
 			Block bBlock = getBlock(stack);
 
 			if (bBlock == null) {
-				return ActionResultType.PASS;
+				return ActionResult.PASS;
 			}
 
-			TileEntity tile = world.getTileEntity(pos);
+			BlockEntity tile = world.getBlockEntity(pos);
 			if (tile != null && tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side).isPresent()) {
-				if (!world.isRemote) {
+				if (!world.isClient) {
 					tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side).ifPresent(inv -> {
 						ItemStack toAdd = new ItemStack(bBlock);
-						int maxSize = toAdd.getMaxStackSize();
+						int maxSize = toAdd.getMaxCount();
 						toAdd.setCount(remove(stack, maxSize));
 						ItemStack remainder = ItemHandlerHelper.insertItemStacked(inv, toAdd, false);
 						if (!remainder.isEmpty()) {
@@ -92,37 +100,37 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 						}
 					});
 				}
-				return ActionResultType.SUCCESS;
+				return ActionResult.SUCCESS;
 			} else {
-				if (player == null || player.abilities.isCreativeMode || getBlockCount(stack) > 0) {
+				if (player == null || player.abilities.creativeMode || getBlockCount(stack) > 0) {
 					ItemStack toUse = new ItemStack(bBlock);
-					ActionResultType result = PlayerHelper.substituteUse(ctx, toUse);
+					ActionResult result = PlayerHelper.substituteUse(ctx, toUse);
 
-					if (result == ActionResultType.SUCCESS) {
-						if (!world.isRemote) {
+					if (result == ActionResult.SUCCESS) {
+						if (!world.isClient) {
 							remove(stack, 1);
 							ItemsRemainingRenderHandler.send(player, toUse, getBlockCount(stack));
 						}
-						return ActionResultType.SUCCESS;
+						return ActionResult.SUCCESS;
 					}
 				}
 			}
 		}
 
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
 	@Override
 	public void inventoryTick(ItemStack itemstack, World world, Entity entity, int slot, boolean selected) {
 		Block block = getBlock(itemstack);
-		if (!entity.world.isRemote && ItemNBTHelper.getBoolean(itemstack, TAG_ACTIVE, false) && block != null && entity instanceof PlayerEntity) {
+		if (!entity.world.isClient && ItemNBTHelper.getBoolean(itemstack, TAG_ACTIVE, false) && block != null && entity instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) entity;
 
 			int highest = -1;
-			int[] counts = new int[player.inventory.getSizeInventory() - player.inventory.armorInventory.size()];
+			int[] counts = new int[player.inventory.size() - player.inventory.armor.size()];
 
 			for (int i = 0; i < counts.length; i++) {
-				ItemStack stack = player.inventory.getStackInSlot(i);
+				ItemStack stack = player.inventory.getStack(i);
 				if (stack.isEmpty()) {
 					continue;
 				}
@@ -155,7 +163,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 					}
 
 					add(itemstack, count);
-					player.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
+					player.inventory.setStack(i, ItemStack.EMPTY);
 				}
 
 				/*int countInHighest = counts[highest];
@@ -172,15 +180,15 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 
 	@Nonnull
 	@Override
-	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
+	public Text getName(@Nonnull ItemStack stack) {
 		Block block = getBlock(stack);
 		ItemStack bstack = new ItemStack(block);
-		IFormattableTextComponent cand = super.getDisplayName(stack).deepCopy();
+		MutableText cand = super.getName(stack).shallowCopy();
 
 		if (!bstack.isEmpty()) {
-			cand.func_240702_b_(" (");
-			cand.func_230529_a_(bstack.getDisplayName().deepCopy().func_240699_a_(TextFormatting.GREEN));
-			cand.func_240702_b_(")");
+			cand.append(" (");
+			cand.append(bstack.getName().shallowCopy().formatted(Formatting.GREEN));
+			cand.append(")");
 		}
 
 		return cand;
@@ -209,7 +217,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 
 	private boolean setBlock(ItemStack stack, Block block) {
 		if (block.asItem() != Items.AIR && (getBlock(stack) == null || getBlockCount(stack) == 0)) {
-			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Registry.BLOCK.getKey(block).toString());
+			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Registry.BLOCK.getId(block).toString());
 			return true;
 		}
 		return false;
@@ -221,18 +229,18 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
+	@Environment(EnvType.CLIENT)
+	public void appendTooltip(ItemStack stack, World world, List<Text> stacks, TooltipContext flags) {
 		Block block = getBlock(stack);
 		if (block != null) {
 			int count = getBlockCount(stack);
-			stacks.add(new StringTextComponent(count + " ").func_230529_a_(new ItemStack(block).getDisplayName()).func_240699_a_(TextFormatting.GRAY));
+			stacks.add(new LiteralText(count + " ").append(new ItemStack(block).getName()).formatted(Formatting.GRAY));
 		}
 
 		if (ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false)) {
-			stacks.add(new TranslationTextComponent("botaniamisc.active"));
+			stacks.add(new TranslatableText("botaniamisc.active"));
 		} else {
-			stacks.add(new TranslationTextComponent("botaniamisc.inactive"));
+			stacks.add(new TranslatableText("botaniamisc.inactive"));
 		}
 	}
 
@@ -253,9 +261,9 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 
 	@Nullable
 	public static Block getBlock(ItemStack stack) {
-		ResourceLocation id = ResourceLocation.tryCreate(getBlockName(stack));
+		Identifier id = Identifier.tryParse(getBlockName(stack));
 		if (id != null) {
-			return Registry.BLOCK.getValue(id).orElse(null);
+			return Registry.BLOCK.getOrEmpty(id).orElse(null);
 		}
 		return null;
 	}

@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.core.handler;
 
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -26,11 +26,11 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
 	public static final ManaNetworkHandler instance = new ManaNetworkHandler();
 
-	private final WeakHashMap<World, Set<TileEntity>> manaPools = new WeakHashMap<>();
-	private final WeakHashMap<World, Set<TileEntity>> manaCollectors = new WeakHashMap<>();
+	private final WeakHashMap<World, Set<BlockEntity>> manaPools = new WeakHashMap<>();
+	private final WeakHashMap<World, Set<BlockEntity>> manaCollectors = new WeakHashMap<>();
 
 	public void onNetworkEvent(ManaNetworkEvent event) {
-		Map<World, Set<TileEntity>> map = event.type == ManaBlockType.COLLECTOR ? manaCollectors : manaPools;
+		Map<World, Set<BlockEntity>> map = event.type == ManaBlockType.COLLECTOR ? manaCollectors : manaPools;
 		if (event.action == Action.ADD) {
 			add(map, event.tile);
 		} else {
@@ -45,7 +45,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	}
 
 	@Override
-	public TileEntity getClosestPool(BlockPos pos, World world, int limit) {
+	public BlockEntity getClosestPool(BlockPos pos, World world, int limit) {
 		if (manaPools.containsKey(world)) {
 			return getClosest(manaPools.get(world), pos, limit);
 		}
@@ -53,34 +53,34 @@ public final class ManaNetworkHandler implements IManaNetwork {
 	}
 
 	@Override
-	public TileEntity getClosestCollector(BlockPos pos, World world, int limit) {
+	public BlockEntity getClosestCollector(BlockPos pos, World world, int limit) {
 		if (manaCollectors.containsKey(world)) {
 			return getClosest(manaCollectors.get(world), pos, limit);
 		}
 		return null;
 	}
 
-	public boolean isCollectorIn(TileEntity tile) {
+	public boolean isCollectorIn(BlockEntity tile) {
 		return isIn(tile, manaCollectors);
 	}
 
-	public boolean isPoolIn(TileEntity tile) {
+	public boolean isPoolIn(BlockEntity tile) {
 		return isIn(tile, manaPools);
 	}
 
-	private boolean isIn(TileEntity tile, Map<World, Set<TileEntity>> map) {
-		Set<TileEntity> set = map.get(tile.getWorld());
+	private boolean isIn(BlockEntity tile, Map<World, Set<BlockEntity>> map) {
+		Set<BlockEntity> set = map.get(tile.getWorld());
 		return set != null && set.contains(tile);
 	}
 
 	@Nullable
-	private TileEntity getClosest(Set<TileEntity> tiles, BlockPos pos, int limit) {
+	private BlockEntity getClosest(Set<BlockEntity> tiles, BlockPos pos, int limit) {
 		double minDist = Double.MAX_VALUE;
-		TileEntity closest = null;
+		BlockEntity closest = null;
 
-		for (TileEntity te : tiles) {
+		for (BlockEntity te : tiles) {
 			if (!te.isRemoved()) {
-				double distance = te.getPos().distanceSq(pos);
+				double distance = te.getPos().getSquaredDistance(pos);
 				if (distance <= limit * limit && distance < minDist) {
 					minDist = distance;
 					closest = te;
@@ -91,7 +91,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 		return closest;
 	}
 
-	private void remove(Map<World, Set<TileEntity>> map, TileEntity tile) {
+	private void remove(Map<World, Set<BlockEntity>> map, BlockEntity tile) {
 		World world = tile.getWorld();
 
 		if (!map.containsKey(world)) {
@@ -101,23 +101,23 @@ public final class ManaNetworkHandler implements IManaNetwork {
 		map.get(world).remove(tile);
 	}
 
-	private void add(Map<World, Set<TileEntity>> map, TileEntity tile) {
+	private void add(Map<World, Set<BlockEntity>> map, BlockEntity tile) {
 		World world = tile.getWorld();
 		map.computeIfAbsent(world, k -> new HashSet<>()).add(tile);
 	}
 
 	@Override
-	public Set<TileEntity> getAllCollectorsInWorld(World world) {
+	public Set<BlockEntity> getAllCollectorsInWorld(World world) {
 		return getAllInWorld(manaCollectors, world);
 	}
 
 	@Override
-	public Set<TileEntity> getAllPoolsInWorld(World world) {
+	public Set<BlockEntity> getAllPoolsInWorld(World world) {
 		return getAllInWorld(manaPools, world);
 	}
 
-	private Set<TileEntity> getAllInWorld(Map<World, Set<TileEntity>> map, World world) {
-		Set<TileEntity> ret = map.get(world);
+	private Set<BlockEntity> getAllInWorld(Map<World, Set<BlockEntity>> map, World world) {
+		Set<BlockEntity> ret = map.get(world);
 		if (ret == null) {
 			return Collections.emptySet();
 		} else {

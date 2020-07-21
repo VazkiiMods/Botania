@@ -14,10 +14,10 @@ import com.google.gson.JsonObject;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.common.Tags;
 
 import vazkii.botania.api.recipe.StateIngredient;
@@ -37,7 +37,7 @@ public class PureDaisyProvider extends RecipeProvider {
 	}
 
 	@Override
-	protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+	protected void generate(Consumer<RecipeJsonProvider> consumer) {
 
 		consumer.accept(new FinishedRecipe(id("livingrock"), StateIngredientHelper.of(Tags.Blocks.STONE), ModBlocks.livingrock.getDefaultState()));
 		consumer.accept(new FinishedRecipe(id("livingwood"), StateIngredientHelper.of(BlockTags.LOGS), ModBlocks.livingwood.getDefaultState()));
@@ -55,23 +55,23 @@ public class PureDaisyProvider extends RecipeProvider {
 		return "Botania Pure Daisy recipes";
 	}
 
-	private static ResourceLocation id(String path) {
+	private static Identifier id(String path) {
 		return prefix("pure_daisy/" + path);
 	}
 
-	private static class FinishedRecipe implements IFinishedRecipe {
+	private static class FinishedRecipe implements RecipeJsonProvider {
 		public static final int DEFAULT_TIME = 150;
 
-		private final ResourceLocation id;
+		private final Identifier id;
 		private final StateIngredient input;
 		private final BlockState outputState;
 		private final int time;
 
-		private FinishedRecipe(ResourceLocation id, StateIngredient input, BlockState state) {
+		private FinishedRecipe(Identifier id, StateIngredient input, BlockState state) {
 			this(id, input, state, DEFAULT_TIME);
 		}
 
-		private FinishedRecipe(ResourceLocation id, StateIngredient input, BlockState state, int time) {
+		private FinishedRecipe(Identifier id, StateIngredient input, BlockState state, int time) {
 			Preconditions.checkArgument(time >= 0, "Time must be nonnegative");
 			this.id = id;
 			this.input = input;
@@ -89,24 +89,24 @@ public class PureDaisyProvider extends RecipeProvider {
 		}
 
 		@Override
-		public ResourceLocation getID() {
+		public Identifier getRecipeId() {
 			return id;
 		}
 
 		@Override
-		public IRecipeSerializer<?> getSerializer() {
+		public RecipeSerializer<?> getSerializer() {
 			return ModRecipeTypes.PURE_DAISY_SERIALIZER;
 		}
 
 		@Nullable
 		@Override
-		public JsonObject getAdvancementJson() {
+		public JsonObject toAdvancementJson() {
 			return null;
 		}
 
 		@Nullable
 		@Override
-		public ResourceLocation getAdvancementID() {
+		public Identifier getAdvancementId() {
 			return null;
 		}
 	}

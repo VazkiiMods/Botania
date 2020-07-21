@@ -10,18 +10,17 @@ package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.monster.ShulkerEntity;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.mob.Monster;
+import net.minecraft.entity.mob.ShulkerEntity;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
@@ -43,18 +42,18 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 
 		World world = getWorld();
 		BlockPos pos = getEffectivePos();
-		Vector3d posD = new Vector3d(pos.getX(), pos.getY(), pos.getZ());
-		if (!world.isRemote) {
-			List<ShulkerEntity> shulkers = world.getEntitiesWithinAABB(ShulkerEntity.class, new AxisAlignedBB(pos).grow(RADIUS));
+		Vec3d posD = new Vec3d(pos.getX(), pos.getY(), pos.getZ());
+		if (!world.isClient) {
+			List<ShulkerEntity> shulkers = world.getNonSpectatingEntities(ShulkerEntity.class, new Box(pos).expand(RADIUS));
 			for (ShulkerEntity shulker : shulkers) {
 				if (getMaxMana() - getMana() < generate) {
 					break;
 				}
 
-				if (shulker.isAlive() && shulker.getDistanceSq(posD) < RADIUS * RADIUS) {
-					LivingEntity target = shulker.getAttackTarget();
-					if (target instanceof IMob && target.isAlive()
-							&& target.getDistanceSq(posD) < RADIUS * RADIUS && target.getActivePotionEffect(Effects.LEVITATION) != null) {
+				if (shulker.isAlive() && shulker.squaredDistanceTo(posD) < RADIUS * RADIUS) {
+					LivingEntity target = shulker.getTarget();
+					if (target instanceof Monster && target.isAlive()
+							&& target.squaredDistanceTo(posD) < RADIUS * RADIUS && target.getStatusEffect(StatusEffects.LEVITATION) != null) {
 						target.remove();
 						shulker.remove();
 
@@ -76,12 +75,12 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 	private void particles(World world, BlockPos pos, Entity entity) {
 		if (world instanceof ServerWorld) {
 			ServerWorld ws = (ServerWorld) world;
-			ws.spawnParticle(ParticleTypes.EXPLOSION,
-					entity.getPosX() + entity.getWidth() / 2,
-					entity.getPosY() + entity.getHeight() / 2,
-					entity.getPosZ() + entity.getWidth() / 2,
+			ws.spawnParticles(ParticleTypes.EXPLOSION,
+					entity.getX() + entity.getWidth() / 2,
+					entity.getY() + entity.getHeight() / 2,
+					entity.getZ() + entity.getWidth() / 2,
 					100, entity.getWidth(), entity.getHeight(), entity.getWidth(), 0.05);
-			ws.spawnParticle(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 40, 0, 0, 0, 0.6);
+			ws.spawnParticles(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 40, 0, 0, 0, 0.6);
 		}
 	}
 

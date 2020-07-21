@@ -8,21 +8,20 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.tileentity.ITickableTileEntity;
-
+import net.minecraft.util.Tickable;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.Botania;
 
-public class TileStarfield extends TileMod implements ITickableTileEntity {
+public class TileStarfield extends TileMod implements Tickable {
 	public TileStarfield() {
 		super(ModTiles.STARFIELD);
 	}
 
 	@Override
 	public void tick() {
-		if (world.isRemote) {
-			world.calculateInitialSkylight(); // ensure isDayTime works properly by updating skylightSubtracted
-			if (world.isDaytime()) {
+		if (world.isClient) {
+			world.calculateAmbientDarkness(); // ensure isDayTime works properly by updating skylightSubtracted
+			if (world.isDay()) {
 				return;
 			}
 

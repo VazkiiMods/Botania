@@ -10,11 +10,11 @@ package vazkii.botania.common.item.equipment.tool.elementium;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.FallingBlock;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3i;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -23,7 +23,7 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShovel;
 
 public class ItemElementiumShovel extends ItemManasteelShovel {
 
-	public ItemElementiumShovel(Properties props) {
+	public ItemElementiumShovel(Settings props) {
 		super(BotaniaAPI.instance().getElementiumItemTier(), props);
 	}
 
@@ -37,8 +37,8 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 
 		Block blk = world.getBlockState(pos).getBlock();
 		if (blk instanceof FallingBlock) {
-			ToolCommons.removeBlocksInIteration(player, stack, world, pos, new Vector3i(0, -12, 0),
-					new Vector3i(1, 12, 1),
+			ToolCommons.removeBlocksInIteration(player, stack, world, pos, new Vec3i(0, -12, 0),
+					new Vec3i(1, 12, 1),
 					state -> state.getBlock() == blk,
 					false);
 		}

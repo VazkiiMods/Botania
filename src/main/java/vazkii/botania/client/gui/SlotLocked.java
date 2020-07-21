@@ -9,23 +9,23 @@
 package vazkii.botania.client.gui;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.Slot;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.slot.Slot;
 
 public class SlotLocked extends Slot {
 
-	public SlotLocked(IInventory inv, int index, int xPos, int yPos) {
+	public SlotLocked(Inventory inv, int index, int xPos, int yPos) {
 		super(inv, index, xPos, yPos);
 	}
 
 	@Override
-	public boolean canTakeStack(PlayerEntity player) {
+	public boolean canTakeItems(PlayerEntity player) {
 		return false;
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack stack) {
+	public boolean canInsert(ItemStack stack) {
 		return false;
 	}
 

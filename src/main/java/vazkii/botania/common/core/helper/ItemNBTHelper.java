@@ -11,13 +11,11 @@ package vazkii.botania.common.core.helper;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
-
+import net.minecraft.datafixer.NbtOps;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.nbt.NBTDynamicOps;
-
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import javax.annotation.Nullable;
 
 import java.util.UUID;
@@ -28,7 +26,7 @@ public final class ItemNBTHelper {
 
 	// SETTERS ///////////////////////////////////////////////////////////////////
 
-	public static void set(ItemStack stack, String tag, INBT nbt) {
+	public static void set(ItemStack stack, String tag, Tag nbt) {
 		stack.getOrCreateTag().put(tag, nbt);
 	}
 
@@ -64,7 +62,7 @@ public final class ItemNBTHelper {
 		stack.getOrCreateTag().putDouble(tag, d);
 	}
 
-	public static void setCompound(ItemStack stack, String tag, CompoundNBT cmp) {
+	public static void setCompound(ItemStack stack, String tag, CompoundTag cmp) {
 		if (!tag.equalsIgnoreCase("ench")) // not override the enchantments
 		{
 			stack.getOrCreateTag().put(tag, cmp);
@@ -76,10 +74,10 @@ public final class ItemNBTHelper {
 	}
 
 	public static void setUuid(ItemStack stack, String tag, UUID value) {
-		stack.getOrCreateTag().putUniqueId(tag, value);
+		stack.getOrCreateTag().putUuid(tag, value);
 	}
 
-	public static void setList(ItemStack stack, String tag, ListNBT list) {
+	public static void setList(ItemStack stack, String tag, ListTag list) {
 		stack.getOrCreateTag().put(tag, list);
 	}
 
@@ -94,7 +92,7 @@ public final class ItemNBTHelper {
 	}
 
 	@Nullable
-	public static INBT get(ItemStack stack, String tag) {
+	public static Tag get(ItemStack stack, String tag) {
 		return verifyExistance(stack, tag) ? stack.getOrCreateTag().get(tag) : null;
 	}
 
@@ -134,8 +132,8 @@ public final class ItemNBTHelper {
 	 * If nullifyOnFail is true it'll return null if it doesn't find any
 	 * compounds, otherwise it'll return a new one.
 	 **/
-	public static CompoundNBT getCompound(ItemStack stack, String tag, boolean nullifyOnFail) {
-		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getCompound(tag) : nullifyOnFail ? null : new CompoundNBT();
+	public static CompoundTag getCompound(ItemStack stack, String tag, boolean nullifyOnFail) {
+		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getCompound(tag) : nullifyOnFail ? null : new CompoundTag();
 	}
 
 	public static String getString(ItemStack stack, String tag, String defaultExpected) {
@@ -144,11 +142,11 @@ public final class ItemNBTHelper {
 
 	@Nullable
 	public static UUID getUuid(ItemStack stack, String tag) {
-		return verifyExistance(stack, tag + "Most") && verifyExistance(stack, tag + "Least") ? stack.getOrCreateTag().getUniqueId(tag) : null;
+		return verifyExistance(stack, tag + "Most") && verifyExistance(stack, tag + "Least") ? stack.getOrCreateTag().getUuid(tag) : null;
 	}
 
-	public static ListNBT getList(ItemStack stack, String tag, int objtype, boolean nullifyOnFail) {
-		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getList(tag, objtype) : nullifyOnFail ? null : new ListNBT();
+	public static ListTag getList(ItemStack stack, String tag, int objtype, boolean nullifyOnFail) {
+		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getList(tag, objtype) : nullifyOnFail ? null : new ListTag();
 	}
 
 	/**
@@ -156,7 +154,7 @@ public final class ItemNBTHelper {
 	 * would be able to read the result back
 	 */
 	public static JsonObject serializeStack(ItemStack stack) {
-		CompoundNBT nbt = stack.write(new CompoundNBT());
+		CompoundTag nbt = stack.toTag(new CompoundTag());
 		byte c = nbt.getByte("Count");
 		if (c != 1) {
 			nbt.putByte("count", c);
@@ -164,7 +162,7 @@ public final class ItemNBTHelper {
 		nbt.remove("Count");
 		renameTag(nbt, "id", "item");
 		renameTag(nbt, "tag", "nbt");
-		Dynamic<INBT> dyn = new Dynamic<>(NBTDynamicOps.INSTANCE, nbt);
+		Dynamic<Tag> dyn = new Dynamic<>(NbtOps.INSTANCE, nbt);
 		return dyn.convert(JsonOps.INSTANCE).getValue().getAsJsonObject();
 	}
 
@@ -174,22 +172,22 @@ public final class ItemNBTHelper {
 	 * the first elements of target. Empty lists and compounds in the template will match target lists and compounds of
 	 * any size.
 	 */
-	public static boolean matchTag(@Nullable INBT template, @Nullable INBT target) {
-		if (template instanceof CompoundNBT && target instanceof CompoundNBT) {
-			return matchTagCompound((CompoundNBT) template, (CompoundNBT) target);
-		} else if (template instanceof ListNBT && target instanceof ListNBT) {
-			return matchTagList((ListNBT) template, (ListNBT) target);
+	public static boolean matchTag(@Nullable Tag template, @Nullable Tag target) {
+		if (template instanceof CompoundTag && target instanceof CompoundTag) {
+			return matchTagCompound((CompoundTag) template, (CompoundTag) target);
+		} else if (template instanceof ListTag && target instanceof ListTag) {
+			return matchTagList((ListTag) template, (ListTag) target);
 		} else {
 			return template == null || (target != null && target.equals(template));
 		}
 	}
 
-	private static boolean matchTagCompound(CompoundNBT template, CompoundNBT target) {
-		if (template.size() > target.size()) {
+	private static boolean matchTagCompound(CompoundTag template, CompoundTag target) {
+		if (template.getSize() > target.getSize()) {
 			return false;
 		}
 
-		for (String key : template.keySet()) {
+		for (String key : template.getKeys()) {
 			if (!matchTag(template.get(key), target.get(key))) {
 				return false;
 			}
@@ -198,7 +196,7 @@ public final class ItemNBTHelper {
 		return true;
 	}
 
-	private static boolean matchTagList(ListNBT template, ListNBT target) {
+	private static boolean matchTagList(ListTag template, ListTag target) {
 		if (template.size() > target.size()) {
 			return false;
 		}
@@ -212,8 +210,8 @@ public final class ItemNBTHelper {
 		return true;
 	}
 
-	public static void renameTag(CompoundNBT nbt, String oldName, String newName) {
-		INBT tag = nbt.get(oldName);
+	public static void renameTag(CompoundTag nbt, String oldName, String newName) {
+		Tag tag = nbt.get(oldName);
 		if (tag != null) {
 			nbt.remove(oldName);
 			nbt.put(newName, tag);

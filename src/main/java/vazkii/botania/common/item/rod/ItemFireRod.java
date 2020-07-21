@@ -8,15 +8,15 @@
  */
 package vazkii.botania.common.item.rod;
 
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -33,35 +33,35 @@ import javax.annotation.Nonnull;
 
 public class ItemFireRod extends Item implements IManaUsingItem, IAvatarWieldable {
 
-	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_FIRE);
+	private static final Identifier avatarOverlay = new Identifier(LibResources.MODEL_AVATAR_FIRE);
 
 	private static final int COST = 900;
 	private static final int COOLDOWN = 1200;
 
-	public ItemFireRod(Properties props) {
+	public ItemFireRod(Settings props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
+	public ActionResult useOnBlock(ItemUsageContext ctx) {
 		World world = ctx.getWorld();
 		PlayerEntity player = ctx.getPlayer();
-		ItemStack stack = ctx.getItem();
-		BlockPos pos = ctx.getPos();
+		ItemStack stack = ctx.getStack();
+		BlockPos pos = ctx.getBlockPos();
 
-		if (!world.isRemote && player != null && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
+		if (!world.isClient && player != null && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
 			EntityFlameRing entity = ModEntities.FLAME_RING.create(world);
-			entity.setPosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
-			world.addEntity(entity);
+			entity.updatePosition(pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5);
+			world.spawnEntity(entity);
 
-			player.getCooldownTracker().setCooldown(this, IManaProficiencyArmor.hasProficiency(player, stack) ? COOLDOWN / 2 : COOLDOWN);
+			player.getItemCooldownManager().set(this, IManaProficiencyArmor.hasProficiency(player, stack) ? COOLDOWN / 2 : COOLDOWN);
 			ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true);
 
 			ctx.getWorld().playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_BLAZE_AMBIENT, player != null ? SoundCategory.PLAYERS : SoundCategory.BLOCKS, 1F, 1F);
 		}
 
-		return ActionResultType.SUCCESS;
+		return ActionResult.SUCCESS;
 	}
 
 	@Override
@@ -71,19 +71,19 @@ public class ItemFireRod extends Item implements IManaUsingItem, IAvatarWieldabl
 
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
-		TileEntity te = (TileEntity) tile;
+		BlockEntity te = (BlockEntity) tile;
 		World world = te.getWorld();
 
-		if (!world.isRemote && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 300 == 0 && tile.isEnabled()) {
+		if (!world.isClient && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 300 == 0 && tile.isEnabled()) {
 			EntityFlameRing entity = ModEntities.FLAME_RING.create(world);
-			entity.setPosition(te.getPos().getX() + 0.5, te.getPos().getY(), te.getPos().getZ() + 0.5);
-			world.addEntity(entity);
+			entity.updatePosition(te.getPos().getX() + 0.5, te.getPos().getY(), te.getPos().getZ() + 0.5);
+			world.spawnEntity(entity);
 			tile.receiveMana(-COST);
 		}
 	}
 
 	@Override
-	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
+	public Identifier getOverlayResource(IAvatarTile tile, ItemStack stack) {
 		return avatarOverlay;
 	}
 

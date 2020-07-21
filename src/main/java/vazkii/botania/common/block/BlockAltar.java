@@ -9,27 +9,26 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.EnumProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.EnumProperty;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.function.BooleanBiFunction;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
@@ -51,14 +50,14 @@ import javax.annotation.Nonnull;
 
 import java.util.Locale;
 
-public class BlockAltar extends BlockMod implements ITileEntityProvider {
+public class BlockAltar extends BlockMod implements BlockEntityProvider {
 
-	public static final EnumProperty<State> FLUID = EnumProperty.create("fluid", State.class);
-	private static final VoxelShape BASE = Block.makeCuboidShape(0, 0, 0, 16, 2, 16);
-	private static final VoxelShape MIDDLE = Block.makeCuboidShape(2, 2, 2, 14, 12, 14);
-	private static final VoxelShape TOP = Block.makeCuboidShape(2, 12, 2, 14, 20, 14);
-	private static final VoxelShape TOP_CUTOUT = Block.makeCuboidShape(3, 14, 3, 13, 20, 13);
-	private static final VoxelShape SHAPE = VoxelShapes.or(VoxelShapes.or(BASE, MIDDLE), VoxelShapes.combineAndSimplify(TOP, TOP_CUTOUT, IBooleanFunction.ONLY_FIRST));
+	public static final EnumProperty<State> FLUID = EnumProperty.of("fluid", State.class);
+	private static final VoxelShape BASE = Block.createCuboidShape(0, 0, 0, 16, 2, 16);
+	private static final VoxelShape MIDDLE = Block.createCuboidShape(2, 2, 2, 14, 12, 14);
+	private static final VoxelShape TOP = Block.createCuboidShape(2, 12, 2, 14, 20, 14);
+	private static final VoxelShape TOP_CUTOUT = Block.createCuboidShape(3, 14, 3, 13, 20, 13);
+	private static final VoxelShape SHAPE = VoxelShapes.union(VoxelShapes.union(BASE, MIDDLE), VoxelShapes.combineAndSimplify(TOP, TOP_CUTOUT, BooleanBiFunction.ONLY_FIRST));
 
 	public enum Variant {
 		DEFAULT,
@@ -82,21 +81,21 @@ public class BlockAltar extends BlockMod implements ITileEntityProvider {
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		super.fillStateContainer(builder);
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		super.appendProperties(builder);
 		builder.add(FLUID);
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
 		return SHAPE;
 	}
 
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-		if (!world.isRemote && entity instanceof ItemEntity) {
-			TileAltar tile = (TileAltar) world.getTileEntity(pos);
+		if (!world.isClient && entity instanceof ItemEntity) {
+			TileAltar tile = (TileAltar) world.getBlockEntity(pos);
 			if (tile.collideEntityItem((ItemEntity) entity)) {
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
 			}
@@ -104,64 +103,64 @@ public class BlockAltar extends BlockMod implements ITileEntityProvider {
 	}
 
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		TileAltar tile = (TileAltar) world.getTileEntity(pos);
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		TileAltar tile = (TileAltar) world.getBlockEntity(pos);
 		State fluid = tile.getFluid();
-		ItemStack stack = player.getHeldItem(hand);
+		ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
 			InventoryHelper.withdrawFromInventory(tile, player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
-			return ActionResultType.SUCCESS;
+			return ActionResult.SUCCESS;
 		} else if (tile.isEmpty() && fluid == State.WATER && stack.isEmpty()) {
 			tile.trySetLastRecipe(player);
-			return ActionResultType.SUCCESS;
+			return ActionResult.SUCCESS;
 		} else {
 			if (!stack.isEmpty() && fluid != State.EMPTY && isValidFluidContainerToFill(stack, tile.getFluid().asVanilla()) && !Botania.gardenOfGlassLoaded) {
-				if (!player.abilities.isCreativeMode) {
+				if (!player.abilities.creativeMode) {
 					//support bucket stacks
 					if (stack.getCount() == 1) {
-						player.setHeldItem(hand, fill(tile.getFluid().asVanilla(), stack));
+						player.setStackInHand(hand, fill(tile.getFluid().asVanilla(), stack));
 					} else {
-						player.inventory.placeItemBackInInventory(player.world, new ItemStack(stack.getItem()));
-						stack.shrink(1);
+						player.inventory.offerOrDrop(player.world, new ItemStack(stack.getItem()));
+						stack.decrement(1);
 					}
 				}
 
 				tile.setFluid(State.EMPTY);
-				world.getChunkProvider().getLightManager().checkBlock(pos);
+				world.getChunkManager().getLightingProvider().checkBlock(pos);
 
-				return ActionResultType.SUCCESS;
+				return ActionResult.SUCCESS;
 			} else if (!stack.isEmpty() && (isValidFluidContainerToDrain(stack, Fluids.WATER) || stack.getItem() == ModItems.waterRod && ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, false))) {
 				if (tile.getFluid() == State.EMPTY) {
 					if (stack.getItem() == ModItems.waterRod) {
 						ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, true);
-					} else if (!player.abilities.isCreativeMode) {
-						player.setHeldItem(hand, drain(Fluids.WATER, stack));
+					} else if (!player.abilities.creativeMode) {
+						player.setStackInHand(hand, drain(Fluids.WATER, stack));
 					}
 
 					tile.setFluid(State.WATER);
 				}
 
-				return ActionResultType.SUCCESS;
+				return ActionResult.SUCCESS;
 			} else if (!stack.isEmpty() && isValidFluidContainerToDrain(stack, Fluids.LAVA)) {
 				if (tile.getFluid() == State.EMPTY) {
-					if (!player.abilities.isCreativeMode) {
-						player.setHeldItem(hand, drain(Fluids.LAVA, stack));
+					if (!player.abilities.creativeMode) {
+						player.setStackInHand(hand, drain(Fluids.LAVA, stack));
 					}
 
 					tile.setFluid(State.LAVA);
 				}
 
-				return ActionResultType.SUCCESS;
+				return ActionResult.SUCCESS;
 			}
 		}
 
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
 	@Override
-	public void fillWithRain(World world, BlockPos pos) {
-		if (world.rand.nextInt(20) == 1) {
+	public void rainTick(World world, BlockPos pos) {
+		if (world.random.nextInt(20) == 1) {
 			BlockState state = world.getBlockState(pos);
 			if (state.get(FLUID) == State.EMPTY) {
 				world.setBlockState(pos, state.with(FLUID, State.WATER));
@@ -216,26 +215,26 @@ public class BlockAltar extends BlockMod implements ITileEntityProvider {
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TileAltar();
 	}
 
 	@Override
-	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+	public void onStateReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
-			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
+			TileSimpleInventory inv = (TileSimpleInventory) world.getBlockEntity(pos);
 			InventoryHelper.dropInventory(inv, world, state, pos);
-			super.onReplaced(state, world, pos, newState, isMoving);
+			super.onStateReplaced(state, world, pos, newState, isMoving);
 		}
 	}
 
 	@Override
-	public boolean hasComparatorInputOverride(BlockState state) {
+	public boolean hasComparatorOutput(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
+	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
 		return state.get(FLUID) == State.WATER ? 15 : 0;
 	}
 }

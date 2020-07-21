@@ -11,10 +11,10 @@ package vazkii.botania.common.item.relic;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.UseAction;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.UseAction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
@@ -39,21 +39,21 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 
 	public static final int WEAPON_TYPES = 12;
 
-	public ItemKingKey(Properties props) {
+	public ItemKingKey(Settings props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		player.setActiveHand(hand);
-		ItemStack stack = player.getHeldItem(hand);
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
+		player.setCurrentHand(hand);
+		ItemStack stack = player.getStackInHand(hand);
 		setCharging(stack, true);
-		return ActionResult.resultSuccess(stack);
+		return TypedActionResult.success(stack);
 	}
 
 	@Override
-	public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity living, int time) {
+	public void onStoppedUsing(ItemStack stack, World world, LivingEntity living, int time) {
 		int spawned = getWeaponsSpawned(stack);
 		if (spawned == 20) {
 			setCharging(stack, false);
@@ -62,13 +62,13 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 	}
 
 	@Override
-	public void onUse(World world, LivingEntity living, ItemStack stack, int count) {
+	public void usageTick(World world, LivingEntity living, ItemStack stack, int count) {
 		int spawned = getWeaponsSpawned(stack);
 
-		if (count != getUseDuration(stack) && spawned < 20 && !world.isRemote && (!(living instanceof PlayerEntity) || ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) living, 150, true))) {
-			Vector3 look = new Vector3(living.getLookVec()).multiply(1, 0, 1);
+		if (count != getMaxUseTime(stack) && spawned < 20 && !world.isClient && (!(living instanceof PlayerEntity) || ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) living, 150, true))) {
+			Vector3 look = new Vector3(living.getRotationVector()).multiply(1, 0, 1);
 
-			double playerRot = Math.toRadians(living.rotationYaw + 90);
+			double playerRot = Math.toRadians(living.yaw + 90);
 			if (look.x == 0 && look.z == 0) {
 				look = new Vector3(Math.cos(playerRot), 0, Math.sin(playerRot));
 			}
@@ -80,7 +80,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 
 			Vector3 pl = look.add(Vector3.fromEntityCenter(living)).add(0, 1.6, div * 0.1);
 
-			Random rand = world.rand;
+			Random rand = world.random;
 			Vector3 axis = look.normalize().crossProduct(new Vector3(-1, 0, -1)).normalize();
 
 			double rot = mod * Math.PI / 4 - Math.PI / 2;
@@ -93,14 +93,14 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 			Vector3 end = pl.add(axis1);
 
 			EntityBabylonWeapon weapon = new EntityBabylonWeapon(living, world);
-			weapon.setPosition(end.x, end.y, end.z);
-			weapon.rotationYaw = living.rotationYaw;
+			weapon.updatePosition(end.x, end.y, end.z);
+			weapon.yaw = living.yaw;
 			weapon.setVariety(rand.nextInt(WEAPON_TYPES));
 			weapon.setDelay(spawned);
-			weapon.setRotation(MathHelper.wrapDegrees(-living.rotationYaw + 180));
+			weapon.setRotation(MathHelper.wrapDegrees(-living.yaw + 180));
 
-			world.addEntity(weapon);
-			weapon.playSound(ModSounds.babylonSpawn, 1F, 1F + world.rand.nextFloat() * 3F);
+			world.spawnEntity(weapon);
+			weapon.playSound(ModSounds.babylonSpawn, 1F, 1F + world.random.nextFloat() * 3F);
 			setWeaponsSpawned(stack, spawned + 1);
 		}
 	}
@@ -112,7 +112,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getMaxUseTime(ItemStack stack) {
 		return 72000;
 	}
 
@@ -138,7 +138,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 	}
 
 	@Override
-	public ResourceLocation getAdvancement() {
+	public Identifier getAdvancement() {
 		return prefix("challenge/king_key");
 	}
 

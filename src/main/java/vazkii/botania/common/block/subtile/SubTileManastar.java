@@ -8,10 +8,9 @@
  */
 package vazkii.botania.common.block.subtile;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
-
+import net.minecraft.util.math.Direction;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.fx.WispParticleData;
@@ -32,7 +31,7 @@ public class SubTileManastar extends TileEntitySpecialFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isRemote) {
+		if (getWorld().isClient) {
 			if (state != NONE && Math.random() > 0.6) {
 				float r = state == INCREASING ? 0.05F : 1F;
 				float b = state == INCREASING ? 1F : 0.05F;
@@ -41,10 +40,10 @@ public class SubTileManastar extends TileEntitySpecialFlower {
 			}
 		} else {
 			int mana = 0;
-			for (Direction dir : Direction.Plane.HORIZONTAL) {
+			for (Direction dir : Direction.Type.HORIZONTAL) {
 				BlockPos pos = getEffectivePos().offset(dir);
-				if (getWorld().isBlockLoaded(pos)) {
-					TileEntity tile = getWorld().getTileEntity(pos);
+				if (getWorld().isChunkLoaded(pos)) {
+					BlockEntity tile = getWorld().getBlockEntity(pos);
 					if (tile instanceof IManaPool) {
 						mana += ((IManaPool) tile).getCurrentMana();
 					}
@@ -53,7 +52,7 @@ public class SubTileManastar extends TileEntitySpecialFlower {
 
 			int newState = mana > lastMana ? INCREASING : mana < lastMana ? DECREASING : NONE;
 			if (newState != state) {
-				getWorld().addBlockEvent(getPos(), getBlockState().getBlock(), SET_STATE_EVENT, newState);
+				getWorld().addSyncedBlockEvent(getPos(), getCachedState().getBlock(), SET_STATE_EVENT, newState);
 			}
 
 			if (ticksExisted % 60 == 0) {
@@ -63,12 +62,12 @@ public class SubTileManastar extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public boolean receiveClientEvent(int id, int param) {
+	public boolean onSyncedBlockEvent(int id, int param) {
 		if (id == SET_STATE_EVENT) {
 			state = param;
 			return true;
 		} else {
-			return super.receiveClientEvent(id, param);
+			return super.onSyncedBlockEvent(id, param);
 		}
 	}
 

@@ -9,10 +9,9 @@
 package vazkii.botania.api.brew;
 
 import com.google.common.collect.ImmutableList;
-
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -25,7 +24,7 @@ import java.util.List;
 public class Brew extends ForgeRegistryEntry<Brew> {
 	private final int color;
 	private final int cost;
-	private final List<EffectInstance> effects;
+	private final List<StatusEffectInstance> effects;
 	private boolean canInfuseBloodPendant = true;
 	private boolean canInfuseIncense = true;
 
@@ -37,7 +36,7 @@ public class Brew extends ForgeRegistryEntry<Brew> {
 	 * @param cost    The cost, in Mana for this brew.
 	 * @param effects A list of effects to apply to the player when they drink it.
 	 */
-	public Brew(int color, int cost, EffectInstance... effects) {
+	public Brew(int color, int cost, StatusEffectInstance... effects) {
 		this.color = color;
 		this.cost = cost;
 		this.effects = ImmutableList.copyOf(effects);
@@ -71,7 +70,7 @@ public class Brew extends ForgeRegistryEntry<Brew> {
 	 * Gets the insensitive unlocalized name. This is used for the lexicon.
 	 */
 	public String getTranslationKey() {
-		ResourceLocation id = BotaniaAPI.instance().getBrewRegistry().getKey(this);
+		Identifier id = BotaniaAPI.instance().getBrewRegistry().getId(this);
 		return String.format("%s.brew.%s", id.getNamespace(), id.getPath());
 	}
 
@@ -110,7 +109,7 @@ public class Brew extends ForgeRegistryEntry<Brew> {
 	 * Note that for the lexicon, this passes in a botania Managlass
 	 * Vial or an Alfglass Flask at all times.
 	 */
-	public List<EffectInstance> getPotionEffects(ItemStack stack) {
+	public List<StatusEffectInstance> getPotionEffects(ItemStack stack) {
 		return effects;
 	}
 

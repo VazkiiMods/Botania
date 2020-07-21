@@ -8,13 +8,15 @@
  */
 package vazkii.botania.common.item.block;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
-import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -27,16 +29,16 @@ import java.util.List;
 
 public class ItemBlockPool extends BlockItem {
 
-	public ItemBlockPool(Block block, Properties props) {
+	public ItemBlockPool(Block block, Settings props) {
 		super(block, props);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void addInformation(@Nonnull ItemStack stack, World world, @Nonnull List<ITextComponent> stacks, @Nonnull ITooltipFlag flag) {
+	public void appendTooltip(@Nonnull ItemStack stack, World world, @Nonnull List<Text> stacks, @Nonnull TooltipContext flag) {
 		if (((BlockPool) getBlock()).variant == BlockPool.Variant.CREATIVE) {
 			for (int i = 0; i < 2; i++) {
-				stacks.add(new TranslationTextComponent("botaniamisc.creativePool" + i).func_240699_a_(TextFormatting.GRAY));
+				stacks.add(new TranslatableText("botaniamisc.creativePool" + i).formatted(Formatting.GRAY));
 			}
 		}
 	}

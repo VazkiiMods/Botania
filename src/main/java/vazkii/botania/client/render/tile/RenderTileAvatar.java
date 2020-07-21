@@ -8,21 +8,19 @@
  */
 package vazkii.botania.client.render.tile;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Vector3f;
-
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
@@ -32,43 +30,43 @@ import vazkii.botania.common.block.tile.TileAvatar;
 
 import javax.annotation.Nullable;
 
-public class RenderTileAvatar extends TileEntityRenderer<TileAvatar> {
+public class RenderTileAvatar extends BlockEntityRenderer<TileAvatar> {
 
 	private static final float[] ROTATIONS = new float[] {
 			180F, 0F, 90F, 270F
 	};
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_AVATAR);
+	private static final Identifier texture = new Identifier(LibResources.MODEL_AVATAR);
 	private static final ModelAvatar model = new ModelAvatar();
 
-	public RenderTileAvatar(TileEntityRendererDispatcher manager) {
+	public RenderTileAvatar(BlockEntityRenderDispatcher manager) {
 		super(manager);
 	}
 
 	@Override
-	public void render(@Nullable TileAvatar avatar, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+	public void render(@Nullable TileAvatar avatar, float pticks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
 		ms.push();
-		Direction facing = avatar != null && avatar.getWorld() != null ? avatar.getBlockState().get(BlockStateProperties.HORIZONTAL_FACING) : Direction.SOUTH;
+		Direction facing = avatar != null && avatar.getWorld() != null ? avatar.getCachedState().get(Properties.HORIZONTAL_FACING) : Direction.SOUTH;
 
 		ms.translate(0.5F, 1.6F, 0.5F);
 		ms.scale(1F, -1F, -1F);
-		ms.rotate(Vector3f.YP.rotationDegrees(ROTATIONS[Math.max(Math.min(ROTATIONS.length - 1, facing.getIndex() - 2), 0)]));
-		IVertexBuilder buffer = buffers.getBuffer(model.getRenderType(texture));
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(ROTATIONS[Math.max(Math.min(ROTATIONS.length - 1, facing.getId() - 2), 0)]));
+		VertexConsumer buffer = buffers.getBuffer(model.getLayer(texture));
 		model.render(ms, buffer, light, overlay, 1, 1, 1, 1);
 
 		if (avatar != null) {
-			ItemStack stack = avatar.getItemHandler().getStackInSlot(0);
+			ItemStack stack = avatar.getItemHandler().getStack(0);
 			if (!stack.isEmpty()) {
 				ms.push();
 				float s = 0.6F;
 				ms.scale(s, s, s);
 				ms.translate(-0.5F, 2F, -0.25F);
-				ms.rotate(Vector3f.XP.rotationDegrees(-70));
-				Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, light, overlay, ms, buffers);
+				ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(-70));
+				MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.THIRD_PERSON_RIGHT_HAND, light, overlay, ms, buffers);
 				ms.pop();
 
 				IAvatarWieldable wieldable = (IAvatarWieldable) stack.getItem();
-				buffer = buffers.getBuffer(RenderType.getEntityTranslucent(wieldable.getOverlayResource(avatar, stack)));
+				buffer = buffers.getBuffer(RenderLayer.getEntityTranslucent(wieldable.getOverlayResource(avatar, stack)));
 				s = 1.01F;
 
 				ms.push();

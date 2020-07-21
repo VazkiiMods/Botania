@@ -8,31 +8,24 @@
  */
 package vazkii.botania.client.fx;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.IParticleRenderType;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.renderer.ActiveRenderInfo;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.particle.ParticleTextureSheet;
+import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.Camera;
+import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.texture.TextureManager;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
-
+import net.minecraft.util.math.Matrix4f;
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.LightningHandler;
@@ -59,7 +52,7 @@ public class FXLightning extends Particle {
 		this.colorOuter = colorOuter;
 		this.colorInner = colorInner;
 		double length = targetvec.subtract(sourcevec).mag();
-		maxAge = fadetime + world.rand.nextInt(fadetime) - fadetime / 2;
+		maxAge = fadetime + world.random.nextInt(fadetime) - fadetime / 2;
 		expandTime = (int) (length * speed);
 		age = -(int) (length * speed);
 
@@ -70,7 +63,7 @@ public class FXLightning extends Particle {
 	}
 
 	@Override
-	public void renderParticle(IVertexBuilder buffer, ActiveRenderInfo info, float partialTicks) {
+	public void buildGeometry(VertexConsumer buffer, Camera info, float partialTicks) {
 		// todo fix this >.>
 
 		// old way (bad position and too thick)
@@ -88,12 +81,12 @@ public class FXLightning extends Particle {
 
 	@Nonnull
 	@Override
-	public IParticleRenderType getRenderType() {
+	public ParticleTextureSheet getType() {
 		return LAYER;
 	}
 
-	public void renderBolt(MatrixStack ms, IVertexBuilder wr, int pass, boolean inner) {
-		Matrix4f mat = ms.getLast().getMatrix();
+	public void renderBolt(MatrixStack ms, VertexConsumer wr, int pass, boolean inner) {
+		Matrix4f mat = ms.peek().getModel();
 
 		float boltAge = age < 0 ? 0 : (float) age / (float) maxAge;
 		float mainAlpha;
@@ -129,59 +122,59 @@ public class FXLightning extends Particle {
 			int fullbright = 0xF000F0;
 
 			endvec.subtract(diff2).vertex(mat, wr);
-			wr.color(r, g, b, a).tex(0.5F, 0).lightmap(fullbright).endVertex();
+			wr.color(r, g, b, a).texture(0.5F, 0).light(fullbright).next();
 			startvec.subtract(diff1).vertex(mat, wr);
-			wr.color(r, g, b, a).tex(0.5F, 0).lightmap(fullbright).endVertex();
+			wr.color(r, g, b, a).texture(0.5F, 0).light(fullbright).next();
 			startvec.add(diff1).vertex(mat, wr);
-			wr.color(r, g, b, a).tex(0.5F, 1).lightmap(fullbright).endVertex();
+			wr.color(r, g, b, a).texture(0.5F, 1).light(fullbright).next();
 			endvec.add(diff2).vertex(mat, wr);
-			wr.color(r, g, b, a).tex(0.5F, 1).lightmap(fullbright).endVertex();
+			wr.color(r, g, b, a).texture(0.5F, 1).light(fullbright).next();
 
 			if (rendersegment.next == null) {
 				Vector3 roundend = rendersegment.endPoint.point.add(rendersegment.diff.normalize().multiply(width));
 
 				roundend.subtract(diff2).vertex(mat, wr);
-				wr.color(r, g, b, a).tex(0, 0).lightmap(fullbright).endVertex();
+				wr.color(r, g, b, a).texture(0, 0).light(fullbright).next();
 				endvec.subtract(diff2).vertex(mat, wr);
-				wr.color(r, g, b, a).tex(0.5F, 0).lightmap(fullbright).endVertex();
+				wr.color(r, g, b, a).texture(0.5F, 0).light(fullbright).next();
 				endvec.add(diff2).vertex(mat, wr);
-				wr.color(r, g, b, a).tex(0.5F, 1).lightmap(fullbright).endVertex();
+				wr.color(r, g, b, a).texture(0.5F, 1).light(fullbright).next();
 				roundend.add(diff2).vertex(mat, wr);
-				wr.color(r, g, b, a).tex(0, 1).lightmap(fullbright).endVertex();
+				wr.color(r, g, b, a).texture(0, 1).light(fullbright).next();
 			}
 
 			if (rendersegment.prev == null) {
 				Vector3 roundend = rendersegment.startPoint.point.subtract(rendersegment.diff.normalize().multiply(width));
 
 				startvec.subtract(diff1).vertex(mat, wr);
-				wr.color(r, g, b, a).tex(0.5F, 0).lightmap(fullbright).endVertex();
+				wr.color(r, g, b, a).texture(0.5F, 0).light(fullbright).next();
 				roundend.subtract(diff1).vertex(mat, wr);
-				wr.color(r, g, b, a).tex(0, 0).lightmap(fullbright).endVertex();
+				wr.color(r, g, b, a).texture(0, 0).light(fullbright).next();
 				roundend.add(diff1).vertex(mat, wr);
-				wr.color(r, g, b, a).tex(0, 1).lightmap(fullbright).endVertex();
+				wr.color(r, g, b, a).texture(0, 1).light(fullbright).next();
 				startvec.add(diff1).vertex(mat, wr);
-				wr.color(r, g, b, a).tex(0.5F, 1).lightmap(fullbright).endVertex();
+				wr.color(r, g, b, a).texture(0.5F, 1).light(fullbright).next();
 			}
 		}
 	}
 
 	private static Vector3 getRelativeViewVector(Vector3 pos) {
-		Entity renderEntity = Minecraft.getInstance().getRenderViewEntity();
-		return new Vector3((float) renderEntity.getPosX() - pos.x, (float) renderEntity.getPosY() - pos.y, (float) renderEntity.getPosZ() - pos.z);
+		Entity renderEntity = MinecraftClient.getInstance().getCameraEntity();
+		return new Vector3((float) renderEntity.getX() - pos.x, (float) renderEntity.getY() - pos.y, (float) renderEntity.getZ() - pos.z);
 	}
 
-	private static final IParticleRenderType LAYER = new IParticleRenderType() {
+	private static final ParticleTextureSheet LAYER = new ParticleTextureSheet() {
 		@Override
-		public void beginRender(BufferBuilder buffer, TextureManager textureManager) {
+		public void begin(BufferBuilder buffer, TextureManager textureManager) {
 			RenderSystem.depthMask(false);
 			RenderSystem.enableBlend();
 			RenderSystem.defaultBlendFunc();
 			RenderSystem.disableTexture();
-			buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR_TEX_LIGHTMAP);
+			buffer.begin(GL11.GL_QUADS, VertexFormats.POSITION_COLOR_TEXTURE_LIGHT);
 		}
 
 		@Override
-		public void finishRender(Tessellator tess) {
+		public void draw(Tessellator tess) {
 			tess.draw();
 			RenderSystem.enableTexture();
 			RenderSystem.disableBlend();

@@ -9,12 +9,12 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
-public class CapWrapper implements IInventory {
+public class CapWrapper implements Inventory {
 	private final IItemHandler handler;
 
 	public CapWrapper(IItemHandler handler) {
@@ -22,14 +22,14 @@ public class CapWrapper implements IInventory {
 	}
 
 	@Override
-	public int getSizeInventory() {
+	public int size() {
 		return handler.getSlots();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		for (int i = 0; i < getSizeInventory(); i++) {
-			if (!getStackInSlot(i).isEmpty()) {
+		for (int i = 0; i < size(); i++) {
+			if (!getStack(i).isEmpty()) {
 				return false;
 			}
 		}
@@ -37,22 +37,22 @@ public class CapWrapper implements IInventory {
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int index) {
+	public ItemStack getStack(int index) {
 		return handler.getStackInSlot(index);
 	}
 
 	@Override
-	public ItemStack decrStackSize(int index, int count) {
+	public ItemStack removeStack(int index, int count) {
 		return handler.extractItem(index, count, false);
 	}
 
 	@Override
-	public ItemStack removeStackFromSlot(int index) {
+	public ItemStack removeStack(int index) {
 		return handler.extractItem(index, Integer.MAX_VALUE, false);
 	}
 
 	@Override
-	public void setInventorySlotContents(int index, ItemStack stack) {
+	public void setStack(int index, ItemStack stack) {
 		if (handler instanceof IItemHandlerModifiable) {
 			((IItemHandlerModifiable) handler).setStackInSlot(index, stack);
 		}
@@ -64,14 +64,14 @@ public class CapWrapper implements IInventory {
 	}
 
 	@Override
-	public boolean isUsableByPlayer(PlayerEntity player) {
+	public boolean canPlayerUse(PlayerEntity player) {
 		return false;
 	}
 
 	@Override
 	public void clear() {
-		for (int i = 0; i < getSizeInventory(); i++) {
-			removeStackFromSlot(i);
+		for (int i = 0; i < size(); i++) {
+			removeStack(i);
 		}
 	}
 }

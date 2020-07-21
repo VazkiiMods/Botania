@@ -17,7 +17,7 @@ import net.minecraftforge.common.ForgeHooks;
 import vazkii.botania.common.Botania;
 
 public class ItemBlockBlaze extends BlockItem {
-	public ItemBlockBlaze(Block block, Properties props) {
+	public ItemBlockBlaze(Block block, Settings props) {
 		super(block, props);
 	}
 

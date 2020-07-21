@@ -10,23 +10,23 @@ package vazkii.botania.common.brew.potion;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectType;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 
 import vazkii.botania.common.brew.ModPotions;
 
-public class PotionSoulCross extends Effect {
+public class PotionSoulCross extends StatusEffect {
 
 	public PotionSoulCross() {
-		super(EffectType.BENEFICIAL, 0x47453d);
+		super(StatusEffectType.BENEFICIAL, 0x47453d);
 	}
 
 	public static void onEntityKill(LivingDeathEvent event) {
-		Entity killer = event.getSource().getTrueSource();
+		Entity killer = event.getSource().getAttacker();
 		if (killer instanceof LivingEntity) {
 			LivingEntity living = (LivingEntity) killer;
-			if (living.isPotionActive(ModPotions.soulCross)) {
+			if (living.hasStatusEffect(ModPotions.soulCross)) {
 				living.heal(event.getEntityLiving().getMaxHealth() / 20);
 			}
 		}

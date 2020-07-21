@@ -10,13 +10,13 @@ package vazkii.botania.common.item;
 
 import net.minecraft.block.AbstractRailBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
+import net.minecraft.block.enums.RailShape;
+import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.state.properties.RailShape;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -26,22 +26,22 @@ import javax.annotation.Nonnull;
 
 public class ItemPoolMinecart extends Item {
 
-	public ItemPoolMinecart(Properties builder) {
+	public ItemPoolMinecart(Settings builder) {
 		super(builder);
 	}
 
 	// [VanillaCopy] ItemMinecart
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext context) {
+	public ActionResult useOnBlock(ItemUsageContext context) {
 		World world = context.getWorld();
-		BlockPos blockpos = context.getPos();
+		BlockPos blockpos = context.getBlockPos();
 		BlockState iblockstate = world.getBlockState(blockpos);
 		if (!iblockstate.isIn(BlockTags.RAILS)) {
-			return ActionResultType.FAIL;
+			return ActionResult.FAIL;
 		} else {
-			ItemStack itemstack = context.getItem();
-			if (!world.isRemote) {
+			ItemStack itemstack = context.getStack();
+			if (!world.isClient) {
 				RailShape railshape = iblockstate.getBlock() instanceof AbstractRailBlock ? ((AbstractRailBlock) iblockstate.getBlock()).getRailDirection(iblockstate, world, blockpos, null) : RailShape.NORTH_SOUTH;
 				double d0 = 0.0D;
 				if (railshape.isAscending()) {
@@ -49,15 +49,15 @@ public class ItemPoolMinecart extends Item {
 				}
 
 				AbstractMinecartEntity entityminecart = new EntityPoolMinecart(world, blockpos.getX() + 0.5D, blockpos.getY() + 0.0625D + d0, blockpos.getZ() + 0.5D);
-				if (itemstack.hasDisplayName()) {
-					entityminecart.setCustomName(itemstack.getDisplayName());
+				if (itemstack.hasCustomName()) {
+					entityminecart.setCustomName(itemstack.getName());
 				}
 
-				world.addEntity(entityminecart);
+				world.spawnEntity(entityminecart);
 			}
 
-			itemstack.shrink(1);
-			return ActionResultType.SUCCESS;
+			itemstack.decrement(1);
+			return ActionResult.SUCCESS;
 		}
 	}
 

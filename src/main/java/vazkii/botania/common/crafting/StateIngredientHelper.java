@@ -16,15 +16,14 @@ import com.mojang.serialization.JsonOps;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.NBTDynamicOps;
-import net.minecraft.nbt.NBTUtil;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.datafixer.NbtOps;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtHelper;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.tag.Tag;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.JsonHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import vazkii.botania.api.recipe.StateIngredient;
@@ -42,11 +41,11 @@ public class StateIngredientHelper {
 		return new StateIngredientBlockState(state);
 	}
 
-	public static StateIngredient of(ITag.INamedTag<Block> tag) {
+	public static StateIngredient of(Tag.Identified<Block> tag) {
 		return new StateIngredientTag(tag);
 	}
 
-	public static StateIngredient of(ResourceLocation id) {
+	public static StateIngredient of(Identifier id) {
 		return new StateIngredientTag(id);
 	}
 
@@ -55,17 +54,17 @@ public class StateIngredientHelper {
 	}
 
 	public static StateIngredient deserialize(JsonObject object) {
-		switch (JSONUtils.getString(object, "type")) {
+		switch (JsonHelper.getString(object, "type")) {
 		case "tag":
-			return new StateIngredientTag(BlockTags.makeWrapperTag(JSONUtils.getString(object, "tag")));
+			return new StateIngredientTag(BlockTags.register(JsonHelper.getString(object, "tag")));
 		case "block":
-			return new StateIngredientBlock(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(JSONUtils.getString(object, "block"))));
+			return new StateIngredientBlock(ForgeRegistries.BLOCKS.getValue(new Identifier(JsonHelper.getString(object, "block"))));
 		case "state":
 			return new StateIngredientBlockState(readBlockState(object));
 		case "blocks":
 			HashSet<Block> blocks = new HashSet<>();
-			for (JsonElement element : JSONUtils.getJsonArray(object, "blocks")) {
-				blocks.add(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(element.getAsString())));
+			for (JsonElement element : JsonHelper.getArray(object, "blocks")) {
+				blocks.add(ForgeRegistries.BLOCKS.getValue(new Identifier(element.getAsString())));
 			}
 			return new StateIngredientBlocks(blocks);
 		default:
@@ -73,7 +72,7 @@ public class StateIngredientHelper {
 		}
 	}
 
-	public static StateIngredient read(PacketBuffer buffer) {
+	public static StateIngredient read(PacketByteBuf buffer) {
 		switch (buffer.readVarInt()) {
 		case 0:
 			int count = buffer.readVarInt();
@@ -86,7 +85,7 @@ public class StateIngredientHelper {
 		case 1:
 			return new StateIngredientBlock(buffer.readRegistryIdUnsafe(ForgeRegistries.BLOCKS));
 		case 2:
-			return new StateIngredientBlockState(Block.getStateById(buffer.readVarInt()));
+			return new StateIngredientBlockState(Block.getStateFromRawId(buffer.readVarInt()));
 		default:
 			throw new IllegalArgumentException("Unknown input discriminator!");
 		}
@@ -96,10 +95,10 @@ public class StateIngredientHelper {
 	 * Writes data about the block state to the provided json object.
 	 */
 	public static JsonObject serializeBlockState(BlockState state) {
-		CompoundNBT nbt = NBTUtil.writeBlockState(state);
+		CompoundTag nbt = NbtHelper.fromBlockState(state);
 		ItemNBTHelper.renameTag(nbt, "Name", "name");
 		ItemNBTHelper.renameTag(nbt, "Properties", "properties");
-		Dynamic<INBT> dyn = new Dynamic<>(NBTDynamicOps.INSTANCE, nbt);
+		Dynamic<net.minecraft.nbt.Tag> dyn = new Dynamic<>(NbtOps.INSTANCE, nbt);
 		return dyn.convert(JsonOps.INSTANCE).getValue().getAsJsonObject();
 	}
 
@@ -107,14 +106,14 @@ public class StateIngredientHelper {
 	 * Reads the block state from the provided json object.
 	 */
 	public static BlockState readBlockState(JsonObject object) {
-		CompoundNBT nbt = (CompoundNBT) new Dynamic<>(JsonOps.INSTANCE, object).convert(NBTDynamicOps.INSTANCE).getValue();
+		CompoundTag nbt = (CompoundTag) new Dynamic<>(JsonOps.INSTANCE, object).convert(NbtOps.INSTANCE).getValue();
 		ItemNBTHelper.renameTag(nbt, "name", "Name");
 		ItemNBTHelper.renameTag(nbt, "properties", "Properties");
 		String name = nbt.getString("Name");
-		ResourceLocation id = ResourceLocation.tryCreate(name);
+		Identifier id = Identifier.tryParse(name);
 		if (id == null || !ForgeRegistries.BLOCKS.containsKey(id)) {
 			throw new IllegalArgumentException("Invalid or unknown block ID: " + name);
 		}
-		return NBTUtil.readBlockState(nbt);
+		return NbtHelper.toBlockState(nbt);
 	}
 }

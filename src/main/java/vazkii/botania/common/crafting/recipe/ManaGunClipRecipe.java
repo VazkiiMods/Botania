@@ -10,11 +10,11 @@ package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.item.crafting.SpecialRecipeSerializer;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.SpecialRecipeSerializer;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.item.ItemManaGun;
@@ -22,10 +22,10 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class ManaGunClipRecipe extends SpecialRecipe {
+public class ManaGunClipRecipe extends SpecialCraftingRecipe {
 	public static final SpecialRecipeSerializer<ManaGunClipRecipe> SERIALIZER = new SpecialRecipeSerializer<>(ManaGunClipRecipe::new);
 
-	public ManaGunClipRecipe(ResourceLocation id) {
+	public ManaGunClipRecipe(Identifier id) {
 		super(id);
 	}
 
@@ -34,8 +34,8 @@ public class ManaGunClipRecipe extends SpecialRecipe {
 		boolean foundGun = false;
 		boolean foundClip = false;
 
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stack = inv.getStack(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof ItemManaGun && !ItemManaGun.hasClip(stack)) {
 					foundGun = true;
@@ -55,8 +55,8 @@ public class ManaGunClipRecipe extends SpecialRecipe {
 	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
 		ItemStack gun = ItemStack.EMPTY;
 
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stack = inv.getStack(i);
 			if (!stack.isEmpty() && stack.getItem() instanceof ItemManaGun) {
 				gun = stack;
 			}
@@ -75,19 +75,19 @@ public class ManaGunClipRecipe extends SpecialRecipe {
 	}
 
 	@Override
-	public boolean canFit(int width, int height) {
+	public boolean fits(int width, int height) {
 		return width * height >= 2;
 	}
 
 	@Nonnull
 	@Override
-	public NonNullList<ItemStack> getRemainingItems(CraftingInventory inv) {
-		return NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+	public DefaultedList<ItemStack> getRemainingItems(CraftingInventory inv) {
+		return DefaultedList.ofSize(inv.size(), ItemStack.EMPTY);
 	}
 
 	@Nonnull
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 }

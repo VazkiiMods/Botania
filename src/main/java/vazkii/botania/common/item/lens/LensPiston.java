@@ -11,38 +11,37 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.material.PushReaction;
-import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-
 import vazkii.botania.api.internal.IManaBurst;
 
 public class LensPiston extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, ThrownEntity entity, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
-		if (!entity.world.isRemote
-				&& pos.getType() == RayTraceResult.Type.BLOCK
+		if (!entity.world.isClient
+				&& pos.getType() == HitResult.Type.BLOCK
 				&& !burst.isFake()
 				&& !isManaBlock) {
-			BlockRayTraceResult rtr = (BlockRayTraceResult) pos;
-			if (!coords.equals(rtr.getPos())) {
-				BlockPos pos_ = rtr.getPos().offset(rtr.getFace().getOpposite());
+			BlockHitResult rtr = (BlockHitResult) pos;
+			if (!coords.equals(rtr.getBlockPos())) {
+				BlockPos pos_ = rtr.getBlockPos().offset(rtr.getSide().getOpposite());
 
-				if (entity.world.isAirBlock(pos_) || entity.world.getBlockState(pos_).getMaterial().isReplaceable()) {
-					BlockState state = entity.world.getBlockState(rtr.getPos());
-					TileEntity tile = entity.world.getTileEntity(rtr.getPos());
+				if (entity.world.isAir(pos_) || entity.world.getBlockState(pos_).getMaterial().isReplaceable()) {
+					BlockState state = entity.world.getBlockState(rtr.getBlockPos());
+					BlockEntity tile = entity.world.getBlockEntity(rtr.getBlockPos());
 
-					if (state.getPushReaction() == PushReaction.NORMAL && state.getBlock() != Blocks.OBSIDIAN
-							&& state.getBlockHardness(entity.world, pos_) >= 0 && tile == null) {
-						entity.world.playEvent(2001, rtr.getPos(), Block.getStateId(state));
-						entity.world.setBlockState(rtr.getPos(), Blocks.AIR.getDefaultState());
+					if (state.getPistonBehavior() == PistonBehavior.NORMAL && state.getBlock() != Blocks.OBSIDIAN
+							&& state.getHardness(entity.world, pos_) >= 0 && tile == null) {
+						entity.world.syncWorldEvent(2001, rtr.getBlockPos(), Block.getRawIdFromState(state));
+						entity.world.setBlockState(rtr.getBlockPos(), Blocks.AIR.getDefaultState());
 						entity.world.setBlockState(pos_, unWaterlog(state));
 					}
 				}
@@ -53,8 +52,8 @@ public class LensPiston extends Lens {
 	}
 
 	public static BlockState unWaterlog(BlockState state) {
-		if (state.func_235901_b_(BlockStateProperties.WATERLOGGED)) {
-			return state.with(BlockStateProperties.WATERLOGGED, false);
+		if (state.contains(Properties.WATERLOGGED)) {
+			return state.with(Properties.WATERLOGGED, false);
 		} else {
 			return state;
 		}

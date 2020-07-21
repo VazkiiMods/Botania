@@ -15,20 +15,18 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import com.mojang.brigadier.tree.LiteralCommandNode;
-
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
-import net.minecraft.command.ISuggestionProvider;
-import net.minecraft.command.arguments.EntityArgument;
-import net.minecraft.command.arguments.UUIDArgument;
+import net.minecraft.command.arguments.EntityArgumentType;
+import net.minecraft.command.arguments.UuidArgumentType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.command.CommandSource;
+import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.server.ServerWorld;
-
 import vazkii.botania.common.world.IslandPos;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockSavedData;
@@ -38,90 +36,90 @@ import java.util.UUID;
 
 public class SkyblockCommand {
 	private static final SimpleCommandExceptionType NOT_SKYBLOCK_WORLD = new SimpleCommandExceptionType(
-			new TranslationTextComponent("botaniamisc.command.skyblock.world"));
+			new TranslatableText("botaniamisc.command.skyblock.world"));
 	private static final SimpleCommandExceptionType NO_ISLAND = new SimpleCommandExceptionType(
-			new TranslationTextComponent("botaniamisc.command.skyblock.noisland"));
+			new TranslatableText("botaniamisc.command.skyblock.noisland"));
 
-	public static void register(CommandDispatcher<CommandSource> dispatcher) {
+	public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
 		// This isn't what we consider the "primary" name. It's just here to be a reminder for old /botania-skyblock-spread users.
 		// However some Mojang code seems to assume that aliases are made alphabetically...
-		LiteralArgumentBuilder<CommandSource> commandBuilder = Commands.literal("botania-skyblock")
+		LiteralArgumentBuilder<ServerCommandSource> commandBuilder = CommandManager.literal("botania-skyblock")
 				.requires(s -> s.hasPermissionLevel(2))
-				.then(Commands.literal("help")
+				.then(CommandManager.literal("help")
 						.executes(SkyblockCommand::printHelp))
-				.then(Commands.literal("island")
-						.then(Commands.argument("player", EntityArgument.player())
+				.then(CommandManager.literal("island")
+						.then(CommandManager.argument("player", EntityArgumentType.player())
 								.executes(SkyblockCommand::createIsland)))
-				.then(Commands.literal("spawn")
+				.then(CommandManager.literal("spawn")
 						.executes(SkyblockCommand::teleportToSpawn))
 
-				.then(Commands.literal("visit")
-						.then(Commands.argument("player", EntityArgument.player())
-								.executes(ctx -> teleportToIsland(ctx, EntityArgument.getPlayer(ctx, "player")))
+				.then(CommandManager.literal("visit")
+						.then(CommandManager.argument("player", EntityArgumentType.player())
+								.executes(ctx -> teleportToIsland(ctx, EntityArgumentType.getPlayer(ctx, "player")))
 						)
-						.then(Commands.argument("playerUuid", UUIDArgument.func_239194_a_())
-								.suggests((ctx, builder) -> ISuggestionProvider.suggest(
+						.then(CommandManager.argument("playerUuid", UuidArgumentType.uuid())
+								.suggests((ctx, builder) -> CommandSource.suggestMatching(
 										SkyblockSavedData.get(ctx.getSource().getWorld()).skyblocks
 												.values().stream().map(UUID::toString),
 										builder))
-								.executes(ctx -> teleportToIsland(ctx, UUIDArgument.func_239195_a_(ctx, "playerUuid")))
+								.executes(ctx -> teleportToIsland(ctx, UuidArgumentType.getUuid(ctx, "playerUuid")))
 						)
 				)
 
-				.then(Commands.literal("regen-island")
-						.then(Commands.argument("player", EntityArgument.player())
-								.executes(ctx -> rebuildIsland(ctx, EntityArgument.getPlayer(ctx, "player")))
+				.then(CommandManager.literal("regen-island")
+						.then(CommandManager.argument("player", EntityArgumentType.player())
+								.executes(ctx -> rebuildIsland(ctx, EntityArgumentType.getPlayer(ctx, "player")))
 						)
-						.then(Commands.argument("playerUuid", UUIDArgument.func_239194_a_())
-								.suggests((ctx, builder) -> ISuggestionProvider.suggest(
+						.then(CommandManager.argument("playerUuid", UuidArgumentType.uuid())
+								.suggests((ctx, builder) -> CommandSource.suggestMatching(
 										SkyblockSavedData.get(ctx.getSource().getWorld()).skyblocks
 												.values().stream().map(UUID::toString),
 										builder))
-								.executes(ctx -> rebuildIsland(ctx, UUIDArgument.func_239195_a_(ctx, "playerUuid")))
+								.executes(ctx -> rebuildIsland(ctx, UuidArgumentType.getUuid(ctx, "playerUuid")))
 						)
 				);
-		LiteralCommandNode<CommandSource> command = dispatcher.register(commandBuilder);
-		dispatcher.register(Commands.literal("gardenofglass").redirect(command));
-		dispatcher.register(Commands.literal("gog").redirect(command));
+		LiteralCommandNode<ServerCommandSource> command = dispatcher.register(commandBuilder);
+		dispatcher.register(CommandManager.literal("gardenofglass").redirect(command));
+		dispatcher.register(CommandManager.literal("gog").redirect(command));
 	}
 
-	private static int printHelp(CommandContext<CommandSource> ctx) {
+	private static int printHelp(CommandContext<ServerCommandSource> ctx) {
 		for (int i = 0; i < 5; i++) {
-			ctx.getSource().sendFeedback(new TranslationTextComponent("botaniamisc.command.skyblock.help." + i), false);
+			ctx.getSource().sendFeedback(new TranslatableText("botaniamisc.command.skyblock.help." + i), false);
 		}
 		return Command.SINGLE_SUCCESS;
 	}
 
-	private static int doTeleportToIsland(CommandContext<CommandSource> ctx, UUID owner, ITextComponent feedback) throws CommandSyntaxException {
+	private static int doTeleportToIsland(CommandContext<ServerCommandSource> ctx, UUID owner, Text feedback) throws CommandSyntaxException {
 		ServerWorld world = getSkyblockWorld(ctx);
 		IslandPos pos = getIslandForUUID(owner, SkyblockSavedData.get(world));
 
-		ServerPlayerEntity player = ctx.getSource().asPlayer();
+		ServerPlayerEntity player = ctx.getSource().getPlayer();
 		BlockPos blockPos = pos.getCenter();
 
 		player.teleport(world, blockPos.getX() + 0.5, blockPos.getY(),
-				blockPos.getZ() + 0.5, player.rotationYaw, player.rotationPitch);
+				blockPos.getZ() + 0.5, player.yaw, player.pitch);
 		ctx.getSource().sendFeedback(feedback, true);
 		return Command.SINGLE_SUCCESS;
 	}
 
-	private static int createIsland(CommandContext<CommandSource> ctx) throws CommandSyntaxException {
-		PlayerEntity player = EntityArgument.getPlayer(ctx, "player");
+	private static int createIsland(CommandContext<ServerCommandSource> ctx) throws CommandSyntaxException {
+		PlayerEntity player = EntityArgumentType.getPlayer(ctx, "player");
 		SkyblockSavedData data = SkyblockSavedData.get(getSkyblockWorld(ctx));
-		UUID uuid = player.getUniqueID();
+		UUID uuid = player.getUuid();
 
 		if (data.skyblocks.containsValue(uuid)) {
-			doTeleportToIsland(ctx, uuid, new TranslationTextComponent("botaniamisc.command.skyblock.island.teleported",
+			doTeleportToIsland(ctx, uuid, new TranslatableText("botaniamisc.command.skyblock.island.teleported",
 					ctx.getSource().getDisplayName()));
 			return Command.SINGLE_SUCCESS;
 		}
 
 		SkyblockWorldEvents.spawnPlayer(player, data.create(uuid));
-		ctx.getSource().sendFeedback(new TranslationTextComponent("botaniamisc.command.skyblock.island.success", player.getDisplayName()), true);
+		ctx.getSource().sendFeedback(new TranslatableText("botaniamisc.command.skyblock.island.success", player.getDisplayName()), true);
 		return Command.SINGLE_SUCCESS;
 	}
 
-	private static int doRebuildIsland(CommandContext<CommandSource> ctx, UUID player, ITextComponent feedback) throws CommandSyntaxException {
+	private static int doRebuildIsland(CommandContext<ServerCommandSource> ctx, UUID player, Text feedback) throws CommandSyntaxException {
 		ServerWorld world = getSkyblockWorld(ctx);
 		IslandPos pos = getIslandForUUID(player, SkyblockSavedData.get(world));
 
@@ -139,7 +137,7 @@ public class SkyblockCommand {
 		return pos;
 	}
 
-	private static ServerWorld getSkyblockWorld(CommandContext<CommandSource> ctx) throws CommandSyntaxException {
+	private static ServerWorld getSkyblockWorld(CommandContext<ServerCommandSource> ctx) throws CommandSyntaxException {
 		ServerWorld world = ctx.getSource().getWorld();
 		if (!SkyblockChunkGenerator.isWorldSkyblock(world)) {
 			throw NOT_SKYBLOCK_WORLD.create();
@@ -148,26 +146,26 @@ public class SkyblockCommand {
 	}
 
 	// Translation feedback helpers
-	private static int teleportToIsland(CommandContext<CommandSource> ctx, PlayerEntity owner) throws CommandSyntaxException {
-		return doTeleportToIsland(ctx, owner.getUniqueID(), new TranslationTextComponent("botaniamisc.command.skyblock.teleport.success",
+	private static int teleportToIsland(CommandContext<ServerCommandSource> ctx, PlayerEntity owner) throws CommandSyntaxException {
+		return doTeleportToIsland(ctx, owner.getUuid(), new TranslatableText("botaniamisc.command.skyblock.teleport.success",
 				ctx.getSource().getDisplayName(), owner.getName()));
 	}
 
-	private static int teleportToIsland(CommandContext<CommandSource> ctx, UUID owner) throws CommandSyntaxException {
-		return doTeleportToIsland(ctx, owner, new TranslationTextComponent("botaniamisc.command.skyblock.teleport.success",
+	private static int teleportToIsland(CommandContext<ServerCommandSource> ctx, UUID owner) throws CommandSyntaxException {
+		return doTeleportToIsland(ctx, owner, new TranslatableText("botaniamisc.command.skyblock.teleport.success",
 				ctx.getSource().getDisplayName(), owner));
 	}
 
-	private static int teleportToSpawn(CommandContext<CommandSource> ctx) throws CommandSyntaxException {
-		return doTeleportToIsland(ctx, Util.DUMMY_UUID, new TranslationTextComponent("botaniamisc.command.skyblock.spawn.success",
+	private static int teleportToSpawn(CommandContext<ServerCommandSource> ctx) throws CommandSyntaxException {
+		return doTeleportToIsland(ctx, Util.NIL_UUID, new TranslatableText("botaniamisc.command.skyblock.spawn.success",
 				ctx.getSource().getDisplayName()));
 	}
 
-	private static int rebuildIsland(CommandContext<CommandSource> ctx, ServerPlayerEntity owner) throws CommandSyntaxException {
-		return doRebuildIsland(ctx, owner.getUniqueID(), new TranslationTextComponent("botaniamisc.command.skyblock.regenisland.success", owner.getDisplayName()));
+	private static int rebuildIsland(CommandContext<ServerCommandSource> ctx, ServerPlayerEntity owner) throws CommandSyntaxException {
+		return doRebuildIsland(ctx, owner.getUuid(), new TranslatableText("botaniamisc.command.skyblock.regenisland.success", owner.getDisplayName()));
 	}
 
-	private static int rebuildIsland(CommandContext<CommandSource> ctx, UUID owner) throws CommandSyntaxException {
-		return doRebuildIsland(ctx, owner, new TranslationTextComponent("botaniamisc.command.skyblock.regenisland.success", owner));
+	private static int rebuildIsland(CommandContext<ServerCommandSource> ctx, UUID owner) throws CommandSyntaxException {
+		return doRebuildIsland(ctx, owner, new TranslatableText("botaniamisc.command.skyblock.regenisland.success", owner));
 	}
 }

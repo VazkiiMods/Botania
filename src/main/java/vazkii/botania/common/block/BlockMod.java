@@ -10,7 +10,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -21,9 +21,9 @@ public class BlockMod extends Block {
 	}
 
 	@Override
-	public boolean eventReceived(BlockState state, World world, BlockPos pos, int id, int param) {
-		super.eventReceived(state, world, pos, id, param);
-		TileEntity tileentity = world.getTileEntity(pos);
-		return tileentity != null && tileentity.receiveClientEvent(id, param);
+	public boolean onSyncedBlockEvent(BlockState state, World world, BlockPos pos, int id, int param) {
+		super.onSyncedBlockEvent(state, world, pos, id, param);
+		BlockEntity tileentity = world.getBlockEntity(pos);
+		return tileentity != null && tileentity.onSyncedBlockEvent(id, param);
 	}
 }

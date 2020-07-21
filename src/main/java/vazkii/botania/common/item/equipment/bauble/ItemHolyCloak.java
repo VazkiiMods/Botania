@@ -8,19 +8,20 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -36,22 +37,22 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 public class ItemHolyCloak extends ItemBauble {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_HOLY_CLOAK);
-	private static final ResourceLocation textureGlow = new ResourceLocation(LibResources.MODEL_HOLY_CLOAK_GLOW);
+	private static final Identifier texture = new Identifier(LibResources.MODEL_HOLY_CLOAK);
+	private static final Identifier textureGlow = new Identifier(LibResources.MODEL_HOLY_CLOAK_GLOW);
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	private static ModelCloak model;
 
 	private static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_IN_EFFECT = "inEffect";
 
-	public ItemHolyCloak(Properties props) {
+	public ItemHolyCloak(Settings props) {
 		super(props);
 		MinecraftForge.EVENT_BUS.addListener(this::onPlayerDamage);
 	}
 
 	private void onPlayerDamage(LivingHurtEvent event) {
-		if (event.getEntityLiving() instanceof PlayerEntity && !event.getSource().canHarmInCreative()) {
+		if (event.getEntityLiving() instanceof PlayerEntity && !event.getSource().isOutOfWorld()) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			ItemStack stack = EquipmentHandler.findOrEmpty(this, player);
 
@@ -78,33 +79,33 @@ public class ItemHolyCloak extends ItemBauble {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	@Environment(EnvType.CLIENT)
+	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		ItemHolyCloak item = ((ItemHolyCloak) stack.getItem());
 		AccessoryRenderHelper.rotateIfSneaking(ms, player);
-		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
+		boolean armor = !player.getEquippedStack(EquipmentSlot.CHEST).isEmpty();
 		ms.translate(0F, armor ? -0.07F : -0.01F, 0F);
 
 		if (model == null) {
 			model = new ModelCloak();
 		}
 
-		Minecraft.getInstance().textureManager.bindTexture(item.getCloakTexture());
-		IVertexBuilder buffer = buffers.getBuffer(model.getRenderType(item.getCloakTexture()));
-		model.render(ms, buffer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+		MinecraftClient.getInstance().textureManager.bindTexture(item.getCloakTexture());
+		VertexConsumer buffer = buffers.getBuffer(model.getLayer(item.getCloakTexture()));
+		model.render(ms, buffer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
 
-		buffer = buffers.getBuffer(model.getRenderType(item.getCloakGlowTexture()));
-		model.render(ms, buffer, 0xF000F0, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+		buffer = buffers.getBuffer(model.getLayer(item.getCloakGlowTexture()));
+		model.render(ms, buffer, 0xF000F0, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
 	}
 
 	public boolean effectOnDamage(LivingHurtEvent event, PlayerEntity player, ItemStack stack) {
-		if (!event.getSource().isMagicDamage()) {
+		if (!event.getSource().getMagic()) {
 			event.setCanceled(true);
-			player.world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
+			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
 			for (int i = 0; i < 30; i++) {
-				double x = player.getPosX() + Math.random() * player.getWidth() * 2 - player.getWidth();
-				double y = player.getPosY() + Math.random() * player.getHeight();
-				double z = player.getPosZ() + Math.random() * player.getWidth() * 2 - player.getWidth();
+				double x = player.getX() + Math.random() * player.getWidth() * 2 - player.getWidth();
+				double y = player.getY() + Math.random() * player.getHeight();
+				double z = player.getZ() + Math.random() * player.getWidth() * 2 - player.getWidth();
 				boolean yellow = Math.random() > 0.5;
 				float r = yellow ? 1F : 0.3F;
 				float g = yellow ? 1F : 0.3F;
@@ -138,13 +139,13 @@ public class ItemHolyCloak extends ItemBauble {
 		ItemNBTHelper.setBoolean(stack, TAG_IN_EFFECT, effect);
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	ResourceLocation getCloakTexture() {
+	@Environment(EnvType.CLIENT)
+	Identifier getCloakTexture() {
 		return texture;
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	ResourceLocation getCloakGlowTexture() {
+	@Environment(EnvType.CLIENT)
+	Identifier getCloakGlowTexture() {
 		return textureGlow;
 	}
 }

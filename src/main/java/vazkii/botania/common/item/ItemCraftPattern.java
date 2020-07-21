@@ -10,8 +10,8 @@ package vazkii.botania.common.item;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -24,25 +24,25 @@ import javax.annotation.Nonnull;
 public class ItemCraftPattern extends Item {
 	public final CratePattern pattern;
 
-	public ItemCraftPattern(CratePattern pattern, Properties props) {
+	public ItemCraftPattern(CratePattern pattern, Settings props) {
 		super(props);
 		this.pattern = pattern;
 	}
 
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
+	public ActionResult useOnBlock(ItemUsageContext ctx) {
 		World world = ctx.getWorld();
-		BlockPos pos = ctx.getPos();
+		BlockPos pos = ctx.getBlockPos();
 		BlockState state = world.getBlockState(pos);
 
 		if (state.getBlock() == ModBlocks.craftCrate) {
 			if (pattern != state.get(BotaniaStateProps.CRATE_PATTERN)) {
 				world.setBlockState(pos, state.with(BotaniaStateProps.CRATE_PATTERN, this.pattern));
-				return ActionResultType.SUCCESS;
+				return ActionResult.SUCCESS;
 			}
 		}
 
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 }

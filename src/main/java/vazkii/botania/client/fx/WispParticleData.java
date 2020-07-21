@@ -12,17 +12,16 @@ import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ParticleType;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleType;
 import net.minecraft.util.registry.Registry;
 
 import javax.annotation.Nonnull;
 
 import java.util.Locale;
 
-public class WispParticleData implements IParticleData {
+public class WispParticleData implements ParticleEffect {
 	public static final Codec<WispParticleData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			Codec.FLOAT.fieldOf("size").forGetter(d -> d.size),
 			Codec.FLOAT.fieldOf("r").forGetter(d -> d.r),
@@ -80,7 +79,7 @@ public class WispParticleData implements IParticleData {
 	}
 
 	@Override
-	public void write(PacketBuffer buf) {
+	public void write(PacketByteBuf buf) {
 		buf.writeFloat(size);
 		buf.writeFloat(r);
 		buf.writeFloat(g);
@@ -92,15 +91,15 @@ public class WispParticleData implements IParticleData {
 
 	@Nonnull
 	@Override
-	public String getParameters() {
+	public String asString() {
 		return String.format(Locale.ROOT, "%s %.2f %.2f %.2f %.2f %.2f %s",
-				Registry.PARTICLE_TYPE.getKey(getType()), this.size, this.r, this.g, this.b, this.maxAgeMul, this.depthTest);
+				Registry.PARTICLE_TYPE.getId(getType()), this.size, this.r, this.g, this.b, this.maxAgeMul, this.depthTest);
 	}
 
-	public static final IDeserializer<WispParticleData> DESERIALIZER = new IDeserializer<WispParticleData>() {
+	public static final Factory<WispParticleData> DESERIALIZER = new Factory<WispParticleData>() {
 		@Nonnull
 		@Override
-		public WispParticleData deserialize(@Nonnull ParticleType<WispParticleData> type, @Nonnull StringReader reader) throws CommandSyntaxException {
+		public WispParticleData read(@Nonnull ParticleType<WispParticleData> type, @Nonnull StringReader reader) throws CommandSyntaxException {
 			reader.expect(' ');
 			float size = reader.readFloat();
 			reader.expect(' ');
@@ -125,7 +124,7 @@ public class WispParticleData implements IParticleData {
 		}
 
 		@Override
-		public WispParticleData read(@Nonnull ParticleType<WispParticleData> type, PacketBuffer buf) {
+		public WispParticleData read(@Nonnull ParticleType<WispParticleData> type, PacketByteBuf buf) {
 			return new WispParticleData(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readBoolean(), buf.readBoolean());
 		}
 	};

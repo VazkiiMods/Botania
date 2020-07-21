@@ -10,7 +10,12 @@ package vazkii.botania.common.item.equipment.tool.elementium;
 
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.mob.AbstractSkeletonEntity;
+import net.minecraft.entity.mob.CreeperEntity;
+import net.minecraft.entity.mob.WitherSkeletonEntity;
+import net.minecraft.entity.mob.ZombieEntity;
+import net.minecraft.entity.mob.ZombifiedPiglinEntity;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -28,7 +33,7 @@ import java.util.Random;
 
 public class ItemElementiumAxe extends ItemManasteelAxe {
 
-	public ItemElementiumAxe(Properties props) {
+	public ItemElementiumAxe(Settings props) {
 		super(BotaniaAPI.instance().getElementiumItemTier(), props);
 		MinecraftForge.EVENT_BUS.addListener(this::onEntityDrops);
 	}
@@ -37,11 +42,11 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 	// https://github.com/SpitefulFox/ForbiddenMagic/blob/master/src/com/spiteful/forbidden/FMEventHandler.java
 
 	private void onEntityDrops(LivingDropsEvent event) {
-		if (event.isRecentlyHit() && event.getSource().getTrueSource() != null && event.getSource().getTrueSource() instanceof PlayerEntity) {
-			ItemStack weapon = ((PlayerEntity) event.getSource().getTrueSource()).getHeldItemMainhand();
+		if (event.isRecentlyHit() && event.getSource().getAttacker() != null && event.getSource().getAttacker() instanceof PlayerEntity) {
+			ItemStack weapon = ((PlayerEntity) event.getSource().getAttacker()).getMainHandStack();
 			if (!weapon.isEmpty() && weapon.getItem() == this) {
-				Random rand = event.getEntityLiving().world.rand;
-				int looting = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, weapon);
+				Random rand = event.getEntityLiving().world.random;
+				int looting = EnchantmentHelper.getLevel(Enchantments.FORTUNE, weapon);
 
 				if (event.getEntityLiving() instanceof AbstractSkeletonEntity && rand.nextInt(26) <= 3 + looting) {
 					addDrop(event, new ItemStack(event.getEntity() instanceof WitherSkeletonEntity ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
@@ -61,7 +66,7 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 	}
 
 	private void addDrop(LivingDropsEvent event, ItemStack drop) {
-		ItemEntity entityitem = new ItemEntity(event.getEntityLiving().world, event.getEntityLiving().getPosX(), event.getEntityLiving().getPosY(), event.getEntityLiving().getPosZ(), drop);
+		ItemEntity entityitem = new ItemEntity(event.getEntityLiving().world, event.getEntityLiving().getX(), event.getEntityLiving().getY(), event.getEntityLiving().getZ(), drop);
 		entityitem.setPickupDelay(10);
 		event.getDrops().add(entityitem);
 	}

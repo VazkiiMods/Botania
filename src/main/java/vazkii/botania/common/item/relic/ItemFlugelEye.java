@@ -9,18 +9,18 @@
 package vazkii.botania.common.item.relic;
 
 import com.mojang.datafixers.util.Pair;
-
+import net.minecraft.datafixer.NbtOps;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.item.UseAction;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.NBTDynamicOps;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.nbt.Tag;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.*;
+import net.minecraft.util.dynamic.GlobalPos;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.GlobalPos;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -40,7 +40,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUsingItem {
 
-	public ItemFlugelEye(Properties props) {
+	public ItemFlugelEye(Settings props) {
 		super(props);
 	}
 
@@ -48,13 +48,13 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
+	public ActionResult useOnBlock(ItemUsageContext ctx) {
 		World world = ctx.getWorld();
-		BlockPos pos = ctx.getPos();
+		BlockPos pos = ctx.getBlockPos();
 		PlayerEntity player = ctx.getPlayer();
 
 		if (player != null && player.isSneaking()) {
-			if (world.isRemote) {
+			if (world.isClient) {
 				for (int i = 0; i < 10; i++) {
 					float x1 = (float) (pos.getX() + Math.random());
 					float y1 = pos.getY() + 1;
@@ -63,25 +63,25 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 					world.addParticle(data, x1, y1, z1, 0, 0.05F - (float) Math.random() * 0.05F, 0);
 				}
 			} else {
-				ItemStack stack = ctx.getItem();
-				GlobalPos loc = GlobalPos.func_239648_a_(world.func_234923_W_(), pos);
-				INBT nbt = GlobalPos.field_239645_a_.encodeStart(NBTDynamicOps.INSTANCE, loc).result().get();
+				ItemStack stack = ctx.getStack();
+				GlobalPos loc = GlobalPos.create(world.getRegistryKey(), pos);
+				Tag nbt = GlobalPos.CODEC.encodeStart(NbtOps.INSTANCE, loc).result().get();
 				ItemNBTHelper.set(stack, TAG_LOCATION, nbt);
-				world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 5F);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 5F);
 			}
 
-			return ActionResultType.SUCCESS;
+			return ActionResult.SUCCESS;
 		}
 
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
 	@Override
-	public void onUse(World world, LivingEntity living, ItemStack stack, int count) {
-		if (world.isRemote) {
-			float x = (float) (living.getPosX() - Math.random() * living.getWidth());
-			float y = (float) (living.getPosY() + Math.random());
-			float z = (float) (living.getPosZ() - Math.random() * living.getWidth());
+	public void usageTick(World world, LivingEntity living, ItemStack stack, int count) {
+		if (world.isClient) {
+			float x = (float) (living.getX() - Math.random() * living.getWidth());
+			float y = (float) (living.getY() + Math.random());
+			float z = (float) (living.getZ() - Math.random() * living.getWidth());
 			WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.7F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
 			world.addParticle(data, x, y, z, 0, 0.05F + (float) Math.random() * 0.05F, 0);
 		}
@@ -89,19 +89,19 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		player.setActiveHand(hand);
-		return ActionResult.resultSuccess(player.getHeldItem(hand));
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
+		player.setCurrentHand(hand);
+		return TypedActionResult.success(player.getStackInHand(hand));
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World world, LivingEntity living) {
-		INBT nbt = ItemNBTHelper.get(stack, TAG_LOCATION);
+	public ItemStack finishUsing(@Nonnull ItemStack stack, World world, LivingEntity living) {
+		Tag nbt = ItemNBTHelper.get(stack, TAG_LOCATION);
 		if (nbt == null) {
 			return stack;
 		}
-		Optional<GlobalPos> maybeLoc = GlobalPos.field_239645_a_.decode(NBTDynamicOps.INSTANCE, nbt).result().map(Pair::getFirst);
+		Optional<GlobalPos> maybeLoc = GlobalPos.CODEC.decode(NbtOps.INSTANCE, nbt).result().map(Pair::getFirst);
 		if (!maybeLoc.isPresent()) {
 			ItemNBTHelper.removeEntry(stack, TAG_LOCATION);
 			return stack;
@@ -111,12 +111,12 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		int y = loc.getPos().getY();
 		int z = loc.getPos().getZ();
 
-		int cost = (int) (MathHelper.pointDistanceSpace(x + 0.5, y + 0.5, z + 0.5, living.getPosX(), living.getPosY(), living.getPosZ()) * 10);
+		int cost = (int) (MathHelper.pointDistanceSpace(x + 0.5, y + 0.5, z + 0.5, living.getX(), living.getY(), living.getZ()) * 10);
 
-		if (loc.func_239646_a_() == world.func_234923_W_()
+		if (loc.getDimension() == world.getRegistryKey()
 				&& (!(living instanceof PlayerEntity) || ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) living, cost, true))) {
 			moveParticlesAndSound(living);
-			living.setPositionAndUpdate(x + 0.5, y + 1.5, z + 0.5);
+			living.requestTeleport(x + 0.5, y + 1.5, z + 0.5);
 			moveParticlesAndSound(living);
 		}
 
@@ -124,12 +124,12 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	}
 
 	private static void moveParticlesAndSound(Entity entity) {
-		PacketHandler.sendToNearby(entity.world, entity, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.FLUGEL_EFFECT, entity.getPosX(), entity.getPosY(), entity.getPosZ(), entity.getEntityId()));
-		entity.world.playSound(null, entity.getPosX(), entity.getPosY(), entity.getPosZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
+		PacketHandler.sendToNearby(entity.world, entity, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.FLUGEL_EFFECT, entity.getX(), entity.getY(), entity.getZ(), entity.getEntityId()));
+		entity.world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getMaxUseTime(ItemStack stack) {
 		return 40;
 	}
 
@@ -141,9 +141,9 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 	@Override
 	public BlockPos getBinding(ItemStack stack) {
-		INBT nbt = ItemNBTHelper.get(stack, TAG_LOCATION);
+		Tag nbt = ItemNBTHelper.get(stack, TAG_LOCATION);
 		if (nbt != null) {
-			return GlobalPos.field_239645_a_.decode(NBTDynamicOps.INSTANCE, nbt).result()
+			return GlobalPos.CODEC.decode(NbtOps.INSTANCE, nbt).result()
 					.map(Pair::getFirst)
 					.map(GlobalPos::getPos).orElse(null);
 		}
@@ -156,7 +156,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	}
 
 	@Override
-	public ResourceLocation getAdvancement() {
+	public Identifier getAdvancement() {
 		return prefix("challenge/flugel_eye");
 	}
 

@@ -8,28 +8,33 @@
  */
 package vazkii.botania.common.item;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.CommandBlockBlock;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.block.CommandBlock;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.state.Property;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.state.property.Property;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
+import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.dynamic.GlobalPos;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.*;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -70,18 +75,18 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 	private static final String TAG_BIND_MODE = "bindMode";
 	private static final BlockPos UNBOUND_POS = new BlockPos(0, -1, 0);
 
-	public ItemTwigWand(Item.Properties builder) {
+	public ItemTwigWand(Item.Settings builder) {
 		super(builder);
 	}
 
-	private static boolean tryCompleteBinding(BlockPos src, ItemStack stack, ItemUseContext ctx) {
-		BlockPos dest = ctx.getPos();
+	private static boolean tryCompleteBinding(BlockPos src, ItemStack stack, ItemUsageContext ctx) {
+		BlockPos dest = ctx.getBlockPos();
 		if (!dest.equals(src)) {
 			setBindingAttempt(stack, UNBOUND_POS);
 
-			TileEntity srcTile = ctx.getWorld().getTileEntity(src);
+			BlockEntity srcTile = ctx.getWorld().getBlockEntity(src);
 			if (srcTile instanceof IWandBindable) {
-				if (((IWandBindable) srcTile).bindTo(ctx.getPlayer(), stack, dest, ctx.getFace())) {
+				if (((IWandBindable) srcTile).bindTo(ctx.getPlayer(), stack, dest, ctx.getSide())) {
 					doParticleBeamWithOffset(ctx.getWorld(), src, dest);
 					setBindingAttempt(stack, UNBOUND_POS);
 				}
@@ -91,13 +96,13 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		return false;
 	}
 
-	private static boolean tryFormEnchanter(ItemUseContext ctx) {
+	private static boolean tryFormEnchanter(ItemUsageContext ctx) {
 		World world = ctx.getWorld();
-		BlockPos pos = ctx.getPos();
+		BlockPos pos = ctx.getBlockPos();
 		Direction.Axis axis = TileEnchanter.canEnchanterExist(world, pos);
 
 		if (axis != null) {
-			if (!world.isRemote) {
+			if (!world.isClient) {
 				world.setBlockState(pos, ModBlocks.enchanter.getDefaultState().with(BotaniaStateProps.ENCHANTER_DIRECTION, axis));
 				world.playSound(null, pos, ModSounds.enchanterForm, SoundCategory.BLOCKS, 0.5F, 0.6F);
 				PlayerHelper.grantCriterion((ServerPlayerEntity) ctx.getPlayer(), prefix("main/enchanter_make"), "code_triggered");
@@ -126,14 +131,14 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		return false;
 	}
 
-	private static boolean tryCompletePistonRelayBinding(ItemUseContext ctx) {
+	private static boolean tryCompletePistonRelayBinding(ItemUsageContext ctx) {
 		World world = ctx.getWorld();
-		BlockPos pos = ctx.getPos();
+		BlockPos pos = ctx.getBlockPos();
 		PlayerEntity player = ctx.getPlayer();
 
-		GlobalPos bindPos = ((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.get(player.getUniqueID());
-		if (bindPos != null && bindPos.func_239646_a_() == world.func_234923_W_()) {
-			((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.remove(player.getUniqueID());
+		GlobalPos bindPos = ((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.get(player.getUuid());
+		if (bindPos != null && bindPos.getDimension() == world.getRegistryKey()) {
+			((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.remove(player.getUuid());
 			BlockPistonRelay.WorldData data = BlockPistonRelay.WorldData.get(world);
 			data.mapping.put(bindPos.getPos(), pos.toImmutable());
 			data.markDirty();
@@ -143,7 +148,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 							bindPos.getPos().getX() + 0.5, bindPos.getPos().getY() + 0.5, bindPos.getPos().getZ() + 0.5,
 							pos.getX(), pos.getY(), pos.getZ()));
 
-			world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
 			return true;
 		}
 		return false;
@@ -151,41 +156,41 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
-		ItemStack stack = ctx.getItem();
+	public ActionResult useOnBlock(ItemUsageContext ctx) {
+		ItemStack stack = ctx.getStack();
 		World world = ctx.getWorld();
 		PlayerEntity player = ctx.getPlayer();
-		BlockPos pos = ctx.getPos();
+		BlockPos pos = ctx.getBlockPos();
 		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
-		Direction side = ctx.getFace();
+		Direction side = ctx.getSide();
 		Optional<BlockPos> boundPos = getBindingAttempt(stack);
 
 		if (player == null) {
-			return ActionResultType.PASS;
+			return ActionResult.PASS;
 		}
 
 		if (player.isSneaking()) {
 			if (boundPos.isPresent() && tryCompleteBinding(boundPos.get(), stack, ctx)) {
-				return ActionResultType.SUCCESS;
+				return ActionResult.SUCCESS;
 			}
 
-			if (player.canPlayerEdit(pos, side, stack)
-					&& (!(block instanceof CommandBlockBlock) || player.canUseCommandBlock())) {
+			if (player.canPlaceOn(pos, side, stack)
+					&& (!(block instanceof CommandBlock) || player.isCreativeLevelTwoOp())) {
 				BlockState newState = rotate(state, side.getAxis());
 				if (newState != state) {
 					world.setBlockState(pos, newState);
-					return ActionResultType.SUCCESS;
+					return ActionResult.SUCCESS;
 				}
 			}
 		}
 
 		if (block == Blocks.LAPIS_BLOCK && ConfigHandler.COMMON.enchanterEnabled.get() && tryFormEnchanter(ctx)) {
-			return ActionResultType.SUCCESS;
+			return ActionResult.SUCCESS;
 		}
 
 		if (block instanceof IWandable) {
-			TileEntity tile = world.getTileEntity(pos);
+			BlockEntity tile = world.getBlockEntity(pos);
 			boolean bindable = tile instanceof IWandBindable;
 
 			boolean wanded;
@@ -196,7 +201,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 					setBindingAttempt(stack, pos);
 				}
 
-				if (world.isRemote) {
+				if (world.isClient) {
 					player.playSound(ModSounds.ding, 0.11F, 1F);
 				}
 
@@ -205,31 +210,31 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 				wanded = ((IWandable) block).onUsedByWand(player, stack, world, pos, side);
 			}
 
-			return wanded ? ActionResultType.SUCCESS : ActionResultType.FAIL;
+			return wanded ? ActionResult.SUCCESS : ActionResult.FAIL;
 		}
 
-		if (!world.isRemote && getBindMode(stack) && tryCompletePistonRelayBinding(ctx)) {
-			return ActionResultType.SUCCESS;
+		if (!world.isClient && getBindMode(stack) && tryCompletePistonRelayBinding(ctx)) {
+			return ActionResult.SUCCESS;
 		}
 
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
 	private static BlockState rotate(BlockState old, Direction.Axis axis) {
-		for (Property<?> prop : old.func_235904_r_()) {
-			if (prop.getName().equals("facing") && prop.getValueClass() == Direction.class) {
+		for (Property<?> prop : old.getProperties()) {
+			if (prop.getName().equals("facing") && prop.getType() == Direction.class) {
 				@SuppressWarnings("unchecked")
 				Property<Direction> facingProp = (Property<Direction>) prop;
 
 				Direction oldDir = old.get(facingProp);
 				Direction newDir = rotateAround(oldDir, axis);
-				if (oldDir != newDir && facingProp.getAllowedValues().contains(newDir)) {
+				if (oldDir != newDir && facingProp.getValues().contains(newDir)) {
 					return old.with(facingProp, newDir);
 				}
 			}
 		}
 
-		return old.rotate(Rotation.CLOCKWISE_90);
+		return old.rotate(BlockRotation.CLOCKWISE_90);
 	}
 
 	private static Direction rotateAround(Direction old, Direction.Axis axis) {
@@ -279,15 +284,15 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 	}
 
 	public static void doParticleBeamWithOffset(World world, BlockPos orig, BlockPos end) {
-		Vector3d origOffset = world.getBlockState(orig).getOffset(world, orig);
+		Vec3d origOffset = world.getBlockState(orig).getModelOffset(world, orig);
 		Vector3 vorig = new Vector3(orig.getX() + origOffset.getX() + 0.5, orig.getY() + origOffset.getY() + 0.5, orig.getZ() + origOffset.getZ() + 0.5);
-		Vector3d endOffset = world.getBlockState(end).getOffset(world, end);
+		Vec3d endOffset = world.getBlockState(end).getModelOffset(world, end);
 		Vector3 vend = new Vector3(end.getX() + endOffset.getX() + 0.5, end.getY() + endOffset.getY() + 0.5, end.getZ() + endOffset.getZ() + 0.5);
 		doParticleBeam(world, vorig, vend);
 	}
 
 	public static void doParticleBeam(World world, Vector3 orig, Vector3 end) {
-		if (!world.isRemote) {
+		if (!world.isClient) {
 			return;
 		}
 
@@ -300,7 +305,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		Vector3 currentPos = orig;
 		for (int i = 0; i < iters; i++) {
 			float hue = i * huePer + hueSum;
-			int color = MathHelper.hsvToRGB(hue, 1F, 1F);
+			int color = MathHelper.hsvToRgb(hue, 1F, 1F);
 			float r = (color >> 16 & 0xFF) / 255F;
 			float g = (color >> 8 & 0xFF) / 255F;
 			float b = (color & 0xFF) / 255F;
@@ -314,7 +319,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
 		getBindingAttempt(stack).ifPresent(coords -> {
-			TileEntity tile = world.getTileEntity(coords);
+			BlockEntity tile = world.getBlockEntity(coords);
 			if (!(tile instanceof IWandBindable)) {
 				setBindingAttempt(stack, UNBOUND_POS);
 			}
@@ -323,40 +328,40 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getHeldItem(hand);
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
+		ItemStack stack = player.getStackInHand(hand);
 		if (player.isSneaking()) {
-			if (!world.isRemote) {
+			if (!world.isClient) {
 				setBindMode(stack, !getBindMode(stack));
 			} else {
 				player.playSound(ModSounds.ding, 0.1F, 1F);
 			}
 		}
 
-		return ActionResult.resultSuccess(stack);
+		return TypedActionResult.success(stack);
 	}
 
 	@Override
-	public void fillItemGroup(@Nonnull ItemGroup group, @Nonnull NonNullList<ItemStack> stacks) {
-		if (isInGroup(group)) {
+	public void appendStacks(@Nonnull ItemGroup group, @Nonnull DefaultedList<ItemStack> stacks) {
+		if (isIn(group)) {
 			for (int i = 0; i < 16; i++) {
 				stacks.add(forColors(i, i));
 			}
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
-		list.add(new TranslationTextComponent(getModeString(stack)).func_240699_a_(TextFormatting.GRAY));
+	public void appendTooltip(ItemStack stack, World world, List<Text> list, TooltipContext flags) {
+		list.add(new TranslatableText(getModeString(stack)).formatted(Formatting.GRAY));
 	}
 
 	@Override
-	public ITextComponent getHighlightTip(ItemStack stack, ITextComponent displayName) {
-		ITextComponent mode = new StringTextComponent(" (")
-				.func_230529_a_(new TranslationTextComponent(getModeString(stack)).func_240699_a_(TextFormatting.DARK_GREEN))
-				.func_240702_b_(")");
-		return displayName.deepCopy().func_230529_a_(mode);
+	public Text getHighlightTip(ItemStack stack, Text displayName) {
+		Text mode = new LiteralText(" (")
+				.append(new TranslatableText(getModeString(stack)).formatted(Formatting.DARK_GREEN))
+				.append(")");
+		return displayName.shallowCopy().append(mode);
 	}
 
 	public static ItemStack forColors(int color1, int color2) {
@@ -407,9 +412,9 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 			return bound.get();
 		}
 
-		RayTraceResult pos = Minecraft.getInstance().objectMouseOver;
-		if (pos != null && pos.getType() == RayTraceResult.Type.BLOCK) {
-			TileEntity tile = Minecraft.getInstance().world.getTileEntity(((BlockRayTraceResult) pos).getPos());
+		HitResult pos = MinecraftClient.getInstance().crosshairTarget;
+		if (pos != null && pos.getType() == HitResult.Type.BLOCK) {
+			BlockEntity tile = MinecraftClient.getInstance().world.getBlockEntity(((BlockHitResult) pos).getBlockPos());
 			if (tile instanceof ITileBound) {
 				return ((ITileBound) tile).getBinding();
 			}

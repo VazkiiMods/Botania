@@ -8,11 +8,10 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.tileentity.ITickableTileEntity;
-
+import net.minecraft.util.Tickable;
 import vazkii.botania.client.fx.WispParticleData;
 
-public class TileSpiritShrine extends TileMod implements ITickableTileEntity {
+public class TileSpiritShrine extends TileMod implements Tickable {
 
 	private int ticks;
 
@@ -22,7 +21,7 @@ public class TileSpiritShrine extends TileMod implements ITickableTileEntity {
 
 	@Override
 	public void tick() {
-		if (world.isRemote) {
+		if (world.isClient) {
 			if (ticks >= 40) {
 				float[][] colors = new float[][] {
 						{ 0F, 0.25F, 1F },

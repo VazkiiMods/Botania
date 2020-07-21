@@ -8,17 +8,24 @@
  */
 package vazkii.botania.common.item.equipment.armor.manasteel;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.util.ITooltipFlag;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.item.IArmorMaterial;
+import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.LazyValue;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Lazy;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -48,17 +55,17 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
-	private final LazyValue<BipedModel<?>> model;
-	public final EquipmentSlotType type;
+	private final Lazy<BipedEntityModel<?>> model;
+	public final EquipmentSlot type;
 
-	public ItemManasteelArmor(EquipmentSlotType type, Properties props) {
+	public ItemManasteelArmor(EquipmentSlot type, Settings props) {
 		this(type, BotaniaAPI.instance().getManasteelArmorMaterial(), props);
 	}
 
-	public ItemManasteelArmor(EquipmentSlotType type, IArmorMaterial mat, Properties props) {
+	public ItemManasteelArmor(EquipmentSlot type, ArmorMaterial mat, Settings props) {
 		super(mat, type, props);
 		this.type = type;
-		this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> this.provideArmorModelForSlot(type)),
+		this.model = DistExecutor.runForDist(() -> () -> new Lazy<>(() -> this.provideArmorModelForSlot(type)),
 				() -> () -> null);
 	}
 
@@ -71,7 +78,7 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 
 	@Override
 	public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-		if (!world.isRemote && stack.getDamage() > 0 && ManaItemHandler.instance().requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true)) {
+		if (!world.isClient && stack.getDamage() > 0 && ManaItemHandler.instance().requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true)) {
 			stack.setDamage(stack.getDamage() - 1);
 		}
 	}
@@ -83,27 +90,27 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 
 	@Nonnull
 	@Override
-	public final String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
+	public final String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
 		return hasPhantomInk(stack) ? LibResources.MODEL_INVISIBLE_ARMOR : getArmorTextureAfterInk(stack, slot);
 	}
 
-	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlotType slot) {
-		return ConfigHandler.CLIENT.enableArmorModels.get() ? LibResources.MODEL_MANASTEEL_NEW : slot == EquipmentSlotType.LEGS ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0;
+	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
+		return ConfigHandler.CLIENT.enableArmorModels.get() ? LibResources.MODEL_MANASTEEL_NEW : slot == EquipmentSlot.LEGS ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0;
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@SuppressWarnings("unchecked")
-	public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A original) {
+	public <A extends BipedEntityModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A original) {
 		if (ConfigHandler.CLIENT.enableArmorModels.get()) {
-			return (A) model.getValue();
+			return (A) model.get();
 		}
 
 		return super.getArmorModel(entityLiving, itemStack, armorSlot, original);
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	public BipedModel<?> provideArmorModelForSlot(EquipmentSlotType slot) {
+	@Environment(EnvType.CLIENT)
+	public BipedEntityModel<?> provideArmorModelForSlot(EquipmentSlot slot) {
 		return new ModelArmorManasteel(slot);
 	}
 
@@ -112,30 +119,30 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 		return true;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
+	public void appendTooltip(ItemStack stack, World world, List<Text> list, TooltipContext flags) {
 		TooltipHandler.addOnShift(list, () -> addInformationAfterShift(stack, world, list, flags));
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	public void addInformationAfterShift(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
-		PlayerEntity player = Minecraft.getInstance().player;
+	@Environment(EnvType.CLIENT)
+	public void addInformationAfterShift(ItemStack stack, World world, List<Text> list, TooltipContext flags) {
+		PlayerEntity player = MinecraftClient.getInstance().player;
 		list.add(getArmorSetTitle(player));
 		addArmorSetDescription(stack, list);
 		ItemStack[] stacks = getArmorSetStacks();
 		for (ItemStack armor : stacks) {
-			IFormattableTextComponent cmp = new StringTextComponent(" - ").func_230529_a_(armor.getDisplayName());
-			EquipmentSlotType slot = ((ArmorItem) armor.getItem()).getEquipmentSlot();
-			cmp.func_240699_a_(hasArmorSetItem(player, slot) ? TextFormatting.GREEN : TextFormatting.GRAY);
+			MutableText cmp = new LiteralText(" - ").append(armor.getName());
+			EquipmentSlot slot = ((ArmorItem) armor.getItem()).getSlotType();
+			cmp.formatted(hasArmorSetItem(player, slot) ? Formatting.GREEN : Formatting.GRAY);
 			list.add(cmp);
 		}
 		if (hasPhantomInk(stack)) {
-			list.add(new TranslationTextComponent("botaniamisc.hasPhantomInk").func_240699_a_(TextFormatting.GRAY));
+			list.add(new TranslatableText("botaniamisc.hasPhantomInk").formatted(Formatting.GRAY));
 		}
 	}
 
-	private static final LazyValue<ItemStack[]> armorSet = new LazyValue<>(() -> new ItemStack[] {
+	private static final Lazy<ItemStack[]> armorSet = new Lazy<>(() -> new ItemStack[] {
 			new ItemStack(ModItems.manasteelHelm),
 			new ItemStack(ModItems.manasteelChest),
 			new ItemStack(ModItems.manasteelLegs),
@@ -143,19 +150,19 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 	});
 
 	public ItemStack[] getArmorSetStacks() {
-		return armorSet.getValue();
+		return armorSet.get();
 	}
 
 	public boolean hasArmorSet(PlayerEntity player) {
-		return hasArmorSetItem(player, EquipmentSlotType.HEAD) && hasArmorSetItem(player, EquipmentSlotType.CHEST) && hasArmorSetItem(player, EquipmentSlotType.LEGS) && hasArmorSetItem(player, EquipmentSlotType.FEET);
+		return hasArmorSetItem(player, EquipmentSlot.HEAD) && hasArmorSetItem(player, EquipmentSlot.CHEST) && hasArmorSetItem(player, EquipmentSlot.LEGS) && hasArmorSetItem(player, EquipmentSlot.FEET);
 	}
 
-	public boolean hasArmorSetItem(PlayerEntity player, EquipmentSlotType slot) {
-		if (player == null || player.inventory == null || player.inventory.armorInventory == null) {
+	public boolean hasArmorSetItem(PlayerEntity player, EquipmentSlot slot) {
+		if (player == null || player.inventory == null || player.inventory.armor == null) {
 			return false;
 		}
 
-		ItemStack stack = player.getItemStackFromSlot(slot);
+		ItemStack stack = player.getEquippedStack(slot);
 		if (stack.isEmpty()) {
 			return false;
 		}
@@ -176,8 +183,8 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 
 	private int getSetPiecesEquipped(PlayerEntity player) {
 		int pieces = 0;
-		for (EquipmentSlotType slot : EquipmentSlotType.values()) {
-			if (slot.getSlotType() == EquipmentSlotType.Group.ARMOR && hasArmorSetItem(player, slot)) {
+		for (EquipmentSlot slot : EquipmentSlot.values()) {
+			if (slot.getType() == EquipmentSlot.Type.ARMOR && hasArmorSetItem(player, slot)) {
 				pieces++;
 			}
 		}
@@ -185,22 +192,22 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 		return pieces;
 	}
 
-	public IFormattableTextComponent getArmorSetName() {
-		return new TranslationTextComponent("botania.armorset.manasteel.name");
+	public MutableText getArmorSetName() {
+		return new TranslatableText("botania.armorset.manasteel.name");
 	}
 
-	private ITextComponent getArmorSetTitle(PlayerEntity player) {
-		ITextComponent end = getArmorSetName()
-				.func_240702_b_(" (" + getSetPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")")
-				.func_240699_a_(TextFormatting.GRAY);
-		return new TranslationTextComponent("botaniamisc.armorset")
-				.func_240702_b_(" ")
-				.func_230529_a_(end);
+	private Text getArmorSetTitle(PlayerEntity player) {
+		Text end = getArmorSetName()
+				.append(" (" + getSetPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")")
+				.formatted(Formatting.GRAY);
+		return new TranslatableText("botaniamisc.armorset")
+				.append(" ")
+				.append(end);
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	public void addArmorSetDescription(ItemStack stack, List<ITextComponent> list) {
-		list.add(new TranslationTextComponent("botania.armorset.manasteel.desc").func_240699_a_(TextFormatting.GRAY));
+	@Environment(EnvType.CLIENT)
+	public void addArmorSetDescription(ItemStack stack, List<Text> list) {
+		list.add(new TranslatableText("botania.armorset.manasteel.desc").formatted(Formatting.GRAY));
 	}
 
 	@Override

@@ -10,27 +10,27 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.EnderPearlEntity;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.projectile.thrown.EnderPearlEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Packet;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -52,7 +52,7 @@ import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class TileLightRelay extends TileMod implements ITickableTileEntity, IWandBindable {
+public class TileLightRelay extends TileMod implements Tickable, IWandBindable {
 	private static final int MAX_DIST = 20;
 
 	private static final String TAG_BIND_X = "bindX";
@@ -68,12 +68,12 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 
 	public void mountEntity(Entity e) {
 		BlockPos nextDest = getNextDestination();
-		if (e.isPassenger() || world.isRemote || nextDest == null || !isValidBinding()) {
+		if (e.hasVehicle() || world.isClient || nextDest == null || !isValidBinding()) {
 			return;
 		}
 
 		EntityPlayerMover mover = new EntityPlayerMover(world, pos, nextDest);
-		world.addEntity(mover);
+		world.spawnEntity(mover);
 		e.startRiding(mover);
 		if (!(e instanceof ItemEntity)) {
 			mover.playSound(ModSounds.lightRelay, 0.2F, (float) Math.random() * 0.3F + 0.7F);
@@ -89,7 +89,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 
 		BlockPos nextDest = getNextDestination();
 		if (nextDest != null && nextDest.getY() > -1 && isValidBinding()) {
-			if (world.isRemote) {
+			if (world.isClient) {
 				Vector3 vec = getMovementVector();
 				if (vec != null) {
 					double dist = 0.1;
@@ -117,14 +117,14 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 				BlockPos endpoint = getEndpoint();
 
 				if (endpoint != null) {
-					AxisAlignedBB aabb = getBlockState().getShape(world, pos).getBoundingBox().offset(pos);
+					Box aabb = getCachedState().getOutlineShape(world, pos).getBoundingBox().offset(pos);
 					float range = 0.5F;
-					List<EnderPearlEntity> enderPearls = world.getEntitiesWithinAABB(EnderPearlEntity.class, aabb.grow(range));
+					List<EnderPearlEntity> enderPearls = world.getNonSpectatingEntities(EnderPearlEntity.class, aabb.expand(range));
 					for (EnderPearlEntity pearl : enderPearls) {
-						pearl.setPositionAndUpdate(
-								endpoint.getX() + pearl.getPosX() - pos.getX(),
-								endpoint.getY() + pearl.getPosY() - pos.getY(),
-								endpoint.getZ() + pearl.getPosZ() - pos.getZ()
+						pearl.requestTeleport(
+								endpoint.getX() + pearl.getX() - pos.getX(),
+								endpoint.getY() + pearl.getY() - pos.getY(),
+								endpoint.getZ() + pearl.getZ() - pos.getZ()
 						);
 					}
 				}
@@ -160,7 +160,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 				return lastCoords;
 			}
 
-			TileEntity tile = world.getTileEntity(coords);
+			BlockEntity tile = world.getBlockEntity(coords);
 			if (tile != null && tile instanceof TileLightRelay) {
 				relay = (TileLightRelay) tile;
 			} else {
@@ -188,8 +188,8 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 	}
 
 	public BlockPos getNextDestination() {
-		BlockState state = getBlockState();
-		if (state.getBlock() == ModBlocks.lightRelayToggle && state.get(BlockStateProperties.POWERED)) {
+		BlockState state = getCachedState();
+		if (state.getBlock() == ModBlocks.lightRelayToggle && state.get(Properties.POWERED)) {
 			return null;
 		} else if (state.getBlock() == ModBlocks.lightRelayFork) {
 			BlockPos torchPos = null;
@@ -204,7 +204,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 			}
 
 			if (torchPos != null) {
-				TileAnimatedTorch torch = (TileAnimatedTorch) world.getTileEntity(torchPos);
+				TileAnimatedTorch torch = (TileAnimatedTorch) world.getBlockEntity(torchPos);
 				Direction side = TileAnimatedTorch.SIDES[torch.side].getOpposite();
 				for (int i = 1; i < MAX_DIST; i++) {
 					BlockPos testPos = pos.offset(side, i);
@@ -227,7 +227,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 	@Override
 	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
 		if (!(player.world.getBlockState(pos).getBlock() instanceof BlockLightRelay)
-				|| pos.distanceSq(getPos()) > MAX_DIST * MAX_DIST) {
+				|| pos.getSquaredDistance(getPos()) > MAX_DIST * MAX_DIST) {
 			return false;
 		}
 
@@ -237,7 +237,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT cmp) {
+	public void readPacketNBT(CompoundTag cmp) {
 		bindPos = new BlockPos(
 				cmp.getInt(TAG_BIND_X),
 				cmp.getInt(TAG_BIND_Y),
@@ -246,7 +246,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT cmp) {
+	public void writePacketNBT(CompoundTag cmp) {
 		cmp.putInt(TAG_BIND_X, bindPos.getX());
 		cmp.putInt(TAG_BIND_Y, bindPos.getY());
 		cmp.putInt(TAG_BIND_Z, bindPos.getZ());
@@ -256,7 +256,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 		private static final String TAG_EXIT_X = "exitX";
 		private static final String TAG_EXIT_Y = "exitY";
 		private static final String TAG_EXIT_Z = "exitZ";
-		private static final DataParameter<BlockPos> EXIT_POS = EntityDataManager.createKey(EntityPlayerMover.class, DataSerializers.BLOCK_POS);
+		private static final TrackedData<BlockPos> EXIT_POS = DataTracker.registerData(EntityPlayerMover.class, TrackedDataHandlerRegistry.BLOCK_POS);
 
 		public EntityPlayerMover(EntityType<EntityPlayerMover> type, World world) {
 			super(type, world);
@@ -265,39 +265,39 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 
 		public EntityPlayerMover(World world, BlockPos pos, BlockPos exitPos) {
 			this(ModEntities.PLAYER_MOVER, world);
-			setPosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+			updatePosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 			setExit(exitPos);
 		}
 
 		@Override
-		protected void registerData() {
-			dataManager.register(EXIT_POS, BlockPos.ZERO);
+		protected void initDataTracker() {
+			dataTracker.startTracking(EXIT_POS, BlockPos.ORIGIN);
 		}
 
 		@Override
 		public void tick() {
 			super.tick();
 
-			if (getPassengers().isEmpty() && !world.isRemote) {
+			if (getPassengerList().isEmpty() && !world.isClient) {
 				remove();
 				return;
 			}
 
-			boolean isItem = getRidingEntity() instanceof ItemEntity;
-			if (!isItem && ticksExisted % 30 == 0) {
+			boolean isItem = getVehicle() instanceof ItemEntity;
+			if (!isItem && age % 30 == 0) {
 				playSound(ModSounds.lightRelay, 0.05F, (float) Math.random() * 0.3F + 0.7F);
 			}
 
-			BlockPos pos = func_233580_cy_();
+			BlockPos pos = getBlockPos();
 			BlockPos exitPos = getExitPos();
 
 			if (pos.equals(exitPos)) {
-				TileEntity tile = world.getTileEntity(pos);
+				BlockEntity tile = world.getBlockEntity(pos);
 				if (tile instanceof TileLightRelay) {
 					BlockState state = world.getBlockState(pos);
 					if (state.getBlock() == ModBlocks.lightRelayDetector) {
-						world.setBlockState(pos, state.with(BlockStateProperties.POWERED, true));
-						world.getPendingBlockTicks().scheduleTick(pos, state.getBlock(), 2);
+						world.setBlockState(pos, state.with(Properties.POWERED, true));
+						world.getBlockTickScheduler().schedule(pos, state.getBlock(), 2);
 					}
 
 					TileLightRelay relay = (TileLightRelay) tile;
@@ -308,21 +308,21 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 					}
 				}
 
-				for (Entity e : getPassengers()) {
+				for (Entity e : getPassengerList()) {
 					e.stopRiding();
-					e.setPositionAndUpdate(getPosX(), getPosY(), getPosZ());
+					e.requestTeleport(getX(), getY(), getZ());
 				}
 				remove();
 			} else {
-				Vector3d thisVec = getPositionVec();
-				Vector3d motVec = thisVec.inverse().add(exitPos.getX() + 0.5, exitPos.getY() + 0.5, exitPos.getZ() + 0.5).normalize().scale(0.5);
+				Vec3d thisVec = getPos();
+				Vec3d motVec = thisVec.negate().add(exitPos.getX() + 0.5, exitPos.getY() + 0.5, exitPos.getZ() + 0.5).normalize().multiply(0.5);
 
 				int color;
 
 				int count = 4;
 				for (int i = 0; i < count; i++) {
-					color = MathHelper.hsvToRGB(ticksExisted / 36F + 1F / count * i, 1F, 1F);
-					double rad = Math.PI * 2.0 / count * i + ticksExisted / Math.PI;
+					color = MathHelper.hsvToRgb(age / 36F + 1F / count * i, 1F, 1F);
+					double rad = Math.PI * 2.0 / count * i + age / Math.PI;
 					double cos = Math.cos(rad);
 					double sin = Math.sin(rad);
 					double s = 0.4;
@@ -331,10 +331,10 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 					int g = (color >> 8) & 0xFF;
 					int b = color & 0xFF;
 					SparkleParticleData data = SparkleParticleData.sparkle(1.2F, r / 255F, g / 255F, b / 255F, 10);
-					world.addParticle(data, getPosX() + cos * s, getPosY() - 0.5, getPosZ() + sin * s, 0, 0, 0);
+					world.addParticle(data, getX() + cos * s, getY() - 0.5, getZ() + sin * s, 0, 0, 0);
 				}
 
-				setPosition(getPosX() + motVec.x, getPosY() + motVec.y, getPosZ() + motVec.z);
+				updatePosition(getX() + motVec.x, getY() + motVec.y, getZ() + motVec.z);
 			}
 		}
 
@@ -344,17 +344,17 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 		}
 
 		@Override
-		public boolean attackEntityFrom(@Nonnull DamageSource source, float damage) {
+		public boolean damage(@Nonnull DamageSource source, float damage) {
 			return false;
 		}
 
 		@Override
-		protected void readAdditional(@Nonnull CompoundNBT cmp) {
+		protected void readCustomDataFromTag(@Nonnull CompoundTag cmp) {
 			setExit(new BlockPos(cmp.getInt(TAG_EXIT_X), cmp.getInt(TAG_EXIT_Y), cmp.getInt(TAG_EXIT_Z)));
 		}
 
 		@Override
-		protected void writeAdditional(@Nonnull CompoundNBT cmp) {
+		protected void writeCustomDataToTag(@Nonnull CompoundTag cmp) {
 			BlockPos exit = getExitPos();
 			cmp.putInt(TAG_EXIT_X, exit.getX());
 			cmp.putInt(TAG_EXIT_Y, exit.getY());
@@ -363,16 +363,16 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 
 		@Nonnull
 		@Override
-		public IPacket<?> createSpawnPacket() {
+		public Packet<?> createSpawnPacket() {
 			return NetworkHooks.getEntitySpawningPacket(this);
 		}
 
 		public BlockPos getExitPos() {
-			return dataManager.get(EXIT_POS);
+			return dataTracker.get(EXIT_POS);
 		}
 
 		public void setExit(BlockPos pos) {
-			dataManager.set(EXIT_POS, pos);
+			dataTracker.set(EXIT_POS, pos);
 		}
 
 	}

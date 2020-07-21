@@ -8,10 +8,9 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.RayTraceResult;
-
+import net.minecraft.util.hit.HitResult;
 import vazkii.botania.api.internal.IManaBurst;
 
 /**
@@ -32,7 +31,7 @@ public interface ILensEffect {
 	 * 
 	 * @return True to kill the burst. False to keep it alive.
 	 */
-	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack);
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack);
 
 	/**
 	 * Called when a mana burst fired from a mana spreader with this focus is updated.
@@ -49,7 +48,7 @@ public interface ILensEffect {
 	/**
 	 * Gets the amount of mana to transfer to the passed in mana receiver block.
 	 */
-	public default int getManaToTransfer(IManaBurst burst, ThrowableEntity entity, ItemStack stack, IManaReceiver receiver) {
+	public default int getManaToTransfer(IManaBurst burst, ThrownEntity entity, ItemStack stack, IManaReceiver receiver) {
 		return burst.getMana();
 	}
 

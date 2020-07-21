@@ -8,16 +8,16 @@
  */
 package vazkii.botania.common.network;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.DyeColor;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -48,7 +48,7 @@ public class PacketBotaniaEffect {
 		this.args = args;
 	}
 
-	public static PacketBotaniaEffect decode(PacketBuffer buf) {
+	public static PacketBotaniaEffect decode(PacketByteBuf buf) {
 		EffectType type = EffectType.values()[buf.readByte()];
 		double x = buf.readDouble();
 		double y = buf.readDouble();
@@ -61,7 +61,7 @@ public class PacketBotaniaEffect {
 		return new PacketBotaniaEffect(type, x, y, z, args);
 	}
 
-	public static void encode(PacketBotaniaEffect msg, PacketBuffer buf) {
+	public static void encode(PacketBotaniaEffect msg, PacketByteBuf buf) {
 		buf.writeByte(msg.type.ordinal());
 		buf.writeDouble(msg.x);
 		buf.writeDouble(msg.y);
@@ -82,7 +82,7 @@ public class PacketBotaniaEffect {
 				// Use anon - lambda causes classloading issues
 				@Override
 				public void run() {
-					Minecraft mc = Minecraft.getInstance();
+					MinecraftClient mc = MinecraftClient.getInstance();
 					World world = mc.world;
 					switch (message.type) {
 					case PAINT_LENS: {
@@ -92,7 +92,7 @@ public class PacketBotaniaEffect {
 						int g = (hex & 0xFF00) >> 8;
 						int b = hex & 0xFF;
 						for (int i = 0; i < 10; i++) {
-							BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(Direction.func_239631_a_(world.rand));
+							BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(Direction.random(world.random));
 							SparkleParticleData data = SparkleParticleData.sparkle(0.6F + (float) Math.random() * 0.5F, r / 255F, g / 255F, b / 255F, 5);
 							world.addParticle(data, pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(), 0, 0, 0);
 						}
@@ -110,7 +110,7 @@ public class PacketBotaniaEffect {
 						break;
 					}
 					case ITEM_SMOKE: {
-						Entity item = world.getEntityByID(message.args[0]);
+						Entity item = world.getEntityById(message.args[0]);
 						if (item == null) {
 							return;
 						}
@@ -119,26 +119,26 @@ public class PacketBotaniaEffect {
 
 						for (int i = 0; i < p; i++) {
 							double m = 0.01;
-							double d0 = item.world.rand.nextGaussian() * m;
-							double d1 = item.world.rand.nextGaussian() * m;
-							double d2 = item.world.rand.nextGaussian() * m;
+							double d0 = item.world.random.nextGaussian() * m;
+							double d1 = item.world.random.nextGaussian() * m;
+							double d2 = item.world.random.nextGaussian() * m;
 							double d3 = 10.0D;
 							item.world.addParticle(ParticleTypes.POOF,
-									message.x + item.world.rand.nextFloat() * item.getWidth() * 2.0F - item.getWidth() - d0 * d3, message.y + item.world.rand.nextFloat() * item.getHeight() - d1 * d3,
-									message.z + item.world.rand.nextFloat() * item.getWidth() * 2.0F - item.getWidth() - d2 * d3, d0, d1, d2);
+									message.x + item.world.random.nextFloat() * item.getWidth() * 2.0F - item.getWidth() - d0 * d3, message.y + item.world.random.nextFloat() * item.getHeight() - d1 * d3,
+									message.z + item.world.random.nextFloat() * item.getWidth() * 2.0F - item.getWidth() - d2 * d3, d0, d1, d2);
 						}
 						break;
 					}
 					case SPARK_NET_INDICATOR: {
-						Entity e1 = world.getEntityByID(message.args[0]);
-						Entity e2 = world.getEntityByID(message.args[1]);
+						Entity e1 = world.getEntityById(message.args[0]);
+						Entity e2 = world.getEntityById(message.args[1]);
 
 						if (e1 == null || e2 == null) {
 							return;
 						}
 
-						Vector3 orig = new Vector3(e1.getPosX(), e1.getPosY() + 0.25, e1.getPosZ());
-						Vector3 end = new Vector3(e2.getPosX(), e2.getPosY() + 0.25, e2.getPosZ());
+						Vector3 orig = new Vector3(e1.getX(), e1.getY() + 0.25, e1.getZ());
+						Vector3 end = new Vector3(e2.getX(), e2.getY() + 0.25, e2.getZ());
 						Vector3 diff = end.subtract(orig);
 						Vector3 movement = diff.normalize().multiply(0.1);
 						int iters = (int) (diff.mag() / movement.mag());
@@ -148,7 +148,7 @@ public class PacketBotaniaEffect {
 						Vector3 currentPos = orig;
 						for (int i = 0; i < iters; i++) {
 							float hue = i * huePer + hueSum;
-							int color = MathHelper.hsvToRGB(hue, 1F, 1F);
+							int color = MathHelper.hsvToRgb(hue, 1F, 1F);
 							float r = Math.min(1F, (color >> 16 & 0xFF) / 255F + 0.4F);
 							float g = Math.min(1F, (color >> 8 & 0xFF) / 255F + 0.4F);
 							float b = Math.min(1F, (color & 0xFF) / 255F + 0.4F);
@@ -161,8 +161,8 @@ public class PacketBotaniaEffect {
 						break;
 					}
 					case SPARK_MANA_FLOW: {
-						Entity e1 = world.getEntityByID(message.args[0]);
-						Entity e2 = world.getEntityByID(message.args[1]);
+						Entity e1 = world.getEntityById(message.args[0]);
+						Entity e2 = world.getEntityById(message.args[1]);
 
 						if (e1 == null || e2 == null) {
 							return;
@@ -211,7 +211,7 @@ public class PacketBotaniaEffect {
 						break;
 					}
 					case TERRA_PLATE: {
-						TileEntity te = world.getTileEntity(new BlockPos(message.x, message.y, message.z));
+						BlockEntity te = world.getBlockEntity(new BlockPos(message.x, message.y, message.z));
 						if (te instanceof TileTerraPlate) {
 							int ticks = (int) (100.0 * ((double) ((TileTerraPlate) te).getCurrentMana() / (double) TileTerraPlate.MAX_MANA));
 
@@ -249,12 +249,12 @@ public class PacketBotaniaEffect {
 						break;
 					}
 					case FLUGEL_EFFECT: {
-						Entity entity = world.getEntityByID(message.args[0]);
+						Entity entity = world.getEntityById(message.args[0]);
 						if (entity != null) {
 							for (int i = 0; i < 15; i++) {
-								float x = (float) (entity.getPosX() + Math.random());
-								float y = (float) (entity.getPosY() + Math.random());
-								float z = (float) (entity.getPosZ() + Math.random());
+								float x = (float) (entity.getX() + Math.random());
+								float y = (float) (entity.getY() + Math.random());
+								float z = (float) (entity.getZ() + Math.random());
 								WispParticleData data = WispParticleData.wisp((float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
 								world.addParticle(data, x, y, z, 0, -(-0.3F + (float) Math.random() * 0.2F), 0);
 							}
@@ -262,20 +262,20 @@ public class PacketBotaniaEffect {
 						break;
 					}
 					case PARTICLE_BEAM: {
-						ItemTwigWand.doParticleBeam(Minecraft.getInstance().world,
+						ItemTwigWand.doParticleBeam(MinecraftClient.getInstance().world,
 								new Vector3(message.x, message.y, message.z),
 								new Vector3(message.args[0] + 0.5, message.args[1] + 0.5, message.args[2] + 0.5));
 						break;
 					}
 					case DIVA_EFFECT: {
-						Entity target = Minecraft.getInstance().world.getEntityByID(message.args[0]);
+						Entity target = MinecraftClient.getInstance().world.getEntityById(message.args[0]);
 						if (target == null) {
 							break;
 						}
 
-						double x = target.getPosX();
-						double y = target.getPosY();
-						double z = target.getPosZ();
+						double x = target.getX();
+						double y = target.getY();
+						double z = target.getZ();
 
 						SparkleParticleData data = SparkleParticleData.sparkle(1F, 1F, 1F, 0.25F, 3);
 						for (int i = 0; i < 50; i++) {
@@ -284,9 +284,9 @@ public class PacketBotaniaEffect {
 						break;
 					}
 					case HALO_CRAFT: {
-						Entity target = Minecraft.getInstance().world.getEntityByID(message.args[0]);
+						Entity target = MinecraftClient.getInstance().world.getEntityById(message.args[0]);
 						if (target != null) {
-							Vector3d lookVec3 = target.getLookVec();
+							Vec3d lookVec3 = target.getRotationVector();
 							Vector3 centerVector = Vector3.fromEntityCenter(target).add(lookVec3.x * 3, 1.3, lookVec3.z * 3);
 							float m = 0.1F;
 							for (int i = 0; i < 4; i++) {

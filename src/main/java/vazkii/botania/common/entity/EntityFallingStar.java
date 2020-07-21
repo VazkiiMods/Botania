@@ -13,9 +13,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.IPacket;
-import net.minecraft.util.DamageSource;
+import net.minecraft.network.Packet;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -35,10 +38,10 @@ public class EntityFallingStar extends EntityThrowableCopy {
 	}
 
 	@Override
-	protected void registerData() {}
+	protected void initDataTracker() {}
 
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public Packet<?> createSpawnPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
@@ -52,53 +55,53 @@ public class EntityFallingStar extends EntityThrowableCopy {
 			float xs = (float) (Math.random() - 0.5) * dist;
 			float ys = (float) (Math.random() - 0.5) * dist;
 			float zs = (float) (Math.random() - 0.5) * dist;
-			world.addParticle(data, getPosX() + xs, getPosY() + ys, getPosZ() + zs, 0, 0, 0);
+			world.addParticle(data, getX() + xs, getY() + ys, getZ() + zs, 0, 0, 0);
 		}
 
-		Entity thrower = func_234616_v_();
-		if (!world.isRemote && thrower != null) {
-			AxisAlignedBB axis = new AxisAlignedBB(getPosX(), getPosY(), getPosZ(), lastTickPosX, lastTickPosY, lastTickPosZ).grow(2);
-			List<LivingEntity> entities = world.getEntitiesWithinAABB(LivingEntity.class, axis);
+		Entity thrower = getOwner();
+		if (!world.isClient && thrower != null) {
+			Box axis = new Box(getX(), getY(), getZ(), lastRenderX, lastRenderY, lastRenderZ).expand(2);
+			List<LivingEntity> entities = world.getNonSpectatingEntities(LivingEntity.class, axis);
 			for (LivingEntity living : entities) {
 				if (living == thrower) {
 					continue;
 				}
 
 				if (living.hurtTime == 0) {
-					onImpact(new EntityRayTraceResult(living));
+					onCollision(new EntityHitResult(living));
 					return;
 				}
 			}
 		}
 
-		if (ticksExisted > 200) {
+		if (age > 200) {
 			remove();
 		}
 	}
 
 	@Override
-	protected void onImpact(RayTraceResult pos) {
-		if (world.isRemote) {
+	protected void onCollision(HitResult pos) {
+		if (world.isClient) {
 			return;
 		}
 
-		Entity thrower = func_234616_v_();
-		if (pos.getType() == RayTraceResult.Type.ENTITY && thrower != null) {
-			Entity e = ((EntityRayTraceResult) pos).getEntity();
+		Entity thrower = getOwner();
+		if (pos.getType() == HitResult.Type.ENTITY && thrower != null) {
+			Entity e = ((EntityHitResult) pos).getEntity();
 			if (e != thrower && e.isAlive()) {
 				if (thrower instanceof PlayerEntity) {
-					e.attackEntityFrom(DamageSource.causePlayerDamage((PlayerEntity) thrower), Math.random() < 0.25 ? 10 : 5);
+					e.damage(DamageSource.player((PlayerEntity) thrower), Math.random() < 0.25 ? 10 : 5);
 				} else {
-					e.attackEntityFrom(DamageSource.GENERIC, Math.random() < 0.25 ? 10 : 5);
+					e.damage(DamageSource.GENERIC, Math.random() < 0.25 ? 10 : 5);
 				}
 			}
 		}
 
-		if (pos.getType() == RayTraceResult.Type.BLOCK) {
-			BlockPos bpos = ((BlockRayTraceResult) pos).getPos();
+		if (pos.getType() == HitResult.Type.BLOCK) {
+			BlockPos bpos = ((BlockHitResult) pos).getBlockPos();
 			BlockState state = world.getBlockState(bpos);
 			if (ConfigHandler.COMMON.blockBreakParticles.get() && !state.isAir(world, bpos)) {
-				world.playEvent(2001, bpos, Block.getStateId(state));
+				world.syncWorldEvent(2001, bpos, Block.getRawIdFromState(state));
 			}
 		}
 

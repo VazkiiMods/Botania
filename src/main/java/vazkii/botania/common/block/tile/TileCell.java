@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.math.BlockPos;
 
 import vazkii.botania.common.block.subtile.generating.SubTileDandelifeon;
@@ -52,7 +52,7 @@ public class TileCell extends TileMod {
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT cmp) {
+	public void writePacketNBT(CompoundTag cmp) {
 		cmp.putInt(TAG_GENERATION, generation);
 		cmp.putBoolean(TAG_TICKED, ticked);
 		if (ticked) {
@@ -66,7 +66,7 @@ public class TileCell extends TileMod {
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT cmp) {
+	public void readPacketNBT(CompoundTag cmp) {
 		generation = cmp.getInt(TAG_GENERATION);
 		ticked = cmp.getBoolean(TAG_TICKED);
 		if (ticked) {

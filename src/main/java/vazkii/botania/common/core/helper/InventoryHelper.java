@@ -9,11 +9,11 @@
 package vazkii.botania.common.core.helper;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -34,7 +34,7 @@ public class InventoryHelper {
 	}
 
 	public static IItemHandler getInventory(World world, BlockPos pos, Direction side) {
-		TileEntity te = world.getTileEntity(pos);
+		BlockEntity te = world.getBlockEntity(pos);
 
 		if (te == null) {
 			return null;
@@ -50,25 +50,25 @@ public class InventoryHelper {
 	public static void dropInventory(TileSimpleInventory inv, World world, BlockState state, BlockPos pos) {
 		if (inv != null) {
 			for (int j1 = 0; j1 < inv.inventorySize(); ++j1) {
-				ItemStack itemstack = inv.getItemHandler().getStackInSlot(j1);
+				ItemStack itemstack = inv.getItemHandler().getStack(j1);
 
 				if (!itemstack.isEmpty()) {
-					net.minecraft.inventory.InventoryHelper.spawnItemStack(world, pos.getX(), pos.getY(), pos.getZ(), itemstack);
+					net.minecraft.util.ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), itemstack);
 				}
 			}
 
-			world.updateComparatorOutputLevel(pos, state.getBlock());
+			world.updateComparators(pos, state.getBlock());
 		}
 	}
 
 	public static void withdrawFromInventory(TileSimpleInventory inv, PlayerEntity player) {
 		for (int i = inv.inventorySize() - 1; i >= 0; i--) {
-			ItemStack stackAt = inv.getItemHandler().getStackInSlot(i);
+			ItemStack stackAt = inv.getItemHandler().getStack(i);
 			if (!stackAt.isEmpty()) {
 				ItemStack copy = stackAt.copy();
-				player.inventory.placeItemBackInInventory(player.world, copy);
-				inv.getItemHandler().setInventorySlotContents(i, ItemStack.EMPTY);
-				player.world.updateComparatorOutputLevel(inv.getPos(), null);
+				player.inventory.offerOrDrop(player.world, copy);
+				inv.getItemHandler().setStack(i, ItemStack.EMPTY);
+				player.world.updateComparators(inv.getPos(), null);
 				break;
 			}
 		}

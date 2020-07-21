@@ -9,20 +9,28 @@
 package vazkii.botania.client.model;
 
 import com.google.common.base.Preconditions;
-import com.mojang.blaze3d.matrix.MatrixStack;
-
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.BakedQuad;
+import net.minecraft.client.render.model.ModelBakeSettings;
+import net.minecraft.client.render.model.UnbakedModel;
+import net.minecraft.client.render.model.json.ItemModelGenerator;
+import net.minecraft.client.render.model.json.JsonUnbakedModel;
+import net.minecraft.client.render.model.json.ModelOverrideList;
+import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.renderer.model.*;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.ModelIdentifier;
+import net.minecraft.client.util.math.AffineTransformation;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.TransformationMatrix;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.SimpleModelTransform;
@@ -39,28 +47,28 @@ import java.util.*;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class GunModel implements IBakedModel {
-	private static final ModelResourceLocation DESU = new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun", "inventory");
-	private static final ModelResourceLocation DESU_CLIP = new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun_clip", "inventory");
+public class GunModel implements BakedModel {
+	private static final ModelIdentifier DESU = new ModelIdentifier(LibMisc.MOD_ID + ":desu_gun", "inventory");
+	private static final ModelIdentifier DESU_CLIP = new ModelIdentifier(LibMisc.MOD_ID + ":desu_gun_clip", "inventory");
 
-	private final ModelBakery bakery;
-	private final IBakedModel originalModel;
-	private final IBakedModel originalModelClip;
+	private final net.minecraft.client.render.model.ModelLoader bakery;
+	private final BakedModel originalModel;
+	private final BakedModel originalModelClip;
 
-	public GunModel(ModelBakery bakery, IBakedModel originalModel, IBakedModel originalModelClip) {
+	public GunModel(net.minecraft.client.render.model.ModelLoader bakery, BakedModel originalModel, BakedModel originalModelClip) {
 		this.bakery = bakery;
 		this.originalModel = Preconditions.checkNotNull(originalModel);
 		this.originalModelClip = Preconditions.checkNotNull(originalModelClip);
 	}
 
-	private final ItemOverrideList itemHandler = new ItemOverrideList() {
+	private final ModelOverrideList itemHandler = new ModelOverrideList() {
 		@Nonnull
 		@Override
-		public IBakedModel func_239290_a_(IBakedModel model, ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
+		public BakedModel apply(BakedModel model, ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
 			boolean clip = ItemManaGun.hasClip(stack);
 
 			if (ItemManaGun.isSugoiKawaiiDesuNe(stack)) {
-				return Minecraft.getInstance().getModelManager().getModel(clip ? DESU_CLIP : DESU);
+				return MinecraftClient.getInstance().getBakedModelManager().getModel(clip ? DESU_CLIP : DESU);
 			}
 
 			ItemStack lens = ItemManaGun.getLens(stack);
@@ -74,7 +82,7 @@ public class GunModel implements IBakedModel {
 
 	@Nonnull
 	@Override
-	public ItemOverrideList getOverrides() {
+	public ModelOverrideList getOverrides() {
 		return itemHandler;
 	}
 
@@ -85,35 +93,35 @@ public class GunModel implements IBakedModel {
 	}
 
 	@Override
-	public boolean isAmbientOcclusion() {
-		return originalModel.isAmbientOcclusion();
+	public boolean useAmbientOcclusion() {
+		return originalModel.useAmbientOcclusion();
 	}
 
 	@Override
-	public boolean isGui3d() {
-		return originalModel.isGui3d();
+	public boolean hasDepth() {
+		return originalModel.hasDepth();
 	}
 
 	@Override
-	public boolean isBuiltInRenderer() {
-		return originalModel.isBuiltInRenderer();
-	}
-
-	@Nonnull
-	@Override
-	public TextureAtlasSprite getParticleTexture() {
-		return originalModel.getParticleTexture();
+	public boolean isBuiltin() {
+		return originalModel.isBuiltin();
 	}
 
 	@Nonnull
 	@Override
-	public ItemCameraTransforms getItemCameraTransforms() {
-		return originalModel.getItemCameraTransforms();
+	public Sprite getSprite() {
+		return originalModel.getSprite();
+	}
+
+	@Nonnull
+	@Override
+	public ModelTransformation getTransformation() {
+		return originalModel.getTransformation();
 	}
 
 	@Override
-	public boolean func_230044_c_() {
-		return originalModel.func_230044_c_();
+	public boolean isSideLit() {
+		return originalModel.isSideLit();
 	}
 
 	private final HashMap<Pair<Item, Boolean>, CompositeBakedModel> cache = new HashMap<>();
@@ -126,22 +134,22 @@ public class GunModel implements IBakedModel {
 		private final List<BakedQuad> genQuads = new ArrayList<>();
 		private final Map<Direction, List<BakedQuad>> faceQuads = new EnumMap<>(Direction.class);
 
-		CompositeBakedModel(ModelBakery bakery, ItemStack lens, IBakedModel gun) {
+		CompositeBakedModel(net.minecraft.client.render.model.ModelLoader bakery, ItemStack lens, BakedModel gun) {
 			super(gun);
 
-			ResourceLocation lensId = Registry.ITEM.getKey(lens.getItem());
-			IUnbakedModel lensUnbaked = bakery.getUnbakedModel(new ModelResourceLocation(lensId, "inventory"));
-			IModelTransform transform = new SimpleModelTransform(new TransformationMatrix(new Vector3f(-0.4F, 0.2F, 0.0F), Vector3f.YP.rotation((float) Math.PI / 2), new Vector3f(0.625F, 0.625F, 0.625F), null));
-			ResourceLocation name = prefix("gun_with_" + lensId.toString().replace(':', '_'));
+			Identifier lensId = Registry.ITEM.getId(lens.getItem());
+			UnbakedModel lensUnbaked = bakery.getOrLoadModel(new ModelIdentifier(lensId, "inventory"));
+			ModelBakeSettings transform = new SimpleModelTransform(new AffineTransformation(new Vector3f(-0.4F, 0.2F, 0.0F), Vector3f.POSITIVE_Y.getRadialQuaternion((float) Math.PI / 2), new Vector3f(0.625F, 0.625F, 0.625F), null));
+			Identifier name = prefix("gun_with_" + lensId.toString().replace(':', '_'));
 
-			IBakedModel lensBaked;
-			if (lensUnbaked instanceof BlockModel && ((BlockModel) lensUnbaked).getRootModel() == ModelBakery.MODEL_GENERATED) {
-				BlockModel bm = (BlockModel) lensUnbaked;
+			BakedModel lensBaked;
+			if (lensUnbaked instanceof JsonUnbakedModel && ((JsonUnbakedModel) lensUnbaked).getRootModel() == net.minecraft.client.render.model.ModelLoader.GENERATION_MARKER) {
+				JsonUnbakedModel bm = (JsonUnbakedModel) lensUnbaked;
 				lensBaked = new ItemModelGenerator()
-						.makeItemModel(ModelLoader.defaultTextureGetter(), bm)
-						.bakeModel(bakery, bm, ModelLoader.defaultTextureGetter(), transform, name, false);
+						.create(ModelLoader.defaultTextureGetter(), bm)
+						.bake(bakery, bm, ModelLoader.defaultTextureGetter(), transform, name, false);
 			} else {
-				lensBaked = lensUnbaked.bakeModel(bakery, ModelLoader.defaultTextureGetter(), transform, name);
+				lensBaked = lensUnbaked.bake(bakery, ModelLoader.defaultTextureGetter(), transform, name);
 			}
 
 			for (Direction e : Direction.values()) {
@@ -172,7 +180,7 @@ public class GunModel implements IBakedModel {
 		}
 
 		@Override
-		public IBakedModel handlePerspective(@Nonnull ItemCameraTransforms.TransformType cameraTransformType, MatrixStack stack) {
+		public BakedModel handlePerspective(@Nonnull ModelTransformation.Mode cameraTransformType, MatrixStack stack) {
 			super.handlePerspective(cameraTransformType, stack);
 			return this;
 		}

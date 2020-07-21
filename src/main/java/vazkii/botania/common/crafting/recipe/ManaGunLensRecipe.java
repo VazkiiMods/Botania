@@ -10,10 +10,10 @@ package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.item.crafting.SpecialRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.SpecialRecipeSerializer;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.mana.ILens;
@@ -22,10 +22,10 @@ import vazkii.botania.common.item.ItemManaGun;
 
 import javax.annotation.Nonnull;
 
-public class ManaGunLensRecipe extends SpecialRecipe {
+public class ManaGunLensRecipe extends SpecialCraftingRecipe {
 	public static final SpecialRecipeSerializer<ManaGunLensRecipe> SERIALIZER = new SpecialRecipeSerializer<>(ManaGunLensRecipe::new);
 
-	public ManaGunLensRecipe(ResourceLocation id) {
+	public ManaGunLensRecipe(Identifier id) {
 		super(id);
 	}
 
@@ -34,8 +34,8 @@ public class ManaGunLensRecipe extends SpecialRecipe {
 		boolean foundLens = false;
 		boolean foundGun = false;
 
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stack = inv.getStack(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof ItemManaGun && ItemManaGun.getLens(stack).isEmpty()) {
 					foundGun = true;
@@ -62,8 +62,8 @@ public class ManaGunLensRecipe extends SpecialRecipe {
 		ItemStack lens = ItemStack.EMPTY;
 		ItemStack gun = ItemStack.EMPTY;
 
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stack = inv.getStack(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof ItemManaGun) {
 					gun = stack;
@@ -84,13 +84,13 @@ public class ManaGunLensRecipe extends SpecialRecipe {
 	}
 
 	@Override
-	public boolean canFit(int width, int height) {
+	public boolean fits(int width, int height) {
 		return width * height >= 2;
 	}
 
 	@Nonnull
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 }

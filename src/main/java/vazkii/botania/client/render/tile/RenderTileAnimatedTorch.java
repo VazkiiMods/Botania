@@ -8,31 +8,29 @@
  */
 package vazkii.botania.client.render.tile;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
 import net.minecraft.block.Blocks;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.vector.Vector3f;
-
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.TileAnimatedTorch;
 
 import java.util.Random;
 
-public class RenderTileAnimatedTorch extends TileEntityRenderer<TileAnimatedTorch> {
+public class RenderTileAnimatedTorch extends BlockEntityRenderer<TileAnimatedTorch> {
 
-	public RenderTileAnimatedTorch(TileEntityRendererDispatcher manager) {
+	public RenderTileAnimatedTorch(BlockEntityRenderDispatcher manager) {
 		super(manager);
 	}
 
 	@Override
-	public void render(TileAnimatedTorch te, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-		Minecraft mc = Minecraft.getInstance();
+	public void render(TileAnimatedTorch te, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
+		MinecraftClient mc = MinecraftClient.getInstance();
 		ms.push();
 
 		boolean hasWorld = te != null && te.getWorld() != null;
@@ -48,14 +46,14 @@ public class RenderTileAnimatedTorch extends TileEntityRenderer<TileAnimatedTorc
 		ms.translate(xt, yt, zt);
 
 		ms.scale(2, 2, 2);
-		ms.rotate(Vector3f.XP.rotationDegrees(90));
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90));
 		float rotation = (float) te.rotation;
 		if (te.rotating) {
 			rotation += te.anglePerTick * partialTicks;
 		}
 
-		ms.rotate(Vector3f.ZP.rotationDegrees(rotation));
-		mc.getItemRenderer().renderItem(new ItemStack(Blocks.REDSTONE_TORCH), ItemCameraTransforms.TransformType.GROUND, light, overlay, ms, buffers);
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(rotation));
+		mc.getItemRenderer().renderItem(new ItemStack(Blocks.REDSTONE_TORCH), ModelTransformation.Mode.GROUND, light, overlay, ms, buffers);
 		ms.pop();
 	}
 

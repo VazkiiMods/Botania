@@ -8,21 +8,23 @@
  */
 package vazkii.botania.common.block;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.StemBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IPlantable;
@@ -48,7 +50,7 @@ public class BlockAltGrass extends BlockMod {
 
 	private final Variant variant;
 
-	public BlockAltGrass(Variant v, Properties builder) {
+	public BlockAltGrass(Variant v, Settings builder) {
 		super(builder);
 		this.variant = v;
 	}
@@ -59,25 +61,25 @@ public class BlockAltGrass extends BlockMod {
 	}
 
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		ItemStack held = player.getHeldItem(hand);
-		if (held.getItem() instanceof HoeItem && world.isAirBlock(pos.up())) {
-			held.damageItem(1, player, e -> e.sendBreakAnimation(hand));
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		ItemStack held = player.getStackInHand(hand);
+		if (held.getItem() instanceof HoeItem && world.isAir(pos.up())) {
+			held.damage(1, player, e -> e.sendToolBreakStatus(hand));
 			world.setBlockState(pos, Blocks.FARMLAND.getDefaultState());
-			return ActionResultType.SUCCESS;
+			return ActionResult.SUCCESS;
 		}
 
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
 	@Override
-	public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-		if (!world.isRemote && state.getBlock() == this && world.getLight(pos.up()) >= 9) {
+	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+		if (!world.isClient && state.getBlock() == this && world.getLightLevel(pos.up()) >= 9) {
 			for (int l = 0; l < 4; ++l) {
 				BlockPos pos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
 				BlockPos pos1up = pos1.up();
 
-				if (world.getBlockState(pos1).getBlock() == Blocks.DIRT && world.getLight(pos1up) >= 4 && world.getBlockState(pos1up).getOpacity(world, pos1up) <= 2) {
+				if (world.getBlockState(pos1).getBlock() == Blocks.DIRT && world.getLightLevel(pos1up) >= 4 && world.getBlockState(pos1up).getOpacity(world, pos1up) <= 2) {
 					world.setBlockState(pos1, getDefaultState());
 				}
 			}
@@ -85,14 +87,14 @@ public class BlockAltGrass extends BlockMod {
 	}
 
 	@Override
-	public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull IBlockReader world, BlockPos pos, @Nonnull Direction direction, IPlantable plantable) {
+	public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull BlockView world, BlockPos pos, @Nonnull Direction direction, IPlantable plantable) {
 		PlantType type = plantable.getPlantType(world, pos.down());
 		return type == PlantType.PLAINS || type == PlantType.BEACH || plantable instanceof StemBlock;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void animateTick(BlockState state, World world, BlockPos pos, Random r) {
+	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random r) {
 		switch (variant) {
 		case DRY:
 			break;

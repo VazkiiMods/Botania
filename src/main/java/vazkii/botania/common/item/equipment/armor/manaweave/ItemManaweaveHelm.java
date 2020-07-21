@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.item.equipment.armor.manaweave;
 
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -27,8 +27,8 @@ public class ItemManaweaveHelm extends ItemManaweaveArmor implements IManaDiscou
 
 	private static final int MANA_PER_DAMAGE = 30;
 
-	public ItemManaweaveHelm(Properties props) {
-		super(EquipmentSlotType.HEAD, props);
+	public ItemManaweaveHelm(Settings props) {
+		super(EquipmentSlot.HEAD, props);
 	}
 
 	@Override
@@ -37,13 +37,13 @@ public class ItemManaweaveHelm extends ItemManaweaveArmor implements IManaDiscou
 	}
 
 	@Override
-	public boolean shouldGiveProficiency(ItemStack stack, EquipmentSlotType slot, PlayerEntity player, ItemStack rod) {
+	public boolean shouldGiveProficiency(ItemStack stack, EquipmentSlot slot, PlayerEntity player, ItemStack rod) {
 		return hasArmorSet(player);
 	}
 
 	@Override
 	public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
-		if (!world.isRemote && stack.getDamage() > 0 && ManaItemHandler.instance().requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true)) {
+		if (!world.isClient && stack.getDamage() > 0 && ManaItemHandler.instance().requestManaExact(stack, player, MANA_PER_DAMAGE * 2, true)) {
 			stack.setDamage(stack.getDamage() - 1);
 		}
 	}

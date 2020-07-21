@@ -8,10 +8,6 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.util.Splashes;
-import net.minecraft.profiler.IProfiler;
-import net.minecraft.resources.IResourceManager;
-
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,8 +18,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 import java.util.List;
+import net.minecraft.client.resource.SplashTextResourceSupplier;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.profiler.Profiler;
 
-@Mixin(Splashes.class)
+@Mixin(SplashTextResourceSupplier.class)
 public class MixinSplashes {
 	@Shadow
 	@Final
@@ -33,7 +32,7 @@ public class MixinSplashes {
 	 * Adds splash texts if enabled
 	 */
 	@Inject(at = @At("RETURN"), method = "apply")
-	public void addSplashes(List<String> splashes, IResourceManager resourceManager, IProfiler profiler, CallbackInfo ci) {
+	public void addSplashes(List<String> splashes, ResourceManager resourceManager, Profiler profiler, CallbackInfo ci) {
 		if (ConfigHandler.CLIENT.splashesEnabled.get()) {
 			possibleSplashes.add("Do not feed bread to elves!");
 		}

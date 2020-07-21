@@ -8,16 +8,15 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.ItemOverrideList;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.List;
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.json.ModelOverrideList;
 
-@Mixin(ItemOverrideList.class)
+@Mixin(ModelOverrideList.class)
 public interface AccessorItemOverrideList {
 	@Accessor
-	List<IBakedModel> getOverrideBakedModels();
+	List<BakedModel> getOverrideBakedModels();
 }

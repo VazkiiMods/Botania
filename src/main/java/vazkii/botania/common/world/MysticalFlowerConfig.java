@@ -10,12 +10,10 @@ package vazkii.botania.common.world;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-
-import net.minecraft.world.gen.feature.IFeatureConfig;
-
+import net.minecraft.world.gen.feature.FeatureConfig;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
-public class MysticalFlowerConfig implements IFeatureConfig {
+public class MysticalFlowerConfig implements FeatureConfig {
 	public static final Codec<MysticalFlowerConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			Codec.INT.fieldOf("flower_patch_size").forGetter(MysticalFlowerConfig::getFlowerPatchSize),
 			Codec.INT.fieldOf("mushroom_patch_size").forGetter(MysticalFlowerConfig::getMushroomPatchSize),

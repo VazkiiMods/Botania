@@ -8,18 +8,17 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.Direction;
-
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.Tickable;
+import net.minecraft.util.math.Direction;
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 
-public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITickableTileEntity {
+public class TileAvatar extends TileSimpleInventory implements IAvatarTile, Tickable {
 	private static final int MAX_MANA = 6400;
 
 	private static final String TAG_ENABLED = "enabled";
@@ -38,14 +37,14 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	public void tick() {
 		enabled = true;
 		for (Direction dir : Direction.values()) {
-			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
+			int redstoneSide = world.getEmittedRedstonePower(pos.offset(dir), dir);
 			if (redstoneSide > 0) {
 				enabled = false;
 				break;
 			}
 		}
 
-		ItemStack stack = getItemHandler().getStackInSlot(0);
+		ItemStack stack = getItemHandler().getStack(0);
 		if (!stack.isEmpty() && stack.getItem() instanceof IAvatarWieldable) {
 			IAvatarWieldable wieldable = (IAvatarWieldable) stack.getItem();
 			wieldable.onAvatarUpdate(this, stack);
@@ -57,7 +56,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT tag) {
+	public void writePacketNBT(CompoundTag tag) {
 		super.writePacketNBT(tag);
 		tag.putBoolean(TAG_ENABLED, enabled);
 		tag.putInt(TAG_TICKS_ELAPSED, ticksElapsed);
@@ -65,7 +64,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT tag) {
+	public void readPacketNBT(CompoundTag tag) {
 		super.readPacketNBT(tag);
 		enabled = tag.getBoolean(TAG_ENABLED);
 		ticksElapsed = tag.getInt(TAG_TICKS_ELAPSED);
@@ -73,10 +72,10 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	}
 
 	@Override
-	protected Inventory createItemHandler() {
-		return new Inventory(1) {
+	protected SimpleInventory createItemHandler() {
+		return new SimpleInventory(1) {
 			@Override
-			public int getInventoryStackLimit() {
+			public int getMaxCountPerStack() {
 				return 1;
 			}
 		};
@@ -94,7 +93,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 
 	@Override
 	public boolean canReceiveManaFromBursts() {
-		return !getItemHandler().getStackInSlot(0).isEmpty();
+		return !getItemHandler().getStack(0).isEmpty();
 	}
 
 	@Override
@@ -103,13 +102,13 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	}
 
 	@Override
-	public IInventory getInventory() {
+	public Inventory getInventory() {
 		return getItemHandler();
 	}
 
 	@Override
 	public Direction getAvatarFacing() {
-		return getBlockState().get(BlockStateProperties.HORIZONTAL_FACING);
+		return getCachedState().get(Properties.HORIZONTAL_FACING);
 	}
 
 	@Override

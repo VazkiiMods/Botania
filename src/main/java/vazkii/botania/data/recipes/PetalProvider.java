@@ -12,15 +12,15 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.RecipeProvider;
+import net.minecraft.data.server.RecipesProvider;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.tag.ItemTags;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.common.block.ModSubtiles;
@@ -35,7 +35,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class PetalProvider extends RecipeProvider {
+public class PetalProvider extends RecipesProvider {
 	public PetalProvider(DataGenerator gen) {
 		super(gen);
 	}
@@ -46,7 +46,7 @@ public class PetalProvider extends RecipeProvider {
 	}
 
 	@Override
-	protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+	protected void generate(Consumer<RecipeJsonProvider> consumer) {
 		Ingredient white = tagIngr("petals/white");
 		Ingredient orange = tagIngr("petals/orange");
 		Ingredient magenta = tagIngr("petals/magenta");
@@ -80,9 +80,9 @@ public class PetalProvider extends RecipeProvider {
 		Ingredient runeEnvy = tagIngr("runes/envy");
 		Ingredient runePride = tagIngr("runes/pride");
 
-		Ingredient redstoneRoot = Ingredient.fromItems(ModItems.redstoneRoot);
-		Ingredient pixieDust = Ingredient.fromItems(ModItems.pixieDust);
-		Ingredient gaiaSpirit = Ingredient.fromItems(ModItems.lifeEssence);
+		Ingredient redstoneRoot = Ingredient.ofItems(ModItems.redstoneRoot);
+		Ingredient pixieDust = Ingredient.ofItems(ModItems.pixieDust);
+		Ingredient gaiaSpirit = Ingredient.ofItems(ModItems.lifeEssence);
 
 		consumer.accept(make(ModSubtiles.pureDaisy, white, white, white, white));
 		consumer.accept(make(ModSubtiles.manastar, lightBlue, green, red, cyan));
@@ -138,23 +138,23 @@ public class PetalProvider extends RecipeProvider {
 	}
 
 	private static Ingredient tagIngr(String tag) {
-		return Ingredient.fromTag(ItemTags.makeWrapperTag(prefix(tag).toString()));
+		return Ingredient.fromTag(ItemTags.register(prefix(tag).toString()));
 	}
 
-	private static FinishedRecipe make(IItemProvider item, Ingredient... ingredients) {
-		return new FinishedRecipe(idFor(Registry.ITEM.getKey(item.asItem())), new ItemStack(item), ingredients);
+	private static FinishedRecipe make(ItemConvertible item, Ingredient... ingredients) {
+		return new FinishedRecipe(idFor(Registry.ITEM.getId(item.asItem())), new ItemStack(item), ingredients);
 	}
 
-	private static ResourceLocation idFor(ResourceLocation name) {
-		return new ResourceLocation(name.getNamespace(), "petal_apothecary/" + name.getPath());
+	private static Identifier idFor(Identifier name) {
+		return new Identifier(name.getNamespace(), "petal_apothecary/" + name.getPath());
 	}
 
-	private static class FinishedRecipe implements IFinishedRecipe {
-		private final ResourceLocation id;
+	private static class FinishedRecipe implements RecipeJsonProvider {
+		private final Identifier id;
 		private final ItemStack output;
 		private final Ingredient[] inputs;
 
-		private FinishedRecipe(ResourceLocation id, ItemStack output, Ingredient... inputs) {
+		private FinishedRecipe(Identifier id, ItemStack output, Ingredient... inputs) {
 			this.id = id;
 			this.output = output;
 			this.inputs = inputs;
@@ -165,30 +165,30 @@ public class PetalProvider extends RecipeProvider {
 			json.add("output", ItemNBTHelper.serializeStack(output));
 			JsonArray ingredients = new JsonArray();
 			for (Ingredient ingr : inputs) {
-				ingredients.add(ingr.serialize());
+				ingredients.add(ingr.toJson());
 			}
 			json.add("ingredients", ingredients);
 		}
 
 		@Override
-		public ResourceLocation getID() {
+		public Identifier getRecipeId() {
 			return id;
 		}
 
 		@Override
-		public IRecipeSerializer<?> getSerializer() {
+		public RecipeSerializer<?> getSerializer() {
 			return ModRecipeTypes.PETAL_SERIALIZER;
 		}
 
 		@Nullable
 		@Override
-		public JsonObject getAdvancementJson() {
+		public JsonObject toAdvancementJson() {
 			return null;
 		}
 
 		@Nullable
 		@Override
-		public ResourceLocation getAdvancementID() {
+		public Identifier getAdvancementId() {
 			return null;
 		}
 	}

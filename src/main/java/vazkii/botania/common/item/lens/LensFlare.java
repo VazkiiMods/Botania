@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.item.DyeColor;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.MathHelper;
 
 import vazkii.botania.api.mana.IManaSpreader;
@@ -48,9 +48,9 @@ public class LensFlare extends Lens {
 		int storedColor = ItemLens.getStoredColor(stack);
 		int hex = -1;
 
-		TileEntity tile = (TileEntity) spreader;
+		BlockEntity tile = (BlockEntity) spreader;
 		if (storedColor == 16) {
-			hex = MathHelper.hsvToRGB(tile.getWorld().getGameTime() * 2 % 360 / 360F, 1F, 1F);
+			hex = MathHelper.hsvToRgb(tile.getWorld().getTime() * 2 % 360 / 360F, 1F, 1F);
 		} else if (storedColor >= 0) {
 			hex = DyeColor.byId(storedColor).getColorValue();
 		}

@@ -8,28 +8,26 @@
  */
 package vazkii.botania.api.subtile;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.Minecraft;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.ClientConnection;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -60,18 +58,18 @@ import java.util.List;
 /**
  * Common superclass of all magical flower TE's
  */
-public class TileEntitySpecialFlower extends TileEntity implements ITickableTileEntity, IWandBindable {
+public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IWandBindable {
 	@CapabilityInject(IFloatingFlower.class)
 	public static Capability<IFloatingFlower> FLOATING_FLOWER_CAP;
-	public static final ResourceLocation DING_SOUND_EVENT = new ResourceLocation(BotaniaAPI.MODID, "ding");
+	public static final Identifier DING_SOUND_EVENT = new Identifier(BotaniaAPI.MODID, "ding");
 	public static final int SLOWDOWN_FACTOR_PODZOL = 5;
 	public static final int SLOWDOWN_FACTOR_MYCEL = 10;
 
 	private final IFloatingFlower floatingData = new FloatingFlowerImpl() {
 		@Override
 		public ItemStack getDisplayStack() {
-			ResourceLocation id = Registry.BLOCK_ENTITY_TYPE.getKey(getType());
-			return Registry.ITEM.getValue(id).map(ItemStack::new).orElse(super.getDisplayStack());
+			Identifier id = Registry.BLOCK_ENTITY_TYPE.getId(getType());
+			return Registry.ITEM.getOrEmpty(id).map(ItemStack::new).orElse(super.getDisplayStack());
 		}
 	};
 	private final LazyOptional<IFloatingFlower> floatingDataCap = LazyOptional.of(() -> floatingData);
@@ -87,13 +85,13 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	public static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_FLOATING_DATA = "floating";
 
-	public TileEntitySpecialFlower(TileEntityType<?> type) {
+	public TileEntitySpecialFlower(BlockEntityType<?> type) {
 		super(type);
 	}
 
 	@Override
 	public final void tick() {
-		TileEntity tileBelow = world.getTileEntity(pos.down());
+		BlockEntity tileBelow = world.getBlockEntity(pos.down());
 		if (tileBelow instanceof TileRedStringRelay) {
 			BlockPos coords = ((TileRedStringRelay) tileBelow).getBinding();
 			if (coords != null) {
@@ -125,7 +123,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
 		if (cap == FLOATING_FLOWER_CAP) {
-			if (hasWorld() && getBlockState().isIn(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS)) {
+			if (hasWorld() && getCachedState().isIn(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS)) {
 				return floatingDataCap.cast();
 			}
 		}
@@ -157,8 +155,8 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	}
 
 	@Override
-	public final void read(BlockState state, CompoundNBT cmp) {
-		super.read(state, cmp);
+	public final void fromTag(BlockState state, CompoundTag cmp) {
+		super.fromTag(state, cmp);
 		if (cmp.contains(TAG_TICKS_EXISTED)) {
 			ticksExisted = cmp.getInt(TAG_TICKS_EXISTED);
 		}
@@ -167,34 +165,34 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 
 	@Nonnull
 	@Override
-	public final CompoundNBT write(CompoundNBT cmp) {
-		cmp = super.write(cmp);
+	public final CompoundTag toTag(CompoundTag cmp) {
+		cmp = super.toTag(cmp);
 		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
 		writeToPacketNBT(cmp);
 		return cmp;
 	}
 
 	@Override
-	public SUpdateTileEntityPacket getUpdatePacket() {
-		CompoundNBT cmp = new CompoundNBT();
+	public BlockEntityUpdateS2CPacket toUpdatePacket() {
+		CompoundTag cmp = new CompoundTag();
 		writeToPacketNBT(cmp);
-		return new SUpdateTileEntityPacket(getPos(), -1, cmp);
+		return new BlockEntityUpdateS2CPacket(getPos(), -1, cmp);
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
+	public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
 		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
-		readFromPacketNBT(packet.getNbtCompound());
+		readFromPacketNBT(packet.getCompoundTag());
 		if (oldType != floatingData.getIslandType() && isFloating()) {
 			ModelDataManager.requestModelDataRefresh(this);
-			world.notifyBlockUpdate(getPos(), getBlockState(), getBlockState(), 0);
+			world.updateListeners(getPos(), getCachedState(), getCachedState(), 0);
 		}
 	}
 
 	@Nonnull
 	@Override
-	public CompoundNBT getUpdateTag() {
-		return write(new CompoundNBT());
+	public CompoundTag toInitialChunkDataTag() {
+		return toTag(new CompoundTag());
 	}
 
 	/**
@@ -202,7 +200,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	 * by readFromPacketNBT on the client that receives the packet.
 	 * Note: This method is also used to write to the world NBT.
 	 */
-	public void writeToPacketNBT(CompoundNBT cmp) {
+	public void writeToPacketNBT(CompoundTag cmp) {
 		if (isFloating()) {
 			cmp.put(TAG_FLOATING_DATA, FLOATING_FLOWER_CAP.writeNBT(floatingData, null));
 		}
@@ -213,7 +211,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	 * writeToPacketNBT in the server. Note: This method is also used
 	 * to read from the world NBT.
 	 */
-	public void readFromPacketNBT(CompoundNBT cmp) {
+	public void readFromPacketNBT(CompoundTag cmp) {
 		if (cmp.contains(TAG_FLOATING_DATA)) {
 			FLOATING_FLOWER_CAP.readNBT(floatingData, null, cmp.getCompound(TAG_FLOATING_DATA));
 		}
@@ -240,7 +238,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	 * Gets the block coordinates this is bound to, for use with the wireframe render
 	 * when the sub tile is being hovered with a wand of the forest.
 	 */
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
 	public BlockPos getBinding() {
 		return null;
@@ -250,7 +248,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	 * Returns a descriptor for the radius of this sub tile. This is called while a player
 	 * is looking at the block with a Manaseer Monocle.
 	 */
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public RadiusDescriptor getRadius() {
 		return null;
 	}
@@ -275,8 +273,8 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	 * Called on the client when the block being pointed at is the one with this sub tile.
 	 * Used to render a HUD portraying some data from this sub tile.
 	 */
-	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(MatrixStack ms, Minecraft mc) {}
+	@Environment(EnvType.CLIENT)
+	public void renderHUD(MatrixStack ms, MinecraftClient mc) {}
 
 	/**
 	 * Gets if this SubTileEntity is affected by Enchanted Soil's speed boost.

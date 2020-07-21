@@ -8,11 +8,9 @@
  */
 package vazkii.botania.client.patchouli.component;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.item.crafting.Ingredient;
-
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.recipe.Ingredient;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
@@ -57,7 +55,7 @@ abstract class RotatingItemListComponentBase implements ICustomComponent {
 	}
 
 	private void renderIngredientAtAngle(MatrixStack ms, IComponentRenderContext context, float angle, Ingredient ingredient, int mouseX, int mouseY) {
-		if (ingredient.hasNoMatchingItems()) {
+		if (ingredient.isEmpty()) {
 			return;
 		}
 

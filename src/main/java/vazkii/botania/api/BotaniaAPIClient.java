@@ -8,12 +8,12 @@
  */
 package vazkii.botania.api;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
-import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.LazyValue;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Lazy;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -27,9 +27,9 @@ import java.util.Map;
 /**
  * Class for API calls that must be made clientside
  */
-@OnlyIn(Dist.CLIENT)
+@Environment(EnvType.CLIENT)
 public interface BotaniaAPIClient {
-	LazyValue<BotaniaAPIClient> INSTANCE = new LazyValue<>(() -> {
+	Lazy<BotaniaAPIClient> INSTANCE = new Lazy<>(() -> {
 		try {
 			return (BotaniaAPIClient) Class.forName("vazkii.botania.client.impl.BotaniaAPIClientImpl").newInstance();
 		} catch (ReflectiveOperationException e) {
@@ -39,7 +39,7 @@ public interface BotaniaAPIClient {
 	});
 
 	static BotaniaAPIClient instance() {
-		return INSTANCE.getValue();
+		return INSTANCE.get();
 	}
 
 	/**
@@ -49,12 +49,12 @@ public interface BotaniaAPIClient {
 	 * @param islandType The islandtype to register
 	 * @param model      The model, only {@link ResourceLocation} allowed, no {@link ModelResourceLocation} allowed.
 	 */
-	default void registerIslandTypeModel(IFloatingFlower.IslandType islandType, ResourceLocation model) {}
+	default void registerIslandTypeModel(IFloatingFlower.IslandType islandType, Identifier model) {}
 
 	/**
 	 * @return An immutable and live view of the registered island type model map
 	 */
-	default Map<IFloatingFlower.IslandType, ResourceLocation> getRegisteredIslandTypeModels() {
+	default Map<IFloatingFlower.IslandType, Identifier> getRegisteredIslandTypeModels() {
 		return Collections.emptyMap();
 	}
 

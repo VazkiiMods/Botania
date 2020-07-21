@@ -11,10 +11,10 @@ package vazkii.botania.common.entity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.world.Explosion;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Packet;
 import net.minecraft.world.World;
+import net.minecraft.world.explosion.Explosion;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import vazkii.botania.common.core.helper.Vector3;
@@ -39,7 +39,7 @@ public class EntityManaStorm extends Entity {
 	}
 
 	@Override
-	protected void registerData() {}
+	protected void initDataTracker() {}
 
 	@Override
 	public void tick() {
@@ -48,7 +48,7 @@ public class EntityManaStorm extends Entity {
 
 		int diffTime = Math.max(1, 30 - (int) (liveTime / 45f));
 		if (burstsFired < TOTAL_BURSTS && liveTime % diffTime == 0) {
-			if (!world.isRemote) {
+			if (!world.isClient) {
 				spawnBurst();
 			}
 			burstsFired++;
@@ -58,14 +58,14 @@ public class EntityManaStorm extends Entity {
 			deathTime++;
 			if (deathTime >= DEATH_TIME) {
 				remove();
-				world.createExplosion(this, getPosX(), getPosY(), getPosZ(), 8F, true, Explosion.Mode.DESTROY);
+				world.createExplosion(this, getX(), getY(), getZ(), 8F, true, Explosion.DestructionType.DESTROY);
 			}
 		}
 	}
 
 	private void spawnBurst() {
 		EntityManaBurst burst = ModEntities.MANA_BURST.create(world);
-		burst.setPosition(getPosX(), getPosY(), getPosZ());
+		burst.updatePosition(getX(), getY(), getZ());
 
 		float motionModifier = 0.5F;
 		burst.setColor(0x20FF20);
@@ -79,18 +79,18 @@ public class EntityManaStorm extends Entity {
 
 		Vector3 motion = new Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().multiply(motionModifier);
 		burst.setBurstMotion(motion.x, motion.y, motion.z);
-		world.addEntity(burst);
+		world.spawnEntity(burst);
 	}
 
 	@Override
-	protected void readAdditional(@Nonnull CompoundNBT cmp) {
+	protected void readCustomDataFromTag(@Nonnull CompoundTag cmp) {
 		liveTime = cmp.getInt(TAG_TIME);
 		burstsFired = cmp.getInt(TAG_BURSTS_FIRED);
 		deathTime = cmp.getInt(TAG_DEATH_TIME);
 	}
 
 	@Override
-	protected void writeAdditional(@Nonnull CompoundNBT cmp) {
+	protected void writeCustomDataToTag(@Nonnull CompoundTag cmp) {
 		cmp.putInt(TAG_TIME, liveTime);
 		cmp.putInt(TAG_BURSTS_FIRED, burstsFired);
 		cmp.putInt(TAG_DEATH_TIME, deathTime);
@@ -98,7 +98,7 @@ public class EntityManaStorm extends Entity {
 
 	@Nonnull
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public Packet<?> createSpawnPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 

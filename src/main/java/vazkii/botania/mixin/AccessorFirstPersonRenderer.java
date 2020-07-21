@@ -8,19 +8,17 @@
  */
 package vazkii.botania.mixin;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
-import net.minecraft.client.renderer.FirstPersonRenderer;
-import net.minecraft.util.HandSide;
-
+import net.minecraft.client.render.item.HeldItemRenderer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Arm;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(FirstPersonRenderer.class)
+@Mixin(HeldItemRenderer.class)
 public interface AccessorFirstPersonRenderer {
 	@Invoker
-	void callTransformSideFirstPerson(MatrixStack ms, HandSide side, float equip);
+	void callTransformSideFirstPerson(MatrixStack ms, Arm side, float equip);
 
 	@Invoker
-	void callTransformFirstPerson(MatrixStack ms, HandSide side, float swing);
+	void callTransformFirstPerson(MatrixStack ms, Arm side, float swing);
 }

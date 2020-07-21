@@ -9,35 +9,34 @@
 package vazkii.botania.client.render.tile;
 
 import com.google.common.base.Preconditions;
-import com.mojang.blaze3d.matrix.MatrixStack;
-
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.item.BuiltinModelItemRenderer;
+import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.LazyValue;
+import net.minecraft.util.Lazy;
 import net.minecraft.util.registry.Registry;
 
-public class TEISR extends ItemStackTileEntityRenderer {
+public class TEISR extends BuiltinModelItemRenderer {
 	private final Block block;
-	private final LazyValue<TileEntity> dummy;
+	private final Lazy<BlockEntity> dummy;
 
 	public TEISR(Block block) {
 		this.block = Preconditions.checkNotNull(block);
-		this.dummy = new LazyValue<>(() -> {
-			TileEntityType<?> type = Registry.BLOCK_ENTITY_TYPE.getValue(Registry.BLOCK.getKey(block)).get();
-			return type.create();
+		this.dummy = new Lazy<>(() -> {
+			BlockEntityType<?> type = Registry.BLOCK_ENTITY_TYPE.getOrEmpty(Registry.BLOCK.getId(block)).get();
+			return type.instantiate();
 		});
 	}
 
 	@Override
-	public void func_239207_a_(ItemStack stack, ItemCameraTransforms.TransformType transform, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+	public void render(ItemStack stack, ModelTransformation.Mode transform, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
 		if (stack.getItem() == block.asItem()) {
-			TileEntityRendererDispatcher.instance.getRenderer(dummy.getValue())
+			BlockEntityRenderDispatcher.INSTANCE.get(dummy.get())
 					.render(null, 0, ms, buffers, light, overlay);
 		}
 	}

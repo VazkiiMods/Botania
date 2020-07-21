@@ -8,14 +8,14 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.client.renderer.Atlases;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.ModelResourceLocation;
-import net.minecraft.client.renderer.model.RenderMaterial;
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.client.renderer.texture.MissingTextureSprite;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.tileentity.BannerPattern;
+import net.minecraft.block.entity.BannerPattern;
+import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.texture.MissingSprite;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.client.util.ModelIdentifier;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -43,7 +43,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public class MiscellaneousIcons {
 	public static final MiscellaneousIcons INSTANCE = new MiscellaneousIcons();
 
-	public TextureAtlasSprite alfPortalTex,
+	public Sprite alfPortalTex,
 			lightRelayWorldIcon,
 			lightRelayDetectorWorldIcon,
 			lightRelayForkWorldIcon,
@@ -61,12 +61,12 @@ public class MiscellaneousIcons {
 			manaDetectorIcon,
 			runeAltarTriggerIcon;
 
-	public final TextureAtlasSprite[] sparkUpgradeIcons = new TextureAtlasSprite[4];
+	public final Sprite[] sparkUpgradeIcons = new Sprite[4];
 	// public final Map<TriggerManaLevel.State, TextureAtlasSprite> manaLevelTriggerIcons = new EnumMap<>(TriggerManaLevel.State.class);
-	public final IBakedModel[] tiaraWingIcons = new IBakedModel[ItemFlightTiara.WING_TYPES];
-	public final IBakedModel[] thirdEyeLayers = new IBakedModel[3];
+	public final BakedModel[] tiaraWingIcons = new BakedModel[ItemFlightTiara.WING_TYPES];
+	public final BakedModel[] thirdEyeLayers = new BakedModel[3];
 
-	public IBakedModel goldfishModel,
+	public BakedModel goldfishModel,
 			phiFlowerModel,
 			nerfBatModel,
 			bloodPendantChain,
@@ -83,17 +83,17 @@ public class MiscellaneousIcons {
 			manaSpreaderInside,
 			redstoneSpreaderInside;
 
-	public final IBakedModel[] kingKeyWeaponModels = new IBakedModel[ItemKingKey.WEAPON_TYPES];
+	public final BakedModel[] kingKeyWeaponModels = new BakedModel[ItemKingKey.WEAPON_TYPES];
 
 	public void onModelRegister(ModelRegistryEvent evt) {
-		Set<RenderMaterial> materials = AccessorModelBakery.getMaterials();
+		Set<SpriteIdentifier> materials = AccessorModelBakery.getMaterials();
 
 		materials.add(RenderLexicon.TEXTURE);
 		materials.add(RenderLexicon.ELVEN_TEXTURE);
 		for (BannerPattern pattern : BannerPattern.values()) {
-			if (pattern.getFileName().startsWith(LibMisc.MOD_ID)) {
-				materials.add(new RenderMaterial(Atlases.SHIELD_ATLAS, pattern.func_226957_a_(false)));
-				materials.add(new RenderMaterial(Atlases.BANNER_ATLAS, pattern.func_226957_a_(true)));
+			if (pattern.getName().startsWith(LibMisc.MOD_ID)) {
+				materials.add(new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, pattern.getSpriteId(false)));
+				materials.add(new SpriteIdentifier(TexturedRenderLayers.BANNER_PATTERNS_ATLAS_TEXTURE, pattern.getSpriteId(true)));
 			}
 		}
 		ModelLoader.addSpecialModel(prefix("icon/goldfish"));
@@ -125,33 +125,33 @@ public class MiscellaneousIcons {
 			return;
 		}
 		// Platforms
-		ModelResourceLocation abstruseName = new ModelResourceLocation("botania:abstruse_platform", "");
-		IBakedModel abstruse = evt.getModelRegistry().get(abstruseName);
-		ModelResourceLocation spectralName = new ModelResourceLocation("botania:spectral_platform", "");
-		IBakedModel spectral = evt.getModelRegistry().get(spectralName);
-		ModelResourceLocation infrangibleName = new ModelResourceLocation("botania:infrangible_platform", "");
-		IBakedModel infrangible = evt.getModelRegistry().get(infrangibleName);
+		ModelIdentifier abstruseName = new ModelIdentifier("botania:abstruse_platform", "");
+		BakedModel abstruse = evt.getModelRegistry().get(abstruseName);
+		ModelIdentifier spectralName = new ModelIdentifier("botania:spectral_platform", "");
+		BakedModel spectral = evt.getModelRegistry().get(spectralName);
+		ModelIdentifier infrangibleName = new ModelIdentifier("botania:infrangible_platform", "");
+		BakedModel infrangible = evt.getModelRegistry().get(infrangibleName);
 
 		evt.getModelRegistry().put(abstruseName, new PlatformModel(abstruse));
 		evt.getModelRegistry().put(spectralName, new PlatformModel(spectral));
 		evt.getModelRegistry().put(infrangibleName, new PlatformModel(infrangible));
 
 		// Lexicon
-		IBakedModel original = evt.getModelRegistry().get(new ModelResourceLocation("botania:lexicon", "inventory"));
-		evt.getModelRegistry().put(new ModelResourceLocation("botania:lexicon", "inventory"),
+		BakedModel original = evt.getModelRegistry().get(new ModelIdentifier("botania:lexicon", "inventory"));
+		evt.getModelRegistry().put(new ModelIdentifier("botania:lexicon", "inventory"),
 				new LexiconModel(original));
 
 		// models referenced using json overrides aren't put in the model registry, so just go through all override models and wrap them there
-		List<IBakedModel> overrides = ((AccessorItemOverrideList) original.getOverrides()).getOverrideBakedModels();
+		List<BakedModel> overrides = ((AccessorItemOverrideList) original.getOverrides()).getOverrideBakedModels();
 		for (int i = 0; i < overrides.size(); i++) {
 			overrides.set(i, new LexiconModel(overrides.get(i)));
 		}
 
 		// Mana Blaster
-		ModelResourceLocation key = new ModelResourceLocation("botania:mana_gun", "inventory");
-		IBakedModel originalModel = evt.getModelRegistry().get(key);
-		ModelResourceLocation clipKey = new ModelResourceLocation("botania:mana_gun_clip", "inventory");
-		IBakedModel originalModelClip = evt.getModelRegistry().get(clipKey);
+		ModelIdentifier key = new ModelIdentifier("botania:mana_gun", "inventory");
+		BakedModel originalModel = evt.getModelRegistry().get(key);
+		ModelIdentifier clipKey = new ModelIdentifier("botania:mana_gun_clip", "inventory");
+		BakedModel originalModelClip = evt.getModelRegistry().get(clipKey);
 		evt.getModelRegistry().put(key, new GunModel(evt.getModelLoader(), originalModel, originalModelClip));
 
 		RenderTileCorporeaCrystalCube.cubeModel = evt.getModelRegistry().get(prefix("block/corporea_crystal_cube_glass"));
@@ -187,7 +187,7 @@ public class MiscellaneousIcons {
 	}
 
 	public void onTextureStitchPre(TextureStitchEvent.Pre evt) {
-		if (!evt.getMap().getTextureLocation().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE)) {
+		if (!evt.getMap().getId().equals(SpriteAtlasTexture.BLOCK_ATLAS_TEX)) {
 			return;
 		}
 
@@ -221,7 +221,7 @@ public class MiscellaneousIcons {
 	}
 
 	public void onTextureStitchPost(TextureStitchEvent.Post evt) {
-		if (!evt.getMap().getTextureLocation().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE)) {
+		if (!evt.getMap().getId().equals(SpriteAtlasTexture.BLOCK_ATLAS_TEX)) {
 			return;
 		}
 
@@ -257,9 +257,9 @@ public class MiscellaneousIcons {
 		*/
 	}
 
-	private TextureAtlasSprite get(AtlasTexture map, String name) {
-		TextureAtlasSprite ret = map.getSprite(prefix(name));
-		if (ret == map.getSprite(MissingTextureSprite.getLocation())) {
+	private Sprite get(SpriteAtlasTexture map, String name) {
+		Sprite ret = map.getSprite(prefix(name));
+		if (ret == map.getSprite(MissingSprite.getMissingSpriteId())) {
 			Botania.LOGGER.error("Missing texture for {}", name);
 		}
 		return ret;

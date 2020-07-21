@@ -19,14 +19,14 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 public class ItemSlimeBottle extends Item {
 	public static final String TAG_ACTIVE = "active";
 
-	public ItemSlimeBottle(Properties builder) {
+	public ItemSlimeBottle(Settings builder) {
 		super(builder);
 	}
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int something, boolean somethingelse) {
-		if (!world.isRemote) {
-			boolean slime = SubTileNarslimmus.isSlimeChunk(world, entity.func_233580_cy_());
+		if (!world.isClient) {
+			boolean slime = SubTileNarslimmus.isSlimeChunk(world, entity.getBlockPos());
 			ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, slime);
 		}
 	}

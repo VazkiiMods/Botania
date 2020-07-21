@@ -8,17 +8,18 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Atlases;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -30,13 +31,13 @@ import vazkii.botania.common.core.handler.EquipmentHandler;
 
 public class ItemSuperLavaPendant extends ItemBauble {
 
-	public ItemSuperLavaPendant(Properties props) {
+	public ItemSuperLavaPendant(Settings props) {
 		super(props);
 		MinecraftForge.EVENT_BUS.addListener(this::onDamage);
 	}
 
 	private void onDamage(LivingHurtEvent evt) {
-		if (evt.getSource().isFireDamage()
+		if (evt.getSource().isFire()
 				&& !EquipmentHandler.findOrEmpty(this, evt.getEntityLiving()).isEmpty()) {
 			evt.setCanceled(true);
 		}
@@ -44,21 +45,21 @@ public class ItemSuperLavaPendant extends ItemBauble {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity living) {
-		if (living.isBurning()) {
+		if (living.isOnFire()) {
 			living.extinguish();
 		}
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
-		bipedModel.bipedBody.translateRotate(ms);
+	@Environment(EnvType.CLIENT)
+	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		boolean armor = !player.getEquippedStack(EquipmentSlot.CHEST).isEmpty();
+		bipedModel.torso.rotate(ms);
 		ms.translate(-0.25, 0.5, armor ? 0.05 : 0.12);
 		ms.scale(0.5F, -0.5F, -0.5F);
-		IBakedModel model = MiscellaneousIcons.INSTANCE.crimsonGem;
-		IVertexBuilder buffer = buffers.getBuffer(Atlases.getCutoutBlockType());
-		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
-				.renderModelBrightnessColor(ms.getLast(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
+		BakedModel model = MiscellaneousIcons.INSTANCE.crimsonGem;
+		VertexConsumer buffer = buffers.getBuffer(TexturedRenderLayers.getEntityCutout());
+		MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer()
+				.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
 	}
 }

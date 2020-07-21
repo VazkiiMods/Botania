@@ -9,9 +9,9 @@
 package vazkii.botania.api.corporea;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.LazyValue;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.Lazy;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 public interface CorporeaHelper {
-	LazyValue<CorporeaHelper> INSTANCE = new LazyValue<>(() -> {
+	Lazy<CorporeaHelper> INSTANCE = new Lazy<>(() -> {
 		try {
 			return (CorporeaHelper) Class.forName("vazkii.botania.common.impl.corporea.CorporeaHelperImpl").newInstance();
 		} catch (ReflectiveOperationException e) {
@@ -35,7 +35,7 @@ public interface CorporeaHelper {
 	});
 
 	static CorporeaHelper instance() {
-		return INSTANCE.getValue();
+		return INSTANCE.get();
 	}
 
 	/**
@@ -166,5 +166,5 @@ public interface CorporeaHelper {
 		return 0;
 	}
 
-	default <T extends ICorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundNBT, T> deserializer) {}
+	default <T extends ICorporeaRequestMatcher> void registerRequestMatcher(Identifier id, Class<T> clazz, Function<CompoundTag, T> deserializer) {}
 }

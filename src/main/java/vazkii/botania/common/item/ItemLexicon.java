@@ -8,22 +8,24 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.client.util.ITooltipFlag;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -42,17 +44,17 @@ public class ItemLexicon extends Item implements IElvenItem {
 
 	public static final String TAG_ELVEN_UNLOCK = "botania:elven_unlock";
 
-	public ItemLexicon(Properties props) {
+	public ItemLexicon(Settings props) {
 		super(props);
 	}
 
 	public static boolean isOpen() {
-		return Registry.ITEM.getKey(ModItems.lexicon).equals(PatchouliAPI.instance.getOpenBookGui());
+		return Registry.ITEM.getId(ModItems.lexicon).equals(PatchouliAPI.instance.getOpenBookGui());
 	}
 
 	@Override
-	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> list) {
-		if (isInGroup(tab)) {
+	public void appendStacks(@Nonnull ItemGroup tab, @Nonnull DefaultedList<ItemStack> list) {
+		if (isIn(tab)) {
 			list.add(new ItemStack(this));
 			ItemStack creative = new ItemStack(this);
 			creative.getOrCreateTag().putBoolean(TAG_ELVEN_UNLOCK, true);
@@ -61,40 +63,40 @@ public class ItemLexicon extends Item implements IElvenItem {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		super.addInformation(stack, worldIn, tooltip, flagIn);
+	@Environment(EnvType.CLIENT)
+	public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
+		super.appendTooltip(stack, worldIn, tooltip, flagIn);
 
 		TooltipHandler.addOnShift(tooltip, () -> {
-			tooltip.add(getEdition().deepCopy().func_240699_a_(TextFormatting.GRAY));
+			tooltip.add(getEdition().shallowCopy().formatted(Formatting.GRAY));
 		});
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-		ItemStack stack = playerIn.getHeldItem(handIn);
+	public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+		ItemStack stack = playerIn.getStackInHand(handIn);
 
 		if (playerIn instanceof ServerPlayerEntity) {
 			ServerPlayerEntity player = (ServerPlayerEntity) playerIn;
-			UseItemSuccessTrigger.INSTANCE.trigger(player, stack, player.getServerWorld(), player.getPosX(), player.getPosY(), player.getPosZ());
-			PatchouliAPI.instance.openBookGUI((ServerPlayerEntity) playerIn, Registry.ITEM.getKey(this));
+			UseItemSuccessTrigger.INSTANCE.trigger(player, stack, player.getServerWorld(), player.getX(), player.getY(), player.getZ());
+			PatchouliAPI.instance.openBookGUI((ServerPlayerEntity) playerIn, Registry.ITEM.getId(this));
 			playerIn.playSound(ModSounds.lexiconOpen, 1F, (float) (0.7 + Math.random() * 0.4));
 		}
 
-		return new ActionResult<>(ActionResultType.SUCCESS, stack);
+		return new TypedActionResult<>(ActionResult.SUCCESS, stack);
 	}
 
-	public static ITextComponent getEdition() {
-		return PatchouliAPI.instance.getSubtitle(Registry.ITEM.getKey(ModItems.lexicon));
+	public static Text getEdition() {
+		return PatchouliAPI.instance.getSubtitle(Registry.ITEM.getId(ModItems.lexicon));
 	}
 
-	public static ITextComponent getTitle(ItemStack stack) {
-		ITextComponent title = stack.getDisplayName();
+	public static Text getTitle(ItemStack stack) {
+		Text title = stack.getName();
 
 		String akashicTomeNBT = "akashictome:displayName";
 		if (stack.hasTag() && stack.getTag().contains(akashicTomeNBT)) {
-			title = new StringTextComponent(stack.getTag().getString(akashicTomeNBT));
+			title = new LiteralText(stack.getTag().getString(akashicTomeNBT));
 		}
 
 		return title;
@@ -106,7 +108,7 @@ public class ItemLexicon extends Item implements IElvenItem {
 	}
 
 	// Random item to expose this as public
-	public static BlockRayTraceResult doRayTrace(World world, PlayerEntity player, RayTraceContext.FluidMode fluidMode) {
+	public static BlockHitResult doRayTrace(World world, PlayerEntity player, RayTraceContext.FluidHandling fluidMode) {
 		return Item.rayTrace(world, player, fluidMode);
 	}
 }

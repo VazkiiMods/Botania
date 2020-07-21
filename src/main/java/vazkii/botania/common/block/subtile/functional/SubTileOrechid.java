@@ -11,12 +11,12 @@ package vazkii.botania.common.block.subtile.functional;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.WeightedRandom;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.tag.Tag;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.WeightedPicker;
 import net.minecraft.util.math.BlockPos;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -44,7 +44,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 3;
 
-	public SubTileOrechid(TileEntityType<?> type) {
+	public SubTileOrechid(BlockEntityType<?> type) {
 		super(type);
 	}
 
@@ -56,7 +56,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isRemote || redstoneSignal > 0 || !canOperate()) {
+		if (getWorld().isClient || redstoneSignal > 0 || !canOperate()) {
 			return;
 		}
 
@@ -68,7 +68,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 				if (state != null) {
 					getWorld().setBlockState(coords, state);
 					if (ConfigHandler.COMMON.blockBreakParticles.get()) {
-						getWorld().playEvent(2001, coords, Block.getStateId(state));
+						getWorld().syncWorldEvent(2001, coords, Block.getRawIdFromState(state));
 					}
 					getWorld().playSound(null, coords, ModSounds.orechid, SoundCategory.BLOCKS, 2F, 1F);
 
@@ -81,11 +81,11 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 
 	@Nullable
 	private BlockState getOreToPut() {
-		Map<ResourceLocation, Integer> map = getOreMap();
+		Map<Identifier, Integer> map = getOreMap();
 		List<TagRandomItem> values = map.entrySet().stream()
 				.flatMap(e -> {
-					ITag<Block> tag = BlockTags.getCollection().get(e.getKey());
-					if (tag != null && !tag.getAllElements().isEmpty()) {
+					Tag<Block> tag = BlockTags.getContainer().get(e.getKey());
+					if (tag != null && !tag.values().isEmpty()) {
 						return Stream.of(new TagRandomItem(e.getValue(), tag));
 					} else {
 						return Stream.empty();
@@ -93,18 +93,18 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 				})
 				.collect(Collectors.toList());
 
-		if (WeightedRandom.getTotalWeight(values) == 0) {
+		if (WeightedPicker.getWeightSum(values) == 0) {
 			return null;
 		}
 
-		ITag<Block> ore = WeightedRandom.getRandomItem(getWorld().rand, values).tag;
-		return ore.getRandomElement(getWorld().getRandom()).getDefaultState();
+		Tag<Block> ore = WeightedPicker.getRandom(getWorld().random, values).tag;
+		return ore.getRandom(getWorld().getRandom()).getDefaultState();
 	}
 
 	private BlockPos getCoordsToPut() {
 		List<BlockPos> possibleCoords = new ArrayList<>();
 
-		for (BlockPos pos : BlockPos.getAllInBoxMutable(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE),
+		for (BlockPos pos : BlockPos.iterate(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE),
 				getEffectivePos().add(RANGE, RANGE_Y, RANGE))) {
 			BlockState state = getWorld().getBlockState(pos);
 			if (getReplaceMatcher().test(state)) {
@@ -115,14 +115,14 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 		if (possibleCoords.isEmpty()) {
 			return null;
 		}
-		return possibleCoords.get(getWorld().rand.nextInt(possibleCoords.size()));
+		return possibleCoords.get(getWorld().random.nextInt(possibleCoords.size()));
 	}
 
 	public boolean canOperate() {
 		return true;
 	}
 
-	public Map<ResourceLocation, Integer> getOreMap() {
+	public Map<Identifier, Integer> getOreMap() {
 		return BotaniaAPI.instance().getOreWeights();
 	}
 
@@ -158,11 +158,11 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 		return getCost();
 	}
 
-	private static class TagRandomItem extends WeightedRandom.Item {
+	private static class TagRandomItem extends WeightedPicker.Entry {
 
-		public final ITag<Block> tag;
+		public final Tag<Block> tag;
 
-		public TagRandomItem(int weight, ITag<Block> tag) {
+		public TagRandomItem(int weight, Tag<Block> tag) {
 			super(weight);
 			this.tag = tag;
 		}

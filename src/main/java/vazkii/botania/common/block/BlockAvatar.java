@@ -9,21 +9,22 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.*;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IAvatarWieldable;
@@ -33,20 +34,20 @@ import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 
-public class BlockAvatar extends BlockModWaterloggable implements ITileEntityProvider {
+public class BlockAvatar extends BlockModWaterloggable implements BlockEntityProvider {
 
-	private static final VoxelShape X_AABB = makeCuboidShape(5, 0, 3.5, 11, 17, 12.5);
-	private static final VoxelShape Z_AABB = makeCuboidShape(3.5, 0, 5, 12.5, 17, 11);
+	private static final VoxelShape X_AABB = createCuboidShape(5, 0, 3.5, 11, 17, 12.5);
+	private static final VoxelShape Z_AABB = createCuboidShape(3.5, 0, 5, 12.5, 17, 11);
 
-	protected BlockAvatar(Properties builder) {
+	protected BlockAvatar(Settings builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
+		setDefaultState(getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.NORTH));
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
-		if (state.get(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
+		if (state.get(Properties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
 			return X_AABB;
 		} else {
 			return Z_AABB;
@@ -54,41 +55,41 @@ public class BlockAvatar extends BlockModWaterloggable implements ITileEntityPro
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		super.fillStateContainer(builder);
-		builder.add(BlockStateProperties.HORIZONTAL_FACING);
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		super.appendProperties(builder);
+		builder.add(Properties.HORIZONTAL_FACING);
 	}
 
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		TileAvatar avatar = (TileAvatar) world.getTileEntity(pos);
-		ItemStack stackOnAvatar = avatar.getItemHandler().getStackInSlot(0);
-		ItemStack stackOnPlayer = player.getHeldItem(hand);
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		TileAvatar avatar = (TileAvatar) world.getBlockEntity(pos);
+		ItemStack stackOnAvatar = avatar.getItemHandler().getStack(0);
+		ItemStack stackOnPlayer = player.getStackInHand(hand);
 		if (!stackOnAvatar.isEmpty()) {
-			avatar.getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
-			player.inventory.placeItemBackInInventory(player.world, stackOnAvatar);
-			return ActionResultType.SUCCESS;
+			avatar.getItemHandler().setStack(0, ItemStack.EMPTY);
+			player.inventory.offerOrDrop(player.world, stackOnAvatar);
+			return ActionResult.SUCCESS;
 		} else if (!stackOnPlayer.isEmpty() && stackOnPlayer.getItem() instanceof IAvatarWieldable) {
-			avatar.getItemHandler().setInventorySlotContents(0, stackOnPlayer.split(1));
-			return ActionResultType.SUCCESS;
+			avatar.getItemHandler().setStack(0, stackOnPlayer.split(1));
+			return ActionResult.SUCCESS;
 		}
 
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
 	@Override
-	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newstate, boolean isMoving) {
+	public void onStateReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newstate, boolean isMoving) {
 		if (state.getBlock() != newstate.getBlock()) {
-			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
+			TileSimpleInventory inv = (TileSimpleInventory) world.getBlockEntity(pos);
 			InventoryHelper.dropInventory(inv, world, state, pos);
-			super.onReplaced(state, world, pos, newstate, isMoving);
+			super.onStateReplaced(state, world, pos, newstate, isMoving);
 		}
 	}
 
 	@Nonnull
 	@Override
-	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		return super.getStateForPlacement(context).with(BlockStateProperties.HORIZONTAL_FACING, context.getPlacementHorizontalFacing().getOpposite());
+	public BlockState getPlacementState(ItemPlacementContext context) {
+		return super.getPlacementState(context).with(Properties.HORIZONTAL_FACING, context.getPlayerFacing().getOpposite());
 	}
 
 	@Nonnull
@@ -99,19 +100,19 @@ public class BlockAvatar extends BlockModWaterloggable implements ITileEntityPro
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TileAvatar();
 	}
 
 	@Nonnull
 	@Override
-	public BlockState mirror(@Nonnull BlockState state, Mirror mirror) {
-		return state.with(BlockStateProperties.HORIZONTAL_FACING, mirror.mirror(state.get(BlockStateProperties.HORIZONTAL_FACING)));
+	public BlockState mirror(@Nonnull BlockState state, BlockMirror mirror) {
+		return state.with(Properties.HORIZONTAL_FACING, mirror.apply(state.get(Properties.HORIZONTAL_FACING)));
 	}
 
 	@Nonnull
 	@Override
-	public BlockState rotate(@Nonnull BlockState state, Rotation rot) {
-		return state.with(BlockStateProperties.HORIZONTAL_FACING, rot.rotate(state.get(BlockStateProperties.HORIZONTAL_FACING)));
+	public BlockState rotate(@Nonnull BlockState state, BlockRotation rot) {
+		return state.with(Properties.HORIZONTAL_FACING, rot.rotate(state.get(Properties.HORIZONTAL_FACING)));
 	}
 }

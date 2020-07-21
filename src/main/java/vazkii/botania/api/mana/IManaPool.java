@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.item.DyeColor;
+import net.minecraft.util.DyeColor;
 
 /**
  * Any TileEntity that implements this is considered a Mana Pool,

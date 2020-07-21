@@ -8,18 +8,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
-import net.minecraft.client.renderer.Atlases;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.util.math.vector.Matrix3f;
-import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.math.vector.Vector3f;
-
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -27,16 +15,26 @@ import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 
 import javax.annotation.Nonnull;
+import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
+import net.minecraft.util.math.Matrix3f;
+import net.minecraft.util.math.Matrix4f;
 
-public class RenderTileAlfPortal extends TileEntityRenderer<TileAlfPortal> {
+public class RenderTileAlfPortal extends BlockEntityRenderer<TileAlfPortal> {
 
-	public RenderTileAlfPortal(TileEntityRendererDispatcher manager) {
+	public RenderTileAlfPortal(BlockEntityRenderDispatcher manager) {
 		super(manager);
 	}
 
 	@Override
-	public void render(@Nonnull TileAlfPortal portal, float f, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-		AlfPortalState state = portal.getBlockState().get(BotaniaStateProps.ALFPORTAL_STATE);
+	public void render(@Nonnull TileAlfPortal portal, float f, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
+		AlfPortalState state = portal.getCachedState().get(BotaniaStateProps.ALFPORTAL_STATE);
 		if (state == AlfPortalState.OFF) {
 			return;
 		}
@@ -48,7 +46,7 @@ public class RenderTileAlfPortal extends TileEntityRenderer<TileAlfPortal> {
 
 		if (state == AlfPortalState.ON_X) {
 			ms.translate(1.25F, 0F, 1.75F);
-			ms.rotate(Vector3f.YP.rotationDegrees(90F));
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
 		}
 
 		renderIcon(ms, buffers, MiscellaneousIcons.INSTANCE.alfPortalTex, 0, 0, 3, 3, alpha, overlay);
@@ -58,14 +56,14 @@ public class RenderTileAlfPortal extends TileEntityRenderer<TileAlfPortal> {
 		ms.pop();
 	}
 
-	public void renderIcon(MatrixStack ms, IRenderTypeBuffer buffers, TextureAtlasSprite icon, int x, int y, int width, int height, float alpha, int overlay) {
-		IVertexBuilder buffer = buffers.getBuffer(Atlases.getTranslucentCullBlockType());
-		Matrix4f model = ms.getLast().getMatrix();
-		Matrix3f normal = ms.getLast().getNormal();
-		buffer.pos(model, x, y + height, 0).color(1, 1, 1, alpha).tex(icon.getMinU(), icon.getMaxV()).overlay(overlay).lightmap(0xF000F0).normal(normal, 1, 0, 0).endVertex();
-		buffer.pos(model, x + width, y + height, 0).color(1, 1, 1, alpha).tex(icon.getMaxU(), icon.getMaxV()).overlay(overlay).lightmap(0xF000F0).normal(normal, 1, 0, 0).endVertex();
-		buffer.pos(model, x + width, y, 0).color(1, 1, 1, alpha).tex(icon.getMaxU(), icon.getMinV()).overlay(overlay).lightmap(0xF000F0).normal(normal, 1, 0, 0).endVertex();
-		buffer.pos(model, x, y, 0).color(1, 1, 1, alpha).tex(icon.getMinU(), icon.getMinV()).overlay(overlay).lightmap(0xF000F0).normal(normal, 1, 0, 0).endVertex();
+	public void renderIcon(MatrixStack ms, VertexConsumerProvider buffers, Sprite icon, int x, int y, int width, int height, float alpha, int overlay) {
+		VertexConsumer buffer = buffers.getBuffer(TexturedRenderLayers.getEntityTranslucentCull());
+		Matrix4f model = ms.peek().getModel();
+		Matrix3f normal = ms.peek().getNormal();
+		buffer.vertex(model, x, y + height, 0).color(1, 1, 1, alpha).texture(icon.getMinU(), icon.getMaxV()).overlay(overlay).light(0xF000F0).normal(normal, 1, 0, 0).next();
+		buffer.vertex(model, x + width, y + height, 0).color(1, 1, 1, alpha).texture(icon.getMaxU(), icon.getMaxV()).overlay(overlay).light(0xF000F0).normal(normal, 1, 0, 0).next();
+		buffer.vertex(model, x + width, y, 0).color(1, 1, 1, alpha).texture(icon.getMaxU(), icon.getMinV()).overlay(overlay).light(0xF000F0).normal(normal, 1, 0, 0).next();
+		buffer.vertex(model, x, y, 0).color(1, 1, 1, alpha).texture(icon.getMinU(), icon.getMinV()).overlay(overlay).light(0xF000F0).normal(normal, 1, 0, 0).next();
 	}
 
 }

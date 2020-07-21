@@ -8,17 +8,19 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.projectile.ThrowableEntity;
-import net.minecraft.item.DyeColor;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -48,32 +50,32 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 	private final Lens lens;
 	private final int props;
 
-	public ItemLens(Item.Properties builder, Lens lens, int props) {
+	public ItemLens(Item.Settings builder, Lens lens, int props) {
 		super(builder);
 		this.lens = lens;
 		this.props = props;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
+	public void appendTooltip(ItemStack stack, World world, List<Text> stacks, TooltipContext flags) {
 		int storedColor = getStoredColor(stack);
 		if (storedColor != -1) {
-			TranslationTextComponent colorName = new TranslationTextComponent(storedColor == 16 ? "botania.color.rainbow" : "color.minecraft." + DyeColor.byId(storedColor));
-			stacks.add(new TranslationTextComponent("botaniamisc.color", colorName).func_240699_a_(TextFormatting.GRAY));
+			TranslatableText colorName = new TranslatableText(storedColor == 16 ? "botania.color.rainbow" : "color.minecraft." + DyeColor.byId(storedColor));
+			stacks.add(new TranslatableText("botaniamisc.color", colorName).formatted(Formatting.GRAY));
 		}
 	}
 
 	@Nonnull
 	@Override
-	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
+	public Text getName(@Nonnull ItemStack stack) {
 		ItemStack compositeLens = getCompositeLens(stack);
 		if (compositeLens.isEmpty()) {
-			return super.getDisplayName(stack);
+			return super.getName(stack);
 		}
 		String shortKeyA = stack.getTranslationKey() + ".short";
 		String shortKeyB = compositeLens.getTranslationKey() + ".short";
-		return new TranslationTextComponent("item.botania.composite_lens", new TranslationTextComponent(shortKeyA), new TranslationTextComponent(shortKeyB));
+		return new TranslatableText("item.botania.composite_lens", new TranslatableText(shortKeyA), new TranslatableText(shortKeyB));
 	}
 
 	@Override
@@ -92,8 +94,8 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 	}
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		ThrowableEntity entity = (ThrowableEntity) burst;
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+		ThrownEntity entity = (ThrownEntity) burst;
 
 		dead = getLens(stack).collideBurst(burst, entity, pos, isManaBlock, dead, stack);
 
@@ -107,10 +109,10 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 
 	@Override
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
-		ThrowableEntity entity = (ThrowableEntity) burst;
+		ThrownEntity entity = (ThrownEntity) burst;
 		int storedColor = getStoredColor(stack);
 
-		if (storedColor == 16 && entity.world.isRemote) {
+		if (storedColor == 16 && entity.world.isClient) {
 			burst.setColor(getLensColor(stack));
 		}
 
@@ -131,7 +133,7 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 		}
 
 		if (storedColor == 16) {
-			return MathHelper.hsvToRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 1F, 1F);
+			return MathHelper.hsvToRgb(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 1F, 1F);
 		}
 
 		return DyeColor.byId(storedColor).getColorValue();
@@ -185,25 +187,25 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 
 	@Override
 	public ItemStack getCompositeLens(ItemStack stack) {
-		CompoundNBT cmp = ItemNBTHelper.getCompound(stack, TAG_COMPOSITE_LENS, true);
+		CompoundTag cmp = ItemNBTHelper.getCompound(stack, TAG_COMPOSITE_LENS, true);
 		if (cmp == null) {
 			return ItemStack.EMPTY;
 		} else {
-			return ItemStack.read(cmp);
+			return ItemStack.fromTag(cmp);
 		}
 	}
 
 	@Override
 	public ItemStack setCompositeLens(ItemStack sourceLens, ItemStack compositeLens) {
 		if (!compositeLens.isEmpty()) {
-			CompoundNBT cmp = compositeLens.write(new CompoundNBT());
+			CompoundTag cmp = compositeLens.toTag(new CompoundTag());
 			ItemNBTHelper.setCompound(sourceLens, TAG_COMPOSITE_LENS, cmp);
 		}
 		return sourceLens;
 	}
 
 	@Override
-	public int getManaToTransfer(IManaBurst burst, ThrowableEntity entity, ItemStack stack, IManaReceiver receiver) {
+	public int getManaToTransfer(IManaBurst burst, ThrownEntity entity, ItemStack stack, IManaReceiver receiver) {
 		return getLens(stack).getManaToTransfer(burst, entity, stack, receiver);
 	}
 

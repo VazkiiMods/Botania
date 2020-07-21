@@ -9,10 +9,10 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.Tickable;
+import net.minecraft.util.math.Box;
 
-public class TileForestEye extends TileMod implements ITickableTileEntity {
+public class TileForestEye extends TileMod implements Tickable {
 	public int entities = 0;
 
 	public TileForestEye() {
@@ -21,14 +21,14 @@ public class TileForestEye extends TileMod implements ITickableTileEntity {
 
 	@Override
 	public void tick() {
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
 		int range = 6;
-		int entityCount = world.getEntitiesWithinAABB(AnimalEntity.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1))).size();
+		int entityCount = world.getNonSpectatingEntities(AnimalEntity.class, new Box(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1))).size();
 		if (entityCount != entities) {
 			entities = entityCount;
-			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
+			world.updateComparators(pos, getCachedState().getBlock());
 		}
 	}
 

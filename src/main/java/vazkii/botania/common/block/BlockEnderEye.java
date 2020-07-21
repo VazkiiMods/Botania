@@ -9,15 +9,15 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.particles.RedstoneParticleData;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.particle.DustParticleEffect;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.block.tile.TileEnderEye;
@@ -26,43 +26,43 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockEnderEye extends BlockMod implements ITileEntityProvider {
+public class BlockEnderEye extends BlockMod implements BlockEntityProvider {
 
-	protected BlockEnderEye(Properties builder) {
+	protected BlockEnderEye(Settings builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(BlockStateProperties.POWERED, false));
+		setDefaultState(getDefaultState().with(Properties.POWERED, false));
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		builder.add(BlockStateProperties.POWERED);
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		builder.add(Properties.POWERED);
 	}
 
 	@Override
-	public boolean canProvidePower(BlockState state) {
+	public boolean emitsRedstonePower(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getWeakPower(BlockState state, IBlockReader world, BlockPos pos, Direction side) {
-		return state.get(BlockStateProperties.POWERED) ? 15 : 0;
+	public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction side) {
+		return state.get(Properties.POWERED) ? 15 : 0;
 	}
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TileEnderEye();
 	}
 
 	@Override
-	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
-		if (state.get(BlockStateProperties.POWERED)) {
+	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
+		if (state.get(Properties.POWERED)) {
 			for (int i = 0; i < 20; i++) {
 				double x = pos.getX() - 0.1 + Math.random() * 1.2;
 				double y = pos.getY() - 0.1 + Math.random() * 1.2;
 				double z = pos.getZ() - 0.1 + Math.random() * 1.2;
 
-				world.addParticle(RedstoneParticleData.REDSTONE_DUST, x, y, z, 0, 0, 0);
+				world.addParticle(DustParticleEffect.RED, x, y, z, 0, 0, 0);
 			}
 		}
 	}

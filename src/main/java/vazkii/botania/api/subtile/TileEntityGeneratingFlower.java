@@ -8,20 +8,21 @@
  */
 package vazkii.botania.api.subtile;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -35,7 +36,7 @@ import vazkii.botania.api.mana.IManaCollector;
  * The basic class for a Generating Flower.
  */
 public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
-	private static final ResourceLocation SPREADER_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_spreader");
+	private static final Identifier SPREADER_ID = new Identifier(BotaniaAPI.MODID, "mana_spreader");
 
 	public static final int LINK_RANGE = 6;
 
@@ -49,12 +50,12 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	private int mana;
 
 	int sizeLastCheck = -1;
-	protected TileEntity linkedCollector = null;
+	protected BlockEntity linkedCollector = null;
 	public int passiveDecayTicks;
 
 	BlockPos cachedCollectorCoordinates = null;
 
-	public TileEntityGeneratingFlower(TileEntityType<?> type) {
+	public TileEntityGeneratingFlower(BlockEntityType<?> type) {
 		super(type);
 	}
 
@@ -64,7 +65,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 		linkCollector();
 
-		if (!getWorld().isRemote && canGeneratePassively()) {
+		if (!getWorld().isClient && canGeneratePassively()) {
 			int delay = getDelayBetweenPassiveGeneration();
 			if (delay > 0 && ticksExisted % delay == 0) {
 				addMana(getValueForPassiveGeneration());
@@ -72,7 +73,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		}
 		emptyManaIntoCollector();
 
-		if (getWorld().isRemote) {
+		if (getWorld().isClient) {
 			double particleChance = 1F - (double) getMana() / (double) getMaxMana() / 3.5F;
 			int color = getColor();
 			float red = (color >> 16 & 0xFF) / 255F;
@@ -80,7 +81,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			float blue = (color & 0xFF) / 255F;
 
 			if (Math.random() > particleChance) {
-				Vector3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos());
+				Vec3d offset = getWorld().getBlockState(getPos()).getModelOffset(getWorld(), getPos());
 				double x = getPos().getX() + offset.x;
 				double y = getPos().getY() + offset.y;
 				double z = getPos().getZ() + offset.z;
@@ -95,8 +96,8 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			}
 
 			if (passive && muhBalance > 0 && passiveDecayTicks > muhBalance) {
-				getWorld().destroyBlock(getPos(), false);
-				if (Blocks.DEAD_BUSH.getDefaultState().isValidPosition(getWorld(), getPos())) {
+				getWorld().breakBlock(getPos(), false);
+				if (Blocks.DEAD_BUSH.getDefaultState().canPlaceAt(getWorld(), getPos())) {
 					getWorld().setBlockState(getPos(), Blocks.DEAD_BUSH.getDefaultState());
 				}
 			}
@@ -110,9 +111,9 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 			if (cachedCollectorCoordinates != null) {
 				needsNew = false;
-				if (getWorld().isBlockLoaded(cachedCollectorCoordinates)) {
+				if (getWorld().isChunkLoaded(cachedCollectorCoordinates)) {
 					needsNew = true;
-					TileEntity tileAt = getWorld().getTileEntity(cachedCollectorCoordinates);
+					BlockEntity tileAt = getWorld().getBlockEntity(cachedCollectorCoordinates);
 					if (tileAt instanceof IManaCollector && !tileAt.isRemoved()) {
 						linkedCollector = tileAt;
 						needsNew = false;
@@ -121,7 +122,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 				}
 			}
 		} else {
-			TileEntity tileAt = getWorld().getTileEntity(linkedCollector.getPos());
+			BlockEntity tileAt = getWorld().getBlockEntity(linkedCollector.getPos());
 			if (tileAt instanceof IManaCollector) {
 				linkedCollector = tileAt;
 			}
@@ -137,7 +138,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		}
 	}
 
-	public void linkToForcefully(TileEntity collector) {
+	public void linkToForcefully(BlockEntity collector) {
 		linkedCollector = collector;
 	}
 
@@ -180,11 +181,11 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			return false;
 		}
 
-		if (!player.world.isRemote) {
+		if (!player.world.isClient) {
 			sync();
 		}
 
-		Registry.SOUND_EVENT.getValue(DING_SOUND_EVENT).ifPresent(evt -> player.playSound(evt, 0.1F, 1F));
+		Registry.SOUND_EVENT.getOrEmpty(DING_SOUND_EVENT).ifPresent(evt -> player.playSound(evt, 0.1F, 1F));
 
 		return super.onWanded(player, wand);
 	}
@@ -198,7 +199,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundNBT cmp) {
+	public void readFromPacketNBT(CompoundTag cmp) {
 		super.readFromPacketNBT(cmp);
 		mana = cmp.getInt(TAG_MANA);
 		passiveDecayTicks = cmp.getInt(TAG_PASSIVE_DECAY_TICKS);
@@ -211,7 +212,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundNBT cmp) {
+	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_MANA, getMana());
 		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
@@ -250,9 +251,9 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		int range = 6;
 		range *= range;
 
-		double dist = pos.distanceSq(getPos());
+		double dist = pos.getSquaredDistance(getPos());
 		if (range >= dist) {
-			TileEntity tile = player.world.getTileEntity(pos);
+			BlockEntity tile = player.world.getBlockEntity(pos);
 			if (tile instanceof IManaCollector) {
 				linkedCollector = tile;
 				sync();
@@ -264,17 +265,17 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	}
 
 	public boolean isValidBinding() {
-		return linkedCollector != null && !linkedCollector.isRemoved() && getWorld().getTileEntity(linkedCollector.getPos()) == linkedCollector;
+		return linkedCollector != null && !linkedCollector.isRemoved() && getWorld().getBlockEntity(linkedCollector.getPos()) == linkedCollector;
 	}
 
 	public ItemStack getHudIcon() {
-		return Registry.ITEM.getValue(SPREADER_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
+		return Registry.ITEM.getOrEmpty(SPREADER_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void renderHUD(MatrixStack ms, Minecraft mc) {
-		String name = I18n.format(getBlockState().getBlock().getTranslationKey());
+	public void renderHUD(MatrixStack ms, MinecraftClient mc) {
+		String name = I18n.translate(getCachedState().getBlock().getTranslationKey());
 		int color = getColor();
 		BotaniaAPIClient.instance().drawComplexManaHUD(ms, color, getMana(), getMaxMana(), name, getHudIcon(), isValidBinding());
 	}

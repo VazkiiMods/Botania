@@ -13,15 +13,15 @@ import com.google.gson.JsonObject;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.RecipeProvider;
+import net.minecraft.data.server.RecipesProvider;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.*;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.state.Property;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.state.property.Property;
+import net.minecraft.tag.ItemTags;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.Tags;
 
@@ -40,7 +40,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ManaInfusionProvider extends RecipeProvider {
+public class ManaInfusionProvider extends RecipesProvider {
 	public ManaInfusionProvider(DataGenerator gen) {
 		super(gen);
 	}
@@ -51,7 +51,7 @@ public class ManaInfusionProvider extends RecipeProvider {
 	}
 
 	@Override
-	protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+	protected void generate(Consumer<RecipeJsonProvider> consumer) {
 		consumer.accept(new FinishedRecipe(id("manasteel"), new ItemStack(ModItems.manaSteel), Ingredient.fromTag(Tags.Items.INGOTS_IRON), 3000));
 		consumer.accept(new FinishedRecipe(id("manasteel_block"), new ItemStack(ModBlocks.manasteelBlock), ingr(Blocks.IRON_BLOCK), 27000));
 
@@ -60,9 +60,9 @@ public class ManaInfusionProvider extends RecipeProvider {
 		consumer.accept(new FinishedRecipe(id("mana_diamond"), new ItemStack(ModItems.manaDiamond), Ingredient.fromTag(Tags.Items.GEMS_DIAMOND), 10000));
 		consumer.accept(new FinishedRecipe(id("mana_diamond_block"), new ItemStack(ModBlocks.manaDiamondBlock), ingr(Blocks.DIAMOND_BLOCK), 90000));
 
-		Ingredient dust = Ingredient.fromItems(Items.GUNPOWDER, Items.REDSTONE, Items.GLOWSTONE_DUST, Items.SUGAR);
+		Ingredient dust = Ingredient.ofItems(Items.GUNPOWDER, Items.REDSTONE, Items.GLOWSTONE_DUST, Items.SUGAR);
 		consumer.accept(new FinishedRecipe(id("mana_powder_dust"), new ItemStack(ModItems.manaPowder), dust, 500));
-		Ingredient dyeIngredient = Ingredient.fromItems(Arrays.stream(DyeColor.values()).map(DyeItem::getItem).toArray(Item[]::new));
+		Ingredient dyeIngredient = Ingredient.ofItems(Arrays.stream(DyeColor.values()).map(DyeItem::byColor).toArray(Item[]::new));
 		consumer.accept(new FinishedRecipe(id("mana_powder_dye"), new ItemStack(ModItems.manaPowder), dyeIngredient, 400));
 
 		consumer.accept(new FinishedRecipe(id("piston_relay"), new ItemStack(ModBlocks.pistonRelay), ingr(Blocks.PISTON), 15000));
@@ -70,7 +70,7 @@ public class ManaInfusionProvider extends RecipeProvider {
 		consumer.accept(new FinishedRecipe(id("grass_seeds"), new ItemStack(ModItems.grassSeeds), ingr(Blocks.GRASS), 2500));
 		consumer.accept(new FinishedRecipe(id("podzol_seeds"), new ItemStack(ModItems.podzolSeeds), ingr(Blocks.DEAD_BUSH), 2500));
 
-		consumer.accept(new FinishedRecipe(id("mycel_seeds"), new ItemStack(ModItems.mycelSeeds), Ingredient.fromItems(Blocks.RED_MUSHROOM, Blocks.BROWN_MUSHROOM), 6500));
+		consumer.accept(new FinishedRecipe(id("mycel_seeds"), new ItemStack(ModItems.mycelSeeds), Ingredient.ofItems(Blocks.RED_MUSHROOM, Blocks.BROWN_MUSHROOM), 6500));
 
 		consumer.accept(new FinishedRecipe(id("mana_quartz"), new ItemStack(ModItems.manaQuartz), ingr(Items.QUARTZ), 250));
 		consumer.accept(new FinishedRecipe(id("tiny_potato"), new ItemStack(ModBlocks.tinyPotato), ingr(Items.POTATO), 1337));
@@ -171,29 +171,29 @@ public class ManaInfusionProvider extends RecipeProvider {
 		consumer.accept(FinishedRecipe.conjuration(id("grass"), new ItemStack(Blocks.GRASS, 2), ingr(Blocks.GRASS), 800));
 	}
 
-	private static void cycle(Consumer<IFinishedRecipe> consumer, int cost, String group, IItemProvider... items) {
+	private static void cycle(Consumer<RecipeJsonProvider> consumer, int cost, String group, ItemConvertible... items) {
 		for (int i = 0; i < items.length; i++) {
 			Ingredient in = ingr(items[i]);
 			ItemStack out = new ItemStack(i == items.length - 1 ? items[0] : items[i + 1]);
-			String id = String.format("%s_to_%s", Registry.ITEM.getKey(items[i].asItem()).getPath(), Registry.ITEM.getKey(out.getItem()).getPath());
+			String id = String.format("%s_to_%s", Registry.ITEM.getId(items[i].asItem()).getPath(), Registry.ITEM.getId(out.getItem()).getPath());
 			consumer.accept(FinishedRecipe.alchemy(id(id), out, in, cost, group));
 		}
 	}
 
-	private static FinishedRecipe mini(IItemProvider mini, IItemProvider full) {
-		return FinishedRecipe.alchemy(id(Registry.ITEM.getKey(mini.asItem()).getPath()), new ItemStack(mini), ingr(full), 2500, "botania:flower_shrinking");
+	private static FinishedRecipe mini(ItemConvertible mini, ItemConvertible full) {
+		return FinishedRecipe.alchemy(id(Registry.ITEM.getId(mini.asItem()).getPath()), new ItemStack(mini), ingr(full), 2500, "botania:flower_shrinking");
 	}
 
-	private static ResourceLocation id(String s) {
+	private static Identifier id(String s) {
 		return prefix("mana_infusion/" + s);
 	}
 
-	private static Ingredient ingr(IItemProvider i) {
-		return Ingredient.fromItems(i);
+	private static Ingredient ingr(ItemConvertible i) {
+		return Ingredient.ofItems(i);
 	}
 
-	private static class FinishedRecipe implements IFinishedRecipe {
-		private final ResourceLocation id;
+	private static class FinishedRecipe implements RecipeJsonProvider {
+		private final Identifier id;
 		private final Ingredient input;
 		private final ItemStack output;
 		private final int mana;
@@ -201,27 +201,27 @@ public class ManaInfusionProvider extends RecipeProvider {
 		@Nullable
 		private final BlockState catalyst;
 
-		public static FinishedRecipe conjuration(ResourceLocation id, ItemStack output, Ingredient input, int mana) {
+		public static FinishedRecipe conjuration(Identifier id, ItemStack output, Ingredient input, int mana) {
 			return new FinishedRecipe(id, output, input, mana, "", ModBlocks.conjurationCatalyst.getDefaultState());
 		}
 
-		public static FinishedRecipe alchemy(ResourceLocation id, ItemStack output, Ingredient input, int mana) {
+		public static FinishedRecipe alchemy(Identifier id, ItemStack output, Ingredient input, int mana) {
 			return alchemy(id, output, input, mana, "");
 		}
 
-		public static FinishedRecipe alchemy(ResourceLocation id, ItemStack output, Ingredient input, int mana, String group) {
+		public static FinishedRecipe alchemy(Identifier id, ItemStack output, Ingredient input, int mana, String group) {
 			return new FinishedRecipe(id, output, input, mana, group, ModBlocks.alchemyCatalyst.getDefaultState());
 		}
 
-		public FinishedRecipe(ResourceLocation id, ItemStack output, Ingredient input, int mana) {
+		public FinishedRecipe(Identifier id, ItemStack output, Ingredient input, int mana) {
 			this(id, output, input, mana, "");
 		}
 
-		public FinishedRecipe(ResourceLocation id, ItemStack output, Ingredient input, int mana, String group) {
+		public FinishedRecipe(Identifier id, ItemStack output, Ingredient input, int mana, String group) {
 			this(id, output, input, mana, group, null);
 		}
 
-		public FinishedRecipe(ResourceLocation id, ItemStack output, Ingredient input, int mana, String group, @Nullable BlockState catalyst) {
+		public FinishedRecipe(Identifier id, ItemStack output, Ingredient input, int mana, String group, @Nullable BlockState catalyst) {
 			this.id = id;
 			this.input = input;
 			this.output = output;
@@ -232,7 +232,7 @@ public class ManaInfusionProvider extends RecipeProvider {
 
 		@Override
 		public void serialize(JsonObject json) {
-			json.add("input", input.serialize());
+			json.add("input", input.toJson());
 			json.add("output", ItemNBTHelper.serializeStack(output));
 			json.addProperty("mana", mana);
 			if (!group.isEmpty()) {
@@ -245,28 +245,28 @@ public class ManaInfusionProvider extends RecipeProvider {
 
 		@SuppressWarnings("unchecked")
 		private static <T extends Comparable<T>> String getName(Property<T> prop, Comparable<?> val) {
-			return prop.getName((T) val);
+			return prop.name((T) val);
 		}
 
 		@Override
-		public ResourceLocation getID() {
+		public Identifier getRecipeId() {
 			return id;
 		}
 
 		@Override
-		public IRecipeSerializer<?> getSerializer() {
+		public RecipeSerializer<?> getSerializer() {
 			return ModRecipeTypes.MANA_INFUSION_SERIALIZER;
 		}
 
 		@Nullable
 		@Override
-		public JsonObject getAdvancementJson() {
+		public JsonObject toAdvancementJson() {
 			return null;
 		}
 
 		@Nullable
 		@Override
-		public ResourceLocation getAdvancementID() {
+		public Identifier getAdvancementId() {
 			return null;
 		}
 	}

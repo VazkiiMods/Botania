@@ -11,7 +11,7 @@ package vazkii.botania.common.crafting;
 import com.google.gson.JsonObject;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -36,12 +36,12 @@ public class StateIngredientBlock implements StateIngredient {
 	public JsonObject serialize() {
 		JsonObject object = new JsonObject();
 		object.addProperty("type", "block");
-		object.addProperty("block", Registry.BLOCK.getKey(block).toString());
+		object.addProperty("block", Registry.BLOCK.getId(block).toString());
 		return object;
 	}
 
 	@Override
-	public void write(PacketBuffer buffer) {
+	public void write(PacketByteBuf buffer) {
 		buffer.writeVarInt(1);
 		buffer.writeRegistryIdUnsafe(ForgeRegistries.BLOCKS, block);
 	}

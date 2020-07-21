@@ -13,14 +13,13 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.data.RecipeProvider;
+import net.minecraft.data.server.RecipesProvider;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
-
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.tag.ItemTags;
+import net.minecraft.util.Identifier;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.brew.ModBrews;
@@ -33,7 +32,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class BrewProvider extends RecipeProvider {
+public class BrewProvider extends RecipesProvider {
 	public BrewProvider(DataGenerator gen) {
 		super(gen);
 	}
@@ -44,40 +43,40 @@ public class BrewProvider extends RecipeProvider {
 	}
 
 	@Override
-	protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-		consumer.accept(new FinishedRecipe(idFor("speed"), ModBrews.speed, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.SUGAR), Ingredient.fromItems(Items.REDSTONE)));
-		consumer.accept(new FinishedRecipe(idFor("strength"), ModBrews.strength, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.BLAZE_POWDER), Ingredient.fromItems(Items.GLOWSTONE_DUST)));
-		consumer.accept(new FinishedRecipe(idFor("haste"), ModBrews.haste, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.SUGAR), Ingredient.fromItems(Items.GOLD_NUGGET)));
-		consumer.accept(new FinishedRecipe(idFor("healing"), ModBrews.healing, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.GLISTERING_MELON_SLICE), Ingredient.fromItems(Items.POTATO)));
-		consumer.accept(new FinishedRecipe(idFor("jump_boost"), ModBrews.jumpBoost, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.FEATHER), Ingredient.fromItems(Items.CARROT)));
-		consumer.accept(new FinishedRecipe(idFor("regeneration"), ModBrews.regen, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.GHAST_TEAR), Ingredient.fromItems(Items.GLOWSTONE_DUST)));
-		consumer.accept(new FinishedRecipe(idFor("weak_regeneration"), ModBrews.regenWeak, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.GHAST_TEAR), Ingredient.fromItems(Items.REDSTONE)));
-		consumer.accept(new FinishedRecipe(idFor("resistance"), ModBrews.resistance, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.IRON_INGOT), Ingredient.fromItems(Items.LEATHER)));
-		consumer.accept(new FinishedRecipe(idFor("fire_resistance"), ModBrews.fireResistance, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.MAGMA_CREAM), Ingredient.fromItems(Blocks.NETHERRACK)));
-		consumer.accept(new FinishedRecipe(idFor("water_breathing"), ModBrews.waterBreathing, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.PRISMARINE_CRYSTALS), Ingredient.fromItems(Items.GLOWSTONE_DUST)));
-		consumer.accept(new FinishedRecipe(idFor("invisibility"), ModBrews.invisibility, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.SNOWBALL), Ingredient.fromItems(Items.GLOWSTONE_DUST)));
-		consumer.accept(new FinishedRecipe(idFor("night_vision"), ModBrews.nightVision, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.SPIDER_EYE), Ingredient.fromItems(Items.GOLDEN_CARROT)));
-		consumer.accept(new FinishedRecipe(idFor("absorption"), ModBrews.absorption, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.GOLDEN_APPLE), Ingredient.fromItems(Items.POTATO)));
+	protected void generate(Consumer<RecipeJsonProvider> consumer) {
+		consumer.accept(new FinishedRecipe(idFor("speed"), ModBrews.speed, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.SUGAR), Ingredient.ofItems(Items.REDSTONE)));
+		consumer.accept(new FinishedRecipe(idFor("strength"), ModBrews.strength, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.BLAZE_POWDER), Ingredient.ofItems(Items.GLOWSTONE_DUST)));
+		consumer.accept(new FinishedRecipe(idFor("haste"), ModBrews.haste, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.SUGAR), Ingredient.ofItems(Items.GOLD_NUGGET)));
+		consumer.accept(new FinishedRecipe(idFor("healing"), ModBrews.healing, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.GLISTERING_MELON_SLICE), Ingredient.ofItems(Items.POTATO)));
+		consumer.accept(new FinishedRecipe(idFor("jump_boost"), ModBrews.jumpBoost, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.FEATHER), Ingredient.ofItems(Items.CARROT)));
+		consumer.accept(new FinishedRecipe(idFor("regeneration"), ModBrews.regen, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.GHAST_TEAR), Ingredient.ofItems(Items.GLOWSTONE_DUST)));
+		consumer.accept(new FinishedRecipe(idFor("weak_regeneration"), ModBrews.regenWeak, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.GHAST_TEAR), Ingredient.ofItems(Items.REDSTONE)));
+		consumer.accept(new FinishedRecipe(idFor("resistance"), ModBrews.resistance, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.IRON_INGOT), Ingredient.ofItems(Items.LEATHER)));
+		consumer.accept(new FinishedRecipe(idFor("fire_resistance"), ModBrews.fireResistance, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.MAGMA_CREAM), Ingredient.ofItems(Blocks.NETHERRACK)));
+		consumer.accept(new FinishedRecipe(idFor("water_breathing"), ModBrews.waterBreathing, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.PRISMARINE_CRYSTALS), Ingredient.ofItems(Items.GLOWSTONE_DUST)));
+		consumer.accept(new FinishedRecipe(idFor("invisibility"), ModBrews.invisibility, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.SNOWBALL), Ingredient.ofItems(Items.GLOWSTONE_DUST)));
+		consumer.accept(new FinishedRecipe(idFor("night_vision"), ModBrews.nightVision, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.SPIDER_EYE), Ingredient.ofItems(Items.GOLDEN_CARROT)));
+		consumer.accept(new FinishedRecipe(idFor("absorption"), ModBrews.absorption, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.GOLDEN_APPLE), Ingredient.ofItems(Items.POTATO)));
 
-		consumer.accept(new FinishedRecipe(idFor("overload"), ModBrews.overload, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.BLAZE_POWDER), Ingredient.fromItems(Items.SUGAR), Ingredient.fromItems(Items.GLOWSTONE_DUST), Ingredient.fromItems(ModItems.manaSteel), Ingredient.fromItems(Items.SPIDER_EYE)));
-		consumer.accept(new FinishedRecipe(idFor("soul_cross"), ModBrews.soulCross, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Blocks.SOUL_SAND), Ingredient.fromItems(Items.PAPER), Ingredient.fromItems(Items.APPLE), Ingredient.fromItems(Items.BONE)));
-		consumer.accept(new FinishedRecipe(idFor("feather_feet"), ModBrews.featherfeet, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.FEATHER), Ingredient.fromItems(Items.LEATHER), Ingredient.fromTag(ItemTags.WOOL)));
-		consumer.accept(new FinishedRecipe(idFor("emptiness"), ModBrews.emptiness, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.GUNPOWDER), Ingredient.fromItems(Items.ROTTEN_FLESH), Ingredient.fromItems(Items.BONE), Ingredient.fromItems(Items.STRING), Ingredient.fromItems(Items.ENDER_PEARL)));
-		consumer.accept(new FinishedRecipe(idFor("bloodthirst"), ModBrews.bloodthirst, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.FERMENTED_SPIDER_EYE), Ingredient.fromItems(Items.LAPIS_LAZULI), Ingredient.fromItems(Items.FIRE_CHARGE), Ingredient.fromItems(Items.IRON_INGOT)));
-		consumer.accept(new FinishedRecipe(idFor("allure"), ModBrews.allure, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.COD), Ingredient.fromItems(Items.QUARTZ), Ingredient.fromItems(Items.GOLDEN_CARROT)));
-		consumer.accept(new FinishedRecipe(idFor("clear"), ModBrews.clear, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.QUARTZ), Ingredient.fromItems(Items.EMERALD), Ingredient.fromItems(Items.MELON_SLICE)));
+		consumer.accept(new FinishedRecipe(idFor("overload"), ModBrews.overload, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.BLAZE_POWDER), Ingredient.ofItems(Items.SUGAR), Ingredient.ofItems(Items.GLOWSTONE_DUST), Ingredient.ofItems(ModItems.manaSteel), Ingredient.ofItems(Items.SPIDER_EYE)));
+		consumer.accept(new FinishedRecipe(idFor("soul_cross"), ModBrews.soulCross, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Blocks.SOUL_SAND), Ingredient.ofItems(Items.PAPER), Ingredient.ofItems(Items.APPLE), Ingredient.ofItems(Items.BONE)));
+		consumer.accept(new FinishedRecipe(idFor("feather_feet"), ModBrews.featherfeet, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.FEATHER), Ingredient.ofItems(Items.LEATHER), Ingredient.fromTag(ItemTags.WOOL)));
+		consumer.accept(new FinishedRecipe(idFor("emptiness"), ModBrews.emptiness, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.GUNPOWDER), Ingredient.ofItems(Items.ROTTEN_FLESH), Ingredient.ofItems(Items.BONE), Ingredient.ofItems(Items.STRING), Ingredient.ofItems(Items.ENDER_PEARL)));
+		consumer.accept(new FinishedRecipe(idFor("bloodthirst"), ModBrews.bloodthirst, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.FERMENTED_SPIDER_EYE), Ingredient.ofItems(Items.LAPIS_LAZULI), Ingredient.ofItems(Items.FIRE_CHARGE), Ingredient.ofItems(Items.IRON_INGOT)));
+		consumer.accept(new FinishedRecipe(idFor("allure"), ModBrews.allure, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.COD), Ingredient.ofItems(Items.QUARTZ), Ingredient.ofItems(Items.GOLDEN_CARROT)));
+		consumer.accept(new FinishedRecipe(idFor("clear"), ModBrews.clear, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.QUARTZ), Ingredient.ofItems(Items.EMERALD), Ingredient.ofItems(Items.MELON_SLICE)));
 	}
 
-	private static ResourceLocation idFor(String s) {
+	private static Identifier idFor(String s) {
 		return prefix("brew/" + s);
 	}
 
-	private static class FinishedRecipe implements IFinishedRecipe {
-		private final ResourceLocation id;
+	private static class FinishedRecipe implements RecipeJsonProvider {
+		private final Identifier id;
 		private final Brew brew;
 		private final Ingredient[] inputs;
 
-		private FinishedRecipe(ResourceLocation id, Brew brew, Ingredient... inputs) {
+		private FinishedRecipe(Identifier id, Brew brew, Ingredient... inputs) {
 			this.id = id;
 			this.brew = brew;
 			this.inputs = inputs;
@@ -85,33 +84,33 @@ public class BrewProvider extends RecipeProvider {
 
 		@Override
 		public void serialize(JsonObject json) {
-			json.addProperty("brew", BotaniaAPI.instance().getBrewRegistry().getKey(brew).toString());
+			json.addProperty("brew", BotaniaAPI.instance().getBrewRegistry().getId(brew).toString());
 			JsonArray ingredients = new JsonArray();
 			for (Ingredient ingr : inputs) {
-				ingredients.add(ingr.serialize());
+				ingredients.add(ingr.toJson());
 			}
 			json.add("ingredients", ingredients);
 		}
 
 		@Override
-		public ResourceLocation getID() {
+		public Identifier getRecipeId() {
 			return id;
 		}
 
 		@Override
-		public IRecipeSerializer<?> getSerializer() {
+		public RecipeSerializer<?> getSerializer() {
 			return ModRecipeTypes.BREW_SERIALIZER;
 		}
 
 		@Nullable
 		@Override
-		public JsonObject getAdvancementJson() {
+		public JsonObject toAdvancementJson() {
 			return null;
 		}
 
 		@Nullable
 		@Override
-		public ResourceLocation getAdvancementID() {
+		public Identifier getAdvancementId() {
 			return null;
 		}
 	}

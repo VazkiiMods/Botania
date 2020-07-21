@@ -9,22 +9,21 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.collect.Multimap;
-
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ItemStack;
 
 import vazkii.botania.common.core.handler.PixieHandler;
 
 public class ItemPixieRing extends ItemBauble {
-	public ItemPixieRing(Properties props) {
+	public ItemPixieRing(Settings props) {
 		super(props);
 	}
 
 	@Override
-	public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
-		Multimap<Attribute, AttributeModifier> ret = super.getEquippedAttributeModifiers(stack);
-		ret.put(PixieHandler.PIXIE_SPAWN_CHANCE, new AttributeModifier(getBaubleUUID(stack), "Ring modifier", 0.25, AttributeModifier.Operation.ADDITION));
+	public Multimap<EntityAttribute, EntityAttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
+		Multimap<EntityAttribute, EntityAttributeModifier> ret = super.getEquippedAttributeModifiers(stack);
+		ret.put(PixieHandler.PIXIE_SPAWN_CHANCE, new EntityAttributeModifier(getBaubleUUID(stack), "Ring modifier", 0.25, EntityAttributeModifier.Operation.ADDITION));
 		return ret;
 	}
 }

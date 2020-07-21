@@ -22,6 +22,7 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.EquipmentHandler.InventoryEquipmentHandler;
 import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 
@@ -82,11 +83,11 @@ public abstract class EquipmentHandler {
 		private final Map<PlayerEntity, ItemStack[]> map = new WeakHashMap<>();
 
 		public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-			if (event.phase != TickEvent.Phase.START || event.player.world.isRemote) {
+			if (event.phase != TickEvent.Phase.START || event.player.world.isClient) {
 				return;
 			}
 			PlayerEntity player = event.player;
-			player.world.getProfiler().startSection("botania:tick_wearables");
+			player.world.getProfiler().push("botania:tick_wearables");
 
 			ItemStack[] oldStacks = map.computeIfAbsent(player, p -> {
 				ItemStack[] array = new ItemStack[9];
@@ -97,15 +98,15 @@ public abstract class EquipmentHandler {
 			PlayerInventory inv = player.inventory;
 			for (int i = 0; i < 9; i++) {
 				ItemStack old = oldStacks[i];
-				ItemStack current = inv.getStackInSlot(i);
+				ItemStack current = inv.getStack(i);
 
-				if (!ItemStack.areItemStacksEqual(old, current)) {
+				if (!ItemStack.areEqual(old, current)) {
 					if (old.getItem() instanceof ItemBauble) {
-						player.getAttributeManager().func_233785_a_(((ItemBauble) old.getItem()).getEquippedAttributeModifiers(old));
+						player.getAttributes().removeModifiers(((ItemBauble) old.getItem()).getEquippedAttributeModifiers(old));
 						((ItemBauble) old.getItem()).onUnequipped(old, player);
 					}
 					if (canEquip(current, player)) {
-						player.getAttributeManager().func_233793_b_(((ItemBauble) old.getItem()).getEquippedAttributeModifiers(old));
+						player.getAttributes().addTemporaryModifiers(((ItemBauble) old.getItem()).getEquippedAttributeModifiers(old));
 						((ItemBauble) current.getItem()).onEquipped(current, player);
 					}
 					oldStacks[i] = current.copy(); // shift-clicking mutates the stack we stored,
@@ -116,7 +117,7 @@ public abstract class EquipmentHandler {
 					((ItemBauble) current.getItem()).onWornTick(current, player);
 				}
 			}
-			player.world.getProfiler().endSection();
+			player.world.getProfiler().pop();
 		}
 
 		@Override
@@ -129,7 +130,7 @@ public abstract class EquipmentHandler {
 			if (living instanceof PlayerEntity) {
 				PlayerInventory inv = ((PlayerEntity) living).inventory;
 				for (int i = 0; i < 9; i++) {
-					ItemStack stack = inv.getStackInSlot(i);
+					ItemStack stack = inv.getStack(i);
 					if (stack.getItem() == item && canEquip(stack, living)) {
 						return stack;
 					}
@@ -143,7 +144,7 @@ public abstract class EquipmentHandler {
 			if (living instanceof PlayerEntity) {
 				PlayerInventory inv = ((PlayerEntity) living).inventory;
 				for (int i = 0; i < 9; i++) {
-					ItemStack stack = inv.getStackInSlot(i);
+					ItemStack stack = inv.getStack(i);
 					if (pred.test(stack) && canEquip(stack, living)) {
 						return stack;
 					}

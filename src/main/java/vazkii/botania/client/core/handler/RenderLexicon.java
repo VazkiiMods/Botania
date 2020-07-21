@@ -8,28 +8,27 @@
  */
 package vazkii.botania.client.core.handler;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.model.BookModel;
-import net.minecraft.client.renderer.model.RenderMaterial;
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.model.BookModel;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
+import net.minecraft.util.Arm;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.HandSide;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.math.Matrix4f;
 import net.minecraftforge.client.event.RenderHandEvent;
 
 import vazkii.botania.client.lib.LibResources;
@@ -47,8 +46,8 @@ import java.util.List;
 public class RenderLexicon {
 	private static final BookModel model = new BookModel();
 	private static final boolean SHOULD_MISSPELL = Math.random() < 0.0004;
-	public static final RenderMaterial TEXTURE = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation(LibResources.MODEL_LEXICA_DEFAULT));
-	public static final RenderMaterial ELVEN_TEXTURE = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation(LibResources.MODEL_LEXICA_ELVEN));
+	public static final SpriteIdentifier TEXTURE = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEX, new Identifier(LibResources.MODEL_LEXICA_DEFAULT));
+	public static final SpriteIdentifier ELVEN_TEXTURE = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEX, new Identifier(LibResources.MODEL_LEXICA_ELVEN));
 
 	private static final String[] QUOTES = new String[] {
 			"\"Neat!\" - Direwolf20",
@@ -69,11 +68,11 @@ public class RenderLexicon {
 	private static int misspelling = -1;
 
 	public static void renderHand(RenderHandEvent evt) {
-		Minecraft mc = Minecraft.getInstance();
+		MinecraftClient mc = MinecraftClient.getInstance();
 		if (!ConfigHandler.CLIENT.lexicon3dModel.get()
-				|| mc.gameSettings.thirdPersonView != 0
-				|| mc.player.getHeldItem(evt.getHand()).isEmpty()
-				|| mc.player.getHeldItem(evt.getHand()).getItem() != ModItems.lexicon) {
+				|| mc.options.perspective != 0
+				|| mc.player.getStackInHand(evt.getHand()).isEmpty()
+				|| mc.player.getStackInHand(evt.getHand()).getItem() != ModItems.lexicon) {
 			return;
 		}
 		evt.setCanceled(true);
@@ -85,20 +84,20 @@ public class RenderLexicon {
 	}
 
 	// [VanillaCopy] FirstPersonRenderer, irrelevant branches stripped out
-	private static void renderFirstPersonItem(AbstractClientPlayerEntity player, float partialTicks, float pitch, Hand hand, float swingProgress, ItemStack stack, float equipProgress, MatrixStack ms, IRenderTypeBuffer buffers, int light) {
+	private static void renderFirstPersonItem(AbstractClientPlayerEntity player, float partialTicks, float pitch, Hand hand, float swingProgress, ItemStack stack, float equipProgress, MatrixStack ms, VertexConsumerProvider buffers, int light) {
 		boolean flag = hand == Hand.MAIN_HAND;
-		HandSide handside = flag ? player.getPrimaryHand() : player.getPrimaryHand().opposite();
+		Arm handside = flag ? player.getMainArm() : player.getMainArm().getOpposite();
 		ms.push();
 		{
-			boolean flag3 = handside == HandSide.RIGHT;
+			boolean flag3 = handside == Arm.RIGHT;
 			{
 				float f5 = -0.4F * MathHelper.sin(MathHelper.sqrt(swingProgress) * (float) Math.PI);
 				float f6 = 0.2F * MathHelper.sin(MathHelper.sqrt(swingProgress) * ((float) Math.PI * 2F));
 				float f10 = -0.2F * MathHelper.sin(swingProgress * (float) Math.PI);
 				int l = flag3 ? 1 : -1;
 				ms.translate((double) ((float) l * f5), (double) f6, (double) f10);
-				((AccessorFirstPersonRenderer) Minecraft.getInstance().getFirstPersonRenderer()).callTransformSideFirstPerson(ms, handside, equipProgress);
-				((AccessorFirstPersonRenderer) Minecraft.getInstance().getFirstPersonRenderer()).callTransformFirstPerson(ms, handside, swingProgress);
+				((AccessorFirstPersonRenderer) MinecraftClient.getInstance().getHeldItemRenderer()).callTransformSideFirstPerson(ms, handside, equipProgress);
+				((AccessorFirstPersonRenderer) MinecraftClient.getInstance().getHeldItemRenderer()).callTransformFirstPerson(ms, handside, swingProgress);
 			}
 
 			doRender(stack, handside, ms, buffers, light, partialTicks);
@@ -107,8 +106,8 @@ public class RenderLexicon {
 		ms.pop();
 	}
 
-	private static void doRender(ItemStack stack, HandSide side, MatrixStack ms, IRenderTypeBuffer buffers, int light, float partialTicks) {
-		Minecraft mc = Minecraft.getInstance();
+	private static void doRender(ItemStack stack, Arm side, MatrixStack ms, VertexConsumerProvider buffers, int light, float partialTicks) {
+		MinecraftClient mc = MinecraftClient.getInstance();
 
 		ms.push();
 
@@ -121,14 +120,14 @@ public class RenderLexicon {
 			}
 		}
 
-		if (side == HandSide.RIGHT) {
+		if (side == Arm.RIGHT) {
 			ms.translate(0.3F + 0.02F * ticks, 0.125F + 0.01F * ticks, -0.2F - 0.035F * ticks);
-			ms.rotate(Vector3f.YP.rotationDegrees(180F + ticks * 6));
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180F + ticks * 6));
 		} else {
 			ms.translate(0.1F - 0.02F * ticks, 0.125F + 0.01F * ticks, -0.2F - 0.035F * ticks);
-			ms.rotate(Vector3f.YP.rotationDegrees(200F + ticks * 10));
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(200F + ticks * 10));
 		}
-		ms.rotate(Vector3f.ZP.rotationDegrees(-0.3F + ticks * 2.85F));
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(-0.3F + ticks * 2.85F));
 		float opening = MathHelper.clamp(ticks / 12F, 0, 1);
 
 		float pageFlipTicks = ClientTickHandler.pageFlipTicks;
@@ -138,69 +137,69 @@ public class RenderLexicon {
 
 		float pageFlip = pageFlipTicks / 5F;
 
-		float leftPageAngle = MathHelper.frac(pageFlip + 0.25F) * 1.6F - 0.3F;
-		float rightPageAngle = MathHelper.frac(pageFlip + 0.75F) * 1.6F - 0.3F;
-		model.func_228247_a_(ClientTickHandler.total, MathHelper.clamp(leftPageAngle, 0.0F, 1.0F), MathHelper.clamp(rightPageAngle, 0.0F, 1.0F), opening);
+		float leftPageAngle = MathHelper.fractionalPart(pageFlip + 0.25F) * 1.6F - 0.3F;
+		float rightPageAngle = MathHelper.fractionalPart(pageFlip + 0.75F) * 1.6F - 0.3F;
+		model.setPageAngles(ClientTickHandler.total, MathHelper.clamp(leftPageAngle, 0.0F, 1.0F), MathHelper.clamp(rightPageAngle, 0.0F, 1.0F), opening);
 
-		RenderMaterial mat = ((ItemLexicon) ModItems.lexicon).isElvenItem(stack) ? ELVEN_TEXTURE : TEXTURE;
-		IVertexBuilder buffer = mat.getBuffer(buffers, RenderType::getEntitySolid);
-		model.render(ms, buffer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+		SpriteIdentifier mat = ((ItemLexicon) ModItems.lexicon).isElvenItem(stack) ? ELVEN_TEXTURE : TEXTURE;
+		VertexConsumer buffer = mat.getVertexConsumer(buffers, RenderLayer::getEntitySolid);
+		model.render(ms, buffer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
 
 		if (ticks < 3) {
-			FontRenderer font = Minecraft.getInstance().fontRenderer;
-			ms.rotate(Vector3f.ZP.rotationDegrees(180F));
+			TextRenderer font = MinecraftClient.getInstance().textRenderer;
+			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
 			ms.translate(-0.30F, -0.24F, -0.07F);
 			ms.scale(0.0030F, 0.0030F, -0.0030F);
 
 			if (misspelling == -1) {
-				misspelling = mc.world.rand.nextInt(MISSPELLINGS.length);
+				misspelling = mc.world.random.nextInt(MISSPELLINGS.length);
 			}
 
 			String title = ItemLexicon.getTitle(stack).getString();
 			if (SHOULD_MISSPELL) {
 				title = title.replaceAll(LibMisc.MOD_NAME, MISSPELLINGS[misspelling]);
 			}
-			font.renderString(font.func_238412_a_(title, 80), 0, 0, 0xD69700, false, ms.getLast().getMatrix(), buffers, false, 0, light);
+			font.draw(font.trimToWidth(title, 80), 0, 0, 0xD69700, false, ms.peek().getModel(), buffers, false, 0, light);
 
 			ms.translate(0F, 10F, 0F);
 			ms.scale(0.6F, 0.6F, 0.6F);
-			ITextComponent edition = ItemLexicon.getEdition().deepCopy().func_240701_a_(TextFormatting.ITALIC, TextFormatting.BOLD);
-			font.func_238416_a_(edition, 0, 0, 0xA07100, false, ms.getLast().getMatrix(), buffers, false, 0, light);
+			Text edition = ItemLexicon.getEdition().shallowCopy().formatted(Formatting.ITALIC, Formatting.BOLD);
+			font.draw(edition, 0, 0, 0xA07100, false, ms.peek().getModel(), buffers, false, 0, light);
 
 			if (quote == -1) {
-				quote = mc.world.rand.nextInt(QUOTES.length);
+				quote = mc.world.random.nextInt(QUOTES.length);
 			}
 
 			String quoteStr = QUOTES[quote];
 
 			ms.translate(-5F, 15F, 0F);
-			renderText(0, 0, 140, 100, 0, 0x79ff92, quoteStr, ms.getLast().getMatrix(), buffers, light);
+			renderText(0, 0, 140, 100, 0, 0x79ff92, quoteStr, ms.peek().getModel(), buffers, light);
 
 			ms.translate(8F, 110F, 0F);
-			String blurb = I18n.format("botaniamisc.lexiconcover0");
-			font.renderString(blurb, 0, 0, 0x79ff92, false, ms.getLast().getMatrix(), buffers, false, 0, light);
+			String blurb = I18n.translate("botaniamisc.lexiconcover0");
+			font.draw(blurb, 0, 0, 0x79ff92, false, ms.peek().getModel(), buffers, false, 0, light);
 
 			ms.translate(0F, 10F, 0F);
-			String blurb2 = TextFormatting.UNDERLINE + "" + TextFormatting.ITALIC + I18n.format("botaniamisc.lexiconcover1");
-			font.renderString(blurb2, 0, 0, 0x79ff92, false, ms.getLast().getMatrix(), buffers, false, 0, light);
+			String blurb2 = Formatting.UNDERLINE + "" + Formatting.ITALIC + I18n.translate("botaniamisc.lexiconcover1");
+			font.draw(blurb2, 0, 0, 0x79ff92, false, ms.peek().getModel(), buffers, false, 0, light);
 
 			ms.translate(0F, -30F, 0F);
 
-			String authorTitle = I18n.format("botaniamisc.lexiconcover2");
-			int len = font.getStringWidth(authorTitle);
-			font.renderString(authorTitle, 58 - len / 2F, -8, 0xD69700, false, ms.getLast().getMatrix(), buffers, false, 0, light);
+			String authorTitle = I18n.translate("botaniamisc.lexiconcover2");
+			int len = font.getWidth(authorTitle);
+			font.draw(authorTitle, 58 - len / 2F, -8, 0xD69700, false, ms.peek().getModel(), buffers, false, 0, light);
 		}
 
 		ms.pop();
 	}
 
-	private static void renderText(int x, int y, int width, int height, int paragraphSize, int color, String unlocalizedText, Matrix4f matrix, IRenderTypeBuffer buffers, int light) {
+	private static void renderText(int x, int y, int width, int height, int paragraphSize, int color, String unlocalizedText, Matrix4f matrix, VertexConsumerProvider buffers, int light) {
 		x += 2;
 		y += 10;
 		width -= 4;
 
-		FontRenderer font = Minecraft.getInstance().fontRenderer;
-		String text = I18n.format(unlocalizedText).replaceAll("&", "\u00a7");
+		TextRenderer font = MinecraftClient.getInstance().textRenderer;
+		String text = I18n.translate(unlocalizedText).replaceAll("&", "\u00a7");
 		String[] textEntries = text.split("<br>");
 
 		List<List<String>> lines = new ArrayList<>();
@@ -216,7 +215,7 @@ public class RenderLexicon {
 				lineStr += spaced;
 
 				controlCodes = toControlCodes(getControlCodes(prev));
-				if (font.getStringWidth(lineStr) > width) {
+				if (font.getWidth(lineStr) > width) {
 					lines.add(words);
 					lineStr = controlCodes + spaced;
 					words = new ArrayList<>();
@@ -238,8 +237,8 @@ public class RenderLexicon {
 
 			for (String s : words) {
 				int extra = 0;
-				font.renderString(s, xi, y, color, false, matrix, buffers, false, 0, light);
-				xi += font.getStringWidth(s) + spacing + extra;
+				font.draw(s, xi, y, color, false, matrix, buffers, false, 0, light);
+				xi += font.getWidth(s) + spacing + extra;
 			}
 
 			y += words.isEmpty() ? paragraphSize : 10;

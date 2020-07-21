@@ -10,16 +10,16 @@ package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.ITag;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.tag.FluidTags;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.biome.Biome;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -43,7 +43,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 		this(ModSubtiles.HYDROANGEAS);
 	}
 
-	public SubTileHydroangeas(TileEntityType<?> type) {
+	public SubTileHydroangeas(BlockEntityType<?> type) {
 		super(type);
 	}
 
@@ -60,7 +60,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 		}
 
 		if (burnTime == 0) {
-			if (getMana() < getMaxMana() && !getWorld().isRemote) {
+			if (getMana() < getMaxMana() && !getWorld().isClient) {
 				List<BlockPos> offsets = Arrays.asList(OFFSETS);
 				Collections.shuffle(offsets);
 
@@ -68,14 +68,14 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 					BlockPos pos = getEffectivePos().add(offset);
 
 					FluidState fstate = getWorld().getFluidState(pos);
-					ITag<Fluid> search = getMaterialToSearchFor();
-					if (fstate.isTagged(search) && fstate.isSource()) {
+					Tag<Fluid> search = getMaterialToSearchFor();
+					if (fstate.isIn(search) && fstate.isStill()) {
 						if (search != FluidTags.WATER) {
 							getWorld().setBlockState(pos, Blocks.AIR.getDefaultState());
 						} else {
 							int waterAround = 0;
 							for (Direction dir : Direction.values()) {
-								if (getWorld().getFluidState(pos.offset(dir)).isTagged(search)) {
+								if (getWorld().getFluidState(pos.offset(dir)).isIn(search)) {
 									waterAround++;
 								}
 							}
@@ -98,7 +98,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 				}
 			}
 		} else {
-			if (getWorld().rand.nextInt(8) == 0) {
+			if (getWorld().random.nextInt(8) == 0) {
 				doBurnParticles();
 			}
 			burnTime--;
@@ -114,7 +114,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 		world.addParticle(data, getEffectivePos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getY() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getZ() + 0.5, 0, (float) Math.random() / 60, 0);
 	}
 
-	public ITag<Fluid> getMaterialToSearchFor() {
+	public Tag<Fluid> getMaterialToSearchFor() {
 		return FluidTags.WATER;
 	}
 
@@ -141,7 +141,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 		return 0x532FE0;
 	}
 
-	public void writeToPacketNBT(CompoundNBT cmp) {
+	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
 
 		cmp.putInt(TAG_BURN_TIME, burnTime);
@@ -149,7 +149,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundNBT cmp) {
+	public void readFromPacketNBT(CompoundTag cmp) {
 		super.readFromPacketNBT(cmp);
 
 		burnTime = cmp.getInt(TAG_BURN_TIME);
@@ -163,7 +163,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 
 	@Override
 	public int getDelayBetweenPassiveGeneration() {
-		boolean rain = getWorld().getBiome(getEffectivePos()).getPrecipitation() == Biome.RainType.RAIN && (getWorld().isRaining() || getWorld().isThundering());
+		boolean rain = getWorld().getBiome(getEffectivePos()).getPrecipitation() == Biome.Precipitation.RAIN && (getWorld().isRaining() || getWorld().isThundering());
 		return rain ? 2 : 3;
 	}
 

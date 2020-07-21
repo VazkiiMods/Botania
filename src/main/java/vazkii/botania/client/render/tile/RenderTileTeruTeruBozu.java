@@ -8,15 +8,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Vector3f;
-
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelTeruTeruBozu;
@@ -24,23 +15,29 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 
 import javax.annotation.Nullable;
-
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
+import net.minecraft.util.Identifier;
 import java.util.Random;
 
-public class RenderTileTeruTeruBozu extends TileEntityRenderer<TileTeruTeruBozu> {
+public class RenderTileTeruTeruBozu extends BlockEntityRenderer<TileTeruTeruBozu> {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TERU_TERU_BOZU);
-	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_TERU_TERU_BOZU_HALLOWEEN);
+	private static final Identifier texture = new Identifier(LibResources.MODEL_TERU_TERU_BOZU);
+	private static final Identifier textureHalloween = new Identifier(LibResources.MODEL_TERU_TERU_BOZU_HALLOWEEN);
 	private final ModelTeruTeruBozu model = new ModelTeruTeruBozu();
 
-	public RenderTileTeruTeruBozu(TileEntityRendererDispatcher manager) {
+	public RenderTileTeruTeruBozu(BlockEntityRenderDispatcher manager) {
 		super(manager);
 	}
 
 	@Override
-	public void render(@Nullable TileTeruTeruBozu tileentity, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+	public void render(@Nullable TileTeruTeruBozu tileentity, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
 		ms.push();
-		ms.rotate(Vector3f.XP.rotationDegrees(180));
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
 		double time = Botania.proxy.getWorldElapsedTicks() + partialTicks;
 		boolean hasWorld = tileentity != null && tileentity.getWorld() != null;
 		if (hasWorld) {
@@ -49,13 +46,13 @@ public class RenderTileTeruTeruBozu extends TileEntityRenderer<TileTeruTeruBozu>
 
 		ms.translate(0.5F, -1.25F + (hasWorld ? (float) Math.sin(time * 0.01F) * 0.05F : 0F), -0.5F);
 		if (hasWorld) {
-			ms.rotate(Vector3f.YP.rotationDegrees((float) (time * 0.3)));
-			ms.rotate(Vector3f.ZP.rotationDegrees(4F * (float) Math.sin(time * 0.05F)));
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((float) (time * 0.3)));
+			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(4F * (float) Math.sin(time * 0.05F)));
 			float s = 0.75F;
 			ms.scale(s, s, s);
 		}
 
-		IVertexBuilder buffer = buffers.getBuffer(model.getRenderType(ClientProxy.dootDoot ? textureHalloween : texture));
+		VertexConsumer buffer = buffers.getBuffer(model.getLayer(ClientProxy.dootDoot ? textureHalloween : texture));
 		model.render(ms, buffer, light, overlay, 1, 1, 1, 1);
 		ms.pop();
 	}

@@ -8,17 +8,16 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeBuffers;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.SortedMap;
+import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.BufferBuilderStorage;
+import net.minecraft.client.render.RenderLayer;
 
-@Mixin(RenderTypeBuffers.class)
+@Mixin(BufferBuilderStorage.class)
 public interface AccessorRenderTypeBuffers {
 	@Accessor
-	SortedMap<RenderType, BufferBuilder> getFixedBuffers();
+	SortedMap<RenderLayer, BufferBuilder> getFixedBuffers();
 }

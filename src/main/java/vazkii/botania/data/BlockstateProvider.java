@@ -11,13 +11,14 @@ package vazkii.botania.data;
 import com.google.common.collect.ImmutableMap;
 
 import net.minecraft.block.*;
+import net.minecraft.block.enums.DoubleBlockHalf;
+import net.minecraft.block.enums.WallShape;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.DyeColor;
-import net.minecraft.state.EnumProperty;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.state.properties.DoubleBlockHalf;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.state.property.EnumProperty;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
@@ -63,7 +64,7 @@ public class BlockstateProvider extends BlockStateProvider {
 	@Override
 	protected void registerStatesAndModels() {
 		Set<Block> remainingBlocks = Registry.BLOCK.stream()
-				.filter(b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace()))
+				.filter(b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getId(b).getNamespace()))
 				.collect(Collectors.toSet());
 
 		// Manually written blockstate + models
@@ -79,7 +80,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		manualModel(remainingBlocks, spawnerClaw);
 
 		// Single blocks
-		String alfPortalName = Registry.BLOCK.getKey(alfPortal).getPath();
+		String alfPortalName = Registry.BLOCK.getId(alfPortal).getPath();
 		ModelFile alfPortalModel = models().cubeAll(alfPortalName, prefix("block/" + alfPortalName));
 		ModelFile alfPortalActivatedModel = models().cubeAll(alfPortalName + "_activated", prefix("block/" + alfPortalName + "_activated"));
 		getVariantBuilder(alfPortal).partialState().with(BotaniaStateProps.ALFPORTAL_STATE, AlfPortalState.OFF)
@@ -90,20 +91,20 @@ public class BlockstateProvider extends BlockStateProvider {
 				.setModels(new ConfiguredModel(alfPortalActivatedModel));
 		remainingBlocks.remove(alfPortal);
 
-		String bifrostPermName = Registry.BLOCK.getKey(bifrostPerm).getPath();
+		String bifrostPermName = Registry.BLOCK.getId(bifrostPerm).getPath();
 		simpleBlock(bifrostPerm, models().cubeAll(bifrostPermName, prefix("block/bifrost")));
 		remainingBlocks.remove(bifrostPerm);
 
-		String cacophoniumName = Registry.BLOCK.getKey(cacophonium).getPath();
+		String cacophoniumName = Registry.BLOCK.getId(cacophonium).getPath();
 		simpleBlock(cacophonium, models().cubeTop(cacophoniumName,
 				prefix("block/" + cacophoniumName),
 				prefix("block/" + cacophoniumName + "_top")));
 		remainingBlocks.remove(cacophonium);
 
-		String craftCrateName = Registry.BLOCK.getKey(craftCrate).getPath();
+		String craftCrateName = Registry.BLOCK.getId(craftCrate).getPath();
 		getVariantBuilder(craftCrate).forAllStates(s -> {
 			CratePattern pat = s.get(BotaniaStateProps.CRATE_PATTERN);
-			String suffix = pat == CratePattern.NONE ? "" : "_" + pat.getString().substring("crafty_".length());
+			String suffix = pat == CratePattern.NONE ? "" : "_" + pat.asString().substring("crafty_".length());
 			String name = craftCrateName + suffix;
 			ModelFile model = models().withExistingParent(name, prefix("block/shapes/crate"))
 					.texture("bottom", prefix("block/" + craftCrateName + "_bottom"))
@@ -112,7 +113,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		});
 		remainingBlocks.remove(craftCrate);
 
-		String elfGlassName = Registry.BLOCK.getKey(elfGlass).getPath();
+		String elfGlassName = Registry.BLOCK.getId(elfGlass).getPath();
 		ConfiguredModel[] elfGlassFiles = IntStream.rangeClosed(0, 3)
 				.mapToObj(i -> {
 					String varName = elfGlassName + "_" + i;
@@ -122,20 +123,20 @@ public class BlockstateProvider extends BlockStateProvider {
 		getVariantBuilder(elfGlass).partialState().setModels(elfGlassFiles);
 		remainingBlocks.remove(elfGlass);
 
-		String enchSoilName = Registry.BLOCK.getKey(enchantedSoil).getPath();
+		String enchSoilName = Registry.BLOCK.getId(enchantedSoil).getPath();
 		simpleBlock(enchantedSoil, models().cubeBottomTop(enchSoilName,
 				prefix("block/" + enchSoilName + "_side"),
-				new ResourceLocation("block/dirt"),
+				new Identifier("block/dirt"),
 				prefix("block/" + enchSoilName + "_top")
 		));
 		remainingBlocks.remove(enchantedSoil);
 
-		String felName = Registry.BLOCK.getKey(felPumpkin).getPath();
-		simpleBlock(felPumpkin, models().orientable(felName, new ResourceLocation("block/pumpkin_side"), prefix("block/" + felName),
-				new ResourceLocation("block/pumpkin_top")));
+		String felName = Registry.BLOCK.getId(felPumpkin).getPath();
+		simpleBlock(felPumpkin, models().orientable(felName, new Identifier("block/pumpkin_side"), prefix("block/" + felName),
+				new Identifier("block/pumpkin_top")));
 		remainingBlocks.remove(felPumpkin);
 
-		String forestEyeName = Registry.BLOCK.getKey(forestEye).getPath();
+		String forestEyeName = Registry.BLOCK.getId(forestEye).getPath();
 		ModelFile forestEyeFile = models().withExistingParent(forestEyeName, prefix("block/shapes/eightbyeight"))
 				.texture("bottom", prefix("block/" + forestEyeName + "_bottom"))
 				.texture("top", prefix("block/" + forestEyeName + "_top"))
@@ -146,12 +147,12 @@ public class BlockstateProvider extends BlockStateProvider {
 		simpleBlock(forestEye, forestEyeFile);
 		remainingBlocks.remove(forestEye);
 
-		String plateName = Registry.BLOCK.getKey(incensePlate).getPath();
+		String plateName = Registry.BLOCK.getId(incensePlate).getPath();
 		ModelFile plateFile = models().getExistingFile(prefix("block/" + plateName));
 		horizontalBlock(incensePlate, plateFile, 0);
 		remainingBlocks.remove(incensePlate);
 
-		String lightLauncherName = Registry.BLOCK.getKey(lightLauncher).getPath();
+		String lightLauncherName = Registry.BLOCK.getId(lightLauncher).getPath();
 		ModelFile lightLauncherFile = models().withExistingParent(lightLauncherName, prefix("block/shapes/four_high_bottom_top"))
 				.texture("bottom", prefix("block/" + lightLauncherName + "_end"))
 				.texture("top", prefix("block/" + lightLauncherName + "_end"))
@@ -159,14 +160,14 @@ public class BlockstateProvider extends BlockStateProvider {
 		simpleBlock(lightLauncher, lightLauncherFile);
 		remainingBlocks.remove(lightLauncher);
 
-		String openCrateName = Registry.BLOCK.getKey(openCrate).getPath();
+		String openCrateName = Registry.BLOCK.getId(openCrate).getPath();
 		ModelFile openCrateFile = models().withExistingParent(openCrateName, prefix("block/shapes/crate"))
 				.texture("side", prefix("block/" + openCrateName))
 				.texture("bottom", prefix("block/" + openCrateName + "_bottom"));
 		simpleBlock(openCrate, openCrateFile);
 		remainingBlocks.remove(openCrate);
 
-		String sparkChangerName = Registry.BLOCK.getKey(sparkChanger).getPath();
+		String sparkChangerName = Registry.BLOCK.getId(sparkChanger).getPath();
 		ModelFile sparkChangerFile = models().withExistingParent(sparkChangerName, prefix("block/shapes/three_high_bottom_top"))
 				.texture("bottom", prefix("block/" + sparkChangerName + "_bottom"))
 				.texture("top", prefix("block/" + sparkChangerName + "_top"))
@@ -174,7 +175,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		simpleBlock(sparkChanger, sparkChangerFile);
 		remainingBlocks.remove(sparkChanger);
 
-		String starfieldName = Registry.BLOCK.getKey(starfield).getPath();
+		String starfieldName = Registry.BLOCK.getId(starfield).getPath();
 		ModelFile starfieldFile = models().withExistingParent(starfieldName, prefix("block/shapes/four_high_bottom_top"))
 				.texture("bottom", prefix("block/" + starfieldName + "_bottom"))
 				.texture("top", prefix("block/" + starfieldName + "_top"))
@@ -182,7 +183,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		simpleBlock(starfield, starfieldFile);
 		remainingBlocks.remove(starfield);
 
-		String terraPlateName = Registry.BLOCK.getKey(terraPlate).getPath();
+		String terraPlateName = Registry.BLOCK.getId(terraPlate).getPath();
 		ModelFile terraPlateFile = models().withExistingParent(terraPlateName, prefix("block/shapes/three_high_bottom_top"))
 				.texture("bottom", prefix("block/" + terraPlateName + "_bottom"))
 				.texture("top", prefix("block/" + terraPlateName + "_top"))
@@ -190,13 +191,13 @@ public class BlockstateProvider extends BlockStateProvider {
 		simpleBlock(terraPlate, terraPlateFile);
 		remainingBlocks.remove(terraPlate);
 
-		String tinyPlanetName = Registry.BLOCK.getKey(tinyPlanet).getPath();
+		String tinyPlanetName = Registry.BLOCK.getId(tinyPlanet).getPath();
 		ModelFile tinyPlanetFile = models().withExistingParent(tinyPlanetName, prefix("block/shapes/tenbyten_all"))
 				.texture("all", prefix("block/" + tinyPlanetName));
 		simpleBlock(tinyPlanet, tinyPlanetFile);
 		remainingBlocks.remove(tinyPlanet);
 
-		String turnTableName = Registry.BLOCK.getKey(turntable).getPath();
+		String turnTableName = Registry.BLOCK.getId(turntable).getPath();
 		simpleBlock(turntable, models().cubeBottomTop(turnTableName,
 				prefix("block/" + turnTableName + "_side"),
 				prefix("block/" + turnTableName + "_bottom"),
@@ -221,24 +222,24 @@ public class BlockstateProvider extends BlockStateProvider {
 		remainingBlocks.remove(livingwoodFenceGate);
 
 		// TESRs with only particles
-		particleOnly(remainingBlocks, animatedTorch, new ResourceLocation("block/redstone_torch"));
+		particleOnly(remainingBlocks, animatedTorch, new Identifier("block/redstone_torch"));
 		particleOnly(remainingBlocks, avatar, prefix("block/livingwood"));
 		particleOnly(remainingBlocks, bellows, prefix("block/livingwood"));
 		particleOnly(remainingBlocks, brewery, prefix("block/livingrock"));
 		particleOnly(remainingBlocks, corporeaIndex, prefix("block/elementium_block"));
 		particleOnly(remainingBlocks, lightRelayDetector, prefix("block/detector_light_relay"));
-		simpleBlock(fakeAir, models().getBuilder(Registry.BLOCK.getKey(ModBlocks.fakeAir).getPath()));
+		simpleBlock(fakeAir, models().getBuilder(Registry.BLOCK.getId(ModBlocks.fakeAir).getPath()));
 		remainingBlocks.remove(fakeAir);
 		particleOnly(remainingBlocks, lightRelayFork, prefix("block/fork_light_relay"));
-		particleOnly(remainingBlocks, gaiaHead, new ResourceLocation("block/soul_sand"));
-		particleOnly(remainingBlocks, gaiaHeadWall, new ResourceLocation("block/soul_sand"));
+		particleOnly(remainingBlocks, gaiaHead, new Identifier("block/soul_sand"));
+		particleOnly(remainingBlocks, gaiaHeadWall, new Identifier("block/soul_sand"));
 		particleOnly(remainingBlocks, gaiaPylon, prefix("block/elementium_block"));
 		particleOnly(remainingBlocks, hourglass, prefix("block/mana_glass"));
 		particleOnly(remainingBlocks, lightRelayDefault, prefix("block/light_relay"));
-		particleOnly(remainingBlocks, manaFlame, new ResourceLocation("block/fire_0"));
+		particleOnly(remainingBlocks, manaFlame, new Identifier("block/fire_0"));
 		particleOnly(remainingBlocks, manaPylon, prefix("block/manasteel_block"));
 		particleOnly(remainingBlocks, naturaPylon, prefix("block/terrasteel_block"));
-		particleOnly(remainingBlocks, teruTeruBozu, new ResourceLocation("block/white_wool"));
+		particleOnly(remainingBlocks, teruTeruBozu, new Identifier("block/white_wool"));
 		particleOnly(remainingBlocks, lightRelayToggle, prefix("block/toggle_light_relay"));
 
 		// Block groups
@@ -246,19 +247,19 @@ public class BlockstateProvider extends BlockStateProvider {
 				|| b instanceof BlockModMushroom
 				|| b instanceof BlockModFlower;
 		takeAll(remainingBlocks, flowers).forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath();
+			String name = Registry.BLOCK.getId(b).getPath();
 			ModelFile model = models().withExistingParent(name, prefix("block/shapes/cross"))
 					.texture("cross", prefix("block/" + name));
 			simpleBlock(b, model);
 		});
 
 		takeAll(remainingBlocks, corporeaFunnel, corporeaInterceptor, corporeaRetainer).forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath();
+			String name = Registry.BLOCK.getId(b).getPath();
 			simpleBlock(b, models().cubeColumn(name, prefix("block/" + name + "_side"), prefix("block/" + name + "_end")));
 		});
 
 		takeAll(remainingBlocks, gatheringDrum, canopyDrum, wildDrum).forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath();
+			String name = Registry.BLOCK.getId(b).getPath();
 			ModelFile model = models().withExistingParent(name, prefix("block/shapes/drum"))
 					.texture("top", prefix("block/drum_top"))
 					.texture("side", prefix("block/" + name));
@@ -266,7 +267,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		});
 
 		takeAll(remainingBlocks, manaSpreader, redstoneSpreader, gaiaSpreader, elvenSpreader).forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath();
+			String name = Registry.BLOCK.getId(b).getPath();
 			String material;
 			if (b == elvenSpreader) {
 				material = "dreamwood";
@@ -284,8 +285,8 @@ public class BlockstateProvider extends BlockStateProvider {
 		});
 
 		takeAll(remainingBlocks, manaPool, dilutedPool, fabulousPool, creativePool).forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath();
-			ResourceLocation tex = b == manaPool || b == fabulousPool
+			String name = Registry.BLOCK.getId(b).getPath();
+			Identifier tex = b == manaPool || b == fabulousPool
 					? prefix("block/livingrock")
 					: prefix("block/" + name);
 			ModelFile pool = models().withExistingParent(name, prefix("block/shapes/pool"))
@@ -296,17 +297,17 @@ public class BlockstateProvider extends BlockStateProvider {
 		});
 
 		takeAll(remainingBlocks, pump, tinyPotato).forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath();
+			String name = Registry.BLOCK.getId(b).getPath();
 			ModelFile file = models().getExistingFile(prefix("block/" + name));
 			horizontalBlock(b, file);
 		});
 
 		takeAll(remainingBlocks, enderEye, manaDetector).forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath();
+			String name = Registry.BLOCK.getId(b).getPath();
 			ModelFile offFile = models().cubeAll(name, prefix("block/" + name));
 			ModelFile onFile = models().cubeAll(name + "_powered", prefix("block/" + name + "_powered"));
-			getVariantBuilder(b).partialState().with(BlockStateProperties.POWERED, false).setModels(new ConfiguredModel(offFile));
-			getVariantBuilder(b).partialState().with(BlockStateProperties.POWERED, true).setModels(new ConfiguredModel(onFile));
+			getVariantBuilder(b).partialState().with(Properties.POWERED, false).setModels(new ConfiguredModel(offFile));
+			getVariantBuilder(b).partialState().with(Properties.POWERED, true).setModels(new ConfiguredModel(onFile));
 		});
 
 		ModelFile petalBlockModel = models().withExistingParent("petal_block", prefix("block/shapes/cube_all_tinted"))
@@ -314,10 +315,10 @@ public class BlockstateProvider extends BlockStateProvider {
 		takeAll(remainingBlocks, b -> b instanceof BlockPetalBlock).forEach(b -> simpleBlock(b, petalBlockModel));
 
 		takeAll(remainingBlocks, b -> b instanceof BlockAltGrass).forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath();
-			ResourceLocation side = prefix("block/" + name + "_side");
-			ResourceLocation top = prefix("block/" + name + "_top");
-			ModelFile model = models().cubeBottomTop(name, side, new ResourceLocation("block/dirt"), top);
+			String name = Registry.BLOCK.getId(b).getPath();
+			Identifier side = prefix("block/" + name + "_side");
+			Identifier top = prefix("block/" + name + "_top");
+			ModelFile model = models().cubeBottomTop(name, side, new Identifier("block/dirt"), top);
 			getVariantBuilder(b).partialState().setModels(new ConfiguredModel(model),
 					new ConfiguredModel(model, 0, 90, false),
 					new ConfiguredModel(model, 0, 180, false),
@@ -327,7 +328,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		takeAll(remainingBlocks, b -> b instanceof BlockRedString).forEach(this::redStringBlock);
 
 		takeAll(remainingBlocks, b -> b instanceof BlockModDoubleFlower).forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath();
+			String name = Registry.BLOCK.getId(b).getPath();
 			ModelFile bottom = models().cross(name, prefix("block/" + name));
 			ModelFile top = models().cross(name + "_top", prefix("block/" + name + "_top"));
 			getVariantBuilder(b)
@@ -337,24 +338,24 @@ public class BlockstateProvider extends BlockStateProvider {
 
 		for (String variant : new String[] { "desert", "forest", "fungal", "mesa", "mountain",
 				"plains", "swamp", "taiga" }) {
-			ResourceLocation baseId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone");
-			Block base = Registry.BLOCK.getValue(baseId).get();
+			Identifier baseId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone");
+			Block base = Registry.BLOCK.getOrEmpty(baseId).get();
 			simpleBlock(base);
 
-			ResourceLocation cobbleId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone");
-			Block cobble = Registry.BLOCK.getValue(cobbleId).get();
+			Identifier cobbleId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone");
+			Block cobble = Registry.BLOCK.getOrEmpty(cobbleId).get();
 			simpleBlock(cobble);
 
-			ResourceLocation cobbleWallId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX);
-			Block cobbleWall = Registry.BLOCK.getValue(cobbleWallId).get();
+			Identifier cobbleWallId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX);
+			Block cobbleWall = Registry.BLOCK.getOrEmpty(cobbleWallId).get();
 			fixedWallBlock((WallBlock) cobbleWall, prefix("block/" + cobbleId.getPath()));
 
-			ResourceLocation brickId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
-			Block brick = Registry.BLOCK.getValue(brickId).get();
+			Identifier brickId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
+			Block brick = Registry.BLOCK.getOrEmpty(brickId).get();
 			simpleBlock(brick);
 
-			ResourceLocation chiseledBricksId = prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
-			Block chiseledBricks = Registry.BLOCK.getValue(chiseledBricksId).get();
+			Identifier chiseledBricksId = prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
+			Block chiseledBricks = Registry.BLOCK.getOrEmpty(chiseledBricksId).get();
 			simpleBlock(chiseledBricks);
 
 			// stairs and slabs handled above already
@@ -362,25 +363,25 @@ public class BlockstateProvider extends BlockStateProvider {
 		}
 
 		for (String variant : new String[] { "dark", "mana", "blaze", "lavender", "red", "elf", "sunny" }) {
-			ResourceLocation quartzId = prefix(variant + "_quartz");
-			Block quartz = Registry.BLOCK.getValue(quartzId).get();
+			Identifier quartzId = prefix(variant + "_quartz");
+			Block quartz = Registry.BLOCK.getOrEmpty(quartzId).get();
 			simpleBlock(quartz, models().cubeBottomTop(quartzId.getPath(),
 					prefix("block/" + quartzId.getPath() + "_side"),
 					prefix("block/" + quartzId.getPath() + "_bottom"),
 					prefix("block/" + quartzId.getPath() + "_top")));
 
-			ResourceLocation pillarId = prefix(variant + "_quartz_pillar");
-			Block pillar = Registry.BLOCK.getValue(pillarId).get();
+			Identifier pillarId = prefix(variant + "_quartz_pillar");
+			Block pillar = Registry.BLOCK.getOrEmpty(pillarId).get();
 			ModelFile pillarModel = models().cubeColumn(pillarId.getPath(),
 					prefix("block/" + pillarId.getPath() + "_side"),
 					prefix("block/" + pillarId.getPath() + "_end"));
 			getVariantBuilder(pillar)
-					.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.X).setModels(new ConfiguredModel(pillarModel, 90, 90, false))
-					.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Y).setModels(new ConfiguredModel(pillarModel))
-					.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z).setModels(new ConfiguredModel(pillarModel, 90, 0, false));
+					.partialState().with(PillarBlock.AXIS, Direction.Axis.X).setModels(new ConfiguredModel(pillarModel, 90, 90, false))
+					.partialState().with(PillarBlock.AXIS, Direction.Axis.Y).setModels(new ConfiguredModel(pillarModel))
+					.partialState().with(PillarBlock.AXIS, Direction.Axis.Z).setModels(new ConfiguredModel(pillarModel, 90, 0, false));
 
-			ResourceLocation chiseledId = prefix("chiseled_" + variant + "_quartz");
-			Block chiseled = Registry.BLOCK.getValue(chiseledId).get();
+			Identifier chiseledId = prefix("chiseled_" + variant + "_quartz");
+			Block chiseled = Registry.BLOCK.getOrEmpty(chiseledId).get();
 			simpleBlock(chiseled, models().cubeColumn(chiseledId.getPath(),
 					prefix("block/" + chiseledId.getPath() + "_side"),
 					prefix("block/" + chiseledId.getPath() + "_end")));
@@ -392,12 +393,12 @@ public class BlockstateProvider extends BlockStateProvider {
 
 		takeAll(remainingBlocks, b -> b instanceof BlockBuriedPetals).forEach(b -> {
 			DyeColor color = ((BlockBuriedPetals) b).color;
-			ResourceLocation wool = new ResourceLocation("block/" + color.getString() + "_wool");
+			Identifier wool = new Identifier("block/" + color.asString() + "_wool");
 			particleOnly(remainingBlocks, b, wool);
 		});
 
 		takeAll(remainingBlocks, b -> b instanceof BlockAltar).forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath();
+			String name = Registry.BLOCK.getId(b).getPath();
 			ModelFile model = models().withExistingParent(name, prefix("block/shapes/petal_apothecary"))
 					.texture("side", prefix("block/" + name + "_side"))
 					.texture("goblet", prefix("block/" + name + "_goblet"))
@@ -406,25 +407,25 @@ public class BlockstateProvider extends BlockStateProvider {
 		});
 
 		takeAll(remainingBlocks, b -> b instanceof BlockFloatingFlower).forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath();
+			String name = Registry.BLOCK.getId(b).getPath();
 			simpleBlock(b, models().getExistingFile(prefix("block/" + name)));
 		});
 
 		takeAll(remainingBlocks, b -> b instanceof PaneBlock).forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath();
-			ResourceLocation edge = prefix("block/" + name);
-			ResourceLocation pane = prefix("block/" + name.substring(0, name.length() - "_pane".length()));
+			String name = Registry.BLOCK.getId(b).getPath();
+			Identifier edge = prefix("block/" + name);
+			Identifier pane = prefix("block/" + name.substring(0, name.length() - "_pane".length()));
 			paneBlock((PaneBlock) b, pane, edge);
 		});
 
 		takeAll(remainingBlocks, b -> b instanceof StairsBlock).forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath();
+			String name = Registry.BLOCK.getId(b).getPath();
 			String baseName = name.substring(0, name.length() - LibBlockNames.STAIR_SUFFIX.length());
 			boolean quartz = name.contains("quartz");
 			if (quartz) {
-				ResourceLocation side = prefix("block/" + baseName + "_side");
-				ResourceLocation bottom = prefix("block/" + baseName + "_bottom");
-				ResourceLocation top = prefix("block/" + baseName + "_top");
+				Identifier side = prefix("block/" + baseName + "_side");
+				Identifier bottom = prefix("block/" + baseName + "_bottom");
+				Identifier top = prefix("block/" + baseName + "_top");
 				stairsBlock((StairsBlock) b, side, bottom, top);
 			} else {
 				stairsBlock((StairsBlock) b, prefix("block/" + baseName));
@@ -437,13 +438,13 @@ public class BlockstateProvider extends BlockStateProvider {
 		remainingBlocks.forEach(this::simpleBlock);
 
 		slabs.forEach(b -> {
-			String name = Registry.BLOCK.getKey(b).getPath();
+			String name = Registry.BLOCK.getId(b).getPath();
 			String baseName = name.substring(0, name.length() - LibBlockNames.SLAB_SUFFIX.length());
 			boolean quartz = name.contains("quartz");
 			if (quartz) {
-				ResourceLocation side = prefix("block/" + baseName + "_side");
-				ResourceLocation bottom = prefix("block/" + baseName + "_bottom");
-				ResourceLocation top = prefix("block/" + baseName + "_top");
+				Identifier side = prefix("block/" + baseName + "_side");
+				Identifier bottom = prefix("block/" + baseName + "_bottom");
+				Identifier top = prefix("block/" + baseName + "_top");
 				slabBlock((SlabBlock) b, prefix(baseName), side, bottom, top);
 			} else {
 				slabBlock((SlabBlock) b, prefix(baseName), prefix("block/" + baseName));
@@ -451,8 +452,8 @@ public class BlockstateProvider extends BlockStateProvider {
 		});
 	}
 
-	private void particleOnly(Set<Block> blocks, Block b, ResourceLocation particle) {
-		String name = Registry.BLOCK.getKey(b).getPath();
+	private void particleOnly(Set<Block> blocks, Block b, Identifier particle) {
+		String name = Registry.BLOCK.getId(b).getPath();
 		ModelFile f = models().getBuilder(name)
 				.texture("particle", particle);
 		simpleBlock(b, f);
@@ -460,7 +461,7 @@ public class BlockstateProvider extends BlockStateProvider {
 	}
 
 	private void manualModel(Set<Block> blocks, Block b) {
-		String name = Registry.BLOCK.getKey(b).getPath();
+		String name = Registry.BLOCK.getId(b).getPath();
 		simpleBlock(b, models().getExistingFile(prefix("block/" + name)));
 		blocks.remove(b);
 	}
@@ -493,15 +494,15 @@ public class BlockstateProvider extends BlockStateProvider {
 		return ret;
 	}
 
-	private static final Map<Direction, EnumProperty<WallHeight>> DIRECTION_TO_WALL_SIDE = ImmutableMap.<Direction, EnumProperty<WallHeight>>builder()
-			.put(Direction.NORTH, WallBlock.field_235613_c_)
-			.put(Direction.EAST, WallBlock.field_235612_b_)
-			.put(Direction.SOUTH, WallBlock.field_235614_d_)
-			.put(Direction.WEST, WallBlock.field_235615_e_).build();
+	private static final Map<Direction, EnumProperty<WallShape>> DIRECTION_TO_WALL_SIDE = ImmutableMap.<Direction, EnumProperty<WallShape>>builder()
+			.put(Direction.NORTH, WallBlock.NORTH_SHAPE)
+			.put(Direction.EAST, WallBlock.EAST_SHAPE)
+			.put(Direction.SOUTH, WallBlock.SOUTH_SHAPE)
+			.put(Direction.WEST, WallBlock.WEST_SHAPE).build();
 
 	// Copy of super but fixed to account for blockstate property changes in 1.16
-	private void fixedWallBlock(WallBlock block, ResourceLocation tex) {
-		String name = Registry.BLOCK.getKey(block).getPath();
+	private void fixedWallBlock(WallBlock block, Identifier tex) {
+		String name = Registry.BLOCK.getId(block).getPath();
 		ModelFile post = models().withExistingParent(name + "_post", "block/template_wall_post")
 				.texture("wall", tex);
 		ModelFile side = models().withExistingParent(name + "_wall_side", "block/template_wall_side")
@@ -513,24 +514,24 @@ public class BlockstateProvider extends BlockStateProvider {
 				.condition(WallBlock.UP, true).end();
 
 		DIRECTION_TO_WALL_SIDE.forEach((dir, value) -> {
-			builder.part().modelFile(side).rotationY((((int) dir.getHorizontalAngle()) + 180) % 360).uvLock(true).addModel()
-					.condition(value, WallHeight.LOW).end()
-					.part().modelFile(tallSide).rotationY((((int) dir.getHorizontalAngle()) + 180) % 360).uvLock(true).addModel()
-					.condition(value, WallHeight.TALL);
+			builder.part().modelFile(side).rotationY((((int) dir.asRotation()) + 180) % 360).uvLock(true).addModel()
+					.condition(value, WallShape.LOW).end()
+					.part().modelFile(tallSide).rotationY((((int) dir.asRotation()) + 180) % 360).uvLock(true).addModel()
+					.condition(value, WallShape.TALL);
 		});
 	}
 
 	private void redStringBlock(Block b) {
-		String name = Registry.BLOCK.getKey(b).getPath();
-		ResourceLocation selfName = prefix("block/" + name);
-		ResourceLocation front = prefix("block/red_string_sender");
+		String name = Registry.BLOCK.getId(b).getPath();
+		Identifier selfName = prefix("block/" + name);
+		Identifier front = prefix("block/red_string_sender");
 		ModelFile file = models().orientable(name, selfName, front, selfName);
 		getVariantBuilder(b)
-				.partialState().with(BlockStateProperties.FACING, Direction.NORTH).setModels(new ConfiguredModel(file))
-				.partialState().with(BlockStateProperties.FACING, Direction.SOUTH).setModels(new ConfiguredModel(file, 0, 180, false))
-				.partialState().with(BlockStateProperties.FACING, Direction.WEST).setModels(new ConfiguredModel(file, 0, 270, false))
-				.partialState().with(BlockStateProperties.FACING, Direction.EAST).setModels(new ConfiguredModel(file, 0, 90, false))
-				.partialState().with(BlockStateProperties.FACING, Direction.DOWN).setModels(new ConfiguredModel(file, 90, 0, false))
-				.partialState().with(BlockStateProperties.FACING, Direction.UP).setModels(new ConfiguredModel(file, 270, 0, false));
+				.partialState().with(Properties.FACING, Direction.NORTH).setModels(new ConfiguredModel(file))
+				.partialState().with(Properties.FACING, Direction.SOUTH).setModels(new ConfiguredModel(file, 0, 180, false))
+				.partialState().with(Properties.FACING, Direction.WEST).setModels(new ConfiguredModel(file, 0, 270, false))
+				.partialState().with(Properties.FACING, Direction.EAST).setModels(new ConfiguredModel(file, 0, 90, false))
+				.partialState().with(Properties.FACING, Direction.DOWN).setModels(new ConfiguredModel(file, 90, 0, false))
+				.partialState().with(Properties.FACING, Direction.UP).setModels(new ConfiguredModel(file, 270, 0, false));
 	}
 }

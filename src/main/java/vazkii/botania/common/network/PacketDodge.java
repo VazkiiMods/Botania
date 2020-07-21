@@ -8,11 +8,11 @@
  */
 package vazkii.botania.common.network;
 
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.text.TranslatableText;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import vazkii.botania.common.core.handler.EquipmentHandler;
@@ -24,9 +24,9 @@ import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import java.util.function.Supplier;
 
 public class PacketDodge {
-	public static void encode(PacketDodge msg, PacketBuffer buf) {}
+	public static void encode(PacketDodge msg, PacketByteBuf buf) {}
 
-	public static PacketDodge decode(PacketBuffer buf) {
+	public static PacketDodge decode(PacketByteBuf buf) {
 		return new PacketDodge();
 	}
 
@@ -34,11 +34,11 @@ public class PacketDodge {
 		if (ctx.get().getDirection().getReceptionSide().isServer()) {
 			ctx.get().enqueueWork(() -> {
 				ServerPlayerEntity player = ctx.get().getSender();
-				player.world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
+				player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
 
 				ItemStack ringStack = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, player);
 				if (ringStack.isEmpty()) {
-					player.connection.disconnect(new TranslationTextComponent("botaniamisc.invalidDodge"));
+					player.networkHandler.disconnect(new TranslatableText("botaniamisc.invalidDodge"));
 					return;
 				}
 

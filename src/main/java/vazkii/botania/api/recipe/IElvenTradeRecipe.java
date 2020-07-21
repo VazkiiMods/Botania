@@ -8,13 +8,13 @@
  */
 package vazkii.botania.api.recipe;
 
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
@@ -25,8 +25,8 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Optional;
 
-public interface IElvenTradeRecipe extends IRecipe<IInventory> {
-	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "elven_trade");
+public interface IElvenTradeRecipe extends Recipe<Inventory> {
+	Identifier TYPE_ID = new Identifier(BotaniaAPI.MODID, "elven_trade");
 
 	/**
 	 * Attempts to match the recipe
@@ -47,7 +47,7 @@ public interface IElvenTradeRecipe extends IRecipe<IInventory> {
 	 */
 	@Nonnull
 	@Override
-	NonNullList<Ingredient> getIngredients();
+	DefaultedList<Ingredient> getPreviewInputs();
 
 	/**
 	 * @return Preview of the outputs
@@ -61,30 +61,30 @@ public interface IElvenTradeRecipe extends IRecipe<IInventory> {
 
 	@Nonnull
 	@Override
-	default IRecipeType<?> getType() {
-		return Registry.RECIPE_TYPE.getValue(TYPE_ID).get();
+	default RecipeType<?> getType() {
+		return Registry.RECIPE_TYPE.getOrEmpty(TYPE_ID).get();
 	}
 
 	// Ignored IRecipe boilerplate
 
 	@Override
-	default boolean matches(@Nonnull IInventory inv, @Nonnull World world) {
+	default boolean matches(@Nonnull Inventory inv, @Nonnull World world) {
 		return false;
 	}
 
 	@Nonnull
 	@Override
-	default ItemStack getCraftingResult(@Nonnull IInventory inv) {
+	default ItemStack craft(@Nonnull Inventory inv) {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	default boolean canFit(int width, int height) {
+	default boolean fits(int width, int height) {
 		return false;
 	}
 
 	@Override
-	default ItemStack getRecipeOutput() {
+	default ItemStack getOutput() {
 		return ItemStack.EMPTY;
 	}
 }

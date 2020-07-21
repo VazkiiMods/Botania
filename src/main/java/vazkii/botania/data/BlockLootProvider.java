@@ -10,30 +10,34 @@ package vazkii.botania.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import net.minecraft.advancements.criterion.EnchantmentPredicate;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.advancements.criterion.MinMaxBounds;
-import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.DoublePlantBlock;
 import net.minecraft.block.SlabBlock;
+import net.minecraft.block.TallPlantBlock;
+import net.minecraft.block.enums.DoubleBlockHalf;
+import net.minecraft.block.enums.SlabType;
+import net.minecraft.data.DataCache;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.data.IDataProvider;
+import net.minecraft.data.DataProvider;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.loot.*;
-import net.minecraft.loot.conditions.BlockStateProperty;
-import net.minecraft.loot.conditions.MatchTool;
-import net.minecraft.loot.conditions.SurvivesExplosion;
-import net.minecraft.loot.functions.CopyName;
-import net.minecraft.loot.functions.CopyNbt;
-import net.minecraft.loot.functions.ExplosionDecay;
-import net.minecraft.loot.functions.SetCount;
-import net.minecraft.state.properties.DoubleBlockHalf;
-import net.minecraft.state.properties.SlabType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
+import net.minecraft.loot.condition.MatchToolLootCondition;
+import net.minecraft.loot.condition.SurvivesExplosionLootCondition;
+import net.minecraft.loot.context.LootContextTypes;
+import net.minecraft.loot.entry.AlternativeEntry;
+import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.entry.LootPoolEntry;
+import net.minecraft.loot.entry.LootTableEntry;
+import net.minecraft.loot.function.CopyNameLootFunction;
+import net.minecraft.loot.function.CopyNbtLootFunction;
+import net.minecraft.loot.function.ExplosionDecayLootFunction;
+import net.minecraft.loot.function.SetCountLootFunction;
+import net.minecraft.predicate.NumberRange;
+import net.minecraft.predicate.StatePredicate;
+import net.minecraft.predicate.item.EnchantmentPredicate;
+import net.minecraft.predicate.item.ItemPredicate;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
@@ -57,7 +61,7 @@ import java.util.function.Function;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class BlockLootProvider implements IDataProvider {
+public class BlockLootProvider implements DataProvider {
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	private final DataGenerator generator;
 	private final Map<Block, Function<Block, LootTable.Builder>> functionTable = new HashMap<>();
@@ -66,7 +70,7 @@ public class BlockLootProvider implements IDataProvider {
 		this.generator = generator;
 
 		for (Block b : Registry.BLOCK) {
-			ResourceLocation id = Registry.BLOCK.getKey(b);
+			Identifier id = Registry.BLOCK.getId(b);
 			if (!LibMisc.MOD_ID.equals(id.getNamespace())) {
 				continue;
 			}
@@ -116,11 +120,11 @@ public class BlockLootProvider implements IDataProvider {
 	}
 
 	@Override
-	public void act(DirectoryCache cache) throws IOException {
-		Map<ResourceLocation, LootTable.Builder> tables = new HashMap<>();
+	public void run(DataCache cache) throws IOException {
+		Map<Identifier, LootTable.Builder> tables = new HashMap<>();
 
 		for (Block b : Registry.BLOCK) {
-			ResourceLocation id = Registry.BLOCK.getKey(b);
+			Identifier id = Registry.BLOCK.getId(b);
 			if (!LibMisc.MOD_ID.equals(id.getNamespace())) {
 				continue;
 			}
@@ -128,13 +132,13 @@ public class BlockLootProvider implements IDataProvider {
 			tables.put(id, func.apply(b));
 		}
 
-		for (Map.Entry<ResourceLocation, LootTable.Builder> e : tables.entrySet()) {
-			Path path = getPath(generator.getOutputFolder(), e.getKey());
-			IDataProvider.save(GSON, cache, LootTableManager.toJson(e.getValue().setParameterSet(LootParameterSets.BLOCK).build()), path);
+		for (Map.Entry<Identifier, LootTable.Builder> e : tables.entrySet()) {
+			Path path = getPath(generator.getOutput(), e.getKey());
+			DataProvider.writeToPath(GSON, cache, LootManager.toJson(e.getValue().type(LootContextTypes.BLOCK).build()), path);
 		}
 	}
 
-	private static Path getPath(Path root, ResourceLocation id) {
+	private static Path getPath(Path root, Identifier id) {
 		return root.resolve("data/" + id.getNamespace() + "/loot_tables/blocks/" + id.getPath() + ".json");
 	}
 
@@ -143,85 +147,85 @@ public class BlockLootProvider implements IDataProvider {
 	}
 
 	private static LootTable.Builder genCopyNbt(Block b, String... tags) {
-		LootEntry.Builder<?> entry = ItemLootEntry.builder(b);
-		CopyNbt.Builder func = CopyNbt.builder(CopyNbt.Source.BLOCK_ENTITY);
+		LootPoolEntry.Builder<?> entry = ItemEntry.builder(b);
+		CopyNbtLootFunction.Builder func = CopyNbtLootFunction.builder(CopyNbtLootFunction.Source.BLOCK_ENTITY);
 		for (String tag : tags) {
-			func = func.replaceOperation(tag, "BlockEntityTag." + tag);
+			func = func.withOperation(tag, "BlockEntityTag." + tag);
 		}
-		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry)
-				.acceptCondition(SurvivesExplosion.builder())
-				.acceptFunction(func);
-		return LootTable.builder().addLootPool(pool);
+		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantLootTableRange.create(1)).with(entry)
+				.conditionally(SurvivesExplosionLootCondition.builder())
+				.apply(func);
+		return LootTable.builder().pool(pool);
 	}
 
 	private static LootTable.Builder genCellBlock(Block b) {
 		ItemPredicate.Builder silkPred = ItemPredicate.Builder.create()
-				.enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1)));
-		LootEntry.Builder<?> silk = ItemLootEntry.builder(b)
-				.acceptCondition(MatchTool.builder(silkPred));
-		return LootTable.builder().addLootPool(LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(silk));
+				.enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, NumberRange.IntRange.atLeast(1)));
+		LootPoolEntry.Builder<?> silk = ItemEntry.builder(b)
+				.conditionally(MatchToolLootCondition.builder(silkPred));
+		return LootTable.builder().pool(LootPool.builder().name("main").rolls(ConstantLootTableRange.create(1)).with(silk));
 	}
 
 	private static LootTable.Builder genTinyPotato(Block b) {
-		LootEntry.Builder<?> entry = ItemLootEntry.builder(b)
-				.acceptFunction(CopyName.builder(CopyName.Source.BLOCK_ENTITY));
-		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry)
-				.acceptCondition(SurvivesExplosion.builder());
-		return LootTable.builder().addLootPool(pool);
+		LootPoolEntry.Builder<?> entry = ItemEntry.builder(b)
+				.apply(CopyNameLootFunction.builder(CopyNameLootFunction.Source.BLOCK_ENTITY));
+		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantLootTableRange.create(1)).with(entry)
+				.conditionally(SurvivesExplosionLootCondition.builder());
+		return LootTable.builder().pool(pool);
 	}
 
 	private static LootTable.Builder genMetamorphicStone(Block b) {
-		String cobbleName = Registry.BLOCK.getKey(b).getPath().replaceAll("_stone", "_cobblestone");
-		Block cobble = Registry.BLOCK.getValue(prefix(cobbleName)).get();
+		String cobbleName = Registry.BLOCK.getId(b).getPath().replaceAll("_stone", "_cobblestone");
+		Block cobble = Registry.BLOCK.getOrEmpty(prefix(cobbleName)).get();
 		return genRegular(cobble);
 	}
 
 	private static LootTable.Builder genSolidVine(Block b) {
-		LootEntry.Builder<?> entry = TableLootEntry.builder(new ResourceLocation("blocks/vine"));
-		return LootTable.builder().addLootPool(LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry));
+		LootPoolEntry.Builder<?> entry = LootTableEntry.builder(new Identifier("blocks/vine"));
+		return LootTable.builder().pool(LootPool.builder().name("main").rolls(ConstantLootTableRange.create(1)).with(entry));
 	}
 
 	private static LootTable.Builder genRoot(Block b) {
-		LootEntry.Builder<?> entry = ItemLootEntry.builder(ModItems.livingroot)
-				.acceptFunction(SetCount.builder(RandomValueRange.of(2, 4)))
-				.acceptFunction(ExplosionDecay.builder());
-		return LootTable.builder().addLootPool(LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry));
+		LootPoolEntry.Builder<?> entry = ItemEntry.builder(ModItems.livingroot)
+				.apply(SetCountLootFunction.builder(UniformLootTableRange.between(2, 4)))
+				.apply(ExplosionDecayLootFunction.builder());
+		return LootTable.builder().pool(LootPool.builder().name("main").rolls(ConstantLootTableRange.create(1)).with(entry));
 	}
 
 	private static LootTable.Builder genSlab(Block b) {
-		LootEntry.Builder<?> entry = ItemLootEntry.builder(b)
-				.acceptFunction(SetCount.builder(ConstantRange.of(2))
-						.acceptCondition(BlockStateProperty.builder(b).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withProp(SlabBlock.TYPE, SlabType.DOUBLE))))
-				.acceptFunction(ExplosionDecay.builder());
-		return LootTable.builder().addLootPool(LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry));
+		LootPoolEntry.Builder<?> entry = ItemEntry.builder(b)
+				.apply(SetCountLootFunction.builder(ConstantLootTableRange.create(2))
+						.conditionally(BlockStatePropertyLootCondition.builder(b).properties(StatePredicate.Builder.create().exactMatch(SlabBlock.TYPE, SlabType.DOUBLE))))
+				.apply(ExplosionDecayLootFunction.builder());
+		return LootTable.builder().pool(LootPool.builder().name("main").rolls(ConstantLootTableRange.create(1)).with(entry));
 	}
 
 	private static LootTable.Builder genDoubleFlower(Block b) {
-		LootEntry.Builder<?> entry = ItemLootEntry.builder(b)
-				.acceptCondition(BlockStateProperty.builder(b).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withProp(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)))
-				.acceptCondition(MatchTool.builder(ItemPredicate.Builder.create().tag(ModTags.Items.SHEARS)));
-		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry)
-				.acceptCondition(SurvivesExplosion.builder());
-		return LootTable.builder().addLootPool(pool);
+		LootPoolEntry.Builder<?> entry = ItemEntry.builder(b)
+				.conditionally(BlockStatePropertyLootCondition.builder(b).properties(StatePredicate.Builder.create().exactMatch(TallPlantBlock.HALF, DoubleBlockHalf.LOWER)))
+				.conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().tag(ModTags.Items.SHEARS)));
+		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantLootTableRange.create(1)).with(entry)
+				.conditionally(SurvivesExplosionLootCondition.builder());
+		return LootTable.builder().pool(pool);
 	}
 
 	private static LootTable.Builder genAltGrass(Block b) {
 		ItemPredicate.Builder silkPred = ItemPredicate.Builder.create()
-				.enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1)));
-		LootEntry.Builder<?> silk = ItemLootEntry.builder(b)
-				.acceptCondition(MatchTool.builder(silkPred));
-		LootEntry.Builder<?> dirt = ItemLootEntry.builder(Blocks.DIRT)
-				.acceptCondition(SurvivesExplosion.builder());
-		LootEntry.Builder<?> entry = AlternativesLootEntry.builder(silk, dirt);
-		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry);
-		return LootTable.builder().addLootPool(pool);
+				.enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, NumberRange.IntRange.atLeast(1)));
+		LootPoolEntry.Builder<?> silk = ItemEntry.builder(b)
+				.conditionally(MatchToolLootCondition.builder(silkPred));
+		LootPoolEntry.Builder<?> dirt = ItemEntry.builder(Blocks.DIRT)
+				.conditionally(SurvivesExplosionLootCondition.builder());
+		LootPoolEntry.Builder<?> entry = AlternativeEntry.builder(silk, dirt);
+		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantLootTableRange.create(1)).with(entry);
+		return LootTable.builder().pool(pool);
 	}
 
 	private static LootTable.Builder genRegular(Block b) {
-		LootEntry.Builder<?> entry = ItemLootEntry.builder(b);
-		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry)
-				.acceptCondition(SurvivesExplosion.builder());
-		return LootTable.builder().addLootPool(pool);
+		LootPoolEntry.Builder<?> entry = ItemEntry.builder(b);
+		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantLootTableRange.create(1)).with(entry)
+				.conditionally(SurvivesExplosionLootCondition.builder());
+		return LootTable.builder().pool(pool);
 	}
 
 	@Nonnull

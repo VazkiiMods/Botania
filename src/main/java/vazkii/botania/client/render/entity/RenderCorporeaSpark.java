@@ -8,31 +8,29 @@
  */
 package vazkii.botania.client.render.entity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.vector.Vector3f;
-
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 
 public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
-	public RenderCorporeaSpark(EntityRendererManager manager) {
+	public RenderCorporeaSpark(EntityRenderDispatcher manager) {
 		super(manager);
 	}
 
 	@Override
-	public TextureAtlasSprite getBaseIcon(EntityCorporeaSpark entity) {
+	public Sprite getBaseIcon(EntityCorporeaSpark entity) {
 		return entity.isMaster() ? MiscellaneousIcons.INSTANCE.corporeaWorldIconMaster : MiscellaneousIcons.INSTANCE.corporeaWorldIcon;
 	}
 
 	@Override
-	public void renderCallback(EntityCorporeaSpark entity, float pticks, MatrixStack ms, IRenderTypeBuffer buffers) {
+	public void renderCallback(EntityCorporeaSpark entity, float pticks, MatrixStack ms, VertexConsumerProvider buffers) {
 		int time = entity.getItemDisplayTicks();
 		if (time == 0) {
 			return;
@@ -46,13 +44,13 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 		}
 
 		ms.push();
-		ms.rotate(Vector3f.XP.rotationDegrees(90));
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90));
 		float scalef = 1F / 6F;
 		ms.scale(scalef, scalef, scalef);
 		//todo 1.15 GlStateManager.color4f(1F, 1F, 1F, absTime / 10);
 		ms.translate(0F, 0F, -2F + (time < 0 ? -absTime : absTime) / 6);
 
-		TextureAtlasSprite icon = Minecraft.getInstance().getItemRenderer().getItemModelWithOverrides(stack, entity.world, null).getParticleTexture();
+		Sprite icon = MinecraftClient.getInstance().getItemRenderer().getHeldItemModel(stack, entity.world, null).getSprite();
 
 		if (icon != null) {
 			float minU = icon.getMinU();

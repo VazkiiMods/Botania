@@ -19,8 +19,7 @@ import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICustomCraftingC
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-
+import net.minecraft.util.Identifier;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.item.ItemAncientWill;
@@ -32,7 +31,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class AncientWillRecipeWrapper implements ICustomCraftingCategoryExtension {
-	private final ResourceLocation name;
+	private final Identifier name;
 
 	public AncientWillRecipeWrapper(AncientWillRecipe recipe) {
 		this.name = recipe.getId();
@@ -60,7 +59,7 @@ public class AncientWillRecipeWrapper implements ICustomCraftingCategoryExtensio
 
 	@Nullable
 	@Override
-	public ResourceLocation getRegistryName() {
+	public Identifier getRegistryName() {
 		return name;
 	}
 

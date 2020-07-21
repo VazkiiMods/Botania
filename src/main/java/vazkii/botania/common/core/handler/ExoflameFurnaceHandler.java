@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.core.handler;
 
-import net.minecraft.item.crafting.AbstractCookingRecipe;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.AbstractFurnaceTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.recipe.AbstractCookingRecipe;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -32,37 +32,37 @@ public class ExoflameFurnaceHandler {
 
 	@CapabilityInject(IExoflameHeatable.class)
 	public static Capability<IExoflameHeatable> CAPABILITY;
-	public static final ResourceLocation ID = prefix("exoflame_heatable");
+	public static final Identifier ID = prefix("exoflame_heatable");
 
-	public static void attachFurnaceCapability(AttachCapabilitiesEvent<TileEntity> event) {
-		TileEntity te = event.getObject();
-		if (te instanceof AbstractFurnaceTileEntity) {
-			AbstractFurnaceTileEntity furnace = (AbstractFurnaceTileEntity) te;
+	public static void attachFurnaceCapability(AttachCapabilitiesEvent<BlockEntity> event) {
+		BlockEntity te = event.getObject();
+		if (te instanceof AbstractFurnaceBlockEntity) {
+			AbstractFurnaceBlockEntity furnace = (AbstractFurnaceBlockEntity) te;
 			SimpleCapProvider.attach(event, ID, CAPABILITY, new FurnaceExoflameHeatable(furnace));
 		}
 	}
 
-	public static boolean canSmelt(AbstractFurnaceTileEntity furnace, IRecipe<?> recipe) {
+	public static boolean canSmelt(AbstractFurnaceBlockEntity furnace, Recipe<?> recipe) {
 		return ((AccessorAbstractFurnaceTileEntity) furnace).invokeCanSmelt(recipe);
 	}
 
-	public static IRecipeType<? extends AbstractCookingRecipe> getRecipeType(AbstractFurnaceTileEntity furnace) {
+	public static RecipeType<? extends AbstractCookingRecipe> getRecipeType(AbstractFurnaceBlockEntity furnace) {
 		return ((AccessorAbstractFurnaceTileEntity) furnace).getRecipeType();
 	}
 
 	private static class FurnaceExoflameHeatable implements IExoflameHeatable {
-		private final AbstractFurnaceTileEntity furnace;
+		private final AbstractFurnaceBlockEntity furnace;
 
-		private IRecipeType<? extends AbstractCookingRecipe> recipeType;
+		private RecipeType<? extends AbstractCookingRecipe> recipeType;
 		private AbstractCookingRecipe currentRecipe;
 
-		FurnaceExoflameHeatable(AbstractFurnaceTileEntity furnace) {
+		FurnaceExoflameHeatable(AbstractFurnaceBlockEntity furnace) {
 			this.furnace = furnace;
 		}
 
 		@Override
 		public boolean canSmelt() {
-			if (furnace.getStackInSlot(0).isEmpty()) {
+			if (furnace.getStack(0).isEmpty()) {
 				return false;
 			}
 			try {
@@ -75,7 +75,7 @@ public class ExoflameFurnaceHandler {
 						return true;
 					}
 				}
-				currentRecipe = furnace.getWorld().getRecipeManager().getRecipe(recipeType, furnace, furnace.getWorld()).orElse(null);
+				currentRecipe = furnace.getWorld().getRecipeManager().getFirstMatch(recipeType, furnace, furnace.getWorld()).orElse(null);
 				return ExoflameFurnaceHandler.canSmelt(furnace, currentRecipe);
 			} catch (Throwable t) {
 				Botania.LOGGER.error("Failed to determine if furnace TE can smelt", t);
@@ -93,7 +93,7 @@ public class ExoflameFurnaceHandler {
 			if (getBurnTime() == 0) {
 				World world = furnace.getWorld();
 				BlockPos pos = furnace.getPos();
-				world.setBlockState(pos, world.getBlockState(pos).with(BlockStateProperties.LIT, true));
+				world.setBlockState(pos, world.getBlockState(pos).with(Properties.LIT, true));
 			}
 			int burnTime = ((AccessorAbstractFurnaceTileEntity) furnace).getBurnTime();
 			((AccessorAbstractFurnaceTileEntity) furnace).setBurnTime(burnTime + 200);

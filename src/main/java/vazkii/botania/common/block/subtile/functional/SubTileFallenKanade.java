@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -32,12 +32,12 @@ public class SubTileFallenKanade extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getWorld().isRemote && getWorld().func_234923_W_() != World.field_234920_i_) {
+		if (!getWorld().isClient && getWorld().getRegistryKey() != World.END) {
 			boolean did = false;
-			List<PlayerEntity> players = getWorld().getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<PlayerEntity> players = getWorld().getNonSpectatingEntities(PlayerEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for (PlayerEntity player : players) {
-				if (player.getActivePotionEffect(Effects.REGENERATION) == null && getMana() >= COST) {
-					player.addPotionEffect(new EffectInstance(Effects.REGENERATION, 59, 2, true, true));
+				if (player.getStatusEffect(StatusEffects.REGENERATION) == null && getMana() >= COST) {
+					player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 59, 2, true, true));
 					addMana(-COST);
 					did = true;
 				}

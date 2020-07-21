@@ -9,15 +9,15 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.NBTUtil;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtHelper;
+import net.minecraft.network.ClientConnection;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.client.model.data.ModelProperty;
@@ -57,7 +57,7 @@ public class TilePlatform extends TileMod {
 	private void swapSurroudings(TilePlatform tile, boolean empty) {
 		for (Direction dir : Direction.values()) {
 			BlockPos pos = tile.getPos().offset(dir);
-			TileEntity tileAt = world.getTileEntity(pos);
+			BlockEntity tileAt = world.getBlockEntity(pos);
 			if (tileAt instanceof TilePlatform) {
 				TilePlatform platform = (TilePlatform) tileAt;
 				if (empty == (platform.camoState != null)) {
@@ -69,30 +69,30 @@ public class TilePlatform extends TileMod {
 
 	private void swap(TilePlatform tile, boolean empty) {
 		tile.camoState = empty ? null : camoState;
-		world.notifyBlockUpdate(tile.getPos(), tile.getBlockState(), tile.getBlockState(), 3);
+		world.updateListeners(tile.getPos(), tile.getCachedState(), tile.getCachedState(), 3);
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT cmp) {
+	public void writePacketNBT(CompoundTag cmp) {
 		if (camoState != null) {
-			cmp.put(TAG_CAMO, NBTUtil.writeBlockState(camoState));
+			cmp.put(TAG_CAMO, NbtHelper.fromBlockState(camoState));
 		}
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT cmp) {
-		camoState = NBTUtil.readBlockState(cmp.getCompound(TAG_CAMO));
+	public void readPacketNBT(CompoundTag cmp) {
+		camoState = NbtHelper.toBlockState(cmp.getCompound(TAG_CAMO));
 		if (camoState.isAir()) {
 			camoState = null;
 		}
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager manager, SUpdateTileEntityPacket packet) {
+	public void onDataPacket(ClientConnection manager, BlockEntityUpdateS2CPacket packet) {
 		super.onDataPacket(manager, packet);
 		requestModelDataUpdate();
 		if (world instanceof ClientWorld) {
-			world.notifyBlockUpdate(getPos(), getBlockState(), getBlockState(), 0);
+			world.updateListeners(getPos(), getCachedState(), getCachedState(), 0);
 		}
 	}
 

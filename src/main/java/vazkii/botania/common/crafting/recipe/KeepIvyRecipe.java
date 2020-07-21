@@ -10,10 +10,10 @@ package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.item.crafting.SpecialRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.SpecialRecipeSerializer;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -22,10 +22,10 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class KeepIvyRecipe extends SpecialRecipe {
+public class KeepIvyRecipe extends SpecialCraftingRecipe {
 	public static final SpecialRecipeSerializer<KeepIvyRecipe> SERIALIZER = new SpecialRecipeSerializer<>(KeepIvyRecipe::new);
 
-	public KeepIvyRecipe(ResourceLocation id) {
+	public KeepIvyRecipe(Identifier id) {
 		super(id);
 	}
 
@@ -34,8 +34,8 @@ public class KeepIvyRecipe extends SpecialRecipe {
 		boolean foundIvy = false;
 		boolean foundItem = false;
 
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stack = inv.getStack(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() == ModItems.keepIvy) {
 					foundIvy = true;
@@ -57,8 +57,8 @@ public class KeepIvyRecipe extends SpecialRecipe {
 	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
 		ItemStack item = ItemStack.EMPTY;
 
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stack = inv.getStack(i);
 			if (!stack.isEmpty() && stack.getItem() != ModItems.keepIvy) {
 				item = stack;
 			}
@@ -71,13 +71,13 @@ public class KeepIvyRecipe extends SpecialRecipe {
 	}
 
 	@Override
-	public boolean canFit(int width, int height) {
+	public boolean fits(int width, int height) {
 		return width * height >= 2;
 	}
 
 	@Nonnull
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 }

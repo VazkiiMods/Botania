@@ -8,8 +8,8 @@
  */
 package vazkii.botania.api.subtile;
 
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 
 /**
  * This object describes the Radius of a SubTileEntity. It can either be
@@ -35,7 +35,7 @@ public class RadiusDescriptor {
 		return 0;
 	}
 
-	public AxisAlignedBB getAABB() {
+	public Box getAABB() {
 		return null;
 	}
 
@@ -62,15 +62,15 @@ public class RadiusDescriptor {
 
 	public static class Rectangle extends RadiusDescriptor {
 
-		final AxisAlignedBB aabb;
+		final Box aabb;
 
-		public Rectangle(BlockPos subtileCoords, AxisAlignedBB aabb) {
+		public Rectangle(BlockPos subtileCoords, Box aabb) {
 			super(subtileCoords);
 			this.aabb = aabb;
 		}
 
 		@Override
-		public AxisAlignedBB getAABB() {
+		public Box getAABB() {
 			return aabb;
 		}
 
@@ -79,7 +79,7 @@ public class RadiusDescriptor {
 	public static class Square extends Rectangle {
 
 		public Square(BlockPos subtileCoords, int expand) {
-			super(subtileCoords, new AxisAlignedBB(subtileCoords.add(-expand, 0, -expand), subtileCoords.add(expand + 1, 0, expand + 1)));
+			super(subtileCoords, new Box(subtileCoords.add(-expand, 0, -expand), subtileCoords.add(expand + 1, 0, expand + 1)));
 		}
 
 	}

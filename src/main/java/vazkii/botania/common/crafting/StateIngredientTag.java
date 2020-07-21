@@ -13,24 +13,23 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.ResourceLocation;
-
+import net.minecraft.tag.BlockTags;
+import net.minecraft.tag.Tag;
+import net.minecraft.util.Identifier;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class StateIngredientTag extends StateIngredientBlocks {
-	private final ITag.INamedTag<Block> tag;
+	private final Tag.Identified<Block> tag;
 
-	public StateIngredientTag(ITag.INamedTag<Block> tag) {
+	public StateIngredientTag(Tag.Identified<Block> tag) {
 		super(ImmutableSet.of());
 		this.tag = tag;
 	}
 
-	public StateIngredientTag(ResourceLocation id) {
-		this(BlockTags.makeWrapperTag(id.toString()));
+	public StateIngredientTag(Identifier id) {
+		this(BlockTags.register(id.toString()));
 	}
 
 	@Override
@@ -42,18 +41,18 @@ public class StateIngredientTag extends StateIngredientBlocks {
 	public JsonObject serialize() {
 		JsonObject object = new JsonObject();
 		object.addProperty("type", "tag");
-		object.addProperty("tag", tag.getName().toString());
+		object.addProperty("tag", tag.getId().toString());
 		return object;
 	}
 
 	@Override
 	protected Collection<Block> getBlocks() {
-		return tag.getAllElements();
+		return tag.values();
 	}
 
 	@Override
 	public List<BlockState> getDisplayed() {
-		return tag.getAllElements().stream().map(Block::getDefaultState).collect(Collectors.toList());
+		return tag.values().stream().map(Block::getDefaultState).collect(Collectors.toList());
 	}
 
 }

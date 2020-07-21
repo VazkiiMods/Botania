@@ -8,15 +8,14 @@
  */
 package vazkii.botania.common.block.decor;
 
-import net.minecraft.item.DyeColor;
-
+import net.minecraft.util.DyeColor;
 import vazkii.botania.common.block.BlockMod;
 
 public class BlockPetalBlock extends BlockMod {
 
 	public final DyeColor color;
 
-	public BlockPetalBlock(DyeColor color, Properties builder) {
+	public BlockPetalBlock(DyeColor color, Settings builder) {
 		super(builder);
 		this.color = color;
 	}

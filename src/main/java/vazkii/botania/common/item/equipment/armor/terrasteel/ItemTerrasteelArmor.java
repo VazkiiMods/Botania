@@ -10,20 +10,21 @@ package vazkii.botania.common.item.equipment.armor.terrasteel;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.Attributes;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.LazyValue;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Lazy;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -41,36 +42,36 @@ import java.util.UUID;
 
 public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
-	public ItemTerrasteelArmor(EquipmentSlotType type, Properties props) {
+	public ItemTerrasteelArmor(EquipmentSlot type, Settings props) {
 		super(type, BotaniaAPI.instance().getTerrasteelArmorMaterial(), props);
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public BipedModel<?> provideArmorModelForSlot(EquipmentSlotType slot) {
+	@Environment(EnvType.CLIENT)
+	public BipedEntityModel<?> provideArmorModelForSlot(EquipmentSlot slot) {
 		return new ModelArmorTerrasteel(slot);
 	}
 
 	@Override
-	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlotType slot) {
-		return ConfigHandler.CLIENT.enableArmorModels.get() ? LibResources.MODEL_TERRASTEEL_NEW : slot == EquipmentSlotType.CHEST ? LibResources.MODEL_TERRASTEEL_1 : LibResources.MODEL_TERRASTEEL_0;
+	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
+		return ConfigHandler.CLIENT.enableArmorModels.get() ? LibResources.MODEL_TERRASTEEL_NEW : slot == EquipmentSlot.CHEST ? LibResources.MODEL_TERRASTEEL_1 : LibResources.MODEL_TERRASTEEL_0;
 	}
 
 	@Nonnull
 	@Override
-	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(@Nonnull EquipmentSlotType slot) {
-		Multimap<Attribute, AttributeModifier> ret = super.getAttributeModifiers(slot);
-		UUID uuid = new UUID(Registry.ITEM.getKey(this).hashCode() + slot.toString().hashCode(), 0);
-		if (slot == getEquipmentSlot()) {
+	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(@Nonnull EquipmentSlot slot) {
+		Multimap<EntityAttribute, EntityAttributeModifier> ret = super.getAttributeModifiers(slot);
+		UUID uuid = new UUID(Registry.ITEM.getId(this).hashCode() + slot.toString().hashCode(), 0);
+		if (slot == getSlotType()) {
 			ret = HashMultimap.create(ret);
-			int reduction = material.getDamageReductionAmount(slot);
-			ret.put(Attributes.KNOCKBACK_RESISTANCE,
-					new AttributeModifier(uuid, "Terrasteel modifier " + type, (double) reduction / 20, AttributeModifier.Operation.ADDITION));
+			int reduction = type.getProtectionAmount(slot);
+			ret.put(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE,
+					new EntityAttributeModifier(uuid, "Terrasteel modifier " + type, (double) reduction / 20, EntityAttributeModifier.Operation.ADDITION));
 		}
 		return ret;
 	}
 
-	private static final LazyValue<ItemStack[]> armorSet = new LazyValue<>(() -> new ItemStack[] {
+	private static final Lazy<ItemStack[]> armorSet = new Lazy<>(() -> new ItemStack[] {
 			new ItemStack(ModItems.terrasteelHelm),
 			new ItemStack(ModItems.terrasteelChest),
 			new ItemStack(ModItems.terrasteelLegs),
@@ -79,16 +80,16 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
 	@Override
 	public ItemStack[] getArmorSetStacks() {
-		return armorSet.getValue();
+		return armorSet.get();
 	}
 
 	@Override
-	public boolean hasArmorSetItem(PlayerEntity player, EquipmentSlotType slot) {
+	public boolean hasArmorSetItem(PlayerEntity player, EquipmentSlot slot) {
 		if (player == null) {
 			return false;
 		}
 
-		ItemStack stack = player.getItemStackFromSlot(slot);
+		ItemStack stack = player.getEquippedStack(slot);
 		if (stack.isEmpty()) {
 			return false;
 		}
@@ -108,16 +109,16 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 	}
 
 	@Override
-	public IFormattableTextComponent getArmorSetName() {
-		return new TranslationTextComponent("botania.armorset.terrasteel.name");
+	public MutableText getArmorSetName() {
+		return new TranslatableText("botania.armorset.terrasteel.name");
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void addArmorSetDescription(ItemStack stack, List<ITextComponent> list) {
-		list.add(new TranslationTextComponent("botania.armorset.terrasteel.desc0").func_240699_a_(TextFormatting.GRAY));
-		list.add(new TranslationTextComponent("botania.armorset.terrasteel.desc1").func_240699_a_(TextFormatting.GRAY));
-		list.add(new TranslationTextComponent("botania.armorset.terrasteel.desc2").func_240699_a_(TextFormatting.GRAY));
+	public void addArmorSetDescription(ItemStack stack, List<Text> list) {
+		list.add(new TranslatableText("botania.armorset.terrasteel.desc0").formatted(Formatting.GRAY));
+		list.add(new TranslatableText("botania.armorset.terrasteel.desc1").formatted(Formatting.GRAY));
+		list.add(new TranslatableText("botania.armorset.terrasteel.desc2").formatted(Formatting.GRAY));
 	}
 
 }

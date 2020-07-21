@@ -9,15 +9,15 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
@@ -46,9 +46,9 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().rand.nextInt(4) == 0) {
+		if (getWorld().random.nextInt(4) == 0) {
 			WispParticleData data = WispParticleData.wisp(0.25F + (float) Math.random() * 0.15F, 0.05F, 0.05F, 0.05F);
-			world.addParticle(data, getEffectivePos().getX() + Math.random(), getEffectivePos().getY() + Math.random(), getEffectivePos().getZ() + Math.random(), orientation.getXOffset() * 0.1F, orientation.getYOffset() * 0.1F, orientation.getZOffset() * 0.1F);
+			world.addParticle(data, getEffectivePos().getX() + Math.random(), getEffectivePos().getY() + Math.random(), getEffectivePos().getZ() + Math.random(), orientation.getOffsetX() * 0.1F, orientation.getOffsetY() * 0.1F, orientation.getOffsetZ() * 0.1F);
 		}
 
 		if (windTicks == 0 && getMana() > 0) {
@@ -57,17 +57,17 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 		}
 
 		if (windTicks > 0 && redstoneSignal == 0) {
-			AxisAlignedBB axis = aabbForOrientation();
+			Box axis = aabbForOrientation();
 
 			if (axis != null) {
-				List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, axis);
+				List<ItemEntity> items = getWorld().getNonSpectatingEntities(ItemEntity.class, axis);
 				int slowdown = getSlowdownFactor();
 				for (ItemEntity item : items) {
 					if (item.isAlive() && ((AccessorItemEntity) item).getAge() >= slowdown) {
-						item.setMotion(
-								item.getMotion().getX() + orientation.getXOffset() * 0.05,
-								item.getMotion().getY() + orientation.getYOffset() * 0.05,
-								item.getMotion().getZ() + orientation.getZOffset() * 0.05
+						item.setVelocity(
+								item.getVelocity().getX() + orientation.getOffsetX() * 0.05,
+								item.getVelocity().getY() + orientation.getOffsetY() * 0.05,
+								item.getVelocity().getZ() + orientation.getOffsetZ() * 0.05
 						);
 					}
 				}
@@ -77,7 +77,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 		}
 	}
 
-	private AxisAlignedBB aabbForOrientation() {
+	private Box aabbForOrientation() {
 		int x = getEffectivePos().getX();
 		int y = getEffectivePos().getY();
 		int z = getEffectivePos().getZ();
@@ -85,19 +85,19 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 		int h = 3;
 		int l = 16;
 
-		AxisAlignedBB axis = null;
+		Box axis = null;
 		switch (orientation) {
 		case NORTH:
-			axis = new AxisAlignedBB(x - w, y - h, z - l, x + w + 1, y + h, z);
+			axis = new Box(x - w, y - h, z - l, x + w + 1, y + h, z);
 			break;
 		case SOUTH:
-			axis = new AxisAlignedBB(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
+			axis = new Box(x - w, y - h, z + 1, x + w + 1, y + h, z + l + 1);
 			break;
 		case WEST:
-			axis = new AxisAlignedBB(x - l, y - h, z - w, x, y + h, z + w + 1);
+			axis = new Box(x - l, y - h, z - w, x, y + h, z + w + 1);
 			break;
 		case EAST:
-			axis = new AxisAlignedBB(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
+			axis = new Box(x + 1, y - h, z - w, x + l + 1, y + h, z + w + 1);
 			break;
 		default:
 		}
@@ -116,8 +116,8 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 		}
 
 		if (player.isSneaking()) {
-			if (!player.world.isRemote) {
-				orientation = orientation.rotateY();
+			if (!player.world.isClient) {
+				orientation = orientation.rotateYClockwise();
 				sync();
 			}
 
@@ -137,8 +137,8 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		AxisAlignedBB aabb = aabbForOrientation();
-		aabb = new AxisAlignedBB(aabb.minX, getEffectivePos().getY(), aabb.minZ, aabb.maxX, aabb.maxY, aabb.maxZ);
+		Box aabb = aabbForOrientation();
+		aabb = new Box(aabb.minX, getEffectivePos().getY(), aabb.minZ, aabb.maxX, aabb.maxY, aabb.maxZ);
 		return new RadiusDescriptor.Rectangle(getEffectivePos(), aabb);
 	}
 
@@ -153,18 +153,18 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundNBT cmp) {
+	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
 
-		cmp.putInt(TAG_ORIENTATION, orientation.getIndex());
+		cmp.putInt(TAG_ORIENTATION, orientation.getId());
 		cmp.putInt(TAG_WIND_TICKS, windTicks);
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundNBT cmp) {
+	public void readFromPacketNBT(CompoundTag cmp) {
 		super.readFromPacketNBT(cmp);
 
-		orientation = Direction.byIndex(cmp.getInt(TAG_ORIENTATION));
+		orientation = Direction.byId(cmp.getInt(TAG_ORIENTATION));
 		windTicks = cmp.getInt(TAG_WIND_TICKS);
 	}
 

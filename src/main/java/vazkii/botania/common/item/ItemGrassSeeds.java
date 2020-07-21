@@ -15,10 +15,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.RegistryKey;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.LogicalSide;
@@ -51,24 +51,24 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 
 	private final IslandType type;
 
-	public ItemGrassSeeds(IslandType type, Properties props) {
+	public ItemGrassSeeds(IslandType type, Settings props) {
 		super(props);
 		this.type = type;
 	}
 
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
+	public ActionResult useOnBlock(ItemUsageContext ctx) {
 		World world = ctx.getWorld();
-		BlockPos pos = ctx.getPos();
+		BlockPos pos = ctx.getBlockPos();
 		BlockState state = world.getBlockState(pos);
-		ItemStack stack = ctx.getItem();
+		ItemStack stack = ctx.getStack();
 
 		if (state.getBlock() == Blocks.DIRT || state.getBlock() == Blocks.GRASS_BLOCK && type != IslandType.GRASS) {
-			if (!world.isRemote) {
+			if (!world.isClient) {
 				BlockSwapper swapper = addBlockSwapper(world, pos, type);
 				world.setBlockState(pos, swapper.stateToSet);
-				stack.shrink(1);
+				stack.decrement(1);
 			} else {
 				float r = 0F;
 				float g = 0.4F;
@@ -95,15 +95,15 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 				}
 			}
 
-			return ActionResultType.SUCCESS;
+			return ActionResult.SUCCESS;
 		}
 
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
 	public static void onTickEnd(TickEvent.WorldTickEvent event) {
 		if (event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END) {
-			RegistryKey<World> dim = event.world.func_234923_W_();
+			RegistryKey<World> dim = event.world.getRegistryKey();
 			if (blockSwappers.containsKey(dim)) {
 				blockSwappers.get(dim).removeIf(next -> next == null || !next.tick());
 			}
@@ -126,7 +126,7 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 	private static BlockSwapper addBlockSwapper(World world, BlockPos pos, IslandType type) {
 		BlockSwapper swapper = new BlockSwapper(world, pos, stateForType(type));
 
-		RegistryKey<World> dim = world.func_234923_W_();
+		RegistryKey<World> dim = world.getRegistryKey();
 		blockSwappers.computeIfAbsent(dim, d -> new HashSet<>()).add(swapper);
 
 		return swapper;
@@ -202,7 +202,7 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 		 */
 		public boolean tick() {
 			if (++ticksExisted % 20 == 0) {
-				for (BlockPos pos : BlockPos.getAllInBoxMutable(startCoords.add(-RANGE, 0, -RANGE),
+				for (BlockPos pos : BlockPos.iterate(startCoords.add(-RANGE, 0, -RANGE),
 						startCoords.add(RANGE, 0, RANGE))) {
 					if (world.getBlockState(pos) == stateToSet) {
 						tickBlock(pos);

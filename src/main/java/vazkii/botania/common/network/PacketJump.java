@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.network;
 
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import vazkii.botania.common.core.handler.EquipmentHandler;
@@ -20,9 +20,9 @@ import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
 import java.util.function.Supplier;
 
 public class PacketJump {
-	public static void encode(PacketJump msg, PacketBuffer buf) {}
+	public static void encode(PacketJump msg, PacketByteBuf buf) {}
 
-	public static PacketJump decode(PacketBuffer buf) {
+	public static PacketJump decode(PacketByteBuf buf) {
 		return new PacketJump();
 	}
 

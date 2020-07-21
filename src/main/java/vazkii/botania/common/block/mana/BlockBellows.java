@@ -9,22 +9,22 @@
 package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.block.BlockMod;
@@ -33,39 +33,39 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 
 import javax.annotation.Nonnull;
 
-public class BlockBellows extends BlockMod implements ITileEntityProvider {
+public class BlockBellows extends BlockMod implements BlockEntityProvider {
 
-	private static final VoxelShape SHAPE = makeCuboidShape(3, 0, 3, 13, 10.0, 13);
+	private static final VoxelShape SHAPE = createCuboidShape(3, 0, 3, 13, 10.0, 13);
 
-	public BlockBellows(Properties builder) {
+	public BlockBellows(Settings builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
+		setDefaultState(getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.SOUTH));
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		super.fillStateContainer(builder);
-		builder.add(BlockStateProperties.HORIZONTAL_FACING);
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		super.appendProperties(builder);
+		builder.add(Properties.HORIZONTAL_FACING);
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
 		return SHAPE;
 	}
 
 	@Nonnull
 	@Override
-	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		return super.getStateForPlacement(context).with(BlockStateProperties.HORIZONTAL_FACING, context.getPlacementHorizontalFacing());
+	public BlockState getPlacementState(ItemPlacementContext context) {
+		return super.getPlacementState(context).with(Properties.HORIZONTAL_FACING, context.getPlayerFacing());
 	}
 
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		if (EntityDoppleganger.isTruePlayer(player)) {
-			((TileBellows) world.getTileEntity(pos)).interact();
+			((TileBellows) world.getBlockEntity(pos)).interact();
 		}
-		return ActionResultType.SUCCESS;
+		return ActionResult.SUCCESS;
 	}
 
 	@Nonnull
@@ -76,7 +76,7 @@ public class BlockBellows extends BlockMod implements ITileEntityProvider {
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TileBellows();
 	}
 

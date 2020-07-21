@@ -1,137 +1,38 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        maven {
-            name "forge"
-            url "https://files.minecraftforge.net/maven"
-        }
-        maven { url = 'https://dist.creeper.host/Sponge/maven' }
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.0.+'
-        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
-    }
-}
-
 plugins {
+    id 'fabric-loom' version '0.4-SNAPSHOT'
+    id 'maven-publish'
     id 'org.hidetake.ssh' version '2.10.1'
     id "com.diffplug.gradle.spotless" version "3.27.2"
 }
 
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
 apply plugin: 'pmd'
-apply plugin: 'org.spongepowered.mixin'
 
-mixin {
-    add sourceSets.main, "botania.refmap.json"
-}
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
 
 ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
 ext.priv = parseConfig(file('private.properties'))
 
-def mc_version = "1.16.1"
-version = "${config.version}-${config.build_number}"
+version = "${config.version}-${config.build_number}-FABRIC"
 if (System.getenv().RELEASE_MODE == null) {
     version += '-SNAPSHOT'
 }
 
-group = "vazkii.botania" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = config.mod_name
-
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+group = "vazkii.${config.mod_id}"
+archivesBaseName = "${config.mod_name}"
 
 minecraft {
-    mappings channel: 'snapshot', version: "20200707-1.16.1"
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-    runs {
-        client {
-            properties 'forge.logging.console.level': 'debug'
-            properties 'fml.earlyprogresswindow': 'false'
-            workingDirectory project.file('run')
-            mods {
-                botania {
-                    source sourceSets.main
-                }
-            }
-        }
-        server {
-            properties 'forge.logging.console.level': 'debug'
-            workingDirectory project.file('run')
-            mods {
-                botania {
-                    source sourceSets.main
-                }
-            }
-        }
-        data {
-            properties 'fml.earlyprogresswindow': 'false'
-            workingDirectory project.file('run')
-            mods {
-                botania {
-                    source sourceSets.main
-                }
-            }
-            args '--mod', 'botania', '--all',
-                    '--existing', '"' + file('src/main/resources/') + '"',
-                    '--existing', '"' + file('src/generated/resources/') + '"',
-                    '--output', '"' + file('src/generated/resources/') + '"'
-        }
-    }
-}
-
-sourceSets.main.resources {
-    srcDir 'src/generated/resources'
-}
-
-repositories {
-    mavenCentral()
-    maven {
-        url "https://maven.blamejared.com"
-    }
-    maven {
-        url "https://dvs1.progwml6.com/files/maven"
-    }
-    maven {
-        url "https://minecraft.curseforge.com/api/maven/"
-    }
-    maven {
-        name "curios"
-        url "https://maven.theillusivec4.top/"
-    }
-}
-
-test {
-    useJUnitPlatform()
-}
-
-dependencies {
-    minecraft "net.minecraftforge:forge:${mc_version}-32.0.66"
-    compile 'org.spongepowered:mixin:0.8'
-    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16-39:api")
-    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16-39")
-
-    compileOnly fg.deobf("mezz.jei:jei-1.16.1:7.0.0.2:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.16.1:7.0.0.2")
-
-    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.16.1-3.0-beta2:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-1.16.1-3.0-beta2")
-
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
 }
 
 spotless {
     enforceCheck = false // workaround around jenkins having wrong line endings in some files
-                         // we explicitly check in github actions builds
+    // we explicitly check in github actions builds
     java {
-        target '**/vazkii/botania/**/*.java'
-        targetExclude '**/buildcraft/*.java', '**/thaumcraft/*.java'
+        target '**/vazkii/patchouli/**/*.java'
 
         indentWithTabs()
-        licenseHeaderFile( 'spotless/license_template.txt')
         eclipse().configFile 'spotless/eclipseformat.xml'
         importOrderFile 'spotless/eclipse.importorder'
     }
@@ -144,25 +45,65 @@ task checkSyntax {
     dependsOn spotlessJavaCheck, pmdMain
 }
 
-jar {
-    manifest {
-        attributes(["Specification-Title": "botania",
-                    "Specification-Vendor": "botania",
-                    "Specification-Version": "1",
-                    "Implementation-Title": project.name,
-                    "Implementation-Version": "${version}",
-                    "Implementation-Vendor": "botania",
-                    "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-                    "MixinConnector": "vazkii.botania.common.MixinConnector"
-        ])
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
+}
+
+repositories {
+    maven {
+        name = "Modmuss"
+        url = "https://maven.modmuss50.me/"
     }
-    
-    exclude "**/*.bat"
-    exclude "**/*.psd"
-    exclude "**/*.exe"
+    maven {
+        name = "Jared"
+        url = "https://maven.blamejared.com/"
+    }
+    maven {
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven {
+          name = "Ladysnake Libs"
+	      url = 'https://dl.bintray.com/ladysnake/libs'
+    }
+}
+
+dependencies {
+    compileOnly "com.google.code.findbugs:jsr305:3.0.2"
+
+    modCompile "vazkii.patchouli:Patchouli:1.16-38-FABRIC:api"
+    modRuntime "vazkii.patchouli:Patchouli:1.16-38-FABRIC"
+
+    modImplementation "me.zeroeightsix:fiber:0.23.0-1"
+    include "me.zeroeightsix:fiber:0.23.0-1"
+
+    modImplementation "top.theillusivec4.curios:curios-fabric:1.16.1-0.2"
+
+    //to change the versions see the gradle.properties file
+    minecraft "com.mojang:minecraft:1.16.1"
+    mappings "net.fabricmc:yarn:1.16.1+build.20:v2"
+    modCompile "net.fabricmc:fabric-loader:0.8.9+build.203"
+
+    // Fabric API. This is technically optional, but you probably want it anyway.
+    modCompile "net.fabricmc.fabric-api:fabric-api:0.14.1+build.372-1.16"
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
+    // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
+    // You may need to force-disable transitiveness on them.
 }
 
 processResources {
+    inputs.property "version", project.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include "fabric.mod.json"
+        expand "version": project.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude "fabric.mod.json"
+    }
+
     // Exclude datagenerator .cache directory
     exclude '.cache'
 
@@ -173,30 +114,10 @@ processResources {
     }
 }
 
-task srcJar(type: Jar) {
-    from(sourceSets.main.java)
-    classifier = 'sources'
+test {
+    useJUnitPlatform()
 }
 
-task apiJar(type: Jar) {
-    // Remove sources from the api jar when MinecraftForge/ForgeGradle#369 is fixed
-    from(sourceSets.main.allJava)
-    from(sourceSets.main.output)
-    include 'vazkii/botania/api/**'
-
-    classifier = 'api'
-}
-
-artifacts {
-    archives srcJar, apiJar
-}
-
-/**
- * Increments the buildnumber in your config file, and saves it
- * Note: The doFirst is important, without it the build number
- * will be incremented every time tasks are configured, i.e every
- * time gradle is run on this project. 
- */
 task incrementBuildNumber {
     doFirst {
         config.build_number = (config.build_number.toString().toInteger()) + 1
@@ -211,13 +132,14 @@ task incrementBuildNumber {
 
 // SCP servers
 remotes {
-    if (priv != null)
+    if (priv != null) {
         web {
             host = 'botaniamod.net'
             user = priv.scp_user
             password = priv.scp_pass
             knownHosts = allowAnyHosts
         }
+    }
 }
 
 task upload {
@@ -258,29 +180,57 @@ def parseConfig(File config) {
 	}
 }
 
+// ensure that the encoding is set to UTF-8, no matter what the system default is
+// this fixes some edge cases with special characters not displaying correctly
+// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+// if it is present.
+// If you remove this task, sources will not be generated.
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = "sources"
+    from sourceSets.main.allSource
+}
+
+jar {
+    from "LICENSE"
+
+    exclude "**/*.bat"
+    exclude "**/*.psd"
+    exclude "**/*.exe"
+}
+
+task apiJar(type: Jar, dependsOn: classes) {
+    from(sourceSets.main.output)
+    include 'vazkii/botania/api/**'
+
+    classifier = "api"
+}
+
+// configure the maven publication
 publishing {
-    tasks.publish.dependsOn build
     publications {
         mavenJava(MavenPublication) {
-            groupId project.group
-            artifactId project.archivesBaseName
-            version project.version
-            from components.java
-            artifact srcJar
-            artifact apiJar
-            pom.withXml {
-                def node = asNode()
-                if(node.dependencies.size() > 0)
-                    node.remove(node.dependencies) // Remove deps, as they are all mappings-dependent and/or forge
+            // add all the jars that should be included when publishing to maven
+            artifact(remapJar) {
+                builtBy remapJar
+            }
+            artifact(sourcesJar) {
+                builtBy remapSourcesJar
+            }
+            artifact(apiJar) {
+                builtBy apiJar
             }
         }
     }
 
+    // select the repositories you want to publish to
     repositories {
         maven {
             url "file://" + System.getenv("local_maven")
         }
     }
 }
-
-defaultTasks 'clean', 'checkSyntax', 'build'

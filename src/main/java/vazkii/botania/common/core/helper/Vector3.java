@@ -8,16 +8,14 @@
  */
 package vazkii.botania.common.core.helper;
 
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.entity.Entity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.util.math.vector.Vector4f;
+import net.minecraft.util.math.Matrix4f;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -42,7 +40,7 @@ public class Vector3 {
 		z = d2;
 	}
 
-	public Vector3(Vector3d vec) {
+	public Vector3(Vec3d vec) {
 		this(vec.x, vec.y, vec.z);
 	}
 
@@ -51,14 +49,14 @@ public class Vector3 {
 	}
 
 	public static Vector3 fromEntityCenter(Entity e) {
-		return new Vector3(e.getPosX(), e.getPosY() - e.getYOffset() + e.getHeight() / 2, e.getPosZ());
+		return new Vector3(e.getX(), e.getY() - e.getHeightOffset() + e.getHeight() / 2, e.getZ());
 	}
 
-	public static Vector3 fromTileEntity(TileEntity e) {
+	public static Vector3 fromTileEntity(BlockEntity e) {
 		return fromBlockPos(e.getPos());
 	}
 
-	public static Vector3 fromTileEntityCenter(TileEntity e) {
+	public static Vector3 fromTileEntityCenter(BlockEntity e) {
 		return fromTileEntity(e).add(0.5);
 	}
 
@@ -160,8 +158,8 @@ public class Vector3 {
 		return new Vector3(d, 0, d1);
 	}
 
-	public Vector3d toVector3d() {
-		return new Vector3d(x, y, z);
+	public Vec3d toVector3d() {
+		return new Vec3d(x, y, z);
 	}
 
 	public double angle(Vector3 vec) {
@@ -172,9 +170,9 @@ public class Vector3 {
 		return x == 0 && y == 0 && z == 0;
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	public void vertex(Matrix4f mat, IVertexBuilder buffer) {
-		buffer.pos(mat, (float) x, (float) y, (float) z);
+	@Environment(EnvType.CLIENT)
+	public void vertex(Matrix4f mat, VertexConsumer buffer) {
+		buffer.vertex(mat, (float) x, (float) y, (float) z);
 	}
 
 	public Vector3 negate() {

@@ -8,15 +8,16 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -38,13 +39,13 @@ public class ItemDodgeRing extends ItemBauble {
 	private static boolean oldLeftDown, oldRightDown, oldForwardDown, oldBackDown;
 	private static int leftDown, rightDown, forwardDown, backDown;
 
-	public ItemDodgeRing(Properties props) {
+	public ItemDodgeRing(Settings props) {
 		super(props);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public static void onKeyDown(InputEvent.KeyInputEvent event) {
-		Minecraft mc = Minecraft.getInstance();
+		MinecraftClient mc = MinecraftClient.getInstance();
 		if (mc.player == null) {
 			return;
 		}
@@ -55,28 +56,28 @@ public class ItemDodgeRing extends ItemBauble {
 		}
 
 		int threshold = 5;
-		if (mc.gameSettings.keyBindLeft.isKeyDown() && !oldLeftDown) {
+		if (mc.options.keyLeft.isPressed() && !oldLeftDown) {
 			int oldLeft = leftDown;
 			leftDown = ClientTickHandler.ticksInGame;
 
 			if (leftDown - oldLeft < threshold) {
 				dodge(mc.player, Direction.WEST);
 			}
-		} else if (mc.gameSettings.keyBindRight.isKeyDown() && !oldRightDown) {
+		} else if (mc.options.keyRight.isPressed() && !oldRightDown) {
 			int oldRight = rightDown;
 			rightDown = ClientTickHandler.ticksInGame;
 
 			if (rightDown - oldRight < threshold) {
 				dodge(mc.player, Direction.EAST);
 			}
-		} else if (mc.gameSettings.keyBindForward.isKeyDown() && !oldForwardDown) {
+		} else if (mc.options.keyForward.isPressed() && !oldForwardDown) {
 			int oldForward = forwardDown;
 			forwardDown = ClientTickHandler.ticksInGame;
 
 			if (forwardDown - oldForward < threshold) {
 				dodge(mc.player, Direction.NORTH);
 			}
-		} else if (mc.gameSettings.keyBindBack.isKeyDown() && !oldBackDown) {
+		} else if (mc.options.keyBack.isPressed() && !oldBackDown) {
 			int oldBack = backDown;
 			backDown = ClientTickHandler.ticksInGame;
 
@@ -85,10 +86,10 @@ public class ItemDodgeRing extends ItemBauble {
 			}
 		}
 
-		oldLeftDown = mc.gameSettings.keyBindLeft.isKeyDown();
-		oldRightDown = mc.gameSettings.keyBindRight.isKeyDown();
-		oldForwardDown = mc.gameSettings.keyBindForward.isKeyDown();
-		oldBackDown = mc.gameSettings.keyBindBack.isKeyDown();
+		oldLeftDown = mc.options.keyLeft.isPressed();
+		oldRightDown = mc.options.keyRight.isPressed();
+		oldForwardDown = mc.options.keyForward.isPressed();
+		oldBackDown = mc.options.keyBack.isPressed();
 	}
 
 	@Override
@@ -100,11 +101,11 @@ public class ItemDodgeRing extends ItemBauble {
 	}
 
 	private static void dodge(PlayerEntity player, Direction dir) {
-		if (player.abilities.isFlying || !player.func_233570_aj_() || dir == Direction.UP || dir == Direction.DOWN) {
+		if (player.abilities.flying || !player.isOnGround() || dir == Direction.UP || dir == Direction.DOWN) {
 			return;
 		}
 
-		float yaw = player.rotationYaw;
+		float yaw = player.yaw;
 		float x = MathHelper.sin(-yaw * 0.017453292F - (float) Math.PI);
 		float z = MathHelper.cos(-yaw * 0.017453292F - (float) Math.PI);
 		if (dir == Direction.NORTH || dir == Direction.SOUTH) {
@@ -114,23 +115,23 @@ public class ItemDodgeRing extends ItemBauble {
 		Vector3 lookVec = new Vector3(x, 0, z);
 		Vector3 sideVec = lookVec.crossProduct(new Vector3(0, dir == Direction.WEST || dir == Direction.NORTH ? 1 : (dir == Direction.EAST || dir == Direction.SOUTH ? -1 : 0), 0)).multiply(1.25);
 
-		player.setMotion(sideVec.toVector3d());
+		player.setVelocity(sideVec.toVector3d());
 
 		PacketHandler.sendToServer(new PacketDodge());
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public static void renderHUD(MatrixStack ms, PlayerEntity player, ItemStack stack, float pticks) {
-		int xo = Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 - 20;
-		int y = Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 + 20;
+		int xo = MinecraftClient.getInstance().getWindow().getScaledWidth() / 2 - 20;
+		int y = MinecraftClient.getInstance().getWindow().getScaledHeight() / 2 + 20;
 
-		if (!player.abilities.isFlying) {
+		if (!player.abilities.flying) {
 			int cd = ItemNBTHelper.getInt(stack, TAG_DODGE_COOLDOWN, 0);
 			int width = Math.min((int) ((cd - pticks) * 2), 40);
 			RenderSystem.color4f(1F, 1F, 1F, 1F);
 			if (width > 0) {
-				AbstractGui.fill(ms, xo, y - 2, xo + 40, y - 1, 0x88000000);
-				AbstractGui.fill(ms, xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
+				DrawableHelper.fill(ms, xo, y - 2, xo + 40, y - 1, 0x88000000);
+				DrawableHelper.fill(ms, xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
 			}
 		}
 

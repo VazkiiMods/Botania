@@ -12,19 +12,19 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ICraftingRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapelessRecipe;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.CraftingRecipe;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.ShapelessRecipe;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 
-public class ShapelessManaUpgradeRecipe implements ICraftingRecipe {
+public class ShapelessManaUpgradeRecipe implements CraftingRecipe {
 	private final ShapelessRecipe compose;
 
 	public ShapelessManaUpgradeRecipe(ShapelessRecipe compose) {
@@ -39,57 +39,57 @@ public class ShapelessManaUpgradeRecipe implements ICraftingRecipe {
 	@Nonnull
 	@Override
 	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
-		return ManaUpgradeRecipe.output(compose.getCraftingResult(inv), inv);
+		return ManaUpgradeRecipe.output(compose.craft(inv), inv);
 	}
 
 	@Override
-	public boolean canFit(int width, int height) {
-		return compose.canFit(width, height);
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack getRecipeOutput() {
-		return compose.getRecipeOutput();
+	public boolean fits(int width, int height) {
+		return compose.fits(width, height);
 	}
 
 	@Nonnull
 	@Override
-	public NonNullList<Ingredient> getIngredients() {
-		return compose.getIngredients();
+	public ItemStack getOutput() {
+		return compose.getOutput();
 	}
 
 	@Nonnull
 	@Override
-	public ResourceLocation getId() {
+	public DefaultedList<Ingredient> getPreviewInputs() {
+		return compose.getPreviewInputs();
+	}
+
+	@Nonnull
+	@Override
+	public Identifier getId() {
 		return compose.getId();
 	}
 
 	@Nonnull
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 
-	public static final IRecipeSerializer<ShapelessManaUpgradeRecipe> SERIALIZER = new Serializer();
+	public static final RecipeSerializer<ShapelessManaUpgradeRecipe> SERIALIZER = new Serializer();
 
-	private static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<ShapelessManaUpgradeRecipe> {
+	private static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<ShapelessManaUpgradeRecipe> {
 		@Nonnull
 		@Override
-		public ShapelessManaUpgradeRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
-			return new ShapelessManaUpgradeRecipe(IRecipeSerializer.CRAFTING_SHAPELESS.read(recipeId, json));
+		public ShapelessManaUpgradeRecipe read(@Nonnull Identifier recipeId, @Nonnull JsonObject json) {
+			return new ShapelessManaUpgradeRecipe(RecipeSerializer.SHAPELESS.read(recipeId, json));
 		}
 
 		@Nonnull
 		@Override
-		public ShapelessManaUpgradeRecipe read(@Nonnull ResourceLocation recipeId, @Nonnull PacketBuffer buffer) {
-			return new ShapelessManaUpgradeRecipe(IRecipeSerializer.CRAFTING_SHAPELESS.read(recipeId, buffer));
+		public ShapelessManaUpgradeRecipe read(@Nonnull Identifier recipeId, @Nonnull PacketByteBuf buffer) {
+			return new ShapelessManaUpgradeRecipe(RecipeSerializer.SHAPELESS.read(recipeId, buffer));
 		}
 
 		@SuppressWarnings("unchecked")
 		@Override
-		public void write(@Nonnull PacketBuffer buffer, @Nonnull ShapelessManaUpgradeRecipe recipe) {
-			IRecipeSerializer.CRAFTING_SHAPELESS.write(buffer, recipe.compose);
+		public void write(@Nonnull PacketByteBuf buffer, @Nonnull ShapelessManaUpgradeRecipe recipe) {
+			RecipeSerializer.SHAPELESS.write(buffer, recipe.compose);
 		}
 	}
 }

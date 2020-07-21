@@ -8,13 +8,12 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
-import net.minecraft.entity.item.ItemFrameEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
-
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 import vazkii.botania.api.corporea.ICorporeaInterceptor;
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -42,13 +41,13 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 					missing -= stack_.getCount();
 				}
 
-				if (missing > 0 && !getBlockState().get(BlockStateProperties.POWERED)) {
-					world.setBlockState(getPos(), getBlockState().with(BlockStateProperties.POWERED, true));
-					world.getPendingBlockTicks().scheduleTick(getPos(), getBlockState().getBlock(), 2);
+				if (missing > 0 && !getCachedState().get(Properties.POWERED)) {
+					world.setBlockState(getPos(), getCachedState().with(Properties.POWERED, true));
+					world.getBlockTickScheduler().schedule(getPos(), getCachedState().getBlock(), 2);
 
-					TileEntity requestor = source.getSparkInventory().getWorld().getTileEntity(source.getSparkInventory().getPos());
+					BlockEntity requestor = source.getSparkInventory().getWorld().getBlockEntity(source.getSparkInventory().getPos());
 					for (Direction dir : Direction.values()) {
-						TileEntity tile = world.getTileEntity(pos.offset(dir));
+						BlockEntity tile = world.getBlockEntity(pos.offset(dir));
 						if (tile instanceof TileCorporeaRetainer) {
 							((TileCorporeaRetainer) tile).setPendingRequest(requestor.getPos(), request, count);
 						}
@@ -65,11 +64,11 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 		List<ItemStack> filter = new ArrayList<>();
 
 		for (Direction dir : Direction.values()) {
-			List<ItemFrameEntity> frames = world.getEntitiesWithinAABB(ItemFrameEntity.class, new AxisAlignedBB(pos.offset(dir), pos.offset(dir).add(1, 1, 1)));
+			List<ItemFrameEntity> frames = world.getNonSpectatingEntities(ItemFrameEntity.class, new Box(pos.offset(dir), pos.offset(dir).add(1, 1, 1)));
 			for (ItemFrameEntity frame : frames) {
 				Direction orientation = frame.getHorizontalFacing();
 				if (orientation == dir) {
-					filter.add(frame.getDisplayedItem());
+					filter.add(frame.getHeldItemStack());
 				}
 			}
 		}

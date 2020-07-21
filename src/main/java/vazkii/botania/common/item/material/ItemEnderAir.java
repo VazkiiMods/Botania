@@ -13,10 +13,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.*;
-import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import vazkii.botania.common.entity.EntityEnderAirBottle;
@@ -27,7 +29,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemEnderAir extends Item {
-	public ItemEnderAir(Properties props) {
+	public ItemEnderAir(Settings props) {
 		super(props);
 	}
 
@@ -35,44 +37,44 @@ public class ItemEnderAir extends Item {
 		ItemStack stack = event.getItemStack();
 		World world = event.getWorld();
 
-		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.func_234922_V_() == DimensionType.field_236001_e_) {
-			List<AreaEffectCloudEntity> list = world.getEntitiesWithinAABB(AreaEffectCloudEntity.class,
-					event.getPlayer().getBoundingBox().grow(3.5D),
+		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.getDimensionRegistryKey() == DimensionType.THE_END_REGISTRY_KEY) {
+			List<AreaEffectCloudEntity> list = world.getEntities(AreaEffectCloudEntity.class,
+					event.getPlayer().getBoundingBox().expand(3.5D),
 					entity -> entity != null && entity.isAlive()
-							&& entity.getParticleData().getType() == ParticleTypes.DRAGON_BREATH);
+							&& entity.getParticleType().getType() == ParticleTypes.DRAGON_BREATH);
 			if (!list.isEmpty()) {
 				return;
 			}
 
-			if (!world.isRemote) {
+			if (!world.isClient) {
 				ItemStack enderAir = new ItemStack(ModItems.enderAirBottle);
-				event.getPlayer().inventory.placeItemBackInInventory(world, enderAir);
-				stack.shrink(1);
+				event.getPlayer().inventory.offerOrDrop(world, enderAir);
+				stack.decrement(1);
 				world.playSound(null, event.getPos(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.NEUTRAL, 0.5F, 1F);
 			}
 
 			event.setCanceled(true);
-			event.setCancellationResult(ActionResultType.SUCCESS);
+			event.setCancellationResult(ActionResult.SUCCESS);
 		}
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getHeldItem(hand);
-		if (!player.abilities.isCreativeMode) {
-			stack.shrink(1);
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
+		ItemStack stack = player.getStackInHand(hand);
+		if (!player.abilities.creativeMode) {
+			stack.decrement(1);
 		}
 
-		world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+		world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (RANDOM.nextFloat() * 0.4F + 0.8F));
 
-		if (!world.isRemote) {
+		if (!world.isClient) {
 			EntityEnderAirBottle b = new EntityEnderAirBottle(player, world);
-			b.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0F, 1.5F, 1F);
-			world.addEntity(b);
+			b.setProperties(player, player.pitch, player.yaw, 0F, 1.5F, 1F);
+			world.spawnEntity(b);
 		} else {
-			player.swingArm(hand);
+			player.swingHand(hand);
 		}
-		return ActionResult.resultSuccess(stack);
+		return TypedActionResult.success(stack);
 	}
 }

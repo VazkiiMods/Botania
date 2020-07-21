@@ -8,25 +8,23 @@
  */
 package vazkii.botania.client.gui.box;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.gui.screen.inventory.InventoryScreen;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.gui.screen.ingame.InventoryScreen;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import vazkii.botania.client.lib.LibResources;
 
-public class GuiBaubleBox extends ContainerScreen<ContainerBaubleBox> {
+public class GuiBaubleBox extends HandledScreen<ContainerBaubleBox> {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_BAUBLE_BOX);
+	private static final Identifier texture = new Identifier(LibResources.GUI_BAUBLE_BOX);
 	private int mouseX;
 	private int mouseY;
 
-	public GuiBaubleBox(ContainerBaubleBox container, PlayerInventory player, ITextComponent title) {
+	public GuiBaubleBox(ContainerBaubleBox container, PlayerInventory player, Text title) {
 		super(container, player, title);
 	}
 
@@ -36,15 +34,15 @@ public class GuiBaubleBox extends ContainerScreen<ContainerBaubleBox> {
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
-		this.func_230459_a_(ms, mouseX, mouseY);
+		this.drawMouseoverTooltip(ms, mouseX, mouseY);
 	}
 
 	@Override
-	protected void func_230450_a_(MatrixStack ms, float partialTicks, int mouseX, int mouseY) {
+	protected void drawBackground(MatrixStack ms, float partialTicks, int mouseX, int mouseY) {
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		Minecraft.getInstance().getTextureManager().bindTexture(texture);
-		blit(ms, guiLeft, guiTop, 0, 0, xSize, ySize);
-		InventoryScreen.drawEntityOnScreen(guiLeft + 31, guiTop + 75, 30, guiLeft + 31 - this.mouseX, guiTop + 75 - 50 - this.mouseY, minecraft.player);
+		MinecraftClient.getInstance().getTextureManager().bindTexture(texture);
+		drawTexture(ms, x, y, 0, 0, backgroundWidth, backgroundHeight);
+		InventoryScreen.drawEntity(x + 31, y + 75, 30, x + 31 - this.mouseX, y + 75 - 50 - this.mouseY, client.player);
 	}
 
 }

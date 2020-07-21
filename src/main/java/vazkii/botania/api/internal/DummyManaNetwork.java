@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.internal;
 
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -23,22 +23,22 @@ public class DummyManaNetwork implements IManaNetwork {
 	public void clear() {}
 
 	@Override
-	public TileEntity getClosestPool(BlockPos pos, World world, int limit) {
+	public BlockEntity getClosestPool(BlockPos pos, World world, int limit) {
 		return null;
 	}
 
 	@Override
-	public TileEntity getClosestCollector(BlockPos pos, World world, int limit) {
+	public BlockEntity getClosestCollector(BlockPos pos, World world, int limit) {
 		return null;
 	}
 
 	@Override
-	public Set<TileEntity> getAllCollectorsInWorld(World world) {
+	public Set<BlockEntity> getAllCollectorsInWorld(World world) {
 		return Collections.emptySet();
 	}
 
 	@Override
-	public Set<TileEntity> getAllPoolsInWorld(World world) {
+	public Set<BlockEntity> getAllPoolsInWorld(World world) {
 		return Collections.emptySet();
 	}
 

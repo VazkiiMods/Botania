@@ -9,23 +9,24 @@
 package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.base.Predicates;
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.Tickable;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -63,7 +64,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket, ITickableTileEntity {
+public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket, Tickable {
 	public static final int PARTICLE_COLOR = 0x00C6FF;
 	public static final int MAX_MANA = 1000000;
 	private static final int MAX_MANA_DILLUTED = 10000;
@@ -120,8 +121,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	@Override
-	public void remove() {
-		super.remove();
+	public void markRemoved() {
+		super.markRemoved();
 		ManaNetworkEvent.removePool(this);
 	}
 
@@ -165,11 +166,11 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	public boolean collideEntityItem(ItemEntity item) {
-		if (world.isRemote || !item.isAlive() || item.getItem().isEmpty()) {
+		if (world.isClient || !item.isAlive() || item.getStack().isEmpty()) {
 			return false;
 		}
 
-		ItemStack stack = item.getItem();
+		ItemStack stack = item.getStack();
 
 		if (stack.getItem() instanceof IManaDissolvable) {
 			((IManaDissolvable) stack.getItem()).onDissolveTick(this, stack, item);
@@ -187,13 +188,13 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			if (getCurrentMana() >= mana) {
 				receiveMana(-mana);
 
-				stack.shrink(1);
-				item.func_230245_c_(false); //Force entity collision update to run every tick if crafting is in progress
+				stack.decrement(1);
+				item.setOnGround(false); //Force entity collision update to run every tick if crafting is in progress
 
-				ItemStack output = recipe.getRecipeOutput().copy();
+				ItemStack output = recipe.getOutput().copy();
 				ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 				((AccessorItemEntity) outputItem).setAge(105);
-				world.addEntity(outputItem);
+				world.spawnEntity(outputItem);
 
 				craftingFanciness();
 				return true;
@@ -209,14 +210,14 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			soundTicks = 6;
 		}
 
-		world.addBlockEvent(getPos(), getBlockState().getBlock(), CRAFT_EFFECT_EVENT, 0);
+		world.addSyncedBlockEvent(getPos(), getCachedState().getBlock(), CRAFT_EFFECT_EVENT, 0);
 	}
 
 	@Override
-	public boolean receiveClientEvent(int event, int param) {
+	public boolean onSyncedBlockEvent(int event, int param) {
 		switch (event) {
 		case CRAFT_EFFECT_EVENT: {
-			if (world.isRemote) {
+			if (world.isClient) {
 				for (int i = 0; i < 25; i++) {
 					float red = (float) Math.random();
 					float green = (float) Math.random();
@@ -229,33 +230,33 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			return true;
 		}
 		case CHARGE_EFFECT_EVENT: {
-			if (world.isRemote) {
+			if (world.isClient) {
 				if (ConfigHandler.COMMON.chargingAnimationEnabled.get()) {
 					boolean outputting = param == 1;
 					Vector3 itemVec = Vector3.fromBlockPos(pos).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
 					Vector3 tileVec = Vector3.fromBlockPos(pos).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
 					Botania.proxy.lightningFX(outputting ? tileVec : itemVec,
-							outputting ? itemVec : tileVec, 80, world.rand.nextLong(), 0x4400799c, 0x4400C6FF);
+							outputting ? itemVec : tileVec, 80, world.random.nextLong(), 0x4400799c, 0x4400C6FF);
 				}
 			}
 			return true;
 		}
 		default:
-			return super.receiveClientEvent(event, param);
+			return super.onSyncedBlockEvent(event, param);
 		}
 	}
 
 	@Override
 	public void tick() {
 		if (manaCap == -1) {
-			manaCap = ((BlockPool) getBlockState().getBlock()).variant == BlockPool.Variant.DILUTED ? MAX_MANA_DILLUTED : MAX_MANA;
+			manaCap = ((BlockPool) getCachedState().getBlock()).variant == BlockPool.Variant.DILUTED ? MAX_MANA_DILLUTED : MAX_MANA;
 		}
 
 		if (!ManaNetworkHandler.instance.isPoolIn(this) && !isRemoved()) {
 			ManaNetworkEvent.addPool(this);
 		}
 
-		if (world.isRemote) {
+		if (world.isClient) {
 			double particleChance = 1F - (double) getCurrentMana() / (double) manaCap * 0.1;
 			if (Math.random() > particleChance) {
 				float red = (PARTICLE_COLOR >> 16 & 0xFF) / 255F;
@@ -279,13 +280,13 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			sendPacket = false;
 		}
 
-		List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
+		List<ItemEntity> items = world.getNonSpectatingEntities(ItemEntity.class, new Box(pos, pos.add(1, 1, 1)));
 		for (ItemEntity item : items) {
 			if (!item.isAlive()) {
 				continue;
 			}
 
-			ItemStack stack = item.getItem();
+			ItemStack stack = item.getStack();
 			if (!stack.isEmpty() && stack.getItem() instanceof IManaItem) {
 				IManaItem mana = (IManaItem) stack.getItem();
 				if (outputting && mana.canReceiveManaFromPool(stack, this) || !outputting && mana.canExportManaToPool(stack, this)) {
@@ -293,8 +294,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 					int bellowCount = 0;
 					if (outputting) {
-						for (Direction dir : Direction.Plane.HORIZONTAL) {
-							TileEntity tile = world.getTileEntity(pos.offset(dir));
+						for (Direction dir : Direction.Type.HORIZONTAL) {
+							BlockEntity tile = world.getBlockEntity(pos.offset(dir));
 							if (tile instanceof TileBellows && ((TileBellows) tile).getLinkedTile() == this) {
 								bellowCount++;
 							}
@@ -325,8 +326,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 					}
 
 					if (didSomething) {
-						if (ConfigHandler.COMMON.chargingAnimationEnabled.get() && world.rand.nextInt(20) == 0) {
-							world.addBlockEvent(getPos(), getBlockState().getBlock(), CHARGE_EFFECT_EVENT, outputting ? 1 : 0);
+						if (ConfigHandler.COMMON.chargingAnimationEnabled.get() && world.random.nextInt(20) == 0) {
+							world.addSyncedBlockEvent(getPos(), getCachedState().getBlock(), CHARGE_EFFECT_EVENT, outputting ? 1 : 0);
 						}
 						isDoingTransfer = outputting;
 					}
@@ -347,7 +348,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT cmp) {
+	public void writePacketNBT(CompoundTag cmp) {
 		cmp.putInt(TAG_MANA, mana);
 		cmp.putBoolean(TAG_OUTPUTTING, outputting);
 		cmp.putInt(TAG_COLOR, color.getId());
@@ -362,7 +363,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT cmp) {
+	public void readPacketNBT(CompoundTag cmp) {
 		mana = cmp.getInt(TAG_MANA);
 		outputting = cmp.getBoolean(TAG_OUTPUTTING);
 		color = DyeColor.byId(cmp.getInt(TAG_COLOR));
@@ -394,15 +395,15 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(MatrixStack ms, Minecraft mc) {
-		ItemStack pool = new ItemStack(getBlockState().getBlock());
-		String name = pool.getDisplayName().getString();
+	@Environment(EnvType.CLIENT)
+	public void renderHUD(MatrixStack ms, MinecraftClient mc) {
+		ItemStack pool = new ItemStack(getCachedState().getBlock());
+		String name = pool.getName().getString();
 		int color = 0x4444FF;
 		BotaniaAPIClient.instance().drawSimpleManaHUD(ms, color, getCurrentMana(), manaCap, name);
 
-		int x = Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 - 11;
-		int y = Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 + 30;
+		int x = MinecraftClient.getInstance().getWindow().getScaledWidth() / 2 - 11;
+		int y = MinecraftClient.getInstance().getWindow().getScaledHeight() / 2 + 30;
 
 		int u = outputting ? 22 : 0;
 		int v = 38;
@@ -417,8 +418,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		ItemStack tablet = new ItemStack(ModItems.manaTablet);
 		ItemManaTablet.setStackCreative(tablet);
 
-		mc.getItemRenderer().renderItemAndEffectIntoGUI(tablet, x - 20, y);
-		mc.getItemRenderer().renderItemAndEffectIntoGUI(pool, x + 26, y);
+		mc.getItemRenderer().renderInGuiWithOverrides(tablet, x - 20, y);
+		mc.getItemRenderer().renderInGuiWithOverrides(pool, x + 26, y);
 
 		RenderSystem.disableLighting();
 		RenderSystem.disableBlend();
@@ -436,8 +437,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	@Override
 	public int getCurrentMana() {
-		if (getBlockState().getBlock() instanceof BlockPool) {
-			return ((BlockPool) getBlockState().getBlock()).variant == BlockPool.Variant.CREATIVE ? MAX_MANA : mana;
+		if (getCachedState().getBlock() instanceof BlockPool) {
+			return ((BlockPool) getCachedState().getBlock()).variant == BlockPool.Variant.CREATIVE ? MAX_MANA : mana;
 		}
 		return 0;
 	}
@@ -462,7 +463,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	@Override
 	public ISparkEntity getAttachedSpark() {
-		List<Entity> sparks = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up(), pos.up().add(1, 1, 1)), Predicates.instanceOf(ISparkEntity.class));
+		List<Entity> sparks = world.getEntities(Entity.class, new Box(pos.up(), pos.up().add(1, 1, 1)), Predicates.instanceOf(ISparkEntity.class));
 		if (sparks.size() == 1) {
 			Entity e = sparks.get(0);
 			return (ISparkEntity) e;
@@ -496,7 +497,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	@Override
 	public void setColor(DyeColor color) {
 		this.color = color;
-		world.notifyBlockUpdate(pos, getBlockState(), getBlockState(), 3);
+		world.updateListeners(pos, getCachedState(), getCachedState(), 3);
 	}
 
 	@Override

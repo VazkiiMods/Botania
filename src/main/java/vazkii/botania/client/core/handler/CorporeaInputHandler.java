@@ -8,15 +8,15 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.recipebook.RecipeBookGui;
-import net.minecraft.client.gui.recipebook.RecipeBookPage;
-import net.minecraft.client.gui.recipebook.RecipeWidget;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.gui.screen.inventory.InventoryScreen;
-import net.minecraft.inventory.container.Slot;
+import net.minecraft.client.gui.screen.ingame.HandledScreen;
+import net.minecraft.client.gui.screen.ingame.InventoryScreen;
+import net.minecraft.client.gui.screen.recipebook.AnimatedResultButton;
+import net.minecraft.client.gui.screen.recipebook.RecipeBookResults;
+import net.minecraft.client.gui.screen.recipebook.RecipeBookWidget;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.slot.Slot;
 import net.minecraftforge.client.event.GuiScreenEvent;
 
 import vazkii.botania.client.core.proxy.ClientProxy;
@@ -35,13 +35,13 @@ public class CorporeaInputHandler {
 	public static Supplier<ItemStack> jeiPanelSupplier = () -> ItemStack.EMPTY;
 
 	/** Filter for usable guis to handle requests. Added to in JEIBotaniaPlugin */
-	public static Predicate<Screen> supportedGuiFilter = gui -> gui instanceof ContainerScreen;
+	public static Predicate<Screen> supportedGuiFilter = gui -> gui instanceof HandledScreen;
 
 	public static void buttonPressed(GuiScreenEvent.KeyboardKeyPressedEvent.Pre event) {
-		Minecraft mc = Minecraft.getInstance();
+		MinecraftClient mc = MinecraftClient.getInstance();
 
 		if (mc.world == null || !supportedGuiFilter.test(mc.currentScreen) || event.getKeyCode() == 0
-				|| ClientProxy.CORPOREA_REQUEST.getKey().getKeyCode() != event.getKeyCode()
+				|| ClientProxy.CORPOREA_REQUEST.getKey().getCode() != event.getKeyCode()
 				|| TileCorporeaIndex.InputHandler.getNearbyIndexes(mc.player).isEmpty()) {
 			return;
 		}
@@ -49,7 +49,7 @@ public class CorporeaInputHandler {
 		ItemStack stack = getStackUnderMouse();
 		if (stack != null && !stack.isEmpty()) {
 			int count = 1;
-			int max = stack.getMaxStackSize();
+			int max = stack.getMaxCount();
 
 			if (Screen.hasShiftDown()) {
 				count = max;
@@ -70,9 +70,9 @@ public class CorporeaInputHandler {
 	}
 
 	private static ItemStack getStackUnderMouse() {
-		Screen screen = Minecraft.getInstance().currentScreen;
-		if (screen instanceof ContainerScreen) {
-			Slot slotUnderMouse = ((ContainerScreen) screen).getSlotUnderMouse();
+		Screen screen = MinecraftClient.getInstance().currentScreen;
+		if (screen instanceof HandledScreen) {
+			Slot slotUnderMouse = ((HandledScreen) screen).getSlotUnderMouse();
 			if (slotUnderMouse != null) {
 				ItemStack stack = slotUnderMouse.getStack().copy();
 				stack.setTag(null); // Wipe NBT of inventory items before request, as player items will often have data
@@ -80,12 +80,12 @@ public class CorporeaInputHandler {
 			}
 		}
 
-		if (screen instanceof InventoryScreen && ((InventoryScreen) screen).getRecipeGui().isVisible()) {
-			RecipeBookGui recipeBook = ((InventoryScreen) screen).getRecipeGui();
-			RecipeBookPage page = ((AccessorRecipeBookGui) recipeBook).getRecipeBookPage();
-			RecipeWidget widget = ((AccessorRecipeBookPage) page).getHoveredButton();
+		if (screen instanceof InventoryScreen && ((InventoryScreen) screen).getRecipeBookWidget().isOpen()) {
+			RecipeBookWidget recipeBook = ((InventoryScreen) screen).getRecipeBookWidget();
+			RecipeBookResults page = ((AccessorRecipeBookGui) recipeBook).getRecipeBookPage();
+			AnimatedResultButton widget = ((AccessorRecipeBookPage) page).getHoveredButton();
 			if (widget != null) {
-				return widget.getRecipe().getRecipeOutput();
+				return widget.currentRecipe().getOutput();
 			}
 		}
 

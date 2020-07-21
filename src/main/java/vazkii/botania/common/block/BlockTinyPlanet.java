@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.mana.IManaCollisionGhost;
@@ -22,23 +22,23 @@ import vazkii.botania.common.block.tile.TileTinyPlanet;
 
 import javax.annotation.Nonnull;
 
-public class BlockTinyPlanet extends BlockModWaterloggable implements IManaCollisionGhost, ITileEntityProvider {
+public class BlockTinyPlanet extends BlockModWaterloggable implements IManaCollisionGhost, BlockEntityProvider {
 
-	private static final VoxelShape AABB = makeCuboidShape(3, 3, 3, 13, 13, 13);
+	private static final VoxelShape AABB = createCuboidShape(3, 3, 3, 13, 13, 13);
 
-	protected BlockTinyPlanet(Properties builder) {
+	protected BlockTinyPlanet(Settings builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
 		return AABB;
 	}
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TileTinyPlanet();
 	}
 

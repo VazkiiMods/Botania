@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.integration.jei.runicaltar;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -17,12 +16,11 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
-
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.util.Identifier;
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
@@ -40,7 +38,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecipe> {
 
-	public static final ResourceLocation UID = prefix("runic_altar");
+	public static final Identifier UID = prefix("runic_altar");
 	private final IDrawable background;
 	private final String localizedName;
 	private final IDrawable overlay;
@@ -48,7 +46,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 
 	public RunicAltarRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(150, 110);
-		localizedName = I18n.format("botania.nei.runicAltar");
+		localizedName = I18n.translate("botania.nei.runicAltar");
 		overlay = guiHelper.createDrawable(prefix("textures/gui/petal_overlay.png"),
 				0, 0, 150, 110);
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.runeAltar));
@@ -56,7 +54,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 
 	@Nonnull
 	@Override
-	public ResourceLocation getUid() {
+	public Identifier getUid() {
 		return UID;
 	}
 
@@ -87,11 +85,11 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 	@Override
 	public void setIngredients(IRuneAltarRecipe recipe, IIngredients iIngredients) {
 		List<List<ItemStack>> list = new ArrayList<>();
-		for (Ingredient ingr : recipe.getIngredients()) {
-			list.add(Arrays.asList(ingr.getMatchingStacks()));
+		for (Ingredient ingr : recipe.getPreviewInputs()) {
+			list.add(Arrays.asList(ingr.getMatchingStacksClient()));
 		}
 		iIngredients.setInputLists(VanillaTypes.ITEM, list);
-		iIngredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
+		iIngredients.setOutput(VanillaTypes.ITEM, recipe.getOutput());
 	}
 
 	@Override

@@ -8,25 +8,24 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.Explosion;
-
+import net.minecraft.world.explosion.Explosion;
 import vazkii.botania.api.internal.IManaBurst;
 
 public class LensStorm extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		if (!entity.world.isRemote && !burst.isFake()) {
+	public boolean collideBurst(IManaBurst burst, ThrownEntity entity, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+		if (!entity.world.isClient && !burst.isFake()) {
 			BlockPos coords = burst.getBurstSourceBlockPos();
-			if (pos.getType() == RayTraceResult.Type.BLOCK
+			if (pos.getType() == HitResult.Type.BLOCK
 					&& !isManaBlock
-					&& !coords.equals(((BlockRayTraceResult) pos).getPos())) {
-				entity.world.createExplosion(entity, entity.getPosX(), entity.getPosY(), entity.getPosZ(), 5F, Explosion.Mode.DESTROY);
+					&& !coords.equals(((BlockHitResult) pos).getBlockPos())) {
+				entity.world.createExplosion(entity, entity.getX(), entity.getY(), entity.getZ(), 5F, Explosion.DestructionType.DESTROY);
 			}
 		} else {
 			dead = false;

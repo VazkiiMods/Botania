@@ -8,17 +8,17 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.particles.ItemParticleData;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.particle.ItemStackParticleEffect;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.util.Constants;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -72,7 +72,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 		for (ListIterator<ItemStack> it = lastFoods.listIterator(); it.hasNext();) {
 			int index = it.nextIndex();
 			ItemStack streakFood = it.next();
-			if (streakFood.isItemEqual(food) && ItemStack.areItemStackTagsEqual(streakFood, food)) {
+			if (streakFood.isItemEqualIgnoreDamage(food) && ItemStack.areTagsEqual(streakFood, food)) {
 				it.remove();
 				lastFoods.add(0, streakFood);
 				return index;
@@ -91,7 +91,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isRemote) {
+		if (getWorld().isClient) {
 			return;
 		}
 
@@ -111,31 +111,31 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 			} else if (cooldown % munchInterval == 0) {
 				getWorld().playSound(null, getEffectivePos(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.BLOCKS, 0.5f, 1);
 
-				Vector3d offset = getWorld().getBlockState(getEffectivePos()).getOffset(getWorld(), getEffectivePos()).add(0.4, 0.6, 0.4);
+				Vec3d offset = getWorld().getBlockState(getEffectivePos()).getModelOffset(getWorld(), getEffectivePos()).add(0.4, 0.6, 0.4);
 
-				((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, lastFoods.get(0)), getEffectivePos().getX() + offset.x, getEffectivePos().getY() + offset.y, getEffectivePos().getZ() + offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D);
+				((ServerWorld) getWorld()).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, lastFoods.get(0)), getEffectivePos().getX() + offset.x, getEffectivePos().getY() + offset.y, getEffectivePos().getZ() + offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D);
 			}
 		}
 
 		int slowdown = getSlowdownFactor();
 
-		List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		List<ItemEntity> items = getWorld().getNonSpectatingEntities(ItemEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 
 		for (ItemEntity item : items) {
-			ItemStack stack = item.getItem();
+			ItemStack stack = item.getStack();
 
 			int age = ((AccessorItemEntity) item).getAge();
 			if (!stack.isEmpty() && stack.getItem().isFood() && item.isAlive() && age >= slowdown) {
 				if (cooldown <= 0) {
 					streakLength = Math.min(streakLength + 1, processFood(stack));
 
-					int val = Math.min(12, stack.getItem().getFood().getHealing());
+					int val = Math.min(12, stack.getItem().getFoodComponent().getHunger());
 					digestingMana = val * val * 70;
 					digestingMana *= getMultiplierForStreak(streakLength);
 					cooldown = val * 10;
 					item.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.2F, 0.6F);
 					sync();
-					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), item.getPosX(), item.getPosY(), item.getPosZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
+					((ServerWorld) getWorld()).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, stack), item.getX(), item.getY(), item.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
 
 				item.remove();
@@ -144,13 +144,13 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundNBT cmp) {
+	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_COOLDOWN, cooldown);
 		cmp.putInt(TAG_DIGESTING_MANA, digestingMana);
-		ListNBT foodList = new ListNBT();
+		ListTag foodList = new ListTag();
 		for (ItemStack food : lastFoods) {
-			foodList.add(food.write(new CompoundNBT()));
+			foodList.add(food.toTag(new CompoundTag()));
 		}
 		cmp.put(TAG_LAST_FOODS, foodList);
 		cmp.putInt(TAG_LAST_FOOD_COUNT, lastFoodCount);
@@ -158,14 +158,14 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundNBT cmp) {
+	public void readFromPacketNBT(CompoundTag cmp) {
 		super.readFromPacketNBT(cmp);
 		cooldown = cmp.getInt(TAG_COOLDOWN);
 		digestingMana = cmp.getInt(TAG_DIGESTING_MANA);
 		lastFoods.clear();
-		ListNBT foodList = cmp.getList(TAG_LAST_FOODS, Constants.NBT.TAG_COMPOUND);
+		ListTag foodList = cmp.getList(TAG_LAST_FOODS, Constants.NBT.TAG_COMPOUND);
 		for (int i = 0; i < foodList.size(); i++) {
-			lastFoods.add(ItemStack.read(foodList.getCompound(i)));
+			lastFoods.add(ItemStack.fromTag(foodList.getCompound(i)));
 		}
 		lastFoodCount = cmp.getInt(TAG_LAST_FOOD_COUNT);
 		streakLength = cmp.getInt(TAG_STREAK_LENGTH);

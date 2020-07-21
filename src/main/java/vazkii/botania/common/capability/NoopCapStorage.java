@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.capability;
 
-import net.minecraft.nbt.INBT;
-import net.minecraft.util.Direction;
+import net.minecraft.nbt.Tag;
+import net.minecraft.util.math.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nullable;
@@ -17,10 +17,10 @@ import javax.annotation.Nullable;
 public class NoopCapStorage<T> implements Capability.IStorage<T> {
 	@Nullable
 	@Override
-	public INBT writeNBT(Capability<T> capability, T instance, Direction side) {
+	public Tag writeNBT(Capability<T> capability, T instance, Direction side) {
 		return null;
 	}
 
 	@Override
-	public void readNBT(Capability<T> capability, T instance, Direction side, INBT nbt) {}
+	public void readNBT(Capability<T> capability, T instance, Direction side, Tag nbt) {}
 }

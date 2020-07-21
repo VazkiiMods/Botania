@@ -8,11 +8,11 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -25,7 +25,7 @@ import vazkii.botania.common.block.tile.TileMod;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileRFGenerator extends TileMod implements IManaReceiver, ITickableTileEntity {
+public class TileRFGenerator extends TileMod implements IManaReceiver, Tickable {
 	private static final int MANA_TO_FE = 10;
 	private static final int MAX_ENERGY = 1280 * MANA_TO_FE;
 
@@ -82,7 +82,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, ITickable
 
 	@Override
 	public void tick() {
-		if (!world.isRemote) {
+		if (!world.isClient) {
 			int transfer = Math.min(energy, 160 * MANA_TO_FE);
 			energy -= transfer;
 			energy += transmitEnergy(transfer);
@@ -92,11 +92,11 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, ITickable
 	private int transmitEnergy(int energy) {
 		for (Direction e : Direction.values()) {
 			BlockPos neighbor = getPos().offset(e);
-			if (!world.isBlockLoaded(neighbor)) {
+			if (!world.isChunkLoaded(neighbor)) {
 				continue;
 			}
 
-			TileEntity te = world.getTileEntity(neighbor);
+			BlockEntity te = world.getBlockEntity(neighbor);
 			if (te == null) {
 				continue;
 			}
@@ -142,12 +142,12 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, ITickable
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT cmp) {
+	public void writePacketNBT(CompoundTag cmp) {
 		cmp.putInt(TAG_MANA, energy);
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT cmp) {
+	public void readPacketNBT(CompoundTag cmp) {
 		energy = cmp.getInt(TAG_MANA);
 	}
 

@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.network;
 
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
@@ -25,11 +25,11 @@ public class PacketIndexKeybindRequest {
 		this.stack = stack;
 	}
 
-	public static PacketIndexKeybindRequest decode(PacketBuffer buf) {
+	public static PacketIndexKeybindRequest decode(PacketByteBuf buf) {
 		return new PacketIndexKeybindRequest(buf.readItemStack());
 	}
 
-	public static void encode(PacketIndexKeybindRequest msg, PacketBuffer buf) {
+	public static void encode(PacketIndexKeybindRequest msg, PacketByteBuf buf) {
 		buf.writeItemStack(msg.stack);
 	}
 

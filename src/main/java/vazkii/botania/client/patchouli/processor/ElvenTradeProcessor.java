@@ -9,13 +9,11 @@
 package vazkii.botania.client.patchouli.processor;
 
 import com.google.common.collect.ImmutableList;
-
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
-
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.util.Identifier;
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.Botania;
@@ -35,7 +33,7 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 	public void setup(IVariableProvider variables) {
 		ImmutableList.Builder<IElvenTradeRecipe> builder = ImmutableList.builder();
 		for (IVariable s : variables.get("recipes").asListOrSingleton()) {
-			IRecipe<?> recipe = ModRecipeTypes.getRecipes(Minecraft.getInstance().world, ModRecipeTypes.ELVEN_TRADE_TYPE).get(new ResourceLocation(s.asString()));
+			Recipe<?> recipe = ModRecipeTypes.getRecipes(MinecraftClient.getInstance().world, ModRecipeTypes.ELVEN_TRADE_TYPE).get(new Identifier(s.asString()));
 			if (recipe instanceof IElvenTradeRecipe) {
 				builder.add((IElvenTradeRecipe) recipe);
 			} else {
@@ -44,9 +42,9 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 		}
 		recipes = builder.build();
 		for (IElvenTradeRecipe recipe : recipes) {
-			List<Ingredient> inputs = recipe.getIngredients();
+			List<Ingredient> inputs = recipe.getPreviewInputs();
 			for (Ingredient ingredient : inputs) {
-				int length = ingredient.getMatchingStacks().length;
+				int length = ingredient.getMatchingStacksClient().length;
 				if (length > longestIngredientSize) {
 					longestIngredientSize = length;
 				}
@@ -66,7 +64,7 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 			return null;
 		}
 		if (key.equals("heading")) {
-			return IVariable.from(recipes.get(0).getOutputs().get(0).getDisplayName());
+			return IVariable.from(recipes.get(0).getOutputs().get(0).getName());
 		} else if (key.startsWith("input")) {
 			int index = Integer.parseInt(key.substring(5)) - 1;
 			if (index < mostInputs) {
@@ -88,7 +86,7 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 	}
 
 	private IVariable interweaveIngredients(int inputIndex) {
-		List<Ingredient> recipes = this.recipes.stream().map(IElvenTradeRecipe::getIngredients).map(ingredients -> {
+		List<Ingredient> recipes = this.recipes.stream().map(IElvenTradeRecipe::getPreviewInputs).map(ingredients -> {
 			if (inputIndex < ingredients.size()) {
 				return ingredients.get(inputIndex);
 			} else {

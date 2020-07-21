@@ -9,8 +9,7 @@
 package vazkii.botania.common.crafting;
 
 import com.google.gson.JsonObject;
-
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 
@@ -20,7 +19,7 @@ import vazkii.botania.common.lib.LibMisc;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class FluxfieldCondition implements ICondition {
-	public static final ResourceLocation KEY = prefix("fluxfield_enabled");
+	public static final Identifier KEY = prefix("fluxfield_enabled");
 	private final boolean value;
 
 	public FluxfieldCondition(boolean value) {
@@ -28,7 +27,7 @@ public class FluxfieldCondition implements ICondition {
 	}
 
 	@Override
-	public ResourceLocation getID() {
+	public Identifier getID() {
 		return KEY;
 	}
 
@@ -49,7 +48,7 @@ public class FluxfieldCondition implements ICondition {
 		}
 
 		@Override
-		public ResourceLocation getID() {
+		public Identifier getID() {
 			return KEY;
 		}
 	};

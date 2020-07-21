@@ -8,11 +8,10 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
-
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Tickable;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaRequestor;
@@ -22,7 +21,7 @@ import vazkii.botania.common.block.tile.ModTiles;
 
 import java.util.List;
 
-public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor, ITickableTileEntity {
+public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor, Tickable {
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
 	private static final String TAG_ITEM_COUNT = "itemCount";
 	private static final String TAG_LOCK = "lock";
@@ -51,7 +50,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 			copy.setCount(1);
 			requestTarget = copy;
 			updateCount();
-			if (!world.isRemote) {
+			if (!world.isClient) {
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			}
 		}
@@ -67,19 +66,19 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	public void doRequest(boolean fullStack) {
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
 
 		ICorporeaSpark spark = getSpark();
 		if (spark != null && spark.getMaster() != null && requestTarget != null) {
-			int count = fullStack ? requestTarget.getMaxStackSize() : 1;
+			int count = fullStack ? requestTarget.getMaxCount() : 1;
 			doCorporeaRequest(CorporeaHelper.instance().createMatcher(requestTarget, true), count, spark);
 		}
 	}
 
 	private void updateCount() {
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
 
@@ -103,16 +102,16 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		int oldCompValue = compValue;
 		compValue = CorporeaHelper.instance().signalStrengthForRequestSize(itemCount);
 		if (compValue != oldCompValue) {
-			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
+			world.updateComparators(pos, getCachedState().getBlock());
 		}
 	}
 
 	@Override
-	public void writePacketNBT(CompoundNBT tag) {
+	public void writePacketNBT(CompoundTag tag) {
 		super.writePacketNBT(tag);
-		CompoundNBT cmp = new CompoundNBT();
+		CompoundTag cmp = new CompoundTag();
 		if (!requestTarget.isEmpty()) {
-			cmp = requestTarget.write(cmp);
+			cmp = requestTarget.toTag(cmp);
 		}
 		tag.put(TAG_REQUEST_TARGET, cmp);
 		tag.putInt(TAG_ITEM_COUNT, itemCount);
@@ -120,10 +119,10 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT tag) {
+	public void readPacketNBT(CompoundTag tag) {
 		super.readPacketNBT(tag);
-		CompoundNBT cmp = tag.getCompound(TAG_REQUEST_TARGET);
-		requestTarget = ItemStack.read(cmp);
+		CompoundTag cmp = tag.getCompound(TAG_REQUEST_TARGET);
+		requestTarget = ItemStack.fromTag(cmp);
 		itemCount = tag.getInt(TAG_ITEM_COUNT);
 		locked = tag.getBoolean(TAG_LOCK);
 	}
@@ -140,7 +139,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		for (ItemStack reqStack : stacks) {
 			if (requestTarget != null) {
 				ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
-				world.addEntity(item);
+				world.spawnEntity(item);
 				itemCount -= reqStack.getCount();
 				did = true;
 			}

@@ -8,16 +8,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.util.math.vector.Vector3f;
-
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
@@ -26,17 +16,25 @@ import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.mixin.AccessorItemEntity;
 
 import javax.annotation.Nonnull;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
+import net.minecraft.entity.ItemEntity;
 
-public class RenderTileEnchanter extends TileEntityRenderer<TileEnchanter> {
+public class RenderTileEnchanter extends BlockEntityRenderer<TileEnchanter> {
 
 	private ItemEntity item;
 
-	public RenderTileEnchanter(TileEntityRendererDispatcher manager) {
+	public RenderTileEnchanter(BlockEntityRenderDispatcher manager) {
 		super(manager);
 	}
 
 	@Override
-	public void render(@Nonnull TileEnchanter enchanter, float f, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+	public void render(@Nonnull TileEnchanter enchanter, float f, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
 		float alphaMod = 0F;
 
 		if (enchanter.stage == TileEnchanter.State.GATHER_MANA) {
@@ -54,14 +52,14 @@ public class RenderTileEnchanter extends TileEntityRenderer<TileEnchanter> {
 			}
 
 			((AccessorItemEntity) item).setAge(ClientTickHandler.ticksInGame);
-			item.setItem(enchanter.itemToEnchant);
+			item.setStack(enchanter.itemToEnchant);
 
 			ms.translate(0.5F, 1.25F, 0.5F);
-			Minecraft.getInstance().getRenderManager().renderEntityStatic(item, 0, 0, 0, 0, f, ms, buffers, light);
+			MinecraftClient.getInstance().getEntityRenderManager().render(item, 0, 0, 0, 0, f, ms, buffers, light);
 			ms.translate(-0.5F, -1.25F, -0.5F);
 		}
 
-		ms.rotate(Vector3f.XP.rotationDegrees(90F));
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90F));
 		ms.translate(-2F, -2F, -0.001F);
 
 		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 5D + 0.4D) * alphaMod;
@@ -75,11 +73,11 @@ public class RenderTileEnchanter extends TileEntityRenderer<TileEnchanter> {
 
 				ms.translate(2.5F, 2.5F, -yTranslation);
 				ms.scale(scale, scale, 1F);
-				ms.rotate(Vector3f.ZP.rotationDegrees(angle));
+				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(angle));
 				ms.translate(-2.5F, -2.5F, 0F);
 			}
 
-			IVertexBuilder buffer = buffers.getBuffer(RenderHelper.ENCHANTER);
+			VertexConsumer buffer = buffers.getBuffer(RenderHelper.ENCHANTER);
 			IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.enchanterOverlay, 5, 5, alpha);
 		}
 

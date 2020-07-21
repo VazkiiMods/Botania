@@ -8,13 +8,11 @@
  */
 package vazkii.botania.client.patchouli.processor;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
-
+import net.minecraft.recipe.Recipe;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Identifier;
 import vazkii.botania.api.recipe.IBrewRecipe;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.crafting.ModRecipeTypes;
@@ -32,8 +30,8 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 
 	@Override
 	public void setup(IVariableProvider variables) {
-		ResourceLocation id = new ResourceLocation(variables.get("recipe").asString());
-		IRecipe<?> recipe = ModRecipeTypes.getRecipes(Minecraft.getInstance().world, ModRecipeTypes.BREW_TYPE).get(id);
+		Identifier id = new Identifier(variables.get("recipe").asString());
+		Recipe<?> recipe = ModRecipeTypes.getRecipes(MinecraftClient.getInstance().world, ModRecipeTypes.BREW_TYPE).get(id);
 		if (recipe instanceof IBrewRecipe) {
 			this.recipe = (IBrewRecipe) recipe;
 		} else {
@@ -46,23 +44,23 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 		if (recipe == null) {
 			return null;
 		} else if (key.equals("heading")) {
-			return IVariable.from(new TranslationTextComponent("botaniamisc.brewOf", new TranslationTextComponent(recipe.getBrew().getTranslationKey())));
+			return IVariable.from(new TranslatableText("botaniamisc.brewOf", new TranslatableText(recipe.getBrew().getTranslationKey())));
 		} else if (key.equals("vial")) {
 			return IVariable.from(recipe.getOutput(new ItemStack(ModItems.vial)));
 		} else if (key.equals("flask")) {
 			return IVariable.from(recipe.getOutput(new ItemStack(ModItems.flask)));
 		} else if (key.startsWith("input")) {
 			int requestedIndex = Integer.parseInt(key.substring(5)) - 1;
-			int indexOffset = (6 - recipe.getIngredients().size()) / 2; //Center the brew ingredients
+			int indexOffset = (6 - recipe.getPreviewInputs().size()) / 2; //Center the brew ingredients
 			int index = requestedIndex - indexOffset;
 
-			if (index < recipe.getIngredients().size() && index >= 0) {
-				return IVariable.wrapList(Arrays.stream(recipe.getIngredients().get(index).getMatchingStacks()).map(IVariable::from).collect(Collectors.toList()));
+			if (index < recipe.getPreviewInputs().size() && index >= 0) {
+				return IVariable.wrapList(Arrays.stream(recipe.getPreviewInputs().get(index).getMatchingStacksClient()).map(IVariable::from).collect(Collectors.toList()));
 			} else {
 				return null;
 			}
 		} else if (key.equals("is_offset")) {
-			return IVariable.wrap(recipe.getIngredients().size() % 2 == 0);
+			return IVariable.wrap(recipe.getPreviewInputs().size() % 2 == 0);
 		}
 		return null;
 	}

@@ -15,9 +15,11 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.UseAction;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IBlockProvider;
@@ -35,7 +37,7 @@ import java.util.List;
 public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProvider {
 	private static final int COST_PER = 55;
 
-	public ItemTerraformRod(Properties props) {
+	public ItemTerraformRod(Settings props) {
 		super(props);
 	}
 
@@ -46,28 +48,28 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getMaxUseTime(ItemStack stack) {
 		return 72000;
 	}
 
 	@Override
-	public void onUse(@Nonnull World world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int count) {
-		if (count != getUseDuration(stack) && count % 10 == 0 && living instanceof PlayerEntity) {
+	public void usageTick(@Nonnull World world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int count) {
+		if (count != getMaxUseTime(stack) && count % 10 == 0 && living instanceof PlayerEntity) {
 			terraform(stack, world, (PlayerEntity) living);
 		}
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		player.setActiveHand(hand);
-		return ActionResult.resultSuccess(player.getHeldItem(hand));
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
+		player.setCurrentHand(hand);
+		return TypedActionResult.success(player.getStackInHand(hand));
 	}
 
 	private void terraform(ItemStack stack, World world, PlayerEntity player) {
 		int range = IManaProficiencyArmor.hasProficiency(player, stack) ? 22 : 16;
 
-		BlockPos startCenter = player.func_233580_cy_().down();
+		BlockPos startCenter = player.getBlockPos().down();
 
 		if (startCenter.getY() < world.getSeaLevel()) // Not below sea level
 		{
@@ -76,7 +78,7 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 
 		List<CoordsWithBlock> blocks = new ArrayList<>();
 
-		for (BlockPos pos : BlockPos.getAllInBoxMutable(startCenter.add(-range, -range, -range), startCenter.add(range, range, range))) {
+		for (BlockPos pos : BlockPos.iterate(startCenter.add(-range, -range, -range), startCenter.add(range, range, range))) {
 			BlockState state = world.getBlockState(pos);
 			if (state.isAir(world, pos)) {
 				continue;
@@ -85,13 +87,13 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 			if (ModTags.Blocks.TERRAFORMABLE.contains(state.getBlock())) {
 				List<BlockPos> airBlocks = new ArrayList<>();
 
-				for (Direction dir : Direction.Plane.HORIZONTAL) {
+				for (Direction dir : Direction.Type.HORIZONTAL) {
 					BlockPos pos_ = pos.offset(dir);
 					BlockState state_ = world.getBlockState(pos_);
 					Block block_ = state_.getBlock();
 					if (state_.isAir(world, pos_) || state_.getMaterial().isReplaceable()
 							|| block_ instanceof FlowerBlock && !block_.isIn(ModTags.Blocks.SPECIAL_FLOWERS)
-							|| block_ instanceof DoublePlantBlock) {
+							|| block_ instanceof TallPlantBlock) {
 						airBlocks.add(pos_);
 					}
 				}
@@ -101,7 +103,7 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 						blocks.add(new CoordsWithBlock(pos, Blocks.AIR));
 					} else {
 						for (BlockPos coords : airBlocks) {
-							if (!world.isAirBlock(coords.down())) {
+							if (!world.isAir(coords.down())) {
 								blocks.add(new CoordsWithBlock(coords, Blocks.DIRT));
 							}
 						}
@@ -112,8 +114,8 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 
 		int cost = COST_PER * blocks.size();
 
-		if (world.isRemote || ManaItemHandler.instance().requestManaExactForTool(stack, player, cost, true)) {
-			if (!world.isRemote) {
+		if (world.isClient || ManaItemHandler.instance().requestManaExactForTool(stack, player, cost, true)) {
+			if (!world.isClient) {
 				for (CoordsWithBlock block : blocks) {
 					world.setBlockState(block, block.block.getDefaultState());
 				}
@@ -121,7 +123,7 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 
 			if (!blocks.isEmpty()) {
 				for (int i = 0; i < 10; i++) {
-					world.playSound(player, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.BLOCK_SAND_STEP, SoundCategory.BLOCKS, 1F, 0.4F);
+					world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_SAND_STEP, SoundCategory.BLOCKS, 1F, 0.4F);
 				}
 				SparkleParticleData data = SparkleParticleData.sparkle(2F, 0.35F, 0.2F, 0.05F, 5);
 				for (int i = 0; i < 120; i++) {

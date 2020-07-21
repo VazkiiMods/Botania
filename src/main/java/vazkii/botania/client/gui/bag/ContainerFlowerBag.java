@@ -11,12 +11,12 @@ package vazkii.botania.client.gui.bag;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.Slot;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Hand;
 
 import vazkii.botania.common.block.BlockModFlower;
@@ -25,14 +25,14 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class ContainerFlowerBag extends Container {
-	public static ContainerFlowerBag fromNetwork(int windowId, PlayerInventory inv, PacketBuffer buf) {
+public class ContainerFlowerBag extends ScreenHandler {
+	public static ContainerFlowerBag fromNetwork(int windowId, PlayerInventory inv, PacketByteBuf buf) {
 		Hand hand = buf.readBoolean() ? Hand.MAIN_HAND : Hand.OFF_HAND;
-		return new ContainerFlowerBag(windowId, inv, inv.player.getHeldItem(hand));
+		return new ContainerFlowerBag(windowId, inv, inv.player.getStackInHand(hand));
 	}
 
 	private final ItemStack bag;
-	public final IInventory flowerBagInv;
+	public final Inventory flowerBagInv;
 
 	public ContainerFlowerBag(int windowId, PlayerInventory playerInv, ItemStack bag) {
 		super(ModItems.FLOWER_BAG_CONTAINER, windowId);
@@ -40,10 +40,10 @@ public class ContainerFlowerBag extends Container {
 		int j;
 
 		this.bag = bag;
-		if (!playerInv.player.world.isRemote) {
+		if (!playerInv.player.world.isClient) {
 			flowerBagInv = ItemFlowerBag.getInventory(bag);
 		} else {
-			flowerBagInv = new Inventory(ItemFlowerBag.SIZE);
+			flowerBagInv = new SimpleInventory(ItemFlowerBag.SIZE);
 		}
 
 		for (i = 0; i < 2; ++i) {
@@ -51,7 +51,7 @@ public class ContainerFlowerBag extends Container {
 				int k = j + i * 8;
 				addSlot(new Slot(flowerBagInv, k, 17 + j * 18, 26 + i * 18) {
 					@Override
-					public boolean isItemValid(@Nonnull ItemStack stack) {
+					public boolean canInsert(@Nonnull ItemStack stack) {
 						return ItemFlowerBag.isValid(k, stack);
 					}
 				});
@@ -71,48 +71,48 @@ public class ContainerFlowerBag extends Container {
 	}
 
 	@Override
-	public boolean canInteractWith(@Nonnull PlayerEntity player) {
-		ItemStack main = player.getHeldItemMainhand();
-		ItemStack off = player.getHeldItemOffhand();
+	public boolean canUse(@Nonnull PlayerEntity player) {
+		ItemStack main = player.getMainHandStack();
+		ItemStack off = player.getOffHandStack();
 		return !main.isEmpty() && main == bag || !off.isEmpty() && off == bag;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack transferStackInSlot(PlayerEntity player, int slotIndex) {
+	public ItemStack transferSlot(PlayerEntity player, int slotIndex) {
 		ItemStack itemstack = ItemStack.EMPTY;
-		Slot slot = inventorySlots.get(slotIndex);
+		Slot slot = slots.get(slotIndex);
 
-		if (slot != null && slot.getHasStack()) {
+		if (slot != null && slot.hasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
 
 			if (slotIndex < 16) {
-				if (!mergeItemStack(itemstack1, 16, 52, true)) {
+				if (!insertItem(itemstack1, 16, 52, true)) {
 					return ItemStack.EMPTY;
 				}
 			} else {
 				Block b = Block.getBlockFromItem(itemstack.getItem());
 				int i = b instanceof BlockModFlower ? ((BlockModFlower) b).color.getId() : -1;
 				if (i >= 0 && i < 16) {
-					Slot slot1 = inventorySlots.get(i);
-					if (slot1.isItemValid(itemstack) && !mergeItemStack(itemstack1, i, i + 1, true)) {
+					Slot slot1 = slots.get(i);
+					if (slot1.canInsert(itemstack) && !insertItem(itemstack1, i, i + 1, true)) {
 						return ItemStack.EMPTY;
 					}
 				}
 			}
 
 			if (itemstack1.isEmpty()) {
-				slot.putStack(ItemStack.EMPTY);
+				slot.setStack(ItemStack.EMPTY);
 			} else {
-				slot.onSlotChanged();
+				slot.markDirty();
 			}
 
 			if (itemstack1.getCount() == itemstack.getCount()) {
 				return ItemStack.EMPTY;
 			}
 
-			slot.onTake(player, itemstack1);
+			slot.onTakeItem(player, itemstack1);
 		}
 
 		return itemstack;

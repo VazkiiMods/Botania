@@ -8,17 +8,18 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -37,9 +38,9 @@ import java.util.List;
 
 public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TRAVEL_BELT);
-	@OnlyIn(Dist.CLIENT)
-	private static BipedModel<LivingEntity> model;
+	private static final Identifier texture = new Identifier(LibResources.MODEL_TRAVEL_BELT);
+	@Environment(EnvType.CLIENT)
+	private static BipedEntityModel<LivingEntity> model;
 
 	private static final int COST = 1;
 	private static final int COST_INTERVAL = 10;
@@ -50,14 +51,14 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 	public final float jump;
 	public final float fallBuffer;
 
-	public ItemTravelBelt(Properties props) {
+	public ItemTravelBelt(Settings props) {
 		this(props, 0.035F, 0.2F, 2F);
 		MinecraftForge.EVENT_BUS.addListener(this::updatePlayerStepStatus);
 		MinecraftForge.EVENT_BUS.addListener(this::onPlayerJump);
 		MinecraftForge.EVENT_BUS.addListener(this::playerLoggedOut);
 	}
 
-	public ItemTravelBelt(Properties props, float speed, float jump, float fallBuffer) {
+	public ItemTravelBelt(Settings props, float speed, float jump, float fallBuffer) {
 		super(props);
 		this.speed = speed;
 		this.jump = jump;
@@ -74,13 +75,13 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 				if (shouldPlayerHaveStepup(player)) {
 					ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
 
-					if (player.world.isRemote) {
-						if ((player.func_233570_aj_() || player.abilities.isFlying) && player.moveForward > 0F && !player.isInWaterOrBubbleColumn()) {
+					if (player.world.isClient) {
+						if ((player.isOnGround() || player.abilities.flying) && player.forwardSpeed > 0F && !player.isInsideWaterOrBubbleColumn()) {
 							float speed = beltItem.getSpeed(belt);
-							player.moveRelative(player.abilities.isFlying ? speed : speed, new Vector3d(0, 0, 1));
+							player.updateVelocity(player.abilities.flying ? speed : speed, new Vec3d(0, 0, 1));
 							beltItem.onMovedTick(belt, player);
 
-							if (player.ticksExisted % COST_INTERVAL == 0) {
+							if (player.age % COST_INTERVAL == 0) {
 								ManaItemHandler.instance().requestManaExact(belt, player, COST, true);
 							}
 						} else {
@@ -119,7 +120,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 			ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 
 			if (!belt.isEmpty() && ManaItemHandler.instance().requestManaExact(belt, player, COST, false)) {
-				player.setMotion(player.getMotion().add(0, ((ItemTravelBelt) belt.getItem()).jump, 0));
+				player.setVelocity(player.getVelocity().add(0, ((ItemTravelBelt) belt.getItem()).jump, 0));
 				player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer;
 			}
 		}
@@ -137,29 +138,29 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 	}
 
 	public static String playerStr(PlayerEntity player) {
-		return player.getGameProfile().getName() + ":" + player.world.isRemote;
+		return player.getGameProfile().getName() + ":" + player.world.isClient;
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	ResourceLocation getRenderTexture() {
+	@Environment(EnvType.CLIENT)
+	Identifier getRenderTexture() {
 		return texture;
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	@Environment(EnvType.CLIENT)
+	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		AccessoryRenderHelper.rotateIfSneaking(ms, player);
 		ms.translate(0F, 0.2F, 0F);
 
 		float s = 0.85F;
 		ms.scale(s, s, s);
 		if (model == null) {
-			model = new BipedModel<>(1F);
+			model = new BipedEntityModel<>(1F);
 		}
 
-		ResourceLocation texture = ((ItemTravelBelt) stack.getItem()).getRenderTexture();
-		IVertexBuilder buffer = buffers.getBuffer(model.getRenderType(texture));
-		model.bipedBody.render(ms, buffer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+		Identifier texture = ((ItemTravelBelt) stack.getItem()).getRenderTexture();
+		VertexConsumer buffer = buffers.getBuffer(model.getLayer(texture));
+		model.torso.render(ms, buffer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
 	}
 
 	@Override

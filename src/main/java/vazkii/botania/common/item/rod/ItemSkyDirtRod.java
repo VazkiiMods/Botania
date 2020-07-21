@@ -12,15 +12,15 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Direction;
+import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -32,29 +32,29 @@ import javax.annotation.Nonnull;
 
 public class ItemSkyDirtRod extends ItemDirtRod {
 
-	public ItemSkyDirtRod(Properties props) {
+	public ItemSkyDirtRod(Settings props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getHeldItem(hand);
-		if (!world.isRemote && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST * 2, false)) {
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
+		ItemStack stack = player.getStackInHand(hand);
+		if (!world.isClient && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST * 2, false)) {
 			Vector3 playerVec = Vector3.fromEntityCenter(player);
-			Vector3 lookVec = new Vector3(player.getLookVec()).multiply(3);
+			Vector3 lookVec = new Vector3(player.getRotationVector()).multiply(3);
 			Vector3 placeVec = playerVec.add(lookVec);
 
 			int x = MathHelper.floor(placeVec.x);
 			int y = MathHelper.floor(placeVec.y) + 1;
 			int z = MathHelper.floor(placeVec.z);
 
-			int entities = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1)).size();
+			int entities = world.getNonSpectatingEntities(LivingEntity.class, new Box(x, y, z, x + 1, y + 1, z + 1)).size();
 
 			if (entities == 0) {
 				ItemStack stackToPlace = new ItemStack(Blocks.DIRT);
-				BlockRayTraceResult hit = new BlockRayTraceResult(Vector3d.ZERO, Direction.DOWN, new BlockPos(x, y, z), false);
-				PlayerHelper.substituteUse(new ItemUseContext(player, hand, hit), stackToPlace);
+				BlockHitResult hit = new BlockHitResult(Vec3d.ZERO, Direction.DOWN, new BlockPos(x, y, z), false);
+				PlayerHelper.substituteUse(new ItemUsageContext(player, hand, hit), stackToPlace);
 
 				if (stackToPlace.isEmpty()) {
 					ManaItemHandler.instance().requestManaExactForTool(stack, player, COST * 2, true);
@@ -65,11 +65,11 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 				}
 			}
 		}
-		if (world.isRemote) {
-			player.swingArm(hand);
+		if (world.isClient) {
+			player.swingHand(hand);
 		}
 
-		return ActionResult.resultSuccess(stack);
+		return TypedActionResult.success(stack);
 	}
 
 }

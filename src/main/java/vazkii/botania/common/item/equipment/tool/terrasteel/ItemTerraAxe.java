@@ -11,12 +11,12 @@ package vazkii.botania.common.item.equipment.tool.terrasteel;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Direction;
-import net.minecraft.util.RegistryKey;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
@@ -62,7 +62,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 */
 	private static final Map<RegistryKey<World>, Set<BlockSwapper>> blockSwappers = new HashMap<>();
 
-	public ItemTerraAxe(Properties props) {
+	public ItemTerraAxe(Settings props) {
 		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
 		MinecraftForge.EVENT_BUS.addListener(this::onTickEnd);
 	}
@@ -73,9 +73,9 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 	@Override
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
-		BlockRayTraceResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
-		if (raycast.getType() == RayTraceResult.Type.BLOCK) {
-			Direction face = raycast.getFace();
+		BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
+		if (raycast.getType() == HitResult.Type.BLOCK) {
+			Direction face = raycast.getSide();
 			breakOtherBlock(player, stack, pos, pos, face);
 			BotaniaAPI.instance().breakOnAllCursors(player, stack, pos, face);
 		}
@@ -102,12 +102,12 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 	private void onTickEnd(TickEvent.WorldTickEvent event) {
 		// Block Swapping ticking should only occur on the server
-		if (event.world.isRemote) {
+		if (event.world.isClient) {
 			return;
 		}
 
 		if (event.phase == TickEvent.Phase.END) {
-			RegistryKey<World> dim = event.world.func_234923_W_();
+			RegistryKey<World> dim = event.world.getRegistryKey();
 			if (blockSwappers.containsKey(dim)) {
 				Set<BlockSwapper> swappers = blockSwappers.get(dim);
 
@@ -136,11 +136,11 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		BlockSwapper swapper = new BlockSwapper(world, player, stack, origCoords, steps, leaves);
 
 		// Block swapper registration should only occur on the server
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
 
-		RegistryKey<World> dim = world.func_234923_W_();
+		RegistryKey<World> dim = world.getRegistryKey();
 		blockSwappers.computeIfAbsent(dim, d -> new HashSet<>()).add(swapper);
 	}
 

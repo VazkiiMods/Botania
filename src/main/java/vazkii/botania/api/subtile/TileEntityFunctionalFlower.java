@@ -8,18 +8,19 @@
  */
 package vazkii.botania.api.subtile;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
@@ -34,7 +35,7 @@ import vazkii.botania.api.mana.IManaPool;
  * The basic class for a Functional Flower.
  */
 public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
-	private static final ResourceLocation POOL_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_pool");
+	private static final Identifier POOL_ID = new Identifier(BotaniaAPI.MODID, "mana_pool");
 	public static final int LINK_RANGE = 10;
 
 	private static final String TAG_MANA = "mana";
@@ -48,11 +49,11 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	public int redstoneSignal = 0;
 
 	int sizeLastCheck = -1;
-	TileEntity linkedPool = null;
+	BlockEntity linkedPool = null;
 
 	BlockPos cachedPoolCoordinates = null;
 
-	public TileEntityFunctionalFlower(TileEntityType<?> type) {
+	public TileEntityFunctionalFlower(BlockEntityType<?> type) {
 		super(type);
 	}
 
@@ -81,12 +82,12 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		if (acceptsRedstone()) {
 			redstoneSignal = 0;
 			for (Direction dir : Direction.values()) {
-				int redstoneSide = getWorld().getRedstonePower(getPos().offset(dir), dir);
+				int redstoneSide = getWorld().getEmittedRedstonePower(getPos().offset(dir), dir);
 				redstoneSignal = Math.max(redstoneSignal, redstoneSide);
 			}
 		}
 
-		if (getWorld().isRemote) {
+		if (getWorld().isClient) {
 			double particleChance = 1F - (double) mana / (double) getMaxMana() / 3.5F;
 			int color = getColor();
 			float red = (color >> 16 & 0xFF) / 255F;
@@ -105,9 +106,9 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 
 			if (cachedPoolCoordinates != null) {
 				needsNew = false;
-				if (getWorld().isBlockLoaded(cachedPoolCoordinates)) {
+				if (getWorld().isChunkLoaded(cachedPoolCoordinates)) {
 					needsNew = true;
-					TileEntity tileAt = getWorld().getTileEntity(cachedPoolCoordinates);
+					BlockEntity tileAt = getWorld().getBlockEntity(cachedPoolCoordinates);
 					if (tileAt instanceof IManaPool && !tileAt.isRemoved()) {
 						linkedPool = tileAt;
 						needsNew = false;
@@ -116,7 +117,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 				}
 			}
 		} else {
-			TileEntity tileAt = getWorld().getTileEntity(linkedPool.getPos());
+			BlockEntity tileAt = getWorld().getBlockEntity(linkedPool.getPos());
 			if (tileAt instanceof IManaPool) {
 				linkedPool = tileAt;
 			}
@@ -134,7 +135,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		markDirty();
 	}
 
-	public void linkToForcefully(TileEntity pool) {
+	public void linkToForcefully(BlockEntity pool) {
 		linkedPool = pool;
 		markDirty();
 	}
@@ -154,7 +155,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 			return false;
 		}
 
-		Registry.SOUND_EVENT.getValue(DING_SOUND_EVENT).ifPresent(evt -> player.playSound(evt, 0.1F, 1F));
+		Registry.SOUND_EVENT.getOrEmpty(DING_SOUND_EVENT).ifPresent(evt -> player.playSound(evt, 0.1F, 1F));
 
 		return super.onWanded(player, wand);
 	}
@@ -168,7 +169,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundNBT cmp) {
+	public void readFromPacketNBT(CompoundTag cmp) {
 		super.readFromPacketNBT(cmp);
 		mana = cmp.getInt(TAG_MANA);
 
@@ -180,7 +181,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundNBT cmp) {
+	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_MANA, mana);
 
@@ -217,9 +218,9 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		int range = 10;
 		range *= range;
 
-		double dist = pos.distanceSq(getPos());
+		double dist = pos.getSquaredDistance(getPos());
 		if (range >= dist) {
-			TileEntity tile = player.world.getTileEntity(pos);
+			BlockEntity tile = player.world.getBlockEntity(pos);
 			if (tile instanceof IManaPool) {
 				linkedPool = tile;
 				return true;
@@ -233,18 +234,18 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		return linkedPool != null
 				&& linkedPool.hasWorld()
 				&& !linkedPool.isRemoved()
-				&& getWorld().isBlockLoaded(linkedPool.getPos())
-				&& getWorld().getTileEntity(linkedPool.getPos()) == linkedPool;
+				&& getWorld().isChunkLoaded(linkedPool.getPos())
+				&& getWorld().getBlockEntity(linkedPool.getPos()) == linkedPool;
 	}
 
 	public ItemStack getHudIcon() {
-		return Registry.ITEM.getValue(POOL_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
+		return Registry.ITEM.getOrEmpty(POOL_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void renderHUD(MatrixStack ms, Minecraft mc) {
-		String name = I18n.format(getBlockState().getBlock().getTranslationKey());
+	public void renderHUD(MatrixStack ms, MinecraftClient mc) {
+		String name = I18n.translate(getCachedState().getBlock().getTranslationKey());
 		int color = getColor();
 		BotaniaAPIClient.instance().drawComplexManaHUD(ms, color, getMana(), getMaxMana(), name, getHudIcon(), isValidBinding());
 	}

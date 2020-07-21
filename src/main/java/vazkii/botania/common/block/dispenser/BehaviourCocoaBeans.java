@@ -12,30 +12,30 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
-import net.minecraft.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.DirectionalPlaceContext;
+import net.minecraft.block.dispenser.ItemDispenserBehavior;
+import net.minecraft.item.AutomaticItemPlacementContext;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class BehaviourCocoaBeans extends DefaultDispenseItemBehavior {
+public class BehaviourCocoaBeans extends ItemDispenserBehavior {
 	@Nonnull
 	@Override
-	public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
+	public ItemStack dispenseSilently(BlockPointer source, ItemStack stack) {
 		Block block = Blocks.COCOA;
 		Direction facing = source.getBlockState().get(DispenserBlock.FACING);
 		BlockPos pos = source.getBlockPos().offset(facing);
 		World world = source.getWorld();
-		BlockItemUseContext ctx = new DirectionalPlaceContext(source.getWorld(), source.getBlockPos().offset(facing), facing, new ItemStack(block), facing.getOpposite());
-		BlockState cocoa = block.getStateForPlacement(ctx);
-		if (cocoa != null && world.isAirBlock(pos)) {
+		ItemPlacementContext ctx = new AutomaticItemPlacementContext(source.getWorld(), source.getBlockPos().offset(facing), facing, new ItemStack(block), facing.getOpposite());
+		BlockState cocoa = block.getPlacementState(ctx);
+		if (cocoa != null && world.isAir(pos)) {
 			world.setBlockState(pos, cocoa);
-			stack.shrink(1);
+			stack.decrement(1);
 			return stack;
 		}
 

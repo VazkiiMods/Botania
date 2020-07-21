@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.NonNullList;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
@@ -27,13 +27,13 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 
 	private static final String TAG_MANA = "mana";
 
-	public ItemManaRing(Properties props) {
+	public ItemManaRing(Settings props) {
 		super(props);
 	}
 
 	@Override
-	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> stacks) {
-		if (isInGroup(tab)) {
+	public void appendStacks(@Nonnull ItemGroup tab, @Nonnull DefaultedList<ItemStack> stacks) {
+		if (isIn(tab)) {
 			stacks.add(new ItemStack(this));
 
 			ItemStack full = new ItemStack(this);
@@ -67,7 +67,7 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 	}
 
 	@Override
-	public boolean canReceiveManaFromPool(ItemStack stack, TileEntity pool) {
+	public boolean canReceiveManaFromPool(ItemStack stack, BlockEntity pool) {
 		return true;
 	}
 
@@ -77,7 +77,7 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 	}
 
 	@Override
-	public boolean canExportManaToPool(ItemStack stack, TileEntity pool) {
+	public boolean canExportManaToPool(ItemStack stack, BlockEntity pool) {
 		return true;
 	}
 
@@ -108,7 +108,7 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 
 	@Override
 	public int getRGBDurabilityForDisplay(ItemStack stack) {
-		return MathHelper.hsvToRGB(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
+		return MathHelper.hsvToRgb(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
 	}
 
 }

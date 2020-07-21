@@ -9,25 +9,24 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TileLightRelay;
@@ -36,60 +35,60 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockLightRelay extends BlockModWaterloggable implements ITileEntityProvider, IWandable {
+public class BlockLightRelay extends BlockModWaterloggable implements BlockEntityProvider, IWandable {
 
-	private static final VoxelShape SHAPE = makeCuboidShape(5, 5, 5, 11, 11, 11);
+	private static final VoxelShape SHAPE = createCuboidShape(5, 5, 5, 11, 11, 11);
 	public final LuminizerVariant variant;
 
-	protected BlockLightRelay(LuminizerVariant variant, Properties builder) {
+	protected BlockLightRelay(LuminizerVariant variant, Settings builder) {
 		super(builder);
 		this.variant = variant;
-		setDefaultState(getDefaultState().with(BlockStateProperties.POWERED, false));
+		setDefaultState(getDefaultState().with(Properties.POWERED, false));
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
 		return SHAPE;
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-		super.fillStateContainer(builder);
-		builder.add(BlockStateProperties.POWERED);
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		super.appendProperties(builder);
+		builder.add(Properties.POWERED);
 	}
 
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		((TileLightRelay) world.getTileEntity(pos)).mountEntity(player);
-		return ActionResultType.SUCCESS;
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		((TileLightRelay) world.getBlockEntity(pos)).mountEntity(player);
+		return ActionResult.SUCCESS;
 	}
 
 	@Override
-	public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
-		if (!worldIn.isRemote && variant == LuminizerVariant.TOGGLE) {
-			if (state.get(BlockStateProperties.POWERED) && !worldIn.isBlockPowered(pos)) {
-				worldIn.setBlockState(pos, state.with(BlockStateProperties.POWERED, false));
-			} else if (!state.get(BlockStateProperties.POWERED) && worldIn.isBlockPowered(pos)) {
-				worldIn.setBlockState(pos, state.with(BlockStateProperties.POWERED, true));
+	public void neighborUpdate(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+		if (!worldIn.isClient && variant == LuminizerVariant.TOGGLE) {
+			if (state.get(Properties.POWERED) && !worldIn.isReceivingRedstonePower(pos)) {
+				worldIn.setBlockState(pos, state.with(Properties.POWERED, false));
+			} else if (!state.get(Properties.POWERED) && worldIn.isReceivingRedstonePower(pos)) {
+				worldIn.setBlockState(pos, state.with(Properties.POWERED, true));
 			}
 		}
 	}
 
 	@Override
-	public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-		world.setBlockState(pos, state.with(BlockStateProperties.POWERED, false));
+	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+		world.setBlockState(pos, state.with(Properties.POWERED, false));
 	}
 
 	@Override
-	public boolean canProvidePower(BlockState state) {
+	public boolean emitsRedstonePower(BlockState state) {
 		return variant == LuminizerVariant.DETECTOR;
 	}
 
 	@Override
-	public int getWeakPower(BlockState state, IBlockReader world, BlockPos pos, Direction s) {
+	public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction s) {
 		return variant == LuminizerVariant.DETECTOR
-				&& state.get(BlockStateProperties.POWERED) ? 15 : 0;
+				&& state.get(Properties.POWERED) ? 15 : 0;
 	}
 
 	@Nonnull
@@ -100,7 +99,7 @@ public class BlockLightRelay extends BlockModWaterloggable implements ITileEntit
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TileLightRelay();
 	}
 

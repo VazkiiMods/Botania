@@ -8,10 +8,10 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.renderer.entity.SpriteRenderer;
-import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
+import net.minecraft.client.render.entity.ItemEntityRenderer;
+import net.minecraft.client.util.ModelIdentifier;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
@@ -39,9 +39,9 @@ public final class ModelHandler {
 			registeredModels = true;
 			ModelLoaderRegistry.registerLoader(FloatingFlowerModel.Loader.ID, FloatingFlowerModel.Loader.INSTANCE);
 		}
-		ModelLoader.addSpecialModel(new ModelResourceLocation(LibMisc.MOD_ID + ":mana_gun_clip", "inventory"));
-		ModelLoader.addSpecialModel(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun", "inventory"));
-		ModelLoader.addSpecialModel(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun_clip", "inventory"));
+		ModelLoader.addSpecialModel(new ModelIdentifier(LibMisc.MOD_ID + ":mana_gun_clip", "inventory"));
+		ModelLoader.addSpecialModel(new ModelIdentifier(LibMisc.MOD_ID + ":desu_gun", "inventory"));
+		ModelLoader.addSpecialModel(new ModelIdentifier(LibMisc.MOD_ID + ":desu_gun_clip", "inventory"));
 		ModelLoader.addSpecialModel(prefix("block/corporea_crystal_cube_glass"));
 		ModelLoader.addSpecialModel(prefix("block/pump_head"));
 		ModelLoader.addSpecialModel(prefix("block/elven_spreader_inside"));
@@ -139,7 +139,7 @@ public final class ModelHandler {
 		RenderingRegistry.registerEntityRenderingHandler(ModEntities.MAGIC_LANDMINE, RenderMagicLandmine::new);
 		RenderingRegistry.registerEntityRenderingHandler(ModEntities.MAGIC_MISSILE, RenderNoop::new);
 		RenderingRegistry.registerEntityRenderingHandler(ModEntities.FALLING_STAR, RenderNoop::new);
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.THROWN_ITEM, m -> new ItemRenderer(m, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.THROWN_ITEM, m -> new ItemEntityRenderer(m, MinecraftClient.getInstance().getItemRenderer()));
 		RenderingRegistry.registerEntityRenderingHandler(ModEntities.PIXIE, RenderPixie::new);
 		RenderingRegistry.registerEntityRenderingHandler(ModEntities.DOPPLEGANGER, RenderDoppleganger::new);
 		RenderingRegistry.registerEntityRenderingHandler(ModEntities.SPARK, RenderSpark::new);
@@ -149,9 +149,9 @@ public final class ModelHandler {
 		RenderingRegistry.registerEntityRenderingHandler(ModEntities.MANA_STORM, RenderManaStorm::new);
 		RenderingRegistry.registerEntityRenderingHandler(ModEntities.BABYLON_WEAPON, RenderBabylonWeapon::new);
 
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.THORN_CHAKRAM, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.VINE_BALL, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
-		RenderingRegistry.registerEntityRenderingHandler(ModEntities.ENDER_AIR_BOTTLE, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.THORN_CHAKRAM, renderManager -> new FlyingItemEntityRenderer<>(renderManager, MinecraftClient.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.VINE_BALL, renderManager -> new FlyingItemEntityRenderer<>(renderManager, MinecraftClient.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.ENDER_AIR_BOTTLE, renderManager -> new FlyingItemEntityRenderer<>(renderManager, MinecraftClient.getInstance().getItemRenderer()));
 	}
 
 	private static void registerIslands() {

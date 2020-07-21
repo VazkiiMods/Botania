@@ -8,10 +8,9 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.client.renderer.vertex.VertexBuffer;
-import net.minecraft.client.renderer.vertex.VertexFormat;
-
+import net.minecraft.client.gl.VertexBuffer;
+import net.minecraft.client.render.VertexFormat;
+import net.minecraft.client.render.WorldRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 

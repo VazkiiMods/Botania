@@ -8,14 +8,13 @@
  */
 package vazkii.botania.client.core;
 
-import net.minecraft.client.gui.screen.BiomeGeneratorTypeScreens;
-import net.minecraft.world.biome.provider.OverworldBiomeProvider;
-import net.minecraft.world.gen.ChunkGenerator;
-
+import net.minecraft.client.world.GeneratorType;
+import net.minecraft.world.biome.source.VanillaLayeredBiomeSource;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 
-public class WorldTypeSkyblock extends BiomeGeneratorTypeScreens {
-	public static final BiomeGeneratorTypeScreens INSTANCE = new WorldTypeSkyblock();
+public class WorldTypeSkyblock extends GeneratorType {
+	public static final GeneratorType INSTANCE = new WorldTypeSkyblock();
 
 	private WorldTypeSkyblock() {
 		super("botania-skyblock");
@@ -43,7 +42,7 @@ public class WorldTypeSkyblock extends BiomeGeneratorTypeScreens {
 	*/
 
 	@Override
-	protected ChunkGenerator func_230484_a_(long seed) {
-		return new SkyblockChunkGenerator(new OverworldBiomeProvider(seed, false, false), seed, SkyblockChunkGenerator.dimSettingsPreset.func_236137_b_());
+	protected ChunkGenerator method_29076(long seed) {
+		return new SkyblockChunkGenerator(new VanillaLayeredBiomeSource(seed, false, false), seed, SkyblockChunkGenerator.dimSettingsPreset.getChunkGeneratorType());
 	}
 }

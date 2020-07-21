@@ -8,30 +8,29 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.renderer.RenderState;
-
+import net.minecraft.client.render.RenderPhase;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(RenderState.class)
+@Mixin(RenderPhase.class)
 public interface AccessorRenderState {
 	@Accessor("field_239235_M_")
-	static RenderState.LayerState getViewOffsetZLayer() {
+	static RenderPhase.Layering getViewOffsetZLayer() {
 		throw new IllegalStateException();
 	}
 
 	@Accessor("TRANSLUCENT_TRANSPARENCY")
-	static RenderState.TransparencyState getTranslucentTransparency() {
+	static RenderPhase.Transparency getTranslucentTransparency() {
 		throw new IllegalStateException();
 	}
 
 	@Accessor("LIGHTNING_TRANSPARENCY")
-	static RenderState.TransparencyState getLightningTransparency() {
+	static RenderPhase.Transparency getLightningTransparency() {
 		throw new IllegalStateException();
 	}
 
 	@Accessor("field_241712_U_")
-	static RenderState.TargetState getItemEntityTarget() {
+	static RenderPhase.Target getItemEntityTarget() {
 		throw new IllegalStateException();
 	}
 }

@@ -8,25 +8,25 @@
  */
 package vazkii.botania.common.entity;
 
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.DyeColor;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Packet;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.IItemHandler;
@@ -51,7 +51,7 @@ import java.util.stream.Collectors;
 public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 	private static final int TRANSFER_RATE = 1000;
 	private static final String TAG_UPGRADE = "upgrade";
-	private static final DataParameter<Integer> UPGRADE = EntityDataManager.createKey(EntitySpark.class, DataSerializers.VARINT);
+	private static final TrackedData<Integer> UPGRADE = DataTracker.registerData(EntitySpark.class, TrackedDataHandlerRegistry.INTEGER);
 
 	private final Set<ISparkEntity> transfers = Collections.newSetFromMap(new WeakHashMap<>());
 
@@ -66,14 +66,14 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 	}
 
 	@Override
-	protected void registerData() {
-		super.registerData();
-		dataManager.register(UPGRADE, 0);
+	protected void initDataTracker() {
+		super.initDataTracker();
+		dataTracker.startTracking(UPGRADE, 0);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getPickedResult(RayTraceResult target) {
+	public ItemStack getPickedResult(HitResult target) {
 		return new ItemStack(ModItems.spark);
 	}
 
@@ -81,7 +81,7 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 	public void tick() {
 		super.tick();
 
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
 
@@ -96,19 +96,19 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 
 		switch (upgrade) {
 		case DISPERSIVE: {
-			List<PlayerEntity> players = SparkHelper.getEntitiesAround(PlayerEntity.class, world, getPosX(), getPosY() + (getHeight() / 2.0), getPosZ());
+			List<PlayerEntity> players = SparkHelper.getEntitiesAround(PlayerEntity.class, world, getX(), getY() + (getHeight() / 2.0), getZ());
 
 			Map<PlayerEntity, Map<ItemStack, Integer>> receivingPlayers = new HashMap<>();
 
 			ItemStack input = new ItemStack(ModItems.spark);
 			for (PlayerEntity player : players) {
 				List<ItemStack> stacks = new ArrayList<>();
-				stacks.addAll(player.inventory.mainInventory);
-				stacks.addAll(player.inventory.armorInventory);
+				stacks.addAll(player.inventory.main);
+				stacks.addAll(player.inventory.armor);
 
-				IInventory inv = BotaniaAPI.instance().getAccessoriesInventory(player);
-				for (int i = 0; i < inv.getSizeInventory(); i++) {
-					stacks.add(inv.getStackInSlot(i));
+				Inventory inv = BotaniaAPI.instance().getAccessoriesInventory(player);
+				for (int i = 0; i < inv.size(); i++) {
+					stacks.add(inv.getStack(i));
 				}
 
 				for (ItemStack stack : stacks) {
@@ -155,20 +155,20 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 			break;
 		}
 		case DOMINANT: {
-			List<ISparkEntity> validSparks = SparkHelper.getSparksAround(world, getPosX(), getPosY() + (getHeight() / 2), getPosZ(), getNetwork())
+			List<ISparkEntity> validSparks = SparkHelper.getSparksAround(world, getX(), getY() + (getHeight() / 2), getZ(), getNetwork())
 					.filter(s -> {
 						SparkUpgradeType otherUpgrade = s.getUpgrade();
 						return s != this && otherUpgrade == SparkUpgradeType.NONE && s.getAttachedTile() instanceof IManaPool;
 					})
 					.collect(Collectors.toList());
 			if (validSparks.size() > 0) {
-				validSparks.get(world.rand.nextInt(validSparks.size())).registerTransfer(this);
+				validSparks.get(world.random.nextInt(validSparks.size())).registerTransfer(this);
 			}
 
 			break;
 		}
 		case RECESSIVE: {
-			SparkHelper.getSparksAround(world, getPosX(), getPosY() + (getHeight() / 2), getPosZ(), getNetwork())
+			SparkHelper.getSparksAround(world, getX(), getY() + (getHeight() / 2), getZ(), getNetwork())
 					.filter(s -> {
 						SparkUpgradeType otherUpgrade = s.getUpgrade();
 						return s != this
@@ -215,45 +215,45 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 
 	private void particlesTowards(Entity e) {
 		PacketHandler.sendToNearby(world, this,
-				new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_MANA_FLOW, getPosX(), getPosY(), getPosZ(),
+				new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_MANA_FLOW, getX(), getY(), getZ(),
 						getEntityId(), e.getEntityId()));
 	}
 
 	public static void particleBeam(PlayerEntity player, Entity e1, Entity e2) {
-		if (e1 != null && e2 != null && !e1.world.isRemote) {
+		if (e1 != null && e2 != null && !e1.world.isClient) {
 			PacketHandler.sendTo((ServerPlayerEntity) player,
-					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_NET_INDICATOR, e1.getPosX(), e1.getPosY(), e1.getPosZ(),
+					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_NET_INDICATOR, e1.getX(), e1.getY(), e1.getZ(),
 							e1.getEntityId(), e2.getEntityId()));
 		}
 	}
 
 	private void dropAndKill() {
 		SparkUpgradeType upgrade = getUpgrade();
-		entityDropItem(new ItemStack(ModItems.spark), 0F);
+		dropStack(new ItemStack(ModItems.spark), 0F);
 		if (upgrade != SparkUpgradeType.NONE) {
-			entityDropItem(ItemSparkUpgrade.getByType(upgrade), 0F);
+			dropStack(ItemSparkUpgrade.getByType(upgrade), 0F);
 		}
 		remove();
 	}
 
 	@Override
-	public ActionResultType processInitialInteract(PlayerEntity player, Hand hand) {
-		ItemStack stack = player.getHeldItem(hand);
+	public ActionResult interact(PlayerEntity player, Hand hand) {
+		ItemStack stack = player.getStackInHand(hand);
 		if (isAlive() && !stack.isEmpty()) {
-			if (world.isRemote) {
+			if (world.isClient) {
 				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() instanceof ItemSparkUpgrade
 						|| stack.getItem() == ModItems.phantomInk || stack.getItem() instanceof DyeItem;
 				if (valid) {
-					player.swingArm(hand);
+					player.swingHand(hand);
 				}
-				return valid ? ActionResultType.SUCCESS : ActionResultType.PASS;
+				return valid ? ActionResult.SUCCESS : ActionResult.PASS;
 			}
 
 			SparkUpgradeType upgrade = getUpgrade();
 			if (stack.getItem() == ModItems.twigWand) {
 				if (player.isSneaking()) {
 					if (upgrade != SparkUpgradeType.NONE) {
-						entityDropItem(ItemSparkUpgrade.getByType(upgrade), 0F);
+						dropStack(ItemSparkUpgrade.getByType(upgrade), 0F);
 						setUpgrade(SparkUpgradeType.NONE);
 
 						transfers.clear();
@@ -261,56 +261,56 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 					} else {
 						dropAndKill();
 					}
-					return ActionResultType.SUCCESS;
+					return ActionResult.SUCCESS;
 				} else {
-					SparkHelper.getSparksAround(world, getPosX(), getPosY() + (getHeight() / 2), getPosZ(), getNetwork())
+					SparkHelper.getSparksAround(world, getX(), getY() + (getHeight() / 2), getZ(), getNetwork())
 							.forEach(s -> particleBeam(player, this, (Entity) s));
-					return ActionResultType.SUCCESS;
+					return ActionResult.SUCCESS;
 				}
 			} else if (stack.getItem() instanceof ItemSparkUpgrade && upgrade == SparkUpgradeType.NONE) {
 				setUpgrade(((ItemSparkUpgrade) stack.getItem()).type);
-				stack.shrink(1);
-				return ActionResultType.SUCCESS;
+				stack.decrement(1);
+				return ActionResult.SUCCESS;
 			} else if (stack.getItem() == ModItems.phantomInk) {
 				setInvisible(true);
-				return ActionResultType.SUCCESS;
+				return ActionResult.SUCCESS;
 			} else if (stack.getItem() instanceof DyeItem) {
-				DyeColor color = ((DyeItem) stack.getItem()).getDyeColor();
+				DyeColor color = ((DyeItem) stack.getItem()).getColor();
 				if (color != getNetwork()) {
 					setNetwork(color);
-					stack.shrink(1);
-					return ActionResultType.SUCCESS;
+					stack.decrement(1);
+					return ActionResult.SUCCESS;
 				}
 			}
 		}
 
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
 	@Nonnull
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public Packet<?> createSpawnPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	@Override
-	protected void readAdditional(@Nonnull CompoundNBT cmp) {
-		super.readAdditional(cmp);
+	protected void readCustomDataFromTag(@Nonnull CompoundTag cmp) {
+		super.readCustomDataFromTag(cmp);
 		setUpgrade(SparkUpgradeType.values()[cmp.getInt(TAG_UPGRADE)]);
 	}
 
 	@Override
-	protected void writeAdditional(@Nonnull CompoundNBT cmp) {
-		super.writeAdditional(cmp);
+	protected void writeCustomDataToTag(@Nonnull CompoundTag cmp) {
+		super.writeCustomDataToTag(cmp);
 		cmp.putInt(TAG_UPGRADE, getUpgrade().ordinal());
 	}
 
 	@Override
 	public ISparkAttachable getAttachedTile() {
-		int x = MathHelper.floor(getPosX());
-		int y = MathHelper.floor(getPosY()) - 1;
-		int z = MathHelper.floor(getPosZ());
-		TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
+		int x = MathHelper.floor(getX());
+		int y = MathHelper.floor(getY()) - 1;
+		int z = MathHelper.floor(getZ());
+		BlockEntity tile = world.getBlockEntity(new BlockPos(x, y, z));
 		if (tile instanceof ISparkAttachable) {
 			return (ISparkAttachable) tile;
 		}
@@ -359,12 +359,12 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 
 	@Override
 	public SparkUpgradeType getUpgrade() {
-		return SparkUpgradeType.values()[dataManager.get(UPGRADE)];
+		return SparkUpgradeType.values()[dataTracker.get(UPGRADE)];
 	}
 
 	@Override
 	public void setUpgrade(SparkUpgradeType upgrade) {
-		dataManager.set(UPGRADE, upgrade.ordinal());
+		dataTracker.set(UPGRADE, upgrade.ordinal());
 	}
 
 	@Override

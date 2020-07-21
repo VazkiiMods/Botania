@@ -8,24 +8,25 @@
  */
 package vazkii.botania.common.block.mana;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.state.StateManager;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -39,30 +40,30 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class BlockEnchanter extends BlockMod implements ITileEntityProvider, IWandable, IWandHUD {
+public class BlockEnchanter extends BlockMod implements BlockEntityProvider, IWandable, IWandHUD {
 
-	public BlockEnchanter(Properties builder) {
+	public BlockEnchanter(Settings builder) {
 		super(builder);
 		setDefaultState(getDefaultState().with(BotaniaStateProps.ENCHANTER_DIRECTION, Direction.Axis.X));
 	}
 
 	@Override
-	protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		builder.add(BotaniaStateProps.ENCHANTER_DIRECTION);
 	}
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TileEnchanter();
 	}
 
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		TileEnchanter enchanter = (TileEnchanter) world.getTileEntity(pos);
-		ItemStack stack = player.getHeldItem(hand);
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+		TileEnchanter enchanter = (TileEnchanter) world.getBlockEntity(pos);
+		ItemStack stack = player.getStackInHand(hand);
 		if (!stack.isEmpty() && stack.getItem() == ModItems.twigWand) {
-			return ActionResultType.PASS;
+			return ActionResult.PASS;
 		}
 
 		boolean stackEnchantable = !stack.isEmpty()
@@ -73,42 +74,42 @@ public class BlockEnchanter extends BlockMod implements ITileEntityProvider, IWa
 		if (enchanter.itemToEnchant.isEmpty()) {
 			if (stackEnchantable) {
 				enchanter.itemToEnchant = stack.copy();
-				player.setHeldItem(hand, ItemStack.EMPTY);
+				player.setStackInHand(hand, ItemStack.EMPTY);
 				enchanter.sync();
 			} else {
-				return ActionResultType.PASS;
+				return ActionResult.PASS;
 			}
 		} else if (enchanter.stage == TileEnchanter.State.IDLE) {
-			player.inventory.placeItemBackInInventory(player.world, enchanter.itemToEnchant.copy());
+			player.inventory.offerOrDrop(player.world, enchanter.itemToEnchant.copy());
 			enchanter.itemToEnchant = ItemStack.EMPTY;
 			enchanter.sync();
 		}
 
-		return ActionResultType.SUCCESS;
+		return ActionResult.SUCCESS;
 	}
 
 	@Override
-	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+	public void onStateReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
-			TileEnchanter enchanter = (TileEnchanter) world.getTileEntity(pos);
+			TileEnchanter enchanter = (TileEnchanter) world.getBlockEntity(pos);
 
 			if (!enchanter.itemToEnchant.isEmpty()) {
-				world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), enchanter.itemToEnchant));
+				world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), enchanter.itemToEnchant));
 			}
 
-			super.onReplaced(state, world, pos, newState, isMoving);
+			super.onStateReplaced(state, world, pos, newState, isMoving);
 		}
 	}
 
 	@Override
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
-		((TileEnchanter) world.getTileEntity(pos)).onWanded(player, stack);
+		((TileEnchanter) world.getBlockEntity(pos)).onWanded(player, stack);
 		return true;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
-		((TileEnchanter) world.getTileEntity(pos)).renderHUD(ms);
+	public void renderHUD(MatrixStack ms, MinecraftClient mc, World world, BlockPos pos) {
+		((TileEnchanter) world.getBlockEntity(pos)).renderHUD(ms);
 	}
 }

@@ -9,22 +9,21 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
-
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
+import net.minecraft.world.WorldView;
 import vazkii.botania.common.block.tile.TilePylon;
 
 import javax.annotation.Nonnull;
 
-public class BlockPylon extends BlockModWaterloggable implements ITileEntityProvider {
-	private static final VoxelShape SHAPE = Block.makeCuboidShape(2, 0, 2, 14, 21, 14);
+public class BlockPylon extends BlockModWaterloggable implements BlockEntityProvider {
+	private static final VoxelShape SHAPE = Block.createCuboidShape(2, 0, 2, 14, 21, 14);
 
 	public enum Variant {
 		MANA,
@@ -34,14 +33,14 @@ public class BlockPylon extends BlockModWaterloggable implements ITileEntityProv
 
 	public final Variant variant;
 
-	public BlockPylon(Variant v, Properties builder) {
+	public BlockPylon(Variant v, Settings builder) {
 		super(builder);
 		this.variant = v;
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
 		return SHAPE;
 	}
 
@@ -52,7 +51,7 @@ public class BlockPylon extends BlockModWaterloggable implements ITileEntityProv
 	}
 
 	@Override
-	public float getEnchantPowerBonus(BlockState state, IWorldReader world, BlockPos pos) {
+	public float getEnchantPowerBonus(BlockState state, WorldView world, BlockPos pos) {
 		if (variant == Variant.MANA) {
 			return 8;
 		} else {
@@ -62,7 +61,7 @@ public class BlockPylon extends BlockModWaterloggable implements ITileEntityProv
 
 	@Nonnull
 	@Override
-	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
+	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TilePylon();
 	}
 

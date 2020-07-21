@@ -35,7 +35,7 @@ public class ServerProxy implements IProxy {
 
 	@Override
 	public long getWorldElapsedTicks() {
-		return ServerLifecycleHooks.getCurrentServer().getWorld(World.field_234918_g_).getGameTime();
+		return ServerLifecycleHooks.getCurrentServer().getWorld(World.OVERWORLD).getTime();
 	}
 
 	@Override

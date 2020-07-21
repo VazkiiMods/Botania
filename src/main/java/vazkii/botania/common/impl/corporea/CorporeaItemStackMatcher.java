@@ -9,9 +9,8 @@
 package vazkii.botania.common.impl.corporea;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.text.ITextComponent;
-
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.text.Text;
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
@@ -29,22 +28,22 @@ public class CorporeaItemStackMatcher implements ICorporeaRequestMatcher {
 
 	@Override
 	public boolean isStackValid(ItemStack stack) {
-		return !stack.isEmpty() && !match.isEmpty() && stack.isItemEqual(match) && (!checkNBT || ItemNBTHelper.matchTag(match.getTag(), stack.getTag()));
+		return !stack.isEmpty() && !match.isEmpty() && stack.isItemEqualIgnoreDamage(match) && (!checkNBT || ItemNBTHelper.matchTag(match.getTag(), stack.getTag()));
 	}
 
-	public static CorporeaItemStackMatcher createFromNBT(CompoundNBT tag) {
-		return new CorporeaItemStackMatcher(ItemStack.read(tag.getCompound(TAG_REQUEST_STACK)), tag.getBoolean(TAG_REQUEST_CHECK_NBT));
+	public static CorporeaItemStackMatcher createFromNBT(CompoundTag tag) {
+		return new CorporeaItemStackMatcher(ItemStack.fromTag(tag.getCompound(TAG_REQUEST_STACK)), tag.getBoolean(TAG_REQUEST_CHECK_NBT));
 	}
 
 	@Override
-	public void writeToNBT(CompoundNBT tag) {
-		CompoundNBT cmp = match.write(new CompoundNBT());
+	public void writeToNBT(CompoundTag tag) {
+		CompoundTag cmp = match.toTag(new CompoundTag());
 		tag.put(TAG_REQUEST_STACK, cmp);
 		tag.putBoolean(TAG_REQUEST_CHECK_NBT, checkNBT);
 	}
 
 	@Override
-	public ITextComponent getRequestName() {
-		return match.getTextComponent();
+	public Text getRequestName() {
+		return match.toHoverableText();
 	}
 }

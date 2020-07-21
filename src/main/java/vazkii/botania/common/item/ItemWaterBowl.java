@@ -12,7 +12,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
@@ -22,13 +22,13 @@ import javax.annotation.Nonnull;
 
 public class ItemWaterBowl extends Item {
 
-	public ItemWaterBowl(Properties builder) {
+	public ItemWaterBowl(Settings builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT nbt) {
+	public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag nbt) {
 		return new Handler(stack);
 	}
 

@@ -14,7 +14,7 @@ import net.minecraft.block.WallBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ItemModelBuilder;
@@ -47,7 +47,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 
 	@Override
 	protected void registerModels() {
-		Set<Item> items = Registry.ITEM.stream().filter(i -> LibMisc.MOD_ID.equals(Registry.ITEM.getKey(i).getNamespace()))
+		Set<Item> items = Registry.ITEM.stream().filter(i -> LibMisc.MOD_ID.equals(Registry.ITEM.getId(i).getNamespace()))
 				.collect(Collectors.toSet());
 		registerItemBlocks(takeAll(items, i -> i instanceof BlockItem).stream().map(i -> (BlockItem) i).collect(Collectors.toSet()));
 		registerItemOverrides(items);
@@ -55,10 +55,10 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 	}
 
 	private static String name(Item i) {
-		return Registry.ITEM.getKey(i).getPath();
+		return Registry.ITEM.getId(i).getPath();
 	}
 
-	private static final ResourceLocation GENERATED = new ResourceLocation("item/generated");
+	private static final Identifier GENERATED = new Identifier("item/generated");
 
 	private ItemModelBuilder generatedItem(String name) {
 		return withExistingParent(name, GENERATED)
@@ -274,28 +274,28 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 		// Manually written
 		itemBlocks.remove(ModBlocks.corporeaCrystalCube.asItem());
 
-		String animatedTorchName = Registry.ITEM.getKey(ModBlocks.animatedTorch.asItem()).getPath();
+		String animatedTorchName = Registry.ITEM.getId(ModBlocks.animatedTorch.asItem()).getPath();
 		withExistingParent(animatedTorchName, "item/generated")
-				.texture("layer0", new ResourceLocation("block/redstone_torch"))
+				.texture("layer0", new Identifier("block/redstone_torch"))
 				.texture("layer1", prefix("block/animated_torch_glimmer"));
 		itemBlocks.remove(ModBlocks.animatedTorch.asItem());
 
-		String gaiaHeadName = Registry.ITEM.getKey(ModBlocks.gaiaHead.asItem()).getPath();
+		String gaiaHeadName = Registry.ITEM.getId(ModBlocks.gaiaHead.asItem()).getPath();
 		withExistingParent(gaiaHeadName, "item/template_skull");
 		itemBlocks.remove(ModBlocks.gaiaHead.asItem());
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof BlockModDoubleFlower).forEach(i -> {
-			String name = Registry.ITEM.getKey(i).getPath();
+			String name = Registry.ITEM.getId(i).getPath();
 			withExistingParent(name, "item/generated").texture("layer0", prefix("block/" + name + "_top"));
 		});
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof BlockPetalBlock).forEach(i -> {
-			String name = Registry.ITEM.getKey(i).getPath();
+			String name = Registry.ITEM.getId(i).getPath();
 			withExistingParent(name, prefix("block/petal_block"));
 		});
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof PaneBlock).forEach(i -> {
-			String name = Registry.ITEM.getKey(i).getPath();
+			String name = Registry.ITEM.getId(i).getPath();
 			String baseName = name.substring(0, name.length() - "_pane".length());
 			withExistingParent(name, "item/generated")
 					.texture("layer0", prefix("block/" + baseName));
@@ -309,25 +309,25 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 					|| b == ModBlocks.ghostRail;
 		};
 		takeAll(itemBlocks, defaultGenerated).forEach(i -> {
-			String name = Registry.ITEM.getKey(i).getPath();
+			String name = Registry.ITEM.getId(i).getPath();
 			withExistingParent(name, "item/generated").texture("layer0", prefix("block/" + name));
 		});
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof BlockPool).forEach(i -> {
-			String name = Registry.ITEM.getKey(i).getPath();
+			String name = Registry.ITEM.getId(i).getPath();
 			withExistingParent(name, prefix("block/" + name))
 					.override().predicate(prefix("full"), 1).model(getExistingFile(prefix("block/" + name + "_full"))).end();
 		});
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof WallBlock).forEach(i -> {
-			String name = Registry.ITEM.getKey(i).getPath();
+			String name = Registry.ITEM.getId(i).getPath();
 			String baseName = name.substring(0, name.length() - "_wall".length());
-			withExistingParent(name, new ResourceLocation("block/wall_inventory"))
+			withExistingParent(name, new Identifier("block/wall_inventory"))
 					.texture("wall", prefix("block/" + baseName));
 		});
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof BlockSpreader).forEach(i -> {
-			String name = Registry.ITEM.getKey(i).getPath();
+			String name = Registry.ITEM.getId(i).getPath();
 			String material;
 			if (i.getBlock() == ModBlocks.elvenSpreader) {
 				material = "dreamwood";
@@ -348,33 +348,33 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 						.forEach(this::builtinEntity);
 
 		takeAll(itemBlocks, i -> i instanceof ItemPetal).forEach(i -> {
-			String name = Registry.ITEM.getKey(i).getPath();
+			String name = Registry.ITEM.getId(i).getPath();
 			withExistingParent(name, "item/generated").texture("layer0", prefix("item/petal"));
 		});
 
-		String dreamwoodFenceName = Registry.ITEM.getKey(ModFluffBlocks.dreamwoodFence.asItem()).getPath();
+		String dreamwoodFenceName = Registry.ITEM.getId(ModFluffBlocks.dreamwoodFence.asItem()).getPath();
 		withExistingParent(dreamwoodFenceName, "block/fence_inventory")
 				.texture("texture", prefix("block/dreamwood_planks"));
 		itemBlocks.remove(ModFluffBlocks.dreamwoodFence.asItem());
 
-		String livingwoodFenceName = Registry.ITEM.getKey(ModFluffBlocks.livingwoodFence.asItem()).getPath();
+		String livingwoodFenceName = Registry.ITEM.getId(ModFluffBlocks.livingwoodFence.asItem()).getPath();
 		withExistingParent(livingwoodFenceName, "block/fence_inventory")
 				.texture("texture", prefix("block/livingwood_planks"));
 		itemBlocks.remove(ModFluffBlocks.livingwoodFence.asItem());
 
-		String elfGlassName = Registry.ITEM.getKey(ModBlocks.elfGlass.asItem()).getPath();
+		String elfGlassName = Registry.ITEM.getId(ModBlocks.elfGlass.asItem()).getPath();
 		withExistingParent(elfGlassName, prefix("block/elf_glass_0"));
 		itemBlocks.remove(ModBlocks.elfGlass.asItem());
 
 		itemBlocks.forEach(i -> {
-			String name = Registry.ITEM.getKey(i).getPath();
+			String name = Registry.ITEM.getId(i).getPath();
 			withExistingParent(name, prefix("block/" + name));
 		});
 	}
 
 	private void builtinEntity(Item i) {
 		// [VanillaCopy] from item/chest.json
-		String name = Registry.ITEM.getKey(i).getPath();
+		String name = Registry.ITEM.getId(i).getPath();
 		getBuilder(name).parent(new ModelFile.UncheckedModelFile("builtin/entity"))
 				.transforms()
 				.transform(ModelBuilder.Perspective.GUI)

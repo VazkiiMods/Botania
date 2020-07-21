@@ -8,18 +8,18 @@
  */
 package vazkii.botania.common.item.rod;
 
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResult;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IAvatarTile;
@@ -39,7 +39,7 @@ import java.util.List;
 
 public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWieldable {
 
-	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_TORNADO);
+	private static final Identifier avatarOverlay = new Identifier(LibResources.MODEL_AVATAR_TORNADO);
 
 	private static final int FLY_TIME = 20;
 	private static final int FALL_MULTIPLIER = 3;
@@ -49,7 +49,7 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 	private static final String TAG_FLYING = "flying";
 	private static final String TAG_FLYCOUNTER = "flyCounter";
 
-	public ItemTornadoRod(Properties props) {
+	public ItemTornadoRod(Settings props) {
 		super(props);
 	}
 
@@ -58,7 +58,7 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 		if (ent instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) ent;
 			boolean damaged = getFlyCounter(stack) > 0;
-			boolean held = player.getHeldItemMainhand() == stack || player.getHeldItemOffhand() == stack;
+			boolean held = player.getMainHandStack() == stack || player.getOffHandStack() == stack;
 
 			if (damaged && !isFlying(stack)) {
 				setFlyCounter(stack, getFlyCounter(stack) - 1);
@@ -70,13 +70,13 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 				if (held) {
 					player.fallDistance = 0F;
 					double my = IManaProficiencyArmor.hasProficiency(player, stack) ? 1.6 : 1.25;
-					Vector3d oldMot = player.getMotion();
-					player.setMotion(new Vector3d(oldMot.getX(), my, oldMot.getZ()));
+					Vec3d oldMot = player.getVelocity();
+					player.setVelocity(new Vec3d(oldMot.getX(), my, oldMot.getZ()));
 
 					player.playSound(ModSounds.airRod, 0.1F, 0.25F);
 					for (int i = 0; i < 5; i++) {
 						WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
-						world.addParticle(data, player.getPosX(), player.getPosY(), player.getPosZ(), 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
+						world.addParticle(data, player.getX(), player.getY(), player.getZ(), 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
 					}
 				}
 
@@ -104,16 +104,16 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getHeldItem(hand);
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
+		ItemStack stack = player.getStackInHand(hand);
 		int fly = getFlyCounter(stack);
 		if (fly == 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
 			ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true);
 			setFlying(stack, true);
-			return ActionResult.resultSuccess(stack);
+			return TypedActionResult.success(stack);
 		}
 
-		return ActionResult.resultPass(stack);
+		return TypedActionResult.pass(stack);
 	}
 
 	public static boolean isFlying(ItemStack stack) {
@@ -139,26 +139,26 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
-		TileEntity te = (TileEntity) tile;
+		BlockEntity te = (BlockEntity) tile;
 		World world = te.getWorld();
 		if (tile.getCurrentMana() >= COST && tile.isEnabled()) {
 			int range = 5;
 			int rangeY = 3;
-			List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(te.getPos().add(-0.5 - range, -0.5 - rangeY, -0.5 - range), te.getPos().add(0.5 + range, 0.5 + rangeY, 0.5 + range)));
+			List<PlayerEntity> players = world.getNonSpectatingEntities(PlayerEntity.class, new Box(te.getPos().add(-0.5 - range, -0.5 - rangeY, -0.5 - range), te.getPos().add(0.5 + range, 0.5 + rangeY, 0.5 + range)));
 			for (PlayerEntity p : players) {
-				if (p.getMotion().getY() > 0.3 && p.getMotion().getY() < 2 && !p.isSneaking()) {
-					p.setMotion(p.getMotion().getX(), 2.8, p.getMotion().getZ());
+				if (p.getVelocity().getY() > 0.3 && p.getVelocity().getY() < 2 && !p.isSneaking()) {
+					p.setVelocity(p.getVelocity().getX(), 2.8, p.getVelocity().getZ());
 
 					for (int i = 0; i < 20; i++) {
 						for (int j = 0; j < 5; j++) {
 							WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
-							world.addParticle(data, p.getPosX(), p.getPosY() + i, p.getPosZ(), 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
+							world.addParticle(data, p.getX(), p.getY() + i, p.getZ(), 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
 						}
 					}
 
-					if (!world.isRemote) {
-						p.world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
-						p.addPotionEffect(new EffectInstance(ModPotions.featherfeet, 100, 0));
+					if (!world.isClient) {
+						p.world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
+						p.addStatusEffect(new StatusEffectInstance(ModPotions.featherfeet, 100, 0));
 						tile.receiveMana(-COST);
 					}
 				}
@@ -172,7 +172,7 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 	}
 
 	@Override
-	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
+	public Identifier getOverlayResource(IAvatarTile tile, ItemStack stack) {
 		return avatarOverlay;
 	}
 

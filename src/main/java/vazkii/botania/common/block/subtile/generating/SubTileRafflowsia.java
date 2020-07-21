@@ -10,8 +10,8 @@ package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 
@@ -42,7 +42,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 
 		int mana = 2100;
 
-		if (getMaxMana() - this.getMana() >= mana && !getWorld().isRemote && ticksExisted % 40 == 0) {
+		if (getMaxMana() - this.getMana() >= mana && !getWorld().isClient && ticksExisted % 40 == 0) {
 			for (int i = 0; i < RANGE * 2 + 1; i++) {
 				for (int j = 0; j < RANGE * 2 + 1; j++) {
 					for (int k = 0; k < RANGE * 2 + 1; k++) {
@@ -59,7 +59,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 
 							float mod = 1F / lastFlowerTimes;
 
-							getWorld().destroyBlock(pos, false);
+							getWorld().breakBlock(pos, false);
 							addMana((int) (mana * mod));
 							sync();
 							return;
@@ -71,22 +71,22 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundNBT cmp) {
+	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
 
 		if (lastFlower != null) {
-			cmp.putString(TAG_LAST_FLOWER, Registry.BLOCK.getKey(lastFlower).toString());
+			cmp.putString(TAG_LAST_FLOWER, Registry.BLOCK.getId(lastFlower).toString());
 		}
 		cmp.putInt(TAG_LAST_FLOWER_TIMES, lastFlowerTimes);
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundNBT cmp) {
+	public void readFromPacketNBT(CompoundTag cmp) {
 		super.readFromPacketNBT(cmp);
 
-		ResourceLocation id = ResourceLocation.tryCreate(cmp.getString(TAG_LAST_FLOWER));
+		Identifier id = Identifier.tryParse(cmp.getString(TAG_LAST_FLOWER));
 		if (id != null) {
-			lastFlower = Registry.BLOCK.getValue(id).orElse(null);
+			lastFlower = Registry.BLOCK.getOrEmpty(id).orElse(null);
 		}
 		lastFlowerTimes = cmp.getInt(TAG_LAST_FLOWER_TIMES);
 	}

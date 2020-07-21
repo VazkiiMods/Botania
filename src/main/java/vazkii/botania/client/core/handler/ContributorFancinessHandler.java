@@ -9,24 +9,23 @@
 package vazkii.botania.client.core.handler;
 
 import com.google.common.collect.ImmutableMap;
-import com.mojang.blaze3d.matrix.MatrixStack;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
-import net.minecraft.client.renderer.Atlases;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.IEntityRenderer;
-import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.client.renderer.entity.model.PlayerModel;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.PlayerModelPart;
+import net.minecraft.client.render.entity.feature.FeatureRenderer;
+import net.minecraft.client.render.entity.feature.FeatureRendererContext;
+import net.minecraft.client.render.entity.model.PlayerEntityModel;
+import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerModelPart;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.DefaultUncaughtExceptionHandler;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.logging.UncaughtExceptionLogger;
 import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -43,7 +42,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-public final class ContributorFancinessHandler extends LayerRenderer<AbstractClientPlayerEntity, PlayerModel<AbstractClientPlayerEntity>> {
+public final class ContributorFancinessHandler extends FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
 
 	private static volatile Map<String, ItemStack> flowerMap = Collections.emptyMap();
 	private static boolean startedLoading = false;
@@ -57,12 +56,12 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 			.put("orechidignem", LibBlockNames.SUBTILE_ORECHID_IGNEM.getPath())
 			.build();
 
-	public ContributorFancinessHandler(IEntityRenderer<AbstractClientPlayerEntity, PlayerModel<AbstractClientPlayerEntity>> renderer) {
+	public ContributorFancinessHandler(FeatureRendererContext<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> renderer) {
 		super(renderer);
 	}
 
 	@Override
-	public void render(MatrixStack ms, IRenderTypeBuffer buffers, int light, @Nonnull AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void render(MatrixStack ms, VertexConsumerProvider buffers, int light, @Nonnull AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		firstStart();
 
 		if (player.isInvisible()) {
@@ -75,7 +74,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 			renderGoldfish(ms, buffers);
 		}
 
-		if (player.isWearing(PlayerModelPart.CAPE)) {
+		if (player.isPartVisible(PlayerModelPart.CAPE)) {
 			ItemStack flower = getFlower(name.toLowerCase(Locale.ROOT));
 			if (!flower.isEmpty()) {
 				renderFlower(ms, buffers, player, flower);
@@ -110,8 +109,8 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 				String rawName = value.toLowerCase(Locale.ROOT);
 				String flowerName = LEGACY_FLOWER_NAMES.getOrDefault(rawName, rawName);
 
-				Item item = ModTags.Items.SPECIAL_FLOWERS.getAllElements().stream()
-						.filter(flower -> Registry.ITEM.getKey(flower).getPath().equals(flowerName))
+				Item item = ModTags.Items.SPECIAL_FLOWERS.values().stream()
+						.filter(flower -> Registry.ITEM.getId(flower).getPath().equals(flowerName))
 						.findFirst().orElse(Items.POPPY);
 				m.put(key, new ItemStack(item));
 			}
@@ -119,21 +118,21 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 		flowerMap = m;
 	}
 
-	private void renderGoldfish(MatrixStack ms, IRenderTypeBuffer buffers) {
+	private void renderGoldfish(MatrixStack ms, VertexConsumerProvider buffers) {
 		ms.push();
-		getEntityModel().bipedHead.translateRotate(ms);
+		getContextModel().head.rotate(ms);
 		ms.translate(-0.15F, -0.60F, 0F);
 		ms.scale(0.4F, -0.4F, -0.4F);
-		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffers.getBuffer(Atlases.getTranslucentCullBlockType()), null, MiscellaneousIcons.INSTANCE.goldfishModel, 1, 1, 1, 0xF000F0, OverlayTexture.NO_OVERLAY);
+		MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer().render(ms.peek(), buffers.getBuffer(TexturedRenderLayers.getEntityTranslucentCull()), null, MiscellaneousIcons.INSTANCE.goldfishModel, 1, 1, 1, 0xF000F0, OverlayTexture.DEFAULT_UV);
 		ms.pop();
 	}
 
-	private void renderFlower(MatrixStack ms, IRenderTypeBuffer buffers, PlayerEntity player, ItemStack flower) {
+	private void renderFlower(MatrixStack ms, VertexConsumerProvider buffers, PlayerEntity player, ItemStack flower) {
 		ms.push();
-		getEntityModel().bipedHead.translateRotate(ms);
+		getContextModel().head.rotate(ms);
 		ms.translate(0, -0.75, 0);
 		ms.scale(0.5F, -0.5F, -0.5F);
-		RenderHelper.renderItemModelGold(player, flower, ItemCameraTransforms.TransformType.NONE, ms, buffers, player.world, 0xF000F0, OverlayTexture.NO_OVERLAY);
+		RenderHelper.renderItemModelGold(player, flower, ModelTransformation.Mode.NONE, ms, buffers, player.world, 0xF000F0, OverlayTexture.DEFAULT_UV);
 		ms.pop();
 	}
 
@@ -142,7 +141,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 		public ThreadContributorListLoader() {
 			setName("Botania Contributor Fanciness Thread");
 			setDaemon(true);
-			setUncaughtExceptionHandler(new DefaultUncaughtExceptionHandler(Botania.LOGGER));
+			setUncaughtExceptionHandler(new UncaughtExceptionLogger(Botania.LOGGER));
 			start();
 		}
 

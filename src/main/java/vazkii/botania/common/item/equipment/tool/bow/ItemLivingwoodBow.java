@@ -13,12 +13,14 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ArrowItem;
 import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.stats.Stats;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 
@@ -34,39 +36,39 @@ import java.util.function.Consumer;
 public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 	public static final int MANA_PER_DAMAGE = 40;
 
-	public ItemLivingwoodBow(Properties builder) {
+	public ItemLivingwoodBow(Settings builder) {
 		super(builder);
 	}
 
 	// [VanillaCopy] super
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(@Nonnull World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn) {
-		ItemStack itemstack = playerIn.getHeldItem(handIn);
+	public TypedActionResult<ItemStack> use(@Nonnull World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn) {
+		ItemStack itemstack = playerIn.getStackInHand(handIn);
 		boolean flag = canFire(itemstack, playerIn); // Botania - custom check
 
-		ActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onArrowNock(itemstack, worldIn, playerIn, handIn, flag);
+		TypedActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onArrowNock(itemstack, worldIn, playerIn, handIn, flag);
 		if (ret != null) {
 			return ret;
 		}
 
-		if (!playerIn.abilities.isCreativeMode && !flag) {
-			return flag ? new ActionResult<>(ActionResultType.PASS, itemstack) : new ActionResult<>(ActionResultType.FAIL, itemstack);
+		if (!playerIn.abilities.creativeMode && !flag) {
+			return flag ? new TypedActionResult<>(ActionResult.PASS, itemstack) : new TypedActionResult<>(ActionResult.FAIL, itemstack);
 		} else {
-			playerIn.setActiveHand(handIn);
-			return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
+			playerIn.setCurrentHand(handIn);
+			return new TypedActionResult<>(ActionResult.SUCCESS, itemstack);
 		}
 	}
 
 	// [VanillaCopy] super
 	@Override
-	public void onPlayerStoppedUsing(@Nonnull ItemStack stack, @Nonnull World worldIn, LivingEntity entityLiving, int timeLeft) {
+	public void onStoppedUsing(@Nonnull ItemStack stack, @Nonnull World worldIn, LivingEntity entityLiving, int timeLeft) {
 		if (entityLiving instanceof PlayerEntity) {
 			PlayerEntity playerentity = (PlayerEntity) entityLiving;
 			boolean flag = canFire(stack, playerentity); // Botania - custom check
-			ItemStack itemstack = playerentity.findAmmo(stack);
+			ItemStack itemstack = playerentity.getArrowType(stack);
 
-			int i = (int) ((getUseDuration(stack) - timeLeft) * chargeVelocityMultiplier()); // Botania - velocity multiplier
+			int i = (int) ((getMaxUseTime(stack) - timeLeft) * chargeVelocityMultiplier()); // Botania - velocity multiplier
 			i = net.minecraftforge.event.ForgeEventFactory.onArrowLoose(stack, worldIn, playerentity, i, !itemstack.isEmpty() || flag);
 			if (i < 0) {
 				return;
@@ -77,50 +79,50 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 					itemstack = new ItemStack(Items.ARROW);
 				}
 
-				float f = getArrowVelocity(i);
+				float f = getPullProgress(i);
 				if (!((double) f < 0.1D)) {
-					boolean flag1 = playerentity.abilities.isCreativeMode || (itemstack.getItem() instanceof ArrowItem && ((ArrowItem) itemstack.getItem()).isInfinite(itemstack, stack, playerentity));
-					if (!worldIn.isRemote) {
+					boolean flag1 = playerentity.abilities.creativeMode || (itemstack.getItem() instanceof ArrowItem && ((ArrowItem) itemstack.getItem()).isInfinite(itemstack, stack, playerentity));
+					if (!worldIn.isClient) {
 						ArrowItem arrowitem = (ArrowItem) (itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
-						AbstractArrowEntity abstractarrowentity = arrowitem.createArrow(worldIn, itemstack, playerentity);
+						PersistentProjectileEntity abstractarrowentity = arrowitem.createArrow(worldIn, itemstack, playerentity);
 						abstractarrowentity = customArrow(abstractarrowentity);
-						abstractarrowentity.func_234612_a_(playerentity, playerentity.rotationPitch, playerentity.rotationYaw, 0.0F, f * 3.0F, 1.0F);
+						abstractarrowentity.setProperties(playerentity, playerentity.pitch, playerentity.yaw, 0.0F, f * 3.0F, 1.0F);
 						if (f == 1.0F) {
-							abstractarrowentity.setIsCritical(true);
+							abstractarrowentity.setCritical(true);
 						}
 
-						int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.POWER, stack);
+						int j = EnchantmentHelper.getLevel(Enchantments.POWER, stack);
 						if (j > 0) {
 							abstractarrowentity.setDamage(abstractarrowentity.getDamage() + (double) j * 0.5D + 0.5D);
 						}
 
-						int k = EnchantmentHelper.getEnchantmentLevel(Enchantments.PUNCH, stack);
+						int k = EnchantmentHelper.getLevel(Enchantments.PUNCH, stack);
 						if (k > 0) {
-							abstractarrowentity.setKnockbackStrength(k);
+							abstractarrowentity.setPunch(k);
 						}
 
-						if (EnchantmentHelper.getEnchantmentLevel(Enchantments.FLAME, stack) > 0) {
-							abstractarrowentity.setFire(100);
+						if (EnchantmentHelper.getLevel(Enchantments.FLAME, stack) > 0) {
+							abstractarrowentity.setOnFireFor(100);
 						}
 
 						// Botania - move damage into onFire
 						onFire(stack, playerentity, flag1, abstractarrowentity);
-						if (flag1 || playerentity.abilities.isCreativeMode && (itemstack.getItem() == Items.SPECTRAL_ARROW || itemstack.getItem() == Items.TIPPED_ARROW)) {
-							abstractarrowentity.pickupStatus = AbstractArrowEntity.PickupStatus.CREATIVE_ONLY;
+						if (flag1 || playerentity.abilities.creativeMode && (itemstack.getItem() == Items.SPECTRAL_ARROW || itemstack.getItem() == Items.TIPPED_ARROW)) {
+							abstractarrowentity.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
 						}
 
-						worldIn.addEntity(abstractarrowentity);
+						worldIn.spawnEntity(abstractarrowentity);
 					}
 
-					worldIn.playSound((PlayerEntity) null, playerentity.getPosX(), playerentity.getPosY(), playerentity.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
-					if (!flag1 && !playerentity.abilities.isCreativeMode) {
-						itemstack.shrink(1);
+					worldIn.playSound((PlayerEntity) null, playerentity.getX(), playerentity.getY(), playerentity.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (RANDOM.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+					if (!flag1 && !playerentity.abilities.creativeMode) {
+						itemstack.decrement(1);
 						if (itemstack.isEmpty()) {
-							playerentity.inventory.deleteStack(itemstack);
+							playerentity.inventory.removeOne(itemstack);
 						}
 					}
 
-					playerentity.addStat(Stats.ITEM_USED.get(this));
+					playerentity.incrementStat(Stats.USED.getOrCreateStat(this));
 				}
 			}
 		}
@@ -131,25 +133,25 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 	}
 
 	boolean canFire(ItemStack stack, PlayerEntity player) {
-		return player.abilities.isCreativeMode
-				|| EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0
-				|| !player.findAmmo(stack).isEmpty();
+		return player.abilities.creativeMode
+				|| EnchantmentHelper.getLevel(Enchantments.INFINITY, stack) > 0
+				|| !player.getArrowType(stack).isEmpty();
 	}
 
-	void onFire(ItemStack bow, LivingEntity living, boolean infinity, AbstractArrowEntity arrow) {
+	void onFire(ItemStack bow, LivingEntity living, boolean infinity, PersistentProjectileEntity arrow) {
 		ToolCommons.damageItem(bow, 1, living, MANA_PER_DAMAGE);
 	}
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected) {
-		if (!world.isRemote && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.instance().requestManaExactForTool(stack, (PlayerEntity) player, MANA_PER_DAMAGE * 2, true)) {
+		if (!world.isClient && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.instance().requestManaExactForTool(stack, (PlayerEntity) player, MANA_PER_DAMAGE * 2, true)) {
 			stack.setDamage(stack.getDamage() - 1);
 		}
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack bow, ItemStack material) {
-		return material.getItem() == ModItems.livingwoodTwig || super.getIsRepairable(bow, material);
+	public boolean canRepair(ItemStack bow, ItemStack material) {
+		return material.getItem() == ModItems.livingwoodTwig || super.canRepair(bow, material);
 	}
 
 	@Override

@@ -8,14 +8,13 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.gui.recipebook.RecipeBookGui;
-import net.minecraft.client.gui.recipebook.RecipeBookPage;
-
+import net.minecraft.client.gui.screen.recipebook.RecipeBookResults;
+import net.minecraft.client.gui.screen.recipebook.RecipeBookWidget;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(RecipeBookGui.class)
+@Mixin(RecipeBookWidget.class)
 public interface AccessorRecipeBookGui {
 	@Accessor
-	RecipeBookPage getRecipeBookPage();
+	RecipeBookResults getRecipeBookPage();
 }

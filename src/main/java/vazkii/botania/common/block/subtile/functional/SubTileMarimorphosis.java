@@ -11,8 +11,7 @@ package vazkii.botania.common.block.subtile.functional;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.pattern.BlockStateMatcher;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
@@ -46,7 +45,7 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 			Type.MESA
 	};
 
-	public SubTileMarimorphosis(TileEntityType<?> type) {
+	public SubTileMarimorphosis(BlockEntityType<?> type) {
 		super(type);
 	}
 
@@ -57,7 +56,7 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 	@Override
 	public void tickFlower() {
 		super.tickFlower();
-		if (getWorld().isRemote || redstoneSignal > 0) {
+		if (getWorld().isClient || redstoneSignal > 0) {
 			return;
 		}
 
@@ -68,7 +67,7 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 				if (state != null) {
 					getWorld().setBlockState(coords, state);
 					if (ConfigHandler.COMMON.blockBreakParticles.get()) {
-						getWorld().playEvent(2001, coords, Block.getStateId(state));
+						getWorld().syncWorldEvent(2001, coords, Block.getRawIdFromState(state));
 					}
 
 					addMana(-COST);
@@ -94,7 +93,7 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 			}
 		}
 
-		return values.get(getWorld().rand.nextInt(values.size())).getDefaultState();
+		return values.get(getWorld().random.nextInt(values.size())).getDefaultState();
 	}
 
 	private Block biomeTypeToBlock(Type biomeType) {
@@ -126,7 +125,7 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 		int range = getRange();
 		int rangeY = getRangeY();
 
-		for (BlockPos pos : BlockPos.getAllInBoxMutable(getEffectivePos().add(-range, -rangeY, -range),
+		for (BlockPos pos : BlockPos.iterate(getEffectivePos().add(-range, -rangeY, -range),
 				getEffectivePos().add(range, rangeY, range))) {
 			BlockState state = getWorld().getBlockState(pos);
 			if (state.getBlock() == Blocks.STONE) {
@@ -137,7 +136,7 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 		if (possibleCoords.isEmpty()) {
 			return null;
 		}
-		return possibleCoords.get(getWorld().rand.nextInt(possibleCoords.size()));
+		return possibleCoords.get(getWorld().random.nextInt(possibleCoords.size()));
 	}
 
 	@Override

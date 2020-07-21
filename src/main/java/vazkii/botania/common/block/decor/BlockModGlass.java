@@ -11,7 +11,7 @@ package vazkii.botania.common.block.decor;
 import net.minecraft.block.AbstractGlassBlock;
 
 public class BlockModGlass extends AbstractGlassBlock {
-	public BlockModGlass(Properties props) {
+	public BlockModGlass(Settings props) {
 		super(props);
 	}
 }

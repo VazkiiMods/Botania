@@ -8,9 +8,8 @@
  */
 package vazkii.botania.api.mana.spark;
 
-import net.minecraft.item.DyeColor;
-
 import java.util.Collection;
+import net.minecraft.util.DyeColor;
 
 /**
  * An Entity that implements this is considered a Spark.

@@ -14,7 +14,7 @@ public class ItemGreaterManaRing extends ItemManaRing {
 
 	private static final int MAX_MANA = ItemManaRing.MAX_MANA * 4;
 
-	public ItemGreaterManaRing(Properties props) {
+	public ItemGreaterManaRing(Settings props) {
 		super(props);
 	}
 

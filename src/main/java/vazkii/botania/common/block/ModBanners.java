@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
-import net.minecraft.tileentity.BannerPattern;
-import net.minecraft.util.IItemProvider;
 import net.minecraftforge.registries.IRegistryDelegate;
 
 import vazkii.botania.common.item.ModItems;
@@ -44,7 +44,7 @@ public final class ModBanners {
 		addPattern("sword", "srd", Items.IRON_SWORD);
 	}
 
-	private static void addPattern(String name, String id, IItemProvider craftingItem) {
+	private static void addPattern(String name, String id, ItemConvertible craftingItem) {
 		name = "botania_" + name;
 		id = "bt_" + id;
 		BannerPattern pattern = BannerPattern.create(name.toUpperCase(Locale.ROOT), name, id, false);

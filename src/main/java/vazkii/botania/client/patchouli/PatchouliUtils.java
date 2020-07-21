@@ -9,8 +9,7 @@
 package vazkii.botania.client.patchouli;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-
+import net.minecraft.recipe.Ingredient;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -32,14 +31,14 @@ public class PatchouliUtils {
 	 */
 	public static IVariable interweaveIngredients(List<Ingredient> ingredients, int longestIngredientSize) {
 		if (ingredients.size() == 1) {
-			return IVariable.wrapList(Arrays.stream(ingredients.get(0).getMatchingStacks()).map(IVariable::from).collect(Collectors.toList()));
+			return IVariable.wrapList(Arrays.stream(ingredients.get(0).getMatchingStacksClient()).map(IVariable::from).collect(Collectors.toList()));
 		}
 
 		ItemStack[] empty = { ItemStack.EMPTY };
 		List<ItemStack[]> stacks = new ArrayList<>();
 		for (Ingredient ingredient : ingredients) {
-			if (ingredient != null && !ingredient.hasNoMatchingItems()) {
-				stacks.add(ingredient.getMatchingStacks());
+			if (ingredient != null && !ingredient.isEmpty()) {
+				stacks.add(ingredient.getMatchingStacksClient());
 			} else {
 				stacks.add(empty);
 			}
@@ -57,6 +56,6 @@ public class PatchouliUtils {
 	 * Overload of the method above that uses the provided list's longest ingredient size.
 	 */
 	public static IVariable interweaveIngredients(List<Ingredient> ingredients) {
-		return interweaveIngredients(ingredients, ingredients.stream().mapToInt(ingr -> ingr.getMatchingStacks().length).max().orElse(1));
+		return interweaveIngredients(ingredients, ingredients.stream().mapToInt(ingr -> ingr.getMatchingStacksClient().length).max().orElse(1));
 	}
 }

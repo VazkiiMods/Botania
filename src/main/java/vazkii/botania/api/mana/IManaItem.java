@@ -8,8 +8,8 @@
  */
 package vazkii.botania.api.mana;
 
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 
 /**
  * An item that implements this can be counted as an item that can
@@ -38,7 +38,7 @@ public interface IManaItem {
 	 * @param pool The pool it's receiving mana from, can be casted to IManaPool.
 	 * @see IManaPool#isOutputtingPower()
 	 */
-	public boolean canReceiveManaFromPool(ItemStack stack, TileEntity pool);
+	public boolean canReceiveManaFromPool(ItemStack stack, BlockEntity pool);
 
 	/**
 	 * Can this item recieve mana from another item?
@@ -51,7 +51,7 @@ public interface IManaItem {
 	 * @param pool The pool it's exporting mana to, can be casted to IManaPool.
 	 * @see IManaPool#isOutputtingPower()
 	 */
-	public boolean canExportManaToPool(ItemStack stack, TileEntity pool);
+	public boolean canExportManaToPool(ItemStack stack, BlockEntity pool);
 
 	/**
 	 * Can this item export mana to another item?

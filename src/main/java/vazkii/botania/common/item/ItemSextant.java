@@ -8,28 +8,29 @@
  */
 package vazkii.botania.common.item;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.UseAction;
-import net.minecraft.util.ActionResult;
+import net.minecraft.text.LiteralText;
+import net.minecraft.util.BlockRotation;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Rotation;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.UseAction;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -54,13 +55,13 @@ import java.util.Map;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ItemSextant extends Item {
-	public static final ResourceLocation MULTIBLOCK_ID = prefix("sextant");
+	public static final Identifier MULTIBLOCK_ID = prefix("sextant");
 	private static final int MAX_RADIUS = 256;
 	private static final String TAG_SOURCE_X = "sourceX";
 	private static final String TAG_SOURCE_Y = "sourceY";
 	private static final String TAG_SOURCE_Z = "sourceZ";
 
-	public ItemSextant(Properties builder) {
+	public ItemSextant(Settings builder) {
 		super(builder);
 	}
 
@@ -71,15 +72,15 @@ public class ItemSextant extends Item {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getMaxUseTime(ItemStack stack) {
 		return 72000;
 	}
 
 	@Override
-	public void onUse(World world, LivingEntity living, ItemStack stack, int count) {
-		if (getUseDuration(stack) - count < 10
+	public void usageTick(World world, LivingEntity living, ItemStack stack, int count) {
+		if (getMaxUseTime(stack) - count < 10
 				|| !(living instanceof PlayerEntity)
-				|| world.isRemote) {
+				|| world.isClient) {
 			return;
 		}
 
@@ -104,7 +105,7 @@ public class ItemSextant extends Item {
 	}
 
 	@Override
-	public void onPlayerStoppedUsing(ItemStack stack, World world, LivingEntity living, int time) {
+	public void onStoppedUsing(ItemStack stack, World world, LivingEntity living, int time) {
 		if (!(living instanceof PlayerEntity)) {
 			return;
 		}
@@ -129,38 +130,38 @@ public class ItemSextant extends Item {
 					}
 				}
 				IMultiblock sparse = PatchouliAPI.instance.makeSparseMultiblock(map).setId(MULTIBLOCK_ID);
-				Botania.proxy.showMultiblock(sparse, new StringTextComponent("r = " + (int) radius), new BlockPos(x, y, z), Rotation.NONE);
+				Botania.proxy.showMultiblock(sparse, new LiteralText("r = " + (int) radius), new BlockPos(x, y, z), BlockRotation.NONE);
 			}
 		}
 	}
 
 	private void reset(World world, ItemStack stack) {
 		ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, -1);
-		if (world.isRemote) {
+		if (world.isClient) {
 			Botania.proxy.clearSextantMultiblock();
 		}
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getHeldItem(hand);
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
+		ItemStack stack = player.getStackInHand(hand);
 		if (!player.isSneaking()) {
-			BlockRayTraceResult rtr = ToolCommons.raytraceFromEntity(player, 128, false);
-			if (rtr.getType() == RayTraceResult.Type.BLOCK) {
-				if (!world.isRemote) {
-					BlockPos pos = rtr.getPos();
+			BlockHitResult rtr = ToolCommons.raytraceFromEntity(player, 128, false);
+			if (rtr.getType() == HitResult.Type.BLOCK) {
+				if (!world.isClient) {
+					BlockPos pos = rtr.getBlockPos();
 					ItemNBTHelper.setInt(stack, TAG_SOURCE_X, pos.getX());
 					ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, pos.getY());
 					ItemNBTHelper.setInt(stack, TAG_SOURCE_Z, pos.getZ());
 				}
-				player.setActiveHand(hand);
+				player.setCurrentHand(hand);
 			}
 		} else {
 			reset(world, stack);
 		}
 
-		return ActionResult.resultSuccess(stack);
+		return TypedActionResult.success(stack);
 	}
 
 	private static double calculateRadius(ItemStack stack, LivingEntity living) {
@@ -173,7 +174,7 @@ public class ItemSextant extends Item {
 
 		Vector3 centerVec = Vector3.fromEntityCenter(living);
 		Vector3 diffVec = source.subtract(centerVec);
-		Vector3 lookVec = new Vector3(living.getLookVec());
+		Vector3 lookVec = new Vector3(living.getRotationVector());
 		double mul = diffVec.y / lookVec.y;
 		lookVec = lookVec.multiply(mul).add(centerVec);
 
@@ -184,36 +185,36 @@ public class ItemSextant extends Item {
 		return MathHelper.pointDistancePlane(source.x, source.z, lookVec.x, lookVec.z);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public static void renderHUD(MatrixStack ms, PlayerEntity player, ItemStack stack) {
-		ItemStack onUse = player.getActiveItemStack();
-		int time = player.getItemInUseCount();
+		ItemStack onUse = player.getActiveItem();
+		int time = player.getItemUseTimeLeft();
 
-		if (onUse == stack && stack.getItem().getUseDuration(stack) - time >= 10) {
+		if (onUse == stack && stack.getItem().getMaxUseTime(stack) - time >= 10) {
 			double radius = calculateRadius(stack, player);
-			FontRenderer font = Minecraft.getInstance().fontRenderer;
-			int x = Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 + 30;
-			int y = Minecraft.getInstance().getMainWindow().getScaledHeight() / 2;
+			TextRenderer font = MinecraftClient.getInstance().textRenderer;
+			int x = MinecraftClient.getInstance().getWindow().getScaledWidth() / 2 + 30;
+			int y = MinecraftClient.getInstance().getWindow().getScaledHeight() / 2;
 
 			String s = Integer.toString((int) radius);
 			boolean inRange = 0 < radius && radius <= MAX_RADIUS;
 			if (!inRange) {
-				s = TextFormatting.RED + s;
+				s = Formatting.RED + s;
 			}
 
-			font.drawStringWithShadow(ms, s, x - font.getStringWidth(s) / 2, y - 4, 0xFFFFFF);
+			font.drawWithShadow(ms, s, x - font.getWidth(s) / 2, y - 4, 0xFFFFFF);
 
 			if (inRange) {
 				radius += 4;
 				RenderSystem.disableTexture();
 				RenderSystem.lineWidth(3F);
-				Tessellator.getInstance().getBuffer().begin(GL11.GL_LINE_STRIP, DefaultVertexFormats.POSITION);
+				Tessellator.getInstance().getBuffer().begin(GL11.GL_LINE_STRIP, VertexFormats.POSITION);
 				RenderSystem.color4f(0F, 1F, 1F, 1F);
 				for (int i = 0; i < 361; i++) {
 					float radian = (float) (i * Math.PI / 180);
 					float xp = x + net.minecraft.util.math.MathHelper.cos(radian) * (float) radius;
 					float yp = y + net.minecraft.util.math.MathHelper.sin(radian) * (float) radius;
-					Tessellator.getInstance().getBuffer().pos(ms.getLast().getMatrix(), xp, yp, 0).endVertex();
+					Tessellator.getInstance().getBuffer().vertex(ms.peek().getModel(), xp, yp, 0).next();
 				}
 				Tessellator.getInstance().draw();
 				RenderSystem.enableTexture();

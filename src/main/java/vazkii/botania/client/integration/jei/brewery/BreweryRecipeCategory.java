@@ -18,12 +18,10 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-
-import net.minecraft.client.resources.I18n;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
-
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.util.Identifier;
 import vazkii.botania.api.recipe.IBrewRecipe;
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModBlocks;
@@ -39,21 +37,21 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BreweryRecipeCategory implements IRecipeCategory<IBrewRecipe> {
 
-	public static final ResourceLocation UID = prefix("brewery");
+	public static final Identifier UID = prefix("brewery");
 	private final IDrawableStatic background;
 	private final IDrawable icon;
 	private final String localizedName;
 
 	public BreweryRecipeCategory(IGuiHelper guiHelper) {
-		ResourceLocation location = prefix("textures/gui/nei_brewery.png");
+		Identifier location = prefix("textures/gui/nei_brewery.png");
 		background = guiHelper.createDrawable(location, 0, 0, 166, 65);
-		localizedName = I18n.format("botania.nei.brewery");
+		localizedName = I18n.translate("botania.nei.brewery");
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.brewery));
 	}
 
 	@Nonnull
 	@Override
-	public ResourceLocation getUid() {
+	public Identifier getUid() {
 		return UID;
 	}
 
@@ -98,8 +96,8 @@ public class BreweryRecipeCategory implements IRecipeCategory<IBrewRecipe> {
 		}
 		inputBuilder.add(containers.build());
 
-		for (Ingredient i : recipe.getIngredients()) {
-			inputBuilder.add(Arrays.asList(i.getMatchingStacks()));
+		for (Ingredient i : recipe.getPreviewInputs()) {
+			inputBuilder.add(Arrays.asList(i.getMatchingStacksClient()));
 		}
 
 		iIngredients.setInputLists(VanillaTypes.ITEM, inputBuilder.build());
@@ -138,7 +136,7 @@ public class BreweryRecipeCategory implements IRecipeCategory<IBrewRecipe> {
 		if (focus != null && focus.getMode() == mode) {
 			ItemStack focusStack = (ItemStack) focus.getValue();
 			for (int i = 0; i < focused.size(); i++) {
-				if (focusStack.isItemEqual(focused.get(i))) {
+				if (focusStack.isItemEqualIgnoreDamage(focused.get(i))) {
 					return Collections.singletonList(other.get(i));
 				}
 			}

@@ -10,10 +10,10 @@ package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -34,22 +34,22 @@ public class TileRedStringInterceptor extends TileRedString {
 	@Override
 	public void tick() {
 		super.tick();
-		if (!world.isRemote) {
+		if (!world.isClient) {
 			interceptors.add(this);
 		}
 	}
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
-		return world.getTileEntity(pos) != null;
+		return world.getBlockEntity(pos) != null;
 	}
 
 	private boolean saneState() {
-		return !isRemoved() && world.getTileEntity(pos) == this;
+		return !isRemoved() && world.getBlockEntity(pos) == this;
 	}
 
 	public static void onInteract(PlayerEntity player, World world, BlockPos pos, Hand hand) {
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
 
@@ -65,9 +65,9 @@ public class TileRedStringInterceptor extends TileRedString {
 			if (inter.world == world) {
 				BlockPos coords = inter.getBinding();
 				if (coords != null && coords.equals(pos)) {
-					Block block = inter.getBlockState().getBlock();
-					world.setBlockState(inter.getPos(), world.getBlockState(inter.getPos()).with(BlockStateProperties.POWERED, true));
-					world.getPendingBlockTicks().scheduleTick(inter.getPos(), block, 2);
+					Block block = inter.getCachedState().getBlock();
+					world.setBlockState(inter.getPos(), world.getBlockState(inter.getPos()).with(Properties.POWERED, true));
+					world.getBlockTickScheduler().schedule(inter.getPos(), block, 2);
 					did = true;
 				}
 			}
@@ -75,7 +75,7 @@ public class TileRedStringInterceptor extends TileRedString {
 
 		interceptors.removeAll(remove);
 		if (did) {
-			player.swingArm(hand);
+			player.swingHand(hand);
 			world.playSound(null, pos, SoundEvents.BLOCK_DISPENSER_DISPENSE, SoundCategory.BLOCKS, 0.3F, 0.6F);
 		}
 	}

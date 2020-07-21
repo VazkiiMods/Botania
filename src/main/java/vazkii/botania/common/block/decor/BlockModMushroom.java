@@ -8,20 +8,21 @@
  */
 package vazkii.botania.common.block.decor;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.MushroomBlock;
-import net.minecraft.item.DyeColor;
+import net.minecraft.block.MushroomPlantBlock;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.WorldView;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -34,25 +35,25 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockModMushroom extends MushroomBlock implements IHornHarvestable, ICustomApothecaryColor {
+public class BlockModMushroom extends MushroomPlantBlock implements IHornHarvestable, ICustomApothecaryColor {
 
-	private static final VoxelShape SHAPE = makeCuboidShape(4.8, 0, 4.8, 12.8, 16, 12.8);
+	private static final VoxelShape SHAPE = createCuboidShape(4.8, 0, 4.8, 12.8, 16, 12.8);
 	public final DyeColor color;
 
-	public BlockModMushroom(DyeColor color, Properties builder) {
+	public BlockModMushroom(DyeColor color, Settings builder) {
 		super(builder);
 		this.color = color;
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
+	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
 		return SHAPE;
 	}
 
 	// [VanillaCopy] super, without light level requirement
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+	public boolean canPlaceAt(BlockState state, WorldView worldIn, BlockPos pos) {
 		BlockPos blockpos = pos.down();
 		BlockState iblockstate = worldIn.getBlockState(blockpos);
 		Block block = iblockstate.getBlock();
@@ -63,9 +64,9 @@ public class BlockModMushroom extends MushroomBlock implements IHornHarvestable,
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
+	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
 		int hex = color.getColorValue();
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;

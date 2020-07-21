@@ -8,25 +8,26 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.passive.SheepEntity;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.particles.ItemParticleData;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.particle.ItemStackParticleEffect;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -57,43 +58,43 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isRemote) {
+		if (getWorld().isClient) {
 			return;
 		}
 
 		// sheep need to enter the actual block space
-		List<Entity> targets = getWorld().getEntitiesWithinAABB(SheepEntity.class, new AxisAlignedBB(getEffectivePos()), Entity::isAlive);
+		List<Entity> targets = getWorld().getEntities(SheepEntity.class, new Box(getEffectivePos()), Entity::isAlive);
 
-		AxisAlignedBB itemAABB = new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1));
+		Box itemAABB = new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1));
 		int slowdown = getSlowdownFactor();
 		Predicate<Entity> selector = e -> (e instanceof ItemEntity && e.isAlive() && ((AccessorItemEntity) e).getAge() >= slowdown);
-		targets.addAll(getWorld().getEntitiesWithinAABB(Entity.class, itemAABB, selector));
+		targets.addAll(getWorld().getEntities(Entity.class, itemAABB, selector));
 
 		for (Entity target : targets) {
 			if (target instanceof SheepEntity) {
 				SheepEntity sheep = (SheepEntity) target;
-				if (!sheep.getSheared() && sheep.getFleeceColor() == nextColor) {
-					addManaAndCycle(sheep.isChild() ? BABY_SHEEP_GEN : SHEEP_GEN);
-					float pitch = sheep.isChild() ? (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.5F : (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F + 1.0F;
+				if (!sheep.isSheared() && sheep.getColor() == nextColor) {
+					addManaAndCycle(sheep.isBaby() ? BABY_SHEEP_GEN : SHEEP_GEN);
+					float pitch = sheep.isBaby() ? (world.random.nextFloat() - world.random.nextFloat()) * 0.2F + 1.5F : (world.random.nextFloat() - world.random.nextFloat()) * 0.2F + 1.0F;
 					sheep.playSound(SoundEvents.ENTITY_SHEEP_DEATH, 0.9F, pitch);
 					sheep.playSound(SoundEvents.ENTITY_GENERIC_EAT, 1, 1);
 
-					ItemStack morbid = new ItemStack(sheep.isBurning() ? Items.COOKED_MUTTON : Items.MUTTON);
-					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, morbid), target.getPosX(), target.getPosY() + target.getEyeHeight(), target.getPosZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
+					ItemStack morbid = new ItemStack(sheep.isOnFire() ? Items.COOKED_MUTTON : Items.MUTTON);
+					((ServerWorld) getWorld()).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, morbid), target.getX(), target.getY() + target.getStandingEyeHeight(), target.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 
-					ItemStack wool = new ItemStack(ColorHelper.WOOL_MAP.get(sheep.getFleeceColor()).get());
-					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, wool), target.getPosX(), target.getPosY() + target.getEyeHeight(), target.getPosZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
+					ItemStack wool = new ItemStack(ColorHelper.WOOL_MAP.get(sheep.getColor()).get());
+					((ServerWorld) getWorld()).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, wool), target.getX(), target.getY() + target.getStandingEyeHeight(), target.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
 				sheep.setHealth(0);
 			} else if (target instanceof ItemEntity) {
-				ItemStack stack = ((ItemEntity) target).getItem();
+				ItemStack stack = ((ItemEntity) target).getStack();
 
 				if (!stack.isEmpty() && ColorHelper.WOOL_MAP.containsValue(Block.getBlockFromItem(stack.getItem()).delegate)) {
 					Block expected = ColorHelper.WOOL_MAP.get(nextColor).get();
 
 					if (expected.asItem() == stack.getItem()) {
 						addManaAndCycle(WOOL_GEN);
-						((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), target.getPosX(), target.getPosY(), target.getPosZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
+						((ServerWorld) getWorld()).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, stack), target.getX(), target.getY(), target.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 					}
 
 					target.remove();
@@ -120,38 +121,38 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 
 	@Override
 	public int getColor() {
-		return MathHelper.hsvToRGB(ticksExisted / 100F, 1F, 1F);
+		return MathHelper.hsvToRgb(ticksExisted / 100F, 1F, 1F);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void renderHUD(MatrixStack ms, Minecraft mc) {
+	public void renderHUD(MatrixStack ms, MinecraftClient mc) {
 		super.renderHUD(ms, mc);
 
 		ItemStack stack = new ItemStack(ColorHelper.WOOL_MAP.get(nextColor).get());
 		int color = getColor();
 
 		if (!stack.isEmpty()) {
-			ITextComponent stackName = stack.getDisplayName();
-			int width = 16 + mc.fontRenderer.func_238414_a_(stackName) / 2;
-			int x = mc.getMainWindow().getScaledWidth() / 2 - width;
-			int y = mc.getMainWindow().getScaledHeight() / 2 + 30;
+			Text stackName = stack.getName();
+			int width = 16 + mc.textRenderer.getWidth(stackName) / 2;
+			int x = mc.getWindow().getScaledWidth() / 2 - width;
+			int y = mc.getWindow().getScaledHeight() / 2 + 30;
 
-			mc.fontRenderer.func_238407_a_(ms, stackName, x + 20, y + 5, color);
-			mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, x, y);
+			mc.textRenderer.drawWithShadow(ms, stackName, x + 20, y + 5, color);
+			mc.getItemRenderer().renderInGuiWithOverrides(stack, x, y);
 		}
 
 		RenderSystem.disableLighting();
 	}
 
 	@Override
-	public void writeToPacketNBT(CompoundNBT cmp) {
+	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_NEXT_COLOR, nextColor.ordinal());
 	}
 
 	@Override
-	public void readFromPacketNBT(CompoundNBT cmp) {
+	public void readFromPacketNBT(CompoundTag cmp) {
 		super.readFromPacketNBT(cmp);
 		nextColor = DyeColor.byId(cmp.getInt(TAG_NEXT_COLOR));
 	}

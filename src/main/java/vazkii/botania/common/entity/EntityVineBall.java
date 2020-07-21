@@ -9,26 +9,29 @@
 package vazkii.botania.common.entity;
 
 import com.google.common.collect.ImmutableMap;
-
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.api.EnvironmentInterface;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.VineBlock;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.FlyingItemEntity;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.particles.ItemParticleData;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.util.Direction;
+import net.minecraft.network.Packet;
+import net.minecraft.particle.ItemStackParticleEffect;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -41,12 +44,9 @@ import javax.annotation.Nonnull;
 
 import java.util.Map;
 
-@OnlyIn(
-	value = Dist.CLIENT,
-	_interface = IRendersAsItem.class
-)
-public class EntityVineBall extends ThrowableEntity implements IRendersAsItem {
-	private static final DataParameter<Float> GRAVITY = EntityDataManager.createKey(EntityVineBall.class, DataSerializers.FLOAT);
+@EnvironmentInterface(value = EnvType.CLIENT, itf = IRendersAsItem.class)
+public class EntityVineBall extends ThrownEntity implements FlyingItemEntity {
+	private static final TrackedData<Float> GRAVITY = DataTracker.registerData(EntityVineBall.class, TrackedDataHandlerRegistry.FLOAT);
 	private static final Map<Direction, BooleanProperty> propMap = ImmutableMap.of(Direction.NORTH, VineBlock.NORTH, Direction.SOUTH, VineBlock.SOUTH,
 			Direction.WEST, VineBlock.WEST, Direction.EAST, VineBlock.EAST);
 
@@ -56,38 +56,38 @@ public class EntityVineBall extends ThrowableEntity implements IRendersAsItem {
 
 	public EntityVineBall(LivingEntity thrower, boolean gravity) {
 		super(ModEntities.VINE_BALL, thrower, thrower.world);
-		dataManager.set(GRAVITY, gravity ? 0.03F : 0F);
+		dataTracker.set(GRAVITY, gravity ? 0.03F : 0F);
 	}
 
 	@Override
-	protected void registerData() {
-		dataManager.register(GRAVITY, 0F);
+	protected void initDataTracker() {
+		dataTracker.startTracking(GRAVITY, 0F);
 	}
 
 	@Nonnull
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public Packet<?> createSpawnPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void handleStatusUpdate(byte id) {
+	public void handleStatus(byte id) {
 		if (id == 3) {
 			for (int j = 0; j < 16; j++) {
-				world.addParticle(new ItemParticleData(ParticleTypes.ITEM, new ItemStack(ModItems.vineBall)), getPosX(), getPosY(), getPosZ(), Math.random() * 0.2 - 0.1, Math.random() * 0.25, Math.random() * 0.2 - 0.1);
+				world.addParticle(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(ModItems.vineBall)), getX(), getY(), getZ(), Math.random() * 0.2 - 0.1, Math.random() * 0.25, Math.random() * 0.2 - 0.1);
 			}
 		}
 	}
 
 	@Override
-	protected void onImpact(@Nonnull RayTraceResult rtr) {
-		if (!world.isRemote) {
-			if (rtr.getType() == RayTraceResult.Type.BLOCK) {
-				Direction dir = ((BlockRayTraceResult) rtr).getFace();
+	protected void onCollision(@Nonnull HitResult rtr) {
+		if (!world.isClient) {
+			if (rtr.getType() == HitResult.Type.BLOCK) {
+				Direction dir = ((BlockHitResult) rtr).getSide();
 
 				if (dir.getAxis() != Direction.Axis.Y) {
-					BlockPos pos = ((BlockRayTraceResult) rtr).getPos().offset(dir);
+					BlockPos pos = ((BlockHitResult) rtr).getBlockPos().offset(dir);
 					boolean first = true;
 					while (pos.getY() > 0) {
 						BlockState state = world.getBlockState(pos);
@@ -95,13 +95,13 @@ public class EntityVineBall extends ThrowableEntity implements IRendersAsItem {
 						if (block.isAir(state, world, pos)) {
 							BlockState stateSet = ModBlocks.solidVines.getDefaultState().with(propMap.get(dir.getOpposite()), true);
 
-							if (first && !stateSet.isValidPosition(world, pos)) {
+							if (first && !stateSet.canPlaceAt(world, pos)) {
 								break;
 							}
 							first = false;
 
 							world.setBlockState(pos, stateSet);
-							world.playEvent(2001, pos, Block.getStateId(stateSet));
+							world.syncWorldEvent(2001, pos, Block.getRawIdFromState(stateSet));
 							pos = pos.down();
 						} else {
 							break;
@@ -111,19 +111,19 @@ public class EntityVineBall extends ThrowableEntity implements IRendersAsItem {
 
 			}
 
-			this.world.setEntityState(this, (byte) 3);
+			this.world.sendEntityStatus(this, (byte) 3);
 			remove();
 		}
 	}
 
 	@Override
-	protected float getGravityVelocity() {
-		return dataManager.get(GRAVITY);
+	protected float getGravity() {
+		return dataTracker.get(GRAVITY);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getItem() {
+	public ItemStack getStack() {
 		return new ItemStack(ModItems.vineBall);
 	}
 }

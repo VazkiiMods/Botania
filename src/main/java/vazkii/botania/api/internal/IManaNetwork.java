@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.internal;
 
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -37,7 +37,7 @@ public interface IManaNetwork {
 	 *              is farther away than that, null will be returned instead.
 	 */
 	@Nullable
-	TileEntity getClosestCollector(BlockPos pos, World world, int limit);
+	BlockEntity getClosestCollector(BlockPos pos, World world, int limit);
 
 	/**
 	 * Gets the closest Mana Pool in the network to the Chunk Coordinates passed in,
@@ -49,16 +49,16 @@ public interface IManaNetwork {
 	 *              is farther away than that, null will be returned instead.
 	 */
 	@Nullable
-	TileEntity getClosestPool(BlockPos pos, World world, int limit);
+	BlockEntity getClosestPool(BlockPos pos, World world, int limit);
 
 	/**
 	 * Gets read-only view of all Mana Collectors (eg. Mana Spreader) in the dimension
 	 * passed in.
 	 */
-	Set<TileEntity> getAllCollectorsInWorld(World world);
+	Set<BlockEntity> getAllCollectorsInWorld(World world);
 
 	/**
 	 * Gets read-only view of all Mana Pools in the dimension passed in.
 	 */
-	Set<TileEntity> getAllPoolsInWorld(World world);
+	Set<BlockEntity> getAllPoolsInWorld(World world);
 }

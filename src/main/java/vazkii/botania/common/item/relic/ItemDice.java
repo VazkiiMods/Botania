@@ -8,14 +8,15 @@
  */
 package vazkii.botania.common.item.relic;
 
-import net.minecraft.advancements.Advancement;
+import net.minecraft.advancement.Advancement;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemDice extends ItemRelic {
-	public ItemDice(Properties props) {
+	public ItemDice(Settings props) {
 		super(props);
 	}
 
@@ -45,15 +46,15 @@ public class ItemDice extends ItemRelic {
 
 	@Nonnull
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getHeldItem(hand);
+	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
+		ItemStack stack = player.getStackInHand(hand);
 
 		if (isRightPlayer(player, stack)) {
-			if (world.isRemote) {
-				return ActionResult.resultSuccess(stack);
+			if (world.isClient) {
+				return TypedActionResult.success(stack);
 			}
 
-			world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (world.rand.nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
 
 			List<Integer> possible = new ArrayList<>();
 			for (int i = 0; i < 6; i++) {
@@ -63,17 +64,17 @@ public class ItemDice extends ItemRelic {
 			}
 
 			if (possible.isEmpty()) {
-				player.sendMessage(new TranslationTextComponent("botaniamisc.dudDiceRoll", world.rand.nextInt(6) + 1).func_240699_a_(TextFormatting.DARK_GREEN), Util.DUMMY_UUID);
-				stack.shrink(1);
-				return ActionResult.resultSuccess(stack);
+				player.sendSystemMessage(new TranslatableText("botaniamisc.dudDiceRoll", world.random.nextInt(6) + 1).formatted(Formatting.DARK_GREEN), Util.NIL_UUID);
+				stack.decrement(1);
+				return TypedActionResult.success(stack);
 			} else {
-				int relic = possible.get(world.rand.nextInt(possible.size()));
-				player.sendMessage(new TranslationTextComponent("botaniamisc.diceRoll", relic + 1).func_240699_a_(TextFormatting.DARK_GREEN), Util.DUMMY_UUID);
-				return ActionResult.resultSuccess(new ItemStack(getRelics()[relic]));
+				int relic = possible.get(world.random.nextInt(possible.size()));
+				player.sendSystemMessage(new TranslatableText("botaniamisc.diceRoll", relic + 1).formatted(Formatting.DARK_GREEN), Util.NIL_UUID);
+				return TypedActionResult.success(new ItemStack(getRelics()[relic]));
 			}
 		}
 
-		return ActionResult.resultPass(stack);
+		return TypedActionResult.pass(stack);
 	}
 
 	@Override
@@ -88,11 +89,11 @@ public class ItemDice extends ItemRelic {
 
 		ServerPlayerEntity mpPlayer = (ServerPlayerEntity) player;
 		Item item = getRelics()[relic];
-		ResourceLocation advId = ((IRelic) item).getAdvancement();
+		Identifier advId = ((IRelic) item).getAdvancement();
 
 		if (advId != null) {
-			Advancement adv = ServerLifecycleHooks.getCurrentServer().getAdvancementManager().getAdvancement(advId);
-			return adv != null && mpPlayer.getAdvancements().getProgress(adv).isDone();
+			Advancement adv = ServerLifecycleHooks.getCurrentServer().getAdvancementLoader().get(advId);
+			return adv != null && mpPlayer.getAdvancementTracker().getProgress(adv).isDone();
 		}
 
 		return false;

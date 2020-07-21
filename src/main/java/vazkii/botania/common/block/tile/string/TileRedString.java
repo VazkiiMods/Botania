@@ -11,25 +11,24 @@ package vazkii.botania.common.block.tile.string;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
-
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.common.block.tile.TileMod;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public abstract class TileRedString extends TileMod implements ITileBound, ITickableTileEntity {
+public abstract class TileRedString extends TileMod implements ITileBound, Tickable {
 
 	private BlockPos binding;
 
-	public TileRedString(TileEntityType<?> type) {
+	public TileRedString(BlockEntityType<?> type) {
 		super(type);
 	}
 
@@ -43,11 +42,11 @@ public abstract class TileRedString extends TileMod implements ITileBound, ITick
 
 		for (int i = 0; i < range; i++) {
 			pos_ = pos_.offset(dir);
-			if (world.isAirBlock(pos_)) {
+			if (world.isAir(pos_)) {
 				continue;
 			}
 
-			TileEntity tile = world.getTileEntity(pos_);
+			BlockEntity tile = world.getBlockEntity(pos_);
 			if (tile instanceof TileRedString) {
 				continue;
 			}
@@ -72,7 +71,7 @@ public abstract class TileRedString extends TileMod implements ITileBound, ITick
 
 	@Nonnull
 	@Override
-	public AxisAlignedBB getRenderBoundingBox() {
+	public Box getRenderBoundingBox() {
 		return INFINITE_EXTENT_AABB;
 	}
 
@@ -87,12 +86,12 @@ public abstract class TileRedString extends TileMod implements ITileBound, ITick
 	}
 
 	public Direction getOrientation() {
-		return getBlockState().get(BlockStateProperties.FACING);
+		return getCachedState().get(Properties.FACING);
 	}
 
-	public TileEntity getTileAtBinding() {
+	public BlockEntity getTileAtBinding() {
 		BlockPos binding = getBinding();
-		return binding == null || world == null ? null : world.getTileEntity(binding);
+		return binding == null || world == null ? null : world.getBlockEntity(binding);
 	}
 
 	public BlockState getStateAtBinding() {

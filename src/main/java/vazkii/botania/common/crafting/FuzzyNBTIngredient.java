@@ -12,11 +12,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.IIngredientSerializer;
@@ -50,7 +49,7 @@ public class FuzzyNBTIngredient extends Ingredient {
 	 * @throws IllegalArgumentException if the stack has no NBT data.
 	 */
 	public FuzzyNBTIngredient(ItemStack stack, boolean acceptsEmptyTag) {
-		super(Stream.of(new Ingredient.SingleItemList(stack)));
+		super(Stream.of(new Ingredient.StackEntry(stack)));
 		this.stack = stack;
 		this.acceptsEmptyTag = acceptsEmptyTag;
 		if (!stack.hasTag()) {
@@ -73,7 +72,7 @@ public class FuzzyNBTIngredient extends Ingredient {
 		if (input == null || stack.getItem() != input.getItem()) {
 			return false;
 		}
-		CompoundNBT tag = input.getTag();
+		CompoundTag tag = input.getTag();
 		if (acceptsEmptyTag && (tag == null || tag.isEmpty())) {
 			return true;
 		}
@@ -87,10 +86,10 @@ public class FuzzyNBTIngredient extends Ingredient {
 
 	@Nonnull
 	@Override
-	public JsonElement serialize() {
+	public JsonElement toJson() {
 		JsonObject json = new JsonObject();
 		json.addProperty("type", CraftingHelper.getID(SERIALIZER).toString());
-		json.addProperty("item", Registry.ITEM.getKey(stack.getItem()).toString());
+		json.addProperty("item", Registry.ITEM.getId(stack.getItem()).toString());
 		json.addProperty("count", stack.getCount());
 		json.addProperty("nbt", stack.getTag().toString());
 		json.addProperty(ACCEPTS_EMPTY_TAG, acceptsEmptyTag);
@@ -99,7 +98,7 @@ public class FuzzyNBTIngredient extends Ingredient {
 
 	@Nonnull
 	@Override
-	public ItemStack[] getMatchingStacks() {
+	public ItemStack[] getMatchingStacksClient() {
 		return new ItemStack[] { stack };
 	}
 
@@ -112,19 +111,19 @@ public class FuzzyNBTIngredient extends Ingredient {
 	private static class Serializer implements IIngredientSerializer<FuzzyNBTIngredient> {
 		@Nonnull
 		@Override
-		public FuzzyNBTIngredient parse(@Nonnull PacketBuffer buffer) {
+		public FuzzyNBTIngredient parse(@Nonnull PacketByteBuf buffer) {
 			return new FuzzyNBTIngredient(buffer.readItemStack(), buffer.readBoolean());
 		}
 
 		@Nonnull
 		@Override
 		public FuzzyNBTIngredient parse(@Nonnull JsonObject json) {
-			boolean acceptsEmptyTag = JSONUtils.getBoolean(json, ACCEPTS_EMPTY_TAG, false);
+			boolean acceptsEmptyTag = JsonHelper.getBoolean(json, ACCEPTS_EMPTY_TAG, false);
 			return new FuzzyNBTIngredient(CraftingHelper.getItemStack(json, true), acceptsEmptyTag);
 		}
 
 		@Override
-		public void write(@Nonnull PacketBuffer buffer, @Nonnull FuzzyNBTIngredient ingredient) {
+		public void write(@Nonnull PacketByteBuf buffer, @Nonnull FuzzyNBTIngredient ingredient) {
 			buffer.writeItemStack(ingredient.stack);
 			buffer.writeBoolean(ingredient.acceptsEmptyTag);
 		}

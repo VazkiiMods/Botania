@@ -12,12 +12,11 @@ import com.google.common.base.Predicates;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.PrioritizedGoal;
-import net.minecraft.entity.monster.IMob;
-import net.minecraft.util.math.AxisAlignedBB;
-
+import net.minecraft.entity.ai.goal.RevengeGoal;
+import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.Monster;
+import net.minecraft.util.math.Box;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
@@ -37,15 +36,15 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isRemote) {
+		if (getWorld().isClient) {
 			return;
 		}
 
 		@SuppressWarnings("unchecked")
-		List<IMob> mobs = (List) getWorld().getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)), Predicates.instanceOf(IMob.class));
+		List<Monster> mobs = (List) getWorld().getEntities(Entity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)), Predicates.instanceOf(Monster.class));
 
 		if (mobs.size() > 1 && getMana() >= COST) {
-			for (IMob mob : mobs) {
+			for (Monster mob : mobs) {
 				if (mob instanceof MobEntity) {
 					MobEntity entity = (MobEntity) mob;
 					if (brainwashEntity(entity, mobs)) {
@@ -58,31 +57,31 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 		}
 	}
 
-	public static boolean brainwashEntity(MobEntity entity, List<IMob> mobs) {
-		LivingEntity target = entity.getAttackTarget();
+	public static boolean brainwashEntity(MobEntity entity, List<Monster> mobs) {
+		LivingEntity target = entity.getTarget();
 		boolean did = false;
 
-		if (!(target instanceof IMob)) {
-			IMob newTarget;
+		if (!(target instanceof Monster)) {
+			Monster newTarget;
 			do {
-				newTarget = mobs.get(entity.world.rand.nextInt(mobs.size()));
+				newTarget = mobs.get(entity.world.random.nextInt(mobs.size()));
 			} while (newTarget == entity);
 
 			if (newTarget instanceof MobEntity) {
-				entity.setAttackTarget(null);
+				entity.setTarget(null);
 
 				// Move any EntityAIHurtByTarget to highest priority
 				for (PrioritizedGoal entry : ((AccessorGoalSelector) entity.targetSelector).getGoals()) {
-					if (entry.getGoal() instanceof HurtByTargetGoal) {
+					if (entry.getGoal() instanceof RevengeGoal) {
 						// Concurrent modification OK since we break out of the loop
-						entity.targetSelector.removeGoal(entry.getGoal());
-						entity.targetSelector.addGoal(-1, entry.getGoal());
+						entity.targetSelector.remove(entry.getGoal());
+						entity.targetSelector.add(-1, entry.getGoal());
 						break;
 					}
 				}
 
 				// Now set revenge target, which EntityAIHurtByTarget will pick up
-				entity.setRevengeTarget((MobEntity) newTarget);
+				entity.setAttacker((MobEntity) newTarget);
 				did = true;
 			}
 		}

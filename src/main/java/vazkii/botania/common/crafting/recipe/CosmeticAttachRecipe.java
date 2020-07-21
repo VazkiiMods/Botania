@@ -10,10 +10,10 @@ package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.item.crafting.SpecialRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.SpecialRecipeSerializer;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.ICosmeticAttachable;
@@ -21,10 +21,10 @@ import vazkii.botania.api.item.ICosmeticBauble;
 
 import javax.annotation.Nonnull;
 
-public class CosmeticAttachRecipe extends SpecialRecipe {
+public class CosmeticAttachRecipe extends SpecialCraftingRecipe {
 	public static final SpecialRecipeSerializer<CosmeticAttachRecipe> SERIALIZER = new SpecialRecipeSerializer<>(CosmeticAttachRecipe::new);
 
-	public CosmeticAttachRecipe(ResourceLocation id) {
+	public CosmeticAttachRecipe(Identifier id) {
 		super(id);
 	}
 
@@ -33,8 +33,8 @@ public class CosmeticAttachRecipe extends SpecialRecipe {
 		boolean foundCosmetic = false;
 		boolean foundAttachable = false;
 
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stack = inv.getStack(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof ICosmeticBauble && !foundCosmetic) {
 					foundCosmetic = true;
@@ -57,8 +57,8 @@ public class CosmeticAttachRecipe extends SpecialRecipe {
 		ItemStack cosmeticItem = ItemStack.EMPTY;
 		ItemStack attachableItem = ItemStack.EMPTY;
 
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stack = inv.getStack(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof ICosmeticBauble && cosmeticItem.isEmpty()) {
 					cosmeticItem = stack;
@@ -83,13 +83,13 @@ public class CosmeticAttachRecipe extends SpecialRecipe {
 	}
 
 	@Override
-	public boolean canFit(int width, int height) {
+	public boolean fits(int width, int height) {
 		return width * height >= 2;
 	}
 
 	@Nonnull
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 }

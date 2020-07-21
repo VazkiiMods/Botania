@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.core;
 
-import net.minecraft.item.DyeColor;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.tag.ItemTags;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.client.lib.LibResources;
@@ -34,12 +34,12 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public final class BotaniaCreativeTab extends ItemGroup {
 
 	public static final BotaniaCreativeTab INSTANCE = new BotaniaCreativeTab();
-	private NonNullList<ItemStack> list;
+	private DefaultedList<ItemStack> list;
 
 	public BotaniaCreativeTab() {
 		super(LibMisc.MOD_ID);
-		setNoTitle();
-		setBackgroundImageName(LibResources.GUI_CREATIVE);
+		setNoTooltip();
+		setTexture(LibResources.GUI_CREATIVE);
 	}
 
 	@Nonnull
@@ -54,7 +54,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 	}
 
 	@Override
-	public void fill(@Nonnull NonNullList<ItemStack> list) {
+	public void appendStacks(@Nonnull DefaultedList<ItemStack> list) {
 		this.list = list;
 
 		addItem(ModItems.lexicon);
@@ -694,13 +694,13 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.thinkingHand);
 	}
 
-	private void addTag(ResourceLocation tagId) {
-		ItemTags.getCollection().getOrCreate(tagId).getAllElements().stream()
-				.sorted(Comparator.comparing(Registry.ITEM::getKey))
+	private void addTag(Identifier tagId) {
+		ItemTags.getContainer().getOrCreate(tagId).values().stream()
+				.sorted(Comparator.comparing(Registry.ITEM::getId))
 				.forEach(this::addItem);
 	}
 
-	private void addItem(IItemProvider item) {
-		item.asItem().fillItemGroup(this, list);
+	private void addItem(ItemConvertible item) {
+		item.asItem().appendStacks(this, list);
 	}
 }

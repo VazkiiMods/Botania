@@ -8,24 +8,23 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.item.crafting.AbstractCookingRecipe;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.tileentity.AbstractFurnaceTileEntity;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 import javax.annotation.Nullable;
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.recipe.AbstractCookingRecipe;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeType;
 
-@Mixin(AbstractFurnaceTileEntity.class)
+@Mixin(AbstractFurnaceBlockEntity.class)
 public interface AccessorAbstractFurnaceTileEntity {
 	@Invoker
-	boolean invokeCanSmelt(@Nullable IRecipe<?> recipe);
+	boolean invokeCanSmelt(@Nullable Recipe<?> recipe);
 
 	@Accessor
-	IRecipeType<? extends AbstractCookingRecipe> getRecipeType();
+	RecipeType<? extends AbstractCookingRecipe> getRecipeType();
 
 	@Accessor
 	int getBurnTime();

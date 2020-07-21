@@ -8,15 +8,17 @@
  */
 package vazkii.botania.common.block;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
-import net.minecraft.item.DyeColor;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.Effects;
+import net.minecraft.entity.effect.StatusEffect;
+import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -27,60 +29,60 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockModFlower extends FlowerBlock implements IGrowable {
+public class BlockModFlower extends FlowerBlock implements Fertilizable {
 	public final DyeColor color;
 
-	protected BlockModFlower(DyeColor color, Properties builder) {
+	protected BlockModFlower(DyeColor color, Settings builder) {
 		super(effectForFlower(color), 4, builder);
 		this.color = color;
 	}
 
-	private static Effect effectForFlower(DyeColor color) {
+	private static StatusEffect effectForFlower(DyeColor color) {
 		switch (color) {
 		case WHITE:
-			return Effects.SPEED;
+			return StatusEffects.SPEED;
 		case ORANGE:
-			return Effects.FIRE_RESISTANCE;
+			return StatusEffects.FIRE_RESISTANCE;
 		case MAGENTA:
-			return Effects.MINING_FATIGUE;
+			return StatusEffects.MINING_FATIGUE;
 		case LIGHT_BLUE:
-			return Effects.JUMP_BOOST;
+			return StatusEffects.JUMP_BOOST;
 		case YELLOW:
-			return Effects.ABSORPTION;
+			return StatusEffects.ABSORPTION;
 		case LIME:
-			return Effects.POISON;
+			return StatusEffects.POISON;
 		case PINK:
-			return Effects.REGENERATION;
+			return StatusEffects.REGENERATION;
 		case GRAY:
-			return Effects.RESISTANCE;
+			return StatusEffects.RESISTANCE;
 		case LIGHT_GRAY:
-			return Effects.WEAKNESS;
+			return StatusEffects.WEAKNESS;
 		case CYAN:
-			return Effects.WATER_BREATHING;
+			return StatusEffects.WATER_BREATHING;
 		case PURPLE:
-			return Effects.NAUSEA;
+			return StatusEffects.NAUSEA;
 		case BLUE:
-			return Effects.NIGHT_VISION;
+			return StatusEffects.NIGHT_VISION;
 		case BROWN:
-			return Effects.WITHER;
+			return StatusEffects.WITHER;
 		case GREEN:
-			return Effects.HUNGER;
+			return StatusEffects.HUNGER;
 		case RED:
-			return Effects.STRENGTH;
+			return StatusEffects.STRENGTH;
 		case BLACK:
-			return Effects.BLINDNESS;
+			return StatusEffects.BLINDNESS;
 		}
-		return Effects.REGENERATION;
+		return StatusEffects.REGENERATION;
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
+	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
 		int hex = this.color.getColorValue();
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
-		Vector3d offset = state.getOffset(world, pos);
+		Vec3d offset = state.getModelOffset(world, pos);
 		double x = pos.getX() + offset.x;
 		double y = pos.getY() + offset.y;
 		double z = pos.getZ() + offset.z;
@@ -92,20 +94,20 @@ public class BlockModFlower extends FlowerBlock implements IGrowable {
 	}
 
 	@Override
-	public boolean canGrow(@Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean fuckifiknow) {
+	public boolean isFertilizable(@Nonnull BlockView world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean fuckifiknow) {
 		return world.getBlockState(pos.up()).isAir(world, pos);
 	}
 
 	@Override
-	public boolean canUseBonemeal(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
-		return canGrow(world, pos, state, false);
+	public boolean canGrow(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return isFertilizable(world, pos, state, false);
 	}
 
 	@Override
 	public void grow(@Nonnull ServerWorld world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
 		Block block = ModBlocks.getDoubleFlower(color);
-		if (block instanceof DoublePlantBlock) {
-			((DoublePlantBlock) block).placeAt(world, pos, 3);
+		if (block instanceof TallPlantBlock) {
+			((TallPlantBlock) block).placeAt(world, pos, 3);
 		}
 	}
 }

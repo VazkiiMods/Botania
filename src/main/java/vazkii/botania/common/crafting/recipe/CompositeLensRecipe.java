@@ -11,20 +11,20 @@ package vazkii.botania.common.crafting.recipe;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.item.crafting.SpecialRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.SpecialRecipeSerializer;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.mana.ICompositableLens;
 
 import javax.annotation.Nonnull;
 
-public class CompositeLensRecipe extends SpecialRecipe {
+public class CompositeLensRecipe extends SpecialCraftingRecipe {
 	public static final SpecialRecipeSerializer<CompositeLensRecipe> SERIALIZER = new SpecialRecipeSerializer<>(CompositeLensRecipe::new);
 
-	public CompositeLensRecipe(ResourceLocation id) {
+	public CompositeLensRecipe(Identifier id) {
 		super(id);
 	}
 
@@ -34,8 +34,8 @@ public class CompositeLensRecipe extends SpecialRecipe {
 		boolean foundSecondLens = false;
 		boolean foundSlimeball = false;
 
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stack = inv.getStack(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof ICompositableLens && !foundSecondLens) {
 					if (foundLens) {
@@ -60,8 +60,8 @@ public class CompositeLensRecipe extends SpecialRecipe {
 		ItemStack lens = ItemStack.EMPTY;
 		ItemStack secondLens = ItemStack.EMPTY;
 
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stack = inv.getStack(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof ICompositableLens) {
 					if (lens.isEmpty()) {
@@ -89,13 +89,13 @@ public class CompositeLensRecipe extends SpecialRecipe {
 	}
 
 	@Override
-	public boolean canFit(int width, int height) {
+	public boolean fits(int width, int height) {
 		return width * height >= 3;
 	}
 
 	@Nonnull
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 }

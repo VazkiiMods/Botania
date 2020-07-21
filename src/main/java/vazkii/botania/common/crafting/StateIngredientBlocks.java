@@ -14,7 +14,7 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -43,14 +43,14 @@ public class StateIngredientBlocks implements StateIngredient {
 		object.addProperty("type", "blocks");
 		JsonArray array = new JsonArray();
 		for (Block block : blocks) {
-			array.add(Registry.BLOCK.getKey(block).toString());
+			array.add(Registry.BLOCK.getId(block).toString());
 		}
 		object.add("blocks", array);
 		return object;
 	}
 
 	@Override
-	public void write(PacketBuffer buffer) {
+	public void write(PacketByteBuf buffer) {
 		buffer.writeVarInt(0);
 		Collection<Block> blocks = getBlocks();
 		buffer.writeVarInt(blocks.size());

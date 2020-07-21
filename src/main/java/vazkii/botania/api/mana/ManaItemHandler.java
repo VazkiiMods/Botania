@@ -10,15 +10,14 @@ package vazkii.botania.api.mana;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.LazyValue;
-
+import net.minecraft.util.Lazy;
 import org.apache.logging.log4j.LogManager;
 
 import java.util.Collections;
 import java.util.List;
 
 public interface ManaItemHandler {
-	LazyValue<ManaItemHandler> INSTANCE = new LazyValue<>(() -> {
+	Lazy<ManaItemHandler> INSTANCE = new Lazy<>(() -> {
 		try {
 			return (ManaItemHandler) Class.forName("vazkii.botania.common.impl.mana.ManaItemHandlerImpl").newInstance();
 		} catch (ReflectiveOperationException e) {
@@ -28,7 +27,7 @@ public interface ManaItemHandler {
 	});
 
 	static ManaItemHandler instance() {
-		return INSTANCE.getValue();
+		return INSTANCE.get();
 	}
 
 	/**

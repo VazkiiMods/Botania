@@ -8,32 +8,32 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import it.unimi.dsi.fastutil.ints.IntArrayList;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Atlases;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.OverlayTexture;
+import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.model.BipedEntityModel;
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
+import net.minecraft.entity.passive.AbstractTraderEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.MerchantOffer;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.nbt.LongNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.LongTag;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
+import net.minecraft.village.TradeOffer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants;
@@ -55,7 +55,7 @@ public class ItemItemFinder extends ItemBauble {
 	private static final String TAG_ENTITY_POSITIONS = "highlightPositionsEnt";
 	private static final String TAG_BLOCK_POSITIONS = "highlightPositionsBlock";
 
-	public ItemItemFinder(Properties props) {
+	public ItemItemFinder(Settings props) {
 		super(props);
 	}
 
@@ -65,7 +65,7 @@ public class ItemItemFinder extends ItemBauble {
 			return;
 		}
 
-		if (player.world.isRemote) {
+		if (player.world.isClient) {
 			this.tickClient(stack, (PlayerEntity) player);
 		} else {
 			this.tickServer(stack, (PlayerEntity) player);
@@ -73,17 +73,17 @@ public class ItemItemFinder extends ItemBauble {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		boolean armor = !living.getItemStackFromSlot(EquipmentSlotType.HEAD).isEmpty();
-		bipedModel.bipedHead.translateRotate(ms);
+	@Environment(EnvType.CLIENT)
+	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity living, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		boolean armor = !living.getEquippedStack(EquipmentSlot.HEAD).isEmpty();
+		bipedModel.head.rotate(ms);
 		ms.translate(-0.35, -0.2, armor ? 0.05 : 0.1);
 		ms.scale(0.75F, -0.75F, -0.75F);
 
-		IBakedModel model = MiscellaneousIcons.INSTANCE.itemFinderGem;
-		IVertexBuilder buffer = buffers.getBuffer(Atlases.getCutoutBlockType());
-		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
-				.renderModelBrightnessColor(ms.getLast(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
+		BakedModel model = MiscellaneousIcons.INSTANCE.itemFinderGem;
+		VertexConsumer buffer = buffers.getBuffer(TexturedRenderLayers.getEntityCutout());
+		MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer()
+				.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
 	}
 
 	protected void tickClient(ItemStack stack, PlayerEntity player) {
@@ -91,10 +91,10 @@ public class ItemItemFinder extends ItemBauble {
 			return;
 		}
 
-		ListNBT blocks = ItemNBTHelper.getList(stack, TAG_BLOCK_POSITIONS, Constants.NBT.TAG_LONG, false);
+		ListTag blocks = ItemNBTHelper.getList(stack, TAG_BLOCK_POSITIONS, Constants.NBT.TAG_LONG, false);
 
 		for (int i = 0; i < blocks.size(); i++) {
-			BlockPos pos = BlockPos.fromLong(((LongNBT) blocks.get(i)).getLong());
+			BlockPos pos = BlockPos.fromLong(((LongTag) blocks.get(i)).getLong());
 			float m = 0.02F;
 			WispParticleData data = WispParticleData.wisp(0.15F + 0.05F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), false);
 			player.world.addParticle(data, pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5), m * (float) (Math.random() - 0.5));
@@ -102,20 +102,20 @@ public class ItemItemFinder extends ItemBauble {
 
 		int[] entities = ItemNBTHelper.getIntArray(stack, TAG_ENTITY_POSITIONS);
 		for (int i : entities) {
-			Entity e = player.world.getEntityByID(i);
+			Entity e = player.world.getEntityById(i);
 			if (e != null && Math.random() < 0.6) {
 				WispParticleData data = WispParticleData.wisp(0.15F + 0.05F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), Math.random() < 0.6);
-				player.world.addParticle(data, e.getPosX() + (float) (Math.random() * 0.5 - 0.25) * 0.45F, e.getPosY() + e.getHeight(), e.getPosZ() + (float) (Math.random() * 0.5 - 0.25) * 0.45F, 0, 0.05F + 0.03F * (float) Math.random(), 0);
+				player.world.addParticle(data, e.getX() + (float) (Math.random() * 0.5 - 0.25) * 0.45F, e.getY() + e.getHeight(), e.getZ() + (float) (Math.random() * 0.5 - 0.25) * 0.45F, 0, 0.05F + 0.03F * (float) Math.random(), 0);
 			}
 		}
 	}
 
 	protected void tickServer(ItemStack stack, PlayerEntity player) {
 		IntArrayList entPosBuilder = new IntArrayList();
-		ListNBT blockPosBuilder = new ListNBT();
+		ListTag blockPosBuilder = new ListTag();
 
-		scanForStack(player.getHeldItemMainhand(), player, entPosBuilder, blockPosBuilder);
-		scanForStack(player.getHeldItemOffhand(), player, entPosBuilder, blockPosBuilder);
+		scanForStack(player.getMainHandStack(), player, entPosBuilder, blockPosBuilder);
+		scanForStack(player.getOffHandStack(), player, entPosBuilder, blockPosBuilder);
 
 		int[] currentEnts = entPosBuilder.elements();
 
@@ -123,34 +123,34 @@ public class ItemItemFinder extends ItemBauble {
 		ItemNBTHelper.setList(stack, TAG_BLOCK_POSITIONS, blockPosBuilder);
 	}
 
-	private void scanForStack(ItemStack pstack, PlayerEntity player, IntArrayList entIdBuilder, ListNBT blockPosBuilder) {
+	private void scanForStack(ItemStack pstack, PlayerEntity player, IntArrayList entIdBuilder, ListTag blockPosBuilder) {
 		if (!pstack.isEmpty() || player.isSneaking()) {
 			int range = 24;
 
-			List<Entity> entities = player.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(player.getPosX() - range, player.getPosY() - range, player.getPosZ() - range, player.getPosX() + range, player.getPosY() + range, player.getPosZ() + range));
+			List<Entity> entities = player.world.getNonSpectatingEntities(Entity.class, new Box(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range));
 			for (Entity e : entities) {
 				if (e == player) {
 					continue;
 				}
 				if (e instanceof ItemEntity) {
 					ItemEntity item = (ItemEntity) e;
-					ItemStack istack = item.getItem();
-					if (player.isSneaking() || istack.isItemEqual(pstack) && ItemStack.areItemStackTagsEqual(istack, pstack)) {
+					ItemStack istack = item.getStack();
+					if (player.isSneaking() || istack.isItemEqualIgnoreDamage(pstack) && ItemStack.areTagsEqual(istack, pstack)) {
 						entIdBuilder.add(item.getEntityId());
 					}
 				} else if (e instanceof PlayerEntity) {
 					PlayerEntity targetPlayer = (PlayerEntity) e;
-					IInventory binv = BotaniaAPI.instance().getAccessoriesInventory(targetPlayer);
+					Inventory binv = BotaniaAPI.instance().getAccessoriesInventory(targetPlayer);
 					if (scanInventory(targetPlayer.inventory, pstack) || scanInventory(binv, pstack)) {
 						entIdBuilder.add(targetPlayer.getEntityId());
 					}
 
-				} else if (e instanceof AbstractVillagerEntity) {
-					AbstractVillagerEntity villager = (AbstractVillagerEntity) e;
-					for (MerchantOffer offer : villager.getOffers()) {
-						if (equalStacks(pstack, offer.getBuyingStackFirst())
-								|| equalStacks(pstack, offer.getBuyingStackSecond())
-								|| equalStacks(pstack, offer.getSellingStack())) {
+				} else if (e instanceof AbstractTraderEntity) {
+					AbstractTraderEntity villager = (AbstractTraderEntity) e;
+					for (TradeOffer offer : villager.getOffers()) {
+						if (equalStacks(pstack, offer.getOriginalFirstBuyItem())
+								|| equalStacks(pstack, offer.getSecondBuyItem())
+								|| equalStacks(pstack, offer.getMutableSellItem())) {
 							entIdBuilder.add(villager.getEntityId());
 						}
 					}
@@ -159,8 +159,8 @@ public class ItemItemFinder extends ItemBauble {
 					if (scanInventory(new CapWrapper(cap), pstack)) {
 						entIdBuilder.add(e.getEntityId());
 					}
-				} else if (e instanceof IInventory) {
-					IInventory inv = (IInventory) e;
+				} else if (e instanceof Inventory) {
+					Inventory inv = (Inventory) e;
 					if (scanInventory(inv, pstack)) {
 						entIdBuilder.add(e.getEntityId());
 					}
@@ -169,23 +169,23 @@ public class ItemItemFinder extends ItemBauble {
 
 			if (!pstack.isEmpty()) {
 				range = 12;
-				BlockPos pos = player.func_233580_cy_();
-				for (BlockPos pos_ : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1))) {
-					TileEntity tile = player.world.getTileEntity(pos_);
+				BlockPos pos = player.getBlockPos();
+				for (BlockPos pos_ : BlockPos.iterate(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1))) {
+					BlockEntity tile = player.world.getBlockEntity(pos_);
 					if (tile != null) {
 						boolean foundCap = false;
 						for (Direction e : Direction.values()) {
 							IItemHandler cap = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e).orElse(EmptyHandler.INSTANCE);
 							if (scanInventory(new CapWrapper(cap), pstack)) {
-								blockPosBuilder.add(LongNBT.valueOf(pos_.toLong()));
+								blockPosBuilder.add(LongTag.of(pos_.asLong()));
 								foundCap = true;
 								break;
 							}
 						}
-						if (!foundCap && tile instanceof IInventory) {
-							IInventory inv = (IInventory) tile;
+						if (!foundCap && tile instanceof Inventory) {
+							Inventory inv = (Inventory) tile;
 							if (scanInventory(inv, pstack)) {
-								blockPosBuilder.add(LongNBT.valueOf(pos_.toLong()));
+								blockPosBuilder.add(LongTag.of(pos_.asLong()));
 							}
 						}
 					}
@@ -195,16 +195,16 @@ public class ItemItemFinder extends ItemBauble {
 	}
 
 	private boolean equalStacks(ItemStack stack1, ItemStack stack2) {
-		return stack1.isItemEqual(stack2) && ItemStack.areItemStackTagsEqual(stack1, stack2);
+		return stack1.isItemEqualIgnoreDamage(stack2) && ItemStack.areTagsEqual(stack1, stack2);
 	}
 
-	private boolean scanInventory(IInventory inv, ItemStack pstack) {
+	private boolean scanInventory(Inventory inv, ItemStack pstack) {
 		if (pstack.isEmpty()) {
 			return false;
 		}
 
-		for (int l = 0; l < inv.getSizeInventory(); l++) {
-			ItemStack istack = inv.getStackInSlot(l);
+		for (int l = 0; l < inv.size(); l++) {
+			ItemStack istack = inv.getStack(l);
 			if (!istack.isEmpty() && equalStacks(istack, pstack)) {
 				return true;
 			}

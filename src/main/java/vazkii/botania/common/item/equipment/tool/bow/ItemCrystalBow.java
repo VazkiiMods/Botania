@@ -12,7 +12,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.AbstractArrowEntity;
+import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -21,7 +21,7 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 
 	private final int ARROW_COST = 200;
 
-	public ItemCrystalBow(Properties builder) {
+	public ItemCrystalBow(Settings builder) {
 		super(builder);
 	}
 
@@ -32,13 +32,13 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 
 	@Override
 	boolean canFire(ItemStack stack, PlayerEntity player) {
-		boolean infinity = EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0;
-		return player.abilities.isCreativeMode || ManaItemHandler.instance().requestManaExactForTool(stack, player, ARROW_COST / (infinity ? 2 : 1), false);
+		boolean infinity = EnchantmentHelper.getLevel(Enchantments.INFINITY, stack) > 0;
+		return player.abilities.creativeMode || ManaItemHandler.instance().requestManaExactForTool(stack, player, ARROW_COST / (infinity ? 2 : 1), false);
 	}
 
 	@Override
-	void onFire(ItemStack stack, LivingEntity living, boolean infinity, AbstractArrowEntity arrow) {
-		arrow.pickupStatus = AbstractArrowEntity.PickupStatus.CREATIVE_ONLY;
+	void onFire(ItemStack stack, LivingEntity living, boolean infinity, PersistentProjectileEntity arrow) {
+		arrow.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
 		if (living instanceof PlayerEntity) {
 			ManaItemHandler.instance().requestManaExactForTool(stack, (PlayerEntity) living, ARROW_COST / (infinity ? 2 : 1), true);
 		}

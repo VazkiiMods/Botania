@@ -10,7 +10,7 @@ package vazkii.botania.common.item.equipment.bauble;
 
 public class ItemSuperCloudPendant extends ItemCloudPendant {
 
-	public ItemSuperCloudPendant(Properties props) {
+	public ItemSuperCloudPendant(Settings props) {
 		super(props);
 	}
 

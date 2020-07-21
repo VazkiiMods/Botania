@@ -10,10 +10,10 @@ package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.item.crafting.SpecialRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.SpecialRecipeSerializer;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IAncientWillContainer;
@@ -21,10 +21,10 @@ import vazkii.botania.common.item.ItemAncientWill;
 
 import javax.annotation.Nonnull;
 
-public class AncientWillRecipe extends SpecialRecipe {
+public class AncientWillRecipe extends SpecialCraftingRecipe {
 	public static final SpecialRecipeSerializer<AncientWillRecipe> SERIALIZER = new SpecialRecipeSerializer<>(AncientWillRecipe::new);
 
-	public AncientWillRecipe(ResourceLocation id) {
+	public AncientWillRecipe(Identifier id) {
 		super(id);
 	}
 
@@ -33,8 +33,8 @@ public class AncientWillRecipe extends SpecialRecipe {
 		boolean foundWill = false;
 		boolean foundItem = false;
 
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stack = inv.getStack(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof ItemAncientWill && !foundWill) {
 					foundWill = true;
@@ -57,8 +57,8 @@ public class AncientWillRecipe extends SpecialRecipe {
 		ItemStack item = ItemStack.EMPTY;
 		IAncientWillContainer.AncientWillType will = null;
 
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stack = inv.getStack(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof IAncientWillContainer && item.isEmpty()) {
 					item = stack;
@@ -79,13 +79,13 @@ public class AncientWillRecipe extends SpecialRecipe {
 	}
 
 	@Override
-	public boolean canFit(int width, int height) {
+	public boolean fits(int width, int height) {
 		return width > 1 || height > 1;
 	}
 
 	@Nonnull
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 }

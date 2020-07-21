@@ -10,7 +10,7 @@ package vazkii.botania.common.block;
 
 public class BlockRoot extends BlockMod {
 
-	public BlockRoot(Properties builder) {
+	public BlockRoot(Settings builder) {
 		super(builder);
 	}
 

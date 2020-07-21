@@ -10,13 +10,12 @@ package vazkii.botania.common.item.lens;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-
+import net.minecraft.util.math.Direction;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
@@ -25,15 +24,15 @@ import vazkii.botania.common.block.tile.TileIncensePlate;
 public class LensFire extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, ThrownEntity entity, HitResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
 
-		if (!entity.world.isRemote && rtr.getType() == RayTraceResult.Type.BLOCK
+		if (!entity.world.isClient && rtr.getType() == HitResult.Type.BLOCK
 				&& !burst.isFake() && !isManaBlock) {
-			BlockRayTraceResult brtr = (BlockRayTraceResult) rtr;
-			BlockPos pos = brtr.getPos();
+			BlockHitResult brtr = (BlockHitResult) rtr;
+			BlockPos pos = brtr.getBlockPos();
 			if (!coords.equals(pos)) {
-				Direction dir = brtr.getFace();
+				Direction dir = brtr.getSide();
 
 				BlockPos offPos = pos.offset(dir);
 
@@ -46,7 +45,7 @@ public class LensFire extends Lens {
 				if (blockAtOffset == Blocks.NETHER_PORTAL) {
 					entity.world.setBlockState(offPos, Blocks.AIR.getDefaultState());
 				} else if (blockAt == ModBlocks.incensePlate) {
-					TileIncensePlate plate = (TileIncensePlate) entity.world.getTileEntity(pos);
+					TileIncensePlate plate = (TileIncensePlate) entity.world.getBlockEntity(pos);
 					plate.ignite();
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
 				} else if (blockAtOffset.isAir(entity.world.getBlockState(offPos), entity.world, offPos)) {

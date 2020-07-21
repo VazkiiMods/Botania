@@ -10,21 +10,21 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Packet;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -40,7 +40,7 @@ import javax.annotation.Nonnull;
 public class EntityPoolMinecart extends AbstractMinecartEntity {
 	private static final int TRANSFER_RATE = 10000;
 	private static final String TAG_MANA = "mana";
-	private static final DataParameter<Integer> MANA = EntityDataManager.createKey(EntityPoolMinecart.class, DataSerializers.VARINT);
+	private static final TrackedData<Integer> MANA = DataTracker.registerData(EntityPoolMinecart.class, TrackedDataHandlerRegistry.INTEGER);
 
 	public EntityPoolMinecart(EntityType<EntityPoolMinecart> type, World world) {
 		super(type, world);
@@ -51,20 +51,20 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 	}
 
 	@Override
-	protected void registerData() {
-		super.registerData();
-		dataManager.register(MANA, 0);
+	protected void initDataTracker() {
+		super.initDataTracker();
+		dataTracker.startTracking(MANA, 0);
 	}
 
 	@Nonnull
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public Packet<?> createSpawnPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	@Nonnull
 	@Override
-	public BlockState getDisplayTile() {
+	public BlockState getContainedBlock() {
 		return ModBlocks.manaPool.getDefaultState();
 	}
 
@@ -86,25 +86,25 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 	}
 
 	@Override
-	protected void applyDrag() {
+	protected void applySlowdown() {
 		float f = 0.98F;
-		this.setMotion(getMotion().mul(f, 0, f));
+		this.setVelocity(getVelocity().multiply(f, 0, f));
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getPickedResult(RayTraceResult target) {
+	public ItemStack getPickedResult(HitResult target) {
 		return new ItemStack(ModItems.poolMinecart);
 	}
 
 	@Override
-	public void killMinecart(DamageSource source) {
-		super.killMinecart(source);
-		entityDropItem(ModBlocks.manaPool, 0);
+	public void dropItems(DamageSource source) {
+		super.dropItems(source);
+		dropItem(ModBlocks.manaPool, 0);
 	}
 
 	@Override
-	public int getDefaultDisplayTileOffset() {
+	public int getDefaultBlockOffset() {
 		return 8;
 	}
 
@@ -112,15 +112,15 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 	public void tick() {
 		super.tick();
 
-		if (world.isRemote) {
+		if (world.isClient) {
 			double particleChance = 1F - (double) getMana() / (double) TilePool.MAX_MANA * 0.1;
 			int color = TilePool.PARTICLE_COLOR;
 			float red = (color >> 16 & 0xFF) / 255F;
 			float green = (color >> 8 & 0xFF) / 255F;
 			float blue = (color & 0xFF) / 255F;
-			double x = MathHelper.floor(getPosX());
-			double y = MathHelper.floor(getPosY());
-			double z = MathHelper.floor(getPosZ());
+			double x = MathHelper.floor(getX());
+			double y = MathHelper.floor(getY());
+			double z = MathHelper.floor(getZ());
 			if (Math.random() > particleChance) {
 				WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, red, green, blue, 2F);
 				world.addParticle(data, x + 0.3 + Math.random() * 0.5, y + 0.85 + Math.random() * 0.25, z + Math.random(), 0, (float) Math.random() / 25F, 0);
@@ -132,18 +132,18 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 	public void moveMinecartOnRail(BlockPos pos) {
 		super.moveMinecartOnRail(pos);
 
-		for (Direction dir : Direction.Plane.HORIZONTAL) {
+		for (Direction dir : Direction.Type.HORIZONTAL) {
 			BlockPos posP = pos.offset(dir);
 			Block block = world.getBlockState(posP).getBlock();
 			if (block == ModBlocks.pump) {
 				BlockPos posP_ = posP.offset(dir);
-				TileEntity tile = world.getTileEntity(posP_);
-				TileEntity tile_ = world.getTileEntity(posP);
+				BlockEntity tile = world.getBlockEntity(posP_);
+				BlockEntity tile_ = world.getBlockEntity(posP);
 				TilePump pump = (TilePump) tile_;
 
 				if (tile instanceof IManaPool) {
 					IManaPool pool = (IManaPool) tile;
-					Direction pumpDir = world.getBlockState(posP).get(BlockStateProperties.HORIZONTAL_FACING);
+					Direction pumpDir = world.getBlockState(posP).get(Properties.HORIZONTAL_FACING);
 					boolean did = false;
 					boolean can = false;
 
@@ -191,14 +191,14 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 	}
 
 	@Override
-	protected void writeAdditional(@Nonnull CompoundNBT cmp) {
-		super.writeAdditional(cmp);
+	protected void writeCustomDataToTag(@Nonnull CompoundTag cmp) {
+		super.writeCustomDataToTag(cmp);
 		cmp.putInt(TAG_MANA, getMana());
 	}
 
 	@Override
-	protected void readAdditional(CompoundNBT cmp) {
-		super.readAdditional(cmp);
+	protected void readCustomDataFromTag(CompoundTag cmp) {
+		super.readCustomDataFromTag(cmp);
 		setMana(cmp.getInt(TAG_MANA));
 	}
 
@@ -208,11 +208,11 @@ public class EntityPoolMinecart extends AbstractMinecartEntity {
 	}
 
 	public int getMana() {
-		return dataManager.get(MANA);
+		return dataTracker.get(MANA);
 	}
 
 	public void setMana(int mana) {
-		dataManager.set(MANA, mana);
+		dataTracker.set(MANA, mana);
 	}
 
 }

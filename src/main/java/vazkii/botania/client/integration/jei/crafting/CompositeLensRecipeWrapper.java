@@ -18,8 +18,7 @@ import mezz.jei.api.recipe.category.extensions.vanilla.crafting.ICustomCraftingC
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.tags.ItemTags;
-
+import net.minecraft.tag.ItemTags;
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.item.lens.ItemLens;
 
@@ -36,8 +35,8 @@ public class CompositeLensRecipeWrapper implements ICustomCraftingCategoryExtens
 	private final List<Item> lenses;
 
 	public CompositeLensRecipeWrapper(CompositeLensRecipe recipe) {
-		List<ItemStack> lensStacks = ItemTags.getCollection().getOrCreate(prefix("lens"))
-				.getAllElements().stream()
+		List<ItemStack> lensStacks = ItemTags.getContainer().getOrCreate(prefix("lens"))
+				.values().stream()
 				.map(ItemStack::new)
 				.filter(s -> !((ItemLens) s.getItem()).isControlLens(s))
 				.filter(s -> ((ItemLens) s.getItem()).isCombinable(s))

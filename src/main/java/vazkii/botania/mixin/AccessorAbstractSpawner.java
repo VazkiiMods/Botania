@@ -9,14 +9,13 @@
 package vazkii.botania.mixin;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.WeightedSpawnerEntity;
-import net.minecraft.world.spawner.AbstractSpawner;
-
+import net.minecraft.world.MobSpawnerEntry;
+import net.minecraft.world.MobSpawnerLogic;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(AbstractSpawner.class)
+@Mixin(MobSpawnerLogic.class)
 public interface AccessorAbstractSpawner {
 	@Invoker("func_221409_a")
 	void callSpawnEntity(Entity e);
@@ -34,7 +33,7 @@ public interface AccessorAbstractSpawner {
 	int getSpawnRange();
 
 	@Accessor
-	WeightedSpawnerEntity getSpawnData();
+	MobSpawnerEntry getSpawnData();
 
 	@Accessor
 	int getMaxNearbyEntities();

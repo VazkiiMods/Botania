@@ -8,20 +8,19 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.util.ResourceLocation;
-
+import net.minecraft.util.Identifier;
 import vazkii.botania.client.lib.LibResources;
 
 public class ItemSuperTravelBelt extends ItemTravelBelt {
 
-	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_SUPER_TRAVEL_BELT);
+	private static final Identifier texture = new Identifier(LibResources.MODEL_SUPER_TRAVEL_BELT);
 
-	public ItemSuperTravelBelt(Properties props) {
+	public ItemSuperTravelBelt(Settings props) {
 		super(props, 0.085F, 0.3F, 4F);
 	}
 
 	@Override
-	public ResourceLocation getRenderTexture() {
+	public Identifier getRenderTexture() {
 		return texture;
 	}
 }

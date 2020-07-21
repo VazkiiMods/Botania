@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.integration.jei.orechid;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -19,12 +18,11 @@ import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.ResourceLocation;
-
+import net.minecraft.tag.BlockTags;
+import net.minecraft.util.Identifier;
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 
 import javax.annotation.Nonnull;
@@ -86,8 +84,8 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> 
 
 		// Shouldn't ever return an empty list since the ore weight
 		// list is filtered to only have ores with ItemBlocks
-		List<ItemStack> stackList = BlockTags.getCollection().getOrCreate(recipe.entry.getKey())
-				.getAllElements()
+		List<ItemStack> stackList = BlockTags.getContainer().getOrCreate(recipe.entry.getKey())
+				.values()
 				.stream()
 				.filter(s -> s.asItem() != Items.AIR)
 				.map(ItemStack::new)
@@ -97,14 +95,14 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> 
 		ingredients.setOutputLists(VanillaTypes.ITEM, Collections.singletonList(stackList));
 	}
 
-	public static float getTotalOreWeight(Map<ResourceLocation, Integer> weights, int myWeight) {
+	public static float getTotalOreWeight(Map<Identifier, Integer> weights, int myWeight) {
 		return (weights.entrySet().stream()
 				.filter(e -> JEIBotaniaPlugin.doesOreExist(e.getKey()))
 				.map(Map.Entry::getValue)
 				.reduce(Integer::sum)).orElse(myWeight * 64 * 64);
 	}
 
-	protected abstract Map<ResourceLocation, Integer> getOreWeights();
+	protected abstract Map<Identifier, Integer> getOreWeights();
 
 	@Override
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull T recipeWrapper, @Nonnull IIngredients ingredients) {

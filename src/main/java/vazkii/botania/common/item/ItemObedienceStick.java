@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.item;
 
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -27,29 +27,29 @@ import java.util.function.BiFunction;
 
 public class ItemObedienceStick extends Item {
 
-	public ItemObedienceStick(Properties props) {
+	public ItemObedienceStick(Settings props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
+	public ActionResult useOnBlock(ItemUsageContext ctx) {
 		World world = ctx.getWorld();
-		BlockPos pos = ctx.getPos();
+		BlockPos pos = ctx.getBlockPos();
 
-		TileEntity tileAt = world.getTileEntity(pos);
+		BlockEntity tileAt = world.getBlockEntity(pos);
 		if (tileAt instanceof IManaPool || tileAt instanceof IManaCollector) {
 			boolean pool = tileAt instanceof IManaPool;
-			BiFunction<TileEntitySpecialFlower, TileEntity, Boolean> act = pool ? functionalActuator : generatingActuator;
+			BiFunction<TileEntitySpecialFlower, BlockEntity, Boolean> act = pool ? functionalActuator : generatingActuator;
 			int range = pool ? TileEntityFunctionalFlower.LINK_RANGE : TileEntityGeneratingFlower.LINK_RANGE;
 
-			for (BlockPos iterPos : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range),
+			for (BlockPos iterPos : BlockPos.iterate(pos.add(-range, -range, -range),
 					pos.add(range, range, range))) {
-				if (iterPos.distanceSq(pos) > range * range) {
+				if (iterPos.getSquaredDistance(pos) > range * range) {
 					continue;
 				}
 
-				TileEntity tile = world.getTileEntity(iterPos);
+				BlockEntity tile = world.getBlockEntity(iterPos);
 				if (tile instanceof TileEntitySpecialFlower) {
 					TileEntitySpecialFlower subtile = ((TileEntitySpecialFlower) tile);
 					if (act.apply(subtile, tileAt)) {
@@ -58,13 +58,13 @@ public class ItemObedienceStick extends Item {
 				}
 			}
 
-			return ActionResultType.SUCCESS;
+			return ActionResult.SUCCESS;
 		}
 
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
-	private static final BiFunction<TileEntitySpecialFlower, TileEntity, Boolean> generatingActuator = (flower, tile) -> {
+	private static final BiFunction<TileEntitySpecialFlower, BlockEntity, Boolean> generatingActuator = (flower, tile) -> {
 		if (flower instanceof TileEntityGeneratingFlower) {
 			((TileEntityGeneratingFlower) flower).linkToForcefully(tile);
 			return true;
@@ -72,7 +72,7 @@ public class ItemObedienceStick extends Item {
 		return false;
 	};
 
-	private static final BiFunction<TileEntitySpecialFlower, TileEntity, Boolean> functionalActuator = (flower, tile) -> {
+	private static final BiFunction<TileEntitySpecialFlower, BlockEntity, Boolean> functionalActuator = (flower, tile) -> {
 		if (flower instanceof TileEntityFunctionalFlower) {
 			((TileEntityFunctionalFlower) flower).linkToForcefully(tile);
 			return true;

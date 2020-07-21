@@ -10,7 +10,7 @@ package vazkii.botania.data;
 
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ModelProvider;
@@ -30,7 +30,7 @@ public class FloatingFlowerModelProvider extends ModelProvider<FloatingFlowerMod
 	@Override
 	protected void registerModels() {
 		for (Block b : Registry.BLOCK) {
-			ResourceLocation id = Registry.BLOCK.getKey(b);
+			Identifier id = Registry.BLOCK.getId(b);
 			if (LibMisc.MOD_ID.equals(id.getNamespace()) && b instanceof BlockFloatingFlower) {
 				String name = id.getPath();
 				String nonFloat;
@@ -41,7 +41,7 @@ public class FloatingFlowerModelProvider extends ModelProvider<FloatingFlowerMod
 				}
 
 				getBuilder(name)
-						.parent(getExistingFile(new ResourceLocation("block/block")))
+						.parent(getExistingFile(new Identifier("block/block")))
 						.withFlowerModel(getExistingFile(prefix(nonFloat)));
 			}
 		}

@@ -8,14 +8,13 @@
  */
 package vazkii.botania.client.render.entity;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.texture.AtlasTexture;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Box;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -29,7 +28,7 @@ public class RenderMagicLandmine extends EntityRenderer<EntityMagicLandmine> {
 	// Global y offset so that overlapping landmines do not Z-fight
 	public static double offY = INITIAL_OFFSET;
 
-	public RenderMagicLandmine(EntityRendererManager renderManager) {
+	public RenderMagicLandmine(EntityRenderDispatcher renderManager) {
 		super(renderManager);
 	}
 
@@ -38,11 +37,11 @@ public class RenderMagicLandmine extends EntityRenderer<EntityMagicLandmine> {
 	}
 
 	@Override
-	public void render(EntityMagicLandmine e, float entityYaw, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light) {
+	public void render(EntityMagicLandmine e, float entityYaw, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light) {
 		super.render(e, entityYaw, partialTicks, ms, buffers, light);
 
 		ms.push();
-		AxisAlignedBB aabb = e.getBoundingBox().offset(e.getPositionVec().scale(-1));
+		Box aabb = e.getBoundingBox().offset(e.getPos().multiply(-1));
 
 		float gs = (float) (Math.sin(ClientTickHandler.total / 20) + 1) * 0.2F + 0.6F;
 		int r = (int) (105 * gs);
@@ -51,10 +50,10 @@ public class RenderMagicLandmine extends EntityRenderer<EntityMagicLandmine> {
 		int color = r << 16 | g << 8 | b;
 
 		int alpha = 32;
-		if (e.ticksExisted < 8) {
-			alpha *= Math.min((e.ticksExisted + partialTicks) / 8F, 1F);
-		} else if (e.ticksExisted > 47) {
-			alpha *= Math.min(1F - (e.ticksExisted - 47 + partialTicks) / 8F, 1F);
+		if (e.age < 8) {
+			alpha *= Math.min((e.age + partialTicks) / 8F, 1F);
+		} else if (e.age > 47) {
+			alpha *= Math.min(1F - (e.age - 47 + partialTicks) / 8F, 1F);
 		}
 
 		RenderTileSpecialFlower.renderRectangle(ms, buffers, aabb, false, color, (byte) alpha);
@@ -64,7 +63,7 @@ public class RenderMagicLandmine extends EntityRenderer<EntityMagicLandmine> {
 
 	@Nonnull
 	@Override
-	public ResourceLocation getEntityTexture(@Nonnull EntityMagicLandmine entity) {
-		return AtlasTexture.LOCATION_BLOCKS_TEXTURE;
+	public Identifier getEntityTexture(@Nonnull EntityMagicLandmine entity) {
+		return SpriteAtlasTexture.BLOCK_ATLAS_TEX;
 	}
 }

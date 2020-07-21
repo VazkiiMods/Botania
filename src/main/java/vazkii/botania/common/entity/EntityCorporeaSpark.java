@@ -12,22 +12,22 @@ import com.google.common.base.Predicates;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Packet;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -46,9 +46,9 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	private static final String TAG_MASTER = "master";
 
-	private static final DataParameter<Boolean> MASTER = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Integer> ITEM_DISPLAY_TICKS = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
-	private static final DataParameter<ItemStack> DISPLAY_STACK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.ITEMSTACK);
+	private static final TrackedData<Boolean> MASTER = DataTracker.registerData(EntityCorporeaSpark.class, TrackedDataHandlerRegistry.BOOLEAN);
+	private static final TrackedData<Integer> ITEM_DISPLAY_TICKS = DataTracker.registerData(EntityCorporeaSpark.class, TrackedDataHandlerRegistry.INTEGER);
+	private static final TrackedData<ItemStack> DISPLAY_STACK = DataTracker.registerData(EntityCorporeaSpark.class, TrackedDataHandlerRegistry.ITEM_STACK);
 
 	private ICorporeaSpark master;
 	private List<ICorporeaSpark> connections = new ArrayList<>();
@@ -60,16 +60,16 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	@Override
-	protected void registerData() {
-		super.registerData();
-		dataManager.register(MASTER, false);
-		dataManager.register(ITEM_DISPLAY_TICKS, 0);
-		dataManager.register(DISPLAY_STACK, ItemStack.EMPTY);
+	protected void initDataTracker() {
+		super.initDataTracker();
+		dataTracker.startTracking(MASTER, false);
+		dataTracker.startTracking(ITEM_DISPLAY_TICKS, 0);
+		dataTracker.startTracking(DISPLAY_STACK, ItemStack.EMPTY);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getPickedResult(RayTraceResult target) {
+	public ItemStack getPickedResult(HitResult target) {
 		return isMaster() ? new ItemStack(ModItems.corporeaSparkMaster) : new ItemStack(ModItems.corporeaSpark);
 	}
 
@@ -77,7 +77,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	public void tick() {
 		super.tick();
 
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
 
@@ -114,7 +114,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	private void dropAndKill() {
-		entityDropItem(new ItemStack(isMaster() ? ModItems.corporeaSparkMaster : ModItems.corporeaSpark), 0F);
+		dropStack(new ItemStack(isMaster() ? ModItems.corporeaSparkMaster : ModItems.corporeaSpark), 0F);
 		remove();
 	}
 
@@ -144,7 +144,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	@SuppressWarnings("unchecked")
 	private List<ICorporeaSpark> getNearbySparks() {
-		return (List) world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(getPosX() - SCAN_RANGE, getPosY() - SCAN_RANGE, getPosZ() - SCAN_RANGE, getPosX() + SCAN_RANGE, getPosY() + SCAN_RANGE, getPosZ() + SCAN_RANGE), Predicates.instanceOf(ICorporeaSpark.class));
+		return (List) world.getEntities(Entity.class, new Box(getX() - SCAN_RANGE, getY() - SCAN_RANGE, getZ() - SCAN_RANGE, getX() + SCAN_RANGE, getY() + SCAN_RANGE, getZ() + SCAN_RANGE), Predicates.instanceOf(ICorporeaSpark.class));
 	}
 
 	private void restartNetwork() {
@@ -194,9 +194,9 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	@Override
 	public InvWithLocation getSparkInventory() {
-		int x = MathHelper.floor(getPosX());
-		int y = MathHelper.floor(getPosY() - 1);
-		int z = MathHelper.floor(getPosZ());
+		int x = MathHelper.floor(getX());
+		int y = MathHelper.floor(getY() - 1);
+		int z = MathHelper.floor(getZ());
 		return InventoryHelper.getInventoryWithLocation(world, new BlockPos(x, y, z), Direction.UP);
 	}
 
@@ -230,40 +230,40 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	public void setMaster(boolean master) {
-		dataManager.set(MASTER, master);
+		dataTracker.set(MASTER, master);
 	}
 
 	@Override
 	public boolean isMaster() {
-		return dataManager.get(MASTER);
+		return dataTracker.get(MASTER);
 	}
 
 	public int getItemDisplayTicks() {
-		return dataManager.get(ITEM_DISPLAY_TICKS);
+		return dataTracker.get(ITEM_DISPLAY_TICKS);
 	}
 
 	public void setItemDisplayTicks(int ticks) {
-		dataManager.set(ITEM_DISPLAY_TICKS, ticks);
+		dataTracker.set(ITEM_DISPLAY_TICKS, ticks);
 	}
 
 	public ItemStack getDisplayedItem() {
-		return dataManager.get(DISPLAY_STACK);
+		return dataTracker.get(DISPLAY_STACK);
 	}
 
 	public void setDisplayedItem(ItemStack stack) {
-		dataManager.set(DISPLAY_STACK, stack);
+		dataTracker.set(DISPLAY_STACK, stack);
 	}
 
 	@Override
-	public ActionResultType processInitialInteract(PlayerEntity player, Hand hand) {
-		ItemStack stack = player.getHeldItem(hand);
+	public ActionResult interact(PlayerEntity player, Hand hand) {
+		ItemStack stack = player.getStackInHand(hand);
 		if (!removed && !stack.isEmpty()) {
-			if (player.world.isRemote) {
+			if (player.world.isClient) {
 				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() instanceof DyeItem || stack.getItem() == ModItems.phantomInk;
 				if (valid) {
-					player.swingArm(hand);
+					player.swingHand(hand);
 				}
-				return valid ? ActionResultType.SUCCESS : ActionResultType.PASS;
+				return valid ? ActionResult.SUCCESS : ActionResult.PASS;
 			}
 
 			if (stack.getItem() == ModItems.twigWand) {
@@ -275,9 +275,9 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 				} else {
 					displayRelatives(player, new ArrayList<>(), master);
 				}
-				return ActionResultType.SUCCESS;
+				return ActionResult.SUCCESS;
 			} else if (stack.getItem() instanceof DyeItem) {
-				DyeColor color = ((DyeItem) stack.getItem()).getDyeColor();
+				DyeColor color = ((DyeItem) stack.getItem()).getColor();
 				if (color != getNetwork()) {
 					setNetwork(color);
 
@@ -287,33 +287,33 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 						findNetwork();
 					}
 
-					stack.shrink(1);
-					return ActionResultType.SUCCESS;
+					stack.decrement(1);
+					return ActionResult.SUCCESS;
 				}
 			} else if (stack.getItem() == ModItems.phantomInk) {
 				setInvisible(true);
-				return ActionResultType.SUCCESS;
+				return ActionResult.SUCCESS;
 			}
 		}
 
-		return ActionResultType.PASS;
+		return ActionResult.PASS;
 	}
 
 	@Nonnull
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public Packet<?> createSpawnPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 
 	@Override
-	protected void readAdditional(@Nonnull CompoundNBT cmp) {
-		super.readAdditional(cmp);
+	protected void readCustomDataFromTag(@Nonnull CompoundTag cmp) {
+		super.readCustomDataFromTag(cmp);
 		setMaster(cmp.getBoolean(TAG_MASTER));
 	}
 
 	@Override
-	protected void writeAdditional(@Nonnull CompoundNBT cmp) {
-		super.writeAdditional(cmp);
+	protected void writeCustomDataToTag(@Nonnull CompoundTag cmp) {
+		super.writeCustomDataToTag(cmp);
 		cmp.putBoolean(TAG_MASTER, isMaster());
 	}
 

@@ -11,12 +11,12 @@ package vazkii.botania.common.entity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.IPacket;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Packet;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -33,7 +33,7 @@ public class EntityFlameRing extends Entity {
 	}
 
 	@Override
-	protected void registerData() {}
+	protected void initDataTracker() {}
 
 	@Override
 	public void baseTick() {
@@ -42,74 +42,74 @@ public class EntityFlameRing extends Entity {
 		float radius = 5F;
 		float renderRadius = (float) (radius - Math.random());
 
-		for (int i = 0; i < Math.min(90, ticksExisted); i++) {
+		for (int i = 0; i < Math.min(90, age); i++) {
 			float a = i;
 			if (a % 2 == 0) {
 				a = 45 + a;
 			}
 
-			if (world.rand.nextInt(ticksExisted < 90 ? 8 : 20) == 0) {
+			if (world.random.nextInt(age < 90 ? 8 : 20) == 0) {
 				float rad = (float) (a * 4 * Math.PI / 180F);
 				double x = Math.cos(rad) * renderRadius;
 				double z = Math.sin(rad) * renderRadius;
 
 				WispParticleData data1 = WispParticleData.wisp(0.65F + (float) Math.random() * 0.45F, 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F);
-				world.addParticle(data1, getPosX() + x, getPosY() - 0.2, getPosZ() + z, (float) (Math.random() - 0.5F) * 0.15F, 0.055F + (float) Math.random() * 0.025F, (float) (Math.random() - 0.5F) * 0.15F);
+				world.addParticle(data1, getX() + x, getY() - 0.2, getZ() + z, (float) (Math.random() - 0.5F) * 0.15F, 0.055F + (float) Math.random() * 0.025F, (float) (Math.random() - 0.5F) * 0.15F);
 
 				float gs = (float) Math.random() * 0.15F;
 				float smokeRadius = (float) (renderRadius - Math.random() * renderRadius * 0.9);
 				x = Math.cos(rad) * smokeRadius;
 				z = Math.sin(rad) * smokeRadius;
 				WispParticleData data = WispParticleData.wisp(0.65F + (float) Math.random() * 0.45F, gs, gs, gs, 1);
-				world.addParticle(data, getPosX() + x, getPosY() - 0.2, getPosZ() + z, 0, -(-0.155F - (float) Math.random() * 0.025F), 0);
+				world.addParticle(data, getX() + x, getY() - 0.2, getZ() + z, 0, -(-0.155F - (float) Math.random() * 0.025F), 0);
 			}
 		}
 
-		if (world.rand.nextInt(20) == 0) {
-			world.playSound(getPosX(), getPosY(), getPosZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, 1F, 1F, false);
+		if (world.random.nextInt(20) == 0) {
+			world.playSound(getX(), getY(), getZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.BLOCKS, 1F, 1F, false);
 		}
 
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
 
-		if (ticksExisted >= 300) {
+		if (age >= 300) {
 			remove();
 			return;
 		}
 
-		if (ticksExisted > 45) {
-			AxisAlignedBB boundingBox = new AxisAlignedBB(getPosX(), getPosY(), getPosZ(), getPosX(), getPosY(), getPosZ()).grow(radius, radius, radius);
-			List<LivingEntity> entities = world.getEntitiesWithinAABB(LivingEntity.class, boundingBox);
+		if (age > 45) {
+			Box boundingBox = new Box(getX(), getY(), getZ(), getX(), getY(), getZ()).expand(radius, radius, radius);
+			List<LivingEntity> entities = world.getNonSpectatingEntities(LivingEntity.class, boundingBox);
 
 			if (entities.isEmpty()) {
 				return;
 			}
 
 			for (LivingEntity entity : entities) {
-				if (entity == null || MathHelper.pointDistancePlane(getPosX(), getPosY(), entity.getPosX(), entity.getPosY()) > radius) {
+				if (entity == null || MathHelper.pointDistancePlane(getX(), getY(), entity.getX(), entity.getY()) > radius) {
 					continue;
 				}
 
-				entity.setFire(4);
+				entity.setOnFireFor(4);
 			}
 		}
 	}
 
 	@Override
-	public boolean attackEntityFrom(@Nonnull DamageSource source, float amount) {
+	public boolean damage(@Nonnull DamageSource source, float amount) {
 		return false;
 	}
 
 	@Override
-	protected void readAdditional(@Nonnull CompoundNBT var1) {}
+	protected void readCustomDataFromTag(@Nonnull CompoundTag var1) {}
 
 	@Override
-	protected void writeAdditional(@Nonnull CompoundNBT var1) {}
+	protected void writeCustomDataToTag(@Nonnull CompoundTag var1) {}
 
 	@Nonnull
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public Packet<?> createSpawnPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 }

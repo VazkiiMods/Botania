@@ -9,36 +9,35 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 
 public class ItemMiningRing extends ItemBauble implements IManaUsingItem {
 
-	public ItemMiningRing(Properties props) {
+	public ItemMiningRing(Settings props) {
 		super(props);
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		if (player instanceof PlayerEntity && !player.world.isRemote) {
+		if (player instanceof PlayerEntity && !player.world.isClient) {
 			int manaCost = 5;
 			boolean hasMana = ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) player, manaCost, false);
 			if (!hasMana) {
 				onUnequipped(stack, player);
 			} else {
-				if (player.getActivePotionEffect(Effects.HASTE) != null) {
-					player.removePotionEffect(Effects.HASTE);
+				if (player.getStatusEffect(StatusEffects.HASTE) != null) {
+					player.removeStatusEffect(StatusEffects.HASTE);
 				}
 
-				player.addPotionEffect(new EffectInstance(Effects.HASTE, Integer.MAX_VALUE, 1, true, true));
+				player.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, Integer.MAX_VALUE, 1, true, true));
 			}
 
-			if (player.swingProgress == 0.25F) {
+			if (player.handSwingProgress == 0.25F) {
 				ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) player, manaCost, true);
 			}
 		}
@@ -46,9 +45,9 @@ public class ItemMiningRing extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	public void onUnequipped(ItemStack stack, LivingEntity player) {
-		EffectInstance effect = player.getActivePotionEffect(Effects.HASTE);
+		StatusEffectInstance effect = player.getStatusEffect(StatusEffects.HASTE);
 		if (effect != null && effect.getAmplifier() == 1) {
-			player.removePotionEffect(Effects.HASTE);
+			player.removeStatusEffect(StatusEffects.HASTE);
 		}
 	}
 

@@ -8,30 +8,28 @@
  */
 package vazkii.botania.client.render.tile;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.util.math.vector.Vector3f;
-
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.RenderLayers;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
 import vazkii.botania.common.block.tile.TileCocoon;
 
 import javax.annotation.Nonnull;
 
-public class RenderTileCocoon extends TileEntityRenderer<TileCocoon> {
+public class RenderTileCocoon extends BlockEntityRenderer<TileCocoon> {
 
-	public RenderTileCocoon(TileEntityRendererDispatcher manager) {
+	public RenderTileCocoon(BlockEntityRenderDispatcher manager) {
 		super(manager);
 	}
 
 	@Override
-	public void render(@Nonnull TileCocoon cocoon, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+	public void render(@Nonnull TileCocoon cocoon, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
 		float rot = 0F;
 		float modval = 60F - (float) cocoon.timePassed / (float) TileCocoon.TOTAL_TIME * 30F;
 		if (cocoon.timePassed % modval < 10) {
@@ -42,12 +40,12 @@ public class RenderTileCocoon extends TileEntityRenderer<TileCocoon> {
 
 		ms.push();
 		ms.translate(0.5, 0, 0);
-		ms.rotate(Vector3f.XP.rotationDegrees(rot));
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(rot));
 		ms.translate(-0.5, 0, 0);
-		BlockState state = cocoon.getBlockState();
-		IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModel(state);
-		IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.getChunkRenderType(state));
-		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffer, state, model, 1, 1, 1, light, overlay);
+		BlockState state = cocoon.getCachedState();
+		BakedModel model = MinecraftClient.getInstance().getBlockRenderManager().getModels().getModel(state);
+		VertexConsumer buffer = buffers.getBuffer(RenderLayers.getBlockLayer(state));
+		MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer().render(ms.peek(), buffer, state, model, 1, 1, 1, light, overlay);
 		ms.pop();
 	}
 }

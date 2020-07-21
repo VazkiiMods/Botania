@@ -8,40 +8,38 @@
  */
 package vazkii.botania.client.render.tile;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import net.minecraft.block.Blocks;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Atlases;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.TexturedRenderLayers;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.entity.ItemEntityRenderer;
+import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.util.math.Vector3f;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.vector.Vector3f;
-
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
 import vazkii.botania.mixin.AccessorItemEntity;
 
 import javax.annotation.Nullable;
 
-public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorporeaCrystalCube> {
+public class RenderTileCorporeaCrystalCube extends BlockEntityRenderer<TileCorporeaCrystalCube> {
 	// Ugly but there's no other way to get the model besides grabbing it from the event
-	public static IBakedModel cubeModel = null;
+	public static BakedModel cubeModel = null;
 	private ItemEntity entity = null;
-	private ItemRenderer itemRenderer = null;
+	private ItemEntityRenderer itemRenderer = null;
 
-	public RenderTileCorporeaCrystalCube(TileEntityRendererDispatcher manager) {
+	public RenderTileCorporeaCrystalCube(BlockEntityRenderDispatcher manager) {
 		super(manager);
 	}
 
 	@Override
-	public void render(@Nullable TileCorporeaCrystalCube cube, float f, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+	public void render(@Nullable TileCorporeaCrystalCube cube, float f, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
 		ItemStack stack = ItemStack.EMPTY;
 		if (cube != null) {
 			if (entity == null) {
@@ -49,7 +47,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 			}
 
 			if (itemRenderer == null) {
-				itemRenderer = new ItemRenderer(Minecraft.getInstance().getRenderManager(), Minecraft.getInstance().getItemRenderer()) {
+				itemRenderer = new ItemEntityRenderer(MinecraftClient.getInstance().getEntityRenderManager(), MinecraftClient.getInstance().getItemRenderer()) {
 					@Override
 					public boolean shouldBob() {
 						return false;
@@ -59,13 +57,13 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 
 			((AccessorItemEntity) entity).setAge(ClientTickHandler.ticksInGame);
 			stack = cube.getRequestTarget();
-			entity.setItem(stack);
+			entity.setStack(stack);
 		}
 
 		double time = ClientTickHandler.ticksInGame + f;
 		double worldTicks = cube == null || cube.getWorld() == null ? 0 : time;
 
-		Minecraft mc = Minecraft.getInstance();
+		MinecraftClient mc = MinecraftClient.getInstance();
 		ms.push();
 		ms.translate(0.5F, 1.5F, 0.5F);
 		ms.scale(1F, -1F, -1F);
@@ -76,7 +74,7 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 			float s = stack.getItem() instanceof BlockItem ? 0.7F : 0.5F;
 			ms.translate(0F, 0.8F, 0F);
 			ms.scale(s, s, s);
-			ms.rotate(Vector3f.ZP.rotationDegrees(180F));
+			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
 			itemRenderer.render(entity, 0, f, ms, buffers, light);
 			ms.pop();
 		}
@@ -84,8 +82,8 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 		if (cubeModel != null) {
 			ms.push();
 			ms.translate(-0.5F, 0.25F, -0.5F);
-			IVertexBuilder buffer = buffers.getBuffer(Atlases.getTranslucentCullBlockType());
-			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffer, null, cubeModel, 1, 1, 1, light, overlay);
+			VertexConsumer buffer = buffers.getBuffer(TexturedRenderLayers.getEntityTranslucentCull());
+			MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer().render(ms.peek(), buffer, null, cubeModel, 1, 1, 1, light, overlay);
 			ms.pop();
 		}
 
@@ -106,16 +104,16 @@ public class RenderTileCorporeaCrystalCube extends TileEntityRenderer<TileCorpor
 
 			float s = 1F / 64F;
 			ms.scale(s, s, s);
-			int l = mc.fontRenderer.getStringWidth(countStr);
+			int l = mc.textRenderer.getWidth(countStr);
 
 			ms.translate(0F, 55F, 0F);
 			float tr = -16.5F;
 			for (int i = 0; i < 4; i++) {
-				ms.rotate(Vector3f.YP.rotationDegrees(90F));
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
 				ms.translate(0F, 0F, tr);
-				mc.fontRenderer.renderString(countStr, -l / 2, 0, color, false, ms.getLast().getMatrix(), buffers, false, 0, light);
+				mc.textRenderer.draw(countStr, -l / 2, 0, color, false, ms.peek().getModel(), buffers, false, 0, light);
 				ms.translate(0F, 0F, 0.1F);
-				mc.fontRenderer.renderString(countStr, -l / 2 + 1, 1, colorShade, false, ms.getLast().getMatrix(), buffers, false, 0, light);
+				mc.textRenderer.draw(countStr, -l / 2 + 1, 1, colorShade, false, ms.peek().getModel(), buffers, false, 0, light);
 				ms.translate(0F, 0F, -tr - 0.1F);
 			}
 		}

@@ -11,9 +11,8 @@ package vazkii.botania.common.block.subtile.functional;
 import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -25,12 +24,12 @@ import vazkii.botania.common.core.handler.ModSounds;
 import java.util.Set;
 
 public class SubTileAgricarnation extends TileEntityFunctionalFlower {
-	private static final Set<Material> MATERIALS = ImmutableSet.of(Material.PLANTS, Material.CACTUS, Material.ORGANIC,
-			Material.LEAVES, Material.GOURD, Material.OCEAN_PLANT, Material.BAMBOO);
+	private static final Set<Material> MATERIALS = ImmutableSet.of(Material.PLANT, Material.CACTUS, Material.SOLID_ORGANIC,
+			Material.LEAVES, Material.GOURD, Material.UNDERWATER_PLANT, Material.BAMBOO);
 	private static final int RANGE = 5;
 	private static final int RANGE_MINI = 2;
 
-	protected SubTileAgricarnation(TileEntityType<?> type) {
+	protected SubTileAgricarnation(BlockEntityType<?> type) {
 		super(type);
 	}
 
@@ -42,7 +41,7 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isRemote) {
+		if (getWorld().isClient) {
 			return;
 		}
 
@@ -52,22 +51,22 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 
 		if (ticksExisted % 6 == 0 && redstoneSignal == 0) {
 			int range = getRange();
-			int x = getEffectivePos().getX() + getWorld().rand.nextInt(range * 2 + 1) - range;
-			int z = getEffectivePos().getZ() + getWorld().rand.nextInt(range * 2 + 1) - range;
+			int x = getEffectivePos().getX() + getWorld().random.nextInt(range * 2 + 1) - range;
+			int z = getEffectivePos().getZ() + getWorld().random.nextInt(range * 2 + 1) - range;
 
 			for (int i = 4; i > -2; i--) {
 				int y = getEffectivePos().getY() + i;
 				BlockPos pos = new BlockPos(x, y, z);
-				if (getWorld().isAirBlock(pos)) {
+				if (getWorld().isAir(pos)) {
 					continue;
 				}
 
 				if (isPlant(pos) && getMana() > 5) {
 					Block block = getWorld().getBlockState(pos).getBlock();
 					addMana(-5);
-					getWorld().getPendingBlockTicks().scheduleTick(pos, block, 1);
+					getWorld().getBlockTickScheduler().schedule(pos, block, 1);
 					if (ConfigHandler.COMMON.blockBreakParticles.get()) {
-						getWorld().playEvent(2005, pos, 6 + getWorld().rand.nextInt(4));
+						getWorld().syncWorldEvent(2005, pos, 6 + getWorld().random.nextInt(4));
 					}
 					getWorld().playSound(null, x, y, z, ModSounds.agricarnation, SoundCategory.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);
 
@@ -98,14 +97,14 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 		}
 
 		// Exclude all BushBlock except known vanilla subclasses
-		if (block instanceof BushBlock && !(block instanceof CropsBlock)
+		if (block instanceof PlantBlock && !(block instanceof CropBlock)
 				&& !(block instanceof SaplingBlock) && !(block instanceof SweetBerryBushBlock)) {
 			return false;
 		}
 
 		return MATERIALS.contains(state.getMaterial())
-				&& block instanceof IGrowable
-				&& ((IGrowable) block).canGrow(getWorld(), pos, state, getWorld().isRemote);
+				&& block instanceof Fertilizable
+				&& ((Fertilizable) block).isFertilizable(getWorld(), pos, state, getWorld().isClient);
 	}
 
 	@Override

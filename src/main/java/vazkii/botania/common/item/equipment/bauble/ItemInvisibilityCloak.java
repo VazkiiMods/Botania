@@ -9,41 +9,40 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 
 public class ItemInvisibilityCloak extends ItemBauble implements IManaUsingItem {
 
-	public ItemInvisibilityCloak(Properties props) {
+	public ItemInvisibilityCloak(Settings props) {
 		super(props);
 	}
 
 	@Override
 	public void onUnequipped(ItemStack stack, LivingEntity player) {
-		EffectInstance effect = player.getActivePotionEffect(Effects.INVISIBILITY);
+		StatusEffectInstance effect = player.getStatusEffect(StatusEffects.INVISIBILITY);
 		if (effect != null && player instanceof PlayerEntity && effect.getAmplifier() == -42) {
-			player.removePotionEffect(Effects.INVISIBILITY);
+			player.removeStatusEffect(StatusEffects.INVISIBILITY);
 		}
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		if (player instanceof PlayerEntity && !player.world.isRemote) {
+		if (player instanceof PlayerEntity && !player.world.isClient) {
 			int manaCost = 2;
 			boolean hasMana = ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) player, manaCost, false);
 			if (!hasMana) {
 				onUnequipped(stack, player);
 			} else {
-				if (player.getActivePotionEffect(Effects.INVISIBILITY) != null) {
-					player.removePotionEffect(Effects.INVISIBILITY);
+				if (player.getStatusEffect(StatusEffects.INVISIBILITY) != null) {
+					player.removeStatusEffect(StatusEffects.INVISIBILITY);
 				}
 
-				player.addPotionEffect(new EffectInstance(Effects.INVISIBILITY, Integer.MAX_VALUE, -42, true, true));
+				player.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, Integer.MAX_VALUE, -42, true, true));
 			}
 		}
 	}

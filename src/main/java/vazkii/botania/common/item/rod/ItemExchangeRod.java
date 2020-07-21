@@ -9,28 +9,29 @@
 package vazkii.botania.common.item.rod;
 
 import com.google.common.collect.ImmutableList;
-
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.nbt.NBTUtil;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.nbt.NbtHelper;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -68,28 +69,28 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	private static final String TAG_SELECT_Z = "selectZ";
 	private static final String TAG_EXTRA_RANGE = "extraRange";
 
-	public ItemExchangeRod(Properties props) {
+	public ItemExchangeRod(Settings props) {
 		super(props);
 		MinecraftForge.EVENT_BUS.addListener(this::onLeftClick);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
+	public ActionResult useOnBlock(ItemUsageContext ctx) {
 		World world = ctx.getWorld();
-		BlockPos pos = ctx.getPos();
+		BlockPos pos = ctx.getBlockPos();
 		PlayerEntity player = ctx.getPlayer();
-		ItemStack stack = ctx.getItem();
+		ItemStack stack = ctx.getStack();
 		BlockState wstate = world.getBlockState(pos);
 
 		if (player != null && player.isSneaking()) {
-			TileEntity tile = world.getTileEntity(pos);
+			BlockEntity tile = world.getBlockEntity(pos);
 			if (tile == null) {
 				if (BlockPlatform.isValidBlock(wstate, world, pos)) {
 					setBlock(stack, wstate);
 
 					displayRemainderCounter(player, stack);
-					return ActionResultType.SUCCESS;
+					return ActionResult.SUCCESS;
 				}
 			}
 		} else if (canExchange(stack) && !ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
@@ -104,7 +105,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 			}
 		}
 
-		return ActionResultType.SUCCESS;
+		return ActionResult.SUCCESS;
 	}
 
 	private void onLeftClick(PlayerInteractEvent.LeftClickBlock event) {
@@ -147,7 +148,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 				return;
 			}
 
-			BlockPos coords = swap.get(world.rand.nextInt(swap.size()));
+			BlockPos coords = swap.get(world.random.nextInt(swap.size()));
 			boolean exchange = exchange(world, player, coords, stack, state);
 			if (exchange) {
 				ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true);
@@ -190,7 +191,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 						BlockPos adjPos = pos_.offset(dir);
 						BlockState adjState = world.getBlockState(adjPos);
 
-						if (!Block.hasSolidSide(adjState, world, adjPos, dir.getOpposite())) {
+						if (!Block.isSideSolidFullSquare(adjState, world, adjPos, dir.getOpposite())) {
 							coordsList.add(pos_);
 							break;
 						}
@@ -203,7 +204,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	}
 
 	public boolean exchange(World world, PlayerEntity player, BlockPos pos, ItemStack stack, BlockState state) {
-		TileEntity tile = world.getTileEntity(pos);
+		BlockEntity tile = world.getBlockEntity(pos);
 		if (tile != null) {
 			return false;
 		}
@@ -212,14 +213,14 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		if (!placeStack.isEmpty()) {
 			BlockState stateAt = world.getBlockState(pos);
 			Block blockAt = stateAt.getBlock();
-			if (!blockAt.isAir(world.getBlockState(pos), world, pos) && stateAt.getPlayerRelativeBlockHardness(player, world, pos) > 0 && stateAt != state) {
-				if (!world.isRemote) {
-					world.destroyBlock(pos, !player.abilities.isCreativeMode);
-					if (!player.abilities.isCreativeMode) {
+			if (!blockAt.isAir(world.getBlockState(pos), world, pos) && stateAt.calcBlockBreakingDelta(player, world, pos) > 0 && stateAt != state) {
+				if (!world.isClient) {
+					world.breakBlock(pos, !player.abilities.creativeMode);
+					if (!player.abilities.creativeMode) {
 						removeFromInventory(player, stack, state.getBlock(), true);
 					}
 					world.setBlockState(pos, state);
-					state.getBlock().onBlockPlacedBy(world, pos, state, player, placeStack);
+					state.getBlock().onPlaced(world, pos, state, player, placeStack);
 				}
 				displayRemainderCounter(player, stack);
 				return true;
@@ -233,10 +234,10 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		return !getState(stack).isAir();
 	}
 
-	public static ItemStack removeFromInventory(PlayerEntity player, IInventory inv, ItemStack stack, Block block, boolean doit) {
+	public static ItemStack removeFromInventory(PlayerEntity player, Inventory inv, ItemStack stack, Block block, boolean doit) {
 		List<ItemStack> providers = new ArrayList<>();
-		for (int i = inv.getSizeInventory() - 1; i >= 0; i--) {
-			ItemStack invStack = inv.getStackInSlot(i);
+		for (int i = inv.size() - 1; i >= 0; i--) {
+			ItemStack invStack = inv.getStack(i);
 			if (invStack.isEmpty()) {
 				continue;
 			}
@@ -245,7 +246,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 			if (item == block.asItem()) {
 				ItemStack ret;
 				if (doit) {
-					ret = inv.decrStackSize(i, 1);
+					ret = inv.removeStack(i, 1);
 				} else {
 					ret = invStack.copy();
 					ret.setCount(1);
@@ -269,7 +270,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	}
 
 	public static ItemStack removeFromInventory(PlayerEntity player, ItemStack stack, Block block, boolean doit) {
-		if (player.abilities.isCreativeMode) {
+		if (player.abilities.creativeMode) {
 			return new ItemStack(block);
 		}
 
@@ -281,7 +282,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	}
 
 	public static int getInventoryItemCount(PlayerEntity player, ItemStack stack, Block block) {
-		if (player.abilities.isCreativeMode) {
+		if (player.abilities.creativeMode) {
 			return -1;
 		}
 
@@ -298,14 +299,14 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		return count + baubleCount;
 	}
 
-	public static int getInventoryItemCount(PlayerEntity player, IInventory inv, ItemStack stack, Block block) {
-		if (player.abilities.isCreativeMode) {
+	public static int getInventoryItemCount(PlayerEntity player, Inventory inv, ItemStack stack, Block block) {
+		if (player.abilities.creativeMode) {
 			return -1;
 		}
 
 		int count = 0;
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack invStack = inv.getStackInSlot(i);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack invStack = inv.getStack(i);
 			if (invStack.isEmpty()) {
 				continue;
 			}
@@ -331,7 +332,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	public void displayRemainderCounter(PlayerEntity player, ItemStack stack) {
 		Block block = getState(stack).getBlock();
 		int count = getInventoryItemCount(player, stack, block);
-		if (!player.world.isRemote) {
+		if (!player.world.isClient) {
 			ItemsRemainingRenderHandler.send(player, new ItemStack(block), count);
 		}
 	}
@@ -342,50 +343,50 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	}
 
 	private void setBlock(ItemStack stack, BlockState state) {
-		ItemNBTHelper.setCompound(stack, TAG_BLOCK_NAME, NBTUtil.writeBlockState(state));
+		ItemNBTHelper.setCompound(stack, TAG_BLOCK_NAME, NbtHelper.fromBlockState(state));
 	}
 
 	@Nonnull
 	@Override
-	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
+	public Text getName(@Nonnull ItemStack stack) {
 		BlockState state = getState(stack);
-		IFormattableTextComponent cmp = super.getDisplayName(stack).deepCopy();
+		MutableText cmp = super.getName(stack).shallowCopy();
 		if (!state.isAir()) {
-			cmp.func_240702_b_(" (");
-			ITextComponent sub = new ItemStack(state.getBlock()).getDisplayName();
-			cmp.func_230529_a_(sub.deepCopy().func_240699_a_(TextFormatting.GREEN));
-			cmp.func_240702_b_(")");
+			cmp.append(" (");
+			Text sub = new ItemStack(state.getBlock()).getName();
+			cmp.append(sub.shallowCopy().formatted(Formatting.GREEN));
+			cmp.append(")");
 		}
 		return cmp;
 	}
 
 	public static BlockState getState(ItemStack stack) {
-		return NBTUtil.readBlockState(ItemNBTHelper.getCompound(stack, TAG_BLOCK_NAME, false));
+		return NbtHelper.toBlockState(ItemNBTHelper.getCompound(stack, TAG_BLOCK_NAME, false));
 	}
 
 	private void setTarget(ItemStack stack, Block block) {
-		ItemNBTHelper.setString(stack, TAG_TARGET_BLOCK_NAME, Registry.BLOCK.getKey(block).toString());
+		ItemNBTHelper.setString(stack, TAG_TARGET_BLOCK_NAME, Registry.BLOCK.getId(block).toString());
 	}
 
 	public static Block getTargetState(ItemStack stack) {
-		ResourceLocation id = new ResourceLocation(ItemNBTHelper.getString(stack, TAG_TARGET_BLOCK_NAME, "minecraft:air"));
-		return Registry.BLOCK.getOrDefault(id);
+		Identifier id = new Identifier(ItemNBTHelper.getString(stack, TAG_TARGET_BLOCK_NAME, "minecraft:air"));
+		return Registry.BLOCK.get(id);
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	public List<BlockPos> getWireframesToDraw(PlayerEntity player, ItemStack stack) {
-		ItemStack holding = player.getHeldItemMainhand();
+		ItemStack holding = player.getMainHandStack();
 		if (holding != stack || !canExchange(stack)) {
 			return ImmutableList.of();
 		}
 
 		BlockState state = getState(stack);
 
-		RayTraceResult pos = Minecraft.getInstance().objectMouseOver;
-		if (pos != null && pos.getType() == RayTraceResult.Type.BLOCK) {
-			BlockPos bPos = ((BlockRayTraceResult) pos).getPos();
-			Block target = Minecraft.getInstance().world.getBlockState(bPos).getBlock();
+		HitResult pos = MinecraftClient.getInstance().crosshairTarget;
+		if (pos != null && pos.getType() == HitResult.Type.BLOCK) {
+			BlockPos bPos = ((BlockHitResult) pos).getBlockPos();
+			Block target = MinecraftClient.getInstance().world.getBlockState(bPos).getBlock();
 			if (ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
 				bPos = new BlockPos(
 						ItemNBTHelper.getInt(stack, TAG_SELECT_X, 0),
@@ -395,7 +396,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 				target = getTargetState(stack);
 			}
 
-			if (!player.world.isAirBlock(bPos)) {
+			if (!player.world.isAir(bPos)) {
 				List<BlockPos> coordsList = getTargetPositions(player.world, stack, state, bPos, target);
 				coordsList.removeIf(bPos::equals);
 				return coordsList;

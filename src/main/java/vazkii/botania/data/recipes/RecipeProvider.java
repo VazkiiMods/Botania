@@ -9,25 +9,24 @@
 package vazkii.botania.data.recipes;
 
 import com.google.gson.JsonArray;
-
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.advancements.ICriterionInstance;
-import net.minecraft.advancements.IRequirementsStrategy;
-import net.minecraft.advancements.criterion.InventoryChangeTrigger;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
+import net.minecraft.advancement.criterion.CriterionConditions;
+import net.minecraft.advancement.criterion.InventoryChangedCriterion;
+import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
 import net.minecraft.block.Block;
 import net.minecraft.data.*;
+import net.minecraft.data.server.recipe.ComplexRecipeJsonFactory;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.data.server.recipe.ShapedRecipeJsonFactory;
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonFactory;
 import net.minecraft.item.*;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.SpecialRecipeSerializer;
-import net.minecraft.potion.PotionUtils;
+import net.minecraft.potion.PotionUtil;
 import net.minecraft.potion.Potions;
-import net.minecraft.tags.ITag;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.SpecialRecipeSerializer;
+import net.minecraft.tag.ItemTags;
+import net.minecraft.tag.Tag;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.ConditionalAdvancement;
@@ -62,13 +61,13 @@ import java.util.stream.Stream;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class RecipeProvider extends net.minecraft.data.RecipeProvider {
+public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 	public RecipeProvider(DataGenerator generator) {
 		super(generator);
 	}
 
 	@Override
-	protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+	protected void generate(Consumer<RecipeJsonProvider> consumer) {
 		specialRecipe(consumer, AncientWillRecipe.SERIALIZER);
 		specialRecipe(consumer, BannerRecipe.SERIALIZER);
 		specialRecipe(consumer, BlackHoleTalismanExtractRecipe.SERIALIZER);
@@ -95,1934 +94,1934 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 		registerDecor(consumer);
 	}
 
-	private void registerMain(Consumer<IFinishedRecipe> consumer) {
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.manaSpreader)
-				.key('P', ModTags.Items.PETALS)
-				.key('W', ModTags.Items.LIVINGWOOD)
-				.key('G', Tags.Items.INGOTS_GOLD)
-				.patternLine("WWW")
-				.patternLine("GP ")
-				.patternLine("WWW")
-				.setGroup("botania:spreader")
-				.addCriterion("has_item", hasItem(ModTags.Items.LIVINGWOOD))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.redstoneSpreader)
-				.addIngredient(ModBlocks.manaSpreader)
-				.addIngredient(Tags.Items.DUSTS_REDSTONE)
-				.setGroup("botania:spreader")
-				.addCriterion("has_item", hasItem(ModBlocks.manaSpreader))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.elvenSpreader)
-				.key('P', ModTags.Items.PETALS)
-				.key('E', ModTags.Items.INGOTS_ELEMENTIUM)
-				.key('W', ModBlocks.dreamwood)
-				.patternLine("WWW")
-				.patternLine("EP ")
-				.patternLine("WWW")
-				.setGroup("botania:spreader")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_ELEMENTIUM))
-				.addCriterion("has_alt_item", hasItem(ModBlocks.dreamwood))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.gaiaSpreader)
-				.key('S', ModBlocks.elvenSpreader)
-				.key('D', ModTags.Items.GEMS_DRAGONSTONE)
-				.key('E', ModItems.lifeEssence)
-				.patternLine("ESD")
-				.setGroup("botania:spreader")
-				.addCriterion("has_item", hasItem(ModItems.lifeEssence))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.manaPool)
-				.key('R', ModTags.Items.LIVINGROCK)
-				.patternLine("R R")
-				.patternLine("RRR")
-				.addCriterion("has_item", hasItem(ModTags.Items.LIVINGROCK))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.dilutedPool)
-				.key('R', ModFluffBlocks.livingrockSlab)
-				.patternLine("R R")
-				.patternLine("RRR")
-				.addCriterion("has_item", hasItem(ModTags.Items.LIVINGROCK))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.fabulousPool)
-				.key('R', ModBlocks.shimmerrock)
-				.patternLine("R R")
-				.patternLine("RRR")
-				.addCriterion("has_item", hasItem(ModBlocks.shimmerrock))
-				.addCriterion("has_alt_item", hasItem(ModItems.rainbowRod))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.runeAltar)
-				.key('P', Ingredient.fromItemListStream(Stream.of(
-						new Ingredient.SingleItemList(new ItemStack(ModItems.manaPearl)),
-						new Ingredient.TagList(ModTags.Items.GEMS_MANA_DIAMOND))))
-				.key('S', ModTags.Items.LIVINGROCK)
-				.patternLine("SSS")
-				.patternLine("SPS")
-				.addCriterion("has_item", hasItem(ModItems.manaPearl))
-				.addCriterion("has_alt_item", hasItem(ModTags.Items.GEMS_MANA_DIAMOND))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.manaPylon)
-				.key('D', ModTags.Items.GEMS_MANA_DIAMOND)
-				.key('G', Tags.Items.INGOTS_GOLD)
-				.key('M', ModTags.Items.INGOTS_MANASTEEL)
-				.patternLine(" G ")
-				.patternLine("MDM")
-				.patternLine(" G ")
-				.addCriterion("has_item", hasItem(ModTags.Items.GEMS_MANA_DIAMOND))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.naturaPylon)
-				.key('P', ModBlocks.manaPylon)
-				.key('T', ModTags.Items.NUGGETS_TERRASTEEL)
-				.key('E', Items.ENDER_EYE)
-				.patternLine(" T ")
-				.patternLine("TPT")
-				.patternLine(" E ")
-				.addCriterion("has_item", hasItem(ModBlocks.manaPylon))
-				.addCriterion("has_alt_item", hasItem(ModTags.Items.INGOTS_TERRASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.gaiaPylon)
-				.key('P', ModBlocks.manaPylon)
-				.key('D', ModItems.pixieDust)
-				.key('E', ModTags.Items.INGOTS_ELEMENTIUM)
-				.patternLine(" D ")
-				.patternLine("EPE")
-				.patternLine(" D ")
-				.addCriterion("has_item", hasItem(ModItems.pixieDust))
-				.addCriterion("has_alt_item", hasItem(ModTags.Items.INGOTS_ELEMENTIUM))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.distributor)
-				.key('R', ModTags.Items.LIVINGROCK)
-				.key('S', ModTags.Items.INGOTS_MANASTEEL)
-				.patternLine("RRR")
-				.patternLine("S S")
-				.patternLine("RRR")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_MANASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.manaVoid)
-				.key('S', ModTags.Items.LIVINGROCK)
-				.key('O', Items.OBSIDIAN)
-				.patternLine("SSS")
-				.patternLine("O O")
-				.patternLine("SSS")
-				.addCriterion("has_item", hasItem(ModTags.Items.LIVINGROCK))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.manaDetector)
-				.key('R', Tags.Items.DUSTS_REDSTONE)
-				.key('C', Items.COMPARATOR)
-				.key('S', ModTags.Items.LIVINGROCK)
-				.patternLine("RSR")
-				.patternLine("SCS")
-				.patternLine("RSR")
-				.addCriterion("has_item", hasItem(Items.COMPARATOR))
-				.addCriterion("has_alt_item", hasItem(ModTags.Items.LIVINGROCK))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.turntable)
-				.key('P', Items.STICKY_PISTON)
-				.key('W', ModTags.Items.LIVINGWOOD)
-				.patternLine("WWW")
-				.patternLine("WPW")
-				.patternLine("WWW")
-				.addCriterion("has_item", hasItem(ModTags.Items.LIVINGWOOD))
-				.addCriterion("has_alt_item", hasItem(Items.STICKY_PISTON))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.tinyPlanet)
-				.key('P', ModItems.tinyPlanet)
-				.key('S', Tags.Items.STONE)
-				.patternLine("SSS")
-				.patternLine("SPS")
-				.patternLine("SSS")
-				.addCriterion("has_item", hasItem(ModItems.tinyPlanet))
-				.addCriterion("has_alt_item", hasItem(ModItems.manaPearl))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.alchemyCatalyst)
-				.key('P', ModItems.manaPearl)
-				.key('B', Items.BREWING_STAND)
-				.key('S', ModTags.Items.LIVINGROCK)
-				.key('G', Tags.Items.INGOTS_GOLD)
-				.patternLine("SGS")
-				.patternLine("BPB")
-				.patternLine("SGS")
-				.addCriterion("has_item", hasItem(ModItems.manaPearl))
-				.addCriterion("has_alt_item", hasItem(Items.BREWING_STAND))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.openCrate)
-				.key('W', ModBlocks.livingwoodPlanks)
-				.patternLine("WWW")
-				.patternLine("W W")
-				.patternLine("W W")
-				.addCriterion("has_item", hasItem(ModBlocks.livingwoodPlanks))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.craftCrate)
-				.key('C', Items.CRAFTING_TABLE)
-				.key('W', ModBlocks.dreamwoodPlanks)
-				.patternLine("WCW")
-				.patternLine("W W")
-				.patternLine("W W")
-				.addCriterion("has_item", hasItem(ModBlocks.dreamwoodPlanks))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.forestEye)
-				.key('S', ModTags.Items.LIVINGROCK)
-				.key('E', Items.ENDER_EYE)
-				.key('M', ModTags.Items.INGOTS_MANASTEEL)
-				.patternLine("MSM")
-				.patternLine("SES")
-				.patternLine("MSM")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_MANASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.wildDrum)
-				.key('W', ModTags.Items.LIVINGWOOD)
-				.key('H', ModItems.grassHorn)
-				.key('L', Items.LEATHER)
-				.patternLine("WLW")
-				.patternLine("WHW")
-				.patternLine("WLW")
-				.addCriterion("has_item", hasItem(ModItems.grassHorn))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.gatheringDrum)
-				.key('E', ModTags.Items.INGOTS_ELEMENTIUM)
-				.key('W', ModBlocks.dreamwood)
-				.key('L', Items.LEATHER)
-				.patternLine("WLW")
-				.patternLine("WEW")
-				.patternLine("WLW")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_ELEMENTIUM))
-				.addCriterion("has_alt_item", hasItem(ModBlocks.dreamwood))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.canopyDrum)
-				.key('W', ModTags.Items.LIVINGWOOD)
-				.key('H', ModItems.leavesHorn)
-				.key('L', Items.LEATHER)
-				.patternLine("WLW")
-				.patternLine("WHW")
-				.patternLine("WLW")
-				.addCriterion("has_item", hasItem(ModItems.leavesHorn))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.abstrusePlatform, 2)
-				.key('0', ModBlocks.livingwood)
-				.key('P', ModItems.manaPearl)
-				.key('3', ModBlocks.livingwoodFramed)
-				.key('4', ModBlocks.livingwoodPatternFramed)
-				.patternLine("343")
-				.patternLine("0P0")
-				.addCriterion("has_item", hasItem(ModItems.manaPearl))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.spectralPlatform, 2)
-				.key('0', ModBlocks.dreamwood)
-				.key('3', ModBlocks.dreamwoodFramed)
-				.key('4', ModBlocks.dreamwoodPatternFramed)
-				.key('D', ModItems.pixieDust)
-				.patternLine("343")
-				.patternLine("0D0")
-				.addCriterion("has_item", hasItem(ModItems.pixieDust))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.alfPortal)
-				.key('T', ModTags.Items.NUGGETS_TERRASTEEL)
-				.key('W', ModTags.Items.LIVINGWOOD)
-				.patternLine("WTW")
-				.patternLine("WTW")
-				.patternLine("WTW")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_TERRASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.conjurationCatalyst)
-				.key('P', ModBlocks.alchemyCatalyst)
-				.key('B', ModItems.pixieDust)
-				.key('S', ModTags.Items.LIVINGROCK)
-				.key('G', ModTags.Items.INGOTS_ELEMENTIUM)
-				.patternLine("SBS")
-				.patternLine("GPG")
-				.patternLine("SGS")
-				.addCriterion("has_item", hasItem(ModItems.pixieDust))
-				.addCriterion("has_alt_item", hasItem(ModTags.Items.INGOTS_ELEMENTIUM))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.spawnerClaw)
-				.key('P', Items.PRISMARINE_BRICKS)
-				.key('B', Items.BLAZE_ROD)
-				.key('S', ModTags.Items.INGOTS_ELEMENTIUM)
-				.key('E', ModItems.enderAirBottle)
-				.key('M', ModTags.Items.BLOCKS_MANASTEEL)
-				.patternLine("BSB")
-				.patternLine("PMP")
-				.patternLine("PEP")
-				.addCriterion("has_item", hasItem(ModItems.enderAirBottle))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.enderEye)
-				.key('R', Tags.Items.DUSTS_REDSTONE)
-				.key('E', Items.ENDER_EYE)
-				.key('O', Items.OBSIDIAN)
-				.patternLine("RER")
-				.patternLine("EOE")
-				.patternLine("RER")
-				.addCriterion("has_item", hasItem(Items.ENDER_EYE))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.starfield)
-				.key('P', ModItems.pixieDust)
-				.key('E', ModTags.Items.INGOTS_ELEMENTIUM)
-				.key('O', Items.OBSIDIAN)
-				.patternLine("EPE")
-				.patternLine("EOE")
-				.addCriterion("has_item", hasItem(ModItems.pixieDust))
-				.addCriterion("has_alt_item", hasItem(ModTags.Items.INGOTS_ELEMENTIUM))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.rfGenerator)
-				.key('R', Tags.Items.STORAGE_BLOCKS_REDSTONE)
-				.key('S', ModTags.Items.LIVINGROCK)
-				.key('M', ModTags.Items.INGOTS_MANASTEEL)
-				.patternLine("SRS")
-				.patternLine("RMR")
-				.patternLine("SRS")
-				.addCriterion("has_item", hasItem(Tags.Items.STORAGE_BLOCKS_REDSTONE))
-				.addCriterion("has_alt_item", hasItem(ModTags.Items.INGOTS_MANASTEEL))
-				.build(WrapperResult.transformJson(consumer, json -> {
+	private void registerMain(Consumer<RecipeJsonProvider> consumer) {
+		ShapedRecipeJsonFactory.create(ModBlocks.manaSpreader)
+				.input('P', ModTags.Items.PETALS)
+				.input('W', ModTags.Items.LIVINGWOOD)
+				.input('G', Tags.Items.INGOTS_GOLD)
+				.pattern("WWW")
+				.pattern("GP ")
+				.pattern("WWW")
+				.group("botania:spreader")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.redstoneSpreader)
+				.input(ModBlocks.manaSpreader)
+				.input(Tags.Items.DUSTS_REDSTONE)
+				.group("botania:spreader")
+				.criterion("has_item", conditionsFromItem(ModBlocks.manaSpreader))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.elvenSpreader)
+				.input('P', ModTags.Items.PETALS)
+				.input('E', ModTags.Items.INGOTS_ELEMENTIUM)
+				.input('W', ModBlocks.dreamwood)
+				.pattern("WWW")
+				.pattern("EP ")
+				.pattern("WWW")
+				.group("botania:spreader")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
+				.criterion("has_alt_item", conditionsFromItem(ModBlocks.dreamwood))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.gaiaSpreader)
+				.input('S', ModBlocks.elvenSpreader)
+				.input('D', ModTags.Items.GEMS_DRAGONSTONE)
+				.input('E', ModItems.lifeEssence)
+				.pattern("ESD")
+				.group("botania:spreader")
+				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.manaPool)
+				.input('R', ModTags.Items.LIVINGROCK)
+				.pattern("R R")
+				.pattern("RRR")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.LIVINGROCK))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.dilutedPool)
+				.input('R', ModFluffBlocks.livingrockSlab)
+				.pattern("R R")
+				.pattern("RRR")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.LIVINGROCK))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.fabulousPool)
+				.input('R', ModBlocks.shimmerrock)
+				.pattern("R R")
+				.pattern("RRR")
+				.criterion("has_item", conditionsFromItem(ModBlocks.shimmerrock))
+				.criterion("has_alt_item", conditionsFromItem(ModItems.rainbowRod))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.runeAltar)
+				.input('P', Ingredient.ofEntries(Stream.of(
+						new Ingredient.StackEntry(new ItemStack(ModItems.manaPearl)),
+						new Ingredient.TagEntry(ModTags.Items.GEMS_MANA_DIAMOND))))
+				.input('S', ModTags.Items.LIVINGROCK)
+				.pattern("SSS")
+				.pattern("SPS")
+				.criterion("has_item", conditionsFromItem(ModItems.manaPearl))
+				.criterion("has_alt_item", conditionsFromTag(ModTags.Items.GEMS_MANA_DIAMOND))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.manaPylon)
+				.input('D', ModTags.Items.GEMS_MANA_DIAMOND)
+				.input('G', Tags.Items.INGOTS_GOLD)
+				.input('M', ModTags.Items.INGOTS_MANASTEEL)
+				.pattern(" G ")
+				.pattern("MDM")
+				.pattern(" G ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.GEMS_MANA_DIAMOND))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.naturaPylon)
+				.input('P', ModBlocks.manaPylon)
+				.input('T', ModTags.Items.NUGGETS_TERRASTEEL)
+				.input('E', Items.ENDER_EYE)
+				.pattern(" T ")
+				.pattern("TPT")
+				.pattern(" E ")
+				.criterion("has_item", conditionsFromItem(ModBlocks.manaPylon))
+				.criterion("has_alt_item", conditionsFromTag(ModTags.Items.INGOTS_TERRASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.gaiaPylon)
+				.input('P', ModBlocks.manaPylon)
+				.input('D', ModItems.pixieDust)
+				.input('E', ModTags.Items.INGOTS_ELEMENTIUM)
+				.pattern(" D ")
+				.pattern("EPE")
+				.pattern(" D ")
+				.criterion("has_item", conditionsFromItem(ModItems.pixieDust))
+				.criterion("has_alt_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.distributor)
+				.input('R', ModTags.Items.LIVINGROCK)
+				.input('S', ModTags.Items.INGOTS_MANASTEEL)
+				.pattern("RRR")
+				.pattern("S S")
+				.pattern("RRR")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.manaVoid)
+				.input('S', ModTags.Items.LIVINGROCK)
+				.input('O', Items.OBSIDIAN)
+				.pattern("SSS")
+				.pattern("O O")
+				.pattern("SSS")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.LIVINGROCK))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.manaDetector)
+				.input('R', Tags.Items.DUSTS_REDSTONE)
+				.input('C', Items.COMPARATOR)
+				.input('S', ModTags.Items.LIVINGROCK)
+				.pattern("RSR")
+				.pattern("SCS")
+				.pattern("RSR")
+				.criterion("has_item", conditionsFromItem(Items.COMPARATOR))
+				.criterion("has_alt_item", conditionsFromTag(ModTags.Items.LIVINGROCK))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.turntable)
+				.input('P', Items.STICKY_PISTON)
+				.input('W', ModTags.Items.LIVINGWOOD)
+				.pattern("WWW")
+				.pattern("WPW")
+				.pattern("WWW")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD))
+				.criterion("has_alt_item", conditionsFromItem(Items.STICKY_PISTON))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.tinyPlanet)
+				.input('P', ModItems.tinyPlanet)
+				.input('S', Tags.Items.STONE)
+				.pattern("SSS")
+				.pattern("SPS")
+				.pattern("SSS")
+				.criterion("has_item", conditionsFromItem(ModItems.tinyPlanet))
+				.criterion("has_alt_item", conditionsFromItem(ModItems.manaPearl))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.alchemyCatalyst)
+				.input('P', ModItems.manaPearl)
+				.input('B', Items.BREWING_STAND)
+				.input('S', ModTags.Items.LIVINGROCK)
+				.input('G', Tags.Items.INGOTS_GOLD)
+				.pattern("SGS")
+				.pattern("BPB")
+				.pattern("SGS")
+				.criterion("has_item", conditionsFromItem(ModItems.manaPearl))
+				.criterion("has_alt_item", conditionsFromItem(Items.BREWING_STAND))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.openCrate)
+				.input('W', ModBlocks.livingwoodPlanks)
+				.pattern("WWW")
+				.pattern("W W")
+				.pattern("W W")
+				.criterion("has_item", conditionsFromItem(ModBlocks.livingwoodPlanks))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.craftCrate)
+				.input('C', Items.CRAFTING_TABLE)
+				.input('W', ModBlocks.dreamwoodPlanks)
+				.pattern("WCW")
+				.pattern("W W")
+				.pattern("W W")
+				.criterion("has_item", conditionsFromItem(ModBlocks.dreamwoodPlanks))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.forestEye)
+				.input('S', ModTags.Items.LIVINGROCK)
+				.input('E', Items.ENDER_EYE)
+				.input('M', ModTags.Items.INGOTS_MANASTEEL)
+				.pattern("MSM")
+				.pattern("SES")
+				.pattern("MSM")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.wildDrum)
+				.input('W', ModTags.Items.LIVINGWOOD)
+				.input('H', ModItems.grassHorn)
+				.input('L', Items.LEATHER)
+				.pattern("WLW")
+				.pattern("WHW")
+				.pattern("WLW")
+				.criterion("has_item", conditionsFromItem(ModItems.grassHorn))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.gatheringDrum)
+				.input('E', ModTags.Items.INGOTS_ELEMENTIUM)
+				.input('W', ModBlocks.dreamwood)
+				.input('L', Items.LEATHER)
+				.pattern("WLW")
+				.pattern("WEW")
+				.pattern("WLW")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
+				.criterion("has_alt_item", conditionsFromItem(ModBlocks.dreamwood))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.canopyDrum)
+				.input('W', ModTags.Items.LIVINGWOOD)
+				.input('H', ModItems.leavesHorn)
+				.input('L', Items.LEATHER)
+				.pattern("WLW")
+				.pattern("WHW")
+				.pattern("WLW")
+				.criterion("has_item", conditionsFromItem(ModItems.leavesHorn))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.abstrusePlatform, 2)
+				.input('0', ModBlocks.livingwood)
+				.input('P', ModItems.manaPearl)
+				.input('3', ModBlocks.livingwoodFramed)
+				.input('4', ModBlocks.livingwoodPatternFramed)
+				.pattern("343")
+				.pattern("0P0")
+				.criterion("has_item", conditionsFromItem(ModItems.manaPearl))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.spectralPlatform, 2)
+				.input('0', ModBlocks.dreamwood)
+				.input('3', ModBlocks.dreamwoodFramed)
+				.input('4', ModBlocks.dreamwoodPatternFramed)
+				.input('D', ModItems.pixieDust)
+				.pattern("343")
+				.pattern("0D0")
+				.criterion("has_item", conditionsFromItem(ModItems.pixieDust))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.alfPortal)
+				.input('T', ModTags.Items.NUGGETS_TERRASTEEL)
+				.input('W', ModTags.Items.LIVINGWOOD)
+				.pattern("WTW")
+				.pattern("WTW")
+				.pattern("WTW")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_TERRASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.conjurationCatalyst)
+				.input('P', ModBlocks.alchemyCatalyst)
+				.input('B', ModItems.pixieDust)
+				.input('S', ModTags.Items.LIVINGROCK)
+				.input('G', ModTags.Items.INGOTS_ELEMENTIUM)
+				.pattern("SBS")
+				.pattern("GPG")
+				.pattern("SGS")
+				.criterion("has_item", conditionsFromItem(ModItems.pixieDust))
+				.criterion("has_alt_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.spawnerClaw)
+				.input('P', Items.PRISMARINE_BRICKS)
+				.input('B', Items.BLAZE_ROD)
+				.input('S', ModTags.Items.INGOTS_ELEMENTIUM)
+				.input('E', ModItems.enderAirBottle)
+				.input('M', ModTags.Items.BLOCKS_MANASTEEL)
+				.pattern("BSB")
+				.pattern("PMP")
+				.pattern("PEP")
+				.criterion("has_item", conditionsFromItem(ModItems.enderAirBottle))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.enderEye)
+				.input('R', Tags.Items.DUSTS_REDSTONE)
+				.input('E', Items.ENDER_EYE)
+				.input('O', Items.OBSIDIAN)
+				.pattern("RER")
+				.pattern("EOE")
+				.pattern("RER")
+				.criterion("has_item", conditionsFromItem(Items.ENDER_EYE))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.starfield)
+				.input('P', ModItems.pixieDust)
+				.input('E', ModTags.Items.INGOTS_ELEMENTIUM)
+				.input('O', Items.OBSIDIAN)
+				.pattern("EPE")
+				.pattern("EOE")
+				.criterion("has_item", conditionsFromItem(ModItems.pixieDust))
+				.criterion("has_alt_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.rfGenerator)
+				.input('R', Tags.Items.STORAGE_BLOCKS_REDSTONE)
+				.input('S', ModTags.Items.LIVINGROCK)
+				.input('M', ModTags.Items.INGOTS_MANASTEEL)
+				.pattern("SRS")
+				.pattern("RMR")
+				.pattern("SRS")
+				.criterion("has_item", conditionsFromTag(Tags.Items.STORAGE_BLOCKS_REDSTONE))
+				.criterion("has_alt_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
+				.offerTo(WrapperResult.transformJson(consumer, json -> {
 					JsonArray array = new JsonArray();
 					array.add(FluxfieldCondition.SERIALIZER.getJson(new FluxfieldCondition(true)));
 					json.add("conditions", array);
 				}
 				));
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.brewery)
-				.key('A', ModTags.Items.RUNES_MANA)
-				.key('R', ModTags.Items.LIVINGROCK)
-				.key('S', Items.BREWING_STAND)
-				.key('M', ModTags.Items.BLOCKS_MANASTEEL)
-				.patternLine("RSR")
-				.patternLine("RAR")
-				.patternLine("RMR")
-				.addCriterion("has_item", hasItem(ModTags.Items.RUNES_MANA))
-				.addCriterion("has_alt_item", hasItem(Items.BREWING_STAND))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.terraPlate)
-				.key('0', ModTags.Items.RUNES_WATER)
-				.key('1', ModTags.Items.RUNES_FIRE)
-				.key('2', ModTags.Items.RUNES_EARTH)
-				.key('3', ModTags.Items.RUNES_AIR)
-				.key('8', ModTags.Items.RUNES_MANA)
-				.key('L', Tags.Items.STORAGE_BLOCKS_LAPIS)
-				.key('M', ModTags.Items.BLOCKS_MANASTEEL)
-				.patternLine("LLL")
-				.patternLine("0M1")
-				.patternLine("283")
-				.addCriterion("has_item", hasItem(ModTags.Items.RUNES))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.prism)
-				.key('P', Tags.Items.GEMS_PRISMARINE)
-				.key('S', ModBlocks.spectralPlatform)
-				.key('G', Items.GLASS)
-				.patternLine("GPG")
-				.patternLine("GSG")
-				.patternLine("GPG")
-				.addCriterion("has_item", hasItem(Tags.Items.GEMS_PRISMARINE))
-				.addCriterion("has_alt_item", hasItem(ModBlocks.spectralPlatform))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.pump)
-				.key('B', Items.BUCKET)
-				.key('S', ModTags.Items.LIVINGROCK)
-				.key('I', ModTags.Items.INGOTS_MANASTEEL)
-				.patternLine("SSS")
-				.patternLine("IBI")
-				.patternLine("SSS")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_MANASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.incensePlate)
-				.key('S', ModFluffBlocks.livingwoodSlab)
-				.key('W', ModTags.Items.LIVINGWOOD)
-				.patternLine("WSS")
-				.addCriterion("has_item", hasItem(ModTags.Items.LIVINGWOOD))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.hourglass)
-				.key('R', Tags.Items.DUSTS_REDSTONE)
-				.key('S', ModTags.Items.INGOTS_MANASTEEL)
-				.key('G', Tags.Items.INGOTS_GOLD)
-				.key('M', ModBlocks.manaGlass)
-				.patternLine("GMG")
-				.patternLine("RSR")
-				.patternLine("GMG")
-				.addCriterion("has_item", hasItem(ModBlocks.manaGlass))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.ghostRail)
-				.addIngredient(Items.RAIL)
-				.addIngredient(ModBlocks.spectralPlatform)
-				.addCriterion("has_item", hasItem(Items.RAIL))
-				.addCriterion("has_alt_item", hasItem(ModBlocks.spectralPlatform))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.sparkChanger)
-				.key('R', Tags.Items.DUSTS_REDSTONE)
-				.key('S', ModTags.Items.LIVINGROCK)
-				.key('E', ModTags.Items.INGOTS_ELEMENTIUM)
-				.patternLine("ESE")
-				.patternLine("SRS")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_ELEMENTIUM))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.felPumpkin)
-				.key('P', Items.PUMPKIN)
-				.key('B', Items.BONE)
-				.key('S', Items.STRING)
-				.key('F', Items.ROTTEN_FLESH)
-				.key('G', Items.GUNPOWDER)
-				.patternLine(" S ")
-				.patternLine("BPF")
-				.patternLine(" G ")
-				.addCriterion("has_item", hasItem(Items.PUMPKIN))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.cocoon)
-				.key('S', Items.STRING)
-				.key('C', ModItems.manaweaveCloth)
-				.key('P', ModBlocks.felPumpkin)
-				.key('D', ModItems.pixieDust)
-				.patternLine("SSS")
-				.patternLine("CPC")
-				.patternLine("SDS")
-				.addCriterion("has_item", hasItem(ModBlocks.felPumpkin))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.lightRelayDefault)
-				.addIngredient(ModItems.redString)
-				.addIngredient(ModTags.Items.GEMS_DRAGONSTONE)
-				.addIngredient(Tags.Items.DUSTS_GLOWSTONE)
-				.addIngredient(Tags.Items.DUSTS_GLOWSTONE)
-				.addCriterion("has_item", hasItem(ModTags.Items.GEMS_DRAGONSTONE))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.lightRelayDetector)
-				.addIngredient(ModBlocks.lightRelayDefault)
-				.addIngredient(Tags.Items.DUSTS_REDSTONE)
-				.addCriterion("has_item", hasItem(ModBlocks.lightRelayDefault))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.lightRelayFork)
-				.addIngredient(ModBlocks.lightRelayDefault)
-				.addIngredient(Items.REDSTONE_TORCH)
-				.addCriterion("has_item", hasItem(ModBlocks.lightRelayDefault))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.lightRelayToggle)
-				.addIngredient(ModBlocks.lightRelayDefault)
-				.addIngredient(Items.LEVER)
-				.addCriterion("has_item", hasItem(ModBlocks.lightRelayDefault))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.lightLauncher)
-				.key('D', ModBlocks.dreamwood)
-				.key('L', ModBlocks.lightRelayDefault)
-				.patternLine("DDD")
-				.patternLine("DLD")
-				.addCriterion("has_item", hasItem(ModBlocks.lightRelayDefault))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.manaBomb)
-				.key('T', Items.TNT)
-				.key('G', ModItems.lifeEssence)
-				.key('L', ModTags.Items.LIVINGWOOD)
-				.patternLine("LTL")
-				.patternLine("TGT")
-				.patternLine("LTL")
-				.addCriterion("has_item", hasItem(ModItems.lifeEssence))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.bellows)
-				.key('R', ModTags.Items.RUNES_AIR)
-				.key('S', ModFluffBlocks.livingwoodSlab)
-				.key('L', Items.LEATHER)
-				.patternLine("SSS")
-				.patternLine("RL ")
-				.patternLine("SSS")
-				.addCriterion("has_item", hasItem(ModTags.Items.RUNES_AIR))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.bifrostPerm)
-				.addIngredient(ModItems.rainbowRod)
-				.addIngredient(ModBlocks.elfGlass)
-				.addCriterion("has_item", hasItem(ModItems.rainbowRod))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.cellBlock, 3)
-				.addIngredient(Items.CACTUS, 3)
-				.addIngredient(Items.BEETROOT)
-				.addIngredient(Items.CARROT)
-				.addIngredient(Items.POTATO)
-				.addCriterion("has_item", hasItem(ModSubtiles.dandelifeon))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.teruTeruBozu)
-				.key('C', ModItems.manaweaveCloth)
-				.key('S', Items.SUNFLOWER)
-				.patternLine("C")
-				.patternLine("C")
-				.patternLine("S")
-				.addCriterion("has_item", hasItem(ModItems.manaweaveCloth))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.avatar)
-				.key('D', ModTags.Items.GEMS_MANA_DIAMOND)
-				.key('W', ModTags.Items.LIVINGWOOD)
-				.patternLine(" W ")
-				.patternLine("WDW")
-				.patternLine("W W")
-				.addCriterion("has_item", hasItem(ModTags.Items.GEMS_MANA_DIAMOND))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.animatedTorch)
-				.key('D', ModTags.Items.DUSTS_MANA)
-				.key('T', Items.REDSTONE_TORCH)
-				.patternLine("D")
-				.patternLine("T")
-				.addCriterion("has_item", hasItem(Items.REDSTONE_TORCH))
-				.addCriterion("has_alt_item", hasItem(ModTags.Items.DUSTS_MANA))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.livingwoodTwig)
-				.key('W', ModTags.Items.LIVINGWOOD)
-				.patternLine("W")
-				.patternLine("W")
-				.addCriterion("has_item", hasItem(ModTags.Items.LIVINGWOOD))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.redstoneRoot)
-				.addIngredient(Tags.Items.DUSTS_REDSTONE)
-				.addIngredient(Ingredient.fromItems(Items.FERN, Items.GRASS))
-				.addCriterion("has_item", hasItem(Tags.Items.DUSTS_REDSTONE))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.dreamwoodTwig)
-				.key('W', ModBlocks.dreamwood)
-				.patternLine("W")
-				.patternLine("W")
-				.addCriterion("has_item", hasItem(ModBlocks.dreamwood))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.gaiaIngot)
-				.key('S', ModItems.lifeEssence)
-				.key('I', ModTags.Items.INGOTS_TERRASTEEL)
-				.patternLine(" S ")
-				.patternLine("SIS")
-				.patternLine(" S ")
-				.addCriterion("has_item", hasItem(ModItems.lifeEssence))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.manaweaveCloth)
-				.key('S', ModItems.manaString)
-				.patternLine("SS")
-				.patternLine("SS")
-				.addCriterion("has_item", hasItem(ModItems.manaString))
-				.build(consumer);
-		Ingredient dyes = Ingredient.fromItems(Items.WHITE_DYE, Items.ORANGE_DYE, Items.MAGENTA_DYE,
+		ShapedRecipeJsonFactory.create(ModBlocks.brewery)
+				.input('A', ModTags.Items.RUNES_MANA)
+				.input('R', ModTags.Items.LIVINGROCK)
+				.input('S', Items.BREWING_STAND)
+				.input('M', ModTags.Items.BLOCKS_MANASTEEL)
+				.pattern("RSR")
+				.pattern("RAR")
+				.pattern("RMR")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.RUNES_MANA))
+				.criterion("has_alt_item", conditionsFromItem(Items.BREWING_STAND))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.terraPlate)
+				.input('0', ModTags.Items.RUNES_WATER)
+				.input('1', ModTags.Items.RUNES_FIRE)
+				.input('2', ModTags.Items.RUNES_EARTH)
+				.input('3', ModTags.Items.RUNES_AIR)
+				.input('8', ModTags.Items.RUNES_MANA)
+				.input('L', Tags.Items.STORAGE_BLOCKS_LAPIS)
+				.input('M', ModTags.Items.BLOCKS_MANASTEEL)
+				.pattern("LLL")
+				.pattern("0M1")
+				.pattern("283")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.RUNES))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.prism)
+				.input('P', Tags.Items.GEMS_PRISMARINE)
+				.input('S', ModBlocks.spectralPlatform)
+				.input('G', Items.GLASS)
+				.pattern("GPG")
+				.pattern("GSG")
+				.pattern("GPG")
+				.criterion("has_item", conditionsFromTag(Tags.Items.GEMS_PRISMARINE))
+				.criterion("has_alt_item", conditionsFromItem(ModBlocks.spectralPlatform))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.pump)
+				.input('B', Items.BUCKET)
+				.input('S', ModTags.Items.LIVINGROCK)
+				.input('I', ModTags.Items.INGOTS_MANASTEEL)
+				.pattern("SSS")
+				.pattern("IBI")
+				.pattern("SSS")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.incensePlate)
+				.input('S', ModFluffBlocks.livingwoodSlab)
+				.input('W', ModTags.Items.LIVINGWOOD)
+				.pattern("WSS")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.hourglass)
+				.input('R', Tags.Items.DUSTS_REDSTONE)
+				.input('S', ModTags.Items.INGOTS_MANASTEEL)
+				.input('G', Tags.Items.INGOTS_GOLD)
+				.input('M', ModBlocks.manaGlass)
+				.pattern("GMG")
+				.pattern("RSR")
+				.pattern("GMG")
+				.criterion("has_item", conditionsFromItem(ModBlocks.manaGlass))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.ghostRail)
+				.input(Items.RAIL)
+				.input(ModBlocks.spectralPlatform)
+				.criterion("has_item", conditionsFromItem(Items.RAIL))
+				.criterion("has_alt_item", conditionsFromItem(ModBlocks.spectralPlatform))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.sparkChanger)
+				.input('R', Tags.Items.DUSTS_REDSTONE)
+				.input('S', ModTags.Items.LIVINGROCK)
+				.input('E', ModTags.Items.INGOTS_ELEMENTIUM)
+				.pattern("ESE")
+				.pattern("SRS")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.felPumpkin)
+				.input('P', Items.PUMPKIN)
+				.input('B', Items.BONE)
+				.input('S', Items.STRING)
+				.input('F', Items.ROTTEN_FLESH)
+				.input('G', Items.GUNPOWDER)
+				.pattern(" S ")
+				.pattern("BPF")
+				.pattern(" G ")
+				.criterion("has_item", conditionsFromItem(Items.PUMPKIN))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.cocoon)
+				.input('S', Items.STRING)
+				.input('C', ModItems.manaweaveCloth)
+				.input('P', ModBlocks.felPumpkin)
+				.input('D', ModItems.pixieDust)
+				.pattern("SSS")
+				.pattern("CPC")
+				.pattern("SDS")
+				.criterion("has_item", conditionsFromItem(ModBlocks.felPumpkin))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.lightRelayDefault)
+				.input(ModItems.redString)
+				.input(ModTags.Items.GEMS_DRAGONSTONE)
+				.input(Tags.Items.DUSTS_GLOWSTONE)
+				.input(Tags.Items.DUSTS_GLOWSTONE)
+				.criterion("has_item", conditionsFromTag(ModTags.Items.GEMS_DRAGONSTONE))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.lightRelayDetector)
+				.input(ModBlocks.lightRelayDefault)
+				.input(Tags.Items.DUSTS_REDSTONE)
+				.criterion("has_item", conditionsFromItem(ModBlocks.lightRelayDefault))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.lightRelayFork)
+				.input(ModBlocks.lightRelayDefault)
+				.input(Items.REDSTONE_TORCH)
+				.criterion("has_item", conditionsFromItem(ModBlocks.lightRelayDefault))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.lightRelayToggle)
+				.input(ModBlocks.lightRelayDefault)
+				.input(Items.LEVER)
+				.criterion("has_item", conditionsFromItem(ModBlocks.lightRelayDefault))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.lightLauncher)
+				.input('D', ModBlocks.dreamwood)
+				.input('L', ModBlocks.lightRelayDefault)
+				.pattern("DDD")
+				.pattern("DLD")
+				.criterion("has_item", conditionsFromItem(ModBlocks.lightRelayDefault))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.manaBomb)
+				.input('T', Items.TNT)
+				.input('G', ModItems.lifeEssence)
+				.input('L', ModTags.Items.LIVINGWOOD)
+				.pattern("LTL")
+				.pattern("TGT")
+				.pattern("LTL")
+				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.bellows)
+				.input('R', ModTags.Items.RUNES_AIR)
+				.input('S', ModFluffBlocks.livingwoodSlab)
+				.input('L', Items.LEATHER)
+				.pattern("SSS")
+				.pattern("RL ")
+				.pattern("SSS")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.RUNES_AIR))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.bifrostPerm)
+				.input(ModItems.rainbowRod)
+				.input(ModBlocks.elfGlass)
+				.criterion("has_item", conditionsFromItem(ModItems.rainbowRod))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.cellBlock, 3)
+				.input(Items.CACTUS, 3)
+				.input(Items.BEETROOT)
+				.input(Items.CARROT)
+				.input(Items.POTATO)
+				.criterion("has_item", conditionsFromItem(ModSubtiles.dandelifeon))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.teruTeruBozu)
+				.input('C', ModItems.manaweaveCloth)
+				.input('S', Items.SUNFLOWER)
+				.pattern("C")
+				.pattern("C")
+				.pattern("S")
+				.criterion("has_item", conditionsFromItem(ModItems.manaweaveCloth))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.avatar)
+				.input('D', ModTags.Items.GEMS_MANA_DIAMOND)
+				.input('W', ModTags.Items.LIVINGWOOD)
+				.pattern(" W ")
+				.pattern("WDW")
+				.pattern("W W")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.GEMS_MANA_DIAMOND))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.animatedTorch)
+				.input('D', ModTags.Items.DUSTS_MANA)
+				.input('T', Items.REDSTONE_TORCH)
+				.pattern("D")
+				.pattern("T")
+				.criterion("has_item", conditionsFromItem(Items.REDSTONE_TORCH))
+				.criterion("has_alt_item", conditionsFromTag(ModTags.Items.DUSTS_MANA))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.livingwoodTwig)
+				.input('W', ModTags.Items.LIVINGWOOD)
+				.pattern("W")
+				.pattern("W")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.redstoneRoot)
+				.input(Tags.Items.DUSTS_REDSTONE)
+				.input(Ingredient.ofItems(Items.FERN, Items.GRASS))
+				.criterion("has_item", conditionsFromTag(Tags.Items.DUSTS_REDSTONE))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.dreamwoodTwig)
+				.input('W', ModBlocks.dreamwood)
+				.pattern("W")
+				.pattern("W")
+				.criterion("has_item", conditionsFromItem(ModBlocks.dreamwood))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.gaiaIngot)
+				.input('S', ModItems.lifeEssence)
+				.input('I', ModTags.Items.INGOTS_TERRASTEEL)
+				.pattern(" S ")
+				.pattern("SIS")
+				.pattern(" S ")
+				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.manaweaveCloth)
+				.input('S', ModItems.manaString)
+				.pattern("SS")
+				.pattern("SS")
+				.criterion("has_item", conditionsFromItem(ModItems.manaString))
+				.offerTo(consumer);
+		Ingredient dyes = Ingredient.ofItems(Items.WHITE_DYE, Items.ORANGE_DYE, Items.MAGENTA_DYE,
 				Items.LIGHT_BLUE_DYE, Items.YELLOW_DYE, Items.LIME_DYE, Items.PINK_DYE, Items.GRAY_DYE,
 				Items.LIGHT_GRAY_DYE, Items.CYAN_DYE, Items.PURPLE_DYE, Items.BLUE_DYE, Items.BROWN_DYE,
 				Items.GREEN_DYE, Items.RED_DYE, Items.BLACK_DYE);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.fertilizer)
-				.addIngredient(Items.BONE_MEAL)
-				.addIngredient(dyes, 4)
-				.addCriterion("has_item", hasItem(Tags.Items.DYES))
-				.build(consumer, "botania:fertilizer_dye");
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.drySeeds)
-				.addIngredient(ModItems.grassSeeds)
-				.addIngredient(Items.DEAD_BUSH)
-				.setGroup("botania:seeds")
-				.addCriterion("has_item", hasItem(ModItems.grassSeeds))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.goldenSeeds)
-				.addIngredient(ModItems.grassSeeds)
-				.addIngredient(Items.WHEAT)
-				.setGroup("botania:seeds")
-				.addCriterion("has_item", hasItem(ModItems.grassSeeds))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.vividSeeds)
-				.addIngredient(ModItems.grassSeeds)
-				.addIngredient(Items.GREEN_DYE)
-				.setGroup("botania:seeds")
-				.addCriterion("has_item", hasItem(ModItems.grassSeeds))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.scorchedSeeds)
-				.addIngredient(ModItems.grassSeeds)
-				.addIngredient(Items.BLAZE_POWDER)
-				.setGroup("botania:seeds")
-				.addCriterion("has_item", hasItem(ModItems.grassSeeds))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.infusedSeeds)
-				.addIngredient(ModItems.grassSeeds)
-				.addIngredient(Items.PRISMARINE_SHARD)
-				.setGroup("botania:seeds")
-				.addCriterion("has_item", hasItem(ModItems.grassSeeds))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.mutatedSeeds)
-				.addIngredient(ModItems.grassSeeds)
-				.addIngredient(Items.SPIDER_EYE)
-				.setGroup("botania:seeds")
-				.addCriterion("has_item", hasItem(ModItems.grassSeeds))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.darkQuartz, 8)
-				.key('Q', Tags.Items.GEMS_QUARTZ)
-				.key('C', Ingredient.fromItems(Items.COAL, Items.CHARCOAL))
-				.patternLine("QQQ")
-				.patternLine("QCQ")
-				.patternLine("QQQ")
-				.addCriterion("has_item", hasItem(Tags.Items.GEMS_QUARTZ))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.blazeQuartz, 8)
-				.key('Q', Tags.Items.GEMS_QUARTZ)
-				.key('C', Items.BLAZE_POWDER)
-				.patternLine("QQQ")
-				.patternLine("QCQ")
-				.patternLine("QQQ")
-				.addCriterion("has_item", hasItem(Tags.Items.GEMS_QUARTZ))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.lavenderQuartz, 8)
-				.key('Q', Tags.Items.GEMS_QUARTZ)
-				.key('C', Ingredient.fromItems(Items.ALLIUM, Items.PINK_TULIP, Items.LILAC, Items.PEONY))
-				.patternLine("QQQ")
-				.patternLine("QCQ")
-				.patternLine("QQQ")
-				.addCriterion("has_item", hasItem(Tags.Items.GEMS_QUARTZ))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.redQuartz, 8)
-				.key('Q', Tags.Items.GEMS_QUARTZ)
-				.key('C', Items.REDSTONE)
-				.patternLine("QQQ")
-				.patternLine("QCQ")
-				.patternLine("QQQ")
-				.addCriterion("has_item", hasItem(Tags.Items.GEMS_QUARTZ))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.sunnyQuartz, 8)
-				.key('Q', Tags.Items.GEMS_QUARTZ)
-				.key('C', Items.SUNFLOWER)
-				.patternLine("QQQ")
-				.patternLine("QCQ")
-				.patternLine("QQQ")
-				.addCriterion("has_item", hasItem(Tags.Items.GEMS_QUARTZ))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.vineBall)
-				.key('V', Items.VINE)
-				.patternLine("VVV")
-				.patternLine("VVV")
-				.patternLine("VVV")
-				.addCriterion("has_item", hasItem(Items.VINE))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.necroVirus)
-				.addIngredient(ModItems.pixieDust)
-				.addIngredient(ModItems.vineBall)
-				.addIngredient(Items.MAGMA_CREAM)
-				.addIngredient(Items.FERMENTED_SPIDER_EYE)
-				.addIngredient(Items.ENDER_EYE)
-				.addIngredient(Items.ZOMBIE_HEAD)
-				.addCriterion("has_item", hasItem(ModItems.pixieDust))
-				.addCriterion("has_alt_item", hasItem(Items.ZOMBIE_HEAD))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.nullVirus)
-				.addIngredient(ModItems.pixieDust)
-				.addIngredient(ModItems.vineBall)
-				.addIngredient(Items.MAGMA_CREAM)
-				.addIngredient(Items.FERMENTED_SPIDER_EYE)
-				.addIngredient(Items.ENDER_EYE)
-				.addIngredient(Items.SKELETON_SKULL)
-				.addCriterion("has_item", hasItem(ModItems.pixieDust))
-				.addCriterion("has_alt_item", hasItem(Items.SKELETON_SKULL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.spark)
-				.key('P', ModTags.Items.PETALS)
-				.key('B', Items.BLAZE_POWDER)
-				.key('N', Items.GOLD_NUGGET)
-				.patternLine(" P ")
-				.patternLine("BNB")
-				.patternLine(" P ")
-				.addCriterion("has_item", hasItem(Items.BLAZE_POWDER))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.sparkUpgradeDispersive)
-				.addIngredient(ModItems.pixieDust)
-				.addIngredient(ModTags.Items.INGOTS_MANASTEEL)
-				.addIngredient(ModTags.Items.RUNES_WATER)
-				.setGroup("botania:spark_upgrade")
-				.addCriterion("has_item", hasItem(ModItems.pixieDust))
-				.addCriterion("has_alt_item", hasItem(ModItems.spark))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.sparkUpgradeDominant)
-				.addIngredient(ModItems.pixieDust)
-				.addIngredient(ModTags.Items.INGOTS_MANASTEEL)
-				.addIngredient(ModTags.Items.RUNES_FIRE)
-				.setGroup("botania:spark_upgrade")
-				.addCriterion("has_item", hasItem(ModItems.pixieDust))
-				.addCriterion("has_alt_item", hasItem(ModItems.spark))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.sparkUpgradeRecessive)
-				.addIngredient(ModItems.pixieDust)
-				.addIngredient(ModTags.Items.INGOTS_MANASTEEL)
-				.addIngredient(ModTags.Items.RUNES_EARTH)
-				.setGroup("botania:spark_upgrade")
-				.addCriterion("has_item", hasItem(ModItems.pixieDust))
-				.addCriterion("has_alt_item", hasItem(ModItems.spark))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.sparkUpgradeIsolated)
-				.addIngredient(ModItems.pixieDust)
-				.addIngredient(ModTags.Items.INGOTS_MANASTEEL)
-				.addIngredient(ModTags.Items.RUNES_AIR)
-				.setGroup("botania:spark_upgrade")
-				.addCriterion("has_item", hasItem(ModItems.pixieDust))
-				.addCriterion("has_alt_item", hasItem(ModItems.spark))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.vial, 3)
-				.key('G', ModBlocks.manaGlass)
-				.patternLine("G G")
-				.patternLine(" G ")
-				.addCriterion("has_item", hasItem(ModBlocks.manaGlass))
-				.addCriterion("has_alt_item", hasItem(ModBlocks.brewery))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.flask, 3)
-				.key('G', ModBlocks.elfGlass)
-				.patternLine("G G")
-				.patternLine(" G ")
-				.addCriterion("has_item", hasItem(ModBlocks.elfGlass))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.worldSeed, 4)
-				.key('S', Items.WHEAT_SEEDS)
-				.key('D', ModTags.Items.GEMS_DRAGONSTONE)
-				.key('G', Items.GRASS_BLOCK)
-				.patternLine("G")
-				.patternLine("S")
-				.patternLine("D")
-				.addCriterion("has_item", hasItem(ModTags.Items.GEMS_DRAGONSTONE))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.thornChakram, 2)
-				.key('T', ModTags.Items.INGOTS_TERRASTEEL)
-				.key('V', Items.VINE)
-				.patternLine("VVV")
-				.patternLine("VTV")
-				.patternLine("VVV")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_TERRASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.flareChakram, 2)
-				.key('P', ModItems.pixieDust)
-				.key('B', Items.BLAZE_POWDER)
-				.key('C', ModItems.thornChakram)
-				.patternLine("BBB")
-				.patternLine("CPC")
-				.patternLine("BBB")
-				.addCriterion("has_item", hasItem(ModItems.thornChakram))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.phantomInk, 4)
-				.addIngredient(ModItems.manaPearl)
-				.addIngredient(Tags.Items.DYES)
-				.addIngredient(Ingredient.fromItems(Items.GLASS, Items.WHITE_STAINED_GLASS, Items.ORANGE_STAINED_GLASS,
+		ShapelessRecipeJsonFactory.create(ModItems.fertilizer)
+				.input(Items.BONE_MEAL)
+				.input(dyes, 4)
+				.criterion("has_item", conditionsFromTag(Tags.Items.DYES))
+				.offerTo(consumer, "botania:fertilizer_dye");
+		ShapelessRecipeJsonFactory.create(ModItems.drySeeds)
+				.input(ModItems.grassSeeds)
+				.input(Items.DEAD_BUSH)
+				.group("botania:seeds")
+				.criterion("has_item", conditionsFromItem(ModItems.grassSeeds))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.goldenSeeds)
+				.input(ModItems.grassSeeds)
+				.input(Items.WHEAT)
+				.group("botania:seeds")
+				.criterion("has_item", conditionsFromItem(ModItems.grassSeeds))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.vividSeeds)
+				.input(ModItems.grassSeeds)
+				.input(Items.GREEN_DYE)
+				.group("botania:seeds")
+				.criterion("has_item", conditionsFromItem(ModItems.grassSeeds))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.scorchedSeeds)
+				.input(ModItems.grassSeeds)
+				.input(Items.BLAZE_POWDER)
+				.group("botania:seeds")
+				.criterion("has_item", conditionsFromItem(ModItems.grassSeeds))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.infusedSeeds)
+				.input(ModItems.grassSeeds)
+				.input(Items.PRISMARINE_SHARD)
+				.group("botania:seeds")
+				.criterion("has_item", conditionsFromItem(ModItems.grassSeeds))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.mutatedSeeds)
+				.input(ModItems.grassSeeds)
+				.input(Items.SPIDER_EYE)
+				.group("botania:seeds")
+				.criterion("has_item", conditionsFromItem(ModItems.grassSeeds))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.darkQuartz, 8)
+				.input('Q', Tags.Items.GEMS_QUARTZ)
+				.input('C', Ingredient.ofItems(Items.COAL, Items.CHARCOAL))
+				.pattern("QQQ")
+				.pattern("QCQ")
+				.pattern("QQQ")
+				.criterion("has_item", conditionsFromTag(Tags.Items.GEMS_QUARTZ))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.blazeQuartz, 8)
+				.input('Q', Tags.Items.GEMS_QUARTZ)
+				.input('C', Items.BLAZE_POWDER)
+				.pattern("QQQ")
+				.pattern("QCQ")
+				.pattern("QQQ")
+				.criterion("has_item", conditionsFromTag(Tags.Items.GEMS_QUARTZ))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.lavenderQuartz, 8)
+				.input('Q', Tags.Items.GEMS_QUARTZ)
+				.input('C', Ingredient.ofItems(Items.ALLIUM, Items.PINK_TULIP, Items.LILAC, Items.PEONY))
+				.pattern("QQQ")
+				.pattern("QCQ")
+				.pattern("QQQ")
+				.criterion("has_item", conditionsFromTag(Tags.Items.GEMS_QUARTZ))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.redQuartz, 8)
+				.input('Q', Tags.Items.GEMS_QUARTZ)
+				.input('C', Items.REDSTONE)
+				.pattern("QQQ")
+				.pattern("QCQ")
+				.pattern("QQQ")
+				.criterion("has_item", conditionsFromTag(Tags.Items.GEMS_QUARTZ))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.sunnyQuartz, 8)
+				.input('Q', Tags.Items.GEMS_QUARTZ)
+				.input('C', Items.SUNFLOWER)
+				.pattern("QQQ")
+				.pattern("QCQ")
+				.pattern("QQQ")
+				.criterion("has_item", conditionsFromTag(Tags.Items.GEMS_QUARTZ))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.vineBall)
+				.input('V', Items.VINE)
+				.pattern("VVV")
+				.pattern("VVV")
+				.pattern("VVV")
+				.criterion("has_item", conditionsFromItem(Items.VINE))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.necroVirus)
+				.input(ModItems.pixieDust)
+				.input(ModItems.vineBall)
+				.input(Items.MAGMA_CREAM)
+				.input(Items.FERMENTED_SPIDER_EYE)
+				.input(Items.ENDER_EYE)
+				.input(Items.ZOMBIE_HEAD)
+				.criterion("has_item", conditionsFromItem(ModItems.pixieDust))
+				.criterion("has_alt_item", conditionsFromItem(Items.ZOMBIE_HEAD))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.nullVirus)
+				.input(ModItems.pixieDust)
+				.input(ModItems.vineBall)
+				.input(Items.MAGMA_CREAM)
+				.input(Items.FERMENTED_SPIDER_EYE)
+				.input(Items.ENDER_EYE)
+				.input(Items.SKELETON_SKULL)
+				.criterion("has_item", conditionsFromItem(ModItems.pixieDust))
+				.criterion("has_alt_item", conditionsFromItem(Items.SKELETON_SKULL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.spark)
+				.input('P', ModTags.Items.PETALS)
+				.input('B', Items.BLAZE_POWDER)
+				.input('N', Items.GOLD_NUGGET)
+				.pattern(" P ")
+				.pattern("BNB")
+				.pattern(" P ")
+				.criterion("has_item", conditionsFromItem(Items.BLAZE_POWDER))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.sparkUpgradeDispersive)
+				.input(ModItems.pixieDust)
+				.input(ModTags.Items.INGOTS_MANASTEEL)
+				.input(ModTags.Items.RUNES_WATER)
+				.group("botania:spark_upgrade")
+				.criterion("has_item", conditionsFromItem(ModItems.pixieDust))
+				.criterion("has_alt_item", conditionsFromItem(ModItems.spark))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.sparkUpgradeDominant)
+				.input(ModItems.pixieDust)
+				.input(ModTags.Items.INGOTS_MANASTEEL)
+				.input(ModTags.Items.RUNES_FIRE)
+				.group("botania:spark_upgrade")
+				.criterion("has_item", conditionsFromItem(ModItems.pixieDust))
+				.criterion("has_alt_item", conditionsFromItem(ModItems.spark))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.sparkUpgradeRecessive)
+				.input(ModItems.pixieDust)
+				.input(ModTags.Items.INGOTS_MANASTEEL)
+				.input(ModTags.Items.RUNES_EARTH)
+				.group("botania:spark_upgrade")
+				.criterion("has_item", conditionsFromItem(ModItems.pixieDust))
+				.criterion("has_alt_item", conditionsFromItem(ModItems.spark))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.sparkUpgradeIsolated)
+				.input(ModItems.pixieDust)
+				.input(ModTags.Items.INGOTS_MANASTEEL)
+				.input(ModTags.Items.RUNES_AIR)
+				.group("botania:spark_upgrade")
+				.criterion("has_item", conditionsFromItem(ModItems.pixieDust))
+				.criterion("has_alt_item", conditionsFromItem(ModItems.spark))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.vial, 3)
+				.input('G', ModBlocks.manaGlass)
+				.pattern("G G")
+				.pattern(" G ")
+				.criterion("has_item", conditionsFromItem(ModBlocks.manaGlass))
+				.criterion("has_alt_item", conditionsFromItem(ModBlocks.brewery))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.flask, 3)
+				.input('G', ModBlocks.elfGlass)
+				.pattern("G G")
+				.pattern(" G ")
+				.criterion("has_item", conditionsFromItem(ModBlocks.elfGlass))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.worldSeed, 4)
+				.input('S', Items.WHEAT_SEEDS)
+				.input('D', ModTags.Items.GEMS_DRAGONSTONE)
+				.input('G', Items.GRASS_BLOCK)
+				.pattern("G")
+				.pattern("S")
+				.pattern("D")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.GEMS_DRAGONSTONE))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.thornChakram, 2)
+				.input('T', ModTags.Items.INGOTS_TERRASTEEL)
+				.input('V', Items.VINE)
+				.pattern("VVV")
+				.pattern("VTV")
+				.pattern("VVV")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_TERRASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.flareChakram, 2)
+				.input('P', ModItems.pixieDust)
+				.input('B', Items.BLAZE_POWDER)
+				.input('C', ModItems.thornChakram)
+				.pattern("BBB")
+				.pattern("CPC")
+				.pattern("BBB")
+				.criterion("has_item", conditionsFromItem(ModItems.thornChakram))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.phantomInk, 4)
+				.input(ModItems.manaPearl)
+				.input(Tags.Items.DYES)
+				.input(Ingredient.ofItems(Items.GLASS, Items.WHITE_STAINED_GLASS, Items.ORANGE_STAINED_GLASS,
 						Items.MAGENTA_STAINED_GLASS, Items.LIGHT_BLUE_STAINED_GLASS, Items.YELLOW_STAINED_GLASS,
 						Items.LIME_STAINED_GLASS, Items.PINK_STAINED_GLASS, Items.GRAY_STAINED_GLASS,
 						Items.LIGHT_GRAY_STAINED_GLASS, Items.CYAN_STAINED_GLASS, Items.PURPLE_STAINED_GLASS,
 						Items.BLUE_STAINED_GLASS, Items.BROWN_STAINED_GLASS, Items.GREEN_STAINED_GLASS,
 						Items.RED_STAINED_GLASS, Items.BLACK_STAINED_GLASS))
-				.addIngredient(Items.GLASS_BOTTLE, 4)
-				.addCriterion("has_item", hasItem(ModItems.manaPearl))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.keepIvy)
-				.addIngredient(ModItems.pixieDust)
-				.addIngredient(Items.VINE)
-				.addIngredient(ModItems.enderAirBottle)
-				.addCriterion("has_item", hasItem(ModItems.enderAirBottle))
-				.build(consumer);
+				.input(Items.GLASS_BOTTLE, 4)
+				.criterion("has_item", conditionsFromItem(ModItems.manaPearl))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.keepIvy)
+				.input(ModItems.pixieDust)
+				.input(Items.VINE)
+				.input(ModItems.enderAirBottle)
+				.criterion("has_item", conditionsFromItem(ModItems.enderAirBottle))
+				.offerTo(consumer);
 
 	}
 
-	private void registerMisc(Consumer<IFinishedRecipe> consumer) {
-		Ingredient mushrooms = Ingredient.fromItems(ModBlocks.whiteMushroom, ModBlocks.orangeMushroom,
+	private void registerMisc(Consumer<RecipeJsonProvider> consumer) {
+		Ingredient mushrooms = Ingredient.ofItems(ModBlocks.whiteMushroom, ModBlocks.orangeMushroom,
 				ModBlocks.magentaMushroom, ModBlocks.lightBlueMushroom, ModBlocks.yellowMushroom,
 				ModBlocks.limeMushroom, ModBlocks.pinkMushroom, ModBlocks.grayMushroom, ModBlocks.lightGrayMushroom,
 				ModBlocks.cyanMushroom, ModBlocks.purpleMushroom, ModBlocks.blueMushroom, ModBlocks.brownMushroom,
 				ModBlocks.greenMushroom, ModBlocks.redMushroom, ModBlocks.blackMushroom);
-		ShapelessRecipeBuilder.shapelessRecipe(Items.MUSHROOM_STEW)
-				.addIngredient(mushrooms, 2)
-				.addIngredient(Items.BOWL)
-				.addCriterion("has_item", hasItem(Items.BOWL))
-				.addCriterion("has_orig_recipe", RecipeUnlockedTrigger.func_235675_a_(new ResourceLocation("mushroom_stew")))
-				.build(consumer, "botania:mushroom_stew");
+		ShapelessRecipeJsonFactory.create(Items.MUSHROOM_STEW)
+				.input(mushrooms, 2)
+				.input(Items.BOWL)
+				.criterion("has_item", conditionsFromItem(Items.BOWL))
+				.criterion("has_orig_recipe", RecipeUnlockedCriterion.create(new Identifier("mushroom_stew")))
+				.offerTo(consumer, "botania:mushroom_stew");
 
-		ShapedRecipeBuilder.shapedRecipe(Items.COBWEB)
-				.key('S', Items.STRING)
-				.key('M', ModItems.manaString)
-				.patternLine("S S")
-				.patternLine(" M ")
-				.patternLine("S S")
-				.addCriterion("has_item", hasItem(ModItems.manaString))
-				.build(consumer, prefix("cobweb"));
+		ShapedRecipeJsonFactory.create(Items.COBWEB)
+				.input('S', Items.STRING)
+				.input('M', ModItems.manaString)
+				.pattern("S S")
+				.pattern(" M ")
+				.pattern("S S")
+				.criterion("has_item", conditionsFromItem(ModItems.manaString))
+				.offerTo(consumer, prefix("cobweb"));
 
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.defaultAltar)
-				.key('P', ModTags.Items.PETALS)
-				.key('S', Items.COBBLESTONE_SLAB)
-				.key('C', Tags.Items.COBBLESTONE)
-				.patternLine("SPS")
-				.patternLine(" C ")
-				.patternLine("CCC")
-				.addCriterion("has_item", hasItem(ModTags.Items.PETALS))
-				.build(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.defaultAltar)
+				.input('P', ModTags.Items.PETALS)
+				.input('S', Items.COBBLESTONE_SLAB)
+				.input('C', Tags.Items.COBBLESTONE)
+				.pattern("SPS")
+				.pattern(" C ")
+				.pattern("CCC")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.PETALS))
+				.offerTo(consumer);
 		for (String metamorphicVariant : LibBlockNames.METAMORPHIC_VARIANTS) {
-			Block altar = Registry.BLOCK.getValue(prefix("apothecary_" + metamorphicVariant.replaceAll("_", ""))).get();
-			Block cobble = Registry.BLOCK.getValue(prefix(LibBlockNames.METAMORPHIC_PREFIX + metamorphicVariant + "_cobblestone")).get();
-			ShapedRecipeBuilder.shapedRecipe(altar)
-					.key('A', ModBlocks.defaultAltar)
-					.key('S', cobble)
-					.patternLine("SSS")
-					.patternLine("SAS")
-					.patternLine("SSS")
-					.setGroup("botania:metamorphic_apothecary")
-					.addCriterion("has_item", hasItem(cobble))
-					.addCriterion("has_flower_item", hasItem(ModSubtiles.marimorphosis))
-					.build(consumer);
+			Block altar = Registry.BLOCK.getOrEmpty(prefix("apothecary_" + metamorphicVariant.replaceAll("_", ""))).get();
+			Block cobble = Registry.BLOCK.getOrEmpty(prefix(LibBlockNames.METAMORPHIC_PREFIX + metamorphicVariant + "_cobblestone")).get();
+			ShapedRecipeJsonFactory.create(altar)
+					.input('A', ModBlocks.defaultAltar)
+					.input('S', cobble)
+					.pattern("SSS")
+					.pattern("SAS")
+					.pattern("SSS")
+					.group("botania:metamorphic_apothecary")
+					.criterion("has_item", conditionsFromItem(cobble))
+					.criterion("has_flower_item", conditionsFromItem(ModSubtiles.marimorphosis))
+					.offerTo(consumer);
 		}
 		EnumMap<DyeColor, Ingredient> colorOverrides = new EnumMap<>(DyeColor.class);
-		colorOverrides.put(DyeColor.LIGHT_BLUE, Ingredient.fromItemListStream(Stream.of(
-				new Ingredient.SingleItemList(new ItemStack(Items.BLUE_ORCHID)),
-				new Ingredient.TagList(ModTags.Items.PETALS_LIGHT_BLUE)
+		colorOverrides.put(DyeColor.LIGHT_BLUE, Ingredient.ofEntries(Stream.of(
+				new Ingredient.StackEntry(new ItemStack(Items.BLUE_ORCHID)),
+				new Ingredient.TagEntry(ModTags.Items.PETALS_LIGHT_BLUE)
 		)));
-		colorOverrides.put(DyeColor.ORANGE, Ingredient.fromItemListStream(Stream.of(
-				new Ingredient.SingleItemList(new ItemStack(Items.ORANGE_TULIP)),
-				new Ingredient.TagList(ModTags.Items.PETALS_ORANGE)
+		colorOverrides.put(DyeColor.ORANGE, Ingredient.ofEntries(Stream.of(
+				new Ingredient.StackEntry(new ItemStack(Items.ORANGE_TULIP)),
+				new Ingredient.TagEntry(ModTags.Items.PETALS_ORANGE)
 		)));
-		colorOverrides.put(DyeColor.PINK, Ingredient.fromItemListStream(Stream.of(
-				new Ingredient.SingleItemList(new ItemStack(Items.PINK_TULIP)),
-				new Ingredient.TagList(ModTags.Items.PETALS_PINK)
+		colorOverrides.put(DyeColor.PINK, Ingredient.ofEntries(Stream.of(
+				new Ingredient.StackEntry(new ItemStack(Items.PINK_TULIP)),
+				new Ingredient.TagEntry(ModTags.Items.PETALS_PINK)
 		)));
-		colorOverrides.put(DyeColor.RED, Ingredient.fromItemListStream(Stream.of(
-				new Ingredient.SingleItemList(new ItemStack(Items.POPPY)),
-				new Ingredient.SingleItemList(new ItemStack(Items.RED_TULIP)),
-				new Ingredient.TagList(ModTags.Items.PETALS_RED)
+		colorOverrides.put(DyeColor.RED, Ingredient.ofEntries(Stream.of(
+				new Ingredient.StackEntry(new ItemStack(Items.POPPY)),
+				new Ingredient.StackEntry(new ItemStack(Items.RED_TULIP)),
+				new Ingredient.TagEntry(ModTags.Items.PETALS_RED)
 		)));
-		colorOverrides.put(DyeColor.LIGHT_GRAY, Ingredient.fromItemListStream(Stream.of(
-				new Ingredient.SingleItemList(new ItemStack(Items.AZURE_BLUET)),
-				new Ingredient.SingleItemList(new ItemStack(Items.WHITE_TULIP)),
-				new Ingredient.SingleItemList(new ItemStack(Items.OXEYE_DAISY)),
-				new Ingredient.TagList(ModTags.Items.PETALS_LIGHT_GRAY)
+		colorOverrides.put(DyeColor.LIGHT_GRAY, Ingredient.ofEntries(Stream.of(
+				new Ingredient.StackEntry(new ItemStack(Items.AZURE_BLUET)),
+				new Ingredient.StackEntry(new ItemStack(Items.WHITE_TULIP)),
+				new Ingredient.StackEntry(new ItemStack(Items.OXEYE_DAISY)),
+				new Ingredient.TagEntry(ModTags.Items.PETALS_LIGHT_GRAY)
 		)));
-		colorOverrides.put(DyeColor.YELLOW, Ingredient.fromItemListStream(Stream.of(
-				new Ingredient.SingleItemList(new ItemStack(Items.DANDELION)),
-				new Ingredient.TagList(ModTags.Items.PETALS_YELLOW)
+		colorOverrides.put(DyeColor.YELLOW, Ingredient.ofEntries(Stream.of(
+				new Ingredient.StackEntry(new ItemStack(Items.DANDELION)),
+				new Ingredient.TagEntry(ModTags.Items.PETALS_YELLOW)
 		)));
 		for (DyeColor color : DyeColor.values()) {
-			ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.getShinyFlower(color))
-					.addIngredient(Tags.Items.DUSTS_GLOWSTONE)
-					.addIngredient(Tags.Items.DUSTS_GLOWSTONE)
-					.addIngredient(ModBlocks.getFlower(color))
-					.setGroup("botania:shiny_flower")
-					.addCriterion("has_item", hasItem(ModBlocks.getFlower(color)))
-					.build(consumer);
-			ShapedRecipeBuilder.shapedRecipe(ModBlocks.getFloatingFlower(color))
-					.key('S', ModItems.grassSeeds)
-					.key('D', Items.DIRT)
-					.key('F', ModBlocks.getShinyFlower(color))
-					.patternLine("F")
-					.patternLine("S")
-					.patternLine("D")
-					.setGroup("botania:floating_flowers")
-					.addCriterion("has_item", hasItem(ModBlocks.getShinyFlower(color)))
-					.build(consumer);
-			ShapedRecipeBuilder.shapedRecipe(ModBlocks.getPetalBlock(color))
-					.key('P', ModItems.getPetal(color))
-					.patternLine("PPP")
-					.patternLine("PPP")
-					.patternLine("PPP")
-					.setGroup("botania:petal_block")
-					.addCriterion("has_item", hasItem(ModItems.getPetal(color)))
-					.build(consumer);
-			ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.getMushroom(color))
-					.addIngredient(Ingredient.fromItems(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM))
-					.addIngredient(DyeItem.getItem(color))
-					.setGroup("botania:mushroom")
-					.addCriterion("has_item", hasItem(Items.RED_MUSHROOM))
-					.addCriterion("has_alt_item", hasItem(Items.BROWN_MUSHROOM))
-					.build(consumer, "botania:mushroom_" + color.ordinal());
-			ShapelessRecipeBuilder.shapelessRecipe(ModItems.getPetal(color), 4)
-					.addIngredient(ModBlocks.getDoubleFlower(color))
-					.setGroup("botania:petal_double")
-					.addCriterion("has_item", hasItem(ModBlocks.getDoubleFlower(color)))
-					.addCriterion("has_alt_item", hasItem(ModItems.getPetal(color)))
-					.build(consumer, "botania:petal_" + color.getString() + "_double");
-			ShapelessRecipeBuilder.shapelessRecipe(ModItems.getPetal(color), 2)
-					.addIngredient(ModBlocks.getFlower(color))
-					.setGroup("botania:petal")
-					.addCriterion("has_item", hasItem(ModBlocks.getFlower(color)))
-					.addCriterion("has_alt_item", hasItem(ModItems.getPetal(color)))
-					.build(consumer, "botania:petal_" + color.getString());
-			ShapelessRecipeBuilder.shapelessRecipe(DyeItem.getItem(color))
-					.addIngredient(colorOverrides.getOrDefault(color, Ingredient.fromTag(ModTags.Items.getFlowerTag(color))))
-					.addIngredient(ModItems.pestleAndMortar)
-					.setGroup("botania:dye")
-					.addCriterion("has_item", hasItem(ModItems.getPetal(color)))
-					.build(consumer, "botania:dye_" + color.getString());
+			ShapelessRecipeJsonFactory.create(ModBlocks.getShinyFlower(color))
+					.input(Tags.Items.DUSTS_GLOWSTONE)
+					.input(Tags.Items.DUSTS_GLOWSTONE)
+					.input(ModBlocks.getFlower(color))
+					.group("botania:shiny_flower")
+					.criterion("has_item", conditionsFromItem(ModBlocks.getFlower(color)))
+					.offerTo(consumer);
+			ShapedRecipeJsonFactory.create(ModBlocks.getFloatingFlower(color))
+					.input('S', ModItems.grassSeeds)
+					.input('D', Items.DIRT)
+					.input('F', ModBlocks.getShinyFlower(color))
+					.pattern("F")
+					.pattern("S")
+					.pattern("D")
+					.group("botania:floating_flowers")
+					.criterion("has_item", conditionsFromItem(ModBlocks.getShinyFlower(color)))
+					.offerTo(consumer);
+			ShapedRecipeJsonFactory.create(ModBlocks.getPetalBlock(color))
+					.input('P', ModItems.getPetal(color))
+					.pattern("PPP")
+					.pattern("PPP")
+					.pattern("PPP")
+					.group("botania:petal_block")
+					.criterion("has_item", conditionsFromItem(ModItems.getPetal(color)))
+					.offerTo(consumer);
+			ShapelessRecipeJsonFactory.create(ModBlocks.getMushroom(color))
+					.input(Ingredient.ofItems(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM))
+					.input(DyeItem.byColor(color))
+					.group("botania:mushroom")
+					.criterion("has_item", conditionsFromItem(Items.RED_MUSHROOM))
+					.criterion("has_alt_item", conditionsFromItem(Items.BROWN_MUSHROOM))
+					.offerTo(consumer, "botania:mushroom_" + color.ordinal());
+			ShapelessRecipeJsonFactory.create(ModItems.getPetal(color), 4)
+					.input(ModBlocks.getDoubleFlower(color))
+					.group("botania:petal_double")
+					.criterion("has_item", conditionsFromItem(ModBlocks.getDoubleFlower(color)))
+					.criterion("has_alt_item", conditionsFromItem(ModItems.getPetal(color)))
+					.offerTo(consumer, "botania:petal_" + color.asString() + "_double");
+			ShapelessRecipeJsonFactory.create(ModItems.getPetal(color), 2)
+					.input(ModBlocks.getFlower(color))
+					.group("botania:petal")
+					.criterion("has_item", conditionsFromItem(ModBlocks.getFlower(color)))
+					.criterion("has_alt_item", conditionsFromItem(ModItems.getPetal(color)))
+					.offerTo(consumer, "botania:petal_" + color.asString());
+			ShapelessRecipeJsonFactory.create(DyeItem.byColor(color))
+					.input(colorOverrides.getOrDefault(color, Ingredient.fromTag(ModTags.Items.getFlowerTag(color))))
+					.input(ModItems.pestleAndMortar)
+					.group("botania:dye")
+					.criterion("has_item", conditionsFromItem(ModItems.getPetal(color)))
+					.offerTo(consumer, "botania:dye_" + color.asString());
 		}
 
-		ShapelessRecipeBuilder.shapelessRecipe(Items.MAGENTA_DYE, 2)
-				.addIngredient(Items.LILAC)
-				.addIngredient(ModItems.pestleAndMortar)
-				.setGroup("botania:dye_double")
-				.addCriterion("has_item", hasItem(Items.YELLOW_DYE))
-				.addCriterion("has_alt_item", hasItem(Items.LILAC))
-				.build(consumer, "botania:dye_magenta_double");
-		ShapelessRecipeBuilder.shapelessRecipe(Items.PINK_DYE, 2)
-				.addIngredient(Items.PEONY)
-				.addIngredient(ModItems.pestleAndMortar)
-				.setGroup("botania:dye_double")
-				.addCriterion("has_item", hasItem(Items.PINK_DYE))
-				.addCriterion("has_alt_item", hasItem(Items.PEONY))
-				.build(consumer, "botania:dye_pink_double");
-		ShapelessRecipeBuilder.shapelessRecipe(Items.RED_DYE, 2)
-				.addIngredient(Items.ROSE_BUSH)
-				.addIngredient(ModItems.pestleAndMortar)
-				.setGroup("botania:dye_double")
-				.addCriterion("has_item", hasItem(Items.RED_DYE))
-				.addCriterion("has_alt_item", hasItem(Items.ROSE_BUSH))
-				.build(consumer, "botania:dye_red_double");
-		ShapelessRecipeBuilder.shapelessRecipe(Items.YELLOW_DYE, 2)
-				.addIngredient(Items.SUNFLOWER)
-				.addIngredient(ModItems.pestleAndMortar)
-				.setGroup("botania:dye_double")
-				.addCriterion("has_item", hasItem(Items.YELLOW_DYE))
-				.addCriterion("has_alt_item", hasItem(Items.SUNFLOWER))
-				.build(consumer, "botania:dye_yellow_double");
+		ShapelessRecipeJsonFactory.create(Items.MAGENTA_DYE, 2)
+				.input(Items.LILAC)
+				.input(ModItems.pestleAndMortar)
+				.group("botania:dye_double")
+				.criterion("has_item", conditionsFromItem(Items.YELLOW_DYE))
+				.criterion("has_alt_item", conditionsFromItem(Items.LILAC))
+				.offerTo(consumer, "botania:dye_magenta_double");
+		ShapelessRecipeJsonFactory.create(Items.PINK_DYE, 2)
+				.input(Items.PEONY)
+				.input(ModItems.pestleAndMortar)
+				.group("botania:dye_double")
+				.criterion("has_item", conditionsFromItem(Items.PINK_DYE))
+				.criterion("has_alt_item", conditionsFromItem(Items.PEONY))
+				.offerTo(consumer, "botania:dye_pink_double");
+		ShapelessRecipeJsonFactory.create(Items.RED_DYE, 2)
+				.input(Items.ROSE_BUSH)
+				.input(ModItems.pestleAndMortar)
+				.group("botania:dye_double")
+				.criterion("has_item", conditionsFromItem(Items.RED_DYE))
+				.criterion("has_alt_item", conditionsFromItem(Items.ROSE_BUSH))
+				.offerTo(consumer, "botania:dye_red_double");
+		ShapelessRecipeJsonFactory.create(Items.YELLOW_DYE, 2)
+				.input(Items.SUNFLOWER)
+				.input(ModItems.pestleAndMortar)
+				.group("botania:dye_double")
+				.criterion("has_item", conditionsFromItem(Items.YELLOW_DYE))
+				.criterion("has_alt_item", conditionsFromItem(Items.SUNFLOWER))
+				.offerTo(consumer, "botania:dye_yellow_double");
 	}
 
-	private void registerTools(Consumer<IFinishedRecipe> consumer) {
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.lexicon)
-				.addIngredient(ItemTags.SAPLINGS)
-				.addIngredient(Items.BOOK)
-				.addCriterion("has_item", hasItem(ItemTags.SAPLINGS))
-				.addCriterion("has_alt_item", hasItem(Items.BOOK))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.twigWand)
-				.key('P', ModTags.Items.PETALS)
-				.key('S', ModItems.livingwoodTwig)
-				.patternLine(" PS")
-				.patternLine(" SP")
-				.patternLine("S  ")
-				.setGroup("botania:twig_wand")
-				.addCriterion("has_item", hasItem(ModTags.Items.PETALS))
-				.build(WrapperResult.ofType(TwigWandRecipe.SERIALIZER, consumer));
-		ShapedRecipeBuilder.shapedRecipe(ModItems.manaTablet)
-				.key('P', Ingredient.fromItemListStream(Stream.of(
-						new Ingredient.SingleItemList(new ItemStack(ModItems.manaPearl)),
-						new Ingredient.TagList(ModTags.Items.GEMS_MANA_DIAMOND))))
-				.key('S', ModTags.Items.LIVINGROCK)
-				.patternLine("SSS")
-				.patternLine("SPS")
-				.patternLine("SSS")
-				.addCriterion("has_item", hasItem(ModTags.Items.GEMS_MANA_DIAMOND))
-				.build(consumer);
+	private void registerTools(Consumer<RecipeJsonProvider> consumer) {
+		ShapelessRecipeJsonFactory.create(ModItems.lexicon)
+				.input(ItemTags.SAPLINGS)
+				.input(Items.BOOK)
+				.criterion("has_item", conditionsFromTag(ItemTags.SAPLINGS))
+				.criterion("has_alt_item", conditionsFromItem(Items.BOOK))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.twigWand)
+				.input('P', ModTags.Items.PETALS)
+				.input('S', ModItems.livingwoodTwig)
+				.pattern(" PS")
+				.pattern(" SP")
+				.pattern("S  ")
+				.group("botania:twig_wand")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.PETALS))
+				.offerTo(WrapperResult.ofType(TwigWandRecipe.SERIALIZER, consumer));
+		ShapedRecipeJsonFactory.create(ModItems.manaTablet)
+				.input('P', Ingredient.ofEntries(Stream.of(
+						new Ingredient.StackEntry(new ItemStack(ModItems.manaPearl)),
+						new Ingredient.TagEntry(ModTags.Items.GEMS_MANA_DIAMOND))))
+				.input('S', ModTags.Items.LIVINGROCK)
+				.pattern("SSS")
+				.pattern("SPS")
+				.pattern("SSS")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.GEMS_MANA_DIAMOND))
+				.offerTo(consumer);
 
-		ShapedRecipeBuilder.shapedRecipe(ModItems.cacophonium)
-				.key('N', Items.NOTE_BLOCK)
-				.key('G', Tags.Items.INGOTS_GOLD)
-				.patternLine(" G ")
-				.patternLine("GNG")
-				.patternLine("GG ")
-				.addCriterion("has_item", hasItem(Items.NOTE_BLOCK))
-				.build(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.cacophonium)
+				.input('N', Items.NOTE_BLOCK)
+				.input('G', Tags.Items.INGOTS_GOLD)
+				.pattern(" G ")
+				.pattern("GNG")
+				.pattern("GG ")
+				.criterion("has_item", conditionsFromItem(Items.NOTE_BLOCK))
+				.offerTo(consumer);
 
-		ShapedRecipeBuilder.shapedRecipe(ModItems.grassHorn)
-				.key('S', ModItems.grassSeeds)
-				.key('W', ModTags.Items.LIVINGWOOD)
-				.patternLine(" W ")
-				.patternLine("WSW")
-				.patternLine("WW ")
-				.addCriterion("has_item", hasItem(ModTags.Items.LIVINGWOOD))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.leavesHorn)
-				.addIngredient(ModItems.grassHorn)
-				.addIngredient(ItemTags.LEAVES)
-				.addCriterion("has_item", hasItem(ModItems.grassHorn))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.snowHorn)
-				.addIngredient(ModItems.grassHorn)
-				.addIngredient(Items.SNOWBALL)
-				.addCriterion("has_item", hasItem(ModItems.grassHorn))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.manaMirror)
-				.key('P', ModItems.manaPearl)
-				.key('R', ModTags.Items.LIVINGROCK)
-				.key('S', ModItems.livingwoodTwig)
-				.key('T', ModItems.manaTablet)
-				.key('I', ModTags.Items.INGOTS_TERRASTEEL)
-				.patternLine(" PR")
-				.patternLine(" SI")
-				.patternLine("T  ")
-				.addCriterion("has_item", hasItem(ModItems.manaTablet))
-				.addCriterion("has_alt_item", hasItem(ModTags.Items.INGOTS_TERRASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.openBucket)
-				.key('E', ModTags.Items.INGOTS_ELEMENTIUM)
-				.patternLine("E E")
-				.patternLine(" E ")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_ELEMENTIUM))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.spawnerMover)
-				.key('A', ModItems.enderAirBottle)
-				.key('D', ModTags.Items.GEMS_DRAGONSTONE)
-				.key('E', ModItems.lifeEssence)
-				.key('I', ModTags.Items.INGOTS_ELEMENTIUM)
-				.patternLine("EIE")
-				.patternLine("ADA")
-				.patternLine("EIE")
-				.addCriterion("has_item", hasItem(ModItems.lifeEssence))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.slingshot)
-				.key('A', ModTags.Items.RUNES_AIR)
-				.key('T', ModItems.livingwoodTwig)
-				.patternLine(" TA")
-				.patternLine(" TT")
-				.patternLine("T  ")
-				.addCriterion("has_item", hasItem(ModTags.Items.RUNES_AIR))
-				.build(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.grassHorn)
+				.input('S', ModItems.grassSeeds)
+				.input('W', ModTags.Items.LIVINGWOOD)
+				.pattern(" W ")
+				.pattern("WSW")
+				.pattern("WW ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.leavesHorn)
+				.input(ModItems.grassHorn)
+				.input(ItemTags.LEAVES)
+				.criterion("has_item", conditionsFromItem(ModItems.grassHorn))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.snowHorn)
+				.input(ModItems.grassHorn)
+				.input(Items.SNOWBALL)
+				.criterion("has_item", conditionsFromItem(ModItems.grassHorn))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.manaMirror)
+				.input('P', ModItems.manaPearl)
+				.input('R', ModTags.Items.LIVINGROCK)
+				.input('S', ModItems.livingwoodTwig)
+				.input('T', ModItems.manaTablet)
+				.input('I', ModTags.Items.INGOTS_TERRASTEEL)
+				.pattern(" PR")
+				.pattern(" SI")
+				.pattern("T  ")
+				.criterion("has_item", conditionsFromItem(ModItems.manaTablet))
+				.criterion("has_alt_item", conditionsFromTag(ModTags.Items.INGOTS_TERRASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.openBucket)
+				.input('E', ModTags.Items.INGOTS_ELEMENTIUM)
+				.pattern("E E")
+				.pattern(" E ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.spawnerMover)
+				.input('A', ModItems.enderAirBottle)
+				.input('D', ModTags.Items.GEMS_DRAGONSTONE)
+				.input('E', ModItems.lifeEssence)
+				.input('I', ModTags.Items.INGOTS_ELEMENTIUM)
+				.pattern("EIE")
+				.pattern("ADA")
+				.pattern("EIE")
+				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.slingshot)
+				.input('A', ModTags.Items.RUNES_AIR)
+				.input('T', ModItems.livingwoodTwig)
+				.pattern(" TA")
+				.pattern(" TT")
+				.pattern("T  ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.RUNES_AIR))
+				.offerTo(consumer);
 
-		registerSimpleArmorSet(consumer, Ingredient.fromTag(ModTags.Items.INGOTS_MANASTEEL), "manasteel", hasItem(ModTags.Items.INGOTS_MANASTEEL));
-		registerSimpleArmorSet(consumer, Ingredient.fromTag(ModTags.Items.INGOTS_ELEMENTIUM), "elementium", hasItem(ModTags.Items.INGOTS_ELEMENTIUM));
-		registerSimpleArmorSet(consumer, Ingredient.fromItems(ModItems.manaweaveCloth), "manaweave", hasItem(ModItems.manaweaveCloth));
+		registerSimpleArmorSet(consumer, Ingredient.fromTag(ModTags.Items.INGOTS_MANASTEEL), "manasteel", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL));
+		registerSimpleArmorSet(consumer, Ingredient.fromTag(ModTags.Items.INGOTS_ELEMENTIUM), "elementium", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM));
+		registerSimpleArmorSet(consumer, Ingredient.ofItems(ModItems.manaweaveCloth), "manaweave", conditionsFromItem(ModItems.manaweaveCloth));
 
 		registerTerrasteelUpgradeRecipe(consumer, ModItems.terrasteelHelm, ModItems.manasteelHelm, ModTags.Items.RUNES_SPRING);
 		registerTerrasteelUpgradeRecipe(consumer, ModItems.terrasteelChest, ModItems.manasteelChest, ModTags.Items.RUNES_SUMMER);
 		registerTerrasteelUpgradeRecipe(consumer, ModItems.terrasteelLegs, ModItems.manasteelLegs, ModTags.Items.RUNES_AUTUMN);
 		registerTerrasteelUpgradeRecipe(consumer, ModItems.terrasteelBoots, ModItems.manasteelBoots, ModTags.Items.RUNES_WINTER);
 
-		registerToolSetRecipes(consumer, Ingredient.fromTag(ModTags.Items.INGOTS_MANASTEEL), Ingredient.fromItems(ModItems.livingwoodTwig),
-				hasItem(ModTags.Items.INGOTS_MANASTEEL), ModItems.manasteelSword, ModItems.manasteelPick, ModItems.manasteelAxe,
+		registerToolSetRecipes(consumer, Ingredient.fromTag(ModTags.Items.INGOTS_MANASTEEL), Ingredient.ofItems(ModItems.livingwoodTwig),
+				conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL), ModItems.manasteelSword, ModItems.manasteelPick, ModItems.manasteelAxe,
 				ModItems.manasteelShovel, ModItems.manasteelShears);
-		registerToolSetRecipes(consumer, Ingredient.fromTag(ModTags.Items.INGOTS_ELEMENTIUM), Ingredient.fromItems(ModItems.dreamwoodTwig),
-				hasItem(ModTags.Items.INGOTS_ELEMENTIUM), ModItems.elementiumSword, ModItems.elementiumPick, ModItems.elementiumAxe,
+		registerToolSetRecipes(consumer, Ingredient.fromTag(ModTags.Items.INGOTS_ELEMENTIUM), Ingredient.ofItems(ModItems.dreamwoodTwig),
+				conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM), ModItems.elementiumSword, ModItems.elementiumPick, ModItems.elementiumAxe,
 				ModItems.elementiumShovel, ModItems.elementiumShears);
 
-		ShapedRecipeBuilder.shapedRecipe(ModItems.terraSword)
-				.key('S', ModItems.livingwoodTwig)
-				.key('I', ModTags.Items.INGOTS_TERRASTEEL)
-				.patternLine("I")
-				.patternLine("I")
-				.patternLine("S")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_TERRASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.terraPick)
-				.key('T', ModItems.manaTablet)
-				.key('I', ModTags.Items.INGOTS_TERRASTEEL)
-				.key('L', ModItems.livingwoodTwig)
-				.patternLine("ITI")
-				.patternLine("ILI")
-				.patternLine(" L ")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_TERRASTEEL))
-				.build(WrapperResult.ofType(ManaUpgradeRecipe.SERIALIZER, consumer));
-		ShapedRecipeBuilder.shapedRecipe(ModItems.terraAxe)
-				.key('S', ModItems.livingwoodTwig)
-				.key('T', ModTags.Items.INGOTS_TERRASTEEL)
-				.key('G', Items.GLOWSTONE)
-				.patternLine("TTG")
-				.patternLine("TST")
-				.patternLine(" S ")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_TERRASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.starSword)
-				.key('A', ModItems.enderAirBottle)
-				.key('D', ModTags.Items.GEMS_DRAGONSTONE)
-				.key('T', ModItems.terraSword)
-				.key('I', ModTags.Items.INGOTS_ELEMENTIUM)
-				.patternLine("  I")
-				.patternLine("AD ")
-				.patternLine("TA ")
-				.addCriterion("has_item", hasItem(ModItems.terraAxe))
-				.addCriterion("has_terrasteel", hasItem(ModTags.Items.INGOTS_TERRASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.thunderSword)
-				.key('A', ModItems.enderAirBottle)
-				.key('D', ModTags.Items.GEMS_MANA_DIAMOND)
-				.key('T', ModItems.terraSword)
-				.key('I', ModTags.Items.INGOTS_ELEMENTIUM)
-				.patternLine("  I")
-				.patternLine("AD ")
-				.patternLine("TA ")
-				.addCriterion("has_item", hasItem(ModItems.terraAxe))
-				.addCriterion("has_terrasteel", hasItem(ModTags.Items.INGOTS_TERRASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.glassPick)
-				.key('T', ModItems.livingwoodTwig)
-				.key('G', Items.GLASS)
-				.key('I', ModTags.Items.INGOTS_MANASTEEL)
-				.patternLine("GIG")
-				.patternLine(" T ")
-				.patternLine(" T ")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_MANASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.livingwoodBow)
-				.key('S', ModItems.manaString)
-				.key('T', ModItems.livingwoodTwig)
-				.patternLine(" TS")
-				.patternLine("T S")
-				.patternLine(" TS")
-				.addCriterion("has_item", hasItem(ModItems.manaString))
-				.addCriterion("has_twig", hasItem(ModItems.livingwoodTwig))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.crystalBow)
-				.key('S', ModItems.manaString)
-				.key('T', ModItems.livingwoodTwig)
-				.key('D', ModTags.Items.GEMS_DRAGONSTONE)
-				.patternLine(" DS")
-				.patternLine("T S")
-				.patternLine(" DS")
-				.addCriterion("has_item", hasItem(ModTags.Items.GEMS_DRAGONSTONE))
-				.build(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.terraSword)
+				.input('S', ModItems.livingwoodTwig)
+				.input('I', ModTags.Items.INGOTS_TERRASTEEL)
+				.pattern("I")
+				.pattern("I")
+				.pattern("S")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_TERRASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.terraPick)
+				.input('T', ModItems.manaTablet)
+				.input('I', ModTags.Items.INGOTS_TERRASTEEL)
+				.input('L', ModItems.livingwoodTwig)
+				.pattern("ITI")
+				.pattern("ILI")
+				.pattern(" L ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_TERRASTEEL))
+				.offerTo(WrapperResult.ofType(ManaUpgradeRecipe.SERIALIZER, consumer));
+		ShapedRecipeJsonFactory.create(ModItems.terraAxe)
+				.input('S', ModItems.livingwoodTwig)
+				.input('T', ModTags.Items.INGOTS_TERRASTEEL)
+				.input('G', Items.GLOWSTONE)
+				.pattern("TTG")
+				.pattern("TST")
+				.pattern(" S ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_TERRASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.starSword)
+				.input('A', ModItems.enderAirBottle)
+				.input('D', ModTags.Items.GEMS_DRAGONSTONE)
+				.input('T', ModItems.terraSword)
+				.input('I', ModTags.Items.INGOTS_ELEMENTIUM)
+				.pattern("  I")
+				.pattern("AD ")
+				.pattern("TA ")
+				.criterion("has_item", conditionsFromItem(ModItems.terraAxe))
+				.criterion("has_terrasteel", conditionsFromTag(ModTags.Items.INGOTS_TERRASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.thunderSword)
+				.input('A', ModItems.enderAirBottle)
+				.input('D', ModTags.Items.GEMS_MANA_DIAMOND)
+				.input('T', ModItems.terraSword)
+				.input('I', ModTags.Items.INGOTS_ELEMENTIUM)
+				.pattern("  I")
+				.pattern("AD ")
+				.pattern("TA ")
+				.criterion("has_item", conditionsFromItem(ModItems.terraAxe))
+				.criterion("has_terrasteel", conditionsFromTag(ModTags.Items.INGOTS_TERRASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.glassPick)
+				.input('T', ModItems.livingwoodTwig)
+				.input('G', Items.GLASS)
+				.input('I', ModTags.Items.INGOTS_MANASTEEL)
+				.pattern("GIG")
+				.pattern(" T ")
+				.pattern(" T ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.livingwoodBow)
+				.input('S', ModItems.manaString)
+				.input('T', ModItems.livingwoodTwig)
+				.pattern(" TS")
+				.pattern("T S")
+				.pattern(" TS")
+				.criterion("has_item", conditionsFromItem(ModItems.manaString))
+				.criterion("has_twig", conditionsFromItem(ModItems.livingwoodTwig))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.crystalBow)
+				.input('S', ModItems.manaString)
+				.input('T', ModItems.livingwoodTwig)
+				.input('D', ModTags.Items.GEMS_DRAGONSTONE)
+				.pattern(" DS")
+				.pattern("T S")
+				.pattern(" DS")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.GEMS_DRAGONSTONE))
+				.offerTo(consumer);
 
-		ShapedRecipeBuilder.shapedRecipe(ModItems.enderDagger)
-				.key('P', ModItems.manaPearl)
-				.key('S', ModTags.Items.INGOTS_MANASTEEL)
-				.key('T', ModItems.livingwoodTwig)
-				.patternLine("P")
-				.patternLine("S")
-				.patternLine("T")
-				.addCriterion("has_item", hasItem(ModItems.manaPearl))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.enderHand)
-				.key('P', ModItems.manaPearl)
-				.key('E', Items.ENDER_CHEST)
-				.key('L', Items.LEATHER)
-				.key('O', Items.OBSIDIAN)
-				.patternLine("PLO")
-				.patternLine("LEL")
-				.patternLine("OL ")
-				.addCriterion("has_item", hasItem(Items.ENDER_CHEST))
-				.addCriterion("has_alt_item", hasItem(Items.ENDER_EYE))
-				.build(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.enderDagger)
+				.input('P', ModItems.manaPearl)
+				.input('S', ModTags.Items.INGOTS_MANASTEEL)
+				.input('T', ModItems.livingwoodTwig)
+				.pattern("P")
+				.pattern("S")
+				.pattern("T")
+				.criterion("has_item", conditionsFromItem(ModItems.manaPearl))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.enderHand)
+				.input('P', ModItems.manaPearl)
+				.input('E', Items.ENDER_CHEST)
+				.input('L', Items.LEATHER)
+				.input('O', Items.OBSIDIAN)
+				.pattern("PLO")
+				.pattern("LEL")
+				.pattern("OL ")
+				.criterion("has_item", conditionsFromItem(Items.ENDER_CHEST))
+				.criterion("has_alt_item", conditionsFromItem(Items.ENDER_EYE))
+				.offerTo(consumer);
 
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.placeholder, 32)
-				.addIngredient(Items.CRAFTING_TABLE)
-				.addIngredient(ModTags.Items.LIVINGROCK)
-				.addCriterion("has_dreamwood", hasItem(ModBlocks.dreamwood))
-				.addCriterion("has_crafty_crate", hasItem(ModBlocks.craftCrate))
-				.build(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.placeholder, 32)
+				.input(Items.CRAFTING_TABLE)
+				.input(ModTags.Items.LIVINGROCK)
+				.criterion("has_dreamwood", conditionsFromItem(ModBlocks.dreamwood))
+				.criterion("has_crafty_crate", conditionsFromItem(ModBlocks.craftCrate))
+				.offerTo(consumer);
 
 		for (CratePattern pattern : CratePattern.values()) {
 			if (pattern == CratePattern.NONE) {
 				continue;
 			}
-			Item item = Registry.ITEM.getValue(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + pattern.getString().split("_", 2)[1])).get();
+			Item item = Registry.ITEM.getOrEmpty(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + pattern.asString().split("_", 2)[1])).get();
 			String s = pattern.openSlots.stream().map(bool -> bool ? "R" : "P").collect(Collectors.joining());
-			ShapedRecipeBuilder.shapedRecipe(item)
-					.key('P', ModItems.placeholder)
-					.key('R', Tags.Items.DUSTS_REDSTONE)
-					.patternLine(s.substring(0, 3))
-					.patternLine(s.substring(3, 6))
-					.patternLine(s.substring(6, 9))
-					.setGroup("botania:craft_pattern")
-					.addCriterion("has_item", hasItem(ModItems.placeholder))
-					.addCriterion("has_crafty_crate", hasItem(ModBlocks.craftCrate))
-					.build(consumer);
+			ShapedRecipeJsonFactory.create(item)
+					.input('P', ModItems.placeholder)
+					.input('R', Tags.Items.DUSTS_REDSTONE)
+					.pattern(s.substring(0, 3))
+					.pattern(s.substring(3, 6))
+					.pattern(s.substring(6, 9))
+					.group("botania:craft_pattern")
+					.criterion("has_item", conditionsFromItem(ModItems.placeholder))
+					.criterion("has_crafty_crate", conditionsFromItem(ModBlocks.craftCrate))
+					.offerTo(consumer);
 		}
 
-		ShapedRecipeBuilder.shapedRecipe(ModItems.pestleAndMortar)
-				.key('B', Items.BOWL)
-				.key('S', Tags.Items.RODS_WOODEN)
-				.key('W', ItemTags.PLANKS)
-				.patternLine(" S")
-				.patternLine("W ")
-				.patternLine("B ")
-				.addCriterion("has_item", hasItem(ItemTags.PLANKS))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.manaGun)
-				.key('S', ModBlocks.redstoneSpreader)
-				.key('D', ModTags.Items.GEMS_MANA_DIAMOND)
-				.key('T', Items.TNT)
-				.key('W', ModTags.Items.LIVINGWOOD)
-				.key('M', ModTags.Items.RUNES_MANA)
-				.patternLine("SMD")
-				.patternLine(" WT")
-				.patternLine("  W")
-				.addCriterion("has_item", hasItem(ModTags.Items.GEMS_MANA_DIAMOND))
-				.build(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.pestleAndMortar)
+				.input('B', Items.BOWL)
+				.input('S', Tags.Items.RODS_WOODEN)
+				.input('W', ItemTags.PLANKS)
+				.pattern(" S")
+				.pattern("W ")
+				.pattern("B ")
+				.criterion("has_item", conditionsFromTag(ItemTags.PLANKS))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.manaGun)
+				.input('S', ModBlocks.redstoneSpreader)
+				.input('D', ModTags.Items.GEMS_MANA_DIAMOND)
+				.input('T', Items.TNT)
+				.input('W', ModTags.Items.LIVINGWOOD)
+				.input('M', ModTags.Items.RUNES_MANA)
+				.pattern("SMD")
+				.pattern(" WT")
+				.pattern("  W")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.GEMS_MANA_DIAMOND))
+				.offerTo(consumer);
 
-		ShapedRecipeBuilder.shapedRecipe(ModItems.dirtRod)
-				.key('D', Items.DIRT)
-				.key('T', ModItems.livingwoodTwig)
-				.key('E', ModTags.Items.RUNES_EARTH)
-				.patternLine("  D")
-				.patternLine(" T ")
-				.patternLine("E  ")
-				.addCriterion("has_item", hasItem(ModTags.Items.RUNES_EARTH))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.terraformRod)
-				.key('A', ModTags.Items.RUNES_AUTUMN)
-				.key('R', ModItems.dirtRod)
-				.key('S', ModTags.Items.RUNES_SPRING)
-				.key('T', ModTags.Items.INGOTS_TERRASTEEL)
-				.key('G', ModItems.grassSeeds)
-				.key('W', ModTags.Items.RUNES_WINTER)
-				.key('M', ModTags.Items.RUNES_SUMMER)
-				.patternLine(" WT")
-				.patternLine("ARS")
-				.patternLine("GM ")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_TERRASTEEL))
-				.build(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.dirtRod)
+				.input('D', Items.DIRT)
+				.input('T', ModItems.livingwoodTwig)
+				.input('E', ModTags.Items.RUNES_EARTH)
+				.pattern("  D")
+				.pattern(" T ")
+				.pattern("E  ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.RUNES_EARTH))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.terraformRod)
+				.input('A', ModTags.Items.RUNES_AUTUMN)
+				.input('R', ModItems.dirtRod)
+				.input('S', ModTags.Items.RUNES_SPRING)
+				.input('T', ModTags.Items.INGOTS_TERRASTEEL)
+				.input('G', ModItems.grassSeeds)
+				.input('W', ModTags.Items.RUNES_WINTER)
+				.input('M', ModTags.Items.RUNES_SUMMER)
+				.pattern(" WT")
+				.pattern("ARS")
+				.pattern("GM ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_TERRASTEEL))
+				.offerTo(consumer);
 
-		ShapedRecipeBuilder.shapedRecipe(ModItems.waterRod)
-				.key('B', new FuzzyNBTIngredient(PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.WATER)))
-				.key('R', ModTags.Items.RUNES_WATER)
-				.key('T', ModItems.livingwoodTwig)
-				.patternLine("  B")
-				.patternLine(" T ")
-				.patternLine("R  ")
-				.addCriterion("has_item", hasItem(ModTags.Items.RUNES_WATER))
-				.build(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.waterRod)
+				.input('B', new FuzzyNBTIngredient(PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.WATER)))
+				.input('R', ModTags.Items.RUNES_WATER)
+				.input('T', ModItems.livingwoodTwig)
+				.pattern("  B")
+				.pattern(" T ")
+				.pattern("R  ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.RUNES_WATER))
+				.offerTo(consumer);
 
-		ShapedRecipeBuilder.shapedRecipe(ModItems.rainbowRod)
-				.key('P', ModItems.pixieDust)
-				.key('D', ModTags.Items.GEMS_DRAGONSTONE)
-				.key('E', ModTags.Items.INGOTS_ELEMENTIUM)
-				.patternLine(" PD")
-				.patternLine(" EP")
-				.patternLine("E  ")
-				.addCriterion("has_item", hasItem(ModTags.Items.GEMS_DRAGONSTONE))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.tornadoRod)
-				.key('R', ModTags.Items.RUNES_AIR)
-				.key('T', ModItems.livingwoodTwig)
-				.key('F', Items.FEATHER)
-				.patternLine("  F")
-				.patternLine(" T ")
-				.patternLine("R  ")
-				.addCriterion("has_item", hasItem(ModTags.Items.RUNES_AIR))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.fireRod)
-				.key('R', ModTags.Items.RUNES_FIRE)
-				.key('T', ModItems.livingwoodTwig)
-				.key('F', Items.BLAZE_POWDER)
-				.patternLine("  F")
-				.patternLine(" T ")
-				.patternLine("R  ")
-				.addCriterion("has_item", hasItem(ModTags.Items.RUNES_FIRE))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.skyDirtRod)
-				.addIngredient(ModItems.dirtRod)
-				.addIngredient(ModItems.pixieDust)
-				.addIngredient(ModTags.Items.RUNES_AIR)
-				.addCriterion("has_item", hasItem(ModItems.pixieDust))
-				.build(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.rainbowRod)
+				.input('P', ModItems.pixieDust)
+				.input('D', ModTags.Items.GEMS_DRAGONSTONE)
+				.input('E', ModTags.Items.INGOTS_ELEMENTIUM)
+				.pattern(" PD")
+				.pattern(" EP")
+				.pattern("E  ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.GEMS_DRAGONSTONE))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.tornadoRod)
+				.input('R', ModTags.Items.RUNES_AIR)
+				.input('T', ModItems.livingwoodTwig)
+				.input('F', Items.FEATHER)
+				.pattern("  F")
+				.pattern(" T ")
+				.pattern("R  ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.RUNES_AIR))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.fireRod)
+				.input('R', ModTags.Items.RUNES_FIRE)
+				.input('T', ModItems.livingwoodTwig)
+				.input('F', Items.BLAZE_POWDER)
+				.pattern("  F")
+				.pattern(" T ")
+				.pattern("R  ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.RUNES_FIRE))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.skyDirtRod)
+				.input(ModItems.dirtRod)
+				.input(ModItems.pixieDust)
+				.input(ModTags.Items.RUNES_AIR)
+				.criterion("has_item", conditionsFromItem(ModItems.pixieDust))
+				.offerTo(consumer);
 
-		ShapedRecipeBuilder.shapedRecipe(ModItems.diviningRod)
-				.key('T', ModItems.livingwoodTwig)
-				.key('D', ModTags.Items.GEMS_MANA_DIAMOND)
-				.patternLine(" TD")
-				.patternLine(" TT")
-				.patternLine("T  ")
-				.addCriterion("has_item", hasItem(ModTags.Items.GEMS_MANA_DIAMOND))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.gravityRod)
-				.key('T', ModItems.dreamwoodTwig)
-				.key('D', ModTags.Items.GEMS_DRAGONSTONE)
-				.key('W', Items.WHEAT)
-				.patternLine(" TD")
-				.patternLine(" WT")
-				.patternLine("T  ")
-				.addCriterion("has_item", hasItem(ModTags.Items.GEMS_DRAGONSTONE))
-				.build(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.diviningRod)
+				.input('T', ModItems.livingwoodTwig)
+				.input('D', ModTags.Items.GEMS_MANA_DIAMOND)
+				.pattern(" TD")
+				.pattern(" TT")
+				.pattern("T  ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.GEMS_MANA_DIAMOND))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.gravityRod)
+				.input('T', ModItems.dreamwoodTwig)
+				.input('D', ModTags.Items.GEMS_DRAGONSTONE)
+				.input('W', Items.WHEAT)
+				.pattern(" TD")
+				.pattern(" WT")
+				.pattern("T  ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.GEMS_DRAGONSTONE))
+				.offerTo(consumer);
 
-		ShapedRecipeBuilder.shapedRecipe(ModItems.missileRod)
-				.key('D', ModTags.Items.GEMS_DRAGONSTONE)
-				.key('T', ModItems.dreamwoodTwig)
-				.key('G', ModItems.lifeEssence)
-				.patternLine("GDD")
-				.patternLine(" TD")
-				.patternLine("T G")
-				.addCriterion("has_item", hasItem(ModItems.lifeEssence))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.cobbleRod)
-				.key('C', Tags.Items.COBBLESTONE)
-				.key('T', ModItems.livingwoodTwig)
-				.key('F', ModTags.Items.RUNES_FIRE)
-				.key('W', ModTags.Items.RUNES_WATER)
-				.patternLine(" FC")
-				.patternLine(" TW")
-				.patternLine("T  ")
-				.addCriterion("has_item", hasItem(ModTags.Items.RUNES_FIRE))
-				.addCriterion("has_alt_item", hasItem(ModTags.Items.RUNES_WATER))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.smeltRod)
-				.key('B', Items.BLAZE_ROD)
-				.key('T', ModItems.livingwoodTwig)
-				.key('F', ModTags.Items.RUNES_FIRE)
-				.patternLine(" BF")
-				.patternLine(" TB")
-				.patternLine("T  ")
-				.addCriterion("has_item", hasItem(ModTags.Items.RUNES_FIRE))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.exchangeRod)
-				.key('R', ModTags.Items.RUNES_SLOTH)
-				.key('S', Tags.Items.STONE)
-				.key('T', ModItems.livingwoodTwig)
-				.patternLine(" SR")
-				.patternLine(" TS")
-				.patternLine("T  ")
-				.addCriterion("has_item", hasItem(ModTags.Items.RUNES_SLOTH))
-				.build(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.missileRod)
+				.input('D', ModTags.Items.GEMS_DRAGONSTONE)
+				.input('T', ModItems.dreamwoodTwig)
+				.input('G', ModItems.lifeEssence)
+				.pattern("GDD")
+				.pattern(" TD")
+				.pattern("T G")
+				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.cobbleRod)
+				.input('C', Tags.Items.COBBLESTONE)
+				.input('T', ModItems.livingwoodTwig)
+				.input('F', ModTags.Items.RUNES_FIRE)
+				.input('W', ModTags.Items.RUNES_WATER)
+				.pattern(" FC")
+				.pattern(" TW")
+				.pattern("T  ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.RUNES_FIRE))
+				.criterion("has_alt_item", conditionsFromTag(ModTags.Items.RUNES_WATER))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.smeltRod)
+				.input('B', Items.BLAZE_ROD)
+				.input('T', ModItems.livingwoodTwig)
+				.input('F', ModTags.Items.RUNES_FIRE)
+				.pattern(" BF")
+				.pattern(" TB")
+				.pattern("T  ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.RUNES_FIRE))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.exchangeRod)
+				.input('R', ModTags.Items.RUNES_SLOTH)
+				.input('S', Tags.Items.STONE)
+				.input('T', ModItems.livingwoodTwig)
+				.pattern(" SR")
+				.pattern(" TS")
+				.pattern("T  ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.RUNES_SLOTH))
+				.offerTo(consumer);
 
-		ShapedRecipeBuilder.shapedRecipe(ModItems.laputaShard)
-				.key('P', Tags.Items.GEMS_PRISMARINE)
-				.key('A', ModTags.Items.RUNES_AIR)
-				.key('S', ModItems.lifeEssence)
-				.key('D', ModTags.Items.GEMS_DRAGONSTONE)
-				.key('E', ModTags.Items.RUNES_EARTH)
-				.key('F', ModTags.Items.MUNDANE_FLOATING_FLOWERS)
-				.patternLine("SFS")
-				.patternLine("PDP")
-				.patternLine("ASE")
-				.addCriterion("has_item", hasItem(ModItems.lifeEssence))
-				.build(WrapperResult.transformJson(consumer, json -> json.getAsJsonObject("result").addProperty("nbt", "{level:0}")),
+		ShapedRecipeJsonFactory.create(ModItems.laputaShard)
+				.input('P', Tags.Items.GEMS_PRISMARINE)
+				.input('A', ModTags.Items.RUNES_AIR)
+				.input('S', ModItems.lifeEssence)
+				.input('D', ModTags.Items.GEMS_DRAGONSTONE)
+				.input('E', ModTags.Items.RUNES_EARTH)
+				.input('F', ModTags.Items.MUNDANE_FLOATING_FLOWERS)
+				.pattern("SFS")
+				.pattern("PDP")
+				.pattern("ASE")
+				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
+				.offerTo(WrapperResult.transformJson(consumer, json -> json.getAsJsonObject("result").addProperty("nbt", "{level:0}")),
 						"botania:laputa_shard_0");
 		for (int i = 1; i < 20; i++) {
 			final int outputLevel = i;
 			ItemStack stack = new ItemStack(ModItems.laputaShard);
 			stack.getOrCreateTag().putInt("level", i - 1);
-			ShapelessRecipeBuilder.shapelessRecipe(ModItems.laputaShard)
-					.addIngredient(ModItems.lifeEssence)
-					.addIngredient(new FuzzyNBTIngredient(stack, i == 1))
-					.setGroup("botania:laputa_shard_upgrade")
-					.addCriterion("has_item", hasItem(ModItems.laputaShard))
-					.build(WrapperResult.transformJson(consumer, json -> json.getAsJsonObject("result").addProperty("nbt", "{level:" + outputLevel + "}")
+			ShapelessRecipeJsonFactory.create(ModItems.laputaShard)
+					.input(ModItems.lifeEssence)
+					.input(new FuzzyNBTIngredient(stack, i == 1))
+					.group("botania:laputa_shard_upgrade")
+					.criterion("has_item", conditionsFromItem(ModItems.laputaShard))
+					.offerTo(WrapperResult.transformJson(consumer, json -> json.getAsJsonObject("result").addProperty("nbt", "{level:" + outputLevel + "}")
 					), "botania:laputa_shard_" + i);
 		}
 
-		ShapedRecipeBuilder.shapedRecipe(ModItems.craftingHalo)
-				.key('P', ModItems.manaPearl)
-				.key('C', Items.CRAFTING_TABLE)
-				.key('I', ModTags.Items.INGOTS_MANASTEEL)
-				.patternLine(" P ")
-				.patternLine("ICI")
-				.patternLine(" I ")
-				.addCriterion("has_item", hasItem(ModItems.manaPearl))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.clip)
-				.key('D', ModBlocks.dreamwood)
-				.patternLine(" D ")
-				.patternLine("D D")
-				.patternLine("DD ")
-				.addCriterion("has_item", hasItem(ModBlocks.dreamwood))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.spellCloth)
-				.key('P', ModItems.manaPearl)
-				.key('C', ModItems.manaweaveCloth)
-				.patternLine(" C ")
-				.patternLine("CPC")
-				.patternLine(" C ")
-				.addCriterion("has_item", hasItem(ModItems.manaweaveCloth))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.flowerBag)
-				.key('P', ModTags.Items.PETALS)
-				.key('W', ItemTags.WOOL)
-				.patternLine("WPW")
-				.patternLine("W W")
-				.patternLine(" W ")
-				.addCriterion("has_item", hasItem(ModTags.Items.MYSTICAL_FLOWERS))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.poolMinecart)
-				.addIngredient(Items.MINECART)
-				.addIngredient(ModBlocks.manaPool)
-				.addCriterion("has_item", hasItem(Items.MINECART))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.blackHoleTalisman)
-				.key('A', ModItems.enderAirBottle)
-				.key('E', ModTags.Items.INGOTS_ELEMENTIUM)
-				.key('G', ModItems.lifeEssence)
-				.patternLine(" G ")
-				.patternLine("EAE")
-				.patternLine(" E ")
-				.addCriterion("has_item", hasItem(ModItems.lifeEssence))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.temperanceStone)
-				.key('R', ModTags.Items.RUNES_EARTH)
-				.key('S', Tags.Items.STONE)
-				.patternLine(" S ")
-				.patternLine("SRS")
-				.patternLine(" S ")
-				.addCriterion("has_item", hasItem(ModTags.Items.RUNES_EARTH))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.incenseStick)
-				.key('B', Items.BLAZE_POWDER)
-				.key('T', ModItems.livingwoodTwig)
-				.key('G', Items.GHAST_TEAR)
-				.patternLine("  G")
-				.patternLine(" B ")
-				.patternLine("T  ")
-				.addCriterion("has_item", hasItem(Items.GHAST_TEAR))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.obedienceStick)
-				.key('T', ModItems.livingwoodTwig)
-				.key('M', ModTags.Items.INGOTS_MANASTEEL)
-				.patternLine("  M")
-				.patternLine(" T ")
-				.patternLine("T  ")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_MANASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.slimeBottle)
-				.key('S', Items.SLIME_BALL)
-				.key('E', ModTags.Items.INGOTS_ELEMENTIUM)
-				.key('G', ModBlocks.elfGlass)
-				.patternLine("EGE")
-				.patternLine("ESE")
-				.patternLine(" E ")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_ELEMENTIUM))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.autocraftingHalo)
-				.addIngredient(ModItems.craftingHalo)
-				.addIngredient(ModTags.Items.GEMS_MANA_DIAMOND)
-				.addCriterion("has_item", hasItem(ModTags.Items.GEMS_MANA_DIAMOND))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.sextant)
-				.key('T', ModItems.livingwoodTwig)
-				.key('I', ModTags.Items.INGOTS_MANASTEEL)
-				.patternLine(" TI")
-				.patternLine(" TT")
-				.patternLine("III")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_MANASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.baubleBox)
-				.key('C', Tags.Items.CHESTS_WOODEN)
-				.key('G', Tags.Items.INGOTS_GOLD)
-				.key('M', ModTags.Items.INGOTS_MANASTEEL)
-				.patternLine(" M ")
-				.patternLine("MCG")
-				.patternLine(" M ")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_MANASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.astrolabe)
-				.key('D', ModBlocks.dreamwood)
-				.key('E', ModTags.Items.INGOTS_ELEMENTIUM)
-				.key('G', ModItems.lifeEssence)
-				.patternLine(" EG")
-				.patternLine("EEE")
-				.patternLine("GED")
-				.addCriterion("has_item", hasItem(ModItems.lifeEssence))
-				.build(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.craftingHalo)
+				.input('P', ModItems.manaPearl)
+				.input('C', Items.CRAFTING_TABLE)
+				.input('I', ModTags.Items.INGOTS_MANASTEEL)
+				.pattern(" P ")
+				.pattern("ICI")
+				.pattern(" I ")
+				.criterion("has_item", conditionsFromItem(ModItems.manaPearl))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.clip)
+				.input('D', ModBlocks.dreamwood)
+				.pattern(" D ")
+				.pattern("D D")
+				.pattern("DD ")
+				.criterion("has_item", conditionsFromItem(ModBlocks.dreamwood))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.spellCloth)
+				.input('P', ModItems.manaPearl)
+				.input('C', ModItems.manaweaveCloth)
+				.pattern(" C ")
+				.pattern("CPC")
+				.pattern(" C ")
+				.criterion("has_item", conditionsFromItem(ModItems.manaweaveCloth))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.flowerBag)
+				.input('P', ModTags.Items.PETALS)
+				.input('W', ItemTags.WOOL)
+				.pattern("WPW")
+				.pattern("W W")
+				.pattern(" W ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.MYSTICAL_FLOWERS))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.poolMinecart)
+				.input(Items.MINECART)
+				.input(ModBlocks.manaPool)
+				.criterion("has_item", conditionsFromItem(Items.MINECART))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.blackHoleTalisman)
+				.input('A', ModItems.enderAirBottle)
+				.input('E', ModTags.Items.INGOTS_ELEMENTIUM)
+				.input('G', ModItems.lifeEssence)
+				.pattern(" G ")
+				.pattern("EAE")
+				.pattern(" E ")
+				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.temperanceStone)
+				.input('R', ModTags.Items.RUNES_EARTH)
+				.input('S', Tags.Items.STONE)
+				.pattern(" S ")
+				.pattern("SRS")
+				.pattern(" S ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.RUNES_EARTH))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.incenseStick)
+				.input('B', Items.BLAZE_POWDER)
+				.input('T', ModItems.livingwoodTwig)
+				.input('G', Items.GHAST_TEAR)
+				.pattern("  G")
+				.pattern(" B ")
+				.pattern("T  ")
+				.criterion("has_item", conditionsFromItem(Items.GHAST_TEAR))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.obedienceStick)
+				.input('T', ModItems.livingwoodTwig)
+				.input('M', ModTags.Items.INGOTS_MANASTEEL)
+				.pattern("  M")
+				.pattern(" T ")
+				.pattern("T  ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.slimeBottle)
+				.input('S', Items.SLIME_BALL)
+				.input('E', ModTags.Items.INGOTS_ELEMENTIUM)
+				.input('G', ModBlocks.elfGlass)
+				.pattern("EGE")
+				.pattern("ESE")
+				.pattern(" E ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.autocraftingHalo)
+				.input(ModItems.craftingHalo)
+				.input(ModTags.Items.GEMS_MANA_DIAMOND)
+				.criterion("has_item", conditionsFromTag(ModTags.Items.GEMS_MANA_DIAMOND))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.sextant)
+				.input('T', ModItems.livingwoodTwig)
+				.input('I', ModTags.Items.INGOTS_MANASTEEL)
+				.pattern(" TI")
+				.pattern(" TT")
+				.pattern("III")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.baubleBox)
+				.input('C', Tags.Items.CHESTS_WOODEN)
+				.input('G', Tags.Items.INGOTS_GOLD)
+				.input('M', ModTags.Items.INGOTS_MANASTEEL)
+				.pattern(" M ")
+				.pattern("MCG")
+				.pattern(" M ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.astrolabe)
+				.input('D', ModBlocks.dreamwood)
+				.input('E', ModTags.Items.INGOTS_ELEMENTIUM)
+				.input('G', ModItems.lifeEssence)
+				.pattern(" EG")
+				.pattern("EEE")
+				.pattern("GED")
+				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
+				.offerTo(consumer);
 
 	}
 
-	private void registerTrinkets(Consumer<IFinishedRecipe> consumer) {
-		ShapedRecipeBuilder.shapedRecipe(ModItems.tinyPlanet)
-				.key('P', ModItems.manaPearl)
-				.key('S', Tags.Items.STONE)
-				.key('L', ModTags.Items.LIVINGROCK)
-				.patternLine("LSL")
-				.patternLine("SPS")
-				.patternLine("LSL")
-				.addCriterion("has_item", hasItem(ModItems.manaPearl))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.manaRing)
-				.key('T', ModItems.manaTablet)
-				.key('I', ModItems.manaSteel)
-				.patternLine("TI ")
-				.patternLine("I I")
-				.patternLine(" I ")
-				.addCriterion("has_item", hasItem(ModItems.manaTablet))
-				.build(WrapperResult.ofType(ManaUpgradeRecipe.SERIALIZER, consumer));
-		ShapedRecipeBuilder.shapedRecipe(ModItems.auraRing)
-				.key('R', ModTags.Items.RUNES_MANA)
-				.key('I', ModTags.Items.INGOTS_MANASTEEL)
-				.patternLine("RI ")
-				.patternLine("I I")
-				.patternLine(" I ")
-				.addCriterion("has_item", hasItem(ModTags.Items.RUNES_MANA))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.manaRingGreater)
-				.addIngredient(ModTags.Items.INGOTS_TERRASTEEL)
-				.addIngredient(ModItems.manaRing)
-				.addCriterion("has_item", hasItem(ModItems.terrasteel))
-				.build(WrapperResult.ofType(ShapelessManaUpgradeRecipe.SERIALIZER, consumer));
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.auraRingGreater)
-				.addIngredient(ModTags.Items.INGOTS_TERRASTEEL)
-				.addIngredient(ModItems.auraRing)
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_TERRASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.travelBelt)
-				.key('A', ModTags.Items.RUNES_AIR)
-				.key('S', ModTags.Items.INGOTS_MANASTEEL)
-				.key('E', ModTags.Items.RUNES_EARTH)
-				.key('L', Items.LEATHER)
-				.patternLine("EL ")
-				.patternLine("L L")
-				.patternLine("SLA")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_MANASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.knockbackBelt)
-				.key('A', ModTags.Items.RUNES_FIRE)
-				.key('S', ModTags.Items.INGOTS_MANASTEEL)
-				.key('E', ModTags.Items.RUNES_EARTH)
-				.key('L', Items.LEATHER)
-				.patternLine("AL ")
-				.patternLine("L L")
-				.patternLine("SLE")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_MANASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.icePendant)
-				.key('R', ModTags.Items.RUNES_WATER)
-				.key('S', ModItems.manaString)
-				.key('W', ModTags.Items.RUNES_WINTER)
-				.key('M', ModTags.Items.INGOTS_MANASTEEL)
-				.patternLine("WS ")
-				.patternLine("S S")
-				.patternLine("MSR")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_MANASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.lavaPendant)
-				.key('S', ModItems.manaString)
-				.key('D', ModTags.Items.INGOTS_MANASTEEL)
-				.key('F', ModTags.Items.RUNES_FIRE)
-				.key('M', ModTags.Items.RUNES_SUMMER)
-				.patternLine("MS ")
-				.patternLine("S S")
-				.patternLine("DSF")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_MANASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.magnetRing)
-				.key('L', ModItems.lensMagnet)
-				.key('M', ModTags.Items.INGOTS_MANASTEEL)
-				.patternLine("LM ")
-				.patternLine("M M")
-				.patternLine(" M ")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_MANASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.waterRing)
-				.key('P', Items.PUFFERFISH)
-				.key('C', Items.COD)
-				.key('H', Items.HEART_OF_THE_SEA)
-				.key('W', ModTags.Items.RUNES_WATER)
-				.key('M', ModTags.Items.INGOTS_MANASTEEL)
-				.patternLine("WMP")
-				.patternLine("MHM")
-				.patternLine("CM ")
-				.addCriterion("has_item", hasItem(Items.HEART_OF_THE_SEA))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.miningRing)
-				.key('P', Items.GOLDEN_PICKAXE)
-				.key('E', ModTags.Items.RUNES_EARTH)
-				.key('M', ModTags.Items.INGOTS_MANASTEEL)
-				.patternLine("EMP")
-				.patternLine("M M")
-				.patternLine(" M ")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_MANASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.divaCharm)
-				.key('P', ModItems.tinyPlanet)
-				.key('G', Tags.Items.INGOTS_GOLD)
-				.key('H', ModTags.Items.RUNES_PRIDE)
-				.key('L', ModItems.lifeEssence)
-				.patternLine("LGP")
-				.patternLine(" HG")
-				.patternLine(" GL")
-				.addCriterion("has_item", hasItem(ModItems.lifeEssence))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.flightTiara)
-				.key('E', ModItems.enderAirBottle)
-				.key('F', Items.FEATHER)
-				.key('I', ModTags.Items.INGOTS_ELEMENTIUM)
-				.key('L', ModItems.lifeEssence)
-				.patternLine("LLL")
-				.patternLine("ILI")
-				.patternLine("FEF")
-				.addCriterion("has_item", hasItem(ModItems.lifeEssence))
-				.build(consumer, "botania:flighttiara_0");
+	private void registerTrinkets(Consumer<RecipeJsonProvider> consumer) {
+		ShapedRecipeJsonFactory.create(ModItems.tinyPlanet)
+				.input('P', ModItems.manaPearl)
+				.input('S', Tags.Items.STONE)
+				.input('L', ModTags.Items.LIVINGROCK)
+				.pattern("LSL")
+				.pattern("SPS")
+				.pattern("LSL")
+				.criterion("has_item", conditionsFromItem(ModItems.manaPearl))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.manaRing)
+				.input('T', ModItems.manaTablet)
+				.input('I', ModItems.manaSteel)
+				.pattern("TI ")
+				.pattern("I I")
+				.pattern(" I ")
+				.criterion("has_item", conditionsFromItem(ModItems.manaTablet))
+				.offerTo(WrapperResult.ofType(ManaUpgradeRecipe.SERIALIZER, consumer));
+		ShapedRecipeJsonFactory.create(ModItems.auraRing)
+				.input('R', ModTags.Items.RUNES_MANA)
+				.input('I', ModTags.Items.INGOTS_MANASTEEL)
+				.pattern("RI ")
+				.pattern("I I")
+				.pattern(" I ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.RUNES_MANA))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.manaRingGreater)
+				.input(ModTags.Items.INGOTS_TERRASTEEL)
+				.input(ModItems.manaRing)
+				.criterion("has_item", conditionsFromItem(ModItems.terrasteel))
+				.offerTo(WrapperResult.ofType(ShapelessManaUpgradeRecipe.SERIALIZER, consumer));
+		ShapelessRecipeJsonFactory.create(ModItems.auraRingGreater)
+				.input(ModTags.Items.INGOTS_TERRASTEEL)
+				.input(ModItems.auraRing)
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_TERRASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.travelBelt)
+				.input('A', ModTags.Items.RUNES_AIR)
+				.input('S', ModTags.Items.INGOTS_MANASTEEL)
+				.input('E', ModTags.Items.RUNES_EARTH)
+				.input('L', Items.LEATHER)
+				.pattern("EL ")
+				.pattern("L L")
+				.pattern("SLA")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.knockbackBelt)
+				.input('A', ModTags.Items.RUNES_FIRE)
+				.input('S', ModTags.Items.INGOTS_MANASTEEL)
+				.input('E', ModTags.Items.RUNES_EARTH)
+				.input('L', Items.LEATHER)
+				.pattern("AL ")
+				.pattern("L L")
+				.pattern("SLE")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.icePendant)
+				.input('R', ModTags.Items.RUNES_WATER)
+				.input('S', ModItems.manaString)
+				.input('W', ModTags.Items.RUNES_WINTER)
+				.input('M', ModTags.Items.INGOTS_MANASTEEL)
+				.pattern("WS ")
+				.pattern("S S")
+				.pattern("MSR")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.lavaPendant)
+				.input('S', ModItems.manaString)
+				.input('D', ModTags.Items.INGOTS_MANASTEEL)
+				.input('F', ModTags.Items.RUNES_FIRE)
+				.input('M', ModTags.Items.RUNES_SUMMER)
+				.pattern("MS ")
+				.pattern("S S")
+				.pattern("DSF")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.magnetRing)
+				.input('L', ModItems.lensMagnet)
+				.input('M', ModTags.Items.INGOTS_MANASTEEL)
+				.pattern("LM ")
+				.pattern("M M")
+				.pattern(" M ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.waterRing)
+				.input('P', Items.PUFFERFISH)
+				.input('C', Items.COD)
+				.input('H', Items.HEART_OF_THE_SEA)
+				.input('W', ModTags.Items.RUNES_WATER)
+				.input('M', ModTags.Items.INGOTS_MANASTEEL)
+				.pattern("WMP")
+				.pattern("MHM")
+				.pattern("CM ")
+				.criterion("has_item", conditionsFromItem(Items.HEART_OF_THE_SEA))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.miningRing)
+				.input('P', Items.GOLDEN_PICKAXE)
+				.input('E', ModTags.Items.RUNES_EARTH)
+				.input('M', ModTags.Items.INGOTS_MANASTEEL)
+				.pattern("EMP")
+				.pattern("M M")
+				.pattern(" M ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.divaCharm)
+				.input('P', ModItems.tinyPlanet)
+				.input('G', Tags.Items.INGOTS_GOLD)
+				.input('H', ModTags.Items.RUNES_PRIDE)
+				.input('L', ModItems.lifeEssence)
+				.pattern("LGP")
+				.pattern(" HG")
+				.pattern(" GL")
+				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.flightTiara)
+				.input('E', ModItems.enderAirBottle)
+				.input('F', Items.FEATHER)
+				.input('I', ModTags.Items.INGOTS_ELEMENTIUM)
+				.input('L', ModItems.lifeEssence)
+				.pattern("LLL")
+				.pattern("ILI")
+				.pattern("FEF")
+				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
+				.offerTo(consumer, "botania:flighttiara_0");
 
 		// Normal quartz and not Tags.Items.QUARTZ because the recipes conflict.
 		Item[] items = { Items.QUARTZ, ModItems.darkQuartz, ModItems.manaQuartz, ModItems.blazeQuartz,
 				ModItems.lavenderQuartz, ModItems.redQuartz, ModItems.elfQuartz, ModItems.sunnyQuartz };
 		for (int i = 0; i < items.length; i++) {
 			int tiaraType = i + 1;
-			ShapelessRecipeBuilder.shapelessRecipe(ModItems.flightTiara)
-					.addIngredient(ModItems.flightTiara)
-					.addIngredient(items[i])
-					.setGroup("botania:flight_tiara_wings")
-					.addCriterion("has_item", hasItem(ModItems.flightTiara))
-					.build(WrapperResult.transformJson(consumer, json -> json.getAsJsonObject("result").addProperty("nbt", "{variant:" + tiaraType + "}")
+			ShapelessRecipeJsonFactory.create(ModItems.flightTiara)
+					.input(ModItems.flightTiara)
+					.input(items[i])
+					.group("botania:flight_tiara_wings")
+					.criterion("has_item", conditionsFromItem(ModItems.flightTiara))
+					.offerTo(WrapperResult.transformJson(consumer, json -> json.getAsJsonObject("result").addProperty("nbt", "{variant:" + tiaraType + "}")
 					), "botania:flighttiara_" + tiaraType);
 		}
-		ShapedRecipeBuilder.shapedRecipe(ModItems.pixieRing)
-				.key('D', ModItems.pixieDust)
-				.key('E', ModTags.Items.INGOTS_ELEMENTIUM)
-				.patternLine("DE ")
-				.patternLine("E E")
-				.patternLine(" E ")
-				.addCriterion("has_item", hasItem(ModItems.pixieDust))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.superTravelBelt)
-				.key('S', ModItems.travelBelt)
-				.key('E', ModTags.Items.INGOTS_ELEMENTIUM)
-				.key('L', ModItems.lifeEssence)
-				.patternLine("E  ")
-				.patternLine(" S ")
-				.patternLine("L E")
-				.addCriterion("has_item", hasItem(ModItems.lifeEssence))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.reachRing)
-				.key('R', ModTags.Items.RUNES_PRIDE)
-				.key('E', ModTags.Items.INGOTS_ELEMENTIUM)
-				.patternLine("RE ")
-				.patternLine("E E")
-				.patternLine(" E ")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_ELEMENTIUM))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.itemFinder)
-				.key('E', Tags.Items.GEMS_EMERALD)
-				.key('I', Tags.Items.INGOTS_IRON)
-				.key('Y', Items.ENDER_EYE)
-				.patternLine(" I ")
-				.patternLine("IYI")
-				.patternLine("IEI")
-				.addCriterion("has_item", hasItem(Items.ENDER_EYE))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.superLavaPendant)
-				.key('P', ModItems.lavaPendant)
-				.key('B', Items.BLAZE_ROD)
-				.key('G', ModItems.lifeEssence)
-				.key('N', Items.NETHER_BRICK)
-				.patternLine("BBB")
-				.patternLine("BPB")
-				.patternLine("NGN")
-				.addCriterion("has_item", hasItem(ModItems.lifeEssence))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.bloodPendant)
-				.key('P', Tags.Items.GEMS_PRISMARINE)
-				.key('D', ModTags.Items.GEMS_MANA_DIAMOND)
-				.key('G', Items.GHAST_TEAR)
-				.patternLine(" P ")
-				.patternLine("PGP")
-				.patternLine("DP ")
-				.addCriterion("has_item", hasItem(Items.GHAST_TEAR))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.holyCloak)
-				.key('S', ModItems.lifeEssence)
-				.key('W', Items.WHITE_WOOL)
-				.key('G', Tags.Items.DUSTS_GLOWSTONE)
-				.patternLine("WWW")
-				.patternLine("GWG")
-				.patternLine("GSG")
-				.addCriterion("has_item", hasItem(ModItems.lifeEssence))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.unholyCloak)
-				.key('R', Tags.Items.DUSTS_REDSTONE)
-				.key('S', ModItems.lifeEssence)
-				.key('W', Items.BLACK_WOOL)
-				.patternLine("WWW")
-				.patternLine("RWR")
-				.patternLine("RSR")
-				.addCriterion("has_item", hasItem(ModItems.lifeEssence))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.balanceCloak)
-				.key('R', Tags.Items.GEMS_EMERALD)
-				.key('S', ModItems.lifeEssence)
-				.key('W', Items.LIGHT_GRAY_WOOL)
-				.patternLine("WWW")
-				.patternLine("RWR")
-				.patternLine("RSR")
-				.addCriterion("has_item", hasItem(ModItems.lifeEssence))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.monocle)
-				.key('G', ModBlocks.manaGlass)
-				.key('I', ModTags.Items.INGOTS_MANASTEEL)
-				.key('N', Items.GOLD_NUGGET)
-				.patternLine("GN")
-				.patternLine("IN")
-				.patternLine(" N")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_MANASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.swapRing)
-				.key('C', Items.CLAY)
-				.key('M', ModTags.Items.INGOTS_MANASTEEL)
-				.patternLine("CM ")
-				.patternLine("M M")
-				.patternLine(" M ")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_MANASTEEL))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.magnetRingGreater)
-				.addIngredient(ModTags.Items.INGOTS_TERRASTEEL)
-				.addIngredient(ModItems.magnetRing)
-				.addCriterion("has_item", hasItem(ModItems.magnetRing))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.speedUpBelt)
-				.key('P', ModItems.grassSeeds)
-				.key('B', ModItems.travelBelt)
-				.key('S', Items.SUGAR)
-				.key('M', Items.MAP)
-				.patternLine(" M ")
-				.patternLine("PBP")
-				.patternLine(" S ")
-				.addCriterion("has_item", hasItem(Items.MAP))
-				.addCriterion("has_alt_item", hasItem(ModItems.travelBelt))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.dodgeRing)
-				.key('R', ModTags.Items.RUNES_AIR)
-				.key('E', Tags.Items.GEMS_EMERALD)
-				.key('M', ModTags.Items.INGOTS_MANASTEEL)
-				.patternLine("EM ")
-				.patternLine("M M")
-				.patternLine(" MR")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_MANASTEEL))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.invisibilityCloak)
-				.key('P', ModItems.manaPearl)
-				.key('C', Items.PRISMARINE_CRYSTALS)
-				.key('W', Items.WHITE_WOOL)
-				.key('G', ModBlocks.manaGlass)
-				.patternLine("CWC")
-				.patternLine("GWG")
-				.patternLine("GPG")
-				.addCriterion("has_item", hasItem(ModItems.manaPearl))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.cloudPendant)
-				.key('S', ModItems.manaString)
-				.key('D', ModTags.Items.INGOTS_MANASTEEL)
-				.key('F', ModTags.Items.RUNES_AIR)
-				.key('M', ModTags.Items.RUNES_AUTUMN)
-				.patternLine("MS ")
-				.patternLine("S S")
-				.patternLine("DSF")
-				.addCriterion("has_item", hasItem(ModItems.manaString))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.superCloudPendant)
-				.key('P', ModItems.cloudPendant)
-				.key('B', Items.GHAST_TEAR)
-				.key('E', ModTags.Items.INGOTS_ELEMENTIUM)
-				.key('G', ModItems.lifeEssence)
-				.key('N', Items.WHITE_WOOL)
-				.patternLine("BEB")
-				.patternLine("BPB")
-				.patternLine("NGN")
-				.addCriterion("has_item", hasItem(ModItems.cloudPendant))
-				.addCriterion("has_alt_item", hasItem(ModItems.lifeEssence))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.thirdEye)
-				.key('Q', Items.QUARTZ_BLOCK)
-				.key('R', Items.GOLDEN_CARROT)
-				.key('S', ModTags.Items.RUNES_EARTH)
-				.key('D', ModTags.Items.GEMS_MANA_DIAMOND)
-				.key('E', Items.ENDER_EYE)
-				.patternLine("RSR")
-				.patternLine("QEQ")
-				.patternLine("RDR")
-				.addCriterion("has_item", hasItem(ModTags.Items.GEMS_MANA_DIAMOND))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.goddessCharm)
-				.key('P', ModTags.Items.PETALS_PINK)
-				.key('A', ModTags.Items.RUNES_WATER)
-				.key('S', ModTags.Items.RUNES_SPRING)
-				.key('D', ModTags.Items.GEMS_MANA_DIAMOND)
-				.patternLine(" P ")
-				.patternLine(" P ")
-				.patternLine("ADS")
-				.addCriterion("has_item", hasItem(ModTags.Items.GEMS_MANA_DIAMOND))
-				.build(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.pixieRing)
+				.input('D', ModItems.pixieDust)
+				.input('E', ModTags.Items.INGOTS_ELEMENTIUM)
+				.pattern("DE ")
+				.pattern("E E")
+				.pattern(" E ")
+				.criterion("has_item", conditionsFromItem(ModItems.pixieDust))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.superTravelBelt)
+				.input('S', ModItems.travelBelt)
+				.input('E', ModTags.Items.INGOTS_ELEMENTIUM)
+				.input('L', ModItems.lifeEssence)
+				.pattern("E  ")
+				.pattern(" S ")
+				.pattern("L E")
+				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.reachRing)
+				.input('R', ModTags.Items.RUNES_PRIDE)
+				.input('E', ModTags.Items.INGOTS_ELEMENTIUM)
+				.pattern("RE ")
+				.pattern("E E")
+				.pattern(" E ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.itemFinder)
+				.input('E', Tags.Items.GEMS_EMERALD)
+				.input('I', Tags.Items.INGOTS_IRON)
+				.input('Y', Items.ENDER_EYE)
+				.pattern(" I ")
+				.pattern("IYI")
+				.pattern("IEI")
+				.criterion("has_item", conditionsFromItem(Items.ENDER_EYE))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.superLavaPendant)
+				.input('P', ModItems.lavaPendant)
+				.input('B', Items.BLAZE_ROD)
+				.input('G', ModItems.lifeEssence)
+				.input('N', Items.NETHER_BRICK)
+				.pattern("BBB")
+				.pattern("BPB")
+				.pattern("NGN")
+				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.bloodPendant)
+				.input('P', Tags.Items.GEMS_PRISMARINE)
+				.input('D', ModTags.Items.GEMS_MANA_DIAMOND)
+				.input('G', Items.GHAST_TEAR)
+				.pattern(" P ")
+				.pattern("PGP")
+				.pattern("DP ")
+				.criterion("has_item", conditionsFromItem(Items.GHAST_TEAR))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.holyCloak)
+				.input('S', ModItems.lifeEssence)
+				.input('W', Items.WHITE_WOOL)
+				.input('G', Tags.Items.DUSTS_GLOWSTONE)
+				.pattern("WWW")
+				.pattern("GWG")
+				.pattern("GSG")
+				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.unholyCloak)
+				.input('R', Tags.Items.DUSTS_REDSTONE)
+				.input('S', ModItems.lifeEssence)
+				.input('W', Items.BLACK_WOOL)
+				.pattern("WWW")
+				.pattern("RWR")
+				.pattern("RSR")
+				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.balanceCloak)
+				.input('R', Tags.Items.GEMS_EMERALD)
+				.input('S', ModItems.lifeEssence)
+				.input('W', Items.LIGHT_GRAY_WOOL)
+				.pattern("WWW")
+				.pattern("RWR")
+				.pattern("RSR")
+				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.monocle)
+				.input('G', ModBlocks.manaGlass)
+				.input('I', ModTags.Items.INGOTS_MANASTEEL)
+				.input('N', Items.GOLD_NUGGET)
+				.pattern("GN")
+				.pattern("IN")
+				.pattern(" N")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.swapRing)
+				.input('C', Items.CLAY)
+				.input('M', ModTags.Items.INGOTS_MANASTEEL)
+				.pattern("CM ")
+				.pattern("M M")
+				.pattern(" M ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.magnetRingGreater)
+				.input(ModTags.Items.INGOTS_TERRASTEEL)
+				.input(ModItems.magnetRing)
+				.criterion("has_item", conditionsFromItem(ModItems.magnetRing))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.speedUpBelt)
+				.input('P', ModItems.grassSeeds)
+				.input('B', ModItems.travelBelt)
+				.input('S', Items.SUGAR)
+				.input('M', Items.MAP)
+				.pattern(" M ")
+				.pattern("PBP")
+				.pattern(" S ")
+				.criterion("has_item", conditionsFromItem(Items.MAP))
+				.criterion("has_alt_item", conditionsFromItem(ModItems.travelBelt))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.dodgeRing)
+				.input('R', ModTags.Items.RUNES_AIR)
+				.input('E', Tags.Items.GEMS_EMERALD)
+				.input('M', ModTags.Items.INGOTS_MANASTEEL)
+				.pattern("EM ")
+				.pattern("M M")
+				.pattern(" MR")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.invisibilityCloak)
+				.input('P', ModItems.manaPearl)
+				.input('C', Items.PRISMARINE_CRYSTALS)
+				.input('W', Items.WHITE_WOOL)
+				.input('G', ModBlocks.manaGlass)
+				.pattern("CWC")
+				.pattern("GWG")
+				.pattern("GPG")
+				.criterion("has_item", conditionsFromItem(ModItems.manaPearl))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.cloudPendant)
+				.input('S', ModItems.manaString)
+				.input('D', ModTags.Items.INGOTS_MANASTEEL)
+				.input('F', ModTags.Items.RUNES_AIR)
+				.input('M', ModTags.Items.RUNES_AUTUMN)
+				.pattern("MS ")
+				.pattern("S S")
+				.pattern("DSF")
+				.criterion("has_item", conditionsFromItem(ModItems.manaString))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.superCloudPendant)
+				.input('P', ModItems.cloudPendant)
+				.input('B', Items.GHAST_TEAR)
+				.input('E', ModTags.Items.INGOTS_ELEMENTIUM)
+				.input('G', ModItems.lifeEssence)
+				.input('N', Items.WHITE_WOOL)
+				.pattern("BEB")
+				.pattern("BPB")
+				.pattern("NGN")
+				.criterion("has_item", conditionsFromItem(ModItems.cloudPendant))
+				.criterion("has_alt_item", conditionsFromItem(ModItems.lifeEssence))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.thirdEye)
+				.input('Q', Items.QUARTZ_BLOCK)
+				.input('R', Items.GOLDEN_CARROT)
+				.input('S', ModTags.Items.RUNES_EARTH)
+				.input('D', ModTags.Items.GEMS_MANA_DIAMOND)
+				.input('E', Items.ENDER_EYE)
+				.pattern("RSR")
+				.pattern("QEQ")
+				.pattern("RDR")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.GEMS_MANA_DIAMOND))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.goddessCharm)
+				.input('P', ModTags.Items.PETALS_PINK)
+				.input('A', ModTags.Items.RUNES_WATER)
+				.input('S', ModTags.Items.RUNES_SPRING)
+				.input('D', ModTags.Items.GEMS_MANA_DIAMOND)
+				.pattern(" P ")
+				.pattern(" P ")
+				.pattern("ADS")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.GEMS_MANA_DIAMOND))
+				.offerTo(consumer);
 
 	}
 
-	private void registerCorporeaAndRedString(Consumer<IFinishedRecipe> consumer) {
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.redString)
-				.addIngredient(Items.STRING)
-				.addIngredient(Tags.Items.STORAGE_BLOCKS_REDSTONE)
-				.addIngredient(ModItems.pixieDust)
-				.addIngredient(ModItems.enderAirBottle)
-				.setGroup("botania:red_string")
-				.addCriterion("has_item", hasItem(ModItems.enderAirBottle))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.redString)
-				.addIngredient(Items.STRING)
-				.addIngredient(Tags.Items.STORAGE_BLOCKS_REDSTONE)
-				.addIngredient(ModItems.pixieDust)
-				.addIngredient(ModItems.enderAirBottle)
-				.addIngredient(Items.PUMPKIN)
-				.setGroup("botania:red_string")
-				.addCriterion("has_item", hasItem(ModItems.enderAirBottle))
-				.build(consumer, "botania:red_string_alt");
-		registerRedStringBlock(consumer, ModBlocks.redStringContainer, Ingredient.fromTag(Tags.Items.CHESTS_WOODEN), hasItem(Tags.Items.CHESTS_WOODEN));
-		registerRedStringBlock(consumer, ModBlocks.redStringDispenser, Ingredient.fromItems(Items.DISPENSER), hasItem(Items.DISPENSER));
-		registerRedStringBlock(consumer, ModBlocks.redStringFertilizer, Ingredient.fromItems(ModItems.fertilizer), hasItem(ModItems.fertilizer));
-		registerRedStringBlock(consumer, ModBlocks.redStringComparator, Ingredient.fromItems(Items.COMPARATOR), hasItem(Items.COMPARATOR));
-		registerRedStringBlock(consumer, ModBlocks.redStringRelay, Ingredient.fromItems(ModBlocks.manaSpreader), hasItem(ModBlocks.manaSpreader));
-		registerRedStringBlock(consumer, ModBlocks.redStringInterceptor, Ingredient.fromItems(Items.STONE_BUTTON), hasItem(Items.STONE_BUTTON));
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.corporeaSpark)
-				.addIngredient(ModItems.spark)
-				.addIngredient(ModItems.pixieDust)
-				.addIngredient(ModItems.enderAirBottle)
-				.addCriterion("has_item", hasItem(ModItems.enderAirBottle))
-				.addCriterion("has_alt_item", hasItem(ModItems.pixieDust))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.corporeaSparkMaster)
-				.addIngredient(ModItems.corporeaSpark)
-				.addIngredient(ModTags.Items.GEMS_DRAGONSTONE)
-				.addCriterion("has_item", hasItem(ModItems.corporeaSpark))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.corporeaIndex)
-				.key('A', ModItems.enderAirBottle)
-				.key('S', ModItems.corporeaSpark)
-				.key('D', ModTags.Items.GEMS_DRAGONSTONE)
-				.key('O', Items.OBSIDIAN)
-				.patternLine("AOA")
-				.patternLine("OSO")
-				.patternLine("DOD")
-				.addCriterion("has_item", hasItem(ModItems.corporeaSpark))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.corporeaFunnel)
-				.addIngredient(Items.DROPPER)
-				.addIngredient(ModItems.corporeaSpark)
-				.addCriterion("has_item", hasItem(ModItems.corporeaSpark))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.corporeaInterceptor)
-				.addIngredient(Tags.Items.STORAGE_BLOCKS_REDSTONE)
-				.addIngredient(ModItems.corporeaSpark)
-				.addCriterion("has_item", hasItem(ModItems.corporeaSpark))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.corporeaCrystalCube)
-				.key('C', ModItems.corporeaSpark)
-				.key('G', ModBlocks.elfGlass)
-				.key('W', ModBlocks.dreamwood)
-				.patternLine("C")
-				.patternLine("G")
-				.patternLine("W")
-				.addCriterion("has_item", hasItem(ModItems.corporeaSpark))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.corporeaRetainer)
-				.addIngredient(Tags.Items.CHESTS_WOODEN)
-				.addIngredient(ModItems.corporeaSpark)
-				.addCriterion("has_item", hasItem(ModItems.corporeaSpark))
-				.build(consumer);
+	private void registerCorporeaAndRedString(Consumer<RecipeJsonProvider> consumer) {
+		ShapelessRecipeJsonFactory.create(ModItems.redString)
+				.input(Items.STRING)
+				.input(Tags.Items.STORAGE_BLOCKS_REDSTONE)
+				.input(ModItems.pixieDust)
+				.input(ModItems.enderAirBottle)
+				.group("botania:red_string")
+				.criterion("has_item", conditionsFromItem(ModItems.enderAirBottle))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.redString)
+				.input(Items.STRING)
+				.input(Tags.Items.STORAGE_BLOCKS_REDSTONE)
+				.input(ModItems.pixieDust)
+				.input(ModItems.enderAirBottle)
+				.input(Items.PUMPKIN)
+				.group("botania:red_string")
+				.criterion("has_item", conditionsFromItem(ModItems.enderAirBottle))
+				.offerTo(consumer, "botania:red_string_alt");
+		registerRedStringBlock(consumer, ModBlocks.redStringContainer, Ingredient.fromTag(Tags.Items.CHESTS_WOODEN), conditionsFromTag(Tags.Items.CHESTS_WOODEN));
+		registerRedStringBlock(consumer, ModBlocks.redStringDispenser, Ingredient.ofItems(Items.DISPENSER), conditionsFromItem(Items.DISPENSER));
+		registerRedStringBlock(consumer, ModBlocks.redStringFertilizer, Ingredient.ofItems(ModItems.fertilizer), conditionsFromItem(ModItems.fertilizer));
+		registerRedStringBlock(consumer, ModBlocks.redStringComparator, Ingredient.ofItems(Items.COMPARATOR), conditionsFromItem(Items.COMPARATOR));
+		registerRedStringBlock(consumer, ModBlocks.redStringRelay, Ingredient.ofItems(ModBlocks.manaSpreader), conditionsFromItem(ModBlocks.manaSpreader));
+		registerRedStringBlock(consumer, ModBlocks.redStringInterceptor, Ingredient.ofItems(Items.STONE_BUTTON), conditionsFromItem(Items.STONE_BUTTON));
+		ShapelessRecipeJsonFactory.create(ModItems.corporeaSpark)
+				.input(ModItems.spark)
+				.input(ModItems.pixieDust)
+				.input(ModItems.enderAirBottle)
+				.criterion("has_item", conditionsFromItem(ModItems.enderAirBottle))
+				.criterion("has_alt_item", conditionsFromItem(ModItems.pixieDust))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.corporeaSparkMaster)
+				.input(ModItems.corporeaSpark)
+				.input(ModTags.Items.GEMS_DRAGONSTONE)
+				.criterion("has_item", conditionsFromItem(ModItems.corporeaSpark))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.corporeaIndex)
+				.input('A', ModItems.enderAirBottle)
+				.input('S', ModItems.corporeaSpark)
+				.input('D', ModTags.Items.GEMS_DRAGONSTONE)
+				.input('O', Items.OBSIDIAN)
+				.pattern("AOA")
+				.pattern("OSO")
+				.pattern("DOD")
+				.criterion("has_item", conditionsFromItem(ModItems.corporeaSpark))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.corporeaFunnel)
+				.input(Items.DROPPER)
+				.input(ModItems.corporeaSpark)
+				.criterion("has_item", conditionsFromItem(ModItems.corporeaSpark))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.corporeaInterceptor)
+				.input(Tags.Items.STORAGE_BLOCKS_REDSTONE)
+				.input(ModItems.corporeaSpark)
+				.criterion("has_item", conditionsFromItem(ModItems.corporeaSpark))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.corporeaCrystalCube)
+				.input('C', ModItems.corporeaSpark)
+				.input('G', ModBlocks.elfGlass)
+				.input('W', ModBlocks.dreamwood)
+				.pattern("C")
+				.pattern("G")
+				.pattern("W")
+				.criterion("has_item", conditionsFromItem(ModItems.corporeaSpark))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.corporeaRetainer)
+				.input(Tags.Items.CHESTS_WOODEN)
+				.input(ModItems.corporeaSpark)
+				.criterion("has_item", conditionsFromItem(ModItems.corporeaSpark))
+				.offerTo(consumer);
 
 	}
 
-	private void registerLenses(Consumer<IFinishedRecipe> consumer) {
-		ShapedRecipeBuilder.shapedRecipe(ModItems.lensNormal)
-				.key('S', ModTags.Items.INGOTS_MANASTEEL)
-				.key('G', Ingredient.fromItems(Items.GLASS, Items.GLASS_PANE))
-				.patternLine(" S ")
-				.patternLine("SGS")
-				.patternLine(" S ")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_MANASTEEL))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.lensSpeed)
-				.addIngredient(ModItems.lensNormal)
-				.addIngredient(ModTags.Items.RUNES_AIR)
-				.addCriterion("has_item", hasItem(ModItems.lensNormal))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.lensPower)
-				.addIngredient(ModItems.lensNormal)
-				.addIngredient(ModTags.Items.RUNES_FIRE)
-				.addCriterion("has_item", hasItem(ModItems.lensNormal))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.lensTime)
-				.addIngredient(ModItems.lensNormal)
-				.addIngredient(ModTags.Items.RUNES_EARTH)
-				.addCriterion("has_item", hasItem(ModItems.lensNormal))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.lensEfficiency)
-				.addIngredient(ModItems.lensNormal)
-				.addIngredient(ModTags.Items.RUNES_WATER)
-				.addCriterion("has_item", hasItem(ModItems.lensNormal))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.lensBounce)
-				.addIngredient(ModItems.lensNormal)
-				.addIngredient(ModTags.Items.RUNES_SUMMER)
-				.addCriterion("has_item", hasItem(ModItems.lensNormal))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.lensGravity)
-				.addIngredient(ModItems.lensNormal)
-				.addIngredient(ModTags.Items.RUNES_WINTER)
-				.addCriterion("has_item", hasItem(ModItems.lensNormal))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.lensMine)
-				.key('P', Items.PISTON)
-				.key('A', Tags.Items.GEMS_LAPIS)
-				.key('R', Tags.Items.DUSTS_REDSTONE)
-				.key('L', ModItems.lensNormal)
-				.patternLine(" P ")
-				.patternLine("ALA")
-				.patternLine(" R ")
-				.addCriterion("has_item", hasItem(ModItems.lensNormal))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.lensDamage)
-				.addIngredient(ModItems.lensNormal)
-				.addIngredient(ModTags.Items.RUNES_WRATH)
-				.addCriterion("has_item", hasItem(ModItems.lensNormal))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.lensPhantom)
-				.addIngredient(ModItems.lensNormal)
-				.addIngredient(ModBlocks.abstrusePlatform)
-				.addCriterion("has_item", hasItem(ModItems.lensNormal))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.lensMagnet)
-				.addIngredient(ModItems.lensNormal)
-				.addIngredient(Tags.Items.INGOTS_IRON)
-				.addIngredient(Tags.Items.INGOTS_GOLD)
-				.addCriterion("has_item", hasItem(ModItems.lensNormal))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.lensExplosive)
-				.addIngredient(ModItems.lensNormal)
-				.addIngredient(ModTags.Items.RUNES_ENVY)
-				.addCriterion("has_item", hasItem(ModItems.lensNormal))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.lensInfluence)
-				.key('P', Tags.Items.GEMS_PRISMARINE)
-				.key('R', ModTags.Items.RUNES_AIR)
-				.key('L', ModItems.lensNormal)
-				.patternLine("PRP")
-				.patternLine("PLP")
-				.patternLine("PPP")
-				.addCriterion("has_item", hasItem(ModItems.lensNormal))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.lensWeight)
-				.key('P', Tags.Items.GEMS_PRISMARINE)
-				.key('R', ModTags.Items.RUNES_WATER)
-				.key('L', ModItems.lensNormal)
-				.patternLine("PPP")
-				.patternLine("PLP")
-				.patternLine("PRP")
-				.addCriterion("has_item", hasItem(ModItems.lensNormal))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.lensPaint)
-				.key('E', ModTags.Items.INGOTS_ELEMENTIUM)
-				.key('W', ItemTags.WOOL)
-				.key('L', ModItems.lensNormal)
-				.patternLine(" E ")
-				.patternLine("WLW")
-				.patternLine(" E ")
-				.addCriterion("has_item", hasItem(ModItems.lensNormal))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.lensFire)
-				.addIngredient(ModItems.lensNormal)
-				.addIngredient(Items.FIRE_CHARGE)
-				.addCriterion("has_item", hasItem(ModItems.lensNormal))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.lensPiston)
-				.addIngredient(ModItems.lensNormal)
-				.addIngredient(ModBlocks.pistonRelay)
-				.addCriterion("has_item", hasItem(ModItems.lensNormal))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.lensLight)
-				.key('F', Items.FIRE_CHARGE)
-				.key('G', Items.GLOWSTONE)
-				.key('L', ModItems.lensNormal)
-				.patternLine("GFG")
-				.patternLine("FLF")
-				.patternLine("GFG")
-				.addCriterion("has_item", hasItem(ModItems.lensNormal))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModItems.lensLight)
-				.key('F', Items.FIRE_CHARGE)
-				.key('G', Items.GLOWSTONE)
-				.key('L', ModItems.lensNormal)
-				.patternLine("FGF")
-				.patternLine("GLG")
-				.patternLine("FGF")
-				.addCriterion("has_item", hasItem(ModItems.lensNormal))
-				.build(consumer, "botania:lens_light_alt");
-		ShapedRecipeBuilder.shapedRecipe(ModItems.lensMessenger)
-				.key('P', Items.PAPER)
-				.key('L', ModItems.lensNormal)
-				.patternLine(" P ")
-				.patternLine("PLP")
-				.patternLine(" P ")
-				.addCriterion("has_item", hasItem(ModItems.lensNormal))
-				.build(consumer);
+	private void registerLenses(Consumer<RecipeJsonProvider> consumer) {
+		ShapedRecipeJsonFactory.create(ModItems.lensNormal)
+				.input('S', ModTags.Items.INGOTS_MANASTEEL)
+				.input('G', Ingredient.ofItems(Items.GLASS, Items.GLASS_PANE))
+				.pattern(" S ")
+				.pattern("SGS")
+				.pattern(" S ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.lensSpeed)
+				.input(ModItems.lensNormal)
+				.input(ModTags.Items.RUNES_AIR)
+				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.lensPower)
+				.input(ModItems.lensNormal)
+				.input(ModTags.Items.RUNES_FIRE)
+				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.lensTime)
+				.input(ModItems.lensNormal)
+				.input(ModTags.Items.RUNES_EARTH)
+				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.lensEfficiency)
+				.input(ModItems.lensNormal)
+				.input(ModTags.Items.RUNES_WATER)
+				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.lensBounce)
+				.input(ModItems.lensNormal)
+				.input(ModTags.Items.RUNES_SUMMER)
+				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.lensGravity)
+				.input(ModItems.lensNormal)
+				.input(ModTags.Items.RUNES_WINTER)
+				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.lensMine)
+				.input('P', Items.PISTON)
+				.input('A', Tags.Items.GEMS_LAPIS)
+				.input('R', Tags.Items.DUSTS_REDSTONE)
+				.input('L', ModItems.lensNormal)
+				.pattern(" P ")
+				.pattern("ALA")
+				.pattern(" R ")
+				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.lensDamage)
+				.input(ModItems.lensNormal)
+				.input(ModTags.Items.RUNES_WRATH)
+				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.lensPhantom)
+				.input(ModItems.lensNormal)
+				.input(ModBlocks.abstrusePlatform)
+				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.lensMagnet)
+				.input(ModItems.lensNormal)
+				.input(Tags.Items.INGOTS_IRON)
+				.input(Tags.Items.INGOTS_GOLD)
+				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.lensExplosive)
+				.input(ModItems.lensNormal)
+				.input(ModTags.Items.RUNES_ENVY)
+				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.lensInfluence)
+				.input('P', Tags.Items.GEMS_PRISMARINE)
+				.input('R', ModTags.Items.RUNES_AIR)
+				.input('L', ModItems.lensNormal)
+				.pattern("PRP")
+				.pattern("PLP")
+				.pattern("PPP")
+				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.lensWeight)
+				.input('P', Tags.Items.GEMS_PRISMARINE)
+				.input('R', ModTags.Items.RUNES_WATER)
+				.input('L', ModItems.lensNormal)
+				.pattern("PPP")
+				.pattern("PLP")
+				.pattern("PRP")
+				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.lensPaint)
+				.input('E', ModTags.Items.INGOTS_ELEMENTIUM)
+				.input('W', ItemTags.WOOL)
+				.input('L', ModItems.lensNormal)
+				.pattern(" E ")
+				.pattern("WLW")
+				.pattern(" E ")
+				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.lensFire)
+				.input(ModItems.lensNormal)
+				.input(Items.FIRE_CHARGE)
+				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.lensPiston)
+				.input(ModItems.lensNormal)
+				.input(ModBlocks.pistonRelay)
+				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.lensLight)
+				.input('F', Items.FIRE_CHARGE)
+				.input('G', Items.GLOWSTONE)
+				.input('L', ModItems.lensNormal)
+				.pattern("GFG")
+				.pattern("FLF")
+				.pattern("GFG")
+				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModItems.lensLight)
+				.input('F', Items.FIRE_CHARGE)
+				.input('G', Items.GLOWSTONE)
+				.input('L', ModItems.lensNormal)
+				.pattern("FGF")
+				.pattern("GLG")
+				.pattern("FGF")
+				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
+				.offerTo(consumer, "botania:lens_light_alt");
+		ShapedRecipeJsonFactory.create(ModItems.lensMessenger)
+				.input('P', Items.PAPER)
+				.input('L', ModItems.lensNormal)
+				.pattern(" P ")
+				.pattern("PLP")
+				.pattern(" P ")
+				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
+				.offerTo(consumer);
 
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.lensWarp)
-				.addIngredient(ModItems.lensNormal)
-				.addIngredient(ModItems.pixieDust)
-				.addCriterion("has_item", hasItem(ModItems.pixieDust))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.lensRedirect)
-				.addIngredient(ModItems.lensNormal)
-				.addIngredient(ModTags.Items.LIVINGWOOD)
-				.addIngredient(ModTags.Items.INGOTS_ELEMENTIUM)
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_ELEMENTIUM))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.lensFirework)
-				.addIngredient(ModItems.lensNormal)
-				.addIngredient(Items.FIREWORK_ROCKET)
-				.addIngredient(ModTags.Items.INGOTS_ELEMENTIUM)
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_ELEMENTIUM))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.lensFlare)
-				.addIngredient(ModItems.lensNormal)
-				.addIngredient(ModBlocks.elfGlass)
-				.addIngredient(ModTags.Items.INGOTS_ELEMENTIUM)
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_ELEMENTIUM))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.lensTripwire)
-				.addIngredient(ModItems.lensNormal)
-				.addIngredient(Items.TRIPWIRE_HOOK)
-				.addIngredient(ModTags.Items.INGOTS_ELEMENTIUM)
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_ELEMENTIUM))
-				.build(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.lensWarp)
+				.input(ModItems.lensNormal)
+				.input(ModItems.pixieDust)
+				.criterion("has_item", conditionsFromItem(ModItems.pixieDust))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.lensRedirect)
+				.input(ModItems.lensNormal)
+				.input(ModTags.Items.LIVINGWOOD)
+				.input(ModTags.Items.INGOTS_ELEMENTIUM)
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.lensFirework)
+				.input(ModItems.lensNormal)
+				.input(Items.FIREWORK_ROCKET)
+				.input(ModTags.Items.INGOTS_ELEMENTIUM)
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.lensFlare)
+				.input(ModItems.lensNormal)
+				.input(ModBlocks.elfGlass)
+				.input(ModTags.Items.INGOTS_ELEMENTIUM)
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModItems.lensTripwire)
+				.input(ModItems.lensNormal)
+				.input(Items.TRIPWIRE_HOOK)
+				.input(ModTags.Items.INGOTS_ELEMENTIUM)
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
+				.offerTo(consumer);
 	}
 
-	private void registerFloatingFlowers(Consumer<IFinishedRecipe> consumer) {
+	private void registerFloatingFlowers(Consumer<RecipeJsonProvider> consumer) {
 		for (Block block : new Block[] {
 				ModSubtiles.pureDaisy, ModSubtiles.manastar, ModSubtiles.hydroangeas, ModSubtiles.endoflame,
 				ModSubtiles.thermalily, ModSubtiles.rosaArcana, ModSubtiles.munchdew, ModSubtiles.entropinnyum,
@@ -2041,19 +2040,19 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 		}
 	}
 
-	private void registerConversions(Consumer<IFinishedRecipe> consumer) {
+	private void registerConversions(Consumer<RecipeJsonProvider> consumer) {
 		compression(ModItems.manaSteel, ModTags.Items.NUGGETS_MANASTEEL)
-				.build(consumer, prefix("conversions/manasteel_from_nuggets"));
+				.offerTo(consumer, prefix("conversions/manasteel_from_nuggets"));
 		compression(ModItems.elementium, ModTags.Items.NUGGETS_ELEMENTIUM)
-				.build(consumer, prefix("conversions/elementium_from_nuggets"));
+				.offerTo(consumer, prefix("conversions/elementium_from_nuggets"));
 		compression(ModItems.terrasteel, ModTags.Items.NUGGETS_TERRASTEEL)
-				.build(consumer, prefix("conversions/terrasteel_from_nugget"));
-		compression(ModBlocks.manasteelBlock, ModTags.Items.INGOTS_MANASTEEL).build(consumer);
-		compression(ModBlocks.terrasteelBlock, ModTags.Items.INGOTS_TERRASTEEL).build(consumer);
-		compression(ModBlocks.elementiumBlock, ModTags.Items.INGOTS_ELEMENTIUM).build(consumer);
-		compression(ModBlocks.manaDiamondBlock, ModTags.Items.GEMS_MANA_DIAMOND).build(consumer);
-		compression(ModBlocks.dragonstoneBlock, ModTags.Items.GEMS_DRAGONSTONE).build(consumer);
-		compression(ModBlocks.blazeBlock, Tags.Items.RODS_BLAZE).build(consumer);
+				.offerTo(consumer, prefix("conversions/terrasteel_from_nugget"));
+		compression(ModBlocks.manasteelBlock, ModTags.Items.INGOTS_MANASTEEL).offerTo(consumer);
+		compression(ModBlocks.terrasteelBlock, ModTags.Items.INGOTS_TERRASTEEL).offerTo(consumer);
+		compression(ModBlocks.elementiumBlock, ModTags.Items.INGOTS_ELEMENTIUM).offerTo(consumer);
+		compression(ModBlocks.manaDiamondBlock, ModTags.Items.GEMS_MANA_DIAMOND).offerTo(consumer);
+		compression(ModBlocks.dragonstoneBlock, ModTags.Items.GEMS_DRAGONSTONE).offerTo(consumer);
+		compression(ModBlocks.blazeBlock, Tags.Items.RODS_BLAZE).offerTo(consumer);
 
 		deconstructPetalBlock(consumer, ModItems.whitePetal, ModBlocks.petalBlockWhite);
 		deconstructPetalBlock(consumer, ModItems.orangePetal, ModBlocks.petalBlockOrange);
@@ -2122,73 +2121,73 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 		recombineSlab(consumer, ModFluffBlocks.greenPavement, ModFluffBlocks.greenPavementSlab);
 	}
 
-	private void registerDecor(Consumer<IFinishedRecipe> consumer) {
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.livingrockBrick, 4)
-				.key('R', ModTags.Items.LIVINGROCK)
-				.patternLine("RR")
-				.patternLine("RR")
-				.addCriterion("has_item", hasItem(ModTags.Items.LIVINGROCK))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.livingrockBrickChiseled, 4)
-				.key('R', ModBlocks.livingrockBrick)
-				.patternLine("RR")
-				.patternLine("RR")
-				.addCriterion("has_item", hasItem(ModBlocks.livingrockBrick))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.livingrockBrickCracked, 2)
-				.addIngredient(ModBlocks.livingrockBrick)
-				.addIngredient(Tags.Items.COBBLESTONE)
-				.addCriterion("has_item", hasItem(ModBlocks.livingrockBrick))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.livingrockBrickMossy)
-				.addIngredient(ModBlocks.livingrockBrick)
-				.addIngredient(Items.WHEAT_SEEDS)
-				.addCriterion("has_item", hasItem(ModBlocks.livingrockBrick))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.livingwoodPlanksMossy)
-				.addIngredient(ModBlocks.livingwoodPlanks)
-				.addIngredient(Items.WHEAT_SEEDS)
-				.addCriterion("has_item", hasItem(ModBlocks.livingwoodPlanks))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.livingwoodFramed, 4)
-				.key('W', ModBlocks.livingwoodPlanks)
-				.patternLine("WW")
-				.patternLine("WW")
-				.addCriterion("has_item", hasItem(ModBlocks.livingwoodPlanks))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.livingwoodGlimmering)
-				.addIngredient(ModTags.Items.LIVINGWOOD)
-				.addIngredient(Tags.Items.DUSTS_GLOWSTONE)
-				.addCriterion("has_item", hasItem(ModTags.Items.LIVINGWOOD))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.dreamwoodPlanksMossy)
-				.addIngredient(ModBlocks.dreamwoodPlanks)
-				.addIngredient(Items.WHEAT_SEEDS)
-				.addCriterion("has_item", hasItem(ModBlocks.dreamwoodPlanks))
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.dreamwoodFramed, 4)
-				.key('W', ModBlocks.dreamwoodPlanks)
-				.patternLine("WW")
-				.patternLine("WW")
-				.addCriterion("has_item", hasItem(ModBlocks.dreamwoodPlanks))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.dreamwoodGlimmering)
-				.addIngredient(ModBlocks.dreamwood)
-				.addIngredient(Tags.Items.DUSTS_GLOWSTONE)
-				.addCriterion("has_item", hasItem(ModBlocks.dreamwood))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.shimmerrock)
-				.addIngredient(ModTags.Items.LIVINGROCK)
-				.addIngredient(ModBlocks.bifrostPerm)
-				.addCriterion("has_item", hasItem(ModBlocks.bifrostPerm))
-				.addCriterion("has_alt_item", hasItem(ModItems.rainbowRod))
-				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.shimmerwoodPlanks)
-				.addIngredient(ModBlocks.dreamwoodPlanks)
-				.addIngredient(ModBlocks.bifrostPerm)
-				.addCriterion("has_item", hasItem(ModBlocks.bifrostPerm))
-				.addCriterion("has_alt_item", hasItem(ModItems.rainbowRod))
-				.build(consumer);
+	private void registerDecor(Consumer<RecipeJsonProvider> consumer) {
+		ShapedRecipeJsonFactory.create(ModBlocks.livingrockBrick, 4)
+				.input('R', ModTags.Items.LIVINGROCK)
+				.pattern("RR")
+				.pattern("RR")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.LIVINGROCK))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.livingrockBrickChiseled, 4)
+				.input('R', ModBlocks.livingrockBrick)
+				.pattern("RR")
+				.pattern("RR")
+				.criterion("has_item", conditionsFromItem(ModBlocks.livingrockBrick))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.livingrockBrickCracked, 2)
+				.input(ModBlocks.livingrockBrick)
+				.input(Tags.Items.COBBLESTONE)
+				.criterion("has_item", conditionsFromItem(ModBlocks.livingrockBrick))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.livingrockBrickMossy)
+				.input(ModBlocks.livingrockBrick)
+				.input(Items.WHEAT_SEEDS)
+				.criterion("has_item", conditionsFromItem(ModBlocks.livingrockBrick))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.livingwoodPlanksMossy)
+				.input(ModBlocks.livingwoodPlanks)
+				.input(Items.WHEAT_SEEDS)
+				.criterion("has_item", conditionsFromItem(ModBlocks.livingwoodPlanks))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.livingwoodFramed, 4)
+				.input('W', ModBlocks.livingwoodPlanks)
+				.pattern("WW")
+				.pattern("WW")
+				.criterion("has_item", conditionsFromItem(ModBlocks.livingwoodPlanks))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.livingwoodGlimmering)
+				.input(ModTags.Items.LIVINGWOOD)
+				.input(Tags.Items.DUSTS_GLOWSTONE)
+				.criterion("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.dreamwoodPlanksMossy)
+				.input(ModBlocks.dreamwoodPlanks)
+				.input(Items.WHEAT_SEEDS)
+				.criterion("has_item", conditionsFromItem(ModBlocks.dreamwoodPlanks))
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.dreamwoodFramed, 4)
+				.input('W', ModBlocks.dreamwoodPlanks)
+				.pattern("WW")
+				.pattern("WW")
+				.criterion("has_item", conditionsFromItem(ModBlocks.dreamwoodPlanks))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.dreamwoodGlimmering)
+				.input(ModBlocks.dreamwood)
+				.input(Tags.Items.DUSTS_GLOWSTONE)
+				.criterion("has_item", conditionsFromItem(ModBlocks.dreamwood))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.shimmerrock)
+				.input(ModTags.Items.LIVINGROCK)
+				.input(ModBlocks.bifrostPerm)
+				.criterion("has_item", conditionsFromItem(ModBlocks.bifrostPerm))
+				.criterion("has_alt_item", conditionsFromItem(ModItems.rainbowRod))
+				.offerTo(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.shimmerwoodPlanks)
+				.input(ModBlocks.dreamwoodPlanks)
+				.input(ModBlocks.bifrostPerm)
+				.criterion("has_item", conditionsFromItem(ModBlocks.bifrostPerm))
+				.criterion("has_alt_item", conditionsFromItem(ModItems.rainbowRod))
+				.offerTo(consumer);
 
 		registerForQuartz(consumer, LibBlockNames.QUARTZ_DARK, ModItems.darkQuartz);
 		registerForQuartz(consumer, LibBlockNames.QUARTZ_MANA, ModItems.manaQuartz);
@@ -2201,23 +2200,23 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 		registerForWood(consumer, LibBlockNames.LIVING_WOOD);
 		registerForWood(consumer, LibBlockNames.DREAM_WOOD);
 
-		stairs(ModFluffBlocks.livingrockStairs, ModBlocks.livingrock).build(consumer);
-		slabShape(ModFluffBlocks.livingrockSlab, ModBlocks.livingrock).build(consumer);
-		wallShape(ModFluffBlocks.livingrockWall, ModBlocks.livingrock, 6).build(consumer);
+		stairs(ModFluffBlocks.livingrockStairs, ModBlocks.livingrock).offerTo(consumer);
+		slabShape(ModFluffBlocks.livingrockSlab, ModBlocks.livingrock).offerTo(consumer);
+		wallShape(ModFluffBlocks.livingrockWall, ModBlocks.livingrock, 6).offerTo(consumer);
 
-		stairs(ModFluffBlocks.livingrockBrickStairs, ModBlocks.livingrockBrick).build(consumer);
-		slabShape(ModFluffBlocks.livingrockBrickSlab, ModBlocks.livingrockBrick).build(consumer);
-		stairs(ModFluffBlocks.shimmerrockStairs, ModBlocks.shimmerrock).build(consumer);
-		slabShape(ModFluffBlocks.shimmerrockSlab, ModBlocks.shimmerrock).build(consumer);
-		stairs(ModFluffBlocks.livingwoodPlankStairs, ModBlocks.livingwoodPlanks).build(consumer);
-		slabShape(ModFluffBlocks.livingwoodPlankSlab, ModBlocks.livingwoodPlanks).build(consumer);
-		stairs(ModFluffBlocks.dreamwoodPlankStairs, ModBlocks.dreamwoodPlanks).build(consumer);
-		slabShape(ModFluffBlocks.dreamwoodPlankSlab, ModBlocks.dreamwoodPlanks).build(consumer);
-		stairs(ModFluffBlocks.shimmerwoodPlankStairs, ModBlocks.shimmerwoodPlanks).build(consumer);
-		slabShape(ModFluffBlocks.shimmerwoodPlankSlab, ModBlocks.shimmerwoodPlanks).build(consumer);
+		stairs(ModFluffBlocks.livingrockBrickStairs, ModBlocks.livingrockBrick).offerTo(consumer);
+		slabShape(ModFluffBlocks.livingrockBrickSlab, ModBlocks.livingrockBrick).offerTo(consumer);
+		stairs(ModFluffBlocks.shimmerrockStairs, ModBlocks.shimmerrock).offerTo(consumer);
+		slabShape(ModFluffBlocks.shimmerrockSlab, ModBlocks.shimmerrock).offerTo(consumer);
+		stairs(ModFluffBlocks.livingwoodPlankStairs, ModBlocks.livingwoodPlanks).offerTo(consumer);
+		slabShape(ModFluffBlocks.livingwoodPlankSlab, ModBlocks.livingwoodPlanks).offerTo(consumer);
+		stairs(ModFluffBlocks.dreamwoodPlankStairs, ModBlocks.dreamwoodPlanks).offerTo(consumer);
+		slabShape(ModFluffBlocks.dreamwoodPlankSlab, ModBlocks.dreamwoodPlanks).offerTo(consumer);
+		stairs(ModFluffBlocks.shimmerwoodPlankStairs, ModBlocks.shimmerwoodPlanks).offerTo(consumer);
+		slabShape(ModFluffBlocks.shimmerwoodPlankSlab, ModBlocks.shimmerwoodPlanks).offerTo(consumer);
 
-		ringShape(ModBlocks.livingwoodPatternFramed, ModBlocks.livingwoodPlanks).build(consumer);
-		ringShape(ModBlocks.dreamwoodPatternFramed, ModBlocks.dreamwoodPlanks).build(consumer);
+		ringShape(ModBlocks.livingwoodPatternFramed, ModBlocks.livingwoodPlanks).offerTo(consumer);
+		ringShape(ModBlocks.dreamwoodPatternFramed, ModBlocks.dreamwoodPlanks).offerTo(consumer);
 
 		for (String variant : LibBlockNames.METAMORPHIC_VARIANTS) {
 			registerForMetamorphic(consumer, variant);
@@ -2228,19 +2227,19 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 			registerForPavement(consumer, LibBlockNames.PAVEMENT_VARIANTS[i], pavementIngredients[i]);
 		}
 
-		wallShape(ModFluffBlocks.managlassPane, ModBlocks.manaGlass, 16).build(consumer);
-		wallShape(ModFluffBlocks.alfglassPane, ModBlocks.elfGlass, 16).build(consumer);
-		wallShape(ModFluffBlocks.bifrostPane, ModBlocks.bifrostPerm, 16).build(consumer);
+		wallShape(ModFluffBlocks.managlassPane, ModBlocks.manaGlass, 16).offerTo(consumer);
+		wallShape(ModFluffBlocks.alfglassPane, ModBlocks.elfGlass, 16).offerTo(consumer);
+		wallShape(ModFluffBlocks.bifrostPane, ModBlocks.bifrostPerm, 16).offerTo(consumer);
 
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.azulejo0)
-				.addIngredient(Tags.Items.DYES_BLUE)
-				.addIngredient(ModTags.Items.BLOCKS_QUARTZ)
-				.addCriterion("has_item", hasItem(Tags.Items.DYES_BLUE))
-				.build(consumer);
+		ShapelessRecipeJsonFactory.create(ModBlocks.azulejo0)
+				.input(Tags.Items.DYES_BLUE)
+				.input(ModTags.Items.BLOCKS_QUARTZ)
+				.criterion("has_item", conditionsFromTag(Tags.Items.DYES_BLUE))
+				.offerTo(consumer);
 
 		List<Item> allAzulejos = IntStream.range(0, 16).mapToObj(i -> "azulejo_" + i)
 				.map(ResourceLocationHelper::prefix)
-				.map(Registry.ITEM::getValue)
+				.map(Registry.ITEM::getOrEmpty)
 				.map(Optional::get)
 				.collect(Collectors.toList());
 		for (int i = 0; i < allAzulejos.size(); i++) {
@@ -2249,11 +2248,11 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 			if (resultIndex == 0) {
 				recipeName += "_alt";
 			}
-			ShapelessRecipeBuilder.shapelessRecipe(allAzulejos.get(resultIndex))
-					.addIngredient(allAzulejos.get(i))
-					.addCriterion("has_azulejo", hasItem(ModBlocks.azulejo0))
-					.setGroup("botania:azulejo_cycling")
-					.build(consumer, prefix(recipeName));
+			ShapelessRecipeJsonFactory.create(allAzulejos.get(resultIndex))
+					.input(allAzulejos.get(i))
+					.criterion("has_azulejo", conditionsFromItem(ModBlocks.azulejo0))
+					.group("botania:azulejo_cycling")
+					.offerTo(consumer, prefix(recipeName));
 		}
 
 		cosmeticBauble(consumer, ModItems.blackBowtie, ModItems.whitePetal);
@@ -2291,345 +2290,345 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 		cosmeticBauble(consumer, ModItems.thinkingHand, ModBlocks.tinyPotato);
 	}
 
-	private void registerSimpleArmorSet(Consumer<IFinishedRecipe> consumer, Ingredient item, String variant,
-			ICriterionInstance criterion) {
-		Item helmet = Registry.ITEM.getValue(prefix(variant + "_helmet")).get();
-		Item chestplate = Registry.ITEM.getValue(prefix(variant + "_chestplate")).get();
-		Item leggings = Registry.ITEM.getValue(prefix(variant + "_leggings")).get();
-		Item boots = Registry.ITEM.getValue(prefix(variant + "_boots")).get();
-		ShapedRecipeBuilder.shapedRecipe(helmet)
-				.key('S', item)
-				.patternLine("SSS")
-				.patternLine("S S")
-				.addCriterion("has_item", criterion)
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(chestplate)
-				.key('S', item)
-				.patternLine("S S")
-				.patternLine("SSS")
-				.patternLine("SSS")
-				.addCriterion("has_item", criterion)
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(leggings)
-				.key('S', item)
-				.patternLine("SSS")
-				.patternLine("S S")
-				.patternLine("S S")
-				.addCriterion("has_item", criterion)
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(boots)
-				.key('S', item)
-				.patternLine("S S")
-				.patternLine("S S")
-				.addCriterion("has_item", criterion)
-				.build(consumer);
+	private void registerSimpleArmorSet(Consumer<RecipeJsonProvider> consumer, Ingredient item, String variant,
+			CriterionConditions criterion) {
+		Item helmet = Registry.ITEM.getOrEmpty(prefix(variant + "_helmet")).get();
+		Item chestplate = Registry.ITEM.getOrEmpty(prefix(variant + "_chestplate")).get();
+		Item leggings = Registry.ITEM.getOrEmpty(prefix(variant + "_leggings")).get();
+		Item boots = Registry.ITEM.getOrEmpty(prefix(variant + "_boots")).get();
+		ShapedRecipeJsonFactory.create(helmet)
+				.input('S', item)
+				.pattern("SSS")
+				.pattern("S S")
+				.criterion("has_item", criterion)
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(chestplate)
+				.input('S', item)
+				.pattern("S S")
+				.pattern("SSS")
+				.pattern("SSS")
+				.criterion("has_item", criterion)
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(leggings)
+				.input('S', item)
+				.pattern("SSS")
+				.pattern("S S")
+				.pattern("S S")
+				.criterion("has_item", criterion)
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(boots)
+				.input('S', item)
+				.pattern("S S")
+				.pattern("S S")
+				.criterion("has_item", criterion)
+				.offerTo(consumer);
 	}
 
-	private void registerToolSetRecipes(Consumer<IFinishedRecipe> consumer, Ingredient item, Ingredient stick,
-			ICriterionInstance criterion, IItemProvider sword, IItemProvider pickaxe,
-			IItemProvider axe, IItemProvider shovel, IItemProvider shears) {
-		ShapedRecipeBuilder.shapedRecipe(pickaxe)
-				.key('S', item)
-				.key('T', stick)
-				.patternLine("SSS")
-				.patternLine(" T ")
-				.patternLine(" T ")
-				.addCriterion("has_item", criterion)
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(shovel)
-				.key('S', item)
-				.key('T', stick)
-				.patternLine("S")
-				.patternLine("T")
-				.patternLine("T")
-				.addCriterion("has_item", criterion)
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(axe)
-				.key('S', item)
-				.key('T', stick)
-				.patternLine("SS")
-				.patternLine("TS")
-				.patternLine("T ")
-				.addCriterion("has_item", criterion)
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(sword)
-				.key('S', item)
-				.key('T', stick)
-				.patternLine("S")
-				.patternLine("S")
-				.patternLine("T")
-				.addCriterion("has_item", criterion)
-				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(shears)
-				.key('S', item)
-				.patternLine("S ")
-				.patternLine(" S")
-				.addCriterion("has_item", criterion)
-				.build(consumer);
+	private void registerToolSetRecipes(Consumer<RecipeJsonProvider> consumer, Ingredient item, Ingredient stick,
+			CriterionConditions criterion, ItemConvertible sword, ItemConvertible pickaxe,
+			ItemConvertible axe, ItemConvertible shovel, ItemConvertible shears) {
+		ShapedRecipeJsonFactory.create(pickaxe)
+				.input('S', item)
+				.input('T', stick)
+				.pattern("SSS")
+				.pattern(" T ")
+				.pattern(" T ")
+				.criterion("has_item", criterion)
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(shovel)
+				.input('S', item)
+				.input('T', stick)
+				.pattern("S")
+				.pattern("T")
+				.pattern("T")
+				.criterion("has_item", criterion)
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(axe)
+				.input('S', item)
+				.input('T', stick)
+				.pattern("SS")
+				.pattern("TS")
+				.pattern("T ")
+				.criterion("has_item", criterion)
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(sword)
+				.input('S', item)
+				.input('T', stick)
+				.pattern("S")
+				.pattern("S")
+				.pattern("T")
+				.criterion("has_item", criterion)
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(shears)
+				.input('S', item)
+				.pattern("S ")
+				.pattern(" S")
+				.criterion("has_item", criterion)
+				.offerTo(consumer);
 
 	}
 
-	private void registerTerrasteelUpgradeRecipe(Consumer<IFinishedRecipe> consumer, IItemProvider output,
-			IItemProvider upgradedInput, ITag<Item> runeInput) {
-		ShapedRecipeBuilder.shapedRecipe(output)
-				.key('T', ModItems.livingwoodTwig)
-				.key('S', ModTags.Items.INGOTS_TERRASTEEL)
-				.key('R', runeInput)
-				.key('A', upgradedInput)
-				.patternLine("TRT")
-				.patternLine("SAS")
-				.patternLine(" S ")
-				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_TERRASTEEL))
-				.addCriterion("has_prev_tier", hasItem(upgradedInput))
-				.build(WrapperResult.ofType(ArmorUpgradeRecipe.SERIALIZER, consumer));
+	private void registerTerrasteelUpgradeRecipe(Consumer<RecipeJsonProvider> consumer, ItemConvertible output,
+			ItemConvertible upgradedInput, Tag<Item> runeInput) {
+		ShapedRecipeJsonFactory.create(output)
+				.input('T', ModItems.livingwoodTwig)
+				.input('S', ModTags.Items.INGOTS_TERRASTEEL)
+				.input('R', runeInput)
+				.input('A', upgradedInput)
+				.pattern("TRT")
+				.pattern("SAS")
+				.pattern(" S ")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_TERRASTEEL))
+				.criterion("has_prev_tier", conditionsFromItem(upgradedInput))
+				.offerTo(WrapperResult.ofType(ArmorUpgradeRecipe.SERIALIZER, consumer));
 	}
 
-	private void registerRedStringBlock(Consumer<IFinishedRecipe> consumer, IItemProvider output, Ingredient input, ICriterionInstance criterion) {
-		ShapedRecipeBuilder.shapedRecipe(output)
-				.key('R', ModTags.Items.LIVINGROCK)
-				.key('S', ModItems.redString)
-				.key('M', input)
-				.patternLine("RRR")
-				.patternLine("RMS")
-				.patternLine("RRR")
-				.addCriterion("has_item", hasItem(ModItems.redString))
-				.addCriterion("has_base_block", criterion)
-				.build(consumer);
+	private void registerRedStringBlock(Consumer<RecipeJsonProvider> consumer, ItemConvertible output, Ingredient input, CriterionConditions criterion) {
+		ShapedRecipeJsonFactory.create(output)
+				.input('R', ModTags.Items.LIVINGROCK)
+				.input('S', ModItems.redString)
+				.input('M', input)
+				.pattern("RRR")
+				.pattern("RMS")
+				.pattern("RRR")
+				.criterion("has_item", conditionsFromItem(ModItems.redString))
+				.criterion("has_base_block", criterion)
+				.offerTo(consumer);
 	}
 
-	private void createFloatingFlowerRecipe(Consumer<IFinishedRecipe> consumer, IItemProvider input) {
-		ResourceLocation inputName = Registry.ITEM.getKey(input.asItem());
-		Item output = Registry.ITEM.getValue(new ResourceLocation(inputName.getNamespace(), "floating_" + inputName.getPath())).get();
-		ShapelessRecipeBuilder.shapelessRecipe(output)
-				.addIngredient(ModTags.Items.FLOATING_FLOWERS)
-				.addIngredient(input)
-				.addCriterion("has_item", hasItem(input))
-				.build(consumer);
+	private void createFloatingFlowerRecipe(Consumer<RecipeJsonProvider> consumer, ItemConvertible input) {
+		Identifier inputName = Registry.ITEM.getId(input.asItem());
+		Item output = Registry.ITEM.getOrEmpty(new Identifier(inputName.getNamespace(), "floating_" + inputName.getPath())).get();
+		ShapelessRecipeJsonFactory.create(output)
+				.input(ModTags.Items.FLOATING_FLOWERS)
+				.input(input)
+				.criterion("has_item", conditionsFromItem(input))
+				.offerTo(consumer);
 	}
 
-	private void deconstruct(Consumer<IFinishedRecipe> consumer, IItemProvider output, IItemProvider input, String name) {
-		ShapelessRecipeBuilder.shapelessRecipe(output, 9)
-				.addCriterion("has_item", hasItem(output))
-				.addIngredient(input)
-				.build(consumer, prefix("conversions/" + name));
+	private void deconstruct(Consumer<RecipeJsonProvider> consumer, ItemConvertible output, ItemConvertible input, String name) {
+		ShapelessRecipeJsonFactory.create(output, 9)
+				.criterion("has_item", conditionsFromItem(output))
+				.input(input)
+				.offerTo(consumer, prefix("conversions/" + name));
 	}
 
-	private void deconstruct(Consumer<IFinishedRecipe> consumer, IItemProvider output, ITag<Item> input, String name) {
-		ShapelessRecipeBuilder.shapelessRecipe(output, 9)
-				.addCriterion("has_item", hasItem(output))
-				.addIngredient(input)
-				.build(consumer, prefix("conversions/" + name));
+	private void deconstruct(Consumer<RecipeJsonProvider> consumer, ItemConvertible output, Tag<Item> input, String name) {
+		ShapelessRecipeJsonFactory.create(output, 9)
+				.criterion("has_item", conditionsFromItem(output))
+				.input(input)
+				.offerTo(consumer, prefix("conversions/" + name));
 	}
 
-	private void deconstructPetalBlock(Consumer<IFinishedRecipe> consumer, IItemProvider output, IItemProvider input) {
-		ShapelessRecipeBuilder.shapelessRecipe(output, 9)
-				.addCriterion("has_item", hasItem(output))
-				.addIngredient(input).setGroup("botania:petal_block_deconstruct")
-				.build(consumer, prefix("conversions/" + Registry.ITEM.getKey(input.asItem()).getPath() + "_deconstruct"));
+	private void deconstructPetalBlock(Consumer<RecipeJsonProvider> consumer, ItemConvertible output, ItemConvertible input) {
+		ShapelessRecipeJsonFactory.create(output, 9)
+				.criterion("has_item", conditionsFromItem(output))
+				.input(input).group("botania:petal_block_deconstruct")
+				.offerTo(consumer, prefix("conversions/" + Registry.ITEM.getId(input.asItem()).getPath() + "_deconstruct"));
 	}
 
-	private void recombineSlab(Consumer<IFinishedRecipe> consumer, IItemProvider fullBlock, IItemProvider slab) {
-		ShapedRecipeBuilder.shapedRecipe(fullBlock)
-				.key('Q', slab)
-				.patternLine("Q")
-				.patternLine("Q")
-				.addCriterion("has_item", hasItem(fullBlock))
-				.build(consumer, prefix("slab_recombine/" + Registry.ITEM.getKey(fullBlock.asItem()).getPath()));
+	private void recombineSlab(Consumer<RecipeJsonProvider> consumer, ItemConvertible fullBlock, ItemConvertible slab) {
+		ShapedRecipeJsonFactory.create(fullBlock)
+				.input('Q', slab)
+				.pattern("Q")
+				.pattern("Q")
+				.criterion("has_item", conditionsFromItem(fullBlock))
+				.offerTo(consumer, prefix("slab_recombine/" + Registry.ITEM.getId(fullBlock.asItem()).getPath()));
 	}
 
-	private void registerForQuartz(Consumer<IFinishedRecipe> consumer, String variant, IItemProvider baseItem) {
-		Block base = Registry.BLOCK.getValue(prefix(variant)).get();
-		Block slab = Registry.BLOCK.getValue(prefix(variant + LibBlockNames.SLAB_SUFFIX)).get();
-		Block stairs = Registry.BLOCK.getValue(prefix(variant + LibBlockNames.STAIR_SUFFIX)).get();
-		Block chiseled = Registry.BLOCK.getValue(prefix("chiseled_" + variant)).get();
-		Block pillar = Registry.BLOCK.getValue(prefix(variant + "_pillar")).get();
+	private void registerForQuartz(Consumer<RecipeJsonProvider> consumer, String variant, ItemConvertible baseItem) {
+		Block base = Registry.BLOCK.getOrEmpty(prefix(variant)).get();
+		Block slab = Registry.BLOCK.getOrEmpty(prefix(variant + LibBlockNames.SLAB_SUFFIX)).get();
+		Block stairs = Registry.BLOCK.getOrEmpty(prefix(variant + LibBlockNames.STAIR_SUFFIX)).get();
+		Block chiseled = Registry.BLOCK.getOrEmpty(prefix("chiseled_" + variant)).get();
+		Block pillar = Registry.BLOCK.getOrEmpty(prefix(variant + "_pillar")).get();
 
-		ShapedRecipeBuilder.shapedRecipe(base)
-				.key('Q', baseItem)
-				.patternLine("QQ")
-				.patternLine("QQ")
-				.addCriterion("has_item", hasItem(baseItem))
-				.build(consumer);
-		stairs(stairs, base).build(consumer);
-		slabShape(slab, base).build(consumer);
-		pillar(pillar, base).build(consumer);
-		chiseled(chiseled, slab).addCriterion("has_base_item", hasItem(base)).build(consumer);
+		ShapedRecipeJsonFactory.create(base)
+				.input('Q', baseItem)
+				.pattern("QQ")
+				.pattern("QQ")
+				.criterion("has_item", conditionsFromItem(baseItem))
+				.offerTo(consumer);
+		stairs(stairs, base).offerTo(consumer);
+		slabShape(slab, base).offerTo(consumer);
+		pillar(pillar, base).offerTo(consumer);
+		chiseled(chiseled, slab).criterion("has_base_item", conditionsFromItem(base)).offerTo(consumer);
 	}
 
-	private void registerForWood(Consumer<IFinishedRecipe> consumer, String variant) {
-		Block base = Registry.BLOCK.getValue(prefix(variant)).get();
-		Block planks = Registry.BLOCK.getValue(prefix(variant + "_planks")).get();
-		Block slab = Registry.BLOCK.getValue(prefix(variant + LibBlockNames.SLAB_SUFFIX)).get();
-		Block stairs = Registry.BLOCK.getValue(prefix(variant + LibBlockNames.STAIR_SUFFIX)).get();
-		Block wall = Registry.BLOCK.getValue(prefix(variant + LibBlockNames.WALL_SUFFIX)).get();
-		Block fence = Registry.BLOCK.getValue(prefix(variant + LibBlockNames.FENCE_SUFFIX)).get();
-		Block fenceGate = Registry.BLOCK.getValue(prefix(variant + LibBlockNames.FENCE_GATE_SUFFIX)).get();
+	private void registerForWood(Consumer<RecipeJsonProvider> consumer, String variant) {
+		Block base = Registry.BLOCK.getOrEmpty(prefix(variant)).get();
+		Block planks = Registry.BLOCK.getOrEmpty(prefix(variant + "_planks")).get();
+		Block slab = Registry.BLOCK.getOrEmpty(prefix(variant + LibBlockNames.SLAB_SUFFIX)).get();
+		Block stairs = Registry.BLOCK.getOrEmpty(prefix(variant + LibBlockNames.STAIR_SUFFIX)).get();
+		Block wall = Registry.BLOCK.getOrEmpty(prefix(variant + LibBlockNames.WALL_SUFFIX)).get();
+		Block fence = Registry.BLOCK.getOrEmpty(prefix(variant + LibBlockNames.FENCE_SUFFIX)).get();
+		Block fenceGate = Registry.BLOCK.getOrEmpty(prefix(variant + LibBlockNames.FENCE_GATE_SUFFIX)).get();
 
-		ShapelessRecipeBuilder.shapelessRecipe(planks, 4).addIngredient(base)
-				.addCriterion("has_item", hasItem(base)).build(consumer);
-		stairs(stairs, base).build(consumer);
-		slabShape(slab, base).build(consumer);
-		wallShape(wall, base, 6).build(consumer);
-		fence(fence, planks).build(consumer);
-		fenceGate(fenceGate, planks).build(consumer);
+		ShapelessRecipeJsonFactory.create(planks, 4).input(base)
+				.criterion("has_item", conditionsFromItem(base)).offerTo(consumer);
+		stairs(stairs, base).offerTo(consumer);
+		slabShape(slab, base).offerTo(consumer);
+		wallShape(wall, base, 6).offerTo(consumer);
+		fence(fence, planks).offerTo(consumer);
+		fenceGate(fenceGate, planks).offerTo(consumer);
 	}
 
-	private void registerForPavement(Consumer<IFinishedRecipe> consumer, String color, @Nullable Item mainInput) {
+	private void registerForPavement(Consumer<RecipeJsonProvider> consumer, String color, @Nullable Item mainInput) {
 		String baseName = color + LibBlockNames.PAVEMENT_SUFFIX;
-		Block base = Registry.BLOCK.getValue(prefix(baseName)).get();
-		Block stair = Registry.BLOCK.getValue(prefix(baseName + LibBlockNames.STAIR_SUFFIX)).get();
-		Block slab = Registry.BLOCK.getValue(prefix(baseName + LibBlockNames.SLAB_SUFFIX)).get();
+		Block base = Registry.BLOCK.getOrEmpty(prefix(baseName)).get();
+		Block stair = Registry.BLOCK.getOrEmpty(prefix(baseName + LibBlockNames.STAIR_SUFFIX)).get();
+		Block slab = Registry.BLOCK.getOrEmpty(prefix(baseName + LibBlockNames.SLAB_SUFFIX)).get();
 
-		ShapelessRecipeBuilder builder = ShapelessRecipeBuilder.shapelessRecipe(base, 3)
-				.addIngredient(ModTags.Items.LIVINGROCK)
-				.addIngredient(Tags.Items.COBBLESTONE)
-				.addIngredient(Items.GRAVEL)
-				.setGroup("botania:pavement")
-				.addCriterion("has_item", hasItem(ModTags.Items.LIVINGROCK));
+		ShapelessRecipeJsonFactory builder = ShapelessRecipeJsonFactory.create(base, 3)
+				.input(ModTags.Items.LIVINGROCK)
+				.input(Tags.Items.COBBLESTONE)
+				.input(Items.GRAVEL)
+				.group("botania:pavement")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.LIVINGROCK));
 		if (mainInput != Items.AIR) {
-			builder.addIngredient(mainInput);
+			builder.input(mainInput);
 		}
-		builder.build(consumer);
+		builder.offerTo(consumer);
 
-		slabShape(slab, base).setGroup("botania:pavement_slab").build(consumer);
-		stairs(stair, base).setGroup("botania:pavement_stairs").build(consumer);
+		slabShape(slab, base).group("botania:pavement_slab").offerTo(consumer);
+		stairs(stair, base).group("botania:pavement_stairs").offerTo(consumer);
 	}
 
-	private void registerForMetamorphic(Consumer<IFinishedRecipe> consumer, String variant) {
-		Block base = Registry.BLOCK.getValue(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone")).get();
-		Block slab = Registry.BLOCK.getValue(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.SLAB_SUFFIX)).get();
-		Block stair = Registry.BLOCK.getValue(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.STAIR_SUFFIX)).get();
-		Block brick = Registry.BLOCK.getValue(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks")).get();
-		Block brickSlab = Registry.BLOCK.getValue(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.SLAB_SUFFIX)).get();
-		Block brickStair = Registry.BLOCK.getValue(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.STAIR_SUFFIX)).get();
-		Block chiseledBrick = Registry.BLOCK.getValue(prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks")).get();
-		Block cobble = Registry.BLOCK.getValue(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone")).get();
-		Block cobbleSlab = Registry.BLOCK.getValue(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.SLAB_SUFFIX)).get();
-		Block cobbleStair = Registry.BLOCK.getValue(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.STAIR_SUFFIX)).get();
-		Block cobbleWall = Registry.BLOCK.getValue(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX)).get();
+	private void registerForMetamorphic(Consumer<RecipeJsonProvider> consumer, String variant) {
+		Block base = Registry.BLOCK.getOrEmpty(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone")).get();
+		Block slab = Registry.BLOCK.getOrEmpty(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.SLAB_SUFFIX)).get();
+		Block stair = Registry.BLOCK.getOrEmpty(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.STAIR_SUFFIX)).get();
+		Block brick = Registry.BLOCK.getOrEmpty(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks")).get();
+		Block brickSlab = Registry.BLOCK.getOrEmpty(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.SLAB_SUFFIX)).get();
+		Block brickStair = Registry.BLOCK.getOrEmpty(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.STAIR_SUFFIX)).get();
+		Block chiseledBrick = Registry.BLOCK.getOrEmpty(prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks")).get();
+		Block cobble = Registry.BLOCK.getOrEmpty(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone")).get();
+		Block cobbleSlab = Registry.BLOCK.getOrEmpty(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.SLAB_SUFFIX)).get();
+		Block cobbleStair = Registry.BLOCK.getOrEmpty(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.STAIR_SUFFIX)).get();
+		Block cobbleWall = Registry.BLOCK.getOrEmpty(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX)).get();
 
-		InventoryChangeTrigger.Instance marimorphosis = hasItem(ModSubtiles.marimorphosis);
-		slabShape(slab, base).setGroup("botania:metamorphic_stone_slab")
-				.addCriterion("has_flower_item", marimorphosis).build(consumer);
-		stairs(stair, base).setGroup("botania:metamorphic_stone_stairs")
-				.addCriterion("has_flower_item", marimorphosis).build(consumer);
+		InventoryChangedCriterion.Conditions marimorphosis = conditionsFromItem(ModSubtiles.marimorphosis);
+		slabShape(slab, base).group("botania:metamorphic_stone_slab")
+				.criterion("has_flower_item", marimorphosis).offerTo(consumer);
+		stairs(stair, base).group("botania:metamorphic_stone_stairs")
+				.criterion("has_flower_item", marimorphosis).offerTo(consumer);
 
-		brick(brick, base).setGroup("botania:metamorphic_brick")
-				.addCriterion("has_flower_item", marimorphosis).build(consumer);
-		slabShape(brickSlab, brick).setGroup("botania:metamorphic_brick_slab")
-				.addCriterion("has_flower_item", marimorphosis).build(consumer);
-		stairs(brickStair, brick).setGroup("botania:metamorphic_brick_stairs")
-				.addCriterion("has_flower_item", marimorphosis).build(consumer);
-		brick(chiseledBrick, brickSlab).addCriterion("has_base_item", hasItem(brick))
-				.addCriterion("has_flower_item", marimorphosis).build(consumer);
+		brick(brick, base).group("botania:metamorphic_brick")
+				.criterion("has_flower_item", marimorphosis).offerTo(consumer);
+		slabShape(brickSlab, brick).group("botania:metamorphic_brick_slab")
+				.criterion("has_flower_item", marimorphosis).offerTo(consumer);
+		stairs(brickStair, brick).group("botania:metamorphic_brick_stairs")
+				.criterion("has_flower_item", marimorphosis).offerTo(consumer);
+		brick(chiseledBrick, brickSlab).criterion("has_base_item", conditionsFromItem(brick))
+				.criterion("has_flower_item", marimorphosis).offerTo(consumer);
 
-		slabShape(cobbleSlab, cobble).setGroup("botania:metamorphic_cobble_slab")
-				.addCriterion("has_flower_item", marimorphosis).build(consumer);
-		stairs(cobbleStair, cobble).setGroup("botania:metamorphic_cobble_stairs")
-				.addCriterion("has_flower_item", marimorphosis).build(consumer);
-		wallShape(cobbleWall, cobble, 6).setGroup("botania:metamorphic_cobble_wall")
-				.addCriterion("has_flower_item", marimorphosis).build(consumer);
+		slabShape(cobbleSlab, cobble).group("botania:metamorphic_cobble_slab")
+				.criterion("has_flower_item", marimorphosis).offerTo(consumer);
+		stairs(cobbleStair, cobble).group("botania:metamorphic_cobble_stairs")
+				.criterion("has_flower_item", marimorphosis).offerTo(consumer);
+		wallShape(cobbleWall, cobble, 6).group("botania:metamorphic_cobble_wall")
+				.criterion("has_flower_item", marimorphosis).offerTo(consumer);
 	}
 
-	private ShapedRecipeBuilder compression(IItemProvider output, ITag<Item> input) {
-		return ShapedRecipeBuilder.shapedRecipe(output)
-				.key('I', input)
-				.patternLine("III")
-				.patternLine("III")
-				.patternLine("III")
-				.addCriterion("has_item", hasItem(input));
+	private ShapedRecipeJsonFactory compression(ItemConvertible output, Tag<Item> input) {
+		return ShapedRecipeJsonFactory.create(output)
+				.input('I', input)
+				.pattern("III")
+				.pattern("III")
+				.pattern("III")
+				.criterion("has_item", conditionsFromTag(input));
 	}
 
-	private ShapedRecipeBuilder brick(IItemProvider output, IItemProvider input) {
-		return ShapedRecipeBuilder.shapedRecipe(output, 4)
-				.addCriterion("has_item", hasItem(input))
-				.key('Q', input)
-				.patternLine("QQ")
-				.patternLine("QQ");
+	private ShapedRecipeJsonFactory brick(ItemConvertible output, ItemConvertible input) {
+		return ShapedRecipeJsonFactory.create(output, 4)
+				.criterion("has_item", conditionsFromItem(input))
+				.input('Q', input)
+				.pattern("QQ")
+				.pattern("QQ");
 	}
 
-	private ShapedRecipeBuilder stairs(IItemProvider output, IItemProvider input) {
-		return ShapedRecipeBuilder.shapedRecipe(output, 4)
-				.addCriterion("has_item", hasItem(input))
-				.key('Q', input)
-				.patternLine("  Q")
-				.patternLine(" QQ")
-				.patternLine("QQQ");
+	private ShapedRecipeJsonFactory stairs(ItemConvertible output, ItemConvertible input) {
+		return ShapedRecipeJsonFactory.create(output, 4)
+				.criterion("has_item", conditionsFromItem(input))
+				.input('Q', input)
+				.pattern("  Q")
+				.pattern(" QQ")
+				.pattern("QQQ");
 	}
 
-	private ShapedRecipeBuilder slabShape(IItemProvider output, IItemProvider input) {
-		return ShapedRecipeBuilder.shapedRecipe(output, 6)
-				.addCriterion("has_item", hasItem(input))
-				.key('Q', input)
-				.patternLine("QQQ");
+	private ShapedRecipeJsonFactory slabShape(ItemConvertible output, ItemConvertible input) {
+		return ShapedRecipeJsonFactory.create(output, 6)
+				.criterion("has_item", conditionsFromItem(input))
+				.input('Q', input)
+				.pattern("QQQ");
 	}
 
-	private ShapedRecipeBuilder pillar(IItemProvider output, IItemProvider input) {
-		return ShapedRecipeBuilder.shapedRecipe(output, 2)
-				.addCriterion("has_item", hasItem(input))
-				.key('Q', input)
-				.patternLine("Q")
-				.patternLine("Q");
+	private ShapedRecipeJsonFactory pillar(ItemConvertible output, ItemConvertible input) {
+		return ShapedRecipeJsonFactory.create(output, 2)
+				.criterion("has_item", conditionsFromItem(input))
+				.input('Q', input)
+				.pattern("Q")
+				.pattern("Q");
 	}
 
-	private ShapedRecipeBuilder chiseled(IItemProvider output, IItemProvider input) {
-		return ShapedRecipeBuilder.shapedRecipe(output)
-				.addCriterion("has_item", hasItem(input))
-				.key('Q', input)
-				.patternLine("Q")
-				.patternLine("Q");
+	private ShapedRecipeJsonFactory chiseled(ItemConvertible output, ItemConvertible input) {
+		return ShapedRecipeJsonFactory.create(output)
+				.criterion("has_item", conditionsFromItem(input))
+				.input('Q', input)
+				.pattern("Q")
+				.pattern("Q");
 	}
 
-	private ShapedRecipeBuilder wallShape(IItemProvider output, IItemProvider input, int amount) {
-		return ShapedRecipeBuilder.shapedRecipe(output, amount)
-				.addCriterion("has_item", hasItem(input))
-				.key('B', input)
-				.patternLine("BBB")
-				.patternLine("BBB");
+	private ShapedRecipeJsonFactory wallShape(ItemConvertible output, ItemConvertible input, int amount) {
+		return ShapedRecipeJsonFactory.create(output, amount)
+				.criterion("has_item", conditionsFromItem(input))
+				.input('B', input)
+				.pattern("BBB")
+				.pattern("BBB");
 	}
 
-	private ShapedRecipeBuilder fence(IItemProvider output, IItemProvider input) {
-		return ShapedRecipeBuilder.shapedRecipe(output, 3)
-				.addCriterion("has_item", hasItem(input))
-				.key('B', input)
-				.key('S', Tags.Items.RODS_WOODEN)
-				.patternLine("BSB")
-				.patternLine("BSB");
+	private ShapedRecipeJsonFactory fence(ItemConvertible output, ItemConvertible input) {
+		return ShapedRecipeJsonFactory.create(output, 3)
+				.criterion("has_item", conditionsFromItem(input))
+				.input('B', input)
+				.input('S', Tags.Items.RODS_WOODEN)
+				.pattern("BSB")
+				.pattern("BSB");
 	}
 
-	private ShapedRecipeBuilder fenceGate(IItemProvider output, IItemProvider input) {
-		return ShapedRecipeBuilder.shapedRecipe(output, 3)
-				.addCriterion("has_item", hasItem(input))
-				.key('B', input)
-				.key('S', Tags.Items.RODS_WOODEN)
-				.patternLine("SBS")
-				.patternLine("SBS");
+	private ShapedRecipeJsonFactory fenceGate(ItemConvertible output, ItemConvertible input) {
+		return ShapedRecipeJsonFactory.create(output, 3)
+				.criterion("has_item", conditionsFromItem(input))
+				.input('B', input)
+				.input('S', Tags.Items.RODS_WOODEN)
+				.pattern("SBS")
+				.pattern("SBS");
 	}
 
-	private ShapedRecipeBuilder ringShape(IItemProvider output, IItemProvider input) {
-		return ShapedRecipeBuilder.shapedRecipe(output, 4)
-				.key('W', input)
-				.patternLine(" W ")
-				.patternLine("W W")
-				.patternLine(" W ")
-				.addCriterion("has_item", hasItem(input));
+	private ShapedRecipeJsonFactory ringShape(ItemConvertible output, ItemConvertible input) {
+		return ShapedRecipeJsonFactory.create(output, 4)
+				.input('W', input)
+				.pattern(" W ")
+				.pattern("W W")
+				.pattern(" W ")
+				.criterion("has_item", conditionsFromItem(input));
 	}
 
-	private void cosmeticBauble(Consumer<IFinishedRecipe> consumer, IItemProvider output, IItemProvider input) {
-		ShapedRecipeBuilder.shapedRecipe(output)
-				.key('P', input)
-				.key('S', ModItems.manaString)
-				.patternLine("PPP")
-				.patternLine("PSP")
-				.patternLine("PPP")
-				.setGroup("botania:cosmetic_bauble")
-				.addCriterion("has_item", hasItem(ModItems.manaString))
-				.build(consumer);
+	private void cosmeticBauble(Consumer<RecipeJsonProvider> consumer, ItemConvertible output, ItemConvertible input) {
+		ShapedRecipeJsonFactory.create(output)
+				.input('P', input)
+				.input('S', ModItems.manaString)
+				.pattern("PPP")
+				.pattern("PSP")
+				.pattern("PPP")
+				.group("botania:cosmetic_bauble")
+				.criterion("has_item", conditionsFromItem(ModItems.manaString))
+				.offerTo(consumer);
 	}
 
-	private void specialRecipe(Consumer<IFinishedRecipe> consumer, SpecialRecipeSerializer<?> serializer) {
-		ResourceLocation name = Registry.RECIPE_SERIALIZER.getKey(serializer);
-		CustomRecipeBuilder.customRecipe(serializer).build(consumer, prefix("dynamic/" + name.getPath()).toString());
+	private void specialRecipe(Consumer<RecipeJsonProvider> consumer, SpecialRecipeSerializer<?> serializer) {
+		Identifier name = Registry.RECIPE_SERIALIZER.getId(serializer);
+		ComplexRecipeJsonFactory.create(serializer).offerTo(consumer, prefix("dynamic/" + name.getPath()).toString());
 	}
 
 	@Override

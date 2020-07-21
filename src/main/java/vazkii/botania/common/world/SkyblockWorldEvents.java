@@ -11,21 +11,21 @@ package vazkii.botania.common.world;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.Material;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.tag.BlockTags;
+import net.minecraft.tag.Tag;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Util;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -41,15 +41,15 @@ public final class SkyblockWorldEvents {
 
 	private SkyblockWorldEvents() {}
 
-	private static final ITag.INamedTag<Block> PEBBLE_SOURCES = BlockTags.makeWrapperTag("gardenofglass:pebble_sources");
+	private static final Tag.Identified<Block> PEBBLE_SOURCES = BlockTags.register("gardenofglass:pebble_sources");
 
 	public static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
 		World world = event.getPlayer().world;
 		if (SkyblockChunkGenerator.isWorldSkyblock(world)) {
 			SkyblockSavedData data = SkyblockSavedData.get((ServerWorld) world);
-			if (!data.skyblocks.containsValue(Util.DUMMY_UUID)) {
+			if (!data.skyblocks.containsValue(Util.NIL_UUID)) {
 				IslandPos islandPos = data.getSpawn();
-				((ServerWorld) world).func_241124_a__(islandPos.getCenter());
+				((ServerWorld) world).setSpawnPos(islandPos.getCenter());
 				spawnPlayer(event.getPlayer(), islandPos);
 				Botania.LOGGER.info("Created the spawn GoG island");
 			}
@@ -66,35 +66,35 @@ public final class SkyblockWorldEvents {
 				Block block = state.getBlock();
 
 				if (PEBBLE_SOURCES.contains(block)) {
-					SoundType st = state.getSoundType(event.getWorld(), event.getPos(), player);
+					BlockSoundGroup st = state.getSoundType(event.getWorld(), event.getPos(), player);
 					player.playSound(st.getBreakSound(), st.getVolume() * 0.4F, st.getPitch() + (float) (Math.random() * 0.2 - 0.1));
 
-					if (event.getWorld().isRemote) {
-						player.swingArm(event.getHand());
+					if (event.getWorld().isClient) {
+						player.swingHand(event.getHand());
 					} else if (Math.random() < 0.8) {
 						player.dropItem(new ItemStack(ModItems.pebble), false);
 					}
 
 					event.setCanceled(true);
-					event.setCancellationResult(ActionResultType.SUCCESS);
+					event.setCancellationResult(ActionResult.SUCCESS);
 				}
 			} else if (!equipped.isEmpty() && equipped.getItem() == Items.BOWL) {
-				BlockRayTraceResult rtr = ToolCommons.raytraceFromEntity(player, 4.5F, true);
-				if (rtr.getType() == RayTraceResult.Type.BLOCK) {
-					BlockPos pos = rtr.getPos();
+				BlockHitResult rtr = ToolCommons.raytraceFromEntity(player, 4.5F, true);
+				if (rtr.getType() == HitResult.Type.BLOCK) {
+					BlockPos pos = rtr.getBlockPos();
 					if (event.getWorld().getBlockState(pos).getMaterial() == Material.WATER) {
-						if (!event.getWorld().isRemote) {
-							equipped.shrink(1);
+						if (!event.getWorld().isClient) {
+							equipped.decrement(1);
 
 							if (equipped.isEmpty()) {
-								player.setHeldItem(event.getHand(), new ItemStack(ModItems.waterBowl));
+								player.setStackInHand(event.getHand(), new ItemStack(ModItems.waterBowl));
 							} else {
-								player.inventory.placeItemBackInInventory(player.world, new ItemStack(ModItems.waterBowl));
+								player.inventory.offerOrDrop(player.world, new ItemStack(ModItems.waterBowl));
 							}
 						}
 
 						event.setCanceled(true);
-						event.setCancellationResult(ActionResultType.SUCCESS);
+						event.setCancellationResult(ActionResult.SUCCESS);
 					}
 				}
 			}
@@ -107,10 +107,10 @@ public final class SkyblockWorldEvents {
 
 		if (player instanceof ServerPlayerEntity) {
 			ServerPlayerEntity pmp = (ServerPlayerEntity) player;
-			pmp.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
-			pmp.func_241153_a_(pmp.world.func_234923_W_(), pos, true, false);
+			pmp.requestTeleport(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
+			pmp.setSpawnPoint(pmp.world.getRegistryKey(), pos, true, false);
 			if (ConfigHandler.COMMON.gogSpawnWithLexicon.get()) {
-				player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
+				player.inventory.insertStack(new ItemStack(ModItems.lexicon));
 			}
 		}
 	}
@@ -125,11 +125,11 @@ public final class SkyblockWorldEvents {
 		}
 		world.setBlockState(pos.add(-1, -2, 0), Blocks.WATER.getDefaultState());
 		world.setBlockState(pos.add(1, 2, 1), ModBlocks.manaFlame.getDefaultState());
-		int r = 70 + world.rand.nextInt(185);
-		int g = 70 + world.rand.nextInt(185);
-		int b = 70 + world.rand.nextInt(185);
+		int r = 70 + world.random.nextInt(185);
+		int g = 70 + world.random.nextInt(185);
+		int b = 70 + world.random.nextInt(185);
 		int color = r << 16 | g << 8 | b;
-		((TileManaFlame) world.getTileEntity(pos.add(1, 2, 1))).setColor(color);
+		((TileManaFlame) world.getBlockEntity(pos.add(1, 2, 1))).setColor(color);
 
 		int[][] rootPositions = new int[][] {
 				{ -1, -3, -1 },

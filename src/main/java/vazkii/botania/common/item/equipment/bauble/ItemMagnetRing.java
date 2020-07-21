@@ -8,11 +8,11 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 
@@ -36,12 +36,12 @@ public class ItemMagnetRing extends ItemBauble {
 
 	private final int range;
 
-	public ItemMagnetRing(Properties props) {
+	public ItemMagnetRing(Settings props) {
 		this(props, 6);
 		MinecraftForge.EVENT_BUS.addListener(this::onTossItem);
 	}
 
-	public ItemMagnetRing(Properties props, int range) {
+	public ItemMagnetRing(Settings props, int range) {
 		super(props);
 		this.range = range;
 	}
@@ -72,12 +72,12 @@ public class ItemMagnetRing extends ItemBauble {
 
 		if (cooldown <= 0) {
 			if (living.isSneaking() == ConfigHandler.COMMON.invertMagnetRing.get()) {
-				double x = living.getPosX();
-				double y = living.getPosY() + 0.75;
-				double z = living.getPosZ();
+				double x = living.getX();
+				double y = living.getY() + 0.75;
+				double z = living.getZ();
 
 				int range = ((ItemMagnetRing) stack.getItem()).range;
-				List<ItemEntity> items = living.world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(x - range, y - range, z - range, x + range, y + range, z + range));
+				List<ItemEntity> items = living.world.getNonSpectatingEntities(ItemEntity.class, new Box(x - range, y - range, z - range, x + range, y + range, z + range));
 				int pulled = 0;
 				for (ItemEntity item : items) {
 					if (((ItemMagnetRing) stack.getItem()).canPullItem(item)) {
@@ -86,12 +86,12 @@ public class ItemMagnetRing extends ItemBauble {
 						}
 
 						MathHelper.setEntityMotionFromVector(item, new Vector3(x, y, z), 0.45F);
-						if (living.world.isRemote) {
-							boolean red = living.world.rand.nextBoolean();
+						if (living.world.isClient) {
+							boolean red = living.world.random.nextBoolean();
 							float r = red ? 1F : 0F;
 							float b = red ? 0F : 1F;
 							SparkleParticleData data = SparkleParticleData.sparkle(1F, r, 0F, b, 3);
-							living.world.addParticle(data, item.getPosX(), item.getPosY(), item.getPosZ(), 0, 0, 0);
+							living.world.addParticle(data, item.getX(), item.getY(), item.getZ(), 0, 0, 0);
 						}
 						pulled++;
 					}
@@ -108,12 +108,12 @@ public class ItemMagnetRing extends ItemBauble {
 			return false;
 		}
 
-		ItemStack stack = item.getItem();
+		ItemStack stack = item.getStack();
 		if (stack.isEmpty() || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || ModTags.Items.MAGNET_RING_BLACKLIST.contains(stack.getItem())) {
 			return false;
 		}
 
-		BlockPos pos = item.func_233580_cy_();
+		BlockPos pos = item.getBlockPos();
 
 		if (ModTags.Blocks.MAGNET_RING_BLACKLIST.contains(item.world.getBlockState(pos).getBlock())) {
 			return false;

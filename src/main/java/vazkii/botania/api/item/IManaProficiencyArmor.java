@@ -8,8 +8,8 @@
  */
 package vazkii.botania.api.item;
 
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -25,18 +25,18 @@ import vazkii.botania.api.mana.ManaProficiencyEvent;
  */
 public interface IManaProficiencyArmor {
 
-	default boolean shouldGiveProficiency(ItemStack armorStack, EquipmentSlotType slot, PlayerEntity player, ItemStack rod) {
+	default boolean shouldGiveProficiency(ItemStack armorStack, EquipmentSlot slot, PlayerEntity player, ItemStack rod) {
 		return false;
 	}
 
 	static boolean hasProficiency(PlayerEntity player, ItemStack rod) {
 		boolean proficient = false;
 
-		for (EquipmentSlotType e : EquipmentSlotType.values()) {
-			if (e.getSlotType() != EquipmentSlotType.Group.ARMOR) {
+		for (EquipmentSlot e : EquipmentSlot.values()) {
+			if (e.getType() != EquipmentSlot.Type.ARMOR) {
 				continue;
 			}
-			ItemStack armor = player.getItemStackFromSlot(e);
+			ItemStack armor = player.getEquippedStack(e);
 			if (!armor.isEmpty()) {
 				Item item = armor.getItem();
 				if (item instanceof IManaProficiencyArmor && ((IManaProficiencyArmor) item).shouldGiveProficiency(armor, e, player, rod)) {

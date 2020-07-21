@@ -9,51 +9,50 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.Tickable;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Box;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.List;
 
-public class TileEnderEye extends TileMod implements ITickableTileEntity {
+public class TileEnderEye extends TileMod implements Tickable {
 	public TileEnderEye() {
 		super(ModTiles.ENDER_EYE);
 	}
 
 	@Override
 	public void tick() {
-		if (world.isRemote) {
+		if (world.isClient) {
 			return;
 		}
 
-		boolean wasLooking = getBlockState().get(BlockStateProperties.POWERED);
+		boolean wasLooking = getCachedState().get(Properties.POWERED);
 		int range = 80;
-		List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(pos.add(-range, -range, -range), pos.add(range, range, range)));
+		List<PlayerEntity> players = world.getNonSpectatingEntities(PlayerEntity.class, new Box(pos.add(-range, -range, -range), pos.add(range, range, range)));
 
 		boolean looking = false;
 		for (PlayerEntity player : players) {
-			ItemStack helm = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
-			if (!helm.isEmpty() && helm.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN)) {
+			ItemStack helm = player.getEquippedStack(EquipmentSlot.HEAD);
+			if (!helm.isEmpty() && helm.getItem() == Item.fromBlock(Blocks.PUMPKIN)) {
 				continue;
 			}
 
-			BlockRayTraceResult hit = ToolCommons.raytraceFromEntity(player, 64, false);
-			if (hit.getType() == RayTraceResult.Type.BLOCK && hit.getPos().equals(getPos())) {
+			BlockHitResult hit = ToolCommons.raytraceFromEntity(player, 64, false);
+			if (hit.getType() == HitResult.Type.BLOCK && hit.getBlockPos().equals(getPos())) {
 				looking = true;
 				break;
 			}
 		}
 
 		if (looking != wasLooking) {
-			world.setBlockState(getPos(), getBlockState().with(BlockStateProperties.POWERED, looking));
+			world.setBlockState(getPos(), getCachedState().with(Properties.POWERED, looking));
 		}
 	}
 

@@ -11,8 +11,7 @@ package vazkii.botania.common.block.corporea;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.world.IBlockReader;
-
+import net.minecraft.world.BlockView;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 
@@ -31,7 +30,7 @@ public class BlockCorporeaIndex extends BlockCorporeaBaseWaterloggable {
 
 	@Nonnull
 	@Override
-	public TileCorporeaBase createNewTileEntity(@Nonnull IBlockReader world) {
+	public TileCorporeaBase createBlockEntity(@Nonnull BlockView world) {
 		return new TileCorporeaIndex();
 	}
 }

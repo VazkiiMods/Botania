@@ -8,16 +8,18 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.client.util.ITooltipFlag;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.NonNullList;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -39,13 +41,13 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 	private static final String TAG_CREATIVE = "creative";
 	private static final String TAG_ONE_USE = "oneUse";
 
-	public ItemManaTablet(Properties props) {
+	public ItemManaTablet(Settings props) {
 		super(props);
 	}
 
 	@Override
-	public void fillItemGroup(@Nonnull ItemGroup tab, @Nonnull NonNullList<ItemStack> stacks) {
-		if (isInGroup(tab)) {
+	public void appendStacks(@Nonnull ItemGroup tab, @Nonnull DefaultedList<ItemStack> stacks) {
+		if (isIn(tab)) {
 			stacks.add(new ItemStack(this));
 
 			ItemStack fullPower = new ItemStack(this);
@@ -59,11 +61,11 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 		}
 	}
 
-	@OnlyIn(Dist.CLIENT)
+	@Environment(EnvType.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
+	public void appendTooltip(ItemStack stack, World world, List<Text> stacks, TooltipContext flags) {
 		if (isStackCreative(stack)) {
-			stacks.add(new TranslationTextComponent("botaniamisc.creative").func_240699_a_(TextFormatting.GRAY));
+			stacks.add(new TranslatableText("botaniamisc.creative").formatted(Formatting.GRAY));
 		}
 	}
 
@@ -102,7 +104,7 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 	}
 
 	@Override
-	public boolean canReceiveManaFromPool(ItemStack stack, TileEntity pool) {
+	public boolean canReceiveManaFromPool(ItemStack stack, BlockEntity pool) {
 		return !ItemNBTHelper.getBoolean(stack, TAG_ONE_USE, false);
 	}
 
@@ -112,7 +114,7 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 	}
 
 	@Override
-	public boolean canExportManaToPool(ItemStack stack, TileEntity pool) {
+	public boolean canExportManaToPool(ItemStack stack, BlockEntity pool) {
 		return true;
 	}
 
@@ -148,6 +150,6 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 
 	@Override
 	public int getRGBDurabilityForDisplay(ItemStack stack) {
-		return MathHelper.hsvToRGB(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
+		return MathHelper.hsvToRgb(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
 	}
 }
