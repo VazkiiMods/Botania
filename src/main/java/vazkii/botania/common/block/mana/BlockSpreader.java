@@ -132,7 +132,7 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 		ItemStack lens = spreader.getItemHandler().getStackInSlot(0);
 		ItemStack heldItem = player.getHeldItem(hand);
 		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
-		boolean wool = !heldItem.isEmpty() && ColorHelper.WOOL_MAP.containsValue(Block.getBlockFromItem(heldItem.getItem()).delegate);
+		boolean wool = !heldItem.isEmpty() && ColorHelper.isWool(Block.getBlockFromItem(heldItem.getItem()));
 
 		if (!heldItem.isEmpty()) {
 			if (heldItem.getItem() == ModItems.twigWand) {
@@ -153,13 +153,13 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 
 		if (wool && spreader.paddingColor == null) {
 			Block block = Block.getBlockFromItem(heldItem.getItem());
-			spreader.paddingColor = ColorHelper.WOOL_MAP.inverse().get(block.delegate);
+			spreader.paddingColor = ColorHelper.getWoolColor(block);
 			heldItem.shrink(1);
 			if (heldItem.isEmpty()) {
 				player.setHeldItem(hand, ItemStack.EMPTY);
 			}
 		} else if (heldItem.isEmpty() && spreader.paddingColor != null && lens.isEmpty()) {
-			ItemStack pad = new ItemStack(ColorHelper.WOOL_MAP.get(spreader.paddingColor).get());
+			ItemStack pad = new ItemStack(ColorHelper.WOOL_MAP.apply(spreader.paddingColor));
 			player.inventory.placeItemBackInInventory(player.world, pad);
 			spreader.paddingColor = null;
 			spreader.markDirty();
@@ -179,7 +179,7 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 			TileSpreader inv = (TileSpreader) tile;
 
 			if (inv.paddingColor != null) {
-				ItemStack padding = new ItemStack(ColorHelper.WOOL_MAP.get(inv.paddingColor).get());
+				ItemStack padding = new ItemStack(ColorHelper.WOOL_MAP.apply(inv.paddingColor));
 				world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), padding));
 			}
 
