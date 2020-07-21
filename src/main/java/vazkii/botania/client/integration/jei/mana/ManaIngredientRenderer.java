@@ -61,9 +61,9 @@ public abstract class ManaIngredientRenderer implements IIngredientRenderer<IMan
             RenderSystem.color4f(1, 1, 1, 1);
 
             IRenderTypeBuffer.Impl buffers = IRenderTypeBuffer.getImpl(Tessellator.getInstance().getBuffer());
-            IconHelper.renderIcon(ms, buffers.getBuffer(RenderHelper.ICON_OVERLAY), x, y, MiscellaneousIcons.INSTANCE.manaWater, 16, 16, 1F);
+            IconHelper.renderIcon(ms, buffers.getBuffer(RenderHelper.MANA_POOL_WATER), x, y, MiscellaneousIcons.INSTANCE.manaWater, 16, 16, 1F);
 
-            buffers.finish(RenderHelper.ICON_OVERLAY);
+            buffers.finish(RenderHelper.MANA_POOL_WATER);
 
             RenderSystem.disableAlphaTest();
             RenderSystem.disableBlend();
