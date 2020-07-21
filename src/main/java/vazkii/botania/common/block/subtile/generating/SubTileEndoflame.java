@@ -67,7 +67,7 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 
 							int burnTime = getBurnTime(stack);
 							if (burnTime > 0 && stack.getCount() > 0) {
-								this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
+								this.burnTime = burnTime;
 
 								stack.shrink(1);
 								getWorld().playSound(null, getEffectivePos(), ModSounds.endoflame, SoundCategory.BLOCKS, 0.2F, 1F);
@@ -141,11 +141,11 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 		return 2;
 	}
 
-	private int getBurnTime(ItemStack stack) {
+	public static int getBurnTime(ItemStack stack) {
 		if (stack.isEmpty() || Block.getBlockFromItem(stack.getItem()) instanceof BlockSpreader) {
 			return 0;
 		} else {
-			return ForgeHooks.getBurnTime(stack);
+			return Math.min(FUEL_CAP, ForgeHooks.getBurnTime(stack)) / 2;
 		}
 	}
 

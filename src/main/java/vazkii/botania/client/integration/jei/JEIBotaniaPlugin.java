@@ -36,6 +36,7 @@ import vazkii.botania.client.integration.jei.crafting.AncientWillRecipeWrapper;
 import vazkii.botania.client.integration.jei.crafting.CompositeLensRecipeWrapper;
 import vazkii.botania.client.integration.jei.crafting.TerraPickTippingRecipeWrapper;
 import vazkii.botania.client.integration.jei.elventrade.ElvenTradeRecipeCategory;
+import vazkii.botania.client.integration.jei.flowers.AbstractFlowerCategory;
 import vazkii.botania.client.integration.jei.mana.ManaIngredient;
 import vazkii.botania.client.integration.jei.mana.ManaIngredientHelper;
 import vazkii.botania.client.integration.jei.mana.ManaIngredientRenderer;
@@ -106,6 +107,8 @@ public class JEIBotaniaPlugin implements IModPlugin {
 				new OrechidRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
 				new OrechidIgnemRecipeCategory(registry.getJeiHelpers().getGuiHelper())
 		);
+
+		AbstractFlowerCategory.registerCategories(registry);
 	}
 
 	public static boolean doesOreExist(ResourceLocation tagId) {
@@ -144,6 +147,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 						.collect(Collectors.toList()),
 				OrechidIgnemRecipeCategory.UID);
 
+		AbstractFlowerCategory.registerRecipes(registry);
 	}
 
 	@Override
@@ -182,6 +186,8 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.runeAltar), RunicAltarRecipeCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModItems.autocraftingHalo), VanillaRecipeCategoryUid.CRAFTING);
 		registry.addRecipeCatalyst(new ItemStack(ModItems.craftingHalo), VanillaRecipeCategoryUid.CRAFTING);
+
+		AbstractFlowerCategory.registerRecipeCatalysts(registry);
 	}
 
 	@Override
