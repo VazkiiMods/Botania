@@ -18,7 +18,7 @@ pipeline {
                 RELEASE_MODE = '1'
             }
             steps {
-                sh './gradlew build publish --no-daemon'
+                sh './gradlew build publish -i --no-daemon'
             }
         }
         stage('Build and Deploy Snapshot') {
@@ -28,7 +28,7 @@ pipeline {
                 }
             }
             steps {
-                sh './gradlew build publish --no-daemon'
+                sh './gradlew build publish -i --no-daemon'
             }
         }
     }
