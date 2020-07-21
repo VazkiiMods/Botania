@@ -28,7 +28,7 @@ pipeline {
                 }
             }
             steps {
-                sh './gradlew build publish --no-daemon'
+                sh './gradlew build publish --refresh-dependencies --no-daemon'
             }
         }
     }
