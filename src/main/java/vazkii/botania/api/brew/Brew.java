@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * The class for a Brew definition, each one is a singleton.
  */
-public class Brew extends ForgeRegistryEntry<Brew> {
+public class Brew {
 	private final int color;
 	private final int cost;
 	private final List<StatusEffectInstance> effects;
@@ -30,7 +30,7 @@ public class Brew extends ForgeRegistryEntry<Brew> {
 	/**
 	 * @param color   The color for the potion to be rendered in the bottle, note that it will get
 	 *                changed a bit when it renders (for more or less brightness) to give a fancy effect.
-	 *                See {@link net.minecraft.potion.PotionUtils#getPotionColorFromEffectList} for a method
+	 *                See {@link net.minecraft.potion.PotionUtil#getColor} for a method
 	 *                to calculate this automatically.
 	 * @param cost    The cost, in Mana for this brew.
 	 * @param effects A list of effects to apply to the player when they drink it.

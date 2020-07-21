@@ -9,6 +9,7 @@
     "AccessorAbstractSpawner",
     "AccessorAvoidEntityGoal",
     "AccessorCreeperEntity",
+    "AccessorCriteria",
     "AccessorDimensionSettingsPreset",
     "AccessorFireBlock",
     "AccessorGoalSelector",

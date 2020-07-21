@@ -24,7 +24,7 @@ public class PotionClear extends InstantStatusEffect {
 
 	@Override
 	public void applyInstantEffect(Entity e, Entity e1, @Nonnull LivingEntity e2, int t, double d) {
-		e2.curePotionEffects(new ItemStack(Items.MILK_BUCKET));
+		e2.clearStatusEffects();
 	}
 
 }

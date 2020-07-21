@@ -8,17 +8,17 @@
  */
 package vazkii.botania.common.advancements;
 
-import net.minecraft.advancement.criterion.Criteria;
+import vazkii.botania.mixin.AccessorCriteria;
 
 public class ModCriteriaTriggers {
 	public static void init() {
-		Criteria.register(AlfPortalTrigger.INSTANCE);
-		Criteria.register(CorporeaRequestTrigger.INSTANCE);
-		Criteria.register(DopplegangerNoArmorTrigger.INSTANCE);
-		Criteria.register(RelicBindTrigger.INSTANCE);
-		Criteria.register(UseItemSuccessTrigger.INSTANCE);
-		Criteria.register(ManaGunTrigger.INSTANCE);
-		Criteria.register(LokiPlaceTrigger.INSTANCE);
-		Criteria.register(AlfPortalBreadTrigger.INSTANCE);
+		AccessorCriteria.callRegister(AlfPortalTrigger.INSTANCE);
+		AccessorCriteria.callRegister(CorporeaRequestTrigger.INSTANCE);
+		AccessorCriteria.callRegister(DopplegangerNoArmorTrigger.INSTANCE);
+		AccessorCriteria.callRegister(RelicBindTrigger.INSTANCE);
+		AccessorCriteria.callRegister(UseItemSuccessTrigger.INSTANCE);
+		AccessorCriteria.callRegister(ManaGunTrigger.INSTANCE);
+		AccessorCriteria.callRegister(LokiPlaceTrigger.INSTANCE);
+		AccessorCriteria.callRegister(AlfPortalBreadTrigger.INSTANCE);
 	}
 }
