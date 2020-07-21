@@ -15,7 +15,7 @@ buildscript {
 
 plugins {
     id 'org.hidetake.ssh' version '2.10.1'
-    id "com.diffplug.gradle.spotless" version "3.27.2"
+    id "com.diffplug.spotless" version "5.1.0"
 }
 
 apply plugin: 'net.minecraftforge.gradle'
@@ -127,17 +127,20 @@ spotless {
     enforceCheck = false // workaround around jenkins having wrong line endings in some files
                          // we explicitly check in github actions builds
     java {
-        target '**/vazkii/botania/**/*.java'
-        targetExclude '**/buildcraft/*.java', '**/thaumcraft/*.java'
-
         indentWithTabs()
-        licenseHeaderFile( 'spotless/license_template.txt')
+        licenseHeaderFile('spotless/license_template.txt')
         eclipse().configFile 'spotless/eclipseformat.xml'
+        removeUnusedImports()
         importOrderFile 'spotless/eclipse.importorder'
+        ratchetFrom "origin/1.16.x" // Keep this on the active branch?
     }
 }
+
 pmd {
-    ruleSets = ["java-braces"]
+    toolVersion '6.22.0'
+    incrementalAnalysis.set(true)
+    ruleSets.clear()
+    ruleSetFiles = files("spotless/pmd-ruleset.xml")
 }
 
 task checkSyntax {
