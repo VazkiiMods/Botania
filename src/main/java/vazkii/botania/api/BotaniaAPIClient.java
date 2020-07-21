@@ -11,6 +11,7 @@ package vazkii.botania.api;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import mezz.jei.api.ingredients.IIngredientType;
+
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.LazyValue;
@@ -75,13 +76,13 @@ public interface BotaniaAPIClient {
 	 * Create a mana ingredient, for use with JEI.
 	 */
 	default IManaIngredient createManaIngredient(int amount, boolean isCreative) {
-	    return null;
-    }
+		return null;
+	}
 
 	/**
 	 * Get the IIngredientType for mana, for use with JEI.
 	 */
 	default IIngredientType<IManaIngredient> getManaIngredientType() {
-	    return null;
-    }
+		return null;
+	}
 }

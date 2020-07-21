@@ -12,6 +12,7 @@ import com.google.common.collect.Maps;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import mezz.jei.api.ingredients.IIngredientType;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
