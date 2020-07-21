@@ -7,7 +7,7 @@ pipeline {
             steps {
                 echo 'Cleaning Project'
                 sh 'chmod +x gradlew'
-                sh './gradlew clean --no-daemon'
+                sh './gradlew clean --refresh-dependencies --no-daemon'
             }
         }
         stage('Build and Deploy Release') {
