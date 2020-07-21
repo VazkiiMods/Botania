@@ -10,8 +10,7 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.common.block.tile.TileLightRelay.EntityPlayerMover;
 import vazkii.botania.common.lib.LibEntityNames;
@@ -132,8 +131,8 @@ public final class ModEntities {
 			.setShouldReceiveVelocityUpdates(true)
 			.build("");
 
-	public static void registerEntities(RegistryEvent.Register<EntityType<?>> evt) {
-		IForgeRegistry<EntityType<?>> r = evt.getRegistry();
+	public static void registerEntities() {
+		Registry<EntityType<?>> r = Registry.ENTITY_TYPE;
 		register(r, LibEntityNames.MANA_BURST, MANA_BURST);
 		register(r, LibEntityNames.PIXIE, PIXIE);
 		register(r, LibEntityNames.FLAME_RING, FLAME_RING);

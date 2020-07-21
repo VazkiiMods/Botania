@@ -8,15 +8,12 @@
  */
 package vazkii.botania.common.brew;
 
+import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.potion.PotionUtil;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.registries.GameData;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.RegistryBuilder;
 
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.lib.LibBrewNames;
@@ -29,7 +26,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModBrews {
 
-	public static Registry<Brew> registry;
+	public static final Registry<Brew> registry = FabricRegistryBuilder.createDefaulted(Brew.class, prefix("brews"), prefix("fallback")).buildAndRegister();
 	public static final Brew fallbackBrew = new Brew(0, 0).setNotBloodPendantInfusable().setNotIncenseInfusable();
 	public static final Brew speed = new Brew(0x59B7FF, 4000, new StatusEffectInstance(StatusEffects.SPEED, 1800, 1));
 	public static final Brew strength = new Brew(0xEE3F3F, 4000, new StatusEffectInstance(StatusEffects.STRENGTH, 1800, 1));
@@ -53,23 +50,8 @@ public class ModBrews {
 	public static final Brew overload = new Brew(0x232323, 12000, new StatusEffectInstance(StatusEffects.STRENGTH, 1800, 3), new StatusEffectInstance(StatusEffects.SPEED, 1800, 2), new StatusEffectInstance(StatusEffects.WEAKNESS, 3600, 1), new StatusEffectInstance(StatusEffects.HUNGER, 200, 2));
 	public static final Brew clear = make(4000, new StatusEffectInstance(ModPotions.clear, 0, 0));
 
-	public static void registerRegistry(RegistryEvent.NewRegistry evt) {
-		// Some sneaky hacks to get Forge to create the registry with a vanilla wrapper attached
-		try {
-			Method makeBuilder = GameData.class.getDeclaredMethod("makeRegistry", Identifier.class, Class.class, Identifier.class);
-			makeBuilder.setAccessible(true);
-			@SuppressWarnings("unchecked")
-			RegistryBuilder<Brew> builder = (RegistryBuilder<Brew>) makeBuilder.invoke(null, prefix("brews"), Brew.class, prefix("fallback"));
-			builder.disableSaving().create();
-			// grab the vanilla wrapper for use
-			registry = GameData.getWrapperDefaulted(Brew.class);
-		} catch (Throwable throwable) {
-			throw new RuntimeException(throwable);
-		}
-	}
-
-	public static void registerBrews(RegistryEvent.Register<Brew> evt) {
-		IForgeRegistry<Brew> r = evt.getRegistry();
+	public static void registerBrews() {
+		Registry<Brew> r = registry;
 		register(r, prefix("fallback"), fallbackBrew);
 		register(r, LibBrewNames.SPEED, speed);
 		register(r, LibBrewNames.STRENGTH, strength);

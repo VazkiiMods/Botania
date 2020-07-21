@@ -15,7 +15,6 @@ import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
-import net.minecraftforge.event.RegistryEvent;
 
 import vazkii.botania.api.recipe.*;
 import vazkii.botania.common.crafting.recipe.HeadRecipe;
@@ -23,6 +22,7 @@ import vazkii.botania.mixin.AccessorRecipeManager;
 
 import java.util.Map;
 
+import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModRecipeTypes {
@@ -46,32 +46,33 @@ public class ModRecipeTypes {
 	public static final RecipeSerializer<RecipeRuneAltar> RUNE_SERIALIZER = new RecipeRuneAltar.Serializer();
 	public static final RecipeSerializer<HeadRecipe> RUNE_HEAD_SERIALIZER = new HeadRecipe.Serializer();
 
-	public static void register(RegistryEvent.Register<RecipeSerializer<?>> evt) {
+	public static void registerRecipeTypes() {
 		Identifier id = prefix("elven_trade");
 		Registry.register(Registry.RECIPE_TYPE, id, ELVEN_TRADE_TYPE);
-		evt.getRegistry().register(ELVEN_TRADE_SERIALIZER.setRegistryName(id));
-		evt.getRegistry().register(LEXICON_ELVEN_TRADE_SERIALIZER.setRegistryName(prefix("elven_trade_lexicon")));
+		Registry<RecipeSerializer<?>> r = Registry.RECIPE_SERIALIZER;
+		register(r, id, ELVEN_TRADE_SERIALIZER);
+		register(r, prefix("elven_trade_lexicon"), LEXICON_ELVEN_TRADE_SERIALIZER);
 
 		id = prefix("mana_infusion");
 		Registry.register(Registry.RECIPE_TYPE, id, MANA_INFUSION_TYPE);
-		evt.getRegistry().register(MANA_INFUSION_SERIALIZER.setRegistryName(id));
+		register(r, id, MANA_INFUSION_SERIALIZER);
 
 		id = prefix("pure_daisy");
 		Registry.register(Registry.RECIPE_TYPE, id, PURE_DAISY_TYPE);
-		evt.getRegistry().register(PURE_DAISY_SERIALIZER.setRegistryName(id));
+		register(r, id, PURE_DAISY_SERIALIZER);
 
 		id = prefix("brew");
 		Registry.register(Registry.RECIPE_TYPE, id, BREW_TYPE);
-		evt.getRegistry().register(BREW_SERIALIZER.setRegistryName(id));
+		register(r, id, BREW_SERIALIZER);
 
 		id = prefix("petal_apothecary");
 		Registry.register(Registry.RECIPE_TYPE, id, PETAL_TYPE);
-		evt.getRegistry().register(PETAL_SERIALIZER.setRegistryName(id));
+		register(r, id, PETAL_SERIALIZER);
 
 		id = prefix("runic_altar");
 		Registry.register(Registry.RECIPE_TYPE, id, RUNE_TYPE);
-		evt.getRegistry().register(RUNE_SERIALIZER.setRegistryName(id));
-		evt.getRegistry().register(RUNE_HEAD_SERIALIZER.setRegistryName(prefix("runic_altar_head")));
+		register(r, id, RUNE_SERIALIZER);
+		register(r, prefix("runic_altar_head"), RUNE_HEAD_SERIALIZER);
 	}
 
 	private static class RecipeType<T extends Recipe<?>> implements net.minecraft.recipe.RecipeType<T> {

@@ -9,8 +9,7 @@
 package vazkii.botania.common.brew;
 
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.common.brew.potion.*;
 import vazkii.botania.common.lib.LibPotionNames;
@@ -26,8 +25,8 @@ public class ModPotions {
 	public static final StatusEffect allure = new PotionAllure();
 	public static final StatusEffect clear = new PotionClear();
 
-	public static void registerPotions(RegistryEvent.Register<StatusEffect> evt) {
-		IForgeRegistry<StatusEffect> r = evt.getRegistry();
+	public static void registerPotions() {
+		Registry<StatusEffect> r = Registry.STATUS_EFFECT;
 		register(r, LibPotionNames.SOUL_CROSS, soulCross);
 		register(r, LibPotionNames.FEATHER_FEET, featherfeet);
 		register(r, LibPotionNames.EMPTINESS, emptiness);

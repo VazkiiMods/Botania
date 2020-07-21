@@ -241,8 +241,8 @@ public class ModSubtiles {
 		return Registry.BLOCK.getId(b);
 	}
 
-	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
-		IForgeRegistry<Block> r = evt.getRegistry();
+	public static void registerBlocks() {
+		Registry<Block> r = Registry.BLOCK;
 		register(r, LibBlockNames.SUBTILE_PUREDAISY, pureDaisy);
 		register(r, floating(LibBlockNames.SUBTILE_PUREDAISY), pureDaisyFloating);
 
@@ -383,8 +383,8 @@ public class ModSubtiles {
 		register(r, floating(LibBlockNames.SUBTILE_ORECHID_IGNEM), orechidIgnemFloating);
 	}
 
-	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
-		IForgeRegistry<Item> r = evt.getRegistry();
+	public static void registerItemBlocks() {
+		Registry<Item> r = Registry.ITEM;
 		Item.Settings props = ModItems.defaultBuilder();
 
 		register(r, getId(pureDaisy), new ItemBlockSpecialFlower(pureDaisy, props));
@@ -527,8 +527,8 @@ public class ModSubtiles {
 		register(r, getId(orechidIgnemFloating), new ItemBlockSpecialFlower(orechidIgnemFloating, props));
 	}
 
-	public static void registerTEs(RegistryEvent.Register<BlockEntityType<?>> evt) {
-		IForgeRegistry<BlockEntityType<?>> r = evt.getRegistry();
+	public static void registerTEs() {
+		Registry<BlockEntityType<?>> r = Registry.BLOCK_ENTITY_TYPE;
 		register(r, getId(pureDaisy), PURE_DAISY);
 		register(r, getId(manastar), MANASTAR);
 		register(r, getId(hydroangeas), HYDROANGEAS);

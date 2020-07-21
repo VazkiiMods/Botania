@@ -11,8 +11,7 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.DyeColor;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.corporea.*;
@@ -81,8 +80,8 @@ public class ModTiles {
 	public static final BlockEntityType<TileAvatar> AVATAR = BlockEntityType.Builder.create(TileAvatar::new, avatar).build(null);
 	public static final BlockEntityType<TileAnimatedTorch> ANIMATED_TORCH = BlockEntityType.Builder.create(TileAnimatedTorch::new, animatedTorch).build(null);
 
-	public static void registerTiles(RegistryEvent.Register<BlockEntityType<?>> evt) {
-		IForgeRegistry<BlockEntityType<?>> r = evt.getRegistry();
+	public static void registerTiles() {
+		Registry<BlockEntityType<?>> r = Registry.BLOCK_ENTITY_TYPE;
 		register(r, LibBlockNames.ALTAR, ALTAR);
 		register(r, LibBlockNames.SPREADER, SPREADER);
 		register(r, LibBlockNames.POOL, POOL);

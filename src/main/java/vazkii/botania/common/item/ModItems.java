@@ -389,8 +389,8 @@ public final class ModItems {
 		return defaultBuilder().maxCount(1);
 	}
 
-	public static void registerItems(RegistryEvent.Register<Item> evt) {
-		IForgeRegistry<Item> r = evt.getRegistry();
+	public static void registerItems() {
+		Registry<Item> r = Registry.ITEM;
 		register(r, LibItemNames.LEXICON, lexicon);
 		register(r, "white" + LibItemNames.PETAL_SUFFIX, whitePetal);
 		register(r, "orange" + LibItemNames.PETAL_SUFFIX, orangePetal);

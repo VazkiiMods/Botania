@@ -217,8 +217,8 @@ public final class ModFluffBlocks {
 	public static final Block alfglassPane = new BlockModPane(Block.Properties.copy(elfGlass));
 	public static final Block bifrostPane = new BlockModPane(Block.Properties.copy(bifrostPerm));
 
-	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
-		IForgeRegistry<Block> r = evt.getRegistry();
+	public static void registerBlocks() {
+		Registry<Block> r = Registry.BLOCK;
 
 		register(r, LibBlockNames.LIVING_WOOD + STAIR_SUFFIX, livingwoodStairs);
 		register(r, LibBlockNames.LIVING_WOOD + SLAB_SUFFIX, livingwoodSlab);
@@ -418,8 +418,8 @@ public final class ModFluffBlocks {
 		register(r, LibBlockNames.BIFROST + "_pane", bifrostPane);
 	}
 
-	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
-		IForgeRegistry<Item> r = evt.getRegistry();
+	public static void registerItemBlocks() {
+		Registry<Item> r = Registry.ITEM;
 		Item.Settings props = ModItems.defaultBuilder();
 
 		register(r, Registry.BLOCK.getId(livingwoodStairs), new BlockItem(livingwoodStairs, props));

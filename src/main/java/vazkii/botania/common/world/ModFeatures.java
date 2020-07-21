@@ -17,8 +17,6 @@ import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.DecoratorConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.Set;
 
@@ -37,8 +35,8 @@ public class ModFeatures {
 			BiomeDictionary.Type.VOID
 	);
 
-	public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
-		IForgeRegistry<Feature<?>> r = event.getRegistry();
+	public static void registerFeatures() {
+		Registry<Feature<?>> r = Registry.FEATURE;
 
 		register(r, "mystical_flowers", MYSTICAL_FLOWERS);
 		register(r, "mystical_mushrooms", MYSTICAL_MUSHROOMS);

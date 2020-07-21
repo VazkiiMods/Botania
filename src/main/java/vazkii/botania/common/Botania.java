@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common;
 
+import net.fabricmc.api.ModInitializer;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -112,8 +113,7 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-@Mod(LibMisc.MOD_ID)
-public class Botania {
+public class Botania implements ModInitializer {
 
 	public static boolean gardenOfGlassLoaded = false;
 
@@ -124,7 +124,8 @@ public class Botania {
 
 	public static final Logger LOGGER = LogManager.getLogger(LibMisc.MOD_ID);
 
-	public Botania() {
+	@Override
+	public void onInitialize() {
 		proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 		proxy.registerHandlers();
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC);
@@ -135,27 +136,26 @@ public class Botania {
 		modBus.addListener(IMCSender::enqueue);
 		modBus.addListener(this::loadComplete);
 		modBus.addListener(DataGenerators::gatherData);
-		modBus.addGenericListener(Feature.class, ModFeatures::registerFeatures);
-		modBus.addGenericListener(Item.class, ModItems::registerItems);
+		ModFeatures.registerFeatures();
+		ModItems.registerItems();
 		modBus.addGenericListener(ScreenHandlerType.class, ModItems::registerContainers);
 		modBus.addGenericListener(RecipeSerializer.class, ModItems::registerRecipeSerializers);
-		modBus.addGenericListener(EntityType.class, ModEntities::registerEntities);
-		modBus.addGenericListener(RecipeSerializer.class, ModRecipeTypes::register);
-		modBus.addGenericListener(SoundEvent.class, ModSounds::registerSounds);
-		modBus.addGenericListener(Brew.class, ModBrews::registerBrews);
-		modBus.addListener(ModBrews::registerRegistry);
-		modBus.addGenericListener(StatusEffect.class, ModPotions::registerPotions);
-		modBus.addGenericListener(Block.class, ModBlocks::registerBlocks);
-		modBus.addGenericListener(Item.class, ModBlocks::registerItemBlocks);
-		modBus.addGenericListener(BlockEntityType.class, ModTiles::registerTiles);
-		modBus.addGenericListener(Block.class, ModFluffBlocks::registerBlocks);
-		modBus.addGenericListener(Item.class, ModFluffBlocks::registerItemBlocks);
-		modBus.addGenericListener(ParticleType.class, ModParticles::registerParticles);
-		modBus.addGenericListener(Block.class, ModSubtiles::registerBlocks);
-		modBus.addGenericListener(Item.class, ModSubtiles::registerItemBlocks);
-		modBus.addGenericListener(BlockEntityType.class, ModSubtiles::registerTEs);
+		ModEntities.registerEntities();
+		ModRecipeTypes.registerRecipeTypes();
+		ModSounds.init();
+		ModBrews.registerBrews();
+		ModPotions.registerPotions();
+		ModBlocks.registerBlocks();
+		ModBlocks.registerItemBlocks();
+		ModTiles.registerTiles();
+		ModFluffBlocks.registerBlocks();
+		ModFluffBlocks.registerItemBlocks();
+		ModParticles.registerParticles();
+		ModSubtiles.registerBlocks();
+		ModSubtiles.registerItemBlocks();
+		ModSubtiles.registerTEs();
 		modBus.addGenericListener(GlobalLootModifierSerializer.class, DisposeModifier::register);
-		modBus.addGenericListener(EntityAttribute.class, PixieHandler::registerAttribute);
+		PixieHandler.registerAttribute();
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		forgeBus.addListener(this::serverAboutToStart);

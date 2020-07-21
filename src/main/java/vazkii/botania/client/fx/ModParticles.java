@@ -10,6 +10,7 @@ package vazkii.botania.client.fx;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.particle.ParticleType;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.event.RegistryEvent;
 
@@ -19,9 +20,9 @@ public class ModParticles {
 	public static final ParticleType<WispParticleData> WISP = new WispParticleType();
 	public static final ParticleType<SparkleParticleData> SPARKLE = new SparkleParticleType();
 
-	public static void registerParticles(RegistryEvent.Register<ParticleType<?>> evt) {
-		register(evt.getRegistry(), "wisp", WISP);
-		register(evt.getRegistry(), "sparkle", SPARKLE);
+	public static void registerParticles() {
+		register(Registry.PARTICLE_TYPE, "wisp", WISP);
+		register(Registry.PARTICLE_TYPE, "sparkle", SPARKLE);
 	}
 
 	public static class FactoryHandler {

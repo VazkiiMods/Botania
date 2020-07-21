@@ -21,6 +21,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Util;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -59,8 +60,8 @@ public final class PixieHandler {
 			StatusEffects.WEAKNESS
 	};
 
-	public static void registerAttribute(RegistryEvent.Register<EntityAttribute> evt) {
-		IForgeRegistry<EntityAttribute> r = evt.getRegistry();
+	public static void registerAttribute() {
+		Registry<EntityAttribute> r = Registry.ATTRIBUTE;
 		register(r, prefix("pixie_spawn_chance"), PIXIE_SPAWN_CHANCE);
 	}
 

@@ -10,8 +10,7 @@ package vazkii.botania.common.core.handler;
 
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.common.lib.LibMisc;
 
@@ -65,55 +64,11 @@ public final class ModSounds {
 
 	private static SoundEvent makeSoundEvent(String name) {
 		Identifier loc = prefix(name);
-		return new SoundEvent(loc).setRegistryName(loc);
+		return Registry.register(Registry.SOUND_EVENT, loc, new SoundEvent(loc));
 	}
 
-	public static void registerSounds(RegistryEvent.Register<SoundEvent> evt) {
-		IForgeRegistry<SoundEvent> r = evt.getRegistry();
-		r.register(airRod);
-		r.register(agricarnation);
-		r.register(altarCraft);
-		r.register(babylonAttack);
-		r.register(babylonSpawn);
-		r.register(bellows);
-		r.register(bifrostRod);
-		r.register(blackLotus);
-		r.register(dash);
-		r.register(ding);
-		r.register(divaCharm);
-		r.register(divinationRod);
-		r.register(doit);
-		r.register(enchanterFade);
-		r.register(enchanterForm);
-		r.register(enchanterEnchant);
-		r.register(endoflame);
-		r.register(equipBauble);
-		r.register(gaiaTrap);
-		r.register(goldenLaurel);
-		r.register(holyCloak);
-		r.register(laputaStart);
-		r.register(lexiconOpen);
-		r.register(lexiconPage);
-		r.register(lightRelay);
-		r.register(manaBlaster);
-		r.register(manaPoolCraft);
-		r.register(missile);
-		r.register(orechid);
-		r.register(potionCreate);
-		r.register(runeAltarCraft);
-		r.register(runeAltarStart);
-		r.register(spreaderFire);
-		r.register(starcaller);
-		r.register(terraBlade);
-		r.register(terraformRod);
-		r.register(terraPickMode);
-		r.register(terrasteelCraft);
-		r.register(thermalily);
-		r.register(unholyCloak);
-		r.register(way);
+	public static void init() {
 
-		r.register(gaiaMusic1);
-		r.register(gaiaMusic2);
 	}
 
 	private ModSounds() {}

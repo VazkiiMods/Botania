@@ -326,8 +326,8 @@ public final class ModBlocks {
 	public static final Block mutatedGrass = new BlockAltGrass(BlockAltGrass.Variant.MUTATED, Block.Properties.copy(dryGrass));
 	public static final Block animatedTorch = new BlockAnimatedTorch(Block.Properties.of(Material.SUPPORTED).lightLevel(s -> 7).nonOpaque());
 
-	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
-		IForgeRegistry<Block> r = evt.getRegistry();
+	public static void registerBlocks() {
+		Registry<Block> r = Registry.BLOCK;
 		register(r, "white" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, whiteFlower);
 		register(r, "orange" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, orangeFlower);
 		register(r, "magenta" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, magentaFlower);
@@ -617,8 +617,8 @@ public final class ModBlocks {
 		register(r, LibBlockNames.ANIMATED_TORCH, animatedTorch);
 	}
 
-	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
-		IForgeRegistry<Item> r = evt.getRegistry();
+	public static void registerItemBlocks() {
+		Registry<Item> r = Registry.ITEM;
 		Item.Settings props = ModItems.defaultBuilder();
 		register(r, Registry.BLOCK.getId(whiteFlower), new BlockItem(whiteFlower, props));
 		register(r, Registry.BLOCK.getId(orangeFlower), new BlockItem(orangeFlower, props));
@@ -878,11 +878,11 @@ public final class ModBlocks {
 		return null;
 	}
 
-	public static <V extends IForgeRegistryEntry<V>> void register(IForgeRegistry<V> reg, Identifier name, IForgeRegistryEntry<V> thing) {
-		reg.register(thing.setRegistryName(name));
+	public static <T> void register(Registry<? super T> reg, Identifier name, T thing) {
+		Registry.register(reg, name, thing);
 	}
 
-	public static <V extends IForgeRegistryEntry<V>> void register(IForgeRegistry<V> reg, String name, IForgeRegistryEntry<V> thing) {
+	public static <T> void register(Registry<? super T> reg, String name, T thing) {
 		register(reg, prefix(name), thing);
 	}
 
