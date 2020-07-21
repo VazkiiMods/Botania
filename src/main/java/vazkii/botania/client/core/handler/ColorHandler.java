@@ -111,7 +111,7 @@ public final class ColorHandler {
 
 		ItemColors items = Minecraft.getInstance().getItemColors();
 
-		items.register((s, t) -> t == 0 ? MathHelper.hsvToRGB(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 0.25F, 1F) : -1,
+		items.register((s, t) -> t == 0 ? MathHelper.hsvToRGB(ClientTickHandler.ticksInGame * 2 % 360 / 360F, 0.25F, 1F) : -1,
 				ModItems.lifeEssence, ModItems.gaiaIngot);
 
 		items.register((s, t) -> t == 1 ? DyeColor.byId(ItemTwigWand.getColor1(s)).getColorValue()

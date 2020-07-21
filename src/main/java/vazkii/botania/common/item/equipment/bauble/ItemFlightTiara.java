@@ -43,6 +43,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -433,7 +434,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		if (player != null) {
 			ms.rotate(Vector3f.YP.rotationDegrees(player.ticksExisted + partialTicks));
 		} else {
-			ms.rotate(Vector3f.YP.rotationDegrees(Botania.proxy.getWorldElapsedTicks()));
+			ms.rotate(Vector3f.YP.rotationDegrees(ClientTickHandler.ticksInGame));
 		}
 
 		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.HALO);

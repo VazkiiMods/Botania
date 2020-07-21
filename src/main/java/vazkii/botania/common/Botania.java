@@ -24,10 +24,10 @@ import net.minecraft.potion.Effect;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
@@ -81,12 +81,10 @@ import vazkii.botania.common.capability.NoopCapStorage;
 import vazkii.botania.common.capability.NoopExoflameHeatable;
 import vazkii.botania.common.core.command.SkyblockCommand;
 import vazkii.botania.common.core.handler.*;
-import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.core.loot.DisposeModifier;
 import vazkii.botania.common.core.loot.LootHandler;
 import vazkii.botania.common.core.loot.ModLootModifiers;
 import vazkii.botania.common.core.proxy.IProxy;
-import vazkii.botania.common.core.proxy.ServerProxy;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.ModEntities;
@@ -120,13 +118,13 @@ public class Botania {
 
 	public static boolean curiosLoaded = false;
 
-	public static IProxy proxy;
+	public static IProxy proxy = new IProxy() {};
 	public static boolean finishedLoading = false;
 
 	public static final Logger LOGGER = LogManager.getLogger(LibMisc.MOD_ID);
 
 	public Botania() {
-		proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
+		DistExecutor.callWhenOn(Dist.CLIENT, () -> () -> proxy = new ClientProxy());
 		proxy.registerHandlers();
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHandler.COMMON_SPEC);
