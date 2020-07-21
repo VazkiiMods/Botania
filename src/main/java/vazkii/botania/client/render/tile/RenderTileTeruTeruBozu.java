@@ -8,6 +8,19 @@
  */
 package vazkii.botania.client.render.tile;
 
+<<<<<<< HEAD
+=======
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Vector3f;
+
+import vazkii.botania.client.core.handler.ClientTickHandler;
+>>>>>>> d798f83226f2aac270209e0c470e467df11f14c6
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelTeruTeruBozu;
@@ -38,7 +51,7 @@ public class RenderTileTeruTeruBozu extends BlockEntityRenderer<TileTeruTeruBozu
 	public void render(@Nullable TileTeruTeruBozu tileentity, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
 		ms.push();
 		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
-		double time = Botania.proxy.getWorldElapsedTicks() + partialTicks;
+		double time = ClientTickHandler.ticksInGame + partialTicks;
 		boolean hasWorld = tileentity != null && tileentity.getWorld() != null;
 		if (hasWorld) {
 			time += new Random(tileentity.getPos().hashCode()).nextInt(1000);

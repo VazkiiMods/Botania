@@ -38,6 +38,7 @@ import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -428,7 +429,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		if (player != null) {
 			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(player.age + partialTicks));
 		} else {
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(Botania.proxy.getWorldElapsedTicks()));
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(ClientTickHandler.ticksInGame));
 		}
 
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.HALO);

@@ -16,6 +16,7 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.patchouli.api.IMultiblock;
@@ -23,25 +24,41 @@ import vazkii.patchouli.api.IMultiblock;
 public interface IProxy {
 	default void registerHandlers() {}
 
-	boolean isTheClientPlayer(LivingEntity entity);
+	default boolean isTheClientPlayer(LivingEntity entity) {
+		return false;
+	}
 
-	PlayerEntity getClientPlayer();
+	default PlayerEntity getClientPlayer() {
+		return null;
+	}
 
-	boolean isClientPlayerWearingMonocle();
+	default boolean isClientPlayerWearingMonocle() {
+		return false;
+	}
 
-	long getWorldElapsedTicks();
+	default long getWorldElapsedTicks() {
+		return ServerLifecycleHooks.getCurrentServer().getWorld(World.field_234918_g_).getGameTime();
+	}
 
 	default void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, int colorOuter, int colorInner) {
 		lightningFX(vectorStart, vectorEnd, ticksPerMeter, System.nanoTime(), colorOuter, colorInner);
 	}
 
-	void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner);
+	default void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
 
-	void addBoss(EntityDoppleganger boss);
+	}
 
-	void removeBoss(EntityDoppleganger boss);
+	default void addBoss(EntityDoppleganger boss) {
 
-	int getClientRenderDistance();
+	}
+
+	default void removeBoss(EntityDoppleganger boss) {
+
+	}
+
+	default int getClientRenderDistance() {
+		return 0;
+	}
 
 	// Side-safe version of world.addParticle with noDistanceLimit flag set to true
 	default void addParticleForce(World world, ParticleEffect particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {}
