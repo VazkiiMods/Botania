@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class EndoflameCategory extends SimpleGenerationCategory {
@@ -27,8 +28,8 @@ public class EndoflameCategory extends SimpleGenerationCategory {
 	}
 
 	@Override
-	protected Collection<ISimpleManaGenRecipe> makeRecipes(IIngredientManager ingredientManager, IJeiHelpers helpers) {
-		List<ISimpleManaGenRecipe> recipes = new ArrayList<>();
+	protected Collection<SimpleManaGenRecipe> makeRecipes(IIngredientManager ingredientManager, IJeiHelpers helpers) {
+		List<SimpleManaGenRecipe> recipes = new ArrayList<>();
 		for (ItemStack stack : ingredientManager.getAllIngredients(VanillaTypes.ITEM)) {
 			int burnTime = SubTileEndoflame.getBurnTime(stack);
 			if (burnTime > 0) {
@@ -39,31 +40,14 @@ public class EndoflameCategory extends SimpleGenerationCategory {
 	}
 
 	@Override
-	public Class<? extends ISimpleManaGenRecipe> getRecipeClass() {
+	public Class<? extends SimpleManaGenRecipe> getRecipeClass() {
 		return EndoflameRecipe.class;
 	}
 
-	protected static class EndoflameRecipe implements ISimpleManaGenRecipe {
-
-		public final ItemStack fuel;
-		private final int burnTime;
+	protected static class EndoflameRecipe extends SimpleManaGenRecipe {
 
 		public EndoflameRecipe(ItemStack fuel, int burnTime) {
-			this.fuel = fuel;
-			this.burnTime = burnTime;
-		}
-
-		/**
-		 * @see SubTileEndoflame#getValueForPassiveGeneration()
-		 */
-		@Override
-		public int getMana() {
-			return burnTime * 3;
-		}
-
-		@Override
-		public ItemStack getStack() {
-			return fuel;
+			super(Collections.singletonList(fuel), burnTime * 3);
 		}
 
 	}

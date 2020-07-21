@@ -28,8 +28,8 @@ public class KekimurusCategory extends SimpleGenerationCategory {
 	}
 
 	@Override
-	protected Collection<ISimpleManaGenRecipe> makeRecipes(IIngredientManager ingredientManager, IJeiHelpers helpers) {
-		ArrayList<ISimpleManaGenRecipe> recipes = new ArrayList<>();
+	protected Collection<SimpleManaGenRecipe> makeRecipes(IIngredientManager ingredientManager, IJeiHelpers helpers) {
+		ArrayList<SimpleManaGenRecipe> recipes = new ArrayList<>();
 		for (Block block : ForgeRegistries.BLOCKS) {
 			if (!(block instanceof CakeBlock)) {
 				continue;
@@ -40,27 +40,16 @@ public class KekimurusCategory extends SimpleGenerationCategory {
 	}
 
 	@Override
-	public Class<? extends ISimpleManaGenRecipe> getRecipeClass() {
+	public Class<? extends SimpleManaGenRecipe> getRecipeClass() {
 		return KekimurusRecipe.class;
 	}
 
-	private static class KekimurusRecipe implements ISimpleManaGenRecipe {
+	private static class KekimurusRecipe extends SimpleManaGenRecipe {
 
 		public static final int MAX_SLICES = Collections.max(CakeBlock.BITES.getAllowedValues());
-		private final ItemStack cake;
 
 		public KekimurusRecipe(CakeBlock cake) {
-			this.cake = new ItemStack(cake);
-		}
-
-		@Override
-		public int getMana() {
-			return 1800 * MAX_SLICES;
-		}
-
-		@Override
-		public ItemStack getStack() {
-			return cake;
+			super(Collections.singletonList(new ItemStack(cake)), 1800 * MAX_SLICES);
 		}
 
 	}
