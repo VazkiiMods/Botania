@@ -61,7 +61,7 @@ public final class BossBarHandler {
 				int auxHeight = currentBoss.bossBarRenderCallback(ms, x, y);
 				RenderSystem.enableBlend();
 				RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				mc.textureManager.bindTexture(currentBoss.getBossBarTexture());
+				mc.getTextureManager().bindTexture(currentBoss.getBossBarTexture());
 				drawBar(ms, currentBoss, x, y, bgRect.x, bgRect.y, bgRect.width, bgRect.height, true);
 				drawBar(ms, currentBoss, xf, yf, fgRect.x, fgRect.y, fw, fgRect.height, false);
 				mc.textRenderer.drawWithShadow(ms, name, tx, y - 10, 0xA2018C);

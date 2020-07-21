@@ -409,7 +409,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-		mc.textureManager.bindTexture(HUDHandler.manaBar);
+		mc.getTextureManager().bindTexture(HUDHandler.manaBar);
 		RenderHelper.drawTexturedModalRect(ms, x, y, u, v, 22, 15);
 		RenderSystem.color4f(1F, 1F, 1F, 1F);
 

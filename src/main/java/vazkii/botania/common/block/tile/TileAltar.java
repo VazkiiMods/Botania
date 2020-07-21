@@ -347,7 +347,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			Optional<IPetalRecipe> maybeRecipe = world.getRecipeManager().getFirstMatch(ModRecipeTypes.PETAL_TYPE, getItemHandler(), world);
 			maybeRecipe.ifPresent(recipe -> {
 				RenderSystem.color4f(1F, 1F, 1F, 1F);
-				mc.textureManager.bindTexture(HUDHandler.manaBar);
+				mc.getTextureManager().bindTexture(HUDHandler.manaBar);
 				RenderHelper.drawTexturedModalRect(ms, xc + radius + 9, yc - 8, 0, 8, 22, 15);
 
 				ItemStack stack = recipe.craft(getItemHandler());

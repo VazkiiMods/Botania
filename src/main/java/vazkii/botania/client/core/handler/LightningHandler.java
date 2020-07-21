@@ -44,7 +44,7 @@ public class LightningHandler {
 
 		float frame = event.getPartialTicks();
 		Entity entity = MinecraftClient.getInstance().player;
-		TextureManager render = MinecraftClient.getInstance().textureManager;
+		TextureManager render = MinecraftClient.getInstance().getTextureManager();
 
 		double interpPosX = entity.lastRenderX + (entity.getX() - entity.lastRenderX) * frame;
 		double interpPosY = entity.lastRenderY + (entity.getY() - entity.lastRenderY) * frame;

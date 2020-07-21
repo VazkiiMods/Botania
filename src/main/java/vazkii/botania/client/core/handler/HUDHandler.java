@@ -253,7 +253,7 @@ public final class HUDHandler {
 		int g = (color >> 8 & 0xFF);
 		int b = color & 0xFF;
 		RenderSystem.color4f(r / 255F, g / 255F, b / 255F, 1 - (r / 255F));
-		mc.textureManager.bindTexture(manaBar);
+		mc.getTextureManager().bindTexture(manaBar);
 
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
@@ -278,7 +278,7 @@ public final class HUDHandler {
 			RenderSystem.enableBlend();
 			RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-			mc.textureManager.bindTexture(manaBar);
+			mc.getTextureManager().bindTexture(manaBar);
 			RenderHelper.drawTexturedModalRect(ms, x, y, u, v, 22, 15);
 			RenderSystem.color4f(1F, 1F, 1F, 1F);
 
@@ -383,7 +383,7 @@ public final class HUDHandler {
 		MinecraftClient mc = MinecraftClient.getInstance();
 
 		RenderSystem.color4f(1F, 1F, 1F, alpha);
-		mc.textureManager.bindTexture(manaBar);
+		mc.getTextureManager().bindTexture(manaBar);
 		RenderHelper.drawTexturedModalRect(ms, x, y, 0, 0, 102, 5);
 
 		int manaPercentage = Math.max(0, (int) ((double) mana / (double) maxMana * 100));

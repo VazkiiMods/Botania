@@ -111,7 +111,7 @@ public class FXWisp extends SpriteBillboardParticle {
 	}
 
 	private static void endRenderCommon() {
-		MinecraftClient.getInstance().textureManager.getTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEX).restoreLastBlurMipmap();
+		MinecraftClient.getInstance().getTextureManager().getTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEX).restoreLastBlurMipmap();
 		RenderSystem.alphaFunc(GL11.GL_GREATER, 0.1F);
 		RenderSystem.disableBlend();
 		RenderSystem.depthMask(true);

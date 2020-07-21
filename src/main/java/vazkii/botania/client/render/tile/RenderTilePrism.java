@@ -36,7 +36,7 @@ public class RenderTilePrism extends BlockEntityRenderer<TilePrism> {
 		ItemStack stack = prism.getItemHandler().getStack(0);
 
 		if (!stack.isEmpty()) {
-			MinecraftClient.getInstance().textureManager.bindTexture(SpriteAtlasTexture.BLOCK_ATLAS_TEX);
+			MinecraftClient.getInstance().getTextureManager().bindTexture(SpriteAtlasTexture.BLOCK_ATLAS_TEX);
 			if (stack.getItem() instanceof ILens) {
 				ms.push();
 				ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90));

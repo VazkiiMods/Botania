@@ -297,7 +297,7 @@ public final class RenderHelper {
 		RenderSystem.stencilMask(0xFF);
 		mc.getItemRenderer().renderInGuiWithOverrides(stack, x, y);
 
-		mc.textureManager.bindTexture(new Identifier(LibResources.GUI_MANA_HUD));
+		mc.getTextureManager().bindTexture(new Identifier(LibResources.GUI_MANA_HUD));
 		int r = 10;
 		int centerX = x + 8;
 		int centerY = y + 8;
