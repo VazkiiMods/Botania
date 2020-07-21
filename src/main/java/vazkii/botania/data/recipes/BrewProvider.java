@@ -32,6 +32,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
+/*
 public class BrewProvider extends RecipesProvider {
 	public BrewProvider(DataGenerator gen) {
 		super(gen);
@@ -115,3 +116,4 @@ public class BrewProvider extends RecipesProvider {
 		}
 	}
 }
+*/

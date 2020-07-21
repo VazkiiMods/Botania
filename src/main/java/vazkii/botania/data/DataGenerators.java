@@ -11,6 +11,7 @@ package vazkii.botania.data;
 
 import vazkii.botania.data.recipes.*;
 
+/* todo fabric hook this up?
 public class DataGenerators {
 	public static void gatherData(GatherDataEvent evt) {
 		if (evt.includeServer()) {
@@ -36,3 +37,4 @@ public class DataGenerators {
 	}
 
 }
+*/

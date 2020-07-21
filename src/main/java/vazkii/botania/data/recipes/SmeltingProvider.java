@@ -17,6 +17,7 @@ import vazkii.botania.common.block.ModFluffBlocks;
 
 import java.util.function.Consumer;
 
+/*
 public class SmeltingProvider extends RecipesProvider {
 	public SmeltingProvider(DataGenerator generatorIn) {
 		super(generatorIn);
@@ -55,3 +56,4 @@ public class SmeltingProvider extends RecipesProvider {
 		return "Botania smelting recipes";
 	}
 }
+*/

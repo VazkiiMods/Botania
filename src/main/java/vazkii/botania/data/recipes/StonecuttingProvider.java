@@ -38,6 +38,7 @@ import java.util.stream.IntStream;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
+/*
 public class StonecuttingProvider extends RecipesProvider {
 	public StonecuttingProvider(DataGenerator generator) {
 		super(generator);
@@ -173,3 +174,4 @@ public class StonecuttingProvider extends RecipesProvider {
 		}
 	}
 }
+*/

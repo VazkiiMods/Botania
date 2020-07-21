@@ -45,6 +45,7 @@ import static vazkii.botania.common.block.ModBlocks.*;
 import static vazkii.botania.common.block.ModFluffBlocks.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
+/*
 public class BlockstateProvider extends BlockStateProvider {
 	public BlockstateProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
 		super(gen, LibMisc.MOD_ID, exFileHelper);
@@ -530,3 +531,4 @@ public class BlockstateProvider extends BlockStateProvider {
 				.partialState().with(Properties.FACING, Direction.UP).setModels(new ConfiguredModel(file, 270, 0, false));
 	}
 }
+*/

@@ -36,6 +36,7 @@ import static vazkii.botania.common.item.ModItems.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 import static vazkii.botania.data.BlockstateProvider.takeAll;
 
+/*
 public class ItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider {
 	public ItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
 		super(generator, LibMisc.MOD_ID, existingFileHelper);
@@ -411,3 +412,4 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 		return "Botania item models";
 	}
 }
+*/

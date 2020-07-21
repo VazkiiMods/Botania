@@ -33,6 +33,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
+/*
 public class RuneProvider extends RecipesProvider {
 	public RuneProvider(DataGenerator gen) {
 		super(gen);
@@ -155,3 +156,4 @@ public class RuneProvider extends RecipesProvider {
 		}
 	}
 }
+*/

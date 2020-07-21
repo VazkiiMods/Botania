@@ -30,6 +30,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
+/*
 public class PureDaisyProvider extends RecipeProvider {
 	public PureDaisyProvider(DataGenerator generator) {
 		super(generator);
@@ -110,3 +111,4 @@ public class PureDaisyProvider extends RecipeProvider {
 		}
 	}
 }
+*/

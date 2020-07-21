@@ -13,6 +13,7 @@ import net.minecraft.util.Identifier;
 
 import vazkii.botania.client.model.FloatingFlowerModel;
 
+/*
 public class FloatingFlowerModelBuilder extends ModelBuilder<FloatingFlowerModelBuilder> {
 	private ModelFile flowerModel;
 
@@ -35,3 +36,4 @@ public class FloatingFlowerModelBuilder extends ModelBuilder<FloatingFlowerModel
 		return ret;
 	}
 }
+*/

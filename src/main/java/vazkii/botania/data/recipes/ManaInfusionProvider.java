@@ -39,6 +39,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
+/*
 public class ManaInfusionProvider extends RecipesProvider {
 	public ManaInfusionProvider(DataGenerator gen) {
 		super(gen);
@@ -270,3 +271,4 @@ public class ManaInfusionProvider extends RecipesProvider {
 		}
 	}
 }
+*/

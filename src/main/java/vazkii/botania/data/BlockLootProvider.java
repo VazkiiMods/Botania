@@ -152,7 +152,7 @@ public class BlockLootProvider implements DataProvider {
 		for (String tag : tags) {
 			func = func.withOperation(tag, "BlockEntityTag." + tag);
 		}
-		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantLootTableRange.create(1)).with(entry)
+		LootPool.Builder pool = LootPool.builder().rolls(ConstantLootTableRange.create(1)).with(entry)
 				.conditionally(SurvivesExplosionLootCondition.builder())
 				.apply(func);
 		return LootTable.builder().pool(pool);
@@ -163,13 +163,13 @@ public class BlockLootProvider implements DataProvider {
 				.enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, NumberRange.IntRange.atLeast(1)));
 		LootPoolEntry.Builder<?> silk = ItemEntry.builder(b)
 				.conditionally(MatchToolLootCondition.builder(silkPred));
-		return LootTable.builder().pool(LootPool.builder().name("main").rolls(ConstantLootTableRange.create(1)).with(silk));
+		return LootTable.builder().pool(LootPool.builder().rolls(ConstantLootTableRange.create(1)).with(silk));
 	}
 
 	private static LootTable.Builder genTinyPotato(Block b) {
 		LootPoolEntry.Builder<?> entry = ItemEntry.builder(b)
 				.apply(CopyNameLootFunction.builder(CopyNameLootFunction.Source.BLOCK_ENTITY));
-		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantLootTableRange.create(1)).with(entry)
+		LootPool.Builder pool = LootPool.builder().rolls(ConstantLootTableRange.create(1)).with(entry)
 				.conditionally(SurvivesExplosionLootCondition.builder());
 		return LootTable.builder().pool(pool);
 	}
@@ -182,14 +182,14 @@ public class BlockLootProvider implements DataProvider {
 
 	private static LootTable.Builder genSolidVine(Block b) {
 		LootPoolEntry.Builder<?> entry = LootTableEntry.builder(new Identifier("blocks/vine"));
-		return LootTable.builder().pool(LootPool.builder().name("main").rolls(ConstantLootTableRange.create(1)).with(entry));
+		return LootTable.builder().pool(LootPool.builder().rolls(ConstantLootTableRange.create(1)).with(entry));
 	}
 
 	private static LootTable.Builder genRoot(Block b) {
 		LootPoolEntry.Builder<?> entry = ItemEntry.builder(ModItems.livingroot)
 				.apply(SetCountLootFunction.builder(UniformLootTableRange.between(2, 4)))
 				.apply(ExplosionDecayLootFunction.builder());
-		return LootTable.builder().pool(LootPool.builder().name("main").rolls(ConstantLootTableRange.create(1)).with(entry));
+		return LootTable.builder().pool(LootPool.builder().rolls(ConstantLootTableRange.create(1)).with(entry));
 	}
 
 	private static LootTable.Builder genSlab(Block b) {
@@ -197,14 +197,14 @@ public class BlockLootProvider implements DataProvider {
 				.apply(SetCountLootFunction.builder(ConstantLootTableRange.create(2))
 						.conditionally(BlockStatePropertyLootCondition.builder(b).properties(StatePredicate.Builder.create().exactMatch(SlabBlock.TYPE, SlabType.DOUBLE))))
 				.apply(ExplosionDecayLootFunction.builder());
-		return LootTable.builder().pool(LootPool.builder().name("main").rolls(ConstantLootTableRange.create(1)).with(entry));
+		return LootTable.builder().pool(LootPool.builder().rolls(ConstantLootTableRange.create(1)).with(entry));
 	}
 
 	private static LootTable.Builder genDoubleFlower(Block b) {
 		LootPoolEntry.Builder<?> entry = ItemEntry.builder(b)
 				.conditionally(BlockStatePropertyLootCondition.builder(b).properties(StatePredicate.Builder.create().exactMatch(TallPlantBlock.HALF, DoubleBlockHalf.LOWER)))
 				.conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().tag(ModTags.Items.SHEARS)));
-		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantLootTableRange.create(1)).with(entry)
+		LootPool.Builder pool = LootPool.builder().rolls(ConstantLootTableRange.create(1)).with(entry)
 				.conditionally(SurvivesExplosionLootCondition.builder());
 		return LootTable.builder().pool(pool);
 	}
@@ -217,13 +217,13 @@ public class BlockLootProvider implements DataProvider {
 		LootPoolEntry.Builder<?> dirt = ItemEntry.builder(Blocks.DIRT)
 				.conditionally(SurvivesExplosionLootCondition.builder());
 		LootPoolEntry.Builder<?> entry = AlternativeEntry.builder(silk, dirt);
-		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantLootTableRange.create(1)).with(entry);
+		LootPool.Builder pool = LootPool.builder().rolls(ConstantLootTableRange.create(1)).with(entry);
 		return LootTable.builder().pool(pool);
 	}
 
 	private static LootTable.Builder genRegular(Block b) {
 		LootPoolEntry.Builder<?> entry = ItemEntry.builder(b);
-		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantLootTableRange.create(1)).with(entry)
+		LootPool.Builder pool = LootPool.builder().rolls(ConstantLootTableRange.create(1)).with(entry)
 				.conditionally(SurvivesExplosionLootCondition.builder());
 		return LootTable.builder().pool(pool);
 	}

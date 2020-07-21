@@ -35,6 +35,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
+/*
 public class PetalProvider extends RecipesProvider {
 	public PetalProvider(DataGenerator gen) {
 		super(gen);
@@ -193,3 +194,4 @@ public class PetalProvider extends RecipesProvider {
 		}
 	}
 }
+*/

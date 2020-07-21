@@ -36,6 +36,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
+/*
 public class ElvenTradeProvider extends RecipesProvider {
 	public ElvenTradeProvider(DataGenerator gen) {
 		super(gen);
@@ -130,3 +131,4 @@ public class ElvenTradeProvider extends RecipesProvider {
 		}
 	}
 }
+*/

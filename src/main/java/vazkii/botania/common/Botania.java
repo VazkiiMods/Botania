@@ -123,7 +123,6 @@ public class Botania implements ModInitializer {
 		modBus.addListener(this::commonSetup);
 		IMCSender.enqueue();
 		modBus.addListener(this::loadComplete);
-		modBus.addListener(DataGenerators::gatherData);
 		ModFeatures.registerFeatures();
 		ModItems.registerItems();
 		modBus.addGenericListener(ScreenHandlerType.class, ModItems::registerContainers);

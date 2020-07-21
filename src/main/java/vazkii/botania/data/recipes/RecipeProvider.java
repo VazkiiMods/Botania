@@ -56,6 +56,7 @@ import java.util.stream.Stream;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
+/*
 public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 	public RecipeProvider(DataGenerator generator) {
 		super(generator);
@@ -2631,3 +2632,4 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 		return "Botania crafting recipes";
 	}
 }
+*/
