@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.item.rod;
 
-import com.google.common.collect.ImmutableList;
-
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

@@ -8,26 +8,20 @@
  */
 package vazkii.botania.data;
 
-import com.mojang.datafixers.util.Pair;
-
 import net.minecraft.block.*;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.DyeColor;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.common.block.BlockFloatingSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.function.Predicate;

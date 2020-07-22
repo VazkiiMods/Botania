@@ -22,7 +22,6 @@ import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IDirectioned;
 import vazkii.botania.api.mana.IThrottledPacket;
 import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.core.helper.Vector3;
 
 public class LensRedirect extends Lens {
 

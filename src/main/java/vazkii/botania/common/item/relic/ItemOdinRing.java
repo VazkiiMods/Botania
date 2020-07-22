@@ -22,7 +22,6 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.HashSet;
 import java.util.Set;

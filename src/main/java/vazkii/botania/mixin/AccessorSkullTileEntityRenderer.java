@@ -14,8 +14,6 @@ import net.minecraft.block.SkullBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.GenericHeadModel;
 import net.minecraft.client.renderer.tileentity.SkullTileEntityRenderer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;

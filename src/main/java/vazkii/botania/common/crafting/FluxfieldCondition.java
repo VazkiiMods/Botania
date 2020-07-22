@@ -15,7 +15,6 @@ import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
 
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 

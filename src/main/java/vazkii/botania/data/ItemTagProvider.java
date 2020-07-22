@@ -10,20 +10,13 @@ package vazkii.botania.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
-import net.minecraft.data.TagsProvider;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Item;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
-
-import java.util.Arrays;
-import java.util.Comparator;
 
 public class ItemTagProvider extends ItemTagsProvider {
 	public ItemTagProvider(DataGenerator generatorIn, BlockTagProvider blockTagProvider) {

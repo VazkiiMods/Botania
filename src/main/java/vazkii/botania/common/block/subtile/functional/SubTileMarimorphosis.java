@@ -11,7 +11,6 @@ package vazkii.botania.common.block.subtile.functional;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.pattern.BlockStateMatcher;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.BiomeDictionary;

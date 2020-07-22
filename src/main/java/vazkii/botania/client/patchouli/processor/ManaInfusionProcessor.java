@@ -11,7 +11,6 @@ package vazkii.botania.client.patchouli.processor;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;

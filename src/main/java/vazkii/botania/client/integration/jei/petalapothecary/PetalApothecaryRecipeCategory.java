@@ -27,7 +27,6 @@ import net.minecraft.util.ResourceLocation;
 import vazkii.botania.api.recipe.IPetalRecipe;
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 

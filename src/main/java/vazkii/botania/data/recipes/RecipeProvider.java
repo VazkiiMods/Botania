@@ -10,12 +10,8 @@ package vazkii.botania.data.recipes;
 
 import com.google.gson.JsonArray;
 
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.ICriterionInstance;
-import net.minecraft.advancements.IRequirementsStrategy;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
-import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.block.Block;
 import net.minecraft.data.*;
@@ -30,10 +26,6 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.crafting.ConditionalAdvancement;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
-import net.minecraftforge.common.crafting.conditions.TrueCondition;
 
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.block.ModBlocks;
@@ -50,12 +42,10 @@ import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import javax.annotation.Nullable;
 
-import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;

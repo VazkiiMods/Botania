@@ -21,7 +21,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
-import net.minecraftforge.items.wrapper.InvWrapper;
 
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.IManaUsingItem;

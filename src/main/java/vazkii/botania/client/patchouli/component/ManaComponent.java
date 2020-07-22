@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.patchouli.component;
 
-import com.google.common.collect.Streams;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import net.minecraft.client.Minecraft;
@@ -22,7 +21,6 @@ import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
 import vazkii.patchouli.api.IVariable;
 
-import java.util.Arrays;
 import java.util.function.UnaryOperator;
 
 /**

@@ -28,7 +28,6 @@ import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.lib.LibMisc;
 
-import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ModelHandler {

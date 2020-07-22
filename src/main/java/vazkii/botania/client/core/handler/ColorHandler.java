@@ -27,7 +27,6 @@ import net.minecraft.world.biome.BiomeColors;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.mana.BurstProperties;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockPetalBlock;

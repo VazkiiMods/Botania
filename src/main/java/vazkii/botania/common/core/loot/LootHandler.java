@@ -14,8 +14,6 @@ import net.minecraft.loot.TableLootEntry;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.LootTableLoadEvent;
 
-import vazkii.botania.common.lib.LibMisc;
-
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class LootHandler {

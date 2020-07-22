@@ -9,7 +9,6 @@
 package vazkii.botania.client.patchouli.processor;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
@@ -22,7 +21,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
-import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;

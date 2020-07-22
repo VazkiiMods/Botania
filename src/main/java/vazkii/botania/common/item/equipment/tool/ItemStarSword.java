@@ -21,7 +21,6 @@ import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityFallingStar;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 

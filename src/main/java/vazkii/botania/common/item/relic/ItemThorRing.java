@@ -14,7 +14,6 @@ import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 

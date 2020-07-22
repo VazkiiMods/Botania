@@ -39,7 +39,6 @@ import org.lwjgl.opengl.GL11;
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 

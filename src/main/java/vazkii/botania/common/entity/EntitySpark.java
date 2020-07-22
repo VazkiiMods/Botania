@@ -29,7 +29,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.items.IItemHandler;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaItem;

@@ -49,7 +49,6 @@ import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
