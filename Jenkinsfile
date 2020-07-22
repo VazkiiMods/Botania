@@ -7,7 +7,7 @@ pipeline {
             steps {
                 echo 'Cleaning Project'
                 sh 'chmod +x gradlew'
-                sh './gradlew clean --refresh-dependencies --no-daemon'
+                sh './gradlew clean -i --no-daemon'
             }
         }
         stage('Build and Deploy Release') {
@@ -18,7 +18,7 @@ pipeline {
                 RELEASE_MODE = '1'
             }
             steps {
-                sh './gradlew build publish --refresh-dependencies --no-daemon'
+                sh './gradlew build publish -i --refresh-dependencies --no-daemon'
             }
         }
         stage('Build and Deploy Snapshot') {
@@ -28,7 +28,7 @@ pipeline {
                 }
             }
             steps {
-                sh './gradlew build publish --refresh-dependencies --no-daemon'
+                sh './gradlew build publish -i --refresh-dependencies --no-daemon'
             }
         }
     }
