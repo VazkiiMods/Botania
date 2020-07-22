@@ -139,7 +139,6 @@ spotless {
         eclipse().configFile 'spotless/eclipseformat.xml'
         removeUnusedImports()
         importOrderFile 'spotless/eclipse.importorder'
-        ratchetFrom "origin/1.16.x" // Keep this on the active branch?
     }
 }
 
