@@ -59,16 +59,11 @@ public class ItemOdinRing extends ItemRelicBauble {
 		return attributes;
 	}
 
-	public static void onPlayerAttacked(LivingAttackEvent event) {
-		if (event.getEntityLiving() instanceof PlayerEntity) {
-			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-			boolean negate = damageNegations.contains(event.getSource().name)
-					|| (fireNegations.contains(event.getSource().name));
-			boolean hasRing = !EquipmentHandler.findOrEmpty(ModItems.odinRing, player).isEmpty();
-			if (hasRing && negate) {
-				event.setCanceled(true);
-			}
-		}
+	public static boolean onPlayerAttacked(PlayerEntity player, DamageSource src) {
+		boolean negate = damageNegations.contains(src.name)
+			|| (fireNegations.contains(src.name));
+		boolean hasRing = !EquipmentHandler.findOrEmpty(ModItems.odinRing, player).isEmpty();
+		return negate && hasRing;
 	}
 
 	@Override

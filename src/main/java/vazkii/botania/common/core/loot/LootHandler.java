@@ -8,9 +8,13 @@
  */
 package vazkii.botania.common.core.loot;
 
+import net.fabricmc.fabric.api.loot.v1.FabricLootSupplierBuilder;
+import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.minecraft.loot.LootManager;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.entry.LootPoolEntry;
 import net.minecraft.loot.entry.LootTableEntry;
+import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 
 import vazkii.botania.common.lib.LibMisc;
@@ -19,9 +23,9 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class LootHandler {
 
-	public static void lootLoad(LootTableLoadEvent evt) {
+	public static void lootLoad(ResourceManager resourceManager, LootManager manager, Identifier id, FabricLootSupplierBuilder supplier, LootTableLoadingCallback.LootTableSetter setter) {
 		String prefix = "minecraft:chests/";
-		String name = evt.getName().toString();
+		String name = id.toString();
 
 		if (name.startsWith(prefix)) {
 			String file = name.substring(name.indexOf(prefix) + prefix.length());
@@ -33,7 +37,7 @@ public final class LootHandler {
 			case "spawn_bonus_chest":
 			case "stronghold_corridor":
 			case "village_blacksmith":
-				evt.getTable().addPool(getInjectPool(file));
+				supplier.withPool(getInjectPool(file));
 				break;
 			default:
 				break;
@@ -44,8 +48,7 @@ public final class LootHandler {
 	public static LootPool getInjectPool(String entryName) {
 		return LootPool.builder()
 				.with(getInjectEntry(entryName, 1))
-				.bonusRolls(0, 1)
-				.name("botania_inject")
+				// todo fabric .bonusRolls(0, 1)
 				.build();
 	}
 

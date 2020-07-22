@@ -9,6 +9,7 @@
 package vazkii.botania.mixin;
 
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.common.core.handler.PixieHandler;
+import vazkii.botania.common.item.relic.ItemOdinRing;
 
 @Mixin(PlayerEntity.class)
 public class MixinPlayerEntity {
@@ -26,5 +28,15 @@ public class MixinPlayerEntity {
 	@Inject(at = @At("RETURN"), method = "func_234570_el_")
 	private static void addPixieAttribute(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
 		cir.getReturnValue().add(PixieHandler.PIXIE_SPAWN_CHANCE);
+	}
+
+	/**
+	 * Makes the player invulnerable to certain damage when wearing an Odin Ring
+	 */
+	@Inject(at = @At("HEAD"), method = "isInvulnerableTo")
+	private void odinRing(DamageSource src, CallbackInfoReturnable<Boolean> cir) {
+		if (ItemOdinRing.onPlayerAttacked((PlayerEntity) (Object) this, src)) {
+			cir.setReturnValue(true);
+		}
 	}
 }

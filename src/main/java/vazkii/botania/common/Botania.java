@@ -15,6 +15,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -152,7 +153,6 @@ public class Botania implements ModInitializer {
 		CommandRegistrationCallback.EVENT.register(this::registerCommands);
 		ServerLifecycleEvents.SERVER_STOPPING.register(this::serverStopping);
 		UseBlockCallback.EVENT.register(ItemLokiRing::onPlayerInteract);
-		forgeBus.addListener(ItemOdinRing::onPlayerAttacked);
 		UseItemCallback.EVENT.register(ItemEnderAir::onPlayerInteract);
 		ServerTickEvents.END_WORLD_TICK.register(ItemGrassSeeds::onTickEnd);
 		forgeBus.addListener(ItemKeepIvy::onPlayerDrops);
@@ -172,7 +172,7 @@ public class Botania implements ModInitializer {
 		UseBlockCallback.EVENT.register(BlockRedStringInterceptor::onInteract);
 		forgeBus.addListener(ManaNetworkHandler.instance::onNetworkEvent);
 		forgeBus.addListener(EventPriority.HIGHEST, TileCorporeaIndex.getInputHandler()::onChatMessage);
-		forgeBus.addListener(LootHandler::lootLoad);
+		LootTableLoadingCallback.EVENT.register(LootHandler::lootLoad);
 
 		ModLootModifiers.init();
 		ModCriteriaTriggers.init();
