@@ -1,5 +1,5 @@
 {
-  "parent": "block/inner_stairs",
+  "parent": "minecraft:block/inner_stairs",
   "textures": {
     "side": "botania:block/metamorphic_taiga_bricks",
     "bottom": "botania:block/metamorphic_taiga_bricks",

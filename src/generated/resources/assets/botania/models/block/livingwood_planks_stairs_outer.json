@@ -1,5 +1,5 @@
 {
-  "parent": "block/outer_stairs",
+  "parent": "minecraft:block/outer_stairs",
   "textures": {
     "side": "botania:block/livingwood_planks",
     "bottom": "botania:block/livingwood_planks",

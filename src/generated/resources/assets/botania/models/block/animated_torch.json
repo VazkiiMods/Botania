@@ -1,5 +1,5 @@
 {
   "textures": {
-    "particle": "block/redstone_torch"
+    "particle": "minecraft:block/redstone_torch"
   }
 }

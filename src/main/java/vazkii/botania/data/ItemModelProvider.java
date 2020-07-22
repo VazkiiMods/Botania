@@ -59,6 +59,16 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 	}
 
 	private static final ResourceLocation GENERATED = new ResourceLocation("item/generated");
+	private static final ResourceLocation HANDHELD = new ResourceLocation("item/handheld");
+
+	private ItemModelBuilder handheldItem(String name) {
+		return withExistingParent(name, HANDHELD)
+				.texture("layer0", prefix("item/" + name));
+	}
+
+	private ItemModelBuilder handheldItem(Item i) {
+		return handheldItem(name(i));
+	}
 
 	private ItemModelBuilder generatedItem(String name) {
 		return withExistingParent(name, GENERATED)
@@ -82,7 +92,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 				.texture("layer1", prefix("item/" + name(bloodPendant) + "_overlay"));
 		items.remove(bloodPendant);
 
-		generatedItem(enderDagger)
+		handheldItem(enderDagger)
 				.texture("layer1", prefix("item/" + name(enderDagger) + "_overlay"));
 		items.remove(enderDagger);
 
@@ -103,6 +113,11 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 				.texture("layer1", prefix("item/" + name(thirdEye) + "_1"))
 				.texture("layer2", prefix("item/" + name(thirdEye) + "_2"));
 		items.remove(thirdEye);
+
+		takeAll(items, cobbleRod, dirtRod, diviningRod, elementiumAxe, elementiumPick, elementiumShovel, elementiumSword,
+				exchangeRod, fireRod, glassPick, gravityRod, manasteelAxe, manasteelPick, manasteelShears, manasteelShovel,
+				missileRod, obedienceStick, rainbowRod, smeltRod, starSword, terraSword, terraformRod, thunderSword, waterRod,
+				kingKey, skyDirtRod).forEach(this::handheldItem);
 
 		takeAll(items, i -> true).forEach(this::generatedItem);
 	}
@@ -145,12 +160,12 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 		}
 		items.remove(brewVial);
 
-		generatedItem(elementiumShears).override()
+		handheldItem(elementiumShears).override()
 				.predicate(prefix("reddit"), 1)
-				.model(generatedItem("dammitreddit")).end();
+				.model(handheldItem("dammitreddit")).end();
 		items.remove(elementiumShears);
 
-		ModelFile vuvuzela = generatedItem("vuvuzela");
+		ModelFile vuvuzela = handheldItem("vuvuzela");
 		generatedItem(grassHorn).override().predicate(prefix("vuvuzela"), 1).model(vuvuzela).end();
 		generatedItem(leavesHorn).override().predicate(prefix("vuvuzela"), 1).model(vuvuzela).end();
 		generatedItem(snowHorn).override().predicate(prefix("vuvuzela"), 1).model(vuvuzela).end();
@@ -192,9 +207,9 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 				.model(generatedItem("totalbiscuit")).end();
 		items.remove(manaCookie);
 
-		generatedItem(manasteelSword).override()
+		handheldItem(manasteelSword).override()
 				.predicate(prefix("elucidator"), 1)
-				.model(generatedItem("elucidator")).end();
+				.model(handheldItem("elucidator")).end();
 		items.remove(manasteelSword);
 
 		generatedItem(manaweaveHelm).override()
@@ -232,9 +247,9 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 				.model(generatedItem(name(temperanceStone) + "_active")).end();
 		items.remove(temperanceStone);
 
-		generatedItem(terraAxe).override()
+		handheldItem(terraAxe).override()
 				.predicate(prefix("active"), 1)
-				.model(generatedItem(name(terraAxe) + "_active")).end();
+				.model(handheldItem(name(terraAxe) + "_active")).end();
 		items.remove(terraAxe);
 
 		ModelFile enabledModel = withExistingParent(name(terraPick) + "_active", GENERATED)
@@ -244,7 +259,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 				.texture("layer0", prefix("item/" + name(terraPick) + "_tipped"))
 				.texture("layer1", prefix("item/" + name(terraPick) + "_active"));
 
-		generatedItem(terraPick).override()
+		handheldItem(terraPick).override()
 				.predicate(prefix("active"), 1)
 				.model(enabledModel).end()
 				.override()
@@ -255,17 +270,17 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 				.model(tippedEnabledModel).end();
 		items.remove(terraPick);
 
-		generatedItem(tornadoRod).override()
+		handheldItem(tornadoRod).override()
 				.predicate(prefix("active"), 1)
-				.model(generatedItem(name(tornadoRod) + "_active")).end();
+				.model(handheldItem(name(tornadoRod) + "_active")).end();
 		items.remove(tornadoRod);
 
-		ModelFile twigwandBind = withExistingParent(name(twigWand) + "_bind", GENERATED)
+		ModelFile twigwandBind = withExistingParent(name(twigWand) + "_bind", HANDHELD)
 				.texture("layer0", prefix("item/" + name(twigWand)))
 				.texture("layer1", prefix("item/" + name(twigWand) + "_top"))
 				.texture("layer2", prefix("item/" + name(twigWand) + "_bottom"))
 				.texture("layer3", prefix("item/" + name(twigWand) + "_bind"));
-		generatedItem(twigWand)
+		handheldItem(twigWand)
 				.texture("layer1", prefix("item/" + name(twigWand) + "_top"))
 				.texture("layer2", prefix("item/" + name(twigWand) + "_bottom"))
 				.override()
