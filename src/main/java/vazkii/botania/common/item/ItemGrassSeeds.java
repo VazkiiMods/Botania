@@ -16,6 +16,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
@@ -99,12 +100,10 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 		return ActionResult.PASS;
 	}
 
-	public static void onTickEnd(TickEvent.WorldTickEvent event) {
-		if (event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END) {
-			RegistryKey<World> dim = event.world.getRegistryKey();
-			if (blockSwappers.containsKey(dim)) {
-				blockSwappers.get(dim).removeIf(next -> next == null || !next.tick());
-			}
+	public static void onTickEnd(ServerWorld world) {
+		RegistryKey<World> dim = world.getRegistryKey();
+		if (blockSwappers.containsKey(dim)) {
+			blockSwappers.get(dim).removeIf(next -> next == null || !next.tick());
 		}
 	}
 

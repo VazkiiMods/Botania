@@ -15,6 +15,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -153,8 +154,7 @@ public class Botania implements ModInitializer {
 		UseBlockCallback.EVENT.register(ItemLokiRing::onPlayerInteract);
 		forgeBus.addListener(ItemOdinRing::onPlayerAttacked);
 		UseItemCallback.EVENT.register(ItemEnderAir::onPlayerInteract);
-		forgeBus.addListener(ItemGoddessCharm::onExplosion);
-		forgeBus.addListener(ItemGrassSeeds::onTickEnd);
+		ServerTickEvents.END_WORLD_TICK.register(ItemGrassSeeds::onTickEnd);
 		forgeBus.addListener(ItemKeepIvy::onPlayerDrops);
 		forgeBus.addListener(ItemKeepIvy::onPlayerRespawn);
 		forgeBus.addListener(ItemVirus::onLivingHurt);
@@ -199,15 +199,13 @@ public class Botania implements ModInitializer {
 		DeferredWorkQueue.runLater(() -> {
 			SkyblockChunkGenerator.init();
 
-			DefaultAttributeRegistry.put(ModEntities.DOPPLEGANGER, MobEntity.createMobAttributes()
+			FabricDefaultAttributeRegistry.register(ModEntities.DOPPLEGANGER, MobEntity.createMobAttributes()
 					.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4)
 					.add(EntityAttributes.GENERIC_MAX_HEALTH, EntityDoppleganger.MAX_HP)
-					.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0)
-					.build());
-			DefaultAttributeRegistry.put(ModEntities.PIXIE, MobEntity.createMobAttributes()
-					.add(EntityAttributes.GENERIC_MAX_HEALTH, 2.0)
-					.build());
-			DefaultAttributeRegistry.put(ModEntities.PINK_WITHER, WitherEntity.createWitherAttributes().build());
+					.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0));
+			FabricDefaultAttributeRegistry.register(ModEntities.PIXIE, MobEntity.createMobAttributes()
+					.add(EntityAttributes.GENERIC_MAX_HEALTH, 2.0));
+			FabricDefaultAttributeRegistry.register(ModEntities.PINK_WITHER, WitherEntity.createWitherAttributes());
 			ModBanners.init();
 
 			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getId(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.get());

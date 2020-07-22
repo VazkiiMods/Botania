@@ -20,8 +20,10 @@ import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -39,15 +41,13 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
 		super(props);
 	}
 
-	public static void onExplosion(ExplosionEvent.Detonate event) {
-		Explosion e = event.getExplosion();
-		Vec3d vec = e.getPosition();
-		List<PlayerEntity> players = event.getWorld().getNonSpectatingEntities(PlayerEntity.class, new Box(vec.x, vec.y, vec.z, vec.x, vec.y, vec.z).expand(8));
+	public static void onExplosion(World world, Vec3d vec, List<BlockPos> affectedBlocks) {
+		List<PlayerEntity> players = world.getNonSpectatingEntities(PlayerEntity.class, new Box(vec.x, vec.y, vec.z, vec.x, vec.y, vec.z).expand(8));
 
 		for (PlayerEntity player : players) {
 			ItemStack charm = EquipmentHandler.findOrEmpty(ModItems.goddessCharm, player);
 			if (!charm.isEmpty() && ManaItemHandler.instance().requestManaExact(charm, player, COST, true)) {
-				event.getAffectedBlocks().clear();
+				affectedBlocks.clear();
 				return;
 			}
 		}
