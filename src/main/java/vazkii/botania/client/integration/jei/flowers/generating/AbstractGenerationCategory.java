@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.integration.jei.flowers.generating;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
@@ -19,6 +20,7 @@ import vazkii.botania.api.mana.IManaIngredient;
 import vazkii.botania.client.integration.jei.flowers.AbstractFlowerCategory;
 import vazkii.botania.client.integration.jei.mana.ManaIngredient;
 import vazkii.botania.client.integration.jei.mana.ManaIngredientRenderer;
+import vazkii.botania.client.integration.jei.misc.ParticleDrawable;
 import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -28,6 +30,8 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public abstract class AbstractGenerationCategory<T extends AbstractGenerationCategory.ManaGenRecipe> extends AbstractFlowerCategory<T> {
 	protected final IDrawableStatic background;
 
+	protected ParticleDrawable particle;
+
 	public AbstractGenerationCategory(IGuiHelper guiHelper, Block flower, Block floatingFlower) {
 		super(guiHelper, flower, floatingFlower);
 		background = guiHelper.createBlankDrawable(168, 64);
@@ -36,6 +40,14 @@ public abstract class AbstractGenerationCategory<T extends AbstractGenerationCat
 	@Override
 	public IDrawable getBackground() {
 		return background;
+	}
+
+	@Override
+	public void draw(T recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+		super.draw(recipe, matrixStack, mouseX, mouseY);
+		if(particle != null) {
+			particle.draw(matrixStack, 77, 25);
+		}
 	}
 
 	@Override

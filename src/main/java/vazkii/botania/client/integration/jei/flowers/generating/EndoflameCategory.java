@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.integration.jei.flowers.generating;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
@@ -26,8 +25,6 @@ import java.util.Random;
 
 public class EndoflameCategory extends SimpleGenerationCategory {
 
-	private final ParticleDrawable particle;
-
 	public EndoflameCategory(IGuiHelper guiHelper) {
 		super(guiHelper, ModSubtiles.endoflame, ModSubtiles.endoflameFloating);
 		Random random = new Random();
@@ -43,12 +40,6 @@ public class EndoflameCategory extends SimpleGenerationCategory {
 								0.0D);
 					}
 				});
-	}
-
-	@Override
-	public void draw(SimpleManaGenRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
-		super.draw(recipe, matrixStack, mouseX, mouseY);
-		particle.draw(matrixStack, 77, 25);
 	}
 
 	@Override

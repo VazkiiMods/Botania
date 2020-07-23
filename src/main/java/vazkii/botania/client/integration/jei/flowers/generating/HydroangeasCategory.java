@@ -15,6 +15,8 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.runtime.IIngredientManager;
+import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.client.integration.jei.misc.ParticleDrawable;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.subtile.generating.SubTileHydroangeas;
 import net.minecraft.block.Block;
@@ -25,9 +27,31 @@ import net.minecraftforge.fluids.FluidStack;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class HydroangeasCategory extends AbstractGenerationCategory<AbstractGenerationCategory.ManaGenRecipe> {
+
+	{
+		Random random = new Random();
+		particle = new ParticleDrawable()
+				.onTick((drawable) -> {
+					if(random.nextInt(8) == 0) {
+						doBurnParticles(drawable);
+					}
+				});
+	}
+
+	protected void doBurnParticles(ParticleDrawable drawable) {
+		WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.1F, 0.1F, 0.1F, 1);
+		drawable.addParticle(data,
+				0.5 + Math.random() * 0.2 - 0.1,
+				0.5 + Math.random() * 0.2 - 0.1,
+				0,
+				0,
+				(float) Math.random() / 30,
+				0);
+	}
 
 	public HydroangeasCategory(IGuiHelper guiHelper) {
 		super(guiHelper, ModSubtiles.hydroangeas, ModSubtiles.hydroangeasFloating);
