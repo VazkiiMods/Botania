@@ -18,6 +18,7 @@
     "AccessorMobEntity",
     "AccessorNearestAttackableTarget",
     "AccessorRecipeManager",
+    "AccessorSlimeEntity",
     "AccessorWitherEntity",
     "MixinEndermanPickupBlock",
     "MixinPlayerEntity"
@@ -27,8 +28,8 @@
     "AccessorEndPortalTileEntityRenderer",
     "AccessorFirstPersonRenderer",
     "AccessorItemOverrideList",
-    "AccessorModelBakery",
     "AccessorMinecraft",
+    "AccessorModelBakery",
     "AccessorRecipeBookGui",
     "AccessorRecipeBookPage",
     "AccessorRenderState",

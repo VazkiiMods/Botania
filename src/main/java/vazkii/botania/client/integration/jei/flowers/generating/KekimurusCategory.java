@@ -48,7 +48,7 @@ public class KekimurusCategory extends SimpleGenerationCategory {
 	@Override
 	protected void setRecipeInputs(IRecipeLayout recipeLayout, SimpleManaGenRecipe recipe, IIngredients ingredients) {
 		IGuiItemStackGroup stacks = recipeLayout.getItemStacks();
-		stacks.init(0, true, cakeRenderer, 76, 4, 16, 16, 0, 0);
+		stacks.init(0, true, cakeRenderer, 76, 4, 18, 18, 1, 1);
 		stacks.set(ingredients);
 	}
 
