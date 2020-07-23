@@ -213,8 +213,8 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		entities.add(EntityType.ZOMBIE.create(world));
 		registry.register(EntityIngredient.TYPE,
 				entities,
-				EntityIngredient.Helper.INSTANCE,
-				EntityIngredient.Renderer.INSTANCE);
+				EntityIngredient.HELPER,
+				EntityIngredient.INSTANCE);
 	}
 
 	@Override

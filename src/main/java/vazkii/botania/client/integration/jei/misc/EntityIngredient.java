@@ -24,6 +24,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.registry.Registry;
@@ -42,7 +43,9 @@ import java.util.Objects;
 @ParametersAreNonnullByDefault
 public class EntityIngredient implements IIngredientType<Entity> {
 
-	public static EntityIngredient TYPE = new EntityIngredient();
+	public static final IIngredientHelper<Entity> HELPER = new Helper();
+	public static final IIngredientType<Entity> TYPE = new EntityIngredient();
+	public static final IIngredientRenderer<Entity> INSTANCE = new Renderer();
 
 	@Override
 	public Class<Entity> getIngredientClass() {
@@ -50,8 +53,6 @@ public class EntityIngredient implements IIngredientType<Entity> {
 	}
 
 	public static class Helper implements IIngredientHelper<Entity> {
-
-		public static final Helper INSTANCE = new Helper();
 
 		@Nullable
 		@Override
@@ -120,8 +121,6 @@ public class EntityIngredient implements IIngredientType<Entity> {
 
 	public static class Renderer implements IIngredientRenderer<Entity> {
 
-		public static Renderer INSTANCE = new Renderer();
-
 		@Override
 		public void render(MatrixStack matrixStack, int xPosition, int yPosition, @Nullable Entity ingredient) {
 			ClientWorld world = Minecraft.getInstance().world;
@@ -138,8 +137,10 @@ public class EntityIngredient implements IIngredientType<Entity> {
 			matrixStack.translate(0.5, 0.5, 0.5);
 			matrixStack.rotate(Vector3f.XP.rotationDegrees(30));
 			matrixStack.rotate(Vector3f.YP.rotationDegrees(45));
-			matrixStack.translate(0, -0.5, 0);
 			matrixStack.rotate(Vector3f.YP.rotation(ClientTickHandler.total / 100));
+			matrixStack.translate(0, -0.5, 0);
+
+			doScaling(matrixStack, ingredient);
 
 			IRenderTypeBuffer.Impl buffers = IRenderTypeBuffer.getImpl(Tessellator.getInstance().getBuffer());
 			Minecraft.getInstance()
@@ -151,12 +152,23 @@ public class EntityIngredient implements IIngredientType<Entity> {
 			matrixStack.pop();
 		}
 
+		protected void doScaling(MatrixStack matrixStack, Entity ingredient) {
+			AxisAlignedBB size = ingredient.getRenderBoundingBox();
+			double max = Math.max(size.getXSize(),
+					Math.max(size.getYSize(),
+							size.getZSize()));
+			if (max > 1) {
+				float scale = (float) (1 / max);
+				matrixStack.scale(scale, scale, scale);
+			}
+		}
+
 		@Override
 		public List<ITextComponent> getTooltip(Entity ingredient, ITooltipFlag tooltipFlag) {
 			List<ITextComponent> tooltip = new ArrayList<>();
 			tooltip.add(ingredient.getDisplayName());
 			if (tooltipFlag.isAdvanced()) {
-				tooltip.add((new StringTextComponent(Helper.INSTANCE.getDisplayName(ingredient))).func_240699_a_(TextFormatting.DARK_GRAY));
+				tooltip.add((new StringTextComponent(HELPER.getWildcardId(ingredient))).func_240699_a_(TextFormatting.DARK_GRAY));
 			}
 			return tooltip;
 		}

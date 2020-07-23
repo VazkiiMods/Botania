@@ -8,10 +8,12 @@
  */
 package vazkii.botania.client.integration.jei.flowers.generating;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
+import mezz.jei.api.ingredients.IIngredientRenderer;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.runtime.IIngredientManager;
 import vazkii.botania.client.integration.jei.misc.EntityIngredient;
@@ -30,8 +32,15 @@ import java.util.stream.IntStream;
 
 public class NarslimmusCategory extends AbstractGenerationCategory<AbstractGenerationCategory.ManaGenRecipe> {
 
+	private final IIngredientRenderer<Entity> slimeRenderer;
+
 	public NarslimmusCategory(IGuiHelper guiHelper) {
 		super(guiHelper, ModSubtiles.narslimmus, ModSubtiles.narslimmusFloating);
+		slimeRenderer = new EntityIngredient.Renderer() {
+			@Override
+			protected void doScaling(MatrixStack matrixStack, Entity ingredient) {
+			}
+		};
 	}
 
 	@Override
@@ -42,7 +51,11 @@ public class NarslimmusCategory extends AbstractGenerationCategory<AbstractGener
 	@Override
 	protected void setRecipeInputs(IRecipeLayout recipeLayout, ManaGenRecipe recipe, IIngredients ingredients) {
 		IGuiIngredientGroup<Entity> entities = recipeLayout.getIngredientsGroup(EntityIngredient.TYPE);
-		entities.init(0, true, 76, 4);
+		entities.init(0, true,
+				slimeRenderer,
+				76, 4,
+				18, 18,
+				1, 1);
 		entities.set(ingredients);
 	}
 
