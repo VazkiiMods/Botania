@@ -31,6 +31,7 @@ import vazkii.botania.client.integration.jei.mana.ManaIngredient;
 import vazkii.botania.client.integration.jei.mana.ManaIngredientHelper;
 import vazkii.botania.client.integration.jei.mana.ManaIngredientRenderer;
 import vazkii.botania.client.integration.jei.manapool.ManaPoolRecipeCategory;
+import vazkii.botania.client.integration.jei.misc.EntityIngredient;
 import vazkii.botania.client.integration.jei.orechid.OrechidIgnemRecipeCategory;
 import vazkii.botania.client.integration.jei.orechid.OrechidIgnemRecipeWrapper;
 import vazkii.botania.client.integration.jei.orechid.OrechidRecipeCategory;
@@ -58,6 +59,7 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -71,6 +73,7 @@ import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -200,6 +203,14 @@ public class JEIBotaniaPlugin implements IModPlugin {
 				Collections.singleton(ManaIngredient.getCreative()),
 				ManaIngredientHelper.INSTANCE,
 				ManaIngredientRenderer.Square.INSTANCE);
+
+		//noinspection ConstantConditions
+		registry.register(EntityIngredient.INSTANCE,
+				Stream.of(EntityType.SLIME, EntityType.SHULKER)
+						.map(et -> et.create(Minecraft.getInstance().world))
+						.collect(Collectors.toList()),
+				EntityIngredient.Helper.INSTANCE,
+				EntityIngredient.Renderer.INSTANCE);
 	}
 
 	@Override
