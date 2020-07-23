@@ -50,20 +50,7 @@ public class EntropinnyumCategory extends SimpleGenerationCategory {
 
 	@Override
 	protected Collection<SimpleManaGenRecipe> makeRecipes(IIngredientManager ingredientManager, IJeiHelpers helpers) {
-		return Collections.singleton(new EntropinnyumRecipe());
-	}
-
-	@Override
-	public Class<? extends SimpleManaGenRecipe> getRecipeClass() {
-		return EntropinnyumRecipe.class;
-	}
-
-	private static class EntropinnyumRecipe extends SimpleManaGenRecipe {
-
-		protected EntropinnyumRecipe() {
-			super(Collections.singletonList(new ItemStack(Blocks.TNT)), SubTileEntropinnyum.MAX_MANA);
-		}
-
+		return Collections.singleton(new SimpleManaGenRecipe(new ItemStack(Blocks.TNT), SubTileEntropinnyum.MAX_MANA));
 	}
 
 }

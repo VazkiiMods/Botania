@@ -18,7 +18,6 @@ import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class EndoflameCategory extends SimpleGenerationCategory {
@@ -36,23 +35,10 @@ public class EndoflameCategory extends SimpleGenerationCategory {
 			}
 			int burnTime = SubTileEndoflame.getBurnTime(stack);
 			if (burnTime > 0) {
-				recipes.add(new EndoflameCategory.EndoflameRecipe(stack, burnTime));
+				recipes.add(new SimpleManaGenRecipe(stack, burnTime * SubTileEndoflame.GEN));
 			}
 		}
 		return recipes;
-	}
-
-	@Override
-	public Class<? extends SimpleManaGenRecipe> getRecipeClass() {
-		return EndoflameRecipe.class;
-	}
-
-	protected static class EndoflameRecipe extends SimpleManaGenRecipe {
-
-		public EndoflameRecipe(ItemStack fuel, int burnTime) {
-			super(Collections.singletonList(fuel), burnTime * SubTileEndoflame.GEN);
-		}
-
 	}
 
 }

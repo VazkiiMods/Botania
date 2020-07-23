@@ -60,25 +60,12 @@ public class KekimurusCategory extends SimpleGenerationCategory {
 			if (!(block instanceof CakeBlock)) {
 				continue;
 			}
-			recipes.add(new KekimurusRecipe((CakeBlock) block));
+			recipes.add(new SimpleManaGenRecipe(new ItemStack(block), MAX_SLICES * SubTileKekimurus.MANA_PER_SLICE));
 		}
 		return recipes;
 	}
 
-	@Override
-	public Class<? extends SimpleManaGenRecipe> getRecipeClass() {
-		return KekimurusRecipe.class;
-	}
-
-	private static class KekimurusRecipe extends SimpleManaGenRecipe {
-
-		public static final int MAX_SLICES = Collections.max(CakeBlock.BITES.getAllowedValues());
-
-		public KekimurusRecipe(CakeBlock cake) {
-			super(Collections.singletonList(new ItemStack(cake)), SubTileKekimurus.MANA_PER_SLICE * MAX_SLICES);
-		}
-
-	}
+	public static final int MAX_SLICES = Collections.max(CakeBlock.BITES.getAllowedValues());
 
 	private static class CakeRenderer extends ArbIngredientRenderer<ItemStack> {
 

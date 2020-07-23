@@ -28,23 +28,11 @@ public class MunchdewCategory extends SimpleGenerationCategory {
 
 	@Override
 	protected Collection<SimpleManaGenRecipe> makeRecipes(IIngredientManager ingredientManager, IJeiHelpers helpers) {
-		return Collections.singletonList(new MunchdewRecipe());
+		return Collections.singletonList(new SimpleManaGenRecipe(BlockTags.LEAVES.getAllElements()
+				.stream()
+				.map(ItemStack::new)
+				.collect(Collectors.toList()),
+				SubTileMunchdew.MANA_PER_LEAF));
 	}
 
-	@Override
-	public Class<? extends SimpleManaGenRecipe> getRecipeClass() {
-		return MunchdewRecipe.class;
-	}
-
-	private static class MunchdewRecipe extends SimpleManaGenRecipe {
-
-		protected MunchdewRecipe() {
-			super(BlockTags.LEAVES.getAllElements()
-					.stream()
-					.map(ItemStack::new)
-					.collect(Collectors.toList()),
-					SubTileMunchdew.MANA_PER_LEAF);
-		}
-
-	}
 }

@@ -35,4 +35,8 @@ public abstract class SimpleGenerationCategory extends AbstractGenerationCategor
 		stacks.set(ingredients);
 	}
 
+	@Override
+	public Class<? extends SimpleManaGenRecipe> getRecipeClass() {
+		return SimpleManaGenRecipe.class;
+	}
 }
