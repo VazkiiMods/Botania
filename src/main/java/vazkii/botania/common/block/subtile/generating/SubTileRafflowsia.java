@@ -8,10 +8,12 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.StringNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.util.Constants;
@@ -33,7 +35,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 	public static final String TAG_STREAK_LENGTH = "streakLength";
 
 	@Nullable
-	private List<String> lastFlowers = new LinkedList<>();
+	private List<Block> lastFlowers = new LinkedList<>();
 	private int streakLength = -1;
 	private int lastFlowerCount = 0;
 
@@ -66,11 +68,11 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 	 * 
 	 * @return the last time the flower showed up in history.
 	 */
-	private int processFlower(String flower) {
-		for (ListIterator<String> it = lastFlowers.listIterator(); it.hasNext();) {
+	private int processFlower(Block flower) {
+		for (ListIterator<Block> it = lastFlowers.listIterator(); it.hasNext();) {
 			int index = it.nextIndex();
-			String streakFlower = it.next();
-			if (streakFlower.equals(flower)) {
+			Block streakFlower = it.next();
+			if (streakFlower == flower) {
 				it.remove();
 				lastFlowers.add(0, streakFlower);
 				return index;
@@ -97,7 +99,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 
 						BlockState state = getWorld().getBlockState(pos);
 						if (state.isIn(ModTags.Blocks.SPECIAL_FLOWERS) && state.getBlock() != ModSubtiles.rafflowsia) {
-							streakLength = Math.min(streakLength + 1, processFlower(Registry.BLOCK.getKey(state.getBlock()).toString()));
+							streakLength = Math.min(streakLength + 1, processFlower(state.getBlock()));
 
 							getWorld().destroyBlock(pos, false);
 							addMana(getValueForStreak(streakLength));
@@ -115,8 +117,8 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 		super.writeToPacketNBT(cmp);
 
 		ListNBT flowerList = new ListNBT();
-		for (String flower : lastFlowers) {
-			flowerList.add(StringNBT.valueOf(flower));
+		for (Block flower : lastFlowers) {
+			flowerList.add(StringNBT.valueOf(flower.getRegistryName().toString()));
 		}
 		cmp.put(TAG_LAST_FLOWERS, flowerList);
 		cmp.putInt(TAG_LAST_FLOWER_TIMES, lastFlowerCount);
@@ -130,7 +132,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 		lastFlowers.clear();
 		ListNBT flowerList = cmp.getList(TAG_LAST_FLOWERS, Constants.NBT.TAG_STRING);
 		for (int i = 0; i < flowerList.size(); i++) {
-			lastFlowers.add(flowerList.getString(i));
+			lastFlowers.add(Registry.BLOCK.getOrDefault(ResourceLocation.tryCreate(flowerList.getString(i))));
 		}
 		lastFlowerCount = cmp.getInt(TAG_LAST_FLOWER_TIMES);
 		streakLength = cmp.getInt(TAG_STREAK_LENGTH);
