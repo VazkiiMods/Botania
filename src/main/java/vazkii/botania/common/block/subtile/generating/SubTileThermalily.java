@@ -8,16 +8,18 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.core.handler.ModSounds;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.SoundCategory;
 
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.handler.ModSounds;
-
 public class SubTileThermalily extends SubTileHydroangeas {
+	public static final int BURN_TIME = 900;
+	public static final int GEN = 20;
+
 	public SubTileThermalily() {
 		super(ModSubtiles.THERMALILY);
 	}
@@ -50,12 +52,12 @@ public class SubTileThermalily extends SubTileHydroangeas {
 
 	@Override
 	public int getBurnTime() {
-		return 900;
+		return BURN_TIME;
 	}
 
 	@Override
 	public int getValueForPassiveGeneration() {
-		return 20;
+		return GEN;
 	}
 
 	@Override

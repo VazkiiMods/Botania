@@ -16,6 +16,7 @@ import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.runtime.IIngredientManager;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.subtile.generating.SubTileHydroangeas;
 import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.tags.FluidTags;
@@ -62,7 +63,7 @@ public class HydroangeasCategory extends AbstractGenerationCategory<AbstractGene
 	}
 
 	protected int getMana() {
-		return 40;
+		return SubTileHydroangeas.BURN_TIME;
 	}
 
 	@Override

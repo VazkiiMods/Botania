@@ -50,7 +50,7 @@ public class EndoflameCategory extends SimpleGenerationCategory {
 	protected static class EndoflameRecipe extends SimpleManaGenRecipe {
 
 		public EndoflameRecipe(ItemStack fuel, int burnTime) {
-			super(Collections.singletonList(fuel), burnTime * 3);
+			super(Collections.singletonList(fuel), burnTime * SubTileEndoflame.GEN);
 		}
 
 	}

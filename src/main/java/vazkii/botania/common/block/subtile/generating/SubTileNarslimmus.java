@@ -8,6 +8,9 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import vazkii.botania.api.subtile.RadiusDescriptor;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.particles.ParticleTypes;
@@ -22,16 +25,13 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.Event;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.common.block.ModSubtiles;
-
 import java.util.List;
 
 public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 	public static final String TAG_WORLD_SPAWNED = "botania:world_spawned";
 
 	private static final int RANGE = 2;
+	public static final int MANA_PER_UNIT_SLIME = 1200;
 
 	public SubTileNarslimmus() {
 		super(ModSubtiles.NARSLIMMUS);
@@ -47,7 +47,7 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 				if (slime.getPersistentData().getBoolean(TAG_WORLD_SPAWNED) && slime.isAlive()) {
 					int size = slime.getSlimeSize();
 					int mul = (int) Math.pow(2, size);
-					int mana = 1200 * mul;
+					int mana = MANA_PER_UNIT_SLIME * mul;
 					if (!slime.world.isRemote) {
 						slime.remove();
 						slime.playSound(size > 1 ? SoundEvents.ENTITY_SLIME_SQUISH : SoundEvents.ENTITY_SLIME_SQUISH_SMALL, 1, 0.02F);

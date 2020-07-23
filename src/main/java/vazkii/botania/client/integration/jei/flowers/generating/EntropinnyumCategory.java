@@ -15,6 +15,7 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.runtime.IIngredientManager;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -60,7 +61,7 @@ public class EntropinnyumCategory extends SimpleGenerationCategory {
 	private static class EntropinnyumRecipe extends SimpleManaGenRecipe {
 
 		protected EntropinnyumRecipe() {
-			super(Collections.singletonList(new ItemStack(Blocks.TNT)), 6500);
+			super(Collections.singletonList(new ItemStack(Blocks.TNT)), SubTileEntropinnyum.MAX_MANA);
 		}
 
 	}

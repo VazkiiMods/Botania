@@ -18,6 +18,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.runtime.IIngredientManager;
 import vazkii.botania.client.integration.jei.misc.ArbIngredientRenderer;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.subtile.generating.SubTileKekimurus;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CakeBlock;
@@ -74,7 +75,7 @@ public class KekimurusCategory extends SimpleGenerationCategory {
 		public static final int MAX_SLICES = Collections.max(CakeBlock.BITES.getAllowedValues());
 
 		public KekimurusRecipe(CakeBlock cake) {
-			super(Collections.singletonList(new ItemStack(cake)), 1800 * MAX_SLICES);
+			super(Collections.singletonList(new ItemStack(cake)), SubTileKekimurus.MANA_PER_SLICE * MAX_SLICES);
 		}
 
 	}

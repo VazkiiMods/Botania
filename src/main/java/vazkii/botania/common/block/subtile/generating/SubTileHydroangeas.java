@@ -8,7 +8,10 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import net.minecraft.block.Block;
+import vazkii.botania.api.subtile.RadiusDescriptor;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.block.ModSubtiles;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
@@ -22,11 +25,6 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.ModSubtiles;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -36,6 +34,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 	public static final String TAG_COOLDOWN = "cooldown";
 
 	private static final BlockPos[] OFFSETS = { new BlockPos(0, 0, 1), new BlockPos(0, 0, -1), new BlockPos(1, 0, 0), new BlockPos(-1, 0, 0), new BlockPos(-1, 0, 1), new BlockPos(-1, 0, -1), new BlockPos(1, 0, 1), new BlockPos(1, 0, -1) };
+	public static final int BURN_TIME = 40;
 
 	int burnTime, cooldown;
 
@@ -123,7 +122,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 	}
 
 	public int getBurnTime() {
-		return 40;
+		return BURN_TIME;
 	}
 
 	@Override

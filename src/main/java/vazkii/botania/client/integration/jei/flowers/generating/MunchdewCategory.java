@@ -12,6 +12,7 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.runtime.IIngredientManager;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.subtile.generating.SubTileMunchdew;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.BlockTags;
 
@@ -42,7 +43,7 @@ public class MunchdewCategory extends SimpleGenerationCategory {
 					.stream()
 					.map(ItemStack::new)
 					.collect(Collectors.toList()),
-					160);
+					SubTileMunchdew.MANA_PER_LEAF);
 		}
 
 	}

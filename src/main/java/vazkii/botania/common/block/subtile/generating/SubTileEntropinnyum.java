@@ -8,6 +8,10 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import vazkii.botania.api.subtile.RadiusDescriptor;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.common.block.ModSubtiles;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.TNTEntity;
 import net.minecraft.fluid.FluidState;
@@ -15,16 +19,12 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.block.ModSubtiles;
-
 import java.util.List;
 
 public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 	private static final int RANGE = 12;
 	private static final int EXPLODE_EFFECT_EVENT = 0;
+	public static final int MAX_MANA = 6500;
 
 	public SubTileEntropinnyum() {
 		super(ModSubtiles.ENTROPINNYUM);
@@ -77,7 +77,7 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 
 	@Override
 	public int getMaxMana() {
-		return 6500;
+		return MAX_MANA;
 	}
 
 	@Override

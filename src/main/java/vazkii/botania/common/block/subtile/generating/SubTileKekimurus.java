@@ -8,6 +8,9 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import vazkii.botania.api.subtile.RadiusDescriptor;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CakeBlock;
@@ -15,12 +18,9 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.common.block.ModSubtiles;
-
 public class SubTileKekimurus extends TileEntityGeneratingFlower {
 	private static final int RANGE = 5;
+	public static final int MANA_PER_SLICE = 1800;
 
 	public SubTileKekimurus() {
 		super(ModSubtiles.KEKIMURUS);
@@ -34,9 +34,7 @@ public class SubTileKekimurus extends TileEntityGeneratingFlower {
 			return;
 		}
 
-		int mana = 1800;
-
-		if (getMaxMana() - this.getMana() >= mana && !getWorld().isRemote && ticksExisted % 80 == 0) {
+		if (getMaxMana() - this.getMana() >= MANA_PER_SLICE && !getWorld().isRemote && ticksExisted % 80 == 0) {
 			for (int i = 0; i < RANGE * 2 + 1; i++) {
 				for (int j = 0; j < RANGE * 2 + 1; j++) {
 					for (int k = 0; k < RANGE * 2 + 1; k++) {
@@ -53,7 +51,7 @@ public class SubTileKekimurus extends TileEntityGeneratingFlower {
 
 							getWorld().playEvent(2001, pos, Block.getStateId(state));
 							getWorld().playSound(null, getEffectivePos(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
-							addMana(mana);
+							addMana(MANA_PER_SLICE);
 							sync();
 							return;
 						}

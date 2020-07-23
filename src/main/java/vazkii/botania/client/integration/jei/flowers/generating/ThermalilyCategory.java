@@ -10,6 +10,7 @@ package vazkii.botania.client.integration.jei.flowers.generating;
 
 import mezz.jei.api.helpers.IGuiHelper;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ITag;
@@ -27,6 +28,6 @@ public class ThermalilyCategory extends HydroangeasCategory {
 
 	@Override
 	protected int getMana() {
-		return 900 * 20;
+		return SubTileThermalily.BURN_TIME * SubTileThermalily.GEN;
 	}
 }

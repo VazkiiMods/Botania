@@ -8,17 +8,16 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import vazkii.botania.api.subtile.RadiusDescriptor;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.handler.ConfigHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,6 +29,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 
 	private static final int RANGE = 8;
 	private static final int RANGE_Y = 16;
+	public static final int MANA_PER_LEAF = 160;
 
 	private boolean ateOnce = false;
 	private int ticksWithoutEating = -1;
@@ -54,9 +54,8 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 			return;
 		}
 
-		int manaPerLeaf = 160;
 		eatLeaves: {
-			if (getMaxMana() - getMana() >= manaPerLeaf && ticksExisted % 4 == 0) {
+			if (getMaxMana() - getMana() >= MANA_PER_LEAF && ticksExisted % 4 == 0) {
 				List<BlockPos> coords = new ArrayList<>();
 				BlockPos pos = getEffectivePos();
 
@@ -85,7 +84,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 				if (ConfigHandler.COMMON.blockBreakParticles.get()) {
 					getWorld().playEvent(2001, breakCoords, Block.getStateId(state));
 				}
-				addMana(manaPerLeaf);
+				addMana(MANA_PER_LEAF);
 			}
 		}
 

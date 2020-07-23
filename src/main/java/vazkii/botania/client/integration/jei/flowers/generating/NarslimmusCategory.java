@@ -18,6 +18,7 @@ import mezz.jei.api.runtime.IIngredientManager;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.integration.jei.misc.ArbIngredientRenderer;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
 import vazkii.botania.mixin.AccessorSlimeEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -69,7 +70,7 @@ public class NarslimmusCategory extends SimpleGenerationCategory {
 
 		protected NarslimmusRecipe(int slimeSize) {
 			super(Collections.singletonList(new ItemStack(Items.SLIME_SPAWN_EGG)),
-					(int) Math.pow(2, slimeSize) * 1200);
+					(int) Math.pow(2, slimeSize) * SubTileNarslimmus.MANA_PER_UNIT_SLIME);
 			renderer = new SlimeRenderer(slimeSize);
 		}
 	}
