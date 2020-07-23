@@ -17,6 +17,7 @@
     "AccessorLivingEntity",
     "AccessorMobEntity",
     "AccessorNearestAttackableTarget",
+    "AccessorParticleManager",
     "AccessorRecipeManager",
     "AccessorSlimeEntity",
     "AccessorWitherEntity",
