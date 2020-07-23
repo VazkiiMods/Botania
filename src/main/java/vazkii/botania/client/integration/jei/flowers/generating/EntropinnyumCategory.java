@@ -37,7 +37,7 @@ public class EntropinnyumCategory extends SimpleGenerationCategory {
 	@Override
 	public void draw(SimpleManaGenRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
 		matrixStack.push();
-		matrixStack.translate(5, 25, 0);
+		matrixStack.translate(97, 5, 0);
 		Matrix4f matrix = matrixStack.getLast().getMatrix();
 		RenderSystem.pushMatrix();
 		RenderSystem.multMatrix(matrix);

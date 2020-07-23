@@ -16,10 +16,7 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.runtime.IIngredientManager;
-import vazkii.botania.client.integration.jei.flowers.generating.EndoflameCategory;
-import vazkii.botania.client.integration.jei.flowers.generating.EntropinnyumCategory;
-import vazkii.botania.client.integration.jei.flowers.generating.KekimurusCategory;
-import vazkii.botania.client.integration.jei.flowers.generating.MunchdewCategory;
+import vazkii.botania.client.integration.jei.flowers.generating.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -68,7 +65,9 @@ public abstract class AbstractFlowerCategory<T> implements IRecipeCategory<T> {
 				new EndoflameCategory(guiHelper),
 				new KekimurusCategory(guiHelper),
 				new MunchdewCategory(guiHelper),
-				new EntropinnyumCategory(guiHelper)
+				new EntropinnyumCategory(guiHelper),
+				new HydroangeasCategory(guiHelper),
+				new ThermalilyCategory(guiHelper)
 		);
 	}
 
