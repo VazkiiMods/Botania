@@ -120,7 +120,7 @@ public class SpectrolusCategory extends AbstractGenerationCategory<AbstractGener
 
 		@Override
 		public List<ItemStack> getIngredients() {
-			return stacks;
+			return getStacks();
 		}
 	}
 

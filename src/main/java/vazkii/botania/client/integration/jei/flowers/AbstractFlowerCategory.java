@@ -109,6 +109,7 @@ public abstract class AbstractFlowerCategory<T> implements IRecipeCategory<T> {
 				new EndoflameCategory(guiHelper),
 				new HydroangeasCategory(guiHelper),
 				new ThermalilyCategory(guiHelper),
+				new GourmaryllisCategory(guiHelper),
 				new MunchdewCategory(guiHelper),
 				new NarslimmusCategory(guiHelper),
 				new EntropinnyumCategory(guiHelper),

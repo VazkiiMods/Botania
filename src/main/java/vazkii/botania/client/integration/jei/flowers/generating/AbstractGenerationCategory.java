@@ -25,6 +25,10 @@ import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public abstract class AbstractGenerationCategory<T extends AbstractGenerationCategory.ManaGenRecipe> extends AbstractFlowerCategory<T> {
@@ -45,7 +49,7 @@ public abstract class AbstractGenerationCategory<T extends AbstractGenerationCat
 	@Override
 	public void draw(T recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
 		super.draw(recipe, matrixStack, mouseX, mouseY);
-		if(particle != null) {
+		if (particle != null) {
 			particle.draw(matrixStack, 77, 25);
 		}
 	}
@@ -53,7 +57,11 @@ public abstract class AbstractGenerationCategory<T extends AbstractGenerationCat
 	@Override
 	public void setIngredients(T recipe, IIngredients ingredients) {
 		setIngredientsInputs(recipe, ingredients);
-		ingredients.setOutput(ManaIngredient.Type.INSTANCE, new ManaIngredient(recipe.getMana(), false));
+		List<IManaIngredient> manaIngredients = new ArrayList<>();
+		for (int mana : recipe.getMana()) {
+			manaIngredients.add(new ManaIngredient(mana, false));
+		}
+		ingredients.setOutputLists(ManaIngredient.Type.INSTANCE, Collections.singletonList(manaIngredients));
 	}
 
 	protected abstract void setIngredientsInputs(T recipe, IIngredients ingredients);
@@ -78,13 +86,17 @@ public abstract class AbstractGenerationCategory<T extends AbstractGenerationCat
 	protected abstract void setRecipeInputs(IRecipeLayout recipeLayout, T recipe, IIngredients ingredients);
 
 	public static class ManaGenRecipe {
-		private final int mana;
+		private final int[] mana;
 
 		public ManaGenRecipe(int mana) {
+			this.mana = new int[] { mana };
+		}
+
+		public ManaGenRecipe(int[] mana) {
 			this.mana = mana;
 		}
 
-		public int getMana() {
+		public int[] getMana() {
 			return mana;
 		}
 	}

@@ -13,11 +13,14 @@ import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.runtime.IIngredientManager;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.subtile.generating.SubTileDandelifeon;
 import net.minecraft.item.ItemStack;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.stream.IntStream;
+
+import static vazkii.botania.common.block.subtile.generating.SubTileDandelifeon.MANA_PER_GEN;
+import static vazkii.botania.common.block.subtile.generating.SubTileDandelifeon.MAX_MANA_GENERATIONS;
 
 public class DandelifeonCategory extends SimpleGenerationCategory {
 
@@ -27,12 +30,10 @@ public class DandelifeonCategory extends SimpleGenerationCategory {
 
 	@Override
 	protected Collection<SimpleManaGenRecipe> makeRecipes(IIngredientManager ingredientManager, IJeiHelpers helpers) {
-		return Collections.singleton(new SimpleManaGenRecipe(new ItemStack(ModBlocks.cellBlock), SubTileDandelifeon.MANA_PER_GEN * SubTileDandelifeon.MAX_MANA_GENERATIONS));
-	}
-
-	@Override
-	public Class<? extends SimpleManaGenRecipe> getRecipeClass() {
-		return SimpleManaGenRecipe.class;
+		return Collections.singleton(new SimpleManaGenRecipe(Collections.singletonList(new ItemStack(ModBlocks.cellBlock)),
+				IntStream.range(0, MAX_MANA_GENERATIONS)
+						.map(gen -> MANA_PER_GEN)
+						.toArray()));
 	}
 
 }

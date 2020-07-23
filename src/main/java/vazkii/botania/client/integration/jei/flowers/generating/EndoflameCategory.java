@@ -51,7 +51,7 @@ public class EndoflameCategory extends SimpleGenerationCategory {
 			}
 			int burnTime = SubTileEndoflame.getBurnTime(stack);
 			if (burnTime > 0) {
-				recipes.add(new SimpleManaGenRecipe(stack, burnTime * SubTileEndoflame.GEN));
+				recipes.add(new SimpleManaGenRecipe(stack.getItem(), burnTime * SubTileEndoflame.GEN));
 			}
 		}
 		return recipes;

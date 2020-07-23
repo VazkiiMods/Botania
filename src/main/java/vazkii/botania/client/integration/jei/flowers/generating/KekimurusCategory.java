@@ -60,7 +60,7 @@ public class KekimurusCategory extends SimpleGenerationCategory {
 			if (!(block instanceof CakeBlock)) {
 				continue;
 			}
-			recipes.add(new SimpleManaGenRecipe(new ItemStack(block), MAX_SLICES * SubTileKekimurus.MANA_PER_SLICE));
+			recipes.add(new SimpleManaGenRecipe(block, MAX_SLICES * SubTileKekimurus.MANA_PER_SLICE));
 		}
 		return recipes;
 	}

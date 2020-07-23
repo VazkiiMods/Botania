@@ -8,7 +8,12 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import vazkii.botania.api.subtile.RadiusDescriptor;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.mixin.AccessorItemEntity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
@@ -21,11 +26,6 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.Constants;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.mixin.AccessorItemEntity;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -37,7 +37,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 	public static final String TAG_LAST_FOOD_COUNT = "lastFoodCount";
 	public static final String TAG_STREAK_LENGTH = "streakLength";
 	private static final int RANGE = 1;
-	private static final double[] STREAK_MULTIPLIERS = { 0, 1, 1.3, 1.5, 1.6, 1.7, 1.75, 1.8 };
+	public static final double[] STREAK_MULTIPLIERS = { 0, 1, 1.3, 1.5, 1.6, 1.7, 1.75, 1.8 };
 
 	private int cooldown = 0;
 	private int digestingMana = 0;
@@ -129,9 +129,8 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 				if (cooldown <= 0) {
 					streakLength = Math.min(streakLength + 1, processFood(stack));
 
-					int val = Math.min(12, stack.getItem().getFood().getHealing());
-					digestingMana = val * val * 70;
-					digestingMana *= getMultiplierForStreak(streakLength);
+					int val = getEffectiveFoodValue(stack.getItem());
+					digestingMana = getDigestingMana(val, getMultiplierForStreak(streakLength));
 					cooldown = val * 10;
 					item.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.2F, 0.6F);
 					sync();
@@ -141,6 +140,16 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 				item.remove();
 			}
 		}
+	}
+
+	public static int getEffectiveFoodValue(Item item) {
+		return Math.min(12, item.getFood().getHealing());
+	}
+
+	public static int getDigestingMana(int foodValue, double multiplier) {
+		int digestingMana = foodValue * foodValue * 70;
+		digestingMana *= multiplier;
+		return digestingMana;
 	}
 
 	@Override
