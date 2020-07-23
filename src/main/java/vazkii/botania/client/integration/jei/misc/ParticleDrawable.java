@@ -33,7 +33,6 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 @ParametersAreNonnullByDefault
@@ -43,7 +42,6 @@ public class ParticleDrawable implements IDrawableAnimated {
 	private final ActiveRenderInfo activeRenderInfo;
 
 	public Consumer<ParticleDrawable> onTick = null;
-	public BiConsumer<ParticleDrawable, MatrixStack> onRender = null;
 
 	public ParticleDrawable() {
 		activeRenderInfo = new CustomRenderInfo();
@@ -90,9 +88,6 @@ public class ParticleDrawable implements IDrawableAnimated {
 		matrixStack.push();
 		matrixStack.translate(xOffset + 16, yOffset + 16, 200);
 		matrixStack.scale(-16, -16, -16);
-		if(onRender != null) {
-			onRender.accept(this, matrixStack);
-		}
 		renderParticles(matrixStack);
 		matrixStack.pop();
 	}

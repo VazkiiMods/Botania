@@ -33,6 +33,7 @@ public class EntropinnyumCategory extends SimpleGenerationCategory {
 
 	private final IDrawable water;
 	private final IDrawable barrier;
+	private final ParticleDrawable particle;
 
 	public EntropinnyumCategory(IGuiHelper guiHelper) {
 		super(guiHelper, ModSubtiles.entropinnyum, ModSubtiles.entropinnyumFloating);
@@ -48,7 +49,7 @@ public class EntropinnyumCategory extends SimpleGenerationCategory {
 							SparkleParticleData data = SparkleParticleData.sparkle((float) (Math.random() * 0.65F + 1.25F), 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 12);
 							drawable.addParticle(data,
 									Math.random() * 4 - 2,
-									1 + Math.random() * 4 - 2,
+									Math.random() * 4 - 2,
 									0,
 									0,
 									0,
@@ -60,7 +61,7 @@ public class EntropinnyumCategory extends SimpleGenerationCategory {
 						for(int i = 0; i < 6; ++i) {
 							drawable.addParticle(ParticleTypes.EXPLOSION,
 									(random.nextDouble() - random.nextDouble()) * 2.0D,
-									1 + (random.nextDouble() - random.nextDouble()) * 2.0D,
+									(random.nextDouble() - random.nextDouble()) * 2.0D,
 									(random.nextDouble() - random.nextDouble()) * 2.0D,
 									cycle / 8F,
 									0.0D,
@@ -73,6 +74,8 @@ public class EntropinnyumCategory extends SimpleGenerationCategory {
 	@Override
 	public void draw(SimpleManaGenRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
 		super.draw(recipe, matrixStack, mouseX, mouseY);
+		particle.draw(matrixStack, 77,5);
+
 		matrixStack.push();
 		matrixStack.translate(97, 5, 0);
 		Matrix4f matrix = matrixStack.getLast().getMatrix();
