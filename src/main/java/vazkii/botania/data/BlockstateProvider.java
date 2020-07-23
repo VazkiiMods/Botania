@@ -407,7 +407,7 @@ public class BlockstateProvider extends BlockStateProvider {
 
 		takeAll(remainingBlocks, b -> b instanceof BlockFloatingFlower).forEach(b -> {
 			String name = Registry.BLOCK.getKey(b).getPath();
-			simpleBlock(b, models().getExistingFile(prefix("block/" + name)));
+			simpleBlock(b, new ModelFile.UncheckedModelFile(prefix("block/" + name)));
 		});
 
 		takeAll(remainingBlocks, b -> b instanceof PaneBlock).forEach(b -> {
