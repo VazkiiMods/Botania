@@ -14,6 +14,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.MethodsReturnNonnullByDefault;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
+import org.lwjgl.opengl.GL13;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.mixin.AccessorParticleManager;
 import net.minecraft.client.Minecraft;
@@ -104,9 +105,9 @@ public class ParticleDrawable implements IDrawableAnimated {
 
 		lightTexture.enableLightmap();
 		RenderSystem.enableDepthTest();
-		RenderSystem.activeTexture(org.lwjgl.opengl.GL13.GL_TEXTURE2);
+		RenderSystem.activeTexture(GL13.GL_TEXTURE2);
 		RenderSystem.disableTexture();
-		RenderSystem.activeTexture(org.lwjgl.opengl.GL13.GL_TEXTURE0);
+		RenderSystem.activeTexture(GL13.GL_TEXTURE0);
 
 		RenderSystem.pushMatrix();
 		RenderSystem.multMatrix(matrixStackIn.getLast().getMatrix());
