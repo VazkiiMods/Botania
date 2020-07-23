@@ -41,7 +41,7 @@ import java.util.Objects;
 @ParametersAreNonnullByDefault
 public class EntityIngredient implements IIngredientType<Entity> {
 
-	public static EntityIngredient INSTANCE = new EntityIngredient();
+	public static EntityIngredient TYPE = new EntityIngredient();
 
 	@Override
 	public Class<Entity> getIngredientClass() {
@@ -93,7 +93,7 @@ public class EntityIngredient implements IIngredientType<Entity> {
 			Entity copied = ingredient.getType()
 					.create(ingredient.world);
 			CompoundNBT cmp = new CompoundNBT();
-			ingredient.writeUnlessRemoved(cmp);
+			ingredient.writeWithoutTypeId(cmp);
 			Objects.requireNonNull(copied).read(cmp);
 			return copied;
 		}

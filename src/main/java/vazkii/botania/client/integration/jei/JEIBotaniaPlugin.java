@@ -59,6 +59,8 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -70,10 +72,10 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -204,11 +206,13 @@ public class JEIBotaniaPlugin implements IModPlugin {
 				ManaIngredientHelper.INSTANCE,
 				ManaIngredientRenderer.Square.INSTANCE);
 
-		//noinspection ConstantConditions
-		registry.register(EntityIngredient.INSTANCE,
-				Stream.of(EntityType.SLIME, EntityType.SHULKER)
-						.map(et -> et.create(Minecraft.getInstance().world))
-						.collect(Collectors.toList()),
+		ClientWorld world = Minecraft.getInstance().world;
+		List<Entity> entities = new ArrayList<>();
+		entities.add(EntityType.SHULKER.create(world));
+		entities.add(EntityType.SLIME.create(world));
+		entities.add(EntityType.ZOMBIE.create(world));
+		registry.register(EntityIngredient.TYPE,
+				entities,
 				EntityIngredient.Helper.INSTANCE,
 				EntityIngredient.Renderer.INSTANCE);
 	}

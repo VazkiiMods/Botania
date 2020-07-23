@@ -36,12 +36,12 @@ public class NarslimmusCategory extends AbstractGenerationCategory<AbstractGener
 
 	@Override
 	protected void setIngredientsInputs(ManaGenRecipe recipe, IIngredients ingredients) {
-		ingredients.setInput(EntityIngredient.INSTANCE, ((NarslimmusRecipe) recipe).slime);
+		ingredients.setInput(EntityIngredient.TYPE, ((NarslimmusRecipe) recipe).slime);
 	}
 
 	@Override
 	protected void setRecipeInputs(IRecipeLayout recipeLayout, ManaGenRecipe recipe, IIngredients ingredients) {
-		IGuiIngredientGroup<Entity> entities = recipeLayout.getIngredientsGroup(EntityIngredient.INSTANCE);
+		IGuiIngredientGroup<Entity> entities = recipeLayout.getIngredientsGroup(EntityIngredient.TYPE);
 		entities.init(0, true, 76, 4);
 		entities.set(ingredients);
 	}
@@ -64,7 +64,8 @@ public class NarslimmusCategory extends AbstractGenerationCategory<AbstractGener
 
 		protected NarslimmusRecipe(int slimeSize) {
 			super((int) Math.pow(2, slimeSize) * SubTileNarslimmus.MANA_PER_UNIT_SLIME);
-			slime = new SlimeEntity(EntityType.SLIME, Objects.requireNonNull(Minecraft.getInstance().world));
+			slime = EntityType.SLIME.create(Objects.requireNonNull(Minecraft.getInstance().world));
+			assert slime != null;
 			((AccessorSlimeEntity) slime).callSetSlimeSize(slimeSize, false);
 		}
 	}
