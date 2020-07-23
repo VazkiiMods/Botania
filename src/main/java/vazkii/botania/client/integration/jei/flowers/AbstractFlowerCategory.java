@@ -16,16 +16,15 @@ import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.runtime.IIngredientManager;
-
+import vazkii.botania.client.integration.jei.flowers.generating.EndoflameCategory;
+import vazkii.botania.client.integration.jei.flowers.generating.EntropinnyumCategory;
+import vazkii.botania.client.integration.jei.flowers.generating.KekimurusCategory;
+import vazkii.botania.client.integration.jei.flowers.generating.MunchdewCategory;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-import vazkii.botania.client.integration.jei.flowers.generating.EndoflameCategory;
-import vazkii.botania.client.integration.jei.flowers.generating.KekimurusCategory;
-
 import javax.annotation.Nonnull;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -64,9 +63,12 @@ public abstract class AbstractFlowerCategory<T> implements IRecipeCategory<T> {
 	protected abstract Collection<T> makeRecipes(IIngredientManager ingredientManager, IJeiHelpers helpers);
 
 	public static void registerCategories(IRecipeCategoryRegistration registry) {
+		IGuiHelper guiHelper = registry.getJeiHelpers().getGuiHelper();
 		registry.addRecipeCategories(
-				new EndoflameCategory(registry.getJeiHelpers().getGuiHelper()),
-				new KekimurusCategory(registry.getJeiHelpers().getGuiHelper())
+				new EndoflameCategory(guiHelper),
+				new KekimurusCategory(guiHelper),
+				new MunchdewCategory(guiHelper),
+				new EntropinnyumCategory(guiHelper)
 		);
 	}
 

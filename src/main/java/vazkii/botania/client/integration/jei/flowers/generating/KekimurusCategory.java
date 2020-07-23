@@ -28,7 +28,6 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -46,7 +45,8 @@ public class KekimurusCategory extends SimpleGenerationCategory {
 		cakeRenderer = new CakeRenderer(guiHelper.createTickTimer(120, 6, false));
 	}
 
-	@Override protected void setRecipeInputs(IRecipeLayout recipeLayout, SimpleManaGenRecipe recipe, IIngredients ingredients) {
+	@Override
+	protected void setRecipeInputs(IRecipeLayout recipeLayout, SimpleManaGenRecipe recipe, IIngredients ingredients) {
 		IGuiItemStackGroup stacks = recipeLayout.getItemStacks();
 		stacks.init(0, true, cakeRenderer, 76, 4, 16, 16, 0, 0);
 		stacks.set(ingredients);
@@ -106,13 +106,7 @@ public class KekimurusCategory extends SimpleGenerationCategory {
 
 			matrixStack.push();
 
-			matrixStack.translate(xPosition + 3, yPosition + 13, 100);
-			matrixStack.scale(10F, -10F, 10F); // 16 * 0.625, according to block.json
-
-			matrixStack.translate(0.5, 0.5, 0.5);
-			matrixStack.rotate(Vector3f.XP.rotationDegrees(30));
-			matrixStack.rotate(Vector3f.YP.rotationDegrees(45));
-			matrixStack.translate(-0.5, -0.5, -0.5);
+			setupDefaultBlockTransforms(matrixStack, xPosition, yPosition);
 
 			IRenderTypeBuffer.Impl buffers = IRenderTypeBuffer.getImpl(Tessellator.getInstance().getBuffer());
 			BlockRendererDispatcher brd = Minecraft.getInstance().getBlockRendererDispatcher();
