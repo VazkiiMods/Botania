@@ -31,6 +31,9 @@ public class EndoflameCategory extends SimpleGenerationCategory {
 	protected Collection<SimpleManaGenRecipe> makeRecipes(IIngredientManager ingredientManager, IJeiHelpers helpers) {
 		List<SimpleManaGenRecipe> recipes = new ArrayList<>();
 		for (ItemStack stack : ingredientManager.getAllIngredients(VanillaTypes.ITEM)) {
+			if(stack.getItem().hasContainerItem(stack)) {
+				continue;
+			}
 			int burnTime = SubTileEndoflame.getBurnTime(stack);
 			if (burnTime > 0) {
 				recipes.add(new EndoflameCategory.EndoflameRecipe(stack, burnTime));
