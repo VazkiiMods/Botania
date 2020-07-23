@@ -118,7 +118,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 
 		ListNBT flowerList = new ListNBT();
 		for (Block flower : lastFlowers) {
-			flowerList.add(StringNBT.valueOf(flower.getRegistryName().toString()));
+			flowerList.add(StringNBT.valueOf(Registry.BLOCK.getKey(flower).toString()));
 		}
 		cmp.put(TAG_LAST_FLOWERS, flowerList);
 		cmp.putInt(TAG_LAST_FLOWER_TIMES, lastFlowerCount);
