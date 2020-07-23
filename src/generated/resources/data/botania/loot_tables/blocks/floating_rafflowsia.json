@@ -21,8 +21,8 @@
           "source": "block_entity",
           "ops": [
             {
-              "source": "lastFlower",
-              "target": "BlockEntityTag.lastFlower",
+              "source": "lastFlowers",
+              "target": "BlockEntityTag.lastFlowers",
               "op": "replace"
             },
             {

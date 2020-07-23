@@ -12,6 +12,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -120,4 +121,8 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 		list.add(new TranslationTextComponent("botania.armorset.terrasteel.desc2").func_240699_a_(TextFormatting.GRAY));
 	}
 
+	@Override
+	public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
+		return true;
+	}
 }
