@@ -10,39 +10,32 @@ package vazkii.botania.client.integration.jei.mana;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-
 import mezz.jei.api.MethodsReturnNonnullByDefault;
 import mezz.jei.api.ingredients.IIngredientRenderer;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.inventory.container.PlayerContainer;
-import net.minecraft.util.text.*;
-
 import vazkii.botania.api.mana.IManaIngredient;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.IconHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.inventory.container.PlayerContainer;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public abstract class ManaIngredientRenderer implements IIngredientRenderer<IManaIngredient> {
-
-	@Override
-	public FontRenderer getFontRenderer(Minecraft minecraft, IManaIngredient ingredient) {
-		return minecraft.fontRenderer;
-	}
 
 	@Override
 	public List<ITextComponent> getTooltip(IManaIngredient manaIngredient, ITooltipFlag flag) {

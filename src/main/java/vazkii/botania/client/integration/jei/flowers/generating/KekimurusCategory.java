@@ -8,23 +8,48 @@
  */
 package vazkii.botania.client.integration.jei.flowers.generating;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.ITickTimer;
+import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.runtime.IIngredientManager;
+import vazkii.botania.client.integration.jei.misc.ArbIngredientRenderer;
 import vazkii.botania.common.block.ModSubtiles;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.CakeBlock;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BlockRendererDispatcher;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.inventory.container.PlayerContainer;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.vector.Vector3f;
+import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
 public class KekimurusCategory extends SimpleGenerationCategory {
 
+	private final CakeRenderer cakeRenderer;
+
 	public KekimurusCategory(IGuiHelper guiHelper) {
 		super(guiHelper, ModSubtiles.kekimurus, ModSubtiles.kekimurusFloating);
+		cakeRenderer = new CakeRenderer(guiHelper.createTickTimer(120, 6, false));
+	}
+
+	@Override protected void setRecipeInputs(IRecipeLayout recipeLayout, SimpleManaGenRecipe recipe, IIngredients ingredients) {
+		IGuiItemStackGroup stacks = recipeLayout.getItemStacks();
+		stacks.init(0, true, cakeRenderer, 76, 4, 16, 16, 0, 0);
+		stacks.set(ingredients);
 	}
 
 	@Override
@@ -52,6 +77,50 @@ public class KekimurusCategory extends SimpleGenerationCategory {
 			super(Collections.singletonList(new ItemStack(cake)), 1800 * MAX_SLICES);
 		}
 
+	}
+
+	private static class CakeRenderer extends ArbIngredientRenderer<ItemStack> {
+
+		private final ITickTimer tickTimer;
+
+		public CakeRenderer(ITickTimer tickTimer) {
+			this.tickTimer = tickTimer;
+		}
+
+		@Override
+		public void render(MatrixStack matrixStack, int xPosition, int yPosition, @Nullable ItemStack ingredient) {
+			if(ingredient == null) {
+				return;
+			}
+
+			Block block = ((BlockItem) ingredient.getItem()).getBlock();
+			BlockState state;
+			try {
+				state = block.getDefaultState().with(CakeBlock.BITES, tickTimer.getValue());
+			} catch (IllegalArgumentException e) {
+				fallback(ingredient).render(matrixStack, xPosition, yPosition, ingredient);
+				return;
+			}
+
+			Minecraft.getInstance().textureManager.bindTexture(PlayerContainer.LOCATION_BLOCKS_TEXTURE);
+
+			matrixStack.push();
+
+			matrixStack.translate(xPosition + 3, yPosition + 13, 100);
+			matrixStack.scale(10F, -10F, 10F); // 16 * 0.625, according to block.json
+
+			matrixStack.translate(0.5, 0.5, 0.5);
+			matrixStack.rotate(Vector3f.XP.rotationDegrees(30));
+			matrixStack.rotate(Vector3f.YP.rotationDegrees(45));
+			matrixStack.translate(-0.5, -0.5, -0.5);
+
+			IRenderTypeBuffer.Impl buffers = IRenderTypeBuffer.getImpl(Tessellator.getInstance().getBuffer());
+			BlockRendererDispatcher brd = Minecraft.getInstance().getBlockRendererDispatcher();
+			brd.renderBlock(state, matrixStack, buffers, 0xF00000, 0xF00000, EmptyModelData.INSTANCE);
+			buffers.finish();
+
+			matrixStack.pop();
+		}
 	}
 
 }

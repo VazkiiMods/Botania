@@ -30,9 +30,9 @@ public abstract class SimpleGenerationCategory extends AbstractGenerationCategor
 
 	@Override
 	protected void setRecipeInputs(IRecipeLayout recipeLayout, SimpleManaGenRecipe recipe, IIngredients ingredients) {
-		IGuiItemStackGroup stacks1 = recipeLayout.getItemStacks();
-		stacks1.init(0, true, 76, 4);
-		stacks1.set(ingredients);
+		IGuiItemStackGroup stacks = recipeLayout.getItemStacks();
+		stacks.init(0, true, 76, 4);
+		stacks.set(ingredients);
 	}
 
 }
