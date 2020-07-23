@@ -2188,7 +2188,7 @@
 
   "botania.entry.rafflowsia": "Rafflowsia",
   "botania.tagline.rafflowsia": "Mana from flowers",
-  "botania.page.rafflowsia0": "The $(item)Rafflowsia$(0) functions similarly to a $(l:generating_flowers/kekimurus)$(item)Kekimurus$(0)$(/l), but eats $(item)man-made flowers$(0) in the $(l:basics/apothecary)$(item)Petal Apothecary$(0)$(/l) instead. It'll consume any nearby placed flowers and synthesize $(thing)Mana$(0) from them.$(p)However, feeding it the same flower several times in a row yields diminishing returns.",
+  "botania.page.rafflowsia0": "The $(item)Rafflowsia$(0) functions similarly to a $(l:generating_flowers/kekimurus)$(item)Kekimurus$(0)$(/l), but eats $(item)man-made flowers$(0) in the $(l:basics/apothecary)$(item)Petal Apothecary$(0)$(/l) instead. It'll consume any nearby placed flowers and synthesize $(thing)Mana$(0) from them.$(p)While feeding it the same flower several times in a row yields diminishing returns, feeding it a large variety of them can yield ludicrous quantities of $(thing)Mana$(0).",
   "botania.page.rafflowsia1": "$(o)A New Dawn, you could say$().",
 
   "botania.entry.dandelifeon": "Dandelifeon",
