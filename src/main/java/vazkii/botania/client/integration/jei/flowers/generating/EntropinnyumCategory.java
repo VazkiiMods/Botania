@@ -14,15 +14,20 @@ import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.runtime.IIngredientManager;
+import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.client.integration.jei.misc.ParticleDrawable;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.vector.Matrix4f;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Random;
 
 public class EntropinnyumCategory extends SimpleGenerationCategory {
 
@@ -33,6 +38,36 @@ public class EntropinnyumCategory extends SimpleGenerationCategory {
 		super(guiHelper, ModSubtiles.entropinnyum, ModSubtiles.entropinnyumFloating);
 		water = guiHelper.createDrawableIngredient(new ItemStack(Items.WATER_BUCKET));
 		barrier = guiHelper.createDrawableIngredient(new ItemStack(Blocks.BARRIER));
+		Random random = new Random();
+		particle = new ParticleDrawable()
+				.onTick(drawable -> {
+					int cycle = ClientTickHandler.ticksInGame % 80;
+					if(cycle == 0) {
+
+						for (int i = 0; i < 50; i++) {
+							SparkleParticleData data = SparkleParticleData.sparkle((float) (Math.random() * 0.65F + 1.25F), 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 12);
+							drawable.addParticle(data,
+									Math.random() * 4 - 2,
+									1 + Math.random() * 4 - 2,
+									0,
+									0,
+									0,
+									0);
+						}
+					}
+
+					if(cycle <= 8) {
+						for(int i = 0; i < 6; ++i) {
+							drawable.addParticle(ParticleTypes.EXPLOSION,
+									(random.nextDouble() - random.nextDouble()) * 2.0D,
+									1 + (random.nextDouble() - random.nextDouble()) * 2.0D,
+									(random.nextDouble() - random.nextDouble()) * 2.0D,
+									cycle / 8F,
+									0.0D,
+									0.0D);
+						}
+					}
+				});
 	}
 
 	@Override

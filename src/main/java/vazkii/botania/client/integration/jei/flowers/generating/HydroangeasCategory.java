@@ -35,7 +35,7 @@ public class HydroangeasCategory extends AbstractGenerationCategory<AbstractGene
 	{
 		Random random = new Random();
 		particle = new ParticleDrawable()
-				.onTick((drawable) -> {
+				.onTick(drawable -> {
 					if(random.nextInt(8) == 0) {
 						doBurnParticles(drawable);
 					}
