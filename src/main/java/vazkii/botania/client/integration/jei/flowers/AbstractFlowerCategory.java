@@ -116,7 +116,8 @@ public abstract class AbstractFlowerCategory<T> implements IRecipeCategory<T> {
 				new KekimurusCategory(guiHelper),
 				new ShulkMeNotCategory(guiHelper),
 				new SpectrolusCategory(guiHelper),
-				new DandelifeonCategory(guiHelper)
+				new DandelifeonCategory(guiHelper),
+				new RafflowsiaCategory(guiHelper)
 		);
 	}
 
