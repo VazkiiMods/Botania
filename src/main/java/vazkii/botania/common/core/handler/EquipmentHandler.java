@@ -105,7 +105,7 @@ public abstract class EquipmentHandler {
 						((ItemBauble) old.getItem()).onUnequipped(old, player);
 					}
 					if (canEquip(current, player)) {
-						player.getAttributeManager().func_233793_b_(((ItemBauble) old.getItem()).getEquippedAttributeModifiers(old));
+						player.getAttributeManager().func_233793_b_(((ItemBauble) current.getItem()).getEquippedAttributeModifiers(current));
 						((ItemBauble) current.getItem()).onEquipped(current, player);
 					}
 					oldStacks[i] = current.copy(); // shift-clicking mutates the stack we stored,
