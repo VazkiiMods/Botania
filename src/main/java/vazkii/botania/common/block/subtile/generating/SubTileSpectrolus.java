@@ -10,7 +10,11 @@ package vazkii.botania.common.block.subtile.generating;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-
+import vazkii.botania.api.subtile.RadiusDescriptor;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.core.helper.ColorHelper;
+import vazkii.botania.mixin.AccessorItemEntity;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -30,19 +34,13 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.helper.ColorHelper;
-import vazkii.botania.mixin.AccessorItemEntity;
-
 import java.util.List;
 import java.util.function.Predicate;
 
 public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 	public static final String TAG_NEXT_COLOR = "nextColor";
-	private static final int WOOL_GEN = 1200;
-	private static final int SHEEP_GEN = 5000;
+	public static final int WOOL_GEN = 1200;
+	public static final int SHEEP_GEN = 5000;
 	private static final int BABY_SHEEP_GEN = 1; // you are a monster
 
 	private static final int RANGE = 1;

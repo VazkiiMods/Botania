@@ -63,13 +63,14 @@ public abstract class AbstractFlowerCategory<T> implements IRecipeCategory<T> {
 		IGuiHelper guiHelper = registry.getJeiHelpers().getGuiHelper();
 		registry.addRecipeCategories(
 				new EndoflameCategory(guiHelper),
-				new KekimurusCategory(guiHelper),
-				new MunchdewCategory(guiHelper),
-				new EntropinnyumCategory(guiHelper),
 				new HydroangeasCategory(guiHelper),
 				new ThermalilyCategory(guiHelper),
+				new MunchdewCategory(guiHelper),
 				new NarslimmusCategory(guiHelper),
-				new ShulkMeNotCategory(guiHelper)
+				new EntropinnyumCategory(guiHelper),
+				new KekimurusCategory(guiHelper),
+				new ShulkMeNotCategory(guiHelper),
+				new SpectrolusCategory(guiHelper)
 		);
 	}
 
