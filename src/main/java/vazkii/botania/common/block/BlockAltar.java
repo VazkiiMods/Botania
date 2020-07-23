@@ -22,7 +22,6 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
@@ -37,7 +36,6 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.item.IPetalApothecary.State;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
@@ -48,8 +46,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.rod.ItemWaterRod;
 
 import javax.annotation.Nonnull;
-
-import java.util.Locale;
 
 public class BlockAltar extends BlockMod implements ITileEntityProvider {
 

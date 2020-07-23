@@ -20,7 +20,6 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.items.SlotItemHandler;
 
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;

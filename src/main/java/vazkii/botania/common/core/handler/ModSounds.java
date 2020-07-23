@@ -13,8 +13,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
-import vazkii.botania.common.lib.LibMisc;
-
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ModSounds {

@@ -16,8 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.loot.ConditionArrayParser;
 import net.minecraft.util.ResourceLocation;
 
-import vazkii.botania.common.lib.LibMisc;
-
 import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;

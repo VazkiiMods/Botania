@@ -1,5 +1,5 @@
 {
-  "parent": "block/outer_stairs",
+  "parent": "minecraft:block/outer_stairs",
   "textures": {
     "side": "botania:block/metamorphic_fungal_stone",
     "bottom": "botania:block/metamorphic_fungal_stone",

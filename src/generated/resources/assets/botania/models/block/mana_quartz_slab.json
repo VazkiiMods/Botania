@@ -1,5 +1,5 @@
 {
-  "parent": "block/slab",
+  "parent": "minecraft:block/slab",
   "textures": {
     "side": "botania:block/mana_quartz_side",
     "bottom": "botania:block/mana_quartz_bottom",

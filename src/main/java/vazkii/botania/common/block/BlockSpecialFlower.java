@@ -18,16 +18,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootParameters;
 import net.minecraft.potion.Effect;
-import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.vector.Vector3d;
@@ -43,7 +37,6 @@ import vazkii.botania.api.wand.IWandable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import java.util.List;
 import java.util.function.Supplier;
 
 public class BlockSpecialFlower extends FlowerBlock implements ITileEntityProvider, IWandable, IWandHUD {

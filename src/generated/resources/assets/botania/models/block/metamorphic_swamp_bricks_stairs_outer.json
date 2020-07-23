@@ -1,5 +1,5 @@
 {
-  "parent": "block/outer_stairs",
+  "parent": "minecraft:block/outer_stairs",
   "textures": {
     "side": "botania:block/metamorphic_swamp_bricks",
     "bottom": "botania:block/metamorphic_swamp_bricks",

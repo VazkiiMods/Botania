@@ -1,5 +1,5 @@
 {
-  "parent": "block/inner_stairs",
+  "parent": "minecraft:block/inner_stairs",
   "textures": {
     "side": "botania:block/sunny_quartz_side",
     "bottom": "botania:block/sunny_quartz_bottom",

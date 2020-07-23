@@ -45,7 +45,6 @@ import vazkii.botania.common.item.block.ItemBlockElven;
 import vazkii.botania.common.item.block.ItemBlockPool;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Locale;
 
