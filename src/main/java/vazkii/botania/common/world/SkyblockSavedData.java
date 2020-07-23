@@ -52,7 +52,7 @@ public class SkyblockSavedData extends PersistentState {
 	}
 
 	public IslandPos create(UUID playerId) {
-		int scale = ConfigHandler.COMMON.gogIslandScaleMultiplier.get();
+		int scale = ConfigHandler.COMMON.gogIslandScaleMultiplier.getValue();
 		IslandPos islandPos;
 		do {
 			int[] pos = spiral.next();

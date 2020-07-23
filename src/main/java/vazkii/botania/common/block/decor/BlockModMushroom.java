@@ -70,7 +70,7 @@ public class BlockModMushroom extends MushroomPlantBlock implements IHornHarvest
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
 
-		if (rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.get() * 0.25F) {
+		if (rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.getValue() * 0.25F) {
 			SparkleParticleData data = SparkleParticleData.sparkle(rand.nextFloat(), r / 255F, g / 255F, b / 255F, 5);
 			world.addParticle(data, pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
 		}

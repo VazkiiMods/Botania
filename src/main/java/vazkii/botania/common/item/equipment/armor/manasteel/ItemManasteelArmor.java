@@ -92,14 +92,14 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 	}
 
 	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
-		return ConfigHandler.CLIENT.enableArmorModels.get() ? LibResources.MODEL_MANASTEEL_NEW : slot == EquipmentSlot.LEGS ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0;
+		return ConfigHandler.CLIENT.enableArmorModels.getValue() ? LibResources.MODEL_MANASTEEL_NEW : slot == EquipmentSlot.LEGS ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0;
 	}
 
 	@Override
 	@Environment(EnvType.CLIENT)
 	@SuppressWarnings("unchecked")
 	public <A extends BipedEntityModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A original) {
-		if (ConfigHandler.CLIENT.enableArmorModels.get()) {
+		if (ConfigHandler.CLIENT.enableArmorModels.getValue()) {
 			return (A) model.get();
 		}
 

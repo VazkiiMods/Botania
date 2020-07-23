@@ -33,7 +33,7 @@ public class MixinSplashes {
 	 */
 	@Inject(at = @At("RETURN"), method = "apply")
 	public void addSplashes(List<String> splashes, ResourceManager resourceManager, Profiler profiler, CallbackInfo ci) {
-		if (ConfigHandler.CLIENT.splashesEnabled.get()) {
+		if (ConfigHandler.CLIENT.splashesEnabled.getValue()) {
 			possibleSplashes.add("Do not feed bread to elves!");
 		}
 	}

@@ -230,7 +230,7 @@ public final class HUDHandler {
 		MinecraftClient mc = MinecraftClient.getInstance();
 		int width = 182;
 		int x = mc.getWindow().getScaledWidth() / 2 - width / 2;
-		int y = mc.getWindow().getScaledHeight() - ConfigHandler.CLIENT.manaBarHeight.get();
+		int y = mc.getWindow().getScaledHeight() - ConfigHandler.CLIENT.manaBarHeight.getValue();
 
 		if (!hasCreative) {
 			if (totalMaxMana == 0) {

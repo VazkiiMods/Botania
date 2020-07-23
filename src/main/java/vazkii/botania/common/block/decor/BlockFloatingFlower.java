@@ -60,7 +60,7 @@ public class BlockFloatingFlower extends BlockModWaterloggable implements BlockE
 	@Nonnull
 	@Override
 	public BlockRenderType getRenderType(BlockState state) {
-		return ConfigHandler.CLIENT.staticFloaters.get() ? BlockRenderType.MODEL : BlockRenderType.ENTITYBLOCK_ANIMATED;
+		return ConfigHandler.CLIENT.staticFloaters.getValue() ? BlockRenderType.MODEL : BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -71,7 +71,7 @@ public class BlockFloatingFlower extends BlockModWaterloggable implements BlockE
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
 
-		if (rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.get()) {
+		if (rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.getValue()) {
 			SparkleParticleData data = SparkleParticleData.sparkle(rand.nextFloat(), r / 255F, g / 255F, b / 255F, 5);
 			world.addParticle(data, pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
 		}

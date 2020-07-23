@@ -443,7 +443,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 						burst.setShooterUUID(getIdentifier());
 						world.spawnEntity(burst);
 						burst.ping();
-						if (!ConfigHandler.COMMON.silentSpreaders.get()) {
+						if (!ConfigHandler.COMMON.silentSpreaders.getValue()) {
 							world.playSound(null, pos, ModSounds.spreaderFire, SoundCategory.BLOCKS, 0.05F * (paddingColor != null ? 0.2F : 1F), 0.7F + 0.3F * (float) Math.random());
 						}
 					}

@@ -65,7 +65,7 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 					Block block = getWorld().getBlockState(pos).getBlock();
 					addMana(-5);
 					getWorld().getBlockTickScheduler().schedule(pos, block, 1);
-					if (ConfigHandler.COMMON.blockBreakParticles.get()) {
+					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
 						getWorld().syncWorldEvent(2005, pos, 6 + getWorld().random.nextInt(4));
 					}
 					getWorld().playSound(null, x, y, z, ModSounds.agricarnation, SoundCategory.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);

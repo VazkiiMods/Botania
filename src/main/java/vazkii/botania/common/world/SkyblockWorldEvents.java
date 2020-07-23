@@ -105,7 +105,7 @@ public final class SkyblockWorldEvents {
 			ServerPlayerEntity pmp = (ServerPlayerEntity) player;
 			pmp.requestTeleport(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
 			pmp.setSpawnPoint(pmp.world.getRegistryKey(), pos, true, false);
-			if (ConfigHandler.COMMON.gogSpawnWithLexicon.get()) {
+			if (ConfigHandler.COMMON.gogSpawnWithLexicon.getValue()) {
 				player.inventory.insertStack(new ItemStack(ModItems.lexicon));
 			}
 		}

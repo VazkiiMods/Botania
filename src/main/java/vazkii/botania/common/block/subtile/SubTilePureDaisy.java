@@ -94,7 +94,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 					ticksRemaining[positionAt] = -1;
 
 					if (recipe.set(world, coords, this)) {
-						if (ConfigHandler.COMMON.blockBreakParticles.get()) {
+						if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
 							getWorld().syncWorldEvent(2001, coords, Block.getRawIdFromState(recipe.getOutputState()));
 						}
 						getWorld().addSyncedBlockEvent(getPos(), getCachedState().getBlock(), RECIPE_COMPLETE_EVENT, positionAt);

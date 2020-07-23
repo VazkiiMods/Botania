@@ -36,7 +36,7 @@ public class LexiconModel implements BakedModel {
 	public BakedModel handlePerspective(ModelTransformation.Mode cameraTransformType, MatrixStack stack) {
 		if ((cameraTransformType == ModelTransformation.Mode.FIRST_PERSON_RIGHT_HAND
 				|| cameraTransformType == ModelTransformation.Mode.FIRST_PERSON_LEFT_HAND)
-				&& ConfigHandler.CLIENT.lexicon3dModel.get()) {
+				&& ConfigHandler.CLIENT.lexicon3dModel.getValue()) {
 			return this;
 		}
 		return original.handlePerspective(cameraTransformType, stack);

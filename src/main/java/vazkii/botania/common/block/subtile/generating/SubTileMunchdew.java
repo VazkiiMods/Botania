@@ -81,7 +81,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 				getWorld().removeBlock(breakCoords, false);
 				ticksWithoutEating = 0;
 				ateOnce = true;
-				if (ConfigHandler.COMMON.blockBreakParticles.get()) {
+				if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
 					getWorld().syncWorldEvent(2001, breakCoords, Block.getRawIdFromState(state));
 				}
 				addMana(manaPerLeaf);

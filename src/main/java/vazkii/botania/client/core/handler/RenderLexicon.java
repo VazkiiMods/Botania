@@ -68,7 +68,7 @@ public class RenderLexicon {
 
 	public static void renderHand(RenderHandEvent evt) {
 		MinecraftClient mc = MinecraftClient.getInstance();
-		if (!ConfigHandler.CLIENT.lexicon3dModel.get()
+		if (!ConfigHandler.CLIENT.lexicon3dModel.getValue()
 				|| mc.options.perspective != 0
 				|| mc.player.getStackInHand(evt.getHand()).isEmpty()
 				|| mc.player.getStackInHand(evt.getHand()).getItem() != ModItems.lexicon) {

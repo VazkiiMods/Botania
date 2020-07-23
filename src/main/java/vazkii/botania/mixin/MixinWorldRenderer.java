@@ -45,9 +45,9 @@ public class MixinWorldRenderer {
 	@Unique
 	private static boolean isGogSky() {
 		World world = MinecraftClient.getInstance().world;
-		return ConfigHandler.CLIENT.enableFancySkybox.get()
+		return ConfigHandler.CLIENT.enableFancySkybox.getValue()
 				&& world.getRegistryKey() == World.OVERWORLD
-				&& (ConfigHandler.CLIENT.enableFancySkyboxInNormalWorlds.get()
+				&& (ConfigHandler.CLIENT.enableFancySkyboxInNormalWorlds.getValue()
 						|| SkyblockChunkGenerator.isWorldSkyblock(world));
 	}
 

@@ -43,7 +43,7 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
-		return ConfigHandler.CLIENT.enableArmorModels.get() ? LibResources.MODEL_ELEMENTIUM_NEW : slot == EquipmentSlot.LEGS ? LibResources.MODEL_ELEMENTIUM_1 : LibResources.MODEL_ELEMENTIUM_0;
+		return ConfigHandler.CLIENT.enableArmorModels.getValue() ? LibResources.MODEL_ELEMENTIUM_NEW : slot == EquipmentSlot.LEGS ? LibResources.MODEL_ELEMENTIUM_1 : LibResources.MODEL_ELEMENTIUM_0;
 	}
 
 	private static final Lazy<ItemStack[]> armorSet = new Lazy<>(() -> new ItemStack[] {

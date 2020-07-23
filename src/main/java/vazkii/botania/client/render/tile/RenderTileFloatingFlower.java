@@ -41,7 +41,7 @@ public class RenderTileFloatingFlower extends BlockEntityRenderer<TileFloatingFl
 	}
 
 	public static void renderFloatingIsland(BlockEntity tile, float t, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
-		if (ConfigHandler.CLIENT.staticFloaters.get()) {
+		if (ConfigHandler.CLIENT.staticFloaters.getValue()) {
 			return;
 		}
 

@@ -99,7 +99,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 		if (pos.getType() == HitResult.Type.BLOCK) {
 			BlockPos bpos = ((BlockHitResult) pos).getBlockPos();
 			BlockState state = world.getBlockState(bpos);
-			if (ConfigHandler.COMMON.blockBreakParticles.get() && !state.isAir(world, bpos)) {
+			if (ConfigHandler.COMMON.blockBreakParticles.getValue() && !state.isAir(world, bpos)) {
 				world.syncWorldEvent(2001, bpos, Block.getRawIdFromState(state));
 			}
 		}

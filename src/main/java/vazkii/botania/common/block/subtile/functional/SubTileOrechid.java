@@ -67,7 +67,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 				BlockState state = getOreToPut();
 				if (state != null) {
 					getWorld().setBlockState(coords, state);
-					if (ConfigHandler.COMMON.blockBreakParticles.get()) {
+					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
 						getWorld().syncWorldEvent(2001, coords, Block.getRawIdFromState(state));
 					}
 					getWorld().playSound(null, coords, ModSounds.orechid, SoundCategory.BLOCKS, 2F, 1F);

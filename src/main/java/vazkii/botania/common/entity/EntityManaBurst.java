@@ -265,7 +265,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 		this.noParticles = noParticles;
 
 		int iterations = 0;
-		while (isAlive() && iterations < ConfigHandler.COMMON.spreaderTraceTime.get()) {
+		while (isAlive() && iterations < ConfigHandler.COMMON.spreaderTraceTime.getValue()) {
 			tick();
 			iterations++;
 		}
@@ -399,7 +399,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 		} else {
 			boolean depth = !Botania.proxy.isClientPlayerWearingMonocle();
 
-			if (ConfigHandler.CLIENT.subtlePowerSystem.get()) {
+			if (ConfigHandler.CLIENT.subtlePowerSystem.getValue()) {
 				WispParticleData data = WispParticleData.wisp(0.1F * size, r, g, b, depth);
 				world.addParticle(data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
 			} else {
@@ -520,7 +520,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 				int maxMana = getStartingMana();
 				float size = (float) mana / (float) maxMana;
 
-				if (!ConfigHandler.CLIENT.subtlePowerSystem.get()) {
+				if (!ConfigHandler.CLIENT.subtlePowerSystem.getValue()) {
 					for (int i = 0; i < 4; i++) {
 						WispParticleData data = WispParticleData.wisp(0.15F * size, r, g, b);
 						world.addParticle(data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
@@ -737,7 +737,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 	}
 
 	protected boolean shouldDoFakeParticles() {
-		if (ConfigHandler.CLIENT.staticWandBeam.get()) {
+		if (ConfigHandler.CLIENT.staticWandBeam.getValue()) {
 			return true;
 		}
 

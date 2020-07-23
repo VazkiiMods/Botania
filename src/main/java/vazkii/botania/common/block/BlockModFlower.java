@@ -85,7 +85,7 @@ public class BlockModFlower extends FlowerBlock implements Fertilizable {
 		double y = pos.getY() + offset.y;
 		double z = pos.getZ() + offset.z;
 
-		if (rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.get()) {
+		if (rand.nextDouble() < ConfigHandler.CLIENT.flowerParticleFrequency.getValue()) {
 			SparkleParticleData data = SparkleParticleData.sparkle(rand.nextFloat(), r / 255F, g / 255F, b / 255F, 5);
 			world.addParticle(data, x + 0.3 + rand.nextFloat() * 0.5, y + 0.5 + rand.nextFloat() * 0.5, z + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
 		}

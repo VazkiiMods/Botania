@@ -47,7 +47,7 @@ public class LensMine extends Lens {
 			return false;
 		}
 
-		int harvestLevel = ConfigHandler.COMMON.harvestLevelBore.get();
+		int harvestLevel = ConfigHandler.COMMON.harvestLevelBore.getValue();
 
 		BlockEntity tile = world.getBlockEntity(collidePos);
 
@@ -66,7 +66,7 @@ public class LensMine extends Lens {
 					List<ItemStack> items = Block.getDroppedStacks(state, (ServerWorld) world, collidePos, tile);
 
 					world.removeBlock(collidePos, false);
-					if (ConfigHandler.COMMON.blockBreakParticles.get()) {
+					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
 						world.syncWorldEvent(2001, collidePos, Block.getRawIdFromState(state));
 					}
 

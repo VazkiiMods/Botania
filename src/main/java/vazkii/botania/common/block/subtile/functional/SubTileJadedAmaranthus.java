@@ -49,7 +49,7 @@ public class SubTileJadedAmaranthus extends TileEntityFunctionalFlower {
 				BlockState flower = ModBlocks.getFlower(color).getDefaultState();
 
 				if (getWorld().isAir(up) && flower.canPlaceAt(getWorld(), up)) {
-					if (ConfigHandler.COMMON.blockBreakParticles.get()) {
+					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
 						getWorld().syncWorldEvent(2001, up, Block.getRawIdFromState(flower));
 					}
 					getWorld().setBlockState(up, flower);

@@ -98,7 +98,7 @@ public class TileAlfPortal extends TileMod implements Tickable {
 
 		if (ticksOpen > 60) {
 			ticksSinceLastItem++;
-			if (world.isClient && ConfigHandler.CLIENT.elfPortalParticlesEnabled.get()) {
+			if (world.isClient && ConfigHandler.CLIENT.elfPortalParticlesEnabled.getValue()) {
 				blockParticle(state);
 			}
 

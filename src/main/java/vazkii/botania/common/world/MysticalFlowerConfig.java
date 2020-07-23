@@ -32,12 +32,12 @@ public class MysticalFlowerConfig implements FeatureConfig {
 
 	public static MysticalFlowerConfig fromConfig() {
 		return new MysticalFlowerConfig(
-				ConfigHandler.COMMON.flowerPatchSize.get(),
-				ConfigHandler.COMMON.mushroomQuantity.get(),
-				ConfigHandler.COMMON.flowerPatchSize.get(),
-				ConfigHandler.COMMON.flowerDensity.get(),
-				ConfigHandler.COMMON.flowerPatchChance.get(),
-				ConfigHandler.COMMON.flowerTallChance.get()
+				ConfigHandler.COMMON.flowerPatchSize.getValue(),
+				ConfigHandler.COMMON.mushroomQuantity.getValue(),
+				ConfigHandler.COMMON.flowerPatchSize.getValue(),
+				ConfigHandler.COMMON.flowerDensity.getValue(),
+				ConfigHandler.COMMON.flowerPatchChance.getValue(),
+				ConfigHandler.COMMON.flowerTallChance.getValue()
 		);
 	}
 

@@ -57,7 +57,7 @@ public class ItemBlockSpecialFlower extends BlockItem {
 				}
 			}
 
-			if (ConfigHandler.CLIENT.referencesEnabled.get()) {
+			if (ConfigHandler.CLIENT.referencesEnabled.getValue()) {
 				String key = getTranslationKey() + ".reference";
 				MutableText lore = new TranslatableText(key);
 				if (!lore.getString().equals(key)) {

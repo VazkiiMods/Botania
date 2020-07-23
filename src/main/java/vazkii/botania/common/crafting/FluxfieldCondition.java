@@ -31,7 +31,7 @@ public class FluxfieldCondition implements ICondition {
 
 	@Override
 	public boolean test() {
-		return ConfigHandler.COMMON.fluxfieldEnabled.get() == value;
+		return ConfigHandler.COMMON.fluxfieldEnabled.getValue() == value;
 	}
 
 	public static final IConditionSerializer<FluxfieldCondition> SERIALIZER = new IConditionSerializer<FluxfieldCondition>() {

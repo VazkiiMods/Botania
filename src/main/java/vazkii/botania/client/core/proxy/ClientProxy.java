@@ -131,7 +131,7 @@ public class ClientProxy implements IProxy {
 			Botania.LOGGER.fatal("Persistent Variables couldn't load!!");
 		}
 
-		if (ConfigHandler.CLIENT.enableSeasonalFeatures.get()) {
+		if (ConfigHandler.CLIENT.enableSeasonalFeatures.getValue()) {
 			LocalDateTime now = LocalDateTime.now();
 			if (now.getMonth() == Month.DECEMBER && now.getDayOfMonth() >= 16 || now.getMonth() == Month.JANUARY && now.getDayOfMonth() <= 2) {
 				jingleTheBells = true;

@@ -154,7 +154,7 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 
 	public boolean hasRender(ItemStack stack, LivingEntity living) {
 		return !hasPhantomInk(stack)
-				&& ConfigHandler.CLIENT.renderAccessories.get()
+				&& ConfigHandler.CLIENT.renderAccessories.getValue()
 				&& !living.isInvisible();
 	}
 

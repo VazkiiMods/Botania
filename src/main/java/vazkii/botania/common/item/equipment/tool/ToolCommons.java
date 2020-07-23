@@ -127,7 +127,7 @@ public final class ToolCommons {
 				world.removeBlock(pos, false);
 			}
 
-			if (particles && ConfigHandler.COMMON.blockBreakParticles.get() && ConfigHandler.COMMON.blockBreakParticlesTool.get()) {
+			if (particles && ConfigHandler.COMMON.blockBreakParticles.getValue() && ConfigHandler.COMMON.blockBreakParticlesTool.getValue()) {
 				world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
 			}
 		}

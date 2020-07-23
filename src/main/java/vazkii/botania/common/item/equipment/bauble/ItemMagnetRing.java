@@ -69,7 +69,7 @@ public class ItemMagnetRing extends ItemBauble {
 		}
 
 		if (cooldown <= 0) {
-			if (living.isSneaking() == ConfigHandler.COMMON.invertMagnetRing.get()) {
+			if (living.isSneaking() == ConfigHandler.COMMON.invertMagnetRing.getValue()) {
 				double x = living.getX();
 				double y = living.getY() + 0.75;
 				double z = living.getZ();

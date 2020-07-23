@@ -64,7 +64,7 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 				BlockState state = getStoneToPut(coords);
 				if (state != null) {
 					getWorld().setBlockState(coords, state);
-					if (ConfigHandler.COMMON.blockBreakParticles.get()) {
+					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
 						getWorld().syncWorldEvent(2001, coords, Block.getRawIdFromState(state));
 					}
 

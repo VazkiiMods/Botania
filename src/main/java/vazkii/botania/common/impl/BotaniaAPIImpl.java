@@ -259,7 +259,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	@Override
 	public boolean shouldForceCheck() {
-		return ConfigHandler.COMMON.flowerForceCheck.get();
+		return ConfigHandler.COMMON.flowerForceCheck.getValue();
 	}
 
 	@Override

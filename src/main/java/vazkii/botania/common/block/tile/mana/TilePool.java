@@ -229,7 +229,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		}
 		case CHARGE_EFFECT_EVENT: {
 			if (world.isClient) {
-				if (ConfigHandler.COMMON.chargingAnimationEnabled.get()) {
+				if (ConfigHandler.COMMON.chargingAnimationEnabled.getValue()) {
 					boolean outputting = param == 1;
 					Vector3 itemVec = Vector3.fromBlockPos(pos).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
 					Vector3 tileVec = Vector3.fromBlockPos(pos).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
@@ -324,7 +324,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 					}
 
 					if (didSomething) {
-						if (ConfigHandler.COMMON.chargingAnimationEnabled.get() && world.random.nextInt(20) == 0) {
+						if (ConfigHandler.COMMON.chargingAnimationEnabled.getValue() && world.random.nextInt(20) == 0) {
 							world.addSyncedBlockEvent(getPos(), getCachedState().getBlock(), CHARGE_EFFECT_EVENT, outputting ? 1 : 0);
 						}
 						isDoingTransfer = outputting;

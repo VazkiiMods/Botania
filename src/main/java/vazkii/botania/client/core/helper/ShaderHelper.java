@@ -119,7 +119,7 @@ public final class ShaderHelper {
 	}
 
 	public static boolean useShaders() {
-		return ConfigHandler.CLIENT.useShaders.get() && checkIncompatibleMods();
+		return ConfigHandler.CLIENT.useShaders.getValue() && checkIncompatibleMods();
 	}
 
 	private static boolean checkIncompatibleMods() {

@@ -32,7 +32,7 @@ public final class DebugHandler {
 
 	public static void onDrawDebugText(RenderGameOverlayEvent.Text event) {
 		World world = MinecraftClient.getInstance().world;
-		if (ConfigHandler.CLIENT.debugInfo.get() && MinecraftClient.getInstance().options.debugEnabled) {
+		if (ConfigHandler.CLIENT.debugInfo.getValue() && MinecraftClient.getInstance().options.debugEnabled) {
 			event.getLeft().add("");
 			String version = ModList.get().getModContainerById(LibMisc.MOD_ID)
 					.map(ModContainer::getModInfo)
@@ -53,7 +53,7 @@ public final class DebugHandler {
 
 			if (Screen.hasControlDown() && Screen.hasShiftDown()) {
 				event.getLeft().add(PREFIX + "Config Context");
-				event.getLeft().add("  shaders.enabled: " + ConfigHandler.CLIENT.useShaders.get());
+				event.getLeft().add("  shaders.enabled: " + ConfigHandler.CLIENT.useShaders.getValue());
 
 				GLCapabilities caps = GL.getCapabilities();
 				event.getLeft().add(PREFIX + "OpenGL Context");

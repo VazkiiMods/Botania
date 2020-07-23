@@ -23,7 +23,7 @@ public class EnableRelics implements LootCondition {
 
 	@Override
 	public boolean test(@Nonnull LootContext context) {
-		return ConfigHandler.COMMON.relicsEnabled.get();
+		return ConfigHandler.COMMON.relicsEnabled.getValue();
 	}
 
 	@Override

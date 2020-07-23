@@ -59,7 +59,7 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 
 	@Override
 	public ActionResult useOnEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
-		if (ConfigHandler.COMMON.enderPickpocketEnabled.get() && entity instanceof PlayerEntity && ManaItemHandler.instance().requestManaExact(stack, player, COST_OTHER, false)) {
+		if (ConfigHandler.COMMON.enderPickpocketEnabled.getValue() && entity instanceof PlayerEntity && ManaItemHandler.instance().requestManaExact(stack, player, COST_OTHER, false)) {
 			if (!player.world.isClient) {
 				PlayerEntity other = (PlayerEntity) entity;
 				player.openHandledScreen(new SimpleNamedScreenHandlerFactory((windowId, playerInv, p) -> {

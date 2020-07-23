@@ -99,7 +99,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 						}
 
 						if (success) {
-							if (ConfigHandler.COMMON.blockBreakParticles.get()) {
+							if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
 								BlockState state = getWorld().getBlockState(ctx.getBlockPos());
 								getWorld().syncWorldEvent(2001, coords, Block.getRawIdFromState(state));
 							}

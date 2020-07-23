@@ -310,7 +310,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 		addItem(ModItems.ancientWillKaril);
 		addItem(ModItems.pinkinator);
 		addItem(ModBlocks.gaiaHead);
-		if (ConfigHandler.COMMON.relicsEnabled.get()) {
+		if (ConfigHandler.COMMON.relicsEnabled.getValue()) {
 			addItem(ModItems.dice);
 			addItem(ModItems.infiniteFruit);
 			addItem(ModItems.kingKey);

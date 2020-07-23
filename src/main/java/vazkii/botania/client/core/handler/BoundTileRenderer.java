@@ -54,7 +54,7 @@ public final class BoundTileRenderer {
 	private BoundTileRenderer() {}
 
 	public static void onWorldRenderLast(RenderWorldLastEvent event) {
-		if (!ConfigHandler.CLIENT.boundBlockWireframe.get()) {
+		if (!ConfigHandler.CLIENT.boundBlockWireframe.getValue()) {
 			return;
 		}
 
