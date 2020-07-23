@@ -19,6 +19,7 @@
     "AccessorNearestAttackableTarget",
     "AccessorParticleManager",
     "AccessorRecipeManager",
+    "AccessorShulkerEntity",
     "AccessorSlimeEntity",
     "AccessorWitherEntity",
     "MixinEndermanPickupBlock",

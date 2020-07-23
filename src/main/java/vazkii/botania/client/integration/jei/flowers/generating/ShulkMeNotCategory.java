@@ -19,10 +19,12 @@ import mezz.jei.api.runtime.IIngredientManager;
 import vazkii.botania.client.integration.jei.misc.EntityIngredient;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.subtile.generating.SubTileShulkMeNot;
+import vazkii.botania.mixin.AccessorShulkerEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.monster.ShulkerEntity;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.*;
@@ -82,7 +84,10 @@ public class ShulkMeNotCategory extends AbstractGenerationCategory<AbstractGener
 			super(SubTileShulkMeNot.MAX_MANA);
 			ingredients = new ArrayList<>();
 			ClientWorld world = Objects.requireNonNull(Minecraft.getInstance().world);
-			ingredients.add(Collections.singletonList(EntityType.SHULKER.create(world)));
+			ShulkerEntity shulker = EntityType.SHULKER.create(world);
+			assert shulker != null;
+			((AccessorShulkerEntity) shulker).setPrevPeekAmount(1);
+			ingredients.add(Collections.singletonList(shulker));
 			List<Entity> otherEntities = new ArrayList<>();
 			otherEntities.add(EntityType.ZOMBIE.create(world));
 			otherEntities.add(EntityType.CREEPER.create(world));
