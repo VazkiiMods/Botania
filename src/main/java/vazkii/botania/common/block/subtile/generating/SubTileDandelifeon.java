@@ -8,18 +8,16 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.tile.TileCell;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +26,8 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 	private static final int RANGE = 12;
 	private static final int SPEED = 10;
 //	private static final int MAX_GENERATIONS = 100;
-	private static final int MAX_MANA_GENERATIONS = 100;
-	private static final int MANA_PER_GEN = 60;
+	public static final int MAX_MANA_GENERATIONS = 100;
+	public static final int MANA_PER_GEN = 60;
 
 	private static final int[][] ADJACENT_BLOCKS = new int[][] {
 			{ -1, -1 },

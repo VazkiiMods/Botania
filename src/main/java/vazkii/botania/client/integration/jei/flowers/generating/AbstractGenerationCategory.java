@@ -20,6 +20,10 @@ import vazkii.botania.client.integration.jei.flowers.AbstractFlowerCategory;
 import vazkii.botania.client.integration.jei.mana.ManaIngredient;
 import vazkii.botania.client.integration.jei.mana.ManaIngredientRenderer;
 import net.minecraft.block.Block;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public abstract class AbstractGenerationCategory<T extends AbstractGenerationCategory.ManaGenRecipe> extends AbstractFlowerCategory<T> {
 	protected final IDrawableStatic background;
@@ -71,5 +75,14 @@ public abstract class AbstractGenerationCategory<T extends AbstractGenerationCat
 		public int getMana() {
 			return mana;
 		}
+	}
+
+	@Override
+	protected ResourceLocation getLexiconPage() {
+		return prefix("generating_flowers/" + getEntryName());
+	}
+
+	protected String getEntryName() {
+		return Registry.ITEM.getKey(flower.getItem()).getPath();
 	}
 }

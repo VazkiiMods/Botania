@@ -59,6 +59,7 @@ public class ShulkMeNotCategory extends AbstractGenerationCategory<AbstractGener
 
 	@Override
 	public void draw(ManaGenRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+		super.draw(recipe, matrixStack, mouseX, mouseY);
 		arrow.draw(matrixStack, 73, 6);
 		levitation.draw(matrixStack, 100, 6);
 	}
@@ -90,5 +91,10 @@ public class ShulkMeNotCategory extends AbstractGenerationCategory<AbstractGener
 			otherEntities.add(EntityType.SHULKER.create(world));
 			ingredients.add(otherEntities);
 		}
+	}
+
+	@Override
+	protected String getEntryName() {
+		return "shulk_me_not";
 	}
 }

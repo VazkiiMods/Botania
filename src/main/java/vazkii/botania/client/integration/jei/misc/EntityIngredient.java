@@ -26,6 +26,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -75,12 +76,12 @@ public class EntityIngredient implements IIngredientType<Entity> {
 
 		@Override
 		public String getWildcardId(Entity ingredient) {
-			return Objects.requireNonNull(ingredient.getType().getRegistryName()).toString();
+			return Registry.ENTITY_TYPE.getKey(ingredient.getType()).toString();
 		}
 
 		@Override
 		public String getModId(Entity ingredient) {
-			return Objects.requireNonNull(ingredient.getType().getRegistryName()).getNamespace();
+			return Registry.ENTITY_TYPE.getKey(ingredient.getType()).getNamespace();
 		}
 
 		@Override
