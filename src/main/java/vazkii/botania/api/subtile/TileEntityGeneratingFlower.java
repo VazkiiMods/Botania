@@ -151,7 +151,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			IManaCollector collector = (IManaCollector) linkedCollector;
 			if (!collector.isFull() && getMana() > 0) {
 				int manaval = Math.min(getMana(), collector.getMaxMana() - collector.getCurrentMana());
-				addMana(manaval);
+				addMana(-manaval);
 				collector.receiveMana(manaval);
 				sync();
 			}
