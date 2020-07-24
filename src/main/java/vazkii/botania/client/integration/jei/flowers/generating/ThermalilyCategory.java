@@ -9,13 +9,15 @@
 package vazkii.botania.client.integration.jei.flowers.generating;
 
 import mezz.jei.api.helpers.IGuiHelper;
+
+import net.minecraft.fluid.Fluid;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.ITag;
+
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.integration.jei.misc.ParticleDrawable;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.subtile.generating.SubTileThermalily;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.ITag;
 
 public class ThermalilyCategory extends HydroangeasCategory {
 
