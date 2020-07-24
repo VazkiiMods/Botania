@@ -121,15 +121,11 @@ public class ParticleDrawable implements IDrawableAnimated {
 
 	private void tick() {
 		ticks = ClientTickHandler.ticksInGame;
-		if (onTick != null) {
-			onTick.accept(this);
-		}
+		onTick.accept(this);
 
-		byType.forEach((type, particle) -> {
+		byType.values().removeIf(particle -> {
 			particle.tick();
-			if (!particle.isAlive()) {
-				byType.remove(type, particle);
-			}
+			return !particle.isAlive();
 		});
 	}
 
