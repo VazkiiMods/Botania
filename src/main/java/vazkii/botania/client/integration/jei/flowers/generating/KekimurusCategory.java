@@ -9,6 +9,7 @@
 package vazkii.botania.client.integration.jei.flowers.generating;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -33,7 +34,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraftforge.client.model.data.EmptyModelData;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -53,8 +53,7 @@ public class KekimurusCategory extends SimpleGenerationCategory implements Consu
 	public KekimurusCategory(IGuiHelper guiHelper) {
 		super(guiHelper, ModSubtiles.kekimurus, ModSubtiles.kekimurusFloating);
 		cakeRenderer = new CakeRenderer();
-		particle = new ParticleDrawable()
-				.onTick(this);
+		particle = new ParticleDrawable(this);
 	}
 
 	@Override
@@ -100,11 +99,11 @@ public class KekimurusCategory extends SimpleGenerationCategory implements Consu
 	@Override
 	protected Collection<SimpleManaGenRecipe> makeRecipes(IIngredientManager ingredientManager, IJeiHelpers helpers) {
 		ArrayList<SimpleManaGenRecipe> recipes = new ArrayList<>();
-		for (Block block : ForgeRegistries.BLOCKS) {
-			if (!(block instanceof CakeBlock)) {
+		for (ItemStack stack : ingredientManager.getAllIngredients(VanillaTypes.ITEM)) {
+			if (!(Block.getBlockFromItem(stack.getItem()) instanceof CakeBlock)) {
 				continue;
 			}
-			recipes.add(new SimpleManaGenRecipe(block, MAX_SLICES * MANA_PER_SLICE));
+			recipes.add(new SimpleManaGenRecipe(stack, MAX_SLICES * MANA_PER_SLICE));
 		}
 		return recipes;
 	}

@@ -20,7 +20,6 @@ import net.minecraft.particles.ParticleTypes;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Random;
 import java.util.stream.IntStream;
 
 import static vazkii.botania.common.block.subtile.generating.SubTileDandelifeon.MANA_PER_GEN;
@@ -32,19 +31,17 @@ public class DandelifeonCategory extends SimpleGenerationCategory {
 
 	public DandelifeonCategory(IGuiHelper guiHelper) {
 		super(guiHelper, ModSubtiles.dandelifeon, ModSubtiles.dandelifeonFloating);
-		Random rand = new Random();
-		particle = new ParticleDrawable()
-				.onTick(drawable -> {
-					if (rand.nextInt(8) == 0) {
-						drawable.addParticle(ParticleTypes.ENCHANT,
-								0.5,
-								1.5,
-								0.5,
-								rand.nextFloat() - 0.5D,
-								-rand.nextFloat() - 1.0F,
-								rand.nextFloat() - 0.5D);
-					}
-				});
+		particle = new ParticleDrawable(drawable -> {
+			if (world.rand.nextInt(8) == 0) {
+				drawable.addParticle(ParticleTypes.ENCHANT,
+						0.5,
+						1.5,
+						0.5,
+						world.rand.nextFloat() - 0.5D,
+						-world.rand.nextFloat() - 1.0F,
+						world.rand.nextFloat() - 0.5D);
+			}
+		});
 	}
 
 	@Override

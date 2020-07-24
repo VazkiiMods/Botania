@@ -21,25 +21,22 @@ import net.minecraft.particles.ParticleTypes;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Random;
 
 public class EndoflameCategory extends SimpleGenerationCategory {
 
 	public EndoflameCategory(IGuiHelper guiHelper) {
 		super(guiHelper, ModSubtiles.endoflame, ModSubtiles.endoflameFloating);
-		Random random = new Random();
-		particle = new ParticleDrawable()
-				.onTick((drawable) -> {
-					if (random.nextInt(10) == 0) {
-						drawable.addParticle(ParticleTypes.FLAME,
-								0.4 + Math.random() * 0.2,
-								0.7,
-								0,
-								0.0D,
-								0.0D,
-								0.0D);
-					}
-				});
+		particle = new ParticleDrawable((drawable) -> {
+			if (world.rand.nextInt(10) == 0) {
+				drawable.addParticle(ParticleTypes.FLAME,
+						0.4 + Math.random() * 0.2,
+						0.7,
+						0,
+						0.0D,
+						0.0D,
+						0.0D);
+			}
+		});
 	}
 
 	@Override
@@ -51,7 +48,7 @@ public class EndoflameCategory extends SimpleGenerationCategory {
 			}
 			int burnTime = SubTileEndoflame.getBurnTime(stack);
 			if (burnTime > 0) {
-				recipes.add(new SimpleManaGenRecipe(stack.getItem(), burnTime * SubTileEndoflame.GEN));
+				recipes.add(new SimpleManaGenRecipe(stack, burnTime * SubTileEndoflame.GEN));
 			}
 		}
 		return recipes;

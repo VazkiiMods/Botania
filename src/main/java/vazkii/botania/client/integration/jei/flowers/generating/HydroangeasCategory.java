@@ -25,22 +25,14 @@ import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ITag;
 import net.minecraftforge.fluids.FluidStack;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Random;
-import java.util.stream.Collectors;
+import java.util.List;
 
 public class HydroangeasCategory extends AbstractGenerationCategory<AbstractGenerationCategory.ManaGenRecipe> {
 
-	{
-		Random random = new Random();
-		particle = new ParticleDrawable()
-				.onTick(drawable -> {
-					if(random.nextInt(8) == 0) {
-						doBurnParticles(drawable);
-					}
-				});
-	}
+	private final List<FluidStack> fluids = new ArrayList<>();
 
 	protected void doBurnParticles(ParticleDrawable drawable) {
 		WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.1F, 0.1F, 0.1F, 1);
@@ -54,20 +46,24 @@ public class HydroangeasCategory extends AbstractGenerationCategory<AbstractGene
 	}
 
 	public HydroangeasCategory(IGuiHelper guiHelper) {
-		super(guiHelper, ModSubtiles.hydroangeas, ModSubtiles.hydroangeasFloating);
+		this(guiHelper, ModSubtiles.hydroangeas, ModSubtiles.hydroangeasFloating);
 	}
 
 	public HydroangeasCategory(IGuiHelper guiHelper, Block flower, Block floatingFlower) {
 		super(guiHelper, flower, floatingFlower);
+		for (Fluid fluid : getMaterial().getAllElements()) {
+			fluids.add(new FluidStack(fluid, 1000));
+		}
+		particle = new ParticleDrawable(drawable -> {
+			if (world.rand.nextInt(8) == 0) {
+				doBurnParticles(drawable);
+			}
+		});
 	}
 
 	@Override
 	protected void setIngredientsInputs(ManaGenRecipe recipe, IIngredients ingredients) {
-		ingredients.setInputLists(VanillaTypes.FLUID,
-				Collections.singletonList(getMaterial().getAllElements()
-						.stream()
-						.map(fluid -> new FluidStack(fluid, 1000))
-						.collect(Collectors.toList())));
+		ingredients.setInputLists(VanillaTypes.FLUID, Collections.singletonList(fluids));
 	}
 
 	protected ITag<Fluid> getMaterial() {

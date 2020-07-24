@@ -27,7 +27,6 @@ import net.minecraft.util.math.vector.Matrix4f;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Random;
 
 public class EntropinnyumCategory extends SimpleGenerationCategory {
 
@@ -39,36 +38,34 @@ public class EntropinnyumCategory extends SimpleGenerationCategory {
 		super(guiHelper, ModSubtiles.entropinnyum, ModSubtiles.entropinnyumFloating);
 		water = guiHelper.createDrawableIngredient(new ItemStack(Items.WATER_BUCKET));
 		barrier = guiHelper.createDrawableIngredient(new ItemStack(Blocks.BARRIER));
-		Random random = new Random();
-		particle = new ParticleDrawable()
-				.onTick(drawable -> {
-					int cycle = ClientTickHandler.ticksInGame % 80;
-					if(cycle == 0) {
+		particle = new ParticleDrawable(drawable -> {
+			int cycle = ClientTickHandler.ticksInGame % 80;
+			if (cycle == 0) {
 
-						for (int i = 0; i < 50; i++) {
-							SparkleParticleData data = SparkleParticleData.sparkle((float) (Math.random() * 0.65F + 1.25F), 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 12);
-							drawable.addParticle(data,
-									Math.random() * 4 - 2,
-									Math.random() * 4 - 2,
-									0,
-									0,
-									0,
-									0);
-						}
-					}
+				for (int i = 0; i < 50; i++) {
+					SparkleParticleData data = SparkleParticleData.sparkle((float) (Math.random() * 0.65F + 1.25F), 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 12);
+					drawable.addParticle(data,
+							Math.random() * 4 - 2,
+							Math.random() * 4 - 2,
+							0,
+							0,
+							0,
+							0);
+				}
+			}
 
-					if(cycle <= 8) {
-						for(int i = 0; i < 6; ++i) {
-							drawable.addParticle(ParticleTypes.EXPLOSION,
-									(random.nextDouble() - random.nextDouble()) * 2.0D,
-									(random.nextDouble() - random.nextDouble()) * 2.0D,
-									(random.nextDouble() - random.nextDouble()) * 2.0D,
-									cycle / 8F,
-									0.0D,
-									0.0D);
-						}
-					}
-				});
+			if (cycle <= 8) {
+				for (int i = 0; i < 6; ++i) {
+					drawable.addParticle(ParticleTypes.EXPLOSION,
+							(world.rand.nextDouble() - world.rand.nextDouble()) * 2.0D,
+							(world.rand.nextDouble() - world.rand.nextDouble()) * 2.0D,
+							(world.rand.nextDouble() - world.rand.nextDouble()) * 2.0D,
+							cycle / 8F,
+							0.0D,
+							0.0D);
+				}
+			}
+		});
 	}
 
 	@Override
@@ -89,7 +86,7 @@ public class EntropinnyumCategory extends SimpleGenerationCategory {
 
 	@Override
 	protected Collection<SimpleManaGenRecipe> makeRecipes(IIngredientManager ingredientManager, IJeiHelpers helpers) {
-		return Collections.singleton(new SimpleManaGenRecipe(Blocks.TNT, SubTileEntropinnyum.MAX_MANA));
+		return Collections.singleton(new SimpleManaGenRecipe(new ItemStack(Blocks.TNT), SubTileEntropinnyum.MAX_MANA));
 	}
 
 }

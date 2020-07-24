@@ -20,14 +20,15 @@ import vazkii.botania.client.integration.jei.misc.EntityIngredient;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.subtile.generating.SubTileShulkMeNot;
 import vazkii.botania.mixin.AccessorShulkerEntity;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.ShulkerEntity;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -76,18 +77,18 @@ public class ShulkMeNotCategory extends AbstractGenerationCategory<AbstractGener
 		return ShulkMeNotRecipe.class;
 	}
 
-	private static class ShulkMeNotRecipe extends ManaGenRecipe {
+	private class ShulkMeNotRecipe extends ManaGenRecipe {
 
 		private final List<List<Entity>> ingredients;
 
 		public ShulkMeNotRecipe() {
 			super(SubTileShulkMeNot.MAX_MANA);
 			ingredients = new ArrayList<>();
-			ClientWorld world = Objects.requireNonNull(Minecraft.getInstance().world);
-			ShulkerEntity shulker = EntityType.SHULKER.create(world);
-			assert shulker != null;
+
+			ShulkerEntity shulker = new ShulkerEntity(EntityType.SHULKER, world);
 			((AccessorShulkerEntity) shulker).setPrevPeekAmount(1);
 			ingredients.add(Collections.singletonList(shulker));
+
 			List<Entity> otherEntities = new ArrayList<>();
 			otherEntities.add(EntityType.ZOMBIE.create(world));
 			otherEntities.add(EntityType.CREEPER.create(world));

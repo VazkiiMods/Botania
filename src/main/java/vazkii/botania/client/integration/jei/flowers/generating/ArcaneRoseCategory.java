@@ -23,8 +23,6 @@ import vazkii.botania.client.integration.jei.misc.ArbIngredientRenderer;
 import vazkii.botania.client.integration.jei.misc.EntityIngredient;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.subtile.generating.SubTileArcaneRose;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 
@@ -80,15 +78,13 @@ public class ArcaneRoseCategory extends AbstractGenerationCategory<AbstractGener
 		IIngredientRenderer<Entity> getRenderer();
 	}
 
-	private static class ExperienceOrbRecipe extends ManaGenRecipe implements IArcaneRoseRecipe {
+	private class ExperienceOrbRecipe extends ManaGenRecipe implements IArcaneRoseRecipe {
 
 		private final ExperienceOrbRenderer renderer;
 		private final List<Entity> orb;
 
 		public ExperienceOrbRecipe(IGuiHelper guiHelper) {
 			super(SubTileArcaneRose.ORB_MANA * EXPERIENCE_POINTS);
-			ClientWorld world = Minecraft.getInstance().world;
-			assert world != null;
 			orb = Collections.singletonList(new ExperienceOrbEntity(world, 0, 0, 0, 100));
 			renderer = new ExperienceOrbRenderer(guiHelper);
 		}
@@ -103,7 +99,7 @@ public class ArcaneRoseCategory extends AbstractGenerationCategory<AbstractGener
 			return renderer;
 		}
 
-		private static class ExperienceOrbRenderer extends ArbIngredientRenderer<Entity> {
+		private class ExperienceOrbRenderer extends ArbIngredientRenderer<Entity> {
 
 			private final IDrawableStatic orbs;
 
@@ -125,15 +121,13 @@ public class ArcaneRoseCategory extends AbstractGenerationCategory<AbstractGener
 		}
 	}
 
-	private static class PlayerRecipe extends ManaGenRecipe implements IArcaneRoseRecipe {
+	private class PlayerRecipe extends ManaGenRecipe implements IArcaneRoseRecipe {
 		public PlayerRecipe() {
 			super(SubTileArcaneRose.PLAYER_MANA * EXPERIENCE_POINTS);
 		}
 
 		@Override
 		public List<Entity> getEntities() {
-			ClientWorld world = Minecraft.getInstance().world;
-			assert world != null;
 			return new ArrayList<>(world.getPlayers());
 		}
 

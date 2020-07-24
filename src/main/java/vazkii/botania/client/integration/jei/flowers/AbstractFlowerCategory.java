@@ -22,6 +22,8 @@ import vazkii.botania.client.integration.jei.flowers.generating.*;
 import vazkii.botania.common.item.ModItems;
 import vazkii.patchouli.api.PatchouliAPI;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -43,12 +45,16 @@ public abstract class AbstractFlowerCategory<T> implements IRecipeCategory<T> {
 	private final IDrawable icon;
 	private final IDrawable lexicon;
 
+	@Nonnull
+	public final ClientWorld world;
+
 	public AbstractFlowerCategory(IGuiHelper guiHelper, Block flower, Block floatingFlower) {
 		this.flower = new ItemStack(flower);
 		this.floatingFlower = new ItemStack(floatingFlower);
 		icon = guiHelper.createDrawableIngredient(this.flower);
 		categories.put(getUid(), this);
 		lexicon = guiHelper.createDrawableIngredient(new ItemStack(ModItems.lexicon));
+		world = Objects.requireNonNull(Minecraft.getInstance().world);
 	}
 
 	@Override

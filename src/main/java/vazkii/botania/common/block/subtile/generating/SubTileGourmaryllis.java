@@ -13,7 +13,6 @@ import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.mixin.AccessorItemEntity;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
@@ -129,7 +128,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 				if (cooldown <= 0) {
 					streakLength = Math.min(streakLength + 1, processFood(stack));
 
-					int val = getEffectiveFoodValue(stack.getItem());
+					int val = getEffectiveFoodValue(stack);
 					digestingMana = getDigestingMana(val, getMultiplierForStreak(streakLength));
 					cooldown = val * 10;
 					item.playSound(SoundEvents.ENTITY_GENERIC_EAT, 0.2F, 0.6F);
@@ -142,8 +141,8 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 		}
 	}
 
-	public static int getEffectiveFoodValue(Item item) {
-		return Math.min(12, item.getFood().getHealing());
+	public static int getEffectiveFoodValue(ItemStack item) {
+		return Math.min(12, item.getItem().getFood().getHealing());
 	}
 
 	public static int getDigestingMana(int foodValue, double multiplier) {

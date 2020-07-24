@@ -20,15 +20,13 @@ import vazkii.botania.client.integration.jei.misc.EntityIngredient;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
 import vazkii.botania.mixin.AccessorSlimeEntity;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.SlimeEntity;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.List;
 
 public class NarslimmusCategory extends AbstractGenerationCategory<AbstractGenerationCategory.ManaGenRecipe> {
 
@@ -61,9 +59,11 @@ public class NarslimmusCategory extends AbstractGenerationCategory<AbstractGener
 
 	@Override
 	protected Collection<ManaGenRecipe> makeRecipes(IIngredientManager ingredientManager, IJeiHelpers helpers) {
-		return IntStream.range(1, 4)
-				.mapToObj(NarslimmusRecipe::new)
-				.collect(Collectors.toList());
+		List<ManaGenRecipe> recipes = new ArrayList<>();
+		for (int i = 1; i < 4; i++) {
+			recipes.add(new NarslimmusRecipe(i));
+		}
+		return recipes;
 	}
 
 	@Override
@@ -71,13 +71,13 @@ public class NarslimmusCategory extends AbstractGenerationCategory<AbstractGener
 		return NarslimmusRecipe.class;
 	}
 
-	private static class NarslimmusRecipe extends ManaGenRecipe {
+	private class NarslimmusRecipe extends ManaGenRecipe {
 
 		public SlimeEntity slime;
 
 		protected NarslimmusRecipe(int slimeSize) {
 			super((int) Math.pow(2, slimeSize) * SubTileNarslimmus.MANA_PER_UNIT_SLIME);
-			slime = EntityType.SLIME.create(Objects.requireNonNull(Minecraft.getInstance().world));
+			slime = EntityType.SLIME.create(world);
 			assert slime != null;
 			((AccessorSlimeEntity) slime).callSetSlimeSize(slimeSize, false);
 		}

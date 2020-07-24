@@ -22,7 +22,6 @@ import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.util.math.vector.Quaternion;
@@ -32,7 +31,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.function.Consumer;
 
 @ParametersAreNonnullByDefault
@@ -40,16 +38,11 @@ import java.util.function.Consumer;
 public class ParticleDrawable implements IDrawableAnimated {
 	private final Multimap<IParticleRenderType, Particle> byType = LinkedHashMultimap.create();
 	private final ActiveRenderInfo activeRenderInfo;
+	private final Consumer<ParticleDrawable> onTick;
 
-	public Consumer<ParticleDrawable> onTick = null;
-
-	public ParticleDrawable() {
+	public ParticleDrawable(Consumer<ParticleDrawable> onTick) {
+		this.onTick = onTick;
 		activeRenderInfo = new CustomRenderInfo();
-	}
-
-	public ParticleDrawable onTick(Consumer<ParticleDrawable> action) {
-		onTick = action;
-		return this;
 	}
 
 	@Nullable
@@ -58,10 +51,8 @@ public class ParticleDrawable implements IDrawableAnimated {
 				.callMakeParticle(particleData, x, y, z, xSpeed, ySpeed, zSpeed);
 		if (particle != null) {
 			putParticle(particle);
-			return particle;
-		} else {
-			return null;
 		}
+		return particle;
 	}
 
 	private void putParticle(Particle particle) {
@@ -93,12 +84,9 @@ public class ParticleDrawable implements IDrawableAnimated {
 	}
 
 	private void renderParticles(MatrixStack matrixStackIn) {
-		LightTexture lightTexture = Minecraft.getInstance().gameRenderer.getLightTexture();
-
 		Tessellator tes = Tessellator.getInstance();
 		BufferBuilder buf = tes.getBuffer();
 
-		lightTexture.enableLightmap();
 		RenderSystem.enableDepthTest();
 		RenderSystem.activeTexture(GL13.GL_TEXTURE2);
 		RenderSystem.disableTexture();
@@ -111,8 +99,8 @@ public class ParticleDrawable implements IDrawableAnimated {
 			if (type == IParticleRenderType.NO_RENDER)
 				continue;
 
-			Iterable<Particle> particles = this.byType.get(type);
-			if (particles != null) {
+			Collection<Particle> particles = this.byType.get(type);
+			if (!particles.isEmpty()) {
 				type.beginRender(buf, Minecraft.getInstance().textureManager);
 				for (Particle particle : particles) {
 					particle.renderParticle(buf, activeRenderInfo, ClientTickHandler.partialTicks);
@@ -123,8 +111,6 @@ public class ParticleDrawable implements IDrawableAnimated {
 
 		RenderSystem.disableDepthTest();
 		RenderSystem.popMatrix();
-
-		lightTexture.disableLightmap();
 	}
 
 	private void tick() {
@@ -133,23 +119,12 @@ public class ParticleDrawable implements IDrawableAnimated {
 			onTick.accept(this);
 		}
 
-		byType.asMap()
-				.values()
-				.forEach(this::tickParticleList);
-	}
-
-	private void tickParticleList(Collection<Particle> particlesIn) {
-		if (!particlesIn.isEmpty()) {
-			Iterator<Particle> particles = particlesIn.iterator();
-
-			while (particles.hasNext()) {
-				Particle particle = particles.next();
-				particle.tick();
-				if (!particle.isAlive()) {
-					particles.remove();
-				}
+		byType.forEach((type, particle) -> {
+			particle.tick();
+			if (!particle.isAlive()) {
+				byType.remove(type, particle);
 			}
-		}
+		});
 	}
 
 	private static class CustomRenderInfo extends ActiveRenderInfo {

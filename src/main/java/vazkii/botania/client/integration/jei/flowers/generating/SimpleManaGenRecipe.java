@@ -9,7 +9,6 @@
 package vazkii.botania.client.integration.jei.flowers.generating;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IItemProvider;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,8 +26,8 @@ public class SimpleManaGenRecipe extends AbstractGenerationCategory.ManaGenRecip
 		this.stacks = stacks;
 	}
 
-	public SimpleManaGenRecipe(IItemProvider stack, int mana) {
-		this(Collections.singletonList(new ItemStack(stack)), mana);
+	public SimpleManaGenRecipe(ItemStack stack, int mana) {
+		this(Collections.singletonList(stack), mana);
 	}
 
 	public List<ItemStack> getStacks() {

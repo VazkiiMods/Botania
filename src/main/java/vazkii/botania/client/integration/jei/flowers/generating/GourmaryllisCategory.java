@@ -9,6 +9,7 @@
 package vazkii.botania.client.integration.jei.flowers.generating;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.runtime.IIngredientManager;
@@ -16,11 +17,9 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.integration.jei.misc.ParticleDrawable;
 import vazkii.botania.common.block.ModSubtiles;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ItemParticleData;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.registry.Registry;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -31,8 +30,7 @@ public class GourmaryllisCategory extends SimpleGenerationCategory implements Co
 
 	public GourmaryllisCategory(IGuiHelper guiHelper) {
 		super(guiHelper, ModSubtiles.gourmaryllis, ModSubtiles.gourmaryllisFloating);
-		particle = new ParticleDrawable()
-				.onTick(this);
+		particle = new ParticleDrawable(this);
 	}
 
 	@Override
@@ -66,16 +64,16 @@ public class GourmaryllisCategory extends SimpleGenerationCategory implements Co
 	@Override
 	protected Collection<SimpleManaGenRecipe> makeRecipes(IIngredientManager ingredientManager, IJeiHelpers helpers) {
 		List<SimpleManaGenRecipe> recipes = new ArrayList<>();
-		for (Item item : Registry.ITEM) {
-			if (!item.isFood()) {
+		for (ItemStack stack : ingredientManager.getAllIngredients(VanillaTypes.ITEM)) {
+			if (!stack.getItem().isFood()) {
 				continue;
 			}
 
 			int[] mana = new int[STREAK_MULTIPLIERS.length];
 			for (int i = 0; i < STREAK_MULTIPLIERS.length; i++) {
-				mana[i] = getDigestingMana(getEffectiveFoodValue(item), STREAK_MULTIPLIERS[i]);
+				mana[i] = getDigestingMana(getEffectiveFoodValue(stack), STREAK_MULTIPLIERS[i]);
 			}
-			recipes.add(new SimpleManaGenRecipe(Collections.singletonList(new ItemStack(item)), mana));
+			recipes.add(new SimpleManaGenRecipe(Collections.singletonList(stack), mana));
 		}
 		return recipes;
 	}
