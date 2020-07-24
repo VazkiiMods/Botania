@@ -37,7 +37,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -94,9 +93,12 @@ public class EntityIngredient implements IIngredientType<Entity> {
 		public Entity copyIngredient(Entity ingredient) {
 			Entity copied = ingredient.getType()
 					.create(ingredient.world);
+			if(copied == null) {
+				return ingredient;
+			}
 			CompoundNBT cmp = new CompoundNBT();
 			ingredient.writeWithoutTypeId(cmp);
-			Objects.requireNonNull(copied).read(cmp);
+			copied.read(cmp);
 			return copied;
 		}
 
