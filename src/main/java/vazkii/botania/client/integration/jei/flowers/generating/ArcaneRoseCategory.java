@@ -10,6 +10,7 @@ package vazkii.botania.client.integration.jei.flowers.generating;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
@@ -118,6 +119,7 @@ public class ArcaneRoseCategory extends AbstractGenerationCategory<AbstractGener
 					return;
 				}
 
+				RenderSystem.enableAlphaTest();
 				orbs.draw(matrixStack, xPosition, yPosition);
 			}
 		}
