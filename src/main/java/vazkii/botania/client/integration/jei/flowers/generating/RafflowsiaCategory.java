@@ -8,26 +8,38 @@
  */
 package vazkii.botania.client.integration.jei.flowers.generating;
 
+import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.runtime.IIngredientManager;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 
+import vazkii.botania.client.integration.jei.mana.ManaIngredient;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.ModTags;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static vazkii.botania.common.block.subtile.generating.SubTileRafflowsia.STREAK_OUTPUTS;
 
 public class RafflowsiaCategory extends SimpleGenerationCategory {
 	public RafflowsiaCategory(IGuiHelper guiHelper) {
 		super(guiHelper, ModSubtiles.rafflowsia, ModSubtiles.rafflowsiaFloating);
+	}
+
+	@Override
+	protected void setRecipeInputs(IRecipeLayout recipeLayout, SimpleManaGenRecipe recipe, IIngredients ingredients) {
+		super.setRecipeInputs(recipeLayout, recipe, ingredients);
+
+		recipeLayout.getIngredientsGroup(ManaIngredient.TYPE).addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
+			int streak = Arrays.binarySearch(STREAK_OUTPUTS, ingredient.getAmount()) + 1;
+			tooltip.add(new TranslationTextComponent("botania.nei.rafflowsia.tooltip", streak).func_240701_a_(TextFormatting.ITALIC, TextFormatting.GRAY));
+		});
 	}
 
 	@Override

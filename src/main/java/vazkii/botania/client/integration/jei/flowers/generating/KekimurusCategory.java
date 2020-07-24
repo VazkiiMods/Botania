@@ -31,19 +31,19 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.client.model.data.EmptyModelData;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.integration.jei.mana.ManaIngredient;
 import vazkii.botania.client.integration.jei.misc.ArbIngredientRenderer;
 import vazkii.botania.client.integration.jei.misc.ParticleDrawable;
 import vazkii.botania.common.block.ModSubtiles;
 
 import javax.annotation.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Random;
+import java.util.*;
 import java.util.function.Consumer;
 
 import static vazkii.botania.common.block.subtile.generating.SubTileKekimurus.MANA_PER_SLICE;
@@ -65,6 +65,9 @@ public class KekimurusCategory extends SimpleGenerationCategory implements Consu
 		IGuiItemStackGroup stacks = recipeLayout.getItemStacks();
 		stacks.init(0, true, cakeRenderer, 76, 4, 18, 18, 1, 1);
 		stacks.set(ingredients);
+
+		recipeLayout.getIngredientsGroup(ManaIngredient.TYPE).addTooltipCallback((slotIndex, input, ingredient, tooltip) ->
+				tooltip.add(new TranslationTextComponent("botania.nei.kekimurus.tooltip").func_240701_a_(TextFormatting.ITALIC, TextFormatting.GRAY)));
 	}
 
 	@Override

@@ -52,12 +52,6 @@ public abstract class ManaIngredientRenderer implements IIngredientRenderer<IMan
 			quantity = new TranslationTextComponent(ManaFraction.getClosest(manaIngredient.getAmount()).getKey());
 		}
 		tooltip.add(quantity.func_240699_a_(TextFormatting.GRAY));
-		if (flag.isAdvanced()) {
-			tooltip.add(new TranslationTextComponent("botania.page.preventingDecay0")
-					.func_240701_a_(TextFormatting.DARK_GRAY, TextFormatting.OBFUSCATED)
-					.func_230529_a_(new TranslationTextComponent("botania.ingredient.mana.micromanapools")
-							.func_240703_c_(Style.EMPTY.setObfuscated(false).applyFormatting(TextFormatting.DARK_GRAY))));
-		}
 		return tooltip;
 	}
 

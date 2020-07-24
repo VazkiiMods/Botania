@@ -11,16 +11,21 @@ package vazkii.botania.client.integration.jei.flowers.generating;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import mezz.jei.api.constants.VanillaTypes;
+import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
+import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.runtime.IIngredientManager;
 
 import net.minecraft.client.particle.Particle;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ItemParticleData;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.integration.jei.mana.ManaIngredient;
 import vazkii.botania.client.integration.jei.misc.ParticleDrawable;
 import vazkii.botania.common.block.ModSubtiles;
 
@@ -42,7 +47,17 @@ public class GourmaryllisCategory extends SimpleGenerationCategory implements Co
 		super.draw(recipe, matrixStack, mouseX, mouseY);
 	}
 
-	private ItemStack currentFood = ItemStack.EMPTY;
+	@Override
+	protected void setRecipeInputs(IRecipeLayout recipeLayout, SimpleManaGenRecipe recipe, IIngredients ingredients) {
+		super.setRecipeInputs(recipeLayout, recipe, ingredients);
+
+		recipeLayout.getIngredientsGroup(ManaIngredient.TYPE).addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
+			int streak = Arrays.binarySearch(recipe.getMana(), ingredient.getAmount()) + 1;
+			tooltip.add(new TranslationTextComponent("botania.nei.gourmaryllis.tooltip", streak).func_240701_a_(TextFormatting.ITALIC, TextFormatting.GRAY));
+		});
+	}
+
+	private ItemStack currentFood = null;
 
 	@Override
 	public void accept(ParticleDrawable drawable) {
@@ -72,9 +87,9 @@ public class GourmaryllisCategory extends SimpleGenerationCategory implements Co
 				continue;
 			}
 
-			int[] mana = new int[STREAK_MULTIPLIERS.length];
-			for (int i = 0; i < STREAK_MULTIPLIERS.length; i++) {
-				mana[i] = getDigestingMana(getEffectiveFoodValue(stack), STREAK_MULTIPLIERS[i]);
+			int[] mana = new int[STREAK_MULTIPLIERS.length - 1];
+			for (int i = 1; i < STREAK_MULTIPLIERS.length; i++) {
+				mana[i - 1] = getDigestingMana(getEffectiveFoodValue(stack), STREAK_MULTIPLIERS[i]);
 			}
 			recipes.add(new SimpleManaGenRecipe(Collections.singletonList(stack), mana));
 		}

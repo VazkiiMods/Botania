@@ -23,7 +23,12 @@ import mezz.jei.api.runtime.IIngredientManager;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ExperienceOrbEntity;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 
+import vazkii.botania.api.mana.IManaIngredient;
+import vazkii.botania.client.integration.jei.mana.ManaIngredient;
 import vazkii.botania.client.integration.jei.misc.ArbIngredientRenderer;
 import vazkii.botania.client.integration.jei.misc.EntityIngredient;
 import vazkii.botania.common.block.ModSubtiles;
@@ -57,6 +62,9 @@ public class ArcaneRoseCategory extends AbstractGenerationCategory<AbstractGener
 				18, 18,
 				1, 1);
 		entities.set(ingredients);
+
+		recipeLayout.getIngredientsGroup(ManaIngredient.TYPE).addTooltipCallback((slotIndex, input, ingredient, tooltip) ->
+				tooltip.add(new TranslationTextComponent("botania.nei.arcane_rose.tooltip", EXPERIENCE_POINTS).func_240701_a_(TextFormatting.ITALIC, TextFormatting.GRAY)));
 	}
 
 	@Override

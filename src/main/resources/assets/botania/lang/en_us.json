@@ -126,6 +126,16 @@
   "botania.nei.orechid": "Orechid",
   "botania.nei.orechidIgnem": "Orechid Ignem",
 
+  "botania.nei.arcane_rose.tooltip": "Per %s XP",
+  "botania.nei.dandelifeon.tooltip": "Per Cellular Block",
+  "botania.nei.dandelifeon.tooltip1": "Generation: %s",
+  "botania.nei.gourmaryllis.tooltip": "Unique food streak: %s",
+  "botania.nei.hydroangeas.tooltip": "Per bucket",
+  "botania.nei.kekimurus.tooltip": "Per cake",
+  "botania.nei.rafflowsia.tooltip": "Unique flower streak: %s",
+  "botania.nei.spectrolus.tooltip": "Must be in the correct order",
+  "botania.nei.shulk_me_not.tooltip": "Both mob and shulker will be killed",
+
   "botania.ingredient.mana": "Mana",
   "botania.ingredient.mana.micromanapools": " \u03BCmp",
 

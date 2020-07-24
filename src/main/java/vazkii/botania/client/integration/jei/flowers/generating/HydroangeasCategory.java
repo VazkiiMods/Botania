@@ -20,9 +20,12 @@ import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ITag;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fluids.FluidStack;
 
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.client.integration.jei.mana.ManaIngredient;
 import vazkii.botania.client.integration.jei.misc.ParticleDrawable;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.subtile.generating.SubTileHydroangeas;
@@ -77,6 +80,9 @@ public class HydroangeasCategory extends AbstractGenerationCategory<AbstractGene
 		IGuiFluidStackGroup fluids = recipeLayout.getFluidStacks();
 		fluids.init(0, true, 77, 5);
 		fluids.set(ingredients);
+
+		recipeLayout.getIngredientsGroup(ManaIngredient.TYPE).addTooltipCallback((slotIndex, input, ingredient, tooltip) ->
+				tooltip.add(new TranslationTextComponent("botania.nei.hydroangeas.tooltip").func_240701_a_(TextFormatting.ITALIC, TextFormatting.GRAY)));
 	}
 
 	@Override
@@ -92,4 +98,5 @@ public class HydroangeasCategory extends AbstractGenerationCategory<AbstractGene
 	public Class<? extends ManaGenRecipe> getRecipeClass() {
 		return ManaGenRecipe.class;
 	}
+
 }

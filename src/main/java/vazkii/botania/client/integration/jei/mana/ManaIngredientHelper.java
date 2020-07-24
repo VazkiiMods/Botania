@@ -57,6 +57,11 @@ public class ManaIngredientHelper implements IIngredientHelper<IManaIngredient> 
 	@Nullable
 	@Override
 	public IManaIngredient getMatch(Iterable<IManaIngredient> ingredients, IManaIngredient ingredientToMatch) {
+		for (IManaIngredient ingredient : ingredients) {
+			if(ingredientToMatch.equals(ingredient)) {
+				return ingredient;
+			}
+		}
 		return null;
 	}
 

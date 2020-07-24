@@ -22,6 +22,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.ShulkerEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import vazkii.botania.client.integration.jei.misc.EntityIngredient;
 import vazkii.botania.common.block.ModSubtiles;
@@ -61,6 +63,9 @@ public class ShulkMeNotCategory extends AbstractGenerationCategory<AbstractGener
 		entities.init(0, true, 52, 6);
 		entities.init(1, true, 100, 6);
 		entities.set(ingredients);
+
+		entities.addTooltipCallback((slotIndex, input, ingredient, tooltip) ->
+				tooltip.add(new TranslationTextComponent("botania.nei.shulk_me_not.tooltip").func_240701_a_(TextFormatting.ITALIC, TextFormatting.GRAY)));
 	}
 
 	@Override
