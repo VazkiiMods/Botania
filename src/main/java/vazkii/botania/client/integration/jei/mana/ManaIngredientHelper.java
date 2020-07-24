@@ -10,8 +10,6 @@ package vazkii.botania.client.integration.jei.mana;
 
 import mezz.jei.api.MethodsReturnNonnullByDefault;
 import mezz.jei.api.ingredients.IIngredientHelper;
-import mezz.jei.api.recipe.IFocus;
-import mezz.jei.api.recipe.IFocusFactory;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;

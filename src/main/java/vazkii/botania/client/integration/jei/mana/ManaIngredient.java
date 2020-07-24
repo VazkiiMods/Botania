@@ -14,8 +14,6 @@ import mezz.jei.api.ingredients.IIngredientType;
 import vazkii.botania.api.mana.IManaIngredient;
 import vazkii.botania.common.item.ItemManaTablet;
 
-import javax.annotation.Nonnull;
-
 public class ManaIngredient implements IManaIngredient {
 
 	public static final IIngredientType<IManaIngredient> TYPE = () -> IManaIngredient.class;

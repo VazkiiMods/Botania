@@ -14,8 +14,6 @@ import mezz.jei.api.MethodsReturnNonnullByDefault;
 import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import mezz.jei.api.ingredients.IIngredientType;
-import mezz.jei.api.recipe.IFocus;
-import mezz.jei.api.recipe.IFocusFactory;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
