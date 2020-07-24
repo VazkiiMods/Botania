@@ -214,7 +214,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.register(EntityIngredient.TYPE,
 				entities,
 				EntityIngredient.HELPER,
-				EntityIngredient.INSTANCE);
+				EntityIngredient.RENDERER);
 	}
 
 	@Override

@@ -111,6 +111,7 @@ public abstract class AbstractFlowerCategory<T> implements IRecipeCategory<T> {
 				new ThermalilyCategory(guiHelper),
 				new GourmaryllisCategory(guiHelper),
 				new MunchdewCategory(guiHelper),
+				new ArcaneRoseCategory(guiHelper),
 				new NarslimmusCategory(guiHelper),
 				new EntropinnyumCategory(guiHelper),
 				new KekimurusCategory(guiHelper),

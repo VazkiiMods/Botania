@@ -45,7 +45,7 @@ public class EntityIngredient implements IIngredientType<Entity> {
 
 	public static final IIngredientHelper<Entity> HELPER = new Helper();
 	public static final IIngredientType<Entity> TYPE = new EntityIngredient();
-	public static final IIngredientRenderer<Entity> INSTANCE = new Renderer();
+	public static final IIngredientRenderer<Entity> RENDERER = new Renderer();
 
 	@Override
 	public Class<Entity> getIngredientClass() {

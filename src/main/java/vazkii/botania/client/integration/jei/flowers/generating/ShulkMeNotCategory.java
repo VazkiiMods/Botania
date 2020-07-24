@@ -97,9 +97,4 @@ public class ShulkMeNotCategory extends AbstractGenerationCategory<AbstractGener
 			ingredients.add(otherEntities);
 		}
 	}
-
-	@Override
-	protected String getEntryName() {
-		return "shulk_me_not";
-	}
 }
