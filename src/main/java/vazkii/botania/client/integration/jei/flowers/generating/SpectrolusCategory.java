@@ -13,7 +13,6 @@ import com.google.common.collect.ImmutableList;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
-import mezz.jei.api.gui.ingredient.ITooltipCallback;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredientType;
@@ -27,7 +26,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
@@ -69,8 +67,7 @@ public class SpectrolusCategory extends AbstractGenerationCategory<AbstractGener
 		group.init(0, true, 76, 4);
 		group.set(ingredients);
 
-		group.addTooltipCallback((slotIndex, input, ingredient, tooltip) ->
-				tooltip.add(new TranslationTextComponent("botania.nei.spectrolus.tooltip").func_240701_a_(TextFormatting.ITALIC, TextFormatting.GRAY)));
+		group.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> tooltip.add(new TranslationTextComponent("botania.nei.spectrolus.tooltip").func_240701_a_(TextFormatting.ITALIC, TextFormatting.GRAY)));
 	}
 
 	@Override

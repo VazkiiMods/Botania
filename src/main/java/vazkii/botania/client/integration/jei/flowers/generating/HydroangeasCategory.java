@@ -81,8 +81,7 @@ public class HydroangeasCategory extends AbstractGenerationCategory<AbstractGene
 		fluids.init(0, true, 77, 5);
 		fluids.set(ingredients);
 
-		recipeLayout.getIngredientsGroup(ManaIngredient.TYPE).addTooltipCallback((slotIndex, input, ingredient, tooltip) ->
-				tooltip.add(new TranslationTextComponent("botania.nei.hydroangeas.tooltip").func_240701_a_(TextFormatting.ITALIC, TextFormatting.GRAY)));
+		recipeLayout.getIngredientsGroup(ManaIngredient.TYPE).addTooltipCallback((slotIndex, input, ingredient, tooltip) -> tooltip.add(new TranslationTextComponent("botania.nei.hydroangeas.tooltip").func_240701_a_(TextFormatting.ITALIC, TextFormatting.GRAY)));
 	}
 
 	@Override

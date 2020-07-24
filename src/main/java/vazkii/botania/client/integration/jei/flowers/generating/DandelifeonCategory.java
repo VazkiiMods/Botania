@@ -14,13 +14,13 @@ import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.runtime.IIngredientManager;
 
-import vazkii.botania.client.integration.jei.mana.ManaIngredient;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModSubtiles;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+
+import vazkii.botania.client.integration.jei.mana.ManaIngredient;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModSubtiles;
 
 import java.util.Collection;
 import java.util.Collections;

@@ -66,8 +66,7 @@ public class KekimurusCategory extends SimpleGenerationCategory implements Consu
 		stacks.init(0, true, cakeRenderer, 76, 4, 18, 18, 1, 1);
 		stacks.set(ingredients);
 
-		recipeLayout.getIngredientsGroup(ManaIngredient.TYPE).addTooltipCallback((slotIndex, input, ingredient, tooltip) ->
-				tooltip.add(new TranslationTextComponent("botania.nei.kekimurus.tooltip").func_240701_a_(TextFormatting.ITALIC, TextFormatting.GRAY)));
+		recipeLayout.getIngredientsGroup(ManaIngredient.TYPE).addTooltipCallback((slotIndex, input, ingredient, tooltip) -> tooltip.add(new TranslationTextComponent("botania.nei.kekimurus.tooltip").func_240701_a_(TextFormatting.ITALIC, TextFormatting.GRAY)));
 	}
 
 	@Override

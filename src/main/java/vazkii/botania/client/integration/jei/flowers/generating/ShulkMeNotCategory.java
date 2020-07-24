@@ -64,8 +64,7 @@ public class ShulkMeNotCategory extends AbstractGenerationCategory<AbstractGener
 		entities.init(1, true, 100, 6);
 		entities.set(ingredients);
 
-		entities.addTooltipCallback((slotIndex, input, ingredient, tooltip) ->
-				tooltip.add(new TranslationTextComponent("botania.nei.shulk_me_not.tooltip").func_240701_a_(TextFormatting.ITALIC, TextFormatting.GRAY)));
+		entities.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> tooltip.add(new TranslationTextComponent("botania.nei.shulk_me_not.tooltip").func_240701_a_(TextFormatting.ITALIC, TextFormatting.GRAY)));
 	}
 
 	@Override

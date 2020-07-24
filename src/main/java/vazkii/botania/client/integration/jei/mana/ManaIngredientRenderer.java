@@ -20,7 +20,6 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 
