@@ -8,15 +8,19 @@
  */
 package vazkii.botania.client.integration.jei.flowers.generating;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.runtime.IIngredientManager;
+import vazkii.botania.client.integration.jei.misc.ParticleDrawable;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.ParticleTypes;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Random;
 import java.util.stream.IntStream;
 
 import static vazkii.botania.common.block.subtile.generating.SubTileDandelifeon.MANA_PER_GEN;
@@ -24,8 +28,29 @@ import static vazkii.botania.common.block.subtile.generating.SubTileDandelifeon.
 
 public class DandelifeonCategory extends SimpleGenerationCategory {
 
+	private final ParticleDrawable particle;
+
 	public DandelifeonCategory(IGuiHelper guiHelper) {
 		super(guiHelper, ModSubtiles.dandelifeon, ModSubtiles.dandelifeonFloating);
+		Random rand = new Random();
+		particle = new ParticleDrawable()
+				.onTick(drawable -> {
+					if (rand.nextInt(8) == 0) {
+						drawable.addParticle(ParticleTypes.ENCHANT,
+								0.5,
+								1.5,
+								0.5,
+								rand.nextFloat() - 0.5D,
+								-rand.nextFloat() - 1.0F,
+								rand.nextFloat() - 0.5D);
+					}
+				});
+	}
+
+	@Override
+	public void draw(SimpleManaGenRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+		super.draw(recipe, matrixStack, mouseX, mouseY);
+		particle.draw(matrixStack, LEXICON_X, LEXICON_Y);
 	}
 
 	@Override

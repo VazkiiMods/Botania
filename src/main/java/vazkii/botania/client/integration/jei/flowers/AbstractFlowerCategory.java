@@ -35,8 +35,8 @@ import java.util.*;
 public abstract class AbstractFlowerCategory<T> implements IRecipeCategory<T> {
 
 	private static final Map<ResourceLocation, AbstractFlowerCategory<?>> categories = new HashMap<>();
-	private static final int LEXICON_X = 148;
-	private static final int LEXICON_Y = 44;
+	protected static final int LEXICON_X = 148;
+	protected static final int LEXICON_Y = 44;
 
 	protected final ItemStack flower;
 	protected final ItemStack floatingFlower;
