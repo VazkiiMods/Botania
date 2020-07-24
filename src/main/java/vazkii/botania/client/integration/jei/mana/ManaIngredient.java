@@ -13,6 +13,7 @@ import mezz.jei.api.ingredients.IIngredientType;
 
 import vazkii.botania.api.mana.IManaIngredient;
 import vazkii.botania.common.item.ItemManaTablet;
+import vazkii.botania.common.lib.LibMisc;
 
 public class ManaIngredient implements IManaIngredient {
 
@@ -71,4 +72,8 @@ public class ManaIngredient implements IManaIngredient {
 		return amount == other.amount;
 	}
 
+	@Override
+	public String toString() {
+		return LibMisc.MOD_ID + ":mana[" + amount + (isCreative ? " (Creative)" : "") + "]";
+	}
 }
