@@ -55,7 +55,7 @@ public class BotaniaAPIClientImpl implements BotaniaAPIClient {
 
 	@Override
 	public IIngredientType<IManaIngredient> getManaIngredientType() {
-		return ManaIngredient.Type.INSTANCE;
+		return ManaIngredient.TYPE;
 	}
 
 }

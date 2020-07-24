@@ -14,6 +14,8 @@ import mezz.jei.api.MethodsReturnNonnullByDefault;
 import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import mezz.jei.api.ingredients.IIngredientType;
+import mezz.jei.api.recipe.IFocus;
+import mezz.jei.api.recipe.IFocusFactory;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -44,16 +46,11 @@ import java.util.List;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class EntityIngredient implements IIngredientType<Entity> {
+public class EntityIngredient {
 
+	public static final IIngredientType<Entity> TYPE = () -> Entity.class;
 	public static final IIngredientHelper<Entity> HELPER = new Helper();
-	public static final IIngredientType<Entity> TYPE = new EntityIngredient();
 	public static final IIngredientRenderer<Entity> RENDERER = new Renderer();
-
-	@Override
-	public Class<Entity> getIngredientClass() {
-		return Entity.class;
-	}
 
 	public static class Helper implements IIngredientHelper<Entity> {
 

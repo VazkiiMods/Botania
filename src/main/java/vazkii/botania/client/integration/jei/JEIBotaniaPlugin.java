@@ -44,7 +44,6 @@ import vazkii.botania.client.integration.jei.crafting.TerraPickTippingRecipeWrap
 import vazkii.botania.client.integration.jei.elventrade.ElvenTradeRecipeCategory;
 import vazkii.botania.client.integration.jei.flowers.AbstractFlowerCategory;
 import vazkii.botania.client.integration.jei.mana.ManaIngredient;
-import vazkii.botania.client.integration.jei.mana.ManaIngredientHelper;
 import vazkii.botania.client.integration.jei.mana.ManaIngredientRenderer;
 import vazkii.botania.client.integration.jei.manapool.ManaPoolRecipeCategory;
 import vazkii.botania.client.integration.jei.misc.EntityIngredient;
@@ -204,9 +203,9 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void registerIngredients(IModIngredientRegistration registry) {
-		registry.register(ManaIngredient.Type.INSTANCE,
+		registry.register(ManaIngredient.TYPE,
 				Collections.singleton(ManaIngredient.getCreative()),
-				ManaIngredientHelper.INSTANCE,
+				ManaIngredient.HELPER,
 				ManaIngredientRenderer.Square.INSTANCE);
 
 		ClientWorld world = Minecraft.getInstance().world;

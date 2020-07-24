@@ -10,6 +10,8 @@ package vazkii.botania.client.integration.jei.mana;
 
 import mezz.jei.api.MethodsReturnNonnullByDefault;
 import mezz.jei.api.ingredients.IIngredientHelper;
+import mezz.jei.api.recipe.IFocus;
+import mezz.jei.api.recipe.IFocusFactory;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
@@ -31,8 +33,6 @@ import java.util.Collections;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class ManaIngredientHelper implements IIngredientHelper<IManaIngredient> {
-
-	public static final ManaIngredientHelper INSTANCE = new ManaIngredientHelper();
 
 	@Override
 	public Iterable<Integer> getColors(IManaIngredient ingredient) {
@@ -59,11 +59,6 @@ public class ManaIngredientHelper implements IIngredientHelper<IManaIngredient> 
 	@Nullable
 	@Override
 	public IManaIngredient getMatch(Iterable<IManaIngredient> ingredients, IManaIngredient ingredientToMatch) {
-		for (IManaIngredient manaIngredient : ingredients) {
-			if (manaIngredient.getAmount() == ingredientToMatch.getAmount()) {
-				return manaIngredient;
-			}
-		}
 		return null;
 	}
 

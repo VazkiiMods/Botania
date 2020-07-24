@@ -64,7 +64,7 @@ public abstract class AbstractGenerationCategory<T extends AbstractGenerationCat
 		for (int mana : recipe.getMana()) {
 			manaIngredients.add(new ManaIngredient(mana, false));
 		}
-		ingredients.setOutputLists(ManaIngredient.Type.INSTANCE, Collections.singletonList(manaIngredients));
+		ingredients.setOutputLists(ManaIngredient.TYPE, Collections.singletonList(manaIngredients));
 	}
 
 	protected abstract void setIngredientsInputs(T recipe, IIngredients ingredients);
@@ -77,7 +77,7 @@ public abstract class AbstractGenerationCategory<T extends AbstractGenerationCat
 		stacks.init(-1, true, 76, 24);
 		stacks.set(-1, flower);
 
-		IGuiIngredientGroup<IManaIngredient> manaIngredients = recipeLayout.getIngredientsGroup(ManaIngredient.Type.INSTANCE);
+		IGuiIngredientGroup<IManaIngredient> manaIngredients = recipeLayout.getIngredientsGroup(ManaIngredient.TYPE);
 		manaIngredients.init(0, false,
 				ManaIngredientRenderer.Bar.INSTANCE,
 				33, 49,

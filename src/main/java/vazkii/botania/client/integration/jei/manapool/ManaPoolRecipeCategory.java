@@ -105,7 +105,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 		iIngredients.setInputLists(VanillaTypes.ITEM, builder.build());
 		iIngredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
 
-		iIngredients.setInput(ManaIngredient.Type.INSTANCE, new ManaIngredient(recipe.getManaToConsume(), false));
+		iIngredients.setInput(ManaIngredient.TYPE, new ManaIngredient(recipe.getManaToConsume(), false));
 	}
 
 	@Override
@@ -140,7 +140,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 		recipeLayout.getItemStacks().init(index, false, 99, 12);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 
-		IGuiIngredientGroup<IManaIngredient> manaIngredients = recipeLayout.getIngredientsGroup(ManaIngredient.Type.INSTANCE);
+		IGuiIngredientGroup<IManaIngredient> manaIngredients = recipeLayout.getIngredientsGroup(ManaIngredient.TYPE);
 		manaIngredients.init(0, true,
 				ManaIngredientRenderer.Bar.INSTANCE,
 				28, 50,

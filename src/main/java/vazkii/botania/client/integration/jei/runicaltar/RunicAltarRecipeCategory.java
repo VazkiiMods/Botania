@@ -95,7 +95,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 		iIngredients.setInputLists(VanillaTypes.ITEM, list);
 		iIngredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
 
-		iIngredients.setInput(ManaIngredient.Type.INSTANCE, new ManaIngredient(recipe.getManaUsage(), false));
+		iIngredients.setInput(ManaIngredient.TYPE, new ManaIngredient(recipe.getManaUsage(), false));
 	}
 
 	@Override
@@ -126,7 +126,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 		recipeLayout.getItemStacks().init(index, false, 103, 17);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 
-		IGuiIngredientGroup<IManaIngredient> manaIngredients = recipeLayout.getIngredientsGroup(ManaIngredient.Type.INSTANCE);
+		IGuiIngredientGroup<IManaIngredient> manaIngredients = recipeLayout.getIngredientsGroup(ManaIngredient.TYPE);
 		manaIngredients.init(0, true,
 				ManaIngredientRenderer.Bar.INSTANCE,
 				28, 105,

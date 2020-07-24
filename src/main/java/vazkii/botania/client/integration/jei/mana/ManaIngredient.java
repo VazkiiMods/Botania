@@ -18,6 +18,9 @@ import javax.annotation.Nonnull;
 
 public class ManaIngredient implements IManaIngredient {
 
+	public static final IIngredientType<IManaIngredient> TYPE = () -> IManaIngredient.class;
+	public static final ManaIngredientHelper HELPER = new ManaIngredientHelper();
+
 	private final int amount;
 	private final boolean isCreative;
 
@@ -33,6 +36,7 @@ public class ManaIngredient implements IManaIngredient {
 		return new ManaIngredient(ItemManaTablet.MAX_MANA, true);
 	}
 
+	@Override
 	public int getAmount() {
 		return amount;
 	}
@@ -67,18 +71,6 @@ public class ManaIngredient implements IManaIngredient {
 		}
 		ManaIngredient other = (ManaIngredient) obj;
 		return amount == other.amount;
-	}
-
-	public static class Type implements IIngredientType<IManaIngredient> {
-
-		public static final IIngredientType<IManaIngredient> INSTANCE = new Type();
-
-		@Nonnull
-		@Override
-		public Class<? extends IManaIngredient> getIngredientClass() {
-			return IManaIngredient.class;
-		}
-
 	}
 
 }

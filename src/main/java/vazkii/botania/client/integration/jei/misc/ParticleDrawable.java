@@ -101,8 +101,9 @@ public class ParticleDrawable implements IDrawableAnimated {
 		RenderSystem.multMatrix(matrixStackIn.getLast().getMatrix());
 
 		for (IParticleRenderType type : this.byType.keySet()) {
-			if (type == IParticleRenderType.NO_RENDER)
+			if (type == IParticleRenderType.NO_RENDER) {
 				continue;
+			}
 
 			Collection<Particle> particles = this.byType.get(type);
 			if (!particles.isEmpty()) {
