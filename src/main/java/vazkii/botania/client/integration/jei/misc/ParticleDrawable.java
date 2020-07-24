@@ -40,7 +40,12 @@ import java.util.function.Consumer;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
+/**
+ * A maintainable class.
+ */
 public class ParticleDrawable implements IDrawableAnimated {
+	private static final int SIZE = 16;
+
 	private final Multimap<IParticleRenderType, Particle> byType = LinkedHashMultimap.create();
 	private final ActiveRenderInfo activeRenderInfo;
 	private final Consumer<ParticleDrawable> onTick;
@@ -66,12 +71,12 @@ public class ParticleDrawable implements IDrawableAnimated {
 
 	@Override
 	public int getWidth() {
-		return 16;
+		return SIZE;
 	}
 
 	@Override
 	public int getHeight() {
-		return 16;
+		return SIZE;
 	}
 
 	private int ticks = ClientTickHandler.ticksInGame;
@@ -82,8 +87,8 @@ public class ParticleDrawable implements IDrawableAnimated {
 			tick();
 		}
 		matrixStack.push();
-		matrixStack.translate(xOffset + 16, yOffset + 16, 200);
-		matrixStack.scale(-16, -16, -16);
+		matrixStack.translate(xOffset + SIZE, yOffset + SIZE, 200);
+		matrixStack.scale(-SIZE, -SIZE, -SIZE);
 		renderParticles(matrixStack);
 		matrixStack.pop();
 	}
@@ -138,7 +143,7 @@ public class ParticleDrawable implements IDrawableAnimated {
 
 		@Override
 		public Quaternion getRotation() {
-			return Quaternion.ONE;
+			return Quaternion.ONE.copy();
 		}
 
 		@Override
