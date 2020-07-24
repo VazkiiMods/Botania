@@ -10,6 +10,7 @@ package vazkii.botania.client.integration.jei.runicaltar;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -17,18 +18,21 @@ import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
+
+import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
+
 import vazkii.botania.api.mana.IManaIngredient;
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.client.integration.jei.mana.ManaIngredient;
 import vazkii.botania.client.integration.jei.mana.ManaIngredientRenderer;
 import vazkii.botania.common.block.ModBlocks;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;

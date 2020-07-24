@@ -8,12 +8,6 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.mana.BlockSpreader;
-import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.mixin.AccessorItemEntity;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
@@ -24,6 +18,13 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.common.ForgeHooks;
+
+import vazkii.botania.api.subtile.RadiusDescriptor;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.mana.BlockSpreader;
+import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 public class SubTileEndoflame extends TileEntityGeneratingFlower {
 	private static final String TAG_BURN_TIME = "burnTime";

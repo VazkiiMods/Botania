@@ -9,6 +9,7 @@
 package vazkii.botania.client.integration.jei.flowers.generating;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
 import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
@@ -16,14 +17,16 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.runtime.IIngredientManager;
-import vazkii.botania.client.integration.jei.misc.EntityIngredient;
-import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.subtile.generating.SubTileShulkMeNot;
-import vazkii.botania.mixin.AccessorShulkerEntity;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.monster.ShulkerEntity;
 import net.minecraft.util.ResourceLocation;
+
+import vazkii.botania.client.integration.jei.misc.EntityIngredient;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.subtile.generating.SubTileShulkMeNot;
+import vazkii.botania.mixin.AccessorShulkerEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;

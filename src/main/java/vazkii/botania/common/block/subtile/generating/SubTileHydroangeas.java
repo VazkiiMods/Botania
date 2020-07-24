@@ -8,10 +8,6 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.block.ModSubtiles;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
@@ -24,6 +20,11 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
+
+import vazkii.botania.api.subtile.RadiusDescriptor;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.block.ModSubtiles;
 
 import java.util.Arrays;
 import java.util.Collections;

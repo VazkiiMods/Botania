@@ -12,11 +12,10 @@ import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import mezz.jei.api.MethodsReturnNonnullByDefault;
 import mezz.jei.api.gui.drawable.IDrawableAnimated;
-import org.lwjgl.opengl.GL13;
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.mixin.AccessorParticleManager;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.Particle;
@@ -27,9 +26,15 @@ import net.minecraft.particles.IParticleData;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3d;
 
+import org.lwjgl.opengl.GL13;
+
+import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.mixin.AccessorParticleManager;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+
 import java.util.Collection;
 import java.util.function.Consumer;
 

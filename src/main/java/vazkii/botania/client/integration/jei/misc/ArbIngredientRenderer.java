@@ -9,15 +9,19 @@
 package vazkii.botania.client.integration.jei.misc;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import mezz.jei.api.MethodsReturnNonnullByDefault;
 import mezz.jei.api.ingredients.IIngredientRenderer;
-import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
 
+import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
+
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
+
 import java.util.List;
 
 @ParametersAreNonnullByDefault

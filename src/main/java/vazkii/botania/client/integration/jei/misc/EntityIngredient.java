@@ -9,12 +9,12 @@
 package vazkii.botania.client.integration.jei.misc;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import mezz.jei.api.MethodsReturnNonnullByDefault;
 import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import mezz.jei.api.ingredients.IIngredientType;
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.common.lib.LibMisc;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.Tessellator;
@@ -32,8 +32,12 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 
+import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.common.lib.LibMisc;
+
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -93,7 +97,7 @@ public class EntityIngredient implements IIngredientType<Entity> {
 		public Entity copyIngredient(Entity ingredient) {
 			Entity copied = ingredient.getType()
 					.create(ingredient.world);
-			if(copied == null) {
+			if (copied == null) {
 				return ingredient;
 			}
 			CompoundNBT cmp = new CompoundNBT();
@@ -104,7 +108,7 @@ public class EntityIngredient implements IIngredientType<Entity> {
 
 		@Override
 		public String getErrorInfo(@Nullable Entity ingredient) {
-			if(ingredient == null) {
+			if (ingredient == null) {
 				return "null";
 			}
 			return getDisplayName(ingredient);

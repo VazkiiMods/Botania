@@ -8,15 +8,16 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.common.block.ModSubtiles;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CakeBlock;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+
+import vazkii.botania.api.subtile.RadiusDescriptor;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
 
 public class SubTileKekimurus extends TileEntityGeneratingFlower {
 	private static final int RANGE = 5;

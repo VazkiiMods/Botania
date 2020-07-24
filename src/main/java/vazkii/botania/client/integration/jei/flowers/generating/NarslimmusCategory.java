@@ -9,6 +9,7 @@
 package vazkii.botania.client.integration.jei.flowers.generating;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
 import mezz.jei.api.helpers.IGuiHelper;
@@ -16,13 +17,15 @@ import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.runtime.IIngredientManager;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.monster.SlimeEntity;
+
 import vazkii.botania.client.integration.jei.misc.EntityIngredient;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
 import vazkii.botania.mixin.AccessorSlimeEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.monster.SlimeEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,8 +39,7 @@ public class NarslimmusCategory extends AbstractGenerationCategory<AbstractGener
 		super(guiHelper, ModSubtiles.narslimmus, ModSubtiles.narslimmusFloating);
 		slimeRenderer = new EntityIngredient.Renderer() {
 			@Override
-			protected void doScaling(MatrixStack matrixStack, Entity ingredient) {
-			}
+			protected void doScaling(MatrixStack matrixStack, Entity ingredient) {}
 		};
 	}
 

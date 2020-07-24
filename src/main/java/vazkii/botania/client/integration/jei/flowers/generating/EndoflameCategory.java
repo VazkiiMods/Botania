@@ -12,11 +12,13 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.runtime.IIngredientManager;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.particles.ParticleTypes;
+
 import vazkii.botania.client.integration.jei.misc.ParticleDrawable;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.subtile.generating.SubTileEndoflame;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particles.ParticleTypes;
 
 import java.util.ArrayList;
 import java.util.Collection;

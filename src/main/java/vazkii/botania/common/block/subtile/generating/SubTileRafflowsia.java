@@ -8,10 +8,6 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
-import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.lib.ModTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
@@ -22,7 +18,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.util.Constants;
 
+import vazkii.botania.api.subtile.RadiusDescriptor;
+import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.lib.ModTags;
+
 import javax.annotation.Nullable;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;

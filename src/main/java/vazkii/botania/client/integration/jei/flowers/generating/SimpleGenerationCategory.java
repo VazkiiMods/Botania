@@ -13,6 +13,7 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
+
 import net.minecraft.block.Block;
 
 import java.util.Collections;

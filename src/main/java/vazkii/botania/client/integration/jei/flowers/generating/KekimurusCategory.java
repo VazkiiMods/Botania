@@ -9,6 +9,7 @@
 package vazkii.botania.client.integration.jei.flowers.generating;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
@@ -16,10 +17,7 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.runtime.IIngredientManager;
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.integration.jei.misc.ArbIngredientRenderer;
-import vazkii.botania.client.integration.jei.misc.ParticleDrawable;
-import vazkii.botania.common.block.ModSubtiles;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CakeBlock;
@@ -35,7 +33,13 @@ import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraftforge.client.model.data.EmptyModelData;
 
+import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.integration.jei.misc.ArbIngredientRenderer;
+import vazkii.botania.client.integration.jei.misc.ParticleDrawable;
+import vazkii.botania.common.block.ModSubtiles;
+
 import javax.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -67,16 +71,16 @@ public class KekimurusCategory extends SimpleGenerationCategory implements Consu
 	public void draw(SimpleManaGenRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
 		super.draw(recipe, matrixStack, mouseX, mouseY);
 		currentCake = recipe.getStacks().get(0);
-		particle.draw(matrixStack, 77,5);
+		particle.draw(matrixStack, 77, 5);
 	}
 
 	private ItemStack currentCake = ItemStack.EMPTY;
 
 	@Override
 	public void accept(ParticleDrawable drawable) {
-		if(ClientTickHandler.ticksInGame % TICKS_PER_SLICE == 0) {
+		if (ClientTickHandler.ticksInGame % TICKS_PER_SLICE == 0) {
 			BlockState state = getCakeState(currentCake);
-			if(state == null || state.get(CakeBlock.BITES) == 0) {
+			if (state == null || state.get(CakeBlock.BITES) == 0) {
 				return;
 			}
 			BlockParticleData data = new BlockParticleData(ParticleTypes.BLOCK, state);
@@ -114,13 +118,13 @@ public class KekimurusCategory extends SimpleGenerationCategory implements Consu
 
 		@Override
 		public void render(MatrixStack matrixStack, int xPosition, int yPosition, @Nullable ItemStack ingredient) {
-			if(ingredient == null) {
+			if (ingredient == null) {
 				return;
 			}
 
 			BlockState state = getCakeState(ingredient);
 
-			if(state == null) {
+			if (state == null) {
 				fallback(ingredient).render(matrixStack, xPosition, yPosition, ingredient);
 				return;
 			}

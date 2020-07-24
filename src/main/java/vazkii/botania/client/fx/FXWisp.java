@@ -9,7 +9,7 @@
 package vazkii.botania.client.fx;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.SpriteTexturedParticle;
@@ -19,6 +19,8 @@ import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.world.ClientWorld;
+
+import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nonnull;
 

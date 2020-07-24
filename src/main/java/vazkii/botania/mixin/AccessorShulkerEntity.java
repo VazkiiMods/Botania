@@ -8,9 +8,10 @@
  */
 package vazkii.botania.mixin;
 
+import net.minecraft.entity.monster.ShulkerEntity;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
-import net.minecraft.entity.monster.ShulkerEntity;
 
 @Mixin(ShulkerEntity.class)
 public interface AccessorShulkerEntity {

@@ -9,6 +9,7 @@
 package vazkii.botania.client.integration.jei.flowers.generating;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.drawable.IDrawableStatic;
@@ -16,14 +17,16 @@ import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
 import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
+
+import net.minecraft.block.Block;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
+
 import vazkii.botania.api.mana.IManaIngredient;
 import vazkii.botania.client.integration.jei.flowers.AbstractFlowerCategory;
 import vazkii.botania.client.integration.jei.mana.ManaIngredient;
 import vazkii.botania.client.integration.jei.mana.ManaIngredientRenderer;
 import vazkii.botania.client.integration.jei.misc.ParticleDrawable;
-import net.minecraft.block.Block;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 
 import java.util.ArrayList;
 import java.util.Collections;

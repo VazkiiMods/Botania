@@ -9,6 +9,7 @@
 package vazkii.botania.client.integration.jei.flowers.generating;
 
 import com.google.common.collect.ImmutableList;
+
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
@@ -17,10 +18,7 @@ import mezz.jei.api.helpers.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredientType;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.runtime.IIngredientManager;
-import vazkii.botania.client.integration.jei.misc.EntityIngredient;
-import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
-import vazkii.botania.common.core.helper.ColorHelper;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
@@ -28,6 +26,11 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
+
+import vazkii.botania.client.integration.jei.misc.EntityIngredient;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.subtile.generating.SubTileSpectrolus;
+import vazkii.botania.common.core.helper.ColorHelper;
 
 import java.util.*;
 import java.util.stream.Collectors;
