@@ -14,6 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
@@ -27,7 +28,6 @@ import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntityManaBurst;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketLeftClick;
@@ -63,7 +63,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 				&& player.getCooledAttackStrength(0) == 1) {
 			EntityManaBurst burst = getBurst(player, player.getHeldItemMainhand());
 			player.world.addEntity(burst);
-			ToolCommons.damageItem(player.getHeldItemMainhand(), 1, player, MANA_PER_DAMAGE);
+			player.getHeldItemMainhand().damageItem(1, player, p -> p.sendBreakAnimation(Hand.MAIN_HAND));
 			player.world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.terraBlade, SoundCategory.PLAYERS, 0.4F, 1.4F);
 		}
 	}

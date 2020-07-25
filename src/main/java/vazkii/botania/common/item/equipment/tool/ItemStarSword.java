@@ -13,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
@@ -63,7 +64,7 @@ public class ItemStarSword extends ItemManasteelSword {
 						world.addEntity(bonusStar);
 					}
 
-					ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
+					stack.damageItem(1, player, p -> p.sendBreakAnimation(Hand.MAIN_HAND));
 					world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.starcaller, SoundCategory.PLAYERS, 0.4F, 1.4F);
 				}
 			}

@@ -103,8 +103,12 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 							abstractarrowentity.setFire(100);
 						}
 
-						// Botania - move damage into onFire
+						// Botania - onFire
 						onFire(stack, playerentity, flag1, abstractarrowentity);
+
+						stack.damageItem(1, playerentity, (p_220009_1_) -> {
+							p_220009_1_.sendBreakAnimation(playerentity.getActiveHand());
+						});
 						if (flag1 || playerentity.abilities.isCreativeMode && (itemstack.getItem() == Items.SPECTRAL_ARROW || itemstack.getItem() == Items.TIPPED_ARROW)) {
 							abstractarrowentity.pickupStatus = AbstractArrowEntity.PickupStatus.CREATIVE_ONLY;
 						}
@@ -136,9 +140,7 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 				|| !player.findAmmo(stack).isEmpty();
 	}
 
-	void onFire(ItemStack bow, LivingEntity living, boolean infinity, AbstractArrowEntity arrow) {
-		ToolCommons.damageItem(bow, 1, living, MANA_PER_DAMAGE);
-	}
+	void onFire(ItemStack bow, LivingEntity living, boolean infinity, AbstractArrowEntity arrow) {}
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected) {
