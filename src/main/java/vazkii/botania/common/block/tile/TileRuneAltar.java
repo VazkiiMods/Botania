@@ -16,7 +16,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -152,7 +151,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			if (manaToGet == 0) {
 				List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
 				for (ItemEntity item : items) {
-					if (item.isAlive() && !item.getItem().isEmpty() && item.getItem().getItem() != Item.getItemFromBlock(ModBlocks.livingrock)) {
+					if (item.isAlive() && !item.getItem().isEmpty() && item.getItem().getItem() != ModBlocks.livingrock.asItem()) {
 						ItemStack stack = item.getItem();
 						addItem(null, stack, null);
 					}

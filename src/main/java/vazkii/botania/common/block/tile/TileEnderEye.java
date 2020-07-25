@@ -11,7 +11,6 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -41,7 +40,7 @@ public class TileEnderEye extends TileMod implements ITickableTileEntity {
 		boolean looking = false;
 		for (PlayerEntity player : players) {
 			ItemStack helm = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
-			if (!helm.isEmpty() && helm.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN)) {
+			if (!helm.isEmpty() && helm.getItem() == Blocks.PUMPKIN.asItem()) {
 				continue;
 			}
 
