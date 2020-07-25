@@ -82,7 +82,7 @@ public class BlockBrewery extends BlockModWaterloggable implements ITileEntityPr
 	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
 			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
-			InventoryHelper.dropInventory(inv, world, state, pos);
+			net.minecraft.inventory.InventoryHelper.dropInventoryItems(world, pos, inv.getItemHandler());
 			super.onReplaced(state, world, pos, newState, isMoving);
 		}
 	}

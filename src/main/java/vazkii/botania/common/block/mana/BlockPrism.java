@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -33,7 +34,6 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.mana.TilePrism;
-import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 
@@ -103,7 +103,7 @@ public class BlockPrism extends BlockModWaterloggable implements ITileEntityProv
 	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
 			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
-			InventoryHelper.dropInventory(inv, world, state, pos);
+			InventoryHelper.dropInventoryItems(world, pos, inv.getItemHandler());
 			super.onReplaced(state, world, pos, newState, isMoving);
 		}
 	}

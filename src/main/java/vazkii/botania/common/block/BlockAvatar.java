@@ -13,6 +13,7 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
@@ -29,7 +30,6 @@ import net.minecraft.world.World;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
-import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 
@@ -80,7 +80,7 @@ public class BlockAvatar extends BlockModWaterloggable implements ITileEntityPro
 	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newstate, boolean isMoving) {
 		if (state.getBlock() != newstate.getBlock()) {
 			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
-			InventoryHelper.dropInventory(inv, world, state, pos);
+			InventoryHelper.dropInventoryItems(world, pos, inv.getItemHandler());
 			super.onReplaced(state, world, pos, newstate, isMoving);
 		}
 	}

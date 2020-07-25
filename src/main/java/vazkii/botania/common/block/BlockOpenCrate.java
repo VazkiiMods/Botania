@@ -11,6 +11,7 @@ package vazkii.botania.common.block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -21,7 +22,6 @@ import net.minecraft.world.World;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TileOpenCrate;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
-import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 
@@ -46,7 +46,7 @@ public class BlockOpenCrate extends BlockMod implements ITileEntityProvider, IWa
 	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (newState.getBlock() != state.getBlock()) {
 			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
-			InventoryHelper.dropInventory(inv, world, state, pos);
+			InventoryHelper.dropInventoryItems(world, pos, inv.getItemHandler());
 			super.onReplaced(state, world, pos, newState, isMoving);
 		}
 	}

@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.core.helper;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -22,8 +21,11 @@ import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 
+import javax.annotation.Nullable;
+
 public class InventoryHelper {
 
+	@Nullable
 	public static InvWithLocation getInventoryWithLocation(World world, BlockPos pos, Direction side) {
 		IItemHandler ret = getInventory(world, pos, side);
 		if (ret == null) {
@@ -33,6 +35,7 @@ public class InventoryHelper {
 		}
 	}
 
+	@Nullable
 	public static IItemHandler getInventory(World world, BlockPos pos, Direction side) {
 		TileEntity te = world.getTileEntity(pos);
 
@@ -47,20 +50,6 @@ public class InventoryHelper {
 		return ret.orElse(null);
 	}
 
-	public static void dropInventory(TileSimpleInventory inv, World world, BlockState state, BlockPos pos) {
-		if (inv != null) {
-			for (int j1 = 0; j1 < inv.inventorySize(); ++j1) {
-				ItemStack itemstack = inv.getItemHandler().getStackInSlot(j1);
-
-				if (!itemstack.isEmpty()) {
-					net.minecraft.inventory.InventoryHelper.spawnItemStack(world, pos.getX(), pos.getY(), pos.getZ(), itemstack);
-				}
-			}
-
-			world.updateComparatorOutputLevel(pos, state.getBlock());
-		}
-	}
-
 	public static void withdrawFromInventory(TileSimpleInventory inv, PlayerEntity player) {
 		for (int i = inv.inventorySize() - 1; i >= 0; i--) {
 			ItemStack stackAt = inv.getItemHandler().getStackInSlot(i);
@@ -68,7 +57,6 @@ public class InventoryHelper {
 				ItemStack copy = stackAt.copy();
 				player.inventory.placeItemBackInInventory(player.world, copy);
 				inv.getItemHandler().setInventorySlotContents(i, ItemStack.EMPTY);
-				player.world.updateComparatorOutputLevel(inv.getPos(), null);
 				break;
 			}
 		}
