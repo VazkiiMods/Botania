@@ -160,7 +160,8 @@ public class Vector3 {
 	}
 
 	public double angle(Vector3 vec) {
-		return Math.acos(normalize().dotProduct(vec.normalize()));
+		double projection = normalize().dotProduct(vec.normalize());
+		return Math.acos(net.minecraft.util.math.MathHelper.clamp(projection, -1, 1));
 	}
 
 	public boolean isZero() {
