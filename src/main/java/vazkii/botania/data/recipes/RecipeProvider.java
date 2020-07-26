@@ -42,7 +42,6 @@ import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import javax.annotation.Nullable;
 
-import java.util.EnumMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -833,34 +832,6 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 					.addCriterion("has_flower_item", hasItem(ModSubtiles.marimorphosis))
 					.build(consumer);
 		}
-		EnumMap<DyeColor, Ingredient> colorOverrides = new EnumMap<>(DyeColor.class);
-		colorOverrides.put(DyeColor.LIGHT_BLUE, Ingredient.fromItemListStream(Stream.of(
-				new Ingredient.SingleItemList(new ItemStack(Items.BLUE_ORCHID)),
-				new Ingredient.TagList(ModTags.Items.PETALS_LIGHT_BLUE)
-		)));
-		colorOverrides.put(DyeColor.ORANGE, Ingredient.fromItemListStream(Stream.of(
-				new Ingredient.SingleItemList(new ItemStack(Items.ORANGE_TULIP)),
-				new Ingredient.TagList(ModTags.Items.PETALS_ORANGE)
-		)));
-		colorOverrides.put(DyeColor.PINK, Ingredient.fromItemListStream(Stream.of(
-				new Ingredient.SingleItemList(new ItemStack(Items.PINK_TULIP)),
-				new Ingredient.TagList(ModTags.Items.PETALS_PINK)
-		)));
-		colorOverrides.put(DyeColor.RED, Ingredient.fromItemListStream(Stream.of(
-				new Ingredient.SingleItemList(new ItemStack(Items.POPPY)),
-				new Ingredient.SingleItemList(new ItemStack(Items.RED_TULIP)),
-				new Ingredient.TagList(ModTags.Items.PETALS_RED)
-		)));
-		colorOverrides.put(DyeColor.LIGHT_GRAY, Ingredient.fromItemListStream(Stream.of(
-				new Ingredient.SingleItemList(new ItemStack(Items.AZURE_BLUET)),
-				new Ingredient.SingleItemList(new ItemStack(Items.WHITE_TULIP)),
-				new Ingredient.SingleItemList(new ItemStack(Items.OXEYE_DAISY)),
-				new Ingredient.TagList(ModTags.Items.PETALS_LIGHT_GRAY)
-		)));
-		colorOverrides.put(DyeColor.YELLOW, Ingredient.fromItemListStream(Stream.of(
-				new Ingredient.SingleItemList(new ItemStack(Items.DANDELION)),
-				new Ingredient.TagList(ModTags.Items.PETALS_YELLOW)
-		)));
 		for (DyeColor color : DyeColor.values()) {
 			ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.getShinyFlower(color))
 					.addIngredient(Tags.Items.DUSTS_GLOWSTONE)
@@ -907,41 +878,12 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 					.addCriterion("has_alt_item", hasItem(ModItems.getPetal(color)))
 					.build(consumer, "botania:petal_" + color.getString());
 			ShapelessRecipeBuilder.shapelessRecipe(DyeItem.getItem(color))
-					.addIngredient(colorOverrides.getOrDefault(color, Ingredient.fromTag(ModTags.Items.getFlowerTag(color))))
+					.addIngredient(Ingredient.fromTag(ModTags.Items.getFlowerTag(color)))
 					.addIngredient(ModItems.pestleAndMortar)
 					.setGroup("botania:dye")
 					.addCriterion("has_item", hasItem(ModItems.getPetal(color)))
 					.build(consumer, "botania:dye_" + color.getString());
 		}
-
-		ShapelessRecipeBuilder.shapelessRecipe(Items.MAGENTA_DYE, 2)
-				.addIngredient(Items.LILAC)
-				.addIngredient(ModItems.pestleAndMortar)
-				.setGroup("botania:dye_double")
-				.addCriterion("has_item", hasItem(Items.YELLOW_DYE))
-				.addCriterion("has_alt_item", hasItem(Items.LILAC))
-				.build(consumer, "botania:dye_magenta_double");
-		ShapelessRecipeBuilder.shapelessRecipe(Items.PINK_DYE, 2)
-				.addIngredient(Items.PEONY)
-				.addIngredient(ModItems.pestleAndMortar)
-				.setGroup("botania:dye_double")
-				.addCriterion("has_item", hasItem(Items.PINK_DYE))
-				.addCriterion("has_alt_item", hasItem(Items.PEONY))
-				.build(consumer, "botania:dye_pink_double");
-		ShapelessRecipeBuilder.shapelessRecipe(Items.RED_DYE, 2)
-				.addIngredient(Items.ROSE_BUSH)
-				.addIngredient(ModItems.pestleAndMortar)
-				.setGroup("botania:dye_double")
-				.addCriterion("has_item", hasItem(Items.RED_DYE))
-				.addCriterion("has_alt_item", hasItem(Items.ROSE_BUSH))
-				.build(consumer, "botania:dye_red_double");
-		ShapelessRecipeBuilder.shapelessRecipe(Items.YELLOW_DYE, 2)
-				.addIngredient(Items.SUNFLOWER)
-				.addIngredient(ModItems.pestleAndMortar)
-				.setGroup("botania:dye_double")
-				.addCriterion("has_item", hasItem(Items.YELLOW_DYE))
-				.addCriterion("has_alt_item", hasItem(Items.SUNFLOWER))
-				.build(consumer, "botania:dye_yellow_double");
 	}
 
 	private void registerTools(Consumer<IFinishedRecipe> consumer) {

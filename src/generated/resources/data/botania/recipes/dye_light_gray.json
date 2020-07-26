@@ -2,20 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "group": "botania:dye",
   "ingredients": [
-    [
-      {
-        "item": "minecraft:azure_bluet"
-      },
-      {
-        "item": "minecraft:white_tulip"
-      },
-      {
-        "item": "minecraft:oxeye_daisy"
-      },
-      {
-        "tag": "botania:petals/light_gray"
-      }
-    ],
+    {
+      "tag": "botania:petals/light_gray"
+    },
     {
       "item": "botania:pestle_and_mortar"
     }
