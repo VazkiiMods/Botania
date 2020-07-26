@@ -128,7 +128,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 						result = stack.onItemUse(ctx);
 					}
 
-					if (result == ActionResultType.SUCCESS) {
+					if (result.isSuccessOrConsume()) {
 						ManaItemHandler.instance().requestManaExact(lokiRing, player, cost, true);
 						successes++;
 					}

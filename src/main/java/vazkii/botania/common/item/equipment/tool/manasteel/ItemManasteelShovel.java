@@ -58,8 +58,9 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 	@Nonnull
 	@Override
 	public ActionResultType onItemUse(ItemUseContext ctx) {
-		if (super.onItemUse(ctx) == ActionResultType.SUCCESS) {
-			return ActionResultType.SUCCESS;
+		ActionResultType pathResult = super.onItemUse(ctx);
+		if (pathResult.isSuccessOrConsume()) {
+			return pathResult;
 		}
 
 		ItemStack stack = ctx.getItem();
