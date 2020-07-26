@@ -24,6 +24,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
 import vazkii.botania.api.item.AccessoryRenderHelper;
@@ -55,7 +56,17 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		this(props, 0.035F, 0.2F, 2F);
 		MinecraftForge.EVENT_BUS.addListener(this::updatePlayerStepStatus);
 		MinecraftForge.EVENT_BUS.addListener(this::onPlayerJump);
+		MinecraftForge.EVENT_BUS.addListener(this::onPlayerFall);
 		MinecraftForge.EVENT_BUS.addListener(this::playerLoggedOut);
+	}
+
+	private void onPlayerFall(LivingFallEvent event) {
+		if (event.getEntityLiving() instanceof PlayerEntity) {
+			ItemStack stack = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, event.getEntityLiving());
+			if (!stack.isEmpty()) {
+				event.setDistance(Math.max(0, event.getDistance() - ((ItemTravelBelt) stack.getItem()).fallBuffer));
+			}
+		}
 	}
 
 	public ItemTravelBelt(Properties props, float speed, float jump, float fallBuffer) {
@@ -121,7 +132,6 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 			if (!belt.isEmpty() && ManaItemHandler.instance().requestManaExact(belt, player, COST, false)) {
 				player.setMotion(player.getMotion().add(0, ((ItemTravelBelt) belt.getItem()).jump, 0));
-				player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer;
 			}
 		}
 	}
