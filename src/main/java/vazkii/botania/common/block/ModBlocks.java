@@ -51,6 +51,9 @@ import java.util.Locale;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ModBlocks {
+	private static final AbstractBlock.IExtendedPositionPredicate<EntityType<?>> NO_SPAWN = (state, world, pos, et) -> false;
+	private static final AbstractBlock.IPositionPredicate NO_SUFFOCATION = (state, world, pos) -> false;
+
 	public static final Block whiteFlower = new BlockModFlower(DyeColor.WHITE, Block.Properties.create(Material.PLANTS).doesNotBlockMovement().hardnessAndResistance(0).sound(SoundType.PLANT));
 	public static final Block orangeFlower = new BlockModFlower(DyeColor.ORANGE, Block.Properties.from(whiteFlower));
 	public static final Block magentaFlower = new BlockModFlower(DyeColor.MAGENTA, Block.Properties.from(whiteFlower));
@@ -93,7 +96,6 @@ public final class ModBlocks {
 	public static final Block livingwoodPatternFramed = new BlockMod(Block.Properties.from(livingwood));
 	public static final Block livingwoodGlimmering = new BlockMod(Block.Properties.from(livingwood).setLightLevel(s -> 12));
 
-	private static final AbstractBlock.IExtendedPositionPredicate<EntityType<?>> NO_SPAWN = (state, world, pos, et) -> false;
 	public static final Block manaSpreader = new BlockSpreader(BlockSpreader.Variant.MANA, Block.Properties.from(livingwood).setPropagatesDownwards(NO_SPAWN));
 	public static final Block redstoneSpreader = new BlockSpreader(BlockSpreader.Variant.REDSTONE, Block.Properties.from(livingwood).setPropagatesDownwards(NO_SPAWN));
 	public static final Block elvenSpreader = new BlockSpreader(BlockSpreader.Variant.ELVEN, Block.Properties.from(livingwood).setPropagatesDownwards(NO_SPAWN));
@@ -158,7 +160,8 @@ public final class ModBlocks {
 	public static final Block dreamwoodPatternFramed = new BlockMod(Block.Properties.from(livingwood));
 	public static final Block dreamwoodGlimmering = new BlockMod(Block.Properties.from(livingwoodGlimmering));
 	public static final Block conjurationCatalyst = new BlockConjurationCatalyst(Block.Properties.from(livingrock));
-	public static final Block bifrost = new BlockBifrost(Block.Properties.create(Material.GLASS).hardnessAndResistance(-1, 0.3F).setLightLevel(s -> 15).sound(SoundType.GLASS).notSolid());
+	public static final Block bifrost = new BlockBifrost(Block.Properties.create(Material.GLASS).hardnessAndResistance(-1, 0.3F)
+			.setLightLevel(s -> 15).sound(SoundType.GLASS).notSolid().setBlocksVision(NO_SUFFOCATION).setSuffocates(NO_SUFFOCATION).setPropagatesDownwards(NO_SPAWN));
 	public static final Block solidVines = new BlockSolidVines(Block.Properties.create(Material.TALL_PLANTS).hardnessAndResistance(0.2F).sound(SoundType.PLANT).notSolid());
 
 	public static final Block whiteBuriedPetals = new BlockBuriedPetals(DyeColor.WHITE, Block.Properties.from(whiteFlower).setLightLevel(s -> 4));
@@ -217,9 +220,9 @@ public final class ModBlocks {
 	public static final Block enderEye = new BlockEnderEye(Block.Properties.from(manasteelBlock));
 	public static final Block starfield = new BlockStarfield(Block.Properties.create(Material.IRON).hardnessAndResistance(5, 2000).sound(SoundType.METAL));
 	public static final Block rfGenerator = new BlockRFGenerator(Block.Properties.from(livingrock));
-	public static final Block elfGlass = new BlockModGlass(Block.Properties.from(Blocks.GLASS).setLightLevel(s -> 15));
+	public static final Block elfGlass = new BlockModGlass(Block.Properties.from(Blocks.GLASS).setLightLevel(s -> 15).setBlocksVision(NO_SUFFOCATION).setSuffocates(NO_SUFFOCATION).setPropagatesDownwards(NO_SPAWN));
 	public static final Block brewery = new BlockBrewery(Block.Properties.from(livingrock));
-	public static final Block manaGlass = new BlockModGlass(Block.Properties.from(elfGlass));
+	public static final Block manaGlass = new BlockModGlass(Block.Properties.from(elfGlass).setBlocksVision(NO_SUFFOCATION).setSuffocates(NO_SUFFOCATION).setPropagatesDownwards(NO_SPAWN));
 	public static final Block terraPlate = new BlockTerraPlate(Block.Properties.create(Material.IRON).hardnessAndResistance(3, 10).sound(SoundType.METAL));
 	public static final Block redStringContainer = new BlockRedStringContainer(Block.Properties.from(livingrock));
 	public static final Block redStringDispenser = new BlockRedStringDispenser(Block.Properties.from(livingrock));
@@ -287,7 +290,7 @@ public final class ModBlocks {
 	public static final Block doubleFlowerRed = new BlockModDoubleFlower(DyeColor.RED, Block.Properties.from(doubleFlowerWhite));
 	public static final Block doubleFlowerBlack = new BlockModDoubleFlower(DyeColor.BLACK, Block.Properties.from(doubleFlowerWhite));
 
-	public static final Block fakeAir = new BlockFakeAir(Block.Properties.create(Material.STRUCTURE_VOID).tickRandomly());
+	public static final Block fakeAir = new BlockFakeAir(Block.Properties.create(Material.STRUCTURE_VOID).setAir().tickRandomly());
 	public static final Block blazeBlock = new BlockMod(Block.Properties.from(manasteelBlock).setLightLevel(s -> 15));
 	public static final Block corporeaInterceptor = new BlockCorporeaInterceptor(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL));
 	public static final Block corporeaCrystalCube = new BlockCorporeaCrystalCube(Block.Properties.from(corporeaInterceptor));
@@ -306,7 +309,8 @@ public final class ModBlocks {
 	public static final Block manaBomb = new BlockManaBomb(Block.Properties.create(Material.WOOD).hardnessAndResistance(12).sound(SoundType.WOOD));
 	public static final Block cacophonium = new BlockCacophonium(Block.Properties.create(Material.WOOD).hardnessAndResistance(0.8F));
 	public static final Block bellows = new BlockBellows(Block.Properties.from(livingwood));
-	public static final Block bifrostPerm = new BlockBifrostPerm(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F).setLightLevel(s -> 15).sound(SoundType.GLASS).notSolid());
+	public static final Block bifrostPerm = new BlockBifrostPerm(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F)
+			.setLightLevel(s -> 15).sound(SoundType.GLASS).notSolid().setBlocksVision(NO_SUFFOCATION).setSuffocates(NO_SUFFOCATION).setPropagatesDownwards(NO_SPAWN));
 	public static final Block cellBlock = new BlockCell(Block.Properties.create(Material.GOURD).sound(SoundType.CLOTH));
 	public static final Block gaiaHeadWall = new BlockGaiaHeadWall(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1));
 	public static final Block gaiaHead = new BlockGaiaHead(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1));
