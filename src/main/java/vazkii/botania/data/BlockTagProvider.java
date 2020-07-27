@@ -16,6 +16,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.common.block.BlockFloatingSpecialFlower;
+import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
@@ -108,6 +109,11 @@ public class BlockTagProvider extends BlockTagsProvider {
 		func_240522_a_(ModTags.Blocks.SPECIAL_FLOWERS).func_240531_a_(ModTags.Blocks.MISC_SPECIAL_FLOWERS)
 				.func_240531_a_(ModTags.Blocks.GENERATING_SPECIAL_FLOWERS)
 				.func_240531_a_(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS);
+
+		func_240522_a_(ModTags.Blocks.MINI_FLOWERS).func_240534_a_(registry.stream().filter(botania)
+				.filter(b -> b instanceof BlockSpecialFlower && registry.getKey(b).getPath().endsWith("_chibi"))
+				.sorted(Comparator.comparing(Registry.BLOCK::getKey))
+				.toArray(Block[]::new));
 
 		func_240522_a_(BlockTags.TALL_FLOWERS).func_240531_a_(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
 		func_240522_a_(BlockTags.SMALL_FLOWERS).func_240531_a_(ModTags.Blocks.MYSTICAL_FLOWERS).func_240531_a_(ModTags.Blocks.SPECIAL_FLOWERS);
