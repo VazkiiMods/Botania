@@ -258,41 +258,40 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	public ActionResultType processInitialInteract(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if (!removed && !stack.isEmpty()) {
-			if (player.world.isRemote) {
-				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() instanceof DyeItem || stack.getItem() == ModItems.phantomInk;
-				if (valid) {
-					player.swingArm(hand);
-				}
-				return valid ? ActionResultType.SUCCESS : ActionResultType.PASS;
-			}
-
 			if (stack.getItem() == ModItems.twigWand) {
-				if (player.isSneaking()) {
-					dropAndKill();
-					if (isMaster()) {
-						restartNetwork();
+				if (!world.isRemote) {
+					if (player.isSneaking()) {
+						dropAndKill();
+						if (isMaster()) {
+							restartNetwork();
+						}
+					} else {
+						displayRelatives(player, new ArrayList<>(), master);
 					}
-				} else {
-					displayRelatives(player, new ArrayList<>(), master);
 				}
-				return ActionResultType.SUCCESS;
+				return ActionResultType.func_233537_a_(world.isRemote);
 			} else if (stack.getItem() instanceof DyeItem) {
 				DyeColor color = ((DyeItem) stack.getItem()).getDyeColor();
 				if (color != getNetwork()) {
-					setNetwork(color);
+					if (!world.isRemote) {
+						setNetwork(color);
 
-					if (isMaster()) {
-						restartNetwork();
-					} else {
-						findNetwork();
+						if (isMaster()) {
+							restartNetwork();
+						} else {
+							findNetwork();
+						}
+
+						stack.shrink(1);
 					}
 
-					stack.shrink(1);
-					return ActionResultType.SUCCESS;
+					return ActionResultType.func_233537_a_(world.isRemote);
 				}
 			} else if (stack.getItem() == ModItems.phantomInk) {
-				setInvisible(true);
-				return ActionResultType.SUCCESS;
+				if (!world.isRemote) {
+					setInvisible(true);
+				}
+				return ActionResultType.func_233537_a_(world.isRemote);
 			}
 		}
 

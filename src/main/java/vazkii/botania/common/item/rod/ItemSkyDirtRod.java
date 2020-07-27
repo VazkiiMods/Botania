@@ -65,11 +65,8 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 				}
 			}
 		}
-		if (world.isRemote) {
-			player.swingArm(hand);
-		}
 
-		return ActionResult.resultSuccess(stack);
+		return ActionResult.func_233538_a_(stack, world.isRemote);
 	}
 
 }

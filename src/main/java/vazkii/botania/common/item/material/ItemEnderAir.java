@@ -70,9 +70,7 @@ public class ItemEnderAir extends Item {
 			EntityEnderAirBottle b = new EntityEnderAirBottle(player, world);
 			b.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0F, 1.5F, 1F);
 			world.addEntity(b);
-		} else {
-			player.swingArm(hand);
 		}
-		return ActionResult.resultSuccess(stack);
+		return ActionResult.func_233538_a_(stack, world.isRemote);
 	}
 }

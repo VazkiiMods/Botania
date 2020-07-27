@@ -70,14 +70,12 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 		if (player.isSneaking() && hasClip(stack)) {
 			rotatePos(stack);
 			world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
-			if (world.isRemote) {
-				player.swingArm(hand);
-			} else {
+			if (!world.isRemote) {
 				ItemStack lens = getLens(stack);
 				ItemsRemainingRenderHandler.send(player, lens, -2);
 				stack.setDamage(effCd);
 			}
-			return ActionResult.resultSuccess(stack);
+			return ActionResult.func_233538_a_(stack, world.isRemote);
 		} else if (stack.getDamage() == 0) {
 			EntityManaBurst burst = getBurst(player, stack, true, hand);
 			if (burst != null && ManaItemHandler.instance().requestManaExact(stack, player, burst.getMana(), true)) {
@@ -85,15 +83,14 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 					world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
 					world.addEntity(burst);
 					ManaGunTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack);
+					stack.setDamage(effCd);
 				} else {
-					player.swingArm(hand);
 					player.setMotion(player.getMotion().subtract(burst.getMotion().mul(0.1, 0.3, 0.1)));
 				}
-				stack.setDamage(effCd);
 			} else if (!world.isRemote) {
 				world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 			}
-			return ActionResult.resultSuccess(stack);
+			return ActionResult.func_233538_a_(stack, world.isRemote);
 		}
 
 		return ActionResult.resultPass(stack);

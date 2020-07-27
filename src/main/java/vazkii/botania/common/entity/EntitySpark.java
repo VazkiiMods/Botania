@@ -239,46 +239,45 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 	public ActionResultType processInitialInteract(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if (isAlive() && !stack.isEmpty()) {
-			if (world.isRemote) {
-				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() instanceof ItemSparkUpgrade
-						|| stack.getItem() == ModItems.phantomInk || stack.getItem() instanceof DyeItem;
-				if (valid) {
-					player.swingArm(hand);
-				}
-				return valid ? ActionResultType.SUCCESS : ActionResultType.PASS;
-			}
-
 			SparkUpgradeType upgrade = getUpgrade();
 			if (stack.getItem() == ModItems.twigWand) {
-				if (player.isSneaking()) {
-					if (upgrade != SparkUpgradeType.NONE) {
-						entityDropItem(ItemSparkUpgrade.getByType(upgrade), 0F);
-						setUpgrade(SparkUpgradeType.NONE);
+				if (!world.isRemote) {
+					if (player.isSneaking()) {
+						if (upgrade != SparkUpgradeType.NONE) {
+							entityDropItem(ItemSparkUpgrade.getByType(upgrade), 0F);
+							setUpgrade(SparkUpgradeType.NONE);
 
-						transfers.clear();
-						removeTransferants = 2;
+							transfers.clear();
+							removeTransferants = 2;
+						} else {
+							dropAndKill();
+						}
 					} else {
-						dropAndKill();
+						SparkHelper.getSparksAround(world, getPosX(), getPosY() + (getHeight() / 2), getPosZ(), getNetwork())
+								.forEach(s -> particleBeam(player, this, (Entity) s));
 					}
-					return ActionResultType.SUCCESS;
-				} else {
-					SparkHelper.getSparksAround(world, getPosX(), getPosY() + (getHeight() / 2), getPosZ(), getNetwork())
-							.forEach(s -> particleBeam(player, this, (Entity) s));
-					return ActionResultType.SUCCESS;
 				}
+
+				return ActionResultType.func_233537_a_(world.isRemote);
 			} else if (stack.getItem() instanceof ItemSparkUpgrade && upgrade == SparkUpgradeType.NONE) {
-				setUpgrade(((ItemSparkUpgrade) stack.getItem()).type);
-				stack.shrink(1);
-				return ActionResultType.SUCCESS;
+				if (!world.isRemote) {
+					setUpgrade(((ItemSparkUpgrade) stack.getItem()).type);
+					stack.shrink(1);
+				}
+				return ActionResultType.func_233537_a_(world.isRemote);
 			} else if (stack.getItem() == ModItems.phantomInk) {
-				setInvisible(true);
-				return ActionResultType.SUCCESS;
+				if (!world.isRemote) {
+					setInvisible(true);
+				}
+				return ActionResultType.func_233537_a_(world.isRemote);
 			} else if (stack.getItem() instanceof DyeItem) {
 				DyeColor color = ((DyeItem) stack.getItem()).getDyeColor();
 				if (color != getNetwork()) {
-					setNetwork(color);
-					stack.shrink(1);
-					return ActionResultType.SUCCESS;
+					if (!world.isRemote) {
+						setNetwork(color);
+						stack.shrink(1);
+					}
+					return ActionResultType.func_233537_a_(world.isRemote);
 				}
 			}
 		}
