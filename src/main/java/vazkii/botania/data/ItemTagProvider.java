@@ -10,13 +10,19 @@ package vazkii.botania.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
+import net.minecraft.item.Item;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.lens.ItemLens;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
+
+import java.util.Comparator;
 
 public class ItemTagProvider extends ItemTagsProvider {
 	public ItemTagProvider(DataGenerator generatorIn, BlockTagProvider blockTagProvider) {
@@ -49,6 +55,11 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.func_240522_a_(ItemTags.SMALL_FLOWERS).func_240531_a_(ModTags.Items.MYSTICAL_FLOWERS).func_240531_a_(ModTags.Items.SPECIAL_FLOWERS);
 
 		this.func_240522_a_(ModTags.Items.BURST_VIEWERS).func_240532_a_(ModItems.monocle);
+		this.func_240522_a_(ModTags.Items.LENS).func_240534_a_(
+				Registry.ITEM.stream().filter(i -> i instanceof ItemLens && Registry.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
+						.sorted(Comparator.comparing(Registry.ITEM::getKey))
+						.toArray(Item[]::new)
+		);
 	}
 
 	@Nonnull
