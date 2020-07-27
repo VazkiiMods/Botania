@@ -54,9 +54,10 @@ public class WrappedIInventory extends WrappedInventoryBase {
 				request.trackFound(stackAt.getCount());
 
 				if (rem > 0) {
+					ItemStack copy = stackAt.copy();
 					stacks.add(inv.getHandler().extractItem(i, rem, !doit));
 					if (doit && spark != null) {
-						spark.onItemExtracted(stackAt);
+						spark.onItemExtracted(copy);
 					}
 				}
 

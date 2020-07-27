@@ -69,9 +69,7 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 			ms.scale(0.2F, 0.2F, 0.2F);
 			renderIcon(ms, buffer, spinningIcon, iconColor);
 		}
-
 		ms.pop();
-		renderCallback(tEntity, partialTicks, ms, buffers);
 
 		ms.pop();
 	}
@@ -84,8 +82,6 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 	protected TextureAtlasSprite getSpinningIcon(T entity) {
 		return null;
 	}
-
-	protected void renderCallback(T entity, float pticks, MatrixStack ms, IRenderTypeBuffer buffers) {}
 
 	@Nonnull
 	@Override

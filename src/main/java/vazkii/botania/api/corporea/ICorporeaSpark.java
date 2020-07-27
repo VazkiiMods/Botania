@@ -67,6 +67,8 @@ public interface ICorporeaSpark {
 	/**
 	 * Called when an item is extracted from the inventory this spark is attached to through this
 	 * spark.
+	 * 
+	 * @param stack The itemstack, before any extraction was done
 	 */
 	void onItemExtracted(ItemStack stack);
 

@@ -15,12 +15,15 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.DyeItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.particles.ItemParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -29,6 +32,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -49,8 +53,6 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	private static final String TAG_MASTER = "master";
 
 	private static final DataParameter<Boolean> MASTER = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Integer> ITEM_DISPLAY_TICKS = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
-	private static final DataParameter<ItemStack> DISPLAY_STACK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.ITEMSTACK);
 
 	private ICorporeaSpark master;
 	private List<ICorporeaSpark> connections = new ArrayList<>();
@@ -65,8 +67,6 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	protected void registerData() {
 		super.registerData();
 		dataManager.register(MASTER, false);
-		dataManager.register(ITEM_DISPLAY_TICKS, 0);
-		dataManager.register(DISPLAY_STACK, ItemStack.EMPTY);
 	}
 
 	@Nonnull
@@ -105,13 +105,6 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 		if (master != null && (((Entity) master).removed || master.getNetwork() != getNetwork())) {
 			master = null;
-		}
-
-		int displayTicks = getItemDisplayTicks();
-		if (displayTicks > 0) {
-			setItemDisplayTicks(displayTicks - 1);
-		} else if (displayTicks < 0) {
-			setItemDisplayTicks(displayTicks + 1);
 		}
 	}
 
@@ -219,15 +212,17 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	@Override
 	public void onItemExtracted(ItemStack stack) {
-		setItemDisplayTicks(10);
-		setDisplayedItem(stack);
+		((ServerWorld) world).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), getPosX(), getPosY(), getPosZ(), 10, 0.125, 0.125, 0.125, 0.05);
 	}
 
 	@Override
 	public void onItemsRequested(List<ItemStack> stacks) {
-		if (!stacks.isEmpty()) {
-			setItemDisplayTicks(-10);
-			setDisplayedItem(stacks.get(0));
+		List<Item> shownItems = new ArrayList<>();
+		for (ItemStack stack : stacks) {
+			if (!shownItems.contains(stack.getItem())) {
+				shownItems.add(stack.getItem());
+				((ServerWorld) world).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), getPosX(), getPosY(), getPosZ(), 10, 0.125, 0.125, 0.125, 0.05);
+			}
 		}
 	}
 
@@ -243,22 +238,6 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	@Override
 	public boolean isMaster() {
 		return dataManager.get(MASTER);
-	}
-
-	public int getItemDisplayTicks() {
-		return dataManager.get(ITEM_DISPLAY_TICKS);
-	}
-
-	public void setItemDisplayTicks(int ticks) {
-		dataManager.set(ITEM_DISPLAY_TICKS, ticks);
-	}
-
-	public ItemStack getDisplayedItem() {
-		return dataManager.get(DISPLAY_STACK);
-	}
-
-	public void setDisplayedItem(ItemStack stack) {
-		dataManager.set(DISPLAY_STACK, stack);
 	}
 
 	@Override
