@@ -13,6 +13,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -25,7 +26,6 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.entity.EntityDoppleganger;
 
-import java.awt.*;
 import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;
@@ -48,15 +48,15 @@ public final class BossBarHandler {
 				evt.setCanceled(true);
 
 				Minecraft mc = Minecraft.getInstance();
-				Rectangle bgRect = currentBoss.getBossBarTextureRect();
-				Rectangle fgRect = currentBoss.getBossBarHPTextureRect();
+				Rectangle2d bgRect = currentBoss.getBossBarTextureRect();
+				Rectangle2d fgRect = currentBoss.getBossBarHPTextureRect();
 				ITextComponent name = evt.getBossInfo().getName();
 				int c = Minecraft.getInstance().getMainWindow().getScaledWidth() / 2;
 				int x = evt.getX();
 				int y = evt.getY();
-				int xf = x + (bgRect.width - fgRect.width) / 2;
-				int yf = y + (bgRect.height - fgRect.height) / 2;
-				int fw = (int) ((double) fgRect.width * evt.getBossInfo().getPercent());
+				int xf = x + (bgRect.getWidth() - fgRect.getWidth()) / 2;
+				int yf = y + (bgRect.getHeight() - fgRect.getHeight()) / 2;
+				int fw = (int) ((double) fgRect.getWidth() * evt.getBossInfo().getPercent());
 				int tx = c - mc.fontRenderer.func_238414_a_(name) / 2;
 
 				RenderSystem.color4f(1F, 1F, 1F, 1F);
@@ -64,11 +64,11 @@ public final class BossBarHandler {
 				RenderSystem.enableBlend();
 				RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 				mc.textureManager.bindTexture(currentBoss.getBossBarTexture());
-				drawBar(ms, currentBoss, x, y, bgRect.x, bgRect.y, bgRect.width, bgRect.height, true);
-				drawBar(ms, currentBoss, xf, yf, fgRect.x, fgRect.y, fw, fgRect.height, false);
+				drawBar(ms, currentBoss, x, y, bgRect.getX(), bgRect.getY(), bgRect.getWidth(), bgRect.getHeight(), true);
+				drawBar(ms, currentBoss, xf, yf, fgRect.getX(), fgRect.getY(), fw, fgRect.getHeight(), false);
 				mc.fontRenderer.func_238407_a_(ms, name, tx, y - 10, 0xA2018C);
 				RenderSystem.enableBlend();
-				evt.setIncrement(Math.max(bgRect.height, fgRect.height) + auxHeight + mc.fontRenderer.FONT_HEIGHT);
+				evt.setIncrement(Math.max(bgRect.getHeight(), fgRect.getHeight()) + auxHeight + mc.fontRenderer.FONT_HEIGHT);
 			}
 		}
 	}
