@@ -178,6 +178,8 @@ public class ModTags {
 
 		public static final ITag.INamedTag<Block> TERRAFORMABLE = tag("terraformable");
 
+		public static final ITag.INamedTag<Block> CORPOREA_SPARK_OVERRIDE = tag("corporea_spark_override");
+
 		private static ITag.INamedTag<Block> tag(String name) {
 			return BlockTags.makeWrapperTag(prefix(name).toString());
 		}

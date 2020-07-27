@@ -20,6 +20,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 
@@ -29,17 +30,24 @@ public class ItemCorporeaSpark extends Item {
 		super(props);
 	}
 
+	private boolean canPlaceOn(World world, BlockPos pos) {
+		if (world.getBlockState(pos).isIn(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE)) {
+			return true;
+		}
+
+		TileEntity tile = world.getTileEntity(pos);
+		return tile != null
+				&& (tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP).isPresent()
+						|| tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).isPresent());
+	}
+
 	@Nonnull
 	@Override
 	public ActionResultType onItemUse(ItemUseContext ctx) {
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
 
-		TileEntity tile = world.getTileEntity(pos);
-		if (tile != null
-				&& (tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP).isPresent()
-						|| tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).isPresent())
-				&& !CorporeaHelper.instance().doesBlockHaveSpark(world, pos)) {
+		if (canPlaceOn(world, pos) && !CorporeaHelper.instance().doesBlockHaveSpark(world, pos)) {
 			ctx.getItem().shrink(1);
 			if (!world.isRemote) {
 				EntityCorporeaSpark spark = ModEntities.CORPOREA_SPARK.create(world);

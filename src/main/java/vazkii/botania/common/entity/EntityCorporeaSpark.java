@@ -35,8 +35,10 @@ import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +84,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 		}
 
 		InvWithLocation inv = getSparkInventory();
-		if (inv == null) {
+		if (inv == null && !world.getBlockState(getAttachPos()).isIn(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE)) {
 			dropAndKill();
 			return;
 		}
@@ -192,12 +194,17 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 		}
 	}
 
-	@Override
-	public InvWithLocation getSparkInventory() {
+	private BlockPos getAttachPos() {
 		int x = MathHelper.floor(getPosX());
 		int y = MathHelper.floor(getPosY() - 1);
 		int z = MathHelper.floor(getPosZ());
-		return InventoryHelper.getInventoryWithLocation(world, new BlockPos(x, y, z), Direction.UP);
+		return new BlockPos(x, y, z);
+	}
+
+	@Nullable
+	@Override
+	public InvWithLocation getSparkInventory() {
+		return InventoryHelper.getInventoryWithLocation(world, getAttachPos(), Direction.UP);
 	}
 
 	@Override

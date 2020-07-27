@@ -11,6 +11,8 @@ package vazkii.botania.api.corporea;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nullable;
+
 import java.util.List;
 
 /**
@@ -37,6 +39,7 @@ public interface ICorporeaSpark {
 	/**
 	 * Gets the inventory this spark is bound to, generally the one right below it.
 	 */
+	@Nullable
 	InvWithLocation getSparkInventory();
 
 	/**
