@@ -1,2 +1,1 @@
-sh gradlew
-pause
+gradlew build
