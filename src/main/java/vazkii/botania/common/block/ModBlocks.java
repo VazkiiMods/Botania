@@ -713,7 +713,6 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getKey(dreamwoodPatternFramed), new ItemBlockDreamwood(dreamwoodPatternFramed, props));
 		register(r, Registry.BLOCK.getKey(dreamwoodGlimmering), new ItemBlockDreamwood(dreamwoodGlimmering, props));
 		register(r, Registry.BLOCK.getKey(conjurationCatalyst), new BlockItem(conjurationCatalyst, props));
-		register(r, Registry.BLOCK.getKey(bifrost), new BlockItem(bifrost, props));
 		register(r, Registry.BLOCK.getKey(whiteFloatingFlower), new BlockItem(whiteFloatingFlower, props));
 		register(r, Registry.BLOCK.getKey(orangeFloatingFlower), new BlockItem(orangeFloatingFlower, props));
 		register(r, Registry.BLOCK.getKey(magentaFloatingFlower), new BlockItem(magentaFloatingFlower, props));
