@@ -23,8 +23,6 @@ import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.ModTags;
 
-import javax.annotation.Nullable;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -34,7 +32,6 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 	public static final String TAG_LAST_FLOWER_TIMES = "lastFlowerTimes";
 	public static final String TAG_STREAK_LENGTH = "streakLength";
 
-	@Nullable
 	private List<Block> lastFlowers = new LinkedList<>();
 	private int streakLength = -1;
 	private int lastFlowerCount = 0;
