@@ -11,14 +11,16 @@ package vazkii.botania.common.block.corporea;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.world.IBlockReader;
 
+import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 
 import javax.annotation.Nonnull;
 
-public class BlockCorporeaIndex extends BlockCorporeaBaseWaterloggable {
+public class BlockCorporeaIndex extends BlockModWaterloggable implements ITileEntityProvider {
 	public BlockCorporeaIndex(Block.Properties builder) {
 		super(builder);
 	}
