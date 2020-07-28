@@ -13,7 +13,7 @@ jobs:
     - uses: actions/stale@v3
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-issue-message: 'This issue is stale because it has been open for a while with no activity. Please bump if this is still an issue, or this ticket will be closed soon.'
-        stale-pr-message: 'This PR is stale because it has been open for a while with no activity. Please bump if this is still needed, or this PR will be closed soon.'
-        exempt-issue-label: 'confirmed'
+        stale-issue-message: 'This issue is stale because it has been open for a while with no activity. Remove stale label or comment or this will be closed soon.'
+        stale-pr-message: 'This PR is stale because it has been open for a while with no activity. Remove stale label or comment or this will be closed soon.'
+        exempt-issue-labels: 'confirmed'
         remove-stale-when-updated: true
