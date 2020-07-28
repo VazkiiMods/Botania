@@ -95,7 +95,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 							success = ((IFlowerPlaceable) stackItem).tryPlace(this, ctx);
 						}
 						if (stackItem instanceof BlockItem) {
-							success = ((BlockItem) stackItem).place(ctx).isAccepted()
+							success = ((BlockItem) stackItem).place(ctx).isAccepted();
 						}
 
 						if (success) {

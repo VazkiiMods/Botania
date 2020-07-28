@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(RenderPhase.class)
 public interface AccessorRenderState {
-	@Accessor("field_239235_M_")
+	@Accessor("VIEW_OFFSET_Z_LAYERING")
 	static RenderPhase.Layering getViewOffsetZLayer() {
 		throw new IllegalStateException();
 	}
@@ -29,7 +29,7 @@ public interface AccessorRenderState {
 		throw new IllegalStateException();
 	}
 
-	@Accessor("field_241712_U_")
+	@Accessor("ITEM_TARGET")
 	static RenderPhase.Target getItemEntityTarget() {
 		throw new IllegalStateException();
 	}

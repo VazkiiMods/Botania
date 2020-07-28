@@ -49,7 +49,7 @@ public class BlockFelPumpkin extends BlockMod {
 			world.setBlockState(pos.down(2), Blocks.AIR.getDefaultState());
 			BlazeEntity blaze = EntityType.BLAZE.create(world);
 			blaze.refreshPositionAndAngles(pos.getX() + 0.5D, pos.getY() - 1.95D, pos.getZ() + 0.5D, 0.0F, 0.0F);
-			((AccessorMobEntity) blaze).setDeathLootTable(LOOT_TABLE);
+			((AccessorMobEntity) blaze).setLootTable(LOOT_TABLE);
 			blaze.initialize(world, world.getLocalDifficulty(pos), SpawnReason.EVENT, null, null);
 			world.spawnEntity(blaze);
 		}

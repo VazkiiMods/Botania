@@ -21,7 +21,7 @@ import net.minecraft.recipe.RecipeType;
 @Mixin(AbstractFurnaceBlockEntity.class)
 public interface AccessorAbstractFurnaceTileEntity {
 	@Invoker
-	boolean invokeCanSmelt(@Nullable Recipe<?> recipe);
+	boolean invokeCanAcceptRecipeOutput(@Nullable Recipe<?> recipe);
 
 	@Accessor
 	RecipeType<? extends AbstractCookingRecipe> getRecipeType();

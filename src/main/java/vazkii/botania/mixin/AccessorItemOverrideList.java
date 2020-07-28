@@ -18,5 +18,5 @@ import net.minecraft.client.render.model.json.ModelOverrideList;
 @Mixin(ModelOverrideList.class)
 public interface AccessorItemOverrideList {
 	@Accessor
-	List<BakedModel> getOverrideBakedModels();
+	List<BakedModel> getModels();
 }

@@ -24,5 +24,5 @@ public interface AccessorMobEntity {
 	SoundEvent callGetAmbientSound();
 
 	@Accessor
-	void setDeathLootTable(Identifier id);
+	void setLootTable(Identifier id);
 }

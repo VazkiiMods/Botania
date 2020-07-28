@@ -55,7 +55,7 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 
 				Set<PrioritizedGoal> goals = ((AccessorGoalSelector) entity.goalSelector).getGoals();
 				boolean hasRunAwayFromPlayerGoal = goals.stream()
-						.anyMatch(g -> g.getGoal() instanceof FleeEntityGoal && ((AccessorAvoidEntityGoal) g.getGoal()).getClassToAvoid() == PlayerEntity.class);
+						.anyMatch(g -> g.getGoal() instanceof FleeEntityGoal && ((AccessorAvoidEntityGoal) g.getGoal()).getClassToFleeFrom() == PlayerEntity.class);
 				if (!hasRunAwayFromPlayerGoal) {
 					entity.goalSelector.add(3, new FleeEntityGoal<>(entity, PlayerEntity.class, 6, 1, 1.2));
 					did = true;

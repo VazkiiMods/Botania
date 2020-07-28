@@ -39,7 +39,7 @@ public class MixinWorldRenderer {
 
 	@Shadow
 	@Nullable
-	private VertexBuffer starVBO;
+	private VertexBuffer starsBuffer;
 
 	// TODO 1.16 isWorldSkyblock doesnt work on client (needs to be communicated separately)
 	@Unique
@@ -119,7 +119,7 @@ public class MixinWorldRenderer {
 	)
 	private void renderExtraStars(MatrixStack ms, float partialTicks, CallbackInfo ci) {
 		if (isGogSky()) {
-			SkyblockSkyRenderer.renderStars(skyVertexFormat, starVBO, ms, partialTicks);
+			SkyblockSkyRenderer.renderStars(skyVertexFormat, starsBuffer, ms, partialTicks);
 		}
 	}
 }

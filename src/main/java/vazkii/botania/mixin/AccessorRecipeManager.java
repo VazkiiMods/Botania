@@ -21,5 +21,5 @@ import net.minecraft.util.Identifier;
 @Mixin(RecipeManager.class)
 public interface AccessorRecipeManager {
 	@Invoker
-	<C extends Inventory, T extends Recipe<C>> Map<Identifier, Recipe<C>> callGetRecipes(RecipeType<T> type);
+	<C extends Inventory, T extends Recipe<C>> Map<Identifier, Recipe<C>> callGetAllOfType(RecipeType<T> type);
 }

@@ -16,5 +16,5 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(RecipeBookWidget.class)
 public interface AccessorRecipeBookGui {
 	@Accessor
-	RecipeBookResults getRecipeBookPage();
+	RecipeBookResults getRecipesArea();
 }

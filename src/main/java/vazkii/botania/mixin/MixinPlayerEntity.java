@@ -25,7 +25,7 @@ public class MixinPlayerEntity {
 	/**
 	 * Registers the pixie spawn chance attribute on players
 	 */
-	@Inject(at = @At("RETURN"), method = "func_234570_el_")
+	@Inject(at = @At("RETURN"), method = "createPlayerAttributes")
 	private static void addPixieAttribute(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
 		cir.getReturnValue().add(PixieHandler.PIXIE_SPAWN_CHANCE);
 	}

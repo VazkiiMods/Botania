@@ -286,7 +286,7 @@ public class ClientProxy implements IProxy {
 			ColorHandler.init();
 
 			// Needed to prevent mana pools on carts from X-raying through the cart
-			SortedMap<RenderLayer, BufferBuilder> layers = ((AccessorRenderTypeBuffers) MinecraftClient.getInstance().getBufferBuilders()).getFixedBuffers();
+			SortedMap<RenderLayer, BufferBuilder> layers = ((AccessorRenderTypeBuffers) MinecraftClient.getInstance().getBufferBuilders()).getEntityBuilders();
 			layers.put(RenderHelper.MANA_POOL_WATER, new BufferBuilder(RenderHelper.MANA_POOL_WATER.getExpectedBufferSize()));
 		});
 	}

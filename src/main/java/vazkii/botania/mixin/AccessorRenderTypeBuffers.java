@@ -19,5 +19,5 @@ import net.minecraft.client.render.RenderLayer;
 @Mixin(BufferBuilderStorage.class)
 public interface AccessorRenderTypeBuffers {
 	@Accessor
-	SortedMap<RenderLayer, BufferBuilder> getFixedBuffers();
+	SortedMap<RenderLayer, BufferBuilder> getEntityBuilders();
 }

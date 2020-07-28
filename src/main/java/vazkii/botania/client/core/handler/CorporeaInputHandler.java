@@ -81,8 +81,8 @@ public class CorporeaInputHandler {
 
 		if (screen instanceof InventoryScreen && ((InventoryScreen) screen).getRecipeBookWidget().isOpen()) {
 			RecipeBookWidget recipeBook = ((InventoryScreen) screen).getRecipeBookWidget();
-			RecipeBookResults page = ((AccessorRecipeBookGui) recipeBook).getRecipeBookPage();
-			AnimatedResultButton widget = ((AccessorRecipeBookPage) page).getHoveredButton();
+			RecipeBookResults page = ((AccessorRecipeBookGui) recipeBook).getRecipesArea();
+			AnimatedResultButton widget = ((AccessorRecipeBookPage) page).getHoveredResultButton();
 			if (widget != null) {
 				return widget.currentRecipe().getOutput();
 			}

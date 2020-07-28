@@ -17,7 +17,7 @@ import net.minecraft.client.util.SpriteIdentifier;
 
 @Mixin(ModelLoader.class)
 public interface AccessorModelBakery {
-	@Accessor("LOCATIONS_BUILTIN_TEXTURES")
+	@Accessor("DEFAULT_TEXTURES")
 	static Set<SpriteIdentifier> getMaterials() {
 		throw new IllegalStateException();
 	}

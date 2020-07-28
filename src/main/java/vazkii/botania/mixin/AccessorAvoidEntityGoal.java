@@ -15,5 +15,5 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(FleeEntityGoal.class)
 public interface AccessorAvoidEntityGoal {
 	@Accessor
-	Class<?> getClassToAvoid();
+	Class<?> getClassToFleeFrom();
 }

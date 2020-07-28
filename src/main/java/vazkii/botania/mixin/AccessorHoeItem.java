@@ -19,7 +19,7 @@ import java.util.Map;
 
 @Mixin(HoeItem.class)
 public interface AccessorHoeItem {
-	@Accessor("HOE_LOOKUP")
+	@Accessor("TILLED_BLOCKS")
 	static Map<Block, BlockState> getConversions() {
 		throw new IllegalStateException();
 	}

@@ -16,5 +16,5 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(RecipeBookResults.class)
 public interface AccessorRecipeBookPage {
 	@Accessor
-	AnimatedResultButton getHoveredButton();
+	AnimatedResultButton getHoveredResultButton();
 }

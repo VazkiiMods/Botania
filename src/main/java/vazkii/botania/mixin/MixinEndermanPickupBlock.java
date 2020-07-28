@@ -29,7 +29,7 @@ import java.util.Random;
  * We want them in the small_flowers tag so things such as suspicious stew crafting and bee pollination will work,
  * but Endermen griefing Botania machinery setups is not good.
  */
-@Mixin(targets = { "net.minecraft.entity.monster.EndermanEntity$TakeBlockGoal" })
+@Mixin(targets = { "net.minecraft.entity.mob.EndermanEntity$PickUpBlockGoal" })
 public class MixinEndermanPickupBlock {
 	@Inject(
 		at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/World;getBlockState(Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/BlockState;"),

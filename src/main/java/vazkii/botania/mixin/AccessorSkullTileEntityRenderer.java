@@ -30,7 +30,7 @@ public interface AccessorSkullTileEntityRenderer {
 		throw new IllegalStateException();
 	}
 
-	@Invoker
+	@Invoker("method_3578")
 	static RenderLayer callGetRenderType(SkullBlock.SkullType skullType, @Nullable GameProfile profile) {
 		throw new IllegalStateException();
 	}

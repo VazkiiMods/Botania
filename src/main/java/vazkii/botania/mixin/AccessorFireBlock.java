@@ -17,5 +17,5 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(FireBlock.class)
 public interface AccessorFireBlock {
 	@Invoker
-	void callSetFireInfo(Block block, int encouragement, int flammability);
+	void callRegisterFlammableBlock(Block block, int encouragement, int flammability);
 }

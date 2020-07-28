@@ -15,5 +15,5 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(MinecraftClient.class)
 public interface AccessorMinecraft {
 	@Accessor
-	float getRenderPartialTicksPaused();
+	float getPausedTickDelta();
 }

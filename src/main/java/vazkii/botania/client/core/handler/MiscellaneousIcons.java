@@ -138,7 +138,7 @@ public class MiscellaneousIcons {
 				new LexiconModel(original));
 
 		// models referenced using json overrides aren't put in the model registry, so just go through all override models and wrap them there
-		List<BakedModel> overrides = ((AccessorItemOverrideList) original.getOverrides()).getOverrideBakedModels();
+		List<BakedModel> overrides = ((AccessorItemOverrideList) original.getOverrides()).getModels();
 		for (int i = 0; i < overrides.size(); i++) {
 			overrides.set(i, new LexiconModel(overrides.get(i)));
 		}

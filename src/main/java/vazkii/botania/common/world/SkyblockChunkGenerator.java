@@ -43,7 +43,7 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 	public static void init() {
 		Registry.register(Registry.CHUNK_GENERATOR, prefix("skyblock"), SkyblockChunkGenerator.CODEC);
 		dimSettingsPreset = new ChunkGeneratorType.Preset(LibResources.PREFIX_MOD + "skyblock",
-				preset -> AccessorDimensionSettingsPreset.createOverworldSettings(new StructuresConfig(true), false, preset));
+				preset -> AccessorDimensionSettingsPreset.callCreateOverworldType(new StructuresConfig(true), false, preset));
 	}
 
 	private final long seed;

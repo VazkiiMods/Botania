@@ -17,14 +17,14 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(MobSpawnerLogic.class)
 public interface AccessorAbstractSpawner {
-	@Invoker("func_221409_a")
+	@Invoker()
 	void callSpawnEntity(Entity e);
 
 	@Invoker
-	boolean callIsActivated();
+	boolean callIsPlayerInRange();
 
 	@Invoker
-	void callResetTimer();
+	void callUpdateSpawns();
 
 	@Accessor
 	int getSpawnCount();
@@ -33,18 +33,18 @@ public interface AccessorAbstractSpawner {
 	int getSpawnRange();
 
 	@Accessor
-	MobSpawnerEntry getSpawnData();
+	MobSpawnerEntry getSpawnEntry();
 
 	@Accessor
 	int getMaxNearbyEntities();
 
-	@Accessor
+	@Accessor("field_9161")
 	double getMobRotation();
 
-	@Accessor
+	@Accessor("field_9161")
 	void setMobRotation(double rot);
 
-	@Accessor
+	@Accessor("field_9159")
 	void setPrevMobRotation(double rot);
 
 	@Accessor

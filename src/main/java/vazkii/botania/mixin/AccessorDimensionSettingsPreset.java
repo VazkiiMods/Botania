@@ -15,8 +15,8 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(ChunkGeneratorType.Preset.class)
 public interface AccessorDimensionSettingsPreset {
-	@Invoker("func_236135_a_")
-	static ChunkGeneratorType createOverworldSettings(StructuresConfig structureSettings, boolean amplified, ChunkGeneratorType.Preset preset) {
+	@Invoker
+	static ChunkGeneratorType callCreateOverworldType(StructuresConfig structureSettings, boolean amplified, ChunkGeneratorType.Preset preset) {
 		throw new IllegalStateException();
 	}
 }

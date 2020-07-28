@@ -19,9 +19,9 @@ public interface AccessorWorldRenderer {
 	@Accessor
 	VertexFormat getSkyVertexFormat();
 
-	@Accessor
+	@Accessor("lightSkyBuffer")
 	VertexBuffer getSkyVBO();
 
-	@Accessor
+	@Accessor("starsBuffer")
 	VertexBuffer getStarVBO();
 }

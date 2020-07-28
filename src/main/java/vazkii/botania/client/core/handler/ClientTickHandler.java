@@ -47,7 +47,7 @@ public final class ClientTickHandler {
 			if (mc.isPaused()) {
 				// If game is paused, need to use the saved value. The event is always fired with the "true" value which
 				// keeps updating when paused. See RenderTickEvent fire site for details, remove when MinecraftForge#6991 is resolved
-				partialTicks = ((AccessorMinecraft) mc).getRenderPartialTicksPaused();
+				partialTicks = ((AccessorMinecraft) mc).getPausedTickDelta();
 			}
 		} else {
 			calcDelta();

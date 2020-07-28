@@ -16,7 +16,7 @@ import net.minecraft.client.world.GeneratorType;
 
 @Mixin(GeneratorType.class)
 public interface AccessorBiomeGeneratorTypeScreens {
-	@Accessor("field_239068_c_")
+	@Accessor("VALUES")
 	static List<GeneratorType> getAllTypes() {
 		throw new IllegalStateException();
 	}

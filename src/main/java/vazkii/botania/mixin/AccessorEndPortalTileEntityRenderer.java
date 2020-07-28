@@ -17,7 +17,7 @@ import net.minecraft.client.render.block.entity.EndPortalBlockEntityRenderer;
 
 @Mixin(EndPortalBlockEntityRenderer.class)
 public interface AccessorEndPortalTileEntityRenderer {
-	@Accessor("RENDER_TYPES")
+	@Accessor("field_21732")
 	static List<RenderLayer> getLayers() {
 		throw new IllegalStateException();
 	}
