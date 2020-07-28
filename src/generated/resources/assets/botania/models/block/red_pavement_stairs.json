@@ -1,5 +1,5 @@
 {
-  "parent": "block/stairs",
+  "parent": "minecraft:block/stairs",
   "textures": {
     "side": "botania:block/red_pavement",
     "bottom": "botania:block/red_pavement",

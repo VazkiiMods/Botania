@@ -26,10 +26,9 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Matrix4f;
+
 import org.lwjgl.opengl.GL11;
 
-import vazkii.botania.client.core.handler.LightningHandler;
-import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.Vector3;
 
 import javax.annotation.Nonnull;

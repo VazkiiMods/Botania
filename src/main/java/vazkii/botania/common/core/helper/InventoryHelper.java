@@ -19,8 +19,11 @@ import net.minecraft.world.World;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 
+import javax.annotation.Nullable;
+
 public class InventoryHelper {
 
+	@Nullable
 	public static InvWithLocation getInventoryWithLocation(World world, BlockPos pos, Direction side) {
 		IItemHandler ret = getInventory(world, pos, side);
 		if (ret == null) {
@@ -30,6 +33,7 @@ public class InventoryHelper {
 		}
 	}
 
+	@Nullable
 	public static IItemHandler getInventory(World world, BlockPos pos, Direction side) {
 		BlockEntity te = world.getBlockEntity(pos);
 
@@ -44,20 +48,6 @@ public class InventoryHelper {
 		return ret.orElse(null);
 	}
 
-	public static void dropInventory(TileSimpleInventory inv, World world, BlockState state, BlockPos pos) {
-		if (inv != null) {
-			for (int j1 = 0; j1 < inv.inventorySize(); ++j1) {
-				ItemStack itemstack = inv.getItemHandler().getStack(j1);
-
-				if (!itemstack.isEmpty()) {
-					net.minecraft.util.ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), itemstack);
-				}
-			}
-
-			world.updateComparators(pos, state.getBlock());
-		}
-	}
-
 	public static void withdrawFromInventory(TileSimpleInventory inv, PlayerEntity player) {
 		for (int i = inv.inventorySize() - 1; i >= 0; i--) {
 			ItemStack stackAt = inv.getItemHandler().getStack(i);
@@ -65,7 +55,6 @@ public class InventoryHelper {
 				ItemStack copy = stackAt.copy();
 				player.inventory.offerOrDrop(player.world, copy);
 				inv.getItemHandler().setStack(i, ItemStack.EMPTY);
-				player.world.updateComparators(inv.getPos(), null);
 				break;
 			}
 		}

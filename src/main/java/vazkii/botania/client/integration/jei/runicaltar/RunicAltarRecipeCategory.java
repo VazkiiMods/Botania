@@ -24,12 +24,12 @@ import net.minecraft.util.Identifier;
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
+import vazkii.botania.client.integration.jei.petalapothecary.PetalApothecaryRecipeCategory;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
 import javax.annotation.Nonnull;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -109,26 +109,19 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 
 		int index = 1;
 		double angleBetweenEach = 360.0 / ingredients.getInputs(VanillaTypes.ITEM).size();
-		Point point = new Point(64, 20), center = new Point(64, 52);
+		Vector2f point = new Vector2f(64, 20), center = new Vector2f(64, 52);
 
 		for (List<ItemStack> o : ingredients.getInputs(VanillaTypes.ITEM)) {
-			recipeLayout.getItemStacks().init(index, true, point.x, point.y);
+			recipeLayout.getItemStacks().init(index, true, (int) point.x, (int) point.y);
 			recipeLayout.getItemStacks().set(index, o);
 			index += 1;
-			point = rotatePointAbout(point, center, angleBetweenEach);
+			point = PetalApothecaryRecipeCategory.rotatePointAbout(point, center, angleBetweenEach);
 		}
 
 		recipeLayout.getItemStacks().init(index, false, 103, 17);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 
 		JEIBotaniaPlugin.addDefaultRecipeIdTooltip(recipeLayout.getItemStacks(), index, recipe.getId());
-	}
-
-	private Point rotatePointAbout(Point in, Point about, double degrees) {
-		double rad = degrees * Math.PI / 180.0;
-		double newX = Math.cos(rad) * (in.x - about.x) - Math.sin(rad) * (in.y - about.y) + about.x;
-		double newY = Math.sin(rad) * (in.x - about.x) + Math.cos(rad) * (in.y - about.y) + about.y;
-		return new Point((int) newX, (int) newY);
 	}
 
 }

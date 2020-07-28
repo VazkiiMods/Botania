@@ -61,7 +61,7 @@ public class ItemManasteelPick extends PickaxeItem implements IManaUsingItem, IS
 				if (!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getTranslationKey()).find()) {
 					ItemStack displayStack = stackAt.copy();
 					ActionResult did = PlayerHelper.substituteUse(ctx, stackAt);
-					if (did == ActionResult.SUCCESS && !ctx.getWorld().isClient) {
+					if (did.isAccepted() && !ctx.getWorld().isClient) {
 						ItemsRemainingRenderHandler.send(player, displayStack, TORCH_PATTERN);
 					}
 					return did;

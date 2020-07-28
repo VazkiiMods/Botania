@@ -10,7 +10,6 @@ package vazkii.botania.client.fx;
 
 import com.mojang.datafixers.util.Pair;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.hit.BlockHitResult;

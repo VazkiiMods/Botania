@@ -15,7 +15,6 @@ import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
 import vazkii.patchouli.api.IVariable;
 
-import java.util.Arrays;
 import java.util.function.UnaryOperator;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;

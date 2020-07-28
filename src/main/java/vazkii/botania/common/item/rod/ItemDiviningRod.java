@@ -54,11 +54,10 @@ public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWiel
 				int range = IManaProficiencyArmor.hasProficiency(p, stack) ? 20 : 15;
 				long seedxor = world.random.nextLong();
 				doHighlight(world, p.getBlockPos(), range, seedxor);
-				p.swingHand(hand);
 			} else {
 				world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.divinationRod, SoundCategory.PLAYERS, 1F, 1F);
 			}
-			return TypedActionResult.success(stack);
+			return TypedActionResult.method_29237(stack, world.isClient);
 		}
 
 		return TypedActionResult.pass(stack);

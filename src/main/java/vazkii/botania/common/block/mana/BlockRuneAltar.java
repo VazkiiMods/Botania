@@ -17,6 +17,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -83,7 +84,7 @@ public class BlockRuneAltar extends BlockModWaterloggable implements BlockEntity
 	public void onStateReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
 			TileSimpleInventory inv = (TileSimpleInventory) world.getBlockEntity(pos);
-			InventoryHelper.dropInventory(inv, world, state, pos);
+			ItemScatterer.spawn(world, pos, inv.getItemHandler());
 			super.onStateReplaced(state, world, pos, newState, isMoving);
 		}
 	}

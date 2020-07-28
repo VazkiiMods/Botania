@@ -17,8 +17,6 @@ import net.minecraft.loot.entry.LootTableEntry;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 
-import vazkii.botania.common.lib.LibMisc;
-
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class LootHandler {

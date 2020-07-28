@@ -39,25 +39,32 @@ public class RenderTileAlfPortal extends BlockEntityRenderer<TileAlfPortal> {
 			return;
 		}
 
-		ms.push();
-		ms.translate(-1F, 1F, 0.25F);
-
 		float alpha = (float) Math.min(1F, (Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 7D + 0.6D) * (Math.min(60, portal.ticksOpen) / 60F) * 0.5F;
 
+		ms.push();
 		if (state == AlfPortalState.ON_X) {
-			ms.translate(1.25F, 0F, 1.75F);
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
+			ms.translate(0.75, 1, 2);
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90));
+		} else {
+			ms.translate(-1, 1, 0.75);
 		}
-
 		renderIcon(ms, buffers, MiscellaneousIcons.INSTANCE.alfPortalTex, 0, 0, 3, 3, alpha, overlay);
+		ms.pop();
 
-		ms.translate(0F, 0F, 0.5F);
+		ms.push();
+		if (state == AlfPortalState.ON_X) {
+			ms.translate(0.25, 1, -1);
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90));
+		} else {
+			ms.translate(2, 1, 0.25);
+		}
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180));
 		renderIcon(ms, buffers, MiscellaneousIcons.INSTANCE.alfPortalTex, 0, 0, 3, 3, alpha, overlay);
 		ms.pop();
 	}
 
 	public void renderIcon(MatrixStack ms, VertexConsumerProvider buffers, Sprite icon, int x, int y, int width, int height, float alpha, int overlay) {
-		VertexConsumer buffer = buffers.getBuffer(TexturedRenderLayers.getEntityTranslucentCull());
+		VertexConsumer buffer = buffers.getBuffer(TexturedRenderLayers.method_29382());
 		Matrix4f model = ms.peek().getModel();
 		Matrix3f normal = ms.peek().getNormal();
 		buffer.vertex(model, x, y + height, 0).color(1, 1, 1, alpha).texture(icon.getMinU(), icon.getMaxV()).overlay(overlay).light(0xF000F0).normal(normal, 1, 0, 0).next();

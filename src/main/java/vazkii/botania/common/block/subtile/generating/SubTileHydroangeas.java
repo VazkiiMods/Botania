@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.fluid.Fluid;
@@ -141,6 +140,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 		return 0x532FE0;
 	}
 
+	@Override
 	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
 

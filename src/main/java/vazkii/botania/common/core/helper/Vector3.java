@@ -17,8 +17,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
 
-import org.lwjgl.opengl.GL11;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
@@ -161,7 +159,8 @@ public class Vector3 {
 	}
 
 	public double angle(Vector3 vec) {
-		return Math.acos(normalize().dotProduct(vec.normalize()));
+		double projection = normalize().dotProduct(vec.normalize());
+		return Math.acos(net.minecraft.util.math.MathHelper.clamp(projection, -1, 1));
 	}
 
 	public boolean isZero() {

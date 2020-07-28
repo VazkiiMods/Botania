@@ -42,7 +42,6 @@ import vazkii.botania.common.item.ItemTemperanceStone;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 import vazkii.botania.common.item.relic.ItemThorRing;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 

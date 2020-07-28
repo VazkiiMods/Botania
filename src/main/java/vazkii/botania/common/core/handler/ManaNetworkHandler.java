@@ -20,7 +20,6 @@ import vazkii.botania.api.mana.ManaNetworkEvent.ManaBlockType;
 import javax.annotation.Nullable;
 
 import java.util.*;
-import java.util.function.BinaryOperator;
 
 public final class ManaNetworkHandler implements IManaNetwork {
 

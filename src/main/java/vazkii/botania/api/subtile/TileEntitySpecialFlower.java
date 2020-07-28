@@ -44,8 +44,6 @@ import vazkii.botania.common.lib.ModTags;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import java.util.List;
-
 /**
  * Common superclass of all magical flower TE's
  */

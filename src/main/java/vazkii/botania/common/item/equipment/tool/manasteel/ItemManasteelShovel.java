@@ -44,12 +44,6 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 	}
 
 	@Override
-	public boolean postHit(ItemStack stack, LivingEntity target, @Nonnull LivingEntity attacker) {
-		ToolCommons.damageItem(stack, 1, attacker, getManaPerDamage());
-		return true;
-	}
-
-	@Override
 	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, getManaPerDamage());
 	}
@@ -61,8 +55,9 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 	@Nonnull
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		if (super.useOnBlock(ctx) == ActionResult.SUCCESS) {
-			return ActionResult.SUCCESS;
+		ActionResult pathResult = super.useOnBlock(ctx);
+		if (pathResult.isAccepted()) {
+			return pathResult;
 		}
 
 		ItemStack stack = ctx.getStack();
@@ -80,7 +75,7 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 		}
 
 		if (event.getResult() == Event.Result.ALLOW) {
-			ToolCommons.damageItem(stack, 1, player, getManaPerDamage());
+			stack.damage(1, player, p -> p.sendToolBreakStatus(ctx.getHand()));
 			return ActionResult.SUCCESS;
 		}
 
@@ -100,7 +95,7 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 				return ActionResult.SUCCESS;
 			} else {
 				world.setBlockState(pos, converted);
-				ToolCommons.damageItem(stack, 1, player, getManaPerDamage());
+				stack.damage(1, player, p -> p.sendToolBreakStatus(ctx.getHand()));
 				return ActionResult.SUCCESS;
 			}
 		}

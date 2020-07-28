@@ -71,9 +71,7 @@ public class ItemEnderAir extends Item {
 			EntityEnderAirBottle b = new EntityEnderAirBottle(player, world);
 			b.setProperties(player, player.pitch, player.yaw, 0F, 1.5F, 1F);
 			world.spawnEntity(b);
-		} else {
-			player.swingHand(hand);
 		}
-		return TypedActionResult.success(stack);
+		return TypedActionResult.method_29237(stack, world.isClient);
 	}
 }

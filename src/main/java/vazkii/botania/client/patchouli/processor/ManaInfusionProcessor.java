@@ -18,7 +18,6 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.text.*;
 
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;

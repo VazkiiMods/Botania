@@ -22,7 +22,6 @@ import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShears;
 
 import javax.annotation.Nonnull;
@@ -68,7 +67,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 				for (Entity entity : shearable) {
 					if (entity instanceof Shearable && ((Shearable) entity).isShearable()) {
 						((Shearable) entity).sheared(living.getSoundCategory());
-						ToolCommons.damageItem(stack, 1, living, MANA_PER_DAMAGE);
+						stack.damage(1, living, l -> l.sendToolBreakStatus(l.getActiveHand()));
 						break;
 					} else {
 						IForgeShearable target = (IForgeShearable) entity;
@@ -80,7 +79,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 								entity.dropStack(drop, 1.0F);
 							}
 
-							ToolCommons.damageItem(stack, 1, living, MANA_PER_DAMAGE);
+							stack.damage(1, living, l -> l.sendToolBreakStatus(l.getActiveHand()));
 							break;
 						}
 					}

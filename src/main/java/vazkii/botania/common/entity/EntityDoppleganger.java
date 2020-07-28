@@ -18,6 +18,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BeaconBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.MovingSoundInstance;
+import net.minecraft.client.util.Rect2i;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.LookAtEntityGoal;
@@ -77,7 +78,6 @@ import vazkii.botania.common.network.PacketHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -914,24 +914,14 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 	}
 
 	@Environment(EnvType.CLIENT)
-	private static Rectangle barRect;
-	@Environment(EnvType.CLIENT)
-	private static Rectangle hpBarRect;
-
-	@Environment(EnvType.CLIENT)
-	public Rectangle getBossBarTextureRect() {
-		if (barRect == null) {
-			barRect = new Rectangle(0, 0, 185, 15);
-		}
-		return barRect;
+	public Rect2i getBossBarTextureRect() {
+		return new Rect2i(0, 0, 185, 15);
 	}
 
 	@Environment(EnvType.CLIENT)
-	public Rectangle getBossBarHPTextureRect() {
-		if (hpBarRect == null) {
-			hpBarRect = new Rectangle(0, barRect.y + barRect.height, 181, 7);
-		}
-		return hpBarRect;
+	public Rect2i getBossBarHPTextureRect() {
+		Rect2i barRect = getBossBarTextureRect();
+		return new Rect2i(0, barRect.getY() + barRect.getHeight(), 181, 7);
 	}
 
 	@Environment(EnvType.CLIENT)

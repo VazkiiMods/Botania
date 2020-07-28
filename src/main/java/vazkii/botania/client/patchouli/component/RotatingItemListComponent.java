@@ -9,7 +9,6 @@
 package vazkii.botania.client.patchouli.component;
 
 import vazkii.patchouli.api.IVariable;
-import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.ArrayList;
 import java.util.List;

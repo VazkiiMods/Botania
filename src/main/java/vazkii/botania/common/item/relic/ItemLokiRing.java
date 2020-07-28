@@ -42,7 +42,6 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nullable;
 
@@ -125,7 +124,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 						result = stack.useOnBlock(ctx);
 					}
 
-					if (result == ActionResult.SUCCESS) {
+					if (result.isAccepted()) {
 						ManaItemHandler.instance().requestManaExact(lokiRing, player, cost, true);
 						successes++;
 					}

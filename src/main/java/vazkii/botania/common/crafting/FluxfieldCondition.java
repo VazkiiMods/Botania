@@ -12,7 +12,6 @@ import com.google.gson.JsonObject;
 import net.minecraft.util.Identifier;
 
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.lib.LibMisc;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 

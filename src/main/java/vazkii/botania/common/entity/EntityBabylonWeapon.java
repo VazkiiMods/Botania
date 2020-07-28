@@ -29,7 +29,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;

@@ -239,46 +239,45 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity, Entity
 	public ActionResult interact(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
 		if (isAlive() && !stack.isEmpty()) {
-			if (world.isClient) {
-				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() instanceof ItemSparkUpgrade
-						|| stack.getItem() == ModItems.phantomInk || stack.getItem() instanceof DyeItem;
-				if (valid) {
-					player.swingHand(hand);
-				}
-				return valid ? ActionResult.SUCCESS : ActionResult.PASS;
-			}
-
 			SparkUpgradeType upgrade = getUpgrade();
 			if (stack.getItem() == ModItems.twigWand) {
-				if (player.isSneaking()) {
-					if (upgrade != SparkUpgradeType.NONE) {
-						dropStack(ItemSparkUpgrade.getByType(upgrade), 0F);
-						setUpgrade(SparkUpgradeType.NONE);
+				if (!world.isClient) {
+					if (player.isSneaking()) {
+						if (upgrade != SparkUpgradeType.NONE) {
+							dropStack(ItemSparkUpgrade.getByType(upgrade), 0F);
+							setUpgrade(SparkUpgradeType.NONE);
 
-						transfers.clear();
-						removeTransferants = 2;
+							transfers.clear();
+							removeTransferants = 2;
+						} else {
+							dropAndKill();
+						}
 					} else {
-						dropAndKill();
+						SparkHelper.getSparksAround(world, getX(), getY() + (getHeight() / 2), getZ(), getNetwork())
+								.forEach(s -> particleBeam(player, this, (Entity) s));
 					}
-					return ActionResult.SUCCESS;
-				} else {
-					SparkHelper.getSparksAround(world, getX(), getY() + (getHeight() / 2), getZ(), getNetwork())
-							.forEach(s -> particleBeam(player, this, (Entity) s));
-					return ActionResult.SUCCESS;
 				}
+
+				return ActionResult.success(world.isClient);
 			} else if (stack.getItem() instanceof ItemSparkUpgrade && upgrade == SparkUpgradeType.NONE) {
-				setUpgrade(((ItemSparkUpgrade) stack.getItem()).type);
-				stack.decrement(1);
-				return ActionResult.SUCCESS;
+				if (!world.isClient) {
+					setUpgrade(((ItemSparkUpgrade) stack.getItem()).type);
+					stack.decrement(1);
+				}
+				return ActionResult.success(world.isClient);
 			} else if (stack.getItem() == ModItems.phantomInk) {
-				setInvisible(true);
-				return ActionResult.SUCCESS;
+				if (!world.isClient) {
+					setInvisible(true);
+				}
+				return ActionResult.success(world.isClient);
 			} else if (stack.getItem() instanceof DyeItem) {
 				DyeColor color = ((DyeItem) stack.getItem()).getColor();
 				if (color != getNetwork()) {
-					setNetwork(color);
-					stack.decrement(1);
-					return ActionResult.SUCCESS;
+					if (!world.isClient) {
+						setNetwork(color);
+						stack.decrement(1);
+					}
+					return ActionResult.success(world.isClient);
 				}
 			}
 		}

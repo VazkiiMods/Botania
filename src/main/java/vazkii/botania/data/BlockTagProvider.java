@@ -8,8 +8,6 @@
  */
 package vazkii.botania.data;
 
-import com.mojang.datafixers.util.Pair;
-
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.server.BlockTagsProvider;
@@ -18,15 +16,13 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.common.block.BlockFloatingSpecialFlower;
+import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.function.Predicate;
@@ -114,6 +110,10 @@ public class BlockTagProvider extends BlockTagsProvider {
 				.addTag(ModTags.Blocks.GENERATING_SPECIAL_FLOWERS)
 				.addTag(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS);
 
+		getOrCreateTagBuilder(ModTags.Blocks.MINI_FLOWERS).add(registry.stream().filter(botania)
+			.filter(b -> b instanceof BlockSpecialFlower && registry.getId(b).getPath().endsWith("_chibi"))
+			.sorted(Comparator.comparing(Registry.BLOCK::getId))
+			.toArray(Block[]::new));
 		getOrCreateTagBuilder(BlockTags.TALL_FLOWERS).addTag(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
 		getOrCreateTagBuilder(BlockTags.SMALL_FLOWERS).addTag(ModTags.Blocks.MYSTICAL_FLOWERS).addTag(ModTags.Blocks.SPECIAL_FLOWERS);
 

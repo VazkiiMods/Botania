@@ -10,6 +10,9 @@ package vazkii.botania.api.corporea;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DyeColor;
+
+import javax.annotation.Nullable;
+
 import java.util.List;
 
 /**
@@ -36,6 +39,7 @@ public interface ICorporeaSpark {
 	/**
 	 * Gets the inventory this spark is bound to, generally the one right below it.
 	 */
+	@Nullable
 	InvWithLocation getSparkInventory();
 
 	/**
@@ -63,6 +67,8 @@ public interface ICorporeaSpark {
 	/**
 	 * Called when an item is extracted from the inventory this spark is attached to through this
 	 * spark.
+	 * 
+	 * @param stack The itemstack, before any extraction was done
 	 */
 	void onItemExtracted(ItemStack stack);
 

@@ -19,6 +19,7 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
@@ -27,7 +28,6 @@ import net.minecraft.world.World;
 
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.TileSparkChanger;
-import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 
 import javax.annotation.Nonnull;
@@ -89,7 +89,7 @@ public class BlockSparkChanger extends BlockModWaterloggable implements BlockEnt
 	public void onStateReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
 			TileSimpleInventory inv = (TileSimpleInventory) world.getBlockEntity(pos);
-			InventoryHelper.dropInventory(inv, world, state, pos);
+			ItemScatterer.spawn(world, pos, inv.getItemHandler());
 			super.onStateReplaced(state, world, pos, newState, isMoving);
 		}
 	}

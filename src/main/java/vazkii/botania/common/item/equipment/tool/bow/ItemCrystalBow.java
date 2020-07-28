@@ -16,6 +16,9 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.common.item.equipment.tool.ToolCommons;
+
+import java.util.function.Consumer;
 
 public class ItemCrystalBow extends ItemLivingwoodBow {
 
@@ -37,10 +40,13 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 	}
 
 	@Override
-	void onFire(ItemStack stack, LivingEntity living, boolean infinity, PersistentProjectileEntity arrow) {
+	void onFire(ItemStack stack, LivingEntity living, boolean infinity, AbstractArrowEntity arrow) {
 		arrow.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
-		if (living instanceof PlayerEntity) {
-			ManaItemHandler.instance().requestManaExactForTool(stack, (PlayerEntity) living, ARROW_COST / (infinity ? 2 : 1), true);
-		}
+	}
+
+	@Override
+	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+		boolean infinity = EnchantmentHelper.getLevel(Enchantments.INFINITY, stack) > 0;
+		return ToolCommons.damageItemIfPossible(stack, amount, entity, ARROW_COST / (infinity ? 2 : 1));
 	}
 }

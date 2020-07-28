@@ -12,12 +12,12 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
-import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 
@@ -31,7 +31,7 @@ public abstract class BlockCorporeaBase extends BlockMod implements BlockEntityP
 	public void onStateReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
 			TileSimpleInventory inv = (TileSimpleInventory) world.getBlockEntity(pos);
-			InventoryHelper.dropInventory(inv, world, state, pos);
+			ItemScatterer.spawn(world, pos, inv.getItemHandler());
 			super.onStateReplaced(state, world, pos, newState, isMoving);
 		}
 	}

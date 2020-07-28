@@ -12,20 +12,12 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.SimpleInventory;
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaSpark;
-import vazkii.botania.common.block.tile.TileSimpleInventory;
+import vazkii.botania.common.block.tile.TileMod;
 
-public abstract class TileCorporeaBase extends TileSimpleInventory {
-	private static final SimpleInventory EMPTY = new SimpleInventory(0);
+public abstract class TileCorporeaBase extends TileMod {
 
 	public TileCorporeaBase(BlockEntityType<?> type) {
 		super(type);
-	}
-
-	// These TE's only extend TileSimpleInventory to give sparks an inventory to attach to
-	// TODO make sparks able to detect corporea blocks and not require them to have an inventory
-	@Override
-	protected final SimpleInventory createItemHandler() {
-		return EMPTY;
 	}
 
 	public ICorporeaSpark getSpark() {

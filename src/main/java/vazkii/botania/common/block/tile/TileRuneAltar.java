@@ -150,7 +150,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			if (manaToGet == 0) {
 				List<ItemEntity> items = world.getNonSpectatingEntities(ItemEntity.class, new Box(pos, pos.add(1, 1, 1)));
 				for (ItemEntity item : items) {
-					if (item.isAlive() && !item.getStack().isEmpty() && item.getStack().getItem() != Item.fromBlock(ModBlocks.livingrock)) {
+					if (item.isAlive() && !item.getStack().isEmpty() && item.getStack().getItem() != ModBlocks.livingrock.asItem()) {
 						ItemStack stack = item.getStack();
 						addItem(null, stack, null);
 					}

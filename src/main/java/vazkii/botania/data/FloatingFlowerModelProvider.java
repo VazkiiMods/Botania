@@ -41,7 +41,7 @@ public class FloatingFlowerModelProvider extends ModelProvider<FloatingFlowerMod
 
 				getBuilder(name)
 						.parent(getExistingFile(new Identifier("block/block")))
-						.withFlowerModel(getExistingFile(prefix(nonFloat)));
+						.withFlowerModel(new ModelFile.UncheckedModelFile(prefix("block/" + nonFloat)));
 			}
 		}
 	}

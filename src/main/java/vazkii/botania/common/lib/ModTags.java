@@ -178,6 +178,8 @@ public class ModTags {
 
 		public static final Tag.Identified<Block> TERRAFORMABLE = tag("terraformable");
 
+		public static final ITag.INamedTag<Block> CORPOREA_SPARK_OVERRIDE = tag("corporea_spark_override");
+
 		private static Tag.Identified<Block> tag(String name) {
 			return BlockTags.register(prefix(name).toString());
 		}

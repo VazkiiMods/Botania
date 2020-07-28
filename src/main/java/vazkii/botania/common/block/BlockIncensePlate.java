@@ -21,6 +21,7 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -30,7 +31,6 @@ import net.minecraft.world.World;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileIncensePlate;
-import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 
@@ -128,7 +128,7 @@ public class BlockIncensePlate extends BlockModWaterloggable implements BlockEnt
 		if (state.getBlock() != newState.getBlock()) {
 			TileIncensePlate plate = (TileIncensePlate) world.getBlockEntity(pos);
 			if (plate != null && !plate.burning) {
-				InventoryHelper.dropInventory(plate, world, state, pos);
+				ItemScatterer.spawn(world, pos, plate.getItemHandler());
 			}
 		}
 		super.onStateReplaced(state, world, pos, newState, isMoving);

@@ -30,8 +30,8 @@ public class DataGenerators {
 			evt.getGenerator().install(new RuneProvider(evt.getGenerator()));
 		}
 		if (evt.includeClient()) {
-			evt.getGenerator().install(new FloatingFlowerModelProvider(evt.getGenerator(), evt.getExistingFileHelper()));
 			evt.getGenerator().install(new BlockstateProvider(evt.getGenerator(), evt.getExistingFileHelper()));
+			evt.getGenerator().install(new FloatingFlowerModelProvider(evt.getGenerator(), evt.getExistingFileHelper()));
 			evt.getGenerator().install(new ItemModelProvider(evt.getGenerator(), evt.getExistingFileHelper()));
 		}
 	}

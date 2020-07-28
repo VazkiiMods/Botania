@@ -41,13 +41,15 @@ import vazkii.botania.common.item.block.ItemBlockElven;
 import vazkii.botania.common.item.block.ItemBlockPool;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Locale;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ModBlocks {
+	private static final AbstractBlock.TypedContextPredicate<EntityType<?>> NO_SPAWN = (state, world, pos, et) -> false;
+	private static final AbstractBlock.ContextPredicate NO_SUFFOCATION = (state, world, pos) -> false;
+
 	public static final Block whiteFlower = new BlockModFlower(DyeColor.WHITE, AbstractBlock.Settings.of(Material.PLANT).noCollision().strength(0).sounds(BlockSoundGroup.GRASS));
 	public static final Block orangeFlower = new BlockModFlower(DyeColor.ORANGE, AbstractBlock.Settings.copy(whiteFlower));
 	public static final Block magentaFlower = new BlockModFlower(DyeColor.MAGENTA, AbstractBlock.Settings.copy(whiteFlower));
@@ -90,7 +92,6 @@ public final class ModBlocks {
 	public static final Block livingwoodPatternFramed = new BlockMod(AbstractBlock.Settings.copy(livingwood));
 	public static final Block livingwoodGlimmering = new BlockMod(AbstractBlock.Settings.copy(livingwood).lightLevel(s -> 12));
 
-	private static final AbstractBlock.TypedContextPredicate<EntityType<?>> NO_SPAWN = (state, world, pos, et) -> false;
 	public static final Block manaSpreader = new BlockSpreader(BlockSpreader.Variant.MANA, AbstractBlock.Settings.copy(livingwood).allowsSpawning(NO_SPAWN));
 	public static final Block redstoneSpreader = new BlockSpreader(BlockSpreader.Variant.REDSTONE, AbstractBlock.Settings.copy(livingwood).allowsSpawning(NO_SPAWN));
 	public static final Block elvenSpreader = new BlockSpreader(BlockSpreader.Variant.ELVEN, AbstractBlock.Settings.copy(livingwood).allowsSpawning(NO_SPAWN));
@@ -155,7 +156,8 @@ public final class ModBlocks {
 	public static final Block dreamwoodPatternFramed = new BlockMod(AbstractBlock.Settings.copy(livingwood));
 	public static final Block dreamwoodGlimmering = new BlockMod(AbstractBlock.Settings.copy(livingwoodGlimmering));
 	public static final Block conjurationCatalyst = new BlockConjurationCatalyst(AbstractBlock.Settings.copy(livingrock));
-	public static final Block bifrost = new BlockBifrost(AbstractBlock.Settings.of(Material.GLASS).strength(-1, 0.3F).lightLevel(s -> 15).sounds(BlockSoundGroup.GLASS).nonOpaque());
+	public static final Block bifrost = new BlockBifrost(AbstractBlock.Settings.of(Material.GLASS).strength(-1, 0.3F)
+		.lightLevel(s -> 15).sounds(BlockSoundGroup.GLASS).nonOpaque().blockVision(NO_SUFFOCATION).suffocates(NO_SUFFOCATION).allowsSpawning(NO_SPAWN));
 	public static final Block solidVines = new BlockSolidVines(AbstractBlock.Settings.of(Material.REPLACEABLE_PLANT).strength(0.2F).sounds(BlockSoundGroup.GRASS).nonOpaque());
 
 	public static final Block whiteBuriedPetals = new BlockBuriedPetals(DyeColor.WHITE, AbstractBlock.Settings.copy(whiteFlower).lightLevel(s -> 4));
@@ -214,9 +216,9 @@ public final class ModBlocks {
 	public static final Block enderEye = new BlockEnderEye(AbstractBlock.Settings.copy(manasteelBlock));
 	public static final Block starfield = new BlockStarfield(AbstractBlock.Settings.of(Material.METAL).strength(5, 2000).sounds(BlockSoundGroup.METAL));
 	public static final Block rfGenerator = new BlockRFGenerator(AbstractBlock.Settings.copy(livingrock));
-	public static final Block elfGlass = new BlockModGlass(AbstractBlock.Settings.copy(Blocks.GLASS).lightLevel(s -> 15));
+	public static final Block elfGlass = new BlockModGlass(AbstractBlock.Settings.copy(Blocks.GLASS).lightLevel(s -> 15).blockVision(NO_SUFFOCATION).suffocates(NO_SUFFOCATION).allowsSpawning(NO_SPAWN));
 	public static final Block brewery = new BlockBrewery(AbstractBlock.Settings.copy(livingrock));
-	public static final Block manaGlass = new BlockModGlass(AbstractBlock.Settings.copy(elfGlass));
+	public static final Block manaGlass = new BlockModGlass(AbstractBlock.Settings.copy(elfGlass).blockVision(NO_SUFFOCATION).suffocates(NO_SUFFOCATION).allowsSpawning(NO_SPAWN));
 	public static final Block terraPlate = new BlockTerraPlate(AbstractBlock.Settings.of(Material.METAL).strength(3, 10).sounds(BlockSoundGroup.METAL));
 	public static final Block redStringContainer = new BlockRedStringContainer(AbstractBlock.Settings.copy(livingrock));
 	public static final Block redStringDispenser = new BlockRedStringDispenser(AbstractBlock.Settings.copy(livingrock));
@@ -284,7 +286,7 @@ public final class ModBlocks {
 	public static final Block doubleFlowerRed = new BlockModDoubleFlower(DyeColor.RED, AbstractBlock.Settings.copy(doubleFlowerWhite));
 	public static final Block doubleFlowerBlack = new BlockModDoubleFlower(DyeColor.BLACK, AbstractBlock.Settings.copy(doubleFlowerWhite));
 
-	public static final Block fakeAir = new BlockFakeAir(AbstractBlock.Settings.of(Material.STRUCTURE_VOID).ticksRandomly());
+	public static final Block fakeAir = new BlockFakeAir(AbstractBlock.Settings.of(Material.STRUCTURE_VOID).air().ticksRandomly());
 	public static final Block blazeBlock = new BlockMod(AbstractBlock.Settings.copy(manasteelBlock).lightLevel(s -> 15));
 	public static final Block corporeaInterceptor = new BlockCorporeaInterceptor(AbstractBlock.Settings.of(Material.METAL).strength(5.5F).sounds(BlockSoundGroup.METAL));
 	public static final Block corporeaCrystalCube = new BlockCorporeaCrystalCube(AbstractBlock.Settings.copy(corporeaInterceptor));
@@ -303,7 +305,8 @@ public final class ModBlocks {
 	public static final Block manaBomb = new BlockManaBomb(AbstractBlock.Settings.of(Material.WOOD).strength(12).sounds(BlockSoundGroup.WOOD));
 	public static final Block cacophonium = new BlockCacophonium(AbstractBlock.Settings.of(Material.WOOD).strength(0.8F));
 	public static final Block bellows = new BlockBellows(AbstractBlock.Settings.copy(livingwood));
-	public static final Block bifrostPerm = new BlockBifrostPerm(AbstractBlock.Settings.of(Material.GLASS).strength(0.3F).lightLevel(s -> 15).sounds(BlockSoundGroup.GLASS).nonOpaque());
+	public static final Block bifrostPerm = new BlockBifrostPerm(AbstractBlock.Settings.of(Material.GLASS).strength(0.3F)
+		.lightLevel(s -> 15).sounds(BlockSoundGroup.GLASS).nonOpaque().blockVision(NO_SUFFOCATION).suffocates(NO_SUFFOCATION).allowsSpawning(NO_SPAWN));
 	public static final Block cellBlock = new BlockCell(AbstractBlock.Settings.of(Material.GOURD).sounds(BlockSoundGroup.WOOL));
 	public static final Block gaiaHeadWall = new BlockGaiaHeadWall(AbstractBlock.Settings.of(Material.SUPPORTED).strength(1));
 	public static final Block gaiaHead = new BlockGaiaHead(AbstractBlock.Settings.of(Material.SUPPORTED).strength(1));
@@ -706,7 +709,6 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getId(dreamwoodPatternFramed), new ItemBlockDreamwood(dreamwoodPatternFramed, props));
 		register(r, Registry.BLOCK.getId(dreamwoodGlimmering), new ItemBlockDreamwood(dreamwoodGlimmering, props));
 		register(r, Registry.BLOCK.getId(conjurationCatalyst), new BlockItem(conjurationCatalyst, props));
-		register(r, Registry.BLOCK.getId(bifrost), new BlockItem(bifrost, props));
 		register(r, Registry.BLOCK.getId(whiteFloatingFlower), new BlockItem(whiteFloatingFlower, props));
 		register(r, Registry.BLOCK.getId(orangeFloatingFlower), new BlockItem(orangeFloatingFlower, props));
 		register(r, Registry.BLOCK.getId(magentaFloatingFlower), new BlockItem(magentaFloatingFlower, props));

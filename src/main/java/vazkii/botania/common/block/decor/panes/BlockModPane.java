@@ -8,11 +8,7 @@
  */
 package vazkii.botania.common.block.decor.panes;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.PaneBlock;
-import net.minecraft.util.math.BlockPos;
-import vazkii.botania.common.block.ModBlocks;
 
 public class BlockModPane extends PaneBlock {
 

@@ -89,7 +89,7 @@ public class ItemSpawnerMover extends Item {
 		ItemStack useStack = new ItemStack(Blocks.SPAWNER);
 		Pair<ActionResult, BlockPos> res = PlayerHelper.substituteUseTrackPos(ctx, useStack);
 
-		if (res.getFirst() == ActionResult.SUCCESS) {
+		if (res.getFirst().isAccepted()) {
 			World world = ctx.getWorld();
 			BlockPos pos = res.getSecond();
 			ItemStack mover = ctx.getStack();

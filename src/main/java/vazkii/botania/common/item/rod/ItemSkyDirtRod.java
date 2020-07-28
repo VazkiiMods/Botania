@@ -65,11 +65,8 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 				}
 			}
 		}
-		if (world.isClient) {
-			player.swingHand(hand);
-		}
 
-		return TypedActionResult.success(stack);
+		return TypedActionResult.method_29237(stack, world.isClient);
 	}
 
 }

@@ -14,6 +14,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Vec3d;
@@ -21,7 +22,6 @@ import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityFallingStar;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 
@@ -64,7 +64,7 @@ public class ItemStarSword extends ItemManasteelSword {
 						world.spawnEntity(bonusStar);
 					}
 
-					ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
+					stack.damage(1, player, p -> p.sendToolBreakStatus(Hand.MAIN_HAND));
 					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.starcaller, SoundCategory.PLAYERS, 0.4F, 1.4F);
 				}
 			}

@@ -46,6 +46,7 @@ public abstract class EntityThrowableCopy extends ProjectileEntity {
 	/**
 	 * Checks if the entity is in range to render.
 	 */
+	@Override
 	@Environment(EnvType.CLIENT)
 	public boolean shouldRender(double distance) {
 		double d0 = this.getBoundingBox().getAverageSideLength() * 4.0D;
@@ -60,6 +61,7 @@ public abstract class EntityThrowableCopy extends ProjectileEntity {
 	/**
 	 * Called to update the entity's position/logic.
 	 */
+	@Override
 	public void tick() {
 		super.tick();
 		HitResult raytraceresult = ProjectileUtil.getCollision(this, this::method_26958, RayTraceContext.ShapeType.OUTLINE);
@@ -117,6 +119,7 @@ public abstract class EntityThrowableCopy extends ProjectileEntity {
 		return 0.03F;
 	}
 
+	@Override
 	public Packet<?> createSpawnPacket() {
 		return new EntitySpawnS2CPacket(this);
 	}

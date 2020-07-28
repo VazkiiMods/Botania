@@ -102,12 +102,12 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 					ItemStack toUse = new ItemStack(bBlock);
 					ActionResult result = PlayerHelper.substituteUse(ctx, toUse);
 
-					if (result == ActionResult.SUCCESS) {
+					if (result.isAccepted()) {
 						if (!world.isClient) {
 							remove(stack, 1);
 							ItemsRemainingRenderHandler.send(player, toUse, getBlockCount(stack));
 						}
-						return ActionResult.SUCCESS;
+						return result;
 					}
 				}
 			}

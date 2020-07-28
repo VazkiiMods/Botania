@@ -20,6 +20,7 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -29,7 +30,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.item.IPetalApothecary.State;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.Botania;
@@ -216,7 +216,7 @@ public class BlockAltar extends BlockMod implements BlockEntityProvider {
 	public void onStateReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
 			TileSimpleInventory inv = (TileSimpleInventory) world.getBlockEntity(pos);
-			InventoryHelper.dropInventory(inv, world, state, pos);
+			ItemScatterer.spawn(world, pos, inv.getItemHandler());
 			super.onStateReplaced(state, world, pos, newState, isMoving);
 		}
 	}

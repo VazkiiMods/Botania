@@ -43,7 +43,7 @@ public class WrappedIInventory extends WrappedInventoryBase {
 	}
 
 	protected List<ItemStack> iterateOverSlots(ICorporeaRequest request, boolean doit) {
-		List<ItemStack> stacks = new ArrayList<ItemStack>();
+		List<ItemStack> stacks = new ArrayList<>();
 
 		for (int i = inv.getHandler().getSlots() - 1; i >= 0; i--) {
 			ItemStack stackAt = inv.getHandler().getStackInSlot(i);
@@ -54,9 +54,10 @@ public class WrappedIInventory extends WrappedInventoryBase {
 				request.trackFound(stackAt.getCount());
 
 				if (rem > 0) {
+					ItemStack copy = stackAt.copy();
 					stacks.add(inv.getHandler().extractItem(i, rem, !doit));
 					if (doit && spark != null) {
-						spark.onItemExtracted(stackAt);
+						spark.onItemExtracted(copy);
 					}
 				}
 

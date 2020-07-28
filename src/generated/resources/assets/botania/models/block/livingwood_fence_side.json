@@ -1,5 +1,5 @@
 {
-  "parent": "block/fence_side",
+  "parent": "minecraft:block/fence_side",
   "textures": {
     "texture": "botania:block/livingwood_planks"
   }

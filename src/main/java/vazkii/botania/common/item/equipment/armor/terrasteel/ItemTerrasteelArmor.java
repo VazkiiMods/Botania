@@ -119,4 +119,8 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 		list.add(new TranslatableText("botania.armorset.terrasteel.desc2").formatted(Formatting.GRAY));
 	}
 
+	@Override
+	public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
+		return true;
+	}
 }

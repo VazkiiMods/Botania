@@ -18,7 +18,6 @@ import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 

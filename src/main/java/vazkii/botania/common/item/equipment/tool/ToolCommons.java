@@ -64,15 +64,6 @@ public final class ToolCommons {
 		return amount;
 	}
 
-	public static void damageItem(ItemStack stack, int dmg, LivingEntity entity, int manaPerDamage) {
-		int manaToRequest = dmg * manaPerDamage;
-		boolean manaRequested = entity instanceof PlayerEntity && ManaItemHandler.instance().requestManaExactForTool(stack, (PlayerEntity) entity, manaToRequest, true);
-
-		if (!manaRequested) {
-			stack.damage(dmg, entity, e -> {});
-		}
-	}
-
 	public static void removeBlocksInIteration(PlayerEntity player, ItemStack stack, World world, BlockPos centerPos,
 			Vec3i startDelta, Vec3i endDelta, Predicate<BlockState> filter,
 			boolean dispose) {
@@ -122,7 +113,10 @@ public final class ToolCommons {
 					}
 				}
 
-				damageItem(stack, 1, player, 80);
+				boolean paidWithMana = ManaItemHandler.instance().requestManaExactForTool(stack, player, 80, true);
+				if (!paidWithMana) {
+					stack.damage(1, player, e -> {});
+				}
 			} else {
 				world.removeBlock(pos, false);
 			}

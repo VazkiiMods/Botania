@@ -8,16 +8,13 @@
  */
 package vazkii.botania.common.core.helper;
 
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
-
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 import javax.annotation.Nullable;
+
 import java.util.Locale;
 import java.util.function.Function;
 

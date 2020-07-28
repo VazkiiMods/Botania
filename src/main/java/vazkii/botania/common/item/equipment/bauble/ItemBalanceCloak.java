@@ -29,6 +29,7 @@ public class ItemBalanceCloak extends ItemHolyCloak {
 		super(props);
 	}
 
+	@Override
 	public boolean effectOnDamage(LivingHurtEvent event, PlayerEntity player, ItemStack stack) {
 		if (!event.getSource().getMagic()) {
 			event.setAmount(event.getAmount() / 2);

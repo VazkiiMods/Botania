@@ -2,14 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "group": "botania:dye",
   "ingredients": [
-    [
-      {
-        "item": "minecraft:blue_orchid"
-      },
-      {
-        "tag": "botania:petals/light_blue"
-      }
-    ],
+    {
+      "tag": "botania:petals/light_blue"
+    },
     {
       "item": "botania:pestle_and_mortar"
     }

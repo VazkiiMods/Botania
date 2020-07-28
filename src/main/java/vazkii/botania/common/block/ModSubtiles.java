@@ -22,7 +22,6 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.*;
@@ -31,152 +30,151 @@ import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
-
-import java.util.List;
-import java.util.function.Supplier;
 
 import static vazkii.botania.common.block.ModBlocks.register;
 
 public class ModSubtiles {
-	public static final Block pureDaisy = new BlockSpecialFlower(ModPotions.clear, 1, AbstractBlock.Settings.copy(Blocks.POPPY), SubTilePureDaisy::new);
-	public static final Block pureDaisyFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.of(Material.SOIL).strength(0.5F).sounds(BlockSoundGroup.GRAVEL).lightLevel(s -> 15), SubTilePureDaisy::new);
+	private static final AbstractBlock.Settings FLOWER_PROPS = AbstractBlock.Settings.copy(Blocks.POPPY);
+	private static final AbstractBlock.Settings FLOATING_PROPS = AbstractBlock.Settings.of(Material.SOIL).strength(0.5F).sounds(BlockSoundGroup.GRAVEL).lightLevel(s -> 15);
 
-	public static final Block manastar = new BlockSpecialFlower(StatusEffects.GLOWING, 10, AbstractBlock.Settings.copy(pureDaisy), SubTileManastar::new);
-	public static final Block manastarFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileManastar::new);
+	public static final Block pureDaisy = new BlockSpecialFlower(ModPotions.clear, 1, FLOWER_PROPS, SubTilePureDaisy::new);
+	public static final Block pureDaisyFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTilePureDaisy::new);
 
-	public static final Block hydroangeas = new BlockSpecialFlower(StatusEffects.UNLUCK, 10, AbstractBlock.Settings.copy(pureDaisy), SubTileHydroangeas::new);
-	public static final Block hydroangeasFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileHydroangeas::new);
+	public static final Block manastar = new BlockSpecialFlower(StatusEffects.GLOWING, 10, FLOWER_PROPS, SubTileManastar::new);
+	public static final Block manastarFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileManastar::new);
 
-	public static final Block endoflame = new BlockSpecialFlower(StatusEffects.SLOWNESS, 10, AbstractBlock.Settings.copy(pureDaisy), SubTileEndoflame::new);
-	public static final Block endoflameFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileEndoflame::new);
+	public static final Block hydroangeas = new BlockSpecialFlower(StatusEffects.UNLUCK, 10, FLOWER_PROPS, SubTileHydroangeas::new);
+	public static final Block hydroangeasFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileHydroangeas::new);
 
-	public static final Block thermalily = new BlockSpecialFlower(StatusEffects.FIRE_RESISTANCE, 120, AbstractBlock.Settings.copy(pureDaisy), SubTileThermalily::new);
-	public static final Block thermalilyFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileThermalily::new);
+	public static final Block endoflame = new BlockSpecialFlower(StatusEffects.SLOWNESS, 10, FLOWER_PROPS, SubTileEndoflame::new);
+	public static final Block endoflameFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileEndoflame::new);
 
-	public static final Block rosaArcana = new BlockSpecialFlower(StatusEffects.LUCK, 64, AbstractBlock.Settings.copy(pureDaisy), SubTileArcaneRose::new);
-	public static final Block rosaArcanaFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileArcaneRose::new);
+	public static final Block thermalily = new BlockSpecialFlower(StatusEffects.FIRE_RESISTANCE, 120, FLOWER_PROPS, SubTileThermalily::new);
+	public static final Block thermalilyFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileThermalily::new);
 
-	public static final Block munchdew = new BlockSpecialFlower(StatusEffects.SLOW_FALLING, 300, AbstractBlock.Settings.copy(pureDaisy), SubTileMunchdew::new);
-	public static final Block munchdewFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileMunchdew::new);
+	public static final Block rosaArcana = new BlockSpecialFlower(StatusEffects.LUCK, 64, FLOWER_PROPS, SubTileArcaneRose::new);
+	public static final Block rosaArcanaFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileArcaneRose::new);
 
-	public static final Block entropinnyum = new BlockSpecialFlower(StatusEffects.RESISTANCE, 72, AbstractBlock.Settings.copy(pureDaisy), SubTileEntropinnyum::new);
-	public static final Block entropinnyumFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileEntropinnyum::new);
+	public static final Block munchdew = new BlockSpecialFlower(StatusEffects.SLOW_FALLING, 300, FLOWER_PROPS, SubTileMunchdew::new);
+	public static final Block munchdewFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileMunchdew::new);
 
-	public static final Block kekimurus = new BlockSpecialFlower(StatusEffects.SATURATION, 15, AbstractBlock.Settings.copy(pureDaisy), SubTileKekimurus::new);
-	public static final Block kekimurusFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileKekimurus::new);
+	public static final Block entropinnyum = new BlockSpecialFlower(StatusEffects.RESISTANCE, 72, FLOWER_PROPS, SubTileEntropinnyum::new);
+	public static final Block entropinnyumFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileEntropinnyum::new);
 
-	public static final Block gourmaryllis = new BlockSpecialFlower(StatusEffects.HUNGER, 180, AbstractBlock.Settings.copy(pureDaisy), SubTileGourmaryllis::new);
-	public static final Block gourmaryllisFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileGourmaryllis::new);
+	public static final Block kekimurus = new BlockSpecialFlower(StatusEffects.SATURATION, 15, FLOWER_PROPS, SubTileKekimurus::new);
+	public static final Block kekimurusFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileKekimurus::new);
 
-	public static final Block narslimmus = new BlockSpecialFlower(ModPotions.featherfeet, 240, AbstractBlock.Settings.copy(pureDaisy), SubTileNarslimmus::new);
-	public static final Block narslimmusFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileNarslimmus::new);
+	public static final Block gourmaryllis = new BlockSpecialFlower(StatusEffects.HUNGER, 180, FLOWER_PROPS, SubTileGourmaryllis::new);
+	public static final Block gourmaryllisFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileGourmaryllis::new);
 
-	public static final Block spectrolus = new BlockSpecialFlower(StatusEffects.BLINDNESS, 240, AbstractBlock.Settings.copy(pureDaisy), SubTileSpectrolus::new);
-	public static final Block spectrolusFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileSpectrolus::new);
+	public static final Block narslimmus = new BlockSpecialFlower(ModPotions.featherfeet, 240, FLOWER_PROPS, SubTileNarslimmus::new);
+	public static final Block narslimmusFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileNarslimmus::new);
 
-	public static final Block dandelifeon = new BlockSpecialFlower(StatusEffects.NAUSEA, 240, AbstractBlock.Settings.copy(pureDaisy), SubTileDandelifeon::new);
-	public static final Block dandelifeonFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileDandelifeon::new);
+	public static final Block spectrolus = new BlockSpecialFlower(StatusEffects.BLINDNESS, 240, FLOWER_PROPS, SubTileSpectrolus::new);
+	public static final Block spectrolusFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileSpectrolus::new);
 
-	public static final Block rafflowsia = new BlockSpecialFlower(StatusEffects.HEALTH_BOOST, 18, AbstractBlock.Settings.copy(pureDaisy), SubTileRafflowsia::new);
-	public static final Block rafflowsiaFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileRafflowsia::new);
+	public static final Block dandelifeon = new BlockSpecialFlower(StatusEffects.NAUSEA, 240, FLOWER_PROPS, SubTileDandelifeon::new);
+	public static final Block dandelifeonFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileDandelifeon::new);
 
-	public static final Block shulkMeNot = new BlockSpecialFlower(StatusEffects.LEVITATION, 72, AbstractBlock.Settings.copy(pureDaisy), SubTileShulkMeNot::new);
-	public static final Block shulkMeNotFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileShulkMeNot::new);
+	public static final Block rafflowsia = new BlockSpecialFlower(StatusEffects.HEALTH_BOOST, 18, FLOWER_PROPS, SubTileRafflowsia::new);
+	public static final Block rafflowsiaFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileRafflowsia::new);
 
-	public static final Block bellethorn = new BlockSpecialFlower(StatusEffects.WITHER, 10, AbstractBlock.Settings.copy(pureDaisy), SubTileBellethorn::new);
-	public static final Block bellethornChibi = new BlockSpecialFlower(StatusEffects.WITHER, 10, AbstractBlock.Settings.copy(pureDaisy), SubTileBellethorn.Mini::new);
-	public static final Block bellethornFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisy), SubTileBellethorn::new);
-	public static final Block bellethornChibiFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisy), SubTileBellethorn.Mini::new);
+	public static final Block shulkMeNot = new BlockSpecialFlower(StatusEffects.LEVITATION, 72, FLOWER_PROPS, SubTileShulkMeNot::new);
+	public static final Block shulkMeNotFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileShulkMeNot::new);
 
-	public static final Block bergamute = new BlockSpecialFlower(StatusEffects.BLINDNESS, 10, AbstractBlock.Settings.copy(pureDaisy), SubTileBergamute::new);
-	public static final Block bergamuteFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileBergamute::new);
+	public static final Block bellethorn = new BlockSpecialFlower(StatusEffects.WITHER, 10, FLOWER_PROPS, SubTileBellethorn::new);
+	public static final Block bellethornChibi = new BlockSpecialFlower(StatusEffects.WITHER, 10, FLOWER_PROPS, SubTileBellethorn.Mini::new);
+	public static final Block bellethornFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileBellethorn::new);
+	public static final Block bellethornChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileBellethorn.Mini::new);
 
-	public static final Block dreadthorn = new BlockSpecialFlower(StatusEffects.WITHER, 10, AbstractBlock.Settings.copy(pureDaisy), SubTileDreadthorn::new);
-	public static final Block dreadthornFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileDreadthorn::new);
+	public static final Block bergamute = new BlockSpecialFlower(StatusEffects.BLINDNESS, 10, FLOWER_PROPS, SubTileBergamute::new);
+	public static final Block bergamuteFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileBergamute::new);
 
-	public static final Block heiseiDream = new BlockSpecialFlower(ModPotions.soulCross, 300, AbstractBlock.Settings.copy(pureDaisy), SubTileHeiseiDream::new);
-	public static final Block heiseiDreamFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileHeiseiDream::new);
+	public static final Block dreadthorn = new BlockSpecialFlower(StatusEffects.WITHER, 10, FLOWER_PROPS, SubTileDreadthorn::new);
+	public static final Block dreadthornFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileDreadthorn::new);
 
-	public static final Block tigerseye = new BlockSpecialFlower(StatusEffects.STRENGTH, 90, AbstractBlock.Settings.copy(pureDaisy), SubTileTigerseye::new);
-	public static final Block tigerseyeFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileTigerseye::new);
+	public static final Block heiseiDream = new BlockSpecialFlower(ModPotions.soulCross, 300, FLOWER_PROPS, SubTileHeiseiDream::new);
+	public static final Block heiseiDreamFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileHeiseiDream::new);
 
-	public static final Block jadedAmaranthus = new BlockSpecialFlower(StatusEffects.INSTANT_HEALTH, 1, AbstractBlock.Settings.copy(pureDaisy), SubTileJadedAmaranthus::new);
-	public static final Block jadedAmaranthusFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileJadedAmaranthus::new);
+	public static final Block tigerseye = new BlockSpecialFlower(StatusEffects.STRENGTH, 90, FLOWER_PROPS, SubTileTigerseye::new);
+	public static final Block tigerseyeFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileTigerseye::new);
 
-	public static final Block orechid = new BlockSpecialFlower(StatusEffects.HASTE, 10, AbstractBlock.Settings.copy(pureDaisy), SubTileOrechid::new);
-	public static final Block orechidFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileOrechid::new);
+	public static final Block jadedAmaranthus = new BlockSpecialFlower(StatusEffects.INSTANT_HEALTH, 1, FLOWER_PROPS, SubTileJadedAmaranthus::new);
+	public static final Block jadedAmaranthusFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileJadedAmaranthus::new);
 
-	public static final Block fallenKanade = new BlockSpecialFlower(StatusEffects.REGENERATION, 90, AbstractBlock.Settings.copy(pureDaisy), SubTileFallenKanade::new);
-	public static final Block fallenKanadeFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileFallenKanade::new);
+	public static final Block orechid = new BlockSpecialFlower(StatusEffects.HASTE, 10, FLOWER_PROPS, SubTileOrechid::new);
+	public static final Block orechidFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileOrechid::new);
 
-	public static final Block exoflame = new BlockSpecialFlower(StatusEffects.SPEED, 240, AbstractBlock.Settings.copy(pureDaisy), SubTileExoflame::new);
-	public static final Block exoflameFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileExoflame::new);
+	public static final Block fallenKanade = new BlockSpecialFlower(StatusEffects.REGENERATION, 90, FLOWER_PROPS, SubTileFallenKanade::new);
+	public static final Block fallenKanadeFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileFallenKanade::new);
 
-	public static final Block agricarnation = new BlockSpecialFlower(StatusEffects.ABSORPTION, 48, AbstractBlock.Settings.copy(pureDaisy), SubTileAgricarnation::new);
-	public static final Block agricarnationChibi = new BlockSpecialFlower(StatusEffects.ABSORPTION, 48, AbstractBlock.Settings.copy(pureDaisy), SubTileAgricarnation.Mini::new);
-	public static final Block agricarnationFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisy), SubTileAgricarnation::new);
-	public static final Block agricarnationChibiFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisy), SubTileAgricarnation.Mini::new);
+	public static final Block exoflame = new BlockSpecialFlower(StatusEffects.SPEED, 240, FLOWER_PROPS, SubTileExoflame::new);
+	public static final Block exoflameFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileExoflame::new);
 
-	public static final Block hopperhock = new BlockSpecialFlower(StatusEffects.SPEED, 30, AbstractBlock.Settings.copy(pureDaisy), SubTileHopperhock::new);
-	public static final Block hopperhockChibi = new BlockSpecialFlower(StatusEffects.SPEED, 30, AbstractBlock.Settings.copy(pureDaisy), SubTileHopperhock.Mini::new);
-	public static final Block hopperhockFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisy), SubTileHopperhock::new);
-	public static final Block hopperhockChibiFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisy), SubTileHopperhock.Mini::new);
+	public static final Block agricarnation = new BlockSpecialFlower(StatusEffects.ABSORPTION, 48, FLOWER_PROPS, SubTileAgricarnation::new);
+	public static final Block agricarnationChibi = new BlockSpecialFlower(StatusEffects.ABSORPTION, 48, FLOWER_PROPS, SubTileAgricarnation.Mini::new);
+	public static final Block agricarnationFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileAgricarnation::new);
+	public static final Block agricarnationChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileAgricarnation.Mini::new);
 
-	public static final Block tangleberrie = new BlockSpecialFlower(ModPotions.bloodthrst, 120, AbstractBlock.Settings.copy(pureDaisy), SubTileTangleberrie::new);
-	public static final Block tangleberrieFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileTangleberrie::new);
+	public static final Block hopperhock = new BlockSpecialFlower(StatusEffects.SPEED, 30, FLOWER_PROPS, SubTileHopperhock::new);
+	public static final Block hopperhockChibi = new BlockSpecialFlower(StatusEffects.SPEED, 30, FLOWER_PROPS, SubTileHopperhock.Mini::new);
+	public static final Block hopperhockFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileHopperhock::new);
+	public static final Block hopperhockChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileHopperhock.Mini::new);
 
-	public static final Block jiyuulia = new BlockSpecialFlower(ModPotions.emptiness, 120, AbstractBlock.Settings.copy(pureDaisy), SubTileJiyuulia::new);
-	public static final Block jiyuuliaFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileJiyuulia::new);
+	public static final Block tangleberrie = new BlockSpecialFlower(ModPotions.bloodthrst, 120, FLOWER_PROPS, SubTileTangleberrie::new);
+	public static final Block tangleberrieFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileTangleberrie::new);
 
-	public static final Block rannuncarpus = new BlockSpecialFlower(StatusEffects.JUMP_BOOST, 30, AbstractBlock.Settings.copy(pureDaisy), SubTileRannuncarpus::new);
-	public static final Block rannuncarpusChibi = new BlockSpecialFlower(StatusEffects.JUMP_BOOST, 30, AbstractBlock.Settings.copy(pureDaisy), SubTileRannuncarpus.Mini::new);
-	public static final Block rannuncarpusFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisy), SubTileRannuncarpus::new);
-	public static final Block rannuncarpusChibiFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisy), SubTileRannuncarpus.Mini::new);
+	public static final Block jiyuulia = new BlockSpecialFlower(ModPotions.emptiness, 120, FLOWER_PROPS, SubTileJiyuulia::new);
+	public static final Block jiyuuliaFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileJiyuulia::new);
 
-	public static final Block hyacidus = new BlockSpecialFlower(StatusEffects.POISON, 48, AbstractBlock.Settings.copy(pureDaisy), SubTileHyacidus::new);
-	public static final Block hyacidusFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileHyacidus::new);
+	public static final Block rannuncarpus = new BlockSpecialFlower(StatusEffects.JUMP_BOOST, 30, FLOWER_PROPS, SubTileRannuncarpus::new);
+	public static final Block rannuncarpusChibi = new BlockSpecialFlower(StatusEffects.JUMP_BOOST, 30, FLOWER_PROPS, SubTileRannuncarpus.Mini::new);
+	public static final Block rannuncarpusFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileRannuncarpus::new);
+	public static final Block rannuncarpusChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileRannuncarpus.Mini::new);
 
-	public static final Block pollidisiac = new BlockSpecialFlower(StatusEffects.HASTE, 369, AbstractBlock.Settings.copy(pureDaisy), SubTilePollidisiac::new);
-	public static final Block pollidisiacFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTilePollidisiac::new);
+	public static final Block hyacidus = new BlockSpecialFlower(StatusEffects.POISON, 48, FLOWER_PROPS, SubTileHyacidus::new);
+	public static final Block hyacidusFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileHyacidus::new);
 
-	public static final Block clayconia = new BlockSpecialFlower(StatusEffects.WEAKNESS, 30, AbstractBlock.Settings.copy(pureDaisy), SubTileClayconia::new);
-	public static final Block clayconiaChibi = new BlockSpecialFlower(StatusEffects.WEAKNESS, 30, AbstractBlock.Settings.copy(pureDaisy), SubTileClayconia.Mini::new);
-	public static final Block clayconiaFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisy), SubTileClayconia::new);
-	public static final Block clayconiaChibiFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisy), SubTileClayconia.Mini::new);
+	public static final Block pollidisiac = new BlockSpecialFlower(StatusEffects.HASTE, 369, FLOWER_PROPS, SubTilePollidisiac::new);
+	public static final Block pollidisiacFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTilePollidisiac::new);
 
-	public static final Block loonium = new BlockSpecialFlower(ModPotions.allure, 900, AbstractBlock.Settings.copy(pureDaisy), SubTileLoonuim::new);
-	public static final Block looniumFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileLoonuim::new);
+	public static final Block clayconia = new BlockSpecialFlower(StatusEffects.WEAKNESS, 30, FLOWER_PROPS, SubTileClayconia::new);
+	public static final Block clayconiaChibi = new BlockSpecialFlower(StatusEffects.WEAKNESS, 30, FLOWER_PROPS, SubTileClayconia.Mini::new);
+	public static final Block clayconiaFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileClayconia::new);
+	public static final Block clayconiaChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileClayconia.Mini::new);
 
-	public static final Block daffomill = new BlockSpecialFlower(StatusEffects.LEVITATION, 6, AbstractBlock.Settings.copy(pureDaisy), SubTileDaffomill::new);
-	public static final Block daffomillFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileDaffomill::new);
+	public static final Block loonium = new BlockSpecialFlower(ModPotions.allure, 900, FLOWER_PROPS, SubTileLoonuim::new);
+	public static final Block looniumFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileLoonuim::new);
 
-	public static final Block vinculotus = new BlockSpecialFlower(StatusEffects.NIGHT_VISION, 900, AbstractBlock.Settings.copy(pureDaisy), SubTileVinculotus::new);
-	public static final Block vinculotusFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileVinculotus::new);
+	public static final Block daffomill = new BlockSpecialFlower(StatusEffects.LEVITATION, 6, FLOWER_PROPS, SubTileDaffomill::new);
+	public static final Block daffomillFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileDaffomill::new);
 
-	public static final Block spectranthemum = new BlockSpecialFlower(StatusEffects.INVISIBILITY, 360, AbstractBlock.Settings.copy(pureDaisy), SubTileSpectranthemum::new);
-	public static final Block spectranthemumFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileSpectranthemum::new);
+	public static final Block vinculotus = new BlockSpecialFlower(StatusEffects.NIGHT_VISION, 900, FLOWER_PROPS, SubTileVinculotus::new);
+	public static final Block vinculotusFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileVinculotus::new);
 
-	public static final Block medumone = new BlockSpecialFlower(StatusEffects.SLOWNESS, 3600, AbstractBlock.Settings.copy(pureDaisy), SubTileMedumone::new);
-	public static final Block medumoneFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileMedumone::new);
+	public static final Block spectranthemum = new BlockSpecialFlower(StatusEffects.INVISIBILITY, 360, FLOWER_PROPS, SubTileSpectranthemum::new);
+	public static final Block spectranthemumFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileSpectranthemum::new);
 
-	public static final Block marimorphosis = new BlockSpecialFlower(StatusEffects.MINING_FATIGUE, 60, AbstractBlock.Settings.copy(pureDaisy), SubTileMarimorphosis::new);
-	public static final Block marimorphosisChibi = new BlockSpecialFlower(StatusEffects.MINING_FATIGUE, 60, AbstractBlock.Settings.copy(pureDaisyFloating), SubTileMarimorphosis.Mini::new);
-	public static final Block marimorphosisFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisy), SubTileMarimorphosis::new);
-	public static final Block marimorphosisChibiFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileMarimorphosis.Mini::new);
+	public static final Block medumone = new BlockSpecialFlower(StatusEffects.SLOWNESS, 3600, FLOWER_PROPS, SubTileMedumone::new);
+	public static final Block medumoneFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileMedumone::new);
 
-	public static final Block bubbell = new BlockSpecialFlower(StatusEffects.WATER_BREATHING, 240, AbstractBlock.Settings.copy(pureDaisy), SubTileBubbell::new);
-	public static final Block bubbellChibi = new BlockSpecialFlower(StatusEffects.WATER_BREATHING, 240, AbstractBlock.Settings.copy(pureDaisy), SubTileBubbell.Mini::new);
-	public static final Block bubbellFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisy), SubTileBubbell::new);
-	public static final Block bubbellChibiFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisy), SubTileBubbell.Mini::new);
+	public static final Block marimorphosis = new BlockSpecialFlower(StatusEffects.MINING_FATIGUE, 60, FLOWER_PROPS, SubTileMarimorphosis::new);
+	public static final Block marimorphosisChibi = new BlockSpecialFlower(StatusEffects.MINING_FATIGUE, 60, FLOWER_PROPS, SubTileMarimorphosis.Mini::new);
+	public static final Block marimorphosisFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileMarimorphosis::new);
+	public static final Block marimorphosisChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileMarimorphosis.Mini::new);
 
-	public static final Block solegnolia = new BlockSpecialFlower(StatusEffects.INSTANT_DAMAGE, 1, AbstractBlock.Settings.copy(pureDaisy), SubTileSolegnolia::new);
-	public static final Block solegnoliaChibi = new BlockSpecialFlower(StatusEffects.INSTANT_DAMAGE, 1, AbstractBlock.Settings.copy(pureDaisy), SubTileSolegnolia.Mini::new);
-	public static final Block solegnoliaFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisy), SubTileSolegnolia::new);
-	public static final Block solegnoliaChibiFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisy), SubTileSolegnolia.Mini::new);
+	public static final Block bubbell = new BlockSpecialFlower(StatusEffects.WATER_BREATHING, 240, FLOWER_PROPS, SubTileBubbell::new);
+	public static final Block bubbellChibi = new BlockSpecialFlower(StatusEffects.WATER_BREATHING, 240, FLOWER_PROPS, SubTileBubbell.Mini::new);
+	public static final Block bubbellFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileBubbell::new);
+	public static final Block bubbellChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileBubbell.Mini::new);
 
-	public static final Block orechidIgnem = new BlockSpecialFlower(StatusEffects.FIRE_RESISTANCE, 600, AbstractBlock.Settings.copy(pureDaisy), SubTileOrechidIgnem::new);
-	public static final Block orechidIgnemFloating = new BlockFloatingSpecialFlower(AbstractBlock.Settings.copy(pureDaisyFloating), SubTileOrechidIgnem::new);
+	public static final Block solegnolia = new BlockSpecialFlower(StatusEffects.INSTANT_DAMAGE, 1, FLOWER_PROPS, SubTileSolegnolia::new);
+	public static final Block solegnoliaChibi = new BlockSpecialFlower(StatusEffects.INSTANT_DAMAGE, 1, FLOWER_PROPS, SubTileSolegnolia.Mini::new);
+	public static final Block solegnoliaFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileSolegnolia::new);
+	public static final Block solegnoliaChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileSolegnolia.Mini::new);
+
+	public static final Block orechidIgnem = new BlockSpecialFlower(StatusEffects.FIRE_RESISTANCE, 600, FLOWER_PROPS, SubTileOrechidIgnem::new);
+	public static final Block orechidIgnemFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileOrechidIgnem::new);
 
 	public static final BlockEntityType<SubTilePureDaisy> PURE_DAISY = BlockEntityType.Builder.create(SubTilePureDaisy::new, pureDaisy, pureDaisyFloating).build(null);
 	public static final BlockEntityType<SubTileManastar> MANASTAR = BlockEntityType.Builder.create(SubTileManastar::new, manastar, manastarFloating).build(null);

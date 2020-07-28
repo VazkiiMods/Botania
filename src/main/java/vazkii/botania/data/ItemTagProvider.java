@@ -16,11 +16,12 @@ import net.minecraft.tag.ItemTags;
 import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.lens.ItemLens;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 
-import java.util.Arrays;
 import java.util.Comparator;
 
 public class ItemTagProvider extends ItemTagsProvider {
@@ -48,11 +49,17 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(ModTags.Blocks.GENERATING_SPECIAL_FLOWERS, ModTags.Items.GENERATING_SPECIAL_FLOWERS);
 		this.copy(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS, ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS);
 		this.copy(ModTags.Blocks.SPECIAL_FLOWERS, ModTags.Items.SPECIAL_FLOWERS);
+		this.copy(ModTags.Blocks.MINI_FLOWERS, ModTags.Items.MINI_FLOWERS);
 
 		this.getOrCreateTagBuilder(ItemTags.TALL_FLOWERS).addTag(ModTags.Items.DOUBLE_MYSTICAL_FLOWERS);
 		this.getOrCreateTagBuilder(ItemTags.SMALL_FLOWERS).addTag(ModTags.Items.MYSTICAL_FLOWERS).addTag(ModTags.Items.SPECIAL_FLOWERS);
 
 		this.getOrCreateTagBuilder(ModTags.Items.BURST_VIEWERS).add(ModItems.monocle);
+		this.getOrCreateTagBuilder(ModTags.Items.LENS).add(
+			Registry.ITEM.stream().filter(i -> i instanceof ItemLens && Registry.ITEM.getId(i).getNamespace().equals(LibMisc.MOD_ID))
+				.sorted(Comparator.comparing(Registry.ITEM::getId))
+				.toArray(Item[]::new)
+		);
 	}
 
 	@Nonnull

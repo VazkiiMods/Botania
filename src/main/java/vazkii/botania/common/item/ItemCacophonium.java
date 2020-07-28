@@ -66,15 +66,13 @@ public class ItemCacophonium extends Item {
 			}
 
 			if (sound != null) {
-				ItemNBTHelper.setString(stack, TAG_SOUND, Registry.SOUND_EVENT.getId(sound).toString());
-				ItemNBTHelper.setString(stack, TAG_SOUND_NAME, entity.getType().getTranslationKey());
-				player.setStackInHand(hand, stack);
-
-				if (player.world.isClient) {
-					player.swingHand(hand);
+				if (!player.world.isClient) {
+					ItemNBTHelper.setString(stack, TAG_SOUND, Registry.SOUND_EVENT.getKey(sound).toString());
+					ItemNBTHelper.setString(stack, TAG_SOUND_NAME, entity.getType().getTranslationKey());
+					player.setStackInHand(hand, stack);
 				}
 
-				return ActionResult.SUCCESS;
+				return ActionResult.success(player.world.isClient);
 			}
 		}
 

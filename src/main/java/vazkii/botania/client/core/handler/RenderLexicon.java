@@ -44,7 +44,7 @@ import java.util.List;
 // Hacky way to render 3D lexicon, will be reevaluated in the future.
 public class RenderLexicon {
 	private static final BookModel model = new BookModel();
-	private static final boolean SHOULD_MISSPELL = Math.random() < 0.0004;
+	private static final boolean SHOULD_MISSPELL = Math.random() < 0.004;
 	public static final SpriteIdentifier TEXTURE = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEX, new Identifier(LibResources.MODEL_LEXICA_DEFAULT));
 	public static final SpriteIdentifier ELVEN_TEXTURE = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEX, new Identifier(LibResources.MODEL_LEXICA_ELVEN));
 

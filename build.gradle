@@ -2,7 +2,7 @@ plugins {
     id 'fabric-loom' version '0.4-SNAPSHOT'
     id 'maven-publish'
     id 'org.hidetake.ssh' version '2.10.1'
-    id "com.diffplug.gradle.spotless" version "3.27.2"
+    id "com.diffplug.spotless" version "5.1.0"
 }
 
 apply plugin: 'pmd'
@@ -24,25 +24,6 @@ group = "vazkii.${config.mod_id}"
 archivesBaseName = "${config.mod_name}"
 
 minecraft {
-}
-
-spotless {
-    enforceCheck = false // workaround around jenkins having wrong line endings in some files
-    // we explicitly check in github actions builds
-    java {
-        target '**/vazkii/patchouli/**/*.java'
-
-        indentWithTabs()
-        eclipse().configFile 'spotless/eclipseformat.xml'
-        importOrderFile 'spotless/eclipse.importorder'
-    }
-}
-pmd {
-    ruleSets = ["java-braces"]
-}
-
-task checkSyntax {
-    dependsOn spotlessJavaCheck, pmdMain
 }
 
 sourceSets.main.resources {
@@ -90,6 +71,29 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
     // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
     // You may need to force-disable transitiveness on them.
+}
+
+spotless {
+    enforceCheck = false // workaround around jenkins having wrong line endings in some files
+                         // we explicitly check in github actions builds
+    java {
+        indentWithTabs()
+        licenseHeaderFile('spotless/license_template.txt')
+        eclipse().configFile 'spotless/eclipseformat.xml'
+        removeUnusedImports()
+        importOrderFile 'spotless/eclipse.importorder'
+    }
+}
+
+pmd {
+    toolVersion '6.22.0'
+    incrementalAnalysis.set(true)
+    ruleSets.clear()
+    ruleSetFiles = files("spotless/pmd-ruleset.xml")
+}
+
+task checkSyntax {
+    dependsOn spotlessJavaCheck, pmdMain
 }
 
 processResources {

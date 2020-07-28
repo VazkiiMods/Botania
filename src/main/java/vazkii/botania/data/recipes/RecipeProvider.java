@@ -44,12 +44,9 @@ import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import javax.annotation.Nullable;
 
-import java.util.Arrays;
-import java.util.EnumMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -838,43 +835,15 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 					.criterion("has_flower_item", conditionsFromItem(ModSubtiles.marimorphosis))
 					.offerTo(consumer);
 		}
-		EnumMap<DyeColor, Ingredient> colorOverrides = new EnumMap<>(DyeColor.class);
-		colorOverrides.put(DyeColor.LIGHT_BLUE, Ingredient.ofEntries(Stream.of(
-				new Ingredient.StackEntry(new ItemStack(Items.BLUE_ORCHID)),
-				new Ingredient.TagEntry(ModTags.Items.PETALS_LIGHT_BLUE)
-		)));
-		colorOverrides.put(DyeColor.ORANGE, Ingredient.ofEntries(Stream.of(
-				new Ingredient.StackEntry(new ItemStack(Items.ORANGE_TULIP)),
-				new Ingredient.TagEntry(ModTags.Items.PETALS_ORANGE)
-		)));
-		colorOverrides.put(DyeColor.PINK, Ingredient.ofEntries(Stream.of(
-				new Ingredient.StackEntry(new ItemStack(Items.PINK_TULIP)),
-				new Ingredient.TagEntry(ModTags.Items.PETALS_PINK)
-		)));
-		colorOverrides.put(DyeColor.RED, Ingredient.ofEntries(Stream.of(
-				new Ingredient.StackEntry(new ItemStack(Items.POPPY)),
-				new Ingredient.StackEntry(new ItemStack(Items.RED_TULIP)),
-				new Ingredient.TagEntry(ModTags.Items.PETALS_RED)
-		)));
-		colorOverrides.put(DyeColor.LIGHT_GRAY, Ingredient.ofEntries(Stream.of(
-				new Ingredient.StackEntry(new ItemStack(Items.AZURE_BLUET)),
-				new Ingredient.StackEntry(new ItemStack(Items.WHITE_TULIP)),
-				new Ingredient.StackEntry(new ItemStack(Items.OXEYE_DAISY)),
-				new Ingredient.TagEntry(ModTags.Items.PETALS_LIGHT_GRAY)
-		)));
-		colorOverrides.put(DyeColor.YELLOW, Ingredient.ofEntries(Stream.of(
-				new Ingredient.StackEntry(new ItemStack(Items.DANDELION)),
-				new Ingredient.TagEntry(ModTags.Items.PETALS_YELLOW)
-		)));
 		for (DyeColor color : DyeColor.values()) {
-			ShapelessRecipeJsonFactory.create(ModBlocks.getShinyFlower(color))
+			ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.getShinyFlower(color))
 					.input(Tags.Items.DUSTS_GLOWSTONE)
 					.input(Tags.Items.DUSTS_GLOWSTONE)
 					.input(ModBlocks.getFlower(color))
 					.group("botania:shiny_flower")
 					.criterion("has_item", conditionsFromItem(ModBlocks.getFlower(color)))
 					.offerTo(consumer);
-			ShapedRecipeJsonFactory.create(ModBlocks.getFloatingFlower(color))
+			ShapedRecipeBuilder.shapedRecipe(ModBlocks.getFloatingFlower(color))
 					.input('S', ModItems.grassSeeds)
 					.input('D', Items.DIRT)
 					.input('F', ModBlocks.getShinyFlower(color))
@@ -884,7 +853,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 					.group("botania:floating_flowers")
 					.criterion("has_item", conditionsFromItem(ModBlocks.getShinyFlower(color)))
 					.offerTo(consumer);
-			ShapedRecipeJsonFactory.create(ModBlocks.getPetalBlock(color))
+			ShapedRecipeBuilder.shapedRecipe(ModBlocks.getPetalBlock(color))
 					.input('P', ModItems.getPetal(color))
 					.pattern("PPP")
 					.pattern("PPP")
@@ -892,61 +861,32 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 					.group("botania:petal_block")
 					.criterion("has_item", conditionsFromItem(ModItems.getPetal(color)))
 					.offerTo(consumer);
-			ShapelessRecipeJsonFactory.create(ModBlocks.getMushroom(color))
-					.input(Ingredient.ofItems(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM))
-					.input(DyeItem.byColor(color))
+			ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.getMushroom(color))
+					.input(Ingredient.fromItems(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM))
+					.input(DyeItem.getItem(color))
 					.group("botania:mushroom")
 					.criterion("has_item", conditionsFromItem(Items.RED_MUSHROOM))
 					.criterion("has_alt_item", conditionsFromItem(Items.BROWN_MUSHROOM))
 					.offerTo(consumer, "botania:mushroom_" + color.ordinal());
-			ShapelessRecipeJsonFactory.create(ModItems.getPetal(color), 4)
+			ShapelessRecipeBuilder.shapelessRecipe(ModItems.getPetal(color), 4)
 					.input(ModBlocks.getDoubleFlower(color))
 					.group("botania:petal_double")
 					.criterion("has_item", conditionsFromItem(ModBlocks.getDoubleFlower(color)))
 					.criterion("has_alt_item", conditionsFromItem(ModItems.getPetal(color)))
-					.offerTo(consumer, "botania:petal_" + color.asString() + "_double");
-			ShapelessRecipeJsonFactory.create(ModItems.getPetal(color), 2)
+					.offerTo(consumer, "botania:petal_" + color.getString() + "_double");
+			ShapelessRecipeBuilder.shapelessRecipe(ModItems.getPetal(color), 2)
 					.input(ModBlocks.getFlower(color))
 					.group("botania:petal")
 					.criterion("has_item", conditionsFromItem(ModBlocks.getFlower(color)))
 					.criterion("has_alt_item", conditionsFromItem(ModItems.getPetal(color)))
-					.offerTo(consumer, "botania:petal_" + color.asString());
-			ShapelessRecipeJsonFactory.create(DyeItem.byColor(color))
-					.input(colorOverrides.getOrDefault(color, Ingredient.fromTag(ModTags.Items.getFlowerTag(color))))
+					.offerTo(consumer, "botania:petal_" + color.getString());
+			ShapelessRecipeBuilder.shapelessRecipe(DyeItem.getItem(color))
+					.input(Ingredient.fromTag(ModTags.Items.getFlowerTag(color)))
 					.input(ModItems.pestleAndMortar)
 					.group("botania:dye")
 					.criterion("has_item", conditionsFromItem(ModItems.getPetal(color)))
-					.offerTo(consumer, "botania:dye_" + color.asString());
+					.offerTo(consumer, "botania:dye_" + color.getString());
 		}
-
-		ShapelessRecipeJsonFactory.create(Items.MAGENTA_DYE, 2)
-				.input(Items.LILAC)
-				.input(ModItems.pestleAndMortar)
-				.group("botania:dye_double")
-				.criterion("has_item", conditionsFromItem(Items.YELLOW_DYE))
-				.criterion("has_alt_item", conditionsFromItem(Items.LILAC))
-				.offerTo(consumer, "botania:dye_magenta_double");
-		ShapelessRecipeJsonFactory.create(Items.PINK_DYE, 2)
-				.input(Items.PEONY)
-				.input(ModItems.pestleAndMortar)
-				.group("botania:dye_double")
-				.criterion("has_item", conditionsFromItem(Items.PINK_DYE))
-				.criterion("has_alt_item", conditionsFromItem(Items.PEONY))
-				.offerTo(consumer, "botania:dye_pink_double");
-		ShapelessRecipeJsonFactory.create(Items.RED_DYE, 2)
-				.input(Items.ROSE_BUSH)
-				.input(ModItems.pestleAndMortar)
-				.group("botania:dye_double")
-				.criterion("has_item", conditionsFromItem(Items.RED_DYE))
-				.criterion("has_alt_item", conditionsFromItem(Items.ROSE_BUSH))
-				.offerTo(consumer, "botania:dye_red_double");
-		ShapelessRecipeJsonFactory.create(Items.YELLOW_DYE, 2)
-				.input(Items.SUNFLOWER)
-				.input(ModItems.pestleAndMortar)
-				.group("botania:dye_double")
-				.criterion("has_item", conditionsFromItem(Items.YELLOW_DYE))
-				.criterion("has_alt_item", conditionsFromItem(Items.SUNFLOWER))
-				.offerTo(consumer, "botania:dye_yellow_double");
 	}
 
 	private void registerTools(Consumer<RecipeJsonProvider> consumer) {

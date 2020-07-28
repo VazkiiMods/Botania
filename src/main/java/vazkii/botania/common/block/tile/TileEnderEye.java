@@ -40,7 +40,7 @@ public class TileEnderEye extends TileMod implements Tickable {
 		boolean looking = false;
 		for (PlayerEntity player : players) {
 			ItemStack helm = player.getEquippedStack(EquipmentSlot.HEAD);
-			if (!helm.isEmpty() && helm.getItem() == Item.fromBlock(Blocks.PUMPKIN)) {
+			if (!helm.isEmpty() && helm.getItem() == Blocks.PUMPKIN.asItem()) {
 				continue;
 			}
 
