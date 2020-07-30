@@ -10,6 +10,7 @@ package vazkii.botania.common.block.corporea;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
@@ -17,6 +18,7 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
+import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaInterceptor;
 
@@ -24,7 +26,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockCorporeaInterceptor extends BlockCorporeaBase {
+public class BlockCorporeaInterceptor extends BlockMod implements BlockEntityProvider {
 
 	public BlockCorporeaInterceptor(AbstractBlock.Settings builder) {
 		super(builder);

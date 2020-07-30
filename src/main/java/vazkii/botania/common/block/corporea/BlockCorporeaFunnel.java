@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.corporea;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
@@ -16,12 +17,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
+import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaFunnel;
 
 import javax.annotation.Nonnull;
 
-public class BlockCorporeaFunnel extends BlockCorporeaBase {
+public class BlockCorporeaFunnel extends BlockMod implements BlockEntityProvider {
 
 	public BlockCorporeaFunnel(Settings builder) {
 		super(builder);
