@@ -18,6 +18,7 @@ import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.ItemEntityRenderer;
 import net.minecraft.client.util.ModelIdentifier;
 
+import net.minecraft.resource.ResourceManager;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.client.model.FloatingFlowerModel;
@@ -30,25 +31,27 @@ import vazkii.botania.common.block.tile.TileGaiaHead;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.lib.LibMisc;
 
+import java.util.function.Consumer;
+
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ModelHandler {
 	static boolean registeredModels = false;
 
-	public static void registerModels(ModelRegistryEvent evt) {
+	public static void registerModels(ResourceManager rm, Consumer<ModelIdentifier> consumer) {
 		if (!registeredModels) {
 			registeredModels = true;
 			ModelLoaderRegistry.registerLoader(FloatingFlowerModel.Loader.ID, FloatingFlowerModel.Loader.INSTANCE);
 		}
-		ModelLoader.addSpecialModel(new ModelIdentifier(LibMisc.MOD_ID + ":mana_gun_clip", "inventory"));
-		ModelLoader.addSpecialModel(new ModelIdentifier(LibMisc.MOD_ID + ":desu_gun", "inventory"));
-		ModelLoader.addSpecialModel(new ModelIdentifier(LibMisc.MOD_ID + ":desu_gun_clip", "inventory"));
-		ModelLoader.addSpecialModel(prefix("block/corporea_crystal_cube_glass"));
-		ModelLoader.addSpecialModel(prefix("block/pump_head"));
-		ModelLoader.addSpecialModel(prefix("block/elven_spreader_inside"));
-		ModelLoader.addSpecialModel(prefix("block/gaia_spreader_inside"));
-		ModelLoader.addSpecialModel(prefix("block/mana_spreader_inside"));
-		ModelLoader.addSpecialModel(prefix("block/redstone_spreader_inside"));
+		consumer.accept(new ModelIdentifier(LibMisc.MOD_ID + ":mana_gun_clip", "inventory"));
+		consumer.accept(new ModelIdentifier(LibMisc.MOD_ID + ":desu_gun", "inventory"));
+		consumer.accept(new ModelIdentifier(LibMisc.MOD_ID + ":desu_gun_clip", "inventory"));
+		consumer.accept(new ModelIdentifier(prefix("block/corporea_crystal_cube_glass"), "inventory"));
+		consumer.accept(new ModelIdentifier(prefix("block/pump_head"), "inventory"));
+		consumer.accept(new ModelIdentifier(prefix("block/elven_spreader_inside"), "inventory"));
+		consumer.accept(new ModelIdentifier(prefix("block/gaia_spreader_inside"), "inventory"));
+		consumer.accept(new ModelIdentifier(prefix("block/mana_spreader_inside"), "inventory"));
+		consumer.accept(new ModelIdentifier(prefix("block/redstone_spreader_inside"), "inventory"));
 		registerIslands();
 
 		BlockEntityRendererRegistry.INSTANCE.register(ModTiles.ALTAR, RenderTileAltar::new);

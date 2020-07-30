@@ -68,14 +68,12 @@ public final class HUDHandler {
 
 	public static final Identifier manaBar = new Identifier(LibResources.GUI_MANA_HUD);
 
-	public static void onDrawScreenPost(RenderGameOverlayEvent.Post event) {
+	public static void onDrawScreenPost(MatrixStack ms, float partialTicks) {
 		MinecraftClient mc = MinecraftClient.getInstance();
 		Profiler profiler = mc.getProfiler();
 		ItemStack main = mc.player.getMainHandStack();
 		ItemStack offhand = mc.player.getOffHandStack();
-		MatrixStack ms = event.getMatrixStack();
 
-		if (event.getType() == ElementType.ALL) {
 			profiler.push("botania-hud");
 
 			if (MinecraftClient.getInstance().interactionManager.hasStatusBars()) {
@@ -89,7 +87,7 @@ public final class HUDHandler {
 				ItemStack dodgeRing = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, mc.player);
 				if (!dodgeRing.isEmpty()) {
 					profiler.push("dodgeRing");
-					ItemDodgeRing.renderHUD(ms, mc.player, dodgeRing, event.getPartialTicks());
+					ItemDodgeRing.renderHUD(ms, mc.player, dodgeRing, partialTicks);
 					profiler.pop();
 				}
 			}
@@ -218,12 +216,11 @@ public final class HUDHandler {
 			}
 
 			profiler.swap("itemsRemaining");
-			ItemsRemainingRenderHandler.render(ms, event.getPartialTicks());
+			ItemsRemainingRenderHandler.render(ms, partialTicks);
 			profiler.pop();
 			profiler.pop();
 
 			RenderSystem.color4f(1F, 1F, 1F, 1F);
-		}
 	}
 
 	private static void renderManaInvBar(MatrixStack ms, boolean hasCreative, int totalMana, int totalMaxMana) {

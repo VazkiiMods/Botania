@@ -8,6 +8,8 @@
  */
 package vazkii.botania.client.core.handler;
 
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
@@ -18,6 +20,8 @@ import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.color.world.FoliageColors;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
@@ -42,14 +46,14 @@ import vazkii.botania.common.item.material.ItemPetal;
 public final class ColorHandler {
 
 	public static void init() {
-		BlockColors blocks = MinecraftClient.getInstance().getBlockColors();
+		ColorProviderRegistry<Block, BlockColorProvider> blocks = ColorProviderRegistry.BLOCK;
 
 		// [VanillaCopy] BlockColors for vine
 		BlockColorProvider vineColor = (state, world, pos, tint) -> world != null && pos != null ? BiomeColors.getFoliageColor(world, pos) : FoliageColors.getDefaultColor();
-		blocks.registerColorProvider(vineColor, ModBlocks.solidVines);
+		blocks.register(vineColor, ModBlocks.solidVines);
 
 		// Pool
-		blocks.registerColorProvider(
+		blocks.register(
 				(state, world, pos, tintIndex) -> {
 					if (tintIndex != 0) {
 						return -1;
@@ -73,7 +77,7 @@ public final class ColorHandler {
 		);
 
 		// Spreader
-		blocks.registerColorProvider(
+		blocks.register(
 				(state, world, pos, tintIndex) -> {
 					float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 					return MathHelper.hsvToRgb(time * 5 % 360 / 360F, 0.4F, 0.9F);
@@ -82,7 +86,7 @@ public final class ColorHandler {
 		);
 
 		// Petal Block
-		blocks.registerColorProvider((state, world, pos, tintIndex) -> tintIndex == 0 ? ((BlockPetalBlock) state.getBlock()).color.getColorValue() : -1,
+		blocks.register((state, world, pos, tintIndex) -> tintIndex == 0 ? ((BlockPetalBlock) state.getBlock()).color.getColorValue() : -1,
 				ModBlocks.petalBlockWhite, ModBlocks.petalBlockOrange, ModBlocks.petalBlockMagenta, ModBlocks.petalBlockLightBlue,
 				ModBlocks.petalBlockYellow, ModBlocks.petalBlockLime, ModBlocks.petalBlockPink, ModBlocks.petalBlockGray,
 				ModBlocks.petalBlockSilver, ModBlocks.petalBlockCyan, ModBlocks.petalBlockPurple, ModBlocks.petalBlockBlue,
@@ -90,7 +94,7 @@ public final class ColorHandler {
 		);
 
 		// Platforms
-		blocks.registerColorProvider(
+		blocks.register(
 				(state, world, pos, tintIndex) -> {
 					if (world != null && pos != null) {
 						BlockEntity tile = world.getBlockEntity(pos);
@@ -107,7 +111,7 @@ public final class ColorHandler {
 					return 0xFFFFFF;
 				}, ModBlocks.abstrusePlatform, ModBlocks.spectralPlatform, ModBlocks.infrangiblePlatform);
 
-		ItemColors items = MinecraftClient.getInstance().getItemColors();
+		ColorProviderRegistry<ItemConvertible, ItemColorProvider> items = ColorProviderRegistry.ITEM;
 
 		items.register((s, t) -> t == 0 ? MathHelper.hsvToRgb(ClientTickHandler.ticksInGame * 2 % 360 / 360F, 0.25F, 1F) : -1,
 				ModItems.lifeEssence, ModItems.gaiaIngot);
@@ -159,7 +163,7 @@ public final class ColorHandler {
 		items.register((s, t) -> {
 			ItemStack lens = ItemManaGun.getLens(s);
 			if (!lens.isEmpty() && t == 0) {
-				return MinecraftClient.getInstance().getItemColors().getColorMultiplier(lens, t);
+				return ColorProviderRegistry.ITEM.get(lens.getItem()).getColor(lens, t);
 			}
 
 			if (t == 2) {

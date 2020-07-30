@@ -10,10 +10,12 @@ package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.sound.PositionedSoundInstance;
 import net.minecraft.client.util.math.MatrixStack;
 
+import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 import vazkii.botania.common.core.handler.ModSounds;
@@ -31,7 +33,7 @@ public class KonamiHandler {
 	private static int nextLetter = 0;
 	private static int konamiTime = 0;
 
-	public static void clientTick(TickEvent.ClientTickEvent evt) {
+	public static void clientTick(MinecraftClient client) {
 		if (konamiTime > 0) {
 			konamiTime--;
 		}
@@ -57,20 +59,19 @@ public class KonamiHandler {
 		}
 	}
 
-	public static void renderBook(BookDrawScreenEvent evt) {
+	public static void renderBook(Identifier book, Screen gui, int mouseX, int mouseY, float partialTicks, MatrixStack ms) {
 		if (konamiTime > 0) {
-			MatrixStack ms = evt.matrixStack;
 			String meme = I18n.translate("botania.subtitle.way");
 			RenderSystem.disableDepthTest();
 			ms.push();
 			int fullWidth = MinecraftClient.getInstance().textRenderer.getWidth(meme);
-			int left = evt.gui.width;
-			double widthPerTick = (fullWidth + evt.gui.width) / 240;
-			double currWidth = left - widthPerTick * (240 - (konamiTime - evt.partialTicks)) * 3.2;
+			int left = gui.width;
+			double widthPerTick = (fullWidth + gui.width) / 240;
+			double currWidth = left - widthPerTick * (240 - (konamiTime - partialTicks)) * 3.2;
 
-			ms.translate(currWidth, evt.gui.height / 2 - 10, 0);
+			ms.translate(currWidth, gui.height / 2 - 10, 0);
 			ms.scale(4, 4, 4);
-			MinecraftClient.getInstance().textRenderer.drawWithShadow(evt.matrixStack, meme, 0, 0, 0xFFFFFF);
+			MinecraftClient.getInstance().textRenderer.drawWithShadow(ms, meme, 0, 0, 0xFFFFFF);
 			ms.pop();
 			RenderSystem.enableDepthTest();
 		}

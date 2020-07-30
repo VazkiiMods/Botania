@@ -9,6 +9,8 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -20,9 +22,9 @@ import java.util.List;
 
 public final class TooltipHandler {
 
-	public static void onTooltipEvent(ItemTooltipEvent event) {
-		if (ItemKeepIvy.hasIvy(event.getItemStack())) {
-			event.getToolTip().add(new TranslatableText("botaniamisc.hasKeepIvy"));
+	public static void onTooltipEvent(ItemStack stack, TooltipContext ctx, List<Text> tooltip) {
+		if (ItemKeepIvy.hasIvy(stack)) {
+			tooltip.add(new TranslatableText("botaniamisc.hasKeepIvy"));
 		}
 	}
 

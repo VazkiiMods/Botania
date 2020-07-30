@@ -8,7 +8,7 @@
  */
 package vazkii.botania.client.fx;
 
-import net.minecraft.client.MinecraftClient;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.util.registry.Registry;
 
@@ -24,9 +24,9 @@ public class ModParticles {
 	}
 
 	public static class FactoryHandler {
-		public static void registerFactories(ParticleFactoryRegisterEvent evt) {
-			MinecraftClient.getInstance().particleManager.registerFactory(ModParticles.WISP, WispParticleType.Factory::new);
-			MinecraftClient.getInstance().particleManager.registerFactory(ModParticles.SPARKLE, SparkleParticleType.Factory::new);
+		public static void registerFactories() {
+			ParticleFactoryRegistry.getInstance().register(ModParticles.WISP, WispParticleType.Factory::new);
+			ParticleFactoryRegistry.getInstance().register(ModParticles.SPARKLE, SparkleParticleType.Factory::new);
 		}
 	}
 }

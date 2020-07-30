@@ -17,6 +17,7 @@ import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.SpriteIdentifier;
 
+import net.minecraft.resource.ResourceManager;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.LexiconModel;
@@ -33,6 +34,7 @@ import vazkii.botania.mixin.AccessorModelBakery;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -81,7 +83,7 @@ public class MiscellaneousIcons {
 
 	public final BakedModel[] kingKeyWeaponModels = new BakedModel[ItemKingKey.WEAPON_TYPES];
 
-	public void onModelRegister(ModelRegistryEvent evt) {
+	public void onModelRegister(ResourceManager rm, Consumer<ModelIdentifier> consumer) {
 		Set<SpriteIdentifier> materials = AccessorModelBakery.getMaterials();
 
 		materials.add(RenderLexicon.TEXTURE);
@@ -92,26 +94,26 @@ public class MiscellaneousIcons {
 				materials.add(new SpriteIdentifier(TexturedRenderLayers.BANNER_PATTERNS_ATLAS_TEXTURE, pattern.getSpriteId(true)));
 			}
 		}
-		ModelLoader.addSpecialModel(prefix("icon/goldfish"));
-		ModelLoader.addSpecialModel(prefix("icon/phiflower"));
-		ModelLoader.addSpecialModel(prefix("icon/nerfbat"));
-		ModelLoader.addSpecialModel(prefix("icon/blood_pendant_chain"));
-		ModelLoader.addSpecialModel(prefix("icon/blood_pendant_gem"));
+		consumer.accept(new ModelIdentifier(prefix("icon/goldfish"), "inventory"));
+		consumer.accept(new ModelIdentifier(prefix("icon/phiflower"), "inventory"));
+		consumer.accept(new ModelIdentifier(prefix("icon/nerfbat"), "inventory"));
+		consumer.accept(new ModelIdentifier(prefix("icon/blood_pendant_chain"), "inventory"));
+		consumer.accept(new ModelIdentifier(prefix("icon/blood_pendant_gem"), "inventory"));
 		for (int i = 0; i < ItemKingKey.WEAPON_TYPES; i++) {
-			ModelLoader.addSpecialModel(prefix("icon/gate_weapon_" + i));
+			consumer.accept(new ModelIdentifier(prefix("icon/gate_weapon_" + i), "inventory"));
 		}
-		ModelLoader.addSpecialModel(prefix("icon/will_flame"));
+		consumer.accept(new ModelIdentifier(prefix("icon/will_flame"), "inventory"));
 		for (int i = 0; i < thirdEyeLayers.length; i++) {
-			ModelLoader.addSpecialModel(prefix("icon/third_eye_" + i));
+			consumer.accept(new ModelIdentifier(prefix("icon/third_eye_" + i), "inventory"));
 		}
-		ModelLoader.addSpecialModel(prefix("icon/lava_pendant_gem"));
-		ModelLoader.addSpecialModel(prefix("icon/super_lava_pendant_gem"));
-		ModelLoader.addSpecialModel(prefix("icon/itemfinder_gem"));
-		ModelLoader.addSpecialModel(prefix("icon/cloud_pendant_gem"));
-		ModelLoader.addSpecialModel(prefix("icon/super_cloud_pendant_gem"));
-		ModelLoader.addSpecialModel(prefix("icon/ice_pendant_gem"));
+		consumer.accept(new ModelIdentifier(prefix("icon/lava_pendant_gem"), "inventory"));
+		consumer.accept(new ModelIdentifier(prefix("icon/super_lava_pendant_gem"), "inventory"));
+		consumer.accept(new ModelIdentifier(prefix("icon/itemfinder_gem"), "inventory"));
+		consumer.accept(new ModelIdentifier(prefix("icon/cloud_pendant_gem"), "inventory"));
+		consumer.accept(new ModelIdentifier(prefix("icon/super_cloud_pendant_gem"), "inventory"));
+		consumer.accept(new ModelIdentifier(prefix("icon/ice_pendant_gem"), "inventory"));
 		for (int i = 0; i < tiaraWingIcons.length; i++) {
-			ModelLoader.addSpecialModel(prefix("icon/tiara_wing_" + (i + 1)));
+			consumer.accept(new ModelIdentifier(prefix("icon/tiara_wing_" + (i + 1)), "inventory"));
 		}
 	}
 

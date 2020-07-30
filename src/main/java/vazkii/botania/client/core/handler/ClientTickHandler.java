@@ -54,55 +54,53 @@ public final class ClientTickHandler {
 		}
 	}
 
-	public static void clientTickEnd(TickEvent.ClientTickEvent event) {
-		if (event.phase == TickEvent.Phase.END) {
-			RenderTileRedString.tick();
-			ItemsRemainingRenderHandler.tick();
+	public static void clientTickEnd(MinecraftClient mc) {
+		RenderTileRedString.tick();
+		ItemsRemainingRenderHandler.tick();
 
-			if (MinecraftClient.getInstance().world == null) {
-				ManaNetworkHandler.instance.clear();
-				SubTileVinculotus.existingFlowers.clear();
-			}
+		if (MinecraftClient.getInstance().world == null) {
+			ManaNetworkHandler.instance.clear();
+			SubTileVinculotus.existingFlowers.clear();
+		}
 
-			if (!MinecraftClient.getInstance().isPaused()) {
-				ticksInGame++;
-				partialTicks = 0;
+		if (!mc.isPaused()) {
+			ticksInGame++;
+			partialTicks = 0;
 
-				PlayerEntity player = MinecraftClient.getInstance().player;
-				if (player != null) {
-					if (PlayerHelper.hasHeldItemClass(player, ModItems.twigWand)) {
-						for (BlockEntity tile : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(MinecraftClient.getInstance().world))) {
-							if (tile instanceof IManaCollector) {
-								((IManaCollector) tile).onClientDisplayTick();
-							}
+			PlayerEntity player = mc.player;
+			if (player != null) {
+				if (PlayerHelper.hasHeldItemClass(player, ModItems.twigWand)) {
+					for (BlockEntity tile : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(MinecraftClient.getInstance().world))) {
+						if (tile instanceof IManaCollector) {
+							((IManaCollector) tile).onClientDisplayTick();
 						}
 					}
 				}
 			}
-
-			int ticksToOpen = 10;
-			if (ItemLexicon.isOpen()) {
-				if (ticksWithLexicaOpen < 0) {
-					ticksWithLexicaOpen = 0;
-				}
-				if (ticksWithLexicaOpen < ticksToOpen) {
-					ticksWithLexicaOpen++;
-				}
-				if (pageFlipTicks > 0) {
-					pageFlipTicks--;
-				}
-			} else {
-				pageFlipTicks = 0;
-				if (ticksWithLexicaOpen > 0) {
-					if (ticksWithLexicaOpen > ticksToOpen) {
-						ticksWithLexicaOpen = ticksToOpen;
-					}
-					ticksWithLexicaOpen--;
-				}
-			}
-
-			calcDelta();
 		}
+
+		int ticksToOpen = 10;
+		if (ItemLexicon.isOpen()) {
+			if (ticksWithLexicaOpen < 0) {
+				ticksWithLexicaOpen = 0;
+			}
+			if (ticksWithLexicaOpen < ticksToOpen) {
+				ticksWithLexicaOpen++;
+			}
+			if (pageFlipTicks > 0) {
+				pageFlipTicks--;
+			}
+		} else {
+			pageFlipTicks = 0;
+			if (ticksWithLexicaOpen > 0) {
+				if (ticksWithLexicaOpen > ticksToOpen) {
+					ticksWithLexicaOpen = ticksToOpen;
+				}
+				ticksWithLexicaOpen--;
+			}
+		}
+
+		calcDelta();
 	}
 
 	public static void notifyPageChange() {

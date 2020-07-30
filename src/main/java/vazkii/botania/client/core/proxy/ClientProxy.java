@@ -9,7 +9,12 @@
 package vazkii.botania.client.core.proxy;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.FlowerBlock;
@@ -68,6 +73,7 @@ import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.AccessorBiomeGeneratorTypeScreens;
 import vazkii.botania.mixin.AccessorRenderTypeBuffers;
+import vazkii.patchouli.api.BookDrawScreenCallback;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -99,23 +105,22 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		modBus.addListener(this::loadComplete);
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onTextureStitchPre);
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onTextureStitchPost);
-		modBus.addListener(MiscellaneousIcons.INSTANCE::onModelRegister);
+		ModelLoadingRegistry.INSTANCE.registerAppender(MiscellaneousIcons.INSTANCE::onModelRegister);
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onModelBake);
-		modBus.addListener(ModelHandler::registerModels);
-		modBus.addListener(ModParticles.FactoryHandler::registerFactories);
+		ModelLoadingRegistry.INSTANCE.registerAppender(ModelHandler::registerModels);
+		ModParticles.FactoryHandler.registerFactories();
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
-		forgeBus.addListener(EventPriority.HIGHEST, TooltipHandler::onTooltipEvent);
-		forgeBus.addListener(TooltipAdditionDisplayHandler::onToolTipRender);
+		ItemTooltipCallback.EVENT.register(TooltipHandler::onTooltipEvent);
 		forgeBus.addListener(RenderLexicon::renderHand);
 		forgeBus.addListener(LightningHandler::onRenderWorldLast);
-		forgeBus.addListener(KonamiHandler::clientTick);
+		ClientTickEvents.END_CLIENT_TICK.register(KonamiHandler::clientTick);
 		forgeBus.addListener(KonamiHandler::handleInput);
-		forgeBus.addListener(KonamiHandler::renderBook);
-		forgeBus.addListener(HUDHandler::onDrawScreenPost);
+		BookDrawScreenCallback.EVENT.register(KonamiHandler::renderBook);
+		HudRenderCallback.EVENT.register(HUDHandler::onDrawScreenPost);
 		forgeBus.addListener(DebugHandler::onDrawDebugText);
 		forgeBus.addListener(CorporeaInputHandler::buttonPressed);
-		forgeBus.addListener(ClientTickHandler::clientTickEnd);
+		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
 		forgeBus.addListener(ClientTickHandler::renderTick);
 		forgeBus.addListener(BoundTileRenderer::onWorldRenderLast);
 		forgeBus.addListener(BossBarHandler::onBarRender);
@@ -242,39 +247,39 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	}
 
 	private static void registerRenderTypes() {
-		RenderLayers.setRenderLayer(ModBlocks.defaultAltar, RenderLayer.getCutout());
-		RenderLayers.setRenderLayer(ModBlocks.forestAltar, RenderLayer.getCutout());
-		RenderLayers.setRenderLayer(ModBlocks.plainsAltar, RenderLayer.getCutout());
-		RenderLayers.setRenderLayer(ModBlocks.mountainAltar, RenderLayer.getCutout());
-		RenderLayers.setRenderLayer(ModBlocks.fungalAltar, RenderLayer.getCutout());
-		RenderLayers.setRenderLayer(ModBlocks.swampAltar, RenderLayer.getCutout());
-		RenderLayers.setRenderLayer(ModBlocks.desertAltar, RenderLayer.getCutout());
-		RenderLayers.setRenderLayer(ModBlocks.taigaAltar, RenderLayer.getCutout());
-		RenderLayers.setRenderLayer(ModBlocks.mesaAltar, RenderLayer.getCutout());
-		RenderLayers.setRenderLayer(ModBlocks.mossyAltar, RenderLayer.getCutout());
-		RenderLayers.setRenderLayer(ModBlocks.ghostRail, RenderLayer.getCutout());
-		RenderLayers.setRenderLayer(ModBlocks.solidVines, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.defaultAltar, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.forestAltar, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.plainsAltar, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.mountainAltar, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.fungalAltar, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.swampAltar, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.desertAltar, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.taigaAltar, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.mesaAltar, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.mossyAltar, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ghostRail, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.solidVines, RenderLayer.getCutout());
 
-		RenderLayers.setRenderLayer(ModBlocks.corporeaCrystalCube, RenderLayer.getTranslucent());
-		RenderLayers.setRenderLayer(ModBlocks.manaGlass, RenderLayer.getTranslucent());
-		RenderLayers.setRenderLayer(ModFluffBlocks.managlassPane, RenderLayer.getTranslucent());
-		RenderLayers.setRenderLayer(ModBlocks.elfGlass, RenderLayer.getTranslucent());
-		RenderLayers.setRenderLayer(ModFluffBlocks.alfglassPane, RenderLayer.getTranslucent());
-		RenderLayers.setRenderLayer(ModBlocks.bifrost, RenderLayer.getTranslucent());
-		RenderLayers.setRenderLayer(ModFluffBlocks.bifrostPane, RenderLayer.getTranslucent());
-		RenderLayers.setRenderLayer(ModBlocks.bifrostPerm, RenderLayer.getTranslucent());
-		RenderLayers.setRenderLayer(ModBlocks.prism, RenderLayer.getTranslucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.corporeaCrystalCube, RenderLayer.getTranslucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.manaGlass, RenderLayer.getTranslucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModFluffBlocks.managlassPane, RenderLayer.getTranslucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.elfGlass, RenderLayer.getTranslucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModFluffBlocks.alfglassPane, RenderLayer.getTranslucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.bifrost, RenderLayer.getTranslucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModFluffBlocks.bifrostPane, RenderLayer.getTranslucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.bifrostPerm, RenderLayer.getTranslucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.prism, RenderLayer.getTranslucent());
 
-		RenderLayers.setRenderLayer(ModBlocks.starfield, RenderLayer.getCutoutMipped());
-		RenderLayers.setRenderLayer(ModBlocks.abstrusePlatform, t -> true);
-		RenderLayers.setRenderLayer(ModBlocks.infrangiblePlatform, t -> true);
-		RenderLayers.setRenderLayer(ModBlocks.spectralPlatform, t -> true);
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.starfield, RenderLayer.getCutoutMipped());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.abstrusePlatform, t -> true);
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.infrangiblePlatform, t -> true);
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.spectralPlatform, t -> true);
 
 		Registry.BLOCK.stream().filter(b -> Registry.BLOCK.getId(b).getNamespace().equals(LibMisc.MOD_ID))
 				.forEach(b -> {
 					if (b instanceof BlockFloatingFlower || b instanceof FlowerBlock
 							|| b instanceof TallFlowerBlock || b instanceof BlockModMushroom) {
-						RenderLayers.setRenderLayer(b, RenderLayer.getCutout());
+						BlockRenderLayerMap.INSTANCE.putBlock(b, RenderLayer.getCutout());
 					}
 				});
 	}
