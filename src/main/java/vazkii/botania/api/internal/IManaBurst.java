@@ -11,6 +11,8 @@ package vazkii.botania.api.internal;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
+import javax.annotation.Nullable;
+
 import java.util.UUID;
 
 /**
@@ -68,4 +70,29 @@ public interface IManaBurst {
 
 	void ping();
 
+	/**
+	 * @return True if a warp lens has already warped this burst once
+	 */
+	boolean hasWarped();
+
+	void setWarped(boolean warped);
+
+	int getOrbitTime();
+
+	void setOrbitTime(int time);
+
+	/**
+	 * @return Whether an entity has tripped this burst for the tripwire lens
+	 */
+	boolean hasTripped();
+
+	void setTripped(boolean tripped);
+
+	/**
+	 * @return The position this burst is magnetized towards
+	 */
+	@Nullable
+	BlockPos getMagnetizedPos();
+
+	void setMagnetizePos(@Nullable BlockPos pos);
 }

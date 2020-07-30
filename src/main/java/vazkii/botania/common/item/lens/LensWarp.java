@@ -20,8 +20,6 @@ import vazkii.botania.common.block.ModBlocks;
 
 public class LensWarp extends Lens {
 
-	public static final String TAG_WARPED = "botania:warped";
-
 	@Override
 	public boolean collideBurst(IManaBurst burst, ThrownEntity entity, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		if (entity.world.isClient || burst.isFake() || pos.getType() != HitResult.Type.BLOCK) {
@@ -38,7 +36,7 @@ public class LensWarp extends Lens {
 				entity.updatePosition(dest.getX() + 0.5, dest.getY() + 0.5, dest.getZ() + 0.5);
 				burst.setCollidedAt(dest);
 
-				entity.getPersistentData().putBoolean(TAG_WARPED, true);
+				burst.setWarped(true);
 
 				return false;
 			}

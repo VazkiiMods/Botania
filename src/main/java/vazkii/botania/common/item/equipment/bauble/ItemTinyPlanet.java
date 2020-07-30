@@ -33,8 +33,6 @@ import java.util.List;
 
 public class ItemTinyPlanet extends ItemBauble {
 
-	public static final String TAG_ORBIT = "orbit";
-
 	public ItemTinyPlanet(Settings props) {
 		super(props);
 	}
@@ -67,7 +65,7 @@ public class ItemTinyPlanet extends ItemBauble {
 				continue;
 			}
 
-			int orbitTime = getEntityOrbitTime(entity);
+			int orbitTime = burst.getOrbitTime();
 			if (orbitTime == 0) {
 				burst.setMinManaLoss(burst.getMinManaLoss() * 3);
 			}
@@ -85,23 +83,8 @@ public class ItemTinyPlanet extends ItemBauble {
 
 			burst.setBurstMotion(moveVector.x, moveVector.y, moveVector.z);
 
-			incrementOrbitTime(entity);
+			burst.setOrbitTime(burst.getOrbitTime() + 1);
 		}
-	}
-
-	public static int getEntityOrbitTime(Entity entity) {
-		CompoundTag cmp = entity.getPersistentData();
-		if (cmp.contains(TAG_ORBIT)) {
-			return cmp.getInt(TAG_ORBIT);
-		} else {
-			return 0;
-		}
-	}
-
-	public static void incrementOrbitTime(Entity entity) {
-		CompoundTag cmp = entity.getPersistentData();
-		int time = getEntityOrbitTime(entity);
-		cmp.putInt(TAG_ORBIT, time + 1);
 	}
 
 }

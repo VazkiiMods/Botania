@@ -20,15 +20,10 @@ import java.util.function.Predicate;
 
 public class LensMagnet extends Lens {
 
-	private static final String TAG_MAGNETIZED = "botania:magnetized";
-	private static final String TAG_MAGNETIZED_X = "botania:magnetized_x";
-	private static final String TAG_MAGNETIZED_Y = "botania:magnetized_y";
-	private static final String TAG_MAGNETIZED_Z = "botania:magnetized_z";
-
 	@Override
 	public void updateBurst(IManaBurst burst, ThrownEntity entity, ItemStack stack) {
 		BlockPos basePos = entity.getBlockPos();
-		boolean magnetized = entity.getPersistentData().contains(TAG_MAGNETIZED);
+		boolean magnetized = burst.getMagnetizedPos() != null;
 		int range = 3;
 
 		BlockPos source = burst.getBurstSourceBlockPos();
@@ -41,14 +36,10 @@ public class LensMagnet extends Lens {
 
 		BlockEntity tile = null;
 		if (magnetized) {
-			tile = entity.world.getBlockEntity(new BlockPos(
-					entity.getPersistentData().getInt(TAG_MAGNETIZED_X),
-					entity.getPersistentData().getInt(TAG_MAGNETIZED_Y),
-					entity.getPersistentData().getInt(TAG_MAGNETIZED_Z)
-			));
+			tile = entity.world.getBlockEntity(burst.getMagnetizedPos());
 			if (!predicate.test(tile)) {
 				tile = null;
-				entity.getPersistentData().remove(TAG_MAGNETIZED);
+				burst.setMagnetizePos(null);
 				magnetized = false;
 			}
 		}
@@ -79,10 +70,7 @@ public class LensMagnet extends Lens {
 		Vec3d finalMotionVec = motionVec.subtract(differenceVec);
 		if (!magnetized) {
 			finalMotionVec = finalMotionVec.multiply(0.75);
-			entity.getPersistentData().putBoolean(TAG_MAGNETIZED, true);
-			entity.getPersistentData().putInt(TAG_MAGNETIZED_X, tile.getPos().getX());
-			entity.getPersistentData().putInt(TAG_MAGNETIZED_Y, tile.getPos().getY());
-			entity.getPersistentData().putInt(TAG_MAGNETIZED_Z, tile.getPos().getZ());
+			burst.setMagnetizePos(tile.getPos());
 		}
 
 		burst.setBurstMotion(finalMotionVec.x, finalMotionVec.y, finalMotionVec.z);
