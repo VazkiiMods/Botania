@@ -15,11 +15,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -33,8 +31,6 @@ import vazkii.botania.common.core.helper.Vector3;
 import java.util.List;
 
 public class ItemTinyPlanet extends ItemBauble {
-
-	public static final String TAG_ORBIT = "orbit";
 
 	public ItemTinyPlanet(Properties props) {
 		super(props);
@@ -68,7 +64,7 @@ public class ItemTinyPlanet extends ItemBauble {
 				continue;
 			}
 
-			int orbitTime = getEntityOrbitTime(entity);
+			int orbitTime = burst.getOrbitTime();
 			if (orbitTime == 0) {
 				burst.setMinManaLoss(burst.getMinManaLoss() * 3);
 			}
@@ -86,23 +82,8 @@ public class ItemTinyPlanet extends ItemBauble {
 
 			burst.setBurstMotion(moveVector.x, moveVector.y, moveVector.z);
 
-			incrementOrbitTime(entity);
+			burst.setOrbitTime(burst.getOrbitTime() + 1);
 		}
-	}
-
-	public static int getEntityOrbitTime(Entity entity) {
-		CompoundNBT cmp = entity.getPersistentData();
-		if (cmp.contains(TAG_ORBIT)) {
-			return cmp.getInt(TAG_ORBIT);
-		} else {
-			return 0;
-		}
-	}
-
-	public static void incrementOrbitTime(Entity entity) {
-		CompoundNBT cmp = entity.getPersistentData();
-		int time = getEntityOrbitTime(entity);
-		cmp.putInt(TAG_ORBIT, time + 1);
 	}
 
 }

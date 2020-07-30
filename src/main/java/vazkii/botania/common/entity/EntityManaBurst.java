@@ -17,6 +17,7 @@ import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.NBTDynamicOps;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -39,10 +40,9 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
-import vazkii.botania.common.item.lens.LensWarp;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.*;
 
@@ -62,11 +62,14 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	private static final String TAG_LAST_MOTION_Y = "lastMotionY";
 	private static final String TAG_LAST_MOTION_Z = "lastMotionZ";
 	private static final String TAG_HAS_SHOOTER = "hasShooter";
-	private static final String TAG_SHOOTER_UUID_MOST = "shooterUUIDMost";
-	private static final String TAG_SHOOTER_UUID_LEAST = "shooterUUIDLeast";
+	private static final String TAG_SHOOTER = "shooterUUID";
 	private static final String TAG_LAST_COLLISION_X = "lastCollisionX";
 	private static final String TAG_LAST_COLLISION_Y = "lastCollisionY";
 	private static final String TAG_LAST_COLLISION_Z = "lastCollisionZ";
+	private static final String TAG_WARPED = "warped";
+	private static final String TAG_ORBIT_TIME = "orbitTime";
+	private static final String TAG_TRIPPED = "tripped";
+	private static final String TAG_MAGNETIZE_POS = "magnetizePos";
 
 	private static final DataParameter<Integer> COLOR = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.VARINT);
 	private static final DataParameter<Integer> MANA = EntityDataManager.createKey(EntityManaBurst.class, DataSerializers.VARINT);
@@ -85,6 +88,10 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	private int _ticksExisted = 0;
 	private boolean scanBeam = false;
 	private BlockPos lastCollision;
+	private boolean warped = false;
+	private int orbitTime = 0;
+	private boolean tripped = false;
+	private BlockPos magnetizePos = null;
 
 	public final List<PositionProperties> propsList = new ArrayList<>();
 
@@ -312,8 +319,13 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		boolean hasShooter = identity != null;
 		tag.putBoolean(TAG_HAS_SHOOTER, hasShooter);
 		if (hasShooter) {
-			tag.putLong(TAG_SHOOTER_UUID_MOST, identity.getMostSignificantBits());
-			tag.putLong(TAG_SHOOTER_UUID_LEAST, identity.getLeastSignificantBits());
+			tag.putUniqueId(TAG_SHOOTER, identity);
+		}
+		tag.putBoolean(TAG_WARPED, warped);
+		tag.putInt(TAG_ORBIT_TIME, orbitTime);
+		tag.putBoolean(TAG_TRIPPED, tripped);
+		if (magnetizePos != null) {
+			tag.put(TAG_MAGNETIZE_POS, BlockPos.field_239578_a_.encodeStart(NBTDynamicOps.INSTANCE, magnetizePos).get().orThrow());
 		}
 	}
 
@@ -357,12 +369,19 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 		boolean hasShooter = cmp.getBoolean(TAG_HAS_SHOOTER);
 		if (hasShooter) {
-			long most = cmp.getLong(TAG_SHOOTER_UUID_MOST);
-			long least = cmp.getLong(TAG_SHOOTER_UUID_LEAST);
+			UUID serializedUuid = cmp.getUniqueId(TAG_SHOOTER);
 			UUID identity = getShooterUUID();
-			if (identity == null || most != identity.getMostSignificantBits() || least != identity.getLeastSignificantBits()) {
-				shooterIdentity = new UUID(most, least);
+			if (!serializedUuid.equals(identity)) {
+				setShooterUUID(serializedUuid);
 			}
+		}
+		warped = cmp.getBoolean(TAG_WARPED);
+		orbitTime = cmp.getInt(TAG_ORBIT_TIME);
+		tripped = cmp.getBoolean(TAG_TRIPPED);
+		if (cmp.contains(TAG_MAGNETIZE_POS)) {
+			magnetizePos = BlockPos.field_239578_a_.parse(NBTDynamicOps.INSTANCE, cmp.get(TAG_MAGNETIZE_POS)).get().orThrow();
+		} else {
+			magnetizePos = null;
 		}
 	}
 
@@ -437,7 +456,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 					currentPos = new Vector3d(iterX, iterY, iterZ);
 					diffVec = oldPos.subtract(currentPos);
-					if (getPersistentData().contains(ItemTinyPlanet.TAG_ORBIT)) {
+					if (getOrbitTime() > 0) {
 						break;
 					}
 				} while (Math.abs(diffVec.length()) > distance);
@@ -533,7 +552,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	}
 
 	private void onReceiverImpact(IManaReceiver tile, BlockPos pos) {
-		if (getPersistentData().getBoolean(LensWarp.TAG_WARPED)) {
+		if (hasWarped()) {
 			return;
 		}
 
@@ -723,9 +742,50 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	@Override
 	public void ping() {
 		TileEntity tile = getShooter();
-		if (tile != null && tile instanceof IPingable) {
+		if (tile instanceof IPingable) {
 			((IPingable) tile).pingback(this, getShooterUUID());
 		}
+	}
+
+	@Override
+	public boolean hasWarped() {
+		return warped;
+	}
+
+	@Override
+	public void setWarped(boolean warped) {
+		this.warped = warped;
+	}
+
+	@Override
+	public int getOrbitTime() {
+		return orbitTime;
+	}
+
+	@Override
+	public void setOrbitTime(int time) {
+		this.orbitTime = time;
+	}
+
+	@Override
+	public boolean hasTripped() {
+		return tripped;
+	}
+
+	@Override
+	public void setTripped(boolean tripped) {
+		this.tripped = tripped;
+	}
+
+	@Nullable
+	@Override
+	public BlockPos getMagnetizedPos() {
+		return magnetizePos;
+	}
+
+	@Override
+	public void setMagnetizePos(@Nullable BlockPos pos) {
+		this.magnetizePos = pos;
 	}
 
 	@Nonnull
