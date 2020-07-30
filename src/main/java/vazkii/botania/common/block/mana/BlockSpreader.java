@@ -21,10 +21,10 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -182,7 +182,7 @@ public class BlockSpreader extends BlockModWaterloggable implements BlockEntityP
 				world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), padding));
 			}
 
-			InventoryHelper.dropInventoryItems(world, pos, inv.getItemHandler());
+			ItemScatterer.spawn(world, pos, inv.getItemHandler());
 
 			super.onStateReplaced(state, world, pos, newState, isMoving);
 		}

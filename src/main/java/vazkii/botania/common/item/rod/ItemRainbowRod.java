@@ -186,7 +186,7 @@ public class ItemRainbowRod extends Item implements IManaUsingItem, IAvatarWield
 					}
 					BlockPos pos = new BlockPos(ex, py, ez);
 					Block block = world.getBlockState(pos).getBlock();
-					if (block.isAir(world.getBlockState(pos), world, pos)) {
+					if (world.getBlockState(pos).isAir()) {
 						world.setBlockState(pos, ModBlocks.bifrost.getDefaultState());
 						TileBifrost tileBifrost = (TileBifrost) world.getBlockEntity(pos);
 						tileBifrost.ticks = 10;

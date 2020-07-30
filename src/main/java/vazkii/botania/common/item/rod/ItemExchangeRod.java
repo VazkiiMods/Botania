@@ -205,8 +205,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		ItemStack placeStack = removeFromInventory(player, stack, state.getBlock(), false);
 		if (!placeStack.isEmpty()) {
 			BlockState stateAt = world.getBlockState(pos);
-			Block blockAt = stateAt.getBlock();
-			if (!blockAt.isAir(world.getBlockState(pos), world, pos) && stateAt.calcBlockBreakingDelta(player, world, pos) > 0 && stateAt != state) {
+			if (!stateAt.isAir() && stateAt.calcBlockBreakingDelta(player, world, pos) > 0 && stateAt != state) {
 				if (!world.isClient) {
 					world.breakBlock(pos, !player.abilities.creativeMode);
 					if (!player.abilities.creativeMode) {

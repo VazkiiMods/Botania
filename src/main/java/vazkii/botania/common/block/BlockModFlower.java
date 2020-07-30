@@ -93,7 +93,7 @@ public class BlockModFlower extends FlowerBlock implements Fertilizable {
 
 	@Override
 	public boolean isFertilizable(@Nonnull BlockView world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean fuckifiknow) {
-		return world.getBlockState(pos.up()).isAir(world, pos);
+		return world.getBlockState(pos.up()).isAir();
 	}
 
 	@Override

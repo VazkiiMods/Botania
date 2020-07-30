@@ -217,7 +217,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 							BlockState srcState = world.getBlockState(destPos);
 							BlockEntity tile = world.getBlockEntity(destPos);
 
-							if (!sticky && tile == null && srcState.getPistonBehavior() == PistonBehavior.NORMAL && srcState.getHardness(world, destPos) != -1 && !srcState.isAir(world, destPos)) {
+							if (!sticky && tile == null && srcState.getPistonBehavior() == PistonBehavior.NORMAL && srcState.getHardness(world, destPos) != -1 && !srcState.isAir()) {
 								Material destMat = world.getBlockState(destPos.offset(dir)).getMaterial();
 								if (world.isAir(destPos.offset(dir)) || destMat.isReplaceable()) {
 									world.setBlockState(destPos, Blocks.AIR.getDefaultState());

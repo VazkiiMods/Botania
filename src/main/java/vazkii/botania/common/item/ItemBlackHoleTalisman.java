@@ -74,7 +74,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 		BlockState state = world.getBlockState(pos);
 		ItemStack stack = ctx.getStack();
 
-		if (!state.isAir(world, pos) && setBlock(stack, state.getBlock())) {
+		if (!state.isAir() && setBlock(stack, state.getBlock())) {
 			return ActionResult.SUCCESS;
 		} else {
 			Block bBlock = getBlock(stack);

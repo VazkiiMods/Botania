@@ -78,7 +78,7 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 
 		for (BlockPos pos : BlockPos.iterate(startCenter.add(-range, -range, -range), startCenter.add(range, range, range))) {
 			BlockState state = world.getBlockState(pos);
-			if (state.isAir(world, pos)) {
+			if (state.isAir()) {
 				continue;
 			}
 
@@ -89,7 +89,7 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 					BlockPos pos_ = pos.offset(dir);
 					BlockState state_ = world.getBlockState(pos_);
 					Block block_ = state_.getBlock();
-					if (state_.isAir(world, pos_) || state_.getMaterial().isReplaceable()
+					if (state_.isAir() || state_.getMaterial().isReplaceable()
 							|| block_ instanceof FlowerBlock && !block_.isIn(ModTags.Blocks.SPECIAL_FLOWERS)
 							|| block_ instanceof TallPlantBlock) {
 						airBlocks.add(pos_);

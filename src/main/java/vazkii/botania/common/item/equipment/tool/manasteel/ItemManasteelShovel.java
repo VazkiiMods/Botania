@@ -85,7 +85,7 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 			return ActionResult.PASS;
 		}
 
-		if (ctx.getSide() != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up())) {
+		if (ctx.getSide() != Direction.DOWN && world.getBlockState(pos.up()).isAir()) {
 			world.playSound(null, pos, converted.getSoundGroup().getStepSound(),
 					SoundCategory.BLOCKS,
 					(converted.getSoundGroup().getVolume() + 1.0F) / 2.0F,
