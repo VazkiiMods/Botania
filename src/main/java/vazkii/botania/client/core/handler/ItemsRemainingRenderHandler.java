@@ -21,8 +21,6 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketUpdateItemsRemaining;
 
@@ -51,20 +49,16 @@ public final class ItemsRemainingRenderHandler {
 			int start = maxTicks - leaveTicks;
 			float alpha = ticks + partTicks > start ? 1F : (ticks + partTicks) / start;
 
-			RenderSystem.disableAlphaTest();
-			RenderSystem.enableBlend();
-			RenderSystem.enableRescaleNormal();
-			RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
-			RenderSystem.color4f(1F, 1F, 1F, alpha);
+			// RenderSystem.color4f(1F, 1F, 1F, alpha);
 			int xp = x + (int) (16F * (1F - alpha));
+			ms.push();
 			ms.translate(xp, y, 0F);
 			ms.scale(alpha, 1F, 1F);
+			RenderSystem.pushMatrix();
+			RenderSystem.multMatrix(ms.getLast().getMatrix());
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, 0, 0);
-			ms.scale(1F / alpha, 1F, 1F);
-			ms.translate(-xp, -y, 0F);
-			RenderSystem.color4f(1F, 1F, 1F, 1F);
-			RenderSystem.enableBlend();
+			RenderSystem.popMatrix();
+			ms.pop();
 
 			ITextComponent text = StringTextComponent.EMPTY;
 
@@ -100,9 +94,6 @@ public final class ItemsRemainingRenderHandler {
 
 			int color = 0x00FFFFFF | (int) (alpha * 0xFF) << 24;
 			mc.fontRenderer.func_238407_a_(ms, text, x + 20, y + 6, color);
-
-			RenderSystem.disableBlend();
-			RenderSystem.enableAlphaTest();
 		}
 	}
 
