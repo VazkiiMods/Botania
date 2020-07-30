@@ -8,12 +8,20 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import nerdhub.cardinal.components.api.ComponentRegistry;
+import nerdhub.cardinal.components.api.ComponentType;
+import nerdhub.cardinal.components.api.component.Component;
+import nerdhub.cardinal.components.api.event.EntityComponentCallback;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.PistonBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.fluid.FluidState;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
@@ -22,7 +30,11 @@ import vazkii.botania.common.block.ModSubtiles;
 
 import java.util.List;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
+	private static final ComponentType<EthicalComponent> COMPONENT = ComponentRegistry.INSTANCE.registerIfAbsent(prefix("ethical"), EthicalComponent.class)
+		.attach(EntityComponentCallback.event(TntEntity.class), EthicalComponent::new);
 	private static final String TAG_UNETHICAL = "botania:unethical";
 	private static final int RANGE = 12;
 	private static final int EXPLODE_EFFECT_EVENT = 0;
@@ -30,17 +42,10 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 
 	public SubTileEntropinnyum() {
 		super(ModSubtiles.ENTROPINNYUM);
-		MinecraftForge.EVENT_BUS.addListener(this::onEntityJoin);
-	}
-
-	private void onEntityJoin(EntityJoinWorldEvent evt) {
-		if (!evt.getWorld().isRemote && evt.getEntity() instanceof TNTEntity && isUnethical(evt.getEntity())) {
-			evt.getEntity().getPersistentData().putBoolean(TAG_UNETHICAL, true);
-		}
 	}
 
 	private static boolean isUnethical(Entity e) {
-		BlockPos center = e.func_233580_cy_();
+		BlockPos center = e.getBlockPos();
 		int x = center.getX();
 		int y = center.getY();
 		int z = center.getZ();
@@ -50,13 +55,13 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 		int movingPistons = 0;
 		int rails = 0;
 		int slimes = 0;
-		for (BlockPos pos : BlockPos.getAllInBoxMutable(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1)) {
+		for (BlockPos pos : BlockPos.iterate(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1)) {
 			BlockState state = e.world.getBlockState(pos);
 			if (state.getBlock() == Blocks.MOVING_PISTON) {
 				movingPistons++;
-				TileEntity te = e.world.getTileEntity(pos);
-				if (te instanceof PistonTileEntity) {
-					state = ((PistonTileEntity) te).getPistonState();
+				BlockEntity te = e.world.getBlockEntity(pos);
+				if (te instanceof PistonBlockEntity) {
+					state = ((PistonBlockEntity) te).getPushedBlock();
 				}
 			}
 
@@ -83,8 +88,8 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 			for (TntEntity tnt : tnts) {
 				FluidState fluid = getWorld().getFluidState(tnt.getBlockPos());
 				if (tnt.getFuseTimer() == 1 && tnt.isAlive() && fluid.isEmpty()) {
-					boolean unethical = tnt.getPersistentData().getBoolean(TAG_UNETHICAL);
-					tnt.playSound(unethical ? SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE : SoundEvents.ENTITY_GENERIC_EXPLODE, 0.2F, (1F + (getWorld().rand.nextFloat() - getWorld().rand.nextFloat()) * 0.2F) * 0.7F);
+					boolean unethical = COMPONENT.get(tnt).unethical;
+					tnt.playSound(unethical ? SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE : SoundEvents.ENTITY_GENERIC_EXPLODE, 0.2F, (1F + (getWorld().random.nextFloat() - getWorld().random.nextFloat()) * 0.2F) * 0.7F);
 					tnt.remove();
 					addMana(unethical ? 3 : getMaxMana());
 					sync();
@@ -111,11 +116,11 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 			}
 			return true;
 		} else if (event == ANGRY_EFFECT_EVENT) {
-			if (getWorld().isRemote && getWorld().getEntityByID(param) instanceof TNTEntity) {
-				Entity e = getWorld().getEntityByID(param);
+			if (getWorld().isClient && getWorld().getEntityById(param) instanceof TntEntity) {
+				Entity e = getWorld().getEntityById(param);
 
 				for (int i = 0; i < 50; i++) {
-					world.addParticle(ParticleTypes.ANGRY_VILLAGER, e.getPosX() + Math.random() * 4 - 2, e.getPosY() + Math.random() * 4 - 2, e.getPosZ() + Math.random() * 4 - 2, 0, 0, 0);
+					world.addParticle(ParticleTypes.ANGRY_VILLAGER, e.getX() + Math.random() * 4 - 2, e.getY() + Math.random() * 4 - 2, e.getZ() + Math.random() * 4 - 2, 0, 0, 0);
 				}
 			}
 
@@ -140,4 +145,22 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
+	private static class EthicalComponent implements Component {
+		public boolean unethical;
+
+		public EthicalComponent(TntEntity entity) {
+			unethical = isUnethical(entity);
+		}
+
+		@Override
+		public void fromTag(CompoundTag tag) {
+			unethical = tag.getBoolean(TAG_UNETHICAL);
+		}
+
+		@Override
+		public CompoundTag toTag(CompoundTag tag) {
+			tag.putBoolean(TAG_UNETHICAL, unethical);
+			return tag;
+		}
+	}
 }
