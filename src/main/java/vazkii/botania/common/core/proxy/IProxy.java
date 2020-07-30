@@ -22,8 +22,6 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.patchouli.api.IMultiblock;
 
 public interface IProxy {
-	default void registerHandlers() {}
-
 	default boolean isTheClientPlayer(LivingEntity entity) {
 		return false;
 	}

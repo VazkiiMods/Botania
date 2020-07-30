@@ -118,8 +118,6 @@ public class Botania implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		DistExecutor.callWhenOn(Dist.CLIENT, () -> () -> proxy = new ClientProxy());
-		proxy.registerHandlers();
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHandler.COMMON_SPEC);
 
@@ -129,7 +127,6 @@ public class Botania implements ModInitializer {
 		modBus.addListener(this::loadComplete);
 		ModFeatures.registerFeatures();
 		ModItems.registerItems();
-		modBus.addGenericListener(ScreenHandlerType.class, ModItems::registerContainers);
 		modBus.addGenericListener(RecipeSerializer.class, ModItems::registerRecipeSerializers);
 		ModEntities.registerEntities();
 		ModRecipeTypes.registerRecipeTypes();

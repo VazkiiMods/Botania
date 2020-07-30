@@ -8,6 +8,9 @@
  */
 package vazkii.botania.client.core.proxy;
 
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.TallFlowerBlock;
@@ -78,7 +81,7 @@ import java.util.SortedMap;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ClientProxy implements IProxy {
+public class ClientProxy implements IProxy, ClientModInitializer {
 
 	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;
@@ -86,13 +89,13 @@ public class ClientProxy implements IProxy {
 	public static KeyBinding CORPOREA_REQUEST;
 
 	@Override
-	public void registerHandlers() {
-		// This is the only place it works, but mods are constructed in parallel (brilliant idea) so this
-		// *could* end up blowing up if it races with someone else. Let's pray that doesn't happen.
+	public void onInitializeClient() {
+		Botania.proxy = this;
+
 		ShaderHelper.initShaders();
 
+		ModItems.registerGuis();
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
-		modBus.addListener(this::clientSetup);
 		modBus.addListener(this::loadComplete);
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onTextureStitchPre);
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onTextureStitchPost);
@@ -120,9 +123,7 @@ public class ClientProxy implements IProxy {
 		forgeBus.addListener(AstrolabePreviewHandler::onWorldRenderLast);
 		forgeBus.addListener(ItemDodgeRing::onKeyDown);
 		forgeBus.addListener(EventPriority.LOWEST, BergamuteEventHandler::onSoundEvent);
-	}
 
-	private void clientSetup(FMLClientSetupEvent event) {
 		PersistentVariableHelper.setCacheFile(new File(MinecraftClient.getInstance().runDirectory, "BotaniaVars.dat"));
 		try {
 			PersistentVariableHelper.load();
@@ -143,18 +144,16 @@ public class ClientProxy implements IProxy {
 
 		registerRenderTypes();
 
-		DeferredWorkQueue.runLater(() -> {
-			AccessorBiomeGeneratorTypeScreens.getAllTypes().add(WorldTypeSkyblock.INSTANCE);
+		AccessorBiomeGeneratorTypeScreens.getAllTypes().add(WorldTypeSkyblock.INSTANCE);
 
-			CORPOREA_REQUEST = new KeyBinding("key.botania_corporea_request", KeyConflictContext.GUI, InputUtil.fromKeyCode(GLFW.GLFW_KEY_C, 0), LibMisc.MOD_NAME);
-			ClientRegistry.registerKeyBinding(ClientProxy.CORPOREA_REQUEST);
-			registerPropertyGetters();
-		});
+		CORPOREA_REQUEST = new KeyBinding("key.botania_corporea_request", GLFW.GLFW_KEY_C, LibMisc.MOD_NAME);
+		KeyBindingHelper.registerKeyBinding(CORPOREA_REQUEST);
+		registerPropertyGetters();
 
 	}
 
 	private static void registerPropertyGetter(ItemConvertible item, Identifier id, ModelPredicateProvider propGetter) {
-		ModelPredicateProviderRegistry.register(item.asItem(), id, propGetter);
+		FabricModelPredicateProviderRegistry.register(item.asItem(), id, propGetter);
 	}
 
 	private static void registerPropertyGetters() {

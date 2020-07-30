@@ -8,6 +8,10 @@
  */
 package vazkii.botania.common.item;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -372,8 +376,8 @@ public final class ModItems {
 	public static final Item astrolabe = new ItemAstrolabe(unstackable());
 	public static final Item goddessCharm = new ItemGoddessCharm(unstackable());
 
-	public static final ScreenHandlerType<ContainerFlowerBag> FLOWER_BAG_CONTAINER = IForgeContainerType.create(ContainerFlowerBag::fromNetwork);
-	public static final ScreenHandlerType<ContainerBaubleBox> BAUBLE_BOX_CONTAINER = IForgeContainerType.create(ContainerBaubleBox::fromNetwork);
+	public static final ScreenHandlerType<ContainerFlowerBag> FLOWER_BAG_CONTAINER = ScreenHandlerRegistry.registerExtended(Registry.ITEM.getId(flowerBag), ContainerFlowerBag::fromNetwork);
+	public static final ScreenHandlerType<ContainerBaubleBox> BAUBLE_BOX_CONTAINER = ScreenHandlerRegistry.registerExtended(Registry.ITEM.getId(baubleBox), ContainerBaubleBox::fromNetwork);
 
 	public static Item.Settings defaultBuilder() {
 		return new Item.Settings().group(BotaniaCreativeTab.INSTANCE);
@@ -702,16 +706,10 @@ public final class ModItems {
 		CraftingHelper.register(prefix("fuzzy_nbt"), FuzzyNBTIngredient.SERIALIZER);
 	}
 
-	public static void registerContainers(RegistryEvent.Register<ScreenHandlerType<?>> evt) {
-		IForgeRegistry<ScreenHandlerType<?>> r = evt.getRegistry();
-
-		register(r, Registry.ITEM.getId(flowerBag), FLOWER_BAG_CONTAINER);
-		register(r, Registry.ITEM.getId(baubleBox), BAUBLE_BOX_CONTAINER);
-
-		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
-			HandledScreens.register(FLOWER_BAG_CONTAINER, GuiFlowerBag::new);
-			HandledScreens.register(BAUBLE_BOX_CONTAINER, GuiBaubleBox::new);
-		});
+	@Environment(EnvType.CLIENT)
+	public static void registerGuis() {
+		ScreenRegistry.register(FLOWER_BAG_CONTAINER, GuiFlowerBag::new);
+		ScreenRegistry.register(BAUBLE_BOX_CONTAINER, GuiBaubleBox::new);
 	}
 
 	public static Item getPetal(DyeColor color) {
