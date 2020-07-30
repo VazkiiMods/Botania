@@ -168,7 +168,6 @@ public class Botania implements ModInitializer {
 		forgeBus.addListener(SubTileNarslimmus::onSpawn);
 		forgeBus.addListener(SubTileDaffomill::onItemTrack);
 		forgeBus.addListener(SubTileVinculotus::onEndermanTeleport);
-		forgeBus.addListener(EventPriority.LOWEST, SubTileLoonuim::onDrops);
 		UseBlockCallback.EVENT.register(BlockRedStringInterceptor::onInteract);
 		forgeBus.addListener(ManaNetworkHandler.instance::onNetworkEvent);
 		forgeBus.addListener(EventPriority.HIGHEST, TileCorporeaIndex.getInputHandler()::onChatMessage);

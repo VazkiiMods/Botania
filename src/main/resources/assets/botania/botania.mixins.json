@@ -21,6 +21,7 @@
     "AccessorRecipeManager",
     "AccessorWitherEntity",
     "MixinEndermanPickupBlock",
+    "MixinLivingEntity",
     "MixinPlayerEntity"
   ],
   "client": [
