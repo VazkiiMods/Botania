@@ -57,6 +57,11 @@ dependencies {
     modImplementation "me.zeroeightsix:fiber:0.23.0-1"
     include "me.zeroeightsix:fiber:0.23.0-1"
 
+    // Match version with curios, don't include as curios includes it already
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.4.1"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:2.4.1"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.4.1"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-util:2.4.1"
     modImplementation "top.theillusivec4.curios:curios-fabric:1.16.1-0.2"
 
     //to change the versions see the gradle.properties file
