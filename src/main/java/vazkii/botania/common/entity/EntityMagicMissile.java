@@ -8,17 +8,15 @@
  */
 package vazkii.botania.common.entity;
 
-import com.google.common.base.Predicates;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BushBlock;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.IAngerable;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.passive.horse.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -41,7 +39,6 @@ import vazkii.botania.common.core.helper.Vector3;
 import javax.annotation.Nonnull;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.function.Predicate;
 
 public class EntityMagicMissile extends ThrowableEntity {
@@ -194,7 +191,7 @@ public class EntityMagicMissile extends ThrowableEntity {
 		if (isEvil()) {
 			entities = world.getEntitiesWithinAABB(PlayerEntity.class, bounds);
 		} else {
-			Predicate<LivingEntity> pred = EntityPredicates.IS_LIVING_ALIVE.and(this::notOwnedByThrower).and(Predicates.instanceOf(IMob.class));
+			Predicate<LivingEntity> pred = EntityPredicates.IS_LIVING_ALIVE.and(this::shouldTarget);
 			entities = world.getEntitiesWithinAABB(LivingEntity.class, bounds, pred);
 		}
 
@@ -206,24 +203,19 @@ public class EntityMagicMissile extends ThrowableEntity {
 		return target != null;
 	}
 
-	private boolean notOwnedByThrower(LivingEntity target) {
+	public boolean shouldTarget(LivingEntity e) {
+		// always defend yourself
 		Entity thrower = func_234616_v_();
-		if (!(thrower instanceof LivingEntity)) {
+		if (thrower != null && e instanceof IAngerable && ((IAngerable) e).getAttackTarget() == thrower) {
 			return true;
 		}
-
-		LivingEntity owner = (LivingEntity) thrower;
-
-		if (target instanceof TameableEntity) {
-			return !((TameableEntity) target).isOwner(owner);
+		// don't target tamed creatures...
+		if (e instanceof TameableEntity && ((TameableEntity) e).isTamed()) {
+			return false;
 		}
 
-		if (target instanceof AbstractHorseEntity) {
-			UUID targetOwner = ((AbstractHorseEntity) target).getOwnerUniqueId();
-			return targetOwner == null || !targetOwner.equals(owner.getUniqueID());
-		}
-
-		return true;
+		// ...but other mobs die
+		return e instanceof IMob;
 	}
 
 	@Override
