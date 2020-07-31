@@ -17,6 +17,7 @@ import net.minecraft.entity.IAngerable;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.entity.passive.horse.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -210,7 +211,7 @@ public class EntityMagicMissile extends ThrowableEntity {
 			return true;
 		}
 		// don't target tamed creatures...
-		if (e instanceof TameableEntity && ((TameableEntity) e).isTamed()) {
+		if (e instanceof TameableEntity && ((TameableEntity) e).isTamed() || e instanceof AbstractHorseEntity && ((AbstractHorseEntity) e).getOwnerUniqueID() != null) {
 			return false;
 		}
 
