@@ -211,7 +211,7 @@ public class EntityMagicMissile extends ThrowableEntity {
 			return true;
 		}
 		// don't target tamed creatures...
-		if (e instanceof TameableEntity && ((TameableEntity) e).isTamed() || e instanceof AbstractHorseEntity && ((AbstractHorseEntity) e).getOwnerUniqueID() != null) {
+		if (e instanceof TameableEntity && ((TameableEntity) e).isTamed() || e instanceof AbstractHorseEntity && ((AbstractHorseEntity) e).isTame()) {
 			return false;
 		}
 
