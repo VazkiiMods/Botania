@@ -69,6 +69,7 @@ minecraft {
         data {
             properties 'fml.earlyprogresswindow': 'false'
             workingDirectory project.file('run')
+            forceExit false
             mods {
                 botania {
                     source sourceSets.main
