@@ -13,8 +13,8 @@ import net.minecraft.block.BushBlock;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IAngerable;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.passive.horse.AbstractHorseEntity;
@@ -207,7 +207,7 @@ public class EntityMagicMissile extends ThrowableEntity {
 	public boolean shouldTarget(LivingEntity e) {
 		// always defend yourself
 		Entity thrower = func_234616_v_();
-		if (thrower != null && e instanceof IAngerable && ((IAngerable) e).getAttackTarget() == thrower) {
+		if (thrower != null && e instanceof MobEntity && ((MobEntity) e).getAttackTarget() == thrower) {
 			return true;
 		}
 		// don't target tamed creatures...
