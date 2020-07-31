@@ -17,6 +17,7 @@ import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -128,7 +129,6 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 							double y = event.getEntityLiving().getPosY() - 0.5;
 							double z = event.getEntityLiving().getPosZ() - 0.5;
 
-							player.getGameProfile().getName();
 							float r = 1F;
 							float g = 1F;
 							float b = 1F;
@@ -305,17 +305,121 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		return super.hasRender(stack, living) && living instanceof PlayerEntity;
 	}
 
+	@OnlyIn(Dist.CLIENT)
+	private static void renderJibril(BipedModel<?> bipedModel, IBakedModel model, ItemStack stack, MatrixStack ms, IRenderTypeBuffer buffers, int light, float flap) {
+		ms.push();
+		bipedModel.bipedBody.translateRotate(ms);
+		ms.translate(0, 0.5, 0.2);
+
+		for (int i = 0; i < 2; i++) {
+			ms.push();
+			ms.rotate(Vector3f.YP.rotationDegrees(i == 0 ? flap : 180 - flap));
+
+			// move so flapping about the edge instead of center of texture
+			ms.translate(-1, 0, 0);
+
+			// rotate since the textures are stored rotated
+			ms.rotate(Vector3f.ZP.rotationDegrees(-60));
+			ms.scale(1.5F, -1.5F, -1.5F);
+			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
+			ms.pop();
+		}
+
+		ms.pop();
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	private static void renderSephiroth(BipedModel<?> bipedModel, IBakedModel model, ItemStack stack, MatrixStack ms, IRenderTypeBuffer buffers, int light, float flap) {
+		ms.push();
+		bipedModel.bipedBody.translateRotate(ms);
+		ms.translate(0, 0.5, 0.2);
+
+		ms.rotate(Vector3f.YP.rotationDegrees(flap));
+		ms.translate(-1.1, 0, 0);
+
+		ms.rotate(Vector3f.ZP.rotationDegrees(-60));
+		ms.scale(1.6F, -1.6F, -1.6F);
+		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
+		ms.pop();
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	private static void renderCirno(BipedModel<?> bipedModel, IBakedModel model, ItemStack stack, MatrixStack ms, IRenderTypeBuffer buffers, int light) {
+		ms.push();
+		bipedModel.bipedBody.translateRotate(ms);
+		ms.translate(-0.8, 0.15, 0.25);
+
+		for (int i = 0; i < 2; i++) {
+			ms.push();
+
+			if (i == 1) {
+				ms.rotate(Vector3f.YP.rotationDegrees(180));
+				ms.translate(-1.6, 0, 0);
+			}
+
+			ms.scale(1.6F, -1.6F, -1.6F);
+			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
+			ms.pop();
+		}
+
+		ms.pop();
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	private static void renderPhoenix(BipedModel<?> bipedModel, IBakedModel model, ItemStack stack, MatrixStack ms, IRenderTypeBuffer buffers, float flap) {
+		ms.push();
+		bipedModel.bipedBody.translateRotate(ms);
+		ms.translate(0, -0.2, 0.2);
+
+		for (int i = 0; i < 2; i++) {
+			ms.push();
+			ms.rotate(Vector3f.YP.rotationDegrees(i == 0 ? flap : 180 - flap));
+
+			ms.translate(-0.9, 0, 0);
+
+			ms.scale(1.7F, -1.7F, -1.7F);
+			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, false, ms, buffers, 0xF000F0, OverlayTexture.NO_OVERLAY, model);
+			ms.pop();
+		}
+
+		ms.pop();
+	}
+
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		int meta = getVariant(stack);
-		if (meta > 0 && meta <= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length) {
-			IBakedModel model = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
+		if (meta <= 0 || meta >= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length + 1) {
+			return;
+		}
 
-			boolean flying = ((PlayerEntity) player).abilities.isFlying;
+		IBakedModel model = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
+		boolean flying = living instanceof PlayerEntity && ((PlayerEntity) living).abilities.isFlying;
+		float flap = 20F + (float) ((Math.sin((double) (living.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
+
+		switch (meta) {
+		case 1:
+			renderJibril(bipedModel, model, stack, ms, buffers, light, flap);
+			ms.push();
+			renderHalo(bipedModel, living, ms, buffers, partialTicks);
+			ms.pop();
+			break;
+		case 2:
+			renderSephiroth(bipedModel, model, stack, ms, buffers, light, flap);
+			break;
+		case 3:
+			renderCirno(bipedModel, model, stack, ms, buffers, light);
+			break;
+		case 4:
+			renderPhoenix(bipedModel, model, stack, ms, buffers, flap);
+			break;
+
+		}
+
+		if (false && meta > 0 && meta <= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length) {
 
 			float rotZ = 120F;
-			float rotX = 20F + (float) ((Math.sin((double) (player.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
+			float rotX = 20F + (float) ((Math.sin((double) (living.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
 			float rotY = 0F;
 			float dy = 0.2F;
 			float dz = 0.15F;
@@ -345,7 +449,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				rotZ = 180F;
 				dy = 0.5F;
 				rotX = 20F;
-				rotY = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.6F) * (flying ? 30F : 5F));
+				rotY = -(float) ((Math.sin((double) (living.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.6F) * (flying ? 30F : 5F));
 				fullbright = true;
 				break;
 			}
@@ -367,7 +471,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				rotZ = 0F;
 				rotY = -rotX;
 				rotX = 0F;
-				float alpha = 0.5F + (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.2F;
+				float alpha = 0.5F + (float) Math.cos((double) (living.ticksExisted + partialTicks) * 0.3F) * 0.2F;
 				color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
 				break;
 			}
@@ -380,8 +484,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				rotZ = 180F;
 				rotX = 0F;
 				dy = 1.1F;
-				rotY = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
-				float alpha = 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F);
+				rotY = -(float) ((Math.sin((double) (living.ticksExisted + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
+				float alpha = 0.5F + (flying ? (float) Math.cos((double) (living.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F);
 				color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
 			}
 			}
@@ -390,7 +494,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			float mul = 32F / 20F;
 			scale *= mul;
 
-			AccessoryRenderHelper.rotateIfSneaking(ms, player);
+			AccessoryRenderHelper.rotateIfSneaking(ms, living);
 
 			ms.translate(0F, dy, dz);
 
@@ -400,7 +504,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			ms.rotate(Vector3f.YP.rotationDegrees(rotY));
 			ms.scale(scale, scale, scale);
 
-			RenderHelper.renderItemCustomColor(player, stack, color, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
+			RenderHelper.renderItemCustomColor(living, stack, color, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
 			ms.pop();
 
 			if (meta != 2) { // Sephiroth
@@ -410,14 +514,14 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				ms.rotate(Vector3f.XP.rotationDegrees(rotX));
 				ms.rotate(Vector3f.YP.rotationDegrees(rotY));
 				ms.scale(scale, scale, scale);
-				RenderHelper.renderItemCustomColor(player, stack, color, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
+				RenderHelper.renderItemCustomColor(living, stack, color, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
 				ms.pop();
 			}
 
 			ms.pop();
 
 			if (meta == 1) {
-				renderHalo(bipedModel, player, ms, buffers, partialTicks);
+				renderHalo(bipedModel, living, ms, buffers, partialTicks);
 			}
 		}
 	}
