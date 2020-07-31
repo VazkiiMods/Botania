@@ -344,9 +344,8 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 				renderItem(ms, buffers, light, overlay, new ItemStack(ModItems.infiniteFruit, 1).setDisplayName(new StringTextComponent("das boot")));
 			} else if (name.equals("jibril")) {
 				ms.scale(1.5F, 1.5F, 1.5F);
-				ms.translate(0F, -0.8F, 0F);
-				ms.rotate(Vector3f.YP.rotationDegrees(90));
-				ItemFlightTiara.renderHalo(null, ms, buffers, partialTicks);
+				ms.translate(0F, 0.8F, 0F);
+				ItemFlightTiara.renderHalo(null, null, ms, buffers, partialTicks);
 			} else if (name.equals("kingdaddydmac")) {
 				ms.scale(0.5F, 0.5F, 0.5F);
 				ms.rotate(Vector3f.ZP.rotationDegrees(180));

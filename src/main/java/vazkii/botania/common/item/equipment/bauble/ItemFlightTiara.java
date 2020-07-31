@@ -314,12 +314,12 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 			boolean flying = ((PlayerEntity) player).abilities.isFlying;
 
-			float rz = 120F;
-			float rx = 20F + (float) ((Math.sin((double) (player.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
-			float ry = 0F;
-			float h = 0.2F;
-			float i = 0.15F;
-			float s = 1F;
+			float rotZ = 120F;
+			float rotX = 20F + (float) ((Math.sin((double) (player.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
+			float rotY = 0F;
+			float dy = 0.2F;
+			float dz = 0.15F;
+			float scale = 1F;
 			int color = -1;
 			boolean fullbright = false;
 
@@ -327,60 +327,60 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 			switch (meta) {
 			case 1: { // Jibril
-				h = 0.4F;
+				dy = 0.4F;
 				break;
 			}
 			case 2: { // Sephiroth
-				s = 1.3F;
+				scale = 1.3F;
 				break;
 			}
 			case 3: { // Cirno
-				h = -0.1F;
-				rz = 0F;
-				rx = 0F;
-				i = 0.3F;
+				dy = -0.1F;
+				rotZ = 0F;
+				rotX = 0F;
+				dz = 0.3F;
 				break;
 			}
 			case 4: { // Phoenix
-				rz = 180F;
-				h = 0.5F;
-				rx = 20F;
-				ry = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.6F) * (flying ? 30F : 5F));
+				rotZ = 180F;
+				dy = 0.5F;
+				rotX = 20F;
+				rotY = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.6F) * (flying ? 30F : 5F));
 				fullbright = true;
 				break;
 			}
 			case 5: { // Kuroyukihime
-				h = 0.8F;
-				rz = 180F;
-				ry = -rx;
-				rx = 0F;
-				s = 2F;
+				dy = 0.8F;
+				rotZ = 180F;
+				rotY = -rotX;
+				rotX = 0F;
+				scale = 2F;
 				break;
 			}
 			case 6: { // Random Devil
-				rz = 150F;
+				rotZ = 150F;
 				break;
 			}
 			case 7: { // Lyfa
 				fullbright = true;
-				h = -0.1F;
-				rz = 0F;
-				ry = -rx;
-				rx = 0F;
+				dy = -0.1F;
+				rotZ = 0F;
+				rotY = -rotX;
+				rotX = 0F;
 				float alpha = 0.5F + (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.2F;
 				color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
 				break;
 			}
 			case 8: { // Mega Ultra Chicken
-				h = 0.1F;
+				dy = 0.1F;
 				break;
 			}
 			case 9: { // The One
 				fullbright = true;
-				rz = 180F;
-				rx = 0F;
-				h = 1.1F;
-				ry = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
+				rotZ = 180F;
+				rotX = 0F;
+				dy = 1.1F;
+				rotY = -(float) ((Math.sin((double) (player.ticksExisted + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
 				float alpha = 0.5F + (flying ? (float) Math.cos((double) (player.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F);
 				color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
 			}
@@ -388,17 +388,17 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 			// account for padding in the texture
 			float mul = 32F / 20F;
-			s *= mul;
+			scale *= mul;
 
 			AccessoryRenderHelper.rotateIfSneaking(ms, player);
 
-			ms.translate(0F, h, i);
+			ms.translate(0F, dy, dz);
 
 			ms.push();
-			ms.rotate(Vector3f.ZP.rotationDegrees(rz));
-			ms.rotate(Vector3f.XP.rotationDegrees(rx));
-			ms.rotate(Vector3f.YP.rotationDegrees(ry));
-			ms.scale(s, s, s);
+			ms.rotate(Vector3f.ZP.rotationDegrees(rotZ));
+			ms.rotate(Vector3f.XP.rotationDegrees(rotX));
+			ms.rotate(Vector3f.YP.rotationDegrees(rotY));
+			ms.scale(scale, scale, scale);
 
 			RenderHelper.renderItemCustomColor(player, stack, color, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
 			ms.pop();
@@ -406,10 +406,10 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			if (meta != 2) { // Sephiroth
 				ms.scale(-1F, 1F, 1F);
 				ms.push();
-				ms.rotate(Vector3f.ZP.rotationDegrees(rz));
-				ms.rotate(Vector3f.XP.rotationDegrees(rx));
-				ms.rotate(Vector3f.YP.rotationDegrees(ry));
-				ms.scale(s, s, s);
+				ms.rotate(Vector3f.ZP.rotationDegrees(rotZ));
+				ms.rotate(Vector3f.XP.rotationDegrees(rotX));
+				ms.rotate(Vector3f.YP.rotationDegrees(rotY));
+				ms.scale(scale, scale, scale);
 				RenderHelper.renderItemCustomColor(player, stack, color, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
 				ms.pop();
 			}
@@ -417,31 +417,33 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			ms.pop();
 
 			if (meta == 1) {
-				renderHalo(player, ms, buffers, partialTicks);
+				renderHalo(bipedModel, player, ms, buffers, partialTicks);
 			}
 		}
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHalo(@Nullable LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, float partialTicks) {
-		if (player != null) {
-			AccessoryRenderHelper.translateToHeadLevel(ms, player, partialTicks);
+	public static void renderHalo(@Nullable BipedModel<?> model, @Nullable LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, float partialTicks) {
+		if (model != null) {
+			model.bipedHead.translateRotate(ms);
 		}
-		ms.translate(0, 1.5F, 0);
-		ms.rotate(new Vector3f(1, 0, -1).rotationDegrees(30));
-		ms.translate(-0.1F, -0.5F, -0.1F);
+
+		ms.translate(0.2, -0.65, 0);
+		ms.rotate(Vector3f.ZP.rotationDegrees(30));
+
 		if (player != null) {
 			ms.rotate(Vector3f.YP.rotationDegrees(player.ticksExisted + partialTicks));
 		} else {
 			ms.rotate(Vector3f.YP.rotationDegrees(ClientTickHandler.ticksInGame));
 		}
 
+		ms.scale(0.75F, -0.75F, -0.75F);
 		IVertexBuilder buffer = buffers.getBuffer(RenderHelper.HALO);
 		Matrix4f mat = ms.getLast().getMatrix();
-		buffer.pos(mat, -0.75F, 0, -0.75F).tex(0, 0).endVertex();
-		buffer.pos(mat, -0.75F, 0, 0.75F).tex(0, 1).endVertex();
-		buffer.pos(mat, 0.75F, 0, 0.75F).tex(1, 1).endVertex();
-		buffer.pos(mat, 0.75F, 0, -0.75F).tex(1, 0).endVertex();
+		buffer.pos(mat, -1F, 0, -1F).tex(0, 0).endVertex();
+		buffer.pos(mat, 1F, 0, -1F).tex(1, 0).endVertex();
+		buffer.pos(mat, 1F, 0, 1F).tex(1, 1).endVertex();
+		buffer.pos(mat, -1F, 0, 1F).tex(0, 1).endVertex();
 	}
 
 	@OnlyIn(Dist.CLIENT)
