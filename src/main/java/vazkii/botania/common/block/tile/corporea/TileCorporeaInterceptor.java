@@ -50,7 +50,7 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 					for (Direction dir : Direction.values()) {
 						TileEntity tile = world.getTileEntity(pos.offset(dir));
 						if (tile instanceof TileCorporeaRetainer) {
-							((TileCorporeaRetainer) tile).setPendingRequest(requestor.getPos(), request, count);
+							((TileCorporeaRetainer) tile).setPendingRequest(requestor.getPos(), request, missing);
 						}
 					}
 
