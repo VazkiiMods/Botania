@@ -46,7 +46,6 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
@@ -305,10 +304,20 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		return super.hasRender(stack, living) && living instanceof PlayerEntity;
 	}
 
+	/*
+		NB: All of the following methods are somewhat similar, but they are split apart to isolate the logic.
+		Trying too hard to factor things out of each case led to very spaghetti-looking code.
+		As such, only Jibril's is commented, the rest are variations on the same theme
+	*/
+
 	@OnlyIn(Dist.CLIENT)
-	private static void renderJibril(BipedModel<?> bipedModel, IBakedModel model, ItemStack stack, MatrixStack ms, IRenderTypeBuffer buffers, int light, float flap) {
+	private static void renderBasic(BipedModel<?> bipedModel, IBakedModel model, ItemStack stack, MatrixStack ms, IRenderTypeBuffer buffers, int light, float flap) {
 		ms.push();
+
+		// attach to body
 		bipedModel.bipedBody.translateRotate(ms);
+
+		// position on body
 		ms.translate(0, 0.5, 0.2);
 
 		for (int i = 0; i < 2; i++) {
@@ -385,6 +394,46 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		ms.pop();
 	}
 
+	@OnlyIn(Dist.CLIENT)
+	private static void renderKuroyukihime(BipedModel<?> bipedModel, IBakedModel model, ItemStack stack, MatrixStack ms, IRenderTypeBuffer buffers, float flap) {
+		ms.push();
+		bipedModel.bipedBody.translateRotate(ms);
+		ms.translate(0, -0.4, 0.2);
+
+		for (int i = 0; i < 2; i++) {
+			ms.push();
+			ms.rotate(Vector3f.YP.rotationDegrees(i == 0 ? flap : 180 - flap));
+
+			ms.translate(-1.3, 0, 0);
+
+			ms.scale(2.5F, -2.5F, -2.5F);
+			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, false, ms, buffers, 0xF000F0, OverlayTexture.NO_OVERLAY, model);
+			ms.pop();
+		}
+
+		ms.pop();
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	private static void renderCustomColor(BipedModel<?> bipedModel, IBakedModel model, LivingEntity living, ItemStack stack, MatrixStack ms, IRenderTypeBuffer buffers, float flap, int color) {
+		ms.push();
+		bipedModel.bipedBody.translateRotate(ms);
+		ms.translate(0, 0, 0.2);
+
+		for (int i = 0; i < 2; i++) {
+			ms.push();
+			ms.rotate(Vector3f.YP.rotationDegrees(i == 0 ? flap : 180 - flap));
+			ms.translate(-0.7, 0, 0);
+
+			ms.scale(1.5F, -1.5F, -1.5F);
+
+			RenderHelper.renderItemCustomColor(living, stack, color, ms, buffers, 0xF000F0, OverlayTexture.NO_OVERLAY, model);
+			ms.pop();
+		}
+
+		ms.pop();
+	}
+
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
@@ -399,7 +448,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 		switch (meta) {
 		case 1:
-			renderJibril(bipedModel, model, stack, ms, buffers, light, flap);
+			renderBasic(bipedModel, model, stack, ms, buffers, light, flap);
 			ms.push();
 			renderHalo(bipedModel, living, ms, buffers, partialTicks);
 			ms.pop();
@@ -413,116 +462,23 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		case 4:
 			renderPhoenix(bipedModel, model, stack, ms, buffers, flap);
 			break;
-
-		}
-
-		if (false && meta > 0 && meta <= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length) {
-
-			float rotZ = 120F;
-			float rotX = 20F + (float) ((Math.sin((double) (living.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
-			float rotY = 0F;
-			float dy = 0.2F;
-			float dz = 0.15F;
-			float scale = 1F;
-			int color = -1;
-			boolean fullbright = false;
-
-			ms.push();
-
-			switch (meta) {
-			case 1: { // Jibril
-				dy = 0.4F;
-				break;
-			}
-			case 2: { // Sephiroth
-				scale = 1.3F;
-				break;
-			}
-			case 3: { // Cirno
-				dy = -0.1F;
-				rotZ = 0F;
-				rotX = 0F;
-				dz = 0.3F;
-				break;
-			}
-			case 4: { // Phoenix
-				rotZ = 180F;
-				dy = 0.5F;
-				rotX = 20F;
-				rotY = -(float) ((Math.sin((double) (living.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.6F) * (flying ? 30F : 5F));
-				fullbright = true;
-				break;
-			}
-			case 5: { // Kuroyukihime
-				dy = 0.8F;
-				rotZ = 180F;
-				rotY = -rotX;
-				rotX = 0F;
-				scale = 2F;
-				break;
-			}
-			case 6: { // Random Devil
-				rotZ = 150F;
-				break;
-			}
-			case 7: { // Lyfa
-				fullbright = true;
-				dy = -0.1F;
-				rotZ = 0F;
-				rotY = -rotX;
-				rotX = 0F;
-				float alpha = 0.5F + (float) Math.cos((double) (living.ticksExisted + partialTicks) * 0.3F) * 0.2F;
-				color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
-				break;
-			}
-			case 8: { // Mega Ultra Chicken
-				dy = 0.1F;
-				break;
-			}
-			case 9: { // The One
-				fullbright = true;
-				rotZ = 180F;
-				rotX = 0F;
-				dy = 1.1F;
-				rotY = -(float) ((Math.sin((double) (living.ticksExisted + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
-				float alpha = 0.5F + (flying ? (float) Math.cos((double) (living.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F);
-				color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
-			}
-			}
-
-			// account for padding in the texture
-			float mul = 32F / 20F;
-			scale *= mul;
-
-			AccessoryRenderHelper.rotateIfSneaking(ms, living);
-
-			ms.translate(0F, dy, dz);
-
-			ms.push();
-			ms.rotate(Vector3f.ZP.rotationDegrees(rotZ));
-			ms.rotate(Vector3f.XP.rotationDegrees(rotX));
-			ms.rotate(Vector3f.YP.rotationDegrees(rotY));
-			ms.scale(scale, scale, scale);
-
-			RenderHelper.renderItemCustomColor(living, stack, color, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
-			ms.pop();
-
-			if (meta != 2) { // Sephiroth
-				ms.scale(-1F, 1F, 1F);
-				ms.push();
-				ms.rotate(Vector3f.ZP.rotationDegrees(rotZ));
-				ms.rotate(Vector3f.XP.rotationDegrees(rotX));
-				ms.rotate(Vector3f.YP.rotationDegrees(rotY));
-				ms.scale(scale, scale, scale);
-				RenderHelper.renderItemCustomColor(living, stack, color, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
-				ms.pop();
-			}
-
-			ms.pop();
-
-			if (meta == 1) {
-				renderHalo(bipedModel, living, ms, buffers, partialTicks);
-			}
+		case 5:
+			renderKuroyukihime(bipedModel, model, stack, ms, buffers, flap);
+			break;
+		case 6:
+		case 8:
+			renderBasic(bipedModel, model, stack, ms, buffers, light, flap);
+		case 7:
+			float alpha = 0.5F + (float) Math.cos((double) (living.ticksExisted + partialTicks) * 0.3F) * 0.2F;
+			int color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
+			renderCustomColor(bipedModel, model, living, stack, ms, buffers, flap, color);
+			break;
+		case 9:
+			flap = -(float) ((Math.sin((double) (living.ticksExisted + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
+			alpha = 0.5F + (flying ? (float) Math.cos((double) (living.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F);
+			color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
+			renderCustomColor(bipedModel, model, living, stack, ms, buffers, flap, color);
+			break;
 		}
 	}
 
