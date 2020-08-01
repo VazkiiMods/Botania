@@ -1,3 +1,10 @@
+r1.15 388
+* This is the final build for 1.15. See you in 1.16.1 very soon!
+* Fix melon and pumpkin seeds not spawning in Garden of Glass (*requires GoG update*)
+* Fix duplicate model loader registration when resources are reloaded
+* [API] Add constructor for Brews that takes a supplier (Alan19)
+* Rafflowsia now has a streak-like system awarding many diverse flowers, similar to the overhauled Gourmaryllis. Mana output is dramatically increased for very long streaks. Try to automate it to 15 or more unique flowers! (Alwinfy)
+* Partial fix for Soujourner's Sash and Cirrus Amulet causing fall damage
 r1.15 387
 * Update critical hit logic in ancient wills to match vanilla
 * Fix crashes with flugel tiara when running on Java 11
