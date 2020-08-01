@@ -12,8 +12,8 @@ import com.google.common.collect.ImmutableList;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.potion.PotionUtils;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import vazkii.botania.api.BotaniaAPI;

@@ -25,6 +25,9 @@
   "botaniamisc.filter0": "Pickup only items in Frames",
   "botaniamisc.filter1": "Pickup only items not in Frames",
   "botaniamisc.filter2": "Pickup any items",
+  "botaniamisc.retainer.retain_all": "Retain original number of items requested",
+  "botaniamisc.retainer.retain_missing": "Retain number of missing items",
+
   "botaniamisc.creativePool0": "Creative Mana Pool, has infinite Mana",
   "botaniamisc.creativePool1": "Worthy of an Egoist",
   "botaniamisc.toolRank": "%s\u00a77 Rank",
@@ -2838,9 +2841,10 @@
   "botania.entry.corporeaRetainer": "Corporea Retainer",
   "botania.tagline.corporeaRetainer": "Memory for re-doing Corporea requests",
   "botania.page.corporeaRetainer0": "The $(item)Corporea Retainer$(0) is an addon (of sorts) to the $(l:ender/corporea_interceptor)$(item)Corporea Interceptor$(0)$(/l). When placed adjacent to an Interceptor, one of these will remember the origin and contents of any requests that trigger the former.",
-  "botania.page.corporeaRetainer1": "Once the $(item)Corporea Retainer$(0) memorizes a request, when given a redstone signal it'll \"replay\" the request back into the network, performing the request from its original position. For example: consider a $(l:ender/corporea_funnel)$(item)Funnel$(0)$(/l) that requests $(item)Wooden Planks$(0), which its network is out of. An Interceptor in the network could catch the unfulfillable request and trigger a mechanism to craft the planks; if an attached Retainer was triggered after that, it would make the original Funnel redo its request and get its planks.",
-  "botania.page.corporeaRetainer2": "As the $(item)Corporea Retainer$(0) is an addon to the Interceptor, it can proxy its requests through the latter, so it doesn't need a spark itself.$(p)The retainer can only memorize one request at a time; any additional incoming requests will be discarded rather than stored. A $(item)Redstone Comparator$(0) can read whether a request is being held.",
+  "botania.page.corporeaRetainer1": "Once the $(item)Corporea Retainer$(0) memorizes a request, when given a redstone signal it'll \"replay\" the request, performing it from its original position. For example: consider a $(l:ender/corporea_funnel)$(item)Funnel$(0)$(/l) that requests $(item)Wooden Planks$(0) when there are no more left. An Interceptor in the network could catch the request and trigger a mechanism to craft the missing planks; if an attached Retainer was triggered after that, it would make the original Funnel redo its request and get its planks.",
+  "botania.page.corporeaRetainer2": "As the $(item)Corporea Retainer$(0) is an addon to the Interceptor, it can proxy its requests through the latter, so it doesn't need a spark itself.$(p)The retainer can only memorize one request at a time; any additional incoming requests will be discarded rather than stored. A $(item)Redstone Comparator$(0) can read whether a request is being held, and if so, how many items.",
   "botania.page.corporeaRetainer3": "The nemesis of a goldfish",
+  "botania.page.corporeaRetainer4": "Using a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l) on the $(item)Retainer$(0) will toggle it between remembering the total count of the original request, or only the number of missing items.",
 
   "botania.entry.spawnerMover": "Life Aggregator",
   "botania.tagline.spawnerMover": "The ability to move Spawners",
