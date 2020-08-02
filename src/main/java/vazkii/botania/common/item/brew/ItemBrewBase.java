@@ -73,8 +73,7 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	@Nonnull
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		player.setActiveHand(hand);
-		return ActionResult.resultSuccess(player.getHeldItem(hand));
+		return DrinkHelper.func_234707_a_(world, player, hand);
 	}
 
 	@Nonnull

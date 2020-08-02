@@ -55,7 +55,7 @@ public class ItemHorn extends Item {
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.resultSuccess(player.getHeldItem(hand));
+		return ActionResult.resultConsume(player.getHeldItem(hand));
 	}
 
 	@Override

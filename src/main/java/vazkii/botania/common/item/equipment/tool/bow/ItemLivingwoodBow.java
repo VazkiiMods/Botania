@@ -51,10 +51,10 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 		}
 
 		if (!playerIn.abilities.isCreativeMode && !flag) {
-			return flag ? new ActionResult<>(ActionResultType.PASS, itemstack) : new ActionResult<>(ActionResultType.FAIL, itemstack);
+			return ActionResult.resultFail(itemstack);
 		} else {
 			playerIn.setActiveHand(handIn);
-			return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
+			return ActionResult.resultConsume(itemstack);
 		}
 	}
 

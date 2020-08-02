@@ -119,7 +119,7 @@ public class ItemCacophonium extends Item {
 		if (getSound(stack) != null) {
 			player.setActiveHand(hand);
 		}
-		return ActionResult.resultSuccess(stack);
+		return ActionResult.resultConsume(stack);
 	}
 
 	@Override

@@ -75,7 +75,7 @@ public class ItemSlingshot extends Item {
 		ItemStack stack = player.getHeldItem(hand);
 		if (player.abilities.isCreativeMode || PlayerHelper.hasAmmo(player, AMMO_FUNC)) {
 			player.setActiveHand(hand);
-			return ActionResult.resultSuccess(stack);
+			return ActionResult.resultConsume(stack);
 		}
 
 		return ActionResult.resultPass(stack);

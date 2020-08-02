@@ -59,7 +59,7 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.resultSuccess(player.getHeldItem(hand));
+		return ActionResult.resultConsume(player.getHeldItem(hand));
 	}
 
 	private void terraform(ItemStack stack, World world, PlayerEntity player) {

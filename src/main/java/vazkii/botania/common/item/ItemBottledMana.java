@@ -22,6 +22,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.DrinkHelper;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -209,8 +210,7 @@ public class ItemBottledMana extends Item {
 	@Nonnull
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		player.setActiveHand(hand);
-		return ActionResult.resultSuccess(player.getHeldItem(hand));
+		return DrinkHelper.func_234707_a_(world, player, hand);
 	}
 
 	@Nonnull
