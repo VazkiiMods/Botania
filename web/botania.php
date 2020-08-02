@@ -30,7 +30,6 @@
 				<li id="header-btn-index" class="header-btn"><a href="./index.php">Home</a></li>
 				<li id="header-btn-downloads" class="header-btn"><a href="./downloads.php">Downloads</a></li>
 				<li id="header-btn-changelog" class="header-btn"><a href="./changelog.php">Changelog</a></li>
-				<li id="header-btn-modpacks" class="header-btn"><a href="./modpacks.php">Modpacks</a></li>
 				<li id="header-btn-credits" class="header-btn"><a href="./credits.php">Credits</a></li>
 				<li id="header-btn-license" class="header-btn"><a href="./license.php">License</a></li>
 				<li id="header-btn-lexicon" class="header-btn"><a href="./lexicon.php">Lexicon</a></li>
