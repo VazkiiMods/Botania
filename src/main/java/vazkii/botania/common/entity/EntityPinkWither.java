@@ -17,6 +17,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
@@ -55,6 +56,9 @@ public class EntityPinkWither extends WitherEntity {
 			}
 		}
 	}
+
+	@Override
+	protected void dropSpecialItems(@Nonnull DamageSource source, int looting, boolean recentlyHit) {}
 
 	@Override
 	public void updateAITasks() {
