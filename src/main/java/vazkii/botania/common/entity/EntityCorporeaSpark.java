@@ -25,7 +25,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ItemParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -37,10 +36,8 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 import vazkii.botania.api.corporea.ICorporeaNode;
 import vazkii.botania.api.corporea.ICorporeaSpark;
-import vazkii.botania.api.corporea.InvWithLocation;
-import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.impl.corporea.DummyCorporeaNode;
-import vazkii.botania.common.impl.corporea.InventoryCorporeaNode;
+import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
 
@@ -189,7 +186,8 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 		}
 	}
 
-	private BlockPos getAttachPos() {
+	@Override
+	public BlockPos getAttachPos() {
 		int x = MathHelper.floor(getPosX());
 		int y = MathHelper.floor(getPosY() - 1);
 		int z = MathHelper.floor(getPosZ());
@@ -198,12 +196,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	@Override
 	public ICorporeaNode getSparkNode() {
-		InvWithLocation inv = InventoryHelper.getInventoryWithLocation(world, getAttachPos(), Direction.UP);
-		if (inv != null) {
-			return new InventoryCorporeaNode(inv.getWorld(), inv.getPos(), inv.getHandler(), this);
-		} else {
-			return new DummyCorporeaNode(world, getAttachPos(), this);
-		}
+		return CorporeaNodeDetectors.findNode(world, this);
 	}
 
 	@Override

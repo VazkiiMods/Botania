@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.corporea.ICorporeaRequest;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DummyCorporeaNode extends AbstractCorporeaNode {
@@ -25,13 +25,11 @@ public class DummyCorporeaNode extends AbstractCorporeaNode {
 
 	@Override
 	public List<ItemStack> countItems(ICorporeaRequest request) {
-		// todo immutable?
-		return new ArrayList<>();
+		return Collections.emptyList();
 	}
 
 	@Override
 	public List<ItemStack> extractItems(ICorporeaRequest request) {
-		// todo immutable?
-		return new ArrayList<>();
+		return Collections.emptyList();
 	}
 }

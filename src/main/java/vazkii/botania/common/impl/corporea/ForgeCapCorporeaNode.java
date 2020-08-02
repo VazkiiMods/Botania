@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.impl.corporea;
 
+import com.google.common.collect.ImmutableList;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -16,14 +18,13 @@ import net.minecraftforge.items.IItemHandler;
 import vazkii.botania.api.corporea.ICorporeaRequest;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class InventoryCorporeaNode extends AbstractCorporeaNode {
+public class ForgeCapCorporeaNode extends AbstractCorporeaNode {
 
 	protected final IItemHandler inv;
 
-	public InventoryCorporeaNode(World world, BlockPos pos, IItemHandler inv, ICorporeaSpark spark) {
+	public ForgeCapCorporeaNode(World world, BlockPos pos, IItemHandler inv, ICorporeaSpark spark) {
 		super(world, pos, spark);
 		this.inv = inv;
 	}
@@ -39,7 +40,7 @@ public class InventoryCorporeaNode extends AbstractCorporeaNode {
 	}
 
 	protected List<ItemStack> iterateOverSlots(ICorporeaRequest request, boolean doit) {
-		List<ItemStack> stacks = new ArrayList<>();
+		ImmutableList.Builder<ItemStack> builder = ImmutableList.builder();
 
 		for (int i = inv.getSlots() - 1; i >= 0; i--) {
 			ItemStack stackAt = inv.getStackInSlot(i);
@@ -49,7 +50,7 @@ public class InventoryCorporeaNode extends AbstractCorporeaNode {
 
 				if (rem > 0) {
 					ItemStack copy = stackAt.copy();
-					stacks.add(inv.extractItem(i, rem, !doit));
+					builder.add(inv.extractItem(i, rem, !doit));
 					if (doit && spark != null) {
 						spark.onItemExtracted(copy);
 					}
@@ -61,7 +62,7 @@ public class InventoryCorporeaNode extends AbstractCorporeaNode {
 			}
 		}
 
-		return stacks;
+		return builder.build();
 	}
 
 }

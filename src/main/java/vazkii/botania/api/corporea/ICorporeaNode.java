@@ -29,9 +29,8 @@ public interface ICorporeaNode {
 	 * Counts items in the node matching the request
 	 *
 	 * @param request specifies what should be found
-	 * @return List of ItemStack, individual stacks may exceed maxStackSize for
-	 *         purposes of counting huge amounts. To get final count requestor
-	 *         should sum stackSize of all stacks.
+	 * @return List of ItemStack. Individual stacks may be over-sized (exceed the item's maxStackSize) for
+	 *         purposes of counting huge amounts. The list should not be modified.
 	 */
 	List<ItemStack> countItems(ICorporeaRequest request);
 
@@ -48,7 +47,7 @@ public interface ICorporeaNode {
 	 * {@link ICorporeaRequest#getExtracted()} are updated to reflect how many
 	 * items were found and extracted.
 	 *
-	 * @return List of ItemStacks to be delivered to the destination.
+	 * @return List of ItemStacks to be delivered to the destination. The list should not be modified.
 	 */
 	List<ItemStack> extractItems(ICorporeaRequest request);
 }

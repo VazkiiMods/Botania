@@ -90,7 +90,7 @@ public class TileCorporeaRetainer extends TileMod {
 				request = null;
 				requestCount = 0;
 				compValue = 0;
-				world.updateComparatorOutputLevel(getPos(), getBlockState().getBlock());
+				markDirty();
 			}
 		}
 	}
