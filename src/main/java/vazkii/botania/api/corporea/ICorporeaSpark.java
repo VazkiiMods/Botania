@@ -62,7 +62,7 @@ public interface ICorporeaSpark {
 	ICorporeaSpark getMaster();
 
 	/**
-	 * Called when an item is extracted from the inventory this spark is attached to through this
+	 * Called when an item is extracted from the node this spark is attached to through this
 	 * spark.
 	 * 
 	 * @param stack The itemstack, before any extraction was done

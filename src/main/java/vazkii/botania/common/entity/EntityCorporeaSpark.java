@@ -39,8 +39,8 @@ import vazkii.botania.api.corporea.ICorporeaNode;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.core.helper.InventoryHelper;
-import vazkii.botania.common.integration.corporea.DummyCorporeaNode;
-import vazkii.botania.common.integration.corporea.InventoryCorporeaNode;
+import vazkii.botania.common.impl.corporea.DummyCorporeaNode;
+import vazkii.botania.common.impl.corporea.InventoryCorporeaNode;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
 

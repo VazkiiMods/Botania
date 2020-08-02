@@ -26,10 +26,9 @@ public interface ICorporeaNode {
 	BlockPos getPos();
 
 	/**
-	 * Counts items in the inventory matching the request
+	 * Counts items in the node matching the request
 	 *
-	 * @param request
-	 *                - specifies what should be found
+	 * @param request specifies what should be found
 	 * @return List of ItemStack, individual stacks may exceed maxStackSize for
 	 *         purposes of counting huge amounts. To get final count requestor
 	 *         should sum stackSize of all stacks.
@@ -37,19 +36,18 @@ public interface ICorporeaNode {
 	List<ItemStack> countItems(ICorporeaRequest request);
 
 	/**
-	 * Convenience method for accessing spark over inventory
+	 * Convenience method for accessing the spark over this node
 	 */
 	ICorporeaSpark getSpark();
 
 	/**
-	 * Extracts items matching request from the inventory.<br/>
+	 * Extracts items matching request from the node.<br/>
 	 * {@link ICorporeaRequest#getStillNeeded()} is updated to reflect how many items are
 	 * yet to be extracted.<br/>
 	 * {@link ICorporeaRequest#getFound()} and
 	 * {@link ICorporeaRequest#getExtracted()} are updated to reflect how many
 	 * items were found and extracted.
 	 *
-	 * @param request
 	 * @return List of ItemStacks to be delivered to the destination.
 	 */
 	List<ItemStack> extractItems(ICorporeaRequest request);

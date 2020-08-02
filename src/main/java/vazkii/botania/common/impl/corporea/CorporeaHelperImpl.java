@@ -66,14 +66,9 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 	@Override
 	public int getCountInNetwork(ICorporeaRequestMatcher matcher, List<ICorporeaNode> inventories) {
 		Map<ICorporeaNode, Integer> map = getInventoriesWithMatchInNetwork(matcher, inventories);
-		return getCountInNetwork(matcher, map);
-	}
-
-	@Override
-	public int getCountInNetwork(ICorporeaRequestMatcher matcher, Map<ICorporeaNode, Integer> inventories) {
 		int count = 0;
 
-		for (int value : inventories.values()) {
+		for (int value : map.values()) {
 			count += value;
 		}
 
