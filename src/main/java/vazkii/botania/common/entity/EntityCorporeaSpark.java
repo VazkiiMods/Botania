@@ -35,14 +35,16 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+import vazkii.botania.api.corporea.ICorporeaNode;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.common.integration.corporea.DummyCorporeaNode;
+import vazkii.botania.common.integration.corporea.InventoryCorporeaNode;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,8 +85,8 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 			return;
 		}
 
-		InvWithLocation inv = getSparkInventory();
-		if (inv == null && !world.getBlockState(getAttachPos()).isIn(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE)) {
+		ICorporeaNode node = getSparkNode();
+		if (node instanceof DummyCorporeaNode && !world.getBlockState(getAttachPos()).isIn(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE)) {
 			dropAndKill();
 			return;
 		}
@@ -194,10 +196,14 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 		return new BlockPos(x, y, z);
 	}
 
-	@Nullable
 	@Override
-	public InvWithLocation getSparkInventory() {
-		return InventoryHelper.getInventoryWithLocation(world, getAttachPos(), Direction.UP);
+	public ICorporeaNode getSparkNode() {
+		InvWithLocation inv = InventoryHelper.getInventoryWithLocation(world, getAttachPos(), Direction.UP);
+		if (inv != null) {
+			return new InventoryCorporeaNode(inv.getWorld(), inv.getPos(), inv.getHandler(), this);
+		} else {
+			return new DummyCorporeaNode(world, getAttachPos(), this);
+		}
 	}
 
 	@Override

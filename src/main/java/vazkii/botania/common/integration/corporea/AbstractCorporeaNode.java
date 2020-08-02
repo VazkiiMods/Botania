@@ -9,20 +9,36 @@
 package vazkii.botania.common.integration.corporea;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
+import vazkii.botania.api.corporea.ICorporeaNode;
 import vazkii.botania.api.corporea.ICorporeaSpark;
-import vazkii.botania.api.corporea.IWrappedInventory;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class WrappedInventoryBase implements IWrappedInventory {
+public abstract class AbstractCorporeaNode implements ICorporeaNode {
 
+	private final World world;
+	private final BlockPos pos;
 	protected final ICorporeaSpark spark;
 
-	public WrappedInventoryBase(ICorporeaSpark spark) {
+	public AbstractCorporeaNode(World world, BlockPos pos, ICorporeaSpark spark) {
+		this.world = world;
+		this.pos = pos;
 		this.spark = spark;
+	}
+
+	@Override
+	public World getWorld() {
+		return world;
+	}
+
+	@Override
+	public BlockPos getPos() {
+		return pos;
 	}
 
 	@Override

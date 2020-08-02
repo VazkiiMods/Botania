@@ -14,11 +14,9 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 
-import vazkii.botania.api.corporea.ICorporeaInterceptor;
-import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
-import vazkii.botania.api.corporea.ICorporeaSpark;
-import vazkii.botania.api.corporea.InvWithLocation;
+import vazkii.botania.api.corporea.*;
 import vazkii.botania.common.block.tile.ModTiles;
 
 import java.util.ArrayList;
@@ -30,10 +28,10 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public void interceptRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit) {}
+	public void interceptRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<ICorporeaNode> nodes, boolean doit) {}
 
 	@Override
-	public void interceptRequestLast(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit) {
+	public void interceptRequestLast(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<ICorporeaNode> nodes, boolean doit) {
 		List<ItemStack> filter = getFilter();
 		for (ItemStack stack : filter) {
 			if (request.isStackValid(stack)) {
@@ -46,11 +44,11 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 					world.setBlockState(getPos(), getBlockState().with(BlockStateProperties.POWERED, true));
 					world.getPendingBlockTicks().scheduleTick(getPos(), getBlockState().getBlock(), 2);
 
-					TileEntity requestor = source.getSparkInventory().getWorld().getTileEntity(source.getSparkInventory().getPos());
+					BlockPos requestorPos = source.getSparkNode().getPos();
 					for (Direction dir : Direction.values()) {
 						TileEntity tile = world.getTileEntity(pos.offset(dir));
 						if (tile instanceof TileCorporeaRetainer) {
-							((TileCorporeaRetainer) tile).remember(requestor.getPos(), request, count, missing);
+							((TileCorporeaRetainer) tile).remember(requestorPos, request, count, missing);
 						}
 					}
 

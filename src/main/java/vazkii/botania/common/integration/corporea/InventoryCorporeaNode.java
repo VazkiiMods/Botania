@@ -9,27 +9,23 @@
 package vazkii.botania.common.integration.corporea;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.items.IItemHandler;
 
 import vazkii.botania.api.corporea.ICorporeaRequest;
 import vazkii.botania.api.corporea.ICorporeaSpark;
-import vazkii.botania.api.corporea.IWrappedInventory;
-import vazkii.botania.api.corporea.InvWithLocation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WrappedIInventory extends WrappedInventoryBase {
+public class InventoryCorporeaNode extends AbstractCorporeaNode {
 
-	protected final InvWithLocation inv;
+	protected final IItemHandler inv;
 
-	protected WrappedIInventory(InvWithLocation inv, ICorporeaSpark spark) {
-		super(spark);
+	public InventoryCorporeaNode(World world, BlockPos pos, IItemHandler inv, ICorporeaSpark spark) {
+		super(world, pos, spark);
 		this.inv = inv;
-	}
-
-	@Override
-	public InvWithLocation getWrappedObject() {
-		return inv;
 	}
 
 	@Override
@@ -45,17 +41,15 @@ public class WrappedIInventory extends WrappedInventoryBase {
 	protected List<ItemStack> iterateOverSlots(ICorporeaRequest request, boolean doit) {
 		List<ItemStack> stacks = new ArrayList<>();
 
-		for (int i = inv.getHandler().getSlots() - 1; i >= 0; i--) {
-			ItemStack stackAt = inv.getHandler().getStackInSlot(i);
-			// WARNING: this code is very similar in all implementations of
-			// IWrappedInventory - keep it synch
+		for (int i = inv.getSlots() - 1; i >= 0; i--) {
+			ItemStack stackAt = inv.getStackInSlot(i);
 			if (request.getMatcher().isStackValid(stackAt)) {
 				int rem = Math.min(stackAt.getCount(), request.getStillNeeded() == -1 ? stackAt.getCount() : request.getStillNeeded());
 				request.trackFound(stackAt.getCount());
 
 				if (rem > 0) {
 					ItemStack copy = stackAt.copy();
-					stacks.add(inv.getHandler().extractItem(i, rem, !doit));
+					stacks.add(inv.extractItem(i, rem, !doit));
 					if (doit && spark != null) {
 						spark.onItemExtracted(copy);
 					}
@@ -68,10 +62,6 @@ public class WrappedIInventory extends WrappedInventoryBase {
 		}
 
 		return stacks;
-	}
-
-	public static IWrappedInventory wrap(InvWithLocation inv, ICorporeaSpark spark) {
-		return new WrappedIInventory(inv, spark);
 	}
 
 }

@@ -310,7 +310,6 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 
 				for (Entity e : getPassengers()) {
 					e.stopRiding();
-					e.setPositionAndUpdate(getPosX(), getPosY(), getPosZ());
 				}
 				remove();
 			} else {

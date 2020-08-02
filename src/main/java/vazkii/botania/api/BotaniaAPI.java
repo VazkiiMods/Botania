@@ -24,15 +24,12 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 
 import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.corporea.IWrappedInventory;
-import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.internal.DummyManaNetwork;
 import vazkii.botania.api.internal.IManaNetwork;
 
 import javax.annotation.Nonnull;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -255,10 +252,5 @@ public interface BotaniaAPI {
 	 */
 	default boolean shouldForceCheck() {
 		return false;
-	}
-
-	// todo 1.16 reevaluate this
-	default List<IWrappedInventory> wrapInventory(List<InvWithLocation> inventories) {
-		return Collections.emptyList();
 	}
 }

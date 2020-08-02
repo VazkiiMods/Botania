@@ -13,6 +13,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
@@ -81,9 +82,9 @@ public class TileCorporeaRetainer extends TileMod {
 
 		ICorporeaSpark spark = CorporeaHelper.instance().getSparkForBlock(world, requestPos);
 		if (spark != null) {
-			InvWithLocation inv = spark.getSparkInventory();
-			if (inv != null && inv.getWorld().getTileEntity(inv.getPos()) instanceof ICorporeaRequestor) {
-				ICorporeaRequestor requestor = (ICorporeaRequestor) inv.getWorld().getTileEntity(inv.getPos());
+			TileEntity te = spark.getSparkNode().getWorld().getTileEntity(spark.getSparkNode().getPos());
+			if (te instanceof ICorporeaRequestor) {
+				ICorporeaRequestor requestor = (ICorporeaRequestor) te;
 				requestor.doCorporeaRequest(request, requestCount, spark);
 
 				request = null;

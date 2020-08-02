@@ -39,10 +39,10 @@ public interface CorporeaHelper {
 	}
 
 	/**
-	 * Gets a list of all the inventories on this spark network. This list is cached for use once every tick,
+	 * Gets a list of all the nodes on this spark network. This list is cached for use once every tick,
 	 * and if something changes during that tick it'll still have the first result.
 	 */
-	default List<InvWithLocation> getInventoriesOnNetwork(ICorporeaSpark spark) {
+	default List<ICorporeaNode> getNodesOnNetwork(ICorporeaSpark spark) {
 		return Collections.emptyList();
 	}
 
@@ -60,14 +60,14 @@ public interface CorporeaHelper {
 	 * The higher level function that use a Map< IInventory, Integer > should be
 	 * called instead if the context for this exists to avoid having to get the value again.
 	 */
-	default int getCountInNetwork(ICorporeaRequestMatcher matcher, List<InvWithLocation> inventories) {
+	default int getCountInNetwork(ICorporeaRequestMatcher matcher, List<ICorporeaNode> inventories) {
 		return 0;
 	}
 
 	/**
 	 * Gets the amount of available items in the network of the type passed in, checking NBT or not.
 	 */
-	default int getCountInNetwork(ICorporeaRequestMatcher matcher, Map<InvWithLocation, Integer> inventories) {
+	default int getCountInNetwork(ICorporeaRequestMatcher matcher, Map<ICorporeaNode, Integer> nodes) {
 		return 0;
 	}
 
@@ -76,7 +76,7 @@ public interface CorporeaHelper {
 	 * The higher level function that use a List< IInventory > should be
 	 * called instead if the context for this exists to avoid having to get the value again.
 	 */
-	default Map<InvWithLocation, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
+	default Map<ICorporeaNode, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
 		return Collections.emptyMap();
 	}
 
@@ -85,7 +85,7 @@ public interface CorporeaHelper {
 	 * The deeper level function that use a List< IInventory > should be
 	 * called instead if the context for this exists to avoid having to get the value again.
 	 */
-	default Map<InvWithLocation, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, List<InvWithLocation> inventories) {
+	default Map<ICorporeaNode, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, List<ICorporeaNode> inventories) {
 		return Collections.emptyMap();
 	}
 
@@ -131,14 +131,6 @@ public interface CorporeaHelper {
 	 */
 	default ICorporeaResult requestItem(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean doit) {
 		return ICorporeaResult.Dummy.INSTANCE;
-	}
-
-	/**
-	 * Gets the spark attached to the inventory passed case it's a TileEntity.
-	 */
-	@Nullable
-	default ICorporeaSpark getSparkForInventory(InvWithLocation inv) {
-		return null;
 	}
 
 	/**

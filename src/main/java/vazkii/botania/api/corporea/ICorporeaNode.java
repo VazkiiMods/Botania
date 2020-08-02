@@ -9,19 +9,21 @@
 package vazkii.botania.api.corporea;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.util.List;
 
 /**
- * This interface wraps IInventory corporea works with in order to provide
- * compatibility with different storage mods.
+ * The unit of interaction for the Corporea network
+ * All Corporea Sparks are attached to one of these
+ * Note that not all implementations of this are actual inventories (e.g. interceptors)
  */
-public interface IWrappedInventory {
+public interface ICorporeaNode {
 
-	/**
-	 * Break encapsulation and exposes original inventory.
-	 */
-	InvWithLocation getWrappedObject();
+	World getWorld();
+
+	BlockPos getPos();
 
 	/**
 	 * Counts items in the inventory matching the request
