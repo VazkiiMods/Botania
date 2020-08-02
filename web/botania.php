@@ -34,7 +34,7 @@
 				<li id="header-btn-license" class="header-btn"><a href="./license.php">License</a></li>
 				<li id="header-btn-lexicon" class="header-btn"><a href="./lexicon.php">Lexicon</a></li>
 				<li id="header-btn-faq" class="header-btn"><a href="./faq.php">FAQ</a></li>
-				<li id="header-btn-back" class="header-btn"><a href="http://vazkii.us">vazkii.us</a></li>
+				<li id="header-btn-back" class="header-btn"><a href="https://vazkii.net">vazkii.net</a></li>
 			  </ul>
 			</div>
 		  </div>
@@ -48,8 +48,8 @@
 			<div class="container text-muted">
 				Botania (this website included) is licensed under the <a href="license.php">Botania License</a>.<br>
 				Powered by <a href="http://fezvrasta.github.io/bootstrap-material-design/">Bootstrap Material Design</a> by <a href="https://github.com/FezVrasta">Fez Vrasta</a>.<br>
-				Discuss Botania on the <a href="http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/1294116-botania-an-innovative-natural-magic-themed-tech">Minecraft Forums</a> or the <a href="http://forum.feed-the-beast.com/threads/botania-an-innovative-natural-magic-themed-tech-mod-not-in-beta-any-more.41662/">FTB Forums</a>.<br>
-				Misc Links: <a href="https://twitter.com/Vazkii">Twitter</a> <b>|</b> <a href="http://www.patreon.com/Vazkii">Patreon</a> <b>|</b> <a href="https://github.com/Vazkii/Botania">Github</a> <b>|</b> <a href="http://webchat.esper.net/?channels=vazkii">IRC</a><br><br>
+				Discuss Botania on the <a href="https://old.reddit.com/r/Botania">Botania subreddit</a>.<br>
+				Misc Links: <a href="https://twitter.com/Vazkii">Twitter</a> <b>|</b> <a href="http://www.patreon.com/Vazkii">Patreon</a> <b>|</b> <a href="https://github.com/Vazkii/Botania">Github</a> <b>|</b> <a href="https://discord.gg/vazkii">Discord</a><br><br>
 				<i>Add the colors to the big sight, before the world turns black and white. Don't let unity cause monotony, chante avec moi, bring the symphony.</i> - <a href="https://www.youtube.com/watch?v=zkLJoFp2UAE">Mitchie M</a>
 			</div>
 		</footer>
