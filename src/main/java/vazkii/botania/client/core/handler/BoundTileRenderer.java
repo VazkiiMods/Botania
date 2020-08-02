@@ -67,14 +67,14 @@ public final class BoundTileRenderer {
 		int color = 0xFF000000 | MathHelper.hsvToRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		if (!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() instanceof ICoordBoundItem) {
-			BlockPos coords = ((ICoordBoundItem) player.getHeldItemMainhand().getItem()).getBinding(player.getHeldItemMainhand());
+			BlockPos coords = ((ICoordBoundItem) player.getHeldItemMainhand().getItem()).getBinding(player.world, player.getHeldItemMainhand());
 			if (coords != null) {
 				renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);
 			}
 		}
 
 		if (!player.getHeldItemOffhand().isEmpty() && player.getHeldItemOffhand().getItem() instanceof ICoordBoundItem) {
-			BlockPos coords = ((ICoordBoundItem) player.getHeldItemOffhand().getItem()).getBinding(player.getHeldItemOffhand());
+			BlockPos coords = ((ICoordBoundItem) player.getHeldItemOffhand().getItem()).getBinding(player.world, player.getHeldItemOffhand());
 			if (coords != null) {
 				renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);
 			}

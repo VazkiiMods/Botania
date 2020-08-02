@@ -72,6 +72,8 @@
   "botaniamisc.notYourSagittarius": "\u00a74This relic is not yours",
   "botaniamisc.diceRoll": "The dice lands on a %s and transforms into something else!",
   "botaniamisc.dudDiceRoll": "The dice lands on a %s and seems to vanish into thin air.",
+  "botaniamisc.flugelBound": "Bound to %s in %s",
+  "botaniamisc.flugelUnbound": "Unbound in %s",
   "botaniamisc.blockAway": "1 Block Away",
   "botaniamisc.blocksAway": "%s Blocks Away",
   "botaniamisc.clickToTeleport": "Right-click to teleport",

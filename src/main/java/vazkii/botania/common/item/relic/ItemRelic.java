@@ -33,6 +33,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.UUID;
@@ -54,31 +55,29 @@ public class ItemRelic extends Item implements IRelic {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-		addBindInfo(tooltip, stack);
+	public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+		TooltipHandler.addOnShift(tooltip, () -> addInformationAfterShift(stack, world, tooltip, flags));
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void addBindInfo(List<ITextComponent> tooltip, ItemStack stack) {
-		TooltipHandler.addOnShift(tooltip, () -> {
-			if (!hasUUID(stack)) {
-				tooltip.add(new TranslationTextComponent("botaniamisc.relicUnbound"));
+	public void addInformationAfterShift(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+		if (!hasUUID(stack)) {
+			tooltip.add(new TranslationTextComponent("botaniamisc.relicUnbound"));
+		} else {
+			if (!getSoulbindUUID(stack).equals(Minecraft.getInstance().player.getUniqueID())) {
+				tooltip.add(new TranslationTextComponent("botaniamisc.notYourSagittarius"));
 			} else {
-				if (!getSoulbindUUID(stack).equals(Minecraft.getInstance().player.getUniqueID())) {
-					tooltip.add(new TranslationTextComponent("botaniamisc.notYourSagittarius"));
-				} else {
-					tooltip.add(new TranslationTextComponent("botaniamisc.relicSoulbound", Minecraft.getInstance().player.getName()));
-				}
+				tooltip.add(new TranslationTextComponent("botaniamisc.relicSoulbound", Minecraft.getInstance().player.getName()));
 			}
+		}
 
-			if (stack.getItem() == ModItems.dice) {
-				tooltip.add(new StringTextComponent(""));
-				String name = stack.getTranslationKey() + ".poem";
-				for (int i = 0; i < 4; i++) {
-					tooltip.add(new TranslationTextComponent(name + i).func_240701_a_(TextFormatting.GRAY, TextFormatting.ITALIC));
-				}
+		if (stack.getItem() == ModItems.dice) {
+			tooltip.add(new StringTextComponent(""));
+			String name = stack.getTranslationKey() + ".poem";
+			for (int i = 0; i < 4; i++) {
+				tooltip.add(new TranslationTextComponent(name + i).func_240701_a_(TextFormatting.GRAY, TextFormatting.ITALIC));
 			}
-		});
+		}
 	}
 
 	public boolean shouldDamageWrongPlayer() {

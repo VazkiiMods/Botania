@@ -132,30 +132,39 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 	}
 
 	@Nullable
-	public IManaPool getManaPool(ItemStack stack) {
-		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
-		if (server == null) {
-			return fallbackPool;
-		}
-
+	private static GlobalPos getBoundPos(ItemStack stack) {
 		if (!stack.getOrCreateTag().contains(TAG_POS)) {
-			return fallbackPool;
+			return null;
 		}
 
 		Optional<GlobalPos> pos = GlobalPos.field_239645_a_.parse(NBTDynamicOps.INSTANCE, ItemNBTHelper.get(stack, TAG_POS)).result();
 		if (!pos.isPresent()) {
-			return fallbackPool;
+			return null;
 		}
 
 		BlockPos coords = pos.get().getPos();
 		if (coords.getY() == -1) {
 			return null;
 		}
+		return pos.get();
+	}
 
-		RegistryKey<World> type = pos.get().func_239646_a_();
+	@Nullable
+	private IManaPool getManaPool(ItemStack stack) {
+		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+		if (server == null) {
+			return fallbackPool;
+		}
+
+		GlobalPos pos = getBoundPos(stack);
+		if (pos == null) {
+			return fallbackPool;
+		}
+
+		RegistryKey<World> type = pos.func_239646_a_();
 		World world = server.getWorld(type);
 		if (world != null) {
-			TileEntity tile = world.getTileEntity(coords);
+			TileEntity tile = world.getTileEntity(pos.getPos());
 			if (tile instanceof IManaPool) {
 				return (IManaPool) tile;
 			}
@@ -224,11 +233,19 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 		return false;
 	}
 
+	@Nullable
 	@Override
-	public BlockPos getBinding(ItemStack stack) {
-		IManaPool pool = getManaPool(stack);
+	public BlockPos getBinding(World world, ItemStack stack) {
+		GlobalPos pos = getBoundPos(stack);
+		if (pos == null) {
+			return null;
+		}
 
-		return pool == null || pool instanceof DummyPool ? null : ((TileEntity) pool).getPos();
+		if (pos.func_239646_a_() == world.func_234923_W_()) {
+			return pos.getPos();
+		}
+
+		return null;
 	}
 
 	@Override

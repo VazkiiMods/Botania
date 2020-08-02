@@ -53,6 +53,7 @@ import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.Optional;
@@ -399,8 +400,9 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		return "botaniamisc.wandMode." + (getBindMode(stack) ? "bind" : "function");
 	}
 
+	@Nullable
 	@Override
-	public BlockPos getBinding(ItemStack stack) {
+	public BlockPos getBinding(World world, ItemStack stack) {
 		Optional<BlockPos> bound = getBindingAttempt(stack);
 		if (bound.isPresent()) {
 			return bound.get();
@@ -408,7 +410,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 		RayTraceResult pos = Minecraft.getInstance().objectMouseOver;
 		if (pos != null && pos.getType() == RayTraceResult.Type.BLOCK) {
-			TileEntity tile = Minecraft.getInstance().world.getTileEntity(((BlockRayTraceResult) pos).getPos());
+			TileEntity tile = world.getTileEntity(((BlockRayTraceResult) pos).getPos());
 			if (tile instanceof ITileBound) {
 				return ((ITileBound) tile).getBinding();
 			}
