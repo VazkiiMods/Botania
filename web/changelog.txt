@@ -1,3 +1,11 @@
+1.16 399
+* Significant internal cleanup of corporea. Fix interceptors not working
+* Fix pink withers dropping nether stars
+* Fix some tooltips being miscolored
+* Flugel Eye now has a unique binding per-dimension, which is shown in the tooltip
+* Fix resolute ivy not disappearing from an item after death
+* [API] Minor breakages in corporea. Detection of corporea nodes can now be registered in the API, meaning you can now write your own integration exposing your custom inventories to corporea.
+* [API] A reminder that if your storage already efficiently operates with IItemHandler or IInventory, then corporea already handles it and you don't have to do anything.
 1.16 398
 * Welcome to Botania on 1.16.1, brought to you by williewillus and Hubry
 * Special thanks to the patrons and players on the patron server for helping test
