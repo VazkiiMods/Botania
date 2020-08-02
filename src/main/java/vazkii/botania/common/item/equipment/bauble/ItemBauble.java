@@ -24,6 +24,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.KeybindTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -65,16 +66,16 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 
 	@OnlyIn(Dist.CLIENT)
 	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-		ITextComponent key = new KeybindTextComponent("key.curios.open.desc");
-		tooltip.add(new TranslationTextComponent("botania.baubletooltip", key));
+		ITextComponent key = new KeybindTextComponent("key.curios.open.desc").func_240699_a_(TextFormatting.AQUA);
+		tooltip.add(new TranslationTextComponent("botania.baubletooltip", key).func_240699_a_(TextFormatting.GRAY));
 
 		ItemStack cosmetic = getCosmeticItem(stack);
 		if (!cosmetic.isEmpty()) {
-			tooltip.add(new TranslationTextComponent("botaniamisc.hasCosmetic", cosmetic.getDisplayName()));
+			tooltip.add(new TranslationTextComponent("botaniamisc.hasCosmetic", cosmetic.getDisplayName()).func_240701_a_(TextFormatting.GRAY, TextFormatting.ITALIC));
 		}
 
 		if (hasPhantomInk(stack)) {
-			tooltip.add(new TranslationTextComponent("botaniamisc.hasPhantomInk"));
+			tooltip.add(new TranslationTextComponent("botaniamisc.hasPhantomInk").func_240699_a_(TextFormatting.AQUA));
 		}
 	}
 
