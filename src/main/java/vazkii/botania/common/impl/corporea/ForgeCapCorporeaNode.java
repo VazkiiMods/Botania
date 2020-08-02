@@ -45,20 +45,21 @@ public class ForgeCapCorporeaNode extends AbstractCorporeaNode {
 		for (int i = inv.getSlots() - 1; i >= 0; i--) {
 			ItemStack stackAt = inv.getStackInSlot(i);
 			if (request.getMatcher().isStackValid(stackAt)) {
-				int rem = Math.min(stackAt.getCount(), request.getStillNeeded() == -1 ? stackAt.getCount() : request.getStillNeeded());
 				request.trackFound(stackAt.getCount());
 
+				int rem = Math.min(stackAt.getCount(), request.getStillNeeded() == -1 ? stackAt.getCount() : request.getStillNeeded());
 				if (rem > 0) {
-					ItemStack copy = stackAt.copy();
-					builder.add(inv.extractItem(i, rem, !doit));
-					if (doit && spark != null) {
-						spark.onItemExtracted(copy);
+					request.trackSatisfied(rem);
+
+					if (doit) {
+						ItemStack copy = stackAt.copy();
+						builder.addAll(breakDownBigStack(inv.extractItem(i, rem, false)));
+						getSpark().onItemExtracted(copy);
+						request.trackExtracted(rem);
+					} else {
+						builder.add(inv.extractItem(i, rem, true));
 					}
 				}
-
-				request.trackExtracted(rem);
-
-				request.trackSatisfied(rem);
 			}
 		}
 

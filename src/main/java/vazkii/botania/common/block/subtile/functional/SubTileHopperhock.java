@@ -31,11 +31,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 
-import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.core.helper.InvWithLocation;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.mixin.AccessorItemEntity;
 

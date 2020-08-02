@@ -17,13 +17,14 @@ import vazkii.botania.api.corporea.ICorporeaSpark;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class AbstractCorporeaNode implements ICorporeaNode {
 
 	private final World world;
 	private final BlockPos pos;
-	protected final ICorporeaSpark spark;
+	private final ICorporeaSpark spark;
 
 	public AbstractCorporeaNode(World world, BlockPos pos, ICorporeaSpark spark) {
 		this.world = world;
@@ -46,17 +47,25 @@ public abstract class AbstractCorporeaNode implements ICorporeaNode {
 		return spark;
 	}
 
-	protected Collection<? extends ItemStack> breakDownBigStack(ItemStack stack) {
-		List<ItemStack> stacks = new ArrayList<>();
-		int additionalStacks = stack.getCount() / stack.getMaxStackSize();
-		int lastStackSize = stack.getCount() % stack.getMaxStackSize();
-		if (additionalStacks > 0) {
-			ItemStack fullStack = stack.copy();
-			fullStack.setCount(stack.getMaxStackSize());
-			for (int i = 0; i < additionalStacks; i++) {
-				stacks.add(fullStack.copy());
-			}
+	/**
+	 * Breaks down the oversized {@code stack} into multiple stacks within their stack limit.
+	 * Used when performing extractions with {@link #extractItems}. Not necessary for {@link #countItems}.
+	 */
+	protected static Collection<ItemStack> breakDownBigStack(ItemStack stack) {
+		if (stack.getCount() < stack.getMaxStackSize()) {
+			return Collections.singleton(stack);
 		}
+
+		List<ItemStack> stacks = new ArrayList<>();
+
+		int additionalStacks = stack.getCount() / stack.getMaxStackSize();
+		ItemStack fullStack = stack.copy();
+		fullStack.setCount(stack.getMaxStackSize());
+		for (int i = 0; i < additionalStacks; i++) {
+			stacks.add(fullStack.copy());
+		}
+
+		int lastStackSize = stack.getCount() % stack.getMaxStackSize();
 		ItemStack lastStack = stack.copy();
 		lastStack.setCount(lastStackSize);
 		stacks.add(lastStack);

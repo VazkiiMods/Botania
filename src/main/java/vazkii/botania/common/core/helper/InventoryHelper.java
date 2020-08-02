@@ -18,7 +18,6 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
-import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 
 import javax.annotation.Nullable;

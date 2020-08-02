@@ -17,6 +17,7 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
 import vazkii.botania.api.corporea.ICorporeaNode;
+import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.impl.corporea.ForgeCapCorporeaNode;
 

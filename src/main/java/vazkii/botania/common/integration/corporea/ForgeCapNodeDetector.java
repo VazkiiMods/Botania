@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandler;
 
 import vazkii.botania.api.corporea.ICorporeaNode;
+import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.impl.corporea.ForgeCapCorporeaNode;

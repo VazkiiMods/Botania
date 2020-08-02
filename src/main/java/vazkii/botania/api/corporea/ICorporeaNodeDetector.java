@@ -6,15 +6,18 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.integration.corporea;
+package vazkii.botania.api.corporea;
 
 import net.minecraft.world.World;
 
-import vazkii.botania.api.corporea.ICorporeaNode;
-import vazkii.botania.api.corporea.ICorporeaSpark;
-
 import javax.annotation.Nullable;
 
+/**
+ * This interface is responsible for taking a location and exposing it, if possible, to the corporea network.
+ * Mods with custom storage solutions can implement this and register it using the API so that corporea supports
+ * their storaage.
+ * Implementations are already provided in Botania for Vanilla and Forge's interfaces.
+ */
 public interface ICorporeaNodeDetector {
 	/**
 	 * @return A corporea node that this detector found at the given location, else null

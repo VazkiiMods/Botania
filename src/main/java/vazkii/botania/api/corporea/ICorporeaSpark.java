@@ -71,7 +71,7 @@ public interface ICorporeaSpark {
 	 * Called when an item is extracted from the node this spark is attached to through this
 	 * spark.
 	 * 
-	 * @param stack The itemstack, before any extraction was done
+	 * @param stack The itemstack, before any extraction was done. Do not mutate this.
 	 */
 	void onItemExtracted(ItemStack stack);
 

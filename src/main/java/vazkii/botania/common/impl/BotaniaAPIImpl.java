@@ -24,6 +24,7 @@ import net.minecraftforge.items.wrapper.EmptyHandler;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
+import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
@@ -31,6 +32,7 @@ import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
+import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.CapWrapper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.relic.ItemLokiRing;
@@ -286,5 +288,10 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	@Override
 	public void registerPaintableBlock(ResourceLocation block, Function<DyeColor, Block> transformer) {
 		paintableBlocks.put(block, transformer);
+	}
+
+	@Override
+	public void registerCorporeaNodeDetector(ICorporeaNodeDetector detector) {
+		CorporeaNodeDetectors.register(detector);
 	}
 }

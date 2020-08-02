@@ -24,6 +24,7 @@ import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 
 import vazkii.botania.api.brew.Brew;
+import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.internal.DummyManaNetwork;
 import vazkii.botania.api.internal.IManaNetwork;
 
@@ -252,5 +253,9 @@ public interface BotaniaAPI {
 	 */
 	default boolean shouldForceCheck() {
 		return false;
+	}
+
+	default void registerCorporeaNodeDetector(ICorporeaNodeDetector detector) {
+
 	}
 }

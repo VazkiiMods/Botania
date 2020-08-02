@@ -198,7 +198,6 @@ public class Botania {
 
 		PacketHandler.init();
 
-		CorporeaNodeDetectors.init();
 		EquipmentHandler.init();
 		CorporeaHelper.instance().registerRequestMatcher(prefix("string"), CorporeaStringMatcher.class, CorporeaStringMatcher::createFromNBT);
 		CorporeaHelper.instance().registerRequestMatcher(prefix("item_stack"), CorporeaItemStackMatcher.class, CorporeaItemStackMatcher::createFromNBT);
@@ -280,6 +279,7 @@ public class Botania {
 
 	private void loadComplete(FMLLoadCompleteEvent event) {
 		finishedLoading = true;
+		CorporeaNodeDetectors.init();
 	}
 
 	private void serverAboutToStart(FMLServerAboutToStartEvent event) {
