@@ -137,8 +137,6 @@ task incrementBuildNumber {
         configFile.withWriter {
             config.toProperties().store(it, "")
         }
-
-        file("${config.dir_repo}/version/${mc_version}.txt").write("${project.version}")
     }
 }
 
