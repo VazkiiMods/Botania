@@ -37,7 +37,7 @@ class="caret"></span></button><ul class="dropdown-menu">');
 	
 	function add_buttons() {
 		global $changelog, $href_version;
-		$changelog .= "<br><div class='btn btn-flat btn-material-cyan hashlink'>Back to top</div><a href='dl.php?file=Botania%20$href_version.jar'><div class='btn btn-flat btn-material-lightgreen'>Download</div></a>";
+		$changelog .= "<br><div class='btn btn-flat btn-material-cyan hashlink'>Back to top</div>";
 	}
 	
 	function str_lreplace($search, $replace, $subject) {

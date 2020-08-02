@@ -48,8 +48,8 @@
 			<div class="container text-muted">
 				Botania (this website included) is licensed under the <a href="license.php">Botania License</a>.<br>
 				Powered by <a href="http://fezvrasta.github.io/bootstrap-material-design/">Bootstrap Material Design</a> by <a href="https://github.com/FezVrasta">Fez Vrasta</a>.<br>
-				Discuss Botania on the <a href="https://old.reddit.com/r/Botania">Botania subreddit</a>.<br>
-				Misc Links: <a href="https://twitter.com/Vazkii">Twitter</a> <b>|</b> <a href="http://www.patreon.com/Vazkii">Patreon</a> <b>|</b> <a href="https://github.com/Vazkii/Botania">Github</a> <b>|</b> <a href="https://discord.gg/vazkii">Discord</a><br><br>
+				Discuss Botania on the <a href="https://old.reddit.com/r/Botania">Botania subreddit</a> or on Vazkii's <a href="https://vazkii.net/discord">Discord server</a>.<br>
+				Misc Links: <a href="https://twitter.com/Vazkii">Twitter</a> <b>|</b> <a href="http://www.patreon.com/Vazkii">Patreon</a> <b>|</b> <a href="https://github.com/Vazkii/Botania">Github</a><br><br>
 				<i>Add the colors to the big sight, before the world turns black and white. Don't let unity cause monotony, chante avec moi, bring the symphony.</i> - <a href="https://www.youtube.com/watch?v=zkLJoFp2UAE">Mitchie M</a>
 			</div>
 		</footer>
@@ -57,7 +57,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 		<script src="js/ripples.min.js"></script>
-        <script src="js/material.min.js"></script>
+		<script src="js/material.min.js"></script>
 		<script src="js/botania.js"></script>
 		
 		<?php echo "<script>\$(function(){var module='$module';var btn=\$('#header-btn-'+module);var txt=btn.text();btn.addClass('active');document.title+=(' - '+txt);});</script>"; ?>
