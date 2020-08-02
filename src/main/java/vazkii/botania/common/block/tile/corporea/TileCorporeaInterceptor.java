@@ -34,7 +34,7 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 	public void interceptRequestLast(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<ICorporeaNode> nodes, boolean doit) {
 		List<ItemStack> filter = getFilter();
 		for (ItemStack stack : filter) {
-			if (request.isStackValid(stack)) {
+			if (request.test(stack)) {
 				int missing = count;
 				for (ItemStack stack_ : stacks) {
 					missing -= stack_.getCount();

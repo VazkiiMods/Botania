@@ -44,7 +44,7 @@ public class ForgeCapCorporeaNode extends AbstractCorporeaNode {
 
 		for (int i = inv.getSlots() - 1; i >= 0; i--) {
 			ItemStack stackAt = inv.getStackInSlot(i);
-			if (request.getMatcher().isStackValid(stackAt)) {
+			if (request.getMatcher().test(stackAt)) {
 				request.trackFound(stackAt.getCount());
 
 				int rem = Math.min(stackAt.getCount(), request.getStillNeeded() == -1 ? stackAt.getCount() : request.getStillNeeded());
