@@ -218,7 +218,6 @@ task incrementBuildNumber {
             config.toProperties().store(it, "")
         }
 
-        file('web/versions.ini').append("\n${project.version}=${mc_version}")
         file("${config.dir_repo}/version/${mc_version}.txt").write("${project.version}")
     }
 }
@@ -234,12 +233,11 @@ remotes {
         }
 }
 
-task upload {
+task uploadChangelog {
     doLast {
         ssh.run {
             session(remotes.web) {
                 put from: 'web/changelog.txt', into: priv.scp_dir + "/changelog.txt"
-                put from: 'web/versions.ini', into: priv.scp_dir + "/versions.ini"
             }
         }
     }
