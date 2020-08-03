@@ -11,6 +11,7 @@ package vazkii.botania.common.crafting;
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonObject;
 
+import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.tag.BlockTags;
@@ -29,7 +30,7 @@ public class StateIngredientTag extends StateIngredientBlocks {
 	}
 
 	public StateIngredientTag(Identifier id) {
-		this(BlockTags.register(id.toString()));
+		this(TagRegistry.create(id, BlockTags::getContainer));
 	}
 
 	@Override

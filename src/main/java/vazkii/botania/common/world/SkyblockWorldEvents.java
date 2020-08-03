@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.world;
 
+import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -22,6 +23,7 @@ import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -39,7 +41,7 @@ public final class SkyblockWorldEvents {
 
 	private SkyblockWorldEvents() {}
 
-	private static final Tag.Identified<Block> PEBBLE_SOURCES = BlockTags.register("gardenofglass:pebble_sources");
+	private static final Tag.Identified<Block> PEBBLE_SOURCES = TagRegistry.create(new Identifier("gardenofglass", "pebble_sources"), BlockTags::getContainer);
 
 	public static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
 		World world = event.getPlayer().world;

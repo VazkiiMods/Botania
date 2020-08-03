@@ -14,6 +14,7 @@ import com.google.gson.JsonParseException;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 
+import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.datafixer.NbtOps;
@@ -56,7 +57,7 @@ public class StateIngredientHelper {
 	public static StateIngredient deserialize(JsonObject object) {
 		switch (JsonHelper.getString(object, "type")) {
 		case "tag":
-			return new StateIngredientTag(BlockTags.register(JsonHelper.getString(object, "tag")));
+			return new StateIngredientTag(TagRegistry.create(new Identifier(JsonHelper.getString(object, "tag")), BlockTags::getContainer));
 		case "block":
 			return new StateIngredientBlock(Registry.BLOCK.get(new Identifier(JsonHelper.getString(object, "block"))));
 		case "state":

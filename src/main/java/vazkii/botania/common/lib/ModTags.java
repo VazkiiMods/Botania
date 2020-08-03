@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.lib;
 
+import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
@@ -143,11 +144,11 @@ public class ModTags {
 		}
 
 		private static Tag.Identified<Item> tag(String name) {
-			return ItemTags.register(prefix(name).toString());
+			return TagRegistry.create(prefix(name), ItemTags::getContainer);
 		}
 
 		private static Tag.Identified<Item> forgeTag(String name) {
-			return ItemTags.register(new Identifier("forge", name).toString());
+			return TagRegistry.create(new Identifier("forge", name), ItemTags::getContainer);
 		}
 	}
 
@@ -178,14 +179,14 @@ public class ModTags {
 
 		public static final Tag.Identified<Block> TERRAFORMABLE = tag("terraformable");
 
-		public static final ITag.INamedTag<Block> CORPOREA_SPARK_OVERRIDE = tag("corporea_spark_override");
+		public static final Tag.Identified<Block> CORPOREA_SPARK_OVERRIDE = tag("corporea_spark_override");
 
 		private static Tag.Identified<Block> tag(String name) {
-			return BlockTags.register(prefix(name).toString());
+			return TagRegistry.create(prefix(name), BlockTags::getContainer);
 		}
 
 		private static Tag.Identified<Block> forgeTag(String name) {
-			return BlockTags.register(new Identifier("forge", name).toString());
+			return TagRegistry.create(new Identifier("forge", name), BlockTags::getContainer);
 		}
 	}
 
@@ -193,7 +194,7 @@ public class ModTags {
 		public static final Tag.Identified<EntityType<?>> SHADED_MESA_BLACKLIST = tag("shaded_mesa_blacklist");
 
 		private static Tag.Identified<EntityType<?>> tag(String name) {
-			return EntityTypeTags.register(prefix(name).toString());
+			return TagRegistry.create(prefix(name), EntityTypeTags::getContainer);
 		}
 	}
 }
