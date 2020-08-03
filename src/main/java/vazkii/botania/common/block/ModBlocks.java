@@ -24,8 +24,7 @@ import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.state.enums.LuminizerVariant;
-import vazkii.botania.client.render.tile.RenderTilePylon;
-import vazkii.botania.client.render.tile.TEISR;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.corporea.*;
 import vazkii.botania.common.block.decor.*;
 import vazkii.botania.common.block.dispenser.BehaviourFelPumpkin;
@@ -67,66 +66,6 @@ public final class ModBlocks {
 	public static final Block redFlower = new BlockModFlower(DyeColor.RED, AbstractBlock.Settings.copy(whiteFlower));
 	public static final Block blackFlower = new BlockModFlower(DyeColor.BLACK, AbstractBlock.Settings.copy(whiteFlower));
 
-	public static final Block defaultAltar = new BlockAltar(BlockAltar.Variant.DEFAULT, AbstractBlock.Settings.of(Material.STONE).strength(3.5F).sounds(BlockSoundGroup.STONE)
-			.lightLevel(s -> s.get(BlockAltar.FLUID) == IPetalApothecary.State.LAVA ? 15 : 0));
-	public static final Block forestAltar = new BlockAltar(BlockAltar.Variant.FOREST, AbstractBlock.Settings.copy(defaultAltar));
-	public static final Block plainsAltar = new BlockAltar(BlockAltar.Variant.PLAINS, AbstractBlock.Settings.copy(defaultAltar));
-	public static final Block mountainAltar = new BlockAltar(BlockAltar.Variant.MOUNTAIN, AbstractBlock.Settings.copy(defaultAltar));
-	public static final Block fungalAltar = new BlockAltar(BlockAltar.Variant.FUNGAL, AbstractBlock.Settings.copy(defaultAltar));
-	public static final Block swampAltar = new BlockAltar(BlockAltar.Variant.SWAMP, AbstractBlock.Settings.copy(defaultAltar));
-	public static final Block desertAltar = new BlockAltar(BlockAltar.Variant.DESERT, AbstractBlock.Settings.copy(defaultAltar));
-	public static final Block taigaAltar = new BlockAltar(BlockAltar.Variant.TAIGA, AbstractBlock.Settings.copy(defaultAltar));
-	public static final Block mesaAltar = new BlockAltar(BlockAltar.Variant.MESA, AbstractBlock.Settings.copy(defaultAltar));
-	public static final Block mossyAltar = new BlockAltar(BlockAltar.Variant.MOSSY, AbstractBlock.Settings.copy(defaultAltar));
-
-	public static final Block livingrock = new BlockMod(AbstractBlock.Settings.of(Material.STONE).strength(2, 10).sounds(BlockSoundGroup.STONE));
-	public static final Block livingrockBrick = new BlockMod(AbstractBlock.Settings.copy(livingrock));
-	public static final Block livingrockBrickChiseled = new BlockMod(AbstractBlock.Settings.copy(livingrock));
-	public static final Block livingrockBrickCracked = new BlockMod(AbstractBlock.Settings.copy(livingrock));
-	public static final Block livingrockBrickMossy = new BlockMod(AbstractBlock.Settings.copy(livingrock));
-
-	public static final Block livingwood = new BlockMod(AbstractBlock.Settings.of(Material.WOOD).strength(2).sounds(BlockSoundGroup.WOOD));
-	public static final Block livingwoodPlanks = new BlockMod(AbstractBlock.Settings.copy(livingwood));
-	public static final Block livingwoodPlanksMossy = new BlockMod(AbstractBlock.Settings.copy(livingwood));
-	public static final Block livingwoodFramed = new BlockMod(AbstractBlock.Settings.copy(livingwood));
-	public static final Block livingwoodPatternFramed = new BlockMod(AbstractBlock.Settings.copy(livingwood));
-	public static final Block livingwoodGlimmering = new BlockMod(AbstractBlock.Settings.copy(livingwood).lightLevel(s -> 12));
-
-	public static final Block manaSpreader = new BlockSpreader(BlockSpreader.Variant.MANA, AbstractBlock.Settings.copy(livingwood).allowsSpawning(NO_SPAWN));
-	public static final Block redstoneSpreader = new BlockSpreader(BlockSpreader.Variant.REDSTONE, AbstractBlock.Settings.copy(livingwood).allowsSpawning(NO_SPAWN));
-	public static final Block elvenSpreader = new BlockSpreader(BlockSpreader.Variant.ELVEN, AbstractBlock.Settings.copy(livingwood).allowsSpawning(NO_SPAWN));
-	public static final Block gaiaSpreader = new BlockSpreader(BlockSpreader.Variant.GAIA, AbstractBlock.Settings.copy(livingwood).allowsSpawning(NO_SPAWN));
-
-	public static final Block manaPool = new BlockPool(BlockPool.Variant.DEFAULT, AbstractBlock.Settings.copy(livingrock));
-	public static final Block creativePool = new BlockPool(BlockPool.Variant.CREATIVE, AbstractBlock.Settings.copy(livingrock));
-	public static final Block dilutedPool = new BlockPool(BlockPool.Variant.DILUTED, AbstractBlock.Settings.copy(livingrock));
-	public static final Block fabulousPool = new BlockPool(BlockPool.Variant.FABULOUS, AbstractBlock.Settings.copy(livingrock));
-
-	public static final Block runeAltar = new BlockRuneAltar(AbstractBlock.Settings.copy(livingrock));
-	public static final Block manaPylon = new BlockPylon(BlockPylon.Variant.MANA, AbstractBlock.Settings.of(Material.METAL).strength(5.5F).sounds(BlockSoundGroup.METAL).lightLevel(s -> 7));
-	public static final Block naturaPylon = new BlockPylon(BlockPylon.Variant.NATURA, AbstractBlock.Settings.copy(manaPylon));
-	public static final Block gaiaPylon = new BlockPylon(BlockPylon.Variant.GAIA, AbstractBlock.Settings.copy(manaPylon));
-
-	public static final Block pistonRelay = new BlockPistonRelay(AbstractBlock.Settings.of(Material.GOURD).strength(2, 10).sounds(BlockSoundGroup.METAL).allowsSpawning(NO_SPAWN));
-	public static final Block distributor = new BlockDistributor(AbstractBlock.Settings.of(Material.STONE).strength(2, 10).sounds(BlockSoundGroup.STONE));
-	public static final Block manaVoid = new BlockManaVoid(AbstractBlock.Settings.of(Material.STONE).strength(2, 2000).sounds(BlockSoundGroup.STONE));
-	public static final Block manaDetector = new BlockManaDetector(AbstractBlock.Settings.copy(livingrock));
-	public static final Block enchanter = new BlockEnchanter(AbstractBlock.Settings.of(Material.STONE).strength(3, 5).lightLevel(s -> 15).sounds(BlockSoundGroup.STONE));
-	public static final Block turntable = new BlockTurntable(AbstractBlock.Settings.copy(livingwood));
-	public static final Block tinyPlanet = new BlockTinyPlanet(AbstractBlock.Settings.of(Material.STONE).strength(20, 100).sounds(BlockSoundGroup.STONE));
-	public static final Block alchemyCatalyst = new BlockAlchemyCatalyst(AbstractBlock.Settings.copy(livingrock));
-	public static final Block openCrate = new BlockOpenCrate(AbstractBlock.Settings.copy(livingwood));
-	public static final Block craftCrate = new BlockCraftyCrate(AbstractBlock.Settings.copy(livingwood));
-	public static final Block forestEye = new BlockForestEye(AbstractBlock.Settings.of(Material.METAL).strength(5, 10).sounds(BlockSoundGroup.METAL));
-	public static final Block manasteelBlock = new BlockMod(AbstractBlock.Settings.of(Material.METAL).strength(3, 10).sounds(BlockSoundGroup.METAL));
-	public static final Block terrasteelBlock = new BlockMod(AbstractBlock.Settings.copy(manasteelBlock));
-	public static final Block elementiumBlock = new BlockMod(AbstractBlock.Settings.copy(manasteelBlock));
-	public static final Block manaDiamondBlock = new BlockMod(AbstractBlock.Settings.copy(manasteelBlock));
-	public static final Block dragonstoneBlock = new BlockMod(AbstractBlock.Settings.copy(manasteelBlock));
-	public static final Block wildDrum = new BlockForestDrum(BlockForestDrum.Variant.WILD, AbstractBlock.Settings.copy(livingwood));
-	public static final Block gatheringDrum = new BlockForestDrum(BlockForestDrum.Variant.GATHERING, AbstractBlock.Settings.copy(livingwood));
-	public static final Block canopyDrum = new BlockForestDrum(BlockForestDrum.Variant.CANOPY, AbstractBlock.Settings.copy(livingwood));
-
 	public static final Block whiteShinyFlower = new BlockShinyFlower(DyeColor.WHITE, AbstractBlock.Settings.copy(whiteFlower).lightLevel(s -> 15));
 	public static final Block orangeShinyFlower = new BlockShinyFlower(DyeColor.ORANGE, AbstractBlock.Settings.copy(whiteShinyFlower));
 	public static final Block magentaShinyFlower = new BlockShinyFlower(DyeColor.MAGENTA, AbstractBlock.Settings.copy(whiteShinyFlower));
@@ -143,22 +82,6 @@ public final class ModBlocks {
 	public static final Block greenShinyFlower = new BlockShinyFlower(DyeColor.GREEN, AbstractBlock.Settings.copy(whiteShinyFlower));
 	public static final Block redShinyFlower = new BlockShinyFlower(DyeColor.RED, AbstractBlock.Settings.copy(whiteShinyFlower));
 	public static final Block blackShinyFlower = new BlockShinyFlower(DyeColor.BLACK, AbstractBlock.Settings.copy(whiteShinyFlower));
-
-	public static final Block abstrusePlatform = new BlockPlatform(BlockPlatform.Variant.ABSTRUSE, AbstractBlock.Settings.of(Material.WOOD).strength(2, 5).sounds(BlockSoundGroup.WOOD));
-	public static final Block spectralPlatform = new BlockPlatform(BlockPlatform.Variant.SPECTRAL, AbstractBlock.Settings.copy(abstrusePlatform));
-	public static final Block infrangiblePlatform = new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, AbstractBlock.Settings.of(Material.WOOD).strength(-1, Float.MAX_VALUE).sounds(BlockSoundGroup.WOOD));
-	public static final Block alfPortal = new BlockAlfPortal(AbstractBlock.Settings.of(Material.WOOD).strength(10).sounds(BlockSoundGroup.WOOD)
-			.lightLevel(s -> s.get(BotaniaStateProps.ALFPORTAL_STATE) != AlfPortalState.OFF ? 15 : 0));
-	public static final Block dreamwood = new BlockMod(AbstractBlock.Settings.copy(livingwood));
-	public static final Block dreamwoodPlanks = new BlockMod(AbstractBlock.Settings.copy(livingwood));
-	public static final Block dreamwoodPlanksMossy = new BlockMod(AbstractBlock.Settings.copy(livingwood));
-	public static final Block dreamwoodFramed = new BlockMod(AbstractBlock.Settings.copy(livingwood));
-	public static final Block dreamwoodPatternFramed = new BlockMod(AbstractBlock.Settings.copy(livingwood));
-	public static final Block dreamwoodGlimmering = new BlockMod(AbstractBlock.Settings.copy(livingwoodGlimmering));
-	public static final Block conjurationCatalyst = new BlockConjurationCatalyst(AbstractBlock.Settings.copy(livingrock));
-	public static final Block bifrost = new BlockBifrost(AbstractBlock.Settings.of(Material.GLASS).strength(-1, 0.3F)
-		.lightLevel(s -> 15).sounds(BlockSoundGroup.GLASS).nonOpaque().blockVision(NO_SUFFOCATION).suffocates(NO_SUFFOCATION).allowsSpawning(NO_SPAWN));
-	public static final Block solidVines = new BlockSolidVines(AbstractBlock.Settings.of(Material.REPLACEABLE_PLANT).strength(0.2F).sounds(BlockSoundGroup.GRASS).nonOpaque());
 
 	public static final Block whiteBuriedPetals = new BlockBuriedPetals(DyeColor.WHITE, AbstractBlock.Settings.copy(whiteFlower).lightLevel(s -> 4));
 	public static final Block orangeBuriedPetals = new BlockBuriedPetals(DyeColor.ORANGE, AbstractBlock.Settings.copy(whiteBuriedPetals));
@@ -194,42 +117,6 @@ public final class ModBlocks {
 	public static final Block redFloatingFlower = new BlockFloatingFlower(DyeColor.RED, AbstractBlock.Settings.copy(whiteFloatingFlower));
 	public static final Block blackFloatingFlower = new BlockFloatingFlower(DyeColor.BLACK, AbstractBlock.Settings.copy(whiteFloatingFlower));
 
-	public static final Block tinyPotato = new BlockTinyPotato(AbstractBlock.Settings.of(Material.WOOL).strength(0.25F));
-	public static final Block spawnerClaw = new BlockSpawnerClaw(AbstractBlock.Settings.of(Material.METAL).strength(3));
-
-	public static final Block azulejo0 = new BlockMod(AbstractBlock.Settings.of(Material.STONE).strength(2, 5).sounds(BlockSoundGroup.STONE));
-	public static final Block azulejo1 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
-	public static final Block azulejo2 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
-	public static final Block azulejo3 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
-	public static final Block azulejo4 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
-	public static final Block azulejo5 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
-	public static final Block azulejo6 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
-	public static final Block azulejo7 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
-	public static final Block azulejo8 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
-	public static final Block azulejo9 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
-	public static final Block azulejo10 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
-	public static final Block azulejo11 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
-	public static final Block azulejo12 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
-	public static final Block azulejo13 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
-	public static final Block azulejo14 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
-	public static final Block azulejo15 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
-	public static final Block enderEye = new BlockEnderEye(AbstractBlock.Settings.copy(manasteelBlock));
-	public static final Block starfield = new BlockStarfield(AbstractBlock.Settings.of(Material.METAL).strength(5, 2000).sounds(BlockSoundGroup.METAL));
-	public static final Block rfGenerator = new BlockRFGenerator(AbstractBlock.Settings.copy(livingrock));
-	public static final Block elfGlass = new BlockModGlass(AbstractBlock.Settings.copy(Blocks.GLASS).lightLevel(s -> 15).blockVision(NO_SUFFOCATION).suffocates(NO_SUFFOCATION).allowsSpawning(NO_SPAWN));
-	public static final Block brewery = new BlockBrewery(AbstractBlock.Settings.copy(livingrock));
-	public static final Block manaGlass = new BlockModGlass(AbstractBlock.Settings.copy(elfGlass).blockVision(NO_SUFFOCATION).suffocates(NO_SUFFOCATION).allowsSpawning(NO_SPAWN));
-	public static final Block terraPlate = new BlockTerraPlate(AbstractBlock.Settings.of(Material.METAL).strength(3, 10).sounds(BlockSoundGroup.METAL));
-	public static final Block redStringContainer = new BlockRedStringContainer(AbstractBlock.Settings.copy(livingrock));
-	public static final Block redStringDispenser = new BlockRedStringDispenser(AbstractBlock.Settings.copy(livingrock));
-	public static final Block redStringFertilizer = new BlockRedStringFertilizer(AbstractBlock.Settings.copy(livingrock));
-	public static final Block redStringComparator = new BlockRedStringComparator(AbstractBlock.Settings.copy(livingrock));
-	public static final Block redStringRelay = new BlockRedStringRelay(AbstractBlock.Settings.copy(livingrock));
-	public static final Block redStringInterceptor = new BlockRedStringInterceptor(AbstractBlock.Settings.copy(livingrock));
-	public static final Block manaFlame = new BlockManaFlame(AbstractBlock.Settings.of(Material.WOOL).sounds(BlockSoundGroup.WOOL).lightLevel(s -> 15).noCollision());
-	public static final Block prism = new BlockPrism(AbstractBlock.Settings.copy(elfGlass).noCollision());
-	public static final Block enchantedSoil = new BlockEnchantedSoil(AbstractBlock.Settings.of(Material.SOLID_ORGANIC).strength(0.6F).sounds(BlockSoundGroup.GRASS));
-
 	public static final Block petalBlockWhite = new BlockPetalBlock(DyeColor.WHITE, AbstractBlock.Settings.of(Material.PLANT).strength(0.4F).sounds(BlockSoundGroup.GRASS));
 	public static final Block petalBlockOrange = new BlockPetalBlock(DyeColor.ORANGE, AbstractBlock.Settings.copy(petalBlockWhite));
 	public static final Block petalBlockMagenta = new BlockPetalBlock(DyeColor.MAGENTA, AbstractBlock.Settings.copy(petalBlockWhite));
@@ -246,9 +133,6 @@ public final class ModBlocks {
 	public static final Block petalBlockGreen = new BlockPetalBlock(DyeColor.GREEN, AbstractBlock.Settings.copy(petalBlockWhite));
 	public static final Block petalBlockRed = new BlockPetalBlock(DyeColor.RED, AbstractBlock.Settings.copy(petalBlockWhite));
 	public static final Block petalBlockBlack = new BlockPetalBlock(DyeColor.BLACK, AbstractBlock.Settings.copy(petalBlockWhite));
-
-	public static final Block corporeaIndex = new BlockCorporeaIndex(AbstractBlock.Settings.of(Material.METAL).strength(5.5F).sounds(BlockSoundGroup.METAL).nonOpaque());
-	public static final Block corporeaFunnel = new BlockCorporeaFunnel(AbstractBlock.Settings.of(Material.METAL).strength(5.5F).sounds(BlockSoundGroup.METAL));
 
 	public static final Block whiteMushroom = new BlockModMushroom(DyeColor.WHITE, AbstractBlock.Settings.copy(whiteFlower).lightLevel(s -> 3));
 	public static final Block orangeMushroom = new BlockModMushroom(DyeColor.ORANGE, AbstractBlock.Settings.copy(whiteMushroom));
@@ -267,8 +151,6 @@ public final class ModBlocks {
 	public static final Block redMushroom = new BlockModMushroom(DyeColor.RED, AbstractBlock.Settings.copy(whiteMushroom));
 	public static final Block blackMushroom = new BlockModMushroom(DyeColor.BLACK, AbstractBlock.Settings.copy(whiteMushroom));
 
-	public static final Block pump = new BlockPump(AbstractBlock.Settings.copy(livingrock));
-
 	public static final Block doubleFlowerWhite = new BlockModDoubleFlower(DyeColor.WHITE, AbstractBlock.Settings.copy(whiteFlower));
 	public static final Block doubleFlowerOrange = new BlockModDoubleFlower(DyeColor.ORANGE, AbstractBlock.Settings.copy(doubleFlowerWhite));
 	public static final Block doubleFlowerMagenta = new BlockModDoubleFlower(DyeColor.MAGENTA, AbstractBlock.Settings.copy(doubleFlowerWhite));
@@ -286,42 +168,160 @@ public final class ModBlocks {
 	public static final Block doubleFlowerRed = new BlockModDoubleFlower(DyeColor.RED, AbstractBlock.Settings.copy(doubleFlowerWhite));
 	public static final Block doubleFlowerBlack = new BlockModDoubleFlower(DyeColor.BLACK, AbstractBlock.Settings.copy(doubleFlowerWhite));
 
-	public static final Block fakeAir = new BlockFakeAir(AbstractBlock.Settings.of(Material.STRUCTURE_VOID).air().ticksRandomly());
-	public static final Block blazeBlock = new BlockMod(AbstractBlock.Settings.copy(manasteelBlock).lightLevel(s -> 15));
+	public static final Block defaultAltar = new BlockAltar(BlockAltar.Variant.DEFAULT, AbstractBlock.Settings.of(Material.STONE).strength(3.5F).sounds(BlockSoundGroup.STONE)
+			.lightLevel(s -> s.get(BlockAltar.FLUID) == IPetalApothecary.State.LAVA ? 15 : 0));
+	public static final Block forestAltar = new BlockAltar(BlockAltar.Variant.FOREST, AbstractBlock.Settings.copy(defaultAltar));
+	public static final Block plainsAltar = new BlockAltar(BlockAltar.Variant.PLAINS, AbstractBlock.Settings.copy(defaultAltar));
+	public static final Block mountainAltar = new BlockAltar(BlockAltar.Variant.MOUNTAIN, AbstractBlock.Settings.copy(defaultAltar));
+	public static final Block fungalAltar = new BlockAltar(BlockAltar.Variant.FUNGAL, AbstractBlock.Settings.copy(defaultAltar));
+	public static final Block swampAltar = new BlockAltar(BlockAltar.Variant.SWAMP, AbstractBlock.Settings.copy(defaultAltar));
+	public static final Block desertAltar = new BlockAltar(BlockAltar.Variant.DESERT, AbstractBlock.Settings.copy(defaultAltar));
+	public static final Block taigaAltar = new BlockAltar(BlockAltar.Variant.TAIGA, AbstractBlock.Settings.copy(defaultAltar));
+	public static final Block mesaAltar = new BlockAltar(BlockAltar.Variant.MESA, AbstractBlock.Settings.copy(defaultAltar));
+	public static final Block mossyAltar = new BlockAltar(BlockAltar.Variant.MOSSY, AbstractBlock.Settings.copy(defaultAltar));
+
+	public static final Block livingrock = new BlockMod(AbstractBlock.Settings.of(Material.STONE).strength(2, 10).sounds(BlockSoundGroup.STONE));
+	public static final Block livingrockBrick = new BlockMod(AbstractBlock.Settings.copy(livingrock));
+	public static final Block livingrockBrickChiseled = new BlockMod(AbstractBlock.Settings.copy(livingrock));
+	public static final Block livingrockBrickCracked = new BlockMod(AbstractBlock.Settings.copy(livingrock));
+	public static final Block livingrockBrickMossy = new BlockMod(AbstractBlock.Settings.copy(livingrock));
+
+	// TODO 1.16+ livingwood/dreamwood should support leaves?
+	public static final Block livingwood = new BlockMod(AbstractBlock.Settings.of(Material.WOOD).strength(2).sounds(BlockSoundGroup.WOOD));
+	public static final Block livingwoodPlanks = new BlockMod(AbstractBlock.Settings.copy(livingwood));
+	public static final Block livingwoodPlanksMossy = new BlockMod(AbstractBlock.Settings.copy(livingwood));
+	public static final Block livingwoodFramed = new BlockMod(AbstractBlock.Settings.copy(livingwood));
+	public static final Block livingwoodPatternFramed = new BlockMod(AbstractBlock.Settings.copy(livingwood));
+	public static final Block livingwoodGlimmering = new BlockMod(AbstractBlock.Settings.copy(livingwood).lightLevel(s -> 12));
+
+	public static final Block dreamwood = new BlockMod(AbstractBlock.Settings.copy(livingwood));
+	public static final Block dreamwoodPlanks = new BlockMod(AbstractBlock.Settings.copy(livingwood));
+	public static final Block dreamwoodPlanksMossy = new BlockMod(AbstractBlock.Settings.copy(livingwood));
+	public static final Block dreamwoodFramed = new BlockMod(AbstractBlock.Settings.copy(livingwood));
+	public static final Block dreamwoodPatternFramed = new BlockMod(AbstractBlock.Settings.copy(livingwood));
+	public static final Block dreamwoodGlimmering = new BlockMod(AbstractBlock.Settings.copy(livingwoodGlimmering));
+
+	public static final Block manaSpreader = new BlockSpreader(BlockSpreader.Variant.MANA, AbstractBlock.Settings.copy(livingwood).allowsSpawning(NO_SPAWN));
+	public static final Block redstoneSpreader = new BlockSpreader(BlockSpreader.Variant.REDSTONE, AbstractBlock.Settings.copy(livingwood).allowsSpawning(NO_SPAWN));
+	public static final Block elvenSpreader = new BlockSpreader(BlockSpreader.Variant.ELVEN, AbstractBlock.Settings.copy(livingwood).allowsSpawning(NO_SPAWN));
+	public static final Block gaiaSpreader = new BlockSpreader(BlockSpreader.Variant.GAIA, AbstractBlock.Settings.copy(livingwood).allowsSpawning(NO_SPAWN));
+
+	public static final Block manaPool = new BlockPool(BlockPool.Variant.DEFAULT, AbstractBlock.Settings.copy(livingrock));
+	public static final Block creativePool = new BlockPool(BlockPool.Variant.CREATIVE, AbstractBlock.Settings.copy(livingrock));
+	public static final Block dilutedPool = new BlockPool(BlockPool.Variant.DILUTED, AbstractBlock.Settings.copy(livingrock));
+	public static final Block fabulousPool = new BlockPool(BlockPool.Variant.FABULOUS, AbstractBlock.Settings.copy(livingrock));
+	public static final Block alchemyCatalyst = new BlockAlchemyCatalyst(AbstractBlock.Settings.copy(livingrock));
+	public static final Block conjurationCatalyst = new BlockConjurationCatalyst(AbstractBlock.Settings.copy(livingrock));
+
+	public static final Block manasteelBlock = new BlockMod(AbstractBlock.Settings.of(Material.METAL).strength(3, 10).sounds(BlockSoundGroup.METAL));
+	public static final Block terrasteelBlock = new BlockMod(AbstractBlock.Settings.copy(manasteelBlock));
+	public static final Block elementiumBlock = new BlockMod(AbstractBlock.Settings.copy(manasteelBlock));
+	public static final Block manaDiamondBlock = new BlockMod(AbstractBlock.Settings.copy(manasteelBlock));
+	public static final Block dragonstoneBlock = new BlockMod(AbstractBlock.Settings.copy(manasteelBlock));
+
+	public static final Block manaGlass = new BlockModGlass(AbstractBlock.Settings.copy(Blocks.GLASS).lightLevel(s -> 15).blockVision(NO_SUFFOCATION).suffocates(NO_SUFFOCATION).allowsSpawning(NO_SPAWN));
+	public static final Block elfGlass = new BlockModGlass(AbstractBlock.Settings.copy(manaGlass).blockVision(NO_SUFFOCATION).suffocates(NO_SUFFOCATION).allowsSpawning(NO_SPAWN));
+	public static final Block bifrost = new BlockBifrost(AbstractBlock.Settings.of(Material.GLASS).strength(-1, 0.3F)
+			.lightLevel(s -> 15).sounds(BlockSoundGroup.GLASS).nonOpaque().blockVision(NO_SUFFOCATION).suffocates(NO_SUFFOCATION).allowsSpawning(NO_SPAWN));
+	public static final Block bifrostPerm = new BlockBifrostPerm(AbstractBlock.Settings.of(Material.GLASS).strength(0.3F)
+			.lightLevel(s -> 15).sounds(BlockSoundGroup.GLASS).nonOpaque().blockVision(NO_SUFFOCATION).suffocates(NO_SUFFOCATION).allowsSpawning(NO_SPAWN));
+
+	public static final Block runeAltar = new BlockRuneAltar(AbstractBlock.Settings.copy(livingrock));
+	public static final Block enchanter = new BlockEnchanter(AbstractBlock.Settings.of(Material.STONE).strength(3, 5).lightLevel(s -> 15).sounds(BlockSoundGroup.STONE));
+	public static final Block brewery = new BlockBrewery(AbstractBlock.Settings.copy(livingrock));
+	public static final Block terraPlate = new BlockTerraPlate(AbstractBlock.Settings.of(Material.METAL).strength(3, 10).sounds(BlockSoundGroup.METAL));
+	public static final Block alfPortal = new BlockAlfPortal(AbstractBlock.Settings.of(Material.WOOD).strength(10).sounds(BlockSoundGroup.WOOD)
+			.lightLevel(s -> s.get(BotaniaStateProps.ALFPORTAL_STATE) != AlfPortalState.OFF ? 15 : 0));
+
+	public static final Block manaPylon = new BlockPylon(BlockPylon.Variant.MANA, AbstractBlock.Settings.of(Material.METAL).strength(5.5F).sounds(BlockSoundGroup.METAL).lightLevel(s -> 7));
+	public static final Block naturaPylon = new BlockPylon(BlockPylon.Variant.NATURA, AbstractBlock.Settings.copy(manaPylon));
+	public static final Block gaiaPylon = new BlockPylon(BlockPylon.Variant.GAIA, AbstractBlock.Settings.copy(manaPylon));
+
+	public static final Block distributor = new BlockDistributor(AbstractBlock.Settings.of(Material.STONE).strength(2, 10).sounds(BlockSoundGroup.STONE));
+	public static final Block manaVoid = new BlockManaVoid(AbstractBlock.Settings.of(Material.STONE).strength(2, 2000).sounds(BlockSoundGroup.STONE));
+	public static final Block manaDetector = new BlockManaDetector(AbstractBlock.Settings.copy(livingrock));
+	public static final Block pistonRelay = new BlockPistonRelay(AbstractBlock.Settings.of(Material.GOURD).strength(2, 10).sounds(BlockSoundGroup.METAL).allowsSpawning(NO_SPAWN));
+	public static final Block turntable = new BlockTurntable(AbstractBlock.Settings.copy(livingwood));
+	public static final Block tinyPlanet = new BlockTinyPlanet(AbstractBlock.Settings.of(Material.STONE).strength(20, 100).sounds(BlockSoundGroup.STONE));
+	public static final Block wildDrum = new BlockForestDrum(BlockForestDrum.Variant.WILD, AbstractBlock.Settings.copy(livingwood));
+	public static final Block gatheringDrum = new BlockForestDrum(BlockForestDrum.Variant.GATHERING, AbstractBlock.Settings.copy(livingwood));
+	public static final Block canopyDrum = new BlockForestDrum(BlockForestDrum.Variant.CANOPY, AbstractBlock.Settings.copy(livingwood));
+	public static final Block spawnerClaw = new BlockSpawnerClaw(AbstractBlock.Settings.of(Material.METAL).strength(3));
+	public static final Block rfGenerator = new BlockRFGenerator(AbstractBlock.Settings.copy(livingrock));
+	public static final Block prism = new BlockPrism(AbstractBlock.Settings.copy(elfGlass).noCollision());
+	public static final Block pump = new BlockPump(AbstractBlock.Settings.copy(livingrock));
+	public static final Block sparkChanger = new BlockSparkChanger(AbstractBlock.Settings.copy(livingrock));
+	public static final Block manaBomb = new BlockManaBomb(AbstractBlock.Settings.of(Material.WOOD).strength(12).sounds(BlockSoundGroup.WOOD));
+	public static final Block bellows = new BlockBellows(AbstractBlock.Settings.copy(livingwood));
+
+	public static final Block openCrate = new BlockOpenCrate(AbstractBlock.Settings.copy(livingwood));
+	public static final Block craftCrate = new BlockCraftyCrate(AbstractBlock.Settings.copy(livingwood));
+	public static final Block forestEye = new BlockForestEye(AbstractBlock.Settings.of(Material.METAL).strength(5, 10).sounds(BlockSoundGroup.METAL));
+	public static final Block solidVines = new BlockSolidVines(AbstractBlock.Settings.of(Material.REPLACEABLE_PLANT).strength(0.2F).sounds(BlockSoundGroup.GRASS).nonOpaque());
+	public static final Block abstrusePlatform = new BlockPlatform(BlockPlatform.Variant.ABSTRUSE, AbstractBlock.Settings.of(Material.WOOD).strength(2, 5).sounds(BlockSoundGroup.WOOD));
+	public static final Block spectralPlatform = new BlockPlatform(BlockPlatform.Variant.SPECTRAL, AbstractBlock.Settings.copy(abstrusePlatform));
+	public static final Block infrangiblePlatform = new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, AbstractBlock.Settings.of(Material.WOOD).strength(-1, Float.MAX_VALUE).sounds(BlockSoundGroup.WOOD));
+	public static final Block tinyPotato = new BlockTinyPotato(AbstractBlock.Settings.of(Material.WOOL).strength(0.25F));
+	public static final Block enderEye = new BlockEnderEye(AbstractBlock.Settings.copy(manasteelBlock));
+	public static final Block redStringContainer = new BlockRedStringContainer(AbstractBlock.Settings.copy(livingrock));
+	public static final Block redStringDispenser = new BlockRedStringDispenser(AbstractBlock.Settings.copy(livingrock));
+	public static final Block redStringFertilizer = new BlockRedStringFertilizer(AbstractBlock.Settings.copy(livingrock));
+	public static final Block redStringComparator = new BlockRedStringComparator(AbstractBlock.Settings.copy(livingrock));
+	public static final Block redStringRelay = new BlockRedStringRelay(AbstractBlock.Settings.copy(livingrock));
+	public static final Block redStringInterceptor = new BlockRedStringInterceptor(AbstractBlock.Settings.copy(livingrock));
+	public static final Block corporeaIndex = new BlockCorporeaIndex(AbstractBlock.Settings.of(Material.METAL).strength(5.5F).sounds(BlockSoundGroup.METAL).nonOpaque());
+	public static final Block corporeaFunnel = new BlockCorporeaFunnel(AbstractBlock.Settings.of(Material.METAL).strength(5.5F).sounds(BlockSoundGroup.METAL));
 	public static final Block corporeaInterceptor = new BlockCorporeaInterceptor(AbstractBlock.Settings.of(Material.METAL).strength(5.5F).sounds(BlockSoundGroup.METAL));
 	public static final Block corporeaCrystalCube = new BlockCorporeaCrystalCube(AbstractBlock.Settings.copy(corporeaInterceptor));
+	public static final Block corporeaRetainer = new BlockCorporeaRetainer(AbstractBlock.Settings.copy(corporeaInterceptor));
 	public static final Block incensePlate = new BlockIncensePlate(AbstractBlock.Settings.copy(livingwood));
 	public static final Block hourglass = new BlockHourglass(AbstractBlock.Settings.of(Material.METAL).strength(2).sounds(BlockSoundGroup.METAL));
 	public static final Block ghostRail = new BlockGhostRail(AbstractBlock.Settings.copy(Blocks.RAIL));
-	public static final Block sparkChanger = new BlockSparkChanger(AbstractBlock.Settings.copy(livingrock));
-	public static final Block root = new BlockRoot(AbstractBlock.Settings.of(Material.PLANT).strength(1.2F).sounds(BlockSoundGroup.WOOD));
-	public static final Block felPumpkin = new BlockFelPumpkin(AbstractBlock.Settings.copy(Blocks.CARVED_PUMPKIN));
-	public static final Block cocoon = new BlockCocoon(AbstractBlock.Settings.of(Material.WOOL).strength(3, 60).sounds(BlockSoundGroup.WOOL));
 	public static final Block lightRelayDefault = new BlockLightRelay(LuminizerVariant.DEFAULT, AbstractBlock.Settings.of(Material.GLASS).noCollision());
 	public static final Block lightRelayDetector = new BlockLightRelay(LuminizerVariant.DETECTOR, AbstractBlock.Settings.copy(lightRelayDefault));
 	public static final Block lightRelayFork = new BlockLightRelay(LuminizerVariant.TOGGLE, AbstractBlock.Settings.copy(lightRelayDefault));
 	public static final Block lightRelayToggle = new BlockLightRelay(LuminizerVariant.FORK, AbstractBlock.Settings.copy(lightRelayDefault));
 	public static final Block lightLauncher = new BlockLightLauncher(AbstractBlock.Settings.copy(livingwood));
-	public static final Block manaBomb = new BlockManaBomb(AbstractBlock.Settings.of(Material.WOOD).strength(12).sounds(BlockSoundGroup.WOOD));
 	public static final Block cacophonium = new BlockCacophonium(AbstractBlock.Settings.of(Material.WOOD).strength(0.8F));
-	public static final Block bellows = new BlockBellows(AbstractBlock.Settings.copy(livingwood));
-	public static final Block bifrostPerm = new BlockBifrostPerm(AbstractBlock.Settings.of(Material.GLASS).strength(0.3F)
-		.lightLevel(s -> 15).sounds(BlockSoundGroup.GLASS).nonOpaque().blockVision(NO_SUFFOCATION).suffocates(NO_SUFFOCATION).allowsSpawning(NO_SPAWN));
 	public static final Block cellBlock = new BlockCell(AbstractBlock.Settings.of(Material.GOURD).sounds(BlockSoundGroup.WOOL));
+	public static final Block teruTeruBozu = new BlockTeruTeruBozu(AbstractBlock.Settings.of(Material.WOOL));
+	public static final Block avatar = new BlockAvatar(AbstractBlock.Settings.copy(livingwood));
+	public static final Block fakeAir = new BlockFakeAir(AbstractBlock.Settings.of(Material.STRUCTURE_VOID).air().ticksRandomly());
+	public static final Block root = new BlockRoot(AbstractBlock.Settings.of(Material.PLANT).strength(1.2F).sounds(BlockSoundGroup.WOOD));
+	public static final Block felPumpkin = new BlockFelPumpkin(AbstractBlock.Settings.copy(Blocks.CARVED_PUMPKIN));
+	public static final Block cocoon = new BlockCocoon(AbstractBlock.Settings.of(Material.WOOL).strength(3, 60).sounds(BlockSoundGroup.WOOL));
+	public static final Block enchantedSoil = new BlockEnchantedSoil(AbstractBlock.Settings.of(Material.SOLID_ORGANIC).strength(0.6F).sounds(BlockSoundGroup.GRASS));
+	public static final Block animatedTorch = new BlockAnimatedTorch(AbstractBlock.Settings.of(Material.SUPPORTED).lightLevel(s -> 7).nonOpaque());
+	public static final Block starfield = new BlockStarfield(AbstractBlock.Settings.of(Material.METAL).strength(5, 2000).sounds(BlockSoundGroup.METAL));
+
+	public static final Block azulejo0 = new BlockMod(AbstractBlock.Settings.of(Material.STONE).strength(2, 5).sounds(BlockSoundGroup.STONE));
+	public static final Block azulejo1 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
+	public static final Block azulejo2 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
+	public static final Block azulejo3 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
+	public static final Block azulejo4 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
+	public static final Block azulejo5 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
+	public static final Block azulejo6 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
+	public static final Block azulejo7 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
+	public static final Block azulejo8 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
+	public static final Block azulejo9 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
+	public static final Block azulejo10 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
+	public static final Block azulejo11 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
+	public static final Block azulejo12 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
+	public static final Block azulejo13 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
+	public static final Block azulejo14 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
+	public static final Block azulejo15 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
+	public static final Block manaFlame = new BlockManaFlame(AbstractBlock.Settings.of(Material.WOOL).sounds(BlockSoundGroup.WOOL).lightLevel(s -> 15).noCollision());
+	public static final Block blazeBlock = new BlockMod(AbstractBlock.Settings.copy(manasteelBlock).lightLevel(s -> 15));
 	public static final Block gaiaHeadWall = new BlockGaiaHeadWall(AbstractBlock.Settings.of(Material.SUPPORTED).strength(1));
 	public static final Block gaiaHead = new BlockGaiaHead(AbstractBlock.Settings.of(Material.SUPPORTED).strength(1));
-	public static final Block corporeaRetainer = new BlockCorporeaRetainer(AbstractBlock.Settings.copy(corporeaInterceptor));
-	public static final Block teruTeruBozu = new BlockTeruTeruBozu(AbstractBlock.Settings.of(Material.WOOL));
 	public static final Block shimmerrock = new BlockMod(AbstractBlock.Settings.copy(livingrock));
 	public static final Block shimmerwoodPlanks = new BlockMod(AbstractBlock.Settings.copy(livingwood));
-	public static final Block avatar = new BlockAvatar(AbstractBlock.Settings.copy(livingwood));
 	public static final Block dryGrass = new BlockAltGrass(BlockAltGrass.Variant.DRY, AbstractBlock.Settings.of(Material.SOLID_ORGANIC).strength(0.6F).ticksRandomly().sounds(BlockSoundGroup.GRASS));
 	public static final Block goldenGrass = new BlockAltGrass(BlockAltGrass.Variant.GOLDEN, AbstractBlock.Settings.copy(dryGrass));
 	public static final Block vividGrass = new BlockAltGrass(BlockAltGrass.Variant.VIVID, AbstractBlock.Settings.copy(dryGrass));
 	public static final Block scorchedGrass = new BlockAltGrass(BlockAltGrass.Variant.SCORCHED, AbstractBlock.Settings.copy(dryGrass));
 	public static final Block infusedGrass = new BlockAltGrass(BlockAltGrass.Variant.INFUSED, AbstractBlock.Settings.copy(dryGrass));
 	public static final Block mutatedGrass = new BlockAltGrass(BlockAltGrass.Variant.MUTATED, AbstractBlock.Settings.copy(dryGrass));
-	public static final Block animatedTorch = new BlockAnimatedTorch(AbstractBlock.Settings.of(Material.SUPPORTED).lightLevel(s -> 7).nonOpaque());
 
 	public static void registerBlocks() {
 		Registry<Block> r = Registry.BLOCK;
@@ -341,76 +341,6 @@ public final class ModBlocks {
 		register(r, "green" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, greenFlower);
 		register(r, "red" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, redFlower);
 		register(r, "black" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, blackFlower);
-
-		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.DEFAULT.name().toLowerCase(Locale.ROOT), defaultAltar);
-		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.FOREST.name().toLowerCase(Locale.ROOT), forestAltar);
-		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.PLAINS.name().toLowerCase(Locale.ROOT), plainsAltar);
-		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.MOUNTAIN.name().toLowerCase(Locale.ROOT), mountainAltar);
-		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.FUNGAL.name().toLowerCase(Locale.ROOT), fungalAltar);
-		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.SWAMP.name().toLowerCase(Locale.ROOT), swampAltar);
-		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.DESERT.name().toLowerCase(Locale.ROOT), desertAltar);
-		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.TAIGA.name().toLowerCase(Locale.ROOT), taigaAltar);
-		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.MESA.name().toLowerCase(Locale.ROOT), mesaAltar);
-		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.MOSSY.name().toLowerCase(Locale.ROOT), mossyAltar);
-
-		register(r, LibBlockNames.LIVING_ROCK, livingrock);
-		register(r, LibBlockNames.LIVING_ROCK_BRICK, livingrockBrick);
-		register(r, LibBlockNames.LIVING_ROCK_BRICK_MOSSY, livingrockBrickMossy);
-		register(r, LibBlockNames.LIVING_ROCK_BRICK_CRACKED, livingrockBrickCracked);
-		register(r, LibBlockNames.LIVING_ROCK_BRICK_CHISELED, livingrockBrickChiseled);
-
-		// todo 1.13: livingwood should support leaves
-		register(r, LibBlockNames.LIVING_WOOD, livingwood);
-		register(r, LibBlockNames.LIVING_WOOD_PLANKS, livingwoodPlanks);
-		register(r, LibBlockNames.LIVING_WOOD_PLANKS_MOSSY, livingwoodPlanksMossy);
-		register(r, LibBlockNames.LIVING_WOOD_FRAMED, livingwoodFramed);
-		register(r, LibBlockNames.LIVING_WOOD_PATTERN_FRAMED, livingwoodPatternFramed);
-		register(r, LibBlockNames.LIVING_WOOD_GLIMMERING, livingwoodGlimmering);
-
-		register(r, LibBlockNames.SPREADER, manaSpreader);
-		register(r, LibBlockNames.SPREADER_REDSTONE, redstoneSpreader);
-		register(r, LibBlockNames.SPREADER_ELVEN, elvenSpreader);
-		register(r, LibBlockNames.SPREADER_GAIA, gaiaSpreader);
-
-		register(r, LibBlockNames.POOL, manaPool);
-		register(r, LibBlockNames.POOL_CREATIVE, creativePool);
-		register(r, LibBlockNames.POOL_DILUTED, dilutedPool);
-		register(r, LibBlockNames.POOL_FABULOUS, fabulousPool);
-
-		register(r, LibBlockNames.RUNE_ALTAR, runeAltar);
-
-		register(r, LibBlockNames.PYLON, manaPylon);
-		register(r, LibBlockNames.PYLON_NATURA, naturaPylon);
-		register(r, LibBlockNames.PYLON_GAIA, gaiaPylon);
-
-		register(r, LibBlockNames.PISTON_RELAY, pistonRelay);
-
-		register(r, LibBlockNames.DISTRIBUTOR, distributor);
-
-		register(r, LibBlockNames.MANA_VOID, manaVoid);
-
-		register(r, LibBlockNames.MANA_DETECTOR, manaDetector);
-
-		register(r, LibBlockNames.ENCHANTER, enchanter);
-		register(r, LibBlockNames.TURNTABLE, turntable);
-		register(r, LibBlockNames.TINY_PLANET, tinyPlanet);
-		register(r, LibBlockNames.ALCHEMY_CATALYST, alchemyCatalyst);
-
-		register(r, LibBlockNames.OPEN_CRATE, openCrate);
-		register(r, LibBlockNames.CRAFT_CRATE, craftCrate);
-
-		register(r, LibBlockNames.FOREST_EYE, forestEye);
-
-		register(r, LibBlockNames.MANASTEEL_BLOCK, manasteelBlock);
-		register(r, LibBlockNames.TERRASTEEL_BLOCK, terrasteelBlock);
-		register(r, LibBlockNames.ELEMENTIUM_BLOCK, elementiumBlock);
-		register(r, LibBlockNames.MANA_DIAMOND_BLOCK, manaDiamondBlock);
-		register(r, LibBlockNames.DRAGONSTONE_BLOCK, dragonstoneBlock);
-
-		register(r, LibBlockNames.DRUM_WILD, wildDrum);
-		register(r, LibBlockNames.DRUM_GATHERING, gatheringDrum);
-		register(r, LibBlockNames.DRUM_CANOPY, canopyDrum);
-
 		register(r, "white" + LibBlockNames.SHINY_FLOWER_SUFFIX, whiteShinyFlower);
 		register(r, "orange" + LibBlockNames.SHINY_FLOWER_SUFFIX, orangeShinyFlower);
 		register(r, "magenta" + LibBlockNames.SHINY_FLOWER_SUFFIX, magentaShinyFlower);
@@ -427,24 +357,6 @@ public final class ModBlocks {
 		register(r, "green" + LibBlockNames.SHINY_FLOWER_SUFFIX, greenShinyFlower);
 		register(r, "red" + LibBlockNames.SHINY_FLOWER_SUFFIX, redShinyFlower);
 		register(r, "black" + LibBlockNames.SHINY_FLOWER_SUFFIX, blackShinyFlower);
-
-		register(r, LibBlockNames.PLATFORM_ABSTRUSE, abstrusePlatform);
-		register(r, LibBlockNames.PLATFORM_SPECTRAL, spectralPlatform);
-		register(r, LibBlockNames.PLATFORM_INFRANGIBLE, infrangiblePlatform);
-		register(r, LibBlockNames.ALF_PORTAL, alfPortal);
-
-		// todo 1.13: dreamwood should support leaves?
-		register(r, LibBlockNames.DREAM_WOOD, dreamwood);
-		register(r, LibBlockNames.DREAM_WOOD_PLANKS, dreamwoodPlanks);
-		register(r, LibBlockNames.DREAM_WOOD_PLANKS_MOSSY, dreamwoodPlanksMossy);
-		register(r, LibBlockNames.DREAM_WOOD_FRAMED, dreamwoodFramed);
-		register(r, LibBlockNames.DREAM_WOOD_PATTERN_FRAMED, dreamwoodPatternFramed);
-		register(r, LibBlockNames.DREAM_WOOD_GLIMMERING, dreamwoodGlimmering);
-
-		register(r, LibBlockNames.CONJURATION_CATALYST, conjurationCatalyst);
-		register(r, LibBlockNames.BIFROST, bifrost);
-		register(r, LibBlockNames.SOLID_VINE, solidVines);
-
 		register(r, "white" + LibBlockNames.BURIED_PETALS_SUFFIX, whiteBuriedPetals);
 		register(r, "orange" + LibBlockNames.BURIED_PETALS_SUFFIX, orangeBuriedPetals);
 		register(r, "magenta" + LibBlockNames.BURIED_PETALS_SUFFIX, magentaBuriedPetals);
@@ -461,7 +373,6 @@ public final class ModBlocks {
 		register(r, "green" + LibBlockNames.BURIED_PETALS_SUFFIX, greenBuriedPetals);
 		register(r, "red" + LibBlockNames.BURIED_PETALS_SUFFIX, redBuriedPetals);
 		register(r, "black" + LibBlockNames.BURIED_PETALS_SUFFIX, blackBuriedPetals);
-
 		register(r, "white" + LibBlockNames.FLOATING_FLOWER_SUFFIX, whiteFloatingFlower);
 		register(r, "orange" + LibBlockNames.FLOATING_FLOWER_SUFFIX, orangeFloatingFlower);
 		register(r, "magenta" + LibBlockNames.FLOATING_FLOWER_SUFFIX, magentaFloatingFlower);
@@ -478,45 +389,6 @@ public final class ModBlocks {
 		register(r, "green" + LibBlockNames.FLOATING_FLOWER_SUFFIX, greenFloatingFlower);
 		register(r, "red" + LibBlockNames.FLOATING_FLOWER_SUFFIX, redFloatingFlower);
 		register(r, "black" + LibBlockNames.FLOATING_FLOWER_SUFFIX, blackFloatingFlower);
-
-		register(r, LibBlockNames.TINY_POTATO, tinyPotato);
-		register(r, LibBlockNames.SPAWNER_CLAW, spawnerClaw);
-
-		register(r, LibBlockNames.AZULEJO_PREFIX + 0, azulejo0);
-		register(r, LibBlockNames.AZULEJO_PREFIX + 1, azulejo1);
-		register(r, LibBlockNames.AZULEJO_PREFIX + 2, azulejo2);
-		register(r, LibBlockNames.AZULEJO_PREFIX + 3, azulejo3);
-		register(r, LibBlockNames.AZULEJO_PREFIX + 4, azulejo4);
-		register(r, LibBlockNames.AZULEJO_PREFIX + 5, azulejo5);
-		register(r, LibBlockNames.AZULEJO_PREFIX + 6, azulejo6);
-		register(r, LibBlockNames.AZULEJO_PREFIX + 7, azulejo7);
-		register(r, LibBlockNames.AZULEJO_PREFIX + 8, azulejo8);
-		register(r, LibBlockNames.AZULEJO_PREFIX + 9, azulejo9);
-		register(r, LibBlockNames.AZULEJO_PREFIX + 10, azulejo10);
-		register(r, LibBlockNames.AZULEJO_PREFIX + 11, azulejo11);
-		register(r, LibBlockNames.AZULEJO_PREFIX + 12, azulejo12);
-		register(r, LibBlockNames.AZULEJO_PREFIX + 13, azulejo13);
-		register(r, LibBlockNames.AZULEJO_PREFIX + 14, azulejo14);
-		register(r, LibBlockNames.AZULEJO_PREFIX + 15, azulejo15);
-
-		register(r, LibBlockNames.ENDER_EYE_BLOCK, enderEye);
-		register(r, LibBlockNames.STARFIELD, starfield);
-		register(r, LibBlockNames.FLUXFIELD, rfGenerator);
-		register(r, LibBlockNames.ELF_GLASS, elfGlass);
-		register(r, LibBlockNames.BREWERY, brewery);
-		register(r, LibBlockNames.MANA_GLASS, manaGlass);
-		register(r, LibBlockNames.TERRA_PLATE, terraPlate);
-
-		register(r, LibBlockNames.RED_STRING_CONTAINER, redStringContainer);
-		register(r, LibBlockNames.RED_STRING_DISPENSER, redStringDispenser);
-		register(r, LibBlockNames.RED_STRING_FERTILIZER, redStringFertilizer);
-		register(r, LibBlockNames.RED_STRING_COMPARATOR, redStringComparator);
-		register(r, LibBlockNames.RED_STRING_RELAY, redStringRelay);
-		register(r, LibBlockNames.RED_STRING_INTERCEPTOR, redStringInterceptor);
-		register(r, LibBlockNames.MANA_FLAME, manaFlame);
-		register(r, LibBlockNames.PRISM, prism);
-		register(r, LibBlockNames.ENCHANTED_SOIL, enchantedSoil);
-
 		register(r, "white" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockWhite);
 		register(r, "orange" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockOrange);
 		register(r, "magenta" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockMagenta);
@@ -533,10 +405,6 @@ public final class ModBlocks {
 		register(r, "green" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockGreen);
 		register(r, "red" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockRed);
 		register(r, "black" + LibBlockNames.PETAL_BLOCK_SUFFIX, petalBlockBlack);
-
-		register(r, LibBlockNames.CORPOREA_INDEX, corporeaIndex);
-		register(r, LibBlockNames.CORPOREA_FUNNEL, corporeaFunnel);
-
 		register(r, "white" + LibBlockNames.MUSHROOM_SUFFIX, whiteMushroom);
 		register(r, "orange" + LibBlockNames.MUSHROOM_SUFFIX, orangeMushroom);
 		register(r, "magenta" + LibBlockNames.MUSHROOM_SUFFIX, magentaMushroom);
@@ -553,9 +421,6 @@ public final class ModBlocks {
 		register(r, "green" + LibBlockNames.MUSHROOM_SUFFIX, greenMushroom);
 		register(r, "red" + LibBlockNames.MUSHROOM_SUFFIX, redMushroom);
 		register(r, "black" + LibBlockNames.MUSHROOM_SUFFIX, blackMushroom);
-
-		register(r, LibBlockNames.PUMP, pump);
-
 		register(r, "white" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerWhite);
 		register(r, "orange" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerOrange);
 		register(r, "magenta" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerMagenta);
@@ -572,46 +437,143 @@ public final class ModBlocks {
 		register(r, "green" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerGreen);
 		register(r, "red" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerRed);
 		register(r, "black" + LibBlockNames.DOUBLE_FLOWER_SUFFIX, doubleFlowerBlack);
-
-		register(r, LibBlockNames.FAKE_AIR, fakeAir);
-		register(r, LibBlockNames.BLAZE_BLOCK, blazeBlock);
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.DEFAULT.name().toLowerCase(Locale.ROOT), defaultAltar);
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.FOREST.name().toLowerCase(Locale.ROOT), forestAltar);
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.PLAINS.name().toLowerCase(Locale.ROOT), plainsAltar);
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.MOUNTAIN.name().toLowerCase(Locale.ROOT), mountainAltar);
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.FUNGAL.name().toLowerCase(Locale.ROOT), fungalAltar);
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.SWAMP.name().toLowerCase(Locale.ROOT), swampAltar);
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.DESERT.name().toLowerCase(Locale.ROOT), desertAltar);
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.TAIGA.name().toLowerCase(Locale.ROOT), taigaAltar);
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.MESA.name().toLowerCase(Locale.ROOT), mesaAltar);
+		register(r, LibBlockNames.APOTHECARY_PREFIX + BlockAltar.Variant.MOSSY.name().toLowerCase(Locale.ROOT), mossyAltar);
+		register(r, LibBlockNames.LIVING_ROCK, livingrock);
+		register(r, LibBlockNames.LIVING_ROCK_BRICK, livingrockBrick);
+		register(r, LibBlockNames.LIVING_ROCK_BRICK_CHISELED, livingrockBrickChiseled);
+		register(r, LibBlockNames.LIVING_ROCK_BRICK_CRACKED, livingrockBrickCracked);
+		register(r, LibBlockNames.LIVING_ROCK_BRICK_MOSSY, livingrockBrickMossy);
+		register(r, LibBlockNames.LIVING_WOOD, livingwood);
+		register(r, LibBlockNames.LIVING_WOOD_PLANKS, livingwoodPlanks);
+		register(r, LibBlockNames.LIVING_WOOD_PLANKS_MOSSY, livingwoodPlanksMossy);
+		register(r, LibBlockNames.LIVING_WOOD_FRAMED, livingwoodFramed);
+		register(r, LibBlockNames.LIVING_WOOD_PATTERN_FRAMED, livingwoodPatternFramed);
+		register(r, LibBlockNames.LIVING_WOOD_GLIMMERING, livingwoodGlimmering);
+		register(r, LibBlockNames.DREAM_WOOD, dreamwood);
+		register(r, LibBlockNames.DREAM_WOOD_PLANKS, dreamwoodPlanks);
+		register(r, LibBlockNames.DREAM_WOOD_PLANKS_MOSSY, dreamwoodPlanksMossy);
+		register(r, LibBlockNames.DREAM_WOOD_FRAMED, dreamwoodFramed);
+		register(r, LibBlockNames.DREAM_WOOD_PATTERN_FRAMED, dreamwoodPatternFramed);
+		register(r, LibBlockNames.DREAM_WOOD_GLIMMERING, dreamwoodGlimmering);
+		register(r, LibBlockNames.SPREADER, manaSpreader);
+		register(r, LibBlockNames.SPREADER_REDSTONE, redstoneSpreader);
+		register(r, LibBlockNames.SPREADER_ELVEN, elvenSpreader);
+		register(r, LibBlockNames.SPREADER_GAIA, gaiaSpreader);
+		register(r, LibBlockNames.POOL, manaPool);
+		register(r, LibBlockNames.POOL_CREATIVE, creativePool);
+		register(r, LibBlockNames.POOL_DILUTED, dilutedPool);
+		register(r, LibBlockNames.POOL_FABULOUS, fabulousPool);
+		register(r, LibBlockNames.ALCHEMY_CATALYST, alchemyCatalyst);
+		register(r, LibBlockNames.CONJURATION_CATALYST, conjurationCatalyst);
+		register(r, LibBlockNames.MANASTEEL_BLOCK, manasteelBlock);
+		register(r, LibBlockNames.TERRASTEEL_BLOCK, terrasteelBlock);
+		register(r, LibBlockNames.ELEMENTIUM_BLOCK, elementiumBlock);
+		register(r, LibBlockNames.MANA_DIAMOND_BLOCK, manaDiamondBlock);
+		register(r, LibBlockNames.DRAGONSTONE_BLOCK, dragonstoneBlock);
+		register(r, LibBlockNames.MANA_GLASS, manaGlass);
+		register(r, LibBlockNames.ELF_GLASS, elfGlass);
+		register(r, LibBlockNames.BIFROST, bifrost);
+		register(r, LibBlockNames.BIFROST_PERM, bifrostPerm);
+		register(r, LibBlockNames.RUNE_ALTAR, runeAltar);
+		register(r, LibBlockNames.ENCHANTER, enchanter);
+		register(r, LibBlockNames.BREWERY, brewery);
+		register(r, LibBlockNames.TERRA_PLATE, terraPlate);
+		register(r, LibBlockNames.ALF_PORTAL, alfPortal);
+		register(r, LibBlockNames.PYLON, manaPylon);
+		register(r, LibBlockNames.PYLON_NATURA, naturaPylon);
+		register(r, LibBlockNames.PYLON_GAIA, gaiaPylon);
+		register(r, LibBlockNames.DISTRIBUTOR, distributor);
+		register(r, LibBlockNames.MANA_VOID, manaVoid);
+		register(r, LibBlockNames.MANA_DETECTOR, manaDetector);
+		register(r, LibBlockNames.PISTON_RELAY, pistonRelay);
+		register(r, LibBlockNames.TURNTABLE, turntable);
+		register(r, LibBlockNames.TINY_PLANET, tinyPlanet);
+		register(r, LibBlockNames.DRUM_WILD, wildDrum);
+		register(r, LibBlockNames.DRUM_GATHERING, gatheringDrum);
+		register(r, LibBlockNames.DRUM_CANOPY, canopyDrum);
+		register(r, LibBlockNames.SPAWNER_CLAW, spawnerClaw);
+		register(r, LibBlockNames.FLUXFIELD, rfGenerator);
+		register(r, LibBlockNames.PRISM, prism);
+		register(r, LibBlockNames.PUMP, pump);
+		register(r, LibBlockNames.SPARK_CHANGER, sparkChanger);
+		register(r, LibBlockNames.MANA_BOMB, manaBomb);
+		register(r, LibBlockNames.BELLOWS, bellows);
+		register(r, LibBlockNames.OPEN_CRATE, openCrate);
+		register(r, LibBlockNames.CRAFT_CRATE, craftCrate);
+		register(r, LibBlockNames.FOREST_EYE, forestEye);
+		register(r, LibBlockNames.SOLID_VINE, solidVines);
+		register(r, LibBlockNames.PLATFORM_ABSTRUSE, abstrusePlatform);
+		register(r, LibBlockNames.PLATFORM_SPECTRAL, spectralPlatform);
+		register(r, LibBlockNames.PLATFORM_INFRANGIBLE, infrangiblePlatform);
+		register(r, LibBlockNames.TINY_POTATO, tinyPotato);
+		register(r, LibBlockNames.ENDER_EYE_BLOCK, enderEye);
+		register(r, LibBlockNames.RED_STRING_CONTAINER, redStringContainer);
+		register(r, LibBlockNames.RED_STRING_DISPENSER, redStringDispenser);
+		register(r, LibBlockNames.RED_STRING_FERTILIZER, redStringFertilizer);
+		register(r, LibBlockNames.RED_STRING_COMPARATOR, redStringComparator);
+		register(r, LibBlockNames.RED_STRING_RELAY, redStringRelay);
+		register(r, LibBlockNames.RED_STRING_INTERCEPTOR, redStringInterceptor);
+		register(r, LibBlockNames.CORPOREA_INDEX, corporeaIndex);
+		register(r, LibBlockNames.CORPOREA_FUNNEL, corporeaFunnel);
 		register(r, LibBlockNames.CORPOREA_INTERCEPTOR, corporeaInterceptor);
 		register(r, LibBlockNames.CORPOREA_CRYSTAL_CUBE, corporeaCrystalCube);
+		register(r, LibBlockNames.CORPOREA_RETAINER, corporeaRetainer);
 		register(r, LibBlockNames.INCENSE_PLATE, incensePlate);
 		register(r, LibBlockNames.HOURGLASS, hourglass);
 		register(r, LibBlockNames.GHOST_RAIL, ghostRail);
-		register(r, LibBlockNames.SPARK_CHANGER, sparkChanger);
-		register(r, LibBlockNames.ROOT, root);
-		register(r, LibBlockNames.FEL_PUMPKIN, felPumpkin);
-		register(r, LibBlockNames.COCOON, cocoon);
-
 		register(r, LibBlockNames.LIGHT_RELAY, lightRelayDefault);
 		register(r, "detector" + LibBlockNames.LIGHT_RELAY_SUFFIX, lightRelayDetector);
 		register(r, "fork" + LibBlockNames.LIGHT_RELAY_SUFFIX, lightRelayFork);
 		register(r, "toggle" + LibBlockNames.LIGHT_RELAY_SUFFIX, lightRelayToggle);
-
 		register(r, LibBlockNames.LIGHT_LAUNCHER, lightLauncher);
-		register(r, LibBlockNames.MANA_BOMB, manaBomb);
 		register(r, LibBlockNames.CACOPHONIUM, cacophonium);
-		register(r, LibBlockNames.BELLOWS, bellows);
-		register(r, LibBlockNames.BIFROST_PERM, bifrostPerm);
 		register(r, LibBlockNames.CELL_BLOCK, cellBlock);
+		register(r, LibBlockNames.TERU_TERU_BOZU, teruTeruBozu);
+		register(r, LibBlockNames.AVATAR, avatar);
+		register(r, LibBlockNames.FAKE_AIR, fakeAir);
+		register(r, LibBlockNames.ROOT, root);
+		register(r, LibBlockNames.FEL_PUMPKIN, felPumpkin);
+		register(r, LibBlockNames.COCOON, cocoon);
+		register(r, LibBlockNames.ENCHANTED_SOIL, enchantedSoil);
+		register(r, LibBlockNames.ANIMATED_TORCH, animatedTorch);
+		register(r, LibBlockNames.STARFIELD, starfield);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 0, azulejo0);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 1, azulejo1);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 2, azulejo2);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 3, azulejo3);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 4, azulejo4);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 5, azulejo5);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 6, azulejo6);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 7, azulejo7);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 8, azulejo8);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 9, azulejo9);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 10, azulejo10);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 11, azulejo11);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 12, azulejo12);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 13, azulejo13);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 14, azulejo14);
+		register(r, LibBlockNames.AZULEJO_PREFIX + 15, azulejo15);
+		register(r, LibBlockNames.MANA_FLAME, manaFlame);
+		register(r, LibBlockNames.BLAZE_BLOCK, blazeBlock);
 		register(r, LibBlockNames.GAIA_WALL_HEAD, gaiaHeadWall);
 		register(r, LibBlockNames.GAIA_HEAD, gaiaHead);
-		register(r, LibBlockNames.CORPOREA_RETAINER, corporeaRetainer);
-		register(r, LibBlockNames.TERU_TERU_BOZU, teruTeruBozu);
 		register(r, LibBlockNames.SHIMMERROCK, shimmerrock);
 		register(r, LibBlockNames.SHIMMERWOOD_PLANKS, shimmerwoodPlanks);
-		register(r, LibBlockNames.AVATAR, avatar);
-
 		register(r, BlockAltGrass.Variant.DRY.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, dryGrass);
 		register(r, BlockAltGrass.Variant.GOLDEN.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, goldenGrass);
 		register(r, BlockAltGrass.Variant.VIVID.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, vividGrass);
 		register(r, BlockAltGrass.Variant.SCORCHED.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, scorchedGrass);
 		register(r, BlockAltGrass.Variant.INFUSED.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, infusedGrass);
 		register(r, BlockAltGrass.Variant.MUTATED.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, mutatedGrass);
-
-		register(r, LibBlockNames.ANIMATED_TORCH, animatedTorch);
 	}
 
 	public static void registerItemBlocks() {
@@ -633,6 +595,86 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getId(greenFlower), new BlockItem(greenFlower, props));
 		register(r, Registry.BLOCK.getId(redFlower), new BlockItem(redFlower, props));
 		register(r, Registry.BLOCK.getId(blackFlower), new BlockItem(blackFlower, props));
+		register(r, Registry.BLOCK.getId(whiteShinyFlower), new BlockItem(whiteShinyFlower, props));
+		register(r, Registry.BLOCK.getId(orangeShinyFlower), new BlockItem(orangeShinyFlower, props));
+		register(r, Registry.BLOCK.getId(magentaShinyFlower), new BlockItem(magentaShinyFlower, props));
+		register(r, Registry.BLOCK.getId(lightBlueShinyFlower), new BlockItem(lightBlueShinyFlower, props));
+		register(r, Registry.BLOCK.getId(yellowShinyFlower), new BlockItem(yellowShinyFlower, props));
+		register(r, Registry.BLOCK.getId(limeShinyFlower), new BlockItem(limeShinyFlower, props));
+		register(r, Registry.BLOCK.getId(pinkShinyFlower), new BlockItem(pinkShinyFlower, props));
+		register(r, Registry.BLOCK.getId(grayShinyFlower), new BlockItem(grayShinyFlower, props));
+		register(r, Registry.BLOCK.getId(lightGrayShinyFlower), new BlockItem(lightGrayShinyFlower, props));
+		register(r, Registry.BLOCK.getId(cyanShinyFlower), new BlockItem(cyanShinyFlower, props));
+		register(r, Registry.BLOCK.getId(purpleShinyFlower), new BlockItem(purpleShinyFlower, props));
+		register(r, Registry.BLOCK.getId(blueShinyFlower), new BlockItem(blueShinyFlower, props));
+		register(r, Registry.BLOCK.getId(brownShinyFlower), new BlockItem(brownShinyFlower, props));
+		register(r, Registry.BLOCK.getId(greenShinyFlower), new BlockItem(greenShinyFlower, props));
+		register(r, Registry.BLOCK.getId(redShinyFlower), new BlockItem(redShinyFlower, props));
+		register(r, Registry.BLOCK.getId(blackShinyFlower), new BlockItem(blackShinyFlower, props));
+		register(r, Registry.BLOCK.getId(whiteFloatingFlower), new BlockItem(whiteFloatingFlower, props));
+		register(r, Registry.BLOCK.getId(orangeFloatingFlower), new BlockItem(orangeFloatingFlower, props));
+		register(r, Registry.BLOCK.getId(magentaFloatingFlower), new BlockItem(magentaFloatingFlower, props));
+		register(r, Registry.BLOCK.getId(lightBlueFloatingFlower), new BlockItem(lightBlueFloatingFlower, props));
+		register(r, Registry.BLOCK.getId(yellowFloatingFlower), new BlockItem(yellowFloatingFlower, props));
+		register(r, Registry.BLOCK.getId(limeFloatingFlower), new BlockItem(limeFloatingFlower, props));
+		register(r, Registry.BLOCK.getId(pinkFloatingFlower), new BlockItem(pinkFloatingFlower, props));
+		register(r, Registry.BLOCK.getId(grayFloatingFlower), new BlockItem(grayFloatingFlower, props));
+		register(r, Registry.BLOCK.getId(lightGrayFloatingFlower), new BlockItem(lightGrayFloatingFlower, props));
+		register(r, Registry.BLOCK.getId(cyanFloatingFlower), new BlockItem(cyanFloatingFlower, props));
+		register(r, Registry.BLOCK.getId(purpleFloatingFlower), new BlockItem(purpleFloatingFlower, props));
+		register(r, Registry.BLOCK.getId(blueFloatingFlower), new BlockItem(blueFloatingFlower, props));
+		register(r, Registry.BLOCK.getId(brownFloatingFlower), new BlockItem(brownFloatingFlower, props));
+		register(r, Registry.BLOCK.getId(greenFloatingFlower), new BlockItem(greenFloatingFlower, props));
+		register(r, Registry.BLOCK.getId(redFloatingFlower), new BlockItem(redFloatingFlower, props));
+		register(r, Registry.BLOCK.getId(blackFloatingFlower), new BlockItem(blackFloatingFlower, props));
+		register(r, Registry.BLOCK.getId(petalBlockWhite), new BlockItem(petalBlockWhite, props));
+		register(r, Registry.BLOCK.getId(petalBlockOrange), new BlockItem(petalBlockOrange, props));
+		register(r, Registry.BLOCK.getId(petalBlockMagenta), new BlockItem(petalBlockMagenta, props));
+		register(r, Registry.BLOCK.getId(petalBlockLightBlue), new BlockItem(petalBlockLightBlue, props));
+		register(r, Registry.BLOCK.getId(petalBlockYellow), new BlockItem(petalBlockYellow, props));
+		register(r, Registry.BLOCK.getId(petalBlockLime), new BlockItem(petalBlockLime, props));
+		register(r, Registry.BLOCK.getId(petalBlockPink), new BlockItem(petalBlockPink, props));
+		register(r, Registry.BLOCK.getId(petalBlockGray), new BlockItem(petalBlockGray, props));
+		register(r, Registry.BLOCK.getId(petalBlockSilver), new BlockItem(petalBlockSilver, props));
+		register(r, Registry.BLOCK.getId(petalBlockCyan), new BlockItem(petalBlockCyan, props));
+		register(r, Registry.BLOCK.getId(petalBlockPurple), new BlockItem(petalBlockPurple, props));
+		register(r, Registry.BLOCK.getId(petalBlockBlue), new BlockItem(petalBlockBlue, props));
+		register(r, Registry.BLOCK.getId(petalBlockBrown), new BlockItem(petalBlockBrown, props));
+		register(r, Registry.BLOCK.getId(petalBlockGreen), new BlockItem(petalBlockGreen, props));
+		register(r, Registry.BLOCK.getId(petalBlockRed), new BlockItem(petalBlockRed, props));
+		register(r, Registry.BLOCK.getId(petalBlockBlack), new BlockItem(petalBlockBlack, props));
+		register(r, Registry.BLOCK.getId(whiteMushroom), new BlockItem(whiteMushroom, props));
+		register(r, Registry.BLOCK.getId(orangeMushroom), new BlockItem(orangeMushroom, props));
+		register(r, Registry.BLOCK.getId(magentaMushroom), new BlockItem(magentaMushroom, props));
+		register(r, Registry.BLOCK.getId(lightBlueMushroom), new BlockItem(lightBlueMushroom, props));
+		register(r, Registry.BLOCK.getId(yellowMushroom), new BlockItem(yellowMushroom, props));
+		register(r, Registry.BLOCK.getId(limeMushroom), new BlockItem(limeMushroom, props));
+		register(r, Registry.BLOCK.getId(pinkMushroom), new BlockItem(pinkMushroom, props));
+		register(r, Registry.BLOCK.getId(grayMushroom), new BlockItem(grayMushroom, props));
+		register(r, Registry.BLOCK.getId(lightGrayMushroom), new BlockItem(lightGrayMushroom, props));
+		register(r, Registry.BLOCK.getId(cyanMushroom), new BlockItem(cyanMushroom, props));
+		register(r, Registry.BLOCK.getId(purpleMushroom), new BlockItem(purpleMushroom, props));
+		register(r, Registry.BLOCK.getId(blueMushroom), new BlockItem(blueMushroom, props));
+		register(r, Registry.BLOCK.getId(brownMushroom), new BlockItem(brownMushroom, props));
+		register(r, Registry.BLOCK.getId(greenMushroom), new BlockItem(greenMushroom, props));
+		register(r, Registry.BLOCK.getId(redMushroom), new BlockItem(redMushroom, props));
+		register(r, Registry.BLOCK.getId(blackMushroom), new BlockItem(blackMushroom, props));
+		register(r, Registry.BLOCK.getId(doubleFlowerWhite), new BlockItem(doubleFlowerWhite, props));
+		register(r, Registry.BLOCK.getId(doubleFlowerOrange), new BlockItem(doubleFlowerOrange, props));
+		register(r, Registry.BLOCK.getId(doubleFlowerMagenta), new BlockItem(doubleFlowerMagenta, props));
+		register(r, Registry.BLOCK.getId(doubleFlowerLightBlue), new BlockItem(doubleFlowerLightBlue, props));
+		register(r, Registry.BLOCK.getId(doubleFlowerYellow), new BlockItem(doubleFlowerYellow, props));
+		register(r, Registry.BLOCK.getId(doubleFlowerLime), new BlockItem(doubleFlowerLime, props));
+		register(r, Registry.BLOCK.getId(doubleFlowerPink), new BlockItem(doubleFlowerPink, props));
+		register(r, Registry.BLOCK.getId(doubleFlowerGray), new BlockItem(doubleFlowerGray, props));
+		register(r, Registry.BLOCK.getId(doubleFlowerLightGray), new BlockItem(doubleFlowerLightGray, props));
+		register(r, Registry.BLOCK.getId(doubleFlowerCyan), new BlockItem(doubleFlowerCyan, props));
+		register(r, Registry.BLOCK.getId(doubleFlowerPurple), new BlockItem(doubleFlowerPurple, props));
+		register(r, Registry.BLOCK.getId(doubleFlowerBlue), new BlockItem(doubleFlowerBlue, props));
+		register(r, Registry.BLOCK.getId(doubleFlowerBrown), new BlockItem(doubleFlowerBrown, props));
+		register(r, Registry.BLOCK.getId(doubleFlowerGreen), new BlockItem(doubleFlowerGreen, props));
+		register(r, Registry.BLOCK.getId(doubleFlowerRed), new BlockItem(doubleFlowerRed, props));
+		register(r, Registry.BLOCK.getId(doubleFlowerBlack), new BlockItem(doubleFlowerBlack, props));
 		register(r, Registry.BLOCK.getId(defaultAltar), new BlockItem(defaultAltar, props));
 		register(r, Registry.BLOCK.getId(forestAltar), new BlockItem(forestAltar, props));
 		register(r, Registry.BLOCK.getId(plainsAltar), new BlockItem(plainsAltar, props));
@@ -654,6 +696,12 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getId(livingwoodFramed), new BlockItem(livingwoodFramed, props));
 		register(r, Registry.BLOCK.getId(livingwoodPatternFramed), new BlockItem(livingwoodPatternFramed, props));
 		register(r, Registry.BLOCK.getId(livingwoodGlimmering), new BlockItem(livingwoodGlimmering, props));
+		register(r, Registry.BLOCK.getId(dreamwood), new ItemBlockDreamwood(dreamwood, props));
+		register(r, Registry.BLOCK.getId(dreamwoodPlanks), new ItemBlockDreamwood(dreamwoodPlanks, props));
+		register(r, Registry.BLOCK.getId(dreamwoodPlanksMossy), new ItemBlockDreamwood(dreamwoodPlanksMossy, props));
+		register(r, Registry.BLOCK.getId(dreamwoodFramed), new ItemBlockDreamwood(dreamwoodFramed, props));
+		register(r, Registry.BLOCK.getId(dreamwoodPatternFramed), new ItemBlockDreamwood(dreamwoodPatternFramed, props));
+		register(r, Registry.BLOCK.getId(dreamwoodGlimmering), new ItemBlockDreamwood(dreamwoodGlimmering, props));
 		register(r, Registry.BLOCK.getId(manaSpreader), new BlockItem(manaSpreader, props));
 		register(r, Registry.BLOCK.getId(redstoneSpreader), new BlockItem(redstoneSpreader, props));
 		register(r, Registry.BLOCK.getId(elvenSpreader), new BlockItem(elvenSpreader, props));
@@ -662,71 +710,78 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getId(creativePool), new ItemBlockPool(creativePool, props));
 		register(r, Registry.BLOCK.getId(dilutedPool), new ItemBlockPool(dilutedPool, props));
 		register(r, Registry.BLOCK.getId(fabulousPool), new ItemBlockPool(fabulousPool, props));
-		register(r, Registry.BLOCK.getId(runeAltar), new BlockItem(runeAltar, props));
-		register(r, Registry.BLOCK.getId(pistonRelay), new BlockItem(pistonRelay, props));
-		register(r, Registry.BLOCK.getId(distributor), new BlockItem(distributor, props));
-		register(r, Registry.BLOCK.getId(manaVoid), new BlockItem(manaVoid, props));
-		register(r, Registry.BLOCK.getId(manaDetector), new BlockItem(manaDetector, props));
-		register(r, Registry.BLOCK.getId(enchanter), new BlockItem(enchanter, props));
-		register(r, Registry.BLOCK.getId(turntable), new BlockItem(turntable, props));
-		register(r, Registry.BLOCK.getId(tinyPlanet), new BlockItem(tinyPlanet, props));
 		register(r, Registry.BLOCK.getId(alchemyCatalyst), new BlockItem(alchemyCatalyst, props));
-		register(r, Registry.BLOCK.getId(openCrate), new BlockItem(openCrate, props));
-		register(r, Registry.BLOCK.getId(craftCrate), new BlockItem(craftCrate, props));
-		register(r, Registry.BLOCK.getId(forestEye), new BlockItem(forestEye, props));
+		register(r, Registry.BLOCK.getId(conjurationCatalyst), new BlockItem(conjurationCatalyst, props));
 		register(r, Registry.BLOCK.getId(manasteelBlock), new BlockItem(manasteelBlock, props));
 		register(r, Registry.BLOCK.getId(terrasteelBlock), new BlockItem(terrasteelBlock, props));
 		register(r, Registry.BLOCK.getId(elementiumBlock), new ItemBlockElven(elementiumBlock, props));
 		register(r, Registry.BLOCK.getId(manaDiamondBlock), new BlockItem(manaDiamondBlock, props));
 		register(r, Registry.BLOCK.getId(dragonstoneBlock), new BlockItem(dragonstoneBlock, props));
+		register(r, Registry.BLOCK.getId(manaGlass), new BlockItem(manaGlass, props));
+		register(r, Registry.BLOCK.getId(elfGlass), new ItemBlockElven(elfGlass, props));
+		register(r, Registry.BLOCK.getId(bifrostPerm), new BlockItem(bifrostPerm, props));
+		register(r, Registry.BLOCK.getId(runeAltar), new BlockItem(runeAltar, props));
+		register(r, Registry.BLOCK.getId(enchanter), new BlockItem(enchanter, props));
+		register(r, Registry.BLOCK.getId(brewery), new BlockItem(brewery, props));
+		register(r, Registry.BLOCK.getId(terraPlate), new BlockItem(terraPlate, props));
+		register(r, Registry.BLOCK.getId(alfPortal), new BlockItem(alfPortal, props));
+
+		register(r, Registry.BLOCK.getId(manaPylon), new BlockItem(manaPylon, props));
+		register(r, Registry.BLOCK.getId(naturaPylon), new BlockItem(naturaPylon, props));
+		register(r, Registry.BLOCK.getId(gaiaPylon), new BlockItem(gaiaPylon, props));
+		register(r, Registry.BLOCK.getId(distributor), new BlockItem(distributor, props));
+		register(r, Registry.BLOCK.getId(manaVoid), new BlockItem(manaVoid, props));
+		register(r, Registry.BLOCK.getId(manaDetector), new BlockItem(manaDetector, props));
+		register(r, Registry.BLOCK.getId(pistonRelay), new BlockItem(pistonRelay, props));
+		register(r, Registry.BLOCK.getId(turntable), new BlockItem(turntable, props));
+		register(r, Registry.BLOCK.getId(tinyPlanet), new BlockItem(tinyPlanet, props));
 		register(r, Registry.BLOCK.getId(wildDrum), new BlockItem(wildDrum, props));
 		register(r, Registry.BLOCK.getId(gatheringDrum), new BlockItem(gatheringDrum, props));
 		register(r, Registry.BLOCK.getId(canopyDrum), new BlockItem(canopyDrum, props));
-		register(r, Registry.BLOCK.getId(whiteShinyFlower), new BlockItem(whiteShinyFlower, props));
-		register(r, Registry.BLOCK.getId(orangeShinyFlower), new BlockItem(orangeShinyFlower, props));
-		register(r, Registry.BLOCK.getId(magentaShinyFlower), new BlockItem(magentaShinyFlower, props));
-		register(r, Registry.BLOCK.getId(lightBlueShinyFlower), new BlockItem(lightBlueShinyFlower, props));
-		register(r, Registry.BLOCK.getId(yellowShinyFlower), new BlockItem(yellowShinyFlower, props));
-		register(r, Registry.BLOCK.getId(limeShinyFlower), new BlockItem(limeShinyFlower, props));
-		register(r, Registry.BLOCK.getId(pinkShinyFlower), new BlockItem(pinkShinyFlower, props));
-		register(r, Registry.BLOCK.getId(grayShinyFlower), new BlockItem(grayShinyFlower, props));
-		register(r, Registry.BLOCK.getId(lightGrayShinyFlower), new BlockItem(lightGrayShinyFlower, props));
-		register(r, Registry.BLOCK.getId(cyanShinyFlower), new BlockItem(cyanShinyFlower, props));
-		register(r, Registry.BLOCK.getId(purpleShinyFlower), new BlockItem(purpleShinyFlower, props));
-		register(r, Registry.BLOCK.getId(blueShinyFlower), new BlockItem(blueShinyFlower, props));
-		register(r, Registry.BLOCK.getId(brownShinyFlower), new BlockItem(brownShinyFlower, props));
-		register(r, Registry.BLOCK.getId(greenShinyFlower), new BlockItem(greenShinyFlower, props));
-		register(r, Registry.BLOCK.getId(redShinyFlower), new BlockItem(redShinyFlower, props));
-		register(r, Registry.BLOCK.getId(blackShinyFlower), new BlockItem(blackShinyFlower, props));
+		register(r, Registry.BLOCK.getId(spawnerClaw), new BlockItem(spawnerClaw, props));
+		register(r, Registry.BLOCK.getId(rfGenerator), new BlockItem(rfGenerator, props));
+		register(r, Registry.BLOCK.getId(prism), new BlockItem(prism, props));
+		register(r, Registry.BLOCK.getId(pump), new BlockItem(pump, props));
+		register(r, Registry.BLOCK.getId(sparkChanger), new BlockItem(sparkChanger, props));
+		register(r, Registry.BLOCK.getId(manaBomb), new BlockItem(manaBomb, props));
+		register(r, Registry.BLOCK.getId(bellows), new BlockItem(bellows, props));
+		register(r, Registry.BLOCK.getId(openCrate), new BlockItem(openCrate, props));
+		register(r, Registry.BLOCK.getId(craftCrate), new BlockItem(craftCrate, props));
+		register(r, Registry.BLOCK.getId(forestEye), new BlockItem(forestEye, props));
 		register(r, Registry.BLOCK.getId(abstrusePlatform), new BlockItem(abstrusePlatform, props));
 		register(r, Registry.BLOCK.getId(spectralPlatform), new BlockItem(spectralPlatform, props));
 		register(r, Registry.BLOCK.getId(infrangiblePlatform), new BlockItem(infrangiblePlatform, props));
-		register(r, Registry.BLOCK.getId(alfPortal), new BlockItem(alfPortal, props));
-		register(r, Registry.BLOCK.getId(dreamwood), new ItemBlockDreamwood(dreamwood, props));
-		register(r, Registry.BLOCK.getId(dreamwoodPlanks), new ItemBlockDreamwood(dreamwoodPlanks, props));
-		register(r, Registry.BLOCK.getId(dreamwoodPlanksMossy), new ItemBlockDreamwood(dreamwoodPlanksMossy, props));
-		register(r, Registry.BLOCK.getId(dreamwoodFramed), new ItemBlockDreamwood(dreamwoodFramed, props));
-		register(r, Registry.BLOCK.getId(dreamwoodPatternFramed), new ItemBlockDreamwood(dreamwoodPatternFramed, props));
-		register(r, Registry.BLOCK.getId(dreamwoodGlimmering), new ItemBlockDreamwood(dreamwoodGlimmering, props));
-		register(r, Registry.BLOCK.getId(conjurationCatalyst), new BlockItem(conjurationCatalyst, props));
-		register(r, Registry.BLOCK.getId(whiteFloatingFlower), new BlockItem(whiteFloatingFlower, props));
-		register(r, Registry.BLOCK.getId(orangeFloatingFlower), new BlockItem(orangeFloatingFlower, props));
-		register(r, Registry.BLOCK.getId(magentaFloatingFlower), new BlockItem(magentaFloatingFlower, props));
-		register(r, Registry.BLOCK.getId(lightBlueFloatingFlower), new BlockItem(lightBlueFloatingFlower, props));
-		register(r, Registry.BLOCK.getId(yellowFloatingFlower), new BlockItem(yellowFloatingFlower, props));
-		register(r, Registry.BLOCK.getId(limeFloatingFlower), new BlockItem(limeFloatingFlower, props));
-		register(r, Registry.BLOCK.getId(pinkFloatingFlower), new BlockItem(pinkFloatingFlower, props));
-		register(r, Registry.BLOCK.getId(grayFloatingFlower), new BlockItem(grayFloatingFlower, props));
-		register(r, Registry.BLOCK.getId(lightGrayFloatingFlower), new BlockItem(lightGrayFloatingFlower, props));
-		register(r, Registry.BLOCK.getId(cyanFloatingFlower), new BlockItem(cyanFloatingFlower, props));
-		register(r, Registry.BLOCK.getId(purpleFloatingFlower), new BlockItem(purpleFloatingFlower, props));
-		register(r, Registry.BLOCK.getId(blueFloatingFlower), new BlockItem(blueFloatingFlower, props));
-		register(r, Registry.BLOCK.getId(brownFloatingFlower), new BlockItem(brownFloatingFlower, props));
-		register(r, Registry.BLOCK.getId(greenFloatingFlower), new BlockItem(greenFloatingFlower, props));
-		register(r, Registry.BLOCK.getId(redFloatingFlower), new BlockItem(redFloatingFlower, props));
-		register(r, Registry.BLOCK.getId(blackFloatingFlower), new BlockItem(blackFloatingFlower, props));
 		register(r, Registry.BLOCK.getId(tinyPotato), new ItemBlockTinyPotato(tinyPotato, props));
-		register(r, Registry.BLOCK.getId(spawnerClaw), new BlockItem(spawnerClaw, props));
+		register(r, Registry.BLOCK.getId(enderEye), new BlockItem(enderEye, props));
+		register(r, Registry.BLOCK.getId(redStringContainer), new BlockItem(redStringContainer, props));
+		register(r, Registry.BLOCK.getId(redStringDispenser), new BlockItem(redStringDispenser, props));
+		register(r, Registry.BLOCK.getId(redStringFertilizer), new BlockItem(redStringFertilizer, props));
+		register(r, Registry.BLOCK.getId(redStringComparator), new BlockItem(redStringComparator, props));
+		register(r, Registry.BLOCK.getId(redStringRelay), new BlockItem(redStringRelay, props));
+		register(r, Registry.BLOCK.getId(redStringInterceptor), new BlockItem(redStringInterceptor, props));
+		register(r, Registry.BLOCK.getId(corporeaIndex), new BlockItem(corporeaIndex, props));
+		register(r, Registry.BLOCK.getId(corporeaFunnel), new BlockItem(corporeaFunnel, props));
+		register(r, Registry.BLOCK.getId(corporeaInterceptor), new BlockItem(corporeaInterceptor, props));
+		register(r, Registry.BLOCK.getId(corporeaCrystalCube), new BlockItem(corporeaCrystalCube, props));
+		register(r, Registry.BLOCK.getId(corporeaRetainer), new BlockItem(corporeaRetainer, props));
+		register(r, Registry.BLOCK.getId(incensePlate), new BlockItem(incensePlate, props));
+		register(r, Registry.BLOCK.getId(hourglass), new BlockItem(hourglass, props));
+		register(r, Registry.BLOCK.getId(ghostRail), new BlockItem(ghostRail, props));
+		register(r, Registry.BLOCK.getId(lightRelayDefault), new BlockItem(lightRelayDefault, props));
+		register(r, Registry.BLOCK.getId(lightRelayDetector), new BlockItem(lightRelayDetector, props));
+		register(r, Registry.BLOCK.getId(lightRelayFork), new BlockItem(lightRelayFork, props));
+		register(r, Registry.BLOCK.getId(lightRelayToggle), new BlockItem(lightRelayToggle, props));
+		register(r, Registry.BLOCK.getId(lightLauncher), new BlockItem(lightLauncher, props));
+		register(r, Registry.BLOCK.getId(cacophonium), new BlockItem(cacophonium, props));
+		register(r, Registry.BLOCK.getId(cellBlock), new BlockItem(cellBlock, props));
+		register(r, Registry.BLOCK.getId(teruTeruBozu), new BlockItem(teruTeruBozu, props));
+		register(r, Registry.BLOCK.getId(avatar), new BlockItem(avatar, props));
+		register(r, Registry.BLOCK.getId(root), new BlockItem(root, props));
+		register(r, Registry.BLOCK.getId(felPumpkin), new BlockItem(felPumpkin, props));
+		register(r, Registry.BLOCK.getId(cocoon), new BlockItem(cocoon, props));
+		register(r, Registry.BLOCK.getId(enchantedSoil), new BlockItem(enchantedSoil, props));
+		register(r, Registry.BLOCK.getId(animatedTorch), new BlockItem(animatedTorch, props));
+		register(r, Registry.BLOCK.getId(starfield), new BlockItem(starfield, props));
 		register(r, Registry.BLOCK.getId(azulejo0), new BlockItem(azulejo0, props));
 		register(r, Registry.BLOCK.getId(azulejo1), new BlockItem(azulejo1, props));
 		register(r, Registry.BLOCK.getId(azulejo2), new BlockItem(azulejo2, props));
@@ -743,88 +798,8 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getId(azulejo13), new BlockItem(azulejo13, props));
 		register(r, Registry.BLOCK.getId(azulejo14), new BlockItem(azulejo14, props));
 		register(r, Registry.BLOCK.getId(azulejo15), new BlockItem(azulejo15, props));
-		register(r, Registry.BLOCK.getId(enderEye), new BlockItem(enderEye, props));
-		register(r, Registry.BLOCK.getId(starfield), new BlockItem(starfield, props));
-		register(r, Registry.BLOCK.getId(rfGenerator), new BlockItem(rfGenerator, props));
-		register(r, Registry.BLOCK.getId(elfGlass), new ItemBlockElven(elfGlass, props));
-		register(r, Registry.BLOCK.getId(manaGlass), new BlockItem(manaGlass, props));
-		register(r, Registry.BLOCK.getId(terraPlate), new BlockItem(terraPlate, props));
-		register(r, Registry.BLOCK.getId(redStringContainer), new BlockItem(redStringContainer, props));
-		register(r, Registry.BLOCK.getId(redStringDispenser), new BlockItem(redStringDispenser, props));
-		register(r, Registry.BLOCK.getId(redStringFertilizer), new BlockItem(redStringFertilizer, props));
-		register(r, Registry.BLOCK.getId(redStringComparator), new BlockItem(redStringComparator, props));
-		register(r, Registry.BLOCK.getId(redStringRelay), new BlockItem(redStringRelay, props));
-		register(r, Registry.BLOCK.getId(prism), new BlockItem(prism, props));
-		register(r, Registry.BLOCK.getId(enchantedSoil), new BlockItem(enchantedSoil, props));
-		register(r, Registry.BLOCK.getId(petalBlockWhite), new BlockItem(petalBlockWhite, props));
-		register(r, Registry.BLOCK.getId(petalBlockOrange), new BlockItem(petalBlockOrange, props));
-		register(r, Registry.BLOCK.getId(petalBlockMagenta), new BlockItem(petalBlockMagenta, props));
-		register(r, Registry.BLOCK.getId(petalBlockLightBlue), new BlockItem(petalBlockLightBlue, props));
-		register(r, Registry.BLOCK.getId(petalBlockYellow), new BlockItem(petalBlockYellow, props));
-		register(r, Registry.BLOCK.getId(petalBlockLime), new BlockItem(petalBlockLime, props));
-		register(r, Registry.BLOCK.getId(petalBlockPink), new BlockItem(petalBlockPink, props));
-		register(r, Registry.BLOCK.getId(petalBlockGray), new BlockItem(petalBlockGray, props));
-		register(r, Registry.BLOCK.getId(petalBlockSilver), new BlockItem(petalBlockSilver, props));
-		register(r, Registry.BLOCK.getId(petalBlockCyan), new BlockItem(petalBlockCyan, props));
-		register(r, Registry.BLOCK.getId(petalBlockPurple), new BlockItem(petalBlockPurple, props));
-		register(r, Registry.BLOCK.getId(petalBlockBlue), new BlockItem(petalBlockBlue, props));
-		register(r, Registry.BLOCK.getId(petalBlockBrown), new BlockItem(petalBlockBrown, props));
-		register(r, Registry.BLOCK.getId(petalBlockGreen), new BlockItem(petalBlockGreen, props));
-		register(r, Registry.BLOCK.getId(petalBlockRed), new BlockItem(petalBlockRed, props));
-		register(r, Registry.BLOCK.getId(petalBlockBlack), new BlockItem(petalBlockBlack, props));
-		register(r, Registry.BLOCK.getId(corporeaFunnel), new BlockItem(corporeaFunnel, props));
-		register(r, Registry.BLOCK.getId(whiteMushroom), new BlockItem(whiteMushroom, props));
-		register(r, Registry.BLOCK.getId(orangeMushroom), new BlockItem(orangeMushroom, props));
-		register(r, Registry.BLOCK.getId(magentaMushroom), new BlockItem(magentaMushroom, props));
-		register(r, Registry.BLOCK.getId(lightBlueMushroom), new BlockItem(lightBlueMushroom, props));
-		register(r, Registry.BLOCK.getId(yellowMushroom), new BlockItem(yellowMushroom, props));
-		register(r, Registry.BLOCK.getId(limeMushroom), new BlockItem(limeMushroom, props));
-		register(r, Registry.BLOCK.getId(pinkMushroom), new BlockItem(pinkMushroom, props));
-		register(r, Registry.BLOCK.getId(grayMushroom), new BlockItem(grayMushroom, props));
-		register(r, Registry.BLOCK.getId(lightGrayMushroom), new BlockItem(lightGrayMushroom, props));
-		register(r, Registry.BLOCK.getId(cyanMushroom), new BlockItem(cyanMushroom, props));
-		register(r, Registry.BLOCK.getId(purpleMushroom), new BlockItem(purpleMushroom, props));
-		register(r, Registry.BLOCK.getId(blueMushroom), new BlockItem(blueMushroom, props));
-		register(r, Registry.BLOCK.getId(brownMushroom), new BlockItem(brownMushroom, props));
-		register(r, Registry.BLOCK.getId(greenMushroom), new BlockItem(greenMushroom, props));
-		register(r, Registry.BLOCK.getId(redMushroom), new BlockItem(redMushroom, props));
-		register(r, Registry.BLOCK.getId(blackMushroom), new BlockItem(blackMushroom, props));
-		register(r, Registry.BLOCK.getId(pump), new BlockItem(pump, props));
-		register(r, Registry.BLOCK.getId(doubleFlowerWhite), new BlockItem(doubleFlowerWhite, props));
-		register(r, Registry.BLOCK.getId(doubleFlowerOrange), new BlockItem(doubleFlowerOrange, props));
-		register(r, Registry.BLOCK.getId(doubleFlowerMagenta), new BlockItem(doubleFlowerMagenta, props));
-		register(r, Registry.BLOCK.getId(doubleFlowerLightBlue), new BlockItem(doubleFlowerLightBlue, props));
-		register(r, Registry.BLOCK.getId(doubleFlowerYellow), new BlockItem(doubleFlowerYellow, props));
-		register(r, Registry.BLOCK.getId(doubleFlowerLime), new BlockItem(doubleFlowerLime, props));
-		register(r, Registry.BLOCK.getId(doubleFlowerPink), new BlockItem(doubleFlowerPink, props));
-		register(r, Registry.BLOCK.getId(doubleFlowerGray), new BlockItem(doubleFlowerGray, props));
-		register(r, Registry.BLOCK.getId(doubleFlowerLightGray), new BlockItem(doubleFlowerLightGray, props));
-		register(r, Registry.BLOCK.getId(doubleFlowerCyan), new BlockItem(doubleFlowerCyan, props));
-		register(r, Registry.BLOCK.getId(doubleFlowerPurple), new BlockItem(doubleFlowerPurple, props));
-		register(r, Registry.BLOCK.getId(doubleFlowerBlue), new BlockItem(doubleFlowerBlue, props));
-		register(r, Registry.BLOCK.getId(doubleFlowerBrown), new BlockItem(doubleFlowerBrown, props));
-		register(r, Registry.BLOCK.getId(doubleFlowerGreen), new BlockItem(doubleFlowerGreen, props));
-		register(r, Registry.BLOCK.getId(doubleFlowerRed), new BlockItem(doubleFlowerRed, props));
-		register(r, Registry.BLOCK.getId(doubleFlowerBlack), new BlockItem(doubleFlowerBlack, props));
 		register(r, Registry.BLOCK.getId(blazeBlock), new ItemBlockBlaze(blazeBlock, props));
-		register(r, Registry.BLOCK.getId(corporeaInterceptor), new BlockItem(corporeaInterceptor, props));
-		register(r, Registry.BLOCK.getId(incensePlate), new BlockItem(incensePlate, props));
-		register(r, Registry.BLOCK.getId(ghostRail), new BlockItem(ghostRail, props));
-		register(r, Registry.BLOCK.getId(sparkChanger), new BlockItem(sparkChanger, props));
-		register(r, Registry.BLOCK.getId(root), new BlockItem(root, props));
-		register(r, Registry.BLOCK.getId(felPumpkin), new BlockItem(felPumpkin, props));
-		register(r, Registry.BLOCK.getId(cocoon), new BlockItem(cocoon, props));
-		register(r, Registry.BLOCK.getId(lightRelayDefault), new BlockItem(lightRelayDefault, props));
-		register(r, Registry.BLOCK.getId(lightRelayDetector), new BlockItem(lightRelayDetector, props));
-		register(r, Registry.BLOCK.getId(lightRelayFork), new BlockItem(lightRelayFork, props));
-		register(r, Registry.BLOCK.getId(lightRelayToggle), new BlockItem(lightRelayToggle, props));
-		register(r, Registry.BLOCK.getId(lightLauncher), new BlockItem(lightLauncher, props));
-		register(r, Registry.BLOCK.getId(manaBomb), new BlockItem(manaBomb, props));
-		register(r, Registry.BLOCK.getId(cacophonium), new BlockItem(cacophonium, props));
-		register(r, Registry.BLOCK.getId(bifrostPerm), new BlockItem(bifrostPerm, props));
-		register(r, Registry.BLOCK.getId(cellBlock), new BlockItem(cellBlock, props));
-		register(r, Registry.BLOCK.getId(redStringInterceptor), new BlockItem(redStringInterceptor, props));
-		register(r, Registry.BLOCK.getId(corporeaRetainer), new BlockItem(corporeaRetainer, props));
+		register(r, Registry.BLOCK.getId(gaiaHead), new ItemGaiaHead(gaiaHead, gaiaHeadWall, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)));
 		register(r, Registry.BLOCK.getId(shimmerrock), new BlockItem(shimmerrock, props));
 		register(r, Registry.BLOCK.getId(shimmerwoodPlanks), new BlockItem(shimmerwoodPlanks, props));
 		register(r, Registry.BLOCK.getId(dryGrass), new BlockItem(dryGrass, props));
@@ -833,20 +808,6 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getId(scorchedGrass), new BlockItem(scorchedGrass, props));
 		register(r, Registry.BLOCK.getId(infusedGrass), new BlockItem(infusedGrass, props));
 		register(r, Registry.BLOCK.getId(mutatedGrass), new BlockItem(mutatedGrass, props));
-		register(r, Registry.BLOCK.getId(animatedTorch), new BlockItem(animatedTorch, props));
-		register(r, Registry.BLOCK.getId(corporeaCrystalCube), new BlockItem(corporeaCrystalCube, props));
-		register(r, Registry.BLOCK.getId(gaiaHead), new ItemGaiaHead(gaiaHead, gaiaHeadWall, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)));
-
-		register(r, Registry.BLOCK.getId(manaPylon), new BlockItem(manaPylon, props));
-		register(r, Registry.BLOCK.getId(naturaPylon), new BlockItem(naturaPylon, props));
-		register(r, Registry.BLOCK.getId(gaiaPylon), new BlockItem(gaiaPylon, props));
-
-		register(r, Registry.BLOCK.getId(teruTeruBozu), new BlockItem(teruTeruBozu, props));
-		register(r, Registry.BLOCK.getId(avatar), new BlockItem(avatar, props));
-		register(r, Registry.BLOCK.getId(bellows), new BlockItem(bellows, props));
-		register(r, Registry.BLOCK.getId(brewery), new BlockItem(brewery, props));
-		register(r, Registry.BLOCK.getId(corporeaIndex), new BlockItem(corporeaIndex, props));
-		register(r, Registry.BLOCK.getId(hourglass), new BlockItem(hourglass, props));
 	}
 
 	public static <T> void register(Registry<? super T> reg, Identifier name, T thing) {
