@@ -8,8 +8,10 @@
  */
 package vazkii.botania.common.core.proxy;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
@@ -66,4 +68,8 @@ public interface IProxy {
 	default void showMultiblock(IMultiblock mb, ITextComponent name, BlockPos anchor, Rotation rot) {}
 
 	default void clearSextantMultiblock() {}
+
+	default Item.Properties propertiesWithRenderer(Item.Properties properties, Block block) {
+		return properties;
+	}
 }

@@ -48,7 +48,10 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.client.render.entity.RenderMagicLandmine;
+import vazkii.botania.client.render.tile.RenderTilePylon;
+import vazkii.botania.client.render.tile.TEISR;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.BlockPylon;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
@@ -369,5 +372,13 @@ public class ClientProxy implements IProxy {
 		if (mb != null && mb.getID().equals(ItemSextant.MULTIBLOCK_ID)) {
 			PatchouliAPI.instance.clearMultiblock();
 		}
+	}
+
+	@Override
+	public Item.Properties propertiesWithRenderer(Item.Properties properties, Block block) {
+		if (block instanceof BlockPylon) {
+			return properties.setISTER(() -> RenderTilePylon.TEISR::new);
+		}
+		return properties.setISTER(() -> () -> new TEISR(block));
 	}
 }
