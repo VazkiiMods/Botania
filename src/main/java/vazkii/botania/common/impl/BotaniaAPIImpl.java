@@ -233,7 +233,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	@Override
 	public Inventory getAccessoriesInventory(PlayerEntity player) {
-		return new CapWrapper(EquipmentHandler.getAllWorn(player).orElseGet(EmptyHandler::new));
+		return EquipmentHandler.getAllWorn(player);
 	}
 
 	@Override

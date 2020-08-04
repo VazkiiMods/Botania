@@ -11,12 +11,13 @@ package vazkii.botania.common.core.handler;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.handler.EquipmentHandler.InventoryEquipmentHandler;
 import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 
@@ -31,7 +32,7 @@ public abstract class EquipmentHandler {
 	public static void init() {
 		if (Botania.curiosLoaded) {
 			instance = new CurioIntegration();
-			FMLJavaModLoadingContext.get().getModEventBus().addListener(CurioIntegration::sendImc);
+			CurioIntegration.init();
 			MinecraftForge.EVENT_BUS.addListener(CurioIntegration::keepCurioDrops);
 		} else {
 			InventoryEquipmentHandler handler = new InventoryEquipmentHandler();
@@ -40,7 +41,7 @@ public abstract class EquipmentHandler {
 		}
 	}
 
-	public static LazyOptional<IItemHandlerModifiable> getAllWorn(LivingEntity living) {
+	public static Inventory getAllWorn(LivingEntity living) {
 		return instance.getAllWornItems(living);
 	}
 
@@ -52,21 +53,20 @@ public abstract class EquipmentHandler {
 		return instance.findItem(pred, living);
 	}
 
-	public static ICapabilityProvider initBaubleCap(ItemStack stack) {
+	public static void initBaubleCap(Item item) {
 		if (instance != null) // Happens to be called in ModItems class init, which is too early to know about which handler to use
 		{
-			return instance.initCap(stack);
+			instance.registerComponentEvent(item);
 		}
-		return null;
 	}
 
-	protected abstract LazyOptional<IItemHandlerModifiable> getAllWornItems(LivingEntity living);
+	protected abstract Inventory getAllWornItems(LivingEntity living);
 
 	protected abstract ItemStack findItem(Item item, LivingEntity living);
 
 	protected abstract ItemStack findItem(Predicate<ItemStack> pred, LivingEntity living);
 
-	protected abstract ICapabilityProvider initCap(ItemStack stack);
+	protected abstract void registerComponentEvent(Item item);
 
 	public boolean isAccessory(ItemStack stack) {
 		return stack.getItem() instanceof ItemBauble || stack.getItem() instanceof IManaItem;
@@ -115,8 +115,8 @@ public abstract class EquipmentHandler {
 		}
 
 		@Override
-		protected LazyOptional<IItemHandlerModifiable> getAllWornItems(LivingEntity living) {
-			return LazyOptional.empty();
+		protected Inventory getAllWornItems(LivingEntity living) {
+			return new SimpleInventory(0);
 		}
 
 		@Override
@@ -148,8 +148,7 @@ public abstract class EquipmentHandler {
 		}
 
 		@Override
-		protected ICapabilityProvider initCap(ItemStack stack) {
-			return null;
+		protected void registerComponentEvent(Item item) {
 		}
 
 		private static boolean canEquip(ItemStack stack, LivingEntity player) {

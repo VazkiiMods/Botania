@@ -54,6 +54,7 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 
 	public ItemBauble(Settings props) {
 		super(props);
+		EquipmentHandler.initBaubleCap(this);
 	}
 
 	@Override
@@ -127,12 +128,6 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 	@Override
 	public void setPhantomInk(ItemStack stack, boolean ink) {
 		ItemNBTHelper.setBoolean(stack, TAG_PHANTOM_INK, ink);
-	}
-
-	@Nullable
-	@Override
-	public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-		return EquipmentHandler.initBaubleCap(stack);
 	}
 
 	public void onWornTick(ItemStack stack, LivingEntity entity) {}

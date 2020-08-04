@@ -9,6 +9,7 @@
 package vazkii.botania.common.integration.curios;
 
 import com.google.common.collect.Multimap;
+import nerdhub.cardinal.components.api.event.ItemComponentCallbackV2;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -21,37 +22,39 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 
 import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.CuriosCapability;
-import top.theillusivec4.curios.api.SlotTypeMessage;
+import top.theillusivec4.curios.api.CuriosComponent;
+import top.theillusivec4.curios.api.SlotTypeInfo;
 import top.theillusivec4.curios.api.SlotTypePreset;
-import top.theillusivec4.curios.api.event.DropRulesEvent;
-import top.theillusivec4.curios.api.type.capability.ICurio;
-import top.theillusivec4.curios.api.type.capability.ICurio.DropRule;
 
-import vazkii.botania.common.capability.SimpleCapProvider;
+import top.theillusivec4.curios.api.type.component.ICurio;
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 // Classloading-safe way to attach curio behaviour to our items
 public class CurioIntegration extends EquipmentHandler {
 
-	public static void sendImc(InterModEnqueueEvent evt) {
-		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.CHARM.getMessageBuilder().build());
-		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.RING.getMessageBuilder().size(2).build());
-		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.BELT.getMessageBuilder().build());
-		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.BODY.getMessageBuilder().build());
-		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.HEAD.getMessageBuilder().build());
-		InterModComms.sendTo("curios", SlotTypeMessage.REGISTER_TYPE, () -> SlotTypePreset.NECKLACE.getMessageBuilder().build());
+	public static void init() {
+		CuriosApi.enqueueSlotType(SlotTypeInfo.BuildScheme.REGISTER, SlotTypePreset.CHARM.getInfoBuilder().build());
+		CuriosApi.enqueueSlotType(SlotTypeInfo.BuildScheme.REGISTER, SlotTypePreset.RING.getInfoBuilder().size(2).build());
+		CuriosApi.enqueueSlotType(SlotTypeInfo.BuildScheme.REGISTER, SlotTypePreset.BELT.getInfoBuilder().build());
+		CuriosApi.enqueueSlotType(SlotTypeInfo.BuildScheme.REGISTER, SlotTypePreset.BODY.getInfoBuilder().build());
+		CuriosApi.enqueueSlotType(SlotTypeInfo.BuildScheme.REGISTER, SlotTypePreset.HEAD.getInfoBuilder().build());
+		CuriosApi.enqueueSlotType(SlotTypeInfo.BuildScheme.REGISTER, SlotTypePreset.NECKLACE.getInfoBuilder().build());
 	}
 
 	public static void keepCurioDrops(DropRulesEvent event) { //TODO make this less hacky
@@ -61,12 +64,23 @@ public class CurioIntegration extends EquipmentHandler {
 				return true;
 			}
 			return false;
-		}, DropRule.ALWAYS_KEEP);
+		}, ICurio.DropRule.ALWAYS_KEEP);
 	}
 
 	@Override
-	protected LazyOptional<IItemHandlerModifiable> getAllWornItems(LivingEntity living) {
-		return CuriosApi.getCuriosHelper().getEquippedCurios(living);
+	protected Inventory getAllWornItems(LivingEntity living) {
+		return CuriosApi.getCuriosHelper().getCuriosHandler(living)
+			.map(h -> {
+				List<ItemStack> list = new ArrayList<>();
+				for (ICurioStacksHandler sh : h.getCurios().values()) {
+					Inventory stacks = sh.getStacks();
+					for (int i = 0; i < stacks.size(); i++) {
+						list.add(stacks.getStack(i));
+					}
+				}
+				return new SimpleInventory(list.toArray(new ItemStack[0]));
+			})
+			.orElseGet(() -> new SimpleInventory(0));
 	}
 
 	@Override
@@ -84,13 +98,14 @@ public class CurioIntegration extends EquipmentHandler {
 	}
 
 	@Override
-	protected ICapabilityProvider initCap(ItemStack stack) {
-		return new SimpleCapProvider<>(CuriosCapability.ITEM, new Wrapper(stack));
+	protected void registerComponentEvent(Item item) {
+		ItemComponentCallbackV2.event(item).register((item1, stack, components) ->
+			components.put(CuriosComponent.ITEM, new Wrapper(stack)));
 	}
 
 	@Override
 	public boolean isAccessory(ItemStack stack) {
-		return super.isAccessory(stack) || stack.getCapability(CuriosCapability.ITEM).isPresent();
+		return super.isAccessory(stack) || CuriosComponent.ITEM.getNullable(stack) != null;
 	}
 
 	public static class Wrapper implements ICurio {
