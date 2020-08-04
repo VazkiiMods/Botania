@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.entity;
 
-import com.google.common.base.Predicates;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.PlantBlock;
@@ -20,11 +18,15 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
+import net.minecraft.entity.passive.HorseBaseEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -37,6 +39,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import javax.annotation.Nonnull;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class EntityMagicMissile extends ThrownEntity {
 	private static final String TAG_TIME = "time";
@@ -82,7 +85,7 @@ public class EntityMagicMissile extends ThrownEntity {
 	public LivingEntity getTargetEntity() {
 		int id = dataTracker.get(TARGET);
 		Entity e = world.getEntityById(id);
-		if (e != null && e instanceof LivingEntity) {
+		if (e instanceof LivingEntity) {
 			return (LivingEntity) e;
 		}
 
@@ -173,34 +176,46 @@ public class EntityMagicMissile extends ThrownEntity {
 
 	public boolean findTarget() {
 		LivingEntity target = getTargetEntity();
-		if (target != null && target.isAlive()) {
-			return true;
-		}
 		if (target != null) {
-			setTarget(null);
+			if (target.isAlive()) {
+				return true;
+			} else {
+				target = null;
+				setTarget(null);
+			}
 		}
 
 		double range = 12;
 		Box bounds = new Box(getX() - range, getY() - range, getZ() - range, getX() + range, getY() + range, getZ() + range);
-		List<Entity> entities;
+		List<LivingEntity> entities;
 		if (isEvil()) {
 			entities = world.getNonSpectatingEntities(PlayerEntity.class, bounds);
 		} else {
-			entities = world.getEntities(Entity.class, bounds, Predicates.instanceOf(Monster.class));
+			Predicate<LivingEntity> pred = EntityPredicates.VALID_LIVING_ENTITY.and(this::shouldTarget);
+			entities = world.getEntities(LivingEntity.class, bounds, pred);
 		}
-		while (entities.size() > 0) {
-			Entity e = entities.get(world.random.nextInt(entities.size()));
-			if (!(e instanceof LivingEntity) || !e.isAlive()) { // Just in case...
-				entities.remove(e);
-				continue;
-			}
 
-			target = (LivingEntity) e;
+		if (entities.size() > 0) {
+			target = entities.get(world.random.nextInt(entities.size()));
 			setTarget(target);
-			break;
 		}
 
 		return target != null;
+	}
+
+	public boolean shouldTarget(LivingEntity e) {
+		// always defend yourself
+		Entity thrower = getOwner();
+		if (thrower != null && e instanceof MobEntity && ((MobEntity) e).getTarget() == thrower) {
+			return true;
+		}
+		// don't target tamed creatures...
+		if (e instanceof TameableEntity && ((TameableEntity) e).isTamed() || e instanceof HorseBaseEntity && ((HorseBaseEntity) e).isTame()) {
+			return false;
+		}
+
+		// ...but other mobs die
+		return e instanceof Monster;
 	}
 
 	@Override

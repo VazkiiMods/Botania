@@ -85,6 +85,7 @@ import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.corporea.CorporeaItemStackMatcher;
 import vazkii.botania.common.impl.corporea.CorporeaStringMatcher;
+import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.ItemGrassSeeds;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.ItemVirus;
@@ -262,6 +263,7 @@ public class Botania implements ModInitializer {
 
 	private void loadComplete(FMLLoadCompleteEvent event) {
 		finishedLoading = true;
+		CorporeaNodeDetectors.init();
 	}
 
 	private void serverAboutToStart(MinecraftServer server) {

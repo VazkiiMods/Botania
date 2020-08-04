@@ -10,6 +10,9 @@ package vazkii.botania.api.wand;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 /**
  * The item equivalent of ITileBound, renders when the
@@ -19,6 +22,7 @@ import net.minecraft.util.math.BlockPos;
  */
 public interface ICoordBoundItem {
 
-	public BlockPos getBinding(ItemStack stack);
+	@Nullable
+	BlockPos getBinding(World world, ItemStack stack);
 
 }

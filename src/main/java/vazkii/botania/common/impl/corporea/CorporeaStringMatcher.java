@@ -53,7 +53,7 @@ public class CorporeaStringMatcher implements ICorporeaRequestMatcher {
 	}
 
 	@Override
-	public boolean isStackValid(ItemStack stack) {
+	public boolean test(ItemStack stack) {
 		if (stack.isEmpty()) {
 			return false;
 		}

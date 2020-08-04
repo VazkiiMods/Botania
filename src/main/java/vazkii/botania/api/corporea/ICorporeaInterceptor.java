@@ -19,17 +19,15 @@ import java.util.List;
 public interface ICorporeaInterceptor {
 
 	/**
-	 * Intercepts a request as it goes. The list of inventories has all the inventories
-	 * at this point, but the list of stacks is not complete. The request parameter can
-	 * be either a String or ItemStack.
+	 * Intercepts a request as it goes. The list of nodes has all the nodes
+	 * at this point, but the list of stacks is not complete.
 	 */
-	public void interceptRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit);
+	void interceptRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<ICorporeaNode> nodes, boolean doit);
 
 	/**
 	 * Intercepts a request after all the stacks have been found and processed. Both the
-	 * list of inventories and stacks is complete at this point. The request parameter can
-	 * be either a String or ItemStack.
+	 * list of nodes and stacks is complete at this point.
 	 */
-	public void interceptRequestLast(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit);
+	void interceptRequestLast(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<ICorporeaNode> nodes, boolean doit);
 
 }

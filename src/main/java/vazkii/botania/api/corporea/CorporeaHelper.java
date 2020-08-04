@@ -39,17 +39,17 @@ public interface CorporeaHelper {
 	}
 
 	/**
-	 * Gets a list of all the inventories on this spark network. This list is cached for use once every tick,
+	 * Gets a list of all the nodes on this spark network. This list is cached for use once every tick,
 	 * and if something changes during that tick it'll still have the first result.
 	 */
-	default List<InvWithLocation> getInventoriesOnNetwork(ICorporeaSpark spark) {
+	default List<ICorporeaNode> getNodesOnNetwork(ICorporeaSpark spark) {
 		return Collections.emptyList();
 	}
 
 	/**
 	 * Gets the number of available items in the network satisfying the given matcher.
-	 * The higher level functions that use a List< IInventory > or a Map< IInventory, Integer > should be
-	 * called instead if the context for those exists to avoid having to get the values again.
+	 * If you have it computed, prefer {@link #getCountInNetwork(ICorporeaRequestMatcher, List)} to avoid
+	 * recomputation of the list.
 	 */
 	default int getCountInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
 		return 0;
@@ -57,35 +57,24 @@ public interface CorporeaHelper {
 
 	/**
 	 * Gets the number of available items in the network satisfying the given matcher.
-	 * The higher level function that use a Map< IInventory, Integer > should be
-	 * called instead if the context for this exists to avoid having to get the value again.
 	 */
-	default int getCountInNetwork(ICorporeaRequestMatcher matcher, List<InvWithLocation> inventories) {
+	default int getCountInNetwork(ICorporeaRequestMatcher matcher, List<ICorporeaNode> inventories) {
 		return 0;
 	}
 
 	/**
-	 * Gets the amount of available items in the network of the type passed in, checking NBT or not.
+	 * Gets a Map mapping nodes to the number of matching items.
+	 * If you have it computed, prefer {@link #getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher, List)} to avoid
+	 * recomputation of the list.
 	 */
-	default int getCountInNetwork(ICorporeaRequestMatcher matcher, Map<InvWithLocation, Integer> inventories) {
-		return 0;
-	}
-
-	/**
-	 * Gets a Map mapping IInventories to the number of matching items.
-	 * The higher level function that use a List< IInventory > should be
-	 * called instead if the context for this exists to avoid having to get the value again.
-	 */
-	default Map<InvWithLocation, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
+	default Map<ICorporeaNode, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
 		return Collections.emptyMap();
 	}
 
 	/**
-	 * Gets a Map mapping IInventories to the number of matching items.
-	 * The deeper level function that use a List< IInventory > should be
-	 * called instead if the context for this exists to avoid having to get the value again.
+	 * Gets a Map mapping nodes to the number of matching items.
 	 */
-	default Map<InvWithLocation, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, List<InvWithLocation> inventories) {
+	default Map<ICorporeaNode, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, List<ICorporeaNode> inventories) {
 		return Collections.emptyMap();
 	}
 
@@ -131,14 +120,6 @@ public interface CorporeaHelper {
 	 */
 	default ICorporeaResult requestItem(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean doit) {
 		return ICorporeaResult.Dummy.INSTANCE;
-	}
-
-	/**
-	 * Gets the spark attached to the inventory passed case it's a TileEntity.
-	 */
-	@Nullable
-	default ICorporeaSpark getSparkForInventory(InvWithLocation inv) {
-		return null;
 	}
 
 	/**

@@ -31,22 +31,4 @@ public final class AccessoryRenderHelper {
 		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90F / (float) Math.PI));
 	}
 
-	/**
-	 * Shifts the render for a bauble correctly to the head, including sneaking rotation.
-	 */
-	public static void translateToHeadLevel(MatrixStack ms, LivingEntity player, float partialTicks) {
-
-		float yaw = player.prevHeadYaw + (player.headYaw - player.prevHeadYaw) * partialTicks;
-		float yawOffset = player.prevBodyYaw + (player.bodyYaw - player.prevBodyYaw) * partialTicks;
-		float pitch = player.prevPitch + (player.pitch - player.prevPitch) * partialTicks;
-
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-yawOffset));
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(yaw - 270));
-		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(pitch));
-
-		ms.translate(0, -player.getStandingEyeHeight(), 0);
-//        if (player.shouldRenderSneaking()) TODO Sneaking needs a different adjustment now
-//            GlStateManager.translatef(0.25F * MathHelper.sin(player.rotationPitch * (float) Math.PI / 180), 0.25F * MathHelper.cos(player.rotationPitch * (float) Math.PI / 180), 0F);
-	}
-
 }

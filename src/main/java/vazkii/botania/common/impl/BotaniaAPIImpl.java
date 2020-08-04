@@ -25,10 +25,7 @@ import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.api.corporea.ICorporeaSpark;
-import vazkii.botania.api.corporea.IWrappedInventory;
-import vazkii.botania.api.corporea.InvWithLocation;
+import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
@@ -36,7 +33,7 @@ import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
-import vazkii.botania.common.integration.corporea.WrappedIInventory;
+import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.CapWrapper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.relic.ItemLokiRing;
@@ -44,9 +41,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
@@ -262,23 +257,6 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		return ConfigHandler.COMMON.flowerForceCheck.getValue();
 	}
 
-	@Override
-	public List<IWrappedInventory> wrapInventory(List<InvWithLocation> inventories) {
-		List<IWrappedInventory> arrayList = new ArrayList<>();
-		for (InvWithLocation inv : inventories) {
-			ICorporeaSpark spark = CorporeaHelper.instance().getSparkForInventory(inv);
-			IWrappedInventory wrapped = null;
-			// try integrations
-
-			// last chance - this will always work
-			if (wrapped == null) {
-				wrapped = WrappedIInventory.wrap(inv, spark);
-			}
-			arrayList.add(wrapped);
-		}
-		return arrayList;
-	}
-
 	private final Map<Identifier, Integer> oreWeights = new ConcurrentHashMap<>();
 	private final Map<Identifier, Integer> netherOreWeights = new ConcurrentHashMap<>();
 	private final Map<Identifier, Function<DyeColor, Block>> paintableBlocks = new ConcurrentHashMap<>();
@@ -311,5 +289,10 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	@Override
 	public void registerPaintableBlock(Identifier block, Function<DyeColor, Block> transformer) {
 		paintableBlocks.put(block, transformer);
+	}
+
+	@Override
+	public void registerCorporeaNodeDetector(ICorporeaNodeDetector detector) {
+		CorporeaNodeDetectors.register(detector);
 	}
 }

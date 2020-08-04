@@ -13,6 +13,7 @@ import net.minecraft.entity.ai.goal.FollowTargetGoal;
 import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
 import net.minecraft.entity.ai.goal.RevengeGoal;
 import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -55,6 +56,9 @@ public class EntityPinkWither extends WitherEntity {
 			}
 		}
 	}
+
+	@Override
+	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {}
 
 	@Override
 	public void mobTick() {

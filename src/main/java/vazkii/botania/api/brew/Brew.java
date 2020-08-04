@@ -11,19 +11,21 @@ package vazkii.botania.api.brew;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionUtil;
 import net.minecraft.util.Identifier;
 
 import vazkii.botania.api.BotaniaAPI;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * The class for a Brew definition, each one is a singleton.
  */
 public class Brew {
-	private final int color;
+	private final Supplier<Integer> color;
 	private final int cost;
-	private final List<StatusEffectInstance> effects;
+	private final Supplier<List<StatusEffectInstance>> effects;
 	private boolean canInfuseBloodPendant = true;
 	private boolean canInfuseIncense = true;
 
@@ -36,9 +38,20 @@ public class Brew {
 	 * @param effects A list of effects to apply to the player when they drink it.
 	 */
 	public Brew(int color, int cost, StatusEffectInstance... effects) {
-		this.color = color;
+		this.color = () -> color;
 		this.cost = cost;
-		this.effects = ImmutableList.copyOf(effects);
+		List<StatusEffectInstance> savedEffects = ImmutableList.copyOf(effects);
+		this.effects = () -> savedEffects;
+	}
+
+	/**
+	 * @param cost    The cost, in Mana for this brew.
+	 * @param effects A supplier that supplies a list of effects to apply to the player when they drink it.
+	 */
+	public Brew(int cost, Supplier<List<StatusEffectInstance>> effects) {
+		this.color = () -> PotionUtil.getColor(effects.get());
+		this.cost = cost;
+		this.effects = effects;
 	}
 
 	/**
@@ -86,7 +99,7 @@ public class Brew {
 	 * Alfglass Flask at all times.
 	 */
 	public int getColor(ItemStack stack) {
-		return color;
+		return color.get();
 	}
 
 	/**
@@ -109,7 +122,7 @@ public class Brew {
 	 * Vial or an Alfglass Flask at all times.
 	 */
 	public List<StatusEffectInstance> getPotionEffects(ItemStack stack) {
-		return effects;
+		return effects.get();
 	}
 
 }

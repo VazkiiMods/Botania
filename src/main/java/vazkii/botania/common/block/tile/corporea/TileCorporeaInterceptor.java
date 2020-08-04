@@ -12,12 +12,13 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import vazkii.botania.api.corporea.ICorporeaInterceptor;
+import vazkii.botania.api.corporea.ICorporeaNode;
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.api.corporea.ICorporeaSpark;
-import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.block.tile.ModTiles;
 
 import java.util.ArrayList;
@@ -29,13 +30,13 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 	}
 
 	@Override
-	public void interceptRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit) {}
+	public void interceptRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<ICorporeaNode> nodes, boolean doit) {}
 
 	@Override
-	public void interceptRequestLast(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<InvWithLocation> inventories, boolean doit) {
+	public void interceptRequestLast(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<ICorporeaNode> nodes, boolean doit) {
 		List<ItemStack> filter = getFilter();
 		for (ItemStack stack : filter) {
-			if (request.isStackValid(stack)) {
+			if (request.test(stack)) {
 				int missing = count;
 				for (ItemStack stack_ : stacks) {
 					missing -= stack_.getCount();
@@ -45,11 +46,11 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 					world.setBlockState(getPos(), getCachedState().with(Properties.POWERED, true));
 					world.getBlockTickScheduler().schedule(getPos(), getCachedState().getBlock(), 2);
 
-					BlockEntity requestor = source.getSparkInventory().getWorld().getBlockEntity(source.getSparkInventory().getPos());
+					BlockPos requestorPos = source.getSparkNode().getPos();
 					for (Direction dir : Direction.values()) {
 						BlockEntity tile = world.getBlockEntity(pos.offset(dir));
 						if (tile instanceof TileCorporeaRetainer) {
-							((TileCorporeaRetainer) tile).setPendingRequest(requestor.getPos(), request, count);
+							((TileCorporeaRetainer) tile).remember(requestorPos, request, count, missing);
 						}
 					}
 

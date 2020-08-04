@@ -32,9 +32,10 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
+import vazkii.botania.api.corporea.ICorporeaNode;
 import vazkii.botania.api.corporea.ICorporeaSpark;
-import vazkii.botania.api.corporea.InvWithLocation;
-import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.common.impl.corporea.DummyCorporeaNode;
+import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
 
@@ -80,8 +81,8 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 			return;
 		}
 
-		InvWithLocation inv = getSparkInventory();
-		if (inv == null && !world.getBlockState(getAttachPos()).isIn(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE)) {
+		ICorporeaNode node = getSparkNode();
+		if (node instanceof DummyCorporeaNode && !world.getBlockState(getAttachPos()).isIn(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE)) {
 			dropAndKill();
 			return;
 		}
@@ -184,17 +185,17 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 		}
 	}
 
-	private BlockPos getAttachPos() {
+	@Override
+	public BlockPos getAttachPos() {
 		int x = MathHelper.floor(getX());
 		int y = MathHelper.floor(getY() - 1);
 		int z = MathHelper.floor(getZ());
 		return new BlockPos(x, y, z);
 	}
 
-	@Nullable
 	@Override
-	public InvWithLocation getSparkInventory() {
-		return InventoryHelper.getInventoryWithLocation(world, getAttachPos(), Direction.UP);
+	public ICorporeaNode getSparkNode() {
+		return CorporeaNodeDetectors.findNode(world, this);
 	}
 
 	@Override

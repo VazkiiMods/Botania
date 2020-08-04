@@ -48,7 +48,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 		player.setCurrentHand(hand);
 		ItemStack stack = player.getStackInHand(hand);
 		setCharging(stack, true);
-		return TypedActionResult.success(stack);
+		return TypedActionResult.consume(stack);
 	}
 
 	@Override

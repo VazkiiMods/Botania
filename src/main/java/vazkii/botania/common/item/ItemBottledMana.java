@@ -20,10 +20,12 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
@@ -209,8 +211,7 @@ public class ItemBottledMana extends Item {
 	@Nonnull
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		player.setCurrentHand(hand);
-		return TypedActionResult.success(player.getStackInHand(hand));
+		return ItemUsage.consumeHeldItem(world, player, hand);
 	}
 
 	@Nonnull

@@ -9,6 +9,9 @@
 package vazkii.botania.common.item.relic;
 
 import com.mojang.datafixers.util.Pair;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.item.TooltipContext;
 import net.minecraft.datafixer.NbtOps;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -18,6 +21,9 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.Tag;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
 import net.minecraft.util.dynamic.GlobalPos;
 import net.minecraft.util.math.BlockPos;
@@ -33,7 +39,9 @@ import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -44,7 +52,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		super(props);
 	}
 
-	private static final String TAG_LOCATION = "location";
+	private static final String TAG_TARGET_PREFIX = "target_";
 
 	@Nonnull
 	@Override
@@ -64,9 +72,8 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 				}
 			} else {
 				ItemStack stack = ctx.getStack();
-				GlobalPos loc = GlobalPos.create(world.getRegistryKey(), pos);
-				Tag nbt = GlobalPos.CODEC.encodeStart(NbtOps.INSTANCE, loc).result().get();
-				ItemNBTHelper.set(stack, TAG_LOCATION, nbt);
+				Tag nbt = BlockPos.field_25064.encodeStart(NbtOps.INSTANCE, pos).get().orThrow();
+				ItemNBTHelper.set(stack, TAG_TARGET_PREFIX + world.getRegistryKey().getValue().toString(), nbt);
 				world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 5F);
 			}
 
@@ -91,30 +98,30 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setCurrentHand(hand);
-		return TypedActionResult.success(player.getStackInHand(hand));
+		return TypedActionResult.consume(player.getStackInHand(hand));
 	}
 
 	@Nonnull
 	@Override
 	public ItemStack finishUsing(@Nonnull ItemStack stack, World world, LivingEntity living) {
-		Tag nbt = ItemNBTHelper.get(stack, TAG_LOCATION);
+		String tag = TAG_TARGET_PREFIX + world.getRegistryKey().getValue().toString();
+		Tag nbt = ItemNBTHelper.get(stack, tag);
 		if (nbt == null) {
 			return stack;
 		}
-		Optional<GlobalPos> maybeLoc = GlobalPos.CODEC.decode(NbtOps.INSTANCE, nbt).result().map(Pair::getFirst);
+		Optional<BlockPos> maybeLoc = BlockPos.field_25064.parse(NbtOps.INSTANCE, nbt).result();
 		if (!maybeLoc.isPresent()) {
-			ItemNBTHelper.removeEntry(stack, TAG_LOCATION);
+			ItemNBTHelper.removeEntry(stack, tag);
 			return stack;
 		}
-		GlobalPos loc = maybeLoc.get();
-		int x = loc.getPos().getX();
-		int y = loc.getPos().getY();
-		int z = loc.getPos().getZ();
+		BlockPos loc = maybeLoc.get();
+		int x = loc.getX();
+		int y = loc.getY();
+		int z = loc.getZ();
 
 		int cost = (int) (MathHelper.pointDistanceSpace(x + 0.5, y + 0.5, z + 0.5, living.getX(), living.getY(), living.getZ()) * 10);
 
-		if (loc.getDimension() == world.getRegistryKey()
-				&& (!(living instanceof PlayerEntity) || ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) living, cost, true))) {
+		if (!(living instanceof PlayerEntity) || ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) living, cost, true)) {
 			moveParticlesAndSound(living);
 			living.requestTeleport(x + 0.5, y + 1.5, z + 0.5);
 			moveParticlesAndSound(living);
@@ -139,15 +146,43 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		return UseAction.BOW;
 	}
 
+	@Nullable
 	@Override
-	public BlockPos getBinding(ItemStack stack) {
-		Tag nbt = ItemNBTHelper.get(stack, TAG_LOCATION);
+	public BlockPos getBinding(World world, ItemStack stack) {
+		String tag = TAG_TARGET_PREFIX + world.getRegistryKey().getValue().toString();
+		Tag nbt = ItemNBTHelper.get(stack, tag);
 		if (nbt != null) {
-			return GlobalPos.CODEC.decode(NbtOps.INSTANCE, nbt).result()
-					.map(Pair::getFirst)
-					.map(GlobalPos::getPos).orElse(null);
+			return BlockPos.field_25064.parse(NbtOps.INSTANCE, nbt).result()
+					.orElse(null);
 		}
 		return null;
+	}
+
+	@Environment(EnvType.CLIENT)
+	@Override
+	public void addInformationAfterShift(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext flags) {
+		super.addInformationAfterShift(stack, world, tooltip, flags);
+
+		if (world == null) {
+			return;
+		}
+
+		BlockPos binding = getBinding(world, stack);
+		Text worldText = new LiteralText(world.getRegistryKey().getValue().toString()).formatted(Formatting.GREEN);
+
+		if (binding == null) {
+			tooltip.add(new TranslatableText("botaniamisc.flugelUnbound", worldText).formatted(Formatting.GRAY));
+		} else {
+			Text bindingText = new LiteralText("[").formatted(Formatting.WHITE)
+					.append(new LiteralText(Integer.toString(binding.getX())).formatted(Formatting.GOLD))
+					.append(", ")
+					.append(new LiteralText(Integer.toString(binding.getY())).formatted(Formatting.GOLD))
+					.append(", ")
+					.append(new LiteralText(Integer.toString(binding.getZ())).formatted(Formatting.GOLD))
+					.append("]");
+
+			tooltip.add(new TranslatableText("botaniamisc.flugelBound", bindingText, worldText).formatted(Formatting.GRAY));
+		}
 	}
 
 	@Override

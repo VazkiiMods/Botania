@@ -8,11 +8,19 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.resource.language.I18n;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 import vazkii.botania.api.corporea.*;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 
@@ -28,31 +36,34 @@ public class TileCorporeaRetainer extends TileMod {
 	private static final String TAG_REQUEST_Z = "requestZ";
 	private static final String TAG_REQUEST_TYPE = "requestType";
 	private static final String TAG_REQUEST_COUNT = "requestCount";
+	private static final String TAG_RETAIN_MISSING = "retainMissing";
 
 	private static final Map<Identifier, Function<CompoundTag, ? extends ICorporeaRequestMatcher>> corporeaMatcherDeserializers = new ConcurrentHashMap<>();
 	private static final Map<Class<? extends ICorporeaRequestMatcher>, Identifier> corporeaMatcherSerializers = new ConcurrentHashMap<>();
 
 	private BlockPos requestPos = BlockPos.ORIGIN;
+
 	@Nullable
 	private ICorporeaRequestMatcher request;
 	private int requestCount;
 	private int compValue;
+	private boolean retainMissing = false;
 
 	public TileCorporeaRetainer() {
 		super(ModTiles.CORPOREA_RETAINER);
 	}
 
-	public void setPendingRequest(BlockPos pos, ICorporeaRequestMatcher request, int requestCount) {
+	public void remember(BlockPos pos, ICorporeaRequestMatcher request, int count, int missing) {
 		if (hasPendingRequest()) {
 			return;
 		}
 
 		this.requestPos = pos;
 		this.request = request;
-		this.requestCount = requestCount;
+		this.requestCount = retainMissing ? missing : count;
 
 		compValue = CorporeaHelper.instance().signalStrengthForRequestSize(requestCount);
-		world.updateComparators(getPos(), getCachedState().getBlock());
+		markDirty();
 	}
 
 	public int getComparatorValue() {
@@ -70,15 +81,15 @@ public class TileCorporeaRetainer extends TileMod {
 
 		ICorporeaSpark spark = CorporeaHelper.instance().getSparkForBlock(world, requestPos);
 		if (spark != null) {
-			InvWithLocation inv = spark.getSparkInventory();
-			if (inv != null && inv.getWorld().getBlockEntity(inv.getPos()) instanceof ICorporeaRequestor) {
-				ICorporeaRequestor requestor = (ICorporeaRequestor) inv.getWorld().getBlockEntity(inv.getPos());
+			BlockEntity te = spark.getSparkNode().getWorld().getBlockEntity(spark.getSparkNode().getPos());
+			if (te instanceof ICorporeaRequestor) {
+				ICorporeaRequestor requestor = (ICorporeaRequestor) te;
 				requestor.doCorporeaRequest(request, requestCount, spark);
 
 				request = null;
 				requestCount = 0;
 				compValue = 0;
-				world.updateComparators(getPos(), getCachedState().getBlock());
+				markDirty();
 			}
 		}
 	}
@@ -98,6 +109,7 @@ public class TileCorporeaRetainer extends TileMod {
 			request.writeToNBT(cmp);
 			cmp.putInt(TAG_REQUEST_COUNT, requestCount);
 		}
+		cmp.putBoolean(TAG_RETAIN_MISSING, retainMissing);
 	}
 
 	@Override
@@ -116,6 +128,7 @@ public class TileCorporeaRetainer extends TileMod {
 			request = null;
 		}
 		requestCount = cmp.getInt(TAG_REQUEST_COUNT);
+		retainMissing = cmp.getBoolean(TAG_RETAIN_MISSING);
 	}
 
 	public static <T extends ICorporeaRequestMatcher> void addCorporeaRequestMatcher(Identifier id, Class<T> clazz, Function<CompoundTag, T> deserializer) {
@@ -123,4 +136,21 @@ public class TileCorporeaRetainer extends TileMod {
 		corporeaMatcherDeserializers.put(id, deserializer);
 	}
 
+	@Environment(EnvType.CLIENT)
+	public void renderHUD(MatrixStack ms, MinecraftClient mc) {
+		String mode = I18n.translate("botaniamisc.retainer." + (retainMissing ? "retain_missing" : "retain_all"));
+		int x = mc.getWindow().getScaledWidth() / 2 - mc.textRenderer.getWidth(mode) / 2;
+		int y = mc.getWindow().getScaledHeight() / 2 + 10;
+
+		mc.textRenderer.drawWithShadow(ms, mode, x, y, Formatting.GRAY.getColorValue());
+	}
+
+	public boolean onUsedByWand() {
+		if (!world.isClient) {
+			retainMissing = !retainMissing;
+			markDirty();
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
+		return true;
+	}
 }

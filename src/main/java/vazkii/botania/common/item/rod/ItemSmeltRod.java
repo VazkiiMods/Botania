@@ -66,7 +66,7 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setCurrentHand(hand);
-		return TypedActionResult.success(player.getStackInHand(hand));
+		return TypedActionResult.consume(player.getStackInHand(hand));
 	}
 
 	@Override

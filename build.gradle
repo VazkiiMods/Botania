@@ -46,6 +46,10 @@ repositories {
           name = "Ladysnake Libs"
 	      url = 'https://dl.bintray.com/ladysnake/libs'
     }
+    maven {
+        name "storagedrawers"
+        url = "https://dl.bintray.com/jaquadro/dev/"
+    }
 }
 
 dependencies {

@@ -309,7 +309,6 @@ public class TileLightRelay extends TileMod implements Tickable, IWandBindable {
 
 				for (Entity e : getPassengerList()) {
 					e.stopRiding();
-					e.requestTeleport(getX(), getY(), getZ());
 				}
 				remove();
 			} else {

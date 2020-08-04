@@ -8,23 +8,32 @@
  */
 package vazkii.botania.common.block.corporea;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
+import vazkii.botania.api.wand.IWandHUD;
+import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
 
 import javax.annotation.Nonnull;
 
-public class BlockCorporeaRetainer extends BlockMod implements BlockEntityProvider {
+public class BlockCorporeaRetainer extends BlockMod implements BlockEntityProvider, IWandable, IWandHUD {
 
 	public BlockCorporeaRetainer(AbstractBlock.Settings builder) {
 		super(builder);
@@ -65,4 +74,18 @@ public class BlockCorporeaRetainer extends BlockMod implements BlockEntityProvid
 		return new TileCorporeaRetainer();
 	}
 
+	@Environment(EnvType.CLIENT)
+	@Override
+	public void renderHUD(MatrixStack ms, MinecraftClient mc, World world, BlockPos pos) {
+		BlockEntity te = world.getBlockEntity(pos);
+		if (te instanceof TileCorporeaRetainer) {
+			((TileCorporeaRetainer) te).renderHUD(ms, mc);
+		}
+	}
+
+	@Override
+	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
+		BlockEntity te = world.getBlockEntity(pos);
+		return te instanceof TileCorporeaRetainer && ((TileCorporeaRetainer) te).onUsedByWand();
+	}
 }

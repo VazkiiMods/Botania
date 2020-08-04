@@ -61,8 +61,8 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 		}
 		PlayerEntity player = (PlayerEntity) living;
 
-		if (count != getMaxUseTime(stack) && count % (IManaProficiencyArmor.hasProficiency(player, stack) ? 1 : 2) == 0 && !world.isClient && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, false)) {
-			if (spawnMissile(world, player, player.getX() + (Math.random() - 0.5 * 0.1), player.getY() + 2.4 + (Math.random() - 0.5 * 0.1), player.getZ() + (Math.random() - 0.5 * 0.1))) {
+		if (count != getMaxUseTime(stack) && count % (IManaProficiencyArmor.hasProficiency(player, stack) ? 1 : 2) == 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, false)) {
+			if (!world.isClient && spawnMissile(world, player, player.getPosX() + (Math.random() - 0.5 * 0.1), player.getPosY() + 2.4 + (Math.random() - 0.5 * 0.1), player.getPosZ() + (Math.random() - 0.5 * 0.1))) {
 				ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, true);
 			}
 
@@ -95,7 +95,7 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setCurrentHand(hand);
-		return TypedActionResult.success(player.getStackInHand(hand));
+		return TypedActionResult.consume(player.getStackInHand(hand));
 	}
 
 	@Override

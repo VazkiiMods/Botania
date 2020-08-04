@@ -27,7 +27,7 @@ public class CorporeaItemStackMatcher implements ICorporeaRequestMatcher {
 	}
 
 	@Override
-	public boolean isStackValid(ItemStack stack) {
+	public boolean test(ItemStack stack) {
 		return !stack.isEmpty() && !match.isEmpty() && stack.isItemEqualIgnoreDamage(match) && (!checkNBT || ItemNBTHelper.matchTag(match.getTag(), stack.getTag()));
 	}
 

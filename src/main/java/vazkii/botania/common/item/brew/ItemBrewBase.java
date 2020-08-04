@@ -23,6 +23,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsage;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.LiteralText;
@@ -31,7 +32,6 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.*;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -78,8 +78,7 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	@Nonnull
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		player.setCurrentHand(hand);
-		return TypedActionResult.success(player.getStackInHand(hand));
+		return ItemUsage.consumeHeldItem(world, player, hand);
 	}
 
 	@Nonnull

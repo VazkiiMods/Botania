@@ -33,6 +33,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.UUID;
@@ -55,30 +56,28 @@ public class ItemRelic extends Item implements IRelic {
 	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext flags) {
-		addBindInfo(tooltip, stack);
+		TooltipHandler.addOnShift(tooltip, () -> addInformationAfterShift(stack, world, tooltip, flags));
 	}
 
 	@Environment(EnvType.CLIENT)
-	public void addBindInfo(List<Text> tooltip, ItemStack stack) {
-		TooltipHandler.addOnShift(tooltip, () -> {
-			if (!hasUUID(stack)) {
-				tooltip.add(new TranslatableText("botaniamisc.relicUnbound"));
+	public void addInformationAfterShift(ItemStack stack, World world, List<Text> tooltip, TooltipContext flags) {
+		if (!hasUUID(stack)) {
+			tooltip.add(new TranslatableText("botaniamisc.relicUnbound"));
+		} else {
+			if (!getSoulbindUUID(stack).equals(MinecraftClient.getInstance().player.getUuid())) {
+				tooltip.add(new TranslatableText("botaniamisc.notYourSagittarius"));
 			} else {
-				if (!getSoulbindUUID(stack).equals(MinecraftClient.getInstance().player.getUuid())) {
-					tooltip.add(new TranslatableText("botaniamisc.notYourSagittarius"));
-				} else {
-					tooltip.add(new TranslatableText("botaniamisc.relicSoulbound", MinecraftClient.getInstance().player.getName()));
-				}
+				tooltip.add(new TranslatableText("botaniamisc.relicSoulbound", MinecraftClient.getInstance().player.getName()));
 			}
+		}
 
-			if (stack.getItem() == ModItems.dice) {
-				tooltip.add(new LiteralText(""));
-				String name = stack.getTranslationKey() + ".poem";
-				for (int i = 0; i < 4; i++) {
-					tooltip.add(new TranslatableText(name + i).formatted(Formatting.GRAY, Formatting.ITALIC));
-				}
+		if (stack.getItem() == ModItems.dice) {
+			tooltip.add(new LiteralText(""));
+			String name = stack.getTranslationKey() + ".poem";
+			for (int i = 0; i < 4; i++) {
+				tooltip.add(new TranslatableText(name + i).formatted(Formatting.GRAY, Formatting.ITALIC));
 			}
-		});
+		}
 	}
 
 	public boolean shouldDamageWrongPlayer() {
@@ -116,7 +115,7 @@ public class ItemRelic extends Item implements IRelic {
 	}
 
 	public static DamageSource damageSource() {
-		return new DamageSource("botania-relic");
+		return new DamageSource("botania-relic") {};
 	}
 
 	@Override

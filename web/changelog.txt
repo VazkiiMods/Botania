@@ -1,3 +1,49 @@
+1.16 399
+* Significant internal cleanup of corporea. Fix interceptors not working
+* Fix pink withers dropping nether stars
+* Fix some tooltips being miscolored
+* Flugel Eye now has a unique binding per-dimension, which is shown in the tooltip
+* Fix resolute ivy not disappearing from an item after death
+* [API] Minor breakages in corporea. Detection of corporea nodes can now be registered in the API, meaning you can now write your own integration exposing your custom inventories to corporea.
+* [API] A reminder that if your storage already efficiently operates with IItemHandler or IInventory, then corporea already handles it and you don't have to do anything.
+1.16 398
+* Welcome to Botania on 1.16.1, brought to you by williewillus and Hubry
+* Special thanks to the patrons and players on the patron server for helping test
+* Note: 1.16.2 is coming soon and we know it to have some minor breakage. This version may not be directly usable in 1.16.2, but worlds should be upgradable to it perfectly.
+* Petal Apothecary stores its fluid using blockstates, meaning fluid state changes can now be detected with an observer
+* A bunch of translucent things now support the new fabulous graphics
+* Fix runic altar cube particles
+* Floral powders have been removed in favor of directly using the generic vanilla dyes
+* Crafting Halos have been modernized -- instead of saving the exact items used in a past crafting operation, they now save the recipe ID that was used. This means the halos now work on recipes that take tags
+* Fix king key wonkiness and rendering wonkiness
+* Magical flowers no longer always claim to output redstone. This means that redstone dust no longer points into them by default, consistent with other vanilla devices like dispensers.
+* Add suspicious stew effects for all magical flowers (Alwinfy and Discord #general)
+* Fix life imbuer being broken
+* Tigerseye now has auditory and visual feedback when it takes effect
+* Fix gaia head rendering when worn
+* botania-skyblock-spread command and Garden of Glass island tracking has been renovated:
+* - Now callable with /gog or /gardenofglass
+* - Player island locations are now saved, meaning no more traffic jams where someone's island spawns on top of someone else's
+* - The command includes subcommands to teleport to other players' islands and regenerating the starting setup
+* Remove signal flare entity
+* Readd magical flowers to #small_flowers tag
+* Entropinnyums now prefer organic, naturally-sourced (non-duped) TNT. Existing contraptions are safe from explosions, but will not generate nearly as much mana anymore :)
+* Terrasteel armor is neutral towards piglins like gold armor
+* Mystical flowers no longer spawn on mushroom biomes
+* Rod of the Unstable Reservoir no longer targets tamed mobs that aren't actively attacing the shooter
+* Fix flugel tiara wing renders (about time)
+* Corporea Retainers can be set to only remember the missing items from the intercepted request, by right clicking with the wand
+* Known issues:
+* - Shears are still wonky
+* - GoG skybox will not automatically activate on GoG worlds. To see it, you'll have to enable the "fancySkybox.normalWorlds" config option.
+
+r1.15 388
+* This is the final build for 1.15. See you in 1.16.1 very soon!
+* Fix melon and pumpkin seeds not spawning in Garden of Glass (*requires GoG update*)
+* Fix duplicate model loader registration when resources are reloaded
+* [API] Add constructor for Brews that takes a supplier (Alan19)
+* Rafflowsia now has a streak-like system awarding many diverse flowers, similar to the overhauled Gourmaryllis. Mana output is dramatically increased for very long streaks. Try to automate it to 15 or more unique flowers! (Alwinfy)
+* Partial fix for Soujourner's Sash and Cirrus Amulet causing fall damage
 r1.15 387
 * Update critical hit logic in ancient wills to match vanilla
 * Fix crashes with flugel tiara when running on Java 11

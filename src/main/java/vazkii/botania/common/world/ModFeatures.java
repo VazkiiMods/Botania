@@ -31,7 +31,8 @@ public class ModFeatures {
 			BiomeDictionary.Type.END,
 			BiomeDictionary.Type.SNOWY,
 			BiomeDictionary.Type.WASTELAND,
-			BiomeDictionary.Type.VOID
+			BiomeDictionary.Type.VOID,
+			BiomeDictionary.Type.MUSHROOM
 	);
 
 	public static void registerFeatures() {

@@ -50,7 +50,7 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 		ItemStack stack = player.getStackInHand(hand);
 		if (player.canConsume(false) && isRightPlayer(player, stack)) {
 			player.setCurrentHand(hand);
-			return TypedActionResult.success(stack);
+			return TypedActionResult.consume(stack);
 		}
 		return TypedActionResult.pass(stack);
 	}

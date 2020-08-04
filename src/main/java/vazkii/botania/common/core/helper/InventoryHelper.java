@@ -16,7 +16,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
-import vazkii.botania.api.corporea.InvWithLocation;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 
 import javax.annotation.Nullable;
