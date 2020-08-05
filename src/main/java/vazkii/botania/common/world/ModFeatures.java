@@ -25,6 +25,7 @@ public class ModFeatures {
 	public static final Feature<MysticalFlowerConfig> MYSTICAL_FLOWERS = new MysticalFlowerFeature();
 	public static final Feature<MysticalFlowerConfig> MYSTICAL_MUSHROOMS = new MysticalMushroomFeature();
 
+	/* todo 1.16-fabric blacklist
 	public static final Set<BiomeDictionary.Type> TYPE_BLACKLIST = ImmutableSet.of(
 			BiomeDictionary.Type.DEAD,
 			BiomeDictionary.Type.NETHER,
@@ -34,6 +35,7 @@ public class ModFeatures {
 			BiomeDictionary.Type.VOID,
 			BiomeDictionary.Type.MUSHROOM
 	);
+	 */
 
 	public static void registerFeatures() {
 		Registry<Feature<?>> r = Registry.FEATURE;
@@ -44,7 +46,7 @@ public class ModFeatures {
 
 	public static void addWorldgen() {
 		for (Biome biome : Registry.BIOME) {
-			if (BiomeDictionary.getTypes(biome).stream().noneMatch(TYPE_BLACKLIST::contains)) {
+			if (true /*BiomeDictionary.getTypes(biome).stream().noneMatch(TYPE_BLACKLIST::contains)*/) {
 				biome.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, MYSTICAL_FLOWERS.configure(MysticalFlowerConfig.fromConfig()).createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT)));
 			}
 			biome.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, MYSTICAL_MUSHROOMS.configure(MysticalFlowerConfig.fromConfig()).createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT)));

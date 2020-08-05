@@ -17,6 +17,7 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -119,11 +120,10 @@ public class Botania implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC);
-		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHandler.COMMON_SPEC);
+		ConfigHandler.setup();
 
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
-		modBus.addListener(this::commonSetup);
+		commonSetup();
 		IMCSender.enqueue();
 		modBus.addListener(this::loadComplete);
 		ModFeatures.registerFeatures();
@@ -175,12 +175,12 @@ public class Botania implements ModInitializer {
 		ModCriteriaTriggers.init();
 	}
 
-	private void commonSetup(FMLCommonSetupEvent event) {
+	private void commonSetup() {
 		CapabilityManager.INSTANCE.register(IFloatingFlower.class, new IFloatingFlower.Storage(), FloatingFlowerImpl::new);
 		CapabilityManager.INSTANCE.register(IExoflameHeatable.class, new NoopCapStorage<>(), NoopExoflameHeatable::new);
 
-		gardenOfGlassLoaded = ModList.get().isLoaded("gardenofglass");
-		curiosLoaded = ModList.get().isLoaded("curios");
+		gardenOfGlassLoaded = FabricLoader.getInstance().isModLoaded("gardenofglass");
+		curiosLoaded = FabricLoader.getInstance().isModLoaded("curios");
 
 		PacketHandler.init();
 
