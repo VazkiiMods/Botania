@@ -18,18 +18,21 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.api.wand.IWandHUD;
+import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 
 import javax.annotation.Nonnull;
 
-public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
+public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD, IWandable {
 
 	public BlockCraftyCrate(Settings builder) {
 		super(builder);
@@ -41,10 +44,33 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 		builder.add(BotaniaStateProps.CRATE_PATTERN);
 	}
 
+	@Override
+	public boolean hasComparatorOutput(BlockState state) {
+		return true;
+	}
+
+	@Override
+	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+		BlockEntity crate = world.getBlockEntity(pos);
+		if (crate instanceof TileCraftCrate) {
+			return ((TileCraftCrate) crate).getSignal();
+		}
+		return 0;
+	}
+
 	@Nonnull
 	@Override
 	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
 		return new TileCraftCrate();
+	}
+
+	@Override
+	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
+		BlockEntity crate = world.getBlockEntity(pos);
+		if (crate instanceof TileCraftCrate) {
+			return ((TileCraftCrate) crate).onWanded(world);
+		}
+		return false;
 	}
 
 	@Environment(EnvType.CLIENT)

@@ -83,14 +83,6 @@ public class TileOpenCrate extends TileExposedSimpleInventory implements Tickabl
 		world.spawnEntity(item);
 	}
 
-	public boolean onWanded(World world, PlayerEntity player, ItemStack stack) {
-		return false;
-	}
-
-	public int getSignal() {
-		return 0;
-	}
-
 	@Override
 	public boolean canExtract(int index, @Nonnull ItemStack stack, @Nullable Direction direction) {
 		return false;
