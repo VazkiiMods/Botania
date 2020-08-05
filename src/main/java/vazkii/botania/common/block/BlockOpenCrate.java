@@ -10,36 +10,21 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
-import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TileOpenCrate;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 
 import javax.annotation.Nonnull;
 
-public class BlockOpenCrate extends BlockMod implements ITileEntityProvider, IWandable {
+public class BlockOpenCrate extends BlockMod implements ITileEntityProvider {
 
 	protected BlockOpenCrate(Properties builder) {
 		super(builder);
-	}
-
-	@Override
-	public boolean hasComparatorInputOverride(BlockState state) {
-		return true;
-	}
-
-	@Override
-	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
-		TileOpenCrate crate = (TileOpenCrate) world.getTileEntity(pos);
-		return crate.getSignal();
 	}
 
 	@Override
@@ -55,12 +40,6 @@ public class BlockOpenCrate extends BlockMod implements ITileEntityProvider, IWa
 	@Override
 	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileOpenCrate();
-	}
-
-	@Override
-	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
-		TileOpenCrate crate = (TileOpenCrate) world.getTileEntity(pos);
-		return crate.onWanded(world, player, stack);
 	}
 
 }

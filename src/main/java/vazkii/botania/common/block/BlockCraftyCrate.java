@@ -14,9 +14,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
@@ -26,11 +28,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.api.wand.IWandHUD;
+import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 
 import javax.annotation.Nonnull;
 
-public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
+public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD, IWandable {
 
 	public BlockCraftyCrate(Properties builder) {
 		super(builder);
@@ -42,10 +45,33 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD {
 		builder.add(BotaniaStateProps.CRATE_PATTERN);
 	}
 
+	@Override
+	public boolean hasComparatorInputOverride(BlockState state) {
+		return true;
+	}
+
+	@Override
+	public int getComparatorInputOverride(BlockState state, World world, BlockPos pos) {
+		TileEntity crate = world.getTileEntity(pos);
+		if (crate instanceof TileCraftCrate) {
+			return ((TileCraftCrate) crate).getSignal();
+		}
+		return 0;
+	}
+
 	@Nonnull
 	@Override
 	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TileCraftCrate();
+	}
+
+	@Override
+	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
+		TileEntity crate = world.getTileEntity(pos);
+		if (crate instanceof TileCraftCrate) {
+			return ((TileCraftCrate) crate).onWanded(world);
+		}
+		return false;
 	}
 
 	@OnlyIn(Dist.CLIENT)

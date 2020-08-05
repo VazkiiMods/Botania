@@ -10,7 +10,6 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -18,7 +17,6 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
 
 import vazkii.botania.mixin.AccessorItemEntity;
 
@@ -81,14 +79,6 @@ public class TileOpenCrate extends TileExposedSimpleInventory implements ITickab
 
 		getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
 		world.addEntity(item);
-	}
-
-	public boolean onWanded(World world, PlayerEntity player, ItemStack stack) {
-		return false;
-	}
-
-	public int getSignal() {
-		return 0;
 	}
 
 	@Override
