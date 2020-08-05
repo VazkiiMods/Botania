@@ -22,6 +22,9 @@ import net.minecraft.world.World;
 
 import vazkii.botania.mixin.AccessorItemEntity;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 public class TileOpenCrate extends TileExposedSimpleInventory implements ITickableTileEntity {
 	public TileOpenCrate() {
 		this(ModTiles.OPEN_CRATE);
@@ -86,5 +89,10 @@ public class TileOpenCrate extends TileExposedSimpleInventory implements ITickab
 
 	public int getSignal() {
 		return 0;
+	}
+
+	@Override
+	public boolean canExtractItem(int index, @Nonnull ItemStack stack, @Nullable Direction direction) {
+		return false;
 	}
 }
