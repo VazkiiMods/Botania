@@ -31,16 +31,16 @@ public class BlockPylon extends BlockModWaterloggable implements ITileEntityProv
 		NATURA(15f, 0.5f, 1f, 0.5f, ModBlocks.alfPortal),
 		GAIA(15f, 1f, 0.5f, 1f, ModBlocks.alfPortal);
 
-		public final float powerBonus;
+		public final float enchantPowerBonus;
 		public final float r, g, b;
-		public final Block metaBlock;
+		public final Block targetBlock;
 
-		private Variant(float pb, float r, float g, float b, Block mb) {
-			powerBonus = pb;
+		private Variant(float epb, float r, float g, float b, Block tb) {
+			enchantPowerBonus = epb;
 			this.r = r;
 			this.g = g;
 			this.b = b;
-			metaBlock = mb;
+			targetBlock = tb;
 		}
 	}
 
@@ -65,7 +65,7 @@ public class BlockPylon extends BlockModWaterloggable implements ITileEntityProv
 
 	@Override
 	public float getEnchantPowerBonus(BlockState state, IWorldReader world, BlockPos pos) {
-		return variant.powerBonus;
+		return variant.enchantPowerBonus;
 	}
 
 	@Nonnull

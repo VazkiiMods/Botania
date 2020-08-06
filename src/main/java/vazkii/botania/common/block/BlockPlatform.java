@@ -33,19 +33,24 @@ import vazkii.botania.common.block.tile.TilePlatform;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import java.util.function.BiPredicate;
+
 public class BlockPlatform extends BlockMod implements IWandable, IManaCollisionGhost, ITileEntityProvider {
 
 	public enum Variant {
-		ABSTRUSE(null, false),
-		SPECTRAL(false, false),
-		INFRANGIBLE(true, true);
+		ABSTRUSE(false, (pos, context) -> {
+			Entity e = context.getEntity();
+			return (e != null && e.getPosY() > pos.getY() + 0.9 && !context.func_225581_b_());
+		}),
+		SPECTRAL(false, (pos, context) -> false),
+		INFRANGIBLE(true, (pos, context) -> true);
 
-		public final Boolean permeable;
 		public final boolean indestructible;
+		public final BiPredicate<BlockPos, ISelectionContext> permeable;
 
-		private Variant(Boolean p, boolean i) {
-			permeable = p;
+		private Variant(boolean i, BiPredicate<BlockPos, ISelectionContext> p) {
 			indestructible = i;
+			permeable = p;
 		}
 	}
 
@@ -59,9 +64,7 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 	@Nonnull
 	@Override
 	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, ISelectionContext context) {
-		Entity e = context.getEntity();
-		boolean cannotPass = (e != null && e.getPosY() > pos.getY() + 0.9 && !context.func_225581_b_());
-		if (variant.permeable != null ? variant.permeable : cannotPass) {
+		if (variant.permeable.test(pos, context)) {
 			return super.getCollisionShape(state, world, pos, context);
 		} else {
 			return VoxelShapes.empty();
