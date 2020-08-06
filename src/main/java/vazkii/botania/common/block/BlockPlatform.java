@@ -30,18 +30,30 @@ import vazkii.botania.common.block.tile.TilePlatform;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.function.BiPredicate;
 
 public class BlockPlatform extends BlockMod implements IWandable, IManaCollisionGhost, BlockEntityProvider {
 
 	public enum Variant {
-		ABSTRUSE,
-		SPECTRAL,
-		INFRANGIBLE
+		ABSTRUSE(false, (pos, context) -> {
+			Entity e = context.getEntity();
+			return (e != null && e.getY() > pos.getY() + 0.9 && !context.isDescending());
+		}),
+		SPECTRAL(false, (pos, context) -> false),
+		INFRANGIBLE(true, (pos, context) -> true);
+
+		public final boolean indestructible;
+		public final BiPredicate<BlockPos, ShapeContext> permeable;
+
+		private Variant(boolean i, BiPredicate<BlockPos, ShapeContext> p) {
+			indestructible = i;
+			permeable = p;
+		}
 	}
 
 	public final Variant variant;
 
-	public BlockPlatform(Variant v, Settings builder) {
+	public BlockPlatform(@Nonnull Variant v, Settings builder) {
 		super(builder);
 		this.variant = v;
 	}
@@ -49,12 +61,7 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 	@Nonnull
 	@Override
 	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull BlockView world, @Nonnull BlockPos pos, ShapeContext context) {
-		Entity e = context.getEntity();
-		if (variant == Variant.INFRANGIBLE
-				|| variant == Variant.ABSTRUSE
-						&& e != null
-						&& e.getY() > pos.getY() + 0.9
-						&& !context.isDescending()) {
+		if (variant.permeable.test(pos, context)) {
 			return super.getCollisionShape(state, world, pos, context);
 		} else {
 			return VoxelShapes.empty();
@@ -63,7 +70,7 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 
 	@Override
 	public boolean canEntityDestroy(BlockState state, BlockView world, BlockPos pos, Entity entity) {
-		return variant != Variant.INFRANGIBLE;
+		return variant.indestructible;
 	}
 
 	@Nonnull

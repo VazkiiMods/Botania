@@ -26,14 +26,26 @@ public class BlockPylon extends BlockModWaterloggable implements BlockEntityProv
 	private static final VoxelShape SHAPE = Block.createCuboidShape(2, 0, 2, 14, 21, 14);
 
 	public enum Variant {
-		MANA,
-		NATURA,
-		GAIA
+		MANA(8f, 0.5f, 0.5f, 1f, ModBlocks.enchanter),
+		NATURA(15f, 0.5f, 1f, 0.5f, ModBlocks.alfPortal),
+		GAIA(15f, 1f, 0.5f, 1f, ModBlocks.alfPortal);
+
+		public final float enchantPowerBonus;
+		public final float r, g, b;
+		public final Block targetBlock;
+
+		private Variant(float epb, float r, float g, float b, Block tb) {
+			enchantPowerBonus = epb;
+			this.r = r;
+			this.g = g;
+			this.b = b;
+			targetBlock = tb;
+		}
 	}
 
 	public final Variant variant;
 
-	public BlockPylon(Variant v, Settings builder) {
+	public BlockPylon(@Nonnull Variant v, Settings builder) {
 		super(builder);
 		this.variant = v;
 	}
@@ -52,11 +64,7 @@ public class BlockPylon extends BlockModWaterloggable implements BlockEntityProv
 
 	@Override
 	public float getEnchantPowerBonus(BlockState state, WorldView world, BlockPos pos) {
-		if (variant == Variant.MANA) {
-			return 8;
-		} else {
-			return 15;
-		}
+		return variant.enchantPowerBonus;
 	}
 
 	@Nonnull
