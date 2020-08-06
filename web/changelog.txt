@@ -763,7 +763,7 @@ r1.9 322
 *<b>If you want to know what changed in between, have a look through the Releases page on <a href="https://github.com/williewillus/Botania/releases">williewillus/Botania.</a></b>
 *<b>This is the first release for 1.10.2, which sets up for further content expansion, while removing obsolete and bloated pieces of content. More content is planned and will be coming soon.</b>
 *<b>You can mitigate your worlds from Botania Unofficial to Botania just fine, any of the removed pieces of content you had in your world will just disappear.</b>
-*<b>A few pieces of content from Botania's 1.7.10 releases was removed in Botania Unofficial due to them being added to <a href="http://quark.vazkii.us/">Quark</a>, another mod by me which I highly recommend you install alongside Botania.</b>
+*<b>A few pieces of content from Botania's 1.7.10 releases was removed in Botania Unofficial due to them being added to <a href="http://quark.vazkii.net/">Quark</a>, another mod by me which I highly recommend you install alongside Botania.</b>
 *<b>If you were looking for BotaniaV2, most of that project was scrapped in favour of this update instead. I decided that instead of reinventing a mod that's already good, I'd use the concepts there to make a new mod instead, which I am planning, but want to get some new stuff onto Botania and Quark before I move onto that.</b>
 *<b>And that's it for my important note. I'm back to Botania, and I hope you carry on enjoying it.</b>
 r1.8 249
@@ -1113,7 +1113,7 @@ r1.7 222
 *Overgrowth Seeds no longer speed up passive flowers, instead they prevent their decay.
 *Potion ID configs now work properly with DragonAPI's potion array extending.
 *Redstone Mana Spreaders can now pull mana from their target pools.
-*Removed passive wither config and locked it to 72000 ticks (3 ingame days, 1 IRL hour). Also added an entry to the Generating Flora section to explain it better. You can read about this change and why I made it <a href="http://vazkii.us/uncategorized/sins-of-a-solar-empire-or-the-passive-generation-conundrum/">right here</a>.
+*Removed passive wither config and locked it to 72000 ticks (3 ingame days, 1 IRL hour). Also added an entry to the Generating Flora section to explain it better. You can read about this change and why I made it <a href="https://vazkii.net/#blog/sins-of-a-solar-empire">right here</a>.
 *Some Dandelifeon tweaks, the 5x5 area around it will no longer kill generation 1 cells, the output rate has been lowered a bit and the recipe for Cellular Blocks has been changed.
 *Sparks now produce less, but bigger, particles to make it less likely to reach the particle limit.
 *The Mana Pool's "water" icon is now a different icon and not the one used for water. (it still looks the same, it's just in a different file)

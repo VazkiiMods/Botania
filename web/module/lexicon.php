@@ -12,7 +12,7 @@
 </div>
 
 <?php
-	$file = file_get_contents('https://raw.githubusercontent.com/Vazkii/Botania/master/src/main/resources/assets/botania/lang/en_us.json');
+	$file = file_get_contents("https://raw.githubusercontent.com/Vazkii/Botania/master/src/main/resources/assets/botania/lang/en_us.json");
 	$json = json_decode($file, true);
 	$default_keys = [
 		'botania_corporea_request' => 'c',
@@ -38,7 +38,9 @@
 			$current_entry = $entry_match[1];
 			if($opened_div)
 				echo('</div>');
-			echo("<br><a href='#$current_entry' class='entry-bookmark glyphicon glyphicon-bookmark' title='Permalink'></a> <b id='$current_entry-fake'>$value</b><div class='entry-text'>");
+			echo("<br><span id='$current_entry' class='bookmark-anchor'></span>");
+			echo("<a href='#$current_entry' class='entry-bookmark glyphicon glyphicon-bookmark' title='Permalink'></a> ");
+			echo("<b id='$current_entry-fake'>$value</b><div class='entry-text'>");
 			echo("\n");
 			$opened_div = true;
 		}
@@ -50,7 +52,7 @@
 				$value))) . '<br />';
 			$no_control = preg_replace('/\$\(.\)/', '', $value);
 			if(strlen($no_control) > 50 || strcmp($no_control, "no") == 0) {
-				echo($page);
+				echo($page . '<br />');
 				echo("\n");
 			}
 		}
@@ -80,11 +82,11 @@
 	function link_resolve($match) {
 		$link = $match[1];
 		$res = [];
-		if(preg_match('|^\w+/(\w+)$|', $link, $res)) {
+		if(preg_match('|^\w+/(\w+)(#\w+)?$|', $link, $res)) {
 			$entry_name = preg_replace_callback('/_(\w)/', function($repl) {
 				return strtoupper($repl[1]);
 			}, $res[1]);
-			$link = "#$entry_name-fake";
+			$link = "#$entry_name";
 		}
 		return "<a href='$link'>$match[2]</a>";
 	}
