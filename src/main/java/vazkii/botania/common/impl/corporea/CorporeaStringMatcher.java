@@ -17,17 +17,16 @@ import org.apache.commons.lang3.text.WordUtils;
 
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 
+import java.util.StringJoiner;
 import java.util.regex.Pattern;
 
 public class CorporeaStringMatcher implements ICorporeaRequestMatcher {
 
 	private static final Pattern patternControlCode = Pattern.compile("(?i)\\u00A7[0-9A-FK-OR]");
-	public static final String[] WILDCARD_STRINGS = { "...", "~", "+", "?", "*" };
+	public static final String[] WILDCARD_STRINGS = { "...", "~", "+", "?" };
 	private static final String TAG_REQUEST_CONTENTS = "requestContents";
-	private static final String TAG_REQUEST_CONTAINS = "requestContains";
 
-	private final String expression;
-	private final boolean contains;
+	private final String[] expression;
 
 	public CorporeaStringMatcher(String expression) {
 		boolean contains = false;
@@ -44,13 +43,7 @@ public class CorporeaStringMatcher implements ICorporeaRequestMatcher {
 				break;
 			}
 		}
-		this.expression = expression;
-		this.contains = contains;
-	}
-
-	private CorporeaStringMatcher(String expression, boolean contains) {
-		this.expression = expression;
-		this.contains = contains;
+		this.expression = (contains ? expression : "*" + expression + "*").split("\\*+", -1);
 	}
 
 	@Override
@@ -60,32 +53,56 @@ public class CorporeaStringMatcher implements ICorporeaRequestMatcher {
 		}
 
 		String name = stripControlCodes(stack.getDisplayName().getString().toLowerCase().trim());
-		return equalOrContain(name)
-				|| equalOrContain(name + "s")
-				|| equalOrContain(name + "es")
-				|| name.endsWith("y") && equalOrContain(name.substring(0, name.length() - 1) + "ies");
+		return matchGlob(name)
+				|| matchGlob(name + "s")
+				|| matchGlob(name + "es")
+				|| name.endsWith("y") && matchGlob(name.substring(0, name.length() - 1) + "ies");
 	}
 
 	public static CorporeaStringMatcher createFromNBT(CompoundNBT tag) {
 		String expression = tag.getString(TAG_REQUEST_CONTENTS);
-		boolean contains = tag.getBoolean(TAG_REQUEST_CONTAINS);
-		return new CorporeaStringMatcher(expression, contains);
+		return new CorporeaStringMatcher(expression);
 	}
 
 	@Override
 	public void writeToNBT(CompoundNBT tag) {
-		tag.putString(TAG_REQUEST_CONTENTS, expression);
-		tag.putBoolean(TAG_REQUEST_CONTAINS, contains);
+		tag.putString(TAG_REQUEST_CONTENTS, toString());
 	}
 
 	@Override
 	@SuppressWarnings("deprecation")
 	public ITextComponent getRequestName() {
-		return new StringTextComponent(WordUtils.capitalizeFully(expression));
+		return new StringTextComponent(WordUtils.capitalizeFully(toString()));
 	}
 
-	private boolean equalOrContain(String str) {
-		return contains ? str.contains(expression) : str.equals(expression);
+	@Override
+	public String toString() {
+		StringJoiner sj = new StringJoiner("*");
+		for (String s : expression) {
+			sj.add(s);
+		}
+		return sj.toString();
+	}
+
+	private boolean matchGlob(String str) {
+		if (expression.length == 1) {
+			return expression[0].equals(str);
+		}
+
+		if (!str.startsWith(expression[0])) {
+			return false;
+		}
+
+		int offset = expression[0].length();
+		for (int i = 1; i < expression.length - 1; i++) {
+			String section = expression[i];
+			int found = str.indexOf(section, offset);
+			if (found == -1) {
+				return false;
+			}
+			offset = found + section.length();
+		}
+		return str.substring(offset).endsWith(expression[expression.length - 1]);
 	}
 
 	// Copy from StringUtils

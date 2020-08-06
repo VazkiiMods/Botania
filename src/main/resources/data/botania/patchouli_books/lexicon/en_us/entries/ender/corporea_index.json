@@ -31,11 +31,15 @@
     },
     {
       "type": "text",
-      "text": "botania.page.corporeaIndex8"
+      "text": "botania.page.corporeaIndex6"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.corporeaIndex7"
     },
     {
       "type": "crafting",
-      "text": "botania.page.corporeaIndex7",
+      "text": "botania.page.corporeaIndex8",
       "recipe": "botania:corporea_index"
     }
   ]
