@@ -121,7 +121,7 @@ hr {
 	z-index: 10;
 	height: 240px;
 	margin-bottom: 60px;
-	background-color: rgba(0, 0, 0, 0.2);
+	background-color: rgba(0, 0, 0, 0.4);
 }
 
 .carousel .item {
@@ -209,6 +209,11 @@ iframe {
 .entry-bookmark:hover, .entry-bookmark:focus {
 	text-decoration: none;
 	color: #4AA825;
+}
+
+.bookmark-anchor {
+	position: relative;
+	top: -120px;
 }
 
 .text-muted b {
