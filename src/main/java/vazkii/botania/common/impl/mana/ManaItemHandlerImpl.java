@@ -10,6 +10,8 @@ package vazkii.botania.common.impl.mana;
 
 import com.google.common.collect.Iterables;
 
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -217,6 +219,9 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 				discount += ((IManaDiscountArmor) armor.getItem()).getDiscount(armor, i, player, tool);
 			}
 		}
+
+		int unbreaking = EnchantmentHelper.getEnchantmentLevel(Enchantments.UNBREAKING, tool);
+		discount += unbreaking * 0.05F;
 
 		ManaDiscountEvent event = new ManaDiscountEvent(player, discount, tool);
 		MinecraftForge.EVENT_BUS.post(event);
