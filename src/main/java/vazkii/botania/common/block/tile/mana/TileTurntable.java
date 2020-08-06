@@ -8,24 +8,22 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 public class TileTurntable extends TileMod implements ITickableTileEntity {
 	private static final String TAG_SPEED = "speed";
@@ -86,7 +84,7 @@ public class TileTurntable extends TileMod implements ITickableTileEntity {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(Minecraft mc) {
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		int color = 0xAA006600;
 
 		char motion = backwards ? '<' : '>';
@@ -97,7 +95,7 @@ public class TileTurntable extends TileMod implements ITickableTileEntity {
 
 		int x = mc.getMainWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(speed) / 2;
 		int y = mc.getMainWindow().getScaledHeight() / 2 - 15;
-		mc.fontRenderer.drawStringWithShadow(speed, x, y, color);
+		mc.fontRenderer.drawStringWithShadow(ms, speed, x, y, color);
 	}
 
 }

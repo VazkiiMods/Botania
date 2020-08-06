@@ -13,12 +13,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
 
@@ -27,8 +26,6 @@ import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.common.item.ItemTemperanceStone;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelAxe;
-import vazkii.botania.common.item.relic.ItemLokiRing;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -63,20 +60,14 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * Represents a map of dimension IDs to a set of all block swappers
 	 * active in that dimension.
 	 */
-	private static final Map<DimensionType, Set<BlockSwapper>> blockSwappers = new HashMap<>();
+	private static final Map<RegistryKey<World>, Set<BlockSwapper>> blockSwappers = new HashMap<>();
 
 	public ItemTerraAxe(Properties props) {
 		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
 		MinecraftForge.EVENT_BUS.addListener(this::onTickEnd);
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "terraaxe_on"), (stack, world, entity) -> {
-			if (entity instanceof PlayerEntity && !shouldBreak((PlayerEntity) entity)) {
-				return 0;
-			}
-			return 1;
-		});
 	}
 
-	private boolean shouldBreak(PlayerEntity player) {
+	public static boolean shouldBreak(PlayerEntity player) {
 		return !player.isSneaking() && !ItemTemperanceStone.hasTemperanceActive(player);
 	}
 
@@ -86,7 +77,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		if (raycast.getType() == RayTraceResult.Type.BLOCK) {
 			Direction face = raycast.getFace();
 			breakOtherBlock(player, stack, pos, pos, face);
-			ItemLokiRing.breakOnAllCursors(player, this, stack, pos, face);
+			BotaniaAPI.instance().breakOnAllCursors(player, stack, pos, face);
 		}
 
 		return false;
@@ -116,7 +107,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		}
 
 		if (event.phase == TickEvent.Phase.END) {
-			DimensionType dim = event.world.getDimension().getType();
+			RegistryKey<World> dim = event.world.func_234923_W_();
 			if (blockSwappers.containsKey(dim)) {
 				Set<BlockSwapper> swappers = blockSwappers.get(dim);
 
@@ -149,7 +140,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 			return;
 		}
 
-		DimensionType dim = world.getDimension().getType();
+		RegistryKey<World> dim = world.func_234923_W_();
 		blockSwappers.computeIfAbsent(dim, d -> new HashSet<>()).add(swapper);
 	}
 

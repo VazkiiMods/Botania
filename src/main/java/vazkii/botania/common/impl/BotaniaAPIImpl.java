@@ -9,25 +9,34 @@
 package vazkii.botania.common.impl;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.ai.attributes.IAttribute;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyValue;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IRegistryDelegate;
+import net.minecraft.world.World;
+import net.minecraftforge.items.wrapper.EmptyHandler;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
-import vazkii.botania.api.internal.IInternalMethodHandler;
+import vazkii.botania.api.corporea.ICorporeaNodeDetector;
+import vazkii.botania.api.internal.IManaNetwork;
+import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.brew.ModBrews;
-import vazkii.botania.common.core.handler.InternalMethodHandler;
-import vazkii.botania.common.core.handler.PixieHandler;
+import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.handler.EquipmentHandler;
+import vazkii.botania.common.core.handler.ManaNetworkHandler;
+import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
+import vazkii.botania.common.item.CapWrapper;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.relic.ItemLokiRing;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -102,6 +111,11 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		public float getToughness() {
 			return toughness;
 		}
+
+		@Override
+		public float func_230304_f_() {
+			return 0;
+		}
 	}
 
 	private enum ItemTier implements IItemTier {
@@ -162,7 +176,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	}
 
 	@Override
-	public IForgeRegistry<Brew> getBrewRegistry() {
+	public Registry<Brew> getBrewRegistry() {
 		return ModBrews.registry;
 	}
 
@@ -206,21 +220,45 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		return RELIC_RARITY.getValue();
 	}
 
-	private final InternalMethodHandler tmp = new InternalMethodHandler();
-
 	@Override
-	public IInternalMethodHandler internalHandler() {
-		return tmp;
+	public IManaNetwork getManaNetworkInstance() {
+		return ManaNetworkHandler.instance;
 	}
 
 	@Override
-	public IAttribute getPixieSpawnChanceAttribute() {
-		return PixieHandler.PIXIE_SPAWN_CHANCE;
+	public int getPassiveFlowerDecay() {
+		return LibMisc.PASSIVE_FLOWER_DECAY;
 	}
 
-	public Map<ResourceLocation, Integer> oreWeights = Collections.emptyMap();
-	public Map<ResourceLocation, Integer> netherOreWeights = Collections.emptyMap();
-	private final Map<IRegistryDelegate<Block>, Function<DyeColor, Block>> paintableBlocks = new ConcurrentHashMap<>();
+	@Override
+	public IInventory getAccessoriesInventory(PlayerEntity player) {
+		return new CapWrapper(EquipmentHandler.getAllWorn(player).orElseGet(EmptyHandler::new));
+	}
+
+	@Override
+	public void breakOnAllCursors(PlayerEntity player, ItemStack stack, BlockPos pos, Direction side) {
+		ItemLokiRing.breakOnAllCursors(player, stack, pos, side);
+	}
+
+	@Override
+	public boolean hasSolegnoliaAround(Entity e) {
+		return SubTileSolegnolia.hasSolegnoliaAround(e);
+	}
+
+	@Override
+	public void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {
+		SparkleParticleData data = SparkleParticleData.sparkle(size, r, g, b, m);
+		world.addParticle(data, x, y, z, 0, 0, 0);
+	}
+
+	@Override
+	public boolean shouldForceCheck() {
+		return ConfigHandler.COMMON.flowerForceCheck.get();
+	}
+
+	private final Map<ResourceLocation, Integer> oreWeights = new ConcurrentHashMap<>();
+	private final Map<ResourceLocation, Integer> netherOreWeights = new ConcurrentHashMap<>();
+	private final Map<ResourceLocation, Function<DyeColor, Block>> paintableBlocks = new ConcurrentHashMap<>();
 
 	@Override
 	public Map<ResourceLocation, Integer> getOreWeights() {
@@ -233,12 +271,27 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	}
 
 	@Override
-	public Map<IRegistryDelegate<Block>, Function<DyeColor, Block>> getPaintableBlocks() {
+	public void registerOreWeight(ResourceLocation tag, int weight) {
+		oreWeights.put(tag, weight);
+	}
+
+	@Override
+	public void registerNetherOreWeight(ResourceLocation tag, int weight) {
+		netherOreWeights.put(tag, weight);
+	}
+
+	@Override
+	public Map<ResourceLocation, Function<DyeColor, Block>> getPaintableBlocks() {
 		return Collections.unmodifiableMap(paintableBlocks);
 	}
 
 	@Override
-	public void registerPaintableBlock(IRegistryDelegate<Block> block, Function<DyeColor, Block> transformer) {
+	public void registerPaintableBlock(ResourceLocation block, Function<DyeColor, Block> transformer) {
 		paintableBlocks.put(block, transformer);
+	}
+
+	@Override
+	public void registerCorporeaNodeDetector(ICorporeaNodeDetector detector) {
+		CorporeaNodeDetectors.register(detector);
 	}
 }

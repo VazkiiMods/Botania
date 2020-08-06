@@ -9,6 +9,7 @@
 package vazkii.botania.common.entity;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 
@@ -16,7 +17,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.TickableSound;
+import net.minecraft.client.renderer.Rectangle2d;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.monster.WitherSkeletonEntity;
@@ -38,16 +41,13 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.EffectType;
 import net.minecraft.potion.Effects;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.tileentity.BeaconTileEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -73,7 +73,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
@@ -81,18 +80,19 @@ import vazkii.botania.common.network.PacketHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSpawnData {
 	public static final float ARENA_RANGE = 12F;
 	public static final int ARENA_HEIGHT = 5;
 
 	private static final int SPAWN_TICKS = 160;
-	private static final float MAX_HP = 320F;
+	public static final float MAX_HP = 320F;
 
 	private static final int MOB_SPAWN_START_TICKS = 20;
 	private static final int MOB_SPAWN_END_TICKS = 80;
@@ -109,7 +109,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 	private static final String TAG_MOB_SPAWN_TICKS = "mobSpawnTicks";
 	private static final String TAG_HARD_MODE = "hardMode";
 	private static final String TAG_PLAYER_COUNT = "playerCount";
-	private static final Tag<Block> BLACKLIST = ModTags.Blocks.GAIA_BREAK_BLACKLIST;
+	private static final ITag.INamedTag<Block> BLACKLIST = ModTags.Blocks.GAIA_BREAK_BLACKLIST;
 
 	private static final DataParameter<Integer> INVUL_TIME = EntityDataManager.createKey(EntityDoppleganger.class, DataSerializers.VARINT);
 
@@ -158,7 +158,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		//check difficulty
 		if (world.getDifficulty() == Difficulty.PEACEFUL) {
 			if (!world.isRemote) {
-				player.sendMessage(new TranslationTextComponent("botaniamisc.peacefulNoob").applyTextStyle(TextFormatting.RED));
+				player.sendMessage(new TranslationTextComponent("botaniamisc.peacefulNoob").func_240699_a_(TextFormatting.RED), Util.DUMMY_UUID);
 			}
 			return false;
 		}
@@ -169,7 +169,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 			if (world.isRemote) {
 				warnInvalidBlocks(world, invalidPylonBlocks);
 			} else {
-				player.sendMessage(new TranslationTextComponent("botaniamisc.needsCatalysts").applyTextStyle(TextFormatting.RED));
+				player.sendMessage(new TranslationTextComponent("botaniamisc.needsCatalysts").func_240699_a_(TextFormatting.RED), Util.DUMMY_UUID);
 			}
 
 			return false;
@@ -184,7 +184,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 				PacketHandler.sendTo((ServerPlayerEntity) player,
 						new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
 
-				player.sendMessage(new TranslationTextComponent("botaniamisc.badArena").applyTextStyle(TextFormatting.RED));
+				player.sendMessage(new TranslationTextComponent("botaniamisc.badArena").func_240699_a_(TextFormatting.RED), Util.DUMMY_UUID);
 			}
 
 			return false;
@@ -204,13 +204,13 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 
 			int playerCount = e.getPlayersAround().size();
 			e.playerCount = playerCount;
-			e.getAttributes().getAttributeInstance(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(MAX_HP * playerCount);
+			e.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MAX_HP * playerCount);
 			if (hard) {
-				e.getAttributes().getAttributeInstance(SharedMonsterAttributes.ARMOR).setBaseValue(15);
+				e.getAttribute(Attributes.ARMOR).setBaseValue(15);
 			}
 
 			e.playSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 10F, 0.1F);
-			e.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(e)), SpawnReason.EVENT, null, null);
+			e.onInitialSpawn(world, world.getDifficultyForLocation(e.func_233580_cy_()), SpawnReason.EVENT, null, null);
 			world.addEntity(e);
 		}
 
@@ -429,21 +429,13 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 	}
 
 	@Override
-	protected void registerAttributes() {
-		super.registerAttributes();
-		getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4);
-		getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(MAX_HP);
-		getAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.0);
-	}
-
-	@Override
 	public boolean canDespawn(double dist) {
 		return false;
 	}
 
 	@Override
 	public ResourceLocation getLootTable() {
-		return new ResourceLocation(LibMisc.MOD_ID, hardMode ? "gaia_guardian_2" : "gaia_guardian");
+		return prefix(hardMode ? "gaia_guardian_2" : "gaia_guardian");
 	}
 
 	@Override
@@ -468,7 +460,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 			}
 
 			PlayerEntity saveLastAttacker = attackingPlayer;
-			Vec3d savePos = getPositionVec();
+			Vector3d savePos = getPositionVec();
 
 			attackingPlayer = player; // Fake attacking player as the killer
 			// Spoof pos so drops spawn at the player
@@ -632,7 +624,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 							EntityPixie pixie = new EntityPixie(world);
 							pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 							pixie.setPosition(getPosX() + getWidth() / 2, getPosY() + 2, getPosZ() + getWidth() / 2);
-							pixie.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(pixie)),
+							pixie.onInitialSpawn(world, world.getDifficultyForLocation(pixie.func_233580_cy_()),
 									SpawnReason.MOB_SUMMONED, null, null);
 							world.addEntity(pixie);
 						}
@@ -642,13 +634,13 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 				}
 
 				if (entity != null) {
-					if (!entity.isImmuneToFire()) {
+					if (!entity.func_230279_az_()) {
 						entity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 600, 0));
 					}
 					float range = 6F;
 					entity.setPosition(getPosX() + 0.5 + Math.random() * range - range / 2, getPosY() - 1,
 							getPosZ() + 0.5 + Math.random() * range - range / 2);
-					entity.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(entity)),
+					entity.onInitialSpawn(world, world.getDifficultyForLocation(entity.func_233580_cy_()),
 							SpawnReason.MOB_SUMMONED, null, null);
 					if (entity instanceof WitherSkeletonEntity && hardMode) {
 						entity.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.elementiumSword));
@@ -701,7 +693,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 
 				//also see SleepingHandler
 				if (player.isSleeping()) {
-					player.func_225652_a_(true, true);
+					player.wakeUp();
 				}
 
 				clearPotions(player);
@@ -733,7 +725,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 			if (aggro) {
 				boolean dying = getHealth() / getMaxHealth() < 0.2;
 				if (dying && mobSpawnTicks > 0) {
-					setMotion(Vec3d.ZERO);
+					setMotion(Vector3d.ZERO);
 
 					int reverseTicks = MOB_SPAWN_TICKS - mobSpawnTicks;
 					if (reverseTicks < MOB_SPAWN_START_TICKS) {
@@ -783,7 +775,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 								EntityPixie pixie = new EntityPixie(world);
 								pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 								pixie.setPosition(getPosX() + getWidth() / 2, getPosY() + 2, getPosZ() + getWidth() / 2);
-								pixie.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(pixie)),
+								pixie.onInitialSpawn(world, world.getDifficultyForLocation(pixie.func_233580_cy_()),
 										SpawnReason.MOB_SUMMONED, null, null);
 								world.addEntity(pixie);
 							}
@@ -890,8 +882,8 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 			world.addParticle(ParticleTypes.PORTAL, px, py, pz, vx, vy, vz);
 		}
 
-		Vec3d oldPosVec = new Vec3d(oldX, oldY + getHeight() / 2, oldZ);
-		Vec3d newPosVec = new Vec3d(newX, newY + getHeight() / 2, newZ);
+		Vector3d oldPosVec = new Vector3d(oldX, oldY + getHeight() / 2, oldZ);
+		Vector3d newPosVec = new Vector3d(newX, newY + getHeight() / 2, newZ);
 
 		if (oldPosVec.squareDistanceTo(newPosVec) > 1) {
 			//damage players in the path of the teleport
@@ -924,29 +916,19 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	private static Rectangle barRect;
-	@OnlyIn(Dist.CLIENT)
-	private static Rectangle hpBarRect;
-
-	@OnlyIn(Dist.CLIENT)
-	public Rectangle getBossBarTextureRect() {
-		if (barRect == null) {
-			barRect = new Rectangle(0, 0, 185, 15);
-		}
-		return barRect;
+	public Rectangle2d getBossBarTextureRect() {
+		return new Rectangle2d(0, 0, 185, 15);
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public Rectangle getBossBarHPTextureRect() {
-		if (hpBarRect == null) {
-			hpBarRect = new Rectangle(0, barRect.y + barRect.height, 181, 7);
-		}
-		return hpBarRect;
+	public Rectangle2d getBossBarHPTextureRect() {
+		Rectangle2d barRect = getBossBarTextureRect();
+		return new Rectangle2d(0, barRect.getY() + barRect.getHeight(), 181, 7);
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public int bossBarRenderCallback(int x, int y) {
-		RenderSystem.pushMatrix();
+	public int bossBarRenderCallback(MatrixStack ms, int x, int y) {
+		ms.push();
 		int px = x + 160;
 		int py = y + 12;
 
@@ -954,8 +936,8 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
 		mc.getItemRenderer().renderItemIntoGUI(stack, px, py);
 
-		mc.fontRenderer.drawStringWithShadow("" + playerCount, px + 15, py + 4, 0xFFFFFF);
-		RenderSystem.popMatrix();
+		mc.fontRenderer.drawStringWithShadow(ms, Integer.toString(playerCount), px + 15, py + 4, 0xFFFFFF);
+		ms.pop();
 
 		return 5;
 	}
@@ -1044,7 +1026,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		@Override
 		public void tick() {
 			if (!guardian.isAlive()) {
-				donePlaying = true;
+				func_239509_o_();
 			}
 		}
 	}

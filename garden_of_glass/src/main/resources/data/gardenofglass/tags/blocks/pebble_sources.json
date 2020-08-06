@@ -1,0 +1,16 @@
+{
+  "__comment": "Blocks in this tag provide pebbles in Garden of Glass mode",
+  "replace": false,
+  "values": [
+    "minecraft:grass_block",
+    "minecraft:dirt",
+    "minecraft:farmland",
+    "minecraft:grass_path",
+    "botania:dry_grass",
+    "botania:golden_grass",
+    "botania:vivid_grass",
+    "botania:scorched_grass",
+    "botania:infused_grass",
+    "botania:mutated_grass"
+  ]
+}

@@ -8,12 +8,11 @@
  */
 package vazkii.botania.api.internal;
 
-import com.google.common.collect.ImmutableSet;
-
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.Collections;
 import java.util.Set;
 
 public class DummyManaNetwork implements IManaNetwork {
@@ -35,12 +34,12 @@ public class DummyManaNetwork implements IManaNetwork {
 
 	@Override
 	public Set<TileEntity> getAllCollectorsInWorld(World world) {
-		return ImmutableSet.of();
+		return Collections.emptySet();
 	}
 
 	@Override
 	public Set<TileEntity> getAllPoolsInWorld(World world) {
-		return ImmutableSet.of();
+		return Collections.emptySet();
 	}
 
 }

@@ -19,7 +19,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IAvatarTile;
@@ -51,7 +51,6 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 
 	public ItemTornadoRod(Properties props) {
 		super(props);
-		addPropertyOverride(new ResourceLocation("botania", "flying"), (stack, world, living) -> isFlying(stack) ? 1 : 0);
 	}
 
 	@Override
@@ -71,8 +70,8 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 				if (held) {
 					player.fallDistance = 0F;
 					double my = IManaProficiencyArmor.hasProficiency(player, stack) ? 1.6 : 1.25;
-					Vec3d oldMot = player.getMotion();
-					player.setMotion(new Vec3d(oldMot.getX(), my, oldMot.getZ()));
+					Vector3d oldMot = player.getMotion();
+					player.setMotion(new Vector3d(oldMot.getX(), my, oldMot.getZ()));
 
 					player.playSound(ModSounds.airRod, 0.1F, 0.25F);
 					for (int i = 0; i < 5; i++) {
@@ -117,7 +116,7 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 		return ActionResult.resultPass(stack);
 	}
 
-	private boolean isFlying(ItemStack stack) {
+	public static boolean isFlying(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_FLYING, false);
 	}
 

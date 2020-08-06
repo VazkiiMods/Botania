@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "botania:block/corporea_funnel_side",
+    "end": "botania:block/corporea_funnel_end"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "side": "botania:block/metamorphic_fungal_stone",
+    "bottom": "botania:block/metamorphic_fungal_stone",
+    "top": "botania:block/metamorphic_fungal_stone"
+  }
+}

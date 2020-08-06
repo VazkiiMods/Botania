@@ -14,14 +14,14 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Matrix4f;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.vector.Vector3f;
 
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -50,14 +50,10 @@ public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {
 		ms.push();
 		float s = 1.5F;
 		ms.scale(s, s, s);
-		ms.rotate(Vector3f.YP.rotationDegrees(-90F));
-		ms.rotate(Vector3f.ZP.rotationDegrees(45F));
-
-		// todo 1.15 get the alpha in to the BMR
-		// GlStateManager.color4f(1F, 1F, 1F, chargeMul);
+		ms.rotate(Vector3f.YP.rotationDegrees(90F));
 
 		IBakedModel model = MiscellaneousIcons.INSTANCE.kingKeyWeaponModels[weapon.getVariety()];
-		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffers.getBuffer(Atlases.getTranslucentBlockType()), null, model, 1, 1, 1, 0xF000F0, OverlayTexture.NO_OVERLAY);
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffers.getBuffer(Atlases.func_239280_i_()), null, model, 1, 1, 1, 0xF000F0, OverlayTexture.NO_OVERLAY);
 		ms.pop();
 
 		Random rand = new Random(weapon.getUniqueID().getMostSignificantBits());

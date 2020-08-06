@@ -8,21 +8,16 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
 
 public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITickableTileEntity {
 	private static final int MAX_MANA = 6400;
@@ -50,7 +45,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 			}
 		}
 
-		ItemStack stack = itemHandler.getStackInSlot(0);
+		ItemStack stack = getItemHandler().getStackInSlot(0);
 		if (!stack.isEmpty() && stack.getItem() instanceof IAvatarWieldable) {
 			IAvatarWieldable wieldable = (IAvatarWieldable) stack.getItem();
 			wieldable.onAvatarUpdate(this, stack);
@@ -78,15 +73,10 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	}
 
 	@Override
-	public int getSizeInventory() {
-		return 1;
-	}
-
-	@Override
-	protected SimpleItemStackHandler createItemHandler() {
-		return new SimpleItemStackHandler(this, false) {
+	protected Inventory createItemHandler() {
+		return new Inventory(1) {
 			@Override
-			protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
+			public int getInventoryStackLimit() {
 				return 1;
 			}
 		};
@@ -104,7 +94,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 
 	@Override
 	public boolean canReceiveManaFromBursts() {
-		return !itemHandler.getStackInSlot(0).isEmpty();
+		return !getItemHandler().getStackInSlot(0).isEmpty();
 	}
 
 	@Override
@@ -113,7 +103,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 	}
 
 	@Override
-	public IItemHandler getInventory() {
+	public IInventory getInventory() {
 		return getItemHandler();
 	}
 

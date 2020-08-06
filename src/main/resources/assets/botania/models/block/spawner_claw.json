@@ -2,8 +2,8 @@
 	"__comment": "Designed by Wiiv with Cubik Studio - https://cubik.studio",
 	"parent": "minecraft:block/block",
 	"textures": {
-		"texture": "botania:blocks/life_imbuer",
-		"particle": "botania:blocks/life_imbuer"
+		"texture": "botania:block/life_imbuer",
+		"particle": "botania:block/life_imbuer"
 	},
 	"display": {
 		"gui": {

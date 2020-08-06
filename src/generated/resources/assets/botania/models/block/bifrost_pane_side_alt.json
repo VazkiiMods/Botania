@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_glass_pane_side_alt",
+  "textures": {
+    "pane": "botania:block/bifrost",
+    "edge": "botania:block/bifrost_pane"
+  }
+}

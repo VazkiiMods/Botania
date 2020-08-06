@@ -11,19 +11,16 @@ package vazkii.botania.common.block.subtile.functional;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.pattern.BlockStateMatcher;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,11 +125,10 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 		int range = getRange();
 		int rangeY = getRangeY();
 
-		BlockStateMatcher matcher = BlockStateMatcher.forBlock(Blocks.STONE);
 		for (BlockPos pos : BlockPos.getAllInBoxMutable(getEffectivePos().add(-range, -rangeY, -range),
 				getEffectivePos().add(range, rangeY, range))) {
 			BlockState state = getWorld().getBlockState(pos);
-			if (state.getBlock().isReplaceableOreGen(state, getWorld(), pos, matcher)) {
+			if (state.getBlock() == Blocks.STONE) {
 				possibleCoords.add(pos.toImmutable());
 			}
 		}

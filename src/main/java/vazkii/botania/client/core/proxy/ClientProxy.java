@@ -8,19 +8,22 @@
  */
 package vazkii.botania.client.core.proxy;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeBuffers;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.entity.PlayerRenderer;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.*;
 import net.minecraft.particles.IParticleData;
+import net.minecraft.util.IItemProvider;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -32,33 +35,47 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import org.lwjgl.glfw.GLFW;
 
+import vazkii.botania.client.core.WorldTypeSkyblock;
 import vazkii.botania.client.core.handler.*;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.fx.ModParticles;
-import vazkii.botania.client.render.world.SkyblockRenderEvents;
+import vazkii.botania.client.render.entity.RenderMagicLandmine;
+import vazkii.botania.client.render.tile.RenderTilePylon;
+import vazkii.botania.client.render.tile.TEISR;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.BlockPylon;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.decor.BlockModMushroom;
+import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.subtile.functional.BergamuteEventHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.entity.EntityDoppleganger;
-import vazkii.botania.common.item.ItemSextant;
+import vazkii.botania.common.item.*;
+import vazkii.botania.common.item.brew.ItemBrewBase;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
+import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
+import vazkii.botania.common.item.equipment.tool.bow.ItemLivingwoodBow;
+import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
+import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
+import vazkii.botania.common.item.relic.ItemInfiniteFruit;
+import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.mixin.AccessorBiomeGeneratorTypeScreens;
+import vazkii.botania.mixin.AccessorRenderTypeBuffers;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -66,8 +83,11 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.Locale;
 import java.util.Map;
 import java.util.SortedMap;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ClientProxy implements IProxy {
 
@@ -89,7 +109,6 @@ public class ClientProxy implements IProxy {
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onTextureStitchPost);
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onModelRegister);
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onModelBake);
-		modBus.addListener(SplashHandler::registerFactories);
 		modBus.addListener(ModelHandler::registerModels);
 		modBus.addListener(ModParticles.FactoryHandler::registerFactories);
 
@@ -108,9 +127,8 @@ public class ClientProxy implements IProxy {
 		forgeBus.addListener(ClientTickHandler::renderTick);
 		forgeBus.addListener(BoundTileRenderer::onWorldRenderLast);
 		forgeBus.addListener(BossBarHandler::onBarRender);
-		forgeBus.addListener(BlockHighlightRenderHandler::onWorldRenderLast);
+		forgeBus.addListener(RenderMagicLandmine::onWorldRenderLast);
 		forgeBus.addListener(AstrolabePreviewHandler::onWorldRenderLast);
-		forgeBus.addListener(SkyblockRenderEvents::onRender);
 		forgeBus.addListener(ItemDodgeRing::onKeyDown);
 		forgeBus.addListener(EventPriority.LOWEST, BergamuteEventHandler::onSoundEvent);
 	}
@@ -134,12 +152,105 @@ public class ClientProxy implements IProxy {
 			}
 		}
 
+		registerRenderTypes();
+
 		DeferredWorkQueue.runLater(() -> {
+			AccessorBiomeGeneratorTypeScreens.getAllTypes().add(WorldTypeSkyblock.INSTANCE);
+
 			CORPOREA_REQUEST = new KeyBinding("key.botania_corporea_request", KeyConflictContext.GUI, InputMappings.getInputByCode(GLFW.GLFW_KEY_C, 0), LibMisc.MOD_NAME);
 			ClientRegistry.registerKeyBinding(ClientProxy.CORPOREA_REQUEST);
+			registerPropertyGetters();
 		});
 
-		registerRenderTypes();
+	}
+
+	private static void registerPropertyGetter(IItemProvider item, ResourceLocation id, IItemPropertyGetter propGetter) {
+		ItemModelsProperties.func_239418_a_(item.asItem(), id, propGetter);
+	}
+
+	private static void registerPropertyGetters() {
+		registerPropertyGetter(ModItems.blackHoleTalisman, prefix("active"),
+				(stack, world, entity) -> ItemNBTHelper.getBoolean(stack, ItemBlackHoleTalisman.TAG_ACTIVE, false) ? 1 : 0);
+		registerPropertyGetter(ModItems.manaBottle, prefix("swigs_taken"),
+				(stack, world, entity) -> ItemBottledMana.SWIGS - ItemBottledMana.getSwigsLeft(stack));
+
+		ResourceLocation vuvuzelaId = prefix("vuvuzela");
+		IItemPropertyGetter isVuvuzela = (stack, world, entity) -> stack.getDisplayName().getString().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0;
+		registerPropertyGetter(ModItems.grassHorn, vuvuzelaId, isVuvuzela);
+		registerPropertyGetter(ModItems.leavesHorn, vuvuzelaId, isVuvuzela);
+		registerPropertyGetter(ModItems.snowHorn, vuvuzelaId, isVuvuzela);
+
+		registerPropertyGetter(ModItems.lexicon, prefix("elven"), (stack, world, living) -> ModItems.lexicon.isElvenItem(stack) ? 1 : 0);
+		registerPropertyGetter(ModItems.manaCookie, prefix("totalbiscuit"),
+				(stack, world, entity) -> stack.getDisplayName().getString().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F);
+		registerPropertyGetter(ModItems.slimeBottle, prefix("active"),
+				(stack, world, entity) -> stack.hasTag() && stack.getTag().getBoolean(ItemSlimeBottle.TAG_ACTIVE) ? 1.0F : 0.0F);
+		registerPropertyGetter(ModItems.spawnerMover, prefix("full"),
+				(stack, world, entity) -> ItemSpawnerMover.hasData(stack) ? 1 : 0);
+		registerPropertyGetter(ModItems.temperanceStone, prefix("active"),
+				(stack, world, entity) -> ItemNBTHelper.getBoolean(stack, ItemTemperanceStone.TAG_ACTIVE, false) ? 1 : 0);
+		registerPropertyGetter(ModItems.twigWand, prefix("bindmode"),
+				(stack, world, entity) -> ItemTwigWand.getBindMode(stack) ? 1 : 0);
+
+		ResourceLocation poolFullId = prefix("full");
+		IItemPropertyGetter poolFull = (stack, world, entity) -> {
+			Block block = ((BlockItem) stack.getItem()).getBlock();
+			boolean renderFull = ((BlockPool) block).variant == BlockPool.Variant.CREATIVE || stack.hasTag() && stack.getTag().getBoolean("RenderFull");
+			return renderFull ? 1F : 0F;
+		};
+		registerPropertyGetter(ModBlocks.manaPool, poolFullId, poolFull);
+		registerPropertyGetter(ModBlocks.dilutedPool, poolFullId, poolFull);
+		registerPropertyGetter(ModBlocks.creativePool, poolFullId, poolFull);
+		registerPropertyGetter(ModBlocks.fabulousPool, poolFullId, poolFull);
+
+		IItemPropertyGetter brewGetter = (stack, world, entity) -> {
+			ItemBrewBase item = ((ItemBrewBase) stack.getItem());
+			return item.getSwigs() - item.getSwigsLeft(stack);
+		};
+		registerPropertyGetter(ModItems.brewVial, prefix("swigs_taken"), brewGetter);
+		registerPropertyGetter(ModItems.brewFlask, prefix("swigs_taken"), brewGetter);
+
+		ResourceLocation holidayId = prefix("holiday");
+		IItemPropertyGetter holidayGetter = (stack, worldIn, entityIn) -> ClientProxy.jingleTheBells ? 1 : 0;
+		registerPropertyGetter(ModItems.manaweaveHelm, holidayId, holidayGetter);
+		registerPropertyGetter(ModItems.manaweaveChest, holidayId, holidayGetter);
+		registerPropertyGetter(ModItems.manaweaveBoots, holidayId, holidayGetter);
+		registerPropertyGetter(ModItems.manaweaveLegs, holidayId, holidayGetter);
+
+		IItemPropertyGetter ringOnGetter = (stack, worldIn, entityIn) -> ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0;
+		registerPropertyGetter(ModItems.magnetRing, prefix("active"), ringOnGetter);
+		registerPropertyGetter(ModItems.magnetRingGreater, prefix("active"), ringOnGetter);
+
+		registerPropertyGetter(ModItems.elementiumShears, prefix("reddit"),
+				(stack, world, entity) -> stack.getDisplayName().getString().equalsIgnoreCase("dammit reddit") ? 1F : 0F);
+		registerPropertyGetter(ModItems.manasteelSword, prefix("elucidator"),
+				(stack, world, entity) -> "the elucidator".equals(stack.getDisplayName().getString().toLowerCase().trim()) ? 1 : 0);
+		registerPropertyGetter(ModItems.terraAxe, prefix("active"),
+				(stack, world, entity) -> entity instanceof PlayerEntity && !ItemTerraAxe.shouldBreak((PlayerEntity) entity) ? 0 : 1);
+		registerPropertyGetter(ModItems.terraPick, prefix("tipped"),
+				(stack, world, entity) -> ItemTerraPick.isTipped(stack) ? 1 : 0);
+		registerPropertyGetter(ModItems.terraPick, prefix("active"),
+				(stack, world, entity) -> ItemTerraPick.isEnabled(stack) ? 1 : 0);
+		registerPropertyGetter(ModItems.infiniteFruit, prefix("boot"),
+				(stack, worldIn, entity) -> ItemInfiniteFruit.isBoot(stack) ? 1F : 0F);
+		registerPropertyGetter(ModItems.tornadoRod, prefix("active"),
+				(stack, world, living) -> ItemTornadoRod.isFlying(stack) ? 1 : 0);
+
+		IItemPropertyGetter pulling = ItemModelsProperties.func_239417_a_(Items.BOW, new ResourceLocation("pulling"));
+		IItemPropertyGetter pull = (stack, worldIn, entity) -> {
+			if (entity == null) {
+				return 0.0F;
+			} else {
+				ItemLivingwoodBow item = ((ItemLivingwoodBow) stack.getItem());
+				return entity.getActiveItemStack() != stack
+						? 0.0F
+						: (stack.getUseDuration() - entity.getItemInUseCount()) * item.chargeVelocityMultiplier() / 20.0F;
+			}
+		};
+		registerPropertyGetter(ModItems.livingwoodBow, new ResourceLocation("pulling"), pulling);
+		registerPropertyGetter(ModItems.livingwoodBow, new ResourceLocation("pull"), pull);
+		registerPropertyGetter(ModItems.crystalBow, new ResourceLocation("pulling"), pulling);
+		registerPropertyGetter(ModItems.crystalBow, new ResourceLocation("pull"), pull);
 	}
 
 	private static void registerRenderTypes() {
@@ -156,6 +267,7 @@ public class ClientProxy implements IProxy {
 		RenderTypeLookup.setRenderLayer(ModBlocks.ghostRail, RenderType.getCutout());
 		RenderTypeLookup.setRenderLayer(ModBlocks.solidVines, RenderType.getCutout());
 
+		RenderTypeLookup.setRenderLayer(ModBlocks.corporeaCrystalCube, RenderType.getTranslucent());
 		RenderTypeLookup.setRenderLayer(ModBlocks.manaGlass, RenderType.getTranslucent());
 		RenderTypeLookup.setRenderLayer(ModFluffBlocks.managlassPane, RenderType.getTranslucent());
 		RenderTypeLookup.setRenderLayer(ModBlocks.elfGlass, RenderType.getTranslucent());
@@ -185,7 +297,7 @@ public class ClientProxy implements IProxy {
 			ColorHandler.init();
 
 			// Needed to prevent mana pools on carts from X-raying through the cart
-			SortedMap<RenderType, BufferBuilder> layers = ObfuscationReflectionHelper.getPrivateValue(RenderTypeBuffers.class, Minecraft.getInstance().getRenderTypeBuffers(), "field_228480_b_");
+			SortedMap<RenderType, BufferBuilder> layers = ((AccessorRenderTypeBuffers) Minecraft.getInstance().getRenderTypeBuffers()).getFixedBuffers();
 			layers.put(RenderHelper.MANA_POOL_WATER, new BufferBuilder(RenderHelper.MANA_POOL_WATER.getBufferSize()));
 		});
 	}
@@ -195,16 +307,12 @@ public class ClientProxy implements IProxy {
 		PlayerRenderer render;
 		render = skinMap.get("default");
 		render.addLayer(new ContributorFancinessHandler(render));
-		if (Botania.curiosLoaded) {
-			render.addLayer(new BaubleRenderHandler(render));
-		}
+		render.addLayer(new ManaTabletRenderHandler(render));
 		render.addLayer(new LayerTerraHelmet(render));
 
 		render = skinMap.get("slim");
 		render.addLayer(new ContributorFancinessHandler(render));
-		if (Botania.curiosLoaded) {
-			render.addLayer(new BaubleRenderHandler(render));
-		}
+		render.addLayer(new ManaTabletRenderHandler(render));
 		render.addLayer(new LayerTerraHelmet(render));
 	}
 
@@ -264,5 +372,13 @@ public class ClientProxy implements IProxy {
 		if (mb != null && mb.getID().equals(ItemSextant.MULTIBLOCK_ID)) {
 			PatchouliAPI.instance.clearMultiblock();
 		}
+	}
+
+	@Override
+	public Item.Properties propertiesWithRenderer(Item.Properties properties, Block block) {
+		if (block instanceof BlockPylon) {
+			return properties.setISTER(() -> RenderTilePylon.TEISR::new);
+		}
+		return properties.setISTER(() -> () -> new TEISR(block));
 	}
 }

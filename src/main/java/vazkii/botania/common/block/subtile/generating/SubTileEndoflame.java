@@ -14,20 +14,17 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.mana.BlockSpreader;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 public class SubTileEndoflame extends TileEntityGeneratingFlower {
 	private static final String TAG_BURN_TIME = "burnTime";
@@ -51,7 +48,7 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 
 		if (getWorld().isRemote) {
 			if (burnTime > 0 && getWorld().rand.nextInt(10) == 0) {
-				Vec3d offset = getWorld().getBlockState(getEffectivePos()).getOffset(getWorld(), getEffectivePos()).add(0.4, 0.7, 0.4);
+				Vector3d offset = getWorld().getBlockState(getEffectivePos()).getOffset(getWorld(), getEffectivePos()).add(0.4, 0.7, 0.4);
 				getWorld().addParticle(ParticleTypes.FLAME, getEffectivePos().getX() + offset.x + Math.random() * 0.2, getEffectivePos().getY() + offset.y, getEffectivePos().getZ() + offset.z + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
 			}
 			return;
@@ -63,7 +60,8 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 					int slowdown = getSlowdownFactor();
 
 					for (ItemEntity item : getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)))) {
-						if (item.age >= 59 + slowdown && !item.removed) {
+						int age = ((AccessorItemEntity) item).getAge();
+						if (age >= 59 + slowdown && item.isAlive()) {
 							ItemStack stack = item.getItem();
 							if (stack.isEmpty() || stack.getItem().hasContainerItem(stack)) {
 								continue;

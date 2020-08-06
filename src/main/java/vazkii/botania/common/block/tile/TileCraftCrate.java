@@ -11,22 +11,20 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.World;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -34,35 +32,25 @@ import java.util.List;
 import java.util.Optional;
 
 public class TileCraftCrate extends TileOpenCrate {
-	private static final String TAG_PATTERN = "pattern";
-
+	private static final String TAG_CRAFTING_RESULT = "craft_result";
 	private int signal = 0;
+	private ItemStack craftResult = ItemStack.EMPTY;
 
 	public TileCraftCrate() {
 		super(ModTiles.CRAFT_CRATE);
 	}
 
 	@Override
-	public int getSizeInventory() {
-		return 10;
-	}
-
-	@Override
-	protected SimpleItemStackHandler createItemHandler() {
-		return new SimpleItemStackHandler(this, true) {
+	protected Inventory createItemHandler() {
+		return new Inventory(9) {
 			@Override
-			protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
+			public int getInventoryStackLimit() {
 				return 1;
 			}
 
-			@Nonnull
 			@Override
-			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-				if (slot != 9 && !isLocked(slot)) {
-					return super.insertItem(slot, stack, simulate);
-				} else {
-					return stack;
-				}
+			public boolean isItemValidForSlot(int slot, ItemStack stack) {
+				return !isLocked(slot);
 			}
 		};
 	}
@@ -80,6 +68,18 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	@Override
+	public void readPacketNBT(CompoundNBT tag) {
+		super.readPacketNBT(tag);
+		craftResult = ItemStack.read(tag.getCompound(TAG_CRAFTING_RESULT));
+	}
+
+	@Override
+	public void writePacketNBT(CompoundNBT tag) {
+		super.writePacketNBT(tag);
+		tag.put(TAG_CRAFTING_RESULT, craftResult.write(new CompoundNBT()));
+	}
+
+	@Override
 	public void tick() {
 		if (world.isRemote) {
 			return;
@@ -92,7 +92,7 @@ public class TileCraftCrate extends TileOpenCrate {
 		int newSignal = 0;
 		for (; newSignal < 9; newSignal++) // dis for loop be derpy
 		{
-			if (!isLocked(newSignal) && itemHandler.getStackInSlot(newSignal).isEmpty()) {
+			if (!isLocked(newSignal) && getItemHandler().getStackInSlot(newSignal).isEmpty()) {
 				break;
 			}
 		}
@@ -115,7 +115,7 @@ public class TileCraftCrate extends TileOpenCrate {
 			}
 		}, 3, 3);
 		for (int i = 0; i < craft.getSizeInventory(); i++) {
-			ItemStack stack = itemHandler.getStackInSlot(i);
+			ItemStack stack = getItemHandler().getStackInSlot(i);
 
 			if (stack.isEmpty() || isLocked(i) || stack.getItem() == ModItems.placeholder) {
 				continue;
@@ -126,16 +126,16 @@ public class TileCraftCrate extends TileOpenCrate {
 
 		Optional<ICraftingRecipe> matchingRecipe = world.getRecipeManager().getRecipe(IRecipeType.CRAFTING, craft, world);
 		matchingRecipe.ifPresent(recipe -> {
-			itemHandler.setStackInSlot(9, recipe.getCraftingResult(craft));
+			craftResult = recipe.getCraftingResult(craft);
 
 			List<ItemStack> remainders = recipe.getRemainingItems(craft);
 			for (int i = 0; i < craft.getSizeInventory(); i++) {
 				ItemStack s = remainders.get(i);
-				if (!itemHandler.getStackInSlot(i).isEmpty()
-						&& itemHandler.getStackInSlot(i).getItem() == ModItems.placeholder) {
+				if (!getItemHandler().getStackInSlot(i).isEmpty()
+						&& getItemHandler().getStackInSlot(i).getItem() == ModItems.placeholder) {
 					continue;
 				}
-				itemHandler.setStackInSlot(i, s);
+				getItemHandler().setInventorySlotContents(i, s);
 			}
 		});
 
@@ -143,8 +143,8 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	boolean isFull() {
-		for (int i = 0; i < 9; i++) {
-			if (!isLocked(i) && itemHandler.getStackInSlot(i).isEmpty()) {
+		for (int i = 0; i < getItemHandler().getSizeInventory(); i++) {
+			if (!isLocked(i) && getItemHandler().getStackInSlot(i).isEmpty()) {
 				return false;
 			}
 		}
@@ -153,17 +153,20 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	private void ejectAll() {
-		for (int i = 0; i < getSizeInventory(); ++i) {
-			ItemStack stack = itemHandler.getStackInSlot(i);
+		for (int i = 0; i < inventorySize(); ++i) {
+			ItemStack stack = getItemHandler().getStackInSlot(i);
 			if (!stack.isEmpty()) {
 				eject(stack, false);
 			}
-			itemHandler.setStackInSlot(i, ItemStack.EMPTY);
+			getItemHandler().setInventorySlotContents(i, ItemStack.EMPTY);
+		}
+		if (!craftResult.isEmpty()) {
+			eject(craftResult, false);
+			craftResult = ItemStack.EMPTY;
 		}
 	}
 
-	@Override
-	public boolean onWanded(World world, PlayerEntity player, ItemStack stack) {
+	public boolean onWanded(World world) {
 		if (!world.isRemote && canEject()) {
 			craft(false);
 			ejectAll();
@@ -174,10 +177,11 @@ public class TileCraftCrate extends TileOpenCrate {
 	@Override
 	public void markDirty() {
 		super.markDirty();
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		if (world != null && !world.isRemote) {
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
 	}
 
-	@Override
 	public int getSignal() {
 		return signal;
 	}

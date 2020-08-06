@@ -19,9 +19,9 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
@@ -54,7 +54,7 @@ public class BlockTerraPlate extends BlockModWaterloggable implements ITileEntit
 				ItemStack target = stack.split(1);
 				ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, target);
 				item.setPickupDelay(40);
-				item.setMotion(Vec3d.ZERO);
+				item.setMotion(Vector3d.ZERO);
 				world.addEntity(item);
 			}
 

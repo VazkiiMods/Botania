@@ -2,19 +2,14 @@
   "type": "minecraft:crafting_shapeless",
   "group": "botania:dye",
   "ingredients": [
-    [
-      {
-        "item": "minecraft:orange_tulip"
-      },
-      {
-        "tag": "botania:petals/orange"
-      }
-    ],
+    {
+      "tag": "botania:petals/orange"
+    },
     {
       "item": "botania:pestle_and_mortar"
     }
   ],
   "result": {
-    "item": "botania:orange_dye"
+    "item": "minecraft:orange_dye"
   }
 }

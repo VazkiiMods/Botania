@@ -8,15 +8,15 @@
  */
 package vazkii.botania.client.patchouli.component;
 
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.matrix.MatrixStack;
 
 import net.minecraft.item.ItemStack;
 
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
-import vazkii.patchouli.api.PatchouliAPI;
+import vazkii.patchouli.api.IVariable;
 
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 /**
  * Patchouli custom component that draws provided stacks arranged like the Terrestial Agglomeration Plate multiblock.
@@ -24,10 +24,10 @@ import java.util.function.Function;
  * Parameters: corner, center, edge, plate can be provided to override default blocks.
  */
 public class TerraPlateComponent implements ICustomComponent {
-	public String corner = "botania:livingrock";
-	public String center = "botania:livingrock";
-	public String edge = "minecraft:lapis_block";
-	public String plate = "botania:terra_plate";
+	public IVariable corner = IVariable.wrap("botania:livingrock");
+	public IVariable center = IVariable.wrap("botania:livingrock");
+	public IVariable edge = IVariable.wrap("minecraft:lapis_block");
+	public IVariable plate = IVariable.wrap("botania:terra_plate");
 
 	private transient int x, y;
 	private transient ItemStack cornerBlock, centerBlock, middleBlock, plateBlock;
@@ -36,46 +36,42 @@ public class TerraPlateComponent implements ICustomComponent {
 	public void build(int componentX, int componentY, int pageNum) {
 		this.x = componentX;
 		this.y = componentY;
-		this.cornerBlock = PatchouliAPI.instance.deserializeItemStack(corner);
-		this.centerBlock = PatchouliAPI.instance.deserializeItemStack(center);
-		this.middleBlock = PatchouliAPI.instance.deserializeItemStack(edge);
-		this.plateBlock = PatchouliAPI.instance.deserializeItemStack(plate);
 	}
 
 	@Override
-	public void render(IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
-		RenderSystem.pushMatrix();
-		RenderSystem.translatef(0F, 0F, -10.0f);
-		context.renderItemStack(x + 13, y + 1, mouseX, mouseY, cornerBlock);
+	public void render(MatrixStack ms, IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
+		ms.push();
+		ms.translate(0, 0, -10);
+		context.renderItemStack(ms, x + 13, y + 1, mouseX, mouseY, cornerBlock);
 
-		RenderSystem.translatef(0F, 0F, 5F);
-		context.renderItemStack(x + 20, y + 4, mouseX, mouseY, middleBlock);
-		context.renderItemStack(x + 7, y + 4, mouseX, mouseY, middleBlock);
+		ms.translate(0F, 0F, 5F);
+		context.renderItemStack(ms, x + 20, y + 4, mouseX, mouseY, middleBlock);
+		context.renderItemStack(ms, x + 7, y + 4, mouseX, mouseY, middleBlock);
 
-		RenderSystem.translatef(0F, 0F, 5F);
-		context.renderItemStack(x + 13, y + 8, mouseX, mouseY, cornerBlock);
-		context.renderItemStack(x + 27, y + 8, mouseX, mouseY, centerBlock);
-		context.renderItemStack(x, y + 8, mouseX, mouseY, cornerBlock);
+		ms.translate(0F, 0F, 5F);
+		context.renderItemStack(ms, x + 13, y + 8, mouseX, mouseY, cornerBlock);
+		context.renderItemStack(ms, x + 27, y + 8, mouseX, mouseY, centerBlock);
+		context.renderItemStack(ms, x, y + 8, mouseX, mouseY, cornerBlock);
 
-		RenderSystem.translatef(0F, 0F, 5F);
-		context.renderItemStack(x + 7, y + 12, mouseX, mouseY, middleBlock);
-		context.renderItemStack(x + 20, y + 12, mouseX, mouseY, middleBlock);
+		ms.translate(0F, 0F, 5F);
+		context.renderItemStack(ms, x + 7, y + 12, mouseX, mouseY, middleBlock);
+		context.renderItemStack(ms, x + 20, y + 12, mouseX, mouseY, middleBlock);
 
-		RenderSystem.translatef(0F, 0F, 5F);
-		context.renderItemStack(x + 14, y + 15, mouseX, mouseY, cornerBlock);
+		ms.translate(0F, 0F, 5F);
+		context.renderItemStack(ms, x + 14, y + 15, mouseX, mouseY, cornerBlock);
 
-		RenderSystem.translatef(0F, 0F, 5F);
-		context.renderItemStack(x + 13, y, mouseX, mouseY, plateBlock);
-		RenderSystem.translatef(0F, 0F, -10.0f);
+		ms.translate(0F, 0F, 5F);
+		context.renderItemStack(ms, x + 13, y, mouseX, mouseY, plateBlock);
+		ms.translate(0F, 0F, -10.0f);
 
-		RenderSystem.popMatrix();
+		ms.pop();
 	}
 
 	@Override
-	public void onVariablesAvailable(Function<String, String> lookup) {
-		corner = lookup.apply(corner);
-		center = lookup.apply(center);
-		edge = lookup.apply(edge);
-		plate = lookup.apply(plate);
+	public void onVariablesAvailable(UnaryOperator<IVariable> lookup) {
+		cornerBlock = lookup.apply(corner).as(ItemStack.class);
+		centerBlock = lookup.apply(center).as(ItemStack.class);
+		middleBlock = lookup.apply(edge).as(ItemStack.class);
+		plateBlock = lookup.apply(plate).as(ItemStack.class);
 	}
 }

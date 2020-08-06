@@ -14,12 +14,14 @@ import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.lib.LibBrewNames;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import static vazkii.botania.common.block.ModBlocks.register;
@@ -27,8 +29,8 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModBrews {
 
-	public static IForgeRegistry<Brew> registry;
-	public static final Brew fallbackBrew = new Brew(0, 0);
+	public static Registry<Brew> registry;
+	public static final Brew fallbackBrew = new Brew(0, 0).setNotBloodPendantInfusable().setNotIncenseInfusable();
 	public static final Brew speed = new Brew(0x59B7FF, 4000, new EffectInstance(Effects.SPEED, 1800, 1));
 	public static final Brew strength = new Brew(0xEE3F3F, 4000, new EffectInstance(Effects.STRENGTH, 1800, 1));
 	public static final Brew haste = new Brew(0xF4A432, 4000, new EffectInstance(Effects.HASTE, 1800, 1));
@@ -51,15 +53,19 @@ public class ModBrews {
 	public static final Brew overload = new Brew(0x232323, 12000, new EffectInstance(Effects.STRENGTH, 1800, 3), new EffectInstance(Effects.SPEED, 1800, 2), new EffectInstance(Effects.WEAKNESS, 3600, 1), new EffectInstance(Effects.HUNGER, 200, 2));
 	public static final Brew clear = make(4000, new EffectInstance(ModPotions.clear, 0, 0));
 
-	public static Brew warpWard;
-
 	public static void registerRegistry(RegistryEvent.NewRegistry evt) {
-		registry = new RegistryBuilder<Brew>()
-				.setName(prefix("brews"))
-				.setType(Brew.class)
-				.setDefaultKey(prefix("fallback"))
-				.disableSaving()
-				.create();
+		// Some sneaky hacks to get Forge to create the registry with a vanilla wrapper attached
+		try {
+			Method makeBuilder = GameData.class.getDeclaredMethod("makeRegistry", ResourceLocation.class, Class.class, ResourceLocation.class);
+			makeBuilder.setAccessible(true);
+			@SuppressWarnings("unchecked")
+			RegistryBuilder<Brew> builder = (RegistryBuilder<Brew>) makeBuilder.invoke(null, prefix("brews"), Brew.class, prefix("fallback"));
+			builder.disableSaving().create();
+			// grab the vanilla wrapper for use
+			registry = GameData.getWrapperDefaulted(Brew.class);
+		} catch (Throwable throwable) {
+			throw new RuntimeException(throwable);
+		}
 	}
 
 	public static void registerBrews(RegistryEvent.Register<Brew> evt) {
@@ -85,11 +91,6 @@ public class ModBrews {
 		register(r, LibBrewNames.BLOODTHIRST, bloodthirst);
 		register(r, LibBrewNames.ALLURE, allure);
 		register(r, LibBrewNames.CLEAR, clear);
-
-		Registry.EFFECTS.getValue(new ResourceLocation("thaumcraft:warpward")).ifPresent(warpWardPotion -> {
-			warpWard = new Brew(0xFBBDFF, 25000, new EffectInstance(warpWardPotion, 12000, 0)).setNotBloodPendantInfusable();
-			register(r, LibBrewNames.WARP_WARD, warpWard);
-		});
 	}
 
 	private static Brew make(int cost, EffectInstance... effects) {

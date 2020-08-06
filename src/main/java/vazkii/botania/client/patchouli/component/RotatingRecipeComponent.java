@@ -14,12 +14,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 
 import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.patchouli.api.IVariable;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 /**
  * Patchouli custom component that draws a rotating circle of items from the defined recipe.
@@ -33,11 +35,12 @@ public class RotatingRecipeComponent extends RotatingItemListComponentBase {
 
 	@Override
 	protected List<Ingredient> makeIngredients() {
+		World world = Minecraft.getInstance().world;
 		Map<ResourceLocation, ? extends IRecipe<?>> map;
 		if ("runic_altar".equals(recipeType)) {
-			map = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.RUNE_TYPE);
+			map = ModRecipeTypes.getRecipes(world, ModRecipeTypes.RUNE_TYPE);
 		} else if ("petal_apothecary".equals(recipeType)) {
-			map = Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.PETAL_TYPE);
+			map = ModRecipeTypes.getRecipes(world, ModRecipeTypes.PETAL_TYPE);
 		} else {
 			throw new IllegalArgumentException("Type must be 'runic_altar' or 'petal_apothecary'!");
 		}
@@ -49,8 +52,8 @@ public class RotatingRecipeComponent extends RotatingItemListComponentBase {
 	}
 
 	@Override
-	public void onVariablesAvailable(Function<String, String> lookup) {
-		recipeName = lookup.apply(recipeName);
-		recipeType = lookup.apply(recipeType);
+	public void onVariablesAvailable(UnaryOperator<IVariable> lookup) {
+		recipeName = lookup.apply(IVariable.wrap(recipeName)).asString();
+		recipeType = lookup.apply(IVariable.wrap(recipeType)).asString();
 	}
 }

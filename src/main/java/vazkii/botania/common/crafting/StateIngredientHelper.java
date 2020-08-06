@@ -11,8 +11,8 @@ package vazkii.botania.common.crafting;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import com.mojang.datafixers.Dynamic;
-import com.mojang.datafixers.types.JsonOps;
+import com.mojang.serialization.Dynamic;
+import com.mojang.serialization.JsonOps;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -22,7 +22,7 @@ import net.minecraft.nbt.NBTDynamicOps;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -42,7 +42,7 @@ public class StateIngredientHelper {
 		return new StateIngredientBlockState(state);
 	}
 
-	public static StateIngredient of(Tag<Block> tag) {
+	public static StateIngredient of(ITag.INamedTag<Block> tag) {
 		return new StateIngredientTag(tag);
 	}
 
@@ -57,7 +57,7 @@ public class StateIngredientHelper {
 	public static StateIngredient deserialize(JsonObject object) {
 		switch (JSONUtils.getString(object, "type")) {
 		case "tag":
-			return new StateIngredientTag(new BlockTags.Wrapper(new ResourceLocation(JSONUtils.getString(object, "tag"))));
+			return new StateIngredientTag(BlockTags.makeWrapperTag(JSONUtils.getString(object, "tag")));
 		case "block":
 			return new StateIngredientBlock(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(JSONUtils.getString(object, "block"))));
 		case "state":

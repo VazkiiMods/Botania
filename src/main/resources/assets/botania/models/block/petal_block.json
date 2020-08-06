@@ -1,6 +1,0 @@
-{
-  "parent": "botania:block/shapes/cube_all_tinted",
-  "textures": {
-    "all": "botania:blocks/petalblock"
-  }
-}

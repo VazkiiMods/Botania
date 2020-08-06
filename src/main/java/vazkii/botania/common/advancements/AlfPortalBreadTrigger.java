@@ -8,28 +8,25 @@
  */
 package vazkii.botania.common.advancements;
 
-import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancements.ICriterionInstance;
-import net.minecraft.advancements.ICriterionTrigger;
-import net.minecraft.advancements.PlayerAdvancements;
+import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
+import net.minecraft.advancements.criterion.CriterionInstance;
+import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.advancements.criterion.LocationPredicate;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.loot.ConditionArrayParser;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 
-import vazkii.botania.common.lib.LibMisc;
-
 import javax.annotation.Nonnull;
 
-import java.util.*;
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class AlfPortalBreadTrigger implements ICriterionTrigger<AlfPortalBreadTrigger.Instance> {
-	public static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "alf_portal_bread");
+public class AlfPortalBreadTrigger extends AbstractCriterionTrigger<AlfPortalBreadTrigger.Instance> {
+	public static final ResourceLocation ID = prefix("alf_portal_bread");
 	public static final AlfPortalBreadTrigger INSTANCE = new AlfPortalBreadTrigger();
-	private final Map<PlayerAdvancements, AlfPortalBreadTrigger.PlayerTracker> playerTrackers = new HashMap<>();
 
 	private AlfPortalBreadTrigger() {}
 
@@ -39,69 +36,21 @@ public class AlfPortalBreadTrigger implements ICriterionTrigger<AlfPortalBreadTr
 		return ID;
 	}
 
-	@Override
-	public void addListener(@Nonnull PlayerAdvancements player, @Nonnull ICriterionTrigger.Listener<AlfPortalBreadTrigger.Instance> listener) {
-		this.playerTrackers.computeIfAbsent(player, AlfPortalBreadTrigger.PlayerTracker::new).listeners.add(listener);
-	}
-
-	@Override
-	public void removeListener(@Nonnull PlayerAdvancements player, @Nonnull ICriterionTrigger.Listener<AlfPortalBreadTrigger.Instance> listener) {
-		AlfPortalBreadTrigger.PlayerTracker tracker = this.playerTrackers.get(player);
-
-		if (tracker != null) {
-			tracker.listeners.remove(listener);
-
-			if (tracker.listeners.isEmpty()) {
-				this.playerTrackers.remove(player);
-			}
-		}
-	}
-
-	@Override
-	public void removeAllListeners(@Nonnull PlayerAdvancements player) {
-		playerTrackers.remove(player);
-	}
-
 	@Nonnull
 	@Override
-	public AlfPortalBreadTrigger.Instance deserializeInstance(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
-		return new AlfPortalBreadTrigger.Instance(LocationPredicate.deserialize(json.get("portal_location")));
-	}
-
-	static class PlayerTracker {
-		private final PlayerAdvancements playerAdvancements;
-		final Set<Listener<AlfPortalBreadTrigger.Instance>> listeners = new HashSet<>();
-
-		PlayerTracker(PlayerAdvancements playerAdvancementsIn) {
-			this.playerAdvancements = playerAdvancementsIn;
-		}
-
-		public void trigger(ServerWorld world, BlockPos portal) {
-			List<Listener<AlfPortalBreadTrigger.Instance>> list = new ArrayList<>();
-
-			for (ICriterionTrigger.Listener<AlfPortalBreadTrigger.Instance> listener : this.listeners) {
-				if (listener.getCriterionInstance().test(world, portal)) {
-					list.add(listener);
-				}
-			}
-
-			for (ICriterionTrigger.Listener<AlfPortalBreadTrigger.Instance> listener : list) {
-				listener.grantCriterion(this.playerAdvancements);
-			}
-		}
+	public AlfPortalBreadTrigger.Instance func_230241_b_(@Nonnull JsonObject json, EntityPredicate.AndPredicate playerPredicate, ConditionArrayParser conditions) {
+		return new AlfPortalBreadTrigger.Instance(playerPredicate, LocationPredicate.deserialize(json.get("portal_location")));
 	}
 
 	public void trigger(ServerPlayerEntity player, BlockPos portal) {
-		AlfPortalBreadTrigger.PlayerTracker tracker = playerTrackers.get(player.getAdvancements());
-		if (tracker != null) {
-			tracker.trigger(player.getServerWorld(), portal);
-		}
+		this.func_235959_a_(player, instance -> instance.test(player.getServerWorld(), portal));
 	}
 
-	static class Instance implements ICriterionInstance {
+	static class Instance extends CriterionInstance {
 		private final LocationPredicate portal;
 
-		Instance(LocationPredicate portal) {
+		Instance(EntityPredicate.AndPredicate playerPredicate, LocationPredicate portal) {
+			super(ID, playerPredicate);
 			this.portal = portal;
 		}
 

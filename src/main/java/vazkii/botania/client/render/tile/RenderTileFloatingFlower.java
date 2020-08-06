@@ -15,11 +15,11 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.client.model.data.IModelData;
 
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -38,6 +38,10 @@ public class RenderTileFloatingFlower extends TileEntityRenderer<TileEntity> {
 
 	@Override
 	public void render(@Nonnull TileEntity tile, float t, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
+		renderFloatingIsland(tile, t, ms, buffers, light, overlay);
+	}
+
+	public static void renderFloatingIsland(TileEntity tile, float t, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		if (ConfigHandler.CLIENT.staticFloaters.get()) {
 			return;
 		}
@@ -65,10 +69,9 @@ public class RenderTileFloatingFlower extends TileEntityRenderer<TileEntity> {
 		BlockState state = tile.getBlockState();
 
 		IBakedModel ibakedmodel = brd.getModelForState(state);
-		brd.getBlockModelRenderer().renderModel(ms.getLast(), buffers.getBuffer(RenderTypeLookup.getRenderType(state)), state, ibakedmodel, 1, 1, 1, light, overlay, data);
+		brd.getBlockModelRenderer().renderModel(ms.getLast(), buffers.getBuffer(RenderTypeLookup.func_239220_a_(state, false)), state, ibakedmodel, 1, 1, 1, light, overlay, data);
 
 		ms.pop();
-
 	}
 
 }

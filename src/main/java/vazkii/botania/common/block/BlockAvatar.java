@@ -13,6 +13,7 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateContainer;
@@ -25,12 +26,10 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.items.ItemHandlerHelper;
 
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
-import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 
@@ -66,11 +65,11 @@ public class BlockAvatar extends BlockModWaterloggable implements ITileEntityPro
 		ItemStack stackOnAvatar = avatar.getItemHandler().getStackInSlot(0);
 		ItemStack stackOnPlayer = player.getHeldItem(hand);
 		if (!stackOnAvatar.isEmpty()) {
-			avatar.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
-			ItemHandlerHelper.giveItemToPlayer(player, stackOnAvatar);
+			avatar.getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
+			player.inventory.placeItemBackInInventory(player.world, stackOnAvatar);
 			return ActionResultType.SUCCESS;
 		} else if (!stackOnPlayer.isEmpty() && stackOnPlayer.getItem() instanceof IAvatarWieldable) {
-			avatar.getItemHandler().setStackInSlot(0, stackOnPlayer.split(1));
+			avatar.getItemHandler().setInventorySlotContents(0, stackOnPlayer.split(1));
 			return ActionResultType.SUCCESS;
 		}
 
@@ -81,7 +80,7 @@ public class BlockAvatar extends BlockModWaterloggable implements ITileEntityPro
 	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newstate, boolean isMoving) {
 		if (state.getBlock() != newstate.getBlock()) {
 			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
-			InventoryHelper.dropInventory(inv, world, state, pos);
+			InventoryHelper.dropInventoryItems(world, pos, inv.getItemHandler());
 			super.onReplaced(state, world, pos, newstate, isMoving);
 		}
 	}

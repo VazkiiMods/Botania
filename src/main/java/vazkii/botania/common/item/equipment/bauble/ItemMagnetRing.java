@@ -11,22 +11,22 @@ package vazkii.botania.common.item.equipment.bauble;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.item.ItemTossEvent;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.List;
 
@@ -44,7 +44,6 @@ public class ItemMagnetRing extends ItemBauble {
 	public ItemMagnetRing(Properties props, int range) {
 		super(props);
 		this.range = range;
-		addPropertyOverride(new ResourceLocation("botania", "on"), (stack, worldIn, entityIn) -> ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0);
 	}
 
 	private void onTossItem(ItemTossEvent event) {
@@ -64,7 +63,7 @@ public class ItemMagnetRing extends ItemBauble {
 
 		int cooldown = getCooldown(stack);
 
-		if (SubTileSolegnolia.hasSolegnoliaAround(living)) {
+		if (BotaniaAPI.instance().hasSolegnoliaAround(living)) {
 			if (cooldown < 0) {
 				setCooldown(stack, 2);
 			}
@@ -104,7 +103,8 @@ public class ItemMagnetRing extends ItemBauble {
 	}
 
 	private boolean canPullItem(ItemEntity item) {
-		if (!item.isAlive() || item.pickupDelay >= 40 || SubTileSolegnolia.hasSolegnoliaAround(item) || item.getPersistentData().getBoolean("PreventRemoteMovement")) {
+		int pickupDelay = ((AccessorItemEntity) item).getPickupDelay();
+		if (!item.isAlive() || pickupDelay >= 40 || BotaniaAPI.instance().hasSolegnoliaAround(item) || item.getPersistentData().getBoolean("PreventRemoteMovement")) {
 			return false;
 		}
 
@@ -113,7 +113,7 @@ public class ItemMagnetRing extends ItemBauble {
 			return false;
 		}
 
-		BlockPos pos = new BlockPos(item);
+		BlockPos pos = item.func_233580_cy_();
 
 		if (ModTags.Blocks.MAGNET_RING_BLACKLIST.contains(item.world.getBlockState(pos).getBlock())) {
 			return false;

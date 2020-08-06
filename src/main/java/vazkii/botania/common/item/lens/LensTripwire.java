@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
@@ -21,13 +20,10 @@ import java.util.List;
 
 public class LensTripwire extends Lens {
 
-	private static final String TAG_TRIPPED = "botania:triwireLensTripped";
-
 	@Override
 	public boolean allowBurstShooting(ItemStack stack, IManaSpreader spreader, boolean redstone) {
 		IManaBurst burst = spreader.runBurstSimulation();
-		Entity e = (Entity) burst;
-		return e.getPersistentData().getBoolean(TAG_TRIPPED);
+		return burst.hasTripped();
 	}
 
 	@Override
@@ -40,8 +36,7 @@ public class LensTripwire extends Lens {
 			AxisAlignedBB axis = new AxisAlignedBB(entity.getPosX(), entity.getPosY(), entity.getPosZ(), entity.lastTickPosX, entity.lastTickPosY, entity.lastTickPosZ).grow(0.25);
 			List<LivingEntity> entities = entity.world.getEntitiesWithinAABB(LivingEntity.class, axis);
 			if (!entities.isEmpty()) {
-				Entity e = (Entity) burst;
-				e.getPersistentData().putBoolean(TAG_TRIPPED, true);
+				burst.setTripped(true);
 			}
 		}
 

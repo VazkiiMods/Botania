@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "botania:item/manasteel_sword"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "botania:elucidator": 1.0
+      },
+      "model": "botania:item/elucidator"
+    }
+  ]
+}

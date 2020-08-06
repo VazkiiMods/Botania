@@ -8,8 +8,8 @@
  */
 package vazkii.botania.api.item;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.util.Direction;
-import net.minecraftforge.items.IItemHandler;
 
 import vazkii.botania.api.mana.IManaReceiver;
 
@@ -20,10 +20,8 @@ public interface IAvatarTile extends IManaReceiver {
 
 	/**
 	 * Gets the avatar's inventory
-	 * 
-	 * @return An IItemhandler representing the avatar's inventory
 	 */
-	public IItemHandler getInventory();
+	public IInventory getInventory();
 
 	/**
 	 * Gets the avatar's facing.

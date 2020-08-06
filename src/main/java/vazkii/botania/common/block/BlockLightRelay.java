@@ -25,7 +25,6 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
@@ -64,11 +63,6 @@ public class BlockLightRelay extends BlockModWaterloggable implements ITileEntit
 	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		((TileLightRelay) world.getTileEntity(pos)).mountEntity(player);
 		return ActionResultType.SUCCESS;
-	}
-
-	@Override
-	public int tickRate(IWorldReader world) {
-		return 2;
 	}
 
 	@Override

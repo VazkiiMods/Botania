@@ -9,12 +9,8 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 public class TileTinyPlanet extends TileMod implements ITickableTileEntity {
 	public TileTinyPlanet() {

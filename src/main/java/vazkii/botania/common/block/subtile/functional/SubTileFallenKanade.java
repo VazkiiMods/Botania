@@ -11,15 +11,12 @@ package vazkii.botania.common.block.subtile.functional;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.world.dimension.EndDimension;
-import net.minecraftforge.registries.ObjectHolder;
+import net.minecraft.world.World;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
@@ -35,7 +32,7 @@ public class SubTileFallenKanade extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getWorld().isRemote && !(getWorld().getDimension() instanceof EndDimension)) {
+		if (!getWorld().isRemote && getWorld().func_234923_W_() != World.field_234920_i_) {
 			boolean did = false;
 			List<PlayerEntity> players = getWorld().getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for (PlayerEntity player : players) {

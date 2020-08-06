@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "minecraft:shears",
     "botania:elementium_shears",
     "botania:manasteel_shears"
   ]

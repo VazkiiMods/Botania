@@ -10,16 +10,16 @@ package vazkii.botania.client.gui.box;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.Hand;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.SlotItemHandler;
 
 import vazkii.botania.common.core.handler.EquipmentHandler;
+import vazkii.botania.common.item.ItemBaubleBox;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
@@ -31,7 +31,6 @@ public class ContainerBaubleBox extends Container {
 	}
 
 	private final ItemStack box;
-	public IItemHandlerModifiable baubles;
 
 	public ContainerBaubleBox(int windowId, PlayerInventory playerInv, ItemStack box) {
 		super(ModItems.BAUBLE_BOX_CONTAINER, windowId);
@@ -39,12 +38,22 @@ public class ContainerBaubleBox extends Container {
 		int j;
 
 		this.box = box;
-		IItemHandlerModifiable baubleBoxInv = (IItemHandlerModifiable) box.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
+		IInventory baubleBoxInv;
+		if (!playerInv.player.world.isRemote) {
+			baubleBoxInv = ItemBaubleBox.getInventory(box);
+		} else {
+			baubleBoxInv = new Inventory(ItemBaubleBox.SIZE);
+		}
 
 		for (i = 0; i < 4; ++i) {
 			for (j = 0; j < 6; ++j) {
 				int k = j + i * 6;
-				addSlot(new SlotItemHandler(baubleBoxInv, k, 62 + j * 18, 8 + i * 18));
+				addSlot(new Slot(baubleBoxInv, k, 62 + j * 18, 8 + i * 18) {
+					@Override
+					public boolean isItemValid(@Nonnull ItemStack stack) {
+						return EquipmentHandler.instance.isAccessory(stack);
+					}
+				});
 			}
 		}
 

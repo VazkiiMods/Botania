@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "botania:items/pendant_lava_gem"
+    "layer0": "botania:item/lava_pendant_gem"
   }
 }

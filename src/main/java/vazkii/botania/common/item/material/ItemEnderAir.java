@@ -15,10 +15,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.*;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.EndDimension;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.items.ItemHandlerHelper;
 
 import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.item.ModItems;
@@ -36,7 +35,7 @@ public class ItemEnderAir extends Item {
 		ItemStack stack = event.getItemStack();
 		World world = event.getWorld();
 
-		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.getDimension() instanceof EndDimension) {
+		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.func_234922_V_() == DimensionType.field_236001_e_) {
 			List<AreaEffectCloudEntity> list = world.getEntitiesWithinAABB(AreaEffectCloudEntity.class,
 					event.getPlayer().getBoundingBox().grow(3.5D),
 					entity -> entity != null && entity.isAlive()
@@ -47,7 +46,7 @@ public class ItemEnderAir extends Item {
 
 			if (!world.isRemote) {
 				ItemStack enderAir = new ItemStack(ModItems.enderAirBottle);
-				ItemHandlerHelper.giveItemToPlayer(event.getPlayer(), enderAir);
+				event.getPlayer().inventory.placeItemBackInInventory(world, enderAir);
 				stack.shrink(1);
 				world.playSound(null, event.getPos(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.NEUTRAL, 0.5F, 1F);
 			}
@@ -69,11 +68,9 @@ public class ItemEnderAir extends Item {
 
 		if (!world.isRemote) {
 			EntityEnderAirBottle b = new EntityEnderAirBottle(player, world);
-			b.shoot(player, player.rotationPitch, player.rotationYaw, 0F, 1.5F, 1F);
+			b.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0F, 1.5F, 1F);
 			world.addEntity(b);
-		} else {
-			player.swingArm(hand);
 		}
-		return ActionResult.resultSuccess(stack);
+		return ActionResult.func_233538_a_(stack, world.isRemote);
 	}
 }

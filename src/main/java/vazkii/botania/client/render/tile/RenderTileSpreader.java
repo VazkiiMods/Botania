@@ -14,15 +14,15 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Quaternion;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Quaternion;
+import net.minecraft.util.math.vector.Vector3f;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -62,7 +62,7 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 			b = (color & 0xFF) / 255F;
 		}
 
-		IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.getRenderType(spreader.getBlockState()));
+		IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.func_239220_a_(spreader.getBlockState(), false));
 		IBakedModel bakedModel = Minecraft.getInstance().getBlockRendererDispatcher().getModelForState(spreader.getBlockState());
 		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
 				.renderModelBrightnessColor(ms.getLast(), buffer, spreader.getBlockState(),
@@ -93,9 +93,9 @@ public class RenderTileSpreader extends TileEntityRenderer<TileSpreader> {
 		}
 
 		if (spreader.paddingColor != null) {
-			BlockState carpet = ColorHelper.CARPET_MAP.get(spreader.paddingColor).get().getDefaultState();
+			BlockState carpet = ColorHelper.CARPET_MAP.apply(spreader.paddingColor).getDefaultState();
 			IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getModelForState(carpet);
-			buffer = buffers.getBuffer(RenderTypeLookup.getRenderType(carpet));
+			buffer = buffers.getBuffer(RenderTypeLookup.func_239220_a_(carpet, false));
 
 			float f = 1 / 16F;
 

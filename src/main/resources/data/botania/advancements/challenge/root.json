@@ -9,7 +9,7 @@
     "description": {
       "translate": "advancement.botania_challenge.desc"
     },
-    "background": "botania:textures/blocks/livingrock1.png",
+    "background": "botania:textures/block/livingrock_bricks.png",
     "show_toast": false,
     "announce_to_chat": false
   },

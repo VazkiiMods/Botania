@@ -23,7 +23,11 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -39,12 +43,13 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinateListProvider, IManaUsingItem {
 
@@ -111,8 +116,8 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			for (BlockPos cursor : cursors) {
 				BlockPos pos = hit.add(cursor);
 				if (ManaItemHandler.instance().requestManaExact(lokiRing, player, cost, false)) {
-					Vec3d lookHit = lookPos.getHitVec();
-					Vec3d newHitVec = new Vec3d(pos.getX() + MathHelper.frac(lookHit.getX()), pos.getY() + MathHelper.frac(lookHit.getY()), pos.getZ() + MathHelper.frac(lookHit.getZ()));
+					Vector3d lookHit = lookPos.getHitVec();
+					Vector3d newHitVec = new Vector3d(pos.getX() + MathHelper.frac(lookHit.getX()), pos.getY() + MathHelper.frac(lookHit.getY()), pos.getZ() + MathHelper.frac(lookHit.getZ()));
 					BlockRayTraceResult newHit = new BlockRayTraceResult(newHitVec, lookPos.getFace(), pos, false);
 					ItemUseContext ctx = new ItemUseContext(player, event.getHand(), newHit);
 
@@ -123,7 +128,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 						result = stack.onItemUse(ctx);
 					}
 
-					if (result == ActionResultType.SUCCESS) {
+					if (result.isSuccessOrConsume()) {
 						ManaItemHandler.instance().requestManaExact(lokiRing, player, cost, true);
 						successes++;
 					}
@@ -135,7 +140,8 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		}
 	}
 
-	public static void breakOnAllCursors(PlayerEntity player, Item item, ItemStack stack, BlockPos pos, Direction side) {
+	public static void breakOnAllCursors(PlayerEntity player, ItemStack stack, BlockPos pos, Direction side) {
+		Item item = stack.getItem();
 		ItemStack lokiRing = getLokiRing(player);
 		if (lokiRing.isEmpty() || player.world.isRemote || !(item instanceof ISequentialBreaker)) {
 			return;
@@ -285,7 +291,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 	@Override
 	public ResourceLocation getAdvancement() {
-		return new ResourceLocation(LibMisc.MOD_ID, "challenge/loki_ring");
+		return prefix("challenge/loki_ring");
 	}
 
 }

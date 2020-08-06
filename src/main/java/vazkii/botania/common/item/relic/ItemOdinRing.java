@@ -11,21 +11,22 @@ package vazkii.botania.common.item.relic;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ItemOdinRing extends ItemRelicBauble {
 
@@ -46,15 +47,15 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	@Override
 	public void onValidPlayerWornTick(PlayerEntity player) {
-		if (player.isBurning() && ConfigHandler.COMMON.ringOfOdinFireResist.get()) {
+		if (player.isBurning()) {
 			player.extinguish();
 		}
 	}
 
 	@Override
-	public Multimap<String, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
-		Multimap<String, AttributeModifier> attributes = HashMultimap.create();
-		attributes.put(SharedMonsterAttributes.MAX_HEALTH.getName(),
+	public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
+		Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
+		attributes.put(Attributes.MAX_HEALTH,
 				new AttributeModifier(getBaubleUUID(stack), "Odin Ring", 20, AttributeModifier.Operation.ADDITION));
 		return attributes;
 	}
@@ -63,7 +64,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 		if (event.getEntityLiving() instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 			boolean negate = damageNegations.contains(event.getSource().damageType)
-					|| (ConfigHandler.COMMON.ringOfOdinFireResist.get() && fireNegations.contains(event.getSource().damageType));
+					|| (fireNegations.contains(event.getSource().damageType));
 			boolean hasRing = !EquipmentHandler.findOrEmpty(ModItems.odinRing, player).isEmpty();
 			if (hasRing && negate) {
 				event.setCanceled(true);
@@ -73,7 +74,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	@Override
 	public ResourceLocation getAdvancement() {
-		return new ResourceLocation(LibMisc.MOD_ID, "challenge/odin_ring");
+		return prefix("challenge/odin_ring");
 	}
 
 }

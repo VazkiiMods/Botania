@@ -11,10 +11,7 @@ package vazkii.botania.common.item;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Food;
-import net.minecraft.item.Item;
-import net.minecraft.item.Rarity;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -65,10 +62,6 @@ import vazkii.botania.common.item.equipment.tool.manasteel.*;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
-import vazkii.botania.common.item.interaction.thaumcraft.ItemElementiumHelmRevealing;
-import vazkii.botania.common.item.interaction.thaumcraft.ItemManaInkwell;
-import vazkii.botania.common.item.interaction.thaumcraft.ItemManasteelHelmRevealing;
-import vazkii.botania.common.item.interaction.thaumcraft.ItemTerrasteelHelmRevealing;
 import vazkii.botania.common.item.lens.*;
 import vazkii.botania.common.item.material.*;
 import vazkii.botania.common.item.record.ItemModRecord;
@@ -82,7 +75,11 @@ import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ModItems {
-	public static final Item lexicon = new ItemLexicon(unstackable().rarity(Rarity.UNCOMMON));
+	public static final ItemLexicon lexicon = new ItemLexicon(unstackable().rarity(Rarity.UNCOMMON));
+	public static final Item twigWand = new ItemTwigWand(unstackable().rarity(Rarity.RARE));
+	public static final Item obedienceStick = new ItemObedienceStick(unstackable());
+	public static final Item pestleAndMortar = new ItemSelfReturning(unstackable());
+	public static final Item fertilizer = new ItemFertilizer(defaultBuilder());
 
 	public static final Item whitePetal = new ItemPetal(ModBlocks.getBuriedPetal(DyeColor.WHITE), DyeColor.WHITE, defaultBuilder());
 	public static final Item orangePetal = new ItemPetal(ModBlocks.getBuriedPetal(DyeColor.ORANGE), DyeColor.ORANGE, defaultBuilder());
@@ -101,26 +98,6 @@ public final class ModItems {
 	public static final Item redPetal = new ItemPetal(ModBlocks.getBuriedPetal(DyeColor.RED), DyeColor.RED, defaultBuilder());
 	public static final Item blackPetal = new ItemPetal(ModBlocks.getBuriedPetal(DyeColor.BLACK), DyeColor.BLACK, defaultBuilder());
 
-	public static final Item whiteDye = new ItemDye(DyeColor.WHITE, defaultBuilder());
-	public static final Item orangeDye = new ItemDye(DyeColor.ORANGE, defaultBuilder());
-	public static final Item magentaDye = new ItemDye(DyeColor.MAGENTA, defaultBuilder());
-	public static final Item lightBlueDye = new ItemDye(DyeColor.LIGHT_BLUE, defaultBuilder());
-	public static final Item yellowDye = new ItemDye(DyeColor.YELLOW, defaultBuilder());
-	public static final Item limeDye = new ItemDye(DyeColor.LIME, defaultBuilder());
-	public static final Item pinkDye = new ItemDye(DyeColor.PINK, defaultBuilder());
-	public static final Item grayDye = new ItemDye(DyeColor.GRAY, defaultBuilder());
-	public static final Item lightGrayDye = new ItemDye(DyeColor.LIGHT_GRAY, defaultBuilder());
-	public static final Item cyanDye = new ItemDye(DyeColor.CYAN, defaultBuilder());
-	public static final Item purpleDye = new ItemDye(DyeColor.PURPLE, defaultBuilder());
-	public static final Item blueDye = new ItemDye(DyeColor.BLUE, defaultBuilder());
-	public static final Item brownDye = new ItemDye(DyeColor.BROWN, defaultBuilder());
-	public static final Item greenDye = new ItemDye(DyeColor.GREEN, defaultBuilder());
-	public static final Item redDye = new ItemDye(DyeColor.RED, defaultBuilder());
-	public static final Item blackDye = new ItemDye(DyeColor.BLACK, defaultBuilder());
-
-	public static final Item pestleAndMortar = new ItemSelfReturning(unstackable());
-	public static final Item twigWand = new ItemTwigWand(unstackable().rarity(Rarity.RARE));
-
 	public static final Item manaSteel = new Item(defaultBuilder());
 	public static final Item manaPearl = new Item(defaultBuilder());
 	public static final Item manaDiamond = new Item(defaultBuilder());
@@ -131,7 +108,6 @@ public final class ModItems {
 	public static final Item elementium = new ItemElven(defaultBuilder());
 	public static final Item pixieDust = new ItemElven(defaultBuilder());
 	public static final Item dragonstone = new ItemElven(defaultBuilder());
-	public static final Item placeholder = new ItemSelfReturning(defaultBuilder());
 	public static final Item redString = new Item(defaultBuilder());
 	public static final Item dreamwoodTwig = new Item(defaultBuilder());
 	public static final Item gaiaIngot = new ItemManaResource(defaultBuilder());
@@ -144,6 +120,14 @@ public final class ModItems {
 	public static final Item pebble = new Item(defaultBuilder());
 	public static final Item manaweaveCloth = new Item(defaultBuilder());
 	public static final Item manaPowder = new Item(defaultBuilder());
+
+	public static final Item darkQuartz = new Item(defaultBuilder());
+	public static final Item manaQuartz = new Item(defaultBuilder());
+	public static final Item blazeQuartz = new Item(defaultBuilder());
+	public static final Item lavenderQuartz = new Item(defaultBuilder());
+	public static final Item redQuartz = new Item(defaultBuilder());
+	public static final Item elfQuartz = new Item(defaultBuilder());
+	public static final Item sunnyQuartz = new Item(defaultBuilder());
 
 	public static final Item lensNormal = new ItemLens(unstackable(), new Lens(), ItemLens.PROP_NONE);
 	public static final Item lensSpeed = new ItemLens(unstackable(), new LensSpeed(), ItemLens.PROP_NONE);
@@ -188,11 +172,6 @@ public final class ModItems {
 	public static final Item runeEnvy = new ItemRune(defaultBuilder());
 	public static final Item runePride = new ItemRune(defaultBuilder());
 
-	public static final Item manaTablet = new ItemManaTablet(unstackable());
-	public static final Item manaGun = new ItemManaGun(unstackable().setNoRepair());
-	public static final Item manaCookie = new ItemManaCookie(defaultBuilder().food(new Food.Builder().hunger(0).saturation(0.1F).effect(new EffectInstance(Effects.SATURATION, 20, 0), 1).build()));
-	public static final Item fertilizer = new ItemFertilizer(defaultBuilder());
-
 	public static final Item grassSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.GRASS, defaultBuilder());
 	public static final Item podzolSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.PODZOL, defaultBuilder());
 	public static final Item mycelSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.MYCEL, defaultBuilder());
@@ -204,13 +183,21 @@ public final class ModItems {
 	public static final Item mutatedSeeds = new ItemGrassSeeds(IFloatingFlower.IslandType.MUTATED, defaultBuilder());
 
 	public static final Item dirtRod = new ItemDirtRod(unstackable());
+	public static final Item skyDirtRod = new ItemSkyDirtRod(unstackable());
 	public static final Item terraformRod = new ItemTerraformRod(unstackable());
-	public static final Item grassHorn = new ItemHorn(unstackable());
-	public static final Item leavesHorn = new ItemHorn(unstackable());
-	public static final Item snowHorn = new ItemHorn(unstackable());
-	public static final Item manaMirror = new ItemManaMirror(unstackable());
+	public static final Item cobbleRod = new ItemCobbleRod(unstackable());
+	public static final Item waterRod = new ItemWaterRod(unstackable());
+	public static final Item tornadoRod = new ItemTornadoRod(unstackable());
+	public static final Item fireRod = new ItemFireRod(unstackable());
+	public static final Item diviningRod = new ItemDiviningRod(unstackable());
+	public static final Item smeltRod = new ItemSmeltRod(unstackable());
+	public static final Item exchangeRod = new ItemExchangeRod(unstackable());
+	public static final Item rainbowRod = new ItemRainbowRod(unstackable());
+	public static final Item gravityRod = new ItemGravityRod(unstackable());
+	public static final Item missileRod = new ItemMissileRod(unstackable());
+
+	// Equipment
 	public static final Item manasteelHelm = new ItemManasteelHelm(unstackable());
-	public static final Item manasteelHelmRevealing = new ItemManasteelHelmRevealing(unstackable());
 	public static final Item manasteelChest = new ItemManasteelArmor(EquipmentSlotType.CHEST, unstackable());
 	public static final Item manasteelLegs = new ItemManasteelArmor(EquipmentSlotType.LEGS, unstackable());
 	public static final Item manasteelBoots = new ItemManasteelArmor(EquipmentSlotType.FEET, unstackable());
@@ -219,39 +206,7 @@ public final class ModItems {
 	public static final Item manasteelAxe = new ItemManasteelAxe(unstackable());
 	public static final Item manasteelSword = new ItemManasteelSword(unstackable());
 	public static final Item manasteelShears = new ItemManasteelShears(unstackable());
-	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable());
-	public static final Item terrasteelHelmRevealing = new ItemTerrasteelHelmRevealing(unstackable());
-	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlotType.CHEST, unstackable());
-	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlotType.LEGS, unstackable());
-	public static final Item terrasteelBoots = new ItemTerrasteelArmor(EquipmentSlotType.FEET, unstackable());
-	public static final Item terraSword = new ItemTerraSword(unstackable());
-	public static final Item terraPick = new ItemTerraPick(unstackable());
-	public static final Item terraAxe = new ItemTerraAxe(unstackable());
-	public static final Item tinyPlanet = new ItemTinyPlanet(unstackable());
-	public static final Item manaRing = new ItemManaRing(unstackable());
-	public static final Item auraRing = new ItemAuraRing(unstackable());
-	public static final Item manaRingGreater = new ItemGreaterManaRing(unstackable());
-	public static final Item auraRingGreater = new ItemGreaterAuraRing(unstackable());
-	public static final Item travelBelt = new ItemTravelBelt(unstackable());
-	public static final Item knockbackBelt = new ItemKnockbackBelt(unstackable());
-	public static final Item icePendant = new ItemIcePendant(unstackable());
-	public static final Item lavaPendant = new ItemLavaPendant(unstackable());
-	public static final Item magnetRing = new ItemMagnetRing(unstackable());
-	public static final Item waterRing = new ItemWaterRing(unstackable());
-	public static final Item miningRing = new ItemMiningRing(unstackable());
-	public static final Item divaCharm = new ItemDivaCharm(unstackable());
-	public static final Item flightTiara = new ItemFlightTiara(unstackable());
-	public static final Item enderDagger = new ItemEnderDagger(unstackable().defaultMaxDamage(69).setNoRepair()); // What you looking at?
-	public static final Item darkQuartz = new Item(defaultBuilder());
-	public static final Item manaQuartz = new Item(defaultBuilder());
-	public static final Item blazeQuartz = new Item(defaultBuilder());
-	public static final Item lavenderQuartz = new Item(defaultBuilder());
-	public static final Item redQuartz = new Item(defaultBuilder());
-	public static final Item elfQuartz = new Item(defaultBuilder());
-	public static final Item sunnyQuartz = new Item(defaultBuilder());
-	public static final Item waterRod = new ItemWaterRod(unstackable());
 	public static final Item elementiumHelm = new ItemElementiumHelm(unstackable());
-	public static final Item elementiumHelmRevealing = new ItemElementiumHelmRevealing(unstackable());
 	public static final Item elementiumChest = new ItemElementiumChest(unstackable());
 	public static final Item elementiumLegs = new ItemElementiumLegs(unstackable());
 	public static final Item elementiumBoots = new ItemElementiumBoots(unstackable());
@@ -260,54 +215,107 @@ public final class ModItems {
 	public static final Item elementiumAxe = new ItemElementiumAxe(unstackable());
 	public static final Item elementiumSword = new ItemElementiumSword(unstackable());
 	public static final Item elementiumShears = new ItemElementiumShears(unstackable());
-	public static final Item openBucket = new ItemOpenBucket(unstackable());
-	public static final Item spawnerMover = new ItemSpawnerMover(unstackable());
-	public static final Item pixieRing = new ItemPixieRing(unstackable());
-	public static final Item superTravelBelt = new ItemSuperTravelBelt(unstackable());
-	public static final Item rainbowRod = new ItemRainbowRod(unstackable());
-	public static final Item tornadoRod = new ItemTornadoRod(unstackable());
-	public static final Item fireRod = new ItemFireRod(unstackable());
+	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable().func_234689_a_());
+	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlotType.CHEST, unstackable().func_234689_a_());
+	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlotType.LEGS, unstackable().func_234689_a_());
+	public static final Item terrasteelBoots = new ItemTerrasteelArmor(EquipmentSlotType.FEET, unstackable().func_234689_a_());
+	public static final Item terraPick = new ItemTerraPick(unstackable().func_234689_a_());
+	public static final Item terraAxe = new ItemTerraAxe(unstackable().func_234689_a_());
+	public static final Item terraSword = new ItemTerraSword(unstackable().func_234689_a_());
+	public static final Item starSword = new ItemStarSword(unstackable());
+	public static final Item thunderSword = new ItemThunderSword(unstackable());
+	public static final Item manaweaveHelm = new ItemManaweaveHelm(unstackable());
+	public static final Item manaweaveChest = new ItemManaweaveArmor(EquipmentSlotType.CHEST, unstackable());
+	public static final Item manaweaveLegs = new ItemManaweaveArmor(EquipmentSlotType.LEGS, unstackable());
+	public static final Item manaweaveBoots = new ItemManaweaveArmor(EquipmentSlotType.FEET, unstackable());
+	public static final Item enderDagger = new ItemEnderDagger(unstackable().defaultMaxDamage(69).setNoRepair()); // What you looking at?
+	public static final Item glassPick = new ItemGlassPick(unstackable());
+	public static final Item livingwoodBow = new ItemLivingwoodBow(defaultBuilder().defaultMaxDamage(500));
+	public static final Item crystalBow = new ItemCrystalBow(defaultBuilder().defaultMaxDamage(500));
+	public static final Item thornChakram = new ItemThornChakram(defaultBuilder().maxStackSize(6));
+	public static final Item flareChakram = new ItemThornChakram(defaultBuilder().maxStackSize(6));
+
+	// Misc tools
+	public static final Item manaTablet = new ItemManaTablet(unstackable());
+	public static final Item manaMirror = new ItemManaMirror(unstackable());
+	public static final Item manaGun = new ItemManaGun(unstackable().setNoRepair());
+	public static final Item clip = new Item(unstackable());
+	public static final Item grassHorn = new ItemHorn(unstackable());
+	public static final Item leavesHorn = new ItemHorn(unstackable());
+	public static final Item snowHorn = new ItemHorn(unstackable());
 	public static final Item vineBall = new ItemVineBall(defaultBuilder());
 	public static final Item slingshot = new ItemSlingshot(unstackable());
+	public static final Item openBucket = new ItemOpenBucket(unstackable());
+	public static final Item spawnerMover = new ItemSpawnerMover(unstackable());
+	public static final Item enderHand = new ItemEnderHand(unstackable());
+	public static final Item craftingHalo = new ItemCraftingHalo(unstackable());
+	public static final Item autocraftingHalo = new ItemAutocraftingHalo(unstackable());
+	public static final Item spellCloth = new ItemSpellCloth(unstackable().defaultMaxDamage(35).setNoRepair());
+	public static final Item flowerBag = new ItemFlowerBag(unstackable());
+	public static final Item blackHoleTalisman = new ItemBlackHoleTalisman(unstackable());
+	public static final Item temperanceStone = new ItemTemperanceStone(unstackable());
+	public static final Item waterBowl = new ItemWaterBowl(unstackable());
+	public static final Item cacophonium = new ItemCacophonium(unstackable());
+	public static final Item slimeBottle = new ItemSlimeBottle(unstackable());
+	public static final Item sextant = new ItemSextant(unstackable());
+	public static final Item astrolabe = new ItemAstrolabe(unstackable());
+	public static final Item baubleBox = new ItemBaubleBox(unstackable());
+
+	// Baubles / trinkets / curios / etc.
+	public static final Item manaRing = new ItemManaRing(unstackable());
+	public static final Item manaRingGreater = new ItemGreaterManaRing(unstackable());
+	public static final Item auraRing = new ItemAuraRing(unstackable());
+	public static final Item auraRingGreater = new ItemGreaterAuraRing(unstackable());
+	public static final Item magnetRing = new ItemMagnetRing(unstackable());
+	public static final Item magnetRingGreater = new ItemMagnetRing(unstackable(), 16);
+	public static final Item waterRing = new ItemWaterRing(unstackable());
+	public static final Item swapRing = new ItemSwapRing(unstackable());
+	public static final Item dodgeRing = new ItemDodgeRing(unstackable());
+	public static final Item miningRing = new ItemMiningRing(unstackable());
+	public static final Item pixieRing = new ItemPixieRing(unstackable());
+	public static final Item reachRing = new ItemReachRing(unstackable());
+	public static final Item travelBelt = new ItemTravelBelt(unstackable());
+	public static final Item superTravelBelt = new ItemSuperTravelBelt(unstackable());
+	public static final Item speedUpBelt = new ItemSpeedUpBelt(unstackable());
+	public static final Item knockbackBelt = new ItemKnockbackBelt(unstackable());
+	public static final Item icePendant = new ItemIcePendant(unstackable());
+	public static final Item lavaPendant = new ItemLavaPendant(unstackable());
+	public static final Item superLavaPendant = new ItemSuperLavaPendant(unstackable());
+	public static final Item cloudPendant = new ItemCloudPendant(unstackable());
+	public static final Item superCloudPendant = new ItemSuperCloudPendant(unstackable());
+	public static final Item holyCloak = new ItemHolyCloak(unstackable());
+	public static final Item unholyCloak = new ItemUnholyCloak(unstackable());
+	public static final Item balanceCloak = new ItemBalanceCloak(unstackable());
+	public static final Item invisibilityCloak = new ItemInvisibilityCloak(unstackable());
+	public static final Item thirdEye = new ItemThirdEye(unstackable());
+	public static final Item monocle = new ItemMonocle(unstackable());
+	public static final Item tinyPlanet = new ItemTinyPlanet(unstackable());
+	public static final Item goddessCharm = new ItemGoddessCharm(unstackable());
+	public static final Item divaCharm = new ItemDivaCharm(unstackable());
+	public static final Item itemFinder = new ItemItemFinder(unstackable());
+	public static final Item flightTiara = new ItemFlightTiara(unstackable());
+
+	// Misc
+	public static final Item manaCookie = new Item(defaultBuilder().food(new Food.Builder().hunger(0).saturation(0.1F).effect(new EffectInstance(Effects.SATURATION, 20, 0), 1).build()));
 	public static final Item manaBottle = new ItemBottledMana(unstackable());
 	public static final Item laputaShard = new ItemLaputaShard(unstackable());
 	public static final Item necroVirus = new ItemVirus(defaultBuilder());
 	public static final Item nullVirus = new ItemVirus(defaultBuilder());
-	public static final Item reachRing = new ItemReachRing(unstackable());
-	public static final Item skyDirtRod = new ItemSkyDirtRod(unstackable());
-	public static final Item itemFinder = new ItemItemFinder(unstackable());
-	public static final Item superLavaPendant = new ItemSuperLavaPendant(unstackable());
-	public static final Item enderHand = new ItemEnderHand(unstackable());
-	public static final Item glassPick = new ItemGlassPick(unstackable());
 	public static final Item spark = new ItemSpark(defaultBuilder());
 	public static final Item sparkUpgradeDispersive = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.DISPERSIVE);
 	public static final Item sparkUpgradeDominant = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.DOMINANT);
 	public static final Item sparkUpgradeRecessive = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.RECESSIVE);
 	public static final Item sparkUpgradeIsolated = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.ISOLATED);
-	public static final Item diviningRod = new ItemDiviningRod(unstackable());
-	public static final Item gravityRod = new ItemGravityRod(unstackable());
-	public static final Item manaInkwell = new ItemManaInkwell(unstackable().setNoRepair());
-	public static final Item vial = new ItemVial(defaultBuilder());
-	public static final Item flask = new ItemVial(defaultBuilder());
-	public static final Item brewVial = new ItemBrewBase(unstackable(), 4, 32, () -> vial);
-	public static final Item brewFlask = new ItemBrewBase(unstackable(), 6, 24, () -> flask);
-	public static final Item bloodPendant = new ItemBloodPendant(unstackable());
-	public static final Item missileRod = new ItemMissileRod(unstackable());
-	public static final Item holyCloak = new ItemHolyCloak(unstackable());
-	public static final Item unholyCloak = new ItemUnholyCloak(unstackable());
-	public static final Item balanceCloak = new ItemBalanceCloak(unstackable());
-	public static final Item craftingHalo = new ItemCraftingHalo(unstackable());
+	public static final Item corporeaSpark = new ItemCorporeaSpark(defaultBuilder());
+	public static final Item corporeaSparkMaster = new ItemCorporeaSpark(defaultBuilder());
 	public static final Item blackLotus = new ItemBlackLotus(defaultBuilder());
 	public static final Item blackerLotus = new ItemBlackLotus(defaultBuilder());
-	public static final Item monocle = new ItemMonocle(unstackable());
-	public static final Item clip = new Item(unstackable());
-	public static final Item cobbleRod = new ItemCobbleRod(unstackable());
-	public static final Item smeltRod = new ItemSmeltRod(unstackable());
 	public static final Item worldSeed = new ItemWorldSeed(defaultBuilder());
-	public static final Item spellCloth = new ItemSpellCloth(unstackable().defaultMaxDamage(35).setNoRepair());
-	public static final Item thornChakram = new ItemThornChakram(defaultBuilder().maxStackSize(6));
-	public static final Item flareChakram = new ItemThornChakram(defaultBuilder().maxStackSize(6));
 	public static final Item overgrowthSeed = new ItemOvergrowthSeed(defaultBuilder());
+	public static final Item phantomInk = new Item(defaultBuilder());
+	public static final Item poolMinecart = new ItemPoolMinecart(unstackable());
+	public static final Item keepIvy = new ItemKeepIvy(defaultBuilder());
+	public static final Item placeholder = new ItemSelfReturning(defaultBuilder());
 	public static final Item craftPattern1_1 = new ItemCraftPattern(CratePattern.CRAFTY_1_1, unstackable());
 	public static final Item craftPattern2_2 = new ItemCraftPattern(CratePattern.CRAFTY_2_2, unstackable());
 	public static final Item craftPattern1_2 = new ItemCraftPattern(CratePattern.CRAFTY_1_2, unstackable());
@@ -317,17 +325,34 @@ public final class ModItems {
 	public static final Item craftPattern2_3 = new ItemCraftPattern(CratePattern.CRAFTY_2_3, unstackable());
 	public static final Item craftPattern3_2 = new ItemCraftPattern(CratePattern.CRAFTY_3_2, unstackable());
 	public static final Item craftPatternDonut = new ItemCraftPattern(CratePattern.CRAFTY_DONUT, unstackable());
+
+	// Guardian of Gaia drops
+	public static final Item dice = new ItemDice(unstackable().func_234689_a_());
+	public static final Item infiniteFruit = new ItemInfiniteFruit(unstackable().func_234689_a_());
+	public static final Item kingKey = new ItemKingKey(unstackable().func_234689_a_());
+	public static final Item flugelEye = new ItemFlugelEye(unstackable().func_234689_a_());
+	public static final Item thorRing = new ItemThorRing(unstackable().func_234689_a_());
+	public static final Item odinRing = new ItemOdinRing(unstackable().func_234689_a_());
+	public static final Item lokiRing = new ItemLokiRing(unstackable().func_234689_a_());
+	public static final Item recordGaia1 = new ItemModRecord(1, ModSounds.gaiaMusic1, unstackable());
+	public static final Item recordGaia2 = new ItemModRecord(1, ModSounds.gaiaMusic2, unstackable());
 	public static final Item ancientWillAhrim = new ItemAncientWill(IAncientWillContainer.AncientWillType.AHRIM, unstackable());
 	public static final Item ancientWillDharok = new ItemAncientWill(IAncientWillContainer.AncientWillType.DHAROK, unstackable());
 	public static final Item ancientWillGuthan = new ItemAncientWill(IAncientWillContainer.AncientWillType.GUTHAN, unstackable());
 	public static final Item ancientWillTorag = new ItemAncientWill(IAncientWillContainer.AncientWillType.TORAG, unstackable());
 	public static final Item ancientWillVerac = new ItemAncientWill(IAncientWillContainer.AncientWillType.VERAC, unstackable());
 	public static final Item ancientWillKaril = new ItemAncientWill(IAncientWillContainer.AncientWillType.KARIL, unstackable());
-	public static final Item corporeaSpark = new ItemCorporeaSpark(defaultBuilder());
-	public static final Item corporeaSparkMaster = new ItemCorporeaSpark(defaultBuilder());
-	public static final Item livingwoodBow = new ItemLivingwoodBow(defaultBuilder().defaultMaxDamage(500));
-	public static final Item crystalBow = new ItemCrystalBow(defaultBuilder().defaultMaxDamage(500));
+	public static final Item pinkinator = new ItemPinkinator(unstackable());
 
+	// Brewing
+	public static final Item vial = new ItemVial(defaultBuilder());
+	public static final Item flask = new ItemVial(defaultBuilder());
+	public static final Item brewVial = new ItemBrewBase(unstackable(), 4, 32, () -> vial);
+	public static final Item brewFlask = new ItemBrewBase(unstackable(), 6, 24, () -> flask);
+	public static final Item bloodPendant = new ItemBloodPendant(unstackable());
+	public static final Item incenseStick = new ItemIncenseStick(unstackable());
+
+	// Cosmetics
 	public static final Item blackBowtie = new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.BLACK_BOWTIE, unstackable());
 	public static final Item blackTie = new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.BLACK_TIE, unstackable());
 	public static final Item redGlasses = new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.RED_GLASSES, unstackable());
@@ -362,48 +387,6 @@ public final class ModItems {
 	public static final Item questgiverMark = new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.QUESTGIVER_MARK, unstackable());
 	public static final Item thinkingHand = new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.THINKING_HAND, unstackable());
 
-	public static final Item swapRing = new ItemSwapRing(unstackable());
-	public static final Item flowerBag = new ItemFlowerBag(unstackable());
-	public static final Item phantomInk = new Item(defaultBuilder());
-	public static final Item poolMinecart = new ItemPoolMinecart(unstackable());
-	public static final Item pinkinator = new ItemPinkinator(unstackable());
-	public static final Item infiniteFruit = new ItemInfiniteFruit(unstackable());
-	public static final Item kingKey = new ItemKingKey(unstackable());
-	public static final Item flugelEye = new ItemFlugelEye(unstackable());
-	public static final Item thorRing = new ItemThorRing(unstackable());
-	public static final Item odinRing = new ItemOdinRing(unstackable());
-	public static final Item lokiRing = new ItemLokiRing(unstackable());
-	public static final Item dice = new ItemDice(unstackable());
-	public static final Item keepIvy = new ItemKeepIvy(defaultBuilder());
-	public static final Item blackHoleTalisman = new ItemBlackHoleTalisman(unstackable());
-	public static final Item recordGaia1 = new ItemModRecord(1, ModSounds.gaiaMusic1, unstackable());
-	public static final Item recordGaia2 = new ItemModRecord(1, ModSounds.gaiaMusic2, unstackable());
-	public static final Item temperanceStone = new ItemTemperanceStone(unstackable());
-	public static final Item incenseStick = new ItemIncenseStick(unstackable());
-	public static final Item waterBowl = new ItemWaterBowl(unstackable());
-	public static final Item obedienceStick = new ItemObedienceStick(unstackable());
-	public static final Item cacophonium = new ItemCacophonium(unstackable());
-	public static final Item slimeBottle = new ItemSlimeBottle(unstackable());
-	public static final Item starSword = new ItemStarSword(unstackable());
-	public static final Item exchangeRod = new ItemExchangeRod(unstackable());
-	public static final Item magnetRingGreater = new ItemMagnetRing(unstackable(), 16);
-	public static final Item thunderSword = new ItemThunderSword(unstackable());
-	public static final Item manaweaveHelm = new ItemManaweaveHelm(unstackable());
-	public static final Item manaweaveChest = new ItemManaweaveArmor(EquipmentSlotType.CHEST, unstackable());
-	public static final Item manaweaveLegs = new ItemManaweaveArmor(EquipmentSlotType.LEGS, unstackable());
-	public static final Item manaweaveBoots = new ItemManaweaveArmor(EquipmentSlotType.FEET, unstackable());
-	public static final Item autocraftingHalo = new ItemAutocraftingHalo(unstackable());
-	public static final Item sextant = new ItemSextant(unstackable());
-	public static final Item speedUpBelt = new ItemSpeedUpBelt(unstackable());
-	public static final Item baubleBox = new ItemBaubleBox(unstackable());
-	public static final Item dodgeRing = new ItemDodgeRing(unstackable());
-	public static final Item invisibilityCloak = new ItemInvisibilityCloak(unstackable());
-	public static final Item cloudPendant = new ItemCloudPendant(unstackable());
-	public static final Item superCloudPendant = new ItemSuperCloudPendant(unstackable());
-	public static final Item thirdEye = new ItemThirdEye(unstackable());
-	public static final Item astrolabe = new ItemAstrolabe(unstackable());
-	public static final Item goddessCharm = new ItemGoddessCharm(unstackable());
-
 	public static final ContainerType<ContainerFlowerBag> FLOWER_BAG_CONTAINER = IForgeContainerType.create(ContainerFlowerBag::fromNetwork);
 	public static final ContainerType<ContainerBaubleBox> BAUBLE_BOX_CONTAINER = IForgeContainerType.create(ContainerBaubleBox::fromNetwork);
 
@@ -418,6 +401,10 @@ public final class ModItems {
 	public static void registerItems(RegistryEvent.Register<Item> evt) {
 		IForgeRegistry<Item> r = evt.getRegistry();
 		register(r, LibItemNames.LEXICON, lexicon);
+		register(r, LibItemNames.TWIG_WAND, twigWand);
+		register(r, LibItemNames.OBEDIENCE_STICK, obedienceStick);
+		register(r, LibItemNames.PESTLE_AND_MORTAR, pestleAndMortar);
+		register(r, LibItemNames.FERTILIZER, fertilizer);
 		register(r, "white" + LibItemNames.PETAL_SUFFIX, whitePetal);
 		register(r, "orange" + LibItemNames.PETAL_SUFFIX, orangePetal);
 		register(r, "magenta" + LibItemNames.PETAL_SUFFIX, magentaPetal);
@@ -434,24 +421,6 @@ public final class ModItems {
 		register(r, "green" + LibItemNames.PETAL_SUFFIX, greenPetal);
 		register(r, "red" + LibItemNames.PETAL_SUFFIX, redPetal);
 		register(r, "black" + LibItemNames.PETAL_SUFFIX, blackPetal);
-		register(r, "white" + LibItemNames.DYE_SUFFIX, whiteDye);
-		register(r, "orange" + LibItemNames.DYE_SUFFIX, orangeDye);
-		register(r, "magenta" + LibItemNames.DYE_SUFFIX, magentaDye);
-		register(r, "light_blue" + LibItemNames.DYE_SUFFIX, lightBlueDye);
-		register(r, "yellow" + LibItemNames.DYE_SUFFIX, yellowDye);
-		register(r, "lime" + LibItemNames.DYE_SUFFIX, limeDye);
-		register(r, "pink" + LibItemNames.DYE_SUFFIX, pinkDye);
-		register(r, "gray" + LibItemNames.DYE_SUFFIX, grayDye);
-		register(r, "light_gray" + LibItemNames.DYE_SUFFIX, lightGrayDye);
-		register(r, "cyan" + LibItemNames.DYE_SUFFIX, cyanDye);
-		register(r, "purple" + LibItemNames.DYE_SUFFIX, purpleDye);
-		register(r, "blue" + LibItemNames.DYE_SUFFIX, blueDye);
-		register(r, "brown" + LibItemNames.DYE_SUFFIX, brownDye);
-		register(r, "green" + LibItemNames.DYE_SUFFIX, greenDye);
-		register(r, "red" + LibItemNames.DYE_SUFFIX, redDye);
-		register(r, "black" + LibItemNames.DYE_SUFFIX, blackDye);
-		register(r, LibItemNames.PESTLE_AND_MORTAR, pestleAndMortar);
-		register(r, LibItemNames.TWIG_WAND, twigWand);
 		register(r, LibItemNames.MANASTEEL_INGOT, manaSteel);
 		register(r, LibItemNames.MANA_PEARL, manaPearl);
 		register(r, LibItemNames.MANA_DIAMOND, manaDiamond);
@@ -462,7 +431,6 @@ public final class ModItems {
 		register(r, LibItemNames.ELEMENTIUM_INGOT, elementium);
 		register(r, LibItemNames.PIXIE_DUST, pixieDust);
 		register(r, LibItemNames.DRAGONSTONE, dragonstone);
-		register(r, LibItemNames.PLACEHOLDER, placeholder);
 		register(r, LibItemNames.RED_STRING, redString);
 		register(r, LibItemNames.DREAMWOOD_TWIG, dreamwoodTwig);
 		register(r, LibItemNames.GAIA_INGOT, gaiaIngot);
@@ -475,6 +443,13 @@ public final class ModItems {
 		register(r, LibItemNames.PEBBLE, pebble);
 		register(r, LibItemNames.MANAWEAVE_CLOTH, manaweaveCloth);
 		register(r, LibItemNames.MANA_POWDER, manaPowder);
+		register(r, LibItemNames.QUARTZ_DARK, darkQuartz);
+		register(r, LibItemNames.QUARTZ_MANA, manaQuartz);
+		register(r, LibItemNames.QUARTZ_BLAZE, blazeQuartz);
+		register(r, LibItemNames.QUARTZ_LAVENDER, lavenderQuartz);
+		register(r, LibItemNames.QUARTZ_RED, redQuartz);
+		register(r, LibItemNames.QUARTZ_ELVEN, elfQuartz);
+		register(r, LibItemNames.QUARTZ_SUNNY, sunnyQuartz);
 		register(r, LibItemNames.LENS_NORMAL, lensNormal);
 		register(r, LibItemNames.LENS_SPEED, lensSpeed);
 		register(r, LibItemNames.LENS_POWER, lensPower);
@@ -516,10 +491,6 @@ public final class ModItems {
 		register(r, LibItemNames.RUNE_WRATH, runeWrath);
 		register(r, LibItemNames.RUNE_ENVY, runeEnvy);
 		register(r, LibItemNames.RUNE_PRIDE, runePride);
-		register(r, LibItemNames.MANA_TABLET, manaTablet);
-		register(r, LibItemNames.MANA_GUN, manaGun);
-		register(r, LibItemNames.MANA_COOKIE, manaCookie);
-		register(r, LibItemNames.FERTILIZER, fertilizer);
 		register(r, LibItemNames.GRASS_SEEDS, grassSeeds);
 		register(r, LibItemNames.PODZOL_SEEDS, podzolSeeds);
 		register(r, LibItemNames.MYCEL_SEEDS, mycelSeeds);
@@ -530,13 +501,19 @@ public final class ModItems {
 		register(r, LibItemNames.INFUSED_SEEDS, infusedSeeds);
 		register(r, LibItemNames.MUTATED_SEEDS, mutatedSeeds);
 		register(r, LibItemNames.DIRT_ROD, dirtRod);
+		register(r, LibItemNames.SKY_DIRT_ROD, skyDirtRod);
 		register(r, LibItemNames.TERRAFORM_ROD, terraformRod);
-		register(r, LibItemNames.GRASS_HORN, grassHorn);
-		register(r, LibItemNames.LEAVES_HORN, leavesHorn);
-		register(r, LibItemNames.SNOW_HORN, snowHorn);
-		register(r, LibItemNames.MANA_MIRROR, manaMirror);
+		register(r, LibItemNames.COBBLE_ROD, cobbleRod);
+		register(r, LibItemNames.WATER_ROD, waterRod);
+		register(r, LibItemNames.TORNADO_ROD, tornadoRod);
+		register(r, LibItemNames.FIRE_ROD, fireRod);
+		register(r, LibItemNames.DIVINING_ROD, diviningRod);
+		register(r, LibItemNames.SMELT_ROD, smeltRod);
+		register(r, LibItemNames.EXCHANGE_ROD, exchangeRod);
+		register(r, LibItemNames.RAINBOW_ROD, rainbowRod);
+		register(r, LibItemNames.GRAVITY_ROD, gravityRod);
+		register(r, LibItemNames.MISSILE_ROD, missileRod);
 		register(r, LibItemNames.MANASTEEL_HELM, manasteelHelm);
-		register(r, LibItemNames.MANASTEEL_HELM_R, manasteelHelmRevealing);
 		register(r, LibItemNames.MANASTEEL_CHEST, manasteelChest);
 		register(r, LibItemNames.MANASTEEL_LEGS, manasteelLegs);
 		register(r, LibItemNames.MANASTEEL_BOOTS, manasteelBoots);
@@ -545,39 +522,7 @@ public final class ModItems {
 		register(r, LibItemNames.MANASTEEL_AXE, manasteelAxe);
 		register(r, LibItemNames.MANASTEEL_SWORD, manasteelSword);
 		register(r, LibItemNames.MANASTEEL_SHEARS, manasteelShears);
-		register(r, LibItemNames.TERRASTEEL_HELM, terrasteelHelm);
-		register(r, LibItemNames.TERRASTEEL_HELM_R, terrasteelHelmRevealing);
-		register(r, LibItemNames.TERRASTEEL_CHEST, terrasteelChest);
-		register(r, LibItemNames.TERRASTEEL_LEGS, terrasteelLegs);
-		register(r, LibItemNames.TERRASTEEL_BOOTS, terrasteelBoots);
-		register(r, LibItemNames.TERRA_SWORD, terraSword);
-		register(r, LibItemNames.TERRA_PICK, terraPick);
-		register(r, LibItemNames.TERRA_AXE, terraAxe);
-		register(r, LibItemNames.TINY_PLANET, tinyPlanet);
-		register(r, LibItemNames.MANA_RING, manaRing);
-		register(r, LibItemNames.AURA_RING, auraRing);
-		register(r, LibItemNames.MANA_RING_GREATER, manaRingGreater);
-		register(r, LibItemNames.AURA_RING_GREATER, auraRingGreater);
-		register(r, LibItemNames.TRAVEL_BELT, travelBelt);
-		register(r, LibItemNames.KNOCKBACK_BELT, knockbackBelt);
-		register(r, LibItemNames.ICE_PENDANT, icePendant);
-		register(r, LibItemNames.LAVA_PENDANT, lavaPendant);
-		register(r, LibItemNames.MAGNET_RING, magnetRing);
-		register(r, LibItemNames.WATER_RING, waterRing);
-		register(r, LibItemNames.MINING_RING, miningRing);
-		register(r, LibItemNames.DIVA_CHARM, divaCharm);
-		register(r, LibItemNames.FLIGHT_TIARA, flightTiara);
-		register(r, LibItemNames.ENDER_DAGGER, enderDagger);
-		register(r, LibItemNames.QUARTZ_DARK, darkQuartz);
-		register(r, LibItemNames.QUARTZ_MANA, manaQuartz);
-		register(r, LibItemNames.QUARTZ_BLAZE, blazeQuartz);
-		register(r, LibItemNames.QUARTZ_LAVENDER, lavenderQuartz);
-		register(r, LibItemNames.QUARTZ_RED, redQuartz);
-		register(r, LibItemNames.QUARTZ_ELVEN, elfQuartz);
-		register(r, LibItemNames.QUARTZ_SUNNY, sunnyQuartz);
-		register(r, LibItemNames.WATER_ROD, waterRod);
 		register(r, LibItemNames.ELEMENTIUM_HELM, elementiumHelm);
-		register(r, LibItemNames.ELEMENTIUM_HELM_R, elementiumHelmRevealing);
 		register(r, LibItemNames.ELEMENTIUM_CHEST, elementiumChest);
 		register(r, LibItemNames.ELEMENTIUM_LEGS, elementiumLegs);
 		register(r, LibItemNames.ELEMENTIUM_BOOTS, elementiumBoots);
@@ -586,54 +531,101 @@ public final class ModItems {
 		register(r, LibItemNames.ELEMENTIUM_AXE, elementiumAxe);
 		register(r, LibItemNames.ELEMENTIUM_SWORD, elementiumSword);
 		register(r, LibItemNames.ELEMENTIUM_SHEARS, elementiumShears);
-		register(r, LibItemNames.OPEN_BUCKET, openBucket);
-		register(r, LibItemNames.SPAWNER_MOVER, spawnerMover);
-		register(r, LibItemNames.PIXIE_RING, pixieRing);
-		register(r, LibItemNames.SUPER_TRAVEL_BELT, superTravelBelt);
-		register(r, LibItemNames.RAINBOW_ROD, rainbowRod);
-		register(r, LibItemNames.TORNADO_ROD, tornadoRod);
-		register(r, LibItemNames.FIRE_ROD, fireRod);
+		register(r, LibItemNames.TERRASTEEL_HELM, terrasteelHelm);
+		register(r, LibItemNames.TERRASTEEL_CHEST, terrasteelChest);
+		register(r, LibItemNames.TERRASTEEL_LEGS, terrasteelLegs);
+		register(r, LibItemNames.TERRASTEEL_BOOTS, terrasteelBoots);
+		register(r, LibItemNames.TERRA_PICK, terraPick);
+		register(r, LibItemNames.TERRA_AXE, terraAxe);
+		register(r, LibItemNames.TERRA_SWORD, terraSword);
+		register(r, LibItemNames.STAR_SWORD, starSword);
+		register(r, LibItemNames.THUNDER_SWORD, thunderSword);
+		register(r, LibItemNames.MANAWEAVE_HELM, manaweaveHelm);
+		register(r, LibItemNames.MANAWEAVE_CHEST, manaweaveChest);
+		register(r, LibItemNames.MANAWEAVE_LEGS, manaweaveLegs);
+		register(r, LibItemNames.MANAWEAVE_BOOTS, manaweaveBoots);
+		register(r, LibItemNames.ENDER_DAGGER, enderDagger);
+		register(r, LibItemNames.GLASS_PICK, glassPick);
+		register(r, LibItemNames.LIVINGWOOD_BOW, livingwoodBow);
+		register(r, LibItemNames.CRYSTAL_BOW, crystalBow);
+		register(r, LibItemNames.THORN_CHAKRAM, thornChakram);
+		register(r, LibItemNames.FLARE_CHAKRAM, flareChakram);
+		register(r, LibItemNames.MANA_TABLET, manaTablet);
+		register(r, LibItemNames.MANA_MIRROR, manaMirror);
+		register(r, LibItemNames.MANA_GUN, manaGun);
+		register(r, LibItemNames.CLIP, clip);
+		register(r, LibItemNames.GRASS_HORN, grassHorn);
+		register(r, LibItemNames.LEAVES_HORN, leavesHorn);
+		register(r, LibItemNames.SNOW_HORN, snowHorn);
 		register(r, LibItemNames.VINE_BALL, vineBall);
 		register(r, LibItemNames.SLINGSHOT, slingshot);
+		register(r, LibItemNames.OPEN_BUCKET, openBucket);
+		register(r, LibItemNames.SPAWNER_MOVER, spawnerMover);
+		register(r, LibItemNames.ENDER_HAND, enderHand);
+		register(r, LibItemNames.CRAFTING_HALO, craftingHalo);
+		register(r, LibItemNames.AUTOCRAFTING_HALO, autocraftingHalo);
+		register(r, LibItemNames.SPELL_CLOTH, spellCloth);
+		register(r, LibItemNames.FLOWER_BAG, flowerBag);
+		register(r, LibItemNames.BLACK_HOLE_TALISMAN, blackHoleTalisman);
+		register(r, LibItemNames.TEMPERANCE_STONE, temperanceStone);
+		register(r, LibItemNames.WATER_BOWL, waterBowl);
+		register(r, LibItemNames.CACOPHONIUM, cacophonium);
+		register(r, LibItemNames.SLIME_BOTTLE, slimeBottle);
+		register(r, LibItemNames.SEXTANT, sextant);
+		register(r, LibItemNames.ASTROLABE, astrolabe);
+		register(r, LibItemNames.BAUBLE_BOX, baubleBox);
+		register(r, LibItemNames.MANA_RING, manaRing);
+		register(r, LibItemNames.MANA_RING_GREATER, manaRingGreater);
+		register(r, LibItemNames.AURA_RING, auraRing);
+		register(r, LibItemNames.AURA_RING_GREATER, auraRingGreater);
+		register(r, LibItemNames.MAGNET_RING, magnetRing);
+		register(r, LibItemNames.MAGNET_RING_GREATER, magnetRingGreater);
+		register(r, LibItemNames.WATER_RING, waterRing);
+		register(r, LibItemNames.SWAP_RING, swapRing);
+		register(r, LibItemNames.DODGE_RING, dodgeRing);
+		register(r, LibItemNames.MINING_RING, miningRing);
+		register(r, LibItemNames.PIXIE_RING, pixieRing);
+		register(r, LibItemNames.REACH_RING, reachRing);
+		register(r, LibItemNames.TRAVEL_BELT, travelBelt);
+		register(r, LibItemNames.SUPER_TRAVEL_BELT, superTravelBelt);
+		register(r, LibItemNames.SPEED_UP_BELT, speedUpBelt);
+		register(r, LibItemNames.KNOCKBACK_BELT, knockbackBelt);
+		register(r, LibItemNames.ICE_PENDANT, icePendant);
+		register(r, LibItemNames.LAVA_PENDANT, lavaPendant);
+		register(r, LibItemNames.SUPER_LAVA_PENDANT, superLavaPendant);
+		register(r, LibItemNames.CLOUD_PENDANT, cloudPendant);
+		register(r, LibItemNames.SUPER_CLOUD_PENDANT, superCloudPendant);
+		register(r, LibItemNames.HOLY_CLOAK, holyCloak);
+		register(r, LibItemNames.UNHOLY_CLOAK, unholyCloak);
+		register(r, LibItemNames.BALANCE_CLOAK, balanceCloak);
+		register(r, LibItemNames.INVISIBILITY_CLOAK, invisibilityCloak);
+		register(r, LibItemNames.THIRD_EYE, thirdEye);
+		register(r, LibItemNames.MONOCLE, monocle);
+		register(r, LibItemNames.TINY_PLANET, tinyPlanet);
+		register(r, LibItemNames.GODDESS_CHARM, goddessCharm);
+		register(r, LibItemNames.DIVA_CHARM, divaCharm);
+		register(r, LibItemNames.ITEM_FINDER, itemFinder);
+		register(r, LibItemNames.FLIGHT_TIARA, flightTiara);
+		register(r, LibItemNames.MANA_COOKIE, manaCookie);
 		register(r, LibItemNames.MANA_BOTTLE, manaBottle);
 		register(r, LibItemNames.LAPUTA_SHARD, laputaShard);
 		register(r, LibItemNames.NECRO_VIRUS, necroVirus);
 		register(r, LibItemNames.NULL_VIRUS, nullVirus);
-		register(r, LibItemNames.REACH_RING, reachRing);
-		register(r, LibItemNames.SKY_DIRT_ROD, skyDirtRod);
-		register(r, LibItemNames.ITEM_FINDER, itemFinder);
-		register(r, LibItemNames.SUPER_LAVA_PENDANT, superLavaPendant);
-		register(r, LibItemNames.ENDER_HAND, enderHand);
-		register(r, LibItemNames.GLASS_PICK, glassPick);
 		register(r, LibItemNames.SPARK, spark);
 		register(r, LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.DISPERSIVE.name().toLowerCase(Locale.ROOT), sparkUpgradeDispersive);
 		register(r, LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.DOMINANT.name().toLowerCase(Locale.ROOT), sparkUpgradeDominant);
 		register(r, LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.RECESSIVE.name().toLowerCase(Locale.ROOT), sparkUpgradeRecessive);
 		register(r, LibItemNames.SPARK_UPGRADE + "_" + SparkUpgradeType.ISOLATED.name().toLowerCase(Locale.ROOT), sparkUpgradeIsolated);
-		register(r, LibItemNames.DIVINING_ROD, diviningRod);
-		register(r, LibItemNames.GRAVITY_ROD, gravityRod);
-		register(r, LibItemNames.MANA_INKWELL, manaInkwell);
-		register(r, LibItemNames.VIAL, vial);
-		register(r, LibItemNames.FLASK, flask);
-		register(r, LibItemNames.BREW_VIAL, brewVial);
-		register(r, LibItemNames.BREW_FLASK, brewFlask);
-		register(r, LibItemNames.BLOOD_PENDANT, bloodPendant);
-		register(r, LibItemNames.MISSILE_ROD, missileRod);
-		register(r, LibItemNames.HOLY_CLOAK, holyCloak);
-		register(r, LibItemNames.UNHOLY_CLOAK, unholyCloak);
-		register(r, LibItemNames.BALANCE_CLOAK, balanceCloak);
-		register(r, LibItemNames.CRAFTING_HALO, craftingHalo);
+		register(r, LibItemNames.CORPOREA_SPARK, corporeaSpark);
+		register(r, LibItemNames.CORPOREA_SPARK_MASTER, corporeaSparkMaster);
 		register(r, LibItemNames.BLACK_LOTUS, blackLotus);
 		register(r, LibItemNames.BLACKER_LOTUS, blackerLotus);
-		register(r, LibItemNames.MONOCLE, monocle);
-		register(r, LibItemNames.CLIP, clip);
-		register(r, LibItemNames.COBBLE_ROD, cobbleRod);
-		register(r, LibItemNames.SMELT_ROD, smeltRod);
 		register(r, LibItemNames.WORLD_SEED, worldSeed);
-		register(r, LibItemNames.SPELL_CLOTH, spellCloth);
-		register(r, LibItemNames.THORN_CHAKRAM, thornChakram);
-		register(r, LibItemNames.FLARE_CHAKRAM, flareChakram);
 		register(r, LibItemNames.OVERGROWTH_SEED, overgrowthSeed);
+		register(r, LibItemNames.PHANTOM_INK, phantomInk);
+		register(r, LibItemNames.POOL_MINECART, poolMinecart);
+		register(r, LibItemNames.KEEP_IVY, keepIvy);
+		register(r, LibItemNames.PLACEHOLDER, placeholder);
 		register(r, LibItemNames.CRAFT_PATTERN_PREFIX + "1_1", craftPattern1_1);
 		register(r, LibItemNames.CRAFT_PATTERN_PREFIX + "2_2", craftPattern2_2);
 		register(r, LibItemNames.CRAFT_PATTERN_PREFIX + "1_2", craftPattern1_2);
@@ -643,16 +635,28 @@ public final class ModItems {
 		register(r, LibItemNames.CRAFT_PATTERN_PREFIX + "2_3", craftPattern2_3);
 		register(r, LibItemNames.CRAFT_PATTERN_PREFIX + "3_2", craftPattern3_2);
 		register(r, LibItemNames.CRAFT_PATTERN_PREFIX + "donut", craftPatternDonut);
+		register(r, LibItemNames.DICE, dice);
+		register(r, LibItemNames.INFINITE_FRUIT, infiniteFruit);
+		register(r, LibItemNames.KING_KEY, kingKey);
+		register(r, LibItemNames.FLUGEL_EYE, flugelEye);
+		register(r, LibItemNames.THOR_RING, thorRing);
+		register(r, LibItemNames.ODIN_RING, odinRing);
+		register(r, LibItemNames.LOKI_RING, lokiRing);
+		register(r, LibItemNames.RECORD_GAIA1, recordGaia1);
+		register(r, LibItemNames.RECORD_GAIA2, recordGaia2);
 		register(r, LibItemNames.ANCIENT_WILL_PREFIX + "ahrim", ancientWillAhrim);
 		register(r, LibItemNames.ANCIENT_WILL_PREFIX + "dharok", ancientWillDharok);
 		register(r, LibItemNames.ANCIENT_WILL_PREFIX + "guthan", ancientWillGuthan);
 		register(r, LibItemNames.ANCIENT_WILL_PREFIX + "torag", ancientWillTorag);
 		register(r, LibItemNames.ANCIENT_WILL_PREFIX + "verac", ancientWillVerac);
 		register(r, LibItemNames.ANCIENT_WILL_PREFIX + "karil", ancientWillKaril);
-		register(r, LibItemNames.CORPOREA_SPARK, corporeaSpark);
-		register(r, LibItemNames.CORPOREA_SPARK_MASTER, corporeaSparkMaster);
-		register(r, LibItemNames.LIVINGWOOD_BOW, livingwoodBow);
-		register(r, LibItemNames.CRYSTAL_BOW, crystalBow);
+		register(r, LibItemNames.PINKINATOR, pinkinator);
+		register(r, LibItemNames.VIAL, vial);
+		register(r, LibItemNames.FLASK, flask);
+		register(r, LibItemNames.BREW_VIAL, brewVial);
+		register(r, LibItemNames.BREW_FLASK, brewFlask);
+		register(r, LibItemNames.BLOOD_PENDANT, bloodPendant);
+		register(r, LibItemNames.INCENSE_STICK, incenseStick);
 		register(r, LibItemNames.COSMETIC_PREFIX + "black_bowtie", blackBowtie);
 		register(r, LibItemNames.COSMETIC_PREFIX + "black_tie", blackTie);
 		register(r, LibItemNames.COSMETIC_PREFIX + "red_glasses", redGlasses);
@@ -686,47 +690,6 @@ public final class ModItems {
 		register(r, LibItemNames.COSMETIC_PREFIX + "tiny_potato_mask", tinyPotatoMask);
 		register(r, LibItemNames.COSMETIC_PREFIX + "questgiver_mark", questgiverMark);
 		register(r, LibItemNames.COSMETIC_PREFIX + "thinking_hand", thinkingHand);
-		register(r, LibItemNames.SWAP_RING, swapRing);
-		register(r, LibItemNames.FLOWER_BAG, flowerBag);
-		register(r, LibItemNames.PHANTOM_INK, phantomInk);
-		register(r, LibItemNames.POOL_MINECART, poolMinecart);
-		register(r, LibItemNames.PINKINATOR, pinkinator);
-		register(r, LibItemNames.INFINITE_FRUIT, infiniteFruit);
-		register(r, LibItemNames.KING_KEY, kingKey);
-		register(r, LibItemNames.FLUGEL_EYE, flugelEye);
-		register(r, LibItemNames.THOR_RING, thorRing);
-		register(r, LibItemNames.ODIN_RING, odinRing);
-		register(r, LibItemNames.LOKI_RING, lokiRing);
-		register(r, LibItemNames.DICE, dice);
-		register(r, LibItemNames.KEEP_IVY, keepIvy);
-		register(r, LibItemNames.BLACK_HOLE_TALISMAN, blackHoleTalisman);
-		register(r, LibItemNames.RECORD_GAIA1, recordGaia1);
-		register(r, LibItemNames.RECORD_GAIA2, recordGaia2);
-		register(r, LibItemNames.TEMPERANCE_STONE, temperanceStone);
-		register(r, LibItemNames.INCENSE_STICK, incenseStick);
-		register(r, LibItemNames.WATER_BOWL, waterBowl);
-		register(r, LibItemNames.OBEDIENCE_STICK, obedienceStick);
-		register(r, LibItemNames.CACOPHONIUM, cacophonium);
-		register(r, LibItemNames.SLIME_BOTTLE, slimeBottle);
-		register(r, LibItemNames.STAR_SWORD, starSword);
-		register(r, LibItemNames.EXCHANGE_ROD, exchangeRod);
-		register(r, LibItemNames.MAGNET_RING_GREATER, magnetRingGreater);
-		register(r, LibItemNames.THUNDER_SWORD, thunderSword);
-		register(r, LibItemNames.MANAWEAVE_HELM, manaweaveHelm);
-		register(r, LibItemNames.MANAWEAVE_CHEST, manaweaveChest);
-		register(r, LibItemNames.MANAWEAVE_LEGS, manaweaveLegs);
-		register(r, LibItemNames.MANAWEAVE_BOOTS, manaweaveBoots);
-		register(r, LibItemNames.AUTOCRAFTING_HALO, autocraftingHalo);
-		register(r, LibItemNames.SEXTANT, sextant);
-		register(r, LibItemNames.SPEED_UP_BELT, speedUpBelt);
-		register(r, LibItemNames.BAUBLE_BOX, baubleBox);
-		register(r, LibItemNames.DODGE_RING, dodgeRing);
-		register(r, LibItemNames.INVISIBILITY_CLOAK, invisibilityCloak);
-		register(r, LibItemNames.CLOUD_PENDANT, cloudPendant);
-		register(r, LibItemNames.SUPER_CLOUD_PENDANT, superCloudPendant);
-		register(r, LibItemNames.THIRD_EYE, thirdEye);
-		register(r, LibItemNames.ASTROLABE, astrolabe);
-		register(r, LibItemNames.GODDESS_CHARM, goddessCharm);
 	}
 
 	public static void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> evt) {
@@ -738,7 +701,6 @@ public final class ModItems {
 		register(r, "composite_lens", CompositeLensRecipe.SERIALIZER);
 		register(r, "cosmetic_attach", CosmeticAttachRecipe.SERIALIZER);
 		register(r, "cosmetic_remove", CosmeticRemoveRecipe.SERIALIZER);
-		register(r, "helm_revealing", HelmRevealingRecipe.SERIALIZER);
 		register(r, "keep_ivy", KeepIvyRecipe.SERIALIZER);
 		register(r, "lens_dye", LensDyeingRecipe.SERIALIZER);
 		register(r, "mana_gun_add_clip", ManaGunClipRecipe.SERIALIZER);
@@ -805,41 +767,4 @@ public final class ModItems {
 		}
 	}
 
-	public static Item getDye(DyeColor color) {
-		switch (color) {
-		default:
-		case WHITE:
-			return whiteDye;
-		case ORANGE:
-			return orangeDye;
-		case MAGENTA:
-			return magentaDye;
-		case LIGHT_BLUE:
-			return lightBlueDye;
-		case YELLOW:
-			return yellowDye;
-		case LIME:
-			return limeDye;
-		case PINK:
-			return pinkDye;
-		case GRAY:
-			return grayDye;
-		case LIGHT_GRAY:
-			return lightGrayDye;
-		case CYAN:
-			return cyanDye;
-		case PURPLE:
-			return purpleDye;
-		case BLUE:
-			return blueDye;
-		case BROWN:
-			return brownDye;
-		case GREEN:
-			return greenDye;
-		case RED:
-			return redDye;
-		case BLACK:
-			return blackDye;
-		}
-	}
 }

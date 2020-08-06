@@ -33,7 +33,6 @@ public class ItemOvergrowthSeed extends Item {
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
 
-		// todo 1.13 grass tag
 		BlockState state = world.getBlockState(pos);
 		if (state.getBlock() == Blocks.GRASS_BLOCK) {
 			if (!world.isRemote) {

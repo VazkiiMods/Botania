@@ -23,10 +23,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -60,12 +57,6 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 		super(props.defaultMaxDamage(COOLDOWN));
 	}
 
-	// ItemRenderer does not call IBakedModel.getModelWithOverrides unless this is true, or we have called addPropertyOverride.
-	@Override
-	public boolean hasCustomProperties() {
-		return true;
-	}
-
 	@Nonnull
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
@@ -79,14 +70,12 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 		if (player.isSneaking() && hasClip(stack)) {
 			rotatePos(stack);
 			world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
-			if (world.isRemote) {
-				player.swingArm(hand);
-			} else {
+			if (!world.isRemote) {
 				ItemStack lens = getLens(stack);
 				ItemsRemainingRenderHandler.send(player, lens, -2);
 				stack.setDamage(effCd);
 			}
-			return ActionResult.resultSuccess(stack);
+			return ActionResult.func_233538_a_(stack, world.isRemote);
 		} else if (stack.getDamage() == 0) {
 			EntityManaBurst burst = getBurst(player, stack, true, hand);
 			if (burst != null && ManaItemHandler.instance().requestManaExact(stack, player, burst.getMana(), true)) {
@@ -94,15 +83,14 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 					world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
 					world.addEntity(burst);
 					ManaGunTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack);
+					stack.setDamage(effCd);
 				} else {
-					player.swingArm(hand);
 					player.setMotion(player.getMotion().subtract(burst.getMotion().mul(0.1, 0.3, 0.1)));
 				}
-				stack.setDamage(effCd);
 			} else if (!world.isRemote) {
 				world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
 			}
-			return ActionResult.resultSuccess(stack);
+			return ActionResult.func_233538_a_(stack, world.isRemote);
 		}
 
 		return ActionResult.resultPass(stack);
@@ -205,8 +193,8 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 					name = lensAt.getDisplayName();
 				}
 
-				ITextComponent tip = new StringTextComponent(" - ").appendSibling(name);
-				tip.getStyle().setColor(i == pos ? TextFormatting.GREEN : TextFormatting.GRAY);
+				IFormattableTextComponent tip = new StringTextComponent(" - ").func_230529_a_(name);
+				tip.func_240699_a_(i == pos ? TextFormatting.GREEN : TextFormatting.GRAY);
 				tooltip.add(tip);
 			}
 		}
@@ -216,11 +204,11 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 	@Override
 	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
 		ItemStack lens = getLens(stack);
-		ITextComponent cmp = super.getDisplayName(stack);
+		IFormattableTextComponent cmp = super.getDisplayName(stack).deepCopy();
 		if (!lens.isEmpty()) {
-			cmp.appendText(" (");
-			cmp.appendSibling(lens.getDisplayName().applyTextStyle(TextFormatting.GREEN));
-			cmp.appendText(")");
+			cmp.func_240702_b_(" (");
+			cmp.func_230529_a_(lens.getDisplayName().deepCopy().func_240699_a_(TextFormatting.GREEN));
+			cmp.func_240702_b_(")");
 		}
 		return cmp;
 	}

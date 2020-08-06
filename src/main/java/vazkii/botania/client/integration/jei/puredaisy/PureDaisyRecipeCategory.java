@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.integration.jei.puredaisy;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -31,16 +32,17 @@ import vazkii.botania.api.recipe.IPureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 import java.util.Collections;
 import java.util.stream.Collectors;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe> {
 
-	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "pure_daisy");
+	public static final ResourceLocation UID = prefix("pure_daisy");
 	private final IDrawable background;
 	private final String localizedName;
 	private final IDrawable overlay;
@@ -49,7 +51,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 	public PureDaisyRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(168, 46);
 		localizedName = I18n.format("botania.nei.pureDaisy");
-		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pure_daisy_overlay.png"),
+		overlay = guiHelper.createDrawable(prefix("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModSubtiles.pureDaisy));
 	}
@@ -117,10 +119,10 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 	}
 
 	@Override
-	public void draw(IPureDaisyRecipe recipe, double mouseX, double mouseY) {
+	public void draw(IPureDaisyRecipe recipe, MatrixStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
-		overlay.draw(48, 0);
+		overlay.draw(ms, 48, 0);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 	}

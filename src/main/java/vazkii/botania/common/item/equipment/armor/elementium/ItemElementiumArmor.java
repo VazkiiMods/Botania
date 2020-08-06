@@ -13,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.LazyValue;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -70,7 +71,7 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 
 		switch (slot) {
 		case HEAD:
-			return stack.getItem() == ModItems.elementiumHelm || stack.getItem() == ModItems.elementiumHelmRevealing;
+			return stack.getItem() == ModItems.elementiumHelm;
 		case CHEST:
 			return stack.getItem() == ModItems.elementiumChest;
 		case LEGS:
@@ -83,7 +84,7 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 	}
 
 	@Override
-	public ITextComponent getArmorSetName() {
+	public IFormattableTextComponent getArmorSetName() {
 		return new TranslationTextComponent("botania.armorset.elementium.name");
 	}
 
@@ -91,7 +92,7 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<ITextComponent> list) {
 		super.addArmorSetDescription(stack, list);
-		list.add(new TranslationTextComponent("botania.armorset.elementium.desc").applyTextStyle(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("botania.armorset.elementium.desc").func_240699_a_(TextFormatting.GRAY));
 	}
 
 }

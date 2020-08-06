@@ -22,7 +22,7 @@ public class ItemBlockElven extends BlockItem implements IElvenItem {
 
 	@Override
 	public boolean isElvenItem(ItemStack stack) {
-		return ((IElvenItem) getBlock()).isElvenItem(stack);
+		return true;
 	}
 
 }

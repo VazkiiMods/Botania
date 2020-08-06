@@ -21,7 +21,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
 
@@ -29,10 +28,10 @@ import java.util.*;
 import java.util.function.Function;
 
 public class CorporeaHelperImpl implements CorporeaHelper {
-	private final WeakHashMap<List<ICorporeaSpark>, List<InvWithLocation>> cachedNetworks = new WeakHashMap<>();
+	private final WeakHashMap<List<ICorporeaSpark>, List<ICorporeaNode>> cachedNetworks = new WeakHashMap<>();
 
 	@Override
-	public List<InvWithLocation> getInventoriesOnNetwork(ICorporeaSpark spark) {
+	public List<ICorporeaNode> getNodesOnNetwork(ICorporeaSpark spark) {
 		ICorporeaSpark master = spark.getMaster();
 		if (master == null) {
 			return Collections.emptyList();
@@ -40,45 +39,36 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 		List<ICorporeaSpark> network = master.getConnections();
 
 		if (cachedNetworks.containsKey(network)) {
-			List<InvWithLocation> cache = cachedNetworks.get(network);
+			List<ICorporeaNode> cache = cachedNetworks.get(network);
 			if (cache != null) {
 				return cache;
 			}
 		}
 
-		List<InvWithLocation> inventories = new ArrayList<>();
+		List<ICorporeaNode> nodes = new ArrayList<>();
 		if (network != null) {
 			for (ICorporeaSpark otherSpark : network) {
 				if (otherSpark != null) {
-					InvWithLocation inv = otherSpark.getSparkInventory();
-					if (inv != null) {
-						inventories.add(inv);
-					}
+					nodes.add(otherSpark.getSparkNode());
 				}
 			}
 		}
 
-		cachedNetworks.put(network, inventories);
-		return inventories;
+		cachedNetworks.put(network, nodes);
+		return nodes;
 	}
 
 	@Override
 	public int getCountInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
-		List<InvWithLocation> inventories = getInventoriesOnNetwork(spark);
-		return getCountInNetwork(matcher, inventories);
+		return getCountInNetwork(matcher, getNodesOnNetwork(spark));
 	}
 
 	@Override
-	public int getCountInNetwork(ICorporeaRequestMatcher matcher, List<InvWithLocation> inventories) {
-		Map<InvWithLocation, Integer> map = getInventoriesWithMatchInNetwork(matcher, inventories);
-		return getCountInNetwork(matcher, map);
-	}
-
-	@Override
-	public int getCountInNetwork(ICorporeaRequestMatcher matcher, Map<InvWithLocation, Integer> inventories) {
+	public int getCountInNetwork(ICorporeaRequestMatcher matcher, List<ICorporeaNode> inventories) {
+		Map<ICorporeaNode, Integer> map = getInventoriesWithMatchInNetwork(matcher, inventories);
 		int count = 0;
 
-		for (int value : inventories.values()) {
+		for (int value : map.values()) {
 			count += value;
 		}
 
@@ -86,20 +76,19 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 	}
 
 	@Override
-	public Map<InvWithLocation, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
-		List<InvWithLocation> inventories = getInventoriesOnNetwork(spark);
+	public Map<ICorporeaNode, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, ICorporeaSpark spark) {
+		List<ICorporeaNode> inventories = getNodesOnNetwork(spark);
 		return getInventoriesWithMatchInNetwork(matcher, inventories);
 	}
 
 	@Override
-	public Map<InvWithLocation, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, List<InvWithLocation> inventories) {
-		Map<InvWithLocation, Integer> countMap = new HashMap<>();
-		List<IWrappedInventory> wrappedInventories = BotaniaAPI.instance().internalHandler().wrapInventory(inventories);
-		for (IWrappedInventory inv : wrappedInventories) {
+	public Map<ICorporeaNode, Integer> getInventoriesWithMatchInNetwork(ICorporeaRequestMatcher matcher, List<ICorporeaNode> nodes) {
+		Map<ICorporeaNode, Integer> countMap = new HashMap<>();
+		for (ICorporeaNode node : nodes) {
 			ICorporeaRequest request = new CorporeaRequest(matcher, -1);
-			inv.countItems(request);
+			node.countItems(request);
 			if (request.getFound() > 0) {
-				countMap.put(inv.getWrappedObject(), request.getFound());
+				countMap.put(node, request.getFound());
 			}
 
 		}
@@ -122,43 +111,35 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 		List<ItemStack> stacks = new ArrayList<>();
 		CorporeaRequestEvent event = new CorporeaRequestEvent(matcher, itemCount, spark, !doit);
 		if (MinecraftForge.EVENT_BUS.post(event)) {
-			return new CorporeaResult(stacks, 0, 0); // todo 1.15 what to do here
+			return new CorporeaResult(stacks, 0, 0);
 		}
 
-		List<InvWithLocation> inventories = getInventoriesOnNetwork(spark);
-
-		List<IWrappedInventory> inventoriesW = BotaniaAPI.instance().internalHandler().wrapInventory(inventories);
+		List<ICorporeaNode> nodes = getNodesOnNetwork(spark);
 		Map<ICorporeaInterceptor, ICorporeaSpark> interceptors = new HashMap<>();
 
 		ICorporeaRequest request = new CorporeaRequest(matcher, itemCount);
-		for (IWrappedInventory inv : inventoriesW) {
-			ICorporeaSpark invSpark = inv.getSpark();
+		for (ICorporeaNode node : nodes) {
+			ICorporeaSpark invSpark = node.getSpark();
 
-			InvWithLocation originalInventory = inv.getWrappedObject();
-			if (originalInventory.getWorld().getTileEntity(originalInventory.getPos()) instanceof ICorporeaInterceptor) {
-				ICorporeaInterceptor interceptor = (ICorporeaInterceptor) originalInventory.getWorld().getTileEntity(originalInventory.getPos());
-				interceptor.interceptRequest(matcher, itemCount, invSpark, spark, stacks, inventories, doit);
+			TileEntity te = node.getWorld().getTileEntity(node.getPos());
+			if (te instanceof ICorporeaInterceptor) {
+				ICorporeaInterceptor interceptor = (ICorporeaInterceptor) te;
+				interceptor.interceptRequest(matcher, itemCount, invSpark, spark, stacks, nodes, doit);
 				interceptors.put(interceptor, invSpark);
 			}
 
 			if (doit) {
-				stacks.addAll(inv.extractItems(request));
+				stacks.addAll(node.extractItems(request));
 			} else {
-				stacks.addAll(inv.countItems(request));
+				stacks.addAll(node.countItems(request));
 			}
 		}
 
 		for (ICorporeaInterceptor interceptor : interceptors.keySet()) {
-			interceptor.interceptRequestLast(matcher, itemCount, interceptors.get(interceptor), spark, stacks, inventories, doit);
+			interceptor.interceptRequestLast(matcher, itemCount, interceptors.get(interceptor), spark, stacks, nodes, doit);
 		}
 
 		return new CorporeaResult(stacks, request.getFound(), request.getExtracted());
-	}
-
-	@Override
-	public ICorporeaSpark getSparkForInventory(InvWithLocation inv) {
-		TileEntity tile = inv.getWorld().getTileEntity(inv.getPos());
-		return getSparkForBlock(tile.getWorld(), tile.getPos());
 	}
 
 	@Override

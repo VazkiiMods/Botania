@@ -1,9 +1,7 @@
 {
   "variants": {
     "type=top": {
-      "model": "botania:block/metamorphic_forest_bricks_slab",
-      "x": 180,
-      "uvlock": true
+      "model": "botania:block/metamorphic_forest_bricks_slab_top"
     },
     "type=bottom": {
       "model": "botania:block/metamorphic_forest_bricks_slab"

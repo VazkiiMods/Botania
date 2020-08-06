@@ -8,8 +8,10 @@
  */
 package vazkii.botania.common.item.equipment.armor.elementium;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
+import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EquipmentSlotType;
 
@@ -25,10 +27,11 @@ public class ItemElementiumLegs extends ItemElementiumArmor {
 
 	@Nonnull
 	@Override
-	public Multimap<String, AttributeModifier> getAttributeModifiers(@Nonnull EquipmentSlotType slot) {
-		Multimap<String, AttributeModifier> ret = super.getAttributeModifiers(slot);
+	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(@Nonnull EquipmentSlotType slot) {
+		Multimap<Attribute, AttributeModifier> ret = super.getAttributeModifiers(slot);
 		if (slot == getEquipmentSlot()) {
-			ret.put(PixieHandler.PIXIE_SPAWN_CHANCE.getName(), PixieHandler.makeModifier(slot, "Armor modifier", 0.15));
+			ret = HashMultimap.create(ret);
+			ret.put(PixieHandler.PIXIE_SPAWN_CHANCE, PixieHandler.makeModifier(slot, "Armor modifier", 0.15));
 		}
 		return ret;
 	}

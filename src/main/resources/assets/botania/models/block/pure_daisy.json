@@ -1,6 +1,0 @@
-{
-  "parent": "botania:block/shapes/cross",
-  "textures": {
-    "cross": "botania:blocks/flower_misc_pure_daisy"
-  }
-}

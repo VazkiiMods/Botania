@@ -15,22 +15,21 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.wrapper.CombinedInvWrapper;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
@@ -68,45 +67,44 @@ public final class BoundTileRenderer {
 		int color = 0xFF000000 | MathHelper.hsvToRGB(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 
 		if (!player.getHeldItemMainhand().isEmpty() && player.getHeldItemMainhand().getItem() instanceof ICoordBoundItem) {
-			BlockPos coords = ((ICoordBoundItem) player.getHeldItemMainhand().getItem()).getBinding(player.getHeldItemMainhand());
+			BlockPos coords = ((ICoordBoundItem) player.getHeldItemMainhand().getItem()).getBinding(player.world, player.getHeldItemMainhand());
 			if (coords != null) {
 				renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);
 			}
 		}
 
 		if (!player.getHeldItemOffhand().isEmpty() && player.getHeldItemOffhand().getItem() instanceof ICoordBoundItem) {
-			BlockPos coords = ((ICoordBoundItem) player.getHeldItemOffhand().getItem()).getBinding(player.getHeldItemOffhand());
+			BlockPos coords = ((ICoordBoundItem) player.getHeldItemOffhand().getItem()).getBinding(player.world, player.getHeldItemOffhand());
 			if (coords != null) {
 				renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);
 			}
 		}
 
-		LazyOptional<IItemHandler> mainInvCap = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP);
-		mainInvCap.ifPresent(mainInv -> {
-			IItemHandlerModifiable acc = BotaniaAPI.instance().internalHandler().getAccessoriesInventory(player);
-			IItemHandler joined = acc != null ? new CombinedInvWrapper((IItemHandlerModifiable) mainInv, acc) : mainInv;
-
-			for (int i = 0; i < joined.getSlots(); i++) {
-				ItemStack stackInSlot = joined.getStackInSlot(i);
-
-				if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider) {
-					IWireframeCoordinateListProvider provider = (IWireframeCoordinateListProvider) stackInSlot.getItem();
-					List<BlockPos> coordsList = provider.getWireframesToDraw(player, stackInSlot);
-					for (BlockPos coords : coordsList) {
-						renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);
-					}
-
-					BlockPos coords = provider.getSourceWireframe(player, stackInSlot);
-					if (coords != null && coords.getY() > -1) {
-						renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color, true);
-					}
-				}
-			}
-		});
+		renderWireframeProviders(player.inventory, player, ms, color);
+		renderWireframeProviders(BotaniaAPI.instance().getAccessoriesInventory(player), player, ms, color);
 
 		ms.pop();
 		RenderSystem.disableDepthTest();
 		LINE_BUFFERS.finish();
+	}
+
+	private static void renderWireframeProviders(IInventory inv, PlayerEntity player, MatrixStack ms, int color) {
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
+			ItemStack stackInSlot = inv.getStackInSlot(i);
+
+			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider) {
+				IWireframeCoordinateListProvider provider = (IWireframeCoordinateListProvider) stackInSlot.getItem();
+				List<BlockPos> coordsList = provider.getWireframesToDraw(player, stackInSlot);
+				for (BlockPos coords : coordsList) {
+					renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);
+				}
+
+				BlockPos coords = provider.getSourceWireframe(player, stackInSlot);
+				if (coords != null && coords.getY() > -1) {
+					renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color, true);
+				}
+			}
+		}
 	}
 
 	private static void renderBlockOutlineAt(MatrixStack ms, IRenderTypeBuffer buffers, BlockPos pos, int color) {

@@ -8,19 +8,19 @@
  */
 package vazkii.botania.api.recipe;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 
 import javax.annotation.Nonnull;
 
-public interface IBrewRecipe extends IRecipe<RecipeWrapper> {
+public interface IBrewRecipe extends IRecipe<IInventory> {
 	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "brew");
 
 	Brew getBrew();
@@ -43,7 +43,7 @@ public interface IBrewRecipe extends IRecipe<RecipeWrapper> {
 
 	@Nonnull
 	@Override
-	default ItemStack getCraftingResult(@Nonnull RecipeWrapper inv) {
+	default ItemStack getCraftingResult(@Nonnull IInventory inv) {
 		return ItemStack.EMPTY;
 	}
 

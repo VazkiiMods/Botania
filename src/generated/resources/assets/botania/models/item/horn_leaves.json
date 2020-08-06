@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "botania:item/horn_leaves"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "botania:vuvuzela": 1.0
+      },
+      "model": "botania:item/vuvuzela"
+    }
+  ]
+}

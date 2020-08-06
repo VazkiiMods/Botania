@@ -22,7 +22,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.api.item.IAncientWillContainer;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.crafting.recipe.AncientWillRecipe;
 import vazkii.botania.common.item.ItemAncientWill;
 import vazkii.botania.common.item.ModItems;
@@ -45,9 +44,6 @@ public class AncientWillRecipeWrapper implements ICustomCraftingCategoryExtensio
 		ImmutableList.Builder<ItemStack> helmets = ImmutableList.builder();
 		ImmutableList.Builder<ItemStack> wills = ImmutableList.builder();
 		helmets.add(new ItemStack(ModItems.terrasteelHelm));
-		if (Botania.thaumcraftLoaded) {
-			helmets.add(new ItemStack(ModItems.terrasteelHelmRevealing));
-		}
 		wills.add(new ItemStack(ModItems.ancientWillAhrim));
 		wills.add(new ItemStack(ModItems.ancientWillDharok));
 		wills.add(new ItemStack(ModItems.ancientWillGuthan));

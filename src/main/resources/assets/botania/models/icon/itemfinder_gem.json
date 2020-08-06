@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "botania:items/headpiece_item_finder_gem"
+    "layer0": "botania:item/itemfinder_gem"
   }
 }

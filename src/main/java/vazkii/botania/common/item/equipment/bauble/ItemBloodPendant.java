@@ -14,6 +14,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.I18n;
@@ -27,6 +28,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -40,7 +42,6 @@ import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -75,19 +76,19 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 		Brew brew = getBrew(stack);
 		if (brew == ModBrews.fallbackBrew) {
-			tooltip.add(new TranslationTextComponent("botaniamisc.notInfused").applyTextStyle(TextFormatting.LIGHT_PURPLE));
+			tooltip.add(new TranslationTextComponent("botaniamisc.notInfused").func_240699_a_(TextFormatting.LIGHT_PURPLE));
 			return;
 		}
 
-		tooltip.add(new TranslationTextComponent("botaniamisc.brewOf", I18n.format(brew.getTranslationKey(stack))).applyTextStyle(TextFormatting.LIGHT_PURPLE));
+		tooltip.add(new TranslationTextComponent("botaniamisc.brewOf", I18n.format(brew.getTranslationKey(stack))).func_240699_a_(TextFormatting.LIGHT_PURPLE));
 		for (EffectInstance effect : brew.getPotionEffects(stack)) {
 			TextFormatting format = effect.getPotion().getEffectType().getColor();
-			ITextComponent cmp = new TranslationTextComponent(effect.getEffectName());
+			IFormattableTextComponent cmp = new TranslationTextComponent(effect.getEffectName());
 			if (effect.getAmplifier() > 0) {
-				cmp.appendText(" ");
-				cmp.appendSibling(new TranslationTextComponent("botania.roman" + (effect.getAmplifier() + 1)));
+				cmp.func_240702_b_(" ");
+				cmp.func_230529_a_(new TranslationTextComponent("botania.roman" + (effect.getAmplifier() + 1)));
 			}
-			tooltip.add(cmp.applyTextStyle(format));
+			tooltip.add(cmp.func_240699_a_(format));
 		}
 	}
 
@@ -116,9 +117,9 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean armor = !player.getItemStackFromSlot(EquipmentSlotType.CHEST).isEmpty();
-		layer.getEntityModel().bipedBody.translateRotate(ms);
+		bipedModel.bipedBody.translateRotate(ms);
 		ms.translate(-0.25, 0.4, armor ? 0.05 : 0.12);
 		ms.scale(0.5F, -0.5F, -0.5F);
 
@@ -139,11 +140,11 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	@Override
 	public Brew getBrew(ItemStack stack) {
 		String key = ItemNBTHelper.getString(stack, TAG_BREW_KEY, "");
-		return BotaniaAPI.instance().getBrewRegistry().getValue(ResourceLocation.tryCreate(key));
+		return BotaniaAPI.instance().getBrewRegistry().getOrDefault(ResourceLocation.tryCreate(key));
 	}
 
 	public static void setBrew(ItemStack stack, Brew brew) {
-		setBrew(stack, brew.getRegistryName());
+		setBrew(stack, BotaniaAPI.instance().getBrewRegistry().getKey(brew));
 	}
 
 	public static void setBrew(ItemStack stack, ResourceLocation brew) {

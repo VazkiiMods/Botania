@@ -17,7 +17,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -40,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemGravityRod extends Item implements IManaUsingItem {
-	private static final Tag<EntityType<?>> BLACKLIST = ModTags.Entities.SHADED_MESA_BLACKLIST;
+	private static final ITag.INamedTag<EntityType<?>> BLACKLIST = ModTags.Entities.SHADED_MESA_BLACKLIST;
 	private static final float RANGE = 3F;
 	private static final int COST = 2;
 
@@ -241,7 +241,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 						}
 						item.remove();
 					} else {
-						item.setMotion(moveVector.multiply(3, 1.5, 3).toVec3D());
+						item.setMotion(moveVector.multiply(3, 1.5, 3).toVector3d());
 					}
 					ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, 10);
 				}

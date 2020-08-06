@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -17,25 +19,23 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.item.IFlowerPlaceable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 import javax.annotation.Nonnull;
 
@@ -77,7 +77,8 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 			int slowdown = getSlowdownFactor();
 
 			for (ItemEntity item : items) {
-				if (item.age < 60 + slowdown || !item.isAlive() || item.getItem().isEmpty()) {
+				int age = ((AccessorItemEntity) item).getAge();
+				if (age < 60 + slowdown || !item.isAlive() || item.getItem().isEmpty()) {
 					continue;
 				}
 
@@ -86,7 +87,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 				if (stackItem instanceof BlockItem || stackItem instanceof IFlowerPlaceable) {
 					if (!validPositions.isEmpty()) {
 						BlockPos coords = validPositions.get(getWorld().rand.nextInt(validPositions.size()));
-						BlockRayTraceResult ray = new BlockRayTraceResult(Vec3d.ZERO, Direction.UP, coords, false);
+						BlockRayTraceResult ray = new BlockRayTraceResult(Vector3d.ZERO, Direction.UP, coords, false);
 						BlockItemUseContext ctx = new RannuncarpusPlaceContext(getWorld(), stack, ray);
 
 						boolean success = false;
@@ -94,7 +95,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 							success = ((IFlowerPlaceable) stackItem).tryPlace(this, ctx);
 						}
 						if (stackItem instanceof BlockItem) {
-							success = ((BlockItem) stackItem).tryPlace(ctx) == ActionResultType.SUCCESS;
+							success = ((BlockItem) stackItem).tryPlace(ctx).isSuccessOrConsume();
 						}
 
 						if (success) {
@@ -143,8 +144,8 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc) {
-		super.renderHUD(mc);
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
+		super.renderHUD(ms, mc);
 
 		BlockState filter = getUnderlyingBlock();
 		ItemStack recieverStack = new ItemStack(filter.getBlock());
@@ -152,11 +153,11 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 
 		if (!recieverStack.isEmpty()) {
 			ITextComponent stackName = recieverStack.getDisplayName();
-			int width = 16 + mc.fontRenderer.getStringWidth(stackName.getString()) / 2;
+			int width = 16 + mc.fontRenderer.func_238414_a_(stackName) / 2;
 			int x = mc.getMainWindow().getScaledWidth() / 2 - width;
 			int y = mc.getMainWindow().getScaledHeight() / 2 + 30;
 
-			mc.fontRenderer.drawStringWithShadow(stackName.getFormattedText(), x + 20, y + 5, color);
+			mc.fontRenderer.func_238407_a_(ms, stackName, x + 20, y + 5, color);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(recieverStack, x, y);
 		}
 

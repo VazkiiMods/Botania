@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.integration.jei.orechid;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -33,6 +34,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> implements IRecipeCategory<T> {
 
 	private final IDrawableStatic background;
@@ -43,7 +46,7 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> 
 	private final ItemStack inputStack;
 
 	public OrechidRecipeCategoryBase(IGuiHelper guiHelper, ItemStack iconStack, ItemStack inputStack, String localizedName) {
-		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pure_daisy_overlay.png"),
+		overlay = guiHelper.createDrawable(prefix("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
 		background = guiHelper.createBlankDrawable(168, 64);
 		this.localizedName = localizedName;
@@ -118,10 +121,10 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> 
 	}
 
 	@Override
-	public void draw(T recipe, double mouseX, double mouseY) {
+	public void draw(T recipe, MatrixStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
-		overlay.draw(48, 0);
+		overlay.draw(ms, 48, 0);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 	}

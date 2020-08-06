@@ -8,29 +8,22 @@
  */
 package vazkii.botania.common.advancements;
 
-import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancements.ICriterionInstance;
-import net.minecraft.advancements.ICriterionTrigger;
-import net.minecraft.advancements.PlayerAdvancements;
-import net.minecraft.advancements.criterion.LocationPredicate;
-import net.minecraft.advancements.criterion.MinMaxBounds;
+import net.minecraft.advancements.criterion.*;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.loot.ConditionArrayParser;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 
-import vazkii.botania.common.lib.LibMisc;
-
 import javax.annotation.Nonnull;
 
-import java.util.*;
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class CorporeaRequestTrigger implements ICriterionTrigger<CorporeaRequestTrigger.Instance> {
-	public static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "corporea_index_request");
+public class CorporeaRequestTrigger extends AbstractCriterionTrigger<CorporeaRequestTrigger.Instance> {
+	public static final ResourceLocation ID = prefix("corporea_index_request");
 	public static final CorporeaRequestTrigger INSTANCE = new CorporeaRequestTrigger();
-	private final Map<PlayerAdvancements, PlayerTracker> playerTrackers = new HashMap<>();
 
 	private CorporeaRequestTrigger() {}
 
@@ -40,70 +33,22 @@ public class CorporeaRequestTrigger implements ICriterionTrigger<CorporeaRequest
 		return ID;
 	}
 
-	@Override
-	public void addListener(@Nonnull PlayerAdvancements player, @Nonnull ICriterionTrigger.Listener<CorporeaRequestTrigger.Instance> listener) {
-		this.playerTrackers.computeIfAbsent(player, PlayerTracker::new).listeners.add(listener);
-	}
-
-	@Override
-	public void removeListener(@Nonnull PlayerAdvancements player, @Nonnull ICriterionTrigger.Listener<CorporeaRequestTrigger.Instance> listener) {
-		PlayerTracker tracker = this.playerTrackers.get(player);
-
-		if (tracker != null) {
-			tracker.listeners.remove(listener);
-
-			if (tracker.listeners.isEmpty()) {
-				this.playerTrackers.remove(player);
-			}
-		}
-	}
-
-	@Override
-	public void removeAllListeners(@Nonnull PlayerAdvancements player) {
-		playerTrackers.remove(player);
-	}
-
 	@Nonnull
 	@Override
-	public Instance deserializeInstance(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
-		return new Instance(MinMaxBounds.IntBound.fromJson(json.get("extracted")), LocationPredicate.deserialize(json.get("location")));
-	}
-
-	static class PlayerTracker {
-		private final PlayerAdvancements playerAdvancements;
-		final Set<Listener<Instance>> listeners = new HashSet<>();
-
-		PlayerTracker(PlayerAdvancements playerAdvancementsIn) {
-			this.playerAdvancements = playerAdvancementsIn;
-		}
-
-		public void trigger(ServerWorld world, BlockPos pos, int count) {
-			List<Listener<Instance>> list = new ArrayList<>();
-
-			for (Listener<CorporeaRequestTrigger.Instance> listener : this.listeners) {
-				if (listener.getCriterionInstance().test(world, pos, count)) {
-					list.add(listener);
-				}
-			}
-
-			for (Listener<CorporeaRequestTrigger.Instance> listener : list) {
-				listener.grantCriterion(this.playerAdvancements);
-			}
-		}
+	protected Instance func_230241_b_(JsonObject json, EntityPredicate.AndPredicate playerPredicate, ConditionArrayParser conditions) {
+		return new Instance(playerPredicate, MinMaxBounds.IntBound.fromJson(json.get("extracted")), LocationPredicate.deserialize(json.get("location")));
 	}
 
 	public void trigger(ServerPlayerEntity player, ServerWorld world, BlockPos pos, int count) {
-		PlayerTracker tracker = playerTrackers.get(player.getAdvancements());
-		if (tracker != null) {
-			tracker.trigger(world, pos, count);
-		}
+		this.func_235959_a_(player, instance -> instance.test(world, pos, count));
 	}
 
-	static class Instance implements ICriterionInstance {
+	static class Instance extends CriterionInstance {
 		private final MinMaxBounds.IntBound count;
 		private final LocationPredicate indexPos;
 
-		Instance(MinMaxBounds.IntBound count, LocationPredicate indexPos) {
+		Instance(EntityPredicate.AndPredicate playerPredicate, MinMaxBounds.IntBound count, LocationPredicate indexPos) {
+			super(ID, playerPredicate);
 			this.count = count;
 			this.indexPos = indexPos;
 		}

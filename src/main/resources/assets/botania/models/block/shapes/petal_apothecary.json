@@ -1,6 +1,9 @@
 {
 	"Comment": "Designed by Wiiv with Cubik Studio - https://cubik.studio",
 	"parent": "minecraft:block/block",
+	"textures": {
+		"particle": "#top_bottom"
+	},
 	"elements": [
 		{
 			"comment": "baseBottom",

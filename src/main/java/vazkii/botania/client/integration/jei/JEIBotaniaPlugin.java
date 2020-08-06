@@ -20,13 +20,14 @@ import mezz.jei.api.runtime.IRecipesGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaItem;
@@ -63,16 +64,17 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.brew.ItemBrewBase;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 @JeiPlugin
 public class JEIBotaniaPlugin implements IModPlugin {
-	private static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "main");
+	private static final ResourceLocation ID = prefix("main");
 
 	@Override
 	public void registerItemSubtypes(@Nonnull ISubtypeRegistration registry) {
@@ -120,12 +122,13 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipes(@Nonnull IRecipeRegistration registry) {
-		registry.addRecipes(Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.BREW_TYPE).values(), BreweryRecipeCategory.UID);
-		registry.addRecipes(Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.PURE_DAISY_TYPE).values(), PureDaisyRecipeCategory.UID);
-		registry.addRecipes(Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.PETAL_TYPE).values(), PetalApothecaryRecipeCategory.UID);
-		registry.addRecipes(Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE).values(), ElvenTradeRecipeCategory.UID);
-		registry.addRecipes(Minecraft.getInstance().world.getRecipeManager().getRecipes(ModRecipeTypes.RUNE_TYPE).values(), RunicAltarRecipeCategory.UID);
-		registry.addRecipes(TilePool.manaInfusionRecipes(Minecraft.getInstance().world.getRecipeManager()), ManaPoolRecipeCategory.UID);
+		World world = Minecraft.getInstance().world;
+		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.BREW_TYPE).values(), BreweryRecipeCategory.UID);
+		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.PURE_DAISY_TYPE).values(), PureDaisyRecipeCategory.UID);
+		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.PETAL_TYPE).values(), PetalApothecaryRecipeCategory.UID);
+		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.ELVEN_TRADE_TYPE).values(), ElvenTradeRecipeCategory.UID);
+		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.RUNE_TYPE).values(), RunicAltarRecipeCategory.UID);
+		registry.addRecipes(TilePool.manaInfusionRecipes(Minecraft.getInstance().world), ManaPoolRecipeCategory.UID);
 
 		registry.addRecipes(
 				BotaniaAPI.instance().getOreWeights().entrySet().stream()
@@ -187,7 +190,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	public void onRuntimeAvailable(IJeiRuntime jeiRuntime) {
 		IRecipeManager recipeRegistry = jeiRuntime.getRecipeManager();
 		// Hide the return recipes (iron ingot/diamond/ender pearl returns, not lexicon)
-		for (IElvenTradeRecipe recipe : TileAlfPortal.elvenTradeRecipes(Minecraft.getInstance().world.getRecipeManager())) {
+		for (IElvenTradeRecipe recipe : TileAlfPortal.elvenTradeRecipes(Minecraft.getInstance().world)) {
 			if (recipe instanceof LexiconElvenTradeRecipe) {
 				continue;
 			}
@@ -222,7 +225,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		group.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
 			if (slotIndex == slot) {
 				if (Minecraft.getInstance().gameSettings.advancedItemTooltips || Screen.hasShiftDown()) {
-					tooltip.add(TextFormatting.DARK_GRAY + I18n.format("jei.tooltip.recipe.id", recipeId));
+					tooltip.add(new TranslationTextComponent("jei.tooltip.recipe.id", recipeId).func_240699_a_(TextFormatting.DARK_GRAY));
 				}
 			}
 		});

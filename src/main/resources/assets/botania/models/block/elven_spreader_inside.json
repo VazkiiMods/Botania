@@ -1,6 +1,0 @@
-{
-  "parent": "botania:block/shapes/spreader_inside",
-  "textures": {
-    "inside": "botania:blocks/elven_spreader_inside"
-  }
-}

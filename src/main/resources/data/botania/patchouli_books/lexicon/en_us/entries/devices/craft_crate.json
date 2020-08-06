@@ -49,7 +49,17 @@
     {
       "type": "botania:crafting_multi",
       "text": "botania.page.craftCrate9",
-      "recipes": "botania:pattern_1_1;botania:pattern_2_2;botania:pattern_1_2;botania:pattern_2_1;botania:pattern_1_3;botania:pattern_3_1;botania:pattern_2_3;botania:pattern_3_2;botania:pattern_donut"
+      "recipes": [
+        "botania:pattern_1_1",
+        "botania:pattern_2_2",
+        "botania:pattern_1_2",
+        "botania:pattern_2_1",
+        "botania:pattern_1_3",
+        "botania:pattern_3_1",
+        "botania:pattern_2_3",
+        "botania:pattern_3_2",
+        "botania:pattern_donut"
+      ]
     }
   ]
 }

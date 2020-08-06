@@ -13,16 +13,12 @@ import com.google.common.base.Predicates;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 public class TileManaDetector extends TileMod implements ITickableTileEntity {
 	public TileManaDetector() {

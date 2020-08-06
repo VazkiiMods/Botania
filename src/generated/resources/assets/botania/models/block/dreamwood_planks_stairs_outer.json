@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "side": "botania:block/dreamwood_planks",
+    "bottom": "botania:block/dreamwood_planks",
+    "top": "botania:block/dreamwood_planks"
+  }
+}

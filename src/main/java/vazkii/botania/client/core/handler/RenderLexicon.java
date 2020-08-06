@@ -14,9 +14,10 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.BookModel;
-import net.minecraft.client.renderer.model.Material;
+import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.I18n;
@@ -25,6 +26,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.client.event.RenderHandEvent;
 
@@ -34,20 +38,17 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.LibObfuscation;
+import vazkii.botania.mixin.AccessorFirstPersonRenderer;
 
-import java.lang.invoke.MethodHandle;
 import java.util.ArrayList;
 import java.util.List;
 
 // Hacky way to render 3D lexicon, will be reevaluated in the future.
 public class RenderLexicon {
-	private static final MethodHandle APPLY_EQUIP_OFFSET = LibObfuscation.getMethod(FirstPersonRenderer.class, "func_228406_b_", MatrixStack.class, HandSide.class, float.class);
-	private static final MethodHandle APPLY_SWING_OFFSET = LibObfuscation.getMethod(FirstPersonRenderer.class, "func_228399_a_", MatrixStack.class, HandSide.class, float.class);
 	private static final BookModel model = new BookModel();
-	private static final boolean SHOULD_MISSPELL = Math.random() < 0.0004;
-	public static final Material TEXTURE = new Material(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation(LibResources.MODEL_LEXICA_DEFAULT));
-	public static final Material ELVEN_TEXTURE = new Material(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation(LibResources.MODEL_LEXICA_ELVEN));
+	private static final boolean SHOULD_MISSPELL = Math.random() < 0.004;
+	public static final RenderMaterial TEXTURE = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation(LibResources.MODEL_LEXICA_DEFAULT));
+	public static final RenderMaterial ELVEN_TEXTURE = new RenderMaterial(AtlasTexture.LOCATION_BLOCKS_TEXTURE, new ResourceLocation(LibResources.MODEL_LEXICA_ELVEN));
 
 	private static final String[] QUOTES = new String[] {
 			"\"Neat!\" - Direwolf20",
@@ -96,12 +97,8 @@ public class RenderLexicon {
 				float f10 = -0.2F * MathHelper.sin(swingProgress * (float) Math.PI);
 				int l = flag3 ? 1 : -1;
 				ms.translate((double) ((float) l * f5), (double) f6, (double) f10);
-				try {
-					APPLY_EQUIP_OFFSET.invokeExact(Minecraft.getInstance().getFirstPersonRenderer(), ms, handside, equipProgress);
-					APPLY_SWING_OFFSET.invokeExact(Minecraft.getInstance().getFirstPersonRenderer(), ms, handside, swingProgress);
-				} catch (Throwable ex) {
-					Botania.LOGGER.catching(ex);
-				}
+				((AccessorFirstPersonRenderer) Minecraft.getInstance().getFirstPersonRenderer()).callTransformSideFirstPerson(ms, handside, equipProgress);
+				((AccessorFirstPersonRenderer) Minecraft.getInstance().getFirstPersonRenderer()).callTransformFirstPerson(ms, handside, swingProgress);
 			}
 
 			doRender(stack, handside, ms, buffers, light, partialTicks);
@@ -145,7 +142,7 @@ public class RenderLexicon {
 		float rightPageAngle = MathHelper.frac(pageFlip + 0.75F) * 1.6F - 0.3F;
 		model.func_228247_a_(ClientTickHandler.total, MathHelper.clamp(leftPageAngle, 0.0F, 1.0F), MathHelper.clamp(rightPageAngle, 0.0F, 1.0F), opening);
 
-		Material mat = ((ItemLexicon) ModItems.lexicon).isElvenItem(stack) ? ELVEN_TEXTURE : TEXTURE;
+		RenderMaterial mat = ((ItemLexicon) ModItems.lexicon).isElvenItem(stack) ? ELVEN_TEXTURE : TEXTURE;
 		IVertexBuilder buffer = mat.getBuffer(buffers, RenderType::getEntitySolid);
 		model.render(ms, buffer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 
@@ -159,16 +156,16 @@ public class RenderLexicon {
 				misspelling = mc.world.rand.nextInt(MISSPELLINGS.length);
 			}
 
-			String title = ItemLexicon.getTitle(stack).getFormattedText();
+			String title = ItemLexicon.getTitle(stack).getString();
 			if (SHOULD_MISSPELL) {
 				title = title.replaceAll(LibMisc.MOD_NAME, MISSPELLINGS[misspelling]);
 			}
-			font.renderString(font.trimStringToWidth(title, 80), 0, 0, 0xD69700, false, ms.getLast().getMatrix(), buffers, false, 0, light);
+			font.renderString(font.func_238412_a_(title, 80), 0, 0, 0xD69700, false, ms.getLast().getMatrix(), buffers, false, 0, light);
 
 			ms.translate(0F, 10F, 0F);
 			ms.scale(0.6F, 0.6F, 0.6F);
-			String edition = ItemLexicon.getEdition().applyTextStyles(TextFormatting.ITALIC, TextFormatting.BOLD).getFormattedText();
-			font.renderString(edition, 0, 0, 0xA07100, false, ms.getLast().getMatrix(), buffers, false, 0, light);
+			ITextComponent edition = ItemLexicon.getEdition().deepCopy().func_240701_a_(TextFormatting.ITALIC, TextFormatting.BOLD);
+			font.func_238416_a_(edition, 0, 0, 0xA07100, false, ms.getLast().getMatrix(), buffers, false, 0, light);
 
 			if (quote == -1) {
 				quote = mc.world.rand.nextInt(QUOTES.length);

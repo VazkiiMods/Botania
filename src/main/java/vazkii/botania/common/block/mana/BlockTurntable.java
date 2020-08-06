@@ -8,7 +8,8 @@
  */
 package vazkii.botania.common.block.mana;
 
-import net.minecraft.block.BlockState;
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
@@ -42,8 +43,8 @@ public class BlockTurntable extends BlockMod implements ITileEntityProvider, IWa
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
-		((TileTurntable) world.getTileEntity(pos)).renderHUD(mc);
+	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
+		((TileTurntable) world.getTileEntity(pos)).renderHUD(ms, mc);
 	}
 
 	@Override

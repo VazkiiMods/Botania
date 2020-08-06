@@ -10,11 +10,10 @@ package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
@@ -49,8 +48,8 @@ public final class DebugHandler {
 			event.getLeft().add(PREFIX + "(CLIENT) netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size() + ", rv: " + version);
 
 			if (Minecraft.getInstance().isSingleplayer()) {
-				DimensionType dim = Minecraft.getInstance().world.getDimension().getType();
-				ResourceLocation dimName = Registry.DIMENSION_TYPE.getKey(dim);
+				RegistryKey<World> dim = Minecraft.getInstance().world.func_234923_W_();
+				ResourceLocation dimName = dim.func_240901_a_();
 				if (ServerLifecycleHooks.getCurrentServer() != null) {
 					World serverWorld = ServerLifecycleHooks.getCurrentServer().getWorld(dim);
 					event.getLeft().add(PREFIX + String.format("(INTEGRATED SERVER %s) netColl : %d, netPool: %d", dimName, ManaNetworkHandler.instance.getAllCollectorsInWorld(serverWorld).size(), ManaNetworkHandler.instance.getAllPoolsInWorld(serverWorld).size()));

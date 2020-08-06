@@ -22,23 +22,20 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.lib.LibObfuscation;
+import vazkii.botania.mixin.AccessorHoeItem;
 
 import javax.annotation.Nonnull;
 
-import java.util.Map;
 import java.util.function.Consumer;
 
 public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, ISortableTool {
 
-	protected static final Map<Block, BlockState> HOE_LOOKUP = ObfuscationReflectionHelper.getPrivateValue(HoeItem.class, null, LibObfuscation.HOE_LOOKUP);
 	private static final int MANA_PER_DAMAGE = 60;
 
 	public ItemManasteelShovel(Properties props) {
@@ -47,12 +44,6 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 
 	public ItemManasteelShovel(IItemTier mat, Properties props) {
 		super(mat, 1.5F, -3.0F, props);
-	}
-
-	@Override
-	public boolean hitEntity(ItemStack stack, LivingEntity target, @Nonnull LivingEntity attacker) {
-		ToolCommons.damageItem(stack, 1, attacker, getManaPerDamage());
-		return true;
 	}
 
 	@Override
@@ -67,8 +58,9 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 	@Nonnull
 	@Override
 	public ActionResultType onItemUse(ItemUseContext ctx) {
-		if (super.onItemUse(ctx) == ActionResultType.SUCCESS) {
-			return ActionResultType.SUCCESS;
+		ActionResultType pathResult = super.onItemUse(ctx);
+		if (pathResult.isSuccessOrConsume()) {
+			return pathResult;
 		}
 
 		ItemStack stack = ctx.getItem();
@@ -86,12 +78,12 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 		}
 
 		if (event.getResult() == Event.Result.ALLOW) {
-			ToolCommons.damageItem(stack, 1, player, getManaPerDamage());
+			stack.damageItem(1, player, p -> p.sendBreakAnimation(ctx.getHand()));
 			return ActionResultType.SUCCESS;
 		}
 
 		Block block = world.getBlockState(pos).getBlock();
-		BlockState converted = HOE_LOOKUP.get(block);
+		BlockState converted = AccessorHoeItem.getConversions().get(block);
 		if (converted == null) {
 			return ActionResultType.PASS;
 		}
@@ -106,7 +98,7 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 				return ActionResultType.SUCCESS;
 			} else {
 				world.setBlockState(pos, converted);
-				ToolCommons.damageItem(stack, 1, player, getManaPerDamage());
+				stack.damageItem(1, player, p -> p.sendBreakAnimation(ctx.getHand()));
 				return ActionResultType.SUCCESS;
 			}
 		}

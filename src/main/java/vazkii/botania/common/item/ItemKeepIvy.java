@@ -87,7 +87,7 @@ public class ItemKeepIvy extends Item {
 				ItemStack stack = ItemStack.read(cmp2);
 				if (!stack.isEmpty()) {
 					ItemStack copy = stack.copy();
-					stack.removeChildTag(TAG_KEEP);
+					copy.removeChildTag(TAG_KEEP);
 					if (!event.getPlayer().inventory.addItemStackToInventory(copy)) {
 						event.getPlayer().entityDropItem(copy);
 					}

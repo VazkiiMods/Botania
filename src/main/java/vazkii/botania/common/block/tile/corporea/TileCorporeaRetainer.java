@@ -8,17 +8,22 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.registries.ObjectHolder;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.api.corporea.*;
+import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nullable;
 
@@ -32,31 +37,34 @@ public class TileCorporeaRetainer extends TileMod {
 	private static final String TAG_REQUEST_Z = "requestZ";
 	private static final String TAG_REQUEST_TYPE = "requestType";
 	private static final String TAG_REQUEST_COUNT = "requestCount";
+	private static final String TAG_RETAIN_MISSING = "retainMissing";
 
 	private static final Map<ResourceLocation, Function<CompoundNBT, ? extends ICorporeaRequestMatcher>> corporeaMatcherDeserializers = new ConcurrentHashMap<>();
 	private static final Map<Class<? extends ICorporeaRequestMatcher>, ResourceLocation> corporeaMatcherSerializers = new ConcurrentHashMap<>();
 
 	private BlockPos requestPos = BlockPos.ZERO;
+
 	@Nullable
 	private ICorporeaRequestMatcher request;
 	private int requestCount;
 	private int compValue;
+	private boolean retainMissing = false;
 
 	public TileCorporeaRetainer() {
 		super(ModTiles.CORPOREA_RETAINER);
 	}
 
-	public void setPendingRequest(BlockPos pos, ICorporeaRequestMatcher request, int requestCount) {
+	public void remember(BlockPos pos, ICorporeaRequestMatcher request, int count, int missing) {
 		if (hasPendingRequest()) {
 			return;
 		}
 
 		this.requestPos = pos;
 		this.request = request;
-		this.requestCount = requestCount;
+		this.requestCount = retainMissing ? missing : count;
 
 		compValue = CorporeaHelper.instance().signalStrengthForRequestSize(requestCount);
-		world.updateComparatorOutputLevel(getPos(), getBlockState().getBlock());
+		markDirty();
 	}
 
 	public int getComparatorValue() {
@@ -74,15 +82,15 @@ public class TileCorporeaRetainer extends TileMod {
 
 		ICorporeaSpark spark = CorporeaHelper.instance().getSparkForBlock(world, requestPos);
 		if (spark != null) {
-			InvWithLocation inv = spark.getSparkInventory();
-			if (inv != null && inv.getWorld().getTileEntity(inv.getPos()) instanceof ICorporeaRequestor) {
-				ICorporeaRequestor requestor = (ICorporeaRequestor) inv.getWorld().getTileEntity(inv.getPos());
+			TileEntity te = spark.getSparkNode().getWorld().getTileEntity(spark.getSparkNode().getPos());
+			if (te instanceof ICorporeaRequestor) {
+				ICorporeaRequestor requestor = (ICorporeaRequestor) te;
 				requestor.doCorporeaRequest(request, requestCount, spark);
 
 				request = null;
 				requestCount = 0;
 				compValue = 0;
-				world.updateComparatorOutputLevel(getPos(), getBlockState().getBlock());
+				markDirty();
 			}
 		}
 	}
@@ -102,6 +110,7 @@ public class TileCorporeaRetainer extends TileMod {
 			request.writeToNBT(cmp);
 			cmp.putInt(TAG_REQUEST_COUNT, requestCount);
 		}
+		cmp.putBoolean(TAG_RETAIN_MISSING, retainMissing);
 	}
 
 	@Override
@@ -120,6 +129,7 @@ public class TileCorporeaRetainer extends TileMod {
 			request = null;
 		}
 		requestCount = cmp.getInt(TAG_REQUEST_COUNT);
+		retainMissing = cmp.getBoolean(TAG_RETAIN_MISSING);
 	}
 
 	public static <T extends ICorporeaRequestMatcher> void addCorporeaRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundNBT, T> deserializer) {
@@ -127,4 +137,21 @@ public class TileCorporeaRetainer extends TileMod {
 		corporeaMatcherDeserializers.put(id, deserializer);
 	}
 
+	@OnlyIn(Dist.CLIENT)
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
+		String mode = I18n.format("botaniamisc.retainer." + (retainMissing ? "retain_missing" : "retain_all"));
+		int x = mc.getMainWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(mode) / 2;
+		int y = mc.getMainWindow().getScaledHeight() / 2 + 10;
+
+		mc.fontRenderer.drawStringWithShadow(ms, mode, x, y, TextFormatting.GRAY.getColor());
+	}
+
+	public boolean onUsedByWand() {
+		if (!world.isRemote) {
+			retainMissing = !retainMissing;
+			markDirty();
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
+		return true;
+	}
 }

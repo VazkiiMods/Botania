@@ -9,6 +9,7 @@
 package vazkii.botania.client.integration.jei.elventrade;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -29,23 +30,26 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeRecipe> {
 
-	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "elven_trade");
+	public static final ResourceLocation UID = prefix("elven_trade");
 	private final String localizedName;
 	private final IDrawable background;
 	private final IDrawable overlay;
@@ -54,7 +58,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 	public ElvenTradeRecipeCategory(IGuiHelper guiHelper) {
 		localizedName = I18n.format("botania.nei.elvenTrade");
 		background = guiHelper.createBlankDrawable(145, 95);
-		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/elven_trade_overlay.png"), 0, 15, 140, 90);
+		overlay = guiHelper.createDrawable(prefix("textures/gui/elven_trade_overlay.png"), 0, 15, 140, 90);
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.alfPortal));
 	}
 
@@ -99,10 +103,10 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 	}
 
 	@Override
-	public void draw(IElvenTradeRecipe recipe, double mouseX, double mouseY) {
+	public void draw(IElvenTradeRecipe recipe, MatrixStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
-		overlay.draw(0, 4);
+		overlay.draw(ms, 0, 4);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 
@@ -115,10 +119,11 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 		int startY = 25;
 		int stopX = 70;
 		int stopY = 73;
-		wr.pos(startX, startY, 0).tex(sprite.getMinU(), sprite.getMinV()).endVertex();
-		wr.pos(startX, stopY, 0).tex(sprite.getMinU(), sprite.getMaxV()).endVertex();
-		wr.pos(stopX, stopY, 0).tex(sprite.getMaxU(), sprite.getMaxV()).endVertex();
-		wr.pos(stopX, startY, 0).tex(sprite.getMaxU(), sprite.getMinV()).endVertex();
+		Matrix4f mat = ms.getLast().getMatrix();
+		wr.pos(mat, startX, startY, 0).tex(sprite.getMinU(), sprite.getMinV()).endVertex();
+		wr.pos(mat, startX, stopY, 0).tex(sprite.getMinU(), sprite.getMaxV()).endVertex();
+		wr.pos(mat, stopX, stopY, 0).tex(sprite.getMaxU(), sprite.getMaxV()).endVertex();
+		wr.pos(mat, stopX, startY, 0).tex(sprite.getMaxU(), sprite.getMinV()).endVertex();
 		tess.draw();
 	}
 
@@ -143,7 +148,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 		recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
 			if (slotIndex >= endIndex) {
 				if (Minecraft.getInstance().gameSettings.advancedItemTooltips || Screen.hasShiftDown()) {
-					tooltip.add(TextFormatting.DARK_GRAY + I18n.format("jei.tooltip.recipe.id", recipeId));
+					tooltip.add(new TranslationTextComponent("jei.tooltip.recipe.id", recipeId).func_240699_a_(TextFormatting.DARK_GRAY));
 				}
 			}
 		});

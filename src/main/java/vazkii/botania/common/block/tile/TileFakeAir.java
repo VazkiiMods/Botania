@@ -8,15 +8,12 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.common.block.subtile.functional.SubTileBubbell;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -51,8 +48,8 @@ public class TileFakeAir extends TileMod {
 	}
 
 	@Override
-	public void read(CompoundNBT tag) {
-		super.read(tag);
+	public void read(BlockState state, CompoundNBT tag) {
+		super.read(state, tag);
 		flowerPos = new BlockPos(
 				tag.getInt(TAG_FLOWER_X),
 				tag.getInt(TAG_FLOWER_Y),

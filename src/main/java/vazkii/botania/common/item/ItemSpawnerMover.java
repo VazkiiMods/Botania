@@ -48,7 +48,6 @@ public class ItemSpawnerMover extends Item {
 
 	public ItemSpawnerMover(Properties props) {
 		super(props);
-		addPropertyOverride(new ResourceLocation("botania", "full"), (stack, worldIn, entityIn) -> hasData(stack) ? 1 : 0);
 	}
 
 	@Nullable
@@ -64,7 +63,7 @@ public class ItemSpawnerMover extends Item {
 		return null;
 	}
 
-	private static boolean hasData(ItemStack stack) {
+	public static boolean hasData(ItemStack stack) {
 		return getEntityId(stack) != null;
 	}
 
@@ -91,7 +90,7 @@ public class ItemSpawnerMover extends Item {
 		ItemStack useStack = new ItemStack(Blocks.SPAWNER);
 		Pair<ActionResultType, BlockPos> res = PlayerHelper.substituteUseTrackPos(ctx, useStack);
 
-		if (res.getFirst() == ActionResultType.SUCCESS) {
+		if (res.getFirst().isSuccessOrConsume()) {
 			World world = ctx.getWorld();
 			BlockPos pos = res.getSecond();
 			ItemStack mover = ctx.getItem();
@@ -108,7 +107,7 @@ public class ItemSpawnerMover extends Item {
 					spawnerTag.putInt("x", pos.getX());
 					spawnerTag.putInt("y", pos.getY());
 					spawnerTag.putInt("z", pos.getZ());
-					te.read(spawnerTag);
+					te.read(world.getBlockState(pos), spawnerTag);
 				}
 			} else {
 				for (int i = 0; i < 100; i++) {

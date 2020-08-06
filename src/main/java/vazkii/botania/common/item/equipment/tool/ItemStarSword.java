@@ -13,14 +13,15 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityFallingStar;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 
@@ -43,14 +44,14 @@ public class ItemStarSword extends ItemManasteelSword {
 			if (player.getHeldItemMainhand() == stack && player.swingProgress == check && !world.isRemote) {
 				BlockRayTraceResult pos = ToolCommons.raytraceFromEntity(player, 48, false);
 				if (pos.getType() == RayTraceResult.Type.BLOCK) {
-					Vector3 posVec = Vector3.fromBlockPos(pos.getPos());
-					Vector3 motVec = new Vector3((0.5 * Math.random() - 0.25) * 18, 24, (0.5 * Math.random() - 0.25) * 18);
+					Vector3d posVec = Vector3d.func_237491_b_(pos.getPos());
+					Vector3d motVec = new Vector3d((0.5 * Math.random() - 0.25) * 18, 24, (0.5 * Math.random() - 0.25) * 18);
 					posVec = posVec.add(motVec);
-					motVec = motVec.normalize().negate().multiply(1.5);
+					motVec = motVec.normalize().inverse().scale(1.5);
 
 					EntityFallingStar star = new EntityFallingStar(player, world);
 					star.setPosition(posVec.x, posVec.y, posVec.z);
-					star.setMotion(motVec.toVec3D());
+					star.setMotion(motVec);
 					world.addEntity(star);
 
 					if (!world.isRaining()
@@ -63,7 +64,7 @@ public class ItemStarSword extends ItemManasteelSword {
 						world.addEntity(bonusStar);
 					}
 
-					ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
+					stack.damageItem(1, player, p -> p.sendBreakAnimation(Hand.MAIN_HAND));
 					world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.starcaller, SoundCategory.PLAYERS, 0.4F, 1.4F);
 				}
 			}

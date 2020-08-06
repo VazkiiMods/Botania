@@ -16,6 +16,7 @@ import it.unimi.dsi.fastutil.ints.IntArrayList;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.Entity;
@@ -36,18 +37,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.wrapper.InvWrapper;
+import net.minecraftforge.items.wrapper.EmptyHandler;
 
-import vazkii.botania.client.core.handler.BaubleRenderHandler;
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.item.CapWrapper;
 
 import java.util.List;
 
@@ -75,9 +74,9 @@ public class ItemItemFinder extends ItemBauble {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		boolean armor = !living.getItemStackFromSlot(EquipmentSlotType.HEAD).isEmpty();
-		layer.getEntityModel().bipedHead.translateRotate(ms);
+		bipedModel.bipedHead.translateRotate(ms);
 		ms.translate(-0.35, -0.2, armor ? 0.05 : 0.1);
 		ms.scale(0.75F, -0.75F, -0.75F);
 
@@ -140,11 +139,10 @@ public class ItemItemFinder extends ItemBauble {
 						entIdBuilder.add(item.getEntityId());
 					}
 				} else if (e instanceof PlayerEntity) {
-					PlayerEntity player_ = (PlayerEntity) e;
-					LazyOptional<IItemHandler> playerInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
-					LazyOptional<IItemHandlerModifiable> binv = EquipmentHandler.getAllWorn(player);
-					if (scanInventory(playerInv, pstack) || scanInventory(binv, pstack)) {
-						entIdBuilder.add(player_.getEntityId());
+					PlayerEntity targetPlayer = (PlayerEntity) e;
+					IInventory binv = BotaniaAPI.instance().getAccessoriesInventory(targetPlayer);
+					if (scanInventory(targetPlayer.inventory, pstack) || scanInventory(binv, pstack)) {
+						entIdBuilder.add(targetPlayer.getEntityId());
 					}
 
 				} else if (e instanceof AbstractVillagerEntity) {
@@ -157,12 +155,13 @@ public class ItemItemFinder extends ItemBauble {
 						}
 					}
 				} else if (e.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent()) {
-					if (scanInventory(e.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY), pstack)) {
+					IItemHandler cap = e.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(EmptyHandler.INSTANCE);
+					if (scanInventory(new CapWrapper(cap), pstack)) {
 						entIdBuilder.add(e.getEntityId());
 					}
 				} else if (e instanceof IInventory) {
 					IInventory inv = (IInventory) e;
-					if (scanInventory(LazyOptional.of(() -> new InvWrapper(inv)), pstack)) {
+					if (scanInventory(inv, pstack)) {
 						entIdBuilder.add(e.getEntityId());
 					}
 				}
@@ -170,13 +169,14 @@ public class ItemItemFinder extends ItemBauble {
 
 			if (!pstack.isEmpty()) {
 				range = 12;
-				BlockPos pos = new BlockPos(player);
+				BlockPos pos = player.func_233580_cy_();
 				for (BlockPos pos_ : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1))) {
 					TileEntity tile = player.world.getTileEntity(pos_);
 					if (tile != null) {
 						boolean foundCap = false;
 						for (Direction e : Direction.values()) {
-							if (scanInventory(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e), pstack)) {
+							IItemHandler cap = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e).orElse(EmptyHandler.INSTANCE);
+							if (scanInventory(new CapWrapper(cap), pstack)) {
 								blockPosBuilder.add(LongNBT.valueOf(pos_.toLong()));
 								foundCap = true;
 								break;
@@ -184,7 +184,7 @@ public class ItemItemFinder extends ItemBauble {
 						}
 						if (!foundCap && tile instanceof IInventory) {
 							IInventory inv = (IInventory) tile;
-							if (scanInventory(LazyOptional.of(() -> new InvWrapper(inv)), pstack)) {
+							if (scanInventory(inv, pstack)) {
 								blockPosBuilder.add(LongNBT.valueOf(pos_.toLong()));
 							}
 						}
@@ -198,16 +198,12 @@ public class ItemItemFinder extends ItemBauble {
 		return stack1.isItemEqual(stack2) && ItemStack.areItemStackTagsEqual(stack1, stack2);
 	}
 
-	private boolean scanInventory(LazyOptional<? extends IItemHandler> optInv, ItemStack pstack) {
-		return optInv.map(inv -> scanInventory(inv, pstack)).orElse(false);
-	}
-
-	private boolean scanInventory(IItemHandler inv, ItemStack pstack) {
+	private boolean scanInventory(IInventory inv, ItemStack pstack) {
 		if (pstack.isEmpty()) {
 			return false;
 		}
 
-		for (int l = 0; l < inv.getSlots(); l++) {
+		for (int l = 0; l < inv.getSizeInventory(); l++) {
 			ItemStack istack = inv.getStackInSlot(l);
 			if (!istack.isEmpty() && equalStacks(istack, pstack)) {
 				return true;

@@ -10,7 +10,14 @@
     {
       "type": "botania:crafting_multi",
       "text": "botania.page.pavement1",
-      "recipes": "botania:white_pavement;botania:black_pavement;botania:blue_pavement;botania:yellow_pavement;botania:red_pavement;botania:green_pavement"
+      "recipes": [
+        "botania:white_pavement",
+        "botania:black_pavement",
+        "botania:blue_pavement",
+        "botania:yellow_pavement",
+        "botania:red_pavement",
+        "botania:green_pavement"
+      ]
     }
   ]
 }

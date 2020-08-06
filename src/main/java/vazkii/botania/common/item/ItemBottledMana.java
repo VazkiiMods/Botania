@@ -20,8 +20,10 @@ import net.minecraft.item.Items;
 import net.minecraft.item.UseAction;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.util.*;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.DrinkHelper;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
@@ -30,12 +32,9 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityPixie;
-import vazkii.botania.common.entity.EntitySignalFlare;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -43,13 +42,12 @@ import java.util.List;
 import java.util.Random;
 
 public class ItemBottledMana extends Item {
-	private static final int SWIGS = 6;
+	public static final int SWIGS = 6;
 	private static final String TAG_SWIGS_LEFT = "swigsLeft";
 	private static final String TAG_SEED = "randomSeed";
 
 	public ItemBottledMana(Properties props) {
 		super(props);
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "swigs_taken"), (stack, world, entity) -> SWIGS - getSwigsLeft(stack));
 	}
 
 	public void effect(ItemStack stack, LivingEntity living, int id) {
@@ -60,8 +58,8 @@ public class ItemBottledMana extends Item {
 			break;
 		}
 		case 1: { // Water
-			if (!living.world.isRemote && !living.world.getDimension().doesWaterVaporize()) {
-				living.world.setBlockState(new BlockPos(living), Blocks.WATER.getDefaultState());
+			if (!living.world.isRemote && !living.world.func_230315_m_().func_236040_e_()) {
+				living.world.setBlockState(living.func_233580_cy_(), Blocks.WATER.getDefaultState());
 			}
 			break;
 		}
@@ -79,7 +77,7 @@ public class ItemBottledMana extends Item {
 			break;
 		}
 		case 4: { // Mega Jump
-			if (!living.world.getDimension().isNether()) {
+			if (!living.world.func_230315_m_().func_236040_e_()) {
 				if (!living.world.isRemote) {
 					living.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 300, 5));
 				}
@@ -150,22 +148,9 @@ public class ItemBottledMana extends Item {
 			}
 			break;
 		}
-		case 12: { // Flare
+		case 12: { // ???
 			if (!living.world.isRemote) {
-				EntitySignalFlare flare = new EntitySignalFlare(living.world);
-				flare.setPosition(living.getPosX(), living.getPosY(), living.getPosZ());
-				flare.setColor(living.world.rand.nextInt(16));
-				flare.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 40F, (1.0F + (living.world.rand.nextFloat() - living.world.rand.nextFloat()) * 0.2F) * 0.7F);
-
-				living.world.addEntity(flare);
-
-				int range = 5;
-				List<LivingEntity> entities = living.world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(living.getPosX() - range, living.getPosY() - range, living.getPosZ() - range, living.getPosX() + range, living.getPosY() + range, living.getPosZ() + range));
-				for (LivingEntity entity : entities) {
-					if (entity != living && (!(entity instanceof PlayerEntity) || ServerLifecycleHooks.getCurrentServer() == null || ServerLifecycleHooks.getCurrentServer().isPVPEnabled())) {
-						entity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 50, 5));
-					}
-				}
+				// todo 1.16 pick something new
 			}
 
 			break;
@@ -225,8 +210,7 @@ public class ItemBottledMana extends Item {
 	@Nonnull
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		player.setActiveHand(hand);
-		return ActionResult.resultSuccess(player.getHeldItem(hand));
+		return DrinkHelper.func_234707_a_(world, player, hand);
 	}
 
 	@Nonnull
@@ -254,7 +238,7 @@ public class ItemBottledMana extends Item {
 		return UseAction.DRINK;
 	}
 
-	private int getSwigsLeft(ItemStack stack) {
+	public static int getSwigsLeft(ItemStack stack) {
 		return ItemNBTHelper.getInt(stack, TAG_SWIGS_LEFT, SWIGS);
 	}
 

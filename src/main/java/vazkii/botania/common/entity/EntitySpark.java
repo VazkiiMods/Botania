@@ -12,7 +12,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
@@ -20,13 +22,13 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.items.IItemHandler;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaItem;
@@ -37,7 +39,6 @@ import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.material.ItemDye;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
@@ -104,8 +105,8 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 				stacks.addAll(player.inventory.mainInventory);
 				stacks.addAll(player.inventory.armorInventory);
 
-				IItemHandler inv = BotaniaAPI.instance().internalHandler().getAccessoriesInventory(player);
-				for (int i = 0; i < inv.getSlots(); i++) {
+				IInventory inv = BotaniaAPI.instance().getAccessoriesInventory(player);
+				for (int i = 0; i < inv.getSizeInventory(); i++) {
 					stacks.add(inv.getStackInSlot(i));
 				}
 
@@ -235,54 +236,53 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 	}
 
 	@Override
-	public boolean processInitialInteract(PlayerEntity player, Hand hand) {
+	public ActionResultType processInitialInteract(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if (isAlive() && !stack.isEmpty()) {
-			if (world.isRemote) {
-				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() instanceof ItemSparkUpgrade
-						|| stack.getItem() == ModItems.phantomInk || stack.getItem() instanceof ItemDye;
-				if (valid) {
-					player.swingArm(hand);
-				}
-				return valid;
-			}
-
 			SparkUpgradeType upgrade = getUpgrade();
 			if (stack.getItem() == ModItems.twigWand) {
-				if (player.isSneaking()) {
-					if (upgrade != SparkUpgradeType.NONE) {
-						entityDropItem(ItemSparkUpgrade.getByType(upgrade), 0F);
-						setUpgrade(SparkUpgradeType.NONE);
+				if (!world.isRemote) {
+					if (player.isSneaking()) {
+						if (upgrade != SparkUpgradeType.NONE) {
+							entityDropItem(ItemSparkUpgrade.getByType(upgrade), 0F);
+							setUpgrade(SparkUpgradeType.NONE);
 
-						transfers.clear();
-						removeTransferants = 2;
+							transfers.clear();
+							removeTransferants = 2;
+						} else {
+							dropAndKill();
+						}
 					} else {
-						dropAndKill();
+						SparkHelper.getSparksAround(world, getPosX(), getPosY() + (getHeight() / 2), getPosZ(), getNetwork())
+								.forEach(s -> particleBeam(player, this, (Entity) s));
 					}
-					return true;
-				} else {
-					SparkHelper.getSparksAround(world, getPosX(), getPosY() + (getHeight() / 2), getPosZ(), getNetwork())
-							.forEach(s -> particleBeam(player, this, (Entity) s));
-					return true;
 				}
+
+				return ActionResultType.func_233537_a_(world.isRemote);
 			} else if (stack.getItem() instanceof ItemSparkUpgrade && upgrade == SparkUpgradeType.NONE) {
-				setUpgrade(((ItemSparkUpgrade) stack.getItem()).type);
-				stack.shrink(1);
-				return true;
-			} else if (stack.getItem() == ModItems.phantomInk) {
-				setInvisible(true);
-				return true;
-			} else if (stack.getItem() instanceof ItemDye) {
-				DyeColor color = ((ItemDye) stack.getItem()).color;
-				if (color != getNetwork()) {
-					setNetwork(color);
+				if (!world.isRemote) {
+					setUpgrade(((ItemSparkUpgrade) stack.getItem()).type);
 					stack.shrink(1);
-					return true;
+				}
+				return ActionResultType.func_233537_a_(world.isRemote);
+			} else if (stack.getItem() == ModItems.phantomInk) {
+				if (!world.isRemote) {
+					setInvisible(true);
+				}
+				return ActionResultType.func_233537_a_(world.isRemote);
+			} else if (stack.getItem() instanceof DyeItem) {
+				DyeColor color = ((DyeItem) stack.getItem()).getDyeColor();
+				if (color != getNetwork()) {
+					if (!world.isRemote) {
+						setNetwork(color);
+						stack.shrink(1);
+					}
+					return ActionResultType.func_233537_a_(world.isRemote);
 				}
 			}
 		}
 
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	@Nonnull

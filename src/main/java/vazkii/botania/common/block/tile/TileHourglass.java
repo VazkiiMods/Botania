@@ -8,31 +8,28 @@
  */
 package vazkii.botania.common.block.tile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.StringUtils;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IHourglassTrigger;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
-import javax.annotation.Nonnull;
-
-public class TileHourglass extends TileSimpleInventory implements ITickableTileEntity {
+public class TileHourglass extends TileExposedSimpleInventory implements ITickableTileEntity {
 	private static final String TAG_TIME = "time";
 	private static final String TAG_TIME_FRACTION = "timeFraction";
 	private static final String TAG_FLIP = "flip";
@@ -53,7 +50,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 	}
 
 	private boolean isDust() {
-		ItemStack stack = itemHandler.getStackInSlot(0);
+		ItemStack stack = getItemHandler().getStackInSlot(0);
 		return !stack.isEmpty() && stack.getItem() == ModItems.manaPowder;
 	}
 
@@ -73,7 +70,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 				flipTicks = 4;
 				if (!world.isRemote) {
 					world.setBlockState(getPos(), getBlockState().with(BlockStateProperties.POWERED, true), 1);
-					world.getPendingBlockTicks().scheduleTick(pos, getBlockState().getBlock(), getBlockState().getBlock().tickRate(world));
+					world.getPendingBlockTicks().scheduleTick(pos, getBlockState().getBlock(), 4);
 				}
 
 				for (Direction facing : Direction.values()) {
@@ -110,7 +107,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 	}
 
 	public int getTotalTime() {
-		ItemStack stack = itemHandler.getStackInSlot(0);
+		ItemStack stack = getItemHandler().getStackInSlot(0);
 		if (stack.isEmpty()) {
 			return 0;
 		}
@@ -138,7 +135,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 	}
 
 	public int getColor() {
-		ItemStack stack = itemHandler.getStackInSlot(0);
+		ItemStack stack = getItemHandler().getStackInSlot(0);
 		if (stack.isEmpty()) {
 			return 0;
 		}
@@ -159,31 +156,26 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 	}
 
 	@Override
-	protected SimpleItemStackHandler createItemHandler() {
-		return new SimpleItemStackHandler(this, true) {
-			@Nonnull
+	protected Inventory createItemHandler() {
+		return new Inventory(1) {
 			@Override
-			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-				if (!stack.isEmpty() && (stack.getItem() == Blocks.SAND.asItem()
+			public boolean isItemValidForSlot(int index, ItemStack stack) {
+				return !stack.isEmpty() && (stack.getItem() == Blocks.SAND.asItem()
 						|| stack.getItem() == Blocks.RED_SAND.asItem()
 						|| stack.getItem() == Blocks.SOUL_SAND.asItem()
-						|| stack.getItem() == ModItems.manaPowder)) {
-					return super.insertItem(slot, stack, simulate);
-				} else {
-					return stack;
-				}
-			}
-
-			@Override
-			public void onContentsChanged(int slot) {
-				super.onContentsChanged(slot);
-				if (!TileHourglass.this.world.isRemote) {
-					time = 0;
-					timeFraction = 0F;
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(TileHourglass.this);
-				}
+						|| stack.getItem() == ModItems.manaPowder);
 			}
 		};
+	}
+
+	@Override
+	public void markDirty() {
+		super.markDirty();
+		if (world != null && !world.isRemote) {
+			time = 0;
+			timeFraction = 0F;
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(TileHourglass.this);
+		}
 	}
 
 	@Override
@@ -208,25 +200,20 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 		lock = tag.getBoolean(TAG_LOCK);
 	}
 
-	@Override
-	public int getSizeInventory() {
-		return 1;
-	}
-
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD() {
+	public void renderHUD(MatrixStack ms) {
 		Minecraft mc = Minecraft.getInstance();
 		int x = mc.getMainWindow().getScaledWidth() / 2 + 10;
 		int y = mc.getMainWindow().getScaledHeight() / 2 - 10;
 
-		ItemStack stack = itemHandler.getStackInSlot(0);
+		ItemStack stack = getItemHandler().getStackInSlot(0);
 		if (!stack.isEmpty()) {
 			mc.getItemRenderer().renderItemIntoGUI(stack, x, y);
 			mc.getItemRenderer().renderItemOverlays(mc.fontRenderer, stack, x, y);
 
 			int time = getTotalTime();
 			String timeStr = StringUtils.ticksToElapsedTime(time);
-			mc.fontRenderer.drawStringWithShadow(timeStr, x + 20, y, getColor());
+			mc.fontRenderer.drawStringWithShadow(ms, timeStr, x + 20, y, getColor());
 
 			String status = "";
 			if (lock) {
@@ -236,7 +223,7 @@ public class TileHourglass extends TileSimpleInventory implements ITickableTileE
 				status = status.isEmpty() ? "stopped" : "lockedStopped";
 			}
 			if (!status.isEmpty()) {
-				mc.fontRenderer.drawStringWithShadow(I18n.format("botaniamisc." + status), x + 20, y + 12, getColor());
+				mc.fontRenderer.drawStringWithShadow(ms, I18n.format("botaniamisc." + status), x + 20, y + 12, getColor());
 			}
 		}
 

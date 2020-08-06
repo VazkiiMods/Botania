@@ -27,7 +27,6 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nullable;
 
@@ -139,7 +138,7 @@ public class PetalProvider extends RecipeProvider {
 	}
 
 	private static Ingredient tagIngr(String tag) {
-		return Ingredient.fromTag(new ItemTags.Wrapper(new ResourceLocation(LibMisc.MOD_ID, tag)));
+		return Ingredient.fromTag(ItemTags.makeWrapperTag(prefix(tag).toString()));
 	}
 
 	private static FinishedRecipe make(IItemProvider item, Ingredient... ingredients) {

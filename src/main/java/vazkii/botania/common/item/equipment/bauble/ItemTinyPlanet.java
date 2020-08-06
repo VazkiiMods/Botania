@@ -13,12 +13,11 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -26,15 +25,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
-import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.helper.Vector3;
 
 import java.util.List;
 
 public class ItemTinyPlanet extends ItemBauble {
-
-	public static final String TAG_ORBIT = "orbit";
 
 	public ItemTinyPlanet(Properties props) {
 		super(props);
@@ -51,8 +47,8 @@ public class ItemTinyPlanet extends ItemBauble {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		layer.getEntityModel().bipedHead.translateRotate(ms);
+	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		bipedModel.bipedHead.translateRotate(ms);
 		ms.translate(-0.25, -0.4, 0);
 		ms.scale(0.5F, -0.5F, -0.5F);
 		Minecraft.getInstance().getBlockRendererDispatcher().renderBlock(ModBlocks.tinyPlanet.getDefaultState(), ms, buffers, light, OverlayTexture.NO_OVERLAY);
@@ -68,7 +64,7 @@ public class ItemTinyPlanet extends ItemBauble {
 				continue;
 			}
 
-			int orbitTime = getEntityOrbitTime(entity);
+			int orbitTime = burst.getOrbitTime();
 			if (orbitTime == 0) {
 				burst.setMinManaLoss(burst.getMinManaLoss() * 3);
 			}
@@ -86,23 +82,8 @@ public class ItemTinyPlanet extends ItemBauble {
 
 			burst.setBurstMotion(moveVector.x, moveVector.y, moveVector.z);
 
-			incrementOrbitTime(entity);
+			burst.setOrbitTime(burst.getOrbitTime() + 1);
 		}
-	}
-
-	public static int getEntityOrbitTime(Entity entity) {
-		CompoundNBT cmp = entity.getPersistentData();
-		if (cmp.contains(TAG_ORBIT)) {
-			return cmp.getInt(TAG_ORBIT);
-		} else {
-			return 0;
-		}
-	}
-
-	public static void incrementOrbitTime(Entity entity) {
-		CompoundNBT cmp = entity.getPersistentData();
-		int time = getEntityOrbitTime(entity);
-		cmp.putInt(TAG_ORBIT, time + 1);
 	}
 
 }

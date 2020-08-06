@@ -18,7 +18,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -27,10 +27,9 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 
-import vazkii.botania.api.item.AccessoryRenderHelper;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.client.core.handler.BaubleRenderHandler;
+import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 
@@ -87,9 +86,9 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 					ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
 
 					if (player.world.isRemote) {
-						if ((player.onGround || player.abilities.isFlying) && player.moveForward > 0F && !player.isInWaterOrBubbleColumn()) {
+						if ((player.func_233570_aj_() || player.abilities.isFlying) && player.moveForward > 0F && !player.isInWaterOrBubbleColumn()) {
 							float speed = beltItem.getSpeed(belt);
-							player.moveRelative(player.abilities.isFlying ? speed : speed, new Vec3d(0, 0, 1));
+							player.moveRelative(player.abilities.isFlying ? speed : speed, new Vector3d(0, 0, 1));
 							beltItem.onMovedTick(belt, player);
 
 							if (player.ticksExisted % COST_INTERVAL == 0) {
@@ -158,7 +157,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		AccessoryRenderHelper.rotateIfSneaking(ms, player);
 		ms.translate(0F, 0.2F, 0F);
 

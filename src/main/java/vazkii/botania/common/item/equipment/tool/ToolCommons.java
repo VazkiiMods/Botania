@@ -22,7 +22,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 
@@ -63,17 +65,8 @@ public final class ToolCommons {
 		return amount;
 	}
 
-	public static void damageItem(ItemStack stack, int dmg, LivingEntity entity, int manaPerDamage) {
-		int manaToRequest = dmg * manaPerDamage;
-		boolean manaRequested = entity instanceof PlayerEntity && ManaItemHandler.instance().requestManaExactForTool(stack, (PlayerEntity) entity, manaToRequest, true);
-
-		if (!manaRequested) {
-			stack.damageItem(dmg, entity, e -> {});
-		}
-	}
-
 	public static void removeBlocksInIteration(PlayerEntity player, ItemStack stack, World world, BlockPos centerPos,
-			Vec3i startDelta, Vec3i endDelta, Predicate<BlockState> filter,
+			Vector3i startDelta, Vector3i endDelta, Predicate<BlockState> filter,
 			boolean dispose) {
 		for (BlockPos iterPos : BlockPos.getAllInBoxMutable(centerPos.add(startDelta),
 				centerPos.add(endDelta))) {
@@ -121,7 +114,10 @@ public final class ToolCommons {
 					}
 				}
 
-				damageItem(stack, 1, player, 80);
+				boolean paidWithMana = ManaItemHandler.instance().requestManaExactForTool(stack, player, 80, true);
+				if (!paidWithMana) {
+					stack.damageItem(1, player, e -> {});
+				}
 			} else {
 				world.removeBlock(pos, false);
 			}
@@ -164,11 +160,7 @@ public final class ToolCommons {
 		return materialLevel * 100 + modifier * 10 + efficiency;
 	}
 
-	// [VanillaCopy] Exact Entity.func_213324_a but available serverside, partialTicks fixed to 1, and narrowed return type
 	public static BlockRayTraceResult raytraceFromEntity(Entity e, double distance, boolean fluids) {
-		Vec3d vec3d = e.getEyePosition(1);
-		Vec3d vec3d1 = e.getLook(1);
-		Vec3d vec3d2 = vec3d.add(vec3d1.x * distance, vec3d1.y * distance, vec3d1.z * distance);
-		return e.world.rayTraceBlocks(new RayTraceContext(vec3d, vec3d2, RayTraceContext.BlockMode.OUTLINE, fluids ? RayTraceContext.FluidMode.ANY : RayTraceContext.FluidMode.NONE, e));
+		return (BlockRayTraceResult) e.pick(distance, 1, fluids);
 	}
 }

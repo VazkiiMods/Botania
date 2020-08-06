@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.block.mana;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
@@ -27,7 +29,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.items.ItemHandlerHelper;
 
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
@@ -78,7 +79,7 @@ public class BlockEnchanter extends BlockMod implements ITileEntityProvider, IWa
 				return ActionResultType.PASS;
 			}
 		} else if (enchanter.stage == TileEnchanter.State.IDLE) {
-			ItemHandlerHelper.giveItemToPlayer(player, enchanter.itemToEnchant.copy());
+			player.inventory.placeItemBackInInventory(player.world, enchanter.itemToEnchant.copy());
 			enchanter.itemToEnchant = ItemStack.EMPTY;
 			enchanter.sync();
 		}
@@ -107,7 +108,7 @@ public class BlockEnchanter extends BlockMod implements ITileEntityProvider, IWa
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
-		((TileEnchanter) world.getTileEntity(pos)).renderHUD();
+	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
+		((TileEnchanter) world.getTileEntity(pos)).renderHUD(ms);
 	}
 }

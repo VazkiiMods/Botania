@@ -10,12 +10,8 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.client.fx.WispParticleData;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 public class TileManaFlame extends TileMod implements ITickableTileEntity {
 	private static final String TAG_COLOR = "color";

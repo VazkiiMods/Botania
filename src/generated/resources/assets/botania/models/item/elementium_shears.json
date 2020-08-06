@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "botania:item/elementium_shears"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "botania:reddit": 1.0
+      },
+      "model": "botania:item/dammitreddit"
+    }
+  ]
+}

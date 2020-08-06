@@ -10,14 +10,15 @@ package vazkii.botania.common.block.corporea;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
 import net.minecraft.world.server.ServerWorld;
 
+import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaInterceptor;
 
@@ -25,7 +26,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockCorporeaInterceptor extends BlockCorporeaBase {
+public class BlockCorporeaInterceptor extends BlockMod implements ITileEntityProvider {
 
 	public BlockCorporeaInterceptor(Block.Properties builder) {
 		super(builder);
@@ -50,11 +51,6 @@ public class BlockCorporeaInterceptor extends BlockCorporeaBase {
 	@Override
 	public int getWeakPower(BlockState state, IBlockReader world, BlockPos pos, Direction side) {
 		return state.get(BlockStateProperties.POWERED) ? 15 : 0;
-	}
-
-	@Override
-	public int tickRate(IWorldReader world) {
-		return 2;
 	}
 
 	@Nonnull

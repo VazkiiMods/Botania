@@ -15,13 +15,10 @@ import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.state.IProperty;
+import net.minecraft.state.Property;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
@@ -65,7 +62,7 @@ public class ManaInfusionProvider extends RecipeProvider {
 
 		Ingredient dust = Ingredient.fromItems(Items.GUNPOWDER, Items.REDSTONE, Items.GLOWSTONE_DUST, Items.SUGAR);
 		consumer.accept(new FinishedRecipe(id("mana_powder_dust"), new ItemStack(ModItems.manaPowder), dust, 500));
-		Ingredient dyeIngredient = Ingredient.fromItems(Arrays.stream(DyeColor.values()).map(ModItems::getDye).toArray(Item[]::new));
+		Ingredient dyeIngredient = Ingredient.fromItems(Arrays.stream(DyeColor.values()).map(DyeItem::getItem).toArray(Item[]::new));
 		consumer.accept(new FinishedRecipe(id("mana_powder_dye"), new ItemStack(ModItems.manaPowder), dyeIngredient, 400));
 
 		consumer.accept(new FinishedRecipe(id("piston_relay"), new ItemStack(ModBlocks.pistonRelay), ingr(Blocks.PISTON), 15000));
@@ -77,13 +74,6 @@ public class ManaInfusionProvider extends RecipeProvider {
 
 		consumer.accept(new FinishedRecipe(id("mana_quartz"), new ItemStack(ModItems.manaQuartz), ingr(Items.QUARTZ), 250));
 		consumer.accept(new FinishedRecipe(id("tiny_potato"), new ItemStack(ModBlocks.tinyPotato), ingr(Items.POTATO), 1337));
-
-		/* todo 1.15 rip
-		if (Botania.thaumcraftLoaded) {
-			Item inkwell = ForgeRegistries.ITEMS.getValue(new ResourceLocation("thaumcraft", "scribing_tools"));
-			consumer.accept(new FinishedRecipe(id("mana_inkwell"), new ItemStack(ModItems.manaInkwell), ingr(inkwell), 35000));
-		}
-		*/
 
 		consumer.accept(new FinishedRecipe(id("mana_glass"), new ItemStack(ModBlocks.manaGlass), ingr(Blocks.GLASS), 150));
 		consumer.accept(new FinishedRecipe(id("mana_string"), new ItemStack(ModItems.manaString), ingr(Items.STRING), 5000));
@@ -254,7 +244,7 @@ public class ManaInfusionProvider extends RecipeProvider {
 		}
 
 		@SuppressWarnings("unchecked")
-		private static <T extends Comparable<T>> String getName(IProperty<T> prop, Comparable<?> val) {
+		private static <T extends Comparable<T>> String getName(Property<T> prop, Comparable<?> val) {
 			return prop.getName((T) val);
 		}
 

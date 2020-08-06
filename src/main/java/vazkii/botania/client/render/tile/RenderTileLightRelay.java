@@ -14,11 +14,11 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Matrix4f;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.vector.Vector3f;
 
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class RenderTileLightRelay extends TileEntityRenderer<TileLightRelay> {
 
-	private static Map<LuminizerVariant, TextureAtlasSprite> sprites = new EnumMap<>(LuminizerVariant.class);
+	private static final Map<LuminizerVariant, TextureAtlasSprite> sprites = new EnumMap<>(LuminizerVariant.class);
 
 	public RenderTileLightRelay(TileEntityRendererDispatcher manager) {
 		super(manager);
@@ -43,16 +43,13 @@ public class RenderTileLightRelay extends TileEntityRenderer<TileLightRelay> {
 	@Override
 	public void render(@Nonnull TileLightRelay tile, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		BlockState state = tile.getBlockState();
-		if (!(state.getBlock() instanceof BlockLightRelay)) {
-			return;
-		}
 
 		Minecraft mc = Minecraft.getInstance();
 		if (sprites.isEmpty()) {
 			sprites.put(LuminizerVariant.DEFAULT, MiscellaneousIcons.INSTANCE.lightRelayWorldIcon);
-			sprites.put(LuminizerVariant.DETECTOR, MiscellaneousIcons.INSTANCE.lightRelayWorldIconRed);
-			sprites.put(LuminizerVariant.FORK, MiscellaneousIcons.INSTANCE.lightRelayWorldIconGreen);
-			sprites.put(LuminizerVariant.TOGGLE, MiscellaneousIcons.INSTANCE.lightRelayWorldIconPurple);
+			sprites.put(LuminizerVariant.DETECTOR, MiscellaneousIcons.INSTANCE.lightRelayDetectorWorldIcon);
+			sprites.put(LuminizerVariant.FORK, MiscellaneousIcons.INSTANCE.lightRelayForkWorldIcon);
+			sprites.put(LuminizerVariant.TOGGLE, MiscellaneousIcons.INSTANCE.lightRelayToggleWorldIcon);
 		}
 
 		TextureAtlasSprite iicon = sprites.get(((BlockLightRelay) state.getBlock()).variant);

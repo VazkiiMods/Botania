@@ -8,7 +8,10 @@
  */
 package vazkii.botania.api;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -55,4 +58,14 @@ public interface BotaniaAPIClient {
 		return Collections.emptyMap();
 	}
 
+	/**
+	 * Draw a mana bar on the screen
+	 */
+	default void drawSimpleManaHUD(MatrixStack ms, int color, int mana, int maxMana, String name) {}
+
+	/**
+	 * Performs the effects of {@link #drawSimpleManaHUD}, then renders {@code bindDisplay}, and a checkmark or x-mark
+	 * dependong on the value of {@code properlyBound}.
+	 */
+	default void drawComplexManaHUD(MatrixStack ms, int color, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound) {}
 }

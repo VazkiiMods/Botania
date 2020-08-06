@@ -8,17 +8,17 @@
  */
 package vazkii.botania.api.recipe;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 import vazkii.botania.api.BotaniaAPI;
 
 import javax.annotation.Nonnull;
 
-public interface IPetalRecipe extends IRecipe<RecipeWrapper> {
+public interface IPetalRecipe extends IRecipe<IInventory> {
 	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "petal_apothecary");
 
 	@Nonnull

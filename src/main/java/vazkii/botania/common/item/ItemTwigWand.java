@@ -21,10 +21,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.state.IProperty;
+import net.minecraft.state.Property;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -48,14 +49,16 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.Optional;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ItemTwigWand extends Item implements ICoordBoundItem {
 
@@ -69,7 +72,6 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 	public ItemTwigWand(Item.Properties builder) {
 		super(builder);
-		addPropertyOverride(new ResourceLocation("botania", "bindmode"), (stack, worldIn, entityIn) -> getBindMode(stack) ? 1 : 0);
 	}
 
 	private static boolean tryCompleteBinding(BlockPos src, ItemStack stack, ItemUseContext ctx) {
@@ -98,7 +100,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 			if (!world.isRemote) {
 				world.setBlockState(pos, ModBlocks.enchanter.getDefaultState().with(BotaniaStateProps.ENCHANTER_DIRECTION, axis));
 				world.playSound(null, pos, ModSounds.enchanterForm, SoundCategory.BLOCKS, 0.5F, 0.6F);
-				PlayerHelper.grantCriterion((ServerPlayerEntity) ctx.getPlayer(), new ResourceLocation(LibMisc.MOD_ID, "main/enchanter_make"), "code_triggered");
+				PlayerHelper.grantCriterion((ServerPlayerEntity) ctx.getPlayer(), prefix("main/enchanter_make"), "code_triggered");
 			} else {
 				for (int i = 0; i < 50; i++) {
 					float red = (float) Math.random();
@@ -130,7 +132,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		PlayerEntity player = ctx.getPlayer();
 
 		GlobalPos bindPos = ((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.get(player.getUniqueID());
-		if (bindPos != null && bindPos.getDimension() == world.getDimension().getType()) {
+		if (bindPos != null && bindPos.func_239646_a_() == world.func_234923_W_()) {
 			((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.remove(player.getUniqueID());
 			BlockPistonRelay.WorldData data = BlockPistonRelay.WorldData.get(world);
 			data.mapping.put(bindPos.getPos(), pos.toImmutable());
@@ -214,10 +216,10 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 	}
 
 	private static BlockState rotate(BlockState old, Direction.Axis axis) {
-		for (IProperty<?> prop : old.getProperties()) {
+		for (Property<?> prop : old.func_235904_r_()) {
 			if (prop.getName().equals("facing") && prop.getValueClass() == Direction.class) {
 				@SuppressWarnings("unchecked")
-				IProperty<Direction> facingProp = (IProperty<Direction>) prop;
+				Property<Direction> facingProp = (Property<Direction>) prop;
 
 				Direction oldDir = old.get(facingProp);
 				Direction newDir = rotateAround(oldDir, axis);
@@ -277,9 +279,9 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 	}
 
 	public static void doParticleBeamWithOffset(World world, BlockPos orig, BlockPos end) {
-		Vec3d origOffset = world.getBlockState(orig).getOffset(world, orig);
+		Vector3d origOffset = world.getBlockState(orig).getOffset(world, orig);
 		Vector3 vorig = new Vector3(orig.getX() + origOffset.getX() + 0.5, orig.getY() + origOffset.getY() + 0.5, orig.getZ() + origOffset.getZ() + 0.5);
-		Vec3d endOffset = world.getBlockState(end).getOffset(world, end);
+		Vector3d endOffset = world.getBlockState(end).getOffset(world, end);
 		Vector3 vend = new Vector3(end.getX() + endOffset.getX() + 0.5, end.getY() + endOffset.getY() + 0.5, end.getZ() + endOffset.getZ() + 0.5);
 		doParticleBeam(world, vorig, vend);
 	}
@@ -346,15 +348,15 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
-		list.add(new TranslationTextComponent(getModeString(stack)).applyTextStyle(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent(getModeString(stack)).func_240699_a_(TextFormatting.GRAY));
 	}
 
 	@Override
-	public String getHighlightTip(ItemStack stack, String displayName) {
+	public ITextComponent getHighlightTip(ItemStack stack, ITextComponent displayName) {
 		ITextComponent mode = new StringTextComponent(" (")
-				.appendSibling(new TranslationTextComponent(getModeString(stack)).applyTextStyle(TextFormatting.DARK_GREEN))
-				.appendText(")");
-		return displayName + mode.getFormattedText();
+				.func_230529_a_(new TranslationTextComponent(getModeString(stack)).func_240699_a_(TextFormatting.DARK_GREEN))
+				.func_240702_b_(")");
+		return displayName.deepCopy().func_230529_a_(mode);
 	}
 
 	public static ItemStack forColors(int color1, int color2) {
@@ -398,8 +400,9 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		return "botaniamisc.wandMode." + (getBindMode(stack) ? "bind" : "function");
 	}
 
+	@Nullable
 	@Override
-	public BlockPos getBinding(ItemStack stack) {
+	public BlockPos getBinding(World world, ItemStack stack) {
 		Optional<BlockPos> bound = getBindingAttempt(stack);
 		if (bound.isPresent()) {
 			return bound.get();
@@ -407,7 +410,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 		RayTraceResult pos = Minecraft.getInstance().objectMouseOver;
 		if (pos != null && pos.getType() == RayTraceResult.Type.BLOCK) {
-			TileEntity tile = Minecraft.getInstance().world.getTileEntity(((BlockRayTraceResult) pos).getPos());
+			TileEntity tile = world.getTileEntity(((BlockRayTraceResult) pos).getPos());
 			if (tile instanceof ITileBound) {
 				return ((ITileBound) tile).getBinding();
 			}

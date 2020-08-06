@@ -124,11 +124,10 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 		getEntityModel().bipedHead.translateRotate(ms);
 		ms.translate(-0.15F, -0.60F, 0F);
 		ms.scale(0.4F, -0.4F, -0.4F);
-		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffers.getBuffer(Atlases.getTranslucentBlockType()), null, MiscellaneousIcons.INSTANCE.goldfishModel, 1, 1, 1, 0xF000F0, OverlayTexture.NO_OVERLAY);
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffers.getBuffer(Atlases.getTranslucentCullBlockType()), null, MiscellaneousIcons.INSTANCE.goldfishModel, 1, 1, 1, 0xF000F0, OverlayTexture.NO_OVERLAY);
 		ms.pop();
 	}
 
-	@SuppressWarnings("deprecation")
 	private void renderFlower(MatrixStack ms, IRenderTypeBuffer buffers, PlayerEntity player, ItemStack flower) {
 		ms.push();
 		getEntityModel().bipedHead.translateRotate(ms);

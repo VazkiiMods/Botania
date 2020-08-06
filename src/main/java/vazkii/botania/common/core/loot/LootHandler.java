@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.core.loot;
 
+import net.minecraft.loot.LootEntry;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.TableLootEntry;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.LootEntry;
-import net.minecraft.world.storage.loot.LootPool;
-import net.minecraft.world.storage.loot.TableLootEntry;
 import net.minecraftforge.event.LootTableLoadEvent;
 
-import vazkii.botania.common.lib.LibMisc;
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class LootHandler {
 
@@ -49,7 +49,7 @@ public final class LootHandler {
 	}
 
 	private static LootEntry.Builder<?> getInjectEntry(String name, int weight) {
-		ResourceLocation table = new ResourceLocation(LibMisc.MOD_ID, "inject/" + name);
+		ResourceLocation table = prefix("inject/" + name);
 		return TableLootEntry.builder(table)
 				.weight(weight);
 	}

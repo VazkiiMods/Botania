@@ -63,7 +63,7 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
 		if (isStackCreative(stack)) {
-			stacks.add(new TranslationTextComponent("botaniamisc.creative").applyTextStyle(TextFormatting.GRAY));
+			stacks.add(new TranslationTextComponent("botaniamisc.creative").func_240699_a_(TextFormatting.GRAY));
 		}
 	}
 

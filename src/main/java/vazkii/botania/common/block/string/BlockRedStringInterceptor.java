@@ -15,7 +15,6 @@ import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
@@ -56,11 +55,6 @@ public class BlockRedStringInterceptor extends BlockRedString {
 	@Override
 	public void tick(BlockState state, ServerWorld world, BlockPos pos, Random update) {
 		world.setBlockState(pos, state.with(BlockStateProperties.POWERED, false));
-	}
-
-	@Override
-	public int tickRate(IWorldReader world) {
-		return 2;
 	}
 
 	@Nonnull

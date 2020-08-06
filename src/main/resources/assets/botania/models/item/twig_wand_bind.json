@@ -1,9 +1,0 @@
-{
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "botania:items/wand_twig",
-    "layer1": "botania:items/wand_petal_top",
-    "layer2": "botania:items/wand_petal_bottom",
-    "layer3": "botania:items/wand_bind"
-  }
-}

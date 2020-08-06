@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "botania:items/pendant_blood_chain"
+    "layer0": "botania:item/blood_pendant_chain"
   }
 }

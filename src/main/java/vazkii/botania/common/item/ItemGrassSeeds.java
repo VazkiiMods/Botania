@@ -17,9 +17,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.LogicalSide;
 
@@ -36,7 +36,7 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 	 * Represents a map of dimension IDs to a set of all block swappers
 	 * active in that dimension.
 	 */
-	private static final Map<DimensionType, Set<BlockSwapper>> blockSwappers = new HashMap<>();
+	private static final Map<RegistryKey<World>, Set<BlockSwapper>> blockSwappers = new HashMap<>();
 	private static final Map<IslandType, float[]> COLORS = ImmutableMap.<IslandType, float[]>builder()
 			.put(IslandType.GRASS, new float[] { 0F, 0.4F, 0F })
 			.put(IslandType.PODZOL, new float[] { 0.5F, 0.37F, 0F })
@@ -103,7 +103,7 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 
 	public static void onTickEnd(TickEvent.WorldTickEvent event) {
 		if (event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END) {
-			DimensionType dim = event.world.getDimension().getType();
+			RegistryKey<World> dim = event.world.func_234923_W_();
 			if (blockSwappers.containsKey(dim)) {
 				blockSwappers.get(dim).removeIf(next -> next == null || !next.tick());
 			}
@@ -126,7 +126,7 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 	private static BlockSwapper addBlockSwapper(World world, BlockPos pos, IslandType type) {
 		BlockSwapper swapper = new BlockSwapper(world, pos, stateForType(type));
 
-		DimensionType dim = world.getDimension().getType();
+		RegistryKey<World> dim = world.func_234923_W_();
 		blockSwappers.computeIfAbsent(dim, d -> new HashSet<>()).add(swapper);
 
 		return swapper;

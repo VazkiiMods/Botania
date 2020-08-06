@@ -11,9 +11,8 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.registries.ObjectHolder;
+import net.minecraft.util.math.vector.Vector3d;
 
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
@@ -24,9 +23,6 @@ import vazkii.botania.common.block.BlockPylon;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Random;
 
@@ -50,13 +46,13 @@ public class TilePylon extends TileEntity implements ITickableTileEntity {
 		BlockPylon.Variant variant = ((BlockPylon) getBlockState().getBlock()).variant;
 
 		if (activated && world.isRemote) {
-			if (world.getBlockState(centerPos).getBlock() != getBlockForMeta()
+			if (world.getBlockState(centerPos).getBlock() != variant.targetBlock
 					|| variant == BlockPylon.Variant.NATURA && (portalOff() || !(world.getBlockState(getPos().down()).getBlock() instanceof BlockPool))) {
 				activated = false;
 				return;
 			}
 
-			Vector3 centerBlock = new Vector3(centerPos.getX() + 0.5, centerPos.getY() + 0.75 + (Math.random() - 0.5 * 0.25), centerPos.getZ() + 0.5);
+			Vector3d centerBlock = new Vector3d(centerPos.getX() + 0.5, centerPos.getY() + 0.75 + (Math.random() - 0.5 * 0.25), centerPos.getZ() + 0.5);
 
 			if (variant == BlockPylon.Variant.NATURA) {
 				if (ConfigHandler.CLIENT.elfPortalParticlesEnabled.get()) {
@@ -68,9 +64,9 @@ public class TilePylon extends TileEntity implements ITickableTileEntity {
 					double x = pos.getX() + 0.5 + Math.cos(worldTime) * r;
 					double z = pos.getZ() + 0.5 + Math.sin(worldTime) * r;
 
-					Vector3 ourCoords = new Vector3(x, pos.getY() + 0.25, z);
-					centerBlock = centerBlock.subtract(new Vector3(0, 0.5, 0));
-					Vector3 movementVector = centerBlock.subtract(ourCoords).normalize().multiply(0.2);
+					Vector3d ourCoords = new Vector3d(x, pos.getY() + 0.25, z);
+					centerBlock = centerBlock.subtract(0, 0.5, 0);
+					Vector3d movementVector = centerBlock.subtract(ourCoords).normalize().scale(0.2);
 
 					WispParticleData data = WispParticleData.wisp(0.25F + (float) Math.random() * 0.1F, (float) Math.random() * 0.25F, 0.75F + (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 1);
 					world.addParticle(data, x, pos.getY() + 0.25, z, 0, -(-0.075F - (float) Math.random() * 0.015F), 0);
@@ -80,12 +76,12 @@ public class TilePylon extends TileEntity implements ITickableTileEntity {
 					}
 				}
 			} else {
-				Vector3 ourCoords = Vector3.fromTileEntityCenter(this).add(0, 1 + (Math.random() - 0.5 * 0.25), 0);
-				Vector3 movementVector = centerBlock.subtract(ourCoords).normalize().multiply(0.2);
+				Vector3d ourCoords = Vector3d.func_237489_a_(getPos()).add(0, 1 + (Math.random() - 0.5 * 0.25), 0);
+				Vector3d movementVector = centerBlock.subtract(ourCoords).normalize().scale(0.2);
 
 				Block block = world.getBlockState(pos.down()).getBlock();
 				if (block instanceof BlockModFlower) {
-					int hex = ((BlockModFlower) block).color.colorValue;
+					int hex = ((BlockModFlower) block).color.getColorValue();
 					int r = (hex & 0xFF0000) >> 16;
 					int g = (hex & 0xFF00) >> 8;
 					int b = hex & 0xFF;
@@ -106,16 +102,9 @@ public class TilePylon extends TileEntity implements ITickableTileEntity {
 		}
 
 		if (world.rand.nextBoolean() && world.isRemote) {
-			float r = variant == BlockPylon.Variant.GAIA ? 1F : 0.5F;
-			float g = variant == BlockPylon.Variant.NATURA ? 1F : 0.5F;
-			float b = variant == BlockPylon.Variant.NATURA ? 0.5F : 1F;
-			SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), r, g, b, 2);
+			SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), variant.r, variant.g, variant.b, 2);
 			world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random() * 1.5, pos.getZ() + Math.random(), 0, 0, 0);
 		}
-	}
-
-	private Block getBlockForMeta() {
-		return ((BlockPylon) getBlockState().getBlock()).variant == BlockPylon.Variant.MANA ? ModBlocks.enchanter : ModBlocks.alfPortal;
 	}
 
 	private boolean portalOff() {

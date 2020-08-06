@@ -92,7 +92,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
 		int level = getShardLevel(stack);
 		ITextComponent levelLoc = new TranslationTextComponent("botania.roman" + (level + 1));
-		list.add(new TranslationTextComponent("botaniamisc.shardLevel", levelLoc).applyTextStyle(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("botaniamisc.shardLevel", levelLoc).func_240699_a_(TextFormatting.GRAY));
 	}
 
 	@Nonnull
@@ -100,7 +100,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 	public ActionResultType onItemUse(ItemUseContext ctx) {
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
-		if (!world.isRemote && pos.getY() < 160 && !world.getDimension().isNether()) {
+		if (!world.isRemote && pos.getY() < 160 && !world.func_230315_m_().func_236040_e_()) {
 			world.playSound(null, pos, ModSounds.laputaStart, SoundCategory.BLOCKS, 1.0F + world.rand.nextFloat(), world.rand.nextFloat() * 0.7F + 1.3F);
 			ItemStack stack = ctx.getItem();
 			spawnBurstFirst(world, pos, stack);
@@ -263,14 +263,14 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 						state = NBTUtil.readBlockState(lens.getTag().getCompound(TAG_STATE));
 					}
 
-					if (entity.world.getDimension().doesWaterVaporize() && state.has(BlockStateProperties.WATERLOGGED)) {
+					if (entity.world.func_230315_m_().func_236040_e_() && state.func_235901_b_(BlockStateProperties.WATERLOGGED)) {
 						state = state.with(BlockStateProperties.WATERLOGGED, false);
 					}
 
 					TileEntity tile = null;
 					CompoundNBT tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
 					if (tilecmp.contains("id")) {
-						tile = TileEntity.create(tilecmp);
+						tile = TileEntity.readTileEntity(state, tilecmp);
 					}
 
 					entity.world.setBlockState(pos, state);

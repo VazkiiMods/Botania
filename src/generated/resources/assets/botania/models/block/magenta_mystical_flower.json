@@ -1,0 +1,6 @@
+{
+  "parent": "botania:block/shapes/cross",
+  "textures": {
+    "cross": "botania:block/magenta_mystical_flower"
+  }
+}

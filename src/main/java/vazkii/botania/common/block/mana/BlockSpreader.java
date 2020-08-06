@@ -9,16 +9,17 @@
 package vazkii.botania.common.block.mana;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.matrix.MatrixStack;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
@@ -32,7 +33,6 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.items.ItemHandlerHelper;
 
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.wand.IWandHUD;
@@ -41,7 +41,6 @@ import vazkii.botania.api.wand.IWireframeAABBProvider;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
 import vazkii.botania.common.core.helper.ColorHelper;
-import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
@@ -91,11 +90,6 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 	}
 
 	@Override
-	public boolean canEntitySpawn(BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, EntityType<?> type) {
-		return false;
-	}
-
-	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
 		Direction orientation = placer == null ? Direction.WEST : Direction.getFacingDirections(placer)[0].getOpposite();
 		TileSpreader spreader = (TileSpreader) world.getTileEntity(pos);
@@ -138,7 +132,7 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 		ItemStack lens = spreader.getItemHandler().getStackInSlot(0);
 		ItemStack heldItem = player.getHeldItem(hand);
 		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
-		boolean wool = !heldItem.isEmpty() && ColorHelper.WOOL_MAP.containsValue(Block.getBlockFromItem(heldItem.getItem()).delegate);
+		boolean wool = !heldItem.isEmpty() && ColorHelper.isWool(Block.getBlockFromItem(heldItem.getItem()));
 
 		if (!heldItem.isEmpty()) {
 			if (heldItem.getItem() == ModItems.twigWand) {
@@ -151,22 +145,22 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 				player.setHeldItem(hand, ItemStack.EMPTY);
 			}
 
-			spreader.getItemHandler().setStackInSlot(0, heldItem.copy());
+			spreader.getItemHandler().setInventorySlotContents(0, heldItem.copy());
 		} else if (!lens.isEmpty() && !wool) {
-			ItemHandlerHelper.giveItemToPlayer(player, lens);
-			spreader.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
+			player.inventory.placeItemBackInInventory(player.world, lens);
+			spreader.getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
 		}
 
 		if (wool && spreader.paddingColor == null) {
 			Block block = Block.getBlockFromItem(heldItem.getItem());
-			spreader.paddingColor = ColorHelper.WOOL_MAP.inverse().get(block.delegate);
+			spreader.paddingColor = ColorHelper.getWoolColor(block);
 			heldItem.shrink(1);
 			if (heldItem.isEmpty()) {
 				player.setHeldItem(hand, ItemStack.EMPTY);
 			}
 		} else if (heldItem.isEmpty() && spreader.paddingColor != null && lens.isEmpty()) {
-			ItemStack pad = new ItemStack(ColorHelper.WOOL_MAP.get(spreader.paddingColor).get());
-			ItemHandlerHelper.giveItemToPlayer(player, pad);
+			ItemStack pad = new ItemStack(ColorHelper.WOOL_MAP.apply(spreader.paddingColor));
+			player.inventory.placeItemBackInInventory(player.world, pad);
 			spreader.paddingColor = null;
 			spreader.markDirty();
 		}
@@ -185,11 +179,11 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 			TileSpreader inv = (TileSpreader) tile;
 
 			if (inv.paddingColor != null) {
-				ItemStack padding = new ItemStack(ColorHelper.WOOL_MAP.get(inv.paddingColor).get());
+				ItemStack padding = new ItemStack(ColorHelper.WOOL_MAP.apply(inv.paddingColor));
 				world.addEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), padding));
 			}
 
-			InventoryHelper.dropInventory(inv, world, state, pos);
+			InventoryHelper.dropInventoryItems(world, pos, inv.getItemHandler());
 
 			super.onReplaced(state, world, pos, newState, isMoving);
 		}
@@ -209,8 +203,8 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
-		((TileSpreader) world.getTileEntity(pos)).renderHUD(mc);
+	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
+		((TileSpreader) world.getTileEntity(pos)).renderHUD(ms, mc);
 	}
 
 	@Override

@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.gui.bag;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.Minecraft;
@@ -19,7 +20,6 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.items.SlotItemHandler;
 
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
@@ -34,36 +34,36 @@ public class GuiFlowerBag extends ContainerScreen<ContainerFlowerBag> {
 	}
 
 	@Override
-	public void render(int mouseX, int mouseY, float partialTicks) {
-		this.renderBackground();
-		super.render(mouseX, mouseY, partialTicks);
-		this.renderHoveredToolTip(mouseX, mouseY);
+	public void render(MatrixStack ms, int mouseX, int mouseY, float partialTicks) {
+		this.renderBackground(ms);
+		super.render(ms, mouseX, mouseY, partialTicks);
+		this.func_230459_a_(ms, mouseX, mouseY);
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+	protected void func_230451_b_(MatrixStack ms, int mouseX, int mouseY) {
 		String s = I18n.format(ModItems.flowerBag.getTranslationKey());
-		font.drawString(s, xSize / 2 - font.getStringWidth(s) / 2, 6, 4210752);
-		font.drawString(I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
+		font.drawString(ms, s, xSize / 2 - font.getStringWidth(s) / 2, 6, 4210752);
+		font.drawString(ms, I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+	protected void func_230450_a_(MatrixStack ms, float partialTicks, int mouseX, int mouseY) {
 		Minecraft mc = Minecraft.getInstance();
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.getTextureManager().bindTexture(texture);
 		int k = (width - xSize) / 2;
 		int l = (height - ySize) / 2;
-		blit(k, l, 0, 0, xSize, ySize);
+		blit(ms, k, l, 0, 0, xSize, ySize);
 
 		for (Slot slot : container.inventorySlots) {
-			if (slot instanceof SlotItemHandler && !slot.getHasStack()) {
+			if (slot.inventory == container.flowerBagInv && !slot.getHasStack()) {
 				DyeColor color = DyeColor.byId(slot.getSlotIndex());
 				ItemStack stack = new ItemStack(ModBlocks.getFlower(color));
 				int x = guiLeft + slot.xPos;
 				int y = guiTop + slot.yPos;
 				mc.getItemRenderer().renderItemIntoGUI(stack, x, y);
-				mc.fontRenderer.drawStringWithShadow("0", x + 11, y + 9, 0xFF6666);
+				mc.fontRenderer.drawStringWithShadow(ms, "0", x + 11, y + 9, 0xFF6666);
 			}
 		}
 	}

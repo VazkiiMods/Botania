@@ -1305,9 +1305,6 @@
   "item.botania:virus1": "Наллодермальный вирус",
   "item.botania:skyDirtRod": "Жезл Высокогорья",
   "item.botania:placeholder": "Заполнитель сборщика",
-  "item.botania:manasteelHelmReveal": "Шлем откровения из манастали",
-  "item.botania:terrasteelHelmReveal": "Шлем откровения из террастали",
-  "item.botania:elementiumHelmReveal": "Шлем откровения из элементия",
   "item.botania:itemFinder": "Инспектор",
   "item.botania:superLavaPendant": "Багровый кулон",
   "item.botania:enderHand": "Рука Края",
@@ -1320,7 +1317,6 @@
   "item.botania:diviningRod": "Жезл Волхвов",
   "item.botania:gravityRod": "Жезл Чёрной Мессы",
   "item.botania:regenIvy": "Бессмертный плющ",
-  "item.botania:manaInkwell": "Ботаническая чернильница",
   "item.botania:vial0": "Пузырёк из манастали",
   "item.botania:vial1": "Колба из эльфийского стекла",
   "item.botania:brewVial": "Пузырёк %s (%s)",
@@ -1473,7 +1469,6 @@
   "botania.brew.bloodthirst": "Багровой тени",
   "botania.brew.overload": "Божественной силы",
   "botania.brew.allure": "Морского очарования",
-  "botania.brew.warp_ward": "Здравых мыслей",
   "botania.brew.clear": "Отпущения грехов",
 
   "botania.potion.soulCross": "Скрещивания душ",
@@ -1878,10 +1873,6 @@
   "botania.page.flowerBag0": "The laws of physics regarding one's $(thing)Inventory$(0) are somewhat skewed in this world. Thanks to that, carrying an array of different colors of flowers turns out to be a major hassle. Luckily, a $(item)Flower Pouch$(0) takes care of all those issues. It can store up to one stack of each color of $(item)Mystical Flower$(0). Not only that but it'll also passively catch any that enter the holder's inventory.",
   "botania.page.flowerBag2": "Items won't be added automatically to the pouch if the pouch is held in your dominant hand.$(p)Furthermore, shift-right clicking the pouch on a $(item)Chest$(0) or other inventory will store all flowers the pouch contains into said inventory.",
   "botania.page.flowerBag1": "It's about the same size on the inside (any colors work)",
-
-  "botania.entry.wrap": "Врап",
-  "botania.tagline.wrap": "Это конец...",
-  "botania.page.wrap0": "Похоже, что создатель мода решил добавить странную игровую механику, называемую... $(item)Врапом$(0). Понятия не имею, что она делает, но, скорее всего, что-то плохое. :/$(p)Да что за \"Четвертая стена\", о которой Вы все время говорите...?",
 
   "botania.entry.mIntro": "Bступление к разделу",
   "botania.tagline.mIntro": "Начнем с маны!",

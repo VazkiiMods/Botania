@@ -14,21 +14,17 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.monster.ShulkerEntity;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.Effects;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
@@ -47,9 +43,9 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 
 		World world = getWorld();
 		BlockPos pos = getEffectivePos();
-		Vec3d posD = new Vec3d(pos.getX(), pos.getY(), pos.getZ());
-		List<ShulkerEntity> shulkers = world.getEntitiesWithinAABB(ShulkerEntity.class, new AxisAlignedBB(pos).grow(RADIUS));
+		Vector3d posD = new Vector3d(pos.getX(), pos.getY(), pos.getZ());
 		if (!world.isRemote) {
+			List<ShulkerEntity> shulkers = world.getEntitiesWithinAABB(ShulkerEntity.class, new AxisAlignedBB(pos).grow(RADIUS));
 			for (ShulkerEntity shulker : shulkers) {
 				if (getMaxMana() - getMana() < generate) {
 					break;
@@ -57,7 +53,7 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 
 				if (shulker.isAlive() && shulker.getDistanceSq(posD) < RADIUS * RADIUS) {
 					LivingEntity target = shulker.getAttackTarget();
-					if (target != null && target instanceof IMob && target.isAlive()
+					if (target instanceof IMob && target.isAlive()
 							&& target.getDistanceSq(posD) < RADIUS * RADIUS && target.getActivePotionEffect(Effects.LEVITATION) != null) {
 						target.remove();
 						shulker.remove();

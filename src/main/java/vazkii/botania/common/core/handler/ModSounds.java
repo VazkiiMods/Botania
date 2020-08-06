@@ -13,7 +13,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
-import vazkii.botania.common.lib.LibMisc;
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ModSounds {
 	public static final SoundEvent airRod = makeSoundEvent("airrod");
@@ -62,7 +62,7 @@ public final class ModSounds {
 	public static final SoundEvent gaiaMusic2 = makeSoundEvent("music.gaia2");
 
 	private static SoundEvent makeSoundEvent(String name) {
-		ResourceLocation loc = new ResourceLocation(LibMisc.MOD_ID, name);
+		ResourceLocation loc = prefix(name);
 		return new SoundEvent(loc).setRegistryName(loc);
 	}
 

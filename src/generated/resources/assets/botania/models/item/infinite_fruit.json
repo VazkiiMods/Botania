@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "botania:item/infinite_fruit"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "botania:boot": 1.0
+      },
+      "model": "botania:item/dasboot"
+    }
+  ]
+}

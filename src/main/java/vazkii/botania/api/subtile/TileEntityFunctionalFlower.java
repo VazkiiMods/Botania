@@ -8,6 +8,8 @@
  */
 package vazkii.botania.api.subtile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,6 +18,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
@@ -23,6 +26,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaPool;
 
@@ -30,7 +34,7 @@ import vazkii.botania.api.mana.IManaPool;
  * The basic class for a Functional Flower.
  */
 public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
-
+	private static final ResourceLocation POOL_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_pool");
 	public static final int LINK_RANGE = 10;
 
 	private static final String TAG_MANA = "mana";
@@ -89,7 +93,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 			float green = (color >> 8 & 0xFF) / 255F;
 			float blue = (color & 0xFF) / 255F;
 			if (Math.random() > particleChance) {
-				BotaniaAPI.instance().internalHandler().sparkleFX(getWorld(), getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() + 0.5 + Math.random() * 0.5, getPos().getZ() + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
+				BotaniaAPI.instance().sparkleFX(getWorld(), getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() + 0.5 + Math.random() * 0.5, getPos().getZ() + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
 			}
 		}
 	}
@@ -119,9 +123,9 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		}
 
 		if (needsNew && ticksExisted == 1) { // Only for new flowers
-			IManaNetwork network = BotaniaAPI.instance().internalHandler().getManaNetworkInstance();
+			IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
 			int size = network.getAllPoolsInWorld(getWorld()).size();
-			if (BotaniaAPI.instance().internalHandler().shouldForceCheck() || size != sizeLastCheck) {
+			if (BotaniaAPI.instance().shouldForceCheck() || size != sizeLastCheck) {
 				linkedPool = network.getClosestPool(getPos(), getWorld(), LINK_RANGE);
 				sizeLastCheck = size;
 			}
@@ -233,12 +237,16 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 				&& getWorld().getTileEntity(linkedPool.getPos()) == linkedPool;
 	}
 
+	public ItemStack getHudIcon() {
+		return Registry.ITEM.getValue(POOL_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
+	}
+
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc) {
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		String name = I18n.format(getBlockState().getBlock().getTranslationKey());
 		int color = getColor();
-		BotaniaAPI.instance().internalHandler().drawComplexManaHUD(color, getMana(), getMaxMana(), name, BotaniaAPI.instance().internalHandler().getBindDisplayForFlowerType(this), isValidBinding());
+		BotaniaAPIClient.instance().drawComplexManaHUD(ms, color, getMana(), getMaxMana(), name, getHudIcon(), isValidBinding());
 	}
 
 }

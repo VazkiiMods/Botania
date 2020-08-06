@@ -1,0 +1,8 @@
+{
+  "parent": "botania:block/shapes/three_high_bottom_top",
+  "textures": {
+    "bottom": "botania:block/spark_changer_bottom",
+    "top": "botania:block/spark_changer_top",
+    "side": "botania:block/spark_changer_side"
+  }
+}

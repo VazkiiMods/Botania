@@ -10,32 +10,22 @@ package vazkii.botania.data.recipes;
 
 import com.google.gson.JsonArray;
 
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.ICriterionInstance;
-import net.minecraft.advancements.IRequirementsStrategy;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.block.Block;
 import net.minecraft.data.*;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.potion.Potions;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.crafting.ConditionalAdvancement;
-import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.TagEmptyCondition;
-import net.minecraftforge.common.crafting.conditions.TrueCondition;
 
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.block.ModBlocks;
@@ -52,12 +42,9 @@ import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import javax.annotation.Nullable;
 
-import java.util.Arrays;
-import java.util.EnumMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -596,12 +583,6 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addIngredient(dyes, 4)
 				.addCriterion("has_item", hasItem(Tags.Items.DYES))
 				.build(consumer, "botania:fertilizer_dye");
-		Ingredient floralDyes = Ingredient.fromItems(Arrays.stream(DyeColor.values()).map(ModItems::getDye).toArray(Item[]::new));
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.fertilizer)
-				.addIngredient(Items.BONE_MEAL)
-				.addIngredient(floralDyes, 4)
-				.addCriterion("has_item", hasItem(ModTags.Items.DYES))
-				.build(consumer, "botania:fertilizer_powder");
 		ShapelessRecipeBuilder.shapelessRecipe(ModItems.drySeeds)
 				.addIngredient(ModItems.grassSeeds)
 				.addIngredient(Items.DEAD_BUSH)
@@ -816,7 +797,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addIngredient(mushrooms, 2)
 				.addIngredient(Items.BOWL)
 				.addCriterion("has_item", hasItem(Items.BOWL))
-				.addCriterion("has_orig_recipe", new RecipeUnlockedTrigger.Instance(new ResourceLocation("mushroom_stew")))
+				.addCriterion("has_orig_recipe", RecipeUnlockedTrigger.func_235675_a_(new ResourceLocation("mushroom_stew")))
 				.build(consumer, "botania:mushroom_stew");
 
 		ShapedRecipeBuilder.shapedRecipe(Items.COBWEB)
@@ -851,34 +832,6 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 					.addCriterion("has_flower_item", hasItem(ModSubtiles.marimorphosis))
 					.build(consumer);
 		}
-		EnumMap<DyeColor, Ingredient> colorOverrides = new EnumMap<>(DyeColor.class);
-		colorOverrides.put(DyeColor.LIGHT_BLUE, Ingredient.fromItemListStream(Stream.of(
-				new Ingredient.SingleItemList(new ItemStack(Items.BLUE_ORCHID)),
-				new Ingredient.TagList(ModTags.Items.PETALS_LIGHT_BLUE)
-		)));
-		colorOverrides.put(DyeColor.ORANGE, Ingredient.fromItemListStream(Stream.of(
-				new Ingredient.SingleItemList(new ItemStack(Items.ORANGE_TULIP)),
-				new Ingredient.TagList(ModTags.Items.PETALS_ORANGE)
-		)));
-		colorOverrides.put(DyeColor.PINK, Ingredient.fromItemListStream(Stream.of(
-				new Ingredient.SingleItemList(new ItemStack(Items.PINK_TULIP)),
-				new Ingredient.TagList(ModTags.Items.PETALS_PINK)
-		)));
-		colorOverrides.put(DyeColor.RED, Ingredient.fromItemListStream(Stream.of(
-				new Ingredient.SingleItemList(new ItemStack(Items.POPPY)),
-				new Ingredient.SingleItemList(new ItemStack(Items.RED_TULIP)),
-				new Ingredient.TagList(ModTags.Items.PETALS_RED)
-		)));
-		colorOverrides.put(DyeColor.LIGHT_GRAY, Ingredient.fromItemListStream(Stream.of(
-				new Ingredient.SingleItemList(new ItemStack(Items.AZURE_BLUET)),
-				new Ingredient.SingleItemList(new ItemStack(Items.WHITE_TULIP)),
-				new Ingredient.SingleItemList(new ItemStack(Items.OXEYE_DAISY)),
-				new Ingredient.TagList(ModTags.Items.PETALS_LIGHT_GRAY)
-		)));
-		colorOverrides.put(DyeColor.YELLOW, Ingredient.fromItemListStream(Stream.of(
-				new Ingredient.SingleItemList(new ItemStack(Items.DANDELION)),
-				new Ingredient.TagList(ModTags.Items.PETALS_YELLOW)
-		)));
 		for (DyeColor color : DyeColor.values()) {
 			ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.getShinyFlower(color))
 					.addIngredient(Tags.Items.DUSTS_GLOWSTONE)
@@ -907,7 +860,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 					.build(consumer);
 			ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.getMushroom(color))
 					.addIngredient(Ingredient.fromItems(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM))
-					.addIngredient(ModItems.getDye(color))
+					.addIngredient(DyeItem.getItem(color))
 					.setGroup("botania:mushroom")
 					.addCriterion("has_item", hasItem(Items.RED_MUSHROOM))
 					.addCriterion("has_alt_item", hasItem(Items.BROWN_MUSHROOM))
@@ -917,50 +870,20 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 					.setGroup("botania:petal_double")
 					.addCriterion("has_item", hasItem(ModBlocks.getDoubleFlower(color)))
 					.addCriterion("has_alt_item", hasItem(ModItems.getPetal(color)))
-					.build(consumer, "botania:petal_" + color.getName() + "_double");
+					.build(consumer, "botania:petal_" + color.getString() + "_double");
 			ShapelessRecipeBuilder.shapelessRecipe(ModItems.getPetal(color), 2)
 					.addIngredient(ModBlocks.getFlower(color))
 					.setGroup("botania:petal")
 					.addCriterion("has_item", hasItem(ModBlocks.getFlower(color)))
 					.addCriterion("has_alt_item", hasItem(ModItems.getPetal(color)))
-					.build(consumer, "botania:petal_" + color.getName());
-			ShapelessRecipeBuilder.shapelessRecipe(ModItems.getDye(color))
-					.addIngredient(colorOverrides.getOrDefault(color, Ingredient.fromTag(ModTags.Items.getFlowerTag(color))))
+					.build(consumer, "botania:petal_" + color.getString());
+			ShapelessRecipeBuilder.shapelessRecipe(DyeItem.getItem(color))
+					.addIngredient(Ingredient.fromTag(ModTags.Items.getFlowerTag(color)))
 					.addIngredient(ModItems.pestleAndMortar)
 					.setGroup("botania:dye")
-					.addCriterion("has_item", hasItem(ModItems.getDye(color)))
-					.addCriterion("has_alt_item", hasItem(ModItems.getPetal(color)))
-					.build(consumer, "botania:dye_" + color.getName());
+					.addCriterion("has_item", hasItem(ModItems.getPetal(color)))
+					.build(consumer, "botania:dye_" + color.getString());
 		}
-
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.magentaDye, 2)
-				.addIngredient(Items.LILAC)
-				.addIngredient(ModItems.pestleAndMortar)
-				.setGroup("botania:dye_double")
-				.addCriterion("has_item", hasItem(ModItems.yellowDye))
-				.addCriterion("has_alt_item", hasItem(Items.LILAC))
-				.build(consumer, "botania:dye_magenta_double");
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.pinkDye, 2)
-				.addIngredient(Items.PEONY)
-				.addIngredient(ModItems.pestleAndMortar)
-				.setGroup("botania:dye_double")
-				.addCriterion("has_item", hasItem(ModItems.pinkDye))
-				.addCriterion("has_alt_item", hasItem(Items.PEONY))
-				.build(consumer, "botania:dye_pink_double");
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.redDye, 2)
-				.addIngredient(Items.ROSE_BUSH)
-				.addIngredient(ModItems.pestleAndMortar)
-				.setGroup("botania:dye_double")
-				.addCriterion("has_item", hasItem(ModItems.redDye))
-				.addCriterion("has_alt_item", hasItem(Items.ROSE_BUSH))
-				.build(consumer, "botania:dye_red_double");
-		ShapelessRecipeBuilder.shapelessRecipe(ModItems.yellowDye, 2)
-				.addIngredient(Items.SUNFLOWER)
-				.addIngredient(ModItems.pestleAndMortar)
-				.setGroup("botania:dye_double")
-				.addCriterion("has_item", hasItem(ModItems.yellowDye))
-				.addCriterion("has_alt_item", hasItem(Items.SUNFLOWER))
-				.build(consumer, "botania:dye_yellow_double");
 	}
 
 	private void registerTools(Consumer<IFinishedRecipe> consumer) {
@@ -990,32 +913,14 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addCriterion("has_item", hasItem(ModTags.Items.GEMS_MANA_DIAMOND))
 				.build(consumer);
 
-		ResourceLocation cacophoniumId = Registry.ITEM.getKey(ModItems.cacophonium);
-		Supplier<ShapedRecipeBuilder> cacophoniumBase = () -> ShapedRecipeBuilder.shapedRecipe(ModItems.cacophonium)
+		ShapedRecipeBuilder.shapedRecipe(ModItems.cacophonium)
 				.key('N', Items.NOTE_BLOCK)
+				.key('G', Tags.Items.INGOTS_GOLD)
 				.patternLine(" G ")
 				.patternLine("GNG")
 				.patternLine("GG ")
-				.addCriterion("has_item", hasItem(Items.NOTE_BLOCK));
-		ConditionalRecipe.builder()
-				.addCondition(new TagEmptyCondition("forge", "ingots/brass"))
-				.addRecipe(cacophoniumBase.get().key('G', Tags.Items.INGOTS_GOLD)::build)
-				.addCondition(TrueCondition.INSTANCE)
-				.addRecipe(
-						cacophoniumBase.get().key('G', Ingredient.fromItemListStream(Stream.of(
-								new Ingredient.TagList(Tags.Items.INGOTS_GOLD),
-								new Ingredient.TagList(new ItemTags.Wrapper(new ResourceLocation("forge", "ingots/brass"))))
-						))::build
-				).setAdvancement(prefix("recipes/botania/cacophonium"),
-						ConditionalAdvancement.builder()
-								.addCondition(TrueCondition.INSTANCE)
-								.addAdvancement(Advancement.Builder.builder()
-										.withParentId(new ResourceLocation("recipes/root"))
-										.withRewards(AdvancementRewards.Builder.recipe(cacophoniumId))
-										.withCriterion("has_item", hasItem(Items.NOTE_BLOCK))
-										.withCriterion("has_the_recipe", new RecipeUnlockedTrigger.Instance(cacophoniumId))
-										.withRequirementsStrategy(IRequirementsStrategy.OR))
-				).build(consumer, cacophoniumId);
+				.addCriterion("has_item", hasItem(Items.NOTE_BLOCK))
+				.build(consumer);
 
 		ShapedRecipeBuilder.shapedRecipe(ModItems.grassHorn)
 				.key('S', ModItems.grassSeeds)
@@ -1196,7 +1101,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 			if (pattern == CratePattern.NONE) {
 				continue;
 			}
-			Item item = Registry.ITEM.getValue(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + pattern.getName().split("_", 2)[1])).get();
+			Item item = Registry.ITEM.getValue(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + pattern.getString().split("_", 2)[1])).get();
 			String s = pattern.openSlots.stream().map(bool -> bool ? "R" : "P").collect(Collectors.joining());
 			ShapedRecipeBuilder.shapedRecipe(item)
 					.key('P', ModItems.placeholder)
@@ -2299,22 +2204,22 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 		cosmeticBauble(consumer, ModItems.devilTail, ModItems.greenPetal);
 		cosmeticBauble(consumer, ModItems.kamuiEye, ModItems.redPetal);
 		cosmeticBauble(consumer, ModItems.googlyEyes, ModItems.blackPetal);
-		cosmeticBauble(consumer, ModItems.fourLeafClover, ModItems.whiteDye);
-		cosmeticBauble(consumer, ModItems.clockEye, ModItems.orangeDye);
-		cosmeticBauble(consumer, ModItems.unicornHorn, ModItems.magentaDye);
-		cosmeticBauble(consumer, ModItems.devilHorns, ModItems.lightBlueDye);
-		cosmeticBauble(consumer, ModItems.hyperPlus, ModItems.yellowDye);
-		cosmeticBauble(consumer, ModItems.botanistEmblem, ModItems.limeDye);
-		cosmeticBauble(consumer, ModItems.ancientMask, ModItems.pinkDye);
-		cosmeticBauble(consumer, ModItems.eerieMask, ModItems.grayDye);
-		cosmeticBauble(consumer, ModItems.alienAntenna, ModItems.lightGrayDye);
-		cosmeticBauble(consumer, ModItems.anaglyphGlasses, ModItems.cyanDye);
-		cosmeticBauble(consumer, ModItems.orangeShades, ModItems.purpleDye);
-		cosmeticBauble(consumer, ModItems.grouchoGlasses, ModItems.blueDye);
-		cosmeticBauble(consumer, ModItems.thickEyebrows, ModItems.brownDye);
-		cosmeticBauble(consumer, ModItems.lusitanicShield, ModItems.greenDye);
-		cosmeticBauble(consumer, ModItems.tinyPotatoMask, ModItems.redDye);
-		cosmeticBauble(consumer, ModItems.questgiverMark, ModItems.blackDye);
+		cosmeticBauble(consumer, ModItems.fourLeafClover, Items.WHITE_DYE);
+		cosmeticBauble(consumer, ModItems.clockEye, Items.ORANGE_DYE);
+		cosmeticBauble(consumer, ModItems.unicornHorn, Items.MAGENTA_DYE);
+		cosmeticBauble(consumer, ModItems.devilHorns, Items.LIGHT_BLUE_DYE);
+		cosmeticBauble(consumer, ModItems.hyperPlus, Items.YELLOW_DYE);
+		cosmeticBauble(consumer, ModItems.botanistEmblem, Items.LIME_DYE);
+		cosmeticBauble(consumer, ModItems.ancientMask, Items.PINK_DYE);
+		cosmeticBauble(consumer, ModItems.eerieMask, Items.GRAY_DYE);
+		cosmeticBauble(consumer, ModItems.alienAntenna, Items.LIGHT_GRAY_DYE);
+		cosmeticBauble(consumer, ModItems.anaglyphGlasses, Items.CYAN_DYE);
+		cosmeticBauble(consumer, ModItems.orangeShades, Items.PURPLE_DYE);
+		cosmeticBauble(consumer, ModItems.grouchoGlasses, Items.BLUE_DYE);
+		cosmeticBauble(consumer, ModItems.thickEyebrows, Items.BROWN_DYE);
+		cosmeticBauble(consumer, ModItems.lusitanicShield, Items.GREEN_DYE);
+		cosmeticBauble(consumer, ModItems.tinyPotatoMask, Items.RED_DYE);
+		cosmeticBauble(consumer, ModItems.questgiverMark, Items.BLACK_DYE);
 		cosmeticBauble(consumer, ModItems.thinkingHand, ModBlocks.tinyPotato);
 	}
 
@@ -2397,7 +2302,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 	}
 
 	private void registerTerrasteelUpgradeRecipe(Consumer<IFinishedRecipe> consumer, IItemProvider output,
-			IItemProvider upgradedInput, Tag<Item> runeInput) {
+			IItemProvider upgradedInput, ITag<Item> runeInput) {
 		ShapedRecipeBuilder.shapedRecipe(output)
 				.key('T', ModItems.livingwoodTwig)
 				.key('S', ModTags.Items.INGOTS_TERRASTEEL)
@@ -2441,7 +2346,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.build(consumer, prefix("conversions/" + name));
 	}
 
-	private void deconstruct(Consumer<IFinishedRecipe> consumer, IItemProvider output, Tag<Item> input, String name) {
+	private void deconstruct(Consumer<IFinishedRecipe> consumer, IItemProvider output, ITag<Item> input, String name) {
 		ShapelessRecipeBuilder.shapelessRecipe(output, 9)
 				.addCriterion("has_item", hasItem(output))
 				.addIngredient(input)
@@ -2558,7 +2463,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addCriterion("has_flower_item", marimorphosis).build(consumer);
 	}
 
-	private ShapedRecipeBuilder compression(IItemProvider output, Tag<Item> input) {
+	private ShapedRecipeBuilder compression(IItemProvider output, ITag<Item> input) {
 		return ShapedRecipeBuilder.shapedRecipe(output)
 				.key('I', input)
 				.patternLine("III")

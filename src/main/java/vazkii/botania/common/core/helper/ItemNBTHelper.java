@@ -9,8 +9,8 @@
 package vazkii.botania.common.core.helper;
 
 import com.google.gson.JsonObject;
-import com.mojang.datafixers.Dynamic;
-import com.mojang.datafixers.types.JsonOps;
+import com.mojang.serialization.Dynamic;
+import com.mojang.serialization.JsonOps;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;

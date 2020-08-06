@@ -12,13 +12,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -27,7 +26,6 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nullable;
 
@@ -86,7 +84,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 		Map<ResourceLocation, Integer> map = getOreMap();
 		List<TagRandomItem> values = map.entrySet().stream()
 				.flatMap(e -> {
-					Tag<Block> tag = BlockTags.getCollection().get(e.getKey());
+					ITag<Block> tag = BlockTags.getCollection().get(e.getKey());
 					if (tag != null && !tag.getAllElements().isEmpty()) {
 						return Stream.of(new TagRandomItem(e.getValue(), tag));
 					} else {
@@ -99,7 +97,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 			return null;
 		}
 
-		Tag<Block> ore = WeightedRandom.getRandomItem(getWorld().rand, values).tag;
+		ITag<Block> ore = WeightedRandom.getRandomItem(getWorld().rand, values).tag;
 		return ore.getRandomElement(getWorld().getRandom()).getDefaultState();
 	}
 
@@ -109,7 +107,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 		for (BlockPos pos : BlockPos.getAllInBoxMutable(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE),
 				getEffectivePos().add(RANGE, RANGE_Y, RANGE))) {
 			BlockState state = getWorld().getBlockState(pos);
-			if (state.getBlock().isReplaceableOreGen(state, getWorld(), pos, getReplaceMatcher())) {
+			if (getReplaceMatcher().test(state)) {
 				possibleCoords.add(pos.toImmutable());
 			}
 		}
@@ -162,9 +160,9 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 
 	private static class TagRandomItem extends WeightedRandom.Item {
 
-		public final Tag<Block> tag;
+		public final ITag<Block> tag;
 
-		public TagRandomItem(int weight, Tag<Block> tag) {
+		public TagRandomItem(int weight, ITag<Block> tag) {
 			super(weight);
 			this.tag = tag;
 		}

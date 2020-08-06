@@ -10,6 +10,7 @@ package vazkii.botania.api.corporea;
 
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.List;
 
@@ -18,6 +19,11 @@ import java.util.List;
  * connections.
  */
 public interface ICorporeaSpark {
+
+	/**
+	 * @return The position to which this spark is attached for inventory purposes
+	 */
+	BlockPos getAttachPos();
 
 	/**
 	 * Called to register the connections for the spark network passed in. Parameters include the master spark,
@@ -35,9 +41,9 @@ public interface ICorporeaSpark {
 	void registerConnections(ICorporeaSpark master, ICorporeaSpark referrer, List<ICorporeaSpark> connections);
 
 	/**
-	 * Gets the inventory this spark is bound to, generally the one right below it.
+	 * @return Corporea node this spark is attached to, generally belonging to the block below it
 	 */
-	InvWithLocation getSparkInventory();
+	ICorporeaNode getSparkNode();
 
 	/**
 	 * Gets the list of sparks this spark is connected to, see registerConnections(). This list
@@ -62,8 +68,10 @@ public interface ICorporeaSpark {
 	ICorporeaSpark getMaster();
 
 	/**
-	 * Called when an item is extracted from the inventory this spark is attached to through this
+	 * Called when an item is extracted from the node this spark is attached to through this
 	 * spark.
+	 * 
+	 * @param stack The itemstack, before any extraction was done. Do not mutate this.
 	 */
 	void onItemExtracted(ItemStack stack);
 

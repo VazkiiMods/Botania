@@ -8,27 +8,23 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.IFluidState;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -70,12 +66,9 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 				for (BlockPos offset : offsets) {
 					BlockPos pos = getEffectivePos().add(offset);
 
-					IFluidState fstate = getWorld().getFluidState(pos);
-					Tag<Fluid> search = getMaterialToSearchFor();
-					if (fstate.isTagged(search)
-							&& (getBlockToSearchBelow() == null
-									|| getWorld().getBlockState(pos.down()).getBlock() == getBlockToSearchBelow())
-							&& fstate.isSource()) {
+					FluidState fstate = getWorld().getFluidState(pos);
+					ITag<Fluid> search = getMaterialToSearchFor();
+					if (fstate.isTagged(search) && fstate.isSource()) {
 						if (search != FluidTags.WATER) {
 							getWorld().setBlockState(pos, Blocks.AIR.getDefaultState());
 						} else {
@@ -120,12 +113,8 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 		world.addParticle(data, getEffectivePos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getY() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getZ() + 0.5, 0, (float) Math.random() / 60, 0);
 	}
 
-	public Tag<Fluid> getMaterialToSearchFor() {
+	public ITag<Fluid> getMaterialToSearchFor() {
 		return FluidTags.WATER;
-	}
-
-	public Block getBlockToSearchBelow() {
-		return null;
 	}
 
 	public void playSound() {
@@ -151,6 +140,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 		return 0x532FE0;
 	}
 
+	@Override
 	public void writeToPacketNBT(CompoundNBT cmp) {
 		super.writeToPacketNBT(cmp);
 

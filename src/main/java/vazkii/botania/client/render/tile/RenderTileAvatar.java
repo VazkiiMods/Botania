@@ -14,7 +14,6 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
@@ -22,12 +21,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Vector3f;
 
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelAvatar;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileAvatar;
 
 import javax.annotation.Nullable;
@@ -47,13 +46,6 @@ public class RenderTileAvatar extends TileEntityRenderer<TileAvatar> {
 
 	@Override
 	public void render(@Nullable TileAvatar avatar, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-		if (avatar != null) {
-			if (!avatar.getWorld().isBlockLoaded(avatar.getPos())
-					|| avatar.getBlockState().getBlock() != ModBlocks.avatar) {
-				return;
-			}
-		}
-
 		ms.push();
 		Direction facing = avatar != null && avatar.getWorld() != null ? avatar.getBlockState().get(BlockStateProperties.HORIZONTAL_FACING) : Direction.SOUTH;
 

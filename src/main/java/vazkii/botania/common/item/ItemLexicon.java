@@ -14,7 +14,12 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -27,7 +32,6 @@ import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import javax.annotation.Nonnull;
@@ -40,7 +44,6 @@ public class ItemLexicon extends Item implements IElvenItem {
 
 	public ItemLexicon(Properties props) {
 		super(props);
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "elven"), (stack, world, living) -> isElvenItem(stack) ? 1 : 0);
 	}
 
 	public static boolean isOpen() {
@@ -63,7 +66,7 @@ public class ItemLexicon extends Item implements IElvenItem {
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 
 		TooltipHandler.addOnShift(tooltip, () -> {
-			tooltip.add(getEdition().applyTextStyle(TextFormatting.GRAY));
+			tooltip.add(getEdition().deepCopy().func_240699_a_(TextFormatting.GRAY));
 		});
 	}
 
@@ -100,5 +103,10 @@ public class ItemLexicon extends Item implements IElvenItem {
 	@Override
 	public boolean isElvenItem(ItemStack stack) {
 		return stack.hasTag() && stack.getTag().getBoolean(TAG_ELVEN_UNLOCK);
+	}
+
+	// Random item to expose this as public
+	public static BlockRayTraceResult doRayTrace(World world, PlayerEntity player, RayTraceContext.FluidMode fluidMode) {
+		return Item.rayTrace(world, player, fluidMode);
 	}
 }

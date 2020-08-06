@@ -8,18 +8,19 @@
  */
 package vazkii.botania.common.block.tile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.brew.IBrewItem;
@@ -33,8 +34,6 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.crafting.ModRecipeTypes;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -56,18 +55,18 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 	}
 
 	public boolean addItem(@Nullable PlayerEntity player, ItemStack stack, @Nullable Hand hand) {
-		if (recipe != null || stack.isEmpty() || stack.getItem() instanceof IBrewItem && ((IBrewItem) stack.getItem()).getBrew(stack) != null && ((IBrewItem) stack.getItem()).getBrew(stack) != ModBrews.fallbackBrew || itemHandler.getStackInSlot(0).isEmpty() != stack.getItem() instanceof IBrewContainer) {
+		if (recipe != null || stack.isEmpty() || stack.getItem() instanceof IBrewItem && ((IBrewItem) stack.getItem()).getBrew(stack) != null && ((IBrewItem) stack.getItem()).getBrew(stack) != ModBrews.fallbackBrew || getItemHandler().getStackInSlot(0).isEmpty() != stack.getItem() instanceof IBrewContainer) {
 			return false;
 		}
 
 		boolean did = false;
 
-		for (int i = 0; i < getSizeInventory(); i++) {
-			if (itemHandler.getStackInSlot(i).isEmpty()) {
+		for (int i = 0; i < inventorySize(); i++) {
+			if (getItemHandler().getStackInSlot(i).isEmpty()) {
 				did = true;
 				ItemStack stackToAdd = stack.copy();
 				stackToAdd.setCount(1);
-				itemHandler.setStackInSlot(i, stackToAdd);
+				getItemHandler().setInventorySlotContents(i, stackToAdd);
 
 				if (player == null || !player.abilities.isCreativeMode) {
 					stack.shrink(1);
@@ -89,7 +88,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 	}
 
 	private void findRecipe() {
-		Optional<IBrewRecipe> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.BREW_TYPE, getRecipeWrapper(), world);
+		Optional<IBrewRecipe> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.BREW_TYPE, getItemHandler(), world);
 		maybeRecipe.ifPresent(recipeBrew -> {
 			this.recipe = recipeBrew;
 			world.setBlockState(pos, ModBlocks.brewery.getDefaultState().with(BlockStateProperties.POWERED, true));
@@ -120,14 +119,14 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 		}
 
 		if (recipe != null) {
-			if (!recipe.matches(getRecipeWrapper(), world)) {
+			if (!recipe.matches(getItemHandler(), world)) {
 				recipe = null;
 				world.setBlockState(pos, ModBlocks.brewery.getDefaultState());
 			}
 
 			if (recipe != null) {
 				if (mana != manaLastTick) {
-					int color = recipe.getBrew().getColor(itemHandler.getStackInSlot(0));
+					int color = recipe.getBrew().getColor(getItemHandler().getStackInSlot(0));
 					float r = (color >> 16 & 0xFF) / 255F;
 					float g = (color >> 8 & 0xFF) / 255F;
 					float b = (color & 0xFF) / 255F;
@@ -145,13 +144,13 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 					int mana = getManaCost();
 					receiveMana(-mana);
 
-					ItemStack output = recipe.getOutput(itemHandler.getStackInSlot(0));
+					ItemStack output = recipe.getOutput(getItemHandler().getStackInSlot(0));
 					ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 					world.addEntity(outputItem);
 					world.addBlockEvent(getPos(), ModBlocks.brewery, CRAFT_EFFECT_EVENT, recipe.getBrew().getColor(output));
 
-					for (int i = 0; i < getSizeInventory(); i++) {
-						itemHandler.setStackInSlot(i, ItemStack.EMPTY);
+					for (int i = 0; i < inventorySize(); i++) {
+						getItemHandler().setInventorySlotContents(i, ItemStack.EMPTY);
 					}
 				}
 			}
@@ -194,7 +193,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 	}
 
 	public int getManaCost() {
-		ItemStack stack = itemHandler.getStackInSlot(0);
+		ItemStack stack = getItemHandler().getStackInSlot(0);
 		if (recipe == null || stack.isEmpty() || !(stack.getItem() instanceof IBrewContainer)) {
 			return 0;
 		}
@@ -216,11 +215,6 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 		mana = tag.getInt(TAG_MANA);
 	}
 
-	@Override
-	public int getSizeInventory() {
-		return 7;
-	}
-
 	@Nonnull
 	@Override
 	public AxisAlignedBB getRenderBoundingBox() {
@@ -228,10 +222,10 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 	}
 
 	@Override
-	protected SimpleItemStackHandler createItemHandler() {
-		return new SimpleItemStackHandler(this, false) {
+	protected Inventory createItemHandler() {
+		return new Inventory(7) {
 			@Override
-			protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
+			public int getInventoryStackLimit() {
 				return 1;
 			}
 		};
@@ -257,7 +251,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 		return !isFull();
 	}
 
-	public void renderHUD(Minecraft mc) {
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		int manaToGet = getManaCost();
 		if (manaToGet > 0) {
 			int x = mc.getMainWindow().getScaledWidth() / 2 + 20;
@@ -267,7 +261,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, I
 				return;
 			}
 
-			RenderHelper.renderProgressPie(x, y, (float) mana / (float) manaToGet, recipe.getOutput(itemHandler.getStackInSlot(0)));
+			RenderHelper.renderProgressPie(ms, x, y, (float) mana / (float) manaToGet, recipe.getOutput(getItemHandler().getStackInSlot(0)));
 		}
 	}
 

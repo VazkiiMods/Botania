@@ -24,8 +24,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-import vazkii.botania.common.Botania;
-
 import javax.annotation.Nonnull;
 
 public class ArmorUpgradeRecipe implements ICraftingRecipe {
@@ -48,9 +46,6 @@ public class ArmorUpgradeRecipe implements ICraftingRecipe {
 			ItemStack stack = inv.getStackInSlot(i);
 			if (!stack.isEmpty() && stack.getItem() instanceof ArmorItem && stack.hasTag()) {
 				EnchantmentHelper.setEnchantments(EnchantmentHelper.getEnchantments(stack), out);
-				if (Botania.thaumcraftLoaded) {
-					HelmRevealingRecipe.copyTCData(stack, out);
-				}
 				break;
 			}
 		}

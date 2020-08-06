@@ -8,15 +8,10 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
-import com.google.common.collect.Multimap;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -39,7 +34,7 @@ public class ItemThunderSword extends ItemManasteelSword {
 	private static final String TAG_LIGHTNING_SEED = "lightningSeed";
 
 	public ItemThunderSword(Properties props) {
-		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
+		super(BotaniaAPI.instance().getTerrasteelItemTier(), 3, -1.5F, props);
 	}
 
 	@Override
@@ -81,20 +76,6 @@ public class ItemThunderSword extends ItemManasteelSword {
 		}
 
 		return super.hitEntity(stack, entity, attacker);
-	}
-
-	@Nonnull
-	@Override
-	public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
-		Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(equipmentSlot);
-
-		if (equipmentSlot == EquipmentSlotType.MAINHAND) {
-			multimap.removeAll(SharedMonsterAttributes.ATTACK_SPEED.getName());
-			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
-					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.5, AttributeModifier.Operation.ADDITION));
-		}
-
-		return multimap;
 	}
 
 }

@@ -14,6 +14,7 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.item.crafting.SpecialRecipeSerializer;
+import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.Tags;
@@ -30,7 +31,7 @@ import java.util.List;
 public class LensDyeingRecipe extends SpecialRecipe {
 	public static final SpecialRecipeSerializer<LensDyeingRecipe> SERIALIZER = new SpecialRecipeSerializer<>(LensDyeingRecipe::new);
 
-	private final List<Ingredient> dyes = Arrays.asList(
+	private final LazyValue<List<Ingredient>> dyes = new LazyValue<>(() -> Arrays.asList(
 			Ingredient.fromTag(Tags.Items.DYES_WHITE), Ingredient.fromTag(Tags.Items.DYES_ORANGE),
 			Ingredient.fromTag(Tags.Items.DYES_MAGENTA), Ingredient.fromTag(Tags.Items.DYES_LIGHT_BLUE),
 			Ingredient.fromTag(Tags.Items.DYES_YELLOW), Ingredient.fromTag(Tags.Items.DYES_LIME),
@@ -40,7 +41,7 @@ public class LensDyeingRecipe extends SpecialRecipe {
 			Ingredient.fromTag(Tags.Items.DYES_BROWN), Ingredient.fromTag(Tags.Items.DYES_GREEN),
 			Ingredient.fromTag(Tags.Items.DYES_RED), Ingredient.fromTag(Tags.Items.DYES_BLACK),
 			Ingredient.fromItems(ModItems.manaPearl)
-	);
+	));
 
 	public LensDyeingRecipe(ResourceLocation id) {
 		super(id);
@@ -111,6 +112,7 @@ public class LensDyeingRecipe extends SpecialRecipe {
 	}
 
 	private int getStackColor(ItemStack stack) {
+		List<Ingredient> dyes = this.dyes.getValue();
 		for (int i = 0; i < dyes.size(); i++) {
 			if (dyes.get(i).test(stack)) {
 				return i;

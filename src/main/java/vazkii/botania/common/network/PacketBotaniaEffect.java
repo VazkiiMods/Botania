@@ -17,6 +17,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -86,12 +87,12 @@ public class PacketBotaniaEffect {
 					switch (message.type) {
 					case PAINT_LENS: {
 						DyeColor placeColor = DyeColor.byId(message.args[0]);
-						int hex = placeColor.colorValue;
+						int hex = placeColor.getColorValue();
 						int r = (hex & 0xFF0000) >> 16;
 						int g = (hex & 0xFF00) >> 8;
 						int b = hex & 0xFF;
 						for (int i = 0; i < 10; i++) {
-							BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(Direction.random(world.rand));
+							BlockPos pos = new BlockPos(message.x, message.y, message.z).offset(Direction.func_239631_a_(world.rand));
 							SparkleParticleData data = SparkleParticleData.sparkle(0.6F + (float) Math.random() * 0.5F, r / 255F, g / 255F, b / 255F, 5);
 							world.addParticle(data, pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(), 0, 0, 0);
 						}
@@ -282,6 +283,20 @@ public class PacketBotaniaEffect {
 						}
 						break;
 					}
+					case HALO_CRAFT: {
+						Entity target = Minecraft.getInstance().world.getEntityByID(message.args[0]);
+						if (target != null) {
+							Vector3d lookVec3 = target.getLookVec();
+							Vector3 centerVector = Vector3.fromEntityCenter(target).add(lookVec3.x * 3, 1.3, lookVec3.z * 3);
+							float m = 0.1F;
+							for (int i = 0; i < 4; i++) {
+								WispParticleData data = WispParticleData.wisp(0.2F + 0.2F * (float) Math.random(), 1F, 0F, 1F);
+								target.world.addParticle(data, centerVector.x, centerVector.y, centerVector.z, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m);
+							}
+						}
+
+						break;
+					}
 					}
 				}
 			});
@@ -301,7 +316,8 @@ public class PacketBotaniaEffect {
 		TERRA_PLATE(0),
 		FLUGEL_EFFECT(1), // Arg: Entity ID
 		PARTICLE_BEAM(3), // Args: dest xyz
-		DIVA_EFFECT(1), // Arg: EntityID
+		DIVA_EFFECT(1), // Arg: Entity ID
+		HALO_CRAFT(1), // Arg: Entity ID
 		;
 
 		private final int argCount;

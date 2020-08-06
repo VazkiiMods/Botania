@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.crafting;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -19,6 +20,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import vazkii.botania.api.recipe.StateIngredient;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -26,8 +28,8 @@ import java.util.stream.Collectors;
 public class StateIngredientBlocks implements StateIngredient {
 	private final Set<Block> blocks;
 
-	public StateIngredientBlocks(Set<Block> blocks) {
-		this.blocks = blocks;
+	public StateIngredientBlocks(Collection<Block> blocks) {
+		this.blocks = ImmutableSet.copyOf(blocks);
 	}
 
 	@Override
@@ -50,6 +52,7 @@ public class StateIngredientBlocks implements StateIngredient {
 	@Override
 	public void write(PacketBuffer buffer) {
 		buffer.writeVarInt(0);
+		Collection<Block> blocks = getBlocks();
 		buffer.writeVarInt(blocks.size());
 		for (Block block : blocks) {
 			buffer.writeRegistryIdUnsafe(ForgeRegistries.BLOCKS, block);
@@ -59,5 +62,9 @@ public class StateIngredientBlocks implements StateIngredient {
 	@Override
 	public List<BlockState> getDisplayed() {
 		return blocks.stream().map(Block::getDefaultState).collect(Collectors.toList());
+	}
+
+	protected Collection<Block> getBlocks() {
+		return blocks;
 	}
 }

@@ -57,7 +57,14 @@
     {
       "type": "botania:mana_infusion",
       "text": "botania.page.manaConjuration10",
-      "recipes": "botania:mana_infusion/oak_leaves_dupe;botania:mana_infusion/spruce_leaves_dupe;botania:mana_infusion/birch_leaves_dupe;botania:mana_infusion/jungle_leaves_dupe;botania:mana_infusion/acacia_leaves_dupe;botania:mana_infusion/dark_oak_leaves_dupe"
+      "recipes": [
+        "botania:mana_infusion/oak_leaves_dupe",
+        "botania:mana_infusion/spruce_leaves_dupe",
+        "botania:mana_infusion/birch_leaves_dupe",
+        "botania:mana_infusion/jungle_leaves_dupe",
+        "botania:mana_infusion/acacia_leaves_dupe",
+        "botania:mana_infusion/dark_oak_leaves_dupe"
+      ]
     },
     {
       "type": "botania:mana_infusion",

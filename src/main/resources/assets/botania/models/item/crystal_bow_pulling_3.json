@@ -1,6 +1,6 @@
 {
   "parent": "botania:item/crystal_bow",
   "textures": {
-    "layer0": "botania:items/bow_crystal_pulling_3"
+    "layer0": "botania:item/crystal_bow_pulling_3"
   }
 }

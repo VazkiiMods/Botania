@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "side": "botania:block/metamorphic_swamp_bricks",
+    "bottom": "botania:block/metamorphic_swamp_bricks",
+    "top": "botania:block/metamorphic_swamp_bricks"
+  }
+}

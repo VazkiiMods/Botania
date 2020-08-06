@@ -15,16 +15,14 @@ import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
-import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ModItems;
@@ -68,15 +66,6 @@ public class BrewProvider extends RecipeProvider {
 		consumer.accept(new FinishedRecipe(idFor("bloodthirst"), ModBrews.bloodthirst, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.FERMENTED_SPIDER_EYE), Ingredient.fromItems(Items.LAPIS_LAZULI), Ingredient.fromItems(Items.FIRE_CHARGE), Ingredient.fromItems(Items.IRON_INGOT)));
 		consumer.accept(new FinishedRecipe(idFor("allure"), ModBrews.allure, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.COD), Ingredient.fromItems(Items.QUARTZ), Ingredient.fromItems(Items.GOLDEN_CARROT)));
 		consumer.accept(new FinishedRecipe(idFor("clear"), ModBrews.clear, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(Items.QUARTZ), Ingredient.fromItems(Items.EMERALD), Ingredient.fromItems(Items.MELON_SLICE)));
-
-		// todo 1.15 conditional recipe or remove
-		if (Botania.thaumcraftLoaded) {
-			Item salisMundus = Registry.ITEM.getValue(new ResourceLocation("thaumcraft", "salis_mundus")).get();
-			Item bathSalts = Registry.ITEM.getValue(new ResourceLocation("thaumcraft", "bath_salts")).get();
-			Item amber = Registry.ITEM.getValue(new ResourceLocation("thaumcraft", "amber")).get();
-
-			consumer.accept(new FinishedRecipe(idFor("warp_ward"), ModBrews.warpWard, Ingredient.fromItems(Items.NETHER_WART), Ingredient.fromItems(salisMundus), Ingredient.fromItems(bathSalts), Ingredient.fromItems(amber)));
-		}
 	}
 
 	private static ResourceLocation idFor(String s) {
@@ -96,7 +85,7 @@ public class BrewProvider extends RecipeProvider {
 
 		@Override
 		public void serialize(JsonObject json) {
-			json.addProperty("brew", brew.getRegistryName().toString());
+			json.addProperty("brew", BotaniaAPI.instance().getBrewRegistry().getKey(brew).toString());
 			JsonArray ingredients = new JsonArray();
 			for (Ingredient ingr : inputs) {
 				ingredients.add(ingr.serialize());

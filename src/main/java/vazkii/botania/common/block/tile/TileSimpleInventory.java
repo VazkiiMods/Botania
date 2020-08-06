@@ -8,96 +8,60 @@
  */
 package vazkii.botania.common.block.tile;
 
+import com.google.common.base.Preconditions;
+
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemStackHandler;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
-
-import javax.annotation.Nonnull;
+import net.minecraft.util.NonNullList;
 
 public abstract class TileSimpleInventory extends TileMod {
 
-	protected SimpleItemStackHandler itemHandler = createItemHandler();
-	private final LazyOptional<IItemHandler> automationItemHandler = LazyOptional.of(() -> itemHandler);
+	private final Inventory itemHandler = createItemHandler();
 
 	public TileSimpleInventory(TileEntityType<?> type) {
 		super(type);
+		itemHandler.addListener(i -> markDirty());
+	}
+
+	private static void copyToInv(NonNullList<ItemStack> src, IInventory dest) {
+		Preconditions.checkArgument(src.size() == dest.getSizeInventory());
+		for (int i = 0; i < src.size(); i++) {
+			dest.setInventorySlotContents(i, src.get(i));
+		}
+	}
+
+	private static NonNullList<ItemStack> copyFromInv(IInventory inv) {
+		NonNullList<ItemStack> ret = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+		for (int i = 0; i < inv.getSizeInventory(); i++) {
+			ret.set(i, inv.getStackInSlot(i));
+		}
+		return ret;
 	}
 
 	@Override
 	public void readPacketNBT(CompoundNBT tag) {
-		itemHandler = createItemHandler();
-		itemHandler.deserializeNBT(tag);
+		NonNullList<ItemStack> tmp = NonNullList.withSize(inventorySize(), ItemStack.EMPTY);
+		ItemStackHelper.loadAllItems(tag, tmp);
+		copyToInv(tmp, itemHandler);
 	}
 
 	@Override
 	public void writePacketNBT(CompoundNBT tag) {
-		tag.merge(itemHandler.serializeNBT());
+		ItemStackHelper.saveAllItems(tag, copyFromInv(itemHandler));
 	}
 
-	public abstract int getSizeInventory();
-
-	protected SimpleItemStackHandler createItemHandler() {
-		return new SimpleItemStackHandler(this, true);
+	// NB: Cannot be named the same as the corresponding method in vanilla's interface -- causes obf issues with MCP
+	public final int inventorySize() {
+		return getItemHandler().getSizeInventory();
 	}
 
-	public final IItemHandlerModifiable getItemHandler() {
+	protected abstract Inventory createItemHandler();
+
+	public final IInventory getItemHandler() {
 		return itemHandler;
-	}
-
-	public final RecipeWrapper getRecipeWrapper() {
-		return new RecipeWrapper(getItemHandler());
-	}
-
-	@Nonnull
-	@Override
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side) {
-		return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(cap, automationItemHandler);
-	}
-
-	/* Extension of ItemStackHandler that uses our own slot array, allows for control of writing,
-	allows control over stack limits, and allows for itemstack-slot validation */
-	protected static class SimpleItemStackHandler extends ItemStackHandler {
-
-		private final boolean allowWrite;
-		private final TileSimpleInventory tile;
-
-		public SimpleItemStackHandler(TileSimpleInventory inv, boolean allowWrite) {
-			super(inv.getSizeInventory());
-			this.allowWrite = allowWrite;
-			tile = inv;
-		}
-
-		@Nonnull
-		@Override
-		public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-			if (allowWrite) {
-				return super.insertItem(slot, stack, simulate);
-			} else {
-				return stack;
-			}
-		}
-
-		@Nonnull
-		@Override
-		public ItemStack extractItem(int slot, int amount, boolean simulate) {
-			if (allowWrite) {
-				return super.extractItem(slot, amount, simulate);
-			} else {
-				return ItemStack.EMPTY;
-			}
-		}
-
-		@Override
-		public void onContentsChanged(int slot) {
-			tile.markDirty();
-		}
 	}
 }

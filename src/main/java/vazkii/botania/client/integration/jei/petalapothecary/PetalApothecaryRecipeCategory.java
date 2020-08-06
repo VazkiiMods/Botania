@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.integration.jei.petalapothecary;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -22,22 +23,23 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Vector2f;
 
 import vazkii.botania.api.recipe.IPetalRecipe;
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalRecipe> {
 
-	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "petals");
+	public static final ResourceLocation UID = prefix("petals");
 	private final IDrawableStatic background;
 	private final String localizedName;
 	private final IDrawableStatic overlay;
@@ -46,7 +48,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 	public PetalApothecaryRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(150, 110);
 		localizedName = I18n.format("botania.nei.petalApothecary");
-		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/petal_overlay.png"),
+		overlay = guiHelper.createDrawable(prefix("textures/gui/petal_overlay.png"),
 				0, 0, 150, 110);
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.defaultAltar));
 	}
@@ -92,10 +94,10 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 	}
 
 	@Override
-	public void draw(IPetalRecipe recipe, double mouseX, double mouseY) {
+	public void draw(IPetalRecipe recipe, MatrixStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
-		overlay.draw();
+		overlay.draw(ms);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 	}
@@ -107,10 +109,10 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 
 		int index = 1;
 		double angleBetweenEach = 360.0 / ingredients.getInputs(VanillaTypes.ITEM).size();
-		Point point = new Point(64, 20), center = new Point(64, 52);
+		Vector2f point = new Vector2f(64, 20), center = new Vector2f(64, 52);
 
 		for (List<ItemStack> o : ingredients.getInputs(VanillaTypes.ITEM)) {
-			recipeLayout.getItemStacks().init(index, true, point.x, point.y);
+			recipeLayout.getItemStacks().init(index, true, (int) point.x, (int) point.y);
 			recipeLayout.getItemStacks().set(index, o);
 			index += 1;
 			point = rotatePointAbout(point, center, angleBetweenEach);
@@ -122,10 +124,10 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 		JEIBotaniaPlugin.addDefaultRecipeIdTooltip(recipeLayout.getItemStacks(), index, recipe.getId());
 	}
 
-	private Point rotatePointAbout(Point in, Point about, double degrees) {
+	public static Vector2f rotatePointAbout(Vector2f in, Vector2f about, double degrees) {
 		double rad = degrees * Math.PI / 180.0;
 		double newX = Math.cos(rad) * (in.x - about.x) - Math.sin(rad) * (in.y - about.y) + about.x;
 		double newY = Math.sin(rad) * (in.x - about.x) + Math.cos(rad) * (in.y - about.y) + about.y;
-		return new Point((int) newX, (int) newY);
+		return new Vector2f((float) newX, (float) newY);
 	}
 }

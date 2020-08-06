@@ -16,12 +16,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3f;
 
 import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -46,11 +46,6 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 
 	@Override
 	public void render(@Nullable TilePool pool, float f, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-		if (pool != null && (!pool.getWorld().isBlockLoaded(pool.getPos())
-				|| !(pool.getBlockState().getBlock() instanceof BlockPool))) {
-			return;
-		}
-
 		ms.push();
 
 		boolean fab = pool != null && ((BlockPool) pool.getBlockState().getBlock()).variant == BlockPool.Variant.FABULOUS;
@@ -59,14 +54,14 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 			time += new Random(pool.getPos().getX() ^ pool.getPos().getY() ^ pool.getPos().getZ()).nextInt(100000);
 			time *= 0.005F;
-			int color = vazkii.botania.common.core.helper.MathHelper.multiplyColor(MathHelper.hsvToRGB(time - (int) time, 0.6F, 1F), pool.color.colorValue);
+			int color = vazkii.botania.common.core.helper.MathHelper.multiplyColor(MathHelper.hsvToRGB(time - (int) time, 0.6F, 1F), pool.color.getColorValue());
 
 			int red = (color & 0xFF0000) >> 16;
 			int green = (color & 0xFF00) >> 8;
 			int blue = color & 0xFF;
 			BlockState state = pool.getBlockState();
 			IBakedModel model = Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelShapes().getModel(state);
-			IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.getRenderType(state));
+			IVertexBuilder buffer = buffers.getBuffer(RenderTypeLookup.func_239220_a_(state, false));
 			Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer()
 					.renderModelBrightnessColor(ms.getLast(), buffer, state, model, red / 255F, green / 255F, blue / 255F, light, overlay);
 		}

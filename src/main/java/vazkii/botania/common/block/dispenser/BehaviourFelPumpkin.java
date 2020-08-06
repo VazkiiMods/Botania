@@ -29,7 +29,7 @@ public class BehaviourFelPumpkin extends OptionalDispenseBehavior {
 		World world = source.getWorld();
 		BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().get(DispenserBlock.FACING));
 		Block blockcarvedpumpkin = ModBlocks.felPumpkin;
-		this.successful = true;
+		this.func_239796_a_(true);
 		if (world.isAirBlock(blockpos) && world.getBlockState(blockpos.down()).getBlock() == Blocks.IRON_BARS
 				&& world.getBlockState(blockpos.down(2)).getBlock() == Blocks.IRON_BARS) // Botania - Check for iron bars
 		{

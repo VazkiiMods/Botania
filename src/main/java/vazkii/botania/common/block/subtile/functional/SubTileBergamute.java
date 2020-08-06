@@ -8,13 +8,9 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.registries.ObjectHolder;
-
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Collections;
 import java.util.Set;
@@ -39,8 +35,14 @@ public class SubTileBergamute extends TileEntityFunctionalFlower {
 		}
 	}
 
+	@Override
+	public void remove() {
+		super.remove();
+		existingFlowers.remove(this);
+	}
+
 	// todo seems expensive when we have lots of sounds cache maybe?
-	protected static SubTileBergamute getBergamuteNearby(float x, float y, float z) {
+	protected static SubTileBergamute getBergamuteNearby(double x, double y, double z) {
 		return existingFlowers.stream()
 				.filter(f -> f.redstoneSignal == 0)
 				.filter(f -> f.getEffectivePos().distanceSq(x, y, z, false) <= RANGE * RANGE)

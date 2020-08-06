@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -27,11 +28,9 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.items.ItemHandlerHelper;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileIncensePlate;
-import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 
@@ -70,7 +69,7 @@ public class BlockIncensePlate extends BlockModWaterloggable implements ITileEnt
 		}
 
 		if (plateStack.isEmpty() && plate.acceptsItem(stack)) {
-			plate.getItemHandler().setStackInSlot(0, stack.copy());
+			plate.getItemHandler().setInventorySlotContents(0, stack.copy());
 			stack.shrink(1);
 			did = true;
 		} else if (!plateStack.isEmpty() && !plate.burning) {
@@ -79,8 +78,8 @@ public class BlockIncensePlate extends BlockModWaterloggable implements ITileEnt
 				stack.damageItem(1, player, e -> e.sendBreakAnimation(hand));
 				did = true;
 			} else {
-				ItemHandlerHelper.giveItemToPlayer(player, plateStack);
-				plate.getItemHandler().setStackInSlot(0, ItemStack.EMPTY);
+				player.inventory.placeItemBackInInventory(player.world, plateStack);
+				plate.getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
 
 				did = true;
 			}
@@ -129,7 +128,7 @@ public class BlockIncensePlate extends BlockModWaterloggable implements ITileEnt
 		if (state.getBlock() != newState.getBlock()) {
 			TileIncensePlate plate = (TileIncensePlate) world.getTileEntity(pos);
 			if (plate != null && !plate.burning) {
-				InventoryHelper.dropInventory(plate, world, state, pos);
+				InventoryHelper.dropInventoryItems(world, pos, plate.getItemHandler());
 			}
 		}
 		super.onReplaced(state, world, pos, newState, isMoving);

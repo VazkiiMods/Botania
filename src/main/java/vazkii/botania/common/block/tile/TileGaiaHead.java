@@ -10,10 +10,6 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.tileentity.SkullTileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.registries.ObjectHolder;
-
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 

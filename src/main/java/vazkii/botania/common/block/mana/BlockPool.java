@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.block.mana;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
@@ -15,18 +17,23 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootContext;
+import net.minecraft.loot.LootParameters;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -77,6 +84,22 @@ public class BlockPool extends BlockModWaterloggable implements ITileEntityProvi
 
 	@Nonnull
 	@Override
+	public ActionResultType onBlockActivated(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, PlayerEntity player, @Nonnull Hand hand, @Nonnull BlockRayTraceResult hit) {
+		TileEntity te = world.getTileEntity(pos);
+		ItemStack stack = player.getHeldItem(hand);
+		if (stack.getItem() instanceof DyeItem && te instanceof TilePool) {
+			DyeColor color = ((DyeItem) stack.getItem()).getDyeColor();
+			if (color != ((TilePool) te).getColor()) {
+				((TilePool) te).setColor(color);
+				stack.shrink(1);
+				return ActionResultType.SUCCESS;
+			}
+		}
+		return super.onBlockActivated(state, world, pos, player, hand, hit);
+	}
+
+	@Nonnull
+	@Override
 	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TilePool();
 	}
@@ -112,8 +135,8 @@ public class BlockPool extends BlockModWaterloggable implements ITileEntityProvi
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc, World world, BlockPos pos) {
-		((TilePool) world.getTileEntity(pos)).renderHUD(mc);
+	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
+		((TilePool) world.getTileEntity(pos)).renderHUD(ms, mc);
 	}
 
 	@Override

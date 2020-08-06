@@ -23,7 +23,6 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.items.ItemHandlerHelper;
 
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockMod;
@@ -59,7 +58,7 @@ public class BlockManaFlame extends BlockMod implements ITileEntityProvider {
 			if (!stack.isEmpty() && ItemTags.SAPLINGS.contains(stack.getItem()) && !player.inventory.hasItemStack(new ItemStack(ModItems.lexicon))) {
 				if (!world.isRemote) {
 					stack.shrink(1);
-					ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(ModItems.lexicon));
+					player.inventory.placeItemBackInInventory(player.world, new ItemStack(ModItems.lexicon));
 				}
 				return ActionResultType.SUCCESS;
 			}

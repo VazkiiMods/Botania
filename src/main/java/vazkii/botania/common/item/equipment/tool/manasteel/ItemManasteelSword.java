@@ -14,7 +14,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -33,9 +32,11 @@ public class ItemManasteelSword extends SwordItem implements IManaUsingItem {
 	}
 
 	public ItemManasteelSword(IItemTier mat, Properties props) {
-		super(mat, 3, -2.4F, props);
-		addPropertyOverride(new ResourceLocation("botania", "elucidator"),
-				(stack, worldIn, entityIn) -> "the elucidator".equals(stack.getDisplayName().getString().toLowerCase().trim()) ? 1 : 0);
+		this(mat, 3, -2.4F, props);
+	}
+
+	public ItemManasteelSword(IItemTier mat, int attackDamage, float attackSpeed, Properties props) {
+		super(mat, attackDamage, attackSpeed, props);
 	}
 
 	@Override

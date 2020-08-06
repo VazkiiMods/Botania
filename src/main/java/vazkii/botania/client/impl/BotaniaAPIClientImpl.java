@@ -9,11 +9,14 @@
 package vazkii.botania.client.impl;
 
 import com.google.common.collect.Maps;
+import com.mojang.blaze3d.matrix.MatrixStack;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
+import vazkii.botania.client.core.handler.HUDHandler;
 
 import java.util.Collections;
 import java.util.Map;
@@ -29,5 +32,15 @@ public class BotaniaAPIClientImpl implements BotaniaAPIClient {
 	@Override
 	public Map<IFloatingFlower.IslandType, ResourceLocation> getRegisteredIslandTypeModels() {
 		return Collections.unmodifiableMap(islandTypeModels);
+	}
+
+	@Override
+	public void drawSimpleManaHUD(MatrixStack ms, int color, int mana, int maxMana, String name) {
+		HUDHandler.drawSimpleManaHUD(ms, color, mana, maxMana, name);
+	}
+
+	@Override
+	public void drawComplexManaHUD(MatrixStack ms, int color, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound) {
+		HUDHandler.drawComplexManaHUD(color, ms, mana, maxMana, name, bindDisplay, properlyBound);
 	}
 }

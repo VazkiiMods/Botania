@@ -14,7 +14,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.items.IItemHandler;
 
 import vazkii.botania.client.lib.LibResources;
 
@@ -30,12 +29,11 @@ public class ItemAutocraftingHalo extends ItemCraftingHalo {
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int pos, boolean equipped) {
 		super.inventoryTick(stack, world, entity, pos, equipped);
 
-		if (entity instanceof PlayerEntity && !equipped) {
+		if (!world.isRemote && entity instanceof PlayerEntity && !equipped) {
 			PlayerEntity player = (PlayerEntity) entity;
-			IItemHandler inv = getFakeInv(player);
 
 			for (int i = 1; i < SEGMENTS; i++) {
-				tryCraft(player, stack, i, false, inv, false);
+				tryCraft(player, stack, i, false);
 			}
 		}
 	}

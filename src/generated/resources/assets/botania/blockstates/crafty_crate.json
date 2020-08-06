@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "pattern=none": {
+      "model": "botania:block/crafty_crate"
+    },
+    "pattern=crafty_1_1": {
+      "model": "botania:block/crafty_crate_1_1"
+    },
+    "pattern=crafty_2_2": {
+      "model": "botania:block/crafty_crate_2_2"
+    },
+    "pattern=crafty_1_2": {
+      "model": "botania:block/crafty_crate_1_2"
+    },
+    "pattern=crafty_2_1": {
+      "model": "botania:block/crafty_crate_2_1"
+    },
+    "pattern=crafty_1_3": {
+      "model": "botania:block/crafty_crate_1_3"
+    },
+    "pattern=crafty_3_1": {
+      "model": "botania:block/crafty_crate_3_1"
+    },
+    "pattern=crafty_2_3": {
+      "model": "botania:block/crafty_crate_2_3"
+    },
+    "pattern=crafty_3_2": {
+      "model": "botania:block/crafty_crate_3_2"
+    },
+    "pattern=crafty_donut": {
+      "model": "botania:block/crafty_crate_donut"
+    }
+  }
+}

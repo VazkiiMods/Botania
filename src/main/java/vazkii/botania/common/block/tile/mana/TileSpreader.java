@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.base.Predicates;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.block.Block;
@@ -16,47 +17,45 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.DyeColor;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ObjectHolder;
 
+import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.api.wand.IWandBindable;
-import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileSimpleInventory;
+import vazkii.botania.common.block.tile.TileExposedSimpleInventory;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaBurst.PositionProperties;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.item.ItemLexicon;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.UUID;
 
-public class TileSpreader extends TileSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IDirectioned, ITickableTileEntity {
+public class TileSpreader extends TileExposedSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IDirectioned, ITickableTileEntity {
 	private static final int TICKS_ALLOWED_WITHOUT_PINGBACK = 20;
 	private static final double PINGBACK_EXPIRED_SEARCH_DISTANCE = 0.5;
 
@@ -235,7 +234,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 			shouldShoot = ((IKeyLocked) receiver).getInputKey().equals(getOutputKey());
 		}
 
-		ItemStack lens = itemHandler.getStackInSlot(0);
+		ItemStack lens = getItemHandler().getStackInSlot(0);
 		ILensControl control = getLensController(lens);
 		if (control != null) {
 			if (isredstone) {
@@ -387,13 +386,12 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		if (!player.isSneaking()) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		} else {
-			RayTraceResult pos = Item.rayTrace(world, player, RayTraceContext.FluidMode.ANY);
-			if (pos instanceof BlockRayTraceResult && !world.isRemote) {
-				double x = pos.getHitVec().x - getPos().getX() - 0.5;
-				double y = pos.getHitVec().y - getPos().getY() - 0.5;
-				double z = pos.getHitVec().z - getPos().getZ() - 0.5;
+			BlockRayTraceResult bpos = ItemLexicon.doRayTrace(world, player, RayTraceContext.FluidMode.NONE);
+			if (!world.isRemote) {
+				double x = bpos.getHitVec().x - getPos().getX() - 0.5;
+				double y = bpos.getHitVec().y - getPos().getY() - 0.5;
+				double z = bpos.getHitVec().z - getPos().getZ() - 0.5;
 
-				BlockRayTraceResult bpos = (BlockRayTraceResult) pos;
 				if (bpos.getFace() != Direction.DOWN && bpos.getFace() != Direction.UP) {
 					Vector3 clickVector = new Vector3(x, 0, z);
 					Vector3 relative = new Vector3(-0.5, 0, 0);
@@ -464,7 +462,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	public void checkForReceiver() {
-		ItemStack stack = itemHandler.getStackInSlot(0);
+		ItemStack stack = getItemHandler().getStackInSlot(0);
 		ILensControl control = getLensController(stack);
 		if (control != null && !control.allowBurstShooting(stack, this, false)) {
 			return;
@@ -497,7 +495,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 		float gravity = 0F;
 		BurstProperties props = new BurstProperties(variant.burstMana, variant.preLossTicks, variant.lossPerTick, gravity, variant.motionModifier, variant.color);
 
-		ItemStack lens = itemHandler.getStackInSlot(0);
+		ItemStack lens = getItemHandler().getStackInSlot(0);
 		if (!lens.isEmpty() && lens.getItem() instanceof ILensEffect) {
 			((ILensEffect) lens.getItem()).apply(lens, props);
 		}
@@ -541,19 +539,19 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(Minecraft mc) {
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		String name = new ItemStack(getBlockState().getBlock()).getDisplayName().getString();
 		int color = getVariant().hudColor;
-		HUDHandler.drawSimpleManaHUD(color, getCurrentMana(), getMaxMana(), name);
+		BotaniaAPIClient.instance().drawSimpleManaHUD(ms, color, getCurrentMana(), getMaxMana(), name);
 
-		ItemStack lens = itemHandler.getStackInSlot(0);
+		ItemStack lens = getItemHandler().getStackInSlot(0);
 		if (!lens.isEmpty()) {
 			String lensName = lens.getDisplayName().getString();
 			int width = 16 + mc.fontRenderer.getStringWidth(lensName) / 2;
 			int x = mc.getMainWindow().getScaledWidth() / 2 - width;
 			int y = mc.getMainWindow().getScaledHeight() / 2 + 50;
 
-			mc.fontRenderer.drawStringWithShadow(lensName, x + 20, y + 5, color);
+			mc.fontRenderer.drawStringWithShadow(ms, lensName, x + 20, y + 5, color);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(lens, x, y);
 			RenderSystem.disableLighting();
 		}
@@ -567,7 +565,7 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 				int x = mc.getMainWindow().getScaledWidth() / 2 - width;
 				int y = mc.getMainWindow().getScaledHeight() / 2 + 30;
 
-				mc.fontRenderer.drawStringWithShadow(stackName, x + 20, y + 5, color);
+				mc.fontRenderer.drawStringWithShadow(ms, stackName, x + 20, y + 5, color);
 				mc.getItemRenderer().renderItemAndEffectIntoGUI(recieverStack, x, y);
 			}
 
@@ -591,34 +589,28 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 	}
 
 	@Override
-	public int getSizeInventory() {
-		return 1;
-	}
-
-	@Override
-	protected SimpleItemStackHandler createItemHandler() {
-		return new SimpleItemStackHandler(this, true) {
+	protected Inventory createItemHandler() {
+		return new Inventory(1) {
 			@Override
-			protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
+			public int getInventoryStackLimit() {
 				return 1;
 			}
 
-			@Nonnull
 			@Override
-			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-				if (!stack.isEmpty() && stack.getItem() instanceof ILens) {
-					return super.insertItem(slot, stack, simulate);
-				} else {
-					return stack;
-				}
+			public boolean isItemValidForSlot(int index, ItemStack stack) {
+				return !stack.isEmpty() && stack.getItem() instanceof ILens;
 			}
 		};
 	}
 
 	@Override
 	public void markDirty() {
-		checkForReceiver();
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		if (world != null) {
+			checkForReceiver();
+			if (!world.isRemote) {
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			}
+		}
 	}
 
 	@Override
@@ -653,20 +645,20 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 	@Override
 	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
-		Vector3 thisVec = Vector3.fromTileEntityCenter(this);
-		Vector3 blockVec = new Vector3(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+		Vector3d thisVec = Vector3d.func_237489_a_(getPos());
+		Vector3d blockVec = Vector3d.func_237489_a_(pos);
 
 		VoxelShape shape = player.world.getBlockState(pos).getShape(player.world, pos);
 		AxisAlignedBB axis = shape.isEmpty() ? new AxisAlignedBB(pos) : shape.getBoundingBox().offset(pos);
 
-		if (!blockVec.isInside(axis)) {
-			blockVec = new Vector3(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2);
+		if (!axis.contains(blockVec)) {
+			blockVec = new Vector3d(axis.minX + (axis.maxX - axis.minX) / 2, axis.minY + (axis.maxY - axis.minY) / 2, axis.minZ + (axis.maxZ - axis.minZ) / 2);
 		}
 
-		Vector3 diffVec = blockVec.subtract(thisVec);
-		Vector3 diffVec2D = new Vector3(diffVec.x, diffVec.z, 0);
-		Vector3 rotVec = new Vector3(0, 1, 0);
-		double angle = rotVec.angle(diffVec2D) / Math.PI * 180.0;
+		Vector3d diffVec = blockVec.subtract(thisVec);
+		Vector3d diffVec2D = new Vector3d(diffVec.x, diffVec.z, 0);
+		Vector3d rotVec = new Vector3d(0, 1, 0);
+		double angle = MathHelper.angleBetween(rotVec, diffVec2D) / Math.PI * 180.0;
 
 		if (blockVec.x < thisVec.x) {
 			angle = -angle;
@@ -674,8 +666,8 @@ public class TileSpreader extends TileSimpleInventory implements IManaCollector,
 
 		rotationX = (float) angle + 90;
 
-		rotVec = new Vector3(diffVec.x, 0, diffVec.z);
-		angle = diffVec.angle(rotVec) * 180F / Math.PI;
+		rotVec = new Vector3d(diffVec.x, 0, diffVec.z);
+		angle = MathHelper.angleBetween(diffVec, rotVec) * 180F / Math.PI;
 		if (blockVec.y < thisVec.y) {
 			angle = -angle;
 		}

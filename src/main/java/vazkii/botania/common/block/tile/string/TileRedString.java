@@ -92,7 +92,7 @@ public abstract class TileRedString extends TileMod implements ITileBound, ITick
 
 	public TileEntity getTileAtBinding() {
 		BlockPos binding = getBinding();
-		return binding == null ? null : world.getTileEntity(binding);
+		return binding == null || world == null ? null : world.getTileEntity(binding);
 	}
 
 	public BlockState getStateAtBinding() {

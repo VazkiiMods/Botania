@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "side": "botania:block/metamorphic_swamp_stone",
+    "bottom": "botania:block/metamorphic_swamp_stone",
+    "top": "botania:block/metamorphic_swamp_stone"
+  }
+}

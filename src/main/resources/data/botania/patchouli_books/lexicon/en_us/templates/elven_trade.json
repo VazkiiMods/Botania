@@ -19,7 +19,7 @@
     },
     {
       "type": "image",
-      "image": "botania:textures/blocks/alfheim_portal_swirl.png",
+      "image": "botania:textures/block/alfheim_portal_swirl.png",
       "x": 7,
       "y": 36,
       "width": 48,

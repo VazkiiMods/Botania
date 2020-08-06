@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.integration.jei.runicaltar;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -21,24 +22,26 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Vector2f;
 
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
+import vazkii.botania.client.integration.jei.petalapothecary.PetalApothecaryRecipeCategory;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecipe> {
 
-	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "runic_altar");
+	public static final ResourceLocation UID = prefix("runic_altar");
 	private final IDrawable background;
 	private final String localizedName;
 	private final IDrawable overlay;
@@ -47,7 +50,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 	public RunicAltarRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(150, 110);
 		localizedName = I18n.format("botania.nei.runicAltar");
-		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/petal_overlay.png"),
+		overlay = guiHelper.createDrawable(prefix("textures/gui/petal_overlay.png"),
 				0, 0, 150, 110);
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.runeAltar));
 	}
@@ -93,11 +96,11 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 	}
 
 	@Override
-	public void draw(IRuneAltarRecipe recipe, double mouseX, double mouseY) {
+	public void draw(IRuneAltarRecipe recipe, MatrixStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
-		overlay.draw();
-		HUDHandler.renderManaBar(28, 113, 0x0000FF, 0.75F, recipe.getManaUsage(), TilePool.MAX_MANA / 10);
+		overlay.draw(ms);
+		HUDHandler.renderManaBar(ms, 28, 105, 0x0000FF, 0.75F, recipe.getManaUsage(), TilePool.MAX_MANA / 10);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 	}
@@ -109,26 +112,19 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 
 		int index = 1;
 		double angleBetweenEach = 360.0 / ingredients.getInputs(VanillaTypes.ITEM).size();
-		Point point = new Point(64, 20), center = new Point(64, 52);
+		Vector2f point = new Vector2f(64, 20), center = new Vector2f(64, 52);
 
 		for (List<ItemStack> o : ingredients.getInputs(VanillaTypes.ITEM)) {
-			recipeLayout.getItemStacks().init(index, true, point.x, point.y);
+			recipeLayout.getItemStacks().init(index, true, (int) point.x, (int) point.y);
 			recipeLayout.getItemStacks().set(index, o);
 			index += 1;
-			point = rotatePointAbout(point, center, angleBetweenEach);
+			point = PetalApothecaryRecipeCategory.rotatePointAbout(point, center, angleBetweenEach);
 		}
 
 		recipeLayout.getItemStacks().init(index, false, 103, 17);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 
 		JEIBotaniaPlugin.addDefaultRecipeIdTooltip(recipeLayout.getItemStacks(), index, recipe.getId());
-	}
-
-	private Point rotatePointAbout(Point in, Point about, double degrees) {
-		double rad = degrees * Math.PI / 180.0;
-		double newX = Math.cos(rad) * (in.x - about.x) - Math.sin(rad) * (in.y - about.y) + about.x;
-		double newY = Math.sin(rad) * (in.x - about.x) + Math.cos(rad) * (in.y - about.y) + about.y;
-		return new Point((int) newX, (int) newY);
 	}
 
 }

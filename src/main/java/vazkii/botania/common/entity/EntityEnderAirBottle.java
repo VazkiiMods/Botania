@@ -11,7 +11,6 @@ package vazkii.botania.common.entity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.pattern.BlockStateMatcher;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
@@ -52,7 +51,7 @@ public class EntityEnderAirBottle extends ThrowableEntity implements IRendersAsI
 	protected void onImpact(@Nonnull RayTraceResult pos) {
 		if (pos.getType() == RayTraceResult.Type.BLOCK && !world.isRemote) {
 			List<BlockPos> coordsList = getCoordsToPut(((BlockRayTraceResult) pos).getPos());
-			world.playEvent(2002, new BlockPos(this), 8);
+			world.playEvent(2002, func_233580_cy_(), 8);
 
 			for (BlockPos coords : coordsList) {
 				world.setBlockState(coords, Blocks.END_STONE.getDefaultState());
@@ -72,8 +71,7 @@ public class EntityEnderAirBottle extends ThrowableEntity implements IRendersAsI
 		for (BlockPos bPos : BlockPos.getAllInBoxMutable(pos.add(-range, -rangeY, -range),
 				pos.add(range, rangeY, range))) {
 			BlockState state = world.getBlockState(bPos);
-			Block block = state.getBlock();
-			if (block.isReplaceableOreGen(state, world, bPos, BlockStateMatcher.forBlock(Blocks.STONE))) {
+			if (state.getBlock() == Blocks.STONE) {
 				possibleCoords.add(bPos.toImmutable());
 			}
 		}

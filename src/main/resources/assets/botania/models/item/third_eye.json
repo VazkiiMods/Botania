@@ -1,8 +1,0 @@
-{
-	"parent": "item/generated",
-	"textures": { 
-		"layer0": "botania:items/third_eye_0",
-		"layer1": "botania:items/third_eye_1",
-		"layer2": "botania:items/third_eye_2"
-	}
-}

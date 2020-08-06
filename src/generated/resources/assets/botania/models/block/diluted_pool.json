@@ -1,0 +1,6 @@
+{
+  "parent": "botania:block/shapes/pool",
+  "textures": {
+    "all": "botania:block/diluted_pool"
+  }
+}

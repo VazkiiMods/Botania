@@ -45,7 +45,7 @@ public class ItemElementiumAxe extends ItemManasteelAxe {
 
 				if (event.getEntityLiving() instanceof AbstractSkeletonEntity && rand.nextInt(26) <= 3 + looting) {
 					addDrop(event, new ItemStack(event.getEntity() instanceof WitherSkeletonEntity ? Items.WITHER_SKELETON_SKULL : Items.SKELETON_SKULL));
-				} else if (event.getEntityLiving() instanceof ZombieEntity && !(event.getEntityLiving() instanceof ZombiePigmanEntity) && rand.nextInt(26) <= 2 + 2 * looting) {
+				} else if (event.getEntityLiving() instanceof ZombieEntity && !(event.getEntityLiving() instanceof ZombifiedPiglinEntity) && rand.nextInt(26) <= 2 + 2 * looting) {
 					addDrop(event, new ItemStack(Items.ZOMBIE_HEAD));
 				} else if (event.getEntityLiving() instanceof CreeperEntity && rand.nextInt(26) <= 2 + 2 * looting) {
 					addDrop(event, new ItemStack(Items.CREEPER_HEAD));

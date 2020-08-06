@@ -8,6 +8,8 @@
  */
 package vazkii.botania.api.subtile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -17,13 +19,15 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
 
@@ -31,6 +35,7 @@ import vazkii.botania.api.mana.IManaCollector;
  * The basic class for a Generating Flower.
  */
 public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
+	private static final ResourceLocation SPREADER_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_spreader");
 
 	public static final int LINK_RANGE = 6;
 
@@ -43,8 +48,6 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 	private int mana;
 
-	public int redstoneSignal = 0;
-
 	int sizeLastCheck = -1;
 	protected TileEntity linkedCollector = null;
 	public int passiveDecayTicks;
@@ -55,37 +58,19 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		super(type);
 	}
 
-	/**
-	 * If set to true, redstoneSignal will be updated every tick.
-	 */
-	public boolean acceptsRedstone() {
-		return false;
-	}
-
 	@Override
 	public void tickFlower() {
 		super.tickFlower();
 
 		linkCollector();
 
-		if (canGeneratePassively()) {
+		if (!getWorld().isRemote && canGeneratePassively()) {
 			int delay = getDelayBetweenPassiveGeneration();
-			if (delay > 0 && ticksExisted % delay == 0 && !getWorld().isRemote) {
-				if (shouldSyncPassiveGeneration()) {
-					sync();
-				}
+			if (delay > 0 && ticksExisted % delay == 0) {
 				addMana(getValueForPassiveGeneration());
 			}
 		}
 		emptyManaIntoCollector();
-
-		if (acceptsRedstone()) {
-			redstoneSignal = 0;
-			for (Direction dir : Direction.values()) {
-				int redstoneSide = getWorld().getRedstonePower(getPos().offset(dir), dir);
-				redstoneSignal = Math.max(redstoneSignal, redstoneSide);
-			}
-		}
 
 		if (getWorld().isRemote) {
 			double particleChance = 1F - (double) getMana() / (double) getMaxMana() / 3.5F;
@@ -95,17 +80,19 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			float blue = (color & 0xFF) / 255F;
 
 			if (Math.random() > particleChance) {
-				Vec3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos());
+				Vector3d offset = getWorld().getBlockState(getPos()).getOffset(getWorld(), getPos());
 				double x = getPos().getX() + offset.x;
 				double y = getPos().getY() + offset.y;
 				double z = getPos().getZ() + offset.z;
-				BotaniaAPI.instance().internalHandler().sparkleFX(getWorld(), x + 0.3 + Math.random() * 0.5, y + 0.5 + Math.random() * 0.5, z + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
+				BotaniaAPI.instance().sparkleFX(getWorld(), x + 0.3 + Math.random() * 0.5, y + 0.5 + Math.random() * 0.5, z + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
 			}
-		}
+		} else {
+			boolean passive = isPassiveFlower();
+			int muhBalance = BotaniaAPI.instance().getPassiveFlowerDecay();
 
-		boolean passive = isPassiveFlower();
-		if (!getWorld().isRemote) {
-			int muhBalance = BotaniaAPI.instance().internalHandler().getPassiveFlowerDecay();
+			if (passive) {
+				passiveDecayTicks++;
+			}
 
 			if (passive && muhBalance > 0 && passiveDecayTicks > muhBalance) {
 				getWorld().destroyBlock(getPos(), false);
@@ -113,10 +100,6 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 					getWorld().setBlockState(getPos(), Blocks.DEAD_BUSH.getDefaultState());
 				}
 			}
-		}
-
-		if (passive) {
-			passiveDecayTicks++;
 		}
 	}
 
@@ -145,9 +128,9 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		}
 
 		if (needsNew && ticksExisted == 1) { // New flowers only
-			IManaNetwork network = BotaniaAPI.instance().internalHandler().getManaNetworkInstance();
+			IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
 			int size = network.getAllCollectorsInWorld(getWorld()).size();
-			if (BotaniaAPI.instance().internalHandler().shouldForceCheck() || size != sizeLastCheck) {
+			if (BotaniaAPI.instance().shouldForceCheck() || size != sizeLastCheck) {
 				linkedCollector = network.getClosestCollector(getPos(), getWorld(), LINK_RANGE);
 				sizeLastCheck = size;
 			}
@@ -164,21 +147,18 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	}
 
 	public void emptyManaIntoCollector() {
-		if (linkedCollector != null && isValidBinding()) {
+		if (isValidBinding()) {
 			IManaCollector collector = (IManaCollector) linkedCollector;
 			if (!collector.isFull() && getMana() > 0) {
 				int manaval = Math.min(getMana(), collector.getMaxMana() - collector.getCurrentMana());
-				mana = getMana() - manaval;
+				addMana(-manaval);
 				collector.receiveMana(manaval);
+				sync();
 			}
 		}
 	}
 
 	public boolean isPassiveFlower() {
-		return false;
-	}
-
-	public boolean shouldSyncPassiveGeneration() {
 		return false;
 	}
 
@@ -287,12 +267,16 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		return linkedCollector != null && !linkedCollector.isRemoved() && getWorld().getTileEntity(linkedCollector.getPos()) == linkedCollector;
 	}
 
+	public ItemStack getHudIcon() {
+		return Registry.ITEM.getValue(SPREADER_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
+	}
+
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc) {
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		String name = I18n.format(getBlockState().getBlock().getTranslationKey());
 		int color = getColor();
-		BotaniaAPI.instance().internalHandler().drawComplexManaHUD(color, getMana(), getMaxMana(), name, BotaniaAPI.instance().internalHandler().getBindDisplayForFlowerType(this), isValidBinding());
+		BotaniaAPIClient.instance().drawComplexManaHUD(ms, color, getMana(), getMaxMana(), name, getHudIcon(), isValidBinding());
 	}
 
 	@Override

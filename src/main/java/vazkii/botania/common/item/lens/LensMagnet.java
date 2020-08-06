@@ -12,24 +12,19 @@ import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaReceiver;
-import vazkii.botania.common.core.helper.Vector3;
 
 import java.util.function.Predicate;
 
 public class LensMagnet extends Lens {
 
-	private static final String TAG_MAGNETIZED = "botania:magnetized";
-	private static final String TAG_MAGNETIZED_X = "botania:magnetized_x";
-	private static final String TAG_MAGNETIZED_Y = "botania:magnetized_y";
-	private static final String TAG_MAGNETIZED_Z = "botania:magnetized_z";
-
 	@Override
 	public void updateBurst(IManaBurst burst, ThrowableEntity entity, ItemStack stack) {
-		BlockPos basePos = new BlockPos(entity);
-		boolean magnetized = entity.getPersistentData().contains(TAG_MAGNETIZED);
+		BlockPos basePos = entity.func_233580_cy_();
+		boolean magnetized = burst.getMagnetizedPos() != null;
 		int range = 3;
 
 		BlockPos source = burst.getBurstSourceBlockPos();
@@ -42,14 +37,10 @@ public class LensMagnet extends Lens {
 
 		TileEntity tile = null;
 		if (magnetized) {
-			tile = entity.world.getTileEntity(new BlockPos(
-					entity.getPersistentData().getInt(TAG_MAGNETIZED_X),
-					entity.getPersistentData().getInt(TAG_MAGNETIZED_Y),
-					entity.getPersistentData().getInt(TAG_MAGNETIZED_Z)
-			));
+			tile = entity.world.getTileEntity(burst.getMagnetizedPos());
 			if (!predicate.test(tile)) {
 				tile = null;
-				entity.getPersistentData().remove(TAG_MAGNETIZED);
+				burst.setMagnetizePos(null);
 				magnetized = false;
 			}
 		}
@@ -69,21 +60,18 @@ public class LensMagnet extends Lens {
 			return;
 		}
 
-		Vector3 burstVec = Vector3.fromEntity(entity);
-		Vector3 tileVec = Vector3.fromTileEntityCenter(tile).add(0, -0.1, 0);
-		Vector3 motionVec = new Vector3(entity.getMotion());
+		Vector3d burstVec = entity.getPositionVec();
+		Vector3d tileVec = Vector3d.func_237489_a_(tile.getPos()).add(0, -0.1, 0);
+		Vector3d motionVec = entity.getMotion();
 
-		Vector3 normalMotionVec = motionVec.normalize();
-		Vector3 magnetVec = tileVec.subtract(burstVec).normalize();
-		Vector3 differenceVec = normalMotionVec.subtract(magnetVec).multiply(motionVec.mag() * 0.1);
+		Vector3d normalMotionVec = motionVec.normalize();
+		Vector3d magnetVec = tileVec.subtract(burstVec).normalize();
+		Vector3d differenceVec = normalMotionVec.subtract(magnetVec).scale(motionVec.length() * 0.1);
 
-		Vector3 finalMotionVec = motionVec.subtract(differenceVec);
+		Vector3d finalMotionVec = motionVec.subtract(differenceVec);
 		if (!magnetized) {
-			finalMotionVec = finalMotionVec.multiply(0.75);
-			entity.getPersistentData().putBoolean(TAG_MAGNETIZED, true);
-			entity.getPersistentData().putInt(TAG_MAGNETIZED_X, tile.getPos().getX());
-			entity.getPersistentData().putInt(TAG_MAGNETIZED_Y, tile.getPos().getY());
-			entity.getPersistentData().putInt(TAG_MAGNETIZED_Z, tile.getPos().getZ());
+			finalMotionVec = finalMotionVec.scale(0.75);
+			burst.setMagnetizePos(tile.getPos());
 		}
 
 		burst.setBurstMotion(finalMotionVec.x, finalMotionVec.y, finalMotionVec.z);

@@ -10,6 +10,7 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.IShearable;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.passive.CowEntity;
@@ -24,7 +25,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.common.IShearable;
+import net.minecraftforge.common.IForgeShearable;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
@@ -81,7 +82,8 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 			ItemStack stack = new ItemStack(ModBlocks.gatheringDrum);
 
 			for (MobEntity entity : entities) {
-				if (entity instanceof IShearable && ((IShearable) entity).isShearable(stack, world, new BlockPos(entity))) {
+				if (entity instanceof IShearable && ((IShearable) entity).func_230262_K__()
+						|| entity instanceof IForgeShearable && ((IForgeShearable) entity).isShearable(stack, world, entity.func_233580_cy_())) {
 					shearables.add(entity);
 				} else if (entity instanceof CowEntity) {
 					List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, entity.getBoundingBox());
@@ -111,15 +113,20 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 					break;
 				}
 
-				List<ItemStack> stacks = ((IShearable) entity).onSheared(stack, world, new BlockPos(entity), 0);
-				for (ItemStack wool : stacks) {
-					ItemEntity ent = entity.entityDropItem(wool, 1.0F);
-					ent.setMotion(ent.getMotion().add(
-							world.rand.nextFloat() * 0.05F,
-							(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F,
-							(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F
-					));
+				if (entity instanceof IShearable) {
+					((IShearable) entity).func_230263_a_(SoundCategory.BLOCKS);
+				} else {
+					List<ItemStack> stacks = ((IForgeShearable) entity).onSheared(null, stack, world, entity.func_233580_cy_(), 0);
+					for (ItemStack wool : stacks) {
+						ItemEntity ent = entity.entityDropItem(wool, 1.0F);
+						ent.setMotion(ent.getMotion().add(
+								world.rand.nextFloat() * 0.05F,
+								(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F,
+								(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F
+						));
+					}
 				}
+
 				++sheared;
 			}
 		}

@@ -8,25 +8,11 @@
  */
 package vazkii.botania.common.block.decor.panes;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.PaneBlock;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-
-import vazkii.botania.common.block.ModBlocks;
 
 public class BlockModPane extends PaneBlock {
 
 	public BlockModPane(Properties props) {
 		super(props);
-	}
-
-	@Override
-	public boolean canBeConnectedTo(BlockState state, IBlockReader world, BlockPos pos, Direction facing) {
-		Block block = world.getBlockState(pos.offset(facing)).getBlock();
-		return block == ModBlocks.elfGlass || block == ModBlocks.manaGlass || block == ModBlocks.bifrostPerm
-				|| super.canBeConnectedTo(state, world, pos, facing);
 	}
 }

@@ -9,6 +9,7 @@
 package vazkii.botania.client.integration.jei.manapool;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import mezz.jei.api.constants.VanillaTypes;
@@ -30,16 +31,17 @@ import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionRecipe> {
 
-	public static final ResourceLocation UID = new ResourceLocation(LibMisc.MOD_ID, "mana_pool");
+	public static final ResourceLocation UID = prefix("mana_pool");
 	private final IDrawable background;
 	private final String localizedName;
 	private final IDrawable overlay;
@@ -49,7 +51,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 	public ManaPoolRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(168, 64);
 		localizedName = I18n.format("botania.nei.manaPool");
-		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pure_daisy_overlay.png"),
+		overlay = guiHelper.createDrawable(prefix("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
 		ItemNBTHelper.setBoolean(renderStack, "RenderFull", true);
 		icon = guiHelper.createDrawableIngredient(renderStack.copy());
@@ -103,11 +105,11 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 	}
 
 	@Override
-	public void draw(IManaInfusionRecipe recipe, double mouseX, double mouseY) {
+	public void draw(IManaInfusionRecipe recipe, MatrixStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
-		overlay.draw(48, 0);
-		HUDHandler.renderManaBar(28, 50, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / 10);
+		overlay.draw(ms, 48, 0);
+		HUDHandler.renderManaBar(ms, 28, 50, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / 10);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 	}

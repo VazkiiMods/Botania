@@ -16,7 +16,11 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -49,7 +53,7 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 
 			if (entities == 0) {
 				ItemStack stackToPlace = new ItemStack(Blocks.DIRT);
-				BlockRayTraceResult hit = new BlockRayTraceResult(Vec3d.ZERO, Direction.DOWN, new BlockPos(x, y, z), false);
+				BlockRayTraceResult hit = new BlockRayTraceResult(Vector3d.ZERO, Direction.DOWN, new BlockPos(x, y, z), false);
 				PlayerHelper.substituteUse(new ItemUseContext(player, hand, hit), stackToPlace);
 
 				if (stackToPlace.isEmpty()) {
@@ -61,11 +65,8 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 				}
 			}
 		}
-		if (world.isRemote) {
-			player.swingArm(hand);
-		}
 
-		return ActionResult.resultSuccess(stack);
+		return ActionResult.func_233538_a_(stack, world.isRemote);
 	}
 
 }

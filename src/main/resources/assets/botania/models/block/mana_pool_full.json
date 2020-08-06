@@ -1,7 +1,0 @@
-{
-  "parent": "botania:block/shapes/pool_full",
-  "textures": {
-    "all": "botania:blocks/livingrock0",
-    "liquid": "botania:blocks/mana_water"
-  }
-}

@@ -15,15 +15,16 @@ import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.Matrix4f;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.vector.Vector3f;
 
+import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.TileAltar;
 
@@ -37,15 +38,11 @@ public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 
 	@Override
 	public void render(@Nonnull TileAltar altar, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-		if (!altar.getWorld().isBlockLoaded(altar.getPos())) {
-			return;
-		}
-
 		ms.push();
 		ms.translate(0.5, 1.5, 0.5);
 
-		boolean water = altar.getFluid() == Fluids.WATER;
-		boolean lava = altar.getFluid() == Fluids.LAVA;
+		boolean water = altar.getFluid() == IPetalApothecary.State.WATER;
+		boolean lava = altar.getFluid() == IPetalApothecary.State.LAVA;
 		if (water || lava) {
 			ms.push();
 			float s = 1F / 256F * 10F;
@@ -54,7 +51,7 @@ public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 
 			if (water) {
 				int petals = 0;
-				for (int i = 0; i < altar.getSizeInventory(); i++) {
+				for (int i = 0; i < altar.inventorySize(); i++) {
 					if (!altar.getItemHandler().getStackInSlot(i).isEmpty()) {
 						petals++;
 					} else {
@@ -115,7 +112,7 @@ public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 					: Minecraft.getInstance().getModelManager().getBlockModelShapes().getModel(Blocks.WATER.getDefaultState()).getParticleTexture();
 			int color = lava ? Fluids.LAVA.getAttributes().getColor(altar.getWorld(), altar.getPos())
 					: Fluids.WATER.getAttributes().getColor(altar.getWorld(), altar.getPos());
-			IVertexBuilder buffer = buffers.getBuffer(Atlases.getTranslucentBlockType());
+			IVertexBuilder buffer = buffers.getBuffer(Atlases.getTranslucentCullBlockType());
 			renderIcon(ms, buffer, sprite, color, alpha, overlay, lava ? 0xF000F0 : light);
 			ms.pop();
 		}
@@ -127,7 +124,6 @@ public class RenderTileAltar extends TileEntityRenderer<TileAltar> {
 		int green = ((color >> 8) & 0xFF);
 		int blue = (color & 0xFF);
 		Matrix4f mat = ms.getLast().getMatrix();
-		// todo 1.15 check the normals
 		builder.pos(mat, 0, 16, 0).color(red, green, blue, (int) (alpha * 255F)).tex(sprite.getMinU(), sprite.getMaxV()).overlay(overlay).lightmap(light).normal(0, 0, 1).endVertex();
 		builder.pos(mat, 16, 16, 0).color(red, green, blue, (int) (alpha * 255F)).tex(sprite.getMaxU(), sprite.getMaxV()).overlay(overlay).lightmap(light).normal(0, 0, 1).endVertex();
 		builder.pos(mat, 16, 0, 0).color(red, green, blue, (int) (alpha * 255F)).tex(sprite.getMaxU(), sprite.getMinV()).overlay(overlay).lightmap(light).normal(0, 0, 1).endVertex();

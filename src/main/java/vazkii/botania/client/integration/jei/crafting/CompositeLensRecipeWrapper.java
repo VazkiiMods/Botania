@@ -19,11 +19,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.common.crafting.recipe.CompositeLensRecipe;
 import vazkii.botania.common.item.lens.ItemLens;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -31,12 +29,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class CompositeLensRecipeWrapper implements ICustomCraftingCategoryExtension {
 	private final List<List<ItemStack>> inputs;
 	private final List<Item> lenses;
 
 	public CompositeLensRecipeWrapper(CompositeLensRecipe recipe) {
-		List<ItemStack> lensStacks = ItemTags.getCollection().getOrCreate(new ResourceLocation(LibMisc.MOD_ID, "lens"))
+		List<ItemStack> lensStacks = ItemTags.getCollection().getOrCreate(prefix("lens"))
 				.getAllElements().stream()
 				.map(ItemStack::new)
 				.filter(s -> !((ItemLens) s.getItem()).isControlLens(s))

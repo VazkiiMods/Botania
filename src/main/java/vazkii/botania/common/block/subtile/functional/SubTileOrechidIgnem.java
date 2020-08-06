@@ -10,13 +10,10 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.Map;
 import java.util.function.Predicate;
@@ -30,7 +27,7 @@ public class SubTileOrechidIgnem extends SubTileOrechid {
 
 	@Override
 	public boolean canOperate() {
-		return getWorld().getDimension().isNether();
+		return getWorld().func_230315_m_().func_236037_d_();
 	}
 
 	@Override

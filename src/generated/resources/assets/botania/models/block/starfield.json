@@ -1,0 +1,8 @@
+{
+  "parent": "botania:block/shapes/four_high_bottom_top",
+  "textures": {
+    "bottom": "botania:block/starfield_bottom",
+    "top": "botania:block/starfield_top",
+    "side": "botania:block/starfield_side"
+  }
+}

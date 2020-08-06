@@ -17,10 +17,10 @@ import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
-import net.minecraftforge.items.wrapper.InvWrapper;
 
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -58,7 +58,7 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
+	public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
 		if (ConfigHandler.COMMON.enderPickpocketEnabled.get() && entity instanceof PlayerEntity && ManaItemHandler.instance().requestManaExact(stack, player, COST_OTHER, false)) {
 			if (!player.world.isRemote) {
 				PlayerEntity other = (PlayerEntity) entity;
@@ -68,10 +68,10 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 			}
 			ManaItemHandler.instance().requestManaExact(stack, player, COST_OTHER, true);
 			player.playSound(SoundEvents.BLOCK_ENDER_CHEST_OPEN, 1F, 1F);
-			return true;
+			return ActionResultType.SUCCESS;
 		}
 
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	@Override
@@ -85,13 +85,13 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 			return false;
 		}
 
-		ItemStack istack = ItemExchangeRod.removeFromInventory(player, new InvWrapper(player.getInventoryEnderChest()), stack, block, false);
+		ItemStack istack = ItemExchangeRod.removeFromInventory(player, player.getInventoryEnderChest(), stack, block, false);
 		if (!istack.isEmpty()) {
 			boolean mana = ManaItemHandler.instance().requestManaExact(stack, player, COST_PROVIDE, false);
 			if (mana) {
 				if (doit) {
 					ManaItemHandler.instance().requestManaExact(stack, player, COST_PROVIDE, true);
-					ItemExchangeRod.removeFromInventory(player, new InvWrapper(player.getInventoryEnderChest()), stack, block, true);
+					ItemExchangeRod.removeFromInventory(player, player.getInventoryEnderChest(), stack, block, true);
 				}
 
 				return true;
@@ -107,7 +107,7 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 			return 0;
 		}
 
-		return ItemExchangeRod.getInventoryItemCount(player, new InvWrapper(player.getInventoryEnderChest()), stack, block);
+		return ItemExchangeRod.getInventoryItemCount(player, player.getInventoryEnderChest(), stack, block);
 	}
 
 }

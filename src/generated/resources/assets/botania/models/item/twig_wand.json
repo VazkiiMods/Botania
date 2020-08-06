@@ -1,0 +1,16 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "botania:item/twig_wand",
+    "layer1": "botania:item/twig_wand_top",
+    "layer2": "botania:item/twig_wand_bottom"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "botania:bindmode": 1.0
+      },
+      "model": "botania:item/twig_wand_bind"
+    }
+  ]
+}

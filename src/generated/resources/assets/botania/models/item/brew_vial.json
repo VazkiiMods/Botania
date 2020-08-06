@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "botania:item/vial",
+    "layer1": "botania:item/brew_vial_0"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "botania:swigs_taken": 1.0
+      },
+      "model": "botania:item/brew_vial_1"
+    },
+    {
+      "predicate": {
+        "botania:swigs_taken": 2.0
+      },
+      "model": "botania:item/brew_vial_2"
+    },
+    {
+      "predicate": {
+        "botania:swigs_taken": 3.0
+      },
+      "model": "botania:item/brew_vial_3"
+    }
+  ]
+}

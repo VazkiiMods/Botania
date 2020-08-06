@@ -10,40 +10,79 @@
     },
     {
       "when": {
-        "north": "true"
+        "north": "low"
       },
       "apply": {
-        "model": "botania:block/metamorphic_mountain_cobblestone_wall_side",
+        "model": "botania:block/metamorphic_mountain_cobblestone_wall_wall_side",
         "uvlock": true
       }
     },
     {
       "when": {
-        "south": "true"
+        "north": "tall"
       },
       "apply": {
-        "model": "botania:block/metamorphic_mountain_cobblestone_wall_side",
+        "model": "botania:block/metamorphic_mountain_cobblestone_wall_wall_side_tall",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "east": "low"
+      },
+      "apply": {
+        "model": "botania:block/metamorphic_mountain_cobblestone_wall_wall_side",
+        "y": 90,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "east": "tall"
+      },
+      "apply": {
+        "model": "botania:block/metamorphic_mountain_cobblestone_wall_wall_side_tall",
+        "y": 90,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "south": "low"
+      },
+      "apply": {
+        "model": "botania:block/metamorphic_mountain_cobblestone_wall_wall_side",
         "y": 180,
         "uvlock": true
       }
     },
     {
       "when": {
-        "west": "true"
+        "south": "tall"
       },
       "apply": {
-        "model": "botania:block/metamorphic_mountain_cobblestone_wall_side",
+        "model": "botania:block/metamorphic_mountain_cobblestone_wall_wall_side_tall",
+        "y": 180,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "west": "low"
+      },
+      "apply": {
+        "model": "botania:block/metamorphic_mountain_cobblestone_wall_wall_side",
         "y": 270,
         "uvlock": true
       }
     },
     {
       "when": {
-        "east": "true"
+        "west": "tall"
       },
       "apply": {
-        "model": "botania:block/metamorphic_mountain_cobblestone_wall_side",
-        "y": 90,
+        "model": "botania:block/metamorphic_mountain_cobblestone_wall_wall_side_tall",
+        "y": 270,
         "uvlock": true
       }
     }

@@ -8,27 +8,22 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.item.ItemSparkUpgrade;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class TileSparkChanger extends TileSimpleInventory {
+public class TileSparkChanger extends TileExposedSimpleInventory {
 	public TileSparkChanger() {
 		super(ModTiles.SPARK_CHANGER);
 	}
@@ -38,7 +33,7 @@ public class TileSparkChanger extends TileSimpleInventory {
 			return;
 		}
 
-		ItemStack changeStack = itemHandler.getStackInSlot(0);
+		ItemStack changeStack = getItemHandler().getStackInSlot(0);
 		List<ISparkAttachable> attachables = new ArrayList<>();
 		for (Direction dir : Direction.Plane.HORIZONTAL) {
 			TileEntity tile = world.getTileEntity(pos.offset(dir));
@@ -66,31 +61,21 @@ public class TileSparkChanger extends TileSimpleInventory {
 			if (transfers != null) {
 				transfers.clear();
 			}
-			itemHandler.setStackInSlot(0, sparkStack);
+			getItemHandler().setInventorySlotContents(0, sparkStack);
 		}
 	}
 
 	@Override
-	public int getSizeInventory() {
-		return 1;
-	}
-
-	@Override
-	protected SimpleItemStackHandler createItemHandler() {
-		return new SimpleItemStackHandler(this, true) {
+	protected Inventory createItemHandler() {
+		return new Inventory(1) {
 			@Override
-			protected int getStackLimit(int slot, @Nonnull ItemStack stack) {
+			public int getInventoryStackLimit() {
 				return 1;
 			}
 
-			@Nonnull
 			@Override
-			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-				if (!stack.isEmpty() && stack.getItem() instanceof ItemSparkUpgrade) {
-					return super.insertItem(slot, stack, simulate);
-				} else {
-					return stack;
-				}
+			public boolean isItemValidForSlot(int index, ItemStack stack) {
+				return !stack.isEmpty() && stack.getItem() instanceof ItemSparkUpgrade;
 			}
 		};
 	}
@@ -98,7 +83,9 @@ public class TileSparkChanger extends TileSimpleInventory {
 	@Override
 	public void markDirty() {
 		super.markDirty();
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		if (world != null && !world.isRemote) {
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
 	}
 
 }

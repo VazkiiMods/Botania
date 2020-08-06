@@ -55,19 +55,19 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
+	public void onUse(World world, LivingEntity living, ItemStack stack, int count) {
 		if (!(living instanceof PlayerEntity)) {
 			return;
 		}
 		PlayerEntity player = (PlayerEntity) living;
 
-		if (count != getUseDuration(stack) && count % (IManaProficiencyArmor.hasProficiency(player, stack) ? 1 : 2) == 0 && !player.world.isRemote && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, false)) {
-			if (spawnMissile(player.world, player, player.getPosX() + (Math.random() - 0.5 * 0.1), player.getPosY() + 2.4 + (Math.random() - 0.5 * 0.1), player.getPosZ() + (Math.random() - 0.5 * 0.1))) {
+		if (count != getUseDuration(stack) && count % (IManaProficiencyArmor.hasProficiency(player, stack) ? 1 : 2) == 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, false)) {
+			if (!world.isRemote && spawnMissile(world, player, player.getPosX() + (Math.random() - 0.5 * 0.1), player.getPosY() + 2.4 + (Math.random() - 0.5 * 0.1), player.getPosZ() + (Math.random() - 0.5 * 0.1))) {
 				ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, true);
 			}
 
 			SparkleParticleData data = SparkleParticleData.sparkle(6F, 1F, 0.4F, 1F, 6);
-			player.world.addParticle(data, player.getPosX(), player.getPosY() + 2.4, player.getPosZ(), 0, 0, 0);
+			world.addParticle(data, player.getPosX(), player.getPosY() + 2.4, player.getPosZ(), 0, 0, 0);
 		}
 	}
 
@@ -95,7 +95,7 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		player.setActiveHand(hand);
-		return ActionResult.resultSuccess(player.getHeldItem(hand));
+		return ActionResult.resultConsume(player.getHeldItem(hand));
 	}
 
 	@Override

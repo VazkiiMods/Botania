@@ -13,15 +13,18 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 
+import java.util.function.Predicate;
+
 /**
  * An interface for a Corporea Request matcher. Accepts an ItemStack and returns whether it fulfills the request.
  */
-public interface ICorporeaRequestMatcher {
+public interface ICorporeaRequestMatcher extends Predicate<ItemStack> {
 
 	/**
 	 * Returns whether the given stack matches the request's criteria.
 	 */
-	default boolean isStackValid(ItemStack stack) {
+	@Override
+	default boolean test(ItemStack stack) {
 		return false;
 	}
 

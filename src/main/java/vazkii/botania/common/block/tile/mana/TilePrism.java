@@ -10,10 +10,9 @@ package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -23,19 +22,15 @@ import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.block.tile.TileSimpleInventory;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.block.tile.TileExposedSimpleInventory;
 
-import javax.annotation.Nonnull;
-
-public class TilePrism extends TileSimpleInventory {
+public class TilePrism extends TileExposedSimpleInventory {
 	public TilePrism() {
 		super(ModTiles.PRISM);
 	}
 
 	public void onBurstCollision(IManaBurst burst) {
-		ItemStack lens = itemHandler.getStackInSlot(0);
+		ItemStack lens = getItemHandler().getStackInSlot(0);
 		boolean active = !getBlockState().get(BlockStateProperties.POWERED);
 		boolean valid = !lens.isEmpty() && lens.getItem() instanceof ILens && (!(lens.getItem() instanceof ITinyPlanetExcempt) || ((ITinyPlanetExcempt) lens.getItem()).shouldPull(lens));
 
@@ -63,21 +58,11 @@ public class TilePrism extends TileSimpleInventory {
 	}
 
 	@Override
-	public int getSizeInventory() {
-		return 1;
-	}
-
-	@Override
-	protected SimpleItemStackHandler createItemHandler() {
-		return new SimpleItemStackHandler(this, true) {
-			@Nonnull
+	protected Inventory createItemHandler() {
+		return new Inventory(1) {
 			@Override
-			public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-				if (!stack.isEmpty() && stack.getItem() instanceof ILens) {
-					return super.insertItem(slot, stack, simulate);
-				} else {
-					return stack;
-				}
+			public boolean isItemValidForSlot(int index, ItemStack stack) {
+				return !stack.isEmpty() && stack.getItem() instanceof ILens;
 			}
 		};
 	}
@@ -85,10 +70,10 @@ public class TilePrism extends TileSimpleInventory {
 	@Override
 	public void markDirty() {
 		super.markDirty();
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		if (world != null && !world.isRemote) {
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 			BlockState state = getBlockState();
-			boolean hasLens = !itemHandler.getStackInSlot(0).isEmpty();
+			boolean hasLens = !getItemHandler().getStackInSlot(0).isEmpty();
 			if (state.getBlock() != ModBlocks.prism || state.get(BotaniaStateProps.HAS_LENS) != hasLens) {
 				BlockState base = state.getBlock() == ModBlocks.prism ? state : ModBlocks.prism.getDefaultState();
 				world.setBlockState(pos, base.with(BotaniaStateProps.HAS_LENS, hasLens));

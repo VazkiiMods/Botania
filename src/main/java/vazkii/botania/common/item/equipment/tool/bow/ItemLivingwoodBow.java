@@ -36,14 +36,6 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 
 	public ItemLivingwoodBow(Properties builder) {
 		super(builder);
-		addPropertyOverride(new ResourceLocation("minecraft:pull"), (stack, worldIn, entityIn) -> {
-			if (entityIn == null) {
-				return 0.0F;
-			} else {
-				ItemStack itemstack = entityIn.getActiveItemStack();
-				return !itemstack.isEmpty() && itemstack.getItem() instanceof ItemLivingwoodBow ? (stack.getUseDuration() - entityIn.getItemInUseCount()) * chargeVelocityMultiplier() / 20.0F : 0.0F;
-			}
-		});
 	}
 
 	// [VanillaCopy] super
@@ -59,10 +51,10 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 		}
 
 		if (!playerIn.abilities.isCreativeMode && !flag) {
-			return flag ? new ActionResult<>(ActionResultType.PASS, itemstack) : new ActionResult<>(ActionResultType.FAIL, itemstack);
+			return ActionResult.resultFail(itemstack);
 		} else {
 			playerIn.setActiveHand(handIn);
-			return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
+			return ActionResult.resultConsume(itemstack);
 		}
 	}
 
@@ -91,8 +83,8 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 					if (!worldIn.isRemote) {
 						ArrowItem arrowitem = (ArrowItem) (itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
 						AbstractArrowEntity abstractarrowentity = arrowitem.createArrow(worldIn, itemstack, playerentity);
-						abstractarrowentity = customeArrow(abstractarrowentity);
-						abstractarrowentity.shoot(playerentity, playerentity.rotationPitch, playerentity.rotationYaw, 0.0F, f * 3.0F, 1.0F);
+						abstractarrowentity = customArrow(abstractarrowentity);
+						abstractarrowentity.func_234612_a_(playerentity, playerentity.rotationPitch, playerentity.rotationYaw, 0.0F, f * 3.0F, 1.0F);
 						if (f == 1.0F) {
 							abstractarrowentity.setIsCritical(true);
 						}
@@ -111,8 +103,12 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 							abstractarrowentity.setFire(100);
 						}
 
-						// Botania - move damage into onFire
+						// Botania - onFire
 						onFire(stack, playerentity, flag1, abstractarrowentity);
+
+						stack.damageItem(1, playerentity, (p_220009_1_) -> {
+							p_220009_1_.sendBreakAnimation(playerentity.getActiveHand());
+						});
 						if (flag1 || playerentity.abilities.isCreativeMode && (itemstack.getItem() == Items.SPECTRAL_ARROW || itemstack.getItem() == Items.TIPPED_ARROW)) {
 							abstractarrowentity.pickupStatus = AbstractArrowEntity.PickupStatus.CREATIVE_ONLY;
 						}
@@ -134,7 +130,7 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 		}
 	}
 
-	float chargeVelocityMultiplier() {
+	public float chargeVelocityMultiplier() {
 		return 1F;
 	}
 
@@ -144,9 +140,7 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 				|| !player.findAmmo(stack).isEmpty();
 	}
 
-	void onFire(ItemStack bow, LivingEntity living, boolean infinity, AbstractArrowEntity arrow) {
-		ToolCommons.damageItem(bow, 1, living, MANA_PER_DAMAGE);
-	}
+	void onFire(ItemStack bow, LivingEntity living, boolean infinity, AbstractArrowEntity arrow) {}
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected) {

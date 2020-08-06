@@ -8,30 +8,29 @@
  */
 package vazkii.botania.common.crafting;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonObject;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.HashSet;
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class StateIngredientTag extends StateIngredientBlocks {
-	private final Tag<Block> tag;
+	private final ITag.INamedTag<Block> tag;
 
-	public StateIngredientTag(Tag<Block> tag) {
-		super(tag.getAllElements() instanceof Set ? (Set<Block>) tag.getAllElements() : new HashSet<>(tag.getAllElements()));
+	public StateIngredientTag(ITag.INamedTag<Block> tag) {
+		super(ImmutableSet.of());
 		this.tag = tag;
 	}
 
 	public StateIngredientTag(ResourceLocation id) {
-		this(new BlockTags.Wrapper(id));
+		this(BlockTags.makeWrapperTag(id.toString()));
 	}
 
 	@Override
@@ -43,13 +42,13 @@ public class StateIngredientTag extends StateIngredientBlocks {
 	public JsonObject serialize() {
 		JsonObject object = new JsonObject();
 		object.addProperty("type", "tag");
-		object.addProperty("tag", tag.getId().toString());
+		object.addProperty("tag", tag.getName().toString());
 		return object;
 	}
 
 	@Override
-	public void write(PacketBuffer buffer) {
-		super.write(buffer); // We're sending super's contents instead as tags are sent *after* recipes.
+	protected Collection<Block> getBlocks() {
+		return tag.getAllElements();
 	}
 
 	@Override

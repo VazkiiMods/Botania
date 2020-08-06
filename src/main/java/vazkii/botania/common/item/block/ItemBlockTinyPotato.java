@@ -13,6 +13,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Util;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
@@ -58,7 +59,7 @@ public class ItemBlockTinyPotato extends BlockItem {
 			PlayerEntity player = (PlayerEntity) e;
 			int ticks = ItemNBTHelper.getInt(stack, TAG_TICKS, 0);
 			if (ticks < NOT_MY_NAME.length) {
-				player.sendMessage(new StringTextComponent(TextFormatting.RED + NOT_MY_NAME[ticks]));
+				player.sendMessage(new StringTextComponent(NOT_MY_NAME[ticks]).func_240699_a_(TextFormatting.RED), Util.DUMMY_UUID);
 				ItemNBTHelper.setInt(stack, TAG_TICKS, ticks + 1);
 			}
 		}

@@ -1,0 +1,10 @@
+{
+  "__comment": "Blocks in this tag can support corporea sparks, even if it doesn't have an inventory.",
+  "replace": false,
+  "values": [
+    "botania:corporea_crystal_cube",
+    "botania:corporea_funnel",
+    "botania:corporea_index",
+    "botania:corporea_interceptor"
+  ]
+}

@@ -29,31 +29,28 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCacophonium;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.lib.LibObfuscation;
+import vazkii.botania.mixin.AccessorMobEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import java.lang.invoke.MethodHandle;
 import java.util.List;
 
 public class ItemCacophonium extends Item {
 
 	private static final String TAG_SOUND = "sound";
 	private static final String TAG_SOUND_NAME = "soundName";
-	private static final MethodHandle GET_AMBIENT_SOUND = LibObfuscation.getMethod(MobEntity.class, LibObfuscation.GET_LIVING_SOUND);
 
 	public ItemCacophonium(Properties props) {
 		super(props);
 	}
 
 	@Override
-	public boolean itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
+	public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
 		if (entity instanceof MobEntity) {
 			MobEntity living = (MobEntity) entity;
 			SoundEvent sound = null;
@@ -63,27 +60,21 @@ public class ItemCacophonium extends Item {
 			} else if (living instanceof SlimeEntity) {
 				sound = ((SlimeEntity) living).isSmallSlime() ? SoundEvents.ENTITY_SLIME_SQUISH_SMALL : SoundEvents.ENTITY_SLIME_SQUISH;
 			} else {
-				try {
-					sound = (SoundEvent) GET_AMBIENT_SOUND.invokeExact(living);
-				} catch (Throwable ex) {
-					Botania.LOGGER.debug("Couldn't get living sound", ex);
-				}
+				sound = ((AccessorMobEntity) living).callGetAmbientSound();
 			}
 
 			if (sound != null) {
-				ItemNBTHelper.setString(stack, TAG_SOUND, Registry.SOUND_EVENT.getKey(sound).toString());
-				ItemNBTHelper.setString(stack, TAG_SOUND_NAME, entity.getType().getTranslationKey());
-				player.setHeldItem(hand, stack);
-
-				if (player.world.isRemote) {
-					player.swingArm(hand);
+				if (!player.world.isRemote) {
+					ItemNBTHelper.setString(stack, TAG_SOUND, Registry.SOUND_EVENT.getKey(sound).toString());
+					ItemNBTHelper.setString(stack, TAG_SOUND_NAME, entity.getType().getTranslationKey());
+					player.setHeldItem(hand, stack);
 				}
 
-				return true;
+				return ActionResultType.func_233537_a_(player.world.isRemote);
 			}
 		}
 
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	@Nonnull
@@ -110,9 +101,9 @@ public class ItemCacophonium extends Item {
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
 		if (isDOIT(stack)) {
-			list.add(new TranslationTextComponent("botaniamisc.justDoIt").applyTextStyle(TextFormatting.GRAY));
+			list.add(new TranslationTextComponent("botaniamisc.justDoIt").func_240699_a_(TextFormatting.GRAY));
 		} else if (getSound(stack) != null) {
-			list.add(new TranslationTextComponent(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")).applyTextStyle(TextFormatting.GRAY));
+			list.add(new TranslationTextComponent(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")).func_240699_a_(TextFormatting.GRAY));
 		}
 	}
 
@@ -128,12 +119,12 @@ public class ItemCacophonium extends Item {
 		if (getSound(stack) != null) {
 			player.setActiveHand(hand);
 		}
-		return ActionResult.resultSuccess(stack);
+		return ActionResult.resultConsume(stack);
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
-		if (count % (isDOIT(stack) ? 20 : 6) == 0) {
+	public void onUse(World world, @Nonnull LivingEntity player, @Nonnull ItemStack stack, int count) {
+		if (!world.isRemote && count % (isDOIT(stack) ? 20 : 6) == 0) {
 			playSound(player.world, stack, player.getPosX(), player.getPosY(), player.getPosZ(), SoundCategory.PLAYERS, 0.9F);
 		}
 	}

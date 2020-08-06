@@ -8,15 +8,16 @@
  */
 package vazkii.botania.common.entity;
 
-import com.google.common.base.Predicates;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BushBlock;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.entity.passive.horse.AbstractHorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -25,6 +26,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
@@ -38,6 +40,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import javax.annotation.Nonnull;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class EntityMagicMissile extends ThrowableEntity {
 	private static final String TAG_TIME = "time";
@@ -83,7 +86,7 @@ public class EntityMagicMissile extends ThrowableEntity {
 	public LivingEntity getTargetEntity() {
 		int id = dataManager.get(TARGET);
 		Entity e = world.getEntityByID(id);
-		if (e != null && e instanceof LivingEntity) {
+		if (e instanceof LivingEntity) {
 			return (LivingEntity) e;
 		}
 
@@ -134,17 +137,17 @@ public class EntityMagicMissile extends ThrowableEntity {
 			Vector3 targetVec = evil ? new Vector3(lockX, lockY, lockZ) : Vector3.fromEntityCenter(target);
 			Vector3 diffVec = targetVec.subtract(thisVec);
 			Vector3 motionVec = diffVec.normalize().multiply(evil ? 0.5 : 0.6);
-			setMotion(motionVec.toVec3D());
+			setMotion(motionVec.toVector3d());
 			if (time < 10) {
 				setMotion(getMotion().getX(), Math.abs(getMotion().getY()), getMotion().getZ());
 			}
 
 			List<LivingEntity> targetList = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPosX() - 0.5, getPosY() - 0.5, getPosZ() - 0.5, getPosX() + 0.5, getPosY() + 0.5, getPosZ() + 0.5));
 			if (targetList.contains(target)) {
-				LivingEntity thrower = getThrower();
-				if (thrower != null) {
+				Entity thrower = func_234616_v_();
+				if (thrower instanceof LivingEntity) {
 					PlayerEntity player = thrower instanceof PlayerEntity ? (PlayerEntity) thrower : null;
-					target.attackEntityFrom(player == null ? DamageSource.causeMobDamage(thrower) : DamageSource.causePlayerDamage(player), evil ? 12 : 7);
+					target.attackEntityFrom(player == null ? DamageSource.causeMobDamage((LivingEntity) thrower) : DamageSource.causePlayerDamage(player), evil ? 12 : 7);
 				} else {
 					target.attackEntityFrom(DamageSource.GENERIC, evil ? 12 : 7);
 				}
@@ -174,34 +177,46 @@ public class EntityMagicMissile extends ThrowableEntity {
 
 	public boolean findTarget() {
 		LivingEntity target = getTargetEntity();
-		if (target != null && target.isAlive()) {
-			return true;
-		}
 		if (target != null) {
-			setTarget(null);
+			if (target.isAlive()) {
+				return true;
+			} else {
+				target = null;
+				setTarget(null);
+			}
 		}
 
 		double range = 12;
 		AxisAlignedBB bounds = new AxisAlignedBB(getPosX() - range, getPosY() - range, getPosZ() - range, getPosX() + range, getPosY() + range, getPosZ() + range);
-		List<Entity> entities;
+		List<LivingEntity> entities;
 		if (isEvil()) {
 			entities = world.getEntitiesWithinAABB(PlayerEntity.class, bounds);
 		} else {
-			entities = world.getEntitiesWithinAABB(Entity.class, bounds, Predicates.instanceOf(IMob.class));
+			Predicate<LivingEntity> pred = EntityPredicates.IS_LIVING_ALIVE.and(this::shouldTarget);
+			entities = world.getEntitiesWithinAABB(LivingEntity.class, bounds, pred);
 		}
-		while (entities.size() > 0) {
-			Entity e = entities.get(world.rand.nextInt(entities.size()));
-			if (!(e instanceof LivingEntity) || !e.isAlive()) { // Just in case...
-				entities.remove(e);
-				continue;
-			}
 
-			target = (LivingEntity) e;
+		if (entities.size() > 0) {
+			target = entities.get(world.rand.nextInt(entities.size()));
 			setTarget(target);
-			break;
 		}
 
 		return target != null;
+	}
+
+	public boolean shouldTarget(LivingEntity e) {
+		// always defend yourself
+		Entity thrower = func_234616_v_();
+		if (thrower != null && e instanceof MobEntity && ((MobEntity) e).getAttackTarget() == thrower) {
+			return true;
+		}
+		// don't target tamed creatures...
+		if (e instanceof TameableEntity && ((TameableEntity) e).isTamed() || e instanceof AbstractHorseEntity && ((AbstractHorseEntity) e).isTame()) {
+			return false;
+		}
+
+		// ...but other mobs die
+		return e instanceof IMob;
 	}
 
 	@Override

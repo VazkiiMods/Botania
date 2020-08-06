@@ -19,7 +19,7 @@ public enum LuminizerVariant implements IStringSerializable {
 	TOGGLE;
 
 	@Override
-	public String getName() {
+	public String getString() {
 		return name().toLowerCase(Locale.ROOT);
 	}
 

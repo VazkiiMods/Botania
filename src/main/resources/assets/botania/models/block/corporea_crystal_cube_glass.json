@@ -1,7 +1,7 @@
 {
 	"textures": {
-		"glass": "botania:blocks/corporea_crystal_cube_glass",
-		"particle": "botania:blocks/corporea_crystal_cube_glass"
+		"glass": "botania:block/corporea_crystal_cube_glass",
+		"particle": "botania:block/corporea_crystal_cube_glass"
 	},
 	"elements": [
 		{

@@ -52,7 +52,7 @@ public class LensFlare extends Lens {
 		if (storedColor == 16) {
 			hex = MathHelper.hsvToRGB(tile.getWorld().getGameTime() * 2 % 360 / 360F, 1F, 1F);
 		} else if (storedColor >= 0) {
-			hex = DyeColor.byId(storedColor).colorValue;
+			hex = DyeColor.byId(storedColor).getColorValue();
 		}
 
 		float r = ((hex & 0xFF0000) >> 16) / 255F;

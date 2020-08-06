@@ -8,6 +8,8 @@
  */
 package vazkii.botania.api.subtile;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -21,15 +23,11 @@ import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.model.ModelDataManager;
@@ -40,6 +38,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.util.LazyOptional;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IFloatingFlower;
@@ -52,15 +51,13 @@ import vazkii.botania.common.lib.ModTags;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import java.util.List;
-
 /**
  * Common superclass of all magical flower TE's
  */
 public class TileEntitySpecialFlower extends TileEntity implements ITickableTileEntity, IWandBindable {
 	@CapabilityInject(IFloatingFlower.class)
 	public static Capability<IFloatingFlower> FLOATING_FLOWER_CAP;
-	public static final ResourceLocation DING_SOUND_EVENT = new ResourceLocation("botania", "ding");
+	public static final ResourceLocation DING_SOUND_EVENT = new ResourceLocation(BotaniaAPI.MODID, "ding");
 	public static final int SLOWDOWN_FACTOR_PODZOL = 5;
 	public static final int SLOWDOWN_FACTOR_MYCEL = 10;
 
@@ -151,12 +148,11 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 
 	protected void tickFlower() {
 		ticksExisted++;
-		// todo 1.14 this isn't being markDirtied, but do we even want to keep this field around?
 	}
 
 	@Override
-	public final void read(CompoundNBT cmp) {
-		super.read(cmp);
+	public final void read(BlockState state, CompoundNBT cmp) {
+		super.read(state, cmp);
 		if (cmp.contains(TAG_TICKS_EXISTED)) {
 			ticksExisted = cmp.getInt(TAG_TICKS_EXISTED);
 		}
@@ -235,30 +231,6 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {}
 
 	/**
-	 * Called when a player right clicks this sub tile.
-	 */
-	public ActionResultType onBlockActivated(World world, BlockPos pos, BlockState state, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		return ActionResultType.PASS;
-	}
-
-	/**
-	 * Called when this sub tile is added to the world.
-	 */
-	public void onBlockAdded(World world, BlockPos pos, BlockState state) {}
-
-	/**
-	 * Called when this sub tile is harvested
-	 */
-	public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {}
-
-	/**
-	 * Allows additional processing of sub tile drops
-	 */
-	public List<ItemStack> getDrops(List<ItemStack> list, LootContext.Builder ctx) {
-		return list;
-	}
-
-	/**
 	 * Gets the block coordinates this is bound to, for use with the wireframe render
 	 * when the sub tile is being hovered with a wand of the forest.
 	 */
@@ -270,7 +242,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 
 	/**
 	 * Returns a descriptor for the radius of this sub tile. This is called while a player
-	 * is looking at the block with a Manaseer Monocle (IBurstViewerBauble).
+	 * is looking at the block with a Manaseer Monocle.
 	 */
 	@OnlyIn(Dist.CLIENT)
 	public RadiusDescriptor getRadius() {
@@ -298,21 +270,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	 * Used to render a HUD portraying some data from this sub tile.
 	 */
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(Minecraft mc) {}
-
-	/**
-	 * Gets the comparator input value for this SubTileEntity
-	 */
-	public int getComparatorInputOverride() {
-		return 0;
-	}
-
-	/**
-	 * Gets the redstone power level for this SubTileEntity
-	 */
-	public int getPowerLevel(Direction side) {
-		return 0;
-	}
+	public void renderHUD(MatrixStack ms, Minecraft mc) {}
 
 	/**
 	 * Gets if this SubTileEntity is affected by Enchanted Soil's speed boost.

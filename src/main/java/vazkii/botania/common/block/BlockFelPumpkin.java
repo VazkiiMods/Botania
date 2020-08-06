@@ -22,11 +22,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.mixin.AccessorMobEntity;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BlockFelPumpkin extends BlockMod {
-	private static final ResourceLocation LOOT_TABLE = new ResourceLocation(LibMisc.MOD_ID, "fel_blaze");
-	private static final String TAG_FEL_SPAWNED = "Botania-FelSpawned";
+	private static final ResourceLocation LOOT_TABLE = prefix("fel_blaze");
 
 	public BlockFelPumpkin(Properties builder) {
 		super(builder);
@@ -48,7 +49,7 @@ public class BlockFelPumpkin extends BlockMod {
 			world.setBlockState(pos.down(2), Blocks.AIR.getDefaultState());
 			BlazeEntity blaze = EntityType.BLAZE.create(world);
 			blaze.setLocationAndAngles(pos.getX() + 0.5D, pos.getY() - 1.95D, pos.getZ() + 0.5D, 0.0F, 0.0F);
-			blaze.deathLootTable = LOOT_TABLE;
+			((AccessorMobEntity) blaze).setDeathLootTable(LOOT_TABLE);
 			blaze.onInitialSpawn(world, world.getDifficultyForLocation(pos), SpawnReason.EVENT, null, null);
 			world.addEntity(blaze);
 		}

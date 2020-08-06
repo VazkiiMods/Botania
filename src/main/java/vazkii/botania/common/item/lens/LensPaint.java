@@ -15,7 +15,9 @@ import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.*;
+import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
@@ -49,8 +51,9 @@ public class LensPaint extends Lens {
 			} else if (pos.getType() == RayTraceResult.Type.BLOCK) {
 				BlockPos hit = ((BlockRayTraceResult) pos).getPos();
 				BlockState state = entity.world.getBlockState(hit);
-				Block block = state.getBlock();
-				if (BotaniaAPI.instance().getPaintableBlocks().containsKey(block.delegate)) {
+				ResourceLocation blockId = Registry.BLOCK.getKey(state.getBlock());
+
+				if (BotaniaAPI.instance().getPaintableBlocks().containsKey(blockId)) {
 					List<BlockPos> coordsToPaint = new ArrayList<>();
 					List<BlockPos> coordsFound = new ArrayList<>();
 					coordsFound.add(hit);
@@ -62,8 +65,8 @@ public class LensPaint extends Lens {
 							coordsToPaint.add(coords);
 
 							for (Direction dir : Direction.values()) {
-								BlockState state_ = entity.world.getBlockState(coords.offset(dir));
-								BlockPos coords_ = new BlockPos(coords.offset(dir));
+								BlockPos coords_ = coords.offset(dir);
+								BlockState state_ = entity.world.getBlockState(coords_);
 								if (state_ == state && !coordsFound.contains(coords_) && !coordsToPaint.contains(coords_)) {
 									coordsFound.add(coords_);
 								}
@@ -75,7 +78,7 @@ public class LensPaint extends Lens {
 						DyeColor placeColor = DyeColor.byId(storedColor == 16 ? entity.world.rand.nextInt(16) : storedColor);
 						BlockState stateThere = entity.world.getBlockState(coords);
 
-						Function<DyeColor, Block> f = BotaniaAPI.instance().getPaintableBlocks().get(block.delegate);
+						Function<DyeColor, Block> f = BotaniaAPI.instance().getPaintableBlocks().get(blockId);
 						Block newBlock = f.apply(placeColor);
 						if (newBlock != stateThere.getBlock()) {
 							entity.world.setBlockState(coords, newBlock.getDefaultState());

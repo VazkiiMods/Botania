@@ -34,6 +34,6 @@ public class ItemPetal extends BlockItem implements ICustomApothecaryColor {
 
 	@Override
 	public int getParticleColor(ItemStack stack) {
-		return color.colorValue;
+		return color.getColorValue();
 	}
 }

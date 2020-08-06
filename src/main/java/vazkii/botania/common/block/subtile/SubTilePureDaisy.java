@@ -119,7 +119,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	private IPureDaisyRecipe findRecipe(BlockPos coords) {
 		BlockState state = getWorld().getBlockState(coords);
 
-		for (IRecipe<?> recipe : world.getRecipeManager().getRecipes(ModRecipeTypes.PURE_DAISY_TYPE).values()) {
+		for (IRecipe<?> recipe : ModRecipeTypes.getRecipes(world, ModRecipeTypes.PURE_DAISY_TYPE).values()) {
 			if (recipe instanceof IPureDaisyRecipe && ((IPureDaisyRecipe) recipe).matches(getWorld(), coords, this, state)) {
 				return ((IPureDaisyRecipe) recipe);
 			}

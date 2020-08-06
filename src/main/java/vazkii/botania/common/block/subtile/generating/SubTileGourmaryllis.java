@@ -14,21 +14,17 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.particles.ItemParticleData;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.tile.ModTiles;
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -76,7 +72,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 		for (ListIterator<ItemStack> it = lastFoods.listIterator(); it.hasNext();) {
 			int index = it.nextIndex();
 			ItemStack streakFood = it.next();
-			if (ItemHandlerHelper.canItemStacksStack(streakFood, food)) {
+			if (streakFood.isItemEqual(food) && ItemStack.areItemStackTagsEqual(streakFood, food)) {
 				it.remove();
 				lastFoods.add(0, streakFood);
 				return index;
@@ -115,7 +111,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 			} else if (cooldown % munchInterval == 0) {
 				getWorld().playSound(null, getEffectivePos(), SoundEvents.ENTITY_GENERIC_EAT, SoundCategory.BLOCKS, 0.5f, 1);
 
-				Vec3d offset = getWorld().getBlockState(getEffectivePos()).getOffset(getWorld(), getEffectivePos()).add(0.4, 0.6, 0.4);
+				Vector3d offset = getWorld().getBlockState(getEffectivePos()).getOffset(getWorld(), getEffectivePos()).add(0.4, 0.6, 0.4);
 
 				((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, lastFoods.get(0)), getEffectivePos().getX() + offset.x, getEffectivePos().getY() + offset.y, getEffectivePos().getZ() + offset.z, 10, 0.1D, 0.1D, 0.1D, 0.03D);
 			}
@@ -128,7 +124,8 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 		for (ItemEntity item : items) {
 			ItemStack stack = item.getItem();
 
-			if (!stack.isEmpty() && stack.getItem().isFood() && !item.removed && item.age >= slowdown) {
+			int age = ((AccessorItemEntity) item).getAge();
+			if (!stack.isEmpty() && stack.getItem().isFood() && item.isAlive() && age >= slowdown) {
 				if (cooldown <= 0) {
 					streakLength = Math.min(streakLength + 1, processFood(stack));
 

@@ -10,28 +10,26 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.*;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.items.ItemHandlerHelper;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileTinyPotato extends TileSimpleInventory implements ITickableTileEntity, INameable {
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
+public class TileTinyPotato extends TileExposedSimpleInventory implements ITickableTileEntity, INameable {
 	private static final String TAG_NAME = "name";
 	private static final int JUMP_EVENT = 0;
 
@@ -49,17 +47,17 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 			ItemStack stackAt = getItemHandler().getStackInSlot(index);
 			if (!stackAt.isEmpty() && stack.isEmpty()) {
 				player.setHeldItem(hand, stackAt);
-				getItemHandler().setStackInSlot(index, ItemStack.EMPTY);
+				getItemHandler().setInventorySlotContents(index, ItemStack.EMPTY);
 			} else if (!stack.isEmpty()) {
 				ItemStack copy = stack.split(1);
 
 				if (stack.isEmpty()) {
 					player.setHeldItem(hand, stackAt);
 				} else if (!stackAt.isEmpty()) {
-					ItemHandlerHelper.giveItemToPlayer(player, stackAt);
+					player.inventory.placeItemBackInInventory(player.world, stackAt);
 				}
 
-				getItemHandler().setStackInSlot(index, copy);
+				getItemHandler().setInventorySlotContents(index, copy);
 			}
 		}
 
@@ -71,15 +69,15 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 				world.playSound(null, pos, ModSounds.doit, SoundCategory.BLOCKS, 1F, 1F);
 			}
 
-			for (int i = 0; i < getSizeInventory(); i++) {
+			for (int i = 0; i < inventorySize(); i++) {
 				ItemStack stackAt = getItemHandler().getStackInSlot(i);
 				if (!stackAt.isEmpty() && stackAt.getItem() == ModBlocks.tinyPotato.asItem()) {
-					player.sendMessage(new StringTextComponent("Don't talk to me or my son ever again."));
+					player.sendMessage(new StringTextComponent("Don't talk to me or my son ever again."), Util.DUMMY_UUID);
 					return;
 				}
 			}
 
-			PlayerHelper.grantCriterion((ServerPlayerEntity) player, new ResourceLocation(LibMisc.MOD_ID, "main/tiny_potato_pet"), "code_triggered");
+			PlayerHelper.grantCriterion((ServerPlayerEntity) player, prefix("main/tiny_potato_pet"), "code_triggered");
 		}
 	}
 
@@ -118,7 +116,9 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 	@Override
 	public void markDirty() {
 		super.markDirty();
-		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		if (world != null && !world.isRemote) {
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
 	}
 
 	@Override
@@ -130,12 +130,12 @@ public class TileTinyPotato extends TileSimpleInventory implements ITickableTile
 	@Override
 	public void readPacketNBT(CompoundNBT cmp) {
 		super.readPacketNBT(cmp);
-		name = ITextComponent.Serializer.fromJson(cmp.getString(TAG_NAME));
+		name = ITextComponent.Serializer.func_240643_a_(cmp.getString(TAG_NAME));
 	}
 
 	@Override
-	public int getSizeInventory() {
-		return 6;
+	protected Inventory createItemHandler() {
+		return new Inventory(6);
 	}
 
 	@Nonnull

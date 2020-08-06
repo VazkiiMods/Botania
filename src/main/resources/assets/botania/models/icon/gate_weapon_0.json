@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "botania:items/gate_weapon_0"
+    "layer0": "botania:item/gate_weapon_0"
   }
 }

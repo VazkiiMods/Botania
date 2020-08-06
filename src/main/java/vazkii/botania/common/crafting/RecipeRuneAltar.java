@@ -13,6 +13,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
@@ -22,7 +23,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
@@ -49,7 +49,7 @@ public class RecipeRuneAltar implements IRuneAltarRecipe {
 	}
 
 	@Override
-	public boolean matches(RecipeWrapper inv, @Nonnull World world) {
+	public boolean matches(IInventory inv, @Nonnull World world) {
 		List<Ingredient> ingredientsMissing = new ArrayList<>(inputs);
 
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
@@ -86,7 +86,7 @@ public class RecipeRuneAltar implements IRuneAltarRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull RecipeWrapper inv) {
+	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
 		return getRecipeOutput().copy();
 	}
 

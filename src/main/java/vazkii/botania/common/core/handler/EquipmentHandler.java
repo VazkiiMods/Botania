@@ -19,8 +19,6 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.wrapper.InvWrapper;
-import net.minecraftforge.items.wrapper.RangedWrapper;
 
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.Botania;
@@ -103,11 +101,11 @@ public abstract class EquipmentHandler {
 
 				if (!ItemStack.areItemStacksEqual(old, current)) {
 					if (old.getItem() instanceof ItemBauble) {
-						player.getAttributes().removeAttributeModifiers(((ItemBauble) old.getItem()).getEquippedAttributeModifiers(old));
+						player.getAttributeManager().func_233785_a_(((ItemBauble) old.getItem()).getEquippedAttributeModifiers(old));
 						((ItemBauble) old.getItem()).onUnequipped(old, player);
 					}
 					if (canEquip(current, player)) {
-						player.getAttributes().applyAttributeModifiers(((ItemBauble) current.getItem()).getEquippedAttributeModifiers(current));
+						player.getAttributeManager().func_233793_b_(((ItemBauble) current.getItem()).getEquippedAttributeModifiers(current));
 						((ItemBauble) current.getItem()).onEquipped(current, player);
 					}
 					oldStacks[i] = current.copy(); // shift-clicking mutates the stack we stored,
@@ -123,9 +121,6 @@ public abstract class EquipmentHandler {
 
 		@Override
 		protected LazyOptional<IItemHandlerModifiable> getAllWornItems(LivingEntity living) {
-			if (living instanceof PlayerEntity) {
-				return LazyOptional.of(() -> new RangedWrapper(new InvWrapper(((PlayerEntity) living).inventory), 0, 9));
-			}
 			return LazyOptional.empty();
 		}
 

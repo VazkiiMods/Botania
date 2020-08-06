@@ -12,6 +12,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -22,7 +23,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -41,7 +41,7 @@ public class HeadRecipe extends RecipeRuneAltar {
 	}
 
 	@Override
-	public boolean matches(RecipeWrapper inv, @Nonnull World world) {
+	public boolean matches(IInventory inv, @Nonnull World world) {
 		boolean matches = super.matches(inv, world);
 
 		if (matches) {
@@ -65,7 +65,7 @@ public class HeadRecipe extends RecipeRuneAltar {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull RecipeWrapper inv) {
+	public ItemStack getCraftingResult(@Nonnull IInventory inv) {
 		ItemStack stack = getRecipeOutput().copy();
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack ingr = inv.getStackInSlot(i);
@@ -79,7 +79,6 @@ public class HeadRecipe extends RecipeRuneAltar {
 
 	public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<HeadRecipe> {
 
-		// todo 1.15 reduce this duplication with RecipeRuneAltar, probably by introducing an abstract superclass
 		@Nonnull
 		@Override
 		public HeadRecipe read(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {

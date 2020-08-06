@@ -15,22 +15,20 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.List;
 
@@ -64,7 +62,8 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 			int slowdown = getSlowdownFactor();
 
 			for (ItemEntity item : items) {
-				if (item.age < 60 + slowdown || !item.isAlive() || item.getPersistentData().getBoolean(TAG_TELEPORTED)) {
+				int age = ((AccessorItemEntity) item).getAge();
+				if (age < 60 + slowdown || !item.isAlive() || item.getPersistentData().getBoolean(TAG_TELEPORTED)) {
 					continue;
 				}
 
@@ -80,7 +79,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 						spawnExplosionParticles(item, 10);
 						item.setPosition(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
 						item.getPersistentData().putBoolean(TAG_TELEPORTED, true);
-						item.setMotion(Vec3d.ZERO);
+						item.setMotion(Vector3d.ZERO);
 						spawnExplosionParticles(item, 10);
 						addMana(-cost);
 						did = true;
@@ -95,7 +94,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	}
 
 	static void spawnExplosionParticles(Entity item, int p) {
-		PacketHandler.sendToNearby(item.world, new BlockPos(item), new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ITEM_SMOKE, item.getPosX(), item.getPosY(), item.getPosZ(), item.getEntityId(), p));
+		PacketHandler.sendToNearby(item.world, item.func_233580_cy_(), new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ITEM_SMOKE, item.getPosX(), item.getPosY(), item.getPosZ(), item.getEntityId(), p));
 	}
 
 	@Override

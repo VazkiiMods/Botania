@@ -12,7 +12,6 @@ import net.minecraft.block.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
@@ -31,7 +30,7 @@ public class BlockFakeAir extends AirBlock implements ITileEntityProvider {
 	@Override
 	public void neighborChanged(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
 		if (shouldRemove(world, pos)) {
-			world.getPendingBlockTicks().scheduleTick(pos, this, tickRate(world));
+			world.getPendingBlockTicks().scheduleTick(pos, this, 4);
 		}
 	}
 
@@ -44,11 +43,6 @@ public class BlockFakeAir extends AirBlock implements ITileEntityProvider {
 		if (shouldRemove(world, pos)) {
 			world.setBlockState(pos, rand.nextInt(10) == 0 ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState());
 		}
-	}
-
-	@Override
-	public int tickRate(IWorldReader world) {
-		return 4;
 	}
 
 	@Nonnull

@@ -14,14 +14,16 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.NBTDynamicOps;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.GlobalPos;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import vazkii.botania.api.mana.IManaItem;
@@ -33,16 +35,15 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import java.util.Optional;
 
 public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, IManaTooltipDisplay {
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_BACKLOG = "manaBacklog";
-
-	private static final String TAG_POS_X = "posX";
-	private static final String TAG_POS_Y = "posY";
-	private static final String TAG_POS_Z = "posZ";
-	private static final String TAG_DIM = "dim";
+	private static final String TAG_POS = "pos";
 
 	private static final DummyPool fallbackPool = new DummyPool();
 
@@ -125,39 +126,45 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 	}
 
 	public void bindPool(ItemStack stack, TileEntity pool) {
-		ItemNBTHelper.setInt(stack, TAG_POS_X, pool == null ? 0 : pool.getPos().getX());
-		ItemNBTHelper.setInt(stack, TAG_POS_Y, pool == null ? -1 : pool.getPos().getY());
-		ItemNBTHelper.setInt(stack, TAG_POS_Z, pool == null ? 0 : pool.getPos().getZ());
-		ItemNBTHelper.setString(stack, TAG_DIM, pool == null ? "" : DimensionType.getKey(pool.getWorld().getDimension().getType()).toString());
+		GlobalPos pos = GlobalPos.func_239648_a_(pool.getWorld().func_234923_W_(), pool.getPos());
+		INBT ser = GlobalPos.field_239645_a_.encodeStart(NBTDynamicOps.INSTANCE, pos).get().orThrow();
+		ItemNBTHelper.set(stack, TAG_POS, ser);
 	}
 
-	public BlockPos getPoolCoords(ItemStack stack) {
-		int x = ItemNBTHelper.getInt(stack, TAG_POS_X, 0);
-		int y = ItemNBTHelper.getInt(stack, TAG_POS_Y, -1);
-		int z = ItemNBTHelper.getInt(stack, TAG_POS_Z, 0);
-		return new BlockPos(x, y, z);
+	@Nullable
+	private static GlobalPos getBoundPos(ItemStack stack) {
+		if (!stack.getOrCreateTag().contains(TAG_POS)) {
+			return null;
+		}
+
+		Optional<GlobalPos> pos = GlobalPos.field_239645_a_.parse(NBTDynamicOps.INSTANCE, ItemNBTHelper.get(stack, TAG_POS)).result();
+		if (!pos.isPresent()) {
+			return null;
+		}
+
+		BlockPos coords = pos.get().getPos();
+		if (coords.getY() == -1) {
+			return null;
+		}
+		return pos.get();
 	}
 
-	public String getDimension(ItemStack stack) {
-		return ItemNBTHelper.getString(stack, TAG_DIM, "");
-	}
-
-	public IManaPool getManaPool(ItemStack stack) {
+	@Nullable
+	private IManaPool getManaPool(ItemStack stack) {
 		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
 		if (server == null) {
 			return fallbackPool;
 		}
 
-		BlockPos coords = getPoolCoords(stack);
-		if (coords.getY() == -1) {
-			return null;
+		GlobalPos pos = getBoundPos(stack);
+		if (pos == null) {
+			return fallbackPool;
 		}
 
-		ResourceLocation dim = new ResourceLocation(getDimension(stack));
-		DimensionType type = DimensionType.byName(dim);
-		if (type != null) {
-			World world = server.getWorld(type);
-			TileEntity tile = world.getTileEntity(coords);
+		RegistryKey<World> type = pos.func_239646_a_();
+		World world = server.getWorld(type);
+		if (world != null) {
+			TileEntity tile = world.getTileEntity(pos.getPos());
 			if (tile instanceof IManaPool) {
 				return (IManaPool) tile;
 			}
@@ -226,11 +233,19 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 		return false;
 	}
 
+	@Nullable
 	@Override
-	public BlockPos getBinding(ItemStack stack) {
-		IManaPool pool = getManaPool(stack);
+	public BlockPos getBinding(World world, ItemStack stack) {
+		GlobalPos pos = getBoundPos(stack);
+		if (pos == null) {
+			return null;
+		}
 
-		return pool == null || pool instanceof DummyPool ? null : getPoolCoords(stack);
+		if (pos.func_239646_a_() == world.func_234923_W_()) {
+			return pos.getPos();
+		}
+
+		return null;
 	}
 
 	@Override

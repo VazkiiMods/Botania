@@ -8,17 +8,15 @@
  */
 package vazkii.botania.common.core.helper;
 
-import net.minecraft.client.renderer.Vector3f;
-import net.minecraft.client.renderer.Vector4f;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import org.lwjgl.opengl.GL11;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -28,7 +26,6 @@ import java.util.Objects;
 public class Vector3 {
 	public static final Vector3 ZERO = new Vector3(0, 0, 0);
 	public static final Vector3 ONE = new Vector3(1, 1, 1);
-	public static final Vector3 CENTER = new Vector3(0.5, 0.5, 0.5);
 
 	public final double x;
 	public final double y;
@@ -40,16 +37,12 @@ public class Vector3 {
 		z = d2;
 	}
 
-	public Vector3(Vec3d vec) {
+	public Vector3(Vector3d vec) {
 		this(vec.x, vec.y, vec.z);
 	}
 
 	public static Vector3 fromBlockPos(BlockPos pos) {
 		return new Vector3(pos.getX(), pos.getY(), pos.getZ());
-	}
-
-	public static Vector3 fromEntity(Entity e) {
-		return new Vector3(e.getPosX(), e.getPosY(), e.getPosZ());
 	}
 
 	public static Vector3 fromEntityCenter(Entity e) {
@@ -162,39 +155,22 @@ public class Vector3 {
 		return new Vector3(d, 0, d1);
 	}
 
-	public Vec3d toVec3D() {
-		return new Vec3d(x, y, z);
+	public Vector3d toVector3d() {
+		return new Vector3d(x, y, z);
 	}
 
 	public double angle(Vector3 vec) {
-		return Math.acos(normalize().dotProduct(vec.normalize()));
-	}
-
-	public boolean isInside(AxisAlignedBB aabb) {
-		return x >= aabb.minX && y >= aabb.maxY && z >= aabb.minZ && x < aabb.maxX && y < aabb.maxY && z < aabb.maxZ;
+		double projection = normalize().dotProduct(vec.normalize());
+		return Math.acos(net.minecraft.util.math.MathHelper.clamp(projection, -1, 1));
 	}
 
 	public boolean isZero() {
 		return x == 0 && y == 0 && z == 0;
 	}
 
-	public boolean isAxial() {
-		return x == 0 ? y == 0 || z == 0 : y == 0 && z == 0;
-	}
-
 	@OnlyIn(Dist.CLIENT)
-	public Vector3f vector3f() {
-		return new Vector3f((float) x, (float) y, (float) z);
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	public Vector4f vector4f() {
-		return new Vector4f((float) x, (float) y, (float) z, 1);
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	public void glVertex() {
-		GL11.glVertex3d(x, y, z);
+	public void vertex(Matrix4f mat, IVertexBuilder buffer) {
+		buffer.pos(mat, (float) x, (float) y, (float) z);
 	}
 
 	public Vector3 negate() {

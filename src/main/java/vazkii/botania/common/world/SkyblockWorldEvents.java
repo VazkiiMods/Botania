@@ -17,63 +17,40 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
-import net.minecraftforge.event.LootTableLoadEvent;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
-import net.minecraftforge.items.ItemHandlerHelper;
 
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.core.loot.LootHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.common.lib.ModTags;
 
 public final class SkyblockWorldEvents {
 
 	private SkyblockWorldEvents() {}
 
-	private static final String TAG_MADE_ISLAND = "Botania-MadeIsland";
-	private static final String TAG_HAS_OWN_ISLAND = "Botania-HasOwnIsland";
-	private static final String TAG_ISLAND_X = "Botania-IslandX";
-	private static final String TAG_ISLAND_Y = "Botania-IslandY";
-	private static final String TAG_ISLAND_Z = "Botania-IslandZ";
+	private static final ITag.INamedTag<Block> PEBBLE_SOURCES = BlockTags.makeWrapperTag("gardenofglass:pebble_sources");
 
-	public static void onPlayerUpdate(LivingUpdateEvent event) {
-		if (event.getEntityLiving() instanceof PlayerEntity && !event.getEntityLiving().world.isRemote) {
-			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-			CompoundNBT data = player.getPersistentData();
-			if (!data.contains(PlayerEntity.PERSISTED_NBT_TAG)) {
-				data.put(PlayerEntity.PERSISTED_NBT_TAG, new CompoundNBT());
-			}
-
-			CompoundNBT persist = data.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
-			if (player.ticksExisted > 3 && !persist.getBoolean(TAG_MADE_ISLAND)) {
-				World overworld = ServerLifecycleHooks.getCurrentServer().getWorld(DimensionType.OVERWORLD);
-				World world = player.world;
-				if (WorldTypeSkyblock.isWorldSkyblock(world)) {
-					BlockPos coords = world.getSpawnPoint();
-					if (coords.getY() <= 0) {
-						coords = new BlockPos(coords.getX(), 64, coords.getZ());
-						world.setSpawnPoint(coords);
-					}
-					if (world.getBlockState(coords.down(4)).getBlock() != Blocks.BEDROCK && world == overworld) {
-						spawnPlayer(player, coords, false);
-					}
-				}
-
-				persist.putBoolean(TAG_MADE_ISLAND, true);
+	public static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
+		World world = event.getPlayer().world;
+		if (SkyblockChunkGenerator.isWorldSkyblock(world)) {
+			SkyblockSavedData data = SkyblockSavedData.get((ServerWorld) world);
+			if (!data.skyblocks.containsValue(Util.DUMMY_UUID)) {
+				IslandPos islandPos = data.getSpawn();
+				((ServerWorld) world).func_241124_a__(islandPos.getCenter());
+				spawnPlayer(event.getPlayer(), islandPos);
+				Botania.LOGGER.info("Created the spawn GoG island");
 			}
 		}
 	}
@@ -87,7 +64,7 @@ public final class SkyblockWorldEvents {
 				BlockState state = event.getWorld().getBlockState(event.getPos());
 				Block block = state.getBlock();
 
-				if (ModTags.Blocks.PEBBLE_SOURCES.contains(block)) {
+				if (PEBBLE_SOURCES.contains(block)) {
 					SoundType st = state.getSoundType(event.getWorld(), event.getPos(), player);
 					player.playSound(st.getBreakSound(), st.getVolume() * 0.4F, st.getPitch() + (float) (Math.random() * 0.2 - 0.1));
 
@@ -111,7 +88,7 @@ public final class SkyblockWorldEvents {
 							if (equipped.isEmpty()) {
 								player.setHeldItem(event.getHand(), new ItemStack(ModItems.waterBowl));
 							} else {
-								ItemHandlerHelper.giveItemToPlayer(player, new ItemStack(ModItems.waterBowl));
+								player.inventory.placeItemBackInInventory(player.world, new ItemStack(ModItems.waterBowl));
 							}
 						}
 
@@ -123,41 +100,16 @@ public final class SkyblockWorldEvents {
 		}
 	}
 
-	public static void spawnPlayer(PlayerEntity player, BlockPos pos, boolean fabricated) {
-		CompoundNBT data = player.getPersistentData();
-		if (!data.contains(PlayerEntity.PERSISTED_NBT_TAG)) {
-			data.put(PlayerEntity.PERSISTED_NBT_TAG, new CompoundNBT());
-		}
-		CompoundNBT persist = data.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
+	public static void spawnPlayer(PlayerEntity player, IslandPos islandPos) {
+		BlockPos pos = islandPos.getCenter();
+		createSkyblock(player.world, pos);
 
-		final boolean test = false;
-
-		if (test || !persist.getBoolean(TAG_HAS_OWN_ISLAND)) {
-			createSkyblock(player.world, pos);
-
-			if (player instanceof ServerPlayerEntity) {
-				ServerPlayerEntity pmp = (ServerPlayerEntity) player;
-				pmp.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
-				pmp.setSpawnPoint(pos, true, false, player.world.getDimension().getType());
-				if (ConfigHandler.COMMON.gogSpawnWithLexicon.get()) {
-					player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
-				}
-			}
-
-			if (fabricated) {
-				persist.putBoolean(TAG_HAS_OWN_ISLAND, true);
-				persist.putDouble(TAG_ISLAND_X, player.getPosX());
-				persist.putDouble(TAG_ISLAND_Y, player.getPosY());
-				persist.putDouble(TAG_ISLAND_Z, player.getPosZ());
-			}
-		} else {
-			double posX = persist.getDouble(TAG_ISLAND_X);
-			double posY = persist.getDouble(TAG_ISLAND_Y);
-			double posZ = persist.getDouble(TAG_ISLAND_Z);
-
-			if (player instanceof ServerPlayerEntity) {
-				ServerPlayerEntity pmp = (ServerPlayerEntity) player;
-				pmp.setPositionAndUpdate(posX, posY, posZ);
+		if (player instanceof ServerPlayerEntity) {
+			ServerPlayerEntity pmp = (ServerPlayerEntity) player;
+			pmp.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
+			pmp.func_241153_a_(pmp.world.func_234923_W_(), pos, true, false);
+			if (ConfigHandler.COMMON.gogSpawnWithLexicon.get()) {
+				player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
 			}
 		}
 	}

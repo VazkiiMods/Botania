@@ -10,16 +10,12 @@ package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.core.helper.ExperienceHelper;
-import vazkii.botania.common.lib.LibMisc;
 
 import java.util.List;
 
@@ -34,15 +30,16 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getMana() >= getMaxMana()) {
+		if (world.isRemote || getMana() >= getMaxMana()) {
 			return;
 		}
 
 		List<PlayerEntity> players = getWorld().getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		for (PlayerEntity player : players) {
-			if (ExperienceHelper.getPlayerXP(player) >= 1 && player.onGround) {
+			if (ExperienceHelper.getPlayerXP(player) >= 1 && player.func_233570_aj_()) {
 				ExperienceHelper.drainPlayerXP(player, 1);
 				addMana(50);
+				sync();
 				return;
 			}
 		}
@@ -52,6 +49,7 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 			if (orb.isAlive()) {
 				addMana(orb.getXpValue() * 35);
 				orb.remove();
+				sync();
 				return;
 			}
 		}

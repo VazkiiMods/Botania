@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "botania:item/terra_pick"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "botania:active": 1.0
+      },
+      "model": "botania:item/terra_pick_active"
+    },
+    {
+      "predicate": {
+        "botania:tipped": 1.0
+      },
+      "model": "botania:item/terra_pick_tipped"
+    },
+    {
+      "predicate": {
+        "botania:tipped": 1.0,
+        "botania:active": 1.0
+      },
+      "model": "botania:item/terra_pick_tipped_active"
+    }
+  ]
+}

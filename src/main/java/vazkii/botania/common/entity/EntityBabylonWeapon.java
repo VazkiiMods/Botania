@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.entity;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,7 +20,11 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -86,30 +91,28 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 	@Override
 	public void tick() {
-		LivingEntity thrower = getThrower();
+		Entity thrower = func_234616_v_();
 		if (!world.isRemote && (thrower == null || !(thrower instanceof PlayerEntity) || thrower.removed)) {
 			remove();
 			return;
 		}
 		PlayerEntity player = (PlayerEntity) thrower;
-		boolean charging = isCharging();
 		if (!world.isRemote) {
-			ItemStack stack = player == null ? ItemStack.EMPTY : PlayerHelper.getFirstHeldItem(player, ModItems.kingKey);
+			ItemStack stack = PlayerHelper.getFirstHeldItem(player, ModItems.kingKey);
 			boolean newCharging = !stack.isEmpty() && ItemKingKey.isCharging(stack);
-			if (charging != newCharging) {
+			if (isCharging() != newCharging) {
 				setCharging(newCharging);
-				charging = newCharging;
 			}
 		}
 
-		Vec3d mot = getMotion();
+		Vector3d mot = getMotion();
 
 		int liveTime = getLiveTicks();
 		int delay = getDelay();
-		charging &= liveTime == 0;
+		boolean charging = isCharging() && liveTime == 0;
 
 		if (charging) {
-			setMotion(Vec3d.ZERO);
+			setMotion(Vector3d.ZERO);
 
 			int chargeTime = getChargeTicks();
 			setChargeTicks(chargeTime + 1);
@@ -119,25 +122,24 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 			}
 		} else {
 			if (liveTime < delay) {
-				setMotion(Vec3d.ZERO);
+				setMotion(Vector3d.ZERO);
 			} else if (liveTime == delay && player != null) {
-				Vector3 playerLook;
+				Vector3d playerLook;
 				BlockRayTraceResult rtr = ToolCommons.raytraceFromEntity(player, 64, true);
 				if (rtr.getType() != RayTraceResult.Type.BLOCK) {
-					playerLook = new Vector3(player.getLookVec()).multiply(64).add(Vector3.fromEntity(player));
+					playerLook = player.getLookVec().scale(64).add(player.getPositionVec());
 				} else {
-					playerLook = new Vector3(rtr.getPos().getX() + 0.5, rtr.getPos().getY() + 0.5, rtr.getPos().getZ() + 0.5);
+					playerLook = Vector3d.func_237489_a_(rtr.getPos());
 				}
 
 				Vector3 thisVec = Vector3.fromEntityCenter(this);
-				Vector3 motionVec = playerLook.subtract(thisVec).normalize().multiply(2);
 
-				mot = motionVec.toVec3D();
+				mot = playerLook.subtract(thisVec.x, thisVec.y, thisVec.z).normalize().scale(2);
 				world.playSound(null, getPosX(), getPosY(), getPosZ(), ModSounds.babylonAttack, SoundCategory.PLAYERS, 2F, 0.1F + world.rand.nextFloat() * 3F);
 			}
-			setLiveTicks(liveTime + 1);
 
 			if (!world.isRemote) {
+				setLiveTicks(liveTime + 1);
 				AxisAlignedBB axis = new AxisAlignedBB(getPosX(), getPosY(), getPosZ(), lastTickPosX, lastTickPosY, lastTickPosZ).grow(2);
 				List<LivingEntity> entities = world.getEntitiesWithinAABB(LivingEntity.class, axis);
 				for (LivingEntity living : entities) {
@@ -160,21 +162,22 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 		super.tick();
 
+		// Apply after super tick so drag is not applied by super
 		setMotion(mot);
 
-		if (liveTime > delay) {
+		if (world.isRemote && liveTime > delay) {
 			WispParticleData data = WispParticleData.wisp(0.3F, 1F, 1F, 0F, 1);
 			world.addParticle(data, getPosX(), getPosY(), getPosZ(), 0, -0F, 0);
 		}
 
-		if (liveTime > 200 + delay) {
+		if (!world.isRemote && liveTime > 200 + delay) {
 			remove();
 		}
 	}
 
 	@Override
 	protected void onImpact(RayTraceResult pos) {
-		LivingEntity thrower = getThrower();
+		Entity thrower = func_234616_v_();
 		if (pos.getType() != RayTraceResult.Type.ENTITY || ((EntityRayTraceResult) pos).getEntity() != thrower) {
 			world.createExplosion(this, getPosX(), getPosY(), getPosZ(), 3F, Explosion.Mode.NONE);
 			remove();

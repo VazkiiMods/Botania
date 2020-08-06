@@ -19,17 +19,18 @@ import net.minecraft.world.World;
 
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.mixin.AccessorLivingEntity;
 
 import javax.annotation.Nonnull;
 
 import java.util.Locale;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
 	public ItemInfiniteFruit(Properties props) {
 		super(props);
-		addPropertyOverride(new ResourceLocation(LibMisc.MOD_ID, "boot"), (stack, worldIn, entityIn) -> ItemInfiniteFruit.isBoot(stack) ? 1F : 0F);
 	}
 
 	@Override
@@ -49,14 +50,13 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 		ItemStack stack = player.getHeldItem(hand);
 		if (player.canEat(false) && isRightPlayer(player, stack)) {
 			player.setActiveHand(hand);
-			return ActionResult.resultSuccess(stack);
+			return ActionResult.resultConsume(stack);
 		}
 		return ActionResult.resultPass(stack);
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, LivingEntity living, int count) {
-		super.onUsingTick(stack, living, count);
+	public void onUse(@Nonnull World world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int count) {
 		if (!(living instanceof PlayerEntity)) {
 			return;
 		}
@@ -68,13 +68,13 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
 			if (count == 5) {
 				if (player.canEat(false)) {
-					player.activeItemStackUseCount = 20;
+					((AccessorLivingEntity) player).setActiveItemStackUseCount(20);
 				}
 			}
 		}
 	}
 
-	private static boolean isBoot(ItemStack stack) {
+	public static boolean isBoot(ItemStack stack) {
 		String name = stack.getDisplayName().getString().toLowerCase(Locale.ROOT).trim();
 		return name.equals("das boot");
 	}
@@ -86,7 +86,7 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
 	@Override
 	public ResourceLocation getAdvancement() {
-		return new ResourceLocation(LibMisc.MOD_ID, "challenge/infinite_fruit");
+		return prefix("challenge/infinite_fruit");
 	}
 
 }

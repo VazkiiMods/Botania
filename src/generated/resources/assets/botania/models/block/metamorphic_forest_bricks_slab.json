@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "side": "botania:block/metamorphic_forest_bricks",
+    "bottom": "botania:block/metamorphic_forest_bricks",
+    "top": "botania:block/metamorphic_forest_bricks"
+  }
+}

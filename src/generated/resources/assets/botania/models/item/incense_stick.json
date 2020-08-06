@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "botania:item/incense_stick",
+    "layer1": "botania:item/incense_stick_overlay"
+  }
+}

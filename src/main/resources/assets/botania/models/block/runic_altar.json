@@ -2,10 +2,10 @@
 	"Comment": "Designed by Wiiv with Cubik Studio - https://cubik.studio",
 	"parent": "minecraft:block/block",
 	"textures": {
-		"bottom": "botania:blocks/runic_altar_bottom",
-		"up": "botania:blocks/runic_altar_top",
-		"side": "botania:blocks/runic_altar_side",
-		"particle": "botania:blocks/livingrock0"
+		"bottom": "botania:block/runic_altar_bottom",
+		"up": "botania:block/runic_altar_top",
+		"side": "botania:block/runic_altar_side",
+		"particle": "botania:block/livingrock"
 	},
 	"elements": [ 	 
 		{

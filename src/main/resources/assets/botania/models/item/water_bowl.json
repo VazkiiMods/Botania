@@ -3,9 +3,9 @@
   "fluid": "water",
   "applyTint": true,
   "textures": {
-    "base": "botania:items/waterbowl_base",
-    "fluid": "botania:items/waterbowl_fluid",
-    "cover": "botania:items/waterbowl_cover"
+    "base": "botania:item/waterbowl_base",
+    "fluid": "botania:item/waterbowl_fluid",
+    "cover": "botania:item/waterbowl_cover"
   },
   "display": {
     "ground": {

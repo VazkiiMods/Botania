@@ -9,7 +9,6 @@
 package vazkii.botania.common.block;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.util.IItemProvider;
@@ -48,7 +47,7 @@ public final class ModBanners {
 	private static void addPattern(String name, String id, IItemProvider craftingItem) {
 		name = "botania_" + name;
 		id = "bt_" + id;
-		BannerPattern pattern = BannerPattern.create(name.toUpperCase(Locale.ROOT), name, id, new ItemStack(craftingItem));
+		BannerPattern pattern = BannerPattern.create(name.toUpperCase(Locale.ROOT), name, id, false);
 		PATTERNS.put(craftingItem.asItem().delegate, pattern);
 	}
 }

@@ -9,17 +9,14 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ExoflameFurnaceHandler;
-import vazkii.botania.common.lib.LibMisc;
 
 public class SubTileExoflame extends TileEntityFunctionalFlower {
 	private static final int RANGE = 5;

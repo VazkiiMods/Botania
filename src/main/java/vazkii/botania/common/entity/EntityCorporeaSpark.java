@@ -14,26 +14,32 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
+import net.minecraft.item.DyeItem;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.Direction;
+import net.minecraft.particles.ItemParticleData;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+import vazkii.botania.api.corporea.ICorporeaNode;
 import vazkii.botania.api.corporea.ICorporeaSpark;
-import vazkii.botania.api.corporea.InvWithLocation;
-import vazkii.botania.common.core.helper.InventoryHelper;
+import vazkii.botania.common.impl.corporea.DummyCorporeaNode;
+import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.material.ItemDye;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 
@@ -46,8 +52,6 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	private static final String TAG_MASTER = "master";
 
 	private static final DataParameter<Boolean> MASTER = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Integer> ITEM_DISPLAY_TICKS = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.VARINT);
-	private static final DataParameter<ItemStack> DISPLAY_STACK = EntityDataManager.createKey(EntityCorporeaSpark.class, DataSerializers.ITEMSTACK);
 
 	private ICorporeaSpark master;
 	private List<ICorporeaSpark> connections = new ArrayList<>();
@@ -62,8 +66,6 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	protected void registerData() {
 		super.registerData();
 		dataManager.register(MASTER, false);
-		dataManager.register(ITEM_DISPLAY_TICKS, 0);
-		dataManager.register(DISPLAY_STACK, ItemStack.EMPTY);
 	}
 
 	@Nonnull
@@ -80,8 +82,8 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 			return;
 		}
 
-		InvWithLocation inv = getSparkInventory();
-		if (inv == null) {
+		ICorporeaNode node = getSparkNode();
+		if (node instanceof DummyCorporeaNode && !world.getBlockState(getAttachPos()).isIn(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE)) {
 			dropAndKill();
 			return;
 		}
@@ -102,13 +104,6 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 		if (master != null && (((Entity) master).removed || master.getNetwork() != getNetwork())) {
 			master = null;
-		}
-
-		int displayTicks = getItemDisplayTicks();
-		if (displayTicks > 0) {
-			setItemDisplayTicks(displayTicks - 1);
-		} else if (displayTicks < 0) {
-			setItemDisplayTicks(displayTicks + 1);
 		}
 	}
 
@@ -192,11 +187,16 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	@Override
-	public InvWithLocation getSparkInventory() {
+	public BlockPos getAttachPos() {
 		int x = MathHelper.floor(getPosX());
 		int y = MathHelper.floor(getPosY() - 1);
 		int z = MathHelper.floor(getPosZ());
-		return InventoryHelper.getInventoryWithLocation(world, new BlockPos(x, y, z), Direction.UP);
+		return new BlockPos(x, y, z);
+	}
+
+	@Override
+	public ICorporeaNode getSparkNode() {
+		return CorporeaNodeDetectors.findNode(world, this);
 	}
 
 	@Override
@@ -211,15 +211,17 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	@Override
 	public void onItemExtracted(ItemStack stack) {
-		setItemDisplayTicks(10);
-		setDisplayedItem(stack);
+		((ServerWorld) world).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), getPosX(), getPosY(), getPosZ(), 10, 0.125, 0.125, 0.125, 0.05);
 	}
 
 	@Override
 	public void onItemsRequested(List<ItemStack> stacks) {
-		if (!stacks.isEmpty()) {
-			setItemDisplayTicks(-10);
-			setDisplayedItem(stacks.get(0));
+		List<Item> shownItems = new ArrayList<>();
+		for (ItemStack stack : stacks) {
+			if (!shownItems.contains(stack.getItem())) {
+				shownItems.add(stack.getItem());
+				((ServerWorld) world).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), getPosX(), getPosY(), getPosZ(), 10, 0.125, 0.125, 0.125, 0.05);
+			}
 		}
 	}
 
@@ -237,65 +239,48 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 		return dataManager.get(MASTER);
 	}
 
-	public int getItemDisplayTicks() {
-		return dataManager.get(ITEM_DISPLAY_TICKS);
-	}
-
-	public void setItemDisplayTicks(int ticks) {
-		dataManager.set(ITEM_DISPLAY_TICKS, ticks);
-	}
-
-	public ItemStack getDisplayedItem() {
-		return dataManager.get(DISPLAY_STACK);
-	}
-
-	public void setDisplayedItem(ItemStack stack) {
-		dataManager.set(DISPLAY_STACK, stack);
-	}
-
 	@Override
-	public boolean processInitialInteract(PlayerEntity player, Hand hand) {
+	public ActionResultType processInitialInteract(PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if (!removed && !stack.isEmpty()) {
-			if (player.world.isRemote) {
-				boolean valid = stack.getItem() == ModItems.twigWand || stack.getItem() instanceof ItemDye || stack.getItem() == ModItems.phantomInk;
-				if (valid) {
-					player.swingArm(hand);
-				}
-				return valid;
-			}
-
 			if (stack.getItem() == ModItems.twigWand) {
-				if (player.isSneaking()) {
-					dropAndKill();
-					if (isMaster()) {
-						restartNetwork();
-					}
-				} else {
-					displayRelatives(player, new ArrayList<>(), master);
-				}
-				return true;
-			} else if (stack.getItem() instanceof ItemDye) {
-				DyeColor color = ((ItemDye) stack.getItem()).color;
-				if (color != getNetwork()) {
-					setNetwork(color);
-
-					if (isMaster()) {
-						restartNetwork();
+				if (!world.isRemote) {
+					if (player.isSneaking()) {
+						dropAndKill();
+						if (isMaster()) {
+							restartNetwork();
+						}
 					} else {
-						findNetwork();
+						displayRelatives(player, new ArrayList<>(), master);
+					}
+				}
+				return ActionResultType.func_233537_a_(world.isRemote);
+			} else if (stack.getItem() instanceof DyeItem) {
+				DyeColor color = ((DyeItem) stack.getItem()).getDyeColor();
+				if (color != getNetwork()) {
+					if (!world.isRemote) {
+						setNetwork(color);
+
+						if (isMaster()) {
+							restartNetwork();
+						} else {
+							findNetwork();
+						}
+
+						stack.shrink(1);
 					}
 
-					stack.shrink(1);
-					return true;
+					return ActionResultType.func_233537_a_(world.isRemote);
 				}
 			} else if (stack.getItem() == ModItems.phantomInk) {
-				setInvisible(true);
-				return true;
+				if (!world.isRemote) {
+					setInvisible(true);
+				}
+				return ActionResultType.func_233537_a_(world.isRemote);
 			}
 		}
 
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	@Nonnull

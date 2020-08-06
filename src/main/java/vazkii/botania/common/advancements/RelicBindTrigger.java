@@ -8,27 +8,24 @@
  */
 package vazkii.botania.common.advancements;
 
-import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancements.ICriterionInstance;
-import net.minecraft.advancements.ICriterionTrigger;
-import net.minecraft.advancements.PlayerAdvancements;
+import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
+import net.minecraft.advancements.criterion.CriterionInstance;
+import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.ConditionArrayParser;
 import net.minecraft.util.ResourceLocation;
-
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-import java.util.*;
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class RelicBindTrigger implements ICriterionTrigger<RelicBindTrigger.Instance> {
-	public static final ResourceLocation ID = new ResourceLocation(LibMisc.MOD_ID, "relic_bind");
+public class RelicBindTrigger extends AbstractCriterionTrigger<RelicBindTrigger.Instance> {
+	public static final ResourceLocation ID = prefix("relic_bind");
 	public static final RelicBindTrigger INSTANCE = new RelicBindTrigger();
-	private final Map<PlayerAdvancements, PlayerTracker> playerTrackers = new HashMap<>();
 
 	private RelicBindTrigger() {}
 
@@ -38,69 +35,21 @@ public class RelicBindTrigger implements ICriterionTrigger<RelicBindTrigger.Inst
 		return ID;
 	}
 
-	@Override
-	public void addListener(@Nonnull PlayerAdvancements player, @Nonnull ICriterionTrigger.Listener<RelicBindTrigger.Instance> listener) {
-		this.playerTrackers.computeIfAbsent(player, PlayerTracker::new).listeners.add(listener);
-	}
-
-	@Override
-	public void removeListener(@Nonnull PlayerAdvancements player, @Nonnull ICriterionTrigger.Listener<RelicBindTrigger.Instance> listener) {
-		PlayerTracker tracker = this.playerTrackers.get(player);
-
-		if (tracker != null) {
-			tracker.listeners.remove(listener);
-
-			if (tracker.listeners.isEmpty()) {
-				this.playerTrackers.remove(player);
-			}
-		}
-	}
-
-	@Override
-	public void removeAllListeners(@Nonnull PlayerAdvancements playerAdvancementsIn) {
-		playerTrackers.remove(playerAdvancementsIn);
-	}
-
 	@Nonnull
 	@Override
-	public Instance deserializeInstance(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
-		return new Instance(ItemPredicate.deserialize(json.get("relic")));
-	}
-
-	static class PlayerTracker {
-		private final PlayerAdvancements playerAdvancements;
-		final Set<Listener<Instance>> listeners = new HashSet<>();
-
-		PlayerTracker(PlayerAdvancements playerAdvancementsIn) {
-			this.playerAdvancements = playerAdvancementsIn;
-		}
-
-		public void trigger(ItemStack stack) {
-			List<Listener<Instance>> list = new ArrayList<>();
-
-			for (Listener<RelicBindTrigger.Instance> listener : this.listeners) {
-				if (listener.getCriterionInstance().test(stack)) {
-					list.add(listener);
-				}
-			}
-
-			for (Listener<RelicBindTrigger.Instance> listener : list) {
-				listener.grantCriterion(this.playerAdvancements);
-			}
-		}
+	public Instance func_230241_b_(@Nonnull JsonObject json, @Nonnull EntityPredicate.AndPredicate playerPred, ConditionArrayParser conditions) {
+		return new Instance(playerPred, ItemPredicate.deserialize(json.get("relic")));
 	}
 
 	public void trigger(ServerPlayerEntity player, ItemStack relic) {
-		PlayerTracker tracker = playerTrackers.get(player.getAdvancements());
-		if (tracker != null) {
-			tracker.trigger(relic);
-		}
+		func_235959_a_(player, instance -> instance.test(relic));
 	}
 
-	static class Instance implements ICriterionInstance {
+	static class Instance extends CriterionInstance {
 		private final ItemPredicate predicate;
 
-		Instance(ItemPredicate predicate) {
+		Instance(EntityPredicate.AndPredicate playerPred, ItemPredicate predicate) {
+			super(ID, playerPred);
 			this.predicate = predicate;
 		}
 

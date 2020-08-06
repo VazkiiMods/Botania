@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.block.Block;
@@ -21,7 +22,6 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ItemParticleData;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
@@ -29,14 +29,12 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ObjectHolder;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.core.helper.ColorHelper;
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -68,7 +66,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 
 		AxisAlignedBB itemAABB = new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1));
 		int slowdown = getSlowdownFactor();
-		Predicate<Entity> selector = e -> (e instanceof ItemEntity && e.isAlive() && ((ItemEntity) e).age >= slowdown);
+		Predicate<Entity> selector = e -> (e instanceof ItemEntity && e.isAlive() && ((AccessorItemEntity) e).getAge() >= slowdown);
 		targets.addAll(getWorld().getEntitiesWithinAABB(Entity.class, itemAABB, selector));
 
 		for (Entity target : targets) {
@@ -83,15 +81,15 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 					ItemStack morbid = new ItemStack(sheep.isBurning() ? Items.COOKED_MUTTON : Items.MUTTON);
 					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, morbid), target.getPosX(), target.getPosY() + target.getEyeHeight(), target.getPosZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 
-					ItemStack wool = new ItemStack(ColorHelper.WOOL_MAP.get(sheep.getFleeceColor()).get());
+					ItemStack wool = new ItemStack(ColorHelper.WOOL_MAP.apply(sheep.getFleeceColor()));
 					((ServerWorld) getWorld()).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, wool), target.getPosX(), target.getPosY() + target.getEyeHeight(), target.getPosZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
 				sheep.setHealth(0);
 			} else if (target instanceof ItemEntity) {
 				ItemStack stack = ((ItemEntity) target).getItem();
 
-				if (!stack.isEmpty() && ColorHelper.WOOL_MAP.containsValue(Block.getBlockFromItem(stack.getItem()).delegate)) {
-					Block expected = ColorHelper.WOOL_MAP.get(nextColor).get();
+				if (!stack.isEmpty() && ColorHelper.isWool(Block.getBlockFromItem(stack.getItem()))) {
+					Block expected = ColorHelper.WOOL_MAP.apply(nextColor);
 
 					if (expected.asItem() == stack.getItem()) {
 						addManaAndCycle(WOOL_GEN);
@@ -127,19 +125,19 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUD(Minecraft mc) {
-		super.renderHUD(mc);
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
+		super.renderHUD(ms, mc);
 
-		ItemStack stack = new ItemStack(ColorHelper.WOOL_MAP.get(nextColor).get());
+		ItemStack stack = new ItemStack(ColorHelper.WOOL_MAP.apply(nextColor));
 		int color = getColor();
 
 		if (!stack.isEmpty()) {
 			ITextComponent stackName = stack.getDisplayName();
-			int width = 16 + mc.fontRenderer.getStringWidth(stackName.getString()) / 2;
+			int width = 16 + mc.fontRenderer.func_238414_a_(stackName) / 2;
 			int x = mc.getMainWindow().getScaledWidth() / 2 - width;
 			int y = mc.getMainWindow().getScaledHeight() / 2 + 30;
 
-			mc.fontRenderer.drawStringWithShadow(stackName.getFormattedText(), x + 20, y + 5, color);
+			mc.fontRenderer.func_238407_a_(ms, stackName, x + 20, y + 5, color);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(stack, x, y);
 		}
 

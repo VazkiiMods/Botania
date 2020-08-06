@@ -1,9 +1,7 @@
 {
   "variants": {
     "type=top": {
-      "model": "botania:block/dreamwood_slab",
-      "x": 180,
-      "uvlock": true
+      "model": "botania:block/dreamwood_slab_top"
     },
     "type=bottom": {
       "model": "botania:block/dreamwood_slab"

@@ -8,15 +8,10 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
-import com.google.common.collect.Multimap;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.monster.EndermanEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
@@ -32,7 +27,7 @@ import java.util.function.Consumer;
 public class ItemEnderDagger extends ItemManasteelSword {
 
 	public ItemEnderDagger(Properties props) {
-		super(BotaniaAPI.instance().getManasteelItemTier(), props);
+		super(BotaniaAPI.instance().getManasteelItemTier(), 3, -1.25F, props);
 	}
 
 	@Override
@@ -58,19 +53,6 @@ public class ItemEnderDagger extends ItemManasteelSword {
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return false;
-	}
-
-	@Nonnull
-	@Override
-	public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) {
-		Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(equipmentSlot);
-
-		if (equipmentSlot == EquipmentSlotType.MAINHAND) {
-			multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
-					new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", -1.25, AttributeModifier.Operation.ADDITION));
-		}
-
-		return multimap;
 	}
 
 }

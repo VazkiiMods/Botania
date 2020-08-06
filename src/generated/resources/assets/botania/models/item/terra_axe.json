@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "botania:item/terra_axe"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "botania:active": 1.0
+      },
+      "model": "botania:item/terra_axe_active"
+    }
+  ]
+}

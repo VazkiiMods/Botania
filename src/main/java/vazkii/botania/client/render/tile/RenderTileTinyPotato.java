@@ -18,7 +18,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.model.ModelRenderer;
@@ -32,6 +31,7 @@ import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -43,7 +43,6 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
@@ -104,10 +103,6 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 
 	@Override
 	public void render(@Nonnull TileTinyPotato potato, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-		if (potato.getBlockState().getBlock() != ModBlocks.tinyPotato) {
-			return;
-		}
-
 		ms.push();
 
 		String name = potato.name.getString().toLowerCase().trim();
@@ -207,8 +202,8 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 
 			float opacity = Minecraft.getInstance().gameSettings.getTextBackgroundOpacity(0.25F);
 			int opacityRGB = (int) (opacity * 255.0F) << 24;
-			mc.fontRenderer.renderString(potato.name.getFormattedText(), -halfWidth, 0, 0x20FFFFFF, false, ms.getLast().getMatrix(), buffers, true, opacityRGB, light);
-			mc.fontRenderer.renderString(potato.name.getFormattedText(), -halfWidth, 0, 0xFFFFFFFF, false, ms.getLast().getMatrix(), buffers, false, 0, light);
+			mc.fontRenderer.func_238416_a_(potato.name, -halfWidth, 0, 0x20FFFFFF, false, ms.getLast().getMatrix(), buffers, true, opacityRGB, light);
+			mc.fontRenderer.func_238416_a_(potato.name, -halfWidth, 0, 0xFFFFFFFF, false, ms.getLast().getMatrix(), buffers, false, 0, light);
 			if (name.equals("pahimar") || name.equals("soaryn")) {
 				ms.translate(0F, 14F, 0F);
 				String str = name.equals("pahimar") ? "[WIP]" : "(soon)";
@@ -229,7 +224,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		float s = 1F / 3.5F;
 		ms.scale(s, s, s);
 
-		for (int i = 0; i < potato.getSizeInventory(); i++) {
+		for (int i = 0; i < potato.inventorySize(); i++) {
 			ItemStack stack = potato.getItemHandler().getStackInSlot(i);
 			if (stack.isEmpty()) {
 				continue;
@@ -349,9 +344,8 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 				renderItem(ms, buffers, light, overlay, new ItemStack(ModItems.infiniteFruit, 1).setDisplayName(new StringTextComponent("das boot")));
 			} else if (name.equals("jibril")) {
 				ms.scale(1.5F, 1.5F, 1.5F);
-				ms.translate(0F, -0.8F, 0F);
-				ms.rotate(Vector3f.YP.rotationDegrees(90));
-				ItemFlightTiara.renderHalo(null, ms, buffers, partialTicks);
+				ms.translate(0F, 0.8F, 0F);
+				ItemFlightTiara.renderHalo(null, null, ms, buffers, partialTicks);
 			} else if (name.equals("kingdaddydmac")) {
 				ms.scale(0.5F, 0.5F, 0.5F);
 				ms.rotate(Vector3f.ZP.rotationDegrees(180));
@@ -380,7 +374,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 	}
 
 	private void renderModel(MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay, IBakedModel model) {
-		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffers.getBuffer(Atlases.getTranslucentBlockType()), null, model, 1, 1, 1, light, overlay);
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffers.getBuffer(Atlases.getTranslucentCullBlockType()), null, model, 1, 1, 1, light, overlay);
 	}
 
 	private void renderItem(MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay, ItemStack stack) {

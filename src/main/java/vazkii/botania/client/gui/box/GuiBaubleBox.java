@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.gui.box;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.Minecraft;
@@ -30,20 +31,20 @@ public class GuiBaubleBox extends ContainerScreen<ContainerBaubleBox> {
 	}
 
 	@Override
-	public void render(int mouseX, int mouseY, float partialTicks) {
-		this.renderBackground();
-		super.render(mouseX, mouseY, partialTicks);
+	public void render(MatrixStack ms, int mouseX, int mouseY, float partialTicks) {
+		this.renderBackground(ms);
+		super.render(ms, mouseX, mouseY, partialTicks);
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
-		this.renderHoveredToolTip(mouseX, mouseY);
+		this.func_230459_a_(ms, mouseX, mouseY);
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+	protected void func_230450_a_(MatrixStack ms, float partialTicks, int mouseX, int mouseY) {
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		Minecraft.getInstance().getTextureManager().bindTexture(texture);
-		blit(guiLeft, guiTop, 0, 0, xSize, ySize);
-		InventoryScreen.drawEntityOnScreen(guiLeft + 31, guiTop + 75, 30, guiLeft + 31 - this.mouseX, guiTop + 75 - 50 - this.mouseY, this.minecraft.player);
+		blit(ms, guiLeft, guiTop, 0, 0, xSize, ySize);
+		InventoryScreen.drawEntityOnScreen(guiLeft + 31, guiTop + 75, 30, guiLeft + 31 - this.mouseX, guiTop + 75 - 50 - this.mouseY, minecraft.player);
 	}
 
 }

@@ -59,22 +59,22 @@ public class ItemIncenseStick extends Item implements IBrewItem, IBrewContainer 
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
 		Brew brew = getBrew(stack);
 		if (brew == ModBrews.fallbackBrew) {
-			list.add(new TranslationTextComponent("botaniamisc.notInfused").applyTextStyle(TextFormatting.LIGHT_PURPLE));
+			list.add(new TranslationTextComponent("botaniamisc.notInfused").func_240699_a_(TextFormatting.LIGHT_PURPLE));
 			return;
 		}
 
-		list.add(new TranslationTextComponent("botaniamisc.brewOf", new TranslationTextComponent(brew.getTranslationKey(stack))).applyTextStyle(TextFormatting.LIGHT_PURPLE));
+		list.add(new TranslationTextComponent("botaniamisc.brewOf", new TranslationTextComponent(brew.getTranslationKey(stack))).func_240699_a_(TextFormatting.LIGHT_PURPLE));
 		ItemBrewBase.addPotionTooltip(brew.getPotionEffects(stack), list, TIME_MULTIPLIER);
 	}
 
 	@Override
 	public Brew getBrew(ItemStack stack) {
 		String key = ItemNBTHelper.getString(stack, TAG_BREW_KEY, "");
-		return BotaniaAPI.instance().getBrewRegistry().getValue(ResourceLocation.tryCreate(key));
+		return BotaniaAPI.instance().getBrewRegistry().getOrDefault(ResourceLocation.tryCreate(key));
 	}
 
 	public static void setBrew(ItemStack stack, Brew brew) {
-		setBrew(stack, brew.getRegistryName());
+		setBrew(stack, BotaniaAPI.instance().getBrewRegistry().getKey(brew));
 	}
 
 	public static void setBrew(ItemStack stack, ResourceLocation brew) {

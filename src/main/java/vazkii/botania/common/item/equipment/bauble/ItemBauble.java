@@ -13,17 +13,18 @@ import com.google.common.collect.Multimap;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.KeybindTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -32,19 +33,19 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.IPhantomInkable;
-import vazkii.botania.client.core.handler.BaubleRenderHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.UUID;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public abstract class ItemBauble extends Item implements ICosmeticAttachable, IPhantomInkable {
 
@@ -65,16 +66,16 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 
 	@OnlyIn(Dist.CLIENT)
 	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-		ITextComponent key = new KeybindTextComponent("key.curios.open.desc");
-		tooltip.add(new TranslationTextComponent("botania.baubletooltip", key));
+		ITextComponent key = new KeybindTextComponent("key.curios.open.desc").func_240699_a_(TextFormatting.AQUA);
+		tooltip.add(new TranslationTextComponent("botania.baubletooltip", key).func_240699_a_(TextFormatting.GRAY));
 
 		ItemStack cosmetic = getCosmeticItem(stack);
 		if (!cosmetic.isEmpty()) {
-			tooltip.add(new TranslationTextComponent("botaniamisc.hasCosmetic", cosmetic.getDisplayName()));
+			tooltip.add(new TranslationTextComponent("botaniamisc.hasCosmetic", cosmetic.getDisplayName()).func_240701_a_(TextFormatting.GRAY, TextFormatting.ITALIC));
 		}
 
 		if (hasPhantomInk(stack)) {
-			tooltip.add(new TranslationTextComponent("botaniamisc.hasPhantomInk"));
+			tooltip.add(new TranslationTextComponent("botaniamisc.hasPhantomInk").func_240699_a_(TextFormatting.AQUA));
 		}
 	}
 
@@ -140,7 +141,7 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 
 	public void onEquipped(ItemStack stack, LivingEntity entity) {
 		if (!entity.world.isRemote && entity instanceof ServerPlayerEntity) {
-			PlayerHelper.grantCriterion((ServerPlayerEntity) entity, new ResourceLocation(LibMisc.MOD_ID, "main/bauble_wear"), "code_triggered");
+			PlayerHelper.grantCriterion((ServerPlayerEntity) entity, prefix("main/bauble_wear"), "code_triggered");
 		}
 	}
 
@@ -150,17 +151,16 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 		return true;
 	}
 
-	public Multimap<String, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
+	public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
 		return HashMultimap.create();
 	}
 
 	public boolean hasRender(ItemStack stack, LivingEntity living) {
-		return !(stack.getItem() instanceof ICosmeticAttachable && !((ICosmeticAttachable) stack.getItem()).getCosmeticItem(stack).isEmpty())
-				&& !(stack.getItem() instanceof IPhantomInkable && ((IPhantomInkable) stack.getItem()).hasPhantomInk(stack))
+		return !hasPhantomInk(stack)
 				&& ConfigHandler.CLIENT.renderAccessories.get()
-				&& living.getActivePotionEffect(Effects.INVISIBILITY) == null;
+				&& !living.isInvisible();
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void doRender(BaubleRenderHandler layer, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {}
+	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {}
 }

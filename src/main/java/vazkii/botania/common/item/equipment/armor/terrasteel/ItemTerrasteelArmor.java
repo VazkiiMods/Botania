@@ -8,15 +8,20 @@
  */
 package vazkii.botania.common.item.equipment.armor.terrasteel;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.LazyValue;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -54,15 +59,16 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
 	@Nonnull
 	@Override
-	public Multimap<String, AttributeModifier> getAttributeModifiers(@Nonnull EquipmentSlotType slot, ItemStack stack) {
-		Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
-		UUID uuid = new UUID((getTranslationKey(stack) + slot.toString()).hashCode(), 0);
+	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(@Nonnull EquipmentSlotType slot) {
+		Multimap<Attribute, AttributeModifier> ret = super.getAttributeModifiers(slot);
+		UUID uuid = new UUID(Registry.ITEM.getKey(this).hashCode() + slot.toString().hashCode(), 0);
 		if (slot == getEquipmentSlot()) {
+			ret = HashMultimap.create(ret);
 			int reduction = material.getDamageReductionAmount(slot);
-			multimap.put(SharedMonsterAttributes.KNOCKBACK_RESISTANCE.getName(),
+			ret.put(Attributes.KNOCKBACK_RESISTANCE,
 					new AttributeModifier(uuid, "Terrasteel modifier " + type, (double) reduction / 20, AttributeModifier.Operation.ADDITION));
 		}
-		return multimap;
+		return ret;
 	}
 
 	private static final LazyValue<ItemStack[]> armorSet = new LazyValue<>(() -> new ItemStack[] {
@@ -90,7 +96,7 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
 		switch (slot) {
 		case HEAD:
-			return stack.getItem() == ModItems.terrasteelHelm || stack.getItem() == ModItems.terrasteelHelmRevealing;
+			return stack.getItem() == ModItems.terrasteelHelm;
 		case CHEST:
 			return stack.getItem() == ModItems.terrasteelChest;
 		case LEGS:
@@ -103,16 +109,20 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 	}
 
 	@Override
-	public ITextComponent getArmorSetName() {
+	public IFormattableTextComponent getArmorSetName() {
 		return new TranslationTextComponent("botania.armorset.terrasteel.name");
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<ITextComponent> list) {
-		list.add(new TranslationTextComponent("botania.armorset.terrasteel.desc0").applyTextStyle(TextFormatting.GRAY));
-		list.add(new TranslationTextComponent("botania.armorset.terrasteel.desc1").applyTextStyle(TextFormatting.GRAY));
-		list.add(new TranslationTextComponent("botania.armorset.terrasteel.desc2").applyTextStyle(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("botania.armorset.terrasteel.desc0").func_240699_a_(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("botania.armorset.terrasteel.desc1").func_240699_a_(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("botania.armorset.terrasteel.desc2").func_240699_a_(TextFormatting.GRAY));
 	}
 
+	@Override
+	public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
+		return true;
+	}
 }

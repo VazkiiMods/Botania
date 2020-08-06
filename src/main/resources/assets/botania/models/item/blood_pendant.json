@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "botania:items/pendant_blood",
-    "layer1": "botania:items/pendant_blood_overlay"
-  }
-}

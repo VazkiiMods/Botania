@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.base.Predicates;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.block.Block;
@@ -19,20 +20,19 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.registries.ObjectHolder;
 
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.*;
@@ -55,8 +55,7 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.mixin.AccessorItemEntity;
 
 import javax.annotation.Nonnull;
 
@@ -140,8 +139,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		return val;
 	}
 
-	public static List<IManaInfusionRecipe> manaInfusionRecipes(RecipeManager rm) {
-		return rm.getRecipes(ModRecipeTypes.MANA_INFUSION_TYPE).values().stream()
+	public static List<IManaInfusionRecipe> manaInfusionRecipes(World world) {
+		return ModRecipeTypes.getRecipes(world, ModRecipeTypes.MANA_INFUSION_TYPE).values().stream()
 				.filter(r -> r instanceof IManaInfusionRecipe)
 				.map(r -> (IManaInfusionRecipe) r)
 				.collect(Collectors.toList());
@@ -151,7 +150,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		List<IManaInfusionRecipe> matchingNonCatRecipes = new ArrayList<>();
 		List<IManaInfusionRecipe> matchingCatRecipes = new ArrayList<>();
 
-		for (IManaInfusionRecipe recipe : manaInfusionRecipes(world.getRecipeManager())) {
+		for (IManaInfusionRecipe recipe : manaInfusionRecipes(world)) {
 			if (recipe.matches(stack)) {
 				if (recipe.getCatalyst() == null) {
 					matchingNonCatRecipes.add(recipe);
@@ -176,7 +175,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			((IManaDissolvable) stack.getItem()).onDissolveTick(this, stack, item);
 		}
 
-		if (item.age > 100 && item.age < 130) {
+		int age = ((AccessorItemEntity) item).getAge();
+		if (age > 100 && age < 130) {
 			return false;
 		}
 
@@ -188,11 +188,11 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 				receiveMana(-mana);
 
 				stack.shrink(1);
-				item.onGround = false; //Force entity collision update to run every tick if crafting is in progress
+				item.func_230245_c_(false); //Force entity collision update to run every tick if crafting is in progress
 
 				ItemStack output = recipe.getRecipeOutput().copy();
 				ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
-				outputItem.age = 105;
+				((AccessorItemEntity) outputItem).setAge(105);
 				world.addEntity(outputItem);
 
 				craftingFanciness();
@@ -395,11 +395,11 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(Minecraft mc) {
+	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		ItemStack pool = new ItemStack(getBlockState().getBlock());
 		String name = pool.getDisplayName().getString();
 		int color = 0x4444FF;
-		HUDHandler.drawSimpleManaHUD(color, getCurrentMana(), manaCap, name);
+		BotaniaAPIClient.instance().drawSimpleManaHUD(ms, color, getCurrentMana(), manaCap, name);
 
 		int x = Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 - 11;
 		int y = Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 + 30;
@@ -411,7 +411,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 		mc.textureManager.bindTexture(HUDHandler.manaBar);
-		RenderHelper.drawTexturedModalRect(x, y, u, v, 22, 15);
+		RenderHelper.drawTexturedModalRect(ms, x, y, u, v, 22, 15);
 		RenderSystem.color4f(1F, 1F, 1F, 1F);
 
 		ItemStack tablet = new ItemStack(ModItems.manaTablet);

@@ -119,9 +119,6 @@ public final class LibItemNames {
 	public static final String NULL_VIRUS = "virus_nullodermal";
 	public static final String REACH_RING = "reach_ring";
 	public static final String SKY_DIRT_ROD = "skydirt_rod";
-	public static final String MANASTEEL_HELM_R = "manasteel_helmet_revealing";
-	public static final String TERRASTEEL_HELM_R = "terrasteel_helmet_revealing";
-	public static final String ELEMENTIUM_HELM_R = "elementium_helmet_revealing";
 	public static final String ITEM_FINDER = "itemfinder";
 	public static final String SUPER_LAVA_PENDANT = "super_lava_pendant";
 	public static final String ENDER_HAND = "ender_hand";
@@ -130,7 +127,6 @@ public final class LibItemNames {
 	public static final String SPARK_UPGRADE = "spark_upgrade";
 	public static final String DIVINING_ROD = "divining_rod";
 	public static final String GRAVITY_ROD = "gravity_rod";
-	public static final String MANA_INKWELL = "mana_inkwell";
 	public static final String VIAL = "vial";
 	public static final String FLASK = "flask";
 	public static final String BREW_VIAL = "brew_vial";

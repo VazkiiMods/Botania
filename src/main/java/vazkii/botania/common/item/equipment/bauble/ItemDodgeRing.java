@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.Minecraft;
@@ -99,7 +100,7 @@ public class ItemDodgeRing extends ItemBauble {
 	}
 
 	private static void dodge(PlayerEntity player, Direction dir) {
-		if (player.abilities.isFlying || !player.onGround || dir == Direction.UP || dir == Direction.DOWN) {
+		if (player.abilities.isFlying || !player.func_233570_aj_() || dir == Direction.UP || dir == Direction.DOWN) {
 			return;
 		}
 
@@ -113,13 +114,13 @@ public class ItemDodgeRing extends ItemBauble {
 		Vector3 lookVec = new Vector3(x, 0, z);
 		Vector3 sideVec = lookVec.crossProduct(new Vector3(0, dir == Direction.WEST || dir == Direction.NORTH ? 1 : (dir == Direction.EAST || dir == Direction.SOUTH ? -1 : 0), 0)).multiply(1.25);
 
-		player.setMotion(sideVec.toVec3D());
+		player.setMotion(sideVec.toVector3d());
 
 		PacketHandler.sendToServer(new PacketDodge());
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void renderHUD(PlayerEntity player, ItemStack stack, float pticks) {
+	public static void renderHUD(MatrixStack ms, PlayerEntity player, ItemStack stack, float pticks) {
 		int xo = Minecraft.getInstance().getMainWindow().getScaledWidth() / 2 - 20;
 		int y = Minecraft.getInstance().getMainWindow().getScaledHeight() / 2 + 20;
 
@@ -128,8 +129,8 @@ public class ItemDodgeRing extends ItemBauble {
 			int width = Math.min((int) ((cd - pticks) * 2), 40);
 			RenderSystem.color4f(1F, 1F, 1F, 1F);
 			if (width > 0) {
-				AbstractGui.fill(xo, y - 2, xo + 40, y - 1, 0x88000000);
-				AbstractGui.fill(xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
+				AbstractGui.fill(ms, xo, y - 2, xo + 40, y - 1, 0x88000000);
+				AbstractGui.fill(ms, xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
 			}
 		}
 

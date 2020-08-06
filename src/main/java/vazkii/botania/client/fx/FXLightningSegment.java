@@ -15,7 +15,7 @@ public class FXLightningSegment {
 	public final FXLightningBoltPoint startPoint;
 	public final FXLightningBoltPoint endPoint;
 
-	public Vector3 diff;
+	public final Vector3 diff;
 
 	public FXLightningSegment prev;
 	public FXLightningSegment next;
@@ -36,16 +36,11 @@ public class FXLightningSegment {
 		this.light = light;
 		segmentNo = segmentnumber;
 		splitNo = splitnumber;
-
-		calcDiff();
+		diff = endPoint.point.subtract(startPoint.point);
 	}
 
 	public FXLightningSegment(Vector3 start, Vector3 end) {
 		this(new FXLightningBoltPoint(start, new Vector3(0, 0, 0)), new FXLightningBoltPoint(end, new Vector3(0, 0, 0)), 1, 0, 0);
-	}
-
-	public void calcDiff() {
-		diff = endPoint.point.subtract(startPoint.point);
 	}
 
 	public void calcEndDiffs() {

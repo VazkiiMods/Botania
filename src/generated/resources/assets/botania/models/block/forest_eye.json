@@ -1,0 +1,11 @@
+{
+  "parent": "botania:block/shapes/eightbyeight",
+  "textures": {
+    "bottom": "botania:block/forest_eye_bottom",
+    "top": "botania:block/forest_eye_top",
+    "north": "botania:block/forest_eye_north",
+    "south": "botania:block/forest_eye_south",
+    "west": "botania:block/forest_eye_west",
+    "east": "botania:block/forest_eye_east"
+  }
+}

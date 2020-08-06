@@ -1,0 +1,7 @@
+{
+  "parent": "botania:block/shapes/spreader",
+  "textures": {
+    "side": "botania:block/gaia_spreader_side",
+    "material": "botania:block/gaia_spreader_material"
+  }
+}

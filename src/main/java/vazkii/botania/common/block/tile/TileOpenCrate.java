@@ -10,20 +10,20 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import net.minecraftforge.registries.ObjectHolder;
+import net.minecraft.util.math.vector.Vector3d;
 
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.mixin.AccessorItemEntity;
 
-public class TileOpenCrate extends TileSimpleInventory implements ITickableTileEntity {
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+public class TileOpenCrate extends TileExposedSimpleInventory implements ITickableTileEntity {
 	public TileOpenCrate() {
 		this(ModTiles.OPEN_CRATE);
 	}
@@ -33,8 +33,8 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickableTileE
 	}
 
 	@Override
-	public int getSizeInventory() {
-		return 1;
+	protected Inventory createItemHandler() {
+		return new Inventory(1);
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickableTileE
 		}
 
 		if (canEject()) {
-			ItemStack stack = itemHandler.getStackInSlot(0);
+			ItemStack stack = getItemHandler().getStackInSlot(0);
 			if (!stack.isEmpty()) {
 				eject(stack, redstone);
 			}
@@ -72,20 +72,17 @@ public class TileOpenCrate extends TileSimpleInventory implements ITickableTileE
 
 	public void eject(ItemStack stack, boolean redstone) {
 		ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, stack);
-		item.setMotion(Vec3d.ZERO);
+		item.setMotion(Vector3d.ZERO);
 		if (redstone) {
-			item.age = -200;
+			((AccessorItemEntity) item).setAge(-200);
 		}
 
-		itemHandler.setStackInSlot(0, ItemStack.EMPTY);
+		getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
 		world.addEntity(item);
 	}
 
-	public boolean onWanded(World world, PlayerEntity player, ItemStack stack) {
+	@Override
+	public boolean canExtractItem(int index, @Nonnull ItemStack stack, @Nullable Direction direction) {
 		return false;
-	}
-
-	public int getSignal() {
-		return 0;
 	}
 }

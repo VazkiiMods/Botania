@@ -13,13 +13,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.LootParameters;
-import net.minecraft.world.storage.loot.conditions.ILootCondition;
+import net.minecraft.loot.ILootSerializer;
+import net.minecraft.loot.LootConditionType;
+import net.minecraft.loot.LootContext;
+import net.minecraft.loot.LootParameters;
+import net.minecraft.loot.conditions.ILootCondition;
 
 import vazkii.botania.common.entity.EntityDoppleganger;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -32,17 +32,17 @@ public class TrueGuardianKiller implements ILootCondition {
 				&& context.get(LootParameters.KILLER_ENTITY) == ((EntityDoppleganger) victim).trueKiller;
 	}
 
-	public static class Serializer extends ILootCondition.AbstractSerializer<TrueGuardianKiller> {
-		public Serializer() {
-			super(new ResourceLocation(LibMisc.MOD_ID, "true_guardian_killer"), TrueGuardianKiller.class);
-		}
+	@Override
+	public LootConditionType func_230419_b_() {
+		return ModLootModifiers.TRUE_GUARDIAN_KILLER;
+	}
+
+	public static class Serializer implements ILootSerializer<TrueGuardianKiller> {
+		@Override
+		public void func_230424_a_(JsonObject json, TrueGuardianKiller condition, JsonSerializationContext ctx) {}
 
 		@Override
-		public void serialize(@Nonnull JsonObject json, @Nonnull TrueGuardianKiller value, @Nonnull JsonSerializationContext context) {}
-
-		@Nonnull
-		@Override
-		public TrueGuardianKiller deserialize(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
+		public TrueGuardianKiller func_230423_a_(JsonObject json, JsonDeserializationContext ctx) {
 			return new TrueGuardianKiller();
 		}
 	}

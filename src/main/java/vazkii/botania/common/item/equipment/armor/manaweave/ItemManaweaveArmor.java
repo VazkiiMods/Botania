@@ -14,11 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.LazyValue;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -39,7 +35,6 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 
 	public ItemManaweaveArmor(EquipmentSlotType type, Properties props) {
 		super(type, BotaniaAPI.instance().getManaweaveArmorMaterial(), props);
-		addPropertyOverride(new ResourceLocation("botania", "holiday"), (stack, worldIn, entityIn) -> ClientProxy.jingleTheBells ? 1 : 0);
 	}
 
 	@Override
@@ -102,7 +97,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 	}
 
 	@Override
-	public ITextComponent getArmorSetName() {
+	public IFormattableTextComponent getArmorSetName() {
 		return new TranslationTextComponent("botania.armorset.manaweave.name");
 	}
 
@@ -120,7 +115,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<ITextComponent> list) {
-		list.add(new TranslationTextComponent("botania.armorset.manaweave.desc0").applyTextStyle(TextFormatting.GRAY));
-		list.add(new TranslationTextComponent("botania.armorset.manaweave.desc1").applyTextStyle(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("botania.armorset.manaweave.desc0").func_240699_a_(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("botania.armorset.manaweave.desc1").func_240699_a_(TextFormatting.GRAY));
 	}
 }

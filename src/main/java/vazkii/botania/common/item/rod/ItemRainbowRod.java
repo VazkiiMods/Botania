@@ -21,7 +21,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IAvatarTile;
@@ -181,7 +181,7 @@ public class ItemRainbowRod extends Item implements IManaUsingItem, IAvatarWield
 					int ex = px + i - diff;
 					int ez = pz + j - diff;
 
-					if (!axis.contains(new Vec3d(ex + 0.5, py + 1, ez + 0.5))) {
+					if (!axis.contains(new Vector3d(ex + 0.5, py + 1, ez + 0.5))) {
 						continue;
 					}
 					BlockPos pos = new BlockPos(ex, py, ez);
