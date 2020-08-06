@@ -36,14 +36,22 @@ import javax.annotation.Nullable;
 public class BlockPlatform extends BlockMod implements IWandable, IManaCollisionGhost, ITileEntityProvider {
 
 	public enum Variant {
-		ABSTRUSE,
-		SPECTRAL,
-		INFRANGIBLE
+		ABSTRUSE(null, false),
+		SPECTRAL(false, false),
+		INFRANGIBLE(true, true);
+
+		public final Boolean permeable;
+		public final boolean indestructible;
+
+		private Variant(Boolean p, boolean i) {
+			permeable = p;
+			indestructible = i;
+		}
 	}
 
 	public final Variant variant;
 
-	public BlockPlatform(Variant v, Properties builder) {
+	public BlockPlatform(@Nonnull Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
 	}
@@ -52,11 +60,8 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 	@Override
 	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, ISelectionContext context) {
 		Entity e = context.getEntity();
-		if (variant == Variant.INFRANGIBLE
-				|| variant == Variant.ABSTRUSE
-						&& e != null
-						&& e.getPosY() > pos.getY() + 0.9
-						&& !context.func_225581_b_()) {
+		boolean cannotPass = (e != null && e.getPosY() > pos.getY() + 0.9 && !context.func_225581_b_());
+		if (variant.permeable != null ? variant.permeable : cannotPass) {
 			return super.getCollisionShape(state, world, pos, context);
 		} else {
 			return VoxelShapes.empty();
@@ -65,7 +70,7 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 
 	@Override
 	public boolean canEntityDestroy(BlockState state, IBlockReader world, BlockPos pos, Entity entity) {
-		return variant != Variant.INFRANGIBLE;
+		return variant.indestructible;
 	}
 
 	@Nonnull

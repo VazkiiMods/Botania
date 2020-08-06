@@ -46,7 +46,7 @@ public class TilePylon extends TileEntity implements ITickableTileEntity {
 		BlockPylon.Variant variant = ((BlockPylon) getBlockState().getBlock()).variant;
 
 		if (activated && world.isRemote) {
-			if (world.getBlockState(centerPos).getBlock() != getBlockForMeta()
+			if (world.getBlockState(centerPos).getBlock() != variant.metaBlock
 					|| variant == BlockPylon.Variant.NATURA && (portalOff() || !(world.getBlockState(getPos().down()).getBlock() instanceof BlockPool))) {
 				activated = false;
 				return;
@@ -102,16 +102,9 @@ public class TilePylon extends TileEntity implements ITickableTileEntity {
 		}
 
 		if (world.rand.nextBoolean() && world.isRemote) {
-			float r = variant == BlockPylon.Variant.GAIA ? 1F : 0.5F;
-			float g = variant == BlockPylon.Variant.NATURA ? 1F : 0.5F;
-			float b = variant == BlockPylon.Variant.NATURA ? 0.5F : 1F;
-			SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), r, g, b, 2);
+			SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), variant.r, variant.g, variant.b, 2);
 			world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random() * 1.5, pos.getZ() + Math.random(), 0, 0, 0);
 		}
-	}
-
-	private Block getBlockForMeta() {
-		return ((BlockPylon) getBlockState().getBlock()).variant == BlockPylon.Variant.MANA ? ModBlocks.enchanter : ModBlocks.alfPortal;
 	}
 
 	private boolean portalOff() {
