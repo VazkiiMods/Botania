@@ -1,23 +1,30 @@
 {
   "__comment": "This table is injected as its own pool into minecraft:chests/spawn_bonus_chest",
-  "pools": [{
-    "name": "main",
-    "rolls": 1,
-    "entries": [
-      {
-        "type": "item",
-        "name": "botania:lexicon",
-        "weight": 80
-      },
-      {
-        "type": "item",
-        "name": "botania:black_lotus",
-        "weight": 10
-      },
-      {
-        "type": "empty",
-        "weight": 10
-      }
-    ]
-  }]
+  "pools": [
+    {
+      "name": "main",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "botania:black_lotus",
+          "weight": 10
+        },
+        {
+          "type": "empty",
+          "weight": 90
+        }
+      ]
+    },
+    {
+      "name": "lexicon",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "botania:lexicon"
+        }
+      ]
+    }
+  ]
 }
