@@ -16,7 +16,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.items.CapabilityItemHandler;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.*;
@@ -33,17 +32,12 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 		}
 
 		List<ItemStack> toReturn = new ArrayList<>();
-		player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(mainInv -> {
-			int size = mainInv.getSlots();
 
-			for (int slot = 0; slot < size; slot++) {
-				ItemStack stackInSlot = mainInv.getStackInSlot(slot);
-
-				if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IManaItem) {
-					toReturn.add(stackInSlot);
-				}
+		for (ItemStack stackInSlot : Iterables.concat(player.inventory.mainInventory, player.inventory.offHandInventory)) {
+			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IManaItem) {
+				toReturn.add(stackInSlot);
 			}
-		});
+		}
 
 		ManaItemsEvent event = new ManaItemsEvent(player, toReturn);
 		MinecraftForge.EVENT_BUS.post(event);

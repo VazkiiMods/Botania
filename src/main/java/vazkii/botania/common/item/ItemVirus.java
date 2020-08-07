@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -17,6 +16,7 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.ModifiableAttributeInstance;
 import net.minecraft.entity.passive.horse.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -25,8 +25,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
+
+import vazkii.botania.mixin.AccessorAbstractHorseEntity;
 
 public class ItemVirus extends Item {
 	public ItemVirus(Properties builder) {
@@ -35,13 +35,13 @@ public class ItemVirus extends Item {
 
 	@Override
 	public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity player, LivingEntity living, Hand hand) {
-		if (living instanceof AbstractHorseEntity && !(living instanceof LlamaEntity)) {
+		if (living instanceof HorseEntity) {
 			if (player.world.isRemote) {
 				return ActionResultType.SUCCESS;
 			}
 			AbstractHorseEntity horse = (AbstractHorseEntity) living;
 			if (horse.isTame()) {
-				IItemHandler inv = horse.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new);
+				Inventory inv = ((AccessorAbstractHorseEntity) horse).getHorseChest();
 				ItemStack saddle = inv.getStackInSlot(0);
 
 				// Not all AbstractHorse's have saddles in slot 0
@@ -50,14 +50,10 @@ public class ItemVirus extends Item {
 					saddle = ItemStack.EMPTY;
 				}
 
-				for (int i = 1; i < inv.getSlots(); i++) {
+				for (int i = 1; i < inv.getSizeInventory(); i++) {
 					if (!inv.getStackInSlot(i).isEmpty()) {
 						horse.entityDropItem(inv.getStackInSlot(i), 0);
 					}
-				}
-
-				if (horse instanceof AbstractChestedHorseEntity && ((AbstractChestedHorseEntity) horse).hasChest()) {
-					horse.entityDropItem(new ItemStack(Blocks.CHEST), 0);
 				}
 
 				horse.remove();
@@ -70,7 +66,8 @@ public class ItemVirus extends Item {
 
 				// Put the saddle back
 				if (!saddle.isEmpty()) {
-					newHorse.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new).insertItem(0, saddle, false);
+					Inventory newInv = ((AccessorAbstractHorseEntity) newHorse).getHorseChest();
+					newInv.setInventorySlotContents(0, saddle);
 				}
 
 				ModifiableAttributeInstance movementSpeed = newHorse.getAttribute(Attributes.MOVEMENT_SPEED);
