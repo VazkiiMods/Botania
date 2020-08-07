@@ -11,8 +11,6 @@ package vazkii.botania.common.block;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntityType;
@@ -34,7 +32,7 @@ import static vazkii.botania.common.block.ModBlocks.register;
 
 public class ModSubtiles {
 	private static final AbstractBlock.Properties FLOWER_PROPS = AbstractBlock.Properties.from(Blocks.POPPY);
-	private static final AbstractBlock.Properties FLOATING_PROPS = Block.Properties.create(Material.EARTH).hardnessAndResistance(0.5F).sound(SoundType.GROUND).setLightLevel(s -> 15);
+	private static final AbstractBlock.Properties FLOATING_PROPS = ModBlocks.FLOATING_PROPS;
 
 	public static final Block pureDaisy = new BlockSpecialFlower(ModPotions.clear, 1, FLOWER_PROPS, SubTilePureDaisy::new);
 	public static final Block pureDaisyFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTilePureDaisy::new);

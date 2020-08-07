@@ -27,7 +27,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
-import net.minecraftforge.common.ToolType;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 
@@ -51,11 +50,6 @@ public class BlockAltGrass extends BlockMod {
 	public BlockAltGrass(Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
-	}
-
-	@Override
-	public boolean isToolEffective(BlockState state, ToolType tool) {
-		return tool.equals(ToolType.SHOVEL);
 	}
 
 	@Override
