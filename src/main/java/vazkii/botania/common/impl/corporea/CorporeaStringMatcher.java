@@ -43,7 +43,7 @@ public class CorporeaStringMatcher implements ICorporeaRequestMatcher {
 				break;
 			}
 		}
-		this.expression = (contains ? expression : "*" + expression + "*").split("\\*+", -1);
+		this.expression = (contains ? "*" + expression + "*" : expression).split("\\*+", -1);
 	}
 
 	@Override
@@ -72,7 +72,12 @@ public class CorporeaStringMatcher implements ICorporeaRequestMatcher {
 	@Override
 	@SuppressWarnings("deprecation")
 	public ITextComponent getRequestName() {
-		return new StringTextComponent(WordUtils.capitalizeFully(toString()));
+		String value = WordUtils.capitalizeFully(toString());
+		// cope with initial globs
+		if (value.charAt(0) == '*') {
+			value = "*" + Character.toUpperCase(value.charAt(1)) + value.substring(2);
+		}
+		return new StringTextComponent(value);
 	}
 
 	@Override
