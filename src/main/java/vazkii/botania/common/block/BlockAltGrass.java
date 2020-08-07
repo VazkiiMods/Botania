@@ -51,6 +51,7 @@ public class BlockAltGrass extends BlockMod {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public boolean isToolEffective(BlockState state, ToolType tool) {
 		return tool.equals(ToolType.SHOVEL);
 	}
@@ -60,6 +61,12 @@ public class BlockAltGrass extends BlockMod {
 		ItemStack held = player.getStackInHand(hand);
 		if (held.getItem() instanceof HoeItem && world.isAir(pos.up())) {
 			held.damage(1, player, e -> e.sendToolBreakStatus(hand));
+=======
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+		ItemStack held = player.getHeldItem(hand);
+		if (held.getItem() instanceof HoeItem && world.isAirBlock(pos.up())) {
+			held.damageItem(1, player, e -> e.sendBreakAnimation(hand));
+>>>>>>> be69f10c4... Floating flowers are now broken faster with a shovel
 			world.setBlockState(pos, Blocks.FARMLAND.getDefaultState());
 			return ActionResult.SUCCESS;
 		}

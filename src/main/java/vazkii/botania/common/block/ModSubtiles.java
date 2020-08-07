@@ -14,7 +14,6 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.Item;
@@ -35,7 +34,7 @@ import static vazkii.botania.common.block.ModBlocks.register;
 
 public class ModSubtiles {
 	private static final AbstractBlock.Settings FLOWER_PROPS = AbstractBlock.Settings.copy(Blocks.POPPY);
-	private static final AbstractBlock.Settings FLOATING_PROPS = AbstractBlock.Settings.of(Material.SOIL).strength(0.5F).sounds(BlockSoundGroup.GRAVEL).lightLevel(s -> 15);
+	private static final AbstractBlock.Settings FLOATING_PROPS = ModBlocks.FLOATING_PROPS;
 
 	public static final Block pureDaisy = new BlockSpecialFlower(ModPotions.clear, 1, FLOWER_PROPS, SubTilePureDaisy::new);
 	public static final Block pureDaisyFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTilePureDaisy::new);
