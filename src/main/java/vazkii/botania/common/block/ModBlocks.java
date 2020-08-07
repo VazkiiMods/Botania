@@ -10,10 +10,12 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.dispenser.IDispenseItemBehavior;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -29,6 +31,7 @@ import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.corporea.*;
 import vazkii.botania.common.block.decor.*;
+import vazkii.botania.common.block.dispenser.BehaviourEnderAirBottling;
 import vazkii.botania.common.block.dispenser.BehaviourFelPumpkin;
 import vazkii.botania.common.block.dispenser.BehaviourPoolMinecart;
 import vazkii.botania.common.block.dispenser.BehaviourWand;
@@ -42,6 +45,7 @@ import vazkii.botania.common.item.block.ItemBlockElven;
 import vazkii.botania.common.item.block.ItemBlockPool;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.mixin.AccessorDispenserBlock;
 
 import java.util.Locale;
 
@@ -826,6 +830,9 @@ public final class ModBlocks {
 		DispenserBlock.registerDispenseBehavior(ModItems.twigWand, new BehaviourWand());
 		DispenserBlock.registerDispenseBehavior(ModItems.poolMinecart, new BehaviourPoolMinecart());
 		DispenserBlock.registerDispenseBehavior(ModBlocks.felPumpkin, new BehaviourFelPumpkin());
+
+		IDispenseItemBehavior behavior = AccessorDispenserBlock.getDispenseBehaviorRegistry().get(Items.GLASS_BOTTLE);
+		DispenserBlock.registerDispenseBehavior(Items.GLASS_BOTTLE, new BehaviourEnderAirBottling(behavior));
 
 		SeedBehaviours.init();
 	}

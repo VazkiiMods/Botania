@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -36,11 +37,7 @@ public class ItemEnderAir extends Item {
 		World world = event.getWorld();
 
 		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.func_234922_V_() == DimensionType.field_236001_e_) {
-			List<AreaEffectCloudEntity> list = world.getEntitiesWithinAABB(AreaEffectCloudEntity.class,
-					event.getPlayer().getBoundingBox().grow(3.5D),
-					entity -> entity != null && entity.isAlive()
-							&& entity.getParticleData().getType() == ParticleTypes.DRAGON_BREATH);
-			if (!list.isEmpty()) {
+			if (!isClearFromDragonBreath(world, event.getPlayer().getBoundingBox().grow(3.5D))) {
 				return;
 			}
 
@@ -54,6 +51,13 @@ public class ItemEnderAir extends Item {
 			event.setCanceled(true);
 			event.setCancellationResult(ActionResultType.SUCCESS);
 		}
+	}
+
+	public static boolean isClearFromDragonBreath(World world, AxisAlignedBB aabb) {
+		List<AreaEffectCloudEntity> list = world.getEntitiesWithinAABB(AreaEffectCloudEntity.class,
+				aabb, entity -> entity != null && entity.isAlive()
+						&& entity.getParticleData().getType() == ParticleTypes.DRAGON_BREATH);
+		return list.isEmpty();
 	}
 
 	@Nonnull
