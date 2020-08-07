@@ -10,6 +10,7 @@ package vazkii.botania.common.block;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
@@ -23,8 +24,12 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.wand.IWandable;
@@ -33,6 +38,7 @@ import vazkii.botania.common.block.tile.TilePlatform;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import java.util.List;
 import java.util.function.BiPredicate;
 
 public class BlockPlatform extends BlockMod implements IWandable, IManaCollisionGhost, ITileEntityProvider {
@@ -95,6 +101,14 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 
 	public static boolean isValidBlock(@Nullable BlockState state, World world, BlockPos pos) {
 		return state != null && (state.isOpaqueCube(world, pos) || state.getRenderType() == BlockRenderType.MODEL);
+	}
+
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		if (variant.indestructible) {
+			tooltip.add(new TranslationTextComponent("botaniamisc.creative"));
+		}
 	}
 
 	@Nonnull

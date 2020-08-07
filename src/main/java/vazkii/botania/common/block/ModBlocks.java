@@ -710,13 +710,13 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getKey(elvenSpreader), new BlockItem(elvenSpreader, props));
 		register(r, Registry.BLOCK.getKey(gaiaSpreader), new BlockItem(gaiaSpreader, props));
 		register(r, Registry.BLOCK.getKey(manaPool), new ItemBlockPool(manaPool, props));
-		register(r, Registry.BLOCK.getKey(creativePool), new ItemBlockPool(creativePool, props));
+		register(r, Registry.BLOCK.getKey(creativePool), new ItemBlockPool(creativePool, ModItems.defaultBuilder().rarity(Rarity.EPIC)));
 		register(r, Registry.BLOCK.getKey(dilutedPool), new ItemBlockPool(dilutedPool, props));
 		register(r, Registry.BLOCK.getKey(fabulousPool), new ItemBlockPool(fabulousPool, props));
 		register(r, Registry.BLOCK.getKey(alchemyCatalyst), new BlockItem(alchemyCatalyst, props));
 		register(r, Registry.BLOCK.getKey(conjurationCatalyst), new BlockItem(conjurationCatalyst, props));
 		register(r, Registry.BLOCK.getKey(manasteelBlock), new BlockItem(manasteelBlock, props));
-		register(r, Registry.BLOCK.getKey(terrasteelBlock), new BlockItem(terrasteelBlock, props));
+		register(r, Registry.BLOCK.getKey(terrasteelBlock), new BlockItem(terrasteelBlock, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)));
 		register(r, Registry.BLOCK.getKey(elementiumBlock), new ItemBlockElven(elementiumBlock, props));
 		register(r, Registry.BLOCK.getKey(manaDiamondBlock), new BlockItem(manaDiamondBlock, props));
 		register(r, Registry.BLOCK.getKey(dragonstoneBlock), new BlockItem(dragonstoneBlock, props));
@@ -727,7 +727,7 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getKey(enchanter), new BlockItem(enchanter, props));
 		register(r, Registry.BLOCK.getKey(brewery), new BlockItem(brewery, Botania.proxy.propertiesWithRenderer(ModItems.defaultBuilder(), brewery)));
 		register(r, Registry.BLOCK.getKey(terraPlate), new BlockItem(terraPlate, props));
-		register(r, Registry.BLOCK.getKey(alfPortal), new BlockItem(alfPortal, props));
+		register(r, Registry.BLOCK.getKey(alfPortal), new BlockItem(alfPortal, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)));
 
 		Item.Properties pylonProps = Botania.proxy.propertiesWithRenderer(ModItems.defaultBuilder(), manaPylon);
 		register(r, Registry.BLOCK.getKey(manaPylon), new BlockItem(manaPylon, pylonProps));
@@ -754,8 +754,8 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getKey(forestEye), new BlockItem(forestEye, props));
 		register(r, Registry.BLOCK.getKey(abstrusePlatform), new BlockItem(abstrusePlatform, props));
 		register(r, Registry.BLOCK.getKey(spectralPlatform), new BlockItem(spectralPlatform, props));
-		register(r, Registry.BLOCK.getKey(infrangiblePlatform), new BlockItem(infrangiblePlatform, props));
-		register(r, Registry.BLOCK.getKey(tinyPotato), new ItemBlockTinyPotato(tinyPotato, props));
+		register(r, Registry.BLOCK.getKey(infrangiblePlatform), new BlockItem(infrangiblePlatform, ModItems.defaultBuilder().rarity(Rarity.EPIC)));
+		register(r, Registry.BLOCK.getKey(tinyPotato), new ItemBlockTinyPotato(tinyPotato, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)));
 		register(r, Registry.BLOCK.getKey(enderEye), new BlockItem(enderEye, props));
 		register(r, Registry.BLOCK.getKey(redStringContainer), new BlockItem(redStringContainer, props));
 		register(r, Registry.BLOCK.getKey(redStringDispenser), new BlockItem(redStringDispenser, props));
@@ -783,7 +783,7 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getKey(root), new BlockItem(root, props));
 		register(r, Registry.BLOCK.getKey(felPumpkin), new BlockItem(felPumpkin, props));
 		register(r, Registry.BLOCK.getKey(cocoon), new BlockItem(cocoon, props));
-		register(r, Registry.BLOCK.getKey(enchantedSoil), new BlockItem(enchantedSoil, props));
+		register(r, Registry.BLOCK.getKey(enchantedSoil), new BlockItem(enchantedSoil, ModItems.defaultBuilder().rarity(Rarity.RARE)));
 		register(r, Registry.BLOCK.getKey(animatedTorch), new BlockItem(animatedTorch, props));
 		register(r, Registry.BLOCK.getKey(starfield), new BlockItem(starfield, props));
 		register(r, Registry.BLOCK.getKey(azulejo0), new BlockItem(azulejo0, props));

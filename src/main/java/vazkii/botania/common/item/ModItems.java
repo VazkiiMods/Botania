@@ -23,6 +23,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.registries.IForgeRegistry;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
@@ -102,19 +103,19 @@ public final class ModItems {
 	public static final Item manaPearl = new Item(defaultBuilder());
 	public static final Item manaDiamond = new Item(defaultBuilder());
 	public static final Item livingwoodTwig = new Item(defaultBuilder());
-	public static final Item terrasteel = new ItemManaResource(defaultBuilder());
-	public static final Item lifeEssence = new Item(defaultBuilder());
+	public static final Item terrasteel = new ItemManaResource(defaultBuilder().rarity(Rarity.UNCOMMON));
+	public static final Item lifeEssence = new Item(defaultBuilder().rarity(Rarity.UNCOMMON));
 	public static final Item redstoneRoot = new Item(defaultBuilder());
 	public static final Item elementium = new ItemElven(defaultBuilder());
 	public static final Item pixieDust = new ItemElven(defaultBuilder());
 	public static final Item dragonstone = new ItemElven(defaultBuilder());
 	public static final Item redString = new Item(defaultBuilder());
 	public static final Item dreamwoodTwig = new Item(defaultBuilder());
-	public static final Item gaiaIngot = new ItemManaResource(defaultBuilder());
+	public static final Item gaiaIngot = new ItemManaResource(defaultBuilder().rarity(Rarity.RARE));
 	public static final Item enderAirBottle = new ItemEnderAir(defaultBuilder());
 	public static final Item manaString = new Item(defaultBuilder());
 	public static final Item manasteelNugget = new Item(defaultBuilder());
-	public static final Item terrasteelNugget = new Item(defaultBuilder());
+	public static final Item terrasteelNugget = new Item(defaultBuilder().rarity(Rarity.UNCOMMON));
 	public static final Item elementiumNugget = new Item(defaultBuilder());
 	public static final Item livingroot = new ItemManaResource(defaultBuilder());
 	public static final Item pebble = new Item(defaultBuilder());
@@ -153,7 +154,7 @@ public final class ModItems {
 	public static final Item lensFlare = new ItemLens(unstackable(), new LensFlare(), ItemLens.PROP_CONTROL);
 	public static final Item lensMessenger = new ItemLens(unstackable(), new LensMessenger(), ItemLens.PROP_POWER);
 	public static final Item lensTripwire = new ItemLens(unstackable(), new LensTripwire(), ItemLens.PROP_CONTROL);
-	public static final Item lensStorm = new ItemLens(unstackable(), new LensStorm(), ItemLens.PROP_NONE);
+	public static final Item lensStorm = new ItemLens(unstackable().rarity(Rarity.EPIC), new LensStorm(), ItemLens.PROP_NONE);
 
 	public static final Item runeWater = new ItemRune(defaultBuilder());
 	public static final Item runeFire = new ItemRune(defaultBuilder());
@@ -184,7 +185,7 @@ public final class ModItems {
 
 	public static final Item dirtRod = new ItemDirtRod(unstackable());
 	public static final Item skyDirtRod = new ItemSkyDirtRod(unstackable());
-	public static final Item terraformRod = new ItemTerraformRod(unstackable());
+	public static final Item terraformRod = new ItemTerraformRod(unstackable().rarity(Rarity.UNCOMMON));
 	public static final Item cobbleRod = new ItemCobbleRod(unstackable());
 	public static final Item waterRod = new ItemWaterRod(unstackable());
 	public static final Item tornadoRod = new ItemTornadoRod(unstackable());
@@ -194,7 +195,7 @@ public final class ModItems {
 	public static final Item exchangeRod = new ItemExchangeRod(unstackable());
 	public static final Item rainbowRod = new ItemRainbowRod(unstackable());
 	public static final Item gravityRod = new ItemGravityRod(unstackable());
-	public static final Item missileRod = new ItemMissileRod(unstackable());
+	public static final Item missileRod = new ItemMissileRod(unstackable().rarity(Rarity.UNCOMMON));
 
 	// Equipment
 	public static final Item manasteelHelm = new ItemManasteelHelm(unstackable());
@@ -215,15 +216,15 @@ public final class ModItems {
 	public static final Item elementiumAxe = new ItemElementiumAxe(unstackable());
 	public static final Item elementiumSword = new ItemElementiumSword(unstackable());
 	public static final Item elementiumShears = new ItemElementiumShears(unstackable());
-	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable().func_234689_a_());
-	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlotType.CHEST, unstackable().func_234689_a_());
-	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlotType.LEGS, unstackable().func_234689_a_());
-	public static final Item terrasteelBoots = new ItemTerrasteelArmor(EquipmentSlotType.FEET, unstackable().func_234689_a_());
-	public static final Item terraPick = new ItemTerraPick(unstackable().func_234689_a_());
-	public static final Item terraAxe = new ItemTerraAxe(unstackable().func_234689_a_());
-	public static final Item terraSword = new ItemTerraSword(unstackable().func_234689_a_());
-	public static final Item starSword = new ItemStarSword(unstackable());
-	public static final Item thunderSword = new ItemThunderSword(unstackable());
+	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable().func_234689_a_().rarity(Rarity.UNCOMMON));
+	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlotType.CHEST, unstackable().func_234689_a_().rarity(Rarity.UNCOMMON));
+	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlotType.LEGS, unstackable().func_234689_a_().rarity(Rarity.UNCOMMON));
+	public static final Item terrasteelBoots = new ItemTerrasteelArmor(EquipmentSlotType.FEET, unstackable().func_234689_a_().rarity(Rarity.UNCOMMON));
+	public static final Item terraPick = new ItemTerraPick(unstackable().func_234689_a_().rarity(Rarity.UNCOMMON));
+	public static final Item terraAxe = new ItemTerraAxe(unstackable().func_234689_a_().rarity(Rarity.UNCOMMON));
+	public static final Item terraSword = new ItemTerraSword(unstackable().func_234689_a_().rarity(Rarity.UNCOMMON));
+	public static final Item starSword = new ItemStarSword(unstackable().rarity(Rarity.UNCOMMON));
+	public static final Item thunderSword = new ItemThunderSword(unstackable().rarity(Rarity.UNCOMMON));
 	public static final Item manaweaveHelm = new ItemManaweaveHelm(unstackable());
 	public static final Item manaweaveChest = new ItemManaweaveArmor(EquipmentSlotType.CHEST, unstackable());
 	public static final Item manaweaveLegs = new ItemManaweaveArmor(EquipmentSlotType.LEGS, unstackable());
@@ -246,7 +247,7 @@ public final class ModItems {
 	public static final Item vineBall = new ItemVineBall(defaultBuilder());
 	public static final Item slingshot = new ItemSlingshot(unstackable());
 	public static final Item openBucket = new ItemOpenBucket(unstackable());
-	public static final Item spawnerMover = new ItemSpawnerMover(unstackable());
+	public static final Item spawnerMover = new ItemSpawnerMover(unstackable().rarity(Rarity.UNCOMMON));
 	public static final Item enderHand = new ItemEnderHand(unstackable());
 	public static final Item craftingHalo = new ItemCraftingHalo(unstackable());
 	public static final Item autocraftingHalo = new ItemAutocraftingHalo(unstackable());
@@ -258,7 +259,7 @@ public final class ModItems {
 	public static final Item cacophonium = new ItemCacophonium(unstackable());
 	public static final Item slimeBottle = new ItemSlimeBottle(unstackable());
 	public static final Item sextant = new ItemSextant(unstackable());
-	public static final Item astrolabe = new ItemAstrolabe(unstackable());
+	public static final Item astrolabe = new ItemAstrolabe(unstackable().rarity(Rarity.UNCOMMON));
 	public static final Item baubleBox = new ItemBaubleBox(unstackable());
 
 	// Baubles / trinkets / curios / etc.
@@ -268,7 +269,7 @@ public final class ModItems {
 	public static final Item auraRingGreater = new ItemGreaterAuraRing(unstackable());
 	public static final Item magnetRing = new ItemMagnetRing(unstackable());
 	public static final Item magnetRingGreater = new ItemMagnetRing(unstackable(), 16);
-	public static final Item waterRing = new ItemWaterRing(unstackable());
+	public static final Item waterRing = new ItemWaterRing(unstackable().rarity(Rarity.RARE));
 	public static final Item swapRing = new ItemSwapRing(unstackable());
 	public static final Item dodgeRing = new ItemDodgeRing(unstackable());
 	public static final Item miningRing = new ItemMiningRing(unstackable());
@@ -291,14 +292,14 @@ public final class ModItems {
 	public static final Item monocle = new ItemMonocle(unstackable());
 	public static final Item tinyPlanet = new ItemTinyPlanet(unstackable());
 	public static final Item goddessCharm = new ItemGoddessCharm(unstackable());
-	public static final Item divaCharm = new ItemDivaCharm(unstackable());
+	public static final Item divaCharm = new ItemDivaCharm(unstackable().rarity(Rarity.UNCOMMON));
 	public static final Item itemFinder = new ItemItemFinder(unstackable());
-	public static final Item flightTiara = new ItemFlightTiara(unstackable());
+	public static final Item flightTiara = new ItemFlightTiara(unstackable().rarity(Rarity.UNCOMMON));
 
 	// Misc
 	public static final Item manaCookie = new Item(defaultBuilder().food(new Food.Builder().hunger(0).saturation(0.1F).effect(new EffectInstance(Effects.SATURATION, 20, 0), 1).build()));
 	public static final Item manaBottle = new ItemBottledMana(unstackable());
-	public static final Item laputaShard = new ItemLaputaShard(unstackable());
+	public static final Item laputaShard = new ItemLaputaShard(unstackable().rarity(Rarity.UNCOMMON));
 	public static final Item necroVirus = new ItemVirus(defaultBuilder());
 	public static final Item nullVirus = new ItemVirus(defaultBuilder());
 	public static final Item spark = new ItemSpark(defaultBuilder());
@@ -308,10 +309,10 @@ public final class ModItems {
 	public static final Item sparkUpgradeIsolated = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.ISOLATED);
 	public static final Item corporeaSpark = new ItemCorporeaSpark(defaultBuilder());
 	public static final Item corporeaSparkMaster = new ItemCorporeaSpark(defaultBuilder());
-	public static final Item blackLotus = new ItemBlackLotus(defaultBuilder());
-	public static final Item blackerLotus = new ItemBlackLotus(defaultBuilder());
+	public static final Item blackLotus = new ItemBlackLotus(defaultBuilder().rarity(Rarity.RARE));
+	public static final Item blackerLotus = new ItemBlackLotus(defaultBuilder().rarity(Rarity.EPIC));
 	public static final Item worldSeed = new ItemWorldSeed(defaultBuilder());
-	public static final Item overgrowthSeed = new ItemOvergrowthSeed(defaultBuilder());
+	public static final Item overgrowthSeed = new ItemOvergrowthSeed(defaultBuilder().rarity(Rarity.RARE));
 	public static final Item phantomInk = new Item(defaultBuilder());
 	public static final Item poolMinecart = new ItemPoolMinecart(unstackable());
 	public static final Item keepIvy = new ItemKeepIvy(defaultBuilder());
@@ -327,22 +328,22 @@ public final class ModItems {
 	public static final Item craftPatternDonut = new ItemCraftPattern(CratePattern.CRAFTY_DONUT, unstackable());
 
 	// Guardian of Gaia drops
-	public static final Item dice = new ItemDice(unstackable().func_234689_a_());
-	public static final Item infiniteFruit = new ItemInfiniteFruit(unstackable().func_234689_a_());
-	public static final Item kingKey = new ItemKingKey(unstackable().func_234689_a_());
-	public static final Item flugelEye = new ItemFlugelEye(unstackable().func_234689_a_());
-	public static final Item thorRing = new ItemThorRing(unstackable().func_234689_a_());
-	public static final Item odinRing = new ItemOdinRing(unstackable().func_234689_a_());
-	public static final Item lokiRing = new ItemLokiRing(unstackable().func_234689_a_());
-	public static final Item recordGaia1 = new ItemModRecord(1, ModSounds.gaiaMusic1, unstackable());
-	public static final Item recordGaia2 = new ItemModRecord(1, ModSounds.gaiaMusic2, unstackable());
-	public static final Item ancientWillAhrim = new ItemAncientWill(IAncientWillContainer.AncientWillType.AHRIM, unstackable());
-	public static final Item ancientWillDharok = new ItemAncientWill(IAncientWillContainer.AncientWillType.DHAROK, unstackable());
-	public static final Item ancientWillGuthan = new ItemAncientWill(IAncientWillContainer.AncientWillType.GUTHAN, unstackable());
-	public static final Item ancientWillTorag = new ItemAncientWill(IAncientWillContainer.AncientWillType.TORAG, unstackable());
-	public static final Item ancientWillVerac = new ItemAncientWill(IAncientWillContainer.AncientWillType.VERAC, unstackable());
-	public static final Item ancientWillKaril = new ItemAncientWill(IAncientWillContainer.AncientWillType.KARIL, unstackable());
-	public static final Item pinkinator = new ItemPinkinator(unstackable());
+	public static final Item dice = new ItemDice(unstackable().func_234689_a_().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item infiniteFruit = new ItemInfiniteFruit(unstackable().func_234689_a_().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item kingKey = new ItemKingKey(unstackable().func_234689_a_().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item flugelEye = new ItemFlugelEye(unstackable().func_234689_a_().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item thorRing = new ItemThorRing(unstackable().func_234689_a_().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item odinRing = new ItemOdinRing(unstackable().func_234689_a_().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item lokiRing = new ItemLokiRing(unstackable().func_234689_a_().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item recordGaia1 = new ItemModRecord(1, ModSounds.gaiaMusic1, unstackable().rarity(Rarity.RARE));
+	public static final Item recordGaia2 = new ItemModRecord(1, ModSounds.gaiaMusic2, unstackable().rarity(Rarity.RARE));
+	public static final Item ancientWillAhrim = new ItemAncientWill(IAncientWillContainer.AncientWillType.AHRIM, unstackable().rarity(Rarity.UNCOMMON));
+	public static final Item ancientWillDharok = new ItemAncientWill(IAncientWillContainer.AncientWillType.DHAROK, unstackable().rarity(Rarity.UNCOMMON));
+	public static final Item ancientWillGuthan = new ItemAncientWill(IAncientWillContainer.AncientWillType.GUTHAN, unstackable().rarity(Rarity.UNCOMMON));
+	public static final Item ancientWillTorag = new ItemAncientWill(IAncientWillContainer.AncientWillType.TORAG, unstackable().rarity(Rarity.UNCOMMON));
+	public static final Item ancientWillVerac = new ItemAncientWill(IAncientWillContainer.AncientWillType.VERAC, unstackable().rarity(Rarity.UNCOMMON));
+	public static final Item ancientWillKaril = new ItemAncientWill(IAncientWillContainer.AncientWillType.KARIL, unstackable().rarity(Rarity.UNCOMMON));
+	public static final Item pinkinator = new ItemPinkinator(unstackable().rarity(Rarity.UNCOMMON));
 
 	// Brewing
 	public static final Item vial = new ItemVial(defaultBuilder());

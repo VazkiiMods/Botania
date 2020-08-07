@@ -12,6 +12,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Rarity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
@@ -57,6 +58,12 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 			setStackCreative(creative);
 			stacks.add(creative);
 		}
+	}
+
+	@Nonnull
+	@Override
+	public Rarity getRarity(@Nonnull ItemStack stack) {
+		return isCreative(stack) ? Rarity.EPIC : super.getRarity(stack);
 	}
 
 	@OnlyIn(Dist.CLIENT)
