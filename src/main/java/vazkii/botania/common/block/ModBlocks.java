@@ -11,13 +11,6 @@ package vazkii.botania.common.block;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
-<<<<<<< HEAD
-=======
-import net.minecraft.block.material.Material;
-import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.dispenser.IDispenseItemBehavior;
-import net.minecraft.dispenser.OptionalDispenseBehavior;
->>>>>>> ea00ea8f7... Fix gaia head not being dispensable
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.*;
 import net.minecraft.item.BlockItem;

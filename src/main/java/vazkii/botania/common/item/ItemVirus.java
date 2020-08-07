@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -21,8 +20,9 @@ import net.minecraft.entity.mob.ZombieHorseEntity;
 import net.minecraft.entity.passive.AbstractDonkeyEntity;
 import net.minecraft.entity.passive.HorseBaseEntity;
 import net.minecraft.entity.passive.LlamaEntity;
-import net.minecraft.entity.passive.horse.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -30,6 +30,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.ServerWorldAccess;
+import vazkii.botania.mixin.AccessorAbstractHorseEntity;
 
 public class ItemVirus extends Item {
 	public ItemVirus(Settings builder) {
@@ -44,8 +45,8 @@ public class ItemVirus extends Item {
 			}
 			HorseBaseEntity horse = (HorseBaseEntity) living;
 			if (horse.isTame()) {
-				IItemHandler inv = horse.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new);
-				ItemStack saddle = inv.getStackInSlot(0);
+				SimpleInventory inv = ((AccessorAbstractHorseEntity) horse).getItems();
+				ItemStack saddle = inv.getStack(0);
 
 				// Not all AbstractHorse's have saddles in slot 0
 				if (!saddle.isEmpty() && saddle.getItem() != Items.SADDLE) {
@@ -53,14 +54,10 @@ public class ItemVirus extends Item {
 					saddle = ItemStack.EMPTY;
 				}
 
-				for (int i = 1; i < inv.getSlots(); i++) {
-					if (!inv.getStackInSlot(i).isEmpty()) {
-						horse.dropStack(inv.getStackInSlot(i), 0);
+				for (int i = 1; i < inv.size(); i++) {
+					if (!inv.getStack(i).isEmpty()) {
+						horse.dropStack(inv.getStack(i), 0);
 					}
-				}
-
-				if (horse instanceof AbstractDonkeyEntity && ((AbstractDonkeyEntity) horse).hasChest()) {
-					horse.dropStack(new ItemStack(Blocks.CHEST), 0);
 				}
 
 				horse.remove();
@@ -73,7 +70,8 @@ public class ItemVirus extends Item {
 
 				// Put the saddle back
 				if (!saddle.isEmpty()) {
-					newHorse.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElseThrow(NullPointerException::new).insertItem(0, saddle, false);
+					SimpleInventory newInv = ((AccessorAbstractHorseEntity) newHorse).getItems();
+					newInv.setStack(0, saddle);
 				}
 
 				EntityAttributeInstance movementSpeed = newHorse.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);

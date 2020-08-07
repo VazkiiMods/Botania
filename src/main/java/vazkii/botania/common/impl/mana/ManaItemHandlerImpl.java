@@ -31,17 +31,12 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 		}
 
 		List<ItemStack> toReturn = new ArrayList<>();
-		player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(mainInv -> {
-			int size = mainInv.getSlots();
 
-			for (int slot = 0; slot < size; slot++) {
-				ItemStack stackInSlot = mainInv.getStackInSlot(slot);
-
-				if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IManaItem) {
-					toReturn.add(stackInSlot);
-				}
+		for (ItemStack stackInSlot : Iterables.concat(player.inventory.main, player.inventory.offHand)) {
+			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IManaItem) {
+				toReturn.add(stackInSlot);
 			}
-		});
+		}
 
 		ManaItemsCallback.EVENT.invoker().getManaItems(player, toReturn);
 		return toReturn;

@@ -6,6 +6,7 @@
   "refmap": "botania.refmap.json",
   "mixins": [
     "AccessorAbstractFurnaceTileEntity",
+    "AccessorAbstractHorseEntity",
     "AccessorAbstractSpawner",
     "AccessorAvoidEntityGoal",
     "AccessorCreeperEntity",
