@@ -11,7 +11,15 @@ package vazkii.botania.common.block;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
+<<<<<<< HEAD
+=======
+import net.minecraft.block.material.Material;
+import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.dispenser.IDispenseItemBehavior;
+import net.minecraft.dispenser.OptionalDispenseBehavior;
+>>>>>>> ea00ea8f7... Fix gaia head not being dispensable
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.sound.BlockSoundGroup;
@@ -34,7 +42,6 @@ import vazkii.botania.common.block.dispenser.BehaviourWand;
 import vazkii.botania.common.block.dispenser.SeedBehaviours;
 import vazkii.botania.common.block.mana.*;
 import vazkii.botania.common.block.string.*;
-import vazkii.botania.common.item.ItemGaiaHead;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockDreamwood;
 import vazkii.botania.common.item.block.ItemBlockElven;
@@ -42,6 +49,8 @@ import vazkii.botania.common.item.block.ItemBlockPool;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.mixin.AccessorDispenserBlock;
+
+import javax.annotation.Nonnull;
 
 import java.util.Locale;
 
@@ -802,7 +811,7 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getId(azulejo14), new BlockItem(azulejo14, props));
 		register(r, Registry.BLOCK.getId(azulejo15), new BlockItem(azulejo15, props));
 		register(r, Registry.BLOCK.getId(blazeBlock), new ItemBlockBlaze(blazeBlock, props));
-		register(r, Registry.BLOCK.getId(gaiaHead), new ItemGaiaHead(gaiaHead, gaiaHeadWall, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)));
+		register(r, Registry.BLOCK.getId(gaiaHead), new WallStandingBlockItem(gaiaHead, gaiaHeadWall, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)));
 		register(r, Registry.BLOCK.getId(shimmerrock), new BlockItem(shimmerrock, props));
 		register(r, Registry.BLOCK.getId(shimmerwoodPlanks), new BlockItem(shimmerwoodPlanks, props));
 		register(r, Registry.BLOCK.getId(dryGrass), new BlockItem(dryGrass, props));
@@ -825,6 +834,14 @@ public final class ModBlocks {
 		DispenserBlock.registerBehavior(ModItems.twigWand, new BehaviourWand());
 		DispenserBlock.registerBehavior(ModItems.poolMinecart, new BehaviourPoolMinecart());
 		DispenserBlock.registerBehavior(ModBlocks.felPumpkin, new BehaviourFelPumpkin());
+		DispenserBlock.registerDispenseBehavior(ModBlocks.gaiaHead, new OptionalDispenseBehavior() {
+			@Nonnull
+			@Override
+			protected ItemStack dispenseStack(@Nonnull IBlockSource source, @Nonnull ItemStack stack) {
+				func_239796_a_(ArmorItem.func_226626_a_(source, stack));
+				return stack;
+			}
+		});
 
 		IDispenseItemBehavior behavior = AccessorDispenserBlock.getDispenseBehaviorRegistry().get(Items.GLASS_BOTTLE);
 		DispenserBlock.registerDispenseBehavior(Items.GLASS_BOTTLE, new BehaviourEnderAirBottling(behavior));
