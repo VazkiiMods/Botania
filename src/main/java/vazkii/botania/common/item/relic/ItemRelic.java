@@ -25,14 +25,12 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Rarity;
 import net.minecraft.world.World;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.List;
@@ -140,11 +138,4 @@ public class ItemRelic extends Item implements IRelic {
 	public boolean hasUUID(ItemStack stack) {
 		return getSoulbindUUID(stack) != null;
 	}
-
-	@Nonnull
-	@Override
-	public Rarity getRarity(ItemStack stack) {
-		return BotaniaAPI.instance().getRelicRarity();
-	}
-
 }

@@ -63,6 +63,10 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 			TranslatableText colorName = new TranslatableText(storedColor == 16 ? "botania.color.rainbow" : "color.minecraft." + DyeColor.byId(storedColor));
 			stacks.add(new TranslatableText("botaniamisc.color", colorName).formatted(Formatting.GRAY));
 		}
+
+		if (lens instanceof LensStorm) {
+			stacks.add(new TranslatableText("botaniamisc.creative").formatted(Formatting.GRAY));
+		}
 	}
 
 	@Nonnull

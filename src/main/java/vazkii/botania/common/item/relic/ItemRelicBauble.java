@@ -16,14 +16,10 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
-import net.minecraft.util.Rarity;
 import net.minecraft.world.World;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
-
-import javax.annotation.Nonnull;
 
 import java.util.List;
 import java.util.UUID;
@@ -67,12 +63,6 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 	@Override
 	public boolean hasUUID(ItemStack stack) {
 		return dummy.hasUUID(stack);
-	}
-
-	@Nonnull
-	@Override
-	public Rarity getRarity(ItemStack stack) {
-		return BotaniaAPI.instance().getRelicRarity();
 	}
 
 	@Override

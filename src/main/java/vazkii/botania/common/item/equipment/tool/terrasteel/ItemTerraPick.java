@@ -291,4 +291,19 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		return after.getItem() != this || isEnabled(before) != isEnabled(after);
 	}
 
+	@Nonnull
+	@Override
+	public Rarity getRarity(@Nonnull ItemStack stack) {
+		int level = getLevel(stack);
+		if (stack.hasEnchantments()) {
+			level++;
+		}
+		if (level >= 5) { // SS rank/enchanted S rank
+			return Rarity.EPIC;
+		}
+		if (level >= 3) { // A rank/enchanted B rank
+			return Rarity.RARE;
+		}
+		return Rarity.UNCOMMON;
+	}
 }

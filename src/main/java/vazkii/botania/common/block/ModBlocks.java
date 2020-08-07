@@ -708,13 +708,13 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getId(elvenSpreader), new BlockItem(elvenSpreader, props));
 		register(r, Registry.BLOCK.getId(gaiaSpreader), new BlockItem(gaiaSpreader, props));
 		register(r, Registry.BLOCK.getId(manaPool), new ItemBlockPool(manaPool, props));
-		register(r, Registry.BLOCK.getId(creativePool), new ItemBlockPool(creativePool, props));
+		register(r, Registry.BLOCK.getId(creativePool), new ItemBlockPool(creativePool, ModItems.defaultBuilder().rarity(Rarity.EPIC)));
 		register(r, Registry.BLOCK.getId(dilutedPool), new ItemBlockPool(dilutedPool, props));
 		register(r, Registry.BLOCK.getId(fabulousPool), new ItemBlockPool(fabulousPool, props));
 		register(r, Registry.BLOCK.getId(alchemyCatalyst), new BlockItem(alchemyCatalyst, props));
 		register(r, Registry.BLOCK.getId(conjurationCatalyst), new BlockItem(conjurationCatalyst, props));
 		register(r, Registry.BLOCK.getId(manasteelBlock), new BlockItem(manasteelBlock, props));
-		register(r, Registry.BLOCK.getId(terrasteelBlock), new BlockItem(terrasteelBlock, props));
+		register(r, Registry.BLOCK.getId(terrasteelBlock), new BlockItem(terrasteelBlock, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)));
 		register(r, Registry.BLOCK.getId(elementiumBlock), new ItemBlockElven(elementiumBlock, props));
 		register(r, Registry.BLOCK.getId(manaDiamondBlock), new BlockItem(manaDiamondBlock, props));
 		register(r, Registry.BLOCK.getId(dragonstoneBlock), new BlockItem(dragonstoneBlock, props));
@@ -725,7 +725,7 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getId(enchanter), new BlockItem(enchanter, props));
 		register(r, Registry.BLOCK.getId(brewery), new BlockItem(brewery, props));
 		register(r, Registry.BLOCK.getId(terraPlate), new BlockItem(terraPlate, props));
-		register(r, Registry.BLOCK.getId(alfPortal), new BlockItem(alfPortal, props));
+		register(r, Registry.BLOCK.getId(alfPortal), new BlockItem(alfPortal, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)));
 
 		register(r, Registry.BLOCK.getId(manaPylon), new BlockItem(manaPylon, props));
 		register(r, Registry.BLOCK.getId(naturaPylon), new BlockItem(naturaPylon, props));
@@ -751,8 +751,8 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getId(forestEye), new BlockItem(forestEye, props));
 		register(r, Registry.BLOCK.getId(abstrusePlatform), new BlockItem(abstrusePlatform, props));
 		register(r, Registry.BLOCK.getId(spectralPlatform), new BlockItem(spectralPlatform, props));
-		register(r, Registry.BLOCK.getId(infrangiblePlatform), new BlockItem(infrangiblePlatform, props));
-		register(r, Registry.BLOCK.getId(tinyPotato), new ItemBlockTinyPotato(tinyPotato, props));
+		register(r, Registry.BLOCK.getId(infrangiblePlatform), new BlockItem(infrangiblePlatform, ModItems.defaultBuilder().rarity(Rarity.EPIC)));
+		register(r, Registry.BLOCK.getId(tinyPotato), new ItemBlockTinyPotato(tinyPotato, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)));
 		register(r, Registry.BLOCK.getId(enderEye), new BlockItem(enderEye, props));
 		register(r, Registry.BLOCK.getId(redStringContainer), new BlockItem(redStringContainer, props));
 		register(r, Registry.BLOCK.getId(redStringDispenser), new BlockItem(redStringDispenser, props));
@@ -780,7 +780,7 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getId(root), new BlockItem(root, props));
 		register(r, Registry.BLOCK.getId(felPumpkin), new BlockItem(felPumpkin, props));
 		register(r, Registry.BLOCK.getId(cocoon), new BlockItem(cocoon, props));
-		register(r, Registry.BLOCK.getId(enchantedSoil), new BlockItem(enchantedSoil, props));
+		register(r, Registry.BLOCK.getId(enchantedSoil), new BlockItem(enchantedSoil, ModItems.defaultBuilder().rarity(Rarity.RARE)));
 		register(r, Registry.BLOCK.getId(animatedTorch), new BlockItem(animatedTorch, props));
 		register(r, Registry.BLOCK.getId(starfield), new BlockItem(starfield, props));
 		register(r, Registry.BLOCK.getId(azulejo0), new BlockItem(azulejo0, props));

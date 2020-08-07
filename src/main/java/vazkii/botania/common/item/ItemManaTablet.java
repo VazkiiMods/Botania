@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Rarity;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
@@ -57,6 +58,12 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 			setStackCreative(creative);
 			stacks.add(creative);
 		}
+	}
+
+	@Nonnull
+	@Override
+	public Rarity getRarity(@Nonnull ItemStack stack) {
+		return isCreative(stack) ? Rarity.EPIC : super.getRarity(stack);
 	}
 
 	@Environment(EnvType.CLIENT)
