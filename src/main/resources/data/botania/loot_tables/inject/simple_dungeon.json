@@ -7,7 +7,7 @@
       {
         "type": "item",
         "name": "botania:manasteel_ingot",
-        "weight": 50,
+        "weight": 25,
         "functions": [{ "function": "set_count", "count": { "min": 1, "max": 5 } }]
       },
       {
@@ -32,7 +32,7 @@
       },
       {
         "type": "empty",
-        "weight": 13
+        "weight": 38
       }
     ]
   }]
