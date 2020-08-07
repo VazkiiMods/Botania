@@ -17,6 +17,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.*;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 
@@ -35,12 +36,8 @@ public class ItemEnderAir extends Item {
 	public static TypedActionResult<ItemStack> onPlayerInteract(PlayerEntity player, World world, Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
 
-		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.getDimensionRegistryKey() == DimensionType.THE_END_REGISTRY_KEY) {
-			List<AreaEffectCloudEntity> list = world.getEntitiesByClass(AreaEffectCloudEntity.class,
-					player.getBoundingBox().expand(3.5D),
-					entity -> entity != null && entity.isAlive()
-							&& entity.getParticleType().getType() == ParticleTypes.DRAGON_BREATH);
-			if (!list.isEmpty()) {
+		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.getDimension() == DimensionType.THE_END_REGISTRY_KEY) {
+			if (!isClearFromDragonBreath(world, player.getBoundingBox().grow(3.5D))) {
 				return TypedActionResult.pass(stack);
 			}
 
@@ -55,6 +52,13 @@ public class ItemEnderAir extends Item {
 		}
 
 		return TypedActionResult.pass(stack);
+	}
+
+	public static boolean isClearFromDragonBreath(World world, Box aabb) {
+		List<AreaEffectCloudEntity> list = world.getEntitiesByClass(AreaEffectCloudEntity.class,
+				aabb, entity -> entity != null && entity.isAlive()
+						&& entity.getParticleType().getType() == ParticleTypes.DRAGON_BREATH);
+		return list.isEmpty();
 	}
 
 	@Nonnull
