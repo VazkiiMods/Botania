@@ -15,6 +15,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Lazy;
@@ -35,8 +36,10 @@ public class TEISR implements BuiltinItemRenderer {
 	@Override
 	public void render(ItemStack stack, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
 		if (stack.getItem() == block.asItem()) {
-			BlockEntityRenderDispatcher.INSTANCE.get(dummy.get())
-					.render(null, 0, ms, buffers, light, overlay);
+			BlockEntityRenderer<?> r = BlockEntityRenderDispatcher.INSTANCE.get(dummy.get());
+			if (r != null) {
+				r.render(null, 0, ms, buffers, light, overlay);
+			}
 		}
 	}
 }
