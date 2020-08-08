@@ -15,6 +15,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -37,8 +38,10 @@ public class TEISR extends ItemStackTileEntityRenderer {
 	@Override
 	public void func_239207_a_(ItemStack stack, ItemCameraTransforms.TransformType transform, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		if (stack.getItem() == block.asItem()) {
-			TileEntityRendererDispatcher.instance.getRenderer(dummy.getValue())
-					.render(null, 0, ms, buffers, light, overlay);
+			TileEntityRenderer<?> r = TileEntityRendererDispatcher.instance.getRenderer(dummy.getValue());
+			if (r != null) {
+				r.render(null, 0, ms, buffers, light, overlay);
+			}
 		}
 	}
 }
