@@ -41,7 +41,7 @@ public class ItemSpark extends Item implements IManaGivingItem {
 				if (!world.isClient) {
 					stack.decrement(1);
 					EntitySpark spark = new EntitySpark(world);
-					spark.updatePosition(pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5);
+					spark.updatePosition(pos.getX() + 0.5, pos.getY() + 1.25, pos.getZ() + 0.5);
 					world.spawnEntity(spark);
 					attach.attachSpark(spark);
 				}

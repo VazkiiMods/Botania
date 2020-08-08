@@ -10,6 +10,7 @@ package vazkii.botania.common.item.lens;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
@@ -23,6 +24,7 @@ import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.common.entity.EntitySparkBase;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
@@ -36,20 +38,24 @@ public class LensPaint extends Lens {
 	public boolean collideBurst(IManaBurst burst, ThrownEntity entity, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		int storedColor = ItemLens.getStoredColor(stack);
 		if (!entity.world.isClient && !burst.isFake() && storedColor > -1 && storedColor < 17) {
-			if (pos.getType() == HitResult.Type.ENTITY
-					&& ((EntityHitResult) pos).getEntity() instanceof SheepEntity) {
-				int r = 20;
-				SheepEntity sheep = (SheepEntity) ((EntityHitResult) pos).getEntity();
-				DyeColor sheepColor = sheep.getColor();
-				List<SheepEntity> sheepList = entity.world.getNonSpectatingEntities(SheepEntity.class,
-						new Box(sheep.getX() - r, sheep.getY() - r, sheep.getZ() - r,
-								sheep.getX() + r, sheep.getY() + r, sheep.getZ() + r));
-				for (SheepEntity other : sheepList) {
-					if (other.getColor() == sheepColor) {
-						other.setColor(DyeColor.byId(storedColor == 16 ? other.world.random.nextInt(16) : storedColor));
+			if (pos.getType() == HitResult.Type.ENTITY) {
+				Entity collidedWith = ((EntityHitResult) pos).getEntity();
+				if (collidedWith instanceof SheepEntity) {
+					int r = 20;
+					SheepEntity sheep = (SheepEntity) collidedWith;
+					DyeColor sheepColor = sheep.getColor();
+					List<SheepEntity> sheepList = entity.world.getNonSpectatingEntities(SheepEntity.class,
+							new Box(sheep.getX() - r, sheep.getY() - r, sheep.getZ() - r,
+									sheep.getX() + r, sheep.getY() + r, sheep.getZ() + r));
+					for (SheepEntity other : sheepList) {
+						if (other.getColor() == sheepColor) {
+							other.setColor(DyeColor.byId(storedColor == 16 ? other.world.random.nextInt(16) : storedColor));
+						}
 					}
+					dead = true;
+				} else if (collidedWith instanceof EntitySparkBase) {
+					((EntitySparkBase) collidedWith).setNetwork(DyeColor.byId(storedColor == 16 ? collidedWith.world.random.nextInt(16) : storedColor));
 				}
-				dead = true;
 			} else if (pos.getType() == HitResult.Type.BLOCK) {
 				BlockPos hit = ((BlockHitResult) pos).getBlockPos();
 				BlockState state = entity.world.getBlockState(hit);

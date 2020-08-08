@@ -263,12 +263,6 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 					if (!world.isClient) {
 						setNetwork(color);
 
-						if (isMaster()) {
-							restartNetwork();
-						} else {
-							findNetwork();
-						}
-
 						stack.decrement(1);
 					}
 
@@ -283,6 +277,21 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 		}
 
 		return ActionResult.PASS;
+	}
+
+	@Override
+	public void setNetwork(DyeColor color) {
+		if (color == getNetwork()) {
+			return;
+		}
+
+		super.setNetwork(color);
+
+		if (isMaster()) {
+			restartNetwork();
+		} else {
+			findNetwork();
+		}
 	}
 
 	@Nonnull
