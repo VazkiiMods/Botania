@@ -10,6 +10,7 @@ package vazkii.botania.common.item.lens;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.DyeColor;
@@ -21,6 +22,7 @@ import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
+import vazkii.botania.common.entity.EntitySparkBase;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
@@ -34,20 +36,24 @@ public class LensPaint extends Lens {
 	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		int storedColor = ItemLens.getStoredColor(stack);
 		if (!entity.world.isRemote && !burst.isFake() && storedColor > -1 && storedColor < 17) {
-			if (pos.getType() == RayTraceResult.Type.ENTITY
-					&& ((EntityRayTraceResult) pos).getEntity() instanceof SheepEntity) {
-				int r = 20;
-				SheepEntity sheep = (SheepEntity) ((EntityRayTraceResult) pos).getEntity();
-				DyeColor sheepColor = sheep.getFleeceColor();
-				List<SheepEntity> sheepList = entity.world.getEntitiesWithinAABB(SheepEntity.class,
-						new AxisAlignedBB(sheep.getPosX() - r, sheep.getPosY() - r, sheep.getPosZ() - r,
-								sheep.getPosX() + r, sheep.getPosY() + r, sheep.getPosZ() + r));
-				for (SheepEntity other : sheepList) {
-					if (other.getFleeceColor() == sheepColor) {
-						other.setFleeceColor(DyeColor.byId(storedColor == 16 ? other.world.rand.nextInt(16) : storedColor));
+			if (pos.getType() == RayTraceResult.Type.ENTITY) {
+				Entity collidedWith = ((EntityRayTraceResult) pos).getEntity();
+				if (collidedWith instanceof SheepEntity) {
+					int r = 20;
+					SheepEntity sheep = (SheepEntity) collidedWith;
+					DyeColor sheepColor = sheep.getFleeceColor();
+					List<SheepEntity> sheepList = entity.world.getEntitiesWithinAABB(SheepEntity.class,
+							new AxisAlignedBB(sheep.getPosX() - r, sheep.getPosY() - r, sheep.getPosZ() - r,
+									sheep.getPosX() + r, sheep.getPosY() + r, sheep.getPosZ() + r));
+					for (SheepEntity other : sheepList) {
+						if (other.getFleeceColor() == sheepColor) {
+							other.setFleeceColor(DyeColor.byId(storedColor == 16 ? other.world.rand.nextInt(16) : storedColor));
+						}
 					}
+					dead = true;
+				} else if (collidedWith instanceof EntitySparkBase) {
+					((EntitySparkBase) collidedWith).setNetwork(DyeColor.byId(storedColor == 16 ? collidedWith.world.rand.nextInt(16) : storedColor));
 				}
-				dead = true;
 			} else if (pos.getType() == RayTraceResult.Type.BLOCK) {
 				BlockPos hit = ((BlockRayTraceResult) pos).getPos();
 				BlockState state = entity.world.getBlockState(hit);

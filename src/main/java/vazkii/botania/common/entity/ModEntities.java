@@ -58,7 +58,7 @@ public final class ModEntities {
 			.setShouldReceiveVelocityUpdates(false)
 			.build("");
 	public static final EntityType<EntitySpark> SPARK = EntityType.Builder.<EntitySpark>create(EntitySpark::new, EntityClassification.MISC)
-			.size(0.1F, 0.5F)
+			.size(0.2F, 0.5F)
 			.immuneToFire()
 			.setTrackingRange(64)
 			.setUpdateInterval(10)
@@ -83,7 +83,7 @@ public final class ModEntities {
 			.setShouldReceiveVelocityUpdates(true)
 			.build("");
 	public static final EntityType<EntityCorporeaSpark> CORPOREA_SPARK = EntityType.Builder.<EntityCorporeaSpark>create(EntityCorporeaSpark::new, EntityClassification.MISC)
-			.size(0.1F, 0.5F)
+			.size(0.2F, 0.5F)
 			.immuneToFire()
 			.setTrackingRange(64)
 			.setUpdateInterval(40)
