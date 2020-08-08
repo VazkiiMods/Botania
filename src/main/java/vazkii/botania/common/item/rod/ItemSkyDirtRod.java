@@ -52,11 +52,10 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 			int entities = world.getNonSpectatingEntities(LivingEntity.class, new Box(x, y, z, x + 1, y + 1, z + 1)).size();
 
 			if (entities == 0) {
-				ItemStack stackToPlace = new ItemStack(Blocks.DIRT);
 				BlockHitResult hit = new BlockHitResult(Vec3d.ZERO, Direction.DOWN, new BlockPos(x, y, z), false);
-				PlayerHelper.substituteUse(new ItemUsageContext(player, hand, hit), stackToPlace);
+				ActionResult result = PlayerHelper.substituteUse(new ItemUsageContext(player, hand, hit), new ItemStack(Blocks.DIRT));
 
-				if (stackToPlace.isEmpty()) {
+				if (result.isAccepted()) {
 					ManaItemHandler.instance().requestManaExactForTool(stack, player, COST * 2, true);
 					SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.35F, 0.2F, 0.05F, 5);
 					for (int i = 0; i < 6; i++) {

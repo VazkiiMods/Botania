@@ -63,16 +63,15 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 					new Box(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
 
 			if (entities == 0) {
-				ItemStack stackToPlace = new ItemStack(block);
-				PlayerHelper.substituteUse(ctx, stackToPlace);
+				ActionResult result = PlayerHelper.substituteUse(ctx, new ItemStack(block));
 
-				if (stackToPlace.isEmpty()) {
+				if (result.isAccepted()) {
 					ManaItemHandler.instance().requestManaExactForTool(stack, player, cost, true);
 					SparkleParticleData data = SparkleParticleData.sparkle(1F, r, g, b, 5);
 					for (int i = 0; i < 6; i++) {
 						world.addParticle(data, pos.getX() + side.getOffsetX() + Math.random(), pos.getY() + side.getOffsetY() + Math.random(), pos.getZ() + side.getOffsetZ() + Math.random(), 0, 0, 0);
 					}
-					return ActionResult.SUCCESS;
+					return result;
 				}
 			}
 
