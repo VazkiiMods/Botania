@@ -215,8 +215,10 @@ public class BlockAltar extends BlockMod implements BlockEntityProvider {
 	@Override
 	public void onStateReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
-			TileSimpleInventory inv = (TileSimpleInventory) world.getBlockEntity(pos);
-			ItemScatterer.spawn(world, pos, inv.getItemHandler());
+			BlockEntity be = world.getBlockEntity(pos);
+			if (be instanceof TileSimpleInventory) {
+				ItemScatterer.spawn(world, pos, ((TileSimpleInventory) be).getItemHandler());
+			}
 			super.onStateReplaced(state, world, pos, newState, isMoving);
 		}
 	}

@@ -89,10 +89,14 @@ public class BlockEnchanter extends BlockMod implements BlockEntityProvider, IWa
 	@Override
 	public void onStateReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
-			TileEnchanter enchanter = (TileEnchanter) world.getBlockEntity(pos);
+			BlockEntity tile = world.getBlockEntity(pos);
 
-			if (!enchanter.itemToEnchant.isEmpty()) {
-				world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), enchanter.itemToEnchant));
+			if (tile instanceof TileEnchanter) {
+				TileEnchanter enchanter = (TileEnchanter) tile;
+
+				if (!enchanter.itemToEnchant.isEmpty()) {
+					world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), enchanter.itemToEnchant));
+				}
 			}
 
 			super.onStateReplaced(state, world, pos, newState, isMoving);
