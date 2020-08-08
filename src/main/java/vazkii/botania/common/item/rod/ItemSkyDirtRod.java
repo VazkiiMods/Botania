@@ -14,6 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -52,11 +53,10 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 			int entities = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1)).size();
 
 			if (entities == 0) {
-				ItemStack stackToPlace = new ItemStack(Blocks.DIRT);
 				BlockRayTraceResult hit = new BlockRayTraceResult(Vector3d.ZERO, Direction.DOWN, new BlockPos(x, y, z), false);
-				PlayerHelper.substituteUse(new ItemUseContext(player, hand, hit), stackToPlace);
+				ActionResultType result = PlayerHelper.substituteUse(new ItemUseContext(player, hand, hit), new ItemStack(Blocks.DIRT));
 
-				if (stackToPlace.isEmpty()) {
+				if (result.isSuccessOrConsume()) {
 					ManaItemHandler.instance().requestManaExactForTool(stack, player, COST * 2, true);
 					SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.35F, 0.2F, 0.05F, 5);
 					for (int i = 0; i < 6; i++) {
