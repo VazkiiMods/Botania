@@ -50,7 +50,7 @@ public class BlockGhostRail extends AbstractRailBlock {
 
 		BlockPos entPos = cart.getBlockPos();
 		BlockState state = cart.world.getBlockState(entPos);
-		boolean air = state.isAir(cart.world, entPos);
+		boolean air = state.isAir();
 
 		if (state.getBlock() == ModBlocks.dreamwood
 				|| (state.getBlock() != ModBlocks.ghostRail && state.isIn(BlockTags.RAILS))) {
@@ -59,7 +59,7 @@ public class BlockGhostRail extends AbstractRailBlock {
 		} else {
 			BlockPos down = entPos.down();
 			BlockState stateBelow = cart.world.getBlockState(down);
-			boolean airBelow = stateBelow.isAir(cart.world, down);
+			boolean airBelow = stateBelow.isAir();
 			if (air && airBelow || !air && !airBelow) {
 				cart.noClip = true;
 			}

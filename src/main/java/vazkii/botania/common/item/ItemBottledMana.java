@@ -11,6 +11,7 @@ package vazkii.botania.common.item;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
@@ -125,8 +126,8 @@ public class ItemBottledMana extends Item {
 			int x = MathHelper.floor(living.getX());
 			int z = MathHelper.floor(living.getZ());
 			for (int i = 256; i > 0; i--) {
-				Block block = living.world.getBlockState(new BlockPos(x, i, z)).getBlock();
-				if (!block.isAir(living.world.getBlockState(new BlockPos(x, i, z)), living.world, new BlockPos(x, i, z))) {
+				BlockState state = living.world.getBlockState(new BlockPos(x, i, z));
+				if (!state.isAir()) {
 					if (living instanceof ServerPlayerEntity) {
 						ServerPlayerEntity mp = (ServerPlayerEntity) living;
 						mp.networkHandler.requestTeleport(living.getX(), i, living.getZ(), living.yaw, living.pitch);

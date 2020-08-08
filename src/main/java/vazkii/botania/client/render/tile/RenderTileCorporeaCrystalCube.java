@@ -32,7 +32,6 @@ public class RenderTileCorporeaCrystalCube extends BlockEntityRenderer<TileCorpo
 	// Ugly but there's no other way to get the model besides grabbing it from the event
 	public static BakedModel cubeModel = null;
 	private ItemEntity entity = null;
-	private ItemEntityRenderer itemRenderer = null;
 
 	public RenderTileCorporeaCrystalCube(BlockEntityRenderDispatcher manager) {
 		super(manager);
@@ -44,15 +43,6 @@ public class RenderTileCorporeaCrystalCube extends BlockEntityRenderer<TileCorpo
 		if (cube != null) {
 			if (entity == null) {
 				entity = new ItemEntity(cube.getWorld(), cube.getPos().getX(), cube.getPos().getY(), cube.getPos().getZ(), new ItemStack(Blocks.STONE));
-			}
-
-			if (itemRenderer == null) {
-				itemRenderer = new ItemEntityRenderer(MinecraftClient.getInstance().getEntityRenderManager(), MinecraftClient.getInstance().getItemRenderer()) {
-					@Override
-					public boolean shouldBob() {
-						return false;
-					}
-				};
 			}
 
 			((AccessorItemEntity) entity).setAge(ClientTickHandler.ticksInGame);
@@ -75,7 +65,7 @@ public class RenderTileCorporeaCrystalCube extends BlockEntityRenderer<TileCorpo
 			ms.translate(0F, 0.8F, 0F);
 			ms.scale(s, s, s);
 			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
-			itemRenderer.render(entity, 0, f, ms, buffers, light);
+			MinecraftClient.getInstance().getEntityRenderManager().getRenderer(entity).render(entity, 0, f, ms, buffers, light);
 			ms.pop();
 		}
 

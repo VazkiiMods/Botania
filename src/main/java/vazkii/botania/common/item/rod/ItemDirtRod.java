@@ -110,7 +110,7 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 		if (!world.isClient && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.random.nextInt(8) == 0 && tile.isEnabled()) {
 			BlockPos pos = ((BlockEntity) tile).getPos().offset(tile.getAvatarFacing());
 			BlockState state = world.getBlockState(pos);
-			if (state.getBlock().isAir(state, world, pos)) {
+			if (state.isAir()) {
 				world.setBlockState(pos, Blocks.DIRT.getDefaultState());
 				world.syncWorldEvent(2001, pos, Block.getRawIdFromState(Blocks.DIRT.getDefaultState()));
 				tile.receiveMana(-COST);

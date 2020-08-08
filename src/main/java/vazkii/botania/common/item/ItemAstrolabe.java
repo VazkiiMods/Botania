@@ -227,7 +227,7 @@ public class ItemAstrolabe extends Item {
 						BlockPos newPos = new BlockPos(xp, yp, zp);
 						BlockState state1 = player.world.getBlockState(newPos);
 						if (player.world.getWorldBorder().contains(newPos)
-								&& (state1.isAir(player.world, newPos) || state1.getMaterial().isReplaceable())) {
+								&& (state1.isAir() || state1.getMaterial().isReplaceable())) {
 							coords.add(newPos);
 						}
 					}

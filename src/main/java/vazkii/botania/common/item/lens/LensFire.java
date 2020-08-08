@@ -9,6 +9,7 @@
 package vazkii.botania.common.item.lens;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
@@ -37,7 +38,8 @@ public class LensFire extends Lens {
 				BlockPos offPos = pos.offset(dir);
 
 				Block blockAt = entity.world.getBlockState(pos).getBlock();
-				Block blockAtOffset = entity.world.getBlockState(offPos).getBlock();
+				BlockState stateAtOffset = entity.world.getBlockState(offPos);
+				Block blockAtOffset = stateAtOffset.getBlock();
 
 				if (blockAt == Blocks.NETHER_PORTAL) {
 					entity.world.setBlockState(pos, Blocks.AIR.getDefaultState());
@@ -48,7 +50,7 @@ public class LensFire extends Lens {
 					TileIncensePlate plate = (TileIncensePlate) entity.world.getBlockEntity(pos);
 					plate.ignite();
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
-				} else if (blockAtOffset.isAir(entity.world.getBlockState(offPos), entity.world, offPos)) {
+				} else if (stateAtOffset.isAir()) {
 					entity.world.setBlockState(offPos, Blocks.FIRE.getDefaultState());
 				}
 			}

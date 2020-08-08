@@ -38,7 +38,7 @@ public class TrueGuardianKiller implements LootCondition {
 
 	public static class Serializer implements JsonSerializer<TrueGuardianKiller> {
 		@Override
-		public void func_230424_a_(JsonObject json, TrueGuardianKiller condition, JsonSerializationContext ctx) {}
+		public void toJson(JsonObject json, TrueGuardianKiller condition, JsonSerializationContext ctx) {}
 
 		@Override
 		public TrueGuardianKiller fromJson(JsonObject json, JsonDeserializationContext ctx) {

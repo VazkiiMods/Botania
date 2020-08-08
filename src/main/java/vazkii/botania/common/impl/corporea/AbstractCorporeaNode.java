@@ -52,20 +52,20 @@ public abstract class AbstractCorporeaNode implements ICorporeaNode {
 	 * Used when performing extractions with {@link #extractItems}. Not necessary for {@link #countItems}.
 	 */
 	protected static Collection<ItemStack> breakDownBigStack(ItemStack stack) {
-		if (stack.getCount() < stack.getMaxStackSize()) {
+		if (stack.getCount() < stack.getMaxCount()) {
 			return Collections.singleton(stack);
 		}
 
 		List<ItemStack> stacks = new ArrayList<>();
 
-		int additionalStacks = stack.getCount() / stack.getMaxStackSize();
+		int additionalStacks = stack.getCount() / stack.getMaxCount();
 		ItemStack fullStack = stack.copy();
-		fullStack.setCount(stack.getMaxStackSize());
+		fullStack.setCount(stack.getMaxCount());
 		for (int i = 0; i < additionalStacks; i++) {
 			stacks.add(fullStack.copy());
 		}
 
-		int lastStackSize = stack.getCount() % stack.getMaxStackSize();
+		int lastStackSize = stack.getCount() % stack.getMaxCount();
 		ItemStack lastStack = stack.copy();
 		lastStack.setCount(lastStackSize);
 		stacks.add(lastStack);

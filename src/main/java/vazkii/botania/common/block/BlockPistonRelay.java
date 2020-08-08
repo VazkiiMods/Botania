@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
@@ -84,19 +85,27 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 	}
 
 	private BlockEntity getTeAt(GlobalPos key) {
-		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
-		if (server == null) {
-			return null;
+		Object game = FabricLoader.getInstance().getGameInstance();
+		if (game instanceof MinecraftServer) {
+			MinecraftServer server = (MinecraftServer) game;
+			World world = server.getWorld(key.getDimension());
+			if (world != null) {
+				return world.getBlockEntity(key.getPos());
+			}
 		}
-		return server.getWorld(key.getDimension()).getBlockEntity(key.getPos());
+		return null;
 	}
 
 	private BlockState getStateAt(GlobalPos key) {
-		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
-		if (server == null) {
-			return Blocks.AIR.getDefaultState();
+		Object game = FabricLoader.getInstance().getGameInstance();
+		if (game instanceof MinecraftServer) {
+			MinecraftServer server = (MinecraftServer) game;
+			World world = server.getWorld(key.getDimension());
+			if (world != null) {
+				return world.getBlockState(key.getPos());
+			}
 		}
-		return server.getWorld(key.getDimension()).getBlockState(key.getPos());
+		return Blocks.AIR.getDefaultState();
 	}
 
 	@Override
@@ -140,7 +149,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		public void fromTag(@Nonnull CompoundTag cmp) {
 			mapping.clear();
 
-			ListTag list = cmp.getList("list", Constants.NBT.TAG_INT_ARRAY);
+			ListTag list = cmp.getList("list", 11);
 			for (int i = 0; i < list.size(); i += 2) {
 				Tag from = list.get(i);
 				Tag to = list.get(i + 1);

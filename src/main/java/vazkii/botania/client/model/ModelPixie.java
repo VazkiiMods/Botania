@@ -81,7 +81,7 @@ public class ModelPixie extends EntityModel<EntityPixie> {
 	}
 
 	@Override
-	public void setRotationAngles(EntityPixie entity, float f, float f1, float f2, float f3, float f4) {
+	public void setAngles(EntityPixie entity, float f, float f1, float f2, float f3, float f4) {
 		evil = entity.getPixieType() == 1;
 		rightWingT.yaw = -(MathHelper.cos(f2 * 1.7F) * (float) Math.PI * 0.5F);
 		leftWingT.yaw = MathHelper.cos(f2 * 1.7F) * (float) Math.PI * 0.5F;

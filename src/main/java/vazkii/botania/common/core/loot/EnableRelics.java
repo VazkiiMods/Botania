@@ -33,7 +33,7 @@ public class EnableRelics implements LootCondition {
 
 	public static class Serializer implements JsonSerializer<EnableRelics> {
 		@Override
-		public void func_230424_a_(@Nonnull JsonObject json, @Nonnull EnableRelics value, @Nonnull JsonSerializationContext context) {}
+		public void toJson(@Nonnull JsonObject json, @Nonnull EnableRelics value, @Nonnull JsonSerializationContext context) {}
 
 		@Nonnull
 		@Override

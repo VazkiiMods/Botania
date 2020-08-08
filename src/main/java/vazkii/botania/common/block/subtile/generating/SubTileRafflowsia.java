@@ -16,7 +16,6 @@ import net.minecraft.nbt.StringTag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.common.util.Constants;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
@@ -127,7 +126,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 		super.readFromPacketNBT(cmp);
 
 		lastFlowers.clear();
-		ListTag flowerList = cmp.getList(TAG_LAST_FLOWERS, Constants.NBT.TAG_STRING);
+		ListTag flowerList = cmp.getList(TAG_LAST_FLOWERS, 8);
 		for (int i = 0; i < flowerList.size(); i++) {
 			lastFlowers.add(Registry.BLOCK.get(Identifier.tryParse(flowerList.getString(i))));
 		}

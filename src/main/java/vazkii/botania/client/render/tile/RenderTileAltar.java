@@ -10,6 +10,7 @@ package vazkii.botania.client.render.tile;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.color.world.BiomeColors;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -108,8 +109,8 @@ public class RenderTileAltar extends BlockEntityRenderer<TileAltar> {
 
 			Sprite sprite = lava ? MinecraftClient.getInstance().getBakedModelManager().getBlockModels().getModel(Blocks.LAVA.getDefaultState()).getSprite()
 					: MinecraftClient.getInstance().getBakedModelManager().getBlockModels().getModel(Blocks.WATER.getDefaultState()).getSprite();
-			int color = lava ? Fluids.LAVA.getAttributes().getColor(altar.getWorld(), altar.getPos())
-					: Fluids.WATER.getAttributes().getColor(altar.getWorld(), altar.getPos());
+			int color = lava ? -1
+				: BiomeColors.getWaterColor(altar.getWorld(), altar.getPos());
 			VertexConsumer buffer = buffers.getBuffer(TexturedRenderLayers.getEntityTranslucentCull());
 			renderIcon(ms, buffer, sprite, color, alpha, overlay, lava ? 0xF000F0 : light);
 			ms.pop();

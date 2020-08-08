@@ -36,7 +36,7 @@ public class LensLight extends Lens {
 
 				if (blockAt == ModBlocks.manaFlame) {
 					entity.world.setBlockState(rtr.getBlockPos(), Blocks.AIR.getDefaultState());
-				} else if (neighbor.isAir(entity.world, neighborPos) || neighbor.getMaterial().isReplaceable()) {
+				} else if (neighbor.isAir() || neighbor.getMaterial().isReplaceable()) {
 					entity.world.setBlockState(neighborPos, ModBlocks.manaFlame.getDefaultState());
 					BlockEntity tile = entity.world.getBlockEntity(neighborPos);
 

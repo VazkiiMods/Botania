@@ -10,10 +10,7 @@ package vazkii.botania.client.patchouli.processor;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.recipe.CraftingRecipe;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 
@@ -45,7 +42,7 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 			if (recipe != null) {
 				recipes.add((CraftingRecipe) recipe);
 				if (shapeless) {
-					shapeless = !(recipe instanceof IShapedRecipe);
+					shapeless = !(recipe instanceof ShapedRecipe);
 				}
 				for (Ingredient ingredient : recipe.getPreviewInputs()) {
 					int size = ingredient.getMatchingStacksClient().length;
@@ -77,12 +74,12 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 			int shapedY = index / 3;
 			List<Ingredient> ingredients = new ArrayList<>();
 			for (CraftingRecipe recipe : recipes) {
-				if (recipe instanceof IShapedRecipe) {
-					IShapedRecipe<?> shaped = (IShapedRecipe<?>) recipe;
-					if (shaped.getRecipeWidth() < shapedX + 1) {
+				if (recipe instanceof ShapedRecipe) {
+					ShapedRecipe shaped = (ShapedRecipe) recipe;
+					if (shaped.getWidth() < shapedX + 1) {
 						ingredients.add(Ingredient.EMPTY);
 					} else {
-						int realIndex = index - (shapedY * (3 - shaped.getRecipeWidth()));
+						int realIndex = index - (shapedY * (3 - shaped.getWidth()));
 						DefaultedList<Ingredient> list = recipe.getPreviewInputs();
 						ingredients.add(list.size() > realIndex ? list.get(realIndex) : Ingredient.EMPTY);
 					}

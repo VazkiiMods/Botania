@@ -8,8 +8,11 @@
  */
 package vazkii.botania.common.integration.corporea;
 
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SidedInventory;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;
@@ -27,10 +30,10 @@ public class VanillaNodeDetector implements ICorporeaNodeDetector {
 	@Nullable
 	@Override
 	public ICorporeaNode getNode(World world, ICorporeaSpark spark) {
-		TileEntity te = world.getTileEntity(spark.getAttachPos());
-		if (te instanceof ISidedInventory) {
+		BlockEntity te = world.getBlockEntity(spark.getAttachPos());
+		if (te instanceof SidedInventory) {
 			return new ForgeCapCorporeaNode(world, spark.getAttachPos(), new SidedInvWrapper((ISidedInventory) te, Direction.UP), spark);
-		} else if (te instanceof IInventory) {
+		} else if (te instanceof Inventory) {
 			return new ForgeCapCorporeaNode(world, spark.getAttachPos(), new InvWrapper((IInventory) te), spark);
 		}
 		return null;

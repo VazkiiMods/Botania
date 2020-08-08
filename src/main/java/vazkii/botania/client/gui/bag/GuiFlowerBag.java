@@ -57,10 +57,10 @@ public class GuiFlowerBag extends HandledScreen<ContainerFlowerBag> {
 
 		for (Slot slot : handler.slots) {
 			if (slot.inventory == handler.flowerBagInv && !slot.hasStack()) {
-				DyeColor color = DyeColor.byId(slot.getSlotIndex());
+				DyeColor color = DyeColor.byId(slot.id);
 				ItemStack stack = new ItemStack(ModBlocks.getFlower(color));
-				int x = x + slot.x;
-				int y = y + slot.y;
+				int x = this.x + slot.x;
+				int y = this.y + slot.y;
 				mc.getItemRenderer().renderGuiItemIcon(stack, x, y);
 				mc.textRenderer.drawWithShadow(ms, "0", x + 11, y + 9, 0xFF6666);
 			}

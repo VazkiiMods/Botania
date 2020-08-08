@@ -10,10 +10,7 @@ package vazkii.botania.common.item;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FallingBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
@@ -150,12 +147,12 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 						if (inRange(pos_, pos, range, heightscale, pointy)) {
 							BlockState state = world.getBlockState(pos_);
 							Block block = state.getBlock();
-							if (!block.isAir(state, world, pos_) && !(block instanceof FallingBlock) && (!(block instanceof ILaputaImmobile) || ((ILaputaImmobile) block).canMove(world, pos_)) && state.getHardness(world, pos_) != -1) {
+							if (!state.isAir() && !(block instanceof FallingBlock) && (!(block instanceof ILaputaImmobile) || ((ILaputaImmobile) block).canMove(world, pos_)) && state.getHardness(world, pos_) != -1) {
 								BlockEntity tile = world.getBlockEntity(pos_);
 
-								if (tile != null) {
+								if (tile != null && block instanceof BlockEntityProvider) {
 									// Reset the TE so e.g. chests don't spawn their drops
-									BlockEntity newTile = block.createTileEntity(state, world);
+									BlockEntity newTile = ((BlockEntityProvider) block).createBlockEntity(world);
 									world.setBlockEntity(pos_, newTile);
 								}
 								world.syncWorldEvent(2001, pos_, Block.getRawIdFromState(state));
