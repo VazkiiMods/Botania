@@ -30,8 +30,10 @@ public class BlockOpenCrate extends BlockMod implements ITileEntityProvider {
 	@Override
 	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (newState.getBlock() != state.getBlock()) {
-			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
-			InventoryHelper.dropInventoryItems(world, pos, inv.getItemHandler());
+			TileEntity te = world.getTileEntity(pos);
+			if (te instanceof TileSimpleInventory) {
+				InventoryHelper.dropInventoryItems(world, pos, ((TileSimpleInventory) te).getItemHandler());
+			}
 			super.onReplaced(state, world, pos, newState, isMoving);
 		}
 	}

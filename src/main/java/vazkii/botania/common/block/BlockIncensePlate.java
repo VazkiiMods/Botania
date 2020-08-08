@@ -126,9 +126,9 @@ public class BlockIncensePlate extends BlockModWaterloggable implements ITileEnt
 	@Override
 	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
-			TileIncensePlate plate = (TileIncensePlate) world.getTileEntity(pos);
-			if (plate != null && !plate.burning) {
-				InventoryHelper.dropInventoryItems(world, pos, plate.getItemHandler());
+			TileEntity plate = world.getTileEntity(pos);
+			if (plate instanceof TileIncensePlate && !((TileIncensePlate) plate).burning) {
+				InventoryHelper.dropInventoryItems(world, pos, ((TileIncensePlate) plate).getItemHandler());
 			}
 		}
 		super.onReplaced(state, world, pos, newState, isMoving);

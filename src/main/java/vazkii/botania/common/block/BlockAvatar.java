@@ -79,8 +79,10 @@ public class BlockAvatar extends BlockModWaterloggable implements ITileEntityPro
 	@Override
 	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newstate, boolean isMoving) {
 		if (state.getBlock() != newstate.getBlock()) {
-			TileSimpleInventory inv = (TileSimpleInventory) world.getTileEntity(pos);
-			InventoryHelper.dropInventoryItems(world, pos, inv.getItemHandler());
+			TileEntity te = world.getTileEntity(pos);
+			if (te instanceof TileSimpleInventory) {
+				InventoryHelper.dropInventoryItems(world, pos, ((TileSimpleInventory) te).getItemHandler());
+			}
 			super.onReplaced(state, world, pos, newstate, isMoving);
 		}
 	}
