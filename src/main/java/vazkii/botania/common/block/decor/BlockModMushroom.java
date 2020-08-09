@@ -28,6 +28,7 @@ import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.recipe.ICustomApothecaryColor;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.helper.ColorHelper;
 
 import javax.annotation.Nonnull;
 
@@ -65,7 +66,7 @@ public class BlockModMushroom extends MushroomPlantBlock implements IHornHarvest
 	@Environment(EnvType.CLIENT)
 	@Override
 	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
-		int hex = color.getColorValue();
+		int hex = ColorHelper.getColorValue(color);
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;
@@ -91,6 +92,6 @@ public class BlockModMushroom extends MushroomPlantBlock implements IHornHarvest
 
 	@Override
 	public int getParticleColor(ItemStack stack) {
-		return color.getColorValue();
+		return ColorHelper.getColorValue(color);
 	}
 }

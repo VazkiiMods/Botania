@@ -13,6 +13,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DyeColor;
 import vazkii.botania.api.recipe.ICustomApothecaryColor;
+import vazkii.botania.common.core.helper.ColorHelper;
 
 import javax.annotation.Nonnull;
 
@@ -33,6 +34,6 @@ public class ItemPetal extends BlockItem implements ICustomApothecaryColor {
 
 	@Override
 	public int getParticleColor(ItemStack stack) {
-		return color.getColorValue();
+		return ColorHelper.getColorValue(color);
 	}
 }

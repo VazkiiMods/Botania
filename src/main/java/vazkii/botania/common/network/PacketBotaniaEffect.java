@@ -23,6 +23,7 @@ import net.minecraft.world.World;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.tile.TileTerraPlate;
+import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemTwigWand;
@@ -86,7 +87,7 @@ public class PacketBotaniaEffect {
 					switch (message.type) {
 					case PAINT_LENS: {
 						DyeColor placeColor = DyeColor.byId(message.args[0]);
-						int hex = placeColor.getColorValue();
+						int hex = ColorHelper.getColorValue(placeColor);
 						int r = (hex & 0xFF0000) >> 16;
 						int g = (hex & 0xFF00) >> 8;
 						int b = hex & 0xFF;

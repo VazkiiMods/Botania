@@ -22,6 +22,7 @@ import vazkii.botania.common.block.BlockPylon;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.helper.ColorHelper;
 
 import java.util.Random;
 
@@ -80,7 +81,7 @@ public class TilePylon extends BlockEntity implements Tickable {
 
 				Block block = world.getBlockState(pos.down()).getBlock();
 				if (block instanceof BlockModFlower) {
-					int hex = ((BlockModFlower) block).color.getColorValue();
+					int hex = ColorHelper.getColorValue(((BlockModFlower) block).color);
 					int r = (hex & 0xFF0000) >> 16;
 					int g = (hex & 0xFF00) >> 8;
 					int b = hex & 0xFF;

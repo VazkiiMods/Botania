@@ -26,6 +26,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.*;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 
@@ -134,7 +135,7 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 			return MathHelper.hsvToRgb(Botania.proxy.getWorldElapsedTicks() * 2 % 360 / 360F, 1F, 1F);
 		}
 
-		return DyeColor.byId(storedColor).getColorValue();
+		return ColorHelper.getColorValue(DyeColor.byId(storedColor));
 	}
 
 	public static int getStoredColor(ItemStack stack) {

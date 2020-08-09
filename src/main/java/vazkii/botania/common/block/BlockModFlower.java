@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.helper.ColorHelper;
 
 import javax.annotation.Nonnull;
 
@@ -76,7 +77,7 @@ public class BlockModFlower extends FlowerBlock implements Fertilizable {
 	@Environment(EnvType.CLIENT)
 	@Override
 	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
-		int hex = this.color.getColorValue();
+		int hex = ColorHelper.getColorValue(this.color);
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
 		int b = hex & 0xFF;

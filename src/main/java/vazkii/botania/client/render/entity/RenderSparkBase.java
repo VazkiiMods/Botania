@@ -11,6 +11,7 @@ package vazkii.botania.client.render.entity;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.entity.EntitySparkBase;
 
 import javax.annotation.Nonnull;
@@ -57,7 +58,7 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 		ms.push();
 		ms.translate(-0.02 + Math.sin(time / 20) * 0.2, 0.24 + Math.cos(time / 20) * 0.2, 0.005);
 		ms.scale(0.2F, 0.2F, 0.2F);
-		int starColor = tEntity.getNetwork().getColorValue() | ((int) (a * 255.0F) << 24);
+		int starColor = ColorHelper.getColorValue(tEntity.getNetwork()) | ((int) (a * 255.0F) << 24);
 		renderIcon(ms, buffer, MiscellaneousIcons.INSTANCE.corporeaIconStar, starColor);
 		ms.pop();
 

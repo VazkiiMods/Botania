@@ -11,6 +11,7 @@
     "AccessorCreeperEntity",
     "AccessorCriteria",
     "AccessorDimensionSettingsPreset",
+    "AccessorDyeColor",
     "AccessorFireBlock",
     "AccessorGoalSelector",
     "AccessorHoeItem",

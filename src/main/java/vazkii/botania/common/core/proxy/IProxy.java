@@ -8,14 +8,15 @@
  */
 package vazkii.botania.common.core.proxy;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleEffect;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.text.Text;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityDoppleganger;
@@ -35,7 +36,11 @@ public interface IProxy {
 	}
 
 	default long getWorldElapsedTicks() {
-		return ServerLifecycleHooks.getCurrentServer().getWorld(World.field_234918_g_).getGameTime();
+		Object game = FabricLoader.getInstance().getGameInstance();
+		if (game instanceof MinecraftServer) {
+			return ((MinecraftServer) game).getWorld(World.OVERWORLD).getTime();
+		}
+		return 0;
 	}
 
 	default void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, int colorOuter, int colorInner) {

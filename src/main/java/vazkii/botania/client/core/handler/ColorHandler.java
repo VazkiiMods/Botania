@@ -37,6 +37,7 @@ import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.TilePlatform;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.brew.ModBrews;
+import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.equipment.bauble.ItemBloodPendant;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
@@ -59,11 +60,11 @@ public final class ColorHandler {
 						return -1;
 					}
 
-					int color = DyeColor.WHITE.getColorValue();
+					int color = ColorHelper.getColorValue(DyeColor.WHITE);
 					if (world != null && pos != null) {
 						BlockEntity te = world.getBlockEntity(pos);
 						if (te instanceof TilePool) {
-							color = ((TilePool) te).color.getColorValue();
+							color = ColorHelper.getColorValue(((TilePool) te).color);
 						}
 					}
 					if (((BlockPool) state.getBlock()).variant == BlockPool.Variant.FABULOUS) {
@@ -86,7 +87,7 @@ public final class ColorHandler {
 		);
 
 		// Petal Block
-		blocks.register((state, world, pos, tintIndex) -> tintIndex == 0 ? ((BlockPetalBlock) state.getBlock()).color.getColorValue() : -1,
+		blocks.register((state, world, pos, tintIndex) -> tintIndex == 0 ? ColorHelper.getColorValue(((BlockPetalBlock) state.getBlock()).color) : -1,
 				ModBlocks.petalBlockWhite, ModBlocks.petalBlockOrange, ModBlocks.petalBlockMagenta, ModBlocks.petalBlockLightBlue,
 				ModBlocks.petalBlockYellow, ModBlocks.petalBlockLime, ModBlocks.petalBlockPink, ModBlocks.petalBlockGray,
 				ModBlocks.petalBlockSilver, ModBlocks.petalBlockCyan, ModBlocks.petalBlockPurple, ModBlocks.petalBlockBlue,
@@ -116,12 +117,12 @@ public final class ColorHandler {
 		items.register((s, t) -> t == 0 ? MathHelper.hsvToRgb(ClientTickHandler.ticksInGame * 2 % 360 / 360F, 0.25F, 1F) : -1,
 				ModItems.lifeEssence, ModItems.gaiaIngot);
 
-		items.register((s, t) -> t == 1 ? DyeColor.byId(ItemTwigWand.getColor1(s)).getColorValue()
-				: t == 2 ? DyeColor.byId(ItemTwigWand.getColor2(s)).getColorValue()
+		items.register((s, t) -> t == 1 ? ColorHelper.getColorValue(DyeColor.byId(ItemTwigWand.getColor1(s)))
+				: t == 2 ? ColorHelper.getColorValue(DyeColor.byId(ItemTwigWand.getColor2(s)))
 				: -1,
 				ModItems.twigWand);
 
-		ItemColorProvider petalHandler = (s, t) -> t == 0 ? ((ItemPetal) s.getItem()).color.getColorValue() : -1;
+		ItemColorProvider petalHandler = (s, t) -> t == 0 ? ColorHelper.getColorValue(((ItemPetal) s.getItem()).color) : -1;
 		for (DyeColor color : DyeColor.values()) {
 			items.register(petalHandler, ModItems.getPetal(color));
 		}

@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import vazkii.botania.mixin.AccessorDyeColor;
 
 import javax.annotation.Nullable;
 
@@ -40,6 +41,10 @@ public final class ColorHelper {
 
 	public static boolean isWool(Block b) {
 		return getWoolColor(b) != null;
+	}
+
+	public static int getColorValue(DyeColor color) {
+		return ((AccessorDyeColor) (Object) color).getColor();
 	}
 
 	private ColorHelper() {}

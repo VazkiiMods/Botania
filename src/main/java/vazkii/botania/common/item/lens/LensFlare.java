@@ -15,6 +15,7 @@ import net.minecraft.util.math.MathHelper;
 
 import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.core.helper.ColorHelper;
 
 public class LensFlare extends Lens {
 
@@ -52,7 +53,7 @@ public class LensFlare extends Lens {
 		if (storedColor == 16) {
 			hex = MathHelper.hsvToRgb(tile.getWorld().getTime() * 2 % 360 / 360F, 1F, 1F);
 		} else if (storedColor >= 0) {
-			hex = DyeColor.byId(storedColor).getColorValue();
+			hex = ColorHelper.getColorValue(DyeColor.byId(storedColor));
 		}
 
 		float r = ((hex & 0xFF0000) >> 16) / 255F;
