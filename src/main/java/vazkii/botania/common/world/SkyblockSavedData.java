@@ -67,7 +67,7 @@ public class SkyblockSavedData extends PersistentState {
 	@Override
 	public void fromTag(CompoundTag nbt) {
 		HashBiMap<IslandPos, UUID> map = HashBiMap.create();
-		for (Tag inbt : nbt.getList("Islands", Constants.NBT.TAG_COMPOUND)) {
+		for (Tag inbt : nbt.getList("Islands", 10)) {
 			CompoundTag tag = (CompoundTag) inbt;
 			map.put(IslandPos.fromTag(tag), tag.getUuid("Player"));
 		}

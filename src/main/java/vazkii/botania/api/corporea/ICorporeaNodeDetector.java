@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
  * This interface is responsible for taking a location and exposing it, if possible, to the corporea network.
  * Mods with custom storage solutions can implement this and register it using the API so that corporea supports
  * their storaage.
- * Implementations are already provided in Botania for Vanilla and Forge's interfaces.
+ * Implementations are already provided in Botania for Vanilla's interfaces.
  */
 public interface ICorporeaNodeDetector {
 	/**

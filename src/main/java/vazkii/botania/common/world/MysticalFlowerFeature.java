@@ -31,7 +31,7 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
 	}
 
 	@Override
-	public boolean func_230362_a_(@Nonnull ServerWorldAccess world, @Nonnull StructureAccessor structures, @Nonnull ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull MysticalFlowerConfig config) {
+	public boolean generate(@Nonnull ServerWorldAccess world, @Nonnull StructureAccessor structures, @Nonnull ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull MysticalFlowerConfig config) {
 		boolean any = false;
 		int dist = Math.min(8, Math.max(1, config.getFlowerPatchSize()));
 		for (int i = 0; i < config.getPatchCount(); i++) {

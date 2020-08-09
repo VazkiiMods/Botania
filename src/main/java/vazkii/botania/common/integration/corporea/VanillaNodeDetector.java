@@ -9,20 +9,16 @@
 package vazkii.botania.common.integration.corporea;
 
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraftforge.items.wrapper.InvWrapper;
-import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
 import vazkii.botania.api.corporea.ICorporeaNode;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.corporea.ICorporeaSpark;
-import vazkii.botania.common.impl.corporea.ForgeCapCorporeaNode;
+import vazkii.botania.common.impl.corporea.SidedVanillaCorporeaNode;
+import vazkii.botania.common.impl.corporea.VanillaCorporeaNode;
 
 import javax.annotation.Nullable;
 
@@ -32,9 +28,9 @@ public class VanillaNodeDetector implements ICorporeaNodeDetector {
 	public ICorporeaNode getNode(World world, ICorporeaSpark spark) {
 		BlockEntity te = world.getBlockEntity(spark.getAttachPos());
 		if (te instanceof SidedInventory) {
-			return new ForgeCapCorporeaNode(world, spark.getAttachPos(), new SidedInvWrapper((ISidedInventory) te, Direction.UP), spark);
+			return new SidedVanillaCorporeaNode(world, spark.getAttachPos(), spark, (SidedInventory) te, Direction.UP);
 		} else if (te instanceof Inventory) {
-			return new ForgeCapCorporeaNode(world, spark.getAttachPos(), new InvWrapper((IInventory) te), spark);
+			return new VanillaCorporeaNode(world, spark.getAttachPos(), (Inventory) te, spark);
 		}
 		return null;
 	}

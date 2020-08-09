@@ -36,7 +36,6 @@ public class CorporeaNodeDetectors {
 	public static void init() {
 		DETECTORS.clear();
 		DETECTORS.addAll(API_DETECTORS);
-		DETECTORS.add(new ForgeCapNodeDetector());
 		DETECTORS.add(new VanillaNodeDetector());
 	}
 
