@@ -87,11 +87,11 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 		case "mana":
 			return IVariable.wrapList(recipes.stream().mapToInt(IManaInfusionRecipe::getManaToConsume).mapToObj(IVariable::wrap).collect(Collectors.toList()));
 		case "drop":
-			ITextComponent q = new StringTextComponent("(?)").func_240699_a_(TextFormatting.BOLD);
-			return IVariable.from(new TranslationTextComponent("botaniamisc.drop").func_240702_b_(" ").func_230529_a_(q));
+			ITextComponent q = new StringTextComponent("(?)").mergeStyle(TextFormatting.BOLD);
+			return IVariable.from(new TranslationTextComponent("botaniamisc.drop").appendString(" ").append(q));
 		case "dropTip0":
 		case "dropTip1":
-			ITextComponent drop = new KeybindTextComponent("key.drop").func_240699_a_(TextFormatting.GREEN);
+			ITextComponent drop = new KeybindTextComponent("key.drop").mergeStyle(TextFormatting.GREEN);
 			return IVariable.from(new TranslationTextComponent("botaniamisc." + key, drop));
 		}
 		return null;

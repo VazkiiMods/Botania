@@ -20,8 +20,8 @@ public class ModLootModifiers {
 	public static final LootFunctionType BIND_UUID = new LootFunctionType(new BindUuid.Serializer());
 
 	public static void init() {
-		Registry.register(Registry.field_239704_ba_, prefix("true_guardian_killer"), TRUE_GUARDIAN_KILLER);
-		Registry.register(Registry.field_239704_ba_, prefix("enable_relics"), ENABLE_RELICS);
-		Registry.register(Registry.field_239694_aZ_, prefix("bind_uuid"), BIND_UUID);
+		Registry.register(Registry.LOOT_CONDITION_TYPE, prefix("true_guardian_killer"), TRUE_GUARDIAN_KILLER);
+		Registry.register(Registry.LOOT_CONDITION_TYPE, prefix("enable_relics"), ENABLE_RELICS);
+		Registry.register(Registry.LOOT_FUNCTION_TYPE, prefix("bind_uuid"), BIND_UUID);
 	}
 }

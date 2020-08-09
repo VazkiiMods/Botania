@@ -94,7 +94,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	}
 
 	static void spawnExplosionParticles(Entity item, int p) {
-		PacketHandler.sendToNearby(item.world, item.func_233580_cy_(), new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ITEM_SMOKE, item.getPosX(), item.getPosY(), item.getPosZ(), item.getEntityId(), p));
+		PacketHandler.sendToNearby(item.world, item.getPosition(), new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ITEM_SMOKE, item.getPosX(), item.getPosY(), item.getPosZ(), item.getEntityId(), p));
 	}
 
 	@Override

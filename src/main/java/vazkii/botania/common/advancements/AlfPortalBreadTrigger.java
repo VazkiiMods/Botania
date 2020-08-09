@@ -38,12 +38,12 @@ public class AlfPortalBreadTrigger extends AbstractCriterionTrigger<AlfPortalBre
 
 	@Nonnull
 	@Override
-	public AlfPortalBreadTrigger.Instance func_230241_b_(@Nonnull JsonObject json, EntityPredicate.AndPredicate playerPredicate, ConditionArrayParser conditions) {
+	public AlfPortalBreadTrigger.Instance deserializeTrigger(@Nonnull JsonObject json, EntityPredicate.AndPredicate playerPredicate, ConditionArrayParser conditions) {
 		return new AlfPortalBreadTrigger.Instance(playerPredicate, LocationPredicate.deserialize(json.get("portal_location")));
 	}
 
 	public void trigger(ServerPlayerEntity player, BlockPos portal) {
-		this.func_235959_a_(player, instance -> instance.test(player.getServerWorld(), portal));
+		this.triggerListeners(player, instance -> instance.test(player.getServerWorld(), portal));
 	}
 
 	static class Instance extends CriterionInstance {

@@ -25,6 +25,6 @@ public class MixinPlayerEntity {
 	 */
 	@Inject(at = @At("RETURN"), method = "func_234570_el_")
 	private static void addPixieAttribute(CallbackInfoReturnable<AttributeModifierMap.MutableAttribute> cir) {
-		cir.getReturnValue().func_233814_a_(PixieHandler.PIXIE_SPAWN_CHANCE);
+		cir.getReturnValue().createMutableAttribute(PixieHandler.PIXIE_SPAWN_CHANCE);
 	}
 }

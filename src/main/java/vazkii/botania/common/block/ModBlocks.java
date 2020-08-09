@@ -212,10 +212,10 @@ public final class ModBlocks {
 	public static final Block dreamwoodPatternFramed = new BlockMod(Block.Properties.from(livingwood));
 	public static final Block dreamwoodGlimmering = new BlockMod(Block.Properties.from(livingwoodGlimmering));
 
-	public static final Block manaSpreader = new BlockSpreader(BlockSpreader.Variant.MANA, Block.Properties.from(livingwood).setPropagatesDownwards(NO_SPAWN));
-	public static final Block redstoneSpreader = new BlockSpreader(BlockSpreader.Variant.REDSTONE, Block.Properties.from(livingwood).setPropagatesDownwards(NO_SPAWN));
-	public static final Block elvenSpreader = new BlockSpreader(BlockSpreader.Variant.ELVEN, Block.Properties.from(livingwood).setPropagatesDownwards(NO_SPAWN));
-	public static final Block gaiaSpreader = new BlockSpreader(BlockSpreader.Variant.GAIA, Block.Properties.from(livingwood).setPropagatesDownwards(NO_SPAWN));
+	public static final Block manaSpreader = new BlockSpreader(BlockSpreader.Variant.MANA, Block.Properties.from(livingwood).setAllowsSpawn(NO_SPAWN));
+	public static final Block redstoneSpreader = new BlockSpreader(BlockSpreader.Variant.REDSTONE, Block.Properties.from(livingwood).setAllowsSpawn(NO_SPAWN));
+	public static final Block elvenSpreader = new BlockSpreader(BlockSpreader.Variant.ELVEN, Block.Properties.from(livingwood).setAllowsSpawn(NO_SPAWN));
+	public static final Block gaiaSpreader = new BlockSpreader(BlockSpreader.Variant.GAIA, Block.Properties.from(livingwood).setAllowsSpawn(NO_SPAWN));
 
 	public static final Block manaPool = new BlockPool(BlockPool.Variant.DEFAULT, Block.Properties.from(livingrock));
 	public static final Block creativePool = new BlockPool(BlockPool.Variant.CREATIVE, Block.Properties.from(livingrock));
@@ -230,12 +230,12 @@ public final class ModBlocks {
 	public static final Block manaDiamondBlock = new BlockMod(Block.Properties.from(manasteelBlock));
 	public static final Block dragonstoneBlock = new BlockMod(Block.Properties.from(manasteelBlock));
 
-	public static final Block manaGlass = new BlockModGlass(Block.Properties.from(Blocks.GLASS).setLightLevel(s -> 15).setBlocksVision(NO_SUFFOCATION).setSuffocates(NO_SUFFOCATION).setPropagatesDownwards(NO_SPAWN));
-	public static final Block elfGlass = new BlockModGlass(Block.Properties.from(manaGlass).setBlocksVision(NO_SUFFOCATION).setSuffocates(NO_SUFFOCATION).setPropagatesDownwards(NO_SPAWN));
+	public static final Block manaGlass = new BlockModGlass(Block.Properties.from(Blocks.GLASS).setLightLevel(s -> 15).setBlocksVision(NO_SUFFOCATION).setSuffocates(NO_SUFFOCATION).setAllowsSpawn(NO_SPAWN));
+	public static final Block elfGlass = new BlockModGlass(Block.Properties.from(manaGlass).setBlocksVision(NO_SUFFOCATION).setSuffocates(NO_SUFFOCATION).setAllowsSpawn(NO_SPAWN));
 	public static final Block bifrost = new BlockBifrost(Block.Properties.create(Material.GLASS).hardnessAndResistance(-1, 0.3F)
-			.setLightLevel(s -> 15).sound(SoundType.GLASS).notSolid().setBlocksVision(NO_SUFFOCATION).setSuffocates(NO_SUFFOCATION).setPropagatesDownwards(NO_SPAWN));
+			.setLightLevel(s -> 15).sound(SoundType.GLASS).notSolid().setBlocksVision(NO_SUFFOCATION).setSuffocates(NO_SUFFOCATION).setAllowsSpawn(NO_SPAWN));
 	public static final Block bifrostPerm = new BlockBifrostPerm(Block.Properties.create(Material.GLASS).hardnessAndResistance(0.3F)
-			.setLightLevel(s -> 15).sound(SoundType.GLASS).notSolid().setBlocksVision(NO_SUFFOCATION).setSuffocates(NO_SUFFOCATION).setPropagatesDownwards(NO_SPAWN));
+			.setLightLevel(s -> 15).sound(SoundType.GLASS).notSolid().setBlocksVision(NO_SUFFOCATION).setSuffocates(NO_SUFFOCATION).setAllowsSpawn(NO_SPAWN));
 
 	public static final Block runeAltar = new BlockRuneAltar(Block.Properties.from(livingrock));
 	public static final Block enchanter = new BlockEnchanter(Block.Properties.create(Material.ROCK).hardnessAndResistance(3, 5).setLightLevel(s -> 15).sound(SoundType.STONE));
@@ -251,7 +251,7 @@ public final class ModBlocks {
 	public static final Block distributor = new BlockDistributor(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 10).sound(SoundType.STONE));
 	public static final Block manaVoid = new BlockManaVoid(Block.Properties.create(Material.ROCK).hardnessAndResistance(2, 2000).sound(SoundType.STONE));
 	public static final Block manaDetector = new BlockManaDetector(Block.Properties.from(livingrock));
-	public static final Block pistonRelay = new BlockPistonRelay(Block.Properties.create(Material.GOURD).hardnessAndResistance(2, 10).sound(SoundType.METAL).setPropagatesDownwards(NO_SPAWN));
+	public static final Block pistonRelay = new BlockPistonRelay(Block.Properties.create(Material.GOURD).hardnessAndResistance(2, 10).sound(SoundType.METAL).setAllowsSpawn(NO_SPAWN));
 	public static final Block turntable = new BlockTurntable(Block.Properties.from(livingwood));
 	public static final Block tinyPlanet = new BlockTinyPlanet(Block.Properties.create(Material.ROCK).hardnessAndResistance(20, 100).sound(SoundType.STONE));
 	public static final Block wildDrum = new BlockForestDrum(BlockForestDrum.Variant.WILD, Block.Properties.from(livingwood));
@@ -838,7 +838,7 @@ public final class ModBlocks {
 			@Nonnull
 			@Override
 			protected ItemStack dispenseStack(@Nonnull IBlockSource source, @Nonnull ItemStack stack) {
-				func_239796_a_(ArmorItem.func_226626_a_(source, stack));
+				setSuccessful(ArmorItem.func_226626_a_(source, stack));
 				return stack;
 			}
 		});

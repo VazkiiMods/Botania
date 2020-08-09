@@ -66,15 +66,15 @@ public class ItemElementiumShears extends ItemManasteelShears {
 			List<Entity> shearable = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(living.getPosX() - range, living.getPosY() - range, living.getPosZ() - range, living.getPosX() + range, living.getPosY() + range, living.getPosZ() + range), shearablePred);
 			if (shearable.size() > 0) {
 				for (Entity entity : shearable) {
-					if (entity instanceof IShearable && ((IShearable) entity).func_230262_K__()) {
-						((IShearable) entity).func_230263_a_(living.getSoundCategory());
+					if (entity instanceof IShearable && ((IShearable) entity).isShearable()) {
+						((IShearable) entity).shear(living.getSoundCategory());
 						stack.damageItem(1, living, l -> l.sendBreakAnimation(l.getActiveHand()));
 						break;
 					} else {
 						IForgeShearable target = (IForgeShearable) entity;
-						if (target.isShearable(stack, entity.world, entity.func_233580_cy_())) {
+						if (target.isShearable(stack, entity.world, entity.getPosition())) {
 							PlayerEntity player = living instanceof PlayerEntity ? (PlayerEntity) living : null;
-							List<ItemStack> drops = target.onSheared(player, stack, entity.world, entity.func_233580_cy_(), EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack));
+							List<ItemStack> drops = target.onSheared(player, stack, entity.world, entity.getPosition(), EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack));
 
 							for (ItemStack drop : drops) {
 								entity.entityDropItem(drop, 1.0F);

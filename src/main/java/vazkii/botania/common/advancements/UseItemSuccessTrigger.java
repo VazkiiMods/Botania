@@ -37,12 +37,12 @@ public class UseItemSuccessTrigger extends AbstractCriterionTrigger<UseItemSucce
 
 	@Nonnull
 	@Override
-	public UseItemSuccessTrigger.Instance func_230241_b_(@Nonnull JsonObject json, @Nonnull EntityPredicate.AndPredicate playerPred, ConditionArrayParser conditions) {
+	public UseItemSuccessTrigger.Instance deserializeTrigger(@Nonnull JsonObject json, @Nonnull EntityPredicate.AndPredicate playerPred, ConditionArrayParser conditions) {
 		return new UseItemSuccessTrigger.Instance(playerPred, ItemPredicate.deserialize(json.get("item")), LocationPredicate.deserialize(json.get("location")));
 	}
 
 	public void trigger(ServerPlayerEntity player, ItemStack stack, ServerWorld world, double x, double y, double z) {
-		func_235959_a_(player, instance -> instance.test(stack, world, x, y, z));
+		triggerListeners(player, instance -> instance.test(stack, world, x, y, z));
 	}
 
 	static class Instance extends CriterionInstance {

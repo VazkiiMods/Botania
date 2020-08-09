@@ -41,14 +41,14 @@ public class GuiFlowerBag extends ContainerScreen<ContainerFlowerBag> {
 	}
 
 	@Override
-	protected void func_230451_b_(MatrixStack ms, int mouseX, int mouseY) {
+	protected void drawGuiContainerForegroundLayer(MatrixStack ms, int mouseX, int mouseY) {
 		String s = I18n.format(ModItems.flowerBag.getTranslationKey());
 		font.drawString(ms, s, xSize / 2 - font.getStringWidth(s) / 2, 6, 4210752);
 		font.drawString(ms, I18n.format("container.inventory"), 8, ySize - 96 + 2, 4210752);
 	}
 
 	@Override
-	protected void func_230450_a_(MatrixStack ms, float partialTicks, int mouseX, int mouseY) {
+	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float partialTicks, int mouseX, int mouseY) {
 		Minecraft mc = Minecraft.getInstance();
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.getTextureManager().bindTexture(texture);

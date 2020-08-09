@@ -48,7 +48,7 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 			if (!player.world.isRemote) {
 				player.openContainer(new SimpleNamedContainerProvider((windowId, playerInv, p) -> {
 					return ChestContainer.createGeneric9X3(windowId, playerInv, p.getInventoryEnderChest());
-				}, EnderChestBlock.field_220115_d));
+				}, EnderChestBlock.CONTAINER_NAME));
 				ManaItemHandler.instance().requestManaExact(stack, player, COST_SELF, true);
 			}
 			player.playSound(SoundEvents.BLOCK_ENDER_CHEST_OPEN, 1F, 1F);
@@ -64,7 +64,7 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 				PlayerEntity other = (PlayerEntity) entity;
 				player.openContainer(new SimpleNamedContainerProvider((windowId, playerInv, p) -> {
 					return ChestContainer.createGeneric9X3(windowId, playerInv, other.getInventoryEnderChest());
-				}, EnderChestBlock.field_220115_d));
+				}, EnderChestBlock.CONTAINER_NAME));
 			}
 			ManaItemHandler.instance().requestManaExact(stack, player, COST_OTHER, true);
 			player.playSound(SoundEvents.BLOCK_ENDER_CHEST_OPEN, 1F, 1F);

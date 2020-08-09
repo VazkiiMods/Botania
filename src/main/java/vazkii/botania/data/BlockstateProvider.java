@@ -499,10 +499,10 @@ public class BlockstateProvider extends BlockStateProvider {
 	}
 
 	private static final Map<Direction, EnumProperty<WallHeight>> DIRECTION_TO_WALL_SIDE = ImmutableMap.<Direction, EnumProperty<WallHeight>>builder()
-			.put(Direction.NORTH, WallBlock.field_235613_c_)
-			.put(Direction.EAST, WallBlock.field_235612_b_)
-			.put(Direction.SOUTH, WallBlock.field_235614_d_)
-			.put(Direction.WEST, WallBlock.field_235615_e_).build();
+			.put(Direction.NORTH, WallBlock.WALL_HEIGHT_NORTH)
+			.put(Direction.EAST, WallBlock.WALL_HEIGHT_EAST)
+			.put(Direction.SOUTH, WallBlock.WALL_HEIGHT_SOUTH)
+			.put(Direction.WEST, WallBlock.WALL_HEIGHT_WEST).build();
 
 	// Copy of super but fixed to account for blockstate property changes in 1.16
 	private void fixedWallBlock(WallBlock block, ResourceLocation tex) {

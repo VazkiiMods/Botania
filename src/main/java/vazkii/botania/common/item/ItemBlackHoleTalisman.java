@@ -178,9 +178,9 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 		IFormattableTextComponent cand = super.getDisplayName(stack).deepCopy();
 
 		if (!bstack.isEmpty()) {
-			cand.func_240702_b_(" (");
-			cand.func_230529_a_(bstack.getDisplayName().deepCopy().func_240699_a_(TextFormatting.GREEN));
-			cand.func_240702_b_(")");
+			cand.appendString(" (");
+			cand.append(bstack.getDisplayName().deepCopy().mergeStyle(TextFormatting.GREEN));
+			cand.appendString(")");
 		}
 
 		return cand;
@@ -226,7 +226,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 		Block block = getBlock(stack);
 		if (block != null) {
 			int count = getBlockCount(stack);
-			stacks.add(new StringTextComponent(count + " ").func_230529_a_(new ItemStack(block).getDisplayName()).func_240699_a_(TextFormatting.GRAY));
+			stacks.add(new StringTextComponent(count + " ").append(new ItemStack(block).getDisplayName()).mergeStyle(TextFormatting.GRAY));
 		}
 
 		if (ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false)) {

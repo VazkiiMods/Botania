@@ -216,13 +216,13 @@ public final class ModItems {
 	public static final Item elementiumAxe = new ItemElementiumAxe(unstackable());
 	public static final Item elementiumSword = new ItemElementiumSword(unstackable());
 	public static final Item elementiumShears = new ItemElementiumShears(unstackable());
-	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable().func_234689_a_().rarity(Rarity.UNCOMMON));
-	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlotType.CHEST, unstackable().func_234689_a_().rarity(Rarity.UNCOMMON));
-	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlotType.LEGS, unstackable().func_234689_a_().rarity(Rarity.UNCOMMON));
-	public static final Item terrasteelBoots = new ItemTerrasteelArmor(EquipmentSlotType.FEET, unstackable().func_234689_a_().rarity(Rarity.UNCOMMON));
-	public static final Item terraPick = new ItemTerraPick(unstackable().func_234689_a_().rarity(Rarity.UNCOMMON));
-	public static final Item terraAxe = new ItemTerraAxe(unstackable().func_234689_a_().rarity(Rarity.UNCOMMON));
-	public static final Item terraSword = new ItemTerraSword(unstackable().func_234689_a_().rarity(Rarity.UNCOMMON));
+	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable().isBurnable().rarity(Rarity.UNCOMMON));
+	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlotType.CHEST, unstackable().isBurnable().rarity(Rarity.UNCOMMON));
+	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlotType.LEGS, unstackable().isBurnable().rarity(Rarity.UNCOMMON));
+	public static final Item terrasteelBoots = new ItemTerrasteelArmor(EquipmentSlotType.FEET, unstackable().isBurnable().rarity(Rarity.UNCOMMON));
+	public static final Item terraPick = new ItemTerraPick(unstackable().isBurnable().rarity(Rarity.UNCOMMON));
+	public static final Item terraAxe = new ItemTerraAxe(unstackable().isBurnable().rarity(Rarity.UNCOMMON));
+	public static final Item terraSword = new ItemTerraSword(unstackable().isBurnable().rarity(Rarity.UNCOMMON));
 	public static final Item starSword = new ItemStarSword(unstackable().rarity(Rarity.UNCOMMON));
 	public static final Item thunderSword = new ItemThunderSword(unstackable().rarity(Rarity.UNCOMMON));
 	public static final Item manaweaveHelm = new ItemManaweaveHelm(unstackable());
@@ -328,13 +328,13 @@ public final class ModItems {
 	public static final Item craftPatternDonut = new ItemCraftPattern(CratePattern.CRAFTY_DONUT, unstackable());
 
 	// Guardian of Gaia drops
-	public static final Item dice = new ItemDice(unstackable().func_234689_a_().rarity(BotaniaAPI.instance().getRelicRarity()));
-	public static final Item infiniteFruit = new ItemInfiniteFruit(unstackable().func_234689_a_().rarity(BotaniaAPI.instance().getRelicRarity()));
-	public static final Item kingKey = new ItemKingKey(unstackable().func_234689_a_().rarity(BotaniaAPI.instance().getRelicRarity()));
-	public static final Item flugelEye = new ItemFlugelEye(unstackable().func_234689_a_().rarity(BotaniaAPI.instance().getRelicRarity()));
-	public static final Item thorRing = new ItemThorRing(unstackable().func_234689_a_().rarity(BotaniaAPI.instance().getRelicRarity()));
-	public static final Item odinRing = new ItemOdinRing(unstackable().func_234689_a_().rarity(BotaniaAPI.instance().getRelicRarity()));
-	public static final Item lokiRing = new ItemLokiRing(unstackable().func_234689_a_().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item dice = new ItemDice(unstackable().isBurnable().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item infiniteFruit = new ItemInfiniteFruit(unstackable().isBurnable().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item kingKey = new ItemKingKey(unstackable().isBurnable().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item flugelEye = new ItemFlugelEye(unstackable().isBurnable().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item thorRing = new ItemThorRing(unstackable().isBurnable().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item odinRing = new ItemOdinRing(unstackable().isBurnable().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item lokiRing = new ItemLokiRing(unstackable().isBurnable().rarity(BotaniaAPI.instance().getRelicRarity()));
 	public static final Item recordGaia1 = new ItemModRecord(1, ModSounds.gaiaMusic1, unstackable().rarity(Rarity.RARE));
 	public static final Item recordGaia2 = new ItemModRecord(1, ModSounds.gaiaMusic2, unstackable().rarity(Rarity.RARE));
 	public static final Item ancientWillAhrim = new ItemAncientWill(IAncientWillContainer.AncientWillType.AHRIM, unstackable().rarity(Rarity.UNCOMMON));

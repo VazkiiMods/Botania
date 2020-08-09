@@ -46,7 +46,7 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 	public enum Variant {
 		ABSTRUSE(false, (pos, context) -> {
 			Entity e = context.getEntity();
-			return (e != null && e.getPosY() > pos.getY() + 0.9 && !context.func_225581_b_());
+			return (e != null && e.getPosY() > pos.getY() + 0.9 && !context.getPosY());
 		}),
 		SPECTRAL(false, (pos, context) -> false),
 		INFRANGIBLE(true, (pos, context) -> true);

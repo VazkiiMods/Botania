@@ -216,7 +216,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 	}
 
 	private static BlockState rotate(BlockState old, Direction.Axis axis) {
-		for (Property<?> prop : old.func_235904_r_()) {
+		for (Property<?> prop : old.getProperties()) {
 			if (prop.getName().equals("facing") && prop.getValueClass() == Direction.class) {
 				@SuppressWarnings("unchecked")
 				Property<Direction> facingProp = (Property<Direction>) prop;
@@ -348,15 +348,15 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
-		list.add(new TranslationTextComponent(getModeString(stack)).func_240699_a_(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent(getModeString(stack)).mergeStyle(TextFormatting.GRAY));
 	}
 
 	@Override
 	public ITextComponent getHighlightTip(ItemStack stack, ITextComponent displayName) {
 		ITextComponent mode = new StringTextComponent(" (")
-				.func_230529_a_(new TranslationTextComponent(getModeString(stack)).func_240699_a_(TextFormatting.DARK_GREEN))
-				.func_240702_b_(")");
-		return displayName.deepCopy().func_230529_a_(mode);
+				.append(new TranslationTextComponent(getModeString(stack)).mergeStyle(TextFormatting.DARK_GREEN))
+				.appendString(")");
+		return displayName.deepCopy().append(mode);
 	}
 
 	public static ItemStack forColors(int color1, int color2) {

@@ -36,7 +36,7 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 
 		List<PlayerEntity> players = getWorld().getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 		for (PlayerEntity player : players) {
-			if (ExperienceHelper.getPlayerXP(player) >= 1 && player.func_233570_aj_()) {
+			if (ExperienceHelper.getPlayerXP(player) >= 1 && player.isOnGround()) {
 				ExperienceHelper.drainPlayerXP(player, 1);
 				addMana(50);
 				sync();

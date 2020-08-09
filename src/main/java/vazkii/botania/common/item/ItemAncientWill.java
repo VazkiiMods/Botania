@@ -34,7 +34,7 @@ public class ItemAncientWill extends Item {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flag) {
-		list.add(new TranslationTextComponent("botaniamisc.craftToAddWill").func_240699_a_(TextFormatting.GREEN));
-		list.add(new TranslationTextComponent("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".shortDesc").func_240699_a_(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("botaniamisc.craftToAddWill").mergeStyle(TextFormatting.GREEN));
+		list.add(new TranslationTextComponent("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".shortDesc").mergeStyle(TextFormatting.GRAY));
 	}
 }

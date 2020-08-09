@@ -92,7 +92,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
 		int level = getShardLevel(stack);
 		ITextComponent levelLoc = new TranslationTextComponent("botania.roman" + (level + 1));
-		list.add(new TranslationTextComponent("botaniamisc.shardLevel", levelLoc).func_240699_a_(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("botaniamisc.shardLevel", levelLoc).mergeStyle(TextFormatting.GRAY));
 	}
 
 	@Nonnull
@@ -263,7 +263,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 						state = NBTUtil.readBlockState(lens.getTag().getCompound(TAG_STATE));
 					}
 
-					if (entity.world.func_230315_m_().func_236040_e_() && state.func_235901_b_(BlockStateProperties.WATERLOGGED)) {
+					if (entity.world.func_230315_m_().func_236040_e_() && state.hasProperty(BlockStateProperties.WATERLOGGED)) {
 						state = state.with(BlockStateProperties.WATERLOGGED, false);
 					}
 

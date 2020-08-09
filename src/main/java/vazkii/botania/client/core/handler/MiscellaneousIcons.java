@@ -92,8 +92,8 @@ public class MiscellaneousIcons {
 		materials.add(RenderLexicon.ELVEN_TEXTURE);
 		for (BannerPattern pattern : BannerPattern.values()) {
 			if (pattern.getFileName().startsWith(LibMisc.MOD_ID)) {
-				materials.add(new RenderMaterial(Atlases.SHIELD_ATLAS, pattern.func_226957_a_(false)));
-				materials.add(new RenderMaterial(Atlases.BANNER_ATLAS, pattern.func_226957_a_(true)));
+				materials.add(new RenderMaterial(Atlases.SHIELD_ATLAS, pattern.getTextureLocation(false)));
+				materials.add(new RenderMaterial(Atlases.BANNER_ATLAS, pattern.getTextureLocation(true)));
 			}
 		}
 		ModelLoader.addSpecialModel(prefix("icon/goldfish"));

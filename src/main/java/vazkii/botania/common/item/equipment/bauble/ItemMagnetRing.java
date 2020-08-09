@@ -113,7 +113,7 @@ public class ItemMagnetRing extends ItemBauble {
 			return false;
 		}
 
-		BlockPos pos = item.func_233580_cy_();
+		BlockPos pos = item.getPosition();
 
 		if (ModTags.Blocks.MAGNET_RING_BLACKLIST.contains(item.world.getBlockState(pos).getBlock())) {
 			return false;

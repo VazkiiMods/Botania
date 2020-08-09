@@ -193,8 +193,8 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 					name = lensAt.getDisplayName();
 				}
 
-				IFormattableTextComponent tip = new StringTextComponent(" - ").func_230529_a_(name);
-				tip.func_240699_a_(i == pos ? TextFormatting.GREEN : TextFormatting.GRAY);
+				IFormattableTextComponent tip = new StringTextComponent(" - ").append(name);
+				tip.mergeStyle(i == pos ? TextFormatting.GREEN : TextFormatting.GRAY);
 				tooltip.add(tip);
 			}
 		}
@@ -206,9 +206,9 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 		ItemStack lens = getLens(stack);
 		IFormattableTextComponent cmp = super.getDisplayName(stack).deepCopy();
 		if (!lens.isEmpty()) {
-			cmp.func_240702_b_(" (");
-			cmp.func_230529_a_(lens.getDisplayName().deepCopy().func_240699_a_(TextFormatting.GREEN));
-			cmp.func_240702_b_(")");
+			cmp.appendString(" (");
+			cmp.append(lens.getDisplayName().deepCopy().mergeStyle(TextFormatting.GREEN));
+			cmp.appendString(")");
 		}
 		return cmp;
 	}

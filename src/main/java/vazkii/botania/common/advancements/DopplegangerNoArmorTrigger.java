@@ -39,12 +39,12 @@ public class DopplegangerNoArmorTrigger extends AbstractCriterionTrigger<Doppleg
 
 	@Nonnull
 	@Override
-	public DopplegangerNoArmorTrigger.Instance func_230241_b_(@Nonnull JsonObject json, EntityPredicate.AndPredicate playerPred, ConditionArrayParser conditions) {
+	public DopplegangerNoArmorTrigger.Instance deserializeTrigger(@Nonnull JsonObject json, EntityPredicate.AndPredicate playerPred, ConditionArrayParser conditions) {
 		return new DopplegangerNoArmorTrigger.Instance(playerPred, EntityPredicate.deserialize(json.get("guardian")), DamageSourcePredicate.deserialize(json.get("killing_blow")));
 	}
 
 	public void trigger(ServerPlayerEntity player, EntityDoppleganger guardian, DamageSource src) {
-		func_235959_a_(player, instance -> instance.test(player, guardian, src));
+		triggerListeners(player, instance -> instance.test(player, guardian, src));
 	}
 
 	static class Instance extends CriterionInstance {

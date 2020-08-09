@@ -35,8 +35,8 @@ public class LensRedirect extends Lens {
 			if (tile instanceof IDirectioned) {
 				if (!burst.isFake()) {
 					IDirectioned redir = (IDirectioned) tile;
-					Vector3d tileVec = Vector3d.func_237489_a_(tile.getPos());
-					Vector3d sourceVec = Vector3d.func_237489_a_(coords);
+					Vector3d tileVec = Vector3d.copyCentered(tile.getPos());
+					Vector3d sourceVec = Vector3d.copyCentered(coords);
 
 					AxisAlignedBB axis;
 					VoxelShape collideShape = entity.world.getBlockState(coords).getCollisionShape(entity.world, coords);

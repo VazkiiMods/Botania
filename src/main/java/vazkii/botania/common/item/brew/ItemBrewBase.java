@@ -126,7 +126,7 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	@Override
 	public ITextComponent getDisplayName(@Nonnull ItemStack stack) {
 		return new TranslationTextComponent(getTranslationKey(), new TranslationTextComponent(getBrew(stack).getTranslationKey(stack)),
-				new StringTextComponent(Integer.toString(getSwigsLeft(stack))).func_240699_a_(TextFormatting.BOLD));
+				new StringTextComponent(Integer.toString(getSwigsLeft(stack))).mergeStyle(TextFormatting.BOLD));
 	}
 
 	// [VanillaCopy] PotionUtils.addPotionTooltip, with custom effect list
@@ -134,7 +134,7 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	public static void addPotionTooltip(List<EffectInstance> list, List<ITextComponent> lores, float durationFactor) {
 		List<Pair<Attribute, AttributeModifier>> list1 = Lists.newArrayList();
 		if (list.isEmpty()) {
-			lores.add((new TranslationTextComponent("effect.none")).func_240699_a_(TextFormatting.GRAY));
+			lores.add((new TranslationTextComponent("effect.none")).mergeStyle(TextFormatting.GRAY));
 		} else {
 			for (EffectInstance effectinstance : list) {
 				IFormattableTextComponent iformattabletextcomponent = new TranslationTextComponent(effectinstance.getEffectName());
@@ -149,20 +149,20 @@ public class ItemBrewBase extends Item implements IBrewItem {
 				}
 
 				if (effectinstance.getAmplifier() > 0) {
-					iformattabletextcomponent.func_240702_b_(" ").func_230529_a_(new TranslationTextComponent("potion.potency." + effectinstance.getAmplifier()));
+					iformattabletextcomponent.appendString(" ").append(new TranslationTextComponent("potion.potency." + effectinstance.getAmplifier()));
 				}
 
 				if (effectinstance.getDuration() > 20) {
-					iformattabletextcomponent.func_240702_b_(" (").func_240702_b_(EffectUtils.getPotionDurationString(effectinstance, durationFactor)).func_240702_b_(")");
+					iformattabletextcomponent.appendString(" (").appendString(EffectUtils.getPotionDurationString(effectinstance, durationFactor)).appendString(")");
 				}
 
-				lores.add(iformattabletextcomponent.func_240699_a_(effect.getEffectType().getColor()));
+				lores.add(iformattabletextcomponent.mergeStyle(effect.getEffectType().getColor()));
 			}
 		}
 
 		if (!list1.isEmpty()) {
 			lores.add(StringTextComponent.EMPTY);
-			lores.add((new TranslationTextComponent("potion.whenDrank")).func_240699_a_(TextFormatting.DARK_PURPLE));
+			lores.add((new TranslationTextComponent("potion.whenDrank")).mergeStyle(TextFormatting.DARK_PURPLE));
 
 			for (Pair<Attribute, AttributeModifier> pair : list1) {
 				AttributeModifier attributemodifier2 = pair.getSecond();
@@ -175,10 +175,10 @@ public class ItemBrewBase extends Item implements IBrewItem {
 				}
 
 				if (d0 > 0.0D) {
-					lores.add((new TranslationTextComponent("attribute.modifier.plus." + attributemodifier2.getOperation().getId(), ItemStack.DECIMALFORMAT.format(d1), new TranslationTextComponent(pair.getFirst().func_233754_c_()))).func_240699_a_(TextFormatting.BLUE));
+					lores.add((new TranslationTextComponent("attribute.modifier.plus." + attributemodifier2.getOperation().getId(), ItemStack.DECIMALFORMAT.format(d1), new TranslationTextComponent(pair.getFirst().func_233754_c_()))).mergeStyle(TextFormatting.BLUE));
 				} else if (d0 < 0.0D) {
 					d1 = d1 * -1.0D;
-					lores.add((new TranslationTextComponent("attribute.modifier.take." + attributemodifier2.getOperation().getId(), ItemStack.DECIMALFORMAT.format(d1), new TranslationTextComponent(pair.getFirst().func_233754_c_()))).func_240699_a_(TextFormatting.RED));
+					lores.add((new TranslationTextComponent("attribute.modifier.take." + attributemodifier2.getOperation().getId(), ItemStack.DECIMALFORMAT.format(d1), new TranslationTextComponent(pair.getFirst().func_233754_c_()))).mergeStyle(TextFormatting.RED));
 				}
 			}
 		}

@@ -645,8 +645,8 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 
 	@Override
 	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
-		Vector3d thisVec = Vector3d.func_237489_a_(getPos());
-		Vector3d blockVec = Vector3d.func_237489_a_(pos);
+		Vector3d thisVec = Vector3d.copyCentered(getPos());
+		Vector3d blockVec = Vector3d.copyCentered(pos);
 
 		VoxelShape shape = player.world.getBlockState(pos).getShape(player.world, pos);
 		AxisAlignedBB axis = shape.isEmpty() ? new AxisAlignedBB(pos) : shape.getBoundingBox().offset(pos);

@@ -158,7 +158,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		//check difficulty
 		if (world.getDifficulty() == Difficulty.PEACEFUL) {
 			if (!world.isRemote) {
-				player.sendMessage(new TranslationTextComponent("botaniamisc.peacefulNoob").func_240699_a_(TextFormatting.RED), Util.DUMMY_UUID);
+				player.sendMessage(new TranslationTextComponent("botaniamisc.peacefulNoob").mergeStyle(TextFormatting.RED), Util.DUMMY_UUID);
 			}
 			return false;
 		}
@@ -169,7 +169,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 			if (world.isRemote) {
 				warnInvalidBlocks(world, invalidPylonBlocks);
 			} else {
-				player.sendMessage(new TranslationTextComponent("botaniamisc.needsCatalysts").func_240699_a_(TextFormatting.RED), Util.DUMMY_UUID);
+				player.sendMessage(new TranslationTextComponent("botaniamisc.needsCatalysts").mergeStyle(TextFormatting.RED), Util.DUMMY_UUID);
 			}
 
 			return false;
@@ -184,7 +184,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 				PacketHandler.sendTo((ServerPlayerEntity) player,
 						new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
 
-				player.sendMessage(new TranslationTextComponent("botaniamisc.badArena").func_240699_a_(TextFormatting.RED), Util.DUMMY_UUID);
+				player.sendMessage(new TranslationTextComponent("botaniamisc.badArena").mergeStyle(TextFormatting.RED), Util.DUMMY_UUID);
 			}
 
 			return false;
@@ -210,7 +210,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 			}
 
 			e.playSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 10F, 0.1F);
-			e.onInitialSpawn(world, world.getDifficultyForLocation(e.func_233580_cy_()), SpawnReason.EVENT, null, null);
+			e.onInitialSpawn(world, world.getDifficultyForLocation(e.getPosition()), SpawnReason.EVENT, null, null);
 			world.addEntity(e);
 		}
 
@@ -624,7 +624,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 							EntityPixie pixie = new EntityPixie(world);
 							pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 							pixie.setPosition(getPosX() + getWidth() / 2, getPosY() + 2, getPosZ() + getWidth() / 2);
-							pixie.onInitialSpawn(world, world.getDifficultyForLocation(pixie.func_233580_cy_()),
+							pixie.onInitialSpawn(world, world.getDifficultyForLocation(pixie.getPosition()),
 									SpawnReason.MOB_SUMMONED, null, null);
 							world.addEntity(pixie);
 						}
@@ -634,13 +634,13 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 				}
 
 				if (entity != null) {
-					if (!entity.func_230279_az_()) {
+					if (!entity.isImmuneToFire()) {
 						entity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE, 600, 0));
 					}
 					float range = 6F;
 					entity.setPosition(getPosX() + 0.5 + Math.random() * range - range / 2, getPosY() - 1,
 							getPosZ() + 0.5 + Math.random() * range - range / 2);
-					entity.onInitialSpawn(world, world.getDifficultyForLocation(entity.func_233580_cy_()),
+					entity.onInitialSpawn(world, world.getDifficultyForLocation(entity.getPosition()),
 							SpawnReason.MOB_SUMMONED, null, null);
 					if (entity instanceof WitherSkeletonEntity && hardMode) {
 						entity.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.elementiumSword));
@@ -775,7 +775,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 								EntityPixie pixie = new EntityPixie(world);
 								pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 								pixie.setPosition(getPosX() + getWidth() / 2, getPosY() + 2, getPosZ() + getWidth() / 2);
-								pixie.onInitialSpawn(world, world.getDifficultyForLocation(pixie.func_233580_cy_()),
+								pixie.onInitialSpawn(world, world.getDifficultyForLocation(pixie.getPosition()),
 										SpawnReason.MOB_SUMMONED, null, null);
 								world.addEntity(pixie);
 							}

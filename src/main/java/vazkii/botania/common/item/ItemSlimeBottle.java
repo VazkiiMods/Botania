@@ -26,7 +26,7 @@ public class ItemSlimeBottle extends Item {
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int something, boolean somethingelse) {
 		if (!world.isRemote) {
-			boolean slime = SubTileNarslimmus.isSlimeChunk(world, entity.func_233580_cy_());
+			boolean slime = SubTileNarslimmus.isSlimeChunk(world, entity.getPosition());
 			ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, slime);
 		}
 	}

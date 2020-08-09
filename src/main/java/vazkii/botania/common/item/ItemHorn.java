@@ -62,7 +62,7 @@ public class ItemHorn extends Item {
 	public void onUse(World world, @Nonnull LivingEntity player, @Nonnull ItemStack stack, int time) {
 		if (!world.isRemote) {
 			if (time != getUseDuration(stack) && time % 5 == 0) {
-				breakGrass(world, stack, player.func_233580_cy_());
+				breakGrass(world, stack, player.getPosition());
 			}
 			world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.BLOCK_NOTE_BLOCK_BASS, SoundCategory.BLOCKS, 1F, 0.001F);
 		}

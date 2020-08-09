@@ -115,7 +115,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<ITextComponent> list) {
-		list.add(new TranslationTextComponent("botania.armorset.manaweave.desc0").func_240699_a_(TextFormatting.GRAY));
-		list.add(new TranslationTextComponent("botania.armorset.manaweave.desc1").func_240699_a_(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("botania.armorset.manaweave.desc0").mergeStyle(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("botania.armorset.manaweave.desc1").mergeStyle(TextFormatting.GRAY));
 	}
 }

@@ -35,12 +35,12 @@ public class CorporeaRequestTrigger extends AbstractCriterionTrigger<CorporeaReq
 
 	@Nonnull
 	@Override
-	protected Instance func_230241_b_(JsonObject json, EntityPredicate.AndPredicate playerPredicate, ConditionArrayParser conditions) {
+	protected Instance deserializeTrigger(JsonObject json, EntityPredicate.AndPredicate playerPredicate, ConditionArrayParser conditions) {
 		return new Instance(playerPredicate, MinMaxBounds.IntBound.fromJson(json.get("extracted")), LocationPredicate.deserialize(json.get("location")));
 	}
 
 	public void trigger(ServerPlayerEntity player, ServerWorld world, BlockPos pos, int count) {
-		this.func_235959_a_(player, instance -> instance.test(world, pos, count));
+		this.triggerListeners(player, instance -> instance.test(world, pos, count));
 	}
 
 	static class Instance extends CriterionInstance {

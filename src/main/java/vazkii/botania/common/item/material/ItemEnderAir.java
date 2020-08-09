@@ -36,7 +36,7 @@ public class ItemEnderAir extends Item {
 		ItemStack stack = event.getItemStack();
 		World world = event.getWorld();
 
-		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.func_234922_V_() == DimensionType.field_236001_e_) {
+		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.func_234922_V_() == DimensionType.THE_END) {
 			if (!isClearFromDragonBreath(world, event.getPlayer().getBoundingBox().grow(3.5D))) {
 				return;
 			}

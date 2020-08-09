@@ -129,7 +129,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 				if (rtr.getType() != RayTraceResult.Type.BLOCK) {
 					playerLook = player.getLookVec().scale(64).add(player.getPositionVec());
 				} else {
-					playerLook = Vector3d.func_237489_a_(rtr.getPos());
+					playerLook = Vector3d.copyCentered(rtr.getPos());
 				}
 
 				Vector3 thisVec = Vector3.fromEntityCenter(this);

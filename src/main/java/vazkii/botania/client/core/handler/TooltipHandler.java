@@ -28,8 +28,8 @@ public final class TooltipHandler {
 	}
 
 	public static ITextComponent getShiftInfoTooltip() {
-		ITextComponent shift = new StringTextComponent("SHIFT").func_240699_a_(TextFormatting.AQUA);
-		return new TranslationTextComponent("botaniamisc.shiftinfo", shift).func_240699_a_(TextFormatting.GRAY);
+		ITextComponent shift = new StringTextComponent("SHIFT").mergeStyle(TextFormatting.AQUA);
+		return new TranslationTextComponent("botaniamisc.shiftinfo", shift).mergeStyle(TextFormatting.GRAY);
 	}
 
 	public static void addOnShift(List<ITextComponent> tooltip, Runnable lambda) {

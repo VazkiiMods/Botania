@@ -40,7 +40,7 @@ public class GuiBaubleBox extends ContainerScreen<ContainerBaubleBox> {
 	}
 
 	@Override
-	protected void func_230450_a_(MatrixStack ms, float partialTicks, int mouseX, int mouseY) {
+	protected void drawGuiContainerBackgroundLayer(MatrixStack ms, float partialTicks, int mouseX, int mouseY) {
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		Minecraft.getInstance().getTextureManager().bindTexture(texture);
 		blit(ms, guiLeft, guiTop, 0, 0, xSize, ySize);

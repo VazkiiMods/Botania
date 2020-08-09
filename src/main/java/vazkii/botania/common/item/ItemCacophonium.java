@@ -101,9 +101,9 @@ public class ItemCacophonium extends Item {
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
 		if (isDOIT(stack)) {
-			list.add(new TranslationTextComponent("botaniamisc.justDoIt").func_240699_a_(TextFormatting.GRAY));
+			list.add(new TranslationTextComponent("botaniamisc.justDoIt").mergeStyle(TextFormatting.GRAY));
 		} else if (getSound(stack) != null) {
-			list.add(new TranslationTextComponent(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")).func_240699_a_(TextFormatting.GRAY));
+			list.add(new TranslationTextComponent(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")).mergeStyle(TextFormatting.GRAY));
 		}
 	}
 

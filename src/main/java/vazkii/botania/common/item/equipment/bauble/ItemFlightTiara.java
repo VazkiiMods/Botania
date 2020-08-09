@@ -279,7 +279,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				}
 			} else {
 				boolean wasGliding = ItemNBTHelper.getBoolean(stack, TAG_GLIDING, false);
-				boolean doGlide = player.isSneaking() && !player.func_233570_aj_() && (player.getMotion().getY() < -.7F || wasGliding);
+				boolean doGlide = player.isSneaking() && !player.isOnGround() && (player.getMotion().getY() < -.7F || wasGliding);
 				if (time < MAX_FLY_TIME && player.ticksExisted % (doGlide ? 6 : 2) == 0) {
 					newTime++;
 				}

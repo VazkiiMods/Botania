@@ -51,7 +51,7 @@ public class BlockGhostRail extends AbstractRailBlock {
 		int floatTicks = cart.getPersistentData().getInt(TAG_FLOAT_TICKS);
 		Preconditions.checkState(floatTicks > 0);
 
-		BlockPos entPos = cart.func_233580_cy_();
+		BlockPos entPos = cart.getPosition();
 		BlockState state = cart.world.getBlockState(entPos);
 		boolean air = state.isAir(cart.world, entPos);
 
@@ -105,7 +105,7 @@ public class BlockGhostRail extends AbstractRailBlock {
 			Iterator<AbstractMinecartEntity> iter = floatingCarts.getOrDefault(evt.world.func_234923_W_(), Collections.emptySet()).iterator();
 			while (iter.hasNext()) {
 				AbstractMinecartEntity c = iter.next();
-				BlockPos entPos = c.func_233580_cy_();
+				BlockPos entPos = c.getPosition();
 
 				if (!c.isAlive() || !c.isAddedToWorld() || !c.world.isBlockLoaded(entPos)
 						|| c.getPersistentData().getInt(TAG_FLOAT_TICKS) <= 0) {

@@ -188,7 +188,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 				receiveMana(-mana);
 
 				stack.shrink(1);
-				item.func_230245_c_(false); //Force entity collision update to run every tick if crafting is in progress
+				item.setOnGround(false); //Force entity collision update to run every tick if crafting is in progress
 
 				ItemStack output = recipe.getRecipeOutput().copy();
 				ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);

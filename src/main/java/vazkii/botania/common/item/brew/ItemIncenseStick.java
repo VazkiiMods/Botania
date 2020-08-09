@@ -59,11 +59,11 @@ public class ItemIncenseStick extends Item implements IBrewItem, IBrewContainer 
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
 		Brew brew = getBrew(stack);
 		if (brew == ModBrews.fallbackBrew) {
-			list.add(new TranslationTextComponent("botaniamisc.notInfused").func_240699_a_(TextFormatting.LIGHT_PURPLE));
+			list.add(new TranslationTextComponent("botaniamisc.notInfused").mergeStyle(TextFormatting.LIGHT_PURPLE));
 			return;
 		}
 
-		list.add(new TranslationTextComponent("botaniamisc.brewOf", new TranslationTextComponent(brew.getTranslationKey(stack))).func_240699_a_(TextFormatting.LIGHT_PURPLE));
+		list.add(new TranslationTextComponent("botaniamisc.brewOf", new TranslationTextComponent(brew.getTranslationKey(stack))).mergeStyle(TextFormatting.LIGHT_PURPLE));
 		ItemBrewBase.addPotionTooltip(brew.getPotionEffects(stack), list, TIME_MULTIPLIER);
 	}
 

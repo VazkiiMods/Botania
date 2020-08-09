@@ -53,7 +53,7 @@ public class LensPiston extends Lens {
 	}
 
 	public static BlockState unWaterlog(BlockState state) {
-		if (state.func_235901_b_(BlockStateProperties.WATERLOGGED)) {
+		if (state.hasProperty(BlockStateProperties.WATERLOGGED)) {
 			return state.with(BlockStateProperties.WATERLOGGED, false);
 		} else {
 			return state;

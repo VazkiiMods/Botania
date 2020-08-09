@@ -211,14 +211,14 @@ public class Botania {
 			SkyblockChunkGenerator.init();
 
 			GlobalEntityTypeAttributes.put(ModEntities.DOPPLEGANGER, MobEntity.func_233666_p_()
-					.func_233815_a_(Attributes.MOVEMENT_SPEED, 0.4)
-					.func_233815_a_(Attributes.MAX_HEALTH, EntityDoppleganger.MAX_HP)
-					.func_233815_a_(Attributes.KNOCKBACK_RESISTANCE, 1.0)
-					.func_233813_a_());
+					.createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4)
+					.createMutableAttribute(Attributes.MAX_HEALTH, EntityDoppleganger.MAX_HP)
+					.createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 1.0)
+					.create());
 			GlobalEntityTypeAttributes.put(ModEntities.PIXIE, MobEntity.func_233666_p_()
-					.func_233815_a_(Attributes.MAX_HEALTH, 2.0)
-					.func_233813_a_());
-			GlobalEntityTypeAttributes.put(ModEntities.PINK_WITHER, WitherEntity.func_234258_eI_().func_233813_a_());
+					.createMutableAttribute(Attributes.MAX_HEALTH, 2.0)
+					.create());
+			GlobalEntityTypeAttributes.put(ModEntities.PINK_WITHER, WitherEntity.registerAttributes().create());
 			ModBanners.init();
 
 			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getKey(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.getValue());

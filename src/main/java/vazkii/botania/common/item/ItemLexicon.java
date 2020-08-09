@@ -66,7 +66,7 @@ public class ItemLexicon extends Item implements IElvenItem {
 		super.addInformation(stack, worldIn, tooltip, flagIn);
 
 		TooltipHandler.addOnShift(tooltip, () -> {
-			tooltip.add(getEdition().deepCopy().func_240699_a_(TextFormatting.GRAY));
+			tooltip.add(getEdition().deepCopy().mergeStyle(TextFormatting.GRAY));
 		});
 	}
 

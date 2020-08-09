@@ -31,31 +31,31 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 	@Override
 	protected void registerTags() {
-		this.func_240521_a_(BlockTags.RAILS, ItemTags.RAILS);
-		this.func_240521_a_(BlockTags.SLABS, ItemTags.SLABS);
-		this.func_240521_a_(BlockTags.STAIRS, ItemTags.STAIRS);
-		this.func_240521_a_(BlockTags.WALLS, ItemTags.WALLS);
-		this.func_240521_a_(BlockTags.FENCES, ItemTags.FENCES);
+		this.copy(BlockTags.RAILS, ItemTags.RAILS);
+		this.copy(BlockTags.SLABS, ItemTags.SLABS);
+		this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
+		this.copy(BlockTags.WALLS, ItemTags.WALLS);
+		this.copy(BlockTags.FENCES, ItemTags.FENCES);
 
-		this.func_240522_a_(ModTags.Items.SHEARS).func_240534_a_(ModItems.elementiumShears, ModItems.manasteelShears);
+		this.getOrCreateBuilder(ModTags.Items.SHEARS).add(ModItems.elementiumShears, ModItems.manasteelShears);
 
-		this.func_240521_a_(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS, ModTags.Items.MUNDANE_FLOATING_FLOWERS);
-		this.func_240521_a_(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS, ModTags.Items.SPECIAL_FLOATING_FLOWERS);
-		this.func_240521_a_(ModTags.Blocks.FLOATING_FLOWERS, ModTags.Items.FLOATING_FLOWERS);
-		this.func_240521_a_(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS, ModTags.Items.DOUBLE_MYSTICAL_FLOWERS);
-		this.func_240521_a_(ModTags.Blocks.MYSTICAL_FLOWERS, ModTags.Items.MYSTICAL_FLOWERS);
+		this.copy(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS, ModTags.Items.MUNDANE_FLOATING_FLOWERS);
+		this.copy(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS, ModTags.Items.SPECIAL_FLOATING_FLOWERS);
+		this.copy(ModTags.Blocks.FLOATING_FLOWERS, ModTags.Items.FLOATING_FLOWERS);
+		this.copy(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS, ModTags.Items.DOUBLE_MYSTICAL_FLOWERS);
+		this.copy(ModTags.Blocks.MYSTICAL_FLOWERS, ModTags.Items.MYSTICAL_FLOWERS);
 
-		this.func_240521_a_(ModTags.Blocks.MISC_SPECIAL_FLOWERS, ModTags.Items.MISC_SPECIAL_FLOWERS);
-		this.func_240521_a_(ModTags.Blocks.GENERATING_SPECIAL_FLOWERS, ModTags.Items.GENERATING_SPECIAL_FLOWERS);
-		this.func_240521_a_(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS, ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS);
-		this.func_240521_a_(ModTags.Blocks.SPECIAL_FLOWERS, ModTags.Items.SPECIAL_FLOWERS);
-		this.func_240521_a_(ModTags.Blocks.MINI_FLOWERS, ModTags.Items.MINI_FLOWERS);
+		this.copy(ModTags.Blocks.MISC_SPECIAL_FLOWERS, ModTags.Items.MISC_SPECIAL_FLOWERS);
+		this.copy(ModTags.Blocks.GENERATING_SPECIAL_FLOWERS, ModTags.Items.GENERATING_SPECIAL_FLOWERS);
+		this.copy(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS, ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS);
+		this.copy(ModTags.Blocks.SPECIAL_FLOWERS, ModTags.Items.SPECIAL_FLOWERS);
+		this.copy(ModTags.Blocks.MINI_FLOWERS, ModTags.Items.MINI_FLOWERS);
 
-		this.func_240522_a_(ItemTags.TALL_FLOWERS).func_240531_a_(ModTags.Items.DOUBLE_MYSTICAL_FLOWERS);
-		this.func_240522_a_(ItemTags.SMALL_FLOWERS).func_240531_a_(ModTags.Items.MYSTICAL_FLOWERS).func_240531_a_(ModTags.Items.SPECIAL_FLOWERS);
+		this.getOrCreateBuilder(ItemTags.TALL_FLOWERS).addTag(ModTags.Items.DOUBLE_MYSTICAL_FLOWERS);
+		this.getOrCreateBuilder(ItemTags.SMALL_FLOWERS).addTag(ModTags.Items.MYSTICAL_FLOWERS).addTag(ModTags.Items.SPECIAL_FLOWERS);
 
-		this.func_240522_a_(ModTags.Items.BURST_VIEWERS).func_240532_a_(ModItems.monocle);
-		this.func_240522_a_(ModTags.Items.LENS).func_240534_a_(
+		this.getOrCreateBuilder(ModTags.Items.BURST_VIEWERS).addItemEntry(ModItems.monocle);
+		this.getOrCreateBuilder(ModTags.Items.LENS).add(
 				Registry.ITEM.stream().filter(i -> i instanceof ItemLens && Registry.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
 						.sorted(Comparator.comparing(Registry.ITEM::getKey))
 						.toArray(Item[]::new)

@@ -34,12 +34,12 @@ public class LokiPlaceTrigger extends AbstractCriterionTrigger<LokiPlaceTrigger.
 
 	@Nonnull
 	@Override
-	public LokiPlaceTrigger.Instance func_230241_b_(@Nonnull JsonObject json, EntityPredicate.AndPredicate playerPred, ConditionArrayParser conditions) {
+	public LokiPlaceTrigger.Instance deserializeTrigger(@Nonnull JsonObject json, EntityPredicate.AndPredicate playerPred, ConditionArrayParser conditions) {
 		return new LokiPlaceTrigger.Instance(playerPred, EntityPredicate.deserialize(json.get("player")), ItemPredicate.deserialize(json.get("ring")), MinMaxBounds.IntBound.fromJson(json.get("blocks_placed")));
 	}
 
 	public void trigger(ServerPlayerEntity player, ItemStack ring, int blocksPlaced) {
-		func_235959_a_(player, instance -> instance.test(player, ring, blocksPlaced));
+		triggerListeners(player, instance -> instance.test(player, ring, blocksPlaced));
 	}
 
 	static class Instance extends CriterionInstance {

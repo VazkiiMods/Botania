@@ -72,18 +72,18 @@ public class ItemVirus extends Item {
 
 				ModifiableAttributeInstance movementSpeed = newHorse.getAttribute(Attributes.MOVEMENT_SPEED);
 				movementSpeed.setBaseValue(horse.getAttribute(Attributes.MOVEMENT_SPEED).getBaseValue());
-				movementSpeed.func_233769_c_(new AttributeModifier("Ermergerd Virus D:", movementSpeed.getBaseValue(), AttributeModifier.Operation.ADDITION));
+				movementSpeed.applyPersistentModifier(new AttributeModifier("Ermergerd Virus D:", movementSpeed.getBaseValue(), AttributeModifier.Operation.ADDITION));
 
 				ModifiableAttributeInstance health = newHorse.getAttribute(Attributes.MAX_HEALTH);
 				health.setBaseValue(horse.getAttribute(Attributes.MAX_HEALTH).getBaseValue());
-				health.func_233769_c_(new AttributeModifier("Ermergerd Virus D:", health.getBaseValue(), AttributeModifier.Operation.ADDITION));
+				health.applyPersistentModifier(new AttributeModifier("Ermergerd Virus D:", health.getBaseValue(), AttributeModifier.Operation.ADDITION));
 
 				ModifiableAttributeInstance jumpHeight = newHorse.getAttribute(Attributes.HORSE_JUMP_STRENGTH);
 				jumpHeight.setBaseValue(horse.getAttribute(Attributes.HORSE_JUMP_STRENGTH).getBaseValue());
-				jumpHeight.func_233769_c_(new AttributeModifier("Ermergerd Virus D:", jumpHeight.getBaseValue() * 0.5, AttributeModifier.Operation.ADDITION));
+				jumpHeight.applyPersistentModifier(new AttributeModifier("Ermergerd Virus D:", jumpHeight.getBaseValue() * 0.5, AttributeModifier.Operation.ADDITION));
 
 				newHorse.playSound(SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, 1.0F + living.world.rand.nextFloat(), living.world.rand.nextFloat() * 0.7F + 1.3F);
-				newHorse.onInitialSpawn(player.world, player.world.getDifficultyForLocation(newHorse.func_233580_cy_()), SpawnReason.CONVERSION, null, null);
+				newHorse.onInitialSpawn(player.world, player.world.getDifficultyForLocation(newHorse.getPosition()), SpawnReason.CONVERSION, null, null);
 				newHorse.setGrowingAge(horse.getGrowingAge());
 				player.world.addEntity(newHorse);
 				newHorse.spawnExplosionParticle();

@@ -166,20 +166,20 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		}
 
 		BlockPos binding = getBinding(world, stack);
-		ITextComponent worldText = new StringTextComponent(world.func_234923_W_().func_240901_a_().toString()).func_240699_a_(TextFormatting.GREEN);
+		ITextComponent worldText = new StringTextComponent(world.func_234923_W_().func_240901_a_().toString()).mergeStyle(TextFormatting.GREEN);
 
 		if (binding == null) {
-			tooltip.add(new TranslationTextComponent("botaniamisc.flugelUnbound", worldText).func_240699_a_(TextFormatting.GRAY));
+			tooltip.add(new TranslationTextComponent("botaniamisc.flugelUnbound", worldText).mergeStyle(TextFormatting.GRAY));
 		} else {
-			ITextComponent bindingText = new StringTextComponent("[").func_240699_a_(TextFormatting.WHITE)
-					.func_230529_a_(new StringTextComponent(Integer.toString(binding.getX())).func_240699_a_(TextFormatting.GOLD))
-					.func_240702_b_(", ")
-					.func_230529_a_(new StringTextComponent(Integer.toString(binding.getY())).func_240699_a_(TextFormatting.GOLD))
-					.func_240702_b_(", ")
-					.func_230529_a_(new StringTextComponent(Integer.toString(binding.getZ())).func_240699_a_(TextFormatting.GOLD))
-					.func_240702_b_("]");
+			ITextComponent bindingText = new StringTextComponent("[").mergeStyle(TextFormatting.WHITE)
+					.append(new StringTextComponent(Integer.toString(binding.getX())).mergeStyle(TextFormatting.GOLD))
+					.appendString(", ")
+					.append(new StringTextComponent(Integer.toString(binding.getY())).mergeStyle(TextFormatting.GOLD))
+					.appendString(", ")
+					.append(new StringTextComponent(Integer.toString(binding.getZ())).mergeStyle(TextFormatting.GOLD))
+					.appendString("]");
 
-			tooltip.add(new TranslationTextComponent("botaniamisc.flugelBound", bindingText, worldText).func_240699_a_(TextFormatting.GRAY));
+			tooltip.add(new TranslationTextComponent("botaniamisc.flugelBound", bindingText, worldText).mergeStyle(TextFormatting.GRAY));
 		}
 	}
 

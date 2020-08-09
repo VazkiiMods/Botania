@@ -51,7 +51,7 @@ public class EntityEnderAirBottle extends ThrowableEntity implements IRendersAsI
 	protected void onImpact(@Nonnull RayTraceResult pos) {
 		if (pos.getType() == RayTraceResult.Type.BLOCK && !world.isRemote) {
 			List<BlockPos> coordsList = getCoordsToPut(((BlockRayTraceResult) pos).getPos());
-			world.playEvent(2002, func_233580_cy_(), 8);
+			world.playEvent(2002, getPosition(), 8);
 
 			for (BlockPos coords : coordsList) {
 				world.setBlockState(coords, Blocks.END_STONE.getDefaultState());

@@ -101,11 +101,11 @@ public abstract class EquipmentHandler {
 
 				if (!ItemStack.areItemStacksEqual(old, current)) {
 					if (old.getItem() instanceof ItemBauble) {
-						player.getAttributeManager().func_233785_a_(((ItemBauble) old.getItem()).getEquippedAttributeModifiers(old));
+						player.getAttributeManager().removeModifiers(((ItemBauble) old.getItem()).getEquippedAttributeModifiers(old));
 						((ItemBauble) old.getItem()).onUnequipped(old, player);
 					}
 					if (canEquip(current, player)) {
-						player.getAttributeManager().func_233793_b_(((ItemBauble) current.getItem()).getEquippedAttributeModifiers(current));
+						player.getAttributeManager().reapplyModifiers(((ItemBauble) current.getItem()).getEquippedAttributeModifiers(current));
 						((ItemBauble) current.getItem()).onEquipped(current, player);
 					}
 					oldStacks[i] = current.copy(); // shift-clicking mutates the stack we stored,

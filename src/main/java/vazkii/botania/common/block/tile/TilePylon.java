@@ -76,7 +76,7 @@ public class TilePylon extends TileEntity implements ITickableTileEntity {
 					}
 				}
 			} else {
-				Vector3d ourCoords = Vector3d.func_237489_a_(getPos()).add(0, 1 + (Math.random() - 0.5 * 0.25), 0);
+				Vector3d ourCoords = Vector3d.copyCentered(getPos()).add(0, 1 + (Math.random() - 0.5 * 0.25), 0);
 				Vector3d movementVector = centerBlock.subtract(ourCoords).normalize().scale(0.2);
 
 				Block block = world.getBlockState(pos.down()).getBlock();

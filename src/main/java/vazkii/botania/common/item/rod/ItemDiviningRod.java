@@ -54,7 +54,7 @@ public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWiel
 			if (world.isRemote) {
 				int range = IManaProficiencyArmor.hasProficiency(p, stack) ? 20 : 15;
 				long seedxor = world.rand.nextLong();
-				doHighlight(world, p.func_233580_cy_(), range, seedxor);
+				doHighlight(world, p.getPosition(), range, seedxor);
 			} else {
 				world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), ModSounds.divinationRod, SoundCategory.PLAYERS, 1F, 1F);
 			}

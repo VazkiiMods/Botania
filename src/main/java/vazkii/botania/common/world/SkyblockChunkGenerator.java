@@ -32,14 +32,14 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class SkyblockChunkGenerator extends ChunkGenerator {
 	// [VanillaCopy] overworld chunk generator codec
-	public static final Codec<SkyblockChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(BiomeProvider.field_235202_a_.fieldOf("biome_source").forGetter((gen) -> gen.biomeProvider),
+	public static final Codec<SkyblockChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(BiomeProvider.PROVIDER_CODEC.fieldOf("biome_source").forGetter((gen) -> gen.biomeProvider),
 			Codec.LONG.fieldOf("seed").stable().forGetter((gen) -> gen.seed),
 			DimensionSettings.field_236098_b_.fieldOf("settings").forGetter((gen) -> gen.settings))
 			.apply(instance, instance.stable(SkyblockChunkGenerator::new)));
 	public static DimensionSettings.Preset dimSettingsPreset;
 
 	public static void init() {
-		Registry.register(Registry.field_239690_aB_, prefix("skyblock"), SkyblockChunkGenerator.CODEC);
+		Registry.register(Registry.CHUNK_GENERATOR_CODEC, prefix("skyblock"), SkyblockChunkGenerator.CODEC);
 		dimSettingsPreset = new DimensionSettings.Preset(LibResources.PREFIX_MOD + "skyblock",
 				preset -> AccessorDimensionSettingsPreset.createOverworldSettings(new DimensionStructuresSettings(true), false, preset));
 	}
@@ -48,7 +48,7 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 	private final DimensionSettings settings;
 
 	public SkyblockChunkGenerator(BiomeProvider provider, long seed, DimensionSettings settings) {
-		super(provider, provider, settings.func_236108_a_(), seed);
+		super(provider, provider, settings.getStructures(), seed);
 		this.seed = seed;
 		this.settings = settings;
 	}
@@ -85,7 +85,7 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 	public void func_230351_a_(WorldGenRegion region, StructureManager structureManager) {}
 
 	@Override
-	public int func_222529_a(int x, int z, Heightmap.Type heightmapType) {
+	public int getHeight(int x, int z, Heightmap.Type heightmapType) {
 		return 0;
 	}
 

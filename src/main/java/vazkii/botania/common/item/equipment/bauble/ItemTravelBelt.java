@@ -86,7 +86,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 					ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
 
 					if (player.world.isRemote) {
-						if ((player.func_233570_aj_() || player.abilities.isFlying) && player.moveForward > 0F && !player.isInWaterOrBubbleColumn()) {
+						if ((player.isOnGround() || player.abilities.isFlying) && player.moveForward > 0F && !player.isInWaterOrBubbleColumn()) {
 							float speed = beltItem.getSpeed(belt);
 							player.moveRelative(player.abilities.isFlying ? speed : speed, new Vector3d(0, 0, 1));
 							beltItem.onMovedTick(belt, player);

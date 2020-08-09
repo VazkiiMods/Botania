@@ -46,7 +46,7 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 	}
 
 	private static boolean isUnethical(Entity e) {
-		BlockPos center = e.func_233580_cy_();
+		BlockPos center = e.getPosition();
 		int x = center.getX();
 		int y = center.getY();
 		int z = center.getZ();
@@ -87,7 +87,7 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 		if (!getWorld().isRemote && getMana() == 0) {
 			List<TNTEntity> tnts = getWorld().getEntitiesWithinAABB(TNTEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for (TNTEntity tnt : tnts) {
-				FluidState fluid = getWorld().getFluidState(tnt.func_233580_cy_());
+				FluidState fluid = getWorld().getFluidState(tnt.getPosition());
 				if (tnt.getFuse() == 1 && tnt.isAlive() && fluid.isEmpty()) {
 					boolean unethical = tnt.getPersistentData().getBoolean(TAG_UNETHICAL);
 					tnt.playSound(unethical ? SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE : SoundEvents.ENTITY_GENERIC_EXPLODE, 0.2F, (1F + (getWorld().rand.nextFloat() - getWorld().rand.nextFloat()) * 0.2F) * 0.7F);

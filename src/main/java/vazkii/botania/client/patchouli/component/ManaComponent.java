@@ -43,7 +43,7 @@ public class ManaComponent implements ICustomComponent {
 	@Override
 	public void render(MatrixStack ms, IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
 		FontRenderer font = Minecraft.getInstance().fontRenderer;
-		ITextComponent manaUsage = new TranslationTextComponent("botaniamisc.manaUsage").func_230530_a_(context.getFont());
+		ITextComponent manaUsage = new TranslationTextComponent("botaniamisc.manaUsage").setStyle(context.getFont());
 		font.func_238422_b_(ms, manaUsage, x + 102 / 2 - font.func_238414_a_(manaUsage) / 2, y, 0x66000000);
 
 		int ratio = 10;
@@ -53,7 +53,7 @@ public class ManaComponent implements ICustomComponent {
 		HUDHandler.renderManaBar(ms, x, y + 10, 0x0000FF, 0.75F,
 				manaValues[(context.getTicksInBook() / 20) % manaValues.length], TilePool.MAX_MANA / ratio);
 
-		ITextComponent ratioString = new TranslationTextComponent("botaniamisc.ratio", ratio).func_230530_a_(context.getFont());
+		ITextComponent ratioString = new TranslationTextComponent("botaniamisc.ratio", ratio).setStyle(context.getFont());
 		font.func_238422_b_(ms, ratioString, x + 102 / 2 - font.func_238414_a_(ratioString) / 2, y + 15, 0x99000000);
 	}
 

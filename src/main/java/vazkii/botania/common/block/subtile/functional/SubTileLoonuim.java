@@ -129,8 +129,8 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			entity.setPositionAndRotation(x, y, z, world.rand.nextFloat() * 360F, 0);
 			entity.setMotion(Vector3d.ZERO);
 
-			entity.getAttribute(Attributes.MAX_HEALTH).func_233769_c_(new AttributeModifier("Loonium Modififer Health", 2, AttributeModifier.Operation.MULTIPLY_BASE));
-			entity.getAttribute(Attributes.ATTACK_DAMAGE).func_233769_c_(new AttributeModifier("Loonium Modififer Damage", 1.5, AttributeModifier.Operation.MULTIPLY_BASE));
+			entity.getAttribute(Attributes.MAX_HEALTH).applyPersistentModifier(new AttributeModifier("Loonium Modififer Health", 2, AttributeModifier.Operation.MULTIPLY_BASE));
+			entity.getAttribute(Attributes.ATTACK_DAMAGE).applyPersistentModifier(new AttributeModifier("Loonium Modififer Damage", 1.5, AttributeModifier.Operation.MULTIPLY_BASE));
 
 			entity.addPotionEffect(new EffectInstance(Effects.FIRE_RESISTANCE,
 					entity instanceof CreeperEntity ? 100 : Integer.MAX_VALUE, 0));

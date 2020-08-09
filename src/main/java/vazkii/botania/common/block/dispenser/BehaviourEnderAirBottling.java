@@ -36,14 +36,14 @@ public class BehaviourEnderAirBottling extends OptionalDispenseBehavior {
 
 	@Override
 	protected void playDispenseSound(IBlockSource source) {
-		if (this.func_239795_a_()) {
+		if (this.isSuccessful()) {
 			super.playDispenseSound(source);
 		}
 	}
 
 	@Override
 	protected void spawnDispenseParticles(IBlockSource source, Direction facingIn) {
-		if (this.func_239795_a_()) {
+		if (this.isSuccessful()) {
 			super.spawnDispenseParticles(source, facingIn);
 		}
 	}
@@ -56,10 +56,10 @@ public class BehaviourEnderAirBottling extends OptionalDispenseBehavior {
 		if (world.func_234923_W_() == World.field_234920_i_
 				&& world.isAirBlock(blockpos) && world.isAirBlock(blockpos.up())
 				&& ItemEnderAir.isClearFromDragonBreath(world, new AxisAlignedBB(blockpos).grow(2.0D))) {
-			this.func_239796_a_(true);
+			this.setSuccessful(true);
 			return fillBottle(source, stack, new ItemStack(ModItems.enderAirBottle));
 		}
-		this.func_239796_a_(false);
+		this.setSuccessful(false);
 		parent.dispense(source, stack);
 		return stack;
 	}

@@ -174,7 +174,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 		if (recursiveForDoubleChests) {
 			BlockState chest = getWorld().getBlockState(pos);
 
-			if (chest.func_235901_b_(ChestBlock.TYPE)) {
+			if (chest.hasProperty(ChestBlock.TYPE)) {
 				ChestType type = chest.get(ChestBlock.TYPE);
 				if (type != ChestType.SINGLE) {
 					BlockPos other = pos.offset(ChestBlock.getDirectionToAttached(chest));

@@ -797,7 +797,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addIngredient(mushrooms, 2)
 				.addIngredient(Items.BOWL)
 				.addCriterion("has_item", hasItem(Items.BOWL))
-				.addCriterion("has_orig_recipe", RecipeUnlockedTrigger.func_235675_a_(new ResourceLocation("mushroom_stew")))
+				.addCriterion("has_orig_recipe", RecipeUnlockedTrigger.create(new ResourceLocation("mushroom_stew")))
 				.build(consumer, "botania:mushroom_stew");
 
 		ShapedRecipeBuilder.shapedRecipe(Items.COBWEB)

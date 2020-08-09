@@ -65,7 +65,7 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 	private void terraform(ItemStack stack, World world, PlayerEntity player) {
 		int range = IManaProficiencyArmor.hasProficiency(player, stack) ? 22 : 16;
 
-		BlockPos startCenter = player.func_233580_cy_().down();
+		BlockPos startCenter = player.getPosition().down();
 
 		if (startCenter.getY() < world.getSeaLevel()) // Not below sea level
 		{

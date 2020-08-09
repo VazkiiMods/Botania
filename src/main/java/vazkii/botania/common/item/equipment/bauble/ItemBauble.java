@@ -66,16 +66,16 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 
 	@OnlyIn(Dist.CLIENT)
 	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-		ITextComponent key = new KeybindTextComponent("key.curios.open.desc").func_240699_a_(TextFormatting.AQUA);
-		tooltip.add(new TranslationTextComponent("botania.baubletooltip", key).func_240699_a_(TextFormatting.GRAY));
+		ITextComponent key = new KeybindTextComponent("key.curios.open.desc").mergeStyle(TextFormatting.AQUA);
+		tooltip.add(new TranslationTextComponent("botania.baubletooltip", key).mergeStyle(TextFormatting.GRAY));
 
 		ItemStack cosmetic = getCosmeticItem(stack);
 		if (!cosmetic.isEmpty()) {
-			tooltip.add(new TranslationTextComponent("botaniamisc.hasCosmetic", cosmetic.getDisplayName()).func_240701_a_(TextFormatting.GRAY, TextFormatting.ITALIC));
+			tooltip.add(new TranslationTextComponent("botaniamisc.hasCosmetic", cosmetic.getDisplayName()).mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
 		}
 
 		if (hasPhantomInk(stack)) {
-			tooltip.add(new TranslationTextComponent("botaniamisc.hasPhantomInk").func_240699_a_(TextFormatting.AQUA));
+			tooltip.add(new TranslationTextComponent("botaniamisc.hasPhantomInk").mergeStyle(TextFormatting.AQUA));
 		}
 	}
 

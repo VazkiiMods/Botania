@@ -59,7 +59,7 @@ public class ItemBottledMana extends Item {
 		}
 		case 1: { // Water
 			if (!living.world.isRemote && !living.world.func_230315_m_().func_236040_e_()) {
-				living.world.setBlockState(living.func_233580_cy_(), Blocks.WATER.getDefaultState());
+				living.world.setBlockState(living.getPosition(), Blocks.WATER.getDefaultState());
 			}
 			break;
 		}

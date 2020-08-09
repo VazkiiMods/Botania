@@ -49,11 +49,11 @@ public class ItemBlockSpecialFlower extends BlockItem {
 		if (Botania.finishedLoading) {
 			if (world != null) {
 				if (GENERATING.contains(this)) {
-					tooltip.add(new TranslationTextComponent("botania.flowerType.generating").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
+					tooltip.add(new TranslationTextComponent("botania.flowerType.generating").mergeStyle(TextFormatting.ITALIC, TextFormatting.BLUE));
 				} else if (FUNCTIONAL.contains(this)) {
-					tooltip.add(new TranslationTextComponent("botania.flowerType.functional").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
+					tooltip.add(new TranslationTextComponent("botania.flowerType.functional").mergeStyle(TextFormatting.ITALIC, TextFormatting.BLUE));
 				} else if (MISC.contains(this)) {
-					tooltip.add(new TranslationTextComponent("botania.flowerType.misc").func_240701_a_(TextFormatting.ITALIC, TextFormatting.BLUE));
+					tooltip.add(new TranslationTextComponent("botania.flowerType.misc").mergeStyle(TextFormatting.ITALIC, TextFormatting.BLUE));
 				}
 			}
 
@@ -61,7 +61,7 @@ public class ItemBlockSpecialFlower extends BlockItem {
 				String key = getTranslationKey() + ".reference";
 				IFormattableTextComponent lore = new TranslationTextComponent(key);
 				if (!lore.getString().equals(key)) {
-					tooltip.add(lore.func_240701_a_(TextFormatting.ITALIC, TextFormatting.GRAY));
+					tooltip.add(lore.mergeStyle(TextFormatting.ITALIC, TextFormatting.GRAY));
 				}
 			}
 		}

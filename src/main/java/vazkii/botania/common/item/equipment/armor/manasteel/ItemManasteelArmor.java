@@ -125,13 +125,13 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 		addArmorSetDescription(stack, list);
 		ItemStack[] stacks = getArmorSetStacks();
 		for (ItemStack armor : stacks) {
-			IFormattableTextComponent cmp = new StringTextComponent(" - ").func_230529_a_(armor.getDisplayName());
+			IFormattableTextComponent cmp = new StringTextComponent(" - ").append(armor.getDisplayName());
 			EquipmentSlotType slot = ((ArmorItem) armor.getItem()).getEquipmentSlot();
-			cmp.func_240699_a_(hasArmorSetItem(player, slot) ? TextFormatting.GREEN : TextFormatting.GRAY);
+			cmp.mergeStyle(hasArmorSetItem(player, slot) ? TextFormatting.GREEN : TextFormatting.GRAY);
 			list.add(cmp);
 		}
 		if (hasPhantomInk(stack)) {
-			list.add(new TranslationTextComponent("botaniamisc.hasPhantomInk").func_240699_a_(TextFormatting.GRAY));
+			list.add(new TranslationTextComponent("botaniamisc.hasPhantomInk").mergeStyle(TextFormatting.GRAY));
 		}
 	}
 
@@ -191,16 +191,16 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 
 	private ITextComponent getArmorSetTitle(PlayerEntity player) {
 		ITextComponent end = getArmorSetName()
-				.func_240702_b_(" (" + getSetPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")")
-				.func_240699_a_(TextFormatting.GRAY);
+				.appendString(" (" + getSetPiecesEquipped(player) + "/" + getArmorSetStacks().length + ")")
+				.mergeStyle(TextFormatting.GRAY);
 		return new TranslationTextComponent("botaniamisc.armorset")
-				.func_240702_b_(" ")
-				.func_230529_a_(end);
+				.appendString(" ")
+				.append(end);
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	public void addArmorSetDescription(ItemStack stack, List<ITextComponent> list) {
-		list.add(new TranslationTextComponent("botania.armorset.manasteel.desc").func_240699_a_(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("botania.armorset.manasteel.desc").mergeStyle(TextFormatting.GRAY));
 	}
 
 	@Override

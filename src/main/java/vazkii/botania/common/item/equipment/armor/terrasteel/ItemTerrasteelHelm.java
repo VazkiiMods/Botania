@@ -80,7 +80,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		super.addArmorSetDescription(stack, list);
 		for (AncientWillType type : AncientWillType.values()) {
 			if (hasAncientWill(stack, type)) {
-				list.add(new TranslationTextComponent("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".desc").func_240699_a_(TextFormatting.GRAY));
+				list.add(new TranslationTextComponent("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".desc").mergeStyle(TextFormatting.GRAY));
 			}
 		}
 	}
@@ -102,7 +102,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 			if (hasArmorSet(player)) {
 				// [VanillaCopy] crit logic from PlayerEntity.attackTargetEntityWithCurrentItem
 				boolean strong = player.getCooledAttackStrength(0.5F) > 0.9F;
-				boolean crit = strong && player.fallDistance > 0.0F && !player.func_233570_aj_() && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Effects.BLINDNESS) && !player.isPassenger();
+				boolean crit = strong && player.fallDistance > 0.0F && !player.isOnGround() && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Effects.BLINDNESS) && !player.isPassenger();
 				crit = crit && !player.isSprinting();
 
 				ItemStack stack = player.getItemStackFromSlot(EquipmentSlotType.HEAD);

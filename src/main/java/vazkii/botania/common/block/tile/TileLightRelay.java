@@ -288,7 +288,7 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 				playSound(ModSounds.lightRelay, 0.05F, (float) Math.random() * 0.3F + 0.7F);
 			}
 
-			BlockPos pos = func_233580_cy_();
+			BlockPos pos = getPosition();
 			BlockPos exitPos = getExitPos();
 
 			if (pos.equals(exitPos)) {

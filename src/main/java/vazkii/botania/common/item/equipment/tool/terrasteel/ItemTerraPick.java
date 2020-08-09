@@ -96,7 +96,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		ITextComponent rankFormat = new TranslationTextComponent("botaniamisc.toolRank", rank);
 		stacks.add(rankFormat);
 		if (getMana(stack) == Integer.MAX_VALUE) {
-			stacks.add(new TranslationTextComponent("botaniamisc.getALife").func_240699_a_(TextFormatting.RED));
+			stacks.add(new TranslationTextComponent("botaniamisc.getALife").mergeStyle(TextFormatting.RED));
 		}
 	}
 

@@ -23,7 +23,7 @@ public class LensMagnet extends Lens {
 
 	@Override
 	public void updateBurst(IManaBurst burst, ThrowableEntity entity, ItemStack stack) {
-		BlockPos basePos = entity.func_233580_cy_();
+		BlockPos basePos = entity.getPosition();
 		boolean magnetized = burst.getMagnetizedPos() != null;
 		int range = 3;
 
@@ -61,7 +61,7 @@ public class LensMagnet extends Lens {
 		}
 
 		Vector3d burstVec = entity.getPositionVec();
-		Vector3d tileVec = Vector3d.func_237489_a_(tile.getPos()).add(0, -0.1, 0);
+		Vector3d tileVec = Vector3d.copyCentered(tile.getPos()).add(0, -0.1, 0);
 		Vector3d motionVec = entity.getMotion();
 
 		Vector3d normalMotionVec = motionVec.normalize();

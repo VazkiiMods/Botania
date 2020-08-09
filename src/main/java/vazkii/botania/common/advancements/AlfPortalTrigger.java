@@ -36,12 +36,12 @@ public class AlfPortalTrigger extends AbstractCriterionTrigger<AlfPortalTrigger.
 
 	@Nonnull
 	@Override
-	public Instance func_230241_b_(@Nonnull JsonObject json, EntityPredicate.AndPredicate playerPred, ConditionArrayParser conditions) {
+	public Instance deserializeTrigger(@Nonnull JsonObject json, EntityPredicate.AndPredicate playerPred, ConditionArrayParser conditions) {
 		return new Instance(playerPred, ItemPredicate.deserialize(json.get("wand")), LocationPredicate.deserialize(json.get("location")));
 	}
 
 	public void trigger(ServerPlayerEntity player, ServerWorld world, BlockPos pos, ItemStack wand) {
-		func_235959_a_(player, instance -> instance.test(world, pos, wand));
+		triggerListeners(player, instance -> instance.test(world, pos, wand));
 	}
 
 	static class Instance extends CriterionInstance {

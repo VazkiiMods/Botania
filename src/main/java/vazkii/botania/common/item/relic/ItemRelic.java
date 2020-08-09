@@ -72,7 +72,7 @@ public class ItemRelic extends Item implements IRelic {
 			tooltip.add(new StringTextComponent(""));
 			String name = stack.getTranslationKey() + ".poem";
 			for (int i = 0; i < 4; i++) {
-				tooltip.add(new TranslationTextComponent(name + i).func_240701_a_(TextFormatting.GRAY, TextFormatting.ITALIC));
+				tooltip.add(new TranslationTextComponent(name + i).mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
 			}
 		}
 	}

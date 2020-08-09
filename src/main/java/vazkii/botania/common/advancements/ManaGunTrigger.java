@@ -40,13 +40,13 @@ public class ManaGunTrigger extends AbstractCriterionTrigger<ManaGunTrigger.Inst
 
 	@Nonnull
 	@Override
-	public ManaGunTrigger.Instance func_230241_b_(@Nonnull JsonObject json, EntityPredicate.AndPredicate playerPred, ConditionArrayParser conditions) {
+	public ManaGunTrigger.Instance deserializeTrigger(@Nonnull JsonObject json, EntityPredicate.AndPredicate playerPred, ConditionArrayParser conditions) {
 		Boolean desu = json.get("desu") == null ? null : json.get("desu").getAsBoolean();
 		return new ManaGunTrigger.Instance(playerPred, ItemPredicate.deserialize(json.get("item")), EntityPredicate.deserialize(json.get("user")), desu);
 	}
 
 	public void trigger(ServerPlayerEntity player, ItemStack stack) {
-		func_235959_a_(player, instance -> instance.test(stack, player));
+		triggerListeners(player, instance -> instance.test(stack, player));
 	}
 
 	static class Instance extends CriterionInstance {

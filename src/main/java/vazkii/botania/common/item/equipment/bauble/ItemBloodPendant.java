@@ -76,19 +76,19 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 		Brew brew = getBrew(stack);
 		if (brew == ModBrews.fallbackBrew) {
-			tooltip.add(new TranslationTextComponent("botaniamisc.notInfused").func_240699_a_(TextFormatting.LIGHT_PURPLE));
+			tooltip.add(new TranslationTextComponent("botaniamisc.notInfused").mergeStyle(TextFormatting.LIGHT_PURPLE));
 			return;
 		}
 
-		tooltip.add(new TranslationTextComponent("botaniamisc.brewOf", I18n.format(brew.getTranslationKey(stack))).func_240699_a_(TextFormatting.LIGHT_PURPLE));
+		tooltip.add(new TranslationTextComponent("botaniamisc.brewOf", I18n.format(brew.getTranslationKey(stack))).mergeStyle(TextFormatting.LIGHT_PURPLE));
 		for (EffectInstance effect : brew.getPotionEffects(stack)) {
 			TextFormatting format = effect.getPotion().getEffectType().getColor();
 			IFormattableTextComponent cmp = new TranslationTextComponent(effect.getEffectName());
 			if (effect.getAmplifier() > 0) {
-				cmp.func_240702_b_(" ");
-				cmp.func_230529_a_(new TranslationTextComponent("botania.roman" + (effect.getAmplifier() + 1)));
+				cmp.appendString(" ");
+				cmp.append(new TranslationTextComponent("botania.roman" + (effect.getAmplifier() + 1)));
 			}
-			tooltip.add(cmp.func_240699_a_(format));
+			tooltip.add(cmp.mergeStyle(format));
 		}
 	}
 

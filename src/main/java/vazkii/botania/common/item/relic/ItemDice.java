@@ -63,12 +63,12 @@ public class ItemDice extends ItemRelic {
 			}
 
 			if (possible.isEmpty()) {
-				player.sendMessage(new TranslationTextComponent("botaniamisc.dudDiceRoll", world.rand.nextInt(6) + 1).func_240699_a_(TextFormatting.DARK_GREEN), Util.DUMMY_UUID);
+				player.sendMessage(new TranslationTextComponent("botaniamisc.dudDiceRoll", world.rand.nextInt(6) + 1).mergeStyle(TextFormatting.DARK_GREEN), Util.DUMMY_UUID);
 				stack.shrink(1);
 				return ActionResult.resultSuccess(stack);
 			} else {
 				int relic = possible.get(world.rand.nextInt(possible.size()));
-				player.sendMessage(new TranslationTextComponent("botaniamisc.diceRoll", relic + 1).func_240699_a_(TextFormatting.DARK_GREEN), Util.DUMMY_UUID);
+				player.sendMessage(new TranslationTextComponent("botaniamisc.diceRoll", relic + 1).mergeStyle(TextFormatting.DARK_GREEN), Util.DUMMY_UUID);
 				return ActionResult.resultSuccess(new ItemStack(getRelics()[relic]));
 			}
 		}

@@ -140,9 +140,9 @@ public class RenderLexicon {
 
 		float leftPageAngle = MathHelper.frac(pageFlip + 0.25F) * 1.6F - 0.3F;
 		float rightPageAngle = MathHelper.frac(pageFlip + 0.75F) * 1.6F - 0.3F;
-		model.func_228247_a_(ClientTickHandler.total, MathHelper.clamp(leftPageAngle, 0.0F, 1.0F), MathHelper.clamp(rightPageAngle, 0.0F, 1.0F), opening);
+		model.setBookState(ClientTickHandler.total, MathHelper.clamp(leftPageAngle, 0.0F, 1.0F), MathHelper.clamp(rightPageAngle, 0.0F, 1.0F), opening);
 
-		RenderMaterial mat = ((ItemLexicon) ModItems.lexicon).isElvenItem(stack) ? ELVEN_TEXTURE : TEXTURE;
+		RenderMaterial mat = ModItems.lexicon.isElvenItem(stack) ? ELVEN_TEXTURE : TEXTURE;
 		IVertexBuilder buffer = mat.getBuffer(buffers, RenderType::getEntitySolid);
 		model.render(ms, buffer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 
@@ -164,7 +164,7 @@ public class RenderLexicon {
 
 			ms.translate(0F, 10F, 0F);
 			ms.scale(0.6F, 0.6F, 0.6F);
-			ITextComponent edition = ItemLexicon.getEdition().deepCopy().func_240701_a_(TextFormatting.ITALIC, TextFormatting.BOLD);
+			ITextComponent edition = ItemLexicon.getEdition().deepCopy().mergeStyle(TextFormatting.ITALIC, TextFormatting.BOLD);
 			font.func_238416_a_(edition, 0, 0, 0xA07100, false, ms.getLast().getMatrix(), buffers, false, 0, light);
 
 			if (quote == -1) {

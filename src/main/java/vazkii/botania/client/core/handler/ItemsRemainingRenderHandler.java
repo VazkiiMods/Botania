@@ -64,7 +64,7 @@ public final class ItemsRemainingRenderHandler {
 
 			if (customString == null) {
 				if (!stack.isEmpty()) {
-					text = stack.getDisplayName().deepCopy().func_240699_a_(TextFormatting.GREEN);
+					text = stack.getDisplayName().deepCopy().mergeStyle(TextFormatting.GREEN);
 					if (count >= 0) {
 						int max = stack.getMaxStackSize();
 						int stacks = count / max;
@@ -73,16 +73,16 @@ public final class ItemsRemainingRenderHandler {
 						if (stacks == 0) {
 							text = new StringTextComponent(Integer.toString(count));
 						} else {
-							ITextComponent stacksText = new StringTextComponent(Integer.toString(stacks)).func_240699_a_(TextFormatting.AQUA);
-							ITextComponent maxText = new StringTextComponent(Integer.toString(max)).func_240699_a_(TextFormatting.GRAY);
-							ITextComponent remText = new StringTextComponent(Integer.toString(rem)).func_240699_a_(TextFormatting.YELLOW);
+							ITextComponent stacksText = new StringTextComponent(Integer.toString(stacks)).mergeStyle(TextFormatting.AQUA);
+							ITextComponent maxText = new StringTextComponent(Integer.toString(max)).mergeStyle(TextFormatting.GRAY);
+							ITextComponent remText = new StringTextComponent(Integer.toString(rem)).mergeStyle(TextFormatting.YELLOW);
 							text = new StringTextComponent(count + " (")
-									.func_230529_a_(stacksText)
-									.func_240702_b_("*")
-									.func_230529_a_(maxText)
-									.func_240702_b_("+")
-									.func_230529_a_(remText)
-									.func_240702_b_(")");
+									.append(stacksText)
+									.appendString("*")
+									.append(maxText)
+									.appendString("+")
+									.append(remText)
+									.appendString(")");
 						}
 					} else if (count == -1) {
 						text = new StringTextComponent("\u221E");

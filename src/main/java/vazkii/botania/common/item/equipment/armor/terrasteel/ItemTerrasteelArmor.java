@@ -116,9 +116,9 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<ITextComponent> list) {
-		list.add(new TranslationTextComponent("botania.armorset.terrasteel.desc0").func_240699_a_(TextFormatting.GRAY));
-		list.add(new TranslationTextComponent("botania.armorset.terrasteel.desc1").func_240699_a_(TextFormatting.GRAY));
-		list.add(new TranslationTextComponent("botania.armorset.terrasteel.desc2").func_240699_a_(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("botania.armorset.terrasteel.desc0").mergeStyle(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("botania.armorset.terrasteel.desc1").mergeStyle(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("botania.armorset.terrasteel.desc2").mergeStyle(TextFormatting.GRAY));
 	}
 
 	@Override

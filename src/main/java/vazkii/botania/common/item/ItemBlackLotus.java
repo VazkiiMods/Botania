@@ -63,7 +63,7 @@ public class ItemBlackLotus extends Item implements IManaDissolvable {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag flags) {
-		list.add(new TranslationTextComponent("botaniamisc.lotusDesc").func_240699_a_(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("botaniamisc.lotusDesc").mergeStyle(TextFormatting.GRAY));
 	}
 
 }

@@ -92,7 +92,7 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 	@Override
 	public void addArmorSetDescription(ItemStack stack, List<ITextComponent> list) {
 		super.addArmorSetDescription(stack, list);
-		list.add(new TranslationTextComponent("botania.armorset.elementium.desc").func_240699_a_(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("botania.armorset.elementium.desc").mergeStyle(TextFormatting.GRAY));
 	}
 
 }

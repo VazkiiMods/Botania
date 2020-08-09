@@ -100,7 +100,7 @@ public class ItemDodgeRing extends ItemBauble {
 	}
 
 	private static void dodge(PlayerEntity player, Direction dir) {
-		if (player.abilities.isFlying || !player.func_233570_aj_() || dir == Direction.UP || dir == Direction.DOWN) {
+		if (player.abilities.isFlying || !player.isOnGround() || dir == Direction.UP || dir == Direction.DOWN) {
 			return;
 		}
 
