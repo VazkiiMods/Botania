@@ -468,6 +468,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		case 6:
 		case 8:
 			renderBasic(bipedModel, model, stack, ms, buffers, light, flap);
+			break;
 		case 7:
 			float alpha = 0.5F + (float) Math.cos((double) (living.ticksExisted + partialTicks) * 0.3F) * 0.2F;
 			int color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
