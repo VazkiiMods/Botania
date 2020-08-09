@@ -12,6 +12,7 @@ import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 
@@ -25,7 +26,7 @@ import java.util.Set;
 
 public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 	private static final Set<Material> MATERIALS = ImmutableSet.of(Material.PLANT, Material.CACTUS, Material.SOLID_ORGANIC,
-			Material.LEAVES, Material.GOURD, Material.UNDERWATER_PLANT, Material.BAMBOO);
+			Material.LEAVES, Material.GOURD, Material.UNDERWATER_PLANT, Material.BAMBOO, Material.BAMBOO_SAPLING);
 	private static final int RANGE = 5;
 	private static final int RANGE_MINI = 2;
 
@@ -62,9 +63,9 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 				}
 
 				if (isPlant(pos) && getMana() > 5) {
-					Block block = getWorld().getBlockState(pos).getBlock();
+					BlockState state = getWorld().getBlockState(pos);
 					addMana(-5);
-					getWorld().getBlockTickScheduler().schedule(pos, block, 1);
+					state.randomTick((ServerWorld) world, pos, world.random);
 					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
 						getWorld().syncWorldEvent(2005, pos, 6 + getWorld().random.nextInt(4));
 					}
@@ -91,13 +92,13 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 		BlockState state = getWorld().getBlockState(pos);
 		Block block = state.getBlock();
 
-		// Grass spreads when ticked
-		if (block == Blocks.GRASS_BLOCK) {
+		// Spreads when ticked
+		if (block instanceof SpreadableBlock) {
 			return false;
 		}
 
 		// Exclude all BushBlock except known vanilla subclasses
-		if (block instanceof PlantBlock && !(block instanceof CropBlock)
+		if (block instanceof PlantBlock && !(block instanceof CropBlock) && !(block instanceof StemBlock)
 				&& !(block instanceof SaplingBlock) && !(block instanceof SweetBerryBushBlock)) {
 			return false;
 		}
