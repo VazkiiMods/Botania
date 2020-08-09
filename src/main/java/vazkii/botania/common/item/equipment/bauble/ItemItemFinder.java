@@ -40,7 +40,6 @@ import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.item.CapWrapper;
 
 import java.util.List;
 
@@ -85,7 +84,7 @@ public class ItemItemFinder extends ItemBauble {
 			return;
 		}
 
-		ListTag blocks = ItemNBTHelper.getList(stack, TAG_BLOCK_POSITIONS, Constants.NBT.TAG_LONG, false);
+		ListTag blocks = ItemNBTHelper.getList(stack, TAG_BLOCK_POSITIONS, 4, false);
 
 		for (int i = 0; i < blocks.size(); i++) {
 			BlockPos pos = BlockPos.fromLong(((LongTag) blocks.get(i)).getLong());
@@ -148,11 +147,6 @@ public class ItemItemFinder extends ItemBauble {
 							entIdBuilder.add(villager.getEntityId());
 						}
 					}
-				} else if (e.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent()) {
-					IItemHandler cap = e.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(EmptyHandler.INSTANCE);
-					if (scanInventory(new CapWrapper(cap), pstack)) {
-						entIdBuilder.add(e.getEntityId());
-					}
 				} else if (e instanceof Inventory) {
 					Inventory inv = (Inventory) e;
 					if (scanInventory(inv, pstack)) {
@@ -167,16 +161,7 @@ public class ItemItemFinder extends ItemBauble {
 				for (BlockPos pos_ : BlockPos.iterate(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1))) {
 					BlockEntity tile = player.world.getBlockEntity(pos_);
 					if (tile != null) {
-						boolean foundCap = false;
-						for (Direction e : Direction.values()) {
-							IItemHandler cap = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, e).orElse(EmptyHandler.INSTANCE);
-							if (scanInventory(new CapWrapper(cap), pstack)) {
-								blockPosBuilder.add(LongTag.of(pos_.asLong()));
-								foundCap = true;
-								break;
-							}
-						}
-						if (!foundCap && tile instanceof Inventory) {
+						if (tile instanceof Inventory) {
 							Inventory inv = (Inventory) tile;
 							if (scanInventory(inv, pstack)) {
 								blockPosBuilder.add(LongTag.of(pos_.asLong()));

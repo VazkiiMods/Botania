@@ -34,7 +34,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
-import vazkii.botania.common.item.CapWrapper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.lib.LibMisc;
