@@ -18,6 +18,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -98,7 +99,19 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 		}
 
 		ITag<Block> ore = WeightedRandom.getRandomItem(getWorld().rand, values).tag;
-		return ore.getRandomElement(getWorld().getRandom()).getDefaultState();
+		return selectFromTag(ore).getDefaultState();
+	}
+
+	private Block selectFromTag(ITag<Block> ore) {
+		List<? extends String> mods = ConfigHandler.COMMON.orechidPriorityMods.get();
+		for (String modid : mods) {
+			for (Block block : ore.getAllElements()) {
+				if (modid.equals(Registry.BLOCK.getKey(block).getNamespace())) {
+					return block;
+				}
+			}
+		}
+		return ore.getRandomElement(getWorld().getRandom());
 	}
 
 	private BlockPos getCoordsToPut() {
