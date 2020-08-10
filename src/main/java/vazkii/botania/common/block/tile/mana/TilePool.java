@@ -121,13 +121,13 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	@Override
 	public void markRemoved() {
 		super.markRemoved();
-		ManaNetworkEvent.removePool(this);
+		ManaNetworkCallback.removePool(this);
 	}
 
 	@Override
 	public void onChunkUnloaded() {
 		super.onChunkUnloaded();
-		ManaNetworkEvent.removePool(this);
+		ManaNetworkCallback.removePool(this);
 	}
 
 	public static int calculateComparatorLevel(int mana, int max) {
@@ -251,7 +251,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		}
 
 		if (!ManaNetworkHandler.instance.isPoolIn(this) && !isRemoved()) {
-			ManaNetworkEvent.addPool(this);
+			ManaNetworkCallback.addPool(this);
 		}
 
 		if (world.isClient) {

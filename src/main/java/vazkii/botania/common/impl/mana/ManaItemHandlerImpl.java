@@ -41,9 +41,8 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			}
 		});
 
-		ManaItemsEvent event = new ManaItemsEvent(player, toReturn);
-		MinecraftForge.EVENT_BUS.post(event);
-		return event.getItems();
+		ManaItemsCallback.EVENT.invoker().getManaItems(player, toReturn);
+		return toReturn;
 	}
 
 	@Override
@@ -216,9 +215,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			}
 		}
 
-		ManaDiscountEvent event = new ManaDiscountEvent(player, discount, tool);
-		MinecraftForge.EVENT_BUS.post(event);
-		discount = event.getDiscount();
+		discount = ManaDiscountCallback.EVENT.invoker().getManaDiscount(player, discount, tool);
 
 		return discount;
 	}

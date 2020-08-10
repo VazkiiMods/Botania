@@ -13,7 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import vazkii.botania.api.mana.ManaProficiencyEvent;
+import vazkii.botania.api.mana.ManaProficiencyCallback;
 
 /**
  * An armor item that implements this gives the player wearing it mana proficiency, by
@@ -45,10 +45,7 @@ public interface IManaProficiencyArmor {
 			}
 		}
 
-		ManaProficiencyEvent event = new ManaProficiencyEvent(player, rod, proficient);
-		MinecraftForge.EVENT_BUS.post(event);
-
-		return event.isProficient();
+		return ManaProficiencyCallback.EVENT.invoker().getProficient(player, rod, proficient);
 	}
 
 }

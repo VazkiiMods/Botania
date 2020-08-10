@@ -107,8 +107,7 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 	@Override
 	public ICorporeaResult requestItem(ICorporeaRequestMatcher matcher, int itemCount, ICorporeaSpark spark, boolean doit) {
 		List<ItemStack> stacks = new ArrayList<>();
-		CorporeaRequestEvent event = new CorporeaRequestEvent(matcher, itemCount, spark, !doit);
-		if (MinecraftForge.EVENT_BUS.post(event)) {
+		if (CorporeaRequestCallback.EVENT.invoker().onRequest(matcher, itemCount, spark, !doit)) {
 			return new CorporeaResult(stacks, 0, 0);
 		}
 

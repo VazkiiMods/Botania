@@ -25,7 +25,7 @@ import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
-import vazkii.botania.api.recipe.ElvenPortalUpdateEvent;
+import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -93,8 +93,7 @@ public class TileAlfPortal extends TileMod implements Tickable {
 
 		Box aabb = getPortalAABB();
 		boolean open = ticksOpen > 60;
-		ElvenPortalUpdateEvent event = new ElvenPortalUpdateEvent(this, aabb, open, stacksIn);
-		MinecraftForge.EVENT_BUS.post(event);
+		ElvenPortalUpdateCallback.EVENT.invoker().onElvenPortalTick(this, aabb, open, stacksIn);
 
 		if (ticksOpen > 60) {
 			ticksSinceLastItem++;

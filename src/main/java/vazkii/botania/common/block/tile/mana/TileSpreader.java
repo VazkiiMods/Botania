@@ -20,7 +20,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundCategory;
@@ -148,13 +147,13 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 	@Override
 	public void markRemoved() {
 		super.markRemoved();
-		ManaNetworkEvent.removeCollector(this);
+		ManaNetworkCallback.removeCollector(this);
 	}
 
 	@Override
 	public void onChunkUnloaded() {
 		super.onChunkUnloaded();
-		ManaNetworkEvent.removeCollector(this);
+		ManaNetworkCallback.removeCollector(this);
 	}
 
 	@Override
@@ -162,7 +161,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		boolean inNetwork = ManaNetworkHandler.instance.isCollectorIn(this);
 		boolean wasInNetwork = inNetwork;
 		if (!inNetwork && !isRemoved()) {
-			ManaNetworkEvent.addCollector(this);
+			ManaNetworkCallback.addCollector(this);
 		}
 
 		boolean redstone = false;

@@ -34,7 +34,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Direction.Axis;
 
-import vazkii.botania.api.item.TinyPotatoRenderEvent;
+import vazkii.botania.api.item.TinyPotatoRenderCallback;
 import vazkii.botania.client.core.handler.ContributorFancinessHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -175,7 +175,7 @@ public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 		renderItems(potato, potatoFacing, name, partialTicks, ms, buffers, light, overlay);
 
 		ms.push();
-		MinecraftForge.EVENT_BUS.post(new TinyPotatoRenderEvent(potato, potato.name, partialTicks, ms, buffers, light, overlay));
+		TinyPotatoRenderCallback.EVENT.invoker().onRender(potato, potato.name, partialTicks, ms, buffers, light, overlay);
 		ms.pop();
 
 		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(-rotZ));

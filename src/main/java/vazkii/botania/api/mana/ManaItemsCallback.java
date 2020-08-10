@@ -8,6 +8,8 @@
  */
 package vazkii.botania.api.mana;
 
+import net.fabricmc.fabric.api.event.Event;
+import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
@@ -16,27 +18,15 @@ import java.util.List;
 /**
  * Fired when the mod is gathering all items on a player that have mana.
  * For example, if you are an accessory mod, you would listen to this event and add stacks in your
- * accessory slots to the list using {@link #add}.
+ * accessory slots to the list.
  */
-public class ManaItemsEvent extends Event {
+public interface ManaItemsCallback {
+	Event<ManaItemsCallback> EVENT = EventFactory.createArrayBacked(ManaItemsCallback.class,
+		listeners -> (pl, items) -> {
+			for (ManaItemsCallback listener : listeners) {
+				listener.getManaItems(pl, items);
+			}
+		});
 
-	private final PlayerEntity entityPlayer;
-	private List<ItemStack> items;
-
-	public ManaItemsEvent(PlayerEntity entityPlayer, List<ItemStack> items) {
-		this.entityPlayer = entityPlayer;
-		this.items = items;
-	}
-
-	public PlayerEntity getPlayer() {
-		return entityPlayer;
-	}
-
-	public List<ItemStack> getItems() {
-		return items;
-	}
-
-	public void add(ItemStack item) {
-		items.add(item);
-	}
+	void getManaItems(PlayerEntity player, List<ItemStack> items);
 }

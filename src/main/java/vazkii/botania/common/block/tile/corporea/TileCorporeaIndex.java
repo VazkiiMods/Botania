@@ -358,8 +358,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	public void performPlayerRequest(ServerPlayerEntity player, ICorporeaRequestMatcher request, int count) {
-		CorporeaIndexRequestEvent indexReqEvent = new CorporeaIndexRequestEvent(player, request, count, this.getSpark());
-		if (!MinecraftForge.EVENT_BUS.post(indexReqEvent)) {
+		if (!CorporeaIndexRequestCallback.EVENT.invoker().onIndexRequest(player, request, count, this.getSpark())) {
 			ICorporeaResult res = this.doRequest(request, count, this.getSpark());
 
 			player.sendSystemMessage(new TranslatableText("botaniamisc.requestMsg", count, request.getRequestName(), res.getMatchedCount(), res.getExtractedCount()).formatted(Formatting.LIGHT_PURPLE), Util.NIL_UUID);
