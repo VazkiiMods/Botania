@@ -11,6 +11,7 @@ package vazkii.botania.common.core.handler;
 
 import io.github.fablabsmc.fablabs.api.fiber.v1.builder.ConfigTreeBuilder;
 import io.github.fablabsmc.fablabs.api.fiber.v1.exception.ValueDeserializationException;
+import io.github.fablabsmc.fablabs.api.fiber.v1.schema.type.derived.ConfigTypes;
 import io.github.fablabsmc.fablabs.api.fiber.v1.serialization.FiberSerialization;
 import io.github.fablabsmc.fablabs.api.fiber.v1.serialization.JanksonValueSerializer;
 import io.github.fablabsmc.fablabs.api.fiber.v1.tree.ConfigTree;
@@ -27,6 +28,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 import static io.github.fablabsmc.fablabs.api.fiber.v1.schema.type.derived.ConfigTypes.*;
+
+import java.util.Collections;
+import java.util.List;
 
 public final class ConfigHandler {
 	private static void writeDefaultConfig(ConfigTree config, Path path, JanksonValueSerializer serializer) {
@@ -191,6 +195,7 @@ public final class ConfigHandler {
 
 		public final PropertyMirror<Boolean> gogSpawnWithLexicon = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Integer> gogIslandScaleMultiplier = PropertyMirror.create(INTEGER);
+		public final PropertyMirror<List<String>> orechidPriorityMods = PropertyMirror.create(ConfigTypes.makeList(STRING));
 
 		public ConfigTree configure(ConfigTreeBuilder builder) {
 			builder.fork("blockBreakingParticles")
@@ -286,7 +291,14 @@ public final class ConfigHandler {
 						"Islands are placed on a grid with 256 blocks between points, with the spawn island always being placed on 256, 256.\n" +
 						"By default, the scale is 8, putting each island on points separated by 2048 blocks.\n" +
 						"Values below 4 (1024 block spacing) are not recommended due to Nether portal collisions.")
-			.finishValue(gogIslandScaleMultiplier::mirror);
+			.finishValue(gogIslandScaleMultiplier::mirror)
+
+			.beginValue("orechidPriorityMods", ConfigTypes.makeList(STRING), Collections.emptyList())
+			.withComment("List of modids to prioritize when choosing a random ore from the tag.\n" +
+				"By default, the chosen ore is randomly picked from all ores in the ore's tag.\n" +
+				"Ores from mods present on this list will be picked over mods listed lower or not listed at all.")
+			.finishValue(orechidPriorityMods::mirror);
+
 			return builder.build();
 		}
 	}

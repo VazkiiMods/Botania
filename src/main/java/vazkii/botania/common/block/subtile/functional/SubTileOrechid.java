@@ -18,6 +18,7 @@ import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.WeightedPicker;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -98,7 +99,19 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 		}
 
 		Tag<Block> ore = WeightedPicker.getRandom(getWorld().random, values).tag;
-		return ore.getRandom(getWorld().getRandom()).getDefaultState();
+		return selectFromTag(ore).getDefaultState();
+	}
+
+	private Block selectFromTag(Tag<Block> ore) {
+		List<? extends String> mods = ConfigHandler.COMMON.orechidPriorityMods.getValue();
+		for (String modid : mods) {
+			for (Block block : ore.values()) {
+				if (modid.equals(Registry.BLOCK.getId(block).getNamespace())) {
+					return block;
+				}
+			}
+		}
+		return ore.getRandom(getWorld().getRandom());
 	}
 
 	private BlockPos getCoordsToPut() {
