@@ -14,7 +14,9 @@
   "generator.botania-skyblock": "Garden of Glass",
   "generator.botania-skyblock.info": "Not recommended for Botania newcomers",
 
-  "stat.botania.corporea_items_requested": "Items Requested via Corporea",
+  "stat.botania.corporea_items_requested": "Items Requested via Corporea Index",
+  "stat.botania.tiny_potatoes_petted": "Tiny Potatoes Petted",
+  "stat.botania.luminizer_one_cm": "Distance by Luminizer",
 
   "botaniamisc.color": "%s Tinted",
   "botaniamisc.manaUsage": "Mana Usage",
