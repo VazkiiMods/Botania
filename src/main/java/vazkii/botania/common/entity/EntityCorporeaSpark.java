@@ -285,10 +285,13 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 		super.setNetwork(color);
 
-		if (isMaster()) {
-			restartNetwork();
-		} else {
-			findNetwork();
+		// Do not access world during deserialization
+		if (!firstTick) {
+			if (isMaster()) {
+				restartNetwork();
+			} else {
+				findNetwork();
+			}
 		}
 	}
 
