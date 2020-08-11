@@ -1,0 +1,65 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "runClient",
+      "request": "launch",
+      "mainClass": "net.minecraftforge.userdev.LaunchTesting",
+      "projectName": "Botania",
+      "cwd": "${workspaceFolder}\\run",
+      "vmArgs": "-Dforge.logging.console.level\u003ddebug -Dfml.earlyprogresswindow\u003dfalse -XX:HeapDumpPath\u003dMojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump \"-Dos.name\u003dWindows 10\" -Dos.version\u003d10.0",
+      "args": "",
+      "env": {
+        "MOD_CLASSES": "botania%%${workspaceFolder}\\bin\\main;botania%%${workspaceFolder}\\bin\\main",
+        "MCP_MAPPINGS": "snapshot_20200723-1.16.1",
+        "MCP_VERSION": "20200625.160719",
+        "FORGE_VERSION": "32.0.75",
+        "assetIndex": "1.16",
+        "assetDirectory": "C:\\Users\\joshu\\.gradle\\caches\\forge_gradle\\assets",
+        "nativesDirectory": "${workspaceFolder}\\build\\natives",
+        "FORGE_GROUP": "net.minecraftforge",
+        "target": "fmluserdevclient",
+        "MC_VERSION": "1.16.1"
+      }
+    },
+    {
+      "type": "java",
+      "name": "runData",
+      "request": "launch",
+      "mainClass": "net.minecraftforge.userdev.LaunchTesting",
+      "projectName": "Botania",
+      "cwd": "${workspaceFolder}\\run",
+      "vmArgs": "-Dfml.earlyprogresswindow\u003dfalse",
+      "args": "--mod botania --all --existing \"C:\\home\\coding\\minecraft_stuff\\modding\\Botania-with-femboys\\src\\main\\resources\" --existing \"C:\\home\\coding\\minecraft_stuff\\modding\\Botania-with-femboys\\src\\generated\\resources\" --output \"C:\\home\\coding\\minecraft_stuff\\modding\\Botania-with-femboys\\src\\generated\\resources\"",
+      "env": {
+        "MOD_CLASSES": "botania%%${workspaceFolder}\\bin\\main;botania%%${workspaceFolder}\\bin\\main",
+        "MCP_MAPPINGS": "snapshot_20200723-1.16.1",
+        "MCP_VERSION": "20200625.160719",
+        "FORGE_VERSION": "32.0.75",
+        "FORGE_GROUP": "net.minecraftforge",
+        "target": "fmluserdevdata",
+        "MC_VERSION": "1.16.1"
+      }
+    },
+    {
+      "type": "java",
+      "name": "runServer",
+      "request": "launch",
+      "mainClass": "net.minecraftforge.userdev.LaunchTesting",
+      "projectName": "Botania",
+      "cwd": "${workspaceFolder}\\run",
+      "vmArgs": "-Dforge.logging.console.level\u003ddebug",
+      "args": "",
+      "env": {
+        "MOD_CLASSES": "botania%%${workspaceFolder}\\bin\\main;botania%%${workspaceFolder}\\bin\\main",
+        "MCP_MAPPINGS": "snapshot_20200723-1.16.1",
+        "MCP_VERSION": "20200625.160719",
+        "FORGE_VERSION": "32.0.75",
+        "FORGE_GROUP": "net.minecraftforge",
+        "target": "fmluserdevserver",
+        "MC_VERSION": "1.16.1"
+      }
+    }
+  ]
+}

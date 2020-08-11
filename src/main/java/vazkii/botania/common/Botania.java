@@ -96,7 +96,6 @@ import vazkii.botania.common.item.ItemGrassSeeds;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.ItemVirus;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.armor.manaweave.ItemManaweaveArmor;
 import vazkii.botania.common.item.equipment.bauble.ItemGoddessCharm;
 import vazkii.botania.common.item.material.ItemEnderAir;
 import vazkii.botania.common.item.relic.ItemLokiRing;

@@ -46,12 +46,13 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlotType slot) {
 		// vazkii this is not code golf you can write if statements its ok
-		if (LibMisc.isUwu(stack.getDisplayName().getString()))
+		if (LibMisc.isUwu(stack.getDisplayName().getString())) {
 			return LibResources.MODEL_MANAWEAVE_UWU;
-		else if (ClientProxy.jingleTheBells)
+		} else if (ClientProxy.jingleTheBells) {
 			return LibResources.MODEL_MANAWEAVE_HOLIDAY;
-		else
+		} else {
 			return LibResources.MODEL_MANAWEAVE;
+		}
 	}
 
 	@Nonnull
@@ -59,8 +60,9 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 	@OnlyIn(Dist.CLIENT)
 	public String getTranslationKey(ItemStack stack) {
 		String name = super.getTranslationKey(stack);
-		if (ClientProxy.jingleTheBells)
+		if (ClientProxy.jingleTheBells) {
 			name = name.replaceAll("manaweave", "santaweave");
+		}
 		return name;
 	}
 

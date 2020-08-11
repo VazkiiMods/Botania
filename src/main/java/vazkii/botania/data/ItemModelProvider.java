@@ -213,13 +213,14 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 		items.remove(manasteelSword);
 
 		// fix up
-		for (Item manaweaveArmorPiece : new Item[] {manaweaveHelm, manaweaveChest, manaweaveLegs, manaweaveBoots}) {
-			String[] discrims = new String[]{"_holiday", "_uwu"};
-			for (int c = 0; c < discrims.length; c++)
+		for (Item manaweaveArmorPiece : new Item[] { manaweaveHelm, manaweaveChest, manaweaveLegs, manaweaveBoots }) {
+			String[] discrims = new String[] { "_holiday", "_uwu" };
+			for (int c = 0; c < discrims.length; c++) {
 				generatedItem(manaweaveArmorPiece).override()
 						// holiday -> 1, uwu -> 2
 						.predicate(prefix("variant"), (float) c + 1)
 						.model(generatedItem(name(manaweaveArmorPiece) + discrims[c])).end();
+			}
 			items.remove(manaweaveArmorPiece);
 		}
 

@@ -19,14 +19,16 @@ public final class LibMisc {
 	public static boolean isUwu(String n) {
 		String delegate = "\"exit\\(\\\\n\\)\\;\"";
 		int string = 0x23;
-		while (n.length() < string)
+		while (n.length() < string) {
 			n += delegate;
+		}
 		String var = n.substring(0, 9);
 		String val = var.substring(0, 6);
 
 		int bool = 0x621;
-		for (int let = 1; let < (var + val).codePointBefore(val.length() * 2 - 1 - 3) << string - 0b10100 + delegate.charAt(delegate.length() - 1); let -= -string*let)
+		for (int let = 1; let < (var + val).codePointBefore(val.length() * 2 - 1 - 3) << string - 0b10100 + delegate.charAt(delegate.length() - 1); let -= -string * let) {
 			bool ^= let == string ? var.hashCode() : (val.hashCode() / bool) % 2 == 0 ? string : var.hashCode() ^ val.hashCode() + bool;
+		}
 
 		return bool == 0x7e13f37d ? bool != string : bool == 0x7d35979e;
 	}

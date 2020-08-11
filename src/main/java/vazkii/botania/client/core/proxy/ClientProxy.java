@@ -212,16 +212,17 @@ public class ClientProxy implements IProxy {
 
 		ResourceLocation manaweaveVarier = prefix("variant");
 		IItemPropertyGetter manaweaveVarierGetter = (stack, worldIn, entityIn) -> {
-			if (LibMisc.isUwu(stack.getDisplayName().getString()))
+			if (LibMisc.isUwu(stack.getDisplayName().getString())) {
 				return 2.0f;
-			else if (ClientProxy.jingleTheBells)
+			} else if (ClientProxy.jingleTheBells) {
 				return 1.0f;
-			else
+			} else {
 				return 0.0f;
+			}
 		};
 		registerPropertyGetter(ModItems.manaweaveHelm, manaweaveVarier, manaweaveVarierGetter);
-		registerPropertyGetter(ModItems.manaweaveChest,manaweaveVarier,  manaweaveVarierGetter);
-		registerPropertyGetter(ModItems.manaweaveBoots,manaweaveVarier,  manaweaveVarierGetter);
+		registerPropertyGetter(ModItems.manaweaveChest, manaweaveVarier, manaweaveVarierGetter);
+		registerPropertyGetter(ModItems.manaweaveBoots, manaweaveVarier, manaweaveVarierGetter);
 		registerPropertyGetter(ModItems.manaweaveLegs, manaweaveVarier, manaweaveVarierGetter);
 
 		IItemPropertyGetter ringOnGetter = (stack, worldIn, entityIn) -> ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0;

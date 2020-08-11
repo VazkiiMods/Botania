@@ -13,7 +13,6 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.inventory.EquipmentSlotType;
-import vazkii.botania.client.core.proxy.ClientProxy;
 
 public class ModelArmorManaweave extends ModelArmor {
 
