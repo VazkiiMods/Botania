@@ -18,6 +18,12 @@ public class ModStats {
 	public static final ResourceLocation CORPOREA_ITEMS_REQUESTED =
 			AccessorStats.botania_callRegisterCustom(LibMisc.MOD_ID + ":corporea_items_requested", IStatFormatter.DEFAULT);
 
+	public static final ResourceLocation LUMINIZER_ONE_CM =
+			AccessorStats.botania_callRegisterCustom(LibMisc.MOD_ID + ":luminizer_one_cm", IStatFormatter.DISTANCE);
+
+	public static final ResourceLocation TINY_POTATOES_PETTED =
+			AccessorStats.botania_callRegisterCustom(LibMisc.MOD_ID + ":tiny_potatoes_petted", IStatFormatter.DEFAULT);
+
 	public static void init() {
 
 	}

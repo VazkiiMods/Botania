@@ -21,6 +21,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.ModStats;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
 
@@ -77,6 +78,7 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements ITicka
 				}
 			}
 
+			player.addStat(ModStats.TINY_POTATOES_PETTED);
 			PlayerHelper.grantCriterion((ServerPlayerEntity) player, prefix("main/tiny_potato_pet"), "code_triggered");
 		}
 	}
