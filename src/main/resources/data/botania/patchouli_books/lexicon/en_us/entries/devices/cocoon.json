@@ -4,7 +4,7 @@
   "icon": "botania:cocoon",
   "entry_color": "aa00",
   "advancement": "botania:main/elf_lexicon_pickup",
-  "flag": "|debug,!mod:gardenofglass",
+  "flag": "!mod:gardenofglass",
   "pages": [
     {
       "type": "text",
