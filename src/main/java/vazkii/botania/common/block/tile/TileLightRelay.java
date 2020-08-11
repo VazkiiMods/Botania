@@ -18,6 +18,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
+import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.EnderPearlEntity;
 import net.minecraft.item.ItemStack;
@@ -357,6 +358,37 @@ public class TileLightRelay extends TileMod implements Tickable, IWandBindable {
 			cmp.putInt(TAG_EXIT_X, exit.getX());
 			cmp.putInt(TAG_EXIT_Y, exit.getY());
 			cmp.putInt(TAG_EXIT_Z, exit.getZ());
+		}
+
+		// [VanillaCopy] PigEntity logic to select a dismount location
+		@Override
+		public Vec3d updatePassengerForDismount(LivingEntity living) {
+			if (!(living instanceof PlayerEntity)) {
+				return super.updatePassengerForDismount(living);
+			}
+
+			Direction direction = living.getHorizontalFacing();
+			int[][] aint = Dismounting.getDismountOffsets(direction);
+			BlockPos blockpos = this.getBlockPos();
+			BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
+
+			for (EntityPose pose : living.getPoses()) {
+				Box axisalignedbb = living.getBoundingBox(pose);
+
+				for (int[] aint1 : aint) {
+					blockpos$mutable.set(blockpos.getX() + aint1[0], blockpos.getY(), blockpos.getZ() + aint1[1]);
+					double d0 = this.world.getDismountHeight(blockpos$mutable);
+					if (Dismounting.canDismountInBlock(d0)) {
+						Vec3d vector3d = Vec3d.ofCenter(blockpos$mutable, d0);
+						if (Dismounting.canPlaceEntityAt(this.world, living, axisalignedbb.offset(vector3d))) {
+							living.setPose(pose);
+							return vector3d;
+						}
+					}
+				}
+			}
+
+			return super.updatePassengerForDismount(living);
 		}
 
 		@Nonnull
