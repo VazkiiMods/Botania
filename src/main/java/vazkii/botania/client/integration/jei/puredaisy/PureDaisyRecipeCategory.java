@@ -49,10 +49,10 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 	private final IDrawable icon;
 
 	public PureDaisyRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createBlankDrawable(168, 46);
+		background = guiHelper.createBlankDrawable(96, 44);
 		localizedName = I18n.format("botania.nei.pureDaisy");
 		overlay = guiHelper.createDrawable(prefix("textures/gui/pure_daisy_overlay.png"),
-				0, 0, 64, 46);
+				0, 0, 64, 44);
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModSubtiles.pureDaisy));
 	}
 
@@ -122,7 +122,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 	public void draw(IPureDaisyRecipe recipe, MatrixStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
-		overlay.draw(ms, 48, 0);
+		overlay.draw(ms, 17, 0);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 	}
@@ -133,21 +133,21 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 		boolean outputFluid = !ingredients.getOutputs(VanillaTypes.FLUID).isEmpty();
 
 		if (inputFluid) {
-			recipeLayout.getFluidStacks().init(0, true, 40, 12, 16, 16, 1000, false, null);
+			recipeLayout.getFluidStacks().init(0, true, 9, 12, 16, 16, 1000, false, null);
 			recipeLayout.getFluidStacks().set(0, ingredients.getInputs(VanillaTypes.FLUID).get(0));
 		} else {
-			recipeLayout.getItemStacks().init(0, true, 40, 12);
+			recipeLayout.getItemStacks().init(0, true, 9, 12);
 			recipeLayout.getItemStacks().set(0, ingredients.getInputs(VanillaTypes.ITEM).get(0));
 		}
 
-		recipeLayout.getItemStacks().init(1, true, 70, 12);
+		recipeLayout.getItemStacks().init(1, true, 39, 12);
 		recipeLayout.getItemStacks().set(1, new ItemStack(ModSubtiles.pureDaisy));
 
 		if (outputFluid) {
-			recipeLayout.getFluidStacks().init(2, false, 99, 12, 16, 16, 1000, false, null);
+			recipeLayout.getFluidStacks().init(2, false, 68, 12, 16, 16, 1000, false, null);
 			recipeLayout.getFluidStacks().set(2, ingredients.getOutputs(VanillaTypes.FLUID).get(0));
 		} else {
-			recipeLayout.getItemStacks().init(2, false, 99, 12);
+			recipeLayout.getItemStacks().init(2, false, 68, 12);
 			recipeLayout.getItemStacks().set(2, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 		}
 

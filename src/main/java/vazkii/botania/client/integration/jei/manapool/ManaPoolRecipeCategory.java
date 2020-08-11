@@ -49,7 +49,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 	private final ItemStack renderStack = new ItemStack(ModBlocks.manaPool);
 
 	public ManaPoolRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createBlankDrawable(168, 64);
+		background = guiHelper.createBlankDrawable(142, 55);
 		localizedName = I18n.format("botania.nei.manaPool");
 		overlay = guiHelper.createDrawable(prefix("textures/gui/pure_daisy_overlay.png"),
 				0, 0, 64, 46);
@@ -108,8 +108,8 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 	public void draw(IManaInfusionRecipe recipe, MatrixStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
-		overlay.draw(ms, 48, 0);
-		HUDHandler.renderManaBar(ms, 28, 50, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / 10);
+		overlay.draw(ms, 40, 0);
+		HUDHandler.renderManaBar(ms, 20, 50, 0x0000FF, 0.75F, recipe.getManaToConsume(), TilePool.MAX_MANA / 10);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 	}
@@ -118,23 +118,23 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IManaInfusionRecipe recipe, @Nonnull IIngredients ingredients) {
 		int index = 0;
 
-		recipeLayout.getItemStacks().init(index, true, 40, 12);
+		recipeLayout.getItemStacks().init(index, true, 32, 12);
 		recipeLayout.getItemStacks().set(index, ingredients.getInputs(VanillaTypes.ITEM).get(0));
 
 		index++;
 
 		if (ingredients.getInputs(VanillaTypes.ITEM).size() > 1) {
 			// Has catalyst
-			recipeLayout.getItemStacks().init(index, true, 20, 12);
+			recipeLayout.getItemStacks().init(index, true, 12, 12);
 			recipeLayout.getItemStacks().set(index, ingredients.getInputs(VanillaTypes.ITEM).get(1));
 			index++;
 		}
 
-		recipeLayout.getItemStacks().init(index, true, 70, 12);
+		recipeLayout.getItemStacks().init(index, true, 62, 12);
 		recipeLayout.getItemStacks().set(index, renderStack);
 		index++;
 
-		recipeLayout.getItemStacks().init(index, false, 99, 12);
+		recipeLayout.getItemStacks().init(index, false, 93, 12);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 
 		JEIBotaniaPlugin.addDefaultRecipeIdTooltip(recipeLayout.getItemStacks(), index, recipe.getId());

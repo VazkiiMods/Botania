@@ -47,8 +47,8 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> 
 
 	public OrechidRecipeCategoryBase(IGuiHelper guiHelper, ItemStack iconStack, ItemStack inputStack, String localizedName) {
 		overlay = guiHelper.createDrawable(prefix("textures/gui/pure_daisy_overlay.png"),
-				0, 0, 64, 46);
-		background = guiHelper.createBlankDrawable(168, 64);
+				0, 0, 64, 44);
+		background = guiHelper.createBlankDrawable(96, 44);
 		this.localizedName = localizedName;
 		this.icon = guiHelper.createDrawableIngredient(iconStack);
 		this.iconStack = iconStack;
@@ -110,13 +110,13 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> 
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull T recipeWrapper, @Nonnull IIngredients ingredients) {
 		final IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
 
-		itemStacks.init(0, true, 40, 12);
+		itemStacks.init(0, true, 9, 12);
 		itemStacks.set(0, ingredients.getInputs(VanillaTypes.ITEM).get(0));
 
-		itemStacks.init(1, true, 70, 12);
+		itemStacks.init(1, true, 39, 12);
 		itemStacks.set(1, iconStack);
 
-		itemStacks.init(2, true, 99, 12);
+		itemStacks.init(2, true, 68, 12);
 		itemStacks.set(2, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 	}
 
@@ -124,7 +124,7 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> 
 	public void draw(T recipe, MatrixStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
-		overlay.draw(ms, 48, 0);
+		overlay.draw(ms, 17, 0);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 	}

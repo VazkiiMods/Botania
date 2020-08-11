@@ -46,7 +46,7 @@ public class BreweryRecipeCategory implements IRecipeCategory<IBrewRecipe> {
 
 	public BreweryRecipeCategory(IGuiHelper guiHelper) {
 		ResourceLocation location = prefix("textures/gui/nei_brewery.png");
-		background = guiHelper.createDrawable(location, 0, 0, 166, 65);
+		background = guiHelper.createDrawable(location, 28, 6, 131, 55);
 		localizedName = I18n.format("botania.nei.brewery");
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.brewery));
 	}
@@ -113,19 +113,19 @@ public class BreweryRecipeCategory implements IRecipeCategory<IBrewRecipe> {
 		List<List<ItemStack>> outputs = ingredients.getOutputs(VanillaTypes.ITEM);
 		IFocus<?> focus = recipeLayout.getFocus();
 
-		recipeLayout.getItemStacks().init(0, true, 39, 41);
+		recipeLayout.getItemStacks().init(0, true, 10, 35);
 		recipeLayout.getItemStacks().set(0, getItemMatchingFocus(focus, IFocus.Mode.OUTPUT, outputs.get(0), inputs.get(0)));
 
-		int index = 1, posX = 60;
+		int index = 1, posX = 76 - (inputs.size() * 9);
 		for (int i = 1; i < inputs.size(); i++) {
 			List<ItemStack> o = inputs.get(i);
-			recipeLayout.getItemStacks().init(index, true, posX, 6);
+			recipeLayout.getItemStacks().init(index, true, posX, 0);
 			recipeLayout.getItemStacks().set(index, o);
 			index++;
 			posX += 18;
 		}
 
-		recipeLayout.getItemStacks().init(7, false, 87, 41);
+		recipeLayout.getItemStacks().init(7, false, 58, 35);
 		recipeLayout.getItemStacks().set(7, getItemMatchingFocus(focus, IFocus.Mode.INPUT, inputs.get(0), outputs.get(0)));
 
 		JEIBotaniaPlugin.addDefaultRecipeIdTooltip(recipeLayout.getItemStacks(), 7, recipe.getId());

@@ -46,10 +46,10 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 	private final IDrawable icon;
 
 	public PetalApothecaryRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createBlankDrawable(150, 110);
+		background = guiHelper.createBlankDrawable(114, 97);
 		localizedName = I18n.format("botania.nei.petalApothecary");
 		overlay = guiHelper.createDrawable(prefix("textures/gui/petal_overlay.png"),
-				0, 0, 150, 110);
+				17, 11, 114, 82);
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.defaultAltar));
 	}
 
@@ -97,19 +97,19 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 	public void draw(IPetalRecipe recipe, MatrixStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
-		overlay.draw(ms);
+		overlay.draw(ms, 0, 4);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 	}
 
 	@Override
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IPetalRecipe recipe, @Nonnull IIngredients ingredients) {
-		recipeLayout.getItemStacks().init(0, true, 64, 52);
+		recipeLayout.getItemStacks().init(0, true, 47, 44);
 		recipeLayout.getItemStacks().set(0, new ItemStack(ModBlocks.defaultAltar));
 
 		int index = 1;
 		double angleBetweenEach = 360.0 / ingredients.getInputs(VanillaTypes.ITEM).size();
-		Vector2f point = new Vector2f(64, 20), center = new Vector2f(64, 52);
+		Vector2f point = new Vector2f(47, 12), center = new Vector2f(47, 44);
 
 		for (List<ItemStack> o : ingredients.getInputs(VanillaTypes.ITEM)) {
 			recipeLayout.getItemStacks().init(index, true, (int) point.x, (int) point.y);
@@ -118,7 +118,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 			point = rotatePointAbout(point, center, angleBetweenEach);
 		}
 
-		recipeLayout.getItemStacks().init(index, false, 103, 17);
+		recipeLayout.getItemStacks().init(index, false, 86, 11);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 
 		JEIBotaniaPlugin.addDefaultRecipeIdTooltip(recipeLayout.getItemStacks(), index, recipe.getId());
