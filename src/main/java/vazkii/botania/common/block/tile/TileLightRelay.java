@@ -10,8 +10,7 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
+import net.minecraft.entity.*;
 import net.minecraft.entity.item.EnderPearlEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,6 +26,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
+import net.minecraft.util.TransportationHelper;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -358,6 +358,38 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 			cmp.putInt(TAG_EXIT_X, exit.getX());
 			cmp.putInt(TAG_EXIT_Y, exit.getY());
 			cmp.putInt(TAG_EXIT_Z, exit.getZ());
+		}
+
+		// [VanillaCopy] PigEntity logic to select a dismount location
+		@Nonnull
+		@Override
+		public Vector3d func_230268_c_(@Nonnull LivingEntity living) {
+			if (!(living instanceof PlayerEntity)) {
+				return super.func_230268_c_(living);
+			}
+
+			Direction direction = living.getHorizontalFacing();
+			int[][] aint = TransportationHelper.func_234632_a_(direction);
+			BlockPos blockpos = this.func_233580_cy_();
+			BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
+
+			for (Pose pose : living.func_230297_ef_()) {
+				AxisAlignedBB axisalignedbb = living.getPoseAABB(pose);
+
+				for (int[] aint1 : aint) {
+					blockpos$mutable.setPos(blockpos.getX() + aint1[0], blockpos.getY(), blockpos.getZ() + aint1[1]);
+					double d0 = this.world.func_234936_m_(blockpos$mutable);
+					if (TransportationHelper.func_234630_a_(d0)) {
+						Vector3d vector3d = Vector3d.func_237490_a_(blockpos$mutable, d0);
+						if (TransportationHelper.func_234631_a_(this.world, living, axisalignedbb.offset(vector3d))) {
+							living.setPose(pose);
+							return vector3d;
+						}
+					}
+				}
+			}
+
+			return super.func_230268_c_(living);
 		}
 
 		@Nonnull
