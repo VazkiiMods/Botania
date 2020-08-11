@@ -14,6 +14,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
@@ -61,8 +62,14 @@ public class BlockLightRelay extends BlockModWaterloggable implements ITileEntit
 
 	@Override
 	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		((TileLightRelay) world.getTileEntity(pos)).mountEntity(player);
-		return ActionResultType.SUCCESS;
+		if (player.getHeldItem(hand).getItem() != Items.ENDER_PEARL) {
+			TileEntity te = world.getTileEntity(pos);
+			if (te instanceof TileLightRelay) {
+				((TileLightRelay) te).mountEntity(player);
+				return ActionResultType.SUCCESS;
+			}
+		}
+		return ActionResultType.PASS;
 	}
 
 	@Override

@@ -118,13 +118,13 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 
 				if (endpoint != null) {
 					AxisAlignedBB aabb = getBlockState().getShape(world, pos).getBoundingBox().offset(pos);
-					float range = 0.5F;
+					float range = 0.6F;
 					List<EnderPearlEntity> enderPearls = world.getEntitiesWithinAABB(EnderPearlEntity.class, aabb.grow(range));
 					for (EnderPearlEntity pearl : enderPearls) {
 						pearl.setPositionAndUpdate(
-								endpoint.getX() + pearl.getPosX() - pos.getX(),
-								endpoint.getY() + pearl.getPosY() - pos.getY(),
-								endpoint.getZ() + pearl.getPosZ() - pos.getZ()
+								endpoint.getX() + (pearl.getPosX() - pos.getX()),
+								endpoint.getY() + (pearl.getPosY() - pos.getY()),
+								endpoint.getZ() + (pearl.getPosZ() - pos.getZ())
 						);
 					}
 				}
