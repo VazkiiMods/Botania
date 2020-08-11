@@ -55,6 +55,7 @@ import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.brew.potion.PotionBloodthirst;
 import vazkii.botania.common.brew.potion.PotionEmptiness;
 import vazkii.botania.common.brew.potion.PotionSoulCross;
+import vazkii.botania.common.core.ModStats;
 import vazkii.botania.common.core.command.SkyblockCommand;
 import vazkii.botania.common.core.handler.*;
 import vazkii.botania.common.core.loot.DisposeModifier;
@@ -225,6 +226,8 @@ public class Botania implements ModInitializer {
 		ModBlocks.addDispenserBehaviours();
 
 		ModFeatures.addWorldgen();
+
+        ModStats.init();
 	}
 
 	private void loadComplete(FMLLoadCompleteEvent event) {

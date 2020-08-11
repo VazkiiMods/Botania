@@ -21,6 +21,7 @@
     "AccessorMobEntity",
     "AccessorNearestAttackableTarget",
     "AccessorRecipeManager",
+    "AccessorStats",
     "AccessorWitherEntity",
     "MixinEndermanPickupBlock",
     "MixinLivingEntity",

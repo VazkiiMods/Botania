@@ -14,6 +14,8 @@
   "generator.botania-skyblock": "Garden of Glass",
   "generator.botania-skyblock.info": "Not recommended for Botania newcomers",
 
+  "stat.botania.corporea_items_requested": "Items Requested via Corporea",
+
   "botaniamisc.color": "%s Tinted",
   "botaniamisc.manaUsage": "Mana Usage",
   "botaniamisc.flareColor": "%s Rounds",
