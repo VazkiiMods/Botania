@@ -370,17 +370,17 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 
 			Direction direction = living.getHorizontalFacing();
 			int[][] aint = TransportationHelper.func_234632_a_(direction);
-			BlockPos blockpos = this.func_233580_cy_();
+			BlockPos blockpos = this.getPosition();
 			BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
 
-			for (Pose pose : living.func_230297_ef_()) {
+			for (Pose pose : living.getAvailablePoses()) {
 				AxisAlignedBB axisalignedbb = living.getPoseAABB(pose);
 
 				for (int[] aint1 : aint) {
 					blockpos$mutable.setPos(blockpos.getX() + aint1[0], blockpos.getY(), blockpos.getZ() + aint1[1]);
 					double d0 = this.world.func_234936_m_(blockpos$mutable);
 					if (TransportationHelper.func_234630_a_(d0)) {
-						Vector3d vector3d = Vector3d.func_237490_a_(blockpos$mutable, d0);
+						Vector3d vector3d = Vector3d.copyCenteredWithVerticalOffset(blockpos$mutable, d0);
 						if (TransportationHelper.func_234631_a_(this.world, living, axisalignedbb.offset(vector3d))) {
 							living.setPose(pose);
 							return vector3d;

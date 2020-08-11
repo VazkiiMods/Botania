@@ -141,8 +141,8 @@ public class EntityPixie extends FlyingEntity {
 	}
 
 	@Override
-	public boolean canDespawn(double dist) {
-		return false;
+	public boolean canBeCollidedWith() {
+		return isAlive();
 	}
 
 	@Override
