@@ -23,6 +23,7 @@ import net.minecraftforge.event.ServerChatEvent;
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.common.advancements.CorporeaRequestTrigger;
 import vazkii.botania.common.block.tile.ModTiles;
+import vazkii.botania.common.core.ModStats;
 import vazkii.botania.common.core.helper.MathHelper;
 
 import java.util.*;
@@ -365,6 +366,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 			ICorporeaResult res = this.doRequest(request, count, this.getSpark());
 
 			player.sendMessage(new TranslationTextComponent("botaniamisc.requestMsg", count, request.getRequestName(), res.getMatchedCount(), res.getExtractedCount()).mergeStyle(TextFormatting.LIGHT_PURPLE), Util.DUMMY_UUID);
+			player.addStat(ModStats.CORPOREA_ITEMS_REQUESTED, res.getExtractedCount());
 			CorporeaRequestTrigger.INSTANCE.trigger(player, player.getServerWorld(), this.getPos(), res.getExtractedCount());
 		}
 	}

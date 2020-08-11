@@ -79,6 +79,7 @@ import vazkii.botania.common.brew.potion.PotionEmptiness;
 import vazkii.botania.common.brew.potion.PotionSoulCross;
 import vazkii.botania.common.capability.NoopCapStorage;
 import vazkii.botania.common.capability.NoopExoflameHeatable;
+import vazkii.botania.common.core.ModStats;
 import vazkii.botania.common.core.command.SkyblockCommand;
 import vazkii.botania.common.core.handler.*;
 import vazkii.botania.common.core.loot.DisposeModifier;
@@ -274,6 +275,7 @@ public class Botania {
 			ModBlocks.addDispenserBehaviours();
 
 			ModFeatures.addWorldgen();
+			ModStats.init();
 		});
 	}
 

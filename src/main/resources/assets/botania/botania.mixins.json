@@ -20,6 +20,7 @@
     "AccessorMobEntity",
     "AccessorNearestAttackableTarget",
     "AccessorRecipeManager",
+    "AccessorStats",
     "AccessorWitherEntity",
     "MixinEndermanPickupBlock",
     "MixinPlayerEntity"
