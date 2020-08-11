@@ -6,9 +6,15 @@
   "overrides": [
     {
       "predicate": {
-        "botania:holiday": 1.0
+        "botania:variant": 1.0
       },
       "model": "botania:item/manaweave_chestplate_holiday"
+    },
+    {
+      "predicate": {
+        "botania:variant": 2.0
+      },
+      "model": "botania:item/manaweave_chestplate_uwu"
     }
   ]
 }

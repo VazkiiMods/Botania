@@ -23,7 +23,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.armor.ModelArmorElementium;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
@@ -43,7 +42,7 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlotType slot) {
-		return ConfigHandler.CLIENT.enableArmorModels.get() ? LibResources.MODEL_ELEMENTIUM_NEW : slot == EquipmentSlotType.LEGS ? LibResources.MODEL_ELEMENTIUM_1 : LibResources.MODEL_ELEMENTIUM_0;
+		return LibResources.MODEL_ELEMENTIUM;
 	}
 
 	private static final LazyValue<ItemStack[]> armorSet = new LazyValue<>(() -> new ItemStack[] {

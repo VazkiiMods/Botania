@@ -23,9 +23,9 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.armor.ModelArmorManaweave;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
+import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -45,7 +45,13 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlotType slot) {
-		return ConfigHandler.CLIENT.enableArmorModels.get() ? ClientProxy.jingleTheBells ? LibResources.MODEL_MANAWEAVE_NEW_HOLIDAY : LibResources.MODEL_MANAWEAVE_NEW : slot == EquipmentSlotType.LEGS ? LibResources.MODEL_MANAWEAVE_1 : LibResources.MODEL_MANAWEAVE_0;
+		// vazkii this is not code golf you can write if statements its ok
+		if (LibMisc.isUwu(stack.getDisplayName().getString()))
+			return LibResources.MODEL_MANAWEAVE_UWU;
+		else if (ClientProxy.jingleTheBells)
+			return LibResources.MODEL_MANAWEAVE_HOLIDAY;
+		else
+			return LibResources.MODEL_MANAWEAVE;
 	}
 
 	@Nonnull
@@ -53,9 +59,8 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 	@OnlyIn(Dist.CLIENT)
 	public String getTranslationKey(ItemStack stack) {
 		String name = super.getTranslationKey(stack);
-		if (ClientProxy.jingleTheBells) {
+		if (ClientProxy.jingleTheBells)
 			name = name.replaceAll("manaweave", "santaweave");
-		}
 		return name;
 	}
 

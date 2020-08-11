@@ -212,25 +212,16 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 				.model(handheldItem("elucidator")).end();
 		items.remove(manasteelSword);
 
-		generatedItem(manaweaveHelm).override()
-				.predicate(prefix("holiday"), 1)
-				.model(generatedItem(name(manaweaveHelm) + "_holiday")).end();
-		items.remove(manaweaveHelm);
-
-		generatedItem(manaweaveChest).override()
-				.predicate(prefix("holiday"), 1)
-				.model(generatedItem(name(manaweaveChest) + "_holiday")).end();
-		items.remove(manaweaveChest);
-
-		generatedItem(manaweaveLegs).override()
-				.predicate(prefix("holiday"), 1)
-				.model(generatedItem(name(manaweaveLegs) + "_holiday")).end();
-		items.remove(manaweaveLegs);
-
-		generatedItem(manaweaveBoots).override()
-				.predicate(prefix("holiday"), 1)
-				.model(generatedItem(name(manaweaveBoots) + "_holiday")).end();
-		items.remove(manaweaveBoots);
+		// fix up
+		for (Item manaweaveArmorPiece : new Item[] {manaweaveHelm, manaweaveChest, manaweaveLegs, manaweaveBoots}) {
+			String[] discrims = new String[]{"_holiday", "_uwu"};
+			for (int c = 0; c < discrims.length; c++)
+				generatedItem(manaweaveArmorPiece).override()
+						// holiday -> 1, uwu -> 2
+						.predicate(prefix("variant"), (float) c + 1)
+						.model(generatedItem(name(manaweaveArmorPiece) + discrims[c])).end();
+			items.remove(manaweaveArmorPiece);
+		}
 
 		generatedItem(slimeBottle).override()
 				.predicate(prefix("active"), 1)

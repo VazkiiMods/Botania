@@ -210,12 +210,19 @@ public class ClientProxy implements IProxy {
 		registerPropertyGetter(ModItems.brewVial, prefix("swigs_taken"), brewGetter);
 		registerPropertyGetter(ModItems.brewFlask, prefix("swigs_taken"), brewGetter);
 
-		ResourceLocation holidayId = prefix("holiday");
-		IItemPropertyGetter holidayGetter = (stack, worldIn, entityIn) -> ClientProxy.jingleTheBells ? 1 : 0;
-		registerPropertyGetter(ModItems.manaweaveHelm, holidayId, holidayGetter);
-		registerPropertyGetter(ModItems.manaweaveChest, holidayId, holidayGetter);
-		registerPropertyGetter(ModItems.manaweaveBoots, holidayId, holidayGetter);
-		registerPropertyGetter(ModItems.manaweaveLegs, holidayId, holidayGetter);
+		ResourceLocation manaweaveVarier = prefix("variant");
+		IItemPropertyGetter manaweaveVarierGetter = (stack, worldIn, entityIn) -> {
+			if (LibMisc.isUwu(stack.getDisplayName().getString()))
+				return 2.0f;
+			else if (ClientProxy.jingleTheBells)
+				return 1.0f;
+			else
+				return 0.0f;
+		};
+		registerPropertyGetter(ModItems.manaweaveHelm, manaweaveVarier, manaweaveVarierGetter);
+		registerPropertyGetter(ModItems.manaweaveChest,manaweaveVarier,  manaweaveVarierGetter);
+		registerPropertyGetter(ModItems.manaweaveBoots,manaweaveVarier,  manaweaveVarierGetter);
+		registerPropertyGetter(ModItems.manaweaveLegs, manaweaveVarier, manaweaveVarierGetter);
 
 		IItemPropertyGetter ringOnGetter = (stack, worldIn, entityIn) -> ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0;
 		registerPropertyGetter(ModItems.magnetRing, prefix("active"), ringOnGetter);

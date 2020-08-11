@@ -13,11 +13,13 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.inventory.EquipmentSlotType;
+import vazkii.botania.client.core.proxy.ClientProxy;
 
 public class ModelArmorManaweave extends ModelArmor {
 
 	private final ModelRenderer helmAnchor;
 	private final ModelRenderer helm;
+	private final ModelRenderer ears;
 
 	private final ModelRenderer bodyAnchor;
 	private final ModelRenderer bodyTop;
@@ -41,10 +43,11 @@ public class ModelArmorManaweave extends ModelArmor {
 
 	public ModelArmorManaweave(EquipmentSlotType slot) {
 		super(slot);
+		// hey vazkii would it actually kill you to name this something other than s
+		float s = 0.01F;
 
 		textureWidth = 64;
 		textureHeight = 128;
-		float s = 0.01F;
 
 		//helm
 		this.helmAnchor = new ModelRenderer(this, 0, 0);
@@ -54,6 +57,10 @@ public class ModelArmorManaweave extends ModelArmor {
 		this.helm.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.helm.addBox(-4.5F, -9.5F, -4.0F, 9, 11, 10, s);
 		this.setRotateAngle(helm, 0.17453292519943295F, 0.0F, 0.0F);
+
+		this.ears = new ModelRenderer(this, 0, 98);
+		this.ears.addBox(-4.5f, -12f, 0f, 9, 4, 0, s);
+		this.setRotateAngle(ears, 0.17453292519943295F, 0.0F, 0.0F);
 
 		//body
 		this.bodyAnchor = new ModelRenderer(this, 0, 0);
@@ -128,6 +135,7 @@ public class ModelArmorManaweave extends ModelArmor {
 
 		//hierarchy
 		this.helmAnchor.addChild(this.helm);
+		this.helmAnchor.addChild(this.ears);
 
 		this.bodyAnchor.addChild(this.bodyTop);
 		this.bodyTop.addChild(this.bodyBottom);
