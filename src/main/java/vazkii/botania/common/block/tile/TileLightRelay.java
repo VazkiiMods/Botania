@@ -117,7 +117,7 @@ public class TileLightRelay extends TileMod implements Tickable, IWandBindable {
 
 				if (endpoint != null) {
 					Box aabb = getCachedState().getOutlineShape(world, pos).getBoundingBox().offset(pos);
-					float range = 0.5F;
+					float range = 0.6F;
 					List<EnderPearlEntity> enderPearls = world.getNonSpectatingEntities(EnderPearlEntity.class, aabb.expand(range));
 					for (EnderPearlEntity pearl : enderPearls) {
 						pearl.requestTeleport(
