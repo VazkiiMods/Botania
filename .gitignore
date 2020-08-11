@@ -25,6 +25,9 @@ Thumbs.db
 /*.iml
 /classes
 
+## vscode
+/.vscode
+
 ## Private Stuffs
 /private.properties
 
