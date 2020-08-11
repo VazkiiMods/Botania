@@ -34,10 +34,10 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 	private final IDrawable overlay;
 
 	public RunicAltarRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createBlankDrawable(150, 110);
+		background = guiHelper.createBlankDrawable(114, 104);
 		localizedName = I18n.format("botania.nei.runicAltar");
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/petalOverlay.png"),
-				0, 0, 150, 110);
+				17, 11, 114, 82);
 	}
 
 	@Nonnull
@@ -62,19 +62,19 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 	public void drawExtras(@Nonnull Minecraft minecraft) {
 		GlStateManager.enableAlpha();
 		GlStateManager.enableBlend();
-		overlay.draw(minecraft);
+		overlay.draw(minecraft, 0, 4);
 		GlStateManager.disableBlend();
 		GlStateManager.disableAlpha();
 	}
 
 	@Override
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull RunicAltarRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
-		recipeLayout.getItemStacks().init(0, true, 64, 52);
+		recipeLayout.getItemStacks().init(0, true, 47, 44);
 		recipeLayout.getItemStacks().set(0, new ItemStack(ModBlocks.runeAltar));
 
 		int index = 1;
 		double angleBetweenEach = 360.0 / ingredients.getInputs(VanillaTypes.ITEM).size();
-		Point point = new Point(64, 20), center = new Point(64, 52);
+		Point point = new Point(47, 12), center = new Point(47, 44);
 
 		for(List<ItemStack> o : ingredients.getInputs(VanillaTypes.ITEM)) {
 			recipeLayout.getItemStacks().init(index, true, point.x, point.y);
@@ -83,7 +83,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<RunicAltarRecip
 			point = rotatePointAbout(point, center, angleBetweenEach);
 		}
 
-		recipeLayout.getItemStacks().init(index, false, 103, 17);
+		recipeLayout.getItemStacks().init(index, false, 86, 11);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 
 	}

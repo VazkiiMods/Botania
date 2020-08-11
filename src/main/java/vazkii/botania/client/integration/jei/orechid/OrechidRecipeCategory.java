@@ -34,10 +34,10 @@ public class OrechidRecipeCategory implements IRecipeCategory<OrechidRecipeWrapp
 	private final IDrawableStatic overlay;
 
 	public OrechidRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createBlankDrawable(168, 64);
+		background = guiHelper.createBlankDrawable(96, 44);
 		localizedName = I18n.format("botania.nei.orechid");
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pureDaisyOverlay.png"),
-				0, 0, 64, 46);
+				0, 0, 64, 44);
 	}
 
 	@Nonnull
@@ -63,13 +63,13 @@ public class OrechidRecipeCategory implements IRecipeCategory<OrechidRecipeWrapp
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull OrechidRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
 		final IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
 
-		itemStacks.init(0, true, 40, 12);
+		itemStacks.init(0, true, 9, 12);
 		itemStacks.set(0, ingredients.getInputs(VanillaTypes.ITEM).get(0));
 
-		itemStacks.init(1, true, 70, 12);
+		itemStacks.init(1, true, 39, 12);
 		itemStacks.set(1, ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_ORECHID));
 
-		itemStacks.init(2, true, 99, 12);
+		itemStacks.init(2, true, 68, 12);
 		itemStacks.set(2, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 	}
 
@@ -77,7 +77,7 @@ public class OrechidRecipeCategory implements IRecipeCategory<OrechidRecipeWrapp
 	public void drawExtras(@Nonnull Minecraft minecraft) {
 		GlStateManager.enableAlpha();
 		GlStateManager.enableBlend();
-		overlay.draw(minecraft, 48, 0);
+		overlay.draw(minecraft, 17, 0);
 		GlStateManager.disableBlend();
 		GlStateManager.disableAlpha();
 	}

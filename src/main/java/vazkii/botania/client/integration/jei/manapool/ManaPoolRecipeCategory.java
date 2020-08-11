@@ -37,7 +37,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<ManaPoolRecipeWra
 	private final ItemStack renderStack = new ItemStack(ModBlocks.pool);
 
 	public ManaPoolRecipeCategory(IGuiHelper guiHelper) {
-		background = guiHelper.createBlankDrawable(168, 64);
+		background = guiHelper.createBlankDrawable(142, 55);
 		localizedName = I18n.format("botania.nei.manaPool");
 		overlay = guiHelper.createDrawable(new ResourceLocation("botania", "textures/gui/pureDaisyOverlay.png"),
 				0, 0, 64, 46);
@@ -72,7 +72,7 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<ManaPoolRecipeWra
 	public void drawExtras(@Nonnull Minecraft minecraft) {
 		GlStateManager.enableAlpha();
 		GlStateManager.enableBlend();
-		overlay.draw(minecraft, 48, 0);
+		overlay.draw(minecraft, 40, 0);
 		GlStateManager.disableBlend();
 		GlStateManager.disableAlpha();
 	}
@@ -81,23 +81,23 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<ManaPoolRecipeWra
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull ManaPoolRecipeWrapper recipeWrapper, @Nonnull IIngredients ingredients) {
 		int index = 0;
 
-		recipeLayout.getItemStacks().init(index, true, 40, 12);
+		recipeLayout.getItemStacks().init(index, true, 32, 12);
 		recipeLayout.getItemStacks().set(index, ingredients.getInputs(VanillaTypes.ITEM).get(0));
 
 		index++;
 
 		if(ingredients.getInputs(VanillaTypes.ITEM).size() > 1) {
 			// Has catalyst
-			recipeLayout.getItemStacks().init(index, true, 20, 12);
+			recipeLayout.getItemStacks().init(index, true, 12, 12);
 			recipeLayout.getItemStacks().set(index, ingredients.getInputs(VanillaTypes.ITEM).get(1));
 			index++;
 		}
 
-		recipeLayout.getItemStacks().init(index, true, 70, 12);
+		recipeLayout.getItemStacks().init(index, true, 62, 12);
 		recipeLayout.getItemStacks().set(index, renderStack);
 		index++;
 
-		recipeLayout.getItemStacks().init(index, false, 99, 12);
+		recipeLayout.getItemStacks().init(index, false, 93, 12);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 	}
 

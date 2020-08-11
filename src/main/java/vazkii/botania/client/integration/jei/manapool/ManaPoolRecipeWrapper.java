@@ -62,7 +62,7 @@ public class ManaPoolRecipeWrapper implements IRecipeWrapper {
 	@Override
 	public void drawInfo(@Nonnull Minecraft minecraft, int recipeWidth, int recipeHeight, int mouseX, int mouseY) {
 		GlStateManager.enableAlpha();
-		HUDHandler.renderManaBar(28, 50, 0x0000FF, 0.75F, mana, TilePool.MAX_MANA / 10);
+		HUDHandler.renderManaBar(20, 50, 0x0000FF, 0.75F, mana, TilePool.MAX_MANA / 10);
 		GlStateManager.disableAlpha();
 	}
 
