@@ -24,12 +24,15 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
+import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+
+import java.util.Random;
 
 public class BlockManaFlame extends BlockMod implements ITileEntityProvider {
 
@@ -65,6 +68,39 @@ public class BlockManaFlame extends BlockMod implements ITileEntityProvider {
 
 		}
 		return ActionResultType.PASS;
+	}
+
+	@Override
+	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TileManaFlame) {
+			int color = ((TileManaFlame) te).getColor();
+			float v = 0.1F;
+
+			float r = (float) (color >> 16 & 0xFF) / 0xFF;
+			float g = (float) (color >> 8 & 0xFF) / 0xFF;
+			float b = (float) (color & 0xFF) / 0xFF;
+
+			double luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b; // Standard relative luminance calculation
+
+			if (luminance < v) {
+				r += (float) Math.random() * 0.125F;
+				g += (float) Math.random() * 0.125F;
+				b += (float) Math.random() * 0.125F;
+			}
+
+			float w = 0.15F;
+			float h = 0.05F;
+			double x = pos.getX() + 0.5 + (Math.random() - 0.5) * w;
+			double y = pos.getY() + 0.25 + (Math.random() - 0.5) * h;
+			double z = pos.getZ() + 0.5 + (Math.random() - 0.5) * w;
+
+			float s = 0.2F + (float) Math.random() * 0.1F;
+			float m = 0.03F + (float) Math.random() * 0.015F;
+
+			WispParticleData data = WispParticleData.wisp(s, r, g, b, 1);
+			world.addParticle(data, x, y, z, 0, m, 0);
+		}
 	}
 
 	@Nonnull
