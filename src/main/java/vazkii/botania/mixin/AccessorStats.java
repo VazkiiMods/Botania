@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(Stats.class)
 public interface AccessorStats {
 	@Invoker("registerCustom")
-	static ResourceLocation botania_callRegisterCustom(String id, IStatFormatter formatter) {
+	static ResourceLocation botania_registerCustom(String id, IStatFormatter formatter) {
 		throw new IllegalStateException();
 	}
 }

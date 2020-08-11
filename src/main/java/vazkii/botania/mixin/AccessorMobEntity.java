@@ -21,8 +21,8 @@ import javax.annotation.Nullable;
 @Mixin(MobEntity.class)
 public interface AccessorMobEntity {
 	@Nullable
-	@Invoker
-	SoundEvent callGetAmbientSound();
+	@Invoker("getAmbientSound")
+	SoundEvent botania_getAmbientSound();
 
 	@Accessor
 	void setDeathLootTable(ResourceLocation id);

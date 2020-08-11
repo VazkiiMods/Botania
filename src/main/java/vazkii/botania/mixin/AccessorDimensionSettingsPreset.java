@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(DimensionSettings.Preset.class)
 public interface AccessorDimensionSettingsPreset {
 	@Invoker("createSettings")
-	static DimensionSettings createOverworldSettings(DimensionStructuresSettings structureSettings, boolean amplified, DimensionSettings.Preset preset) {
+	static DimensionSettings botania_createOverworldSettings(DimensionStructuresSettings structureSettings, boolean amplified, DimensionSettings.Preset preset) {
 		throw new IllegalStateException();
 	}
 }

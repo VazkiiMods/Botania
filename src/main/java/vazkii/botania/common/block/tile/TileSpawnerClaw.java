@@ -43,7 +43,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 			AccessorAbstractSpawner mLogic = (AccessorAbstractSpawner) logic;
 
 			// [VanillaCopy] AbstractSpawner.tick, edits noted
-			if (!mLogic.callIsActivated()) { // Activate when vanilla is *not* running the spawner
+			if (!mLogic.botania_isActivated()) { // Activate when vanilla is *not* running the spawner
 				mLogic.setPrevMobRotation(mLogic.getMobRotation());
 			} else {
 				World world = this.getWorld();
@@ -65,7 +65,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 					this.mana -= 6;
 
 					if (mLogic.getSpawnDelay() == -1) {
-						mLogic.callResetTimer();
+						mLogic.botania_resetTimer();
 					}
 
 					if (mLogic.getSpawnDelay() > 0) {
@@ -79,7 +79,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 						CompoundNBT compoundnbt = mLogic.getSpawnData().getNbt();
 						Optional<EntityType<?>> optional = EntityType.readEntityType(compoundnbt);
 						if (!optional.isPresent()) {
-							mLogic.callResetTimer();
+							mLogic.botania_resetTimer();
 							return;
 						}
 
@@ -94,13 +94,13 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 								return p_221408_6_;
 							});
 							if (entity == null) {
-								mLogic.callResetTimer();
+								mLogic.botania_resetTimer();
 								return;
 							}
 
 							int k = world.getEntitiesWithinAABB(entity.getClass(), (new AxisAlignedBB((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ(), (double) (blockpos.getX() + 1), (double) (blockpos.getY() + 1), (double) (blockpos.getZ() + 1))).grow((double) mLogic.getSpawnRange())).size();
 							if (k >= mLogic.getMaxNearbyEntities()) {
-								mLogic.callResetTimer();
+								mLogic.botania_resetTimer();
 								return;
 							}
 
@@ -129,7 +129,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 					}
 
 					if (flag) {
-						mLogic.callResetTimer();
+						mLogic.botania_resetTimer();
 					}
 				}
 			}

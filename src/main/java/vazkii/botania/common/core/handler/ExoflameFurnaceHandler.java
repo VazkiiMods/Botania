@@ -43,7 +43,7 @@ public class ExoflameFurnaceHandler {
 	}
 
 	public static boolean canSmelt(AbstractFurnaceTileEntity furnace, IRecipe<?> recipe) {
-		return ((AccessorAbstractFurnaceTileEntity) furnace).invokeCanSmelt(recipe);
+		return ((AccessorAbstractFurnaceTileEntity) furnace).botania_canSmelt(recipe);
 	}
 
 	public static IRecipeType<? extends AbstractCookingRecipe> getRecipeType(AbstractFurnaceTileEntity furnace) {

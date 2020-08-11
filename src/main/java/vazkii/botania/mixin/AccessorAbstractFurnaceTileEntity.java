@@ -21,8 +21,8 @@ import javax.annotation.Nullable;
 
 @Mixin(AbstractFurnaceTileEntity.class)
 public interface AccessorAbstractFurnaceTileEntity {
-	@Invoker
-	boolean invokeCanSmelt(@Nullable IRecipe<?> recipe);
+	@Invoker("canSmelt")
+	boolean botania_canSmelt(@Nullable IRecipe<?> recipe);
 
 	@Accessor
 	IRecipeType<? extends AbstractCookingRecipe> getRecipeType();

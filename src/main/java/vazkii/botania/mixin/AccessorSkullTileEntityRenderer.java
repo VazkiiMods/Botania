@@ -30,8 +30,8 @@ public interface AccessorSkullTileEntityRenderer {
 		throw new IllegalStateException();
 	}
 
-	@Invoker
-	static RenderType callGetRenderType(SkullBlock.ISkullType skullType, @Nullable GameProfile profile) {
+	@Invoker("getRenderType")
+	static RenderType botania_getRenderType(SkullBlock.ISkullType skullType, @Nullable GameProfile profile) {
 		throw new IllegalStateException();
 	}
 }

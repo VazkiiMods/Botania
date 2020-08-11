@@ -21,6 +21,6 @@ import java.util.Map;
 
 @Mixin(RecipeManager.class)
 public interface AccessorRecipeManager {
-	@Invoker
-	<C extends IInventory, T extends IRecipe<C>> Map<ResourceLocation, IRecipe<C>> callGetRecipes(IRecipeType<T> type);
+	@Invoker("getRecipes")
+	<C extends IInventory, T extends IRecipe<C>> Map<ResourceLocation, IRecipe<C>> botania_getRecipes(IRecipeType<T> type);
 }

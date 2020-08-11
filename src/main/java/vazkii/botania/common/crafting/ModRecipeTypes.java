@@ -83,6 +83,6 @@ public class ModRecipeTypes {
 	}
 
 	public static <C extends IInventory, T extends IRecipe<C>> Map<ResourceLocation, IRecipe<C>> getRecipes(World world, IRecipeType<T> type) {
-		return ((AccessorRecipeManager) world.getRecipeManager()).callGetRecipes(type);
+		return ((AccessorRecipeManager) world.getRecipeManager()).botania_getRecipes(type);
 	}
 }

@@ -21,11 +21,11 @@ public interface AccessorAbstractSpawner {
 	@Invoker("func_221409_a")
 	void callSpawnEntity(Entity e);
 
-	@Invoker
-	boolean callIsActivated();
+	@Invoker("isActivated")
+	boolean botania_isActivated();
 
-	@Invoker
-	void callResetTimer();
+	@Invoker("resetTimer")
+	void botania_resetTimer();
 
 	@Accessor
 	int getSpawnCount();

@@ -60,7 +60,7 @@ public class ItemCacophonium extends Item {
 			} else if (living instanceof SlimeEntity) {
 				sound = ((SlimeEntity) living).isSmallSlime() ? SoundEvents.ENTITY_SLIME_SQUISH_SMALL : SoundEvents.ENTITY_SLIME_SQUISH;
 			} else {
-				sound = ((AccessorMobEntity) living).callGetAmbientSound();
+				sound = ((AccessorMobEntity) living).botania_getAmbientSound();
 			}
 
 			if (sound != null) {

@@ -18,9 +18,9 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(FirstPersonRenderer.class)
 public interface AccessorFirstPersonRenderer {
-	@Invoker
-	void callTransformSideFirstPerson(MatrixStack ms, HandSide side, float equip);
+	@Invoker("transformSideFirstPerson")
+	void botania_transformSideFirstPerson(MatrixStack ms, HandSide side, float equip);
 
-	@Invoker
-	void callTransformFirstPerson(MatrixStack ms, HandSide side, float swing);
+	@Invoker("transformFirstPerson")
+	void botania_transformFirstPerson(MatrixStack ms, HandSide side, float swing);
 }

@@ -26,7 +26,7 @@ public class BlockSolidVines extends VineBlock {
 
 	public BlockSolidVines(Properties builder) {
 		super(builder);
-		((AccessorFireBlock) Blocks.FIRE).callSetFireInfo(this, 15, 100);
+		((AccessorFireBlock) Blocks.FIRE).botania_setFireInfo(this, 15, 100);
 	}
 
 	@Override
