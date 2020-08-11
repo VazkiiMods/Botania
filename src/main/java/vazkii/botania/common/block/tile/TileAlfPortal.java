@@ -136,7 +136,9 @@ public class TileAlfPortal extends TileMod implements Tickable {
 		}
 
 		if (closeNow) {
-			world.setBlockState(getPos(), ModBlocks.alfPortal.getDefaultState());
+			if (!world.isClient) {
+				world.setBlockState(getPos(), ModBlocks.alfPortal.getDefaultState());
+			}
 			for (int i = 0; i < 36; i++) {
 				blockParticle(state);
 			}
@@ -147,7 +149,10 @@ public class TileAlfPortal extends TileMod implements Tickable {
 					blockParticle(state);
 				}
 			}
-			world.setBlockState(getPos(), getCachedState().with(BotaniaStateProps.ALFPORTAL_STATE, newState));
+
+			if (!world.isClient) {
+				world.setBlockState(getPos(), getCachedState().with(BotaniaStateProps.ALFPORTAL_STATE, newState));
+			}
 		} else if (explode) {
 			world.createExplosion(null, pos.getX() + .5, pos.getY() + 2.0, pos.getZ() + .5,
 					3f, Explosion.DestructionType.DESTROY);

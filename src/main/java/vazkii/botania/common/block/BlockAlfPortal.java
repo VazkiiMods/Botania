@@ -49,10 +49,13 @@ public class BlockAlfPortal extends BlockMod implements BlockEntityProvider, IWa
 
 	@Override
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
-		boolean did = ((TileAlfPortal) world.getBlockEntity(pos)).onWanded();
-		if (!world.isClient && did && player instanceof ServerPlayerEntity) {
-			AlfPortalTrigger.INSTANCE.trigger((ServerPlayerEntity) player, (ServerWorld) world, pos, stack);
+		if (!world.isClient) {
+			boolean did = ((TileAlfPortal) world.getBlockEntity(pos)).onWanded();
+			if (did && player instanceof ServerPlayerEntity) {
+				AlfPortalTrigger.INSTANCE.trigger((ServerPlayerEntity) player, (ServerWorld) world, pos, stack);
+			}
+			return did;
 		}
-		return did;
+		return true;
 	}
 }
