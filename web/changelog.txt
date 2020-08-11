@@ -1,3 +1,32 @@
+1.16-400
+* This is the 101st build of Botania since the first release of Botania Unofficial 1.8 (299) I made in 2015. Thanks for all the support over the years! - williewillus
+* Reorder block and item registration order so creative tab and JEI are more organized
+* Fix being able to extract things from open and crafty crates' internal inventories
+* Open crate no longer claims to have a comparator output
+* Fix some inventory blocks not exposing their inventories to forge
+* Corporea Index now parses "*" as a shell-style glob (Alwinfy)
+* Unbreaking enchantments on mana gear now confers a minor mana discount instead of having no effect
+* Floating Flowers now break faster with a shovel
+* Bonus Chests are now guaranteed to contain a Lexicon
+* Lower chance of manasteel in dungeon loot
+* Tweak item rarities (colors)
+* Ender Air can now be obtained by dispensers
+* Paintslinger Lens can now dye sparks and corporea sparks. Sparks now rest slightly lower in their blockspace to aid in burst collision. (Alwinfy)
+* Fix Gaia Head not being equippable by dispenser
+* Fix rod of the (sky)lands not swinging in creative
+* Fix a bunch of tile entities crashing when moved by Quark pistons
+* Workaround for an optifine crash
+* Fix agricarnations not accelerated many plants even though it looked like it was
+* Fix some flugel tiara wings looking weird
+* Add config that makes the orechid prefer certain mods over others if the ores tag contains multiple entries. This can be used by packs that prefer a single mod handle all ores.
+* Luminizers no longer mount the player if they are trying to trigger its hidden feature. Detection box for hidden feature expanded slightly.
+* Fix some desyncs where the Alfheim Portal could appear disabled clientside
+* Add statistics for items requested by corporea, tiny potatoes petted, and distance by luminizer
+* Luminizers now perform smart-dismounting for players, like pigs/boats/carts
+* Pixies lose their raytrace hitbox as soon as they reach 0 health. This makes fighting the guardian less annoying as dying pixies won't reflect your arrows.
+* Mana Flame reworked to no longer require ticking, for a minor performance boost.
+* Work around a Mixin issue with Invokers conflicting with other mods such as Charm
+* Clean up JEI integration layouts (centered things properly, etc.)
 1.16 399
 * Significant internal cleanup of corporea. Fix interceptors not working
 * Fix pink withers dropping nether stars
