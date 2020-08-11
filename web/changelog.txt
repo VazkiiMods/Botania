@@ -1,3 +1,5 @@
+1.16-401
+* Fix dyed corporea sparks hanging the game on load
 1.16-400
 * This is the 101st build of Botania since the first release of Botania Unofficial 1.8 (299) I made in 2015. Thanks for all the support over the years! - williewillus
 * Reorder block and item registration order so creative tab and JEI are more organized
