@@ -13,6 +13,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.EndGatewayBlockEntity;
+import net.minecraft.datafixer.NbtOps;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.data.DataTracker;
@@ -319,13 +320,13 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 		boolean hasShooter = identity != null;
 		tag.putBoolean(TAG_HAS_SHOOTER, hasShooter);
 		if (hasShooter) {
-			tag.putUniqueId(TAG_SHOOTER, identity);
+			tag.putUuid(TAG_SHOOTER, identity);
 		}
 		tag.putBoolean(TAG_WARPED, warped);
 		tag.putInt(TAG_ORBIT_TIME, orbitTime);
 		tag.putBoolean(TAG_TRIPPED, tripped);
 		if (magnetizePos != null) {
-			tag.put(TAG_MAGNETIZE_POS, BlockPos.field_239578_a_.encodeStart(NBTDynamicOps.INSTANCE, magnetizePos).get().orThrow());
+			tag.put(TAG_MAGNETIZE_POS, BlockPos.field_25064.encodeStart(NbtOps.INSTANCE, magnetizePos).get().orThrow());
 		}
 	}
 
@@ -369,7 +370,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 
 		boolean hasShooter = cmp.getBoolean(TAG_HAS_SHOOTER);
 		if (hasShooter) {
-			UUID serializedUuid = cmp.getUniqueId(TAG_SHOOTER);
+			UUID serializedUuid = cmp.getUuid(TAG_SHOOTER);
 			UUID identity = getShooterUUID();
 			if (!serializedUuid.equals(identity)) {
 				setShooterUUID(serializedUuid);
@@ -379,7 +380,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 		orbitTime = cmp.getInt(TAG_ORBIT_TIME);
 		tripped = cmp.getBoolean(TAG_TRIPPED);
 		if (cmp.contains(TAG_MAGNETIZE_POS)) {
-			magnetizePos = BlockPos.field_239578_a_.parse(NBTDynamicOps.INSTANCE, cmp.get(TAG_MAGNETIZE_POS)).get().orThrow();
+			magnetizePos = BlockPos.field_25064.parse(NbtOps.INSTANCE, cmp.get(TAG_MAGNETIZE_POS)).get().orThrow();
 		} else {
 			magnetizePos = null;
 		}

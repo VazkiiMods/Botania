@@ -45,26 +45,6 @@ public class ItemBaubleBox extends Item {
 
 	@Nonnull
 	@Override
-	public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag oldCapNbt) {
-		return new InvProvider(stack);
-	}
-
-	private static class InvProvider implements ICapabilityProvider {
-		private final LazyOptional<IItemHandler> opt;
-
-		public InvProvider(ItemStack stack) {
-			opt = LazyOptional.of(() -> new InvWrapper(getInventory(stack)));
-		}
-
-		@Nonnull
-		@Override
-		public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(capability, opt);
-		}
-	}
-
-	@Nonnull
-	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
 		if (!world.isClient) {
 			ItemStack stack = player.getStackInHand(hand);

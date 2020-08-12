@@ -26,7 +26,6 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Lazy;
-import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;

@@ -30,11 +30,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.*;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.InputSlotFiller;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeFinder;
-import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.*;
 import net.minecraft.screen.AbstractRecipeScreenHandler;
 import net.minecraft.screen.CraftingScreenHandler;
 import net.minecraft.screen.ScreenHandler;
@@ -492,7 +488,7 @@ public class ItemCraftingHalo extends Item {
 			DrawableHelper.fill(ms, x + 66, y + 14, x + 92, y + 40, 0x22000000);
 			DrawableHelper.fill(ms, x - 2, y - 2, x + 56, y + 56, 0x22000000);
 
-			int wrap = recipe instanceof IShapedRecipe<?> ? ((IShapedRecipe<?>) recipe).getRecipeWidth() : 3;
+			int wrap = recipe instanceof ShapedRecipe ? ((ShapedRecipe) recipe).getWidth() : 3;
 			for (int i = 0; i < recipe.getPreviewInputs().size(); i++) {
 				Ingredient ingr = recipe.getPreviewInputs().get(i);
 				if (ingr != Ingredient.EMPTY) {

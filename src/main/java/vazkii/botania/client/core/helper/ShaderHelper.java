@@ -9,6 +9,7 @@
 package vazkii.botania.client.core.helper;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.GlProgram;
 import net.minecraft.client.gl.GlProgramManager;
@@ -124,7 +125,7 @@ public final class ShaderHelper {
 
 	private static boolean checkIncompatibleMods() {
 		if (!checkedIncompatibility) {
-			hasIncompatibleMods = ModList.get().isLoaded("optifine");
+			hasIncompatibleMods = FabricLoader.getInstance().isModLoaded("optifabric");
 			checkedIncompatibility = true;
 		}
 

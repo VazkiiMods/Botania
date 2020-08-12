@@ -40,7 +40,7 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 	}
 
 	@Override
-	void onFire(ItemStack stack, LivingEntity living, boolean infinity, AbstractArrowEntity arrow) {
+	void onFire(ItemStack stack, LivingEntity living, boolean infinity, PersistentProjectileEntity arrow) {
 		arrow.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
 	}
 

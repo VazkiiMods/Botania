@@ -1,9 +1,9 @@
 /*
- * This class is distributed as part of the Botania Mod.
+ * This class is EnvTypeributed as part of the Botania Mod.
  * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
- * Botania is Open Source and distributed under the
+ * Botania is Open Source and EnvTypeributed under the
  * Botania License: http://botaniamod.net/license.php
  */
 package vazkii.botania.common.item.equipment.bauble;
@@ -19,6 +19,7 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.LivingEntity;
@@ -309,7 +310,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		ms.push();
 
 		// attach to body
-		bipedModel.torso.translateRotate(ms);
+		bipedModel.torso.rotate(ms);
 
 		// position on body
 		ms.translate(0, 0.5, 0.2);
@@ -322,106 +323,106 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			ms.translate(-1, 0, 0);
 
 			// rotate since the textures are stored rotated
-			ms.rotate(Vector3f.ZP.rotationDegrees(-60));
+			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(-60));
 			ms.scale(1.5F, -1.5F, -1.5F);
-			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
+			MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.NONE, false, ms, buffers, light, OverlayTexture.DEFAULT_UV, model);
 			ms.pop();
 		}
 
 		ms.pop();
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	private static void renderSephiroth(BipedModel<?> bipedModel, IBakedModel model, ItemStack stack, MatrixStack ms, IRenderTypeBuffer buffers, int light, float flap) {
+	@Environment(EnvType.CLIENT)
+	private static void renderSephiroth(BipedEntityModel<?> bipedModel, BakedModel model, ItemStack stack, MatrixStack ms, VertexConsumerProvider buffers, int light, float flap) {
 		ms.push();
-		bipedModel.bipedBody.translateRotate(ms);
+		bipedModel.torso.rotate(ms);
 		ms.translate(0, 0.5, 0.2);
 
-		ms.rotate(Vector3f.YP.rotationDegrees(flap));
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(flap));
 		ms.translate(-1.1, 0, 0);
 
-		ms.rotate(Vector3f.ZP.rotationDegrees(-60));
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(-60));
 		ms.scale(1.6F, -1.6F, -1.6F);
-		Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
+		MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.NONE, false, ms, buffers, light, OverlayTexture.DEFAULT_UV, model);
 		ms.pop();
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	private static void renderCirno(BipedModel<?> bipedModel, IBakedModel model, ItemStack stack, MatrixStack ms, IRenderTypeBuffer buffers, int light) {
+	@Environment(EnvType.CLIENT)
+	private static void renderCirno(BipedEntityModel<?> bipedModel, BakedModel model, ItemStack stack, MatrixStack ms, VertexConsumerProvider buffers, int light) {
 		ms.push();
-		bipedModel.bipedBody.translateRotate(ms);
+		bipedModel.torso.rotate(ms);
 		ms.translate(-0.8, 0.15, 0.25);
 
 		for (int i = 0; i < 2; i++) {
 			ms.push();
 
 			if (i == 1) {
-				ms.rotate(Vector3f.YP.rotationDegrees(180));
+				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180));
 				ms.translate(-1.6, 0, 0);
 			}
 
 			ms.scale(1.6F, -1.6F, -1.6F);
-			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, false, ms, buffers, light, OverlayTexture.NO_OVERLAY, model);
+			MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.NONE, false, ms, buffers, light, OverlayTexture.DEFAULT_UV, model);
 			ms.pop();
 		}
 
 		ms.pop();
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	private static void renderPhoenix(BipedModel<?> bipedModel, IBakedModel model, ItemStack stack, MatrixStack ms, IRenderTypeBuffer buffers, float flap) {
+	@Environment(EnvType.CLIENT)
+	private static void renderPhoenix(BipedEntityModel<?> bipedModel, BakedModel model, ItemStack stack, MatrixStack ms, VertexConsumerProvider buffers, float flap) {
 		ms.push();
-		bipedModel.bipedBody.translateRotate(ms);
+		bipedModel.torso.rotate(ms);
 		ms.translate(0, -0.2, 0.2);
 
 		for (int i = 0; i < 2; i++) {
 			ms.push();
-			ms.rotate(Vector3f.YP.rotationDegrees(i == 0 ? flap : 180 - flap));
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(i == 0 ? flap : 180 - flap));
 
 			ms.translate(-0.9, 0, 0);
 
 			ms.scale(1.7F, -1.7F, -1.7F);
-			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, false, ms, buffers, 0xF000F0, OverlayTexture.NO_OVERLAY, model);
+			MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.NONE, false, ms, buffers, 0xF000F0, OverlayTexture.DEFAULT_UV, model);
 			ms.pop();
 		}
 
 		ms.pop();
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	private static void renderKuroyukihime(BipedModel<?> bipedModel, IBakedModel model, ItemStack stack, MatrixStack ms, IRenderTypeBuffer buffers, float flap) {
+	@Environment(EnvType.CLIENT)
+	private static void renderKuroyukihime(BipedEntityModel<?> bipedModel, BakedModel model, ItemStack stack, MatrixStack ms, VertexConsumerProvider buffers, float flap) {
 		ms.push();
-		bipedModel.bipedBody.translateRotate(ms);
+		bipedModel.torso.rotate(ms);
 		ms.translate(0, -0.4, 0.2);
 
 		for (int i = 0; i < 2; i++) {
 			ms.push();
-			ms.rotate(Vector3f.YP.rotationDegrees(i == 0 ? flap : 180 - flap));
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(i == 0 ? flap : 180 - flap));
 
 			ms.translate(-1.3, 0, 0);
 
 			ms.scale(2.5F, -2.5F, -2.5F);
-			Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.NONE, false, ms, buffers, 0xF000F0, OverlayTexture.NO_OVERLAY, model);
+			MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.NONE, false, ms, buffers, 0xF000F0, OverlayTexture.DEFAULT_UV, model);
 			ms.pop();
 		}
 
 		ms.pop();
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	private static void renderCustomColor(BipedModel<?> bipedModel, IBakedModel model, LivingEntity living, ItemStack stack, MatrixStack ms, IRenderTypeBuffer buffers, float flap, int color) {
+	@Environment(EnvType.CLIENT)
+	private static void renderCustomColor(BipedEntityModel<?> bipedModel, BakedModel model, LivingEntity living, ItemStack stack, MatrixStack ms, VertexConsumerProvider buffers, float flap, int color) {
 		ms.push();
-		bipedModel.bipedBody.translateRotate(ms);
+		bipedModel.torso.rotate(ms);
 		ms.translate(0, 0, 0.2);
 
 		for (int i = 0; i < 2; i++) {
 			ms.push();
-			ms.rotate(Vector3f.YP.rotationDegrees(i == 0 ? flap : 180 - flap));
+			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(i == 0 ? flap : 180 - flap));
 			ms.translate(-0.7, 0, 0);
 
 			ms.scale(1.5F, -1.5F, -1.5F);
 
-			RenderHelper.renderItemCustomColor(living, stack, color, ms, buffers, 0xF000F0, OverlayTexture.NO_OVERLAY, model);
+			RenderHelper.renderItemCustomColor(living, stack, color, ms, buffers, 0xF000F0, OverlayTexture.DEFAULT_UV, model);
 			ms.pop();
 		}
 
@@ -429,16 +430,16 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void doRender(BipedModel<?> bipedModel, ItemStack stack, LivingEntity living, MatrixStack ms, IRenderTypeBuffer buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	@Environment(EnvType.CLIENT)
+	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity living, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		int meta = getVariant(stack);
 		if (meta <= 0 || meta >= MiscellaneousIcons.INSTANCE.tiaraWingIcons.length + 1) {
 			return;
 		}
 
-		IBakedModel model = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
-		boolean flying = living instanceof PlayerEntity && ((PlayerEntity) living).abilities.isFlying;
-		float flap = 20F + (float) ((Math.sin((double) (living.ticksExisted + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
+		BakedModel model = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
+		boolean flying = living instanceof PlayerEntity && ((PlayerEntity) living).abilities.flying;
+		float flap = 20F + (float) ((Math.sin((double) (living.age + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
 
 		switch (meta) {
 		case 1:
@@ -463,13 +464,13 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		case 8:
 			renderBasic(bipedModel, model, stack, ms, buffers, light, flap);
 		case 7:
-			float alpha = 0.5F + (float) Math.cos((double) (living.ticksExisted + partialTicks) * 0.3F) * 0.2F;
+			float alpha = 0.5F + (float) Math.cos((double) (living.age + partialTicks) * 0.3F) * 0.2F;
 			int color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
 			renderCustomColor(bipedModel, model, living, stack, ms, buffers, flap, color);
 			break;
 		case 9:
-			flap = -(float) ((Math.sin((double) (living.ticksExisted + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
-			alpha = 0.5F + (flying ? (float) Math.cos((double) (living.ticksExisted + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F);
+			flap = -(float) ((Math.sin((double) (living.age + partialTicks) * 0.2F) + 0.6F) * (flying ? 12F : 5F));
+			alpha = 0.5F + (flying ? (float) Math.cos((double) (living.age + partialTicks) * 0.3F) * 0.25F + 0.25F : 0F);
 			color = 0xFFFFFF | ((int) (alpha * 255F)) << 24;
 			renderCustomColor(bipedModel, model, living, stack, ms, buffers, flap, color);
 			break;

@@ -681,8 +681,8 @@ public final class ModItems {
 		register(r, LibItemNames.GODDESS_CHARM, goddessCharm);
 	}
 
-	public static void registerRecipeSerializers(RegistryEvent.Register<RecipeSerializer<?>> evt) {
-		IForgeRegistry<RecipeSerializer<?>> r = evt.getRegistry();
+	public static void registerRecipeSerializers() {
+		Registry<RecipeSerializer<?>> r = Registry.RECIPE_SERIALIZER;
 		register(r, "ancient_will_attach", AncientWillRecipe.SERIALIZER);
 		register(r, "armor_upgrade", ArmorUpgradeRecipe.SERIALIZER);
 		register(r, "banner_pattern_apply", BannerRecipe.SERIALIZER);

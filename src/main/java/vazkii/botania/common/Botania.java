@@ -112,7 +112,7 @@ public class Botania implements ModInitializer {
 		modBus.addListener(this::loadComplete);
 		ModFeatures.registerFeatures();
 		ModItems.registerItems();
-		modBus.addGenericListener(RecipeSerializer.class, ModItems::registerRecipeSerializers);
+		ModItems.registerRecipeSerializers();
 		ModEntities.registerEntities();
 		ModRecipeTypes.registerRecipeTypes();
 		ModSounds.init();

@@ -55,26 +55,26 @@ repositories {
 dependencies {
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
-    modCompile "vazkii.patchouli:Patchouli:1.16-38-FABRIC:api"
-    modRuntime "vazkii.patchouli:Patchouli:1.16-38-FABRIC"
+    modCompile "vazkii.patchouli:Patchouli:1.16-40-FABRIC:api"
+    modRuntime "vazkii.patchouli:Patchouli:1.16-40-FABRIC"
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-1"
     include "me.zeroeightsix:fiber:0.23.0-1"
 
     // Match version with curios, don't include as curios includes it already
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.4.1"
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:2.4.1"
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.4.1"
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-util:2.4.1"
-    modImplementation "top.theillusivec4.curios:curios-fabric:1.16.1-0.2"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.5.0-nightly.1.16.2-rc2"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:2.5.0-nightly.1.16.2-rc2"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.5.0-nightly.1.16.2-rc2"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-util:2.5.0-nightly.1.16.2-rc2"
+    modImplementation "top.theillusivec4.curios:curios-fabric:0.0.6-1.16.2"
 
     //to change the versions see the gradle.properties file
-    minecraft "com.mojang:minecraft:1.16.1"
-    mappings "net.fabricmc:yarn:1.16.1+build.20:v2"
-    modCompile "net.fabricmc:fabric-loader:0.8.9+build.203"
+    minecraft "com.mojang:minecraft:1.16.2"
+    mappings "net.fabricmc:yarn:1.16.2+build.1:v2"
+    modCompile "net.fabricmc:fabric-loader:0.9.1+build.205"
 
     // Fabric API. This is technically optional, but you probably want it anyway.
-    modCompile "net.fabricmc.fabric-api:fabric-api:0.14.1+build.372-1.16"
+    modCompile "net.fabricmc.fabric-api:fabric-api:0.17.2+build.396-1.16"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'

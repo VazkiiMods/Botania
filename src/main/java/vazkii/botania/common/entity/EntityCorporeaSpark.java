@@ -22,13 +22,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
+import net.minecraft.particle.ItemStackParticleEffect;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
@@ -210,7 +212,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	@Override
 	public void onItemExtracted(ItemStack stack) {
-		((ServerWorld) world).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), getPosX(), getPosY(), getPosZ(), 10, 0.125, 0.125, 0.125, 0.05);
+		((ServerWorld) world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, stack), getX(), getY(), getZ(), 10, 0.125, 0.125, 0.125, 0.05);
 	}
 
 	@Override
@@ -219,7 +221,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 		for (ItemStack stack : stacks) {
 			if (!shownItems.contains(stack.getItem())) {
 				shownItems.add(stack.getItem());
-				((ServerWorld) world).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, stack), getPosX(), getPosY(), getPosZ(), 10, 0.125, 0.125, 0.125, 0.05);
+				((ServerWorld) world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, stack), getX(), getY(), getZ(), 10, 0.125, 0.125, 0.125, 0.05);
 			}
 		}
 	}
@@ -253,7 +255,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 						displayRelatives(player, new ArrayList<>(), master);
 					}
 				}
-				return ActionResult.success(world.isRemote);
+				return ActionResult.success(world.isClient);
 			} else if (stack.getItem() instanceof DyeItem) {
 				DyeColor color = ((DyeItem) stack.getItem()).getColor();
 				if (color != getNetwork()) {

@@ -58,26 +58,6 @@ public class ItemFlowerBag extends Item {
 		};
 	}
 
-	@Nonnull
-	@Override
-	public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag oldCapNbt) {
-		return new InvProvider(stack);
-	}
-
-	private static class InvProvider implements ICapabilityProvider {
-		private final LazyOptional<IItemHandler> opt;
-
-		private InvProvider(ItemStack stack) {
-			opt = LazyOptional.of(() -> new InvWrapper(getInventory(stack)));
-		}
-
-		@Nonnull
-		@Override
-		public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction facing) {
-			return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(capability, opt);
-		}
-	}
-
 	private void onPickupItem(EntityItemPickupEvent event) {
 		ItemStack entityStack = event.getItem().getStack();
 		if (Block.getBlockFromItem(entityStack.getItem()) instanceof BlockModFlower && entityStack.getCount() > 0) {
