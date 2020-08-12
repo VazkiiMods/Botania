@@ -62,7 +62,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 		if (count != getMaxUseTime(stack) && count % 5 == 0) {
 			int range = 12;
 			Predicate<Entity> shearablePred = e -> e instanceof Shearable || e instanceof IForgeShearable;
-			List<Entity> shearable = world.getEntities(Entity.class, new Box(living.getX() - range, living.getY() - range, living.getZ() - range, living.getX() + range, living.getY() + range, living.getZ() + range), shearablePred);
+			List<Entity> shearable = world.getEntitiesByClass(Entity.class, new Box(living.getX() - range, living.getY() - range, living.getZ() - range, living.getX() + range, living.getY() + range, living.getZ() + range), shearablePred);
 			if (shearable.size() > 0) {
 				for (Entity entity : shearable) {
 					if (entity instanceof Shearable && ((Shearable) entity).isShearable()) {

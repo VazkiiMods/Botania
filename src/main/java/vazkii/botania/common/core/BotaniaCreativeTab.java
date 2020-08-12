@@ -695,7 +695,7 @@ public final class BotaniaCreativeTab extends ItemGroup {
 	}
 
 	private void addTag(Identifier tagId) {
-		ItemTags.getContainer().getOrCreate(tagId).values().stream()
+		ItemTags.getTagGroup().getOrCreate(tagId).values().stream()
 				.sorted(Comparator.comparing(Registry.ITEM::getId))
 				.forEach(this::addItem);
 	}

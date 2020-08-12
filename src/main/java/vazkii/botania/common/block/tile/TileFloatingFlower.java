@@ -21,7 +21,8 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
-
+import IModelData;
+import LazyOptional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 

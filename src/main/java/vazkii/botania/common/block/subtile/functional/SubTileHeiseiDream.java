@@ -41,7 +41,7 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 		}
 
 		@SuppressWarnings("unchecked")
-		List<Monster> mobs = (List) getWorld().getEntities(Entity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)), Predicates.instanceOf(Monster.class));
+		List<Monster> mobs = (List) getWorld().getEntitiesByClass(Entity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)), Predicates.instanceOf(Monster.class));
 
 		if (mobs.size() > 1 && getMana() >= COST) {
 			for (Monster mob : mobs) {

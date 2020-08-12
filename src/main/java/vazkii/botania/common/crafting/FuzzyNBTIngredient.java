@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.crafting;
 
+import IIngredientSerializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 

@@ -17,6 +17,8 @@ import net.minecraft.world.World;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
+import SimpleChannel;
+
 public final class PacketHandler {
 	private static final String PROTOCOL = "6";
 	public static final SimpleChannel HANDLER = NetworkRegistry.newSimpleChannel(

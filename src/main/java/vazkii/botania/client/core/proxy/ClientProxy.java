@@ -296,7 +296,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	}
 
 	private void initAuxiliaryRender() {
-		Map<String, PlayerEntityRenderer> skinMap = MinecraftClient.getInstance().getEntityRenderManager().getSkinMap();
+		Map<String, PlayerEntityRenderer> skinMap = MinecraftClient.getInstance().getEntityRenderDispatcher().getSkinMap();
 		PlayerEntityRenderer render;
 		render = skinMap.get("default");
 		render.addFeature(new ContributorFancinessHandler(render));

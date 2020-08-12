@@ -33,7 +33,7 @@ public final class SparkHelper {
 	public static <T> List<T> getEntitiesAround(Class<? extends T> clazz, World world, double x, double y, double z) {
 		int r = SPARK_SCAN_RANGE;
 		@SuppressWarnings("unchecked")
-		List<T> entities = (List<T>) (List<?>) world.getEntities(Entity.class, new Box(x - r, y - r, z - r, x + r, y + r, z + r), Predicates.instanceOf(clazz));
+		List<T> entities = (List<T>) (List<?>) world.getEntitiesByClass(Entity.class, new Box(x - r, y - r, z - r, x + r, y + r, z + r), Predicates.instanceOf(clazz));
 		return entities;
 	}
 

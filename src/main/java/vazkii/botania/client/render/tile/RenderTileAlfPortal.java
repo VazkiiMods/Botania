@@ -64,7 +64,7 @@ public class RenderTileAlfPortal extends BlockEntityRenderer<TileAlfPortal> {
 	}
 
 	public void renderIcon(MatrixStack ms, VertexConsumerProvider buffers, Sprite icon, int x, int y, int width, int height, float alpha, int overlay) {
-		VertexConsumer buffer = buffers.getBuffer(TexturedRenderLayers.method_29382());
+		VertexConsumer buffer = buffers.getBuffer(TexturedRenderLayers.getItemEntityTranslucentCull());
 		Matrix4f model = ms.peek().getModel();
 		Matrix3f normal = ms.peek().getNormal();
 		buffer.vertex(model, x, y + height, 0).color(1, 1, 1, alpha).texture(icon.getMinU(), icon.getMaxV()).overlay(overlay).light(0xF000F0).normal(normal, 1, 0, 0).next();

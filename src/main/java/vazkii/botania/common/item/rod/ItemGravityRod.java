@@ -118,7 +118,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
 					targetVec = targetVec.add(new Vector3(player.getRotationVector()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.world.getEntities(player, new Box(targetVec.x - RANGE, targetVec.y - RANGE, targetVec.z - RANGE, targetVec.x + RANGE, targetVec.y + RANGE, targetVec.z + RANGE));
+					entities = player.world.getOtherEntities(player, new Box(targetVec.x - RANGE, targetVec.y - RANGE, targetVec.z - RANGE, targetVec.x + RANGE, targetVec.y + RANGE, targetVec.z + RANGE));
 					distance++;
 					if (entities.contains(taritem)) {
 						found = true;
@@ -136,7 +136,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
 					targetVec = targetVec.add(new Vector3(player.getRotationVector()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.world.getEntities(player, new Box(targetVec.x - RANGE, targetVec.y - RANGE, targetVec.z - RANGE, targetVec.x + RANGE, targetVec.y + RANGE, targetVec.z + RANGE));
+					entities = player.world.getOtherEntities(player, new Box(targetVec.x - RANGE, targetVec.y - RANGE, targetVec.z - RANGE, targetVec.x + RANGE, targetVec.y + RANGE, targetVec.z + RANGE));
 					distance++;
 				}
 
@@ -219,7 +219,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
 					target = target.add(new Vector3(player.getRotationVector()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.world.getEntities(player, new Box(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
+					entities = player.world.getOtherEntities(player, new Box(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
 					distance++;
 					if (entities.contains(taritem)) {
 						found = true;

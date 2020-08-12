@@ -18,7 +18,8 @@ import net.minecraft.network.ClientConnection;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-
+import IModelData;
+import ModelProperty;
 import javax.annotation.Nonnull;
 
 public class TilePlatform extends TileMod {

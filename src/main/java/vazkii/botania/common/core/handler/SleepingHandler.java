@@ -21,7 +21,7 @@ public final class SleepingHandler {
 	public static void trySleep(PlayerSleepInBedEvent event) {
 		World world = event.getPlayer().world;
 		if (!world.isClient()) {
-			boolean nearGuardian = ((ServerWorld) world).getEntities()
+			boolean nearGuardian = ((ServerWorld) world).getEntitiesByType()
 					.filter(e -> e instanceof EntityDoppleganger)
 					.anyMatch(e -> ((EntityDoppleganger) e).getPlayersAround().contains(event.getPlayer()));
 

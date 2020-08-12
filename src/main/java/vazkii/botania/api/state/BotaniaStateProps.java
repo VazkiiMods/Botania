@@ -8,6 +8,7 @@
  */
 package vazkii.botania.api.state;
 
+import ModelProperty;
 import com.google.common.base.Predicates;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;

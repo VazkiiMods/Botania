@@ -41,7 +41,7 @@ public final class SkyblockWorldEvents {
 
 	private SkyblockWorldEvents() {}
 
-	private static final Tag.Identified<Block> PEBBLE_SOURCES = TagRegistry.create(new Identifier("gardenofglass", "pebble_sources"), BlockTags::getContainer);
+	private static final Tag.Identified<Block> PEBBLE_SOURCES = TagRegistry.create(new Identifier("gardenofglass", "pebble_sources"), BlockTags::getTagGroup);
 
 	public static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
 		World world = event.getPlayer().world;

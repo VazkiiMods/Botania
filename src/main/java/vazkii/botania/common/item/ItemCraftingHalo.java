@@ -348,9 +348,9 @@ public class ItemCraftingHalo extends Item {
 		MinecraftClient mc = MinecraftClient.getInstance();
 		VertexConsumerProvider.Immediate buffers = mc.getBufferBuilders().getEntityVertexConsumers();
 
-		double renderPosX = mc.getEntityRenderManager().camera.getPos().getX();
-		double renderPosY = mc.getEntityRenderManager().camera.getPos().getY();
-		double renderPosZ = mc.getEntityRenderManager().camera.getPos().getZ();
+		double renderPosX = mc.getEntityRenderDispatcher().camera.getPos().getX();
+		double renderPosY = mc.getEntityRenderDispatcher().camera.getPos().getY();
+		double renderPosZ = mc.getEntityRenderDispatcher().camera.getPos().getZ();
 
 		ms.push();
 		float alpha = ((float) Math.sin((ClientTickHandler.ticksInGame + partialTicks) * 0.2F) * 0.5F + 0.5F) * 0.4F + 0.3F;

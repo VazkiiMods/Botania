@@ -14,7 +14,7 @@ import net.minecraft.block.TallPlantBlock;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Heightmap;
-import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
@@ -31,7 +31,7 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
 	}
 
 	@Override
-	public boolean generate(@Nonnull ServerWorldAccess world, @Nonnull StructureAccessor structures, @Nonnull ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull MysticalFlowerConfig config) {
+	public boolean generate(@Nonnull StructureWorldAccess world, @Nonnull StructureAccessor structures, @Nonnull ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull MysticalFlowerConfig config) {
 		boolean any = false;
 		int dist = Math.min(8, Math.max(1, config.getFlowerPatchSize()));
 		for (int i = 0; i < config.getPatchCount(); i++) {

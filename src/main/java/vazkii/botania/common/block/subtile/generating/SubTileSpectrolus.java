@@ -61,12 +61,12 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 		}
 
 		// sheep need to enter the actual block space
-		List<Entity> targets = getWorld().getEntities(SheepEntity.class, new Box(getEffectivePos()), Entity::isAlive);
+		List<Entity> targets = getWorld().getEntitiesByClass(SheepEntity.class, new Box(getEffectivePos()), Entity::isAlive);
 
 		Box itemAABB = new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1));
 		int slowdown = getSlowdownFactor();
 		Predicate<Entity> selector = e -> (e instanceof ItemEntity && e.isAlive() && ((AccessorItemEntity) e).getAge() >= slowdown);
-		targets.addAll(getWorld().getEntities(Entity.class, itemAABB, selector));
+		targets.addAll(getWorld().getEntitiesByClass(Entity.class, itemAABB, selector));
 
 		for (Entity target : targets) {
 			if (target instanceof SheepEntity) {

@@ -60,7 +60,7 @@ public class RenderTileLightRelay extends BlockEntityRenderer<TileLightRelay> {
 		float scale = 0.75F;
 		ms.scale(scale, scale, scale);
 
-		ms.multiply(mc.getEntityRenderManager().getRotation());
+		ms.multiply(mc.getEntityRenderDispatcher().getRotation());
 		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
 
 		float off = 0.25F;

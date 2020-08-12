@@ -19,7 +19,7 @@ import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
-
+import Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;

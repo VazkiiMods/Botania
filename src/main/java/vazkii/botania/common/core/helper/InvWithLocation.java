@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.core.helper;
 
+import IItemHandler;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 

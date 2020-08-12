@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.EquipmentHandler.InventoryEquipmentHandler;
 import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 

@@ -55,7 +55,7 @@ public class RenderTileEnchanter extends BlockEntityRenderer<TileEnchanter> {
 			item.setStack(enchanter.itemToEnchant);
 
 			ms.translate(0.5F, 1.25F, 0.5F);
-			MinecraftClient.getInstance().getEntityRenderManager().render(item, 0, 0, 0, 0, f, ms, buffers, light);
+			MinecraftClient.getInstance().getEntityRenderDispatcher().render(item, 0, 0, 0, 0, f, ms, buffers, light);
 			ms.translate(-0.5F, -1.25F, -0.5F);
 		}
 

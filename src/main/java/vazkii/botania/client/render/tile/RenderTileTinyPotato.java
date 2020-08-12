@@ -193,7 +193,7 @@ public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 				&& potato.getPos().equals(((BlockHitResult) pos).getBlockPos())) {
 			ms.push();
 			ms.translate(0F, -0.6F, 0F);
-			ms.multiply(mc.getEntityRenderManager().getRotation());
+			ms.multiply(mc.getEntityRenderDispatcher().getRotation());
 			float f1 = 0.016666668F * 1.6F;
 			ms.scale(-f1, -f1, f1);
 			ms.translate(0.0F, 0F / f1, 0.0F);

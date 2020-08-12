@@ -57,7 +57,7 @@ public class ItemTinyPlanet extends ItemBauble {
 
 	public static void applyEffect(World world, double x, double y, double z) {
 		int range = 8;
-		List<ThrownEntity> entities = world.getEntities(ThrownEntity.class, new Box(x - range, y - range, z - range, x + range, y + range, z + range), Predicates.instanceOf(IManaBurst.class));
+		List<ThrownEntity> entities = world.getEntitiesByClass(ThrownEntity.class, new Box(x - range, y - range, z - range, x + range, y + range, z + range), Predicates.instanceOf(IManaBurst.class));
 		for (ThrownEntity entity : entities) {
 			IManaBurst burst = (IManaBurst) entity;
 			ItemStack lens = burst.getSourceLens();

@@ -17,7 +17,8 @@ import net.minecraft.util.math.Direction;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
-
+import IEnergyStorage;
+import LazyOptional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 

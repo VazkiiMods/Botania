@@ -110,9 +110,9 @@ public final class BoundTileRenderer {
 	}
 
 	private static void renderBlockOutlineAt(MatrixStack ms, VertexConsumerProvider buffers, BlockPos pos, int color, boolean thick) {
-		double renderPosX = MinecraftClient.getInstance().getEntityRenderManager().camera.getPos().getX();
-		double renderPosY = MinecraftClient.getInstance().getEntityRenderManager().camera.getPos().getY();
-		double renderPosZ = MinecraftClient.getInstance().getEntityRenderManager().camera.getPos().getZ();
+		double renderPosX = MinecraftClient.getInstance().getEntityRenderDispatcher().camera.getPos().getX();
+		double renderPosY = MinecraftClient.getInstance().getEntityRenderDispatcher().camera.getPos().getY();
+		double renderPosZ = MinecraftClient.getInstance().getEntityRenderDispatcher().camera.getPos().getZ();
 
 		ms.push();
 		ms.translate(pos.getX() - renderPosX, pos.getY() - renderPosY, pos.getZ() - renderPosZ + 1);

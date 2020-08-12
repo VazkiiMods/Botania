@@ -167,7 +167,7 @@ public class CurioIntegration extends EquipmentHandler {
 		@Override
 		@Environment(EnvType.CLIENT)
 		public void render(String identifier, int index, MatrixStack matrixStack, VertexConsumerProvider renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-			EntityRenderer<?> renderer = MinecraftClient.getInstance().getEntityRenderManager().getRenderer(livingEntity);
+			EntityRenderer<?> renderer = MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(livingEntity);
 			if (!(renderer instanceof FeatureRendererContext<?, ?>)) {
 				return;
 			}

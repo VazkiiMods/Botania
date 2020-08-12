@@ -144,11 +144,11 @@ public class ModTags {
 		}
 
 		private static Tag.Identified<Item> tag(String name) {
-			return TagRegistry.create(prefix(name), ItemTags::getContainer);
+			return TagRegistry.create(prefix(name), ItemTags::getTagGroup);
 		}
 
 		private static Tag.Identified<Item> forgeTag(String name) {
-			return TagRegistry.create(new Identifier("forge", name), ItemTags::getContainer);
+			return TagRegistry.create(new Identifier("forge", name), ItemTags::getTagGroup);
 		}
 	}
 
@@ -182,11 +182,11 @@ public class ModTags {
 		public static final Tag.Identified<Block> CORPOREA_SPARK_OVERRIDE = tag("corporea_spark_override");
 
 		private static Tag.Identified<Block> tag(String name) {
-			return TagRegistry.create(prefix(name), BlockTags::getContainer);
+			return TagRegistry.create(prefix(name), BlockTags::getTagGroup);
 		}
 
 		private static Tag.Identified<Block> forgeTag(String name) {
-			return TagRegistry.create(new Identifier("forge", name), BlockTags::getContainer);
+			return TagRegistry.create(new Identifier("forge", name), BlockTags::getTagGroup);
 		}
 	}
 
@@ -194,7 +194,7 @@ public class ModTags {
 		public static final Tag.Identified<EntityType<?>> SHADED_MESA_BLACKLIST = tag("shaded_mesa_blacklist");
 
 		private static Tag.Identified<EntityType<?>> tag(String name) {
-			return TagRegistry.create(prefix(name), EntityTypeTags::getContainer);
+			return TagRegistry.create(prefix(name), EntityTypeTags::getTagGroup);
 		}
 	}
 }

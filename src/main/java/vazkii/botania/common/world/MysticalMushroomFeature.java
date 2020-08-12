@@ -11,7 +11,7 @@ package vazkii.botania.common.world;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
@@ -25,7 +25,7 @@ public class MysticalMushroomFeature extends Feature<MysticalFlowerConfig> {
 	}
 
 	@Override
-	public boolean generate(ServerWorldAccess world, StructureAccessor structureManager, ChunkGenerator generator, Random rand, BlockPos pos, MysticalFlowerConfig config) {
+	public boolean generate(StructureWorldAccess world, StructureAccessor structureManager, ChunkGenerator generator, Random rand, BlockPos pos, MysticalFlowerConfig config) {
 		boolean any = false;
 		for (int i = 0; i < config.getMushroomPatchSize(); i++) {
 			int x = pos.getX() + rand.nextInt(16) + 8;

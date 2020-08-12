@@ -141,7 +141,7 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 
 	@Override
 	public ICorporeaSpark getSparkForBlock(World world, BlockPos pos) {
-		List<Entity> sparks = world.getEntities(Entity.class, new Box(pos.up(), pos.add(1, 2, 1)), Predicates.instanceOf(ICorporeaSpark.class));
+		List<Entity> sparks = world.getEntitiesByClass(Entity.class, new Box(pos.up(), pos.add(1, 2, 1)), Predicates.instanceOf(ICorporeaSpark.class));
 		return sparks.isEmpty() ? null : (ICorporeaSpark) sparks.get(0);
 	}
 

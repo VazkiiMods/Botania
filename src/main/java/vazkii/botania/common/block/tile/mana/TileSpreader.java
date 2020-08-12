@@ -202,7 +202,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 				double z = lastPingbackZ;
 				Box aabb = new Box(x, y, z, x, y, z).expand(PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE);
 				@SuppressWarnings("unchecked")
-				List<IManaBurst> bursts = (List<IManaBurst>) (List<?>) world.getEntities(ThrownEntity.class, aabb, Predicates.instanceOf(IManaBurst.class));
+				List<IManaBurst> bursts = (List<IManaBurst>) (List<?>) world.getEntitiesByClass(ThrownEntity.class, aabb, Predicates.instanceOf(IManaBurst.class));
 				IManaBurst found = null;
 				UUID identity = getIdentifier();
 				for (IManaBurst burst : bursts) {

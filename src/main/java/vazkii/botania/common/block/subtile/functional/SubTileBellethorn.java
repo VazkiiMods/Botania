@@ -60,7 +60,7 @@ public class SubTileBellethorn extends TileEntityFunctionalFlower {
 
 		if (ticksExisted % 5 == 0) {
 			int range = getRange();
-			List<LivingEntity> entities = getWorld().getEntities(LivingEntity.class, new Box(getEffectivePos().add(-range, -range, -range), getEffectivePos().add(range + 1, range + 1, range + 1)), getSelector());
+			List<LivingEntity> entities = getWorld().getEntitiesByClass(LivingEntity.class, new Box(getEffectivePos().add(-range, -range, -range), getEffectivePos().add(range + 1, range + 1, range + 1)), getSelector());
 
 			for (LivingEntity entity : entities) {
 				if (entity.hurtTime == 0 && getMana() >= manaToUse) {

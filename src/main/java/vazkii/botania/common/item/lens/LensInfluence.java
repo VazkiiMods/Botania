@@ -34,7 +34,7 @@ public class LensInfluence extends Lens {
 			movables.addAll(entity.world.getNonSpectatingEntities(ExperienceOrbEntity.class, bounds));
 			movables.addAll(entity.world.getNonSpectatingEntities(PersistentProjectileEntity.class, bounds));
 			movables.addAll(entity.world.getNonSpectatingEntities(FallingBlockEntity.class, bounds));
-			movables.addAll(entity.world.getEntities(ThrownEntity.class, bounds, Predicates.instanceOf(IManaBurst.class)));
+			movables.addAll(entity.world.getEntitiesByClass(ThrownEntity.class, bounds, Predicates.instanceOf(IManaBurst.class)));
 
 			for (Entity movable : movables) {
 				if (movable == burst) {

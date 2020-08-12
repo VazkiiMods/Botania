@@ -30,7 +30,7 @@ public class StateIngredientTag extends StateIngredientBlocks {
 	}
 
 	public StateIngredientTag(Identifier id) {
-		this(TagRegistry.create(id, BlockTags::getContainer));
+		this(TagRegistry.create(id, BlockTags::getTagGroup));
 	}
 
 	@Override

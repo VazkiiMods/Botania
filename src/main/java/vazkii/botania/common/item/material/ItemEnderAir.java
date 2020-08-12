@@ -36,7 +36,7 @@ public class ItemEnderAir extends Item {
 		ItemStack stack = player.getStackInHand(hand);
 
 		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.getDimensionRegistryKey() == DimensionType.THE_END_REGISTRY_KEY) {
-			List<AreaEffectCloudEntity> list = world.getEntities(AreaEffectCloudEntity.class,
+			List<AreaEffectCloudEntity> list = world.getEntitiesByClass(AreaEffectCloudEntity.class,
 					player.getBoundingBox().expand(3.5D),
 					entity -> entity != null && entity.isAlive()
 							&& entity.getParticleType().getType() == ParticleTypes.DRAGON_BREATH);

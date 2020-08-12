@@ -42,7 +42,7 @@ public class WorldTypeSkyblock extends GeneratorType {
 	*/
 
 	@Override
-	protected ChunkGenerator method_29076(long seed) {
+	protected ChunkGenerator getChunkGenerator(long seed) {
 		return new SkyblockChunkGenerator(new VanillaLayeredBiomeSource(seed, false, false), seed, SkyblockChunkGenerator.dimSettingsPreset.getChunkGeneratorType());
 	}
 }

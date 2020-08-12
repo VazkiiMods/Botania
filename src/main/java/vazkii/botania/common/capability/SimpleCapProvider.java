@@ -10,7 +10,8 @@ package vazkii.botania.common.capability;
 
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
-
+import Capability;
+import LazyOptional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 

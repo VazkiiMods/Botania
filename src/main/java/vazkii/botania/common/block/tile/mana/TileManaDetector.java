@@ -26,7 +26,7 @@ public class TileManaDetector extends TileMod implements Tickable {
 	@Override
 	public void tick() {
 		boolean state = getCachedState().get(Properties.POWERED);
-		boolean expectedState = world.getEntities(ThrownEntity.class, new Box(pos, pos.add(1, 1, 1)), Predicates.instanceOf(IManaBurst.class)).size() != 0;
+		boolean expectedState = world.getEntitiesByClass(ThrownEntity.class, new Box(pos, pos.add(1, 1, 1)), Predicates.instanceOf(IManaBurst.class)).size() != 0;
 		if (state != expectedState && !world.isClient) {
 			world.setBlockState(getPos(), getCachedState().with(Properties.POWERED, expectedState));
 		}

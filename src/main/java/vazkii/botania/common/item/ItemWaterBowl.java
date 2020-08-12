@@ -13,7 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundTag;
-
+import ICapabilityProvider;
 import javax.annotation.Nonnull;
 
 public class ItemWaterBowl extends Item {

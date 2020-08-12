@@ -65,7 +65,7 @@ public class RenderTileCorporeaCrystalCube extends BlockEntityRenderer<TileCorpo
 			ms.translate(0F, 0.8F, 0F);
 			ms.scale(s, s, s);
 			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
-			MinecraftClient.getInstance().getEntityRenderManager().getRenderer(entity).render(entity, 0, f, ms, buffers, light);
+			MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(entity).render(entity, 0, f, ms, buffers, light);
 			ms.pop();
 		}
 

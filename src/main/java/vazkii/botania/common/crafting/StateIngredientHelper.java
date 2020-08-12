@@ -17,9 +17,9 @@ import com.mojang.serialization.JsonOps;
 import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.datafixer.NbtOps;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtHelper;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
@@ -57,7 +57,7 @@ public class StateIngredientHelper {
 	public static StateIngredient deserialize(JsonObject object) {
 		switch (JsonHelper.getString(object, "type")) {
 		case "tag":
-			return new StateIngredientTag(TagRegistry.create(new Identifier(JsonHelper.getString(object, "tag")), BlockTags::getContainer));
+			return new StateIngredientTag(TagRegistry.create(new Identifier(JsonHelper.getString(object, "tag")), BlockTags::getTagGroup));
 		case "block":
 			return new StateIngredientBlock(Registry.BLOCK.get(new Identifier(JsonHelper.getString(object, "block"))));
 		case "state":

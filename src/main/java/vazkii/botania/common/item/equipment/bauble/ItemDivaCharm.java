@@ -65,7 +65,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 						final int range = 20;
 
 						@SuppressWarnings("unchecked")
-						List<Monster> mobs = (List<Monster>) (List<?>) player.world.getEntities(Entity.class, new Box(target.getX() - range, target.getY() - range, target.getZ() - range, target.getX() + range, target.getY() + range, target.getZ() + range), Predicates.instanceOf(Monster.class));
+						List<Monster> mobs = (List<Monster>) (List<?>) player.world.getEntitiesByClass(Entity.class, new Box(target.getX() - range, target.getY() - range, target.getZ() - range, target.getX() + range, target.getY() + range, target.getZ() + range), Predicates.instanceOf(Monster.class));
 						if (mobs.size() > 1) {
 							if (SubTileHeiseiDream.brainwashEntity(target, mobs)) {
 								target.heal(target.getMaxHealth());

@@ -51,7 +51,7 @@ public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {
 		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
 
 		BakedModel model = MiscellaneousIcons.INSTANCE.kingKeyWeaponModels[weapon.getVariety()];
-		MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer().render(ms.peek(), buffers.getBuffer(TexturedRenderLayers.method_29382()), null, model, 1, 1, 1, 0xF000F0, OverlayTexture.DEFAULT_UV);
+		MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer().render(ms.peek(), buffers.getBuffer(TexturedRenderLayers.getItemEntityTranslucentCull()), null, model, 1, 1, 1, 0xF000F0, OverlayTexture.DEFAULT_UV);
 		ms.pop();
 
 		Random rand = new Random(weapon.getUuid().getMostSignificantBits());

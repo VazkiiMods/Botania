@@ -47,9 +47,9 @@ public class ModFeatures {
 	public static void addWorldgen() {
 		for (Biome biome : Registry.BIOME) {
 			if (true /*BiomeDictionary.getTypes(biome).stream().noneMatch(TYPE_BLACKLIST::contains)*/) {
-				biome.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, MYSTICAL_FLOWERS.configure(MysticalFlowerConfig.fromConfig()).createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT)));
+				biome.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, MYSTICAL_FLOWERS.configure(MysticalFlowerConfig.fromConfig()).decorate(Decorator.NOPE.configure(DecoratorConfig.DEFAULT)));
 			}
-			biome.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, MYSTICAL_MUSHROOMS.configure(MysticalFlowerConfig.fromConfig()).createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT)));
+			biome.addFeature(GenerationStep.Feature.VEGETAL_DECORATION, MYSTICAL_MUSHROOMS.configure(MysticalFlowerConfig.fromConfig()).decorate(Decorator.NOPE.configure(DecoratorConfig.DEFAULT)));
 		}
 	}
 }

@@ -139,7 +139,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	@SuppressWarnings("unchecked")
 	private List<ICorporeaSpark> getNearbySparks() {
-		return (List) world.getEntities(Entity.class, new Box(getX() - SCAN_RANGE, getY() - SCAN_RANGE, getZ() - SCAN_RANGE, getX() + SCAN_RANGE, getY() + SCAN_RANGE, getZ() + SCAN_RANGE), Predicates.instanceOf(ICorporeaSpark.class));
+		return (List) world.getEntitiesByClass(Entity.class, new Box(getX() - SCAN_RANGE, getY() - SCAN_RANGE, getZ() - SCAN_RANGE, getX() + SCAN_RANGE, getY() + SCAN_RANGE, getZ() + SCAN_RANGE), Predicates.instanceOf(ICorporeaSpark.class));
 	}
 
 	private void restartNetwork() {

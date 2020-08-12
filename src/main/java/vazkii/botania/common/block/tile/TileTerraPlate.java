@@ -187,7 +187,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, Tickabl
 
 	@Override
 	public ISparkEntity getAttachedSpark() {
-		List<Entity> sparks = world.getEntities(Entity.class, new Box(pos.up(), pos.up().add(1, 1, 1)), Predicates.instanceOf(ISparkEntity.class));
+		List<Entity> sparks = world.getEntitiesByClass(Entity.class, new Box(pos.up(), pos.up().add(1, 1, 1)), Predicates.instanceOf(ISparkEntity.class));
 		if (sparks.size() == 1) {
 			Entity e = sparks.get(0);
 			return (ISparkEntity) e;

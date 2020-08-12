@@ -192,7 +192,7 @@ public class EntityMagicMissile extends ThrownEntity {
 			entities = world.getNonSpectatingEntities(PlayerEntity.class, bounds);
 		} else {
 			Predicate<LivingEntity> pred = EntityPredicates.VALID_LIVING_ENTITY.and(this::shouldTarget);
-			entities = world.getEntities(LivingEntity.class, bounds, pred);
+			entities = world.getEntitiesByClass(LivingEntity.class, bounds, pred);
 		}
 
 		if (entities.size() > 0) {

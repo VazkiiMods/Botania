@@ -41,7 +41,7 @@ public class ItemUnholyCloak extends ItemHolyCloak {
 		if (!event.getSource().bypassesArmor()) {
 			int range = 6;
 			@SuppressWarnings("unchecked")
-			List<Monster> mobs = (List<Monster>) (List<?>) player.world.getEntities(Entity.class, new Box(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range), Predicates.instanceOf(Monster.class));
+			List<Monster> mobs = (List<Monster>) (List<?>) player.world.getEntitiesByClass(Entity.class, new Box(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range), Predicates.instanceOf(Monster.class));
 			for (Monster mob : mobs) {
 				if (mob instanceof LivingEntity) {
 					LivingEntity entity = (LivingEntity) mob;
