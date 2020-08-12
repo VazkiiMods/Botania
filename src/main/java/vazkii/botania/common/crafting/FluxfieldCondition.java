@@ -15,8 +15,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-import IConditionSerializer;
-
 public class FluxfieldCondition implements ICondition {
 	public static final Identifier KEY = prefix("fluxfield_enabled");
 	private final boolean value;

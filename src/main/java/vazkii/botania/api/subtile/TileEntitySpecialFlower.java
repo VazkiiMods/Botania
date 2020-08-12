@@ -40,9 +40,6 @@ import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 import vazkii.botania.common.lib.ModTags;
-import Capability;
-import IModelData;
-import LazyOptional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 

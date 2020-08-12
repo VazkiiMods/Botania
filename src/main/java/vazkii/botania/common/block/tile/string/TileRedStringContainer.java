@@ -17,7 +17,6 @@ import vazkii.botania.common.block.tile.ModTiles;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import LazyOptional;
 import java.util.Arrays;
 
 public class TileRedStringContainer extends TileRedString {

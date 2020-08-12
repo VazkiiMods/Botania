@@ -17,7 +17,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.block.tile.TileSimpleInventory;
-import IItemHandler;
 import javax.annotation.Nullable;
 
 public class InventoryHelper {

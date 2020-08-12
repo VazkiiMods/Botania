@@ -25,7 +25,6 @@ import vazkii.botania.mixin.AccessorAbstractFurnaceTileEntity;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-import Capability;
 
 public class ExoflameFurnaceHandler {
 
