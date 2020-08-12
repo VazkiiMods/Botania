@@ -37,11 +37,6 @@ public class DelegatedModel implements BakedModel {
 	}
 
 	@Override
-	public boolean isAmbientOcclusion(BlockState state) {
-		return originalModel.isAmbientOcclusion(state);
-	}
-
-	@Override
 	public boolean hasDepth() {
 		return originalModel.hasDepth();
 	}
@@ -69,33 +64,6 @@ public class DelegatedModel implements BakedModel {
 	@Override
 	public ModelOverrideList getOverrides() {
 		return originalModel.getOverrides();
-	}
-
-	@Override
-	public boolean doesHandlePerspectives() {
-		return originalModel.doesHandlePerspectives();
-	}
-
-	@Override
-	public BakedModel handlePerspective(ModelTransformation.Mode cameraTransformType, MatrixStack mat) {
-		return originalModel.handlePerspective(cameraTransformType, mat);
-	}
-
-	@Override
-	public Sprite getParticleTexture(@Nonnull IModelData data) {
-		return originalModel.getParticleTexture(data);
-	}
-
-	@Nonnull
-	@Override
-	public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand, @Nonnull IModelData extraData) {
-		return originalModel.getQuads(state, side, rand, extraData);
-	}
-
-	@Nonnull
-	@Override
-	public IModelData getModelData(@Nonnull BlockRenderView world, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull IModelData tileData) {
-		return originalModel.getModelData(world, pos, state, tileData);
 	}
 
 	@Override

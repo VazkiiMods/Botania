@@ -8,74 +8,61 @@
  */
 package vazkii.botania.client.model;
 
-import com.google.common.collect.ImmutableList;
-
+import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
+import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
+import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
+import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 
+import net.minecraft.world.BlockRenderView;
 import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TilePlatform;
 
-import javax.annotation.Nonnull;
-
-import java.util.List;
 import java.util.Random;
+import java.util.function.Supplier;
 
-public class PlatformModel extends DelegatedModel {
+public class PlatformModel extends ForwardingBakedModel {
 	public PlatformModel(BakedModel original) {
-		super(original);
+		this.wrapped = original;
 	}
 
-	@Nonnull
 	@Override
-	public List<BakedQuad> getQuads(BlockState state, Direction side, @Nonnull Random rand, @Nonnull IModelData data) {
-		if (state == null) {
-			return ImmutableList.of();
-		}
+	public boolean isVanillaAdapter() {
+		return false;
+	}
 
+	@Override
+	public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
 		if (!(state.getBlock() instanceof BlockPlatform)) {
-			return MinecraftClient.getInstance().getBlockRenderManager().getModels().getModelManager().getMissingModel().getQuads(state, side, rand);
+			context.fallbackConsumer().accept(MinecraftClient.getInstance().getBlockRenderManager().getModels().getModelManager().getMissingModel());
+			return;
 		}
 
-		RenderLayer layer = MinecraftForgeClient.getRenderLayer();
-		if (layer == null) {
-			layer = RenderLayer.getSolid(); // workaround for when this isn't set (digging, etc.)
-		}
+		Object data = ((RenderAttachedBlockView) blockView).getBlockEntityRenderAttachment(pos);
+		if (data instanceof TilePlatform.PlatformData) {
+			BlockPos heldPos = ((TilePlatform.PlatformData) data).pos;
+			BlockState heldState = ((TilePlatform.PlatformData) data).state;
 
-		BlockState heldState = data.getData(TilePlatform.HELD_STATE);
-		BlockPos heldPos = data.getData(TilePlatform.HELD_POS);
+			if (heldState == null) {
+				// No camo
+				super.emitBlockQuads(blockView, state, pos, randomSupplier, context);
+			} else {
+				// Some people used this to get an invisible block in the past, accommodate that.
+				if (heldState.getBlock() == ModBlocks.manaGlass) {
+					return;
+				}
 
-		if (heldPos == null) {
-			return ImmutableList.of();
-		}
-
-		MinecraftClient mc = MinecraftClient.getInstance();
-		if (heldState == null && layer == RenderLayer.getSolid()) {
-			// No camo
-			return originalModel.getQuads(state, side, rand, data);
-		} else if (heldState != null) {
-
-			// Some people used this to get an invisible block in the past, accommodate that.
-			if (heldState.getBlock() == ModBlocks.manaGlass) {
-				return ImmutableList.of();
-			}
-
-			if (RenderLayers.canRenderInLayer(heldState, layer)) {
-				// Steal camo's model
-				BakedModel model = mc.getBlockRenderManager().getModels().getModel(heldState);
-
-				return model.getQuads(heldState, side, rand, EmptyModelData.INSTANCE);
+				BakedModel model = MinecraftClient.getInstance().getBlockRenderManager().getModels().getModel(heldState);
+				if (model instanceof FabricBakedModel) {
+					// Steal camo's model
+					((FabricBakedModel) model).emitBlockQuads(blockView, heldState, heldPos, randomSupplier, context);
+				}
 			}
 		}
-
-		return ImmutableList.of(); // Nothing renders
 	}
 
 }

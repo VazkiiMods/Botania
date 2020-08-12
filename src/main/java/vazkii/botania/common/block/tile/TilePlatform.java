@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.world.ClientWorld;
@@ -18,12 +19,9 @@ import net.minecraft.network.ClientConnection;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
-public class TilePlatform extends TileMod {
-	public static final ModelProperty<BlockState> HELD_STATE = new ModelProperty<>();
-	public static final ModelProperty<BlockPos> HELD_POS = new ModelProperty<>();
-
+public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity {
 	private static final String TAG_CAMO = "camo";
 
 	public BlockState camoState;
@@ -86,18 +84,25 @@ public class TilePlatform extends TileMod {
 	@Override
 	public void onDataPacket(ClientConnection manager, BlockEntityUpdateS2CPacket packet) {
 		super.onDataPacket(manager, packet);
-		requestModelDataUpdate();
 		if (world instanceof ClientWorld) {
 			world.updateListeners(getPos(), getCachedState(), getCachedState(), 0);
 		}
 	}
 
-	@Nonnull
 	@Override
-	public IModelData getModelData() {
-		return new ModelDataMap.Builder()
-				.withInitial(HELD_POS, getPos())
-				.withInitial(HELD_STATE, camoState)
-				.build();
+	public Object getRenderAttachmentData() {
+		return new PlatformData(getPos(), camoState);
+	}
+
+	public static class PlatformData {
+		public final BlockPos pos;
+
+		@Nullable
+		public final BlockState state;
+
+		public PlatformData(BlockPos pos, @Nullable BlockState state) {
+			this.pos = pos.toImmutable();
+			this.state = state;
+		}
 	}
 }

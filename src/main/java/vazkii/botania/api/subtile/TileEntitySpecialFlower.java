@@ -10,6 +10,7 @@ package vazkii.botania.api.subtile;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -47,7 +48,7 @@ import javax.annotation.Nullable;
 /**
  * Common superclass of all magical flower TE's
  */
-public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IWandBindable, IFloatingFlowerProvider {
+public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IWandBindable, IFloatingFlowerProvider, RenderAttachmentBlockEntity {
 	public static final Identifier DING_SOUND_EVENT = new Identifier(BotaniaAPI.MODID, "ding");
 	public static final int SLOWDOWN_FACTOR_PODZOL = 5;
 	public static final int SLOWDOWN_FACTOR_MYCEL = 10;
@@ -168,7 +169,6 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
 		readFromPacketNBT(packet.getCompoundTag());
 		if (oldType != floatingData.getIslandType() && isFloating()) {
-			ModelDataManager.requestModelDataRefresh(this);
 			world.updateListeners(getPos(), getCachedState(), getCachedState(), 0);
 		}
 	}
@@ -295,14 +295,11 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 		return 0;
 	}
 
-	@Nonnull
-	@Override
-	public IModelData getModelData() {
+	@Nullable
+	@Override public Object getRenderAttachmentData() {
 		if (isFloating()) {
-			return new ModelDataMap.Builder()
-					.withInitial(BotaniaStateProps.FLOATING_DATA, floatingData)
-					.build();
+			return floatingData;
 		}
-		return EmptyModelData.INSTANCE;
+		return null;
 	}
 }

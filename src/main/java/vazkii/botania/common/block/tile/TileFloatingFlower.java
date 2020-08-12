@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -25,7 +26,7 @@ import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvider {
+public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvider, RenderAttachmentBlockEntity {
 	private static final String TAG_FLOATING_DATA = "floating";
 	private final IFloatingFlower floatingData = new FloatingFlowerImpl() {
 		@Override
@@ -53,7 +54,6 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvid
 		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
 		super.onDataPacket(net, packet);
 		if (oldType != floatingData.getIslandType()) {
-			ModelDataManager.requestModelDataRefresh(this);
 			world.updateListeners(getPos(), getCachedState(), getCachedState(), 0);
 		}
 	}
@@ -68,11 +68,8 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvid
 		floatingData.readNBT(cmp.getCompound(TAG_FLOATING_DATA));
 	}
 
-	@Nonnull
 	@Override
-	public IModelData getModelData() {
-		return new ModelDataMap.Builder()
-				.withInitial(BotaniaStateProps.FLOATING_DATA, floatingData)
-				.build();
+	public Object getRenderAttachmentData() {
+		return floatingData;
 	}
 }
