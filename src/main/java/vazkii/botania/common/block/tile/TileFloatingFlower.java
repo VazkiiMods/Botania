@@ -17,6 +17,7 @@ import net.minecraft.util.math.Direction;
 
 import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.item.IFloatingFlower;
+import vazkii.botania.api.item.IFloatingFlowerProvider;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
@@ -24,7 +25,7 @@ import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileFloatingFlower extends TileMod {
+public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvider {
 	private static final String TAG_FLOATING_DATA = "floating";
 	private final IFloatingFlower floatingData = new FloatingFlowerImpl() {
 		@Override
@@ -37,19 +38,14 @@ public class TileFloatingFlower extends TileMod {
 			}
 		}
 	};
-	private final LazyOptional<IFloatingFlower> floatingDataCap = LazyOptional.of(() -> floatingData);
 
 	public TileFloatingFlower() {
 		super(ModTiles.MINI_ISLAND);
 	}
 
-	@Nonnull
 	@Override
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-		if (cap == TileEntitySpecialFlower.FLOATING_FLOWER_CAP) {
-			return floatingDataCap.cast();
-		}
-		return super.getCapability(cap, side);
+	public IFloatingFlower getFloatingData() {
+		return floatingData;
 	}
 
 	@Override
@@ -64,12 +60,12 @@ public class TileFloatingFlower extends TileMod {
 
 	@Override
 	public void writePacketNBT(CompoundTag cmp) {
-		cmp.put(TAG_FLOATING_DATA, TileEntitySpecialFlower.FLOATING_FLOWER_CAP.writeNBT(floatingData, null));
+		cmp.put(TAG_FLOATING_DATA, floatingData.writeNBT());
 	}
 
 	@Override
 	public void readPacketNBT(CompoundTag cmp) {
-		TileEntitySpecialFlower.FLOATING_FLOWER_CAP.readNBT(floatingData, null, cmp.getCompound(TAG_FLOATING_DATA));
+		floatingData.readNBT(cmp.getCompound(TAG_FLOATING_DATA));
 	}
 
 	@Nonnull

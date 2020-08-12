@@ -35,6 +35,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IFloatingFlower;
+import vazkii.botania.api.item.IFloatingFlowerProvider;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.block.ModBlocks;
@@ -46,9 +47,7 @@ import javax.annotation.Nullable;
 /**
  * Common superclass of all magical flower TE's
  */
-public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IWandBindable {
-	@CapabilityInject(IFloatingFlower.class)
-	public static Capability<IFloatingFlower> FLOATING_FLOWER_CAP;
+public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IWandBindable, IFloatingFlowerProvider {
 	public static final Identifier DING_SOUND_EVENT = new Identifier(BotaniaAPI.MODID, "ding");
 	public static final int SLOWDOWN_FACTOR_PODZOL = 5;
 	public static final int SLOWDOWN_FACTOR_MYCEL = 10;
@@ -60,7 +59,6 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 			return Registry.ITEM.getOrEmpty(id).map(ItemStack::new).orElse(super.getDisplayStack());
 		}
 	};
-	private final LazyOptional<IFloatingFlower> floatingDataCap = LazyOptional.of(() -> floatingData);
 
 	public int ticksExisted = 0;
 
@@ -107,19 +105,17 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 		overgrowthBoost = false;
 	}
 
-	@Nonnull
+	@Nullable
 	@Override
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-		if (cap == FLOATING_FLOWER_CAP) {
-			if (hasWorld() && getCachedState().isIn(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS)) {
-				return floatingDataCap.cast();
-			}
+	public IFloatingFlower getFloatingData() {
+		if (hasWorld() && getCachedState().isIn(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS)) {
+			return floatingData;
 		}
-		return super.getCapability(cap, side);
+		return null;
 	}
 
 	public boolean isFloating() {
-		return getCapability(FLOATING_FLOWER_CAP).isPresent();
+		return getFloatingData() != null;
 	}
 
 	private boolean isOnSpecialSoil() {
@@ -190,7 +186,7 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 	 */
 	public void writeToPacketNBT(CompoundTag cmp) {
 		if (isFloating()) {
-			cmp.put(TAG_FLOATING_DATA, FLOATING_FLOWER_CAP.writeNBT(floatingData, null));
+			cmp.put(TAG_FLOATING_DATA, floatingData.writeNBT());
 		}
 	}
 
@@ -201,7 +197,7 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 	 */
 	public void readFromPacketNBT(CompoundTag cmp) {
 		if (cmp.contains(TAG_FLOATING_DATA)) {
-			FLOATING_FLOWER_CAP.readNBT(floatingData, null, cmp.getCompound(TAG_FLOATING_DATA));
+			floatingData.readNBT(cmp.getCompound(TAG_FLOATING_DATA));
 		}
 	}
 

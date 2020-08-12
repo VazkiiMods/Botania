@@ -11,16 +11,10 @@ package vazkii.botania.api.item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.util.math.Direction;
-
-import javax.annotation.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * A capability interface marking a TE as a floating flower
- */
 public interface IFloatingFlower {
 
 	/**
@@ -32,25 +26,9 @@ public interface IFloatingFlower {
 
 	void setIslandType(IslandType type);
 
-	class Storage implements Capability.IStorage<IFloatingFlower> {
-		@Nullable
-		@Override
-		public Tag writeNBT(Capability<IFloatingFlower> capability, IFloatingFlower instance, Direction side) {
-			CompoundTag ret = new CompoundTag();
-			ret.putString("islandType", instance.getIslandType().typeName);
-			return ret;
-		}
+	Tag writeNBT();
 
-		@Override
-		public void readNBT(Capability<IFloatingFlower> capability, IFloatingFlower instance, Direction side, Tag nbt) {
-			if (nbt instanceof CompoundTag) {
-				IslandType t = IslandType.ofType(((CompoundTag) nbt).getString("islandType"));
-				if (t != null) {
-					instance.setIslandType(t);
-				}
-			}
-		}
-	}
+	void readNBT(CompoundTag nbt);
 
 	class IslandType {
 		private static final Map<String, IslandType> registry = new HashMap<>();
