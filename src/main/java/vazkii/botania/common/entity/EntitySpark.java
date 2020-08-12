@@ -213,16 +213,14 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity, Entity
 	}
 
 	private void particlesTowards(Entity e) {
-		PacketHandler.sendToNearby(world, this,
-				new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_MANA_FLOW, getX(), getY(), getZ(),
-						getEntityId(), e.getEntityId()));
+		PacketBotaniaEffect.sendNearby(this, PacketBotaniaEffect.EffectType.SPARK_MANA_FLOW, getX(), getY(), getZ(),
+			getEntityId(), e.getEntityId());
 	}
 
 	public static void particleBeam(PlayerEntity player, Entity e1, Entity e2) {
 		if (e1 != null && e2 != null && !e1.world.isClient) {
-			PacketHandler.sendTo((ServerPlayerEntity) player,
-					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_NET_INDICATOR, e1.getX(), e1.getY(), e1.getZ(),
-							e1.getEntityId(), e2.getEntityId()));
+			PacketBotaniaEffect.send(player, PacketBotaniaEffect.EffectType.SPARK_NET_INDICATOR, e1.getX(), e1.getY(), e1.getZ(),
+				e1.getEntityId(), e2.getEntityId());
 		}
 	}
 

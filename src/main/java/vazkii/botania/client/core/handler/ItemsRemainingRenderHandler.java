@@ -115,7 +115,7 @@ public final class ItemsRemainingRenderHandler {
 	}
 
 	public static void send(PlayerEntity entity, ItemStack stack, int count, @Nullable Text str) {
-		PacketHandler.sendTo((ServerPlayerEntity) entity, new PacketUpdateItemsRemaining(stack, count, str));
+		PacketUpdateItemsRemaining.send(entity, stack, count, str);
 	}
 
 	public static void send(PlayerEntity player, ItemStack displayStack, Pattern pattern) {

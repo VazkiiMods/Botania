@@ -178,8 +178,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 			if (world.isClient) {
 				warnInvalidBlocks(world, invalidArenaBlocks);
 			} else {
-				PacketHandler.sendTo((ServerPlayerEntity) player,
-						new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ()));
+				PacketBotaniaEffect.send(player, PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ());
 
 				player.sendSystemMessage(new TranslatableText("botaniamisc.badArena").formatted(Formatting.RED), Util.NIL_UUID);
 			}

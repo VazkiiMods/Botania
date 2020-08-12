@@ -8,40 +8,43 @@
  */
 package vazkii.botania.common.network;
 
+import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.fabricmc.fabric.api.network.PacketContext;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 
+import net.minecraft.util.Identifier;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.item.equipment.bauble.ItemCloudPendant;
 import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
 
 import java.util.function.Supplier;
 
-public class PacketJump {
-	public static void encode(PacketJump msg, PacketByteBuf buf) {}
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-	public static PacketJump decode(PacketByteBuf buf) {
-		return new PacketJump();
+public class PacketJump {
+	public static final Identifier ID = prefix("jump");
+
+	public static void send() {
+		ClientSidePacketRegistry.INSTANCE.sendToServer(ID, PacketHandler.EMPTY_BUF);
 	}
 
-	public void handle(Supplier<NetworkEvent.Context> ctx) {
-		if (ctx.get().getDirection().getReceptionSide().isServer()) {
-			ctx.get().enqueueWork(() -> {
-				ServerPlayerEntity player = ctx.get().getSender();
+	public static void handle(PacketContext ctx, PacketByteBuf buf) {
+		ctx.getTaskQueue().execute(() -> {
+			PlayerEntity player = ctx.getPlayer();
 
-				ItemStack amuletStack = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemCloudPendant, player);
-				if (!amuletStack.isEmpty()) {
-					player.addExhaustion(0.3F);
-					player.fallDistance = 0;
+			ItemStack amuletStack = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemCloudPendant, player);
+			if (!amuletStack.isEmpty()) {
+				player.addExhaustion(0.3F);
+				player.fallDistance = 0;
 
-					ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
-					if (!belt.isEmpty()) {
-						player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer * ((ItemCloudPendant) amuletStack.getItem()).getMaxAllowedJumps();
-					}
+				ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
+				if (!belt.isEmpty()) {
+					player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer * ((ItemCloudPendant) amuletStack.getItem()).getMaxAllowedJumps();
 				}
-			});
-		}
-		ctx.get().setPacketHandled(true);
+			}
+		});
 	}
 }

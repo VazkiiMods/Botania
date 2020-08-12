@@ -62,7 +62,7 @@ public class CorporeaInputHandler {
 			if (count > 0) {
 				ItemStack requested = stack.copy();
 				requested.setCount(count);
-				PacketHandler.sendToServer(new PacketIndexKeybindRequest(requested));
+				PacketIndexKeybindRequest.send(requested);
 				event.setCanceled(true);
 			}
 		}

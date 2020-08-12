@@ -84,8 +84,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, Tickabl
 				}
 				if (mana > 0) {
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
-					PacketHandler.sendToNearby(world, getPos(),
-							new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.TERRA_PLATE, getPos().getX(), getPos().getY(), getPos().getZ()));
+					PacketBotaniaEffect.sendNearby(world, getPos(), PacketBotaniaEffect.EffectType.TERRA_PLATE, getPos().getX(), getPos().getY(), getPos().getZ());
 				}
 
 				if (mana >= MAX_MANA) {

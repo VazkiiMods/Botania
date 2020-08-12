@@ -125,10 +125,9 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 			} else {
 				BlockPos dest = WorldData.get(world).mapping.get(pos);
 				if (dest != null) {
-					PacketHandler.sendToNearby(world, pos,
-							new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.PARTICLE_BEAM,
-									pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-									dest.getX(), dest.getY(), dest.getZ()));
+					PacketBotaniaEffect.sendNearby(world, pos, PacketBotaniaEffect.EffectType.PARTICLE_BEAM,
+						pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+						dest.getX(), dest.getY(), dest.getZ());
 				}
 			}
 		}

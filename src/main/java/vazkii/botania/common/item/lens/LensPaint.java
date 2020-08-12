@@ -84,8 +84,7 @@ public class LensPaint extends Lens {
 						Block newBlock = f.apply(placeColor);
 						if (newBlock != stateThere.getBlock()) {
 							entity.world.setBlockState(coords, newBlock.getDefaultState());
-							PacketHandler.sendToNearby(entity.world, coords,
-									new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.PAINT_LENS, coords.getX(), coords.getY(), coords.getZ(), placeColor.getId()));
+							PacketBotaniaEffect.sendNearby(entity.world, coords, PacketBotaniaEffect.EffectType.PAINT_LENS, coords.getX(), coords.getY(), coords.getZ(), placeColor.getId());
 						}
 					}
 				}

@@ -154,8 +154,6 @@ public class Botania implements ModInitializer {
 	}
 
 	private void commonSetup() {
-		CapabilityManager.INSTANCE.register(IFloatingFlower.class, new IFloatingFlower.Storage(), FloatingFlowerImpl::new);
-
 		gardenOfGlassLoaded = FabricLoader.getInstance().isModLoaded("gardenofglass");
 		curiosLoaded = FabricLoader.getInstance().isModLoaded("curios");
 

@@ -8,42 +8,41 @@
  */
 package vazkii.botania.common.network;
 
+import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.fabricmc.fabric.api.network.PacketContext;
+import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
 
+import net.minecraft.util.Identifier;
 import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.function.Supplier;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class PacketItemAge {
-	private final int entityId;
-	private final int age;
+	public static final Identifier ID = prefix("item_age");
 
-	public PacketItemAge(int entityId, int age) {
-		this.entityId = entityId;
-		this.age = age;
+	public static void send(PlayerEntity player, int entityId, int age) {
+		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+		buf.writeVarInt(entityId);
+		buf.writeVarInt(age);
+		ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, ID, buf);
 	}
 
-	public static PacketItemAge decode(PacketByteBuf buf) {
-		return new PacketItemAge(buf.readVarInt(), buf.readVarInt());
-	}
-
-	public static void encode(PacketItemAge msg, PacketByteBuf buf) {
-		buf.writeVarInt(msg.entityId);
-		buf.writeVarInt(msg.age);
-	}
-
-	public static void handle(PacketItemAge message, Supplier<NetworkEvent.Context> ctx) {
-		if (ctx.get().getDirection().getReceptionSide().isClient()) {
-			ctx.get().enqueueWork(() -> {
-				Entity e = MinecraftClient.getInstance().world.getEntityById(message.entityId);
-				if (e instanceof ItemEntity) {
-					((AccessorItemEntity) e).setAge(message.age);
-				}
-			});
-		}
-		ctx.get().setPacketHandled(true);
+	public static void handle(PacketContext ctx, PacketByteBuf buf) {
+		int entityId = buf.readVarInt();
+		int age = buf.readVarInt();
+		ctx.getTaskQueue().execute(() -> {
+			Entity e = MinecraftClient.getInstance().world.getEntityById(entityId);
+			if (e instanceof ItemEntity) {
+				((AccessorItemEntity) e).setAge(age);
+			}
+		});
 	}
 }

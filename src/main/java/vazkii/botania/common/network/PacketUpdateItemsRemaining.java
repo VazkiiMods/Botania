@@ -8,42 +8,36 @@
  */
 package vazkii.botania.common.network;
 
+import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.network.PacketContext;
+import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Text;
 
+import net.minecraft.util.Identifier;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 
 import javax.annotation.Nullable;
 
-import java.util.function.Supplier;
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PacketUpdateItemsRemaining {
-	private final ItemStack stack;
-	private final int count;
-	@Nullable
-	private final Text tooltip;
+	public static final Identifier ID = prefix("items_remaining");
 
-	public PacketUpdateItemsRemaining(ItemStack stack, int count, @Nullable Text tooltip) {
-		this.stack = stack;
-		this.count = count;
-		this.tooltip = tooltip;
-	}
-
-	public static PacketUpdateItemsRemaining decode(PacketByteBuf buf) {
-		return new PacketUpdateItemsRemaining(buf.readItemStack(), buf.readVarInt(), buf.readText());
-	}
-
-	public void encode(PacketByteBuf buf) {
+	public static void send(PlayerEntity player, ItemStack stack, int count, @Nullable Text tooltip) {
+		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 		buf.writeItemStack(stack);
 		buf.writeVarInt(count);
 		buf.writeText(tooltip);
+		ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, ID, buf);
 	}
 
-	public void handle(Supplier<NetworkEvent.Context> ctx) {
-		if (ctx.get().getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-			ctx.get().enqueueWork(() -> ItemsRemainingRenderHandler.set(stack, count, tooltip));
-			ctx.get().setPacketHandled(true);
-		}
+	public static void handle(PacketContext ctx, PacketByteBuf buf) {
+		ItemStack stack = buf.readItemStack();
+		int count = buf.readVarInt();
+		Text tooltip = buf.readText();
+		ctx.getTaskQueue().execute(() -> ItemsRemainingRenderHandler.set(stack, count, tooltip));
 	}
 }

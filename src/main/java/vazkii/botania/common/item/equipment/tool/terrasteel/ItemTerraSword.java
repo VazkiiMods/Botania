@@ -44,7 +44,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 	private void leftClick(PlayerInteractEvent.LeftClickEmpty evt) {
 		if (!evt.getItemStack().isEmpty()
 				&& evt.getItemStack().getItem() == this) {
-			PacketHandler.sendToServer(new PacketLeftClick());
+			PacketLeftClick.send();
 		}
 	}
 

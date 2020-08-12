@@ -49,7 +49,7 @@ public class ItemCloudPendant extends ItemBauble {
 					if (playerSp.input.jumping) {
 						if (!jumpDown && timesJumped < ((ItemCloudPendant) stack.getItem()).getMaxAllowedJumps()) {
 							playerSp.jump();
-							PacketHandler.sendToServer(new PacketJump());
+							PacketJump.send();
 							timesJumped++;
 						}
 						jumpDown = true;

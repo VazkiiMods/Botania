@@ -141,10 +141,9 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 			data.mapping.put(bindPos.getPos(), pos.toImmutable());
 			data.markDirty();
 
-			PacketHandler.sendToNearby(world, pos,
-					new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.PARTICLE_BEAM,
-							bindPos.getPos().getX() + 0.5, bindPos.getPos().getY() + 0.5, bindPos.getPos().getZ() + 0.5,
-							pos.getX(), pos.getY(), pos.getZ()));
+			PacketBotaniaEffect.sendNearby(world, pos, PacketBotaniaEffect.EffectType.PARTICLE_BEAM,
+				bindPos.getPos().getX() + 0.5, bindPos.getPos().getY() + 0.5, bindPos.getPos().getZ() + 0.5,
+				pos.getX(), pos.getY(), pos.getZ());
 
 			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
 			return true;

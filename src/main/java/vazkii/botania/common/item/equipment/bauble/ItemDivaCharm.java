@@ -76,7 +76,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 
 								ManaItemHandler.instance().requestManaExact(amulet, player, cost, true);
 								player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
-								PacketHandler.sendToNearby(target.world, target, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.DIVA_EFFECT, target.getX(), target.getY(), target.getZ(), target.getEntityId()));
+								PacketBotaniaEffect.sendNearby(target, PacketBotaniaEffect.EffectType.DIVA_EFFECT, target.getX(), target.getY(), target.getZ(), target.getEntityId());
 							}
 						}
 					}

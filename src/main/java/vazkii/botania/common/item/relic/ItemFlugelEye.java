@@ -131,7 +131,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	}
 
 	private static void moveParticlesAndSound(Entity entity) {
-		PacketHandler.sendToNearby(entity.world, entity, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.FLUGEL_EFFECT, entity.getX(), entity.getY(), entity.getZ(), entity.getEntityId()));
+		PacketBotaniaEffect.sendNearby(entity, PacketBotaniaEffect.EffectType.FLUGEL_EFFECT, entity.getX(), entity.getY(), entity.getZ(), entity.getEntityId());
 		entity.world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
 	}
 

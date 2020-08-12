@@ -191,9 +191,8 @@ public class ItemCraftingHalo extends Item {
 		// The items we consumed will stay in the dummy workbench and get deleted
 
 		if (particles) {
-			PacketBotaniaEffect pkt = new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.HALO_CRAFT,
+			PacketBotaniaEffect.sendNearby(player, PacketBotaniaEffect.EffectType.HALO_CRAFT,
 					player.getX(), player.getY(), player.getZ(), player.getEntityId());
-			PacketHandler.sendToNearby(player.world, player, pkt);
 		}
 	}
 

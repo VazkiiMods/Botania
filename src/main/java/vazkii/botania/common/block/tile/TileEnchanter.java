@@ -255,8 +255,8 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, Tickable
 
 		if (FORMED_MULTIBLOCK.get().validate(world, pos.down()) == null) {
 			world.setBlockState(pos, Blocks.LAPIS_BLOCK.getDefaultState());
-			PacketHandler.sendToNearby(world, pos, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.ENCHANTER_DESTROY,
-					pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5));
+			PacketBotaniaEffect.sendNearby(world, pos, PacketBotaniaEffect.EffectType.ENCHANTER_DESTROY,
+				pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 			world.playSound(null, pos, ModSounds.enchanterFade, SoundCategory.BLOCKS, 0.5F, 10F);
 		}
 

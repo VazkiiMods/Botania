@@ -8,24 +8,27 @@
  */
 package vazkii.botania.common.network;
 
+import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
+import net.fabricmc.fabric.api.network.PacketContext;
+import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.network.PacketByteBuf;
 
+import net.minecraft.util.Identifier;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 
 import java.util.function.Supplier;
 
-public class PacketLeftClick {
-	public static void encode(PacketLeftClick msg, PacketByteBuf buf) {}
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-	public static PacketLeftClick decode(PacketByteBuf buf) {
-		return new PacketLeftClick();
+public class PacketLeftClick {
+	public static final Identifier ID = prefix("leftclick");
+
+	public static void send() {
+		ClientSidePacketRegistry.INSTANCE.sendToServer(ID, PacketHandler.EMPTY_BUF);
 	}
 
-	public static void handle(PacketLeftClick msg, Supplier<NetworkEvent.Context> ctx) {
-		if (ctx.get().getDirection().getReceptionSide().isServer()) {
-			ctx.get().enqueueWork(() -> ((ItemTerraSword) ModItems.terraSword).trySpawnBurst(ctx.get().getSender()));
-		}
-		ctx.get().setPacketHandled(true);
+	public static void handle(PacketContext ctx, PacketByteBuf buf) {
+		ctx.getTaskQueue().execute(() -> ((ItemTerraSword) ModItems.terraSword).trySpawnBurst(ctx.getPlayer()));
 	}
 }

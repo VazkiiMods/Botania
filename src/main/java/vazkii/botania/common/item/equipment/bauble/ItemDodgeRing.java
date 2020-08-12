@@ -114,7 +114,7 @@ public class ItemDodgeRing extends ItemBauble {
 
 		player.setVelocity(sideVec.toVector3d());
 
-		PacketHandler.sendToServer(new PacketDodge());
+		PacketDodge.send();
 	}
 
 	@Environment(EnvType.CLIENT)

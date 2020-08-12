@@ -62,7 +62,7 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 		UUID uuid = new UUID(Registry.ITEM.getId(this).hashCode() + slot.toString().hashCode(), 0);
 		if (slot == getSlotType()) {
 			ret = HashMultimap.create(ret);
-			int reduction = type.getProtectionAmount(slot);
+			int reduction = getMaterial().getProtectionAmount(slot);
 			ret.put(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE,
 					new EntityAttributeModifier(uuid, "Terrasteel modifier " + type, (double) reduction / 20, EntityAttributeModifier.Operation.ADDITION));
 		}
