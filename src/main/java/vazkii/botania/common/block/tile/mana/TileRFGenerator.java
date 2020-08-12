@@ -27,6 +27,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, Tickable 
 	private static final String TAG_MANA = "mana";
 	private int energy = 0;
 
+	/*
 	private final IEnergyStorage energyHandler = new IEnergyStorage() {
 		@Override
 		public int getEnergyStored() {
@@ -60,19 +61,10 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, Tickable 
 		}
 	};
 	private final LazyOptional<IEnergyStorage> energyCap = LazyOptional.of(() -> energyHandler);
+	*/
 
 	public TileRFGenerator() {
 		super(ModTiles.FLUXFIELD);
-	}
-
-	@Override
-	@Nonnull
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-		if (cap == CapabilityEnergy.ENERGY) {
-			return energyCap.cast();
-		} else {
-			return super.getCapability(cap, side);
-		}
 	}
 
 	@Override
@@ -85,6 +77,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, Tickable 
 	}
 
 	private int transmitEnergy(int energy) {
+		/*
 		for (Direction e : Direction.values()) {
 			BlockPos neighbor = getPos().offset(e);
 			if (!world.isChunkLoaded(neighbor)) {
@@ -112,6 +105,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, Tickable 
 				}
 			}
 		}
+		*/
 
 		return energy;
 	}
