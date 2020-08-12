@@ -8,10 +8,20 @@
  */
 package vazkii.botania.api.item;
 
+import dev.onyxstudios.cca.api.v3.component.ComponentV3;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Identifier;
+import vazkii.botania.api.BotaniaAPI;
+
 /**
- * A TileEntity that has this capability can be heated by an Exoflame flower.
+ * A Block Entity that has this component can be heated by an Exoflame flower.
+ * NOTE: Do not attach this component to subclasses of AbstractFurnaceBlockEntity, as Botania already does so.
  */
-public interface IExoflameHeatable {
+public interface IExoflameHeatable extends ComponentV3 {
+	/**
+	 * The component ID used by Botania
+	 */
+	Identifier ID = new Identifier(BotaniaAPI.MODID, "exoflame_heatable");
 
 	/**
 	 * Can this TileEntity smelt its contents. If true, the Exoflame is allowed
@@ -38,4 +48,9 @@ public interface IExoflameHeatable {
 	 */
 	void boostCookTime();
 
+	@Override
+	default void readFromNbt(CompoundTag tag) {}
+
+	@Override
+	default void writeToNbt(CompoundTag tag) {}
 }

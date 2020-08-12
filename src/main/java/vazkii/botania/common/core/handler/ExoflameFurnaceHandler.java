@@ -9,37 +9,18 @@
 package vazkii.botania.common.core.handler;
 
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.recipe.AbstractCookingRecipe;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.capability.SimpleCapProvider;
 import vazkii.botania.mixin.AccessorAbstractFurnaceTileEntity;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
-
-
 public class ExoflameFurnaceHandler {
-
-	@CapabilityInject(IExoflameHeatable.class)
-	public static Capability<IExoflameHeatable> CAPABILITY;
-	public static final Identifier ID = prefix("exoflame_heatable");
-
-	public static void attachFurnaceCapability(AttachCapabilitiesEvent<BlockEntity> event) {
-		BlockEntity te = event.getObject();
-		if (te instanceof AbstractFurnaceBlockEntity) {
-			AbstractFurnaceBlockEntity furnace = (AbstractFurnaceBlockEntity) te;
-			SimpleCapProvider.attach(event, ID, CAPABILITY, new FurnaceExoflameHeatable(furnace));
-		}
-	}
-
 	public static boolean canSmelt(AbstractFurnaceBlockEntity furnace, Recipe<?> recipe) {
 		return ((AccessorAbstractFurnaceTileEntity) furnace).invokeCanAcceptRecipeOutput(recipe);
 	}
@@ -48,13 +29,13 @@ public class ExoflameFurnaceHandler {
 		return ((AccessorAbstractFurnaceTileEntity) furnace).getRecipeType();
 	}
 
-	private static class FurnaceExoflameHeatable implements IExoflameHeatable {
+	public static class FurnaceExoflameHeatable implements IExoflameHeatable {
 		private final AbstractFurnaceBlockEntity furnace;
 
 		private RecipeType<? extends AbstractCookingRecipe> recipeType;
 		private AbstractCookingRecipe currentRecipe;
 
-		FurnaceExoflameHeatable(AbstractFurnaceBlockEntity furnace) {
+		public FurnaceExoflameHeatable(AbstractFurnaceBlockEntity furnace) {
 			this.furnace = furnace;
 		}
 

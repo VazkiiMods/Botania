@@ -26,6 +26,9 @@
     ],
     "cardinal-components-entity": [
       "vazkii.botania.common.components.EntityComponents"
+    ],
+    "cardinal-components-block": [
+      "vazkii.botania.common.components.BlockEntityComponents"
     ]
   },
   "mixins": [

@@ -142,7 +142,6 @@ public class Botania implements ModInitializer {
 		forgeBus.addListener(ItemVirus::onLivingHurt);
 		forgeBus.addListener(SleepingHandler::trySleep);
 		forgeBus.addListener(PixieHandler::onDamageTaken);
-		forgeBus.addGenericListener(BlockEntity.class, ExoflameFurnaceHandler::attachFurnaceCapability);
 		ServerTickEvents.END_WORLD_TICK.register(CommonTickHandler::onTick);
 		forgeBus.addListener(PotionBloodthirst::onSpawn);
 		forgeBus.addListener(PotionEmptiness::onSpawn);
@@ -161,7 +160,6 @@ public class Botania implements ModInitializer {
 
 	private void commonSetup() {
 		CapabilityManager.INSTANCE.register(IFloatingFlower.class, new IFloatingFlower.Storage(), FloatingFlowerImpl::new);
-		CapabilityManager.INSTANCE.register(IExoflameHeatable.class, new NoopCapStorage<>(), NoopExoflameHeatable::new);
 
 		gardenOfGlassLoaded = FabricLoader.getInstance().isModLoaded("gardenofglass");
 		curiosLoaded = FabricLoader.getInstance().isModLoaded("curios");

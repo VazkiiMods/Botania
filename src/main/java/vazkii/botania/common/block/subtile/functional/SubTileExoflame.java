@@ -15,7 +15,7 @@ import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.handler.ExoflameFurnaceHandler;
+import vazkii.botania.common.components.BlockEntityComponents;
 
 public class SubTileExoflame extends TileEntityFunctionalFlower {
 	private static final int RANGE = 5;
@@ -40,10 +40,8 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 				getEffectivePos().add(RANGE, RANGE_Y, RANGE))) {
 			BlockEntity tile = getWorld().getBlockEntity(pos);
 			if (tile != null) {
-				LazyOptional<IExoflameHeatable> cap = tile.getCapability(ExoflameFurnaceHandler.CAPABILITY);
-				if (cap.isPresent()) {
-					IExoflameHeatable heatable = cap.orElseThrow(NullPointerException::new);
-
+				IExoflameHeatable heatable = BlockEntityComponents.EXOFLAME_HEATABLE.getNullable(tile);
+				if (heatable != null) {
 					if (heatable.canSmelt() && getMana() > 2) {
 						if (heatable.getBurnTime() < 2) {
 							heatable.boostBurnTime();
