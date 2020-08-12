@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "botania",
+  "version": "${version}",
+
+  "name": "Botania",
+  "description": "Botania is a tech mod themed around natural magic",
+  "authors": [
+    "Vazkii",
+    "williewillus"
+  ],
+  "contact": {
+    "sources": "https://github.com/Vazkii/Botania"
+  },
+
+  "license": "Botania license",
+  "icon": "logo.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "vazkii.patchouli.common.base.CommonProxy"
+    ],
+    "client": [
+      "vazkii.patchouli.client.base.ClientProxy"
+    ],
+    "cardinal-components-entity": [
+      "vazkii.botania.common.components.EntityComponents"
+    ]
+  },
+  "mixins": [
+    "patchouli.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.8",
+    "fabric": ">=0.13",
+    "minecraft": ">=1.16.2"
+  },
+
+  "custom": {
+    "cardinal-components": [
+      "botania:loonium_drop"
+    ]
+  }
+}

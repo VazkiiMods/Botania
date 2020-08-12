@@ -8,17 +8,12 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import nerdhub.cardinal.components.api.ComponentRegistry;
-import nerdhub.cardinal.components.api.ComponentType;
-import nerdhub.cardinal.components.api.component.Component;
-import nerdhub.cardinal.components.api.event.EntityComponentCallback;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.PistonBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.fluid.FluidState;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -27,15 +22,11 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.components.EntityComponents;
 
 import java.util.List;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
-
 public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
-	private static final ComponentType<EthicalComponent> COMPONENT = ComponentRegistry.INSTANCE.registerIfAbsent(prefix("ethical"), EthicalComponent.class)
-		.attach(EntityComponentCallback.event(TntEntity.class), EthicalComponent::new);
-	private static final String TAG_UNETHICAL = "botania:unethical";
 	private static final int RANGE = 12;
 	private static final int EXPLODE_EFFECT_EVENT = 0;
 	private static final int ANGRY_EFFECT_EVENT = 1;
@@ -44,7 +35,7 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 		super(ModSubtiles.ENTROPINNYUM);
 	}
 
-	private static boolean isUnethical(Entity e) {
+	public static boolean isUnethical(Entity e) {
 		BlockPos center = e.getBlockPos();
 		int x = center.getX();
 		int y = center.getY();
@@ -88,7 +79,7 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 			for (TntEntity tnt : tnts) {
 				FluidState fluid = getWorld().getFluidState(tnt.getBlockPos());
 				if (tnt.getFuseTimer() == 1 && tnt.isAlive() && fluid.isEmpty()) {
-					boolean unethical = COMPONENT.get(tnt).unethical;
+					boolean unethical = EntityComponents.TNT_ETHICAL.get(tnt).unethical;
 					tnt.playSound(unethical ? SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE : SoundEvents.ENTITY_GENERIC_EXPLODE, 0.2F, (1F + (getWorld().random.nextFloat() - getWorld().random.nextFloat()) * 0.2F) * 0.7F);
 					tnt.remove();
 					addMana(unethical ? 3 : getMaxMana());
@@ -145,22 +136,4 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
 	}
 
-	private static class EthicalComponent implements Component {
-		public boolean unethical;
-
-		public EthicalComponent(TntEntity entity) {
-			unethical = isUnethical(entity);
-		}
-
-		@Override
-		public void fromTag(CompoundTag tag) {
-			unethical = tag.getBoolean(TAG_UNETHICAL);
-		}
-
-		@Override
-		public CompoundTag toTag(CompoundTag tag) {
-			tag.putBoolean(TAG_UNETHICAL, unethical);
-			return tag;
-		}
-	}
 }

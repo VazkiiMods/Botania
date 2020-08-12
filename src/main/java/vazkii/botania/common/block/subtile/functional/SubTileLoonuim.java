@@ -8,13 +8,7 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import nerdhub.cardinal.components.api.ComponentRegistry;
-import nerdhub.cardinal.components.api.ComponentType;
-import nerdhub.cardinal.components.api.component.ComponentProvider;
-import nerdhub.cardinal.components.api.event.EntityComponentCallback;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -44,27 +38,14 @@ import net.minecraft.world.World;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.components.LooniumComponent;
+import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.lib.ModTags;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
-
 public class SubTileLoonuim extends TileEntityFunctionalFlower {
-	// Listen to individual events for performance reasons
-	public static final ComponentType<LooniumComponent> COMPONENT = ComponentRegistry.INSTANCE.registerIfAbsent(prefix("loonium_drop"), LooniumComponent.class)
-		.attach(EntityComponentCallback.event(EndermanEntity.class), e -> new LooniumComponent())
-		.attach(EntityComponentCallback.event(CreeperEntity.class), e -> new LooniumComponent())
-		.attach(EntityComponentCallback.event(HuskEntity.class), e -> new LooniumComponent())
-		.attach(EntityComponentCallback.event(DrownedEntity.class), e -> new LooniumComponent())
-		.attach(EntityComponentCallback.event(ZombieEntity.class), e -> new LooniumComponent())
-		.attach(EntityComponentCallback.event(StrayEntity.class), e -> new LooniumComponent())
-		.attach(EntityComponentCallback.event(SkeletonEntity.class), e -> new LooniumComponent())
-		.attach(EntityComponentCallback.event(CaveSpiderEntity.class), e -> new LooniumComponent())
-		.attach(EntityComponentCallback.event(SpiderEntity.class), e -> new LooniumComponent());
 	private static final int COST = 35000;
 	private static final int RANGE = 5;
 	private static final String TAG_LOOT_TABLE = "lootTable";
@@ -163,7 +144,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			entity.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION,
 					entity instanceof CreeperEntity ? 100 : Integer.MAX_VALUE, 0));
 
-			COMPONENT.get(entity).setDrop(stack);
+			EntityComponents.LOONIUM_DROP.get(entity).setDrop(stack);
 
 			entity.initialize(world, world.getLocalDifficulty(pos), SpawnReason.SPAWNER, null, null);
 			world.spawnEntity(entity);

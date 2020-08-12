@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
+import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.components.LooniumComponent;
 
 @Mixin(LivingEntity.class)
@@ -18,7 +19,7 @@ public abstract class MixinLivingEntity {
 
 	@Inject(at = @At("HEAD"), cancellable = true, method = "dropLoot")
 	private void dropLoonium(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
-		LooniumComponent comp = SubTileLoonuim.COMPONENT.getNullable(this);
+		LooniumComponent comp = EntityComponents.LOONIUM_DROP.getNullable(this);
 		if (comp != null && !comp.getDrop().isEmpty()) {
 			dropStack(comp.getDrop());
 			ci.cancel();
