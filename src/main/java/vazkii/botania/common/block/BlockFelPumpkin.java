@@ -20,6 +20,7 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 
 import vazkii.botania.mixin.AccessorMobEntity;
@@ -50,7 +51,7 @@ public class BlockFelPumpkin extends BlockMod {
 			BlazeEntity blaze = EntityType.BLAZE.create(world);
 			blaze.refreshPositionAndAngles(pos.getX() + 0.5D, pos.getY() - 1.95D, pos.getZ() + 0.5D, 0.0F, 0.0F);
 			((AccessorMobEntity) blaze).setLootTable(LOOT_TABLE);
-			blaze.initialize(world, world.getLocalDifficulty(pos), SpawnReason.EVENT, null, null);
+			blaze.initialize((ServerWorldAccess) world, world.getLocalDifficulty(pos), SpawnReason.EVENT, null, null);
 			world.spawnEntity(blaze);
 		}
 	}

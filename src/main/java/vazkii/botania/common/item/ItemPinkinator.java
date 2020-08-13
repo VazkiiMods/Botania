@@ -25,6 +25,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Box;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
@@ -57,7 +58,7 @@ public class ItemPinkinator extends Item {
 					pink.setCustomName(wither.getCustomName());
 					pink.setCustomNameVisible(wither.isCustomNameVisible());
 				}
-				pink.initialize(world, world.getLocalDifficulty(pink.getBlockPos()), SpawnReason.CONVERSION, null, null);
+				pink.initialize((ServerWorldAccess) world, world.getLocalDifficulty(pink.getBlockPos()), SpawnReason.CONVERSION, null, null);
 				world.spawnEntity(pink);
 				pink.playSpawnEffects();
 				pink.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 4F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);

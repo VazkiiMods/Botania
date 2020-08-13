@@ -21,6 +21,8 @@ import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.village.VillagerType;
+import net.minecraft.world.ServerWorldAccess;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -120,7 +122,7 @@ public class TileCocoon extends TileMod implements Tickable {
 				if (entity instanceof PassiveEntity) {
 					((PassiveEntity) entity).setBreedingAge(-24000);
 				}
-				entity.initialize(world, world.getLocalDifficulty(getPos()), SpawnReason.EVENT, null, null);
+				entity.initialize((ServerWorldAccess) world, world.getLocalDifficulty(getPos()), SpawnReason.EVENT, null, null);
 				entity.setPersistent();
 				world.spawnEntity(entity);
 				entity.playSpawnEffects();

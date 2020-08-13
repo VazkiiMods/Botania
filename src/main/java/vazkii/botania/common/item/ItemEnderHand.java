@@ -48,7 +48,7 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 			if (!player.world.isClient) {
 				player.openHandledScreen(new SimpleNamedScreenHandlerFactory((windowId, playerInv, p) -> {
 					return GenericContainerScreenHandler.createGeneric9x3(windowId, playerInv, p.getEnderChestInventory());
-				}, EnderChestBlock.CONTAINER_NAME));
+				}, stack.getName()));
 				ManaItemHandler.instance().requestManaExact(stack, player, COST_SELF, true);
 			}
 			player.playSound(SoundEvents.BLOCK_ENDER_CHEST_OPEN, 1F, 1F);
@@ -64,7 +64,7 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 				PlayerEntity other = (PlayerEntity) entity;
 				player.openHandledScreen(new SimpleNamedScreenHandlerFactory((windowId, playerInv, p) -> {
 					return GenericContainerScreenHandler.createGeneric9x3(windowId, playerInv, other.getEnderChestInventory());
-				}, EnderChestBlock.CONTAINER_NAME));
+				}, stack.getName()));
 			}
 			ManaItemHandler.instance().requestManaExact(stack, player, COST_OTHER, true);
 			player.playSound(SoundEvents.BLOCK_ENDER_CHEST_OPEN, 1F, 1F);

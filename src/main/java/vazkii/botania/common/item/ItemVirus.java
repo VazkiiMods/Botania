@@ -29,6 +29,7 @@ import net.minecraft.item.Items;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.world.ServerWorldAccess;
 
 public class ItemVirus extends Item {
 	public ItemVirus(Settings builder) {
@@ -88,7 +89,7 @@ public class ItemVirus extends Item {
 				jumpHeight.addPersistentModifier(new EntityAttributeModifier("Ermergerd Virus D:", jumpHeight.getBaseValue() * 0.5, EntityAttributeModifier.Operation.ADDITION));
 
 				newHorse.playSound(SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, 1.0F + living.world.random.nextFloat(), living.world.random.nextFloat() * 0.7F + 1.3F);
-				newHorse.initialize(player.world, player.world.getLocalDifficulty(newHorse.getBlockPos()), SpawnReason.CONVERSION, null, null);
+				newHorse.initialize((ServerWorldAccess) player.world, player.world.getLocalDifficulty(newHorse.getBlockPos()), SpawnReason.CONVERSION, null, null);
 				newHorse.setBreedingAge(horse.getBreedingAge());
 				player.world.spawnEntity(newHorse);
 				newHorse.playSpawnEffects();

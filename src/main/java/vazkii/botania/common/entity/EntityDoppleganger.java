@@ -59,6 +59,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 
 import vazkii.botania.client.core.handler.BossBarHandler;
@@ -206,7 +207,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 			}
 
 			e.playSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 10F, 0.1F);
-			e.initialize(world, world.getLocalDifficulty(e.getBlockPos()), SpawnReason.EVENT, null, null);
+			e.initialize((ServerWorldAccess) world, world.getLocalDifficulty(e.getBlockPos()), SpawnReason.EVENT, null, null);
 			world.spawnEntity(e);
 		}
 
@@ -620,7 +621,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 							EntityPixie pixie = new EntityPixie(world);
 							pixie.setProps(players.get(random.nextInt(players.size())), this, 1, 8);
 							pixie.updatePosition(getX() + getWidth() / 2, getY() + 2, getZ() + getWidth() / 2);
-							pixie.initialize(world, world.getLocalDifficulty(pixie.getBlockPos()),
+							pixie.initialize((ServerWorldAccess) world, world.getLocalDifficulty(pixie.getBlockPos()),
 									SpawnReason.MOB_SUMMONED, null, null);
 							world.spawnEntity(pixie);
 						}
@@ -636,7 +637,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 					float range = 6F;
 					entity.updatePosition(getX() + 0.5 + Math.random() * range - range / 2, getY() - 1,
 							getZ() + 0.5 + Math.random() * range - range / 2);
-					entity.initialize(world, world.getLocalDifficulty(entity.getBlockPos()),
+					entity.initialize((ServerWorldAccess) world, world.getLocalDifficulty(entity.getBlockPos()),
 							SpawnReason.MOB_SUMMONED, null, null);
 					if (entity instanceof WitherSkeletonEntity && hardMode) {
 						entity.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModItems.elementiumSword));
@@ -771,7 +772,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 								EntityPixie pixie = new EntityPixie(world);
 								pixie.setProps(players.get(random.nextInt(players.size())), this, 1, 8);
 								pixie.updatePosition(getX() + getWidth() / 2, getY() + 2, getZ() + getWidth() / 2);
-								pixie.initialize(world, world.getLocalDifficulty(pixie.getBlockPos()),
+								pixie.initialize((ServerWorldAccess) world, world.getLocalDifficulty(pixie.getBlockPos()),
 										SpawnReason.MOB_SUMMONED, null, null);
 								world.spawnEntity(pixie);
 							}

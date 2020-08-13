@@ -10,7 +10,6 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.audio.*;
 import net.minecraft.client.sound.MovingSoundInstance;
 import net.minecraft.client.sound.Sound;
 import net.minecraft.client.sound.SoundInstance;
@@ -35,18 +34,15 @@ public class BergamuteEventHandler {
 	private static final Random RAND = new Random();
 	private static final float MULTIPLIER = 0.15F;
 
-	public static void onSoundEvent(PlaySoundEvent evt) {
-		SoundInstance sound = evt.getResultSound();
+	public static SoundInstance onSoundEvent(SoundInstance sound) {
 
 		if (sound != null && shouldSilence(sound)) {
 			if (sound instanceof TickableSoundInstance) {
-				evt.setResultSound(new WrappedTickableSound((TickableSoundInstance) sound, MULTIPLIER));
+				return new WrappedTickableSound((TickableSoundInstance) sound, MULTIPLIER);
 			} else {
 				SubTileBergamute berg = SubTileBergamute.getBergamuteNearby(sound.getX(), sound.getY(), sound.getZ());
 
 				if (berg != null) {
-					evt.setResultSound(new WrappedSound(sound, MULTIPLIER));
-
 					if (RAND.nextBoolean()) {
 						int color = TilePool.PARTICLE_COLOR;
 						float red = (color >> 16 & 0xFF) / 255F;
@@ -55,9 +51,13 @@ public class BergamuteEventHandler {
 						SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 5);
 						berg.getWorld().addParticle(data, berg.getEffectivePos().getX() + 0.3 + Math.random() * 0.5, berg.getEffectivePos().getY() + 0.5 + Math.random() * 0.5, berg.getEffectivePos().getZ() + 0.3 + Math.random() * 0.5, 0, 0, 0);
 					}
+
+					return new WrappedSound(sound, MULTIPLIER);
 				}
 			}
 		}
+
+		return sound;
 	}
 
 	private static boolean shouldSilence(SoundInstance sound) {
@@ -65,7 +65,7 @@ public class BergamuteEventHandler {
 				&& sound.getCategory() != SoundCategory.MUSIC
 				&& sound.getCategory() != SoundCategory.RECORDS
 				&& sound.getCategory() != SoundCategory.AMBIENT
-				&& sound.getClass().getName().startsWith("net.minecraft.client.audio");
+				&& sound.getClass().getName().startsWith("net.minecraft.client.sound");
 	}
 
 	@Environment(EnvType.CLIENT)

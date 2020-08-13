@@ -23,6 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Util;
 import net.minecraft.util.registry.Registry;
 
+import net.minecraft.world.ServerWorldAccess;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityPixie;
 import vazkii.botania.common.item.ModItems;
@@ -85,7 +86,7 @@ public final class PixieHandler {
 				}
 
 				pixie.setProps((LivingEntity) event.getSource().getAttacker(), player, 0, dmg);
-				pixie.initialize(player.world, player.world.getLocalDifficulty(pixie.getBlockPos()),
+				pixie.initialize((ServerWorldAccess) player.world, player.world.getLocalDifficulty(pixie.getBlockPos()),
 						SpawnReason.EVENT, null, null);
 				player.world.spawnEntity(pixie);
 			}

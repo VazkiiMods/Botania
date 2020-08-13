@@ -79,7 +79,6 @@ import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
-import vazkii.botania.data.DataGenerators;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;

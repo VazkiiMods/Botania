@@ -14,6 +14,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -113,7 +114,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, Tickable 
 
 								if (mLogic.getSpawnData().getEntityTag().getSize() == 1 && mLogic.getSpawnData().getEntityTag().contains("id", 8)) {
 									if (!net.minecraftforge.event.ForgeEventFactory.doSpecialSpawn(mobentity, world, (float) entity.getX(), (float) entity.getY(), (float) entity.getZ(), logic, SpawnReason.SPAWNER)) {
-										((MobEntity) entity).initialize(world, world.getLocalDifficulty(entity.getBlockPos()), SpawnReason.SPAWNER, (EntityData) null, (CompoundTag) null);
+										((MobEntity) entity).initialize((ServerWorld) world, world.getLocalDifficulty(entity.getBlockPos()), SpawnReason.SPAWNER, (EntityData) null, (CompoundTag) null);
 									}
 								}
 							}

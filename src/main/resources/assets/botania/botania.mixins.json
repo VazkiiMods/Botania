@@ -41,6 +41,7 @@
     "AccessorSkullTileEntityRenderer",
     "AccessorWorldRenderer",
     "MixinSkullTileEntityRenderer",
+    "MixinSoundManager",
     "MixinSplashes",
     "MixinWorldRenderer"
   ],

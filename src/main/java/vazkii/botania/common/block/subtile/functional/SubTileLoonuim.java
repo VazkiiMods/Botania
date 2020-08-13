@@ -33,6 +33,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -146,7 +147,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 
 			EntityComponents.LOONIUM_DROP.get(entity).setDrop(stack);
 
-			entity.initialize(world, world.getLocalDifficulty(pos), SpawnReason.SPAWNER, null, null);
+			entity.initialize((ServerWorldAccess) world, world.getLocalDifficulty(pos), SpawnReason.SPAWNER, null, null);
 			world.spawnEntity(entity);
 			entity.playSpawnEffects();
 
