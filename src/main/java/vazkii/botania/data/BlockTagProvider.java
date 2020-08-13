@@ -15,6 +15,7 @@ import net.minecraft.tag.BlockTags;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.registry.Registry;
 
+import vazkii.botania.common.block.BlockAltGrass;
 import vazkii.botania.common.block.BlockFloatingSpecialFlower;
 import vazkii.botania.common.block.BlockSpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
@@ -30,35 +31,19 @@ import java.util.function.Predicate;
 import static vazkii.botania.common.block.ModSubtiles.*;
 
 public class BlockTagProvider extends BlockTagsProvider {
+	private static final Predicate<Block> BOTANIA_BLOCK = b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getId(b).getNamespace());
+
 	public BlockTagProvider(DataGenerator generator) {
 		super(generator);
 	}
 
 	@Override
 	protected void configure() {
-		Predicate<Block> botania = b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getId(b).getNamespace());
-
 		getOrCreateTagBuilder(BlockTags.RAILS).add(ModBlocks.ghostRail);
-
-		getOrCreateTagBuilder(BlockTags.SLABS).add(registry.stream().filter(botania)
-				.filter(b -> b instanceof SlabBlock)
-				.sorted(Comparator.comparing(Registry.BLOCK::getId))
-				.toArray(Block[]::new));
-
-		getOrCreateTagBuilder(BlockTags.STAIRS).add(registry.stream().filter(botania)
-				.filter(b -> b instanceof StairsBlock)
-				.sorted(Comparator.comparing(Registry.BLOCK::getId))
-				.toArray(Block[]::new));
-
-		getOrCreateTagBuilder(BlockTags.WALLS).add(registry.stream().filter(botania)
-				.filter(b -> b instanceof WallBlock)
-				.sorted(Comparator.comparing(Registry.BLOCK::getId))
-				.toArray(Block[]::new));
-
-		getOrCreateTagBuilder(BlockTags.FENCES).add(registry.stream().filter(botania)
-				.filter(b -> b instanceof FenceBlock)
-				.sorted(Comparator.comparing(Registry.BLOCK::getId))
-				.toArray(Block[]::new));
+		getOrCreateTagBuilder(BlockTags.SLABS).add(getModBlocks(b -> b instanceof SlabBlock));
+		getOrCreateTagBuilder(BlockTags.STAIRS).add(getModBlocks(b -> b instanceof StairsBlock));
+		getOrCreateTagBuilder(BlockTags.WALLS).add(getModBlocks(b -> b instanceof WallBlock));
+		getOrCreateTagBuilder(BlockTags.FENCES).add(getModBlocks(b -> b instanceof FenceBlock));
 
 		getOrCreateTagBuilder(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
@@ -67,7 +52,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 						.toArray(Block[]::new)
 		);
 
-		getOrCreateTagBuilder(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS).add(registry.stream().filter(botania)
+		getOrCreateTagBuilder(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS).add(registry.stream().filter(BOTANIA_BLOCK)
 				.filter(b -> b instanceof BlockFloatingSpecialFlower)
 				.sorted(Comparator.comparing(Registry.BLOCK::getId))
 				.toArray(Block[]::new)
@@ -110,16 +95,26 @@ public class BlockTagProvider extends BlockTagsProvider {
 				.addTag(ModTags.Blocks.GENERATING_SPECIAL_FLOWERS)
 				.addTag(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS);
 
-		getOrCreateTagBuilder(ModTags.Blocks.MINI_FLOWERS).add(registry.stream().filter(botania)
-			.filter(b -> b instanceof BlockSpecialFlower && registry.getId(b).getPath().endsWith("_chibi"))
-			.sorted(Comparator.comparing(Registry.BLOCK::getId))
-			.toArray(Block[]::new));
+		getOrCreateTagBuilder(ModTags.Blocks.MINI_FLOWERS).add(
+			getModBlocks(b -> b instanceof BlockSpecialFlower && registry.getId(b).getPath().endsWith("_chibi"))
+		);
+
 		getOrCreateTagBuilder(BlockTags.TALL_FLOWERS).addTag(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
 		getOrCreateTagBuilder(BlockTags.SMALL_FLOWERS).addTag(ModTags.Blocks.MYSTICAL_FLOWERS).addTag(ModTags.Blocks.SPECIAL_FLOWERS);
 
 		getOrCreateTagBuilder(BlockTags.IMPERMEABLE).add(ModBlocks.elfGlass, ModBlocks.manaGlass, ModBlocks.bifrost, ModBlocks.bifrostPerm);
 		getOrCreateTagBuilder(BlockTags.BEACON_BASE_BLOCKS).add(ModBlocks.manasteelBlock, ModBlocks.terrasteelBlock, ModBlocks.elementiumBlock,
 				ModBlocks.manaDiamondBlock, ModBlocks.dragonstoneBlock);
+
+		getOrCreateTagBuilder(Tags.Blocks.DIRT).add(getModBlocks(b -> b instanceof BlockAltGrass));
+	}
+
+	@Nonnull
+	private Block[] getModBlocks(Predicate<Block> predicate) {
+		return registry.stream().filter(BOTANIA_BLOCK)
+				.filter(predicate)
+				.sorted(Comparator.comparing(Registry.BLOCK::getId))
+				.toArray(Block[]::new);
 	}
 
 	@Nonnull
