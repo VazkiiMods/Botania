@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.particle.ParticleTypes;
@@ -23,11 +24,11 @@ import net.minecraft.world.gen.ChunkRandom;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.components.EntityComponents;
 
 import java.util.List;
 
 public class SubTileNarslimmus extends TileEntityGeneratingFlower {
-	public static final String TAG_WORLD_SPAWNED = "botania:world_spawned";
 
 	private static final int RANGE = 2;
 
@@ -42,7 +43,7 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 		if (ticksExisted % 5 == 0) {
 			List<SlimeEntity> slimes = getWorld().getNonSpectatingEntities(SlimeEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for (SlimeEntity slime : slimes) {
-				if (slime.getPersistentData().getBoolean(TAG_WORLD_SPAWNED) && slime.isAlive()) {
+				if (slime.isAlive() && EntityComponents.NARSLIMMUS.get(slime).isNaturalSpawned()) {
 					int size = slime.getSize();
 					int mul = (int) Math.pow(2, size);
 					int mana = 1200 * mul;
@@ -82,12 +83,14 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 		return 0x71C373;
 	}
 
-	public static void onSpawn(LivingSpawnEvent.CheckSpawn event) {
-		if (event.getEntityLiving() instanceof SlimeEntity
-				&& event.getSpawnReason() == SpawnReason.NATURAL
-				&& event.getResult() != Event.Result.DENY
-				&& isSlimeChunk(event.getEntityLiving().world, event.getX(), event.getZ())) {
-			event.getEntityLiving().getPersistentData().putBoolean(TAG_WORLD_SPAWNED, true);
+	public static void onSpawn(Entity entity) {
+		boolean slimeChunk = isSlimeChunk(entity.world, entity.getX(), entity.getZ());
+		if (slimeChunk) {
+			entity.streamPassengersRecursively().forEach(e -> {
+				if (e instanceof SlimeEntity) {
+					EntityComponents.NARSLIMMUS.get(e).setNaturalSpawn(true);
+				}
+			});
 		}
 	}
 

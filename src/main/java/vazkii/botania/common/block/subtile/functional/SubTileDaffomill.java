@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -168,10 +169,10 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	}
 
 	// Send item age to client to prevent client desync when an item is e.g. dropped by a powered open crate
-	public static void onItemTrack(PlayerEvent.StartTracking evt) {
-		if (evt.getTarget() instanceof ItemEntity) {
-			int entityId = evt.getTarget().getEntityId();
-			int age = ((AccessorItemEntity) evt.getTarget()).getAge();
+	public static void onItemTrack(PlayerEntity player, Entity entity) {
+		if (entity instanceof ItemEntity) {
+			int entityId = entity.getEntityId();
+			int age = ((AccessorItemEntity) entity).getAge();
 			PacketItemAge.send(player, entityId, age);
 		}
 	}

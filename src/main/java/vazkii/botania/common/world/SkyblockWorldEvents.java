@@ -43,14 +43,14 @@ public final class SkyblockWorldEvents {
 
 	private static final Tag.Identified<Block> PEBBLE_SOURCES = TagRegistry.create(new Identifier("gardenofglass", "pebble_sources"), BlockTags::getTagGroup);
 
-	public static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
-		World world = event.getPlayer().world;
+	public static void onPlayerJoin(ServerPlayerEntity player) {
+		World world = player.world;
 		if (SkyblockChunkGenerator.isWorldSkyblock(world)) {
 			SkyblockSavedData data = SkyblockSavedData.get((ServerWorld) world);
 			if (!data.skyblocks.containsValue(Util.NIL_UUID)) {
 				IslandPos islandPos = data.getSpawn();
-				((ServerWorld) world).setSpawnPos(islandPos.getCenter());
-				spawnPlayer(event.getPlayer(), islandPos);
+				((ServerWorld) world).setSpawnPos(islandPos.getCenter(), 0);
+				spawnPlayer(player, islandPos);
 				Botania.LOGGER.info("Created the spawn GoG island");
 			}
 		}
@@ -106,7 +106,7 @@ public final class SkyblockWorldEvents {
 		if (player instanceof ServerPlayerEntity) {
 			ServerPlayerEntity pmp = (ServerPlayerEntity) player;
 			pmp.requestTeleport(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
-			pmp.setSpawnPoint(pmp.world.getRegistryKey(), pos, true, false);
+			pmp.setSpawnPoint(pmp.world.getRegistryKey(), pos, 0, true, false);
 			if (ConfigHandler.COMMON.gogSpawnWithLexicon.getValue()) {
 				player.inventory.insertStack(new ItemStack(ModItems.lexicon));
 			}

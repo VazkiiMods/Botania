@@ -33,7 +33,7 @@ public class MixinPlayerEntity {
 	/**
 	 * Makes the player invulnerable to certain damage when wearing an Odin Ring
 	 */
-	@Inject(at = @At("HEAD"), method = "isInvulnerableTo")
+	@Inject(at = @At("HEAD"), method = "isInvulnerableTo", cancellable = true)
 	private void odinRing(DamageSource src, CallbackInfoReturnable<Boolean> cir) {
 		if (ItemOdinRing.onPlayerAttacked((PlayerEntity) (Object) this, src)) {
 			cir.setReturnValue(true);

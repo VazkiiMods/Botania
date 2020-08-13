@@ -23,7 +23,9 @@
     "AccessorWitherEntity",
     "MixinEndermanPickupBlock",
     "MixinLivingEntity",
-    "MixinPlayerEntity"
+    "MixinPlayerEntity",
+    "MixinServerPlayerEntity",
+    "MixinSpawnHelper"
   ],
   "client": [
     "AccessorBiomeGeneratorTypeScreens",

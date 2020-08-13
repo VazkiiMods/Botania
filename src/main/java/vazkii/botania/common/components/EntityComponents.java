@@ -12,6 +12,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public class EntityComponents implements EntityComponentInitializer {
 	public static final ComponentType<LooniumComponent> LOONIUM_DROP = ComponentRegistry.INSTANCE.registerStatic(prefix("loonium_drop"), LooniumComponent.class);
 	public static final ComponentType<EthicalComponent> TNT_ETHICAL = ComponentRegistry.INSTANCE.registerStatic(prefix("tnt_ethical"), EthicalComponent.class);
+	public static final ComponentType<NarslimmusComponent> NARSLIMMUS = ComponentRegistry.INSTANCE.registerStatic(prefix("narslimmus"), NarslimmusComponent.class);
 
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
@@ -26,5 +27,7 @@ public class EntityComponents implements EntityComponentInitializer {
 		registry.registerFor(SpiderEntity.class, LOONIUM_DROP, e -> new LooniumComponent());
 
 		registry.registerFor(TntEntity.class, TNT_ETHICAL, EthicalComponent::new);
+
+		registry.registerFor(SlimeEntity.class, NARSLIMMUS, NarslimmusComponent::new);
 	}
 }

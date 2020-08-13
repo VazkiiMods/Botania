@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.brew.potion;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectType;
@@ -21,13 +20,9 @@ public class PotionSoulCross extends StatusEffect {
 		super(StatusEffectType.BENEFICIAL, 0x47453d);
 	}
 
-	public static void onEntityKill(LivingDeathEvent event) {
-		Entity killer = event.getSource().getAttacker();
-		if (killer instanceof LivingEntity) {
-			LivingEntity living = (LivingEntity) killer;
-			if (living.hasStatusEffect(ModPotions.soulCross)) {
-				living.heal(event.getEntityLiving().getMaxHealth() / 20);
-			}
+	public static void onEntityKill(LivingEntity dying, LivingEntity killer) {
+		if (killer.hasStatusEffect(ModPotions.soulCross)) {
+			killer.heal(dying.getMaxHealth() / 20);
 		}
 	}
 

@@ -43,7 +43,9 @@
 
   "custom": {
     "cardinal-components": [
-      "botania:loonium_drop"
+      "botania:loonium_drop",
+      "botania:narslimmus",
+      "botania:tnt_ethical"
     ]
   }
 }
