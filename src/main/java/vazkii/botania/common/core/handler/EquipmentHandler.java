@@ -16,6 +16,7 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import top.theillusivec4.curios.api.event.DropRulesCallback;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.EquipmentHandler.InventoryEquipmentHandler;
@@ -34,7 +35,7 @@ public abstract class EquipmentHandler {
 		if (Botania.curiosLoaded) {
 			instance = new CurioIntegration();
 			CurioIntegration.init();
-			MinecraftForge.EVENT_BUS.addListener(CurioIntegration::keepCurioDrops);
+			DropRulesCallback.EVENT.register(CurioIntegration::keepCurioDrops);
 		} else {
 			InventoryEquipmentHandler handler = new InventoryEquipmentHandler();
 			instance = handler;

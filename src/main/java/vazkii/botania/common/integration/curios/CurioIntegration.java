@@ -22,11 +22,13 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import net.minecraft.util.Pair;
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 
 import top.theillusivec4.curios.api.CuriosApi;
@@ -35,6 +37,8 @@ import top.theillusivec4.curios.api.SlotTypeInfo;
 import top.theillusivec4.curios.api.SlotTypePreset;
 
 import top.theillusivec4.curios.api.type.component.ICurio;
+import top.theillusivec4.curios.api.type.component.ICuriosItemHandler;
+import top.theillusivec4.curios.api.type.component.IRenderableCurio;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -57,14 +61,15 @@ public class CurioIntegration extends EquipmentHandler {
 		CuriosApi.enqueueSlotType(SlotTypeInfo.BuildScheme.REGISTER, SlotTypePreset.NECKLACE.getInfoBuilder().build());
 	}
 
-	public static void keepCurioDrops(DropRulesEvent event) { //TODO make this less hacky
-		event.addOverride(stack -> {
+	public static void keepCurioDrops(LivingEntity livingEntity, ICuriosItemHandler handler, DamageSource source,
+		int lootingLevel, boolean recentlyHit, List<Pair<Predicate<ItemStack>, ICurio.DropRule>> overrides) { //TODO make this less hacky
+		overrides.add(new Pair<>(stack -> {
 			if (ItemKeepIvy.hasIvy(stack)) {
 				stack.removeSubTag(ItemKeepIvy.TAG_KEEP);
 				return true;
 			}
 			return false;
-		}, ICurio.DropRule.ALWAYS_KEEP);
+		}, ICurio.DropRule.ALWAYS_KEEP));
 	}
 
 	@Override
@@ -99,8 +104,11 @@ public class CurioIntegration extends EquipmentHandler {
 
 	@Override
 	protected void registerComponentEvent(Item item) {
-		ItemComponentCallbackV2.event(item).register((item1, stack, components) ->
-			components.put(CuriosComponent.ITEM, new Wrapper(stack)));
+		// todo 1.16-fabric side safety
+		ItemComponentCallbackV2.event(item).register((item1, stack, components) -> {
+			components.put(CuriosComponent.ITEM, new Wrapper(stack));
+			components.put(CuriosComponent.ITEM_RENDER, new RenderWrapper(stack));
+		});
 	}
 
 	@Override
@@ -145,11 +153,6 @@ public class CurioIntegration extends EquipmentHandler {
 		}
 
 		@Override
-		public boolean canSync(String identifier, int index, LivingEntity livingEntity) {
-			return true;
-		}
-
-		@Override
 		public void playRightClickEquipSound(LivingEntity entity) {
 			entity.world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), ModSounds.equipBauble, entity.getSoundCategory(), 0.1F, 1.3F);
 		}
@@ -159,14 +162,26 @@ public class CurioIntegration extends EquipmentHandler {
 			return true;
 		}
 
-		@Override
-		public boolean canRender(String identifier, int index, LivingEntity entity) {
-			return getItem().hasRender(stack, entity);
+	}
+
+	private static class RenderWrapper implements IRenderableCurio {
+		private final ItemStack stack;
+
+		RenderWrapper(ItemStack stack) {
+			this.stack = stack;
+		}
+
+		private ItemBauble getItem() {
+			return (ItemBauble) stack.getItem();
 		}
 
 		@Override
 		@Environment(EnvType.CLIENT)
 		public void render(String identifier, int index, MatrixStack matrixStack, VertexConsumerProvider renderTypeBuffer, int light, LivingEntity livingEntity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+			if (!getItem().hasRender(stack, livingEntity)) {
+				return;
+			}
+
 			EntityRenderer<?> renderer = MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(livingEntity);
 			if (!(renderer instanceof FeatureRendererContext<?, ?>)) {
 				return;
@@ -178,8 +193,10 @@ public class CurioIntegration extends EquipmentHandler {
 
 			ItemStack cosmetic = getItem().getCosmeticItem(stack);
 			if (!cosmetic.isEmpty()) {
-				cosmetic.getCapability(CuriosCapability.ITEM).ifPresent(
-						curio -> curio.render(identifier, index, matrixStack, renderTypeBuffer, light, livingEntity, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch));
+				IRenderableCurio sub = CuriosComponent.ITEM_RENDER.getNullable(cosmetic);
+				if (sub != null) {
+					sub.render(identifier, index, matrixStack, renderTypeBuffer, light, livingEntity, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
+				}
 			} else {
 				getItem().doRender((BipedEntityModel<?>) model, stack, livingEntity, matrixStack, renderTypeBuffer, light, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch);
 			}
