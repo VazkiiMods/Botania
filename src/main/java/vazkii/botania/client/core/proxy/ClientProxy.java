@@ -15,7 +15,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.entity.PlayerRenderer;
+import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.LivingEntity;
@@ -35,6 +37,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -47,7 +50,16 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.fx.ModParticles;
+import vazkii.botania.client.render.entity.RenderBabylonWeapon;
+import vazkii.botania.client.render.entity.RenderCorporeaSpark;
+import vazkii.botania.client.render.entity.RenderDoppleganger;
 import vazkii.botania.client.render.entity.RenderMagicLandmine;
+import vazkii.botania.client.render.entity.RenderManaStorm;
+import vazkii.botania.client.render.entity.RenderNoop;
+import vazkii.botania.client.render.entity.RenderPinkWither;
+import vazkii.botania.client.render.entity.RenderPixie;
+import vazkii.botania.client.render.entity.RenderPoolMinecart;
+import vazkii.botania.client.render.entity.RenderSpark;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.TEISR;
 import vazkii.botania.common.Botania;
@@ -63,6 +75,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.brew.ItemBrewBase;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
@@ -153,6 +166,7 @@ public class ClientProxy implements IProxy {
 		}
 
 		registerRenderTypes();
+		registerEntityRenderers();
 
 		DeferredWorkQueue.runLater(() -> {
 			AccessorBiomeGeneratorTypeScreens.getAllTypes().add(WorldTypeSkyblock.INSTANCE);
@@ -289,6 +303,28 @@ public class ClientProxy implements IProxy {
 						RenderTypeLookup.setRenderLayer(b, RenderType.getCutout());
 					}
 				});
+	}
+
+	private static void registerEntityRenderers() {
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.MANA_BURST, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.PLAYER_MOVER, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.FLAME_RING, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.MAGIC_LANDMINE, RenderMagicLandmine::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.MAGIC_MISSILE, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.FALLING_STAR, RenderNoop::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.THROWN_ITEM, m -> new ItemRenderer(m, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.PIXIE, RenderPixie::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.DOPPLEGANGER, RenderDoppleganger::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.SPARK, RenderSpark::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.CORPOREA_SPARK, RenderCorporeaSpark::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.POOL_MINECART, RenderPoolMinecart::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.PINK_WITHER, RenderPinkWither::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.MANA_STORM, RenderManaStorm::new);
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.BABYLON_WEAPON, RenderBabylonWeapon::new);
+
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.THORN_CHAKRAM, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.VINE_BALL, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
+		RenderingRegistry.registerEntityRenderingHandler(ModEntities.ENDER_AIR_BOTTLE, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
 	}
 
 	private void loadComplete(FMLLoadCompleteEvent event) {
