@@ -321,7 +321,7 @@ public final class ModBlocks {
 	public static final Block azulejo13 = new BlockMod(Block.Properties.from(azulejo0));
 	public static final Block azulejo14 = new BlockMod(Block.Properties.from(azulejo0));
 	public static final Block azulejo15 = new BlockMod(Block.Properties.from(azulejo0));
-	public static final Block manaFlame = new BlockManaFlame(Block.Properties.create(Material.WOOL).sound(SoundType.CLOTH).setLightLevel(s -> 15).doesNotBlockMovement());
+	public static final Block manaFlame = new BlockManaFlame(Block.Properties.create(Material.MISCELLANEOUS).sound(SoundType.CLOTH).setLightLevel(s -> 15).doesNotBlockMovement());
 	public static final Block blazeBlock = new BlockMod(Block.Properties.from(manasteelBlock).setLightLevel(s -> 15));
 	public static final Block gaiaHeadWall = new BlockGaiaHeadWall(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1));
 	public static final Block gaiaHead = new BlockGaiaHead(Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(1));
