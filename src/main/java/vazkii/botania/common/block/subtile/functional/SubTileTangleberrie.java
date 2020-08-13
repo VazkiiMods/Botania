@@ -90,6 +90,14 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 	}
 
 	@Override
+	public RadiusDescriptor getSecondaryRadius() {
+		if (getMaxDistance() == getRange()) {
+			return null;
+		}
+		return new RadiusDescriptor.Circle(getEffectivePos(), getMaxDistance());
+	}
+
+	@Override
 	public int getColor() {
 		return 0x4B797C;
 	}

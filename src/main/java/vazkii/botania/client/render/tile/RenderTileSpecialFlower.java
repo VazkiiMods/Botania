@@ -51,24 +51,37 @@ public class RenderTileSpecialFlower<T extends TileEntitySpecialFlower> extends 
 		if (!ItemMonocle.hasMonocle(view)) {
 			return;
 		}
-
+		BlockPos pos = null;
 		HitResult ray = MinecraftClient.getInstance().crosshairTarget;
 		if (ray != null && ray.getType() == HitResult.Type.BLOCK) {
-			BlockPos pos = ((BlockHitResult) ray).getBlockPos();
+			pos = ((BlockHitResult) ray).getBlockPos();
+		}
+		boolean hasBindingAttempt = hasBindingAttempt(view, tile.getPos());
 
-			if (tile.getPos().equals(pos) || hasBindingAttempt(view, tile.getPos())) {
-				RadiusDescriptor descriptor = ((TileEntitySpecialFlower) tile).getRadius();
-				if (descriptor != null) {
-					ms.push();
-					ms.translate(-tile.getPos().getX(), -tile.getPos().getY(), -tile.getPos().getZ());
-					if (descriptor.isCircle()) {
-						renderCircle(ms, buffers, descriptor.getSubtileCoords(), descriptor.getCircleRadius());
-					} else {
-						renderRectangle(ms, buffers, descriptor.getAABB(), true, null, (byte) 32);
-					}
-					ms.pop();
-				}
+		if (hasBindingAttempt || tile.getPos().equals(pos)) {
+			TileEntitySpecialFlower flower = (TileEntitySpecialFlower) tile;
+			ms.push();
+			if (hasBindingAttempt) {
+				ms.translate(0, 0.005, 0);
 			}
+			renderRadius(tile, ms, buffers, flower.getRadius());
+			ms.translate(0, 0.002, 0);
+			renderRadius(tile, ms, buffers, flower.getSecondaryRadius());
+			ms.pop();
+
+		}
+	}
+
+	private void renderRadius(BlockEntity tile, MatrixStack ms, VertexConsumerProvider buffers, RadiusDescriptor descriptor) {
+		if (descriptor != null) {
+			ms.push();
+			ms.translate(-tile.getPos().getX(), -tile.getPos().getY(), -tile.getPos().getZ());
+			if (descriptor.isCircle()) {
+				renderCircle(ms, buffers, descriptor.getSubtileCoords(), descriptor.getCircleRadius());
+			} else {
+				renderRectangle(ms, buffers, descriptor.getAABB(), true, null, (byte) 32);
+			}
+			ms.pop();
 		}
 	}
 

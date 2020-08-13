@@ -168,6 +168,14 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 		return new RadiusDescriptor.Square(getEffectivePos(), getRange());
 	}
 
+	@Override
+	public RadiusDescriptor getSecondaryRadius() {
+		if (getRange() == RANGE) {
+			return null;
+		}
+		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
+	}
+
 	public int getRange() {
 		return getMana() > 0 ? RANGE_PLACE_MANA : RANGE_PLACE;
 	}

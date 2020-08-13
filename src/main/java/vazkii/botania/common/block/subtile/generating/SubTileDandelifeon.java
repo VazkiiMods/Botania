@@ -197,6 +197,11 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 	}
 
 	@Override
+	public RadiusDescriptor getSecondaryRadius() {
+		return new RadiusDescriptor.Square(getEffectivePos(), 1);
+	}
+
+	@Override
 	public int getMaxMana() {
 		return 50000;
 	}

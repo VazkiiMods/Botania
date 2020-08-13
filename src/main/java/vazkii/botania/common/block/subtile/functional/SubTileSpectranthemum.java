@@ -103,6 +103,11 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	}
 
 	@Override
+	public RadiusDescriptor getSecondaryRadius() {
+		return new RadiusDescriptor.Square(getEffectivePos(), BIND_RANGE);
+	}
+
+	@Override
 	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_BIND_X, bindPos.getX());
