@@ -44,8 +44,6 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 
 			// [VanillaCopy] AbstractSpawner.tick, edits noted
 			if (!mLogic.botania_isActivated()) { // Activate when vanilla is *not* running the spawner
-				mLogic.setPrevMobRotation(mLogic.getMobRotation());
-			} else {
 				World world = this.getWorld();
 				BlockPos blockpos = logic.getSpawnerPosition();
 				if (world.isRemote) {
