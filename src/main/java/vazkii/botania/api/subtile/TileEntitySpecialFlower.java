@@ -250,6 +250,16 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	}
 
 	/**
+	 * Returns a descriptor for this flower's secondary radius.
+	 * Use for e.g. when a flower has different ranges for picking up and using dropped items.
+	 * Called when the player is looking at the block with a Manaseer Monocle.
+	 */
+	@OnlyIn(Dist.CLIENT)
+	public RadiusDescriptor getSecondaryRadius() {
+		return null;
+	}
+
+	/**
 	 * @see IWandBindable#canSelect(PlayerEntity, ItemStack, net.minecraft.util.math.BlockPos, Direction)
 	 */
 	@Override
