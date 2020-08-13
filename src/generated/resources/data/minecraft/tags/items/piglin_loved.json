@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "botania:alchemy_catalyst",
+    "botania:cacophonium",
+    "botania:diva_charm",
+    "botania:hourglass",
+    "botania:mana_pylon",
+    "botania:monocle"
+  ]
+}

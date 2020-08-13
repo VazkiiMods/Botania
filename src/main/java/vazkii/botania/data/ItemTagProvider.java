@@ -15,6 +15,7 @@ import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.util.registry.Registry;
 
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.lens.ItemLens;
 import vazkii.botania.common.lib.LibMisc;
@@ -60,6 +61,9 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.sorted(Comparator.comparing(Registry.ITEM::getId))
 				.toArray(Item[]::new)
 		);
+
+		this.getOrCreateBuilder(ItemTags.field_232903_N_).add(ModBlocks.alchemyCatalyst.asItem(), ModItems.cacophonium, ModItems.divaCharm,
+				ModBlocks.hourglass.asItem(), ModBlocks.manaPylon.asItem(), ModItems.monocle);
 	}
 
 	@Nonnull
