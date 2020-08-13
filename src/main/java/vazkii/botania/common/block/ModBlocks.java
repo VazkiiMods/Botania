@@ -315,7 +315,7 @@ public final class ModBlocks {
 	public static final Block azulejo13 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
 	public static final Block azulejo14 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
 	public static final Block azulejo15 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
-	public static final Block manaFlame = new BlockManaFlame(AbstractBlock.Settings.of(Material.WOOL).sounds(BlockSoundGroup.WOOL).lightLevel(s -> 15).noCollision());
+	public static final Block manaFlame = new BlockManaFlame(AbstractBlock.Settings.of(Material.SUPPORTED).sounds(BlockSoundGroup.WOOL).lightLevel(s -> 15).noCollision());
 	public static final Block blazeBlock = new BlockMod(AbstractBlock.Settings.copy(manasteelBlock).lightLevel(s -> 15));
 	public static final Block gaiaHeadWall = new BlockGaiaHeadWall(AbstractBlock.Settings.of(Material.SUPPORTED).strength(1));
 	public static final Block gaiaHead = new BlockGaiaHead(AbstractBlock.Settings.of(Material.SUPPORTED).strength(1));
