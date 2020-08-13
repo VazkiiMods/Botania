@@ -22,13 +22,11 @@ import net.minecraft.resource.ResourceManager;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.client.model.FloatingFlowerModel;
-import vazkii.botania.client.render.entity.*;
 import vazkii.botania.client.render.tile.*;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileGaiaHead;
-import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.function.Consumer;
@@ -146,26 +144,6 @@ public final class ModelHandler {
 		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.brewery.asItem(), new TEISR(ModBlocks.brewery));
 		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.corporeaIndex.asItem(), new TEISR(ModBlocks.corporeaIndex));
 		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.hourglass.asItem(), new TEISR(ModBlocks.hourglass));
-
-		EntityRendererRegistry.INSTANCE.register(ModEntities.MANA_BURST, RenderNoop::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.PLAYER_MOVER, RenderNoop::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.FLAME_RING, RenderNoop::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.MAGIC_LANDMINE, RenderMagicLandmine::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.MAGIC_MISSILE, RenderNoop::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.FALLING_STAR, RenderNoop::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.THROWN_ITEM, (m, ctx) -> new ItemEntityRenderer(m, ctx.getItemRenderer()));
-		EntityRendererRegistry.INSTANCE.register(ModEntities.PIXIE, RenderPixie::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.DOPPLEGANGER, RenderDoppleganger::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.SPARK, RenderSpark::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.CORPOREA_SPARK, RenderCorporeaSpark::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.POOL_MINECART, RenderPoolMinecart::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.PINK_WITHER, RenderPinkWither::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.MANA_STORM, RenderManaStorm::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.BABYLON_WEAPON, RenderBabylonWeapon::new);
-
-		EntityRendererRegistry.INSTANCE.register(ModEntities.THORN_CHAKRAM, (m, ctx) -> new FlyingItemEntityRenderer<>(m, ctx.getItemRenderer()));
-		EntityRendererRegistry.INSTANCE.register(ModEntities.VINE_BALL, (m, ctx) -> new FlyingItemEntityRenderer<>(m, ctx.getItemRenderer()));
-		EntityRendererRegistry.INSTANCE.register(ModEntities.ENDER_AIR_BOTTLE, (m, ctx) -> new FlyingItemEntityRenderer<>(m, ctx.getItemRenderer()));
 	}
 
 	private static void registerIslands() {
