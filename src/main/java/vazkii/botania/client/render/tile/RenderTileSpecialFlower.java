@@ -72,7 +72,7 @@ public class RenderTileSpecialFlower<T extends TileEntitySpecialFlower> extends 
 		}
 	}
 
-	private void renderRadius(BlockEntity tile, MatrixStack ms, VertexConsumerProvider buffers, RadiusDescriptor descriptor) {
+	private void renderRadius(BlockEntity tile, MatrixStack ms, VertexConsumerProvider buffers, @Nullable RadiusDescriptor descriptor) {
 		if (descriptor != null) {
 			ms.push();
 			ms.translate(-tile.getPos().getX(), -tile.getPos().getY(), -tile.getPos().getZ());
