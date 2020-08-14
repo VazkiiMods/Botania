@@ -26,7 +26,7 @@
 	
 	$clause_open_source = build_clause('Copyleft', 'random', 'Your project must be open source (have its source visible and allow for redistribution and modification) and include a clause similar to this one in its license.');
 	
-	$clause_api = build_clause('API', 'asterisk', 'Any of the other clauses under this section do not apply to any Botania API code. However, if Botania API code is used, it must be included verbatim as it was obtained. Furthermore, the package-info.java file included with the API must be present, and in the right spot, for any mods that package any compiled API classes within to prevent conflicts.<br><i>Learn more about the API annotation <a href="https://github.com/Minalien/BlogArchive/blob/master/ForgeTutorials/Spotlight__API_Annotation.md">here</a>.');
+	$clause_api = build_clause('API', 'asterisk', 'Any of the other clauses under this section do not apply to any Botania API code (the subdirectory src/main/java/vazkii/botania/api). However, if Botania API code is used, it must be included verbatim as it was obtained.');
 
 	function add_clause($clause) {
 		global $clauses;

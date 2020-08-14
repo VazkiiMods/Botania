@@ -1,5 +1,6 @@
 modLoader="javafml" #mandatory
 loaderVersion="[32,)"
+license="Botania License"
 issueTrackerURL="https://github.com/Vazkii/Botania/issues" #optional
 displayURL="https://botaniamod.net" #optional
 logoFile="logo.png" #optional
