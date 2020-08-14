@@ -6,6 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 
@@ -16,7 +17,9 @@ public class MixinServerPlayerEntity {
 	 */
 	@Inject(at = @At("RETURN"), method = "onSpawn")
 	private void onLogin(CallbackInfo ci) {
-		SkyblockWorldEvents.onPlayerJoin((ServerPlayerEntity) (Object) this);
+		if (Botania.gardenOfGlassLoaded) {
+			SkyblockWorldEvents.onPlayerJoin((ServerPlayerEntity) (Object) this);
+		}
 	}
 
 	/**

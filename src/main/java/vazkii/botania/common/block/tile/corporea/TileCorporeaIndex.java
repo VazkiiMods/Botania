@@ -24,6 +24,7 @@ import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.core.helper.MathHelper;
 
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -367,14 +368,14 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	public static final class InputHandler {
-		public void onChatMessage(ServerChatEvent event) {
-			if (event.getPlayer().isSpectator()) {
-				return;
+		public boolean onChatMessage(PlayerEntity player, Supplier<String> message) {
+			if (player.isSpectator()) {
+				return false;
 			}
 
-			List<TileCorporeaIndex> nearbyIndexes = getNearbyIndexes(event.getPlayer());
+			List<TileCorporeaIndex> nearbyIndexes = getNearbyIndexes(player);
 			if (!nearbyIndexes.isEmpty()) {
-				String msg = event.getMessage().toLowerCase().trim();
+				String msg = message.get().toLowerCase().trim();
 				for (TileCorporeaIndex index : nearbyIndexes) {
 					ICorporeaSpark spark = index.getSpark();
 					if (spark != null) {
@@ -390,18 +391,20 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 						}
 
 						if (name.equals("this")) {
-							ItemStack stack = event.getPlayer().getMainHandStack();
+							ItemStack stack = player.getMainHandStack();
 							if (!stack.isEmpty()) {
 								name = stack.getName().getString().toLowerCase().trim();
 							}
 						}
 
-						index.performPlayerRequest(event.getPlayer(), CorporeaHelper.instance().createMatcher(name), count);
+						index.performPlayerRequest(player, CorporeaHelper.instance().createMatcher(name), count);
 					}
 				}
 
-				event.setCanceled(true);
+				return true;
 			}
+
+			return false;
 		}
 
 		public static List<TileCorporeaIndex> getNearbyIndexes(PlayerEntity player) {

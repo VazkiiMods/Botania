@@ -138,11 +138,9 @@ public class Botania implements ModInitializer {
 		forgeBus.addListener(PixieHandler::onDamageTaken);
 		ServerTickEvents.END_WORLD_TICK.register(CommonTickHandler::onTick);
 		forgeBus.addListener(PotionBloodthirst::onSpawn);
-		forgeBus.addListener(PotionEmptiness::onSpawn);
 		forgeBus.addListener(SubTileVinculotus::onEndermanTeleport);
 		UseBlockCallback.EVENT.register(BlockRedStringInterceptor::onInteract);
 		ManaNetworkCallback.EVENT.register(ManaNetworkHandler.instance::onNetworkEvent);
-		forgeBus.addListener(EventPriority.HIGHEST, TileCorporeaIndex.getInputHandler()::onChatMessage);
 		LootTableLoadingCallback.EVENT.register(LootHandler::lootLoad);
 
 		ModLootModifiers.init();
@@ -160,7 +158,6 @@ public class Botania implements ModInitializer {
 		CorporeaHelper.instance().registerRequestMatcher(prefix("item_stack"), CorporeaItemStackMatcher.class, CorporeaItemStackMatcher::createFromNBT);
 
 		if (Botania.gardenOfGlassLoaded) {
-			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::onPlayerJoin);
 			UseBlockCallback.EVENT.register(SkyblockWorldEvents::onPlayerInteract);
 		}
 

@@ -118,7 +118,6 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		forgeBus.addListener(KonamiHandler::handleInput);
 		BookDrawScreenCallback.EVENT.register(KonamiHandler::renderBook);
 		HudRenderCallback.EVENT.register(HUDHandler::onDrawScreenPost);
-		forgeBus.addListener(DebugHandler::onDrawDebugText);
 		forgeBus.addListener(CorporeaInputHandler::buttonPressed);
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
 		forgeBus.addListener(ClientTickHandler::renderTick);
@@ -127,7 +126,6 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		forgeBus.addListener(RenderMagicLandmine::onWorldRenderLast);
 		forgeBus.addListener(AstrolabePreviewHandler::onWorldRenderLast);
 		forgeBus.addListener(ItemDodgeRing::onKeyDown);
-		forgeBus.addListener(EventPriority.LOWEST, BergamuteEventHandler::onSoundEvent);
 
 		PersistentVariableHelper.setCacheFile(new File(MinecraftClient.getInstance().runDirectory, "BotaniaVars.dat"));
 		try {

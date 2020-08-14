@@ -25,6 +25,7 @@
     "MixinLivingEntity",
     "MixinPlayerEntity",
     "MixinServerPlayerEntity",
+    "MixinServerPlayNetworkHandler",
     "MixinSpawnHelper"
   ],
   "client": [
@@ -40,6 +41,7 @@
     "AccessorRenderTypeBuffers",
     "AccessorSkullTileEntityRenderer",
     "AccessorWorldRenderer",
+    "MixinDebugHud",
     "MixinSkullTileEntityRenderer",
     "MixinSoundManager",
     "MixinSplashes",

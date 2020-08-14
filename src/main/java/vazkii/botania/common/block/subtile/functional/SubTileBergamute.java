@@ -29,9 +29,7 @@ public class SubTileBergamute extends TileEntityFunctionalFlower {
 		super.tickFlower();
 
 		if (getWorld().isClient) {
-			if (!existingFlowers.contains(this)) {
-				existingFlowers.add(this);
-			}
+			existingFlowers.add(this);
 		}
 	}
 

@@ -8,10 +8,12 @@
  */
 package vazkii.botania.common.brew.potion;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectType;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 
 import vazkii.botania.common.brew.ModPotions;
@@ -24,17 +26,17 @@ public class PotionEmptiness extends StatusEffect {
 		super(StatusEffectType.BENEFICIAL, 0xFACFFF);
 	}
 
-	public static void onSpawn(LivingSpawnEvent.CheckSpawn event) {
-		if (event.getResult() != Event.Result.ALLOW && event.getEntityLiving() instanceof Monster) {
-			Box aabb = new Box(event.getX() - RANGE, event.getY() - RANGE, event.getZ() - RANGE,
-					event.getX() + RANGE, event.getY() + RANGE, event.getZ() + RANGE);
-			for (PlayerEntity player : event.getWorld().getPlayers()) {
+	public static boolean shouldCancel(LivingEntity entity) {
+		if (entity instanceof Monster) {
+			Box aabb = new Box(entity.getX() - RANGE, entity.getY() - RANGE, entity.getZ() - RANGE,
+					entity.getX() + RANGE, entity.getY() + RANGE, entity.getZ() + RANGE);
+			for (PlayerEntity player : entity.world.getPlayers()) {
 				if (player.hasStatusEffect(ModPotions.emptiness) && player.getBoundingBox().intersects(aabb)) {
-					event.setResult(Event.Result.DENY);
-					return;
+					return true;
 				}
 			}
 		}
+		return false;
 	}
 
 }
