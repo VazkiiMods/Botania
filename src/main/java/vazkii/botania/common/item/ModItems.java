@@ -12,7 +12,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
-import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -35,7 +34,6 @@ import vazkii.botania.client.gui.box.GuiBaubleBox;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.crafting.FluxfieldCondition;
 import vazkii.botania.common.crafting.FuzzyNBTIngredient;
 import vazkii.botania.common.crafting.recipe.*;
 import vazkii.botania.common.item.brew.ItemBrewBase;
@@ -714,7 +712,6 @@ public final class ModItems {
 		register(r, "terra_pick_tipping", TerraPickTippingRecipe.SERIALIZER);
 		register(r, "twig_wand", TwigWandRecipe.SERIALIZER);
 
-		CraftingHelper.register(FluxfieldCondition.SERIALIZER);
 		CraftingHelper.register(prefix("fuzzy_nbt"), FuzzyNBTIngredient.SERIALIZER);
 	}
 

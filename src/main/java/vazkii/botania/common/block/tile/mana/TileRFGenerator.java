@@ -17,6 +17,8 @@ import net.minecraft.util.math.Direction;
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
+import vazkii.botania.common.core.handler.ConfigHandler;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -69,7 +71,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, Tickable 
 
 	@Override
 	public void tick() {
-		if (!world.isClient) {
+		if (!world.isClient && ConfigHandler.COMMON.fluxfieldEnabled.getValue()) {
 			int transfer = Math.min(energy, 160 * MANA_TO_FE);
 			energy -= transfer;
 			energy += transmitEnergy(transfer);
@@ -127,7 +129,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, Tickable 
 
 	@Override
 	public boolean canReceiveManaFromBursts() {
-		return true;
+		return ConfigHandler.COMMON.fluxfieldEnabled.getValue();
 	}
 
 	@Override

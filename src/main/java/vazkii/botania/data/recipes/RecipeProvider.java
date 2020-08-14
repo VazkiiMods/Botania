@@ -8,51 +8,6 @@
  */
 package vazkii.botania.data.recipes;
 
-import com.google.gson.JsonArray;
-import net.minecraft.advancement.criterion.CriterionConditions;
-import net.minecraft.advancement.criterion.InventoryChangedCriterion;
-import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
-import net.minecraft.block.Block;
-import net.minecraft.data.*;
-import net.minecraft.data.server.recipe.ComplexRecipeJsonFactory;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
-import net.minecraft.data.server.recipe.ShapedRecipeJsonFactory;
-import net.minecraft.data.server.recipe.ShapelessRecipeJsonFactory;
-import net.minecraft.item.*;
-import net.minecraft.potion.PotionUtil;
-import net.minecraft.potion.Potions;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.SpecialRecipeSerializer;
-import net.minecraft.tag.ItemTags;
-import net.minecraft.tag.Tag;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-
-import vazkii.botania.api.state.enums.CratePattern;
-import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.ModFluffBlocks;
-import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.crafting.FluxfieldCondition;
-import vazkii.botania.common.crafting.FuzzyNBTIngredient;
-import vazkii.botania.common.crafting.recipe.*;
-import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibItemNames;
-import vazkii.botania.common.lib.ModTags;
-import vazkii.botania.common.lib.ResourceLocationHelper;
-
-import javax.annotation.Nullable;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
-
 /*
 public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 	public RecipeProvider(DataGenerator generator) {
