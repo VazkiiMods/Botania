@@ -244,7 +244,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	 * Returns a descriptor for the radius of this sub tile. This is called while a player
 	 * is looking at the block with a Manaseer Monocle.
 	 */
-	@OnlyIn(Dist.CLIENT)
+	@Nullable
 	public RadiusDescriptor getRadius() {
 		return null;
 	}
@@ -254,7 +254,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	 * Use for e.g. when a flower has different ranges for picking up and using dropped items.
 	 * Called when the player is looking at the block with a Manaseer Monocle.
 	 */
-	@OnlyIn(Dist.CLIENT)
+	@Nullable
 	public RadiusDescriptor getSecondaryRadius() {
 		return null;
 	}

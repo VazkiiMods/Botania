@@ -45,8 +45,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
-	private static final int RANGE = 2;
-	private static final int RANGE_Y = 3;
+	private static final int PICKUP_RANGE = 2;
+	private static final int PICKUP_RANGE_Y = 3;
 	private static final int RANGE_PLACE_MANA = 8;
 	private static final int RANGE_PLACE = 6;
 	private static final int RANGE_PLACE_Y = 6;
@@ -72,7 +72,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 		}
 
 		if (ticksExisted % 10 == 0) {
-			List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE), getEffectivePos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)));
+			List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getEffectivePos().add(-PICKUP_RANGE, -PICKUP_RANGE_Y, -PICKUP_RANGE), getEffectivePos().add(PICKUP_RANGE + 1, PICKUP_RANGE_Y + 1, PICKUP_RANGE + 1)));
 			List<BlockPos> validPositions = getCandidatePositions();
 			int slowdown = getSlowdownFactor();
 
@@ -120,8 +120,8 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	}
 
 	private List<BlockPos> getCandidatePositions() {
-		int rangePlace = getRange();
-		int rangePlaceY = getRangeY();
+		int rangePlace = getPlaceRange();
+		int rangePlaceY = getVerticalPlaceRange();
 		BlockPos center = getEffectivePos();
 		BlockState filter = getUnderlyingBlock();
 		List<BlockPos> ret = new ArrayList<>();
@@ -165,22 +165,22 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 
 	@Override
 	public RadiusDescriptor getRadius() {
-		return new RadiusDescriptor.Square(getEffectivePos(), getRange());
+		return new RadiusDescriptor.Square(getEffectivePos(), getPlaceRange());
 	}
 
 	@Override
 	public RadiusDescriptor getSecondaryRadius() {
-		if (getRange() == RANGE) {
+		if (getPlaceRange() == PICKUP_RANGE) {
 			return null;
 		}
-		return new RadiusDescriptor.Square(getEffectivePos(), RANGE);
+		return new RadiusDescriptor.Square(getEffectivePos(), PICKUP_RANGE);
 	}
 
-	public int getRange() {
+	public int getPlaceRange() {
 		return getMana() > 0 ? RANGE_PLACE_MANA : RANGE_PLACE;
 	}
 
-	public int getRangeY() {
+	public int getVerticalPlaceRange() {
 		return RANGE_PLACE_Y;
 	}
 
@@ -200,12 +200,12 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 		}
 
 		@Override
-		public int getRange() {
+		public int getPlaceRange() {
 			return getMana() > 0 ? RANGE_PLACE_MANA_MINI : RANGE_PLACE_MINI;
 		}
 
 		@Override
-		public int getRangeY() {
+		public int getVerticalPlaceRange() {
 			return RANGE_PLACE_Y_MINI;
 		}
 	}

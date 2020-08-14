@@ -74,7 +74,7 @@ public class RenderTileSpecialFlower extends TileEntityRenderer<TileEntity> {
 		}
 	}
 
-	private void renderRadius(TileEntity tile, MatrixStack ms, IRenderTypeBuffer buffers, RadiusDescriptor descriptor) {
+	private void renderRadius(TileEntity tile, MatrixStack ms, IRenderTypeBuffer buffers, @Nullable RadiusDescriptor descriptor) {
 		if (descriptor != null) {
 			ms.push();
 			ms.translate(-tile.getPos().getX(), -tile.getPos().getY(), -tile.getPos().getZ());
