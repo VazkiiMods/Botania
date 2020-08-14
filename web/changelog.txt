@@ -1,3 +1,10 @@
+1.16-402
+* Fix a crash on Forge 1.16.1 107+
+* Add some gold-based items to the piglin_loved tag
+* Add custom grasses to forge dirt tag, fixes trees not growing on them
+* Fix mana flashes catching on fire
+* Fix life imbuer being broken (again)
+* Flowers with multiple areas of effect (e.g. rannuncarpus has different pickup vs place ranges) will now render both of them when the monocle is worn.
 1.16-401
 * Fix dyed corporea sparks hanging the game on load
 1.16-400
