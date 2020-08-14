@@ -21,6 +21,7 @@ import net.minecraft.world.World;
 
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.helper.MathHelper;
+import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 
@@ -109,6 +110,6 @@ public class EntityFlameRing extends Entity {
 	@Nonnull
 	@Override
 	public Packet<?> createSpawnPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
+		return PacketSpawnEntity.make(this);
 	}
 }

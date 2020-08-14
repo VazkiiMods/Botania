@@ -36,6 +36,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.block.tile.mana.TilePump;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -62,7 +63,7 @@ public class EntityPoolMinecart extends AbstractMinecartEntity implements Entity
 	@Nonnull
 	@Override
 	public Packet<?> createSpawnPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
+		return PacketSpawnEntity.make(this);
 	}
 
 	@Nonnull

@@ -35,6 +35,7 @@ import net.minecraft.world.World;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 
@@ -63,7 +64,7 @@ public class EntityVineBall extends ThrownEntity implements FlyingItemEntity {
 	@Nonnull
 	@Override
 	public Packet<?> createSpawnPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
+		return PacketSpawnEntity.make(this);
 	}
 
 	@Environment(EnvType.CLIENT)

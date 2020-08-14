@@ -26,6 +26,7 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
 
+import vazkii.botania.common.network.PacketSpawnEntity;
 import vazkii.botania.mixin.AccessorItemEntity;
 
 import javax.annotation.Nonnull;
@@ -54,7 +55,7 @@ public class EntityThrownItem extends ItemEntity {
 	@Nonnull
 	@Override
 	public Packet<?> createSpawnPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
+		return PacketSpawnEntity.make(this);
 	}
 
 	@Override
@@ -64,7 +65,7 @@ public class EntityThrownItem extends ItemEntity {
 		// [VanillaCopy] derivative from ThrowableEntity
 		int pickupDelay = ((AccessorItemEntity) this).getPickupDelay();
 		Predicate<Entity> filter = e -> !e.isSpectator() && e.isAlive() && e.collides() && (!(e instanceof PlayerEntity) || pickupDelay == 0);
-		HitResult ray = ProjectileUtil.getCollision(this, filter, RayTraceContext.ShapeType.OUTLINE);
+		HitResult ray = ProjectileUtil.getCollision(this, filter);
 		if (ray.getType() == HitResult.Type.BLOCK) {
 			BlockPos pos = ((BlockHitResult) ray).getBlockPos();
 			BlockState state = this.world.getBlockState(pos);

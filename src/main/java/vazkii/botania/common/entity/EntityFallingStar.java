@@ -24,6 +24,7 @@ import net.minecraft.world.World;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.network.PacketSpawnEntity;
 
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 
 	@Override
 	public Packet<?> createSpawnPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
+		return PacketSpawnEntity.make(this);
 	}
 
 	@Override

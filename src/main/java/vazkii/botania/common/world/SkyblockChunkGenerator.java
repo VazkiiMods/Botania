@@ -23,34 +23,29 @@ import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.*;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
-import net.minecraft.world.gen.chunk.StructuresConfig;
-import net.minecraft.world.gen.chunk.VerticalBlockSample;
-import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.mixin.AccessorDimensionSettingsPreset;
+import net.minecraft.world.gen.chunk.*;
+
+import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class SkyblockChunkGenerator extends ChunkGenerator {
 	// [VanillaCopy] overworld chunk generator codec
-	public static final Codec<SkyblockChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(BiomeSource.CODEC.fieldOf("biome_source").forGetter((gen) -> gen.biomeSource),
-			Codec.LONG.fieldOf("seed").stable().forGetter((gen) -> gen.seed),
-			ChunkGeneratorSettings.REGISTRY_CODEC.fieldOf("settings").forGetter((gen) -> gen.settings))
+	public static final Codec<SkyblockChunkGenerator> CODEC = RecordCodecBuilder.create((instance) ->
+		instance.group(BiomeSource.CODEC.fieldOf("biome_source").forGetter((noiseChunkGenerator) -> noiseChunkGenerator.biomeSource),
+			Codec.LONG.fieldOf("seed").stable().forGetter((noiseChunkGenerator) -> noiseChunkGenerator.seed),
+			ChunkGeneratorSettings.REGISTRY_CODEC.fieldOf("settings").forGetter((noiseChunkGenerator) -> noiseChunkGenerator.settings))
 			.apply(instance, instance.stable(SkyblockChunkGenerator::new)));
-	public static ChunkGeneratorSettings.Preset dimSettingsPreset;
 
 	public static void init() {
 		Registry.register(Registry.CHUNK_GENERATOR, prefix("skyblock"), SkyblockChunkGenerator.CODEC);
-		dimSettingsPreset = new ChunkGeneratorSettings.Preset(LibResources.PREFIX_MOD + "skyblock",
-				preset -> AccessorDimensionSettingsPreset.callCreateOverworldType(new StructuresConfig(true), false, preset));
 	}
 
 	private final long seed;
-	private final ChunkGeneratorSettings settings;
+	private final Supplier<ChunkGeneratorSettings> settings;
 
-	public SkyblockChunkGenerator(BiomeSource provider, long seed, ChunkGeneratorSettings settings) {
-		super(provider, provider, settings.getStructuresConfig(), seed);
+	public SkyblockChunkGenerator(BiomeSource provider, long seed, Supplier<ChunkGeneratorSettings> settings) {
+		super(provider, provider, settings.get().getStructuresConfig(), seed);
 		this.seed = seed;
 		this.settings = settings;
 	}

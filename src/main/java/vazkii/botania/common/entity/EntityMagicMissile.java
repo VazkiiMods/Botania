@@ -35,6 +35,7 @@ import net.minecraft.world.World;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 
@@ -67,7 +68,7 @@ public class EntityMagicMissile extends ThrownEntity {
 	@Nonnull
 	@Override
 	public Packet<?> createSpawnPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
+		return PacketSpawnEntity.make(this);
 	}
 
 	public void setEvil(boolean evil) {

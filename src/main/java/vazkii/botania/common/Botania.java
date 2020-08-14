@@ -161,72 +161,70 @@ public class Botania implements ModInitializer {
 			UseBlockCallback.EVENT.register(SkyblockWorldEvents::onPlayerInteract);
 		}
 
-		DeferredWorkQueue.runLater(() -> {
-			SkyblockChunkGenerator.init();
+		SkyblockChunkGenerator.init();
 
-			FabricDefaultAttributeRegistry.register(ModEntities.DOPPLEGANGER, MobEntity.createMobAttributes()
-					.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4)
-					.add(EntityAttributes.GENERIC_MAX_HEALTH, EntityDoppleganger.MAX_HP)
-					.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0));
-			FabricDefaultAttributeRegistry.register(ModEntities.PIXIE, MobEntity.createMobAttributes()
-					.add(EntityAttributes.GENERIC_MAX_HEALTH, 2.0));
-			FabricDefaultAttributeRegistry.register(ModEntities.PINK_WITHER, WitherEntity.createWitherAttributes());
-			ModBanners.init();
+		FabricDefaultAttributeRegistry.register(ModEntities.DOPPLEGANGER, MobEntity.createMobAttributes()
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, EntityDoppleganger.MAX_HP)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0));
+		FabricDefaultAttributeRegistry.register(ModEntities.PIXIE, MobEntity.createMobAttributes()
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 2.0));
+		FabricDefaultAttributeRegistry.register(ModEntities.PINK_WITHER, WitherEntity.createWitherAttributes());
+		ModBanners.init();
 
-			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getId(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.get());
-			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getId(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.get());
-			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getId(ModBlocks.enchanter), TileEnchanter.MULTIBLOCK.get());
+		PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getId(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.get());
+		PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getId(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.get());
+		PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getId(ModBlocks.enchanter), TileEnchanter.MULTIBLOCK.get());
 
-			String[][] pat = new String[][] {
-					{
-							"P_______P",
-							"_________",
-							"_________",
-							"_________",
-							"_________",
-							"_________",
-							"_________",
-							"_________",
-							"P_______P",
-					},
-					{
-							"_________",
-							"_________",
-							"_________",
-							"_________",
-							"____B____",
-							"_________",
-							"_________",
-							"_________",
-							"_________",
-					},
-					{
-							"_________",
-							"_________",
-							"_________",
-							"___III___",
-							"___I0I___",
-							"___III___",
-							"_________",
-							"_________",
-							"_________",
-					}
-			};
-			IStateMatcher sm = PatchouliAPI.instance.predicateMatcher(Blocks.IRON_BLOCK,
-					state -> state.isIn(BlockTags.BEACON_BASE_BLOCKS));
-			IMultiblock mb = PatchouliAPI.instance.makeMultiblock(
-					pat,
-					'P', ModBlocks.gaiaPylon,
-					'B', Blocks.BEACON,
-					'I', sm,
-					'0', sm
-			);
-			PatchouliAPI.instance.registerMultiblock(prefix("gaia_ritual"), mb);
+		String[][] pat = new String[][] {
+				{
+						"P_______P",
+						"_________",
+						"_________",
+						"_________",
+						"_________",
+						"_________",
+						"_________",
+						"_________",
+						"P_______P",
+				},
+				{
+						"_________",
+						"_________",
+						"_________",
+						"_________",
+						"____B____",
+						"_________",
+						"_________",
+						"_________",
+						"_________",
+				},
+				{
+						"_________",
+						"_________",
+						"_________",
+						"___III___",
+						"___I0I___",
+						"___III___",
+						"_________",
+						"_________",
+						"_________",
+				}
+		};
+		IStateMatcher sm = PatchouliAPI.instance.predicateMatcher(Blocks.IRON_BLOCK,
+				state -> state.isIn(BlockTags.BEACON_BASE_BLOCKS));
+		IMultiblock mb = PatchouliAPI.instance.makeMultiblock(
+				pat,
+				'P', ModBlocks.gaiaPylon,
+				'B', Blocks.BEACON,
+				'I', sm,
+				'0', sm
+		);
+		PatchouliAPI.instance.registerMultiblock(prefix("gaia_ritual"), mb);
 
-			ModBlocks.addDispenserBehaviours();
+		ModBlocks.addDispenserBehaviours();
 
-			ModFeatures.addWorldgen();
-		});
+		ModFeatures.addWorldgen();
 	}
 
 	private void loadComplete(FMLLoadCompleteEvent event) {
