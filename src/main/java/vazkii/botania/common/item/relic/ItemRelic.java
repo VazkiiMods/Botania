@@ -82,10 +82,12 @@ public class ItemRelic extends Item implements IRelic {
 		return true;
 	}
 
+	/* todo 1.16-fabric
 	@Override
 	public int getEntityLifespan(ItemStack itemStack, World world) {
 		return Integer.MAX_VALUE;
 	}
+	*/
 
 	public void updateRelic(ItemStack stack, PlayerEntity player) {
 		if (stack.isEmpty() || !(stack.getItem() instanceof IRelic)) {

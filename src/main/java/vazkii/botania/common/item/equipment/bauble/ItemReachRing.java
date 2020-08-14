@@ -23,7 +23,8 @@ public class ItemReachRing extends ItemBauble {
 	@Override
 	public Multimap<EntityAttribute, EntityAttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
 		Multimap<EntityAttribute, EntityAttributeModifier> attributes = HashMultimap.create();
-		attributes.put(ForgeMod.REACH_DISTANCE.get(), new EntityAttributeModifier(getBaubleUUID(stack), "Reach Ring", 3.5, EntityAttributeModifier.Operation.ADDITION));
+		// todo 1.16-fabric jamieswhiteshirt/reach-entity-attributes
+		// attributes.put(ForgeMod.REACH_DISTANCE.get(), new EntityAttributeModifier(getBaubleUUID(stack), "Reach Ring", 3.5, EntityAttributeModifier.Operation.ADDITION));
 		return attributes;
 	}
 }

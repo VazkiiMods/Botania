@@ -69,7 +69,7 @@ public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWiel
 			BlockState state = world.getBlockState(pos_);
 
 			Block block = state.getBlock();
-			if (Tags.Blocks.ORES.contains(block)) {
+			if (false /* todo 1.16-fabric Tags.Blocks.ORES.contains(block) */) {
 				Random rand = new Random(Registry.BLOCK.getId(block).hashCode() ^ seedxor);
 				WispParticleData data = WispParticleData.wisp(0.25F, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 8, false);
 				world.addParticle(data, pos_.getX() + world.random.nextFloat(),

@@ -91,7 +91,7 @@ public class ItemDice extends ItemRelic {
 		Identifier advId = ((IRelic) item).getAdvancement();
 
 		if (advId != null) {
-			Advancement adv = ServerLifecycleHooks.getCurrentServer().getAdvancementLoader().get(advId);
+			Advancement adv = player.world.getServer().getAdvancementLoader().get(advId);
 			return adv != null && mpPlayer.getAdvancementTracker().getProgress(adv).isDone();
 		}
 

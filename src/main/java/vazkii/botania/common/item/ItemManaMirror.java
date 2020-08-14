@@ -52,6 +52,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 		super(props);
 	}
 
+	/* todo 1.16-fabric
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
 		return true;
@@ -61,6 +62,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 	public double getDurabilityForDisplay(ItemStack stack) {
 		return 1 - getManaFractionForDisplay(stack);
 	}
+	*/
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
@@ -68,7 +70,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 			return;
 		}
 
-		IManaPool pool = getManaPool(stack);
+		IManaPool pool = getManaPool(world.getServer(), stack);
 		if (!(pool instanceof DummyPool)) {
 			if (pool == null) {
 				setMana(stack, 0);
@@ -151,8 +153,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 	}
 
 	@Nullable
-	private IManaPool getManaPool(ItemStack stack) {
-		MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+	private IManaPool getManaPool(@Nullable MinecraftServer server, ItemStack stack) {
 		if (server == null) {
 			return fallbackPool;
 		}

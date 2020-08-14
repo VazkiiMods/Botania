@@ -92,6 +92,7 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 		}
 	}
 
+	/* todo 1.16-fabric
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
 		return getFlyCounter(stack) > 0;
@@ -101,6 +102,7 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 	public double getDurabilityForDisplay(ItemStack stack) {
 		return getFlyCounter(stack) / (double) MAX_COUNTER;
 	}
+	*/
 
 	@Nonnull
 	@Override
@@ -166,10 +168,12 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 		}
 	}
 
+	/* todo 1.16-fabric FAPI#860
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, @Nonnull ItemStack newStack, boolean slotChanged) {
 		return newStack.getItem() != this || isFlying(oldStack) != isFlying(newStack);
 	}
+	*/
 
 	@Override
 	public Identifier getOverlayResource(IAvatarTile tile, ItemStack stack) {

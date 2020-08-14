@@ -35,29 +35,29 @@ public class ItemPoolMinecart extends Item {
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {
 		World world = context.getWorld();
-		BlockPos blockpos = context.getBlockPos();
-		BlockState iblockstate = world.getBlockState(blockpos);
-		if (!iblockstate.isIn(BlockTags.RAILS)) {
+		BlockPos blockPos = context.getBlockPos();
+		BlockState blockState = world.getBlockState(blockPos);
+		if (!blockState.isIn(BlockTags.RAILS)) {
 			return ActionResult.FAIL;
 		} else {
-			ItemStack itemstack = context.getStack();
+			ItemStack itemStack = context.getStack();
 			if (!world.isClient) {
-				RailShape railshape = iblockstate.getBlock() instanceof AbstractRailBlock ? ((AbstractRailBlock) iblockstate.getBlock()).getRailDirection(iblockstate, world, blockpos, null) : RailShape.NORTH_SOUTH;
-				double d0 = 0.0D;
-				if (railshape.isAscending()) {
-					d0 = 0.5D;
+				RailShape railShape = blockState.getBlock() instanceof AbstractRailBlock ? (RailShape)blockState.get(((AbstractRailBlock)blockState.getBlock()).getShapeProperty()) : RailShape.NORTH_SOUTH;
+				double d = 0.0D;
+				if (railShape.isAscending()) {
+					d = 0.5D;
 				}
 
-				AbstractMinecartEntity entityminecart = new EntityPoolMinecart(world, blockpos.getX() + 0.5D, blockpos.getY() + 0.0625D + d0, blockpos.getZ() + 0.5D);
-				if (itemstack.hasCustomName()) {
-					entityminecart.setCustomName(itemstack.getName());
+				AbstractMinecartEntity abstractMinecartEntity = new EntityPoolMinecart(world, (double)blockPos.getX() + 0.5D, (double)blockPos.getY() + 0.0625D + d, (double)blockPos.getZ() + 0.5D);
+				if (itemStack.hasCustomName()) {
+					abstractMinecartEntity.setCustomName(itemStack.getName());
 				}
 
-				world.spawnEntity(entityminecart);
+				world.spawnEntity(abstractMinecartEntity);
 			}
 
-			itemstack.decrement(1);
-			return ActionResult.SUCCESS;
+			itemStack.decrement(1);
+			return ActionResult.success(world.isClient);
 		}
 	}
 

@@ -10,21 +10,13 @@ package vazkii.botania.common.item.material;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import vazkii.botania.mixin.AccessorItem;
 
 public class ItemSelfReturning extends Item {
 
 	public ItemSelfReturning(Item.Settings builder) {
 		super(builder);
-	}
-
-	@Override
-	public boolean hasRecipeRemainder() {
-		return true;
-	}
-
-	@Override
-	public ItemStack getContainerItem(ItemStack stack) {
-		return new ItemStack(this);
+		((AccessorItem) this).setRecipeRemainder(this);
 	}
 
 }

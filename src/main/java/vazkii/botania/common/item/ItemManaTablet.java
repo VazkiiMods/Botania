@@ -74,10 +74,12 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 		}
 	}
 
+	/* todo 1.16-fabric
 	@Override
 	public int getEntityLifespan(ItemStack itemStack, World world) {
 		return Integer.MAX_VALUE;
 	}
+	*/
 
 	public static void setMana(ItemStack stack, int mana) {
 		ItemNBTHelper.setInt(stack, TAG_MANA, mana);
@@ -143,6 +145,7 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 		return (float) getMana(stack) / (float) getMaxMana(stack);
 	}
 
+	/* todo 1.16-fabric
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
 		return !isStackCreative(stack);
@@ -157,4 +160,5 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 	public int getRGBDurabilityForDisplay(ItemStack stack) {
 		return MathHelper.hsvToRgb(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
 	}
+	 */
 }

@@ -30,7 +30,6 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.mana.BurstProperties;
@@ -119,6 +118,7 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 		return stack.getName().getString().equalsIgnoreCase("desu gun");
 	}
 
+	/* todo 1.16-fabric
 	@Override
 	public boolean hasContainerItem(ItemStack stack) {
 		return !getLens(stack).isEmpty();
@@ -129,6 +129,7 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
 		return getLens(itemStack);
 	}
+	*/
 
 	@Nonnull
 	public BurstProperties getBurstProps(PlayerEntity player, ItemStack stack, boolean request, Hand hand) {

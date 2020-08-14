@@ -19,6 +19,7 @@ public class ItemSpellCloth extends Item {
 		super(builder);
 	}
 
+	/* todo 1.16-fabric
 	@Override
 	public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
 		return false;
@@ -36,5 +37,6 @@ public class ItemSpellCloth extends Item {
 		stack.setDamage(stack.getDamage() + 1);
 		return stack;
 	}
+	*/
 
 }

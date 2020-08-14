@@ -52,7 +52,7 @@ public class LensMine extends Lens {
 		BlockEntity tile = world.getBlockEntity(collidePos);
 
 		float hardness = state.getHardness(world, collidePos);
-		int neededHarvestLevel = block.getHarvestLevel(state);
+		int neededHarvestLevel = -1 /* todo 1.16-fabric block.getHarvestLevel(state) */;
 		int mana = burst.getMana();
 
 		BlockPos source = burst.getBurstSourceBlockPos();

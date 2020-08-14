@@ -62,7 +62,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 				.toArray(Item[]::new)
 		);
 
-		this.getOrCreateBuilder(ItemTags.field_232903_N_).add(ModBlocks.alchemyCatalyst.asItem(), ModItems.cacophonium, ModItems.divaCharm,
+		this.getOrCreateTagBuilder(ItemTags.PIGLIN_LOVED).add(ModBlocks.alchemyCatalyst.asItem(), ModItems.cacophonium, ModItems.divaCharm,
 				ModBlocks.hourglass.asItem(), ModBlocks.manaPylon.asItem(), ModItems.monocle);
 	}
 

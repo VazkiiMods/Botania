@@ -36,8 +36,9 @@ public class ItemEnderAir extends Item {
 	public static TypedActionResult<ItemStack> onPlayerInteract(PlayerEntity player, World world, Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
 
-		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.getDimension() == DimensionType.THE_END_REGISTRY_KEY) {
-			if (!isClearFromDragonBreath(world, player.getBoundingBox().grow(3.5D))) {
+		DimensionType endDimType = world.getRegistryManager().getDimensionTypes().get(DimensionType.THE_END_REGISTRY_KEY);
+		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.getDimension() == endDimType) {
+			if (!isClearFromDragonBreath(world, player.getBoundingBox().expand(3.5D))) {
 				return TypedActionResult.pass(stack);
 			}
 

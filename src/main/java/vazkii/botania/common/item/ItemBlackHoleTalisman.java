@@ -13,9 +13,11 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -29,7 +31,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IBlockProvider;
@@ -84,17 +85,15 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 			}
 
 			BlockEntity tile = world.getBlockEntity(pos);
-			if (tile != null && tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side).isPresent()) {
+			if (tile instanceof Inventory) {
 				if (!world.isClient) {
-					tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side).ifPresent(inv -> {
-						ItemStack toAdd = new ItemStack(bBlock);
-						int maxSize = toAdd.getMaxCount();
-						toAdd.setCount(remove(stack, maxSize));
-						ItemStack remainder = ItemHandlerHelper.insertItemStacked(inv, toAdd, false);
-						if (!remainder.isEmpty()) {
-							add(stack, remainder.getCount());
-						}
-					});
+					ItemStack toAdd = new ItemStack(bBlock);
+					int maxSize = toAdd.getMaxCount();
+					toAdd.setCount(remove(stack, maxSize));
+					ItemStack remainder = HopperBlockEntity.transfer(null, (Inventory) tile, toAdd, side);
+					if (!remainder.isEmpty()) {
+						add(stack, remainder.getCount());
+					}
 				}
 				return ActionResult.SUCCESS;
 			} else {
@@ -190,6 +189,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 		return cand;
 	}
 
+	/* todo 1.16-fabric
 	@Nonnull
 	@Override
 	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
@@ -210,6 +210,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 	public boolean hasContainerItem(ItemStack stack) {
 		return !getContainerItem(stack).isEmpty();
 	}
+	*/
 
 	private boolean setBlock(ItemStack stack, Block block) {
 		if (block.asItem() != Items.AIR && (getBlock(stack) == null || getBlockCount(stack) == 0)) {

@@ -353,6 +353,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		list.add(new TranslatableText(getModeString(stack)).formatted(Formatting.GRAY));
 	}
 
+	/* todo 1.16-fabric
 	@Override
 	public Text getHighlightTip(ItemStack stack, Text displayName) {
 		Text mode = new LiteralText(" (")
@@ -360,6 +361,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 				.append(")");
 		return displayName.shallowCopy().append(mode);
 	}
+	*/
 
 	public static ItemStack forColors(int color1, int color2) {
 		ItemStack stack = new ItemStack(ModItems.twigWand);

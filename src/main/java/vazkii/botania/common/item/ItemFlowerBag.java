@@ -8,21 +8,27 @@
  */
 package vazkii.botania.common.item;
 
+import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.ItemPickupAnimationS2CPacket;
 import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -107,10 +113,23 @@ public class ItemFlowerBag extends Item {
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
 		if (!world.isClient) {
 			ItemStack stack = player.getStackInHand(hand);
-			NamedScreenHandlerFactory container = new SimpleNamedScreenHandlerFactory((w, p, pl) -> new ContainerFlowerBag(w, p, stack), stack.getName());
-			NetworkHooks.openGui((ServerPlayerEntity) player, container, buf -> {
-				buf.writeBoolean(hand == Hand.MAIN_HAND);
-			});
+			NamedScreenHandlerFactory container = new ExtendedScreenHandlerFactory() {
+				@Override
+				public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+					buf.writeBoolean(hand == Hand.MAIN_HAND);
+				}
+
+				@Override
+				public Text getDisplayName() {
+					return stack.getName();
+				}
+
+				@Override
+				public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+					return new ContainerFlowerBag(syncId, inv, stack);
+				}
+			};
+			player.openHandledScreen(container);
 		}
 		return TypedActionResult.success(player.getStackInHand(hand));
 	}
@@ -125,11 +144,9 @@ public class ItemFlowerBag extends Item {
 		BlockEntity tile = world.getBlockEntity(pos);
 		if (tile != null) {
 			if (!world.isClient) {
-				IItemHandler tileInv;
-				if (tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side).isPresent()) {
-					tileInv = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, side).orElseThrow(NullPointerException::new);
-				} else if (tile instanceof Inventory) {
-					tileInv = new InvWrapper((Inventory) tile);
+				Inventory tileInv;
+				if (tile instanceof Inventory) {
+					tileInv = (Inventory) tile;
 				} else {
 					return ActionResult.FAIL;
 				}
@@ -137,7 +154,7 @@ public class ItemFlowerBag extends Item {
 				Inventory bagInv = getInventory(ctx.getStack());
 				for (int i = 0; i < bagInv.size(); i++) {
 					ItemStack flower = bagInv.getStack(i);
-					ItemStack rem = ItemHandlerHelper.insertItemStacked(tileInv, flower, false);
+					ItemStack rem = HopperBlockEntity.transfer(bagInv, tileInv, flower, side);
 					bagInv.setStack(i, rem);
 				}
 

@@ -65,10 +65,12 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 		return dummy.hasUUID(stack);
 	}
 
+	/* todo 1.16-fabric
 	@Override
 	public int getEntityLifespan(ItemStack itemStack, World world) {
 		return Integer.MAX_VALUE;
 	}
+	*/
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity entity) {

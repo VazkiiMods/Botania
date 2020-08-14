@@ -121,6 +121,7 @@ public class ItemRainbowRod extends Item implements IManaUsingItem, IAvatarWield
 		return TypedActionResult.success(stack);
 	}
 
+	/* todo 1.16
 	@Nonnull
 	@Override
 	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
@@ -131,6 +132,7 @@ public class ItemRainbowRod extends Item implements IManaUsingItem, IAvatarWield
 	public boolean hasContainerItem(ItemStack stack) {
 		return !getContainerItem(stack).isEmpty();
 	}
+	*/
 
 	@Override
 	public boolean usesMana(ItemStack stack) {

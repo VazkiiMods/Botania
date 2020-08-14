@@ -31,7 +31,7 @@ public class LensWeight extends Lens {
 			BlockPos bPos = ((BlockHitResult) pos).getBlockPos();
 			Block block = entity.world.getBlockState(bPos).getBlock();
 			BlockState state = entity.world.getBlockState(bPos);
-			int neededHarvestLevel = block.getHarvestLevel(state);
+			int neededHarvestLevel = -1 /* todo 1.16-fabric block.getHarvestLevel(state) */;
 
 			if (entity.world.isAir(bPos.down())
 					&& state.getHardness(entity.world, bPos) != -1

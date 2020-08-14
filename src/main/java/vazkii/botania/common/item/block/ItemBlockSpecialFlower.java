@@ -67,6 +67,7 @@ public class ItemBlockSpecialFlower extends BlockItem {
 		}
 	}
 
+	/* todo 1.16-fabric
 	@Override
 	public boolean showDurabilityBar(ItemStack stack) {
 		CompoundTag tag = stack.getSubTag("BlockEntityTag");
@@ -81,4 +82,5 @@ public class ItemBlockSpecialFlower extends BlockItem {
 		}
 		return 0;
 	}
+	*/
 }

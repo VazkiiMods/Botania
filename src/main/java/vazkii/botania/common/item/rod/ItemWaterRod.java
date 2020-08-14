@@ -47,10 +47,6 @@ public class ItemWaterRod extends Item implements IManaUsingItem {
 	public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn) {
 		ItemStack itemstack = playerIn.getStackInHand(handIn);
 		HitResult raytraceresult = rayTrace(worldIn, playerIn, RayTraceContext.FluidHandling.NONE);
-		TypedActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onBucketUse(playerIn, worldIn, itemstack, raytraceresult);
-		if (ret != null) {
-			return ret;
-		}
 		if (raytraceresult.getType() == HitResult.Type.MISS) {
 			return new TypedActionResult<>(ActionResult.PASS, itemstack);
 		} else if (raytraceresult.getType() != HitResult.Type.BLOCK) {

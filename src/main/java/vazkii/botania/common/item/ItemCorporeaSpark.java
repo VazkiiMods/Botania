@@ -9,6 +9,7 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
@@ -34,10 +35,8 @@ public class ItemCorporeaSpark extends Item {
 			return true;
 		}
 
-		TileEntity tile = world.getTileEntity(pos);
-		return tile != null
-				&& (tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP).isPresent()
-						|| tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).isPresent());
+		BlockEntity tile = world.getBlockEntity(pos);
+		return tile instanceof Inventory; // todo 1.16-fabric query node detectors
 	}
 
 	@Nonnull

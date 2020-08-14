@@ -10,6 +10,7 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.render.OverlayTexture;
@@ -128,7 +129,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 				.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
 
 		model = MiscellaneousIcons.INSTANCE.bloodPendantGem;
-		int color = MinecraftClient.getInstance().getItemColors().getColorMultiplier(stack, 1);
+		int color = ColorProviderRegistry.ITEM.get(stack.getItem()).getColor(stack, 1);
 		float r = (color >> 16 & 0xFF) / 255F;
 		float g = (color >> 8 & 0xFF) / 255F;
 		float b = (color & 0xFF) / 255F;
