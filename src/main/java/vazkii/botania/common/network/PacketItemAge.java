@@ -26,7 +26,7 @@ import java.util.function.Supplier;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PacketItemAge {
-	public static final Identifier ID = prefix("item_age");
+	public static final Identifier ID = prefix("ia");
 
 	public static void send(PlayerEntity player, int entityId, int age) {
 		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());

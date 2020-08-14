@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PacketUpdateItemsRemaining {
-	public static final Identifier ID = prefix("items_remaining");
+	public static final Identifier ID = prefix("rem");
 
 	public static void send(PlayerEntity player, ItemStack stack, int count, @Nullable Text tooltip) {
 		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());

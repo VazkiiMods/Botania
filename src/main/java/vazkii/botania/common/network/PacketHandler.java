@@ -31,6 +31,7 @@ public final class PacketHandler {
 		ClientSidePacketRegistry.INSTANCE.register(PacketBotaniaEffect.ID, PacketBotaniaEffect.Handler::handle);
 		ClientSidePacketRegistry.INSTANCE.register(PacketItemAge.ID, PacketItemAge::handle);
 		ClientSidePacketRegistry.INSTANCE.register(PacketSpawnEntity.ID, PacketSpawnEntity::handle);
+		ClientSidePacketRegistry.INSTANCE.register(PacketSpawnDoppleganger.ID, PacketSpawnDoppleganger::handle);
 		ClientSidePacketRegistry.INSTANCE.register(PacketUpdateItemsRemaining.ID, PacketUpdateItemsRemaining::handle);
 	}
 

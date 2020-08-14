@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PacketIndexKeybindRequest {
-	public static final Identifier ID = prefix("index_request");
+	public static final Identifier ID = prefix("idx");
 
 	public static void send(ItemStack stack) {
 		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());

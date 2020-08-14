@@ -75,6 +75,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
+import vazkii.botania.common.network.PacketSpawnDoppleganger;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -85,7 +86,7 @@ import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSpawnData {
+public class EntityDoppleganger extends MobEntity {
 	public static final float ARENA_RANGE = 12F;
 	public static final int ARENA_HEIGHT = 5;
 
@@ -975,31 +976,19 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		return background ? null : shaderCallback;
 	}
 
-	@Override
-	public void writeSpawnData(PacketByteBuf buffer) {
-		buffer.writeInt(playerCount);
-		buffer.writeBoolean(hardMode);
-		buffer.writeLong(source.asLong());
-		buffer.writeLong(bossInfoUUID.getMostSignificantBits());
-		buffer.writeLong(bossInfoUUID.getLeastSignificantBits());
-	}
-
-	@Override
 	@Environment(EnvType.CLIENT)
-	public void readSpawnData(PacketByteBuf additionalData) {
-		playerCount = additionalData.readInt();
-		hardMode = additionalData.readBoolean();
-		source = BlockPos.fromLong(additionalData.readLong());
-		long msb = additionalData.readLong();
-		long lsb = additionalData.readLong();
-		bossInfoUUID = new UUID(msb, lsb);
+	public void readSpawnData(int playerCount, boolean hardMode, BlockPos source, UUID bossInfoUUID) {
+		this.playerCount = playerCount;
+		this.hardMode = hardMode;
+		this.source = source;
+		this.bossInfoUUID = bossInfoUUID;
 		MinecraftClient.getInstance().getSoundManager().play(new DopplegangerMusic(this));
 	}
 
 	@Nonnull
 	@Override
 	public Packet<?> createSpawnPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
+		return PacketSpawnDoppleganger.make(this, playerCount, hardMode, source, bossInfoUUID);
 	}
 
 	@Override

@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PacketLeftClick {
-	public static final Identifier ID = prefix("leftclick");
+	public static final Identifier ID = prefix("lc");
 
 	public static void send() {
 		ClientSidePacketRegistry.INSTANCE.sendToServer(ID, PacketHandler.EMPTY_BUF);

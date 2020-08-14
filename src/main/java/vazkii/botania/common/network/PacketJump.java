@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PacketJump {
-	public static final Identifier ID = prefix("jump");
+	public static final Identifier ID = prefix("jmp");
 
 	public static void send() {
 		ClientSidePacketRegistry.INSTANCE.sendToServer(ID, PacketHandler.EMPTY_BUF);

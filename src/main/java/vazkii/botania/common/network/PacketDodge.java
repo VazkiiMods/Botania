@@ -26,7 +26,7 @@ import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PacketDodge {
-	public static final Identifier ID = prefix("dodge");
+	public static final Identifier ID = prefix("do");
 
 	public static void send() {
 		ClientSidePacketRegistry.INSTANCE.sendToServer(ID, PacketHandler.EMPTY_BUF);

@@ -23,7 +23,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 // This should only be used for non-living entities. Vanilla's MobSpawn packet handles modded living entities fine.
 // [VanillaCopy] Format is basically same as EntitySpawnS2CPacket.
 public class PacketSpawnEntity {
-	public static final Identifier ID = prefix("spawn_entity");
+	public static final Identifier ID = prefix("sp");
 
 	public static Packet<?> make(Entity e) {
 		if (!Registry.ENTITY_TYPE.getId(e.getType()).getNamespace().equals(LibMisc.MOD_ID)) {

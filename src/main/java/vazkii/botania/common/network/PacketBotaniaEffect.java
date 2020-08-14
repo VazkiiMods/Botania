@@ -42,7 +42,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 // Prefer using World.addBlockEvent/Block.eventReceived/TileEntity.receiveClientEvent where possible
 // as those use less network bandwidth (~14 bytes), vs 26+ bytes here
 public class PacketBotaniaEffect {
-	public static final Identifier ID = prefix("effect");
+	public static final Identifier ID = prefix("eff");
 
 	public static void send(PlayerEntity player, EffectType type, double x, double y, double z, int... args) {
 		ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, make(type, x, y, z, args));
