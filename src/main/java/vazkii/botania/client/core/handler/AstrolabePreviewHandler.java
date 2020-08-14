@@ -29,9 +29,8 @@ import vazkii.botania.common.item.ItemAstrolabe;
 import java.util.List;
 
 public final class AstrolabePreviewHandler {
-	public static void onWorldRenderLast(RenderWorldLastEvent event) {
+	public static void onWorldRenderLast(MatrixStack ms) {
 		World world = MinecraftClient.getInstance().world;
-		MatrixStack ms = event.getMatrixStack();
 		VertexConsumerProvider.Immediate buffers = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.ASTROLABE_PREVIEW);
 

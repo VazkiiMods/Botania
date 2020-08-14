@@ -73,9 +73,6 @@ public class ItemCraftingHalo extends Item {
 	public ItemCraftingHalo(Settings props) {
 		super(props);
 		MinecraftForge.EVENT_BUS.addListener(this::onItemCrafted);
-		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
-			MinecraftForge.EVENT_BUS.addListener(this::onRenderWorldLast);
-		});
 	}
 
 	@Nonnull
@@ -333,16 +330,16 @@ public class ItemCraftingHalo extends Item {
 	}
 
 	@Environment(EnvType.CLIENT)
-	private void onRenderWorldLast(RenderWorldLastEvent event) {
+	public static void onRenderWorldLast(float partialTicks, MatrixStack ms) {
 		PlayerEntity player = MinecraftClient.getInstance().player;
 		ItemStack stack = PlayerHelper.getFirstHeldItemClass(player, ItemCraftingHalo.class);
 		if (!stack.isEmpty()) {
-			render(stack, player, event.getMatrixStack(), event.getPartialTicks());
+			render(stack, player, ms, partialTicks);
 		}
 	}
 
 	@Environment(EnvType.CLIENT)
-	public void render(ItemStack stack, PlayerEntity player, MatrixStack ms, float partialTicks) {
+	private static void render(ItemStack stack, PlayerEntity player, MatrixStack ms, float partialTicks) {
 		MinecraftClient mc = MinecraftClient.getInstance();
 		VertexConsumerProvider.Immediate buffers = mc.getBufferBuilders().getEntityVertexConsumers();
 

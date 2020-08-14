@@ -10,6 +10,7 @@ package vazkii.botania.client.core.proxy;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -118,7 +119,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 
 		ModItems.registerGuis();
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
-		modBus.addListener(this::loadComplete);
+		ClientLifecycleEvents.CLIENT_STARTED.register(this::loadComplete);
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onTextureStitchPre);
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onTextureStitchPost);
 		ModelLoadingRegistry.INSTANCE.registerAppender(MiscellaneousIcons.INSTANCE::onModelRegister);
@@ -129,18 +130,14 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		ItemTooltipCallback.EVENT.register(TooltipHandler::onTooltipEvent);
 		forgeBus.addListener(RenderLexicon::renderHand);
-		forgeBus.addListener(LightningHandler::onRenderWorldLast);
 		ClientTickEvents.END_CLIENT_TICK.register(KonamiHandler::clientTick);
 		forgeBus.addListener(KonamiHandler::handleInput);
 		BookDrawScreenCallback.EVENT.register(KonamiHandler::renderBook);
 		HudRenderCallback.EVENT.register(HUDHandler::onDrawScreenPost);
 		forgeBus.addListener(CorporeaInputHandler::buttonPressed);
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
-		forgeBus.addListener(ClientTickHandler::renderTick);
-		forgeBus.addListener(BoundTileRenderer::onWorldRenderLast);
 		forgeBus.addListener(BossBarHandler::onBarRender);
 		forgeBus.addListener(RenderMagicLandmine::onWorldRenderLast);
-		forgeBus.addListener(AstrolabePreviewHandler::onWorldRenderLast);
 		forgeBus.addListener(ItemDodgeRing::onKeyDown);
 
 		PersistentVariableHelper.setCacheFile(new File(MinecraftClient.getInstance().runDirectory, "BotaniaVars.dat"));
@@ -321,15 +318,13 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		EntityRendererRegistry.INSTANCE.register(ModEntities.ENDER_AIR_BOTTLE, (m, ctx) -> new FlyingItemEntityRenderer<>(m, ctx.getItemRenderer()));
 	}
 
-	private void loadComplete(FMLLoadCompleteEvent event) {
-		DeferredWorkQueue.runLater(() -> {
-			initAuxiliaryRender();
-			ColorHandler.init();
+	private void loadComplete(MinecraftClient mc) {
+		initAuxiliaryRender();
+		ColorHandler.init();
 
-			// Needed to prevent mana pools on carts from X-raying through the cart
-			SortedMap<RenderLayer, BufferBuilder> layers = ((AccessorRenderTypeBuffers) MinecraftClient.getInstance().getBufferBuilders()).getEntityBuilders();
-			layers.put(RenderHelper.MANA_POOL_WATER, new BufferBuilder(RenderHelper.MANA_POOL_WATER.getExpectedBufferSize()));
-		});
+		// Needed to prevent mana pools on carts from X-raying through the cart
+		SortedMap<RenderLayer, BufferBuilder> layers = ((AccessorRenderTypeBuffers) mc.getBufferBuilders()).getEntityBuilders();
+		layers.put(RenderHelper.MANA_POOL_WATER, new BufferBuilder(RenderHelper.MANA_POOL_WATER.getExpectedBufferSize()));
 	}
 
 	private void initAuxiliaryRender() {

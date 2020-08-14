@@ -32,7 +32,7 @@ public class RenderMagicLandmine extends EntityRenderer<EntityMagicLandmine> {
 		super(renderManager);
 	}
 
-	public static void onWorldRenderLast(RenderWorldLastEvent evt) {
+	public static void onWorldRenderLast() {
 		offY = INITIAL_OFFSET;
 	}
 

@@ -44,6 +44,8 @@
     "AccessorSkullTileEntityRenderer",
     "AccessorWorldRenderer",
     "MixinDebugHud",
+    "MixinGameRenderer",
+    "MixinMinecraftClient",
     "MixinSkullTileEntityRenderer",
     "MixinSoundManager",
     "MixinSplashes",

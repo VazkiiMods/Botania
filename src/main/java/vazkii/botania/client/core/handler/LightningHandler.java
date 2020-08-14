@@ -35,14 +35,12 @@ public class LightningHandler {
 	private static final Identifier insideResource = new Identifier(LibResources.MISC_WISP_SMALL);
 	public static final Deque<FXLightning> queuedLightningBolts = new ArrayDeque<>();
 
-	public static void onRenderWorldLast(RenderWorldLastEvent event) {
-		MatrixStack ms = event.getMatrixStack();
+	public static void onRenderWorldLast(float frame, MatrixStack ms) {
 		Profiler profiler = MinecraftClient.getInstance().getProfiler();
 
 		profiler.push("botania-particles");
 		profiler.push("lightning");
 
-		float frame = event.getPartialTicks();
 		Entity entity = MinecraftClient.getInstance().player;
 		TextureManager render = MinecraftClient.getInstance().getTextureManager();
 

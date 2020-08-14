@@ -33,25 +33,14 @@ public final class ClientTickHandler {
 	public static float delta = 0;
 	public static float total = 0;
 
-	private static void calcDelta() {
+	public static void calcDelta() {
 		float oldTotal = total;
 		total = ticksInGame + partialTicks;
 		delta = total - oldTotal;
 	}
 
-	public static void renderTick(TickEvent.RenderTickEvent event) {
-		MinecraftClient mc = MinecraftClient.getInstance();
-		if (event.phase == TickEvent.Phase.START) {
-			partialTicks = event.renderTickTime;
-
-			if (mc.isPaused()) {
-				// If game is paused, need to use the saved value. The event is always fired with the "true" value which
-				// keeps updating when paused. See RenderTickEvent fire site for details, remove when MinecraftForge#6991 is resolved
-				partialTicks = ((AccessorMinecraft) mc).getPausedTickDelta();
-			}
-		} else {
-			calcDelta();
-		}
+	public static void renderTick(float renderTickTime) {
+		partialTicks = renderTickTime;
 	}
 
 	public static void clientTickEnd(MinecraftClient mc) {

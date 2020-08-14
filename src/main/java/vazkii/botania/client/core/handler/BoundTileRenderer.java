@@ -53,12 +53,11 @@ public final class BoundTileRenderer {
 
 	private BoundTileRenderer() {}
 
-	public static void onWorldRenderLast(RenderWorldLastEvent event) {
+	public static void onWorldRenderLast(MatrixStack ms) {
 		if (!ConfigHandler.CLIENT.boundBlockWireframe.getValue()) {
 			return;
 		}
 
-		MatrixStack ms = event.getMatrixStack();
 		ms.push();
 
 		PlayerEntity player = MinecraftClient.getInstance().player;
