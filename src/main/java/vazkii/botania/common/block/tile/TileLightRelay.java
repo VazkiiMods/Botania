@@ -364,10 +364,6 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 		@Nonnull
 		@Override
 		public Vector3d func_230268_c_(@Nonnull LivingEntity living) {
-			if (!(living instanceof PlayerEntity)) {
-				return super.func_230268_c_(living);
-			}
-
 			Direction direction = living.getHorizontalFacing();
 			int[][] aint = TransportationHelper.func_234632_a_(direction);
 			BlockPos blockpos = this.getPosition();
