@@ -3279,7 +3279,7 @@
   "botania.entry.banners": "Banner Additions",
   "botania.tagline.banners": "Lots of new banner patterns",
   "botania.page.banners0": "$(item)Botania$(0) adds $(thing)15$(0) new icons to banners, which can be mixed and matched with vanilla patterns and icons.$(p)The following items can be used alongside a dye in a $(item)Crafting Table$(0) to add an icon to a $(item)Banner$(0): all $(item)Iron Tools$(0), $(l:mana/spark_upgrades)$(item)Spark Augments$(0)$(/l), $(item)Raw Fish$(0), $(item)Livingwood and Dreamwood Twigs$(0), the $(l:basics/lexicon)$(item)Lexica Botania$(0)$(/l), $(l:basics/terrasteel)$(item)Terrasteel$(0)$(/l), and the $(l:misc/tiny_potato)$(item)Tiny Potato$(0)$(/l).",
-  "botania.page.banners1": "The various banners",
+  "botania.page.banners1": "The banner patterns",
 
   "botania.entry.preventingDecay": "Numerical Mana",
   "botania.tagline.preventingDecay": "Seeing the numbers in mana",

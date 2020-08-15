@@ -10,8 +10,12 @@
     {
       "type": "image",
       "text": "botania.page.banners1",
+      "border": true,
       "images": [
-        "botania:textures/gui/entries/banners.png"
+        "botania:textures/gui/entries/banner_0.png",
+        "botania:textures/gui/entries/banner_1.png",
+        "botania:textures/gui/entries/banner_2.png",
+        "botania:textures/gui/entries/banner_3.png"
       ]
     }
   ]
