@@ -94,7 +94,7 @@ public class TileCocoon extends TileMod implements Tickable {
 			} else if (Math.random() < villagerChance) {
 				VillagerEntity villager = EntityType.VILLAGER.create(world);
 				if (villager != null) {
-					VillagerType type = VillagerType.forBiome(world.getBiome(pos));
+					VillagerType type = VillagerType.forBiome(world.method_31081(pos));
 					villager.setVillagerData(villager.getVillagerData().withType(type));
 				}
 				entity = villager;

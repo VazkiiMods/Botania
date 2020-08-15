@@ -8,11 +8,14 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -41,18 +44,18 @@ public class ItemSwapRing extends ItemBauble {
 		ISortableTool tool = (ISortableTool) currentStack.getItem();
 
 		BlockHitResult pos = ToolCommons.raytraceFromEntity(player, 4.5F, false);
-		ToolType typeToFind = null;
+		Tag<Item> typeToFind = null;
 
 		if (player.handSwinging && pos.getType() == HitResult.Type.BLOCK) {
 			BlockState state = entity.world.getBlockState(pos.getBlockPos());
 
 			Material mat = state.getMaterial();
 			if (ToolCommons.materialsPick.contains(mat)) {
-				typeToFind = ToolType.PICKAXE;
+				typeToFind = FabricToolTags.PICKAXES;
 			} else if (ToolCommons.materialsShovel.contains(mat)) {
-				typeToFind = ToolType.SHOVEL;
+				typeToFind = FabricToolTags.SHOVELS;
 			} else if (ToolCommons.materialsAxe.contains(mat)) {
-				typeToFind = ToolType.AXE;
+				typeToFind = FabricToolTags.AXES;
 			}
 		}
 
@@ -61,14 +64,14 @@ public class ItemSwapRing extends ItemBauble {
 		}
 
 		ItemStack bestTool = currentStack;
-		int bestToolPriority = currentStack.getToolTypes().contains(typeToFind) ? tool.getSortingPriority(currentStack) : -1;
+		int bestToolPriority = currentStack.getItem().isIn(typeToFind) ? tool.getSortingPriority(currentStack) : -1;
 		int bestSlot = -1;
 
 		for (int i = 0; i < player.inventory.size(); i++) {
 			ItemStack stackInSlot = player.inventory.getStack(i);
 			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof ISortableTool && stackInSlot != currentStack) {
 				ISortableTool toolInSlot = (ISortableTool) stackInSlot.getItem();
-				if (stackInSlot.getToolTypes().contains(typeToFind)) {
+				if (stackInSlot.getItem().isIn(typeToFind)) {
 					int priority = toolInSlot.getSortingPriority(stackInSlot);
 					if (priority > bestToolPriority) {
 						bestTool = stackInSlot;

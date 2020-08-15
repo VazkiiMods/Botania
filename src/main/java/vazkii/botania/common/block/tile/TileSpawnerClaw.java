@@ -75,7 +75,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, Tickable 
 					boolean flag = false;
 
 					for (int i = 0; i < mLogic.getSpawnCount(); ++i) {
-						CompoundTag compoundnbt = mLogic.getSpawnData().getEntityTag();
+						CompoundTag compoundnbt = mLogic.getSpawnEntry().getEntityTag();
 						Optional<EntityType<?>> optional = EntityType.fromTag(compoundnbt);
 						if (!optional.isPresent()) {
 							mLogic.callUpdateSpawns();
@@ -88,6 +88,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, Tickable 
 						double d1 = j >= 2 ? listnbt.getDouble(1) : (double) (blockpos.getY() + world.random.nextInt(3) - 1);
 						double d2 = j >= 3 ? listnbt.getDouble(2) : (double) blockpos.getZ() + (world.random.nextDouble() - world.random.nextDouble()) * (double) mLogic.getSpawnRange() + 0.5D;
 						if (world.doesNotCollide(optional.get().createSimpleBoundingBox(d0, d1, d2))) {
+							ServerWorld serverWorld = (ServerWorld) world;
 							Entity entity = EntityType.loadEntityWithPassengers(compoundnbt, world, (p_221408_6_) -> {
 								p_221408_6_.refreshPositionAndAngles(d0, d1, d2, p_221408_6_.yaw, p_221408_6_.pitch);
 								return p_221408_6_;
@@ -106,18 +107,16 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, Tickable 
 							entity.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), world.random.nextFloat() * 360.0F, 0.0F);
 							if (entity instanceof MobEntity) {
 								MobEntity mobentity = (MobEntity) entity;
-								if (!net.minecraftforge.event.ForgeEventFactory.canEntitySpawnSpawner(mobentity, world, (float) entity.getX(), (float) entity.getY(), (float) entity.getZ(), logic)) {
+								if (!mobentity.canSpawn(world, SpawnReason.SPAWNER) || !mobentity.canSpawn(world)) {
 									continue;
 								}
 
-								if (mLogic.getSpawnData().getEntityTag().getSize() == 1 && mLogic.getSpawnData().getEntityTag().contains("id", 8)) {
-									if (!net.minecraftforge.event.ForgeEventFactory.doSpecialSpawn(mobentity, world, (float) entity.getX(), (float) entity.getY(), (float) entity.getZ(), logic, SpawnReason.SPAWNER)) {
-										((MobEntity) entity).initialize((ServerWorld) world, world.getLocalDifficulty(entity.getBlockPos()), SpawnReason.SPAWNER, (EntityData) null, (CompoundTag) null);
-									}
+								if (mLogic.getSpawnEntry().getEntityTag().getSize() == 1 && mLogic.getSpawnEntry().getEntityTag().contains("id", 8)) {
+									((MobEntity) entity).initialize(serverWorld, world.getLocalDifficulty(entity.getBlockPos()), SpawnReason.SPAWNER, (EntityData) null, (CompoundTag) null);
 								}
 							}
 
-							mLogic.callSpawnEntity(entity);
+							serverWorld.method_30736(entity);
 							world.syncWorldEvent(2004, blockpos, 0);
 							if (entity instanceof MobEntity) {
 								((MobEntity) entity).playSpawnEffects();

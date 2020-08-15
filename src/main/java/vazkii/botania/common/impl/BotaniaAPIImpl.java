@@ -47,7 +47,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class BotaniaAPIImpl implements BotaniaAPI {
-	private static final Lazy<Rarity> RELIC_RARITY = new Lazy<>(() -> Rarity.create("RELIC", Formatting.GOLD));
+	private static final Lazy<Rarity> RELIC_RARITY = new Lazy<>(() -> Rarity.EPIC);
 
 	private enum ArmorMaterial implements net.minecraft.item.ArmorMaterial {
 		MANASTEEL("manasteel", 16, new int[] { 2, 5, 6, 2 }, 18, () -> SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> ModItems.manaSteel, 0),

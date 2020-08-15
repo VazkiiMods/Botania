@@ -158,7 +158,7 @@ public class FXSparkle extends SpriteBillboardParticle {
 		RenderSystem.disableLighting();
 		textureManager.bindTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEX);
 		AbstractTexture tex = textureManager.getTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEX);
-		tex.setBlurMipmap(true, false);
+		tex.setFilter(true, false);
 		buffer.begin(GL11.GL_QUADS, VertexFormats.POSITION_TEXTURE_COLOR_LIGHT);
 	}
 

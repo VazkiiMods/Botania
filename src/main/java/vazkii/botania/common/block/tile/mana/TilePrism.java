@@ -40,7 +40,7 @@ public class TilePrism extends TileExposedSimpleInventory {
 
 			if (valid) {
 				Entity burstEntity = (Entity) burst;
-				BurstProperties properties = new BurstProperties(burst.getStartingMana(), burst.getMinManaLoss(), burst.getManaLossPerTick(), burst.getGravity(), 1F, burst.getColor());
+				BurstProperties properties = new BurstProperties(burst.getStartingMana(), burst.getMinManaLoss(), burst.getManaLossPerTick(), burst.getBurstGravity(), 1F, burst.getColor());
 
 				((ILens) lens.getItem()).apply(lens, properties);
 

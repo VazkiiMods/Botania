@@ -63,7 +63,7 @@ public class RenderMagicLandmine extends EntityRenderer<EntityMagicLandmine> {
 
 	@Nonnull
 	@Override
-	public Identifier getEntityTexture(@Nonnull EntityMagicLandmine entity) {
+	public Identifier getTexture(@Nonnull EntityMagicLandmine entity) {
 		return SpriteAtlasTexture.BLOCK_ATLAS_TEX;
 	}
 }

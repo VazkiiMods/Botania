@@ -45,7 +45,7 @@ public class ItemManasteelPick extends PickaxeItem implements IManaUsingItem, IS
 		super(mat, 1, attackSpeed, props);
 	}
 
-	@Override
+	// todo 1.16-fabric
 	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, getManaPerDamage());
 	}

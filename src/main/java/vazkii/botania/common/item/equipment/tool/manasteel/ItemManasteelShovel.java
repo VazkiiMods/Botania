@@ -69,16 +69,6 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 			return ActionResult.PASS;
 		}
 
-		UseHoeEvent event = new UseHoeEvent(ctx);
-		if (MinecraftForge.EVENT_BUS.post(event)) {
-			return ActionResult.FAIL;
-		}
-
-		if (event.getResult() == Event.Result.ALLOW) {
-			stack.damage(1, player, p -> p.sendToolBreakStatus(ctx.getHand()));
-			return ActionResult.SUCCESS;
-		}
-
 		Block block = world.getBlockState(pos).getBlock();
 		BlockState converted = AccessorHoeItem.getConversions().get(block);
 		if (converted == null) {

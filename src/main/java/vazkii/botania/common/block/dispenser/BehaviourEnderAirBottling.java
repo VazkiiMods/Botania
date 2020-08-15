@@ -9,16 +9,15 @@
 package vazkii.botania.common.block.dispenser;
 
 import net.minecraft.block.DispenserBlock;
-import net.minecraft.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.dispenser.IDispenseItemBehavior;
-import net.minecraft.dispenser.OptionalDispenseBehavior;
+import net.minecraft.block.dispenser.DispenserBehavior;
+import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
+import net.minecraft.block.dispenser.ItemDispenserBehavior;
+import net.minecraft.block.entity.DispenserBlockEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.DispenserTileEntity;
-import net.minecraft.tileentity.HopperTileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.item.ModItems;
@@ -26,51 +25,50 @@ import vazkii.botania.common.item.material.ItemEnderAir;
 
 import javax.annotation.Nonnull;
 
-public class BehaviourEnderAirBottling extends OptionalDispenseBehavior {
-	private final DefaultDispenseItemBehavior defaultBehaviour = new DefaultDispenseItemBehavior();
-	private final IDispenseItemBehavior parent;
+public class BehaviourEnderAirBottling extends FallibleItemDispenserBehavior {
+	private final ItemDispenserBehavior defaultBehaviour = new ItemDispenserBehavior();
+	private final DispenserBehavior parent;
 
-	public BehaviourEnderAirBottling(IDispenseItemBehavior parent) {
+	public BehaviourEnderAirBottling(DispenserBehavior parent) {
 		this.parent = parent;
 	}
 
 	@Override
-	protected void playDispenseSound(IBlockSource source) {
-		if (this.func_239795_a_()) {
-			super.playDispenseSound(source);
+	protected void playSound(BlockPointer source) {
+		if (this.isSuccess()) {
+			super.playSound(source);
 		}
 	}
 
 	@Override
-	protected void spawnDispenseParticles(IBlockSource source, Direction facingIn) {
-		if (this.func_239795_a_()) {
-			super.spawnDispenseParticles(source, facingIn);
+	protected void spawnParticles(BlockPointer source, Direction facingIn) {
+		if (this.isSuccess()) {
+			super.spawnParticles(source, facingIn);
 		}
 	}
 
 	@Nonnull
 	@Override
-	protected ItemStack dispenseStack(IBlockSource source, @Nonnull ItemStack stack) {
+	protected ItemStack dispenseSilently(BlockPointer source, @Nonnull ItemStack stack) {
 		World world = source.getWorld();
 		BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().get(DispenserBlock.FACING));
-		if (world.func_234923_W_() == World.field_234920_i_
-				&& world.isAirBlock(blockpos) && world.isAirBlock(blockpos.up())
-				&& ItemEnderAir.isClearFromDragonBreath(world, new AxisAlignedBB(blockpos).grow(2.0D))) {
-			this.func_239796_a_(true);
+		if (world.getRegistryKey() == World.END
+				&& world.isAir(blockpos) && world.isAir(blockpos.up())
+				&& ItemEnderAir.isClearFromDragonBreath(world, new Box(blockpos).expand(2.0D))) {
+			this.setSuccess(true);
 			return fillBottle(source, stack, new ItemStack(ModItems.enderAirBottle));
 		}
-		this.func_239796_a_(false);
+		this.setSuccess(false);
 		parent.dispense(source, stack);
 		return stack;
 	}
 
-	private ItemStack fillBottle(IBlockSource source, ItemStack input, ItemStack output) {
-		input.shrink(1);
+	private ItemStack fillBottle(BlockPointer source, ItemStack input, ItemStack output) {
+		input.decrement(1);
 		if (input.isEmpty()) {
 			return output.copy();
 		} else {
-			if (!HopperTileEntity.putStackInInventoryAllSlots(null,
-					source.<DispenserTileEntity>getBlockTileEntity(), output.copy(), null).isEmpty()) {
+			if (((DispenserBlockEntity) source.getBlockEntity()).addToFirstFreeSlot(output.copy()) < 0) {
 				this.defaultBehaviour.dispense(source, output.copy());
 			}
 			return input;

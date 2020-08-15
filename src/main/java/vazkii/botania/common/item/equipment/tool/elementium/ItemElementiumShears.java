@@ -61,7 +61,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 
 		if (count != getMaxUseTime(stack) && count % 5 == 0) {
 			int range = 12;
-			Predicate<Entity> shearablePred = e -> e instanceof Shearable || e instanceof IForgeShearable;
+			Predicate<Entity> shearablePred = e -> e instanceof Shearable;
 			List<Entity> shearable = world.getEntitiesByClass(Entity.class, new Box(living.getX() - range, living.getY() - range, living.getZ() - range, living.getX() + range, living.getY() + range, living.getZ() + range), shearablePred);
 			if (shearable.size() > 0) {
 				for (Entity entity : shearable) {
@@ -69,21 +69,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 						((Shearable) entity).sheared(living.getSoundCategory());
 						stack.damage(1, living, l -> l.sendToolBreakStatus(l.getActiveHand()));
 						break;
-					} else {
-						IForgeShearable target = (IForgeShearable) entity;
-						if (target.isShearable(stack, entity.world, entity.getBlockPos())) {
-							PlayerEntity player = living instanceof PlayerEntity ? (PlayerEntity) living : null;
-							List<ItemStack> drops = target.onSheared(player, stack, entity.world, entity.getBlockPos(), EnchantmentHelper.getLevel(Enchantments.FORTUNE, stack));
-
-							for (ItemStack drop : drops) {
-								entity.dropStack(drop, 1.0F);
-							}
-
-							stack.damage(1, living, l -> l.sendToolBreakStatus(l.getActiveHand()));
-							break;
-						}
 					}
-
 				}
 			}
 		}

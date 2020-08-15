@@ -81,8 +81,7 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 			ItemStack stack = new ItemStack(ModBlocks.gatheringDrum);
 
 			for (MobEntity entity : entities) {
-				if (entity instanceof Shearable && ((Shearable) entity).isShearable()
-						|| entity instanceof IForgeShearable && ((IForgeShearable) entity).isShearable(stack, world, entity.getBlockPos())) {
+				if (entity instanceof Shearable && ((Shearable) entity).isShearable()) {
 					shearables.add(entity);
 				} else if (entity instanceof CowEntity) {
 					List<ItemEntity> items = world.getNonSpectatingEntities(ItemEntity.class, entity.getBoundingBox());
@@ -114,16 +113,6 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 
 				if (entity instanceof Shearable) {
 					((Shearable) entity).sheared(SoundCategory.BLOCKS);
-				} else {
-					List<ItemStack> stacks = ((IForgeShearable) entity).onSheared(null, stack, world, entity.getBlockPos(), 0);
-					for (ItemStack wool : stacks) {
-						ItemEntity ent = entity.dropStack(wool, 1.0F);
-						ent.setVelocity(ent.getVelocity().add(
-								world.random.nextFloat() * 0.05F,
-								(world.random.nextFloat() - world.random.nextFloat()) * 0.1F,
-								(world.random.nextFloat() - world.random.nextFloat()) * 0.1F
-						));
-					}
 				}
 
 				++sheared;

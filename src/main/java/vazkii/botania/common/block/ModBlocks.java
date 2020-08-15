@@ -11,6 +11,8 @@ package vazkii.botania.common.block;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
+import net.minecraft.block.dispenser.DispenserBehavior;
+import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.*;
 import net.minecraft.item.BlockItem;
@@ -19,6 +21,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
+import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.api.item.IPetalApothecary;
@@ -827,17 +830,17 @@ public final class ModBlocks {
 		DispenserBlock.registerBehavior(ModItems.twigWand, new BehaviourWand());
 		DispenserBlock.registerBehavior(ModItems.poolMinecart, new BehaviourPoolMinecart());
 		DispenserBlock.registerBehavior(ModBlocks.felPumpkin, new BehaviourFelPumpkin());
-		DispenserBlock.registerDispenseBehavior(ModBlocks.gaiaHead, new OptionalDispenseBehavior() {
+		DispenserBlock.registerBehavior(ModBlocks.gaiaHead, new FallibleItemDispenserBehavior() {
 			@Nonnull
 			@Override
-			protected ItemStack dispenseStack(@Nonnull IBlockSource source, @Nonnull ItemStack stack) {
-				func_239796_a_(ArmorItem.func_226626_a_(source, stack));
+			protected ItemStack dispenseSilently(@Nonnull BlockPointer source, @Nonnull ItemStack stack) {
+				setSuccess(ArmorItem.dispenseArmor(source, stack));
 				return stack;
 			}
 		});
 
-		IDispenseItemBehavior behavior = AccessorDispenserBlock.getDispenseBehaviorRegistry().get(Items.GLASS_BOTTLE);
-		DispenserBlock.registerDispenseBehavior(Items.GLASS_BOTTLE, new BehaviourEnderAirBottling(behavior));
+		DispenserBehavior behavior = AccessorDispenserBlock.getDispenseBehaviorRegistry().get(Items.GLASS_BOTTLE);
+		DispenserBlock.registerBehavior(Items.GLASS_BOTTLE, new BehaviourEnderAirBottling(behavior));
 
 		SeedBehaviours.init();
 	}

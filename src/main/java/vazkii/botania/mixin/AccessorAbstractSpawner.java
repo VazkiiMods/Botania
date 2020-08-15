@@ -17,9 +17,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(MobSpawnerLogic.class)
 public interface AccessorAbstractSpawner {
-	@Invoker()
-	void callSpawnEntity(Entity e);
-
 	@Invoker
 	boolean callIsPlayerInRange();
 
