@@ -10,6 +10,7 @@ package vazkii.botania.common.item.lens;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.FallingBlock;
 import net.minecraft.entity.FallingBlockEntity;
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
@@ -33,7 +34,7 @@ public class LensWeight extends Lens {
 			BlockState state = entity.world.getBlockState(bPos);
 			int neededHarvestLevel = -1 /* todo 1.16-fabric block.getHarvestLevel(state) */;
 
-			if (entity.world.isAir(bPos.down())
+			if (FallingBlock.canFallThrough(entity.world.getBlockState(bPos.down()))
 					&& state.getHardness(entity.world, bPos) != -1
 					&& neededHarvestLevel <= harvestLevel
 					&& entity.world.getBlockEntity(bPos) == null) {
