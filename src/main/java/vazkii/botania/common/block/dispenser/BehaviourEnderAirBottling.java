@@ -19,6 +19,7 @@ import net.minecraft.tileentity.HopperTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.item.ModItems;
@@ -53,15 +54,14 @@ public class BehaviourEnderAirBottling extends OptionalDispenseBehavior {
 	protected ItemStack dispenseStack(IBlockSource source, @Nonnull ItemStack stack) {
 		World world = source.getWorld();
 		BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().get(DispenserBlock.FACING));
-		if (world.func_234923_W_() == World.field_234920_i_
+		if (world.func_234922_V_() == DimensionType.THE_END
 				&& world.isAirBlock(blockpos) && world.isAirBlock(blockpos.up())
 				&& ItemEnderAir.isClearFromDragonBreath(world, new AxisAlignedBB(blockpos).grow(2.0D))) {
 			this.setSuccessful(true);
 			return fillBottle(source, stack, new ItemStack(ModItems.enderAirBottle));
 		}
 		this.setSuccessful(false);
-		parent.dispense(source, stack);
-		return stack;
+		return parent.dispense(source, stack);
 	}
 
 	private ItemStack fillBottle(IBlockSource source, ItemStack input, ItemStack output) {
