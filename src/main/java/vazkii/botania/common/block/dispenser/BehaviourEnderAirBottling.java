@@ -59,8 +59,7 @@ public class BehaviourEnderAirBottling extends FallibleItemDispenserBehavior {
 			return fillBottle(source, stack, new ItemStack(ModItems.enderAirBottle));
 		}
 		this.setSuccess(false);
-		parent.dispense(source, stack);
-		return stack;
+		return parent.dispense(source, stack);
 	}
 
 	private ItemStack fillBottle(BlockPointer source, ItemStack input, ItemStack output) {
