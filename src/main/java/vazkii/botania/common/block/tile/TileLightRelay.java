@@ -363,10 +363,6 @@ public class TileLightRelay extends TileMod implements Tickable, IWandBindable {
 		// [VanillaCopy] PigEntity logic to select a dismount location
 		@Override
 		public Vec3d updatePassengerForDismount(LivingEntity living) {
-			if (!(living instanceof PlayerEntity)) {
-				return super.updatePassengerForDismount(living);
-			}
-
 			Direction direction = living.getHorizontalFacing();
 			int[][] aint = Dismounting.getDismountOffsets(direction);
 			BlockPos blockpos = this.getBlockPos();
