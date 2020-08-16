@@ -207,7 +207,7 @@ public class EntityMagicMissile extends ThrowableEntity {
 	public boolean shouldTarget(LivingEntity e) {
 		// always defend yourself
 		Entity thrower = func_234616_v_();
-		if (thrower != null && e instanceof MobEntity && ((MobEntity) e).getAttackTarget() == thrower) {
+		if (e instanceof MobEntity && isHostile(thrower, ((MobEntity) e).getAttackTarget())) {
 			return true;
 		}
 		// don't target tamed creatures...
@@ -217,6 +217,16 @@ public class EntityMagicMissile extends ThrowableEntity {
 
 		// ...but other mobs die
 		return e instanceof IMob;
+	}
+
+	public static boolean isHostile(Entity thrower, Entity attackTarget) {
+		// if the thrower can attack the target thru PvP...
+		if (thrower instanceof PlayerEntity && attackTarget instanceof PlayerEntity && ((PlayerEntity) thrower).canAttackPlayer((PlayerEntity) attackTarget)) {
+			// ... then only defend self
+			return thrower == attackTarget;
+		}
+		// otherwise, kill any player-hostiles
+		return attackTarget instanceof PlayerEntity;
 	}
 
 	@Override
