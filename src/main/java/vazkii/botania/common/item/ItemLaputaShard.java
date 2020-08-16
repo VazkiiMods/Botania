@@ -67,7 +67,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 	private static final String TAG_ITERATION_I = "iterationI";
 	private static final String TAG_ITERATION_J = "iterationJ";
 	private static final String TAG_ITERATION_K = "iterationK";
-	private static final String TAG_LEVEL = "level";
+	public static final String TAG_LEVEL = "level";
 
 	private static final int BASE_RANGE = 14;
 	private static final int BASE_OFFSET = 42;
@@ -81,7 +81,9 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 		if (isInGroup(tab)) {
 			for (int i = 0; i <= 20; i += 5) {
 				ItemStack s = new ItemStack(this);
-				s.getOrCreateTag().putInt(TAG_LEVEL, i == 0 ? i : i - 1);
+				if (i != 0) {
+					s.getOrCreateTag().putInt(TAG_LEVEL, i - 1);
+				}
 				list.add(s);
 			}
 		}
@@ -193,6 +195,9 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 	}
 
 	public static int getShardLevel(ItemStack shard) {
+		if (!shard.hasTag()) {
+			return 0;
+		}
 		return shard.getOrCreateTag().getInt(TAG_LEVEL);
 	}
 

@@ -703,6 +703,7 @@ public final class ModItems {
 		register(r, "cosmetic_attach", CosmeticAttachRecipe.SERIALIZER);
 		register(r, "cosmetic_remove", CosmeticRemoveRecipe.SERIALIZER);
 		register(r, "keep_ivy", KeepIvyRecipe.SERIALIZER);
+		register(r, "laputa_shard_upgrade", LaputaShardUpgradeRecipe.SERIALIZER);
 		register(r, "lens_dye", LensDyeingRecipe.SERIALIZER);
 		register(r, "mana_gun_add_clip", ManaGunClipRecipe.SERIALIZER);
 		register(r, "mana_gun_add_lens", ManaGunLensRecipe.SERIALIZER);
