@@ -140,7 +140,9 @@ public class RenderTilePylon extends BlockEntityRenderer<TilePylon> {
 				RenderTilePylon.forceVariant = ((BlockPylon) Block.getBlockFromItem(stack.getItem())).variant;
 				RenderTilePylon.forceTransform = type;
 				BlockEntityRenderer<TilePylon> r = BlockEntityRenderDispatcher.INSTANCE.get(DUMMY.get());
-				((RenderTilePylon) r).renderPylon(null, 0, ms, buffers, light, overlay);
+				if (r instanceof RenderTilePylon) {
+					((RenderTilePylon) r).renderPylon(null, 0, ms, buffers, light, overlay);
+				}
 			}
 		}
 	}
