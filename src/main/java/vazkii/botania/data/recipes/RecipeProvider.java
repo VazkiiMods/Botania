@@ -23,6 +23,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 		specialRecipe(consumer, CosmeticAttachRecipe.SERIALIZER);
 		specialRecipe(consumer, CosmeticRemoveRecipe.SERIALIZER);
 		specialRecipe(consumer, KeepIvyRecipe.SERIALIZER);
+		specialRecipe(consumer, LaputaShardUpgradeRecipe.SERIALIZER);
 		specialRecipe(consumer, LensDyeingRecipe.SERIALIZER);
 		specialRecipe(consumer, ManaGunClipRecipe.SERIALIZER);
 		specialRecipe(consumer, ManaGunLensRecipe.SERIALIZER);
@@ -1229,20 +1230,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.pattern("PDP")
 				.pattern("ASE")
 				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
-				.offerTo(WrapperResult.transformJson(consumer, json -> json.getAsJsonObject("result").addProperty("nbt", "{level:0}")),
-						"botania:laputa_shard_0");
-		for (int i = 1; i < 20; i++) {
-			final int outputLevel = i;
-			ItemStack stack = new ItemStack(ModItems.laputaShard);
-			stack.getOrCreateTag().putInt("level", i - 1);
-			ShapelessRecipeJsonFactory.create(ModItems.laputaShard)
-					.input(ModItems.lifeEssence)
-					.input(new FuzzyNBTIngredient(stack, i == 1))
-					.group("botania:laputa_shard_upgrade")
-					.criterion("has_item", conditionsFromItem(ModItems.laputaShard))
-					.offerTo(WrapperResult.transformJson(consumer, json -> json.getAsJsonObject("result").addProperty("nbt", "{level:" + outputLevel + "}")
-					), "botania:laputa_shard_" + i);
-		}
+				.offerTo(consumer);
 
 		ShapedRecipeJsonFactory.create(ModItems.craftingHalo)
 				.input('P', ModItems.manaPearl)

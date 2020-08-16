@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "botania:laputa_shard_8"
+      "botania:laputa_shard"
     ]
   },
   "criteria": {
@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:laputa_shard"
+            "item": "botania:life_essence"
           }
         ]
       }
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "botania:laputa_shard_8"
+        "recipe": "botania:laputa_shard"
       }
     }
   },

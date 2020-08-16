@@ -26,7 +26,6 @@
     }
   },
   "result": {
-    "item": "botania:laputa_shard",
-    "nbt": "{level:0}"
+    "item": "botania:laputa_shard"
   }
 }
