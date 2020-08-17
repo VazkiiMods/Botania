@@ -54,8 +54,8 @@ public class EntityMagicMissile extends ThrowableEntity {
 		super(type, world);
 	}
 
-	public EntityMagicMissile(LivingEntity thrower, boolean evil) {
-		super(ModEntities.MAGIC_MISSILE, thrower, thrower.world);
+	public EntityMagicMissile(LivingEntity owner, boolean evil) {
+		super(ModEntities.MAGIC_MISSILE, owner, owner.world);
 		setEvil(evil);
 	}
 
@@ -144,10 +144,10 @@ public class EntityMagicMissile extends ThrowableEntity {
 
 			List<LivingEntity> targetList = world.getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getPosX() - 0.5, getPosY() - 0.5, getPosZ() - 0.5, getPosX() + 0.5, getPosY() + 0.5, getPosZ() + 0.5));
 			if (targetList.contains(target)) {
-				Entity thrower = func_234616_v_();
-				if (thrower instanceof LivingEntity) {
-					PlayerEntity player = thrower instanceof PlayerEntity ? (PlayerEntity) thrower : null;
-					target.attackEntityFrom(player == null ? DamageSource.causeMobDamage((LivingEntity) thrower) : DamageSource.causePlayerDamage(player), evil ? 12 : 7);
+				Entity owner = func_234616_v_();
+				if (owner instanceof LivingEntity) {
+					PlayerEntity player = owner instanceof PlayerEntity ? (PlayerEntity) owner : null;
+					target.attackEntityFrom(player == null ? DamageSource.causeMobDamage((LivingEntity) owner) : DamageSource.causePlayerDamage(player), evil ? 12 : 7);
 				} else {
 					target.attackEntityFrom(DamageSource.GENERIC, evil ? 12 : 7);
 				}
@@ -206,8 +206,8 @@ public class EntityMagicMissile extends ThrowableEntity {
 
 	public boolean shouldTarget(LivingEntity e) {
 		// always defend yourself
-		Entity thrower = func_234616_v_();
-		if (thrower != null && e instanceof MobEntity && ((MobEntity) e).getAttackTarget() == thrower) {
+		Entity owner = func_234616_v_();
+		if (e instanceof MobEntity && isHostile(owner, ((MobEntity) e).getAttackTarget())) {
 			return true;
 		}
 		// don't target tamed creatures...
@@ -217,6 +217,16 @@ public class EntityMagicMissile extends ThrowableEntity {
 
 		// ...but other mobs die
 		return e instanceof IMob;
+	}
+
+	public static boolean isHostile(Entity owner, Entity attackTarget) {
+		// if the owner can attack the target thru PvP...
+		if (owner instanceof PlayerEntity && attackTarget instanceof PlayerEntity && ((PlayerEntity) owner).canAttackPlayer((PlayerEntity) attackTarget)) {
+			// ... then only defend self
+			return owner == attackTarget;
+		}
+		// otherwise, kill any player-hostiles
+		return attackTarget instanceof PlayerEntity;
 	}
 
 	@Override
