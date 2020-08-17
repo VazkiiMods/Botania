@@ -54,8 +54,8 @@ public class EntityMagicMissile extends ThrownEntity {
 		super(type, world);
 	}
 
-	public EntityMagicMissile(LivingEntity thrower, boolean evil) {
-		super(ModEntities.MAGIC_MISSILE, thrower, thrower.world);
+	public EntityMagicMissile(LivingEntity owner, boolean evil) {
+		super(ModEntities.MAGIC_MISSILE, owner, owner.world);
 		setEvil(evil);
 	}
 
@@ -144,10 +144,10 @@ public class EntityMagicMissile extends ThrownEntity {
 
 			List<LivingEntity> targetList = world.getNonSpectatingEntities(LivingEntity.class, new Box(getX() - 0.5, getY() - 0.5, getZ() - 0.5, getX() + 0.5, getY() + 0.5, getZ() + 0.5));
 			if (targetList.contains(target)) {
-				Entity thrower = getOwner();
-				if (thrower instanceof LivingEntity) {
-					PlayerEntity player = thrower instanceof PlayerEntity ? (PlayerEntity) thrower : null;
-					target.damage(player == null ? DamageSource.mob((LivingEntity) thrower) : DamageSource.player(player), evil ? 12 : 7);
+				Entity owner = getOwner();
+				if (owner instanceof LivingEntity) {
+					PlayerEntity player = owner instanceof PlayerEntity ? (PlayerEntity) owner : null;
+					target.damage(player == null ? DamageSource.mob((LivingEntity) owner) : DamageSource.player(player), evil ? 12 : 7);
 				} else {
 					target.damage(DamageSource.GENERIC, evil ? 12 : 7);
 				}
@@ -206,8 +206,8 @@ public class EntityMagicMissile extends ThrownEntity {
 
 	public boolean shouldTarget(LivingEntity e) {
 		// always defend yourself
-		Entity thrower = getOwner();
-		if (thrower != null && e instanceof MobEntity && ((MobEntity) e).getTarget() == thrower) {
+		Entity owner = getOwner();
+		if (e instanceof MobEntity && isHostile(owner, ((MobEntity) e).getTarget())) {
 			return true;
 		}
 		// don't target tamed creatures...
@@ -217,6 +217,16 @@ public class EntityMagicMissile extends ThrownEntity {
 
 		// ...but other mobs die
 		return e instanceof Monster;
+	}
+
+	public static boolean isHostile(Entity owner, Entity attackTarget) {
+		// if the owner can attack the target thru PvP...
+		if (owner instanceof PlayerEntity && attackTarget instanceof PlayerEntity && ((PlayerEntity) owner).shouldDamagePlayer((PlayerEntity) attackTarget)) {
+			// ... then only defend self
+			return owner == attackTarget;
+		}
+		// otherwise, kill any player-hostiles
+		return attackTarget instanceof PlayerEntity;
 	}
 
 	@Override
