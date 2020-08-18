@@ -72,7 +72,7 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 				slimes++;
 			}
 
-			if (movingPistons > 0 && rails > 0 && slimes > 0) {
+			if (movingPistons > 0 || rails > 0 || slimes > 0) {
 				return true;
 			}
 		}
