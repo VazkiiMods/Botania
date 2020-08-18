@@ -20,6 +20,7 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelPixie;
 import vazkii.botania.common.entity.EntityPixie;
+import vazkii.botania.client.core.proxy.ClientProxy;
 
 import javax.annotation.Nonnull;
 
@@ -46,6 +47,6 @@ public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
 	@Nonnull
 	@Override
 	public ResourceLocation getEntityTexture(@Nonnull EntityPixie entity) {
-		return new ResourceLocation(LibResources.MODEL_PIXIE);
+		return new ResourceLocation(ClientProxy.dootDoot ? LibResources.MODEL_PIXIE_HALLOWEEN : LibResources.MODEL_PIXIE);
 	}
 }
