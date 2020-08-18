@@ -54,7 +54,6 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 
 		// Should actually check for corals too, but it gets broken when the piston extends
 		int movingPistons = 0;
-		int rails = 0;
 		int slimes = 0;
 		for (BlockPos pos : BlockPos.getAllInBoxMutable(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1)) {
 			BlockState state = e.world.getBlockState(pos);
@@ -64,15 +63,11 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 				if (te instanceof PistonTileEntity) {
 					state = ((PistonTileEntity) te).getPistonState();
 				}
-			}
-
-			if (state.getBlock() instanceof DetectorRailBlock) {
-				rails++;
 			} else if (state.getBlock() instanceof SlimeBlock || state.getBlock() instanceof HoneyBlock) {
 				slimes++;
 			}
 
-			if (movingPistons > 0 || rails > 0 || slimes > 0) {
+			if (movingPistons > 0 || slimes > 0) {
 				return true;
 			}
 		}
