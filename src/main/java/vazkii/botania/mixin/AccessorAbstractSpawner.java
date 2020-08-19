@@ -8,7 +8,6 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.util.WeightedSpawnerEntity;
 import net.minecraft.world.spawner.AbstractSpawner;
 
@@ -18,9 +17,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(AbstractSpawner.class)
 public interface AccessorAbstractSpawner {
-	@Invoker("func_221409_a")
-	void callSpawnEntity(Entity e);
-
 	@Invoker("isActivated")
 	boolean botania_isActivated();
 

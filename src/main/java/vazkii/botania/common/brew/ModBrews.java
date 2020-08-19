@@ -8,10 +8,12 @@
  */
 package vazkii.botania.common.brew;
 
+import com.mojang.serialization.Lifecycle;
+
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.potion.PotionUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.GameData;
@@ -28,7 +30,7 @@ import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModBrews {
-
+	public static final RegistryKey<Registry<Brew>> BREW_KEY = RegistryKey.func_240904_a_(prefix("brews"));
 	public static Registry<Brew> registry;
 	public static final Brew fallbackBrew = new Brew(0, 0).setNotBloodPendantInfusable().setNotIncenseInfusable();
 	public static final Brew speed = new Brew(0x59B7FF, 4000, new EffectInstance(Effects.SPEED, 1800, 1));
@@ -54,15 +56,17 @@ public class ModBrews {
 	public static final Brew clear = make(4000, new EffectInstance(ModPotions.clear, 0, 0));
 
 	public static void registerRegistry(RegistryEvent.NewRegistry evt) {
+		String fallback = prefix("fallback").toString();
+
 		// Some sneaky hacks to get Forge to create the registry with a vanilla wrapper attached
 		try {
-			Method makeBuilder = GameData.class.getDeclaredMethod("makeRegistry", ResourceLocation.class, Class.class, ResourceLocation.class);
+			Method makeBuilder = GameData.class.getDeclaredMethod("makeRegistry", RegistryKey.class, Class.class, String.class);
 			makeBuilder.setAccessible(true);
 			@SuppressWarnings("unchecked")
-			RegistryBuilder<Brew> builder = (RegistryBuilder<Brew>) makeBuilder.invoke(null, prefix("brews"), Brew.class, prefix("fallback"));
+			RegistryBuilder<Brew> builder = (RegistryBuilder<Brew>) makeBuilder.invoke(null, BREW_KEY, Brew.class, fallback);
 			builder.disableSaving().create();
 			// grab the vanilla wrapper for use
-			registry = GameData.getWrapperDefaulted(Brew.class);
+			registry = GameData.getWrapper(BREW_KEY, Lifecycle.experimental(), fallback);
 		} catch (Throwable throwable) {
 			throw new RuntimeException(throwable);
 		}

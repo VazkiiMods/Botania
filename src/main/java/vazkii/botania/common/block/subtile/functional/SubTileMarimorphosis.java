@@ -13,8 +13,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraft.world.biome.Biome;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -24,7 +23,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 	private static final int COST = 12;
@@ -34,16 +32,33 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 	private static final int RANGE_MINI = 2;
 	private static final int RANGE_Y_MINI = 1;
 
-	private static final Type[] TYPES = new Type[] {
-			Type.FOREST,
-			Type.PLAINS,
-			Type.MOUNTAIN,
-			Type.MUSHROOM,
-			Type.SWAMP,
-			Type.SANDY,
-			Type.COLD,
-			Type.MESA
-	};
+	// TODO make this behave more like it used to?
+	private enum Type {
+		FOREST(Biome.Category.FOREST),
+		PLAINS(Biome.Category.PLAINS),
+		MOUNTAIN(Biome.Category.EXTREME_HILLS),
+		MUSHROOM(Biome.Category.MUSHROOM),
+		SWAMP(Biome.Category.SWAMP),
+		SANDY(Biome.Category.DESERT, Biome.Category.RIVER, Biome.Category.BEACH),
+		COLD(Biome.Category.ICY, Biome.Category.TAIGA),
+		MESA(Biome.Category.MESA),
+		;
+
+		private final Biome.Category[] categories;
+
+		Type(Biome.Category... categories) {
+			this.categories = categories;
+		}
+
+		public boolean contains(Biome.Category category) {
+			for (Biome.Category c : categories) {
+				if (c == category) {
+					return true;
+				}
+			}
+			return false;
+		}
+	}
 
 	public SubTileMarimorphosis(TileEntityType<?> type) {
 		super(type);
@@ -78,12 +93,12 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 	}
 
 	public BlockState getStoneToPut(BlockPos coords) {
-		Set<Type> types = BiomeDictionary.getTypes(getWorld().getBiome(coords));
+		Biome.Category category = getWorld().getBiome(pos).getCategory();
 
 		List<Block> values = new ArrayList<>();
-		for (Type type : TYPES) {
+		for (Type type : Type.values()) {
 			int times = 1;
-			if (types.contains(type)) {
+			if (type.contains(category)) {
 				times = 12;
 			}
 
@@ -97,24 +112,24 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 	}
 
 	private Block biomeTypeToBlock(Type biomeType) {
-		switch (biomeType.getName()) {
+		switch (biomeType) {
 		default:
 			throw new IllegalArgumentException("Should have verified type is suitable already: " + biomeType);
-		case "FOREST":
+		case FOREST:
 			return ModFluffBlocks.biomeStoneForest;
-		case "PLAINS":
+		case PLAINS:
 			return ModFluffBlocks.biomeStonePlains;
-		case "MOUNTAIN":
+		case MOUNTAIN:
 			return ModFluffBlocks.biomeStoneMountain;
-		case "MUSHROOM":
+		case MUSHROOM:
 			return ModFluffBlocks.biomeStoneFungal;
-		case "SWAMP":
+		case SWAMP:
 			return ModFluffBlocks.biomeStoneSwamp;
-		case "SANDY":
+		case SANDY:
 			return ModFluffBlocks.biomeStoneDesert;
-		case "COLD":
+		case COLD:
 			return ModFluffBlocks.biomeStoneTaiga;
-		case "MESA":
+		case MESA:
 			return ModFluffBlocks.biomeStoneMesa;
 		}
 	}

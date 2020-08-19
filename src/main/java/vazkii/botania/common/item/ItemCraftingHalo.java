@@ -517,7 +517,7 @@ public class ItemCraftingHalo extends Item {
 			yoff += 12;
 		}
 
-		mc.fontRenderer.func_238407_a_(ms, label, mc.getMainWindow().getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(label.getString()) / 2.0F, mc.getMainWindow().getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
+		mc.fontRenderer.func_243246_a(ms, label, mc.getMainWindow().getScaledWidth() / 2.0F - mc.fontRenderer.getStringWidth(label.getString()) / 2.0F, mc.getMainWindow().getScaledHeight() / 2.0F - yoff, 0xFFFFFF);
 	}
 
 	public static class RecipePlacer extends ServerRecipePlacer<CraftingInventory> {

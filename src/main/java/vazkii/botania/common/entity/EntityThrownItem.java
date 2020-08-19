@@ -61,7 +61,7 @@ public class EntityThrownItem extends ItemEntity {
 		// [VanillaCopy] derivative from ThrowableEntity
 		int pickupDelay = ((AccessorItemEntity) this).getPickupDelay();
 		Predicate<Entity> filter = e -> !e.isSpectator() && e.isAlive() && e.canBeCollidedWith() && (!(e instanceof PlayerEntity) || pickupDelay == 0);
-		RayTraceResult ray = ProjectileHelper.func_234618_a_(this, filter, RayTraceContext.BlockMode.OUTLINE);
+		RayTraceResult ray = ProjectileHelper.func_234618_a_(this, filter);
 		if (ray.getType() == RayTraceResult.Type.BLOCK) {
 			BlockPos pos = ((BlockRayTraceResult) ray).getPos();
 			BlockState state = this.world.getBlockState(pos);

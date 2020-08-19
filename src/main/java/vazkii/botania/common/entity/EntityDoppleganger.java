@@ -210,7 +210,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 			}
 
 			e.playSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 10F, 0.1F);
-			e.onInitialSpawn(world, world.getDifficultyForLocation(e.getPosition()), SpawnReason.EVENT, null, null);
+			e.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(e.getPosition()), SpawnReason.EVENT, null, null);
 			world.addEntity(e);
 		}
 
@@ -624,7 +624,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 							EntityPixie pixie = new EntityPixie(world);
 							pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 							pixie.setPosition(getPosX() + getWidth() / 2, getPosY() + 2, getPosZ() + getWidth() / 2);
-							pixie.onInitialSpawn(world, world.getDifficultyForLocation(pixie.getPosition()),
+							pixie.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(pixie.getPosition()),
 									SpawnReason.MOB_SUMMONED, null, null);
 							world.addEntity(pixie);
 						}
@@ -640,7 +640,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 					float range = 6F;
 					entity.setPosition(getPosX() + 0.5 + Math.random() * range - range / 2, getPosY() - 1,
 							getPosZ() + 0.5 + Math.random() * range - range / 2);
-					entity.onInitialSpawn(world, world.getDifficultyForLocation(entity.getPosition()),
+					entity.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(entity.getPosition()),
 							SpawnReason.MOB_SUMMONED, null, null);
 					if (entity instanceof WitherSkeletonEntity && hardMode) {
 						entity.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.elementiumSword));
@@ -775,7 +775,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 								EntityPixie pixie = new EntityPixie(world);
 								pixie.setProps(players.get(rand.nextInt(players.size())), this, 1, 8);
 								pixie.setPosition(getPosX() + getWidth() / 2, getPosY() + 2, getPosZ() + getWidth() / 2);
-								pixie.onInitialSpawn(world, world.getDifficultyForLocation(pixie.getPosition()),
+								pixie.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(pixie.getPosition()),
 										SpawnReason.MOB_SUMMONED, null, null);
 								world.addEntity(pixie);
 							}

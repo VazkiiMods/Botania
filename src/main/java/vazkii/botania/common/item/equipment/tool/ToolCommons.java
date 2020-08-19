@@ -26,6 +26,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -110,7 +111,7 @@ public final class ToolCommons {
 
 					if (!dispose || !ItemElementiumPick.isDisposable(block)) {
 						block.harvestBlock(world, player, pos, state, tile, stack);
-						block.dropXpOnBlockBreak(world, pos, exp);
+						block.dropXpOnBlockBreak((ServerWorld) world, pos, exp);
 					}
 				}
 

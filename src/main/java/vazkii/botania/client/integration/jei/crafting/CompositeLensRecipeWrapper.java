@@ -36,7 +36,7 @@ public class CompositeLensRecipeWrapper implements ICustomCraftingCategoryExtens
 	private final List<Item> lenses;
 
 	public CompositeLensRecipeWrapper(CompositeLensRecipe recipe) {
-		List<ItemStack> lensStacks = ItemTags.getCollection().getOrCreate(prefix("lens"))
+		List<ItemStack> lensStacks = ItemTags.getCollection().func_241834_b(prefix("lens"))
 				.getAllElements().stream()
 				.map(ItemStack::new)
 				.filter(s -> !((ItemLens) s.getItem()).isControlLens(s))

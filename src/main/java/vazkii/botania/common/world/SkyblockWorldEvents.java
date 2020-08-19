@@ -48,7 +48,7 @@ public final class SkyblockWorldEvents {
 			SkyblockSavedData data = SkyblockSavedData.get((ServerWorld) world);
 			if (!data.skyblocks.containsValue(Util.DUMMY_UUID)) {
 				IslandPos islandPos = data.getSpawn();
-				((ServerWorld) world).func_241124_a__(islandPos.getCenter());
+				((ServerWorld) world).func_241124_a__(islandPos.getCenter(), 0);
 				spawnPlayer(event.getPlayer(), islandPos);
 				Botania.LOGGER.info("Created the spawn GoG island");
 			}
@@ -107,7 +107,7 @@ public final class SkyblockWorldEvents {
 		if (player instanceof ServerPlayerEntity) {
 			ServerPlayerEntity pmp = (ServerPlayerEntity) player;
 			pmp.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
-			pmp.func_241153_a_(pmp.world.func_234923_W_(), pos, true, false);
+			pmp.func_242111_a(pmp.world.func_234923_W_(), pos, 0, true, false);
 			if (ConfigHandler.COMMON.gogSpawnWithLexicon.get()) {
 				player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
 			}

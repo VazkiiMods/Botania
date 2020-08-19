@@ -9,7 +9,6 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.EnderChestBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.ChestContainer;
@@ -48,7 +47,7 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 			if (!player.world.isRemote) {
 				player.openContainer(new SimpleNamedContainerProvider((windowId, playerInv, p) -> {
 					return ChestContainer.createGeneric9X3(windowId, playerInv, p.getInventoryEnderChest());
-				}, EnderChestBlock.CONTAINER_NAME));
+				}, stack.getDisplayName()));
 				ManaItemHandler.instance().requestManaExact(stack, player, COST_SELF, true);
 			}
 			player.playSound(SoundEvents.BLOCK_ENDER_CHEST_OPEN, 1F, 1F);
@@ -64,7 +63,7 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 				PlayerEntity other = (PlayerEntity) entity;
 				player.openContainer(new SimpleNamedContainerProvider((windowId, playerInv, p) -> {
 					return ChestContainer.createGeneric9X3(windowId, playerInv, other.getInventoryEnderChest());
-				}, EnderChestBlock.CONTAINER_NAME));
+				}, stack.getDisplayName()));
 			}
 			ManaItemHandler.instance().requestManaExact(stack, player, COST_OTHER, true);
 			player.playSound(SoundEvents.BLOCK_ENDER_CHEST_OPEN, 1F, 1F);

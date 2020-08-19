@@ -46,7 +46,7 @@ public class SkyblockSkyRenderer {
 		// Botania - Begin extra stuff
 		Tessellator tessellator = Tessellator.getInstance();
 		float rain = 1.0F - world.getRainStrength(partialTicks);
-		float celAng = world.getCelestialAngle(partialTicks);
+		float celAng = world.func_242415_f(partialTicks);
 		float effCelAng = celAng;
 		if (celAng > 0.5) {
 			effCelAng = 0.5F - (celAng - 0.5F);
@@ -213,7 +213,7 @@ public class SkyblockSkyRenderer {
 	public static void renderStars(VertexFormat format, VertexBuffer starVBO, MatrixStack ms, float partialTicks) {
 		Minecraft mc = Minecraft.getInstance();
 		float rain = 1.0F - mc.world.getRainStrength(partialTicks);
-		float celAng = mc.world.getCelestialAngle(partialTicks);
+		float celAng = mc.world.func_242415_f(partialTicks);
 		float effCelAng = celAng;
 		if (celAng > 0.5) {
 			effCelAng = 0.5F - (celAng - 0.5F);

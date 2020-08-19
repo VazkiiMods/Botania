@@ -8,19 +8,9 @@
  */
 package vazkii.botania.common.world;
 
-import com.google.common.collect.ImmutableSet;
-
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.placement.IPlacementConfig;
-import net.minecraft.world.gen.placement.Placement;
-import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.IForgeRegistry;
-
-import java.util.Set;
 
 import static vazkii.botania.common.block.ModBlocks.register;
 
@@ -28,6 +18,7 @@ public class ModFeatures {
 	public static final Feature<MysticalFlowerConfig> MYSTICAL_FLOWERS = new MysticalFlowerFeature();
 	public static final Feature<MysticalFlowerConfig> MYSTICAL_MUSHROOMS = new MysticalMushroomFeature();
 
+	/* todo 1.16.2 blacklist	
 	public static final Set<BiomeDictionary.Type> TYPE_BLACKLIST = ImmutableSet.of(
 			BiomeDictionary.Type.DEAD,
 			BiomeDictionary.Type.NETHER,
@@ -36,7 +27,7 @@ public class ModFeatures {
 			BiomeDictionary.Type.WASTELAND,
 			BiomeDictionary.Type.VOID,
 			BiomeDictionary.Type.MUSHROOM
-	);
+	);*/
 
 	public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
 		IForgeRegistry<Feature<?>> r = event.getRegistry();
@@ -46,11 +37,12 @@ public class ModFeatures {
 	}
 
 	public static void addWorldgen() {
-		for (Biome biome : Registry.BIOME) {
+		//todo 1.16.2
+/*		for (Biome biome : Registry.BIOME) {
 			if (BiomeDictionary.getTypes(biome).stream().noneMatch(TYPE_BLACKLIST::contains)) {
 				biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_FLOWERS.withConfiguration(MysticalFlowerConfig.fromConfig()).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
 			}
 			biome.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_MUSHROOMS.withConfiguration(MysticalFlowerConfig.fromConfig()).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)));
-		}
+		}*/
 	}
 }

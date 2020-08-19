@@ -16,11 +16,12 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.entity.villager.IVillagerType;
+import net.minecraft.entity.villager.VillagerType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,7 +94,7 @@ public class TileCocoon extends TileMod implements ITickableTileEntity {
 			} else if (Math.random() < villagerChance) {
 				VillagerEntity villager = EntityType.VILLAGER.create(world);
 				if (villager != null) {
-					IVillagerType type = IVillagerType.byBiome(world.getBiome(pos));
+					VillagerType type = VillagerType.func_242371_a(world.func_242406_i(this.getPos()));
 					villager.setVillagerData(villager.getVillagerData().withType(type));
 				}
 				entity = villager;
@@ -121,7 +122,7 @@ public class TileCocoon extends TileMod implements ITickableTileEntity {
 				if (entity instanceof AgeableEntity) {
 					((AgeableEntity) entity).setGrowingAge(-24000);
 				}
-				entity.onInitialSpawn(world, world.getDifficultyForLocation(getPos()), SpawnReason.EVENT, null, null);
+				entity.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(getPos()), SpawnReason.EVENT, null, null);
 				entity.enablePersistence();
 				world.addEntity(entity);
 				entity.spawnExplosionParticle();

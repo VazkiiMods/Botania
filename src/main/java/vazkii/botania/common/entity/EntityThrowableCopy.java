@@ -21,7 +21,6 @@ import net.minecraft.tileentity.EndGatewayTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -64,7 +63,7 @@ public abstract class EntityThrowableCopy extends ProjectileEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		RayTraceResult raytraceresult = ProjectileHelper.func_234618_a_(this, this::func_230298_a_, RayTraceContext.BlockMode.OUTLINE);
+		RayTraceResult raytraceresult = ProjectileHelper.func_234618_a_(this, this::func_230298_a_);
 		boolean flag = false;
 		if (raytraceresult.getType() == RayTraceResult.Type.BLOCK) {
 			BlockPos blockpos = ((BlockRayTraceResult) raytraceresult).getPos();
@@ -74,7 +73,7 @@ public abstract class EntityThrowableCopy extends ProjectileEntity {
 				flag = true;
 			} else if (blockstate.isIn(Blocks.END_GATEWAY)) {
 				TileEntity tileentity = this.world.getTileEntity(blockpos);
-				if (tileentity instanceof EndGatewayTileEntity) {
+				if (tileentity instanceof EndGatewayTileEntity && EndGatewayTileEntity.func_242690_a(this)) {
 					((EndGatewayTileEntity) tileentity).teleportEntity(this);
 				}
 
@@ -86,6 +85,7 @@ public abstract class EntityThrowableCopy extends ProjectileEntity {
 			this.onImpact(raytraceresult);
 		}
 
+		this.doBlockCollisions();
 		Vector3d vector3d = this.getMotion();
 		double d2 = this.getPosX() + vector3d.x;
 		double d0 = this.getPosY() + vector3d.y;

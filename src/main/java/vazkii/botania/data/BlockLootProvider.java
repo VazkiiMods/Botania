@@ -172,7 +172,7 @@ public class BlockLootProvider implements IDataProvider {
 
 	private static LootTable.Builder genMetamorphicStone(Block b) {
 		String cobbleName = Registry.BLOCK.getKey(b).getPath().replaceAll("_stone", "_cobblestone");
-		Block cobble = Registry.BLOCK.getValue(prefix(cobbleName)).get();
+		Block cobble = Registry.BLOCK.func_241873_b(prefix(cobbleName)).get();
 		return genRegular(cobble);
 	}
 

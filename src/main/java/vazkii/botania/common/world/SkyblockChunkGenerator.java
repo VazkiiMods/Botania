@@ -12,6 +12,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Blockreader;
 import net.minecraft.world.IBlockReader;
@@ -25,8 +26,9 @@ import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.server.ServerChunkProvider;
 
-import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.mixin.AccessorDimensionSettingsPreset;
+import vazkii.botania.mixin.AccessorDimensionSettings;
+
+import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -36,19 +38,19 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 			Codec.LONG.fieldOf("seed").stable().forGetter((gen) -> gen.seed),
 			DimensionSettings.field_236098_b_.fieldOf("settings").forGetter((gen) -> gen.settings))
 			.apply(instance, instance.stable(SkyblockChunkGenerator::new)));
-	public static DimensionSettings.Preset dimSettingsPreset;
+	public static DimensionSettings dimSettings;
+	public static final RegistryKey<DimensionSettings> SKYBLOCK_KEY = RegistryKey.func_240903_a_(Registry.field_243549_ar, prefix("skyblock"));
 
 	public static void init() {
 		Registry.register(Registry.CHUNK_GENERATOR_CODEC, prefix("skyblock"), SkyblockChunkGenerator.CODEC);
-		dimSettingsPreset = new DimensionSettings.Preset(LibResources.PREFIX_MOD + "skyblock",
-				preset -> AccessorDimensionSettingsPreset.botania_createOverworldSettings(new DimensionStructuresSettings(true), false, preset));
+		dimSettings = AccessorDimensionSettings.botania_createOverworldSettings(new DimensionStructuresSettings(true), false, prefix("skyblock"));
 	}
 
 	private final long seed;
-	private final DimensionSettings settings;
+	private final Supplier<DimensionSettings> settings;
 
-	public SkyblockChunkGenerator(BiomeProvider provider, long seed, DimensionSettings settings) {
-		super(provider, provider, settings.getStructures(), seed);
+	public SkyblockChunkGenerator(BiomeProvider provider, long seed, Supplier<DimensionSettings> settings) {
+		super(provider, provider, settings.get().getStructures(), seed);
 		this.seed = seed;
 		this.settings = settings;
 	}

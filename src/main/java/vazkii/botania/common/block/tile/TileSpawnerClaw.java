@@ -17,6 +17,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.spawner.AbstractSpawner;
 
 import vazkii.botania.api.mana.IManaReceiver;
@@ -87,47 +88,53 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 						double d1 = j >= 2 ? listnbt.getDouble(1) : (double) (blockpos.getY() + world.rand.nextInt(3) - 1);
 						double d2 = j >= 3 ? listnbt.getDouble(2) : (double) blockpos.getZ() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double) mLogic.getSpawnRange() + 0.5D;
 						if (world.hasNoCollisions(optional.get().getBoundingBoxWithSizeApplied(d0, d1, d2))) {
-							Entity entity = EntityType.loadEntityAndExecute(compoundnbt, world, (p_221408_6_) -> {
-								p_221408_6_.setLocationAndAngles(d0, d1, d2, p_221408_6_.rotationYaw, p_221408_6_.rotationPitch);
-								return p_221408_6_;
-							});
-							if (entity == null) {
-								mLogic.botania_resetTimer();
-								return;
-							}
-
-							int k = world.getEntitiesWithinAABB(entity.getClass(), (new AxisAlignedBB((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ(), (double) (blockpos.getX() + 1), (double) (blockpos.getY() + 1), (double) (blockpos.getZ() + 1))).grow((double) mLogic.getSpawnRange())).size();
-							if (k >= mLogic.getMaxNearbyEntities()) {
-								mLogic.botania_resetTimer();
-								return;
-							}
-
-							entity.setLocationAndAngles(entity.getPosX(), entity.getPosY(), entity.getPosZ(), world.rand.nextFloat() * 360.0F, 0.0F);
-							if (entity instanceof MobEntity) {
-								MobEntity mobentity = (MobEntity) entity;
-								if (!net.minecraftforge.event.ForgeEventFactory.canEntitySpawnSpawner(mobentity, world, (float) entity.getPosX(), (float) entity.getPosY(), (float) entity.getPosZ(), logic)) {
-									continue;
+							ServerWorld serverworld = (ServerWorld) world;
+							if (EntitySpawnPlacementRegistry.canSpawnEntity(optional.get(), serverworld, SpawnReason.SPAWNER, new BlockPos(d0, d1, d2), world.getRandom())) {
+								Entity entity = EntityType.loadEntityAndExecute(compoundnbt, world, (p_221408_6_) -> {
+									p_221408_6_.setLocationAndAngles(d0, d1, d2, p_221408_6_.rotationYaw, p_221408_6_.rotationPitch);
+									return p_221408_6_;
+								});
+								if (entity == null) {
+									mLogic.botania_resetTimer();
+									return;
 								}
 
-								if (mLogic.getSpawnData().getNbt().size() == 1 && mLogic.getSpawnData().getNbt().contains("id", 8)) {
-									if (!net.minecraftforge.event.ForgeEventFactory.doSpecialSpawn(mobentity, world, (float) entity.getPosX(), (float) entity.getPosY(), (float) entity.getPosZ(), logic, SpawnReason.SPAWNER)) {
-										((MobEntity) entity).onInitialSpawn(world, world.getDifficultyForLocation(entity.getPosition()), SpawnReason.SPAWNER, (ILivingEntityData) null, (CompoundNBT) null);
+								int k = world.getEntitiesWithinAABB(entity.getClass(), (new AxisAlignedBB((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ(), (double) (blockpos.getX() + 1), (double) (blockpos.getY() + 1), (double) (blockpos.getZ() + 1))).grow((double) mLogic.getSpawnRange())).size();
+								if (k >= mLogic.getMaxNearbyEntities()) {
+									mLogic.botania_resetTimer();
+									return;
+								}
+
+								entity.setLocationAndAngles(entity.getPosX(), entity.getPosY(), entity.getPosZ(), world.rand.nextFloat() * 360.0F, 0.0F);
+								if (entity instanceof MobEntity) {
+									MobEntity mobentity = (MobEntity) entity;
+									if (!net.minecraftforge.event.ForgeEventFactory.canEntitySpawnSpawner(mobentity, world, (float) entity.getPosX(), (float) entity.getPosY(), (float) entity.getPosZ(), logic)) {
+										continue;
+									}
+
+									if (mLogic.getSpawnData().getNbt().size() == 1 && mLogic.getSpawnData().getNbt().contains("id", 8)) {
+										if (!net.minecraftforge.event.ForgeEventFactory.doSpecialSpawn(mobentity, world, (float) entity.getPosX(), (float) entity.getPosY(), (float) entity.getPosZ(), logic, SpawnReason.SPAWNER)) {
+											((MobEntity) entity).onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(entity.getPosition()), SpawnReason.SPAWNER, (ILivingEntityData) null, (CompoundNBT) null);
+										}
 									}
 								}
-							}
 
-							mLogic.callSpawnEntity(entity);
-							world.playEvent(2004, blockpos, 0);
-							if (entity instanceof MobEntity) {
-								((MobEntity) entity).spawnExplosionParticle();
-							}
+								if (!serverworld.func_242106_g(entity)) {
+									mLogic.botania_resetTimer();
+									return;
+								}
+								world.playEvent(2004, blockpos, 0);
+								if (entity instanceof MobEntity) {
+									((MobEntity) entity).spawnExplosionParticle();
+								}
 
-							flag = true;
+								flag = true;
+							}
 						}
-					}
 
-					if (flag) {
-						mLogic.botania_resetTimer();
+						if (flag) {
+							mLogic.botania_resetTimer();
+						}
 					}
 				}
 			}

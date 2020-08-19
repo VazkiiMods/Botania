@@ -9,10 +9,15 @@
 package vazkii.botania.client.core;
 
 import net.minecraft.client.gui.screen.BiomeGeneratorTypeScreens;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.OverworldBiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.DimensionSettings;
 
 import vazkii.botania.common.world.SkyblockChunkGenerator;
+
+import javax.annotation.Nonnull;
 
 public class WorldTypeSkyblock extends BiomeGeneratorTypeScreens {
 	public static final BiomeGeneratorTypeScreens INSTANCE = new WorldTypeSkyblock();
@@ -41,9 +46,12 @@ public class WorldTypeSkyblock extends BiomeGeneratorTypeScreens {
 		return 1.0D;
 	}
 	*/
-
 	@Override
-	protected ChunkGenerator func_230484_a_(long seed) {
-		return new SkyblockChunkGenerator(new OverworldBiomeProvider(seed, false, false), seed, SkyblockChunkGenerator.dimSettingsPreset.getSettings());
+	protected ChunkGenerator func_241869_a(@Nonnull Registry<Biome> biomeRegistry, @Nonnull Registry<DimensionSettings> dimensionSettingsRegistry, long seed) {
+		return new SkyblockChunkGenerator(new OverworldBiomeProvider(seed, false, false, biomeRegistry), seed,
+//				() -> dimensionSettingsRegistry.func_243576_d(SkyblockChunkGenerator.SKYBLOCK_KEY));
+				() -> dimensionSettingsRegistry.func_243576_d(DimensionSettings.field_242734_c));
+
+		// TODO divegence from fabric port, test the uncommented version stolen from there :wacko:
 	}
 }

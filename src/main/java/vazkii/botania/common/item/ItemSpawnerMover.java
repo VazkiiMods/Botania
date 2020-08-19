@@ -72,7 +72,7 @@ public class ItemSpawnerMover extends Item {
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> infoList, ITooltipFlag flags) {
 		ResourceLocation id = getEntityId(stack);
 		if (id != null) {
-			Registry.ENTITY_TYPE.getValue(id).ifPresent(type -> infoList.add(type.getName()));
+			Registry.ENTITY_TYPE.func_241873_b(id).ifPresent(type -> infoList.add(type.getName()));
 		}
 	}
 
