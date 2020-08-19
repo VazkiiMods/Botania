@@ -603,7 +603,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		for (int pl = 0; pl < playerCount; pl++) {
 			for (int i = 0; i < 3 + world.rand.nextInt(2); i++) {
 				MobEntity entity = null;
-				switch (world.rand.nextInt(2)) {
+				switch (world.rand.nextInt(3)) {
 				case 0: {
 					entity = new ZombieEntity(world);
 					if (world.rand.nextInt(hardMode ? 3 : 12) == 0) {
@@ -618,7 +618,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 					}
 					break;
 				}
-				case 3: {
+				case 2: {
 					if (!players.isEmpty()) {
 						for (int j = 0; j < 1 + world.rand.nextInt(hardMode ? 8 : 5); j++) {
 							EntityPixie pixie = new EntityPixie(world);
