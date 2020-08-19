@@ -601,7 +601,7 @@ public class EntityDoppleganger extends MobEntity {
 		for (int pl = 0; pl < playerCount; pl++) {
 			for (int i = 0; i < 3 + world.random.nextInt(2); i++) {
 				MobEntity entity = null;
-				switch (world.random.nextInt(2)) {
+				switch (world.random.nextInt(3)) {
 				case 0: {
 					entity = new ZombieEntity(world);
 					if (world.random.nextInt(hardMode ? 3 : 12) == 0) {
@@ -616,7 +616,7 @@ public class EntityDoppleganger extends MobEntity {
 					}
 					break;
 				}
-				case 3: {
+				case 2: {
 					if (!players.isEmpty()) {
 						for (int j = 0; j < 1 + world.random.nextInt(hardMode ? 8 : 5); j++) {
 							EntityPixie pixie = new EntityPixie(world);
