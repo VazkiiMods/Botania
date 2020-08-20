@@ -50,6 +50,7 @@ minecraft {
         client {
             properties 'forge.logging.console.level': 'debug'
             properties 'fml.earlyprogresswindow': 'false'
+            properties 'mixin.env.disableRefMap': 'true'
             workingDirectory project.file('run')
             mods {
                 botania {
@@ -59,6 +60,7 @@ minecraft {
         }
         server {
             properties 'forge.logging.console.level': 'debug'
+            properties 'mixin.env.disableRefMap': 'true'
             workingDirectory project.file('run')
             mods {
                 botania {
@@ -68,6 +70,7 @@ minecraft {
         }
         data {
             properties 'fml.earlyprogresswindow': 'false'
+            properties 'mixin.env.disableRefMap': 'true'
             workingDirectory project.file('run')
             forceExit false
             mods {
