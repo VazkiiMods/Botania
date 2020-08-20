@@ -69,7 +69,7 @@ public class EntityThrownItem extends ItemEntity {
 				this.setPortal(pos);
 			} else if (state.isIn(Blocks.END_GATEWAY)) {
 				TileEntity tileentity = this.world.getTileEntity(pos);
-				if (tileentity instanceof EndGatewayTileEntity) {
+				if (tileentity instanceof EndGatewayTileEntity && EndGatewayTileEntity.func_242690_a(this)) {
 					((EndGatewayTileEntity) tileentity).teleportEntity(this);
 				}
 			}

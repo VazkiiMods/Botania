@@ -86,13 +86,13 @@ public class FXWisp extends SpriteTexturedParticle {
 
 		if (this.age++ >= this.maxAge) {
 			this.setExpired();
+		} else {
+			this.motionY -= 0.04D * (double) this.particleGravity;
+			this.move(this.motionX, this.motionY, this.motionZ);
+			this.motionX *= (double) 0.98F;
+			this.motionY *= (double) 0.98F;
+			this.motionZ *= (double) 0.98F;
 		}
-
-		this.motionY -= 0.04D * (double) this.particleGravity;
-		this.move(this.motionX, this.motionY, this.motionZ);
-		this.motionX *= 0.9800000190734863D;
-		this.motionY *= 0.9800000190734863D;
-		this.motionZ *= 0.9800000190734863D;
 	}
 
 	public void setGravity(float value) {

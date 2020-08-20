@@ -30,7 +30,7 @@ public class ItemPoolMinecart extends Item {
 		super(builder);
 	}
 
-	// [VanillaCopy] ItemMinecart
+	// [VanillaCopy] MinecartItem
 	@Nonnull
 	@Override
 	public ActionResultType onItemUse(ItemUseContext context) {
@@ -57,7 +57,7 @@ public class ItemPoolMinecart extends Item {
 			}
 
 			itemstack.shrink(1);
-			return ActionResultType.SUCCESS;
+			return ActionResultType.func_233537_a_(world.isRemote);
 		}
 	}
 

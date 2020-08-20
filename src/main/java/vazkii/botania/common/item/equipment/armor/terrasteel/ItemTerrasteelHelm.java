@@ -100,6 +100,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		if (attacker instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) attacker;
 			if (hasArmorSet(player)) {
+				// TODO 1.16 Move to mixin, this does not actually work as it's triggered after the attack strength changes
 				// [VanillaCopy] crit logic from PlayerEntity.attackTargetEntityWithCurrentItem
 				boolean strong = player.getCooledAttackStrength(0.5F) > 0.9F;
 				boolean crit = strong && player.fallDistance > 0.0F && !player.isOnGround() && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Effects.BLINDNESS) && !player.isPassenger();

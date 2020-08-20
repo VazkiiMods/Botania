@@ -82,7 +82,7 @@ public class BannerRecipe extends SpecialRecipe {
 		return applyPattern(banner, pattern, dye);
 	}
 
-	// [VanillaCopy] From LoomContainer.func_217031_j, edits noted
+	// [VanillaCopy] From LoomContainer.createOutputStack, edits noted
 	@SuppressWarnings("UnnecessaryLocalVariable")
 	private static ItemStack applyPattern(ItemStack banner, BannerPattern pattern, ItemStack dye) {
 		ItemStack itemstack = banner; // Apply our context here
