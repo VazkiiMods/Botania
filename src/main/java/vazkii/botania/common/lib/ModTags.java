@@ -18,9 +18,24 @@ import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.List;
+import java.util.function.Function;
+
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModTags {
+	private static <T> ITag.INamedTag<T> getOrRegister(List<? extends ITag.INamedTag<T>> list,
+			Function<ResourceLocation, ITag.INamedTag<T>> register,
+			ResourceLocation loc) {
+		for (ITag.INamedTag<T> existing : list) {
+			if (existing.getName().equals(loc)) {
+				return existing;
+			}
+		}
+
+		return register.apply(loc);
+	}
+
 	public static class Items {
 		public static final ITag.INamedTag<Item> DUSTS_MANA = forgeTag("dusts/mana");
 
@@ -38,7 +53,6 @@ public class ModTags {
 		public static final ITag.INamedTag<Item> BLOCKS_ELEMENTIUM = forgeTag("storage_blocks/elementium");
 		public static final ITag.INamedTag<Item> BLOCKS_MANASTEEL = forgeTag("storage_blocks/manasteel");
 		public static final ITag.INamedTag<Item> BLOCKS_TERRASTEEL = forgeTag("storage_blocks/terrasteel");
-		public static final ITag.INamedTag<Item> BLOCKS_QUARTZ = forgeTag("storage_blocks/quartz");
 
 		public static final ITag.INamedTag<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
 		public static final ITag.INamedTag<Item> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
@@ -59,8 +73,6 @@ public class ModTags {
 
 		public static final ITag.INamedTag<Item> MAGNET_RING_BLACKLIST = tag("magnet_ring_blacklist");
 		public static final ITag.INamedTag<Item> LOONIUM_BLACKLIST = tag("loonium_blacklist");
-
-		public static final ITag.INamedTag<Item> SHEARS = forgeTag("shears");
 
 		public static final ITag.INamedTag<Item> DISPOSABLE = tag("disposable");
 		public static final ITag.INamedTag<Item> SEMI_DISPOSABLE = tag("semi_disposable");
@@ -147,7 +159,7 @@ public class ModTags {
 		}
 
 		private static ITag.INamedTag<Item> forgeTag(String name) {
-			return ItemTags.makeWrapperTag(new ResourceLocation("forge", name).toString());
+			return getOrRegister(ItemTags.func_242177_b(), loc -> ItemTags.makeWrapperTag(loc.toString()), new ResourceLocation("forge", name));
 		}
 	}
 
@@ -171,7 +183,6 @@ public class ModTags {
 		public static final ITag.INamedTag<Block> BLOCKS_ELEMENTIUM = forgeTag("storage_blocks/elementium");
 		public static final ITag.INamedTag<Block> BLOCKS_MANASTEEL = forgeTag("storage_blocks/manasteel");
 		public static final ITag.INamedTag<Block> BLOCKS_TERRASTEEL = forgeTag("storage_blocks/terrasteel");
-		public static final ITag.INamedTag<Block> BLOCKS_QUARTZ = forgeTag("storage_blocks/quartz");
 
 		public static final ITag.INamedTag<Block> GAIA_BREAK_BLACKLIST = tag("gaia_break_blacklist");
 		public static final ITag.INamedTag<Block> MAGNET_RING_BLACKLIST = tag("magnet_ring_blacklist");
@@ -185,7 +196,7 @@ public class ModTags {
 		}
 
 		private static ITag.INamedTag<Block> forgeTag(String name) {
-			return BlockTags.makeWrapperTag(new ResourceLocation("forge", name).toString());
+			return getOrRegister(BlockTags.func_242174_b(), loc -> BlockTags.makeWrapperTag(loc.toString()), new ResourceLocation("forge", name));
 		}
 	}
 

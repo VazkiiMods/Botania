@@ -35,6 +35,7 @@ import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.state.properties.SlabType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+import net.minecraftforge.common.Tags;
 
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.BlockAltGrass;
@@ -45,7 +46,6 @@ import vazkii.botania.common.block.subtile.generating.*;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 
@@ -199,7 +199,7 @@ public class BlockLootProvider implements IDataProvider {
 	private static LootTable.Builder genDoubleFlower(Block b) {
 		LootEntry.Builder<?> entry = ItemLootEntry.builder(b)
 				.acceptCondition(BlockStateProperty.builder(b).fromProperties(StatePropertiesPredicate.Builder.newBuilder().withProp(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)))
-				.acceptCondition(MatchTool.builder(ItemPredicate.Builder.create().tag(ModTags.Items.SHEARS)));
+				.acceptCondition(MatchTool.builder(ItemPredicate.Builder.create().tag(Tags.Items.SHEARS)));
 		LootPool.Builder pool = LootPool.builder().name("main").rolls(ConstantRange.of(1)).addEntry(entry)
 				.acceptCondition(SurvivesExplosion.builder());
 		return LootTable.builder().addLootPool(pool);

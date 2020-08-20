@@ -2154,7 +2154,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 
 		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.azulejo0)
 				.addIngredient(Tags.Items.DYES_BLUE)
-				.addIngredient(ModTags.Items.BLOCKS_QUARTZ)
+				.addIngredient(Tags.Items.STORAGE_BLOCKS_QUARTZ)
 				.addCriterion("has_item", hasItem(Tags.Items.DYES_BLUE))
 				.build(consumer);
 
