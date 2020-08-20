@@ -49,9 +49,6 @@ public class WorldTypeSkyblock extends BiomeGeneratorTypeScreens {
 	@Override
 	protected ChunkGenerator func_241869_a(@Nonnull Registry<Biome> biomeRegistry, @Nonnull Registry<DimensionSettings> dimensionSettingsRegistry, long seed) {
 		return new SkyblockChunkGenerator(new OverworldBiomeProvider(seed, false, false, biomeRegistry), seed,
-//				() -> dimensionSettingsRegistry.func_243576_d(SkyblockChunkGenerator.SKYBLOCK_KEY));
 				() -> dimensionSettingsRegistry.func_243576_d(DimensionSettings.field_242734_c));
-
-		// TODO divegence from fabric port, test the uncommented version stolen from there :wacko:
 	}
 }

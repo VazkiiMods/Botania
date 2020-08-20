@@ -12,7 +12,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Blockreader;
 import net.minecraft.world.IBlockReader;
@@ -23,10 +22,7 @@ import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.feature.structure.StructureManager;
-import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.server.ServerChunkProvider;
-
-import vazkii.botania.mixin.AccessorDimensionSettings;
 
 import java.util.function.Supplier;
 
@@ -34,16 +30,15 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class SkyblockChunkGenerator extends ChunkGenerator {
 	// [VanillaCopy] overworld chunk generator codec
-	public static final Codec<SkyblockChunkGenerator> CODEC = RecordCodecBuilder.create((instance) -> instance.group(BiomeProvider.PROVIDER_CODEC.fieldOf("biome_source").forGetter((gen) -> gen.biomeProvider),
-			Codec.LONG.fieldOf("seed").stable().forGetter((gen) -> gen.seed),
-			DimensionSettings.field_236098_b_.fieldOf("settings").forGetter((gen) -> gen.settings))
-			.apply(instance, instance.stable(SkyblockChunkGenerator::new)));
-	public static DimensionSettings dimSettings;
-	public static final RegistryKey<DimensionSettings> SKYBLOCK_KEY = RegistryKey.func_240903_a_(Registry.field_243549_ar, prefix("skyblock"));
+	public static final Codec<SkyblockChunkGenerator> CODEC = RecordCodecBuilder.create(
+			(instance) -> instance.group(
+					BiomeProvider.PROVIDER_CODEC.fieldOf("biome_source").forGetter((gen) -> gen.biomeProvider),
+					Codec.LONG.fieldOf("seed").stable().forGetter((gen) -> gen.seed),
+					DimensionSettings.field_236098_b_.fieldOf("settings").forGetter((gen) -> gen.settings)
+			).apply(instance, instance.stable(SkyblockChunkGenerator::new)));
 
 	public static void init() {
 		Registry.register(Registry.CHUNK_GENERATOR_CODEC, prefix("skyblock"), SkyblockChunkGenerator.CODEC);
-		dimSettings = AccessorDimensionSettings.botania_createOverworldSettings(new DimensionStructuresSettings(true), false, prefix("skyblock"));
 	}
 
 	private final long seed;
