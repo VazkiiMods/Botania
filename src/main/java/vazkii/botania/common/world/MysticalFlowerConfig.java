@@ -18,7 +18,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 public class MysticalFlowerConfig implements IFeatureConfig {
 	public static final Codec<MysticalFlowerConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			Codec.INT.fieldOf("flower_patch_size").forGetter(MysticalFlowerConfig::getFlowerPatchSize),
-			Codec.INT.fieldOf("mushroom_patch_size").forGetter(MysticalFlowerConfig::getMushroomPatchSize),
 			Codec.INT.fieldOf("patch_count").forGetter(MysticalFlowerConfig::getPatchCount),
 			Codec.INT.fieldOf("patch_density").forGetter(MysticalFlowerConfig::getPatchDensity),
 			Codec.INT.fieldOf("patch_chance").forGetter(MysticalFlowerConfig::getPatchChance),
@@ -26,7 +25,6 @@ public class MysticalFlowerConfig implements IFeatureConfig {
 	).apply(instance, MysticalFlowerConfig::new));
 
 	private final int flowerPatchSize;
-	private final int mushroomPatchSize;
 	private final int patchCount;
 	private final int patchDensity;
 	private final int patchChance;
@@ -35,7 +33,6 @@ public class MysticalFlowerConfig implements IFeatureConfig {
 	public static MysticalFlowerConfig fromConfig() {
 		return new MysticalFlowerConfig(
 				ConfigHandler.COMMON.flowerPatchSize.get(),
-				ConfigHandler.COMMON.mushroomQuantity.get(),
 				ConfigHandler.COMMON.flowerPatchSize.get(),
 				ConfigHandler.COMMON.flowerDensity.get(),
 				ConfigHandler.COMMON.flowerPatchChance.get(),
@@ -43,9 +40,8 @@ public class MysticalFlowerConfig implements IFeatureConfig {
 		);
 	}
 
-	public MysticalFlowerConfig(int flowerPatchSize, int mushroomPatchSize, int patchCount, int patchDensity, int patchChance, double tallChance) {
+	public MysticalFlowerConfig(int flowerPatchSize, int patchCount, int patchDensity, int patchChance, double tallChance) {
 		this.flowerPatchSize = flowerPatchSize;
-		this.mushroomPatchSize = mushroomPatchSize;
 		this.patchCount = patchCount;
 		this.patchDensity = patchDensity;
 		this.patchChance = patchChance;
@@ -70,9 +66,5 @@ public class MysticalFlowerConfig implements IFeatureConfig {
 
 	public double getTallChance() {
 		return tallChance;
-	}
-
-	public int getMushroomPatchSize() {
-		return mushroomPatchSize;
 	}
 }

@@ -35,9 +35,9 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModFeatures {
 	public static final Feature<MysticalFlowerConfig> MYSTICAL_FLOWERS = new MysticalFlowerFeature();
-	public static final Feature<MysticalFlowerConfig> MYSTICAL_MUSHROOMS = new MysticalMushroomFeature();
+	public static final Feature<MysticalMushroomConfig> MYSTICAL_MUSHROOMS = new MysticalMushroomFeature();
 	public static final ConfiguredFeature<?, ?> MYSTICAL_FLOWERS_CONF = MYSTICAL_FLOWERS.withConfiguration(MysticalFlowerConfig.fromConfig()).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
-	public static final ConfiguredFeature<?, ?> MYSTICAL_MUSHROOMS_CONF = MYSTICAL_MUSHROOMS.withConfiguration(MysticalFlowerConfig.fromConfig()).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
+	public static final ConfiguredFeature<?, ?> MYSTICAL_MUSHROOMS_CONF = MYSTICAL_MUSHROOMS.withConfiguration(MysticalMushroomConfig.fromConfig()).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
 
 	// todo 1.16.2 blacklist, this is about the closest to the old one?
 	public static final Set<Biome.Category> TYPE_BLACKLIST = ImmutableSet.of(
