@@ -37,6 +37,7 @@
     "AccessorRenderTypeBuffers",
     "AccessorSkullTileEntityRenderer",
     "AccessorWorldRenderer",
+    "MixinClientWorldInfo",
     "MixinSkullTileEntityRenderer",
     "MixinSplashes",
     "MixinWorldRenderer"

@@ -26,6 +26,7 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
@@ -35,12 +36,23 @@ import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import vazkii.botania.common.network.PacketGogWorld;
+import vazkii.botania.common.network.PacketHandler;
 
 public final class SkyblockWorldEvents {
 
 	private SkyblockWorldEvents() {}
 
 	private static final ResourceLocation PEBBLE_SOURCES = new ResourceLocation("gardenofglass:pebble_sources");
+
+	public static void syncGogStatus(EntityJoinWorldEvent evt) {
+		if (evt.getEntity() instanceof ServerPlayerEntity) {
+			boolean isGog = SkyblockChunkGenerator.isWorldSkyblock(evt.getWorld());
+			if (isGog) {
+				PacketHandler.sendTo((ServerPlayerEntity) evt.getEntity(), new PacketGogWorld());
+			}
+		}
+	}
 
 	public static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
 		World world = event.getPlayer().world;
