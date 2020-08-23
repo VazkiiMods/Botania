@@ -137,7 +137,7 @@ public final class ModItems {
 	public static final Item lensEfficiency = new ItemLens(unstackable(), new LensEfficiency(), ItemLens.PROP_NONE);
 	public static final Item lensBounce = new ItemLens(unstackable(), new LensBounce(), ItemLens.PROP_TOUCH);
 	public static final Item lensGravity = new ItemLens(unstackable(), new LensGravity(), ItemLens.PROP_ORIENTATION);
-	public static final Item lensMine = new ItemLens(unstackable(), new LensMine(), ItemLens.PROP_TOUCH | ItemLens.PROP_ORIENTATION);
+	public static final Item lensMine = new ItemLens(unstackable(), new LensMine(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
 	public static final Item lensDamage = new ItemLens(unstackable(), new LensDamage(), ItemLens.PROP_DAMAGE);
 	public static final Item lensPhantom = new ItemLens(unstackable(), new LensPhantom(), ItemLens.PROP_TOUCH);
 	public static final Item lensMagnet = new ItemLens(unstackable(), new LensMagnet(), ItemLens.PROP_ORIENTATION);
