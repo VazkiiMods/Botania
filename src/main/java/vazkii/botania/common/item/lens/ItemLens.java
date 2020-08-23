@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.text.Color;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -60,7 +61,8 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 		int storedColor = getStoredColor(stack);
 		if (storedColor != -1) {
 			TranslationTextComponent colorName = new TranslationTextComponent(storedColor == 16 ? "botania.color.rainbow" : "color.minecraft." + DyeColor.byId(storedColor));
-			tooltip.add(new TranslationTextComponent("botaniamisc.color", colorName).mergeStyle(TextFormatting.GRAY));
+			Color realColor = Color.func_240743_a_(getLensColor(stack));
+			tooltip.add(new TranslationTextComponent("botaniamisc.color", colorName).modifyStyle(s -> s.setColor(realColor)));
 		}
 		if (lens instanceof LensStorm) {
 			tooltip.add(new TranslationTextComponent("botaniamisc.creative").mergeStyle(TextFormatting.GRAY));
