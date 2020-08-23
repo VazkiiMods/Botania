@@ -30,6 +30,7 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -546,14 +547,13 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 
 		ItemStack lens = getItemHandler().getStackInSlot(0);
 		if (!lens.isEmpty()) {
-			String lensName = lens.getDisplayName().getString();
-			int width = 16 + mc.fontRenderer.getStringWidth(lensName) / 2;
+			ITextComponent lensName = lens.getDisplayName();
+			int width = 16 + mc.fontRenderer.func_238414_a_(lensName) / 2;
 			int x = mc.getMainWindow().getScaledWidth() / 2 - width;
 			int y = mc.getMainWindow().getScaledHeight() / 2 + 50;
 
-			mc.fontRenderer.drawStringWithShadow(ms, lensName, x + 20, y + 5, color);
+			mc.fontRenderer.func_238407_a_(ms, lensName, x + 20, y + 5, color);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(lens, x, y);
-			RenderSystem.disableLighting();
 		}
 
 		if (receiver != null) {

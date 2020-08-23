@@ -8,9 +8,12 @@
  */
 package vazkii.botania.common.block.mana;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
@@ -23,21 +26,25 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.mana.TilePrism;
 
 import javax.annotation.Nonnull;
 
-public class BlockPrism extends BlockModWaterloggable implements ITileEntityProvider, IManaTrigger, IManaCollisionGhost {
+public class BlockPrism extends BlockModWaterloggable implements ITileEntityProvider, IManaTrigger, IManaCollisionGhost, IWandHUD {
 	private static final VoxelShape SHAPE = makeCuboidShape(4, 0, 4, 12, 16, 12);
 
 	public BlockPrism(Properties builder) {
@@ -127,5 +134,23 @@ public class BlockPrism extends BlockModWaterloggable implements ITileEntityProv
 	@Override
 	public boolean isGhost(BlockState state, World world, BlockPos pos) {
 		return true;
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos) {
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TilePrism) {
+			ItemStack lens = ((TilePrism) te).getStackInSlot(0);
+			if (!lens.isEmpty()) {
+				ITextComponent lensName = lens.getDisplayName();
+				int width = 16 + mc.fontRenderer.func_238414_a_(lensName) / 2;
+				int x = mc.getMainWindow().getScaledWidth() / 2 - width;
+				int y = mc.getMainWindow().getScaledHeight() / 2;
+
+				mc.fontRenderer.func_238407_a_(ms, lensName, x + 20, y + 5, -1);
+				mc.getItemRenderer().renderItemAndEffectIntoGUI(lens, x, y);
+			}
+		}
 	}
 }
