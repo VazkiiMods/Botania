@@ -2152,7 +2152,7 @@
 
   "botania.entry.arcanerose": "Rosa Arcana",
   "botania.tagline.arcanerose": "Mana from experience",
-  "botania.page.arcanerose0": "$(thing)Experience Points$(0) contain a magic of their own. The $(item)Rosa Arcana$(0) can tap into this magic, absorbing the experience of nearby players and turning it into $(item)Mana$(0).$(p)It can also synthesize mana from experience orbs in the world without requiring a player present; however, this method nets you a bit less mana for the same experience.",
+  "botania.page.arcanerose0": "$(thing)Experience Points$(0) contain a magic of their own. The $(item)Rosa Arcana$(0) can tap into this magic, absorbing the experience of nearby players and turning it into $(item)Mana$(0).$(p)It can also synthesize mana from experience orbs and enchanted items in the world; however, this method nets you a bit less mana for the same experience.",
   "botania.page.arcanerose1": "$(o)When this flower is planted, toss a coin$().",
 
   "botania.entry.munchdew": "Munchdew",
@@ -3288,6 +3288,7 @@
   "botania.subtitle.airRod": "Rod of the Skies whooshes",
   "botania.subtitle.agricarnation": "Agricarnation glimmers",
   "botania.subtitle.altarCraft": "Petal Apothecary finishes",
+  "botania.subtitle.arcane_rose_disenchant": "Rosa Arcana disenchants",
   "botania.subtitle.babylonAttack": "Key of King's Law unleashed",
   "botania.subtitle.babylonSpawn": "Key of King's Law activated",
   "botania.subtitle.bellows": "Manatide Bellows hisses",

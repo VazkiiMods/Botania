@@ -2,6 +2,15 @@
 	"airrod": { "sounds":["botania:airrod"], "subtitle": "botania.subtitle.airRod" },
 	"agricarnation": { "sounds":["botania:agricarnation"], "subtitle": "botania.subtitle.agricarnation" },
 	"altarcraft": { "sounds":["botania:altarcraft"], "subtitle": "botania.subtitle.altarCraft" },
+	"arcane_rose_disenchant": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:block.grindstone.use"
+			}
+		],
+		"subtitle": "botania.subtitle.arcane_rose_disenchant"
+	},
 	"babylonattack": { "sounds":["botania:babylonattack"], "subtitle": "botania.subtitle.babylonAttack" },
 	"babylonspawn": { "sounds":["botania:babylonspawn"], "subtitle": "botania.subtitle.babylonSpawn" },
 	"bellows": { "sounds":["botania:bellows"], "subtitle": "botania.subtitle.bellows" },

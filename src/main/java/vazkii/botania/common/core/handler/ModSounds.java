@@ -19,6 +19,7 @@ public final class ModSounds {
 	public static final SoundEvent airRod = makeSoundEvent("airrod");
 	public static final SoundEvent agricarnation = makeSoundEvent("agricarnation");
 	public static final SoundEvent altarCraft = makeSoundEvent("altarcraft");
+	public static final SoundEvent arcaneRoseDisenchant = makeSoundEvent("arcane_rose_disenchant");
 	public static final SoundEvent babylonAttack = makeSoundEvent("babylonattack");
 	public static final SoundEvent babylonSpawn = makeSoundEvent("babylonspawn");
 	public static final SoundEvent bellows = makeSoundEvent("bellows");
@@ -71,6 +72,7 @@ public final class ModSounds {
 		r.register(airRod);
 		r.register(agricarnation);
 		r.register(altarCraft);
+		r.register(arcaneRoseDisenchant);
 		r.register(babylonAttack);
 		r.register(babylonSpawn);
 		r.register(bellows);
