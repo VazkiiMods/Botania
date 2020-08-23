@@ -1,3 +1,19 @@
+1.16.1-403
+* Extend luminizer smart dismount from last build to all living entities
+* Fix dispensers voiding stacks of size 1 when filling glass bottles
+* Fix weight lens requirements for dropping a block not matching vanilla's requirements (Alwinfy)
+* Update banner and crafty crate lexicon screenshots (Alwinfy)
+* Another null check workaround for Optifine
+* Move laputa shard upgrading to custom/dynamic recipe
+* Rod of the Shaded Mesa fired by an avatar now targets all hostile mobs
+* Rod of the Shaded Mesa fired by a player now targets mobs hostile to other players, when PVP is off
+* Fix gaia guardian not spawning pixies during the mob spawn phase (Keralop)
+* Fix invisibility cloak not actually consuming mana (Keralop)
+* Add a HUD for the Prism similar to the spreader's
+* Lens tinted tooltip is now colored based on the tint
+* Fix bore lens having the wrong flags and thus being uncombinable/combinable with the wrong lenses
+* Fix fork and toggle luminizers having switched effects and rendering in some cases
+* Add Minecraft minor version to mod version to help disambiguate
 1.16-402
 * Fix a crash on Forge 1.16.1 107+
 * Add some gold-based items to the piglin_loved tag
