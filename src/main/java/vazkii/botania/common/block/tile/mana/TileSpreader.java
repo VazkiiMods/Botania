@@ -23,6 +23,7 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.text.Text;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.DyeColor;
@@ -545,14 +546,13 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 
 		ItemStack lens = getItemHandler().getStack(0);
 		if (!lens.isEmpty()) {
-			String lensName = lens.getName().getString();
+			Text lensName = lens.getName();
 			int width = 16 + mc.textRenderer.getWidth(lensName) / 2;
 			int x = mc.getWindow().getScaledWidth() / 2 - width;
 			int y = mc.getWindow().getScaledHeight() / 2 + 50;
 
 			mc.textRenderer.drawWithShadow(ms, lensName, x + 20, y + 5, color);
 			mc.getItemRenderer().renderInGuiWithOverrides(lens, x, y);
-			RenderSystem.disableLighting();
 		}
 
 		if (receiver != null) {

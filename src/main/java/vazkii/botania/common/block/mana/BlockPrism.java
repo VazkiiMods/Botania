@@ -8,15 +8,20 @@
  */
 package vazkii.botania.common.block.mana;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
@@ -31,13 +36,14 @@ import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.mana.TilePrism;
 
 import javax.annotation.Nonnull;
 
-public class BlockPrism extends BlockModWaterloggable implements BlockEntityProvider, IManaTrigger, IManaCollisionGhost {
+public class BlockPrism extends BlockModWaterloggable implements BlockEntityProvider, IManaTrigger, IManaCollisionGhost, IWandHUD {
 	private static final VoxelShape SHAPE = createCuboidShape(4, 0, 4, 12, 16, 12);
 
 	public BlockPrism(Settings builder) {
@@ -127,5 +133,23 @@ public class BlockPrism extends BlockModWaterloggable implements BlockEntityProv
 	@Override
 	public boolean isGhost(BlockState state, World world, BlockPos pos) {
 		return true;
+	}
+
+	@Environment(EnvType.CLIENT)
+	@Override
+	public void renderHUD(MatrixStack ms, MinecraftClient mc, World world, BlockPos pos) {
+		BlockEntity te = world.getBlockEntity(pos);
+		if (te instanceof TilePrism) {
+			ItemStack lens = ((TilePrism) te).getStack(0);
+			if (!lens.isEmpty()) {
+				Text lensName = lens.getName();
+				int width = 16 + mc.textRenderer.getWidth(lensName) / 2;
+				int x = mc.getWindow().getScaledWidth() / 2 - width;
+				int y = mc.getWindow().getScaledHeight() / 2;
+
+				mc.textRenderer.drawWithShadow(ms, lensName, x + 20, y + 5, -1);
+				mc.getItemRenderer().renderInGuiWithOverrides(lens, x, y);
+			}
+		}
 	}
 }
