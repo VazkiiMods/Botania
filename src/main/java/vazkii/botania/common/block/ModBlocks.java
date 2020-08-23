@@ -290,8 +290,8 @@ public final class ModBlocks {
 	public static final Block ghostRail = new BlockGhostRail(Block.Properties.from(Blocks.RAIL));
 	public static final Block lightRelayDefault = new BlockLightRelay(LuminizerVariant.DEFAULT, Block.Properties.create(Material.GLASS).doesNotBlockMovement());
 	public static final Block lightRelayDetector = new BlockLightRelay(LuminizerVariant.DETECTOR, Block.Properties.from(lightRelayDefault));
-	public static final Block lightRelayFork = new BlockLightRelay(LuminizerVariant.TOGGLE, Block.Properties.from(lightRelayDefault));
-	public static final Block lightRelayToggle = new BlockLightRelay(LuminizerVariant.FORK, Block.Properties.from(lightRelayDefault));
+	public static final Block lightRelayFork = new BlockLightRelay(LuminizerVariant.FORK, Block.Properties.from(lightRelayDefault));
+	public static final Block lightRelayToggle = new BlockLightRelay(LuminizerVariant.TOGGLE, Block.Properties.from(lightRelayDefault));
 	public static final Block lightLauncher = new BlockLightLauncher(Block.Properties.from(livingwood));
 	public static final Block cacophonium = new BlockCacophonium(Block.Properties.create(Material.WOOD).hardnessAndResistance(0.8F));
 	public static final Block cellBlock = new BlockCell(Block.Properties.create(Material.GOURD).sound(SoundType.CLOTH));
