@@ -25,6 +25,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
@@ -107,7 +108,7 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 	@OnlyIn(Dist.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
 		if (variant.indestructible) {
-			tooltip.add(new TranslationTextComponent("botaniamisc.creative"));
+			tooltip.add(new TranslationTextComponent("botaniamisc.creative").mergeStyle(TextFormatting.GRAY));
 		}
 	}
 

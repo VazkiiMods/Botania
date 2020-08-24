@@ -27,6 +27,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -204,7 +205,7 @@ public class ItemBottledMana extends Item {
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> stacks, ITooltipFlag flags) {
-		stacks.add(new TranslationTextComponent("botaniamisc.bottleTooltip"));
+		stacks.add(new TranslationTextComponent("botaniamisc.bottleTooltip").mergeStyle(TextFormatting.GRAY));
 	}
 
 	@Nonnull
