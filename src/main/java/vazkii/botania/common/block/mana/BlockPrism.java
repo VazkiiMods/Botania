@@ -148,7 +148,7 @@ public class BlockPrism extends BlockModWaterloggable implements ITileEntityProv
 				int x = mc.getMainWindow().getScaledWidth() / 2 - width;
 				int y = mc.getMainWindow().getScaledHeight() / 2;
 
-				mc.fontRenderer.func_238407_a_(ms, lensName, x + 20, y + 5, -1);
+				mc.fontRenderer.func_243246_a(ms, lensName, x + 20, y + 5, -1);
 				mc.getItemRenderer().renderItemAndEffectIntoGUI(lens, x, y);
 			}
 		}
