@@ -148,8 +148,9 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 				}
 				anyFilter = true;
 
-				if (matches(stack, filterEntry))
+				if (matches(stack, filterEntry)) {
 					return true;
+				}
 			}
 
 			return !anyFilter;
