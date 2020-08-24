@@ -23,6 +23,7 @@ import net.minecraftforge.client.model.generators.ModelFile;
 
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.BlockModMushroom;
+import vazkii.botania.common.block.decor.BlockMotifFlower;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.mana.BlockSpreader;
@@ -330,6 +331,11 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 		takeAll(itemBlocks, defaultGenerated).forEach(i -> {
 			String name = Registry.ITEM.getKey(i).getPath();
 			withExistingParent(name, "item/generated").texture("layer0", prefix("block/" + name));
+		});
+
+		takeAll(itemBlocks, b -> b.getBlock() instanceof BlockMotifFlower).forEach(i -> {
+			String name = Registry.ITEM.getKey(i).getPath();
+			withExistingParent(name, "item/generated").texture("layer0", prefix("block/" + name.replace("_motif", "")));
 		});
 
 		takeAll(itemBlocks, i -> i.getBlock() instanceof BlockPool).forEach(i -> {

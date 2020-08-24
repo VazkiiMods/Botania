@@ -1038,6 +1038,11 @@
   "block.botania.bergamute": "Bergamute",
   "block.botania.bergamute.reference": "My lips are sealed",
   "block.botania.floating_bergamute": "Floating Bergamute",
+  "block.botania.daybloom_motif": "Daybloom Motif",
+  "block.botania.nightshade_motif": "Nightshade Motif",
+  "block.botania.hydroangeas_motif": "Hydroangeas Motif",
+  "block.botania.daybloom_motif.description": "Decorative flower from a bygone era",
+  "block.botania.hydroangeas_motif.description": "Decorative, does not decay",
 
   "item.botania.lexicon": "Lexica Botania",
   "item.botania.lexicon.bevo": "Lexica Botana",

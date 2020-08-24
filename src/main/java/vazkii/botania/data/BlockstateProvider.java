@@ -33,6 +33,7 @@ import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.BlockBuriedPetals;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.decor.BlockModMushroom;
+import vazkii.botania.common.block.decor.BlockMotifFlower;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
 import vazkii.botania.common.block.string.BlockRedString;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -247,6 +248,13 @@ public class BlockstateProvider extends BlockStateProvider {
 				|| b instanceof BlockModFlower;
 		takeAll(remainingBlocks, flowers).forEach(b -> {
 			String name = Registry.BLOCK.getKey(b).getPath();
+			ModelFile model = models().withExistingParent(name, prefix("block/shapes/cross"))
+					.texture("cross", prefix("block/" + name));
+			simpleBlock(b, model);
+		});
+
+		takeAll(remainingBlocks, b -> b instanceof BlockMotifFlower).forEach(b -> {
+			String name = Registry.BLOCK.getKey(b).getPath().replace("_motif", "");
 			ModelFile model = models().withExistingParent(name, prefix("block/shapes/cross"))
 					.texture("cross", prefix("block/" + name));
 			simpleBlock(b, model);

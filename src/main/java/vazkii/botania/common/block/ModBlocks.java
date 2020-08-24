@@ -20,6 +20,7 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.Rarity;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.ToolType;
@@ -334,6 +335,10 @@ public final class ModBlocks {
 	public static final Block infusedGrass = new BlockAltGrass(BlockAltGrass.Variant.INFUSED, Block.Properties.from(dryGrass));
 	public static final Block mutatedGrass = new BlockAltGrass(BlockAltGrass.Variant.MUTATED, Block.Properties.from(dryGrass));
 
+	public static final Block motifDaybloom = new BlockMotifFlower(Effects.BLINDNESS, 15, Block.Properties.from(Blocks.POPPY), true);
+	public static final Block motifNightshade = new BlockMotifFlower(Effects.POISON, 20, Block.Properties.from(Blocks.POPPY), true);
+	public static final Block motifHydroangeas = new BlockMotifFlower(Effects.UNLUCK, 10, Block.Properties.from(Blocks.POPPY), false);
+
 	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
 		IForgeRegistry<Block> r = evt.getRegistry();
 		register(r, "white" + LibBlockNames.MYSTICAL_FLOWER_SUFFIX, whiteFlower);
@@ -585,6 +590,9 @@ public final class ModBlocks {
 		register(r, BlockAltGrass.Variant.SCORCHED.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, scorchedGrass);
 		register(r, BlockAltGrass.Variant.INFUSED.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, infusedGrass);
 		register(r, BlockAltGrass.Variant.MUTATED.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, mutatedGrass);
+		register(r, LibBlockNames.MOTIF_DAYBLOOM, motifDaybloom);
+		register(r, LibBlockNames.MOTIF_NIGHTSHADE, motifNightshade);
+		register(r, LibBlockNames.MOTIF_HYDROANGEAS, motifHydroangeas);
 	}
 
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
@@ -820,6 +828,9 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getKey(scorchedGrass), new BlockItem(scorchedGrass, props));
 		register(r, Registry.BLOCK.getKey(infusedGrass), new BlockItem(infusedGrass, props));
 		register(r, Registry.BLOCK.getKey(mutatedGrass), new BlockItem(mutatedGrass, props));
+		register(r, Registry.BLOCK.getKey(motifDaybloom), new BlockItem(motifDaybloom, props));
+		register(r, Registry.BLOCK.getKey(motifNightshade), new BlockItem(motifNightshade, props));
+		register(r, Registry.BLOCK.getKey(motifHydroangeas), new BlockItem(motifHydroangeas, props));
 	}
 
 	public static <V extends IForgeRegistryEntry<V>> void register(IForgeRegistry<V> reg, ResourceLocation name, IForgeRegistryEntry<V> thing) {

@@ -194,6 +194,10 @@ public final class LibBlockNames {
 	public static final ResourceLocation SUBTILE_SOLEGNOLIA = prefix("solegnolia");
 	public static final ResourceLocation SUBTILE_ORECHID_IGNEM = prefix("orechid_ignem");
 
+	public static final String MOTIF_DAYBLOOM = "daybloom_motif";
+	public static final String MOTIF_NIGHTSHADE = "nightshade_motif";
+	public static final String MOTIF_HYDROANGEAS = "hydroangeas_motif";
+
 	public static final String QUARTZ_DARK = "dark_quartz";
 	public static final String QUARTZ_MANA = "mana_quartz";
 	public static final String QUARTZ_BLAZE = "blaze_quartz";
