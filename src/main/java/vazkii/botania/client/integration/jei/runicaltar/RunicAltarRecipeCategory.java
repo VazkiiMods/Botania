@@ -26,7 +26,6 @@ import net.minecraft.util.math.vector.Vector2f;
 
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
 import vazkii.botania.client.core.handler.HUDHandler;
-import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.client.integration.jei.petalapothecary.PetalApothecaryRecipeCategory;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;

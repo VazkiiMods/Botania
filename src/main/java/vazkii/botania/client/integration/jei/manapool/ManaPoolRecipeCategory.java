@@ -27,7 +27,6 @@ import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.core.handler.HUDHandler;
-import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;

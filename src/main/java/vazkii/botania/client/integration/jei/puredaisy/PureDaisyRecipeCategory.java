@@ -30,7 +30,6 @@ import net.minecraftforge.fluids.FluidStack;
 
 import vazkii.botania.api.recipe.IPureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModSubtiles;
 
 import javax.annotation.Nonnull;
