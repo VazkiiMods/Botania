@@ -18,6 +18,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.item.ItemFrameEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.properties.ChestType;
@@ -142,21 +143,13 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 		case 0: { // Accept items in frames only
 			boolean anyFilter = false;
 			for (ItemStack filterEntry : filter) {
-				if (filterEntry == null) {
+				if (filterEntry == null || filterEntry.isEmpty()) {
 					continue;
 				}
 				anyFilter = true;
 
-				boolean itemEqual = stack.getItem() == filterEntry.getItem();
-				boolean nbtEqual = ItemStack.areItemStackTagsEqual(filterEntry, stack);
-
-				if (itemEqual && nbtEqual) {
+				if (matches(stack, filterEntry))
 					return true;
-				}
-
-				if (stack.getItem() instanceof IManaItem && itemEqual) {
-					return true;
-				}
 			}
 
 			return !anyFilter;
@@ -166,6 +159,30 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 		default:
 			return true; // Accept all items
 		}
+	}
+
+	public static boolean matches(ItemStack stack, ItemStack filter) {
+		Item item = stack.getItem();
+		if (item != filter.getItem()) {
+			return false;
+		}
+
+		if (item instanceof IManaItem) {
+			IManaItem manaItem = (IManaItem) item;
+			return getFullness(manaItem, stack) == getFullness(manaItem, filter);
+		} else {
+			return ItemStack.areItemStackTagsEqual(filter, stack);
+		}
+	}
+
+	/**
+	 * Returns the fullness of the mana item:
+	 * 0 if empty, 1 if partially full, 2 if full.
+	 */
+	public static int getFullness(IManaItem item, ItemStack stack) {
+		int mana = item.getMana(stack);
+		int fuzz = 10;
+		return mana <= fuzz ? 0 : (mana + fuzz < item.getMaxMana(stack) ? 1 : 2);
 	}
 
 	public List<ItemStack> getFilterForInventory(BlockPos pos, boolean recursiveForDoubleChests) {
