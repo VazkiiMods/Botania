@@ -152,6 +152,5 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 		}
 
 		IGuiIngredientGroup<?> group = outputFluid ? recipeLayout.getFluidStacks() : recipeLayout.getItemStacks();
-		JEIBotaniaPlugin.addDefaultRecipeIdTooltip(group, 2, recipe.getId());
 	}
 }

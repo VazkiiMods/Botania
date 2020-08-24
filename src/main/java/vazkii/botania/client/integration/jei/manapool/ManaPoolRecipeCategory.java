@@ -136,7 +136,5 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 
 		recipeLayout.getItemStacks().init(index, false, 93, 12);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
-
-		JEIBotaniaPlugin.addDefaultRecipeIdTooltip(recipeLayout.getItemStacks(), index, recipe.getId());
 	}
 }

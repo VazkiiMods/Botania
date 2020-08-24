@@ -142,15 +142,5 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 			recipeLayout.getItemStacks().init(index + i, false, 93 + i % 2 * 20, 41 + i / 2 * 20);
 			recipeLayout.getItemStacks().set(index + i, stacks);
 		}
-
-		int endIndex = index;
-		ResourceLocation recipeId = recipe.getId();
-		recipeLayout.getItemStacks().addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
-			if (slotIndex >= endIndex) {
-				if (Minecraft.getInstance().gameSettings.advancedItemTooltips || Screen.hasShiftDown()) {
-					tooltip.add(new TranslationTextComponent("jei.tooltip.recipe.id", recipeId).mergeStyle(TextFormatting.DARK_GRAY));
-				}
-			}
-		});
 	}
 }

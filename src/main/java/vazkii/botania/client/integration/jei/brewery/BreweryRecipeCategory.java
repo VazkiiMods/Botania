@@ -127,8 +127,6 @@ public class BreweryRecipeCategory implements IRecipeCategory<IBrewRecipe> {
 
 		recipeLayout.getItemStacks().init(7, false, 58, 35);
 		recipeLayout.getItemStacks().set(7, getItemMatchingFocus(focus, IFocus.Mode.INPUT, inputs.get(0), outputs.get(0)));
-
-		JEIBotaniaPlugin.addDefaultRecipeIdTooltip(recipeLayout.getItemStacks(), 7, recipe.getId());
 	}
 
 	/**

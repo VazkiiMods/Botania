@@ -120,8 +120,6 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 
 		recipeLayout.getItemStacks().init(index, false, 86, 11);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
-
-		JEIBotaniaPlugin.addDefaultRecipeIdTooltip(recipeLayout.getItemStacks(), index, recipe.getId());
 	}
 
 	public static Vector2f rotatePointAbout(Vector2f in, Vector2f about, double degrees) {

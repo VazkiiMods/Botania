@@ -236,16 +236,6 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		CorporeaInputHandler.supportedGuiFilter = gui -> gui instanceof ContainerScreen || gui instanceof IRecipesGui;
 	}
 
-	public static void addDefaultRecipeIdTooltip(IGuiIngredientGroup<?> group, int slot, ResourceLocation recipeId) {
-		group.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
-			if (slotIndex == slot) {
-				if (Minecraft.getInstance().gameSettings.advancedItemTooltips || Screen.hasShiftDown()) {
-					tooltip.add(new TranslationTextComponent("jei.tooltip.recipe.id", recipeId).mergeStyle(TextFormatting.DARK_GRAY));
-				}
-			}
-		});
-	}
-
 	@Nonnull
 	@Override
 	public ResourceLocation getPluginUid() {
