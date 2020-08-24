@@ -25,7 +25,7 @@ import vazkii.botania.common.entity.EntityPoolMinecart;
 
 import javax.annotation.Nonnull;
 
-// [VanillaCopy] ItemMinecart
+// [VanillaCopy] MinecartItem
 public class BehaviourPoolMinecart extends DefaultDispenseItemBehavior {
 	private final DefaultDispenseItemBehavior behaviourDefaultDispenseItem = new DefaultDispenseItemBehavior();
 

@@ -16,7 +16,6 @@ import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
@@ -36,7 +35,7 @@ public class ItemEnderAir extends Item {
 		ItemStack stack = event.getItemStack();
 		World world = event.getWorld();
 
-		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.func_234922_V_() == DimensionType.THE_END) {
+		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.func_234923_W_() == World.field_234920_i_) {
 			if (!isClearFromDragonBreath(world, event.getPlayer().getBoundingBox().grow(3.5D))) {
 				return;
 			}

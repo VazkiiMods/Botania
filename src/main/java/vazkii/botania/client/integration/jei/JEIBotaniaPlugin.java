@@ -17,6 +17,7 @@ import mezz.jei.api.registration.*;
 import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -24,6 +25,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -110,7 +112,8 @@ public class JEIBotaniaPlugin implements IModPlugin {
 	}
 
 	public static boolean doesOreExist(ResourceLocation tagId) {
-		return !BlockTags.getCollection().getOrCreate(tagId).getAllElements().isEmpty();
+		ITag<Block> tag = BlockTags.getCollection().get(tagId);
+		return tag != null && !tag.getAllElements().isEmpty();
 	}
 
 	@Override

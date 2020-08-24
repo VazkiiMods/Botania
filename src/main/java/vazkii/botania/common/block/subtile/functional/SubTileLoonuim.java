@@ -96,7 +96,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			} else if (world.rand.nextInt(10) == 0) {
 				entity = new CreeperEntity(EntityType.CREEPER, world);
 				if (world.rand.nextInt(200) == 0) {
-					entity.onStruckByLightning(null);
+					entity.func_241841_a((ServerWorld) world, null);
 				}
 			} else {
 				switch (world.rand.nextInt(3)) {
@@ -140,7 +140,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			CompoundNBT cmp = stack.write(new CompoundNBT());
 			entity.getPersistentData().put(TAG_ITEMSTACK_TO_DROP, cmp);
 
-			entity.onInitialSpawn(world, world.getDifficultyForLocation(pos), SpawnReason.SPAWNER, null, null);
+			entity.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(pos), SpawnReason.SPAWNER, null, null);
 			world.addEntity(entity);
 			entity.spawnExplosionParticle();
 

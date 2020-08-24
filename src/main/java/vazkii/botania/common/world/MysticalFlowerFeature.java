@@ -17,7 +17,6 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.structure.StructureManager;
 
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.ModBlocks;
@@ -32,7 +31,7 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
 	}
 
 	@Override
-	public boolean func_230362_a_(@Nonnull ISeedReader world, @Nonnull StructureManager structures, @Nonnull ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull MysticalFlowerConfig config) {
+	public boolean func_241855_a(@Nonnull ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull MysticalFlowerConfig config) {
 		boolean any = false;
 		int dist = Math.min(8, Math.max(1, config.getFlowerPatchSize()));
 		for (int i = 0; i < config.getPatchCount(); i++) {

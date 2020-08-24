@@ -24,7 +24,7 @@ public interface IPetalRecipe extends IRecipe<IInventory> {
 	@Nonnull
 	@Override
 	default IRecipeType<?> getType() {
-		return Registry.RECIPE_TYPE.getValue(TYPE_ID).get();
+		return Registry.RECIPE_TYPE.func_241873_b(TYPE_ID).get();
 	}
 
 	@Override

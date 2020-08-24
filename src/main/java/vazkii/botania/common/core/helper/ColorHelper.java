@@ -19,14 +19,14 @@ import java.util.Locale;
 import java.util.function.Function;
 
 public final class ColorHelper {
-	public static final Function<DyeColor, Block> STAINED_GLASS_MAP = color -> Registry.BLOCK.getValue(new ResourceLocation(color.getString() + "_stained_glass")).get();
-	public static final Function<DyeColor, Block> STAINED_GLASS_PANE_MAP = color -> Registry.BLOCK.getValue(new ResourceLocation(color.getString() + "_stained_glass_pane")).get();
-	public static final Function<DyeColor, Block> TERRACOTTA_MAP = color -> Registry.BLOCK.getValue(new ResourceLocation(color.getString() + "_terracotta")).get();
-	public static final Function<DyeColor, Block> GLAZED_TERRACOTTA_MAP = color -> Registry.BLOCK.getValue(new ResourceLocation(color.getString() + "_glazed_terracotta")).get();
-	public static final Function<DyeColor, Block> WOOL_MAP = color -> Registry.BLOCK.getValue(new ResourceLocation(color.getString() + "_wool")).get();
-	public static final Function<DyeColor, Block> CARPET_MAP = color -> Registry.BLOCK.getValue(new ResourceLocation(color.getString() + "_carpet")).get();
-	public static final Function<DyeColor, Block> CONCRETE_MAP = color -> Registry.BLOCK.getValue(new ResourceLocation(color.getString() + "_concrete")).get();
-	public static final Function<DyeColor, Block> CONCRETE_POWDER_MAP = color -> Registry.BLOCK.getValue(new ResourceLocation(color.getString() + "_concrete_powder")).get();
+	public static final Function<DyeColor, Block> STAINED_GLASS_MAP = color -> Registry.BLOCK.func_241873_b(new ResourceLocation(color.getString() + "_stained_glass")).get();
+	public static final Function<DyeColor, Block> STAINED_GLASS_PANE_MAP = color -> Registry.BLOCK.func_241873_b(new ResourceLocation(color.getString() + "_stained_glass_pane")).get();
+	public static final Function<DyeColor, Block> TERRACOTTA_MAP = color -> Registry.BLOCK.func_241873_b(new ResourceLocation(color.getString() + "_terracotta")).get();
+	public static final Function<DyeColor, Block> GLAZED_TERRACOTTA_MAP = color -> Registry.BLOCK.func_241873_b(new ResourceLocation(color.getString() + "_glazed_terracotta")).get();
+	public static final Function<DyeColor, Block> WOOL_MAP = color -> Registry.BLOCK.func_241873_b(new ResourceLocation(color.getString() + "_wool")).get();
+	public static final Function<DyeColor, Block> CARPET_MAP = color -> Registry.BLOCK.func_241873_b(new ResourceLocation(color.getString() + "_carpet")).get();
+	public static final Function<DyeColor, Block> CONCRETE_MAP = color -> Registry.BLOCK.func_241873_b(new ResourceLocation(color.getString() + "_concrete")).get();
+	public static final Function<DyeColor, Block> CONCRETE_POWDER_MAP = color -> Registry.BLOCK.func_241873_b(new ResourceLocation(color.getString() + "_concrete_powder")).get();
 
 	@Nullable
 	public static DyeColor getWoolColor(Block b) {

@@ -66,7 +66,7 @@ public final class BossBarHandler {
 				mc.textureManager.bindTexture(currentBoss.getBossBarTexture());
 				drawBar(ms, currentBoss, x, y, bgRect.getX(), bgRect.getY(), bgRect.getWidth(), bgRect.getHeight(), true);
 				drawBar(ms, currentBoss, xf, yf, fgRect.getX(), fgRect.getY(), fw, fgRect.getHeight(), false);
-				mc.fontRenderer.func_238407_a_(ms, name, tx, y - 10, 0xA2018C);
+				mc.fontRenderer.func_243246_a(ms, name, tx, y - 10, 0xA2018C);
 				RenderSystem.enableBlend();
 				evt.setIncrement(Math.max(bgRect.getHeight(), fgRect.getHeight()) + auxHeight + mc.fontRenderer.FONT_HEIGHT);
 			}

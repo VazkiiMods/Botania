@@ -8,12 +8,11 @@
  */
 package vazkii.botania.common.block.decor;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.MushroomBlock;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -53,10 +52,9 @@ public class BlockModMushroom extends MushroomBlock implements IHornHarvestable,
 	@Override
 	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
 		BlockPos blockpos = pos.down();
-		BlockState iblockstate = worldIn.getBlockState(blockpos);
-		Block block = iblockstate.getBlock();
-		if (block != Blocks.MYCELIUM && block != Blocks.PODZOL) {
-			return iblockstate.canSustainPlant(worldIn, blockpos, Direction.UP, this);
+		BlockState blockstate = worldIn.getBlockState(blockpos);
+		if (!blockstate.isIn(BlockTags.field_242171_aD)) {
+			return blockstate.canSustainPlant(worldIn, blockpos, Direction.UP, this);
 		} else {
 			return true;
 		}

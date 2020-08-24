@@ -14,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.registry.Registry;
+import net.minecraftforge.common.Tags;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
@@ -38,7 +39,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(BlockTags.WALLS, ItemTags.WALLS);
 		this.copy(BlockTags.FENCES, ItemTags.FENCES);
 
-		this.getOrCreateBuilder(ModTags.Items.SHEARS).add(ModItems.elementiumShears, ModItems.manasteelShears);
+		this.getOrCreateBuilder(Tags.Items.SHEARS).add(ModItems.elementiumShears, ModItems.manasteelShears);
 
 		this.copy(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS, ModTags.Items.MUNDANE_FLOATING_FLOWERS);
 		this.copy(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS, ModTags.Items.SPECIAL_FLOATING_FLOWERS);

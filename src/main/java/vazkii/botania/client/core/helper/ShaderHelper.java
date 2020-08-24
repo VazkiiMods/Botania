@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.FloatBuffer;
 import java.util.EnumMap;
+import java.util.Locale;
 import java.util.Map;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -149,7 +150,7 @@ public final class ShaderHelper {
 	private static ShaderLoader createShader(IResourceManager manager, String filename, ShaderLoader.ShaderType shaderType) throws IOException {
 		ResourceLocation loc = prefix(filename);
 		try (InputStream is = new BufferedInputStream(manager.getResource(loc).getInputStream())) {
-			return ShaderLoader.func_216534_a(shaderType, loc.toString(), is);
+			return ShaderLoader.func_216534_a(shaderType, loc.toString(), is, shaderType.name().toLowerCase(Locale.ROOT));
 		}
 	}
 

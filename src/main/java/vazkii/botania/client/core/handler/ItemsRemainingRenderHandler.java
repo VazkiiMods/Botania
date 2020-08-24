@@ -93,7 +93,7 @@ public final class ItemsRemainingRenderHandler {
 			}
 
 			int color = 0x00FFFFFF | (int) (alpha * 0xFF) << 24;
-			mc.fontRenderer.func_238407_a_(ms, text, x + 20, y + 6, color);
+			mc.fontRenderer.func_243246_a(ms, text, x + 20, y + 6, color);
 		}
 	}
 

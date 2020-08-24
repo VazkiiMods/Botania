@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.settings.PointOfView;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.HandSide;
@@ -71,7 +72,7 @@ public class RenderLexicon {
 	public static void renderHand(RenderHandEvent evt) {
 		Minecraft mc = Minecraft.getInstance();
 		if (!ConfigHandler.CLIENT.lexicon3dModel.get()
-				|| mc.gameSettings.thirdPersonView != 0
+				|| mc.gameSettings.func_243230_g() != PointOfView.FIRST_PERSON
 				|| mc.player.getHeldItem(evt.getHand()).isEmpty()
 				|| mc.player.getHeldItem(evt.getHand()).getItem() != ModItems.lexicon) {
 			return;
@@ -165,7 +166,7 @@ public class RenderLexicon {
 			ms.translate(0F, 10F, 0F);
 			ms.scale(0.6F, 0.6F, 0.6F);
 			ITextComponent edition = ItemLexicon.getEdition().deepCopy().mergeStyle(TextFormatting.ITALIC, TextFormatting.BOLD);
-			font.func_238416_a_(edition, 0, 0, 0xA07100, false, ms.getLast().getMatrix(), buffers, false, 0, light);
+			font.func_243247_a(edition, 0, 0, 0xA07100, false, ms.getLast().getMatrix(), buffers, false, 0, light);
 
 			if (quote == -1) {
 				quote = mc.world.rand.nextInt(QUOTES.length);

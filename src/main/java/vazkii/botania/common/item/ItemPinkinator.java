@@ -57,7 +57,7 @@ public class ItemPinkinator extends Item {
 					pink.setCustomName(wither.getCustomName());
 					pink.setCustomNameVisible(wither.isCustomNameVisible());
 				}
-				pink.onInitialSpawn(world, world.getDifficultyForLocation(pink.getPosition()), SpawnReason.CONVERSION, null, null);
+				pink.onInitialSpawn((ServerWorld) world, world.getDifficultyForLocation(pink.getPosition()), SpawnReason.CONVERSION, null, null);
 				world.addEntity(pink);
 				pink.spawnExplosionParticle();
 				pink.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 4F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);

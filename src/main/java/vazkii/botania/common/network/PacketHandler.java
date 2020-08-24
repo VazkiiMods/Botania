@@ -22,7 +22,7 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class PacketHandler {
-	private static final String PROTOCOL = "6";
+	private static final String PROTOCOL = "7";
 	public static final SimpleChannel HANDLER = NetworkRegistry.newSimpleChannel(
 			prefix("chan"),
 			() -> PROTOCOL,
@@ -39,6 +39,7 @@ public final class PacketHandler {
 		HANDLER.registerMessage(id++, PacketItemAge.class, PacketItemAge::encode, PacketItemAge::decode, PacketItemAge::handle);
 		HANDLER.registerMessage(id++, PacketIndexKeybindRequest.class, PacketIndexKeybindRequest::encode, PacketIndexKeybindRequest::decode, PacketIndexKeybindRequest::handle);
 		HANDLER.registerMessage(id++, PacketUpdateItemsRemaining.class, PacketUpdateItemsRemaining::encode, PacketUpdateItemsRemaining::decode, PacketUpdateItemsRemaining::handle);
+		HANDLER.registerMessage(id++, PacketGogWorld.class, PacketGogWorld::encode, PacketGogWorld::decode, PacketGogWorld::handle);
 	}
 
 	/**

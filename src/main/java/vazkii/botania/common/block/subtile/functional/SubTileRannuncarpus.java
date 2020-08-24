@@ -157,7 +157,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 			int x = mc.getMainWindow().getScaledWidth() / 2 - width;
 			int y = mc.getMainWindow().getScaledHeight() / 2 + 30;
 
-			mc.fontRenderer.func_238407_a_(ms, stackName, x + 20, y + 5, color);
+			mc.fontRenderer.func_243246_a(ms, stackName, x + 20, y + 5, color);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(recieverStack, x, y);
 		}
 

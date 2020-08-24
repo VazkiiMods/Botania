@@ -17,15 +17,16 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
@@ -35,12 +36,23 @@ import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import vazkii.botania.common.network.PacketGogWorld;
+import vazkii.botania.common.network.PacketHandler;
 
 public final class SkyblockWorldEvents {
 
 	private SkyblockWorldEvents() {}
 
-	private static final ITag.INamedTag<Block> PEBBLE_SOURCES = BlockTags.makeWrapperTag("gardenofglass:pebble_sources");
+	private static final ResourceLocation PEBBLE_SOURCES = new ResourceLocation("gardenofglass:pebble_sources");
+
+	public static void syncGogStatus(EntityJoinWorldEvent evt) {
+		if (evt.getEntity() instanceof ServerPlayerEntity) {
+			boolean isGog = SkyblockChunkGenerator.isWorldSkyblock(evt.getWorld());
+			if (isGog) {
+				PacketHandler.sendTo((ServerPlayerEntity) evt.getEntity(), new PacketGogWorld());
+			}
+		}
+	}
 
 	public static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
 		World world = event.getPlayer().world;
@@ -48,7 +60,7 @@ public final class SkyblockWorldEvents {
 			SkyblockSavedData data = SkyblockSavedData.get((ServerWorld) world);
 			if (!data.skyblocks.containsValue(Util.DUMMY_UUID)) {
 				IslandPos islandPos = data.getSpawn();
-				((ServerWorld) world).func_241124_a__(islandPos.getCenter());
+				((ServerWorld) world).func_241124_a__(islandPos.getCenter(), 0);
 				spawnPlayer(event.getPlayer(), islandPos);
 				Botania.LOGGER.info("Created the spawn GoG island");
 			}
@@ -64,7 +76,8 @@ public final class SkyblockWorldEvents {
 				BlockState state = event.getWorld().getBlockState(event.getPos());
 				Block block = state.getBlock();
 
-				if (PEBBLE_SOURCES.contains(block)) {
+				ITag<Block> tag = event.getWorld().getTags().func_241835_a().func_241834_b(PEBBLE_SOURCES);
+				if (tag.contains(block)) {
 					SoundType st = state.getSoundType(event.getWorld(), event.getPos(), player);
 					player.playSound(st.getBreakSound(), st.getVolume() * 0.4F, st.getPitch() + (float) (Math.random() * 0.2 - 0.1));
 
@@ -107,7 +120,7 @@ public final class SkyblockWorldEvents {
 		if (player instanceof ServerPlayerEntity) {
 			ServerPlayerEntity pmp = (ServerPlayerEntity) player;
 			pmp.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
-			pmp.func_241153_a_(pmp.world.func_234923_W_(), pos, true, false);
+			pmp.func_242111_a(pmp.world.func_234923_W_(), pos, 0, true, false);
 			if (ConfigHandler.COMMON.gogSpawnWithLexicon.get()) {
 				player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
 			}

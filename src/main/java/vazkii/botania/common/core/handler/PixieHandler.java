@@ -20,6 +20,7 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.Util;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -86,7 +87,7 @@ public final class PixieHandler {
 				}
 
 				pixie.setProps((LivingEntity) event.getSource().getTrueSource(), player, 0, dmg);
-				pixie.onInitialSpawn(player.world, player.world.getDifficultyForLocation(pixie.getPosition()),
+				pixie.onInitialSpawn((ServerWorld) player.world, player.world.getDifficultyForLocation(pixie.getPosition()),
 						SpawnReason.EVENT, null, null);
 				player.world.addEntity(pixie);
 			}

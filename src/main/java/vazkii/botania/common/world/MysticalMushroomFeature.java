@@ -14,19 +14,20 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.structure.StructureManager;
 
 import vazkii.botania.common.block.ModBlocks;
 
+import javax.annotation.Nonnull;
+
 import java.util.Random;
 
-public class MysticalMushroomFeature extends Feature<MysticalFlowerConfig> {
+public class MysticalMushroomFeature extends Feature<MysticalMushroomConfig> {
 	public MysticalMushroomFeature() {
-		super(MysticalFlowerConfig.CODEC);
+		super(MysticalMushroomConfig.CODEC);
 	}
 
 	@Override
-	public boolean func_230362_a_(ISeedReader world, StructureManager structureManager, ChunkGenerator generator, Random rand, BlockPos pos, MysticalFlowerConfig config) {
+	public boolean func_241855_a(@Nonnull ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull MysticalMushroomConfig config) {
 		boolean any = false;
 		for (int i = 0; i < config.getMushroomPatchSize(); i++) {
 			int x = pos.getX() + rand.nextInt(16) + 8;

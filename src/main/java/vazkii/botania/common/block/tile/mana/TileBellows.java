@@ -86,10 +86,11 @@ public class TileBellows extends TileMod implements ITickableTileEntity {
 
 					if (furnace instanceof FurnaceTileEntity
 							&& furnace.hasWorld() && furnace.getBlockState().get(FurnaceBlock.LIT)) {
-						// [VanillaCopy] BlockFurnace
+						// [VanillaCopy] FurnaceBlock
 						double d0 = (double) pos.getX() + 0.5D;
 						double d1 = (double) pos.getY();
 						double d2 = (double) pos.getZ() + 0.5D;
+						// Botania: no playSound
 
 						Direction enumfacing = furnace.getBlockState().get(FurnaceBlock.FACING);
 						Direction.Axis enumfacing$axis = enumfacing.getAxis();

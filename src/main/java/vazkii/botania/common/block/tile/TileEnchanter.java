@@ -412,7 +412,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 				try {
 					String[] entryTokens = token.split("=");
 					int lvl = Integer.parseInt(entryTokens[1]);
-					Registry.ENCHANTMENT.getValue(new ResourceLocation(entryTokens[0])).ifPresent(ench -> {
+					Registry.ENCHANTMENT.func_241873_b(new ResourceLocation(entryTokens[0])).ifPresent(ench -> {
 						enchants.add(new EnchantmentData(ench, lvl));
 					});
 				} catch (ResourceLocationException ignored) {}

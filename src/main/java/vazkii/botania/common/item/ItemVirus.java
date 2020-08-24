@@ -24,6 +24,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 import vazkii.botania.mixin.AccessorAbstractHorseEntity;
@@ -83,7 +84,7 @@ public class ItemVirus extends Item {
 				jumpHeight.applyPersistentModifier(new AttributeModifier("Ermergerd Virus D:", jumpHeight.getBaseValue() * 0.5, AttributeModifier.Operation.ADDITION));
 
 				newHorse.playSound(SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, 1.0F + living.world.rand.nextFloat(), living.world.rand.nextFloat() * 0.7F + 1.3F);
-				newHorse.onInitialSpawn(player.world, player.world.getDifficultyForLocation(newHorse.getPosition()), SpawnReason.CONVERSION, null, null);
+				newHorse.onInitialSpawn((ServerWorld) player.world, player.world.getDifficultyForLocation(newHorse.getPosition()), SpawnReason.CONVERSION, null, null);
 				newHorse.setGrowingAge(horse.getGrowingAge());
 				player.world.addEntity(newHorse);
 				newHorse.spawnExplosionParticle();

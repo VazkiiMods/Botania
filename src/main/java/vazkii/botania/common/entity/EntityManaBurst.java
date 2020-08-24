@@ -153,7 +153,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 			this.baseTick();
 		}
 
-		RayTraceResult raytraceresult = ProjectileHelper.func_234618_a_(this, this::func_230298_a_, RayTraceContext.BlockMode.OUTLINE);
+		RayTraceResult raytraceresult = ProjectileHelper.func_234618_a_(this, this::func_230298_a_);
 		boolean flag = false;
 		if (raytraceresult.getType() == RayTraceResult.Type.BLOCK) {
 			BlockPos blockpos = ((BlockRayTraceResult) raytraceresult).getPos();

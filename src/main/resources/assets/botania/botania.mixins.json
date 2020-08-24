@@ -9,8 +9,8 @@
     "AccessorAbstractHorseEntity",
     "AccessorAbstractSpawner",
     "AccessorAvoidEntityGoal",
+    "AccessorBiomeGenerationSettings",
     "AccessorCreeperEntity",
-    "AccessorDimensionSettingsPreset",
     "AccessorDispenserBlock",
     "AccessorFireBlock",
     "AccessorGoalSelector",
@@ -38,6 +38,7 @@
     "AccessorRenderTypeBuffers",
     "AccessorSkullTileEntityRenderer",
     "AccessorWorldRenderer",
+    "MixinClientWorldInfo",
     "MixinSkullTileEntityRenderer",
     "MixinSplashes",
     "MixinWorldRenderer"

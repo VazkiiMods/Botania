@@ -12,9 +12,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
+import net.minecraft.world.biome.Biome;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -24,7 +24,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 	private static final int COST = 12;
@@ -34,16 +33,34 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 	private static final int RANGE_MINI = 2;
 	private static final int RANGE_Y_MINI = 1;
 
-	private static final Type[] TYPES = new Type[] {
-			Type.FOREST,
-			Type.PLAINS,
-			Type.MOUNTAIN,
-			Type.MUSHROOM,
-			Type.SWAMP,
-			Type.SANDY,
-			Type.COLD,
-			Type.MESA
-	};
+	// TODO should this try to match the exact same biome sets as <=1.16.1? is this close enough?
+	private enum Type {
+		FOREST(ModFluffBlocks.biomeStoneForest, Biome.Category.FOREST),
+		PLAINS(ModFluffBlocks.biomeStonePlains, Biome.Category.PLAINS),
+		MOUNTAIN(ModFluffBlocks.biomeStoneMountain, Biome.Category.EXTREME_HILLS),
+		MUSHROOM(ModFluffBlocks.biomeStoneFungal, Biome.Category.MUSHROOM),
+		SWAMP(ModFluffBlocks.biomeStoneSwamp, Biome.Category.SWAMP),
+		SANDY(ModFluffBlocks.biomeStoneDesert, Biome.Category.DESERT, Biome.Category.BEACH),
+		COLD(ModFluffBlocks.biomeStoneTaiga, Biome.Category.ICY, Biome.Category.TAIGA),
+		MESA(ModFluffBlocks.biomeStoneMesa, Biome.Category.MESA);
+
+		private final Block biomeStone;
+		private final Biome.Category[] categories;
+
+		Type(Block biomeStone, Biome.Category... categories) {
+			this.biomeStone = biomeStone;
+			this.categories = categories;
+		}
+
+		public boolean contains(Biome.Category category) {
+			for (Biome.Category c : categories) {
+				if (c == category) {
+					return true;
+				}
+			}
+			return false;
+		}
+	}
 
 	public SubTileMarimorphosis(TileEntityType<?> type) {
 		super(type);
@@ -78,44 +95,21 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 	}
 
 	public BlockState getStoneToPut(BlockPos coords) {
-		Set<Type> types = BiomeDictionary.getTypes(getWorld().getBiome(coords));
+		Biome.Category category = getWorld().getBiome(coords).getCategory();
 
-		List<Block> values = new ArrayList<>();
-		for (Type type : TYPES) {
-			int times = 1;
-			if (types.contains(type)) {
-				times = 12;
-			}
-
-			Block block = biomeTypeToBlock(type);
-			for (int j = 0; j < times; j++) {
-				values.add(block);
-			}
+		List<StoneEntry> values = new ArrayList<>();
+		for (Type type : Type.values()) {
+			values.add(new StoneEntry(type, type.contains(category) ? 12 : 1));
 		}
-
-		return values.get(getWorld().rand.nextInt(values.size())).getDefaultState();
+		return WeightedRandom.getRandomItem(getWorld().rand, values).type.biomeStone.getDefaultState();
 	}
 
-	private Block biomeTypeToBlock(Type biomeType) {
-		switch (biomeType.getName()) {
-		default:
-			throw new IllegalArgumentException("Should have verified type is suitable already: " + biomeType);
-		case "FOREST":
-			return ModFluffBlocks.biomeStoneForest;
-		case "PLAINS":
-			return ModFluffBlocks.biomeStonePlains;
-		case "MOUNTAIN":
-			return ModFluffBlocks.biomeStoneMountain;
-		case "MUSHROOM":
-			return ModFluffBlocks.biomeStoneFungal;
-		case "SWAMP":
-			return ModFluffBlocks.biomeStoneSwamp;
-		case "SANDY":
-			return ModFluffBlocks.biomeStoneDesert;
-		case "COLD":
-			return ModFluffBlocks.biomeStoneTaiga;
-		case "MESA":
-			return ModFluffBlocks.biomeStoneMesa;
+	private static class StoneEntry extends WeightedRandom.Item {
+		private final Type type;
+
+		public StoneEntry(Type type, int weight) {
+			super(weight);
+			this.type = type;
 		}
 	}
 
