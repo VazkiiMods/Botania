@@ -16,19 +16,23 @@
   "criteria": {
     "daybloom": {
       "trigger": "minecraft:inventory_changed",
-      "items": [
-        {
-          "item": "botania:daybloom_motif"
-        }
-      ]
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:daybloom_motif"
+          }
+        ]
+      }
     },
     "nightshade": {
       "trigger": "minecraft:inventory_changed",
-      "items": [
-        {
-          "item": "botania:nightshade_motif"
-        }
-      ]
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:nightshade_motif"
+          }
+        ]
+      }
     }
   },
   "requirements": [
