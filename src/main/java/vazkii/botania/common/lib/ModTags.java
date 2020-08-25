@@ -57,6 +57,7 @@ public class ModTags {
 		public static final ITag.INamedTag<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
 		public static final ITag.INamedTag<Item> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
 
+		public static final ITag.INamedTag<Item> CONTRIBUTOR_HEADFLOWERS = tag("contributor_headflowers");
 		public static final ITag.INamedTag<Item> SPECIAL_FLOWERS = tag("special_flowers");
 		public static final ITag.INamedTag<Item> MINI_FLOWERS = tag("mini_flowers");
 		public static final ITag.INamedTag<Item> MISC_SPECIAL_FLOWERS = tag("misc_special_flowers");
