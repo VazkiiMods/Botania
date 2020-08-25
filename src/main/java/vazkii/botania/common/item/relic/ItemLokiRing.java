@@ -22,6 +22,7 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -83,7 +84,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		}
 
 		BlockPos hit = lookPos.getPos();
-		if (stack.isEmpty()) {
+		if (stack.isEmpty() && event.getHand() == Hand.MAIN_HAND) {
 			BlockPos originCoords = getBindingCenter(lokiRing);
 			if (!event.getWorld().isRemote) {
 				if (originCoords.getY() == -1) {
@@ -132,6 +133,8 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 						ManaItemHandler.instance().requestManaExact(lokiRing, player, cost, true);
 						successes++;
 					}
+				} else {
+					break;
 				}
 			}
 			if (player instanceof ServerPlayerEntity) {
