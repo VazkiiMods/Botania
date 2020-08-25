@@ -134,13 +134,6 @@ public final class ConfigHandler {
 		public final ForgeConfigSpec.IntValue harvestLevelWeight;
 		public final ForgeConfigSpec.IntValue harvestLevelBore;
 
-		public final ForgeConfigSpec.IntValue flowerQuantity;
-		public final ForgeConfigSpec.IntValue flowerDensity;
-		public final ForgeConfigSpec.IntValue flowerPatchSize;
-		public final ForgeConfigSpec.IntValue flowerPatchChance;
-		public final ForgeConfigSpec.DoubleValue flowerTallChance;
-		public final ForgeConfigSpec.IntValue mushroomQuantity;
-
 		public final ForgeConfigSpec.BooleanValue gogSpawnWithLexicon;
 		public final ForgeConfigSpec.IntValue gogIslandScaleMultiplier;
 
@@ -172,27 +165,6 @@ public final class ConfigHandler {
 			harvestLevelBore = builder
 					.comment("The harvest level of the Mana Lens: Bore. 3 is diamond level. Defaults to 3")
 					.defineInRange("boreLens", 3, 0, Integer.MAX_VALUE);
-			builder.pop();
-
-			builder.push("worldgen");
-			flowerQuantity = builder
-					.comment("The quantity of Botania flower patches to generate in the world, defaults to 2, the lower the number the less patches generate.")
-					.defineInRange("flower.quantity", 2, 0, Integer.MAX_VALUE);
-			flowerDensity = builder
-					.comment("The density of each Botania flower patch generated, defaults to 2, the lower the number, the less each patch will have.")
-					.defineInRange("flower.density", 2, 0, Integer.MAX_VALUE);
-			flowerPatchSize = builder
-					.comment("The size of each Botania flower patch, defaults to 6. The larger this is the farther the each patch can spread")
-					.defineInRange("flower.patchSize", 6, 0, Integer.MAX_VALUE);
-			flowerPatchChance = builder
-					.comment("The inverse chance for a Botania flower patch to be generated, defaults to 16. The higher this value is the less patches will exist and the more flower each will have.")
-					.defineInRange("flower.patchChance", 16, 0, Integer.MAX_VALUE);
-			flowerTallChance = builder
-					.comment("The chance for a Botania flower generated in a patch to be a tall flower. 0.1 is 10%, 1 is 100%. Defaults to 0.05")
-					.defineInRange("flower.tallChance", 0.05, 0, 1);
-			mushroomQuantity = builder
-					.comment("The quantity of Botania mushrooms to generate underground, in the world, defaults to 40, the lower the number the less patches generate.")
-					.defineInRange("mushroom.quantity", 40, 0, Integer.MAX_VALUE);
 			builder.pop();
 
 			chargingAnimationEnabled = builder

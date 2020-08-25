@@ -13,18 +13,12 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.minecraft.world.gen.feature.IFeatureConfig;
 
-import vazkii.botania.common.core.handler.ConfigHandler;
-
 public class MysticalMushroomConfig implements IFeatureConfig {
 	public static final Codec<MysticalMushroomConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			Codec.INT.fieldOf("patch_size").forGetter(MysticalMushroomConfig::getMushroomPatchSize)
 	).apply(instance, MysticalMushroomConfig::new));
 
 	private final int mushroomPatchSize;
-
-	public static MysticalMushroomConfig fromConfig() {
-		return new MysticalMushroomConfig(ConfigHandler.COMMON.mushroomQuantity.get());
-	}
 
 	public MysticalMushroomConfig(int mushroomPatchSize) {
 		this.mushroomPatchSize = mushroomPatchSize;

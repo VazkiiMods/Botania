@@ -275,7 +275,6 @@ public class Botania {
 
 			ModBlocks.addDispenserBehaviours();
 
-			ModFeatures.addWorldgen();
 			ModStats.init();
 		});
 	}
@@ -286,6 +285,7 @@ public class Botania {
 	}
 
 	private void serverAboutToStart(FMLServerAboutToStartEvent event) {
+		ModFeatures.addWorldgen(event.getServer());
 		if (BotaniaAPI.instance().getClass() != BotaniaAPIImpl.class) {
 			String clname = BotaniaAPI.instance().getClass().getName();
 			throw new IllegalAccessError("The Botania API has been overriden. "

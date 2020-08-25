@@ -11,14 +11,13 @@ package vazkii.botania.common.world;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.placement.IPlacementConfig;
-import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
@@ -36,8 +35,8 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public class ModFeatures {
 	public static final Feature<MysticalFlowerConfig> MYSTICAL_FLOWERS = new MysticalFlowerFeature();
 	public static final Feature<MysticalMushroomConfig> MYSTICAL_MUSHROOMS = new MysticalMushroomFeature();
-	public static final ConfiguredFeature<?, ?> MYSTICAL_FLOWERS_CONF = MYSTICAL_FLOWERS.withConfiguration(MysticalFlowerConfig.fromConfig()).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
-	public static final ConfiguredFeature<?, ?> MYSTICAL_MUSHROOMS_CONF = MYSTICAL_MUSHROOMS.withConfiguration(MysticalMushroomConfig.fromConfig()).withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
+	public static final RegistryKey<ConfiguredFeature<?, ?>> MYSTICAL_FLOWERS_CONF = RegistryKey.func_240903_a_(Registry.field_243552_au, prefix("mystical_flowers"));
+	public static final RegistryKey<ConfiguredFeature<?, ?>> MYSTICAL_MUSHROOMS_CONF = RegistryKey.func_240903_a_(Registry.field_243552_au, prefix("mystical_mushrooms"));
 
 	// todo 1.16.2 blacklist, this is about the closest to the old one?
 	public static final Set<Biome.Category> TYPE_BLACKLIST = ImmutableSet.of(
@@ -52,19 +51,25 @@ public class ModFeatures {
 
 		ModBlocks.register(r, "mystical_flowers", MYSTICAL_FLOWERS);
 		ModBlocks.register(r, "mystical_mushrooms", MYSTICAL_MUSHROOMS);
-
-		Registry.register(WorldGenRegistries.field_243653_e, prefix("mystical_flowers"), MYSTICAL_FLOWERS_CONF);
-		Registry.register(WorldGenRegistries.field_243653_e, prefix("mystical_mushrooms"), MYSTICAL_MUSHROOMS_CONF);
 	}
 
-	public static void addWorldgen() {
-		Botania.LOGGER.debug("Injecting flowers and mushrooms into default biomes...");
-		for (Biome biome : WorldGenRegistries.field_243657_i) {
+	public static void addWorldgen(MinecraftServer server) {
+		Botania.LOGGER.debug("Injecting flowers and mushrooms into dynamic biomes...");
+		Registry<ConfiguredFeature<?, ?>> featReg = server.func_244267_aX().func_243612_b(Registry.field_243552_au);
+		ConfiguredFeature<?, ?> flowers = featReg.getValueForKey(MYSTICAL_FLOWERS_CONF);
+		ConfiguredFeature<?, ?> mushrooms = featReg.getValueForKey(MYSTICAL_MUSHROOMS_CONF);
+
+		if (flowers == null || mushrooms == null) {
+			Botania.LOGGER.error("Flower or mushroom configured_feature JSONs are missing! Skipping worldgen.");
+			return;
+		}
+
+		for (Biome biome : server.func_244267_aX().func_243612_b(Registry.BIOME_KEY)) {
 			if (!TYPE_BLACKLIST.contains(biome.getCategory())) {
-				injectIntoBiome(biome, MYSTICAL_FLOWERS_CONF);
+				injectIntoBiome(biome, flowers);
 			}
 			if (biome.getCategory() != Biome.Category.THEEND) {
-				injectIntoBiome(biome, MYSTICAL_MUSHROOMS_CONF);
+				injectIntoBiome(biome, mushrooms);
 			}
 		}
 	}
