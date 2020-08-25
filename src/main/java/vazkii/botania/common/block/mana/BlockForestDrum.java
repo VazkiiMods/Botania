@@ -110,8 +110,7 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 					if (entity instanceof MooshroomEntity) {
 						convertNearby(entity, Items.BOWL, Items.MUSHROOM_STEW);
 					}
-				}
-				else if (entity instanceof IShearable && ((IShearable) entity).isShearable()
+				} else if (entity instanceof IShearable && ((IShearable) entity).isShearable()
 						|| entity instanceof IForgeShearable && ((IForgeShearable) entity).isShearable(stack, world, entity.getPosition())) {
 					shearables.add(entity);
 				}
