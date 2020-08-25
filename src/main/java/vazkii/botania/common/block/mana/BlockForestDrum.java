@@ -10,10 +10,13 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.IShearable;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.passive.CowEntity;
+import net.minecraft.entity.passive.MooshroomEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
@@ -63,6 +66,7 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 	}
 
 	public void convertNearby(Entity entity, Item from, Item to) {
+		World world = entity.world;
 		List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, entity.getBoundingBox());
 		for (ItemEntity item : items) {
 			ItemStack itemstack = item.getItem();
