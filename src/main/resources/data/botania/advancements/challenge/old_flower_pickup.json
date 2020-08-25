@@ -36,7 +36,6 @@
     }
   },
   "requirements": [
-    [ "daybloom" ],
-    [ "nightshade" ]
+    [ "daybloom", "nightshade" ]
   ]
 }
