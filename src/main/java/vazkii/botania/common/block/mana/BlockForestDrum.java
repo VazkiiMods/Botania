@@ -62,6 +62,25 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 		return SHAPE;
 	}
 
+	public void convertNearby(Entity entity, Item from, Item to) {
+		List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, entity.getBoundingBox());
+		for (ItemEntity item : items) {
+			ItemStack itemstack = item.getItem();
+			if (!itemstack.isEmpty() && itemstack.getItem() == from && !world.isRemote) {
+				while (itemstack.getCount() > 0) {
+					ItemEntity ent = entity.entityDropItem(new ItemStack(to), 1.0F);
+					ent.setMotion(ent.getMotion().add(
+							world.rand.nextFloat() * 0.05F,
+							(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F,
+							(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F
+					));
+					itemstack.shrink(1);
+				}
+				item.remove();
+			}
+		}
+	}
+
 	@Override
 	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
 		if (burst.isFake()) {
@@ -82,26 +101,15 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 			ItemStack stack = new ItemStack(ModBlocks.gatheringDrum);
 
 			for (MobEntity entity : entities) {
-				if (entity instanceof IShearable && ((IShearable) entity).isShearable()
+				if (entity instanceof CowEntity) {
+					convertNearby(entity, Items.BUCKET, Items.MILK_BUCKET);
+					if (entity instanceof MooshroomEntity) {
+						convertNearby(entity, Items.BOWL, Items.MUSHROOM_STEW);
+					}
+				}
+				else if (entity instanceof IShearable && ((IShearable) entity).isShearable()
 						|| entity instanceof IForgeShearable && ((IForgeShearable) entity).isShearable(stack, world, entity.getPosition())) {
 					shearables.add(entity);
-				} else if (entity instanceof CowEntity) {
-					List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, entity.getBoundingBox());
-					for (ItemEntity item : items) {
-						ItemStack itemstack = item.getItem();
-						if (!itemstack.isEmpty() && itemstack.getItem() == Items.BUCKET && !world.isRemote) {
-							while (itemstack.getCount() > 0) {
-								ItemEntity ent = entity.entityDropItem(new ItemStack(Items.MILK_BUCKET), 1.0F);
-								ent.setMotion(ent.getMotion().add(
-										world.rand.nextFloat() * 0.05F,
-										(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F,
-										(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F
-								));
-								itemstack.shrink(1);
-							}
-							item.remove();
-						}
-					}
 				}
 			}
 
