@@ -74,7 +74,7 @@ public class CorporeaStringMatcher implements ICorporeaRequestMatcher {
 	public ITextComponent getRequestName() {
 		String value = WordUtils.capitalizeFully(toString());
 		// cope with initial globs
-		if (value.charAt(0) == '*') {
+		if (value.charAt(0) == '*' && value.length() > 1) {
 			value = "*" + Character.toUpperCase(value.charAt(1)) + value.substring(2);
 		}
 		return new StringTextComponent(value);
