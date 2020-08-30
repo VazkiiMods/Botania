@@ -2518,7 +2518,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 	}
 
 	private ShapedRecipeBuilder fenceGate(IItemProvider output, IItemProvider input) {
-		return ShapedRecipeBuilder.shapedRecipe(output, 3)
+		return ShapedRecipeBuilder.shapedRecipe(output)
 				.addCriterion("has_item", hasItem(input))
 				.key('B', input)
 				.key('S', Tags.Items.RODS_WOODEN)
