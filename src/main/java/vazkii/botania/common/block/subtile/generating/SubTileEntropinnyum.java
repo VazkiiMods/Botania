@@ -18,7 +18,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -34,23 +34,20 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 	private static final int EXPLODE_EFFECT_EVENT = 0;
 	private static final int ANGRY_EFFECT_EVENT = 1;
 
-	static {
-		MinecraftForge.EVENT_BUS.addListener(SubTileEntropinnyum::onEntityJoin);
-	}
-
 	public SubTileEntropinnyum() {
 		super(ModSubtiles.ENTROPINNYUM);
 	}
 
-	private static void onEntityJoin(EntityJoinWorldEvent evt) {
-		Entity e = evt.getEntity();
-		if (!evt.getWorld().isRemote && e instanceof TNTEntity && !e.getPersistentData().contains(TAG_UNETHICAL)) {
-			e.getPersistentData().putBoolean(TAG_UNETHICAL, isUnethical((TNTEntity) e));
+	public static void onEntityJoin(EntityJoinWorldEvent evt) {
+		if (!evt.getWorld().isRemote && evt.getEntity() instanceof TNTEntity && isUnethical(evt.getEntity())) {
+			evt.getEntity().getPersistentData().putBoolean(TAG_UNETHICAL, true);
 		}
 	}
 
-	private static boolean isUnethical(TNTEntity e) {
-		if (e.getFuse() != 80) return false;
+	private static boolean isUnethical(Entity e) {
+		if (!e.world.getChunkProvider().isChunkLoaded(e)) {
+			return false;
+		}
 
 		BlockPos center = e.getPosition();
 		int x = center.getX();
