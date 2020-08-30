@@ -34,18 +34,24 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 	private static final int EXPLODE_EFFECT_EVENT = 0;
 	private static final int ANGRY_EFFECT_EVENT = 1;
 
-	public SubTileEntropinnyum() {
-		super(ModSubtiles.ENTROPINNYUM);
-		MinecraftForge.EVENT_BUS.addListener(this::onEntityJoin);
+	static {
+		MinecraftForge.EVENT_BUS.addListener(SubTileEntropinnyum::onEntityJoin);
 	}
 
-	private void onEntityJoin(EntityJoinWorldEvent evt) {
-		if (!evt.getWorld().isRemote && evt.getEntity() instanceof TNTEntity && isUnethical(evt.getEntity())) {
-			evt.getEntity().getPersistentData().putBoolean(TAG_UNETHICAL, true);
+	public SubTileEntropinnyum() {
+		super(ModSubtiles.ENTROPINNYUM);
+	}
+
+	private static void onEntityJoin(EntityJoinWorldEvent evt) {
+		Entity e = evt.getEntity();
+		if (!evt.getWorld().isRemote && e instanceof TNTEntity && !e.getPersistentData().contains(TAG_UNETHICAL)) {
+			e.getPersistentData().putBoolean(TAG_UNETHICAL, isUnethical((TNTEntity) e));
 		}
 	}
 
-	private static boolean isUnethical(Entity e) {
+	private static boolean isUnethical(TNTEntity e) {
+		if (e.getFuse() != 80) return false;
+
 		BlockPos center = e.getPosition();
 		int x = center.getX();
 		int y = center.getY();
