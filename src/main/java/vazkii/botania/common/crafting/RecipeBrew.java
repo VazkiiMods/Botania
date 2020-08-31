@@ -144,7 +144,7 @@ public class RecipeBrew implements IBrewRecipe {
 		public RecipeBrew read(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {
 			String brewStr = JSONUtils.getString(json, "brew");
 			ResourceLocation brewId = ResourceLocation.tryCreate(brewStr);
-			if (brewId == null || !BotaniaAPI.instance().getBrewRegistry().containsKey(brewId)) {
+			if (brewId == null || !BotaniaAPI.instance().getBrewRegistry().func_241873_b(brewId).isPresent()) {
 				throw new JsonParseException("Unknown brew " + brewStr);
 			}
 			Brew brew = BotaniaAPI.instance().getBrewRegistry().getOrDefault(brewId);
