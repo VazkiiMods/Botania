@@ -47,21 +47,21 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 	public enum Variant {
 		ABSTRUSE(false, (pos, context) -> {
 			Entity e = context.getEntity();
-			return (e != null && e.getPosY() > pos.getY() + 0.9 && !context.getPosY());
+			return (e == null || e.getPosY() > pos.getY() + 0.9 && !context.getPosY());
 		}),
 		SPECTRAL(false, (pos, context) -> false),
 		INFRANGIBLE(true, (pos, context) -> true);
 
 		public final boolean indestructible;
-		public final BiPredicate<BlockPos, ISelectionContext> permeable;
+		public final BiPredicate<BlockPos, ISelectionContext> collide;
 
 		private Variant(boolean i, BiPredicate<BlockPos, ISelectionContext> p) {
 			indestructible = i;
-			permeable = p;
+			collide = p;
 		}
 	}
 
-	public final Variant variant;
+	private final Variant variant;
 
 	public BlockPlatform(@Nonnull Variant v, Properties builder) {
 		super(builder);
@@ -70,9 +70,21 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 
 	@Nonnull
 	@Override
+	public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TilePlatform && ((TilePlatform) te).getCamoState() != null) {
+			return ((TilePlatform) te).getCamoState().getShape(world, pos);
+		} else {
+			return super.getShape(state, world, pos, context);
+		}
+	}
+
+	@Nonnull
+	@Override
 	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, ISelectionContext context) {
-		if (variant.permeable.test(pos, context)) {
-			return super.getCollisionShape(state, world, pos, context);
+		if (variant.collide.test(pos, context)) {
+			// NB: Use full shape from super.getShape instead of camo state. May change later.
+			return super.getShape(state, world, pos, context);
 		} else {
 			return VoxelShapes.empty();
 		}
@@ -128,8 +140,7 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 					&& !(changeState.getBlock() instanceof BlockPlatform)
 					&& changeState.getMaterial() != Material.AIR) {
 				if (!world.isRemote) {
-					camo.camoState = changeState;
-					world.notifyBlockUpdate(pos, state, state, 3);
+					camo.setCamoState(changeState);
 				}
 
 				return ActionResultType.SUCCESS;

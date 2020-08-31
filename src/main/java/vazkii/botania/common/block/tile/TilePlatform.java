@@ -23,6 +23,7 @@ import net.minecraftforge.client.model.data.ModelDataMap;
 import net.minecraftforge.client.model.data.ModelProperty;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class TilePlatform extends TileMod {
 	public static final ModelProperty<BlockState> HELD_STATE = new ModelProperty<>();
@@ -30,7 +31,8 @@ public class TilePlatform extends TileMod {
 
 	private static final String TAG_CAMO = "camo";
 
-	public BlockState camoState;
+	@Nullable
+	private BlockState camoState;
 
 	public TilePlatform() {
 		super(ModTiles.PLATFORM);
@@ -38,7 +40,7 @@ public class TilePlatform extends TileMod {
 
 	public boolean onWanded(PlayerEntity player) {
 		if (player != null) {
-			if (camoState == null || player.isSneaking()) {
+			if (getCamoState() == null || player.isSneaking()) {
 				swapSelfAndPass(this, true);
 			} else {
 				swapSurroudings(this, false);
@@ -47,6 +49,22 @@ public class TilePlatform extends TileMod {
 		}
 
 		return false;
+	}
+
+	@Nullable
+	public BlockState getCamoState() {
+		return camoState;
+	}
+
+	public void setCamoState(@Nullable BlockState state) {
+		this.camoState = state;
+
+		if (world != null) {
+			world.notifyBlockUpdate(getPos(), getBlockState(), getBlockState(), 3);
+			if (!world.isRemote) {
+				world.func_230547_a_(pos, getBlockState().getBlock());
+			}
+		}
 	}
 
 	private void swapSelfAndPass(TilePlatform tile, boolean empty) {
@@ -60,7 +78,7 @@ public class TilePlatform extends TileMod {
 			TileEntity tileAt = world.getTileEntity(pos);
 			if (tileAt instanceof TilePlatform) {
 				TilePlatform platform = (TilePlatform) tileAt;
-				if (empty == (platform.camoState != null)) {
+				if (empty == (platform.getCamoState() != null)) {
 					swapSelfAndPass(platform, empty);
 				}
 			}
@@ -68,23 +86,23 @@ public class TilePlatform extends TileMod {
 	}
 
 	private void swap(TilePlatform tile, boolean empty) {
-		tile.camoState = empty ? null : camoState;
-		world.notifyBlockUpdate(tile.getPos(), tile.getBlockState(), tile.getBlockState(), 3);
+		tile.setCamoState(empty ? null : getCamoState());
 	}
 
 	@Override
 	public void writePacketNBT(CompoundNBT cmp) {
-		if (camoState != null) {
-			cmp.put(TAG_CAMO, NBTUtil.writeBlockState(camoState));
+		if (getCamoState() != null) {
+			cmp.put(TAG_CAMO, NBTUtil.writeBlockState(getCamoState()));
 		}
 	}
 
 	@Override
 	public void readPacketNBT(CompoundNBT cmp) {
-		camoState = NBTUtil.readBlockState(cmp.getCompound(TAG_CAMO));
-		if (camoState.isAir()) {
-			camoState = null;
+		BlockState state = NBTUtil.readBlockState(cmp.getCompound(TAG_CAMO));
+		if (state.isAir()) {
+			state = null;
 		}
+		setCamoState(state);
 	}
 
 	@Override
@@ -101,7 +119,7 @@ public class TilePlatform extends TileMod {
 	public IModelData getModelData() {
 		return new ModelDataMap.Builder()
 				.withInitial(HELD_POS, getPos())
-				.withInitial(HELD_STATE, camoState)
+				.withInitial(HELD_STATE, getCamoState())
 				.build();
 	}
 }
