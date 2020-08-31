@@ -1,3 +1,16 @@
+1.16.2-405
+* Update to 1.16.2. Where did 404 go?...
+* Rosa Arcana now disenchants items passing near it, releasing XP orbs (that it then absorbs)
+* Clean up sound event ID's
+* Readd old motif flowers and an advancement
+* Fix some incorrect tooltip colors
+* Add specific tag for flowers that can be contributor headflowers, add the motifs to this tag under their old names.
+* Fix loki ring resetting if you run out of blocks with an empty offhand
+* Mooshrooms are now "milked" by the Drum of the Gathering instead of sheared (use dispensers as they can now shear mooshrooms in 1.16)
+* Vazkii name typo now 100% more reliable
+* Fix out of bounds in Corporea causing some queries to not return feedback in the chat
+* Hopperhocks special-case mana-storing items, matching (fuzzily) how much mana they have: empty, partially full, full
+* Laputa shards can now place blocks into any replaceable material instead of requiring air
 1.16.1-403
 * Extend luminizer smart dismount from last build to all living entities
 * Fix dispensers voiding stacks of size 1 when filling glass bottles
