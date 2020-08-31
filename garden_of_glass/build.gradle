@@ -27,7 +27,7 @@ def parseConfig(File config) {
 
 ext.config = parseConfig(file('../build.properties'))
 
-version = '1.4'
+version = '1.5'
 group = 'vazkii.botania' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'gardenofglass'
 
@@ -42,7 +42,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:1.16.2-33.0.7"
+    minecraft "net.minecraftforge:forge:1.16.2-33.0.20"
 }
 
 jar {
