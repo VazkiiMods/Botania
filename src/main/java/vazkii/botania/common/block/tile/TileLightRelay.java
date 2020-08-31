@@ -53,7 +53,7 @@ import java.util.List;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class TileLightRelay extends TileMod implements ITickableTileEntity, IWandBindable {
-	private static final int MAX_DIST = 20;
+	public static final int MAX_DIST = 20;
 
 	private static final String TAG_BIND_X = "bindX";
 	private static final String TAG_BIND_Y = "bindY";

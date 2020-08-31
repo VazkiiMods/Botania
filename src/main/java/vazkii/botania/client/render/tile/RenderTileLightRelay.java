@@ -17,15 +17,18 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3f;
 
 import vazkii.botania.api.state.enums.LuminizerVariant;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.BlockLightRelay;
 import vazkii.botania.common.block.tile.TileLightRelay;
+import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 
 import javax.annotation.Nonnull;
 
@@ -50,6 +53,13 @@ public class RenderTileLightRelay extends TileEntityRenderer<TileLightRelay> {
 			sprites.put(LuminizerVariant.DETECTOR, MiscellaneousIcons.INSTANCE.lightRelayDetectorWorldIcon);
 			sprites.put(LuminizerVariant.FORK, MiscellaneousIcons.INSTANCE.lightRelayForkWorldIcon);
 			sprites.put(LuminizerVariant.TOGGLE, MiscellaneousIcons.INSTANCE.lightRelayToggleWorldIcon);
+		}
+
+		if (mc.getRenderViewEntity() instanceof LivingEntity) {
+			LivingEntity view = (LivingEntity) mc.getRenderViewEntity();
+			if (ItemMonocle.hasMonocle(view) && RenderTileSpecialFlower.hasBindingAttempt(view, tile.getPos())) {
+				RenderTileSpecialFlower.renderRadius(tile, ms, buffers, new RadiusDescriptor.Circle(tile.getPos(), TileLightRelay.MAX_DIST));
+			}
 		}
 
 		TextureAtlasSprite iicon = sprites.get(((BlockLightRelay) state.getBlock()).variant);

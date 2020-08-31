@@ -74,7 +74,7 @@ public class RenderTileSpecialFlower extends TileEntityRenderer<TileEntity> {
 		}
 	}
 
-	private void renderRadius(TileEntity tile, MatrixStack ms, IRenderTypeBuffer buffers, @Nullable RadiusDescriptor descriptor) {
+	public static void renderRadius(TileEntity tile, MatrixStack ms, IRenderTypeBuffer buffers, @Nullable RadiusDescriptor descriptor) {
 		if (descriptor != null) {
 			ms.push();
 			ms.translate(-tile.getPos().getX(), -tile.getPos().getY(), -tile.getPos().getZ());
@@ -87,7 +87,7 @@ public class RenderTileSpecialFlower extends TileEntityRenderer<TileEntity> {
 		}
 	}
 
-	private static boolean hasBindingAttempt(LivingEntity view, BlockPos tilePos) {
+	public static boolean hasBindingAttempt(LivingEntity view, BlockPos tilePos) {
 		ItemStack stackHeld = PlayerHelper.getFirstHeldItem(view, ModItems.twigWand);
 		if (!stackHeld.isEmpty() && ItemTwigWand.getBindMode(stackHeld)) {
 			Optional<BlockPos> coords = ItemTwigWand.getBindingAttempt(stackHeld);
