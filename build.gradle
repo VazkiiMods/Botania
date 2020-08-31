@@ -116,7 +116,7 @@ test {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${mc_version}-33.0.20"
+    minecraft "net.minecraftforge:forge:${mc_version}-33.0.23"
 
     annotationProcessor 'org.spongepowered:mixin:0.8'
     annotationProcessor 'com.google.code.gson:gson:2.8.0'
