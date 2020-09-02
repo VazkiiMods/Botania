@@ -66,6 +66,7 @@ import vazkii.botania.common.block.string.BlockRedStringInterceptor;
 import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
 import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
+import vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;
@@ -178,6 +179,7 @@ public class Botania {
 		forgeBus.addListener(PotionEmptiness::onSpawn);
 		forgeBus.addListener(PotionSoulCross::onEntityKill);
 		forgeBus.addListener(SubTileNarslimmus::onSpawn);
+		forgeBus.addListener(SubTileEntropinnyum::onEntityJoin);
 		forgeBus.addListener(SubTileDaffomill::onItemTrack);
 		forgeBus.addListener(SubTileVinculotus::onEndermanTeleport);
 		forgeBus.addListener(EventPriority.LOWEST, SubTileLoonuim::onDrops);
