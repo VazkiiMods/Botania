@@ -18,7 +18,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -36,16 +35,19 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 
 	public SubTileEntropinnyum() {
 		super(ModSubtiles.ENTROPINNYUM);
-		MinecraftForge.EVENT_BUS.addListener(this::onEntityJoin);
 	}
 
-	private void onEntityJoin(EntityJoinWorldEvent evt) {
+	public static void onEntityJoin(EntityJoinWorldEvent evt) {
 		if (!evt.getWorld().isRemote && evt.getEntity() instanceof TNTEntity && isUnethical(evt.getEntity())) {
 			evt.getEntity().getPersistentData().putBoolean(TAG_UNETHICAL, true);
 		}
 	}
 
 	private static boolean isUnethical(Entity e) {
+		if (!e.world.getChunkProvider().isChunkLoaded(e)) {
+			return false;
+		}
+
 		BlockPos center = e.getPosition();
 		int x = center.getX();
 		int y = center.getY();
