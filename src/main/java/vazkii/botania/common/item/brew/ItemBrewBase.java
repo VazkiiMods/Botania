@@ -32,6 +32,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
+import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
@@ -114,9 +115,12 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	@Override
 	public void fillItemGroup(ItemGroup tab, NonNullList<ItemStack> list) {
 		if (isInGroup(tab)) {
-			for (ResourceLocation id : BotaniaAPI.instance().getBrewRegistry().keySet()) {
+			for (Brew brew : BotaniaAPI.instance().getBrewRegistry()) {
+				if (brew == ModBrews.fallbackBrew) {
+					continue;
+				}
 				ItemStack stack = new ItemStack(this);
-				setBrew(stack, id);
+				setBrew(stack, brew);
 				list.add(stack);
 			}
 		}
