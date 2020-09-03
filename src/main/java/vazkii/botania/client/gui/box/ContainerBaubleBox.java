@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.Hand;
 
+import vazkii.botania.client.gui.SlotLocked;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.item.ItemBaubleBox;
 import vazkii.botania.common.item.ModItems;
@@ -64,7 +65,11 @@ public class ContainerBaubleBox extends Container {
 		}
 
 		for (i = 0; i < 9; ++i) {
-			addSlot(new Slot(playerInv, i, 8 + i * 18, 142));
+			if (playerInv.getStackInSlot(i) == box) {
+				addSlot(new SlotLocked(playerInv, i, 8 + i * 18, 142));
+			} else {
+				addSlot(new Slot(playerInv, i, 8 + i * 18, 142));
+			}
 		}
 
 	}
