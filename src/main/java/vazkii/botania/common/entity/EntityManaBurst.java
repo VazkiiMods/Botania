@@ -418,7 +418,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 			if (ConfigHandler.CLIENT.subtlePowerSystem.get()) {
 				WispParticleData data = WispParticleData.wisp(0.1F * size, r, g, b, depth);
-				world.addParticle(data, getPosX(), getPosY(), getPosZ(), (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
+				Botania.proxy.addParticleForceNear(world, data, getPosX(), getPosY(), getPosZ(), (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
 			} else {
 				float or = r;
 				float og = g;
@@ -445,7 +445,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 					}
 					size = osize + ((float) Math.random() - 0.5F) * 0.065F + (float) Math.sin(new Random(entityUniqueID.getMostSignificantBits()).nextInt(9001)) * 0.4F;
 					WispParticleData data = WispParticleData.wisp(0.2F * size, r, g, b, depth);
-					world.addParticle(data, iterX, iterY, iterZ,
+					Botania.proxy.addParticleForceNear(world, data, iterX, iterY, iterZ,
 							(float) -getMotion().getX() * 0.01F,
 							(float) -getMotion().getY() * 0.01F,
 							(float) -getMotion().getZ() * 0.01F);

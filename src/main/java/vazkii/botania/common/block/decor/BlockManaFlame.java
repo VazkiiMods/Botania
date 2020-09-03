@@ -99,7 +99,7 @@ public class BlockManaFlame extends BlockMod implements ITileEntityProvider {
 			float m = 0.03F + (float) Math.random() * 0.015F;
 
 			WispParticleData data = WispParticleData.wisp(s, r, g, b, 1);
-			world.addParticle(data, x, y, z, 0, m, 0);
+			Botania.proxy.addParticleForceNear(world, data, x, y, z, 0, m, 0);
 		}
 	}
 

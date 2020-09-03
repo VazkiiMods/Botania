@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.FlowerBlock;
 import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -395,6 +396,14 @@ public class ClientProxy implements IProxy {
 	@Override
 	public void addParticleForce(World world, IParticleData particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
 		world.addParticle(particleData, true, x, y, z, xSpeed, ySpeed, zSpeed);
+	}
+
+	@Override
+	public void addParticleForceNear(World world, IParticleData particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+		ActiveRenderInfo info = Minecraft.getInstance().gameRenderer.getActiveRenderInfo();
+		if (info.isValid() && info.getProjectedView().squareDistanceTo(x, y, z) <= 1024.0D) {
+			addParticleForce(world, particleData, x, y, z, xSpeed, ySpeed, zSpeed);
+		}
 	}
 
 	@Override
