@@ -1,3 +1,11 @@
+1.16.2-406
+* Buff Fruit of Grisaia
+* Fix TNT ethical check hanging worlds
+* Fix crashes on Forge 33.0.23+
+* Fix fallback brew showing on brew vials
+* Fix some important particle effects being hidden by reduced/minimal particles, which made for a bad experience
+* Prevent trinket case from being picked up in the gui
+* Fix orechid priority config not working on servers
 1.16.2-405
 * Update to 1.16.2. Where did 404 go?...
 * Rosa Arcana now disenchants items passing near it, releasing XP orbs (that it then absorbs)
