@@ -17,8 +17,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.UseAction;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.NBTDynamicOps;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.SkullTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
@@ -75,7 +77,21 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 				}
 			} else {
 				ItemStack stack = ctx.getItem();
-				INBT nbt = BlockPos.field_239578_a_.encodeStart(NBTDynamicOps.INSTANCE, pos).get().orThrow();
+
+				GameProfile boundPlayer = null;
+				TileEntity te = world.getTileEntity(pos);
+				if (te instanceof SkullTileEntity) {
+					boundPlayer = ((SkullTileEntity) te).getPlayerProfile();
+				}
+
+				INBT nbt;
+				if (boundPlayer != null && boundPlayer.getId() != player.getUniqueID()) {
+					CompoundNBT playerTag = new CompoundNBT();
+					NBTUtil.writeGameProfile(playerTag, boundPlayer);
+					nbt = playerTag;
+				} else {
+					nbt = BlockPos.field_239578_a_.encodeStart(NBTDynamicOps.INSTANCE, pos).get().orThrow();
+				}
 				ItemNBTHelper.set(stack, TAG_TARGET_PREFIX + world.func_234923_W_().func_240901_a_().toString(), nbt);
 				world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 5F);
 			}
@@ -107,7 +123,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	@Nonnull
 	@Override
 	public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World world, LivingEntity living) {
-		Vector3d loc = getTrueBinding(world, stack);
+		Vector3d loc = getTeleportPos(world, stack);
 		if (loc == null) {
 			return stack;
 		}
@@ -143,34 +159,29 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	}
 
 	@Nullable
-	public GameProfile getBoundProfile(World world, BlockPos binding) {
-		if (binding == null) {
-			return null;
-		}
-		TileEntity te = world.getTileEntity(binding);
-		if (te instanceof SkullTileEntity) {
-			SkullTileEntity ste = (SkullTileEntity) te;
-			GameProfile result = ste.getPlayerProfile();
-			if (result != null && result.getId() != null) {
-				return result;
-			}
+	public GameProfile getGameProfile(World world, ItemStack stack) {
+		String tag = TAG_TARGET_PREFIX + world.func_234923_W_().func_240901_a_().toString();
+		CompoundNBT nbt = ItemNBTHelper.getCompound(stack, tag, true);
+		if (nbt != null) {
+			return NBTUtil.readGameProfile(nbt);
 		}
 		return null;
 	}
 
 	@Nullable
-	public Vector3d getTrueBinding(World world, ItemStack stack) {
+	public Vector3d getTeleportPos(World world, ItemStack stack) {
 		if (world instanceof ServerWorld) {
-			BlockPos binding = getBinding(world, stack);
-			if (binding != null) {
-				GameProfile result = getBoundProfile(world, binding);
-				if (result != null) {
-					Entity e = ((ServerWorld) world).getEntityByUuid(result.getId());
-					if (e != null) {
-						return e.getPositionVec();
-					}
+			GameProfile gp = getGameProfile(world, stack);
+			if (gp != null) {
+				Entity e = ((ServerWorld) world).getEntityByUuid(gp.getId());
+				if (e != null) {
+					return e.getPositionVec();
 				}
-				return Vector3d.copyCentered(getBinding(world, stack)).add(0, 1, 0);
+			} else {
+				BlockPos binding = getBinding(world, stack);
+				if (binding != null) {
+					return Vector3d.copyCentered(getBinding(world, stack)).add(0, 1, 0);
+				}
 			}
 		}
 		return null;
@@ -201,10 +212,10 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		}
 
 		BlockPos binding = getBinding(world, stack);
-		GameProfile gp = getBoundProfile(world, binding);
+		GameProfile gp = getGameProfile(world, stack);
 		ITextComponent worldText = new StringTextComponent(world.func_234923_W_().func_240901_a_().toString()).mergeStyle(TextFormatting.GREEN);
 
-		if (binding == null) {
+		if (binding == null && gp == null) {
 			tooltip.add(new TranslationTextComponent("botaniamisc.flugelUnbound", worldText).mergeStyle(TextFormatting.GRAY));
 		} else {
 			ITextComponent bindingText = (gp != null && gp.getName() != null ? new StringTextComponent(gp.getName()).mergeStyle(TextFormatting.GOLD) : new StringTextComponent("[").mergeStyle(TextFormatting.WHITE)
