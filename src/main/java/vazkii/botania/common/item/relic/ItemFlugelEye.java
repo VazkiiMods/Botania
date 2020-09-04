@@ -151,8 +151,9 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		if (te instanceof SkullTileEntity) {
 			SkullTileEntity ste = (SkullTileEntity) te;
 			GameProfile result = ste.getPlayerProfile();
-			if (result != null && result.getId() != null)
+			if (result != null && result.getId() != null) {
 				return result;
+			}
 		}
 		return null;
 	}
