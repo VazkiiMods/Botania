@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.item.relic;
 
+import com.mojang.authlib.GameProfile;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -17,13 +19,17 @@ import net.minecraft.item.ItemUseContext;
 import net.minecraft.item.UseAction;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.NBTDynamicOps;
+import net.minecraft.tileentity.SkullTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -40,7 +46,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.List;
-import java.util.Optional;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -102,26 +107,19 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	@Nonnull
 	@Override
 	public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World world, LivingEntity living) {
-		String tag = TAG_TARGET_PREFIX + world.func_234923_W_().func_240901_a_().toString();
-		INBT nbt = ItemNBTHelper.get(stack, tag);
-		if (nbt == null) {
+		Vector3d loc = getTrueBinding(world, stack);
+		if (loc == null) {
 			return stack;
 		}
-		Optional<BlockPos> maybeLoc = BlockPos.field_239578_a_.parse(NBTDynamicOps.INSTANCE, nbt).result();
-		if (!maybeLoc.isPresent()) {
-			ItemNBTHelper.removeEntry(stack, tag);
-			return stack;
-		}
-		BlockPos loc = maybeLoc.get();
-		int x = loc.getX();
-		int y = loc.getY();
-		int z = loc.getZ();
+		double x = loc.getX();
+		double y = loc.getY();
+		double z = loc.getZ();
 
-		int cost = (int) (MathHelper.pointDistanceSpace(x + 0.5, y + 0.5, z + 0.5, living.getPosX(), living.getPosY(), living.getPosZ()) * 10);
+		int cost = (int) (MathHelper.pointDistanceSpace(x, y, z, living.getPosX(), living.getPosY(), living.getPosZ()) * 10);
 
 		if (!(living instanceof PlayerEntity) || ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) living, cost, true)) {
 			moveParticlesAndSound(living);
-			living.setPositionAndUpdate(x + 0.5, y + 1.5, z + 0.5);
+			living.setPositionAndUpdate(x, y, z);
 			moveParticlesAndSound(living);
 		}
 
@@ -145,13 +143,49 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	}
 
 	@Nullable
+	public GameProfile getBoundProfile(World world, BlockPos binding) {
+		if (binding == null) {
+			return null;
+		}
+		TileEntity te = world.getTileEntity(binding);
+		if (te instanceof SkullTileEntity) {
+			SkullTileEntity ste = (SkullTileEntity) te;
+			GameProfile result = ste.getPlayerProfile();
+			if (result != null && result.getId() != null)
+				return result;
+		}
+		return null;
+	}
+
+	@Nullable
+	public Vector3d getTrueBinding(World world, ItemStack stack) {
+		if (world instanceof ServerWorld) {
+			BlockPos binding = getBinding(world, stack);
+			if (binding != null) {
+				GameProfile result = getBoundProfile(world, binding);
+				if (result != null) {
+					Entity e = ((ServerWorld) world).getEntityByUuid(result.getId());
+					if (e != null) {
+						return e.getPositionVec();
+					}
+				}
+				return Vector3d.copyCentered(getBinding(world, stack)).add(0, 1, 0);
+			}
+		}
+		return null;
+	}
+
+	@Nullable
 	@Override
 	public BlockPos getBinding(World world, ItemStack stack) {
 		String tag = TAG_TARGET_PREFIX + world.func_234923_W_().func_240901_a_().toString();
 		INBT nbt = ItemNBTHelper.get(stack, tag);
 		if (nbt != null) {
-			return BlockPos.field_239578_a_.parse(NBTDynamicOps.INSTANCE, nbt).result()
-					.orElse(null);
+			BlockPos pos = BlockPos.field_239578_a_.parse(NBTDynamicOps.INSTANCE, nbt).result().orElse(null);
+			if (pos == null) {
+				ItemNBTHelper.removeEntry(stack, tag);
+			}
+			return pos;
 		}
 		return null;
 	}
@@ -166,18 +200,19 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		}
 
 		BlockPos binding = getBinding(world, stack);
+		GameProfile gp = getBoundProfile(world, binding);
 		ITextComponent worldText = new StringTextComponent(world.func_234923_W_().func_240901_a_().toString()).mergeStyle(TextFormatting.GREEN);
 
 		if (binding == null) {
 			tooltip.add(new TranslationTextComponent("botaniamisc.flugelUnbound", worldText).mergeStyle(TextFormatting.GRAY));
 		} else {
-			ITextComponent bindingText = new StringTextComponent("[").mergeStyle(TextFormatting.WHITE)
+			ITextComponent bindingText = (gp != null && gp.getName() != null ? new StringTextComponent(gp.getName()).mergeStyle(TextFormatting.GOLD) : new StringTextComponent("[").mergeStyle(TextFormatting.WHITE)
 					.append(new StringTextComponent(Integer.toString(binding.getX())).mergeStyle(TextFormatting.GOLD))
 					.appendString(", ")
 					.append(new StringTextComponent(Integer.toString(binding.getY())).mergeStyle(TextFormatting.GOLD))
 					.appendString(", ")
 					.append(new StringTextComponent(Integer.toString(binding.getZ())).mergeStyle(TextFormatting.GOLD))
-					.appendString("]");
+					.appendString("]"));
 
 			tooltip.add(new TranslationTextComponent("botaniamisc.flugelBound", bindingText, worldText).mergeStyle(TextFormatting.GRAY));
 		}
