@@ -19,6 +19,7 @@ public class DataGenerators {
 			BlockTagProvider blockTagProvider = new BlockTagProvider(evt.getGenerator());
 			evt.getGenerator().addProvider(blockTagProvider);
 			evt.getGenerator().addProvider(new ItemTagProvider(evt.getGenerator(), blockTagProvider));
+			evt.getGenerator().addProvider(new EntityTagProvider(evt.getGenerator()));
 			evt.getGenerator().addProvider(new StonecuttingProvider(evt.getGenerator()));
 			evt.getGenerator().addProvider(new RecipeProvider(evt.getGenerator()));
 			evt.getGenerator().addProvider(new SmeltingProvider(evt.getGenerator()));

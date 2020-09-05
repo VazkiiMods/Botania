@@ -204,6 +204,11 @@ public class ModTags {
 	public static class Entities {
 		public static final ITag.INamedTag<EntityType<?>> SHADED_MESA_BLACKLIST = tag("shaded_mesa_blacklist");
 
+		public static final ITag.INamedTag<EntityType<?>> COCOON_COMMON = tag("cocoon/common");
+		public static final ITag.INamedTag<EntityType<?>> COCOON_RARE = tag("cocoon/rare");
+		public static final ITag.INamedTag<EntityType<?>> COCOON_COMMON_AQUATIC = tag("cocoon/common_aquatic");
+		public static final ITag.INamedTag<EntityType<?>> COCOON_RARE_AQUATIC = tag("cocoon/rare_aquatic");
+
 		private static ITag.INamedTag<EntityType<?>> tag(String name) {
 			return EntityTypeTags.func_232896_a_(prefix(name).toString());
 		}
