@@ -19,6 +19,12 @@
 * Fix out of bounds in Corporea causing some queries to not return feedback in the chat
 * Hopperhocks special-case mana-storing items, matching (fuzzily) how much mana they have: empty, partially full, full
 * Laputa shards can now place blocks into any replaceable material instead of requiring air
+1.16.1-403.1
+* Backport some fixes from 1.16.2:
+* Fix loki ring resetting if you run out of blocks with empty offhand (from 405)
+* Fix out of bounds in Corporea causing some queries to not return feedback to chat (from 405)
+* Fix ethical TNT check hanging worlds (from 406)
+* Fix orechid priority config crashing servers (from 406)
 1.16.1-403
 * Extend luminizer smart dismount from last build to all living entities
 * Fix dispensers voiding stacks of size 1 when filling glass bottles
