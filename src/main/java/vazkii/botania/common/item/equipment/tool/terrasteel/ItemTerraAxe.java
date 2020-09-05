@@ -77,7 +77,9 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		if (raycast.getType() == RayTraceResult.Type.BLOCK) {
 			Direction face = raycast.getFace();
 			breakOtherBlock(player, stack, pos, pos, face);
-			BotaniaAPI.instance().breakOnAllCursors(player, stack, pos, face);
+			if (player.isSecondaryUseActive()) {
+				BotaniaAPI.instance().breakOnAllCursors(player, stack, pos, face);
+			}
 		}
 
 		return false;
