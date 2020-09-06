@@ -250,14 +250,10 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 				if (bInt >= cInt) {
 					return ImmutableList.of(a, b, c);
 				} else {
-					return cInt >= aInt ?
-							ImmutableList.of(c, a, b) :
-							ImmutableList.of(a, c, b);
+					return cInt >= aInt ? ImmutableList.of(c, a, b) : ImmutableList.of(a, c, b);
 				}
 			} else if (bInt >= cInt) {
-				return cInt >= aInt ?
-						ImmutableList.of(b, c, a) :
-						ImmutableList.of(b, a, c);
+				return cInt >= aInt ? ImmutableList.of(b, c, a) : ImmutableList.of(b, a, c);
 			} else {
 				return ImmutableList.of(c, b, a);
 			}
@@ -278,9 +274,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 		@Nonnull
 		@Override
 		public Direction getPlacementHorizontalFacing() {
-			return getNearestLookingDirection().getAxis().isHorizontal() ?
-					getNearestLookingDirection() :
-					getNearestLookingDirections()[1];
+			return getNearestLookingDirection().getAxis().isHorizontal() ? getNearestLookingDirection() : getNearestLookingDirections()[1];
 		}
 
 		@Override
