@@ -8,18 +8,14 @@
  */
 package vazkii.botania.common.block.dispenser;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.ItemObedienceStick;
 
 import javax.annotation.Nonnull;
