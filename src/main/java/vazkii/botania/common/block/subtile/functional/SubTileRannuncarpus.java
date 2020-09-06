@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import net.minecraft.block.Block;
@@ -24,13 +25,12 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-
-import org.apache.commons.lang3.tuple.Pair;
 
 import vazkii.botania.api.item.IFlowerPlaceable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -212,6 +212,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	// BlockItemUseContext uses a nullable player field without checking it -.-
 	private static class RannuncarpusPlaceContext extends BlockItemUseContext {
 		private final Direction[] lookDirs;
+		private final float placementYaw;
 
 		public RannuncarpusPlaceContext(World world, ItemStack stack, BlockRayTraceResult rtr, BlockPos flowerPos) {
 			super(world, null, Hand.MAIN_HAND, stack, rtr);
@@ -219,30 +220,47 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 			int dy = rtr.getPos().getY() - flowerPos.getY();
 			int dz = rtr.getPos().getZ() - flowerPos.getZ();
 
-			Direction yClosest = dy >= 0 ? Direction.UP : Direction.DOWN;
 			Direction xClosest = dx >= 0 ? Direction.EAST : Direction.WEST;
+			Direction yClosest = dy >= 0 ? Direction.UP : Direction.DOWN;
 			Direction zClosest = dz >= 0 ? Direction.SOUTH : Direction.NORTH;
 
-			List<Pair<Direction, Integer>> pairs = Arrays.asList(
-					Pair.of(xClosest, Math.abs(dx)),
-					Pair.of(yClosest, Math.abs(dy)),
-					Pair.of(zClosest, Math.abs(dz))
-			);
+			List<Direction> directions = sortThree(xClosest, yClosest, zClosest, Math.abs(dx), Math.abs(dy), Math.abs(dz));
 
-			pairs.sort(Comparator.comparing(Pair::getRight));
-
-			Direction first = pairs.get(2).getLeft();
-			Direction second = pairs.get(1).getLeft();
-			Direction third = pairs.get(0).getLeft();
+			Direction first = directions.get(0);
+			Direction second = directions.get(1);
+			Direction third = directions.get(2);
 
 			lookDirs = new Direction[] {
 					first,
 					second,
 					third,
-					first.getOpposite(),
+					third.getOpposite(),
 					second.getOpposite(),
-					third.getOpposite()
+					first.getOpposite()
 			};
+
+			placementYaw = (float) (-MathHelper.atan2(dx, dz) * 180 / Math.PI);
+		}
+
+		/**
+		 * Arrange a, b and c such that their corresponding ints (a -> aInt) are in descending order.
+		 */
+		private static <T> List<T> sortThree(T a, T b, T c, int aInt, int bInt, int cInt) {
+			if (aInt >= bInt) {
+				if (bInt >= cInt) {
+					return ImmutableList.of(a, b, c);
+				} else {
+					return cInt >= aInt ?
+							ImmutableList.of(c, a, b) :
+							ImmutableList.of(a, c, b);
+				}
+			} else if (bInt >= cInt) {
+				return cInt >= aInt ?
+						ImmutableList.of(b, c, a) :
+						ImmutableList.of(b, a, c);
+			} else {
+				return ImmutableList.of(c, b, a);
+			}
 		}
 
 		@Nonnull
@@ -255,6 +273,19 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 		@Override
 		public Direction[] getNearestLookingDirections() {
 			return lookDirs;
+		}
+
+		@Nonnull
+		@Override
+		public Direction getPlacementHorizontalFacing() {
+			return getNearestLookingDirection().getAxis().isHorizontal() ?
+					getNearestLookingDirection() :
+					getNearestLookingDirections()[1];
+		}
+
+		@Override
+		public float getPlacementYaw() {
+			return placementYaw;
 		}
 	}
 
