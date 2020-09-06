@@ -30,6 +30,7 @@ import vazkii.botania.common.Botania;
 public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable {
 
 	private static final String TAG_MANA = "mana";
+	private static final int MAX_MANA = 160;
 
 	int mana = 0;
 
@@ -135,12 +136,12 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 
 	@Override
 	public boolean isFull() {
-		return mana >= 160;
+		return mana >= MAX_MANA;
 	}
 
 	@Override
 	public void recieveMana(int mana) {
-		this.mana = Math.min(160, this.mana + mana);
+		this.mana = Math.min(3 * MAX_MANA, this.mana + mana);
 	}
 
 	@Override
