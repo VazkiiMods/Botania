@@ -178,8 +178,8 @@ public final class ConfigHandler {
 					.comment("Set to false to disable the ability for the Hand of Ender to pickpocket other players' ender chests")
 					.define("enderPickpocket", true);
 			flugelPlayerportEnabled = builder
-					.comment("Set to false to disable the ability for the Flugel Eye to warp to other players")
-					.define("flugelPlayerport", true);
+					.comment("Set to true to allow the Flugel Eye to warp to other players")
+					.define("flugelPlayerport", false);
 			enchanterEnabled = builder
 					.comment("Set this to false to disable the Mana Enchanter. Since some people find it OP or something. This only disables the entry and creation. Old ones that are already in the world will stay.")
 					.define("manaEnchanter", true);
