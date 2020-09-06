@@ -8,10 +8,8 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -22,9 +20,7 @@ import vazkii.botania.common.entity.EntityCorporeaSpark;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.lib.ModTags;
 
-import javax.annotation.Nonnull;
-
-public class ItemCorporeaSpark extends Item {
+public class ItemCorporeaSpark extends ItemSpark {
 
 	public ItemCorporeaSpark(Properties props) {
 		super(props);
@@ -41,14 +37,10 @@ public class ItemCorporeaSpark extends Item {
 						|| tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).isPresent());
 	}
 
-	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
-		World world = ctx.getWorld();
-		BlockPos pos = ctx.getPos();
-
+	public boolean attachSpark(World world, BlockPos pos, ItemStack stack) {
 		if (canPlaceOn(world, pos) && !CorporeaHelper.instance().doesBlockHaveSpark(world, pos)) {
-			ctx.getItem().shrink(1);
+			stack.shrink(1);
 			if (!world.isRemote) {
 				EntityCorporeaSpark spark = ModEntities.CORPOREA_SPARK.create(world);
 				if (this == ModItems.corporeaSparkMaster) {
@@ -57,8 +49,8 @@ public class ItemCorporeaSpark extends Item {
 				spark.setPosition(pos.getX() + 0.5, pos.getY() + 1.25, pos.getZ() + 0.5);
 				world.addEntity(spark);
 			}
-			return ActionResultType.SUCCESS;
+			return true;
 		}
-		return ActionResultType.PASS;
+		return false;
 	}
 }
