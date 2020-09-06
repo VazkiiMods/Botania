@@ -29,11 +29,9 @@ public class BehaviourStick extends DefaultDispenseItemBehavior {
 		Direction facing = world.getBlockState(source.getBlockPos()).get(DispenserBlock.FACING);
 		BlockPos pos = source.getBlockPos().offset(facing);
 
-		if (ItemObedienceStick.applyStick(world, pos)) {
-			return stack;
-		}
+		ItemObedienceStick.applyStick(world, pos);
 
-		return super.dispenseStack(source, stack);
+		return stack;
 	}
 
 }
