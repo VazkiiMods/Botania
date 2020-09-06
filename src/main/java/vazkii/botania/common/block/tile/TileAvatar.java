@@ -24,7 +24,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 
 	private static final String TAG_ENABLED = "enabled";
 	private static final String TAG_TICKS_ELAPSED = "ticksElapsed";
-	private static final String TAG_MANA = "ticksElapsed";
+	private static final String TAG_MANA = "mana";
 
 	private boolean enabled;
 	private int ticksElapsed;
@@ -89,7 +89,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, ITic
 
 	@Override
 	public void receiveMana(int mana) {
-		this.mana = Math.min(MAX_MANA, this.mana + mana);
+		this.mana = Math.min(3 * MAX_MANA, this.mana + mana);
 	}
 
 	@Override
