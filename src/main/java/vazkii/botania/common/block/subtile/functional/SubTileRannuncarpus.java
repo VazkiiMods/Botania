@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import net.minecraft.block.Block;
@@ -31,6 +29,8 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import org.apache.commons.lang3.tuple.Pair;
 
 import vazkii.botania.api.item.IFlowerPlaceable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
