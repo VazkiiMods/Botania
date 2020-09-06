@@ -39,6 +39,7 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.network.PacketBotaniaEffect;
@@ -79,9 +80,11 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 				ItemStack stack = ctx.getItem();
 
 				GameProfile boundPlayer = null;
-				TileEntity te = world.getTileEntity(pos);
-				if (te instanceof SkullTileEntity) {
-					boundPlayer = ((SkullTileEntity) te).getPlayerProfile();
+				if (ConfigHandler.COMMON.flugelPlayerportEnabled.get()) {
+					TileEntity te = world.getTileEntity(pos);
+					if (te instanceof SkullTileEntity) {
+						boundPlayer = ((SkullTileEntity) te).getPlayerProfile();
+					}
 				}
 
 				INBT nbt;
