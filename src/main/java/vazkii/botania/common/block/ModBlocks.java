@@ -38,6 +38,7 @@ import vazkii.botania.common.block.decor.*;
 import vazkii.botania.common.block.dispenser.BehaviourEnderAirBottling;
 import vazkii.botania.common.block.dispenser.BehaviourFelPumpkin;
 import vazkii.botania.common.block.dispenser.BehaviourPoolMinecart;
+import vazkii.botania.common.block.dispenser.BehaviourStick;
 import vazkii.botania.common.block.dispenser.BehaviourWand;
 import vazkii.botania.common.block.dispenser.SeedBehaviours;
 import vazkii.botania.common.block.mana.*;
@@ -843,6 +844,7 @@ public final class ModBlocks {
 
 	public static void addDispenserBehaviours() {
 		DispenserBlock.registerDispenseBehavior(ModItems.twigWand, new BehaviourWand());
+		DispenserBlock.registerDispenseBehavior(ModItems.obedienceStick, new BehaviourStick());
 		DispenserBlock.registerDispenseBehavior(ModItems.poolMinecart, new BehaviourPoolMinecart());
 		DispenserBlock.registerDispenseBehavior(ModBlocks.felPumpkin, new BehaviourFelPumpkin());
 		DispenserBlock.registerDispenseBehavior(ModBlocks.gaiaHead, new OptionalDispenseBehavior() {
