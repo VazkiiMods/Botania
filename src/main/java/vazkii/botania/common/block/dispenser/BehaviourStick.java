@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block.dispenser;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.dispenser.OptionalDispenseBehavior;
@@ -17,11 +16,11 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.common.item.ItemObedienceStick;
 
 import javax.annotation.Nonnull;
 
-public class BehaviourWand extends OptionalDispenseBehavior {
+public class BehaviourStick extends OptionalDispenseBehavior {
 
 	@Nonnull
 	@Override
@@ -29,12 +28,9 @@ public class BehaviourWand extends OptionalDispenseBehavior {
 		World world = source.getWorld();
 		Direction facing = world.getBlockState(source.getBlockPos()).get(DispenserBlock.FACING);
 		BlockPos pos = source.getBlockPos().offset(facing);
-		Block block = world.getBlockState(pos).getBlock();
-		boolean wandable = block instanceof IWandable;
-		setSuccessful(wandable);
-		if (wandable) {
-			((IWandable) block).onUsedByWand(null, stack, world, pos, facing.getOpposite());
-		}
+
+		setSuccessful(ItemObedienceStick.applyStick(world, pos));
+
 		return stack;
 	}
 

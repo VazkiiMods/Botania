@@ -28,6 +28,7 @@ import java.util.Optional;
 
 public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickableTileEntity {
 	private static final String TAG_MANA = "mana";
+	private static final int MAX_MANA = 160;
 
 	private int mana = 0;
 
@@ -158,12 +159,12 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, ITickable
 
 	@Override
 	public boolean isFull() {
-		return mana >= 160;
+		return mana >= MAX_MANA;
 	}
 
 	@Override
 	public void receiveMana(int mana) {
-		this.mana = Math.min(160, this.mana + mana);
+		this.mana = Math.min(3 * MAX_MANA, this.mana + mana);
 	}
 
 	@Override
