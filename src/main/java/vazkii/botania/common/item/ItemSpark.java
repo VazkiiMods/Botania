@@ -34,7 +34,7 @@ public class ItemSpark extends Item implements IManaGivingItem {
 		return attachSpark(ctx.getWorld(), ctx.getPos(), ctx.getItem()) ? ActionResultType.PASS : ActionResultType.SUCCESS;
 	}
 
-	public boolean attachSpark(World world, BlockPos pos, ItemStack stack) {
+	public static boolean attachSpark(World world, BlockPos pos, ItemStack stack) {
 		TileEntity tile = world.getTileEntity(pos);
 		if (tile instanceof ISparkAttachable) {
 			ISparkAttachable attach = (ISparkAttachable) tile;

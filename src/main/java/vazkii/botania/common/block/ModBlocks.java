@@ -842,6 +842,7 @@ public final class ModBlocks {
 		DispenserBlock.registerDispenseBehavior(ModItems.obedienceStick, new BehaviourStick());
 		DispenserBlock.registerDispenseBehavior(ModItems.poolMinecart, new BehaviourPoolMinecart());
 		DispenserBlock.registerDispenseBehavior(ModBlocks.felPumpkin, new BehaviourFelPumpkin());
+		DispenserBlock.registerDispenseBehavior(ModItems.spark, new BehaviourSpark());
 		DispenserBlock.registerDispenseBehavior(ModBlocks.gaiaHead, new OptionalDispenseBehavior() {
 			@Nonnull
 			@Override
@@ -851,13 +852,12 @@ public final class ModBlocks {
 			}
 		});
 
-		IDispenseItemBehavior behavior = AccessorDispenserBlock.getDispenseBehaviorRegistry().get(Items.GLASS_BOTTLE);
-		DispenserBlock.registerDispenseBehavior(Items.GLASS_BOTTLE, new BehaviourEnderAirBottling(behavior));
+		IDispenseItemBehavior behavior = new BehaviourCorporeaSpark();
+		DispenserBlock.registerDispenseBehavior(ModItems.corporeaSpark, behavior);
+		DispenserBlock.registerDispenseBehavior(ModItems.corporeaSparkMaster, behavior);
 
-		behavior = new BehaviourSpark();
-		for (Item item : new Item[] { ModItems.spark, ModItems.corporeaSpark, ModItems.corporeaSparkMaster }) {
-			DispenserBlock.registerDispenseBehavior(item, behavior);
-		}
+		behavior = AccessorDispenserBlock.getDispenseBehaviorRegistry().get(Items.GLASS_BOTTLE);
+		DispenserBlock.registerDispenseBehavior(Items.GLASS_BOTTLE, new BehaviourEnderAirBottling(behavior));
 
 		SeedBehaviours.init();
 	}
