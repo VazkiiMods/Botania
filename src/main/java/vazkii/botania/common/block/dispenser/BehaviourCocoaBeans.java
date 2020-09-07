@@ -12,8 +12,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
-import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.dispenser.OptionalDispenseBehavior;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.DirectionalPlaceContext;
 import net.minecraft.item.ItemStack;
@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class BehaviourCocoaBeans extends DefaultDispenseItemBehavior {
+public class BehaviourCocoaBeans extends OptionalDispenseBehavior {
 	@Nonnull
 	@Override
 	public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
@@ -33,10 +33,11 @@ public class BehaviourCocoaBeans extends DefaultDispenseItemBehavior {
 		World world = source.getWorld();
 		BlockItemUseContext ctx = new DirectionalPlaceContext(source.getWorld(), source.getBlockPos().offset(facing), facing, new ItemStack(block), facing.getOpposite());
 		BlockState cocoa = block.getStateForPlacement(ctx);
+		setSuccessful(false);
 		if (cocoa != null && world.isAirBlock(pos)) {
 			world.setBlockState(pos, cocoa);
+			setSuccessful(true);
 			stack.shrink(1);
-			return stack;
 		}
 
 		return stack;
