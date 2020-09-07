@@ -3128,7 +3128,7 @@ botania.page.terraAxe1=TIMBEEEEEEEER
 # -- FLORAL OBEDIENCE STICK
 botania.entry.obedienceStick=Floral Obedience Stick
 botania.tagline.obedienceStick=Mass binding flowers to a spot
-botania.page.obedienceStick0=Nobody knows why, but attaching some &1Manasteel&0 to &1Livingwood Twigs&0 creates a stick type device that can make nearby flowers all bind towards a single focus point.<br>Dubbed the &1Floral Obedience Stick&0, right clicking with it on a &1Mana Spreader&0 or &1Mana Pool&0 in the world will bind all relevant nearby flowers to it.
+botania.page.obedienceStick0=Nobody knows why, but attaching some &1Manasteel&0 to &1Livingwood Twigs&0 creates a stick type device that can make nearby flowers all bind towards a single focus point.<br>Dubbed the &1Floral Obedience Stick&0, right clicking with it on a &1Mana Spreader&0 or &1Mana Pool&0 in the world will bind all relevant nearby flowers to it. A &1Dispenser&0 can also use it.
 botania.page.obedienceStick1=Generate, or else!
 
 # -- SLIME IN A BOTTLE

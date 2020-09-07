@@ -34,6 +34,7 @@ import vazkii.botania.common.block.corporea.BlockCorporeaRetainer;
 import vazkii.botania.common.block.decor.*;
 import vazkii.botania.common.block.dispenser.BehaviourFelPumpkin;
 import vazkii.botania.common.block.dispenser.BehaviourPoolMinecart;
+import vazkii.botania.common.block.dispenser.BehaviourStick;
 import vazkii.botania.common.block.dispenser.BehaviourWand;
 import vazkii.botania.common.block.dispenser.SeedBehaviours;
 import vazkii.botania.common.block.mana.BlockAlchemyCatalyst;
@@ -378,12 +379,13 @@ public final class ModBlocks {
 
 	public static void addDispenserBehaviours() {
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.twigWand, new BehaviourWand());
+		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.obedienceStick, new BehaviourStick());
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(ModItems.poolMinecart, new BehaviourPoolMinecart());
 		BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Item.getItemFromBlock(ModBlocks.felPumpkin), new BehaviourFelPumpkin());
 
 		SeedBehaviours.init();
 	}
-	
+
 	private static void initOreDict() {
 		for(int i = 0; i < 16; i++) {
 			OreDictionary.registerOre(LibOreDict.FLOWER[i], new ItemStack(flower, 1, i));

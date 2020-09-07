@@ -38,6 +38,13 @@ public class ItemObedienceStick extends ItemMod {
 	@Nonnull
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float xs, float ys, float zs) {
+		EnumActionResult result = applyStick(world, pos) ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
+		if (result == EnumActionResult.SUCCESS && player.world.isRemote)
+			player.swingArm(hand);
+		return result;
+	}
+
+	public static boolean applyStick(World world, BlockPos pos) {
 		TileEntity tileAt = world.getTileEntity(pos);
 		if(tileAt != null && (tileAt instanceof IManaPool || tileAt instanceof IManaCollector)) {
 			boolean pool = tileAt instanceof IManaPool;
@@ -59,12 +66,10 @@ public class ItemObedienceStick extends ItemMod {
 				}
 			}
 
-			if(player.world.isRemote)
-				player.swingArm(hand);
-			return EnumActionResult.SUCCESS;
+			return true;
 		}
 
-		return EnumActionResult.PASS;
+		return false;
 	}
 
 	public static abstract class Actuator {
