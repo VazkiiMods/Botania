@@ -10,8 +10,8 @@ package vazkii.botania.common.block.dispenser;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.DispenserBlock;
-import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.dispenser.OptionalDispenseBehavior;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class BehaviourSeeds extends DefaultDispenseItemBehavior {
+public class BehaviourSeeds extends OptionalDispenseBehavior {
 	private Block block;
 
 	public BehaviourSeeds(Block block) {
@@ -33,13 +33,14 @@ public class BehaviourSeeds extends DefaultDispenseItemBehavior {
 		BlockPos pos = source.getBlockPos().offset(facing);
 		World world = source.getWorld();
 
+		setSuccessful(false);
 		if (world.isAirBlock(pos) && block.getDefaultState().isValidPosition(world, pos)) {
 			world.setBlockState(pos, block.getDefaultState());
+			setSuccessful(true);
 			stack.shrink(1);
-			return stack;
 		}
 
-		return super.dispenseStack(source, stack);
+		return stack;
 	}
 
 }

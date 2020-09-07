@@ -839,6 +839,7 @@ public final class ModBlocks {
 
 	public static void addDispenserBehaviours() {
 		DispenserBlock.registerDispenseBehavior(ModItems.twigWand, new BehaviourWand());
+		DispenserBlock.registerDispenseBehavior(ModItems.obedienceStick, new BehaviourStick());
 		DispenserBlock.registerDispenseBehavior(ModItems.poolMinecart, new BehaviourPoolMinecart());
 		DispenserBlock.registerDispenseBehavior(ModBlocks.felPumpkin, new BehaviourFelPumpkin());
 		DispenserBlock.registerDispenseBehavior(ModBlocks.gaiaHead, new OptionalDispenseBehavior() {
