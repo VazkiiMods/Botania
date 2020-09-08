@@ -31,12 +31,13 @@ public class ItemSpark extends Item implements IManaGivingItem {
 	@Nonnull
 	@Override
 	public ActionResultType onItemUse(ItemUseContext ctx) {
-		World world = ctx.getWorld();
-		BlockPos pos = ctx.getPos();
+		return attachSpark(ctx.getWorld(), ctx.getPos(), ctx.getItem()) ? ActionResultType.PASS : ActionResultType.SUCCESS;
+	}
+
+	public static boolean attachSpark(World world, BlockPos pos, ItemStack stack) {
 		TileEntity tile = world.getTileEntity(pos);
 		if (tile instanceof ISparkAttachable) {
 			ISparkAttachable attach = (ISparkAttachable) tile;
-			ItemStack stack = ctx.getItem();
 			if (attach.canAttachSpark(stack) && attach.getAttachedSpark() == null) {
 				if (!world.isRemote) {
 					stack.shrink(1);
@@ -45,9 +46,9 @@ public class ItemSpark extends Item implements IManaGivingItem {
 					world.addEntity(spark);
 					attach.attachSpark(spark);
 				}
-				return ActionResultType.SUCCESS;
+				return true;
 			}
 		}
-		return ActionResultType.PASS;
+		return false;
 	}
 }

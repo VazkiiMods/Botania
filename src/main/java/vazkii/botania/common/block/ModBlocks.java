@@ -35,12 +35,7 @@ import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.corporea.*;
 import vazkii.botania.common.block.decor.*;
-import vazkii.botania.common.block.dispenser.BehaviourEnderAirBottling;
-import vazkii.botania.common.block.dispenser.BehaviourFelPumpkin;
-import vazkii.botania.common.block.dispenser.BehaviourPoolMinecart;
-import vazkii.botania.common.block.dispenser.BehaviourStick;
-import vazkii.botania.common.block.dispenser.BehaviourWand;
-import vazkii.botania.common.block.dispenser.SeedBehaviours;
+import vazkii.botania.common.block.dispenser.*;
 import vazkii.botania.common.block.mana.*;
 import vazkii.botania.common.block.string.*;
 import vazkii.botania.common.item.ModItems;
@@ -847,6 +842,7 @@ public final class ModBlocks {
 		DispenserBlock.registerDispenseBehavior(ModItems.obedienceStick, new BehaviourStick());
 		DispenserBlock.registerDispenseBehavior(ModItems.poolMinecart, new BehaviourPoolMinecart());
 		DispenserBlock.registerDispenseBehavior(ModBlocks.felPumpkin, new BehaviourFelPumpkin());
+		DispenserBlock.registerDispenseBehavior(ModItems.spark, new BehaviourSpark());
 		DispenserBlock.registerDispenseBehavior(ModBlocks.gaiaHead, new OptionalDispenseBehavior() {
 			@Nonnull
 			@Override
@@ -856,7 +852,11 @@ public final class ModBlocks {
 			}
 		});
 
-		IDispenseItemBehavior behavior = AccessorDispenserBlock.getDispenseBehaviorRegistry().get(Items.GLASS_BOTTLE);
+		IDispenseItemBehavior behavior = new BehaviourCorporeaSpark();
+		DispenserBlock.registerDispenseBehavior(ModItems.corporeaSpark, behavior);
+		DispenserBlock.registerDispenseBehavior(ModItems.corporeaSparkMaster, behavior);
+
+		behavior = AccessorDispenserBlock.getDispenseBehaviorRegistry().get(Items.GLASS_BOTTLE);
 		DispenserBlock.registerDispenseBehavior(Items.GLASS_BOTTLE, new BehaviourEnderAirBottling(behavior));
 
 		SeedBehaviours.init();
