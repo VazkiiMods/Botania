@@ -21,6 +21,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
 
+import org.apache.commons.lang3.mutable.MutableFloat;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -37,15 +38,15 @@ public class ItemUnholyCloak extends ItemHolyCloak {
 	}
 
 	@Override
-	public boolean effectOnDamage(LivingHurtEvent event, PlayerEntity player, ItemStack stack) {
-		if (!event.getSource().bypassesArmor()) {
+	public boolean effectOnDamage(DamageSource src, MutableFloat amount, PlayerEntity player, ItemStack stack) {
+		if (!src.bypassesArmor()) {
 			int range = 6;
 			@SuppressWarnings("unchecked")
 			List<Monster> mobs = (List<Monster>) (List<?>) player.world.getEntitiesByClass(Entity.class, new Box(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range), Predicates.instanceOf(Monster.class));
 			for (Monster mob : mobs) {
 				if (mob instanceof LivingEntity) {
 					LivingEntity entity = (LivingEntity) mob;
-					entity.damage(DamageSource.player(player), event.getAmount());
+					entity.damage(DamageSource.player(player), amount.getValue());
 				}
 			}
 

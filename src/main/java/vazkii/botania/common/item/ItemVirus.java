@@ -99,16 +99,17 @@ public class ItemVirus extends Item {
 		return ActionResult.PASS;
 	}
 
-	public static void onLivingHurt(LivingHurtEvent event) {
-		LivingEntity entity = event.getEntityLiving();
+	public static boolean onLivingHurt(LivingEntity entity, DamageSource source) {
 		if (entity.hasVehicle() && entity.getVehicle() instanceof LivingEntity) {
 			entity = (LivingEntity) entity.getVehicle();
 		}
 
 		if ((entity instanceof ZombieHorseEntity || entity instanceof SkeletonHorseEntity)
-				&& event.getSource() == DamageSource.FALL
+				&& source == DamageSource.FALL
 				&& ((HorseBaseEntity) entity).isTame()) {
-			event.setCanceled(true);
+			return true;
 		}
+
+		return false;
 	}
 }

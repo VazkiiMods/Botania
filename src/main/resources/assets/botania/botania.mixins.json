@@ -23,6 +23,7 @@
     "AccessorRecipeManager",
     "AccessorStats",
     "AccessorWitherEntity",
+    "MixinCraftingResultSlot",
     "MixinEndermanEntity",
     "MixinEndermanPickupBlock",
     "MixinLivingEntity",

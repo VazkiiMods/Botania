@@ -134,7 +134,6 @@ public class Botania implements ModInitializer {
 		ServerTickEvents.END_WORLD_TICK.register(ItemGrassSeeds::onTickEnd);
 		forgeBus.addListener(ItemKeepIvy::onPlayerDrops);
 		forgeBus.addListener(ItemKeepIvy::onPlayerRespawn);
-		forgeBus.addListener(ItemVirus::onLivingHurt);
 		forgeBus.addListener(SleepingHandler::trySleep);
 		forgeBus.addListener(PixieHandler::onDamageTaken);
 		ServerTickEvents.END_WORLD_TICK.register(CommonTickHandler::onTick);

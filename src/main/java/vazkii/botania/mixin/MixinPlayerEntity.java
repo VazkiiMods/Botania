@@ -13,17 +13,24 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 
+import net.minecraft.inventory.Inventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import org.apache.commons.lang3.mutable.MutableFloat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 import vazkii.botania.common.core.ModStats;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.PixieHandler;
+import vazkii.botania.common.item.equipment.bauble.ItemHolyCloak;
 import vazkii.botania.common.item.relic.ItemOdinRing;
 import vazkii.botania.common.entity.ModEntities;
 
@@ -61,5 +68,23 @@ public abstract class MixinPlayerEntity {
 		if (mount.getType() == ModEntities.PLAYER_MOVER) {
 			increaseStat(ModStats.LUMINIZER_ONE_CM, cm);
 		}
+	}
+
+	/**
+	 * Performs many reactions when being hit
+	 */
+	@ModifyArgs(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"))
+	private void onHurt(Args args) {
+		DamageSource src = args.get(0);
+		MutableFloat amount = new MutableFloat((float) args.get(1));
+		Inventory worn = EquipmentHandler.getAllWorn((PlayerEntity) (Object) this);
+		for (int i = 0; i < worn.size(); i++) {
+			ItemStack stack = worn.getStack(i);
+			if (stack.getItem() instanceof ItemHolyCloak) {
+				((ItemHolyCloak) stack.getItem()).effectOnDamage(src, amount, (PlayerEntity) (Object) this, stack);
+			}
+		}
+
+		args.set(1, amount.getValue());
 	}
 }

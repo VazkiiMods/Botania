@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
 
+import org.apache.commons.lang3.mutable.MutableFloat;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -30,16 +31,16 @@ public class ItemBalanceCloak extends ItemHolyCloak {
 	}
 
 	@Override
-	public boolean effectOnDamage(LivingHurtEvent event, PlayerEntity player, ItemStack stack) {
-		if (!event.getSource().getMagic()) {
-			event.setAmount(event.getAmount() / 2);
+	public boolean effectOnDamage(DamageSource src, MutableFloat amount, PlayerEntity player, ItemStack stack) {
+		if (!src.getMagic()) {
+			amount.setValue(amount.getValue() / 2);
 
-			if (event.getSource().getAttacker() != null) {
-				event.getSource().getAttacker().damage(DamageSource.magic(player, player), event.getAmount());
+			if (src.getAttacker() != null) {
+				src.getAttacker().damage(DamageSource.magic(player, player), amount.getValue());
 			}
 
-			if (event.getAmount() > player.getHealth()) {
-				event.setAmount(player.getHealth() - 1);
+			if (amount.getValue() > player.getHealth()) {
+				amount.setValue(player.getHealth() - 1);
 			}
 
 			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.holyCloak, SoundCategory.PLAYERS, 1F, 1F);

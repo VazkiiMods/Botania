@@ -3,16 +3,18 @@ package vazkii.botania.mixin;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import vazkii.botania.common.block.subtile.functional.SubTileLoonuim;
 import vazkii.botania.common.brew.potion.PotionSoulCross;
 import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.components.LooniumComponent;
+import vazkii.botania.common.item.ItemCraftingHalo;
+import vazkii.botania.common.item.rod.ItemGravityRod;
 
 import javax.annotation.Nullable;
 
@@ -23,6 +25,8 @@ public abstract class MixinLivingEntity {
 
 	@Shadow
 	public abstract void dropStack(ItemStack stack);
+
+	@Shadow public abstract ItemStack getStackInHand(Hand hand);
 
 	/**
 	 * Implements the loonium drop
@@ -45,5 +49,18 @@ public abstract class MixinLivingEntity {
 			PotionSoulCross.onEntityKill((LivingEntity) (Object) this, adversary);
 		}
 
+	}
+
+	@Inject(at = @At("HEAD"), method = "swingHand(Lnet/minecraft/util/Hand;Z)V", cancellable = true)
+	private void onSwing(Hand hand, boolean bl, CallbackInfo ci) {
+		ItemStack stack = getStackInHand(hand);
+		LivingEntity self = (LivingEntity) (Object) this;
+		if (!world.isClient) {
+			if (stack.getItem() instanceof ItemCraftingHalo && ItemCraftingHalo.onEntitySwing(stack, self)) {
+				ci.cancel();
+			} else if (stack.getItem() instanceof ItemGravityRod) {
+				ItemGravityRod.onEntitySwing(self);
+			}
+		}
 	}
 }

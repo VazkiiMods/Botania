@@ -20,23 +20,24 @@ import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.core.handler.EquipmentHandler;
+import vazkii.botania.common.item.ModItems;
 
 public class ItemSuperLavaPendant extends ItemBauble {
 
 	public ItemSuperLavaPendant(Settings props) {
 		super(props);
-		MinecraftForge.EVENT_BUS.addListener(this::onDamage);
 	}
 
-	private void onDamage(LivingHurtEvent evt) {
-		if (evt.getSource().isFire()
-				&& !EquipmentHandler.findOrEmpty(this, evt.getEntityLiving()).isEmpty()) {
-			evt.setCanceled(true);
+	public static boolean onDamage(LivingEntity entity, DamageSource source) {
+		if (source.isFire() && !EquipmentHandler.findOrEmpty(ModItems.superLavaPendant, entity).isEmpty()) {
+			return true;
 		}
+		return false;
 	}
 
 	@Override

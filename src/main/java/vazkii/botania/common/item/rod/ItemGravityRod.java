@@ -83,14 +83,12 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 		ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, ticksCooldown);
 	}
 
-	@Override
-	public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
+	public static void onEntitySwing(LivingEntity entity) {
 		if (!(entity instanceof PlayerEntity)) {
-			return false;
+			return;
 		}
 		PlayerEntity player = (PlayerEntity) entity;
 		leftClick(player);
-		return false;
 	}
 
 	// Prevent damaging the entity you just held with the rod

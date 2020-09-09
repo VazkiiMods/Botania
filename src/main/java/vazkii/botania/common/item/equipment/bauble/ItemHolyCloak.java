@@ -18,11 +18,13 @@ import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Identifier;
 
+import org.apache.commons.lang3.mutable.MutableFloat;
 import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
@@ -44,12 +46,10 @@ public class ItemHolyCloak extends ItemBauble {
 
 	public ItemHolyCloak(Settings props) {
 		super(props);
-		MinecraftForge.EVENT_BUS.addListener(this::onPlayerDamage);
 	}
 
-	private void onPlayerDamage(LivingHurtEvent event) {
-		if (event.getEntityLiving() instanceof PlayerEntity && !event.getSource().isOutOfWorld()) {
-			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+	public float onPlayerDamage(PlayerEntity player, DamageSource src, float amount) {
+		if (!src.isOutOfWorld()) {
 			ItemStack stack = EquipmentHandler.findOrEmpty(this, player);
 
 			if (!stack.isEmpty() && !isInEffect(stack)) {
@@ -58,12 +58,15 @@ public class ItemHolyCloak extends ItemBauble {
 
 				// Used to prevent StackOverflows with mobs that deal damage when damaged
 				setInEffect(stack, true);
-				if (cooldown == 0 && cloak.effectOnDamage(event, player, stack)) {
+				MutableFloat mutAmount = new MutableFloat(amount);
+				if (cooldown == 0 && cloak.effectOnDamage(src, mutAmount, player, stack)) {
 					setCooldown(stack, cloak.getCooldownTime(stack));
 				}
 				setInEffect(stack, false);
+				return mutAmount.getValue();
 			}
 		}
+		return amount;
 	}
 
 	@Override
@@ -94,9 +97,9 @@ public class ItemHolyCloak extends ItemBauble {
 		model.render(ms, buffer, 0xF000F0, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
 	}
 
-	public boolean effectOnDamage(LivingHurtEvent event, PlayerEntity player, ItemStack stack) {
-		if (!event.getSource().getMagic()) {
-			event.setCanceled(true);
+	public boolean effectOnDamage(DamageSource src, MutableFloat amount, PlayerEntity player, ItemStack stack) {
+		if (!src.getMagic()) {
+			amount.setValue(0);
 			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
 			for (int i = 0; i < 30; i++) {
 				double x = player.getX() + Math.random() * player.getWidth() * 2 - player.getWidth();

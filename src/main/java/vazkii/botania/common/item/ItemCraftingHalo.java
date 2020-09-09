@@ -72,7 +72,6 @@ public class ItemCraftingHalo extends Item {
 
 	public ItemCraftingHalo(Settings props) {
 		super(props);
-		MinecraftForge.EVENT_BUS.addListener(this::onItemCrafted);
 	}
 
 	@Nonnull
@@ -192,8 +191,7 @@ public class ItemCraftingHalo extends Item {
 		}
 	}
 
-	@Override
-	public boolean onEntitySwing(ItemStack stack, LivingEntity player) {
+	public static boolean onEntitySwing(ItemStack stack, LivingEntity player) {
 		int segment = getSegmentLookedAt(stack, player);
 		if (segment == 0) {
 			return false;
@@ -282,16 +280,14 @@ public class ItemCraftingHalo extends Item {
 		}
 	}
 
-	private void onItemCrafted(PlayerEvent.ItemCraftedEvent event) {
-		PlayerEntity player = event.getPlayer();
+	public static void onItemCrafted(PlayerEntity player, CraftingInventory inv) {
 		ScreenHandler container = player.currentScreenHandler;
-		Inventory inv = event.getInventory();
 
-		if (!(container instanceof ContainerCraftingHalo) || !(inv instanceof CraftingInventory)) {
+		if (!(container instanceof ContainerCraftingHalo)) {
 			return;
 		}
 
-		event.getPlayer().world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, (CraftingInventory) inv, player.world).ifPresent(recipe -> {
+		player.world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, inv, player.world).ifPresent(recipe -> {
 			for (int i = 0; i < player.inventory.size(); i++) {
 				ItemStack stack = player.inventory.getStack(i);
 				if (!stack.isEmpty() && stack.getItem() instanceof ItemCraftingHalo) {
