@@ -20,7 +20,6 @@ import org.lwjgl.glfw.GLFW;
 
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemLexicon;
-import vazkii.patchouli.api.BookDrawScreenEvent;
 
 public class KonamiHandler {
 	private static final int[] KONAMI_CODE = {

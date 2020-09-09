@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.render.tile;
 
+import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -130,7 +131,7 @@ public class RenderTilePylon extends BlockEntityRenderer<TilePylon> {
 		ms.pop();
 	}
 
-	public static class TEISR extends BuiltinModelItemRenderer {
+	public static class TEISR implements BuiltinItemRendererRegistry.DynamicItemRenderer {
 		private static final Lazy<TilePylon> DUMMY = new Lazy<>(TilePylon::new);
 
 		@Override

@@ -89,6 +89,7 @@ import vazkii.botania.common.item.relic.ItemInfiniteFruit;
 import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.AccessorBiomeGeneratorTypeScreens;
+import vazkii.botania.mixin.AccessorLivingEntityRenderer;
 import vazkii.botania.mixin.AccessorRenderTypeBuffers;
 import vazkii.patchouli.api.BookDrawScreenCallback;
 import vazkii.patchouli.api.IMultiblock;
@@ -331,14 +332,14 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		Map<String, PlayerEntityRenderer> skinMap = MinecraftClient.getInstance().getEntityRenderDispatcher().getSkinMap();
 		PlayerEntityRenderer render;
 		render = skinMap.get("default");
-		render.addFeature(new ContributorFancinessHandler(render));
-		render.addFeature(new ManaTabletRenderHandler(render));
-		render.addFeature(new LayerTerraHelmet(render));
+		((AccessorLivingEntityRenderer) render).callAddFeature(new ContributorFancinessHandler(render));
+		((AccessorLivingEntityRenderer) render).callAddFeature(new ManaTabletRenderHandler(render));
+		((AccessorLivingEntityRenderer) render).callAddFeature(new LayerTerraHelmet(render));
 
 		render = skinMap.get("slim");
-		render.addFeature(new ContributorFancinessHandler(render));
-		render.addFeature(new ManaTabletRenderHandler(render));
-		render.addFeature(new LayerTerraHelmet(render));
+		((AccessorLivingEntityRenderer) render).callAddFeature(new ContributorFancinessHandler(render));
+		((AccessorLivingEntityRenderer) render).callAddFeature(new ManaTabletRenderHandler(render));
+		((AccessorLivingEntityRenderer) render).callAddFeature(new LayerTerraHelmet(render));
 	}
 
 	@Override

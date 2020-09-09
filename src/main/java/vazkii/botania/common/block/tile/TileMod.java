@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -16,7 +17,7 @@ import net.minecraft.network.ClientConnection;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import javax.annotation.Nonnull;
 
-public class TileMod extends BlockEntity {
+public class TileMod extends BlockEntity implements BlockEntityClientSerializable {
 	public TileMod(BlockEntityType<?> type) {
 		super(type);
 	}
@@ -46,16 +47,13 @@ public class TileMod extends BlockEntity {
 	public void readPacketNBT(CompoundTag cmp) {}
 
 	@Override
-	public final BlockEntityUpdateS2CPacket toUpdatePacket() {
-		CompoundTag tag = new CompoundTag();
+	public CompoundTag toClientTag(CompoundTag tag) {
 		writePacketNBT(tag);
-		return new BlockEntityUpdateS2CPacket(pos, -999, tag);
+		return tag;
 	}
 
 	@Override
-	public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
-		super.onDataPacket(net, packet);
-		readPacketNBT(packet.getCompoundTag());
+	public void fromClientTag(CompoundTag tag) {
+		readPacketNBT(tag);
 	}
-
 }

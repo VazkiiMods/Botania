@@ -82,8 +82,8 @@ public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity
 	}
 
 	@Override
-	public void onDataPacket(ClientConnection manager, BlockEntityUpdateS2CPacket packet) {
-		super.onDataPacket(manager, packet);
+	public void fromClientTag(CompoundTag tag) {
+		super.fromClientTag(tag);
 		if (world instanceof ClientWorld) {
 			world.updateListeners(getPos(), getCachedState(), getCachedState(), 0);
 		}

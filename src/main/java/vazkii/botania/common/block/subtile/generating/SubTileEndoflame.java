@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
@@ -62,7 +63,7 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 						int age = ((AccessorItemEntity) item).getAge();
 						if (age >= 59 + slowdown && item.isAlive()) {
 							ItemStack stack = item.getStack();
-							if (stack.isEmpty() || stack.getItem().hasContainerItem(stack)) {
+							if (stack.isEmpty() || stack.getItem().hasRecipeRemainder()) {
 								continue;
 							}
 
@@ -146,7 +147,7 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 		if (stack.isEmpty() || Block.getBlockFromItem(stack.getItem()) instanceof BlockSpreader) {
 			return 0;
 		} else {
-			return ForgeHooks.getBurnTime(stack);
+			return AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(stack.getItem(), 0);
 		}
 	}
 

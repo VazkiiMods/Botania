@@ -74,7 +74,7 @@ dependencies {
     modCompile "net.fabricmc:fabric-loader:0.9.1+build.205"
 
     // Fabric API. This is technically optional, but you probably want it anyway.
-    modCompile "net.fabricmc.fabric-api:fabric-api:0.17.2+build.396-1.16"
+    modCompile "net.fabricmc.fabric-api:fabric-api:0.20.1+build.401-1.16"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'

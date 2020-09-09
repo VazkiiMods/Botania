@@ -35,8 +35,10 @@
   "client": [
     "AccessorBiomeGeneratorTypeScreens",
     "AccessorEndPortalTileEntityRenderer",
+    "AccessorEntityRenderDispatcher",
     "AccessorFirstPersonRenderer",
     "AccessorItemOverrideList",
+    "AccessorLivingEntityRenderer",
     "AccessorMinecraft",
     "AccessorModelBakery",
     "AccessorRecipeBookGui",

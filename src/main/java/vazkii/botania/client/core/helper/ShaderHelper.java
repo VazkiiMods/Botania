@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.FloatBuffer;
 import java.util.EnumMap;
+import java.util.Locale;
 import java.util.Map;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -148,7 +149,7 @@ public final class ShaderHelper {
 	private static GlShader createShader(ResourceManager manager, String filename, GlShader.Type shaderType) throws IOException {
 		Identifier loc = prefix(filename);
 		try (InputStream is = new BufferedInputStream(manager.getResource(loc).getInputStream())) {
-			return GlShader.createFromResource(shaderType, loc.toString(), is);
+			return GlShader.createFromResource(shaderType, loc.toString(), is, shaderType.name().toLowerCase(Locale.ROOT));
 		}
 	}
 

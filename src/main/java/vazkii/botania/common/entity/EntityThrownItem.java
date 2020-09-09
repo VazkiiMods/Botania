@@ -83,11 +83,8 @@ public class EntityThrownItem extends ItemEntity {
 		if (!world.isClient && ray.getType() == HitResult.Type.ENTITY) {
 			Entity bonk = ((EntityHitResult) ray).getEntity();
 			bonk.damage(DamageSource.MAGIC, 2.0F);
-			Entity item = getStack().getItem().createEntity(world, this, getStack());
-			if (item == null) {
-				item = new ItemEntity(world, getX(), getY(), getZ(), getStack());
-				world.spawnEntity(item);
-			}
+			Entity item = new ItemEntity(world, getX(), getY(), getZ(), getStack());
+			world.spawnEntity(item);
 			item.setVelocity(getVelocity().multiply(0.25));
 			remove();
 			return;

@@ -184,7 +184,7 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 			} else {
 				((TileCell) tile).setGeneration(this, gen);
 			}
-		} else if (gen >= 0 && stateAt.isAir(getWorld(), pos)) {
+		} else if (gen >= 0 && stateAt.isAir()) {
 			world.setBlockState(pos, ModBlocks.cellBlock.getDefaultState());
 			tile = world.getBlockEntity(pos);
 			((TileCell) tile).setGeneration(this, gen);

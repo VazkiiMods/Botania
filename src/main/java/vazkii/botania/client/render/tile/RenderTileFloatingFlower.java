@@ -68,7 +68,7 @@ public class RenderTileFloatingFlower extends BlockEntityRenderer<TileFloatingFl
 		BlockState state = tile.getCachedState();
 
 		BakedModel ibakedmodel = brd.getModel(state);
-		brd.getModelRenderer().renderModel(ms.peek(), buffers.getBuffer(RenderLayers.getEntityBlockLayer(state, false)), state, ibakedmodel, 1, 1, 1, light, overlay, data);
+		brd.getModelRenderer().render(ms.peek(), buffers.getBuffer(RenderLayers.getEntityBlockLayer(state, false)), state, ibakedmodel, 1, 1, 1, light, overlay);
 
 		ms.pop();
 	}

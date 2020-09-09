@@ -10,6 +10,7 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
@@ -36,7 +37,6 @@ public class ItemMagnetRing extends ItemBauble {
 
 	public ItemMagnetRing(Settings props) {
 		this(props, 6);
-		MinecraftForge.EVENT_BUS.addListener(this::onTossItem);
 	}
 
 	public ItemMagnetRing(Settings props, int range) {
@@ -44,8 +44,8 @@ public class ItemMagnetRing extends ItemBauble {
 		this.range = range;
 	}
 
-	private void onTossItem(ItemTossEvent event) {
-		ItemStack ring = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemMagnetRing, event.getPlayer());
+	public static void onTossItem(PlayerEntity player) {
+		ItemStack ring = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemMagnetRing, player);
 		if (!ring.isEmpty()) {
 			setCooldown(ring, 100);
 		}

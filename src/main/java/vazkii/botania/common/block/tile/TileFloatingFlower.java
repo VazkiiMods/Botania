@@ -50,9 +50,9 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvid
 	}
 
 	@Override
-	public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
+	public void fromClientTag(CompoundTag tag) {
 		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
-		super.onDataPacket(net, packet);
+		super.fromClientTag(tag);
 		if (oldType != floatingData.getIslandType()) {
 			world.updateListeners(getPos(), getCachedState(), getCachedState(), 0);
 		}
