@@ -80,7 +80,7 @@ public class RenderTileEnchanter extends TileEntityRenderer<TileEnchanter> {
 			}
 
 			IVertexBuilder buffer = buffers.getBuffer(RenderHelper.ENCHANTER);
-			IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.enchanterOverlay, 5, 5, alpha);
+			IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.enchanterOverlay.getSprite(), 5, 5, alpha);
 		}
 
 		ms.pop();

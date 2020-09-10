@@ -119,8 +119,6 @@ public class ClientProxy implements IProxy {
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 		modBus.addListener(this::clientSetup);
 		modBus.addListener(this::loadComplete);
-		modBus.addListener(MiscellaneousIcons.INSTANCE::onTextureStitchPre);
-		modBus.addListener(MiscellaneousIcons.INSTANCE::onTextureStitchPost);
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onModelRegister);
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onModelBake);
 		modBus.addListener(ModelHandler::registerModels);

@@ -14,10 +14,12 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3f;
 
@@ -37,7 +39,12 @@ import java.util.Map;
 
 public class RenderTileLightRelay extends TileEntityRenderer<TileLightRelay> {
 
-	private static final Map<LuminizerVariant, TextureAtlasSprite> sprites = new EnumMap<>(LuminizerVariant.class);
+	private static final Map<LuminizerVariant, RenderMaterial> sprites = Util.make(new EnumMap<>(LuminizerVariant.class), m -> {
+		m.put(LuminizerVariant.DEFAULT, MiscellaneousIcons.INSTANCE.lightRelayWorldIcon);
+		m.put(LuminizerVariant.DETECTOR, MiscellaneousIcons.INSTANCE.lightRelayDetectorWorldIcon);
+		m.put(LuminizerVariant.FORK, MiscellaneousIcons.INSTANCE.lightRelayForkWorldIcon);
+		m.put(LuminizerVariant.TOGGLE, MiscellaneousIcons.INSTANCE.lightRelayToggleWorldIcon);
+	});
 
 	public RenderTileLightRelay(TileEntityRendererDispatcher manager) {
 		super(manager);
@@ -48,12 +55,6 @@ public class RenderTileLightRelay extends TileEntityRenderer<TileLightRelay> {
 		BlockState state = tile.getBlockState();
 
 		Minecraft mc = Minecraft.getInstance();
-		if (sprites.isEmpty()) {
-			sprites.put(LuminizerVariant.DEFAULT, MiscellaneousIcons.INSTANCE.lightRelayWorldIcon);
-			sprites.put(LuminizerVariant.DETECTOR, MiscellaneousIcons.INSTANCE.lightRelayDetectorWorldIcon);
-			sprites.put(LuminizerVariant.FORK, MiscellaneousIcons.INSTANCE.lightRelayForkWorldIcon);
-			sprites.put(LuminizerVariant.TOGGLE, MiscellaneousIcons.INSTANCE.lightRelayToggleWorldIcon);
-		}
 
 		if (mc.getRenderViewEntity() instanceof LivingEntity) {
 			LivingEntity view = (LivingEntity) mc.getRenderViewEntity();
@@ -62,7 +63,7 @@ public class RenderTileLightRelay extends TileEntityRenderer<TileLightRelay> {
 			}
 		}
 
-		TextureAtlasSprite iicon = sprites.get(((BlockLightRelay) state.getBlock()).variant);
+		TextureAtlasSprite iicon = sprites.get(((BlockLightRelay) state.getBlock()).variant).getSprite();
 
 		ms.push();
 		ms.translate(0.5, 0.3, 0.5);

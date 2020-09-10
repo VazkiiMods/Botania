@@ -22,7 +22,7 @@ public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
 	@Override
 	public TextureAtlasSprite getBaseIcon(EntityCorporeaSpark entity) {
-		return entity.isMaster() ? MiscellaneousIcons.INSTANCE.corporeaWorldIconMaster : MiscellaneousIcons.INSTANCE.corporeaWorldIcon;
+		return entity.isMaster() ? MiscellaneousIcons.INSTANCE.corporeaWorldIconMaster.getSprite() : MiscellaneousIcons.INSTANCE.corporeaWorldIcon.getSprite();
 	}
 
 }

@@ -108,7 +108,7 @@ public class ElvenTradeRecipeCategory implements IRecipeCategory<IElvenTradeReci
 		RenderSystem.disableAlphaTest();
 
 		Minecraft.getInstance().textureManager.bindTexture(AtlasTexture.LOCATION_BLOCKS_TEXTURE);
-		TextureAtlasSprite sprite = MiscellaneousIcons.INSTANCE.alfPortalTex;
+		TextureAtlasSprite sprite = MiscellaneousIcons.INSTANCE.alfPortalTex.getSprite();
 		Tessellator tess = Tessellator.getInstance();
 		BufferBuilder wr = tess.getBuffer();
 		wr.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);

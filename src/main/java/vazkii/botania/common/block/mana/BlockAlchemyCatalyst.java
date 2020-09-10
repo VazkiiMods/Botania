@@ -27,7 +27,7 @@ public class BlockAlchemyCatalyst extends BlockMod implements IPoolOverlayProvid
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public TextureAtlasSprite getIcon(World world, BlockPos pos) {
-		return MiscellaneousIcons.INSTANCE.alchemyCatalystOverlay;
+		return MiscellaneousIcons.INSTANCE.alchemyCatalystOverlay.getSprite();
 	}
 
 }
