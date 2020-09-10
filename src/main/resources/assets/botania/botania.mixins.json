@@ -38,7 +38,6 @@
     "AccessorEntityRenderDispatcher",
     "AccessorFirstPersonRenderer",
     "AccessorItemOverrideList",
-    "AccessorLivingEntityRenderer",
     "AccessorMinecraft",
     "AccessorModelBakery",
     "AccessorRecipeBookGui",

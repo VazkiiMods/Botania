@@ -16,6 +16,7 @@ import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.block.Block;
@@ -27,11 +28,11 @@ import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.options.KeyBinding;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.ItemEntityRenderer;
+import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
-import net.minecraft.client.util.InputUtil;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -61,16 +62,12 @@ import vazkii.botania.client.render.entity.RenderPinkWither;
 import vazkii.botania.client.render.entity.RenderPixie;
 import vazkii.botania.client.render.entity.RenderPoolMinecart;
 import vazkii.botania.client.render.entity.RenderSpark;
-import vazkii.botania.client.render.tile.RenderTilePylon;
-import vazkii.botania.client.render.tile.TEISR;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.BlockPylon;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.block.mana.BlockPool;
-import vazkii.botania.common.block.subtile.functional.BergamuteEventHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
@@ -89,7 +86,6 @@ import vazkii.botania.common.item.relic.ItemInfiniteFruit;
 import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.AccessorBiomeGeneratorTypeScreens;
-import vazkii.botania.mixin.AccessorLivingEntityRenderer;
 import vazkii.botania.mixin.AccessorRenderTypeBuffers;
 import vazkii.patchouli.api.BookDrawScreenCallback;
 import vazkii.patchouli.api.IMultiblock;
@@ -100,7 +96,6 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Locale;
-import java.util.Map;
 import java.util.SortedMap;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -121,6 +116,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		ModItems.registerGuis();
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 		ClientLifecycleEvents.CLIENT_STARTED.register(this::loadComplete);
+		LivingEntityFeatureRendererRegistrationCallback.EVENT.register(this::initAuxiliaryRender);
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onTextureStitchPre);
 		modBus.addListener(MiscellaneousIcons.INSTANCE::onTextureStitchPost);
 		ModelLoadingRegistry.INSTANCE.registerAppender(MiscellaneousIcons.INSTANCE::onModelRegister);
@@ -320,7 +316,6 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	}
 
 	private void loadComplete(MinecraftClient mc) {
-		initAuxiliaryRender();
 		ColorHandler.init();
 
 		// Needed to prevent mana pools on carts from X-raying through the cart
@@ -328,18 +323,12 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		layers.put(RenderHelper.MANA_POOL_WATER, new BufferBuilder(RenderHelper.MANA_POOL_WATER.getExpectedBufferSize()));
 	}
 
-	private void initAuxiliaryRender() {
-		Map<String, PlayerEntityRenderer> skinMap = MinecraftClient.getInstance().getEntityRenderDispatcher().getSkinMap();
-		PlayerEntityRenderer render;
-		render = skinMap.get("default");
-		((AccessorLivingEntityRenderer) render).callAddFeature(new ContributorFancinessHandler(render));
-		((AccessorLivingEntityRenderer) render).callAddFeature(new ManaTabletRenderHandler(render));
-		((AccessorLivingEntityRenderer) render).callAddFeature(new LayerTerraHelmet(render));
-
-		render = skinMap.get("slim");
-		((AccessorLivingEntityRenderer) render).callAddFeature(new ContributorFancinessHandler(render));
-		((AccessorLivingEntityRenderer) render).callAddFeature(new ManaTabletRenderHandler(render));
-		((AccessorLivingEntityRenderer) render).callAddFeature(new LayerTerraHelmet(render));
+	private void initAuxiliaryRender(EntityType<? extends LivingEntity> type, LivingEntityRenderer<?, ?> renderer, LivingEntityFeatureRendererRegistrationCallback.RegistrationHelper helper) {
+		if (type == EntityType.PLAYER && renderer instanceof PlayerEntityRenderer) {
+			helper.register(new ContributorFancinessHandler((PlayerEntityRenderer) renderer));
+			helper.register(new ManaTabletRenderHandler((PlayerEntityRenderer) renderer));
+			helper.register(new LayerTerraHelmet((PlayerEntityRenderer) renderer));
+		}
 	}
 
 	@Override
