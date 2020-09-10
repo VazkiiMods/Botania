@@ -8,6 +8,17 @@
  */
 package vazkii.botania.common.block.tile;
 
+import alexiil.mc.lib.attributes.AttributeList;
+import alexiil.mc.lib.attributes.ItemAttributeList;
+import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.FluidAttributes;
+import alexiil.mc.lib.attributes.fluid.FluidExtractable;
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
+import alexiil.mc.lib.attributes.fluid.filter.ExactFluidFilter;
+import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
+import alexiil.mc.lib.attributes.misc.Ref;
+import alexiil.mc.lib.attributes.misc.Reference;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -87,7 +98,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			return true;
 		}
 
-		boolean hasFluidCapability = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).isPresent();
+		boolean hasFluidCapability = FluidAttributes.EXTRACTABLE.getAll(stack).getCount() > 0;
 
 		if (getFluid() == State.EMPTY) {
 			// XXX: special handling for now since fish buckets don't have fluid cap, may need to be changed later
@@ -98,23 +109,30 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 				return true;
 			}
 
-			if (hasFluidCapability) {
-				IFluidHandlerItem fluidHandler = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).orElseThrow(NullPointerException::new);
+			Reference<ItemStack> ref = new Ref<>(stack);
+			ItemAttributeList<FluidExtractable> extrs = FluidAttributes.EXTRACTABLE.getAll(ref);
 
-				FluidStack drainWater = fluidHandler.drain(new FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.SIMULATE);
-				FluidStack drainLava = fluidHandler.drain(new FluidStack(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.SIMULATE);
+			for (int i = 0; i < extrs.getCount(); i++) {
+				FluidExtractable extr = extrs.get(i);
 
-				if (!drainWater.isEmpty() && drainWater.getFluid() == Fluids.WATER && drainWater.getAmount() == FluidAttributes.BUCKET_VOLUME) {
+				ExactFluidFilter waterFilt = new ExactFluidFilter(FluidKeys.WATER);
+				FluidVolume waterExtracted = extr.attemptExtraction(waterFilt, FluidAmount.BUCKET, Simulation.SIMULATE);
+				if (waterExtracted.getAmount_F().equals(FluidAmount.BUCKET)) {
+					extr.attemptExtraction(waterFilt, FluidAmount.BUCKET, Simulation.ACTION);
 					setFluid(State.WATER);
-					fluidHandler.drain(new FluidStack(Fluids.WATER, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
-					item.setStack(fluidHandler.getContainer());
-					return true;
-				} else if (!drainLava.isEmpty() && drainLava.getFluid() == Fluids.LAVA && drainLava.getAmount() == FluidAttributes.BUCKET_VOLUME) {
-					setFluid(State.LAVA);
-					fluidHandler.drain(new FluidStack(Fluids.LAVA, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
-					item.setStack(fluidHandler.getContainer());
+					item.setStack(ref.get());
 					return true;
 				}
+
+				ExactFluidFilter lavaFilt = new ExactFluidFilter(FluidKeys.LAVA);
+				FluidVolume lavaExtracted = extr.attemptExtraction(lavaFilt, FluidAmount.BUCKET, Simulation.SIMULATE);
+				if (lavaExtracted.getAmount_F().equals(FluidAmount.BUCKET)) {
+					extr.attemptExtraction(lavaFilt, FluidAmount.BUCKET, Simulation.ACTION);
+					setFluid(State.LAVA);
+					item.setStack(ref.get());
+					return true;
+				}
+
 			}
 
 			return false;

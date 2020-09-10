@@ -50,6 +50,10 @@ repositories {
         name "storagedrawers"
         url = "https://dl.bintray.com/jaquadro/dev/"
     }
+    maven {
+        name = "BuildCraft"
+        url = "https://mod-buildcraft.com/maven"
+    }
 }
 
 dependencies {
@@ -57,6 +61,8 @@ dependencies {
 
     modCompile "vazkii.patchouli:Patchouli:1.16-40-FABRIC:api"
     modRuntime "vazkii.patchouli:Patchouli:1.16-40-FABRIC"
+
+    modCompile "alexiil.mc.lib:libblockattributes-all:0.8.1"
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-1"
     include "me.zeroeightsix:fiber:0.23.0-1"
@@ -68,7 +74,6 @@ dependencies {
     modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-util:2.5.0-nightly.1.16.2-rc2"
     modImplementation "top.theillusivec4.curios:curios-fabric:0.0.6-1.16.2"
 
-    //to change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:1.16.2"
     mappings "net.fabricmc:yarn:1.16.2+build.1:v2"
     modCompile "net.fabricmc:fabric-loader:0.9.1+build.205"
