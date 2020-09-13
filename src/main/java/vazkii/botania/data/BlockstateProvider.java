@@ -475,6 +475,7 @@ public class BlockstateProvider extends BlockStateProvider {
 
 	// ? extends T technically not correct, but is more convenient in ItemModelProvider
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static <T> Collection<T> takeAll(Set<? extends T> src, T... items) {
 		List<T> ret = Arrays.asList(items);
 		for (T item : items) {
