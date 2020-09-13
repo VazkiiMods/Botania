@@ -64,7 +64,7 @@ public final class ModEntities {
 			.trackedUpdateRate(40)
 			.forceTrackedVelocityUpdates(false)
 			.build();
-	public static final EntityType<EntitySpark> SPARK = FabricEntityTypeBuilder.<EntitySpark>create(MobCategory.MISC, EntitySpark::new)
+	public static final EntityType<EntityManaSpark> SPARK = FabricEntityTypeBuilder.<EntityManaSpark>create(MobCategory.MISC, EntityManaSpark::new)
 			.dimensions(EntityDimensions.scalable(0.2F, 0.5F))
 			.fireImmune()
 			.trackRangeChunks(4)

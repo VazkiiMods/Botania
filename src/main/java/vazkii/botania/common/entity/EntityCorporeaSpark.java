@@ -11,7 +11,6 @@ package vazkii.botania.common.entity;
 import com.google.common.base.Predicates;
 
 import net.fabricmc.fabric.api.entity.EntityPickInteractionAware;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -20,7 +19,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -104,7 +102,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 			firstTick = false;
 		}
 
-		if (master != null && (!((Entity) master).isAlive() || master.getNetwork() != getNetwork())) {
+		if (master != null && (master.entity().isAlive() || master.getNetwork() != getNetwork())) {
 			master = null;
 		}
 	}
@@ -125,7 +123,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	public void registerConnections(ICorporeaSpark master, ICorporeaSpark referrer, List<ICorporeaSpark> connections) {
 		relatives.clear();
 		for (ICorporeaSpark spark : getNearbySparks()) {
-			if (spark == null || connections.contains(spark) || spark.getNetwork() != getNetwork() || spark.isMaster() || !((Entity) spark).isAlive()) {
+			if (spark == null || connections.contains(spark) || spark.getNetwork() != getNetwork() || spark.isMaster() || spark.entity().isAlive()) {
 				continue;
 			}
 
@@ -157,7 +155,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	private void findNetwork() {
 		for (ICorporeaSpark spark : getNearbySparks()) {
-			if (spark.getNetwork() == getNetwork() && ((Entity) spark).isAlive()) {
+			if (spark.getNetwork() == getNetwork() && !spark.entity().isAlive()) {
 				ICorporeaSpark master = spark.getMaster();
 				if (master != null) {
 					this.master = master;
@@ -176,24 +174,16 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 		List<ICorporeaSpark> sparks = spark.getRelatives();
 		if (sparks.isEmpty()) {
-			EntitySpark.particleBeam(player, (Entity) spark, (Entity) spark.getMaster());
+			EntityManaSpark.particleBeam(player, spark.entity(), spark.getMaster().entity());
 		} else {
 			for (ICorporeaSpark endSpark : sparks) {
 				if (!checked.contains(endSpark)) {
-					EntitySpark.particleBeam(player, (Entity) spark, (Entity) endSpark);
+					EntityManaSpark.particleBeam(player, spark.entity(), endSpark.entity());
 					checked.add(endSpark);
 					displayRelatives(player, checked, endSpark);
 				}
 			}
 		}
-	}
-
-	@Override
-	public BlockPos getAttachPos() {
-		int x = Mth.floor(getX());
-		int y = Mth.floor(getY() - 1);
-		int z = Mth.floor(getZ());
-		return new BlockPos(x, y, z);
 	}
 
 	@Override

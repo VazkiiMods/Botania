@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.entity;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -17,7 +18,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 
-public abstract class EntitySparkBase extends Entity {
+import vazkii.botania.api.item.ISparkEntity;
+
+public abstract class EntitySparkBase extends Entity implements ISparkEntity {
 	private static final String TAG_INVIS = "invis";
 	private static final String TAG_NETWORK = "network";
 	private static final EntityDataAccessor<Integer> NETWORK = SynchedEntityData.defineId(EntitySparkBase.class, EntityDataSerializers.INT);
@@ -31,10 +34,17 @@ public abstract class EntitySparkBase extends Entity {
 		entityData.define(NETWORK, 0);
 	}
 
+	@Override
+	public BlockPos getAttachPos() {
+		return getOnPos();
+	}
+
+	@Override
 	public DyeColor getNetwork() {
 		return DyeColor.byId(entityData.get(NETWORK));
 	}
 
+	@Override
 	public void setNetwork(DyeColor color) {
 		entityData.set(NETWORK, color.getId());
 	}
