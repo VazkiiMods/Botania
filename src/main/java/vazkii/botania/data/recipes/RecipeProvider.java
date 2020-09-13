@@ -113,11 +113,10 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addCriterion("has_item", hasItem(ModTags.Items.INGOTS_ELEMENTIUM))
 				.addCriterion("has_alt_item", hasItem(ModBlocks.dreamwood))
 				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.gaiaSpreader)
-				.key('S', ModBlocks.elvenSpreader)
-				.key('D', ModTags.Items.GEMS_DRAGONSTONE)
-				.key('E', ModItems.lifeEssence)
-				.patternLine("ESD")
+		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.gaiaSpreader)
+				.addIngredient(ModBlocks.elvenSpreader)
+				.addIngredient(ModTags.Items.GEMS_DRAGONSTONE)
+				.addIngredient(ModItems.lifeEssence)
 				.setGroup("botania:spreader")
 				.addCriterion("has_item", hasItem(ModItems.lifeEssence))
 				.build(consumer);
