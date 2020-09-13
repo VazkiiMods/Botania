@@ -8,7 +8,6 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.RayTraceResult;
 
@@ -49,7 +48,7 @@ public interface ILensEffect {
 	/**
 	 * Gets the amount of mana to transfer to the passed in mana receiver block.
 	 */
-	public default int getManaToTransfer(IManaBurst burst, ThrowableEntity entity, ItemStack stack, IManaReceiver receiver) {
+	public default int getManaToTransfer(IManaBurst burst, ItemStack stack, IManaReceiver receiver) {
 		return burst.getMana();
 	}
 

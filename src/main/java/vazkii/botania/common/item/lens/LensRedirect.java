@@ -26,8 +26,9 @@ import vazkii.botania.common.core.helper.MathHelper;
 public class LensRedirect extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
+		ThrowableEntity entity = burst.entity();
 		if (!entity.world.isRemote && pos.getType() == RayTraceResult.Type.BLOCK
 				&& coords.getY() != -1
 				&& !((BlockRayTraceResult) pos).getPos().equals(coords)) {

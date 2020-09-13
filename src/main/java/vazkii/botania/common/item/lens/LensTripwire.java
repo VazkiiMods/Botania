@@ -27,7 +27,8 @@ public class LensTripwire extends Lens {
 	}
 
 	@Override
-	public void updateBurst(IManaBurst burst, ThrowableEntity entity, ItemStack stack) {
+	public void updateBurst(IManaBurst burst, ItemStack stack) {
+		ThrowableEntity entity = burst.entity();
 		if (burst.isFake()) {
 			if (entity.world.isRemote) {
 				return;

@@ -22,7 +22,8 @@ import java.util.function.Predicate;
 public class LensMagnet extends Lens {
 
 	@Override
-	public void updateBurst(IManaBurst burst, ThrowableEntity entity, ItemStack stack) {
+	public void updateBurst(IManaBurst burst, ItemStack stack) {
+		ThrowableEntity entity = burst.entity();
 		BlockPos basePos = entity.getPosition();
 		boolean magnetized = burst.getMagnetizedPos() != null;
 		int range = 3;

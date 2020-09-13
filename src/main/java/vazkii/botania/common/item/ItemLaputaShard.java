@@ -252,7 +252,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
 		double speed = 0.35;
 		int targetDistance = BASE_OFFSET;
-		ThrowableEntity entity = (ThrowableEntity) burst;
+		ThrowableEntity entity = burst.entity();
 		if (!entity.world.isRemote) {
 			entity.setMotion(0, speed, 0);
 
@@ -311,7 +311,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 
 	@Override
 	public boolean doParticles(IManaBurst burst, ItemStack stack) {
-		ThrowableEntity entity = (ThrowableEntity) burst;
+		ThrowableEntity entity = burst.entity();
 		ItemStack lens = burst.getSourceLens();
 		BlockState state = NBTUtil.readBlockState(lens.getOrCreateTag().getCompound(TAG_STATE));
 		entity.world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, state), entity.getPosX(), entity.getPosY(), entity.getPosZ(),

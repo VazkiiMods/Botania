@@ -22,7 +22,8 @@ import vazkii.botania.common.block.ModBlocks;
 public class LensWarp extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+		ThrowableEntity entity = burst.entity();
 		if (entity.world.isRemote || burst.isFake() || pos.getType() != RayTraceResult.Type.BLOCK) {
 			return dead;
 		}

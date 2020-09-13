@@ -30,7 +30,8 @@ import java.util.List;
 
 public class LensMine extends Lens {
 	@Override
-	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, RayTraceResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
+		ThrowableEntity entity = burst.entity();
 		World world = entity.world;
 
 		if (world.isRemote || rtr.getType() != RayTraceResult.Type.BLOCK) {

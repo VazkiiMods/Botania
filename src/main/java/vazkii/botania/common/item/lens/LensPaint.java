@@ -33,7 +33,8 @@ import java.util.function.Function;
 public class LensPaint extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+		ThrowableEntity entity = burst.entity();
 		int storedColor = ItemLens.getStoredColor(stack);
 		if (!entity.world.isRemote && !burst.isFake() && storedColor > -1 && storedColor < 17) {
 			if (pos.getType() == RayTraceResult.Type.ENTITY) {

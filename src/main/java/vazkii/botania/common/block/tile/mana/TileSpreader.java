@@ -774,7 +774,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 	public void pingback(IManaBurst burst, UUID expectedIdentity) {
 		if (getIdentifier().equals(expectedIdentity)) {
 			pingbackTicks = TICKS_ALLOWED_WITHOUT_PINGBACK;
-			Entity e = (Entity) burst;
+			Entity e = burst.entity();
 			lastPingbackX = e.getPosX();
 			lastPingbackY = e.getPosY();
 			lastPingbackZ = e.getPosZ();
