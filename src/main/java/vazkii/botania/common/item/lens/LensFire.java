@@ -10,7 +10,7 @@ package vazkii.botania.common.item.lens;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -27,7 +27,7 @@ public class LensFire extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, RayTraceResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
-		ThrowableEntity entity = burst.entity();
+		Entity entity = burst.entity();
 
 		if (!entity.world.isRemote && rtr.getType() == RayTraceResult.Type.BLOCK
 				&& !burst.isFake() && !isManaBlock) {

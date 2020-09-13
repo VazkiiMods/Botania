@@ -12,7 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.PushReaction;
-import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
@@ -26,7 +26,7 @@ public class LensPiston extends Lens {
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		ThrowableEntity entity = burst.entity();
+		Entity entity = burst.entity();
 		BlockPos coords = burst.getBurstSourceBlockPos();
 		if (!entity.world.isRemote
 				&& pos.getType() == RayTraceResult.Type.BLOCK

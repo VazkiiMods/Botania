@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -28,7 +28,7 @@ public class LensRedirect extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
-		ThrowableEntity entity = burst.entity();
+		Entity entity = burst.entity();
 		if (!entity.world.isRemote && pos.getType() == RayTraceResult.Type.BLOCK
 				&& coords.getY() != -1
 				&& !((BlockRayTraceResult) pos).getPos().equals(coords)) {

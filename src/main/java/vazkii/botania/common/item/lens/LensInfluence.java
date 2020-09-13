@@ -28,7 +28,7 @@ public class LensInfluence extends Lens {
 
 	@Override
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
-		ThrowableEntity entity = burst.entity();
+		Entity entity = burst.entity();
 		if (!burst.isFake()) {
 			double range = 3.5;
 			AxisAlignedBB bounds = new AxisAlignedBB(entity.getPosX() - range, entity.getPosY() - range, entity.getPosZ() - range, entity.getPosX() + range, entity.getPosY() + range, entity.getPosZ() + range);

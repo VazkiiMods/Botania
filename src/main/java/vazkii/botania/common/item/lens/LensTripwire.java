@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.item.lens;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
 
@@ -28,7 +28,7 @@ public class LensTripwire extends Lens {
 
 	@Override
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
-		ThrowableEntity entity = burst.entity();
+		Entity entity = burst.entity();
 		if (burst.isFake()) {
 			if (entity.world.isRemote) {
 				return;

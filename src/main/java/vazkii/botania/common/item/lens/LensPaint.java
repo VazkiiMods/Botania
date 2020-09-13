@@ -12,7 +12,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.SheepEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Direction;
@@ -34,7 +33,7 @@ public class LensPaint extends Lens {
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		ThrowableEntity entity = burst.entity();
+		Entity entity = burst.entity();
 		int storedColor = ItemLens.getStoredColor(stack);
 		if (!entity.world.isRemote && !burst.isFake() && storedColor > -1 && storedColor < 17) {
 			if (pos.getType() == RayTraceResult.Type.ENTITY) {
