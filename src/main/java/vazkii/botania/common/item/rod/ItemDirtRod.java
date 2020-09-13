@@ -104,10 +104,10 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
-		TileEntity te = (TileEntity) tile;
+		TileEntity te = tile.tileEntity();
 		World world = te.getWorld();
 		if (!world.isRemote && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.rand.nextInt(8) == 0 && tile.isEnabled()) {
-			BlockPos pos = ((TileEntity) tile).getPos().offset(tile.getAvatarFacing());
+			BlockPos pos = te.getPos().offset(tile.getAvatarFacing());
 			BlockState state = world.getBlockState(pos);
 			if (state.getBlock().isAir(state, world, pos)) {
 				world.setBlockState(pos, Blocks.DIRT.getDefaultState());

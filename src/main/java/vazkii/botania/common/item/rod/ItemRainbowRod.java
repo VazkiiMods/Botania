@@ -139,7 +139,7 @@ public class ItemRainbowRod extends Item implements IManaUsingItem, IAvatarWield
 
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
-		TileEntity te = (TileEntity) tile;
+		TileEntity te = tile.tileEntity();
 		World world = te.getWorld();
 
 		if (world.isRemote || tile.getCurrentMana() < MANA_COST_AVATAR * 25 || !tile.isEnabled()) {

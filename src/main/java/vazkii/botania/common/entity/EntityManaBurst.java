@@ -112,9 +112,9 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	}
 
 	public EntityManaBurst(IManaSpreader spreader, boolean fake) {
-		this(ModEntities.MANA_BURST, ((TileEntity) spreader).getWorld());
+		this(ModEntities.MANA_BURST, spreader.tileEntity().getWorld());
 
-		TileEntity tile = (TileEntity) spreader;
+		TileEntity tile = spreader.tileEntity();
 
 		this.fake = fake;
 
@@ -573,7 +573,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		if (tile instanceof IThrottledPacket) {
 			((IThrottledPacket) tile).markDispatchable();
 		} else {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers((TileEntity) tile);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile.tileEntity());
 		}
 	}
 
