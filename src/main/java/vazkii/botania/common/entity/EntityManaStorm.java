@@ -24,6 +24,7 @@ import javax.annotation.Nonnull;
 
 public class EntityManaStorm extends Entity {
 	private static final String TAG_TIME = "time";
+	private static final String TAG_BURST_COLOR = "burstColor";
 	private static final String TAG_BURSTS_FIRED = "burstsFired";
 	private static final String TAG_DEATH_TIME = "deathTime";
 
@@ -31,6 +32,7 @@ public class EntityManaStorm extends Entity {
 	public static final int DEATH_TIME = 200;
 
 	public int liveTime;
+	public int burstColor;
 	public int burstsFired;
 	public int deathTime;
 
@@ -68,7 +70,7 @@ public class EntityManaStorm extends Entity {
 		burst.setPosition(getPosX(), getPosY(), getPosZ());
 
 		float motionModifier = 0.5F;
-		burst.setColor(0x20FF20);
+		burst.setColor(burstColor);
 		burst.setMana(120);
 		burst.setStartingMana(340);
 		burst.setMinManaLoss(50);
@@ -85,6 +87,7 @@ public class EntityManaStorm extends Entity {
 	@Override
 	protected void readAdditional(@Nonnull CompoundNBT cmp) {
 		liveTime = cmp.getInt(TAG_TIME);
+		burstColor = cmp.getInt(TAG_BURST_COLOR);
 		burstsFired = cmp.getInt(TAG_BURSTS_FIRED);
 		deathTime = cmp.getInt(TAG_DEATH_TIME);
 	}
@@ -92,6 +95,7 @@ public class EntityManaStorm extends Entity {
 	@Override
 	protected void writeAdditional(@Nonnull CompoundNBT cmp) {
 		cmp.putInt(TAG_TIME, liveTime);
+		cmp.putInt(TAG_BURST_COLOR, burstColor);
 		cmp.putInt(TAG_BURSTS_FIRED, burstsFired);
 		cmp.putInt(TAG_DEATH_TIME, deathTime);
 	}
