@@ -265,8 +265,8 @@ public final class ModItems {
 	// Baubles / trinkets / curios / etc.
 	public static final Item manaRing = new ItemManaRing(unstackable());
 	public static final Item manaRingGreater = new ItemGreaterManaRing(unstackable());
-	public static final Item auraRing = new ItemAuraRing(unstackable());
-	public static final Item auraRingGreater = new ItemGreaterAuraRing(unstackable());
+	public static final Item auraRing = new ItemAuraRing(unstackable(), 10);
+	public static final Item auraRingGreater = new ItemAuraRing(unstackable(), 2);
 	public static final Item magnetRing = new ItemMagnetRing(unstackable());
 	public static final Item magnetRingGreater = new ItemMagnetRing(unstackable(), 16);
 	public static final Item waterRing = new ItemWaterRing(unstackable().rarity(Rarity.RARE));
