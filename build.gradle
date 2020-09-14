@@ -43,7 +43,7 @@ archivesBaseName = config.mod_name
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
-compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation"
+compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation" << "-Werror"
 
 minecraft {
     mappings channel: 'snapshot', version: "20200723-1.16.1"
