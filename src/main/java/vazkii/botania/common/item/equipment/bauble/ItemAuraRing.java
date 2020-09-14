@@ -16,7 +16,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 
 public class ItemAuraRing extends ItemBauble {
 
-	private int interval;
+	private final int interval;
 
 	public ItemAuraRing(Properties props, int interval) {
 		super(props);
