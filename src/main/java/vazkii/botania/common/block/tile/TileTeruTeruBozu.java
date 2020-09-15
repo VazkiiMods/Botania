@@ -10,7 +10,8 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.storage.IWorldInfo;
+import net.minecraft.world.storage.ServerWorldInfo;
 
 public class TileTeruTeruBozu extends TileMod implements ITickableTileEntity {
 	private boolean wasRaining = false;
@@ -39,6 +40,9 @@ public class TileTeruTeruBozu extends TileMod implements ITickableTileEntity {
 
 	public static void resetRainTime(World w) {
 		int time = w.rand.nextInt(w.getWorldInfo().isRaining() ? 12000 : 168000) + 12000;
-		((ServerWorld) w).getServer().func_240793_aU_().func_230407_G_().setRainTime(time);
+		IWorldInfo info = w.getWorldInfo();
+		if (info instanceof ServerWorldInfo) {
+			((ServerWorldInfo) info).setRainTime(time);
+		}
 	}
 }
