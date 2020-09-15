@@ -23,6 +23,7 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.handler.ConfigHandler;
 
 import java.util.Set;
 
@@ -57,6 +58,9 @@ public class ModFeatures {
 	}
 
 	public static void onBiomeLoad(BiomeLoadingEvent event) {
+		if (!ConfigHandler.COMMON.worldgenEnabled.get()) {
+			return;
+		}
 		Biome.Category category = event.getCategory();
 		if (!TYPE_BLACKLIST.contains(category)) {
 			event.getGeneration().func_242513_a(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_FLOWERS_CONF);

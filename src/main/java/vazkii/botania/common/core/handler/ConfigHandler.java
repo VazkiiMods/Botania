@@ -139,6 +139,8 @@ public final class ConfigHandler {
 
 		public final ForgeConfigSpec.ConfigValue<List<? extends String>> orechidPriorityMods;
 
+		public final ForgeConfigSpec.BooleanValue worldgenEnabled;
+
 		public Common(ForgeConfigSpec.Builder builder) {
 			builder.push("blockBreakingParticles");
 			blockBreakParticles = builder
@@ -202,6 +204,9 @@ public final class ConfigHandler {
 							"By default, the chosen ore is randomly picked from all ores in the ore's tag.\n" +
 							"Ores from mods present on this list will be picked over mods listed lower or not listed at all.")
 					.defineList("orechidPriorityMods", Collections.emptyList(), s -> s instanceof String && ResourceLocation.tryCreate(s + ":test") != null);
+			worldgenEnabled = builder
+					.comment("Set this to false to disable mystical flower and mushroom worldgen. More fine-tuned customization should be done with datapacks.")
+					.define("worldgen", true);
 		}
 	}
 
