@@ -9,7 +9,6 @@
     "AccessorAbstractHorseEntity",
     "AccessorAbstractSpawner",
     "AccessorAvoidEntityGoal",
-    "AccessorBiomeGenerationSettings",
     "AccessorCreeperEntity",
     "AccessorDispenserBlock",
     "AccessorFireBlock",

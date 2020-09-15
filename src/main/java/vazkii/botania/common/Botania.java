@@ -187,6 +187,7 @@ public class Botania {
 		forgeBus.addListener(ManaNetworkHandler.instance::onNetworkEvent);
 		forgeBus.addListener(EventPriority.HIGHEST, TileCorporeaIndex.getInputHandler()::onChatMessage);
 		forgeBus.addListener(LootHandler::lootLoad);
+		forgeBus.addListener(EventPriority.HIGH, ModFeatures::onBiomeLoad);
 
 		ModLootModifiers.init();
 		ModCriteriaTriggers.init();
@@ -287,7 +288,6 @@ public class Botania {
 	}
 
 	private void serverAboutToStart(FMLServerAboutToStartEvent event) {
-		ModFeatures.addWorldgen(event.getServer());
 		if (BotaniaAPI.instance().getClass() != BotaniaAPIImpl.class) {
 			String clname = BotaniaAPI.instance().getClass().getName();
 			throw new IllegalAccessError("The Botania API has been overriden. "
