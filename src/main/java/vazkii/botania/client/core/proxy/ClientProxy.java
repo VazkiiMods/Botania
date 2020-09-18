@@ -36,7 +36,6 @@ import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -167,7 +166,7 @@ public class ClientProxy implements IProxy {
 		registerRenderTypes();
 		registerEntityRenderers();
 
-		DeferredWorkQueue.runLater(() -> {
+		event.enqueueWork(() -> {
 			AccessorBiomeGeneratorTypeScreens.getAllTypes().add(WorldTypeSkyblock.INSTANCE);
 
 			CORPOREA_REQUEST = new KeyBinding("key.botania_corporea_request", KeyConflictContext.GUI, InputMappings.getInputByCode(GLFW.GLFW_KEY_C, 0), LibMisc.MOD_NAME);
@@ -327,7 +326,7 @@ public class ClientProxy implements IProxy {
 	}
 
 	private void loadComplete(FMLLoadCompleteEvent event) {
-		DeferredWorkQueue.runLater(() -> {
+		event.enqueueWork(() -> {
 			initAuxiliaryRender();
 			ColorHandler.init();
 

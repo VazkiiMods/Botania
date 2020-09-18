@@ -34,7 +34,6 @@ import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -212,7 +211,7 @@ public class Botania {
 			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::onPlayerInteract);
 		}
 
-		DeferredWorkQueue.runLater(() -> {
+		event.enqueueWork(() -> {
 			SkyblockChunkGenerator.init();
 
 			GlobalEntityTypeAttributes.put(ModEntities.DOPPLEGANGER, MobEntity.func_233666_p_()
