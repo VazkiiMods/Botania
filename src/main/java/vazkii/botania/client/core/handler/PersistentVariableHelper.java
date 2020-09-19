@@ -23,19 +23,16 @@ public final class PersistentVariableHelper {
 
 	private static final String TAG_FIRST_LOAD = "firstLoad";
 	private static final String TAG_DOG = "dog";
-	private static final String TAG_SEEN_GO_VOTE = "seenGoVote";
 
 	private static File cacheFile;
 
 	public static boolean firstLoad = true;
 	public static boolean dog = true;
-	public static boolean seenGoVoteScreen = false;
 
 	public static void save() {
 		CompoundNBT cmp = new CompoundNBT();
 		cmp.putBoolean(TAG_FIRST_LOAD, firstLoad);
 		cmp.putBoolean(TAG_DOG, dog);
-		cmp.putBoolean(TAG_SEEN_GO_VOTE, seenGoVoteScreen);
 
 		injectNBTToFile(cmp, cacheFile);
 	}
@@ -45,7 +42,6 @@ public final class PersistentVariableHelper {
 
 		firstLoad = cmp.contains(TAG_FIRST_LOAD) ? cmp.getBoolean(TAG_FIRST_LOAD) : firstLoad;
 		dog = cmp.getBoolean(TAG_DOG);
-		seenGoVoteScreen = cmp.getBoolean(TAG_SEEN_GO_VOTE);
 	}
 
 	public static void init() {
