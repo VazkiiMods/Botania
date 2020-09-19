@@ -49,7 +49,7 @@ import java.util.*;
 
 /**
  * This class is released for public use via the Waive Clause of the Botania License.<br />
- * You are encouraged to copy and use it. Keep the same marker file path the same so multiple mods don't show the screen
+ * You are encouraged to copy and use it. Keep the marker file path the same so multiple mods don't show the screen
  * at once.<br />
  * If you are uncomfortable with the network access to ip-api, feel free to remove it. The fallback is to examine the
  * computer's current locale.<br />
@@ -129,7 +129,7 @@ public class GoVoteHandler {
 	}
 
 	private static class GoVoteScreen extends Screen {
-		private static final int TICKS_PER_GROUP = 65;
+		private static final int TICKS_PER_GROUP = 50;
 		private final Screen parent;
 		private int ticksElapsed = 0;
 		private final List<List<ITextComponent>> message = new ArrayList<>();
