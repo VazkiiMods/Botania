@@ -62,7 +62,6 @@ import vazkii.botania.client.render.entity.RenderPoolMinecart;
 import vazkii.botania.client.render.entity.RenderSpark;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.TEISR;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockPylon;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -92,8 +91,6 @@ import vazkii.botania.mixin.AccessorRenderTypeBuffers;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Locale;
@@ -145,13 +142,8 @@ public class ClientProxy implements IProxy {
 	}
 
 	private void clientSetup(FMLClientSetupEvent event) {
-		PersistentVariableHelper.setCacheFile(new File(Minecraft.getInstance().gameDir, "BotaniaVars.dat"));
-		try {
-			PersistentVariableHelper.load();
-			PersistentVariableHelper.save();
-		} catch (IOException e) {
-			Botania.LOGGER.fatal("Persistent Variables couldn't load!!");
-		}
+		PersistentVariableHelper.init();
+		PersistentVariableHelper.save();
 
 		if (ConfigHandler.CLIENT.enableSeasonalFeatures.get()) {
 			LocalDateTime now = LocalDateTime.now();

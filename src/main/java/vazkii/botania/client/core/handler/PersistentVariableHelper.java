@@ -8,8 +8,11 @@
  */
 package vazkii.botania.client.core.handler;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompressedStreamTools;
+
+import vazkii.botania.common.Botania;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,54 +23,48 @@ public final class PersistentVariableHelper {
 
 	private static final String TAG_FIRST_LOAD = "firstLoad";
 	private static final String TAG_DOG = "dog";
+	private static final String TAG_SEEN_GO_VOTE = "seenGoVote";
 
 	private static File cacheFile;
 
 	public static boolean firstLoad = true;
 	public static boolean dog = true;
+	public static boolean seenGoVoteScreen = false;
 
-	public static void save() throws IOException {
+	public static void save() {
 		CompoundNBT cmp = new CompoundNBT();
 		cmp.putBoolean(TAG_FIRST_LOAD, firstLoad);
 		cmp.putBoolean(TAG_DOG, dog);
+		cmp.putBoolean(TAG_SEEN_GO_VOTE, seenGoVoteScreen);
 
-		injectNBTToFile(cmp, getCacheFile());
+		injectNBTToFile(cmp, cacheFile);
 	}
 
-	public static void load() throws IOException {
-		CompoundNBT cmp = getCacheCompound();
+	private static void load() {
+		CompoundNBT cmp = getCacheCompound(cacheFile);
 
 		firstLoad = cmp.contains(TAG_FIRST_LOAD) ? cmp.getBoolean(TAG_FIRST_LOAD) : firstLoad;
 		dog = cmp.getBoolean(TAG_DOG);
+		seenGoVoteScreen = cmp.getBoolean(TAG_SEEN_GO_VOTE);
 	}
 
-	public static void setCacheFile(File f) {
-		cacheFile = f;
-	}
-
-	private static File getCacheFile() throws IOException {
-		if (!cacheFile.exists()) {
+	public static void init() {
+		cacheFile = new File(Minecraft.getInstance().gameDir, "BotaniaVars.dat");
+		try {
 			cacheFile.createNewFile();
+		} catch (IOException e) {
+			Botania.LOGGER.error("Failed to create persistent variable file", e);
 		}
-
-		return cacheFile;
+		load();
 	}
 
-	private static CompoundNBT getCacheCompound() throws IOException {
-		return getCacheCompound(getCacheFile());
-	}
-
-	private static CompoundNBT getCacheCompound(File cache) throws IOException {
-		if (cache == null) {
-			throw new RuntimeException("No cache file!");
-		}
-
+	private static CompoundNBT getCacheCompound(File cache) {
 		try {
 			return CompressedStreamTools.readCompressed(new FileInputStream(cache));
 		} catch (IOException e) {
-			CompoundNBT cmp = new CompoundNBT();
-			CompressedStreamTools.writeCompressed(cmp, new FileOutputStream(cache));
-			return getCacheCompound(cache);
+			Botania.LOGGER.error("Failed to load persistent variables, overwriting with current state", e);
+			save();
+			return new CompoundNBT();
 		}
 	}
 
@@ -75,7 +72,7 @@ public final class PersistentVariableHelper {
 		try {
 			CompressedStreamTools.writeCompressed(cmp, new FileOutputStream(f));
 		} catch (IOException e) {
-			e.printStackTrace();
+			Botania.LOGGER.error("Failed to save persistent variables", e);
 		}
 	}
 
