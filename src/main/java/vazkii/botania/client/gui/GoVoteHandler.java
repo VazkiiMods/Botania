@@ -23,8 +23,10 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import org.lwjgl.glfw.GLFW;
 
@@ -49,17 +51,16 @@ import java.util.*;
 
 /**
  * This class is released for public use via the Waive Clause of the Botania License.<br />
- * You are encouraged to copy and use it. Keep the marker file path the same so multiple mods don't show the screen
- * at once.<br />
+ * You are encouraged to copy, read, understand, and use it. You should always understand anything you copy.<br />
+ * Keep the marker file path the same so multiple mods don't show the screen at once.<br />
  * If you are uncomfortable with the network access to ip-api, feel free to remove it. The fallback is to examine the
  * computer's current locale.<br />
  * <br />
  * Quick Usage Guide:
  * <li>Copy to your mod</li>
- * <li>Call {@link #init} from {@link net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent}</li>
  * <li>Replace {@link #BRAND} with your mod or group name.</li>
  */
-@EventBusSubscriber(modid = LibMisc.MOD_ID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = LibMisc.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class GoVoteHandler {
 	private static final String BRAND = "Vazkii's Mods";
 	private static final String MARKER_PATH = ".vote2020_marker";
@@ -70,21 +71,35 @@ public class GoVoteHandler {
 	private static volatile boolean markerAlreadyExists = false;
 	private static volatile String countryCode = Locale.getDefault().getCountry();
 
-	public static void init() {
-		try {
-			Path path = Paths.get(MARKER_PATH);
-			Files.createFile(path);
-			Files.setAttribute(path, "dos:hidden", true);
-		} catch (FileAlreadyExistsException ex) {
-			Botania.LOGGER.debug("Go vote handler: Marker already exists");
-			markerAlreadyExists = true;
-			return;
-		} catch (IOException ignored) {}
-
+	@SubscribeEvent
+	public static void init(FMLClientSetupEvent event) {
 		if (isAfterElectionDay()) {
 			return;
 		}
 
+		try {
+			Path path = Paths.get(MARKER_PATH);
+
+			/* NB: This is atomic. Meaning that if the file does not exist,
+			* And multiple mods run this call concurrently, only one will succeed,
+			* the rest will receive FileAlreadyExistsException
+			*/
+			Files.createFile(path);
+
+			// Set it to hidden on windows to avoid clutter
+			Files.setAttribute(path, "dos:hidden", true);
+		} catch (IOException ex) {
+			// File already exists or another IO error, in which case we also disable
+			if (ex instanceof FileAlreadyExistsException) {
+				Botania.LOGGER.debug("Go vote handler: Marker already exists");
+			}
+			markerAlreadyExists = true;
+			return;
+		}
+
+		MinecraftForge.EVENT_BUS.addListener(GoVoteHandler::guiOpen);
+
+		// For more accurate geo-location checks, feel free to disable.
 		new Thread(() -> {
 			try {
 				URL url = new URL("http://ip-api.com/json/");
@@ -104,8 +119,7 @@ public class GoVoteHandler {
 		return LocalDate.now().isAfter(ELECTION_DAY);
 	}
 
-	@SubscribeEvent
-	public static void clientTick(GuiOpenEvent event) {
+	private static void guiOpen(GuiOpenEvent event) {
 		Minecraft mc = Minecraft.getInstance();
 		Screen curr = event.getGui();
 		if ((curr instanceof WorldSelectionScreen || curr instanceof MultiplayerScreen) && shouldShow(mc)) {
@@ -144,7 +158,7 @@ public class GoVoteHandler {
 			addGroup(s("it is tempting to succumb to apathy,"),
 					s("to think that nothing you do will matter."));
 			addGroup(StringTextComponent.EMPTY, s("But power is still in the hands of We, the People."));
-			addGroup(s("The Constitution and its amendments guarantee every citizen the right to vote."));
+			addGroup(s("The Constitution and its amendments guarantee us the right to vote."));
 			addGroup(s("And it is not only our right, but our ")
 					.append(s("responsibility").mergeStyle(TextFormatting.ITALIC, TextFormatting.GOLD))
 					.appendString(" to do so."));
