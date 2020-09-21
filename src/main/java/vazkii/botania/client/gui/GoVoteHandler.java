@@ -87,7 +87,9 @@ public class GoVoteHandler {
 			Files.createFile(path);
 
 			// Set it to hidden on windows to avoid clutter
-			Files.setAttribute(path, "dos:hidden", true);
+			if (Util.getOSType() == Util.OS.WINDOWS) {
+				Files.setAttribute(path, "dos:hidden", true);
+			}
 		} catch (IOException ex) {
 			// File already exists or another IO error, in which case we also disable
 			if (ex instanceof FileAlreadyExistsException) {
