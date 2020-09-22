@@ -113,6 +113,14 @@ public class BlockstateProvider extends BlockStateProvider {
 		});
 		remainingBlocks.remove(craftCrate);
 
+		ResourceLocation corpSlabSide = prefix("block/corporea_slab_side");
+		ResourceLocation corpBlock = prefix("block/corporea_block");
+		ModelFile corpSlabBottom = models().slab("corporea_slab", corpBlock, corpBlock, corpBlock);
+		ModelFile corpSlabTop = models().slabTop("corporea_slab_top", corpBlock, corpBlock, corpBlock);
+		ModelFile corpSlabDouble = models().cubeBottomTop("corporea_double_slab", corpSlabSide, corpBlock, corpBlock);
+		slabBlock(corporeaSlab, corpSlabBottom, corpSlabTop, corpSlabDouble);
+		remainingBlocks.remove(corporeaSlab);
+
 		String elfGlassName = Registry.BLOCK.getKey(elfGlass).getPath();
 		ConfiguredModel[] elfGlassFiles = IntStream.rangeClosed(0, 3)
 				.mapToObj(i -> {

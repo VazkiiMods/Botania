@@ -50,6 +50,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Locale;
 
+import static vazkii.botania.common.lib.LibBlockNames.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ModBlocks {
@@ -282,6 +283,9 @@ public final class ModBlocks {
 	public static final Block corporeaInterceptor = new BlockCorporeaInterceptor(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL));
 	public static final Block corporeaCrystalCube = new BlockCorporeaCrystalCube(Block.Properties.from(corporeaInterceptor));
 	public static final Block corporeaRetainer = new BlockCorporeaRetainer(Block.Properties.from(corporeaInterceptor));
+	public static final Block corporeaBlock = new BlockMod(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL));
+	public static final Block corporeaBrick = new BlockMod(Block.Properties.from(corporeaBlock));
+	public static final SlabBlock corporeaSlab = new SlabBlock(Block.Properties.from(corporeaBlock));
 	public static final Block incensePlate = new BlockIncensePlate(Block.Properties.from(livingwood));
 	public static final Block hourglass = new BlockHourglass(Block.Properties.create(Material.IRON).hardnessAndResistance(2).sound(SoundType.METAL));
 	public static final Block ghostRail = new BlockGhostRail(Block.Properties.from(Blocks.RAIL));
@@ -539,6 +543,9 @@ public final class ModBlocks {
 		register(r, LibBlockNames.CORPOREA_INTERCEPTOR, corporeaInterceptor);
 		register(r, LibBlockNames.CORPOREA_CRYSTAL_CUBE, corporeaCrystalCube);
 		register(r, LibBlockNames.CORPOREA_RETAINER, corporeaRetainer);
+		register(r, CORPOREA_BLOCK, corporeaBlock);
+		register(r, CORPOREA_BRICK, corporeaBrick);
+		register(r, CORPOREA_SLAB, corporeaSlab);
 		register(r, LibBlockNames.INCENSE_PLATE, incensePlate);
 		register(r, LibBlockNames.HOURGLASS, hourglass);
 		register(r, LibBlockNames.GHOST_RAIL, ghostRail);
@@ -780,6 +787,9 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getKey(corporeaInterceptor), new BlockItem(corporeaInterceptor, props));
 		register(r, Registry.BLOCK.getKey(corporeaCrystalCube), new BlockItem(corporeaCrystalCube, props));
 		register(r, Registry.BLOCK.getKey(corporeaRetainer), new BlockItem(corporeaRetainer, props));
+		register(r, Registry.BLOCK.getKey(corporeaBlock), new BlockItem(corporeaBlock, props));
+		register(r, Registry.BLOCK.getKey(corporeaBrick), new BlockItem(corporeaBrick, props));
+		register(r, Registry.BLOCK.getKey(corporeaSlab), new BlockItem(corporeaSlab, props));
 		register(r, Registry.BLOCK.getKey(incensePlate), new BlockItem(incensePlate, props));
 		register(r, Registry.BLOCK.getKey(hourglass), new BlockItem(hourglass, Botania.proxy.propertiesWithRenderer(ModItems.defaultBuilder(), hourglass)));
 		register(r, Registry.BLOCK.getKey(ghostRail), new BlockItem(ghostRail, props));

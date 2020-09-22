@@ -1773,7 +1773,22 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addIngredient(ModItems.corporeaSpark)
 				.addCriterion("has_item", hasItem(ModItems.corporeaSpark))
 				.build(consumer);
-
+		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.corporeaBlock, 8)
+				.addIngredient(ModBlocks.livingrockBrick)
+				.addIngredient(ModItems.corporeaSpark)
+				.addCriterion("has_item", hasItem(ModItems.corporeaSpark))
+				.build(consumer);
+		ShapedRecipeBuilder.shapedRecipe(ModBlocks.corporeaBrick, 4)
+				.key('R', ModBlocks.corporeaBlock)
+				.patternLine("RR")
+				.patternLine("RR")
+				.addCriterion("has_item", hasItem(ModBlocks.corporeaBlock))
+				.build(consumer);
+		ShapedRecipeBuilder.shapedRecipe(ModBlocks.corporeaSlab, 6)
+				.key('R', ModBlocks.corporeaBlock)
+				.patternLine("RRR")
+				.addCriterion("has_item", hasItem(ModBlocks.corporeaBlock))
+				.build(consumer);
 	}
 
 	private void registerLenses(Consumer<IFinishedRecipe> consumer) {

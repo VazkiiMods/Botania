@@ -34,7 +34,7 @@ public class ItemCorporeaSpark extends Item {
 	@Nonnull
 	@Override
 	public ActionResultType onItemUse(ItemUseContext ctx) {
-		return attachSpark(ctx.getWorld(), ctx.getPos(), ctx.getItem()) ? ActionResultType.PASS : ActionResultType.SUCCESS;
+		return attachSpark(ctx.getWorld(), ctx.getPos(), ctx.getItem()) ? ActionResultType.SUCCESS : ActionResultType.PASS;
 	}
 
 	private static boolean canPlaceOn(World world, BlockPos pos) {
@@ -50,7 +50,6 @@ public class ItemCorporeaSpark extends Item {
 
 	public static boolean attachSpark(World world, BlockPos pos, ItemStack stack) {
 		if (canPlaceOn(world, pos) && !CorporeaHelper.instance().doesBlockHaveSpark(world, pos)) {
-			stack.shrink(1);
 			if (!world.isRemote) {
 				EntityCorporeaSpark spark = ModEntities.CORPOREA_SPARK.create(world);
 				if (stack.getItem() == ModItems.corporeaSparkMaster) {
@@ -58,6 +57,7 @@ public class ItemCorporeaSpark extends Item {
 				}
 				spark.setPosition(pos.getX() + 0.5, pos.getY() + 1.25, pos.getZ() + 0.5);
 				world.addEntity(spark);
+				stack.shrink(1);
 			}
 			return true;
 		}

@@ -871,6 +871,9 @@
   "block.botania.green_pavement_slab": "Green Portuguese Pavement Slab",
   "block.botania.cell_block": "Cellular Block",
   "block.botania.gaia_head": "Gaia Guardian's Head",
+  "block.botania.corporea_block": "Corporea Block",
+  "block.botania.corporea_brick": "Corporea Brick",
+  "block.botania.corporea_slab": "Corporea Slab",
   "block.botania.corporea_retainer": "Corporea Retainer",
   "block.botania.mana_glass_pane": "Managlass Pane",
   "block.botania.elf_glass_pane": "Alfglass Pane",
@@ -2815,6 +2818,10 @@
   "botania.page.corporea6": "Visualizing a Network and removing a spark from a container are performed the same way they are on ordinary $(l:mana/sparks)$(item)Sparks$(0)$(/l).$(p)Note that having two $(item)Master Corporea Sparks$(0) in the same network is a bad idea and can cause $(o)undefined behavior$().",
   "botania.page.corporea7": "A spark of ingenuity",
   "botania.page.corporea8": "Love-colored",
+
+  "botania.entry.corporeaBlock": "Corporea Decor",
+  "botania.page.corporeaBlock0": "Ordinary $(thing)Livingrock Bricks$(0) can be combined with a $(thing)Corporea Spark$(0) to produce some decorative blocks. These blocks, besides their uses for decoration, have the unique property that they can support $(thing)Corporea Sparks$(0) above themselves, even though they have no inventory. Thus, they can be used as a cheap, lag-free way to extend your $(thing)Corporea$(0) networks over long distances.",
+  "botania.page.corporeaBlock1": "Incorporeal",
 
   "botania.entry.corporeaIndex": "Corporea Index",
   "botania.tagline.corporeaIndex": "Request items from a Corporea network via chat",
