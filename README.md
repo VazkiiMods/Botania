@@ -37,3 +37,14 @@ This may cause issues when depending on Botania in-dev, since ForgeGradle/MixinG
 do not yet properly support this in-dev like Fabric does.
 As a workaround, disable refmaps by defining the `mixin.env.disableRefMap`
 JVM argument to `true`.
+
+## Making a Release
+1. Pull from remote, test all changes, and commit everything.
+2. `git tag -a release-<VERSION>`. All Botania versions *must* follow the version format `<MC-VER>-INT`, so it'll probably look like `git tag -a release-1.16.3-407`.
+3. In the Git editor that pops up, write the changelog. Finish the tag process (usually by saving and closing the editor).
+4. Copy the changelog to the webpage version under `web/changelog.txt`.`
+5. Run `./gradlew incrementBuildNumber --no-daemon` to increment the build number of the next release. Commit this and the changelog.
+6. Push: `git push origin master --tags`
+7. Go to [Jenkins](https://ci.blamejared.com/job/Botania/view/tags/) and wait for the tag you just pushed to be compiled and built
+8. Download the JAR and submit it to CurseForge
+9. Push the website: `./syncweb.sh <remote username>`. If you don't provide a remote username to ssh into the webserver, it'll take your current login name.

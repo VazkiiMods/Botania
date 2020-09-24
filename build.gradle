@@ -14,7 +14,6 @@ buildscript {
 }
 
 plugins {
-    id 'org.hidetake.ssh' version '2.10.1'
     id "com.diffplug.spotless" version "5.1.0"
 }
 
@@ -221,42 +220,6 @@ task incrementBuildNumber {
         config.build_number = (config.build_number.toString().toInteger()) + 1
         configFile.withWriter {
             config.toProperties().store(it, "")
-        }
-    }
-}
-
-// SCP servers
-remotes {
-    if (priv != null)
-        web {
-            host = 'botaniamod.net'
-            user = priv.scp_user
-            password = priv.scp_pass
-            knownHosts = allowAnyHosts
-        }
-}
-
-task uploadChangelog {
-    doLast {
-        ssh.run {
-            session(remotes.web) {
-                put from: 'web/changelog.txt', into: priv.scp_dir + "/changelog.txt"
-            }
-        }
-    }
-}
-
-task deployWeb {
-    doLast {
-        ssh.run {
-            session(remotes.web) {
-                def parent = file('web').toPath()
-                for (f in fileTree(dir: 'web')) {
-                    def rel = parent.relativize(f.toPath()).toString().replace(File.separator, '/')
-                    def dest = priv.scp_dir + rel
-                    put from: f, into: dest
-                }
-            }
         }
     }
 }
