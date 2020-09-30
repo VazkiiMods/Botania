@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block.string;
 
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
@@ -23,7 +22,7 @@ import javax.annotation.Nonnull;
 
 public class BlockRedStringComparator extends BlockRedString {
 
-	public BlockRedStringComparator(AbstractBlock.Properties builder) {
+	public BlockRedStringComparator(Properties builder) {
 		super(builder);
 		setDefaultState(getDefaultState().with(BlockStateProperties.FACING, Direction.DOWN));
 	}

@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block.corporea;
 
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
@@ -21,7 +20,7 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import javax.annotation.Nonnull;
 
 public class BlockCorporeaIndex extends BlockModWaterloggable implements ITileEntityProvider {
-	public BlockCorporeaIndex(AbstractBlock.Properties builder) {
+	public BlockCorporeaIndex(Properties builder) {
 		super(builder);
 	}
 

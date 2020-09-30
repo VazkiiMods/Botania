@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block.string;
 
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.StateContainer;
@@ -25,7 +24,7 @@ import javax.annotation.Nonnull;
 
 public class BlockRedStringDispenser extends BlockRedString {
 
-	public BlockRedStringDispenser(AbstractBlock.Properties builder) {
+	public BlockRedStringDispenser(Properties builder) {
 		super(builder);
 		setDefaultState(getDefaultState().with(BlockStateProperties.FACING, Direction.DOWN).with(BlockStateProperties.POWERED, false));
 	}

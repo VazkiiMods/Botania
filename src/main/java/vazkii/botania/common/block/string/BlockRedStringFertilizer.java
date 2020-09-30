@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block.string;
 
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IGrowable;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -27,7 +26,7 @@ import java.util.Random;
 
 public class BlockRedStringFertilizer extends BlockRedString implements IGrowable {
 
-	public BlockRedStringFertilizer(AbstractBlock.Properties builder) {
+	public BlockRedStringFertilizer(Properties builder) {
 		super(builder);
 		setDefaultState(getDefaultState().with(BlockStateProperties.FACING, Direction.DOWN));
 	}

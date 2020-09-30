@@ -10,7 +10,6 @@ package vazkii.botania.common.block.corporea;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
@@ -36,7 +35,7 @@ import javax.annotation.Nonnull;
 
 public class BlockCorporeaRetainer extends BlockMod implements ITileEntityProvider, IWandable, IWandHUD {
 
-	public BlockCorporeaRetainer(AbstractBlock.Properties builder) {
+	public BlockCorporeaRetainer(Properties builder) {
 		super(builder);
 		setDefaultState(getDefaultState().with(BlockStateProperties.POWERED, false));
 	}
