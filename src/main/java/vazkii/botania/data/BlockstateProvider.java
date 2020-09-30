@@ -354,23 +354,23 @@ public class BlockstateProvider extends BlockStateProvider {
 		for (String variant : new String[] { "desert", "forest", "fungal", "mesa", "mountain",
 				"plains", "swamp", "taiga" }) {
 			ResourceLocation baseId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone");
-			Block base = Registry.BLOCK.func_241873_b(baseId).get();
+			Block base = Registry.BLOCK.getOptional(baseId).get();
 			simpleBlock(base);
 
 			ResourceLocation cobbleId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone");
-			Block cobble = Registry.BLOCK.func_241873_b(cobbleId).get();
+			Block cobble = Registry.BLOCK.getOptional(cobbleId).get();
 			simpleBlock(cobble);
 
 			ResourceLocation cobbleWallId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX);
-			Block cobbleWall = Registry.BLOCK.func_241873_b(cobbleWallId).get();
+			Block cobbleWall = Registry.BLOCK.getOptional(cobbleWallId).get();
 			fixedWallBlock((WallBlock) cobbleWall, prefix("block/" + cobbleId.getPath()));
 
 			ResourceLocation brickId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
-			Block brick = Registry.BLOCK.func_241873_b(brickId).get();
+			Block brick = Registry.BLOCK.getOptional(brickId).get();
 			simpleBlock(brick);
 
 			ResourceLocation chiseledBricksId = prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
-			Block chiseledBricks = Registry.BLOCK.func_241873_b(chiseledBricksId).get();
+			Block chiseledBricks = Registry.BLOCK.getOptional(chiseledBricksId).get();
 			simpleBlock(chiseledBricks);
 
 			// stairs and slabs handled above already
@@ -379,14 +379,14 @@ public class BlockstateProvider extends BlockStateProvider {
 
 		for (String variant : new String[] { "dark", "mana", "blaze", "lavender", "red", "elf", "sunny" }) {
 			ResourceLocation quartzId = prefix(variant + "_quartz");
-			Block quartz = Registry.BLOCK.func_241873_b(quartzId).get();
+			Block quartz = Registry.BLOCK.getOptional(quartzId).get();
 			simpleBlock(quartz, models().cubeBottomTop(quartzId.getPath(),
 					prefix("block/" + quartzId.getPath() + "_side"),
 					prefix("block/" + quartzId.getPath() + "_bottom"),
 					prefix("block/" + quartzId.getPath() + "_top")));
 
 			ResourceLocation pillarId = prefix(variant + "_quartz_pillar");
-			Block pillar = Registry.BLOCK.func_241873_b(pillarId).get();
+			Block pillar = Registry.BLOCK.getOptional(pillarId).get();
 			ModelFile pillarModel = models().cubeColumn(pillarId.getPath(),
 					prefix("block/" + pillarId.getPath() + "_side"),
 					prefix("block/" + pillarId.getPath() + "_end"));
@@ -396,7 +396,7 @@ public class BlockstateProvider extends BlockStateProvider {
 					.partialState().with(RotatedPillarBlock.AXIS, Direction.Axis.Z).setModels(new ConfiguredModel(pillarModel, 90, 0, false));
 
 			ResourceLocation chiseledId = prefix("chiseled_" + variant + "_quartz");
-			Block chiseled = Registry.BLOCK.func_241873_b(chiseledId).get();
+			Block chiseled = Registry.BLOCK.getOptional(chiseledId).get();
 			simpleBlock(chiseled, models().cubeColumn(chiseledId.getPath(),
 					prefix("block/" + chiseledId.getPath() + "_side"),
 					prefix("block/" + chiseledId.getPath() + "_end")));

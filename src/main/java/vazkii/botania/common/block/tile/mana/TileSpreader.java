@@ -27,7 +27,10 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
@@ -548,7 +551,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		ItemStack lens = getItemHandler().getStackInSlot(0);
 		if (!lens.isEmpty()) {
 			ITextComponent lensName = lens.getDisplayName();
-			int width = 16 + mc.fontRenderer.func_238414_a_(lensName) / 2;
+			int width = 16 + mc.fontRenderer.getStringPropertyWidth(lensName) / 2;
 			int x = mc.getMainWindow().getScaledWidth() / 2 - width;
 			int y = mc.getMainWindow().getScaledHeight() / 2 + 50;
 

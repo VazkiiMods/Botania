@@ -169,7 +169,7 @@ public class ClientProxy implements IProxy {
 	}
 
 	private static void registerPropertyGetter(IItemProvider item, ResourceLocation id, IItemPropertyGetter propGetter) {
-		ItemModelsProperties.func_239418_a_(item.asItem(), id, propGetter);
+		ItemModelsProperties.registerProperty(item.asItem(), id, propGetter);
 	}
 
 	private static void registerPropertyGetters() {

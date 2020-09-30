@@ -103,7 +103,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 	public ActionResultType onItemUse(ItemUseContext ctx) {
 		World world = ctx.getWorld();
 		BlockPos pos = ctx.getPos();
-		if (!world.isRemote && pos.getY() < 160 && !world.func_230315_m_().func_236040_e_()) {
+		if (!world.isRemote && pos.getY() < 160 && !world.getDimensionType().isUltrawarm()) {
 			world.playSound(null, pos, ModSounds.laputaStart, SoundCategory.BLOCKS, 1.0F + world.rand.nextFloat(), world.rand.nextFloat() * 0.7F + 1.3F);
 			ItemStack stack = ctx.getItem();
 			spawnBurstFirst(world, pos, stack);
@@ -280,7 +280,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 					placeState = NBTUtil.readBlockState(lens.getTag().getCompound(TAG_STATE));
 				}
 
-				if (entity.world.func_230315_m_().func_236040_e_() && placeState.hasProperty(BlockStateProperties.WATERLOGGED)) {
+				if (entity.world.getDimensionType().isUltrawarm() && placeState.hasProperty(BlockStateProperties.WATERLOGGED)) {
 					placeState = placeState.with(BlockStateProperties.WATERLOGGED, false);
 				}
 

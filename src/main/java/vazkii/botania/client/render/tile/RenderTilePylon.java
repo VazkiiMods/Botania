@@ -63,7 +63,7 @@ public class RenderTilePylon extends TileEntityRenderer<TilePylon> {
 
 	private void renderPylon(@Nullable TilePylon pylon, float pticks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		boolean renderingItem = pylon == null;
-		boolean direct = renderingItem && (forceTransform == ItemCameraTransforms.TransformType.GUI || forceTransform.func_241716_a_()); // loosely based off ItemRenderer logic
+		boolean direct = renderingItem && (forceTransform == ItemCameraTransforms.TransformType.GUI || forceTransform.isFirstPerson()); // loosely based off ItemRenderer logic
 		BlockPylon.Variant type = renderingItem ? forceVariant : ((BlockPylon) pylon.getBlockState().getBlock()).variant;
 		IPylonModel model;
 		ResourceLocation texture;

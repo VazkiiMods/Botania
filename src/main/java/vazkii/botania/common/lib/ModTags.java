@@ -160,7 +160,7 @@ public class ModTags {
 		}
 
 		private static ITag.INamedTag<Item> forgeTag(String name) {
-			return getOrRegister(ItemTags.func_242177_b(), loc -> ItemTags.makeWrapperTag(loc.toString()), new ResourceLocation("forge", name));
+			return getOrRegister(ItemTags.getAllTags(), loc -> ItemTags.makeWrapperTag(loc.toString()), new ResourceLocation("forge", name));
 		}
 	}
 
@@ -197,7 +197,7 @@ public class ModTags {
 		}
 
 		private static ITag.INamedTag<Block> forgeTag(String name) {
-			return getOrRegister(BlockTags.func_242174_b(), loc -> BlockTags.makeWrapperTag(loc.toString()), new ResourceLocation("forge", name));
+			return getOrRegister(BlockTags.getAllTags(), loc -> BlockTags.makeWrapperTag(loc.toString()), new ResourceLocation("forge", name));
 		}
 	}
 
@@ -210,7 +210,7 @@ public class ModTags {
 		public static final ITag.INamedTag<EntityType<?>> COCOON_RARE_AQUATIC = tag("cocoon/rare_aquatic");
 
 		private static ITag.INamedTag<EntityType<?>> tag(String name) {
-			return EntityTypeTags.func_232896_a_(prefix(name).toString());
+			return EntityTypeTags.getTagById(prefix(name).toString());
 		}
 	}
 }

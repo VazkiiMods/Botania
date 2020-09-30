@@ -50,8 +50,8 @@ public class DelegatedModel implements IBakedModel {
 	}
 
 	@Override
-	public boolean func_230044_c_() {
-		return originalModel.func_230044_c_();
+	public boolean isSideLit() {
+		return originalModel.isSideLit();
 	}
 
 	@Override

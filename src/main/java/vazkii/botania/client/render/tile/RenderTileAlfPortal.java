@@ -66,7 +66,7 @@ public class RenderTileAlfPortal extends TileEntityRenderer<TileAlfPortal> {
 	}
 
 	public void renderIcon(MatrixStack ms, IRenderTypeBuffer buffers, TextureAtlasSprite icon, int x, int y, int width, int height, float alpha, int overlay) {
-		IVertexBuilder buffer = buffers.getBuffer(Atlases.func_239280_i_());
+		IVertexBuilder buffer = buffers.getBuffer(Atlases.getItemEntityTranslucentCullType());
 		Matrix4f model = ms.getLast().getMatrix();
 		Matrix3f normal = ms.getLast().getNormal();
 		buffer.pos(model, x, y, 0).color(1, 1, 1, alpha).tex(icon.getMinU(), icon.getMinV()).overlay(overlay).lightmap(0xF000F0).normal(normal, 1, 0, 0).endVertex();

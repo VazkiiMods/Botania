@@ -126,8 +126,8 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 	}
 
 	public void bindPool(ItemStack stack, TileEntity pool) {
-		GlobalPos pos = GlobalPos.func_239648_a_(pool.getWorld().func_234923_W_(), pool.getPos());
-		INBT ser = GlobalPos.field_239645_a_.encodeStart(NBTDynamicOps.INSTANCE, pos).get().orThrow();
+		GlobalPos pos = GlobalPos.getPosition(pool.getWorld().getDimensionKey(), pool.getPos());
+		INBT ser = GlobalPos.CODEC.encodeStart(NBTDynamicOps.INSTANCE, pos).get().orThrow();
 		ItemNBTHelper.set(stack, TAG_POS, ser);
 	}
 
@@ -137,7 +137,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 			return null;
 		}
 
-		Optional<GlobalPos> pos = GlobalPos.field_239645_a_.parse(NBTDynamicOps.INSTANCE, ItemNBTHelper.get(stack, TAG_POS)).result();
+		Optional<GlobalPos> pos = GlobalPos.CODEC.parse(NBTDynamicOps.INSTANCE, ItemNBTHelper.get(stack, TAG_POS)).result();
 		if (!pos.isPresent()) {
 			return null;
 		}
@@ -161,7 +161,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 			return fallbackPool;
 		}
 
-		RegistryKey<World> type = pos.func_239646_a_();
+		RegistryKey<World> type = pos.getDimension();
 		World world = server.getWorld(type);
 		if (world != null) {
 			TileEntity tile = world.getTileEntity(pos.getPos());
@@ -241,7 +241,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 			return null;
 		}
 
-		if (pos.func_239646_a_() == world.func_234923_W_()) {
+		if (pos.getDimension() == world.getDimensionKey()) {
 			return pos.getPos();
 		}
 

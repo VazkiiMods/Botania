@@ -39,10 +39,10 @@ public class TrueGuardianKiller implements ILootCondition {
 
 	public static class Serializer implements ILootSerializer<TrueGuardianKiller> {
 		@Override
-		public void func_230424_a_(JsonObject json, TrueGuardianKiller condition, JsonSerializationContext ctx) {}
+		public void serialize(JsonObject json, TrueGuardianKiller condition, JsonSerializationContext ctx) {}
 
 		@Override
-		public TrueGuardianKiller func_230423_a_(JsonObject json, JsonDeserializationContext ctx) {
+		public TrueGuardianKiller deserialize(JsonObject json, JsonDeserializationContext ctx) {
 			return new TrueGuardianKiller();
 		}
 	}

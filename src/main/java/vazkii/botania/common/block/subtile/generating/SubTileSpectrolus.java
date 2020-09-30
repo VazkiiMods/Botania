@@ -133,7 +133,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 
 		if (!stack.isEmpty()) {
 			ITextComponent stackName = stack.getDisplayName();
-			int width = 16 + mc.fontRenderer.func_238414_a_(stackName) / 2;
+			int width = 16 + mc.fontRenderer.getStringPropertyWidth(stackName) / 2;
 			int x = mc.getMainWindow().getScaledWidth() / 2 - width;
 			int y = mc.getMainWindow().getScaledHeight() / 2 + 30;
 

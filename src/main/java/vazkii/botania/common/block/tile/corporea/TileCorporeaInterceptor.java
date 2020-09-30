@@ -16,7 +16,10 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 
-import vazkii.botania.api.corporea.*;
+import vazkii.botania.api.corporea.ICorporeaInterceptor;
+import vazkii.botania.api.corporea.ICorporeaNode;
+import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
+import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.block.tile.ModTiles;
 
 import java.util.ArrayList;

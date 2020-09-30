@@ -132,7 +132,7 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements ITicka
 	@Override
 	public void readPacketNBT(CompoundNBT cmp) {
 		super.readPacketNBT(cmp);
-		name = ITextComponent.Serializer.func_240643_a_(cmp.getString(TAG_NAME));
+		name = ITextComponent.Serializer.getComponentFromJson(cmp.getString(TAG_NAME));
 	}
 
 	@Override

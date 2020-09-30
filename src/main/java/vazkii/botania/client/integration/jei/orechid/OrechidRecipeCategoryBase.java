@@ -86,7 +86,7 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> 
 
 		// Shouldn't ever return an empty list since the ore weight
 		// list is filtered to only have ores with ItemBlocks
-		List<ItemStack> stackList = BlockTags.getCollection().func_241834_b(recipe.entry.getKey())
+		List<ItemStack> stackList = BlockTags.getCollection().getTagByID(recipe.entry.getKey())
 				.getAllElements()
 				.stream()
 				.filter(s -> s.asItem() != Items.AIR)

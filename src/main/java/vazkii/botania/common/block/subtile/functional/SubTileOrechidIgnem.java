@@ -27,7 +27,7 @@ public class SubTileOrechidIgnem extends SubTileOrechid {
 
 	@Override
 	public boolean canOperate() {
-		return getWorld().func_230315_m_().func_236037_d_();
+		return getWorld().getDimensionType().getHasCeiling();
 	}
 
 	@Override

@@ -86,7 +86,7 @@ public final class RenderHelper {
 		RenderState.CullState disableCull = new RenderState.CullState(false);
 		RenderState.LayerState viewOffsetZLayering = AccessorRenderState.getViewOffsetZLayer();
 		RenderState.WriteMaskState colorMask = new RenderState.WriteMaskState(true, false);
-		RenderType.ShadeModelState smoothShade = new RenderState.ShadeModelState(true);
+		RenderState.ShadeModelState smoothShade = new RenderState.ShadeModelState(true);
 		RenderState.LightmapState enableLightmap = new RenderState.LightmapState(true);
 		RenderState.OverlayState enableOverlay = new RenderState.OverlayState(true);
 		RenderState.DiffuseLightingState enableDiffuse = new RenderState.DiffuseLightingState(true);
@@ -342,7 +342,7 @@ public final class RenderHelper {
 
 		if (!model.isBuiltInRenderer() && (stack.getItem() != Items.TRIDENT)) {
 			RenderType rendertype = RenderTypeLookup.func_239219_a_(stack, true);
-			IVertexBuilder ivertexbuilder = ItemRenderer.func_239391_c_(buffers, rendertype, true, stack.hasEffect());
+			IVertexBuilder ivertexbuilder = ItemRenderer.getEntityGlintVertexBuilder(buffers, rendertype, true, stack.hasEffect());
 			renderBakedItemModel(model, stack, color, light, overlay, ms, ivertexbuilder);
 		} else {
 			stack.getItem().getItemStackTileEntityRenderer().func_239207_a_(stack, ItemCameraTransforms.TransformType.NONE, ms, buffers, light, overlay);

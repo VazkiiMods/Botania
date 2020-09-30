@@ -144,7 +144,7 @@ public class BlockPrism extends BlockModWaterloggable implements ITileEntityProv
 			ItemStack lens = ((TilePrism) te).getStackInSlot(0);
 			if (!lens.isEmpty()) {
 				ITextComponent lensName = lens.getDisplayName();
-				int width = 16 + mc.fontRenderer.func_238414_a_(lensName) / 2;
+				int width = 16 + mc.fontRenderer.getStringPropertyWidth(lensName) / 2;
 				int x = mc.getMainWindow().getScaledWidth() / 2 - width;
 				int y = mc.getMainWindow().getScaledHeight() / 2;
 

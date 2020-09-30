@@ -65,7 +65,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 		@Override
 		public ItemStack getDisplayStack() {
 			ResourceLocation id = Registry.BLOCK_ENTITY_TYPE.getKey(getType());
-			return Registry.ITEM.func_241873_b(id).map(ItemStack::new).orElse(super.getDisplayStack());
+			return Registry.ITEM.getOptional(id).map(ItemStack::new).orElse(super.getDisplayStack());
 		}
 	};
 	private final LazyOptional<IFloatingFlower> floatingDataCap = LazyOptional.of(() -> floatingData);

@@ -147,7 +147,7 @@ public class ItemCacophonium extends Item {
 			return ModSounds.doit;
 		} else {
 			try {
-				return Registry.SOUND_EVENT.func_241873_b(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_SOUND, ""))).orElse(null);
+				return Registry.SOUND_EVENT.getOptional(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_SOUND, ""))).orElse(null);
 			} catch (ResourceLocationException ex) {
 				return null;
 			}

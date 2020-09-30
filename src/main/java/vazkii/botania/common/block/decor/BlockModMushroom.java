@@ -53,7 +53,7 @@ public class BlockModMushroom extends MushroomBlock implements IHornHarvestable,
 	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
 		BlockPos blockpos = pos.down();
 		BlockState blockstate = worldIn.getBlockState(blockpos);
-		if (!blockstate.isIn(BlockTags.field_242171_aD)) {
+		if (!blockstate.isIn(BlockTags.MUSHROOM_GROW_BLOCK)) {
 			return blockstate.canSustainPlant(worldIn, blockpos, Direction.UP, this);
 		} else {
 			return true;

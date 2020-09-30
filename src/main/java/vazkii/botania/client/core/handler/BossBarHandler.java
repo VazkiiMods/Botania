@@ -57,7 +57,7 @@ public final class BossBarHandler {
 				int xf = x + (bgRect.getWidth() - fgRect.getWidth()) / 2;
 				int yf = y + (bgRect.getHeight() - fgRect.getHeight()) / 2;
 				int fw = (int) ((double) fgRect.getWidth() * evt.getBossInfo().getPercent());
-				int tx = c - mc.fontRenderer.func_238414_a_(name) / 2;
+				int tx = c - mc.fontRenderer.getStringPropertyWidth(name) / 2;
 
 				RenderSystem.color4f(1F, 1F, 1F, 1F);
 				int auxHeight = currentBoss.bossBarRenderCallback(ms, x, y);

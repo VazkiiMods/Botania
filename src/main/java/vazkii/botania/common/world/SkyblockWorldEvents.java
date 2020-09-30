@@ -76,7 +76,7 @@ public final class SkyblockWorldEvents {
 				BlockState state = event.getWorld().getBlockState(event.getPos());
 				Block block = state.getBlock();
 
-				ITag<Block> tag = event.getWorld().getTags().func_241835_a().func_241834_b(PEBBLE_SOURCES);
+				ITag<Block> tag = event.getWorld().getTags().getBlockTags().getTagByID(PEBBLE_SOURCES);
 				if (tag.contains(block)) {
 					SoundType st = state.getSoundType(event.getWorld(), event.getPos(), player);
 					player.playSound(st.getBreakSound(), st.getVolume() * 0.4F, st.getPitch() + (float) (Math.random() * 0.2 - 0.1));
@@ -120,7 +120,7 @@ public final class SkyblockWorldEvents {
 		if (player instanceof ServerPlayerEntity) {
 			ServerPlayerEntity pmp = (ServerPlayerEntity) player;
 			pmp.setPositionAndUpdate(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
-			pmp.func_242111_a(pmp.world.func_234923_W_(), pos, 0, true, false);
+			pmp.func_242111_a(pmp.world.getDimensionKey(), pos, 0, true, false);
 			if (ConfigHandler.COMMON.gogSpawnWithLexicon.get()) {
 				player.inventory.addItemStackToInventory(new ItemStack(ModItems.lexicon));
 			}

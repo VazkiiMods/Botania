@@ -53,7 +53,7 @@ public class BehaviourEnderAirBottling extends OptionalDispenseBehavior {
 	protected ItemStack dispenseStack(IBlockSource source, @Nonnull ItemStack stack) {
 		World world = source.getWorld();
 		BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().get(DispenserBlock.FACING));
-		if (world.func_234923_W_() == World.field_234920_i_
+		if (world.getDimensionKey() == World.THE_END
 				&& world.isAirBlock(blockpos) && world.isAirBlock(blockpos.up())
 				&& ItemEnderAir.isClearFromDragonBreath(world, new AxisAlignedBB(blockpos).grow(2.0D))) {
 			this.setSuccessful(true);

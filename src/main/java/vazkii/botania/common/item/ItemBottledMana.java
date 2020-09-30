@@ -59,7 +59,7 @@ public class ItemBottledMana extends Item {
 			break;
 		}
 		case 1: { // Water
-			if (!living.world.isRemote && !living.world.func_230315_m_().func_236040_e_()) {
+			if (!living.world.isRemote && !living.world.getDimensionType().isUltrawarm()) {
 				living.world.setBlockState(living.getPosition(), Blocks.WATER.getDefaultState());
 			}
 			break;
@@ -78,7 +78,7 @@ public class ItemBottledMana extends Item {
 			break;
 		}
 		case 4: { // Mega Jump
-			if (!living.world.func_230315_m_().func_236040_e_()) {
+			if (!living.world.getDimensionType().isUltrawarm()) {
 				if (!living.world.isRemote) {
 					living.addPotionEffect(new EffectInstance(Effects.RESISTANCE, 300, 5));
 				}
@@ -211,7 +211,7 @@ public class ItemBottledMana extends Item {
 	@Nonnull
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
-		return DrinkHelper.func_234707_a_(world, player, hand);
+		return DrinkHelper.startDrinking(world, player, hand);
 	}
 
 	@Nonnull

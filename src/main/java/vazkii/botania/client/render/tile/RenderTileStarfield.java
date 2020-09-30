@@ -36,22 +36,22 @@ public class RenderTileStarfield extends TileEntityRenderer<TileStarfield> {
 	}
 
 	@Override
-	public void render(TileStarfield p_225616_1_, float p_225616_2_, MatrixStack p_225616_3_, IRenderTypeBuffer p_225616_4_, int p_225616_5_, int p_225616_6_) {
+	public void render(TileStarfield starfield, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
 
 		RANDOM.setSeed(31100L);
-		double d0 = p_225616_1_.getPos().distanceSq(this.renderDispatcher.renderInfo.getProjectedView(), true);
+		double d0 = starfield.getPos().distanceSq(this.renderDispatcher.renderInfo.getProjectedView(), true);
 		int i = this.getPasses(d0);
 		float f = this.getOffset();
-		Matrix4f matrix4f = p_225616_3_.getLast().getMatrix();
-		this.renderCube(p_225616_1_, f, 0.15F, matrix4f, p_225616_4_.getBuffer(LAYERS.get(0)));
+		Matrix4f matrix4f = ms.getLast().getMatrix();
+		this.renderCube(starfield, f, 0.15F, matrix4f, buffer.getBuffer(LAYERS.get(0)));
 
 		for (int j = 1; j < i; ++j) {
-			this.renderCube(p_225616_1_, f, 2.0F / (float) (18 - j), matrix4f, p_225616_4_.getBuffer(LAYERS.get(j)));
+			this.renderCube(starfield, f, 2.0F / (float) (18 - j), matrix4f, buffer.getBuffer(LAYERS.get(j)));
 		}
 
 	}
 
-	private void renderCube(TileStarfield p_228883_1_, float p_228883_2_, float p_228883_3_, Matrix4f p_228883_4_, IVertexBuilder p_228883_5_) {
+	private void renderCube(TileStarfield tileEntityIn, float p_228883_2_, float p_228883_3_, Matrix4f p_228883_4_, IVertexBuilder p_228883_5_) {
 		float f = (RANDOM.nextFloat() * 0.5F + 0.1F) * p_228883_3_;
 		float f1 = (RANDOM.nextFloat() * 0.5F + 0.4F) * p_228883_3_;
 		float f2 = (RANDOM.nextFloat() * 0.5F + 0.5F) * p_228883_3_;
@@ -62,15 +62,15 @@ public class RenderTileStarfield extends TileEntityRenderer<TileStarfield> {
 		f1 = (color >> 8 & 0xFF) / 255F * p_228883_3_;
 		f2 = (color & 0xFF) / 255F * p_228883_3_;
 
-		this.shouldRenderFace(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, f, f1, f2, Direction.SOUTH);
-		this.shouldRenderFace(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, f, f1, f2, Direction.NORTH);
-		this.shouldRenderFace(p_228883_1_, p_228883_4_, p_228883_5_, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.0F, f, f1, f2, Direction.EAST);
-		this.shouldRenderFace(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 0.0F, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 0.0F, f, f1, f2, Direction.WEST);
-		this.shouldRenderFace(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f, f1, f2, Direction.DOWN);
-		this.shouldRenderFace(p_228883_1_, p_228883_4_, p_228883_5_, 0.0F, 1.0F, p_228883_2_, p_228883_2_, 1.0F, 1.0F, 0.0F, 0.0F, f, f1, f2, Direction.UP);
+		this.shouldRenderFace(tileEntityIn, p_228883_4_, p_228883_5_, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 1.0F, 1.0F, 1.0F, f, f1, f2, Direction.SOUTH);
+		this.shouldRenderFace(tileEntityIn, p_228883_4_, p_228883_5_, 0.0F, 1.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F, f, f1, f2, Direction.NORTH);
+		this.shouldRenderFace(tileEntityIn, p_228883_4_, p_228883_5_, 1.0F, 1.0F, 1.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.0F, f, f1, f2, Direction.EAST);
+		this.shouldRenderFace(tileEntityIn, p_228883_4_, p_228883_5_, 0.0F, 0.0F, 0.0F, 1.0F, 0.0F, 1.0F, 1.0F, 0.0F, f, f1, f2, Direction.WEST);
+		this.shouldRenderFace(tileEntityIn, p_228883_4_, p_228883_5_, 0.0F, 1.0F, 0.0F, 0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f, f1, f2, Direction.DOWN);
+		this.shouldRenderFace(tileEntityIn, p_228883_4_, p_228883_5_, 0.0F, 1.0F, p_228883_2_, p_228883_2_, 1.0F, 1.0F, 0.0F, 0.0F, f, f1, f2, Direction.UP);
 	}
 
-	private void shouldRenderFace(TileStarfield p_228884_1_, Matrix4f p_228884_2_, IVertexBuilder p_228884_3_, float p_228884_4_, float p_228884_5_, float p_228884_6_, float p_228884_7_, float p_228884_8_, float p_228884_9_, float p_228884_10_, float p_228884_11_, float p_228884_12_, float p_228884_13_, float p_228884_14_, Direction p_228884_15_) {
+	private void shouldRenderFace(TileStarfield tileEntityIn, Matrix4f p_228884_2_, IVertexBuilder p_228884_3_, float p_228884_4_, float p_228884_5_, float p_228884_6_, float p_228884_7_, float p_228884_8_, float p_228884_9_, float p_228884_10_, float p_228884_11_, float p_228884_12_, float p_228884_13_, float p_228884_14_, Direction p_228884_15_) {
 		if (p_228884_15_ == Direction.UP) { // Botania: up face only
 			p_228884_3_.pos(p_228884_2_, p_228884_4_, p_228884_6_, p_228884_8_).color(p_228884_12_, p_228884_13_, p_228884_14_, 1.0F).endVertex();
 			p_228884_3_.pos(p_228884_2_, p_228884_5_, p_228884_6_, p_228884_9_).color(p_228884_12_, p_228884_13_, p_228884_14_, 1.0F).endVertex();

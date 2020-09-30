@@ -48,8 +48,8 @@ public final class DebugHandler {
 			event.getLeft().add(PREFIX + "(CLIENT) netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size() + ", rv: " + version);
 
 			if (Minecraft.getInstance().isSingleplayer()) {
-				RegistryKey<World> dim = Minecraft.getInstance().world.func_234923_W_();
-				ResourceLocation dimName = dim.func_240901_a_();
+				RegistryKey<World> dim = Minecraft.getInstance().world.getDimensionKey();
+				ResourceLocation dimName = dim.getLocation();
 				if (ServerLifecycleHooks.getCurrentServer() != null) {
 					World serverWorld = ServerLifecycleHooks.getCurrentServer().getWorld(dim);
 					event.getLeft().add(PREFIX + String.format("(INTEGRATED SERVER %s) netColl : %d, netPool: %d", dimName, ManaNetworkHandler.instance.getAllCollectorsInWorld(serverWorld).size(), ManaNetworkHandler.instance.getAllPoolsInWorld(serverWorld).size()));

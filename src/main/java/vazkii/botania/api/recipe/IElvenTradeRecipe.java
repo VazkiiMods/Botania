@@ -62,7 +62,7 @@ public interface IElvenTradeRecipe extends IRecipe<IInventory> {
 	@Nonnull
 	@Override
 	default IRecipeType<?> getType() {
-		return Registry.RECIPE_TYPE.func_241873_b(TYPE_ID).get();
+		return Registry.RECIPE_TYPE.getOptional(TYPE_ID).get();
 	}
 
 	// Ignored IRecipe boilerplate

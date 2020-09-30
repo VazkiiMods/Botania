@@ -70,8 +70,8 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 				}
 			} else {
 				ItemStack stack = ctx.getItem();
-				INBT nbt = BlockPos.field_239578_a_.encodeStart(NBTDynamicOps.INSTANCE, pos).get().orThrow();
-				ItemNBTHelper.set(stack, TAG_TARGET_PREFIX + world.func_234923_W_().func_240901_a_().toString(), nbt);
+				INBT nbt = BlockPos.CODEC.encodeStart(NBTDynamicOps.INSTANCE, pos).get().orThrow();
+				ItemNBTHelper.set(stack, TAG_TARGET_PREFIX + world.getDimensionKey().getLocation().toString(), nbt);
 				world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 5F);
 			}
 
@@ -102,12 +102,12 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	@Nonnull
 	@Override
 	public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World world, LivingEntity living) {
-		String tag = TAG_TARGET_PREFIX + world.func_234923_W_().func_240901_a_().toString();
+		String tag = TAG_TARGET_PREFIX + world.getDimensionKey().getLocation().toString();
 		INBT nbt = ItemNBTHelper.get(stack, tag);
 		if (nbt == null) {
 			return stack;
 		}
-		Optional<BlockPos> maybeLoc = BlockPos.field_239578_a_.parse(NBTDynamicOps.INSTANCE, nbt).result();
+		Optional<BlockPos> maybeLoc = BlockPos.CODEC.parse(NBTDynamicOps.INSTANCE, nbt).result();
 		if (!maybeLoc.isPresent()) {
 			ItemNBTHelper.removeEntry(stack, tag);
 			return stack;
@@ -147,10 +147,10 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	@Nullable
 	@Override
 	public BlockPos getBinding(World world, ItemStack stack) {
-		String tag = TAG_TARGET_PREFIX + world.func_234923_W_().func_240901_a_().toString();
+		String tag = TAG_TARGET_PREFIX + world.getDimensionKey().getLocation().toString();
 		INBT nbt = ItemNBTHelper.get(stack, tag);
 		if (nbt != null) {
-			return BlockPos.field_239578_a_.parse(NBTDynamicOps.INSTANCE, nbt).result()
+			return BlockPos.CODEC.parse(NBTDynamicOps.INSTANCE, nbt).result()
 					.orElse(null);
 		}
 		return null;
@@ -166,7 +166,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		}
 
 		BlockPos binding = getBinding(world, stack);
-		ITextComponent worldText = new StringTextComponent(world.func_234923_W_().func_240901_a_().toString()).mergeStyle(TextFormatting.GREEN);
+		ITextComponent worldText = new StringTextComponent(world.getDimensionKey().getLocation().toString()).mergeStyle(TextFormatting.GREEN);
 
 		if (binding == null) {
 			tooltip.add(new TranslationTextComponent("botaniamisc.flugelUnbound", worldText).mergeStyle(TextFormatting.GRAY));

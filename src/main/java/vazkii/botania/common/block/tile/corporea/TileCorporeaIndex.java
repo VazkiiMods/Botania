@@ -327,7 +327,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	public static boolean isInRangeOfIndex(PlayerEntity player, TileCorporeaIndex index) {
-		return player.world.func_234923_W_() == index.world.func_234923_W_() && MathHelper.pointDistancePlane(index.getPos().getX() + 0.5, index.getPos().getZ() + 0.5, player.getPosX(), player.getPosZ()) < RADIUS && Math.abs(index.getPos().getY() + 0.5 - player.getPosY() + (player.world.isRemote ? 0 : 1.6)) < 5;
+		return player.world.getDimensionKey() == index.world.getDimensionKey() && MathHelper.pointDistancePlane(index.getPos().getX() + 0.5, index.getPos().getZ() + 0.5, player.getPosX(), player.getPosZ()) < RADIUS && Math.abs(index.getPos().getY() + 0.5 - player.getPosY() + (player.world.isRemote ? 0 : 1.6)) < 5;
 	}
 
 	public static void addPattern(String pattern, IRegexStacker stacker) {

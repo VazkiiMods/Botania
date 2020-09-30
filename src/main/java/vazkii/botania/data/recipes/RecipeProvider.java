@@ -819,8 +819,8 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addCriterion("has_item", hasItem(ModTags.Items.PETALS))
 				.build(consumer);
 		for (String metamorphicVariant : LibBlockNames.METAMORPHIC_VARIANTS) {
-			Block altar = Registry.BLOCK.func_241873_b(prefix("apothecary_" + metamorphicVariant.replaceAll("_", ""))).get();
-			Block cobble = Registry.BLOCK.func_241873_b(prefix(LibBlockNames.METAMORPHIC_PREFIX + metamorphicVariant + "_cobblestone")).get();
+			Block altar = Registry.BLOCK.getOptional(prefix("apothecary_" + metamorphicVariant.replaceAll("_", ""))).get();
+			Block cobble = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + metamorphicVariant + "_cobblestone")).get();
 			ShapedRecipeBuilder.shapedRecipe(altar)
 					.key('A', ModBlocks.defaultAltar)
 					.key('S', cobble)
@@ -1101,7 +1101,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 			if (pattern == CratePattern.NONE) {
 				continue;
 			}
-			Item item = Registry.ITEM.func_241873_b(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + pattern.getString().split("_", 2)[1])).get();
+			Item item = Registry.ITEM.getOptional(prefix(LibItemNames.CRAFT_PATTERN_PREFIX + pattern.getString().split("_", 2)[1])).get();
 			String s = pattern.openSlots.stream().map(bool -> bool ? "R" : "P").collect(Collectors.joining());
 			ShapedRecipeBuilder.shapedRecipe(item)
 					.key('P', ModItems.placeholder)
@@ -2174,7 +2174,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 
 		List<Item> allAzulejos = IntStream.range(0, 16).mapToObj(i -> "azulejo_" + i)
 				.map(ResourceLocationHelper::prefix)
-				.map(Registry.ITEM::func_241873_b)
+				.map(Registry.ITEM::getOptional)
 				.map(Optional::get)
 				.collect(Collectors.toList());
 		for (int i = 0; i < allAzulejos.size(); i++) {
@@ -2227,10 +2227,10 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 
 	private void registerSimpleArmorSet(Consumer<IFinishedRecipe> consumer, Ingredient item, String variant,
 			ICriterionInstance criterion) {
-		Item helmet = Registry.ITEM.func_241873_b(prefix(variant + "_helmet")).get();
-		Item chestplate = Registry.ITEM.func_241873_b(prefix(variant + "_chestplate")).get();
-		Item leggings = Registry.ITEM.func_241873_b(prefix(variant + "_leggings")).get();
-		Item boots = Registry.ITEM.func_241873_b(prefix(variant + "_boots")).get();
+		Item helmet = Registry.ITEM.getOptional(prefix(variant + "_helmet")).get();
+		Item chestplate = Registry.ITEM.getOptional(prefix(variant + "_chestplate")).get();
+		Item leggings = Registry.ITEM.getOptional(prefix(variant + "_leggings")).get();
+		Item boots = Registry.ITEM.getOptional(prefix(variant + "_boots")).get();
 		ShapedRecipeBuilder.shapedRecipe(helmet)
 				.key('S', item)
 				.patternLine("SSS")
@@ -2333,7 +2333,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 
 	private void createFloatingFlowerRecipe(Consumer<IFinishedRecipe> consumer, IItemProvider input) {
 		ResourceLocation inputName = Registry.ITEM.getKey(input.asItem());
-		Item output = Registry.ITEM.func_241873_b(new ResourceLocation(inputName.getNamespace(), "floating_" + inputName.getPath())).get();
+		Item output = Registry.ITEM.getOptional(new ResourceLocation(inputName.getNamespace(), "floating_" + inputName.getPath())).get();
 		ShapelessRecipeBuilder.shapelessRecipe(output)
 				.addIngredient(ModTags.Items.FLOATING_FLOWERS)
 				.addIngredient(input)
@@ -2372,11 +2372,11 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 	}
 
 	private void registerForQuartz(Consumer<IFinishedRecipe> consumer, String variant, IItemProvider baseItem) {
-		Block base = Registry.BLOCK.func_241873_b(prefix(variant)).get();
-		Block slab = Registry.BLOCK.func_241873_b(prefix(variant + LibBlockNames.SLAB_SUFFIX)).get();
-		Block stairs = Registry.BLOCK.func_241873_b(prefix(variant + LibBlockNames.STAIR_SUFFIX)).get();
-		Block chiseled = Registry.BLOCK.func_241873_b(prefix("chiseled_" + variant)).get();
-		Block pillar = Registry.BLOCK.func_241873_b(prefix(variant + "_pillar")).get();
+		Block base = Registry.BLOCK.getOptional(prefix(variant)).get();
+		Block slab = Registry.BLOCK.getOptional(prefix(variant + LibBlockNames.SLAB_SUFFIX)).get();
+		Block stairs = Registry.BLOCK.getOptional(prefix(variant + LibBlockNames.STAIR_SUFFIX)).get();
+		Block chiseled = Registry.BLOCK.getOptional(prefix("chiseled_" + variant)).get();
+		Block pillar = Registry.BLOCK.getOptional(prefix(variant + "_pillar")).get();
 
 		ShapedRecipeBuilder.shapedRecipe(base)
 				.key('Q', baseItem)
@@ -2391,13 +2391,13 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 	}
 
 	private void registerForWood(Consumer<IFinishedRecipe> consumer, String variant) {
-		Block base = Registry.BLOCK.func_241873_b(prefix(variant)).get();
-		Block planks = Registry.BLOCK.func_241873_b(prefix(variant + "_planks")).get();
-		Block slab = Registry.BLOCK.func_241873_b(prefix(variant + LibBlockNames.SLAB_SUFFIX)).get();
-		Block stairs = Registry.BLOCK.func_241873_b(prefix(variant + LibBlockNames.STAIR_SUFFIX)).get();
-		Block wall = Registry.BLOCK.func_241873_b(prefix(variant + LibBlockNames.WALL_SUFFIX)).get();
-		Block fence = Registry.BLOCK.func_241873_b(prefix(variant + LibBlockNames.FENCE_SUFFIX)).get();
-		Block fenceGate = Registry.BLOCK.func_241873_b(prefix(variant + LibBlockNames.FENCE_GATE_SUFFIX)).get();
+		Block base = Registry.BLOCK.getOptional(prefix(variant)).get();
+		Block planks = Registry.BLOCK.getOptional(prefix(variant + "_planks")).get();
+		Block slab = Registry.BLOCK.getOptional(prefix(variant + LibBlockNames.SLAB_SUFFIX)).get();
+		Block stairs = Registry.BLOCK.getOptional(prefix(variant + LibBlockNames.STAIR_SUFFIX)).get();
+		Block wall = Registry.BLOCK.getOptional(prefix(variant + LibBlockNames.WALL_SUFFIX)).get();
+		Block fence = Registry.BLOCK.getOptional(prefix(variant + LibBlockNames.FENCE_SUFFIX)).get();
+		Block fenceGate = Registry.BLOCK.getOptional(prefix(variant + LibBlockNames.FENCE_GATE_SUFFIX)).get();
 
 		ShapelessRecipeBuilder.shapelessRecipe(planks, 4).addIngredient(base)
 				.addCriterion("has_item", hasItem(base)).build(consumer);
@@ -2410,9 +2410,9 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 
 	private void registerForPavement(Consumer<IFinishedRecipe> consumer, String color, @Nullable Item mainInput) {
 		String baseName = color + LibBlockNames.PAVEMENT_SUFFIX;
-		Block base = Registry.BLOCK.func_241873_b(prefix(baseName)).get();
-		Block stair = Registry.BLOCK.func_241873_b(prefix(baseName + LibBlockNames.STAIR_SUFFIX)).get();
-		Block slab = Registry.BLOCK.func_241873_b(prefix(baseName + LibBlockNames.SLAB_SUFFIX)).get();
+		Block base = Registry.BLOCK.getOptional(prefix(baseName)).get();
+		Block stair = Registry.BLOCK.getOptional(prefix(baseName + LibBlockNames.STAIR_SUFFIX)).get();
+		Block slab = Registry.BLOCK.getOptional(prefix(baseName + LibBlockNames.SLAB_SUFFIX)).get();
 
 		ShapelessRecipeBuilder builder = ShapelessRecipeBuilder.shapelessRecipe(base, 3)
 				.addIngredient(ModTags.Items.LIVINGROCK)
@@ -2430,17 +2430,17 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 	}
 
 	private void registerForMetamorphic(Consumer<IFinishedRecipe> consumer, String variant) {
-		Block base = Registry.BLOCK.func_241873_b(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone")).get();
-		Block slab = Registry.BLOCK.func_241873_b(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.SLAB_SUFFIX)).get();
-		Block stair = Registry.BLOCK.func_241873_b(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.STAIR_SUFFIX)).get();
-		Block brick = Registry.BLOCK.func_241873_b(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks")).get();
-		Block brickSlab = Registry.BLOCK.func_241873_b(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.SLAB_SUFFIX)).get();
-		Block brickStair = Registry.BLOCK.func_241873_b(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.STAIR_SUFFIX)).get();
-		Block chiseledBrick = Registry.BLOCK.func_241873_b(prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks")).get();
-		Block cobble = Registry.BLOCK.func_241873_b(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone")).get();
-		Block cobbleSlab = Registry.BLOCK.func_241873_b(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.SLAB_SUFFIX)).get();
-		Block cobbleStair = Registry.BLOCK.func_241873_b(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.STAIR_SUFFIX)).get();
-		Block cobbleWall = Registry.BLOCK.func_241873_b(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX)).get();
+		Block base = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone")).get();
+		Block slab = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.SLAB_SUFFIX)).get();
+		Block stair = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.STAIR_SUFFIX)).get();
+		Block brick = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks")).get();
+		Block brickSlab = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.SLAB_SUFFIX)).get();
+		Block brickStair = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.STAIR_SUFFIX)).get();
+		Block chiseledBrick = Registry.BLOCK.getOptional(prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks")).get();
+		Block cobble = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone")).get();
+		Block cobbleSlab = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.SLAB_SUFFIX)).get();
+		Block cobbleStair = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.STAIR_SUFFIX)).get();
+		Block cobbleWall = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX)).get();
 
 		InventoryChangeTrigger.Instance marimorphosis = hasItem(ModSubtiles.marimorphosis);
 		slabShape(slab, base).setGroup("botania:metamorphic_stone_slab")

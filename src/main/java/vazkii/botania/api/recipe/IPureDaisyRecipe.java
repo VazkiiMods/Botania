@@ -44,21 +44,21 @@ public interface IPureDaisyRecipe extends IRecipe<IInventory> {
 
 	@Override
 	default IRecipeType<?> getType() {
-		return Registry.RECIPE_TYPE.func_241873_b(TYPE_ID).get();
+		return Registry.RECIPE_TYPE.getOptional(TYPE_ID).get();
 	}
 
 	@Override
-	default boolean matches(IInventory p_77569_1_, World p_77569_2_) {
+	default boolean matches(IInventory inv, World worldIn) {
 		return false;
 	}
 
 	@Override
-	default ItemStack getCraftingResult(IInventory p_77572_1_) {
+	default ItemStack getCraftingResult(IInventory inv) {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	default boolean canFit(int p_194133_1_, int p_194133_2_) {
+	default boolean canFit(int width, int height) {
 		return false;
 	}
 

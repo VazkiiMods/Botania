@@ -65,12 +65,12 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 	@Override
 	public void onReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (!world.isRemote) {
-			mapCoords(world.func_234923_W_(), pos, 2);
+			mapCoords(world.getDimensionKey(), pos, 2);
 		}
 	}
 
 	private void mapCoords(RegistryKey<World> type, BlockPos pos, int time) {
-		coordsToCheck.put(GlobalPos.func_239648_a_(type, pos), time);
+		coordsToCheck.put(GlobalPos.getPosition(type, pos), time);
 	}
 
 	private void decrCoords(GlobalPos key) {
@@ -92,7 +92,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		if (server == null) {
 			return null;
 		}
-		return server.getWorld(key.func_239646_a_()).getTileEntity(key.getPos());
+		return server.getWorld(key.getDimension()).getTileEntity(key.getPos());
 	}
 
 	private BlockState getStateAt(GlobalPos key) {
@@ -100,7 +100,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		if (server == null) {
 			return Blocks.AIR.getDefaultState();
 		}
-		return server.getWorld(key.func_239646_a_()).getBlockState(key.getPos());
+		return server.getWorld(key.getDimension()).getBlockState(key.getPos());
 	}
 
 	@Override
@@ -113,7 +113,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 			spawnAsEntity(world, pos, new ItemStack(this));
 			world.destroyBlock(pos, false);
 		} else {
-			GlobalPos clicked = GlobalPos.func_239648_a_(world.func_234923_W_(), pos.toImmutable());
+			GlobalPos clicked = GlobalPos.getPosition(world.getDimensionKey(), pos.toImmutable());
 			if (ItemTwigWand.getBindMode(stack)) {
 				activeBindingAttempts.put(player.getUniqueID(), clicked);
 				world.playSound(null, pos, ModSounds.ding, SoundCategory.BLOCKS, 0.5F, 1F);
@@ -148,8 +148,8 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 			for (int i = 0; i < list.size(); i += 2) {
 				INBT from = list.get(i);
 				INBT to = list.get(i + 1);
-				BlockPos fromPos = BlockPos.field_239578_a_.decode(NBTDynamicOps.INSTANCE, from).result().get().getFirst();
-				BlockPos toPos = BlockPos.field_239578_a_.decode(NBTDynamicOps.INSTANCE, to).result().get().getFirst();
+				BlockPos fromPos = BlockPos.CODEC.decode(NBTDynamicOps.INSTANCE, from).result().get().getFirst();
+				BlockPos toPos = BlockPos.CODEC.decode(NBTDynamicOps.INSTANCE, to).result().get().getFirst();
 
 				mapping.put(fromPos, toPos);
 			}
@@ -160,8 +160,8 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		public CompoundNBT write(@Nonnull CompoundNBT cmp) {
 			ListNBT list = new ListNBT();
 			for (Map.Entry<BlockPos, BlockPos> e : mapping.entrySet()) {
-				INBT from = BlockPos.field_239578_a_.encodeStart(NBTDynamicOps.INSTANCE, e.getKey()).result().get();
-				INBT to = BlockPos.field_239578_a_.encodeStart(NBTDynamicOps.INSTANCE, e.getValue()).result().get();
+				INBT from = BlockPos.CODEC.encodeStart(NBTDynamicOps.INSTANCE, e.getKey()).result().get();
+				INBT to = BlockPos.CODEC.encodeStart(NBTDynamicOps.INSTANCE, e.getValue()).result().get();
 				list.add(from);
 				list.add(to);
 			}
@@ -184,7 +184,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		if (event.type == TickEvent.Type.SERVER && event.phase == TickEvent.Phase.END) {
 			MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
 			for (GlobalPos s : coordsToCheck.keySet()) {
-				ServerWorld world = server.getWorld(s.func_239646_a_());
+				ServerWorld world = server.getWorld(s.getDimension());
 				WorldData data = WorldData.get(world);
 
 				decrCoords(s);

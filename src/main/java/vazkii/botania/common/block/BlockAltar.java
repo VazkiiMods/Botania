@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
@@ -71,7 +72,7 @@ public class BlockAltar extends BlockMod implements ITileEntityProvider {
 
 	public final Variant variant;
 
-	protected BlockAltar(Variant v, Block.Properties builder) {
+	protected BlockAltar(Variant v, AbstractBlock.Properties builder) {
 		super(builder);
 		this.variant = v;
 		setDefaultState(getDefaultState().with(FLUID, State.EMPTY));

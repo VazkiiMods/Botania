@@ -81,7 +81,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.*;
-import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -1026,7 +1025,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		@Override
 		public void tick() {
 			if (!guardian.isAlive()) {
-				func_239509_o_();
+				finishPlaying();
 			}
 		}
 	}

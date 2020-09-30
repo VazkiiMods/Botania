@@ -53,7 +53,7 @@ public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {
 		ms.rotate(Vector3f.YP.rotationDegrees(90F));
 
 		IBakedModel model = MiscellaneousIcons.INSTANCE.kingKeyWeaponModels[weapon.getVariety()];
-		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffers.getBuffer(Atlases.func_239280_i_()), null, model, 1, 1, 1, 0xF000F0, OverlayTexture.NO_OVERLAY);
+		Minecraft.getInstance().getBlockRendererDispatcher().getBlockModelRenderer().renderModelBrightnessColor(ms.getLast(), buffers.getBuffer(Atlases.getItemEntityTranslucentCullType()), null, model, 1, 1, 1, 0xF000F0, OverlayTexture.NO_OVERLAY);
 		ms.pop();
 
 		Random rand = new Random(weapon.getUniqueID().getMostSignificantBits());

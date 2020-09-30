@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.block.string;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.AbstractBlock;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
 import net.minecraft.world.IBlockReader;
@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 
 public class BlockRedStringRelay extends BlockRedString {
 
-	public BlockRedStringRelay(Block.Properties builder) {
+	public BlockRedStringRelay(AbstractBlock.Properties builder) {
 		super(builder);
 		setDefaultState(getDefaultState().with(BlockStateProperties.FACING, Direction.DOWN));
 	}

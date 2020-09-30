@@ -36,7 +36,7 @@ public class GuiBaubleBox extends ContainerScreen<ContainerBaubleBox> {
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
-		this.func_230459_a_(ms, mouseX, mouseY);
+		this.renderHoveredTooltip(ms, mouseX, mouseY);
 	}
 
 	@Override

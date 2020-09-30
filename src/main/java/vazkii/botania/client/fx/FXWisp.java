@@ -56,7 +56,7 @@ public class FXWisp extends SpriteTexturedParticle {
 	}
 
 	@Override
-	public float getScale(float p_217561_1_) {
+	public float getScale(float scaleFactor) {
 		float agescale = (float) age / (float) moteHalfLife;
 		if (agescale > 1F) {
 			agescale = 2 - agescale;

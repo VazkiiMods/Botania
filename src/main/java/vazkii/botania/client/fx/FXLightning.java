@@ -31,7 +31,7 @@ import vazkii.botania.common.core.helper.Vector3;
 
 import javax.annotation.Nonnull;
 
-import java.util.*;
+import java.util.List;
 
 // Originally taken with permission from WRCBE - heavily modified
 public class FXLightning extends Particle {

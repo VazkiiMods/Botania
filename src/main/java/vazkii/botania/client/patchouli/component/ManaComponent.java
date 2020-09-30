@@ -44,7 +44,7 @@ public class ManaComponent implements ICustomComponent {
 	public void render(MatrixStack ms, IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
 		FontRenderer font = Minecraft.getInstance().fontRenderer;
 		ITextComponent manaUsage = new TranslationTextComponent("botaniamisc.manaUsage").setStyle(context.getFont());
-		font.func_243248_b(ms, manaUsage, x + 102 / 2 - font.func_238414_a_(manaUsage) / 2, y, 0x66000000);
+		font.func_243248_b(ms, manaUsage, x + 102 / 2 - font.getStringPropertyWidth(manaUsage) / 2, y, 0x66000000);
 
 		int ratio = 10;
 		if (context.isAreaHovered(mouseX, mouseY, x, y - 2, 102, 5 + 20)) {
@@ -54,7 +54,7 @@ public class ManaComponent implements ICustomComponent {
 				manaValues[(context.getTicksInBook() / 20) % manaValues.length], TilePool.MAX_MANA / ratio);
 
 		ITextComponent ratioString = new TranslationTextComponent("botaniamisc.ratio", ratio).setStyle(context.getFont());
-		font.func_243248_b(ms, ratioString, x + 102 / 2 - font.func_238414_a_(ratioString) / 2, y + 15, 0x99000000);
+		font.func_243248_b(ms, ratioString, x + 102 / 2 - font.getStringPropertyWidth(ratioString) / 2, y + 15, 0x99000000);
 	}
 
 	@Override

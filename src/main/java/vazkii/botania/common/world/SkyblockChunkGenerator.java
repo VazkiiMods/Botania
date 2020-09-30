@@ -32,7 +32,7 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 	// [VanillaCopy] overworld chunk generator codec
 	public static final Codec<SkyblockChunkGenerator> CODEC = RecordCodecBuilder.create(
 			(instance) -> instance.group(
-					BiomeProvider.PROVIDER_CODEC.fieldOf("biome_source").forGetter((gen) -> gen.biomeProvider),
+					BiomeProvider.CODEC.fieldOf("biome_source").forGetter((gen) -> gen.biomeProvider),
 					Codec.LONG.fieldOf("seed").stable().forGetter((gen) -> gen.seed),
 					DimensionSettings.field_236098_b_.fieldOf("settings").forGetter((gen) -> gen.settings)
 			).apply(instance, instance.stable(SkyblockChunkGenerator::new)));
@@ -62,7 +62,7 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 
 	@Override
 	public ChunkGenerator func_230349_a_(long newSeed) {
-		return new SkyblockChunkGenerator(this.biomeProvider.func_230320_a_(newSeed), newSeed, settings);
+		return new SkyblockChunkGenerator(this.biomeProvider.getBiomeProvider(newSeed), newSeed, settings);
 	}
 
 	@Override

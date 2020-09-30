@@ -255,7 +255,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 	public static Block getBlock(ItemStack stack) {
 		ResourceLocation id = ResourceLocation.tryCreate(getBlockName(stack));
 		if (id != null) {
-			return Registry.BLOCK.func_241873_b(id).orElse(null);
+			return Registry.BLOCK.getOptional(id).orElse(null);
 		}
 		return null;
 	}

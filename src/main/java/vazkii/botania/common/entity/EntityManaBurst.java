@@ -26,7 +26,10 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tags.ITag;
 import net.minecraft.tileentity.EndGatewayTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -325,7 +328,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		tag.putInt(TAG_ORBIT_TIME, orbitTime);
 		tag.putBoolean(TAG_TRIPPED, tripped);
 		if (magnetizePos != null) {
-			tag.put(TAG_MAGNETIZE_POS, BlockPos.field_239578_a_.encodeStart(NBTDynamicOps.INSTANCE, magnetizePos).get().orThrow());
+			tag.put(TAG_MAGNETIZE_POS, BlockPos.CODEC.encodeStart(NBTDynamicOps.INSTANCE, magnetizePos).get().orThrow());
 		}
 	}
 
@@ -379,7 +382,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		orbitTime = cmp.getInt(TAG_ORBIT_TIME);
 		tripped = cmp.getBoolean(TAG_TRIPPED);
 		if (cmp.contains(TAG_MAGNETIZE_POS)) {
-			magnetizePos = BlockPos.field_239578_a_.parse(NBTDynamicOps.INSTANCE, cmp.get(TAG_MAGNETIZE_POS)).get().orThrow();
+			magnetizePos = BlockPos.CODEC.parse(NBTDynamicOps.INSTANCE, cmp.get(TAG_MAGNETIZE_POS)).get().orThrow();
 		} else {
 			magnetizePos = null;
 		}

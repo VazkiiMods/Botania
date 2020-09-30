@@ -154,7 +154,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 			return false;
 		}
 
-		Registry.SOUND_EVENT.func_241873_b(DING_SOUND_EVENT).ifPresent(evt -> player.playSound(evt, 0.1F, 1F));
+		Registry.SOUND_EVENT.getOptional(DING_SOUND_EVENT).ifPresent(evt -> player.playSound(evt, 0.1F, 1F));
 
 		return super.onWanded(player, wand);
 	}
@@ -238,7 +238,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	}
 
 	public ItemStack getHudIcon() {
-		return Registry.ITEM.func_241873_b(POOL_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
+		return Registry.ITEM.getOptional(POOL_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
 	}
 
 	@OnlyIn(Dist.CLIENT)

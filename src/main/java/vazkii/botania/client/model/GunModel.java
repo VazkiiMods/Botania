@@ -56,7 +56,7 @@ public class GunModel implements IBakedModel {
 	private final ItemOverrideList itemHandler = new ItemOverrideList() {
 		@Nonnull
 		@Override
-		public IBakedModel func_239290_a_(IBakedModel model, ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
+		public IBakedModel getOverrideModel(IBakedModel model, ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
 			boolean clip = ItemManaGun.hasClip(stack);
 
 			if (ItemManaGun.isSugoiKawaiiDesuNe(stack)) {
@@ -112,8 +112,8 @@ public class GunModel implements IBakedModel {
 	}
 
 	@Override
-	public boolean func_230044_c_() {
-		return originalModel.func_230044_c_();
+	public boolean isSideLit() {
+		return originalModel.isSideLit();
 	}
 
 	private final HashMap<Pair<Item, Boolean>, CompositeBakedModel> cache = new HashMap<>();

@@ -30,7 +30,7 @@ public class TEISR extends ItemStackTileEntityRenderer {
 	public TEISR(Block block) {
 		this.block = Preconditions.checkNotNull(block);
 		this.dummy = new LazyValue<>(() -> {
-			TileEntityType<?> type = Registry.BLOCK_ENTITY_TYPE.func_241873_b(Registry.BLOCK.getKey(block)).get();
+			TileEntityType<?> type = Registry.BLOCK_ENTITY_TYPE.getOptional(Registry.BLOCK.getKey(block)).get();
 			return type.create();
 		});
 	}

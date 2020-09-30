@@ -32,7 +32,7 @@ public class SubTileFallenKanade extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getWorld().isRemote && getWorld().func_234923_W_() != World.field_234920_i_) {
+		if (!getWorld().isRemote && getWorld().getDimensionKey() != World.THE_END) {
 			boolean did = false;
 			List<PlayerEntity> players = getWorld().getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for (PlayerEntity player : players) {

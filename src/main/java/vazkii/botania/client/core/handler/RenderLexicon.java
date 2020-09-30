@@ -72,7 +72,7 @@ public class RenderLexicon {
 	public static void renderHand(RenderHandEvent evt) {
 		Minecraft mc = Minecraft.getInstance();
 		if (!ConfigHandler.CLIENT.lexicon3dModel.get()
-				|| mc.gameSettings.func_243230_g() != PointOfView.FIRST_PERSON
+				|| mc.gameSettings.getPointOfView() != PointOfView.FIRST_PERSON
 				|| mc.player.getHeldItem(evt.getHand()).isEmpty()
 				|| mc.player.getHeldItem(evt.getHand()).getItem() != ModItems.lexicon) {
 			return;

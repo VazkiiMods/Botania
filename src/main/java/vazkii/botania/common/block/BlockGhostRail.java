@@ -88,7 +88,7 @@ public class BlockGhostRail extends AbstractRailBlock {
 
 	private void addFloatingCart(AbstractMinecartEntity cart) {
 		if (cart.isAlive() && cart.getPersistentData().getInt(TAG_FLOAT_TICKS) > 0) {
-			floatingCarts.computeIfAbsent(cart.world.func_234923_W_(), t -> Collections.newSetFromMap(new WeakHashMap<>()))
+			floatingCarts.computeIfAbsent(cart.world.getDimensionKey(), t -> Collections.newSetFromMap(new WeakHashMap<>()))
 					.add(cart);
 		}
 	}
@@ -102,7 +102,7 @@ public class BlockGhostRail extends AbstractRailBlock {
 	private void worldTick(TickEvent.WorldTickEvent evt) {
 		if (!evt.world.isRemote() && evt.phase == TickEvent.Phase.END) {
 			evt.world.getProfiler().startSection("cartFloatingIter");
-			Iterator<AbstractMinecartEntity> iter = floatingCarts.getOrDefault(evt.world.func_234923_W_(), Collections.emptySet()).iterator();
+			Iterator<AbstractMinecartEntity> iter = floatingCarts.getOrDefault(evt.world.getDimensionKey(), Collections.emptySet()).iterator();
 			while (iter.hasNext()) {
 				AbstractMinecartEntity c = iter.next();
 				BlockPos entPos = c.getPosition();

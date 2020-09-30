@@ -53,8 +53,8 @@ public class ModFeatures {
 		ModBlocks.register(r, "mystical_flowers", MYSTICAL_FLOWERS);
 		ModBlocks.register(r, "mystical_mushrooms", MYSTICAL_MUSHROOMS);
 
-		Registry.register(WorldGenRegistries.field_243653_e, prefix("mystical_flowers"), MYSTICAL_FLOWERS_CONF);
-		Registry.register(WorldGenRegistries.field_243653_e, prefix("mystical_mushrooms"), MYSTICAL_MUSHROOMS_CONF);
+		Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, prefix("mystical_flowers"), MYSTICAL_FLOWERS_CONF);
+		Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, prefix("mystical_mushrooms"), MYSTICAL_MUSHROOMS_CONF);
 	}
 
 	public static void onBiomeLoad(BiomeLoadingEvent event) {
@@ -63,10 +63,10 @@ public class ModFeatures {
 		}
 		Biome.Category category = event.getCategory();
 		if (!TYPE_BLACKLIST.contains(category)) {
-			event.getGeneration().func_242513_a(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_FLOWERS_CONF);
+			event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_FLOWERS_CONF);
 		}
 		if (category != Biome.Category.THEEND) {
-			event.getGeneration().func_242513_a(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_MUSHROOMS_CONF);
+			event.getGeneration().withFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_MUSHROOMS_CONF);
 		}
 	}
 

@@ -30,7 +30,7 @@ import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModBrews {
-	public static final RegistryKey<Registry<Brew>> BREW_KEY = RegistryKey.func_240904_a_(prefix("brews"));
+	public static final RegistryKey<Registry<Brew>> BREW_KEY = RegistryKey.getOrCreateRootKey(prefix("brews"));
 	public static Registry<Brew> registry;
 	public static final Brew fallbackBrew = new Brew(0, 0).setNotBloodPendantInfusable().setNotIncenseInfusable();
 	public static final Brew speed = new Brew(0x59B7FF, 4000, new EffectInstance(Effects.SPEED, 1800, 1));

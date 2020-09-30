@@ -30,7 +30,7 @@ public class StateIngredientTag extends StateIngredientBlocks {
 	}
 
 	private ITag<Block> resolve() {
-		return BlockTags.getCollection().func_241834_b(tag);
+		return BlockTags.getCollection().getTagByID(tag);
 	}
 
 	@Override

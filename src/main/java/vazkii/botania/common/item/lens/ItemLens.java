@@ -61,7 +61,7 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 		int storedColor = getStoredColor(stack);
 		if (storedColor != -1) {
 			TranslationTextComponent colorName = new TranslationTextComponent(storedColor == 16 ? "botania.color.rainbow" : "color.minecraft." + DyeColor.byId(storedColor));
-			Color realColor = Color.func_240743_a_(getLensColor(stack));
+			Color realColor = Color.fromInt(getLensColor(stack));
 			tooltip.add(new TranslationTextComponent("botaniamisc.color", colorName).modifyStyle(s -> s.setColor(realColor)));
 		}
 		if (lens instanceof LensStorm) {

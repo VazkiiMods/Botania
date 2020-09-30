@@ -124,7 +124,7 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 					if (catalystId == null) {
 						throw new IllegalArgumentException("Invalid catalyst ID: " + s);
 					}
-					Optional<Block> cat = Registry.BLOCK.func_241873_b(catalystId);
+					Optional<Block> cat = Registry.BLOCK.getOptional(catalystId);
 					if (!cat.isPresent()) {
 						throw new IllegalArgumentException("Unknown catalyst: " + s);
 					}

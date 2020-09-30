@@ -42,7 +42,7 @@ public class ItemFertilizer extends Item {
 				for (int j = -range - 1; j < range; j++) {
 					for (int k = 2; k >= -2; k--) {
 						BlockPos pos_ = pos.add(i + 1, k + 1, j + 1);
-						if (world.isAirBlock(pos_) && (!world.func_230315_m_().func_236040_e_() || pos_.getY() < 255)
+						if (world.isAirBlock(pos_) && (!world.getDimensionType().isUltrawarm() || pos_.getY() < 255)
 								&& ModBlocks.whiteFlower.getDefaultState().isValidPosition(world, pos_)) {
 							validCoords.add(pos_);
 						}

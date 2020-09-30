@@ -39,7 +39,7 @@ public interface IProxy {
 	}
 
 	default long getWorldElapsedTicks() {
-		return ServerLifecycleHooks.getCurrentServer().getWorld(World.field_234918_g_).getGameTime();
+		return ServerLifecycleHooks.getCurrentServer().getWorld(World.OVERWORLD).getGameTime();
 	}
 
 	default void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, int colorOuter, int colorInner) {

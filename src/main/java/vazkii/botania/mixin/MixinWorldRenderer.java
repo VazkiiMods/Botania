@@ -47,7 +47,7 @@ public class MixinWorldRenderer {
 		World world = Minecraft.getInstance().world;
 		boolean isGog = world.getWorldInfo() instanceof SkyblockWorldInfo && ((SkyblockWorldInfo) world.getWorldInfo()).isGardenOfGlass();
 		return ConfigHandler.CLIENT.enableFancySkybox.get()
-				&& world.func_234923_W_() == World.field_234918_g_
+				&& world.getDimensionKey() == World.OVERWORLD
 				&& (ConfigHandler.CLIENT.enableFancySkyboxInNormalWorlds.get() || isGog);
 	}
 

@@ -109,7 +109,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		}
 
 		if (event.phase == TickEvent.Phase.END) {
-			RegistryKey<World> dim = event.world.func_234923_W_();
+			RegistryKey<World> dim = event.world.getDimensionKey();
 			if (blockSwappers.containsKey(dim)) {
 				Set<BlockSwapper> swappers = blockSwappers.get(dim);
 
@@ -142,7 +142,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 			return;
 		}
 
-		RegistryKey<World> dim = world.func_234923_W_();
+		RegistryKey<World> dim = world.getDimensionKey();
 		blockSwappers.computeIfAbsent(dim, d -> new HashSet<>()).add(swapper);
 	}
 
