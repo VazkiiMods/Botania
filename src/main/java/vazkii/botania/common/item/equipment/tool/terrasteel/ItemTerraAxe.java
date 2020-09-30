@@ -62,6 +62,11 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 */
 	private static final Map<RegistryKey<World>, Set<BlockSwapper>> blockSwappers = new HashMap<>();
 
+	/**
+	 * Toggled during the block swapper ticking to prevent adding more of them during the map iteration.
+	 */
+	private static boolean tickingSwappers = false;
+
 	public ItemTerraAxe(Properties props) {
 		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
 		MinecraftForge.EVENT_BUS.addListener(this::onTickEnd);
@@ -92,7 +97,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 	@Override
 	public void breakOtherBlock(PlayerEntity player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side) {
-		if (shouldBreak(player)) {
+		if (shouldBreak(player) && !tickingSwappers) {
 			addBlockSwapper(player.world, player, stack, pos, 32, true);
 		}
 	}
@@ -111,11 +116,13 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		if (event.phase == TickEvent.Phase.END) {
 			RegistryKey<World> dim = event.world.getDimensionKey();
 			if (blockSwappers.containsKey(dim)) {
+				tickingSwappers = true;
 				Set<BlockSwapper> swappers = blockSwappers.get(dim);
 
 				// Iterate through all of our swappers, removing any
 				// which no longer need to tick.
 				swappers.removeIf(next -> next == null || !next.tick());
+				tickingSwappers = false;
 			}
 		}
 	}
@@ -135,12 +142,12 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 *                   documentation).
 	 */
 	private static void addBlockSwapper(World world, PlayerEntity player, ItemStack stack, BlockPos origCoords, int steps, boolean leaves) {
-		BlockSwapper swapper = new BlockSwapper(world, player, stack, origCoords, steps, leaves);
-
 		// Block swapper registration should only occur on the server
 		if (world.isRemote) {
 			return;
 		}
+
+		BlockSwapper swapper = new BlockSwapper(world, player, stack, origCoords, steps, leaves);
 
 		RegistryKey<World> dim = world.getDimensionKey();
 		blockSwappers.computeIfAbsent(dim, d -> new HashSet<>()).add(swapper);
