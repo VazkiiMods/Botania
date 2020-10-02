@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "botania:corporea_brick"
+    }
+  },
+  "result": {
+    "item": "botania:corporea_brick_wall",
+    "count": 6
+  }
+}

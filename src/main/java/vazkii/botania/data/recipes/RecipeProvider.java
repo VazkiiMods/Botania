@@ -1788,6 +1788,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.build(consumer);
 		slabShape(ModFluffBlocks.corporeaBrickSlab, ModFluffBlocks.corporeaBrick).build(consumer);
 		stairs(ModFluffBlocks.corporeaBrickStairs, ModFluffBlocks.corporeaBrick).build(consumer);
+		wallShape(ModFluffBlocks.corporeaBrickWall, ModFluffBlocks.corporeaBrick, 6).build(consumer);
 	}
 
 	private void registerLenses(Consumer<IFinishedRecipe> consumer) {

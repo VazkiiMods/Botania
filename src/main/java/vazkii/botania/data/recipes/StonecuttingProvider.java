@@ -75,8 +75,10 @@ public class StonecuttingProvider extends RecipeProvider {
 		consumer.accept(stonecutting(ModFluffBlocks.corporeaBlock, ModFluffBlocks.corporeaBrick));
 		consumer.accept(stonecutting(ModFluffBlocks.corporeaBlock, ModFluffBlocks.corporeaBrickSlab, 2));
 		consumer.accept(stonecutting(ModFluffBlocks.corporeaBlock, ModFluffBlocks.corporeaBrickStairs));
+		consumer.accept(stonecutting(ModFluffBlocks.corporeaBlock, ModFluffBlocks.corporeaBrickWall));
 		consumer.accept(stonecutting(ModFluffBlocks.corporeaBrick, ModFluffBlocks.corporeaBrickSlab, 2));
 		consumer.accept(stonecutting(ModFluffBlocks.corporeaBrick, ModFluffBlocks.corporeaBrickStairs));
+		consumer.accept(stonecutting(ModFluffBlocks.corporeaBrick, ModFluffBlocks.corporeaBrickWall));
 
 		List<Item> allAzulejos = IntStream.range(0, 16).mapToObj(i -> "azulejo_" + i)
 				.map(ResourceLocationHelper::prefix)
