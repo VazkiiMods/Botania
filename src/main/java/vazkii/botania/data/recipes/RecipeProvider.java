@@ -1773,22 +1773,21 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addIngredient(ModItems.corporeaSpark)
 				.addCriterion("has_item", hasItem(ModItems.corporeaSpark))
 				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.corporeaBlock, 8)
+		ShapelessRecipeBuilder.shapelessRecipe(ModFluffBlocks.corporeaBlock, 8)
 				.addIngredient(ModBlocks.livingrockBrick)
 				.addIngredient(ModItems.corporeaSpark)
 				.addCriterion("has_item", hasItem(ModItems.corporeaSpark))
 				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.corporeaBrick, 4)
-				.key('R', ModBlocks.corporeaBlock)
+		slabShape(ModFluffBlocks.corporeaSlab, ModFluffBlocks.corporeaBlock).build(consumer);
+		stairs(ModFluffBlocks.corporeaStairs, ModFluffBlocks.corporeaBlock).build(consumer);
+		ShapedRecipeBuilder.shapedRecipe(ModFluffBlocks.corporeaBrick, 4)
+				.key('R', ModFluffBlocks.corporeaBlock)
 				.patternLine("RR")
 				.patternLine("RR")
-				.addCriterion("has_item", hasItem(ModBlocks.corporeaBlock))
+				.addCriterion("has_item", hasItem(ModFluffBlocks.corporeaBlock))
 				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.corporeaSlab, 6)
-				.key('R', ModBlocks.corporeaBlock)
-				.patternLine("RRR")
-				.addCriterion("has_item", hasItem(ModBlocks.corporeaBlock))
-				.build(consumer);
+		slabShape(ModFluffBlocks.corporeaBrickSlab, ModFluffBlocks.corporeaBrick).build(consumer);
+		stairs(ModFluffBlocks.corporeaBrickStairs, ModFluffBlocks.corporeaBrick).build(consumer);
 	}
 
 	private void registerLenses(Consumer<IFinishedRecipe> consumer) {

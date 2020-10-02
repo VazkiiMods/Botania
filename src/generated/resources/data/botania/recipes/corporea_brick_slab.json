@@ -5,11 +5,11 @@
   ],
   "key": {
     "Q": {
-      "item": "botania:corporea_block"
+      "item": "botania:corporea_brick"
     }
   },
   "result": {
-    "item": "botania:corporea_slab",
+    "item": "botania:corporea_brick_slab",
     "count": 6
   }
 }

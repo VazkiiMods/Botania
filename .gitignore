@@ -16,6 +16,9 @@ Thumbs.db
 /eclipse
 /bin
 
+## gradle generated eclipse runs
+/*.launch
+
 ## intellij
 /out
 /.idea
@@ -32,7 +35,7 @@ Thumbs.db
 *.jar
 !/gradle/wrapper/gradle-wrapper.jar
 
-### OSX (adds a lot of garbage)###
+## OSX (adds a lot of garbage)
 .DS_Store
 .AppleDouble
 .LSOverride
