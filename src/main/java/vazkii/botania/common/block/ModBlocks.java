@@ -61,14 +61,6 @@ import javax.annotation.Nonnull;
 
 import java.util.Locale;
 
-import static vazkii.botania.common.block.ModBlocks.corporeaBlock;
-import static vazkii.botania.common.block.ModBlocks.corporeaBrick;
-import static vazkii.botania.common.block.ModBlocks.corporeaBrickSlab;
-import static vazkii.botania.common.block.ModBlocks.corporeaBrickStairs;
-import static vazkii.botania.common.block.ModBlocks.corporeaBrickWall;
-import static vazkii.botania.common.block.ModBlocks.corporeaSlab;
-import static vazkii.botania.common.block.ModBlocks.corporeaStairs;
-import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ModBlocks {
