@@ -226,14 +226,6 @@ public final class ModFluffBlocks {
 	public static final Block alfglassPane = new BlockModPane(Properties.from(elfGlass));
 	public static final Block bifrostPane = new BlockModPane(Properties.from(bifrostPerm));
 
-	public static final Block corporeaBlock = new BlockMod(Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL));
-	public static final SlabBlock corporeaSlab = new SlabBlock(Properties.from(corporeaBlock));
-	public static final StairsBlock corporeaStairs = new BlockModStairs(corporeaBlock.getDefaultState(), Properties.from(corporeaBlock));
-	public static final Block corporeaBrick = new BlockMod(Properties.from(corporeaBlock));
-	public static final SlabBlock corporeaBrickSlab = new SlabBlock(Properties.from(corporeaBrick));
-	public static final StairsBlock corporeaBrickStairs = new BlockModStairs(corporeaBrick.getDefaultState(), Properties.from(corporeaBrick));
-	public static final Block corporeaBrickWall = new WallBlock(Properties.from(corporeaBrick));
-
 	public static void registerBlocks(RegistryEvent.Register<Block> evt) {
 		IForgeRegistry<Block> r = evt.getRegistry();
 
@@ -433,14 +425,6 @@ public final class ModFluffBlocks {
 		register(r, LibBlockNames.MANA_GLASS + "_pane", managlassPane);
 		register(r, LibBlockNames.ELF_GLASS + "_pane", alfglassPane);
 		register(r, LibBlockNames.BIFROST + "_pane", bifrostPane);
-
-		register(r, LibBlockNames.CORPOREA_BLOCK, corporeaBlock);
-		register(r, LibBlockNames.CORPOREA_SLAB, corporeaSlab);
-		register(r, LibBlockNames.CORPOREA_STAIRS, corporeaStairs);
-		register(r, LibBlockNames.CORPOREA_BRICK, corporeaBrick);
-		register(r, LibBlockNames.CORPOREA_BRICK + LibBlockNames.SLAB_SUFFIX, corporeaBrickSlab);
-		register(r, LibBlockNames.CORPOREA_BRICK + LibBlockNames.STAIR_SUFFIX, corporeaBrickStairs);
-		register(r, LibBlockNames.CORPOREA_BRICK + LibBlockNames.WALL_SUFFIX, corporeaBrickWall);
 	}
 
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
@@ -640,14 +624,6 @@ public final class ModFluffBlocks {
 		register(r, Registry.BLOCK.getKey(managlassPane), new BlockItem(managlassPane, props));
 		register(r, Registry.BLOCK.getKey(alfglassPane), new BlockItem(alfglassPane, props));
 		register(r, Registry.BLOCK.getKey(bifrostPane), new BlockItem(bifrostPane, props));
-
-		register(r, Registry.BLOCK.getKey(corporeaBlock), new BlockItem(corporeaBlock, props));
-		register(r, Registry.BLOCK.getKey(corporeaSlab), new BlockItem(corporeaSlab, props));
-		register(r, Registry.BLOCK.getKey(corporeaStairs), new BlockItem(corporeaStairs, props));
-		register(r, Registry.BLOCK.getKey(corporeaBrick), new BlockItem(corporeaBrick, props));
-		register(r, Registry.BLOCK.getKey(corporeaBrickSlab), new BlockItem(corporeaBrickSlab, props));
-		register(r, Registry.BLOCK.getKey(corporeaBrickStairs), new BlockItem(corporeaBrickStairs, props));
-		register(r, Registry.BLOCK.getKey(corporeaBrickWall), new BlockItem(corporeaBrickWall, props));
 	}
 
 }

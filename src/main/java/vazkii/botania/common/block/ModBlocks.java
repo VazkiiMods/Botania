@@ -13,7 +13,10 @@ import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
+import net.minecraft.block.SlabBlock;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.StairsBlock;
+import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.dispenser.IDispenseItemBehavior;
@@ -42,6 +45,7 @@ import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.corporea.*;
 import vazkii.botania.common.block.decor.*;
+import vazkii.botania.common.block.decor.stairs.BlockModStairs;
 import vazkii.botania.common.block.dispenser.*;
 import vazkii.botania.common.block.mana.*;
 import vazkii.botania.common.block.string.*;
@@ -57,6 +61,14 @@ import javax.annotation.Nonnull;
 
 import java.util.Locale;
 
+import static vazkii.botania.common.block.ModBlocks.corporeaBlock;
+import static vazkii.botania.common.block.ModBlocks.corporeaBrick;
+import static vazkii.botania.common.block.ModBlocks.corporeaBrickSlab;
+import static vazkii.botania.common.block.ModBlocks.corporeaBrickStairs;
+import static vazkii.botania.common.block.ModBlocks.corporeaBrickWall;
+import static vazkii.botania.common.block.ModBlocks.corporeaSlab;
+import static vazkii.botania.common.block.ModBlocks.corporeaStairs;
+import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ModBlocks {
@@ -284,11 +296,21 @@ public final class ModBlocks {
 	public static final Block redStringComparator = new BlockRedStringComparator(Properties.from(livingrock));
 	public static final Block redStringRelay = new BlockRedStringRelay(Properties.from(livingrock));
 	public static final Block redStringInterceptor = new BlockRedStringInterceptor(Properties.from(livingrock));
+
 	public static final Block corporeaIndex = new BlockCorporeaIndex(Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL).notSolid());
 	public static final Block corporeaFunnel = new BlockCorporeaFunnel(Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL));
 	public static final Block corporeaInterceptor = new BlockCorporeaInterceptor(Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL));
 	public static final Block corporeaCrystalCube = new BlockCorporeaCrystalCube(Properties.from(corporeaInterceptor));
 	public static final Block corporeaRetainer = new BlockCorporeaRetainer(Properties.from(corporeaInterceptor));
+
+	public static final Block corporeaBlock = new BlockMod(Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL));
+	public static final SlabBlock corporeaSlab = new SlabBlock(Properties.from(corporeaBlock));
+	public static final StairsBlock corporeaStairs = new BlockModStairs(corporeaBlock.getDefaultState(), Properties.from(corporeaBlock));
+	public static final Block corporeaBrick = new BlockMod(Properties.from(corporeaBlock));
+	public static final SlabBlock corporeaBrickSlab = new SlabBlock(Properties.from(corporeaBrick));
+	public static final StairsBlock corporeaBrickStairs = new BlockModStairs(corporeaBrick.getDefaultState(), Properties.from(corporeaBrick));
+	public static final Block corporeaBrickWall = new WallBlock(Properties.from(corporeaBrick));
+
 	public static final Block incensePlate = new BlockIncensePlate(Properties.from(livingwood));
 	public static final Block hourglass = new BlockHourglass(Properties.create(Material.IRON).hardnessAndResistance(2).sound(SoundType.METAL));
 	public static final Block ghostRail = new BlockGhostRail(Properties.from(Blocks.RAIL));
@@ -546,6 +568,13 @@ public final class ModBlocks {
 		register(r, LibBlockNames.CORPOREA_INTERCEPTOR, corporeaInterceptor);
 		register(r, LibBlockNames.CORPOREA_CRYSTAL_CUBE, corporeaCrystalCube);
 		register(r, LibBlockNames.CORPOREA_RETAINER, corporeaRetainer);
+		register(r, LibBlockNames.CORPOREA_BLOCK, corporeaBlock);
+		register(r, LibBlockNames.CORPOREA_SLAB, corporeaSlab);
+		register(r, LibBlockNames.CORPOREA_STAIRS, corporeaStairs);
+		register(r, LibBlockNames.CORPOREA_BRICK, corporeaBrick);
+		register(r, LibBlockNames.CORPOREA_BRICK + LibBlockNames.SLAB_SUFFIX, corporeaBrickSlab);
+		register(r, LibBlockNames.CORPOREA_BRICK + LibBlockNames.STAIR_SUFFIX, corporeaBrickStairs);
+		register(r, LibBlockNames.CORPOREA_BRICK + LibBlockNames.WALL_SUFFIX, corporeaBrickWall);
 		register(r, LibBlockNames.INCENSE_PLATE, incensePlate);
 		register(r, LibBlockNames.HOURGLASS, hourglass);
 		register(r, LibBlockNames.GHOST_RAIL, ghostRail);
@@ -787,6 +816,13 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getKey(corporeaInterceptor), new BlockItem(corporeaInterceptor, props));
 		register(r, Registry.BLOCK.getKey(corporeaCrystalCube), new BlockItem(corporeaCrystalCube, props));
 		register(r, Registry.BLOCK.getKey(corporeaRetainer), new BlockItem(corporeaRetainer, props));
+		register(r, Registry.BLOCK.getKey(corporeaBlock), new BlockItem(corporeaBlock, props));
+		register(r, Registry.BLOCK.getKey(corporeaSlab), new BlockItem(corporeaSlab, props));
+		register(r, Registry.BLOCK.getKey(corporeaStairs), new BlockItem(corporeaStairs, props));
+		register(r, Registry.BLOCK.getKey(corporeaBrick), new BlockItem(corporeaBrick, props));
+		register(r, Registry.BLOCK.getKey(corporeaBrickSlab), new BlockItem(corporeaBrickSlab, props));
+		register(r, Registry.BLOCK.getKey(corporeaBrickStairs), new BlockItem(corporeaBrickStairs, props));
+		register(r, Registry.BLOCK.getKey(corporeaBrickWall), new BlockItem(corporeaBrickWall, props));
 		register(r, Registry.BLOCK.getKey(incensePlate), new BlockItem(incensePlate, props));
 		register(r, Registry.BLOCK.getKey(hourglass), new BlockItem(hourglass, Botania.proxy.propertiesWithRenderer(ModItems.defaultBuilder(), hourglass)));
 		register(r, Registry.BLOCK.getKey(ghostRail), new BlockItem(ghostRail, props));

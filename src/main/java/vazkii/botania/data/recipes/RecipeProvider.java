@@ -1773,22 +1773,22 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addIngredient(ModItems.corporeaSpark)
 				.addCriterion("has_item", hasItem(ModItems.corporeaSpark))
 				.build(consumer);
-		ShapelessRecipeBuilder.shapelessRecipe(ModFluffBlocks.corporeaBlock, 8)
+		ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.corporeaBlock, 8)
 				.addIngredient(ModBlocks.livingrockBrick)
 				.addIngredient(ModItems.corporeaSpark)
 				.addCriterion("has_item", hasItem(ModItems.corporeaSpark))
 				.build(consumer);
-		slabShape(ModFluffBlocks.corporeaSlab, ModFluffBlocks.corporeaBlock).build(consumer);
-		stairs(ModFluffBlocks.corporeaStairs, ModFluffBlocks.corporeaBlock).build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModFluffBlocks.corporeaBrick, 4)
-				.key('R', ModFluffBlocks.corporeaBlock)
+		slabShape(ModBlocks.corporeaSlab, ModBlocks.corporeaBlock).build(consumer);
+		stairs(ModBlocks.corporeaStairs, ModBlocks.corporeaBlock).build(consumer);
+		ShapedRecipeBuilder.shapedRecipe(ModBlocks.corporeaBrick, 4)
+				.key('R', ModBlocks.corporeaBlock)
 				.patternLine("RR")
 				.patternLine("RR")
-				.addCriterion("has_item", hasItem(ModFluffBlocks.corporeaBlock))
+				.addCriterion("has_item", hasItem(ModBlocks.corporeaBlock))
 				.build(consumer);
-		slabShape(ModFluffBlocks.corporeaBrickSlab, ModFluffBlocks.corporeaBrick).build(consumer);
-		stairs(ModFluffBlocks.corporeaBrickStairs, ModFluffBlocks.corporeaBrick).build(consumer);
-		wallShape(ModFluffBlocks.corporeaBrickWall, ModFluffBlocks.corporeaBrick, 6).build(consumer);
+		slabShape(ModBlocks.corporeaBrickSlab, ModBlocks.corporeaBrick).build(consumer);
+		stairs(ModBlocks.corporeaBrickStairs, ModBlocks.corporeaBrick).build(consumer);
+		wallShape(ModBlocks.corporeaBrickWall, ModBlocks.corporeaBrick, 6).build(consumer);
 	}
 
 	private void registerLenses(Consumer<IFinishedRecipe> consumer) {

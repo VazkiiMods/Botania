@@ -124,7 +124,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		stairsBlock(corporeaStairs, prefix("block/corporea_block"));
 		remainingBlocks.remove(corporeaStairs);
 
-		fixedWallBlock((WallBlock) ModFluffBlocks.corporeaBrickWall, prefix("block/corporea_brick"));
+		fixedWallBlock((WallBlock) corporeaBrickWall, prefix("block/corporea_brick"));
 		remainingBlocks.remove(corporeaBrickWall);
 
 		String elfGlassName = Registry.BLOCK.getKey(elfGlass).getPath();
