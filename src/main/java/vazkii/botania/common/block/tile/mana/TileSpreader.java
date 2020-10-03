@@ -289,9 +289,9 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		cmp.putString(TAG_INPUT_KEY, inputKey);
 		cmp.putString(TAG_OUTPUT_KEY, outputKey);
 
-		cmp.putInt(TAG_FORCE_CLIENT_BINDING_X, receiver == null ? 0 : ((TileEntity) receiver).getPos().getX());
-		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Y, receiver == null ? -1 : ((TileEntity) receiver).getPos().getY());
-		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Z, receiver == null ? 0 : ((TileEntity) receiver).getPos().getZ());
+		cmp.putInt(TAG_FORCE_CLIENT_BINDING_X, receiver == null ? 0 : receiver.tileEntity().getPos().getX());
+		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Y, receiver == null ? -1 : receiver.tileEntity().getPos().getY());
+		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Z, receiver == null ? 0 : receiver.tileEntity().getPos().getZ());
 
 		cmp.putBoolean(TAG_MAPMAKER_OVERRIDE, mapmakerOverride);
 		cmp.putInt(TAG_FORCED_COLOR, mmForcedColor);
@@ -560,7 +560,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		}
 
 		if (receiver != null) {
-			TileEntity receiverTile = (TileEntity) receiver;
+			TileEntity receiverTile = receiver.tileEntity();
 			ItemStack recieverStack = new ItemStack(world.getBlockState(receiverTile.getPos()).getBlock());
 			if (!recieverStack.isEmpty()) {
 				String stackName = recieverStack.getDisplayName().getString();
@@ -622,7 +622,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 			return null;
 		}
 
-		TileEntity tile = (TileEntity) receiver;
+		TileEntity tile = receiver.tileEntity();
 		return tile.getPos();
 	}
 

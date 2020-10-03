@@ -8,6 +8,8 @@
  */
 package vazkii.botania.api.mana;
 
+import net.minecraft.tileentity.TileEntity;
+
 /**
  * A TileEntity that implements this is considered a Mana Block.
  * Just being a Mana Block doesn't mean much, look at the other IMana
@@ -20,4 +22,10 @@ public interface IManaBlock {
 	 */
 	public int getCurrentMana();
 
+	/**
+	 * @return the TileEntity underlying this Mana Block
+	 */
+	default TileEntity tileEntity() {
+		return (TileEntity) this;
+	}
 }

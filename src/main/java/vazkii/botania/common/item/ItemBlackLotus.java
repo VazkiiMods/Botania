@@ -12,7 +12,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -48,13 +48,13 @@ public class ItemBlackLotus extends Item implements IManaDissolvable {
 			return;
 		}
 
-		TileEntity tile = (TileEntity) pool;
+		BlockPos pos = pool.tileEntity().getPos();
 		boolean t2 = stack.getItem() == ModItems.blackerLotus;
 
 		if (!item.world.isRemote) {
 			pool.receiveMana(t2 ? MANA_PER_T2 : MANA_PER);
 			stack.shrink(1);
-			PacketHandler.sendToNearby(item.world, item, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.BLACK_LOTUS_DISSOLVE, item.getPosX(), tile.getPos().getY() + 0.5, item.getPosZ()));
+			PacketHandler.sendToNearby(item.world, item, new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.BLACK_LOTUS_DISSOLVE, pos.getX(), pos.getY() + 0.5, pos.getZ()));
 		}
 
 		item.playSound(ModSounds.blackLotus, 0.5F, t2 ? 0.1F : 1F);
