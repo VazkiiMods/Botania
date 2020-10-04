@@ -9,10 +9,9 @@
 package vazkii.botania.api.mana;
 
 /**
- * An item that implements this is an item that can give mana to other items.
- * This is used in botania for the terra shatterer to not be constantly
- * receiving mana from these items..
+ * @deprecated put the item in {@link vazkii.botania.common.lib.ModTags.Items#TERRA_PICK_BLACKLIST} instead.
  */
+@Deprecated
 public interface IManaGivingItem {
 
 }

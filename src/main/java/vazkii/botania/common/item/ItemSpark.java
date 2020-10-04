@@ -16,13 +16,12 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import vazkii.botania.api.mana.IManaGivingItem;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.common.entity.EntitySpark;
 
 import javax.annotation.Nonnull;
 
-public class ItemSpark extends Item implements IManaGivingItem {
+public class ItemSpark extends Item {
 
 	public ItemSpark(Properties builder) {
 		super(builder);
