@@ -25,11 +25,11 @@ import java.util.function.Function;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModTags {
-	private static <T> ITag.INamedTag<T> getOrRegister(List<? extends ITag.INamedTag<T>> list,
-			Function<ResourceLocation, ITag.INamedTag<T>> register,
-			ResourceLocation loc) {
-		for (ITag.INamedTag<T> existing : list) {
-			if (existing.getName().equals(loc)) {
+	private static <T> Tag.Identified<T> getOrRegister(List<? extends Tag.Identified<T>> list,
+			Function<Identifier, Tag.Identified<T>> register,
+			Identifier loc) {
+		for (Tag.Identified<T> existing : list) {
+			if (existing.getId().equals(loc)) {
 				return existing;
 			}
 		}
@@ -58,7 +58,7 @@ public class ModTags {
 		public static final Tag.Identified<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
 		public static final Tag.Identified<Item> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
 
-		public static final ITag.INamedTag<Item> CONTRIBUTOR_HEADFLOWERS = tag("contributor_headflowers");
+		public static final Tag.Identified<Item> CONTRIBUTOR_HEADFLOWERS = tag("contributor_headflowers");
 		public static final Tag.Identified<Item> SPECIAL_FLOWERS = tag("special_flowers");
 		public static final Tag.Identified<Item> MINI_FLOWERS = tag("mini_flowers");
 		public static final Tag.Identified<Item> MISC_SPECIAL_FLOWERS = tag("misc_special_flowers");

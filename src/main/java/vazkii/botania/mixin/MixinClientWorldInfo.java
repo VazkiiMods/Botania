@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.client.core.SkyblockWorldInfo;
 
-@Mixin(ClientWorld.ClientWorldInfo.class)
+@Mixin(ClientWorld.Properties.class)
 public abstract class MixinClientWorldInfo implements SkyblockWorldInfo {
 	private boolean gardenOfGlass;
 

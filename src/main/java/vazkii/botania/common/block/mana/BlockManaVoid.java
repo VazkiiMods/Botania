@@ -39,7 +39,7 @@ public class BlockManaVoid extends BlockMod implements IPoolOverlayProvider, Blo
 	@Override
 	@Environment(EnvType.CLIENT)
 	public Sprite getIcon(World world, BlockPos pos) {
-		return MiscellaneousIcons.INSTANCE.manaVoidOverlay;
+		return MiscellaneousIcons.INSTANCE.manaVoidOverlay.getSprite();
 	}
 
 }

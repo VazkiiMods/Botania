@@ -44,10 +44,10 @@ public class MixinWorldRenderer {
 	@Unique
 	private static boolean isGogSky() {
 		World world = MinecraftClient.getInstance().world;
-		boolean isGog = world.getWorldInfo() instanceof SkyblockWorldInfo && ((SkyblockWorldInfo) world.getWorldInfo()).isGardenOfGlass();
-		return ConfigHandler.CLIENT.enableFancySkybox.get()
+		boolean isGog = world.getLevelProperties() instanceof SkyblockWorldInfo && ((SkyblockWorldInfo) world.getLevelProperties()).isGardenOfGlass();
+		return ConfigHandler.CLIENT.enableFancySkybox.getValue()
 				&& world.getRegistryKey() == World.OVERWORLD
-				&& (ConfigHandler.CLIENT.enableFancySkyboxInNormalWorlds.get() || isGog);
+				&& (ConfigHandler.CLIENT.enableFancySkyboxInNormalWorlds.getValue() || isGog);
 	}
 
 	/**

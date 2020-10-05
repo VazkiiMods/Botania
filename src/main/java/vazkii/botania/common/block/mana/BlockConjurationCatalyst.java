@@ -25,6 +25,6 @@ public class BlockConjurationCatalyst extends BlockAlchemyCatalyst {
 	@Override
 	@Environment(EnvType.CLIENT)
 	public Sprite getIcon(World world, BlockPos pos) {
-		return MiscellaneousIcons.INSTANCE.conjurationCatalystOverlay;
+		return MiscellaneousIcons.INSTANCE.conjurationCatalystOverlay.getSprite();
 	}
 }

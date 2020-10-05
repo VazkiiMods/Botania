@@ -40,7 +40,7 @@ public class RenderTileTerraPlate extends BlockEntityRenderer<TileTerraPlate> {
 		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 5D + 0.6D) * alphaMod;
 
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.TERRA_PLATE);
-		IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.terraPlateOverlay, 1, 1, alpha);
+		IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.terraPlateOverlay.getSprite(), 1, 1, alpha);
 
 		ms.pop();
 	}

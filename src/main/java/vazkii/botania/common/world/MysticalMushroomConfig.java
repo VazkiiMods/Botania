@@ -11,9 +11,9 @@ package vazkii.botania.common.world;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.feature.FeatureConfig;
 
-public class MysticalMushroomConfig implements IFeatureConfig {
+public class MysticalMushroomConfig implements FeatureConfig {
 	public static final Codec<MysticalMushroomConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			Codec.INT.fieldOf("patch_size").forGetter(MysticalMushroomConfig::getMushroomPatchSize)
 	).apply(instance, MysticalMushroomConfig::new));

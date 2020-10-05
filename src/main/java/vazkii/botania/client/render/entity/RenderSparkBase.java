@@ -73,7 +73,7 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 		ms.pop();
 	}
 
-	protected TextureAtlasSprite getBaseIcon(T entity) {
+	protected Sprite getBaseIcon(T entity) {
 		return MiscellaneousIcons.INSTANCE.sparkWorldIcon.getSprite();
 	}
 

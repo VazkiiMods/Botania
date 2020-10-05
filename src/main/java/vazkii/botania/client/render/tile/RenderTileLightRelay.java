@@ -15,8 +15,11 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.Matrix4f;
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -34,7 +37,7 @@ import java.util.Map;
 
 public class RenderTileLightRelay extends BlockEntityRenderer<TileLightRelay> {
 
-	private static final Map<LuminizerVariant, RenderMaterial> sprites = Util.make(new EnumMap<>(LuminizerVariant.class), m -> {
+	private static final Map<LuminizerVariant, SpriteIdentifier> sprites = Util.make(new EnumMap<>(LuminizerVariant.class), m -> {
 		m.put(LuminizerVariant.DEFAULT, MiscellaneousIcons.INSTANCE.lightRelayWorldIcon);
 		m.put(LuminizerVariant.DETECTOR, MiscellaneousIcons.INSTANCE.lightRelayDetectorWorldIcon);
 		m.put(LuminizerVariant.FORK, MiscellaneousIcons.INSTANCE.lightRelayForkWorldIcon);
@@ -49,16 +52,16 @@ public class RenderTileLightRelay extends BlockEntityRenderer<TileLightRelay> {
 	public void render(@Nonnull TileLightRelay tile, float pticks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
 		BlockState state = tile.getCachedState();
 
-		Minecraft mc = Minecraft.getInstance();
+		MinecraftClient mc = MinecraftClient.getInstance();
 
-		if (mc.getRenderViewEntity() instanceof LivingEntity) {
-			LivingEntity view = (LivingEntity) mc.getRenderViewEntity();
+		if (mc.getCameraEntity() instanceof LivingEntity) {
+			LivingEntity view = (LivingEntity) mc.getCameraEntity();
 			if (ItemMonocle.hasMonocle(view) && RenderTileSpecialFlower.hasBindingAttempt(view, tile.getPos())) {
 				RenderTileSpecialFlower.renderRadius(tile, ms, buffers, new RadiusDescriptor.Circle(tile.getPos(), TileLightRelay.MAX_DIST));
 			}
 		}
 
-		TextureAtlasSprite iicon = sprites.get(((BlockLightRelay) state.getBlock()).variant).getSprite();
+		Sprite iicon = sprites.get(((BlockLightRelay) state.getBlock()).variant).getSprite();
 
 		ms.push();
 		ms.translate(0.5, 0.3, 0.5);

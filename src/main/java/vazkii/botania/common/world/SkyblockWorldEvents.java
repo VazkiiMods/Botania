@@ -43,7 +43,7 @@ public final class SkyblockWorldEvents {
 
 	private SkyblockWorldEvents() {}
 
-	private static final ResourceLocation PEBBLE_SOURCES = new ResourceLocation("gardenofglass:pebble_sources");
+	private static final Identifier PEBBLE_SOURCES = new Identifier("gardenofglass:pebble_sources");
 
 	public static void syncGogStatus(EntityJoinWorldEvent evt) {
 		if (evt.getEntity() instanceof ServerPlayerEntity) {
@@ -75,9 +75,9 @@ public final class SkyblockWorldEvents {
 				BlockState state = world.getBlockState(hit.getBlockPos());
 				Block block = state.getBlock();
 
-				ITag<Block> tag = event.getWorld().getTags().func_241835_a().func_241834_b(PEBBLE_SOURCES);
+				Tag<Block> tag = world.getTagManager().getBlocks().getTagOrEmpty(PEBBLE_SOURCES);
 				if (tag.contains(block)) {
-					SoundType st = state.getSoundType(event.getWorld(), event.getPos(), player);
+					BlockSoundGroup st = state.getSoundGroup();
 					player.playSound(st.getBreakSound(), st.getVolume() * 0.4F, st.getPitch() + (float) (Math.random() * 0.2 - 0.1));
 
 					if (world.isClient) {

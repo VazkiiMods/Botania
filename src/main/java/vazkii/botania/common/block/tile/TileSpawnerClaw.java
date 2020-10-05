@@ -116,15 +116,16 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, Tickable 
 									((MobEntity) entity).initialize(serverWorld, world.getLocalDifficulty(entity.getBlockPos()), SpawnReason.SPAWNER, (EntityData) null, (CompoundTag) null);
 								}
 
-							serverWorld.method_30736(entity);
-							world.syncWorldEvent(2004, blockpos, 0);
-							if (entity instanceof MobEntity) {
-								((MobEntity) entity).playSpawnEffects();
-							}
+								serverWorld.method_30736(entity);
+								world.syncWorldEvent(2004, blockpos, 0);
+								if (entity instanceof MobEntity) {
+									((MobEntity) entity).playSpawnEffects();
+								}
 
 								flag = true;
 							}
 						}
+					}
 
 					if (flag) {
 						mLogic.callUpdateSpawns();

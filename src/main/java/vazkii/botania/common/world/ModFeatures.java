@@ -16,6 +16,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.DecoratorConfig;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 
 import vazkii.botania.common.block.ModBlocks;
@@ -29,11 +30,11 @@ public class ModFeatures {
 	public static final Feature<MysticalFlowerConfig> MYSTICAL_FLOWERS = new MysticalFlowerFeature();
 	public static final Feature<MysticalMushroomConfig> MYSTICAL_MUSHROOMS = new MysticalMushroomFeature();
 	public static final ConfiguredFeature<?, ?> MYSTICAL_FLOWERS_CONF = MYSTICAL_FLOWERS
-			.withConfiguration(new MysticalFlowerConfig(2, 2, 6, 16, 0.05))
-			.withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
+			.configure(new MysticalFlowerConfig(2, 2, 6, 16, 0.05))
+			.decorate(Decorator.NOPE.configure(DecoratorConfig.DEFAULT));
 	public static final ConfiguredFeature<?, ?> MYSTICAL_MUSHROOMS_CONF = MYSTICAL_MUSHROOMS
-			.withConfiguration(new MysticalMushroomConfig(40))
-			.withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
+			.configure(new MysticalMushroomConfig(40))
+			.decorate(Decorator.NOPE.configure(DecoratorConfig.DEFAULT));
 
 	// todo 1.16.2 blacklist, this is about the closest to the old one?
 	public static final Set<Biome.Category> TYPE_BLACKLIST = ImmutableSet.of(
@@ -42,7 +43,6 @@ public class ModFeatures {
 			Biome.Category.ICY,
 			Biome.Category.MUSHROOM
 	);
-	 */
 
 	public static void registerFeatures() {
 		Registry<Feature<?>> r = Registry.FEATURE;

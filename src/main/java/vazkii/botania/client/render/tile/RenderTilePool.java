@@ -107,7 +107,7 @@ public class RenderTilePool extends BlockEntityRenderer<TilePool> {
 			ms.scale(s, s, s);
 
 			VertexConsumer buffer = buffers.getBuffer(RenderHelper.MANA_POOL_WATER);
-			IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.manaWater, 16, 16, 1);
+			IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.manaWater.getSprite(), 16, 16, 1);
 
 			ms.pop();
 		}
