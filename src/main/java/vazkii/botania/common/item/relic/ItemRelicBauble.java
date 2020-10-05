@@ -15,11 +15,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-<<<<<<< HEAD
 import net.minecraft.text.Text;
-=======
-import net.minecraft.util.text.ITextComponent;
->>>>>>> 4c77b50dc7c48e2738e9dca513b25bdb627819fb
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IRelic;

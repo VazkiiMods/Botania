@@ -17,11 +17,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.*;
-<<<<<<< HEAD
 import net.minecraft.util.math.Box;
-=======
-import net.minecraft.util.math.AxisAlignedBB;
->>>>>>> 4c77b50dc7c48e2738e9dca513b25bdb627819fb
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 

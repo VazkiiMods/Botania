@@ -78,11 +78,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		super.addArmorSetDescription(stack, list);
 		for (AncientWillType type : AncientWillType.values()) {
 			if (hasAncientWill(stack, type)) {
-<<<<<<< HEAD
 				list.add(new TranslatableText("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".desc").formatted(Formatting.GRAY));
-=======
-				list.add(new TranslationTextComponent("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".desc").mergeStyle(TextFormatting.GRAY));
->>>>>>> 4c77b50dc7c48e2738e9dca513b25bdb627819fb
 			}
 		}
 	}

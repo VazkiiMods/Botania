@@ -10,17 +10,10 @@ package vazkii.botania.common.block.mana;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-<<<<<<< HEAD
 import net.minecraft.block.ShapeContext;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.Shearable;
 import net.minecraft.entity.mob.MobEntity;
-=======
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.IShearable;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.item.ItemEntity;
->>>>>>> 4c77b50dc7c48e2738e9dca513b25bdb627819fb
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.MooshroomEntity;
 import net.minecraft.item.Item;
