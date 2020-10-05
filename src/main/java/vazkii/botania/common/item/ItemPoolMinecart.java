@@ -30,7 +30,7 @@ public class ItemPoolMinecart extends Item {
 		super(builder);
 	}
 
-	// [VanillaCopy] ItemMinecart
+	// [VanillaCopy] MinecartItem
 	@Nonnull
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext context) {

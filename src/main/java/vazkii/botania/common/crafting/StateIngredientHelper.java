@@ -43,7 +43,7 @@ public class StateIngredientHelper {
 	}
 
 	public static StateIngredient of(Tag.Identified<Block> tag) {
-		return new StateIngredientTag(tag);
+		return of(tag.getName());
 	}
 
 	public static StateIngredient of(Identifier id) {
@@ -57,7 +57,7 @@ public class StateIngredientHelper {
 	public static StateIngredient deserialize(JsonObject object) {
 		switch (JsonHelper.getString(object, "type")) {
 		case "tag":
-			return new StateIngredientTag(TagRegistry.create(new Identifier(JsonHelper.getString(object, "tag")), BlockTags::getTagGroup));
+			return new StateIngredientTag(new Identifier(JsonHelper.getString(object, "tag")));
 		case "block":
 			return new StateIngredientBlock(Registry.BLOCK.get(new Identifier(JsonHelper.getString(object, "block"))));
 		case "state":

@@ -422,6 +422,8 @@
   "advancement.botania:lokiRingMany.desc": "Place over 255 additional blocks at once with the Ring of Loki",
   "advancement.botania:alfPortalBread": "That's Why I Baked Bread",
   "advancement.botania:alfPortalBread.desc": "Send the elves bread",
+  "advancement.botania:old_flower_pickup": "Deja Vu",
+  "advancement.botania:old_flower_pickup.desc": "Discover the Daybloom Motif or Nightshade Motif",
 
   "advancement.botania:desuGun": "Two-Faced Lovers",
   "advancement.botania:desuGun.desc": "ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN",
@@ -869,6 +871,9 @@
   "block.botania.green_pavement_slab": "Green Portuguese Pavement Slab",
   "block.botania.cell_block": "Cellular Block",
   "block.botania.gaia_head": "Gaia Guardian's Head",
+  "block.botania.corporea_block": "Corporea Block",
+  "block.botania.corporea_brick": "Corporea Brick",
+  "block.botania.corporea_slab": "Corporea Slab",
   "block.botania.corporea_retainer": "Corporea Retainer",
   "block.botania.mana_glass_pane": "Managlass Pane",
   "block.botania.elf_glass_pane": "Alfglass Pane",
@@ -1038,6 +1043,11 @@
   "block.botania.bergamute": "Bergamute",
   "block.botania.bergamute.reference": "My lips are sealed",
   "block.botania.floating_bergamute": "Floating Bergamute",
+  "block.botania.daybloom_motif": "Daybloom Motif",
+  "block.botania.nightshade_motif": "Nightshade Motif",
+  "block.botania.hydroangeas_motif": "Hydroangeas Motif",
+  "block.botania.daybloom_motif.description": "Decorative flower from a bygone era",
+  "block.botania.hydroangeas_motif.description": "Decorative, does not decay",
 
   "item.botania.lexicon": "Lexica Botania",
   "item.botania.lexicon.bevo": "Lexica Botana",
@@ -2152,7 +2162,7 @@
 
   "botania.entry.arcanerose": "Rosa Arcana",
   "botania.tagline.arcanerose": "Mana from experience",
-  "botania.page.arcanerose0": "$(thing)Experience Points$(0) contain a magic of their own. The $(item)Rosa Arcana$(0) can tap into this magic, absorbing the experience of nearby players and turning it into $(item)Mana$(0).$(p)It can also synthesize mana from experience orbs in the world without requiring a player present; however, this method nets you a bit less mana for the same experience.",
+  "botania.page.arcanerose0": "$(thing)Experience Points$(0) contain a magic of their own. The $(item)Rosa Arcana$(0) can tap into this magic, absorbing the experience of nearby players and turning it into $(item)Mana$(0).$(p)It can also synthesize mana from experience orbs and enchanted items in the world; however, this method nets you a bit less mana for the same experience.",
   "botania.page.arcanerose1": "$(o)When this flower is planted, toss a coin$().",
 
   "botania.entry.munchdew": "Munchdew",
@@ -2694,7 +2704,7 @@
 
   "botania.entry.obedienceStick": "Floral Obedience Stick",
   "botania.tagline.obedienceStick": "Binding flowers to a location en masse",
-  "botania.page.obedienceStick0": "For some inexplicable reason, a piece of $(item)Manasteel$(0), when stuck on the end of a few $(item)Livingwood Twigs$(0), is a thing flowers $(o)pay attention to$().$(p)When tapped on a $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l) or $(l:mana/pool)$(item)Mana Pool$(0)$(/l), this device (dubbed the $(item)Floral Obedience Stick$(0)) binds all nearby $(thing)Generating$(0) or $(thing)Functional$(0) flowers, respectively, to its respective thing.",
+  "botania.page.obedienceStick0": "For some inexplicable reason, a piece of $(item)Manasteel$(0) attached to some $(item)Livingwood Twigs$(0) is a thing flowers $(o)pay attention to$().$(p)When used on a $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l) or $(l:mana/pool)$(item)Mana Pool$(0)$(/l), this tool (dubbed the $(item)Floral Obedience Stick$(0)) binds all nearby $(thing)Generating$(0) or $(thing)Functional$(0) flowers, respectively, to that block.$(p)A $(item)Dispenser$(0) can also use a $(item)Floral Obedience Stick$(0).",
   "botania.page.obedienceStick1": "Generate, or else!",
 
   "botania.entry.slimeBottle": "Slime in a Bottle",
@@ -2808,6 +2818,10 @@
   "botania.page.corporea6": "Visualizing a Network and removing a spark from a container are performed the same way they are on ordinary $(l:mana/sparks)$(item)Sparks$(0)$(/l).$(p)Note that having two $(item)Master Corporea Sparks$(0) in the same network is a bad idea and can cause $(o)undefined behavior$().",
   "botania.page.corporea7": "A spark of ingenuity",
   "botania.page.corporea8": "Love-colored",
+
+  "botania.entry.corporeaBlock": "Corporea Decor",
+  "botania.page.corporeaBlock0": "Ordinary $(thing)Livingrock Bricks$(0) can be combined with a $(thing)Corporea Spark$(0) to produce some decorative blocks. These blocks, besides their uses for decoration, have the unique property that they can support $(thing)Corporea Sparks$(0) above themselves, even though they have no inventory. Thus, they can be used as a cheap, lag-free way to extend your $(thing)Corporea$(0) networks over long distances.",
+  "botania.page.corporeaBlock1": "Incorporeal",
 
   "botania.entry.corporeaIndex": "Corporea Index",
   "botania.tagline.corporeaIndex": "Request items from a Corporea network via chat",
@@ -3166,7 +3180,7 @@
   "botania.tagline.lokiRing": "The power to be here. And there. And over there, too",
   "botania.page.lokiRing0": "One of the three mythical rings of the $(thing)Aesir$(0), the $(item)Ring of Loki$(0) allows for the wearer to call upon the Trickster God's ability to effectively be in multiple places at once.$(p)To use an equipped $(item)Ring of Loki$(0), begin by sneak-righting click a block with an empty hand.",
   "botania.page.lokiRing1": "Once a block is selected (designated the \"origin\"), sneak-right clicking other blocks will store their offsets from the origin in the ring. To finish the procedure, sneak-right click the origin again.$(p)Sneak-right clicking a stored block during the selection process will remove it from the ring's memory. To clear a completed selection, just sneak-right click the ground twice.",
-  "botania.page.lokiRing2": "After the selection is complete, multiple boxes in wireframe will be visible, moving relative to the looked-at block. When a block is placed while sneaking, all wireframe locations will have blocks placed there, too, allowing for placement $(o)en masse$(). The $(l:tools/terra_pick)$(item)Terra Shatterer$(0)$(/l) and $(l:tools/terra_axe)$(item)Terra Truncator$(0)$(/l) will also break blocks at these locations, allowing for truly ludicrous quantities of destruction.",
+  "botania.page.lokiRing2": "After the selection is complete, multiple boxes in wireframe will be visible, moving relative to the looked-at block. When a block is placed while sneaking, all wireframe locations will have blocks placed there, too, allowing for placement $(o)en masse$(). The $(l:tools/terra_pick)$(item)Terra Shatterer$(0)$(/l) and $(l:tools/terra_axe)$(item)Terra Truncator$(0)$(/l) will also break blocks at these locations when sneaking, allowing for truly ludicrous quantities of destruction.",
   "botania.page.lokiRing3": "Such power doesn't come for free, of course. The ring consumes $(thing)Mana$(0) from the user's inventory for each block placed. Note that the larger the current selection, the more expensive each placed block becomes.",
 
   "botania.entry.odinRing": "Ring of Odin",
@@ -3288,6 +3302,7 @@
   "botania.subtitle.airRod": "Rod of the Skies whooshes",
   "botania.subtitle.agricarnation": "Agricarnation glimmers",
   "botania.subtitle.altarCraft": "Petal Apothecary finishes",
+  "botania.subtitle.arcane_rose_disenchant": "Rosa Arcana disenchants",
   "botania.subtitle.babylonAttack": "Key of King's Law unleashed",
   "botania.subtitle.babylonSpawn": "Key of King's Law activated",
   "botania.subtitle.bellows": "Manatide Bellows hisses",

@@ -123,4 +123,10 @@ public abstract class TileExposedSimpleInventory extends TileSimpleInventory imp
 	public boolean canExtract(int index, @Nonnull ItemStack stack, @Nullable Direction direction) {
 		return true;
 	}
+
+	@Nonnull
+	@Override
+	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+		return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(cap, LazyOptional.of(() -> new SidedInvWrapper(this, side)));
+	}
 }

@@ -33,6 +33,7 @@ public final class PacketHandler {
 		ClientSidePacketRegistry.INSTANCE.register(PacketSpawnEntity.ID, PacketSpawnEntity::handle);
 		ClientSidePacketRegistry.INSTANCE.register(PacketSpawnDoppleganger.ID, PacketSpawnDoppleganger::handle);
 		ClientSidePacketRegistry.INSTANCE.register(PacketUpdateItemsRemaining.ID, PacketUpdateItemsRemaining::handle);
+		ClientSidePacketRegistry.INSTANCE.register(PacketGogWorld.ID, PacketGogWorld::handle);
 	}
 
 	private PacketHandler() {}

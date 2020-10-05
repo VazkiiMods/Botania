@@ -8,9 +8,15 @@
  */
 package vazkii.botania.mixin;
 
+<<<<<<< HEAD
 import net.minecraft.entity.Entity;
 import net.minecraft.world.MobSpawnerEntry;
 import net.minecraft.world.MobSpawnerLogic;
+=======
+import net.minecraft.util.WeightedSpawnerEntity;
+import net.minecraft.world.spawner.AbstractSpawner;
+
+>>>>>>> 4c77b50dc7c48e2738e9dca513b25bdb627819fb
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;

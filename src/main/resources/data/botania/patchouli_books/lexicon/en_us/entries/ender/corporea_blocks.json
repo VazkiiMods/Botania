@@ -1,0 +1,23 @@
+{
+  "name": "botania.entry.corporeaBlock",
+  "category": "botania:ender",
+  "icon": "botania:corporea_block",
+  "entry_color": "aa00",
+  "advancement": "botania:main/elf_lexicon_pickup",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.corporeaBlock0"
+    },
+    {
+      "type": "crafting",
+      "recipe": "botania:corporea_block",
+      "recipe2": "botania:corporea_slab"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.corporeaBlock1",
+      "recipe": "botania:corporea_brick"
+    }
+  ]
+}

@@ -33,13 +33,14 @@ public class BehaviourSeeds extends ItemDispenserBehavior {
 		BlockPos pos = source.getBlockPos().offset(facing);
 		World world = source.getWorld();
 
+		setSuccessful(false);
 		if (world.isAir(pos) && block.getDefaultState().canPlaceAt(world, pos)) {
 			world.setBlockState(pos, block.getDefaultState());
 			stack.decrement(1);
-			return stack;
+			setSuccessful(true);
 		}
 
-		return super.dispenseSilently(source, stack);
+        return stack;
 	}
 
 }

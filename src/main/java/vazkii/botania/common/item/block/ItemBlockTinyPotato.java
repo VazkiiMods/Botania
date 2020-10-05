@@ -20,12 +20,15 @@ import net.minecraft.world.World;
 
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.regex.Pattern;
 
 public class ItemBlockTinyPotato extends BlockItem {
 
-	private static final List<String> TYPOS = Arrays.asList("vaskii", "vazki", "voskii", "vazkkii", "vazkki", "vazzki", "vaskki", "vozkii", "vazkil", "vaskil", "vazkill", "vaskill", "vaski");
+	private static final Pattern TYPOS = Pattern.compile(
+			"(?!^vazkii$)" // Do not match the properly spelled version 
+					+ "^v[ao]{1,2}[sz]{0,2}[ak]{1,2}(i){1,2}l{0,2}$",
+			Pattern.CASE_INSENSITIVE
+	);
 
 	private static final String[] NOT_MY_NAME = {
 			"Six letter word just to get me along",
@@ -55,7 +58,8 @@ public class ItemBlockTinyPotato extends BlockItem {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity e, int t, boolean idunno) {
-		if (!world.isClient && e instanceof PlayerEntity && e.age % 30 == 0 && TYPOS.contains(stack.getName().getString().toLowerCase())) {
+		if (!world.isClient && e instanceof PlayerEntity && e.age % 30 == 0
+				&& TYPOS.matcher(stack.getDisplayName().getString()).matches()) {
 			PlayerEntity player = (PlayerEntity) e;
 			int ticks = ItemNBTHelper.getInt(stack, TAG_TICKS, 0);
 			if (ticks < NOT_MY_NAME.length) {

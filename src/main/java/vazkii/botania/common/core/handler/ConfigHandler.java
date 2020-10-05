@@ -32,6 +32,9 @@ import static io.github.fablabsmc.fablabs.api.fiber.v1.schema.type.derived.Confi
 import java.util.Collections;
 import java.util.List;
 
+import java.util.Collections;
+import java.util.List;
+
 public final class ConfigHandler {
 	private static void writeDefaultConfig(ConfigTree config, Path path, JanksonValueSerializer serializer) {
 		try (OutputStream s = new BufferedOutputStream(Files.newOutputStream(path, StandardOpenOption.WRITE, StandardOpenOption.CREATE_NEW))) {
@@ -196,6 +199,7 @@ public final class ConfigHandler {
 		public final PropertyMirror<Boolean> gogSpawnWithLexicon = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Integer> gogIslandScaleMultiplier = PropertyMirror.create(INTEGER);
 		public final PropertyMirror<List<String>> orechidPriorityMods = PropertyMirror.create(ConfigTypes.makeList(STRING));
+		public final PropertyMirror<Boolean> worldgenEnabled = PropertyMirror.create(BOOLEAN);
 
 		public ConfigTree configure(ConfigTreeBuilder builder) {
 			builder.fork("blockBreakingParticles")
@@ -227,32 +231,10 @@ public final class ConfigHandler {
 				.withComment("The harvest level of the Mana Lens: Bore. 3 is diamond level. Defaults to 3")
 				.finishValue(harvestLevelBore::mirror)
 			.finishBranch()
-
-			.fork("worldgen")
-				.beginValue("flower.quantity", NATURAL, 2)
-				.withComment("The quantity of Botania flower patches to generate in the world, defaults to 2, the lower the number the less patches generate.")
-				.finishValue(flowerQuantity::mirror)
-
-				.beginValue("flower.density", NATURAL, 2)
-				.withComment("The density of each Botania flower patch generated, defaults to 2, the lower the number, the less each patch will have.")
-				.finishValue(flowerDensity::mirror)
-
-				.beginValue("flower.patchSize", NATURAL, 6)
-				.withComment("The size of each Botania flower patch, defaults to 6. The larger this is the farther the each patch can spread")
-				.finishValue(flowerPatchSize::mirror)
-
-				.beginValue("flower.patchChance", NATURAL, 16)
-				.withComment("The inverse chance for a Botania flower patch to be generated, defaults to 16. The higher this value is the less patches will exist and the more flower each will have.")
-				.finishValue(flowerPatchChance::mirror)
-
-				.beginValue("flower.tallChance", DOUBLE.withMinimum(0.0).withMaximum(1.0), 0.05)
-				.withComment("The chance for a Botania flower generated in a patch to be a tall flower. 0.1 is 10%, 1 is 100%. Defaults to 0.05")
-				.finishValue(flowerTallChance::mirror)
-
-				.beginValue("mushroom.quantity", NATURAL, 40)
-				.withComment("The quantity of Botania mushrooms to generate underground, in the world, defaults to 40, the lower the number the less patches generate.")
-				.finishValue(mushroomQuantity::mirror)
-			.finishBranch()
+            
+            .beginValue("worldgen", BOOLEAN, true)
+            .comment("Set this to false to disable mystical flower and mushroom worldgen. More fine-tuned customization should be done with datapacks.")
+            .finishValue(worldgenEnabled::mirror)
 
 			.beginValue("chargeAnimation", BOOLEAN, true)
 			.withComment("Set this to false to disable the animation when an item is charging on top of a mana pool")

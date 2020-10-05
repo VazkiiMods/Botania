@@ -71,13 +71,12 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
 				.criterion("has_alt_item", conditionsFromItem(ModBlocks.dreamwood))
 				.offerTo(consumer);
-		ShapedRecipeJsonFactory.create(ModBlocks.gaiaSpreader)
-				.input('S', ModBlocks.elvenSpreader)
-				.input('D', ModTags.Items.GEMS_DRAGONSTONE)
-				.input('E', ModItems.lifeEssence)
-				.pattern("ESD")
+        ShapelessRecipeJsonFactory.create(ModBlocks.gaiaSpreader)
+				.input(ModBlocks.elvenSpreader)
+				.input(ModTags.Items.GEMS_DRAGONSTONE)
+				.input(ModItems.lifeEssence)
 				.group("botania:spreader")
-				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
+				.criterion("has_item", hasItem(ModItems.lifeEssence))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModBlocks.manaPool)
 				.input('R', ModTags.Items.LIVINGROCK)
@@ -752,44 +751,44 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				ModBlocks.limeMushroom, ModBlocks.pinkMushroom, ModBlocks.grayMushroom, ModBlocks.lightGrayMushroom,
 				ModBlocks.cyanMushroom, ModBlocks.purpleMushroom, ModBlocks.blueMushroom, ModBlocks.brownMushroom,
 				ModBlocks.greenMushroom, ModBlocks.redMushroom, ModBlocks.blackMushroom);
-		ShapelessRecipeJsonFactory.create(Items.MUSHROOM_STEW)
-				.input(mushrooms, 2)
-				.input(Items.BOWL)
-				.criterion("has_item", conditionsFromItem(Items.BOWL))
-				.criterion("has_orig_recipe", RecipeUnlockedCriterion.create(new Identifier("mushroom_stew")))
-				.offerTo(consumer, "botania:mushroom_stew");
+		ShapelessRecipeBuilder.shapelessRecipe(Items.MUSHROOM_STEW)
+				.addIngredient(mushrooms, 2)
+				.addIngredient(Items.BOWL)
+				.addCriterion("has_item", hasItem(Items.BOWL))
+				.addCriterion("has_orig_recipe", RecipeUnlockedTrigger.create(new ResourceLocation("mushroom_stew")))
+				.build(consumer, "botania:mushroom_stew");
 
-		ShapedRecipeJsonFactory.create(Items.COBWEB)
-				.input('S', Items.STRING)
-				.input('M', ModItems.manaString)
-				.pattern("S S")
-				.pattern(" M ")
-				.pattern("S S")
-				.criterion("has_item", conditionsFromItem(ModItems.manaString))
-				.offerTo(consumer, prefix("cobweb"));
+		ShapedRecipeBuilder.shapedRecipe(Items.COBWEB)
+				.key('S', Items.STRING)
+				.key('M', ModItems.manaString)
+				.patternLine("S S")
+				.patternLine(" M ")
+				.patternLine("S S")
+				.addCriterion("has_item", hasItem(ModItems.manaString))
+				.build(consumer, prefix("cobweb"));
 
-		ShapedRecipeJsonFactory.create(ModBlocks.defaultAltar)
-				.input('P', ModTags.Items.PETALS)
-				.input('S', Items.COBBLESTONE_SLAB)
-				.input('C', Tags.Items.COBBLESTONE)
-				.pattern("SPS")
-				.pattern(" C ")
-				.pattern("CCC")
-				.criterion("has_item", conditionsFromTag(ModTags.Items.PETALS))
-				.offerTo(consumer);
+		ShapedRecipeBuilder.shapedRecipe(ModBlocks.defaultAltar)
+				.key('P', ModTags.Items.PETALS)
+				.key('S', Items.COBBLESTONE_SLAB)
+				.key('C', Tags.Items.COBBLESTONE)
+				.patternLine("SPS")
+				.patternLine(" C ")
+				.patternLine("CCC")
+				.addCriterion("has_item", hasItem(ModTags.Items.PETALS))
+				.build(consumer);
 		for (String metamorphicVariant : LibBlockNames.METAMORPHIC_VARIANTS) {
-			Block altar = Registry.BLOCK.getOrEmpty(prefix("apothecary_" + metamorphicVariant.replaceAll("_", ""))).get();
-			Block cobble = Registry.BLOCK.getOrEmpty(prefix(LibBlockNames.METAMORPHIC_PREFIX + metamorphicVariant + "_cobblestone")).get();
-			ShapedRecipeJsonFactory.create(altar)
-					.input('A', ModBlocks.defaultAltar)
-					.input('S', cobble)
-					.pattern("SSS")
-					.pattern("SAS")
-					.pattern("SSS")
-					.group("botania:metamorphic_apothecary")
-					.criterion("has_item", conditionsFromItem(cobble))
-					.criterion("has_flower_item", conditionsFromItem(ModSubtiles.marimorphosis))
-					.offerTo(consumer);
+			Block altar = Registry.BLOCK.func_241873_b(prefix("apothecary_" + metamorphicVariant.replaceAll("_", ""))).get();
+			Block cobble = Registry.BLOCK.func_241873_b(prefix(LibBlockNames.METAMORPHIC_PREFIX + metamorphicVariant + "_cobblestone")).get();
+			ShapedRecipeBuilder.shapedRecipe(altar)
+					.key('A', ModBlocks.defaultAltar)
+					.key('S', cobble)
+					.patternLine("SSS")
+					.patternLine("SAS")
+					.patternLine("SSS")
+					.setGroup("botania:metamorphic_apothecary")
+					.addCriterion("has_item", hasItem(cobble))
+					.addCriterion("has_flower_item", hasItem(ModSubtiles.marimorphosis))
+					.build(consumer);
 		}
 		for (DyeColor color : DyeColor.values()) {
 			ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.getShinyFlower(color))

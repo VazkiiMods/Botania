@@ -14,6 +14,7 @@ import net.minecraft.data.server.BlockTagsProvider;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.registry.Registry;
+import net.minecraftforge.common.Tags;
 
 import vazkii.botania.common.block.BlockAltGrass;
 import vazkii.botania.common.block.BlockFloatingSpecialFlower;

@@ -43,7 +43,6 @@ public class WorldTypeSkyblock extends GeneratorType {
 		return 1.0D;
 	}
 	*/
-
 	@Override
 	protected ChunkGenerator getChunkGenerator(Registry<Biome> biomes, Registry<ChunkGeneratorSettings> noiseSettings, long seed) {
 		return new SkyblockChunkGenerator(new VanillaLayeredBiomeSource(seed, false, false, biomes), seed,

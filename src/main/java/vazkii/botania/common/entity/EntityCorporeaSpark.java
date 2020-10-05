@@ -297,6 +297,24 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 		}
 	}
 
+	@Override
+	public void setNetwork(DyeColor color) {
+		if (color == getNetwork()) {
+			return;
+		}
+
+		super.setNetwork(color);
+
+		// Do not access world during deserialization
+		if (!firstTick) {
+			if (isMaster()) {
+				restartNetwork();
+			} else {
+				findNetwork();
+			}
+		}
+	}
+
 	@Nonnull
 	@Override
 	public Packet<?> createSpawnPacket() {

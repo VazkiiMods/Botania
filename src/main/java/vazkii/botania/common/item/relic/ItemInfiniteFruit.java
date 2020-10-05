@@ -63,7 +63,7 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 		PlayerEntity player = (PlayerEntity) living;
 		if (ManaItemHandler.instance().requestManaExact(stack, player, 500, true)) {
 			if (count % 5 == 0) {
-				player.getHungerManager().add(1, 1F);
+				player.getHungerManager().add(2, 2.4F);
 			}
 
 			if (count == 5) {

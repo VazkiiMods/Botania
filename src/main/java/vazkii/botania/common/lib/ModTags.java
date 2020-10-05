@@ -19,9 +19,24 @@ import net.minecraft.tag.Tag;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 
+import java.util.List;
+import java.util.function.Function;
+
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModTags {
+	private static <T> ITag.INamedTag<T> getOrRegister(List<? extends ITag.INamedTag<T>> list,
+			Function<ResourceLocation, ITag.INamedTag<T>> register,
+			ResourceLocation loc) {
+		for (ITag.INamedTag<T> existing : list) {
+			if (existing.getName().equals(loc)) {
+				return existing;
+			}
+		}
+
+		return register.apply(loc);
+	}
+
 	public static class Items {
 		public static final Tag.Identified<Item> DUSTS_MANA = forgeTag("dusts/mana");
 
@@ -39,11 +54,11 @@ public class ModTags {
 		public static final Tag.Identified<Item> BLOCKS_ELEMENTIUM = forgeTag("storage_blocks/elementium");
 		public static final Tag.Identified<Item> BLOCKS_MANASTEEL = forgeTag("storage_blocks/manasteel");
 		public static final Tag.Identified<Item> BLOCKS_TERRASTEEL = forgeTag("storage_blocks/terrasteel");
-		public static final Tag.Identified<Item> BLOCKS_QUARTZ = forgeTag("storage_blocks/quartz");
 
 		public static final Tag.Identified<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
 		public static final Tag.Identified<Item> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
 
+		public static final ITag.INamedTag<Item> CONTRIBUTOR_HEADFLOWERS = tag("contributor_headflowers");
 		public static final Tag.Identified<Item> SPECIAL_FLOWERS = tag("special_flowers");
 		public static final Tag.Identified<Item> MINI_FLOWERS = tag("mini_flowers");
 		public static final Tag.Identified<Item> MISC_SPECIAL_FLOWERS = tag("misc_special_flowers");
@@ -60,8 +75,6 @@ public class ModTags {
 
 		public static final Tag.Identified<Item> MAGNET_RING_BLACKLIST = tag("magnet_ring_blacklist");
 		public static final Tag.Identified<Item> LOONIUM_BLACKLIST = tag("loonium_blacklist");
-
-		public static final Tag.Identified<Item> SHEARS = forgeTag("shears");
 
 		public static final Tag.Identified<Item> DISPOSABLE = tag("disposable");
 		public static final Tag.Identified<Item> SEMI_DISPOSABLE = tag("semi_disposable");
@@ -172,7 +185,6 @@ public class ModTags {
 		public static final Tag.Identified<Block> BLOCKS_ELEMENTIUM = forgeTag("storage_blocks/elementium");
 		public static final Tag.Identified<Block> BLOCKS_MANASTEEL = forgeTag("storage_blocks/manasteel");
 		public static final Tag.Identified<Block> BLOCKS_TERRASTEEL = forgeTag("storage_blocks/terrasteel");
-		public static final Tag.Identified<Block> BLOCKS_QUARTZ = forgeTag("storage_blocks/quartz");
 
 		public static final Tag.Identified<Block> GAIA_BREAK_BLACKLIST = tag("gaia_break_blacklist");
 		public static final Tag.Identified<Block> MAGNET_RING_BLACKLIST = tag("magnet_ring_blacklist");
@@ -193,6 +205,10 @@ public class ModTags {
 	public static class Entities {
 		public static final Tag.Identified<EntityType<?>> SHADED_MESA_BLACKLIST = tag("shaded_mesa_blacklist");
 
+		public static final Tag.Identified<EntityType<?>> COCOON_COMMON = tag("cocoon/common");
+		public static final Tag.Identified<EntityType<?>> COCOON_RARE = tag("cocoon/rare");
+		public static final Tag.Identified<EntityType<?>> COCOON_COMMON_AQUATIC = tag("cocoon/common_aquatic");
+		public static final Tag.Identified<EntityType<?>> COCOON_RARE_AQUATIC = tag("cocoon/rare_aquatic");
 		private static Tag.Identified<EntityType<?>> tag(String name) {
 			return TagRegistry.create(prefix(name), EntityTypeTags::getTagGroup);
 		}

@@ -144,6 +144,9 @@ public final class LibBlockNames {
 			"forest", "plains", "mountain", "fungal",
 			"swamp", "desert", "taiga", "mesa"
 	};
+	public static final String CORPOREA_BLOCK = "corporea_block";
+	public static final String CORPOREA_BRICK = "corporea_brick";
+	public static final String CORPOREA_SLAB = "corporea_slab";
 	public static final String SLAB_SUFFIX = "_slab";
 	public static final String STAIR_SUFFIX = "_stairs";
 	public static final String WALL_SUFFIX = "_wall";
@@ -193,6 +196,10 @@ public final class LibBlockNames {
 	public static final Identifier SUBTILE_BUBBELL = prefix("bubbell");
 	public static final Identifier SUBTILE_SOLEGNOLIA = prefix("solegnolia");
 	public static final Identifier SUBTILE_ORECHID_IGNEM = prefix("orechid_ignem");
+
+	public static final String MOTIF_DAYBLOOM = "daybloom_motif";
+	public static final String MOTIF_NIGHTSHADE = "nightshade_motif";
+	public static final String MOTIF_HYDROANGEAS = "hydroangeas_motif";
 
 	public static final String QUARTZ_DARK = "dark_quartz";
 	public static final String QUARTZ_MANA = "mana_quartz";

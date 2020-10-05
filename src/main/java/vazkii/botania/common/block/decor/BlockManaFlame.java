@@ -102,6 +102,39 @@ public class BlockManaFlame extends BlockMod implements BlockEntityProvider {
 		}
 	}
 
+	@Override
+	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
+		BlockEntity te = world.getBlockEntity(pos);
+		if (te instanceof TileManaFlame) {
+			int color = ((TileManaFlame) te).getColor();
+			float v = 0.1F;
+
+			float r = (float) (color >> 16 & 0xFF) / 0xFF;
+			float g = (float) (color >> 8 & 0xFF) / 0xFF;
+			float b = (float) (color & 0xFF) / 0xFF;
+
+			double luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b; // Standard relative luminance calculation
+
+			if (luminance < v) {
+				r += (float) Math.random() * 0.125F;
+				g += (float) Math.random() * 0.125F;
+				b += (float) Math.random() * 0.125F;
+			}
+
+			float w = 0.15F;
+			float h = 0.05F;
+			double x = pos.getX() + 0.5 + (Math.random() - 0.5) * w;
+			double y = pos.getY() + 0.25 + (Math.random() - 0.5) * h;
+			double z = pos.getZ() + 0.5 + (Math.random() - 0.5) * w;
+
+			float s = 0.2F + (float) Math.random() * 0.1F;
+			float m = 0.03F + (float) Math.random() * 0.015F;
+
+			WispParticleData data = WispParticleData.wisp(s, r, g, b, 1);
+			Botania.proxy.addParticleForceNear(world, data, x, y, z, 0, m, 0);
+		}
+	}
+
 	@Nonnull
 	@Override
 	public BlockEntity createBlockEntity(@Nonnull BlockView world) {

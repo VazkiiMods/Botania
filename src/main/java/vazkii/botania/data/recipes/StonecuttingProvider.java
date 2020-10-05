@@ -58,6 +58,8 @@ public class StonecuttingProvider extends RecipesProvider {
 			registerForQuartz(variant, consumer);
 		}
 
+		consumer.accept(stonecutting(ModBlocks.corporeaBlock, ModBlocks.corporeaBrick));
+		consumer.accept(stonecutting(ModBlocks.corporeaBlock, ModBlocks.corporeaSlab, 2));
 		consumer.accept(stonecutting(ModBlocks.shimmerrock, ModFluffBlocks.shimmerrockSlab, 2));
 		consumer.accept(stonecutting(ModBlocks.shimmerrock, ModFluffBlocks.shimmerrockStairs));
 		consumer.accept(stonecutting(ModBlocks.livingrock, ModFluffBlocks.livingrockSlab, 2));

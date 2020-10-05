@@ -15,43 +15,29 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 
 public class MysticalFlowerConfig implements FeatureConfig {
 	public static final Codec<MysticalFlowerConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-			Codec.INT.fieldOf("flower_patch_size").forGetter(MysticalFlowerConfig::getFlowerPatchSize),
-			Codec.INT.fieldOf("mushroom_patch_size").forGetter(MysticalFlowerConfig::getMushroomPatchSize),
+			Codec.INT.fieldOf("patch_radius").forGetter(MysticalFlowerConfig::getPatchRadius),
 			Codec.INT.fieldOf("patch_count").forGetter(MysticalFlowerConfig::getPatchCount),
 			Codec.INT.fieldOf("patch_density").forGetter(MysticalFlowerConfig::getPatchDensity),
 			Codec.INT.fieldOf("patch_chance").forGetter(MysticalFlowerConfig::getPatchChance),
 			Codec.DOUBLE.fieldOf("tall_chance").forGetter(MysticalFlowerConfig::getTallChance)
 	).apply(instance, MysticalFlowerConfig::new));
 
-	private final int flowerPatchSize;
-	private final int mushroomPatchSize;
+	private final int patchRadius;
 	private final int patchCount;
 	private final int patchDensity;
 	private final int patchChance;
 	private final double tallChance;
 
-	public static MysticalFlowerConfig fromConfig() {
-		return new MysticalFlowerConfig(
-				ConfigHandler.COMMON.flowerPatchSize.getValue(),
-				ConfigHandler.COMMON.mushroomQuantity.getValue(),
-				ConfigHandler.COMMON.flowerPatchSize.getValue(),
-				ConfigHandler.COMMON.flowerDensity.getValue(),
-				ConfigHandler.COMMON.flowerPatchChance.getValue(),
-				ConfigHandler.COMMON.flowerTallChance.getValue()
-		);
-	}
-
-	public MysticalFlowerConfig(int flowerPatchSize, int mushroomPatchSize, int patchCount, int patchDensity, int patchChance, double tallChance) {
-		this.flowerPatchSize = flowerPatchSize;
-		this.mushroomPatchSize = mushroomPatchSize;
+	public MysticalFlowerConfig(int patchRadius, int patchCount, int patchDensity, int patchChance, double tallChance) {
+		this.patchRadius = patchRadius;
 		this.patchCount = patchCount;
 		this.patchDensity = patchDensity;
 		this.patchChance = patchChance;
 		this.tallChance = tallChance;
 	}
 
-	public int getFlowerPatchSize() {
-		return flowerPatchSize;
+	public int getPatchRadius() {
+		return patchRadius;
 	}
 
 	public int getPatchCount() {
@@ -68,9 +54,5 @@ public class MysticalFlowerConfig implements FeatureConfig {
 
 	public double getTallChance() {
 		return tallChance;
-	}
-
-	public int getMushroomPatchSize() {
-		return mushroomPatchSize;
 	}
 }

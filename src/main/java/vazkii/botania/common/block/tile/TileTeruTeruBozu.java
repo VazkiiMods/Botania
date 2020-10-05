@@ -11,6 +11,8 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Tickable;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldProperties;
+import net.minecraft.world.level.ServerWorldProperties;
 
 public class TileTeruTeruBozu extends TileMod implements Tickable {
 	private boolean wasRaining = false;
@@ -39,6 +41,9 @@ public class TileTeruTeruBozu extends TileMod implements Tickable {
 
 	public static void resetRainTime(World w) {
 		int time = w.random.nextInt(w.getLevelProperties().isRaining() ? 12000 : 168000) + 12000;
-		((ServerWorld) w).getServer().getSaveProperties().getMainWorldProperties().setRainTime(time);
+		WorldProperties info = w.getLevelProperties();
+		if (info instanceof ServerWorldProperties) {
+			((ServerWorldProperties) info).setRainTime(time);
+		}
 	}
 }

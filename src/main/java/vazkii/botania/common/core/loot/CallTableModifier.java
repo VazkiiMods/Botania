@@ -46,5 +46,12 @@ public class CallTableModifier extends LootModifier {
 			String table = JsonHelper.getString(object, "table");
 			return new CallTableModifier(ailootcondition, new Identifier(table));
 		}
+
+		@Override
+		public JsonObject write(CallTableModifier instance) {
+			JsonObject object = makeConditions(instance.conditions);
+			object.addProperty("table", instance.tableId.toString());
+			return object;
+		}
 	}
 }

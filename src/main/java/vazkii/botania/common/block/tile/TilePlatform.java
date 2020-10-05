@@ -24,7 +24,8 @@ import javax.annotation.Nullable;
 public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity {
 	private static final String TAG_CAMO = "camo";
 
-	public BlockState camoState;
+	@Nullable
+	private BlockState camoState;
 
 	public TilePlatform() {
 		super(ModTiles.PLATFORM);
@@ -32,7 +33,7 @@ public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity
 
 	public boolean onWanded(PlayerEntity player) {
 		if (player != null) {
-			if (camoState == null || player.isSneaking()) {
+			if (getCamoState() == null || player.isSneaking()) {
 				swapSelfAndPass(this, true);
 			} else {
 				swapSurroudings(this, false);
@@ -41,6 +42,22 @@ public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity
 		}
 
 		return false;
+	}
+
+	@Nullable
+	public BlockState getCamoState() {
+		return camoState;
+	}
+
+	public void setCamoState(@Nullable BlockState state) {
+		this.camoState = state;
+
+		if (world != null) {
+			world.notifyBlockUpdate(getPos(), getBlockState(), getBlockState(), 3);
+			if (!world.isRemote) {
+				world.func_230547_a_(pos, getBlockState().getBlock());
+			}
+		}
 	}
 
 	private void swapSelfAndPass(TilePlatform tile, boolean empty) {
@@ -54,7 +71,7 @@ public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity
 			BlockEntity tileAt = world.getBlockEntity(pos);
 			if (tileAt instanceof TilePlatform) {
 				TilePlatform platform = (TilePlatform) tileAt;
-				if (empty == (platform.camoState != null)) {
+				if (empty == (platform.getCamoState() != null)) {
 					swapSelfAndPass(platform, empty);
 				}
 			}
@@ -62,23 +79,23 @@ public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity
 	}
 
 	private void swap(TilePlatform tile, boolean empty) {
-		tile.camoState = empty ? null : camoState;
-		world.updateListeners(tile.getPos(), tile.getCachedState(), tile.getCachedState(), 3);
+		tile.setCamoState(empty ? null : getCamoState());
 	}
 
 	@Override
 	public void writePacketNBT(CompoundTag cmp) {
-		if (camoState != null) {
-			cmp.put(TAG_CAMO, NbtHelper.fromBlockState(camoState));
+		if (getCamoState() != null) {
+			cmp.put(TAG_CAMO, NbtHelper.fromBlockState(getCamoState()));
 		}
 	}
 
 	@Override
-	public void readPacketNBT(CompoundTag cmp) {
-		camoState = NbtHelper.toBlockState(cmp.getCompound(TAG_CAMO));
-		if (camoState.isAir()) {
-			camoState = null;
+	public void readPacketNBT(CompoundNBT cmp) {
+		BlockState state = NBTUtil.readBlockState(cmp.getCompound(TAG_CAMO));
+		if (state.isAir()) {
+			state = null;
 		}
+		setCamoState(state);
 	}
 
 	@Override

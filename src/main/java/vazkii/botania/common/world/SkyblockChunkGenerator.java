@@ -31,11 +31,12 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class SkyblockChunkGenerator extends ChunkGenerator {
 	// [VanillaCopy] overworld chunk generator codec
-	public static final Codec<SkyblockChunkGenerator> CODEC = RecordCodecBuilder.create((instance) ->
-		instance.group(BiomeSource.CODEC.fieldOf("biome_source").forGetter((noiseChunkGenerator) -> noiseChunkGenerator.biomeSource),
-			Codec.LONG.fieldOf("seed").stable().forGetter((noiseChunkGenerator) -> noiseChunkGenerator.seed),
-			ChunkGeneratorSettings.REGISTRY_CODEC.fieldOf("settings").forGetter((noiseChunkGenerator) -> noiseChunkGenerator.settings))
-			.apply(instance, instance.stable(SkyblockChunkGenerator::new)));
+	public static final Codec<SkyblockChunkGenerator> CODEC = RecordCodecBuilder.create(
+			(instance) -> instance.group(
+					BiomeSource.CODEC.fieldOf("biome_source").forGetter((gen) -> gen.biomeSource),
+					Codec.LONG.fieldOf("seed").stable().forGetter((gen) -> gen.seed),
+					ChunkGeneratorSettings.REGISTRY_CODEC.fieldOf("settings").forGetter((gen) -> gen.settings)
+			).apply(instance, instance.stable(SkyblockChunkGenerator::new)));
 
 	public static void init() {
 		Registry.register(Registry.CHUNK_GENERATOR, prefix("skyblock"), SkyblockChunkGenerator.CODEC);
@@ -45,7 +46,7 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 	private final Supplier<ChunkGeneratorSettings> settings;
 
 	public SkyblockChunkGenerator(BiomeSource provider, long seed, Supplier<ChunkGeneratorSettings> settings) {
-		super(provider, provider, settings.get().getStructuresConfig(), seed);
+		super(provider, provider, settings.get().getStructures(), seed);
 		this.seed = seed;
 		this.settings = settings;
 	}

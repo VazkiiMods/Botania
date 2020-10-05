@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import com.google.common.collect.ImmutableList;
-
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -31,18 +29,6 @@ public class TileCocoon extends TileMod implements Tickable {
 	private static final String TAG_EMERALDS_GIVEN = "emeraldsGiven";
 	private static final String TAG_CHORUS_FRUIT_GIVEN = "chorusFruitGiven";
 	private static final String TAG_GAIA_SPIRIT_GIVEN = "gaiaSpiritGiven";
-
-	private static final List<EntityType<? extends MobEntity>> SPECIALS = ImmutableList.of(
-			EntityType.HORSE, EntityType.DONKEY, EntityType.WOLF, EntityType.OCELOT,
-			EntityType.CAT, EntityType.PARROT, EntityType.LLAMA, EntityType.FOX,
-			EntityType.PANDA, EntityType.TURTLE
-	);
-	private static final List<EntityType<? extends MobEntity>> NORMALS = ImmutableList.of(
-			EntityType.PIG, EntityType.COW, EntityType.CHICKEN, EntityType.RABBIT, EntityType.SHEEP
-	);
-	private static final List<EntityType<? extends MobEntity>> AQUATIC = ImmutableList.of(
-			EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH, EntityType.PUFFERFISH, EntityType.SQUID
-	);
 
 	public static final int TOTAL_TIME = 2400;
 	public static final int MAX_EMERALDS = 20;
@@ -80,12 +66,10 @@ public class TileCocoon extends TileMod implements Tickable {
 
 			List<BlockPos> validWater = new ArrayList<>();
 			for (Direction d : Direction.values()) {
-				if (d != Direction.UP) {
-					BlockPos blockPos = pos.offset(d);
-					if (world.isChunkLoaded(blockPos)
-							&& world.getBlockState(blockPos).getBlock() == Blocks.WATER) {
-						validWater.add(blockPos);
-					}
+				BlockPos blockPos = (d == Direction.UP) ? pos : pos.offset(d);
+				if (world.isChunkLoaded(blockPos)
+						&& world.getBlockState(blockPos).getBlock() == Blocks.WATER) {
+					validWater.add(blockPos);
 				}
 			}
 
@@ -101,19 +85,15 @@ public class TileCocoon extends TileMod implements Tickable {
 			} else if (!validWater.isEmpty()) {
 				placePos = validWater.get(world.random.nextInt(validWater.size()));
 				if (Math.random() < rareChance) {
-					entity = EntityType.DOLPHIN.create(world);
+					entity = random(ModTags.Entities.COCOON_RARE_AQUATIC);
 				} else {
-					entity = AQUATIC.get(world.random.nextInt(AQUATIC.size())).create(world);
+					entity = random(ModTags.Entities.COCOON_COMMON_AQUATIC);
 				}
 			} else {
 				if (Math.random() < rareChance) {
-					entity = SPECIALS.get(world.random.nextInt(SPECIALS.size())).create(world);
+					entity = random(ModTags.Entities.COCOON_RARE);
 				} else {
-					EntityType<? extends MobEntity> type = NORMALS.get(world.random.nextInt(NORMALS.size()));
-					if (type == EntityType.COW && Math.random() < 0.01) {
-						type = EntityType.MOOSHROOM;
-					}
-					entity = type.create(world);
+					entity = random(ModTags.Entities.COCOON_COMMON);
 				}
 			}
 
@@ -132,7 +112,16 @@ public class TileCocoon extends TileMod implements Tickable {
 
 	public void forceRare() {
 		gaiaSpiritGiven = true;
-		timePassed = Math.min(timePassed, TOTAL_TIME / 3);
+		timePassed = Math.max(timePassed, TOTAL_TIME / 2);
+	}
+
+	private MobEntity random(ITag<EntityType<?>> tag) {
+		EntityType<?> type = tag.getRandomElement(world.rand);
+		if (type == EntityType.COW && world.rand.nextFloat() < 0.01) {
+			type = EntityType.MOOSHROOM;
+		}
+		Entity entity = type.create(world);
+		return entity instanceof MobEntity ? (MobEntity) entity : null;
 	}
 
 	@Override

@@ -152,6 +152,8 @@ public class ManaInfusionProvider extends RecipesProvider {
 		consumer.accept(mini(ModSubtiles.rannuncarpusChibi, ModSubtiles.rannuncarpus));
 		consumer.accept(mini(ModSubtiles.solegnoliaChibi, ModSubtiles.solegnolia));
 
+		consumer.accept(FinishedRecipe.alchemy(id("hydroangeas_motif"), new ItemStack(ModBlocks.motifHydroangeas), ingr(ModSubtiles.hydroangeas), 2500));
+
 		consumer.accept(FinishedRecipe.conjuration(id("redstone_dupe"), new ItemStack(Items.REDSTONE, 2), ingr(Items.REDSTONE), 5000));
 		consumer.accept(FinishedRecipe.conjuration(id("glowstone_dupe"), new ItemStack(Items.GLOWSTONE_DUST, 2), ingr(Items.GLOWSTONE_DUST), 5000));
 		consumer.accept(FinishedRecipe.conjuration(id("quartz_dupe"), new ItemStack(Items.QUARTZ, 2), ingr(Items.QUARTZ), 2500));

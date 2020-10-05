@@ -91,8 +91,6 @@ import vazkii.patchouli.api.BookDrawScreenCallback;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
-import java.io.File;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Locale;
@@ -137,13 +135,8 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		forgeBus.addListener(RenderMagicLandmine::onWorldRenderLast);
 		forgeBus.addListener(ItemDodgeRing::onKeyDown);
 
-		PersistentVariableHelper.setCacheFile(new File(MinecraftClient.getInstance().runDirectory, "BotaniaVars.dat"));
-		try {
-			PersistentVariableHelper.load();
-			PersistentVariableHelper.save();
-		} catch (IOException e) {
-			Botania.LOGGER.fatal("Persistent Variables couldn't load!!");
-		}
+		PersistentVariableHelper.init();
+		PersistentVariableHelper.save();
 
 		if (ConfigHandler.CLIENT.enableSeasonalFeatures.getValue()) {
 			LocalDateTime now = LocalDateTime.now();
@@ -377,6 +370,14 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	}
 
 	@Override
+	public void addParticleForceNear(World world, IParticleData particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+		ActiveRenderInfo info = Minecraft.getInstance().gameRenderer.getActiveRenderInfo();
+		if (info.isValid() && info.getProjectedView().squareDistanceTo(x, y, z) <= 1024.0D) {
+			addParticleForce(world, particleData, x, y, z, xSpeed, ySpeed, zSpeed);
+		}
+	}
+
+	@Override
 	public void showMultiblock(IMultiblock mb, Text name, BlockPos anchor, BlockRotation rot) {
 		PatchouliAPI.instance.showMultiblock(mb, name, anchor, rot);
 	}
@@ -387,5 +388,13 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		if (mb != null && mb.getID().equals(ItemSextant.MULTIBLOCK_ID)) {
 			PatchouliAPI.instance.clearMultiblock();
 		}
+	}
+
+	@Override
+	public Item.Properties propertiesWithRenderer(Item.Properties properties, Block block) {
+		if (block instanceof BlockPylon) {
+			return properties.setISTER(() -> RenderTilePylon.TEISR::new);
+		}
+		return properties.setISTER(() -> () -> new TEISR(block));
 	}
 }

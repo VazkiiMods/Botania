@@ -15,12 +15,12 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(WitherEntity.class)
 public interface AccessorWitherEntity {
-	@Invoker
-	double callGetHeadX(int idx);
+	@Invoker("getHeadX")
+	double botania_getHeadX(int idx);
 
-	@Invoker
-	double callGetHeadY(int idx);
+	@Invoker("getHeadY")
+	double botania_getHeadY(int idx);
 
-	@Invoker
-	double callGetHeadZ(int idx);
+	@Invoker("getHeadZ")
+	double botania_getHeadZ(int idx);
 }

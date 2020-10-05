@@ -29,7 +29,6 @@ import net.minecraft.util.Identifier;
 
 import vazkii.botania.api.recipe.IPureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModSubtiles;
 
 import javax.annotation.Nonnull;
@@ -151,6 +150,5 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 		}
 
 		IGuiIngredientGroup<?> group = outputFluid ? recipeLayout.getFluidStacks() : recipeLayout.getItemStacks();
-		JEIBotaniaPlugin.addDefaultRecipeIdTooltip(group, 2, recipe.getId());
 	}
 }

@@ -23,7 +23,6 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
 import vazkii.botania.client.core.handler.HUDHandler;
-import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.client.integration.jei.petalapothecary.PetalApothecaryRecipeCategory;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -46,6 +45,7 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 
 	public RunicAltarRecipeCategory(IGuiHelper guiHelper) {
 		background = guiHelper.createBlankDrawable(114, 104);
+		localizedName = I18n.format("botania.nei.runicAltar");
 		overlay = guiHelper.createDrawable(prefix("textures/gui/petal_overlay.png"),
 				17, 11, 114, 82);
 		icon = guiHelper.createDrawableIngredient(new ItemStack(ModBlocks.runeAltar));
@@ -119,8 +119,6 @@ public class RunicAltarRecipeCategory implements IRecipeCategory<IRuneAltarRecip
 
 		recipeLayout.getItemStacks().init(index, false, 86, 11);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
-
-		JEIBotaniaPlugin.addDefaultRecipeIdTooltip(recipeLayout.getItemStacks(), index, recipe.getId());
 	}
 
 }

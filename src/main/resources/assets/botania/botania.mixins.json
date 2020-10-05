@@ -46,6 +46,7 @@
     "AccessorRenderTypeBuffers",
     "AccessorSkullTileEntityRenderer",
     "AccessorWorldRenderer",
+    "MixinClientWorldInfo",
     "MixinDebugHud",
     "MixinGameRenderer",
     "MixinMinecraftClient",

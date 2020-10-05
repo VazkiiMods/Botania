@@ -14,6 +14,7 @@ import net.minecraft.item.Item;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.util.registry.Registry;
+import net.minecraftforge.common.Tags;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
@@ -51,6 +52,9 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS, ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS);
 		this.copy(ModTags.Blocks.SPECIAL_FLOWERS, ModTags.Items.SPECIAL_FLOWERS);
 		this.copy(ModTags.Blocks.MINI_FLOWERS, ModTags.Items.MINI_FLOWERS);
+		this.getOrCreateTagBuilder(ModTags.Items.CONTRIBUTOR_HEADFLOWERS)
+				.addTag(ModTags.Items.SPECIAL_FLOWERS)
+				.add(ModBlocks.motifDaybloom.asItem(), ModBlocks.motifNightshade.asItem());
 
 		this.getOrCreateTagBuilder(ItemTags.TALL_FLOWERS).addTag(ModTags.Items.DOUBLE_MYSTICAL_FLOWERS);
 		this.getOrCreateTagBuilder(ItemTags.SMALL_FLOWERS).addTag(ModTags.Items.MYSTICAL_FLOWERS).addTag(ModTags.Items.SPECIAL_FLOWERS);

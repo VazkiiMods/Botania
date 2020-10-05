@@ -29,6 +29,7 @@ public class BlockManaBomb extends BlockMod implements IManaTrigger {
 			world.syncWorldEvent(2001, pos, Block.getRawIdFromState(getDefaultState()));
 			world.removeBlock(pos, false);
 			EntityManaStorm storm = ModEntities.MANA_STORM.create(world);
+			storm.burstColor = burst.getColor();
 			storm.updatePosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 			world.spawnEntity(storm);
 		}

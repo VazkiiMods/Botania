@@ -51,5 +51,10 @@ public class DisposeModifier extends LootModifier {
 		public DisposeModifier read(Identifier location, JsonObject object, LootCondition[] conditions) {
 			return new DisposeModifier(conditions);
 		}
+
+		@Override
+		public JsonObject write(DisposeModifier instance) {
+			return makeConditions(instance.conditions);
+		}
 	}
 }

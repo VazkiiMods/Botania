@@ -18,6 +18,7 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
+
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.block.ModBlocks;
 
@@ -33,7 +34,7 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
 	@Override
 	public boolean generate(@Nonnull StructureWorldAccess world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull MysticalFlowerConfig config) {
 		boolean any = false;
-		int dist = Math.min(8, Math.max(1, config.getFlowerPatchSize()));
+		int dist = Math.min(8, Math.max(1, config.getPatchRadius()));
 		for (int i = 0; i < config.getPatchCount(); i++) {
 			if (rand.nextInt(config.getPatchChance()) == 0) {
 				int x = pos.getX() + rand.nextInt(16);

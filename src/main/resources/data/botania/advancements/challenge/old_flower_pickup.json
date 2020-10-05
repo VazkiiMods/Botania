@@ -1,0 +1,41 @@
+{
+  "display": {
+    "icon": {
+      "item": "botania:daybloom_motif"
+    },
+    "title": {
+      "translate": "advancement.botania:old_flower_pickup"
+    },
+    "description": {
+      "translate": "advancement.botania:old_flower_pickup.desc"
+    },
+    "frame": "challenge",
+    "hidden": true
+  },
+  "parent": "botania:challenge/root",
+  "criteria": {
+    "daybloom": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:daybloom_motif"
+          }
+        ]
+      }
+    },
+    "nightshade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "botania:nightshade_motif"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [ "daybloom", "nightshade" ]
+  ]
+}

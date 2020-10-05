@@ -89,6 +89,7 @@ public class TileBellows extends TileMod implements Tickable {
 						double d0 = (double) pos.getX() + 0.5D;
 						double d1 = (double) pos.getY();
 						double d2 = (double) pos.getZ() + 0.5D;
+						// Botania: no playSound
 
 						Direction enumfacing = furnace.getCachedState().get(FurnaceBlock.FACING);
 						Direction.Axis enumfacing$axis = enumfacing.getAxis();

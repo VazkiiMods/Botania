@@ -15,13 +15,16 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
+
 import vazkii.botania.common.block.ModBlocks;
+
+import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class MysticalMushroomFeature extends Feature<MysticalFlowerConfig> {
+public class MysticalMushroomFeature extends Feature<MysticalMushroomConfig> {
 	public MysticalMushroomFeature() {
-		super(MysticalFlowerConfig.CODEC);
+		super(MysticalMushroomConfig.CODEC);
 	}
 
 	@Override

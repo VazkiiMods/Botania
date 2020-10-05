@@ -25,48 +25,38 @@ public final class PersistentVariableHelper {
 	public static boolean firstLoad = true;
 	public static boolean dog = true;
 
-	public static void save() throws IOException {
+	public static void save() {
 		CompoundTag cmp = new CompoundTag();
 		cmp.putBoolean(TAG_FIRST_LOAD, firstLoad);
 		cmp.putBoolean(TAG_DOG, dog);
 
-		injectNBTToFile(cmp, getCacheFile());
+		injectNBTToFile(cmp, cacheFile);
 	}
 
-	public static void load() throws IOException {
-		CompoundTag cmp = getCacheCompound();
+	public static void load() {
+		CompoundTag cmp = getCacheCompound(cacheFile);
 
 		firstLoad = cmp.contains(TAG_FIRST_LOAD) ? cmp.getBoolean(TAG_FIRST_LOAD) : firstLoad;
 		dog = cmp.getBoolean(TAG_DOG);
 	}
 
-	public static void setCacheFile(File f) {
-		cacheFile = f;
-	}
-
-	private static File getCacheFile() throws IOException {
-		if (!cacheFile.exists()) {
+	public static void init() {
+		cacheFile = new File(Minecraft.getInstance().gameDir, "BotaniaVars.dat");
+		try {
 			cacheFile.createNewFile();
+		} catch (IOException e) {
+			Botania.LOGGER.error("Failed to create persistent variable file", e);
 		}
-
-		return cacheFile;
+		load();
 	}
 
-	private static CompoundTag getCacheCompound() throws IOException {
-		return getCacheCompound(getCacheFile());
-	}
-
-	private static CompoundTag getCacheCompound(File cache) throws IOException {
-		if (cache == null) {
-			throw new RuntimeException("No cache file!");
-		}
-
+	private static CompoundNBT getCacheCompound(File cache) {
 		try {
 			return NbtIo.readCompressed(new FileInputStream(cache));
 		} catch (IOException e) {
-			CompoundTag cmp = new CompoundTag();
-			NbtIo.writeCompressed(cmp, new FileOutputStream(cache));
-			return getCacheCompound(cache);
+			Botania.LOGGER.error("Failed to load persistent variables, overwriting with current state", e);
+			save();
+			return new CompoundNBT();
 		}
 	}
 
@@ -74,7 +64,7 @@ public final class PersistentVariableHelper {
 		try {
 			NbtIo.writeCompressed(cmp, new FileOutputStream(f));
 		} catch (IOException e) {
-			e.printStackTrace();
+			Botania.LOGGER.error("Failed to save persistent variables", e);
 		}
 	}
 

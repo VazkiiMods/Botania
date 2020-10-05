@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class BehaviourCocoaBeans extends ItemDispenserBehavior {
+public class BehaviourCocoaBeans extends OptionalDispenseBehavior {
 	@Nonnull
 	@Override
 	public ItemStack dispenseSilently(BlockPointer source, ItemStack stack) {

@@ -29,10 +29,11 @@ public class BehaviourFelPumpkin extends FallibleItemDispenserBehavior {
 		World world = source.getWorld();
 		BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().get(DispenserBlock.FACING));
 		Block blockcarvedpumpkin = ModBlocks.felPumpkin;
-		this.setSuccess(true);
-		if (world.isAir(blockpos) && world.getBlockState(blockpos.down()).getBlock() == Blocks.IRON_BARS
+		this.setSuccessful(false);
+		if (world.isAirBlock(blockpos) && world.getBlockState(blockpos.down()).getBlock() == Blocks.IRON_BARS
 				&& world.getBlockState(blockpos.down(2)).getBlock() == Blocks.IRON_BARS) // Botania - Check for iron bars
 		{
+			this.setSuccessful(true);
 			if (!world.isClient) {
 				world.setBlockState(blockpos, blockcarvedpumpkin.getDefaultState(), 3);
 			}

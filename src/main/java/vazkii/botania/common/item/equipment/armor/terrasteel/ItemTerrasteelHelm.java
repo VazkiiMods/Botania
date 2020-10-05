@@ -78,7 +78,11 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		super.addArmorSetDescription(stack, list);
 		for (AncientWillType type : AncientWillType.values()) {
 			if (hasAncientWill(stack, type)) {
+<<<<<<< HEAD
 				list.add(new TranslatableText("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".desc").formatted(Formatting.GRAY));
+=======
+				list.add(new TranslationTextComponent("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".desc").mergeStyle(TextFormatting.GRAY));
+>>>>>>> 4c77b50dc7c48e2738e9dca513b25bdb627819fb
 			}
 		}
 	}
@@ -98,6 +102,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		if (attacker instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) attacker;
 			if (hasArmorSet(player)) {
+				// TODO 1.16 Move to mixin, this does not actually work as it's triggered after the attack strength changes
 				// [VanillaCopy] crit logic from PlayerEntity.attackTargetEntityWithCurrentItem
 				boolean strong = player.getAttackCooldownProgress(0.5F) > 0.9F;
 				boolean crit = strong && player.fallDistance > 0.0F && !player.isOnGround() && !player.isClimbing() && !player.isTouchingWater() && !player.hasStatusEffect(StatusEffects.BLINDNESS) && !player.hasVehicle();

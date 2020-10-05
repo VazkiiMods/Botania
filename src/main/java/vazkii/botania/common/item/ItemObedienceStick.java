@@ -35,8 +35,11 @@ public class ItemObedienceStick extends Item {
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext ctx) {
 		World world = ctx.getWorld();
-		BlockPos pos = ctx.getBlockPos();
+		BlockPos pos = ctx.getPos();
+		return applyStick(world, pos) ? ActionResultType.SUCCESS : ActionResultType.PASS;
+	}
 
+	public static boolean applyStick(World world, BlockPos pos) {
 		BlockEntity tileAt = world.getBlockEntity(pos);
 		if (tileAt instanceof IManaPool || tileAt instanceof IManaCollector) {
 			boolean pool = tileAt instanceof IManaPool;
@@ -58,10 +61,10 @@ public class ItemObedienceStick extends Item {
 				}
 			}
 
-			return ActionResult.SUCCESS;
+			return true;
 		}
 
-		return ActionResult.PASS;
+		return false;
 	}
 
 	private static final BiFunction<TileEntitySpecialFlower, BlockEntity, Boolean> generatingActuator = (flower, tile) -> {

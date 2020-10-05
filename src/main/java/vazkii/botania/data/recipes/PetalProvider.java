@@ -23,6 +23,7 @@ import net.minecraft.tag.ItemTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.ModRecipeTypes;
@@ -130,6 +131,9 @@ public class PetalProvider extends RecipesProvider {
 		consumer.accept(make(ModSubtiles.bubbell, cyan, cyan, lightBlue, lightBlue, blue, blue, runeWater, runeSummer, pixieDust));
 		consumer.accept(make(ModSubtiles.solegnolia, brown, brown, red, blue, redstoneRoot));
 		consumer.accept(make(ModSubtiles.bergamute, orange, green, green, redstoneRoot));
+
+		consumer.accept(make(ModBlocks.motifDaybloom, yellow, yellow, orange, lightBlue));
+		consumer.accept(make(ModBlocks.motifNightshade, black, black, purple, gray));
 
 		ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
 		ItemNBTHelper.setString(stack, "SkullOwner", "Vazkii");

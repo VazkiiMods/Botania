@@ -1,3 +1,46 @@
+1.16.2-406
+* Buff Fruit of Grisaia
+* Fix TNT ethical check hanging worlds
+* Fix crashes on Forge 33.0.23+
+* Fix fallback brew showing on brew vials
+* Fix some important particle effects being hidden by reduced/minimal particles, which made for a bad experience
+* Prevent trinket case from being picked up in the gui
+* Fix orechid priority config not working on servers
+1.16.2-405
+* Update to 1.16.2. Where did 404 go?...
+* Rosa Arcana now disenchants items passing near it, releasing XP orbs (that it then absorbs)
+* Clean up sound event ID's
+* Readd old motif flowers and an advancement
+* Fix some incorrect tooltip colors
+* Add specific tag for flowers that can be contributor headflowers, add the motifs to this tag under their old names.
+* Fix loki ring resetting if you run out of blocks with an empty offhand
+* Mooshrooms are now "milked" by the Drum of the Gathering instead of sheared (use dispensers as they can now shear mooshrooms in 1.16)
+* Vazkii name typo now 100% more reliable
+* Fix out of bounds in Corporea causing some queries to not return feedback in the chat
+* Hopperhocks special-case mana-storing items, matching (fuzzily) how much mana they have: empty, partially full, full
+* Laputa shards can now place blocks into any replaceable material instead of requiring air
+1.16.1-403.1
+* Backport some fixes from 1.16.2:
+* Fix loki ring resetting if you run out of blocks with empty offhand (from 405)
+* Fix out of bounds in Corporea causing some queries to not return feedback to chat (from 405)
+* Fix ethical TNT check hanging worlds (from 406)
+* Fix orechid priority config crashing servers (from 406)
+1.16.1-403
+* Extend luminizer smart dismount from last build to all living entities
+* Fix dispensers voiding stacks of size 1 when filling glass bottles
+* Fix weight lens requirements for dropping a block not matching vanilla's requirements (Alwinfy)
+* Update banner and crafty crate lexicon screenshots (Alwinfy)
+* Another null check workaround for Optifine
+* Move laputa shard upgrading to custom/dynamic recipe
+* Rod of the Shaded Mesa fired by an avatar now targets all hostile mobs
+* Rod of the Shaded Mesa fired by a player now targets mobs hostile to other players, when PVP is off
+* Fix gaia guardian not spawning pixies during the mob spawn phase (Keralop)
+* Fix invisibility cloak not actually consuming mana (Keralop)
+* Add a HUD for the Prism similar to the spreader's
+* Lens tinted tooltip is now colored based on the tint
+* Fix bore lens having the wrong flags and thus being uncombinable/combinable with the wrong lenses
+* Fix fork and toggle luminizers having switched effects and rendering in some cases
+* Add Minecraft minor version to mod version to help disambiguate
 1.16-402
 * Fix a crash on Forge 1.16.1 107+
 * Add some gold-based items to the piglin_loved tag
@@ -74,7 +117,6 @@
 * Known issues:
 * - Shears are still wonky
 * - GoG skybox will not automatically activate on GoG worlds. To see it, you'll have to enable the "fancySkybox.normalWorlds" config option.
-
 r1.15 388
 * This is the final build for 1.15. See you in 1.16.1 very soon!
 * Fix melon and pumpkin seeds not spawning in Garden of Glass (*requires GoG update*)

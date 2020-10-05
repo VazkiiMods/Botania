@@ -19,11 +19,13 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.math.Matrix4f;
 import vazkii.botania.api.state.enums.LuminizerVariant;
+import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.BlockLightRelay;
 import vazkii.botania.common.block.tile.TileLightRelay;
+import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 
 import javax.annotation.Nonnull;
 
@@ -32,7 +34,12 @@ import java.util.Map;
 
 public class RenderTileLightRelay extends BlockEntityRenderer<TileLightRelay> {
 
-	private static final Map<LuminizerVariant, Sprite> sprites = new EnumMap<>(LuminizerVariant.class);
+	private static final Map<LuminizerVariant, RenderMaterial> sprites = Util.make(new EnumMap<>(LuminizerVariant.class), m -> {
+		m.put(LuminizerVariant.DEFAULT, MiscellaneousIcons.INSTANCE.lightRelayWorldIcon);
+		m.put(LuminizerVariant.DETECTOR, MiscellaneousIcons.INSTANCE.lightRelayDetectorWorldIcon);
+		m.put(LuminizerVariant.FORK, MiscellaneousIcons.INSTANCE.lightRelayForkWorldIcon);
+		m.put(LuminizerVariant.TOGGLE, MiscellaneousIcons.INSTANCE.lightRelayToggleWorldIcon);
+	});
 
 	public RenderTileLightRelay(BlockEntityRenderDispatcher manager) {
 		super(manager);
@@ -42,15 +49,16 @@ public class RenderTileLightRelay extends BlockEntityRenderer<TileLightRelay> {
 	public void render(@Nonnull TileLightRelay tile, float pticks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
 		BlockState state = tile.getCachedState();
 
-		MinecraftClient mc = MinecraftClient.getInstance();
-		if (sprites.isEmpty()) {
-			sprites.put(LuminizerVariant.DEFAULT, MiscellaneousIcons.INSTANCE.lightRelayWorldIcon);
-			sprites.put(LuminizerVariant.DETECTOR, MiscellaneousIcons.INSTANCE.lightRelayDetectorWorldIcon);
-			sprites.put(LuminizerVariant.FORK, MiscellaneousIcons.INSTANCE.lightRelayForkWorldIcon);
-			sprites.put(LuminizerVariant.TOGGLE, MiscellaneousIcons.INSTANCE.lightRelayToggleWorldIcon);
+		Minecraft mc = Minecraft.getInstance();
+
+		if (mc.getRenderViewEntity() instanceof LivingEntity) {
+			LivingEntity view = (LivingEntity) mc.getRenderViewEntity();
+			if (ItemMonocle.hasMonocle(view) && RenderTileSpecialFlower.hasBindingAttempt(view, tile.getPos())) {
+				RenderTileSpecialFlower.renderRadius(tile, ms, buffers, new RadiusDescriptor.Circle(tile.getPos(), TileLightRelay.MAX_DIST));
+			}
 		}
 
-		Sprite iicon = sprites.get(((BlockLightRelay) state.getBlock()).variant);
+		TextureAtlasSprite iicon = sprites.get(((BlockLightRelay) state.getBlock()).variant).getSprite();
 
 		ms.push();
 		ms.translate(0.5, 0.3, 0.5);

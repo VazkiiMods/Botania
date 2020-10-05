@@ -48,6 +48,8 @@ public final class ContributorFancinessHandler extends FeatureRenderer<AbstractC
 	private static boolean startedLoading = false;
 
 	private static final ImmutableMap<String, String> LEGACY_FLOWER_NAMES = ImmutableMap.<String, String>builder()
+			.put("daybloom", LibBlockNames.MOTIF_DAYBLOOM)
+			.put("nightshade", LibBlockNames.MOTIF_NIGHTSHADE)
 			.put("puredaisy", LibBlockNames.SUBTILE_PUREDAISY.getPath())
 			.put("fallenkanade", LibBlockNames.SUBTILE_FALLEN_KANADE.getPath())
 			.put("heiseidream", LibBlockNames.SUBTILE_HEISEI_DREAM.getPath())
@@ -109,8 +111,8 @@ public final class ContributorFancinessHandler extends FeatureRenderer<AbstractC
 				String rawName = value.toLowerCase(Locale.ROOT);
 				String flowerName = LEGACY_FLOWER_NAMES.getOrDefault(rawName, rawName);
 
-				Item item = ModTags.Items.SPECIAL_FLOWERS.values().stream()
-						.filter(flower -> Registry.ITEM.getId(flower).getPath().equals(flowerName))
+				Item item = ModTags.Items.CONTRIBUTOR_HEADFLOWERS.values().stream()
+						.filter(flower -> Registry.ITEM.getKey(flower).getPath().equals(flowerName))
 						.findFirst().orElse(Items.POPPY);
 				m.put(key, new ItemStack(item));
 			}

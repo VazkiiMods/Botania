@@ -37,6 +37,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
+import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
@@ -119,9 +120,12 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	@Override
 	public void appendStacks(ItemGroup tab, DefaultedList<ItemStack> list) {
 		if (isIn(tab)) {
-			for (Identifier id : BotaniaAPI.instance().getBrewRegistry().getIds()) {
+			for (Brew brew : BotaniaAPI.instance().getBrewRegistry()) {
+				if (brew == ModBrews.fallbackBrew) {
+					continue;
+				}
 				ItemStack stack = new ItemStack(this);
-				setBrew(stack, id);
+				setBrew(stack, brew);
 				list.add(stack);
 			}
 		}
@@ -154,14 +158,14 @@ public class ItemBrewBase extends Item implements IBrewItem {
 				}
 
 				if (effectinstance.getAmplifier() > 0) {
-					iformattabletextcomponent.append(" ").append(new TranslatableText("potion.potency." + effectinstance.getAmplifier()));
+					iformattabletextcomponent = new TranslationTextComponent("potion.withAmplifier", iformattabletextcomponent, new TranslationTextComponent("potion.potency." + effectinstance.getAmplifier()));
 				}
 
 				if (effectinstance.getDuration() > 20) {
-					iformattabletextcomponent.append(" (").append(StatusEffectUtil.durationToString(effectinstance, durationFactor)).append(")");
+					iformattabletextcomponent = new TranslationTextComponent("potion.withDuration", iformattabletextcomponent, EffectUtils.getPotionDurationString(effectinstance, durationFactor));
 				}
 
-				lores.add(iformattabletextcomponent.formatted(effect.getType().getFormatting()));
+				lores.add(iformattabletextcomponent.mergeStyle(effect.getEffectType().getColor()));
 			}
 		}
 

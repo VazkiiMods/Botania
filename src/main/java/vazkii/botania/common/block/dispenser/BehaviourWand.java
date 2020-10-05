@@ -30,12 +30,12 @@ public class BehaviourWand extends ItemDispenserBehavior {
 		Direction facing = world.getBlockState(source.getBlockPos()).get(DispenserBlock.FACING);
 		BlockPos pos = source.getBlockPos().offset(facing);
 		Block block = world.getBlockState(pos).getBlock();
-		if (block instanceof IWandable) {
+		boolean wandable = block instanceof IWandable;
+		setSuccessful(wandable);
+		if (wandable) {
 			((IWandable) block).onUsedByWand(null, stack, world, pos, facing.getOpposite());
-			return stack;
 		}
-
-		return super.dispenseSilently(source, stack);
+		return stack;
 	}
 
 }

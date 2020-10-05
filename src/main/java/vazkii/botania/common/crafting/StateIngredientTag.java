@@ -22,38 +22,38 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class StateIngredientTag extends StateIngredientBlocks {
-	private final Tag.Identified<Block> tag;
-
-	public StateIngredientTag(Tag.Identified<Block> tag) {
-		super(ImmutableSet.of());
-		this.tag = tag;
-	}
+	private final Identifier tag;
 
 	public StateIngredientTag(Identifier id) {
-		this(TagRegistry.create(id, BlockTags::getTagGroup));
+		super(ImmutableSet.of());
+		this.tag = id;
+	}
+
+	private ITag<Block> resolve() {
+		return BlockTags.getCollection().func_241834_b(tag);
 	}
 
 	@Override
 	public boolean test(BlockState state) {
-		return tag.contains(state.getBlock());
+		return resolve().contains(state.getBlock());
 	}
 
 	@Override
 	public JsonObject serialize() {
 		JsonObject object = new JsonObject();
 		object.addProperty("type", "tag");
-		object.addProperty("tag", tag.getId().toString());
+		object.addProperty("tag", tag.toString());
 		return object;
 	}
 
 	@Override
 	protected Collection<Block> getBlocks() {
-		return tag.values();
+		return resolve().values();
 	}
 
 	@Override
 	public List<BlockState> getDisplayed() {
-		return tag.values().stream().map(Block::getDefaultState).collect(Collectors.toList());
+		return resolve().values().stream().map(Block::getDefaultState).collect(Collectors.toList());
 	}
 
 }

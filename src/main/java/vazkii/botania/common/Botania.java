@@ -44,6 +44,7 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.string.BlockRedStringInterceptor;
 import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
 import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
+import vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;
@@ -157,6 +158,8 @@ public class Botania implements ModInitializer {
 		CorporeaHelper.instance().registerRequestMatcher(prefix("item_stack"), CorporeaItemStackMatcher.class, CorporeaItemStackMatcher::createFromNBT);
 
 		if (Botania.gardenOfGlassLoaded) {
+			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::syncGogStatus);
+			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::onPlayerJoin);
 			UseBlockCallback.EVENT.register(SkyblockWorldEvents::onPlayerInteract);
 		}
 

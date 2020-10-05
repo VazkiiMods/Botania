@@ -229,6 +229,16 @@ public class EntityMagicMissile extends ThrownEntity {
 		return attackTarget instanceof PlayerEntity;
 	}
 
+	public static boolean isHostile(Entity owner, Entity attackTarget) {
+		// if the owner can attack the target thru PvP...
+		if (owner instanceof PlayerEntity && attackTarget instanceof PlayerEntity && ((PlayerEntity) owner).canAttackPlayer((PlayerEntity) attackTarget)) {
+			// ... then only defend self
+			return owner == attackTarget;
+		}
+		// otherwise, kill any player-hostiles
+		return attackTarget instanceof PlayerEntity;
+	}
+
 	@Override
 	protected void onCollision(@Nonnull HitResult pos) {
 		switch (pos.getType()) {

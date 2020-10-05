@@ -11,9 +11,13 @@ package vazkii.botania.client.integration.jei;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
-import mezz.jei.api.gui.ingredient.IGuiIngredientGroup;
 import mezz.jei.api.recipe.IRecipeManager;
-import mezz.jei.api.registration.*;
+import mezz.jei.api.registration.IRecipeCatalystRegistration;
+import mezz.jei.api.registration.IRecipeCategoryRegistration;
+import mezz.jei.api.registration.IRecipeRegistration;
+import mezz.jei.api.registration.IRecipeTransferRegistration;
+import mezz.jei.api.registration.ISubtypeRegistration;
+import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
 import net.minecraft.client.MinecraftClient;
@@ -108,8 +112,9 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		);
 	}
 
-	public static boolean doesOreExist(Identifier tagId) {
-		return !BlockTags.getContainer().getOrCreate(tagId).values().isEmpty();
+	public static boolean doesOreExist(ResourceLocation tagId) {
+		ITag<Block> tag = BlockTags.getCollection().get(tagId);
+		return tag != null && !tag.getAllElements().isEmpty();
 	}
 
 	@Override
@@ -200,6 +205,12 @@ public class JEIBotaniaPlugin implements IModPlugin {
 			}
 		}
 
+		RecipeManager recipeManager = Minecraft.getInstance().world.getRecipeManager();
+		recipeManager.getRecipe(prefix("petal_apothecary/daybloom_motif"))
+				.ifPresent(r -> recipeRegistry.hideRecipe(r, PetalApothecaryRecipeCategory.UID));
+		recipeManager.getRecipe(prefix("petal_apothecary/nightshade_motif"))
+				.ifPresent(r -> recipeRegistry.hideRecipe(r, PetalApothecaryRecipeCategory.UID));
+
 		CorporeaInputHandler.jeiPanelSupplier = () -> {
 			Object o = jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse();
 
@@ -218,16 +229,6 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		};
 
 		CorporeaInputHandler.supportedGuiFilter = gui -> gui instanceof HandledScreen || gui instanceof IRecipesGui;
-	}
-
-	public static void addDefaultRecipeIdTooltip(IGuiIngredientGroup<?> group, int slot, Identifier recipeId) {
-		group.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
-			if (slotIndex == slot) {
-				if (MinecraftClient.getInstance().options.advancedItemTooltips || Screen.hasShiftDown()) {
-					tooltip.add(new TranslatableText("jei.tooltip.recipe.id", recipeId).formatted(Formatting.DARK_GRAY));
-				}
-			}
-		});
 	}
 
 	@Nonnull

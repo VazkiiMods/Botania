@@ -22,6 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.MiningToolItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
@@ -109,7 +110,7 @@ public final class ToolCommons {
 
 					if (!dispose || !ItemElementiumPick.isDisposable(block)) {
 						block.afterBreak(world, player, pos, state, tile, stack);
-						block.dropExperience(world, pos, exp);
+						block.dropExperience((ServerWorld) world, pos, exp);
 					}
 				}
 

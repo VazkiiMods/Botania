@@ -126,6 +126,18 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 		spawnBurst(world, pos, lens, pointy, heightscale);
 	}
 
+	private static boolean canMove(BlockState state, World world, BlockPos pos) {
+		FluidState fluidState = state.getFluidState();
+		boolean isFlowingFluid = !fluidState.isEmpty() && !fluidState.isSource();
+		Block block = state.getBlock();
+
+		return !state.isAir(world, pos)
+				&& !isFlowingFluid
+				&& !(block instanceof FallingBlock)
+				&& (!(block instanceof ILaputaImmobile) || ((ILaputaImmobile) block).canMove(world, pos))
+				&& state.getBlockHardness(world, pos) != -1;
+	}
+
 	public void spawnBurst(World world, BlockPos pos, ItemStack shard, boolean pointy, double heightscale) {
 		int range = BASE_RANGE + getShardLevel(shard);
 
@@ -149,7 +161,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 						if (inRange(pos_, pos, range, heightscale, pointy)) {
 							BlockState state = world.getBlockState(pos_);
 							Block block = state.getBlock();
-							if (!state.isAir() && !(block instanceof FallingBlock) && (!(block instanceof ILaputaImmobile) || ((ILaputaImmobile) block).canMove(world, pos_)) && state.getHardness(world, pos_) != -1) {
+							if (canMove(state, world, pos_)) {
 								BlockEntity tile = world.getBlockEntity(pos_);
 
 								if (tile != null && block instanceof BlockEntityProvider) {
@@ -259,16 +271,16 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 				int z = net.minecraft.util.math.MathHelper.floor(entity.getZ());
 				BlockPos pos = new BlockPos(x, y, z);
 
-				if (entity.world.isAir(pos)) {
-					BlockState state = Blocks.AIR.getDefaultState();
-					if (lens.hasTag() && lens.getTag().contains(TAG_STATE)) {
-						state = NbtHelper.toBlockState(lens.getTag().getCompound(TAG_STATE));
-					}
+                BlockState placeState = Blocks.AIR.getDefaultState();
+                if (lens.hasTag() && lens.getTag().contains(TAG_STATE)) {
+                    placeState = NbtHelper.toBlockState(lens.getTag().getCompound(TAG_STATE));
+                }
+                
+                if (entity.world.getDimension().isUltrawarm() && placeState.contains(Properties.WATERLOGGED)) {
+                    placeState = state.with(Properties.WATERLOGGED, false);
+                }
 
-					if (entity.world.getDimension().isUltrawarm() && state.contains(Properties.WATERLOGGED)) {
-						state = state.with(Properties.WATERLOGGED, false);
-					}
-
+                if (entity.world.getBlockState(pos).getMaterial().isReplaceable()) {
 					BlockEntity tile = null;
 					CompoundTag tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
 					if (tilecmp.contains("id")) {
@@ -281,6 +293,11 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 						tile.setPos(pos);
 						entity.world.setBlockEntity(pos, tile);
 					}
+				} else {
+					int ox = ItemNBTHelper.getInt(lens, TAG_X, 0);
+					int oy = ItemNBTHelper.getInt(lens, TAG_Y_START, -1);
+					int oz = ItemNBTHelper.getInt(lens, TAG_Z, 0);
+					Block.spawnDrops(placeState, entity.world, new BlockPos(ox, oy, oz));
 				}
 
 				entity.remove();

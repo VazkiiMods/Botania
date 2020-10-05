@@ -54,10 +54,9 @@ public class BlockModMushroom extends MushroomPlantBlock implements IHornHarvest
 	@Override
 	public boolean canPlaceAt(BlockState state, WorldView worldIn, BlockPos pos) {
 		BlockPos blockpos = pos.down();
-		BlockState iblockstate = worldIn.getBlockState(blockpos);
-		Block block = iblockstate.getBlock();
-		if (block != Blocks.MYCELIUM && block != Blocks.PODZOL) {
-			return iblockstate.canSustainPlant(worldIn, blockpos, Direction.UP, this);
+		BlockState blockstate = worldIn.getBlockState(blockpos);
+		if (!blockstate.isIn(BlockTags.field_242171_aD)) {
+			return blockstate.canSustainPlant(worldIn, blockpos, Direction.UP, this);
 		} else {
 			return true;
 		}

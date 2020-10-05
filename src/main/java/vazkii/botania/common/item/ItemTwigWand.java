@@ -44,6 +44,7 @@ import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockPistonRelay;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileEnchanter;
@@ -308,7 +309,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 			float b = (color & 0xFF) / 255F;
 
 			SparkleParticleData data = SparkleParticleData.noClip(0.5F, r, g, b, 4);
-			world.addParticle(data, currentPos.x, currentPos.y, currentPos.z, 0, 0, 0);
+			Botania.proxy.addParticleForceNear(world, data, currentPos.x, currentPos.y, currentPos.z, 0, 0, 0);
 			currentPos = currentPos.add(movement);
 		}
 	}

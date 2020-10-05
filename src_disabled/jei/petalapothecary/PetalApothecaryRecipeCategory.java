@@ -23,7 +23,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.util.Identifier;
 import vazkii.botania.api.recipe.IPetalRecipe;
-import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModBlocks;
 
 import javax.annotation.Nonnull;
@@ -117,8 +116,6 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 
 		recipeLayout.getItemStacks().init(index, false, 86, 11);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
-
-		JEIBotaniaPlugin.addDefaultRecipeIdTooltip(recipeLayout.getItemStacks(), index, recipe.getId());
 	}
 
 	public static Vector2f rotatePointAbout(Vector2f in, Vector2f about, double degrees) {

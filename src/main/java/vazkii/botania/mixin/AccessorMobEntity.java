@@ -20,8 +20,8 @@ import net.minecraft.util.Identifier;
 @Mixin(MobEntity.class)
 public interface AccessorMobEntity {
 	@Nullable
-	@Invoker
-	SoundEvent callGetAmbientSound();
+	@Invoker("getAmbientSound")
+	SoundEvent botania_getAmbientSound();
 
 	@Accessor
 	void setLootTable(Identifier id);

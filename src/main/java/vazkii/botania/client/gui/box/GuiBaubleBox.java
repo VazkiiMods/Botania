@@ -38,6 +38,11 @@ public class GuiBaubleBox extends HandledScreen<ContainerBaubleBox> {
 	}
 
 	@Override
+	protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
+		// No-op, there's no space for gui titles
+	}
+
+	@Override
 	protected void drawBackground(MatrixStack ms, float partialTicks, int mouseX, int mouseY) {
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		MinecraftClient.getInstance().getTextureManager().bindTexture(texture);

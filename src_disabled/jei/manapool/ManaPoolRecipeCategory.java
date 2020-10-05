@@ -26,7 +26,6 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Identifier;
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.core.handler.HUDHandler;
-import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -135,7 +134,5 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 
 		recipeLayout.getItemStacks().init(index, false, 93, 12);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
-
-		JEIBotaniaPlugin.addDefaultRecipeIdTooltip(recipeLayout.getItemStacks(), index, recipe.getId());
 	}
 }

@@ -20,6 +20,14 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
+<<<<<<< HEAD
+=======
+import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelFile;
+import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
+import net.minecraftforge.common.data.ExistingFileHelper;
+>>>>>>> 4c77b50dc7c48e2738e9dca513b25bdb627819fb
 
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
@@ -29,6 +37,7 @@ import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.BlockBuriedPetals;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.decor.BlockModMushroom;
+import vazkii.botania.common.block.decor.BlockMotifFlower;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
 import vazkii.botania.common.block.string.BlockRedString;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -109,7 +118,15 @@ public class BlockstateProvider extends BlockStateProvider {
 		});
 		remainingBlocks.remove(craftCrate);
 
-		String elfGlassName = Registry.BLOCK.getId(elfGlass).getPath();
+		ResourceLocation corpSlabSide = prefix("block/corporea_slab_side");
+		ResourceLocation corpBlock = prefix("block/corporea_block");
+		ModelFile corpSlabBottom = models().slab("corporea_slab", corpBlock, corpBlock, corpBlock);
+		ModelFile corpSlabTop = models().slabTop("corporea_slab_top", corpBlock, corpBlock, corpBlock);
+		ModelFile corpSlabDouble = models().cubeBottomTop("corporea_double_slab", corpSlabSide, corpBlock, corpBlock);
+		slabBlock(corporeaSlab, corpSlabBottom, corpSlabTop, corpSlabDouble);
+		remainingBlocks.remove(corporeaSlab);
+
+		String elfGlassName = Registry.BLOCK.getKey(elfGlass).getPath();
 		ConfiguredModel[] elfGlassFiles = IntStream.rangeClosed(0, 3)
 				.mapToObj(i -> {
 					String varName = elfGlassName + "_" + i;
@@ -249,6 +266,13 @@ public class BlockstateProvider extends BlockStateProvider {
 			simpleBlock(b, model);
 		});
 
+		takeAll(remainingBlocks, b -> b instanceof BlockMotifFlower).forEach(b -> {
+			String name = Registry.BLOCK.getKey(b).getPath().replace("_motif", "");
+			ModelFile model = models().withExistingParent(name, prefix("block/shapes/cross"))
+					.texture("cross", prefix("block/" + name));
+			simpleBlock(b, model);
+		});
+
 		takeAll(remainingBlocks, corporeaFunnel, corporeaInterceptor, corporeaRetainer).forEach(b -> {
 			String name = Registry.BLOCK.getId(b).getPath();
 			simpleBlock(b, models().cubeColumn(name, prefix("block/" + name + "_side"), prefix("block/" + name + "_end")));
@@ -334,6 +358,7 @@ public class BlockstateProvider extends BlockStateProvider {
 
 		for (String variant : new String[] { "desert", "forest", "fungal", "mesa", "mountain",
 				"plains", "swamp", "taiga" }) {
+<<<<<<< HEAD
 			Identifier baseId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone");
 			Block base = Registry.BLOCK.getOrEmpty(baseId).get();
 			simpleBlock(base);
@@ -352,6 +377,26 @@ public class BlockstateProvider extends BlockStateProvider {
 
 			Identifier chiseledBricksId = prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
 			Block chiseledBricks = Registry.BLOCK.getOrEmpty(chiseledBricksId).get();
+=======
+			ResourceLocation baseId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone");
+			Block base = Registry.BLOCK.func_241873_b(baseId).get();
+			simpleBlock(base);
+
+			ResourceLocation cobbleId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone");
+			Block cobble = Registry.BLOCK.func_241873_b(cobbleId).get();
+			simpleBlock(cobble);
+
+			ResourceLocation cobbleWallId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.WALL_SUFFIX);
+			Block cobbleWall = Registry.BLOCK.func_241873_b(cobbleWallId).get();
+			fixedWallBlock((WallBlock) cobbleWall, prefix("block/" + cobbleId.getPath()));
+
+			ResourceLocation brickId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
+			Block brick = Registry.BLOCK.func_241873_b(brickId).get();
+			simpleBlock(brick);
+
+			ResourceLocation chiseledBricksId = prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
+			Block chiseledBricks = Registry.BLOCK.func_241873_b(chiseledBricksId).get();
+>>>>>>> 4c77b50dc7c48e2738e9dca513b25bdb627819fb
 			simpleBlock(chiseledBricks);
 
 			// stairs and slabs handled above already
@@ -359,15 +404,25 @@ public class BlockstateProvider extends BlockStateProvider {
 		}
 
 		for (String variant : new String[] { "dark", "mana", "blaze", "lavender", "red", "elf", "sunny" }) {
+<<<<<<< HEAD
 			Identifier quartzId = prefix(variant + "_quartz");
 			Block quartz = Registry.BLOCK.getOrEmpty(quartzId).get();
+=======
+			ResourceLocation quartzId = prefix(variant + "_quartz");
+			Block quartz = Registry.BLOCK.func_241873_b(quartzId).get();
+>>>>>>> 4c77b50dc7c48e2738e9dca513b25bdb627819fb
 			simpleBlock(quartz, models().cubeBottomTop(quartzId.getPath(),
 					prefix("block/" + quartzId.getPath() + "_side"),
 					prefix("block/" + quartzId.getPath() + "_bottom"),
 					prefix("block/" + quartzId.getPath() + "_top")));
 
+<<<<<<< HEAD
 			Identifier pillarId = prefix(variant + "_quartz_pillar");
 			Block pillar = Registry.BLOCK.getOrEmpty(pillarId).get();
+=======
+			ResourceLocation pillarId = prefix(variant + "_quartz_pillar");
+			Block pillar = Registry.BLOCK.func_241873_b(pillarId).get();
+>>>>>>> 4c77b50dc7c48e2738e9dca513b25bdb627819fb
 			ModelFile pillarModel = models().cubeColumn(pillarId.getPath(),
 					prefix("block/" + pillarId.getPath() + "_side"),
 					prefix("block/" + pillarId.getPath() + "_end"));
@@ -376,8 +431,13 @@ public class BlockstateProvider extends BlockStateProvider {
 					.partialState().with(PillarBlock.AXIS, Direction.Axis.Y).setModels(new ConfiguredModel(pillarModel))
 					.partialState().with(PillarBlock.AXIS, Direction.Axis.Z).setModels(new ConfiguredModel(pillarModel, 90, 0, false));
 
+<<<<<<< HEAD
 			Identifier chiseledId = prefix("chiseled_" + variant + "_quartz");
 			Block chiseled = Registry.BLOCK.getOrEmpty(chiseledId).get();
+=======
+			ResourceLocation chiseledId = prefix("chiseled_" + variant + "_quartz");
+			Block chiseled = Registry.BLOCK.func_241873_b(chiseledId).get();
+>>>>>>> 4c77b50dc7c48e2738e9dca513b25bdb627819fb
 			simpleBlock(chiseled, models().cubeColumn(chiseledId.getPath(),
 					prefix("block/" + chiseledId.getPath() + "_side"),
 					prefix("block/" + chiseledId.getPath() + "_end")));
@@ -464,6 +524,7 @@ public class BlockstateProvider extends BlockStateProvider {
 
 	// ? extends T technically not correct, but is more convenient in ItemModelProvider
 	@SafeVarargs
+	@SuppressWarnings("varargs")
 	public static <T> Collection<T> takeAll(Set<? extends T> src, T... items) {
 		List<T> ret = Arrays.asList(items);
 		for (T item : items) {
@@ -495,11 +556,19 @@ public class BlockstateProvider extends BlockStateProvider {
 		return ret;
 	}
 
+<<<<<<< HEAD
 	private static final Map<Direction, EnumProperty<WallShape>> DIRECTION_TO_WALL_SIDE = ImmutableMap.<Direction, EnumProperty<WallShape>>builder()
 			.put(Direction.NORTH, WallBlock.NORTH_SHAPE)
 			.put(Direction.EAST, WallBlock.EAST_SHAPE)
 			.put(Direction.SOUTH, WallBlock.SOUTH_SHAPE)
 			.put(Direction.WEST, WallBlock.WEST_SHAPE).build();
+=======
+	private static final Map<Direction, EnumProperty<WallHeight>> DIRECTION_TO_WALL_SIDE = ImmutableMap.<Direction, EnumProperty<WallHeight>>builder()
+			.put(Direction.NORTH, WallBlock.WALL_HEIGHT_NORTH)
+			.put(Direction.EAST, WallBlock.WALL_HEIGHT_EAST)
+			.put(Direction.SOUTH, WallBlock.WALL_HEIGHT_SOUTH)
+			.put(Direction.WEST, WallBlock.WALL_HEIGHT_WEST).build();
+>>>>>>> 4c77b50dc7c48e2738e9dca513b25bdb627819fb
 
 	// Copy of super but fixed to account for blockstate property changes in 1.16
 	private void fixedWallBlock(WallBlock block, Identifier tex) {

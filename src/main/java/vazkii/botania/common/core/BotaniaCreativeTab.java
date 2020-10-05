@@ -43,5 +43,4 @@ public final class BotaniaCreativeTab extends ItemGroup {
 	public boolean hasSearchBar() {
 		return true;
 	}
-
 }

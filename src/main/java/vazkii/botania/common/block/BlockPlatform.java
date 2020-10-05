@@ -28,6 +28,8 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import net.minecraft.world.WorldView;
 import vazkii.botania.api.mana.IManaCollisionGhost;
@@ -45,32 +47,44 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 	public enum Variant {
 		ABSTRUSE(false, (pos, context) -> {
 			Entity e = context.getEntity();
-			return (e != null && e.getY() > pos.getY() + 0.9 && !context.isDescending());
+			return (e == null || e.getY() > pos.getY() + 0.9 && !context.isDescending());
 		}),
 		SPECTRAL(false, (pos, context) -> false),
 		INFRANGIBLE(true, (pos, context) -> true);
 
 		public final boolean indestructible;
-		public final BiPredicate<BlockPos, ShapeContext> permeable;
+		public final BiPredicate<BlockPos, ShapeContext> collide;
 
 		private Variant(boolean i, BiPredicate<BlockPos, ShapeContext> p) {
 			indestructible = i;
-			permeable = p;
+			collide = p;
 		}
 	}
 
-	public final Variant variant;
+	private final Variant variant;
 
-	public BlockPlatform(@Nonnull Variant v, Settings builder) {
+	public BlockPlatform(@Nonnull Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull BlockView world, @Nonnull BlockPos pos, ShapeContext context) {
-		if (variant.permeable.test(pos, context)) {
-			return super.getCollisionShape(state, world, pos, context);
+	public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
+		TileEntity te = world.getTileEntity(pos);
+		if (te instanceof TilePlatform && ((TilePlatform) te).getCamoState() != null) {
+			return ((TilePlatform) te).getCamoState().getShape(world, pos);
+		} else {
+			return super.getShape(state, world, pos, context);
+		}
+	}
+
+	@Nonnull
+	@Override
+	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, ISelectionContext context) {
+		if (variant.collide.test(pos, context)) {
+			// NB: Use full shape from super.getShape instead of camo state. May change later.
+			return super.getShape(state, world, pos, context);
 		} else {
 			return VoxelShapes.empty();
 		}
@@ -110,6 +124,14 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 		}
 	}
 
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+		if (variant.indestructible) {
+			tooltip.add(new TranslationTextComponent("botaniamisc.creative").mergeStyle(TextFormatting.GRAY));
+		}
+	}
+
 	@Nonnull
 	@Override
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
@@ -126,8 +148,7 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 					&& !(changeState.getBlock() instanceof BlockPlatform)
 					&& changeState.getMaterial() != Material.AIR) {
 				if (!world.isClient) {
-					camo.camoState = changeState;
-					world.updateListeners(pos, state, state, 3);
+					camo.setCamoState(changeState);
 				}
 
 				return ActionResult.SUCCESS;

@@ -22,9 +22,9 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import vazkii.botania.client.core.SkyblockWorldInfo;
 import vazkii.botania.client.render.world.SkyblockSkyRenderer;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.world.SkyblockChunkGenerator;
 
 import javax.annotation.Nullable;
 
@@ -41,14 +41,13 @@ public class MixinWorldRenderer {
 	@Nullable
 	private VertexBuffer starsBuffer;
 
-	// TODO 1.16 isWorldSkyblock doesnt work on client (needs to be communicated separately)
 	@Unique
 	private static boolean isGogSky() {
 		World world = MinecraftClient.getInstance().world;
-		return ConfigHandler.CLIENT.enableFancySkybox.getValue()
+		boolean isGog = world.getWorldInfo() instanceof SkyblockWorldInfo && ((SkyblockWorldInfo) world.getWorldInfo()).isGardenOfGlass();
+		return ConfigHandler.CLIENT.enableFancySkybox.get()
 				&& world.getRegistryKey() == World.OVERWORLD
-				&& (ConfigHandler.CLIENT.enableFancySkyboxInNormalWorlds.getValue()
-						|| SkyblockChunkGenerator.isWorldSkyblock(world));
+				&& (ConfigHandler.CLIENT.enableFancySkyboxInNormalWorlds.get() || isGog);
 	}
 
 	/**

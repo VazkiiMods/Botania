@@ -101,7 +101,7 @@ public final class ColorHandler {
 						BlockEntity tile = world.getBlockEntity(pos);
 						if (tile instanceof TilePlatform) {
 							TilePlatform camo = (TilePlatform) tile;
-							BlockState camoState = camo.camoState;
+							BlockState camoState = camo.getCamoState();
 							if (camoState != null) {
 								return camoState.getBlock() instanceof BlockPlatform
 										? 0xFFFFFF

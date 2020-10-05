@@ -27,15 +27,16 @@ import vazkii.botania.common.item.ModItems;
 import java.util.Random;
 
 public class RenderTileRedString<T extends TileRedString> extends BlockEntityRenderer<T> {
-	private static float sizeAlpha = 0F;
+	// 0 -> none, 10 -> full
+	private static int transparency = 0;
 
 	public static void tick() {
 		PlayerEntity player = MinecraftClient.getInstance().player;
 		boolean hasWand = player != null && PlayerHelper.hasHeldItem(player, ModItems.twigWand);
-		if (sizeAlpha > 0F && !hasWand) {
-			sizeAlpha -= 0.1F;
-		} else if (sizeAlpha < 1F && hasWand) {
-			sizeAlpha += 0.1F;
+		if (transparency > 0 && !hasWand) {
+			transparency--;
+		} else if (transparency < 10 && hasWand) {
+			transparency++;
 		}
 	}
 
@@ -45,10 +46,11 @@ public class RenderTileRedString<T extends TileRedString> extends BlockEntityRen
 
 	@Override
 	public void render(TileRedString tile, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
-		if (sizeAlpha < 0) {
+		if (transparency <= 0) {
 			return;
 		}
 
+		float sizeAlpha = transparency / 10.0F;
 		int color = 0xFF0000 | ((int) (sizeAlpha * 255) << 24);
 
 		Direction dir = tile.getOrientation();
@@ -82,6 +84,7 @@ public class RenderTileRedString<T extends TileRedString> extends BlockEntityRen
 
 	private static void addVertexAtWithTranslation(MatrixStack ms, VertexConsumer buffer, int color, Direction dir, double xpos, double ypos, double zpos, double rand, double l) {
 		double freq = 20;
+		float sizeAlpha = transparency / 10.0F;
 		double ampl = (0.15 * (Math.sin(l * 2F) * 0.5 + 0.5) + 0.1) * sizeAlpha;
 		double randMul = 0.05;
 		double x = xpos + Math.sin(l * freq) * ampl * Math.abs(Math.abs(dir.getOffsetX()) - 1) + rand * randMul;

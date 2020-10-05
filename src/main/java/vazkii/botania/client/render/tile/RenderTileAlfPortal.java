@@ -48,7 +48,7 @@ public class RenderTileAlfPortal extends BlockEntityRenderer<TileAlfPortal> {
 		} else {
 			ms.translate(-1, 1, 0.75);
 		}
-		renderIcon(ms, buffers, MiscellaneousIcons.INSTANCE.alfPortalTex, 0, 0, 3, 3, alpha, overlay);
+		renderIcon(ms, buffers, MiscellaneousIcons.INSTANCE.alfPortalTex.getSprite(), 0, 0, 3, 3, alpha, overlay);
 		ms.pop();
 
 		ms.push();

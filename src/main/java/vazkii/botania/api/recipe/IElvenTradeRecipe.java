@@ -61,8 +61,13 @@ public interface IElvenTradeRecipe extends Recipe<Inventory> {
 
 	@Nonnull
 	@Override
+<<<<<<< HEAD
 	default RecipeType<?> getType() {
 		return Registry.RECIPE_TYPE.getOrEmpty(TYPE_ID).get();
+=======
+	default IRecipeType<?> getType() {
+		return Registry.RECIPE_TYPE.func_241873_b(TYPE_ID).get();
+>>>>>>> 4c77b50dc7c48e2738e9dca513b25bdb627819fb
 	}
 
 	// Ignored IRecipe boilerplate

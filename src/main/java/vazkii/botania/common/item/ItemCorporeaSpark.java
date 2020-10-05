@@ -30,7 +30,13 @@ public class ItemCorporeaSpark extends Item {
 		super(props);
 	}
 
-	private boolean canPlaceOn(World world, BlockPos pos) {
+	@Nonnull
+	@Override
+	public ActionResultType onItemUse(ItemUseContext ctx) {
+		return attachSpark(ctx.getWorld(), ctx.getPos(), ctx.getItem()) ? ActionResultType.SUCCESS : ActionResultType.PASS;
+	}
+
+	private static boolean canPlaceOn(World world, BlockPos pos) {
 		if (world.getBlockState(pos).isIn(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE)) {
 			return true;
 		}
@@ -39,24 +45,19 @@ public class ItemCorporeaSpark extends Item {
 		return tile instanceof Inventory; // todo 1.16-fabric query node detectors
 	}
 
-	@Nonnull
-	@Override
-	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		World world = ctx.getWorld();
-		BlockPos pos = ctx.getBlockPos();
-
+	public static boolean attachSpark(World world, BlockPos pos, ItemStack stack) {
 		if (canPlaceOn(world, pos) && !CorporeaHelper.instance().doesBlockHaveSpark(world, pos)) {
-			ctx.getStack().decrement(1);
 			if (!world.isClient) {
 				EntityCorporeaSpark spark = ModEntities.CORPOREA_SPARK.create(world);
-				if (this == ModItems.corporeaSparkMaster) {
+				if (stack.getItem() == ModItems.corporeaSparkMaster) {
 					spark.setMaster(true);
 				}
 				spark.updatePosition(pos.getX() + 0.5, pos.getY() + 1.25, pos.getZ() + 0.5);
 				world.spawnEntity(spark);
+				stack.decrement(1);
 			}
-			return ActionResult.SUCCESS;
+			return true;
 		}
-		return ActionResult.PASS;
+		return false;
 	}
 }

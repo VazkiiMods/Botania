@@ -184,7 +184,11 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 						BlockPos adjPos = pos_.offset(dir);
 						BlockState adjState = world.getBlockState(adjPos);
 
+<<<<<<< HEAD
 						if (!Block.isSideSolidFullSquare(adjState, world, adjPos, dir.getOpposite())) {
+=======
+						if (!Block.doesSideFillSquare(adjState.getRenderShape(world, pos), dir.getOpposite())) {
+>>>>>>> 4c77b50dc7c48e2738e9dca513b25bdb627819fb
 							coordsList.add(pos_);
 							break;
 						}

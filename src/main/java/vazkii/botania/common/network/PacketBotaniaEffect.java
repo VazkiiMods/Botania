@@ -29,6 +29,7 @@ import net.minecraft.world.World;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.core.helper.Vector3;
@@ -118,7 +119,7 @@ public class PacketBotaniaEffect {
 							double wx = x + 0.5 - Math.cos(rad) * EntityDoppleganger.ARENA_RANGE;
 							double wy = y + 0.5;
 							double wz = z + 0.5 - Math.sin(rad) * EntityDoppleganger.ARENA_RANGE;
-							world.addParticle(data, wx, wy, wz, 0, 0, 0);
+							Botania.proxy.addParticleForceNear(world, data, wx, wy, wz, 0, 0, 0);
 						}
 						break;
 					}
@@ -167,7 +168,7 @@ public class PacketBotaniaEffect {
 							float b = Math.min(1F, (color & 0xFF) / 255F + 0.4F);
 
 							SparkleParticleData data = SparkleParticleData.noClip(1, r, g, b, 12);
-							world.addParticle(data, currentPos.x, currentPos.y, currentPos.z, 0, 0, 0);
+							world.addOptionalParticle(data, true, currentPos.x, currentPos.y, currentPos.z, 0, 0, 0);
 							currentPos = currentPos.add(movement);
 						}
 
@@ -192,7 +193,7 @@ public class PacketBotaniaEffect {
 						float size = 0.125F + 0.125F * (float) Math.random();
 
 						WispParticleData data = WispParticleData.wisp(size, r, g, b).withNoClip(true);
-						world.addParticle(data, thisVec.x, thisVec.y, thisVec.z, (float) motion.x, (float) motion.y, (float) motion.z);
+						world.addOptionalParticle(data, thisVec.x, thisVec.y, thisVec.z, (float) motion.x, (float) motion.y, (float) motion.z);
 						break;
 					}
 					case ENCHANTER_DESTROY: {
@@ -247,7 +248,7 @@ public class PacketBotaniaEffect {
 										0F, (float) ticks / (float) 100, 1F - (float) ticks / (float) 100
 								};
 								WispParticleData data = WispParticleData.wisp(0.85F, colorsfx[0], colorsfx[1], colorsfx[2], 0.25F);
-								world.addParticle(data, wx, wy, wz, 0, (float) (-g * 0.05), 0);
+								Botania.proxy.addParticleForceNear(world, data, wx, wy, wz, 0, (float) (-g * 0.05), 0);
 								data = WispParticleData.wisp((float) Math.random() * 0.1F + 0.1F, colorsfx[0], colorsfx[1], colorsfx[2], 0.9F);
 								world.addParticle(data, wx, wy, wz, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F, (float) (Math.random() - 0.5) * 0.05F);
 

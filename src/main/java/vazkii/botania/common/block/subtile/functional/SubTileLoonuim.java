@@ -104,7 +104,7 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 			} else if (world.random.nextInt(10) == 0) {
 				entity = new CreeperEntity(EntityType.CREEPER, world);
 				if (world.random.nextInt(200) == 0) {
-					entity.onStruckByLightning(null);
+					entity.onStruckByLightning((ServerWorld) world, null);
 				}
 			} else {
 				switch (world.random.nextInt(3)) {

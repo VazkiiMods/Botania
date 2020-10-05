@@ -28,6 +28,7 @@ import java.util.Optional;
 
 public class TileSpawnerClaw extends TileMod implements IManaReceiver, Tickable {
 	private static final String TAG_MANA = "mana";
+	private static final int MAX_MANA = 160;
 
 	private int mana = 0;
 
@@ -114,7 +115,6 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, Tickable 
 								if (mLogic.getSpawnEntry().getEntityTag().getSize() == 1 && mLogic.getSpawnEntry().getEntityTag().contains("id", 8)) {
 									((MobEntity) entity).initialize(serverWorld, world.getLocalDifficulty(entity.getBlockPos()), SpawnReason.SPAWNER, (EntityData) null, (CompoundTag) null);
 								}
-							}
 
 							serverWorld.method_30736(entity);
 							world.syncWorldEvent(2004, blockpos, 0);
@@ -122,9 +122,9 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, Tickable 
 								((MobEntity) entity).playSpawnEffects();
 							}
 
-							flag = true;
+								flag = true;
+							}
 						}
-					}
 
 					if (flag) {
 						mLogic.callUpdateSpawns();
@@ -151,12 +151,12 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, Tickable 
 
 	@Override
 	public boolean isFull() {
-		return mana >= 160;
+		return mana >= MAX_MANA;
 	}
 
 	@Override
 	public void receiveMana(int mana) {
-		this.mana = Math.min(160, this.mana + mana);
+		this.mana = Math.min(3 * MAX_MANA, this.mana + mana);
 	}
 
 	@Override

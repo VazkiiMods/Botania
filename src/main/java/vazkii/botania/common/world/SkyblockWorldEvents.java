@@ -36,12 +36,23 @@ import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+import vazkii.botania.common.network.PacketGogWorld;
+import vazkii.botania.common.network.PacketHandler;
 
 public final class SkyblockWorldEvents {
 
 	private SkyblockWorldEvents() {}
 
-	private static final Tag.Identified<Block> PEBBLE_SOURCES = TagRegistry.create(new Identifier("gardenofglass", "pebble_sources"), BlockTags::getTagGroup);
+	private static final ResourceLocation PEBBLE_SOURCES = new ResourceLocation("gardenofglass:pebble_sources");
+
+	public static void syncGogStatus(EntityJoinWorldEvent evt) {
+		if (evt.getEntity() instanceof ServerPlayerEntity) {
+			boolean isGog = SkyblockChunkGenerator.isWorldSkyblock(evt.getWorld());
+			if (isGog) {
+				PacketHandler.sendTo((ServerPlayerEntity) evt.getEntity(), new PacketGogWorld());
+			}
+		}
+	}
 
 	public static void onPlayerJoin(ServerPlayerEntity player) {
 		World world = player.world;
@@ -64,8 +75,9 @@ public final class SkyblockWorldEvents {
 				BlockState state = world.getBlockState(hit.getBlockPos());
 				Block block = state.getBlock();
 
-				if (PEBBLE_SOURCES.contains(block)) {
-					BlockSoundGroup st = state.getSoundGroup();
+				ITag<Block> tag = event.getWorld().getTags().func_241835_a().func_241834_b(PEBBLE_SOURCES);
+				if (tag.contains(block)) {
+					SoundType st = state.getSoundType(event.getWorld(), event.getPos(), player);
 					player.playSound(st.getBreakSound(), st.getVolume() * 0.4F, st.getPitch() + (float) (Math.random() * 0.2 - 0.1));
 
 					if (world.isClient) {

@@ -153,7 +153,11 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 			return false;
 		}
 
+<<<<<<< HEAD
 		Registry.SOUND_EVENT.getOrEmpty(DING_SOUND_EVENT).ifPresent(evt -> player.playSound(evt, 0.1F, 1F));
+=======
+		Registry.SOUND_EVENT.func_241873_b(DING_SOUND_EVENT).ifPresent(evt -> player.playSound(evt, 0.1F, 1F));
+>>>>>>> 4c77b50dc7c48e2738e9dca513b25bdb627819fb
 
 		return super.onWanded(player, wand);
 	}

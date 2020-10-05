@@ -39,7 +39,7 @@ public class ItemVirus extends Item {
 
 	@Override
 	public ActionResult useOnEntity(ItemStack stack, PlayerEntity player, LivingEntity living, Hand hand) {
-		if (living instanceof HorseBaseEntity && !(living instanceof LlamaEntity)) {
+		if (living instanceof HorseEntity) {
 			if (player.world.isClient) {
 				return ActionResult.SUCCESS;
 			}

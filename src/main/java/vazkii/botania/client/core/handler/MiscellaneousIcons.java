@@ -31,8 +31,8 @@ import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.AccessorItemOverrideList;
 import vazkii.botania.mixin.AccessorModelBakery;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -41,26 +41,28 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public class MiscellaneousIcons {
 	public static final MiscellaneousIcons INSTANCE = new MiscellaneousIcons();
 
-	public Sprite alfPortalTex,
-			lightRelayWorldIcon,
-			lightRelayDetectorWorldIcon,
-			lightRelayForkWorldIcon,
-			lightRelayToggleWorldIcon,
-			alchemyCatalystOverlay,
-			conjurationCatalystOverlay,
-			enchanterOverlay,
-			manaVoidOverlay,
-			manaWater,
-			terraPlateOverlay,
-			corporeaWorldIcon,
-			corporeaWorldIconMaster,
-			corporeaIconStar,
-			sparkWorldIcon,
-			manaDetectorIcon,
-			runeAltarTriggerIcon;
+	public final SpriteIdentifier alfPortalTex = mainAtlas("block/alfheim_portal_swirl");
+	public final SpriteIdentifier lightRelayWorldIcon = mainAtlas("block/light_relay");
+	public final SpriteIdentifier lightRelayDetectorWorldIcon = mainAtlas("block/detector_light_relay");
+	public final SpriteIdentifier lightRelayForkWorldIcon = mainAtlas("block/fork_light_relay");
+	public final SpriteIdentifier lightRelayToggleWorldIcon = mainAtlas("block/toggle_light_relay");
+	public final SpriteIdentifier alchemyCatalystOverlay = mainAtlas("block/alchemy_catalyst_overlay");
+	public final SpriteIdentifier conjurationCatalystOverlay = mainAtlas("block/conjuration_catalyst_overlay");
+	public final SpriteIdentifier enchanterOverlay = mainAtlas("block/enchanter_overlay");
+	public final SpriteIdentifier manaVoidOverlay = mainAtlas("block/mana_void_overlay");
+	public final SpriteIdentifier manaWater = mainAtlas("block/mana_water");
+	public final SpriteIdentifier terraPlateOverlay = mainAtlas("block/terra_plate_overlay");
+	public final SpriteIdentifier corporeaWorldIcon = mainAtlas("item/corporea_spark");
+	public final SpriteIdentifier corporeaWorldIconMaster = mainAtlas("item/corporea_spark_master");
+	public final SpriteIdentifier corporeaIconStar = mainAtlas("item/corporea_spark_star");
+	public final SpriteIdentifier sparkWorldIcon = mainAtlas("item/spark");
 
-	public final Sprite[] sparkUpgradeIcons = new Sprite[4];
-	// public final Map<TriggerManaLevel.State, TextureAtlasSprite> manaLevelTriggerIcons = new EnumMap<>(TriggerManaLevel.State.class);
+	public final SpriteIdentifier[] sparkUpgradeIcons = new SpriteIdentifier[] {
+			mainAtlas("item/spark_upgrade_rune_dispersive"),
+			mainAtlas("item/spark_upgrade_rune_dominant"),
+			mainAtlas("item/spark_upgrade_rune_recessive"),
+			mainAtlas("item/spark_upgrade_rune_isolated")
+	};
 	public final BakedModel[] tiaraWingIcons = new BakedModel[ItemFlightTiara.WING_TYPES];
 	public final BakedModel[] thirdEyeLayers = new BakedModel[3];
 
@@ -86,6 +88,11 @@ public class MiscellaneousIcons {
 	public void onModelRegister(ResourceManager rm, Consumer<ModelIdentifier> consumer) {
 		Set<SpriteIdentifier> materials = AccessorModelBakery.getMaterials();
 
+		materials.addAll(Arrays.asList(alfPortalTex, lightRelayWorldIcon, lightRelayDetectorWorldIcon,
+				lightRelayForkWorldIcon, lightRelayToggleWorldIcon, alchemyCatalystOverlay, conjurationCatalystOverlay,
+				enchanterOverlay, manaVoidOverlay, manaWater, terraPlateOverlay, corporeaWorldIcon, corporeaWorldIconMaster,
+				corporeaIconStar, sparkWorldIcon));
+		materials.addAll(Arrays.asList(sparkUpgradeIcons));
 		materials.add(RenderLexicon.TEXTURE);
 		materials.add(RenderLexicon.ELVEN_TEXTURE);
 		for (BannerPattern pattern : BannerPattern.values()) {
@@ -184,83 +191,8 @@ public class MiscellaneousIcons {
 		}
 	}
 
-	public void onTextureStitchPre(TextureStitchEvent.Pre evt) {
-		if (!evt.getMap().getId().equals(SpriteAtlasTexture.BLOCK_ATLAS_TEX)) {
-			return;
-		}
-
-		evt.addSprite(prefix("block/alfheim_portal_swirl"));
-		evt.addSprite(prefix("block/alfheim_portal_swirl"));
-		evt.addSprite(prefix("block/alchemy_catalyst_overlay"));
-		evt.addSprite(prefix("block/conjuration_catalyst_overlay"));
-		evt.addSprite(prefix("block/enchanter_overlay"));
-		evt.addSprite(prefix("block/mana_void_overlay"));
-		evt.addSprite(prefix("block/mana_water"));
-		evt.addSprite(prefix("block/terra_plate_overlay"));
-		evt.addSprite(prefix("item/corporea_spark_star"));
-		evt.addSprite(prefix("item/spark"));
-
-		for (SparkUpgradeType type : SparkUpgradeType.values()) {
-			if (type != SparkUpgradeType.NONE) {
-				evt.addSprite(prefix("item/spark_upgrade_rune_" + type.name().toLowerCase(Locale.ROOT)));
-			}
-		}
-
-		evt.addSprite(prefix("item/special_tail"));
-
-		/*
-		evt.addSprite(prefix("item/triggers/mana_detector"));
-		evt.addSprite(prefix("item/triggers/rune_altar_can_craft"));
-		
-		for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) {
-			register(evt.getMap(), "item/triggers/mana" + WordUtils.capitalizeFully(s.name()));
-		}
-		*/
-	}
-
-	public void onTextureStitchPost(TextureStitchEvent.Post evt) {
-		if (!evt.getMap().getId().equals(SpriteAtlasTexture.BLOCK_ATLAS_TEX)) {
-			return;
-		}
-
-		alfPortalTex = get(evt.getMap(), "block/alfheim_portal_swirl");
-		lightRelayWorldIcon = get(evt.getMap(), "block/light_relay");
-		lightRelayDetectorWorldIcon = get(evt.getMap(), "block/detector_light_relay");
-		lightRelayForkWorldIcon = get(evt.getMap(), "block/fork_light_relay");
-		lightRelayToggleWorldIcon = get(evt.getMap(), "block/toggle_light_relay");
-		alchemyCatalystOverlay = get(evt.getMap(), "block/alchemy_catalyst_overlay");
-		conjurationCatalystOverlay = get(evt.getMap(), "block/conjuration_catalyst_overlay");
-		enchanterOverlay = get(evt.getMap(), "block/enchanter_overlay");
-		manaVoidOverlay = get(evt.getMap(), "block/mana_void_overlay");
-		manaWater = get(evt.getMap(), "block/mana_water");
-		terraPlateOverlay = get(evt.getMap(), "block/terra_plate_overlay");
-		corporeaWorldIcon = get(evt.getMap(), "item/corporea_spark");
-		corporeaWorldIconMaster = get(evt.getMap(), "item/corporea_spark_master");
-		corporeaIconStar = get(evt.getMap(), "item/corporea_spark_star");
-		sparkWorldIcon = get(evt.getMap(), "item/spark");
-
-		for (SparkUpgradeType type : SparkUpgradeType.values()) {
-			if (type != SparkUpgradeType.NONE) {
-				sparkUpgradeIcons[type.ordinal() - 1] = get(evt.getMap(), "item/spark_upgrade_rune_" + type.name().toLowerCase(Locale.ROOT));
-			}
-		}
-
-		/*
-		manaDetectorIcon = get(evt.getMap(), "item/triggers/mana_detector");
-		runeAltarTriggerIcon = get(evt.getMap(), "item/triggers/rune_altar_can_craft");
-		
-		for (TriggerManaLevel.State s : TriggerManaLevel.State.values()) {
-			manaLevelTriggerIcons.put(s, get(evt.getMap(), "item/triggers/mana" + WordUtils.capitalizeFully(s.name())));
-		}
-		*/
-	}
-
-	private Sprite get(SpriteAtlasTexture map, String name) {
-		Sprite ret = map.getSprite(prefix(name));
-		if (ret == map.getSprite(MissingSprite.getMissingSpriteId())) {
-			Botania.LOGGER.error("Missing texture for {}", name);
-		}
-		return ret;
+	private static SpriteIdentifier mainAtlas(String name) {
+		return new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEX, prefix(name));
 	}
 
 	private MiscellaneousIcons() {}
