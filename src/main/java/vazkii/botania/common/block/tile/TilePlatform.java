@@ -53,9 +53,9 @@ public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity
 		this.camoState = state;
 
 		if (world != null) {
-			world.notifyBlockUpdate(getPos(), getBlockState(), getBlockState(), 3);
-			if (!world.isRemote) {
-				world.func_230547_a_(pos, getBlockState().getBlock());
+			world.updateListeners(getPos(), getCachedState(), getCachedState(), 3);
+			if (!world.isClient) {
+				world.updateNeighbors(pos, getCachedState().getBlock());
 			}
 		}
 	}
@@ -90,8 +90,8 @@ public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity
 	}
 
 	@Override
-	public void readPacketNBT(CompoundNBT cmp) {
-		BlockState state = NBTUtil.readBlockState(cmp.getCompound(TAG_CAMO));
+	public void readPacketNBT(CompoundTag cmp) {
+		BlockState state = NbtHelper.toBlockState(cmp.getCompound(TAG_CAMO));
 		if (state.isAir()) {
 			state = null;
 		}

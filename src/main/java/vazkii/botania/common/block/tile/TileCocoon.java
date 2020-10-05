@@ -9,17 +9,20 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.PassiveEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tag.Tag;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.village.VillagerType;
 import net.minecraft.world.ServerWorldAccess;
+import vazkii.botania.common.lib.ModTags;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,9 +118,9 @@ public class TileCocoon extends TileMod implements Tickable {
 		timePassed = Math.max(timePassed, TOTAL_TIME / 2);
 	}
 
-	private MobEntity random(ITag<EntityType<?>> tag) {
-		EntityType<?> type = tag.getRandomElement(world.rand);
-		if (type == EntityType.COW && world.rand.nextFloat() < 0.01) {
+	private MobEntity random(Tag<EntityType<?>> tag) {
+		EntityType<?> type = tag.getRandom(world.random);
+		if (type == EntityType.COW && world.random.nextFloat() < 0.01) {
 			type = EntityType.MOOSHROOM;
 		}
 		Entity entity = type.create(world);

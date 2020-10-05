@@ -11,6 +11,7 @@ package vazkii.botania.common.item;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
@@ -32,8 +33,8 @@ public class ItemCorporeaSpark extends Item {
 
 	@Nonnull
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
-		return attachSpark(ctx.getWorld(), ctx.getPos(), ctx.getItem()) ? ActionResultType.SUCCESS : ActionResultType.PASS;
+	public ActionResult useOnBlock(ItemUsageContext ctx) {
+		return attachSpark(ctx.getWorld(), ctx.getBlockPos(), ctx.getStack()) ? ActionResult.SUCCESS : ActionResult.PASS;
 	}
 
 	private static boolean canPlaceOn(World world, BlockPos pos) {

@@ -8,18 +8,19 @@
  */
 package vazkii.botania.common.block.decor;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.FlowerBlock;
-import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effect;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.world.BlockView;
 
 import javax.annotation.Nullable;
 
@@ -28,25 +29,25 @@ import java.util.List;
 public class BlockMotifFlower extends FlowerBlock {
 	private final boolean hidden;
 
-	public BlockMotifFlower(Effect effect, int effectDuration, Properties properties, boolean hidden) {
+	public BlockMotifFlower(StatusEffect effect, int effectDuration, Settings properties, boolean hidden) {
 		super(effect, effectDuration, properties);
 		this.hidden = hidden;
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+	@Environment(EnvType.CLIENT)
+	public void appendTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Text> tooltip, TooltipContext flags) {
 		if (hidden) {
-			tooltip.add(new TranslationTextComponent("block.botania.daybloom_motif.description").mergeStyle(TextFormatting.GRAY));
+			tooltip.add(new TranslatableText("block.botania.daybloom_motif.description").formatted(Formatting.GRAY));
 		} else {
-			tooltip.add(new TranslationTextComponent("block.botania.hydroangeas_motif.description").mergeStyle(TextFormatting.GRAY));
+			tooltip.add(new TranslatableText("block.botania.hydroangeas_motif.description").formatted(Formatting.GRAY));
 		}
 	}
 
 	@Override
-	public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+	public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> items) {
 		if (!hidden) {
-			super.fillItemGroup(group, items);
+			super.addStacksForDisplay(group, items);
 		}
 	}
 }

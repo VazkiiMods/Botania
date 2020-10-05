@@ -10,10 +10,10 @@ package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.item.crafting.SpecialRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.SpecialRecipeSerializer;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.item.ItemLaputaShard;
@@ -21,10 +21,10 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class LaputaShardUpgradeRecipe extends SpecialRecipe {
+public class LaputaShardUpgradeRecipe extends SpecialCraftingRecipe {
 	public static final SpecialRecipeSerializer<LaputaShardUpgradeRecipe> SERIALIZER = new SpecialRecipeSerializer<>(LaputaShardUpgradeRecipe::new);
 
-	public LaputaShardUpgradeRecipe(ResourceLocation id) {
+	public LaputaShardUpgradeRecipe(Identifier id) {
 		super(id);
 	}
 
@@ -32,8 +32,8 @@ public class LaputaShardUpgradeRecipe extends SpecialRecipe {
 	public boolean matches(@Nonnull CraftingInventory inv, @Nonnull World worldIn) {
 		boolean foundShard = false;
 		boolean foundSpirit = false;
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stack = inv.getStack(i);
 			if (stack.isEmpty()) {
 				continue;
 			}
@@ -51,9 +51,9 @@ public class LaputaShardUpgradeRecipe extends SpecialRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(@Nonnull CraftingInventory inv) {
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack stack = inv.getStackInSlot(i);
+	public ItemStack craft(@Nonnull CraftingInventory inv) {
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack stack = inv.getStack(i);
 			if (stack.getItem() == ModItems.laputaShard) {
 				ItemStack result = stack.copy();
 				result.getOrCreateTag().putInt(ItemLaputaShard.TAG_LEVEL, ItemLaputaShard.getShardLevel(stack) + 1);
@@ -64,13 +64,13 @@ public class LaputaShardUpgradeRecipe extends SpecialRecipe {
 	}
 
 	@Override
-	public boolean canFit(int width, int height) {
+	public boolean fits(int width, int height) {
 		return width * height >= 2;
 	}
 
 	@Nonnull
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 }

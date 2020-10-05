@@ -29,8 +29,8 @@ public class StateIngredientTag extends StateIngredientBlocks {
 		this.tag = id;
 	}
 
-	private ITag<Block> resolve() {
-		return BlockTags.getCollection().func_241834_b(tag);
+	private Tag<Block> resolve() {
+		return BlockTags.getTagGroup().getTagOrEmpty(tag);
 	}
 
 	@Override
