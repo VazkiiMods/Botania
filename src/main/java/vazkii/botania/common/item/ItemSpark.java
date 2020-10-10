@@ -30,7 +30,7 @@ public class ItemSpark extends Item {
 	@Nonnull
 	@Override
 	public ActionResultType onItemUse(ItemUseContext ctx) {
-		return attachSpark(ctx.getWorld(), ctx.getPos(), ctx.getItem()) ? ActionResultType.PASS : ActionResultType.SUCCESS;
+		return attachSpark(ctx.getWorld(), ctx.getPos(), ctx.getItem()) ? ActionResultType.func_233537_a_(ctx.getWorld().isRemote) : ActionResultType.PASS;
 	}
 
 	public static boolean attachSpark(World world, BlockPos pos, ItemStack stack) {
