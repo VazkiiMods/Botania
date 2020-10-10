@@ -26,6 +26,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
+import vazkii.botania.mixin.AccessorDyeColor;
+
 import java.util.Random;
 
 public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityRenderer<T> {
@@ -58,7 +60,7 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 		ms.push();
 		ms.translate(-0.02 + Math.sin(time / 20) * 0.2, 0.24 + Math.cos(time / 20) * 0.2, 0.005);
 		ms.scale(0.2F, 0.2F, 0.2F);
-		int starColor = tEntity.getNetwork().getColorValue() | ((int) (a * 255.0F) << 24);
+		int starColor = ((AccessorDyeColor) (Object) tEntity.getNetwork()).getColor() | ((int) (a * 255.0F) << 24);
 		renderIcon(ms, buffer, MiscellaneousIcons.INSTANCE.corporeaIconStar.getSprite(), starColor);
 		ms.pop();
 

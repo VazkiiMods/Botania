@@ -65,7 +65,7 @@ public class ContainerBaubleBox extends ScreenHandler {
 		}
 
 		for (i = 0; i < 9; ++i) {
-			if (playerInv.getStackInSlot(i) == box) {
+			if (playerInv.getStack(i) == box) {
 				addSlot(new SlotLocked(playerInv, i, 8 + i * 18, 142));
 			} else {
 				addSlot(new Slot(playerInv, i, 8 + i * 18, 142));

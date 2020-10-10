@@ -8,30 +8,25 @@
  */
 package vazkii.botania.common.network;
 
-import net.minecraft.client.Minecraft;
+import net.fabricmc.fabric.api.network.PacketContext;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.Identifier;
 
 import vazkii.botania.client.core.SkyblockWorldInfo;
 
-import java.util.function.Supplier;
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PacketGogWorld {
-	public static void encode(PacketGogWorld pkt, PacketBuffer buf) {}
+	public static final Identifier ID = prefix("gog");
 
-	public static PacketGogWorld decode(PacketBuffer buf) {
-		return new PacketGogWorld();
-	}
-
-	public static void handle(PacketGogWorld pkt, Supplier<NetworkEvent.Context> ctx) {
-		if (ctx.get().getDirection().getReceptionSide().isClient()) {
-			ctx.get().enqueueWork(() -> {
-				ClientWorld.ClientWorldInfo info = Minecraft.getInstance().world.getWorldInfo();
-				if (info instanceof SkyblockWorldInfo) {
-					((SkyblockWorldInfo) info).markGardenOfGlass();
-				}
-			});
-		}
+	public static void handle(PacketContext ctx, PacketByteBuf buf) {
+		ctx.getTaskQueue().execute(() -> {
+			ClientWorld.Properties info = MinecraftClient.getInstance().world.getLevelProperties();
+			if (info instanceof SkyblockWorldInfo) {
+				((SkyblockWorldInfo) info).markGardenOfGlass();
+			}
+		});
 	}
 }

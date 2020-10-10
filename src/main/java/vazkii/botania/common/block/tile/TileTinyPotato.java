@@ -78,7 +78,7 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Tickab
 				}
 			}
 
-			player.addStat(ModStats.TINY_POTATOES_PETTED);
+			player.incrementStat(ModStats.TINY_POTATOES_PETTED);
 			PlayerHelper.grantCriterion((ServerPlayerEntity) player, prefix("main/tiny_potato_pet"), "code_triggered");
 		}
 	}

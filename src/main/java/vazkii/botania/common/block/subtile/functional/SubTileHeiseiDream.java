@@ -12,6 +12,7 @@ import com.google.common.base.Predicates;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.goal.GoalSelector;
 import net.minecraft.entity.ai.goal.PrioritizedGoal;
 import net.minecraft.entity.ai.goal.RevengeGoal;
 import net.minecraft.entity.mob.MobEntity;
@@ -21,6 +22,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.mixin.AccessorGoalSelector;
+import vazkii.botania.mixin.AccessorMobEntity;
 
 import java.util.List;
 
@@ -71,11 +73,12 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 				entity.setTarget(null);
 
 				// Move any EntityAIHurtByTarget to highest priority
-				for (PrioritizedGoal entry : ((AccessorGoalSelector) entity.targetSelector).getGoals()) {
+				GoalSelector targetSelector = ((AccessorMobEntity) entity).getTargetSelector();
+				for (PrioritizedGoal entry : ((AccessorGoalSelector) targetSelector).getGoals()) {
 					if (entry.getGoal() instanceof RevengeGoal) {
 						// Concurrent modification OK since we break out of the loop
-						entity.targetSelector.remove(entry.getGoal());
-						entity.targetSelector.add(-1, entry.getGoal());
+						targetSelector.remove(entry.getGoal());
+						targetSelector.add(-1, entry.getGoal());
 						break;
 					}
 				}

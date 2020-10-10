@@ -10,6 +10,7 @@ package vazkii.botania.common.block.dispenser;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.DispenserBlock;
+import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPointer;
@@ -19,7 +20,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class BehaviourSeeds extends ItemDispenserBehavior {
+public class BehaviourSeeds extends FallibleItemDispenserBehavior {
 	private Block block;
 
 	public BehaviourSeeds(Block block) {
@@ -33,11 +34,11 @@ public class BehaviourSeeds extends ItemDispenserBehavior {
 		BlockPos pos = source.getBlockPos().offset(facing);
 		World world = source.getWorld();
 
-		setSuccessful(false);
+		setSuccess(false);
 		if (world.isAir(pos) && block.getDefaultState().canPlaceAt(world, pos)) {
 			world.setBlockState(pos, block.getDefaultState());
 			stack.decrement(1);
-			setSuccessful(true);
+			setSuccess(true);
 		}
 
         return stack;

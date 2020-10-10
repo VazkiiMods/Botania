@@ -38,7 +38,7 @@ public class GuiBaubleBox extends HandledScreen<ContainerBaubleBox> {
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
+	protected void drawForeground(MatrixStack matrixStack, int x, int y) {
 		// No-op, there's no space for gui titles
 	}
 

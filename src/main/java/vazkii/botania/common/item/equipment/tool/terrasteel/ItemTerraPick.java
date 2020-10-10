@@ -146,7 +146,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		if (!player.world.isClient && raycast.getType() == HitResult.Type.BLOCK) {
 			Direction face = raycast.getSide();
 			breakOtherBlock(player, stack, pos, pos, face);
-			if (player.isSecondaryUseActive()) {
+			if (player.shouldCancelInteraction()) {
 				BotaniaAPI.instance().breakOnAllCursors(player, stack, pos, face);
 			}
 		}

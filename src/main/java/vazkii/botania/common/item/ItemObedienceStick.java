@@ -35,8 +35,8 @@ public class ItemObedienceStick extends Item {
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext ctx) {
 		World world = ctx.getWorld();
-		BlockPos pos = ctx.getPos();
-		return applyStick(world, pos) ? ActionResultType.SUCCESS : ActionResultType.PASS;
+		BlockPos pos = ctx.getBlockPos();
+		return applyStick(world, pos) ? ActionResult.SUCCESS : ActionResult.PASS;
 	}
 
 	public static boolean applyStick(World world, BlockPos pos) {

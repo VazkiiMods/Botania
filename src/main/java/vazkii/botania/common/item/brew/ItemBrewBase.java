@@ -158,14 +158,14 @@ public class ItemBrewBase extends Item implements IBrewItem {
 				}
 
 				if (effectinstance.getAmplifier() > 0) {
-					iformattabletextcomponent = new TranslationTextComponent("potion.withAmplifier", iformattabletextcomponent, new TranslationTextComponent("potion.potency." + effectinstance.getAmplifier()));
+					iformattabletextcomponent = new TranslatableText("potion.withAmplifier", iformattabletextcomponent, new TranslatableText("potion.potency." + effectinstance.getAmplifier()));
 				}
 
 				if (effectinstance.getDuration() > 20) {
-					iformattabletextcomponent = new TranslationTextComponent("potion.withDuration", iformattabletextcomponent, EffectUtils.getPotionDurationString(effectinstance, durationFactor));
+					iformattabletextcomponent = new TranslatableText("potion.withDuration", iformattabletextcomponent, StatusEffectUtil.durationToString(effectinstance, durationFactor));
 				}
 
-				lores.add(iformattabletextcomponent.mergeStyle(effect.getEffectType().getColor()));
+				lores.add(iformattabletextcomponent.formatted(effect.getType().getFormatting()));
 			}
 		}
 

@@ -112,7 +112,7 @@ public final class ContributorFancinessHandler extends FeatureRenderer<AbstractC
 				String flowerName = LEGACY_FLOWER_NAMES.getOrDefault(rawName, rawName);
 
 				Item item = ModTags.Items.CONTRIBUTOR_HEADFLOWERS.values().stream()
-						.filter(flower -> Registry.ITEM.getKey(flower).getPath().equals(flowerName))
+						.filter(flower -> Registry.ITEM.getId(flower).getPath().equals(flowerName))
 						.findFirst().orElse(Items.POPPY);
 				m.put(key, new ItemStack(item));
 			}

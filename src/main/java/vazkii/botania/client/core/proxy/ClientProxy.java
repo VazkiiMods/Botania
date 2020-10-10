@@ -27,6 +27,7 @@ import net.minecraft.client.item.ModelPredicateProvider;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.client.options.KeyBinding;
 import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.render.entity.ItemEntityRenderer;
@@ -370,9 +371,9 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	}
 
 	@Override
-	public void addParticleForceNear(World world, IParticleData particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-		ActiveRenderInfo info = Minecraft.getInstance().gameRenderer.getActiveRenderInfo();
-		if (info.isValid() && info.getProjectedView().squareDistanceTo(x, y, z) <= 1024.0D) {
+	public void addParticleForceNear(World world, ParticleEffect particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+		Camera info = MinecraftClient.getInstance().gameRenderer.getCamera();
+		if (info.isReady() && info.getPos().squaredDistanceTo(x, y, z) <= 1024.0D) {
 			addParticleForce(world, particleData, x, y, z, xSpeed, ySpeed, zSpeed);
 		}
 	}
@@ -388,13 +389,5 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		if (mb != null && mb.getID().equals(ItemSextant.MULTIBLOCK_ID)) {
 			PatchouliAPI.instance.clearMultiblock();
 		}
-	}
-
-	@Override
-	public Item.Properties propertiesWithRenderer(Item.Properties properties, Block block) {
-		if (block instanceof BlockPylon) {
-			return properties.setISTER(() -> RenderTilePylon.TEISR::new);
-		}
-		return properties.setISTER(() -> () -> new TEISR(block));
 	}
 }

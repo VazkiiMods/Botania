@@ -16,6 +16,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.MushroomPlantBlock;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -55,8 +56,8 @@ public class BlockModMushroom extends MushroomPlantBlock implements IHornHarvest
 	public boolean canPlaceAt(BlockState state, WorldView worldIn, BlockPos pos) {
 		BlockPos blockpos = pos.down();
 		BlockState blockstate = worldIn.getBlockState(blockpos);
-		if (!blockstate.isIn(BlockTags.field_242171_aD)) {
-			return blockstate.canSustainPlant(worldIn, blockpos, Direction.UP, this);
+		if (!blockstate.isIn(BlockTags.MUSHROOM_GROW_BLOCK)) {
+			return this.canPlantOnTop(blockstate, worldIn, blockpos);
 		} else {
 			return true;
 		}

@@ -80,7 +80,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		}
 
 		BlockPos hit = lookPos.getBlockPos();
-		if (stack.isEmpty() && hand = Hand.MAIN_HAND) {
+		if (stack.isEmpty() && hand == Hand.MAIN_HAND) {
 			BlockPos originCoords = getBindingCenter(lokiRing);
 			if (!world.isClient) {
 				if (originCoords.getY() == -1) {

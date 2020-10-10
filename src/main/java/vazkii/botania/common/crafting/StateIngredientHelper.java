@@ -43,7 +43,7 @@ public class StateIngredientHelper {
 	}
 
 	public static StateIngredient of(Tag.Identified<Block> tag) {
-		return of(tag.getName());
+		return of(tag.getId());
 	}
 
 	public static StateIngredient of(Identifier id) {

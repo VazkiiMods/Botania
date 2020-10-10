@@ -95,7 +95,7 @@ public final class ToolCommons {
 		Block block = state.getBlock();
 
 		if (!world.isClient && filter.test(state)
-				&& !block.isAir(state, world, pos) && state.calcBlockBreakingDelta(player, world, pos) > 0
+				&& !state.isAir() && state.calcBlockBreakingDelta(player, world, pos) > 0
 				&& state.canHarvestBlock(player.world, pos, player)) {
 			int exp = ForgeHooks.onBlockBreakEvent(world, ((ServerPlayerEntity) player).interactionManager.getGameMode(), (ServerPlayerEntity) player, pos);
 			if (exp == -1) {
@@ -110,7 +110,6 @@ public final class ToolCommons {
 
 					if (!dispose || !ItemElementiumPick.isDisposable(block)) {
 						block.afterBreak(world, player, pos, state, tile, stack);
-						block.dropExperience((ServerWorld) world, pos, exp);
 					}
 				}
 

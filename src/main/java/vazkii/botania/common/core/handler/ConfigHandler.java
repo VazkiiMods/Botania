@@ -233,7 +233,7 @@ public final class ConfigHandler {
 			.finishBranch()
             
             .beginValue("worldgen", BOOLEAN, true)
-            .comment("Set this to false to disable mystical flower and mushroom worldgen. More fine-tuned customization should be done with datapacks.")
+            .withComment("Set this to false to disable mystical flower and mushroom worldgen. More fine-tuned customization should be done with datapacks.")
             .finishValue(worldgenEnabled::mirror)
 
 			.beginValue("chargeAnimation", BOOLEAN, true)

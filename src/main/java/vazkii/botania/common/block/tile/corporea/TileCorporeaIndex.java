@@ -370,7 +370,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	public static final class InputHandler {
-		public boolean onChatMessage(PlayerEntity player, Supplier<String> message) {
+		public boolean onChatMessage(ServerPlayerEntity player, Supplier<String> message) {
 			if (player.isSpectator()) {
 				return false;
 			}

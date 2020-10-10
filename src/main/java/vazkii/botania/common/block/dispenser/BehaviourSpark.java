@@ -9,27 +9,27 @@
 package vazkii.botania.common.block.dispenser;
 
 import net.minecraft.block.DispenserBlock;
-import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.dispenser.OptionalDispenseBehavior;
+import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.item.ItemSpark;
 
 import javax.annotation.Nonnull;
 
-public class BehaviourSpark extends OptionalDispenseBehavior {
+public class BehaviourSpark extends FallibleItemDispenserBehavior {
 
 	@Nonnull
 	@Override
-	protected ItemStack dispenseStack(IBlockSource source, @Nonnull ItemStack stack) {
+	protected ItemStack dispenseSilently(BlockPointer source, @Nonnull ItemStack stack) {
 		World world = source.getWorld();
 		Direction facing = world.getBlockState(source.getBlockPos()).get(DispenserBlock.FACING);
 		BlockPos pos = source.getBlockPos().offset(facing);
 
-		setSuccessful(ItemSpark.attachSpark(world, pos, stack));
+		setSuccess(ItemSpark.attachSpark(world, pos, stack));
 
 		return stack;
 	}

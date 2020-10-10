@@ -91,7 +91,7 @@ public final class RenderHelper {
 		RenderPhase.Cull disableCull = new RenderPhase.Cull(false);
 		RenderPhase.Layering viewOffsetZLayering = AccessorRenderState.getViewOffsetZLayer();
 		RenderPhase.WriteMaskState colorMask = new RenderPhase.WriteMaskState(true, false);
-		RenderLayer.ShadeModelState smoothShade = new RenderPhase.ShadeModel(true);
+		RenderPhase.ShadeModel smoothShade = new RenderPhase.ShadeModel(true);
 		RenderPhase.Lightmap enableLightmap = new RenderPhase.Lightmap(true);
 		RenderPhase.Overlay enableOverlay = new RenderPhase.Overlay(true);
 		RenderPhase.DiffuseLighting enableDiffuse = new RenderPhase.DiffuseLighting(true);

@@ -31,11 +31,7 @@ import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.corporea.*;
 import vazkii.botania.common.block.decor.*;
-import vazkii.botania.common.block.dispenser.BehaviourEnderAirBottling;
-import vazkii.botania.common.block.dispenser.BehaviourFelPumpkin;
-import vazkii.botania.common.block.dispenser.BehaviourPoolMinecart;
-import vazkii.botania.common.block.dispenser.BehaviourWand;
-import vazkii.botania.common.block.dispenser.SeedBehaviours;
+import vazkii.botania.common.block.dispenser.*;
 import vazkii.botania.common.block.mana.*;
 import vazkii.botania.common.block.string.*;
 import vazkii.botania.common.item.ModItems;
@@ -283,9 +279,9 @@ public final class ModBlocks {
 	public static final Block corporeaInterceptor = new BlockCorporeaInterceptor(AbstractBlock.Settings.of(Material.METAL).strength(5.5F).sounds(BlockSoundGroup.METAL));
 	public static final Block corporeaCrystalCube = new BlockCorporeaCrystalCube(AbstractBlock.Settings.copy(corporeaInterceptor));
 	public static final Block corporeaRetainer = new BlockCorporeaRetainer(AbstractBlock.Settings.copy(corporeaInterceptor));
-	public static final Block corporeaBlock = new BlockMod(Block.Properties.create(Material.IRON).hardnessAndResistance(5.5F).sound(SoundType.METAL));
-	public static final Block corporeaBrick = new BlockMod(Block.Properties.from(corporeaBlock));
-	public static final SlabBlock corporeaSlab = new SlabBlock(Block.Properties.from(corporeaBlock));
+	public static final Block corporeaBlock = new BlockMod(AbstractBlock.Settings.of(Material.METAL).strength(5.5F).sounds(BlockSoundGroup.METAL));
+	public static final Block corporeaBrick = new BlockMod(AbstractBlock.Settings.copy(corporeaBlock));
+	public static final SlabBlock corporeaSlab = new SlabBlock(AbstractBlock.Settings.copy(corporeaBlock));
 	public static final Block incensePlate = new BlockIncensePlate(AbstractBlock.Settings.copy(livingwood));
 	public static final Block hourglass = new BlockHourglass(AbstractBlock.Settings.of(Material.METAL).strength(2).sounds(BlockSoundGroup.METAL));
 	public static final Block ghostRail = new BlockGhostRail(AbstractBlock.Settings.copy(Blocks.RAIL));
@@ -779,9 +775,9 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getId(corporeaInterceptor), new BlockItem(corporeaInterceptor, props));
 		register(r, Registry.BLOCK.getId(corporeaCrystalCube), new BlockItem(corporeaCrystalCube, props));
 		register(r, Registry.BLOCK.getId(corporeaRetainer), new BlockItem(corporeaRetainer, props));
-        register(r, Registry.BLOCK.getKey(corporeaBlock), new BlockItem(corporeaBlock, props));
-		register(r, Registry.BLOCK.getKey(corporeaBrick), new BlockItem(corporeaBrick, props));
-		register(r, Registry.BLOCK.getKey(corporeaSlab), new BlockItem(corporeaSlab, props));
+        register(r, Registry.BLOCK.getId(corporeaBlock), new BlockItem(corporeaBlock, props));
+		register(r, Registry.BLOCK.getId(corporeaBrick), new BlockItem(corporeaBrick, props));
+		register(r, Registry.BLOCK.getId(corporeaSlab), new BlockItem(corporeaSlab, props));
 		register(r, Registry.BLOCK.getId(incensePlate), new BlockItem(incensePlate, props));
 		register(r, Registry.BLOCK.getId(hourglass), new BlockItem(hourglass, props));
 		register(r, Registry.BLOCK.getId(ghostRail), new BlockItem(ghostRail, props));
@@ -837,26 +833,26 @@ public final class ModBlocks {
 	}
 
 	public static void addDispenserBehaviours() {
-		DispenserBlock.registerDispenseBehavior(ModItems.twigWand, new BehaviourWand());
-		DispenserBlock.registerDispenseBehavior(ModItems.obedienceStick, new BehaviourStick());
-		DispenserBlock.registerDispenseBehavior(ModItems.poolMinecart, new BehaviourPoolMinecart());
-		DispenserBlock.registerDispenseBehavior(ModBlocks.felPumpkin, new BehaviourFelPumpkin());
-		DispenserBlock.registerDispenseBehavior(ModItems.spark, new BehaviourSpark());
-		DispenserBlock.registerDispenseBehavior(ModBlocks.gaiaHead, new OptionalDispenseBehavior() {
+		DispenserBlock.registerBehavior(ModItems.twigWand, new BehaviourWand());
+		DispenserBlock.registerBehavior(ModItems.obedienceStick, new BehaviourStick());
+		DispenserBlock.registerBehavior(ModItems.poolMinecart, new BehaviourPoolMinecart());
+		DispenserBlock.registerBehavior(ModBlocks.felPumpkin, new BehaviourFelPumpkin());
+		DispenserBlock.registerBehavior(ModItems.spark, new BehaviourSpark());
+		DispenserBlock.registerBehavior(ModBlocks.gaiaHead, new FallibleItemDispenserBehavior() {
 			@Nonnull
 			@Override
-			protected ItemStack dispenseStack(@Nonnull IBlockSource source, @Nonnull ItemStack stack) {
-				setSuccessful(ArmorItem.func_226626_a_(source, stack));
+			protected ItemStack dispenseSilently(@Nonnull BlockPointer source, @Nonnull ItemStack stack) {
+				setSuccess(ArmorItem.dispenseArmor(source, stack));
 				return stack;
 			}
 		});
 
-		IDispenseItemBehavior behavior = new BehaviourCorporeaSpark();
-		DispenserBlock.registerDispenseBehavior(ModItems.corporeaSpark, behavior);
-		DispenserBlock.registerDispenseBehavior(ModItems.corporeaSparkMaster, behavior);
+		DispenserBehavior behavior = new BehaviourCorporeaSpark();
+		DispenserBlock.registerBehavior(ModItems.corporeaSpark, behavior);
+		DispenserBlock.registerBehavior(ModItems.corporeaSparkMaster, behavior);
 
 		behavior = AccessorDispenserBlock.getDispenseBehaviorRegistry().get(Items.GLASS_BOTTLE);
-		DispenserBlock.registerDispenseBehavior(Items.GLASS_BOTTLE, new BehaviourEnderAirBottling(behavior));
+		DispenserBlock.registerBehavior(Items.GLASS_BOTTLE, new BehaviourEnderAirBottling(behavior));
 
 		SeedBehaviours.init();
 	}

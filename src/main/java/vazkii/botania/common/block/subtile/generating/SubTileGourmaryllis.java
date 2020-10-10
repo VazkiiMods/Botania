@@ -162,7 +162,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 		cooldown = cmp.getInt(TAG_COOLDOWN);
 		digestingMana = cmp.getInt(TAG_DIGESTING_MANA);
 		lastFoods.clear();
-		ListTag foodList = cmp.getList(TAG_LAST_FOODS, Constants.NBT.TAG_COMPOUND);
+		ListTag foodList = cmp.getList(TAG_LAST_FOODS, 10);
 		for (int i = 0; i < foodList.size(); i++) {
 			lastFoods.add(ItemStack.fromTag(foodList.getCompound(i)));
 		}

@@ -46,7 +46,7 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 	private final Supplier<ChunkGeneratorSettings> settings;
 
 	public SkyblockChunkGenerator(BiomeSource provider, long seed, Supplier<ChunkGeneratorSettings> settings) {
-		super(provider, provider, settings.get().getStructures(), seed);
+		super(provider, provider, settings.get().getStructuresConfig(), seed);
 		this.seed = seed;
 		this.settings = settings;
 	}

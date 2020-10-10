@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -63,28 +64,28 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 
 	private final Variant variant;
 
-	public BlockPlatform(@Nonnull Variant v, Properties builder) {
+	public BlockPlatform(@Nonnull Variant v, Settings builder) {
 		super(builder);
 		this.variant = v;
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
-		TileEntity te = world.getTileEntity(pos);
+	public VoxelShape getOutlineShape(@Nonnull BlockState state, @Nonnull BlockView world, @Nonnull BlockPos pos, @Nonnull ShapeContext context) {
+		BlockEntity te = world.getBlockEntity(pos);
 		if (te instanceof TilePlatform && ((TilePlatform) te).getCamoState() != null) {
-			return ((TilePlatform) te).getCamoState().getShape(world, pos);
+			return ((TilePlatform) te).getCamoState().getOutlineShape(world, pos);
 		} else {
-			return super.getShape(state, world, pos, context);
+			return super.getOutlineShape(state, world, pos, context);
 		}
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, ISelectionContext context) {
+	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull BlockView world, @Nonnull BlockPos pos, ShapeContext context) {
 		if (variant.collide.test(pos, context)) {
-			// NB: Use full shape from super.getShape instead of camo state. May change later.
-			return super.getShape(state, world, pos, context);
+			// NB: Use full shape from super.getOutlineShape instead of camo state. May change later.
+			return super.getOutlineShape(state, world, pos, context);
 		} else {
 			return VoxelShapes.empty();
 		}
@@ -125,10 +126,10 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 	}
 
 	@Override
-	@OnlyIn(Dist.CLIENT)
-	public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+	@Environment(EnvType.CLIENT)
+	public void appendTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Text> tooltip, TooltipContext flagIn) {
 		if (variant.indestructible) {
-			tooltip.add(new TranslationTextComponent("botaniamisc.creative").mergeStyle(TextFormatting.GRAY));
+			tooltip.add(new TranslatableText("botaniamisc.creative").formatted(Formatting.GRAY));
 		}
 	}
 

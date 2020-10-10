@@ -130,7 +130,7 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 				center.add(rangePlace, rangePlaceY, rangePlace))) {
 			BlockState state = getWorld().getBlockState(pos);
 			BlockState up = getWorld().getBlockState(pos.up());
-			if (filter == state && (up.isAir(getWorld(), pos.up()) || up.getMaterial().isReplaceable())) {
+			if (filter == state && (up.isAir() || up.getMaterial().isReplaceable())) {
 				ret.add(pos.toImmutable());
 			}
 		}

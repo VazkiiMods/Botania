@@ -59,7 +59,7 @@ public class ItemBlockTinyPotato extends BlockItem {
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity e, int t, boolean idunno) {
 		if (!world.isClient && e instanceof PlayerEntity && e.age % 30 == 0
-				&& TYPOS.matcher(stack.getDisplayName().getString()).matches()) {
+				&& TYPOS.matcher(stack.getName().getString()).matches()) {
 			PlayerEntity player = (PlayerEntity) e;
 			int ticks = ItemNBTHelper.getInt(stack, TAG_TICKS, 0);
 			if (ticks < NOT_MY_NAME.length) {

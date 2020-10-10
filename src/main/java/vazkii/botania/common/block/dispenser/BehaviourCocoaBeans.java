@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DispenserBlock;
+import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
 import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.item.AutomaticItemPlacementContext;
 import net.minecraft.item.ItemPlacementContext;
@@ -23,7 +24,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class BehaviourCocoaBeans extends OptionalDispenseBehavior {
+public class BehaviourCocoaBeans extends FallibleItemDispenserBehavior {
 	@Nonnull
 	@Override
 	public ItemStack dispenseSilently(BlockPointer source, ItemStack stack) {

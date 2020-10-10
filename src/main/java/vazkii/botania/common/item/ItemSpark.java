@@ -31,11 +31,11 @@ public class ItemSpark extends Item implements IManaGivingItem {
 	@Nonnull
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		return attachSpark(ctx.getWorld(), ctx.getPos(), ctx.getItem()) ? ActionResultType.PASS : ActionResultType.SUCCESS;
+		return attachSpark(ctx.getWorld(), ctx.getBlockPos(), ctx.getStack()) ? ActionResult.success(ctx.getWorld().isClient): ActionResult.PASS;
 	}
 
 	public static boolean attachSpark(World world, BlockPos pos, ItemStack stack) {
-		TileEntity tile = world.getTileEntity(pos);
+		BlockEntity tile = world.getBlockEntity(pos);
 		if (tile instanceof ISparkAttachable) {
 			ISparkAttachable attach = (ISparkAttachable) tile;
 			if (attach.canAttachSpark(stack) && attach.getAttachedSpark() == null) {

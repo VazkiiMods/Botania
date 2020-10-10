@@ -168,7 +168,7 @@ public class PacketBotaniaEffect {
 							float b = Math.min(1F, (color & 0xFF) / 255F + 0.4F);
 
 							SparkleParticleData data = SparkleParticleData.noClip(1, r, g, b, 12);
-							world.addOptionalParticle(data, true, currentPos.x, currentPos.y, currentPos.z, 0, 0, 0);
+							world.addImportantParticle(data, true, currentPos.x, currentPos.y, currentPos.z, 0, 0, 0);
 							currentPos = currentPos.add(movement);
 						}
 
@@ -193,7 +193,7 @@ public class PacketBotaniaEffect {
 						float size = 0.125F + 0.125F * (float) Math.random();
 
 						WispParticleData data = WispParticleData.wisp(size, r, g, b).withNoClip(true);
-						world.addOptionalParticle(data, thisVec.x, thisVec.y, thisVec.z, (float) motion.x, (float) motion.y, (float) motion.z);
+						world.addImportantParticle(data, thisVec.x, thisVec.y, thisVec.z, (float) motion.x, (float) motion.y, (float) motion.z);
 						break;
 					}
 					case ENCHANTER_DESTROY: {

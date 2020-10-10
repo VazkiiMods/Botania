@@ -12,8 +12,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
+import vazkii.botania.common.Botania;
 
 public final class PersistentVariableHelper {
 
@@ -41,7 +44,7 @@ public final class PersistentVariableHelper {
 	}
 
 	public static void init() {
-		cacheFile = new File(Minecraft.getInstance().gameDir, "BotaniaVars.dat");
+		cacheFile = new File(MinecraftClient.getInstance().runDirectory, "BotaniaVars.dat");
 		try {
 			cacheFile.createNewFile();
 		} catch (IOException e) {
@@ -50,13 +53,13 @@ public final class PersistentVariableHelper {
 		load();
 	}
 
-	private static CompoundNBT getCacheCompound(File cache) {
+	private static CompoundTag getCacheCompound(File cache) {
 		try {
 			return NbtIo.readCompressed(new FileInputStream(cache));
 		} catch (IOException e) {
 			Botania.LOGGER.error("Failed to load persistent variables, overwriting with current state", e);
 			save();
-			return new CompoundNBT();
+			return new CompoundTag();
 		}
 	}
 
