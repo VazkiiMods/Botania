@@ -12,32 +12,36 @@ import com.google.common.base.Predicates;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.LazyValue;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.vector.Vector3d;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
+import vazkii.botania.api.recipe.ITerraPlateRecipe;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
+import javax.annotation.Nullable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickableTileEntity {
-	public static final int MAX_MANA = TilePool.MAX_MANA / 2;
-
 	public static final LazyValue<IMultiblock> MULTIBLOCK = new LazyValue<>(() -> PatchouliAPI.instance.makeMultiblock(
 			new String[][] {
 					{
@@ -74,8 +78,11 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 		boolean removeMana = true;
 
 		if (hasValidPlatform()) {
-			List<ItemEntity> items = getItems();
-			if (areItemsValid(items)) {
+			List<ItemStack> items = getItems();
+			Inventory inv = new Inventory(items.toArray(new ItemStack[0]));
+
+			ITerraPlateRecipe recipe = getCurrentRecipe(inv);
+			if (recipe != null) {
 				removeMana = false;
 				ISparkEntity spark = getAttachedSpark();
 				if (spark != null) {
@@ -85,19 +92,18 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 				}
 				if (mana > 0) {
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+					int proportion = Float.floatToIntBits(getCompletion());
 					PacketHandler.sendToNearby(world, getPos(),
-							new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.TERRA_PLATE, getPos().getX(), getPos().getY(), getPos().getZ()));
+							new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.TERRA_PLATE, getPos().getX(), getPos().getY(), getPos().getZ(), proportion));
 				}
 
-				if (mana >= MAX_MANA) {
-					ItemEntity item = items.get(0);
-					for (ItemEntity otherItem : items) {
-						if (otherItem != item) {
-							otherItem.remove();
-						} else {
-							item.setItem(new ItemStack(ModItems.terrasteel));
-						}
+				if (mana >= recipe.getMana()) {
+					for (ItemStack item : items) {
+						item.shrink(1);
 					}
+					ItemEntity item = new ItemEntity(world, getPos().getX() + 0.5, getPos().getY() + 0.2, getPos().getZ() + 0.5, recipe.getCraftingResult(inv));
+					item.setMotion(Vector3d.ZERO);
+					world.addEntity(item);
 					world.playSound(null, item.getPosX(), item.getPosY(), item.getPosZ(), ModSounds.terrasteelCraft, SoundCategory.BLOCKS, 1, 1);
 					mana = 0;
 					world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
@@ -111,36 +117,29 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 		}
 	}
 
-	private List<ItemEntity> getItems() {
-		return world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)));
+	private List<ItemStack> getItems() {
+		List<ItemEntity> itemEntities = world.getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), EntityPredicates.IS_ALIVE);
+		List<ItemStack> stacks = new ArrayList<>();
+		for (ItemEntity entity : itemEntities) {
+			if (!entity.getItem().isEmpty()) {
+				stacks.add(entity.getItem());
+			}
+		}
+		return stacks;
 	}
 
-	private boolean areItemsValid(List<ItemEntity> items) {
-		if (items.size() != 3) {
-			return false;
-		}
+	private Inventory getInventory() {
+		List<ItemStack> items = getItems();
+		return new Inventory(items.toArray(new ItemStack[0]));
+	}
 
-		ItemStack ingot = ItemStack.EMPTY;
-		ItemStack pearl = ItemStack.EMPTY;
-		ItemStack diamond = ItemStack.EMPTY;
-		for (ItemEntity item : items) {
-			ItemStack stack = item.getItem();
-			if (stack.getCount() != 1) {
-				return false;
-			}
+	@Nullable
+	private ITerraPlateRecipe getCurrentRecipe(Inventory items) {
+		return world.getRecipeManager().getRecipe(ModRecipeTypes.TERRA_PLATE_TYPE, items, world).orElse(null);
+	}
 
-			if (stack.getItem() == ModItems.manaSteel) {
-				ingot = stack;
-			} else if (stack.getItem() == ModItems.manaPearl) {
-				pearl = stack;
-			} else if (stack.getItem() == ModItems.manaDiamond) {
-				diamond = stack;
-			} else {
-				return false;
-			}
-		}
-
-		return !ingot.isEmpty() && !pearl.isEmpty() && !diamond.isEmpty();
+	private boolean isActive() {
+		return getCurrentRecipe(getInventory()) != null;
 	}
 
 	private boolean hasValidPlatform() {
@@ -164,18 +163,19 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 
 	@Override
 	public boolean isFull() {
-		return mana >= MAX_MANA;
+		ITerraPlateRecipe recipe = getCurrentRecipe(getInventory());
+		return recipe == null || getCurrentMana() >= recipe.getMana();
 	}
 
 	@Override
 	public void receiveMana(int mana) {
-		this.mana = Math.max(0, Math.min(MAX_MANA, this.mana + mana));
+		this.mana = Math.max(0, this.mana + mana);
 		world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 	}
 
 	@Override
 	public boolean canReceiveManaFromBursts() {
-		return areItemsValid(getItems());
+		return isActive();
 	}
 
 	@Override
@@ -199,12 +199,29 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, ITickab
 
 	@Override
 	public boolean areIncomingTranfersDone() {
-		return !areItemsValid(getItems());
+		return !isActive();
 	}
 
 	@Override
 	public int getAvailableSpaceForMana() {
-		return Math.max(0, MAX_MANA - getCurrentMana());
+		ITerraPlateRecipe recipe = getCurrentRecipe(getInventory());
+		return recipe == null ? 0 : Math.max(0, recipe.getMana() - getCurrentMana());
+	}
+
+	public float getCompletion() {
+		ITerraPlateRecipe recipe = getCurrentRecipe(getInventory());
+		if (recipe == null) {
+			return 0;
+		}
+		return ((float) getCurrentMana()) / recipe.getMana();
+	}
+
+	public int getComparatorLevel() {
+		int val = (int) (getCompletion() * 15.0);
+		if (getCurrentMana() > 0) {
+			val = Math.max(val, 1);
+		}
+		return val;
 	}
 
 }

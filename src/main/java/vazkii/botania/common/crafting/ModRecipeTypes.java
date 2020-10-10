@@ -47,6 +47,9 @@ public class ModRecipeTypes {
 	public static final IRecipeSerializer<RecipeRuneAltar> RUNE_SERIALIZER = new RecipeRuneAltar.Serializer();
 	public static final IRecipeSerializer<HeadRecipe> RUNE_HEAD_SERIALIZER = new HeadRecipe.Serializer();
 
+	public static final IRecipeType<ITerraPlateRecipe> TERRA_PLATE_TYPE = new RecipeType<>();
+	public static final IRecipeSerializer<RecipeTerraPlate> TERRA_PLATE_SERIALIZER = new RecipeTerraPlate.Serializer();
+
 	public static void register(RegistryEvent.Register<IRecipeSerializer<?>> evt) {
 		ResourceLocation id = prefix("elven_trade");
 		Registry.register(Registry.RECIPE_TYPE, id, ELVEN_TRADE_TYPE);
@@ -73,6 +76,10 @@ public class ModRecipeTypes {
 		Registry.register(Registry.RECIPE_TYPE, id, RUNE_TYPE);
 		evt.getRegistry().register(RUNE_SERIALIZER.setRegistryName(id));
 		evt.getRegistry().register(RUNE_HEAD_SERIALIZER.setRegistryName(prefix("runic_altar_head")));
+
+		id = prefix("terra_plate");
+		Registry.register(Registry.RECIPE_TYPE, id, TERRA_PLATE_TYPE);
+		evt.getRegistry().register(TERRA_PLATE_SERIALIZER.setRegistryName(id));
 	}
 
 	private static class RecipeType<T extends IRecipe<?>> implements IRecipeType<T> {

@@ -32,8 +32,7 @@ public class RenderTileTerraPlate extends TileEntityRenderer<TileTerraPlate> {
 
 	@Override
 	public void render(@Nonnull TileTerraPlate plate, float f, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
-		float max = TileTerraPlate.MAX_MANA / 10F;
-		float alphaMod = Math.min(max, plate.getCurrentMana()) / max;
+		float alphaMod = Math.min(1.0F, plate.getCompletion() / 0.1F);
 
 		ms.push();
 		ms.rotate(Vector3f.XP.rotationDegrees(90F));
