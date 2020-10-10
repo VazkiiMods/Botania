@@ -17,12 +17,12 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
@@ -99,7 +99,7 @@ public class RecipeRuneAltar implements IRuneAltarRecipe {
 		@Nonnull
 		@Override
 		public RecipeRuneAltar read(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {
-			ItemStack output = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "output"), true);
+			ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "output"));
 			int mana = JSONUtils.getInt(json, "mana");
 			JsonArray ingrs = JSONUtils.getJsonArray(json, "ingredients");
 			List<Ingredient> inputs = new ArrayList<>();

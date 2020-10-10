@@ -17,12 +17,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
@@ -113,7 +113,7 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 		public RecipeManaInfusion read(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {
 			JsonElement input = Objects.requireNonNull(json.get("input"));
 			Ingredient ing = Ingredient.deserialize(input);
-			ItemStack output = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "output"), true);
+			ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "output"));
 			int mana = JSONUtils.getInt(json, "mana");
 			String group = JSONUtils.getString(json, "group", "");
 			BlockState catalystState = null;

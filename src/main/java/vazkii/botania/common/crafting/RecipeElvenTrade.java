@@ -15,11 +15,11 @@ import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
@@ -132,11 +132,11 @@ public class RecipeElvenTrade implements IElvenTradeRecipe {
 			if (output.isJsonArray()) {
 				for (JsonElement e : output.getAsJsonArray()) {
 					JsonObject o = JSONUtils.getJsonObject(e, "output stack");
-					outputStacks.add(CraftingHelper.getItemStack(o, true));
+					outputStacks.add(ShapedRecipe.deserializeItem(o));
 				}
 			} else {
 				JsonObject o = JSONUtils.getJsonObject(output, "output stack");
-				outputStacks.add(CraftingHelper.getItemStack(o, true));
+				outputStacks.add(ShapedRecipe.deserializeItem(o));
 			}
 
 			List<Ingredient> inputs = new ArrayList<>();
