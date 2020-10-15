@@ -62,6 +62,7 @@ import vazkii.botania.client.render.entity.RenderPoolMinecart;
 import vazkii.botania.client.render.entity.RenderSpark;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.client.render.tile.TEISR;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockPylon;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -159,7 +160,9 @@ public class ClientProxy implements IProxy {
 		registerEntityRenderers();
 
 		event.enqueueWork(() -> {
-			AccessorBiomeGeneratorTypeScreens.getAllTypes().add(WorldTypeSkyblock.INSTANCE);
+			if (Botania.gardenOfGlassLoaded) {
+				AccessorBiomeGeneratorTypeScreens.getAllTypes().add(WorldTypeSkyblock.INSTANCE);
+			}
 
 			CORPOREA_REQUEST = new KeyBinding("key.botania_corporea_request", KeyConflictContext.GUI, InputMappings.getInputByCode(GLFW.GLFW_KEY_C, 0), LibMisc.MOD_NAME);
 			ClientRegistry.registerKeyBinding(ClientProxy.CORPOREA_REQUEST);
