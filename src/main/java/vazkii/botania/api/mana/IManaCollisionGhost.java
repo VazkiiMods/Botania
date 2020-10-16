@@ -13,8 +13,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /**
- * Any Block that implements this can be counted as a "ghost" block of
- * sorts, that won't call the collision code for the mana bursts.
+ * Any Block implementing this will not collide with bursts.
+ * Note that {@link IManaTrigger} overrides this.
  */
 public interface IManaCollisionGhost {
 
