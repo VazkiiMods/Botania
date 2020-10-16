@@ -503,7 +503,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 			}
 
 			if (tile == null || !tile.getPos().equals(coords)) {
-				if (!fake && !noParticles && (!world.isRemote || tile instanceof IClientManaHandler) && tile != null && tile instanceof IManaReceiver && ((IManaReceiver) tile).canReceiveManaFromBursts()) {
+				if (!fake && !noParticles && !world.isRemote && tile instanceof IManaReceiver && ((IManaReceiver) tile).canReceiveManaFromBursts()) {
 					onReceiverImpact((IManaReceiver) tile, tile.getPos());
 				}
 

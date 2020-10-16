@@ -8,11 +8,7 @@
  */
 package vazkii.botania.api.mana;
 
-/**
- * A TileEntity that implements this will get it's recieveMana call
- * called on both client and server. If this is not implemented
- * the call will only occur on the server.
- */
+@Deprecated // Unused (TODO 1.17 remove)
 public interface IClientManaHandler extends IManaReceiver {
 
 }
