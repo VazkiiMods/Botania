@@ -21,17 +21,12 @@ import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 import org.lwjgl.glfw.GLFW;
 
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
@@ -58,9 +53,9 @@ import java.util.*;
  * <br />
  * Quick Usage Guide:
  * <li>Copy to your mod</li>
+ * <li>Call {@link #init} from {@link net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent}</li>
  * <li>Replace {@link #BRAND} with your mod or group name.</li>
  */
-@EventBusSubscriber(modid = LibMisc.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class GoVoteHandler {
 	private static final String BRAND = "Vazkii's Mods";
 	private static final String MARKER_PATH = ".vote2020_marker";
@@ -71,8 +66,7 @@ public class GoVoteHandler {
 	private static volatile boolean markerAlreadyExists = false;
 	private static volatile String countryCode = Locale.getDefault().getCountry();
 
-	@SubscribeEvent
-	public static void init(FMLClientSetupEvent event) {
+	public static void init() {
 		if (isAfterElectionDay()) {
 			return;
 		}

@@ -50,6 +50,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.fx.ModParticles;
+import vazkii.botania.client.gui.GoVoteHandler;
 import vazkii.botania.client.render.entity.RenderBabylonWeapon;
 import vazkii.botania.client.render.entity.RenderCorporeaSpark;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
@@ -143,6 +144,7 @@ public class ClientProxy implements IProxy {
 	}
 
 	private void clientSetup(FMLClientSetupEvent event) {
+		GoVoteHandler.init();
 		PersistentVariableHelper.init();
 		PersistentVariableHelper.save();
 
@@ -159,13 +161,13 @@ public class ClientProxy implements IProxy {
 		registerRenderTypes();
 		registerEntityRenderers();
 
+		CORPOREA_REQUEST = new KeyBinding("key.botania_corporea_request", KeyConflictContext.GUI, InputMappings.getInputByCode(GLFW.GLFW_KEY_C, 0), LibMisc.MOD_NAME);
+		ClientRegistry.registerKeyBinding(ClientProxy.CORPOREA_REQUEST);
+
 		event.enqueueWork(() -> {
 			if (Botania.gardenOfGlassLoaded) {
 				AccessorBiomeGeneratorTypeScreens.getAllTypes().add(WorldTypeSkyblock.INSTANCE);
 			}
-
-			CORPOREA_REQUEST = new KeyBinding("key.botania_corporea_request", KeyConflictContext.GUI, InputMappings.getInputByCode(GLFW.GLFW_KEY_C, 0), LibMisc.MOD_NAME);
-			ClientRegistry.registerKeyBinding(ClientProxy.CORPOREA_REQUEST);
 			registerPropertyGetters();
 		});
 
