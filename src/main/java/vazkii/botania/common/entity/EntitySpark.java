@@ -188,7 +188,7 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 			int count = transfers.size();
 			int manaSpent = 0;
 
-			if (manaTotal >= count) {
+			if (manaTotal > 0) {
 				for (ISparkEntity spark : transfers) {
 					count--;
 					if (spark.getAttachedTile() == null || spark.getAttachedTile().isFull() || spark.areIncomingTransfersDone()) {
