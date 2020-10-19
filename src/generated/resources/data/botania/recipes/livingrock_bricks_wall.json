@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "botania:livingrock_bricks"
+    }
+  },
+  "result": {
+    "item": "botania:livingrock_bricks_wall",
+    "count": 6
+  }
+}

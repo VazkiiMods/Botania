@@ -215,9 +215,13 @@ public class BlockstateProvider extends BlockStateProvider {
 
 		fixedWallBlock((WallBlock) ModFluffBlocks.dreamwoodWall, prefix("block/dreamwood"));
 		fixedWallBlock((WallBlock) ModFluffBlocks.livingrockWall, prefix("block/livingrock"));
+		fixedWallBlock((WallBlock) ModFluffBlocks.livingrockBrickWall, prefix("block/livingrock_bricks"));
+		fixedWallBlock((WallBlock) ModFluffBlocks.livingrockBrickMossyWall, prefix("block/mossy_livingrock_bricks"));
 		fixedWallBlock((WallBlock) ModFluffBlocks.livingwoodWall, prefix("block/livingwood"));
 		remainingBlocks.remove(ModFluffBlocks.dreamwoodWall);
 		remainingBlocks.remove(ModFluffBlocks.livingrockWall);
+		remainingBlocks.remove(ModFluffBlocks.livingrockBrickWall);
+		remainingBlocks.remove(ModFluffBlocks.livingrockBrickMossyWall);
 		remainingBlocks.remove(ModFluffBlocks.livingwoodWall);
 
 		fenceBlock((FenceBlock) dreamwoodFence, prefix("block/dreamwood_planks"));
@@ -369,12 +373,16 @@ public class BlockstateProvider extends BlockStateProvider {
 			Block brick = Registry.BLOCK.getOptional(brickId).get();
 			simpleBlock(brick);
 
+			ResourceLocation brickWallId = prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.WALL_SUFFIX);
+			Block brickWall = Registry.BLOCK.getOptional(brickWallId).get();
+			fixedWallBlock((WallBlock) brickWall, prefix("block/" + brickId.getPath()));
+
 			ResourceLocation chiseledBricksId = prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks");
 			Block chiseledBricks = Registry.BLOCK.getOptional(chiseledBricksId).get();
 			simpleBlock(chiseledBricks);
 
 			// stairs and slabs handled above already
-			remainingBlocks.removeAll(Arrays.asList(base, cobble, cobbleWall, brick, chiseledBricks));
+			remainingBlocks.removeAll(Arrays.asList(base, cobble, cobbleWall, brick, brickWall, chiseledBricks));
 		}
 
 		for (String variant : new String[] { "dark", "mana", "blaze", "lavender", "red", "elf", "sunny" }) {
