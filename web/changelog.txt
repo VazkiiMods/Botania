@@ -1,3 +1,6 @@
+1.16.3-409
+* Fix GoG world type showing up when GoG isn't installed (accidentally excluded from last build)
+* Work around platform bugs to fix "missing keybind" crashes
 1.16.3-408
 * Fix prisms not colliding with bursts (and thus not working at all)
 * Clarification: Since 1.16.2, mana bursts will always collide with blocks based on their *collision* shape. In the past, this used to be the block's main shape, but this has been changed to more closely match how other entities behave. Contraptions using special blocks that have differring main and collision shapes should be rechecked.
