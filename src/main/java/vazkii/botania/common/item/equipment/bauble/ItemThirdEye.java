@@ -17,9 +17,7 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
@@ -33,6 +31,7 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.common.entity.EntityMagicMissile;
 
 import java.util.List;
 
@@ -53,7 +52,7 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 
 		double range = 24;
 		AxisAlignedBB aabb = new AxisAlignedBB(living.getPosX(), living.getPosY(), living.getPosZ(), living.getPosX(), living.getPosY(), living.getPosZ()).grow(range);
-		List<LivingEntity> mobs = living.world.getEntitiesWithinAABB(LivingEntity.class, aabb, (Entity e) -> e instanceof IMob);
+		List<LivingEntity> mobs = living.world.getEntitiesWithinAABB(LivingEntity.class, aabb, EntityMagicMissile.targetPredicate(living));
 
 		for (LivingEntity e : mobs) {
 			EffectInstance potion = e.getActivePotionEffect(Effects.GLOWING);
