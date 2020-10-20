@@ -61,17 +61,18 @@ public class TileOpenCrate extends TileExposedSimpleInventory implements ITickab
 	}
 
 	public boolean canEject() {
-		double ejectX = pos.getX() + 0.5;
-		double ejectY = pos.getY() - 0.5;
-		double ejectZ = pos.getZ() + 0.5;
 		float width = EntityType.ITEM.getWidth();
 		float height = EntityType.ITEM.getHeight();
+		double ejectX = pos.getX() + 0.5;
+		double ejectY = pos.getY() - height;
+		double ejectZ = pos.getZ() + 0.5;
 		AxisAlignedBB itemBB = new AxisAlignedBB(ejectX - width / 2, ejectY, ejectZ - width / 2, ejectX + width / 2, ejectY + height, ejectZ + width / 2);
 		return world.hasNoCollisions(itemBB);
 	}
 
 	public void eject(ItemStack stack, boolean redstone) {
-		ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, stack);
+		double ejectY = pos.getY() - EntityType.ITEM.getHeight();
+		ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, ejectY, pos.getZ() + 0.5, stack);
 		item.setMotion(Vector3d.ZERO);
 		if (redstone) {
 			((AccessorItemEntity) item).setAge(-200);
