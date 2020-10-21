@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import net.minecraft.block.Block;
@@ -24,6 +25,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
@@ -39,10 +41,7 @@ import vazkii.botania.mixin.AccessorItemEntity;
 
 import javax.annotation.Nonnull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	private static final int PICKUP_RANGE = 2;
@@ -87,8 +86,8 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 				if (stackItem instanceof BlockItem || stackItem instanceof IFlowerPlaceable) {
 					if (!validPositions.isEmpty()) {
 						BlockPos coords = validPositions.get(getWorld().rand.nextInt(validPositions.size()));
-						BlockRayTraceResult ray = new BlockRayTraceResult(Vector3d.ZERO, Direction.UP, coords, false);
-						BlockItemUseContext ctx = new RannuncarpusPlaceContext(getWorld(), stack, ray);
+						BlockRayTraceResult ray = new BlockRayTraceResult(new Vector3d(coords.getX() + 0.5, coords.getY() + 1, coords.getZ() + 0.5), Direction.UP, coords, false);
+						BlockItemUseContext ctx = new RannuncarpusPlaceContext(getWorld(), stack, ray, pos);
 
 						boolean success = false;
 						if (stackItem instanceof IFlowerPlaceable) {
@@ -213,12 +212,51 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	// BlockItemUseContext uses a nullable player field without checking it -.-
 	private static class RannuncarpusPlaceContext extends BlockItemUseContext {
 		private final Direction[] lookDirs;
+		private final float placementYaw;
 
-		public RannuncarpusPlaceContext(World world, ItemStack stack, BlockRayTraceResult rtr) {
+		public RannuncarpusPlaceContext(World world, ItemStack stack, BlockRayTraceResult rtr, BlockPos flowerPos) {
 			super(world, null, Hand.MAIN_HAND, stack, rtr);
-			List<Direction> tmp = Arrays.asList(Direction.values());
-			Collections.shuffle(tmp);
-			lookDirs = tmp.toArray(new Direction[6]);
+			int dx = rtr.getPos().getX() - flowerPos.getX();
+			int dy = rtr.getPos().getY() - flowerPos.getY();
+			int dz = rtr.getPos().getZ() - flowerPos.getZ();
+
+			Direction xClosest = dx >= 0 ? Direction.EAST : Direction.WEST;
+			Direction yClosest = dy >= 0 ? Direction.UP : Direction.DOWN;
+			Direction zClosest = dz >= 0 ? Direction.SOUTH : Direction.NORTH;
+
+			List<Direction> directions = sortThree(xClosest, yClosest, zClosest, Math.abs(dx), Math.abs(dy), Math.abs(dz));
+
+			Direction first = directions.get(0);
+			Direction second = directions.get(1);
+			Direction third = directions.get(2);
+
+			lookDirs = new Direction[] {
+					first,
+					second,
+					third,
+					third.getOpposite(),
+					second.getOpposite(),
+					first.getOpposite()
+			};
+
+			placementYaw = (float) (-MathHelper.atan2(dx, dz) * 180 / Math.PI);
+		}
+
+		/**
+		 * Arrange a, b and c such that their corresponding ints (a -> aInt) are in descending order.
+		 */
+		private static <T> List<T> sortThree(T a, T b, T c, int aInt, int bInt, int cInt) {
+			if (aInt >= bInt) {
+				if (bInt >= cInt) {
+					return ImmutableList.of(a, b, c);
+				} else {
+					return cInt >= aInt ? ImmutableList.of(c, a, b) : ImmutableList.of(a, c, b);
+				}
+			} else if (bInt >= cInt) {
+				return cInt >= aInt ? ImmutableList.of(b, c, a) : ImmutableList.of(b, a, c);
+			} else {
+				return ImmutableList.of(c, b, a);
+			}
 		}
 
 		@Nonnull
@@ -231,6 +269,17 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 		@Override
 		public Direction[] getNearestLookingDirections() {
 			return lookDirs;
+		}
+
+		@Nonnull
+		@Override
+		public Direction getPlacementHorizontalFacing() {
+			return getNearestLookingDirection().getAxis().isHorizontal() ? getNearestLookingDirection() : getNearestLookingDirections()[1];
+		}
+
+		@Override
+		public float getPlacementYaw() {
+			return placementYaw;
 		}
 	}
 
