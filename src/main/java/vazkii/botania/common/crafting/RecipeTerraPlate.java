@@ -8,8 +8,7 @@
  */
 package vazkii.botania.common.crafting;
 
-import com.google.common.collect.ImmutableList;
-import com.google.gson.JsonElement;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;
@@ -21,6 +20,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
@@ -30,15 +30,13 @@ import vazkii.botania.common.crafting.recipe.RecipeUtils;
 
 import javax.annotation.Nonnull;
 
-import java.util.List;
-
 public class RecipeTerraPlate implements ITerraPlateRecipe {
 	private final ResourceLocation id;
 	private final int mana;
-	private final List<Ingredient> inputs;
+	private final NonNullList<Ingredient> inputs;
 	private final ItemStack output;
 
-	public RecipeTerraPlate(ResourceLocation id, int mana, List<Ingredient> inputs, ItemStack output) {
+	public RecipeTerraPlate(ResourceLocation id, int mana, NonNullList<Ingredient> inputs, ItemStack output) {
 		this.id = id;
 		this.mana = mana;
 		this.inputs = inputs;
@@ -80,6 +78,12 @@ public class RecipeTerraPlate implements ITerraPlateRecipe {
 
 	@Nonnull
 	@Override
+	public NonNullList<Ingredient> getIngredients() {
+		return inputs;
+	}
+
+	@Nonnull
+	@Override
 	public ResourceLocation getId() {
 		return id;
 	}
@@ -95,31 +99,31 @@ public class RecipeTerraPlate implements ITerraPlateRecipe {
 		@Override
 		public RecipeTerraPlate read(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
 			int mana = JSONUtils.getInt(json, "mana");
-			ImmutableList.Builder<Ingredient> builder = ImmutableList.builder();
-			for (JsonElement input : JSONUtils.getJsonArray(json, "ingredients")) {
-				builder.add(Ingredient.deserialize(input));
+			JsonArray ingrs = JSONUtils.getJsonArray(json, "ingredients");
+			Ingredient[] ingredients = new Ingredient[ingrs.size()];
+			for (int i = 0; i < ingrs.size(); i++) {
+				ingredients[i] = Ingredient.deserialize(ingrs.get(i));
 			}
 			ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "result"));
-			return new RecipeTerraPlate(recipeId, mana, builder.build(), output);
+			return new RecipeTerraPlate(recipeId, mana, NonNullList.from(Ingredient.EMPTY, ingredients), output);
 		}
 
 		@Override
 		public RecipeTerraPlate read(@Nonnull ResourceLocation recipeId, PacketBuffer buffer) {
 			int mana = buffer.readVarInt();
-			int inputs = buffer.readVarInt();
-			ImmutableList.Builder<Ingredient> builder = ImmutableList.builder();
-			for (int i = 0; i < inputs; i++) {
-				builder.add(Ingredient.read(buffer));
+			Ingredient[] ingredients = new Ingredient[buffer.readVarInt()];
+			for (int i = 0; i < ingredients.length; i++) {
+				ingredients[i] = Ingredient.read(buffer);
 			}
 			ItemStack output = buffer.readItemStack();
-			return new RecipeTerraPlate(recipeId, mana, builder.build(), output);
+			return new RecipeTerraPlate(recipeId, mana, NonNullList.from(Ingredient.EMPTY, ingredients), output);
 		}
 
 		@Override
 		public void write(PacketBuffer buffer, RecipeTerraPlate recipe) {
 			buffer.writeVarInt(recipe.mana);
-			buffer.writeVarInt(recipe.inputs.size());
-			for (Ingredient ingr : recipe.inputs) {
+			buffer.writeVarInt(recipe.getIngredients().size());
+			for (Ingredient ingr : recipe.getIngredients()) {
 				ingr.write(buffer);
 			}
 			buffer.writeItemStack(recipe.output);
