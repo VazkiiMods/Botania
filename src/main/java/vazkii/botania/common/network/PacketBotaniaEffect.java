@@ -149,7 +149,7 @@ public class PacketBotaniaEffect {
 						Vector3 currentPos = orig;
 						for (int i = 0; i < iters; i++) {
 							float hue = i * huePer + hueSum;
-							int color = MathHelper.hsvToRGB(hue, 1F, 1F);
+							int color = MathHelper.hsvToRGB(MathHelper.frac(hue), 1F, 1F);
 							float r = Math.min(1F, (color >> 16 & 0xFF) / 255F + 0.4F);
 							float g = Math.min(1F, (color >> 8 & 0xFF) / 255F + 0.4F);
 							float b = Math.min(1F, (color & 0xFF) / 255F + 0.4F);

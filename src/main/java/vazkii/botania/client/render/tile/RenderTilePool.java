@@ -54,7 +54,7 @@ public class RenderTilePool extends TileEntityRenderer<TilePool> {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 			time += new Random(pool.getPos().getX() ^ pool.getPos().getY() ^ pool.getPos().getZ()).nextInt(100000);
 			time *= 0.005F;
-			int color = vazkii.botania.common.core.helper.MathHelper.multiplyColor(MathHelper.hsvToRGB(time - (int) time, 0.6F, 1F), pool.color.getColorValue());
+			int color = vazkii.botania.common.core.helper.MathHelper.multiplyColor(MathHelper.hsvToRGB(MathHelper.frac(time), 0.6F, 1F), pool.color.getColorValue());
 
 			int red = (color & 0xFF0000) >> 16;
 			int green = (color & 0xFF00) >> 8;
