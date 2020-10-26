@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
@@ -111,7 +112,7 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 		public RecipeManaInfusion read(@Nonnull Identifier id, @Nonnull JsonObject json) {
 			JsonElement input = Objects.requireNonNull(json.get("input"));
 			Ingredient ing = Ingredient.fromJson(input);
-			ItemStack output = CraftingHelper.getItemStack(JsonHelper.getObject(json, "output"), true);
+			ItemStack output = ShapedRecipe.getItemStack(JsonHelper.getObject(json, "output"));
 			int mana = JsonHelper.getInt(json, "mana");
 			String group = JsonHelper.getString(json, "group", "");
 			BlockState catalystState = null;
@@ -151,7 +152,7 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 		@Override
 		public void write(@Nonnull PacketByteBuf buf, @Nonnull RecipeManaInfusion recipe) {
 			recipe.getPreviewInputs().get(0).write(buf);
-			buf.writeItemStack(recipe.getOutput(), false);
+			buf.writeItemStack(recipe.getOutput());
 			buf.writeVarInt(recipe.getManaToConsume());
 			buf.writeInt(recipe.getCatalyst() == null ? -1 : Block.getRawIdFromState(recipe.getCatalyst()));
 			buf.writeString(recipe.getGroup());

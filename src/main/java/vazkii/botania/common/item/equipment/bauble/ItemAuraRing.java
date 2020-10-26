@@ -12,18 +12,20 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 
-import vazkii.botania.api.mana.IManaGivingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 
-public class ItemAuraRing extends ItemBauble implements IManaGivingItem {
+public class ItemAuraRing extends ItemBauble {
 
-	public ItemAuraRing(Settings props) {
+	private final int interval;
+
+	public ItemAuraRing(Settings props, int interval) {
 		super(props);
+		this.interval = interval;
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		if (!player.world.isClient && player instanceof PlayerEntity && player.age % 10 == 0) {
+		if (!player.world.isClient && player instanceof PlayerEntity && player.age % interval == 0) {
 			ManaItemHandler.instance().dispatchManaExact(stack, (PlayerEntity) player, 1, true);
 		}
 	}

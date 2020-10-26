@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
@@ -110,7 +111,7 @@ public class RecipePetals implements IPetalRecipe {
 		@Nonnull
 		@Override
 		public RecipePetals read(@Nonnull Identifier id, @Nonnull JsonObject json) {
-			ItemStack output = CraftingHelper.getItemStack(JsonHelper.getObject(json, "output"), true);
+			ItemStack output = ShapedRecipe.getItemStack(JsonHelper.getObject(json, "output"));
 			JsonArray ingrs = JsonHelper.getArray(json, "ingredients");
 			List<Ingredient> inputs = new ArrayList<>();
 			for (JsonElement e : ingrs) {
@@ -135,7 +136,7 @@ public class RecipePetals implements IPetalRecipe {
 			for (Ingredient input : recipe.getPreviewInputs()) {
 				input.write(buf);
 			}
-			buf.writeItemStack(recipe.getOutput(), false);
+			buf.writeItemStack(recipe.getOutput());
 		}
 
 	}

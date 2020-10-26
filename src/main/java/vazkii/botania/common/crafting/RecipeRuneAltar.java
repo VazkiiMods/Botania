@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
@@ -24,6 +25,7 @@ import net.minecraft.world.World;
 
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.crafting.recipe.RecipeUtils;
 
 import javax.annotation.Nonnull;
 
@@ -47,32 +49,7 @@ public class RecipeRuneAltar implements IRuneAltarRecipe {
 
 	@Override
 	public boolean matches(Inventory inv, @Nonnull World world) {
-		List<Ingredient> ingredientsMissing = new ArrayList<>(inputs);
-
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack input = inv.getStack(i);
-			if (input.isEmpty()) {
-				break;
-			}
-
-			int stackIndex = -1;
-
-			for (int j = 0; j < ingredientsMissing.size(); j++) {
-				Ingredient ingr = ingredientsMissing.get(j);
-				if (ingr.test(input)) {
-					stackIndex = j;
-					break;
-				}
-			}
-
-			if (stackIndex != -1) {
-				ingredientsMissing.remove(stackIndex);
-			} else {
-				return false;
-			}
-		}
-
-		return ingredientsMissing.isEmpty();
+		return RecipeUtils.matches(inputs, inv, null);
 	}
 
 	@Nonnull
@@ -120,7 +97,7 @@ public class RecipeRuneAltar implements IRuneAltarRecipe {
 		@Nonnull
 		@Override
 		public RecipeRuneAltar read(@Nonnull Identifier id, @Nonnull JsonObject json) {
-			ItemStack output = CraftingHelper.getItemStack(JsonHelper.getObject(json, "output"), true);
+			ItemStack output = ShapedRecipe.getItemStack(JsonHelper.getObject(json, "output"));
 			int mana = JsonHelper.getInt(json, "mana");
 			JsonArray ingrs = JsonHelper.getArray(json, "ingredients");
 			List<Ingredient> inputs = new ArrayList<>();
@@ -147,7 +124,7 @@ public class RecipeRuneAltar implements IRuneAltarRecipe {
 			for (Ingredient input : recipe.getPreviewInputs()) {
 				input.write(buf);
 			}
-			buf.writeItemStack(recipe.getOutput(), false);
+			buf.writeItemStack(recipe.getOutput());
 			buf.writeVarInt(recipe.getManaUsage());
 		}
 	}

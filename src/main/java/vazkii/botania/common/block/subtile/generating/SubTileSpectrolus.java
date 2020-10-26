@@ -119,7 +119,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 
 	@Override
 	public int getColor() {
-		return MathHelper.hsvToRgb(ticksExisted / 100F, 1F, 1F);
+		return MathHelper.hsvToRgb(ticksExisted * 2 % 360 / 360F, 1F, 1F);
 	}
 
 	@Environment(EnvType.CLIENT)

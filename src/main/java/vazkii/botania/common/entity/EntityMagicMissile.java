@@ -192,7 +192,8 @@ public class EntityMagicMissile extends ThrownEntity {
 		if (isEvil()) {
 			entities = world.getNonSpectatingEntities(PlayerEntity.class, bounds);
 		} else {
-			Predicate<LivingEntity> pred = EntityPredicates.VALID_LIVING_ENTITY.and(this::shouldTarget);
+			Entity owner = getOwner();
+			Predicate<LivingEntity> pred = EntityPredicates.VALID_LIVING_ENTITY.and(targetPredicate(owner));
 			entities = world.getEntitiesByClass(LivingEntity.class, bounds, pred);
 		}
 
@@ -204,9 +205,12 @@ public class EntityMagicMissile extends ThrownEntity {
 		return target != null;
 	}
 
-	public boolean shouldTarget(LivingEntity e) {
+	public static Predicate<LivingEntity> targetPredicate(Entity owner) {
+		return target -> shouldTarget(owner, target);
+	}
+
+	public static boolean shouldTarget(Entity owner, LivingEntity e) {
 		// always defend yourself
-		Entity owner = getOwner();
 		if (e instanceof MobEntity && isHostile(owner, ((MobEntity) e).getTarget())) {
 			return true;
 		}

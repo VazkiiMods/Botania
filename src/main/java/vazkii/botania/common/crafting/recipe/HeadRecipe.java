@@ -17,6 +17,7 @@ import net.minecraft.item.Items;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
@@ -79,7 +80,7 @@ public class HeadRecipe extends RecipeRuneAltar {
 		@Nonnull
 		@Override
 		public HeadRecipe read(@Nonnull Identifier id, @Nonnull JsonObject json) {
-			ItemStack output = CraftingHelper.getItemStack(JsonHelper.getObject(json, "output"), true);
+			ItemStack output = ShapedRecipe.getItemStack(JsonHelper.getObject(json, "output"));
 			int mana = JsonHelper.getInt(json, "mana");
 			JsonArray ingrs = JsonHelper.getArray(json, "ingredients");
 			List<Ingredient> inputs = new ArrayList<>();

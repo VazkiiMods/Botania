@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.registry.Registry;
 
@@ -117,7 +118,7 @@ public class FuzzyNBTIngredient extends Ingredient {
 		@Override
 		public FuzzyNBTIngredient parse(@Nonnull JsonObject json) {
 			boolean acceptsEmptyTag = JsonHelper.getBoolean(json, ACCEPTS_EMPTY_TAG, false);
-			return new FuzzyNBTIngredient(CraftingHelper.getItemStack(json, true), acceptsEmptyTag);
+			return new FuzzyNBTIngredient(ShapedRecipe.getItemStack(json), acceptsEmptyTag);
 		}
 
 		@Override

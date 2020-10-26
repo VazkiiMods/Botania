@@ -18,6 +18,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IManaDissolvable;
@@ -48,13 +49,13 @@ public class ItemBlackLotus extends Item implements IManaDissolvable {
 			return;
 		}
 
-		BlockEntity tile = (BlockEntity) pool;
+		BlockPos pos = pool.tileEntity().getPos();
 		boolean t2 = stack.getItem() == ModItems.blackerLotus;
 
 		if (!item.world.isClient) {
 			pool.receiveMana(t2 ? MANA_PER_T2 : MANA_PER);
 			stack.decrement(1);
-			PacketBotaniaEffect.sendNearby(item, PacketBotaniaEffect.EffectType.BLACK_LOTUS_DISSOLVE, item.getX(), tile.getPos().getY() + 0.5, item.getZ());
+			PacketBotaniaEffect.sendNearby(item, PacketBotaniaEffect.EffectType.BLACK_LOTUS_DISSOLVE, pos.getX(), pos.getY() + 0.5, pos.getZ());
 		}
 
 		item.playSound(ModSounds.blackLotus, 0.5F, t2 ? 0.1F : 1F);

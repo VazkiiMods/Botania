@@ -49,7 +49,7 @@ public class LensFlare extends Lens {
 		int storedColor = ItemLens.getStoredColor(stack);
 		int hex = -1;
 
-		BlockEntity tile = (BlockEntity) spreader;
+		BlockEntity tile = spreader.tileEntity();
 		if (storedColor == 16) {
 			hex = MathHelper.hsvToRgb(tile.getWorld().getTime() * 2 % 360 / 360F, 1F, 1F);
 		} else if (storedColor >= 0) {

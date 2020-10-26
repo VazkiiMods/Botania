@@ -29,6 +29,7 @@ public class DataGenerators {
 			evt.getGenerator().addProvider(new BrewProvider(evt.getGenerator()));
 			evt.getGenerator().addProvider(new PetalProvider(evt.getGenerator()));
 			evt.getGenerator().addProvider(new RuneProvider(evt.getGenerator()));
+			evt.getGenerator().addProvider(new TerraPlateProvider(evt.getGenerator()));
 		}
 		if (evt.includeClient()) {
 			evt.getGenerator().install(new BlockstateProvider(evt.getGenerator(), evt.getExistingFileHelper()));

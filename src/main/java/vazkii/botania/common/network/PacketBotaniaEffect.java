@@ -162,7 +162,7 @@ public class PacketBotaniaEffect {
 						Vector3 currentPos = orig;
 						for (int i = 0; i < iters; i++) {
 							float hue = i * huePer + hueSum;
-							int color = MathHelper.hsvToRgb(hue, 1F, 1F);
+							int color = MathHelper.hsvToRgb(MathHelper.fractionalPart(hue), 1F, 1F);
 							float r = Math.min(1F, (color >> 16 & 0xFF) / 255F + 0.4F);
 							float g = Math.min(1F, (color >> 8 & 0xFF) / 255F + 0.4F);
 							float b = Math.min(1F, (color & 0xFF) / 255F + 0.4F);
@@ -227,7 +227,8 @@ public class PacketBotaniaEffect {
 					case TERRA_PLATE: {
 						BlockEntity te = world.getBlockEntity(new BlockPos(x, y, z));
 						if (te instanceof TileTerraPlate) {
-							int ticks = (int) (100.0 * ((double) ((TileTerraPlate) te).getCurrentMana() / (double) TileTerraPlate.MAX_MANA));
+							float percentage = Float.intBitsToFloat(args[0]);
+							int ticks = (int) (100.0 * percentage);
 
 							int totalSpiritCount = 3;
 							double tickIncrement = 360D / totalSpiritCount;
@@ -325,7 +326,7 @@ public class PacketBotaniaEffect {
 		SPARK_MANA_FLOW(2), // Arg: Entity ID from, Entity ID towards
 		ENCHANTER_DESTROY(0),
 		BLACK_LOTUS_DISSOLVE(0),
-		TERRA_PLATE(0),
+		TERRA_PLATE(1), // Arg: Completion proportion (transmuted from float)
 		FLUGEL_EFFECT(1), // Arg: Entity ID
 		PARTICLE_BEAM(3), // Args: dest xyz
 		DIVA_EFFECT(1), // Arg: Entity ID

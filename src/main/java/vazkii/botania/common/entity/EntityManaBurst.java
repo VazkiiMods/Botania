@@ -116,7 +116,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 	public EntityManaBurst(IManaSpreader spreader, boolean fake) {
 		this(ModEntities.MANA_BURST, ((BlockEntity) spreader).getWorld());
 
-		BlockEntity tile = (BlockEntity) spreader;
+		BlockEntity tile = spreader.tileEntity();
 
 		this.fake = fake;
 
@@ -155,7 +155,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 			this.baseTick();
 		}
 
-		HitResult raytraceresult = ProjectileUtil.getCollision(this, this::method_26958, RayTraceContext.ShapeType.OUTLINE);
+		HitResult raytraceresult = ProjectileUtil.getCollision(this, this::method_26958);
 		boolean flag = false;
 		if (raytraceresult.getType() == HitResult.Type.BLOCK) {
 			BlockPos blockpos = ((BlockHitResult) raytraceresult).getBlockPos();
@@ -502,7 +502,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 			}
 
 			if (tile == null || !tile.getPos().equals(coords)) {
-				if (!fake && !noParticles && (!world.isClient || tile instanceof IClientManaHandler) && tile != null && tile instanceof IManaReceiver && ((IManaReceiver) tile).canReceiveManaFromBursts()) {
+				if (!fake && !noParticles && !world.isClient && tile instanceof IManaReceiver && ((IManaReceiver) tile).canReceiveManaFromBursts()) {
 					onReceiverImpact((IManaReceiver) tile, tile.getPos());
 				}
 
@@ -575,7 +575,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 		if (tile instanceof IThrottledPacket) {
 			((IThrottledPacket) tile).markDispatchable();
 		} else {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers((BlockEntity) tile);
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile.tileEntity());
 		}
 	}
 

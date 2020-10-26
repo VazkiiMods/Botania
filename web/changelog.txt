@@ -1,3 +1,29 @@
+1.16.3-409
+* Fix GoG world type showing up when GoG isn't installed (accidentally excluded from last build)
+* Work around platform bugs to fix "missing keybind" crashes
+1.16.3-408
+* Fix prisms not colliding with bursts (and thus not working at all)
+* Clarification: Since 1.16.2, mana bursts will always collide with blocks based on their *collision* shape. In the past, this used to be the block's main shape, but this has been changed to more closely match how other entities behave. Contraptions using special blocks that have differring main and collision shapes should be rechecked.
+* [API] Deprecate IClientManaHandler
+* Fix GoG world type showing up in create world menu even when GoG isn't installed
+1.16.3-407
+* Cocoon of Caprice mob pools can now be customized with tags
+* Waterlogged cocoons can now place mobs in their own blockspace after disappearing
+* Fix feeding cocoons gaia spirits not shortening the wait time
+* Terra axe and pick only break loki-selected positions when sneaking, to match placement behaviour
+* Fix avatar and life imbuer wasting a lot of mana
+* Obedience stick is now usable from a dispenser
+* Dispensers can now place sparks
+* Make Gaia Spreader recipe shapeless b/c why was it shaped before
+* Manastorm charges inherit the color of the igniting burst
+* Fix feeding teru-teru-bozu with right click instead of toss crashing
+* Update to 1.16.3
+* Go vote screen, in case you somehow manage to run the mod without Patchouli.
+* Fix red string blocks affecting rendering performance even when not holding a Wand
+* Add Corporea Block/Brick/Slab, a totally original feature not stolen from Incorporeal
+* Fix crashes between terra axes and vein-mining mods
+* Update the Gaia fight music to the 2018 remasters
+* Terra plate recipes can now be customized using JSON
 1.16.2-406
 * Buff Fruit of Grisaia
 * Fix TNT ethical check hanging worlds

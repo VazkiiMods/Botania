@@ -117,6 +117,7 @@ public class ModTags {
 		public static final Tag.Identified<Item> RUNES_WRATH = tag("runes/wrath");
 
 		public static final Tag.Identified<Item> BURST_VIEWERS = tag("burst_viewers");
+		public static final Tag.Identified<Item> TERRA_PICK_BLACKLIST = tag("terra_pick_blacklist");
 
 		public static Tag.Identified<Item> getFlowerTag(DyeColor color) {
 			switch (color) {

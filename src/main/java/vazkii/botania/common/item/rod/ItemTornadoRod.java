@@ -141,7 +141,7 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
-		BlockEntity te = (BlockEntity) tile;
+		BlockEntity te = tile.tileEntity();
 		World world = te.getWorld();
 		if (tile.getCurrentMana() >= COST && tile.isEnabled()) {
 			int range = 5;

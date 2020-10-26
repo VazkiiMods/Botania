@@ -9,12 +9,12 @@
 package vazkii.botania.data;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.server.AbstractTagProvider;
 import net.minecraft.data.server.ItemTagsProvider;
 import net.minecraft.item.Item;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.common.Tags;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
@@ -60,11 +60,11 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.getOrCreateTagBuilder(ItemTags.SMALL_FLOWERS).addTag(ModTags.Items.MYSTICAL_FLOWERS).addTag(ModTags.Items.SPECIAL_FLOWERS);
 
 		this.getOrCreateTagBuilder(ModTags.Items.BURST_VIEWERS).add(ModItems.monocle);
-		this.getOrCreateTagBuilder(ModTags.Items.LENS).add(
-			Registry.ITEM.stream().filter(i -> i instanceof ItemLens && Registry.ITEM.getId(i).getNamespace().equals(LibMisc.MOD_ID))
-				.sorted(Comparator.comparing(Registry.ITEM::getId))
-				.toArray(Item[]::new)
-		);
+		this.getOrCreateTagBuilder(ModTags.Items.TERRA_PICK_BLACKLIST).add(ModItems.auraRing, ModItems.auraRingGreater, ModItems.terrasteelHelm);
+		AbstractTagProvider.ObjectBuilder<Item> builder = this.getOrCreateTagBuilder(ModTags.Items.LENS);
+		Registry.ITEM.stream().filter(i -> i instanceof ItemLens && Registry.ITEM.getId(i).getNamespace().equals(LibMisc.MOD_ID))
+			.sorted(Comparator.comparing(Registry.ITEM::getId))
+			.forEach(builder::add);
 
 		this.getOrCreateTagBuilder(ItemTags.PIGLIN_LOVED).add(ModBlocks.alchemyCatalyst.asItem(), ModItems.cacophonium, ModItems.divaCharm,
 				ModBlocks.hourglass.asItem(), ModBlocks.manaPylon.asItem(), ModItems.monocle);

@@ -71,7 +71,7 @@ public class ItemFireRod extends Item implements IManaUsingItem, IAvatarWieldabl
 
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
-		BlockEntity te = (BlockEntity) tile;
+		BlockEntity te = tile.tileEntity();
 		World world = te.getWorld();
 
 		if (!world.isClient && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 300 == 0 && tile.isEnabled()) {

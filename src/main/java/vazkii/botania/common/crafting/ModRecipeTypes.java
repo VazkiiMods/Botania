@@ -46,6 +46,9 @@ public class ModRecipeTypes {
 	public static final RecipeSerializer<RecipeRuneAltar> RUNE_SERIALIZER = new RecipeRuneAltar.Serializer();
 	public static final RecipeSerializer<HeadRecipe> RUNE_HEAD_SERIALIZER = new HeadRecipe.Serializer();
 
+	public static final RecipeType<ITerraPlateRecipe> TERRA_PLATE_TYPE = new RecipeType<>();
+	public static final RecipeSerializer<RecipeTerraPlate> TERRA_PLATE_SERIALIZER = new RecipeTerraPlate.Serializer();
+
 	public static void registerRecipeTypes() {
 		Identifier id = prefix("elven_trade");
 		Registry.register(Registry.RECIPE_TYPE, id, ELVEN_TRADE_TYPE);
@@ -73,6 +76,10 @@ public class ModRecipeTypes {
 		Registry.register(Registry.RECIPE_TYPE, id, RUNE_TYPE);
 		register(r, id, RUNE_SERIALIZER);
 		register(r, prefix("runic_altar_head"), RUNE_HEAD_SERIALIZER);
+
+		id = prefix("terra_plate");
+		Registry.register(Registry.RECIPE_TYPE, id, TERRA_PLATE_TYPE);
+		register(r, id, TERRA_PLATE_SERIALIZER);
 	}
 
 	private static class RecipeType<T extends Recipe<?>> implements net.minecraft.recipe.RecipeType<T> {

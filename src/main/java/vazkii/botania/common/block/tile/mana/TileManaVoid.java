@@ -8,12 +8,14 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import vazkii.botania.api.mana.IClientManaHandler;
+import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TileManaVoid extends TileMod implements IClientManaHandler {
+public class TileManaVoid extends TileMod implements IManaReceiver {
+	private static final int SPARKLE_EVENT = 0;
+
 	public TileManaVoid() {
 		super(ModTiles.MANA_VOID);
 	}
@@ -31,10 +33,7 @@ public class TileManaVoid extends TileMod implements IClientManaHandler {
 	@Override
 	public void receiveMana(int mana) {
 		if (mana > 0) {
-			for (int i = 0; i < 10; i++) {
-				SparkleParticleData data = SparkleParticleData.sparkle(0.7F + 0.5F * (float) Math.random(), 0.2F, 0.2F, 0.2F, 5);
-				world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
-			}
+			world.addBlockEvent(getPos(), getBlockState().getBlock(), SPARKLE_EVENT, 0);
 		}
 	}
 
@@ -43,4 +42,17 @@ public class TileManaVoid extends TileMod implements IClientManaHandler {
 		return true;
 	}
 
+	@Override
+	public boolean receiveClientEvent(int id, int payload) {
+		if (id == SPARKLE_EVENT) {
+			if (world.isRemote) {
+				for (int i = 0; i < 10; i++) {
+					SparkleParticleData data = SparkleParticleData.sparkle(0.7F + 0.5F * (float) Math.random(), 0.2F, 0.2F, 0.2F, 5);
+					world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
+				}
+			}
+			return true;
+		}
+		return super.receiveClientEvent(id, payload);
+	}
 }

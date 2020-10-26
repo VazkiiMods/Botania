@@ -104,7 +104,7 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
-		BlockEntity te = (BlockEntity) tile;
+		BlockEntity te = tile.tileEntity();
 		World world = te.getWorld();
 		if (!world.isClient && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.random.nextInt(8) == 0 && tile.isEnabled()) {
 			BlockPos pos = ((BlockEntity) tile).getPos().offset(tile.getAvatarFacing());

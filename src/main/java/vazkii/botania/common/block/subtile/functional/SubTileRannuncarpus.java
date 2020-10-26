@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
@@ -24,10 +25,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IFlowerPlaceable;
@@ -39,10 +37,7 @@ import vazkii.botania.mixin.AccessorItemEntity;
 
 import javax.annotation.Nonnull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	private static final int PICKUP_RANGE = 2;
@@ -87,8 +82,8 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 				if (stackItem instanceof BlockItem || stackItem instanceof IFlowerPlaceable) {
 					if (!validPositions.isEmpty()) {
 						BlockPos coords = validPositions.get(getWorld().random.nextInt(validPositions.size()));
-						BlockHitResult ray = new BlockHitResult(Vec3d.ZERO, Direction.UP, coords, false);
-						ItemPlacementContext ctx = new RannuncarpusPlaceContext(getWorld(), stack, ray);
+						BlockHitResult ray = new BlockHitResult(new Vec3d(coords.getX() + 0.5, coords.getY() + 1, coords.getZ() + 0.5), Direction.UP, coords, false);
+						ItemPlacementContext ctx = new RannuncarpusPlaceContext(getWorld(), stack, ray, pos);
 
 						boolean success = false;
 						if (stackItem instanceof IFlowerPlaceable) {
@@ -213,12 +208,51 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	// BlockItemUseContext uses a nullable player field without checking it -.-
 	private static class RannuncarpusPlaceContext extends ItemPlacementContext {
 		private final Direction[] lookDirs;
+		private final float placementYaw;
 
-		public RannuncarpusPlaceContext(World world, ItemStack stack, BlockHitResult rtr) {
+		public RannuncarpusPlaceContext(World world, ItemStack stack, BlockHitResult rtr, BlockPos flowerPos) {
 			super(world, null, Hand.MAIN_HAND, stack, rtr);
-			List<Direction> tmp = Arrays.asList(Direction.values());
-			Collections.shuffle(tmp);
-			lookDirs = tmp.toArray(new Direction[6]);
+			int dx = rtr.getBlockPos().getX() - flowerPos.getX();
+			int dy = rtr.getBlockPos().getY() - flowerPos.getY();
+			int dz = rtr.getBlockPos().getZ() - flowerPos.getZ();
+
+			Direction xClosest = dx >= 0 ? Direction.EAST : Direction.WEST;
+			Direction yClosest = dy >= 0 ? Direction.UP : Direction.DOWN;
+			Direction zClosest = dz >= 0 ? Direction.SOUTH : Direction.NORTH;
+
+			List<Direction> directions = sortThree(xClosest, yClosest, zClosest, Math.abs(dx), Math.abs(dy), Math.abs(dz));
+
+			Direction first = directions.get(0);
+			Direction second = directions.get(1);
+			Direction third = directions.get(2);
+
+			lookDirs = new Direction[] {
+					first,
+					second,
+					third,
+					third.getOpposite(),
+					second.getOpposite(),
+					first.getOpposite()
+			};
+
+			placementYaw = (float) (-MathHelper.atan2(dx, dz) * 180 / Math.PI);
+		}
+
+		/**
+		 * Arrange a, b and c such that their corresponding ints (a -> aInt) are in descending order.
+		 */
+		private static <T> List<T> sortThree(T a, T b, T c, int aInt, int bInt, int cInt) {
+			if (aInt >= bInt) {
+				if (bInt >= cInt) {
+					return ImmutableList.of(a, b, c);
+				} else {
+					return cInt >= aInt ? ImmutableList.of(c, a, b) : ImmutableList.of(a, c, b);
+				}
+			} else if (bInt >= cInt) {
+				return cInt >= aInt ? ImmutableList.of(b, c, a) : ImmutableList.of(b, a, c);
+			} else {
+				return ImmutableList.of(c, b, a);
+			}
 		}
 
 		@Nonnull
@@ -231,6 +265,17 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 		@Override
 		public Direction[] getPlacementDirections() {
 			return lookDirs;
+		}
+
+		@Nonnull
+		@Override
+		public Direction getPlayerFacing() {
+			return getPlayerLookDirection().getAxis().isHorizontal() ? getPlayerLookDirection() : getPlacementDirections()[1];
+		}
+
+		@Override
+		public float getPlayerYaw() {
+			return placementYaw;
 		}
 	}
 

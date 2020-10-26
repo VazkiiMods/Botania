@@ -59,7 +59,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 	private static final int TICKS_ALLOWED_WITHOUT_PINGBACK = 20;
 	private static final double PINGBACK_EXPIRED_SEARCH_DISTANCE = 0.5;
 
-	private static final String TAG_HAS_IDENTITY = "hasIdentity";
+	private static final String TAG_UUID = "uuid";
 	private static final String TAG_UUID_MOST = "uuidMost";
 	private static final String TAG_UUID_LEAST = "uuidLeast";
 	private static final String TAG_MANA = "mana";
@@ -103,7 +103,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 
 	// End Map Maker Tags
 
-	UUID identity;
+	private UUID identity = UUID.randomUUID();
 
 	private int mana;
 	public float rotationX, rotationY;
@@ -266,9 +266,10 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		super.writePacketNBT(cmp);
 
 		UUID identity = getIdentifier();
-		cmp.putBoolean(TAG_HAS_IDENTITY, true);
 		cmp.putLong(TAG_UUID_MOST, identity.getMostSignificantBits());
 		cmp.putLong(TAG_UUID_LEAST, identity.getLeastSignificantBits());
+		// writing this now to future-proof. TODO 1.17 remove manual MOST/LEAST tags and just use this
+		cmp.putUniqueId(TAG_UUID, identity);
 
 		cmp.putInt(TAG_MANA, mana);
 		cmp.putFloat(TAG_ROTATION_X, rotationX);
@@ -285,9 +286,9 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		cmp.putString(TAG_INPUT_KEY, inputKey);
 		cmp.putString(TAG_OUTPUT_KEY, outputKey);
 
-		cmp.putInt(TAG_FORCE_CLIENT_BINDING_X, receiver == null ? 0 : ((BlockEntity) receiver).getPos().getX());
-		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Y, receiver == null ? -1 : ((BlockEntity) receiver).getPos().getY());
-		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Z, receiver == null ? 0 : ((BlockEntity) receiver).getPos().getZ());
+		cmp.putInt(TAG_FORCE_CLIENT_BINDING_X, receiver == null ? 0 : receiver.tileEntity().getPos().getX());
+		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Y, receiver == null ? -1 : receiver.tileEntity().getPos().getY());
+		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Z, receiver == null ? 0 : receiver.tileEntity().getPos().getZ());
 
 		cmp.putBoolean(TAG_MAPMAKER_OVERRIDE, mapmakerOverride);
 		cmp.putInt(TAG_FORCED_COLOR, mmForcedColor);
@@ -304,15 +305,14 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 	public void readPacketNBT(CompoundTag cmp) {
 		super.readPacketNBT(cmp);
 
-		if (cmp.getBoolean(TAG_HAS_IDENTITY)) {
+		if (cmp.hasUniqueId(TAG_UUID)) {
+			identity = cmp.getUniqueId(TAG_UUID);
+		} else if (cmp.contains(TAG_UUID_LEAST) && cmp.contains(TAG_UUID_MOST)) { // TODO 1.17 remove this
 			long most = cmp.getLong(TAG_UUID_MOST);
 			long least = cmp.getLong(TAG_UUID_LEAST);
-			UUID identity = getIdentifierUnsafe();
 			if (identity == null || most != identity.getMostSignificantBits() || least != identity.getLeastSignificantBits()) {
 				this.identity = new UUID(most, least);
 			}
-		} else {
-			getIdentifier();
 		}
 
 		mana = cmp.getInt(TAG_MANA);
@@ -556,7 +556,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		}
 
 		if (receiver != null) {
-			BlockEntity receiverTile = (BlockEntity) receiver;
+			BlockEntity receiverTile = receiver.tileEntity();
 			ItemStack recieverStack = new ItemStack(world.getBlockState(receiverTile.getPos()).getBlock());
 			if (!recieverStack.isEmpty()) {
 				String stackName = recieverStack.getName().getString();
@@ -604,6 +604,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 
 	@Override
 	public void markDirty() {
+		super.markDirty();
 		if (world != null) {
 			checkForReceiver();
 			if (!world.isClient) {
@@ -618,7 +619,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 			return null;
 		}
 
-		BlockEntity tile = (BlockEntity) receiver;
+		BlockEntity tile = receiver.tileEntity();
 		return tile.getPos();
 	}
 
@@ -783,13 +784,6 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 
 	@Override
 	public UUID getIdentifier() {
-		if (identity == null) {
-			identity = UUID.randomUUID();
-		}
-		return identity;
-	}
-
-	private UUID getIdentifierUnsafe() {
 		return identity;
 	}
 

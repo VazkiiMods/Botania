@@ -32,6 +32,7 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.common.entity.EntityMagicMissile;
 
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 
 		double range = 24;
 		Box aabb = new Box(living.getX(), living.getY(), living.getZ(), living.getX(), living.getY(), living.getZ()).expand(range);
-		List<LivingEntity> mobs = living.world.getEntitiesByClass(LivingEntity.class, aabb, (Entity e) -> e instanceof Monster);
+		List<LivingEntity> mobs = living.world.getEntitiesByClass(LivingEntity.class, aabb, EntityMagicMissile.targetPredicate(living));
 
 		for (LivingEntity e : mobs) {
 			StatusEffectInstance potion = e.getStatusEffect(StatusEffects.GLOWING);

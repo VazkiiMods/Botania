@@ -30,8 +30,7 @@ public class RenderTileTerraPlate extends BlockEntityRenderer<TileTerraPlate> {
 
 	@Override
 	public void render(@Nonnull TileTerraPlate plate, float f, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
-		float max = TileTerraPlate.MAX_MANA / 10F;
-		float alphaMod = Math.min(max, plate.getCurrentMana()) / max;
+		float alphaMod = Math.min(1.0F, plate.getCompletion() / 0.1F);
 
 		ms.push();
 		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90F));

@@ -83,12 +83,7 @@ public class BlockTerraPlate extends BlockModWaterloggable implements BlockEntit
 	@Override
 	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
 		TileTerraPlate plate = (TileTerraPlate) world.getBlockEntity(pos);
-		int val = (int) ((double) plate.getCurrentMana() / (double) TileTerraPlate.MAX_MANA * 15.0);
-		if (plate.getCurrentMana() > 0) {
-			val = Math.max(val, 1);
-		}
-
-		return val;
+		return plate.getComparatorLevel();
 	}
 
 }

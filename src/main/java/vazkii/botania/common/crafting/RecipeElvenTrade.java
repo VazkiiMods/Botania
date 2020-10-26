@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.ShapedRecipe;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
@@ -130,11 +131,11 @@ public class RecipeElvenTrade implements IElvenTradeRecipe {
 			if (output.isJsonArray()) {
 				for (JsonElement e : output.getAsJsonArray()) {
 					JsonObject o = JsonHelper.asObject(e, "output stack");
-					outputStacks.add(CraftingHelper.getItemStack(o, true));
+					outputStacks.add(ShapedRecipe.getItemStack(o));
 				}
 			} else {
 				JsonObject o = JsonHelper.asObject(output, "output stack");
-				outputStacks.add(CraftingHelper.getItemStack(o, true));
+				outputStacks.add(ShapedRecipe.getItemStack(o));
 			}
 
 			List<Ingredient> inputs = new ArrayList<>();
@@ -169,7 +170,7 @@ public class RecipeElvenTrade implements IElvenTradeRecipe {
 			}
 			buf.writeVarInt(recipe.getOutputs().size());
 			for (ItemStack output : recipe.getOutputs()) {
-				buf.writeItemStack(output, false);
+				buf.writeItemStack(output);
 			}
 		}
 	}
