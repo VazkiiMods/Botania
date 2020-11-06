@@ -117,14 +117,6 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 		return state != null && (state.isOpaqueFullCube(world, pos) || state.getRenderType() == BlockRenderType.MODEL);
 	}
 
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void appendTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Text> tooltip, TooltipContext flagIn) {
-		if (variant.indestructible) {
-			tooltip.add(new TranslatableText("botaniamisc.creative"));
-		}
-	}
-
 	@Override
 	@Environment(EnvType.CLIENT)
 	public void appendTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Text> tooltip, TooltipContext flagIn) {

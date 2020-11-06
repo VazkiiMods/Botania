@@ -53,10 +53,12 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 		super(props);
 	}
 
+	/* todo fabric
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, @Nonnull ItemStack newStack, boolean slotChanged) {
 		return newStack.getItem() != this;
 	}
+	*/
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean held) {
@@ -91,11 +93,13 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 		leftClick(player);
 	}
 
+	/* todo fabric
 	// Prevent damaging the entity you just held with the rod
 	@Override
 	public boolean onLeftClickEntity(ItemStack stack, PlayerEntity player, Entity entity) {
 		return ItemNBTHelper.getInt(stack, TAG_TICKS_TILL_EXPIRE, 0) != 0;
 	}
+	*/
 
 	@Nonnull
 	@Override

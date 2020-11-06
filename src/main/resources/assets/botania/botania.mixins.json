@@ -46,6 +46,7 @@
     "AccessorRenderTypeBuffers",
     "AccessorSkullTileEntityRenderer",
     "AccessorWorldRenderer",
+    "MixinAbstractTexture",
     "MixinClientWorldInfo",
     "MixinDebugHud",
     "MixinGameRenderer",

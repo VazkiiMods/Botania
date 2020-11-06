@@ -24,7 +24,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.RayTraceContext;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -46,7 +46,7 @@ public class ItemWaterRod extends Item implements IManaUsingItem {
 	@Override
 	public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn) {
 		ItemStack itemstack = playerIn.getStackInHand(handIn);
-		HitResult raytraceresult = rayTrace(worldIn, playerIn, RayTraceContext.FluidHandling.NONE);
+		HitResult raytraceresult = raycast(worldIn, playerIn, RaycastContext.FluidHandling.NONE);
 		if (raytraceresult.getType() == HitResult.Type.MISS) {
 			return new TypedActionResult<>(ActionResult.PASS, itemstack);
 		} else if (raytraceresult.getType() != HitResult.Type.BLOCK) {

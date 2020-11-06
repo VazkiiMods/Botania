@@ -70,7 +70,7 @@ public class TileOpenCrate extends TileExposedSimpleInventory implements Tickabl
 		double ejectY = pos.getY() - height;
 		double ejectZ = pos.getZ() + 0.5;
 		Box itemBB = new Box(ejectX - width / 2, ejectY, ejectZ - width / 2, ejectX + width / 2, ejectY + height, ejectZ + width / 2);
-		return world.doesNotCollide(itemBB);
+		return world.isSpaceEmpty(itemBB);
 	}
 
 	public void eject(ItemStack stack, boolean redstone) {

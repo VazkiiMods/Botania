@@ -24,7 +24,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.AbstractTraderEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
@@ -32,7 +31,7 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.LongTag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
+import net.minecraft.village.Merchant;
 import net.minecraft.village.TradeOffer;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -138,13 +137,13 @@ public class ItemItemFinder extends ItemBauble {
 						entIdBuilder.add(targetPlayer.getEntityId());
 					}
 
-				} else if (e instanceof AbstractTraderEntity) {
-					AbstractTraderEntity villager = (AbstractTraderEntity) e;
+				} else if (e instanceof Merchant) {
+					Merchant villager = (Merchant) e;
 					for (TradeOffer offer : villager.getOffers()) {
 						if (equalStacks(pstack, offer.getOriginalFirstBuyItem())
 								|| equalStacks(pstack, offer.getSecondBuyItem())
 								|| equalStacks(pstack, offer.getMutableSellItem())) {
-							entIdBuilder.add(villager.getEntityId());
+							entIdBuilder.add(e.getEntityId());
 						}
 					}
 				} else if (e instanceof Inventory) {

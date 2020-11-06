@@ -192,7 +192,7 @@ public class MiscellaneousIcons {
 	}
 
 	private static SpriteIdentifier mainAtlas(String name) {
-		return new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEX, prefix(name));
+		return new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, prefix(name));
 	}
 
 	private MiscellaneousIcons() {}

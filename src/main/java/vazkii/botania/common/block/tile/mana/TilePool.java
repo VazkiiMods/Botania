@@ -124,12 +124,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		ManaNetworkCallback.removePool(this);
 	}
 
-	@Override
-	public void onChunkUnloaded() {
-		super.onChunkUnloaded();
-		ManaNetworkCallback.removePool(this);
-	}
-
 	public static int calculateComparatorLevel(int mana, int max) {
 		int val = (int) ((double) mana / (double) max * 15.0);
 		if (mana > 0) {

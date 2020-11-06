@@ -15,7 +15,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.RayTraceContext;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.core.helper.Vector3;
@@ -158,8 +158,8 @@ public class LightningSegmentGenerator {
 
 	private float rayTraceResistance(Vector3 start, Vector3 end, float prevresistance) {
 		World world = MinecraftClient.getInstance().world;
-		RayTraceContext ctx = new RayTraceContext(start.toVector3d(), end.toVector3d(), RayTraceContext.ShapeType.OUTLINE, RayTraceContext.FluidHandling.NONE, null);
-		BlockHitResult ray = world.rayTrace(ctx);
+		RaycastContext ctx = new RaycastContext(start.toVector3d(), end.toVector3d(), RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, null);
+		BlockHitResult ray = world.raycast(ctx);
 
 		if (ray.getType() == HitResult.Type.BLOCK) {
 			BlockPos pos = ray.getBlockPos();

@@ -11,6 +11,7 @@ package vazkii.botania.common.block.mana;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.Shearable;
 import net.minecraft.entity.mob.MobEntity;
@@ -65,18 +66,18 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 
 	public void convertNearby(Entity entity, Item from, Item to) {
 		World world = entity.world;
-		List<ItemEntity> items = world.getEntitiesWithinAABB(ItemEntity.class, entity.getBoundingBox());
+		List<ItemEntity> items = world.getNonSpectatingEntities(ItemEntity.class, entity.getBoundingBox());
 		for (ItemEntity item : items) {
-			ItemStack itemstack = item.getItem();
-			if (!itemstack.isEmpty() && itemstack.getItem() == from && !world.isRemote) {
+			ItemStack itemstack = item.getStack();
+			if (!itemstack.isEmpty() && itemstack.getItem() == from && !world.isClient) {
 				while (itemstack.getCount() > 0) {
-					ItemEntity ent = entity.entityDropItem(new ItemStack(to), 1.0F);
-					ent.setMotion(ent.getMotion().add(
-							world.rand.nextFloat() * 0.05F,
-							(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F,
-							(world.rand.nextFloat() - world.rand.nextFloat()) * 0.1F
+					ItemEntity ent = entity.dropStack(new ItemStack(to), 1.0F);
+					ent.setVelocity(ent.getVelocity().add(
+							world.random.nextFloat() * 0.05F,
+							(world.random.nextFloat() - world.random.nextFloat()) * 0.1F,
+							(world.random.nextFloat() - world.random.nextFloat()) * 0.1F
 					));
-					itemstack.shrink(1);
+					itemstack.decrement(1);
 				}
 				item.remove();
 			}
@@ -108,8 +109,7 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 					if (entity instanceof MooshroomEntity) {
 						convertNearby(entity, Items.BOWL, Items.MUSHROOM_STEW);
 					}
-				} else if (entity instanceof IShearable && ((IShearable) entity).isShearable()
-						|| entity instanceof IForgeShearable && ((IForgeShearable) entity).isShearable(stack, world, entity.getPosition())) {
+				} else if (entity instanceof Shearable && ((Shearable) entity).isShearable()) {
 					shearables.add(entity);
 				}
 			}

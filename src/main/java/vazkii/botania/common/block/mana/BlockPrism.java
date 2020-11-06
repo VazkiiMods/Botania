@@ -62,7 +62,7 @@ public class BlockPrism extends BlockModWaterloggable implements BlockEntityProv
 
 	@Nonnull
 	@Override
-	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull IBlockReader world, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
+	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull BlockView world, @Nonnull BlockPos pos, @Nonnull ShapeContext context) {
 		if (context.getEntity() instanceof EntityManaBurst) {
 			// Expose the shape so bursts can actually collide with us
 			// they will still go through the prism via IManaCollisionGhost

@@ -69,7 +69,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 						if (mobs.size() > 1) {
 							if (SubTileHeiseiDream.brainwashEntity(target, mobs)) {
 								target.heal(target.getMaxHealth());
-								target.revive();
+								target.removed = false;
 								if (target instanceof CreeperEntity) {
 									((AccessorCreeperEntity) event.getEntityLiving()).setTimeSinceIgnited(2);
 								}

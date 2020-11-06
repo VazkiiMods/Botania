@@ -39,7 +39,7 @@ public final class ModelHandler {
 	public static void registerModels(ResourceManager rm, Consumer<ModelIdentifier> consumer) {
 		if (!registeredModels) {
 			registeredModels = true;
-			ModelLoaderRegistry.registerLoader(FloatingFlowerModel.Loader.ID, FloatingFlowerModel.Loader.INSTANCE);
+			// todo fabric ModelLoaderRegistry.registerLoader(FloatingFlowerModel.Loader.ID, FloatingFlowerModel.Loader.INSTANCE);
 		}
 		consumer.accept(new ModelIdentifier(LibMisc.MOD_ID + ":mana_gun_clip", "inventory"));
 		consumer.accept(new ModelIdentifier(LibMisc.MOD_ID + ":desu_gun", "inventory"));

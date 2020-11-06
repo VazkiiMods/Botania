@@ -124,9 +124,5 @@ public abstract class TileExposedSimpleInventory extends TileSimpleInventory imp
 		return true;
 	}
 
-	@Nonnull
-	@Override
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-		return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.orEmpty(cap, LazyOptional.of(() -> new SidedInvWrapper(this, side)));
-	}
+	// todo fabric expose a lba component or something?
 }

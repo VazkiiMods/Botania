@@ -25,7 +25,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.RayTraceContext;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.recipe.IElvenItem;
@@ -106,7 +106,7 @@ public class ItemLexicon extends Item implements IElvenItem {
 	}
 
 	// Random item to expose this as public
-	public static BlockHitResult doRayTrace(World world, PlayerEntity player, RayTraceContext.FluidHandling fluidMode) {
-		return Item.rayTrace(world, player, fluidMode);
+	public static BlockHitResult doRayTrace(World world, PlayerEntity player, RaycastContext.FluidHandling fluidMode) {
+		return Item.raycast(world, player, fluidMode);
 	}
 }

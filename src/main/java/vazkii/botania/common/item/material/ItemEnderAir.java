@@ -36,7 +36,7 @@ public class ItemEnderAir extends Item {
 	public static TypedActionResult<ItemStack> onPlayerInteract(PlayerEntity player, World world, Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
 
-		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.getRegistryKey() == World.THE_END) {
+		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.getRegistryKey() == World.END) {
 			if (!isClearFromDragonBreath(world, player.getBoundingBox().expand(3.5D))) {
 				return TypedActionResult.pass(stack);
 			}
@@ -61,13 +61,6 @@ public class ItemEnderAir extends Item {
 		return list.isEmpty();
 	}
 
-	public static boolean isClearFromDragonBreath(World world, AxisAlignedBB aabb) {
-		List<AreaEffectCloudEntity> list = world.getEntitiesWithinAABB(AreaEffectCloudEntity.class,
-				aabb, entity -> entity != null && entity.isAlive()
-						&& entity.getParticleData().getType() == ParticleTypes.DRAGON_BREATH);
-		return list.isEmpty();
-	}
-
 	@Nonnull
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
@@ -83,6 +76,6 @@ public class ItemEnderAir extends Item {
 			b.setProperties(player, player.pitch, player.yaw, 0F, 1.5F, 1F);
 			world.spawnEntity(b);
 		}
-		return TypedActionResult.method_29237(stack, world.isClient);
+		return TypedActionResult.success(stack, world.isClient);
 	}
 }

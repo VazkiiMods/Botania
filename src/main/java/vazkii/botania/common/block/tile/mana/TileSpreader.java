@@ -152,12 +152,6 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 	}
 
 	@Override
-	public void onChunkUnloaded() {
-		super.onChunkUnloaded();
-		ManaNetworkCallback.removeCollector(this);
-	}
-
-	@Override
 	public void tick() {
 		boolean inNetwork = ManaNetworkHandler.instance.isCollectorIn(this);
 		boolean wasInNetwork = inNetwork;
@@ -269,7 +263,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		cmp.putLong(TAG_UUID_MOST, identity.getMostSignificantBits());
 		cmp.putLong(TAG_UUID_LEAST, identity.getLeastSignificantBits());
 		// writing this now to future-proof. TODO 1.17 remove manual MOST/LEAST tags and just use this
-		cmp.putUniqueId(TAG_UUID, identity);
+		cmp.putUuid(TAG_UUID, identity);
 
 		cmp.putInt(TAG_MANA, mana);
 		cmp.putFloat(TAG_ROTATION_X, rotationX);
@@ -305,8 +299,8 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 	public void readPacketNBT(CompoundTag cmp) {
 		super.readPacketNBT(cmp);
 
-		if (cmp.hasUniqueId(TAG_UUID)) {
-			identity = cmp.getUniqueId(TAG_UUID);
+		if (cmp.containsUuid(TAG_UUID)) {
+			identity = cmp.getUuid(TAG_UUID);
 		} else if (cmp.contains(TAG_UUID_LEAST) && cmp.contains(TAG_UUID_MOST)) { // TODO 1.17 remove this
 			long most = cmp.getLong(TAG_UUID_MOST);
 			long least = cmp.getLong(TAG_UUID_LEAST);

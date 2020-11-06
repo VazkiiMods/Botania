@@ -15,11 +15,13 @@ import net.minecraft.client.particle.SpriteBillboardParticle;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.texture.AbstractTexture;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.world.ClientWorld;
 
 import org.lwjgl.opengl.GL11;
+import vazkii.botania.client.core.ExtendedTexture;
 
 import javax.annotation.Nonnull;
 
@@ -106,12 +108,14 @@ public class FXWisp extends SpriteBillboardParticle {
 		RenderSystem.disableLighting();
 
 		textureManager.bindTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEX);
-		textureManager.getTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEX).setFilter(true, false);
+		AbstractTexture tex = textureManager.getTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEX);
+		((ExtendedTexture) tex).setFilterSave(true, false);
 		bufferBuilder.begin(GL11.GL_QUADS, VertexFormats.POSITION_TEXTURE_COLOR_LIGHT);
 	}
 
 	private static void endRenderCommon() {
-		MinecraftClient.getInstance().getTextureManager().getTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEX).setFilter(false, true);
+		AbstractTexture tex = MinecraftClient.getInstance().getTextureManager().getTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEX);
+		((ExtendedTexture) tex).restoreLastFilter();
 		RenderSystem.alphaFunc(GL11.GL_GREATER, 0.1F);
 		RenderSystem.disableBlend();
 		RenderSystem.depthMask(true);

@@ -25,6 +25,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.client.core.ExtendedTexture;
 import vazkii.botania.client.core.helper.ShaderHelper;
 
 import javax.annotation.Nonnull;
@@ -158,12 +159,13 @@ public class FXSparkle extends SpriteBillboardParticle {
 		RenderSystem.disableLighting();
 		textureManager.bindTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEX);
 		AbstractTexture tex = textureManager.getTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEX);
-		tex.setFilter(true, false);
+		((ExtendedTexture) tex).setFilterSave(true, false);
 		buffer.begin(GL11.GL_QUADS, VertexFormats.POSITION_TEXTURE_COLOR_LIGHT);
 	}
 
 	private static void endRenderCommon() {
-		MinecraftClient.getInstance().getTextureManager().getTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEX).restoreLastBlurMipmap();
+		AbstractTexture tex = MinecraftClient.getInstance().getTextureManager().getTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEX);
+		((ExtendedTexture) tex).restoreLastFilter();
 		RenderSystem.alphaFunc(GL11.GL_GREATER, 0.1F);
 		RenderSystem.disableBlend();
 		RenderSystem.depthMask(true);
