@@ -14,7 +14,7 @@ buildscript {
 }
 
 plugins {
-    id "com.diffplug.spotless" version "5.1.0"
+    id "com.diffplug.spotless" version "5.7.0"
 }
 
 apply plugin: 'net.minecraftforge.gradle'
@@ -117,20 +117,15 @@ test {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${mc_version}-34.0.5"
+    minecraft "net.minecraftforge:forge:${mc_version}-34.1.0"
 
-    annotationProcessor 'org.spongepowered:mixin:0.8'
-    annotationProcessor 'com.google.code.gson:gson:2.8.0'
-    annotationProcessor 'com.google.guava:guava:21.0'
-    annotationProcessor 'org.ow2.asm:asm-tree:7.2'
-    annotationProcessor 'org.ow2.asm:asm-commons:7.2'
-    annotationProcessor 'org.ow2.asm:asm-util:7.2'
+    annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
 
-    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16-42:api")
-    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16-42")
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.2-47:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.2-47")
 
-    compileOnly fg.deobf("mezz.jei:jei-1.16.2:7.3.2.25:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.16.2:7.3.2.25")
+    compileOnly fg.deobf("mezz.jei:jei-1.16.3:7.5.0.41:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.16.3:7.5.0.41")
 
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.3-4.0.1.0:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.3-4.0.1.0")
