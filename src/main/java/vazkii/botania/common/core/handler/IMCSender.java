@@ -75,10 +75,10 @@ public class IMCSender {
 
 		// Vanilla
 		addOreWeightNether("quartz", 19600);
-		addOreWeightNether("netherite", 148);
+		addOreWeightNether("netherite_scrap", 148);
 		// Mystical Agriculture
-		addOreWeight("nether/inferium", 10000);
-		addOreWeight("nether/prosperity", 7420);
+		addOreWeightNether("nether/inferium", 10000);
+		addOreWeightNether("nether/prosperity", 7420);
 		// Nether Ores
 		addOreWeightNether("nether/coal", 17000);
 		addOreWeightNether("nether/copper", 4700);
