@@ -54,6 +54,7 @@ import vazkii.botania.common.block.BlockAltar;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.mixin.AccessorBucketItem;
 
 import javax.annotation.Nullable;
 
@@ -102,7 +103,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 		if (getFluid() == State.EMPTY) {
 			// XXX: special handling for now since fish buckets don't have fluid cap, may need to be changed later
-			if (stack.getItem() instanceof FishBucketItem && ((FishBucketItem) stack.getItem()).getFluid() == Fluids.WATER) {
+			// todo fabric: check if LBA gives fish buckets this
+			if (stack.getItem() instanceof FishBucketItem && ((AccessorBucketItem) stack.getItem()).getFluid() == Fluids.WATER) {
 				setFluid(State.WATER);
 				((FishBucketItem) stack.getItem()).onEmptied(world, stack, getPos().up()); // Spawns the fish
 				item.setStack(new ItemStack(Items.BUCKET));

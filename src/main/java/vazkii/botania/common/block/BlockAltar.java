@@ -8,6 +8,19 @@
  */
 package vazkii.botania.common.block;
 
+import alexiil.mc.lib.attributes.ItemAttributeList;
+import alexiil.mc.lib.attributes.Simulation;
+import alexiil.mc.lib.attributes.fluid.FluidAttributes;
+import alexiil.mc.lib.attributes.fluid.FluidExtractable;
+import alexiil.mc.lib.attributes.fluid.FluidInsertable;
+import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
+import alexiil.mc.lib.attributes.fluid.filter.ExactFluidFilter;
+import alexiil.mc.lib.attributes.fluid.filter.FluidFilter;
+import alexiil.mc.lib.attributes.fluid.volume.FluidKey;
+import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
+import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
+import alexiil.mc.lib.attributes.misc.Ref;
+import alexiil.mc.lib.attributes.misc.Reference;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
@@ -40,8 +53,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.rod.ItemWaterRod;
 
 import javax.annotation.Nonnull;
-
-import java.util.Locale;
 
 public class BlockAltar extends BlockMod implements BlockEntityProvider {
 
@@ -166,19 +177,34 @@ public class BlockAltar extends BlockMod implements BlockEntityProvider {
 			return false;
 		}
 
-		return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).map(handler -> {
-			FluidStack simulate = handler.drain(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.SIMULATE);
-			return !simulate.isEmpty() && simulate.getFluid() == fluid && simulate.getAmount() == FluidAttributes.BUCKET_VOLUME;
-		}).orElse(false);
+		ItemAttributeList<FluidExtractable> extrs = FluidAttributes.EXTRACTABLE.getAll(stack);
+		FluidFilter filt = ExactFluidFilter.of(fluid);
+		FluidAmount left = FluidAmount.BUCKET;
+		for (int i = 0; i < extrs.getCount(); i++) {
+			FluidExtractable ex = extrs.get(i);
+			FluidVolume vol = ex.attemptExtraction(filt, left, Simulation.SIMULATE);
+			left = left.sub(vol.amount());
+			if (left.isZero() || left.isNegative()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private ItemStack drain(Fluid fluid, ItemStack stack) {
-		return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
-				.map(handler -> {
-					handler.drain(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
-					return handler.getContainer();
-				})
-				.orElse(stack);
+		Reference<ItemStack> ref = new Ref<>(stack);
+		ItemAttributeList<FluidExtractable> extrs = FluidAttributes.EXTRACTABLE.getAll(ref);
+		FluidFilter filt = ExactFluidFilter.of(fluid);
+		FluidAmount left = FluidAmount.BUCKET;
+		for (int i = 0; i < extrs.getCount(); i++) {
+			FluidExtractable ex = extrs.get(i);
+			FluidVolume vol = ex.extract(filt, left);
+			left = left.sub(vol.amount());
+			if (left.isZero() || left.isNegative()) {
+				break;
+			}
+		}
+		return ref.get();
 	}
 
 	private boolean isValidFluidContainerToFill(ItemStack stack, Fluid fluid) {
@@ -191,19 +217,32 @@ public class BlockAltar extends BlockMod implements BlockEntityProvider {
 			container = new ItemStack(stack.getItem());
 		}
 
-		return container.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY).map(handler -> {
-			int amount = handler.fill(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.SIMULATE);
-			return amount == FluidAttributes.BUCKET_VOLUME;
-		}).orElse(false);
+		ItemAttributeList<FluidInsertable> extrs = FluidAttributes.INSERTABLE.getAll(container);
+		FluidKey key = FluidKeys.get(fluid);
+		FluidVolume excess = key.withAmount(FluidAmount.BUCKET);
+		for (int i = 0; i < extrs.getCount(); i++) {
+			FluidInsertable ins = extrs.get(i);
+			excess = ins.insert(excess);
+			if (excess.isEmpty()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private ItemStack fill(Fluid fluid, ItemStack stack) {
-		return stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY)
-				.map(handler -> {
-					handler.fill(new FluidStack(fluid, FluidAttributes.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE);
-					return handler.getContainer();
-				})
-				.orElse(stack);
+		Reference<ItemStack> ref = new Ref<>(stack);
+		ItemAttributeList<FluidInsertable> extrs = FluidAttributes.INSERTABLE.getAll(ref);
+		FluidKey key = FluidKeys.get(fluid);
+		FluidVolume excess = key.withAmount(FluidAmount.BUCKET);
+		for (int i = 0; i < extrs.getCount(); i++) {
+			FluidInsertable ins = extrs.get(i);
+			excess = ins.insert(excess);
+			if (excess.isEmpty()) {
+				break;
+			}
+		}
+		return ref.get();
 	}
 
 	@Nonnull

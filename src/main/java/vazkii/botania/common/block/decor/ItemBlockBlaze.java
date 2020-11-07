@@ -19,10 +19,4 @@ public class ItemBlockBlaze extends BlockItem {
 	public ItemBlockBlaze(Block block, Settings props) {
 		super(block, props);
 	}
-
-	@Override
-	public int getBurnTime(ItemStack stack) {
-		int blazeTime = ForgeHooks.getBurnTime(new ItemStack(Items.BLAZE_ROD));
-		return blazeTime * (Botania.gardenOfGlassLoaded ? 5 : 10);
-	}
 }

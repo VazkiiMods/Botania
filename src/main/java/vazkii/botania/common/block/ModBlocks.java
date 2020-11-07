@@ -10,6 +10,7 @@ package vazkii.botania.common.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.dispenser.DispenserBehavior;
 import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
@@ -812,7 +813,10 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getId(azulejo13), new BlockItem(azulejo13, props));
 		register(r, Registry.BLOCK.getId(azulejo14), new BlockItem(azulejo14, props));
 		register(r, Registry.BLOCK.getId(azulejo15), new BlockItem(azulejo15, props));
-		register(r, Registry.BLOCK.getId(blazeBlock), new ItemBlockBlaze(blazeBlock, props));
+		Item blazeBlockItem = new ItemBlockBlaze(blazeBlock, props);
+		register(r, Registry.BLOCK.getId(blazeBlock), blazeBlockItem);
+		int blazeTime = FuelRegistry.INSTANCE.get(Items.BLAZE_ROD);
+		FuelRegistry.INSTANCE.add(blazeBlockItem, blazeTime * (Botania.gardenOfGlassLoaded ? 5 : 10));
 		register(r, Registry.BLOCK.getId(gaiaHead), new WallStandingBlockItem(gaiaHead, gaiaHeadWall, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)));
 		register(r, Registry.BLOCK.getId(shimmerrock), new BlockItem(shimmerrock, props));
 		register(r, Registry.BLOCK.getId(shimmerwoodPlanks), new BlockItem(shimmerwoodPlanks, props));

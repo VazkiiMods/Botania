@@ -9,6 +9,7 @@
     "AccessorAbstractHorseEntity",
     "AccessorAbstractSpawner",
     "AccessorAvoidEntityGoal",
+    "AccessorBucketItem",
     "AccessorCreeperEntity",
     "AccessorCriteria",
     "AccessorDispenserBlock",
