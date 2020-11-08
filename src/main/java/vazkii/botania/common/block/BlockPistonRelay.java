@@ -152,8 +152,8 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 			for (int i = 0; i < list.size(); i += 2) {
 				Tag from = list.get(i);
 				Tag to = list.get(i + 1);
-				BlockPos fromPos = BlockPos.field_25064.decode(NbtOps.INSTANCE, from).result().get().getFirst();
-				BlockPos toPos = BlockPos.field_25064.decode(NbtOps.INSTANCE, to).result().get().getFirst();
+				BlockPos fromPos = BlockPos.CODEC.decode(NbtOps.INSTANCE, from).result().get().getFirst();
+				BlockPos toPos = BlockPos.CODEC.decode(NbtOps.INSTANCE, to).result().get().getFirst();
 
 				mapping.put(fromPos, toPos);
 			}
@@ -164,8 +164,8 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		public CompoundTag toTag(@Nonnull CompoundTag cmp) {
 			ListTag list = new ListTag();
 			for (Map.Entry<BlockPos, BlockPos> e : mapping.entrySet()) {
-				Tag from = BlockPos.field_25064.encodeStart(NbtOps.INSTANCE, e.getKey()).result().get();
-				Tag to = BlockPos.field_25064.encodeStart(NbtOps.INSTANCE, e.getValue()).result().get();
+				Tag from = BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, e.getKey()).result().get();
+				Tag to = BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, e.getValue()).result().get();
 				list.add(from);
 				list.add(to);
 			}

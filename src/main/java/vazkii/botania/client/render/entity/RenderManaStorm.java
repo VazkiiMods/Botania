@@ -38,7 +38,7 @@ public class RenderManaStorm extends EntityRenderer<EntityManaStorm> {
 	@Nonnull
 	@Override
 	public Identifier getTexture(@Nonnull EntityManaStorm entity) {
-		return SpriteAtlasTexture.BLOCK_ATLAS_TEX;
+		return SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
 	}
 
 }

@@ -36,6 +36,7 @@ import net.minecraft.world.WorldView;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TilePlatform;
+import vazkii.botania.common.core.ExtendedShapeContext;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -47,7 +48,7 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 
 	public enum Variant {
 		ABSTRUSE(false, (pos, context) -> {
-			Entity e = context.getEntity();
+			Entity e = ExtendedShapeContext.getEntity(context);
 			return (e == null || e.getY() > pos.getY() + 0.9 && !context.isDescending());
 		}),
 		SPECTRAL(false, (pos, context) -> false),

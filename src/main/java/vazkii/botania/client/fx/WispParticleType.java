@@ -23,7 +23,7 @@ public class WispParticleType extends ParticleType<WispParticleData> {
 
 	@Nonnull
 	@Override
-	public Codec<WispParticleData> method_29138() {
+	public Codec<WispParticleData> getCodec() {
 		return WispParticleData.CODEC;
 	}
 

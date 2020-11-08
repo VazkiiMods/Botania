@@ -26,6 +26,7 @@ import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TileManaDetector;
+import vazkii.botania.common.core.ExtendedShapeContext;
 
 import javax.annotation.Nonnull;
 
@@ -55,7 +56,7 @@ public class BlockManaDetector extends BlockMod implements IManaCollisionGhost, 
 	@Override
 	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull BlockView world, @Nonnull BlockPos pos,
 			ShapeContext context) {
-		if (context.getEntity() instanceof IManaBurst) {
+		if (ExtendedShapeContext.getEntity(context) instanceof IManaBurst) {
 			return VoxelShapes.empty();
 		} else {
 			return super.getCollisionShape(state, world, pos, context);

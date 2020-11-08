@@ -30,6 +30,6 @@ public class RenderNoop<T extends Entity> extends EntityRenderer<T> {
 	@Nonnull
 	@Override
 	public Identifier getTexture(@Nonnull T entity) {
-		return SpriteAtlasTexture.BLOCK_ATLAS_TEX;
+		return SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
 	}
 }

@@ -79,7 +79,7 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 				ItemsRemainingRenderHandler.send(player, lens, -2);
 				stack.setDamage(effCd);
 			}
-			return TypedActionResult.method_29237(stack, world.isClient);
+			return TypedActionResult.success(stack, world.isClient);
 		} else if (stack.getDamage() == 0) {
 			EntityManaBurst burst = getBurst(player, stack, true, hand);
 			if (burst != null && ManaItemHandler.instance().requestManaExact(stack, player, burst.getMana(), true)) {
@@ -94,7 +94,7 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 			} else if (!world.isClient) {
 				world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
 			}
-			return TypedActionResult.method_29237(stack, world.isClient);
+			return TypedActionResult.success(stack, world.isClient);
 		}
 
 		return TypedActionResult.pass(stack);

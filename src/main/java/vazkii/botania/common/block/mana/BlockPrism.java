@@ -40,6 +40,7 @@ import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.mana.TilePrism;
+import vazkii.botania.common.core.ExtendedShapeContext;
 import vazkii.botania.common.entity.EntityManaBurst;
 
 import javax.annotation.Nonnull;
@@ -63,7 +64,7 @@ public class BlockPrism extends BlockModWaterloggable implements BlockEntityProv
 	@Nonnull
 	@Override
 	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull BlockView world, @Nonnull BlockPos pos, @Nonnull ShapeContext context) {
-		if (context.getEntity() instanceof EntityManaBurst) {
+		if (ExtendedShapeContext.getEntity(context) instanceof EntityManaBurst) {
 			// Expose the shape so bursts can actually collide with us
 			// they will still go through the prism via IManaCollisionGhost
 			return SHAPE;

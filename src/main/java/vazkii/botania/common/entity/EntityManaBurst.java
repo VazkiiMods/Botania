@@ -31,7 +31,6 @@ import net.minecraft.tag.Tag;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.*;
-import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.internal.IManaBurst;
@@ -327,7 +326,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 		tag.putInt(TAG_ORBIT_TIME, orbitTime);
 		tag.putBoolean(TAG_TRIPPED, tripped);
 		if (magnetizePos != null) {
-			tag.put(TAG_MAGNETIZE_POS, BlockPos.field_25064.encodeStart(NbtOps.INSTANCE, magnetizePos).get().orThrow());
+			tag.put(TAG_MAGNETIZE_POS, BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, magnetizePos).get().orThrow());
 		}
 	}
 
@@ -381,7 +380,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 		orbitTime = cmp.getInt(TAG_ORBIT_TIME);
 		tripped = cmp.getBoolean(TAG_TRIPPED);
 		if (cmp.contains(TAG_MAGNETIZE_POS)) {
-			magnetizePos = BlockPos.field_25064.parse(NbtOps.INSTANCE, cmp.get(TAG_MAGNETIZE_POS)).get().orThrow();
+			magnetizePos = BlockPos.CODEC.parse(NbtOps.INSTANCE, cmp.get(TAG_MAGNETIZE_POS)).get().orThrow();
 		} else {
 			magnetizePos = null;
 		}

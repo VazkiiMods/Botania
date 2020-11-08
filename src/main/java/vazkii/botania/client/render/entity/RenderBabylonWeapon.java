@@ -80,7 +80,7 @@ public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {
 	@Nonnull
 	@Override
 	public Identifier getTexture(@Nonnull EntityBabylonWeapon entity) {
-		return SpriteAtlasTexture.BLOCK_ATLAS_TEX;
+		return SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
 	}
 
 }

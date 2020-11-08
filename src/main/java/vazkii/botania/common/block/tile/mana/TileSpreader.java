@@ -31,8 +31,8 @@ import net.minecraft.util.Tickable;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.*;
 import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.RayTraceContext;
 
+import net.minecraft.world.RaycastContext;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -380,7 +380,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		if (!player.isSneaking()) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		} else {
-			BlockHitResult bpos = ItemLexicon.doRayTrace(world, player, RayTraceContext.FluidHandling.NONE);
+			BlockHitResult bpos = ItemLexicon.doRayTrace(world, player, RaycastContext.FluidHandling.NONE);
 			if (!world.isClient) {
 				double x = bpos.getPos().x - getPos().getX() - 0.5;
 				double y = bpos.getPos().y - getPos().getY() - 0.5;

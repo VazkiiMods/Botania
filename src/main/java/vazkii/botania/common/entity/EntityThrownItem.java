@@ -23,7 +23,6 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.*;
-import net.minecraft.world.RayTraceContext;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.network.PacketSpawnEntity;

@@ -44,7 +44,7 @@ public class SkyblockSkyRenderer {
 		// Botania - Begin extra stuff
 		Tessellator tessellator = Tessellator.getInstance();
 		float rain = 1.0F - world.getRainGradient(partialTicks);
-		float celAng = world.method_30274(partialTicks);
+		float celAng = world.getSkyAngle(partialTicks);
 		float effCelAng = celAng;
 		if (celAng > 0.5) {
 			effCelAng = 0.5F - (celAng - 0.5F);

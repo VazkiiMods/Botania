@@ -87,7 +87,7 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 	@Nonnull
 	@Override
 	public Identifier getTexture(@Nonnull EntitySparkBase entity) {
-		return SpriteAtlasTexture.BLOCK_ATLAS_TEX;
+		return SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
 	}
 
 	private void renderIcon(MatrixStack ms, VertexConsumer buffer, Sprite icon, int color) {

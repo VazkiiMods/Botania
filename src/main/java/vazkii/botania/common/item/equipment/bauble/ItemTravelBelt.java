@@ -48,7 +48,6 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 	public ItemTravelBelt(Settings props) {
 		this(props, 0.035F, 0.2F, 2F);
 		MinecraftForge.EVENT_BUS.addListener(this::updatePlayerStepStatus);
-		MinecraftForge.EVENT_BUS.addListener(this::onPlayerJump);
 		MinecraftForge.EVENT_BUS.addListener(this::onPlayerFall);
 		MinecraftForge.EVENT_BUS.addListener(this::playerLoggedOut);
 	}
@@ -118,9 +117,9 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	public void onNotMovingTick(ItemStack stack, PlayerEntity player) {}
 
-	private void onPlayerJump(LivingJumpEvent event) {
-		if (event.getEntityLiving() instanceof PlayerEntity) {
-			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+	public void onPlayerJump(LivingEntity living) {
+		if (living instanceof PlayerEntity) {
+			PlayerEntity player = (PlayerEntity) living;
 			ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 
 			if (!belt.isEmpty() && ManaItemHandler.instance().requestManaExact(belt, player, COST, false)) {

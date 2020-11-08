@@ -72,7 +72,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 				}
 			} else {
 				ItemStack stack = ctx.getStack();
-				Tag nbt = BlockPos.field_25064.encodeStart(NbtOps.INSTANCE, pos).get().orThrow();
+				Tag nbt = BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).get().orThrow();
 				ItemNBTHelper.set(stack, TAG_TARGET_PREFIX + world.getRegistryKey().getValue().toString(), nbt);
 				world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 5F);
 			}
@@ -109,7 +109,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		if (nbt == null) {
 			return stack;
 		}
-		Optional<BlockPos> maybeLoc = BlockPos.field_25064.parse(NbtOps.INSTANCE, nbt).result();
+		Optional<BlockPos> maybeLoc = BlockPos.CODEC.parse(NbtOps.INSTANCE, nbt).result();
 		if (!maybeLoc.isPresent()) {
 			ItemNBTHelper.removeEntry(stack, tag);
 			return stack;
@@ -152,7 +152,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 		String tag = TAG_TARGET_PREFIX + world.getRegistryKey().getValue().toString();
 		Tag nbt = ItemNBTHelper.get(stack, tag);
 		if (nbt != null) {
-			return BlockPos.field_25064.parse(NbtOps.INSTANCE, nbt).result()
+			return BlockPos.CODEC.parse(NbtOps.INSTANCE, nbt).result()
 					.orElse(null);
 		}
 		return null;

@@ -14,6 +14,8 @@ import vazkii.botania.common.brew.potion.PotionSoulCross;
 import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.components.LooniumComponent;
 import vazkii.botania.common.item.ItemCraftingHalo;
+import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
 import vazkii.botania.common.item.rod.ItemGravityRod;
 
 import javax.annotation.Nullable;
@@ -62,5 +64,12 @@ public abstract class MixinLivingEntity {
 				ItemGravityRod.onEntitySwing(self);
 			}
 		}
+	}
+
+	@Inject(at = @At("RETURN"), method = "jump")
+	private void onJump(CallbackInfo ci) {
+		((ItemTravelBelt) ModItems.travelBelt).onPlayerJump((LivingEntity) (Object) this);
+		((ItemTravelBelt) ModItems.superTravelBelt).onPlayerJump((LivingEntity) (Object) this);
+		((ItemTravelBelt) ModItems.speedUpBelt).onPlayerJump((LivingEntity) (Object) this);
 	}
 }

@@ -57,7 +57,7 @@ public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWiel
 			} else {
 				world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.divinationRod, SoundCategory.PLAYERS, 1F, 1F);
 			}
-			return TypedActionResult.method_29237(stack, world.isClient);
+			return TypedActionResult.success(stack, world.isClient);
 		}
 
 		return TypedActionResult.pass(stack);

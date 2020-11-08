@@ -25,7 +25,6 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.renderer.*;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
@@ -87,7 +86,7 @@ public final class RenderHelper {
 	static {
 		// todo 1.16 update to match vanilla where necessary (alternate render targets, etc.)
 		RenderPhase.Transparency lightningTransparency = AccessorRenderState.getLightningTransparency();
-		RenderPhase.Texture mipmapBlockAtlasTexture = new RenderPhase.Texture(SpriteAtlasTexture.BLOCK_ATLAS_TEX, false, true);
+		RenderPhase.Texture mipmapBlockAtlasTexture = new RenderPhase.Texture(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, false, true);
 		RenderPhase.Cull disableCull = new RenderPhase.Cull(false);
 		RenderPhase.Layering viewOffsetZLayering = AccessorRenderState.getViewOffsetZLayer();
 		RenderPhase.WriteMaskState colorMask = new RenderPhase.WriteMaskState(true, false);
@@ -177,7 +176,7 @@ public final class RenderHelper {
 		HALO = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, halo) : halo;
 
 		// Same as entity_translucent, with no depth test and a shader
-		glState = RenderLayer.MultiPhaseParameters.builder().depthTest(new RenderPhase.DepthTest("always", GL11.GL_ALWAYS)).texture(new RenderPhase.Texture(SpriteAtlasTexture.BLOCK_ATLAS_TEX, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(oneTenthAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
+		glState = RenderLayer.MultiPhaseParameters.builder().depthTest(new RenderPhase.DepthTest("always", GL11.GL_ALWAYS)).texture(new RenderPhase.Texture(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(oneTenthAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
 		ShaderCallback cb = shader -> {
 			int alpha = GlStateManager.getUniformLocation(shader, "alpha");
 			ShaderHelper.FLOAT_BUF.position(0);
@@ -187,7 +186,7 @@ public final class RenderHelper {
 		RenderLayer astrolabePreview = RenderLayer.of(LibResources.PREFIX_MOD + "astrolabe_preview", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, 7, 256, true, true, glState);
 		ASTROLABE_PREVIEW = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ALPHA, cb, astrolabePreview) : astrolabePreview;
 
-		glState = RenderLayer.MultiPhaseParameters.builder().texture(new RenderPhase.Texture(SpriteAtlasTexture.BLOCK_ATLAS_TEX, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(oneTenthAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
+		glState = RenderLayer.MultiPhaseParameters.builder().texture(new RenderPhase.Texture(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(oneTenthAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
 		RenderLayer gold = RenderLayer.of(LibResources.PREFIX_MOD + "entity_translucent_gold", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, GL11.GL_QUADS, 128, true, true, glState);
 		ENTITY_TRANSLUCENT_GOLD = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.GOLD, null, gold) : gold;
 	}

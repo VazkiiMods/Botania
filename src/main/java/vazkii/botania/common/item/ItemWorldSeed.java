@@ -42,7 +42,7 @@ public class ItemWorldSeed extends Item {
 			player.yaw = 0F;
 			player.requestTeleport(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
 
-			while (!world.doesNotCollide(player, player.getBoundingBox())) {
+			while (!world.isSpaceEmpty(player, player.getBoundingBox())) {
 				player.requestTeleport(player.getX(), player.getY() + 1, player.getZ());
 			}
 

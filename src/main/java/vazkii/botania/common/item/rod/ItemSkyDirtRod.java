@@ -66,7 +66,7 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 			}
 		}
 
-		return TypedActionResult.method_29237(stack, world.isClient);
+		return TypedActionResult.success(stack, world.isClient);
 	}
 
 }

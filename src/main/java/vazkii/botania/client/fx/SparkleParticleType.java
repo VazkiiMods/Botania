@@ -23,7 +23,7 @@ public class SparkleParticleType extends ParticleType<SparkleParticleData> {
 
 	@Nonnull
 	@Override
-	public Codec<SparkleParticleData> method_29138() {
+	public Codec<SparkleParticleData> getCodec() {
 		return SparkleParticleData.CODEC;
 	}
 

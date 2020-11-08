@@ -25,7 +25,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.RayTraceContext;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
 public abstract class EntityThrowableCopy extends ProjectileEntity {
@@ -64,7 +64,7 @@ public abstract class EntityThrowableCopy extends ProjectileEntity {
 	@Override
 	public void tick() {
 		super.tick();
-		HitResult raytraceresult = ProjectileUtil.getCollision(this, this::method_26958, RayTraceContext.ShapeType.OUTLINE);
+		HitResult raytraceresult = ProjectileUtil.getCollision(this, this::method_26958);
 		boolean flag = false;
 		if (raytraceresult.getType() == HitResult.Type.BLOCK) {
 			BlockPos blockpos = ((BlockHitResult) raytraceresult).getBlockPos();
