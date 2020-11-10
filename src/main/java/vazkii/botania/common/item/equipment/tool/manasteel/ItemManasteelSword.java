@@ -39,9 +39,9 @@ public class ItemManasteelSword extends SwordItem implements IManaUsingItem {
 		super(mat, attackDamage, attackSpeed, props);
 	}
 
-	// todo 1.16-fabric
-	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
-		return ToolCommons.damageItemIfPossible(stack, amount, entity, getManaPerDamage());
+	public static <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+		int manaPerDamage = ((ItemManasteelSword) stack.getItem()).getManaPerDamage();
+		return ToolCommons.damageItemIfPossible(stack, amount, entity, manaPerDamage);
 	}
 
 	@Override

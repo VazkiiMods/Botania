@@ -22,7 +22,7 @@ import java.util.function.Consumer;
 
 public class ItemCrystalBow extends ItemLivingwoodBow {
 
-	private final int ARROW_COST = 200;
+	private static final int ARROW_COST = 200;
 
 	public ItemCrystalBow(Settings builder) {
 		super(builder);
@@ -44,8 +44,7 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 		arrow.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
 	}
 
-	@Override
-	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+	public static <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
 		boolean infinity = EnchantmentHelper.getLevel(Enchantments.INFINITY, stack) > 0;
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, ARROW_COST / (infinity ? 2 : 1));
 	}

@@ -11,6 +11,7 @@ package vazkii.botania.common.item;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -196,41 +197,41 @@ public final class ModItems {
 	public static final Item missileRod = new ItemMissileRod(unstackable().rarity(Rarity.UNCOMMON));
 
 	// Equipment
-	public static final Item manasteelHelm = new ItemManasteelHelm(unstackable());
-	public static final Item manasteelChest = new ItemManasteelArmor(EquipmentSlot.CHEST, unstackable());
-	public static final Item manasteelLegs = new ItemManasteelArmor(EquipmentSlot.LEGS, unstackable());
-	public static final Item manasteelBoots = new ItemManasteelArmor(EquipmentSlot.FEET, unstackable());
-	public static final Item manasteelPick = new ItemManasteelPick(unstackable());
-	public static final Item manasteelShovel = new ItemManasteelShovel(unstackable());
-	public static final Item manasteelAxe = new ItemManasteelAxe(unstackable());
-	public static final Item manasteelSword = new ItemManasteelSword(unstackable());
-	public static final Item manasteelShears = new ItemManasteelShears(unstackable());
-	public static final Item elementiumHelm = new ItemElementiumHelm(unstackable());
-	public static final Item elementiumChest = new ItemElementiumChest(unstackable());
-	public static final Item elementiumLegs = new ItemElementiumLegs(unstackable());
-	public static final Item elementiumBoots = new ItemElementiumBoots(unstackable());
-	public static final Item elementiumPick = new ItemElementiumPick(unstackable());
-	public static final Item elementiumShovel = new ItemElementiumShovel(unstackable());
-	public static final Item elementiumAxe = new ItemElementiumAxe(unstackable());
-	public static final Item elementiumSword = new ItemElementiumSword(unstackable());
-	public static final Item elementiumShears = new ItemElementiumShears(unstackable());
-	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable().fireproof().rarity(Rarity.UNCOMMON));
-	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlot.HEAD, unstackable().fireproof().rarity(Rarity.UNCOMMON));
-	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlot.LEGS, unstackable().fireproof().rarity(Rarity.UNCOMMON));
-	public static final Item terrasteelBoots = new ItemTerrasteelArmor(EquipmentSlot.FEET, unstackable().fireproof().rarity(Rarity.UNCOMMON));
-	public static final Item terraPick = new ItemTerraPick(unstackable().fireproof().rarity(Rarity.UNCOMMON));
-	public static final Item terraAxe = new ItemTerraAxe(unstackable().fireproof().rarity(Rarity.UNCOMMON));
-	public static final Item terraSword = new ItemTerraSword(unstackable().fireproof().rarity(Rarity.UNCOMMON));
-	public static final Item starSword = new ItemStarSword(unstackable().rarity(Rarity.UNCOMMON));
-	public static final Item thunderSword = new ItemThunderSword(unstackable().rarity(Rarity.UNCOMMON));
-	public static final Item manaweaveHelm = new ItemManaweaveHelm(unstackable());
-	public static final Item manaweaveChest = new ItemManaweaveArmor(EquipmentSlot.CHEST, unstackable());
-	public static final Item manaweaveLegs = new ItemManaweaveArmor(EquipmentSlot.LEGS, unstackable());
-	public static final Item manaweaveBoots = new ItemManaweaveArmor(EquipmentSlot.FEET, unstackable());
+	public static final Item manasteelHelm = new ItemManasteelHelm(unstackable().customDamage(ItemManasteelArmor::damageItem));
+	public static final Item manasteelChest = new ItemManasteelArmor(EquipmentSlot.CHEST, unstackable().customDamage(ItemManasteelArmor::damageItem));
+	public static final Item manasteelLegs = new ItemManasteelArmor(EquipmentSlot.LEGS, unstackable().customDamage(ItemManasteelArmor::damageItem));
+	public static final Item manasteelBoots = new ItemManasteelArmor(EquipmentSlot.FEET, unstackable().customDamage(ItemManasteelArmor::damageItem));
+	public static final Item manasteelPick = new ItemManasteelPick(unstackable().customDamage(ItemManasteelPick::damageItem));
+	public static final Item manasteelShovel = new ItemManasteelShovel(unstackable().customDamage(ItemManasteelShovel::damageItem));
+	public static final Item manasteelAxe = new ItemManasteelAxe(unstackable().customDamage(ItemManasteelAxe::damageItem));
+	public static final Item manasteelSword = new ItemManasteelSword(unstackable().customDamage(ItemManasteelSword::damageItem));
+	public static final Item manasteelShears = new ItemManasteelShears(unstackable().customDamage(ItemManasteelShears::damageItem));
+	public static final Item elementiumHelm = new ItemElementiumHelm(unstackable().customDamage(ItemManasteelArmor::damageItem));
+	public static final Item elementiumChest = new ItemElementiumChest(unstackable().customDamage(ItemManasteelArmor::damageItem));
+	public static final Item elementiumLegs = new ItemElementiumLegs(unstackable().customDamage(ItemManasteelArmor::damageItem));
+	public static final Item elementiumBoots = new ItemElementiumBoots(unstackable().customDamage(ItemManasteelArmor::damageItem));
+	public static final Item elementiumPick = new ItemElementiumPick(unstackable().customDamage(ItemManasteelPick::damageItem));
+	public static final Item elementiumShovel = new ItemElementiumShovel(unstackable().customDamage(ItemManasteelShovel::damageItem));
+	public static final Item elementiumAxe = new ItemElementiumAxe(unstackable().customDamage(ItemManasteelAxe::damageItem));
+	public static final Item elementiumSword = new ItemElementiumSword(unstackable().customDamage(ItemManasteelSword::damageItem));
+	public static final Item elementiumShears = new ItemElementiumShears(unstackable().customDamage(ItemManasteelShears::damageItem));
+	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
+	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlot.HEAD, unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
+	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlot.LEGS, unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
+	public static final Item terrasteelBoots = new ItemTerrasteelArmor(EquipmentSlot.FEET, unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
+	public static final Item terraPick = new ItemTerraPick(unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelPick::damageItem));
+	public static final Item terraAxe = new ItemTerraAxe(unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelAxe::damageItem));
+	public static final Item terraSword = new ItemTerraSword(unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelSword::damageItem));
+	public static final Item starSword = new ItemStarSword(unstackable().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelSword::damageItem));
+	public static final Item thunderSword = new ItemThunderSword(unstackable().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelSword::damageItem));
+	public static final Item manaweaveHelm = new ItemManaweaveHelm(unstackable().customDamage(ItemManaweaveHelm::damageItem));
+	public static final Item manaweaveChest = new ItemManaweaveArmor(EquipmentSlot.CHEST, unstackable().customDamage(ItemManasteelArmor::damageItem));
+	public static final Item manaweaveLegs = new ItemManaweaveArmor(EquipmentSlot.LEGS, unstackable().customDamage(ItemManasteelArmor::damageItem));
+	public static final Item manaweaveBoots = new ItemManaweaveArmor(EquipmentSlot.FEET, unstackable().customDamage(ItemManasteelArmor::damageItem));
 	public static final Item enderDagger = new ItemEnderDagger(unstackable().maxDamageIfAbsent(69).setNoRepair()); // What you looking at?
-	public static final Item glassPick = new ItemGlassPick(unstackable());
-	public static final Item livingwoodBow = new ItemLivingwoodBow(defaultBuilder().maxDamageIfAbsent(500));
-	public static final Item crystalBow = new ItemCrystalBow(defaultBuilder().maxDamageIfAbsent(500));
+	public static final Item glassPick = new ItemGlassPick(unstackable().customDamage(ItemManasteelPick::damageItem));
+	public static final Item livingwoodBow = new ItemLivingwoodBow(defaultBuilder().maxDamageIfAbsent(500).customDamage(ItemLivingwoodBow::damageItem));
+	public static final Item crystalBow = new ItemCrystalBow(defaultBuilder().maxDamageIfAbsent(500).customDamage(ItemCrystalBow::damageItem));
 	public static final Item thornChakram = new ItemThornChakram(defaultBuilder().maxCount(6));
 	public static final Item flareChakram = new ItemThornChakram(defaultBuilder().maxCount(6));
 
@@ -389,11 +390,11 @@ public final class ModItems {
 	public static final ScreenHandlerType<ContainerFlowerBag> FLOWER_BAG_CONTAINER = ScreenHandlerRegistry.registerExtended(Registry.ITEM.getId(flowerBag), ContainerFlowerBag::fromNetwork);
 	public static final ScreenHandlerType<ContainerBaubleBox> BAUBLE_BOX_CONTAINER = ScreenHandlerRegistry.registerExtended(Registry.ITEM.getId(baubleBox), ContainerBaubleBox::fromNetwork);
 
-	public static Item.Settings defaultBuilder() {
-		return new Item.Settings().group(BotaniaCreativeTab.INSTANCE);
+	public static FabricItemSettings defaultBuilder() {
+		return new FabricItemSettings().group(BotaniaCreativeTab.INSTANCE);
 	}
 
-	private static Item.Settings unstackable() {
+	private static FabricItemSettings unstackable() {
 		return defaultBuilder().maxCount(1);
 	}
 

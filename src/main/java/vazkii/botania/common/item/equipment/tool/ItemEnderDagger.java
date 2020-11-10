@@ -43,11 +43,6 @@ public class ItemEnderDagger extends ItemManasteelSword {
 	}
 
 	@Override
-	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
-		return amount;
-	}
-
-	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected) {}
 
 	@Override

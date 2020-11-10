@@ -43,9 +43,9 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 		super(mat, 1.5F, -3.0F, props);
 	}
 
-	@Override
-	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
-		return ToolCommons.damageItemIfPossible(stack, amount, entity, getManaPerDamage());
+	public static <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+		int manaPerDamage = ((ItemManasteelShovel) stack.getItem()).getManaPerDamage();
+		return ToolCommons.damageItemIfPossible(stack, amount, entity, manaPerDamage);
 	}
 
 	public int getManaPerDamage() {

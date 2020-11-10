@@ -45,9 +45,9 @@ public class ItemManasteelAxe extends AxeItem implements IManaUsingItem, ISortab
 		super(mat, 6F, -3.1F, props);
 	}
 
-	@Override
-	public <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
-		return ToolCommons.damageItemIfPossible(stack, amount, entity, getManaPerDamage());
+	public static <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
+		int manaPerDamage = ((ItemManasteelAxe) stack.getItem()).getManaPerDamage();
+		return ToolCommons.damageItemIfPossible(stack, amount, entity, manaPerDamage);
 	}
 
 	public int getManaPerDamage() {
