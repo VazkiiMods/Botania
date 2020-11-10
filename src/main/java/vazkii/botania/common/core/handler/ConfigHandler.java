@@ -14,7 +14,10 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public final class ConfigHandler {
 
@@ -139,6 +142,9 @@ public final class ConfigHandler {
 
 		public final ForgeConfigSpec.ConfigValue<List<? extends String>> orechidPriorityMods;
 
+		public final ForgeConfigSpec.ConfigValue<List<? extends String>> rannuncarpusItemBlacklist;
+		public final ForgeConfigSpec.ConfigValue<List<? extends String>> rannuncarpusModBlacklist;
+
 		public final ForgeConfigSpec.BooleanValue worldgenEnabled;
 
 		public Common(ForgeConfigSpec.Builder builder) {
@@ -207,6 +213,13 @@ public final class ConfigHandler {
 			worldgenEnabled = builder
 					.comment("Set this to false to disable mystical flower and mushroom worldgen. More fine-tuned customization should be done with datapacks.")
 					.define("worldgen", true);
+			rannuncarpusItemBlacklist = builder
+					.comment("List of item registry names that will be ignored by rannuncarpuses when placing blocks.")
+					.defineList("rannuncarpus.itemBlacklist", Collections.emptyList(), s -> s instanceof String && ResourceLocation.tryCreate((String) s) != null);
+			rannuncarpusModBlacklist = builder
+					.comment("List of mod names for rannuncarpuses to ignore.\n" +
+							"Ignores Storage Drawers by default due to crashes with placing drawer blocks without player involvement.")
+					.defineList("rannuncarpus.modBlacklist", Collections.singletonList("storagedrawers"), s -> s instanceof String && ResourceLocation.tryCreate(s + ":test") != null);
 		}
 	}
 
@@ -216,5 +229,13 @@ public final class ConfigHandler {
 		final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
 		COMMON_SPEC = specPair.getRight();
 		COMMON = specPair.getLeft();
+	}
+
+	public static Set<ResourceLocation> blacklistedRannuncarpusItems;
+	public static Set<String> blacklistedRannuncarpusModIds;
+
+	public static void onConfigLoad() {
+		blacklistedRannuncarpusItems = COMMON.rannuncarpusItemBlacklist.get().stream().map(ResourceLocation::new).collect(Collectors.toSet());
+		blacklistedRannuncarpusModIds = new HashSet<>(COMMON.rannuncarpusModBlacklist.get());
 	}
 }

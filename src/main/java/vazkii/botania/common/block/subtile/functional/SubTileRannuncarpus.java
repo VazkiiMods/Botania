@@ -22,11 +22,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -83,6 +85,12 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 
 				ItemStack stack = item.getItem();
 				Item stackItem = stack.getItem();
+				ResourceLocation id = Registry.ITEM.getKey(stackItem);
+				if (ConfigHandler.blacklistedRannuncarpusModIds.contains(id.getNamespace())
+						|| ConfigHandler.blacklistedRannuncarpusItems.contains(id)) {
+					continue;
+				}
+
 				if (stackItem instanceof BlockItem || stackItem instanceof IFlowerPlaceable) {
 					if (!validPositions.isEmpty()) {
 						BlockPos coords = validPositions.get(getWorld().rand.nextInt(validPositions.size()));

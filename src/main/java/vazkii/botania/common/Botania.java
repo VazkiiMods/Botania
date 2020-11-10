@@ -157,6 +157,8 @@ public class Botania {
 		modBus.addGenericListener(TileEntityType.class, ModSubtiles::registerTEs);
 		modBus.addGenericListener(GlobalLootModifierSerializer.class, DisposeModifier::register);
 		modBus.addGenericListener(Attribute.class, PixieHandler::registerAttribute);
+		modBus.addListener((ModConfig.Loading e) -> ConfigHandler.onConfigLoad());
+		modBus.addListener((ModConfig.Reloading e) -> ConfigHandler.onConfigLoad());
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		forgeBus.addListener(this::serverAboutToStart);
