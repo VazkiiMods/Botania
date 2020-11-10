@@ -205,7 +205,8 @@ public class ItemItemFinder extends ItemBauble {
 
 		for (int l = 0; l < inv.getSizeInventory(); l++) {
 			ItemStack istack = inv.getStackInSlot(l);
-			if (!istack.isEmpty() && equalStacks(istack, pstack)) {
+			// Some mods still set stuff to null apparently...
+			if (istack != null && !istack.isEmpty() && equalStacks(istack, pstack)) {
 				return true;
 			}
 		}
