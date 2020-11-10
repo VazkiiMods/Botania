@@ -25,6 +25,7 @@ import net.minecraft.data.IDataProvider;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.loot.*;
 import net.minecraft.loot.conditions.BlockStateProperty;
+import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.loot.conditions.MatchTool;
 import net.minecraft.loot.conditions.SurvivesExplosion;
 import net.minecraft.loot.functions.CopyName;
@@ -33,6 +34,7 @@ import net.minecraft.loot.functions.ExplosionDecay;
 import net.minecraft.loot.functions.SetCount;
 import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.state.properties.SlabType;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.Tags;
@@ -59,6 +61,9 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BlockLootProvider implements IDataProvider {
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+	private static final ILootCondition.IBuilder SILK_TOUCH = MatchTool.builder(ItemPredicate.Builder.create()
+			.enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1))));
+
 	private final DataGenerator generator;
 	private final Map<Block, Function<Block, LootTable.Builder>> functionTable = new HashMap<>();
 
@@ -173,7 +178,16 @@ public class BlockLootProvider implements IDataProvider {
 	private static LootTable.Builder genMetamorphicStone(Block b) {
 		String cobbleName = Registry.BLOCK.getKey(b).getPath().replaceAll("_stone", "_cobblestone");
 		Block cobble = Registry.BLOCK.getOptional(prefix(cobbleName)).get();
-		return genRegular(cobble);
+		return genSilkDrop(b, cobble);
+	}
+
+	private static LootTable.Builder genSilkDrop(IItemProvider silkDrop, IItemProvider normalDrop) {
+		LootEntry.Builder<?> cobbleDrop = ItemLootEntry.builder(normalDrop).acceptCondition(SurvivesExplosion.builder());
+		LootEntry.Builder<?> stoneDrop = ItemLootEntry.builder(silkDrop).acceptCondition(SILK_TOUCH);
+
+		return LootTable.builder().addLootPool(
+				LootPool.builder().name("main").rolls(ConstantRange.of(1))
+						.addEntry(stoneDrop.alternatively(cobbleDrop)));
 	}
 
 	private static LootTable.Builder genSolidVine(Block b) {
@@ -206,10 +220,8 @@ public class BlockLootProvider implements IDataProvider {
 	}
 
 	private static LootTable.Builder genAltGrass(Block b) {
-		ItemPredicate.Builder silkPred = ItemPredicate.Builder.create()
-				.enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1)));
 		LootEntry.Builder<?> silk = ItemLootEntry.builder(b)
-				.acceptCondition(MatchTool.builder(silkPred));
+				.acceptCondition(SILK_TOUCH);
 		LootEntry.Builder<?> dirt = ItemLootEntry.builder(Blocks.DIRT)
 				.acceptCondition(SurvivesExplosion.builder());
 		LootEntry.Builder<?> entry = AlternativesLootEntry.builder(silk, dirt);
