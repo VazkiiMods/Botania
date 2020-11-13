@@ -14,6 +14,7 @@ import net.minecraft.block.AbstractRailBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.enums.RailShape;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
@@ -34,7 +35,6 @@ public class BlockGhostRail extends AbstractRailBlock {
 	public BlockGhostRail(Settings builder) {
 		super(true, builder);
 		setDefaultState(getDefaultState().with(Properties.STRAIGHT_RAIL_SHAPE, RailShape.NORTH_SOUTH));
-		MinecraftForge.EVENT_BUS.addListener(this::cartSpawn);
 		MinecraftForge.EVENT_BUS.addListener(this::worldTick);
 	}
 
@@ -90,9 +90,9 @@ public class BlockGhostRail extends AbstractRailBlock {
 		}
 	}
 
-	private void cartSpawn(EntityJoinWorldEvent evt) {
-		if (!evt.getWorld().isClient && evt.getEntity() instanceof AbstractMinecartEntity) {
-			addFloatingCart((AbstractMinecartEntity) evt.getEntity());
+	public void cartSpawn(Entity e) {
+		if (!e.getEntityWorld().isClient && e instanceof AbstractMinecartEntity) {
+			addFloatingCart((AbstractMinecartEntity) e);
 		}
 	}
 

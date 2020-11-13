@@ -74,13 +74,12 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		return !player.isSneaking() && !ItemTemperanceStone.hasTemperanceActive(player);
 	}
 
-	@Override
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
 		BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
 		if (raycast.getType() == HitResult.Type.BLOCK) {
 			Direction face = raycast.getSide();
 			breakOtherBlock(player, stack, pos, pos, face);
-			if (player.isSecondaryUseActive()) {
+			if (player.shouldCancelInteraction()) {
 				BotaniaAPI.instance().breakOnAllCursors(player, stack, pos, face);
 			}
 		}

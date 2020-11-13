@@ -140,7 +140,6 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		}
 	}
 
-	@Override
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
 		BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
 		if (!player.world.isClient && raycast.getType() == HitResult.Type.BLOCK) {

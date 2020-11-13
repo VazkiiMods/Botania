@@ -27,7 +27,6 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 		super(BotaniaAPI.instance().getElementiumItemTier(), props);
 	}
 
-	@Override
 	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
 		World world = player.world;
 		Material mat = world.getBlockState(pos).getMaterial();

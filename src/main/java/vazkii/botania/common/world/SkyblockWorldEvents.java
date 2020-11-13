@@ -13,6 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -45,11 +46,11 @@ public final class SkyblockWorldEvents {
 
 	private static final Identifier PEBBLE_SOURCES = new Identifier("gardenofglass:pebble_sources");
 
-	public static void syncGogStatus(EntityJoinWorldEvent evt) {
-		if (evt.getEntity() instanceof ServerPlayerEntity) {
-			boolean isGog = SkyblockChunkGenerator.isWorldSkyblock(evt.getWorld());
+	public static void syncGogStatus(Entity e) {
+		if (e instanceof ServerPlayerEntity) {
+			boolean isGog = SkyblockChunkGenerator.isWorldSkyblock(e.world);
 			if (isGog) {
-				PacketHandler.sendTo((ServerPlayerEntity) evt.getEntity(), new PacketGogWorld());
+				PacketGogWorld.send((ServerPlayerEntity) e);
 			}
 		}
 	}

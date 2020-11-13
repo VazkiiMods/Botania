@@ -71,13 +71,12 @@ public class ItemGlassPick extends ItemManasteelPick {
 	* - Every tick, if the "temp silk touch" flag is present, remove it and remove any silk touch enchants from the stack
 	*/
 
-	@Override
 	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, PlayerEntity player) {
 		BlockState state = player.world.getBlockState(pos);
 		boolean isGlass = state.getMaterial() == Material.GLASS || Tags.Blocks.GLASS.contains(state.getBlock());
 		boolean hasSilk = EnchantmentHelper.getLevel(Enchantments.SILK_TOUCH, itemstack) > 0;
 		if (hasSilk || !isGlass) {
-			return super.onBlockStartBreak(itemstack, pos, player);
+			return false;
 		}
 
 		itemstack.addEnchantment(Enchantments.SILK_TOUCH, 1);

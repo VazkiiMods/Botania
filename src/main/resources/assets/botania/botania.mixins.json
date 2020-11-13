@@ -30,7 +30,9 @@
     "MixinLivingEntity",
     "MixinPlayerEntity",
     "MixinServerPlayerEntity",
+    "MixinServerPlayerInteractionManager",
     "MixinServerPlayNetworkHandler",
+    "MixinServerWorld",
     "MixinSpawnHelper"
   ],
   "client": [
