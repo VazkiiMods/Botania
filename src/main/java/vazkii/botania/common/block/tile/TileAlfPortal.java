@@ -157,7 +157,7 @@ public class TileAlfPortal extends TileMod implements ITickableTileEntity {
 			}
 		} else if (explode) {
 			world.createExplosion(null, pos.getX() + .5, pos.getY() + 2.0, pos.getZ() + .5,
-					3f, Explosion.Mode.DESTROY);
+					3f, Explosion.Mode.BREAK);
 			explode = false;
 
 			if (!world.isRemote && breadPlayer != null) {
