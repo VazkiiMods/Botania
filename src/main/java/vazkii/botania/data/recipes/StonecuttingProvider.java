@@ -57,8 +57,6 @@ public class StonecuttingProvider extends RecipeProvider {
 			registerForQuartz(variant, consumer);
 		}
 
-		consumer.accept(stonecutting(ModBlocks.corporeaBlock, ModBlocks.corporeaBrick));
-		consumer.accept(stonecutting(ModBlocks.corporeaBlock, ModBlocks.corporeaSlab, 2));
 		consumer.accept(stonecutting(ModBlocks.shimmerrock, ModFluffBlocks.shimmerrockSlab, 2));
 		consumer.accept(stonecutting(ModBlocks.shimmerrock, ModFluffBlocks.shimmerrockStairs));
 		consumer.accept(stonecutting(ModBlocks.livingrock, ModFluffBlocks.livingrockSlab, 2));
@@ -71,6 +69,16 @@ public class StonecuttingProvider extends RecipeProvider {
 		consumer.accept(stonecutting(ModBlocks.livingrockBrick, ModFluffBlocks.livingrockBrickSlab, 2));
 		consumer.accept(stonecutting(ModBlocks.livingrockBrick, ModFluffBlocks.livingrockBrickStairs));
 		consumer.accept(stonecutting(ModBlocks.livingrockBrick, ModBlocks.livingrockBrickChiseled));
+
+		consumer.accept(stonecutting(ModBlocks.corporeaBlock, ModBlocks.corporeaSlab, 2));
+		consumer.accept(stonecutting(ModBlocks.corporeaBlock, ModBlocks.corporeaStairs));
+		consumer.accept(stonecutting(ModBlocks.corporeaBlock, ModBlocks.corporeaBrick));
+		consumer.accept(stonecutting(ModBlocks.corporeaBlock, ModBlocks.corporeaBrickSlab, 2));
+		consumer.accept(stonecutting(ModBlocks.corporeaBlock, ModBlocks.corporeaBrickStairs));
+		consumer.accept(stonecutting(ModBlocks.corporeaBlock, ModBlocks.corporeaBrickWall));
+		consumer.accept(stonecutting(ModBlocks.corporeaBrick, ModBlocks.corporeaBrickSlab, 2));
+		consumer.accept(stonecutting(ModBlocks.corporeaBrick, ModBlocks.corporeaBrickStairs));
+		consumer.accept(stonecutting(ModBlocks.corporeaBrick, ModBlocks.corporeaBrickWall));
 
 		List<Item> allAzulejos = IntStream.range(0, 16).mapToObj(i -> "azulejo_" + i)
 				.map(ResourceLocationHelper::prefix)

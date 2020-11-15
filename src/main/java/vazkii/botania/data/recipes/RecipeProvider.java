@@ -1778,17 +1778,17 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addIngredient(ModItems.corporeaSpark)
 				.addCriterion("has_item", hasItem(ModItems.corporeaSpark))
 				.build(consumer);
+		slabShape(ModBlocks.corporeaSlab, ModBlocks.corporeaBlock).build(consumer);
+		stairs(ModBlocks.corporeaStairs, ModBlocks.corporeaBlock).build(consumer);
 		ShapedRecipeBuilder.shapedRecipe(ModBlocks.corporeaBrick, 4)
 				.key('R', ModBlocks.corporeaBlock)
 				.patternLine("RR")
 				.patternLine("RR")
 				.addCriterion("has_item", hasItem(ModBlocks.corporeaBlock))
 				.build(consumer);
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.corporeaSlab, 6)
-				.key('R', ModBlocks.corporeaBlock)
-				.patternLine("RRR")
-				.addCriterion("has_item", hasItem(ModBlocks.corporeaBlock))
-				.build(consumer);
+		slabShape(ModBlocks.corporeaBrickSlab, ModBlocks.corporeaBrick).build(consumer);
+		stairs(ModBlocks.corporeaBrickStairs, ModBlocks.corporeaBrick).build(consumer);
+		wallShape(ModBlocks.corporeaBrickWall, ModBlocks.corporeaBrick, 6).build(consumer);
 	}
 
 	private void registerLenses(Consumer<IFinishedRecipe> consumer) {

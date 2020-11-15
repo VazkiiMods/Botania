@@ -1,6 +1,8 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
+    "  Q",
+    " QQ",
     "QQQ"
   ],
   "key": {
@@ -9,7 +11,7 @@
     }
   },
   "result": {
-    "item": "botania:corporea_slab",
-    "count": 6
+    "item": "botania:corporea_stairs",
+    "count": 4
   }
 }

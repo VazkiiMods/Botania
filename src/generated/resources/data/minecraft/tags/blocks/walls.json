@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "botania:corporea_brick_wall",
     "botania:dreamwood_wall",
     "botania:livingrock_wall",
     "botania:livingwood_wall",
