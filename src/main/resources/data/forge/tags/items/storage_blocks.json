@@ -1,8 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "#forge:storage_blocks/manasteel",
-    "#forge:storage_blocks/terrasteel",
-    "#forge:storage_blocks/elementium"
-  ]
-}

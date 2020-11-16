@@ -16,10 +16,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.Tags;
 
-import vazkii.botania.common.block.BlockAltGrass;
-import vazkii.botania.common.block.BlockFloatingSpecialFlower;
-import vazkii.botania.common.block.BlockSpecialFlower;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 
@@ -109,6 +106,17 @@ public class BlockTagProvider extends BlockTagsProvider {
 				ModBlocks.manaDiamondBlock, ModBlocks.dragonstoneBlock);
 
 		getOrCreateBuilder(Tags.Blocks.DIRT).add(getModBlocks(b -> b instanceof BlockAltGrass));
+		getOrCreateBuilder(ModTags.Blocks.BLOCKS_ELEMENTIUM).add(ModBlocks.elementiumBlock);
+		getOrCreateBuilder(ModTags.Blocks.BLOCKS_MANASTEEL).add(ModBlocks.manasteelBlock);
+		getOrCreateBuilder(ModTags.Blocks.BLOCKS_QUARTZ).add(
+				ModFluffBlocks.darkQuartz, ModFluffBlocks.manaQuartz, ModFluffBlocks.blazeQuartz,
+				ModFluffBlocks.lavenderQuartz, ModFluffBlocks.redQuartz, ModFluffBlocks.elfQuartz, ModFluffBlocks.sunnyQuartz
+		);
+		getOrCreateBuilder(ModTags.Blocks.BLOCKS_TERRASTEEL).add(ModBlocks.terrasteelBlock);
+		getOrCreateBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(ModTags.Blocks.BLOCKS_ELEMENTIUM);
+		getOrCreateBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(ModTags.Blocks.BLOCKS_MANASTEEL);
+		getOrCreateBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(ModTags.Blocks.BLOCKS_QUARTZ);
+		getOrCreateBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(ModTags.Blocks.BLOCKS_TERRASTEEL);
 	}
 
 	@Nonnull

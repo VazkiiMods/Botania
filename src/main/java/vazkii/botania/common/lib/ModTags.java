@@ -52,6 +52,7 @@ public class ModTags {
 
 		public static final ITag.INamedTag<Item> BLOCKS_ELEMENTIUM = forgeTag("storage_blocks/elementium");
 		public static final ITag.INamedTag<Item> BLOCKS_MANASTEEL = forgeTag("storage_blocks/manasteel");
+		public static final ITag.INamedTag<Item> BLOCKS_QUARTZ = forgeTag("storage_blocks/quartz");
 		public static final ITag.INamedTag<Item> BLOCKS_TERRASTEEL = forgeTag("storage_blocks/terrasteel");
 
 		public static final ITag.INamedTag<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
@@ -184,6 +185,7 @@ public class ModTags {
 
 		public static final ITag.INamedTag<Block> BLOCKS_ELEMENTIUM = forgeTag("storage_blocks/elementium");
 		public static final ITag.INamedTag<Block> BLOCKS_MANASTEEL = forgeTag("storage_blocks/manasteel");
+		public static final ITag.INamedTag<Block> BLOCKS_QUARTZ = forgeTag("storage_blocks/quartz");
 		public static final ITag.INamedTag<Block> BLOCKS_TERRASTEEL = forgeTag("storage_blocks/terrasteel");
 
 		public static final ITag.INamedTag<Block> GAIA_BREAK_BLACKLIST = tag("gaia_break_blacklist");
