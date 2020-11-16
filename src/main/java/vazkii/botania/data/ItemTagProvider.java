@@ -16,6 +16,7 @@ import net.minecraft.item.Items;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.Tags;
 
@@ -109,7 +110,12 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(ModTags.Blocks.LIVINGROCK, ModTags.Items.LIVINGROCK);
 
 		this.getOrCreateBuilder(ModTags.Items.DISPOSABLE).add(Items.DIRT, Items.SAND, Items.GRAVEL, Items.COBBLESTONE, Items.NETHERRACK);
-		this.getOrCreateBuilder(ModTags.Items.SEMI_DISPOSABLE).add(Items.ANDESITE, Items.DIORITE, Items.GRANITE);
+		this.getOrCreateBuilder(ModTags.Items.SEMI_DISPOSABLE).add(Items.ANDESITE, Items.DIORITE, Items.GRANITE)
+				.addOptional(new ResourceLocation("quark", "basalt"))
+				.addOptional(new ResourceLocation("quark", "jasper"))
+				.addOptional(new ResourceLocation("quark", "limestone"))
+				.addOptional(new ResourceLocation("quark", "marble"))
+				.addOptional(new ResourceLocation("quark", "slate"));
 
 		List<ITag.INamedTag<Item>> runes = Arrays.asList(
 				ModTags.Items.RUNES_WATER, ModTags.Items.RUNES_FIRE, ModTags.Items.RUNES_EARTH, ModTags.Items.RUNES_AIR,
