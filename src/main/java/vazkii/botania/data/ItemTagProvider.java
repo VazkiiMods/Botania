@@ -69,6 +69,29 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 		this.getOrCreateBuilder(ItemTags.PIGLIN_LOVED).add(ModBlocks.alchemyCatalyst.asItem(), ModItems.cacophonium, ModItems.divaCharm,
 				ModBlocks.hourglass.asItem(), ModBlocks.manaPylon.asItem(), ModItems.monocle);
+		this.getOrCreateBuilder(ItemTags.MUSIC_DISCS).add(ModItems.recordGaia1, ModItems.recordGaia2);
+
+		this.getOrCreateBuilder(ModTags.Items.DUSTS_MANA).add(ModItems.manaPowder);
+		this.getOrCreateBuilder(Tags.Items.DUSTS).addTag(ModTags.Items.DUSTS_MANA);
+
+		this.getOrCreateBuilder(ModTags.Items.GEMS_DRAGONSTONE).add(ModItems.dragonstone);
+		this.getOrCreateBuilder(ModTags.Items.GEMS_MANA_DIAMOND).add(ModItems.manaDiamond);
+		this.getOrCreateBuilder(Tags.Items.GEMS).addTag(ModTags.Items.GEMS_DRAGONSTONE);
+		this.getOrCreateBuilder(Tags.Items.GEMS).addTag(ModTags.Items.GEMS_MANA_DIAMOND);
+
+		this.getOrCreateBuilder(ModTags.Items.INGOTS_ELEMENTIUM).add(ModItems.elementium);
+		this.getOrCreateBuilder(ModTags.Items.INGOTS_MANASTEEL).add(ModItems.manaSteel);
+		this.getOrCreateBuilder(ModTags.Items.INGOTS_TERRASTEEL).add(ModItems.terrasteel);
+		this.getOrCreateBuilder(Tags.Items.INGOTS).addTag(ModTags.Items.INGOTS_ELEMENTIUM);
+		this.getOrCreateBuilder(Tags.Items.INGOTS).addTag(ModTags.Items.INGOTS_MANASTEEL);
+		this.getOrCreateBuilder(Tags.Items.INGOTS).addTag(ModTags.Items.INGOTS_TERRASTEEL);
+
+		this.getOrCreateBuilder(ModTags.Items.NUGGETS_ELEMENTIUM).add(ModItems.elementiumNugget);
+		this.getOrCreateBuilder(ModTags.Items.NUGGETS_MANASTEEL).add(ModItems.manasteelNugget);
+		this.getOrCreateBuilder(ModTags.Items.NUGGETS_TERRASTEEL).add(ModItems.terrasteelNugget);
+		this.getOrCreateBuilder(Tags.Items.NUGGETS).addTag(ModTags.Items.NUGGETS_ELEMENTIUM);
+		this.getOrCreateBuilder(Tags.Items.NUGGETS).addTag(ModTags.Items.NUGGETS_MANASTEEL);
+		this.getOrCreateBuilder(Tags.Items.NUGGETS).addTag(ModTags.Items.NUGGETS_TERRASTEEL);
 
 		this.copy(ModTags.Blocks.BLOCKS_ELEMENTIUM, ModTags.Items.BLOCKS_ELEMENTIUM);
 		this.copy(ModTags.Blocks.BLOCKS_MANASTEEL, ModTags.Items.BLOCKS_MANASTEEL);
