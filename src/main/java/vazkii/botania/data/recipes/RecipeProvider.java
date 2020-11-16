@@ -878,7 +878,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 					.addCriterion("has_alt_item", hasItem(ModItems.getPetal(color)))
 					.build(consumer, "botania:petal_" + color.getString());
 			ShapelessRecipeBuilder.shapelessRecipe(DyeItem.getItem(color))
-					.addIngredient(Ingredient.fromTag(ModTags.Items.getFlowerTag(color)))
+					.addIngredient(Ingredient.fromTag(ModTags.Items.getPetalTag(color)))
 					.addIngredient(ModItems.pestleAndMortar)
 					.setGroup("botania:dye")
 					.addCriterion("has_item", hasItem(ModItems.getPetal(color)))

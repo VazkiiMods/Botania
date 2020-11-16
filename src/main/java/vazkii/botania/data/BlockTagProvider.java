@@ -117,6 +117,22 @@ public class BlockTagProvider extends BlockTagsProvider {
 		getOrCreateBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(ModTags.Blocks.BLOCKS_MANASTEEL);
 		getOrCreateBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(ModTags.Blocks.BLOCKS_QUARTZ);
 		getOrCreateBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(ModTags.Blocks.BLOCKS_TERRASTEEL);
+
+		getOrCreateBuilder(ModTags.Blocks.LIVINGROCK).add(ModBlocks.livingrock);
+		getOrCreateBuilder(ModTags.Blocks.LIVINGWOOD).add(ModBlocks.livingwood);
+
+		getOrCreateBuilder(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE).add(
+				ModBlocks.corporeaBlock, ModBlocks.corporeaBrick, ModBlocks.corporeaBrickSlab, ModBlocks.corporeaBrickStairs,
+				ModBlocks.corporeaBrickWall, ModBlocks.corporeaCrystalCube, ModBlocks.corporeaFunnel, ModBlocks.corporeaIndex,
+				ModBlocks.corporeaInterceptor, ModBlocks.corporeaSlab, ModBlocks.corporeaStairs);
+
+//		getOrCreateBuilder(ModTags.Blocks.TERRAFORMABLE).addTag(Tags.Blocks.STONE).addTag(Tags.Blocks.DIRT).addTag(BlockTags.SAND)
+//				.add(Blocks.GRASS_BLOCK, Blocks.GRAVEL, Blocks.SNOW); TODO work around forge bug or wait for fix?
+		getOrCreateBuilder(ModTags.Blocks.GAIA_BREAK_BLACKLIST).add(Blocks.BEACON, ModBlocks.manaPylon, ModBlocks.naturaPylon, ModBlocks.gaiaPylon);
+		getOrCreateBuilder(ModTags.Blocks.MAGNET_RING_BLACKLIST).add(ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool,
+				ModBlocks.fabulousPool, ModBlocks.terraPlate, ModBlocks.runeAltar);
+
+		getOrCreateBuilder(ModTags.Blocks.TERRA_PLATE_BASE).add(ModBlocks.livingrock, ModBlocks.shimmerrock);
 	}
 
 	@Nonnull

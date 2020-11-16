@@ -1,5 +1,4 @@
 {
-  "__comment": "Blocks in this tag can support corporea sparks, even if they don't have an inventory.",
   "replace": false,
   "values": [
     "botania:corporea_block",

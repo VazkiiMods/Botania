@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "#botania:petals/white",
+    "#botania:petals/orange",
+    "#botania:petals/magenta",
+    "#botania:petals/light_blue",
+    "#botania:petals/yellow",
+    "#botania:petals/lime",
+    "#botania:petals/pink",
+    "#botania:petals/gray",
+    "#botania:petals/light_gray",
+    "#botania:petals/cyan",
+    "#botania:petals/purple",
+    "#botania:petals/blue",
+    "#botania:petals/brown",
+    "#botania:petals/green",
+    "#botania:petals/red",
+    "#botania:petals/black"
+  ]
+}

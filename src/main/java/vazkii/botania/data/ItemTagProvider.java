@@ -10,8 +10,11 @@ package vazkii.botania.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.Tags;
@@ -24,7 +27,11 @@ import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ItemTagProvider extends ItemTagsProvider {
 	public ItemTagProvider(DataGenerator generatorIn, BlockTagProvider blockTagProvider) {
@@ -98,6 +105,35 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(ModTags.Blocks.BLOCKS_QUARTZ, ModTags.Items.BLOCKS_QUARTZ);
 		this.copy(ModTags.Blocks.BLOCKS_TERRASTEEL, ModTags.Items.BLOCKS_TERRASTEEL);
 		this.copy(Tags.Blocks.STORAGE_BLOCKS, Tags.Items.STORAGE_BLOCKS);
+		this.copy(ModTags.Blocks.LIVINGWOOD, ModTags.Items.LIVINGWOOD);
+		this.copy(ModTags.Blocks.LIVINGROCK, ModTags.Items.LIVINGROCK);
+
+		this.getOrCreateBuilder(ModTags.Items.DISPOSABLE).add(Items.DIRT, Items.SAND, Items.GRAVEL, Items.COBBLESTONE, Items.NETHERRACK);
+		this.getOrCreateBuilder(ModTags.Items.SEMI_DISPOSABLE).add(Items.ANDESITE, Items.DIORITE, Items.GRANITE);
+
+		List<ITag.INamedTag<Item>> runes = Arrays.asList(
+				ModTags.Items.RUNES_WATER, ModTags.Items.RUNES_FIRE, ModTags.Items.RUNES_EARTH, ModTags.Items.RUNES_AIR,
+				ModTags.Items.RUNES_SPRING, ModTags.Items.RUNES_SUMMER, ModTags.Items.RUNES_AUTUMN, ModTags.Items.RUNES_WINTER,
+				ModTags.Items.RUNES_MANA, ModTags.Items.RUNES_LUST, ModTags.Items.RUNES_GLUTTONY, ModTags.Items.RUNES_GREED,
+				ModTags.Items.RUNES_SLOTH, ModTags.Items.RUNES_WRATH, ModTags.Items.RUNES_ENVY, ModTags.Items.RUNES_PRIDE
+		);
+		Builder<Item> allRunes = this.getOrCreateBuilder(ModTags.Items.RUNES);
+		for (ITag.INamedTag<Item> item : runes) {
+			this.getOrCreateBuilder(item).add(registry.getOrDefault(
+					prefix("rune_" + item.getName().getPath().split("/")[1])));
+			allRunes.addTag(item);
+		}
+
+		Builder<Item> allPetals = this.getOrCreateBuilder(ModTags.Items.PETALS);
+		for (DyeColor color : DyeColor.values()) {
+			ITag.INamedTag<Item> petalTag = ModTags.Items.getPetalTag(color);
+			this.getOrCreateBuilder(petalTag).add(ModItems.getPetal(color), ModBlocks.getMushroom(color).asItem());
+			allPetals.addTag(petalTag);
+		}
+
+		this.getOrCreateBuilder(ModTags.Items.LOONIUM_BLACKLIST).add(ModItems.lexicon, ModItems.overgrowthSeed,
+				ModItems.blackLotus, ModItems.blackerLotus).addTag(ItemTags.MUSIC_DISCS);
+		this.getOrCreateBuilder(ModTags.Items.MAGNET_RING_BLACKLIST);
 	}
 
 	@Nonnull

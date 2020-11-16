@@ -119,7 +119,7 @@ public class ModTags {
 		public static final ITag.INamedTag<Item> BURST_VIEWERS = tag("burst_viewers");
 		public static final ITag.INamedTag<Item> TERRA_PICK_BLACKLIST = tag("terra_pick_blacklist");
 
-		public static ITag.INamedTag<Item> getFlowerTag(DyeColor color) {
+		public static ITag.INamedTag<Item> getPetalTag(DyeColor color) {
 			switch (color) {
 			default:
 			case WHITE:
@@ -194,6 +194,7 @@ public class ModTags {
 		public static final ITag.INamedTag<Block> TERRAFORMABLE = tag("terraformable");
 
 		public static final ITag.INamedTag<Block> CORPOREA_SPARK_OVERRIDE = tag("corporea_spark_override");
+		public static final ITag.INamedTag<Block> TERRA_PLATE_BASE = tag("terra_plate_base");
 
 		private static ITag.INamedTag<Block> tag(String name) {
 			return BlockTags.makeWrapperTag(prefix(name).toString());
