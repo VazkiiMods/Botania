@@ -76,12 +76,6 @@ public class BlockAltGrass extends BlockMod {
 		}
 	}
 
-	@Override
-	public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull BlockView world, BlockPos pos, @Nonnull Direction direction, IPlantable plantable) {
-		PlantType type = plantable.getPlantType(world, pos.down());
-		return type == PlantType.PLAINS || type == PlantType.BEACH || plantable instanceof StemBlock;
-	}
-
 	@Environment(EnvType.CLIENT)
 	@Override
 	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random r) {

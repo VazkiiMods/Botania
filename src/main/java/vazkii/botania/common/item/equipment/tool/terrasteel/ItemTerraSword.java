@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -15,10 +16,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Box;
 
+import net.minecraft.world.World;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
@@ -29,6 +33,7 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketLeftClick;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
@@ -37,21 +42,20 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 
 	public ItemTerraSword(Settings props) {
 		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
-		MinecraftForge.EVENT_BUS.addListener(this::leftClick);
-		MinecraftForge.EVENT_BUS.addListener(this::attackEntity);
+		AttackEntityCallback.EVENT.register(this::attackEntity);
 	}
 
-	private void leftClick(PlayerInteractEvent.LeftClickEmpty evt) {
-		if (!evt.getItemStack().isEmpty()
-				&& evt.getItemStack().getItem() == this) {
+	public static void leftClick(ItemStack stack) {
+		if (!stack.isEmpty() && stack.getItem() instanceof ItemTerraSword) {
 			PacketLeftClick.send();
 		}
 	}
 
-	private void attackEntity(AttackEntityEvent evt) {
-		if (!evt.getPlayer().world.isClient) {
-			trySpawnBurst(evt.getPlayer());
+	private ActionResult attackEntity(PlayerEntity player, World world, Hand hand, Entity target, @Nullable EntityHitResult hit) {
+		if (!player.world.isClient && !player.isSpectator()) {
+			trySpawnBurst(player);
 		}
+		return ActionResult.PASS;
 	}
 
 	public void trySpawnBurst(PlayerEntity player) {

@@ -10,6 +10,7 @@ package vazkii.botania.data;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SlabBlock;
@@ -39,7 +40,6 @@ import net.minecraft.predicate.item.EnchantmentPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.common.Tags;
 
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.BlockAltGrass;
@@ -203,7 +203,7 @@ public class BlockLootProvider implements DataProvider {
 	private static LootTable.Builder genDoubleFlower(Block b) {
 		LootPoolEntry.Builder<?> entry = ItemEntry.builder(b)
 				.conditionally(BlockStatePropertyLootCondition.builder(b).properties(StatePredicate.Builder.create().exactMatch(TallPlantBlock.HALF, DoubleBlockHalf.LOWER)))
-				.conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().tag(ModTags.Items.SHEARS)));
+				.conditionally(MatchToolLootCondition.builder(ItemPredicate.Builder.create().tag(FabricToolTags.SHEARS)));
 		LootPool.Builder pool = LootPool.builder().rolls(ConstantLootTableRange.create(1)).with(entry)
 				.conditionally(SurvivesExplosionLootCondition.builder());
 		return LootTable.builder().pool(pool);

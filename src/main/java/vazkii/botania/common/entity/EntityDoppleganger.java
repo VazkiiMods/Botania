@@ -886,7 +886,7 @@ public class EntityDoppleganger extends MobEntity {
 		if (oldPosVec.squaredDistanceTo(newPosVec) > 1) {
 			//damage players in the path of the teleport
 			for (PlayerEntity player : getPlayersAround()) {
-				boolean hit = player.getBoundingBox().expand(0.25).rayTrace(oldPosVec, newPosVec)
+				boolean hit = player.getBoundingBox().expand(0.25).raycast(oldPosVec, newPosVec)
 						.isPresent();
 				if (hit) {
 					player.damage(DamageSource.mob(this), 6);

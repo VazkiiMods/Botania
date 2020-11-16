@@ -16,6 +16,7 @@ import vazkii.botania.common.components.LooniumComponent;
 import vazkii.botania.common.item.ItemCraftingHalo;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
+import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumAxe;
 import vazkii.botania.common.item.rod.ItemGravityRod;
 
 import javax.annotation.Nullable;
@@ -30,9 +31,8 @@ public abstract class MixinLivingEntity {
 
 	@Shadow public abstract ItemStack getStackInHand(Hand hand);
 
-	/**
-	 * Implements the loonium drop
-	 */
+	@Shadow protected int playerHitTimer;
+
 	@Inject(at = @At("HEAD"), cancellable = true, method = "dropLoot")
 	private void dropLoonium(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
 		LooniumComponent comp = EntityComponents.LOONIUM_DROP.getNullable(this);
@@ -40,6 +40,11 @@ public abstract class MixinLivingEntity {
 			dropStack(comp.getDrop());
 			ci.cancel();
 		}
+	}
+
+	@Inject(at = @At("RETURN"), method = "drop")
+	private void dropEnd(DamageSource source, CallbackInfo ci) {
+		ItemElementiumAxe.onEntityDrops(playerHitTimer, source, (LivingEntity) (Object) this);
 	}
 
 	/**

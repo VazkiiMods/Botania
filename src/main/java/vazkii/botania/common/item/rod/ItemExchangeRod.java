@@ -11,6 +11,7 @@ package vazkii.botania.common.item.rod;
 import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -26,6 +27,7 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -64,7 +66,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 
 	public ItemExchangeRod(Settings props) {
 		super(props);
-		MinecraftForge.EVENT_BUS.addListener(this::onLeftClick);
+		AttackBlockCallback.EVENT.register(this::onLeftClick);
 	}
 
 	@Nonnull
@@ -101,13 +103,15 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		return ActionResult.SUCCESS;
 	}
 
-	private void onLeftClick(PlayerInteractEvent.LeftClickBlock event) {
-		ItemStack stack = event.getItemStack();
-		if (!stack.isEmpty() && stack.getItem() == this && canExchange(stack) && ManaItemHandler.instance().requestManaExactForTool(stack, event.getPlayer(), COST, false)) {
-			if (exchange(event.getWorld(), event.getPlayer(), event.getPos(), stack, getState(stack))) {
-				ManaItemHandler.instance().requestManaExactForTool(stack, event.getPlayer(), COST, true);
+	private ActionResult onLeftClick(PlayerEntity player, World world, Hand hand, BlockPos pos, Direction direction) {
+		ItemStack stack = player.getStackInHand(hand);
+		if (!player.isSpectator() && !stack.isEmpty() && stack.getItem() == this && canExchange(stack) && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
+			if (exchange(world, player, pos, stack, getState(stack))) {
+				ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true);
+				return ActionResult.SUCCESS;
 			}
 		}
+		return ActionResult.PASS;
 	}
 
 	@Override

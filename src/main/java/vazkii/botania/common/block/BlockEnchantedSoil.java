@@ -21,9 +21,4 @@ public class BlockEnchantedSoil extends BlockMod {
 		super(builder);
 	}
 
-	@Override
-	public boolean canSustainPlant(@Nonnull BlockState state, @Nonnull BlockView world, BlockPos pos, @Nonnull Direction direction, IPlantable plantable) {
-		return plantable.getPlantType(world, pos.down()) == PlantType.PLAINS;
-	}
-
 }

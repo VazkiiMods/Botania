@@ -49,9 +49,9 @@ public class EntityPinkWither extends WitherEntity {
 
 		if (Math.random() < 0.1) {
 			for (int j = 0; j < 3; ++j) {
-				double x = ((AccessorWitherEntity) this).callGetHeadX(j);
-				double y = ((AccessorWitherEntity) this).callGetHeadY(j);
-				double z = ((AccessorWitherEntity) this).callGetHeadZ(j);
+				double x = ((AccessorWitherEntity) this).botania_getHeadX(j);
+				double y = ((AccessorWitherEntity) this).botania_getHeadY(j);
+				double z = ((AccessorWitherEntity) this).botania_getHeadZ(j);
 				world.addParticle(ParticleTypes.HEART, x + random.nextGaussian() * 0.3, y + random.nextGaussian() * 0.3, z + random.nextGaussian() * 0.3, 0.0D, 0.0D, 0.0D);
 			}
 		}

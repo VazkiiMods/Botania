@@ -12,6 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.util.collection.WeightedPicker;
 import net.minecraft.util.math.BlockPos;
 
 import net.minecraft.world.biome.Biome;
@@ -99,10 +100,10 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 		for (Type type : Type.values()) {
 			values.add(new StoneEntry(type, type.contains(category) ? 12 : 1));
 		}
-		return WeightedRandom.getRandomItem(getWorld().rand, values).type.biomeStone.getDefaultState();
+		return WeightedPicker.getRandom(getWorld().random, values).type.biomeStone.getDefaultState();
 	}
 
-	private static class StoneEntry extends WeightedRandom.Item {
+	private static class StoneEntry extends WeightedPicker.Entry {
 		private final Type type;
 
 		public StoneEntry(Type type, int weight) {

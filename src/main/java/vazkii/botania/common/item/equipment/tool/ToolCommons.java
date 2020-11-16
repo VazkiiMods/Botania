@@ -160,6 +160,6 @@ public final class ToolCommons {
 	}
 
 	public static BlockHitResult raytraceFromEntity(Entity e, double distance, boolean fluids) {
-		return (BlockHitResult) e.rayTrace(distance, 1, fluids);
+		return (BlockHitResult) e.raycast(distance, 1, fluids);
 	}
 }
