@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "QQQ"
+  ],
+  "key": {
+    "Q": {
+      "item": "botania:corporea_brick"
+    }
+  },
+  "result": {
+    "item": "botania:corporea_brick_slab",
+    "count": 6
+  }
+}

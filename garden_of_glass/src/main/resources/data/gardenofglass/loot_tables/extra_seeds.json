@@ -16,6 +16,22 @@
       ],
       "conditions": [
         {
+          "condition": "minecraft:alternative",
+          "terms": [
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "minecraft:grass"
+            },
+            {
+              "condition": "minecraft:block_state_property",
+              "block": "minecraft:tall_grass",
+              "properties": {
+                "half": "lower"
+              }
+            }
+          ]
+        },
+        {
           "condition": "minecraft:survives_explosion"
         },
         {

@@ -14,6 +14,7 @@ import net.minecraft.entity.EntityType;
 
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
+import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.lib.ModTags;
 
 public class EntityTagProvider extends EntityTypeTagsProvider {
@@ -36,6 +37,11 @@ public class EntityTagProvider extends EntityTypeTagsProvider {
 				.add(EntityType.COD, EntityType.SALMON, EntityType.TROPICAL_FISH, EntityType.PUFFERFISH, EntityType.SQUID)
 				.add(quark("crab"));
 		getOrCreateTagBuilder(ModTags.Entities.COCOON_RARE_AQUATIC).add(EntityType.DOLPHIN);
+
+		getOrCreateTagBuilder(ModTags.Entities.SHADED_MESA_BLACKLIST).add(EntityType.ENDER_DRAGON, EntityType.WITHER,
+				EntityType.ITEM_FRAME, EntityType.END_CRYSTAL, EntityType.PAINTING, ModEntities.CORPOREA_SPARK,
+				ModEntities.DOPPLEGANGER, ModEntities.FLAME_RING, ModEntities.MAGIC_LANDMINE, ModEntities.MAGIC_MISSILE,
+				ModEntities.MANA_BURST, ModEntities.PINK_WITHER, ModEntities.SPARK, ModEntities.PLAYER_MOVER);
 	}
 
 	private static Tag.OptionalObjectEntry quark(String path) {

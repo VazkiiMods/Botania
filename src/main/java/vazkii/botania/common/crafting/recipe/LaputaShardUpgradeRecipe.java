@@ -10,10 +10,12 @@ package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.item.ItemLaputaShard;
@@ -47,6 +49,20 @@ public class LaputaShardUpgradeRecipe extends SpecialCraftingRecipe {
 			}
 		}
 		return foundShard && foundSpirit;
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getOutput() {
+		return new ItemStack(ModItems.laputaShard);
+	}
+
+	@Nonnull
+	@Override
+	public DefaultedList<Ingredient> getPreviewInputs() {
+		return DefaultedList.copyOf(Ingredient.EMPTY,
+				Ingredient.ofItems(ModItems.laputaShard),
+				Ingredient.ofItems(ModItems.lifeEssence));
 	}
 
 	@Nonnull

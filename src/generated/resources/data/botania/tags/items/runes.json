@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "#botania:runes/water",
+    "#botania:runes/fire",
+    "#botania:runes/earth",
+    "#botania:runes/air",
+    "#botania:runes/spring",
+    "#botania:runes/summer",
+    "#botania:runes/autumn",
+    "#botania:runes/winter",
+    "#botania:runes/mana",
+    "#botania:runes/lust",
+    "#botania:runes/gluttony",
+    "#botania:runes/greed",
+    "#botania:runes/sloth",
+    "#botania:runes/wrath",
+    "#botania:runes/envy",
+    "#botania:runes/pride"
+  ]
+}

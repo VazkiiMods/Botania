@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:ender_dragon",
+    "minecraft:wither",
+    "minecraft:item_frame",
+    "minecraft:end_crystal",
+    "minecraft:painting",
+    "botania:corporea_spark",
+    "botania:doppleganger",
+    "botania:flame_ring",
+    "botania:magic_landmine",
+    "botania:magic_missile",
+    "botania:mana_burst",
+    "botania:pink_wither",
+    "botania:spark",
+    "botania:player_mover"
+  ]
+}

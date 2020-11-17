@@ -145,8 +145,9 @@ public final class LibBlockNames {
 			"swamp", "desert", "taiga", "mesa"
 	};
 	public static final String CORPOREA_BLOCK = "corporea_block";
-	public static final String CORPOREA_BRICK = "corporea_brick";
 	public static final String CORPOREA_SLAB = "corporea_slab";
+	public static final String CORPOREA_STAIRS = "corporea_stairs";
+	public static final String CORPOREA_BRICK = "corporea_brick";
 	public static final String SLAB_SUFFIX = "_slab";
 	public static final String STAIR_SUFFIX = "_stairs";
 	public static final String WALL_SUFFIX = "_wall";

@@ -53,6 +53,7 @@ public class ModTags {
 
 		public static final Tag.Identified<Item> BLOCKS_ELEMENTIUM = forgeTag("storage_blocks/elementium");
 		public static final Tag.Identified<Item> BLOCKS_MANASTEEL = forgeTag("storage_blocks/manasteel");
+		public static final Tag.Identified<Item> BLOCKS_QUARTZ = forgeTag("storage_blocks/quartz");
 		public static final Tag.Identified<Item> BLOCKS_TERRASTEEL = forgeTag("storage_blocks/terrasteel");
 
 		public static final Tag.Identified<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
@@ -119,7 +120,7 @@ public class ModTags {
 		public static final Tag.Identified<Item> BURST_VIEWERS = tag("burst_viewers");
 		public static final Tag.Identified<Item> TERRA_PICK_BLACKLIST = tag("terra_pick_blacklist");
 
-		public static Tag.Identified<Item> getFlowerTag(DyeColor color) {
+		public static Tag.Identified<Item> getPetalTag(DyeColor color) {
 			switch (color) {
 			default:
 			case WHITE:
@@ -185,6 +186,7 @@ public class ModTags {
 
 		public static final Tag.Identified<Block> BLOCKS_ELEMENTIUM = forgeTag("storage_blocks/elementium");
 		public static final Tag.Identified<Block> BLOCKS_MANASTEEL = forgeTag("storage_blocks/manasteel");
+		public static final Tag.Identified<Block> BLOCKS_QUARTZ = forgeTag("storage_blocks/quartz");
 		public static final Tag.Identified<Block> BLOCKS_TERRASTEEL = forgeTag("storage_blocks/terrasteel");
 
 		public static final Tag.Identified<Block> GAIA_BREAK_BLACKLIST = tag("gaia_break_blacklist");
@@ -193,6 +195,7 @@ public class ModTags {
 		public static final Tag.Identified<Block> TERRAFORMABLE = tag("terraformable");
 
 		public static final Tag.Identified<Block> CORPOREA_SPARK_OVERRIDE = tag("corporea_spark_override");
+		public static final Tag.Identified<Block> TERRA_PLATE_BASE = tag("terra_plate_base");
 
 		private static Tag.Identified<Block> tag(String name) {
 			return TagRegistry.create(prefix(name), BlockTags::getTagGroup);

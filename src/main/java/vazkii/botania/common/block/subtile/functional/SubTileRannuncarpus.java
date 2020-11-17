@@ -24,8 +24,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.*;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IFlowerPlaceable;
@@ -79,6 +81,12 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 
 				ItemStack stack = item.getStack();
 				Item stackItem = stack.getItem();
+				Identifier id = Registry.ITEM.getId(stackItem);
+				if (ConfigHandler.blacklistedRannuncarpusModIds.contains(id.getNamespace())
+						|| ConfigHandler.blacklistedRannuncarpusItems.contains(id)) {
+					continue;
+				}
+
 				if (stackItem instanceof BlockItem || stackItem instanceof IFlowerPlaceable) {
 					if (!validPositions.isEmpty()) {
 						BlockPos coords = validPositions.get(getWorld().random.nextInt(validPositions.size()));

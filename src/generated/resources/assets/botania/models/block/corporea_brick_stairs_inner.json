@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "side": "botania:block/corporea_brick",
+    "bottom": "botania:block/corporea_brick",
+    "top": "botania:block/corporea_brick"
+  }
+}

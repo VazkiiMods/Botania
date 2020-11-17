@@ -59,7 +59,6 @@ import vazkii.botania.common.brew.potion.PotionSoulCross;
 import vazkii.botania.common.core.ModStats;
 import vazkii.botania.common.core.command.SkyblockCommand;
 import vazkii.botania.common.core.handler.*;
-import vazkii.botania.common.core.loot.DisposeModifier;
 import vazkii.botania.common.core.loot.LootHandler;
 import vazkii.botania.common.core.loot.ModLootModifiers;
 import vazkii.botania.common.core.proxy.IProxy;
@@ -123,7 +122,6 @@ public class Botania implements ModInitializer {
 		ModSubtiles.registerBlocks();
 		ModSubtiles.registerItemBlocks();
 		ModSubtiles.registerTEs();
-		modBus.addGenericListener(GlobalLootModifierSerializer.class, DisposeModifier::register);
 		PixieHandler.registerAttribute();
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;

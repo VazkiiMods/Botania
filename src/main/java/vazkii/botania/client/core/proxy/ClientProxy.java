@@ -53,7 +53,6 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.fx.ModParticles;
-import vazkii.botania.client.gui.GoVoteHandler;
 import vazkii.botania.client.render.entity.RenderBabylonWeapon;
 import vazkii.botania.client.render.entity.RenderCorporeaSpark;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
@@ -137,7 +136,6 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		forgeBus.addListener(RenderMagicLandmine::onWorldRenderLast);
 		forgeBus.addListener(ItemDodgeRing::onKeyDown);
 
-		GoVoteHandler.init();
 		PersistentVariableHelper.init();
 		PersistentVariableHelper.save();
 

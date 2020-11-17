@@ -40,6 +40,7 @@ import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.entity.EntityManaBurst;
 
 import javax.annotation.Nonnull;
 
@@ -95,6 +96,16 @@ public class BlockPool extends BlockModWaterloggable implements BlockEntityProvi
 			}
 		}
 		return super.onUse(state, world, pos, player, hand, hit);
+	}
+
+	@Override
+	public VoxelShape getCollisionShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext context) {
+		if (context.getEntity() instanceof EntityManaBurst) {
+			// Sometimes the pool's collision box is too thin for bursts shot straight up.
+			return SLAB;
+		} else {
+			return super.getCollisionShape(state, world, pos, context);
+		}
 	}
 
 	@Nonnull

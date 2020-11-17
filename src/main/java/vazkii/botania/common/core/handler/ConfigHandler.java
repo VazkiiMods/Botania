@@ -18,6 +18,7 @@ import io.github.fablabsmc.fablabs.api.fiber.v1.tree.ConfigTree;
 import io.github.fablabsmc.fablabs.api.fiber.v1.tree.PropertyMirror;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.util.Identifier;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibMisc;
 
@@ -33,7 +34,10 @@ import java.util.Collections;
 import java.util.List;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public final class ConfigHandler {
 	private static void writeDefaultConfig(ConfigTree config, Path path, JanksonValueSerializer serializer) {
@@ -47,6 +51,7 @@ public final class ConfigHandler {
 
 		try (InputStream s = new BufferedInputStream(Files.newInputStream(p, StandardOpenOption.READ, StandardOpenOption.CREATE))) {
 			FiberSerialization.deserialize(config, s, serializer);
+			onConfigLoad();
 		} catch (IOException | ValueDeserializationException e) {
 			Botania.LOGGER.error("Error loading config from {}", p, e);
 		}
@@ -200,6 +205,8 @@ public final class ConfigHandler {
 		public final PropertyMirror<Integer> gogIslandScaleMultiplier = PropertyMirror.create(INTEGER);
 		public final PropertyMirror<List<String>> orechidPriorityMods = PropertyMirror.create(ConfigTypes.makeList(STRING));
 		public final PropertyMirror<Boolean> worldgenEnabled = PropertyMirror.create(BOOLEAN);
+		public final PropertyMirror<List<String>> rannuncarpusItemBlacklist = PropertyMirror.create(ConfigTypes.makeList(STRING));
+		public final PropertyMirror<List<String>> rannuncarpusModBlacklist = PropertyMirror.create(ConfigTypes.makeList(STRING));
 
 		public ConfigTree configure(ConfigTreeBuilder builder) {
 			builder.fork("blockBreakingParticles")
@@ -279,11 +286,27 @@ public final class ConfigHandler {
 			.withComment("List of modids to prioritize when choosing a random ore from the tag.\n" +
 				"By default, the chosen ore is randomly picked from all ores in the ore's tag.\n" +
 				"Ores from mods present on this list will be picked over mods listed lower or not listed at all.")
-			.finishValue(orechidPriorityMods::mirror);
+			.finishValue(orechidPriorityMods::mirror)
+
+			.beginValue("rannuncarpusItemBlackList", ConfigTypes.makeList(STRING), Collections.emptyList())
+			.withComment("List of item registry names that will be ignored by rannuncarpuses when placing blocks.")
+			.finishValue(rannuncarpusItemBlacklist::mirror)
+
+			.beginValue("rannuncarpusModBlacklist", ConfigTypes.makeList(STRING), Collections.singletonList("storagedrawers"))
+			.withComment("List of mod names for rannuncarpuses to ignore.\n" +
+				"Ignores Storage Drawers by default due to crashes with placing drawer blocks without player involvement.")
+			.finishValue(rannuncarpusModBlacklist::mirror);
 
 			return builder.build();
 		}
 	}
 
 	public static final Common COMMON = new Common();
+	public static Set<Identifier> blacklistedRannuncarpusItems;
+	public static Set<String> blacklistedRannuncarpusModIds;
+
+	private static void onConfigLoad() {
+		blacklistedRannuncarpusItems = COMMON.rannuncarpusItemBlacklist.getValue().stream().map(Identifier::new).collect(Collectors.toSet());
+		blacklistedRannuncarpusModIds = new HashSet<>(COMMON.rannuncarpusModBlacklist.getValue());
+	}
 }

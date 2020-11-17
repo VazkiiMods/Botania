@@ -28,6 +28,7 @@
     "MixinEndermanEntity",
     "MixinEndermanPickupBlock",
     "MixinLivingEntity",
+    "MixinLootTable",
     "MixinPlantBlock",
     "MixinPlayerEntity",
     "MixinServerPlayerEntity",

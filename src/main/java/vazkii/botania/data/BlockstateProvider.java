@@ -118,6 +118,12 @@ public class BlockstateProvider extends BlockStateProvider {
 		slabBlock(corporeaSlab, corpSlabBottom, corpSlabTop, corpSlabDouble);
 		remainingBlocks.remove(corporeaSlab);
 
+		stairsBlock(corporeaStairs, prefix("block/corporea_block"));
+		remainingBlocks.remove(corporeaStairs);
+
+		fixedWallBlock((WallBlock) corporeaBrickWall, prefix("block/corporea_brick"));
+		remainingBlocks.remove(corporeaBrickWall);
+
 		String elfGlassName = Registry.BLOCK.getKey(elfGlass).getPath();
 		ConfiguredModel[] elfGlassFiles = IntStream.rangeClosed(0, 3)
 				.mapToObj(i -> {

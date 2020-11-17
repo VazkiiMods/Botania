@@ -836,7 +836,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 					.criterion("has_alt_item", conditionsFromItem(ModItems.getPetal(color)))
 					.offerTo(consumer, "botania:petal_" + color.getString());
 			ShapelessRecipeBuilder.shapelessRecipe(DyeItem.getItem(color))
-					.input(Ingredient.fromTag(ModTags.Items.getFlowerTag(color)))
+					.input(Ingredient.fromTag(ModTags.Items.getPetalTag(color)))
 					.input(ModItems.pestleAndMortar)
 					.group("botania:dye")
 					.criterion("has_item", conditionsFromItem(ModItems.getPetal(color)))
@@ -1731,7 +1731,22 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.input(ModItems.corporeaSpark)
 				.criterion("has_item", conditionsFromItem(ModItems.corporeaSpark))
 				.offerTo(consumer);
-
+		ShapelessRecipeBuilder.create(ModBlocks.corporeaBlock, 8)
+				.input(ModBlocks.livingrockBrick)
+				.input(ModItems.corporeaSpark)
+				.criterion("has_item", conditionsFromItem(ModItems.corporeaSpark))
+				.offerTo(consumer);
+		slabShape(ModBlocks.corporeaSlab, ModBlocks.corporeaBlock).offerTo(consumer);
+		stairs(ModBlocks.corporeaStairs, ModBlocks.corporeaBlock).offerTo(consumer);
+		ShapedRecipeBuilder.create(ModBlocks.corporeaBrick, 4)
+				.input('R', ModBlocks.corporeaBlock)
+				.pattern("RR")
+				.pattern("RR")
+				.criterion("has_item", conditionsFromItem(ModBlocks.corporeaBlock))
+				.offerTo(consumer);
+		slabShape(ModBlocks.corporeaBrickSlab, ModBlocks.corporeaBrick).offerTo(consumer);
+		stairs(ModBlocks.corporeaBrickStairs, ModBlocks.corporeaBrick).offerTo(consumer);
+		wallShape(ModBlocks.corporeaBrickWall, ModBlocks.corporeaBrick, 6).offerTo(consumer);
 	}
 
 	private void registerLenses(Consumer<RecipeJsonProvider> consumer) {

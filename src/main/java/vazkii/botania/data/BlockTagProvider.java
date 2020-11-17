@@ -15,10 +15,7 @@ import net.minecraft.tag.BlockTags;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.registry.Registry;
 
-import vazkii.botania.common.block.BlockAltGrass;
-import vazkii.botania.common.block.BlockFloatingSpecialFlower;
-import vazkii.botania.common.block.BlockSpecialFlower;
-import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.*;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 
@@ -44,6 +41,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 		getOrCreateTagBuilder(BlockTags.STAIRS).add(getModBlocks(b -> b instanceof StairsBlock));
 		getOrCreateTagBuilder(BlockTags.WALLS).add(getModBlocks(b -> b instanceof WallBlock));
 		getOrCreateTagBuilder(BlockTags.FENCES).add(getModBlocks(b -> b instanceof FenceBlock));
+		getOrCreateTagBuilder(BlockTags.FENCE_GATES).add(getModBlocks(b -> b instanceof FenceGateBlock));
 
 		getOrCreateTagBuilder(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
@@ -107,6 +105,35 @@ public class BlockTagProvider extends BlockTagsProvider {
 				ModBlocks.manaDiamondBlock, ModBlocks.dragonstoneBlock);
 
 		// todo 1.16-fabric getOrCreateTagBuilder(Tags.Blocks.DIRT).add(getModBlocks(b -> b instanceof BlockAltGrass));
+		getOrCreateTagBuilder(ModTags.Blocks.BLOCKS_ELEMENTIUM).add(ModBlocks.elementiumBlock);
+		getOrCreateTagBuilder(ModTags.Blocks.BLOCKS_MANASTEEL).add(ModBlocks.manasteelBlock);
+		getOrCreateTagBuilder(ModTags.Blocks.BLOCKS_QUARTZ).add(
+				ModFluffBlocks.darkQuartz, ModFluffBlocks.manaQuartz, ModFluffBlocks.blazeQuartz,
+				ModFluffBlocks.lavenderQuartz, ModFluffBlocks.redQuartz, ModFluffBlocks.elfQuartz, ModFluffBlocks.sunnyQuartz
+		);
+		getOrCreateTagBuilder(ModTags.Blocks.BLOCKS_TERRASTEEL).add(ModBlocks.terrasteelBlock);
+		/* todo 1.16-fabric
+		getOrCreateTagBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(ModTags.Blocks.BLOCKS_ELEMENTIUM);
+		getOrCreateTagBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(ModTags.Blocks.BLOCKS_MANASTEEL);
+		getOrCreateTagBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(ModTags.Blocks.BLOCKS_QUARTZ);
+		getOrCreateTagBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(ModTags.Blocks.BLOCKS_TERRASTEEL);
+		 */
+
+		getOrCreateTagBuilder(ModTags.Blocks.LIVINGROCK).add(ModBlocks.livingrock);
+		getOrCreateTagBuilder(ModTags.Blocks.LIVINGWOOD).add(ModBlocks.livingwood);
+
+		getOrCreateTagBuilder(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE).add(
+				ModBlocks.corporeaBlock, ModBlocks.corporeaBrick, ModBlocks.corporeaBrickSlab, ModBlocks.corporeaBrickStairs,
+				ModBlocks.corporeaBrickWall, ModBlocks.corporeaCrystalCube, ModBlocks.corporeaFunnel, ModBlocks.corporeaIndex,
+				ModBlocks.corporeaInterceptor, ModBlocks.corporeaSlab, ModBlocks.corporeaStairs);
+
+//		getOrCreateTagBuilder(ModTags.Blocks.TERRAFORMABLE).addTag(Tags.Blocks.STONE).addTag(Tags.Blocks.DIRT).addTag(BlockTags.SAND)
+//				.add(Blocks.GRASS_BLOCK, Blocks.GRAVEL, Blocks.SNOW); TODO work around forge bug or wait for fix?
+		getOrCreateTagBuilder(ModTags.Blocks.GAIA_BREAK_BLACKLIST).add(Blocks.BEACON, ModBlocks.manaPylon, ModBlocks.naturaPylon, ModBlocks.gaiaPylon);
+		getOrCreateTagBuilder(ModTags.Blocks.MAGNET_RING_BLACKLIST).add(ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool,
+				ModBlocks.fabulousPool, ModBlocks.terraPlate, ModBlocks.runeAltar);
+
+		getOrCreateTagBuilder(ModTags.Blocks.TERRA_PLATE_BASE).add(ModBlocks.livingrock, ModBlocks.shimmerrock);
 	}
 
 	@Nonnull

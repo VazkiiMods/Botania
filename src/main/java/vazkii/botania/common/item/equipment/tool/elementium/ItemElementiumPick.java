@@ -18,19 +18,18 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelPick;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.lib.ModTags;
 
-import java.util.List;
-
 public class ItemElementiumPick extends ItemManasteelPick {
 
 	public ItemElementiumPick(Settings props) {
 		super(BotaniaAPI.instance().getElementiumItemTier(), props, -2.8F);
 	}
 
-	public static void filterDisposable(List<ItemStack> drops, Entity e, ItemStack stack) {
-		if (!stack.isEmpty() && (stack.getItem() == ModItems.elementiumPick
-				|| stack.getItem() == ModItems.terraPick && ItemTerraPick.isTipped(stack))) {
-			drops.removeIf(s -> !s.isEmpty() && (isDisposable(s) || isSemiDisposable(s) && !e.isSneaking()));
+	public static boolean shouldFilterOut(Entity e, ItemStack tool, ItemStack drop) {
+		if (!tool.isEmpty() && (tool.getItem() == ModItems.elementiumPick
+				|| tool.getItem() == ModItems.terraPick && ItemTerraPick.isTipped(tool))) {
+			return !drop.isEmpty() && (isDisposable(drop) || isSemiDisposable(drop) && !e.isSneaking());
 		}
+		return false;
 	}
 
 	public static boolean isDisposable(Block block) {

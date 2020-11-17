@@ -443,13 +443,6 @@ public class EntityDoppleganger extends MobEntity {
 			trueKiller = (PlayerEntity) source.getAttacker();
 		}
 
-		// Drop equipment and clear it so multiple calls to super don't do it again
-		super.dropEquipment(source, 0, wasRecentlyHit);
-
-		for (EquipmentSlot e : EquipmentSlot.values()) {
-			equipStack(e, ItemStack.EMPTY);
-		}
-
 		// Generate loot table for every single attacking player
 		for (UUID u : playersWhoAttacked) {
 			PlayerEntity player = world.getPlayerByUuid(u);

@@ -15,6 +15,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.dispenser.DispenserBehavior;
 import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -32,6 +33,7 @@ import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.corporea.*;
 import vazkii.botania.common.block.decor.*;
+import vazkii.botania.common.block.decor.stairs.BlockModStairs;
 import vazkii.botania.common.block.dispenser.*;
 import vazkii.botania.common.block.mana.*;
 import vazkii.botania.common.block.string.*;
@@ -47,7 +49,6 @@ import javax.annotation.Nonnull;
 
 import java.util.Locale;
 
-import static vazkii.botania.common.lib.LibBlockNames.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ModBlocks {
@@ -71,7 +72,7 @@ public final class ModBlocks {
 	public static final Block redFlower = new BlockModFlower(DyeColor.RED, AbstractBlock.Settings.copy(whiteFlower));
 	public static final Block blackFlower = new BlockModFlower(DyeColor.BLACK, AbstractBlock.Settings.copy(whiteFlower));
 
-	public static final Block whiteShinyFlower = new BlockShinyFlower(DyeColor.WHITE, AbstractBlock.Settings.copy(whiteFlower).lightLevel(s -> 15));
+	public static final Block whiteShinyFlower = new BlockShinyFlower(DyeColor.WHITE, AbstractBlock.Settings.copy(whiteFlower).luminance(s -> 15));
 	public static final Block orangeShinyFlower = new BlockShinyFlower(DyeColor.ORANGE, AbstractBlock.Settings.copy(whiteShinyFlower));
 	public static final Block magentaShinyFlower = new BlockShinyFlower(DyeColor.MAGENTA, AbstractBlock.Settings.copy(whiteShinyFlower));
 	public static final Block lightBlueShinyFlower = new BlockShinyFlower(DyeColor.LIGHT_BLUE, AbstractBlock.Settings.copy(whiteShinyFlower));
@@ -88,7 +89,7 @@ public final class ModBlocks {
 	public static final Block redShinyFlower = new BlockShinyFlower(DyeColor.RED, AbstractBlock.Settings.copy(whiteShinyFlower));
 	public static final Block blackShinyFlower = new BlockShinyFlower(DyeColor.BLACK, AbstractBlock.Settings.copy(whiteShinyFlower));
 
-	public static final Block whiteBuriedPetals = new BlockBuriedPetals(DyeColor.WHITE, AbstractBlock.Settings.copy(whiteFlower).lightLevel(s -> 4));
+	public static final Block whiteBuriedPetals = new BlockBuriedPetals(DyeColor.WHITE, AbstractBlock.Settings.copy(whiteFlower).luminance(s -> 4));
 	public static final Block orangeBuriedPetals = new BlockBuriedPetals(DyeColor.ORANGE, AbstractBlock.Settings.copy(whiteBuriedPetals));
 	public static final Block magentaBuriedPetals = new BlockBuriedPetals(DyeColor.MAGENTA, AbstractBlock.Settings.copy(whiteBuriedPetals));
 	public static final Block lightBlueBuriedPetals = new BlockBuriedPetals(DyeColor.LIGHT_BLUE, AbstractBlock.Settings.copy(whiteBuriedPetals));
@@ -105,7 +106,7 @@ public final class ModBlocks {
 	public static final Block redBuriedPetals = new BlockBuriedPetals(DyeColor.RED, AbstractBlock.Settings.copy(whiteBuriedPetals));
 	public static final Block blackBuriedPetals = new BlockBuriedPetals(DyeColor.BLACK, AbstractBlock.Settings.copy(whiteBuriedPetals));
 
-	public static final AbstractBlock.Settings FLOATING_PROPS = AbstractBlock.Settings.of(Material.SOIL).strength(0.5F).sounds(BlockSoundGroup.GRAVEL).lightLevel(s -> 15).harvestTool(ToolType.SHOVEL);
+	public static final AbstractBlock.Settings FLOATING_PROPS = AbstractBlock.Settings.of(Material.SOIL).strength(0.5F).sounds(BlockSoundGroup.GRAVEL).luminance(s -> 15).harvestTool(ToolType.SHOVEL);
 	public static final Block whiteFloatingFlower = new BlockFloatingFlower(DyeColor.WHITE, FLOATING_PROPS);
 	public static final Block orangeFloatingFlower = new BlockFloatingFlower(DyeColor.ORANGE, FLOATING_PROPS);
 	public static final Block magentaFloatingFlower = new BlockFloatingFlower(DyeColor.MAGENTA, FLOATING_PROPS);
@@ -140,7 +141,7 @@ public final class ModBlocks {
 	public static final Block petalBlockRed = new BlockPetalBlock(DyeColor.RED, AbstractBlock.Settings.copy(petalBlockWhite));
 	public static final Block petalBlockBlack = new BlockPetalBlock(DyeColor.BLACK, AbstractBlock.Settings.copy(petalBlockWhite));
 
-	public static final Block whiteMushroom = new BlockModMushroom(DyeColor.WHITE, AbstractBlock.Settings.copy(whiteFlower).lightLevel(s -> 3));
+	public static final Block whiteMushroom = new BlockModMushroom(DyeColor.WHITE, AbstractBlock.Settings.copy(whiteFlower).luminance(s -> 3));
 	public static final Block orangeMushroom = new BlockModMushroom(DyeColor.ORANGE, AbstractBlock.Settings.copy(whiteMushroom));
 	public static final Block magentaMushroom = new BlockModMushroom(DyeColor.MAGENTA, AbstractBlock.Settings.copy(whiteMushroom));
 	public static final Block lightBlueMushroom = new BlockModMushroom(DyeColor.LIGHT_BLUE, AbstractBlock.Settings.copy(whiteMushroom));
@@ -175,7 +176,7 @@ public final class ModBlocks {
 	public static final Block doubleFlowerBlack = new BlockModDoubleFlower(DyeColor.BLACK, AbstractBlock.Settings.copy(doubleFlowerWhite));
 
 	public static final Block defaultAltar = new BlockAltar(BlockAltar.Variant.DEFAULT, AbstractBlock.Settings.of(Material.STONE).strength(3.5F).sounds(BlockSoundGroup.STONE)
-			.lightLevel(s -> s.get(BlockAltar.FLUID) == IPetalApothecary.State.LAVA ? 15 : 0));
+			.luminance(s -> s.get(BlockAltar.FLUID) == IPetalApothecary.State.LAVA ? 15 : 0));
 	public static final Block forestAltar = new BlockAltar(BlockAltar.Variant.FOREST, AbstractBlock.Settings.copy(defaultAltar));
 	public static final Block plainsAltar = new BlockAltar(BlockAltar.Variant.PLAINS, AbstractBlock.Settings.copy(defaultAltar));
 	public static final Block mountainAltar = new BlockAltar(BlockAltar.Variant.MOUNTAIN, AbstractBlock.Settings.copy(defaultAltar));
@@ -198,7 +199,7 @@ public final class ModBlocks {
 	public static final Block livingwoodPlanksMossy = new BlockMod(AbstractBlock.Settings.copy(livingwood));
 	public static final Block livingwoodFramed = new BlockMod(AbstractBlock.Settings.copy(livingwood));
 	public static final Block livingwoodPatternFramed = new BlockMod(AbstractBlock.Settings.copy(livingwood));
-	public static final Block livingwoodGlimmering = new BlockMod(AbstractBlock.Settings.copy(livingwood).lightLevel(s -> 12));
+	public static final Block livingwoodGlimmering = new BlockMod(AbstractBlock.Settings.copy(livingwood).luminance(s -> 12));
 
 	public static final Block dreamwood = new BlockMod(AbstractBlock.Settings.copy(livingwood));
 	public static final Block dreamwoodPlanks = new BlockMod(AbstractBlock.Settings.copy(livingwood));
@@ -225,21 +226,21 @@ public final class ModBlocks {
 	public static final Block manaDiamondBlock = new BlockMod(AbstractBlock.Settings.copy(manasteelBlock));
 	public static final Block dragonstoneBlock = new BlockMod(AbstractBlock.Settings.copy(manasteelBlock));
 
-	public static final Block manaGlass = new BlockModGlass(AbstractBlock.Settings.copy(Blocks.GLASS).lightLevel(s -> 15).blockVision(NO_SUFFOCATION).suffocates(NO_SUFFOCATION).allowsSpawning(NO_SPAWN));
+	public static final Block manaGlass = new BlockModGlass(AbstractBlock.Settings.copy(Blocks.GLASS).luminance(s -> 15).blockVision(NO_SUFFOCATION).suffocates(NO_SUFFOCATION).allowsSpawning(NO_SPAWN));
 	public static final Block elfGlass = new BlockModGlass(AbstractBlock.Settings.copy(manaGlass).blockVision(NO_SUFFOCATION).suffocates(NO_SUFFOCATION).allowsSpawning(NO_SPAWN));
 	public static final Block bifrost = new BlockBifrost(AbstractBlock.Settings.of(Material.GLASS).strength(-1, 0.3F)
-			.lightLevel(s -> 15).sounds(BlockSoundGroup.GLASS).nonOpaque().blockVision(NO_SUFFOCATION).suffocates(NO_SUFFOCATION).allowsSpawning(NO_SPAWN));
+			.luminance(s -> 15).sounds(BlockSoundGroup.GLASS).nonOpaque().blockVision(NO_SUFFOCATION).suffocates(NO_SUFFOCATION).allowsSpawning(NO_SPAWN));
 	public static final Block bifrostPerm = new BlockBifrostPerm(AbstractBlock.Settings.of(Material.GLASS).strength(0.3F)
-			.lightLevel(s -> 15).sounds(BlockSoundGroup.GLASS).nonOpaque().blockVision(NO_SUFFOCATION).suffocates(NO_SUFFOCATION).allowsSpawning(NO_SPAWN));
+			.luminance(s -> 15).sounds(BlockSoundGroup.GLASS).nonOpaque().blockVision(NO_SUFFOCATION).suffocates(NO_SUFFOCATION).allowsSpawning(NO_SPAWN));
 
 	public static final Block runeAltar = new BlockRuneAltar(AbstractBlock.Settings.copy(livingrock));
-	public static final Block enchanter = new BlockEnchanter(AbstractBlock.Settings.of(Material.STONE).strength(3, 5).lightLevel(s -> 15).sounds(BlockSoundGroup.STONE));
+	public static final Block enchanter = new BlockEnchanter(AbstractBlock.Settings.of(Material.STONE).strength(3, 5).luminance(s -> 15).sounds(BlockSoundGroup.STONE));
 	public static final Block brewery = new BlockBrewery(AbstractBlock.Settings.copy(livingrock));
 	public static final Block terraPlate = new BlockTerraPlate(AbstractBlock.Settings.of(Material.METAL).strength(3, 10).sounds(BlockSoundGroup.METAL));
 	public static final Block alfPortal = new BlockAlfPortal(AbstractBlock.Settings.of(Material.WOOD).strength(10).sounds(BlockSoundGroup.WOOD)
-			.lightLevel(s -> s.get(BotaniaStateProps.ALFPORTAL_STATE) != AlfPortalState.OFF ? 15 : 0));
+			.luminance(s -> s.get(BotaniaStateProps.ALFPORTAL_STATE) != AlfPortalState.OFF ? 15 : 0));
 
-	public static final Block manaPylon = new BlockPylon(BlockPylon.Variant.MANA, AbstractBlock.Settings.of(Material.METAL).strength(5.5F).sounds(BlockSoundGroup.METAL).lightLevel(s -> 7));
+	public static final Block manaPylon = new BlockPylon(BlockPylon.Variant.MANA, AbstractBlock.Settings.of(Material.METAL).strength(5.5F).sounds(BlockSoundGroup.METAL).luminance(s -> 7));
 	public static final Block naturaPylon = new BlockPylon(BlockPylon.Variant.NATURA, AbstractBlock.Settings.copy(manaPylon));
 	public static final Block gaiaPylon = new BlockPylon(BlockPylon.Variant.GAIA, AbstractBlock.Settings.copy(manaPylon));
 
@@ -275,14 +276,21 @@ public final class ModBlocks {
 	public static final Block redStringComparator = new BlockRedStringComparator(AbstractBlock.Settings.copy(livingrock));
 	public static final Block redStringRelay = new BlockRedStringRelay(AbstractBlock.Settings.copy(livingrock));
 	public static final Block redStringInterceptor = new BlockRedStringInterceptor(AbstractBlock.Settings.copy(livingrock));
+	
 	public static final Block corporeaIndex = new BlockCorporeaIndex(AbstractBlock.Settings.of(Material.METAL).strength(5.5F).sounds(BlockSoundGroup.METAL).nonOpaque());
 	public static final Block corporeaFunnel = new BlockCorporeaFunnel(AbstractBlock.Settings.of(Material.METAL).strength(5.5F).sounds(BlockSoundGroup.METAL));
 	public static final Block corporeaInterceptor = new BlockCorporeaInterceptor(AbstractBlock.Settings.of(Material.METAL).strength(5.5F).sounds(BlockSoundGroup.METAL));
 	public static final Block corporeaCrystalCube = new BlockCorporeaCrystalCube(AbstractBlock.Settings.copy(corporeaInterceptor));
 	public static final Block corporeaRetainer = new BlockCorporeaRetainer(AbstractBlock.Settings.copy(corporeaInterceptor));
+
 	public static final Block corporeaBlock = new BlockMod(AbstractBlock.Settings.of(Material.METAL).strength(5.5F).sounds(BlockSoundGroup.METAL));
 	public static final Block corporeaBrick = new BlockMod(AbstractBlock.Settings.copy(corporeaBlock));
 	public static final SlabBlock corporeaSlab = new SlabBlock(AbstractBlock.Settings.copy(corporeaBlock));
+	public static final StairsBlock corporeaStairs = new BlockModStairs(corporeaBlock.getDefaultState(), AbstractBlock.Settings.copy(corporeaBlock));
+	public static final SlabBlock corporeaBrickSlab = new SlabBlock(AbstractBlock.Settings.copy(corporeaBrick));
+	public static final StairsBlock corporeaBrickStairs = new BlockModStairs(corporeaBrick.getDefaultState(), AbstractBlock.Settings.copy(corporeaBrick));
+	public static final Block corporeaBrickWall = new WallBlock(AbstractBlock.Settings.copy(corporeaBrick));
+	
 	public static final Block incensePlate = new BlockIncensePlate(AbstractBlock.Settings.copy(livingwood));
 	public static final Block hourglass = new BlockHourglass(AbstractBlock.Settings.of(Material.METAL).strength(2).sounds(BlockSoundGroup.METAL));
 	public static final Block ghostRail = new BlockGhostRail(AbstractBlock.Settings.copy(Blocks.RAIL));
@@ -300,7 +308,7 @@ public final class ModBlocks {
 	public static final Block felPumpkin = new BlockFelPumpkin(AbstractBlock.Settings.copy(Blocks.CARVED_PUMPKIN));
 	public static final Block cocoon = new BlockCocoon(AbstractBlock.Settings.of(Material.WOOL).strength(3, 60).sounds(BlockSoundGroup.WOOL));
 	public static final Block enchantedSoil = new BlockEnchantedSoil(AbstractBlock.Settings.of(Material.SOLID_ORGANIC).strength(0.6F).sounds(BlockSoundGroup.GRASS));
-	public static final Block animatedTorch = new BlockAnimatedTorch(AbstractBlock.Settings.of(Material.SUPPORTED).lightLevel(s -> 7).nonOpaque());
+	public static final Block animatedTorch = new BlockAnimatedTorch(AbstractBlock.Settings.of(Material.SUPPORTED).luminance(s -> 7).nonOpaque());
 	public static final Block starfield = new BlockStarfield(AbstractBlock.Settings.of(Material.METAL).strength(5, 2000).sounds(BlockSoundGroup.METAL));
 
 	public static final Block azulejo0 = new BlockMod(AbstractBlock.Settings.of(Material.STONE).strength(2, 5).sounds(BlockSoundGroup.STONE));
@@ -319,8 +327,8 @@ public final class ModBlocks {
 	public static final Block azulejo13 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
 	public static final Block azulejo14 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
 	public static final Block azulejo15 = new BlockMod(AbstractBlock.Settings.copy(azulejo0));
-	public static final Block manaFlame = new BlockManaFlame(AbstractBlock.Settings.of(Material.SUPPORTED).sounds(BlockSoundGroup.WOOL).lightLevel(s -> 15).noCollision());
-	public static final Block blazeBlock = new BlockMod(AbstractBlock.Settings.copy(manasteelBlock).lightLevel(s -> 15));
+	public static final Block manaFlame = new BlockManaFlame(AbstractBlock.Settings.of(Material.SUPPORTED).sounds(BlockSoundGroup.WOOL).luminance(s -> 15).noCollision());
+	public static final Block blazeBlock = new BlockMod(AbstractBlock.Settings.copy(manasteelBlock).luminance(s -> 15));
 	public static final Block gaiaHeadWall = new BlockGaiaHeadWall(AbstractBlock.Settings.of(Material.SUPPORTED).strength(1));
 	public static final Block gaiaHead = new BlockGaiaHead(AbstractBlock.Settings.of(Material.SUPPORTED).strength(1));
 	public static final Block shimmerrock = new BlockMod(AbstractBlock.Settings.copy(livingrock));
@@ -331,6 +339,10 @@ public final class ModBlocks {
 	public static final Block scorchedGrass = new BlockAltGrass(BlockAltGrass.Variant.SCORCHED, AbstractBlock.Settings.copy(dryGrass));
 	public static final Block infusedGrass = new BlockAltGrass(BlockAltGrass.Variant.INFUSED, AbstractBlock.Settings.copy(dryGrass));
 	public static final Block mutatedGrass = new BlockAltGrass(BlockAltGrass.Variant.MUTATED, AbstractBlock.Settings.copy(dryGrass));
+
+	public static final Block motifDaybloom = new BlockMotifFlower(StatusEffects.BLINDNESS, 15, AbstractBlock.Settings.copy(Blocks.POPPY), true);
+	public static final Block motifNightshade = new BlockMotifFlower(StatusEffects.POISON, 20, AbstractBlock.Settings.copy(Blocks.POPPY), true);
+	public static final Block motifHydroangeas = new BlockMotifFlower(StatusEffects.UNLUCK, 10, AbstractBlock.Settings.copy(Blocks.POPPY), false);
 
 	public static void registerBlocks() {
 		Registry<Block> r = Registry.BLOCK;
@@ -536,9 +548,13 @@ public final class ModBlocks {
 		register(r, LibBlockNames.CORPOREA_INTERCEPTOR, corporeaInterceptor);
 		register(r, LibBlockNames.CORPOREA_CRYSTAL_CUBE, corporeaCrystalCube);
 		register(r, LibBlockNames.CORPOREA_RETAINER, corporeaRetainer);
-		register(r, CORPOREA_BLOCK, corporeaBlock);
-		register(r, CORPOREA_BRICK, corporeaBrick);
-		register(r, CORPOREA_SLAB, corporeaSlab);
+		register(r, LibBlockNames.CORPOREA_BLOCK, corporeaBlock);
+		register(r, LibBlockNames.CORPOREA_SLAB, corporeaSlab);
+		register(r, LibBlockNames.CORPOREA_STAIRS, corporeaStairs);
+		register(r, LibBlockNames.CORPOREA_BRICK, corporeaBrick);
+		register(r, LibBlockNames.CORPOREA_BRICK + LibBlockNames.SLAB_SUFFIX, corporeaBrickSlab);
+		register(r, LibBlockNames.CORPOREA_BRICK + LibBlockNames.STAIR_SUFFIX, corporeaBrickStairs);
+		register(r, LibBlockNames.CORPOREA_BRICK + LibBlockNames.WALL_SUFFIX, corporeaBrickWall);
 		register(r, LibBlockNames.INCENSE_PLATE, incensePlate);
 		register(r, LibBlockNames.HOURGLASS, hourglass);
 		register(r, LibBlockNames.GHOST_RAIL, ghostRail);
@@ -586,6 +602,9 @@ public final class ModBlocks {
 		register(r, BlockAltGrass.Variant.SCORCHED.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, scorchedGrass);
 		register(r, BlockAltGrass.Variant.INFUSED.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, infusedGrass);
 		register(r, BlockAltGrass.Variant.MUTATED.name().toLowerCase(Locale.ROOT) + LibBlockNames.ALT_GRASS_SUFFIX, mutatedGrass);
+		register(r, LibBlockNames.MOTIF_DAYBLOOM, motifDaybloom);
+		register(r, LibBlockNames.MOTIF_NIGHTSHADE, motifNightshade);
+		register(r, LibBlockNames.MOTIF_HYDROANGEAS, motifHydroangeas);
 	}
 
 	public static void registerItemBlocks() {
@@ -776,9 +795,13 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getId(corporeaInterceptor), new BlockItem(corporeaInterceptor, props));
 		register(r, Registry.BLOCK.getId(corporeaCrystalCube), new BlockItem(corporeaCrystalCube, props));
 		register(r, Registry.BLOCK.getId(corporeaRetainer), new BlockItem(corporeaRetainer, props));
-        register(r, Registry.BLOCK.getId(corporeaBlock), new BlockItem(corporeaBlock, props));
-		register(r, Registry.BLOCK.getId(corporeaBrick), new BlockItem(corporeaBrick, props));
+		register(r, Registry.BLOCK.getId(corporeaBlock), new BlockItem(corporeaBlock, props));
 		register(r, Registry.BLOCK.getId(corporeaSlab), new BlockItem(corporeaSlab, props));
+		register(r, Registry.BLOCK.getId(corporeaStairs), new BlockItem(corporeaStairs, props));
+		register(r, Registry.BLOCK.getId(corporeaBrick), new BlockItem(corporeaBrick, props));
+		register(r, Registry.BLOCK.getId(corporeaBrickSlab), new BlockItem(corporeaBrickSlab, props));
+		register(r, Registry.BLOCK.getId(corporeaBrickStairs), new BlockItem(corporeaBrickStairs, props));
+		register(r, Registry.BLOCK.getId(corporeaBrickWall), new BlockItem(corporeaBrickWall, props));
 		register(r, Registry.BLOCK.getId(incensePlate), new BlockItem(incensePlate, props));
 		register(r, Registry.BLOCK.getId(hourglass), new BlockItem(hourglass, props));
 		register(r, Registry.BLOCK.getId(ghostRail), new BlockItem(ghostRail, props));
@@ -826,6 +849,9 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getId(scorchedGrass), new BlockItem(scorchedGrass, props));
 		register(r, Registry.BLOCK.getId(infusedGrass), new BlockItem(infusedGrass, props));
 		register(r, Registry.BLOCK.getId(mutatedGrass), new BlockItem(mutatedGrass, props));
+		register(r, Registry.BLOCK.getId(motifDaybloom), new BlockItem(motifDaybloom, props));
+		register(r, Registry.BLOCK.getId(motifNightshade), new BlockItem(motifNightshade, props));
+		register(r, Registry.BLOCK.getId(motifHydroangeas), new BlockItem(motifHydroangeas, props));
 	}
 
 	public static <T> void register(Registry<? super T> reg, Identifier name, T thing) {
