@@ -17,7 +17,6 @@ public final class LibResources {
 	public static final String PREFIX_SHADER = "shader/";
 
 	public static final String PREFIX_GUI = PREFIX_MOD + "textures/gui/";
-	public static final String PREFIX_ENTRIES = PREFIX_GUI + "entries/";
 	public static final String PREFIX_MODEL = PREFIX_MOD + "textures/model/";
 	public static final String PREFIX_MISC = PREFIX_MOD + "textures/misc/";
 
@@ -34,20 +33,9 @@ public final class LibResources {
 	public static final String MODEL_PYLON_GAIA = PREFIX_MODEL + "pylon_gaia.png";
 	public static final String MODEL_LEXICA_DEFAULT = PREFIX_MOD + "model/lexicon_default";
 	public static final String MODEL_LEXICA_ELVEN = PREFIX_MOD + "model/lexicon_elven";
-	public static final String MODEL_MANASTEEL_0 = PREFIX_MODEL + "manasteel_0.png";
-	public static final String MODEL_MANASTEEL_1 = PREFIX_MODEL + "manasteel_1.png";
-	public static final String MODEL_MANASTEEL_2 = PREFIX_MODEL + "manasteel_2.png";
 	public static final String MODEL_MANASTEEL_NEW = PREFIX_MODEL + "armor_manasteel.png";
-	public static final String MODEL_TERRASTEEL_0 = PREFIX_MODEL + "terrasteel_0.png";
-	public static final String MODEL_TERRASTEEL_1 = PREFIX_MODEL + "terrasteel_1.png";
-	public static final String MODEL_TERRASTEEL_2 = PREFIX_MODEL + "terrasteel_2.png";
 	public static final String MODEL_TERRASTEEL_NEW = PREFIX_MODEL + "armor_terrasteel.png";
-	public static final String MODEL_ELEMENTIUM_0 = PREFIX_MODEL + "elementium_0.png";
-	public static final String MODEL_ELEMENTIUM_1 = PREFIX_MODEL + "elementium_1.png";
-	public static final String MODEL_ELEMENTIUM_2 = PREFIX_MODEL + "elementium_2.png";
 	public static final String MODEL_ELEMENTIUM_NEW = PREFIX_MODEL + "armor_elementium.png";
-	public static final String MODEL_MANAWEAVE_0 = PREFIX_MODEL + "manaweave_0.png";
-	public static final String MODEL_MANAWEAVE_1 = PREFIX_MODEL + "manaweave_1.png";
 	public static final String MODEL_MANAWEAVE_NEW = PREFIX_MODEL + "armor_manaweave.png";
 	public static final String MODEL_MANAWEAVE_NEW_HOLIDAY = PREFIX_MODEL + "armor_manaweave_holiday.png";
 	public static final String MODEL_PIXIE = PREFIX_MODEL + "pixie.png";

@@ -17,6 +17,7 @@ import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.client.core.helper.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
+import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelPixie;
 import vazkii.botania.common.entity.EntityPixie;
@@ -46,6 +47,8 @@ public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
 	@Nonnull
 	@Override
 	public ResourceLocation getEntityTexture(@Nonnull EntityPixie entity) {
-		return new ResourceLocation(LibResources.MODEL_PIXIE);
+		return ClientProxy.dootDoot
+				? new ResourceLocation(LibResources.MODEL_PIXIE_HALLOWEEN)
+				: new ResourceLocation(LibResources.MODEL_PIXIE);
 	}
 }

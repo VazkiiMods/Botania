@@ -32,7 +32,6 @@ public final class ConfigHandler {
 		public final ForgeConfigSpec.BooleanValue elfPortalParticlesEnabled;
 		public final ForgeConfigSpec.BooleanValue renderAccessories;
 		public final ForgeConfigSpec.BooleanValue enableSeasonalFeatures;
-		public final ForgeConfigSpec.BooleanValue enableArmorModels;
 		public final ForgeConfigSpec.BooleanValue enableFancySkybox;
 		public final ForgeConfigSpec.BooleanValue enableFancySkyboxInNormalWorlds;
 
@@ -54,9 +53,6 @@ public final class ConfigHandler {
 			renderAccessories = builder
 					.comment("Set this to false to disable rendering of accessories in the player.")
 					.define("accessories", true);
-			enableArmorModels = builder
-					.comment("Set this to false to disable custom armor models")
-					.define("armorModels", true);
 			manaBarHeight = builder
 					.comment("The height of the mana display bar in above the XP bar. You can change this if you have a mod that changes where the XP bar is.")
 					.defineInRange("manaBarHeight", 29, 0, Integer.MAX_VALUE);
