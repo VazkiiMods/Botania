@@ -133,7 +133,6 @@ public class Botania implements ModInitializer {
 		ServerTickEvents.END_WORLD_TICK.register(ItemGrassSeeds::onTickEnd);
 		forgeBus.addListener(ItemKeepIvy::onPlayerDrops);
 		forgeBus.addListener(ItemKeepIvy::onPlayerRespawn);
-		forgeBus.addListener(SleepingHandler::trySleep);
 		forgeBus.addListener(PixieHandler::onDamageTaken);
 		ServerTickEvents.END_WORLD_TICK.register(CommonTickHandler::onTick);
 		forgeBus.addListener(PotionBloodthirst::onSpawn);
@@ -222,8 +221,6 @@ public class Botania implements ModInitializer {
 		PatchouliAPI.instance.registerMultiblock(prefix("gaia_ritual"), mb);
 
 		ModBlocks.addDispenserBehaviours();
-
-		ModFeatures.addWorldgen();
 
         ModStats.init();
 	}

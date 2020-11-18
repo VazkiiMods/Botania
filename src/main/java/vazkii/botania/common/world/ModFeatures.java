@@ -10,8 +10,9 @@ package vazkii.botania.common.world;
 
 import com.google.common.collect.ImmutableSet;
 
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.decorator.Decorator;
@@ -50,21 +51,22 @@ public class ModFeatures {
 		ModBlocks.register(r, "mystical_flowers", MYSTICAL_FLOWERS);
 		ModBlocks.register(r, "mystical_mushrooms", MYSTICAL_MUSHROOMS);
 
-		Registry.register(WorldGenRegistries.field_243653_e, prefix("mystical_flowers"), MYSTICAL_FLOWERS_CONF);
-		Registry.register(WorldGenRegistries.field_243653_e, prefix("mystical_mushrooms"), MYSTICAL_MUSHROOMS_CONF);
-	}
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, prefix("mystical_flowers"), MYSTICAL_FLOWERS_CONF);
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, prefix("mystical_mushrooms"), MYSTICAL_MUSHROOMS_CONF);
 
-	public static void onBiomeLoad(BiomeLoadingEvent event) {
-		if (!ConfigHandler.COMMON.worldgenEnabled.getValue()) {
-			return;
+		if (ConfigHandler.COMMON.worldgenEnabled.getValue()) {
+			BiomeModifications.addFeature(ctx -> {
+					Biome.Category category = ctx.getBiome().getCategory();
+					return !TYPE_BLACKLIST.contains(category);
+				},
+				GenerationStep.Feature.VEGETAL_DECORATION,
+				BuiltinRegistries.CONFIGURED_FEATURE.getKey(MYSTICAL_FLOWERS_CONF).get());
+			BiomeModifications.addFeature(ctx -> {
+					return ctx.getBiome().getCategory() != Biome.Category.THEEND;
+				}, GenerationStep.Feature.VEGETAL_DECORATION,
+				BuiltinRegistries.CONFIGURED_FEATURE.getKey(MYSTICAL_MUSHROOMS_CONF).get());
 		}
-		Biome.Category category = event.getCategory();
-		if (!TYPE_BLACKLIST.contains(category)) {
-			event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_FLOWERS_CONF);
-		}
-		if (category != Biome.Category.THEEND) {
-			event.getGeneration().addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, MYSTICAL_MUSHROOMS_CONF);
-		}
+
 	}
 
 }

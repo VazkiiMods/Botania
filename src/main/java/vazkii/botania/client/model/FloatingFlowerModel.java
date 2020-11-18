@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.model;
 
+/* todo 1.16-fabric
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
@@ -151,3 +152,4 @@ public class FloatingFlowerModel implements IModelGeometry<FloatingFlowerModel> 
 		}
 	}
 }
+*/

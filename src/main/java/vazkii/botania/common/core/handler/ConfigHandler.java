@@ -194,13 +194,6 @@ public final class ConfigHandler {
 		public final PropertyMirror<Integer> harvestLevelWeight = PropertyMirror.create(NATURAL);
 		public final PropertyMirror<Integer> harvestLevelBore = PropertyMirror.create(NATURAL);
 
-		public final PropertyMirror<Integer> flowerQuantity = PropertyMirror.create(NATURAL);
-		public final PropertyMirror<Integer> flowerDensity = PropertyMirror.create(NATURAL);
-		public final PropertyMirror<Integer> flowerPatchSize = PropertyMirror.create(NATURAL);
-		public final PropertyMirror<Integer> flowerPatchChance = PropertyMirror.create(NATURAL);
-		public final PropertyMirror<Double> flowerTallChance = PropertyMirror.create(DOUBLE);
-		public final PropertyMirror<Integer> mushroomQuantity = PropertyMirror.create(NATURAL);
-
 		public final PropertyMirror<Boolean> gogSpawnWithLexicon = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Integer> gogIslandScaleMultiplier = PropertyMirror.create(INTEGER);
 		public final PropertyMirror<List<String>> orechidPriorityMods = PropertyMirror.create(ConfigTypes.makeList(STRING));

@@ -9,25 +9,31 @@
 package vazkii.botania.common.core.handler;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.entity.EntityDoppleganger;
+import vazkii.botania.common.entity.ModEntities;
+
+import javax.annotation.Nullable;
 
 public final class SleepingHandler {
 
 	private SleepingHandler() {}
 
-	public static void trySleep(PlayerSleepInBedEvent event) {
-		World world = event.getPlayer().world;
+	@Nullable
+	public static PlayerEntity.SleepFailureReason trySleep(PlayerEntity player) {
+		World world = player.world;
 		if (!world.isClient()) {
-			boolean nearGuardian = ((ServerWorld) world).getEntitiesByType()
-					.filter(e -> e instanceof EntityDoppleganger)
-					.anyMatch(e -> ((EntityDoppleganger) e).getPlayersAround().contains(event.getPlayer()));
+			boolean nearGuardian = ((ServerWorld) world).getEntitiesByType(ModEntities.DOPPLEGANGER, EntityPredicates.VALID_ENTITY)
+					.stream()
+					.anyMatch(e -> ((EntityDoppleganger) e).getPlayersAround().contains(player));
 
 			if (nearGuardian) {
-				event.setResult(PlayerEntity.SleepFailureReason.NOT_SAFE);
+				return PlayerEntity.SleepFailureReason.NOT_SAFE;
 			}
 		}
+		return null;
 	}
 }

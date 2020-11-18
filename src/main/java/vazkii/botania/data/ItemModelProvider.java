@@ -16,10 +16,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.client.model.generators.ItemModelBuilder;
-import net.minecraftforge.client.model.generators.ModelBuilder;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
 
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.BlockModMushroom;
@@ -39,7 +35,6 @@ import java.util.stream.Collectors;
 
 import static vazkii.botania.common.item.ModItems.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
-import static vazkii.botania.data.BlockstateProvider.takeAll;
 
 /*
 public class ItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider {
