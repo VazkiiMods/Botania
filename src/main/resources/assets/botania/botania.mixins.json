@@ -21,6 +21,7 @@
     "AccessorRecipeManager",
     "AccessorStats",
     "AccessorWitherEntity",
+    "MixinAbstractMinecartEntity",
     "MixinEndermanPickupBlock",
     "MixinLootTable",
     "MixinPlayerEntity"

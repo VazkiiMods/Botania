@@ -19,12 +19,8 @@ import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.state.properties.RailShape;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 
 import javax.annotation.Nonnull;
 
@@ -37,8 +33,6 @@ public class BlockGhostRail extends AbstractRailBlock {
 	public BlockGhostRail(Properties builder) {
 		super(true, builder);
 		setDefaultState(getDefaultState().with(BlockStateProperties.RAIL_SHAPE_STRAIGHT, RailShape.NORTH_SOUTH));
-		MinecraftForge.EVENT_BUS.addListener(this::cartSpawn);
-		MinecraftForge.EVENT_BUS.addListener(this::worldTick);
 	}
 
 	@Override
@@ -79,49 +73,24 @@ public class BlockGhostRail extends AbstractRailBlock {
 		super.onMinecartPass(state, world, pos, cart);
 		if (!world.isRemote) {
 			cart.getPersistentData().putInt(TAG_FLOAT_TICKS, 20);
-			addFloatingCart(cart);
 			updateFloating(cart);
 		}
 	}
 
-	private final Map<RegistryKey<World>, Set<AbstractMinecartEntity>> floatingCarts = new HashMap<>();
-
-	private void addFloatingCart(AbstractMinecartEntity cart) {
-		if (cart.isAlive() && cart.getPersistentData().getInt(TAG_FLOAT_TICKS) > 0) {
-			floatingCarts.computeIfAbsent(cart.world.getDimensionKey(), t -> Collections.newSetFromMap(new WeakHashMap<>()))
-					.add(cart);
+	public void tickCart(AbstractMinecartEntity c) {
+		if (c.world.isRemote) {
+			return;
 		}
-	}
 
-	private void cartSpawn(EntityJoinWorldEvent evt) {
-		if (!evt.getWorld().isRemote && evt.getEntity() instanceof AbstractMinecartEntity) {
-			addFloatingCart((AbstractMinecartEntity) evt.getEntity());
+		if (!c.isAlive() || c.getPersistentData().getInt(TAG_FLOAT_TICKS) <= 0) {
+			c.noClip = false;
+			return;
 		}
-	}
 
-	private void worldTick(TickEvent.WorldTickEvent evt) {
-		if (!evt.world.isRemote() && evt.phase == TickEvent.Phase.END) {
-			evt.world.getProfiler().startSection("cartFloatingIter");
-			Iterator<AbstractMinecartEntity> iter = floatingCarts.getOrDefault(evt.world.getDimensionKey(), Collections.emptySet()).iterator();
-			while (iter.hasNext()) {
-				AbstractMinecartEntity c = iter.next();
-				BlockPos entPos = c.getPosition();
+		updateFloating(c);
 
-				if (!c.isAlive() || !c.isAddedToWorld() || !c.world.isBlockLoaded(entPos)
-						|| c.getPersistentData().getInt(TAG_FLOAT_TICKS) <= 0) {
-					c.noClip = false;
-					iter.remove();
-					continue;
-				}
-
-				updateFloating(c);
-
-				if (c.getPersistentData().getInt(TAG_FLOAT_TICKS) <= 0) {
-					c.noClip = false;
-					iter.remove();
-				}
-			}
-			evt.world.getProfiler().endSection();
+		if (c.getPersistentData().getInt(TAG_FLOAT_TICKS) <= 0) {
+			c.noClip = false;
 		}
 	}
 
