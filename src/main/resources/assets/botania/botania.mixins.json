@@ -24,6 +24,7 @@
     "AccessorRecipeManager",
     "AccessorStats",
     "AccessorWitherEntity",
+    "MixinAbstractMinecartEntity",
     "MixinCraftingResultSlot",
     "MixinEndermanEntity",
     "MixinEndermanPickupBlock",

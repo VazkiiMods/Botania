@@ -35,7 +35,6 @@ public class BlockGhostRail extends AbstractRailBlock {
 	public BlockGhostRail(Settings builder) {
 		super(true, builder);
 		setDefaultState(getDefaultState().with(Properties.STRAIGHT_RAIL_SHAPE, RailShape.NORTH_SOUTH));
-		MinecraftForge.EVENT_BUS.addListener(this::worldTick);
 	}
 
 	@Override
@@ -71,54 +70,27 @@ public class BlockGhostRail extends AbstractRailBlock {
 		cart.world.getProfiler().pop();
 	}
 
-	@Override
-	public void onMinecartPass(BlockState state, World world, BlockPos pos, AbstractMinecartEntity cart) {
-		super.onMinecartPass(state, world, pos, cart);
+	public void onMinecartPass(World world, AbstractMinecartEntity cart) {
 		if (!world.isClient) {
 			cart.getPersistentData().putInt(TAG_FLOAT_TICKS, 20);
-			addFloatingCart(cart);
 			updateFloating(cart);
 		}
 	}
 
-	private final Map<RegistryKey<World>, Set<AbstractMinecartEntity>> floatingCarts = new HashMap<>();
-
-	private void addFloatingCart(AbstractMinecartEntity cart) {
-		if (cart.isAlive() && cart.getPersistentData().getInt(TAG_FLOAT_TICKS) > 0) {
-			floatingCarts.computeIfAbsent(cart.world.getRegistryKey(), t -> Collections.newSetFromMap(new WeakHashMap<>()))
-					.add(cart);
+	public void tickCart(AbstractMinecartEntity c) {
+		if (c.world.isClient) {
+			return;
 		}
-	}
 
-	public void cartSpawn(Entity e) {
-		if (!e.getEntityWorld().isClient && e instanceof AbstractMinecartEntity) {
-			addFloatingCart((AbstractMinecartEntity) e);
+		if (!c.isAlive() || c.getPersistentData().getInt(TAG_FLOAT_TICKS) <= 0) {
+			c.noClip = false;
+			return;
 		}
-	}
 
-	private void worldTick(TickEvent.WorldTickEvent evt) {
-		if (!evt.world.isClient() && evt.phase == TickEvent.Phase.END) {
-			evt.world.getProfiler().push("cartFloatingIter");
-			Iterator<AbstractMinecartEntity> iter = floatingCarts.getOrDefault(evt.world.getRegistryKey(), Collections.emptySet()).iterator();
-			while (iter.hasNext()) {
-				AbstractMinecartEntity c = iter.next();
-				BlockPos entPos = c.getBlockPos();
+		updateFloating(c);
 
-				if (!c.isAlive() || !c.isAddedToWorld() || !c.world.isChunkLoaded(entPos)
-						|| c.getPersistentData().getInt(TAG_FLOAT_TICKS) <= 0) {
-					c.noClip = false;
-					iter.remove();
-					continue;
-				}
-
-				updateFloating(c);
-
-				if (c.getPersistentData().getInt(TAG_FLOAT_TICKS) <= 0) {
-					c.noClip = false;
-					iter.remove();
-				}
-			}
-			evt.world.getProfiler().pop();
+		if (c.getPersistentData().getInt(TAG_FLOAT_TICKS) <= 0) {
+			c.noClip = false;
 		}
 	}
 
