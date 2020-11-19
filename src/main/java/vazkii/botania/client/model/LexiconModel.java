@@ -31,6 +31,7 @@ public class LexiconModel implements BakedModel {
 		this.original = original;
 	}
 
+	/*  todo 1.16-fabric
 	@Nonnull
 	@Override
 	public BakedModel handlePerspective(ModelTransformation.Mode cameraTransformType, MatrixStack stack) {
@@ -41,6 +42,7 @@ public class LexiconModel implements BakedModel {
 		}
 		return original.handlePerspective(cameraTransformType, stack);
 	}
+	*/
 
 	@Nonnull
 	@Override

@@ -102,7 +102,7 @@ public class ItemMagnetRing extends ItemBauble {
 
 	private boolean canPullItem(ItemEntity item) {
 		int pickupDelay = ((AccessorItemEntity) item).getPickupDelay();
-		if (!item.isAlive() || pickupDelay >= 40 || BotaniaAPI.instance().hasSolegnoliaAround(item) || item.getPersistentData().getBoolean("PreventRemoteMovement")) {
+		if (!item.isAlive() || pickupDelay >= 40 || BotaniaAPI.instance().hasSolegnoliaAround(item) /* todo 1.16-fabric || item.getPersistentData().getBoolean("PreventRemoteMovement")*/) {
 			return false;
 		}
 

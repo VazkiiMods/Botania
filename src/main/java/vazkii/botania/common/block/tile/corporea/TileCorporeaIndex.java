@@ -302,12 +302,6 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	@Override
-	public void onChunkUnloaded() {
-		super.onChunkUnloaded();
-		removeIndex(this);
-	}
-
-	@Override
 	public void doCorporeaRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
 		doRequest(request, count, spark);
 	}

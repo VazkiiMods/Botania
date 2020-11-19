@@ -35,7 +35,6 @@ import vazkii.botania.client.gui.box.GuiBaubleBox;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.crafting.FuzzyNBTIngredient;
 import vazkii.botania.common.crafting.recipe.*;
 import vazkii.botania.common.item.brew.ItemBrewBase;
 import vazkii.botania.common.item.brew.ItemIncenseStick;
@@ -714,7 +713,7 @@ public final class ModItems {
 		register(r, "terra_pick_tipping", TerraPickTippingRecipe.SERIALIZER);
 		register(r, "twig_wand", TwigWandRecipe.SERIALIZER);
 
-		CraftingHelper.register(prefix("fuzzy_nbt"), FuzzyNBTIngredient.SERIALIZER);
+		// todo 1.16-fabric replace with nbtcrafting CraftingHelper.register(prefix("fuzzy_nbt"), FuzzyNBTIngredient.SERIALIZER);
 	}
 
 	@Environment(EnvType.CLIENT)

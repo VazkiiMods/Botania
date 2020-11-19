@@ -6,6 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
+/* todo 1.16-fabric replace with NBTCrafting
 package vazkii.botania.common.crafting;
 
 import com.google.gson.JsonElement;
@@ -26,12 +27,14 @@ import javax.annotation.Nullable;
 
 import java.util.stream.Stream;
 
+*/
 /**
  * NBT ingredient that accepts items containing the same NBT data as the provided template stack.
  * In addition, an option to accept items without any NBT data is provided.
  *
  * @see ItemNBTHelper#matchTag(INBT, INBT)
- */
+ *//*
+
 public class FuzzyNBTIngredient extends Ingredient {
 	public static final IIngredientSerializer<FuzzyNBTIngredient> SERIALIZER = new Serializer();
 	private static final String ACCEPTS_EMPTY_TAG = "accepts_empty_tag";
@@ -39,14 +42,16 @@ public class FuzzyNBTIngredient extends Ingredient {
 	private final ItemStack stack;
 	private final boolean acceptsEmptyTag;
 
-	/**
+	*/
+/**
 	 * Constructs the ingredient.
 	 *
 	 * @param stack           Template stack for this ingredient
 	 * @param acceptsEmptyTag Whether lack of NBT data is accepted by this ingredient in addition to the
 	 *                        stack's data.
 	 * @throws IllegalArgumentException if the stack has no NBT data.
-	 */
+	 *//*
+
 	public FuzzyNBTIngredient(ItemStack stack, boolean acceptsEmptyTag) {
 		super(Stream.of(new Ingredient.StackEntry(stack)));
 		this.stack = stack;
@@ -56,12 +61,14 @@ public class FuzzyNBTIngredient extends Ingredient {
 		}
 	}
 
-	/**
+	*/
+/**
 	 * Constructs the ingredient.
 	 *
 	 * @param stack Template stack for this ingredient
 	 * @throws IllegalArgumentException if the stack has no NBT data.
-	 */
+	 *//*
+
 	public FuzzyNBTIngredient(ItemStack stack) {
 		this(stack, false);
 	}
@@ -128,3 +135,4 @@ public class FuzzyNBTIngredient extends Ingredient {
 		}
 	}
 }
+*/

@@ -35,6 +35,7 @@ public class BlockBifrostPerm extends BlockModGlass {
 		}
 	}
 
+	/* todo 1.16-fabric
 	@Override
 	public float[] getBeaconColorMultiplier(BlockState state, WorldView world, BlockPos pos, BlockPos beaconPos) {
 		int rgb = MathHelper.hsvToRgb(((World) world).getTime() * 5 % 360 / 360F, 0.4F, 0.9F);
@@ -44,4 +45,5 @@ public class BlockBifrostPerm extends BlockModGlass {
 		ret[2] = (rgb & 0xFF) / 255.0F;
 		return ret;
 	}
+	*/
 }

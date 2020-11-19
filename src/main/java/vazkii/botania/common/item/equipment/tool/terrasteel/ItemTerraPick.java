@@ -202,10 +202,12 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		}
 	}
 
+	/* todo 1.16-fabric
 	@Override
 	public int getEntityLifespan(ItemStack itemStack, World world) {
 		return Integer.MAX_VALUE;
 	}
+	*/
 
 	public static boolean isTipped(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_TIPPED, false);
@@ -287,10 +289,12 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		return isTipped(stack);
 	}
 
+	/* todo 1.16-fabric
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack before, @Nonnull ItemStack after, boolean slotChanged) {
 		return after.getItem() != this || isEnabled(before) != isEnabled(after);
 	}
+	*/
 
 	@Nonnull
 	@Override

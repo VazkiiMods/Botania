@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block;
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -56,7 +57,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 
 	public BlockPistonRelay(Settings builder) {
 		super(builder);
-		MinecraftForge.EVENT_BUS.addListener(this::tickEnd);
+		ServerTickEvents.END_SERVER_TICK.register(this::tickEnd);
 	}
 
 	@Override
@@ -184,9 +185,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		}
 	}
 
-	public void tickEnd(TickEvent.ServerTickEvent event) {
-		if (event.type == TickEvent.Type.SERVER && event.phase == TickEvent.Phase.END) {
-			MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+	public void tickEnd(MinecraftServer server) {
 			for (GlobalPos s : coordsToCheck.keySet()) {
 				ServerWorld world = server.getWorld(s.getDimension());
 				WorldData data = WorldData.get(world);
@@ -242,7 +241,6 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 					}
 				}
 			}
-		}
 
 		coordsToCheck.keySet().removeAll(removeQueue);
 		checkedCoords.removeAll(removeQueue);

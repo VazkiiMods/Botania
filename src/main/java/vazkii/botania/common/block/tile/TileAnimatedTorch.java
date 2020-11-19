@@ -21,6 +21,7 @@ import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Direction;
 
+import net.minecraft.util.math.MathHelper;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
 
@@ -47,7 +48,7 @@ public class TileAnimatedTorch extends TileMod implements Tickable {
 	public double rotation;
 	public boolean rotating;
 	public double lastTickRotation;
-	public int nextRandomRotation;
+	public int nextRandomRotation = MathHelper.floor(Math.random() * 3);
 	public int currentRandomRotation;
 
 	private int rotationTicks;
@@ -57,13 +58,6 @@ public class TileAnimatedTorch extends TileMod implements Tickable {
 
 	public TileAnimatedTorch() {
 		super(ModTiles.ANIMATED_TORCH);
-	}
-
-	@Override
-	public void onLoad() {
-		if (!world.isClient) {
-			nextRandomRotation = world.random.nextInt(4);
-		}
 	}
 
 	public void handRotate() {

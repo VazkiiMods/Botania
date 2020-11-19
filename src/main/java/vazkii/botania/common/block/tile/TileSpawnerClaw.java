@@ -88,7 +88,7 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, Tickable 
 						double d0 = j >= 1 ? listnbt.getDouble(0) : (double) blockpos.getX() + (world.random.nextDouble() - world.random.nextDouble()) * (double) mLogic.getSpawnRange() + 0.5D;
 						double d1 = j >= 2 ? listnbt.getDouble(1) : (double) (blockpos.getY() + world.random.nextInt(3) - 1);
 						double d2 = j >= 3 ? listnbt.getDouble(2) : (double) blockpos.getZ() + (world.random.nextDouble() - world.random.nextDouble()) * (double) mLogic.getSpawnRange() + 0.5D;
-						if (world.doesNotCollide(optional.get().createSimpleBoundingBox(d0, d1, d2))) {
+						if (world.isSpaceEmpty(optional.get().createSimpleBoundingBox(d0, d1, d2))) {
 							ServerWorld serverWorld = (ServerWorld) world;
 							Entity entity = EntityType.loadEntityWithPassengers(compoundnbt, world, (p_221408_6_) -> {
 								p_221408_6_.refreshPositionAndAngles(d0, d1, d2, p_221408_6_.yaw, p_221408_6_.pitch);

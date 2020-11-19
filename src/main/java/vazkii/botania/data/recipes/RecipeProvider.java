@@ -6,15 +6,48 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
+/*
 package vazkii.botania.data.recipes;
 
-/*
+import net.minecraft.advancement.criterion.CriterionConditions;
+import net.minecraft.advancement.criterion.InventoryChangedCriterion;
+import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.data.server.recipe.ShapedRecipeJsonFactory;
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonFactory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.recipe.Ingredient;
+import net.minecraft.tag.ItemTags;
+import net.minecraft.tag.Tag;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+import vazkii.botania.api.state.enums.CratePattern;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.ModFluffBlocks;
+import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.crafting.recipe.*;
+import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibItemNames;
+import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.mixin.AccessorRecipesProvider;
+
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 	public RecipeProvider(DataGenerator generator) {
 		super(generator);
 	}
 
-	@Override
+	// todo 1.16-fabric @Override
 	protected void generate(Consumer<RecipeJsonProvider> consumer) {
 		specialRecipe(consumer, AncientWillRecipe.SERIALIZER);
 		specialRecipe(consumer, BannerRecipe.SERIALIZER);
@@ -41,6 +74,14 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 		registerFloatingFlowers(consumer);
 		registerConversions(consumer);
 		registerDecor(consumer);
+	}
+
+	private static InventoryChangedCriterion.Conditions conditionsFromItem(ItemConvertible item) {
+		return AccessorRecipesProvider.callConditionsFromItem(item);
+	}
+
+	private static InventoryChangedCriterion.Conditions conditionsFromTag(Tag<Item> tag) {
+		return AccessorRecipesProvider.callConditionsFromTag(tag);
 	}
 
 	private void registerMain(Consumer<RecipeJsonProvider> consumer) {
@@ -751,21 +792,21 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				ModBlocks.limeMushroom, ModBlocks.pinkMushroom, ModBlocks.grayMushroom, ModBlocks.lightGrayMushroom,
 				ModBlocks.cyanMushroom, ModBlocks.purpleMushroom, ModBlocks.blueMushroom, ModBlocks.brownMushroom,
 				ModBlocks.greenMushroom, ModBlocks.redMushroom, ModBlocks.blackMushroom);
-		ShapelessRecipeBuilder.shapelessRecipe(Items.MUSHROOM_STEW)
-				.addIngredient(mushrooms, 2)
-				.addIngredient(Items.BOWL)
-				.addCriterion("has_item", hasItem(Items.BOWL))
-				.addCriterion("has_orig_recipe", RecipeUnlockedTrigger.create(new ResourceLocation("mushroom_stew")))
-				.build(consumer, "botania:mushroom_stew");
+		ShapelessRecipeJsonFactory.create(Items.MUSHROOM_STEW)
+				.input(mushrooms, 2)
+				.input(Items.BOWL)
+				.criterion("has_item", conditionsFromItem(Items.BOWL))
+				.criterion("has_orig_recipe", RecipeUnlockedCriterion.create(new Identifier("mushroom_stew")))
+				.offerTo(consumer, "botania:mushroom_stew");
 
-		ShapedRecipeBuilder.shapedRecipe(Items.COBWEB)
-				.key('S', Items.STRING)
-				.key('M', ModItems.manaString)
-				.patternLine("S S")
-				.patternLine(" M ")
-				.patternLine("S S")
-				.addCriterion("has_item", hasItem(ModItems.manaString))
-				.build(consumer, prefix("cobweb"));
+		ShapedRecipeJsonFactory.create(Items.COBWEB)
+				.input('S', Items.STRING)
+				.input('M', ModItems.manaString)
+				.pattern("S S")
+				.pattern(" M ")
+				.pattern("S S")
+				.criterion("has_item", conditionsFromItem(ModItems.manaString))
+				.offerTo(consumer, prefix("cobweb"));
 
 		ShapedRecipeBuilder.shapedRecipe(ModBlocks.defaultAltar)
 				.key('P', ModTags.Items.PETALS)

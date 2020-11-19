@@ -45,8 +45,8 @@ public class RenderTileFloatingFlower extends BlockEntityRenderer<TileFloatingFl
 			return;
 		}
 
-		IModelData data = tile.getModelData();
-		if (!data.hasProperty(BotaniaStateProps.FLOATING_DATA)) {
+		// todo 1.16-fabric IModelData data = tile.getModelData();
+		if (true/* todo 1.16-fabric !data.hasProperty(BotaniaStateProps.FLOATING_DATA)*/) {
 			return;
 		}
 

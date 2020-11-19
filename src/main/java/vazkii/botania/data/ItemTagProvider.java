@@ -8,6 +8,7 @@
  */
 package vazkii.botania.data;
 
+import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.server.AbstractTagProvider;
 import net.minecraft.data.server.ItemTagsProvider;
@@ -47,7 +48,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(BlockTags.WALLS, ItemTags.WALLS);
 		this.copy(BlockTags.FENCES, ItemTags.FENCES);
 
-		this.getOrCreateTagBuilder(ModTags.Items.SHEARS).add(ModItems.elementiumShears, ModItems.manasteelShears);
+		this.getOrCreateTagBuilder((Tag.Identified<Item>) FabricToolTags.SHEARS).add(ModItems.elementiumShears, ModItems.manasteelShears);
 
 		this.copy(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS, ModTags.Items.MUNDANE_FLOATING_FLOWERS);
 		this.copy(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS, ModTags.Items.SPECIAL_FLOATING_FLOWERS);

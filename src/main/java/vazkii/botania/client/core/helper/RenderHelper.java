@@ -21,6 +21,7 @@ import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.render.item.BuiltinModelItemRenderer;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
@@ -346,10 +347,10 @@ public final class RenderHelper {
 
 		if (!model.isBuiltin() && (stack.getItem() != Items.TRIDENT)) {
 			RenderLayer rendertype = RenderLayers.getItemLayer(stack, true);
-			VertexConsumer ivertexbuilder = ItemRenderer.getDirectGlintVertexConsumer(buffers, rendertype, true, stack.hasGlint());
+			VertexConsumer ivertexbuilder = ItemRenderer.getDirectItemGlintConsumer(buffers, rendertype, true, stack.hasGlint());
 			renderBakedItemModel(model, stack, color, light, overlay, ms, ivertexbuilder);
 		} else {
-			stack.getItem().getItemStackTileEntityRenderer().render(stack, ModelTransformation.Mode.NONE, ms, buffers, light, overlay);
+			BuiltinModelItemRenderer.INSTANCE.render(stack, ModelTransformation.Mode.NONE, ms, buffers, light, overlay);
 		}
 
 		ms.pop();
@@ -402,10 +403,10 @@ public final class RenderHelper {
 				ibakedmodel = ir.getModels().getModelManager().getModel(new ModelIdentifier("minecraft:trident#inventory"));
 			}
 
-			ibakedmodel = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(ms, ibakedmodel, transform, false);
+			ibakedmodel.getTransformation().getTransformation(transform).apply(false, ms);
 			ms.translate(-0.5D, -0.5D, -0.5D);
 			if (!ibakedmodel.isBuiltin() && (stack.getItem() != Items.TRIDENT || flag1)) {
-				VertexConsumer ivertexbuilder = ItemRenderer.getGlintVertexConsumer(buffers, ENTITY_TRANSLUCENT_GOLD, true, stack.hasGlint());
+				VertexConsumer ivertexbuilder = ItemRenderer.getItemGlintConsumer(buffers, ENTITY_TRANSLUCENT_GOLD, true, stack.hasGlint());
 				ir.renderBakedItemModel(ibakedmodel, stack, light, overlay, ms, ivertexbuilder);
 			}
 

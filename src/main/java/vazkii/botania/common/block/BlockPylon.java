@@ -62,10 +62,12 @@ public class BlockPylon extends BlockModWaterloggable implements BlockEntityProv
 		return BlockRenderType.ENTITYBLOCK_ANIMATED;
 	}
 
+	/* todo 1.16-fabric
 	@Override
 	public float getEnchantPowerBonus(BlockState state, WorldView world, BlockPos pos) {
 		return variant.enchantPowerBonus;
 	}
+	*/
 
 	@Nonnull
 	@Override

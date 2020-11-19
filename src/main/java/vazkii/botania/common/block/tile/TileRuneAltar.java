@@ -317,12 +317,6 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		manaToGet = tag.getInt(TAG_MANA_TO_GET);
 	}
 
-	@Nonnull
-	@Override
-	public Box getRenderBoundingBox() {
-		return INFINITE_EXTENT_AABB;
-	}
-
 	@Override
 	protected SimpleInventory createItemHandler() {
 		return new SimpleInventory(16) {

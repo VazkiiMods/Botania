@@ -211,7 +211,7 @@ public class SkyblockSkyRenderer {
 	public static void renderStars(VertexFormat format, VertexBuffer starVBO, MatrixStack ms, float partialTicks) {
 		MinecraftClient mc = MinecraftClient.getInstance();
 		float rain = 1.0F - mc.world.getRainGradient(partialTicks);
-		float celAng = mc.world.method_30274(partialTicks);
+		float celAng = mc.world.getSkyAngle(partialTicks);
 		float effCelAng = celAng;
 		if (celAng > 0.5) {
 			effCelAng = 0.5F - (celAng - 0.5F);

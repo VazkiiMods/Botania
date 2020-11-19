@@ -29,7 +29,6 @@ public final class BotaniaCreativeTab extends ItemGroup {
 
 	public BotaniaCreativeTab() {
 		super(LibMisc.MOD_ID);
-		setNoTooltip();
 		setTexture(LibResources.GUI_CREATIVE);
 	}
 
@@ -37,10 +36,5 @@ public final class BotaniaCreativeTab extends ItemGroup {
 	@Override
 	public ItemStack createIcon() {
 		return new ItemStack(ModItems.lexicon);
-	}
-
-	@Override
-	public boolean hasSearchBar() {
-		return true;
 	}
 }

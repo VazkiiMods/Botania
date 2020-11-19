@@ -29,8 +29,6 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import net.minecraft.world.WorldView;
 import vazkii.botania.api.mana.IManaCollisionGhost;
@@ -90,11 +88,6 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 		} else {
 			return VoxelShapes.empty();
 		}
-	}
-
-	@Override
-	public boolean canEntityDestroy(BlockState state, BlockView world, BlockPos pos, Entity entity) {
-		return variant.indestructible;
 	}
 
 	@Nonnull
