@@ -206,8 +206,6 @@ public class ModelArmorElementium extends ModelArmor {
 		this.armRpauldron.addChild(this.armRwing2);
 
 		this.pantsAnchor.addChild(this.belt);
-		this.belt.addChild(this.legL);
-		this.belt.addChild(this.legR);;
 
 		this.bootL.addChild(bootLwing1);
 		this.bootL.addChild(bootLwing2);

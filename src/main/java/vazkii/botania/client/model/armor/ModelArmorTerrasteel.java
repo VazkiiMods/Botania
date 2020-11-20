@@ -254,8 +254,6 @@ public class ModelArmorTerrasteel extends ModelArmor {
 		this.armRpauldron.addChild(this.armRbranch2);
 
 		this.pantsAnchor.addChild(this.belt);
-		this.belt.addChild(this.legL);
-		this.belt.addChild(this.legR);
 
 		this.bootL.addChild(bootLtop);
 		this.bootLtop.addChild(bootLbranch1);

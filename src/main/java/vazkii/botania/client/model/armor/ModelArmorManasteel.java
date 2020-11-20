@@ -162,8 +162,6 @@ public class ModelArmorManasteel extends ModelArmor {
 		this.armRpauldron.addChild(this.armRcrystal);
 
 		this.pantsAnchor.addChild(this.belt);
-		this.belt.addChild(this.legL);
-		this.belt.addChild(this.legR);;
 
 		this.bootL.addChild(bootLcrystal);
 		this.bootR.addChild(bootRcrystal);

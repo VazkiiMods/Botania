@@ -138,8 +138,6 @@ public class ModelArmorManaweave extends ModelArmor {
 		this.armRAnchor.addChild(this.armR);
 		this.armR.addChild(this.armRpauldron);
 
-		this.pantsAnchor.addChild(this.legL);
-		this.pantsAnchor.addChild(this.legR);
 		this.legL.addChild(this.skirtL);
 		this.legR.addChild(this.skirtR);
 	}
