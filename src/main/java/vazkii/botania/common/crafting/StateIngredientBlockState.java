@@ -28,7 +28,7 @@ public class StateIngredientBlockState implements StateIngredient {
 
 	@Override
 	public boolean test(BlockState blockState) {
-		return false;
+		return this.state == blockState;
 	}
 
 	@Override
