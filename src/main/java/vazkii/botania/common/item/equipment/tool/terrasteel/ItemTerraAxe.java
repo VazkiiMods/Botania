@@ -8,9 +8,12 @@
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -67,7 +70,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 
 	public ItemTerraAxe(Settings props) {
 		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
-		MinecraftForge.EVENT_BUS.addListener(this::onTickEnd);
+		ServerTickEvents.END_WORLD_TICK.register(this::onTickEnd);
 	}
 
 	public static boolean shouldBreak(PlayerEntity player) {
@@ -104,23 +107,16 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		return false;
 	}
 
-	private void onTickEnd(TickEvent.WorldTickEvent event) {
-		// Block Swapping ticking should only occur on the server
-		if (event.world.isClient) {
-			return;
-		}
+	private void onTickEnd(ServerWorld world) {
+		RegistryKey<World> dim = world.getRegistryKey();
+		if (blockSwappers.containsKey(dim)) {
+			tickingSwappers = true;
+			Set<BlockSwapper> swappers = blockSwappers.get(dim);
 
-		if (event.phase == TickEvent.Phase.END) {
-			RegistryKey<World> dim = event.world.getRegistryKey();
-			if (blockSwappers.containsKey(dim)) {
-				tickingSwappers = true;
-				Set<BlockSwapper> swappers = blockSwappers.get(dim);
-
-				// Iterate through all of our swappers, removing any
-				// which no longer need to tick.
-				swappers.removeIf(next -> next == null || !next.tick());
-				tickingSwappers = false;
-			}
+			// Iterate through all of our swappers, removing any
+			// which no longer need to tick.
+			swappers.removeIf(next -> next == null || !next.tick());
+			tickingSwappers = false;
 		}
 	}
 

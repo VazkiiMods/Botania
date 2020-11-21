@@ -17,6 +17,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.LivingEntityFeatureRendererRegistrationCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.block.Block;
@@ -77,6 +78,7 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.brew.ItemBrewBase;
+import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
@@ -94,8 +96,10 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.List;
 import java.util.Locale;
 import java.util.SortedMap;
+import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -125,7 +129,6 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		ItemTooltipCallback.EVENT.register(TooltipHandler::onTooltipEvent);
-		forgeBus.addListener(RenderLexicon::renderHand);
 		ClientTickEvents.END_CLIENT_TICK.register(KonamiHandler::clientTick);
 		forgeBus.addListener(KonamiHandler::handleInput);
 		BookDrawScreenCallback.EVENT.register(KonamiHandler::renderBook);
@@ -159,7 +162,22 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		CORPOREA_REQUEST = new KeyBinding("key.botania_corporea_request", GLFW.GLFW_KEY_C, LibMisc.MOD_NAME);
 		KeyBindingHelper.registerKeyBinding(CORPOREA_REQUEST);
 		registerPropertyGetters();
+		registerArmors();
+	}
 
+	private static void registerArmors() {
+		List<Item> armors = Registry.ITEM.stream()
+			.filter(i -> i instanceof ItemManasteelArmor
+				&& Registry.ITEM.getId(i).getNamespace().equals(LibMisc.MOD_ID))
+			.collect(Collectors.toList());
+
+		ArmorRenderingRegistry.ModelProvider p = (entity, stack, slot, original)
+			-> ((ItemManasteelArmor) stack.getItem()).getArmorModel(entity, stack, slot, original);
+		ArmorRenderingRegistry.registerModel(p, armors);
+
+		ArmorRenderingRegistry.TextureProvider t = (entity, stack, slot, secondLayer, suffix, original)
+			-> new Identifier(((ItemManasteelArmor) stack.getItem()).getArmorTexture(stack, slot));
+		ArmorRenderingRegistry.registerTexture(t, armors);
 	}
 
 	private static void registerPropertyGetter(ItemConvertible item, Identifier id, ModelPredicateProvider propGetter) {
@@ -276,9 +294,11 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.prism, RenderLayer.getTranslucent());
 
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.starfield, RenderLayer.getCutoutMipped());
+		/* todo 1.16-fabric
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.abstrusePlatform, t -> true);
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.infrangiblePlatform, t -> true);
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.spectralPlatform, t -> true);
+		*/
 
 		Registry.BLOCK.stream().filter(b -> Registry.BLOCK.getId(b).getNamespace().equals(LibMisc.MOD_ID))
 				.forEach(b -> {

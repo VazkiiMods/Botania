@@ -19,7 +19,6 @@ import net.minecraft.client.render.model.json.ItemModelGenerator;
 import net.minecraft.client.render.model.json.JsonUnbakedModel;
 import net.minecraft.client.render.model.json.ModelOverrideList;
 import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.renderer.model.*;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.AffineTransformation;
@@ -135,6 +134,7 @@ public class GunModel implements BakedModel {
 		CompositeBakedModel(net.minecraft.client.render.model.ModelLoader bakery, ItemStack lens, BakedModel gun) {
 			super(gun);
 
+			/* todo 1.16-fabric
 			Identifier lensId = Registry.ITEM.getId(lens.getItem());
 			UnbakedModel lensUnbaked = bakery.getOrLoadModel(new ModelIdentifier(lensId, "inventory"));
 			ModelBakeSettings transform = new SimpleModelTransform(new AffineTransformation(new Vector3f(-0.4F, 0.2F, 0.0F), Vector3f.POSITIVE_Y.getRadialQuaternion((float) Math.PI / 2), new Vector3f(0.625F, 0.625F, 0.625F), null));
@@ -169,19 +169,23 @@ public class GunModel implements BakedModel {
 				rand.setSeed(0);
 				faceQuads.get(e).addAll(gun.getQuads(null, e, rand));
 			}
+			*/
 		}
 
 		@Nonnull
 		@Override
 		public List<BakedQuad> getQuads(BlockState state, Direction face, @Nonnull Random rand) {
-			return face == null ? genQuads : faceQuads.get(face);
+			return Collections.emptyList();
+			// todo 1.16-fabric return face == null ? genQuads : faceQuads.get(face);
 		}
 
+		/* todo 1.16-fabric
 		@Override
 		public BakedModel handlePerspective(@Nonnull ModelTransformation.Mode cameraTransformType, MatrixStack stack) {
 			super.handlePerspective(cameraTransformType, stack);
 			return this;
 		}
+		*/
 	}
 
 }

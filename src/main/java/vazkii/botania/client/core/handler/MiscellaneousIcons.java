@@ -11,6 +11,7 @@ package vazkii.botania.client.core.handler;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.ModelLoader;
 import net.minecraft.client.texture.MissingSprite;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
@@ -18,6 +19,7 @@ import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.SpriteIdentifier;
 
 import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.Identifier;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.LexiconModel;
@@ -33,6 +35,7 @@ import vazkii.botania.mixin.AccessorModelBakery;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -124,26 +127,26 @@ public class MiscellaneousIcons {
 		}
 	}
 
-	public void onModelBake(ModelBakeEvent evt) {
+	public void onModelBake(ModelLoader loader, Map<Identifier, BakedModel> map) {
 		if (!ModelHandler.registeredModels) {
 			Botania.LOGGER.error("Additional models failed to register! Aborting baking models to avoid early crashing.");
 			return;
 		}
 		// Platforms
 		ModelIdentifier abstruseName = new ModelIdentifier("botania:abstruse_platform", "");
-		BakedModel abstruse = evt.getModelRegistry().get(abstruseName);
+		BakedModel abstruse = map.get(abstruseName);
 		ModelIdentifier spectralName = new ModelIdentifier("botania:spectral_platform", "");
-		BakedModel spectral = evt.getModelRegistry().get(spectralName);
+		BakedModel spectral = map.get(spectralName);
 		ModelIdentifier infrangibleName = new ModelIdentifier("botania:infrangible_platform", "");
-		BakedModel infrangible = evt.getModelRegistry().get(infrangibleName);
+		BakedModel infrangible = map.get(infrangibleName);
 
-		evt.getModelRegistry().put(abstruseName, new PlatformModel(abstruse));
-		evt.getModelRegistry().put(spectralName, new PlatformModel(spectral));
-		evt.getModelRegistry().put(infrangibleName, new PlatformModel(infrangible));
+		map.put(abstruseName, new PlatformModel(abstruse));
+		map.put(spectralName, new PlatformModel(spectral));
+		map.put(infrangibleName, new PlatformModel(infrangible));
 
 		// Lexicon
-		BakedModel original = evt.getModelRegistry().get(new ModelIdentifier("botania:lexicon", "inventory"));
-		evt.getModelRegistry().put(new ModelIdentifier("botania:lexicon", "inventory"),
+		BakedModel original = map.get(new ModelIdentifier("botania:lexicon", "inventory"));
+		map.put(new ModelIdentifier("botania:lexicon", "inventory"),
 				new LexiconModel(original));
 
 		// models referenced using json overrides aren't put in the model registry, so just go through all override models and wrap them there
@@ -154,40 +157,40 @@ public class MiscellaneousIcons {
 
 		// Mana Blaster
 		ModelIdentifier key = new ModelIdentifier("botania:mana_gun", "inventory");
-		BakedModel originalModel = evt.getModelRegistry().get(key);
+		BakedModel originalModel = map.get(key);
 		ModelIdentifier clipKey = new ModelIdentifier("botania:mana_gun_clip", "inventory");
-		BakedModel originalModelClip = evt.getModelRegistry().get(clipKey);
-		evt.getModelRegistry().put(key, new GunModel(evt.getModelLoader(), originalModel, originalModelClip));
+		BakedModel originalModelClip = map.get(clipKey);
+		map.put(key, new GunModel(loader, originalModel, originalModelClip));
 
-		RenderTileCorporeaCrystalCube.cubeModel = evt.getModelRegistry().get(prefix("block/corporea_crystal_cube_glass"));
-		RenderTilePump.headModel = evt.getModelRegistry().get(prefix("block/pump_head"));
-		elvenSpreaderInside = evt.getModelRegistry().get(prefix("block/elven_spreader_inside"));
-		gaiaSpreaderInside = evt.getModelRegistry().get(prefix("block/gaia_spreader_inside"));
-		manaSpreaderInside = evt.getModelRegistry().get(prefix("block/mana_spreader_inside"));
-		redstoneSpreaderInside = evt.getModelRegistry().get(prefix("block/redstone_spreader_inside"));
+		RenderTileCorporeaCrystalCube.cubeModel = map.get(prefix("block/corporea_crystal_cube_glass"));
+		RenderTilePump.headModel = map.get(prefix("block/pump_head"));
+		elvenSpreaderInside = map.get(prefix("block/elven_spreader_inside"));
+		gaiaSpreaderInside = map.get(prefix("block/gaia_spreader_inside"));
+		manaSpreaderInside = map.get(prefix("block/mana_spreader_inside"));
+		redstoneSpreaderInside = map.get(prefix("block/redstone_spreader_inside"));
 
 		// Icons
-		goldfishModel = evt.getModelRegistry().get(prefix("icon/goldfish"));
-		phiFlowerModel = evt.getModelRegistry().get(prefix("icon/phiflower"));
-		nerfBatModel = evt.getModelRegistry().get(prefix("icon/nerfbat"));
-		bloodPendantChain = evt.getModelRegistry().get(prefix("icon/blood_pendant_chain"));
-		bloodPendantGem = evt.getModelRegistry().get(prefix("icon/blood_pendant_gem"));
+		goldfishModel = map.get(prefix("icon/goldfish"));
+		phiFlowerModel = map.get(prefix("icon/phiflower"));
+		nerfBatModel = map.get(prefix("icon/nerfbat"));
+		bloodPendantChain = map.get(prefix("icon/blood_pendant_chain"));
+		bloodPendantGem = map.get(prefix("icon/blood_pendant_gem"));
 		for (int i = 0; i < ItemKingKey.WEAPON_TYPES; i++) {
-			kingKeyWeaponModels[i] = evt.getModelRegistry().get(prefix("icon/gate_weapon_" + i));
+			kingKeyWeaponModels[i] = map.get(prefix("icon/gate_weapon_" + i));
 		}
-		terrasteelHelmWillModel = evt.getModelRegistry().get(prefix("icon/will_flame"));
+		terrasteelHelmWillModel = map.get(prefix("icon/will_flame"));
 		for (int i = 0; i < thirdEyeLayers.length; i++) {
-			thirdEyeLayers[i] = evt.getModelRegistry().get(prefix("icon/third_eye_" + i));
+			thirdEyeLayers[i] = map.get(prefix("icon/third_eye_" + i));
 		}
-		pyroclastGem = evt.getModelRegistry().get(prefix("icon/lava_pendant_gem"));
-		crimsonGem = evt.getModelRegistry().get(prefix("icon/super_lava_pendant_gem"));
-		itemFinderGem = evt.getModelRegistry().get(prefix("icon/itemfinder_gem"));
+		pyroclastGem = map.get(prefix("icon/lava_pendant_gem"));
+		crimsonGem = map.get(prefix("icon/super_lava_pendant_gem"));
+		itemFinderGem = map.get(prefix("icon/itemfinder_gem"));
 
-		cirrusGem = evt.getModelRegistry().get(prefix("icon/cloud_pendant_gem"));
-		nimbusGem = evt.getModelRegistry().get(prefix("icon/super_cloud_pendant_gem"));
-		snowflakePendantGem = evt.getModelRegistry().get(prefix("icon/ice_pendant_gem"));
+		cirrusGem = map.get(prefix("icon/cloud_pendant_gem"));
+		nimbusGem = map.get(prefix("icon/super_cloud_pendant_gem"));
+		snowflakePendantGem = map.get(prefix("icon/ice_pendant_gem"));
 		for (int i = 0; i < tiaraWingIcons.length; i++) {
-			tiaraWingIcons[i] = evt.getModelRegistry().get(prefix("icon/tiara_wing_" + (i + 1)));
+			tiaraWingIcons[i] = map.get(prefix("icon/tiara_wing_" + (i + 1)));
 		}
 	}
 

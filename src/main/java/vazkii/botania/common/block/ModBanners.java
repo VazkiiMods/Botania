@@ -21,7 +21,7 @@ import java.util.Map;
 
 public final class ModBanners {
 
-	public static final Map<IRegistryDelegate<Item>, BannerPattern> PATTERNS = new LinkedHashMap<>();
+	// public static final Map<IRegistryDelegate<Item>, BannerPattern> PATTERNS = new LinkedHashMap<>();
 
 	public static void init() {
 		addPattern("flower", "flr", ModItems.livingwoodTwig);
@@ -46,7 +46,9 @@ public final class ModBanners {
 	private static void addPattern(String name, String id, ItemConvertible craftingItem) {
 		name = "botania_" + name;
 		id = "bt_" + id;
+		/* todo 1.16-fabric
 		BannerPattern pattern = BannerPattern.create(name.toUpperCase(Locale.ROOT), name, id, false);
 		PATTERNS.put(craftingItem.asItem().delegate, pattern);
+		*/
 	}
 }

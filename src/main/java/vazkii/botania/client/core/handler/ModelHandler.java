@@ -21,7 +21,6 @@ import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.resource.ResourceManager;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
-import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.render.tile.*;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;

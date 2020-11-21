@@ -47,18 +47,15 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	public ItemTravelBelt(Settings props) {
 		this(props, 0.035F, 0.2F, 2F);
-		MinecraftForge.EVENT_BUS.addListener(this::updatePlayerStepStatus);
-		MinecraftForge.EVENT_BUS.addListener(this::onPlayerFall);
 		MinecraftForge.EVENT_BUS.addListener(this::playerLoggedOut);
 	}
 
-	private void onPlayerFall(LivingFallEvent event) {
-		if (event.getEntityLiving() instanceof PlayerEntity) {
-			ItemStack stack = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, event.getEntityLiving());
-			if (!stack.isEmpty()) {
-				event.setDistance(Math.max(0, event.getDistance() - ((ItemTravelBelt) stack.getItem()).fallBuffer));
-			}
+	public static float onPlayerFall(PlayerEntity player, float dist) {
+		ItemStack stack = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
+		if (!stack.isEmpty()) {
+			return Math.max(0, dist - ((ItemTravelBelt) stack.getItem()).fallBuffer);
 		}
+		return dist;
 	}
 
 	public ItemTravelBelt(Settings props, float speed, float jump, float fallBuffer) {
@@ -68,9 +65,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		this.fallBuffer = fallBuffer;
 	}
 
-	private void updatePlayerStepStatus(LivingUpdateEvent event) {
-		if (event.getEntityLiving() instanceof PlayerEntity) {
-			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+	public static void updatePlayerStepStatus(PlayerEntity player) {
 			ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 			String s = playerStr(player);
 
@@ -106,7 +101,6 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 				playersWithStepup.add(s);
 				player.stepHeight = 1.25F;
 			}
-		}
 	}
 
 	public float getSpeed(ItemStack stack) {
@@ -128,7 +122,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		}
 	}
 
-	private boolean shouldPlayerHaveStepup(PlayerEntity player) {
+	private static boolean shouldPlayerHaveStepup(PlayerEntity player) {
 		ItemStack result = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 		return !result.isEmpty() && ManaItemHandler.instance().requestManaExact(result, player, COST, false);
 	}

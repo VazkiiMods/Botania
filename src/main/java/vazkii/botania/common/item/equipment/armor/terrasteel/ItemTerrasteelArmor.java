@@ -14,6 +14,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -46,7 +47,7 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public BipedEntityModel<?> provideArmorModelForSlot(EquipmentSlot slot) {
+	protected BipedEntityModel<LivingEntity> provideArmorModelForSlot(EquipmentSlot slot) {
 		return new ModelArmorTerrasteel(slot);
 	}
 
@@ -119,8 +120,10 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 		list.add(new TranslatableText("botania.armorset.terrasteel.desc2").formatted(Formatting.GRAY));
 	}
 
+	/* todo 1.16-fabric
 	@Override
 	public boolean makesPiglinsNeutral(ItemStack stack, LivingEntity wearer) {
 		return true;
 	}
+	*/
 }

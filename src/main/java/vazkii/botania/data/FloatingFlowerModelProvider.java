@@ -8,6 +8,7 @@
  */
 package vazkii.botania.data;
 
+/*
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.util.Identifier;
@@ -23,7 +24,6 @@ import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-/*
 public class FloatingFlowerModelProvider extends ModelProvider<FloatingFlowerModelBuilder> {
 	public FloatingFlowerModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
 		super(generator, LibMisc.MOD_ID, BLOCK_FOLDER, FloatingFlowerModelBuilder::new, existingFileHelper);

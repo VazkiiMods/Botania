@@ -200,10 +200,12 @@ public class EntityPoolMinecart extends AbstractMinecartEntity implements Entity
 		setMana(cmp.getInt(TAG_MANA));
 	}
 
+	/* todo 1.16-fabric
 	@Override
 	public int getComparatorLevel() {
 		return TilePool.calculateComparatorLevel(getMana(), TilePool.MAX_MANA);
 	}
+	*/
 
 	public int getMana() {
 		return dataTracker.get(MANA);

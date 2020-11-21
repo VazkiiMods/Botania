@@ -39,7 +39,6 @@ public abstract class EquipmentHandler {
 		} else {
 			InventoryEquipmentHandler handler = new InventoryEquipmentHandler();
 			instance = handler;
-			MinecraftForge.EVENT_BUS.addListener(handler::onPlayerTick);
 		}
 	}
 
@@ -75,14 +74,10 @@ public abstract class EquipmentHandler {
 	}
 
 	// Fallback equipment handler for curios-less (or baubles-less) installs.
-	static class InventoryEquipmentHandler extends EquipmentHandler {
+	public static class InventoryEquipmentHandler extends EquipmentHandler {
 		private final Map<PlayerEntity, ItemStack[]> map = new WeakHashMap<>();
 
-		public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-			if (event.phase != TickEvent.Phase.START || event.player.world.isClient) {
-				return;
-			}
-			PlayerEntity player = event.player;
+		public void onPlayerTick(PlayerEntity player) {
 			player.world.getProfiler().push("botania:tick_wearables");
 
 			ItemStack[] oldStacks = map.computeIfAbsent(player, p -> {

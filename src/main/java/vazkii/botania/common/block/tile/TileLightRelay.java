@@ -338,10 +338,12 @@ public class TileLightRelay extends TileMod implements Tickable, IWandBindable {
 			}
 		}
 
+		/* todo 1.16-fabric
 		@Override
 		public boolean shouldRiderSit() {
 			return false;
 		}
+		*/
 
 		@Override
 		public boolean damage(@Nonnull DamageSource source, float damage) {

@@ -38,6 +38,8 @@ public class BannerRecipe extends SpecialCraftingRecipe {
 
 	@Override
 	public boolean matches(CraftingInventory inv, @Nonnull World world) {
+		return false;
+		/* todo 1.16-fabric
 		boolean foundBanner = false;
 		boolean foundItem = false;
 		boolean foundDye = false;
@@ -59,6 +61,7 @@ public class BannerRecipe extends SpecialCraftingRecipe {
 			}
 		}
 		return foundBanner && foundItem && foundDye;
+		*/
 	}
 
 	@Nonnull
@@ -68,6 +71,8 @@ public class BannerRecipe extends SpecialCraftingRecipe {
 		ItemStack dye = ItemStack.EMPTY;
 		BannerPattern pattern = null;
 
+		return ItemStack.EMPTY;
+		/* todo 1.16-fabric
 		for (int i = 0; i < inv.size(); i++) {
 			ItemStack stack = inv.getStack(i);
 			Item item = stack.getItem();
@@ -80,6 +85,7 @@ public class BannerRecipe extends SpecialCraftingRecipe {
 			}
 		}
 		return applyPattern(banner, pattern, dye);
+		*/
 	}
 
 	// [VanillaCopy] From LoomContainer.createOutputStack, edits noted

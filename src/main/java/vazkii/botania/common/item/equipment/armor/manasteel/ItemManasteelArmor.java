@@ -51,7 +51,8 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
-	private final Lazy<BipedEntityModel<?>> model;
+	@Environment(EnvType.CLIENT)
+	private BipedEntityModel<LivingEntity> model;
 	public final EquipmentSlot type;
 
 	public ItemManasteelArmor(EquipmentSlot type, Settings props) {
@@ -61,8 +62,6 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 	public ItemManasteelArmor(EquipmentSlot type, ArmorMaterial mat, Settings props) {
 		super(mat, type, props);
 		this.type = type;
-		this.model = DistExecutor.runForDist(() -> () -> new Lazy<>(() -> this.provideArmorModelForSlot(type)),
-				() -> () -> null);
 	}
 
 	@Override
@@ -84,8 +83,7 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 	}
 
 	@Nonnull
-	@Override
-	public final String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+	public final String getArmorTexture(ItemStack stack, EquipmentSlot slot) {
 		return hasPhantomInk(stack) ? LibResources.MODEL_INVISIBLE_ARMOR : getArmorTextureAfterInk(stack, slot);
 	}
 
@@ -93,19 +91,20 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 		return ConfigHandler.CLIENT.enableArmorModels.getValue() ? LibResources.MODEL_MANASTEEL_NEW : slot == EquipmentSlot.LEGS ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0;
 	}
 
-	@Override
 	@Environment(EnvType.CLIENT)
-	@SuppressWarnings("unchecked")
-	public <A extends BipedEntityModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A original) {
+	public BipedEntityModel<LivingEntity> getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, BipedEntityModel<LivingEntity> original) {
 		if (ConfigHandler.CLIENT.enableArmorModels.getValue()) {
-			return (A) model.get();
+			if (model == null) {
+				model = provideArmorModelForSlot(slot);
+			}
+			return model;
 		}
 
 		return super.getArmorModel(entityLiving, itemStack, armorSlot, original);
 	}
 
 	@Environment(EnvType.CLIENT)
-	public BipedEntityModel<?> provideArmorModelForSlot(EquipmentSlot slot) {
+	protected BipedEntityModel<LivingEntity> provideArmorModelForSlot(EquipmentSlot slot) {
 		return new ModelArmorManasteel(slot);
 	}
 

@@ -12,6 +12,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.MutableText;
@@ -37,7 +38,7 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public BipedEntityModel<?> provideArmorModelForSlot(EquipmentSlot slot) {
+	protected BipedEntityModel<LivingEntity> provideArmorModelForSlot(EquipmentSlot slot) {
 		return new ModelArmorElementium(slot);
 	}
 

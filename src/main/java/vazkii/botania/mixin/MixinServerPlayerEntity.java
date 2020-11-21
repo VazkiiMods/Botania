@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
+import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.SleepingHandler;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 
@@ -43,4 +44,13 @@ public class MixinServerPlayerEntity {
 			cir.setReturnValue(Either.left(fail));
 		}
 	}
+
+	@Inject(at = @At("RETURN"), method = "tick")
+	private void onTick(CallbackInfo ci) {
+		if (EquipmentHandler.instance instanceof EquipmentHandler.InventoryEquipmentHandler) {
+			((EquipmentHandler.InventoryEquipmentHandler) EquipmentHandler.instance).onPlayerTick((PlayerEntity) (Object) this);
+		}
+	}
+
+
 }

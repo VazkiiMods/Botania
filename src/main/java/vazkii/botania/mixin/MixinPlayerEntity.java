@@ -25,6 +25,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -34,8 +35,10 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 import vazkii.botania.common.core.ModStats;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.PixieHandler;
+import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemHolyCloak;
 import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
+import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
 import vazkii.botania.common.item.relic.ItemOdinRing;
 import vazkii.botania.common.entity.ModEntities;
 
@@ -106,5 +109,16 @@ public abstract class MixinPlayerEntity {
 		if (!stack.isEmpty() && !world.isClient) {
 			ItemMagnetRing.onTossItem((PlayerEntity) (Object) this);
 		}
+	}
+
+	@Inject(at = @At("RETURN"), method = "tick")
+	private void tickBeltTiara(CallbackInfo ci) {
+		ItemFlightTiara.updatePlayerFlyStatus((PlayerEntity) (Object) this);
+		ItemTravelBelt.updatePlayerStepStatus((PlayerEntity) (Object) this);
+	}
+
+	@ModifyArg(index = 0, method = "handleFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;handleFallDamage(FF)Z"))
+	private float cushionFall(float originalDist) {
+		return ItemTravelBelt.onPlayerFall((PlayerEntity) (Object) this, originalDist);
 	}
 }

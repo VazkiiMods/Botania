@@ -53,6 +53,7 @@
     "AccessorSkullTileEntityRenderer",
     "AccessorWorldRenderer",
     "MixinAbstractTexture",
+    "MixinBakedModelManager",
     "MixinClientWorldInfo",
     "MixinDebugHud",
     "MixinGameRenderer",

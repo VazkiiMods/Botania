@@ -135,7 +135,6 @@ public class Botania implements ModInitializer {
 		forgeBus.addListener(ItemKeepIvy::onPlayerRespawn);
 		forgeBus.addListener(PixieHandler::onDamageTaken);
 		ServerTickEvents.END_WORLD_TICK.register(CommonTickHandler::onTick);
-		forgeBus.addListener(PotionBloodthirst::onSpawn);
 		UseBlockCallback.EVENT.register(BlockRedStringInterceptor::onInteract);
 		ManaNetworkCallback.EVENT.register(ManaNetworkHandler.instance::onNetworkEvent);
 		LootTableLoadingCallback.EVENT.register(LootHandler::lootLoad);

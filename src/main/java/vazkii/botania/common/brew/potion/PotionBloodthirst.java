@@ -24,6 +24,7 @@ public class PotionBloodthirst extends StatusEffect {
 		super(StatusEffectType.BENEFICIAL, 0xC30000);
 	}
 
+	/* todo 1.16-fabric
 	public static void onSpawn(LivingSpawnEvent.CheckSpawn event) {
 		if (event.getResult() != Event.Result.ALLOW && event.getEntityLiving() instanceof Monster) {
 			Box aabb = new Box(event.getX() - RANGE, event.getY() - RANGE, event.getZ() - RANGE,
@@ -38,5 +39,6 @@ public class PotionBloodthirst extends StatusEffect {
 			}
 		}
 	}
+	*/
 
 }

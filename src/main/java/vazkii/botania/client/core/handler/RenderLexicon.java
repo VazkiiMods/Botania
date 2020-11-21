@@ -66,6 +66,7 @@ public class RenderLexicon {
 	private static int quote = -1;
 	private static int misspelling = -1;
 
+	/* todo 1.16-fabric
 	public static void renderHand(RenderHandEvent evt) {
 		MinecraftClient mc = MinecraftClient.getInstance();
 		if (!ConfigHandler.CLIENT.lexicon3dModel.getValue()
@@ -81,6 +82,7 @@ public class RenderLexicon {
 			Botania.LOGGER.warn("Failed to render lexicon", throwable);
 		}
 	}
+	*/
 
 	// [VanillaCopy] FirstPersonRenderer, irrelevant branches stripped out
 	private static void renderFirstPersonItem(AbstractClientPlayerEntity player, float partialTicks, float pitch, Hand hand, float swingProgress, ItemStack stack, float equipProgress, MatrixStack ms, VertexConsumerProvider buffers, int light) {

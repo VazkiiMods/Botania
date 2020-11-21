@@ -46,6 +46,6 @@ public class WorldTypeSkyblock extends GeneratorType {
 	@Override
 	protected ChunkGenerator getChunkGenerator(Registry<Biome> biomes, Registry<ChunkGeneratorSettings> noiseSettings, long seed) {
 		return new SkyblockChunkGenerator(new VanillaLayeredBiomeSource(seed, false, false, biomes), seed,
-			() -> noiseSettings.method_31140(ChunkGeneratorSettings.OVERWORLD));
+			() -> noiseSettings.get(ChunkGeneratorSettings.OVERWORLD));
 	}
 }

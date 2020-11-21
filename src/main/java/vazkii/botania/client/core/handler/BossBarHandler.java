@@ -38,6 +38,7 @@ public final class BossBarHandler {
 	public static final Identifier defaultBossBar = new Identifier(LibResources.GUI_BOSS_BAR);
 	private static final BarCallback barUniformCallback = new BarCallback();
 
+	/* todo 1.16-fabric
 	public static void onBarRender(RenderGameOverlayEvent.BossInfo evt) {
 		UUID infoUuid = evt.getBossInfo().getUuid();
 		for (EntityDoppleganger currentBoss : bosses) {
@@ -70,6 +71,7 @@ public final class BossBarHandler {
 			}
 		}
 	}
+	*/
 
 	private static void drawBar(MatrixStack ms, EntityDoppleganger currentBoss, int x, int y, int u, int v, int w, int h, boolean bg) {
 		ShaderHelper.BotaniaShader program = currentBoss.getBossBarShaderProgram(bg);

@@ -27,6 +27,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.tag.FluidTags;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
@@ -84,7 +85,6 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	public ItemFlightTiara(Settings props) {
 		super(props);
-		MinecraftForge.EVENT_BUS.addListener(this::updatePlayerFlyStatus);
 		MinecraftForge.EVENT_BUS.addListener(this::playerLoggedOut);
 	}
 
@@ -106,9 +106,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		tooltip.add(new TranslatableText("botania.wings" + getVariant(stack)));
 	}
 
-	private void updatePlayerFlyStatus(LivingUpdateEvent event) {
-		if (event.getEntityLiving() instanceof PlayerEntity) {
-			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+	public static void updatePlayerFlyStatus(PlayerEntity player) {
 			ItemStack tiara = EquipmentHandler.findOrEmpty(ModItems.flightTiara, player);
 			int left = ItemNBTHelper.getInt(tiara, TAG_TIME_LEFT, MAX_FLY_TIME);
 
@@ -119,9 +117,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 						if (!player.world.isClient) {
 							ManaItemHandler.instance().requestManaExact(tiara, player, getCost(tiara, left), true);
 						} else if (Math.abs(player.getVelocity().getX()) > 0.1 || Math.abs(player.getVelocity().getZ()) > 0.1) {
-							double x = event.getEntityLiving().getX() - 0.5;
-							double y = event.getEntityLiving().getY() - 0.5;
-							double z = event.getEntityLiving().getZ() - 0.5;
+							double x = player.getX() - 0.5;
+							double y = player.getY() - 0.5;
+							double z = player.getZ() - 0.5;
 
 							float r = 1F;
 							float g = 1F;
@@ -178,7 +176,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 							for (int i = 0; i < 2; i++) {
 								SparkleParticleData data = SparkleParticleData.sparkle(2F * (float) Math.random(), r, g, b, 20);
-								player.world.addParticle(data, x + Math.random() * event.getEntityLiving().getWidth(), y + Math.random() * 0.4, z + Math.random() * event.getEntityLiving().getWidth(), 0, 0, 0);
+								player.world.addParticle(data, x + Math.random() * player.getWidth(), y + Math.random() * 0.4, z + Math.random() * player.getWidth(), 0, 0, 0);
 							}
 						}
 					}
@@ -194,7 +192,6 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				playersWithFlight.add(playerStr(player));
 				player.abilities.allowFlying = true;
 			}
-		}
 	}
 
 	private void playerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
@@ -207,7 +204,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		return player.getGameProfile().getName() + ":" + player.world.isClient;
 	}
 
-	private boolean shouldPlayerHaveFlight(PlayerEntity player) {
+	private static boolean shouldPlayerHaveFlight(PlayerEntity player) {
 		ItemStack armor = EquipmentHandler.findOrEmpty(ModItems.flightTiara, player);
 		if (!armor.isEmpty()) {
 			int left = ItemNBTHelper.getInt(armor, TAG_TIME_LEFT, MAX_FLY_TIME);
@@ -218,7 +215,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		return false;
 	}
 
-	public int getCost(ItemStack stack, int timeLeft) {
+	public static int getCost(ItemStack stack, int timeLeft) {
 		return timeLeft <= 0 ? COST_OVERKILL : COST;
 	}
 
@@ -511,8 +508,10 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		mc.getTextureManager().bindTexture(textureHud);
 		int xo = mc.getWindow().getScaledWidth() / 2 + 10;
 		int x = xo;
-		int y = mc.getWindow().getScaledHeight() - ForgeIngameGui.right_height;
-		ForgeIngameGui.right_height += 10;
+		int y = mc.getWindow().getScaledHeight() - 49;
+		if (player.isSubmergedIn(FluidTags.WATER)) {
+			y -= 10;
+		}
 
 		int left = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
 
