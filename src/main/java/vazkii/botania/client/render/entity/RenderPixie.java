@@ -13,6 +13,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import vazkii.botania.client.core.helper.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
+import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelPixie;
 import vazkii.botania.common.entity.EntityPixie;
@@ -45,6 +46,8 @@ public class RenderPixie extends MobEntityRenderer<EntityPixie, ModelPixie> {
 	@Nonnull
 	@Override
 	public Identifier getTexture(@Nonnull EntityPixie entity) {
-		return new Identifier(LibResources.MODEL_PIXIE);
+		return ClientProxy.dootDoot
+			? new Identifier(LibResources.MODEL_PIXIE_HALLOWEEN)
+			: new Identifier(LibResources.MODEL_PIXIE);
 	}
 }

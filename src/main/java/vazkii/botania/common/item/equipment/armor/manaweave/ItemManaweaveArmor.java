@@ -28,7 +28,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.armor.ModelArmorManaweave;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
@@ -50,7 +49,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
-		return ConfigHandler.CLIENT.enableArmorModels.getValue() ? ClientProxy.jingleTheBells ? LibResources.MODEL_MANAWEAVE_NEW_HOLIDAY : LibResources.MODEL_MANAWEAVE_NEW : slot == EquipmentSlot.LEGS ? LibResources.MODEL_MANAWEAVE_1 : LibResources.MODEL_MANAWEAVE_0;
+		return ClientProxy.jingleTheBells ? LibResources.MODEL_MANAWEAVE_NEW_HOLIDAY : LibResources.MODEL_MANAWEAVE_NEW;
 	}
 
 	@Nonnull

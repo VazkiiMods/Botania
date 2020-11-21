@@ -79,7 +79,6 @@ public final class ConfigHandler {
 		public final PropertyMirror<Boolean> elfPortalParticlesEnabled = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> renderAccessories = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> enableSeasonalFeatures = PropertyMirror.create(BOOLEAN);
-		public final PropertyMirror<Boolean> enableArmorModels = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> enableFancySkybox = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> enableFancySkyboxInNormalWorlds = PropertyMirror.create(BOOLEAN);
 
@@ -104,10 +103,6 @@ public final class ConfigHandler {
 				.withComment("Set this to false to disable rendering of accessories in the player.")
 				.finishValue(renderAccessories::mirror)
 
-				.beginValue("armorModels", BOOLEAN, true)
-				.withComment("Set this to false to disable custom armor models")
-				.finishValue(enableArmorModels::mirror)
-				
 				.beginValue("manaBarHeight", NATURAL, 29)
 				.withComment("The height of the mana display bar in above the XP bar. You can change this if you have a mod that changes where the XP bar is.")
 				.finishValue(manaBarHeight::mirror)

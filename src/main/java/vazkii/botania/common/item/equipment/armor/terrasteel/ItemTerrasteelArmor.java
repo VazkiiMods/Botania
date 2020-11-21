@@ -30,7 +30,6 @@ import net.minecraft.util.registry.Registry;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.armor.ModelArmorTerrasteel;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
@@ -53,7 +52,7 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
 	@Override
 	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
-		return ConfigHandler.CLIENT.enableArmorModels.getValue() ? LibResources.MODEL_TERRASTEEL_NEW : slot == EquipmentSlot.CHEST ? LibResources.MODEL_TERRASTEEL_1 : LibResources.MODEL_TERRASTEEL_0;
+		return LibResources.MODEL_TERRASTEEL_NEW;
 	}
 
 	@Nonnull

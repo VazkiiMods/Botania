@@ -35,7 +35,6 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.armor.ModelArmorManasteel;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -88,19 +87,15 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 	}
 
 	public String getArmorTextureAfterInk(ItemStack stack, EquipmentSlot slot) {
-		return ConfigHandler.CLIENT.enableArmorModels.getValue() ? LibResources.MODEL_MANASTEEL_NEW : slot == EquipmentSlot.LEGS ? LibResources.MODEL_MANASTEEL_1 : LibResources.MODEL_MANASTEEL_0;
+		return LibResources.MODEL_MANASTEEL_NEW;
 	}
 
 	@Environment(EnvType.CLIENT)
 	public BipedEntityModel<LivingEntity> getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, BipedEntityModel<LivingEntity> original) {
-		if (ConfigHandler.CLIENT.enableArmorModels.getValue()) {
-			if (model == null) {
-				model = provideArmorModelForSlot(slot);
-			}
-			return model;
+		if (model == null) {
+			model = provideArmorModelForSlot(slot);
 		}
-
-		return super.getArmorModel(entityLiving, itemStack, armorSlot, original);
+		return model;
 	}
 
 	@Environment(EnvType.CLIENT)
