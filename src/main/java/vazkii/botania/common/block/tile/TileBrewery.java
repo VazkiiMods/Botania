@@ -213,12 +213,6 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, T
 		mana = tag.getInt(TAG_MANA);
 	}
 
-	@Nonnull
-	@Override
-	public Box getRenderBoundingBox() {
-		return INFINITE_EXTENT_AABB;
-	}
-
 	@Override
 	protected SimpleInventory createItemHandler() {
 		return new SimpleInventory(7) {

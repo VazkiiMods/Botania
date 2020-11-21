@@ -26,6 +26,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.tag.FluidTags;
 import net.minecraft.text.Text;
@@ -85,7 +86,6 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	public ItemFlightTiara(Settings props) {
 		super(props);
-		MinecraftForge.EVENT_BUS.addListener(this::playerLoggedOut);
 	}
 
 	@Override
@@ -194,8 +194,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			}
 	}
 
-	private void playerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
-		String username = event.getPlayer().getGameProfile().getName();
+	public static void playerLoggedOut(ServerPlayerEntity player) {
+		String username = player.getGameProfile().getName();
 		playersWithFlight.remove(username + ":false");
 		playersWithFlight.remove(username + ":true");
 	}

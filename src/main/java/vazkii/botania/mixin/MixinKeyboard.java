@@ -1,0 +1,21 @@
+package vazkii.botania.mixin;
+
+import net.minecraft.client.Keyboard;
+import net.minecraft.client.MinecraftClient;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import vazkii.botania.client.core.handler.KonamiHandler;
+import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
+
+@Mixin(Keyboard.class)
+public class MixinKeyboard {
+	@Inject(at = @At("RETURN"), method = "onKey")
+	private void keyEvent(long window, int key, int scancode, int action, int modifiers, CallbackInfo ci) {
+		if (window == MinecraftClient.getInstance().getWindow().getHandle()) {
+			ItemDodgeRing.onKeyDown();
+			KonamiHandler.handleInput(key, action, modifiers);
+		}
+	}
+}

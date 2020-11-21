@@ -42,10 +42,10 @@ public class KonamiHandler {
 		}
 	}
 
-	public static void handleInput(InputEvent.KeyInputEvent evt) {
+	public static void handleInput(int key, int action, int modifiers) {
 		MinecraftClient mc = MinecraftClient.getInstance();
-		if (evt.getModifiers() == 0 && evt.getAction() == GLFW.GLFW_PRESS && ItemLexicon.isOpen()) {
-			if (konamiTime == 0 && evt.getKey() == KONAMI_CODE[nextLetter]) {
+		if (modifiers == 0 && action == GLFW.GLFW_PRESS && ItemLexicon.isOpen()) {
+			if (konamiTime == 0 && key == KONAMI_CODE[nextLetter]) {
 				nextLetter++;
 				if (nextLetter >= KONAMI_CODE.length) {
 					mc.getSoundManager().play(PositionedSoundInstance.master(ModSounds.way, 1.0F));

@@ -101,7 +101,6 @@ public class Botania implements ModInitializer {
 	public void onInitialize() {
 		ConfigHandler.setup();
 
-		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 		commonSetup();
 		IMCSender.enqueue();
 		modBus.addListener(this::loadComplete);
@@ -154,7 +153,6 @@ public class Botania implements ModInitializer {
 		CorporeaHelper.instance().registerRequestMatcher(prefix("item_stack"), CorporeaItemStackMatcher.class, CorporeaItemStackMatcher::createFromNBT);
 
 		if (Botania.gardenOfGlassLoaded) {
-			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::onPlayerJoin);
 			UseBlockCallback.EVENT.register(SkyblockWorldEvents::onPlayerInteract);
 		}
 

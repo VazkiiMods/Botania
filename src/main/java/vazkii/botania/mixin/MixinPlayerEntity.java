@@ -14,6 +14,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -22,7 +23,6 @@ import org.apache.commons.lang3.mutable.MutableFloat;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -35,6 +35,7 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 import vazkii.botania.common.core.ModStats;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.PixieHandler;
+import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.equipment.bauble.ItemHolyCloak;
 import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
@@ -50,6 +51,8 @@ public abstract class MixinPlayerEntity {
 
 	@Shadow
 	public abstract void increaseStat(Identifier stat, int amount);
+
+	@Shadow @Final public PlayerInventory inventory;
 
 	/**
 	 * Registers the pixie spawn chance attribute on players
@@ -120,5 +123,15 @@ public abstract class MixinPlayerEntity {
 	@ModifyArg(index = 0, method = "handleFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;handleFallDamage(FF)Z"))
 	private float cushionFall(float originalDist) {
 		return ItemTravelBelt.onPlayerFall((PlayerEntity) (Object) this, originalDist);
+	}
+
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerInventory;updateItems()V"), method = "tickMovement")
+	private void tickArmor(CallbackInfo ci) {
+		PlayerEntity self = (PlayerEntity) (Object) this;
+		for (ItemStack stack : inventory.armor) {
+			if (stack.getItem() instanceof ItemManasteelArmor) {
+				((ItemManasteelArmor) stack.getItem()).onArmorTick(stack, self.world, self);
+			}
+		}
 	}
 }

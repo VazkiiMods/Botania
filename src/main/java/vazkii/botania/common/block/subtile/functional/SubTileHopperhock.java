@@ -169,7 +169,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 			IManaItem manaItem = (IManaItem) item;
 			return getFullness(manaItem, stack) == getFullness(manaItem, filter);
 		} else {
-			return ItemStack.areItemStackTagsEqual(filter, stack);
+			return ItemStack.areTagsEqual(filter, stack);
 		}
 	}
 

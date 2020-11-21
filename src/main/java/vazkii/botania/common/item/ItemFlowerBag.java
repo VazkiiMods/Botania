@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.HopperBlockEntity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -45,7 +46,6 @@ public class ItemFlowerBag extends Item {
 
 	public ItemFlowerBag(Settings props) {
 		super(props);
-		MinecraftForge.EVENT_BUS.addListener(this::onPickupItem);
 	}
 
 	public static boolean isValid(int slot, ItemStack stack) {
@@ -64,18 +64,18 @@ public class ItemFlowerBag extends Item {
 		};
 	}
 
-	private void onPickupItem(EntityItemPickupEvent event) {
-		ItemStack entityStack = event.getItem().getStack();
+	public static boolean onPickupItem(ItemEntity entity, PlayerEntity player) {
+		ItemStack entityStack = entity.getStack();
 		if (Block.getBlockFromItem(entityStack.getItem()) instanceof BlockModFlower && entityStack.getCount() > 0) {
 			int color = ((BlockModFlower) Block.getBlockFromItem(entityStack.getItem())).color.getId();
 
-			for (int i = 0; i < event.getPlayer().inventory.size(); i++) {
-				if (i == event.getPlayer().inventory.selectedSlot) {
+			for (int i = 0; i < player.inventory.size(); i++) {
+				if (i == player.inventory.selectedSlot) {
 					continue; // prevent item deletion
 				}
 
-				ItemStack bag = event.getPlayer().inventory.getStack(i);
-				if (!bag.isEmpty() && bag.getItem() == this) {
+				ItemStack bag = player.inventory.getStack(i);
+				if (!bag.isEmpty() && bag.getItem() == ModItems.flowerBag) {
 					SimpleInventory bagInv = getInventory(bag);
 					ItemStack existing = bagInv.getStack(color);
 					int newCount = Math.min(existing.getCount() + entityStack.getCount(),
@@ -89,23 +89,23 @@ public class ItemFlowerBag extends Item {
 							existing.increment(numPickedUp);
 							entityStack.decrement(numPickedUp);
 						}
-						event.getItem().setStack(entityStack);
+						entity.setStack(entityStack);
 						bagInv.markDirty();
 
-						event.setCanceled(true);
-						if (!event.getItem().isSilent()) {
-							event.getItem().world.playSound(null, event.getPlayer().getX(), event.getPlayer().getY(), event.getPlayer().getZ(),
+						if (!entity.isSilent()) {
+							entity.world.playSound(null, player.getX(), player.getY(), player.getZ(),
 									SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F,
-									((event.getItem().world.random.nextFloat() - event.getItem().world.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+									((entity.world.random.nextFloat() - entity.world.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
 						}
-						((ServerPlayerEntity) event.getPlayer()).networkHandler.sendPacket(new ItemPickupAnimationS2CPacket(event.getItem().getEntityId(), event.getPlayer().getEntityId(), numPickedUp));
-						event.getPlayer().currentScreenHandler.sendContentUpdates();
+						((ServerPlayerEntity) player).networkHandler.sendPacket(new ItemPickupAnimationS2CPacket(entity.getEntityId(), player.getEntityId(), numPickedUp));
+						player.currentScreenHandler.sendContentUpdates();
 
-						return;
+						return true;
 					}
 				}
 			}
 		}
+		return false;
 	}
 
 	@Nonnull

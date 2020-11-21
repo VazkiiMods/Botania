@@ -437,10 +437,4 @@ public class TileAlfPortal extends TileMod implements Tickable {
 
 		return false;
 	}
-
-	@Nonnull
-	@Override
-	public Box getRenderBoundingBox() {
-		return INFINITE_EXTENT_AABB;
-	}
 }

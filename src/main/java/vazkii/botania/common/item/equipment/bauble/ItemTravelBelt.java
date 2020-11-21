@@ -18,6 +18,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
@@ -47,7 +48,6 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	public ItemTravelBelt(Settings props) {
 		this(props, 0.035F, 0.2F, 2F);
-		MinecraftForge.EVENT_BUS.addListener(this::playerLoggedOut);
 	}
 
 	public static float onPlayerFall(PlayerEntity player, float dist) {
@@ -127,8 +127,8 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		return !result.isEmpty() && ManaItemHandler.instance().requestManaExact(result, player, COST, false);
 	}
 
-	private void playerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
-		String username = event.getPlayer().getGameProfile().getName();
+	public static void playerLoggedOut(ServerPlayerEntity player) {
+		String username = player.getGameProfile().getName();
 		playersWithStepup.remove(username + ":false");
 		playersWithStepup.remove(username + ":true");
 	}

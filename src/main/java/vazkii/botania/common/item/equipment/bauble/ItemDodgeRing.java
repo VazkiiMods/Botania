@@ -41,7 +41,7 @@ public class ItemDodgeRing extends ItemBauble {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static void onKeyDown(InputEvent.KeyInputEvent event) {
+	public static void onKeyDown() {
 		MinecraftClient mc = MinecraftClient.getInstance();
 		if (mc.player == null) {
 			return;
