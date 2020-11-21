@@ -25,16 +25,6 @@ import javax.annotation.Nullable;
 public class InventoryHelper {
 
 	@Nullable
-	public static InvWithLocation getInventoryWithLocation(World world, BlockPos pos, Direction side) {
-		IItemHandler ret = getInventory(world, pos, side);
-		if (ret == null) {
-			return null;
-		} else {
-			return new InvWithLocation(ret, world, pos);
-		}
-	}
-
-	@Nullable
 	public static IItemHandler getInventory(World world, BlockPos pos, Direction side) {
 		TileEntity te = world.getTileEntity(pos);
 

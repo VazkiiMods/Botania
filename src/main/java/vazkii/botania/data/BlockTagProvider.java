@@ -43,6 +43,8 @@ public class BlockTagProvider extends BlockTagsProvider {
 		getOrCreateBuilder(BlockTags.WALLS).add(getModBlocks(b -> b instanceof WallBlock));
 		getOrCreateBuilder(BlockTags.FENCES).add(getModBlocks(b -> b instanceof FenceBlock));
 		getOrCreateBuilder(BlockTags.FENCE_GATES).add(getModBlocks(b -> b instanceof FenceGateBlock));
+		getOrCreateBuilder(BlockTags.DRAGON_IMMUNE).add(ModBlocks.infrangiblePlatform);
+		getOrCreateBuilder(BlockTags.WITHER_IMMUNE).add(ModBlocks.infrangiblePlatform);
 
 		getOrCreateBuilder(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
