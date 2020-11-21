@@ -133,7 +133,6 @@ public final class ModelHandler {
 		BlockEntityRendererRegistry.INSTANCE.register(ModSubtiles.SOLEGNOLIA, RenderTileSpecialFlower::new);
 		BlockEntityRendererRegistry.INSTANCE.register(ModSubtiles.SOLEGNOLIA_CHIBI, RenderTileSpecialFlower::new);
 		BlockEntityRendererRegistry.INSTANCE.register(ModSubtiles.ORECHID_IGNEM, RenderTileSpecialFlower::new);
-		// todo 1.16 need access to the perspective for pylons, which fabric-api doesn't provide. needs mixin.
 		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.manaPylon.asItem(), new RenderTilePylon.TEISR());
 		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.naturaPylon.asItem(), new RenderTilePylon.TEISR());
 		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.gaiaPylon.asItem(), new RenderTilePylon.TEISR());

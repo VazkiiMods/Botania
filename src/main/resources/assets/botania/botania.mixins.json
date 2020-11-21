@@ -17,6 +17,7 @@
     "AccessorFireBlock",
     "AccessorGoalSelector",
     "AccessorHoeItem",
+    "AccessorHopperBlockEntity",
     "AccessorItemEntity",
     "AccessorLivingEntity",
     "AccessorMobEntity",

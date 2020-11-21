@@ -23,6 +23,8 @@ import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
+import vazkii.botania.common.components.EntityComponents;
+import vazkii.botania.common.components.GhostRailComponent;
 
 import javax.annotation.Nonnull;
 
@@ -30,7 +32,7 @@ import java.util.*;
 
 public class BlockGhostRail extends AbstractRailBlock {
 
-	private static final String TAG_FLOAT_TICKS = "botania:float_ticks";
+	public static final String TAG_FLOAT_TICKS = "botania:float_ticks";
 
 	public BlockGhostRail(Settings builder) {
 		super(true, builder);
@@ -44,7 +46,8 @@ public class BlockGhostRail extends AbstractRailBlock {
 
 	private void updateFloating(AbstractMinecartEntity cart) {
 		cart.world.getProfiler().push("cartFloating");
-		int floatTicks = cart.getPersistentData().getInt(TAG_FLOAT_TICKS);
+		GhostRailComponent persistentData = EntityComponents.GHOST_RAIL.get(cart);
+		int floatTicks = persistentData.floatTicks;
 		Preconditions.checkState(floatTicks > 0);
 
 		BlockPos entPos = cart.getBlockPos();
@@ -54,7 +57,7 @@ public class BlockGhostRail extends AbstractRailBlock {
 		if (state.getBlock() == ModBlocks.dreamwood
 				|| (state.getBlock() != ModBlocks.ghostRail && state.isIn(BlockTags.RAILS))) {
 			cart.world.syncWorldEvent(2003, entPos, 0);
-			cart.getPersistentData().putInt(TAG_FLOAT_TICKS, 0);
+			persistentData.floatTicks = 0;
 		} else {
 			BlockPos down = entPos.down();
 			BlockState stateBelow = cart.world.getBlockState(down);
@@ -63,7 +66,7 @@ public class BlockGhostRail extends AbstractRailBlock {
 				cart.noClip = true;
 			}
 			cart.setVelocity(cart.getVelocity().getX() * 1.4, 0.2, cart.getVelocity().getZ() * 1.4);
-			cart.getPersistentData().putInt(TAG_FLOAT_TICKS, floatTicks - 1);
+			persistentData.floatTicks--;
 			cart.world.syncWorldEvent(2000, entPos, 0);
 		}
 
@@ -72,7 +75,7 @@ public class BlockGhostRail extends AbstractRailBlock {
 
 	public void onMinecartPass(World world, AbstractMinecartEntity cart) {
 		if (!world.isClient) {
-			cart.getPersistentData().putInt(TAG_FLOAT_TICKS, 20);
+			EntityComponents.GHOST_RAIL.get(cart).floatTicks = 20;
 			updateFloating(cart);
 		}
 	}
@@ -82,14 +85,15 @@ public class BlockGhostRail extends AbstractRailBlock {
 			return;
 		}
 
-		if (!c.isAlive() || c.getPersistentData().getInt(TAG_FLOAT_TICKS) <= 0) {
+		GhostRailComponent persistentData = EntityComponents.GHOST_RAIL.get(c);
+		if (!c.isAlive() || persistentData.floatTicks <= 0) {
 			c.noClip = false;
 			return;
 		}
 
 		updateFloating(c);
 
-		if (c.getPersistentData().getInt(TAG_FLOAT_TICKS) <= 0) {
+		if (persistentData.floatTicks <= 0) {
 			c.noClip = false;
 		}
 	}

@@ -1,11 +1,10 @@
 package vazkii.botania.common.components;
 
-import nerdhub.cardinal.components.api.ComponentType;
-import nerdhub.cardinal.components.api.component.extension.TypeAwareComponent;
+import dev.onyxstudios.cca.api.v3.component.Component;
 import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.nbt.CompoundTag;
 
-public class NarslimmusComponent implements TypeAwareComponent {
+public class NarslimmusComponent implements Component {
 	public static final String TAG_WORLD_SPAWNED = "botania:world_spawned";
 	private boolean naturalSpawned = false;
 
@@ -13,19 +12,13 @@ public class NarslimmusComponent implements TypeAwareComponent {
 	}
 
 	@Override
-	public ComponentType<?> getComponentType() {
-		return EntityComponents.NARSLIMMUS;
-	}
-
-	@Override
-	public void fromTag(CompoundTag tag) {
+	public void readFromNbt(CompoundTag tag) {
 		naturalSpawned = tag.getBoolean(TAG_WORLD_SPAWNED);
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag tag) {
+	public void writeToNbt(CompoundTag tag) {
 		tag.putBoolean(TAG_WORLD_SPAWNED, naturalSpawned);
-		return tag;
 	}
 
 	public boolean isNaturalSpawned() {

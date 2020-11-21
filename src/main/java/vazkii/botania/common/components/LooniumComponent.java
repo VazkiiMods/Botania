@@ -1,6 +1,6 @@
 package vazkii.botania.common.components;
 
-import nerdhub.cardinal.components.api.component.Component;
+import dev.onyxstudios.cca.api.v3.component.Component;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 
@@ -29,7 +29,7 @@ public class LooniumComponent implements Component {
 	}
 
 	@Override
-	public void fromTag(CompoundTag tag) {
+	public void readFromNbt(CompoundTag tag) {
 		if (tag.contains("toDrop")) {
 			toDrop = ItemStack.fromTag(tag.getCompound("toDrop"));
 		} else {
@@ -38,10 +38,9 @@ public class LooniumComponent implements Component {
 	}
 
 	@Override
-	public CompoundTag toTag(CompoundTag tag) {
+	public void writeToNbt(CompoundTag tag) {
 		if (!toDrop.isEmpty()) {
 			tag.put("toDrop", toDrop.toTag(new CompoundTag()));
 		}
-		return tag;
 	}
 }

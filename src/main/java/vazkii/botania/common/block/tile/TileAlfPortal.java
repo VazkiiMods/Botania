@@ -35,6 +35,7 @@ import vazkii.botania.common.advancements.AlfPortalBreadTrigger;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.block.tile.mana.TilePool;
+import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ItemLexicon;
@@ -65,7 +66,7 @@ public class TileAlfPortal extends TileMod implements Tickable {
 	private static final String TAG_TICKS_SINCE_LAST_ITEM = "ticksSinceLastItem";
 	private static final String TAG_STACK_COUNT = "stackCount";
 	private static final String TAG_STACK = "portalStack";
-	private static final String TAG_PORTAL_FLAG = "_elvenPortal";
+	public static final String TAG_PORTAL_FLAG = "_elvenPortal";
 
 	private final List<ItemStack> stacksIn = new ArrayList<>();
 
@@ -110,7 +111,7 @@ public class TileAlfPortal extends TileMod implements Tickable {
 
 					ItemStack stack = item.getStack();
 					boolean consume;
-					if (item.getPersistentData().contains(TAG_PORTAL_FLAG)) {
+					if (EntityComponents.INTERNAL_ITEM.get(item).alfPortalSpawned) {
 						consume = false;
 					} else if (stack.getItem() instanceof ItemLexicon) {
 						consume = true;
@@ -298,7 +299,7 @@ public class TileAlfPortal extends TileMod implements Tickable {
 
 	private void spawnItem(ItemStack stack) {
 		ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, stack);
-		item.getPersistentData().putBoolean(TAG_PORTAL_FLAG, true);
+		EntityComponents.INTERNAL_ITEM.get(item).alfPortalSpawned = true;
 		world.spawnEntity(item);
 		ticksSinceLastItem = 0;
 	}

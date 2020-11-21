@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.core;
 
+import net.fabricmc.fabric.impl.item.group.ItemGroupExtensions;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -28,8 +29,13 @@ public final class BotaniaCreativeTab extends ItemGroup {
 	public static final BotaniaCreativeTab INSTANCE = new BotaniaCreativeTab();
 
 	public BotaniaCreativeTab() {
-		super(LibMisc.MOD_ID);
+		super(computeIndex(), LibMisc.MOD_ID);
 		setTexture(LibResources.GUI_CREATIVE);
+	}
+
+	private static int computeIndex() {
+		((ItemGroupExtensions)ItemGroup.BUILDING_BLOCKS).fabric_expandArray();
+		return ItemGroup.GROUPS.length - 1;
 	}
 
 	@Nonnull

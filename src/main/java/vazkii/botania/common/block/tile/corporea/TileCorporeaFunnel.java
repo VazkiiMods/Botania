@@ -9,8 +9,10 @@
 package vazkii.botania.common.block.tile.corporea;
 
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.decoration.ItemFrameEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
@@ -70,13 +72,13 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 
 	@Override
 	public void doCorporeaRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
-		IItemHandler inv = getInv();
+		Inventory inv = getInv();
 
 		List<ItemStack> stacks = CorporeaHelper.instance().requestItem(request, count, spark, true).getStacks();
 		spark.onItemsRequested(stacks);
 		for (ItemStack reqStack : stacks) {
-			if (inv != null && ItemHandlerHelper.insertItemStacked(inv, reqStack, true).isEmpty()) {
-				ItemHandlerHelper.insertItemStacked(inv, reqStack, false);
+			if (inv != null && InventoryHelper.simulateTransfer(inv, reqStack, Direction.UP).isEmpty()) {
+				HopperBlockEntity.transfer(null, inv, reqStack, Direction.UP);
 			} else {
 				ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
 				world.spawnEntity(item);
@@ -84,9 +86,9 @@ public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaReq
 		}
 	}
 
-	private IItemHandler getInv() {
+	private Inventory getInv() {
 		BlockEntity te = world.getBlockEntity(pos.down());
-		IItemHandler ret = InventoryHelper.getInventory(world, pos.down(), Direction.UP);
+		Inventory ret = InventoryHelper.getInventory(world, pos.down(), Direction.UP);
 		if (ret == null) {
 			ret = InventoryHelper.getInventory(world, pos.down(), null);
 		}

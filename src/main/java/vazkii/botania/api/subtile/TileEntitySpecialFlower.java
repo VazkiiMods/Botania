@@ -10,6 +10,7 @@ package vazkii.botania.api.subtile;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -48,7 +49,7 @@ import javax.annotation.Nullable;
 /**
  * Common superclass of all magical flower TE's
  */
-public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IWandBindable, IFloatingFlowerProvider, RenderAttachmentBlockEntity {
+public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IWandBindable, IFloatingFlowerProvider, RenderAttachmentBlockEntity, BlockEntityClientSerializable {
 	public static final Identifier DING_SOUND_EVENT = new Identifier(BotaniaAPI.MODID, "ding");
 	public static final int SLOWDOWN_FACTOR_PODZOL = 5;
 	public static final int SLOWDOWN_FACTOR_MYCEL = 10;
@@ -158,16 +159,15 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 	}
 
 	@Override
-	public BlockEntityUpdateS2CPacket toUpdatePacket() {
-		CompoundTag cmp = new CompoundTag();
-		writeToPacketNBT(cmp);
-		return new BlockEntityUpdateS2CPacket(getPos(), -1, cmp);
+	public CompoundTag toClientTag(CompoundTag compoundTag) {
+		writeToPacketNBT(compoundTag);
+		return compoundTag;
 	}
 
 	@Override
-	public void onDataPacket(ClientConnection net, BlockEntityUpdateS2CPacket packet) {
+	public void fromClientTag(CompoundTag tag) {
 		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
-		readFromPacketNBT(packet.getCompoundTag());
+		readFromPacketNBT(tag);
 		if (oldType != floatingData.getIslandType() && isFloating()) {
 			world.updateListeners(getPos(), getCachedState(), getCachedState(), 0);
 		}

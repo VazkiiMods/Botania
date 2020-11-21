@@ -1,18 +1,22 @@
 package vazkii.botania.common.components;
 
+import dev.onyxstudios.cca.api.v3.component.ComponentKey;
+import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
-import nerdhub.cardinal.components.api.ComponentRegistry;
-import nerdhub.cardinal.components.api.ComponentType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.mob.*;
+import net.minecraft.entity.vehicle.AbstractMinecartEntity;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class EntityComponents implements EntityComponentInitializer {
-	public static final ComponentType<LooniumComponent> LOONIUM_DROP = ComponentRegistry.INSTANCE.registerStatic(prefix("loonium_drop"), LooniumComponent.class);
-	public static final ComponentType<EthicalComponent> TNT_ETHICAL = ComponentRegistry.INSTANCE.registerStatic(prefix("tnt_ethical"), EthicalComponent.class);
-	public static final ComponentType<NarslimmusComponent> NARSLIMMUS = ComponentRegistry.INSTANCE.registerStatic(prefix("narslimmus"), NarslimmusComponent.class);
+	public static final ComponentKey<LooniumComponent> LOONIUM_DROP = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("loonium_drop"), LooniumComponent.class);
+	public static final ComponentKey<EthicalComponent> TNT_ETHICAL = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("tnt_ethical"), EthicalComponent.class);
+	public static final ComponentKey<NarslimmusComponent> NARSLIMMUS = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("narslimmus"), NarslimmusComponent.class);
+	public static final ComponentKey<ItemFlagsComponent> INTERNAL_ITEM = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("iitem"), ItemFlagsComponent.class);
+	public static final ComponentKey<GhostRailComponent> GHOST_RAIL = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("ghost_rail"), GhostRailComponent.class);
 
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
@@ -27,7 +31,8 @@ public class EntityComponents implements EntityComponentInitializer {
 		registry.registerFor(SpiderEntity.class, LOONIUM_DROP, e -> new LooniumComponent());
 
 		registry.registerFor(TntEntity.class, TNT_ETHICAL, EthicalComponent::new);
-
 		registry.registerFor(SlimeEntity.class, NARSLIMMUS, NarslimmusComponent::new);
+		registry.registerFor(ItemEntity.class, INTERNAL_ITEM, e -> new ItemFlagsComponent());
+		registry.registerFor(AbstractMinecartEntity.class, GHOST_RAIL, e -> new GhostRailComponent());
 	}
 }

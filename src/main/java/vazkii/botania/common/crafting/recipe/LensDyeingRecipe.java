@@ -10,6 +10,7 @@ package vazkii.botania.common.crafting.recipe;
 
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
@@ -31,14 +32,14 @@ public class LensDyeingRecipe extends SpecialCraftingRecipe {
 	public static final SpecialRecipeSerializer<LensDyeingRecipe> SERIALIZER = new SpecialRecipeSerializer<>(LensDyeingRecipe::new);
 
 	private final Lazy<List<Ingredient>> dyes = new Lazy<>(() -> Arrays.asList(
-			Ingredient.fromTag(Tags.Items.DYES_WHITE), Ingredient.fromTag(Tags.Items.DYES_ORANGE),
-			Ingredient.fromTag(Tags.Items.DYES_MAGENTA), Ingredient.fromTag(Tags.Items.DYES_LIGHT_BLUE),
-			Ingredient.fromTag(Tags.Items.DYES_YELLOW), Ingredient.fromTag(Tags.Items.DYES_LIME),
-			Ingredient.fromTag(Tags.Items.DYES_PINK), Ingredient.fromTag(Tags.Items.DYES_GRAY),
-			Ingredient.fromTag(Tags.Items.DYES_LIGHT_GRAY), Ingredient.fromTag(Tags.Items.DYES_CYAN),
-			Ingredient.fromTag(Tags.Items.DYES_PURPLE), Ingredient.fromTag(Tags.Items.DYES_BLUE),
-			Ingredient.fromTag(Tags.Items.DYES_BROWN), Ingredient.fromTag(Tags.Items.DYES_GREEN),
-			Ingredient.fromTag(Tags.Items.DYES_RED), Ingredient.fromTag(Tags.Items.DYES_BLACK),
+			Ingredient.ofItems(Items.WHITE_DYE), Ingredient.ofItems(Items.ORANGE_DYE),
+			Ingredient.ofItems(Items.MAGENTA_DYE), Ingredient.ofItems(Items.LIGHT_BLUE_DYE),
+			Ingredient.ofItems(Items.YELLOW_DYE), Ingredient.ofItems(Items.LIME_DYE),
+			Ingredient.ofItems(Items.PINK_DYE), Ingredient.ofItems(Items.GRAY_DYE),
+			Ingredient.ofItems(Items.LIGHT_GRAY_DYE), Ingredient.ofItems(Items.CYAN_DYE),
+			Ingredient.ofItems(Items.PURPLE_DYE), Ingredient.ofItems(Items.BLUE_DYE),
+			Ingredient.ofItems(Items.BROWN_DYE), Ingredient.ofItems(Items.GREEN_DYE),
+			Ingredient.ofItems(Items.RED_DYE), Ingredient.ofItems(Items.BLACK_DYE),
 			Ingredient.ofItems(ModItems.manaPearl)
 	));
 

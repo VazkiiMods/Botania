@@ -14,6 +14,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.resource.language.I18n;
@@ -21,6 +22,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -81,9 +83,10 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 			}
 
 			ItemStack stack = item.getStack();
-			IItemHandler invToPutItemIn = null;
+			Inventory invToPutItemIn = null;
 			boolean priorityInv = false;
 			int amountToPutIn = 0;
+			Direction direction = null;
 
 			for (Direction dir : Direction.values()) {
 				BlockPos pos_ = pos.offset(dir);
@@ -93,7 +96,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 					List<ItemStack> filter = getFilterForInventory(pos_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
 
-					ItemStack simulate = ItemHandlerHelper.insertItem(inv.getHandler(), stack, true);
+					ItemStack simulate = InventoryHelper.simulateTransfer(inv.getHandler(), stack, dir.getOpposite());
 					int availablePut = stack.getCount() - simulate.getCount();
 
 					canAccept &= availablePut > 0;
@@ -109,6 +112,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 							invToPutItemIn = inv.getHandler();
 							priorityInv = priority;
 							amountToPutIn = availablePut;
+							direction = dir;
 						}
 					}
 				}
@@ -116,7 +120,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 
 			if (invToPutItemIn != null && item.isAlive()) {
 				SubTileSpectranthemum.spawnExplosionParticles(item, 3);
-				ItemHandlerHelper.insertItem(invToPutItemIn, stack.split(amountToPutIn), false);
+				HopperBlockEntity.transfer(null, invToPutItemIn, stack.split(amountToPutIn), direction);
 				item.setStack(stack); // Just in case someone subclasses EntityItem and changes something important.
 				pulledAny = true;
 			}

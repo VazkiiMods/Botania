@@ -8,16 +8,17 @@
  */
 package vazkii.botania.common.core.helper;
 
+import net.minecraft.inventory.Inventory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class InvWithLocation {
 
-	private final IItemHandler handler;
+	private final Inventory handler;
 	private final World world;
 	private final BlockPos pos;
 
-	public InvWithLocation(IItemHandler itemHandler, World world, BlockPos pos) {
+	public InvWithLocation(Inventory itemHandler, World world, BlockPos pos) {
 		this.handler = itemHandler;
 		this.world = world;
 		this.pos = pos;
@@ -36,7 +37,7 @@ public class InvWithLocation {
 				&& getPos().equals(((InvWithLocation) o).getPos());
 	}
 
-	public IItemHandler getHandler() {
+	public Inventory getHandler() {
 		return handler;
 	}
 

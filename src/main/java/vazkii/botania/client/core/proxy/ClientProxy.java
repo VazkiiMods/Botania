@@ -117,27 +117,18 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		ShaderHelper.initShaders();
 
 		ModItems.registerGuis();
-		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 		ClientLifecycleEvents.CLIENT_STARTED.register(this::loadComplete);
 		LivingEntityFeatureRendererRegistrationCallback.EVENT.register(this::initAuxiliaryRender);
-		modBus.addListener(MiscellaneousIcons.INSTANCE::onTextureStitchPre);
-		modBus.addListener(MiscellaneousIcons.INSTANCE::onTextureStitchPost);
 		ModelLoadingRegistry.INSTANCE.registerAppender(MiscellaneousIcons.INSTANCE::onModelRegister);
-		modBus.addListener(MiscellaneousIcons.INSTANCE::onModelBake);
 		ModelLoadingRegistry.INSTANCE.registerAppender(ModelHandler::registerModels);
 		ModParticles.FactoryHandler.registerFactories();
 
-		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		ItemTooltipCallback.EVENT.register(TooltipHandler::onTooltipEvent);
 		ClientTickEvents.END_CLIENT_TICK.register(KonamiHandler::clientTick);
-		forgeBus.addListener(KonamiHandler::handleInput);
 		BookDrawScreenCallback.EVENT.register(KonamiHandler::renderBook);
 		HudRenderCallback.EVENT.register(HUDHandler::onDrawScreenPost);
 		forgeBus.addListener(CorporeaInputHandler::buttonPressed);
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
-		forgeBus.addListener(BossBarHandler::onBarRender);
-		forgeBus.addListener(RenderMagicLandmine::onWorldRenderLast);
-		forgeBus.addListener(ItemDodgeRing::onKeyDown);
 
 		PersistentVariableHelper.init();
 		PersistentVariableHelper.save();

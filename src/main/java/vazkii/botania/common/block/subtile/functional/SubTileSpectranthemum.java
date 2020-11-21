@@ -26,8 +26,9 @@ import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.components.EntityComponents;
+import vazkii.botania.common.components.ItemFlagsComponent;
 import vazkii.botania.common.network.PacketBotaniaEffect;
-import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	private static final int RANGE = 2;
 	private static final int BIND_RANGE = 12;
 
-	private static final String TAG_TELEPORTED = "botania:teleported";
+	public static final String TAG_TELEPORTED = "botania:teleported";
 
 	private BlockPos bindPos = new BlockPos(0, -1, 0);
 
@@ -62,8 +63,9 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 			int slowdown = getSlowdownFactor();
 
 			for (ItemEntity item : items) {
+				ItemFlagsComponent flags = EntityComponents.INTERNAL_ITEM.get(item);
 				int age = ((AccessorItemEntity) item).getAge();
-				if (age < 60 + slowdown || !item.isAlive() || item.getPersistentData().getBoolean(TAG_TELEPORTED)) {
+				if (age < 60 + slowdown || !item.isAlive() || flags.spectranthemumTeleported) {
 					continue;
 				}
 
@@ -78,7 +80,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 					if (getMana() >= cost) {
 						spawnExplosionParticles(item, 10);
 						item.updatePosition(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
-						item.getPersistentData().putBoolean(TAG_TELEPORTED, true);
+						flags.spectranthemumTeleported = true;
 						item.setVelocity(Vec3d.ZERO);
 						spawnExplosionParticles(item, 10);
 						addMana(-cost);
