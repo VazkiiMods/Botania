@@ -7,9 +7,9 @@ import javax.annotation.Nullable;
 
 public interface ExtendedShapeContext {
 	@Nullable
-	Entity getEntity();
+	Entity botania_getEntity();
 
 	static Entity getEntity(ShapeContext ctx) {
-		return ctx instanceof ExtendedShapeContext ? ((ExtendedShapeContext) ctx).getEntity() : null;
+		return ctx instanceof ExtendedShapeContext ? ((ExtendedShapeContext) ctx).botania_getEntity() : null;
 	}
 }

@@ -24,7 +24,7 @@ public class MixinEntityShapeContext implements ExtendedShapeContext {
 
 	@Nullable
 	@Override
-	public Entity getEntity() {
+	public Entity botania_getEntity() {
 		return entity;
 	}
 }
