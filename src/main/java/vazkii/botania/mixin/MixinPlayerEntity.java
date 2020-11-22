@@ -8,7 +8,9 @@
  */
 package vazkii.botania.mixin;
 
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.Entity;
@@ -42,10 +44,11 @@ import vazkii.botania.common.item.relic.ItemOdinRing;
 import vazkii.botania.common.entity.ModEntities;
 
 @Mixin(PlayerEntity.class)
-public abstract class MixinPlayerEntity {
-	@Shadow
-	@Final
-	public World world;
+public abstract class MixinPlayerEntity extends LivingEntity {
+
+	protected MixinPlayerEntity(EntityType<? extends LivingEntity> entityType, World world) {
+		super(entityType, world);
+	}
 
 	@Shadow
 	public abstract void increaseStat(Identifier stat, int amount);

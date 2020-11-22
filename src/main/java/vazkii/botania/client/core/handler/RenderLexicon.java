@@ -97,8 +97,8 @@ public class RenderLexicon {
 				float f10 = -0.2F * MathHelper.sin(swingProgress * (float) Math.PI);
 				int l = flag3 ? 1 : -1;
 				ms.translate((double) ((float) l * f5), (double) f6, (double) f10);
-				((AccessorFirstPersonRenderer) MinecraftClient.getInstance().getHeldItemRenderer()).callTransformSideFirstPerson(ms, handside, equipProgress);
-				((AccessorFirstPersonRenderer) MinecraftClient.getInstance().getHeldItemRenderer()).callTransformFirstPerson(ms, handside, swingProgress);
+				((AccessorFirstPersonRenderer) MinecraftClient.getInstance().getHeldItemRenderer()).callApplyEquipOffset(ms, handside, equipProgress);
+				((AccessorFirstPersonRenderer) MinecraftClient.getInstance().getHeldItemRenderer()).callApplySwingOffset(ms, handside, swingProgress);
 			}
 
 			doRender(stack, handside, ms, buffers, light, partialTicks);

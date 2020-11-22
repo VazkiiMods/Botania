@@ -68,7 +68,7 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
 			if (count == 5) {
 				if (player.canConsume(false)) {
-					((AccessorLivingEntity) player).setActiveItemStackUseCount(20);
+					((AccessorLivingEntity) player).setItemUseTimeLeft(20);
 				}
 			}
 		}

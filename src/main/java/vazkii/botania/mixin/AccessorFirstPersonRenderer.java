@@ -17,8 +17,8 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 @Mixin(HeldItemRenderer.class)
 public interface AccessorFirstPersonRenderer {
 	@Invoker
-	void callTransformSideFirstPerson(MatrixStack ms, Arm side, float equip);
+	void callApplyEquipOffset(MatrixStack ms, Arm side, float equip);
 
 	@Invoker
-	void callTransformFirstPerson(MatrixStack ms, Arm side, float swing);
+	void callApplySwingOffset(MatrixStack ms, Arm side, float swing);
 }

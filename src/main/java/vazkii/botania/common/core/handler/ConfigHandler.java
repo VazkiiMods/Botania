@@ -23,10 +23,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.nio.file.*;
 
 import static io.github.fablabsmc.fablabs.api.fiber.v1.schema.type.derived.ConfigTypes.*;
 
@@ -45,7 +42,9 @@ public final class ConfigHandler {
 	private static void writeDefaultConfig(ConfigTree config, Path path, JanksonValueSerializer serializer) {
 		try (OutputStream s = new BufferedOutputStream(Files.newOutputStream(path, StandardOpenOption.WRITE, StandardOpenOption.CREATE_NEW))) {
 			FiberSerialization.serialize(config, s, serializer);
-		} catch (IOException ignored) {}
+		} catch (IOException ignored) {
+			Botania.LOGGER.error("Error writing default config", ignored);
+		}
 	}
 
 	private static void setupConfig(ConfigTree config, Path p, JanksonValueSerializer serializer) {
@@ -60,6 +59,14 @@ public final class ConfigHandler {
 	}
 
 	public static void setup() {
+		try {
+			Files.createDirectory(Paths.get("config"));
+		} catch (FileAlreadyExistsException ignored) {
+
+		} catch (IOException e) {
+			Botania.LOGGER.warn("Failed to make config dir", e);
+		}
+
 		JanksonValueSerializer serializer = new JanksonValueSerializer(false);
 		ConfigTree common = COMMON.configure(ConfigTree.builder());
 		setupConfig(common, Paths.get("config", LibMisc.MOD_ID + "-common.json5"), serializer);

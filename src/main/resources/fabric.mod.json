@@ -34,9 +34,7 @@
   "mixins": [
     "botania.mixins.json"
   ],
-  "accessWidener": [
-    "botania.accesswidener"
-  ],
+  "accessWidener": "botania.accesswidener",
 
   "depends": {
     "fabricloader": ">=0.8",

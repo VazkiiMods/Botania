@@ -1,5 +1,7 @@
 package vazkii.botania.mixin;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
@@ -22,12 +24,11 @@ import vazkii.botania.common.item.rod.ItemGravityRod;
 import javax.annotation.Nullable;
 
 @Mixin(LivingEntity.class)
-public abstract class MixinLivingEntity {
-	@Shadow
-	public World world;
+public abstract class MixinLivingEntity extends Entity {
 
-	@Shadow
-	public abstract void dropStack(ItemStack stack);
+	public MixinLivingEntity(EntityType<?> type, World world) {
+		super(type, world);
+	}
 
 	@Shadow public abstract ItemStack getStackInHand(Hand hand);
 
