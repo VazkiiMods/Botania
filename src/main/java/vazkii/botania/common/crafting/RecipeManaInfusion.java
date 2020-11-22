@@ -91,7 +91,7 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 	@Nonnull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
-		return NonNullList.from(null, input);
+		return NonNullList.from(Ingredient.EMPTY, input);
 	}
 
 	@Nonnull

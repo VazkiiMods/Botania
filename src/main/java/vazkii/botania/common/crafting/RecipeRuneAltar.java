@@ -45,7 +45,7 @@ public class RecipeRuneAltar implements IRuneAltarRecipe {
 		Preconditions.checkArgument(mana <= 100000);
 		this.id = id;
 		this.output = output;
-		this.inputs = NonNullList.from(null, inputs);
+		this.inputs = NonNullList.from(Ingredient.EMPTY, inputs);
 		this.mana = mana;
 	}
 

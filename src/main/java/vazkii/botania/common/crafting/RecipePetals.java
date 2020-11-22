@@ -40,7 +40,7 @@ public class RecipePetals implements IPetalRecipe {
 	public RecipePetals(ResourceLocation id, ItemStack output, Ingredient... inputs) {
 		this.id = id;
 		this.output = output;
-		this.inputs = NonNullList.from(null, inputs);
+		this.inputs = NonNullList.from(Ingredient.EMPTY, inputs);
 	}
 
 	@Override

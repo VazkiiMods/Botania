@@ -45,7 +45,7 @@ public class RecipeBrew implements IBrewRecipe {
 	public RecipeBrew(ResourceLocation id, Brew brew, Ingredient... inputs) {
 		this.id = id;
 		this.brew = brew;
-		this.inputs = NonNullList.from(null, inputs);
+		this.inputs = NonNullList.from(Ingredient.EMPTY, inputs);
 	}
 
 	@Override
