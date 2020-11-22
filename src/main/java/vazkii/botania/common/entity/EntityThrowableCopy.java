@@ -82,10 +82,11 @@ public abstract class EntityThrowableCopy extends ProjectileEntity {
 			}
 		}
 
-		if (raytraceresult.getType() != HitResult.Type.MISS && !flag && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
+		if (raytraceresult.getType() != HitResult.Type.MISS && !flag) {
 			this.onCollision(raytraceresult);
 		}
 
+		this.checkBlockCollision();
 		Vec3d vector3d = this.getVelocity();
 		double d2 = this.getX() + vector3d.x;
 		double d0 = this.getY() + vector3d.y;

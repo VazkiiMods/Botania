@@ -22,6 +22,7 @@ import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketIndexKeybindRequest;
+import vazkii.botania.mixin.AccessorHandledScreen;
 import vazkii.botania.mixin.AccessorRecipeBookGui;
 import vazkii.botania.mixin.AccessorRecipeBookPage;
 
@@ -36,13 +37,13 @@ public class CorporeaInputHandler {
 	/** Filter for usable guis to handle requests. Added to in JEIBotaniaPlugin */
 	public static Predicate<Screen> supportedGuiFilter = gui -> gui instanceof HandledScreen;
 
-	public static void buttonPressed(GuiScreenEvent.KeyboardKeyPressedEvent.Pre event) {
+	public static boolean buttonPressed(int keyCode, int scanCode) {
 		MinecraftClient mc = MinecraftClient.getInstance();
 
-		if (mc.world == null || !supportedGuiFilter.test(mc.currentScreen) || event.getKeyCode() == 0
-				|| ClientProxy.CORPOREA_REQUEST.getKey().getCode() != event.getKeyCode()
+		if (mc.world == null || !supportedGuiFilter.test(mc.currentScreen)
+				|| !ClientProxy.CORPOREA_REQUEST.matchesKey(keyCode, scanCode)
 				|| TileCorporeaIndex.InputHandler.getNearbyIndexes(mc.player).isEmpty()) {
-			return;
+			return false;
 		}
 
 		ItemStack stack = getStackUnderMouse();
@@ -63,15 +64,16 @@ public class CorporeaInputHandler {
 				ItemStack requested = stack.copy();
 				requested.setCount(count);
 				PacketIndexKeybindRequest.send(requested);
-				event.setCanceled(true);
+				return true;
 			}
 		}
+		return false;
 	}
 
 	private static ItemStack getStackUnderMouse() {
 		Screen screen = MinecraftClient.getInstance().currentScreen;
 		if (screen instanceof HandledScreen) {
-			Slot slotUnderMouse = ((HandledScreen) screen).getSlotUnderMouse();
+			Slot slotUnderMouse = ((AccessorHandledScreen) screen).getFocusedSlot();
 			if (slotUnderMouse != null) {
 				ItemStack stack = slotUnderMouse.getStack().copy();
 				stack.setTag(null); // Wipe NBT of inventory items before request, as player items will often have data
