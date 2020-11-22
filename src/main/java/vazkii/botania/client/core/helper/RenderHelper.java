@@ -82,7 +82,6 @@ public final class RenderHelper {
 	public static final RenderLayer GAIA_PYLON_GLOW_DIRECT = getPylonGlowDirect("gaia_pylon_glow_direct", RenderTilePylon.GAIA_TEXTURE);
 
 	public static final RenderLayer ASTROLABE_PREVIEW;
-	public static final RenderLayer ENTITY_TRANSLUCENT_GOLD;
 
 	static {
 		// todo 1.16 update to match vanilla where necessary (alternate render targets, etc.)
@@ -186,10 +185,6 @@ public final class RenderHelper {
 		};
 		RenderLayer astrolabePreview = RenderLayer.of(LibResources.PREFIX_MOD + "astrolabe_preview", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, 7, 256, true, true, glState);
 		ASTROLABE_PREVIEW = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ALPHA, cb, astrolabePreview) : astrolabePreview;
-
-		glState = RenderLayer.MultiPhaseParameters.builder().texture(new RenderPhase.Texture(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(oneTenthAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
-		RenderLayer gold = RenderLayer.of(LibResources.PREFIX_MOD + "entity_translucent_gold", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, GL11.GL_QUADS, 128, true, true, glState);
-		ENTITY_TRANSLUCENT_GOLD = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.GOLD, null, gold) : gold;
 	}
 
 	private static RenderLayer getPylonGlowDirect(String name, Identifier texture) {
@@ -388,29 +383,5 @@ public final class RenderHelper {
 			buffer.addVertexData(matrixstack$entry, bakedquad, f, f1, f2, alpha, light, overlay, true);
 		}
 
-	}
-
-	// [VanillaCopy] Portions of ItemRenderer.renderItem
-	// Does not support TEISRs
-	public static void renderItemModelGold(@Nullable LivingEntity entity, ItemStack stack, ModelTransformation.Mode transform, MatrixStack ms, VertexConsumerProvider buffers, @Nullable World world, int light, int overlay) {
-		ItemRenderer ir = MinecraftClient.getInstance().getItemRenderer();
-		if (!stack.isEmpty()) {
-			BakedModel ibakedmodel = ir.getHeldItemModel(stack, world, entity);
-			ms.push();
-			boolean flag = transform == ModelTransformation.Mode.GUI;
-			boolean flag1 = flag || transform == ModelTransformation.Mode.GROUND || transform == ModelTransformation.Mode.FIXED;
-			if (stack.getItem() == Items.TRIDENT && flag1) {
-				ibakedmodel = ir.getModels().getModelManager().getModel(new ModelIdentifier("minecraft:trident#inventory"));
-			}
-
-			ibakedmodel.getTransformation().getTransformation(transform).apply(false, ms);
-			ms.translate(-0.5D, -0.5D, -0.5D);
-			if (!ibakedmodel.isBuiltin() && (stack.getItem() != Items.TRIDENT || flag1)) {
-				VertexConsumer ivertexbuilder = ItemRenderer.getItemGlintConsumer(buffers, ENTITY_TRANSLUCENT_GOLD, true, stack.hasGlint());
-				ir.renderBakedItemModel(ibakedmodel, stack, light, overlay, ms, ivertexbuilder);
-			}
-
-			ms.pop();
-		}
 	}
 }

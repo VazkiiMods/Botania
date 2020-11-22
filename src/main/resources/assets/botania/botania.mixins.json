@@ -44,7 +44,8 @@
     "MixinServerPlayerInteractionManager",
     "MixinServerPlayNetworkHandler",
     "MixinServerWorld",
-    "MixinSpawnHelper"
+    "MixinSpawnHelper",
+    "MixinThrowableEntity"
   ],
   "client": [
     "AccessorBiomeGeneratorTypeScreens",

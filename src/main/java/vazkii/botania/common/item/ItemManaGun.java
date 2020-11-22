@@ -53,12 +53,13 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 	private static final String TAG_LENS = "lens";
 	private static final String TAG_CLIP = "clip";
 	private static final String TAG_CLIP_POS = "clipPos";
+	private static final String TAG_COOLDOWN = "cooldown";
 
 	private static final int CLIP_SLOTS = 6;
 	private static final int COOLDOWN = 30;
 
 	public ItemManaGun(Settings props) {
-		super(props.maxDamageIfAbsent(COOLDOWN));
+		super(props);
 	}
 
 	@Nonnull
@@ -77,17 +78,17 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 			if (!world.isClient) {
 				ItemStack lens = getLens(stack);
 				ItemsRemainingRenderHandler.send(player, lens, -2);
-				stack.setDamage(effCd);
+				setCooldown(stack, effCd);
 			}
 			return TypedActionResult.success(stack, world.isClient);
-		} else if (stack.getDamage() == 0) {
+		} else if (getCooldown(stack) == 0) {
 			EntityManaBurst burst = getBurst(player, stack, true, hand);
 			if (burst != null && ManaItemHandler.instance().requestManaExact(stack, player, burst.getMana(), true)) {
 				if (!world.isClient) {
 					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
 					world.spawnEntity(burst);
 					ManaGunTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack);
-					stack.setDamage(effCd);
+					setCooldown(stack, effCd);
 				} else {
 					player.setVelocity(player.getVelocity().subtract(burst.getVelocity().multiply(0.1, 0.3, 0.1)));
 				}
@@ -309,9 +310,30 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		if (stack.isDamaged()) {
-			stack.setDamage(stack.getDamage() - 1);
+		if (getCooldown(stack) > 0) {
+			setCooldown(stack, getCooldown(stack) - 1);
 		}
+	}
+
+	/* todo 1.16-fabric
+	@Override
+	public boolean showDurabilityBar(ItemStack stack) {
+		return getCooldown(stack) > 0;
+	}
+
+	@Override
+	public double getDurabilityForDisplay(ItemStack stack) {
+		return getCooldown(stack) / (double) COOLDOWN;
+	}
+	*/
+
+	private int getCooldown(ItemStack stack) {
+		return stack.getOrCreateTag().getInt(TAG_COOLDOWN);
+	}
+
+	private void setCooldown(ItemStack stack, int cooldown) {
+		CompoundTag tag = stack.getOrCreateTag();
+		tag.putInt(TAG_COOLDOWN, cooldown);
 	}
 
 	@Override

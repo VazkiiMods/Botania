@@ -23,26 +23,6 @@ public class WorldTypeSkyblock extends GeneratorType {
 		super("botania-skyblock");
 	}
 
-	/* todo 1.16 these have moved elsewhere
-	
-	moved to DimensionRenderInfo
-	@Override
-	public float getCloudHeight() {
-		return 260f;
-	}
-	
-	moved to ClientWorldInfo
-	// In skyblock worlds, do not darken the sky until player hits y=0
-	@Override
-	public double getHorizon(World world) {
-		return 0.0D;
-	}
-	
-	@Override
-	public double voidFadeMagnitude() {
-		return 1.0D;
-	}
-	*/
 	@Override
 	protected ChunkGenerator getChunkGenerator(Registry<Biome> biomes, Registry<ChunkGeneratorSettings> noiseSettings, long seed) {
 		return new SkyblockChunkGenerator(new VanillaLayeredBiomeSource(seed, false, false, biomes), seed,

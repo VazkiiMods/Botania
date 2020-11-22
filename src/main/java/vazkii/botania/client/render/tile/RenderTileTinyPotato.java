@@ -37,7 +37,6 @@ import net.minecraft.util.math.Direction.Axis;
 import vazkii.botania.api.item.TinyPotatoRenderCallback;
 import vazkii.botania.client.core.handler.ContributorFancinessHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
 import vazkii.botania.client.core.proxy.ClientProxy;
@@ -365,7 +364,7 @@ public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 					ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
 					ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180));
 					ms.translate(0, -0.75, -0.5);
-					RenderHelper.renderItemModelGold(null, icon, ModelTransformation.Mode.HEAD, ms, buffers, null, light, overlay);
+					MinecraftClient.getInstance().getItemRenderer().renderItem(icon, ModelTransformation.Mode.HEAD, light, overlay, ms, buffers);
 				}
 			}
 		}

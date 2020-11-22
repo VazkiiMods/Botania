@@ -20,6 +20,8 @@ import net.minecraft.client.render.entity.feature.FeatureRendererContext;
 import net.minecraft.client.render.entity.model.PlayerEntityModel;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -28,7 +30,6 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.logging.UncaughtExceptionLogger;
 import net.minecraft.util.registry.Registry;
 
-import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -44,6 +45,7 @@ import java.util.*;
 
 public final class ContributorFancinessHandler extends FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
 
+	public static final String TAG_HEADFLOWER = "botania:headflower";
 	private static volatile Map<String, ItemStack> flowerMap = Collections.emptyMap();
 	private static boolean startedLoading = false;
 
@@ -101,12 +103,13 @@ public final class ContributorFancinessHandler extends FeatureRenderer<AbstractC
 		for (String key : props.stringPropertyNames()) {
 			String value = props.getProperty(key);
 
+			ItemStack stack;
 			try {
 				int i = Integer.parseInt(value);
 				if (i < 0 || i >= 16) {
 					throw new NumberFormatException();
 				}
-				m.put(key, new ItemStack(ModBlocks.getFlower(DyeColor.byId(i))));
+				stack = new ItemStack(ModBlocks.getFlower(DyeColor.byId(i)));
 			} catch (NumberFormatException e) {
 				String rawName = value.toLowerCase(Locale.ROOT);
 				String flowerName = LEGACY_FLOWER_NAMES.getOrDefault(rawName, rawName);
@@ -114,8 +117,11 @@ public final class ContributorFancinessHandler extends FeatureRenderer<AbstractC
 				Item item = ModTags.Items.CONTRIBUTOR_HEADFLOWERS.values().stream()
 						.filter(flower -> Registry.ITEM.getId(flower).getPath().equals(flowerName))
 						.findFirst().orElse(Items.POPPY);
-				m.put(key, new ItemStack(item));
+				stack = new ItemStack(item);
 			}
+			EnchantmentHelper.set(ImmutableMap.of(Enchantments.UNBREAKING, 1), stack);
+			stack.getTag().putBoolean(TAG_HEADFLOWER, true);
+			m.put(key, stack);
 		}
 		flowerMap = m;
 	}
@@ -134,7 +140,7 @@ public final class ContributorFancinessHandler extends FeatureRenderer<AbstractC
 		getContextModel().head.rotate(ms);
 		ms.translate(0, -0.75, 0);
 		ms.scale(0.5F, -0.5F, -0.5F);
-		RenderHelper.renderItemModelGold(player, flower, ModelTransformation.Mode.NONE, ms, buffers, player.world, 0xF000F0, OverlayTexture.DEFAULT_UV);
+		MinecraftClient.getInstance().getItemRenderer().renderItem(player, flower, ModelTransformation.Mode.NONE, false, ms, buffers, player.world, 0xF000F0, OverlayTexture.DEFAULT_UV);
 		ms.pop();
 	}
 
