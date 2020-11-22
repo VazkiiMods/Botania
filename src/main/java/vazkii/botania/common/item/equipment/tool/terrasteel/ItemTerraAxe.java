@@ -102,11 +102,6 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		}
 	}
 
-	@Override
-	public boolean disposeOfTrashBlocks(ItemStack stack) {
-		return false;
-	}
-
 	private void onTickEnd(TickEvent.WorldTickEvent event) {
 		// Block Swapping ticking should only occur on the server
 		if (event.world.isRemote) {
@@ -275,8 +270,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 				// This is a ridiculous function call here.
 				ToolCommons.removeBlockWithDrops(player, truncator, world,
 						cand.coordinates,
-						state -> ToolCommons.materialsAxe.contains(state.getMaterial()),
-						false, treatLeavesSpecial);
+						state -> ToolCommons.materialsAxe.contains(state.getMaterial()));
 
 				remainingSwaps--;
 
