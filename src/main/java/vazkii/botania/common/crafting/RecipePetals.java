@@ -38,7 +38,7 @@ public class RecipePetals implements IPetalRecipe {
 	public RecipePetals(Identifier id, ItemStack output, Ingredient... inputs) {
 		this.id = id;
 		this.output = output;
-		this.inputs = DefaultedList.copyOf(null, inputs);
+		this.inputs = DefaultedList.copyOf(Ingredient.EMPTY, inputs);
 	}
 
 	@Override

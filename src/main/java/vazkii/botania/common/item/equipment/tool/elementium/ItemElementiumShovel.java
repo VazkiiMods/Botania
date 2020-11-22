@@ -38,8 +38,7 @@ public class ItemElementiumShovel extends ItemManasteelShovel {
 		if (blk instanceof FallingBlock) {
 			ToolCommons.removeBlocksInIteration(player, stack, world, pos, new Vec3i(0, -12, 0),
 					new Vec3i(1, 12, 1),
-					state -> state.getBlock() == blk,
-					false);
+					state -> state.getBlock() == blk);
 		}
 
 		return false;

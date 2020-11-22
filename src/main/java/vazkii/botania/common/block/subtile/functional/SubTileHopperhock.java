@@ -35,7 +35,6 @@ import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.core.helper.InvWithLocation;
 import vazkii.botania.common.core.helper.InventoryHelper;
 import vazkii.botania.mixin.AccessorItemEntity;
 
@@ -91,12 +90,12 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 			for (Direction dir : Direction.values()) {
 				BlockPos pos_ = pos.offset(dir);
 
-				InvWithLocation inv = InventoryHelper.getInventoryWithLocation(getWorld(), pos_, dir.getOpposite());
+				Inventory inv = InventoryHelper.getInventory(getWorld(), pos_, dir.getOpposite());
 				if (inv != null) {
 					List<ItemStack> filter = getFilterForInventory(pos_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
 
-					ItemStack simulate = InventoryHelper.simulateTransfer(inv.getHandler(), stack, dir.getOpposite());
+					ItemStack simulate = InventoryHelper.simulateTransfer(inv, stack, dir.getOpposite());
 					int availablePut = stack.getCount() - simulate.getCount();
 
 					canAccept &= availablePut > 0;
@@ -109,7 +108,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 								break setInv;
 							}
 
-							invToPutItemIn = inv.getHandler();
+							invToPutItemIn = inv;
 							priorityInv = priority;
 							amountToPutIn = availablePut;
 							direction = dir;

@@ -43,7 +43,7 @@ public class RecipeBrew implements IBrewRecipe {
 	public RecipeBrew(Identifier id, Brew brew, Ingredient... inputs) {
 		this.id = id;
 		this.brew = brew;
-		this.inputs = DefaultedList.copyOf(null, inputs);
+		this.inputs = DefaultedList.copyOf(Ingredient.EMPTY, inputs);
 	}
 
 	@Override

@@ -102,11 +102,6 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		}
 	}
 
-	@Override
-	public boolean disposeOfTrashBlocks(ItemStack stack) {
-		return false;
-	}
-
 	private void onTickEnd(ServerWorld world) {
 		RegistryKey<World> dim = world.getRegistryKey();
 		if (blockSwappers.containsKey(dim)) {
@@ -268,8 +263,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 				// This is a ridiculous function call here.
 				ToolCommons.removeBlockWithDrops(player, truncator, world,
 						cand.coordinates,
-						state -> ToolCommons.materialsAxe.contains(state.getMaterial()),
-						false, treatLeavesSpecial);
+						state -> ToolCommons.materialsAxe.contains(state.getMaterial()));
 
 				remainingSwaps--;
 

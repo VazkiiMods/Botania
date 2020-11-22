@@ -195,7 +195,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		Vec3i beginDiff = new Vec3i(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
 		Vec3i endDiff = new Vec3i(doX ? range : 0, doY ? rangeY * 2 - 1 : 0, doZ ? range : 0);
 
-		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, state -> MATERIALS.contains(state.getMaterial()), isTipped(stack));
+		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, state -> MATERIALS.contains(state.getMaterial()));
 
 		if (origLevel == 5) {
 			PlayerHelper.grantCriterion((ServerPlayerEntity) player, prefix("challenge/rank_ss_pick"), "code_triggered");
@@ -282,11 +282,6 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	@Override
 	public boolean isNoExport(ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	public boolean disposeOfTrashBlocks(ItemStack stack) {
-		return isTipped(stack);
 	}
 
 	/* todo 1.16-fabric

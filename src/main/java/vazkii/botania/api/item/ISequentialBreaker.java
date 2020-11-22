@@ -22,6 +22,9 @@ public interface ISequentialBreaker {
 
 	public void breakOtherBlock(PlayerEntity player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side);
 
-	public boolean disposeOfTrashBlocks(ItemStack stack);
+	@Deprecated // todo 1.17 remove
+	default boolean disposeOfTrashBlocks(ItemStack stack) {
+		return false;
+	}
 
 }

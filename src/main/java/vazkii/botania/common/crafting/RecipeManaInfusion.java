@@ -90,7 +90,7 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 	@Nonnull
 	@Override
 	public DefaultedList<Ingredient> getPreviewInputs() {
-		return DefaultedList.copyOf(null, input);
+		return DefaultedList.copyOf(Ingredient.EMPTY, input);
 	}
 
 	@Nonnull

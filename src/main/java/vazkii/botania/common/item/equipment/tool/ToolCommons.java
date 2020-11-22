@@ -24,15 +24,14 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaItemHandler;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumPick;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
 import java.util.Arrays;
@@ -66,63 +65,53 @@ public final class ToolCommons {
 	}
 
 	public static void removeBlocksInIteration(PlayerEntity player, ItemStack stack, World world, BlockPos centerPos,
-			Vec3i startDelta, Vec3i endDelta, Predicate<BlockState> filter,
-			boolean dispose) {
+			Vec3i startDelta, Vec3i endDelta, Predicate<BlockState> filter) {
 		for (BlockPos iterPos : BlockPos.iterate(centerPos.add(startDelta),
 				centerPos.add(endDelta))) {
 			// skip original block space to avoid crash, vanilla code in the tool class will handle it
 			if (iterPos.equals(centerPos)) {
 				continue;
 			}
-			removeBlockWithDrops(player, stack, world, iterPos, filter, dispose);
+			removeBlockWithDrops(player, stack, world, iterPos, filter);
 		}
 	}
 
 	public static void removeBlockWithDrops(PlayerEntity player, ItemStack stack, World world, BlockPos pos,
-			Predicate<BlockState> filter,
-			boolean dispose) {
-		removeBlockWithDrops(player, stack, world, pos, filter, dispose, true);
-	}
-
-	public static void removeBlockWithDrops(PlayerEntity player, ItemStack stack, World world, BlockPos pos,
-			Predicate<BlockState> filter,
-			boolean dispose, boolean particles) {
+			Predicate<BlockState> filter) {
 		if (!world.isChunkLoaded(pos)) {
 			return;
 		}
 
-		BlockState state = world.getBlockState(pos);
-		Block block = state.getBlock();
+		BlockState blockState = world.getBlockState(pos);
+		Block block = blockState.getBlock();
 
-		if (!world.isClient && filter.test(state)
-				&& !state.isAir() && state.calcBlockBreakingDelta(player, world, pos) > 0
-				&& state.canHarvestBlock(player.world, pos, player)) {
-			int exp = ForgeHooks.onBlockBreakEvent(world, ((ServerPlayerEntity) player).interactionManager.getGameMode(), (ServerPlayerEntity) player, pos);
-			if (exp == -1) {
+		if (!world.isClient && filter.test(blockState) && !blockState.isAir()) {
+			// [VanillaCopy] ServerPlayerInteractionManager.tryBreakBlock, removeBlock inlined
+			// we could technically just call that method directly, but run into complications with infinite recursion (since this method)
+			// can be invoked from a call chain beginning at tryHarvestBlock as well. It's simpler to just copy.
+
+			if (!player.getMainHandStack().getItem().canMine(blockState, world, pos, player)
+				|| player.isBlockBreakingRestricted(world, pos, ((ServerPlayerEntity) player).interactionManager.getGameMode())) {
 				return;
 			}
 
-			if (!player.abilities.creativeMode) {
-				BlockEntity tile = world.getBlockEntity(pos);
-
-				if (block.removedByPlayer(state, world, pos, player, true, world.getFluidState(pos))) {
-					block.onBroken(world, pos, state);
-
-					if (!dispose || !ItemElementiumPick.isDisposable(block)) {
-						block.afterBreak(world, player, pos, state, tile, stack);
-					}
-				}
-
-				boolean paidWithMana = ManaItemHandler.instance().requestManaExactForTool(stack, player, 80, true);
-				if (!paidWithMana) {
-					stack.damage(1, player, e -> {});
-				}
-			} else {
-				world.removeBlock(pos, false);
+			block.onBreak(world, pos, blockState, player);
+			boolean bl = world.removeBlock(pos, false);
+			if (bl) {
+				block.onBroken(world, pos, blockState);
 			}
 
-			if (particles && ConfigHandler.COMMON.blockBreakParticles.getValue() && ConfigHandler.COMMON.blockBreakParticlesTool.getValue()) {
-				world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
+			if (player.isCreative()) {
+				return;
+			} else {
+				ItemStack itemStack = stack; // player.getMainHandStack();
+				ItemStack itemStack2 = itemStack.copy();
+				boolean bl2 = player.isUsingEffectiveTool(blockState);
+				itemStack.postMine(world, blockState, pos, player);
+				if (bl && bl2) {
+					BlockEntity blockEntity = world.getBlockEntity(pos);
+					block.afterBreak(world, player, pos, blockState, blockEntity, itemStack2);
+				}
 			}
 		}
 	}
