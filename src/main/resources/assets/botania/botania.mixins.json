@@ -13,6 +13,7 @@
     "AccessorCreeperEntity",
     "AccessorCriteria",
     "AccessorDispenserBlock",
+    "AccessorDamageSource",
     "AccessorDyeColor",
     "AccessorFireBlock",
     "AccessorGoalSelector",

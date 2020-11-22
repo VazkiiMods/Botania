@@ -337,7 +337,7 @@ public final class RenderHelper {
 		if (model == null) {
 			model = MinecraftClient.getInstance().getItemRenderer().getHeldItemModel(stack, entity.world, entity);
 		}
-		model = ForgeHooksClient.handleCameraTransforms(ms, model, ModelTransformation.Mode.NONE, false);
+		model.getTransformation().getTransformation(ModelTransformation.Mode.NONE).apply(false, ms);
 		ms.translate(-0.5D, -0.5D, -0.5D);
 
 		if (!model.isBuiltin() && (stack.getItem() != Items.TRIDENT)) {
@@ -380,7 +380,7 @@ public final class RenderHelper {
 			float f1 = (float) (i >> 8 & 255) / 255.0F;
 			float f2 = (float) (i & 255) / 255.0F;
 			float alpha = ((color >> 24) & 0xFF) / 255.0F;
-			buffer.addVertexData(matrixstack$entry, bakedquad, f, f1, f2, alpha, light, overlay, true);
+			// todo 1.16-fabric buffer.addVertexData(matrixstack$entry, bakedquad, f, f1, f2, alpha, light, overlay, true);
 		}
 
 	}

@@ -35,11 +35,9 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 import vazkii.botania.common.core.ModStats;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.PixieHandler;
+import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
-import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
-import vazkii.botania.common.item.equipment.bauble.ItemHolyCloak;
-import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
-import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
+import vazkii.botania.common.item.equipment.bauble.*;
 import vazkii.botania.common.item.relic.ItemOdinRing;
 import vazkii.botania.common.entity.ModEntities;
 
@@ -90,15 +88,19 @@ public abstract class MixinPlayerEntity {
 	 */
 	@ModifyArgs(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"))
 	private void onHurt(Args args) {
+		PlayerEntity self = (PlayerEntity) (Object) this;
 		DamageSource src = args.get(0);
 		MutableFloat amount = new MutableFloat((float) args.get(1));
-		Inventory worn = EquipmentHandler.getAllWorn((PlayerEntity) (Object) this);
+		Inventory worn = EquipmentHandler.getAllWorn(self);
 		for (int i = 0; i < worn.size(); i++) {
 			ItemStack stack = worn.getStack(i);
 			if (stack.getItem() instanceof ItemHolyCloak) {
-				((ItemHolyCloak) stack.getItem()).effectOnDamage(src, amount, (PlayerEntity) (Object) this, stack);
+				((ItemHolyCloak) stack.getItem()).effectOnDamage(src, amount, self, stack);
 			}
 		}
+
+		// Should really make a separate inject for this, but putting it here works too
+		PixieHandler.onDamageTaken(self, src);
 
 		args.set(1, amount.getValue());
 	}
@@ -133,5 +135,15 @@ public abstract class MixinPlayerEntity {
 				((ItemManasteelArmor) stack.getItem()).onArmorTick(stack, self.world, self);
 			}
 		}
+	}
+
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;onAttacking(Lnet/minecraft/entity/Entity;)V"), method = "attack")
+	private void onAttack(Entity target, CallbackInfo ci) {
+		ItemDivaCharm.onEntityDamaged((PlayerEntity) (Object) this, target);
+	}
+
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerInventory;dropAll()V"), method = "dropInventory")
+	private void keepIvy(CallbackInfo ci) {
+		ItemKeepIvy.onPlayerDrops((PlayerEntity) (Object) this);
 	}
 }

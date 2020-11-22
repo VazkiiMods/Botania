@@ -45,48 +45,38 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 
 	public ItemDivaCharm(Settings props) {
 		super(props);
-		MinecraftForge.EVENT_BUS.addListener(this::onEntityDamaged);
 	}
 
-	private void onEntityDamaged(LivingHurtEvent event) {
-		if (event.getSource().getSource() instanceof PlayerEntity
-				&& event.getEntityLiving() instanceof MobEntity
-				&& !event.getEntityLiving().world.isClient
-				&& event.getEntityLiving().canUsePortals()
+	public static void onEntityDamaged(PlayerEntity player, Entity entity) {
+		if (entity instanceof MobEntity
+				&& !entity.world.isClient
+				&& entity.canUsePortals()
 				&& Math.random() < 0.6F) {
-			Runnable lambda = () -> {
-				MobEntity target = (MobEntity) event.getEntityLiving();
-				PlayerEntity player = (PlayerEntity) event.getSource().getSource();
-				ItemStack amulet = EquipmentHandler.findOrEmpty(ModItems.divaCharm, player);
+			MobEntity target = (MobEntity) entity;
+			ItemStack amulet = EquipmentHandler.findOrEmpty(ModItems.divaCharm, player);
 
-				if (!amulet.isEmpty()) {
-					final int cost = 250;
-					if (ManaItemHandler.instance().requestManaExact(amulet, player, cost, false)) {
-						final int range = 20;
+			if (!amulet.isEmpty()) {
+				final int cost = 250;
+				if (ManaItemHandler.instance().requestManaExact(amulet, player, cost, false)) {
+					final int range = 20;
 
-						@SuppressWarnings("unchecked")
-						List<Monster> mobs = (List<Monster>) (List<?>) player.world.getEntitiesByClass(Entity.class, new Box(target.getX() - range, target.getY() - range, target.getZ() - range, target.getX() + range, target.getY() + range, target.getZ() + range), Predicates.instanceOf(Monster.class));
-						if (mobs.size() > 1) {
-							if (SubTileHeiseiDream.brainwashEntity(target, mobs)) {
-								target.heal(target.getMaxHealth());
-								target.removed = false;
-								if (target instanceof CreeperEntity) {
-									((AccessorCreeperEntity) event.getEntityLiving()).setTimeSinceIgnited(2);
-								}
-
-								ManaItemHandler.instance().requestManaExact(amulet, player, cost, true);
-								player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
-								PacketBotaniaEffect.sendNearby(target, PacketBotaniaEffect.EffectType.DIVA_EFFECT, target.getX(), target.getY(), target.getZ(), target.getEntityId());
+					@SuppressWarnings("unchecked")
+					List<Monster> mobs = (List<Monster>) (List<?>) player.world.getEntitiesByClass(Entity.class, new Box(target.getX() - range, target.getY() - range, target.getZ() - range, target.getX() + range, target.getY() + range, target.getZ() + range), Predicates.instanceOf(Monster.class));
+					if (mobs.size() > 1) {
+						if (SubTileHeiseiDream.brainwashEntity(target, mobs)) {
+							target.heal(target.getMaxHealth());
+							target.removed = false;
+							if (target instanceof CreeperEntity) {
+								((AccessorCreeperEntity) target).setTimeSinceIgnited(2);
 							}
+
+							ManaItemHandler.instance().requestManaExact(amulet, player, cost, true);
+							player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
+							PacketBotaniaEffect.sendNearby(target, PacketBotaniaEffect.EffectType.DIVA_EFFECT, target.getX(), target.getY(), target.getZ(), target.getEntityId());
 						}
 					}
 				}
-			};
-
-			// Delay until end of tick because setAttackTarget(player) is called *after* this event fires, but
-			// we want to overwrite it
-			MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
-			server.send(new ServerTask(server.getTicks(), lambda));
+			}
 		}
 	}
 

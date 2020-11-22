@@ -23,6 +23,7 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
 public final class TooltipAdditionDisplayHandler {
 
+	/* todo 1.16-fabric
 	public static void onToolTipRender(RenderTooltipEvent.PostText evt) {
 		if (evt.getStack().isEmpty()) {
 			return;
@@ -42,6 +43,7 @@ public final class TooltipAdditionDisplayHandler {
 			drawManaBar(ms, stack, (IManaTooltipDisplay) stack.getItem(), tooltipX, tooltipY, width, height);
 		}
 	}
+	*/
 
 	private static void drawTerraPick(MatrixStack ms, ItemStack stack, int mouseX, int mouseY, int width, int height, TextRenderer font) {
 		int level = ItemTerraPick.getLevel(stack);

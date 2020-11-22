@@ -12,6 +12,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,6 +27,7 @@ import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.mana.IManaDiscountArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.mixin.AccessorDamageSource;
 
 import javax.annotation.Nullable;
 
@@ -37,7 +40,6 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 
 	public ItemTerrasteelHelm(Settings props) {
 		super(EquipmentSlot.HEAD, props);
-		MinecraftForge.EVENT_BUS.addListener(this::onEntityAttacked);
 	}
 
 	@Override
@@ -92,10 +94,9 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		return false;
 	}
 
-	private void onEntityAttacked(LivingHurtEvent event) {
-		Entity attacker = event.getSource().getSource();
-		if (attacker instanceof PlayerEntity) {
-			PlayerEntity player = (PlayerEntity) attacker;
+	private float onEntityAttacked(DamageSource source, float amount, PlayerEntity player, Entity entity) {
+		if (entity instanceof LivingEntity) {
+			LivingEntity living = (LivingEntity) entity;
 			if (hasArmorSet(player)) {
 				// TODO 1.16 Move to mixin, this does not actually work as it's triggered after the attack strength changes
 				// [VanillaCopy] crit logic from PlayerEntity.attackTargetEntityWithCurrentItem
@@ -106,26 +107,27 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 				ItemStack stack = player.getEquippedStack(EquipmentSlot.HEAD);
 				if (crit && !stack.isEmpty() && stack.getItem() instanceof ItemTerrasteelHelm) {
 					if (hasAncientWill(stack, AncientWillType.AHRIM)) {
-						event.getEntityLiving().addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 20, 1));
-					}
-					if (hasAncientWill(stack, AncientWillType.DHAROK)) {
-						event.setAmount(event.getAmount() * (1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F));
+						living.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 20, 1));
 					}
 					if (hasAncientWill(stack, AncientWillType.GUTHAN)) {
-						player.heal(event.getAmount() * 0.25F);
+						player.heal(amount * 0.25F);
 					}
 					if (hasAncientWill(stack, AncientWillType.TORAG)) {
-						event.getEntityLiving().addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 1));
+						living.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 1));
 					}
 					if (hasAncientWill(stack, AncientWillType.VERAC)) {
-						event.getSource().setBypassesArmor();
+						((AccessorDamageSource) source).callSetBypassesArmor();
 					}
 					if (hasAncientWill(stack, AncientWillType.KARIL)) {
-						event.getEntityLiving().addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 60, 1));
+						living.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 60, 1));
+					}
+					if (hasAncientWill(stack, AncientWillType.DHAROK)) {
+						return amount * (1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F);
 					}
 				}
 			}
 		}
+		return amount;
 	}
 
 }

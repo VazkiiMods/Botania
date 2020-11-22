@@ -7,13 +7,14 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class KeptItemsComponent implements Component {
 	private List<ItemStack> stacks = new ArrayList<>();
 
-	public void add(ItemStack stack) {
-		stacks.add(stack);
+	public void addAll(Collection<ItemStack> stack) {
+		stacks.addAll(stack);
 	}
 
 	public List<ItemStack> take() {

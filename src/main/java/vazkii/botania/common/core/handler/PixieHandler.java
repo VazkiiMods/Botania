@@ -15,6 +15,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.attribute.ClampedEntityAttribute;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -66,9 +67,8 @@ public final class PixieHandler {
 		return new EntityAttributeModifier(DEFAULT_MODIFIER_UUIDS.get(slot), name, amount, EntityAttributeModifier.Operation.ADDITION);
 	}
 
-	public static void onDamageTaken(LivingHurtEvent event) {
-		if (!event.getEntityLiving().world.isClient && event.getEntityLiving() instanceof PlayerEntity && event.getSource().getAttacker() instanceof LivingEntity) {
-			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+	public static void onDamageTaken(PlayerEntity player, DamageSource source) {
+		if (!player.world.isClient && source.getAttacker() instanceof LivingEntity) {
 			double chance = player.getAttributeValue(PIXIE_SPAWN_CHANCE);
 			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.getItem() == ModItems.elementiumSword);
 
@@ -77,7 +77,7 @@ public final class PixieHandler {
 				pixie.updatePosition(player.getX(), player.getY() + 2, player.getZ());
 
 				if (((ItemElementiumHelm) ModItems.elementiumHelm).hasArmorSet(player)) {
-					pixie.setApplyPotionEffect(new StatusEffectInstance(potions[event.getEntityLiving().world.random.nextInt(potions.length)], 40, 0));
+					pixie.setApplyPotionEffect(new StatusEffectInstance(potions[player.world.random.nextInt(potions.length)], 40, 0));
 				}
 
 				float dmg = 4;
@@ -85,7 +85,7 @@ public final class PixieHandler {
 					dmg += 2;
 				}
 
-				pixie.setProps((LivingEntity) event.getSource().getAttacker(), player, 0, dmg);
+				pixie.setProps((LivingEntity) source.getAttacker(), player, 0, dmg);
 				pixie.initialize((ServerWorldAccess) player.world, player.world.getLocalDifficulty(pixie.getBlockPos()),
 						SpawnReason.EVENT, null, null);
 				player.world.spawnEntity(pixie);

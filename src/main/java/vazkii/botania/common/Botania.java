@@ -123,16 +123,12 @@ public class Botania implements ModInitializer {
 		ModSubtiles.registerTEs();
 		PixieHandler.registerAttribute();
 
-		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		ServerLifecycleEvents.SERVER_STARTED.register(this::serverAboutToStart);
 		CommandRegistrationCallback.EVENT.register(this::registerCommands);
 		ServerLifecycleEvents.SERVER_STOPPING.register(this::serverStopping);
 		UseBlockCallback.EVENT.register(ItemLokiRing::onPlayerInteract);
 		UseItemCallback.EVENT.register(ItemEnderAir::onPlayerInteract);
 		ServerTickEvents.END_WORLD_TICK.register(ItemGrassSeeds::onTickEnd);
-		forgeBus.addListener(ItemKeepIvy::onPlayerDrops);
-		forgeBus.addListener(ItemKeepIvy::onPlayerRespawn);
-		forgeBus.addListener(PixieHandler::onDamageTaken);
 		ServerTickEvents.END_WORLD_TICK.register(CommonTickHandler::onTick);
 		UseBlockCallback.EVENT.register(BlockRedStringInterceptor::onInteract);
 		ManaNetworkCallback.EVENT.register(ManaNetworkHandler.instance::onNetworkEvent);
@@ -222,7 +218,7 @@ public class Botania implements ModInitializer {
         ModStats.init();
 	}
 
-	private void loadComplete(FMLLoadCompleteEvent event) {
+	private void loadComplete() {
 		finishedLoading = true;
 		CorporeaNodeDetectors.init();
 	}

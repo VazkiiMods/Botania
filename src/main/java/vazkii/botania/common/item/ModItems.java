@@ -227,7 +227,7 @@ public final class ModItems {
 	public static final Item manaweaveChest = new ItemManaweaveArmor(EquipmentSlot.CHEST, unstackable().customDamage(ItemManasteelArmor::damageItem));
 	public static final Item manaweaveLegs = new ItemManaweaveArmor(EquipmentSlot.LEGS, unstackable().customDamage(ItemManasteelArmor::damageItem));
 	public static final Item manaweaveBoots = new ItemManaweaveArmor(EquipmentSlot.FEET, unstackable().customDamage(ItemManasteelArmor::damageItem));
-	public static final Item enderDagger = new ItemEnderDagger(unstackable().maxDamageIfAbsent(69).setNoRepair()); // What you looking at?
+	public static final Item enderDagger = new ItemEnderDagger(unstackable().maxDamageIfAbsent(69) /* todo 1.16-fabric .setNoRepair()*/); // What you looking at?
 	public static final Item glassPick = new ItemGlassPick(unstackable().customDamage(ItemManasteelPick::damageItem));
 	public static final Item livingwoodBow = new ItemLivingwoodBow(defaultBuilder().maxDamageIfAbsent(500).customDamage(ItemLivingwoodBow::damageItem));
 	public static final Item crystalBow = new ItemCrystalBow(defaultBuilder().maxDamageIfAbsent(500).customDamage(ItemCrystalBow::damageItem));
@@ -249,7 +249,7 @@ public final class ModItems {
 	public static final Item enderHand = new ItemEnderHand(unstackable());
 	public static final Item craftingHalo = new ItemCraftingHalo(unstackable());
 	public static final Item autocraftingHalo = new ItemAutocraftingHalo(unstackable());
-	public static final Item spellCloth = new ItemSpellCloth(unstackable().maxDamageIfAbsent(35).setNoRepair());
+	public static final Item spellCloth = new ItemSpellCloth(unstackable().maxDamageIfAbsent(35)/* todo 1.16-fabric.setNoRepair()*/);
 	public static final Item flowerBag = new ItemFlowerBag(unstackable());
 	public static final Item blackHoleTalisman = new ItemBlackHoleTalisman(unstackable());
 	public static final Item temperanceStone = new ItemTemperanceStone(unstackable());
