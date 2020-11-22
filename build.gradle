@@ -121,6 +121,9 @@ dependencies {
 
     annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
 
+    compileOnly fg.deobf("vazkii.autoreglib:AutoRegLib:1.6-46.85")
+    compileOnly fg.deobf("vazkii.quark:Quark:r2.4-276.1408")
+
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.2-47:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.2-47")
 

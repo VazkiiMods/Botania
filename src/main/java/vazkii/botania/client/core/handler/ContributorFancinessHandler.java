@@ -46,6 +46,7 @@ import java.util.*;
 
 public final class ContributorFancinessHandler extends LayerRenderer<AbstractClientPlayerEntity, PlayerModel<AbstractClientPlayerEntity>> {
 
+	public static final String TAG_HEADFLOWER = "botania:headflower";
 	private static volatile Map<String, ItemStack> flowerMap = Collections.emptyMap();
 	private static boolean startedLoading = false;
 
@@ -120,6 +121,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 				stack = new ItemStack(item);
 			}
 			EnchantmentHelper.setEnchantments(ImmutableMap.of(Enchantments.UNBREAKING, 1), stack);
+			stack.getTag().putBoolean(TAG_HEADFLOWER, true);
 			m.put(key, stack);
 		}
 		flowerMap = m;
