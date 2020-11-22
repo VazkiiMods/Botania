@@ -26,6 +26,7 @@ archivesBaseName = "${config.mod_name}"
 compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation" << "-Werror"
 
 minecraft {
+    accessWidener "src/main/resources/botania.accesswidener"
 }
 
 sourceSets.main.resources {

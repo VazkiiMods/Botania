@@ -128,7 +128,6 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		ClientTickEvents.END_CLIENT_TICK.register(KonamiHandler::clientTick);
 		BookDrawScreenCallback.EVENT.register(KonamiHandler::renderBook);
 		HudRenderCallback.EVENT.register(HUDHandler::onDrawScreenPost);
-		forgeBus.addListener(CorporeaInputHandler::buttonPressed);
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
 
 		PersistentVariableHelper.init();

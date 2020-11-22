@@ -31,7 +31,7 @@ public abstract class MixinClientWorldInfo implements SkyblockWorldInfo {
 		gardenOfGlass = true;
 	}
 
-	@Inject(at = @At("HEAD"), method = "getVoidFogHeight", cancellable = true)
+	@Inject(at = @At("HEAD"), method = "getSkyDarknessHeight", cancellable = true)
 	private void gogHorizon(CallbackInfoReturnable<Double> cir) {
 		if (gardenOfGlass) {
 			cir.setReturnValue(0.0);

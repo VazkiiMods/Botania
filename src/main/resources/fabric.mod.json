@@ -19,10 +19,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "vazkii.patchouli.common.base.CommonProxy"
+      "vazkii.botania.common.Botania"
     ],
     "client": [
-      "vazkii.patchouli.client.base.ClientProxy"
+      "vazkii.botania.client.core.proxy.ClientProxy"
     ],
     "cardinal-components-entity": [
       "vazkii.botania.common.components.EntityComponents"
@@ -32,7 +32,10 @@
     ]
   },
   "mixins": [
-    "patchouli.mixins.json"
+    "botania.mixins.json"
+  ],
+  "accessWidener": [
+    "botania.accesswidener"
   ],
 
   "depends": {
