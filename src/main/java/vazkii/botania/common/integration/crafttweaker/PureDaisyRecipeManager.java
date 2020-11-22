@@ -26,7 +26,7 @@ import vazkii.botania.api.recipe.IPureDaisyRecipe;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.RecipePureDaisy;
 import vazkii.botania.common.crafting.StateIngredientHelper;
-import vazkii.botania.common.integration.crafttweaker.actions.ActionRemoveBlockRecipe;
+import vazkii.botania.common.integration.crafttweaker.actions.ActionRemovePureDaisyRecipe;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -71,7 +71,7 @@ public class PureDaisyRecipeManager implements IRecipeManager {
 
 	@ZenCodeType.Method
 	public void removeRecipe(MCBlockState state) {
-		CraftTweakerAPI.apply(new ActionRemoveBlockRecipe(this, state));
+		CraftTweakerAPI.apply(new ActionRemovePureDaisyRecipe(this, state));
 	}
 
 	@Override

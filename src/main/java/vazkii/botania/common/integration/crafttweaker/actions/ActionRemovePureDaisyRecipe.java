@@ -25,11 +25,11 @@ import vazkii.botania.common.crafting.StateIngredientHelper;
 import java.util.Iterator;
 import java.util.Map;
 
-public class ActionRemoveBlockRecipe extends ActionRecipeBase {
+public class ActionRemovePureDaisyRecipe extends ActionRecipeBase {
 
 	private final MCBlockState output;
 
-	public ActionRemoveBlockRecipe(IRecipeManager manager, MCBlockState output) {
+	public ActionRemovePureDaisyRecipe(IRecipeManager manager, MCBlockState output) {
 		super(manager);
 		this.output = output;
 	}
