@@ -13,6 +13,8 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import vazkii.botania.common.Botania;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -233,5 +235,6 @@ public final class ConfigHandler {
 	public static void onConfigLoad() {
 		blacklistedRannuncarpusItems = COMMON.rannuncarpusItemBlacklist.get().stream().map(ResourceLocation::new).collect(Collectors.toSet());
 		blacklistedRannuncarpusModIds = new HashSet<>(COMMON.rannuncarpusModBlacklist.get());
+		Botania.configLoaded = true;
 	}
 }

@@ -39,7 +39,6 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -90,7 +89,6 @@ import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.corporea.CorporeaItemStackMatcher;
 import vazkii.botania.common.impl.corporea.CorporeaStringMatcher;
-import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.ItemGrassSeeds;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.ItemVirus;
@@ -119,7 +117,7 @@ public class Botania {
 	public static boolean curiosLoaded = false;
 
 	public static IProxy proxy = new IProxy() {};
-	public static boolean finishedLoading = false;
+	public static volatile boolean configLoaded = false;
 
 	public static final Logger LOGGER = LogManager.getLogger(LibMisc.MOD_ID);
 
@@ -132,7 +130,6 @@ public class Botania {
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 		modBus.addListener(this::commonSetup);
 		modBus.addListener(IMCSender::enqueue);
-		modBus.addListener(this::loadComplete);
 		modBus.addListener(DataGenerators::gatherData);
 		modBus.addGenericListener(Feature.class, ModFeatures::registerFeatures);
 		modBus.addGenericListener(Item.class, ModItems::registerItems);
@@ -278,11 +275,6 @@ public class Botania {
 
 			ModStats.init();
 		});
-	}
-
-	private void loadComplete(FMLLoadCompleteEvent event) {
-		finishedLoading = true;
-		CorporeaNodeDetectors.init();
 	}
 
 	private void serverAboutToStart(FMLServerAboutToStartEvent event) {
