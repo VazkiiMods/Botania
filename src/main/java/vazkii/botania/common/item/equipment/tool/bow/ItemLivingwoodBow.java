@@ -47,11 +47,6 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 		ItemStack itemstack = playerIn.getStackInHand(handIn);
 		boolean flag = canFire(itemstack, playerIn); // Botania - custom check
 
-		TypedActionResult<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onArrowNock(itemstack, worldIn, playerIn, handIn, flag);
-		if (ret != null) {
-			return ret;
-		}
-
 		if (!playerIn.abilities.creativeMode && !flag) {
 			return TypedActionResult.fail(itemstack);
 		} else {
@@ -69,7 +64,6 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 			ItemStack itemstack = playerentity.getArrowType(stack);
 
 			int i = (int) ((getMaxUseTime(stack) - timeLeft) * chargeVelocityMultiplier()); // Botania - velocity multiplier
-			i = net.minecraftforge.event.ForgeEventFactory.onArrowLoose(stack, worldIn, playerentity, i, !itemstack.isEmpty() || flag);
 			if (i < 0) {
 				return;
 			}
@@ -81,11 +75,10 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 
 				float f = getPullProgress(i);
 				if (!((double) f < 0.1D)) {
-					boolean flag1 = playerentity.abilities.creativeMode || (itemstack.getItem() instanceof ArrowItem && ((ArrowItem) itemstack.getItem()).isInfinite(itemstack, stack, playerentity));
+					boolean flag1 = playerentity.abilities.creativeMode || itemstack.getItem() == Items.ARROW;
 					if (!worldIn.isClient) {
 						ArrowItem arrowitem = (ArrowItem) (itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
 						PersistentProjectileEntity abstractarrowentity = arrowitem.createArrow(worldIn, itemstack, playerentity);
-						abstractarrowentity = customArrow(abstractarrowentity);
 						abstractarrowentity.setProperties(playerentity, playerentity.pitch, playerentity.yaw, 0.0F, f * 3.0F, 1.0F);
 						if (f == 1.0F) {
 							abstractarrowentity.setCritical(true);

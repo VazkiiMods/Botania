@@ -99,6 +99,7 @@ import java.time.Month;
 import java.util.List;
 import java.util.Locale;
 import java.util.SortedMap;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -402,5 +403,10 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		if (mb != null && mb.getID().equals(ItemSextant.MULTIBLOCK_ID)) {
 			PatchouliAPI.instance.clearMultiblock();
 		}
+	}
+
+	@Override
+	public void runOnClient(Supplier<Runnable> thing) {
+		thing.get().run();
 	}
 }

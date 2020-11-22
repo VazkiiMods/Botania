@@ -30,6 +30,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.item.IFloatingFlower.IslandType;
+import vazkii.botania.api.item.IFloatingFlowerProvider;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.BlockModWaterloggable;
@@ -82,8 +83,8 @@ public class BlockFloatingFlower extends BlockModWaterloggable implements BlockE
 	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
 		ItemStack stack = player.getStackInHand(hand);
 		BlockEntity te = world.getBlockEntity(pos);
-		if (!stack.isEmpty() && te != null && te.getCapability(TileEntitySpecialFlower.FLOATING_FLOWER_CAP).isPresent()) {
-			IFloatingFlower flower = te.getCapability(TileEntitySpecialFlower.FLOATING_FLOWER_CAP).orElseThrow(IllegalStateException::new);
+		if (!stack.isEmpty() && te instanceof IFloatingFlowerProvider && ((IFloatingFlowerProvider) te).getFloatingData() != null) {
+			IFloatingFlower flower = ((IFloatingFlowerProvider) te).getFloatingData();
 			IslandType type = null;
 			if (stack.getItem() == Items.SNOWBALL) {
 				type = IslandType.SNOW;

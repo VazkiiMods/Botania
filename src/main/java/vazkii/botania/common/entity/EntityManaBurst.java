@@ -172,7 +172,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 			}
 		}
 
-		if (raytraceresult.getType() != HitResult.Type.MISS && !flag && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
+		if (raytraceresult.getType() != HitResult.Type.MISS && !flag) {
 			this.onCollision(raytraceresult);
 		}
 

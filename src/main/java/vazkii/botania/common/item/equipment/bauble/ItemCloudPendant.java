@@ -24,6 +24,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketJump;
@@ -39,7 +40,7 @@ public class ItemCloudPendant extends ItemBauble {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
+		Botania.proxy.runOnClient(() -> () -> {
 			if (player == MinecraftClient.getInstance().player) {
 				ClientPlayerEntity playerSp = (ClientPlayerEntity) player;
 
