@@ -24,7 +24,8 @@
     "MixinAbstractMinecartEntity",
     "MixinEndermanPickupBlock",
     "MixinLootTable",
-    "MixinPlayerEntity"
+    "MixinPlayerEntity",
+    "MixinThrowableEntity"
   ],
   "client": [
     "AccessorBiomeGeneratorTypeScreens",
