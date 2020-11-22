@@ -8,4 +8,4 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-rootProject.name = 'Botania'
+rootProject.name = 'Botania-fabric'

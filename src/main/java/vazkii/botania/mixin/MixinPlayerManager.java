@@ -25,5 +25,6 @@ public class MixinPlayerManager {
 		if (!fromDeath) {
 			ItemKeepIvy.onPlayerRespawn(newPlayer);
 		}
+		return newPlayer;
 	}
 }

@@ -102,7 +102,6 @@ public class Botania implements ModInitializer {
 
 		commonSetup();
 		IMCSender.enqueue();
-		modBus.addListener(this::loadComplete);
 		ModFeatures.registerFeatures();
 		ModItems.registerItems();
 		ModItems.registerRecipeSerializers();
