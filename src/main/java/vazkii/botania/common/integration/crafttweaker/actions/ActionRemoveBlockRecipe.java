@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.integration.crafttweaker.actions;
 
 import com.blamejared.crafttweaker.api.exceptions.ScriptException;
@@ -5,9 +13,11 @@ import com.blamejared.crafttweaker.api.logger.ILogger;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionRecipeBase;
 import com.blamejared.crafttweaker.impl.blocks.MCBlockState;
+
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+
 import vazkii.botania.api.recipe.IPureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.crafting.StateIngredientHelper;
@@ -16,14 +26,14 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class ActionRemoveBlockRecipe extends ActionRecipeBase {
-	
+
 	private final MCBlockState output;
-	
+
 	public ActionRemoveBlockRecipe(IRecipeManager manager, MCBlockState output) {
 		super(manager);
 		this.output = output;
 	}
-	
+
 	@Override
 	public void apply() {
 		StateIngredient state = StateIngredientHelper.of(output.getInternal());
@@ -35,13 +45,13 @@ public class ActionRemoveBlockRecipe extends ActionRecipeBase {
 			}
 		}
 	}
-	
+
 	@Override
 	public String describe() {
 		return "Removing \"" + Registry.RECIPE_TYPE
 				.getKey(getManager().getRecipeType()) + "\" recipes with output: " + output + "\"";
 	}
-	
+
 	@Override
 	public boolean validate(ILogger logger) {
 		if (output == null) {
