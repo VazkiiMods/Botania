@@ -25,6 +25,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.world.World;
 
 import java.util.function.Predicate;
 
@@ -144,7 +145,7 @@ public final class PlayerHelper {
 			// Need to construct a new one still to refresh the itemstack
 			newCtx = new ItemUseContext(ctx.getPlayer(), ctx.getHand(), hit);
 		} else {
-			newCtx = new ItemUseContext(ctx.getWorld(), null, ctx.getHand(), toUse, hit);
+			newCtx = new ItemUseContextWithNullPlayer(ctx.getWorld(), ctx.getHand(), toUse, hit);
 		}
 
 		BlockPos finalPos = new BlockItemUseContext(newCtx).getPos();
@@ -156,6 +157,13 @@ public final class PlayerHelper {
 		}
 
 		return Pair.of(result, finalPos);
+	}
+
+	// To expose protected ctor
+	private static class ItemUseContextWithNullPlayer extends ItemUseContext {
+		public ItemUseContextWithNullPlayer(World world, Hand hand, ItemStack stack, BlockRayTraceResult rayTraceResult) {
+			super(world, null, hand, stack, rayTraceResult);
+		}
 	}
 
 	private PlayerHelper() {}

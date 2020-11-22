@@ -133,7 +133,7 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 				&& Block.getBlockFromItem(currentStack.getItem()) != Blocks.AIR
 				&& tile instanceof TilePlatform) {
 			TilePlatform camo = (TilePlatform) tile;
-			BlockItemUseContext ctx = new BlockItemUseContext(world, player, hand, currentStack, hit);
+			BlockItemUseContext ctx = new BlockItemUseContext(player, hand, currentStack, hit);
 			BlockState changeState = Block.getBlockFromItem(currentStack.getItem()).getStateForPlacement(ctx);
 
 			if (changeState != null && isValidBlock(changeState, world, pos)
