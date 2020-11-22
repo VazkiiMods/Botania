@@ -20,6 +20,8 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerModelPart;
 import net.minecraft.item.DyeColor;
@@ -29,7 +31,6 @@ import net.minecraft.item.Items;
 import net.minecraft.util.DefaultUncaughtExceptionHandler;
 import net.minecraft.util.registry.Registry;
 
-import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.lib.LibBlockNames;
@@ -102,12 +103,13 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 		for (String key : props.stringPropertyNames()) {
 			String value = props.getProperty(key);
 
+			ItemStack stack;
 			try {
 				int i = Integer.parseInt(value);
 				if (i < 0 || i >= 16) {
 					throw new NumberFormatException();
 				}
-				m.put(key, new ItemStack(ModBlocks.getFlower(DyeColor.byId(i))));
+				stack = new ItemStack(ModBlocks.getFlower(DyeColor.byId(i)));
 			} catch (NumberFormatException e) {
 				String rawName = value.toLowerCase(Locale.ROOT);
 				String flowerName = LEGACY_FLOWER_NAMES.getOrDefault(rawName, rawName);
@@ -115,8 +117,10 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 				Item item = ModTags.Items.CONTRIBUTOR_HEADFLOWERS.getAllElements().stream()
 						.filter(flower -> Registry.ITEM.getKey(flower).getPath().equals(flowerName))
 						.findFirst().orElse(Items.POPPY);
-				m.put(key, new ItemStack(item));
+				stack = new ItemStack(item);
 			}
+			EnchantmentHelper.setEnchantments(ImmutableMap.of(Enchantments.UNBREAKING, 1), stack);
+			m.put(key, stack);
 		}
 		flowerMap = m;
 	}
@@ -135,7 +139,7 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 		getEntityModel().bipedHead.translateRotate(ms);
 		ms.translate(0, -0.75, 0);
 		ms.scale(0.5F, -0.5F, -0.5F);
-		RenderHelper.renderItemModelGold(player, flower, ItemCameraTransforms.TransformType.NONE, ms, buffers, player.world, 0xF000F0, OverlayTexture.NO_OVERLAY);
+		Minecraft.getInstance().getItemRenderer().renderItem(player, flower, ItemCameraTransforms.TransformType.NONE, false, ms, buffers, player.world, 0xF000F0, OverlayTexture.NO_OVERLAY);
 		ms.pop();
 	}
 

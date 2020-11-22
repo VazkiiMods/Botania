@@ -20,7 +20,6 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.LivingEntity;
@@ -31,7 +30,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
@@ -77,7 +75,6 @@ public final class RenderHelper {
 	public static final RenderType GAIA_PYLON_GLOW_DIRECT = getPylonGlowDirect("gaia_pylon_glow_direct", RenderTilePylon.GAIA_TEXTURE);
 
 	public static final RenderType ASTROLABE_PREVIEW;
-	public static final RenderType ENTITY_TRANSLUCENT_GOLD;
 
 	static {
 		// todo 1.16 update to match vanilla where necessary (alternate render targets, etc.)
@@ -181,10 +178,6 @@ public final class RenderHelper {
 		};
 		RenderType astrolabePreview = RenderType.makeType(LibResources.PREFIX_MOD + "astrolabe_preview", DefaultVertexFormats.ENTITY, 7, 256, true, true, glState);
 		ASTROLABE_PREVIEW = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ALPHA, cb, astrolabePreview) : astrolabePreview;
-
-		glState = RenderType.State.getBuilder().texture(new RenderState.TextureState(AtlasTexture.LOCATION_BLOCKS_TEXTURE, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(oneTenthAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
-		RenderType gold = RenderType.makeType(LibResources.PREFIX_MOD + "entity_translucent_gold", DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 128, true, true, glState);
-		ENTITY_TRANSLUCENT_GOLD = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.GOLD, null, gold) : gold;
 	}
 
 	private static RenderType getPylonGlowDirect(String name, ResourceLocation texture) {
@@ -383,29 +376,5 @@ public final class RenderHelper {
 			buffer.addVertexData(matrixstack$entry, bakedquad, f, f1, f2, alpha, light, overlay, true);
 		}
 
-	}
-
-	// [VanillaCopy] Portions of ItemRenderer.renderItem
-	// Does not support TEISRs
-	public static void renderItemModelGold(@Nullable LivingEntity entity, ItemStack stack, ItemCameraTransforms.TransformType transform, MatrixStack ms, IRenderTypeBuffer buffers, @Nullable World world, int light, int overlay) {
-		ItemRenderer ir = Minecraft.getInstance().getItemRenderer();
-		if (!stack.isEmpty()) {
-			IBakedModel ibakedmodel = ir.getItemModelWithOverrides(stack, world, entity);
-			ms.push();
-			boolean flag = transform == ItemCameraTransforms.TransformType.GUI;
-			boolean flag1 = flag || transform == ItemCameraTransforms.TransformType.GROUND || transform == ItemCameraTransforms.TransformType.FIXED;
-			if (stack.getItem() == Items.TRIDENT && flag1) {
-				ibakedmodel = ir.getItemModelMesher().getModelManager().getModel(new ModelResourceLocation("minecraft:trident#inventory"));
-			}
-
-			ibakedmodel = net.minecraftforge.client.ForgeHooksClient.handleCameraTransforms(ms, ibakedmodel, transform, false);
-			ms.translate(-0.5D, -0.5D, -0.5D);
-			if (!ibakedmodel.isBuiltInRenderer() && (stack.getItem() != Items.TRIDENT || flag1)) {
-				IVertexBuilder ivertexbuilder = ItemRenderer.getBuffer(buffers, ENTITY_TRANSLUCENT_GOLD, true, stack.hasEffect());
-				ir.renderModel(ibakedmodel, stack, light, overlay, ms, ivertexbuilder);
-			}
-
-			ms.pop();
-		}
 	}
 }

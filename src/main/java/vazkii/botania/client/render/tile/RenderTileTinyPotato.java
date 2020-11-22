@@ -38,7 +38,6 @@ import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
 import vazkii.botania.client.core.handler.ContributorFancinessHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
 import vazkii.botania.client.core.proxy.ClientProxy;
@@ -366,7 +365,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 					ms.rotate(Vector3f.XP.rotationDegrees(180));
 					ms.rotate(Vector3f.YP.rotationDegrees(180));
 					ms.translate(0, -0.75, -0.5);
-					RenderHelper.renderItemModelGold(null, icon, ItemCameraTransforms.TransformType.HEAD, ms, buffers, null, light, overlay);
+					Minecraft.getInstance().getItemRenderer().renderItem(icon, ItemCameraTransforms.TransformType.HEAD, light, overlay, ms, buffers);
 				}
 			}
 		}
