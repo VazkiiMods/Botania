@@ -15,5 +15,5 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(CreeperEntity.class)
 public interface AccessorCreeperEntity {
 	@Accessor
-	void setTimeSinceIgnited(int time);
+	void setCurrentFuseTime(int time);
 }

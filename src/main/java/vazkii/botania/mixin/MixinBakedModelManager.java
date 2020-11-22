@@ -20,7 +20,7 @@ public class MixinBakedModelManager {
 	@Shadow private Map<Identifier, BakedModel> models;
 
 	@Inject(at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/render/model/ModelLoader;getBakedModelMap()Ljava/util/Map;", shift = At.Shift.AFTER), method = "apply(Lnet/minecraft/client/render/model/ModelLoader;Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/profiler/Profiler;)V")
-	public void insertBookModel(ModelLoader modelLoader, ResourceManager resourceManager, Profiler profiler, CallbackInfo ci) {
+	private void onModelBake(ModelLoader modelLoader, ResourceManager resourceManager, Profiler profiler, CallbackInfo ci) {
 		MiscellaneousIcons.INSTANCE.onModelBake(modelLoader, this.models);
 	}
 }

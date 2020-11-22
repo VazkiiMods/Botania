@@ -14,6 +14,6 @@ import org.spongepowered.asm.mixin.connect.IMixinConnector;
 public class MixinConnector implements IMixinConnector {
 	@Override
 	public void connect() {
-		Mixins.addConfigurations("assets/botania/botania.mixins.json");
+		Mixins.addConfigurations("botania.mixins.json");
 	}
 }

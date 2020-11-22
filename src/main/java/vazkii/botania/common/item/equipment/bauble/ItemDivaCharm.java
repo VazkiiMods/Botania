@@ -24,8 +24,6 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.ServerTask;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.math.Box;
 
@@ -36,7 +34,6 @@ import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketBotaniaEffect;
-import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.mixin.AccessorCreeperEntity;
 
 import java.util.List;
@@ -67,7 +64,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 							target.heal(target.getMaxHealth());
 							target.removed = false;
 							if (target instanceof CreeperEntity) {
-								((AccessorCreeperEntity) target).setTimeSinceIgnited(2);
+								((AccessorCreeperEntity) target).setCurrentFuseTime(2);
 							}
 
 							ManaItemHandler.instance().requestManaExact(amulet, player, cost, true);

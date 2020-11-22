@@ -38,7 +38,7 @@ public abstract class MixinClientWorldInfo implements SkyblockWorldInfo {
 		}
 	}
 
-	@Inject(at = @At("HEAD"), method = "getFogDistance", cancellable = true)
+	@Inject(at = @At("HEAD"), method = "getHorizonShadingRatio", cancellable = true)
 	private void gogFog(CallbackInfoReturnable<Double> cir) {
 		if (gardenOfGlass) {
 			cir.setReturnValue(1.0);

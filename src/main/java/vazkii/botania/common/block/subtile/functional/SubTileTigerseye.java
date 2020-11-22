@@ -45,7 +45,7 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 		}
 
 		for (CreeperEntity entity : getWorld().getNonSpectatingEntities(CreeperEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE), getEffectivePos().add(RANGE + 1, RANGE_Y + 1, RANGE + 1)))) {
-			((AccessorCreeperEntity) entity).setTimeSinceIgnited(2);
+			((AccessorCreeperEntity) entity).setCurrentFuseTime(2);
 			entity.setTarget(null);
 
 			if (getMana() >= COST) {
