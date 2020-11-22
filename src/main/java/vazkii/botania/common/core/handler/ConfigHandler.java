@@ -33,6 +33,8 @@ import static io.github.fablabsmc.fablabs.api.fiber.v1.schema.type.derived.Confi
 import java.util.Collections;
 import java.util.List;
 
+import vazkii.botania.common.Botania;
+
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -296,5 +298,6 @@ public final class ConfigHandler {
 	private static void onConfigLoad() {
 		blacklistedRannuncarpusItems = COMMON.rannuncarpusItemBlacklist.getValue().stream().map(Identifier::new).collect(Collectors.toSet());
 		blacklistedRannuncarpusModIds = new HashSet<>(COMMON.rannuncarpusModBlacklist.getValue());
+		Botania.configLoaded = true;
 	}
 }

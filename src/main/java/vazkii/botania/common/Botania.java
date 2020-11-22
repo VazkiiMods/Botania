@@ -68,7 +68,6 @@ import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.corporea.CorporeaItemStackMatcher;
 import vazkii.botania.common.impl.corporea.CorporeaStringMatcher;
-import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.ItemGrassSeeds;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.ItemVirus;
@@ -93,7 +92,7 @@ public class Botania implements ModInitializer {
 	public static boolean curiosLoaded = false;
 
 	public static IProxy proxy = new IProxy() {};
-	public static boolean finishedLoading = false;
+	public static volatile boolean configLoaded = false;
 
 	public static final Logger LOGGER = LogManager.getLogger(LibMisc.MOD_ID);
 
@@ -216,11 +215,6 @@ public class Botania implements ModInitializer {
 		ModBlocks.addDispenserBehaviours();
 
         ModStats.init();
-	}
-
-	private void loadComplete() {
-		finishedLoading = true;
-		CorporeaNodeDetectors.init();
 	}
 
 	private void serverAboutToStart(MinecraftServer server) {

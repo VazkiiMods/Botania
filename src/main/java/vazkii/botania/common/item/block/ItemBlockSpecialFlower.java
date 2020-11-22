@@ -46,7 +46,7 @@ public class ItemBlockSpecialFlower extends BlockItem {
 	@Override
 	public void appendTooltip(@Nonnull ItemStack stack, World world, @Nonnull List<Text> tooltip, @Nonnull TooltipContext flag) {
 		// Prevent crash when tooltips queried before configs load
-		if (Botania.finishedLoading) {
+		if (Botania.configLoaded) {
 			if (world != null) {
 				if (GENERATING.contains(this)) {
 					tooltip.add(new TranslatableText("botania.flowerType.generating").formatted(Formatting.ITALIC, Formatting.BLUE));
