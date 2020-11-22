@@ -242,7 +242,7 @@ public final class ModItems {
 	// Misc tools
 	public static final Item manaTablet = new ItemManaTablet(unstackable());
 	public static final Item manaMirror = new ItemManaMirror(unstackable());
-	public static final Item manaGun = new ItemManaGun(unstackable().setNoRepair());
+	public static final Item manaGun = new ItemManaGun(unstackable());
 	public static final Item clip = new Item(unstackable());
 	public static final Item grassHorn = new ItemHorn(unstackable());
 	public static final Item leavesHorn = new ItemHorn(unstackable());
