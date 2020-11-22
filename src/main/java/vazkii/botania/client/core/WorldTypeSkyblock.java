@@ -26,26 +26,6 @@ public class WorldTypeSkyblock extends BiomeGeneratorTypeScreens {
 		super("botania-skyblock");
 	}
 
-	/* todo 1.16 these have moved elsewhere
-	
-	moved to DimensionRenderInfo
-	@Override
-	public float getCloudHeight() {
-		return 260f;
-	}
-	
-	moved to ClientWorldInfo
-	// In skyblock worlds, do not darken the sky until player hits y=0
-	@Override
-	public double getHorizon(World world) {
-		return 0.0D;
-	}
-	
-	@Override
-	public double voidFadeMagnitude() {
-		return 1.0D;
-	}
-	*/
 	@Override
 	protected ChunkGenerator func_241869_a(@Nonnull Registry<Biome> biomeRegistry, @Nonnull Registry<DimensionSettings> dimensionSettingsRegistry, long seed) {
 		return new SkyblockChunkGenerator(new OverworldBiomeProvider(seed, false, false, biomeRegistry), seed,
