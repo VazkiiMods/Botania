@@ -57,6 +57,10 @@ repositories {
         name = "BuildCraft"
         url = "https://mod-buildcraft.com/maven"
     }
+    maven {
+        name "entity reach"
+        url "https://maven.jamieswhiteshirt.com/libs-release/"
+    }
 }
 
 dependencies {
@@ -76,6 +80,8 @@ dependencies {
     modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.7.2"
     modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-util:2.7.2"
     modImplementation "top.theillusivec4.curios:curios-fabric:0.0.10-1.16.3"
+    modImplementation "com.jamieswhiteshirt:reach-entity-attributes:1.0.1"
+    include "com.jamieswhiteshirt:reach-entity-attributes:1.0.1"
 
     minecraft "com.mojang:minecraft:1.16.3"
     mappings "net.fabricmc:yarn:1.16.3+build.47:v2"
