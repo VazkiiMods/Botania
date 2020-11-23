@@ -22,7 +22,6 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Rarity;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IRelic;
@@ -30,8 +29,6 @@ import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
-
-import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.UUID;
@@ -81,13 +78,6 @@ public class ItemRelic extends Item implements IRelic {
 	public boolean shouldDamageWrongPlayer() {
 		return true;
 	}
-
-	/* todo 1.16-fabric
-	@Override
-	public int getEntityLifespan(ItemStack itemStack, World world) {
-		return Integer.MAX_VALUE;
-	}
-	*/
 
 	public void updateRelic(ItemStack stack, PlayerEntity player) {
 		if (stack.isEmpty() || !(stack.getItem() instanceof IRelic)) {

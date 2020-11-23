@@ -202,13 +202,6 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		}
 	}
 
-	/* todo 1.16-fabric
-	@Override
-	public int getEntityLifespan(ItemStack itemStack, World world) {
-		return Integer.MAX_VALUE;
-	}
-	*/
-
 	public static boolean isTipped(ItemStack stack) {
 		return ItemNBTHelper.getBoolean(stack, TAG_TIPPED, false);
 	}
