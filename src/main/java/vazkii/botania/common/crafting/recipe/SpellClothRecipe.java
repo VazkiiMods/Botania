@@ -14,6 +14,7 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.item.ModItems;
@@ -79,5 +80,18 @@ public class SpellClothRecipe extends SpecialCraftingRecipe {
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
+	}
+
+	@Nonnull
+	@Override
+	public DefaultedList<ItemStack> getRemainingStacks(@Nonnull CraftingInventory inv) {
+		return RecipeUtils.getRemainingItemsSub(inv, s -> {
+			if (s.getItem() == ModItems.spellCloth) {
+				ItemStack copy = s.copy();
+				copy.setDamage(copy.getDamage() + 1);
+				return copy;
+			}
+			return null;
+		});
 	}
 }

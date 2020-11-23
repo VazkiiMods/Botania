@@ -14,10 +14,12 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.ICosmeticBauble;
+import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 
 import javax.annotation.Nonnull;
 
@@ -77,5 +79,16 @@ public class CosmeticRemoveRecipe extends SpecialCraftingRecipe {
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
+	}
+
+	@Nonnull
+	@Override
+	public DefaultedList<ItemStack> getRemainingStacks(@Nonnull CraftingInventory inv) {
+		return RecipeUtils.getRemainingItemsSub(inv, s -> {
+			if (s.getItem() instanceof ItemBauble) {
+				return ((ItemBauble) s.getItem()).getCosmeticItem(s);
+			}
+			return null;
+		});
 	}
 }

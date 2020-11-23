@@ -11,8 +11,6 @@ package vazkii.botania.common.item;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import javax.annotation.Nonnull;
-
 public class ItemSpellCloth extends Item {
 
 	public ItemSpellCloth(Settings builder) {
@@ -23,19 +21,6 @@ public class ItemSpellCloth extends Item {
 	@Override
 	public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
 		return false;
-	}
-
-	@Override
-	public boolean hasContainerItem(ItemStack stack) {
-		return true;
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
-		ItemStack stack = itemStack.copy();
-		stack.setDamage(stack.getDamage() + 1);
-		return stack;
 	}
 	*/
 

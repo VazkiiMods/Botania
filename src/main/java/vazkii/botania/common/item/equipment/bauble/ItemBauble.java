@@ -37,7 +37,6 @@ import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.List;
@@ -95,19 +94,6 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 		}
 		ItemNBTHelper.setCompound(stack, TAG_COSMETIC_ITEM, cmp);
 	}
-
-	/* todo 1.16-fabric
-	@Override
-	public boolean hasContainerItem(ItemStack stack) {
-		return !getContainerItem(stack).isEmpty();
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
-		return getCosmeticItem(itemStack);
-	}
-	*/
 
 	public static UUID getBaubleUUID(ItemStack stack) {
 		long most = ItemNBTHelper.getLong(stack, TAG_BAUBLE_UUID_MOST, 0);

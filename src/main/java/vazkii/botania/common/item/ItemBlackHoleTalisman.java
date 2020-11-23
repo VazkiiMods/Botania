@@ -189,29 +189,6 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 		return cand;
 	}
 
-	/* todo 1.16-fabric
-	@Nonnull
-	@Override
-	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
-		int count = getBlockCount(itemStack);
-		if (count == 0) {
-			return ItemStack.EMPTY;
-		}
-
-		int extract = Math.min(64, count);
-		ItemStack copy = itemStack.copy();
-		remove(copy, extract);
-		ItemNBTHelper.setBoolean(copy, TAG_ACTIVE, false);
-
-		return copy;
-	}
-
-	@Override
-	public boolean hasContainerItem(ItemStack stack) {
-		return !getContainerItem(stack).isEmpty();
-	}
-	*/
-
 	private boolean setBlock(ItemStack stack, Block block) {
 		if (block.asItem() != Items.AIR && (getBlock(stack) == null || getBlockCount(stack) == 0)) {
 			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Registry.BLOCK.getId(block).toString());

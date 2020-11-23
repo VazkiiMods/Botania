@@ -15,8 +15,10 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
+import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemBlackHoleTalisman;
 import vazkii.botania.common.item.ModItems;
 
@@ -79,5 +81,26 @@ public class BlackHoleTalismanExtractRecipe extends SpecialCraftingRecipe {
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
+	}
+
+	@Nonnull
+	@Override
+	public DefaultedList<ItemStack> getRemainingStacks(@Nonnull CraftingInventory inv) {
+		return RecipeUtils.getRemainingItemsSub(inv, s -> {
+			if (s.getItem() == ModItems.blackHoleTalisman) {
+				int count = ItemBlackHoleTalisman.getBlockCount(s);
+				if (count == 0) {
+					return ItemStack.EMPTY;
+				}
+
+				int extract = Math.min(64, count);
+				ItemStack copy = s.copy();
+				ItemBlackHoleTalisman.remove(copy, extract);
+				ItemNBTHelper.setBoolean(copy, ItemBlackHoleTalisman.TAG_ACTIVE, false);
+
+				return copy;
+			}
+			return null;
+		});
 	}
 }

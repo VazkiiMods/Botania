@@ -119,19 +119,6 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 		return stack.getName().getString().equalsIgnoreCase("desu gun");
 	}
 
-	/* todo 1.16-fabric
-	@Override
-	public boolean hasContainerItem(ItemStack stack) {
-		return !getLens(stack).isEmpty();
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
-		return getLens(itemStack);
-	}
-	*/
-
 	@Nonnull
 	public BurstProperties getBurstProps(PlayerEntity player, ItemStack stack, boolean request, Hand hand) {
 		int maxMana = 120;
