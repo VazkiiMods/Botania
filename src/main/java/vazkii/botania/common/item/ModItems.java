@@ -386,8 +386,8 @@ public final class ModItems {
 	public static final Item questgiverMark = new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.QUESTGIVER_MARK, unstackable());
 	public static final Item thinkingHand = new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.THINKING_HAND, unstackable());
 
-	public static final ScreenHandlerType<ContainerFlowerBag> FLOWER_BAG_CONTAINER = ScreenHandlerRegistry.registerExtended(Registry.ITEM.getId(flowerBag), ContainerFlowerBag::fromNetwork);
-	public static final ScreenHandlerType<ContainerBaubleBox> BAUBLE_BOX_CONTAINER = ScreenHandlerRegistry.registerExtended(Registry.ITEM.getId(baubleBox), ContainerBaubleBox::fromNetwork);
+	public static final ScreenHandlerType<ContainerFlowerBag> FLOWER_BAG_CONTAINER = ScreenHandlerRegistry.registerExtended(prefix(LibItemNames.FLOWER_BAG), ContainerFlowerBag::fromNetwork);
+	public static final ScreenHandlerType<ContainerBaubleBox> BAUBLE_BOX_CONTAINER = ScreenHandlerRegistry.registerExtended(prefix(LibItemNames.BAUBLE_BOX), ContainerBaubleBox::fromNetwork);
 
 	public static FabricItemSettings defaultBuilder() {
 		return new FabricItemSettings().group(BotaniaCreativeTab.INSTANCE);

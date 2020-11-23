@@ -9,13 +9,13 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(HopperBlockEntity.class)
 public interface AccessorHopperBlockEntity {
-	@Invoker
-	static boolean callCanInsert(Inventory to, ItemStack stack, int slot, Direction direction) {
+	@Invoker("canInsert")
+	static boolean botania_canInsert(Inventory to, ItemStack stack, int slot, Direction direction) {
 		throw new IllegalStateException("");
 	}
 
-	@Invoker
-	static boolean callCanMergeItems(ItemStack a, ItemStack b) {
+	@Invoker("canMergeItems")
+	static boolean botania_canMerge(ItemStack a, ItemStack b) {
 		throw new IllegalStateException("");
 	}
 }

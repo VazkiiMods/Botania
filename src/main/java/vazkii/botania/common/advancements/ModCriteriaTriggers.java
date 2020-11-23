@@ -12,13 +12,13 @@ import vazkii.botania.mixin.AccessorCriteria;
 
 public class ModCriteriaTriggers {
 	public static void init() {
-		AccessorCriteria.callRegister(AlfPortalTrigger.INSTANCE);
-		AccessorCriteria.callRegister(CorporeaRequestTrigger.INSTANCE);
-		AccessorCriteria.callRegister(DopplegangerNoArmorTrigger.INSTANCE);
-		AccessorCriteria.callRegister(RelicBindTrigger.INSTANCE);
-		AccessorCriteria.callRegister(UseItemSuccessTrigger.INSTANCE);
-		AccessorCriteria.callRegister(ManaGunTrigger.INSTANCE);
-		AccessorCriteria.callRegister(LokiPlaceTrigger.INSTANCE);
-		AccessorCriteria.callRegister(AlfPortalBreadTrigger.INSTANCE);
+		AccessorCriteria.botania_register(AlfPortalTrigger.INSTANCE);
+		AccessorCriteria.botania_register(CorporeaRequestTrigger.INSTANCE);
+		AccessorCriteria.botania_register(DopplegangerNoArmorTrigger.INSTANCE);
+		AccessorCriteria.botania_register(RelicBindTrigger.INSTANCE);
+		AccessorCriteria.botania_register(UseItemSuccessTrigger.INSTANCE);
+		AccessorCriteria.botania_register(ManaGunTrigger.INSTANCE);
+		AccessorCriteria.botania_register(LokiPlaceTrigger.INSTANCE);
+		AccessorCriteria.botania_register(AlfPortalBreadTrigger.INSTANCE);
 	}
 }

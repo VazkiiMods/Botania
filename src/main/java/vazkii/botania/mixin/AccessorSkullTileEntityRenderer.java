@@ -31,7 +31,7 @@ public interface AccessorSkullTileEntityRenderer {
 	}
 
 	@Invoker("method_3578")
-	static RenderLayer callGetRenderType(SkullBlock.SkullType skullType, @Nullable GameProfile profile) {
+	static RenderLayer botania_getRenderType(SkullBlock.SkullType skullType, @Nullable GameProfile profile) {
 		throw new IllegalStateException();
 	}
 }

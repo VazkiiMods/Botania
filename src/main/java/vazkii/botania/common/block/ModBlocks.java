@@ -841,7 +841,7 @@ public final class ModBlocks {
 		register(r, Registry.BLOCK.getId(azulejo15), new BlockItem(azulejo15, props));
 		Item blazeBlockItem = new ItemBlockBlaze(blazeBlock, props);
 		register(r, Registry.BLOCK.getId(blazeBlock), blazeBlockItem);
-		int blazeTime = FuelRegistry.INSTANCE.get(Items.BLAZE_ROD);
+		int blazeTime = 2400;
 		FuelRegistry.INSTANCE.add(blazeBlockItem, blazeTime * (Botania.gardenOfGlassLoaded ? 5 : 10));
 		register(r, Registry.BLOCK.getId(gaiaHead), new WallStandingBlockItem(gaiaHead, gaiaHeadWall, ModItems.defaultBuilder().rarity(Rarity.UNCOMMON)));
 		register(r, Registry.BLOCK.getId(shimmerrock), new BlockItem(shimmerrock, props));

@@ -62,8 +62,8 @@ repositories {
 dependencies {
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
-    modCompile "vazkii.patchouli:Patchouli:1.16.2-44-FABRIC:api"
-    modRuntime "vazkii.patchouli:Patchouli:1.16.2-44-FABRIC"
+    // modCompile "vazkii.patchouli:Patchouli:1.16.2-44-FABRIC:api"
+    modImplementation "vazkii.patchouli:Patchouli:1.16.2-44-FABRIC"
 
     modCompile "alexiil.mc.lib:libblockattributes-all:0.8.4"
 

@@ -11,13 +11,13 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(RecipesProvider.class)
 public interface AccessorRecipesProvider {
-	@Invoker
-	static InventoryChangedCriterion.Conditions callConditionsFromItem(ItemConvertible item) {
+	@Invoker("conditionsFromItem")
+	static InventoryChangedCriterion.Conditions botania_condition(ItemConvertible item) {
 		throw new IllegalStateException("");
 	}
 
-	@Invoker
-	static InventoryChangedCriterion.Conditions callConditionsFromTag(Tag<Item> tag) {
+	@Invoker("conditionsFromTag")
+	static InventoryChangedCriterion.Conditions botania_condition(Tag<Item> tag) {
 		throw new IllegalStateException("");
 	}
 }

@@ -100,7 +100,6 @@ public class Botania implements ModInitializer {
 	public void onInitialize() {
 		ConfigHandler.setup();
 
-		commonSetup();
 		IMCSender.enqueue();
 		ModFeatures.registerFeatures();
 		ModItems.registerItems();
@@ -121,6 +120,7 @@ public class Botania implements ModInitializer {
 		ModSubtiles.registerTEs();
 		PixieHandler.registerAttribute();
 
+		commonSetup();
 		ServerLifecycleEvents.SERVER_STARTED.register(this::serverAboutToStart);
 		CommandRegistrationCallback.EVENT.register(this::registerCommands);
 		ServerLifecycleEvents.SERVER_STOPPING.register(this::serverStopping);

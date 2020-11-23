@@ -16,9 +16,9 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(HeldItemRenderer.class)
 public interface AccessorFirstPersonRenderer {
-	@Invoker
-	void callApplyEquipOffset(MatrixStack ms, Arm side, float equip);
+	@Invoker("applyEquipOffset")
+	void botania_equipOffset(MatrixStack ms, Arm side, float equip);
 
-	@Invoker
-	void callApplySwingOffset(MatrixStack ms, Arm side, float swing);
+	@Invoker("applySwingOffset")
+	void botania_swingOffset(MatrixStack ms, Arm side, float swing);
 }

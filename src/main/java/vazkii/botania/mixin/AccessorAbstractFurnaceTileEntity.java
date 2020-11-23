@@ -20,8 +20,8 @@ import net.minecraft.recipe.RecipeType;
 
 @Mixin(AbstractFurnaceBlockEntity.class)
 public interface AccessorAbstractFurnaceTileEntity {
-	@Invoker
-	boolean invokeCanAcceptRecipeOutput(@Nullable Recipe<?> recipe);
+	@Invoker("canAcceptRecipeOutput")
+	boolean botania_canAcceptRecipeOutput(@Nullable Recipe<?> recipe);
 
 	@Accessor
 	RecipeType<? extends AbstractCookingRecipe> getRecipeType();

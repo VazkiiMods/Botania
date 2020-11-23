@@ -7,8 +7,8 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(Criteria.class)
 public interface AccessorCriteria {
-	@Invoker
-	static <T extends Criterion<?>> T callRegister(T thing) {
+	@Invoker("register")
+	static <T extends Criterion<?>> T botania_register(T thing) {
 		throw new IllegalStateException();
 	}
 }

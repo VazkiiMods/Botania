@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.core.helper;
 
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.HopperBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -49,14 +48,14 @@ public class InventoryHelper {
 	// [VanillaCopy] HopperBlockEntity without side effects
 	private static ItemStack simulateTransfer(Inventory to, ItemStack stack, int slot, Direction direction) {
 		ItemStack itemStack = to.getStack(slot);
-		if (AccessorHopperBlockEntity.callCanInsert(to, stack, slot, direction)) {
+		if (AccessorHopperBlockEntity.botania_canInsert(to, stack, slot, direction)) {
 			boolean bl = false;
 			boolean bl2 = to.isEmpty();
 			if (itemStack.isEmpty()) {
 				// to.setStack(slot, stack);
 				stack = ItemStack.EMPTY;
 				bl = true;
-			} else if (AccessorHopperBlockEntity.callCanMergeItems(itemStack, stack)) {
+			} else if (AccessorHopperBlockEntity.botania_canMerge(itemStack, stack)) {
 				int i = stack.getMaxCount() - itemStack.getCount();
 				int j = Math.min(stack.getCount(), i);
 				stack.decrement(j);

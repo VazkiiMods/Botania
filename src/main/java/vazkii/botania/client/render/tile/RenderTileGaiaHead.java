@@ -84,7 +84,7 @@ public class RenderTileGaiaHead extends SkullBlockEntityRenderer {
 		}
 
 		ms.scale(-1.0F, -1.0F, 1.0F);
-		RenderLayer layer = AccessorSkullTileEntityRenderer.callGetRenderType(type, profile);
+		RenderLayer layer = AccessorSkullTileEntityRenderer.botania_getRenderType(type, profile);
 		if (ShaderHelper.useShaders()) {
 			layer = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.DOPPLEGANGER, RenderDoppleganger.defaultCallback, layer);
 		}

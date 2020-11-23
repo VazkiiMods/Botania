@@ -20,6 +20,6 @@ import net.minecraft.util.Identifier;
 
 @Mixin(RecipeManager.class)
 public interface AccessorRecipeManager {
-	@Invoker
-	<C extends Inventory, T extends Recipe<C>> Map<Identifier, Recipe<C>> callGetAllOfType(RecipeType<T> type);
+	@Invoker("getAllOfType")
+	<C extends Inventory, T extends Recipe<C>> Map<Identifier, Recipe<C>> botania_getAll(RecipeType<T> type);
 }

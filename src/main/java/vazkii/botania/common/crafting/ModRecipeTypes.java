@@ -90,6 +90,6 @@ public class ModRecipeTypes {
 	}
 
 	public static <C extends Inventory, T extends Recipe<C>> Map<Identifier, Recipe<C>> getRecipes(World world, net.minecraft.recipe.RecipeType<T> type) {
-		return ((AccessorRecipeManager) world.getRecipeManager()).callGetAllOfType(type);
+		return ((AccessorRecipeManager) world.getRecipeManager()).botania_getAll(type);
 	}
 }

@@ -17,11 +17,11 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(MobSpawnerLogic.class)
 public interface AccessorAbstractSpawner {
-	@Invoker
-	boolean callIsPlayerInRange();
+	@Invoker("isPlayerInRange")
+	boolean botania_isPlayerInRange();
 
-	@Invoker
-	void callUpdateSpawns();
+	@Invoker("updateSpawns")
+	void botania_updateSpawns();
 
 	@Accessor
 	int getSpawnCount();

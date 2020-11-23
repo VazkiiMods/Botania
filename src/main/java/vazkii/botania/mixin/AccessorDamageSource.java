@@ -6,6 +6,6 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(DamageSource.class)
 public interface AccessorDamageSource {
-	@Invoker
-	DamageSource callSetBypassesArmor();
+	@Invoker("setBypassesArmor")
+	DamageSource botania_setBypassArmor();
 }

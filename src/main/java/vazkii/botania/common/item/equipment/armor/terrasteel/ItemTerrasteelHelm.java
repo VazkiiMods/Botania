@@ -116,7 +116,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 						living.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 1));
 					}
 					if (hasAncientWill(stack, AncientWillType.VERAC)) {
-						((AccessorDamageSource) source).callSetBypassesArmor();
+						((AccessorDamageSource) source).botania_setBypassArmor();
 					}
 					if (hasAncientWill(stack, AncientWillType.KARIL)) {
 						living.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 60, 1));

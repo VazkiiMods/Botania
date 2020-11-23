@@ -31,8 +31,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
 
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
@@ -97,8 +95,8 @@ public class RenderLexicon {
 				float f10 = -0.2F * MathHelper.sin(swingProgress * (float) Math.PI);
 				int l = flag3 ? 1 : -1;
 				ms.translate((double) ((float) l * f5), (double) f6, (double) f10);
-				((AccessorFirstPersonRenderer) MinecraftClient.getInstance().getHeldItemRenderer()).callApplyEquipOffset(ms, handside, equipProgress);
-				((AccessorFirstPersonRenderer) MinecraftClient.getInstance().getHeldItemRenderer()).callApplySwingOffset(ms, handside, swingProgress);
+				((AccessorFirstPersonRenderer) MinecraftClient.getInstance().getHeldItemRenderer()).botania_equipOffset(ms, handside, equipProgress);
+				((AccessorFirstPersonRenderer) MinecraftClient.getInstance().getHeldItemRenderer()).botania_swingOffset(ms, handside, swingProgress);
 			}
 
 			doRender(stack, handside, ms, buffers, light, partialTicks);

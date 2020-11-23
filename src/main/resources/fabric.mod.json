@@ -44,6 +44,10 @@
 
   "custom": {
     "cardinal-components": [
+      "botania:exoflame_heatable",
+      "botania:ghost_rail",
+      "botania:iitem",
+      "botania:kept_items",
       "botania:loonium_drop",
       "botania:narslimmus",
       "botania:tnt_ethical"
