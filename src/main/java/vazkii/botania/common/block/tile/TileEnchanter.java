@@ -344,14 +344,6 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, Tickable
 		}
 	}
 
-	/* todo 1.16-fabric
-	@Nonnull
-	@Override
-	public Box getRenderBoundingBox() {
-		return INFINITE_EXTENT_AABB;
-	}
-	*/
-
 	@Override
 	public int getCurrentMana() {
 		return mana;

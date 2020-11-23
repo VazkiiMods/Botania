@@ -46,7 +46,7 @@ public final class LootHandler {
 	public static LootPool getInjectPool(String entryName) {
 		return LootPool.builder()
 				.with(getInjectEntry(entryName, 1))
-				// todo fabric .bonusRolls(0, 1)
+				// todo 1.16-fabric .bonusRolls(0, 1)
 				.build();
 	}
 

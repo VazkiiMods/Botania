@@ -69,14 +69,6 @@ public abstract class TileRedString extends TileMod implements ITileBound, Ticka
 
 	public void onBound(BlockPos pos) {}
 
-	/* todo 1.16-fabric
-	@Nonnull
-	@Override
-	public Box getRenderBoundingBox() {
-		return INFINITE_EXTENT_AABB;
-	}
-	*/
-
 	@Nullable
 	@Override
 	public BlockPos getBinding() {
