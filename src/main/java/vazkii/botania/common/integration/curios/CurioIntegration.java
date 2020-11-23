@@ -40,6 +40,7 @@ import top.theillusivec4.curios.api.type.component.ICurio;
 import top.theillusivec4.curios.api.type.component.ICuriosItemHandler;
 import top.theillusivec4.curios.api.type.component.IRenderableCurio;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemKeepIvy;
@@ -104,10 +105,9 @@ public class CurioIntegration extends EquipmentHandler {
 
 	@Override
 	protected void registerComponentEvent(Item item) {
-		// todo 1.16-fabric side safety
 		ItemComponentCallbackV2.event(item).register((item1, stack, components) -> {
 			components.put(CuriosComponent.ITEM, new Wrapper(stack));
-			components.put(CuriosComponent.ITEM_RENDER, new RenderWrapper(stack));
+			Botania.proxy.runOnClient(() -> () -> components.put(CuriosComponent.ITEM_RENDER, new RenderWrapper(stack)));
 		});
 	}
 

@@ -38,6 +38,7 @@
     "MixinItemEntity",
     "MixinLivingEntity",
     "MixinLootTable",
+    "MixinPiglinBrain",
     "MixinPlantBlock",
     "MixinPlayerEntity",
     "MixinPlayerManager",
