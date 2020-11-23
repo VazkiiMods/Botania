@@ -115,17 +115,6 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 		return stack.getDisplayName().getString().equalsIgnoreCase("desu gun");
 	}
 
-	@Override
-	public boolean hasContainerItem(ItemStack stack) {
-		return !getLens(stack).isEmpty();
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
-		return getLens(itemStack);
-	}
-
 	@Nonnull
 	public BurstProperties getBurstProps(PlayerEntity player, ItemStack stack, boolean request, Hand hand) {
 		int maxMana = 120;

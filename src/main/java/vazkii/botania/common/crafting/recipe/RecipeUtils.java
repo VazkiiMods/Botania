@@ -13,11 +13,13 @@ import it.unimi.dsi.fastutil.ints.IntSet;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
 
 import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class RecipeUtils {
 	/**
@@ -54,5 +56,25 @@ public class RecipeUtils {
 		}
 
 		return ingredientsMissing.isEmpty();
+	}
+
+	/**
+	 * Like the vanilla method on recipe interface, but specialHandler is called first, and if it returns
+	 * nonnull, that result is used instead of vanilla's
+	 */
+	public static NonNullList<ItemStack> getRemainingItemsSub(IInventory inv, Function<ItemStack, ItemStack> specialHandler) {
+		NonNullList<ItemStack> ret = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
+
+		for (int i = 0; i < ret.size(); ++i) {
+			ItemStack item = inv.getStackInSlot(i);
+			ItemStack special = specialHandler.apply(item);
+			if (special != null) {
+				ret.set(i, special);
+			} else if (item.hasContainerItem()) {
+				ret.set(i, item.getContainerItem());
+			}
+		}
+
+		return ret;
 	}
 }

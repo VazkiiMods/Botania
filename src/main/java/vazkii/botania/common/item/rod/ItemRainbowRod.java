@@ -10,7 +10,6 @@ package vazkii.botania.common.item.rod;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
@@ -34,12 +33,13 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.item.material.ItemSelfReturning;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class ItemRainbowRod extends Item implements IManaUsingItem, IAvatarWieldable {
+public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem, IAvatarWieldable {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_RAINBOW);
 
@@ -119,17 +119,6 @@ public class ItemRainbowRod extends Item implements IManaUsingItem, IAvatarWield
 		}
 
 		return ActionResult.resultSuccess(stack);
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack getContainerItem(@Nonnull ItemStack itemStack) {
-		return itemStack.copy();
-	}
-
-	@Override
-	public boolean hasContainerItem(ItemStack stack) {
-		return !getContainerItem(stack).isEmpty();
 	}
 
 	@Override
