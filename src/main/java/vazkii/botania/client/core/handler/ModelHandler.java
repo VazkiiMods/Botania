@@ -29,6 +29,7 @@ import vazkii.botania.common.block.tile.TileGaiaHead;
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -79,7 +80,9 @@ public final class ModelHandler {
 		BlockEntityRendererRegistry.INSTANCE.register(ModTiles.COCOON, RenderTileCocoon::new);
 		BlockEntityRendererRegistry.INSTANCE.register(ModTiles.LIGHT_RELAY, RenderTileLightRelay::new);
 		BlockEntityRendererRegistry.INSTANCE.register(ModTiles.BELLOWS, RenderTileBellows::new);
-		BlockEntityRendererRegistry.INSTANCE.register(ModTiles.GAIA_HEAD, manager -> (BlockEntityRenderer<TileGaiaHead>) (BlockEntityRenderer<?>) new RenderTileGaiaHead(manager));
+		@SuppressWarnings("unchecked")
+		Function<BlockEntityRenderDispatcher, BlockEntityRenderer<TileGaiaHead>> gaia = manager -> (BlockEntityRenderer<TileGaiaHead>) (BlockEntityRenderer<?>) new RenderTileGaiaHead(manager);
+		BlockEntityRendererRegistry.INSTANCE.register(ModTiles.GAIA_HEAD, gaia);
 		BlockEntityRendererRegistry.INSTANCE.register(ModTiles.TERU_TERU_BOZU, RenderTileTeruTeruBozu::new);
 		BlockEntityRendererRegistry.INSTANCE.register(ModTiles.AVATAR, RenderTileAvatar::new);
 		BlockEntityRendererRegistry.INSTANCE.register(ModTiles.ANIMATED_TORCH, RenderTileAnimatedTorch::new);

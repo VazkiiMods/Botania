@@ -42,7 +42,7 @@ public class ItemPoolMinecart extends Item {
 		} else {
 			ItemStack itemStack = context.getStack();
 			if (!world.isClient) {
-				RailShape railShape = blockState.getBlock() instanceof AbstractRailBlock ? (RailShape)blockState.get(((AbstractRailBlock)blockState.getBlock()).getShapeProperty()) : RailShape.NORTH_SOUTH;
+				RailShape railShape = blockState.getBlock() instanceof AbstractRailBlock ? blockState.get(((AbstractRailBlock)blockState.getBlock()).getShapeProperty()) : RailShape.NORTH_SOUTH;
 				double d = 0.0D;
 				if (railShape.isAscending()) {
 					d = 0.5D;

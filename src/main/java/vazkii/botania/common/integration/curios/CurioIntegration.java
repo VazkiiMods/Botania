@@ -103,6 +103,7 @@ public class CurioIntegration extends EquipmentHandler {
 				.orElse(ItemStack.EMPTY);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void registerComponentEvent(Item item) {
 		ItemComponentCallbackV2.event(item).register((item1, stack, components) -> {

@@ -59,7 +59,7 @@ public class RenderTileSpecialFlower<T extends TileEntitySpecialFlower> extends 
 		boolean hasBindingAttempt = hasBindingAttempt(view, tile.getPos());
 
 		if (hasBindingAttempt || tile.getPos().equals(pos)) {
-			TileEntitySpecialFlower flower = (TileEntitySpecialFlower) tile;
+			TileEntitySpecialFlower flower = tile;
 			ms.push();
 			if (hasBindingAttempt) {
 				ms.translate(0, 0.005, 0);

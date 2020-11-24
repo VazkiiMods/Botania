@@ -140,7 +140,7 @@ public class RenderLexicon {
 		float rightPageAngle = MathHelper.fractionalPart(pageFlip + 0.75F) * 1.6F - 0.3F;
 		model.setPageAngles(ClientTickHandler.total, MathHelper.clamp(leftPageAngle, 0.0F, 1.0F), MathHelper.clamp(rightPageAngle, 0.0F, 1.0F), opening);
 
-		SpriteIdentifier mat = ((ItemLexicon) ModItems.lexicon).isElvenItem(stack) ? ELVEN_TEXTURE : TEXTURE;
+		SpriteIdentifier mat = ModItems.lexicon.isElvenItem(stack) ? ELVEN_TEXTURE : TEXTURE;
 		VertexConsumer buffer = mat.getVertexConsumer(buffers, RenderLayer::getEntitySolid);
 		model.render(ms, buffer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
 
