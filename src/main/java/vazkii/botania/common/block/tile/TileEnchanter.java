@@ -364,6 +364,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, Tickable
 		return manaRequired > 0;
 	}
 
+	@Override
 	public void sync() {
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 	}

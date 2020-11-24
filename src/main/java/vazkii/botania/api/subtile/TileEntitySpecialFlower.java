@@ -201,6 +201,7 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 		}
 	}
 
+	@Override
 	public void sync() {
 		VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 	}
