@@ -20,7 +20,6 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.mana.ICreativeManaProvider;
@@ -73,13 +72,6 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 			stacks.add(new TranslatableText("botaniamisc.creative").formatted(Formatting.GRAY));
 		}
 	}
-
-	/* todo 1.16-fabric
-	@Override
-	public int getEntityLifespan(ItemStack itemStack, World world) {
-		return Integer.MAX_VALUE;
-	}
-	*/
 
 	public static void setMana(ItemStack stack, int mana) {
 		ItemNBTHelper.setInt(stack, TAG_MANA, mana);
