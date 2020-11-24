@@ -42,8 +42,9 @@ public final class ConfigHandler {
 	private static void writeDefaultConfig(ConfigTree config, Path path, JanksonValueSerializer serializer) {
 		try (OutputStream s = new BufferedOutputStream(Files.newOutputStream(path, StandardOpenOption.WRITE, StandardOpenOption.CREATE_NEW))) {
 			FiberSerialization.serialize(config, s, serializer);
-		} catch (IOException ignored) {
-			Botania.LOGGER.error("Error writing default config", ignored);
+		} catch (FileAlreadyExistsException ignored) {
+		} catch (IOException e) {
+			Botania.LOGGER.error("Error writing default config", e);
 		}
 	}
 
@@ -62,7 +63,6 @@ public final class ConfigHandler {
 		try {
 			Files.createDirectory(Paths.get("config"));
 		} catch (FileAlreadyExistsException ignored) {
-
 		} catch (IOException e) {
 			Botania.LOGGER.warn("Failed to make config dir", e);
 		}

@@ -215,7 +215,7 @@ public final class ModItems {
 	public static final Item elementiumSword = new ItemElementiumSword(unstackable().customDamage(ItemManasteelSword::damageItem));
 	public static final Item elementiumShears = new ItemElementiumShears(unstackable().customDamage(ItemManasteelShears::damageItem));
 	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
-	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlot.HEAD, unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
+	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlot.CHEST, unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
 	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlot.LEGS, unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
 	public static final Item terrasteelBoots = new ItemTerrasteelArmor(EquipmentSlot.FEET, unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
 	public static final Item terraPick = new ItemTerraPick(unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelPick::damageItem));
