@@ -47,7 +47,7 @@ public class LexiconModel implements BakedModel {
 	@Nonnull
 	@Override
 	public List<BakedQuad> getQuads(BlockState state, Direction side, @Nonnull Random rand) {
-		return ImmutableList.of();
+		return original.getQuads(state, side, rand);
 	}
 
 	@Override
