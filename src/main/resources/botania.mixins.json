@@ -71,6 +71,7 @@
     "MixinGameRenderer",
     "MixinKeyboard",
     "MixinMinecraftClient",
+    "MixinParticleManager",
     "MixinSkullTileEntityRenderer",
     "MixinSoundManager",
     "MixinSplashes",

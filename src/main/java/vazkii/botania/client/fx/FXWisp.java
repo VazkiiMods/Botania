@@ -121,7 +121,7 @@ public class FXWisp extends SpriteBillboardParticle {
 		RenderSystem.depthMask(true);
 	}
 
-	private static final ParticleTextureSheet NORMAL_RENDER = new ParticleTextureSheet() {
+	public static final ParticleTextureSheet NORMAL_RENDER = new ParticleTextureSheet() {
 		@Override
 		public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
 			beginRenderCommon(bufferBuilder, textureManager);
@@ -139,7 +139,7 @@ public class FXWisp extends SpriteBillboardParticle {
 		}
 	};
 
-	private static final ParticleTextureSheet DIW_RENDER = new ParticleTextureSheet() {
+	public static final ParticleTextureSheet DIW_RENDER = new ParticleTextureSheet() {
 		@Override
 		public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
 			beginRenderCommon(bufferBuilder, textureManager);

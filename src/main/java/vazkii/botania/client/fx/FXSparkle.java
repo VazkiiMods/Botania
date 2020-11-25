@@ -171,7 +171,7 @@ public class FXSparkle extends SpriteBillboardParticle {
 		RenderSystem.depthMask(true);
 	}
 
-	private static final ParticleTextureSheet NORMAL_RENDER = new ParticleTextureSheet() {
+	public static final ParticleTextureSheet NORMAL_RENDER = new ParticleTextureSheet() {
 		@Override
 		public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
 			beginRenderCommon(bufferBuilder, textureManager);
@@ -189,7 +189,7 @@ public class FXSparkle extends SpriteBillboardParticle {
 		}
 	};
 
-	private static final ParticleTextureSheet CORRUPT_RENDER = new ParticleTextureSheet() {
+	public static final ParticleTextureSheet CORRUPT_RENDER = new ParticleTextureSheet() {
 		@Override
 		public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
 			beginRenderCommon(bufferBuilder, textureManager);
