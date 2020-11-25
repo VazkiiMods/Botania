@@ -21,6 +21,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.Effect;
+import net.minecraft.server.dedicated.DedicatedServer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -102,6 +103,7 @@ import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.ModFeatures;
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 import vazkii.botania.common.world.SkyblockWorldEvents;
+import vazkii.botania.common.world.WorldTypeUtil;
 import vazkii.botania.data.DataGenerators;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
@@ -284,6 +286,9 @@ public class Botania {
 					+ "This will cause crashes and compatibility issues, and that's why it's marked as"
 					+ " \"Do not Override\". Whoever had the brilliant idea of overriding it needs to go"
 					+ " back to elementary school and learn to read. (Actual classname: " + clname + ")");
+		}
+		if (Botania.gardenOfGlassLoaded) {
+			WorldTypeUtil.setupForDedicatedServer((DedicatedServer) event.getServer());
 		}
 	}
 
