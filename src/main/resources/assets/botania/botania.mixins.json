@@ -5,6 +5,7 @@
   "package": "vazkii.botania.mixin",
   "refmap": "botania.refmap.json",
   "mixins": [
+    "AccessorPropertyManager",
     "AccessorAbstractFurnaceTileEntity",
     "AccessorAbstractHorseEntity",
     "AccessorAbstractSpawner",
@@ -19,6 +20,7 @@
     "AccessorMobEntity",
     "AccessorNearestAttackableTarget",
     "AccessorRecipeManager",
+    "AccessorServerWorldInfo",
     "AccessorStats",
     "AccessorWitherEntity",
     "MixinAbstractMinecartEntity",
