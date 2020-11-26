@@ -3,7 +3,6 @@
   "minVersion": "0.8",
   "compatibilityLevel": "JAVA_8",
   "package": "vazkii.botania.mixin",
-  "refmap": "botania.refmap.json",
   "mixins": [
     "AccessorAbstractFurnaceTileEntity",
     "AccessorAbstractHorseEntity",
