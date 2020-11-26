@@ -78,7 +78,7 @@ public class PureDaisyRecipeManager implements IRecipeManager {
 	public void removeRecipe(IItemStack output) {
 
 		throw new IllegalArgumentException(
-				"The Pure daisy does not output IItemStacks, use removeRecipeByBlock(MCBlockState)!");
+				"The Pure Daisy does not output IItemStacks, use removeRecipeByBlock(MCBlockState)!");
 	}
 
 	@Override
