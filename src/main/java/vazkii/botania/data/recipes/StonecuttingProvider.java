@@ -38,14 +38,13 @@ import java.util.stream.IntStream;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-/*
-public class StonecuttingProvider extends RecipesProvider {
+public class StonecuttingProvider extends RecipesProvider implements BotaniaRecipeProvider {
 	public StonecuttingProvider(DataGenerator generator) {
 		super(generator);
 	}
 
 	@Override
-	protected void generate(Consumer<RecipeJsonProvider> consumer) {
+	public void registerRecipes(Consumer<RecipeJsonProvider> consumer) {
 		for (String variant : LibBlockNames.METAMORPHIC_VARIANTS) {
 			registerForMetamorphic(variant, consumer);
 		}
@@ -184,4 +183,3 @@ public class StonecuttingProvider extends RecipesProvider {
 		}
 	}
 }
-*/

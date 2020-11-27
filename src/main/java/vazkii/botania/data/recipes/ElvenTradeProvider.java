@@ -36,14 +36,13 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-/*
-public class ElvenTradeProvider extends RecipesProvider {
+public class ElvenTradeProvider extends RecipesProvider implements BotaniaRecipeProvider {
 	public ElvenTradeProvider(DataGenerator gen) {
 		super(gen);
 	}
 
 	@Override
-	protected void generate(Consumer<RecipeJsonProvider> consumer) {
+	public void registerRecipes(Consumer<RecipeJsonProvider> consumer) {
 		Ingredient livingwood = Ingredient.fromTag(ModTags.Items.LIVINGWOOD);
 		consumer.accept(new FinishedRecipe(id("dreamwood"), new ItemStack(ModBlocks.dreamwood), livingwood));
 
@@ -131,4 +130,3 @@ public class ElvenTradeProvider extends RecipesProvider {
 		}
 	}
 }
-*/

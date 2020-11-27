@@ -30,7 +30,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class TerraPlateProvider extends RecipesProvider {
+public class TerraPlateProvider extends RecipesProvider implements BotaniaRecipeProvider {
 	public TerraPlateProvider(DataGenerator gen) {
 		super(gen);
 	}
@@ -40,8 +40,8 @@ public class TerraPlateProvider extends RecipesProvider {
 		return "Botania Terra Plate recipes";
 	}
 
-	// todo 1.16-fabric @Override
-	protected void registerRecipes(Consumer<RecipeJsonProvider> consumer) {
+	@Override
+	public void registerRecipes(Consumer<RecipeJsonProvider> consumer) {
 		consumer.accept(new FinishedRecipe(idFor("terrasteel_ingot"), TilePool.MAX_MANA / 2, new ItemStack(ModItems.terrasteel), Ingredient.ofItems(ModItems.manaSteel), Ingredient.ofItems(ModItems.manaDiamond), Ingredient.ofItems(ModItems.manaPearl)));
 	}
 

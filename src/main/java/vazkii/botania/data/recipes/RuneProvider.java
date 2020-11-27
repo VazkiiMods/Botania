@@ -33,8 +33,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-/*
-public class RuneProvider extends RecipesProvider {
+public class RuneProvider extends RecipesProvider implements BotaniaRecipeProvider {
 	public RuneProvider(DataGenerator gen) {
 		super(gen);
 	}
@@ -45,7 +44,7 @@ public class RuneProvider extends RecipesProvider {
 	}
 
 	@Override
-	protected void generate(Consumer<RecipeJsonProvider> consumer) {
+	public void registerRecipes(Consumer<RecipeJsonProvider> consumer) {
 		final int costTier1 = 5200;
 		final int costTier2 = 8000;
 		final int costTier3 = 12000;
@@ -56,8 +55,8 @@ public class RuneProvider extends RecipesProvider {
 		consumer.accept(new FinishedRecipe(idFor("water"), new ItemStack(ModItems.runeWater, 2), costTier1, manaPowder, manaSteel, Ingredient.ofItems(Items.BONE_MEAL), Ingredient.ofItems(Blocks.SUGAR_CANE), Ingredient.ofItems(Items.FISHING_ROD)));
 		consumer.accept(new FinishedRecipe(idFor("fire"), new ItemStack(ModItems.runeFire, 2), costTier1, manaPowder, manaSteel, Ingredient.ofItems(Items.NETHER_BRICK), Ingredient.ofItems(Items.GUNPOWDER), Ingredient.ofItems(Items.NETHER_WART)));
 
-		Ingredient stone = Ingredient.fromTag(Tags.Items.STONE);
-		Ingredient coalBlock = Ingredient.fromTag(Tags.Items.STORAGE_BLOCKS_COAL);
+		Ingredient stone = Ingredient.ofItems(Blocks.STONE);
+		Ingredient coalBlock = Ingredient.ofItems(Blocks.COAL_BLOCK);
 		consumer.accept(new FinishedRecipe(idFor("earth"), new ItemStack(ModItems.runeEarth, 2), costTier1, manaPowder, manaSteel, stone, coalBlock, Ingredient.ofItems(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM)));
 
 		consumer.accept(new FinishedRecipe(idFor("air"), new ItemStack(ModItems.runeAir, 2), costTier1, manaPowder, manaSteel, Ingredient.fromTag(ItemTags.CARPETS), Ingredient.ofItems(Items.FEATHER), Ingredient.ofItems(Items.STRING)));
@@ -156,4 +155,3 @@ public class RuneProvider extends RecipesProvider {
 		}
 	}
 }
-*/

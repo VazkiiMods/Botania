@@ -32,8 +32,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-/*
-public class BrewProvider extends RecipesProvider {
+public class BrewProvider extends RecipesProvider implements BotaniaRecipeProvider {
 	public BrewProvider(DataGenerator gen) {
 		super(gen);
 	}
@@ -44,7 +43,7 @@ public class BrewProvider extends RecipesProvider {
 	}
 
 	@Override
-	protected void generate(Consumer<RecipeJsonProvider> consumer) {
+	public void registerRecipes(Consumer<RecipeJsonProvider> consumer) {
 		consumer.accept(new FinishedRecipe(idFor("speed"), ModBrews.speed, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.SUGAR), Ingredient.ofItems(Items.REDSTONE)));
 		consumer.accept(new FinishedRecipe(idFor("strength"), ModBrews.strength, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.BLAZE_POWDER), Ingredient.ofItems(Items.GLOWSTONE_DUST)));
 		consumer.accept(new FinishedRecipe(idFor("haste"), ModBrews.haste, Ingredient.ofItems(Items.NETHER_WART), Ingredient.ofItems(Items.SUGAR), Ingredient.ofItems(Items.GOLD_NUGGET)));
@@ -116,4 +115,3 @@ public class BrewProvider extends RecipesProvider {
 		}
 	}
 }
-*/

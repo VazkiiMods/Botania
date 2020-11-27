@@ -39,8 +39,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-/*
-public class ManaInfusionProvider extends RecipesProvider {
+public class ManaInfusionProvider extends RecipesProvider implements BotaniaRecipeProvider {
 	public ManaInfusionProvider(DataGenerator gen) {
 		super(gen);
 	}
@@ -51,13 +50,13 @@ public class ManaInfusionProvider extends RecipesProvider {
 	}
 
 	@Override
-	protected void generate(Consumer<RecipeJsonProvider> consumer) {
-		consumer.accept(new FinishedRecipe(id("manasteel"), new ItemStack(ModItems.manaSteel), Ingredient.fromTag(Tags.Items.INGOTS_IRON), 3000));
+	public void registerRecipes(Consumer<RecipeJsonProvider> consumer) {
+		consumer.accept(new FinishedRecipe(id("manasteel"), new ItemStack(ModItems.manaSteel), Ingredient.ofItems(Items.IRON_INGOT), 3000));
 		consumer.accept(new FinishedRecipe(id("manasteel_block"), new ItemStack(ModBlocks.manasteelBlock), ingr(Blocks.IRON_BLOCK), 27000));
 
 		consumer.accept(new FinishedRecipe(id("mana_pearl"), new ItemStack(ModItems.manaPearl), ingr(Items.ENDER_PEARL), 6000));
 
-		consumer.accept(new FinishedRecipe(id("mana_diamond"), new ItemStack(ModItems.manaDiamond), Ingredient.fromTag(Tags.Items.GEMS_DIAMOND), 10000));
+		consumer.accept(new FinishedRecipe(id("mana_diamond"), new ItemStack(ModItems.manaDiamond), Ingredient.ofItems(Items.DIAMOND), 10000));
 		consumer.accept(new FinishedRecipe(id("mana_diamond_block"), new ItemStack(ModBlocks.manaDiamondBlock), ingr(Blocks.DIAMOND_BLOCK), 90000));
 
 		Ingredient dust = Ingredient.ofItems(Items.GUNPOWDER, Items.REDSTONE, Items.GLOWSTONE_DUST, Items.SUGAR);
@@ -273,4 +272,3 @@ public class ManaInfusionProvider extends RecipesProvider {
 		}
 	}
 }
-*/

@@ -11,9 +11,11 @@ package vazkii.botania.data.recipes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import net.fabricmc.fabric.impl.tag.extension.TagDelegate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.server.RecipesProvider;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -36,8 +38,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-/*
-public class PetalProvider extends RecipesProvider {
+public class PetalProvider extends RecipesProvider implements BotaniaRecipeProvider {
 	public PetalProvider(DataGenerator gen) {
 		super(gen);
 	}
@@ -48,7 +49,7 @@ public class PetalProvider extends RecipesProvider {
 	}
 
 	@Override
-	protected void generate(Consumer<RecipeJsonProvider> consumer) {
+	public void registerRecipes(Consumer<RecipeJsonProvider> consumer) {
 		Ingredient white = tagIngr("petals/white");
 		Ingredient orange = tagIngr("petals/orange");
 		Ingredient magenta = tagIngr("petals/magenta");
@@ -143,7 +144,7 @@ public class PetalProvider extends RecipesProvider {
 	}
 
 	private static Ingredient tagIngr(String tag) {
-		return Ingredient.fromTag(ItemTags.register(prefix(tag).toString()));
+		return Ingredient.fromTag(new TagDelegate<>(prefix(tag), ItemTags::getTagGroup));
 	}
 
 	private static FinishedRecipe make(ItemConvertible item, Ingredient... ingredients) {
@@ -198,4 +199,3 @@ public class PetalProvider extends RecipesProvider {
 		}
 	}
 }
-*/

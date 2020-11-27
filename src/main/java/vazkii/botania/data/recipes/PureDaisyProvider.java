@@ -14,6 +14,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.server.RecipesProvider;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.tag.BlockTags;
@@ -30,19 +31,18 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-/*
-public class PureDaisyProvider extends RecipeProvider {
+public class PureDaisyProvider extends RecipesProvider implements BotaniaRecipeProvider {
 	public PureDaisyProvider(DataGenerator generator) {
 		super(generator);
 	}
 
 	@Override
-	protected void generate(Consumer<RecipeJsonProvider> consumer) {
+	public void registerRecipes(Consumer<RecipeJsonProvider> consumer) {
 
-		consumer.accept(new FinishedRecipe(id("livingrock"), StateIngredientHelper.of(Tags.Blocks.STONE), ModBlocks.livingrock.getDefaultState()));
+		consumer.accept(new FinishedRecipe(id("livingrock"), StateIngredientHelper.of(Blocks.STONE), ModBlocks.livingrock.getDefaultState()));
 		consumer.accept(new FinishedRecipe(id("livingwood"), StateIngredientHelper.of(BlockTags.LOGS), ModBlocks.livingwood.getDefaultState()));
 
-		consumer.accept(new FinishedRecipe(id("cobblestone"), StateIngredientHelper.of(Tags.Blocks.NETHERRACK), Blocks.COBBLESTONE.getDefaultState()));
+		consumer.accept(new FinishedRecipe(id("cobblestone"), StateIngredientHelper.of(Blocks.NETHERRACK), Blocks.COBBLESTONE.getDefaultState()));
 		consumer.accept(new FinishedRecipe(id("sand"), StateIngredientHelper.of(Blocks.SOUL_SAND), Blocks.SAND.getDefaultState()));
 		consumer.accept(new FinishedRecipe(id("packed_ice"), StateIngredientHelper.of(Blocks.ICE), Blocks.PACKED_ICE.getDefaultState()));
 		consumer.accept(new FinishedRecipe(id("blue_ice"), StateIngredientHelper.of(Blocks.PACKED_ICE), Blocks.BLUE_ICE.getDefaultState()));
@@ -111,4 +111,3 @@ public class PureDaisyProvider extends RecipeProvider {
 		}
 	}
 }
-*/

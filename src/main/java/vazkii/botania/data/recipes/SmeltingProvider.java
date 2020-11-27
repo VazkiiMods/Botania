@@ -8,23 +8,31 @@
  */
 package vazkii.botania.data.recipes;
 
+import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.server.RecipesProvider;
 import net.minecraft.data.server.recipe.CookingRecipeJsonFactory;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.tag.Tag;
 import vazkii.botania.common.block.ModFluffBlocks;
+import vazkii.botania.mixin.AccessorRecipesProvider;
 
 import java.util.function.Consumer;
 
-/*
-public class SmeltingProvider extends RecipesProvider {
+public class SmeltingProvider extends RecipesProvider implements BotaniaRecipeProvider {
 	public SmeltingProvider(DataGenerator generatorIn) {
 		super(generatorIn);
 	}
 
+	private static InventoryChangedCriterion.Conditions conditionsFromItem(ItemConvertible item) {
+		return AccessorRecipesProvider.botania_condition(item);
+	}
+
 	@Override
-	protected void generate(Consumer<RecipeJsonProvider> consumer) {
+	public void registerRecipes(Consumer<RecipeJsonProvider> consumer) {
 		CookingRecipeJsonFactory.createSmelting(Ingredient.ofItems(ModFluffBlocks.biomeCobblestoneForest), ModFluffBlocks.biomeStoneForest, 0.1f, 200)
 				.criterion("has_item", conditionsFromItem(ModFluffBlocks.biomeCobblestoneForest))
 				.offerTo(consumer, "botania:smelting/metamorphic_forest_stone");
@@ -56,4 +64,3 @@ public class SmeltingProvider extends RecipesProvider {
 		return "Botania smelting recipes";
 	}
 }
-*/

@@ -41,6 +41,7 @@
     "MixinPlantBlock",
     "MixinPlayerEntity",
     "MixinPlayerManager",
+    "MixinRecipesProvider",
     "MixinServerPlayerEntity",
     "MixinServerPlayerInteractionManager",
     "MixinServerPlayNetworkHandler",

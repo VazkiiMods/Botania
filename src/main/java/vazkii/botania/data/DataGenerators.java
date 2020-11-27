@@ -9,34 +9,39 @@
 package vazkii.botania.data;
 
 
+import net.minecraft.data.DataGenerator;
 import vazkii.botania.data.recipes.*;
 
-/* todo fabric hook this up?
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collections;
+
 public class DataGenerators {
-	public static void gatherData(GatherDataEvent evt) {
-		if (evt.includeServer()) {
-			evt.getGenerator().install(new BlockLootProvider(evt.getGenerator()));
-			BlockTagProvider blockTagProvider = new BlockTagProvider(evt.getGenerator());
-			evt.getGenerator().addProvider(blockTagProvider);
-			evt.getGenerator().addProvider(new ItemTagProvider(evt.getGenerator(), blockTagProvider));
-			evt.getGenerator().addProvider(new EntityTagProvider(evt.getGenerator()));
-			evt.getGenerator().addProvider(new StonecuttingProvider(evt.getGenerator()));
-			evt.getGenerator().addProvider(new RecipeProvider(evt.getGenerator()));
-			evt.getGenerator().addProvider(new SmeltingProvider(evt.getGenerator()));
-			evt.getGenerator().addProvider(new ElvenTradeProvider(evt.getGenerator()));
-			evt.getGenerator().addProvider(new ManaInfusionProvider(evt.getGenerator()));
-			evt.getGenerator().addProvider(new PureDaisyProvider(evt.getGenerator()));
-			evt.getGenerator().addProvider(new BrewProvider(evt.getGenerator()));
-			evt.getGenerator().addProvider(new PetalProvider(evt.getGenerator()));
-			evt.getGenerator().addProvider(new RuneProvider(evt.getGenerator()));
-			evt.getGenerator().addProvider(new TerraPlateProvider(evt.getGenerator()));
-		}
+	public static void gatherData() {
+		Path output = Paths.get(".").getParent().resolve("src/generated/resources");
+		DataGenerator generator = new DataGenerator(output, Collections.emptyList());
+		generator.install(new BlockLootProvider(generator));
+		BlockTagProvider blockTagProvider = new BlockTagProvider(generator);
+		generator.install(blockTagProvider);
+		generator.install(new ItemTagProvider(generator, blockTagProvider));
+		generator.install(new EntityTagProvider(generator));
+		generator.install(new StonecuttingProvider(generator));
+		// todo 1.16-fabric generator.install(new RecipeProvider(generator));
+		generator.install(new SmeltingProvider(generator));
+		generator.install(new ElvenTradeProvider(generator));
+		generator.install(new ManaInfusionProvider(generator));
+		generator.install(new PureDaisyProvider(generator));
+		generator.install(new BrewProvider(generator));
+		generator.install(new PetalProvider(generator));
+		generator.install(new RuneProvider(generator));
+		generator.install(new TerraPlateProvider(generator));
+		/* todo 1.16-fabric
 		if (evt.includeClient()) {
-			evt.getGenerator().install(new BlockstateProvider(evt.getGenerator(), evt.getExistingFileHelper()));
-			evt.getGenerator().install(new FloatingFlowerModelProvider(evt.getGenerator(), evt.getExistingFileHelper()));
-			evt.getGenerator().install(new ItemModelProvider(evt.getGenerator(), evt.getExistingFileHelper()));
+			generator.install(new BlockstateProvider(generator, evt.getExistingFileHelper()));
+			generator.install(new FloatingFlowerModelProvider(generator, evt.getExistingFileHelper()));
+			generator.install(new ItemModelProvider(generator, evt.getExistingFileHelper()));
 		}
+		*/
 	}
 
 }
-*/
