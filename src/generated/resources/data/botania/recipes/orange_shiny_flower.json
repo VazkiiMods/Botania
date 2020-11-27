@@ -3,10 +3,10 @@
   "group": "botania:shiny_flower",
   "ingredients": [
     {
-      "tag": "forge:dusts/glowstone"
+      "item": "minecraft:glowstone_dust"
     },
     {
-      "tag": "forge:dusts/glowstone"
+      "item": "minecraft:glowstone_dust"
     },
     {
       "item": "botania:orange_mystical_flower"

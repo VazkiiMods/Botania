@@ -7,7 +7,7 @@
   ],
   "key": {
     "R": {
-      "tag": "forge:dusts/redstone"
+      "item": "minecraft:redstone"
     },
     "S": {
       "item": "botania:life_essence"

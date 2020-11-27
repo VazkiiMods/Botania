@@ -7,7 +7,7 @@
   ],
   "key": {
     "R": {
-      "tag": "forge:storage_blocks/redstone"
+      "item": "minecraft:redstone_block"
     },
     "S": {
       "tag": "botania:livingrock"
@@ -18,11 +18,5 @@
   },
   "result": {
     "item": "botania:mana_fluxfield"
-  },
-  "conditions": [
-    {
-      "value": true,
-      "type": "botania:fluxfield_enabled"
-    }
-  ]
+  }
 }

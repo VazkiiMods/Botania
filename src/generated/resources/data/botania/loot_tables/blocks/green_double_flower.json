@@ -2,7 +2,6 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "name": "main",
       "rolls": 1,
       "entries": [
         {
@@ -18,7 +17,7 @@
             {
               "condition": "minecraft:match_tool",
               "predicate": {
-                "tag": "forge:shears"
+                "tag": "fabric:shears"
               }
             }
           ],

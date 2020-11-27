@@ -10,7 +10,7 @@
       "tag": "forge:gems/mana_diamond"
     },
     "G": {
-      "tag": "forge:ingots/gold"
+      "item": "minecraft:gold_ingot"
     },
     "M": {
       "tag": "forge:ingots/manasteel"

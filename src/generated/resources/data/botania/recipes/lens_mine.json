@@ -10,10 +10,10 @@
       "item": "minecraft:piston"
     },
     "A": {
-      "tag": "forge:gems/lapis"
+      "item": "minecraft:lapis_lazuli"
     },
     "R": {
-      "tag": "forge:dusts/redstone"
+      "item": "minecraft:redstone"
     },
     "L": {
       "item": "botania:lens_normal"

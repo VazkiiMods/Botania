@@ -10,7 +10,7 @@
       "tag": "botania:runes/air"
     },
     "E": {
-      "tag": "forge:gems/emerald"
+      "item": "minecraft:emerald"
     },
     "M": {
       "tag": "forge:ingots/manasteel"

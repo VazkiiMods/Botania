@@ -5,7 +5,7 @@
       "item": "botania:light_relay"
     },
     {
-      "tag": "forge:dusts/redstone"
+      "item": "minecraft:redstone"
     }
   ],
   "result": {

@@ -7,7 +7,7 @@
   ],
   "key": {
     "P": {
-      "tag": "forge:gems/prismarine"
+      "item": "minecraft:prismarine_crystals"
     },
     "D": {
       "tag": "forge:gems/mana_diamond"

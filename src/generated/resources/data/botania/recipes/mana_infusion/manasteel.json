@@ -1,7 +1,7 @@
 {
   "type": "botania:mana_infusion",
   "input": {
-    "tag": "forge:ingots/iron"
+    "item": "minecraft:iron_ingot"
   },
   "output": {
     "item": "botania:manasteel_ingot"

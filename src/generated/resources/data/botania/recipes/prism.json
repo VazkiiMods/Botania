@@ -7,7 +7,7 @@
   ],
   "key": {
     "P": {
-      "tag": "forge:gems/prismarine"
+      "item": "minecraft:prismarine_crystals"
     },
     "S": {
       "item": "botania:spectral_platform"

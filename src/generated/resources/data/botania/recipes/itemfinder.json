@@ -7,10 +7,10 @@
   ],
   "key": {
     "E": {
-      "tag": "forge:gems/emerald"
+      "item": "minecraft:emerald"
     },
     "I": {
-      "tag": "forge:ingots/iron"
+      "item": "minecraft:iron_ingot"
     },
     "Y": {
       "item": "minecraft:ender_eye"

@@ -13,7 +13,7 @@
       "item": "minecraft:cobblestone_slab"
     },
     "C": {
-      "tag": "forge:cobblestone"
+      "item": "minecraft:cobblestone"
     }
   },
   "result": {

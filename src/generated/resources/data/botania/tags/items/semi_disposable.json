@@ -3,26 +3,6 @@
   "values": [
     "minecraft:andesite",
     "minecraft:diorite",
-    "minecraft:granite",
-    {
-      "id": "quark:basalt",
-      "required": false
-    },
-    {
-      "id": "quark:jasper",
-      "required": false
-    },
-    {
-      "id": "quark:limestone",
-      "required": false
-    },
-    {
-      "id": "quark:marble",
-      "required": false
-    },
-    {
-      "id": "quark:slate",
-      "required": false
-    }
+    "minecraft:granite"
   ]
 }

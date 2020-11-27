@@ -5,10 +5,6 @@
     "minecraft:salmon",
     "minecraft:tropical_fish",
     "minecraft:pufferfish",
-    "minecraft:squid",
-    {
-      "id": "quark:crab",
-      "required": false
-    }
+    "minecraft:squid"
   ]
 }

@@ -7,11 +7,7 @@
   ],
   "key": {
     "B": {
-      "type": "botania:fuzzy_nbt",
-      "item": "minecraft:potion",
-      "count": 1,
-      "nbt": "{Potion:\"minecraft:water\"}",
-      "accepts_empty_tag": false
+      "item": "minecraft:potion"
     },
     "R": {
       "tag": "botania:runes/water"

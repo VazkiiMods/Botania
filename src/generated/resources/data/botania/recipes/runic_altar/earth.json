@@ -13,10 +13,10 @@
       "tag": "forge:ingots/manasteel"
     },
     {
-      "tag": "forge:stone"
+      "item": "minecraft:stone"
     },
     {
-      "tag": "forge:storage_blocks/coal"
+      "item": "minecraft:coal_block"
     },
     [
       {

@@ -6,7 +6,7 @@
       "tag": "botania:livingrock"
     },
     {
-      "tag": "forge:cobblestone"
+      "item": "minecraft:cobblestone"
     },
     {
       "item": "minecraft:gravel"

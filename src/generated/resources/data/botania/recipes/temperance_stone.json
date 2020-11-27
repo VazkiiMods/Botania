@@ -10,7 +10,7 @@
       "tag": "botania:runes/earth"
     },
     "S": {
-      "tag": "forge:stone"
+      "item": "minecraft:stone"
     }
   },
   "result": {

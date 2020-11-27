@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:storage_blocks/redstone"
+            "item": "minecraft:redstone_block"
           }
         ]
       }

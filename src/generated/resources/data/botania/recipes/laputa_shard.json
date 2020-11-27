@@ -7,7 +7,7 @@
   ],
   "key": {
     "P": {
-      "tag": "forge:gems/prismarine"
+      "item": "minecraft:prismarine_crystals"
     },
     "A": {
       "tag": "botania:runes/air"

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "forge:storage_blocks/redstone"
+      "item": "minecraft:redstone_block"
     },
     {
       "item": "botania:corporea_spark"

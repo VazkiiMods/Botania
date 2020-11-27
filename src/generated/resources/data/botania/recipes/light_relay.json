@@ -8,10 +8,10 @@
       "tag": "forge:gems/dragonstone"
     },
     {
-      "tag": "forge:dusts/glowstone"
+      "item": "minecraft:glowstone_dust"
     },
     {
-      "tag": "forge:dusts/glowstone"
+      "item": "minecraft:glowstone_dust"
     }
   ],
   "result": {

@@ -5,7 +5,7 @@
       "tag": "botania:livingwood"
     },
     {
-      "tag": "forge:dusts/glowstone"
+      "item": "minecraft:glowstone_dust"
     }
   ],
   "result": {

@@ -1,7 +1,7 @@
 {
   "type": "botania:mana_infusion",
   "input": {
-    "tag": "forge:gems/diamond"
+    "item": "minecraft:diamond"
   },
   "output": {
     "item": "botania:mana_diamond"

@@ -10,7 +10,7 @@
       "item": "minecraft:bowl"
     },
     "S": {
-      "tag": "forge:rods/wooden"
+      "item": "minecraft:stick"
     },
     "W": {
       "tag": "minecraft:planks"

@@ -14,7 +14,7 @@
       "tag": "botania:livingwood"
     },
     "G": {
-      "tag": "forge:ingots/gold"
+      "item": "minecraft:gold_ingot"
     }
   },
   "result": {

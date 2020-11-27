@@ -22,7 +22,7 @@
       "tag": "botania:runes/mana"
     },
     "L": {
-      "tag": "forge:storage_blocks/lapis"
+      "item": "minecraft:lapis_block"
     },
     "M": {
       "tag": "forge:storage_blocks/manasteel"

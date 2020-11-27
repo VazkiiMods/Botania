@@ -9,10 +9,11 @@
       "item": "botania:livingwood_planks"
     },
     "S": {
-      "tag": "forge:rods/wooden"
+      "item": "minecraft:stick"
     }
   },
   "result": {
-    "item": "botania:livingwood_fence_gate"
+    "item": "botania:livingwood_fence_gate",
+    "count": 3
   }
 }

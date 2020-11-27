@@ -11,7 +11,7 @@
       "item": "botania:placeholder"
     },
     "R": {
-      "tag": "forge:dusts/redstone"
+      "item": "minecraft:redstone"
     }
   },
   "result": {

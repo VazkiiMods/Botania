@@ -7,7 +7,7 @@
   ],
   "key": {
     "R": {
-      "tag": "forge:gems/emerald"
+      "item": "minecraft:emerald"
     },
     "S": {
       "item": "botania:life_essence"

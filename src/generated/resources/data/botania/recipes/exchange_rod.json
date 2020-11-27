@@ -10,7 +10,7 @@
       "tag": "botania:runes/sloth"
     },
     "S": {
-      "tag": "forge:stone"
+      "item": "minecraft:stone"
     },
     "T": {
       "item": "botania:livingwood_twig"

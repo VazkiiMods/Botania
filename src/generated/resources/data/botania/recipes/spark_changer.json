@@ -6,7 +6,7 @@
   ],
   "key": {
     "R": {
-      "tag": "forge:dusts/redstone"
+      "item": "minecraft:redstone"
     },
     "S": {
       "tag": "botania:livingrock"

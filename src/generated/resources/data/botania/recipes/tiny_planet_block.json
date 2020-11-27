@@ -10,7 +10,7 @@
       "item": "botania:tiny_planet"
     },
     "S": {
-      "tag": "forge:stone"
+      "item": "minecraft:stone"
     }
   },
   "result": {

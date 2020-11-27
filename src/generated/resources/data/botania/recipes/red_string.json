@@ -6,7 +6,7 @@
       "item": "minecraft:string"
     },
     {
-      "tag": "forge:storage_blocks/redstone"
+      "item": "minecraft:redstone_block"
     },
     {
       "item": "botania:pixie_dust"

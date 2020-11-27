@@ -1,8 +1,8 @@
 {
   "type": "botania:pure_daisy",
   "input": {
-    "type": "tag",
-    "tag": "forge:stone"
+    "type": "block",
+    "block": "minecraft:stone"
   },
   "output": {
     "name": "botania:livingrock"

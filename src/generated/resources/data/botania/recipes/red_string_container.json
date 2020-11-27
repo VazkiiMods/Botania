@@ -13,7 +13,7 @@
       "item": "botania:red_string"
     },
     "M": {
-      "tag": "forge:chests/wooden"
+      "item": "minecraft:chest"
     }
   },
   "result": {

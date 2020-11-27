@@ -5,10 +5,10 @@
       "item": "botania:lens_normal"
     },
     {
-      "tag": "forge:ingots/iron"
+      "item": "minecraft:iron_ingot"
     },
     {
-      "tag": "forge:ingots/gold"
+      "item": "minecraft:gold_ingot"
     }
   ],
   "result": {
