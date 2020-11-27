@@ -73,7 +73,7 @@ public class DataGenerators {
 		generator.install(new ItemTagProvider(generator, blockTagProvider));
 		generator.install(new EntityTagProvider(generator));
 		generator.install(new StonecuttingProvider(generator));
-		// todo 1.16-fabric generator.install(new RecipeProvider(generator));
+		generator.install(new RecipeProvider(generator));
 		generator.install(new SmeltingProvider(generator));
 		generator.install(new ElvenTradeProvider(generator));
 		generator.install(new ManaInfusionProvider(generator));

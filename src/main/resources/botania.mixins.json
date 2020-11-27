@@ -18,6 +18,7 @@
     "AccessorGoalSelector",
     "AccessorHoeItem",
     "AccessorHopperBlockEntity",
+    "AccessorIngredient",
     "AccessorItem",
     "AccessorItemEntity",
     "AccessorLivingEntity",

@@ -6,21 +6,24 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-/*
 package vazkii.botania.data.recipes;
 
 import net.minecraft.advancement.criterion.CriterionConditions;
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.advancement.criterion.RecipeUnlockedCriterion;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.server.recipe.ComplexRecipeJsonFactory;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonFactory;
 import net.minecraft.data.server.recipe.ShapelessRecipeJsonFactory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
+import net.minecraft.potion.PotionUtil;
+import net.minecraft.potion.Potions;
+import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.DyeColor;
@@ -32,23 +35,31 @@ import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.crafting.recipe.*;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.ModTags;
+import vazkii.botania.common.lib.ResourceLocationHelper;
+import vazkii.botania.mixin.AccessorIngredient;
 import vazkii.botania.mixin.AccessorRecipesProvider;
 
+import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
+public class RecipeProvider extends net.minecraft.data.server.RecipesProvider implements BotaniaRecipeProvider {
 	public RecipeProvider(DataGenerator generator) {
 		super(generator);
 	}
 
-	// todo 1.16-fabric @Override
-	protected void generate(Consumer<RecipeJsonProvider> consumer) {
+	@Override
+	public void registerRecipes(Consumer<RecipeJsonProvider> consumer) {
 		specialRecipe(consumer, AncientWillRecipe.SERIALIZER);
 		specialRecipe(consumer, BannerRecipe.SERIALIZER);
 		specialRecipe(consumer, BlackHoleTalismanExtractRecipe.SERIALIZER);
@@ -77,18 +88,30 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 	}
 
 	private static InventoryChangedCriterion.Conditions conditionsFromItem(ItemConvertible item) {
-		return AccessorRecipesProvider.callConditionsFromItem(item);
+		return AccessorRecipesProvider.botania_condition(item);
+	}
+
+	private static InventoryChangedCriterion.Conditions conditionsFromItems(ItemConvertible... items) {
+		ItemPredicate[] preds = new ItemPredicate[items.length];
+		for (int i = 0; i < items.length; i++) {
+			preds[i] = ItemPredicate.Builder.create().item(items[i]).build();
+		}
+
+		return AccessorRecipesProvider.botania_condition(preds);
 	}
 
 	private static InventoryChangedCriterion.Conditions conditionsFromTag(Tag<Item> tag) {
-		return AccessorRecipesProvider.callConditionsFromTag(tag);
+		return AccessorRecipesProvider.botania_condition(tag);
 	}
 
 	private void registerMain(Consumer<RecipeJsonProvider> consumer) {
+		InventoryChangedCriterion.Conditions hasAnyDye = conditionsFromItems(
+			Arrays.stream(DyeColor.values()).map(DyeItem::byColor).toArray(ItemConvertible[]::new)
+		);
 		ShapedRecipeJsonFactory.create(ModBlocks.manaSpreader)
 				.input('P', ModTags.Items.PETALS)
 				.input('W', ModTags.Items.LIVINGWOOD)
-				.input('G', Tags.Items.INGOTS_GOLD)
+				.input('G', Items.GOLD_INGOT)
 				.pattern("WWW")
 				.pattern("GP ")
 				.pattern("WWW")
@@ -97,7 +120,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.offerTo(consumer);
 		ShapelessRecipeJsonFactory.create(ModBlocks.redstoneSpreader)
 				.input(ModBlocks.manaSpreader)
-				.input(Tags.Items.DUSTS_REDSTONE)
+				.input(Items.REDSTONE)
 				.group("botania:spreader")
 				.criterion("has_item", conditionsFromItem(ModBlocks.manaSpreader))
 				.offerTo(consumer);
@@ -117,7 +140,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.input(ModTags.Items.GEMS_DRAGONSTONE)
 				.input(ModItems.lifeEssence)
 				.group("botania:spreader")
-				.criterion("has_item", hasItem(ModItems.lifeEssence))
+				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModBlocks.manaPool)
 				.input('R', ModTags.Items.LIVINGROCK)
@@ -139,7 +162,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_alt_item", conditionsFromItem(ModItems.rainbowRod))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModBlocks.runeAltar)
-				.input('P', Ingredient.ofEntries(Stream.of(
+				.input('P', AccessorIngredient.botania_ofEntries(Stream.of(
 						new Ingredient.StackEntry(new ItemStack(ModItems.manaPearl)),
 						new Ingredient.TagEntry(ModTags.Items.GEMS_MANA_DIAMOND))))
 				.input('S', ModTags.Items.LIVINGROCK)
@@ -150,7 +173,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModBlocks.manaPylon)
 				.input('D', ModTags.Items.GEMS_MANA_DIAMOND)
-				.input('G', Tags.Items.INGOTS_GOLD)
+				.input('G', Items.GOLD_INGOT)
 				.input('M', ModTags.Items.INGOTS_MANASTEEL)
 				.pattern(" G ")
 				.pattern("MDM")
@@ -194,7 +217,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromTag(ModTags.Items.LIVINGROCK))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModBlocks.manaDetector)
-				.input('R', Tags.Items.DUSTS_REDSTONE)
+				.input('R', Items.REDSTONE)
 				.input('C', Items.COMPARATOR)
 				.input('S', ModTags.Items.LIVINGROCK)
 				.pattern("RSR")
@@ -214,7 +237,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModBlocks.tinyPlanet)
 				.input('P', ModItems.tinyPlanet)
-				.input('S', Tags.Items.STONE)
+				.input('S', Items.STONE)
 				.pattern("SSS")
 				.pattern("SPS")
 				.pattern("SSS")
@@ -225,7 +248,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.input('P', ModItems.manaPearl)
 				.input('B', Items.BREWING_STAND)
 				.input('S', ModTags.Items.LIVINGROCK)
-				.input('G', Tags.Items.INGOTS_GOLD)
+				.input('G', Items.GOLD_INGOT)
 				.pattern("SGS")
 				.pattern("BPB")
 				.pattern("SGS")
@@ -333,7 +356,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromItem(ModItems.enderAirBottle))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModBlocks.enderEye)
-				.input('R', Tags.Items.DUSTS_REDSTONE)
+				.input('R', Items.REDSTONE)
 				.input('E', Items.ENDER_EYE)
 				.input('O', Items.OBSIDIAN)
 				.pattern("RER")
@@ -351,20 +374,20 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_alt_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModBlocks.rfGenerator)
-				.input('R', Tags.Items.STORAGE_BLOCKS_REDSTONE)
+				.input('R', Items.REDSTONE_BLOCK)
 				.input('S', ModTags.Items.LIVINGROCK)
 				.input('M', ModTags.Items.INGOTS_MANASTEEL)
 				.pattern("SRS")
 				.pattern("RMR")
 				.pattern("SRS")
-				.criterion("has_item", conditionsFromTag(Tags.Items.STORAGE_BLOCKS_REDSTONE))
+				.criterion("has_item", conditionsFromItem(Items.REDSTONE_BLOCK))
 				.criterion("has_alt_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
-				.offerTo(WrapperResult.transformJson(consumer, json -> {
+				.offerTo(/* todo 1.16-fabricWrapperResult.transformJson(consumer, json -> {
 					JsonArray array = new JsonArray();
 					array.add(FluxfieldCondition.SERIALIZER.getJson(new FluxfieldCondition(true)));
 					json.add("conditions", array);
 				}
-				));
+				)*/ consumer);
 		ShapedRecipeJsonFactory.create(ModBlocks.brewery)
 				.input('A', ModTags.Items.RUNES_MANA)
 				.input('R', ModTags.Items.LIVINGROCK)
@@ -382,7 +405,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.input('2', ModTags.Items.RUNES_EARTH)
 				.input('3', ModTags.Items.RUNES_AIR)
 				.input('8', ModTags.Items.RUNES_MANA)
-				.input('L', Tags.Items.STORAGE_BLOCKS_LAPIS)
+				.input('L', Blocks.LAPIS_BLOCK)
 				.input('M', ModTags.Items.BLOCKS_MANASTEEL)
 				.pattern("LLL")
 				.pattern("0M1")
@@ -390,13 +413,13 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromTag(ModTags.Items.RUNES))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModBlocks.prism)
-				.input('P', Tags.Items.GEMS_PRISMARINE)
+				.input('P', Items.PRISMARINE_CRYSTALS)
 				.input('S', ModBlocks.spectralPlatform)
 				.input('G', Items.GLASS)
 				.pattern("GPG")
 				.pattern("GSG")
 				.pattern("GPG")
-				.criterion("has_item", conditionsFromTag(Tags.Items.GEMS_PRISMARINE))
+				.criterion("has_item", conditionsFromItem(Items.PRISMARINE_CRYSTALS))
 				.criterion("has_alt_item", conditionsFromItem(ModBlocks.spectralPlatform))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModBlocks.pump)
@@ -415,9 +438,9 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModBlocks.hourglass)
-				.input('R', Tags.Items.DUSTS_REDSTONE)
+				.input('R', Items.REDSTONE)
 				.input('S', ModTags.Items.INGOTS_MANASTEEL)
-				.input('G', Tags.Items.INGOTS_GOLD)
+				.input('G', Items.GOLD_INGOT)
 				.input('M', ModBlocks.manaGlass)
 				.pattern("GMG")
 				.pattern("RSR")
@@ -431,7 +454,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_alt_item", conditionsFromItem(ModBlocks.spectralPlatform))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModBlocks.sparkChanger)
-				.input('R', Tags.Items.DUSTS_REDSTONE)
+				.input('R', Items.REDSTONE)
 				.input('S', ModTags.Items.LIVINGROCK)
 				.input('E', ModTags.Items.INGOTS_ELEMENTIUM)
 				.pattern("ESE")
@@ -462,13 +485,13 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 		ShapelessRecipeJsonFactory.create(ModBlocks.lightRelayDefault)
 				.input(ModItems.redString)
 				.input(ModTags.Items.GEMS_DRAGONSTONE)
-				.input(Tags.Items.DUSTS_GLOWSTONE)
-				.input(Tags.Items.DUSTS_GLOWSTONE)
+				.input(Items.GLOWSTONE_DUST)
+				.input(Items.GLOWSTONE_DUST)
 				.criterion("has_item", conditionsFromTag(ModTags.Items.GEMS_DRAGONSTONE))
 				.offerTo(consumer);
 		ShapelessRecipeJsonFactory.create(ModBlocks.lightRelayDetector)
 				.input(ModBlocks.lightRelayDefault)
-				.input(Tags.Items.DUSTS_REDSTONE)
+				.input(Items.REDSTONE)
 				.criterion("has_item", conditionsFromItem(ModBlocks.lightRelayDefault))
 				.offerTo(consumer);
 		ShapelessRecipeJsonFactory.create(ModBlocks.lightRelayFork)
@@ -549,9 +572,9 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD))
 				.offerTo(consumer);
 		ShapelessRecipeJsonFactory.create(ModItems.redstoneRoot)
-				.input(Tags.Items.DUSTS_REDSTONE)
+				.input(Items.REDSTONE)
 				.input(Ingredient.ofItems(Items.FERN, Items.GRASS))
-				.criterion("has_item", conditionsFromTag(Tags.Items.DUSTS_REDSTONE))
+				.criterion("has_item", conditionsFromItem(Items.REDSTONE))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.dreamwoodTwig)
 				.input('W', ModBlocks.dreamwood)
@@ -580,7 +603,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 		ShapelessRecipeJsonFactory.create(ModItems.fertilizer)
 				.input(Items.BONE_MEAL)
 				.input(dyes, 4)
-				.criterion("has_item", conditionsFromTag(Tags.Items.DYES))
+				.criterion("has_item", hasAnyDye)
 				.offerTo(consumer, "botania:fertilizer_dye");
 		ShapelessRecipeJsonFactory.create(ModItems.drySeeds)
 				.input(ModItems.grassSeeds)
@@ -619,44 +642,44 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromItem(ModItems.grassSeeds))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.darkQuartz, 8)
-				.input('Q', Tags.Items.GEMS_QUARTZ)
+				.input('Q', Items.QUARTZ)
 				.input('C', Ingredient.ofItems(Items.COAL, Items.CHARCOAL))
 				.pattern("QQQ")
 				.pattern("QCQ")
 				.pattern("QQQ")
-				.criterion("has_item", conditionsFromTag(Tags.Items.GEMS_QUARTZ))
+				.criterion("has_item", conditionsFromItem(Items.QUARTZ))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.blazeQuartz, 8)
-				.input('Q', Tags.Items.GEMS_QUARTZ)
+				.input('Q', Items.QUARTZ)
 				.input('C', Items.BLAZE_POWDER)
 				.pattern("QQQ")
 				.pattern("QCQ")
 				.pattern("QQQ")
-				.criterion("has_item", conditionsFromTag(Tags.Items.GEMS_QUARTZ))
+				.criterion("has_item", conditionsFromItem(Items.QUARTZ))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.lavenderQuartz, 8)
-				.input('Q', Tags.Items.GEMS_QUARTZ)
+				.input('Q', Items.QUARTZ)
 				.input('C', Ingredient.ofItems(Items.ALLIUM, Items.PINK_TULIP, Items.LILAC, Items.PEONY))
 				.pattern("QQQ")
 				.pattern("QCQ")
 				.pattern("QQQ")
-				.criterion("has_item", conditionsFromTag(Tags.Items.GEMS_QUARTZ))
+				.criterion("has_item", conditionsFromItem(Items.QUARTZ))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.redQuartz, 8)
-				.input('Q', Tags.Items.GEMS_QUARTZ)
+				.input('Q', Items.QUARTZ)
 				.input('C', Items.REDSTONE)
 				.pattern("QQQ")
 				.pattern("QCQ")
 				.pattern("QQQ")
-				.criterion("has_item", conditionsFromTag(Tags.Items.GEMS_QUARTZ))
+				.criterion("has_item", conditionsFromItem(Items.QUARTZ))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.sunnyQuartz, 8)
-				.input('Q', Tags.Items.GEMS_QUARTZ)
+				.input('Q', Items.QUARTZ)
 				.input('C', Items.SUNFLOWER)
 				.pattern("QQQ")
 				.pattern("QCQ")
 				.pattern("QQQ")
-				.criterion("has_item", conditionsFromTag(Tags.Items.GEMS_QUARTZ))
+				.criterion("has_item", conditionsFromItem(Items.QUARTZ))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.vineBall)
 				.input('V', Items.VINE)
@@ -767,7 +790,9 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.offerTo(consumer);
 		ShapelessRecipeJsonFactory.create(ModItems.phantomInk, 4)
 				.input(ModItems.manaPearl)
-				.input(Tags.Items.DYES)
+				.input(Ingredient.ofItems(
+					Arrays.stream(DyeColor.values()).map(DyeItem::byColor).toArray(ItemConvertible[]::new)
+				))
 				.input(Ingredient.ofItems(Items.GLASS, Items.WHITE_STAINED_GLASS, Items.ORANGE_STAINED_GLASS,
 						Items.MAGENTA_STAINED_GLASS, Items.LIGHT_BLUE_STAINED_GLASS, Items.YELLOW_STAINED_GLASS,
 						Items.LIME_STAINED_GLASS, Items.PINK_STAINED_GLASS, Items.GRAY_STAINED_GLASS,
@@ -808,38 +833,38 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromItem(ModItems.manaString))
 				.offerTo(consumer, prefix("cobweb"));
 
-		ShapedRecipeBuilder.shapedRecipe(ModBlocks.defaultAltar)
-				.key('P', ModTags.Items.PETALS)
-				.key('S', Items.COBBLESTONE_SLAB)
-				.key('C', Tags.Items.COBBLESTONE)
-				.patternLine("SPS")
-				.patternLine(" C ")
-				.patternLine("CCC")
-				.addCriterion("has_item", hasItem(ModTags.Items.PETALS))
-				.build(consumer);
+		ShapedRecipeJsonFactory.create(ModBlocks.defaultAltar)
+				.input('P', ModTags.Items.PETALS)
+				.input('S', Items.COBBLESTONE_SLAB)
+				.input('C', Items.COBBLESTONE)
+				.pattern("SPS")
+				.pattern(" C ")
+				.pattern("CCC")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.PETALS))
+				.offerTo(consumer);
 		for (String metamorphicVariant : LibBlockNames.METAMORPHIC_VARIANTS) {
-			Block altar = Registry.BLOCK.func_241873_b(prefix("apothecary_" + metamorphicVariant.replaceAll("_", ""))).get();
-			Block cobble = Registry.BLOCK.func_241873_b(prefix(LibBlockNames.METAMORPHIC_PREFIX + metamorphicVariant + "_cobblestone")).get();
-			ShapedRecipeBuilder.shapedRecipe(altar)
-					.key('A', ModBlocks.defaultAltar)
-					.key('S', cobble)
-					.patternLine("SSS")
-					.patternLine("SAS")
-					.patternLine("SSS")
-					.setGroup("botania:metamorphic_apothecary")
-					.addCriterion("has_item", hasItem(cobble))
-					.addCriterion("has_flower_item", hasItem(ModSubtiles.marimorphosis))
-					.build(consumer);
+			Block altar = Registry.BLOCK.getOrEmpty(prefix("apothecary_" + metamorphicVariant.replaceAll("_", ""))).get();
+			Block cobble = Registry.BLOCK.getOrEmpty(prefix(LibBlockNames.METAMORPHIC_PREFIX + metamorphicVariant + "_cobblestone")).get();
+			ShapedRecipeJsonFactory.create(altar)
+					.input('A', ModBlocks.defaultAltar)
+					.input('S', cobble)
+					.pattern("SSS")
+					.pattern("SAS")
+					.pattern("SSS")
+					.group("botania:metamorphic_apothecary")
+					.criterion("has_item", conditionsFromItem(cobble))
+					.criterion("has_flower_item", conditionsFromItem(ModSubtiles.marimorphosis))
+					.offerTo(consumer);
 		}
 		for (DyeColor color : DyeColor.values()) {
-			ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.getShinyFlower(color))
-					.input(Tags.Items.DUSTS_GLOWSTONE)
-					.input(Tags.Items.DUSTS_GLOWSTONE)
+			ShapelessRecipeJsonFactory.create(ModBlocks.getShinyFlower(color))
+					.input(Items.GLOWSTONE_DUST)
+					.input(Items.GLOWSTONE_DUST)
 					.input(ModBlocks.getFlower(color))
 					.group("botania:shiny_flower")
 					.criterion("has_item", conditionsFromItem(ModBlocks.getFlower(color)))
 					.offerTo(consumer);
-			ShapedRecipeBuilder.shapedRecipe(ModBlocks.getFloatingFlower(color))
+			ShapedRecipeJsonFactory.create(ModBlocks.getFloatingFlower(color))
 					.input('S', ModItems.grassSeeds)
 					.input('D', Items.DIRT)
 					.input('F', ModBlocks.getShinyFlower(color))
@@ -849,7 +874,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 					.group("botania:floating_flowers")
 					.criterion("has_item", conditionsFromItem(ModBlocks.getShinyFlower(color)))
 					.offerTo(consumer);
-			ShapedRecipeBuilder.shapedRecipe(ModBlocks.getPetalBlock(color))
+			ShapedRecipeJsonFactory.create(ModBlocks.getPetalBlock(color))
 					.input('P', ModItems.getPetal(color))
 					.pattern("PPP")
 					.pattern("PPP")
@@ -857,31 +882,31 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 					.group("botania:petal_block")
 					.criterion("has_item", conditionsFromItem(ModItems.getPetal(color)))
 					.offerTo(consumer);
-			ShapelessRecipeBuilder.shapelessRecipe(ModBlocks.getMushroom(color))
-					.input(Ingredient.fromItems(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM))
-					.input(DyeItem.getItem(color))
+			ShapelessRecipeJsonFactory.create(ModBlocks.getMushroom(color))
+					.input(Ingredient.ofItems(Items.RED_MUSHROOM, Items.BROWN_MUSHROOM))
+					.input(DyeItem.byColor(color))
 					.group("botania:mushroom")
 					.criterion("has_item", conditionsFromItem(Items.RED_MUSHROOM))
 					.criterion("has_alt_item", conditionsFromItem(Items.BROWN_MUSHROOM))
 					.offerTo(consumer, "botania:mushroom_" + color.ordinal());
-			ShapelessRecipeBuilder.shapelessRecipe(ModItems.getPetal(color), 4)
+			ShapelessRecipeJsonFactory.create(ModItems.getPetal(color), 4)
 					.input(ModBlocks.getDoubleFlower(color))
 					.group("botania:petal_double")
 					.criterion("has_item", conditionsFromItem(ModBlocks.getDoubleFlower(color)))
 					.criterion("has_alt_item", conditionsFromItem(ModItems.getPetal(color)))
-					.offerTo(consumer, "botania:petal_" + color.getString() + "_double");
-			ShapelessRecipeBuilder.shapelessRecipe(ModItems.getPetal(color), 2)
+					.offerTo(consumer, "botania:petal_" + color.getName() + "_double");
+			ShapelessRecipeJsonFactory.create(ModItems.getPetal(color), 2)
 					.input(ModBlocks.getFlower(color))
 					.group("botania:petal")
 					.criterion("has_item", conditionsFromItem(ModBlocks.getFlower(color)))
 					.criterion("has_alt_item", conditionsFromItem(ModItems.getPetal(color)))
-					.offerTo(consumer, "botania:petal_" + color.getString());
-			ShapelessRecipeBuilder.shapelessRecipe(DyeItem.getItem(color))
+					.offerTo(consumer, "botania:petal_" + color.getName());
+			ShapelessRecipeJsonFactory.create(DyeItem.byColor(color))
 					.input(Ingredient.fromTag(ModTags.Items.getPetalTag(color)))
 					.input(ModItems.pestleAndMortar)
 					.group("botania:dye")
 					.criterion("has_item", conditionsFromItem(ModItems.getPetal(color)))
-					.offerTo(consumer, "botania:dye_" + color.getString());
+					.offerTo(consumer, "botania:dye_" + color.getName());
 		}
 	}
 
@@ -902,7 +927,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromTag(ModTags.Items.PETALS))
 				.offerTo(WrapperResult.ofType(TwigWandRecipe.SERIALIZER, consumer));
 		ShapedRecipeJsonFactory.create(ModItems.manaTablet)
-				.input('P', Ingredient.ofEntries(Stream.of(
+				.input('P', AccessorIngredient.botania_ofEntries(Stream.of(
 						new Ingredient.StackEntry(new ItemStack(ModItems.manaPearl)),
 						new Ingredient.TagEntry(ModTags.Items.GEMS_MANA_DIAMOND))))
 				.input('S', ModTags.Items.LIVINGROCK)
@@ -914,7 +939,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 
 		ShapedRecipeJsonFactory.create(ModItems.cacophonium)
 				.input('N', Items.NOTE_BLOCK)
-				.input('G', Tags.Items.INGOTS_GOLD)
+				.input('G', Items.GOLD_INGOT)
 				.pattern(" G ")
 				.pattern("GNG")
 				.pattern("GG ")
@@ -1104,7 +1129,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 			String s = pattern.openSlots.stream().map(bool -> bool ? "R" : "P").collect(Collectors.joining());
 			ShapedRecipeJsonFactory.create(item)
 					.input('P', ModItems.placeholder)
-					.input('R', Tags.Items.DUSTS_REDSTONE)
+					.input('R', Items.REDSTONE)
 					.pattern(s.substring(0, 3))
 					.pattern(s.substring(3, 6))
 					.pattern(s.substring(6, 9))
@@ -1116,7 +1141,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 
 		ShapedRecipeJsonFactory.create(ModItems.pestleAndMortar)
 				.input('B', Items.BOWL)
-				.input('S', Tags.Items.RODS_WOODEN)
+				.input('S', Items.STICK)
 				.input('W', ItemTags.PLANKS)
 				.pattern(" S")
 				.pattern("W ")
@@ -1158,8 +1183,9 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_TERRASTEEL))
 				.offerTo(consumer);
 
+		// todo 1.16-fabric fuzzynbt for water bottle
 		ShapedRecipeJsonFactory.create(ModItems.waterRod)
-				.input('B', new FuzzyNBTIngredient(PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.WATER)))
+				.input('B', Ingredient.ofStacks(PotionUtil.setPotion(new ItemStack(Items.POTION), Potions.WATER)))
 				.input('R', ModTags.Items.RUNES_WATER)
 				.input('T', ModItems.livingwoodTwig)
 				.pattern("  B")
@@ -1230,7 +1256,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.cobbleRod)
-				.input('C', Tags.Items.COBBLESTONE)
+				.input('C', Items.COBBLESTONE)
 				.input('T', ModItems.livingwoodTwig)
 				.input('F', ModTags.Items.RUNES_FIRE)
 				.input('W', ModTags.Items.RUNES_WATER)
@@ -1251,7 +1277,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.exchangeRod)
 				.input('R', ModTags.Items.RUNES_SLOTH)
-				.input('S', Tags.Items.STONE)
+				.input('S', Items.STONE)
 				.input('T', ModItems.livingwoodTwig)
 				.pattern(" SR")
 				.pattern(" TS")
@@ -1260,7 +1286,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.offerTo(consumer);
 
 		ShapedRecipeJsonFactory.create(ModItems.laputaShard)
-				.input('P', Tags.Items.GEMS_PRISMARINE)
+				.input('P', Items.PRISMARINE_CRYSTALS)
 				.input('A', ModTags.Items.RUNES_AIR)
 				.input('S', ModItems.lifeEssence)
 				.input('D', ModTags.Items.GEMS_DRAGONSTONE)
@@ -1320,7 +1346,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.temperanceStone)
 				.input('R', ModTags.Items.RUNES_EARTH)
-				.input('S', Tags.Items.STONE)
+				.input('S', Items.STONE)
 				.pattern(" S ")
 				.pattern("SRS")
 				.pattern(" S ")
@@ -1366,8 +1392,8 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.baubleBox)
-				.input('C', Tags.Items.CHESTS_WOODEN)
-				.input('G', Tags.Items.INGOTS_GOLD)
+				.input('C', Items.CHEST)
+				.input('G', Items.GOLD_INGOT)
 				.input('M', ModTags.Items.INGOTS_MANASTEEL)
 				.pattern(" M ")
 				.pattern("MCG")
@@ -1389,7 +1415,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 	private void registerTrinkets(Consumer<RecipeJsonProvider> consumer) {
 		ShapedRecipeJsonFactory.create(ModItems.tinyPlanet)
 				.input('P', ModItems.manaPearl)
-				.input('S', Tags.Items.STONE)
+				.input('S', Items.STONE)
 				.input('L', ModTags.Items.LIVINGROCK)
 				.pattern("LSL")
 				.pattern("SPS")
@@ -1492,7 +1518,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.divaCharm)
 				.input('P', ModItems.tinyPlanet)
-				.input('G', Tags.Items.INGOTS_GOLD)
+				.input('G', Items.GOLD_INGOT)
 				.input('H', ModTags.Items.RUNES_PRIDE)
 				.input('L', ModItems.lifeEssence)
 				.pattern("LGP")
@@ -1550,8 +1576,8 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.itemFinder)
-				.input('E', Tags.Items.GEMS_EMERALD)
-				.input('I', Tags.Items.INGOTS_IRON)
+				.input('E', Items.EMERALD)
+				.input('I', Items.IRON_INGOT)
 				.input('Y', Items.ENDER_EYE)
 				.pattern(" I ")
 				.pattern("IYI")
@@ -1569,7 +1595,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.bloodPendant)
-				.input('P', Tags.Items.GEMS_PRISMARINE)
+				.input('P', Items.PRISMARINE_CRYSTALS)
 				.input('D', ModTags.Items.GEMS_MANA_DIAMOND)
 				.input('G', Items.GHAST_TEAR)
 				.pattern(" P ")
@@ -1580,14 +1606,14 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 		ShapedRecipeJsonFactory.create(ModItems.holyCloak)
 				.input('S', ModItems.lifeEssence)
 				.input('W', Items.WHITE_WOOL)
-				.input('G', Tags.Items.DUSTS_GLOWSTONE)
+				.input('G', Items.GLOWSTONE_DUST)
 				.pattern("WWW")
 				.pattern("GWG")
 				.pattern("GSG")
 				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.unholyCloak)
-				.input('R', Tags.Items.DUSTS_REDSTONE)
+				.input('R', Items.REDSTONE)
 				.input('S', ModItems.lifeEssence)
 				.input('W', Items.BLACK_WOOL)
 				.pattern("WWW")
@@ -1596,7 +1622,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromItem(ModItems.lifeEssence))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.balanceCloak)
-				.input('R', Tags.Items.GEMS_EMERALD)
+				.input('R', Items.EMERALD)
 				.input('S', ModItems.lifeEssence)
 				.input('W', Items.LIGHT_GRAY_WOOL)
 				.pattern("WWW")
@@ -1639,7 +1665,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.dodgeRing)
 				.input('R', ModTags.Items.RUNES_AIR)
-				.input('E', Tags.Items.GEMS_EMERALD)
+				.input('E', Items.EMERALD)
 				.input('M', ModTags.Items.INGOTS_MANASTEEL)
 				.pattern("EM ")
 				.pattern("M M")
@@ -1705,7 +1731,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 	private void registerCorporeaAndRedString(Consumer<RecipeJsonProvider> consumer) {
 		ShapelessRecipeJsonFactory.create(ModItems.redString)
 				.input(Items.STRING)
-				.input(Tags.Items.STORAGE_BLOCKS_REDSTONE)
+				.input(Items.REDSTONE_BLOCK)
 				.input(ModItems.pixieDust)
 				.input(ModItems.enderAirBottle)
 				.group("botania:red_string")
@@ -1713,14 +1739,14 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.offerTo(consumer);
 		ShapelessRecipeJsonFactory.create(ModItems.redString)
 				.input(Items.STRING)
-				.input(Tags.Items.STORAGE_BLOCKS_REDSTONE)
+				.input(Items.REDSTONE_BLOCK)
 				.input(ModItems.pixieDust)
 				.input(ModItems.enderAirBottle)
 				.input(Items.PUMPKIN)
 				.group("botania:red_string")
 				.criterion("has_item", conditionsFromItem(ModItems.enderAirBottle))
 				.offerTo(consumer, "botania:red_string_alt");
-		registerRedStringBlock(consumer, ModBlocks.redStringContainer, Ingredient.fromTag(Tags.Items.CHESTS_WOODEN), conditionsFromTag(Tags.Items.CHESTS_WOODEN));
+		registerRedStringBlock(consumer, ModBlocks.redStringContainer, Ingredient.ofItems(Items.CHEST), conditionsFromItem(Items.CHEST));
 		registerRedStringBlock(consumer, ModBlocks.redStringDispenser, Ingredient.ofItems(Items.DISPENSER), conditionsFromItem(Items.DISPENSER));
 		registerRedStringBlock(consumer, ModBlocks.redStringFertilizer, Ingredient.ofItems(ModItems.fertilizer), conditionsFromItem(ModItems.fertilizer));
 		registerRedStringBlock(consumer, ModBlocks.redStringComparator, Ingredient.ofItems(Items.COMPARATOR), conditionsFromItem(Items.COMPARATOR));
@@ -1754,7 +1780,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromItem(ModItems.corporeaSpark))
 				.offerTo(consumer);
 		ShapelessRecipeJsonFactory.create(ModBlocks.corporeaInterceptor)
-				.input(Tags.Items.STORAGE_BLOCKS_REDSTONE)
+				.input(Items.REDSTONE_BLOCK)
 				.input(ModItems.corporeaSpark)
 				.criterion("has_item", conditionsFromItem(ModItems.corporeaSpark))
 				.offerTo(consumer);
@@ -1768,18 +1794,18 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromItem(ModItems.corporeaSpark))
 				.offerTo(consumer);
 		ShapelessRecipeJsonFactory.create(ModBlocks.corporeaRetainer)
-				.input(Tags.Items.CHESTS_WOODEN)
+				.input(Items.CHEST)
 				.input(ModItems.corporeaSpark)
 				.criterion("has_item", conditionsFromItem(ModItems.corporeaSpark))
 				.offerTo(consumer);
-		ShapelessRecipeBuilder.create(ModBlocks.corporeaBlock, 8)
+		ShapelessRecipeJsonFactory.create(ModBlocks.corporeaBlock, 8)
 				.input(ModBlocks.livingrockBrick)
 				.input(ModItems.corporeaSpark)
 				.criterion("has_item", conditionsFromItem(ModItems.corporeaSpark))
 				.offerTo(consumer);
 		slabShape(ModBlocks.corporeaSlab, ModBlocks.corporeaBlock).offerTo(consumer);
 		stairs(ModBlocks.corporeaStairs, ModBlocks.corporeaBlock).offerTo(consumer);
-		ShapedRecipeBuilder.create(ModBlocks.corporeaBrick, 4)
+		ShapedRecipeJsonFactory.create(ModBlocks.corporeaBrick, 4)
 				.input('R', ModBlocks.corporeaBlock)
 				.pattern("RR")
 				.pattern("RR")
@@ -1831,8 +1857,8 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.lensMine)
 				.input('P', Items.PISTON)
-				.input('A', Tags.Items.GEMS_LAPIS)
-				.input('R', Tags.Items.DUSTS_REDSTONE)
+				.input('A', Items.LAPIS_LAZULI)
+				.input('R', Items.REDSTONE)
 				.input('L', ModItems.lensNormal)
 				.pattern(" P ")
 				.pattern("ALA")
@@ -1851,8 +1877,8 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.offerTo(consumer);
 		ShapelessRecipeJsonFactory.create(ModItems.lensMagnet)
 				.input(ModItems.lensNormal)
-				.input(Tags.Items.INGOTS_IRON)
-				.input(Tags.Items.INGOTS_GOLD)
+				.input(Items.IRON_INGOT)
+				.input(Items.GOLD_INGOT)
 				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
 				.offerTo(consumer);
 		ShapelessRecipeJsonFactory.create(ModItems.lensExplosive)
@@ -1861,7 +1887,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.lensInfluence)
-				.input('P', Tags.Items.GEMS_PRISMARINE)
+				.input('P', Items.PRISMARINE_CRYSTALS)
 				.input('R', ModTags.Items.RUNES_AIR)
 				.input('L', ModItems.lensNormal)
 				.pattern("PRP")
@@ -1870,7 +1896,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromItem(ModItems.lensNormal))
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(ModItems.lensWeight)
-				.input('P', Tags.Items.GEMS_PRISMARINE)
+				.input('P', Items.PRISMARINE_CRYSTALS)
 				.input('R', ModTags.Items.RUNES_WATER)
 				.input('L', ModItems.lensNormal)
 				.pattern("PPP")
@@ -1986,7 +2012,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 		compression(ModBlocks.elementiumBlock, ModTags.Items.INGOTS_ELEMENTIUM).offerTo(consumer);
 		compression(ModBlocks.manaDiamondBlock, ModTags.Items.GEMS_MANA_DIAMOND).offerTo(consumer);
 		compression(ModBlocks.dragonstoneBlock, ModTags.Items.GEMS_DRAGONSTONE).offerTo(consumer);
-		compression(ModBlocks.blazeBlock, Tags.Items.RODS_BLAZE).offerTo(consumer);
+		compression(ModBlocks.blazeBlock, Items.BLAZE_ROD).offerTo(consumer);
 
 		deconstructPetalBlock(consumer, ModItems.whitePetal, ModBlocks.petalBlockWhite);
 		deconstructPetalBlock(consumer, ModItems.orangePetal, ModBlocks.petalBlockOrange);
@@ -2070,7 +2096,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.offerTo(consumer);
 		ShapelessRecipeJsonFactory.create(ModBlocks.livingrockBrickCracked, 2)
 				.input(ModBlocks.livingrockBrick)
-				.input(Tags.Items.COBBLESTONE)
+				.input(Items.COBBLESTONE)
 				.criterion("has_item", conditionsFromItem(ModBlocks.livingrockBrick))
 				.offerTo(consumer);
 		ShapelessRecipeJsonFactory.create(ModBlocks.livingrockBrickMossy)
@@ -2091,7 +2117,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.offerTo(consumer);
 		ShapelessRecipeJsonFactory.create(ModBlocks.livingwoodGlimmering)
 				.input(ModTags.Items.LIVINGWOOD)
-				.input(Tags.Items.DUSTS_GLOWSTONE)
+				.input(Items.GLOWSTONE_DUST)
 				.criterion("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD))
 				.offerTo(consumer);
 		ShapelessRecipeJsonFactory.create(ModBlocks.dreamwoodPlanksMossy)
@@ -2107,7 +2133,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.offerTo(consumer);
 		ShapelessRecipeJsonFactory.create(ModBlocks.dreamwoodGlimmering)
 				.input(ModBlocks.dreamwood)
-				.input(Tags.Items.DUSTS_GLOWSTONE)
+				.input(Items.GLOWSTONE_DUST)
 				.criterion("has_item", conditionsFromItem(ModBlocks.dreamwood))
 				.offerTo(consumer);
 		ShapelessRecipeJsonFactory.create(ModBlocks.shimmerrock)
@@ -2166,9 +2192,9 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 		wallShape(ModFluffBlocks.bifrostPane, ModBlocks.bifrostPerm, 16).offerTo(consumer);
 
 		ShapelessRecipeJsonFactory.create(ModBlocks.azulejo0)
-				.input(Tags.Items.DYES_BLUE)
+				.input(Items.BLUE_DYE)
 				.input(ModTags.Items.BLOCKS_QUARTZ)
-				.criterion("has_item", conditionsFromTag(Tags.Items.DYES_BLUE))
+				.criterion("has_item", conditionsFromItem(Items.BLUE_DYE))
 				.offerTo(consumer);
 
 		List<Item> allAzulejos = IntStream.range(0, 16).mapToObj(i -> "azulejo_" + i)
@@ -2415,7 +2441,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 
 		ShapelessRecipeJsonFactory builder = ShapelessRecipeJsonFactory.create(base, 3)
 				.input(ModTags.Items.LIVINGROCK)
-				.input(Tags.Items.COBBLESTONE)
+				.input(Items.COBBLESTONE)
 				.input(Items.GRAVEL)
 				.group("botania:pavement")
 				.criterion("has_item", conditionsFromTag(ModTags.Items.LIVINGROCK));
@@ -2473,6 +2499,15 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 				.criterion("has_item", conditionsFromTag(input));
 	}
 
+	private ShapedRecipeJsonFactory compression(ItemConvertible output, ItemConvertible input) {
+		return ShapedRecipeJsonFactory.create(output)
+			.input('I', input)
+			.pattern("III")
+			.pattern("III")
+			.pattern("III")
+			.criterion("has_item", conditionsFromItem(input));
+	}
+
 	private ShapedRecipeJsonFactory brick(ItemConvertible output, ItemConvertible input) {
 		return ShapedRecipeJsonFactory.create(output, 4)
 				.criterion("has_item", conditionsFromItem(input))
@@ -2525,7 +2560,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 		return ShapedRecipeJsonFactory.create(output, 3)
 				.criterion("has_item", conditionsFromItem(input))
 				.input('B', input)
-				.input('S', Tags.Items.RODS_WOODEN)
+				.input('S', Items.STICK)
 				.pattern("BSB")
 				.pattern("BSB");
 	}
@@ -2534,7 +2569,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 		return ShapedRecipeJsonFactory.create(output, 3)
 				.criterion("has_item", conditionsFromItem(input))
 				.input('B', input)
-				.input('S', Tags.Items.RODS_WOODEN)
+				.input('S', Items.STICK)
 				.pattern("SBS")
 				.pattern("SBS");
 	}
@@ -2570,4 +2605,3 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider {
 		return "Botania crafting recipes";
 	}
 }
-*/

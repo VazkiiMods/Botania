@@ -2,3 +2,6 @@ accessWidener v1 named
 accessible method net/minecraft/client/world/GeneratorType <init> (Ljava/lang/String;)V
 accessible method net/minecraft/client/render/model/json/ModelOverrideList <init> ()V
 accessible method net/minecraft/entity/projectile/ProjectileEntity <init> (Lnet/minecraft/entity/EntityType;Lnet/minecraft/world/World;)V
+accessible class net/minecraft/recipe/Ingredient$Entry
+accessible method net/minecraft/recipe/Ingredient$StackEntry <init> (Lnet/minecraft/item/ItemStack;)V
+accessible method net/minecraft/recipe/Ingredient$TagEntry <init> (Lnet/minecraft/tag/Tag;)V
