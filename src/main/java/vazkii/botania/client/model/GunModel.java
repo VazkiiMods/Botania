@@ -21,8 +21,8 @@ import net.minecraft.client.render.model.json.ModelOverrideList;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.ModelIdentifier;
+import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.AffineTransformation;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
@@ -36,11 +36,13 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import vazkii.botania.common.item.ItemManaGun;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.mixin.AccessorModelBakery;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.*;
+import java.util.function.Function;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -134,20 +136,25 @@ public class GunModel implements BakedModel {
 		CompositeBakedModel(net.minecraft.client.render.model.ModelLoader bakery, ItemStack lens, BakedModel gun) {
 			super(gun);
 
-			/* todo 1.16-fabric
 			Identifier lensId = Registry.ITEM.getId(lens.getItem());
 			UnbakedModel lensUnbaked = bakery.getOrLoadModel(new ModelIdentifier(lensId, "inventory"));
-			ModelBakeSettings transform = new SimpleModelTransform(new AffineTransformation(new Vector3f(-0.4F, 0.2F, 0.0F), Vector3f.POSITIVE_Y.getRadialQuaternion((float) Math.PI / 2), new Vector3f(0.625F, 0.625F, 0.625F), null));
+			ModelBakeSettings transform = new ModelBakeSettings() {
+				@Override
+				public AffineTransformation getRotation() {
+					return new AffineTransformation(new Vector3f(-0.4F, 0.2F, 0.0F), Vector3f.POSITIVE_Y.getRadialQuaternion((float) Math.PI / 2), new Vector3f(0.625F, 0.625F, 0.625F), null);
+				}
+			};
 			Identifier name = prefix("gun_with_" + lensId.toString().replace(':', '_'));
 
+			Function<SpriteIdentifier, Sprite> textureGetter = ((AccessorModelBakery) bakery).getSpriteAtlasManager()::getSprite;
 			BakedModel lensBaked;
 			if (lensUnbaked instanceof JsonUnbakedModel && ((JsonUnbakedModel) lensUnbaked).getRootModel() == net.minecraft.client.render.model.ModelLoader.GENERATION_MARKER) {
 				JsonUnbakedModel bm = (JsonUnbakedModel) lensUnbaked;
 				lensBaked = new ItemModelGenerator()
-						.create(ModelLoader.defaultTextureGetter(), bm)
-						.bake(bakery, bm, ModelLoader.defaultTextureGetter(), transform, name, false);
+						.create(textureGetter, bm)
+						.bake(bakery, bm, textureGetter, transform, name, false);
 			} else {
-				lensBaked = lensUnbaked.bake(bakery, ModelLoader.defaultTextureGetter(), transform, name);
+				lensBaked = lensUnbaked.bake(bakery, textureGetter, transform, name);
 			}
 
 			for (Direction e : Direction.values()) {
@@ -169,23 +176,13 @@ public class GunModel implements BakedModel {
 				rand.setSeed(0);
 				faceQuads.get(e).addAll(gun.getQuads(null, e, rand));
 			}
-			*/
 		}
 
 		@Nonnull
 		@Override
 		public List<BakedQuad> getQuads(BlockState state, Direction face, @Nonnull Random rand) {
-			return Collections.emptyList();
-			// todo 1.16-fabric return face == null ? genQuads : faceQuads.get(face);
+			return face == null ? genQuads : faceQuads.get(face);
 		}
-
-		/* todo 1.16-fabric
-		@Override
-		public BakedModel handlePerspective(@Nonnull ModelTransformation.Mode cameraTransformType, MatrixStack stack) {
-			super.handlePerspective(cameraTransformType, stack);
-			return this;
-		}
-		*/
 	}
 
 }

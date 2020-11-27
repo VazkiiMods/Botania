@@ -8,6 +8,7 @@
  */
 package vazkii.botania.mixin;
 
+import net.minecraft.client.render.model.SpriteAtlasManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
@@ -21,4 +22,7 @@ public interface AccessorModelBakery {
 	static Set<SpriteIdentifier> getMaterials() {
 		throw new IllegalStateException();
 	}
+
+	@Accessor
+	SpriteAtlasManager getSpriteAtlasManager();
 }
