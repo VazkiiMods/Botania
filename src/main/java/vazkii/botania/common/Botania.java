@@ -287,7 +287,7 @@ public class Botania {
 					+ " \"Do not Override\". Whoever had the brilliant idea of overriding it needs to go"
 					+ " back to elementary school and learn to read. (Actual classname: " + clname + ")");
 		}
-		if (Botania.gardenOfGlassLoaded) {
+		if (Botania.gardenOfGlassLoaded && event.getServer() instanceof DedicatedServer) {
 			WorldTypeUtil.setupForDedicatedServer((DedicatedServer) event.getServer());
 		}
 	}
