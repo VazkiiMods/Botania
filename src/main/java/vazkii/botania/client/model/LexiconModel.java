@@ -76,11 +76,10 @@ public class LexiconModel implements BakedModel {
 		return original.getSprite();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Nonnull
 	@Override
 	public ModelTransformation getTransformation() {
-		return ModelTransformation.NONE;
+		return original.getTransformation();
 	}
 
 	@Nonnull
