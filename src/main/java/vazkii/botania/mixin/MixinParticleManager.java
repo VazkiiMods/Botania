@@ -31,7 +31,10 @@ import java.util.List;
 
 @Mixin(ParticleManager.class)
 public class MixinParticleManager {
-	@Mutable @Final @Shadow private static List<ParticleTextureSheet> PARTICLE_TEXTURE_SHEETS;
+	@Mutable
+	@Final
+	@Shadow
+	private static List<ParticleTextureSheet> PARTICLE_TEXTURE_SHEETS;
 
 
 	@Inject(at = @At("RETURN"), method = "<init>")
