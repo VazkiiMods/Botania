@@ -9,13 +9,13 @@
 package vazkii.botania.common.block.tile;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundCategory;
@@ -23,6 +23,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
+
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -40,7 +41,6 @@ import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemRune;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.ArrayList;

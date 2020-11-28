@@ -12,8 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.InstantStatusEffect;
 import net.minecraft.entity.effect.StatusEffectType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+
 import javax.annotation.Nonnull;
 
 public class PotionClear extends InstantStatusEffect {

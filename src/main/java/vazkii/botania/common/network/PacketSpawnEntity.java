@@ -1,6 +1,13 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.network;
 
-import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.PacketContext;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.client.MinecraftClient;
@@ -13,12 +20,14 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+
 import vazkii.botania.common.lib.LibMisc;
 
 import java.util.UUID;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
+import io.netty.buffer.Unpooled;
 
 // This should only be used for non-living entities. Vanilla's MobSpawn packet handles modded living entities fine.
 // [VanillaCopy] Format is basically same as EntitySpawnS2CPacket.

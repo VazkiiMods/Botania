@@ -8,10 +8,12 @@
  */
 package vazkii.botania.client.core.helper;
 
+import net.minecraft.client.render.RenderLayer;
+
 import vazkii.botania.client.lib.LibResources;
 
 import javax.annotation.Nullable;
-import net.minecraft.client.render.RenderLayer;
+
 import java.util.Objects;
 import java.util.Optional;
 

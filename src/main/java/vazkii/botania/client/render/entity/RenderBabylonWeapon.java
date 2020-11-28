@@ -9,11 +9,6 @@
 package vazkii.botania.client.render.entity;
 
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.entity.EntityBabylonWeapon;
-
-import javax.annotation.Nonnull;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.TexturedRenderLayers;
@@ -27,6 +22,13 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
+
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.common.entity.EntityBabylonWeapon;
+
+import javax.annotation.Nonnull;
+
 import java.util.Random;
 
 public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {

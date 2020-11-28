@@ -8,21 +8,19 @@
  */
 package vazkii.botania.common.network;
 
-import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.network.PacketContext;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
-
 import net.minecraft.util.Identifier;
+
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 
-import java.util.function.Supplier;
-
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
+import io.netty.buffer.Unpooled;
 
 public class PacketIndexKeybindRequest {
 	public static final Identifier ID = prefix("idx");

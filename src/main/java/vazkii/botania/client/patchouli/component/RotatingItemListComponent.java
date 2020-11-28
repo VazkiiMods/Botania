@@ -8,13 +8,13 @@
  */
 package vazkii.botania.client.patchouli.component;
 
+import net.minecraft.recipe.Ingredient;
+
 import vazkii.patchouli.api.IVariable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
-import net.minecraft.recipe.Ingredient;
 
 /**
  * Patchouli custom component that draws a rotating circle of items from a provided list.

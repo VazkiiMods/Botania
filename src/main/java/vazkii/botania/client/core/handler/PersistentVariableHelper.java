@@ -8,15 +8,16 @@
  */
 package vazkii.botania.client.core.handler;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtIo;
+
+import vazkii.botania.common.Botania;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtIo;
-import vazkii.botania.common.Botania;
 
 public final class PersistentVariableHelper {
 

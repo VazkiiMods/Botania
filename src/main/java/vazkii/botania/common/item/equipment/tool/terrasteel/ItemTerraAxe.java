@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.PlayerEntity;

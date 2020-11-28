@@ -21,7 +21,6 @@ import net.minecraft.item.DyeItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Hand;
@@ -40,7 +39,6 @@ import vazkii.botania.api.mana.spark.SparkUpgradeType;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketBotaniaEffect;
-import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
@@ -215,13 +213,13 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity, Entity
 
 	private void particlesTowards(Entity e) {
 		PacketBotaniaEffect.sendNearby(this, PacketBotaniaEffect.EffectType.SPARK_MANA_FLOW, getX(), getY(), getZ(),
-			getEntityId(), e.getEntityId());
+				getEntityId(), e.getEntityId());
 	}
 
 	public static void particleBeam(PlayerEntity player, Entity e1, Entity e2) {
 		if (e1 != null && e2 != null && !e1.world.isClient) {
 			PacketBotaniaEffect.send(player, PacketBotaniaEffect.EffectType.SPARK_NET_INDICATOR, e1.getX(), e1.getY(), e1.getZ(),
-				e1.getEntityId(), e2.getEntityId());
+					e1.getEntityId(), e2.getEntityId());
 		}
 	}
 

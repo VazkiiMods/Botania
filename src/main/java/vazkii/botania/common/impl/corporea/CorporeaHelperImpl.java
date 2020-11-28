@@ -9,6 +9,7 @@
 package vazkii.botania.common.impl.corporea;
 
 import com.google.common.base.Predicates;
+
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;

@@ -18,6 +18,7 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Box;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.item.ModItems;
 

@@ -79,7 +79,6 @@ import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.item.*;
 import vazkii.botania.common.item.brew.ItemBrewBase;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
-import vazkii.botania.common.item.equipment.bauble.ItemDodgeRing;
 import vazkii.botania.common.item.equipment.bauble.ItemMagnetRing;
 import vazkii.botania.common.item.equipment.bauble.ItemMonocle;
 import vazkii.botania.common.item.equipment.tool.bow.ItemLivingwoodBow;
@@ -158,16 +157,14 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 
 	private static void registerArmors() {
 		List<Item> armors = Registry.ITEM.stream()
-			.filter(i -> i instanceof ItemManasteelArmor
-				&& Registry.ITEM.getId(i).getNamespace().equals(LibMisc.MOD_ID))
-			.collect(Collectors.toList());
+				.filter(i -> i instanceof ItemManasteelArmor
+						&& Registry.ITEM.getId(i).getNamespace().equals(LibMisc.MOD_ID))
+				.collect(Collectors.toList());
 
-		ArmorRenderingRegistry.ModelProvider p = (entity, stack, slot, original)
-			-> ((ItemManasteelArmor) stack.getItem()).getArmorModel(entity, stack, slot, original);
+		ArmorRenderingRegistry.ModelProvider p = (entity, stack, slot, original) -> ((ItemManasteelArmor) stack.getItem()).getArmorModel(entity, stack, slot, original);
 		ArmorRenderingRegistry.registerModel(p, armors);
 
-		ArmorRenderingRegistry.TextureProvider t = (entity, stack, slot, secondLayer, suffix, original)
-			-> new Identifier(((ItemManasteelArmor) stack.getItem()).getArmorTexture(stack, slot));
+		ArmorRenderingRegistry.TextureProvider t = (entity, stack, slot, secondLayer, suffix, original) -> new Identifier(((ItemManasteelArmor) stack.getItem()).getArmorTexture(stack, slot));
 		ArmorRenderingRegistry.registerTexture(t, armors);
 	}
 

@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.network;
 
-import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.PacketContext;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.fabricmc.fabric.api.server.PlayerStream;
@@ -36,9 +35,9 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemTwigWand;
 
-import java.util.function.Supplier;
-
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
+import io.netty.buffer.Unpooled;
 
 // Prefer using World.addBlockEvent/Block.eventReceived/TileEntity.receiveClientEvent where possible
 // as those use less network bandwidth (~14 bytes), vs 26+ bytes here
@@ -52,8 +51,8 @@ public class PacketBotaniaEffect {
 	public static void sendNearby(Entity e, EffectType type, double x, double y, double z, int... args) {
 		Packet<?> pkt = make(type, x, y, z, args);
 		PlayerStream.watching(e)
-			.filter(p -> p.squaredDistanceTo(e.getPos()) < 64 * 64)
-			.forEach(p -> ServerSidePacketRegistry.INSTANCE.sendToPlayer(p, pkt));
+				.filter(p -> p.squaredDistanceTo(e.getPos()) < 64 * 64)
+				.forEach(p -> ServerSidePacketRegistry.INSTANCE.sendToPlayer(p, pkt));
 		if (e instanceof PlayerEntity) {
 			ServerSidePacketRegistry.INSTANCE.sendToPlayer((PlayerEntity) e, pkt);
 		}
@@ -62,8 +61,8 @@ public class PacketBotaniaEffect {
 	public static void sendNearby(World world, BlockPos pos, EffectType type, double x, double y, double z, int... args) {
 		Packet<?> pkt = make(type, x, y, z, args);
 		PlayerStream.watching(world, pos)
-			.filter(p -> p.squaredDistanceTo(pos.getX(), pos.getY(), pos.getZ()) < 64 * 64)
-			.forEach(p -> ServerSidePacketRegistry.INSTANCE.sendToPlayer(p, pkt));
+				.filter(p -> p.squaredDistanceTo(pos.getX(), pos.getY(), pos.getZ()) < 64 * 64)
+				.forEach(p -> ServerSidePacketRegistry.INSTANCE.sendToPlayer(p, pkt));
 	}
 
 	public static Packet<?> make(EffectType type, double x, double y, double z, int... args) {

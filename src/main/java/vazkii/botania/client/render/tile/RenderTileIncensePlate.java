@@ -9,6 +9,7 @@
 package vazkii.botania.client.render.tile;
 
 import com.google.common.collect.ImmutableMap;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
@@ -19,6 +20,7 @@ import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.Direction;
+
 import vazkii.botania.common.block.tile.TileIncensePlate;
 
 import javax.annotation.Nonnull;

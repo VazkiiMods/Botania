@@ -1,3 +1,11 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.mixin;
 
 import net.minecraft.entity.Entity;
@@ -7,11 +15,13 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 import vazkii.botania.common.brew.potion.PotionSoulCross;
 import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.components.LooniumComponent;
@@ -30,9 +40,11 @@ public abstract class MixinLivingEntity extends Entity {
 		super(type, world);
 	}
 
-	@Shadow public abstract ItemStack getStackInHand(Hand hand);
+	@Shadow
+	public abstract ItemStack getStackInHand(Hand hand);
 
-	@Shadow protected int playerHitTimer;
+	@Shadow
+	protected int playerHitTimer;
 
 	@Inject(at = @At("HEAD"), cancellable = true, method = "dropLoot")
 	private void dropLoonium(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {

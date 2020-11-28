@@ -11,6 +11,7 @@ package vazkii.botania.api.mana;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Lazy;
+
 import org.apache.logging.log4j.LogManager;
 
 import java.util.Collections;

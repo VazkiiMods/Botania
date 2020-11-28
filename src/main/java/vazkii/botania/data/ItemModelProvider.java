@@ -8,33 +8,9 @@
  */
 package vazkii.botania.data;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.PaneBlock;
-import net.minecraft.block.WallBlock;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-
 import vazkii.botania.common.block.*;
-import vazkii.botania.common.block.decor.BlockModMushroom;
-import vazkii.botania.common.block.decor.BlockMotifFlower;
-import vazkii.botania.common.block.decor.BlockPetalBlock;
-import vazkii.botania.common.block.mana.BlockPool;
-import vazkii.botania.common.block.mana.BlockSpreader;
-import vazkii.botania.common.item.lens.ItemLens;
-import vazkii.botania.common.item.material.ItemPetal;
-import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
-
-import java.util.Set;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import static vazkii.botania.common.item.ModItems.*;
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 /*
 public class ItemModelProvider extends net.minecraftforge.client.model.generators.ItemModelProvider {

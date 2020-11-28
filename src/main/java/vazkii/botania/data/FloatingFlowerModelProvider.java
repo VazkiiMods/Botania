@@ -9,20 +9,6 @@
 package vazkii.botania.data;
 
 /*
-import net.minecraft.block.Block;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.client.model.generators.ModelProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-
-import vazkii.botania.common.block.decor.BlockFloatingFlower;
-import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
-
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class FloatingFlowerModelProvider extends ModelProvider<FloatingFlowerModelBuilder> {
 	public FloatingFlowerModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {

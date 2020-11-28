@@ -9,9 +9,7 @@
 package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
-import vazkii.botania.common.entity.EntityDoppleganger;
 
-import javax.annotation.Nonnull;
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.entity.damage.DamageSource;
@@ -20,6 +18,10 @@ import net.minecraft.predicate.entity.DamageSourcePredicate;
 import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
+
+import vazkii.botania.common.entity.EntityDoppleganger;
+
+import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 

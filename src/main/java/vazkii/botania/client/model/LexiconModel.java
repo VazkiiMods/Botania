@@ -8,16 +8,13 @@
  */
 package vazkii.botania.client.model;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.json.ModelOverrideList;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Direction;
-import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
 

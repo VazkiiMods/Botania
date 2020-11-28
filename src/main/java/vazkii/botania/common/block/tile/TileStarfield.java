@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.util.Tickable;
+
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.Botania;
 

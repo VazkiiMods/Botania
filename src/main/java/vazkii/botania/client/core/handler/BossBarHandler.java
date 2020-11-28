@@ -9,14 +9,9 @@
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.Rect2i;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderCallback;
@@ -26,7 +21,6 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 
 import java.util.Collections;
 import java.util.Set;
-import java.util.UUID;
 import java.util.WeakHashMap;
 
 public final class BossBarHandler {
@@ -45,7 +39,7 @@ public final class BossBarHandler {
 			if (currentBoss.getBossInfoUuid().equals(infoUuid)) {
 				MatrixStack ms = evt.getMatrixStack();
 				evt.setCanceled(true);
-
+	
 				MinecraftClient mc = MinecraftClient.getInstance();
 				Rect2i bgRect = currentBoss.getBossBarTextureRect();
 				Rect2i fgRect = currentBoss.getBossBarHPTextureRect();
@@ -57,7 +51,7 @@ public final class BossBarHandler {
 				int yf = y + (bgRect.getHeight() - fgRect.getHeight()) / 2;
 				int fw = (int) ((double) fgRect.getWidth() * evt.getBossInfo().getPercent());
 				int tx = c - mc.textRenderer.getWidth(name) / 2;
-
+	
 				RenderSystem.color4f(1F, 1F, 1F, 1F);
 				int auxHeight = currentBoss.bossBarRenderCallback(ms, x, y);
 				RenderSystem.enableBlend();

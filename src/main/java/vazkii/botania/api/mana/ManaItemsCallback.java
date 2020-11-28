@@ -22,11 +22,11 @@ import java.util.List;
  */
 public interface ManaItemsCallback {
 	Event<ManaItemsCallback> EVENT = EventFactory.createArrayBacked(ManaItemsCallback.class,
-		listeners -> (pl, items) -> {
-			for (ManaItemsCallback listener : listeners) {
-				listener.getManaItems(pl, items);
-			}
-		});
+			listeners -> (pl, items) -> {
+				for (ManaItemsCallback listener : listeners) {
+					listener.getManaItems(pl, items);
+				}
+			});
 
 	void getManaItems(PlayerEntity player, List<ItemStack> items);
 }

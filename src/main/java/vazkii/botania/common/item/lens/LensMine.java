@@ -19,6 +19,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.common.block.ModBlocks;

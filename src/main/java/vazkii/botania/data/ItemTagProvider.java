@@ -18,7 +18,6 @@ import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.common.block.ModBlocks;
@@ -72,8 +71,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.getOrCreateTagBuilder(ModTags.Items.TERRA_PICK_BLACKLIST).add(ModItems.auraRing, ModItems.auraRingGreater, ModItems.terrasteelHelm);
 		AbstractTagProvider.ObjectBuilder<Item> builder = this.getOrCreateTagBuilder(ModTags.Items.LENS);
 		Registry.ITEM.stream().filter(i -> i instanceof ItemLens && Registry.ITEM.getId(i).getNamespace().equals(LibMisc.MOD_ID))
-			.sorted(Comparator.comparing(Registry.ITEM::getId))
-			.forEach(builder::add);
+				.sorted(Comparator.comparing(Registry.ITEM::getId))
+				.forEach(builder::add);
 
 		this.getOrCreateTagBuilder(ItemTags.PIGLIN_LOVED).add(ModBlocks.alchemyCatalyst.asItem(), ModItems.cacophonium, ModItems.divaCharm,
 				ModBlocks.hourglass.asItem(), ModBlocks.manaPylon.asItem(), ModItems.monocle);
@@ -117,14 +116,14 @@ public class ItemTagProvider extends ItemTagsProvider {
 
 		this.getOrCreateTagBuilder(ModTags.Items.DISPOSABLE).add(Items.DIRT, Items.SAND, Items.GRAVEL, Items.COBBLESTONE, Items.NETHERRACK);
 		this.getOrCreateTagBuilder(ModTags.Items.SEMI_DISPOSABLE).add(Items.ANDESITE, Items.DIORITE, Items.GRANITE);
-			/* todo 1.16-fabric
-				.addOptional(new Identifier("quark", "basalt"))
-				.addOptional(new Identifier("quark", "jasper"))
-				.addOptional(new Identifier("quark", "limestone"))
-				.addOptional(new Identifier("quark", "marble"))
-				.addOptional(new Identifier("quark", "slate"));
-
-			 */
+		/* todo 1.16-fabric
+			.addOptional(new Identifier("quark", "basalt"))
+			.addOptional(new Identifier("quark", "jasper"))
+			.addOptional(new Identifier("quark", "limestone"))
+			.addOptional(new Identifier("quark", "marble"))
+			.addOptional(new Identifier("quark", "slate"));
+		
+		*/
 
 		List<Tag.Identified<Item>> runes = Arrays.asList(
 				ModTags.Items.RUNES_WATER, ModTags.Items.RUNES_FIRE, ModTags.Items.RUNES_EARTH, ModTags.Items.RUNES_AIR,

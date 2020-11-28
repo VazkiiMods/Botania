@@ -13,14 +13,11 @@ import net.fabricmc.fabric.api.network.PacketContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
-
 import net.minecraft.util.Identifier;
+
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.item.equipment.bauble.ItemCloudPendant;
 import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
-
-import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 

@@ -9,40 +9,6 @@
 package vazkii.botania.client.model;
 
 /* todo 1.16-fabric
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonObject;
-import com.mojang.datafixers.util.Pair;
-
-import net.minecraft.block.BlockState;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.BakedQuad;
-import net.minecraft.client.render.model.ModelBakeSettings;
-import net.minecraft.client.render.model.ModelLoader;
-import net.minecraft.client.render.model.UnbakedModel;
-import net.minecraft.client.render.model.json.JsonUnbakedModel;
-import net.minecraft.client.render.model.json.ModelOverrideList;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.renderer.model.*;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.client.util.math.AffineTransformation;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
-
-import vazkii.botania.api.BotaniaAPIClient;
-import vazkii.botania.api.item.IFloatingFlower;
-import vazkii.botania.api.state.BotaniaStateProps;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import java.util.*;
-import java.util.function.Function;
-
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class FloatingFlowerModel implements IModelGeometry<FloatingFlowerModel> {
 	private UnbakedModel unbakedFlower;

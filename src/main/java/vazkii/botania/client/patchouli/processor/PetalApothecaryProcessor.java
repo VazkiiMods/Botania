@@ -11,6 +11,7 @@ package vazkii.botania.client.patchouli.processor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.recipe.Recipe;
 import net.minecraft.util.Identifier;
+
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;

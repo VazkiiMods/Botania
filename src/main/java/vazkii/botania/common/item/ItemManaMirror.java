@@ -20,10 +20,8 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.dynamic.GlobalPos;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.World;
 
@@ -57,7 +55,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 	public boolean showDurabilityBar(ItemStack stack) {
 		return true;
 	}
-
+	
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
 		return 1 - getManaFractionForDisplay(stack);

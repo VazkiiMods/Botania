@@ -11,7 +11,6 @@ package vazkii.botania.common.block.dispenser;
 import net.minecraft.block.Block;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
-import net.minecraft.block.dispenser.ItemDispenserBehavior;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPointer;
 import net.minecraft.util.math.BlockPos;
@@ -41,7 +40,7 @@ public class BehaviourSeeds extends FallibleItemDispenserBehavior {
 			setSuccess(true);
 		}
 
-        return stack;
+		return stack;
 	}
 
 }

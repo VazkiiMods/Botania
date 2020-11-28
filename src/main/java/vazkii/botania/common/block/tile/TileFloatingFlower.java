@@ -12,19 +12,12 @@ import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.ClientConnection;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.util.math.Direction;
 
 import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.item.IFloatingFlowerProvider;
-import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvider, RenderAttachmentBlockEntity {
 	private static final String TAG_FLOATING_DATA = "floating";

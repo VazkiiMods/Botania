@@ -8,8 +8,9 @@
  */
 package vazkii.botania.api.state.enums;
 
-import java.util.Locale;
 import net.minecraft.util.StringIdentifiable;
+
+import java.util.Locale;
 
 public enum LuminizerVariant implements StringIdentifiable {
 	DEFAULT,

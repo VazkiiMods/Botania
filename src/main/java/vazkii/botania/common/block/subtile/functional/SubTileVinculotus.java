@@ -10,14 +10,15 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.entity.mob.EndermanEntity;
 import net.minecraft.util.math.BlockPos;
-
 import net.minecraft.util.math.Vec3d;
+
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.MathHelper;
 
 import javax.annotation.Nullable;
+
 import java.util.*;
 
 public class SubTileVinculotus extends TileEntityFunctionalFlower {
@@ -87,7 +88,6 @@ public class SubTileVinculotus extends TileEntityFunctionalFlower {
 			double x = activePos.getX() + 0.5;
 			double y = activePos.getY() + 1.5;
 			double z = activePos.getZ() + 0.5;
-
 
 			flower.addMana(-cost);
 			flower.sync();

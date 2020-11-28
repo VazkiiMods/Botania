@@ -9,6 +9,7 @@
 package vazkii.botania.client.render.tile;
 
 import com.google.common.base.Preconditions;
+
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;

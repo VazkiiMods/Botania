@@ -66,41 +66,41 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 	}
 
 	public static void updatePlayerStepStatus(PlayerEntity player) {
-			ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
-			String s = playerStr(player);
+		ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
+		String s = playerStr(player);
 
-			if (playersWithStepup.contains(s)) {
-				if (shouldPlayerHaveStepup(player)) {
-					ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
+		if (playersWithStepup.contains(s)) {
+			if (shouldPlayerHaveStepup(player)) {
+				ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
 
-					if (player.world.isClient) {
-						if ((player.isOnGround() || player.abilities.flying) && player.forwardSpeed > 0F && !player.isInsideWaterOrBubbleColumn()) {
-							float speed = beltItem.getSpeed(belt);
-							player.updateVelocity(player.abilities.flying ? speed : speed, new Vec3d(0, 0, 1));
-							beltItem.onMovedTick(belt, player);
+				if (player.world.isClient) {
+					if ((player.isOnGround() || player.abilities.flying) && player.forwardSpeed > 0F && !player.isInsideWaterOrBubbleColumn()) {
+						float speed = beltItem.getSpeed(belt);
+						player.updateVelocity(player.abilities.flying ? speed : speed, new Vec3d(0, 0, 1));
+						beltItem.onMovedTick(belt, player);
 
-							if (player.age % COST_INTERVAL == 0) {
-								ManaItemHandler.instance().requestManaExact(belt, player, COST, true);
-							}
-						} else {
-							beltItem.onNotMovingTick(belt, player);
+						if (player.age % COST_INTERVAL == 0) {
+							ManaItemHandler.instance().requestManaExact(belt, player, COST, true);
 						}
-					}
-
-					if (player.isSneaking()) {
-						player.stepHeight = 0.60001F; // Not 0.6F because that is the default
 					} else {
-						player.stepHeight = 1.25F;
+						beltItem.onNotMovingTick(belt, player);
 					}
-
-				} else {
-					player.stepHeight = 0.6F;
-					playersWithStepup.remove(s);
 				}
-			} else if (shouldPlayerHaveStepup(player)) {
-				playersWithStepup.add(s);
-				player.stepHeight = 1.25F;
+
+				if (player.isSneaking()) {
+					player.stepHeight = 0.60001F; // Not 0.6F because that is the default
+				} else {
+					player.stepHeight = 1.25F;
+				}
+
+			} else {
+				player.stepHeight = 0.6F;
+				playersWithStepup.remove(s);
 			}
+		} else if (shouldPlayerHaveStepup(player)) {
+			playersWithStepup.add(s);
+			player.stepHeight = 1.25F;
+		}
 	}
 
 	public float getSpeed(ItemStack stack) {

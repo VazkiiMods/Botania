@@ -9,6 +9,7 @@
 package vazkii.botania.client.core.handler;
 
 import com.google.common.collect.ImmutableMap;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;

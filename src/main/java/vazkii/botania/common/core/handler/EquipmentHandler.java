@@ -17,6 +17,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import top.theillusivec4.curios.api.event.DropRulesCallback;
+
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.EquipmentHandler.InventoryEquipmentHandler;
@@ -145,8 +146,7 @@ public abstract class EquipmentHandler {
 		}
 
 		@Override
-		protected void registerComponentEvent(Item item) {
-		}
+		protected void registerComponentEvent(Item item) {}
 
 		private static boolean canEquip(ItemStack stack, LivingEntity player) {
 			return stack.getItem() instanceof ItemBauble && ((ItemBauble) stack.getItem()).canEquip(stack, player);

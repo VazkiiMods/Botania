@@ -20,9 +20,9 @@ import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Matrix4f;
+
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.TileAltar;
@@ -110,7 +110,7 @@ public class RenderTileAltar extends BlockEntityRenderer<TileAltar> {
 			Sprite sprite = lava ? MinecraftClient.getInstance().getBakedModelManager().getBlockModels().getModel(Blocks.LAVA.getDefaultState()).getSprite()
 					: MinecraftClient.getInstance().getBakedModelManager().getBlockModels().getModel(Blocks.WATER.getDefaultState()).getSprite();
 			int color = lava ? -1
-				: BiomeColors.getWaterColor(altar.getWorld(), altar.getPos());
+					: BiomeColors.getWaterColor(altar.getWorld(), altar.getPos());
 			VertexConsumer buffer = buffers.getBuffer(TexturedRenderLayers.getEntityTranslucentCull());
 			renderIcon(ms, buffer, sprite, color, alpha, overlay, lava ? 0xF000F0 : light);
 			ms.pop();

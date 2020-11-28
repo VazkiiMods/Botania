@@ -17,6 +17,7 @@ import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.ItemStack;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.TileAnimatedTorch;
 

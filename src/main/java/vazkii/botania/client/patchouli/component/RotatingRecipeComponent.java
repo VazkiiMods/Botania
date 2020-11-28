@@ -9,6 +9,7 @@
 package vazkii.botania.client.patchouli.component;
 
 import com.google.gson.annotations.SerializedName;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.Recipe;

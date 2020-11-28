@@ -12,6 +12,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Box;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaSpreader;
 

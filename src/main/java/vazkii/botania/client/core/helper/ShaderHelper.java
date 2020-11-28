@@ -9,6 +9,7 @@
 package vazkii.botania.client.core.helper;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.GlProgram;

@@ -11,6 +11,7 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sound.SoundCategory;
+
 import vazkii.botania.common.item.ItemCacophonium;
 
 public class TileCacophonium extends TileMod {

@@ -15,6 +15,7 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
+
 import javax.annotation.Nonnull;
 
 public class RenderNoop<T extends Entity> extends EntityRenderer<T> {

@@ -10,12 +10,14 @@ package vazkii.botania.common.item.equipment.armor.elementium;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import vazkii.botania.common.core.handler.PixieHandler;
 
-import javax.annotation.Nonnull;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
+
+import vazkii.botania.common.core.handler.PixieHandler;
+
+import javax.annotation.Nonnull;
 
 public class ItemElementiumBoots extends ItemElementiumArmor {
 

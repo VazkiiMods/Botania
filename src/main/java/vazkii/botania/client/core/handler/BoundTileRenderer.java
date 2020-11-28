@@ -9,6 +9,7 @@
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;

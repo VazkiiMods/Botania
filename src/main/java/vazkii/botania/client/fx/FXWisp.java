@@ -9,6 +9,7 @@
 package vazkii.botania.client.fx;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.ParticleTextureSheet;
 import net.minecraft.client.particle.SpriteBillboardParticle;
@@ -21,6 +22,7 @@ import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.world.ClientWorld;
 
 import org.lwjgl.opengl.GL11;
+
 import vazkii.botania.client.core.ExtendedTexture;
 
 import javax.annotation.Nonnull;

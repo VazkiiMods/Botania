@@ -11,6 +11,7 @@ package vazkii.botania.client.render.entity;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.texture.Sprite;
+
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.entity.EntitySpark;
 

@@ -31,6 +31,7 @@ import vazkii.botania.common.block.tile.TileManaFlame;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+
 import java.util.Random;
 
 public class BlockManaFlame extends BlockMod implements BlockEntityProvider {

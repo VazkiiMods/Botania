@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.core.handler;
 
-
 import net.minecraft.server.world.ServerWorld;
+
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.impl.corporea.CorporeaHelperImpl;
 

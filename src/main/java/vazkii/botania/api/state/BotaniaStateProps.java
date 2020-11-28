@@ -9,11 +9,11 @@
 package vazkii.botania.api.state;
 
 import com.google.common.base.Predicates;
+
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.EnumProperty;
 import net.minecraft.util.math.Direction;
 
-import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.state.enums.CratePattern;
 

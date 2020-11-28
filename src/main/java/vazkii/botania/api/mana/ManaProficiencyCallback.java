@@ -15,13 +15,13 @@ import net.minecraft.item.ItemStack;
 
 public interface ManaProficiencyCallback {
 	Event<ManaProficiencyCallback> EVENT = EventFactory.createArrayBacked(ManaProficiencyCallback.class,
-		listeners -> (pl, st, cur) -> {
-			for (ManaProficiencyCallback listener : listeners) {
-				cur = listener.getProficient(pl, st, cur);
-			}
+			listeners -> (pl, st, cur) -> {
+				for (ManaProficiencyCallback listener : listeners) {
+					cur = listener.getProficient(pl, st, cur);
+				}
 
-			return cur;
-		});
+				return cur;
+			});
 
 	boolean getProficient(PlayerEntity player, ItemStack tool, boolean curProficient);
 }

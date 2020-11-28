@@ -15,6 +15,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
+
 import vazkii.botania.common.block.BlockMod;
 
 public abstract class BlockRedString extends BlockMod implements BlockEntityProvider {

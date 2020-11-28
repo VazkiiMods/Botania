@@ -9,6 +9,7 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.entity.BlockEntity;

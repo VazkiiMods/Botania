@@ -9,6 +9,7 @@
 package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
+
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.item.ItemStack;

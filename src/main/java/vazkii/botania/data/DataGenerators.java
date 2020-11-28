@@ -8,12 +8,11 @@
  */
 package vazkii.botania.data;
 
-
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.command.CommandSource;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -21,6 +20,7 @@ import net.minecraft.text.ClickEvent;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+
 import vazkii.botania.common.Botania;
 import vazkii.botania.data.recipes.*;
 
@@ -40,28 +40,28 @@ public class DataGenerators {
 		}
 
 		LiteralArgumentBuilder<ServerCommandSource> command = CommandManager.literal("botania_gendata")
-			.then(CommandManager.literal("confirm").executes(ctx -> {
-				Path p = inferOutputPath();
-				ctx.getSource().sendFeedback(new LiteralText("Generating data into " + p + "..."), false);
-				try {
-					gatherData(p);
-					ctx.getSource().sendFeedback(new LiteralText("Done"), false);
+				.then(CommandManager.literal("confirm").executes(ctx -> {
+					Path p = inferOutputPath();
+					ctx.getSource().sendFeedback(new LiteralText("Generating data into " + p + "..."), false);
+					try {
+						gatherData(p);
+						ctx.getSource().sendFeedback(new LiteralText("Done"), false);
+						return Command.SINGLE_SUCCESS;
+					} catch (IOException e) {
+						Botania.LOGGER.error("Failed to generate data", e);
+						ctx.getSource().sendError(new LiteralText("Failed, see logs"));
+						return 0;
+					}
+				}))
+				.executes(ctx -> {
+					Path p = inferOutputPath();
+					Text yes = new LiteralText("[yes]")
+							.styled(s -> s.withColor(Formatting.GREEN)
+									.withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/botania_gendata confirm")));
+					Text msg = new LiteralText(String.format("Will generate data into [%s]. Ok? ", p)).append(yes);
+					ctx.getSource().sendFeedback(msg, false);
 					return Command.SINGLE_SUCCESS;
-				} catch (IOException e) {
-					Botania.LOGGER.error("Failed to generate data", e);
-					ctx.getSource().sendError(new LiteralText("Failed, see logs"));
-					return 0;
-				}
-			}))
-			.executes(ctx -> {
-				Path p = inferOutputPath();
-				Text yes = new LiteralText("[yes]")
-					.styled(s -> s.withColor(Formatting.GREEN)
-						.withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/botania_gendata confirm")));
-				Text msg = new LiteralText(String.format("Will generate data into [%s]. Ok? ", p)).append(yes);
-				ctx.getSource().sendFeedback(msg, false);
-				return Command.SINGLE_SUCCESS;
-			});
+				});
 		disp.register(command);
 	}
 

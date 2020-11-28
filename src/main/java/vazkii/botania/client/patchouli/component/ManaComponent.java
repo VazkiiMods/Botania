@@ -8,7 +8,12 @@
  */
 package vazkii.botania.client.patchouli.component;
 
-import com.google.common.collect.Streams;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
+
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.patchouli.api.IComponentRenderContext;
@@ -16,11 +21,6 @@ import vazkii.patchouli.api.ICustomComponent;
 import vazkii.patchouli.api.IVariable;
 
 import java.util.function.UnaryOperator;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 
 /**
  * A custom component that renders a mana bar.

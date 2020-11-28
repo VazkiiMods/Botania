@@ -18,6 +18,7 @@ import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.function.ConditionalLootFunction;
 import net.minecraft.loot.function.LootFunctionType;
+
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.relic.ItemRelic;
 

@@ -10,6 +10,7 @@ package vazkii.botania.client.patchouli.processor;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.Identifier;
+
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.crafting.ModRecipeTypes;

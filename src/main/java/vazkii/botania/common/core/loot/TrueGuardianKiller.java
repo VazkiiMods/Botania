@@ -18,6 +18,7 @@ import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.util.JsonSerializer;
+
 import vazkii.botania.common.entity.EntityDoppleganger;
 
 import javax.annotation.Nonnull;

@@ -40,7 +40,6 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.lens.LensPiston;
 import vazkii.botania.common.network.PacketBotaniaEffect;
-import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
 
@@ -127,8 +126,8 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 				BlockPos dest = WorldData.get(world).mapping.get(pos);
 				if (dest != null) {
 					PacketBotaniaEffect.sendNearby(world, pos, PacketBotaniaEffect.EffectType.PARTICLE_BEAM,
-						pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
-						dest.getX(), dest.getY(), dest.getZ());
+							pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+							dest.getX(), dest.getY(), dest.getZ());
 				}
 			}
 		}
@@ -186,61 +185,61 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 	}
 
 	public void tickEnd(MinecraftServer server) {
-			for (GlobalPos s : coordsToCheck.keySet()) {
-				ServerWorld world = server.getWorld(s.getDimension());
-				WorldData data = WorldData.get(world);
+		for (GlobalPos s : coordsToCheck.keySet()) {
+			ServerWorld world = server.getWorld(s.getDimension());
+			WorldData data = WorldData.get(world);
 
-				decrCoords(s);
-				if (checkedCoords.contains(s)) {
-					continue;
-				}
+			decrCoords(s);
+			if (checkedCoords.contains(s)) {
+				continue;
+			}
 
-				BlockState state = getStateAt(s);
-				if (state.getBlock() == Blocks.MOVING_PISTON) {
-					boolean sticky = PistonType.STICKY == state.get(PistonExtensionBlock.TYPE);
-					Direction dir = ((PistonBlockEntity) getTeAt(s)).getMovementDirection();
+			BlockState state = getStateAt(s);
+			if (state.getBlock() == Blocks.MOVING_PISTON) {
+				boolean sticky = PistonType.STICKY == state.get(PistonExtensionBlock.TYPE);
+				Direction dir = ((PistonBlockEntity) getTeAt(s)).getMovementDirection();
 
-					if (getTimeInCoords(s) == 0) {
-						BlockPos newPos;
+				if (getTimeInCoords(s) == 0) {
+					BlockPos newPos;
 
-						// Put the relay back, or drop it
-						{
-							int x = s.getPos().getX(), y = s.getPos().getY(), z = s.getPos().getZ();
-							BlockPos pos = s.getPos();
-							if (world.isAir(pos.offset(dir))) {
-								world.setBlockState(pos.offset(dir), ModBlocks.pistonRelay.getDefaultState());
-							} else {
-								ItemStack stack = new ItemStack(ModBlocks.pistonRelay);
-								world.spawnEntity(new ItemEntity(world, x + dir.getOffsetX(), y + dir.getOffsetY(), z + dir.getOffsetZ(), stack));
+					// Put the relay back, or drop it
+					{
+						int x = s.getPos().getX(), y = s.getPos().getY(), z = s.getPos().getZ();
+						BlockPos pos = s.getPos();
+						if (world.isAir(pos.offset(dir))) {
+							world.setBlockState(pos.offset(dir), ModBlocks.pistonRelay.getDefaultState());
+						} else {
+							ItemStack stack = new ItemStack(ModBlocks.pistonRelay);
+							world.spawnEntity(new ItemEntity(world, x + dir.getOffsetX(), y + dir.getOffsetY(), z + dir.getOffsetZ(), stack));
+						}
+						checkedCoords.add(s);
+						newPos = pos.offset(dir);
+					}
+
+					// Move the linked block and update the mapping
+					if (data.mapping.containsKey(s.getPos())) {
+						BlockPos destPos = data.mapping.get(s.getPos());
+
+						BlockState srcState = world.getBlockState(destPos);
+						BlockEntity tile = world.getBlockEntity(destPos);
+
+						if (!sticky && tile == null && srcState.getPistonBehavior() == PistonBehavior.NORMAL && srcState.getHardness(world, destPos) != -1 && !srcState.isAir()) {
+							Material destMat = world.getBlockState(destPos.offset(dir)).getMaterial();
+							if (world.isAir(destPos.offset(dir)) || destMat.isReplaceable()) {
+								world.setBlockState(destPos, Blocks.AIR.getDefaultState());
+								world.setBlockState(destPos.offset(dir), LensPiston.unWaterlog(srcState));
+								data.mapping.put(s.getPos(), destPos.offset(dir));
 							}
-							checkedCoords.add(s);
-							newPos = pos.offset(dir);
 						}
 
-						// Move the linked block and update the mapping
-						if (data.mapping.containsKey(s.getPos())) {
-							BlockPos destPos = data.mapping.get(s.getPos());
-
-							BlockState srcState = world.getBlockState(destPos);
-							BlockEntity tile = world.getBlockEntity(destPos);
-
-							if (!sticky && tile == null && srcState.getPistonBehavior() == PistonBehavior.NORMAL && srcState.getHardness(world, destPos) != -1 && !srcState.isAir()) {
-								Material destMat = world.getBlockState(destPos.offset(dir)).getMaterial();
-								if (world.isAir(destPos.offset(dir)) || destMat.isReplaceable()) {
-									world.setBlockState(destPos, Blocks.AIR.getDefaultState());
-									world.setBlockState(destPos.offset(dir), LensPiston.unWaterlog(srcState));
-									data.mapping.put(s.getPos(), destPos.offset(dir));
-								}
-							}
-
-							destPos = data.mapping.get(s.getPos());
-							data.mapping.remove(s.getPos());
-							data.mapping.put(newPos, destPos);
-							data.markDirty();
-						}
+						destPos = data.mapping.get(s.getPos());
+						data.mapping.remove(s.getPos());
+						data.mapping.put(newPos, destPos);
+						data.markDirty();
 					}
 				}
 			}
+		}
 
 		coordsToCheck.keySet().removeAll(removeQueue);
 		checkedCoords.removeAll(removeQueue);

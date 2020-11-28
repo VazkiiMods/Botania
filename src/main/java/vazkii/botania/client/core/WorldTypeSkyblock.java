@@ -14,6 +14,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.VanillaLayeredBiomeSource;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
+
 import vazkii.botania.common.world.SkyblockChunkGenerator;
 
 public class WorldTypeSkyblock extends GeneratorType {
@@ -26,6 +27,6 @@ public class WorldTypeSkyblock extends GeneratorType {
 	@Override
 	protected ChunkGenerator getChunkGenerator(Registry<Biome> biomes, Registry<ChunkGeneratorSettings> noiseSettings, long seed) {
 		return new SkyblockChunkGenerator(new VanillaLayeredBiomeSource(seed, false, false, biomes), seed,
-			() -> noiseSettings.get(ChunkGeneratorSettings.OVERWORLD));
+				() -> noiseSettings.get(ChunkGeneratorSettings.OVERWORLD));
 	}
 }

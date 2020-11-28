@@ -8,43 +8,14 @@
  */
 package vazkii.botania.data;
 
-import com.google.common.collect.ImmutableMap;
-
 import net.minecraft.block.*;
-import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.block.enums.WallShape;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.registry.Registry;
 
-import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.AlfPortalState;
-import vazkii.botania.api.state.enums.CratePattern;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.*;
-import vazkii.botania.common.block.decor.BlockBuriedPetals;
-import vazkii.botania.common.block.decor.BlockFloatingFlower;
-import vazkii.botania.common.block.decor.BlockModMushroom;
-import vazkii.botania.common.block.decor.BlockMotifFlower;
-import vazkii.botania.common.block.decor.BlockPetalBlock;
-import vazkii.botania.common.block.string.BlockRedString;
-import vazkii.botania.common.lib.LibBlockNames;
-import vazkii.botania.common.lib.LibMisc;
-
-import javax.annotation.Nonnull;
 
 import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static vazkii.botania.common.block.ModBlocks.*;
 import static vazkii.botania.common.block.ModFluffBlocks.*;
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 /*
 public class BlockstateProvider extends BlockStateProvider {

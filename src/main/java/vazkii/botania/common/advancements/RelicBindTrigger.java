@@ -9,6 +9,7 @@
 package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
+
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.item.ItemStack;
@@ -17,7 +18,9 @@ import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
+
 import vazkii.botania.common.advancements.RelicBindTrigger.Instance;
+
 import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;

@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
+
 import vazkii.botania.mixin.AccessorFireBlock;
 
 import javax.annotation.Nonnull;

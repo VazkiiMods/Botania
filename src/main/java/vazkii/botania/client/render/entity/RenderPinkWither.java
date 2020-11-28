@@ -13,6 +13,7 @@ import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.WitherEntityRenderer;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.util.Identifier;
+
 import vazkii.botania.client.lib.LibResources;
 
 import javax.annotation.Nonnull;

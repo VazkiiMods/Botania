@@ -20,7 +20,6 @@ import net.minecraft.screen.slot.Slot;
 
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
-import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketIndexKeybindRequest;
 import vazkii.botania.mixin.AccessorHandledScreen;
 import vazkii.botania.mixin.AccessorRecipeBookGui;

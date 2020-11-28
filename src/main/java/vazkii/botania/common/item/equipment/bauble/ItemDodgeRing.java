@@ -9,6 +9,7 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -26,7 +27,6 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketDodge;
-import vazkii.botania.common.network.PacketHandler;
 
 public class ItemDodgeRing extends ItemBauble {
 

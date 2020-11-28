@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Tickable;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProperties;

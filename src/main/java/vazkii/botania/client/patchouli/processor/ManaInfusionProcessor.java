@@ -9,6 +9,7 @@
 package vazkii.botania.client.patchouli.processor;
 
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Recipe;

@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.util.DyeColor;
+
 import vazkii.botania.common.block.BlockMod;
 
 public class BlockPetalBlock extends BlockMod {

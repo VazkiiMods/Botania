@@ -14,11 +14,11 @@ import net.minecraft.block.entity.BlockEntity;
 
 public interface ManaNetworkCallback {
 	Event<ManaNetworkCallback> EVENT = EventFactory.createArrayBacked(ManaNetworkCallback.class,
-		listeners -> (be, typ, act) -> {
-			for (ManaNetworkCallback listener : listeners) {
-				listener.onNetworkChange(be, typ, act);
-			}
-		});
+			listeners -> (be, typ, act) -> {
+				for (ManaNetworkCallback listener : listeners) {
+					listener.onNetworkChange(be, typ, act);
+				}
+			});
 
 	void onNetworkChange(BlockEntity be, ManaBlockType type, Action action);
 

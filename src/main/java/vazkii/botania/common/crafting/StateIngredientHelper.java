@@ -14,19 +14,17 @@ import com.google.gson.JsonParseException;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 
-import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.JsonHelper;
-
 import net.minecraft.util.registry.Registry;
+
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 

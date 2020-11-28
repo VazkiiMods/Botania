@@ -307,7 +307,7 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 	public boolean showDurabilityBar(ItemStack stack) {
 		return getCooldown(stack) > 0;
 	}
-
+	
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
 		return getCooldown(stack) / (double) COOLDOWN;

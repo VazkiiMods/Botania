@@ -8,9 +8,10 @@
  */
 package vazkii.botania.common.block.tile;
 
-import javax.annotation.Nonnull;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.SkullBlockEntity;
+
+import javax.annotation.Nonnull;
 
 public class TileGaiaHead extends SkullBlockEntity {
 	@Nonnull

@@ -9,7 +9,7 @@
 package vazkii.botania.common.item.material;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+
 import vazkii.botania.mixin.AccessorItem;
 
 public class ItemSelfReturning extends Item {

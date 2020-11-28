@@ -39,7 +39,7 @@ public class BehaviourPoolMinecart extends ItemDispenserBehavior {
 		double d2 = source.getZ() + (double) enumfacing.getOffsetZ() * 1.125D;
 		BlockPos blockpos = source.getBlockPos().offset(enumfacing);
 		BlockState iblockstate = world.getBlockState(blockpos);
-		RailShape railshape = iblockstate.getBlock() instanceof AbstractRailBlock ? iblockstate.get(((AbstractRailBlock)iblockstate.getBlock()).getShapeProperty()) : RailShape.NORTH_SOUTH;
+		RailShape railshape = iblockstate.getBlock() instanceof AbstractRailBlock ? iblockstate.get(((AbstractRailBlock) iblockstate.getBlock()).getShapeProperty()) : RailShape.NORTH_SOUTH;
 		double d3;
 		if (iblockstate.isIn(BlockTags.RAILS)) {
 			if (railshape.isAscending()) {
@@ -53,7 +53,7 @@ public class BehaviourPoolMinecart extends ItemDispenserBehavior {
 			}
 
 			BlockState iblockstate1 = world.getBlockState(blockpos.down());
-			RailShape railshape1 = iblockstate1.getBlock() instanceof AbstractRailBlock ? iblockstate1.get(((AbstractRailBlock)iblockstate1.getBlock()).getShapeProperty()) : RailShape.NORTH_SOUTH;
+			RailShape railshape1 = iblockstate1.getBlock() instanceof AbstractRailBlock ? iblockstate1.get(((AbstractRailBlock) iblockstate1.getBlock()).getShapeProperty()) : RailShape.NORTH_SOUTH;
 			if (enumfacing != Direction.DOWN && railshape1.isAscending()) {
 				d3 = -0.4D;
 			} else {

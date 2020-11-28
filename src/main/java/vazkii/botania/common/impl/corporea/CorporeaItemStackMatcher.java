@@ -11,6 +11,7 @@ package vazkii.botania.common.impl.corporea;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.text.Text;
+
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
