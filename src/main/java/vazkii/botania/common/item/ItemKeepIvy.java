@@ -8,11 +8,9 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
 
 import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.components.KeptItemsComponent;

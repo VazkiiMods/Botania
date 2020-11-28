@@ -272,16 +272,16 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 				int z = net.minecraft.util.math.MathHelper.floor(entity.getZ());
 				BlockPos pos = new BlockPos(x, y, z);
 
-                BlockState placeState = Blocks.AIR.getDefaultState();
-                if (lens.hasTag() && lens.getTag().contains(TAG_STATE)) {
-                    placeState = NbtHelper.toBlockState(lens.getTag().getCompound(TAG_STATE));
-                }
-                
-                if (entity.world.getDimension().isUltrawarm() && placeState.contains(Properties.WATERLOGGED)) {
-                    placeState = placeState.with(Properties.WATERLOGGED, false);
-                }
+				BlockState placeState = Blocks.AIR.getDefaultState();
+				if (lens.hasTag() && lens.getTag().contains(TAG_STATE)) {
+					placeState = NbtHelper.toBlockState(lens.getTag().getCompound(TAG_STATE));
+				}
 
-                if (entity.world.getBlockState(pos).getMaterial().isReplaceable()) {
+				if (entity.world.getDimension().isUltrawarm() && placeState.contains(Properties.WATERLOGGED)) {
+					placeState = placeState.with(Properties.WATERLOGGED, false);
+				}
+
+				if (entity.world.getBlockState(pos).getMaterial().isReplaceable()) {
 					BlockEntity tile = null;
 					CompoundTag tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
 					if (tilecmp.contains("id")) {

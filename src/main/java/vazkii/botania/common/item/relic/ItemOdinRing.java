@@ -10,6 +10,7 @@ package vazkii.botania.common.item.relic;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -60,7 +61,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	public static boolean onPlayerAttacked(PlayerEntity player, DamageSource src) {
 		boolean negate = damageNegations.contains(src.name)
-			|| (fireNegations.contains(src.name));
+				|| (fireNegations.contains(src.name));
 		boolean hasRing = !EquipmentHandler.findOrEmpty(ModItems.odinRing, player).isEmpty();
 		return negate && hasRing;
 	}

@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.network;
 
-import io.netty.buffer.Unpooled;
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.network.PacketContext;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.client.MinecraftClient;
@@ -17,13 +15,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
-
 import net.minecraft.util.Identifier;
+
 import vazkii.botania.mixin.AccessorItemEntity;
 
-import java.util.function.Supplier;
-
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
+import io.netty.buffer.Unpooled;
 
 public class PacketItemAge {
 	public static final Identifier ID = prefix("ia");

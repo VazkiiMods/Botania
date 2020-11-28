@@ -8,23 +8,18 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import net.minecraft.block.entity.BannerBlockEntity;
 import net.minecraft.block.entity.BannerPattern;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.DyeItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.SpecialRecipeSerializer;
-import net.minecraft.tag.ItemTags;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-
-import vazkii.botania.common.block.ModBanners;
 
 import javax.annotation.Nonnull;
 
@@ -49,7 +44,7 @@ public class BannerRecipe extends SpecialCraftingRecipe {
 			if (stack.isEmpty()) {
 				continue;
 			}
-
+		
 			if (ModBanners.PATTERNS.containsKey(item.delegate) && !foundItem) {
 				foundItem = true;
 			} else if (ItemTags.BANNERS.contains(item) && !foundBanner && BannerBlockEntity.getPatternCount(stack) < 6) {

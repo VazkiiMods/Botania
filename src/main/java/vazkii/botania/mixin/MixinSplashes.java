@@ -8,6 +8,10 @@
  */
 package vazkii.botania.mixin;
 
+import net.minecraft.client.resource.SplashTextResourceSupplier;
+import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.profiler.Profiler;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -18,9 +22,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 import java.util.List;
-import net.minecraft.client.resource.SplashTextResourceSupplier;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.profiler.Profiler;
 
 @Mixin(SplashTextResourceSupplier.class)
 public class MixinSplashes {

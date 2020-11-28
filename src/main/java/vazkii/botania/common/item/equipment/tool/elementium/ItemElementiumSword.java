@@ -10,14 +10,16 @@ package vazkii.botania.common.item.equipment.tool.elementium;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.core.handler.PixieHandler;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 
 import javax.annotation.Nonnull;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
 
 public class ItemElementiumSword extends ItemManasteelSword {
 

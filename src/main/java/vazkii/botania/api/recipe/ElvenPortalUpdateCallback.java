@@ -22,11 +22,11 @@ import java.util.List;
  */
 public interface ElvenPortalUpdateCallback {
 	Event<ElvenPortalUpdateCallback> EVENT = EventFactory.createArrayBacked(ElvenPortalUpdateCallback.class,
-		listeners -> (be, bounds, open, stacks) -> {
-			for (ElvenPortalUpdateCallback listener : listeners) {
-				listener.onElvenPortalTick(be, bounds, open, stacks);
-			}
-		});
+			listeners -> (be, bounds, open, stacks) -> {
+				for (ElvenPortalUpdateCallback listener : listeners) {
+					listener.onElvenPortalTick(be, bounds, open, stacks);
+				}
+			});
 
 	/**
 	 * @param portal May be casted to TileAlfPortal if you have botania code access aside from the API.

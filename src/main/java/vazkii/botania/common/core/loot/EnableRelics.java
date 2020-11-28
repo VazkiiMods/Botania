@@ -11,13 +11,15 @@ package vazkii.botania.common.core.loot;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
-import vazkii.botania.common.core.handler.ConfigHandler;
 
-import javax.annotation.Nonnull;
 import net.minecraft.loot.condition.LootCondition;
 import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.util.JsonSerializer;
+
+import vazkii.botania.common.core.handler.ConfigHandler;
+
+import javax.annotation.Nonnull;
 
 public class EnableRelics implements LootCondition {
 

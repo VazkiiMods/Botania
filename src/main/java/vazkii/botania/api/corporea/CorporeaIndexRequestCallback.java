@@ -17,14 +17,14 @@ import net.minecraft.server.network.ServerPlayerEntity;
  */
 public interface CorporeaIndexRequestCallback {
 	Event<CorporeaIndexRequestCallback> EVENT = EventFactory.createArrayBacked(CorporeaIndexRequestCallback.class,
-		listeners -> (pl, req, count, spark) -> {
-			for (CorporeaIndexRequestCallback listener : listeners) {
-				if (listener.onIndexRequest(pl, req, count, spark)) {
-					return true;
+			listeners -> (pl, req, count, spark) -> {
+				for (CorporeaIndexRequestCallback listener : listeners) {
+					if (listener.onIndexRequest(pl, req, count, spark)) {
+						return true;
+					}
 				}
-			}
-			return false;
-		});
+				return false;
+			});
 
 	/**
 	 * @return {@code true} to cancel the request

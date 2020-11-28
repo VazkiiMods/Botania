@@ -10,6 +10,7 @@ package vazkii.botania.client.patchouli;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
+
 import vazkii.patchouli.api.IVariable;
 
 import java.util.ArrayList;

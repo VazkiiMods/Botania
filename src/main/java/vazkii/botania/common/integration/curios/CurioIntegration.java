@@ -9,7 +9,7 @@
 package vazkii.botania.common.integration.curios;
 
 import com.google.common.collect.Multimap;
-import nerdhub.cardinal.components.api.event.ItemComponentCallbackV2;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -27,19 +27,19 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
 import net.minecraft.util.Pair;
+
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.CuriosComponent;
 import top.theillusivec4.curios.api.SlotTypeInfo;
 import top.theillusivec4.curios.api.SlotTypePreset;
-
 import top.theillusivec4.curios.api.type.component.ICurio;
 import top.theillusivec4.curios.api.type.component.ICuriosItemHandler;
 import top.theillusivec4.curios.api.type.component.IRenderableCurio;
 import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
+
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -49,6 +49,8 @@ import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+
+import nerdhub.cardinal.components.api.event.ItemComponentCallbackV2;
 
 // Classloading-safe way to attach curio behaviour to our items
 public class CurioIntegration extends EquipmentHandler {
@@ -63,7 +65,7 @@ public class CurioIntegration extends EquipmentHandler {
 	}
 
 	public static void keepCurioDrops(LivingEntity livingEntity, ICuriosItemHandler handler, DamageSource source,
-		int lootingLevel, boolean recentlyHit, List<Pair<Predicate<ItemStack>, ICurio.DropRule>> overrides) { //TODO make this less hacky
+			int lootingLevel, boolean recentlyHit, List<Pair<Predicate<ItemStack>, ICurio.DropRule>> overrides) { //TODO make this less hacky
 		overrides.add(new Pair<>(stack -> {
 			if (ItemKeepIvy.hasIvy(stack)) {
 				stack.removeSubTag(ItemKeepIvy.TAG_KEEP);
@@ -76,17 +78,17 @@ public class CurioIntegration extends EquipmentHandler {
 	@Override
 	protected Inventory getAllWornItems(LivingEntity living) {
 		return CuriosApi.getCuriosHelper().getCuriosHandler(living)
-			.map(h -> {
-				List<ItemStack> list = new ArrayList<>();
-				for (ICurioStacksHandler sh : h.getCurios().values()) {
-					Inventory stacks = sh.getStacks();
-					for (int i = 0; i < stacks.size(); i++) {
-						list.add(stacks.getStack(i));
+				.map(h -> {
+					List<ItemStack> list = new ArrayList<>();
+					for (ICurioStacksHandler sh : h.getCurios().values()) {
+						Inventory stacks = sh.getStacks();
+						for (int i = 0; i < stacks.size(); i++) {
+							list.add(stacks.getStack(i));
+						}
 					}
-				}
-				return new SimpleInventory(list.toArray(new ItemStack[0]));
-			})
-			.orElseGet(() -> new SimpleInventory(0));
+					return new SimpleInventory(list.toArray(new ItemStack[0]));
+				})
+				.orElseGet(() -> new SimpleInventory(0));
 	}
 
 	@Override

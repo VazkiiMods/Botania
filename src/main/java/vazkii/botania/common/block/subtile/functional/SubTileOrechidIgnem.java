@@ -11,6 +11,7 @@ package vazkii.botania.common.block.subtile.functional;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Identifier;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.ModSubtiles;
 

@@ -21,8 +21,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.Box;
-
 import net.minecraft.world.World;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.BurstProperties;
@@ -30,10 +30,10 @@ import vazkii.botania.api.mana.ILensEffect;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
-import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketLeftClick;
 
 import javax.annotation.Nullable;
+
 import java.util.List;
 
 public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {

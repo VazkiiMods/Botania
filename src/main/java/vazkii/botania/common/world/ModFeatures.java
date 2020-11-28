@@ -56,15 +56,15 @@ public class ModFeatures {
 
 		if (ConfigHandler.COMMON.worldgenEnabled.getValue()) {
 			BiomeModifications.addFeature(ctx -> {
-					Biome.Category category = ctx.getBiome().getCategory();
-					return !TYPE_BLACKLIST.contains(category);
-				},
-				GenerationStep.Feature.VEGETAL_DECORATION,
-				BuiltinRegistries.CONFIGURED_FEATURE.getKey(MYSTICAL_FLOWERS_CONF).get());
+				Biome.Category category = ctx.getBiome().getCategory();
+				return !TYPE_BLACKLIST.contains(category);
+			},
+					GenerationStep.Feature.VEGETAL_DECORATION,
+					BuiltinRegistries.CONFIGURED_FEATURE.getKey(MYSTICAL_FLOWERS_CONF).get());
 			BiomeModifications.addFeature(ctx -> {
-					return ctx.getBiome().getCategory() != Biome.Category.THEEND;
-				}, GenerationStep.Feature.VEGETAL_DECORATION,
-				BuiltinRegistries.CONFIGURED_FEATURE.getKey(MYSTICAL_MUSHROOMS_CONF).get());
+				return ctx.getBiome().getCategory() != Biome.Category.THEEND;
+			}, GenerationStep.Feature.VEGETAL_DECORATION,
+					BuiltinRegistries.CONFIGURED_FEATURE.getKey(MYSTICAL_MUSHROOMS_CONF).get());
 		}
 
 	}

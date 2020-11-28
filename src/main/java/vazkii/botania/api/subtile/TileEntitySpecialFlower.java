@@ -23,9 +23,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.ClientConnection;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.BlockPos;
@@ -38,11 +35,11 @@ import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.item.IFloatingFlowerProvider;
-import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandBindable;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 import vazkii.botania.common.lib.ModTags;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -307,7 +304,8 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 	}
 
 	@Nullable
-	@Override public Object getRenderAttachmentData() {
+	@Override
+	public Object getRenderAttachmentData() {
 		if (isFloating()) {
 			return floatingData;
 		}

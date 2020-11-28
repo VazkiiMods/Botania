@@ -1,16 +1,27 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.mixin;
 
 import com.mojang.datafixers.util.Either;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.BlockPos;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
 import vazkii.botania.common.core.handler.EquipmentHandler;
@@ -51,6 +62,5 @@ public class MixinServerPlayerEntity {
 			((EquipmentHandler.InventoryEquipmentHandler) EquipmentHandler.instance).onPlayerTick((PlayerEntity) (Object) this);
 		}
 	}
-
 
 }

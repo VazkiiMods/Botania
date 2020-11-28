@@ -11,6 +11,7 @@ package vazkii.botania.client.patchouli.component;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.recipe.Ingredient;
+
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;

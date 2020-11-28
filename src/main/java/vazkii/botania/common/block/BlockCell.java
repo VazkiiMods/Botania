@@ -8,12 +8,13 @@
  */
 package vazkii.botania.common.block;
 
-import vazkii.botania.common.block.tile.TileCell;
-
-import javax.annotation.Nonnull;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.world.BlockView;
+
+import vazkii.botania.common.block.tile.TileCell;
+
+import javax.annotation.Nonnull;
 
 public class BlockCell extends BlockMod implements BlockEntityProvider {
 

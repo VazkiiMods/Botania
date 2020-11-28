@@ -12,9 +12,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.decor.BlockModGlass;

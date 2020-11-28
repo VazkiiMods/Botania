@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.lib;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
-
 import net.minecraft.util.Identifier;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class LibBlockNames {
 

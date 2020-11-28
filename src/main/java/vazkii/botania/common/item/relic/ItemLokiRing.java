@@ -9,6 +9,7 @@
 package vazkii.botania.common.item.relic;
 
 import com.google.common.collect.ImmutableList;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;

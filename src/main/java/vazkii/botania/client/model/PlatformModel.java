@@ -16,8 +16,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.util.math.BlockPos;
-
 import net.minecraft.world.BlockRenderView;
+
 import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TilePlatform;

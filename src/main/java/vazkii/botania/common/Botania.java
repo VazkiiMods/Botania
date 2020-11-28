@@ -9,6 +9,7 @@
 package vazkii.botania.common;
 
 import com.mojang.brigadier.CommandDispatcher;
+
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -31,9 +32,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.corporea.CorporeaHelper;
-import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.mana.ManaNetworkCallback;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.advancements.*;
@@ -42,20 +41,12 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.string.BlockRedStringInterceptor;
-import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
-import vazkii.botania.common.block.subtile.functional.SubTileVinculotus;
-import vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum;
-import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileTerraPlate;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
-import vazkii.botania.common.brew.potion.PotionBloodthirst;
-import vazkii.botania.common.brew.potion.PotionEmptiness;
-import vazkii.botania.common.brew.potion.PotionSoulCross;
 import vazkii.botania.common.core.ModStats;
 import vazkii.botania.common.core.command.SkyblockCommand;
 import vazkii.botania.common.core.handler.*;
@@ -69,8 +60,6 @@ import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.corporea.CorporeaItemStackMatcher;
 import vazkii.botania.common.impl.corporea.CorporeaStringMatcher;
 import vazkii.botania.common.item.ItemGrassSeeds;
-import vazkii.botania.common.item.ItemKeepIvy;
-import vazkii.botania.common.item.ItemVirus;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemEnderAir;
 import vazkii.botania.common.item.relic.ItemLokiRing;
@@ -214,7 +203,7 @@ public class Botania implements ModInitializer {
 
 		ModBlocks.addDispenserBehaviours();
 
-        ModStats.init();
+		ModStats.init();
 	}
 
 	private void serverAboutToStart(MinecraftServer server) {

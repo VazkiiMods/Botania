@@ -9,6 +9,7 @@
 package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
+
 import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.item.ItemStack;
@@ -20,7 +21,9 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+
 import vazkii.botania.common.advancements.AlfPortalTrigger.Instance;
+
 import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;

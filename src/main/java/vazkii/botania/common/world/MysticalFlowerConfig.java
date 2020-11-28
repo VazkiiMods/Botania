@@ -10,8 +10,8 @@ package vazkii.botania.common.world;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import net.minecraft.world.gen.feature.FeatureConfig;
-import vazkii.botania.common.core.handler.ConfigHandler;
 
 public class MysticalFlowerConfig implements FeatureConfig {
 	public static final Codec<MysticalFlowerConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(

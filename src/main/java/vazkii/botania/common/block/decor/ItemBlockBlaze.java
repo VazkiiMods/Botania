@@ -10,10 +10,6 @@ package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-
-import vazkii.botania.common.Botania;
 
 public class ItemBlockBlaze extends BlockItem {
 	public ItemBlockBlaze(Block block, Settings props) {

@@ -11,6 +11,7 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.HitResult;
+
 import vazkii.botania.api.internal.IManaBurst;
 
 public class LensPhantom extends Lens {

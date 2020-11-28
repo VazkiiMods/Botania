@@ -22,8 +22,6 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelSword;
 
 import javax.annotation.Nonnull;
 
-import java.util.function.Consumer;
-
 public class ItemEnderDagger extends ItemManasteelSword {
 
 	public ItemEnderDagger(Settings props) {

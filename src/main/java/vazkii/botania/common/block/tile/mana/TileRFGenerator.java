@@ -8,19 +8,13 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Tickable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.core.handler.ConfigHandler;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class TileRFGenerator extends TileMod implements IManaReceiver, Tickable {
 	private static final int MANA_TO_FE = 10;
@@ -35,28 +29,28 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, Tickable 
 		public int getEnergyStored() {
 			return energy;
 		}
-
+	
 		@Override
 		public int getMaxEnergyStored() {
 			return MAX_ENERGY;
 		}
-
+	
 		// todo allow pulling?
 		@Override
 		public boolean canExtract() {
 			return false;
 		}
-
+	
 		@Override
 		public int extractEnergy(int maxExtract, boolean simulate) {
 			return 0;
 		}
-
+	
 		@Override
 		public int receiveEnergy(int maxReceive, boolean simulate) {
 			return 0;
 		}
-
+	
 		@Override
 		public boolean canReceive() {
 			return false;
@@ -85,23 +79,23 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, Tickable 
 			if (!world.isChunkLoaded(neighbor)) {
 				continue;
 			}
-
+		
 			BlockEntity te = world.getBlockEntity(neighbor);
 			if (te == null) {
 				continue;
 			}
-
+		
 			LazyOptional<IEnergyStorage> storage = LazyOptional.empty();
-
+		
 			if (te.getCapability(CapabilityEnergy.ENERGY, e.getOpposite()).isPresent()) {
 				storage = te.getCapability(CapabilityEnergy.ENERGY, e.getOpposite());
 			} else if (te.getCapability(CapabilityEnergy.ENERGY, null).isPresent()) {
 				storage = te.getCapability(CapabilityEnergy.ENERGY, null);
 			}
-
+		
 			if (storage.isPresent()) {
 				energy -= storage.orElseThrow(NullPointerException::new).receiveEnergy(energy, false);
-
+		
 				if (energy <= 0) {
 					return 0;
 				}

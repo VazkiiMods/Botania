@@ -8,13 +8,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.state.enums.AlfPortalState;
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.common.block.tile.TileAlfPortal;
-
-import javax.annotation.Nonnull;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -25,6 +18,14 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.math.Matrix3f;
 import net.minecraft.util.math.Matrix4f;
+
+import vazkii.botania.api.state.BotaniaStateProps;
+import vazkii.botania.api.state.enums.AlfPortalState;
+import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.common.block.tile.TileAlfPortal;
+
+import javax.annotation.Nonnull;
 
 public class RenderTileAlfPortal extends BlockEntityRenderer<TileAlfPortal> {
 

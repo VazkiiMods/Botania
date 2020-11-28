@@ -10,7 +10,12 @@ package vazkii.botania.client.render.entity;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.util.Identifier;
+
 import vazkii.botania.client.core.helper.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
@@ -19,9 +24,6 @@ import vazkii.botania.client.model.ModelPixie;
 import vazkii.botania.common.entity.EntityPixie;
 
 import javax.annotation.Nonnull;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.util.Identifier;
 
 public class RenderPixie extends MobEntityRenderer<EntityPixie, ModelPixie> {
 
@@ -47,7 +49,7 @@ public class RenderPixie extends MobEntityRenderer<EntityPixie, ModelPixie> {
 	@Override
 	public Identifier getTexture(@Nonnull EntityPixie entity) {
 		return ClientProxy.dootDoot
-			? new Identifier(LibResources.MODEL_PIXIE_HALLOWEEN)
-			: new Identifier(LibResources.MODEL_PIXIE);
+				? new Identifier(LibResources.MODEL_PIXIE_HALLOWEEN)
+				: new Identifier(LibResources.MODEL_PIXIE);
 	}
 }

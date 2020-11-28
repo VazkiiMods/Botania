@@ -9,6 +9,7 @@
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormats;

@@ -11,6 +11,7 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Tickable;
+
 import javax.annotation.Nonnull;
 
 public class TileBifrost extends TileMod implements Tickable {

@@ -1,14 +1,15 @@
 /*
- * This class is EnvTypeributed as part of the Botania Mod.
+ * This class is distributed as part of the Botania Mod.
  * Get the Source Code in github:
  * https://github.com/Vazkii/Botania
  *
- * Botania is Open Source and EnvTypeributed under the
+ * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -107,91 +108,91 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	}
 
 	public static void updatePlayerFlyStatus(PlayerEntity player) {
-			ItemStack tiara = EquipmentHandler.findOrEmpty(ModItems.flightTiara, player);
-			int left = ItemNBTHelper.getInt(tiara, TAG_TIME_LEFT, MAX_FLY_TIME);
+		ItemStack tiara = EquipmentHandler.findOrEmpty(ModItems.flightTiara, player);
+		int left = ItemNBTHelper.getInt(tiara, TAG_TIME_LEFT, MAX_FLY_TIME);
 
-			if (playersWithFlight.contains(playerStr(player))) {
-				if (shouldPlayerHaveFlight(player)) {
-					player.abilities.allowFlying = true;
-					if (player.abilities.flying) {
-						if (!player.world.isClient) {
-							ManaItemHandler.instance().requestManaExact(tiara, player, getCost(tiara, left), true);
-						} else if (Math.abs(player.getVelocity().getX()) > 0.1 || Math.abs(player.getVelocity().getZ()) > 0.1) {
-							double x = player.getX() - 0.5;
-							double y = player.getY() - 0.5;
-							double z = player.getZ() - 0.5;
+		if (playersWithFlight.contains(playerStr(player))) {
+			if (shouldPlayerHaveFlight(player)) {
+				player.abilities.allowFlying = true;
+				if (player.abilities.flying) {
+					if (!player.world.isClient) {
+						ManaItemHandler.instance().requestManaExact(tiara, player, getCost(tiara, left), true);
+					} else if (Math.abs(player.getVelocity().getX()) > 0.1 || Math.abs(player.getVelocity().getZ()) > 0.1) {
+						double x = player.getX() - 0.5;
+						double y = player.getY() - 0.5;
+						double z = player.getZ() - 0.5;
 
-							float r = 1F;
-							float g = 1F;
-							float b = 1F;
+						float r = 1F;
+						float g = 1F;
+						float b = 1F;
 
-							int variant = getVariant(tiara);
-							switch (variant) {
-							case 2: {
-								r = 0.1F;
-								g = 0.1F;
-								b = 0.1F;
-								break;
-							}
-							case 3: {
-								r = 0F;
-								g = 0.6F;
-								break;
-							}
-							case 4: {
-								g = 0.3F;
-								b = 0.3F;
-								break;
-							}
-							case 5: {
-								r = 0.6F;
-								g = 0F;
-								b = 0.6F;
-								break;
-							}
-							case 6: {
-								r = 0.4F;
-								g = 0F;
-								b = 0F;
-								break;
-							}
-							case 7: {
-								r = 0.2F;
-								g = 0.6F;
-								b = 0.2F;
-								break;
-							}
-							case 8: {
-								r = 0.85F;
-								g = 0.85F;
-								b = 0F;
-								break;
-							}
-							case 9: {
-								r = 0F;
-								b = 0F;
-								break;
-							}
-							}
+						int variant = getVariant(tiara);
+						switch (variant) {
+						case 2: {
+							r = 0.1F;
+							g = 0.1F;
+							b = 0.1F;
+							break;
+						}
+						case 3: {
+							r = 0F;
+							g = 0.6F;
+							break;
+						}
+						case 4: {
+							g = 0.3F;
+							b = 0.3F;
+							break;
+						}
+						case 5: {
+							r = 0.6F;
+							g = 0F;
+							b = 0.6F;
+							break;
+						}
+						case 6: {
+							r = 0.4F;
+							g = 0F;
+							b = 0F;
+							break;
+						}
+						case 7: {
+							r = 0.2F;
+							g = 0.6F;
+							b = 0.2F;
+							break;
+						}
+						case 8: {
+							r = 0.85F;
+							g = 0.85F;
+							b = 0F;
+							break;
+						}
+						case 9: {
+							r = 0F;
+							b = 0F;
+							break;
+						}
+						}
 
-							for (int i = 0; i < 2; i++) {
-								SparkleParticleData data = SparkleParticleData.sparkle(2F * (float) Math.random(), r, g, b, 20);
-								player.world.addParticle(data, x + Math.random() * player.getWidth(), y + Math.random() * 0.4, z + Math.random() * player.getWidth(), 0, 0, 0);
-							}
+						for (int i = 0; i < 2; i++) {
+							SparkleParticleData data = SparkleParticleData.sparkle(2F * (float) Math.random(), r, g, b, 20);
+							player.world.addParticle(data, x + Math.random() * player.getWidth(), y + Math.random() * 0.4, z + Math.random() * player.getWidth(), 0, 0, 0);
 						}
 					}
-				} else {
-					if (!player.isSpectator() && !player.abilities.creativeMode) {
-						player.abilities.allowFlying = false;
-						player.abilities.flying = false;
-						player.abilities.invulnerable = false;
-					}
-					playersWithFlight.remove(playerStr(player));
 				}
-			} else if (shouldPlayerHaveFlight(player)) {
-				playersWithFlight.add(playerStr(player));
-				player.abilities.allowFlying = true;
+			} else {
+				if (!player.isSpectator() && !player.abilities.creativeMode) {
+					player.abilities.allowFlying = false;
+					player.abilities.flying = false;
+					player.abilities.invulnerable = false;
+				}
+				playersWithFlight.remove(playerStr(player));
 			}
+		} else if (shouldPlayerHaveFlight(player)) {
+			playersWithFlight.add(playerStr(player));
+			player.abilities.allowFlying = true;
+		}
 	}
 
 	public static void playerLoggedOut(ServerPlayerEntity player) {

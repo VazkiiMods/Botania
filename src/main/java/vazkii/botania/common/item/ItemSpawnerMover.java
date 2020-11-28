@@ -9,6 +9,7 @@
 package vazkii.botania.common.item;
 
 import com.mojang.datafixers.util.Pair;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.Blocks;

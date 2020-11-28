@@ -21,7 +21,7 @@ import static vazkii.botania.common.block.ModBlocks.register;
 
 public final class ModEntities {
 	private static final EntityDimensions ZERO_SIZE = EntityDimensions.fixed(0, 0);
-	
+
 	public static final EntityType<EntityManaBurst> MANA_BURST = FabricEntityTypeBuilder.<EntityManaBurst>create(
 			SpawnGroup.MISC, EntityManaBurst::new)
 			.dimensions(ZERO_SIZE)

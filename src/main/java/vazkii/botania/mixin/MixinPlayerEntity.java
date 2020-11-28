@@ -8,19 +8,19 @@
  */
 package vazkii.botania.mixin;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+
 import org.apache.commons.lang3.mutable.MutableFloat;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -32,16 +32,16 @@ import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
-
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
+
 import vazkii.botania.common.core.ModStats;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.PixieHandler;
+import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 import vazkii.botania.common.item.equipment.bauble.*;
 import vazkii.botania.common.item.relic.ItemOdinRing;
-import vazkii.botania.common.entity.ModEntities;
 
 @Mixin(PlayerEntity.class)
 public abstract class MixinPlayerEntity extends LivingEntity {
@@ -53,7 +53,9 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 	@Shadow
 	public abstract void increaseStat(Identifier stat, int amount);
 
-	@Shadow @Final public PlayerInventory inventory;
+	@Shadow
+	@Final
+	public PlayerInventory inventory;
 
 	/**
 	 * Registers the pixie spawn chance attribute on players

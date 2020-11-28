@@ -12,13 +12,11 @@ import net.fabricmc.fabric.api.event.registry.FabricRegistryBuilder;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.potion.PotionUtil;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.common.lib.LibBrewNames;
 
-import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import static vazkii.botania.common.block.ModBlocks.register;

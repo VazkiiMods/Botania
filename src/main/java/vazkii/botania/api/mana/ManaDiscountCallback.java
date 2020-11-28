@@ -15,13 +15,13 @@ import net.minecraft.item.ItemStack;
 
 public interface ManaDiscountCallback {
 	Event<ManaDiscountCallback> EVENT = EventFactory.createArrayBacked(ManaDiscountCallback.class,
-		listeners -> (pl, cur, tool) -> {
-			for (ManaDiscountCallback listener : listeners) {
-				cur = listener.getManaDiscount(pl, cur, tool);
-			}
+			listeners -> (pl, cur, tool) -> {
+				for (ManaDiscountCallback listener : listeners) {
+					cur = listener.getManaDiscount(pl, cur, tool);
+				}
 
-			return cur;
-		});
+				return cur;
+			});
 
 	float getManaDiscount(PlayerEntity player, float curDiscount, ItemStack tool);
 }

@@ -13,10 +13,9 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.server.RecipesProvider;
 import net.minecraft.data.server.recipe.CookingRecipeJsonFactory;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.tag.Tag;
+
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.mixin.AccessorRecipesProvider;
 

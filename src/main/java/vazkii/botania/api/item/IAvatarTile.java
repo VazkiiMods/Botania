@@ -10,6 +10,7 @@ package vazkii.botania.api.item;
 
 import net.minecraft.inventory.Inventory;
 import net.minecraft.util.math.Direction;
+
 import vazkii.botania.api.mana.IManaReceiver;
 
 /**

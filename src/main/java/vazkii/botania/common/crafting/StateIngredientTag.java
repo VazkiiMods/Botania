@@ -11,12 +11,12 @@ package vazkii.botania.common.crafting;
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonObject;
 
-import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;

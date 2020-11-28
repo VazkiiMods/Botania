@@ -8,15 +8,16 @@
  */
 package vazkii.botania.client.render.tile;
 
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.util.math.MatrixStack;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.model.ModelBrewery;
 import vazkii.botania.common.block.tile.TileBrewery;
 
 import javax.annotation.Nullable;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 
 public class RenderTileBrewery extends BlockEntityRenderer<TileBrewery> {
 	final ModelBrewery model = new ModelBrewery();

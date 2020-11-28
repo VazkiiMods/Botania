@@ -14,23 +14,19 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import vazkii.botania.client.gui.box.ContainerBaubleBox;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class ItemBaubleBox extends Item {
 	public static final int SIZE = 24;

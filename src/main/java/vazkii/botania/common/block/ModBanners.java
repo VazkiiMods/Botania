@@ -8,16 +8,10 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.entity.BannerPattern;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 
 import vazkii.botania.common.item.ModItems;
-
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.Map;
 
 public final class ModBanners {
 

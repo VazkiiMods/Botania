@@ -9,6 +9,7 @@
 package vazkii.botania.common.entity;
 
 import com.google.common.collect.ImmutableMap;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.EnvironmentInterface;

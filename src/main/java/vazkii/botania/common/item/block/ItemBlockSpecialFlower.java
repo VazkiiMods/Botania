@@ -15,7 +15,6 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tag.Tag;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -23,8 +22,6 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 
-import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.ModTags;
@@ -73,7 +70,7 @@ public class ItemBlockSpecialFlower extends BlockItem {
 		CompoundTag tag = stack.getSubTag("BlockEntityTag");
 		return tag != null && tag.contains(TileEntityGeneratingFlower.TAG_PASSIVE_DECAY_TICKS);
 	}
-
+	
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
 		CompoundTag tag = stack.getSubTag("BlockEntityTag");

@@ -9,6 +9,7 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.collect.Multimap;
+
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ItemStack;

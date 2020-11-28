@@ -9,8 +9,10 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import com.google.common.collect.MapMaker;
+
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
+
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;

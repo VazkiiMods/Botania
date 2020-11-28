@@ -16,15 +16,15 @@ import net.fabricmc.fabric.api.event.EventFactory;
  */
 public interface CorporeaRequestCallback {
 	Event<CorporeaRequestCallback> EVENT = EventFactory.createArrayBacked(CorporeaRequestCallback.class,
-		listeners -> (m, count, spark, dry) -> {
-			for (CorporeaRequestCallback listener : listeners) {
-				if (listener.onRequest(m, count, spark, dry)) {
-					return true;
+			listeners -> (m, count, spark, dry) -> {
+				for (CorporeaRequestCallback listener : listeners) {
+					if (listener.onRequest(m, count, spark, dry)) {
+						return true;
+					}
 				}
-			}
-			return false;
+				return false;
 
-		});
+			});
 
 	/**
 	 * @return {@code true} to cancel the request

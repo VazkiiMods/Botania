@@ -22,9 +22,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.MiningToolItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
@@ -91,7 +89,7 @@ public final class ToolCommons {
 			// can be invoked from a call chain beginning at tryHarvestBlock as well. It's simpler to just copy.
 
 			if (!player.getMainHandStack().getItem().canMine(blockState, world, pos, player)
-				|| player.isBlockBreakingRestricted(world, pos, ((ServerPlayerEntity) player).interactionManager.getGameMode())) {
+					|| player.isBlockBreakingRestricted(world, pos, ((ServerPlayerEntity) player).interactionManager.getGameMode())) {
 				return;
 			}
 

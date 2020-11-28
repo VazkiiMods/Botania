@@ -30,7 +30,6 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-import net.minecraft.world.WorldView;
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TilePlatform;

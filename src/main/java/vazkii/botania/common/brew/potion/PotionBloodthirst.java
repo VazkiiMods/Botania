@@ -10,11 +10,6 @@ package vazkii.botania.common.brew.potion;
 
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectType;
-import net.minecraft.entity.mob.Monster;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.Box;
-
-import vazkii.botania.common.brew.ModPotions;
 
 public class PotionBloodthirst extends StatusEffect {
 

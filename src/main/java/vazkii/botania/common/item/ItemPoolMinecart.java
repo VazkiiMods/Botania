@@ -42,13 +42,13 @@ public class ItemPoolMinecart extends Item {
 		} else {
 			ItemStack itemStack = context.getStack();
 			if (!world.isClient) {
-				RailShape railShape = blockState.getBlock() instanceof AbstractRailBlock ? blockState.get(((AbstractRailBlock)blockState.getBlock()).getShapeProperty()) : RailShape.NORTH_SOUTH;
+				RailShape railShape = blockState.getBlock() instanceof AbstractRailBlock ? blockState.get(((AbstractRailBlock) blockState.getBlock()).getShapeProperty()) : RailShape.NORTH_SOUTH;
 				double d = 0.0D;
 				if (railShape.isAscending()) {
 					d = 0.5D;
 				}
 
-				AbstractMinecartEntity abstractMinecartEntity = new EntityPoolMinecart(world, (double)blockPos.getX() + 0.5D, (double)blockPos.getY() + 0.0625D + d, (double)blockPos.getZ() + 0.5D);
+				AbstractMinecartEntity abstractMinecartEntity = new EntityPoolMinecart(world, (double) blockPos.getX() + 0.5D, (double) blockPos.getY() + 0.0625D + d, (double) blockPos.getZ() + 0.5D);
 				if (itemStack.hasCustomName()) {
 					abstractMinecartEntity.setCustomName(itemStack.getName());
 				}

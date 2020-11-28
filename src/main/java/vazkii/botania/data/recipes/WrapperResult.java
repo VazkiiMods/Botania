@@ -9,6 +9,7 @@
 package vazkii.botania.data.recipes;
 
 import com.google.gson.JsonObject;
+
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.util.Identifier;

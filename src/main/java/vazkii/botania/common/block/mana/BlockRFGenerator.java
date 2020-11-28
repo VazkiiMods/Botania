@@ -8,13 +8,14 @@
  */
 package vazkii.botania.common.block.mana;
 
+import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.world.BlockView;
+
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TileRFGenerator;
 
 import javax.annotation.Nonnull;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.world.BlockView;
 
 public class BlockRFGenerator extends BlockMod implements BlockEntityProvider {
 

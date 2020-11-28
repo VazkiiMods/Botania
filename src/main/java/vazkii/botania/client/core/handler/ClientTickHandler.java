@@ -9,6 +9,7 @@
 package vazkii.botania.client.core.handler;
 
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,7 +21,6 @@ import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.mixin.AccessorMinecraft;
 
 public final class ClientTickHandler {
 
