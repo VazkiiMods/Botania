@@ -6,9 +6,11 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-/* todo 1.16-fabric replace with NBTCrafting
-package vazkii.botania.common.crafting;
 
+package vazkii.botania.common.crafting;
+public class FuzzyNBTIngredient {}
+
+/* todo 1.16-fabric replace with NBTCrafting
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
