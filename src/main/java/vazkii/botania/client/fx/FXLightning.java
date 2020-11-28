@@ -25,8 +25,8 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
-
 import net.minecraft.util.math.Vec3d;
+
 import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.lib.LibResources;

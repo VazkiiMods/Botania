@@ -36,13 +36,12 @@ public class MixinParticleManager {
 	@Shadow
 	private static List<ParticleTextureSheet> PARTICLE_TEXTURE_SHEETS;
 
-
 	@Inject(at = @At("RETURN"), method = "<init>")
 	private void addTypes(ClientWorld world, TextureManager textureManager, CallbackInfo ci) {
 		PARTICLE_TEXTURE_SHEETS = ImmutableList.<ParticleTextureSheet>builder().addAll(PARTICLE_TEXTURE_SHEETS)
-			.add(FXWisp.NORMAL_RENDER, FXWisp.DIW_RENDER)
-			.add(FXSparkle.NORMAL_RENDER, FXSparkle.CORRUPT_RENDER)
-			.add(FXLightning.RENDER)
-			.build();
+				.add(FXWisp.NORMAL_RENDER, FXWisp.DIW_RENDER)
+				.add(FXSparkle.NORMAL_RENDER, FXSparkle.CORRUPT_RENDER)
+				.add(FXLightning.RENDER)
+				.build();
 	}
 }
