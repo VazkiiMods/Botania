@@ -11,7 +11,6 @@ package vazkii.botania.client.fx;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.datafixers.util.Pair;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleTextureSheet;
@@ -24,11 +23,13 @@ import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
 
+import net.minecraft.util.math.Vec3d;
 import org.lwjgl.opengl.GL11;
 
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.Vector3;
 
 import javax.annotation.Nonnull;
@@ -38,6 +39,8 @@ import java.util.*;
 // Originally taken with permission from WRCBE - heavily modified
 public class FXLightning extends Particle {
 
+	private static final Identifier outsideResource = new Identifier(LibResources.MISC_WISP_LARGE);
+	private static final Identifier insideResource = new Identifier(LibResources.MISC_WISP_SMALL);
 	private static final int fadetime = 20;
 	private final int expandTime;
 	private final int colorOuter;
@@ -69,19 +72,19 @@ public class FXLightning extends Particle {
 		// LightningHandler.queuedLightningBolts.offer(this);
 
 		// new way (right position but heavy artifacting)
-		/*
-		Vector3d cameraPos = info.getProjectedView();
+
+		Vec3d cameraPos = info.getPos();
 		MatrixStack ms = new MatrixStack();
-		ms.translate(-cameraPos.getX(), -cameraPos.getY(), -cameraPos.getZ());
+		// 0.25f offset for a more pleasing viewing experience
+		ms.translate(-cameraPos.getX(), -cameraPos.getY() + 0.25F, -cameraPos.getZ());
 		renderBolt(ms, buffer, 0, false);
 		renderBolt(ms, buffer, 1, true);
-		*/
 	}
 
 	@Nonnull
 	@Override
 	public ParticleTextureSheet getType() {
-		return LAYER;
+		return RENDER;
 	}
 
 	public void renderBolt(MatrixStack ms, VertexConsumer wr, int pass, boolean inner) {
@@ -90,8 +93,10 @@ public class FXLightning extends Particle {
 		float boltAge = age < 0 ? 0 : (float) age / (float) maxAge;
 		float mainAlpha;
 		if (pass == 0) {
+			MinecraftClient.getInstance().getTextureManager().bindTexture(outsideResource);
 			mainAlpha = (1 - boltAge) * 0.4F;
 		} else {
+			MinecraftClient.getInstance().getTextureManager().bindTexture(insideResource);
 			mainAlpha = 1 - boltAge * 0.5F;
 		}
 
@@ -162,22 +167,25 @@ public class FXLightning extends Particle {
 		return new Vector3((float) renderEntity.getX() - pos.x, (float) renderEntity.getY() - pos.y, (float) renderEntity.getZ() - pos.z);
 	}
 
-	private static final ParticleTextureSheet LAYER = new ParticleTextureSheet() {
+	public static final ParticleTextureSheet RENDER = new ParticleTextureSheet() {
 		@Override
 		public void begin(BufferBuilder buffer, TextureManager textureManager) {
 			RenderSystem.depthMask(false);
 			RenderSystem.enableBlend();
 			RenderSystem.defaultBlendFunc();
-			RenderSystem.disableTexture();
 			buffer.begin(GL11.GL_QUADS, VertexFormats.POSITION_COLOR_TEXTURE_LIGHT);
 		}
 
 		@Override
 		public void draw(Tessellator tess) {
 			tess.draw();
-			RenderSystem.enableTexture();
 			RenderSystem.disableBlend();
 			RenderSystem.depthMask(true);
+		}
+
+		@Override
+		public String toString() {
+			return "botania:lightning";
 		}
 	};
 
