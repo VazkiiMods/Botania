@@ -8,16 +8,12 @@
  */
 package vazkii.botania.common.network;
 
-import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
-import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.world.World;
+
+
+import io.netty.buffer.Unpooled;
 
 public final class PacketHandler {
 	public static final PacketByteBuf EMPTY_BUF = new PacketByteBuf(Unpooled.buffer(0, 0));

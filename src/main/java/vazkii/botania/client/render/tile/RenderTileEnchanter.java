@@ -8,14 +8,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import vazkii.botania.client.core.handler.ClientTickHandler;
-import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.helper.IconHelper;
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.common.block.tile.TileEnchanter;
-import vazkii.botania.mixin.AccessorItemEntity;
-
-import javax.annotation.Nonnull;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -24,6 +16,15 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.ItemEntity;
+
+import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.handler.MiscellaneousIcons;
+import vazkii.botania.client.core.helper.IconHelper;
+import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.common.block.tile.TileEnchanter;
+import vazkii.botania.mixin.AccessorItemEntity;
+
+import javax.annotation.Nonnull;
 
 public class RenderTileEnchanter extends BlockEntityRenderer<TileEnchanter> {
 

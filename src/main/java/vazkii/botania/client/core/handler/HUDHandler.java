@@ -74,153 +74,153 @@ public final class HUDHandler {
 		ItemStack main = mc.player.getMainHandStack();
 		ItemStack offhand = mc.player.getOffHandStack();
 
-			profiler.push("botania-hud");
+		profiler.push("botania-hud");
 
-			if (MinecraftClient.getInstance().interactionManager.hasStatusBars()) {
-				ItemStack tiara = EquipmentHandler.findOrEmpty(ModItems.flightTiara, mc.player);
-				if (!tiara.isEmpty()) {
-					profiler.push("flugelTiara");
-					ItemFlightTiara.renderHUD(ms, mc.player, tiara);
-					profiler.pop();
-				}
-
-				ItemStack dodgeRing = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, mc.player);
-				if (!dodgeRing.isEmpty()) {
-					profiler.push("dodgeRing");
-					ItemDodgeRing.renderHUD(ms, mc.player, dodgeRing, partialTicks);
-					profiler.pop();
-				}
-			}
-
-			HitResult pos = mc.crosshairTarget;
-
-			if (pos != null) {
-				BlockPos bpos = pos.getType() == HitResult.Type.BLOCK ? ((BlockHitResult) pos).getBlockPos() : null;
-				BlockState state = bpos != null ? mc.world.getBlockState(bpos) : null;
-				Block block = state == null ? null : state.getBlock();
-				BlockEntity tile = bpos != null ? mc.world.getBlockEntity(bpos) : null;
-
-				if (PlayerHelper.hasAnyHeldItem(mc.player)) {
-					if (PlayerHelper.hasHeldItem(mc.player, ModItems.twigWand)) {
-						if (block instanceof IWandHUD) {
-							profiler.push("wandItem");
-							((IWandHUD) block).renderHUD(ms, mc, mc.world, bpos);
-							profiler.pop();
-						}
-					}
-					if (tile instanceof TilePool && !mc.player.getMainHandStack().isEmpty()) {
-						renderPoolRecipeHUD(ms, (TilePool) tile, mc.player.getMainHandStack());
-					}
-				}
-				if (!PlayerHelper.hasHeldItem(mc.player, ModItems.lexicon)) {
-					if (tile instanceof TileAltar) {
-						((TileAltar) tile).renderHUD(ms, mc);
-					} else if (tile instanceof TileRuneAltar) {
-						((TileRuneAltar) tile).renderHUD(ms, mc);
-					} else if (tile instanceof TileCorporeaCrystalCube) {
-						renderCrystalCubeHUD(ms, (TileCorporeaCrystalCube) tile);
-					}
-				}
-			}
-
-			TileCorporeaIndex.getInputHandler();
-			if (!InputHandler.getNearbyIndexes(mc.player).isEmpty() && mc.currentScreen instanceof ChatScreen) {
-				profiler.push("nearIndex");
-				renderNearIndexDisplay(ms);
+		if (MinecraftClient.getInstance().interactionManager.hasStatusBars()) {
+			ItemStack tiara = EquipmentHandler.findOrEmpty(ModItems.flightTiara, mc.player);
+			if (!tiara.isEmpty()) {
+				profiler.push("flugelTiara");
+				ItemFlightTiara.renderHUD(ms, mc.player, tiara);
 				profiler.pop();
 			}
 
-			if (!main.isEmpty() && main.getItem() instanceof ItemCraftingHalo) {
-				profiler.push("craftingHalo_main");
-				ItemCraftingHalo.renderHUD(ms, mc.player, main);
-				profiler.pop();
-			} else if (!offhand.isEmpty() && offhand.getItem() instanceof ItemCraftingHalo) {
-				profiler.push("craftingHalo_off");
-				ItemCraftingHalo.renderHUD(ms, mc.player, offhand);
+			ItemStack dodgeRing = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, mc.player);
+			if (!dodgeRing.isEmpty()) {
+				profiler.push("dodgeRing");
+				ItemDodgeRing.renderHUD(ms, mc.player, dodgeRing, partialTicks);
 				profiler.pop();
 			}
+		}
 
-			if (!main.isEmpty() && main.getItem() instanceof ItemSextant) {
-				profiler.push("sextant");
-				ItemSextant.renderHUD(ms, mc.player, main);
-				profiler.pop();
-			}
+		HitResult pos = mc.crosshairTarget;
 
-			/*if(equippedStack != null && equippedStack.getItem() == ModItems.flugelEye) {
-				profiler.startSection("flugelEye");
-				ItemFlugelEye.renderHUD(event.getResolution(), mc.player, equippedStack);
-				profiler.endSection();
-			}*/
+		if (pos != null) {
+			BlockPos bpos = pos.getType() == HitResult.Type.BLOCK ? ((BlockHitResult) pos).getBlockPos() : null;
+			BlockState state = bpos != null ? mc.world.getBlockState(bpos) : null;
+			Block block = state == null ? null : state.getBlock();
+			BlockEntity tile = bpos != null ? mc.world.getBlockEntity(bpos) : null;
 
-			if (Botania.proxy.isClientPlayerWearingMonocle()) {
-				profiler.push("monocle");
-				ItemMonocle.renderHUD(ms, mc.player);
-				profiler.pop();
-			}
-
-			profiler.push("manaBar");
-
-			PlayerEntity player = mc.player;
-			if (!player.isSpectator()) {
-				int totalMana = 0;
-				int totalMaxMana = 0;
-				boolean anyRequest = false;
-				boolean creative = false;
-
-				Inventory mainInv = player.inventory;
-				Inventory accInv = BotaniaAPI.instance().getAccessoriesInventory(player);
-
-				int invSize = mainInv.size();
-				int size = invSize + accInv.size();
-
-				for (int i = 0; i < size; i++) {
-					boolean useAccessories = i >= invSize;
-					Inventory inv = useAccessories ? accInv : mainInv;
-					ItemStack stack = inv.getStack(i - (useAccessories ? invSize : 0));
-
-					if (!stack.isEmpty()) {
-						Item item = stack.getItem();
-						if (item instanceof IManaUsingItem) {
-							anyRequest = anyRequest || ((IManaUsingItem) item).usesMana(stack);
-						}
+			if (PlayerHelper.hasAnyHeldItem(mc.player)) {
+				if (PlayerHelper.hasHeldItem(mc.player, ModItems.twigWand)) {
+					if (block instanceof IWandHUD) {
+						profiler.push("wandItem");
+						((IWandHUD) block).renderHUD(ms, mc, mc.world, bpos);
+						profiler.pop();
 					}
 				}
-
-				List<ItemStack> items = ManaItemHandler.instance().getManaItems(player);
-				for (ItemStack stack : items) {
-					Item item = stack.getItem();
-					if (!((IManaItem) item).isNoExport(stack)) {
-						totalMana += ((IManaItem) item).getMana(stack);
-						totalMaxMana += ((IManaItem) item).getMaxMana(stack);
-					}
-					if (item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack)) {
-						creative = true;
-					}
-				}
-
-				List<ItemStack> acc = ManaItemHandler.instance().getManaAccesories(player);
-				for (ItemStack stack : acc) {
-					Item item = stack.getItem();
-					if (!((IManaItem) item).isNoExport(stack)) {
-						totalMana += ((IManaItem) item).getMana(stack);
-						totalMaxMana += ((IManaItem) item).getMaxMana(stack);
-					}
-					if (item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack)) {
-						creative = true;
-					}
-				}
-
-				if (anyRequest) {
-					renderManaInvBar(ms, creative, totalMana, totalMaxMana);
+				if (tile instanceof TilePool && !mc.player.getMainHandStack().isEmpty()) {
+					renderPoolRecipeHUD(ms, (TilePool) tile, mc.player.getMainHandStack());
 				}
 			}
+			if (!PlayerHelper.hasHeldItem(mc.player, ModItems.lexicon)) {
+				if (tile instanceof TileAltar) {
+					((TileAltar) tile).renderHUD(ms, mc);
+				} else if (tile instanceof TileRuneAltar) {
+					((TileRuneAltar) tile).renderHUD(ms, mc);
+				} else if (tile instanceof TileCorporeaCrystalCube) {
+					renderCrystalCubeHUD(ms, (TileCorporeaCrystalCube) tile);
+				}
+			}
+		}
 
-			profiler.swap("itemsRemaining");
-			ItemsRemainingRenderHandler.render(ms, partialTicks);
+		TileCorporeaIndex.getInputHandler();
+		if (!InputHandler.getNearbyIndexes(mc.player).isEmpty() && mc.currentScreen instanceof ChatScreen) {
+			profiler.push("nearIndex");
+			renderNearIndexDisplay(ms);
 			profiler.pop();
-			profiler.pop();
+		}
 
-			RenderSystem.color4f(1F, 1F, 1F, 1F);
+		if (!main.isEmpty() && main.getItem() instanceof ItemCraftingHalo) {
+			profiler.push("craftingHalo_main");
+			ItemCraftingHalo.renderHUD(ms, mc.player, main);
+			profiler.pop();
+		} else if (!offhand.isEmpty() && offhand.getItem() instanceof ItemCraftingHalo) {
+			profiler.push("craftingHalo_off");
+			ItemCraftingHalo.renderHUD(ms, mc.player, offhand);
+			profiler.pop();
+		}
+
+		if (!main.isEmpty() && main.getItem() instanceof ItemSextant) {
+			profiler.push("sextant");
+			ItemSextant.renderHUD(ms, mc.player, main);
+			profiler.pop();
+		}
+
+		/*if(equippedStack != null && equippedStack.getItem() == ModItems.flugelEye) {
+			profiler.startSection("flugelEye");
+			ItemFlugelEye.renderHUD(event.getResolution(), mc.player, equippedStack);
+			profiler.endSection();
+		}*/
+
+		if (Botania.proxy.isClientPlayerWearingMonocle()) {
+			profiler.push("monocle");
+			ItemMonocle.renderHUD(ms, mc.player);
+			profiler.pop();
+		}
+
+		profiler.push("manaBar");
+
+		PlayerEntity player = mc.player;
+		if (!player.isSpectator()) {
+			int totalMana = 0;
+			int totalMaxMana = 0;
+			boolean anyRequest = false;
+			boolean creative = false;
+
+			Inventory mainInv = player.inventory;
+			Inventory accInv = BotaniaAPI.instance().getAccessoriesInventory(player);
+
+			int invSize = mainInv.size();
+			int size = invSize + accInv.size();
+
+			for (int i = 0; i < size; i++) {
+				boolean useAccessories = i >= invSize;
+				Inventory inv = useAccessories ? accInv : mainInv;
+				ItemStack stack = inv.getStack(i - (useAccessories ? invSize : 0));
+
+				if (!stack.isEmpty()) {
+					Item item = stack.getItem();
+					if (item instanceof IManaUsingItem) {
+						anyRequest = anyRequest || ((IManaUsingItem) item).usesMana(stack);
+					}
+				}
+			}
+
+			List<ItemStack> items = ManaItemHandler.instance().getManaItems(player);
+			for (ItemStack stack : items) {
+				Item item = stack.getItem();
+				if (!((IManaItem) item).isNoExport(stack)) {
+					totalMana += ((IManaItem) item).getMana(stack);
+					totalMaxMana += ((IManaItem) item).getMaxMana(stack);
+				}
+				if (item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack)) {
+					creative = true;
+				}
+			}
+
+			List<ItemStack> acc = ManaItemHandler.instance().getManaAccesories(player);
+			for (ItemStack stack : acc) {
+				Item item = stack.getItem();
+				if (!((IManaItem) item).isNoExport(stack)) {
+					totalMana += ((IManaItem) item).getMana(stack);
+					totalMaxMana += ((IManaItem) item).getMaxMana(stack);
+				}
+				if (item instanceof ICreativeManaProvider && ((ICreativeManaProvider) item).isCreative(stack)) {
+					creative = true;
+				}
+			}
+
+			if (anyRequest) {
+				renderManaInvBar(ms, creative, totalMana, totalMaxMana);
+			}
+		}
+
+		profiler.swap("itemsRemaining");
+		ItemsRemainingRenderHandler.render(ms, partialTicks);
+		profiler.pop();
+		profiler.pop();
+
+		RenderSystem.color4f(1F, 1F, 1F, 1F);
 	}
 
 	private static void renderManaInvBar(MatrixStack ms, boolean hasCreative, int totalMana, int totalMaxMana) {

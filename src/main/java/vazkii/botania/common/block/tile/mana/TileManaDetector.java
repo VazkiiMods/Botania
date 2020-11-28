@@ -9,10 +9,12 @@
 package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.base.Predicates;
+
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Box;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.tile.ModTiles;

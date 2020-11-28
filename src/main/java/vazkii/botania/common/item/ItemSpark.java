@@ -30,7 +30,7 @@ public class ItemSpark extends Item {
 	@Nonnull
 	@Override
 	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		return attachSpark(ctx.getWorld(), ctx.getBlockPos(), ctx.getStack()) ? ActionResult.success(ctx.getWorld().isClient): ActionResult.PASS;
+		return attachSpark(ctx.getWorld(), ctx.getBlockPos(), ctx.getStack()) ? ActionResult.success(ctx.getWorld().isClient) : ActionResult.PASS;
 	}
 
 	public static boolean attachSpark(World world, BlockPos pos, ItemStack stack) {

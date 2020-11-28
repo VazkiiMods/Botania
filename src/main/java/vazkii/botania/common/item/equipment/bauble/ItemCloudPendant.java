@@ -26,7 +26,6 @@ import net.minecraft.item.ItemStack;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketJump;
 
 public class ItemCloudPendant extends ItemBauble {

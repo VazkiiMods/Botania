@@ -9,7 +9,6 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;

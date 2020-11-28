@@ -9,6 +9,7 @@
 package vazkii.botania.client.model;
 
 import com.google.common.base.Preconditions;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.BakedModel;

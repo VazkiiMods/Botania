@@ -8,14 +8,11 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
@@ -48,7 +45,7 @@ public class ItemCorporeaSpark extends Item {
 		if (stack.getItem() == ModItems.corporeaSparkMaster) {
 			spark.setMaster(true);
 		}
-		spark.setPos(pos.getX() + 0.5, pos.getY() + 1.25, pos.getZ() + 0.5);
+		spark.updatePosition(pos.getX() + 0.5, pos.getY() + 1.25, pos.getZ() + 0.5);
 
 		if (canPlace(world, spark) && !CorporeaHelper.instance().doesBlockHaveSpark(world, pos)) {
 			if (!world.isClient) {

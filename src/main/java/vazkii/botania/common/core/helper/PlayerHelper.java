@@ -9,6 +9,7 @@
 package vazkii.botania.common.core.helper;
 
 import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.advancement.Advancement;
 import net.minecraft.advancement.PlayerAdvancementTracker;
 import net.minecraft.entity.LivingEntity;

@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.tile;
 
 import com.google.common.base.Predicates;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -45,11 +46,9 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.network.PacketBotaniaEffect;
-import vazkii.botania.common.network.PacketHandler;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.ArrayList;
@@ -256,7 +255,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, Tickable
 		if (FORMED_MULTIBLOCK.get().validate(world, pos.down()) == null) {
 			world.setBlockState(pos, Blocks.LAPIS_BLOCK.getDefaultState());
 			PacketBotaniaEffect.sendNearby(world, pos, PacketBotaniaEffect.EffectType.ENCHANTER_DESTROY,
-				pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+					pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 			world.playSound(null, pos, ModSounds.enchanterFade, SoundCategory.BLOCKS, 0.5F, 10F);
 		}
 

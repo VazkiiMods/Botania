@@ -9,7 +9,6 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 public class ItemSpellCloth extends Item {
 

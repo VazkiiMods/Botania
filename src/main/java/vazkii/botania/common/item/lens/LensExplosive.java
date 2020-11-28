@@ -15,6 +15,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.explosion.Explosion;
+
 import vazkii.botania.api.internal.IManaBurst;
 
 public class LensExplosive extends Lens {

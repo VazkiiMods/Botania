@@ -8,20 +8,21 @@
  */
 package vazkii.botania.common.network;
 
-import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.network.PacketContext;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.text.Text;
-
 import net.minecraft.util.Identifier;
+
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 
 import javax.annotation.Nullable;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
+import io.netty.buffer.Unpooled;
 
 public class PacketUpdateItemsRemaining {
 	public static final Identifier ID = prefix("rem");

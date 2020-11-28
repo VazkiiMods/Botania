@@ -28,16 +28,16 @@ public class InventoryHelper {
 	// [VanillaCopy] HopperBlockEntity#transfer but simulates instead of doing it
 	public static ItemStack simulateTransfer(Inventory to, ItemStack stack, Direction side) {
 		if (to instanceof SidedInventory && side != null) {
-			SidedInventory sidedInventory = (SidedInventory)to;
+			SidedInventory sidedInventory = (SidedInventory) to;
 			int[] is = sidedInventory.getAvailableSlots(side);
 
-			for(int i = 0; i < is.length && !stack.isEmpty(); ++i) {
+			for (int i = 0; i < is.length && !stack.isEmpty(); ++i) {
 				stack = simulateTransfer(to, stack, is[i], side);
 			}
 		} else {
 			int j = to.size();
 
-			for(int k = 0; k < j && !stack.isEmpty(); ++k) {
+			for (int k = 0; k < j && !stack.isEmpty(); ++k) {
 				stack = simulateTransfer(to, stack, k, side);
 			}
 		}
@@ -75,11 +75,11 @@ public class InventoryHelper {
 								k = 1;
 							}
 						}
-
+			
 						hopperBlockEntity.setCooldown(8 - k);
 					}
 				}
-
+			
 				to.markDirty();
 			}
 			*/

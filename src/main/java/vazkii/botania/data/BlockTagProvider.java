@@ -96,7 +96,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 				.addTag(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS);
 
 		getOrCreateTagBuilder(ModTags.Blocks.MINI_FLOWERS).add(
-			getModBlocks(b -> b instanceof BlockSpecialFlower && registry.getId(b).getPath().endsWith("_chibi"))
+				getModBlocks(b -> b instanceof BlockSpecialFlower && registry.getId(b).getPath().endsWith("_chibi"))
 		);
 
 		getOrCreateTagBuilder(BlockTags.TALL_FLOWERS).addTag(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
@@ -119,7 +119,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 		getOrCreateTagBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(ModTags.Blocks.BLOCKS_MANASTEEL);
 		getOrCreateTagBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(ModTags.Blocks.BLOCKS_QUARTZ);
 		getOrCreateTagBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(ModTags.Blocks.BLOCKS_TERRASTEEL);
-		 */
+		*/
 
 		getOrCreateTagBuilder(ModTags.Blocks.LIVINGROCK).add(ModBlocks.livingrock);
 		getOrCreateTagBuilder(ModTags.Blocks.LIVINGWOOD).add(ModBlocks.livingwood);

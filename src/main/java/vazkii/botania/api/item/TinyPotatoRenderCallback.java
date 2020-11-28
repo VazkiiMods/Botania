@@ -20,11 +20,11 @@ import net.minecraft.text.Text;
  */
 public interface TinyPotatoRenderCallback {
 	Event<TinyPotatoRenderCallback> EVENT = EventFactory.createArrayBacked(TinyPotatoRenderCallback.class,
-		listeners -> (be, n, td, ms, buf, light, ov) -> {
-			for (TinyPotatoRenderCallback listener : listeners) {
-				listener.onRender(be, n, td, ms, buf, light, ov);
-			}
-		});
+			listeners -> (be, n, td, ms, buf, light, ov) -> {
+				for (TinyPotatoRenderCallback listener : listeners) {
+					listener.onRender(be, n, td, ms, buf, light, ov);
+				}
+			});
 
 	void onRender(BlockEntity potato, Text name, float tickDelta, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay);
 }

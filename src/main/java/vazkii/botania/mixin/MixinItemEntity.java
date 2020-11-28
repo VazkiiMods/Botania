@@ -1,14 +1,24 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.mixin;
 
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 import vazkii.botania.common.item.ItemFlowerBag;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.equipment.bauble.ItemManaRing;
@@ -25,7 +35,7 @@ public class MixinItemEntity {
 			ci.cancel();
 		}
 	}
-	
+
 	@ModifyConstant(method = "tick", constant = @Constant(intValue = 6000))
 	private int disableDespawn(int value) {
 		ItemEntity self = (ItemEntity) (Object) this;

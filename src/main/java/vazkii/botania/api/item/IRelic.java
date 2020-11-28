@@ -10,6 +10,7 @@ package vazkii.botania.api.item;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+
 import javax.annotation.Nullable;
 
 import java.util.UUID;

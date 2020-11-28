@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.block;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
@@ -109,7 +107,7 @@ public final class ModBlocks {
 	public static final Block blackBuriedPetals = new BlockBuriedPetals(DyeColor.BLACK, AbstractBlock.Settings.copy(whiteBuriedPetals));
 
 	public static final AbstractBlock.Settings FLOATING_PROPS = FabricBlockSettings.copyOf(AbstractBlock.Settings.of(Material.SOIL).strength(0.5F).sounds(BlockSoundGroup.GRAVEL).luminance(s -> 15))
-		.breakByTool(FabricToolTags.SHOVELS);
+			.breakByTool(FabricToolTags.SHOVELS);
 	public static final Block whiteFloatingFlower = new BlockFloatingFlower(DyeColor.WHITE, FLOATING_PROPS);
 	public static final Block orangeFloatingFlower = new BlockFloatingFlower(DyeColor.ORANGE, FLOATING_PROPS);
 	public static final Block magentaFloatingFlower = new BlockFloatingFlower(DyeColor.MAGENTA, FLOATING_PROPS);
@@ -279,7 +277,7 @@ public final class ModBlocks {
 	public static final Block redStringComparator = new BlockRedStringComparator(AbstractBlock.Settings.copy(livingrock));
 	public static final Block redStringRelay = new BlockRedStringRelay(AbstractBlock.Settings.copy(livingrock));
 	public static final Block redStringInterceptor = new BlockRedStringInterceptor(AbstractBlock.Settings.copy(livingrock));
-	
+
 	public static final Block corporeaIndex = new BlockCorporeaIndex(AbstractBlock.Settings.of(Material.METAL).strength(5.5F).sounds(BlockSoundGroup.METAL).nonOpaque());
 	public static final Block corporeaFunnel = new BlockCorporeaFunnel(AbstractBlock.Settings.of(Material.METAL).strength(5.5F).sounds(BlockSoundGroup.METAL));
 	public static final Block corporeaInterceptor = new BlockCorporeaInterceptor(AbstractBlock.Settings.of(Material.METAL).strength(5.5F).sounds(BlockSoundGroup.METAL));
@@ -293,7 +291,7 @@ public final class ModBlocks {
 	public static final SlabBlock corporeaBrickSlab = new SlabBlock(AbstractBlock.Settings.copy(corporeaBrick));
 	public static final StairsBlock corporeaBrickStairs = new BlockModStairs(corporeaBrick.getDefaultState(), AbstractBlock.Settings.copy(corporeaBrick));
 	public static final Block corporeaBrickWall = new WallBlock(AbstractBlock.Settings.copy(corporeaBrick));
-	
+
 	public static final Block incensePlate = new BlockIncensePlate(AbstractBlock.Settings.copy(livingwood));
 	public static final Block hourglass = new BlockHourglass(AbstractBlock.Settings.of(Material.METAL).strength(2).sounds(BlockSoundGroup.METAL));
 	public static final Block ghostRail = new BlockGhostRail(AbstractBlock.Settings.copy(Blocks.RAIL));

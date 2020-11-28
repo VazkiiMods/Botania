@@ -29,6 +29,7 @@ import net.minecraft.tag.Tag;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
@@ -43,6 +44,7 @@ import vazkii.botania.mixin.AccessorIngredient;
 import vazkii.botania.mixin.AccessorRecipesProvider;
 
 import javax.annotation.Nullable;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -106,7 +108,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider im
 
 	private void registerMain(Consumer<RecipeJsonProvider> consumer) {
 		InventoryChangedCriterion.Conditions hasAnyDye = conditionsFromItems(
-			Arrays.stream(DyeColor.values()).map(DyeItem::byColor).toArray(ItemConvertible[]::new)
+				Arrays.stream(DyeColor.values()).map(DyeItem::byColor).toArray(ItemConvertible[]::new)
 		);
 		ShapedRecipeJsonFactory.create(ModBlocks.manaSpreader)
 				.input('P', ModTags.Items.PETALS)
@@ -135,7 +137,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider im
 				.criterion("has_item", conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM))
 				.criterion("has_alt_item", conditionsFromItem(ModBlocks.dreamwood))
 				.offerTo(consumer);
-        ShapelessRecipeJsonFactory.create(ModBlocks.gaiaSpreader)
+		ShapelessRecipeJsonFactory.create(ModBlocks.gaiaSpreader)
 				.input(ModBlocks.elvenSpreader)
 				.input(ModTags.Items.GEMS_DRAGONSTONE)
 				.input(ModItems.lifeEssence)
@@ -383,11 +385,11 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider im
 				.criterion("has_item", conditionsFromItem(Items.REDSTONE_BLOCK))
 				.criterion("has_alt_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
 				.offerTo(/* todo 1.16-fabricWrapperResult.transformJson(consumer, json -> {
-					JsonArray array = new JsonArray();
-					array.add(FluxfieldCondition.SERIALIZER.getJson(new FluxfieldCondition(true)));
-					json.add("conditions", array);
-				}
-				)*/ consumer);
+							JsonArray array = new JsonArray();
+							array.add(FluxfieldCondition.SERIALIZER.getJson(new FluxfieldCondition(true)));
+							json.add("conditions", array);
+							}
+							)*/ consumer);
 		ShapedRecipeJsonFactory.create(ModBlocks.brewery)
 				.input('A', ModTags.Items.RUNES_MANA)
 				.input('R', ModTags.Items.LIVINGROCK)
@@ -791,7 +793,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider im
 		ShapelessRecipeJsonFactory.create(ModItems.phantomInk, 4)
 				.input(ModItems.manaPearl)
 				.input(Ingredient.ofItems(
-					Arrays.stream(DyeColor.values()).map(DyeItem::byColor).toArray(ItemConvertible[]::new)
+						Arrays.stream(DyeColor.values()).map(DyeItem::byColor).toArray(ItemConvertible[]::new)
 				))
 				.input(Ingredient.ofItems(Items.GLASS, Items.WHITE_STAINED_GLASS, Items.ORANGE_STAINED_GLASS,
 						Items.MAGENTA_STAINED_GLASS, Items.LIGHT_BLUE_STAINED_GLASS, Items.YELLOW_STAINED_GLASS,
@@ -2501,11 +2503,11 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider im
 
 	private ShapedRecipeJsonFactory compression(ItemConvertible output, ItemConvertible input) {
 		return ShapedRecipeJsonFactory.create(output)
-			.input('I', input)
-			.pattern("III")
-			.pattern("III")
-			.pattern("III")
-			.criterion("has_item", conditionsFromItem(input));
+				.input('I', input)
+				.pattern("III")
+				.pattern("III")
+				.pattern("III")
+				.criterion("has_item", conditionsFromItem(input));
 	}
 
 	private ShapedRecipeJsonFactory brick(ItemConvertible output, ItemConvertible input) {

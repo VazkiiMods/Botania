@@ -8,12 +8,13 @@
  */
 package vazkii.botania.mixin;
 
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.block.entity.EndPortalBlockEntityRenderer;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.List;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.block.entity.EndPortalBlockEntityRenderer;
 
 @Mixin(EndPortalBlockEntityRenderer.class)
 public interface AccessorEndPortalTileEntityRenderer {

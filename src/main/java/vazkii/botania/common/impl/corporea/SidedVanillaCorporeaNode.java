@@ -1,11 +1,21 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.impl.corporea;
 
 import com.google.common.collect.ImmutableList;
+
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.corporea.ICorporeaRequest;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 

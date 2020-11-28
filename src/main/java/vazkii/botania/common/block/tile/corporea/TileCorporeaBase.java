@@ -9,7 +9,7 @@
 package vazkii.botania.common.block.tile.corporea;
 
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.inventory.SimpleInventory;
+
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaSpark;
 import vazkii.botania.common.block.tile.TileMod;

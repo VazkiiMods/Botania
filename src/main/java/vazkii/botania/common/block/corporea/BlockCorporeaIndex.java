@@ -10,6 +10,7 @@ package vazkii.botania.common.block.corporea;
 
 import net.minecraft.block.*;
 import net.minecraft.world.BlockView;
+
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;

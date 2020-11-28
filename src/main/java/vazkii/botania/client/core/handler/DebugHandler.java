@@ -38,8 +38,8 @@ public final class DebugHandler {
 		if (ConfigHandler.CLIENT.debugInfo.getValue()) {
 			left.add("");
 			String version = FabricLoader.getInstance().getModContainer(LibMisc.MOD_ID)
-				.map(m -> m.getMetadata().getVersion().getFriendlyString())
-				.orElse("N/A");
+					.map(m -> m.getMetadata().getVersion().getFriendlyString())
+					.orElse("N/A");
 
 			left.add(PREFIX + "(CLIENT) netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size() + ", rv: " + version);
 

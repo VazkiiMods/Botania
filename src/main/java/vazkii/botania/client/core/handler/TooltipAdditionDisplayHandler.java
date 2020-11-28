@@ -9,6 +9,7 @@
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.resource.language.I18n;
@@ -29,14 +30,14 @@ public final class TooltipAdditionDisplayHandler {
 			return;
 		}
 		MatrixStack ms = evt.getMatrixStack();
-
+	
 		ItemStack stack = evt.getStack();
 		int width = evt.getWidth();
 		int height = 3;
 		int tooltipX = evt.getX();
 		int tooltipY = evt.getY() - 4;
 		TextRenderer font = evt.getFontRenderer();
-
+	
 		if (stack.getItem() instanceof ItemTerraPick) {
 			drawTerraPick(ms, stack, tooltipX, tooltipY, width, height, font);
 		} else if (stack.getItem() instanceof IManaTooltipDisplay) {

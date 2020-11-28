@@ -1,9 +1,20 @@
+/*
+ * This class is distributed as part of the Botania Mod.
+ * Get the Source Code in github:
+ * https://github.com/Vazkii/Botania
+ *
+ * Botania is Open Source and distributed under the
+ * Botania License: http://botaniamod.net/license.php
+ */
 package vazkii.botania.common.components;
 
-import dev.onyxstudios.cca.api.v3.component.Component;
 import net.minecraft.nbt.CompoundTag;
+
 import vazkii.botania.common.block.subtile.functional.SubTileSpectranthemum;
 import vazkii.botania.common.block.tile.TileAlfPortal;
+
+
+import dev.onyxstudios.cca.api.v3.component.Component;
 
 // Component for misc internal Botania flags
 public class ItemFlagsComponent implements Component {

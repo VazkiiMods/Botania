@@ -20,9 +20,8 @@ import net.minecraft.util.math.Direction;
 
 import vazkii.botania.common.block.tile.ModTiles;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Arrays;
+
 import java.util.Set;
 import java.util.stream.IntStream;
 

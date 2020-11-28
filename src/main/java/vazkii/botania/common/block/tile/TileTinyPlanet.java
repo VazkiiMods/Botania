@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.util.Tickable;
+
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 
 public class TileTinyPlanet extends TileMod implements Tickable {

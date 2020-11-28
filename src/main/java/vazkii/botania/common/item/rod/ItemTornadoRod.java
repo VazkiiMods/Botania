@@ -97,7 +97,7 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 	public boolean showDurabilityBar(ItemStack stack) {
 		return getFlyCounter(stack) > 0;
 	}
-
+	
 	@Override
 	public double getDurabilityForDisplay(ItemStack stack) {
 		return getFlyCounter(stack) / (double) MAX_COUNTER;

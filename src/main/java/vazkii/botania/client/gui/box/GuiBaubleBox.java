@@ -9,6 +9,7 @@
 package vazkii.botania.client.gui.box;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.InventoryScreen;
@@ -16,6 +17,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+
 import vazkii.botania.client.lib.LibResources;
 
 public class GuiBaubleBox extends HandledScreen<ContainerBaubleBox> {

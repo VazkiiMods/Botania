@@ -8,11 +8,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import vazkii.botania.client.core.helper.RenderHelper;
-import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
-
-import javax.annotation.Nullable;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
@@ -23,6 +18,12 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Quaternion;
+
+import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
+
+import javax.annotation.Nullable;
 
 public class RenderTileCorporeaIndex extends BlockEntityRenderer<TileCorporeaIndex> {
 	private static final RenderLayer LAYER = RenderLayer.getEntityCutoutNoCull(new Identifier(LibResources.MODEL_CORPOREA_INDEX));

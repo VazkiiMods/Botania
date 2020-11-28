@@ -10,13 +10,8 @@ package vazkii.botania.client.render.entity;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import vazkii.botania.client.core.helper.ShaderCallback;
-import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
-import vazkii.botania.common.entity.EntityDoppleganger;
 
-import javax.annotation.Nonnull;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.RenderLayer;
@@ -27,6 +22,13 @@ import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.DefaultSkinHelper;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+
+import vazkii.botania.client.core.helper.ShaderCallback;
+import vazkii.botania.client.core.helper.ShaderHelper;
+import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
+import vazkii.botania.common.entity.EntityDoppleganger;
+
+import javax.annotation.Nonnull;
 
 public class RenderDoppleganger extends BipedEntityRenderer<EntityDoppleganger, BipedEntityModel<EntityDoppleganger>> {
 

@@ -9,11 +9,13 @@
 package vazkii.botania.client.fx;
 
 import com.mojang.serialization.Codec;
+
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleFactory;
 import net.minecraft.client.particle.SpriteProvider;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.ParticleType;
+
 import javax.annotation.Nonnull;
 
 public class WispParticleType extends ParticleType<WispParticleData> {

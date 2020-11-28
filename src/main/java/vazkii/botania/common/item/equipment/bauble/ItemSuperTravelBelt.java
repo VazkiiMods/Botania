@@ -9,6 +9,7 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import net.minecraft.util.Identifier;
+
 import vazkii.botania.client.lib.LibResources;
 
 public class ItemSuperTravelBelt extends ItemTravelBelt {

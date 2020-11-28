@@ -213,6 +213,7 @@ public class ModTags {
 		public static final Tag.Identified<EntityType<?>> COCOON_RARE = tag("cocoon/rare");
 		public static final Tag.Identified<EntityType<?>> COCOON_COMMON_AQUATIC = tag("cocoon/common_aquatic");
 		public static final Tag.Identified<EntityType<?>> COCOON_RARE_AQUATIC = tag("cocoon/rare_aquatic");
+
 		private static Tag.Identified<EntityType<?>> tag(String name) {
 			return TagRegistry.create(prefix(name), EntityTypeTags::getTagGroup);
 		}

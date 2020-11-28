@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
+
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IDirectioned;
 import vazkii.botania.api.mana.IThrottledPacket;

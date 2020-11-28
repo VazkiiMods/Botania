@@ -10,6 +10,7 @@ package vazkii.botania.common.item.brew;
 
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;

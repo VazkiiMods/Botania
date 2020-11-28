@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.tile;
 
 import com.google.common.base.Preconditions;
+
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;

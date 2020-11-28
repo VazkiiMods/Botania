@@ -10,9 +10,11 @@ package vazkii.botania.api.state.enums;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
+
+import net.minecraft.util.StringIdentifiable;
+
 import java.util.List;
 import java.util.Locale;
-import net.minecraft.util.StringIdentifiable;
 
 public enum CratePattern implements StringIdentifiable {
 	NONE(true, true, true,

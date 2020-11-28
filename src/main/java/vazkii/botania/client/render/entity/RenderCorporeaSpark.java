@@ -9,13 +9,9 @@
 package vazkii.botania.client.render.entity;
 
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.item.ItemStack;
+
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.entity.EntityCorporeaSpark;
 

@@ -20,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.MobSpawnerLogic;
 import net.minecraft.world.World;
+
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.mixin.AccessorAbstractSpawner;

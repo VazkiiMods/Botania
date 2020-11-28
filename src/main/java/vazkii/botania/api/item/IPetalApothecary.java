@@ -11,6 +11,7 @@ package vazkii.botania.api.item;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.util.StringIdentifiable;
+
 import javax.annotation.Nonnull;
 
 import java.util.Locale;

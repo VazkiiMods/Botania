@@ -8,11 +8,6 @@
  */
 package vazkii.botania.client.render.tile;
 
-import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.model.ModelBellows;
-import vazkii.botania.common.block.tile.mana.TileBellows;
-
-import javax.annotation.Nullable;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
@@ -21,6 +16,12 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
+
+import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.model.ModelBellows;
+import vazkii.botania.common.block.tile.mana.TileBellows;
+
+import javax.annotation.Nullable;
 
 public class RenderTileBellows extends BlockEntityRenderer<TileBellows> {
 	private static final Identifier texture = new Identifier(LibResources.MODEL_BELLOWS);
