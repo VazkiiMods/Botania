@@ -31,7 +31,7 @@ public class MixinItemEntity {
 	@Inject(at = @At("HEAD"), method = "onPlayerCollision", cancellable = true)
 	private void onPickup(PlayerEntity player, CallbackInfo ci) {
 		ItemEntity self = (ItemEntity) (Object) this;
-		if (ItemFlowerBag.onPickupItem(self, player)) {
+		if (!player.world.isClient && ItemFlowerBag.onPickupItem(self, player)) {
 			ci.cancel();
 		}
 	}
