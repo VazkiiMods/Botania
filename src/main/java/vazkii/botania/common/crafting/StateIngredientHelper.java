@@ -16,6 +16,7 @@ import com.mojang.serialization.JsonOps;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.nbt.NbtOps;
@@ -111,7 +112,7 @@ public class StateIngredientHelper {
 		ItemNBTHelper.renameTag(nbt, "properties", "Properties");
 		String name = nbt.getString("Name");
 		Identifier id = Identifier.tryParse(name);
-		if (id == null || !Registry.BLOCK.containsId(id)) {
+		if (id == null || Registry.BLOCK.get(id) == Blocks.AIR) {
 			throw new IllegalArgumentException("Invalid or unknown block ID: " + name);
 		}
 		return NbtHelper.toBlockState(nbt);
