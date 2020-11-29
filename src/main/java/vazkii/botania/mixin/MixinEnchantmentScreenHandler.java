@@ -25,7 +25,7 @@ import vazkii.botania.common.block.ModBlocks;
 @Mixin(EnchantmentScreenHandler.class)
 public abstract class MixinEnchantmentScreenHandler {
 
-	@ModifyVariable(method = "method_17411", at = @At(value = "STORE", ordinal = 0), ordinal = 0)
+	@ModifyVariable(method = "method_17411", at = @At(value = "STORE", ordinal = 0), ordinal = 0, remap = false)
 	private int prependPylonChecks(int i, ItemStack stack, World world, BlockPos pos) {
 		// [VanillaCopy] most of the loop, replaced checks with a method call. ineffective, but I don't know if any enchantment power hooks exist
 		for (int z = -1; z <= 1; ++z) {
