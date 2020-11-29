@@ -30,6 +30,7 @@
     "AccessorWitherEntity",
     "MixinAbstractMinecartEntity",
     "MixinCraftingResultSlot",
+    "MixinEnchantmentScreenHandler",
     "MixinEndermanEntity",
     "MixinEndermanPickupBlock",
     "MixinEntity",
