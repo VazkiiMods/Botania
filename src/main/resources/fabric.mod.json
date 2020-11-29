@@ -38,8 +38,11 @@
 
   "depends": {
     "fabricloader": ">=0.8",
-    "fabric": ">=0.13",
-    "minecraft": ">=1.16.2"
+    "fabric": ">=0.26",
+    "minecraft": ">=1.16.3",
+    "libblockattributes": ">=0.8.4",
+    "curios" : "*",
+    "patchouli": "*"
   },
 
   "custom": {

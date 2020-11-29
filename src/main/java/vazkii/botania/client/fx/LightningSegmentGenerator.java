@@ -12,6 +12,7 @@ import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -149,16 +150,19 @@ public class LightningSegmentGenerator {
 				lastActiveSegment = lastactivesegment.get(segment.splitNo);
 			}
 
+			/* todo figure out why the culling is so aggressive (?)
 			if (segment.segmentNo > lastActiveSegment) {
 				iterator.remove();
 			}
+			*/
 			segment.calcEndDiffs();
 		}
 	}
 
 	private float rayTraceResistance(Vector3 start, Vector3 end, float prevresistance) {
 		World world = MinecraftClient.getInstance().world;
-		RaycastContext ctx = new RaycastContext(start.toVector3d(), end.toVector3d(), RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, null);
+		Entity camera = MinecraftClient.getInstance().cameraEntity;
+		RaycastContext ctx = new RaycastContext(start.toVector3d(), end.toVector3d(), RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, camera);
 		BlockHitResult ray = world.raycast(ctx);
 
 		if (ray.getType() == HitResult.Type.BLOCK) {

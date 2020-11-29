@@ -121,6 +121,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		LivingEntityFeatureRendererRegistrationCallback.EVENT.register(this::initAuxiliaryRender);
 		ModelLoadingRegistry.INSTANCE.registerAppender(MiscellaneousIcons.INSTANCE::onModelRegister);
 		ModelLoadingRegistry.INSTANCE.registerAppender(ModelHandler::registerModels);
+		ModelHandler.registerRenderers();
 		ModParticles.FactoryHandler.registerFactories();
 
 		ItemTooltipCallback.EVENT.register(TooltipHandler::onTooltipEvent);

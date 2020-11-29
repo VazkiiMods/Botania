@@ -46,8 +46,11 @@ public final class ModelHandler {
 		consumer.accept(new ModelIdentifier(prefix("block/gaia_spreader_inside"), "inventory"));
 		consumer.accept(new ModelIdentifier(prefix("block/mana_spreader_inside"), "inventory"));
 		consumer.accept(new ModelIdentifier(prefix("block/redstone_spreader_inside"), "inventory"));
-		registerIslands();
 
+		registerIslands();
+	}
+
+	public static void registerRenderers() {
 		BlockEntityRendererRegistry.INSTANCE.register(ModTiles.ALTAR, RenderTileAltar::new);
 		BlockEntityRendererRegistry.INSTANCE.register(ModTiles.SPREADER, RenderTileSpreader::new);
 		BlockEntityRendererRegistry.INSTANCE.register(ModTiles.POOL, RenderTilePool::new);
