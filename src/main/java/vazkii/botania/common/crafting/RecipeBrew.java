@@ -29,7 +29,6 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewContainer;
 import vazkii.botania.api.recipe.IBrewRecipe;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.brew.ModBrews;
 
 import javax.annotation.Nonnull;
 
