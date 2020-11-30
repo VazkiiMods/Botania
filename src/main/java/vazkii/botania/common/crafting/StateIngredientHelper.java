@@ -112,7 +112,7 @@ public class StateIngredientHelper {
 		ItemNBTHelper.renameTag(nbt, "properties", "Properties");
 		String name = nbt.getString("Name");
 		Identifier id = Identifier.tryParse(name);
-		if (id == null || Registry.BLOCK.get(id) == Blocks.AIR) {
+		if (id == null || !Registry.BLOCK.getOrEmpty(id).isPresent()) {
 			throw new IllegalArgumentException("Invalid or unknown block ID: " + name);
 		}
 		return NbtHelper.toBlockState(nbt);
