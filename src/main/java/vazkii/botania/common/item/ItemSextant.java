@@ -111,7 +111,7 @@ public class ItemSextant extends Item {
 
 		double radius = calculateRadius(stack, living);
 		if (1 < radius && radius <= MAX_RADIUS) {
-			IStateMatcher matcher = PatchouliAPI.instance.predicateMatcher(Blocks.COBBLESTONE, s -> !s.isAir());
+			IStateMatcher matcher = PatchouliAPI.get().predicateMatcher(Blocks.COBBLESTONE, s -> !s.isAir());
 			int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
 			int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
 			int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
@@ -128,7 +128,7 @@ public class ItemSextant extends Item {
 						}
 					}
 				}
-				IMultiblock sparse = PatchouliAPI.instance.makeSparseMultiblock(map).setId(MULTIBLOCK_ID);
+				IMultiblock sparse = PatchouliAPI.get().makeSparseMultiblock(map).setId(MULTIBLOCK_ID);
 				Botania.proxy.showMultiblock(sparse, new LiteralText("r = " + (int) radius), new BlockPos(x, y, z), BlockRotation.NONE);
 			}
 		}

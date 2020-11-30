@@ -25,7 +25,6 @@ import vazkii.botania.common.core.ModStats;
 import vazkii.botania.common.core.helper.MathHelper;
 
 import java.util.*;
-import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -364,14 +363,14 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	}
 
 	public static final class InputHandler {
-		public boolean onChatMessage(ServerPlayerEntity player, Supplier<String> message) {
+		public boolean onChatMessage(ServerPlayerEntity player, String message) {
 			if (player.isSpectator()) {
 				return false;
 			}
 
 			List<TileCorporeaIndex> nearbyIndexes = getNearbyIndexes(player);
 			if (!nearbyIndexes.isEmpty()) {
-				String msg = message.get().toLowerCase().trim();
+				String msg = message.toLowerCase().trim();
 				for (TileCorporeaIndex index : nearbyIndexes) {
 					ICorporeaSpark spark = index.getSpark();
 					if (spark != null) {

@@ -97,22 +97,22 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, Tickable
 			}
 	};
 
-	public static final Lazy<IMultiblock> MULTIBLOCK = new Lazy<>(() -> PatchouliAPI.instance.makeMultiblock(
+	public static final Lazy<IMultiblock> MULTIBLOCK = new Lazy<>(() -> PatchouliAPI.get().makeMultiblock(
 			PATTERN,
 			'P', ModBlocks.manaPylon,
 			'L', Blocks.LAPIS_BLOCK,
 			'B', Blocks.OBSIDIAN,
 			'0', Blocks.OBSIDIAN,
-			'F', PatchouliAPI.instance.predicateMatcher(ModBlocks.whiteFlower, state -> state.getBlock().isIn(ModTags.Blocks.MYSTICAL_FLOWERS))
+			'F', PatchouliAPI.get().predicateMatcher(ModBlocks.whiteFlower, state -> state.getBlock().isIn(ModTags.Blocks.MYSTICAL_FLOWERS))
 	));
 
-	private static final Lazy<IMultiblock> FORMED_MULTIBLOCK = new Lazy<>(() -> PatchouliAPI.instance.makeMultiblock(
+	private static final Lazy<IMultiblock> FORMED_MULTIBLOCK = new Lazy<>(() -> PatchouliAPI.get().makeMultiblock(
 			PATTERN,
 			'P', ModBlocks.manaPylon,
 			'L', ModBlocks.enchanter,
 			'B', Blocks.OBSIDIAN,
 			'0', Blocks.OBSIDIAN,
-			'F', PatchouliAPI.instance.predicateMatcher(ModBlocks.whiteFlower, state -> state.getBlock().isIn(ModTags.Blocks.MYSTICAL_FLOWERS))
+			'F', PatchouliAPI.get().predicateMatcher(ModBlocks.whiteFlower, state -> state.getBlock().isIn(ModTags.Blocks.MYSTICAL_FLOWERS))
 	));
 
 	public State stage = State.IDLE;

@@ -151,9 +151,9 @@ public class Botania implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(ModEntities.PINK_WITHER, WitherEntity.createWitherAttributes());
 		ModBanners.init();
 
-		PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getId(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.get());
-		PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getId(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.get());
-		PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getId(ModBlocks.enchanter), TileEnchanter.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getId(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getId(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getId(ModBlocks.enchanter), TileEnchanter.MULTIBLOCK.get());
 
 		String[][] pat = new String[][] {
 				{
@@ -190,16 +190,16 @@ public class Botania implements ModInitializer {
 						"_________",
 				}
 		};
-		IStateMatcher sm = PatchouliAPI.instance.predicateMatcher(Blocks.IRON_BLOCK,
+		IStateMatcher sm = PatchouliAPI.get().predicateMatcher(Blocks.IRON_BLOCK,
 				state -> state.isIn(BlockTags.BEACON_BASE_BLOCKS));
-		IMultiblock mb = PatchouliAPI.instance.makeMultiblock(
+		IMultiblock mb = PatchouliAPI.get().makeMultiblock(
 				pat,
 				'P', ModBlocks.gaiaPylon,
 				'B', Blocks.BEACON,
 				'I', sm,
 				'0', sm
 		);
-		PatchouliAPI.instance.registerMultiblock(prefix("gaia_ritual"), mb);
+		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), mb);
 
 		ModBlocks.addDispenserBehaviours();
 

@@ -41,7 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TileTerraPlate extends TileMod implements ISparkAttachable, Tickable {
-	public static final Lazy<IMultiblock> MULTIBLOCK = new Lazy<>(() -> PatchouliAPI.instance.makeMultiblock(
+	public static final Lazy<IMultiblock> MULTIBLOCK = new Lazy<>(() -> PatchouliAPI.get().makeMultiblock(
 			new String[][] {
 					{
 							"___",

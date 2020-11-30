@@ -14,7 +14,7 @@ ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
 ext.priv = parseConfig(file('private.properties'))
 
-def mc_version = "1.16.3"
+def mc_version = "1.16.4"
 version = "${mc_version}-${config.build_number}-FABRIC"
 if (System.getenv().RELEASE_MODE == null) {
     version += '-SNAPSHOT'
@@ -66,8 +66,7 @@ repositories {
 dependencies {
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
-    // modCompile "vazkii.patchouli:Patchouli:1.16.2-44-FABRIC:api"
-    modImplementation "vazkii.patchouli:Patchouli:1.16.2-44-FABRIC"
+    modImplementation "vazkii.patchouli:Patchouli:1.16.4-48-FABRIC-SNAPSHOT"
 
     modCompile "alexiil.mc.lib:libblockattributes-all:0.8.4"
 
@@ -84,8 +83,8 @@ dependencies {
     modImplementation "com.jamieswhiteshirt:reach-entity-attributes:1.0.1"
     include "com.jamieswhiteshirt:reach-entity-attributes:1.0.1"
 
-    minecraft "com.mojang:minecraft:1.16.3"
-    mappings "net.fabricmc:yarn:1.16.3+build.47:v2"
+    minecraft "com.mojang:minecraft:${mc_version}"
+    mappings "net.fabricmc:yarn:${mc_version}+build.7:v2"
     modCompile "net.fabricmc:fabric-loader:0.10.6+build.214"
 
     // Fabric API. This is technically optional, but you probably want it anyway.

@@ -47,7 +47,7 @@ public class ItemLexicon extends Item implements IElvenItem {
 	}
 
 	public static boolean isOpen() {
-		return Registry.ITEM.getId(ModItems.lexicon).equals(PatchouliAPI.instance.getOpenBookGui());
+		return Registry.ITEM.getId(ModItems.lexicon).equals(PatchouliAPI.get().getOpenBookGui());
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class ItemLexicon extends Item implements IElvenItem {
 		if (playerIn instanceof ServerPlayerEntity) {
 			ServerPlayerEntity player = (ServerPlayerEntity) playerIn;
 			UseItemSuccessTrigger.INSTANCE.trigger(player, stack, player.getServerWorld(), player.getX(), player.getY(), player.getZ());
-			PatchouliAPI.instance.openBookGUI((ServerPlayerEntity) playerIn, Registry.ITEM.getId(this));
+			PatchouliAPI.get().openBookGUI((ServerPlayerEntity) playerIn, Registry.ITEM.getId(this));
 			playerIn.playSound(ModSounds.lexiconOpen, 1F, (float) (0.7 + Math.random() * 0.4));
 		}
 
@@ -86,7 +86,7 @@ public class ItemLexicon extends Item implements IElvenItem {
 	}
 
 	public static Text getEdition() {
-		return PatchouliAPI.instance.getSubtitle(Registry.ITEM.getId(ModItems.lexicon));
+		return PatchouliAPI.get().getSubtitle(Registry.ITEM.getId(ModItems.lexicon));
 	}
 
 	public static Text getTitle(ItemStack stack) {

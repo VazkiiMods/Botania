@@ -49,7 +49,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class TileAlfPortal extends TileMod implements Tickable {
-	public static final Lazy<IMultiblock> MULTIBLOCK = new Lazy<>(() -> PatchouliAPI.instance.makeMultiblock(
+	public static final Lazy<IMultiblock> MULTIBLOCK = new Lazy<>(() -> PatchouliAPI.get().makeMultiblock(
 			new String[][] {
 					{ "_", "W", "G", "W", "_" },
 					{ "W", " ", " ", " ", "W" },
