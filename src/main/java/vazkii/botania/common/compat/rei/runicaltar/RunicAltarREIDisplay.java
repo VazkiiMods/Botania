@@ -27,6 +27,6 @@ public class RunicAltarREIDisplay extends BotaniaRecipeDisplay<RecipeRuneAltar> 
 
 	@Override
 	public @NotNull Identifier getRecipeCategory() {
-		return this.recipe.TYPE_ID;
+		return RecipeRuneAltar.TYPE_ID;
 	}
 }

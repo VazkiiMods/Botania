@@ -49,6 +49,6 @@ public abstract class BotaniaRecipeDisplay<T extends Recipe<Inventory>> implemen
 
 	@Override
 	public @NotNull Optional<Identifier> getRecipeLocation() {
-		return Optional.ofNullable(this.recipe).map(Recipe::getId);
+		return Optional.ofNullable(this.recipe).map(T::getId);
 	}
 }

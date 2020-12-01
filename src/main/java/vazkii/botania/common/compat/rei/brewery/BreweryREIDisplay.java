@@ -60,6 +60,6 @@ public class BreweryREIDisplay extends BotaniaRecipeDisplay<RecipeBrew> {
 
 	@Override
 	public @NotNull Identifier getRecipeCategory() {
-		return recipe.TYPE_ID;
+		return RecipeBrew.TYPE_ID;
 	}
 }
