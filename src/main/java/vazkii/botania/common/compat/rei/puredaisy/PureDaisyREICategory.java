@@ -69,16 +69,6 @@ public class PureDaisyREICategory implements RecipeCategory<PureDaisyREIDisplay>
 		return widgets;
 	}
 
-	//todo paste into next class
-	void drawOverlay(DrawableHelper helper, MatrixStack matrices, Identifier texture, Point point) {
-		RenderSystem.enableAlphaTest();
-		RenderSystem.enableBlend();
-		MinecraftClient.getInstance().getTextureManager().bindTexture(texture);
-		helper.drawTexture(matrices, point.x - 24, point.y - 14, 0, 0, 65, 44);
-		RenderSystem.disableBlend();
-		RenderSystem.disableAlphaTest();
-	}
-
 	@Override
 	public int getDisplayHeight() {
 		return 72;
