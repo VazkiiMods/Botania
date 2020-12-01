@@ -43,6 +43,6 @@ public class ManaPoolREIDisplay extends BotaniaRecipeDisplay<RecipeManaInfusion>
 
 	@Override
 	public @NotNull Identifier getRecipeCategory() {
-		return recipe.TYPE_ID;
+		return RecipeManaInfusion.TYPE_ID;
 	}
 }

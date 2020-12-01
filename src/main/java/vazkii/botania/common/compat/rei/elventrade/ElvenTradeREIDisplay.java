@@ -40,6 +40,6 @@ public class ElvenTradeREIDisplay extends BotaniaRecipeDisplay<RecipeElvenTrade>
 
 	@Override
 	public @NotNull Identifier getRecipeCategory() {
-		return recipe.TYPE_ID;
+		return RecipeElvenTrade.TYPE_ID;
 	}
 }

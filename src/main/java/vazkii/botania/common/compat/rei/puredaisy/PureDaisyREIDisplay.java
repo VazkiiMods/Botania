@@ -51,6 +51,6 @@ public class PureDaisyREIDisplay extends BotaniaRecipeDisplay<RecipePureDaisy> {
 
 	@Override
 	public @NotNull Identifier getRecipeCategory() {
-		return recipe.TYPE_ID;
+		return RecipePureDaisy.TYPE_ID;
 	}
 }

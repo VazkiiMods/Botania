@@ -30,6 +30,6 @@ public class PetalApothecaryREIDisplay extends BotaniaRecipeDisplay<RecipePetals
 
 	@Override
 	public @NotNull Identifier getRecipeCategory() {
-		return recipe.TYPE_ID;
+		return RecipePetals.TYPE_ID;
 	}
 }

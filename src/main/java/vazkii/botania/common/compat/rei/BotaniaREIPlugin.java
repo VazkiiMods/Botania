@@ -72,14 +72,16 @@ public class BotaniaREIPlugin implements REIPluginV0 {
 
 	@Override
 	public void registerPluginCategories(RecipeHelper helper) {
-		helper.registerCategory(new BreweryREICategory());
-		helper.registerCategory(new PureDaisyREICategory());
-		helper.registerCategory(new RunicAltarREICategory());
-		helper.registerCategory(new PetalApothecaryREICategory());
-		helper.registerCategory(new ElvenTradeREICategory());
-		helper.registerCategory(new ManaPoolREICategory());
-		helper.registerCategory(new OrechidREICategory(ModSubtiles.orechid, ResourceLocationHelper.prefix("orechid")));
-		helper.registerCategory(new OrechidREICategory(ModSubtiles.orechidIgnem, ResourceLocationHelper.prefix("orechid_ignem")));
+		helper.registerCategories(
+				new BreweryREICategory(),
+				new PureDaisyREICategory(),
+				new RunicAltarREICategory(),
+				new PetalApothecaryREICategory(),
+				new ElvenTradeREICategory(),
+				new ManaPoolREICategory(),
+				new OrechidREICategory(ModSubtiles.orechid, ResourceLocationHelper.prefix("orechid")),
+				new OrechidREICategory(ModSubtiles.orechidIgnem, ResourceLocationHelper.prefix("orechid_ignem"))
+		);
 	}
 
 	@Override
@@ -90,7 +92,9 @@ public class BotaniaREIPlugin implements REIPluginV0 {
 
 		helper.registerRecipes(RecipePetals.TYPE_ID, RecipePetals.class, PetalApothecaryREIDisplay::new);
 		helper.registerRecipes(RecipeBrew.TYPE_ID, RecipeBrew.class, BreweryREIDisplay::new);
-		helper.registerRecipes(RecipeElvenTrade.TYPE_ID, (Predicate<Recipe>) recipe -> recipe instanceof RecipeElvenTrade && recipe.getId().getNamespace().equals(LibMisc.MOD_ID) && !recipe.getId().getPath().contains("return"), ElvenTradeREIDisplay::new);
+		//rawtyped predicate due to rei oversight?
+		//helper.registerRecipes(RecipeElvenTrade.TYPE_ID, (Predicate<Recipe>) recipe -> recipe instanceof RecipeElvenTrade && recipe.getId().getNamespace().equals(LibMisc.MOD_ID) && !recipe.getId().getPath().contains("return"), ElvenTradeREIDisplay::new);
+		helper.registerRecipes(RecipeElvenTrade.TYPE_ID, RecipeElvenTrade.class, ElvenTradeREIDisplay::new);
 		helper.registerRecipes(RecipeManaInfusion.TYPE_ID, RecipeManaInfusion.class, ManaPoolREIDisplay::new);
 		registerOrechidRecipes(helper, false);
 		registerOrechidRecipes(helper, true);
