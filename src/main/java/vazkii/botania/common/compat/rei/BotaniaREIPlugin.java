@@ -17,7 +17,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.util.Identifier;
 
@@ -46,11 +45,9 @@ import vazkii.botania.common.item.ItemAncientWill;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.lens.ItemLens;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static vazkii.botania.common.compat.rei.CategoryUtils.doesOreExist;
