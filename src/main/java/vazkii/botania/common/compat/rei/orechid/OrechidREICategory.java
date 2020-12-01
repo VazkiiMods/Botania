@@ -13,6 +13,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.Block;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -37,10 +38,10 @@ public class OrechidREICategory implements RecipeCategory<OrechidBaseREIDisplay>
 	private boolean isIgnem;
 	private Identifier OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
 
-	public OrechidREICategory(Block orechid, Identifier id) {
+	public OrechidREICategory(Block orechid) {
 		this.orechid = EntryStack.create(orechid);
-		ID = id;
-		isIgnem = orechid == ModSubtiles.orechidIgnem;
+		this.ID = Registry.BLOCK.getId(orechid);
+		this.isIgnem = orechid == ModSubtiles.orechidIgnem;
 	}
 
 	@Override

@@ -45,7 +45,6 @@ import vazkii.botania.common.item.ItemAncientWill;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.lens.ItemLens;
-import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -76,8 +75,8 @@ public class BotaniaREIPlugin implements REIPluginV0 {
 				new PetalApothecaryREICategory(),
 				new ElvenTradeREICategory(),
 				new ManaPoolREICategory(),
-				new OrechidREICategory(ModSubtiles.orechid, ResourceLocationHelper.prefix("orechid")),
-				new OrechidREICategory(ModSubtiles.orechidIgnem, ResourceLocationHelper.prefix("orechid_ignem"))
+				new OrechidREICategory(ModSubtiles.orechid),
+				new OrechidREICategory(ModSubtiles.orechidIgnem)
 		);
 	}
 
@@ -125,8 +124,8 @@ public class BotaniaREIPlugin implements REIPluginV0 {
 		for (ItemConvertible pool : manaPools) {
 			helper.registerWorkingStations(RecipeManaInfusion.TYPE_ID, EntryStack.create(pool));
 		}
-		helper.registerWorkingStations(ResourceLocationHelper.prefix("orechid"), EntryStack.create(ModSubtiles.orechid), EntryStack.create(ModSubtiles.orechidFloating));
-		helper.registerWorkingStations(ResourceLocationHelper.prefix("orechid_ignem"), EntryStack.create(ModSubtiles.orechidIgnem), EntryStack.create(ModSubtiles.orechidIgnemFloating));
+		helper.registerWorkingStations(prefix("orechid"), EntryStack.create(ModSubtiles.orechid), EntryStack.create(ModSubtiles.orechidFloating));
+		helper.registerWorkingStations(prefix("orechid_ignem"), EntryStack.create(ModSubtiles.orechidIgnem), EntryStack.create(ModSubtiles.orechidIgnemFloating));
 		helper.registerWorkingStations(RecipePureDaisy.TYPE_ID, EntryStack.create(ModSubtiles.pureDaisy), EntryStack.create(ModSubtiles.pureDaisyFloating));
 		helper.registerWorkingStations(RecipeRuneAltar.TYPE_ID, EntryStack.create(ModBlocks.runeAltar));
 
@@ -134,8 +133,8 @@ public class BotaniaREIPlugin implements REIPluginV0 {
 		helper.removeAutoCraftButton(RecipeBrew.TYPE_ID);
 		helper.removeAutoCraftButton(RecipeElvenTrade.TYPE_ID);
 		helper.removeAutoCraftButton(RecipeManaInfusion.TYPE_ID);
-		helper.removeAutoCraftButton(ResourceLocationHelper.prefix("orechid"));
-		helper.removeAutoCraftButton(ResourceLocationHelper.prefix("orechid_ignem"));
+		helper.removeAutoCraftButton(prefix("orechid"));
+		helper.removeAutoCraftButton(prefix("orechid_ignem"));
 		helper.removeAutoCraftButton(RecipePureDaisy.TYPE_ID);
 		helper.removeAutoCraftButton(RecipeRuneAltar.TYPE_ID);
 	}

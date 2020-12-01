@@ -60,7 +60,7 @@ public class RunicAltarREICategory implements RecipeCategory<RunicAltarREIDispla
 		EntryStack output = display.getResultingEntries().get(0).get(0);
 
 		double angleBetweenEach = 360.0 / inputs.size();
-		Point point = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 36), center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 4);
+		Point point = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 35), center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 4);
 
 		widgets.add(CategoryUtils.drawRecipeBackground(bounds));
 		widgets.add(Widgets.createDrawableWidget(((helper, matrices, mouseX, mouseY, delta) -> {
