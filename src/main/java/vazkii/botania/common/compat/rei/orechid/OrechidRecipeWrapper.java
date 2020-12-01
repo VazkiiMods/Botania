@@ -11,17 +11,18 @@ package vazkii.botania.common.compat.rei.orechid;
 import net.minecraft.util.Identifier;
 
 import javax.annotation.Nonnull;
+
 import java.util.Map;
 
 public class OrechidRecipeWrapper implements Comparable<OrechidRecipeWrapper> {
-    public final Map.Entry<Identifier, Integer> entry;
+	public final Map.Entry<Identifier, Integer> entry;
 
-    public OrechidRecipeWrapper(Map.Entry<Identifier, Integer> entry) {
-        this.entry = entry;
-    }
+	public OrechidRecipeWrapper(Map.Entry<Identifier, Integer> entry) {
+		this.entry = entry;
+	}
 
-    @Override
-    public int compareTo(@Nonnull OrechidRecipeWrapper o) {
-        return Integer.compare(o.entry.getValue(), entry.getValue());
-    }
+	@Override
+	public int compareTo(@Nonnull OrechidRecipeWrapper o) {
+		return Integer.compare(o.entry.getValue(), entry.getValue());
+	}
 }

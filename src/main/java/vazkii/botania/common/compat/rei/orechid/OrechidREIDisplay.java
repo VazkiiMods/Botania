@@ -8,31 +8,34 @@
  */
 package vazkii.botania.common.compat.rei.orechid;
 
-import me.shedaniel.rei.api.EntryStack;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+
 import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.Collections;
 import java.util.Map;
 
+import me.shedaniel.rei.api.EntryStack;
+
 public class OrechidREIDisplay extends OrechidBaseREIDisplay {
 
-    public OrechidREIDisplay(OrechidRecipeWrapper recipe) {
-        super(recipe);
-        this.stone = Collections.singletonList(Collections.singletonList(EntryStack.create(new ItemStack(Blocks.STONE, 64))));
-    }
+	public OrechidREIDisplay(OrechidRecipeWrapper recipe) {
+		super(recipe);
+		this.stone = Collections.singletonList(Collections.singletonList(EntryStack.create(new ItemStack(Blocks.STONE, 64))));
+	}
 
-    @Override
-    protected Map<Identifier, Integer> getOreWeights() {
-        return BotaniaAPI.instance().getOreWeights();
-    }
+	@Override
+	protected Map<Identifier, Integer> getOreWeights() {
+		return BotaniaAPI.instance().getOreWeights();
+	}
 
-    @Override
-    public @NotNull Identifier getRecipeCategory() {
-        return ResourceLocationHelper.prefix("orechid");
-    }
+	@Override
+	public @NotNull Identifier getRecipeCategory() {
+		return ResourceLocationHelper.prefix("orechid");
+	}
 }

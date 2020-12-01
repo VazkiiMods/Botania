@@ -11,23 +11,25 @@ package vazkii.botania.common.compat.rei.petalapothecary;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.util.Identifier;
+
 import org.jetbrains.annotations.NotNull;
+
 import vazkii.botania.common.compat.rei.BotaniaRecipeDisplay;
 import vazkii.botania.common.crafting.RecipePetals;
 
 @Environment(EnvType.CLIENT)
 public class PetalApothecaryREIDisplay extends BotaniaRecipeDisplay<RecipePetals> {
-    public PetalApothecaryREIDisplay(RecipePetals recipe) {
-        super(recipe);
-    }
+	public PetalApothecaryREIDisplay(RecipePetals recipe) {
+		super(recipe);
+	}
 
-    @Override
-    public int getManaCost() {
-        return 0;
-    }
+	@Override
+	public int getManaCost() {
+		return 0;
+	}
 
-    @Override
-    public @NotNull Identifier getRecipeCategory() {
-        return recipe.TYPE_ID;
-    }
+	@Override
+	public @NotNull Identifier getRecipeCategory() {
+		return recipe.TYPE_ID;
+	}
 }
