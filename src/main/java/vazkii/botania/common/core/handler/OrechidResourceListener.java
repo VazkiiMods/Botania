@@ -15,7 +15,6 @@ import com.google.gson.JsonObject;
 
 import net.fabricmc.fabric.api.resource.SimpleResourceReloadListener;
 import net.minecraft.resource.ResourceManager;
-import net.minecraft.tag.BlockTags;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.profiler.Profiler;
 
@@ -39,6 +38,7 @@ public class OrechidResourceListener implements SimpleResourceReloadListener<Ore
 	public CompletableFuture<OrechidResources> load(ResourceManager manager, Profiler profiler, Executor executor) {
 		return CompletableFuture.supplyAsync(() -> {
 			BotaniaAPI.instance().clearOreWeights();
+
 			Collection<Identifier> regular = manager.findResources("orechid_ore_weights/orechid", s -> s.endsWith(".json"));
 			Collection<Identifier> ignem = manager.findResources("orechid_ore_weights/orechid_ignem", s -> s.endsWith(".json"));
 			return new OrechidResources(regular, ignem);
@@ -74,18 +74,11 @@ public class OrechidResourceListener implements SimpleResourceReloadListener<Ore
 	private void handleOrechidJson(Map.Entry<String, JsonElement> entry, boolean isIgnem) {
 		String key = entry.getKey();
 		Identifier tag = new Identifier(key);
-		if (BlockTags.getTagGroup().getTagOrEmpty(tag).values().isEmpty()) {
-			return;
-		}
 		int weight;
-		if (entry.getValue().isJsonPrimitive()) {
-			try {
-				weight = Integer.parseInt(entry.getValue().getAsString());
-			} catch (NumberFormatException e) {
-				Botania.LOGGER.error("Could not parse ore weight for '{}'.", key);
-				return;
-			}
-		} else {
+		try {
+			weight = Integer.parseInt(entry.getValue().getAsString());
+		} catch (NumberFormatException e) {
+			Botania.LOGGER.error("Could not parse ore weight for '{}'.", key);
 			return;
 		}
 		if (isIgnem) {

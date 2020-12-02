@@ -136,6 +136,19 @@ public class BlockTagProvider extends BlockTagsProvider {
 				ModBlocks.fabulousPool, ModBlocks.terraPlate, ModBlocks.runeAltar);
 
 		getOrCreateTagBuilder(ModTags.Blocks.TERRA_PLATE_BASE).add(ModBlocks.livingrock, ModBlocks.shimmerrock);
+
+		//duct tape for shortsightedness
+		getOrCreateTagBuilder(ModTags.Blocks.commonTag("coal_ores")).add(Blocks.COAL_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.commonTag("diamond_ores")).add(Blocks.DIAMOND_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.commonTag("emerald_ores")).add(Blocks.EMERALD_BLOCK);
+		getOrCreateTagBuilder(ModTags.Blocks.commonTag("gold_ores")).add(Blocks.GOLD_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.commonTag("iron_ores")).add(Blocks.IRON_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.commonTag("lapis_ores")).add(Blocks.LAPIS_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.commonTag("redstone_ores")).add(Blocks.IRON_ORE);
+
+		getOrCreateTagBuilder(ModTags.Blocks.commonTag("nether_quartz_ores")).add(Blocks.NETHER_QUARTZ_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.commonTag("nether_gold_ores")).add(Blocks.NETHER_GOLD_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.commonTag("ancient_debris")).add(Blocks.ANCIENT_DEBRIS);
 	}
 
 	@Nonnull

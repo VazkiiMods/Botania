@@ -51,6 +51,10 @@ public class MixinPlayerManager {
 		return newPlayer;
 	}
 
+	/**
+	 * Even though this is completely unnecessary in the context of Botania itself, some may want this data on the
+	 * client. For example, practically anyone with REI installed.
+	 */
 	@Inject(method = "onDataPacksReloaded", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerRecipeBook;sendInitRecipesPacket(Lnet/minecraft/server/network/ServerPlayerEntity;)V", shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
 	public void botania_dispatchOreWeights(CallbackInfo ctx, SynchronizeRecipesS2CPacket w, Iterator<ServerPlayerEntity> var5, ServerPlayerEntity player) {
 		if (!this.server.isSinglePlayer()) {
@@ -59,11 +63,14 @@ public class MixinPlayerManager {
 		}
 	}
 
+	/**
+	 * In the most inconvenient fashion, datapacks don't reload when someone joins the server.
+	 */
 	@Inject(method = "onPlayerConnect", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/PlayerManager;sendCommandTree(Lnet/minecraft/server/network/ServerPlayerEntity;)V", shift = At.Shift.BEFORE))
 	public void botania_dispatchOreWeights(ClientConnection connection, ServerPlayerEntity player, CallbackInfo ctx) {
 		if (!this.server.isSinglePlayer()) {
-		PacketOrechidOreWeights.send(player, BotaniaAPI.instance().getOreWeights());
-		PacketOrechidOreWeights.send(player, BotaniaAPI.instance().getNetherOreWeights());
+			PacketOrechidOreWeights.send(player, BotaniaAPI.instance().getOreWeights());
+			PacketOrechidOreWeights.send(player, BotaniaAPI.instance().getNetherOreWeights());
 		}
 	}
 }

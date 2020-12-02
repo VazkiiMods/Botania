@@ -204,6 +204,10 @@ public class ModTags {
 		private static Tag.Identified<Block> forgeTag(String name) {
 			return TagRegistry.create(new Identifier("forge", name), BlockTags::getTagGroup);
 		}
+
+		public static Tag.Identified<Block> commonTag(String name) {
+			return TagRegistry.create(new Identifier("c", name), BlockTags::getTagGroup);
+		}
 	}
 
 	public static class Entities {
