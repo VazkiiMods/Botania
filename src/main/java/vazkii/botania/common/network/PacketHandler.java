@@ -30,6 +30,7 @@ public final class PacketHandler {
 		ClientSidePacketRegistry.INSTANCE.register(PacketSpawnDoppleganger.ID, PacketSpawnDoppleganger::handle);
 		ClientSidePacketRegistry.INSTANCE.register(PacketUpdateItemsRemaining.ID, PacketUpdateItemsRemaining::handle);
 		ClientSidePacketRegistry.INSTANCE.register(PacketGogWorld.ID, PacketGogWorld::handle);
+		ClientSidePacketRegistry.INSTANCE.register(PacketOrechidOreWeights.ID, PacketOrechidOreWeights::handle);
 	}
 
 	private PacketHandler() {}

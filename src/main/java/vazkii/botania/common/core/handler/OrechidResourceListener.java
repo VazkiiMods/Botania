@@ -53,7 +53,7 @@ public class OrechidResourceListener implements SimpleResourceReloadListener<Ore
 					InputStream is = manager.getResource(id).getInputStream();
 					BufferedReader br = new BufferedReader(new InputStreamReader(is));
 					JsonObject json = GSON.fromJson(br, JsonObject.class);
-					json.entrySet().forEach(this::handleOrechidJson);
+					json.entrySet().forEach(e -> handleOrechidJson(e, false));
 				} catch (IOException e) {
 					Botania.LOGGER.error("Caught exception while trying to parse Orechid Ore Weights: " + e);
 				}
@@ -63,7 +63,7 @@ public class OrechidResourceListener implements SimpleResourceReloadListener<Ore
 					InputStream is = manager.getResource(id).getInputStream();
 					BufferedReader br = new BufferedReader(new InputStreamReader(is));
 					JsonObject json = GSON.fromJson(br, JsonObject.class);
-					json.entrySet().forEach(this::handleOrechidIgnemJson);
+					json.entrySet().forEach(e -> handleOrechidJson(e, true));
 				} catch (IOException e) {
 					Botania.LOGGER.error("Caught exception while trying to parse Orechid Ignem Ore Weights: " + e);
 				}
@@ -71,11 +71,12 @@ public class OrechidResourceListener implements SimpleResourceReloadListener<Ore
 		}, executor);
 	}
 
-	private void handleOrechidJson(Map.Entry<String, JsonElement> entry) {
+	private void handleOrechidJson(Map.Entry<String, JsonElement> entry, boolean isIgnem) {
 		String key = entry.getKey();
 		Identifier tag = new Identifier(key);
-		if (BlockTags.getTagGroup().getTagOrEmpty(tag).values().isEmpty())
+		if (BlockTags.getTagGroup().getTagOrEmpty(tag).values().isEmpty()) {
 			return;
+		}
 		int weight;
 		if (entry.getValue().isJsonPrimitive()) {
 			try {
@@ -84,27 +85,14 @@ public class OrechidResourceListener implements SimpleResourceReloadListener<Ore
 				Botania.LOGGER.error("Could not parse ore weight for '{}'.", key);
 				return;
 			}
-		} else
+		} else {
 			return;
-		BotaniaAPI.instance().registerOreWeight(tag, weight);
-	}
-
-	private void handleOrechidIgnemJson(Map.Entry<String, JsonElement> entry) {
-		String key = entry.getKey();
-		Identifier tag = new Identifier(key);
-		if (BlockTags.getTagGroup().getTagOrEmpty(tag).values().isEmpty())
-			return;
-		int weight;
-		if (entry.getValue().isJsonPrimitive()) {
-			try {
-				weight = Integer.parseInt(entry.getValue().getAsString());
-			} catch (NumberFormatException e) {
-				Botania.LOGGER.error("Could not parse ore weight for '{}'.", key);
-				return;
-			}
-		} else
-			return;
-		BotaniaAPI.instance().registerNetherOreWeight(tag, weight);
+		}
+		if (isIgnem) {
+			BotaniaAPI.instance().registerNetherOreWeight(tag, weight);
+		} else {
+			BotaniaAPI.instance().registerOreWeight(tag, weight);
+		}
 	}
 
 	@Override
