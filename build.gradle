@@ -31,7 +31,7 @@ ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
 ext.priv = parseConfig(file('private.properties'))
 
-def mc_version = "1.16.3"
+def mc_version = "1.16.4"
 version = "${mc_version}-${config.build_number}"
 if (System.getenv().RELEASE_MODE == null) {
     version += '-SNAPSHOT'
@@ -45,7 +45,7 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation" << "-Werror"
 
 minecraft {
-    mappings channel: 'snapshot', version: "20200916-1.16.2"
+    mappings channel: 'snapshot', version: "20201028-1.16.3"
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
@@ -117,21 +117,21 @@ test {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${mc_version}-34.1.0"
+    minecraft "net.minecraftforge:forge:${mc_version}-35.1.7"
 
     annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
 
     compileOnly fg.deobf("vazkii.autoreglib:AutoRegLib:1.6-46.85")
     compileOnly fg.deobf("vazkii.quark:Quark:r2.4-276.1408")
 
-    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.2-47:api")
-    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.2-47")
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-48:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-48")
 
-    compileOnly fg.deobf("mezz.jei:jei-1.16.3:7.5.0.41:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.16.3:7.5.0.41")
+    compileOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.58:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.58")
 
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.3-4.0.1.0:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.3-4.0.1.0")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.4-4.0.3.0:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.4-4.0.3.0")
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'

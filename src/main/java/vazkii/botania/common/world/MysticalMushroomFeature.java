@@ -27,7 +27,7 @@ public class MysticalMushroomFeature extends Feature<MysticalMushroomConfig> {
 	}
 
 	@Override
-	public boolean func_241855_a(@Nonnull ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull MysticalMushroomConfig config) {
+	public boolean generate(@Nonnull ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull MysticalMushroomConfig config) {
 		boolean any = false;
 		for (int i = 0; i < config.getMushroomPatchSize(); i++) {
 			int x = pos.getX() + rand.nextInt(16) + 8;

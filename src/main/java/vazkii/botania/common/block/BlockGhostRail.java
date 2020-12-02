@@ -24,8 +24,6 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-import java.util.*;
-
 public class BlockGhostRail extends AbstractRailBlock {
 
 	private static final String TAG_FLOAT_TICKS = "botania:float_ticks";
