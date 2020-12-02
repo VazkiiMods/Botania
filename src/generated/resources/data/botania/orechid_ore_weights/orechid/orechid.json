@@ -6,7 +6,6 @@
   "c:iron_ores": 29371,
   "c:lapis_ores": 1079,
   "c:redstone_ores": 7654,
-
   "c:aluminium_ores": 13762,
   "c:aluminum_ores": 13762,
   "c:copper_ores": 5567,
@@ -23,14 +22,12 @@
   "c:tungsten_ores": 140,
   "c:uranium_ores": 230,
   "c:zinc_ores": 838,
-
   "c:amber_ores": 902,
   "c:ruby_ores": 1384,
   "c:sapphire_ores": 1287,
   "c:topaz_ores": 6436,
   "c:amethyst_ores": 1307,
   "c:malachite_ores": 160,
-
   "c:yellorite_ores": 3520,
   "c:teslatite_ores": 4312,
   "c:dark_ores": 1350,
