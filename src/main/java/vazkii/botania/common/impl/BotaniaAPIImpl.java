@@ -281,6 +281,12 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	}
 
 	@Override
+	public void clearOreWeights() {
+		oreWeights.clear();
+		netherOreWeights.clear();
+	}
+
+	@Override
 	public Map<Identifier, Function<DyeColor, Block>> getPaintableBlocks() {
 		return Collections.unmodifiableMap(paintableBlocks);
 	}

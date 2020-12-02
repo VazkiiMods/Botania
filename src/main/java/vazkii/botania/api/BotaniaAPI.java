@@ -96,6 +96,13 @@ public interface BotaniaAPI {
 
 	}
 
+	/**
+	 * Flush the Ore Weights for both Orechids, for use explicitly during data reloading
+	 */
+	default void clearOreWeights() {
+
+	}
+
 	default Map<Identifier, Function<DyeColor, Block>> getPaintableBlocks() {
 		return Collections.emptyMap();
 	}

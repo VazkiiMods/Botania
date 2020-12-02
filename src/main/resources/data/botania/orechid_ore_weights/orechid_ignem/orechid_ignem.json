@@ -1,0 +1,29 @@
+{
+  "c:nether_quartz_ores": 19600,
+  "c:nether_gold_ores": 3635,
+  "c:ancient_debris": 148,
+
+  "c:nether_coal_ores": 17000,
+  "c:nether_copper_ores": 4700,
+  "c:nether_diamond_ores": 175,
+  "c:nether_iron_ores": 5790,
+  "c:nether_lapis_ores": 3250,
+  "c:nether_lead_ores": 2790,
+  "c:nether_nickel_ores": 1790,
+  "c:nether_platinum_ores": 170,
+  "c:nether_redstone_ores": 5600,
+  "c:nether_silver_ores": 1550,
+  "c:nether_steel_ores": 1690,
+  "c:nether_tin_ores": 3750,
+
+  "c:nether_inferium_ores": 100000,
+  "c:nether_prosperity_ores": 7420,
+  "c:argonite_ores": 1000,
+  "c:ashstone_ores": 1000,
+  "c:dragonstone_ores": 175,
+  "c:fyrite_ores": 1000,
+  "c:firestone_ores": 5,
+  "c:onyx_ores": 500,
+  "c:ardite_ores": 500,
+  "c:cobalt_ores": 500
+}
