@@ -8,6 +8,7 @@
  */
 package vazkii.botania.api.mana;
 
+import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.RayTraceResult;
 
@@ -50,6 +51,14 @@ public interface ILensEffect {
 	 */
 	public default int getManaToTransfer(IManaBurst burst, ItemStack stack, IManaReceiver receiver) {
 		return burst.getMana();
+	}
+
+	/**
+	 * @deprecated use the version without the entity argument and call burst.entity() instead
+	 */
+	@Deprecated
+	public default int getManaToTransfer(IManaBurst burst, ThrowableEntity entity, ItemStack stack, IManaReceiver receiver) {
+		return getManaToTransfer(burst, stack, receiver);
 	}
 
 }
