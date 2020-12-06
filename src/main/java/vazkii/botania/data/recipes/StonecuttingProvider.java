@@ -65,10 +65,15 @@ public class StonecuttingProvider extends RecipeProvider {
 		consumer.accept(stonecutting(ModBlocks.livingrock, ModBlocks.livingrockBrick));
 		consumer.accept(stonecutting(ModBlocks.livingrock, ModFluffBlocks.livingrockBrickSlab, 2));
 		consumer.accept(stonecutting(ModBlocks.livingrock, ModFluffBlocks.livingrockBrickStairs));
+		consumer.accept(stonecutting(ModBlocks.livingrock, ModFluffBlocks.livingrockBrickWall));
 		consumer.accept(stonecutting(ModBlocks.livingrock, ModBlocks.livingrockBrickChiseled));
 		consumer.accept(stonecutting(ModBlocks.livingrockBrick, ModFluffBlocks.livingrockBrickSlab, 2));
 		consumer.accept(stonecutting(ModBlocks.livingrockBrick, ModFluffBlocks.livingrockBrickStairs));
+		consumer.accept(stonecutting(ModBlocks.livingrockBrick, ModFluffBlocks.livingrockBrickWall));
 		consumer.accept(stonecutting(ModBlocks.livingrockBrick, ModBlocks.livingrockBrickChiseled));
+		consumer.accept(stonecutting(ModBlocks.livingrockBrickMossy, ModFluffBlocks.livingrockBrickMossySlab, 2));
+		consumer.accept(stonecutting(ModBlocks.livingrockBrickMossy, ModFluffBlocks.livingrockBrickMossyStairs));
+		consumer.accept(stonecutting(ModBlocks.livingrockBrickMossy, ModFluffBlocks.livingrockBrickMossyWall));
 
 		consumer.accept(stonecutting(ModBlocks.corporeaBlock, ModBlocks.corporeaSlab, 2));
 		consumer.accept(stonecutting(ModBlocks.corporeaBlock, ModBlocks.corporeaStairs));
@@ -117,6 +122,7 @@ public class StonecuttingProvider extends RecipeProvider {
 		Block brick = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks")).get();
 		Block brickSlab = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.SLAB_SUFFIX)).get();
 		Block brickStair = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.STAIR_SUFFIX)).get();
+		Block brickWall = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.WALL_SUFFIX)).get();
 		Block chiseledBrick = Registry.BLOCK.getOptional(prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks")).get();
 		Block cobble = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone")).get();
 		Block cobbleSlab = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.SLAB_SUFFIX)).get();
@@ -128,10 +134,12 @@ public class StonecuttingProvider extends RecipeProvider {
 		consumer.accept(stonecutting(base, brick));
 		consumer.accept(stonecutting(base, brickSlab, 2));
 		consumer.accept(stonecutting(base, brickStair));
+		consumer.accept(stonecutting(base, brickWall));
 		consumer.accept(stonecutting(base, chiseledBrick));
 
 		consumer.accept(stonecutting(brick, brickSlab, 2));
 		consumer.accept(stonecutting(brick, brickStair));
+		consumer.accept(stonecutting(brick, brickWall));
 		consumer.accept(stonecutting(brick, chiseledBrick));
 
 		consumer.accept(stonecutting(cobble, cobbleSlab, 2));
