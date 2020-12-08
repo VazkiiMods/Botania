@@ -2,7 +2,7 @@
   "type": "botania:elven_trade",
   "ingredients": [
     {
-      "tag": "forge:gems/mana_diamond"
+      "item": "botania:mana_diamond"
     }
   ],
   "output": [

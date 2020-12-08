@@ -10,13 +10,13 @@
       "item": "botania:ender_air_bottle"
     },
     "D": {
-      "tag": "forge:gems/mana_diamond"
+      "item": "botania:mana_diamond"
     },
     "T": {
       "item": "botania:terra_sword"
     },
     "I": {
-      "tag": "forge:ingots/elementium"
+      "item": "botania:elementium_ingot"
     }
   },
   "result": {

@@ -10,7 +10,7 @@
       "item": "botania:mana_pylon"
     },
     "T": {
-      "tag": "forge:nuggets/terrasteel"
+      "item": "botania:terrasteel_nugget"
     },
     "E": {
       "item": "minecraft:ender_eye"

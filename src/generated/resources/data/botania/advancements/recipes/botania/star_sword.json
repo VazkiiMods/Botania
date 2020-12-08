@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:ingots/terrasteel"
+            "item": "botania:terrasteel_ingot"
           }
         ]
       }

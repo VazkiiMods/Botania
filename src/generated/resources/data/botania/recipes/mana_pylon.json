@@ -7,13 +7,13 @@
   ],
   "key": {
     "D": {
-      "tag": "forge:gems/mana_diamond"
+      "item": "botania:mana_diamond"
     },
     "G": {
       "item": "minecraft:gold_ingot"
     },
     "M": {
-      "tag": "forge:ingots/manasteel"
+      "item": "botania:manasteel_ingot"
     }
   },
   "result": {

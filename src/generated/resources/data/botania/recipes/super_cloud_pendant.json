@@ -13,7 +13,7 @@
       "item": "minecraft:ghast_tear"
     },
     "E": {
-      "tag": "forge:ingots/elementium"
+      "item": "botania:elementium_ingot"
     },
     "G": {
       "item": "botania:life_essence"

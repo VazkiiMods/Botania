@@ -7,10 +7,10 @@
   "mana": 5200,
   "ingredients": [
     {
-      "tag": "forge:dusts/mana"
+      "item": "botania:mana_powder"
     },
     {
-      "tag": "forge:ingots/manasteel"
+      "item": "botania:manasteel_ingot"
     },
     {
       "tag": "minecraft:carpets"

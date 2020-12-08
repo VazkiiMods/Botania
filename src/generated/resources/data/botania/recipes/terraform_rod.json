@@ -16,7 +16,7 @@
       "tag": "botania:runes/spring"
     },
     "T": {
-      "tag": "forge:ingots/terrasteel"
+      "item": "botania:terrasteel_ingot"
     },
     "G": {
       "item": "botania:grass_seeds"

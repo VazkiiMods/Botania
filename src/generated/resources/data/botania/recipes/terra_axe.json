@@ -10,7 +10,7 @@
       "item": "botania:livingwood_twig"
     },
     "T": {
-      "tag": "forge:ingots/terrasteel"
+      "item": "botania:terrasteel_ingot"
     },
     "G": {
       "item": "minecraft:glowstone"

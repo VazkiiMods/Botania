@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "forge:ingots/terrasteel"
+      "item": "botania:terrasteel_ingot"
     }
   ],
   "result": {

@@ -7,7 +7,7 @@
   ],
   "key": {
     "E": {
-      "tag": "forge:ingots/elementium"
+      "item": "botania:elementium_ingot"
     },
     "W": {
       "item": "botania:dreamwood"

@@ -10,7 +10,7 @@
       "item": "botania:life_essence"
     },
     "I": {
-      "tag": "forge:ingots/terrasteel"
+      "item": "botania:terrasteel_ingot"
     }
   },
   "result": {

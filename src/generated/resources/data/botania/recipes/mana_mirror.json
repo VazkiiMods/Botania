@@ -19,7 +19,7 @@
       "item": "botania:mana_tablet"
     },
     "I": {
-      "tag": "forge:ingots/terrasteel"
+      "item": "botania:terrasteel_ingot"
     }
   },
   "result": {

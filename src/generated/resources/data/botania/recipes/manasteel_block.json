@@ -7,7 +7,7 @@
   ],
   "key": {
     "I": {
-      "tag": "forge:ingots/manasteel"
+      "item": "botania:manasteel_ingot"
     }
   },
   "result": {

@@ -7,7 +7,7 @@
   ],
   "key": {
     "T": {
-      "tag": "forge:nuggets/terrasteel"
+      "item": "botania:terrasteel_nugget"
     },
     "W": {
       "tag": "botania:livingwood"

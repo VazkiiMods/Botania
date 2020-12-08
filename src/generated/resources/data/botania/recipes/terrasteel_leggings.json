@@ -10,7 +10,7 @@
       "item": "botania:livingwood_twig"
     },
     "S": {
-      "tag": "forge:ingots/terrasteel"
+      "item": "botania:terrasteel_ingot"
     },
     "R": {
       "tag": "botania:runes/autumn"

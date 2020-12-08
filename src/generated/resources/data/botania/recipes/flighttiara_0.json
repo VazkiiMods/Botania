@@ -13,7 +13,7 @@
       "item": "minecraft:feather"
     },
     "I": {
-      "tag": "forge:ingots/elementium"
+      "item": "botania:elementium_ingot"
     },
     "L": {
       "item": "botania:life_essence"

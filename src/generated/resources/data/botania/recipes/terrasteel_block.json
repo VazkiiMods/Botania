@@ -7,7 +7,7 @@
   ],
   "key": {
     "I": {
-      "tag": "forge:ingots/terrasteel"
+      "item": "botania:terrasteel_ingot"
     }
   },
   "result": {

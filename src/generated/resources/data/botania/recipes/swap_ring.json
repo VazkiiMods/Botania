@@ -10,7 +10,7 @@
       "item": "minecraft:clay"
     },
     "M": {
-      "tag": "forge:ingots/manasteel"
+      "item": "botania:manasteel_ingot"
     }
   },
   "result": {

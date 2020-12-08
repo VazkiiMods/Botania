@@ -10,7 +10,7 @@
       "item": "minecraft:prismarine_crystals"
     },
     "D": {
-      "tag": "forge:gems/mana_diamond"
+      "item": "botania:mana_diamond"
     },
     "G": {
       "item": "minecraft:ghast_tear"

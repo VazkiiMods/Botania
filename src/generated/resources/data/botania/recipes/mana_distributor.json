@@ -10,7 +10,7 @@
       "tag": "botania:livingrock"
     },
     "S": {
-      "tag": "forge:ingots/manasteel"
+      "item": "botania:manasteel_ingot"
     }
   },
   "result": {

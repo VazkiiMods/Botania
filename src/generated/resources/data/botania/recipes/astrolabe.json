@@ -10,7 +10,7 @@
       "item": "botania:dreamwood"
     },
     "E": {
-      "tag": "forge:ingots/elementium"
+      "item": "botania:elementium_ingot"
     },
     "G": {
       "item": "botania:life_essence"

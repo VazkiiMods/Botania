@@ -10,10 +10,10 @@
       "item": "botania:pixie_dust"
     },
     "D": {
-      "tag": "forge:gems/dragonstone"
+      "item": "botania:dragonstone"
     },
     "E": {
-      "tag": "forge:ingots/elementium"
+      "item": "botania:elementium_ingot"
     }
   },
   "result": {

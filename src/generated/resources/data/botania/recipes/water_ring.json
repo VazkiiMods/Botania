@@ -19,7 +19,7 @@
       "tag": "botania:runes/water"
     },
     "M": {
-      "tag": "forge:ingots/manasteel"
+      "item": "botania:manasteel_ingot"
     }
   },
   "result": {

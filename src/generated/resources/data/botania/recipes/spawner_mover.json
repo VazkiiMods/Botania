@@ -10,13 +10,13 @@
       "item": "botania:ender_air_bottle"
     },
     "D": {
-      "tag": "forge:gems/dragonstone"
+      "item": "botania:dragonstone"
     },
     "E": {
       "item": "botania:life_essence"
     },
     "I": {
-      "tag": "forge:ingots/elementium"
+      "item": "botania:elementium_ingot"
     }
   },
   "result": {

@@ -13,7 +13,7 @@
       "item": "minecraft:crafting_table"
     },
     "I": {
-      "tag": "forge:ingots/manasteel"
+      "item": "botania:manasteel_ingot"
     }
   },
   "result": {

@@ -7,7 +7,7 @@
   ],
   "key": {
     "I": {
-      "tag": "forge:ingots/elementium"
+      "item": "botania:elementium_ingot"
     }
   },
   "result": {

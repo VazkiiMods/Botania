@@ -10,7 +10,7 @@
       "item": "botania:mana_tablet"
     },
     "I": {
-      "tag": "forge:ingots/terrasteel"
+      "item": "botania:terrasteel_ingot"
     },
     "L": {
       "item": "botania:livingwood_twig"

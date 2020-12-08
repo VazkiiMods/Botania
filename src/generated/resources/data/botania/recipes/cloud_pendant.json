@@ -10,7 +10,7 @@
       "item": "botania:mana_string"
     },
     "D": {
-      "tag": "forge:ingots/manasteel"
+      "item": "botania:manasteel_ingot"
     },
     "F": {
       "tag": "botania:runes/air"

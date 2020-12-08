@@ -8,7 +8,7 @@
       "item": "botania:elf_glass"
     },
     {
-      "tag": "forge:ingots/elementium"
+      "item": "botania:elementium_ingot"
     }
   ],
   "result": {

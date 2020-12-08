@@ -2,10 +2,10 @@
   "type": "botania:elven_trade",
   "ingredients": [
     {
-      "tag": "forge:ingots/manasteel"
+      "item": "botania:manasteel_ingot"
     },
     {
-      "tag": "forge:ingots/manasteel"
+      "item": "botania:manasteel_ingot"
     }
   ],
   "output": [

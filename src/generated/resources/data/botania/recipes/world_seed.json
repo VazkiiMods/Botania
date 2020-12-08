@@ -10,7 +10,7 @@
       "item": "minecraft:wheat_seeds"
     },
     "D": {
-      "tag": "forge:gems/dragonstone"
+      "item": "botania:dragonstone"
     },
     "G": {
       "item": "minecraft:grass_block"
