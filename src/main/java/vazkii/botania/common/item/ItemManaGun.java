@@ -32,6 +32,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
+import vazkii.botania.api.item.IDurabilityExtension;
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -48,7 +49,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemManaGun extends Item implements IManaUsingItem {
+public class ItemManaGun extends Item implements IManaUsingItem, IDurabilityExtension {
 
 	private static final String TAG_LENS = "lens";
 	private static final String TAG_CLIP = "clip";
@@ -301,18 +302,16 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 			setCooldown(stack, getCooldown(stack) - 1);
 		}
 	}
-
-	/* todo 1.16-fabric
+	
 	@Override
-	public boolean showDurabilityBar(ItemStack stack) {
+	public boolean showDurability(ItemStack stack) {
 		return getCooldown(stack) > 0;
 	}
 	
 	@Override
-	public double getDurabilityForDisplay(ItemStack stack) {
+	public double getDurability(ItemStack stack) {
 		return getCooldown(stack) / (double) COOLDOWN;
 	}
-	*/
 
 	private int getCooldown(ItemStack stack) {
 		return stack.getOrCreateTag().getInt(TAG_COOLDOWN);
