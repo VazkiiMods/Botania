@@ -141,7 +141,7 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 	
 	@Override
 	public boolean showDurability(ItemStack stack) {
-		return !isCreative(stack);
+		return !isStackCreative(stack);
 	}
 	
 	@Override
