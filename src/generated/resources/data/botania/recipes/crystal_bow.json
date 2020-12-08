@@ -13,7 +13,7 @@
       "item": "botania:livingwood_twig"
     },
     "D": {
-      "item": "botania:dragonstone"
+      "tag": "botania:dragonstone_gems"
     }
   },
   "result": {

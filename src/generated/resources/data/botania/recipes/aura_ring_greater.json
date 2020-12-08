@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "botania:terrasteel_ingot"
+      "tag": "botania:terrasteel_ingots"
     },
     {
       "item": "botania:aura_ring"

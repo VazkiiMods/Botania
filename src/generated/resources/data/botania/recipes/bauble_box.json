@@ -13,7 +13,7 @@
       "item": "minecraft:gold_ingot"
     },
     "M": {
-      "item": "botania:manasteel_ingot"
+      "tag": "botania:manasteel_ingots"
     }
   },
   "result": {

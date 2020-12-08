@@ -6,10 +6,10 @@
   "mana": 12000,
   "ingredients": [
     {
-      "item": "botania:mana_diamond"
+      "tag": "botania:mana_diamond_gems"
     },
     {
-      "item": "botania:mana_diamond"
+      "tag": "botania:mana_diamond_gems"
     },
     {
       "tag": "botania:runes/spring"

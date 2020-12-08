@@ -10,7 +10,7 @@
       "item": "botania:travel_belt"
     },
     "E": {
-      "item": "botania:elementium_ingot"
+      "tag": "botania:elementium_ingots"
     },
     "L": {
       "item": "botania:life_essence"

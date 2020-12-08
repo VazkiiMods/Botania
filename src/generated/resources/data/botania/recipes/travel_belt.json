@@ -10,7 +10,7 @@
       "tag": "botania:runes/air"
     },
     "S": {
-      "item": "botania:manasteel_ingot"
+      "tag": "botania:manasteel_ingots"
     },
     "E": {
       "tag": "botania:runes/earth"

@@ -7,7 +7,7 @@
   ],
   "key": {
     "E": {
-      "item": "botania:elementium_ingot"
+      "tag": "botania:elementium_ingots"
     },
     "W": {
       "tag": "minecraft:wool"

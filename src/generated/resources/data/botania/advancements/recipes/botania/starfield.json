@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:elementium_ingot"
+            "tag": "botania:elementium_ingots"
           }
         ]
       }

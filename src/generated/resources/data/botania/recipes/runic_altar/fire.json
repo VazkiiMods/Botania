@@ -7,10 +7,10 @@
   "mana": 5200,
   "ingredients": [
     {
-      "item": "botania:mana_powder"
+      "tag": "botania:mana_dusts"
     },
     {
-      "item": "botania:manasteel_ingot"
+      "tag": "botania:manasteel_ingots"
     },
     {
       "item": "minecraft:nether_brick"

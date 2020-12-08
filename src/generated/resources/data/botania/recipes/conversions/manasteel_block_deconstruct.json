@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "botania:manasteel_block"
+      "tag": "botania:manasteel_blocks"
     }
   ],
   "result": {

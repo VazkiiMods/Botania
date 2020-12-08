@@ -13,13 +13,13 @@
       "item": "minecraft:blaze_rod"
     },
     "S": {
-      "item": "botania:elementium_ingot"
+      "tag": "botania:elementium_ingots"
     },
     "E": {
       "item": "botania:ender_air_bottle"
     },
     "M": {
-      "item": "botania:manasteel_block"
+      "tag": "botania:manasteel_blocks"
     }
   },
   "result": {

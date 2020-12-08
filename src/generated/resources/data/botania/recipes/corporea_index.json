@@ -13,7 +13,7 @@
       "item": "botania:corporea_spark"
     },
     "D": {
-      "item": "botania:dragonstone"
+      "tag": "botania:dragonstone_gems"
     },
     "O": {
       "item": "minecraft:obsidian"

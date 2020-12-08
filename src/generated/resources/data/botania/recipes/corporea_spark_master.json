@@ -5,7 +5,7 @@
       "item": "botania:corporea_spark"
     },
     {
-      "item": "botania:dragonstone"
+      "tag": "botania:dragonstone_gems"
     }
   ],
   "result": {

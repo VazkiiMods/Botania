@@ -5,7 +5,7 @@
       "item": "botania:crafting_halo"
     },
     {
-      "item": "botania:mana_diamond"
+      "tag": "botania:mana_diamond_gems"
     }
   ],
   "result": {

@@ -16,7 +16,7 @@
       "item": "botania:life_essence"
     },
     "D": {
-      "item": "botania:dragonstone"
+      "tag": "botania:dragonstone_gems"
     },
     "E": {
       "tag": "botania:runes/earth"

@@ -13,7 +13,7 @@
       "item": "botania:pixie_dust"
     },
     "E": {
-      "item": "botania:elementium_ingot"
+      "tag": "botania:elementium_ingots"
     }
   },
   "result": {

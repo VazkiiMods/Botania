@@ -6,7 +6,7 @@
   ],
   "key": {
     "D": {
-      "item": "botania:mana_powder"
+      "tag": "botania:mana_dusts"
     },
     "T": {
       "item": "minecraft:redstone_torch"

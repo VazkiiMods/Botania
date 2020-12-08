@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:terrasteel_nugget"
+            "tag": "botania:terrasteel_nuggets"
           }
         ]
       }

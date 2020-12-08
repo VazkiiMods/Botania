@@ -2,7 +2,7 @@
   "type": "botania:mana_upgrade_shapeless",
   "ingredients": [
     {
-      "item": "botania:terrasteel_ingot"
+      "tag": "botania:terrasteel_ingots"
     },
     {
       "item": "botania:mana_ring"

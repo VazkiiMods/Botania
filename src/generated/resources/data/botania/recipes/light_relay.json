@@ -5,7 +5,7 @@
       "item": "botania:red_string"
     },
     {
-      "item": "botania:dragonstone"
+      "tag": "botania:dragonstone_gems"
     },
     {
       "item": "minecraft:glowstone_dust"

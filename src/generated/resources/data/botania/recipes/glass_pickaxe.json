@@ -13,7 +13,7 @@
       "item": "minecraft:glass"
     },
     "I": {
-      "item": "botania:manasteel_ingot"
+      "tag": "botania:manasteel_ingots"
     }
   },
   "result": {

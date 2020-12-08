@@ -6,7 +6,7 @@
       "item": "botania:pixie_dust"
     },
     {
-      "item": "botania:manasteel_ingot"
+      "tag": "botania:manasteel_ingots"
     },
     {
       "tag": "botania:runes/earth"

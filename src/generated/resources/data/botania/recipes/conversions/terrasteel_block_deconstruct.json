@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "botania:terrasteel_block"
+      "tag": "botania:terrasteel_blocks"
     }
   ],
   "result": {

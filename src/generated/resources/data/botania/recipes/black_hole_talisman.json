@@ -10,7 +10,7 @@
       "item": "botania:ender_air_bottle"
     },
     "E": {
-      "item": "botania:elementium_ingot"
+      "tag": "botania:elementium_ingots"
     },
     "G": {
       "item": "botania:life_essence"

@@ -11,7 +11,7 @@
       "tag": "botania:petals"
     },
     "E": {
-      "item": "botania:elementium_ingot"
+      "tag": "botania:elementium_ingots"
     },
     "W": {
       "item": "botania:dreamwood"

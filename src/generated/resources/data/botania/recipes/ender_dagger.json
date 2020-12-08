@@ -10,7 +10,7 @@
       "item": "botania:mana_pearl"
     },
     "S": {
-      "item": "botania:manasteel_ingot"
+      "tag": "botania:manasteel_ingots"
     },
     "T": {
       "item": "botania:livingwood_twig"

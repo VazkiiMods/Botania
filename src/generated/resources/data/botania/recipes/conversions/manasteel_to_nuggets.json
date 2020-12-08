@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "botania:manasteel_ingot"
+      "tag": "botania:manasteel_ingots"
     }
   ],
   "result": {
