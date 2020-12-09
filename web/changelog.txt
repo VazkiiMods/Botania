@@ -23,7 +23,7 @@
 * Headflowers now use a normal enchantment glint instead of a washed out flat yellow shader. If Quark is installed, a yellow glint is used as if a yellow rune was applied.
 * Fix pools not emptying fully when using sparks (Alwinfy)
 * Add walls for Botania bricks (ToMe25)
-* Fix water bowl texture (MoriyaShiine)
+* Fix water bowl texture (MoriyaShiine, cybercat5555)
 * Make Astrolabe horizontal placement easier
 * Usual internal cleanups and improvements
 1.16.3-409
