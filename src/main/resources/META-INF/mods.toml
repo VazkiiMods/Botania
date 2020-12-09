@@ -1,5 +1,5 @@
 modLoader="javafml" #mandatory
-loaderVersion="[33,)"
+loaderVersion="[35,)"
 license="Botania License"
 issueTrackerURL="https://github.com/Vazkii/Botania/issues" #optional
 displayURL="https://botaniamod.net" #optional
@@ -17,7 +17,7 @@ Botania is a mod that adds nature magic to Minecraft'''
 [[dependencies.botania]]
     modId="forge"
     mandatory=true
-    versionRange="[35.1.5,)"
+    versionRange="[35.1.7,)"
 
 [[dependencies.botania]]
     modId="patchouli"
