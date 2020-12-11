@@ -33,6 +33,7 @@ public abstract class MixinItemRenderer {
 
 	@Inject(method = "renderGuiItemOverlay(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/item/ItemStack;IILjava/lang/String;)V", at = @At("HEAD"))
 	private void renderGuiItemOverlay(TextRenderer textRenderer, ItemStack stack, int x, int y, @Nullable String string, CallbackInfo info) {
+		//this code adapted from https://github.com/TechReborn/RebornCore/blob/c382cd588b776e77565c74d077e7c183345e721e/src/main/java/reborncore/mixin/client/MixinItemRenderer.java
 		if (stack.getItem() instanceof IDurabilityExtension) {
 			IDurabilityExtension durabilityExtensions = (IDurabilityExtension) stack.getItem();
 			if (!durabilityExtensions.showDurability(stack)) {
