@@ -2764,7 +2764,8 @@
 
   "botania.entry.enderAir": "Extracting Ender Air",
   "botania.tagline.enderAir": "Throwable bottles that create End Stone",
-  "botania.page.enderAir0": "The air present in the void of the $(item)End$(0) seems to have mutative properties. Right-clicking with an empty $(item)Glass Bottle$(0) while in the $(item)End$(0) will capture some of that air, which can then later be tossed like a splash potion, turning nearby $(item)Stone$(0) at the landing point into $(item)End Stone$(0). $(item)Dispensers$(0) can also capture this air, if nothing is blocking the area above the output.",
+  "botania.page.enderAir0": "The air present in the void of the $(item)End$(0) seems to have mutative properties. Right-clicking with an empty $(item)Glass Bottle$(0) while in the $(item)End$(0) will capture some of that air, which can then later be tossed like a splash potion, turning nearby $(item)Stone$(0) at the landing point into $(item)End Stone$(0). $(p)$(item)Dispensers$(0) can also capture this air, if nothing is blocking the area above the output.",
+  "botania.page.enderAir1": "A rumor has it that homesick $(thing)Ghasts$(0) dislike this air quite a bit, and sudden exposure to some may rarely cause one to shed some $(item)tears$(0)...$(br)This would require luring one out of the Nether though, as the warmth of their home makes them too comfortable there.",
 
   "botania.entry.enderEyeBlock": "Ender Overseer",
   "botania.tagline.enderEyeBlock": "Look activated redstone detector",
