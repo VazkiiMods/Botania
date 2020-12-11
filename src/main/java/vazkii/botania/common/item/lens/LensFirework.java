@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.item.lens;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.FireworkRocketEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
@@ -24,7 +24,8 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 public class LensFirework extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+		Entity entity = burst.entity();
 		if (!entity.world.isRemote && !burst.isFake()) {
 			BlockPos coords = burst.getBurstSourceBlockPos();
 			if (pos.getType() == RayTraceResult.Type.BLOCK

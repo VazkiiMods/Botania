@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.RayTraceResult;
 
@@ -17,7 +16,7 @@ import vazkii.botania.api.internal.IManaBurst;
 public class LensPhantom extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		if (!isManaBlock) {
 			dead = false;
 			burst.setMinManaLoss(Math.max(0, burst.getMinManaLoss() - 4));

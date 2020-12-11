@@ -21,7 +21,8 @@ import vazkii.botania.common.core.helper.Vector3;
 public class LensBounce extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+		ThrowableEntity entity = burst.entity();
 		if (!isManaBlock && pos.getType() == RayTraceResult.Type.BLOCK) {
 			BlockPos coords = burst.getBurstSourceBlockPos();
 			BlockRayTraceResult rtr = (BlockRayTraceResult) pos;

@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -22,7 +22,8 @@ import java.util.function.Predicate;
 public class LensMagnet extends Lens {
 
 	@Override
-	public void updateBurst(IManaBurst burst, ThrowableEntity entity, ItemStack stack) {
+	public void updateBurst(IManaBurst burst, ItemStack stack) {
+		Entity entity = burst.entity();
 		BlockPos basePos = entity.getPosition();
 		boolean magnetized = burst.getMagnetizedPos() != null;
 		int range = 3;

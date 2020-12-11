@@ -13,8 +13,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FallingBlock;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -252,7 +252,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
 		double speed = 0.35;
 		int targetDistance = BASE_OFFSET;
-		ThrowableEntity entity = (ThrowableEntity) burst;
+		Entity entity = burst.entity();
 		if (!entity.world.isRemote) {
 			entity.setMotion(0, speed, 0);
 
@@ -311,7 +311,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 
 	@Override
 	public boolean doParticles(IManaBurst burst, ItemStack stack) {
-		ThrowableEntity entity = (ThrowableEntity) burst;
+		Entity entity = burst.entity();
 		ItemStack lens = burst.getSourceLens();
 		BlockState state = NBTUtil.readBlockState(lens.getOrCreateTag().getCompound(TAG_STATE));
 		entity.world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, state), entity.getPosX(), entity.getPosY(), entity.getPosZ(),

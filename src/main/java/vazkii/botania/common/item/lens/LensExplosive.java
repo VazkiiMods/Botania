@@ -21,7 +21,8 @@ import vazkii.botania.api.internal.IManaBurst;
 public class LensExplosive extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, ThrowableEntity entity, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, RayTraceResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+		ThrowableEntity entity = burst.entity();
 		if (!entity.world.isRemote && !burst.isFake() && pos.getType() == RayTraceResult.Type.BLOCK) {
 			BlockPos coords = burst.getBurstSourceBlockPos();
 			if (!isManaBlock && !coords.equals(((BlockRayTraceResult) pos).getPos())) {

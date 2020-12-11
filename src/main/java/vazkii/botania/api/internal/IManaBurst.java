@@ -8,6 +8,7 @@
  */
 package vazkii.botania.api.internal;
 
+import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 
@@ -95,4 +96,11 @@ public interface IManaBurst {
 	BlockPos getMagnetizedPos();
 
 	void setMagnetizePos(@Nullable BlockPos pos);
+
+	/**
+	 * @return this Mana Burst as an ThrowableEntity
+	 */
+	default ThrowableEntity entity() {
+		return (ThrowableEntity) this;
+	}
 }
