@@ -31,7 +31,6 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public class ItemOdinRing extends ItemRelicBauble {
 
 	private static final Set<String> damageNegations = new HashSet<>();
-	private static final Set<String> fireNegations = new HashSet<>();
 
 	public ItemOdinRing(Properties props) {
 		super(props);
@@ -41,8 +40,10 @@ public class ItemOdinRing extends ItemRelicBauble {
 		damageNegations.add(DamageSource.LAVA.damageType);
 		damageNegations.add(DamageSource.IN_WALL.damageType);
 		damageNegations.add(DamageSource.STARVE.damageType);
-		fireNegations.add(DamageSource.IN_FIRE.damageType);
-		fireNegations.add(DamageSource.ON_FIRE.damageType);
+		damageNegations.add(DamageSource.IN_FIRE.damageType);
+		damageNegations.add(DamageSource.ON_FIRE.damageType);
+		damageNegations.add(DamageSource.HOT_FLOOR.damageType);
+		damageNegations.add(DamageSource.FLY_INTO_WALL.damageType);
 	}
 
 	@Override
@@ -63,10 +64,8 @@ public class ItemOdinRing extends ItemRelicBauble {
 	public static void onPlayerAttacked(LivingAttackEvent event) {
 		if (event.getEntityLiving() instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-			boolean negate = damageNegations.contains(event.getSource().damageType)
-					|| (fireNegations.contains(event.getSource().damageType));
-			boolean hasRing = !EquipmentHandler.findOrEmpty(ModItems.odinRing, player).isEmpty();
-			if (hasRing && negate) {
+			if (damageNegations.contains(event.getSource().damageType)
+					&& !EquipmentHandler.findOrEmpty(ModItems.odinRing, player).isEmpty()) {
 				event.setCanceled(true);
 			}
 		}
