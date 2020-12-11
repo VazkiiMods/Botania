@@ -138,17 +138,17 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 	public float getManaFractionForDisplay(ItemStack stack) {
 		return (float) getMana(stack) / (float) getMaxMana(stack);
 	}
-	
+
 	@Override
 	public boolean showDurability(ItemStack stack) {
 		return !isStackCreative(stack);
 	}
-	
+
 	@Override
 	public double getDurability(ItemStack stack) {
 		return 1 - getManaFractionForDisplay(stack);
 	}
-	
+
 	@Override
 	public int getDurabilityColor(ItemStack stack) {
 		return MathHelper.hsvToRgb(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);

@@ -302,12 +302,12 @@ public class ItemManaGun extends Item implements IManaUsingItem, IDurabilityExte
 			setCooldown(stack, getCooldown(stack) - 1);
 		}
 	}
-	
+
 	@Override
 	public boolean showDurability(ItemStack stack) {
 		return getCooldown(stack) > 0;
 	}
-	
+
 	@Override
 	public double getDurability(ItemStack stack) {
 		return getCooldown(stack) / (double) COOLDOWN;

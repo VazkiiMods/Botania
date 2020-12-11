@@ -50,12 +50,12 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 	public ItemManaMirror(Settings props) {
 		super(props);
 	}
-	
+
 	@Override
 	public boolean showDurability(ItemStack stack) {
 		return true;
 	}
-	
+
 	@Override
 	public double getDurability(ItemStack stack) {
 		return 1 - getManaFractionForDisplay(stack);
