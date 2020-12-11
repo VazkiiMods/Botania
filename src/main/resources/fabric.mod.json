@@ -29,6 +29,9 @@
     ],
     "cardinal-components-block": [
       "vazkii.botania.common.components.BlockEntityComponents"
+    ],
+    "rei_plugins_v0": [
+      "vazkii.botania.common.compat.rei.BotaniaREIPlugin"
     ]
   },
   "mixins": [

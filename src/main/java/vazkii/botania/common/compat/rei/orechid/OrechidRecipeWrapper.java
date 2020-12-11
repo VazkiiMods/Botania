@@ -6,13 +6,14 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.integration.jei.orechid;
+package vazkii.botania.common.compat.rei.orechid;
+
+import net.minecraft.util.Identifier;
 
 import javax.annotation.Nonnull;
-import net.minecraft.util.Identifier;
+
 import java.util.Map;
 
-// This only exists to hold the map entry
 public class OrechidRecipeWrapper implements Comparable<OrechidRecipeWrapper> {
 	public final Map.Entry<Identifier, Integer> entry;
 
