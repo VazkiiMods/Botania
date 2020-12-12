@@ -15,8 +15,8 @@
     "minecraft:podzol",
     "minecraft:mycelium",
     "minecraft:grass_block",
-    "#minecraft:sand",
     "minecraft:gravel",
-    "minecraft:snow"
+    "minecraft:snow",
+    "#minecraft:sand"
   ]
 }

@@ -123,10 +123,11 @@ public class BlockTagProvider extends BlockTagsProvider {
 				ModBlocks.corporeaBrickWall, ModBlocks.corporeaCrystalCube, ModBlocks.corporeaFunnel, ModBlocks.corporeaIndex,
 				ModBlocks.corporeaInterceptor, ModBlocks.corporeaSlab, ModBlocks.corporeaStairs);
 
-		getOrCreateTagBuilder(ModTags.Blocks.TERRAFORMABLE).add(Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.INFESTED_STONE, Blocks.STONE, Blocks.POLISHED_ANDESITE, Blocks.POLISHED_DIORITE, Blocks.POLISHED_GRANITE)
-				.add(Blocks.DIRT, Blocks.GRASS_BLOCK, Blocks.COARSE_DIRT, Blocks.PODZOL, Blocks.MYCELIUM)
-				.add(Blocks.GRASS_BLOCK, Blocks.GRAVEL, Blocks.SNOW)
-				.add(Blocks.SAND, Blocks.RED_SAND); // #minecraft:sand causes an error for some reason
+//		getOrCreateTagBuilder(ModTags.Blocks.TERRAFORMABLE)
+//				.add(Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.INFESTED_STONE, Blocks.STONE, Blocks.POLISHED_ANDESITE, Blocks.POLISHED_DIORITE, Blocks.POLISHED_GRANITE)
+//				.add(Blocks.DIRT, Blocks.GRASS_BLOCK, Blocks.COARSE_DIRT, Blocks.PODZOL, Blocks.MYCELIUM)
+//				.add(Blocks.GRASS_BLOCK, Blocks.GRAVEL, Blocks.SNOW)
+//				.addTag(BlockTags.SAND);
 		getOrCreateTagBuilder(ModTags.Blocks.GAIA_BREAK_BLACKLIST).add(Blocks.BEACON, ModBlocks.manaPylon, ModBlocks.naturaPylon, ModBlocks.gaiaPylon);
 		getOrCreateTagBuilder(ModTags.Blocks.MAGNET_RING_BLACKLIST).add(ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool,
 				ModBlocks.fabulousPool, ModBlocks.terraPlate, ModBlocks.runeAltar);
