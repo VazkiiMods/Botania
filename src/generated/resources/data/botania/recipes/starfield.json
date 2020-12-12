@@ -9,7 +9,7 @@
       "item": "botania:pixie_dust"
     },
     "E": {
-      "tag": "forge:ingots/elementium"
+      "tag": "botania:elementium_ingots"
     },
     "O": {
       "item": "minecraft:obsidian"

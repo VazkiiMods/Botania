@@ -10,7 +10,7 @@
       "item": "botania:redstone_spreader"
     },
     "D": {
-      "tag": "forge:gems/mana_diamond"
+      "tag": "botania:mana_diamond_gems"
     },
     "T": {
       "item": "minecraft:tnt"

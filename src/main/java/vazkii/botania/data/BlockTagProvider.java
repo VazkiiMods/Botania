@@ -114,12 +114,6 @@ public class BlockTagProvider extends BlockTagsProvider {
 				ModFluffBlocks.lavenderQuartz, ModFluffBlocks.redQuartz, ModFluffBlocks.elfQuartz, ModFluffBlocks.sunnyQuartz
 		);
 		getOrCreateTagBuilder(ModTags.Blocks.BLOCKS_TERRASTEEL).add(ModBlocks.terrasteelBlock);
-		/* todo 1.16-fabric
-		getOrCreateTagBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(ModTags.Blocks.BLOCKS_ELEMENTIUM);
-		getOrCreateTagBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(ModTags.Blocks.BLOCKS_MANASTEEL);
-		getOrCreateTagBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(ModTags.Blocks.BLOCKS_QUARTZ);
-		getOrCreateTagBuilder(Tags.Blocks.STORAGE_BLOCKS).addTag(ModTags.Blocks.BLOCKS_TERRASTEEL);
-		*/
 
 		getOrCreateTagBuilder(ModTags.Blocks.LIVINGROCK).add(ModBlocks.livingrock);
 		getOrCreateTagBuilder(ModTags.Blocks.LIVINGWOOD).add(ModBlocks.livingwood);
@@ -129,8 +123,12 @@ public class BlockTagProvider extends BlockTagsProvider {
 				ModBlocks.corporeaBrickWall, ModBlocks.corporeaCrystalCube, ModBlocks.corporeaFunnel, ModBlocks.corporeaIndex,
 				ModBlocks.corporeaInterceptor, ModBlocks.corporeaSlab, ModBlocks.corporeaStairs);
 
-//		getOrCreateTagBuilder(ModTags.Blocks.TERRAFORMABLE).addTag(Tags.Blocks.STONE).addTag(Tags.Blocks.DIRT).addTag(BlockTags.SAND)
-//				.add(Blocks.GRASS_BLOCK, Blocks.GRAVEL, Blocks.SNOW); TODO work around forge bug or wait for fix?
+		getOrCreateTagBuilder(BlockTags.SAND); // We aren't calling vanilla's generation, so need to add a dummy so that using this below doesn't error out.
+		getOrCreateTagBuilder(ModTags.Blocks.TERRAFORMABLE)
+				.add(Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.INFESTED_STONE, Blocks.STONE, Blocks.POLISHED_ANDESITE, Blocks.POLISHED_DIORITE, Blocks.POLISHED_GRANITE)
+				.add(Blocks.DIRT, Blocks.GRASS_BLOCK, Blocks.COARSE_DIRT, Blocks.PODZOL, Blocks.MYCELIUM)
+				.add(Blocks.GRASS_BLOCK, Blocks.GRAVEL, Blocks.SNOW)
+				.addTag(BlockTags.SAND);
 		getOrCreateTagBuilder(ModTags.Blocks.GAIA_BREAK_BLACKLIST).add(Blocks.BEACON, ModBlocks.manaPylon, ModBlocks.naturaPylon, ModBlocks.gaiaPylon);
 		getOrCreateTagBuilder(ModTags.Blocks.MAGNET_RING_BLACKLIST).add(ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool,
 				ModBlocks.fabulousPool, ModBlocks.terraPlate, ModBlocks.runeAltar);

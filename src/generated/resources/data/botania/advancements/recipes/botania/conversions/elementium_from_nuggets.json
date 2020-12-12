@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:nuggets/elementium"
+            "tag": "botania:elementium_nuggets"
           }
         ]
       }

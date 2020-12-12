@@ -10,7 +10,7 @@
       "tag": "botania:runes/fire"
     },
     "S": {
-      "tag": "forge:ingots/manasteel"
+      "tag": "botania:manasteel_ingots"
     },
     "E": {
       "tag": "botania:runes/earth"

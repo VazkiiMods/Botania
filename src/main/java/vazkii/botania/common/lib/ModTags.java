@@ -38,23 +38,23 @@ public class ModTags {
 	}
 
 	public static class Items {
-		public static final Tag.Identified<Item> DUSTS_MANA = forgeTag("dusts/mana");
+		public static final Tag.Identified<Item> DUSTS_MANA = tag("mana_dusts");
 
-		public static final Tag.Identified<Item> GEMS_DRAGONSTONE = forgeTag("gems/dragonstone");
-		public static final Tag.Identified<Item> GEMS_MANA_DIAMOND = forgeTag("gems/mana_diamond");
+		public static final Tag.Identified<Item> GEMS_DRAGONSTONE = tag("dragonstone_gems");
+		public static final Tag.Identified<Item> GEMS_MANA_DIAMOND = tag("mana_diamond_gems");
 
-		public static final Tag.Identified<Item> INGOTS_ELEMENTIUM = forgeTag("ingots/elementium");
-		public static final Tag.Identified<Item> INGOTS_MANASTEEL = forgeTag("ingots/manasteel");
-		public static final Tag.Identified<Item> INGOTS_TERRASTEEL = forgeTag("ingots/terrasteel");
+		public static final Tag.Identified<Item> INGOTS_ELEMENTIUM = tag("elementium_ingots");
+		public static final Tag.Identified<Item> INGOTS_MANASTEEL = tag("manasteel_ingots");
+		public static final Tag.Identified<Item> INGOTS_TERRASTEEL = tag("terrasteel_ingots");
 
-		public static final Tag.Identified<Item> NUGGETS_ELEMENTIUM = forgeTag("nuggets/elementium");
-		public static final Tag.Identified<Item> NUGGETS_MANASTEEL = forgeTag("nuggets/manasteel");
-		public static final Tag.Identified<Item> NUGGETS_TERRASTEEL = forgeTag("nuggets/terrasteel");
+		public static final Tag.Identified<Item> NUGGETS_ELEMENTIUM = tag("elementium_nuggets");
+		public static final Tag.Identified<Item> NUGGETS_MANASTEEL = tag("manasteel_nuggets");
+		public static final Tag.Identified<Item> NUGGETS_TERRASTEEL = tag("terrasteel_nuggets");
 
-		public static final Tag.Identified<Item> BLOCKS_ELEMENTIUM = forgeTag("storage_blocks/elementium");
-		public static final Tag.Identified<Item> BLOCKS_MANASTEEL = forgeTag("storage_blocks/manasteel");
-		public static final Tag.Identified<Item> BLOCKS_QUARTZ = forgeTag("storage_blocks/quartz");
-		public static final Tag.Identified<Item> BLOCKS_TERRASTEEL = forgeTag("storage_blocks/terrasteel");
+		public static final Tag.Identified<Item> BLOCKS_ELEMENTIUM = tag("elementium_blocks");
+		public static final Tag.Identified<Item> BLOCKS_MANASTEEL = tag("manasteel_blocks");
+		public static final Tag.Identified<Item> BLOCKS_QUARTZ = commonTag("quartz_blocks");
+		public static final Tag.Identified<Item> BLOCKS_TERRASTEEL = tag("terrasteel_blocks");
 
 		public static final Tag.Identified<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
 		public static final Tag.Identified<Item> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
@@ -162,8 +162,8 @@ public class ModTags {
 			return TagRegistry.create(prefix(name), ItemTags::getTagGroup);
 		}
 
-		private static Tag.Identified<Item> forgeTag(String name) {
-			return TagRegistry.create(new Identifier("forge", name), ItemTags::getTagGroup);
+		private static Tag.Identified<Item> commonTag(String name) {
+			return TagRegistry.create(new Identifier("c", name), ItemTags::getTagGroup);
 		}
 	}
 
@@ -184,10 +184,10 @@ public class ModTags {
 		public static final Tag.Identified<Block> LIVINGROCK = tag("livingrock");
 		public static final Tag.Identified<Block> LIVINGWOOD = tag("livingwood");
 
-		public static final Tag.Identified<Block> BLOCKS_ELEMENTIUM = forgeTag("storage_blocks/elementium");
-		public static final Tag.Identified<Block> BLOCKS_MANASTEEL = forgeTag("storage_blocks/manasteel");
-		public static final Tag.Identified<Block> BLOCKS_QUARTZ = forgeTag("storage_blocks/quartz");
-		public static final Tag.Identified<Block> BLOCKS_TERRASTEEL = forgeTag("storage_blocks/terrasteel");
+		public static final Tag.Identified<Block> BLOCKS_ELEMENTIUM = tag("elementium_blocks");
+		public static final Tag.Identified<Block> BLOCKS_MANASTEEL = tag("manasteel_blocks");
+		public static final Tag.Identified<Block> BLOCKS_QUARTZ = commonTag("quartz_blocks");
+		public static final Tag.Identified<Block> BLOCKS_TERRASTEEL = tag("terrasteel_blocks");
 
 		public static final Tag.Identified<Block> GAIA_BREAK_BLACKLIST = tag("gaia_break_blacklist");
 		public static final Tag.Identified<Block> MAGNET_RING_BLACKLIST = tag("magnet_ring_blacklist");
@@ -201,8 +201,8 @@ public class ModTags {
 			return TagRegistry.create(prefix(name), BlockTags::getTagGroup);
 		}
 
-		private static Tag.Identified<Block> forgeTag(String name) {
-			return TagRegistry.create(new Identifier("forge", name), BlockTags::getTagGroup);
+		private static Tag.Identified<Block> commonTag(String name) {
+			return TagRegistry.create(new Identifier("c", name), BlockTags::getTagGroup);
 		}
 	}
 

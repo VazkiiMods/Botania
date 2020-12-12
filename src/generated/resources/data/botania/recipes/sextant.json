@@ -10,7 +10,7 @@
       "item": "botania:livingwood_twig"
     },
     "I": {
-      "tag": "forge:ingots/manasteel"
+      "tag": "botania:manasteel_ingots"
     }
   },
   "result": {

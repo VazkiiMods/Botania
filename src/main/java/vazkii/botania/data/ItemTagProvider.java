@@ -79,32 +79,17 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(ModItems.recordGaia1, ModItems.recordGaia2);
 
 		this.getOrCreateTagBuilder(ModTags.Items.DUSTS_MANA).add(ModItems.manaPowder);
-		// todo 1.16-fabric this.getOrCreateTagBuilder(Tags.Items.DUSTS).addTag(ModTags.Items.DUSTS_MANA);
 
 		this.getOrCreateTagBuilder(ModTags.Items.GEMS_DRAGONSTONE).add(ModItems.dragonstone);
 		this.getOrCreateTagBuilder(ModTags.Items.GEMS_MANA_DIAMOND).add(ModItems.manaDiamond);
-		/* todo 1.16-fabric
-		this.getOrCreateTagBuilder(Tags.Items.GEMS).addTag(ModTags.Items.GEMS_DRAGONSTONE);
-		this.getOrCreateTagBuilder(Tags.Items.GEMS).addTag(ModTags.Items.GEMS_MANA_DIAMOND);
-		*/
 
 		this.getOrCreateTagBuilder(ModTags.Items.INGOTS_ELEMENTIUM).add(ModItems.elementium);
 		this.getOrCreateTagBuilder(ModTags.Items.INGOTS_MANASTEEL).add(ModItems.manaSteel);
 		this.getOrCreateTagBuilder(ModTags.Items.INGOTS_TERRASTEEL).add(ModItems.terrasteel);
-		/* todo 1.16-fabric
-		this.getOrCreateTagBuilder(Tags.Items.INGOTS).addTag(ModTags.Items.INGOTS_ELEMENTIUM);
-		this.getOrCreateTagBuilder(Tags.Items.INGOTS).addTag(ModTags.Items.INGOTS_MANASTEEL);
-		this.getOrCreateTagBuilder(Tags.Items.INGOTS).addTag(ModTags.Items.INGOTS_TERRASTEEL);
-		*/
 
 		this.getOrCreateTagBuilder(ModTags.Items.NUGGETS_ELEMENTIUM).add(ModItems.elementiumNugget);
 		this.getOrCreateTagBuilder(ModTags.Items.NUGGETS_MANASTEEL).add(ModItems.manasteelNugget);
 		this.getOrCreateTagBuilder(ModTags.Items.NUGGETS_TERRASTEEL).add(ModItems.terrasteelNugget);
-		/* todo 1.16-fabric
-		this.getOrCreateTagBuilder(Tags.Items.NUGGETS).addTag(ModTags.Items.NUGGETS_ELEMENTIUM);
-		this.getOrCreateTagBuilder(Tags.Items.NUGGETS).addTag(ModTags.Items.NUGGETS_MANASTEEL);
-		this.getOrCreateTagBuilder(Tags.Items.NUGGETS).addTag(ModTags.Items.NUGGETS_TERRASTEEL);
-		*/
 
 		this.copy(ModTags.Blocks.BLOCKS_ELEMENTIUM, ModTags.Items.BLOCKS_ELEMENTIUM);
 		this.copy(ModTags.Blocks.BLOCKS_MANASTEEL, ModTags.Items.BLOCKS_MANASTEEL);

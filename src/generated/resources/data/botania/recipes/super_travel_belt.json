@@ -10,7 +10,7 @@
       "item": "botania:travel_belt"
     },
     "E": {
-      "tag": "forge:ingots/elementium"
+      "tag": "botania:elementium_ingots"
     },
     "L": {
       "item": "botania:life_essence"

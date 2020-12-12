@@ -10,7 +10,7 @@
       "item": "minecraft:slime_ball"
     },
     "E": {
-      "tag": "forge:ingots/elementium"
+      "tag": "botania:elementium_ingots"
     },
     "G": {
       "item": "botania:elf_glass"
