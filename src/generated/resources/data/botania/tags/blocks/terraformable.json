@@ -17,7 +17,6 @@
     "minecraft:grass_block",
     "minecraft:gravel",
     "minecraft:snow",
-    "minecraft:sand",
-    "minecraft:red_sand"
+    "#minecraft:sand"
   ]
 }
