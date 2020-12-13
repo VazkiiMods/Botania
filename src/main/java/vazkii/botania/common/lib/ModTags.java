@@ -196,8 +196,8 @@ public class ModTags {
 
 		public static final Tag.Identified<Block> CORPOREA_SPARK_OVERRIDE = tag("corporea_spark_override");
 		public static final Tag.Identified<Block> TERRA_PLATE_BASE = tag("terra_plate_base");
-    
-    public static final Tag.Identified<Block> LAPIS_BLOCKS = commonTag("lapis_blocks");
+
+		public static final Tag.Identified<Block> LAPIS_BLOCKS = commonTag("lapis_blocks");
 
 		public static final Tag.Identified<Block> COAL_ORES = commonTag("coal_ores");
 		public static final Tag.Identified<Block> DIAMOND_ORES = commonTag("diamond_ores");
