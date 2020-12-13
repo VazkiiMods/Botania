@@ -18,16 +18,20 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootParameterSets;
 import net.minecraft.loot.LootParameters;
 import net.minecraft.loot.LootTable;
 import net.minecraft.network.IPacket;
+import net.minecraft.particles.ItemParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
@@ -96,6 +100,16 @@ public class EntityEnderAirBottle extends ThrowableEntity implements IRendersAsI
 			DamageSource source = DamageSource.causeThrownDamage(this, func_234616_v_());
 			entity.attackEntityFrom(source, 0);
 
+			// Ghasts always appear to be aligned horizontally - but the look doesn't always match, correct for that
+			Vector3d lookVec = entity.getLookVec();
+			Vector3d vec = new Vector3d(lookVec.getX(), 0, lookVec.getZ()).normalize();
+
+			// Position chosen to appear roughly in the ghast's face
+			((ServerWorld) world).spawnParticle(new ItemParticleData(ParticleTypes.ITEM, new ItemStack(Items.GHAST_TEAR)),
+					entity.getPosX() + (2.3 * vec.x), entity.getPosY() + vec.y + 2.6, entity.getPosZ() + (2.3 * vec.z),
+					40,
+					Math.abs(vec.z) + 0.15, 0.2, Math.abs(vec.x) + 0.15, 0.2);
+
 			LootTable table = world.getServer().getLootTableManager().getLootTableFromLocation(GHAST_LOOT_TABLE);
 			LootContext.Builder builder = new LootContext.Builder(((ServerWorld) world));
 			builder.withParameter(LootParameters.THIS_ENTITY, entity);
@@ -105,7 +119,7 @@ public class EntityEnderAirBottle extends ThrowableEntity implements IRendersAsI
 			LootContext context = builder.build(LootParameterSets.ENTITY);
 			for (ItemStack stack : table.generate(context)) {
 				ItemEntity item = entity.entityDropItem(stack, 2);
-				item.setMotion(item.getMotion().add(entity.getLookVec().scale(0.4)));
+				item.setMotion(item.getMotion().add(vec.scale(0.4)));
 			}
 		} else {
 			convertStone(new BlockPos(result.getHitVec()));
