@@ -57,7 +57,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, Tickabl
 			'P', ModBlocks.terraPlate,
 			'R', "#botania:terra_plate_base",
 			'0', "#botania:terra_plate_base",
-			'L', "#forge:storage_blocks/lapis"
+			'L', "#c:lapis_blocks"
 	));
 
 	private static final String TAG_MANA = "mana";

@@ -134,6 +134,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 				ModBlocks.fabulousPool, ModBlocks.terraPlate, ModBlocks.runeAltar);
 
 		getOrCreateTagBuilder(ModTags.Blocks.TERRA_PLATE_BASE).add(ModBlocks.livingrock, ModBlocks.shimmerrock);
+		getOrCreateTagBuilder(ModTags.Blocks.LAPIS_BLOCKS).add(Blocks.LAPIS_BLOCK);
 	}
 
 	@Nonnull
