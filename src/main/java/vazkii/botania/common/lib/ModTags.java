@@ -197,6 +197,8 @@ public class ModTags {
 		public static final Tag.Identified<Block> CORPOREA_SPARK_OVERRIDE = tag("corporea_spark_override");
 		public static final Tag.Identified<Block> TERRA_PLATE_BASE = tag("terra_plate_base");
 
+		public static final Tag.Identified<Block> LAPIS_BLOCKS = commonTag("lapis_blocks");
+
 		private static Tag.Identified<Block> tag(String name) {
 			return TagRegistry.create(prefix(name), BlockTags::getTagGroup);
 		}
