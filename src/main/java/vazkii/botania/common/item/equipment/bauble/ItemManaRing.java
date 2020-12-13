@@ -13,13 +13,15 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
 
+import net.minecraft.util.math.MathHelper;
+import vazkii.botania.api.item.IDurabilityExtension;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
 
-public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipDisplay {
+public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipDisplay, IDurabilityExtension {
 
 	protected static final int MAX_MANA = 500000;
 
@@ -88,22 +90,19 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 	public float getManaFractionForDisplay(ItemStack stack) {
 		return (float) getMana(stack) / (float) getMaxMana(stack);
 	}
-
-	/* todo 1.16-fabric
+	
 	@Override
-	public boolean showDurabilityBar(ItemStack stack) {
+	public boolean showDurability(ItemStack stack) {
 		return true;
 	}
 	
 	@Override
-	public double getDurabilityForDisplay(ItemStack stack) {
-		return 1.0 - getManaFractionForDisplay(stack);
+	public double getDurability(ItemStack stack) {
+		return 1 - getManaFractionForDisplay(stack);
 	}
 	
 	@Override
-	public int getRGBDurabilityForDisplay(ItemStack stack) {
+	public int getDurabilityColor(ItemStack stack) {
 		return MathHelper.hsvToRgb(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
 	}
-	*/
-
 }
