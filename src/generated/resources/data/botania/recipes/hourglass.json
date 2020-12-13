@@ -10,7 +10,7 @@
       "item": "minecraft:redstone"
     },
     "S": {
-      "tag": "forge:ingots/manasteel"
+      "tag": "botania:manasteel_ingots"
     },
     "G": {
       "item": "minecraft:gold_ingot"

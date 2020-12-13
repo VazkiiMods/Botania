@@ -26,7 +26,7 @@ public class MixinServerPlayNetworkHandler {
 
 	@Inject(
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/server/PlayerManager;broadcastChatMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/MessageType;Ljava/util/UUID;)V"),
-		method = "method_31286", cancellable = true, remap = false
+		method = "method_31286", cancellable = true
 	)
 	private void handleCorporeaRequest(String msg, CallbackInfo ci) {
 		if (TileCorporeaIndex.getInputHandler().onChatMessage(player, msg)) {

@@ -7,7 +7,7 @@
   ],
   "key": {
     "T": {
-      "tag": "forge:ingots/terrasteel"
+      "tag": "botania:terrasteel_ingots"
     },
     "V": {
       "item": "minecraft:vine"

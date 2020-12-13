@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:ingots/manasteel"
+            "tag": "botania:manasteel_ingots"
           }
         ]
       }

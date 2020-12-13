@@ -5,7 +5,7 @@
       "item": "minecraft:blue_dye"
     },
     {
-      "tag": "forge:storage_blocks/quartz"
+      "tag": "c:quartz_blocks"
     }
   ],
   "result": {

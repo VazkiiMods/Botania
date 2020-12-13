@@ -16,7 +16,7 @@
       "tag": "botania:runes/earth"
     },
     "D": {
-      "tag": "forge:gems/mana_diamond"
+      "tag": "botania:mana_diamond_gems"
     },
     "E": {
       "item": "minecraft:ender_eye"

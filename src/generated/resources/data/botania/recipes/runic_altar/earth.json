@@ -7,10 +7,10 @@
   "mana": 5200,
   "ingredients": [
     {
-      "tag": "forge:dusts/mana"
+      "tag": "botania:mana_dusts"
     },
     {
-      "tag": "forge:ingots/manasteel"
+      "tag": "botania:manasteel_ingots"
     },
     {
       "item": "minecraft:stone"

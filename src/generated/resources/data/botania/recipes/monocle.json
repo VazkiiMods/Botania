@@ -10,7 +10,7 @@
       "item": "botania:mana_glass"
     },
     "I": {
-      "tag": "forge:ingots/manasteel"
+      "tag": "botania:manasteel_ingots"
     },
     "N": {
       "item": "minecraft:gold_nugget"

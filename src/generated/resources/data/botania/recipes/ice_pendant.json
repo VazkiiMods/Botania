@@ -16,7 +16,7 @@
       "tag": "botania:runes/winter"
     },
     "M": {
-      "tag": "forge:ingots/manasteel"
+      "tag": "botania:manasteel_ingots"
     }
   },
   "result": {

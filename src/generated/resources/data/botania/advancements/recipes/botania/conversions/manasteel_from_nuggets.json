@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:nuggets/manasteel"
+            "tag": "botania:manasteel_nuggets"
           }
         ]
       }

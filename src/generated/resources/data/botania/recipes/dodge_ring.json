@@ -13,7 +13,7 @@
       "item": "minecraft:emerald"
     },
     "M": {
-      "tag": "forge:ingots/manasteel"
+      "tag": "botania:manasteel_ingots"
     }
   },
   "result": {

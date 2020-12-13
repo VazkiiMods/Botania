@@ -6,10 +6,10 @@
   "mana": 12000,
   "ingredients": [
     {
-      "tag": "forge:gems/mana_diamond"
+      "tag": "botania:mana_diamond_gems"
     },
     {
-      "tag": "forge:gems/mana_diamond"
+      "tag": "botania:mana_diamond_gems"
     },
     {
       "tag": "botania:runes/autumn"

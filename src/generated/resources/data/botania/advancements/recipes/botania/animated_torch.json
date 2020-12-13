@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:dusts/mana"
+            "tag": "botania:mana_dusts"
           }
         ]
       }

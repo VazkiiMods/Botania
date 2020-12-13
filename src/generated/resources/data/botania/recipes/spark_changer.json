@@ -12,7 +12,7 @@
       "tag": "botania:livingrock"
     },
     "E": {
-      "tag": "forge:ingots/elementium"
+      "tag": "botania:elementium_ingots"
     }
   },
   "result": {

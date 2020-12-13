@@ -8,8 +8,10 @@
  */
 package vazkii.botania.common.network;
 
+import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.PacketByteBuf;
 
 
@@ -24,13 +26,15 @@ public final class PacketHandler {
 		ServerSidePacketRegistry.INSTANCE.register(PacketIndexKeybindRequest.ID, PacketIndexKeybindRequest::handle);
 		ServerSidePacketRegistry.INSTANCE.register(PacketJump.ID, PacketJump::handle);
 
-		ClientSidePacketRegistry.INSTANCE.register(PacketBotaniaEffect.ID, PacketBotaniaEffect.Handler::handle);
-		ClientSidePacketRegistry.INSTANCE.register(PacketItemAge.ID, PacketItemAge::handle);
-		ClientSidePacketRegistry.INSTANCE.register(PacketSpawnEntity.ID, PacketSpawnEntity::handle);
-		ClientSidePacketRegistry.INSTANCE.register(PacketSpawnDoppleganger.ID, PacketSpawnDoppleganger::handle);
-		ClientSidePacketRegistry.INSTANCE.register(PacketUpdateItemsRemaining.ID, PacketUpdateItemsRemaining::handle);
-		ClientSidePacketRegistry.INSTANCE.register(PacketGogWorld.ID, PacketGogWorld::handle);
-		ClientSidePacketRegistry.INSTANCE.register(PacketOrechidOreWeights.ID, PacketOrechidOreWeights::handle);
+		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+			ClientSidePacketRegistry.INSTANCE.register(PacketBotaniaEffect.ID, PacketBotaniaEffect.Handler::handle);
+			ClientSidePacketRegistry.INSTANCE.register(PacketItemAge.ID, PacketItemAge::handle);
+			ClientSidePacketRegistry.INSTANCE.register(PacketSpawnEntity.ID, PacketSpawnEntity::handle);
+			ClientSidePacketRegistry.INSTANCE.register(PacketSpawnDoppleganger.ID, PacketSpawnDoppleganger::handle);
+			ClientSidePacketRegistry.INSTANCE.register(PacketUpdateItemsRemaining.ID, PacketUpdateItemsRemaining::handle);
+			ClientSidePacketRegistry.INSTANCE.register(PacketGogWorld.ID, PacketGogWorld::handle);
+			ClientSidePacketRegistry.INSTANCE.register(PacketOrechidOreWeights.ID, PacketOrechidOreWeights::handle);
+		}
 	}
 
 	private PacketHandler() {}
