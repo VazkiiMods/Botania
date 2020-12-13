@@ -10,15 +10,15 @@ package vazkii.botania.client.core.helper;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 
+import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.GlProgram;
 import net.minecraft.client.gl.GlProgramManager;
 import net.minecraft.client.gl.GlShader;
-import net.minecraft.resource.ReloadableResourceManager;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.resource.SynchronousResourceReloadListener;
+import net.minecraft.resource.*;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.profiler.Profiler;
 
 import org.lwjgl.system.MemoryUtil;
 
@@ -36,6 +36,8 @@ import java.nio.FloatBuffer;
 import java.util.EnumMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -68,18 +70,24 @@ public final class ShaderHelper {
 	private static boolean hasIncompatibleMods = false;
 	private static boolean checkedIncompatibility = false;
 
-	@SuppressWarnings("deprecation")
 	public static void initShaders() {
-		// Can be null when running datagenerators due to the unfortunate time we call this
-		if (MinecraftClient.getInstance() != null
-				&& MinecraftClient.getInstance().getResourceManager() instanceof ReloadableResourceManager) {
-			((ReloadableResourceManager) MinecraftClient.getInstance().getResourceManager()).registerListener(
-					(SynchronousResourceReloadListener) manager -> {
-						PROGRAMS.values().forEach(GlProgramManager::deleteProgram);
-						PROGRAMS.clear();
-						loadShaders(manager);
-					});
-		}
+		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new IdentifiableResourceReloadListener() {
+			private final ResourceReloadListener inner = (SynchronousResourceReloadListener) manager -> {
+				PROGRAMS.values().forEach(GlProgramManager::deleteProgram);
+				PROGRAMS.clear();
+				loadShaders(manager);
+			};
+
+			@Override
+			public Identifier getFabricId() {
+				return prefix("shader_loader");
+			}
+
+			@Override
+			public CompletableFuture<Void> reload(Synchronizer synchronizer, ResourceManager manager, Profiler prepareProfiler, Profiler applyProfiler, Executor prepareExecutor, Executor applyExecutor) {
+				return inner.reload(synchronizer, manager, prepareProfiler, applyProfiler, prepareExecutor, applyExecutor);
+			}
+		});
 	}
 
 	private static void loadShaders(ResourceManager manager) {
