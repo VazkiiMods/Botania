@@ -136,17 +136,17 @@ public class BlockTagProvider extends BlockTagsProvider {
 		getOrCreateTagBuilder(ModTags.Blocks.TERRA_PLATE_BASE).add(ModBlocks.livingrock, ModBlocks.shimmerrock);
 
 		//duct tape for shortsightedness
-		getOrCreateTagBuilder(ModTags.Blocks.commonTag("coal_ores")).add(Blocks.COAL_ORE);
-		getOrCreateTagBuilder(ModTags.Blocks.commonTag("diamond_ores")).add(Blocks.DIAMOND_ORE);
-		getOrCreateTagBuilder(ModTags.Blocks.commonTag("emerald_ores")).add(Blocks.EMERALD_BLOCK);
-		getOrCreateTagBuilder(ModTags.Blocks.commonTag("gold_ores")).add(Blocks.GOLD_ORE);
-		getOrCreateTagBuilder(ModTags.Blocks.commonTag("iron_ores")).add(Blocks.IRON_ORE);
-		getOrCreateTagBuilder(ModTags.Blocks.commonTag("lapis_ores")).add(Blocks.LAPIS_ORE);
-		getOrCreateTagBuilder(ModTags.Blocks.commonTag("redstone_ores")).add(Blocks.IRON_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.COAL_ORES).add(Blocks.COAL_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.DIAMOND_ORES).add(Blocks.DIAMOND_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.EMERALD_ORES).add(Blocks.EMERALD_BLOCK);
+		getOrCreateTagBuilder(ModTags.Blocks.GOLD_ORES).add(Blocks.GOLD_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.IRON_ORES).add(Blocks.IRON_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.LAPIS_ORES).add(Blocks.LAPIS_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.REDSTONE_ORES).add(Blocks.IRON_ORE);
 
-		getOrCreateTagBuilder(ModTags.Blocks.commonTag("nether_quartz_ores")).add(Blocks.NETHER_QUARTZ_ORE);
-		getOrCreateTagBuilder(ModTags.Blocks.commonTag("nether_gold_ores")).add(Blocks.NETHER_GOLD_ORE);
-		getOrCreateTagBuilder(ModTags.Blocks.commonTag("ancient_debris")).add(Blocks.ANCIENT_DEBRIS);
+		getOrCreateTagBuilder(ModTags.Blocks.NETHER_QUARTZ_ORES).add(Blocks.NETHER_QUARTZ_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.NETHER_GOLD_ORES).add(Blocks.NETHER_GOLD_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.ANCIENT_DEBRIS).add(Blocks.ANCIENT_DEBRIS);
 	}
 
 	@Nonnull

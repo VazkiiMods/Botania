@@ -197,15 +197,23 @@ public class ModTags {
 		public static final Tag.Identified<Block> CORPOREA_SPARK_OVERRIDE = tag("corporea_spark_override");
 		public static final Tag.Identified<Block> TERRA_PLATE_BASE = tag("terra_plate_base");
 
+		public static final Tag.Identified<Block> COAL_ORES = commonTag("coal_ores");
+		public static final Tag.Identified<Block> DIAMOND_ORES = commonTag("diamond_ores");
+		public static final Tag.Identified<Block> EMERALD_ORES = commonTag("emerald_ores");
+		public static final Tag.Identified<Block> GOLD_ORES = commonTag("gold_ores");
+		public static final Tag.Identified<Block> IRON_ORES = commonTag("iron_ores");
+		public static final Tag.Identified<Block> LAPIS_ORES = commonTag("lapis_ores");
+		public static final Tag.Identified<Block> REDSTONE_ORES = commonTag("redstone_ores");
+
+		public static final Tag.Identified<Block> NETHER_QUARTZ_ORES = commonTag("nether_quartz_ores");
+		public static final Tag.Identified<Block> NETHER_GOLD_ORES = commonTag("nether_gold_ores");
+		public static final Tag.Identified<Block> ANCIENT_DEBRIS = commonTag("ancient_debris");
+
 		private static Tag.Identified<Block> tag(String name) {
 			return TagRegistry.create(prefix(name), BlockTags::getTagGroup);
 		}
 
 		private static Tag.Identified<Block> commonTag(String name) {
-			return TagRegistry.create(new Identifier("c", name), BlockTags::getTagGroup);
-		}
-
-		public static Tag.Identified<Block> commonTag(String name) {
 			return TagRegistry.create(new Identifier("c", name), BlockTags::getTagGroup);
 		}
 	}
