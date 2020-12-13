@@ -53,6 +53,7 @@ import alexiil.mc.lib.attributes.fluid.filter.FluidFilter;
 import alexiil.mc.lib.attributes.fluid.volume.FluidKey;
 import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
 import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
+import alexiil.mc.lib.attributes.misc.LimitedConsumer;
 import alexiil.mc.lib.attributes.misc.Ref;
 import alexiil.mc.lib.attributes.misc.Reference;
 
@@ -179,7 +180,8 @@ public class BlockAltar extends BlockMod implements BlockEntityProvider {
 			return false;
 		}
 
-		ItemAttributeList<FluidExtractable> extrs = FluidAttributes.EXTRACTABLE.getAll(stack);
+		Reference<ItemStack> ref = Reference.simulating(() -> stack, LimitedConsumer.fromConsumer($ -> {}));
+		ItemAttributeList<FluidExtractable> extrs = FluidAttributes.EXTRACTABLE.getAll(ref);
 		FluidFilter filt = ExactFluidFilter.of(fluid);
 		FluidAmount left = FluidAmount.BUCKET;
 		for (int i = 0; i < extrs.getCount(); i++) {
@@ -214,12 +216,10 @@ public class BlockAltar extends BlockMod implements BlockEntityProvider {
 			return false;
 		}
 		//support bucket stacks
-		ItemStack container = stack;
-		if (stack.getCount() > 1) {
-			container = new ItemStack(stack.getItem());
-		}
+		ItemStack container = stack.getCount() > 1 ? new ItemStack(stack.getItem()) : stack;
 
-		ItemAttributeList<FluidInsertable> extrs = FluidAttributes.INSERTABLE.getAll(container);
+		Reference<ItemStack> ref = Reference.simulating(() -> container, LimitedConsumer.fromConsumer($ -> {}));
+		ItemAttributeList<FluidInsertable> extrs = FluidAttributes.INSERTABLE.getAll(ref);
 		FluidKey key = FluidKeys.get(fluid);
 		FluidVolume excess = key.withAmount(FluidAmount.BUCKET);
 		for (int i = 0; i < extrs.getCount(); i++) {
