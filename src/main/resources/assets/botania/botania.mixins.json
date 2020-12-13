@@ -28,7 +28,6 @@
     "MixinThrowableEntity"
   ],
   "client": [
-    "AccessorBiomeGeneratorTypeScreens",
     "AccessorEndPortalTileEntityRenderer",
     "AccessorFirstPersonRenderer",
     "AccessorItemOverrideList",

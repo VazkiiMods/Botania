@@ -30,6 +30,7 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.world.ForgeWorldType;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -122,6 +123,9 @@ public class Botania {
 	public static final Logger LOGGER = LogManager.getLogger(LibMisc.MOD_ID);
 
 	public Botania() {
+		gardenOfGlassLoaded = ModList.get().isLoaded("gardenofglass");
+		curiosLoaded = ModList.get().isLoaded("curios");
+
 		DistExecutor.callWhenOn(Dist.CLIENT, () -> () -> proxy = new ClientProxy());
 		proxy.registerHandlers();
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC);
@@ -151,6 +155,7 @@ public class Botania {
 		modBus.addGenericListener(Item.class, ModSubtiles::registerItemBlocks);
 		modBus.addGenericListener(TileEntityType.class, ModSubtiles::registerTEs);
 		modBus.addGenericListener(Attribute.class, PixieHandler::registerAttribute);
+		modBus.addGenericListener(ForgeWorldType.class, ModFeatures::registerWorldType);
 		modBus.addListener((ModConfig.Loading e) -> ConfigHandler.onConfigLoad());
 		modBus.addListener((ModConfig.Reloading e) -> ConfigHandler.onConfigLoad());
 
@@ -191,9 +196,6 @@ public class Botania {
 	private void commonSetup(FMLCommonSetupEvent event) {
 		CapabilityManager.INSTANCE.register(IFloatingFlower.class, new IFloatingFlower.Storage(), FloatingFlowerImpl::new);
 		CapabilityManager.INSTANCE.register(IExoflameHeatable.class, new NoopCapStorage<>(), NoopExoflameHeatable::new);
-
-		gardenOfGlassLoaded = ModList.get().isLoaded("gardenofglass");
-		curiosLoaded = ModList.get().isLoaded("curios");
 
 		PacketHandler.init();
 

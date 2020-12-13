@@ -18,10 +18,12 @@ import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
+import net.minecraftforge.common.world.ForgeWorldType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
@@ -55,6 +57,12 @@ public class ModFeatures {
 
 		Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, prefix("mystical_flowers"), MYSTICAL_FLOWERS_CONF);
 		Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, prefix("mystical_mushrooms"), MYSTICAL_MUSHROOMS_CONF);
+	}
+
+	public static void registerWorldType(RegistryEvent.Register<ForgeWorldType> event) {
+		if (Botania.gardenOfGlassLoaded) {
+			ModBlocks.register(event.getRegistry(), prefix("gardenofglass"), WorldTypeSkyblock.INSTANCE);
+		}
 	}
 
 	public static void onBiomeLoad(BiomeLoadingEvent event) {

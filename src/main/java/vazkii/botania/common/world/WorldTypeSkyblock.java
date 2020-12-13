@@ -6,29 +6,31 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.core;
+package vazkii.botania.common.world;
 
-import net.minecraft.client.gui.screen.BiomeGeneratorTypeScreens;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.OverworldBiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.DimensionSettings;
-
-import vazkii.botania.common.world.SkyblockChunkGenerator;
+import net.minecraftforge.common.world.ForgeWorldType;
 
 import javax.annotation.Nonnull;
 
-public class WorldTypeSkyblock extends BiomeGeneratorTypeScreens {
-	public static final BiomeGeneratorTypeScreens INSTANCE = new WorldTypeSkyblock();
+public class WorldTypeSkyblock extends ForgeWorldType {
+	public static final WorldTypeSkyblock INSTANCE = new WorldTypeSkyblock();
 
 	private WorldTypeSkyblock() {
-		super("botania-skyblock");
+		super(WorldTypeSkyblock::getChunkGenerator);
+	}
+
+	private static ChunkGenerator getChunkGenerator(@Nonnull Registry<Biome> biomeRegistry, @Nonnull Registry<DimensionSettings> dimensionSettingsRegistry, long seed) {
+		return new SkyblockChunkGenerator(new OverworldBiomeProvider(seed, false, false, biomeRegistry), seed,
+				() -> dimensionSettingsRegistry.getOrThrow(DimensionSettings.field_242734_c));
 	}
 
 	@Override
-	protected ChunkGenerator func_241869_a(@Nonnull Registry<Biome> biomeRegistry, @Nonnull Registry<DimensionSettings> dimensionSettingsRegistry, long seed) {
-		return new SkyblockChunkGenerator(new OverworldBiomeProvider(seed, false, false, biomeRegistry), seed,
-				() -> dimensionSettingsRegistry.getOrThrow(DimensionSettings.field_242734_c));
+	public String getTranslationKey() {
+		return "generator.botania-skyblock";
 	}
 }
