@@ -12,6 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 
 import vazkii.botania.common.block.subtile.functional.SubTileSpectranthemum;
 import vazkii.botania.common.block.tile.TileAlfPortal;
+import vazkii.botania.common.block.tile.TileAltar;
 
 
 import dev.onyxstudios.cca.api.v3.component.Component;
@@ -20,16 +21,19 @@ import dev.onyxstudios.cca.api.v3.component.Component;
 public class ItemFlagsComponent implements Component {
 	public boolean spectranthemumTeleported = false;
 	public boolean alfPortalSpawned = false;
+	public boolean apothecarySpawned = false;
 
 	@Override
 	public void readFromNbt(CompoundTag tag) {
 		spectranthemumTeleported = tag.getBoolean(SubTileSpectranthemum.TAG_TELEPORTED);
 		alfPortalSpawned = tag.getBoolean(TileAlfPortal.TAG_PORTAL_FLAG);
+		apothecarySpawned = tag.getBoolean(TileAltar.ITEM_TAG_APOTHECARY_SPAWNED);
 	}
 
 	@Override
 	public void writeToNbt(CompoundTag tag) {
 		tag.putBoolean(SubTileSpectranthemum.TAG_TELEPORTED, spectranthemumTeleported);
 		tag.putBoolean(TileAlfPortal.TAG_PORTAL_FLAG, alfPortalSpawned);
+		tag.putBoolean(TileAltar.ITEM_TAG_APOTHECARY_SPAWNED, apothecarySpawned);
 	}
 }
