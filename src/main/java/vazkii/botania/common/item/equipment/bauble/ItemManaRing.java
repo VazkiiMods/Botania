@@ -12,8 +12,8 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.collection.DefaultedList;
-
 import net.minecraft.util.math.MathHelper;
+
 import vazkii.botania.api.item.IDurabilityExtension;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
@@ -90,17 +90,17 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 	public float getManaFractionForDisplay(ItemStack stack) {
 		return (float) getMana(stack) / (float) getMaxMana(stack);
 	}
-	
+
 	@Override
 	public boolean showDurability(ItemStack stack) {
 		return true;
 	}
-	
+
 	@Override
 	public double getDurability(ItemStack stack) {
 		return 1 - getManaFractionForDisplay(stack);
 	}
-	
+
 	@Override
 	public int getDurabilityColor(ItemStack stack) {
 		return MathHelper.hsvToRgb(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
