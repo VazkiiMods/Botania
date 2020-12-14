@@ -2765,7 +2765,7 @@
   "botania.entry.enderAir": "Extracting Ender Air",
   "botania.tagline.enderAir": "Throwable bottles that create End Stone",
   "botania.page.enderAir0": "The air present in the void of the $(item)End$(0) seems to have mutative properties. Right-clicking with an empty $(item)Glass Bottle$(0) while in the $(item)End$(0) will capture some of that air, which can then later be tossed like a splash potion, turning nearby $(item)Stone$(0) at the landing point into $(item)End Stone$(0). $(p)$(item)Dispensers$(0) can also capture this air, if nothing is blocking the area above the output.",
-  "botania.page.enderAir1": "It's been \"experimentally\" determined that the gases of the $(item)End$(0) void, when mixed with plain $(thing)Overworld$(0) air, are quite toxic to certain $(thing)Nether$(0) mobs such as the $(item)Ghast$(0).$(p)While the amount stored in an $(item)Ender Air Bottle$(0) is much too small to deal any real damage, it's certainly effective as an irritant. Especially if it manages to get in the eyes.",
+  "botania.page.enderAir1": "It's been \"experimentally\" determined that the gases of the $(item)End$(0) void, when mixed with plain $(thing)Overworld$(0) air, are quite toxic to certain $(thing)Nether$(0) mobs such as the $(item)Ghast$(0).$(p)While the amount stored in an $(item)Ender Air Bottle$(0) is much too small to deal any real damage, it's certainly effective as an irritant.$(p)Especially if it manages to get in the eyes.",
 
   "botania.entry.enderEyeBlock": "Ender Overseer",
   "botania.tagline.enderEyeBlock": "Look activated redstone detector",
