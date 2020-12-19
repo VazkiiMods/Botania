@@ -66,4 +66,9 @@ public interface IPureDaisyRecipe extends IRecipe<IInventory> {
 	default ItemStack getRecipeOutput() {
 		return ItemStack.EMPTY;
 	}
+
+	@Override
+	default boolean isDynamic() {
+		return true;
+	}
 }

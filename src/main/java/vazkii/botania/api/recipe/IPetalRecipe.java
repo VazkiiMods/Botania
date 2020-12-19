@@ -31,4 +31,9 @@ public interface IPetalRecipe extends IRecipe<IInventory> {
 	default boolean canFit(int width, int height) {
 		return false;
 	}
+
+	@Override
+	default boolean isDynamic() {
+		return true;
+	}
 }

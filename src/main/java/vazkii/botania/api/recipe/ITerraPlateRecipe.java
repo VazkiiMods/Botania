@@ -40,4 +40,9 @@ public interface ITerraPlateRecipe extends IRecipe<IInventory> {
 	default ItemStack getIcon() {
 		return Registry.ITEM.getOptional(TERRA_PLATE_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
 	}
+
+	@Override
+	default boolean isDynamic() {
+		return true;
+	}
 }
