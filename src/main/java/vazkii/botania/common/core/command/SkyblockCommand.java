@@ -93,10 +93,14 @@ public class SkyblockCommand {
 	}
 
 	private static int doTeleportToIsland(CommandContext<CommandSource> ctx, UUID owner, ITextComponent feedback) throws CommandSyntaxException {
+		ServerPlayerEntity player = ctx.getSource().asPlayer();
+		return doTeleportToIsland(ctx, player, owner, feedback);
+	}
+
+	private static int doTeleportToIsland(CommandContext<CommandSource> ctx, ServerPlayerEntity player, UUID owner, ITextComponent feedback) throws CommandSyntaxException {
 		ServerWorld world = getSkyblockWorld(ctx);
 		IslandPos pos = getIslandForUUID(owner, SkyblockSavedData.get(world));
 
-		ServerPlayerEntity player = ctx.getSource().asPlayer();
 		BlockPos blockPos = pos.getCenter();
 
 		player.teleport(world, blockPos.getX() + 0.5, blockPos.getY(),
@@ -106,12 +110,12 @@ public class SkyblockCommand {
 	}
 
 	private static int createIsland(CommandContext<CommandSource> ctx) throws CommandSyntaxException {
-		PlayerEntity player = EntityArgument.getPlayer(ctx, "player");
+		ServerPlayerEntity player = EntityArgument.getPlayer(ctx, "player");
 		SkyblockSavedData data = SkyblockSavedData.get(getSkyblockWorld(ctx));
 		UUID uuid = player.getUniqueID();
 
 		if (data.skyblocks.containsValue(uuid)) {
-			doTeleportToIsland(ctx, uuid, new TranslationTextComponent("botaniamisc.command.skyblock.island.teleported",
+			doTeleportToIsland(ctx, player, uuid, new TranslationTextComponent("botaniamisc.command.skyblock.island.teleported",
 					ctx.getSource().getDisplayName()));
 			return Command.SINGLE_SUCCESS;
 		}
