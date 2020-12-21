@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeElvenTrade;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibOreDict;
 
@@ -22,6 +23,8 @@ public class ModElvenTradeRecipes {
 	public static RecipeElvenTrade alfglassRecipe;
 
 	public static void init() {
+		if (!ConfigHandler.enableDefaultRecipes) return;
+
 		dreamwoodRecipe = BotaniaAPI.registerElvenTradeRecipe(new ItemStack(ModBlocks.dreamwood), LibOreDict.LIVING_WOOD);
 
 		elementiumRecipes = new ArrayList();

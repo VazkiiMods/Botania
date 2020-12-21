@@ -43,6 +43,8 @@ public final class ConfigHandler {
 
 	public static boolean useAdaptativeConfig = true;
 
+	public static boolean enableDefaultRecipes = false;
+
 	public static boolean useShaders = true;
 	public static boolean lexiconRotatingItems = true;
 	public static boolean lexiconJustifiedText = false;
@@ -280,6 +282,9 @@ public final class ConfigHandler {
 
 		desc = "The quantity of Botania mushrooms to generate underground, in the world, defaults to 40, the lower the number the less patches generate.";
 		mushroomQuantity = loadPropInt("worldgen.mushroom.quantity", desc, mushroomQuantity);
+
+		desc = "Enables all built-in recipes. This can be false for expert modpacks that wish to supply their own.";
+		enableDefaultRecipes = loadPropBool("recipes.enabled", desc, enableDefaultRecipes);
 
 		potionIDSoulCross = loadPropPotionId(LibPotionNames.SOUL_CROSS, potionIDSoulCross);
 		potionIDFeatherfeet = loadPropPotionId(LibPotionNames.FEATHER_FEET, potionIDFeatherfeet);

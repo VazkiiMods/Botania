@@ -21,6 +21,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 
 public final class ModManaInfusionRecipes {
@@ -43,6 +44,8 @@ public final class ModManaInfusionRecipes {
 	public static RecipeManaInfusion sugarCaneRecipe;
 
 	public static void init() {
+		if (!ConfigHandler.enableDefaultRecipes) return;
+
 		manasteelRecipes = new ArrayList();
 		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModItems.manaResource, 1, 0), "ingotIron", 3000));
 		manasteelRecipes.add(BotaniaAPI.registerManaInfusionRecipe(new ItemStack(ModBlocks.storage, 1, 0), new ItemStack(Blocks.iron_block), 27000));

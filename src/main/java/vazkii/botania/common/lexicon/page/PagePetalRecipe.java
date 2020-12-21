@@ -46,7 +46,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 	public PagePetalRecipe(String unlocalizedName, List<T> recipes) {
 		super(unlocalizedName);
-		this.recipes = recipes;
+		this.recipes = filterRecipes(recipes);
 	}
 
 	public PagePetalRecipe(String unlocalizedName, T recipe) {
@@ -56,13 +56,16 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 	@Override
 	public void onPageAdded(LexiconEntry entry, int index) {
 		for(T recipe : recipes)
-			LexiconRecipeMappings.map(recipe.getOutput(), entry, index);
+			if (recipe != null)
+				LexiconRecipeMappings.map(recipe.getOutput(), entry, index);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
+		if (recipes.size() == 0) return;
 		T recipe = recipes.get(recipeAt);
+
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
 
 		renderItemAtGridPos(gui, 3, 0, recipe.getOutput(), false);

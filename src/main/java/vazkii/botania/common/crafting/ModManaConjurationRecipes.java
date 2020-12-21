@@ -19,6 +19,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.recipe.RecipeManaInfusion;
+import vazkii.botania.common.core.handler.ConfigHandler;
 
 public class ModManaConjurationRecipes {
 
@@ -34,6 +35,8 @@ public class ModManaConjurationRecipes {
 	public static RecipeManaInfusion grassRecipe;
 
 	public static void init() {
+		if (!ConfigHandler.enableDefaultRecipes) return;
+
 		redstoneRecipe = BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Items.redstone, 2), new ItemStack(Items.redstone), 5000);
 		glowstoneRecipe = BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Items.glowstone_dust, 2), new ItemStack(Items.glowstone_dust), 5000);
 		quartzRecipe = BotaniaAPI.registerManaConjurationRecipe(new ItemStack(Items.quartz, 2), new ItemStack(Items.quartz), 2500);

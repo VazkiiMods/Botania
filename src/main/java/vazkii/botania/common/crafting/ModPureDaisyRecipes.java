@@ -13,11 +13,14 @@ package vazkii.botania.common.crafting;
 import net.minecraft.init.Blocks;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.lib.LibOreDict;
 
 public final class ModPureDaisyRecipes {
 
 	public static void init() {
+		if (!ConfigHandler.enableDefaultRecipes) return;
+
 		BotaniaAPI.registerPureDaisyRecipe("stone", ModBlocks.livingrock, 0);
 		BotaniaAPI.registerPureDaisyRecipe("logWood", ModBlocks.livingwood, 0);
 

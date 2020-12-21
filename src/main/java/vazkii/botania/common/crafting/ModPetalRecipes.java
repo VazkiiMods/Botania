@@ -77,6 +77,8 @@ public final class ModPetalRecipes {
 	public static RecipePetals solegnoliaRecipe;
 
 	public static void init() {
+		if (!ConfigHandler.enableDefaultRecipes) return;
+
 		pureDaisyRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_PUREDAISY), white, white, white, white);
 		manastarRecipe = BotaniaAPI.registerPetalRecipe(ItemBlockSpecialFlower.ofType(LibBlockNames.SUBTILE_MANASTAR), lightBlue, green, red, cyan);
 

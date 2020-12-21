@@ -181,4 +181,13 @@ public class PageRecipe extends LexiconPage {
 		GL11.glDisable(GL11.GL_LIGHTING);
 	}
 
+	public static <T> List<T> filterRecipes(List<T> list) {
+		if (list == null) return new ArrayList<T>();
+		ArrayList<T> filtered = new ArrayList<T>();
+		for (T entry: list) {
+			if (entry != null) filtered.add(entry);
+		}
+		return filtered;
+	}
+
 }

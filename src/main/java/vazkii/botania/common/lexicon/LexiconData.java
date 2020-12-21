@@ -1162,8 +1162,11 @@ public final class LexiconData {
 			List<LexiconPage> pages = new ArrayList();
 			pages.add(new PageText("0"));
 			pages.add(new PageText("1"));
-			for (int i = 0; i < 32; i++)
-				pages.add(new PageCraftingRecipe("" + (i + 2), ModCraftingRecipes.recipesCosmeticItems.get(i)));
+			if (ModCraftingRecipes.recipesCosmeticItems != null) {
+				for (int i = 0; i < 32; i++) {
+					pages.add(new PageCraftingRecipe("" + (i + 2), ModCraftingRecipes.recipesCosmeticItems.get(i)));
+				}
+			}
 			cosmeticBaubles.setPriority().setLexiconPages(pages.toArray(new LexiconPage[pages.size()]));
 		}
 

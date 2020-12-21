@@ -35,7 +35,7 @@ public class PageElvenRecipe extends PageRecipe {
 
 	public PageElvenRecipe(String unlocalizedName, List<RecipeElvenTrade> recipes) {
 		super(unlocalizedName);
-		this.recipes = recipes;
+		this.recipes = filterRecipes(recipes);
 	}
 
 	public PageElvenRecipe(String unlocalizedName, RecipeElvenTrade recipe) {
@@ -45,13 +45,16 @@ public class PageElvenRecipe extends PageRecipe {
 	@Override
 	public void onPageAdded(LexiconEntry entry, int index) {
 		for(RecipeElvenTrade recipe : recipes)
-			LexiconRecipeMappings.map(recipe.getOutput(), entry, index);
+			if (recipe != null)
+				LexiconRecipeMappings.map(recipe.getOutput(), entry, index);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void renderRecipe(IGuiLexiconEntry gui, int mx, int my) {
+		if (recipes.size() == 0) return;
 		RecipeElvenTrade recipe = recipes.get(recipeAt);
+
 		TextureManager render = Minecraft.getMinecraft().renderEngine;
 		render.bindTexture(elvenTradeOverlay);
 		GL11.glEnable(GL11.GL_BLEND);
