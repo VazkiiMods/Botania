@@ -40,4 +40,9 @@ public interface ITerraPlateRecipe extends Recipe<Inventory> {
 	default ItemStack getRecipeKindIcon() {
 		return Registry.ITEM.getOrEmpty(TERRA_PLATE_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
 	}
+
+	@Override
+	default boolean isIgnoredInRecipeBook() {
+		return true;
+	}
 }

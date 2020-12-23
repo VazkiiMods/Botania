@@ -87,4 +87,9 @@ public interface IElvenTradeRecipe extends Recipe<Inventory> {
 	default ItemStack getOutput() {
 		return ItemStack.EMPTY;
 	}
+
+	@Override
+	default boolean isIgnoredInRecipeBook() {
+		return true;
+	}
 }

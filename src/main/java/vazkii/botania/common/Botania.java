@@ -88,6 +88,8 @@ public class Botania implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		gardenOfGlassLoaded = FabricLoader.getInstance().isModLoaded("gardenofglass");
+		curiosLoaded = FabricLoader.getInstance().isModLoaded("curios");
 		ConfigHandler.setup();
 
 		IMCSender.enqueue();
@@ -127,9 +129,6 @@ public class Botania implements ModInitializer {
 	}
 
 	private void commonSetup() {
-		gardenOfGlassLoaded = FabricLoader.getInstance().isModLoaded("gardenofglass");
-		curiosLoaded = FabricLoader.getInstance().isModLoaded("curios");
-
 		PacketHandler.init();
 
 		EquipmentHandler.init();

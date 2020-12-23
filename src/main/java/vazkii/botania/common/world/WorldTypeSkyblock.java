@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.client.core;
+package vazkii.botania.common.world;
 
 import net.minecraft.client.world.GeneratorType;
 import net.minecraft.util.registry.Registry;
@@ -14,8 +14,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.VanillaLayeredBiomeSource;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
-
-import vazkii.botania.common.world.SkyblockChunkGenerator;
 
 public class WorldTypeSkyblock extends GeneratorType {
 	public static final GeneratorType INSTANCE = new WorldTypeSkyblock();

@@ -17,16 +17,20 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.network.Packet;
+import net.minecraft.particle.ItemStackParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import vazkii.botania.common.item.ModItems;
@@ -89,6 +93,16 @@ public class EntityEnderAirBottle extends ThrownEntity implements FlyingItemEnti
 			DamageSource source = DamageSource.thrownProjectile(this, getOwner());
 			entity.damage(source, 0);
 
+			// Ghasts always appear to be aligned horizontally - but the look doesn't always match, correct for that
+			Vec3d lookVec = entity.getRotationVector();
+			Vec3d vec = new Vec3d(lookVec.getX(), 0, lookVec.getZ()).normalize();
+
+			// Position chosen to appear roughly in the ghast's face
+			((ServerWorld) world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.GHAST_TEAR)),
+					entity.getX() + (2.3 * vec.x), entity.getY() + vec.y + 2.6, entity.getZ() + (2.3 * vec.z),
+					40,
+					Math.abs(vec.z) + 0.15, 0.2, Math.abs(vec.x) + 0.15, 0.2);
+
 			LootTable table = world.getServer().getLootManager().getTable(GHAST_LOOT_TABLE);
 			LootContext.Builder builder = new LootContext.Builder(((ServerWorld) world));
 			builder.parameter(LootContextParameters.THIS_ENTITY, entity);
@@ -98,7 +112,7 @@ public class EntityEnderAirBottle extends ThrownEntity implements FlyingItemEnti
 			LootContext context = builder.build(LootContextTypes.ENTITY);
 			for (ItemStack stack : table.generateLoot(context)) {
 				ItemEntity item = entity.dropStack(stack, 2);
-				item.setVelocity(item.getVelocity().add(entity.getRotationVector().multiply(0.4)));
+				item.setVelocity(item.getVelocity().add(vec.multiply(0.4)));
 			}
 		} else {
 			convertStone(new BlockPos(result.getPos()));

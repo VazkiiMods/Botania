@@ -51,4 +51,9 @@ public interface IBrewRecipe extends Recipe<Inventory> {
 	default boolean fits(int width, int height) {
 		return false;
 	}
+
+	@Override
+	default boolean isIgnoredInRecipeBook() {
+		return true;
+	}
 }

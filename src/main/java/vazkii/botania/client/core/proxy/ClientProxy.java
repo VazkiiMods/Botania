@@ -48,7 +48,6 @@ import net.minecraft.world.World;
 
 import org.lwjgl.glfw.GLFW;
 
-import vazkii.botania.client.core.WorldTypeSkyblock;
 import vazkii.botania.client.core.handler.*;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -87,6 +86,7 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.relic.ItemInfiniteFruit;
 import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.world.WorldTypeSkyblock;
 import vazkii.botania.mixin.AccessorBiomeGeneratorTypeScreens;
 import vazkii.botania.mixin.AccessorRenderTypeBuffers;
 import vazkii.patchouli.api.BookDrawScreenCallback;
