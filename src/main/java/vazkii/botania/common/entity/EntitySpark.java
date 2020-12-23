@@ -184,18 +184,18 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity, Entity
 
 		if (!transfers.isEmpty()) {
 			int manaTotal = Math.min(TRANSFER_RATE * transfers.size(), tile.getCurrentMana());
-			int manaForEach = manaTotal / transfers.size();
+			int count = transfers.size();
 			int manaSpent = 0;
 
-			if (manaForEach > transfers.size()) {
+			if (manaTotal > 0) {
 				for (ISparkEntity spark : transfers) {
+					count--;
 					if (spark.getAttachedTile() == null || spark.getAttachedTile().isFull() || spark.areIncomingTransfersDone()) {
-						manaTotal -= manaForEach;
 						continue;
 					}
 
 					ISparkAttachable attached = spark.getAttachedTile();
-					int spend = Math.min(attached.getAvailableSpaceForMana(), manaForEach);
+					int spend = Math.min(attached.getAvailableSpaceForMana(), (manaTotal - manaSpent) / (count + 1));
 					attached.receiveMana(spend);
 					manaSpent += spend;
 

@@ -27,8 +27,6 @@ import vazkii.botania.common.components.GhostRailComponent;
 
 import javax.annotation.Nonnull;
 
-import java.util.*;
-
 public class BlockGhostRail extends AbstractRailBlock {
 
 	public static final String TAG_FLOAT_TICKS = "botania:float_ticks";
