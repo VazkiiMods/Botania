@@ -360,6 +360,11 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		set.remove(index);
 	}
 
+	public static void clearCache() {
+		clientIndexes.clear();
+		serverIndexes.clear();
+	}
+
 	public void performPlayerRequest(ServerPlayerEntity player, ICorporeaRequestMatcher request, int count) {
 		CorporeaIndexRequestEvent indexReqEvent = new CorporeaIndexRequestEvent(player, request, count, this.getSpark());
 		if (!MinecraftForge.EVENT_BUS.post(indexReqEvent)) {

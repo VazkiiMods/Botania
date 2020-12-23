@@ -297,6 +297,7 @@ public class Botania {
 
 	private void serverStopping(FMLServerStoppingEvent event) {
 		ManaNetworkHandler.instance.clear();
+		TileCorporeaIndex.clearCache();
 	}
 
 }
