@@ -15,5 +15,5 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         stale-issue-message: 'This issue is stale because it has been open for a while with no activity. Remove stale label or comment or this will be closed soon.'
         stale-pr-message: 'This PR is stale because it has been open for a while with no activity. Remove stale label or comment or this will be closed soon.'
-        exempt-issue-labels: 'confirmed'
+        exempt-issue-labels: 'confirmed,investigate'
         remove-stale-when-updated: true
