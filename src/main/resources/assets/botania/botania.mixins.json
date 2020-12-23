@@ -23,6 +23,7 @@
     "AccessorWitherEntity",
     "MixinAbstractMinecartEntity",
     "MixinEndermanPickupBlock",
+    "MixinFlatPresetsScreen",
     "MixinLootTable",
     "MixinPlayerEntity",
     "MixinThrowableEntity"
