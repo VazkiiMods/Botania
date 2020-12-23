@@ -27,7 +27,8 @@ import java.util.List;
 public class LensInfluence extends Lens {
 
 	@Override
-	public void updateBurst(IManaBurst burst, ThrownEntity entity, ItemStack stack) {
+	public void updateBurst(IManaBurst burst, ItemStack stack) {
+		Entity entity = burst.entity();
 		if (!burst.isFake()) {
 			double range = 3.5;
 			Box bounds = new Box(entity.getX() - range, entity.getY() - range, entity.getZ() - range, entity.getX() + range, entity.getY() + range, entity.getZ() + range);

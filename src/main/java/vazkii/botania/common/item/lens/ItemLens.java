@@ -11,7 +11,6 @@ package vazkii.botania.common.item.lens;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
@@ -100,9 +99,7 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
-		ThrownEntity entity = (ThrownEntity) burst;
-
-		dead = getLens(stack).collideBurst(burst, entity, pos, isManaBlock, dead, stack);
+		dead = getLens(stack).collideBurst(burst, pos, isManaBlock, dead, stack);
 
 		ItemStack compositeLens = getCompositeLens(stack);
 		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof ILens) {
@@ -114,14 +111,13 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 
 	@Override
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
-		ThrownEntity entity = (ThrownEntity) burst;
 		int storedColor = getStoredColor(stack);
 
-		if (storedColor == 16 && entity.world.isClient) {
+		if (storedColor == 16 && burst.entity().world.isClient) {
 			burst.setColor(getLensColor(stack));
 		}
 
-		getLens(stack).updateBurst(burst, entity, stack);
+		getLens(stack).updateBurst(burst, stack);
 
 		ItemStack compositeLens = getCompositeLens(stack);
 		if (!compositeLens.isEmpty() && compositeLens.getItem() instanceof ILens) {
@@ -210,8 +206,8 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 	}
 
 	@Override
-	public int getManaToTransfer(IManaBurst burst, ThrownEntity entity, ItemStack stack, IManaReceiver receiver) {
-		return getLens(stack).getManaToTransfer(burst, entity, stack, receiver);
+	public int getManaToTransfer(IManaBurst burst, ItemStack stack, IManaReceiver receiver) {
+		return getLens(stack).getManaToTransfer(burst, stack, receiver);
 	}
 
 	@Override

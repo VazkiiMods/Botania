@@ -22,7 +22,8 @@ import java.util.List;
 public class LensDamage extends Lens {
 
 	@Override
-	public void updateBurst(IManaBurst burst, ThrownEntity entity, ItemStack stack) {
+	public void updateBurst(IManaBurst burst, ItemStack stack) {
+		ThrownEntity entity = burst.entity();
 		if (entity.world.isClient) {
 			return;
 		}

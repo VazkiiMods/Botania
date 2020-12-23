@@ -13,7 +13,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.entity.projectile.thrown.ThrownEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.hit.BlockHitResult;
@@ -25,7 +25,8 @@ import vazkii.botania.api.internal.IManaBurst;
 public class LensPiston extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, ThrownEntity entity, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+		Entity entity = burst.entity();
 		BlockPos coords = burst.getBurstSourceBlockPos();
 		if (!entity.world.isClient
 				&& pos.getType() == HitResult.Type.BLOCK

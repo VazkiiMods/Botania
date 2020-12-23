@@ -12,7 +12,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.SheepEntity;
-import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
@@ -34,7 +33,8 @@ import java.util.function.Function;
 public class LensPaint extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, ThrownEntity entity, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+		Entity entity = burst.entity();
 		int storedColor = ItemLens.getStoredColor(stack);
 		if (!entity.world.isClient && !burst.isFake() && storedColor > -1 && storedColor < 17) {
 			if (pos.getType() == HitResult.Type.ENTITY) {

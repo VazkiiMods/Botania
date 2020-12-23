@@ -11,7 +11,7 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.projectile.thrown.ThrownEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -26,8 +26,9 @@ import vazkii.botania.common.block.tile.TileIncensePlate;
 public class LensFire extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, ThrownEntity entity, HitResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, HitResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
 		BlockPos coords = burst.getBurstSourceBlockPos();
+		Entity entity = burst.entity();
 
 		if (!entity.world.isClient && rtr.getType() == HitResult.Type.BLOCK
 				&& !burst.isFake() && !isManaBlock) {

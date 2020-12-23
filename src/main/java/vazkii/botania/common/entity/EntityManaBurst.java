@@ -501,7 +501,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 
 		if (lens != null) {
 			ItemStack stack = getSourceLens();
-			mana = lens.getManaToTransfer(this, this, stack, tile);
+			mana = lens.getManaToTransfer(this, stack, tile);
 		}
 
 		if (tile instanceof IManaCollector) {

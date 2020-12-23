@@ -13,14 +13,19 @@ import net.fabricmc.api.EnvironmentInterface;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.FlyingItemEntity;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.network.Packet;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -34,8 +39,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 @EnvironmentInterface(value = EnvType.CLIENT, itf = FlyingItemEntity.class)
 public class EntityEnderAirBottle extends ThrownEntity implements FlyingItemEntity {
+	private static final Identifier GHAST_LOOT_TABLE = prefix("ghast_ender_air_crying");
+
 	public EntityEnderAirBottle(EntityType<EntityEnderAirBottle> type, World world) {
 		super(type, world);
 	}
@@ -44,20 +53,57 @@ public class EntityEnderAirBottle extends ThrownEntity implements FlyingItemEnti
 		super(ModEntities.ENDER_AIR_BOTTLE, entity, world);
 	}
 
-	@Override
-	protected void onCollision(@Nonnull HitResult pos) {
-		if (pos.getType() == HitResult.Type.BLOCK && !world.isClient) {
-			List<BlockPos> coordsList = getCoordsToPut(((BlockHitResult) pos).getBlockPos());
-			world.syncWorldEvent(2002, getBlockPos(), 8);
+	public EntityEnderAirBottle(double x, double y, double z, World world) {
+		super(ModEntities.ENDER_AIR_BOTTLE, x, y, z, world);
+	}
 
-			for (BlockPos coords : coordsList) {
-				world.setBlockState(coords, Blocks.END_STONE.getDefaultState());
-				if (Math.random() < 0.1) {
-					world.syncWorldEvent(2001, coords, Block.getRawIdFromState(Blocks.END_STONE.getDefaultState()));
-				}
+	private void convertStone(@Nonnull BlockPos pos) {
+		List<BlockPos> coordsList = getCoordsToPut(pos);
+		world.syncWorldEvent(2002, getBlockPos(), 8);
+
+		for (BlockPos coords : coordsList) {
+			world.setBlockState(coords, Blocks.END_STONE.getDefaultState());
+			if (Math.random() < 0.1) {
+				world.syncWorldEvent(2001, coords, Block.getRawIdFromState(Blocks.END_STONE.getDefaultState()));
 			}
-			remove();
 		}
+	}
+
+	@Override
+	protected void onBlockHit(@Nonnull BlockHitResult result) {
+		if (world.isClient) {
+			return;
+		}
+		convertStone(result.getBlockPos());
+		remove();
+	}
+
+	@Override
+	protected void onEntityHit(@Nonnull EntityHitResult result) {
+		if (world.isClient) {
+			return;
+		}
+		Entity entity = result.getEntity();
+		if (entity.getType() == EntityType.GHAST && world.getRegistryKey() == World.OVERWORLD) {
+			world.syncWorldEvent(2002, getBlockPos(), 8);
+			DamageSource source = DamageSource.thrownProjectile(this, getOwner());
+			entity.damage(source, 0);
+
+			LootTable table = world.getServer().getLootManager().getTable(GHAST_LOOT_TABLE);
+			LootContext.Builder builder = new LootContext.Builder(((ServerWorld) world));
+			builder.parameter(LootContextParameters.THIS_ENTITY, entity);
+			builder.parameter(LootContextParameters.ORIGIN, entity.getPos());
+			builder.parameter(LootContextParameters.DAMAGE_SOURCE, source);
+
+			LootContext context = builder.build(LootContextTypes.ENTITY);
+			for (ItemStack stack : table.generateLoot(context)) {
+				ItemEntity item = entity.dropStack(stack, 2);
+				item.setVelocity(item.getVelocity().add(entity.getRotationVector().multiply(0.4)));
+			}
+		} else {
+			convertStone(new BlockPos(result.getPos()));
+		}
+		remove();
 	}
 
 	private List<BlockPos> getCoordsToPut(BlockPos pos) {

@@ -1,3 +1,31 @@
+1.16.4-410
+* NOTE: If you use Garden of Glass, you *must* update to GoG 1.6+!
+* Open and crafty crates check collision more snugly against their bottom face, meaning that they can now output on top of a hopper without a one block gap
+* Third Eye uses the Magic Missile's targeting system (Alwinfy)
+* Rannuncarpus places directional blocks facing itself, instead of randomly (Eutro)
+* Expose terra plate recipe's getIngredients() (MelanX)
+* ru_ru fixes (BetaCarotina)
+* Fix spectrolus HUD not smoothly blending between colors
+* Fix laputa shard recipes being missing in the lexicon
+* Mana pools act like a full solid slab when colliding with bursts, fixes bursts sometimes phasing through pools
+* Add ancient debris to orechid ignem pool
+* Fix fence gates not being added to the vanilla tag
+* Add config blacklist for rannuncarpus, blacklist Storage Drawers
+* Fix crash in spectator
+* Fix metamorphic stones still dropping cobble version with silk touch
+* Add corporea stairs + brick slabs, stairs, walls (ToMe25)
+* Bread explosions now drop all blocks they broke
+* Remove GoVoteHandler
+* Add Quark stones to elementium pick disposables
+* Remove old armor models, fix pixie halloween texture
+* Fix double pants rendering
+* Add infrangible platform to the dragon_immune and wither_immune tags
+* Headflowers now use a normal enchantment glint instead of a washed out flat yellow shader. If Quark is installed, a yellow glint is used as if a yellow rune was applied.
+* Fix pools not emptying fully when using sparks (Alwinfy)
+* Add walls for Botania bricks (ToMe25)
+* Fix water bowl texture (MoriyaShiine, cybercat5555)
+* Make Astrolabe horizontal placement easier
+* Usual internal cleanups and improvements
 1.16.3-409
 * Fix GoG world type showing up when GoG isn't installed (accidentally excluded from last build)
 * Work around platform bugs to fix "missing keybind" crashes

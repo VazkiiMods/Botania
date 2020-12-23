@@ -9,7 +9,7 @@
 package vazkii.botania.common.item.lens;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.projectile.thrown.ThrownEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -22,7 +22,8 @@ import vazkii.botania.common.block.ModBlocks;
 public class LensWarp extends Lens {
 
 	@Override
-	public boolean collideBurst(IManaBurst burst, ThrownEntity entity, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+		Entity entity = burst.entity();
 		if (entity.world.isClient || burst.isFake() || pos.getType() != HitResult.Type.BLOCK) {
 			return dead;
 		}

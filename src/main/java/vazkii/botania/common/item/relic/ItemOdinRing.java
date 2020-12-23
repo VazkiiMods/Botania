@@ -30,7 +30,6 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public class ItemOdinRing extends ItemRelicBauble {
 
 	private static final Set<String> damageNegations = new HashSet<>();
-	private static final Set<String> fireNegations = new HashSet<>();
 
 	public ItemOdinRing(Settings props) {
 		super(props);
@@ -40,8 +39,10 @@ public class ItemOdinRing extends ItemRelicBauble {
 		damageNegations.add(DamageSource.LAVA.name);
 		damageNegations.add(DamageSource.IN_WALL.name);
 		damageNegations.add(DamageSource.STARVE.name);
-		fireNegations.add(DamageSource.IN_FIRE.name);
-		fireNegations.add(DamageSource.ON_FIRE.name);
+		damageNegations.add(DamageSource.IN_FIRE.name);
+		damageNegations.add(DamageSource.ON_FIRE.name);
+		damageNegations.add(DamageSource.HOT_FLOOR.name);
+		damageNegations.add(DamageSource.FLY_INTO_WALL.name);
 	}
 
 	@Override
@@ -60,8 +61,7 @@ public class ItemOdinRing extends ItemRelicBauble {
 	}
 
 	public static boolean onPlayerAttacked(PlayerEntity player, DamageSource src) {
-		boolean negate = damageNegations.contains(src.name)
-				|| (fireNegations.contains(src.name));
+		boolean negate = damageNegations.contains(src.name);
 		boolean hasRing = !EquipmentHandler.findOrEmpty(ModItems.odinRing, player).isEmpty();
 		return negate && hasRing;
 	}

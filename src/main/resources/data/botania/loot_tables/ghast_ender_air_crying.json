@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "name": "main",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:ghast_tear",
+          "weight": 1
+        },
+        {
+          "type": "empty",
+          "weight": 7
+        }
+      ]
+    }
+  ]
+}

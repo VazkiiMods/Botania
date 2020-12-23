@@ -11,8 +11,8 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FallingBlock;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.FallingBlockEntity;
-import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.BlockStateParticleEffect;
 import net.minecraft.particle.ParticleTypes;
@@ -26,7 +26,8 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 
 public class LensWeight extends Lens {
 	@Override
-	public boolean collideBurst(IManaBurst burst, ThrownEntity entity, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
+		Entity entity = burst.entity();
 		if (!entity.world.isClient && !burst.isFake() && pos.getType() == HitResult.Type.BLOCK) {
 			int harvestLevel = ConfigHandler.COMMON.harvestLevelWeight.getValue();
 

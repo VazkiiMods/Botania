@@ -19,7 +19,7 @@
 	"dash": { "sounds":["botania:dash"], "subtitle": "botania.subtitle.dash" },
 	"ding": { "sounds":["botania:ding"], "subtitle": "botania.subtitle.ding" },
 	"diva_charm": { "sounds":["botania:divacharm"], "subtitle": "botania.subtitle.divaCharm" },
-	"divination_rod": { "sounds":["botania:divinationrod"], "subtitle": "botania.subtitle.divinationROd" },
+	"divination_rod": { "sounds":["botania:divinationrod"], "subtitle": "botania.subtitle.divinationRod" },
 	"doit": { "sounds":["botania:doit"], "subtitle": "botania.subtitle.doit" },
 	"enchanter_fade": { "sounds":["botania:enchanterblock"], "subtitle": "botania.subtitle.enchanterForm" },
 	"enchanter_form": { "sounds":["botania:enchanterblock"], "subtitle": "botania.subtitle.enchanterFade" },

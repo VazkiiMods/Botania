@@ -13,7 +13,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.projectile.thrown.ThrownEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -249,7 +249,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
 		double speed = 0.35;
 		int targetDistance = BASE_OFFSET;
-		ThrownEntity entity = (ThrownEntity) burst;
+		Entity entity = burst.entity();
 		if (!entity.world.isClient) {
 			entity.setVelocity(0, speed, 0);
 
@@ -308,7 +308,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 
 	@Override
 	public boolean doParticles(IManaBurst burst, ItemStack stack) {
-		ThrownEntity entity = (ThrownEntity) burst;
+		Entity entity = burst.entity();
 		ItemStack lens = burst.getSourceLens();
 		BlockState state = NbtHelper.toBlockState(lens.getOrCreateTag().getCompound(TAG_STATE));
 		entity.world.addParticle(new BlockStateParticleEffect(ParticleTypes.BLOCK, state), entity.getX(), entity.getY(), entity.getZ(),

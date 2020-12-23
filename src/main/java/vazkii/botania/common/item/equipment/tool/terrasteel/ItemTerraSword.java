@@ -102,7 +102,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 
 	@Override
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
-		ThrownEntity entity = (ThrownEntity) burst;
+		ThrownEntity entity = burst.entity();
 		Box axis = new Box(entity.getX(), entity.getY(), entity.getZ(), entity.lastRenderX, entity.lastRenderY, entity.lastRenderZ).expand(1);
 		List<LivingEntity> entities = entity.world.getNonSpectatingEntities(LivingEntity.class, axis);
 		Entity thrower = entity.getOwner();

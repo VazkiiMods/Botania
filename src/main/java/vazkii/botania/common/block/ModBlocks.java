@@ -14,8 +14,10 @@ import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.*;
 import net.minecraft.block.dispenser.DispenserBehavior;
 import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
+import net.minecraft.block.dispenser.ProjectileDispenserBehavior;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -24,7 +26,9 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.math.BlockPointer;
+import net.minecraft.util.math.Position;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -37,6 +41,7 @@ import vazkii.botania.common.block.decor.stairs.BlockModStairs;
 import vazkii.botania.common.block.dispenser.*;
 import vazkii.botania.common.block.mana.*;
 import vazkii.botania.common.block.string.*;
+import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockDreamwood;
 import vazkii.botania.common.item.block.ItemBlockElven;
@@ -881,6 +886,13 @@ public final class ModBlocks {
 		DispenserBehavior behavior = new BehaviourCorporeaSpark();
 		DispenserBlock.registerBehavior(ModItems.corporeaSpark, behavior);
 		DispenserBlock.registerBehavior(ModItems.corporeaSparkMaster, behavior);
+		DispenserBlock.registerBehavior(ModItems.enderAirBottle, new ProjectileDispenserBehavior() {
+			@Nonnull
+			@Override
+			protected ProjectileEntity createProjectile(@Nonnull World world, @Nonnull Position pos, @Nonnull ItemStack stack) {
+				return new EntityEnderAirBottle(pos.getX(), pos.getY(), pos.getZ(), world);
+			}
+		});
 
 		behavior = AccessorDispenserBlock.getDispenseBehaviorRegistry().get(Items.GLASS_BOTTLE);
 		DispenserBlock.registerBehavior(Items.GLASS_BOTTLE, new BehaviourEnderAirBottling(behavior));
