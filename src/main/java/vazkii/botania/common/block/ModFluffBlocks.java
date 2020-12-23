@@ -30,11 +30,17 @@ public final class ModFluffBlocks {
 	public static final Block livingwoodFenceGate = new FenceGateBlock(AbstractBlock.Settings.copy(livingwood));
 	public static final Block livingwoodPlankStairs = new BlockModStairs(livingwoodPlanks.getDefaultState(), AbstractBlock.Settings.copy(livingwoodPlanks));
 	public static final Block livingwoodPlankSlab = new SlabBlock(AbstractBlock.Settings.copy(livingwoodPlanks));
+
 	public static final Block livingrockStairs = new BlockModStairs(livingrock.getDefaultState(), AbstractBlock.Settings.copy(livingrock));
 	public static final Block livingrockSlab = new SlabBlock(AbstractBlock.Settings.copy(livingrock));
 	public static final Block livingrockWall = new WallBlock(AbstractBlock.Settings.copy(livingrock));
 	public static final Block livingrockBrickStairs = new BlockModStairs(livingrockBrick.getDefaultState(), AbstractBlock.Settings.copy(livingrockBrick));
 	public static final Block livingrockBrickSlab = new SlabBlock(AbstractBlock.Settings.copy(livingrockBrick));
+	public static final Block livingrockBrickWall = new WallBlock(AbstractBlock.Settings.copy(livingrockBrick));
+	public static final Block livingrockBrickMossyStairs = new BlockModStairs(livingrockBrickMossy.getDefaultState(), AbstractBlock.Settings.copy(livingrockBrickMossy));
+	public static final Block livingrockBrickMossySlab = new SlabBlock(AbstractBlock.Settings.copy(livingrockBrickMossy));
+	public static final Block livingrockBrickMossyWall = new WallBlock(AbstractBlock.Settings.copy(livingrockBrickMossy));
+
 	public static final Block dreamwoodStairs = new BlockModStairs(dreamwood.getDefaultState(), AbstractBlock.Settings.copy(dreamwood));
 	public static final Block dreamwoodSlab = new SlabBlock(AbstractBlock.Settings.copy(dreamwood));
 	public static final Block dreamwoodWall = new WallBlock(AbstractBlock.Settings.copy(dreamwood));
@@ -115,10 +121,11 @@ public final class ModFluffBlocks {
 	public static final Block biomeCobblestoneForest = new BlockMod(AbstractBlock.Settings.copy(biomeStoneForest));
 	public static final Block biomeCobblestoneForestSlab = new SlabBlock(AbstractBlock.Settings.copy(biomeStoneForest));
 	public static final Block biomeCobblestoneForestStairs = new BlockModStairs(biomeStoneForest.getDefaultState(), AbstractBlock.Settings.copy(biomeStoneForest));
-	public static final Block biomeWallForest = new WallBlock(AbstractBlock.Settings.copy(biomeStoneForest));
+	public static final Block biomeCobblestoneForestWall = new WallBlock(AbstractBlock.Settings.copy(biomeStoneForest));
 	public static final Block biomeBrickForest = new BlockMod(AbstractBlock.Settings.copy(biomeStoneForest));
 	public static final Block biomeBrickForestSlab = new SlabBlock(AbstractBlock.Settings.copy(biomeStoneForest));
 	public static final Block biomeBrickForestStairs = new BlockModStairs(biomeStoneForest.getDefaultState(), AbstractBlock.Settings.copy(biomeStoneForest));
+	public static final Block biomeBrickForestWall = new WallBlock(AbstractBlock.Settings.copy(biomeStoneForest));
 	public static final Block biomeChiseledBrickForest = new BlockMod(AbstractBlock.Settings.copy(biomeStoneForest));
 
 	public static final Block biomeStonePlains = new BlockMod(AbstractBlock.Settings.copy(biomeStoneForest));
@@ -127,10 +134,11 @@ public final class ModFluffBlocks {
 	public static final Block biomeCobblestonePlains = new BlockMod(AbstractBlock.Settings.copy(biomeStonePlains));
 	public static final Block biomeCobblestonePlainsSlab = new SlabBlock(AbstractBlock.Settings.copy(biomeStonePlains));
 	public static final Block biomeCobblestonePlainsStairs = new BlockModStairs(biomeStonePlains.getDefaultState(), AbstractBlock.Settings.copy(biomeStonePlains));
-	public static final Block biomeWallPlains = new WallBlock(AbstractBlock.Settings.copy(biomeStonePlains));
+	public static final Block biomeCobblestonePlainsWall = new WallBlock(AbstractBlock.Settings.copy(biomeStonePlains));
 	public static final Block biomeBrickPlains = new BlockMod(AbstractBlock.Settings.copy(biomeStonePlains));
 	public static final Block biomeBrickPlainsSlab = new SlabBlock(AbstractBlock.Settings.copy(biomeStonePlains));
 	public static final Block biomeBrickPlainsStairs = new BlockModStairs(biomeStonePlains.getDefaultState(), AbstractBlock.Settings.copy(biomeStonePlains));
+	public static final Block biomeBrickPlainsWall = new WallBlock(AbstractBlock.Settings.copy(biomeStonePlains));
 	public static final Block biomeChiseledBrickPlains = new BlockMod(AbstractBlock.Settings.copy(biomeStonePlains));
 
 	public static final Block biomeStoneMountain = new BlockMod(AbstractBlock.Settings.copy(biomeStoneForest));
@@ -139,10 +147,11 @@ public final class ModFluffBlocks {
 	public static final Block biomeCobblestoneMountain = new BlockMod(AbstractBlock.Settings.copy(biomeStoneMountain));
 	public static final Block biomeCobblestoneMountainSlab = new SlabBlock(AbstractBlock.Settings.copy(biomeStoneMountain));
 	public static final Block biomeCobblestoneMountainStairs = new BlockModStairs(biomeStoneMountain.getDefaultState(), AbstractBlock.Settings.copy(biomeStoneMountain));
-	public static final Block biomeWallMountain = new WallBlock(AbstractBlock.Settings.copy(biomeStoneMountain));
+	public static final Block biomeCobblestoneMountainWall = new WallBlock(AbstractBlock.Settings.copy(biomeStoneMountain));
 	public static final Block biomeBrickMountain = new BlockMod(AbstractBlock.Settings.copy(biomeStoneMountain));
 	public static final Block biomeBrickMountainSlab = new SlabBlock(AbstractBlock.Settings.copy(biomeStoneMountain));
 	public static final Block biomeBrickMountainStairs = new BlockModStairs(biomeStoneMountain.getDefaultState(), AbstractBlock.Settings.copy(biomeStoneMountain));
+	public static final Block biomeBrickMountainWall = new WallBlock(AbstractBlock.Settings.copy(biomeStoneMountain));
 	public static final Block biomeChiseledBrickMountain = new BlockMod(AbstractBlock.Settings.copy(biomeStoneMountain));
 
 	public static final Block biomeStoneFungal = new BlockMod(AbstractBlock.Settings.copy(biomeStoneForest));
@@ -151,10 +160,11 @@ public final class ModFluffBlocks {
 	public static final Block biomeCobblestoneFungal = new BlockMod(AbstractBlock.Settings.copy(biomeStoneFungal));
 	public static final Block biomeCobblestoneFungalSlab = new SlabBlock(AbstractBlock.Settings.copy(biomeStoneFungal));
 	public static final Block biomeCobblestoneFungalStairs = new BlockModStairs(biomeStoneFungal.getDefaultState(), AbstractBlock.Settings.copy(biomeStoneFungal));
-	public static final Block biomeWallFungal = new WallBlock(AbstractBlock.Settings.copy(biomeStoneFungal));
+	public static final Block biomeCobblestoneFungalWall = new WallBlock(AbstractBlock.Settings.copy(biomeStoneFungal));
 	public static final Block biomeBrickFungal = new BlockMod(AbstractBlock.Settings.copy(biomeStoneFungal));
 	public static final Block biomeBrickFungalSlab = new SlabBlock(AbstractBlock.Settings.copy(biomeStoneFungal));
 	public static final Block biomeBrickFungalStairs = new BlockModStairs(biomeStoneFungal.getDefaultState(), AbstractBlock.Settings.copy(biomeStoneFungal));
+	public static final Block biomeBrickFungalWall = new WallBlock(AbstractBlock.Settings.copy(biomeStoneFungal));
 	public static final Block biomeChiseledBrickFungal = new BlockMod(AbstractBlock.Settings.copy(biomeStoneFungal));
 
 	public static final Block biomeStoneSwamp = new BlockMod(AbstractBlock.Settings.copy(biomeStoneForest));
@@ -163,10 +173,11 @@ public final class ModFluffBlocks {
 	public static final Block biomeCobblestoneSwamp = new BlockMod(AbstractBlock.Settings.copy(biomeStoneSwamp));
 	public static final Block biomeCobblestoneSwampSlab = new SlabBlock(AbstractBlock.Settings.copy(biomeStoneSwamp));
 	public static final Block biomeCobblestoneSwampStairs = new BlockModStairs(biomeStoneSwamp.getDefaultState(), AbstractBlock.Settings.copy(biomeStoneSwamp));
-	public static final Block biomeWallSwamp = new WallBlock(AbstractBlock.Settings.copy(biomeStoneSwamp));
+	public static final Block biomeCobblestoneSwampWall = new WallBlock(AbstractBlock.Settings.copy(biomeStoneSwamp));
 	public static final Block biomeBrickSwamp = new BlockMod(AbstractBlock.Settings.copy(biomeStoneSwamp));
 	public static final Block biomeBrickSwampSlab = new SlabBlock(AbstractBlock.Settings.copy(biomeStoneSwamp));
 	public static final Block biomeBrickSwampStairs = new BlockModStairs(biomeStoneSwamp.getDefaultState(), AbstractBlock.Settings.copy(biomeStoneSwamp));
+	public static final Block biomeBrickSwampWall = new WallBlock(AbstractBlock.Settings.copy(biomeStoneSwamp));
 	public static final Block biomeChiseledBrickSwamp = new BlockMod(AbstractBlock.Settings.copy(biomeStoneSwamp));
 
 	public static final Block biomeStoneDesert = new BlockMod(AbstractBlock.Settings.copy(biomeStoneForest));
@@ -175,10 +186,11 @@ public final class ModFluffBlocks {
 	public static final Block biomeCobblestoneDesert = new BlockMod(AbstractBlock.Settings.copy(biomeStoneDesert));
 	public static final Block biomeCobblestoneDesertSlab = new SlabBlock(AbstractBlock.Settings.copy(biomeStoneDesert));
 	public static final Block biomeCobblestoneDesertStairs = new BlockModStairs(biomeStoneDesert.getDefaultState(), AbstractBlock.Settings.copy(biomeStoneDesert));
-	public static final Block biomeWallDesert = new WallBlock(AbstractBlock.Settings.copy(biomeStoneDesert));
+	public static final Block biomeCobblestoneDesertWall = new WallBlock(AbstractBlock.Settings.copy(biomeStoneDesert));
 	public static final Block biomeBrickDesert = new BlockMod(AbstractBlock.Settings.copy(biomeStoneDesert));
 	public static final Block biomeBrickDesertSlab = new SlabBlock(AbstractBlock.Settings.copy(biomeStoneDesert));
 	public static final Block biomeBrickDesertStairs = new BlockModStairs(biomeStoneDesert.getDefaultState(), AbstractBlock.Settings.copy(biomeStoneDesert));
+	public static final Block biomeBrickDesertWall = new WallBlock(AbstractBlock.Settings.copy(biomeStoneDesert));
 	public static final Block biomeChiseledBrickDesert = new BlockMod(AbstractBlock.Settings.copy(biomeStoneDesert));
 
 	public static final Block biomeStoneTaiga = new BlockMod(AbstractBlock.Settings.copy(biomeStoneForest));
@@ -187,10 +199,11 @@ public final class ModFluffBlocks {
 	public static final Block biomeCobblestoneTaiga = new BlockMod(AbstractBlock.Settings.copy(biomeStoneTaiga));
 	public static final Block biomeCobblestoneTaigaSlab = new SlabBlock(AbstractBlock.Settings.copy(biomeStoneTaiga));
 	public static final Block biomeCobblestoneTaigaStairs = new BlockModStairs(biomeStoneTaiga.getDefaultState(), AbstractBlock.Settings.copy(biomeStoneTaiga));
-	public static final Block biomeWallTaiga = new WallBlock(AbstractBlock.Settings.copy(biomeStoneTaiga));
+	public static final Block biomeCobblestoneTaigaWall = new WallBlock(AbstractBlock.Settings.copy(biomeStoneTaiga));
 	public static final Block biomeBrickTaiga = new BlockMod(AbstractBlock.Settings.copy(biomeStoneTaiga));
 	public static final Block biomeBrickTaigaSlab = new SlabBlock(AbstractBlock.Settings.copy(biomeStoneTaiga));
 	public static final Block biomeBrickTaigaStairs = new BlockModStairs(biomeStoneTaiga.getDefaultState(), AbstractBlock.Settings.copy(biomeStoneTaiga));
+	public static final Block biomeBrickTaigaWall = new WallBlock(AbstractBlock.Settings.copy(biomeStoneTaiga));
 	public static final Block biomeChiseledBrickTaiga = new BlockMod(AbstractBlock.Settings.copy(biomeStoneTaiga));
 
 	public static final Block biomeStoneMesa = new BlockMod(AbstractBlock.Settings.copy(biomeStoneForest));
@@ -199,10 +212,11 @@ public final class ModFluffBlocks {
 	public static final Block biomeCobblestoneMesa = new BlockMod(AbstractBlock.Settings.copy(biomeStoneMesa));
 	public static final Block biomeCobblestoneMesaSlab = new SlabBlock(AbstractBlock.Settings.copy(biomeStoneMesa));
 	public static final Block biomeCobblestoneMesaStairs = new BlockModStairs(biomeStoneMesa.getDefaultState(), AbstractBlock.Settings.copy(biomeStoneMesa));
-	public static final Block biomeWallMesa = new WallBlock(AbstractBlock.Settings.copy(biomeStoneMesa));
+	public static final Block biomeCobblestoneMesaWall = new WallBlock(AbstractBlock.Settings.copy(biomeStoneMesa));
 	public static final Block biomeBrickMesa = new BlockMod(AbstractBlock.Settings.copy(biomeStoneMesa));
 	public static final Block biomeBrickMesaSlab = new SlabBlock(AbstractBlock.Settings.copy(biomeStoneMesa));
 	public static final Block biomeBrickMesaStairs = new BlockModStairs(biomeStoneMesa.getDefaultState(), AbstractBlock.Settings.copy(biomeStoneMesa));
+	public static final Block biomeBrickMesaWall = new WallBlock(AbstractBlock.Settings.copy(biomeStoneMesa));
 	public static final Block biomeChiseledBrickMesa = new BlockMod(AbstractBlock.Settings.copy(biomeStoneMesa));
 
 	public static final Block shimmerrockSlab = new SlabBlock(AbstractBlock.Settings.copy(shimmerrock));
@@ -233,6 +247,11 @@ public final class ModFluffBlocks {
 
 		register(r, LibBlockNames.LIVING_ROCK_BRICK + STAIR_SUFFIX, livingrockBrickStairs);
 		register(r, LibBlockNames.LIVING_ROCK_BRICK + SLAB_SUFFIX, livingrockBrickSlab);
+		register(r, LibBlockNames.LIVING_ROCK_BRICK + WALL_SUFFIX, livingrockBrickWall);
+
+		register(r, LibBlockNames.LIVING_ROCK_BRICK_MOSSY + STAIR_SUFFIX, livingrockBrickMossyStairs);
+		register(r, LibBlockNames.LIVING_ROCK_BRICK_MOSSY + SLAB_SUFFIX, livingrockBrickMossySlab);
+		register(r, LibBlockNames.LIVING_ROCK_BRICK_MOSSY + WALL_SUFFIX, livingrockBrickMossyWall);
 
 		register(r, LibBlockNames.DREAM_WOOD + STAIR_SUFFIX, dreamwoodStairs);
 		register(r, LibBlockNames.DREAM_WOOD + SLAB_SUFFIX, dreamwoodSlab);
@@ -315,10 +334,11 @@ public final class ModFluffBlocks {
 		register(r, METAMORPHIC_PREFIX + "forest_cobblestone", biomeCobblestoneForest);
 		register(r, METAMORPHIC_PREFIX + "forest_cobblestone" + SLAB_SUFFIX, biomeCobblestoneForestSlab);
 		register(r, METAMORPHIC_PREFIX + "forest_cobblestone" + STAIR_SUFFIX, biomeCobblestoneForestStairs);
-		register(r, METAMORPHIC_PREFIX + "forest_cobblestone" + WALL_SUFFIX, biomeWallForest);
+		register(r, METAMORPHIC_PREFIX + "forest_cobblestone" + WALL_SUFFIX, biomeCobblestoneForestWall);
 		register(r, METAMORPHIC_PREFIX + "forest_bricks", biomeBrickForest);
 		register(r, METAMORPHIC_PREFIX + "forest_bricks" + SLAB_SUFFIX, biomeBrickForestSlab);
 		register(r, METAMORPHIC_PREFIX + "forest_bricks" + STAIR_SUFFIX, biomeBrickForestStairs);
+		register(r, METAMORPHIC_PREFIX + "forest_bricks" + WALL_SUFFIX, biomeBrickForestWall);
 		register(r, "chiseled_" + METAMORPHIC_PREFIX + "forest_bricks", biomeChiseledBrickForest);
 
 		register(r, METAMORPHIC_PREFIX + "plains_stone", biomeStonePlains);
@@ -327,10 +347,11 @@ public final class ModFluffBlocks {
 		register(r, METAMORPHIC_PREFIX + "plains_cobblestone", biomeCobblestonePlains);
 		register(r, METAMORPHIC_PREFIX + "plains_cobblestone" + SLAB_SUFFIX, biomeCobblestonePlainsSlab);
 		register(r, METAMORPHIC_PREFIX + "plains_cobblestone" + STAIR_SUFFIX, biomeCobblestonePlainsStairs);
-		register(r, METAMORPHIC_PREFIX + "plains_cobblestone" + WALL_SUFFIX, biomeWallPlains);
+		register(r, METAMORPHIC_PREFIX + "plains_cobblestone" + WALL_SUFFIX, biomeCobblestonePlainsWall);
 		register(r, METAMORPHIC_PREFIX + "plains_bricks", biomeBrickPlains);
 		register(r, METAMORPHIC_PREFIX + "plains_bricks" + SLAB_SUFFIX, biomeBrickPlainsSlab);
 		register(r, METAMORPHIC_PREFIX + "plains_bricks" + STAIR_SUFFIX, biomeBrickPlainsStairs);
+		register(r, METAMORPHIC_PREFIX + "plains_bricks" + WALL_SUFFIX, biomeBrickPlainsWall);
 		register(r, "chiseled_" + METAMORPHIC_PREFIX + "plains_bricks", biomeChiseledBrickPlains);
 
 		register(r, METAMORPHIC_PREFIX + "mountain_stone", biomeStoneMountain);
@@ -339,10 +360,11 @@ public final class ModFluffBlocks {
 		register(r, METAMORPHIC_PREFIX + "mountain_cobblestone", biomeCobblestoneMountain);
 		register(r, METAMORPHIC_PREFIX + "mountain_cobblestone" + SLAB_SUFFIX, biomeCobblestoneMountainSlab);
 		register(r, METAMORPHIC_PREFIX + "mountain_cobblestone" + STAIR_SUFFIX, biomeCobblestoneMountainStairs);
-		register(r, METAMORPHIC_PREFIX + "mountain_cobblestone" + WALL_SUFFIX, biomeWallMountain);
+		register(r, METAMORPHIC_PREFIX + "mountain_cobblestone" + WALL_SUFFIX, biomeCobblestoneMountainWall);
 		register(r, METAMORPHIC_PREFIX + "mountain_bricks", biomeBrickMountain);
 		register(r, METAMORPHIC_PREFIX + "mountain_bricks" + SLAB_SUFFIX, biomeBrickMountainSlab);
 		register(r, METAMORPHIC_PREFIX + "mountain_bricks" + STAIR_SUFFIX, biomeBrickMountainStairs);
+		register(r, METAMORPHIC_PREFIX + "mountain_bricks" + WALL_SUFFIX, biomeBrickMountainWall);
 		register(r, "chiseled_" + METAMORPHIC_PREFIX + "mountain_bricks", biomeChiseledBrickMountain);
 
 		register(r, METAMORPHIC_PREFIX + "fungal_stone", biomeStoneFungal);
@@ -351,10 +373,11 @@ public final class ModFluffBlocks {
 		register(r, METAMORPHIC_PREFIX + "fungal_cobblestone", biomeCobblestoneFungal);
 		register(r, METAMORPHIC_PREFIX + "fungal_cobblestone" + SLAB_SUFFIX, biomeCobblestoneFungalSlab);
 		register(r, METAMORPHIC_PREFIX + "fungal_cobblestone" + STAIR_SUFFIX, biomeCobblestoneFungalStairs);
-		register(r, METAMORPHIC_PREFIX + "fungal_cobblestone" + WALL_SUFFIX, biomeWallFungal);
+		register(r, METAMORPHIC_PREFIX + "fungal_cobblestone" + WALL_SUFFIX, biomeCobblestoneFungalWall);
 		register(r, METAMORPHIC_PREFIX + "fungal_bricks", biomeBrickFungal);
 		register(r, METAMORPHIC_PREFIX + "fungal_bricks" + SLAB_SUFFIX, biomeBrickFungalSlab);
 		register(r, METAMORPHIC_PREFIX + "fungal_bricks" + STAIR_SUFFIX, biomeBrickFungalStairs);
+		register(r, METAMORPHIC_PREFIX + "fungal_bricks" + WALL_SUFFIX, biomeBrickFungalWall);
 		register(r, "chiseled_" + METAMORPHIC_PREFIX + "fungal_bricks", biomeChiseledBrickFungal);
 
 		register(r, METAMORPHIC_PREFIX + "swamp_stone", biomeStoneSwamp);
@@ -363,10 +386,11 @@ public final class ModFluffBlocks {
 		register(r, METAMORPHIC_PREFIX + "swamp_cobblestone", biomeCobblestoneSwamp);
 		register(r, METAMORPHIC_PREFIX + "swamp_cobblestone" + SLAB_SUFFIX, biomeCobblestoneSwampSlab);
 		register(r, METAMORPHIC_PREFIX + "swamp_cobblestone" + STAIR_SUFFIX, biomeCobblestoneSwampStairs);
-		register(r, METAMORPHIC_PREFIX + "swamp_cobblestone" + WALL_SUFFIX, biomeWallSwamp);
+		register(r, METAMORPHIC_PREFIX + "swamp_cobblestone" + WALL_SUFFIX, biomeCobblestoneSwampWall);
 		register(r, METAMORPHIC_PREFIX + "swamp_bricks", biomeBrickSwamp);
 		register(r, METAMORPHIC_PREFIX + "swamp_bricks" + SLAB_SUFFIX, biomeBrickSwampSlab);
 		register(r, METAMORPHIC_PREFIX + "swamp_bricks" + STAIR_SUFFIX, biomeBrickSwampStairs);
+		register(r, METAMORPHIC_PREFIX + "swamp_bricks" + WALL_SUFFIX, biomeBrickSwampWall);
 		register(r, "chiseled_" + METAMORPHIC_PREFIX + "swamp_bricks", biomeChiseledBrickSwamp);
 
 		register(r, METAMORPHIC_PREFIX + "desert_stone", biomeStoneDesert);
@@ -375,10 +399,11 @@ public final class ModFluffBlocks {
 		register(r, METAMORPHIC_PREFIX + "desert_cobblestone", biomeCobblestoneDesert);
 		register(r, METAMORPHIC_PREFIX + "desert_cobblestone" + SLAB_SUFFIX, biomeCobblestoneDesertSlab);
 		register(r, METAMORPHIC_PREFIX + "desert_cobblestone" + STAIR_SUFFIX, biomeCobblestoneDesertStairs);
-		register(r, METAMORPHIC_PREFIX + "desert_cobblestone" + WALL_SUFFIX, biomeWallDesert);
+		register(r, METAMORPHIC_PREFIX + "desert_cobblestone" + WALL_SUFFIX, biomeCobblestoneDesertWall);
 		register(r, METAMORPHIC_PREFIX + "desert_bricks", biomeBrickDesert);
 		register(r, METAMORPHIC_PREFIX + "desert_bricks" + SLAB_SUFFIX, biomeBrickDesertSlab);
 		register(r, METAMORPHIC_PREFIX + "desert_bricks" + STAIR_SUFFIX, biomeBrickDesertStairs);
+		register(r, METAMORPHIC_PREFIX + "desert_bricks" + WALL_SUFFIX, biomeBrickDesertWall);
 		register(r, "chiseled_" + METAMORPHIC_PREFIX + "desert_bricks", biomeChiseledBrickDesert);
 
 		register(r, METAMORPHIC_PREFIX + "taiga_stone", biomeStoneTaiga);
@@ -387,10 +412,11 @@ public final class ModFluffBlocks {
 		register(r, METAMORPHIC_PREFIX + "taiga_cobblestone", biomeCobblestoneTaiga);
 		register(r, METAMORPHIC_PREFIX + "taiga_cobblestone" + SLAB_SUFFIX, biomeCobblestoneTaigaSlab);
 		register(r, METAMORPHIC_PREFIX + "taiga_cobblestone" + STAIR_SUFFIX, biomeCobblestoneTaigaStairs);
-		register(r, METAMORPHIC_PREFIX + "taiga_cobblestone" + WALL_SUFFIX, biomeWallTaiga);
+		register(r, METAMORPHIC_PREFIX + "taiga_cobblestone" + WALL_SUFFIX, biomeCobblestoneTaigaWall);
 		register(r, METAMORPHIC_PREFIX + "taiga_bricks", biomeBrickTaiga);
 		register(r, METAMORPHIC_PREFIX + "taiga_bricks" + SLAB_SUFFIX, biomeBrickTaigaSlab);
 		register(r, METAMORPHIC_PREFIX + "taiga_bricks" + STAIR_SUFFIX, biomeBrickTaigaStairs);
+		register(r, METAMORPHIC_PREFIX + "taiga_bricks" + WALL_SUFFIX, biomeBrickTaigaWall);
 		register(r, "chiseled_" + METAMORPHIC_PREFIX + "taiga_bricks", biomeChiseledBrickTaiga);
 
 		register(r, METAMORPHIC_PREFIX + "mesa_stone", biomeStoneMesa);
@@ -399,10 +425,11 @@ public final class ModFluffBlocks {
 		register(r, METAMORPHIC_PREFIX + "mesa_cobblestone", biomeCobblestoneMesa);
 		register(r, METAMORPHIC_PREFIX + "mesa_cobblestone" + SLAB_SUFFIX, biomeCobblestoneMesaSlab);
 		register(r, METAMORPHIC_PREFIX + "mesa_cobblestone" + STAIR_SUFFIX, biomeCobblestoneMesaStairs);
-		register(r, METAMORPHIC_PREFIX + "mesa_cobblestone" + WALL_SUFFIX, biomeWallMesa);
+		register(r, METAMORPHIC_PREFIX + "mesa_cobblestone" + WALL_SUFFIX, biomeCobblestoneMesaWall);
 		register(r, METAMORPHIC_PREFIX + "mesa_bricks", biomeBrickMesa);
 		register(r, METAMORPHIC_PREFIX + "mesa_bricks" + SLAB_SUFFIX, biomeBrickMesaSlab);
 		register(r, METAMORPHIC_PREFIX + "mesa_bricks" + STAIR_SUFFIX, biomeBrickMesaStairs);
+		register(r, METAMORPHIC_PREFIX + "mesa_bricks" + WALL_SUFFIX, biomeBrickMesaWall);
 		register(r, "chiseled_" + METAMORPHIC_PREFIX + "mesa_bricks", biomeChiseledBrickMesa);
 
 		register(r, LibBlockNames.SHIMMERROCK + SLAB_SUFFIX, shimmerrockSlab);
@@ -435,6 +462,11 @@ public final class ModFluffBlocks {
 
 		register(r, Registry.BLOCK.getId(livingrockBrickStairs), new BlockItem(livingrockBrickStairs, props));
 		register(r, Registry.BLOCK.getId(livingrockBrickSlab), new BlockItem(livingrockBrickSlab, props));
+		register(r, Registry.BLOCK.getId(livingrockBrickWall), new BlockItem(livingrockBrickWall, props));
+
+		register(r, Registry.BLOCK.getId(livingrockBrickMossyStairs), new BlockItem(livingrockBrickMossyStairs, props));
+		register(r, Registry.BLOCK.getId(livingrockBrickMossySlab), new BlockItem(livingrockBrickMossySlab, props));
+		register(r, Registry.BLOCK.getId(livingrockBrickMossyWall), new BlockItem(livingrockBrickMossyWall, props));
 
 		register(r, Registry.BLOCK.getId(dreamwoodStairs), new BlockItem(dreamwoodStairs, props));
 		register(r, Registry.BLOCK.getId(dreamwoodSlab), new BlockItem(dreamwoodSlab, props));
@@ -493,10 +525,11 @@ public final class ModFluffBlocks {
 		register(r, Registry.BLOCK.getId(biomeBrickForest), new BlockItem(biomeBrickForest, props));
 		register(r, Registry.BLOCK.getId(biomeBrickForestSlab), new BlockItem(biomeBrickForestSlab, props));
 		register(r, Registry.BLOCK.getId(biomeBrickForestStairs), new BlockItem(biomeBrickForestStairs, props));
+		register(r, Registry.BLOCK.getId(biomeBrickForestWall), new BlockItem(biomeBrickForestWall, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneForest), new BlockItem(biomeCobblestoneForest, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneForestSlab), new BlockItem(biomeCobblestoneForestSlab, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneForestStairs), new BlockItem(biomeCobblestoneForestStairs, props));
-		register(r, Registry.BLOCK.getId(biomeWallForest), new BlockItem(biomeWallForest, props));
+		register(r, Registry.BLOCK.getId(biomeCobblestoneForestWall), new BlockItem(biomeCobblestoneForestWall, props));
 		register(r, Registry.BLOCK.getId(biomeChiseledBrickForest), new BlockItem(biomeChiseledBrickForest, props));
 
 		register(r, Registry.BLOCK.getId(biomeStonePlains), new BlockItem(biomeStonePlains, props));
@@ -505,10 +538,11 @@ public final class ModFluffBlocks {
 		register(r, Registry.BLOCK.getId(biomeBrickPlains), new BlockItem(biomeBrickPlains, props));
 		register(r, Registry.BLOCK.getId(biomeBrickPlainsSlab), new BlockItem(biomeBrickPlainsSlab, props));
 		register(r, Registry.BLOCK.getId(biomeBrickPlainsStairs), new BlockItem(biomeBrickPlainsStairs, props));
+		register(r, Registry.BLOCK.getId(biomeBrickPlainsWall), new BlockItem(biomeBrickPlainsWall, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestonePlains), new BlockItem(biomeCobblestonePlains, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestonePlainsSlab), new BlockItem(biomeCobblestonePlainsSlab, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestonePlainsStairs), new BlockItem(biomeCobblestonePlainsStairs, props));
-		register(r, Registry.BLOCK.getId(biomeWallPlains), new BlockItem(biomeWallPlains, props));
+		register(r, Registry.BLOCK.getId(biomeCobblestonePlainsWall), new BlockItem(biomeCobblestonePlainsWall, props));
 		register(r, Registry.BLOCK.getId(biomeChiseledBrickPlains), new BlockItem(biomeChiseledBrickPlains, props));
 
 		register(r, Registry.BLOCK.getId(biomeStoneMountain), new BlockItem(biomeStoneMountain, props));
@@ -517,10 +551,11 @@ public final class ModFluffBlocks {
 		register(r, Registry.BLOCK.getId(biomeBrickMountain), new BlockItem(biomeBrickMountain, props));
 		register(r, Registry.BLOCK.getId(biomeBrickMountainSlab), new BlockItem(biomeBrickMountainSlab, props));
 		register(r, Registry.BLOCK.getId(biomeBrickMountainStairs), new BlockItem(biomeBrickMountainStairs, props));
+		register(r, Registry.BLOCK.getId(biomeBrickMountainWall), new BlockItem(biomeBrickMountainWall, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneMountain), new BlockItem(biomeCobblestoneMountain, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneMountainSlab), new BlockItem(biomeCobblestoneMountainSlab, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneMountainStairs), new BlockItem(biomeCobblestoneMountainStairs, props));
-		register(r, Registry.BLOCK.getId(biomeWallMountain), new BlockItem(biomeWallMountain, props));
+		register(r, Registry.BLOCK.getId(biomeCobblestoneMountainWall), new BlockItem(biomeCobblestoneMountainWall, props));
 		register(r, Registry.BLOCK.getId(biomeChiseledBrickMountain), new BlockItem(biomeChiseledBrickMountain, props));
 
 		register(r, Registry.BLOCK.getId(biomeStoneFungal), new BlockItem(biomeStoneFungal, props));
@@ -529,10 +564,11 @@ public final class ModFluffBlocks {
 		register(r, Registry.BLOCK.getId(biomeBrickFungal), new BlockItem(biomeBrickFungal, props));
 		register(r, Registry.BLOCK.getId(biomeBrickFungalSlab), new BlockItem(biomeBrickFungalSlab, props));
 		register(r, Registry.BLOCK.getId(biomeBrickFungalStairs), new BlockItem(biomeBrickFungalStairs, props));
+		register(r, Registry.BLOCK.getId(biomeBrickFungalWall), new BlockItem(biomeBrickFungalWall, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneFungal), new BlockItem(biomeCobblestoneFungal, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneFungalSlab), new BlockItem(biomeCobblestoneFungalSlab, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneFungalStairs), new BlockItem(biomeCobblestoneFungalStairs, props));
-		register(r, Registry.BLOCK.getId(biomeWallFungal), new BlockItem(biomeWallFungal, props));
+		register(r, Registry.BLOCK.getId(biomeCobblestoneFungalWall), new BlockItem(biomeCobblestoneFungalWall, props));
 		register(r, Registry.BLOCK.getId(biomeChiseledBrickFungal), new BlockItem(biomeChiseledBrickFungal, props));
 
 		register(r, Registry.BLOCK.getId(biomeStoneSwamp), new BlockItem(biomeStoneSwamp, props));
@@ -541,10 +577,11 @@ public final class ModFluffBlocks {
 		register(r, Registry.BLOCK.getId(biomeBrickSwamp), new BlockItem(biomeBrickSwamp, props));
 		register(r, Registry.BLOCK.getId(biomeBrickSwampSlab), new BlockItem(biomeBrickSwampSlab, props));
 		register(r, Registry.BLOCK.getId(biomeBrickSwampStairs), new BlockItem(biomeBrickSwampStairs, props));
+		register(r, Registry.BLOCK.getId(biomeBrickSwampWall), new BlockItem(biomeBrickSwampWall, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneSwamp), new BlockItem(biomeCobblestoneSwamp, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneSwampSlab), new BlockItem(biomeCobblestoneSwampSlab, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneSwampStairs), new BlockItem(biomeCobblestoneSwampStairs, props));
-		register(r, Registry.BLOCK.getId(biomeWallSwamp), new BlockItem(biomeWallSwamp, props));
+		register(r, Registry.BLOCK.getId(biomeCobblestoneSwampWall), new BlockItem(biomeCobblestoneSwampWall, props));
 		register(r, Registry.BLOCK.getId(biomeChiseledBrickSwamp), new BlockItem(biomeChiseledBrickSwamp, props));
 
 		register(r, Registry.BLOCK.getId(biomeStoneDesert), new BlockItem(biomeStoneDesert, props));
@@ -553,10 +590,11 @@ public final class ModFluffBlocks {
 		register(r, Registry.BLOCK.getId(biomeBrickDesert), new BlockItem(biomeBrickDesert, props));
 		register(r, Registry.BLOCK.getId(biomeBrickDesertSlab), new BlockItem(biomeBrickDesertSlab, props));
 		register(r, Registry.BLOCK.getId(biomeBrickDesertStairs), new BlockItem(biomeBrickDesertStairs, props));
+		register(r, Registry.BLOCK.getId(biomeBrickDesertWall), new BlockItem(biomeBrickDesertWall, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneDesert), new BlockItem(biomeCobblestoneDesert, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneDesertSlab), new BlockItem(biomeCobblestoneDesertSlab, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneDesertStairs), new BlockItem(biomeCobblestoneDesertStairs, props));
-		register(r, Registry.BLOCK.getId(biomeWallDesert), new BlockItem(biomeWallDesert, props));
+		register(r, Registry.BLOCK.getId(biomeCobblestoneDesertWall), new BlockItem(biomeCobblestoneDesertWall, props));
 		register(r, Registry.BLOCK.getId(biomeChiseledBrickDesert), new BlockItem(biomeChiseledBrickDesert, props));
 
 		register(r, Registry.BLOCK.getId(biomeStoneTaiga), new BlockItem(biomeStoneTaiga, props));
@@ -565,10 +603,11 @@ public final class ModFluffBlocks {
 		register(r, Registry.BLOCK.getId(biomeBrickTaiga), new BlockItem(biomeBrickTaiga, props));
 		register(r, Registry.BLOCK.getId(biomeBrickTaigaSlab), new BlockItem(biomeBrickTaigaSlab, props));
 		register(r, Registry.BLOCK.getId(biomeBrickTaigaStairs), new BlockItem(biomeBrickTaigaStairs, props));
+		register(r, Registry.BLOCK.getId(biomeBrickTaigaWall), new BlockItem(biomeBrickTaigaWall, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneTaiga), new BlockItem(biomeCobblestoneTaiga, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneTaigaSlab), new BlockItem(biomeCobblestoneTaigaSlab, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneTaigaStairs), new BlockItem(biomeCobblestoneTaigaStairs, props));
-		register(r, Registry.BLOCK.getId(biomeWallTaiga), new BlockItem(biomeWallTaiga, props));
+		register(r, Registry.BLOCK.getId(biomeCobblestoneTaigaWall), new BlockItem(biomeCobblestoneTaigaWall, props));
 		register(r, Registry.BLOCK.getId(biomeChiseledBrickTaiga), new BlockItem(biomeChiseledBrickTaiga, props));
 
 		register(r, Registry.BLOCK.getId(biomeStoneMesa), new BlockItem(biomeStoneMesa, props));
@@ -577,10 +616,11 @@ public final class ModFluffBlocks {
 		register(r, Registry.BLOCK.getId(biomeBrickMesa), new BlockItem(biomeBrickMesa, props));
 		register(r, Registry.BLOCK.getId(biomeBrickMesaSlab), new BlockItem(biomeBrickMesaSlab, props));
 		register(r, Registry.BLOCK.getId(biomeBrickMesaStairs), new BlockItem(biomeBrickMesaStairs, props));
+		register(r, Registry.BLOCK.getId(biomeBrickMesaWall), new BlockItem(biomeBrickMesaWall, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneMesa), new BlockItem(biomeCobblestoneMesa, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneMesaSlab), new BlockItem(biomeCobblestoneMesaSlab, props));
 		register(r, Registry.BLOCK.getId(biomeCobblestoneMesaStairs), new BlockItem(biomeCobblestoneMesaStairs, props));
-		register(r, Registry.BLOCK.getId(biomeWallMesa), new BlockItem(biomeWallMesa, props));
+		register(r, Registry.BLOCK.getId(biomeCobblestoneMesaWall), new BlockItem(biomeCobblestoneMesaWall, props));
 		register(r, Registry.BLOCK.getId(biomeChiseledBrickMesa), new BlockItem(biomeChiseledBrickMesa, props));
 
 		register(r, Registry.BLOCK.getId(whitePavement), new BlockItem(whitePavement, props));

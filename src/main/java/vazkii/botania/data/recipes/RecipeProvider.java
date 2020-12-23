@@ -2168,6 +2168,12 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider im
 
 		stairs(ModFluffBlocks.livingrockBrickStairs, ModBlocks.livingrockBrick).offerTo(consumer);
 		slabShape(ModFluffBlocks.livingrockBrickSlab, ModBlocks.livingrockBrick).offerTo(consumer);
+		wallShape(ModFluffBlocks.livingrockBrickWall, ModBlocks.livingrockBrick, 6).offerTo(consumer);
+
+		stairs(ModFluffBlocks.livingrockBrickMossyStairs, ModBlocks.livingrockBrickMossy).offerTo(consumer);
+		slabShape(ModFluffBlocks.livingrockBrickMossySlab, ModBlocks.livingrockBrickMossy).offerTo(consumer);
+		wallShape(ModFluffBlocks.livingrockBrickMossyWall, ModBlocks.livingrockBrickMossy, 6).offerTo(consumer);
+
 		stairs(ModFluffBlocks.shimmerrockStairs, ModBlocks.shimmerrock).offerTo(consumer);
 		slabShape(ModFluffBlocks.shimmerrockSlab, ModBlocks.shimmerrock).offerTo(consumer);
 		stairs(ModFluffBlocks.livingwoodPlankStairs, ModBlocks.livingwoodPlanks).offerTo(consumer);
@@ -2463,6 +2469,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider im
 		Block brick = Registry.BLOCK.getOrEmpty(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks")).get();
 		Block brickSlab = Registry.BLOCK.getOrEmpty(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.SLAB_SUFFIX)).get();
 		Block brickStair = Registry.BLOCK.getOrEmpty(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.STAIR_SUFFIX)).get();
+		Block brickWall = Registry.BLOCK.getOrEmpty(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks" + LibBlockNames.WALL_SUFFIX)).get();
 		Block chiseledBrick = Registry.BLOCK.getOrEmpty(prefix("chiseled_" + LibBlockNames.METAMORPHIC_PREFIX + variant + "_bricks")).get();
 		Block cobble = Registry.BLOCK.getOrEmpty(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone")).get();
 		Block cobbleSlab = Registry.BLOCK.getOrEmpty(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_cobblestone" + LibBlockNames.SLAB_SUFFIX)).get();
@@ -2480,6 +2487,8 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider im
 		slabShape(brickSlab, brick).group("botania:metamorphic_brick_slab")
 				.criterion("has_flower_item", marimorphosis).offerTo(consumer);
 		stairs(brickStair, brick).group("botania:metamorphic_brick_stairs")
+				.criterion("has_flower_item", marimorphosis).offerTo(consumer);
+		wallShape(brickWall, brick, 6).group("botania:metamorphic_brick_wall")
 				.criterion("has_flower_item", marimorphosis).offerTo(consumer);
 		brick(chiseledBrick, brickSlab).criterion("has_base_item", conditionsFromItem(brick))
 				.criterion("has_flower_item", marimorphosis).offerTo(consumer);

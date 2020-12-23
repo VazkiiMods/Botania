@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "botania:metamorphic_brick_wall",
+  "pattern": [
+    "BBB",
+    "BBB"
+  ],
+  "key": {
+    "B": {
+      "item": "botania:metamorphic_forest_bricks"
+    }
+  },
+  "result": {
+    "item": "botania:metamorphic_forest_bricks_wall",
+    "count": 6
+  }
+}
