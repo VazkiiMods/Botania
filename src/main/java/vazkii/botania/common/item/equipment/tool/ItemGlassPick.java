@@ -108,7 +108,6 @@ public class ItemGlassPick extends ItemManasteelPick {
 
 	@Override
 	public int getSortingPriority(ItemStack stack, BlockState state) {
-		// if you have a Vitreous Pickaxe on you you probably want it to be chosen when breaking glass
 		return isGlass(state) ? Integer.MAX_VALUE : 0;
 	}
 
