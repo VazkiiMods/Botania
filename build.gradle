@@ -20,8 +20,8 @@ if (System.getenv().RELEASE_MODE == null) {
     version += '-SNAPSHOT'
 }
 
-group = "vazkii.${config.mod_id}"
-archivesBaseName = "${config.mod_name}"
+group = "vazkii.botania"
+archivesBaseName = "${ext.config.mod_name}"
 
 compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation" << "-Werror"
 
