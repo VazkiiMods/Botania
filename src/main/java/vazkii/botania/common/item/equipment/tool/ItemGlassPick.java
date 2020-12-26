@@ -75,9 +75,8 @@ public class ItemGlassPick extends ItemManasteelPick {
 	@Override
 	public boolean onBlockStartBreak(ItemStack itemstack, BlockPos pos, PlayerEntity player) {
 		BlockState state = player.world.getBlockState(pos);
-		boolean isGlass = state.getMaterial() == Material.GLASS || Tags.Blocks.GLASS.contains(state.getBlock());
 		boolean hasSilk = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, itemstack) > 0;
-		if (hasSilk || !isGlass) {
+		if (hasSilk || !isGlass(state)) {
 			return super.onBlockStartBreak(itemstack, pos, player);
 		}
 
@@ -98,14 +97,18 @@ public class ItemGlassPick extends ItemManasteelPick {
 		}
 	}
 
+	private boolean isGlass(BlockState state) {
+		return state.getMaterial() == Material.GLASS || Tags.Blocks.GLASS.contains(state.getBlock());
+	}
+
 	@Override
 	public int getManaPerDamage() {
 		return MANA_PER_DAMAGE;
 	}
 
 	@Override
-	public int getSortingPriority(ItemStack stack) {
-		return 0;
+	public int getSortingPriority(ItemStack stack, BlockState state) {
+		return isGlass(state) ? Integer.MAX_VALUE : 0;
 	}
 
 }

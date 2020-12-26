@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -89,7 +90,7 @@ public class ItemManasteelPick extends PickaxeItem implements IManaUsingItem, IS
 	}
 
 	@Override
-	public int getSortingPriority(ItemStack stack) {
+	public int getSortingPriority(ItemStack stack, BlockState state) {
 		return ToolCommons.getToolPriority(stack);
 	}
 }

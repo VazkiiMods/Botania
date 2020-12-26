@@ -8,6 +8,7 @@
  */
 package vazkii.botania.api.item;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 
 /**
@@ -31,8 +32,20 @@ public interface ISortableTool {
 	 * <br>
 	 * All intermediate tool levels are there for other mod tools that wish to occupy the spots inbetween.
 	 * Of course, you don't have to always adhere to this. Tools like the <b>Vitreous Pickaxe</b> don't,
-	 * that one in particular is priority 0 so it's never picked.
+	 * that one in particular is priority 0, unless looking at glass, in which case it's {@link Integer#MAX_VALUE}.
+	 *
+	 * @param state The blockstate being broken.
 	 */
-	public int getSortingPriority(ItemStack stack);
+	default int getSortingPriority(ItemStack stack, BlockState state) {
+		return getSortingPriority(stack);
+	}
+
+	/**
+	 * @deprecated Override {@link #getSortingPriority(ItemStack, BlockState)} instead.
+	 */
+	@Deprecated
+	default int getSortingPriority(ItemStack stack) {
+		return 0;
+	}
 
 }
