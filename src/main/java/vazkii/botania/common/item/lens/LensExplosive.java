@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -26,8 +25,7 @@ public class LensExplosive extends Lens {
 		if (!entity.world.isRemote && !burst.isFake() && pos.getType() == RayTraceResult.Type.BLOCK) {
 			BlockPos coords = burst.getBurstSourceBlockPos();
 			if (!isManaBlock && !coords.equals(((BlockRayTraceResult) pos).getPos())) {
-				Entity cause = entity.func_234616_v_() != null ? entity.func_234616_v_() : entity;
-				entity.world.createExplosion(cause, entity.getPosX(), entity.getPosY(), entity.getPosZ(),
+				entity.world.createExplosion(entity, entity.getPosX(), entity.getPosY(), entity.getPosZ(),
 						burst.getMana() / 50F, Explosion.Mode.BREAK);
 			}
 		} else {
