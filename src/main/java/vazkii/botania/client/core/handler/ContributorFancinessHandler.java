@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,6 +30,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.DefaultUncaughtExceptionHandler;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.common.Botania;
@@ -120,11 +122,20 @@ public final class ContributorFancinessHandler extends LayerRenderer<AbstractCli
 						.findFirst().orElse(Items.POPPY);
 				stack = new ItemStack(item);
 			}
-			EnchantmentHelper.setEnchantments(ImmutableMap.of(Enchantments.UNBREAKING, 1), stack);
-			stack.getTag().putBoolean(TAG_HEADFLOWER, true);
+			configureStack(stack);
 			m.put(key, stack);
 		}
 		flowerMap = m;
+	}
+
+	private static void configureStack(ItemStack stack) {
+		Map<Enchantment, Integer> ench = new HashMap<>();
+		ench.put(Enchantments.UNBREAKING, 1);
+		Registry.ENCHANTMENT.getOptional(new ResourceLocation("charm", "tinted")).ifPresent(e -> ench.put(e, 1));
+		EnchantmentHelper.setEnchantments(ench, stack);
+
+		stack.getTag().putBoolean(TAG_HEADFLOWER, true);
+		stack.getTag().putString("charm_glint", DyeColor.YELLOW.getString());
 	}
 
 	private void renderGoldfish(MatrixStack ms, IRenderTypeBuffer buffers) {
