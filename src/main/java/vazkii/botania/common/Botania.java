@@ -45,6 +45,7 @@ import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileTerraPlate;
+import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.core.ModStats;
@@ -224,6 +225,7 @@ public class Botania implements ModInitializer {
 
 	private void serverStopping(MinecraftServer server) {
 		ManaNetworkHandler.instance.clear();
+		TileCorporeaIndex.clearCache();
 	}
 
 }

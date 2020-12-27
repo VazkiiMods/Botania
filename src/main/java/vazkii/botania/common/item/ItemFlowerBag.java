@@ -21,12 +21,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.packet.s2c.play.ItemPickupAnimationS2CPacket;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -89,13 +86,7 @@ public class ItemFlowerBag extends Item {
 						entity.setStack(entityStack);
 						bagInv.markDirty();
 
-						if (!entity.isSilent()) {
-							entity.world.playSound(null, player.getX(), player.getY(), player.getZ(),
-									SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F,
-									((entity.world.random.nextFloat() - entity.world.random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-						}
-						((ServerPlayerEntity) player).networkHandler.sendPacket(new ItemPickupAnimationS2CPacket(entity.getEntityId(), player.getEntityId(), numPickedUp));
-						player.currentScreenHandler.sendContentUpdates();
+						player.sendPickup(entity, numPickedUp);
 
 						return true;
 					}

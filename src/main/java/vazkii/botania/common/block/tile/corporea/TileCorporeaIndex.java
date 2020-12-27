@@ -352,6 +352,11 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		set.remove(index);
 	}
 
+	public static void clearCache() {
+		clientIndexes.clear();
+		serverIndexes.clear();
+	}
+
 	public void performPlayerRequest(ServerPlayerEntity player, ICorporeaRequestMatcher request, int count) {
 		if (!CorporeaIndexRequestCallback.EVENT.invoker().onIndexRequest(player, request, count, this.getSpark())) {
 			ICorporeaResult res = this.doRequest(request, count, this.getSpark());

@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.BlockHitResult;
@@ -26,8 +25,7 @@ public class LensExplosive extends Lens {
 		if (!entity.world.isClient && !burst.isFake() && pos.getType() == HitResult.Type.BLOCK) {
 			BlockPos coords = burst.getBurstSourceBlockPos();
 			if (!isManaBlock && !coords.equals(((BlockHitResult) pos).getBlockPos())) {
-				Entity cause = entity.getOwner() != null ? entity.getOwner() : entity;
-				entity.world.createExplosion(cause, entity.getX(), entity.getY(), entity.getZ(),
+				entity.world.createExplosion(entity, entity.getX(), entity.getY(), entity.getZ(),
 						burst.getMana() / 50F, Explosion.DestructionType.BREAK);
 			}
 		} else {
