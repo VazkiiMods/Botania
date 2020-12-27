@@ -13,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -26,12 +27,21 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.relic.ItemRelic;
 import vazkii.botania.common.item.relic.ItemRelicBauble;
 
+import java.util.UUID;
+
 @Mixin(ItemEntity.class)
 public class MixinItemEntity {
+	@Shadow
+	private int pickupDelay;
+
+	@Shadow
+	private UUID owner;
+
 	@Inject(at = @At("HEAD"), method = "onPlayerCollision", cancellable = true)
 	private void onPickup(PlayerEntity player, CallbackInfo ci) {
 		ItemEntity self = (ItemEntity) (Object) this;
-		if (!player.world.isClient && ItemFlowerBag.onPickupItem(self, player)) {
+		if (!player.world.isClient && pickupDelay == 0 && (owner == null || owner.equals(player.getUuid()))
+				&& ItemFlowerBag.onPickupItem(self, player)) {
 			ci.cancel();
 		}
 	}
