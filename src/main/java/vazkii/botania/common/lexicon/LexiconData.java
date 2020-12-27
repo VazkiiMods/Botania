@@ -295,7 +295,7 @@ public final class LexiconData {
 	public static LexiconEntry bcIntegration;
 	public static LexiconEntry banners;
 
-	public static void init() {
+	public static void preInit() {
 		BotaniaAPI.addCategory(BotaniaAPI.categoryBasics = new BLexiconCategory(LibLexicon.CATEGORY_BASICS, 9));
 		BotaniaAPI.addCategory(BotaniaAPI.categoryMana = new BLexiconCategory(LibLexicon.CATEGORY_MANA, 5));
 		BotaniaAPI.addCategory(
@@ -308,7 +308,9 @@ public final class LexiconData {
 		BotaniaAPI.addCategory(BotaniaAPI.categoryEnder = new BLexiconCategory(LibLexicon.CATEGORY_ENDER, 5));
 		BotaniaAPI.addCategory(BotaniaAPI.categoryAlfhomancy = new BLexiconCategory(LibLexicon.CATEGORY_ALFHOMANCY, 5));
 		BotaniaAPI.addCategory(BotaniaAPI.categoryMisc = new BLexiconCategory(LibLexicon.CATEGORY_MISC, 0));
+	}
 
+	public static void init() {
 		LexiconCategory categoryBasics = BotaniaAPI.categoryBasics;
 		LexiconCategory categoryMana = BotaniaAPI.categoryMana;
 		LexiconCategory categoryGenerationFlowers = BotaniaAPI.categoryGenerationFlowers;

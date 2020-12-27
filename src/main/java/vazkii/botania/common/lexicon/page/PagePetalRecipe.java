@@ -43,6 +43,7 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 	List<T> recipes;
 	int ticksElapsed = 0;
 	int recipeAt = 0;
+	int oredictCounter = 0;
 
 	public PagePetalRecipe(String unlocalizedName, List<T> recipes) {
 		super(unlocalizedName);
@@ -77,8 +78,10 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 
 		for(Object obj : inputs) {
 			Object input = obj;
-			if(input instanceof String)
-				input = OreDictionary.getOres((String) input).get(0);
+			if(input instanceof String) {
+				List<ItemStack> ores = OreDictionary.getOres((String) input);
+				input = ores.get(oredictCounter % ores.size());
+			}
 
 			renderItemAtAngle(gui, currentDegree, (ItemStack) input);
 
@@ -127,8 +130,10 @@ public class PagePetalRecipe<T extends RecipePetals> extends PageRecipe {
 		if(ticksElapsed % 20 == 0) {
 			recipeAt++;
 
-			if(recipeAt == recipes.size())
+			if(recipeAt == recipes.size()) {
 				recipeAt = 0;
+				oredictCounter++;
+			}
 		}
 		++ticksElapsed;
 	}

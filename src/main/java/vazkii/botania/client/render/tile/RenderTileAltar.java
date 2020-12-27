@@ -15,11 +15,13 @@ import java.awt.Color;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -51,6 +53,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 
 	ModelAltar model = new ModelAltar();
 	RenderItem renderItem = new RenderItem();
+	RenderBlocks renderBlocks = new RenderBlocks();
 	public static int forceMeta = -1;
 
 	@Override
@@ -84,6 +87,7 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 					else break;
 
 				if(petals > 0) {
+					Minecraft minecraft = Minecraft.getMinecraft();
 					final float modifier = 6F;
 					final float rotationModifier = 0.25F;
 					final float radiusBase = 1.2F;
@@ -120,17 +124,26 @@ public class RenderTileAltar extends TileEntitySpecialRenderer {
 						GL11.glColor4f(1F, 1F, 1F, 1F);
 
 						ItemStack stack = altar.getStackInSlot(i);
-						Minecraft.getMinecraft().renderEngine.bindTexture(TextureMap.locationItemsTexture);
-						IIcon icon = stack.getItem().getIcon(stack, 0);
-						if(icon != null) {
-							Color color = new Color(stack.getItem().getColorFromItemStack(stack, 0));
-							GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
-							float f = icon.getMinU();
-							float f1 = icon.getMaxU();
-							float f2 = icon.getMinV();
-							float f3 = icon.getMaxV();
-							ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
-							GL11.glColor3f(1F, 1F, 1F);
+						minecraft.renderEngine.bindTexture(stack.getItem() instanceof ItemBlock ? TextureMap.locationBlocksTexture : TextureMap.locationItemsTexture);
+
+						if(stack.getItem() instanceof ItemBlock && RenderBlocks.renderItemIn3d(Block.getBlockFromItem(stack.getItem()).getRenderType())) {
+							GL11.glScalef(0.5F, 0.5F, 0.5F);
+							GL11.glTranslatef(1F, 1.1F, 0F);
+							renderBlocks.renderBlockAsItem(Block.getBlockFromItem(stack.getItem()), stack.getItemDamage(), 1F);
+							GL11.glTranslatef(-1F, -1.1F, 0F);
+							GL11.glScalef(2F, 2F, 2F);
+						} else {
+							IIcon icon = stack.getItem().getIcon(stack, 0);
+							if (icon != null) {
+								Color color = new Color(stack.getItem().getColorFromItemStack(stack, 0));
+								GL11.glColor3ub((byte) color.getRed(), (byte) color.getGreen(), (byte) color.getBlue());
+								float f = icon.getMinU();
+								float f1 = icon.getMaxU();
+								float f2 = icon.getMinV();
+								float f3 = icon.getMaxV();
+								ItemRenderer.renderItemIn2D(Tessellator.instance, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 1F / 16F);
+								GL11.glColor3f(1F, 1F, 1F);
+							}
 						}
 
 						GL11.glPopMatrix();

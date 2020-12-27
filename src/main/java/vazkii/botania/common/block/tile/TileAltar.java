@@ -41,6 +41,7 @@ import vazkii.botania.api.recipe.RecipePetals;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.CustomBotaniaAPI;
 import vazkii.botania.common.lib.LibBlockNames;
 
 public class TileAltar extends TileSimpleInventory implements ISidedInventory, IPetalApothecary {
@@ -94,7 +95,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 
 		boolean didChange = false;
 
-		if(stack.getItem() instanceof IFlowerComponent && ((IFlowerComponent) stack.getItem()).canFit(stack, this)) {
+		if(canGoInAltar(stack, this)) {
 			if(getStackInSlot(getSizeInventory() - 1) != null)
 				return false;
 
@@ -143,6 +144,21 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 		}
 
 		return didChange;
+	}
+
+	private IFlowerComponent getFlowerComponent(ItemStack stack) {
+		IFlowerComponent component = CustomBotaniaAPI.extraFlowerComponents.get(stack.getItem());
+		if (component == null) {
+			if (stack.getItem() instanceof IFlowerComponent) {
+				component = (IFlowerComponent) stack.getItem();
+			}
+		}
+		return component;
+	}
+
+	private boolean canGoInAltar(ItemStack stack, TileAltar reference) {
+		IFlowerComponent component = getFlowerComponent(stack);
+		return component != null && component.canFit(stack, reference);
 	}
 
 	public void saveLastRecipe() {
@@ -235,7 +251,7 @@ public class TileAltar extends TileSimpleInventory implements ISidedInventory, I
 				break;
 
 			if(Math.random() >= 0.97) {
-				Color color = new Color(((IFlowerComponent) stackAt.getItem()).getParticleColor(stackAt));
+				Color color = new Color(getFlowerComponent(stackAt).getParticleColor(stackAt));
 				float red = color.getRed() / 255F;
 				float green = color.getGreen() / 255F;
 				float blue = color.getBlue() / 255F;

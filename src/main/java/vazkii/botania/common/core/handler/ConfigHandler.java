@@ -94,7 +94,7 @@ public final class ConfigHandler {
 	public static int harvestLevelWeight = 2;
 	public static int harvestLevelBore = 3;
 
-	public static int flowerQuantity = 2;
+	public static int flowerQuantity = 0;
 	public static int flowerDensity = 2;
 	public static int flowerPatchSize = 6;
 	public static int flowerPatchChance = 16;
