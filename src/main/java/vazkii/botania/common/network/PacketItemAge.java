@@ -33,14 +33,17 @@ public class PacketItemAge {
 		ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, ID, buf);
 	}
 
-	public static void handle(PacketContext ctx, PacketByteBuf buf) {
-		int entityId = buf.readVarInt();
-		int age = buf.readVarInt();
-		ctx.getTaskQueue().execute(() -> {
-			Entity e = MinecraftClient.getInstance().world.getEntityById(entityId);
-			if (e instanceof ItemEntity) {
-				((AccessorItemEntity) e).setAge(age);
-			}
-		});
+	public static class Handler {
+		public static void handle(PacketContext ctx, PacketByteBuf buf) {
+			int entityId = buf.readVarInt();
+			int age = buf.readVarInt();
+			ctx.getTaskQueue().execute(() -> {
+				Entity e = MinecraftClient.getInstance().world.getEntityById(entityId);
+				if (e instanceof ItemEntity) {
+					((AccessorItemEntity) e).setAge(age);
+				}
+			});
+		}
 	}
+
 }

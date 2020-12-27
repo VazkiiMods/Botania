@@ -86,6 +86,7 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 import vazkii.botania.common.item.relic.ItemInfiniteFruit;
 import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.WorldTypeSkyblock;
 import vazkii.botania.mixin.AccessorBiomeGeneratorTypeScreens;
 import vazkii.botania.mixin.AccessorRenderTypeBuffers;
@@ -113,6 +114,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		Botania.proxy = this;
+		PacketHandler.initClient();
 
 		ShaderHelper.initShaders();
 

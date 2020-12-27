@@ -45,26 +45,28 @@ public class PacketSpawnDoppleganger {
 		return ServerSidePacketRegistry.INSTANCE.toPacket(ID, buf);
 	}
 
-	public static void handle(PacketContext ctx, PacketByteBuf buf) {
-		MobSpawnS2CPacket pkt = new MobSpawnS2CPacket();
-		try {
-			pkt.read(buf);
-		} catch (IOException ignored) {} // isn't actually thrown
-		int playerCount = buf.readVarInt();
-		boolean hardMode = buf.readBoolean();
-		BlockPos source = buf.readBlockPos();
-		UUID bossInfoUuid = buf.readUuid();
+	public static class Handler {
+		public static void handle(PacketContext ctx, PacketByteBuf buf) {
+			MobSpawnS2CPacket pkt = new MobSpawnS2CPacket();
+			try {
+				pkt.read(buf);
+			} catch (IOException ignored) {} // isn't actually thrown
+			int playerCount = buf.readVarInt();
+			boolean hardMode = buf.readBoolean();
+			BlockPos source = buf.readBlockPos();
+			UUID bossInfoUuid = buf.readUuid();
 
-		ctx.getTaskQueue().execute(() -> {
-			PlayerEntity player = ctx.getPlayer();
-			if (player instanceof ClientPlayerEntity) {
-				((ClientPlayerEntity) player).networkHandler.onMobSpawn(pkt);
-				int eid = pkt.getId();
-				Entity e = player.world.getEntityById(eid);
-				if (e instanceof EntityDoppleganger) {
-					((EntityDoppleganger) e).readSpawnData(playerCount, hardMode, source, bossInfoUuid);
+			ctx.getTaskQueue().execute(() -> {
+				PlayerEntity player = ctx.getPlayer();
+				if (player instanceof ClientPlayerEntity) {
+					((ClientPlayerEntity) player).networkHandler.onMobSpawn(pkt);
+					int eid = pkt.getId();
+					Entity e = player.world.getEntityById(eid);
+					if (e instanceof EntityDoppleganger) {
+						((EntityDoppleganger) e).readSpawnData(playerCount, hardMode, source, bossInfoUuid);
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 }

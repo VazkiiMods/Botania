@@ -27,12 +27,14 @@ public class PacketGogWorld {
 		ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, ID, PacketHandler.EMPTY_BUF);
 	}
 
-	public static void handle(PacketContext ctx, PacketByteBuf buf) {
-		ctx.getTaskQueue().execute(() -> {
-			ClientWorld.Properties info = MinecraftClient.getInstance().world.getLevelProperties();
-			if (info instanceof SkyblockWorldInfo) {
-				((SkyblockWorldInfo) info).markGardenOfGlass();
-			}
-		});
+	public static class Handler {
+		public static void handle(PacketContext ctx, PacketByteBuf buf) {
+			ctx.getTaskQueue().execute(() -> {
+				ClientWorld.Properties info = MinecraftClient.getInstance().world.getLevelProperties();
+				if (info instanceof SkyblockWorldInfo) {
+					((SkyblockWorldInfo) info).markGardenOfGlass();
+				}
+			});
+		}
 	}
 }

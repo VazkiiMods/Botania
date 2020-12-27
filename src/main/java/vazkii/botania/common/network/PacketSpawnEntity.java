@@ -57,32 +57,35 @@ public class PacketSpawnEntity {
 		return ServerSidePacketRegistry.INSTANCE.toPacket(ID, buf);
 	}
 
-	public static void handle(PacketContext ctx, PacketByteBuf buf) {
-		int id = buf.readVarInt();
-		UUID uuid = buf.readUuid();
-		EntityType<?> type = Registry.ENTITY_TYPE.get(buf.readVarInt());
-		double x = buf.readDouble();
-		double y = buf.readDouble();
-		double z = buf.readDouble();
-		float pitch = (buf.readByte() * 360) / 256.0F;
-		float yaw = (buf.readByte() * 360) / 256.0F;
-		double dx = buf.readShort() / 8000.0;
-		double dy = buf.readShort() / 8000.0;
-		double dz = buf.readShort() / 8000.0;
+	public static class Handler {
+		public static void handle(PacketContext ctx, PacketByteBuf buf) {
+			int id = buf.readVarInt();
+			UUID uuid = buf.readUuid();
+			EntityType<?> type = Registry.ENTITY_TYPE.get(buf.readVarInt());
+			double x = buf.readDouble();
+			double y = buf.readDouble();
+			double z = buf.readDouble();
+			float pitch = (buf.readByte() * 360) / 256.0F;
+			float yaw = (buf.readByte() * 360) / 256.0F;
+			double dx = buf.readShort() / 8000.0;
+			double dy = buf.readShort() / 8000.0;
+			double dz = buf.readShort() / 8000.0;
 
-		ctx.getTaskQueue().execute(() -> {
-			ClientWorld world = MinecraftClient.getInstance().world;
-			Entity e = type.create(world);
-			if (e != null) {
-				e.updateTrackedPosition(x, y, z);
-				e.refreshPositionAfterTeleport(x, y, z);
-				e.pitch = pitch;
-				e.yaw = yaw;
-				e.setEntityId(id);
-				e.setUuid(uuid);
-				e.setVelocityClient(dx, dy, dz);
-				world.addEntity(id, e);
-			}
-		});
+			ctx.getTaskQueue().execute(() -> {
+				ClientWorld world = MinecraftClient.getInstance().world;
+				Entity e = type.create(world);
+				if (e != null) {
+					e.updateTrackedPosition(x, y, z);
+					e.refreshPositionAfterTeleport(x, y, z);
+					e.pitch = pitch;
+					e.yaw = yaw;
+					e.setEntityId(id);
+					e.setUuid(uuid);
+					e.setVelocityClient(dx, dy, dz);
+					world.addEntity(id, e);
+				}
+			});
+		}
 	}
+
 }
