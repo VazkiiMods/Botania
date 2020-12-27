@@ -19,7 +19,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.play.server.SCollectItemPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
@@ -112,13 +111,7 @@ public class ItemFlowerBag extends Item {
 						bagInv.markDirty();
 
 						event.setCanceled(true);
-						if (!event.getItem().isSilent()) {
-							event.getItem().world.playSound(null, event.getPlayer().getPosX(), event.getPlayer().getPosY(), event.getPlayer().getPosZ(),
-									SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F,
-									((event.getItem().world.rand.nextFloat() - event.getItem().world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
-						}
-						((ServerPlayerEntity) event.getPlayer()).connection.sendPacket(new SCollectItemPacket(event.getItem().getEntityId(), event.getPlayer().getEntityId(), numPickedUp));
-						event.getPlayer().openContainer.detectAndSendChanges();
+						event.getPlayer().onItemPickup(event.getItem(), numPickedUp);
 
 						return;
 					}
