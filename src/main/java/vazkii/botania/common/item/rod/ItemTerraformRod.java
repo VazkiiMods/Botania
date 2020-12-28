@@ -148,7 +148,8 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 	@Override
 	public boolean provideBlock(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
 		if (block == Blocks.DIRT) {
-			return !doit || ManaItemHandler.instance().requestManaExactForTool(requestor, player, ItemDirtRod.COST, true);
+			return (doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, ItemDirtRod.COST, true)) ||
+					(!doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, ItemDirtRod.COST, false));
 		}
 		return false;
 	}
@@ -156,7 +157,7 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 	@Override
 	public int getBlockCount(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block) {
 		if (block == Blocks.DIRT) {
-			return -1;
+			return ManaItemHandler.instance().getInvocationCountForTool(requestor, player, ItemDirtRod.COST);
 		}
 		return 0;
 	}

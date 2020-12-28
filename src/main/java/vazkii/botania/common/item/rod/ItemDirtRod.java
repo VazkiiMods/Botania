@@ -89,7 +89,8 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 	@Override
 	public boolean provideBlock(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
 		if (block == Blocks.DIRT) {
-			return !doit || ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, true);
+			return (doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, true)) ||
+					(!doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, false));
 		}
 		return false;
 	}
@@ -97,7 +98,7 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 	@Override
 	public int getBlockCount(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block) {
 		if (block == Blocks.DIRT) {
-			return -1;
+			return ManaItemHandler.instance().getInvocationCountForTool(requestor, player, COST);
 		}
 		return 0;
 	}
