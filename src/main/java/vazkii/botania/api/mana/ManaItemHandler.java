@@ -128,7 +128,8 @@ public interface ManaItemHandler {
 	}
 
 	/**
-	 * Determines how many times the given tool can get the requested amount of mana.  Takes discounts into consideration.
+	 * Determines how many times the given tool can get the requested amount of mana. Takes discounts into
+	 * consideration.
 	 * 
 	 * @param manaToGet How much mana is to be requested per invocation
 	 * @return The number of invocations that could be executed before exhausting the player's mana available

@@ -189,7 +189,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 
 		return false;
 	}
-	
+
 	private int discountManaForTool(ItemStack stack, PlayerEntity player, int inCost) {
 		float multiplier = Math.max(0F, 1F - getFullDiscountForTools(player, stack));
 		return (int) (inCost * multiplier);
@@ -212,7 +212,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 		if (stack.isEmpty()) {
 			return 0;
 		}
-		
+
 		int cost = discountManaForTool(stack, player, manaToGet);
 		int invocations = 0;
 
