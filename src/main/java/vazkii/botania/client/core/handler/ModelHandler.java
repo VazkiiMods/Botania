@@ -14,6 +14,7 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.resource.ResourceManager;
+import net.minecraft.util.Identifier;
 
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
@@ -32,7 +33,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public final class ModelHandler {
 	static boolean registeredModels = false;
 
-	public static void registerModels(ResourceManager rm, Consumer<ModelIdentifier> consumer) {
+	public static void registerModels(ResourceManager rm, Consumer<Identifier> consumer) {
 		if (!registeredModels) {
 			registeredModels = true;
 			// todo fabric ModelLoaderRegistry.registerLoader(FloatingFlowerModel.Loader.ID, FloatingFlowerModel.Loader.INSTANCE);
@@ -40,12 +41,12 @@ public final class ModelHandler {
 		consumer.accept(new ModelIdentifier(LibMisc.MOD_ID + ":mana_gun_clip", "inventory"));
 		consumer.accept(new ModelIdentifier(LibMisc.MOD_ID + ":desu_gun", "inventory"));
 		consumer.accept(new ModelIdentifier(LibMisc.MOD_ID + ":desu_gun_clip", "inventory"));
-		consumer.accept(new ModelIdentifier(prefix("block/corporea_crystal_cube_glass"), "inventory"));
-		consumer.accept(new ModelIdentifier(prefix("block/pump_head"), "inventory"));
-		consumer.accept(new ModelIdentifier(prefix("block/elven_spreader_inside"), "inventory"));
-		consumer.accept(new ModelIdentifier(prefix("block/gaia_spreader_inside"), "inventory"));
-		consumer.accept(new ModelIdentifier(prefix("block/mana_spreader_inside"), "inventory"));
-		consumer.accept(new ModelIdentifier(prefix("block/redstone_spreader_inside"), "inventory"));
+		consumer.accept(prefix("block/corporea_crystal_cube_glass"));
+		consumer.accept(prefix("block/pump_head"));
+		consumer.accept(prefix("block/elven_spreader_inside"));
+		consumer.accept(prefix("block/gaia_spreader_inside"));
+		consumer.accept(prefix("block/mana_spreader_inside"));
+		consumer.accept(prefix("block/redstone_spreader_inside"));
 
 		registerIslands();
 	}

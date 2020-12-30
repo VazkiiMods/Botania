@@ -41,7 +41,7 @@
 
   "depends": {
     "fabricloader": ">=0.8",
-    "fabric": ">=0.26",
+    "fabric": ">=0.29",
     "minecraft": ">=1.16.4",
     "libblockattributes": ">=0.8.4",
     "curios" : "*",

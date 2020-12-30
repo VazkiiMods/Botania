@@ -85,7 +85,7 @@ public class MiscellaneousIcons {
 
 	public final BakedModel[] kingKeyWeaponModels = new BakedModel[ItemKingKey.WEAPON_TYPES];
 
-	public void onModelRegister(ResourceManager rm, Consumer<ModelIdentifier> consumer) {
+	public void onModelRegister(ResourceManager rm, Consumer<Identifier> consumer) {
 		Set<SpriteIdentifier> materials = AccessorModelBakery.getMaterials();
 
 		materials.addAll(Arrays.asList(alfPortalTex, lightRelayWorldIcon, lightRelayDetectorWorldIcon,
@@ -101,26 +101,26 @@ public class MiscellaneousIcons {
 				materials.add(new SpriteIdentifier(TexturedRenderLayers.BANNER_PATTERNS_ATLAS_TEXTURE, pattern.getSpriteId(true)));
 			}
 		}
-		consumer.accept(new ModelIdentifier(prefix("icon/goldfish"), "inventory"));
-		consumer.accept(new ModelIdentifier(prefix("icon/phiflower"), "inventory"));
-		consumer.accept(new ModelIdentifier(prefix("icon/nerfbat"), "inventory"));
-		consumer.accept(new ModelIdentifier(prefix("icon/blood_pendant_chain"), "inventory"));
-		consumer.accept(new ModelIdentifier(prefix("icon/blood_pendant_gem"), "inventory"));
+		consumer.accept(prefix("icon/goldfish"));
+		consumer.accept(prefix("icon/phiflower"));
+		consumer.accept(prefix("icon/nerfbat"));
+		consumer.accept(prefix("icon/blood_pendant_chain"));
+		consumer.accept(prefix("icon/blood_pendant_gem"));
 		for (int i = 0; i < ItemKingKey.WEAPON_TYPES; i++) {
-			consumer.accept(new ModelIdentifier(prefix("icon/gate_weapon_" + i), "inventory"));
+			consumer.accept(prefix("icon/gate_weapon_" + i));
 		}
-		consumer.accept(new ModelIdentifier(prefix("icon/will_flame"), "inventory"));
+		consumer.accept(prefix("icon/will_flame"));
 		for (int i = 0; i < thirdEyeLayers.length; i++) {
-			consumer.accept(new ModelIdentifier(prefix("icon/third_eye_" + i), "inventory"));
+			consumer.accept(prefix("icon/third_eye_" + i));
 		}
-		consumer.accept(new ModelIdentifier(prefix("icon/lava_pendant_gem"), "inventory"));
-		consumer.accept(new ModelIdentifier(prefix("icon/super_lava_pendant_gem"), "inventory"));
-		consumer.accept(new ModelIdentifier(prefix("icon/itemfinder_gem"), "inventory"));
-		consumer.accept(new ModelIdentifier(prefix("icon/cloud_pendant_gem"), "inventory"));
-		consumer.accept(new ModelIdentifier(prefix("icon/super_cloud_pendant_gem"), "inventory"));
-		consumer.accept(new ModelIdentifier(prefix("icon/ice_pendant_gem"), "inventory"));
+		consumer.accept(prefix("icon/lava_pendant_gem"));
+		consumer.accept(prefix("icon/super_lava_pendant_gem"));
+		consumer.accept(prefix("icon/itemfinder_gem"));
+		consumer.accept(prefix("icon/cloud_pendant_gem"));
+		consumer.accept(prefix("icon/super_cloud_pendant_gem"));
+		consumer.accept(prefix("icon/ice_pendant_gem"));
 		for (int i = 0; i < tiaraWingIcons.length; i++) {
-			consumer.accept(new ModelIdentifier(prefix("icon/tiara_wing_" + (i + 1)), "inventory"));
+			consumer.accept(prefix("icon/tiara_wing_" + (i + 1)));
 		}
 	}
 
