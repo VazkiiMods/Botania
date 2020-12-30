@@ -95,8 +95,9 @@ public final class ToolCommons {
 		}
 
 		BlockState blockstate = world.getBlockState(pos);
+		boolean unminable = blockstate.getPlayerRelativeBlockHardness(player, world, pos) == 0;
 
-		if (!world.isRemote && filter.test(blockstate) && !blockstate.isAir(world, pos)) {
+		if (!world.isRemote && !unminable && filter.test(blockstate) && !blockstate.isAir(world, pos)) {
 			ItemStack save = player.getHeldItemMainhand();
 			player.setHeldItem(Hand.MAIN_HAND, stack);
 			((ServerPlayerEntity) player).interactionManager.tryHarvestBlock(pos);
