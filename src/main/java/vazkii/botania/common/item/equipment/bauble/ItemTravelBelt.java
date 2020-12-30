@@ -18,7 +18,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
@@ -127,8 +128,8 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		return !result.isEmpty() && ManaItemHandler.instance().requestManaExact(result, player, COST, false);
 	}
 
-	public static void playerLoggedOut(ServerPlayerEntity player) {
-		String username = player.getGameProfile().getName();
+	public static void playerLoggedOut(ServerPlayNetworkHandler handler, MinecraftServer server) {
+		String username = handler.player.getGameProfile().getName();
 		playersWithStepup.remove(username + ":false");
 		playersWithStepup.remove(username + ":true");
 	}

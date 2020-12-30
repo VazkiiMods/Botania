@@ -18,6 +18,7 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Blocks;
@@ -64,6 +65,8 @@ import vazkii.botania.common.impl.corporea.CorporeaStringMatcher;
 import vazkii.botania.common.item.ItemGrassSeeds;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
 import vazkii.botania.common.item.material.ItemEnderAir;
 import vazkii.botania.common.item.relic.ItemLokiRing;
 import vazkii.botania.common.lib.LibMisc;
@@ -127,6 +130,8 @@ public class Botania implements ModInitializer {
 		UseBlockCallback.EVENT.register(BlockRedStringInterceptor::onInteract);
 		ManaNetworkCallback.EVENT.register(ManaNetworkHandler.instance::onNetworkEvent);
 		LootTableLoadingCallback.EVENT.register(LootHandler::lootLoad);
+		ServerPlayConnectionEvents.DISCONNECT.register(ItemTravelBelt::playerLoggedOut);
+		ServerPlayConnectionEvents.DISCONNECT.register(ItemFlightTiara::playerLoggedOut);
 
 		ModLootModifiers.init();
 		ModCriteriaTriggers.init();
