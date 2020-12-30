@@ -27,6 +27,8 @@ public class InventoryHelper {
 
 	// [VanillaCopy] HopperBlockEntity#transfer but simulates instead of doing it
 	public static ItemStack simulateTransfer(Inventory to, ItemStack stack, Direction side) {
+		stack = stack.copy();
+
 		if (to instanceof SidedInventory && side != null) {
 			SidedInventory sidedInventory = (SidedInventory) to;
 			int[] is = sidedInventory.getAvailableSlots(side);
@@ -45,7 +47,7 @@ public class InventoryHelper {
 		return stack;
 	}
 
-	// [VanillaCopy] HopperBlockEntity without side effects
+	// [VanillaCopy] HopperBlockEntity without modifying the destination inventory. `stack` is still modified
 	private static ItemStack simulateTransfer(Inventory to, ItemStack stack, int slot, Direction direction) {
 		ItemStack itemStack = to.getStack(slot);
 		if (AccessorHopperBlockEntity.botania_canInsert(to, stack, slot, direction)) {
