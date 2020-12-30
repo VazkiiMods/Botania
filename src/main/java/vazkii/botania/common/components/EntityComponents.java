@@ -45,6 +45,7 @@ public class EntityComponents implements EntityComponentInitializer {
 		registry.registerFor(SlimeEntity.class, NARSLIMMUS, NarslimmusComponent::new);
 		registry.registerFor(ItemEntity.class, INTERNAL_ITEM, e -> new ItemFlagsComponent());
 		registry.registerFor(AbstractMinecartEntity.class, GHOST_RAIL, e -> new GhostRailComponent());
-		registry.registerForPlayers(KEPT_ITEMS, e -> new KeptItemsComponent(), RespawnCopyStrategy.ALWAYS_COPY);
+		// Never copy as we handle it ourselves in ItemKeepIvy.onPlayerRespawn
+		registry.registerForPlayers(KEPT_ITEMS, e -> new KeptItemsComponent(), RespawnCopyStrategy.NEVER_COPY);
 	}
 }

@@ -12,6 +12,7 @@ import com.mojang.brigadier.CommandDispatcher;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
@@ -61,6 +62,7 @@ import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.corporea.CorporeaItemStackMatcher;
 import vazkii.botania.common.impl.corporea.CorporeaStringMatcher;
 import vazkii.botania.common.item.ItemGrassSeeds;
+import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemEnderAir;
 import vazkii.botania.common.item.relic.ItemLokiRing;
@@ -120,6 +122,7 @@ public class Botania implements ModInitializer {
 		UseBlockCallback.EVENT.register(ItemLokiRing::onPlayerInteract);
 		UseItemCallback.EVENT.register(ItemEnderAir::onPlayerInteract);
 		ServerTickEvents.END_WORLD_TICK.register(ItemGrassSeeds::onTickEnd);
+		ServerPlayerEvents.AFTER_RESPAWN.register(ItemKeepIvy::onPlayerRespawn);
 		ServerTickEvents.END_WORLD_TICK.register(CommonTickHandler::onTick);
 		UseBlockCallback.EVENT.register(BlockRedStringInterceptor::onInteract);
 		ManaNetworkCallback.EVENT.register(ManaNetworkHandler.instance::onNetworkEvent);

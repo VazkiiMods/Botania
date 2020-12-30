@@ -11,6 +11,7 @@ package vazkii.botania.common.item;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 
 import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.components.KeptItemsComponent;
@@ -52,14 +53,16 @@ public class ItemKeepIvy extends Item {
 		}
 	}
 
-	public static void onPlayerRespawn(PlayerEntity player) {
-		KeptItemsComponent keeps = EntityComponents.KEPT_ITEMS.get(player);
+	public static void onPlayerRespawn(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer, boolean alive) {
+		if (!alive) {
+			KeptItemsComponent keeps = EntityComponents.KEPT_ITEMS.get(oldPlayer);
 
-		for (ItemStack stack : keeps.take()) {
-			ItemStack copy = stack.copy();
-			copy.removeSubTag(TAG_KEEP);
-			if (!player.inventory.insertStack(copy)) {
-				player.dropStack(copy);
+			for (ItemStack stack : keeps.getStacks()) {
+				ItemStack copy = stack.copy();
+				copy.removeSubTag(TAG_KEEP);
+				if (!newPlayer.inventory.insertStack(copy)) {
+					newPlayer.dropStack(copy);
+				}
 			}
 		}
 	}

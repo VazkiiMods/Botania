@@ -20,16 +20,14 @@ import java.util.List;
 import dev.onyxstudios.cca.api.v3.component.Component;
 
 public class KeptItemsComponent implements Component {
-	private List<ItemStack> stacks = new ArrayList<>();
+	private final List<ItemStack> stacks = new ArrayList<>();
 
 	public void addAll(Collection<ItemStack> stack) {
 		stacks.addAll(stack);
 	}
 
-	public List<ItemStack> take() {
-		List<ItemStack> ret = stacks;
-		stacks = new ArrayList<>();
-		return ret;
+	public List<ItemStack> getStacks() {
+		return stacks;
 	}
 
 	@Override
