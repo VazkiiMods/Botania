@@ -8,17 +8,28 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.sound.SoundInstance;
+import net.minecraft.util.math.Direction;
+
 import vazkii.botania.api.subtile.RadiusDescriptor;
-import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
+import vazkii.botania.api.subtile.TileEntitySpecialFlower;
+import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.block.tile.mana.TilePool;
+
+import javax.annotation.Nullable;
 
 import java.util.Collections;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-public class SubTileBergamute extends TileEntityFunctionalFlower {
+public class SubTileBergamute extends TileEntitySpecialFlower {
 	private static final int RANGE = 4;
 	private static final Set<SubTileBergamute> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
+	private static final Set<SoundInstance> mutedSounds = Collections.newSetFromMap(new WeakHashMap<>());
+	private boolean disabled = false;
 
 	public SubTileBergamute() {
 		super(ModSubtiles.BERGAMUTE);
@@ -29,6 +40,14 @@ public class SubTileBergamute extends TileEntityFunctionalFlower {
 		super.tickFlower();
 
 		if (getWorld().isClient) {
+			disabled = false;
+			for (Direction dir : Direction.values()) {
+				int redstoneSide = getWorld().getEmittedRedstonePower(getPos().offset(dir), dir);
+				if (redstoneSide > 0) {
+					disabled = true;
+					break;
+				}
+			}
 			existingFlowers.add(this);
 		}
 	}
@@ -40,26 +59,30 @@ public class SubTileBergamute extends TileEntityFunctionalFlower {
 	}
 
 	// todo seems expensive when we have lots of sounds cache maybe?
-	protected static SubTileBergamute getBergamuteNearby(double x, double y, double z) {
-		return existingFlowers.stream()
-				.filter(f -> f.redstoneSignal == 0)
-				.filter(f -> f.getEffectivePos().getSquaredDistance(x, y, z, false) <= RANGE * RANGE)
-				.findAny().orElse(null);
+	@Nullable
+	private static SubTileBergamute getBergamuteNearby(double x, double y, double z) {
+		for (SubTileBergamute f : existingFlowers) {
+			if (!f.disabled && f.getEffectivePos().getSquaredDistance(x, y, z, true) <= RANGE * RANGE) {
+				return f;
+			}
+		}
+		return null;
 	}
 
-	@Override
-	public boolean acceptsRedstone() {
-		return true;
-	}
-
-	@Override
-	public int getMaxMana() {
-		return 1;
-	}
-
-	@Override
-	public int getColor() {
-		return 0xF46C6C;
+	@Environment(EnvType.CLIENT)
+	public static boolean muteSound(SoundInstance sound) {
+		SubTileBergamute berg = getBergamuteNearby(sound.getX(), sound.getY(), sound.getZ());
+		if (berg != null) {
+			if (mutedSounds.add(sound) && Math.random() < 0.5) {
+				int color = TilePool.PARTICLE_COLOR;
+				float red = (color >> 16 & 0xFF) / 255F;
+				float green = (color >> 8 & 0xFF) / 255F;
+				float blue = (color & 0xFF) / 255F;
+				SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 5);
+				berg.getWorld().addParticle(data, berg.getEffectivePos().getX() + 0.3 + Math.random() * 0.5, berg.getEffectivePos().getY() + 0.5 + Math.random() * 0.5, berg.getEffectivePos().getZ() + 0.3 + Math.random() * 0.5, 0, 0, 0);
+			}
+		}
+		return berg != null;
 	}
 
 	@Override

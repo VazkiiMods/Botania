@@ -8,10 +8,8 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -22,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.MiningToolItem;
 import net.minecraft.item.ToolMaterial;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
@@ -41,6 +40,7 @@ public final class ToolCommons {
 	public static final List<Material> materialsPick = Arrays.asList(Material.STONE, Material.METAL, Material.ICE, Material.GLASS, Material.PISTON, Material.REPAIR_STATION, Material.SHULKER_BOX);
 	public static final List<Material> materialsShovel = Arrays.asList(Material.SOLID_ORGANIC, Material.SOIL, Material.AGGREGATE, Material.SNOW_LAYER, Material.SNOW_BLOCK, Material.ORGANIC_PRODUCT);
 	public static final List<Material> materialsAxe = Arrays.asList(Material.UNUSED_PLANT, Material.LEAVES, Material.PLANT, Material.WOOD, Material.GOURD);
+	private static boolean recCall = false;
 
 	/**
 	 * Consumes as much mana as possible, returning the amount of damage that couldn't be paid with mana
@@ -64,53 +64,44 @@ public final class ToolCommons {
 
 	public static void removeBlocksInIteration(PlayerEntity player, ItemStack stack, World world, BlockPos centerPos,
 			Vec3i startDelta, Vec3i endDelta, Predicate<BlockState> filter) {
-		for (BlockPos iterPos : BlockPos.iterate(centerPos.add(startDelta),
-				centerPos.add(endDelta))) {
-			// skip original block space to avoid crash, vanilla code in the tool class will handle it
-			if (iterPos.equals(centerPos)) {
-				continue;
+		if (recCall) {
+			return;
+		}
+
+		recCall = true;
+		try {
+			for (BlockPos iterPos : BlockPos.iterate(centerPos.add(startDelta),
+					centerPos.add(endDelta))) {
+				// skip original block space, vanilla code will handle it
+				if (iterPos.equals(centerPos)) {
+					continue;
+				}
+				removeBlockWithDrops(player, stack, world, iterPos, filter);
 			}
-			removeBlockWithDrops(player, stack, world, iterPos, filter);
+		} finally {
+			recCall = false;
 		}
 	}
 
+	/**
+	 * NB: Cannot be called in a call chain leading from PlayerInteractionManager.tryHarvestBlock
+	 * without additional protection like {@link #recCall} in {@link #removeBlocksInIteration},
+	 * since this method calls that method also and would lead to an infinite loop.
+	 */
 	public static void removeBlockWithDrops(PlayerEntity player, ItemStack stack, World world, BlockPos pos,
 			Predicate<BlockState> filter) {
 		if (!world.isChunkLoaded(pos)) {
 			return;
 		}
 
-		BlockState blockState = world.getBlockState(pos);
-		Block block = blockState.getBlock();
+		BlockState blockstate = world.getBlockState(pos);
+		boolean unminable = blockstate.calcBlockBreakingDelta(player, world, pos) == 0;
 
-		if (!world.isClient && filter.test(blockState) && !blockState.isAir()) {
-			// [VanillaCopy] ServerPlayerInteractionManager.tryBreakBlock, removeBlock inlined
-			// we could technically just call that method directly, but run into complications with infinite recursion (since this method)
-			// can be invoked from a call chain beginning at tryHarvestBlock as well. It's simpler to just copy.
-
-			if (!player.getMainHandStack().getItem().canMine(blockState, world, pos, player)
-					|| player.isBlockBreakingRestricted(world, pos, ((ServerPlayerEntity) player).interactionManager.getGameMode())) {
-				return;
-			}
-
-			block.onBreak(world, pos, blockState, player);
-			boolean bl = world.removeBlock(pos, false);
-			if (bl) {
-				block.onBroken(world, pos, blockState);
-			}
-
-			if (player.isCreative()) {
-				return;
-			} else {
-				ItemStack itemStack = stack; // player.getMainHandStack();
-				ItemStack itemStack2 = itemStack.copy();
-				boolean bl2 = player.isUsingEffectiveTool(blockState);
-				itemStack.postMine(world, blockState, pos, player);
-				if (bl && bl2) {
-					BlockEntity blockEntity = world.getBlockEntity(pos);
-					block.afterBreak(world, player, pos, blockState, blockEntity, itemStack2);
-				}
-			}
+		if (!world.isClient && !unminable && filter.test(blockstate) && !blockstate.isAir()) {
+			ItemStack save = player.getMainHandStack();
+			player.setStackInHand(Hand.MAIN_HAND, stack);
+			((ServerPlayerEntity) player).interactionManager.tryBreakBlock(pos);
+			player.setStackInHand(Hand.MAIN_HAND, save);
 		}
 	}
 

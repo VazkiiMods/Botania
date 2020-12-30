@@ -73,7 +73,7 @@
     "MixinMinecraftClient",
     "MixinParticleManager",
     "MixinSkullTileEntityRenderer",
-    "MixinSoundManager",
+    "MixinSoundEngine",
     "MixinSplashes",
     "MixinWorldRenderer"
   ],

@@ -49,9 +49,15 @@ import java.util.Collections;
 import java.util.List;
 
 public class BlockPool extends BlockModWaterloggable implements BlockEntityProvider, IWandHUD, IWandable {
-	private static final VoxelShape SLAB = createCuboidShape(0, 0, 0, 16, 8, 16);
-	private static final VoxelShape CUTOUT = createCuboidShape(1, 1, 1, 15, 8, 15);
-	private static final VoxelShape REAL_SHAPE = VoxelShapes.combineAndSimplify(SLAB, CUTOUT, BooleanBiFunction.ONLY_FIRST);
+	private static final VoxelShape REAL_SHAPE;
+	private static final VoxelShape BURST_SHAPE;
+	static {
+		VoxelShape slab = createCuboidShape(0, 0, 0, 16, 8, 16);
+		VoxelShape cutout = createCuboidShape(1, 1, 1, 15, 8, 15);
+		VoxelShape cutoutBurst = createCuboidShape(1, 6, 1, 15, 8, 15);
+		BURST_SHAPE = VoxelShapes.combineAndSimplify(slab, cutoutBurst, BooleanBiFunction.ONLY_FIRST);
+		REAL_SHAPE = VoxelShapes.combineAndSimplify(slab, cutout, BooleanBiFunction.ONLY_FIRST);
+	}
 
 	public enum Variant {
 		DEFAULT,
@@ -103,7 +109,7 @@ public class BlockPool extends BlockModWaterloggable implements BlockEntityProvi
 	public VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 		if (ExtendedShapeContext.getEntity(context) instanceof EntityManaBurst) {
 			// Sometimes the pool's collision box is too thin for bursts shot straight up.
-			return SLAB;
+			return BURST_SHAPE;
 		} else {
 			return super.getCollisionShape(state, world, pos, context);
 		}

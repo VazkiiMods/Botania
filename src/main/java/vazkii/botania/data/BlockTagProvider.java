@@ -75,7 +75,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 						.toArray(Block[]::new)
 		);
 
-		getOrCreateTagBuilder(ModTags.Blocks.MISC_SPECIAL_FLOWERS).add(manastar, pureDaisy);
+		getOrCreateTagBuilder(ModTags.Blocks.MISC_SPECIAL_FLOWERS).add(manastar, pureDaisy, bergamute);
 		getOrCreateTagBuilder(ModTags.Blocks.GENERATING_SPECIAL_FLOWERS).add(
 				dandelifeon, endoflame, entropinnyum,
 				gourmaryllis, hydroangeas, kekimurus,
@@ -84,7 +84,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 		);
 		getOrCreateTagBuilder(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS).add(
 				agricarnation, agricarnationChibi, bellethorn, bellethornChibi,
-				bergamute, bubbell, bubbellChibi, clayconia, clayconiaChibi,
+				bubbell, bubbellChibi, clayconia, clayconiaChibi,
 				daffomill, dreadthorn, exoflame, fallenKanade, heiseiDream,
 				hopperhock, hopperhockChibi, hyacidus, jadedAmaranthus,
 				jiyuulia, loonium, marimorphosis, marimorphosisChibi,
