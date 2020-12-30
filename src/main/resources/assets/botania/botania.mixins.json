@@ -41,6 +41,7 @@
     "AccessorWorldRenderer",
     "MixinClientWorldInfo",
     "MixinSkullTileEntityRenderer",
+    "MixinSoundEngine",
     "MixinSplashes",
     "MixinWorldRenderer"
   ],
