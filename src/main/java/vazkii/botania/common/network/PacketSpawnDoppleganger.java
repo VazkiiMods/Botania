@@ -8,11 +8,12 @@
  */
 package vazkii.botania.common.network;
 
-import net.fabricmc.fabric.api.network.PacketContext;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.packet.s2c.play.MobSpawnS2CPacket;
@@ -42,11 +43,11 @@ public class PacketSpawnDoppleganger {
 		buf.writeBoolean(hardMode);
 		buf.writeBlockPos(source);
 		buf.writeUuid(bossInfoId);
-		return ServerSidePacketRegistry.INSTANCE.toPacket(ID, buf);
+		return ServerPlayNetworking.createS2CPacket(ID, buf);
 	}
 
 	public static class Handler {
-		public static void handle(PacketContext ctx, PacketByteBuf buf) {
+		public static void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
 			MobSpawnS2CPacket pkt = new MobSpawnS2CPacket();
 			try {
 				pkt.read(buf);
@@ -56,10 +57,10 @@ public class PacketSpawnDoppleganger {
 			BlockPos source = buf.readBlockPos();
 			UUID bossInfoUuid = buf.readUuid();
 
-			ctx.getTaskQueue().execute(() -> {
-				PlayerEntity player = ctx.getPlayer();
-				if (player instanceof ClientPlayerEntity) {
-					((ClientPlayerEntity) player).networkHandler.onMobSpawn(pkt);
+			client.execute(() -> {
+				ClientPlayerEntity player = client.player;
+				if (player != null) {
+					player.networkHandler.onMobSpawn(pkt);
 					int eid = pkt.getId();
 					Entity e = player.world.getEntityById(eid);
 					if (e instanceof EntityDoppleganger) {

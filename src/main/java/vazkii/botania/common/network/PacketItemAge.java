@@ -8,13 +8,14 @@
  */
 package vazkii.botania.common.network;
 
-import net.fabricmc.fabric.api.network.PacketContext;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 import vazkii.botania.mixin.AccessorItemEntity;
@@ -26,18 +27,18 @@ import io.netty.buffer.Unpooled;
 public class PacketItemAge {
 	public static final Identifier ID = prefix("ia");
 
-	public static void send(PlayerEntity player, int entityId, int age) {
+	public static void send(ServerPlayerEntity player, int entityId, int age) {
 		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 		buf.writeVarInt(entityId);
 		buf.writeVarInt(age);
-		ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, ID, buf);
+		ServerPlayNetworking.send(player, ID, buf);
 	}
 
 	public static class Handler {
-		public static void handle(PacketContext ctx, PacketByteBuf buf) {
+		public static void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
 			int entityId = buf.readVarInt();
 			int age = buf.readVarInt();
-			ctx.getTaskQueue().execute(() -> {
+			client.execute(() -> {
 				Entity e = MinecraftClient.getInstance().world.getEntityById(entityId);
 				if (e instanceof ItemEntity) {
 					((AccessorItemEntity) e).setAge(age);

@@ -8,10 +8,12 @@
  */
 package vazkii.botania.common.network;
 
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
-import net.fabricmc.fabric.api.network.PacketContext;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
@@ -28,13 +30,12 @@ public class PacketIndexKeybindRequest {
 	public static void send(ItemStack stack) {
 		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 		buf.writeItemStack(stack);
-		ClientSidePacketRegistry.INSTANCE.sendToServer(ID, buf);
+		ClientPlayNetworking.send(ID, buf);
 	}
 
-	public static void handle(PacketContext ctx, PacketByteBuf buf) {
+	public static void handle(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
 		ItemStack stack = buf.readItemStack();
-		ctx.getTaskQueue().execute(() -> {
-			ServerPlayerEntity player = (ServerPlayerEntity) ctx.getPlayer();
+		server.execute(() -> {
 			if (player.isSpectator()) {
 				return;
 			}

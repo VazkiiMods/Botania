@@ -8,10 +8,12 @@
  */
 package vazkii.botania.common.network;
 
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
-import net.fabricmc.fabric.api.network.PacketContext;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.TranslatableText;
@@ -29,12 +31,11 @@ public class PacketDodge {
 	public static final Identifier ID = prefix("do");
 
 	public static void send() {
-		ClientSidePacketRegistry.INSTANCE.sendToServer(ID, PacketHandler.EMPTY_BUF);
+		ClientPlayNetworking.send(ID, PacketHandler.EMPTY_BUF);
 	}
 
-	public static void handle(PacketContext ctx, PacketByteBuf buf) {
-		ctx.getTaskQueue().execute(() -> {
-			ServerPlayerEntity player = (ServerPlayerEntity) ctx.getPlayer();
+	public static void handle(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
+		server.execute(() -> {
 			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
 
 			ItemStack ringStack = EquipmentHandler.findOrEmpty(ModItems.dodgeRing, player);

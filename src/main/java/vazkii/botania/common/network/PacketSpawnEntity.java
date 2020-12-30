@@ -8,9 +8,10 @@
  */
 package vazkii.botania.common.network;
 
-import net.fabricmc.fabric.api.network.PacketContext;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -54,11 +55,11 @@ public class PacketSpawnEntity {
 		buf.writeShort((int) (MathHelper.clamp(velocity.y, -3.9D, 3.9D) * 8000.0D));
 		buf.writeShort((int) (MathHelper.clamp(velocity.z, -3.9D, 3.9D) * 8000.0D));
 
-		return ServerSidePacketRegistry.INSTANCE.toPacket(ID, buf);
+		return ServerPlayNetworking.createS2CPacket(ID, buf);
 	}
 
 	public static class Handler {
-		public static void handle(PacketContext ctx, PacketByteBuf buf) {
+		public static void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
 			int id = buf.readVarInt();
 			UUID uuid = buf.readUuid();
 			EntityType<?> type = Registry.ENTITY_TYPE.get(buf.readVarInt());
@@ -71,8 +72,8 @@ public class PacketSpawnEntity {
 			double dy = buf.readShort() / 8000.0;
 			double dz = buf.readShort() / 8000.0;
 
-			ctx.getTaskQueue().execute(() -> {
-				ClientWorld world = MinecraftClient.getInstance().world;
+			client.execute(() -> {
+				ClientWorld world = client.world;
 				Entity e = type.create(world);
 				if (e != null) {
 					e.updateTrackedPosition(x, y, z);

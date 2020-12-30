@@ -8,11 +8,14 @@
  */
 package vazkii.botania.common.network;
 
-import net.fabricmc.fabric.api.network.PacketContext;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -28,17 +31,21 @@ public class PacketUpdateItemsRemaining {
 	public static final Identifier ID = prefix("rem");
 
 	public static void send(PlayerEntity player, ItemStack stack, int count, @Nullable Text tooltip) {
-		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
-		buf.writeItemStack(stack);
-		buf.writeVarInt(count);
-		buf.writeText(tooltip);
-		ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, ID, buf);
+		if (player instanceof ServerPlayerEntity) {
+			PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+			buf.writeItemStack(stack);
+			buf.writeVarInt(count);
+			buf.writeText(tooltip);
+			ServerPlayNetworking.send((ServerPlayerEntity) player, ID, buf);
+		}
 	}
 
-	public static void handle(PacketContext ctx, PacketByteBuf buf) {
-		ItemStack stack = buf.readItemStack();
-		int count = buf.readVarInt();
-		Text tooltip = buf.readText();
-		ctx.getTaskQueue().execute(() -> ItemsRemainingRenderHandler.set(stack, count, tooltip));
+	public static class Handler {
+		public static void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
+			ItemStack stack = buf.readItemStack();
+			int count = buf.readVarInt();
+			Text tooltip = buf.readText();
+			client.execute(() -> ItemsRemainingRenderHandler.set(stack, count, tooltip));
+		}
 	}
 }

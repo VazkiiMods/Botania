@@ -15,6 +15,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
@@ -167,7 +168,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	}
 
 	// Send item age to client to prevent client desync when an item is e.g. dropped by a powered open crate
-	public static void onItemTrack(PlayerEntity player, Entity entity) {
+	public static void onItemTrack(ServerPlayerEntity player, Entity entity) {
 		if (entity instanceof ItemEntity) {
 			int entityId = entity.getEntityId();
 			int age = ((AccessorItemEntity) entity).getAge();

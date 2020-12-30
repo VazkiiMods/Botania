@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.network;
 
-import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
 
 
@@ -19,19 +19,19 @@ public final class PacketHandler {
 	public static final PacketByteBuf EMPTY_BUF = new PacketByteBuf(Unpooled.buffer(0, 0));
 
 	public static void init() {
-		ServerSidePacketRegistry.INSTANCE.register(PacketLeftClick.ID, PacketLeftClick::handle);
-		ServerSidePacketRegistry.INSTANCE.register(PacketDodge.ID, PacketDodge::handle);
-		ServerSidePacketRegistry.INSTANCE.register(PacketIndexKeybindRequest.ID, PacketIndexKeybindRequest::handle);
-		ServerSidePacketRegistry.INSTANCE.register(PacketJump.ID, PacketJump::handle);
+		ServerPlayNetworking.registerGlobalReceiver(PacketLeftClick.ID, PacketLeftClick::handle);
+		ServerPlayNetworking.registerGlobalReceiver(PacketDodge.ID, PacketDodge::handle);
+		ServerPlayNetworking.registerGlobalReceiver(PacketIndexKeybindRequest.ID, PacketIndexKeybindRequest::handle);
+		ServerPlayNetworking.registerGlobalReceiver(PacketJump.ID, PacketJump::handle);
 	}
 
 	public static void initClient() {
-		ClientSidePacketRegistry.INSTANCE.register(PacketBotaniaEffect.ID, PacketBotaniaEffect.Handler::handle);
-		ClientSidePacketRegistry.INSTANCE.register(PacketItemAge.ID, PacketItemAge.Handler::handle);
-		ClientSidePacketRegistry.INSTANCE.register(PacketSpawnEntity.ID, PacketSpawnEntity.Handler::handle);
-		ClientSidePacketRegistry.INSTANCE.register(PacketSpawnDoppleganger.ID, PacketSpawnDoppleganger.Handler::handle);
-		ClientSidePacketRegistry.INSTANCE.register(PacketUpdateItemsRemaining.ID, PacketUpdateItemsRemaining::handle);
-		ClientSidePacketRegistry.INSTANCE.register(PacketGogWorld.ID, PacketGogWorld.Handler::handle);
+		ClientPlayNetworking.registerGlobalReceiver(PacketBotaniaEffect.ID, PacketBotaniaEffect.Handler::handle);
+		ClientPlayNetworking.registerGlobalReceiver(PacketItemAge.ID, PacketItemAge.Handler::handle);
+		ClientPlayNetworking.registerGlobalReceiver(PacketSpawnEntity.ID, PacketSpawnEntity.Handler::handle);
+		ClientPlayNetworking.registerGlobalReceiver(PacketSpawnDoppleganger.ID, PacketSpawnDoppleganger.Handler::handle);
+		ClientPlayNetworking.registerGlobalReceiver(PacketUpdateItemsRemaining.ID, PacketUpdateItemsRemaining.Handler::handle);
+		ClientPlayNetworking.registerGlobalReceiver(PacketGogWorld.ID, PacketGogWorld.Handler::handle);
 	}
 
 	private PacketHandler() {}

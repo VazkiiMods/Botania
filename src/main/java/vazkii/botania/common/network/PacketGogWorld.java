@@ -8,9 +8,10 @@
  */
 package vazkii.botania.common.network;
 
-import net.fabricmc.fabric.api.network.PacketContext;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -24,13 +25,13 @@ public class PacketGogWorld {
 	public static final Identifier ID = prefix("gog");
 
 	public static void send(ServerPlayerEntity player) {
-		ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, ID, PacketHandler.EMPTY_BUF);
+		ServerPlayNetworking.send(player, ID, PacketHandler.EMPTY_BUF);
 	}
 
 	public static class Handler {
-		public static void handle(PacketContext ctx, PacketByteBuf buf) {
-			ctx.getTaskQueue().execute(() -> {
-				ClientWorld.Properties info = MinecraftClient.getInstance().world.getLevelProperties();
+		public static void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
+			client.execute(() -> {
+				ClientWorld.Properties info = client.world.getLevelProperties();
 				if (info instanceof SkyblockWorldInfo) {
 					((SkyblockWorldInfo) info).markGardenOfGlass();
 				}

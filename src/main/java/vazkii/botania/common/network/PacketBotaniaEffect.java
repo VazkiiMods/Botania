@@ -8,16 +8,19 @@
  */
 package vazkii.botania.common.network;
 
-import net.fabricmc.fabric.api.network.PacketContext;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
-import net.fabricmc.fabric.api.server.PlayerStream;
+import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -45,24 +48,30 @@ public class PacketBotaniaEffect {
 	public static final Identifier ID = prefix("eff");
 
 	public static void send(PlayerEntity player, EffectType type, double x, double y, double z, int... args) {
-		ServerSidePacketRegistry.INSTANCE.sendToPlayer(player, make(type, x, y, z, args));
+		if (player instanceof ServerPlayerEntity) {
+			((ServerPlayerEntity) player).networkHandler.sendPacket(make(type, x, y, z, args));
+		}
 	}
 
 	public static void sendNearby(Entity e, EffectType type, double x, double y, double z, int... args) {
-		Packet<?> pkt = make(type, x, y, z, args);
-		PlayerStream.watching(e)
-				.filter(p -> p.squaredDistanceTo(e.getPos()) < 64 * 64)
-				.forEach(p -> ServerSidePacketRegistry.INSTANCE.sendToPlayer(p, pkt));
-		if (e instanceof PlayerEntity) {
-			ServerSidePacketRegistry.INSTANCE.sendToPlayer((PlayerEntity) e, pkt);
+		if (!e.world.isClient) {
+			Packet<?> pkt = make(type, x, y, z, args);
+			PlayerLookup.tracking(e).stream()
+					.filter(p -> p.squaredDistanceTo(e.getPos()) < 64 * 64)
+					.forEach(p -> p.networkHandler.sendPacket(pkt));
+			if (e instanceof ServerPlayerEntity) {
+				((ServerPlayerEntity) e).networkHandler.sendPacket(pkt);
+			}
 		}
 	}
 
 	public static void sendNearby(World world, BlockPos pos, EffectType type, double x, double y, double z, int... args) {
-		Packet<?> pkt = make(type, x, y, z, args);
-		PlayerStream.watching(world, pos)
-				.filter(p -> p.squaredDistanceTo(pos.getX(), pos.getY(), pos.getZ()) < 64 * 64)
-				.forEach(p -> ServerSidePacketRegistry.INSTANCE.sendToPlayer(p, pkt));
+		if (world instanceof ServerWorld) {
+			Packet<?> pkt = make(type, x, y, z, args);
+			PlayerLookup.tracking((ServerWorld) world, pos).stream()
+					.filter(p -> p.squaredDistanceTo(pos.getX(), pos.getY(), pos.getZ()) < 64 * 64)
+					.forEach(p -> p.networkHandler.sendPacket(pkt));
+		}
 	}
 
 	public static Packet<?> make(EffectType type, double x, double y, double z, int... args) {
@@ -76,11 +85,11 @@ public class PacketBotaniaEffect {
 			buf.writeVarInt(args[i]);
 		}
 
-		return ServerSidePacketRegistry.INSTANCE.toPacket(ID, buf);
+		return ServerPlayNetworking.createS2CPacket(ID, buf);
 	}
 
 	public static class Handler {
-		public static void handle(PacketContext ctx, PacketByteBuf buf) {
+		public static void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
 			EffectType type = EffectType.values()[buf.readByte()];
 			double x = buf.readDouble();
 			double y = buf.readDouble();
@@ -91,7 +100,7 @@ public class PacketBotaniaEffect {
 				args[i] = buf.readVarInt();
 			}
 
-			ctx.getTaskQueue().execute(new Runnable() {
+			client.execute(new Runnable() {
 				// Use anon - lambda causes classloading issues
 				@Override
 				public void run() {
