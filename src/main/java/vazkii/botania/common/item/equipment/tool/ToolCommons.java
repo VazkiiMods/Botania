@@ -8,8 +8,7 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -21,14 +20,11 @@ import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.ForgeHooks;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -44,6 +40,7 @@ public final class ToolCommons {
 	public static final List<Material> materialsPick = Arrays.asList(Material.ROCK, Material.IRON, Material.ICE, Material.GLASS, Material.PISTON, Material.ANVIL, Material.SHULKER);
 	public static final List<Material> materialsShovel = Arrays.asList(Material.ORGANIC, Material.EARTH, Material.SAND, Material.SNOW, Material.SNOW_BLOCK, Material.CLAY);
 	public static final List<Material> materialsAxe = Arrays.asList(Material.CORAL, Material.LEAVES, Material.PLANTS, Material.WOOD, Material.GOURD);
+	private static boolean recCall = false;
 
 	/**
 	 * Consumes as much mana as possible, returning the amount of damage that couldn't be paid with mana
@@ -67,16 +64,30 @@ public final class ToolCommons {
 
 	public static void removeBlocksInIteration(PlayerEntity player, ItemStack stack, World world, BlockPos centerPos,
 			Vector3i startDelta, Vector3i endDelta, Predicate<BlockState> filter) {
-		for (BlockPos iterPos : BlockPos.getAllInBoxMutable(centerPos.add(startDelta),
-				centerPos.add(endDelta))) {
-			// skip original block space to avoid crash, vanilla code in the tool class will handle it
-			if (iterPos.equals(centerPos)) {
-				continue;
+		if (recCall) {
+			return;
+		}
+
+		recCall = true;
+		try {
+			for (BlockPos iterPos : BlockPos.getAllInBoxMutable(centerPos.add(startDelta),
+					centerPos.add(endDelta))) {
+				// skip original block space, vanilla code will handle it
+				if (iterPos.equals(centerPos)) {
+					continue;
+				}
+				removeBlockWithDrops(player, stack, world, iterPos, filter);
 			}
-			removeBlockWithDrops(player, stack, world, iterPos, filter);
+		} finally {
+			recCall = false;
 		}
 	}
 
+	/**
+	 * NB: Cannot be called in a call chain leading from PlayerInteractionManager.tryHarvestBlock
+	 * without additional protection like {@link #recCall} in {@link #removeBlocksInIteration},
+	 * since this method calls that method also and would lead to an infinite loop.
+	 */
 	public static void removeBlockWithDrops(PlayerEntity player, ItemStack stack, World world, BlockPos pos,
 			Predicate<BlockState> filter) {
 		if (!world.isBlockLoaded(pos)) {
@@ -84,45 +95,12 @@ public final class ToolCommons {
 		}
 
 		BlockState blockstate = world.getBlockState(pos);
-		Block block = blockstate.getBlock();
 
 		if (!world.isRemote && filter.test(blockstate) && !blockstate.isAir(world, pos)) {
-			// [VanillaCopy] PlayerInteractionManager.tryHarvestBlock, removeBlock inlined
-			// we could technically just call that method directly, but run into complications with infinite recursion (since this method)
-			// can be invoked from a call chain beginning at tryHarvestBlock as well. It's simpler to just copy.
-
-			int exp = ForgeHooks.onBlockBreakEvent(world, ((ServerPlayerEntity) player).interactionManager.getGameType(), (ServerPlayerEntity) player, pos);
-			if (exp == -1) {
-				return;
-			}
-
-			if (player.isCreative()) {
-				boolean removed = blockstate.removedByPlayer(world, pos, player, false, world.getFluidState(pos));
-				if (removed) {
-					blockstate.getBlock().onPlayerDestroy(world, pos, blockstate);
-				}
-			} else {
-				ItemStack itemstack = stack; // player.getHeldItemMainhand();
-				ItemStack itemstack1 = itemstack.copy();
-				boolean flag1 = blockstate.canHarvestBlock(world, pos, player); // previously player.func_234569_d_(blockstate)
-				itemstack.onBlockDestroyed(world, blockstate, pos, player);
-				if (itemstack.isEmpty() && !itemstack1.isEmpty()) {
-					net.minecraftforge.event.ForgeEventFactory.onPlayerDestroyItem(player, itemstack1, Hand.MAIN_HAND);
-				}
-				boolean flag = blockstate.removedByPlayer(world, pos, player, flag1, world.getFluidState(pos));
-				if (flag) {
-					blockstate.getBlock().onPlayerDestroy(world, pos, blockstate);
-				}
-
-				if (flag && flag1) {
-					TileEntity tileentity = world.getTileEntity(pos);
-					block.harvestBlock(world, player, pos, blockstate, tileentity, itemstack1);
-				}
-
-				if (flag && exp > 0) {
-					blockstate.getBlock().dropXpOnBlockBreak((ServerWorld) world, pos, exp);
-				}
-			}
+			ItemStack save = player.getHeldItemMainhand();
+			player.setHeldItem(Hand.MAIN_HAND, stack);
+			((ServerPlayerEntity) player).interactionManager.tryHarvestBlock(pos);
+			player.setHeldItem(Hand.MAIN_HAND, save);
 		}
 	}
 
