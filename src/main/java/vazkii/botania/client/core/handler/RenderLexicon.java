@@ -11,17 +11,18 @@ package vazkii.botania.client.core.handler;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.options.Perspective;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BookModel;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Formatting;
@@ -29,8 +30,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
-
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
@@ -43,8 +45,8 @@ import java.util.List;
 public class RenderLexicon {
 	private static final BookModel model = new BookModel();
 	private static final boolean SHOULD_MISSPELL = Math.random() < 0.004;
-	public static final SpriteIdentifier TEXTURE = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier(LibResources.MODEL_LEXICA_DEFAULT));
-	public static final SpriteIdentifier ELVEN_TEXTURE = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier(LibResources.MODEL_LEXICA_ELVEN));
+	public static final SpriteIdentifier TEXTURE = new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, new Identifier(LibResources.MODEL_LEXICA_DEFAULT));
+	public static final SpriteIdentifier ELVEN_TEXTURE = new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, new Identifier(LibResources.MODEL_LEXICA_ELVEN));
 
 	private static final String[] QUOTES = new String[] {
 			"\"Neat!\" - Direwolf20",
@@ -64,23 +66,22 @@ public class RenderLexicon {
 	private static int quote = -1;
 	private static int misspelling = -1;
 
-	/* todo 1.16-fabric
-	public static void renderHand(RenderHandEvent evt) {
+	public static boolean renderHand(AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
 		MinecraftClient mc = MinecraftClient.getInstance();
 		if (!ConfigHandler.CLIENT.lexicon3dModel.getValue()
-				|| mc.options.perspective != 0
-				|| mc.player.getStackInHand(evt.getHand()).isEmpty()
-				|| mc.player.getStackInHand(evt.getHand()).getItem() != ModItems.lexicon) {
-			return;
+				|| mc.options.getPerspective() != Perspective.FIRST_PERSON
+				|| mc.player.getStackInHand(hand).isEmpty()
+				|| mc.player.getStackInHand(hand).getItem() != ModItems.lexicon) {
+			return false;
 		}
-		evt.setCanceled(true);
 		try {
-			renderFirstPersonItem(mc.player, evt.getPartialTicks(), evt.getInterpolatedPitch(), evt.getHand(), evt.getSwingProgress(), evt.getItemStack(), evt.getEquipProgress(), evt.getMatrixStack(), evt.getBuffers(), evt.getLight());
+			renderFirstPersonItem(mc.player, tickDelta, pitch, hand, swingProgress, item, equipProgress, matrices, vertexConsumers, light);
+			return true;
 		} catch (Throwable throwable) {
 			Botania.LOGGER.warn("Failed to render lexicon", throwable);
+			return false;
 		}
 	}
-	*/
 
 	// [VanillaCopy] FirstPersonRenderer, irrelevant branches stripped out
 	private static void renderFirstPersonItem(AbstractClientPlayerEntity player, float partialTicks, float pitch, Hand hand, float swingProgress, ItemStack stack, float equipProgress, MatrixStack ms, VertexConsumerProvider buffers, int light) {
@@ -94,7 +95,7 @@ public class RenderLexicon {
 				float f6 = 0.2F * MathHelper.sin(MathHelper.sqrt(swingProgress) * ((float) Math.PI * 2F));
 				float f10 = -0.2F * MathHelper.sin(swingProgress * (float) Math.PI);
 				int l = flag3 ? 1 : -1;
-				ms.translate((double) ((float) l * f5), (double) f6, (double) f10);
+				ms.translate((float) l * f5, f6, f10);
 				((AccessorFirstPersonRenderer) MinecraftClient.getInstance().getHeldItemRenderer()).botania_equipOffset(ms, handside, equipProgress);
 				((AccessorFirstPersonRenderer) MinecraftClient.getInstance().getHeldItemRenderer()).botania_swingOffset(ms, handside, swingProgress);
 			}
