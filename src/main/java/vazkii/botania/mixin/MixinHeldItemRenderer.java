@@ -24,7 +24,7 @@ import vazkii.botania.client.core.handler.RenderLexicon;
 public class MixinHeldItemRenderer {
 
     @Inject(method = "renderFirstPersonItem", at = @At("HEAD"), cancellable = true)
-    private void renderFirstPersonItem(AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo info) {
-        if (RenderLexicon.renderHand(player, tickDelta, pitch, hand, swingProgress, item, equipProgress, matrices, vertexConsumers, light)) info.cancel();
+    private void renderFirstPersonItem(AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
+        if (RenderLexicon.renderHand(tickDelta, hand, swingProgress, item, equipProgress, matrices, vertexConsumers, light)) ci.cancel();
     }
 }
