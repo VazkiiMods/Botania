@@ -27,7 +27,8 @@ public class MixinHeldItemRenderer {
 
 	@Inject(method = "renderFirstPersonItem", at = @At("HEAD"), cancellable = true)
 	private void renderFirstPersonItem(AbstractClientPlayerEntity player, float tickDelta, float pitch, Hand hand, float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
-		if (RenderLexicon.renderHand(tickDelta, hand, swingProgress, item, equipProgress, matrices, vertexConsumers, light))
+		if (RenderLexicon.renderHand(tickDelta, hand, swingProgress, item, equipProgress, matrices, vertexConsumers, light)) {
 			ci.cancel();
+		}
 	}
 }
