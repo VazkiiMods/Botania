@@ -23,9 +23,11 @@
     "AccessorWitherEntity",
     "MixinAbstractMinecartEntity",
     "MixinEndermanPickupBlock",
+    "MixinEntitySpawnPlacementRegistry",
     "MixinLootTable",
     "MixinPlayerEntity",
-    "MixinThrowableEntity"
+    "MixinThrowableEntity",
+    "MixinWorldEntitySpawner"
   ],
   "client": [
     "AccessorEndPortalTileEntityRenderer",

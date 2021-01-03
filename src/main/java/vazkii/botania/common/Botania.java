@@ -73,7 +73,6 @@ import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.brew.ModPotions;
-import vazkii.botania.common.brew.potion.PotionBloodthirst;
 import vazkii.botania.common.brew.potion.PotionEmptiness;
 import vazkii.botania.common.brew.potion.PotionSoulCross;
 import vazkii.botania.common.capability.NoopCapStorage;
@@ -175,7 +174,6 @@ public class Botania {
 		forgeBus.addListener(PixieHandler::onDamageTaken);
 		forgeBus.addGenericListener(TileEntity.class, ExoflameFurnaceHandler::attachFurnaceCapability);
 		forgeBus.addListener(CommonTickHandler::onTick);
-		forgeBus.addListener(PotionBloodthirst::onSpawn);
 		forgeBus.addListener(PotionEmptiness::onSpawn);
 		forgeBus.addListener(PotionSoulCross::onEntityKill);
 		forgeBus.addListener(SubTileNarslimmus::onSpawn);
