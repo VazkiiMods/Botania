@@ -26,7 +26,6 @@ public class PotionBloodthirst extends Effect {
 		super(EffectType.BENEFICIAL, 0xC30000);
 	}
 
-	// TODO: This runs a check for *every* player, would it be faster to just query players within the spawn AABB?
 	public static boolean overrideSpawn(IServerWorld world, BlockPos pos, EntityClassification entityClass) {
 		if (entityClass == EntityClassification.MONSTER) {
 			AxisAlignedBB aabb = new AxisAlignedBB(pos).grow(RANGE);

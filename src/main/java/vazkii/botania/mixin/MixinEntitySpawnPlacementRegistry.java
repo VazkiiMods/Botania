@@ -26,6 +26,12 @@ import java.util.Random;
 
 @Mixin(EntitySpawnPlacementRegistry.class)
 public class MixinEntitySpawnPlacementRegistry {
+	// This injection is kind of scuffed:
+	// In vanilla code, canSpawnEntity calls a per-entity predicate to determine spawnability.
+	// Many (but not all) hostile mobs register their own canSpawn predicates or fall back to MonsterEntity::canSpawnInLightLevel,
+	// which ordinarily should be jumped over under Bloodthirst.
+	// However, certain mobs (e.g. slimes) use the predicate for actual logic (e.g. slimechunks),
+	// and we jump over that in Bloodthirst as well.
 	@Inject(at = @At("RETURN"), cancellable = true, method = "canSpawnEntity")
 	private static <T extends Entity> void bloodthirstOverride(EntityType<T> type, IServerWorld world, SpawnReason reason, BlockPos position, Random rng, CallbackInfoReturnable<Boolean> cir) {
 		if (reason == SpawnReason.NATURAL && PotionBloodthirst.overrideSpawn(world, position, type.getClassification())) {

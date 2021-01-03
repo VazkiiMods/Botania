@@ -21,6 +21,7 @@ import vazkii.botania.common.brew.potion.PotionBloodthirst;
 
 @Mixin(WorldEntitySpawner.class)
 public class MixinWorldEntitySpawner {
+	// Jump over entity.canSpawn(pos, reason) and entity.canSpawn(pos) under Bloodlust
 	@Inject(at = @At(value = "RETURN", ordinal = 1), cancellable = true, method = "func_234974_a_") // unmapped; fabric calls it isValidSpawn
 	private static void bloodthirstOverride(ServerWorld world, MobEntity entity, double p_234974_2_, CallbackInfoReturnable<Boolean> cir) {
 		if (PotionBloodthirst.overrideSpawn(world, entity.getPosition(), entity.getType().getClassification())) {
