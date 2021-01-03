@@ -96,6 +96,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 		int level = getShardLevel(stack);
 		ITextComponent levelLoc = new TranslationTextComponent("botania.roman" + (level + 1));
 		list.add(new TranslationTextComponent("botaniamisc.shardLevel", levelLoc).mergeStyle(TextFormatting.GRAY));
+		list.add(new TranslationTextComponent("botaniamisc.shardRange", getRange(stack)).mergeStyle(TextFormatting.GRAY));
 	}
 
 	@Nonnull
@@ -116,8 +117,12 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 		return ActionResultType.SUCCESS;
 	}
 
+	private int getRange(ItemStack shard) {
+		return BASE_RANGE + getShardLevel(shard);
+	}
+
 	public void spawnBurstFirst(World world, BlockPos pos, ItemStack shard) {
-		int range = BASE_RANGE + getShardLevel(shard);
+		int range = getRange(shard);
 		boolean pointy = world.rand.nextDouble() < 0.25;
 		double heightscale = (world.rand.nextDouble() + 0.5) * ((double) BASE_RANGE / (double) range);
 		spawnBurst(world, pos, shard, pointy, heightscale);
@@ -143,7 +148,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 	}
 
 	public void spawnBurst(World world, BlockPos pos, ItemStack shard, boolean pointy, double heightscale) {
-		int range = BASE_RANGE + getShardLevel(shard);
+		int range = getRange(shard);
 
 		int i = ItemNBTHelper.getInt(shard, TAG_ITERATION_I, 0);
 		int j = ItemNBTHelper.getInt(shard, TAG_ITERATION_J, BASE_OFFSET - BASE_RANGE / 2);

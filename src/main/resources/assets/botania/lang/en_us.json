@@ -42,6 +42,7 @@
   "botaniamisc.ratio": "%sx Zoom (hover to zoom out)",
   "botaniamisc.bottleTooltip": "It has an acquired taste",
   "botaniamisc.shardLevel": "Shard Power %s",
+  "botaniamisc.shardRange": "Radius: %s",
   "botaniamisc.lexiconIndex": "Lexicon Index",
   "botaniamisc.hasIvy": "Has Timeless Ivy",
   "botaniamisc.drop": "Drop",
