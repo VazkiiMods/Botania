@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.api.item.IDurabilityExtension;
+import vazkii.botania.common.item.IDurabilityExtension;
 
 import javax.annotation.Nullable;
 
