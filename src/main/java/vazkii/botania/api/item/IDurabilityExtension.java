@@ -11,7 +11,7 @@ package vazkii.botania.api.item;
 import net.minecraft.item.ItemStack;
 
 /**
- * An Item that has this component can have its durability bar modified.
+ * An Item that implements this interface can have its durability bar modified.
  */
 public interface IDurabilityExtension {
 	double getDurability(ItemStack stack);
