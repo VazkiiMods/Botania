@@ -66,7 +66,7 @@ public class RenderTileAvatar extends TileEntityRenderer<TileAvatar> {
 				Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, light, overlay, ms, buffers);
 				ms.pop();
 
-				IAvatarWieldable wieldable = (IAvatarWieldable) stack.getItem();
+				IAvatarWieldable wieldable = IAvatarWieldable.registry().get(stack.getItem());
 				buffer = buffers.getBuffer(RenderType.getEntityTranslucent(wieldable.getOverlayResource(avatar, stack)));
 				s = 1.01F;
 

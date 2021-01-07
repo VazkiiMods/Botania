@@ -8,8 +8,10 @@
  */
 package vazkii.botania.api.item;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import vazkii.botania.api.InterfaceRegistry;
 
 import javax.annotation.Nullable;
 
@@ -20,6 +22,9 @@ import java.util.UUID;
  * and other mod items should not implement this interface.
  */
 public interface IRelic {
+	static InterfaceRegistry<Item, IRelic> registry() {
+		return ItemAPI.instance().getRelicRegistry();
+	}
 
 	/**
 	 * Binds to the UUID passed in.

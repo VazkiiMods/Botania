@@ -87,7 +87,7 @@ public class ItemRelic extends Item implements IRelic {
 	}
 
 	public void updateRelic(ItemStack stack, PlayerEntity player) {
-		if (stack.isEmpty() || !(stack.getItem() instanceof IRelic)) {
+		if (stack.isEmpty() || !IRelic.registry().has(stack.getItem())) {
 			return;
 		}
 
