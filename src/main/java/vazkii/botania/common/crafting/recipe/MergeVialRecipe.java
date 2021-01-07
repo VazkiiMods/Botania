@@ -92,9 +92,9 @@ public class MergeVialRecipe extends SpecialRecipe {
 	public NonNullList<ItemStack> getRemainingItems(CraftingInventory inv) {
 		NonNullList<ItemStack> remaining = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
 
-		ItemBrewBase brew = null;
 		boolean foundFirst = false;
 		int swigs = 0;
+		int maxSwigs = 0;
 
 		for (int i = 0; i < inv.getSizeInventory(); i++) {
 			ItemStack stack = inv.getStackInSlot(i);
@@ -102,20 +102,21 @@ public class MergeVialRecipe extends SpecialRecipe {
 				continue;
 			}
 
+			ItemBrewBase brew = ((ItemBrewBase) stack.getItem());
 			if (!foundFirst) {
 				foundFirst = true;
-				brew = ((ItemBrewBase) stack.getItem());
 				swigs = brew.getSwigsLeft(stack);
+				maxSwigs = brew.getSwigs();
 				continue;
 			}
 
 			swigs += brew.getSwigsLeft(stack);
-			if (swigs > brew.getSwigs()) {
-				brew.setSwigsLeft(stack, swigs - brew.getSwigs());
-				swigs = brew.getSwigs();
+			if (swigs > maxSwigs) {
+				brew.setSwigsLeft(stack, swigs - maxSwigs);
+				swigs = maxSwigs;
 				remaining.set(i, stack.copy());
 			} else {
-				remaining.set(i, ((ItemBrewBase) stack.getItem()).getBaseStack());
+				remaining.set(i, brew.getBaseStack());
 			}
 		}
 
