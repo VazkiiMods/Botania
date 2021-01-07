@@ -713,11 +713,11 @@ public final class ModItems {
 		register(r, "mana_gun_remove_lens", ManaGunRemoveLensRecipe.SERIALIZER);
 		register(r, "mana_upgrade", ManaUpgradeRecipe.SERIALIZER);
 		register(r, "mana_upgrade_shapeless", ShapelessManaUpgradeRecipe.SERIALIZER);
+		register(r, "merge_vial", MergeVialRecipe.SERIALIZER);
 		register(r, "phantom_ink_apply", PhantomInkRecipe.SERIALIZER);
 		register(r, "spell_cloth_apply", SpellClothRecipe.SERIALIZER);
 		register(r, "terra_pick_tipping", TerraPickTippingRecipe.SERIALIZER);
 		register(r, "twig_wand", TwigWandRecipe.SERIALIZER);
-		register(r, "merge_vial", MergeVialRecipe.SERIALIZER);
 
 		CraftingHelper.register(FluxfieldCondition.SERIALIZER);
 		CraftingHelper.register(prefix("fuzzy_nbt"), FuzzyNBTIngredient.SERIALIZER);
