@@ -717,6 +717,7 @@ public final class ModItems {
 		register(r, "spell_cloth_apply", SpellClothRecipe.SERIALIZER);
 		register(r, "terra_pick_tipping", TerraPickTippingRecipe.SERIALIZER);
 		register(r, "twig_wand", TwigWandRecipe.SERIALIZER);
+		register(r, "merge_vial", MergeVialRecipe.SERIALIZER);
 
 		CraftingHelper.register(FluxfieldCondition.SERIALIZER);
 		CraftingHelper.register(prefix("fuzzy_nbt"), FuzzyNBTIngredient.SERIALIZER);
