@@ -9,6 +9,7 @@
 package vazkii.botania.common;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -18,14 +19,19 @@ import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.Effect;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -51,10 +57,13 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.corporea.CorporeaHelper;
+import vazkii.botania.api.item.IAvatarTile;
+import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.fx.ModParticles;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.advancements.ModCriteriaTriggers;
 import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.block.ModBlocks;
@@ -196,6 +205,27 @@ public class Botania {
 	private void commonSetup(FMLCommonSetupEvent event) {
 		CapabilityManager.INSTANCE.register(IFloatingFlower.class, new IFloatingFlower.Storage(), FloatingFlowerImpl::new);
 		CapabilityManager.INSTANCE.register(IExoflameHeatable.class, new NoopCapStorage<>(), NoopExoflameHeatable::new);
+
+		IAvatarWieldable.registry().register(Items.BUCKET, new IAvatarWieldable() {
+			@Override
+			public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
+				TileEntity te = tile.tileEntity();
+				World world = te.getWorld();
+				if (!world.isRemote && tile.getElapsedFunctionalTicks() % 4 == 0 && world.rand.nextInt(8) == 0 && tile.isEnabled()) {
+					BlockPos pos = te.getPos().offset(tile.getAvatarFacing());
+					BlockState state = world.getBlockState(pos);
+					if (state.getBlock().isAir(state, world, pos)) {
+						world.setBlockState(pos, Blocks.DIAMOND_BLOCK.getDefaultState());
+						world.playEvent(2001, pos, Block.getStateId(Blocks.DIAMOND_BLOCK.getDefaultState()));
+					}
+				}
+			}
+
+			@Override
+			public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
+				return new ResourceLocation(LibResources.MODEL_AVATAR_DIRT);
+			}
+		});
 
 		PacketHandler.init();
 

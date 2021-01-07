@@ -11,6 +11,7 @@ package vazkii.botania.api.item;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+
 import vazkii.botania.api.InterfaceRegistry;
 
 import javax.annotation.Nullable;

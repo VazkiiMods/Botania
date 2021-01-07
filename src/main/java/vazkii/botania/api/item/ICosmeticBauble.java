@@ -9,6 +9,7 @@
 package vazkii.botania.api.item;
 
 import net.minecraft.item.Item;
+
 import vazkii.botania.api.InterfaceRegistry;
 
 /**
@@ -17,7 +18,7 @@ import vazkii.botania.api.InterfaceRegistry;
  * can't be stacked on this.
  */
 public interface ICosmeticBauble {
-    static InterfaceRegistry<Item, ICosmeticBauble> registry() {
-        return ItemAPI.instance().getCosmeticBaubleRegistry();
-    }
+	static InterfaceRegistry<Item, ICosmeticBauble> registry() {
+		return ItemAPI.instance().getCosmeticBaubleRegistry();
+	}
 }

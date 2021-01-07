@@ -9,8 +9,8 @@
 package vazkii.botania.api.item;
 
 import net.minecraft.item.BlockItemUseContext;
-
 import net.minecraft.item.Item;
+
 import vazkii.botania.api.InterfaceRegistry;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 

@@ -17,7 +17,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IAncientWillContainer;
-import vazkii.botania.api.item.ItemAPI;
 import vazkii.botania.common.item.ItemAncientWill;
 
 import javax.annotation.Nonnull;
