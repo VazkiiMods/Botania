@@ -206,27 +206,6 @@ public class Botania {
 		CapabilityManager.INSTANCE.register(IFloatingFlower.class, new IFloatingFlower.Storage(), FloatingFlowerImpl::new);
 		CapabilityManager.INSTANCE.register(IExoflameHeatable.class, new NoopCapStorage<>(), NoopExoflameHeatable::new);
 
-		IAvatarWieldable.registry().register(Items.BUCKET, new IAvatarWieldable() {
-			@Override
-			public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
-				TileEntity te = tile.tileEntity();
-				World world = te.getWorld();
-				if (!world.isRemote && tile.getElapsedFunctionalTicks() % 4 == 0 && world.rand.nextInt(8) == 0 && tile.isEnabled()) {
-					BlockPos pos = te.getPos().offset(tile.getAvatarFacing());
-					BlockState state = world.getBlockState(pos);
-					if (state.getBlock().isAir(state, world, pos)) {
-						world.setBlockState(pos, Blocks.DIAMOND_BLOCK.getDefaultState());
-						world.playEvent(2001, pos, Block.getStateId(Blocks.DIAMOND_BLOCK.getDefaultState()));
-					}
-				}
-			}
-
-			@Override
-			public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
-				return new ResourceLocation(LibResources.MODEL_AVATAR_DIRT);
-			}
-		});
-
 		PacketHandler.init();
 
 		EquipmentHandler.init();
