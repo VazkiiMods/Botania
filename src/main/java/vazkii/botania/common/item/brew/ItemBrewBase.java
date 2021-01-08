@@ -97,7 +97,7 @@ public class ItemBrewBase extends Item implements IBrewItem {
 			int swigs = getSwigsLeft(stack);
 			if (living instanceof PlayerEntity && !((PlayerEntity) living).abilities.isCreativeMode) {
 				if (swigs == 1) {
-					ItemStack result = new ItemStack(baseItem.get());
+					ItemStack result = getBaseStack();
 					if (!((PlayerEntity) living).inventory.addItemStackToInventory(result)) {
 						return result;
 					} else {
@@ -229,5 +229,9 @@ public class ItemBrewBase extends Item implements IBrewItem {
 
 	public void setSwigsLeft(ItemStack stack, int swigs) {
 		ItemNBTHelper.setInt(stack, TAG_SWIGS_LEFT, swigs);
+	}
+
+	public ItemStack getBaseStack() {
+		return new ItemStack(baseItem.get());
 	}
 }
