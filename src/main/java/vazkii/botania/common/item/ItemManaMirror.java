@@ -38,7 +38,7 @@ import javax.annotation.Nullable;
 
 import java.util.Optional;
 
-public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, IManaTooltipDisplay {
+public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, IManaTooltipDisplay, IDurabilityExtension {
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_BACKLOG = "manaBacklog";
@@ -50,17 +50,15 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 		super(props);
 	}
 
-	/* todo 1.16-fabric
 	@Override
-	public boolean showDurabilityBar(ItemStack stack) {
+	public boolean showDurability(ItemStack stack) {
 		return true;
 	}
-	
+
 	@Override
-	public double getDurabilityForDisplay(ItemStack stack) {
+	public double getDurability(ItemStack stack) {
 		return 1 - getManaFractionForDisplay(stack);
 	}
-	*/
 
 	@Override
 	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {

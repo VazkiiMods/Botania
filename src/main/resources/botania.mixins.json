@@ -69,6 +69,7 @@
     "MixinClientWorldInfo",
     "MixinDebugHud",
     "MixinGameRenderer",
+    "MixinItemRenderer",
     "MixinKeyboard",
     "MixinMinecraftClient",
     "MixinParticleManager",
