@@ -13,10 +13,10 @@ import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
-import com.blamejared.crafttweaker.impl.blocks.MCBlock;
-import com.blamejared.crafttweaker.impl.blocks.MCBlockState;
-import com.blamejared.crafttweaker.impl.tag.MCTag;
 
+import com.blamejared.crafttweaker.impl.tag.MCTag;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
 
@@ -36,41 +36,41 @@ import java.util.stream.Collectors;
 public class PureDaisyRecipeManager implements IRecipeManager {
 
 	@ZenCodeType.Method
-	public void addRecipe(String name, MCBlockState output, MCBlockState input, int time) {
+	public void addRecipe(String name, BlockState output, BlockState input, int time) {
 		name = fixRecipeName(name);
 		ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
 		CraftTweakerAPI.apply(new ActionAddRecipe(this,
 				new RecipePureDaisy(resourceLocation,
-						StateIngredientHelper.of(input.getInternal()),
-						output.getInternal(), time),
+						StateIngredientHelper.of(input),
+						output, time),
 				""));
 	}
 
 	@ZenCodeType.Method
-	public void addRecipe(String name, MCBlockState output, MCBlock[] inputs, int time) {
+	public void addRecipe(String name, BlockState output, Block[] inputs, int time) {
 		name = fixRecipeName(name);
 		ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
 		CraftTweakerAPI.apply(new ActionAddRecipe(this,
 				new RecipePureDaisy(resourceLocation,
 						StateIngredientHelper.of(
-								Arrays.stream(inputs).map(MCBlock::getInternal).collect(Collectors.toSet())),
-						output.getInternal(), time),
+								Arrays.stream(inputs).collect(Collectors.toSet())),
+						output, time),
 				""));
 	}
 
 	@ZenCodeType.Method
-	public void addRecipe(String name, MCBlockState output, MCTag<MCBlock> input, int time) {
+	public void addRecipe(String name, BlockState output, MCTag<Block> input, int time) {
 		name = fixRecipeName(name);
 		ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
 		CraftTweakerAPI.apply(new ActionAddRecipe(this,
 				new RecipePureDaisy(resourceLocation,
 						StateIngredientHelper.of(input.getIdInternal()),
-						output.getInternal(), time),
+						output, time),
 				""));
 	}
 
 	@ZenCodeType.Method
-	public void removeRecipe(MCBlockState state) {
+	public void removeRecipe(BlockState state) {
 		CraftTweakerAPI.apply(new ActionRemovePureDaisyRecipe(this, state));
 	}
 
@@ -78,7 +78,7 @@ public class PureDaisyRecipeManager implements IRecipeManager {
 	public void removeRecipe(IItemStack output) {
 
 		throw new IllegalArgumentException(
-				"The Pure Daisy does not output IItemStacks, use removeRecipeByBlock(MCBlockState)!");
+				"The Pure Daisy does not output IItemStacks, use removeRecipeByBlock(BlockState)!");
 	}
 
 	@Override
