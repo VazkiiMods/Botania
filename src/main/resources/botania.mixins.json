@@ -76,7 +76,8 @@
     "MixinSkullTileEntityRenderer",
     "MixinSoundEngine",
     "MixinSplashes",
-    "MixinWorldRenderer"
+    "MixinWorldRenderer",
+    "MixinHeldItemRenderer"
   ],
   "injectors": {
     "defaultRequire": 1

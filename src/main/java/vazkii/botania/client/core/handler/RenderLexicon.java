@@ -11,17 +11,18 @@ package vazkii.botania.client.core.handler;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.options.Perspective;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BookModel;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.Arm;
 import net.minecraft.util.Formatting;
@@ -31,6 +32,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
 
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
@@ -43,8 +46,8 @@ import java.util.List;
 public class RenderLexicon {
 	private static final BookModel model = new BookModel();
 	private static final boolean SHOULD_MISSPELL = Math.random() < 0.004;
-	public static final SpriteIdentifier TEXTURE = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier(LibResources.MODEL_LEXICA_DEFAULT));
-	public static final SpriteIdentifier ELVEN_TEXTURE = new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, new Identifier(LibResources.MODEL_LEXICA_ELVEN));
+	public static final SpriteIdentifier TEXTURE = new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, new Identifier(LibResources.MODEL_LEXICA_DEFAULT));
+	public static final SpriteIdentifier ELVEN_TEXTURE = new SpriteIdentifier(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE, new Identifier(LibResources.MODEL_LEXICA_ELVEN));
 
 	private static final String[] QUOTES = new String[] {
 			"\"Neat!\" - Direwolf20",
@@ -64,26 +67,25 @@ public class RenderLexicon {
 	private static int quote = -1;
 	private static int misspelling = -1;
 
-	/* todo 1.16-fabric
-	public static void renderHand(RenderHandEvent evt) {
+	public static boolean renderHand(float tickDelta, Hand hand, float swingProgress, ItemStack item, float equipProgress, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
 		MinecraftClient mc = MinecraftClient.getInstance();
 		if (!ConfigHandler.CLIENT.lexicon3dModel.getValue()
-				|| mc.options.perspective != 0
-				|| mc.player.getStackInHand(evt.getHand()).isEmpty()
-				|| mc.player.getStackInHand(evt.getHand()).getItem() != ModItems.lexicon) {
-			return;
+				|| mc.options.getPerspective() != Perspective.FIRST_PERSON
+				|| (mc.player != null && mc.player.getStackInHand(hand).isEmpty())
+				|| mc.player.getStackInHand(hand).getItem() != ModItems.lexicon) {
+			return false;
 		}
-		evt.setCanceled(true);
 		try {
-			renderFirstPersonItem(mc.player, evt.getPartialTicks(), evt.getInterpolatedPitch(), evt.getHand(), evt.getSwingProgress(), evt.getItemStack(), evt.getEquipProgress(), evt.getMatrixStack(), evt.getBuffers(), evt.getLight());
+			renderFirstPersonItem(mc.player, tickDelta, hand, swingProgress, item, equipProgress, matrices, vertexConsumers, light);
+			return true;
 		} catch (Throwable throwable) {
 			Botania.LOGGER.warn("Failed to render lexicon", throwable);
+			return false;
 		}
 	}
-	*/
 
 	// [VanillaCopy] FirstPersonRenderer, irrelevant branches stripped out
-	private static void renderFirstPersonItem(AbstractClientPlayerEntity player, float partialTicks, float pitch, Hand hand, float swingProgress, ItemStack stack, float equipProgress, MatrixStack ms, VertexConsumerProvider buffers, int light) {
+	private static void renderFirstPersonItem(AbstractClientPlayerEntity player, float partialTicks, Hand hand, float swingProgress, ItemStack stack, float equipProgress, MatrixStack ms, VertexConsumerProvider buffers, int light) {
 		boolean flag = hand == Hand.MAIN_HAND;
 		Arm handside = flag ? player.getMainArm() : player.getMainArm().getOpposite();
 		ms.push();
@@ -94,7 +96,7 @@ public class RenderLexicon {
 				float f6 = 0.2F * MathHelper.sin(MathHelper.sqrt(swingProgress) * ((float) Math.PI * 2F));
 				float f10 = -0.2F * MathHelper.sin(swingProgress * (float) Math.PI);
 				int l = flag3 ? 1 : -1;
-				ms.translate((double) ((float) l * f5), (double) f6, (double) f10);
+				ms.translate((float) l * f5, f6, f10);
 				((AccessorFirstPersonRenderer) MinecraftClient.getInstance().getHeldItemRenderer()).botania_equipOffset(ms, handside, equipProgress);
 				((AccessorFirstPersonRenderer) MinecraftClient.getInstance().getHeldItemRenderer()).botania_swingOffset(ms, handside, swingProgress);
 			}
@@ -150,7 +152,7 @@ public class RenderLexicon {
 			ms.translate(-0.30F, -0.24F, -0.07F);
 			ms.scale(0.0030F, 0.0030F, -0.0030F);
 
-			if (misspelling == -1) {
+			if (misspelling == -1 && mc.world != null) {
 				misspelling = mc.world.random.nextInt(MISSPELLINGS.length);
 			}
 
@@ -165,14 +167,14 @@ public class RenderLexicon {
 			Text edition = ItemLexicon.getEdition().shallowCopy().formatted(Formatting.ITALIC, Formatting.BOLD);
 			font.draw(edition, 0, 0, 0xA07100, false, ms.peek().getModel(), buffers, false, 0, light);
 
-			if (quote == -1) {
+			if (quote == -1 && mc.world != null) {
 				quote = mc.world.random.nextInt(QUOTES.length);
 			}
 
 			String quoteStr = QUOTES[quote];
 
 			ms.translate(-5F, 15F, 0F);
-			renderText(0, 0, 140, 100, 0, 0x79ff92, quoteStr, ms.peek().getModel(), buffers, light);
+			renderText(0, 0, 140, 0, 0x79ff92, quoteStr, ms.peek().getModel(), buffers, light);
 
 			ms.translate(8F, 110F, 0F);
 			String blurb = I18n.translate("botaniamisc.lexiconcover0");
@@ -192,7 +194,8 @@ public class RenderLexicon {
 		ms.pop();
 	}
 
-	private static void renderText(int x, int y, int width, int height, int paragraphSize, int color, String unlocalizedText, Matrix4f matrix, VertexConsumerProvider buffers, int light) {
+	@SuppressWarnings("SameParameterValue")
+	private static void renderText(int x, int y, int width, int paragraphSize, int color, String unlocalizedText, Matrix4f matrix, VertexConsumerProvider buffers, int light) {
 		x += 2;
 		y += 10;
 		width -= 4;
@@ -229,7 +232,6 @@ public class RenderLexicon {
 			lines.add(new ArrayList<>());
 		}
 
-		int i = 0;
 		for (List<String> words : lines) {
 			int xi = x;
 			int spacing = 4;
@@ -241,7 +243,6 @@ public class RenderLexicon {
 			}
 
 			y += words.isEmpty() ? paragraphSize : 10;
-			i++;
 		}
 	}
 
