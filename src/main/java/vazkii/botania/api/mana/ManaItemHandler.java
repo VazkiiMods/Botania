@@ -128,6 +128,17 @@ public interface ManaItemHandler {
 	}
 
 	/**
+	 * Determines how many times the given tool can get the requested amount of mana. Takes discounts into
+	 * consideration.
+	 * 
+	 * @param manaToGet How much mana is to be requested per invocation
+	 * @return The number of invocations that could be executed before exhausting the player's mana available
+	 */
+	default int getInvocationCountForTool(ItemStack stack, PlayerEntity player, int manaToGet) {
+		return 0;
+	}
+
+	/**
 	 * Gets the sum of all the discounts on IManaDiscountArmor items equipped
 	 * on the player passed in. This discount can vary based on what the passed tool is.
 	 */

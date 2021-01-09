@@ -190,18 +190,50 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 		return false;
 	}
 
+	private int discountManaForTool(ItemStack stack, PlayerEntity player, int inCost) {
+		float multiplier = Math.max(0F, 1F - getFullDiscountForTools(player, stack));
+		return (int) (inCost * multiplier);
+	}
+
 	@Override
 	public int requestManaForTool(ItemStack stack, PlayerEntity player, int manaToGet, boolean remove) {
-		float multiplier = Math.max(0F, 1F - getFullDiscountForTools(player, stack));
-		int cost = (int) (manaToGet * multiplier);
-		return (int) (requestMana(stack, player, cost, remove) / multiplier);
+		int cost = discountManaForTool(stack, player, manaToGet);
+		return requestMana(stack, player, cost, remove);
 	}
 
 	@Override
 	public boolean requestManaExactForTool(ItemStack stack, PlayerEntity player, int manaToGet, boolean remove) {
-		float multiplier = Math.max(0F, 1F - getFullDiscountForTools(player, stack));
-		int cost = (int) (manaToGet * multiplier);
+		int cost = discountManaForTool(stack, player, manaToGet);
 		return requestManaExact(stack, player, cost, remove);
+	}
+
+	@Override
+	public int getInvocationCountForTool(ItemStack stack, PlayerEntity player, int manaToGet) {
+		if (stack.isEmpty()) {
+			return 0;
+		}
+
+		int cost = discountManaForTool(stack, player, manaToGet);
+		int invocations = 0;
+
+		List<ItemStack> items = getManaItems(player);
+		List<ItemStack> acc = getManaAccesories(player);
+		for (ItemStack stackInSlot : Iterables.concat(items, acc)) {
+			if (stackInSlot == stack) {
+				continue;
+			}
+			IManaItem manaItemSlot = (IManaItem) stackInSlot.getItem();
+			int availableMana = manaItemSlot.getMana(stackInSlot);
+			if (manaItemSlot.canExportManaToItem(stackInSlot, stack) && availableMana > cost) {
+				if (stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canReceiveManaFromItem(stack, stackInSlot)) {
+					continue;
+				}
+
+				invocations += availableMana / cost;
+			}
+		}
+
+		return invocations;
 	}
 
 	@Override
