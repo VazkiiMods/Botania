@@ -25,7 +25,7 @@ public class ItemSpeedUpBelt extends ItemTravelBelt {
 	private static final String TAG_OLD_Z = "oldZ";
 
 	public ItemSpeedUpBelt(Settings props) {
-		super(props, 0F, 0.2F, 2F);
+		super(props, 0F, 0.066F, 2F);
 	}
 
 	@Override

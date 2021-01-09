@@ -17,7 +17,7 @@ public class ItemSuperTravelBelt extends ItemTravelBelt {
 	private static final Identifier texture = new Identifier(LibResources.MODEL_SUPER_TRAVEL_BELT);
 
 	public ItemSuperTravelBelt(Settings props) {
-		super(props, 0.085F, 0.3F, 4F);
+		super(props, 0.085F, 0.1F, 4F);
 	}
 
 	@Override

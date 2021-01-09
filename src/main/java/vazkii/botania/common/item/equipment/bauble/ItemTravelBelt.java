@@ -48,7 +48,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 	public final float fallBuffer;
 
 	public ItemTravelBelt(Settings props) {
-		this(props, 0.035F, 0.2F, 2F);
+		this(props, 0.035F, 0.066F, 2F);
 	}
 
 	public static float onPlayerFall(PlayerEntity player, float dist) {
