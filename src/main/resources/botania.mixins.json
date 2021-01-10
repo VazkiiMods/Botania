@@ -27,6 +27,7 @@
     "AccessorRecipeManager",
     "AccessorRecipesProvider",
     "AccessorStats",
+    "AccessorStatusEffect",
     "AccessorWitherEntity",
     "MixinAbstractMinecartEntity",
     "MixinCraftingResultSlot",

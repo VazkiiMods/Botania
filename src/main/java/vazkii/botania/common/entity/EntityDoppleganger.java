@@ -75,6 +75,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketSpawnDoppleganger;
+import vazkii.botania.mixin.AccessorStatusEffect;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -566,7 +567,7 @@ public class EntityDoppleganger extends MobEntity {
 
 	private void clearPotions(PlayerEntity player) {
 		List<StatusEffect> potionsToRemove = player.getStatusEffects().stream()
-				.filter(effect -> effect.getDuration() < 160 && effect.isAmbient() && effect.getEffectType().getType() != StatusEffectType.HARMFUL)
+				.filter(effect -> effect.getDuration() < 160 && effect.isAmbient() && ((AccessorStatusEffect) effect.getEffectType()).getType() != StatusEffectType.HARMFUL)
 				.map(StatusEffectInstance::getEffectType)
 				.distinct()
 				.collect(Collectors.toList());
