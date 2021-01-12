@@ -56,7 +56,6 @@ import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.advancements.ModCriteriaTriggers;
-import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.ModSubtiles;
@@ -219,7 +218,6 @@ public class Botania {
 					.createMutableAttribute(Attributes.MAX_HEALTH, 2.0)
 					.create());
 			GlobalEntityTypeAttributes.put(ModEntities.PINK_WITHER, WitherEntity.registerAttributes().create());
-			ModBanners.init();
 
 			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getKey(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.getValue());
 			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getKey(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.getValue());
