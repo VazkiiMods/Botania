@@ -35,7 +35,7 @@ public class ModFeatures {
 	public static final Feature<MysticalFlowerConfig> MYSTICAL_FLOWERS = new MysticalFlowerFeature();
 	public static final Feature<MysticalMushroomConfig> MYSTICAL_MUSHROOMS = new MysticalMushroomFeature();
 	public static final ConfiguredFeature<?, ?> MYSTICAL_FLOWERS_CONF = MYSTICAL_FLOWERS
-			.withConfiguration(new MysticalFlowerConfig(2, 2, 6, 16, 0.05))
+			.withConfiguration(new MysticalFlowerConfig(6, 2, 2, 16, 0.05))
 			.withPlacement(Placement.NOPE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
 	public static final ConfiguredFeature<?, ?> MYSTICAL_MUSHROOMS_CONF = MYSTICAL_MUSHROOMS
 			.withConfiguration(new MysticalMushroomConfig(40))
