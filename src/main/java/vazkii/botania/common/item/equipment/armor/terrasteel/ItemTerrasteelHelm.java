@@ -8,20 +8,19 @@
  */
 package vazkii.botania.common.item.equipment.armor.terrasteel;
 
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.mana.IManaDiscountArmor;
@@ -39,7 +38,6 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 
 	public ItemTerrasteelHelm(Properties props) {
 		super(EquipmentSlotType.HEAD, props);
-		MinecraftForge.EVENT_BUS.addListener(this::onEntityAttacked);
 	}
 
 	@Override
@@ -94,37 +92,35 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		return false;
 	}
 
-	private void onEntityAttacked(LivingHurtEvent event) {
-		Entity attacker = event.getSource().getImmediateSource();
-		if (attacker instanceof PlayerEntity) {
-			PlayerEntity player = (PlayerEntity) attacker;
-			if (hasArmorSet(player)) {
-				// TODO 1.16 Move to mixin, this does not actually work as it's triggered after the attack strength changes
-				// [VanillaCopy] crit logic from PlayerEntity.attackTargetEntityWithCurrentItem
-				boolean strong = player.getCooledAttackStrength(0.5F) > 0.9F;
-				boolean crit = strong && player.fallDistance > 0.0F && !player.isOnGround() && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Effects.BLINDNESS) && !player.isPassenger();
-				crit = crit && !player.isSprinting();
+	public float onCritDamageCalc(float amount, PlayerEntity player) {
+		if (hasArmorSet(player)) {
+			ItemStack stack = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
+			if (!stack.isEmpty() && stack.getItem() instanceof ItemTerrasteelHelm
+					&& hasAncientWill(stack, AncientWillType.DHAROK)) {
+				return amount * (1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F);
+			}
+		}
+		return amount;
+	}
 
-				ItemStack stack = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
-				if (crit && !stack.isEmpty() && stack.getItem() instanceof ItemTerrasteelHelm) {
-					if (hasAncientWill(stack, AncientWillType.AHRIM)) {
-						event.getEntityLiving().addPotionEffect(new EffectInstance(Effects.WEAKNESS, 20, 1));
-					}
-					if (hasAncientWill(stack, AncientWillType.DHAROK)) {
-						event.setAmount(event.getAmount() * (1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F));
-					}
-					if (hasAncientWill(stack, AncientWillType.GUTHAN)) {
-						player.heal(event.getAmount() * 0.25F);
-					}
-					if (hasAncientWill(stack, AncientWillType.TORAG)) {
-						event.getEntityLiving().addPotionEffect(new EffectInstance(Effects.SLOWNESS, 60, 1));
-					}
-					if (hasAncientWill(stack, AncientWillType.VERAC)) {
-						event.getSource().setDamageBypassesArmor();
-					}
-					if (hasAncientWill(stack, AncientWillType.KARIL)) {
-						event.getEntityLiving().addPotionEffect(new EffectInstance(Effects.WITHER, 60, 1));
-					}
+	public void onEntityAttacked(DamageSource source, float amount, PlayerEntity player, LivingEntity entity) {
+		if (hasArmorSet(player)) {
+			ItemStack stack = player.getItemStackFromSlot(EquipmentSlotType.HEAD);
+			if (!stack.isEmpty() && stack.getItem() instanceof ItemTerrasteelHelm) {
+				if (hasAncientWill(stack, AncientWillType.AHRIM)) {
+					entity.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 20, 1));
+				}
+				if (hasAncientWill(stack, AncientWillType.GUTHAN)) {
+					player.heal(amount * 0.25F);
+				}
+				if (hasAncientWill(stack, AncientWillType.TORAG)) {
+					entity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 60, 1));
+				}
+				if (hasAncientWill(stack, AncientWillType.VERAC)) {
+					source.setDamageBypassesArmor();
+				}
+				if (hasAncientWill(stack, AncientWillType.KARIL)) {
+					entity.addPotionEffect(new EffectInstance(Effects.WITHER, 60, 1));
 				}
 			}
 		}

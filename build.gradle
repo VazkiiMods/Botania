@@ -52,6 +52,9 @@ minecraft {
             properties 'forge.logging.console.level': 'debug'
             properties 'fml.earlyprogresswindow': 'false'
             properties 'mixin.env.disableRefMap': 'true'
+//            properties 'mixin.debug.verbose': 'true'
+//            properties 'mixin.debug.export': 'true'
+//            properties 'mixin.debug.dumpTargetOnFailure': 'true'
             workingDirectory project.file('run')
             mods {
                 botania {
