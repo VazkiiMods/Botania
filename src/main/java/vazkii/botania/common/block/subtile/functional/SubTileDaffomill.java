@@ -34,9 +34,14 @@ import java.util.List;
 public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	private static final String TAG_ORIENTATION = "orientation";
 	private static final String TAG_WIND_TICKS = "windTicks";
+	private static final String TAG_POWERED = "powered";
 
 	private int windTicks = 0;
 	private Direction orientation = Direction.NORTH;
+
+	// On some occasions the client's redstone state is not the same as the server (eg. comparators,
+	// which can return 0 power on the client as their TE state is often not synced at all)
+	private boolean redstonePowered;
 
 	public SubTileDaffomill() {
 		super(ModSubtiles.DAFFOMILL);
@@ -56,7 +61,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 			addMana(-1);
 		}
 
-		if (windTicks > 0 && redstoneSignal == 0) {
+		if (windTicks > 0 && !isRedstonePowered()) {
 			AxisAlignedBB axis = aabbForOrientation();
 
 			if (axis != null) {
@@ -158,6 +163,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 
 		cmp.putInt(TAG_ORIENTATION, orientation.getIndex());
 		cmp.putInt(TAG_WIND_TICKS, windTicks);
+		cmp.putBoolean(TAG_POWERED, redstonePowered);
 	}
 
 	@Override
@@ -166,6 +172,18 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 
 		orientation = Direction.byIndex(cmp.getInt(TAG_ORIENTATION));
 		windTicks = cmp.getInt(TAG_WIND_TICKS);
+		redstonePowered = cmp.getBoolean(TAG_POWERED);
+	}
+
+	private boolean isRedstonePowered() {
+		if (!world.isRemote) {
+			boolean powered = redstoneSignal != 0;
+			if (powered != redstonePowered) {
+				redstonePowered = powered;
+				sync();
+			}
+		}
+		return redstonePowered;
 	}
 
 	// Send item age to client to prevent client desync when an item is e.g. dropped by a powered open crate
