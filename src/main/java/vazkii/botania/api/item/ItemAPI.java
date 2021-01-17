@@ -19,7 +19,7 @@ import vazkii.botania.api.InterfaceRegistry;
 public interface ItemAPI {
 	LazyValue<ItemAPI> INSTANCE = new LazyValue<>(() -> {
 		try {
-			return (ItemAPI) Class.forName("vazkii.botania.common.impl.item.ItemAPIImpl").newInstance();
+			return (ItemAPI) Class.forName("vazkii.botania.common.impl.item.ItemAPIImpl").getConstructor().newInstance();
 		} catch (ReflectiveOperationException e) {
 			LogManager.getLogger().warn("Unable to find ItemAPIImpl, using a dummy");
 			return new ItemAPI() {};
