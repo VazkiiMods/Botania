@@ -87,7 +87,5 @@ public abstract class MixinLivingEntity extends Entity {
 	@Inject(at = @At("RETURN"), method = "jump")
 	private void onJump(CallbackInfo ci) {
 		((ItemTravelBelt) ModItems.travelBelt).onPlayerJump((LivingEntity) (Object) this);
-		((ItemTravelBelt) ModItems.superTravelBelt).onPlayerJump((LivingEntity) (Object) this);
-		((ItemTravelBelt) ModItems.speedUpBelt).onPlayerJump((LivingEntity) (Object) this);
 	}
 }
