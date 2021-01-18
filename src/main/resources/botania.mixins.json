@@ -28,6 +28,7 @@
     "AccessorRecipesProvider",
     "AccessorStats",
     "AccessorStatusEffect",
+    "AccessorTextureKey",
     "AccessorWitherEntity",
     "MixinAbstractMinecartEntity",
     "MixinCraftingResultSlot",

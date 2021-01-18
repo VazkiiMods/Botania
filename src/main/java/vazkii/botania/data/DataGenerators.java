@@ -82,6 +82,7 @@ public class DataGenerators {
 		generator.install(new PetalProvider(generator));
 		generator.install(new RuneProvider(generator));
 		generator.install(new TerraPlateProvider(generator));
+		generator.install(new ItemModelProvider(generator));
 		/* todo 1.16-fabric
 		if (evt.includeClient()) {
 			generator.install(new BlockstateProvider(generator, evt.getExistingFileHelper()));

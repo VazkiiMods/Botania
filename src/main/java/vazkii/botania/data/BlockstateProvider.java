@@ -10,15 +10,17 @@ package vazkii.botania.data;
 
 import net.minecraft.block.*;
 
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.*;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 import static vazkii.botania.common.block.ModBlocks.*;
 import static vazkii.botania.common.block.ModFluffBlocks.*;
 
+public class BlockstateProvider /*extends BlockStateProvider*/ {
 /*
-public class BlockstateProvider extends BlockStateProvider {
 	public BlockstateProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
 		super(gen, LibMisc.MOD_ID, exFileHelper);
 	}
@@ -498,6 +500,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		simpleBlock(b, models().getExistingFile(prefix("block/" + name)));
 		blocks.remove(b);
 	}
+	*/
 
 	// ? extends T technically not correct, but is more convenient in ItemModelProvider
 	@SafeVarargs
@@ -532,7 +535,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		}
 		return ret;
 	}
-
+/*
 <<<<<<< HEAD
 	private static final Map<Direction, EnumProperty<WallShape>> DIRECTION_TO_WALL_SIDE = ImmutableMap.<Direction, EnumProperty<WallShape>>builder()
 			.put(Direction.NORTH, WallBlock.NORTH_SHAPE)
@@ -581,5 +584,5 @@ public class BlockstateProvider extends BlockStateProvider {
 				.partialState().with(Properties.FACING, Direction.DOWN).setModels(new ConfiguredModel(file, 90, 0, false))
 				.partialState().with(Properties.FACING, Direction.UP).setModels(new ConfiguredModel(file, 270, 0, false));
 	}
-}
 */
+}

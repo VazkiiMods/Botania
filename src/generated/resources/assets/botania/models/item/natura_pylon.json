@@ -7,6 +7,11 @@
         45,
         0
       ],
+      "translation": [
+        0,
+        0,
+        0
+      ],
       "scale": [
         0.625,
         0.625,
@@ -14,6 +19,11 @@
       ]
     },
     "ground": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
       "translation": [
         0,
         3,
@@ -31,16 +41,26 @@
         180,
         0
       ],
-      "scale": [
+      "translation": [
         0,
         0,
         0
+      ],
+      "scale": [
+        1,
+        1,
+        1
       ]
     },
     "fixed": {
       "rotation": [
         0,
         180,
+        0
+      ],
+      "translation": [
+        0,
+        0,
         0
       ],
       "scale": [
@@ -70,6 +90,11 @@
       "rotation": [
         0,
         315,
+        0
+      ],
+      "translation": [
+        0,
+        0,
         0
       ],
       "scale": [
