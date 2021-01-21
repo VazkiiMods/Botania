@@ -13,6 +13,8 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
@@ -27,7 +29,8 @@ import net.minecraft.world.World;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileTerraPlate;
-import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.mixin.AccessorRecipeManager;
 
 import javax.annotation.Nonnull;
 
@@ -48,8 +51,7 @@ public class BlockTerraPlate extends BlockModWaterloggable implements ITileEntit
 	@Override
 	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
 		ItemStack stack = player.getHeldItem(hand);
-		if (!stack.isEmpty()
-				&& (stack.getItem() == ModItems.manaSteel || stack.getItem() == ModItems.manaPearl || stack.getItem() == ModItems.manaDiamond)) {
+		if (!stack.isEmpty() && usesItem(stack, world)) {
 			if (!world.isRemote) {
 				ItemStack target = stack.split(1);
 				ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, target);
@@ -62,6 +64,17 @@ public class BlockTerraPlate extends BlockModWaterloggable implements ITileEntit
 		}
 
 		return ActionResultType.PASS;
+	}
+
+	private static boolean usesItem(ItemStack stack, World world) {
+		for (IRecipe<?> value : ((AccessorRecipeManager) world.getRecipeManager()).botania_getRecipes(ModRecipeTypes.TERRA_PLATE_TYPE).values()) {
+			for (Ingredient i : value.getIngredients()) {
+				if (i.test(stack)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	@Override
