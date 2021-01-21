@@ -1,3 +1,34 @@
+1.16.4-411
+* Add CraftTweaker support for Botania (jaredlll08)
+* Odin Ring now protects against magma blocks and flying into walls
+* Ender Air is now dispensable
+* Ghasts hit by Ender Air now drop ghast tears in the Overworld
+* Fix rod of the plentiful mantle's subtitle
+* Fix serverside gog support. Use level type "botania:gardenofglass"
+* Fix vanilla recipe log spam
+* Fix gog island command not teleporting to existing islands if ran in a command block
+* Fix corporea indexes sometimes hanging the game if you switch between multiple saves rapidly
+* Ring of Correction will now prioritize the Vitreous Pickaxe when breaking glass
+* Fix Entropic lens damage behaviour not matching TNT
+* Headflower yellow glint now works with Charm's glint enchantment as well
+* Fix default spreader angle sometimes not binding to pools
+* Fix Terrasteel Pickaxe AOE destroying bedrock
+* Reimplement the Bergamute in a cleaner and hopefully more compatible manner
+* The Bergamute is now classified as a Misc Flower (like the Pure Daisy and Manastar)
+* Fix grammar error in lexicon (dylantompkins)
+* Add a "Radius: N" tooltip to Laputa Shards so it's more clear they do something to your world
+* Add recipe for merging partially-filled brew vials/flasks together (eutropius225)
+* Lexicon cleanups (Alwinfy)
+* Fix IBlockProvider not being fully accurate (Penrif)
+* Fix Bloodthirst potion effect not working (Alwinfy)
+* Fix Vitreous Pickaxe incompatibility with Astral Sorcery prisms
+* Fix Lexicon name when inside an Akashic Tome
+* Fix banner patterns being broken
+* Fix flower worldgen being too clumped together
+* zh_TW updates (Jeffku0107, ttdyce)
+* Fix ancient will critical hit effects not working
+* Fix daffomill desyncing when powered by comparator
+* Add a mcfunction that unlocks the entire lexicon: /function botania:full_book
 1.16.4-410
 * NOTE: If you use Garden of Glass, you *must* update to GoG 1.6+!
 * Open and crafty crates check collision more snugly against their bottom face, meaning that they can now output on top of a hopper without a one block gap
