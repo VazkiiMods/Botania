@@ -44,6 +44,12 @@ public class SubTileSolegnolia extends TileEntityFunctionalFlower {
 	}
 
 	@Override
+	public void remove() {
+		super.remove();
+		existingFlowers.remove(this);
+	}
+
+	@Override
 	public boolean acceptsRedstone() {
 		return true;
 	}
