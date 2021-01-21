@@ -65,13 +65,13 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
 		if (variant == Variant.THINKING_HAND) {
 			tooltip.add(new TranslationTextComponent("botaniamisc.cosmeticThinking").mergeStyle(TextFormatting.ITALIC, TextFormatting.GRAY));
 		} else {
 			tooltip.add(new TranslationTextComponent("botaniamisc.cosmeticBauble").mergeStyle(TextFormatting.ITALIC, TextFormatting.GRAY));
 		}
-		super.addHiddenTooltip(stack, world, tooltip, flags);
+		super.addInformation(stack, world, tooltip, flags);
 	}
 
 	@Override

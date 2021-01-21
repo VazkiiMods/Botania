@@ -17,18 +17,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.api.item.IRelic;
-import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nullable;
 
@@ -52,12 +48,7 @@ public class ItemRelic extends Item implements IRelic {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-		TooltipHandler.addOnShift(tooltip, () -> addInformationAfterShift(stack, world, tooltip, flags));
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	public void addInformationAfterShift(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+	public void addInformation(final ItemStack stack, @Nullable World world, final List<ITextComponent> tooltip, ITooltipFlag flags) {
 		if (!hasUUID(stack)) {
 			tooltip.add(new TranslationTextComponent("botaniamisc.relicUnbound"));
 		} else {
@@ -65,14 +56,6 @@ public class ItemRelic extends Item implements IRelic {
 				tooltip.add(new TranslationTextComponent("botaniamisc.notYourSagittarius"));
 			} else {
 				tooltip.add(new TranslationTextComponent("botaniamisc.relicSoulbound", Minecraft.getInstance().player.getName()));
-			}
-		}
-
-		if (stack.getItem() == ModItems.dice) {
-			tooltip.add(new StringTextComponent(""));
-			String name = stack.getTranslationKey() + ".poem";
-			for (int i = 0; i < 4; i++) {
-				tooltip.add(new TranslationTextComponent(name + i).mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
 			}
 		}
 	}

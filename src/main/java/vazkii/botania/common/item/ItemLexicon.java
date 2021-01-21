@@ -28,7 +28,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import vazkii.botania.api.recipe.IElvenItem;
-import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -62,11 +61,7 @@ public class ItemLexicon extends Item implements IElvenItem {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-		super.addInformation(stack, worldIn, tooltip, flagIn);
-
-		TooltipHandler.addOnShift(tooltip, () -> {
-			tooltip.add(getEdition().deepCopy().mergeStyle(TextFormatting.GRAY));
-		});
+		tooltip.add(getEdition().deepCopy().mergeStyle(TextFormatting.GRAY));
 	}
 
 	@Nonnull

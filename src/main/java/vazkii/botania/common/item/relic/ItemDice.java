@@ -9,20 +9,27 @@
 package vazkii.botania.common.item.relic;
 
 import net.minecraft.advancements.Advancement;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import vazkii.botania.api.item.IRelic;
+import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +81,19 @@ public class ItemDice extends ItemRelic {
 		}
 
 		return ActionResult.resultPass(stack);
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+		super.addInformation(stack, world, tooltip, flags);
+		tooltip.add(new StringTextComponent(""));
+		TooltipHandler.addOnShift(tooltip, () -> {
+			String name = stack.getTranslationKey() + ".poem";
+			for (int i = 0; i < 4; i++) {
+				tooltip.add(new TranslationTextComponent(name + i).mergeStyle(TextFormatting.GRAY, TextFormatting.ITALIC));
+			}
+		});
 	}
 
 	@Override

@@ -45,9 +45,9 @@ public abstract class ItemRelicBauble extends ItemBauble implements IRelic {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-		super.addHiddenTooltip(stack, world, tooltip, flags);
-		dummy.addInformationAfterShift(stack, world, tooltip, flags);
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+		super.addInformation(stack, world, tooltip, flags);
+		dummy.addInformation(stack, world, tooltip, flags);
 	}
 
 	@Override

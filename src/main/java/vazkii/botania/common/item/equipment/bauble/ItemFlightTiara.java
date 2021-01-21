@@ -31,6 +31,7 @@ import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -106,9 +107,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
-		super.addHiddenTooltip(stack, world, tooltip, flags);
-		tooltip.add(new TranslationTextComponent("botania.wings" + getVariant(stack)));
+	public void addInformation(ItemStack stack, World world, List<ITextComponent> tooltip, ITooltipFlag flags) {
+		super.addInformation(stack, world, tooltip, flags);
+		tooltip.add(new TranslationTextComponent("botania.wings" + getVariant(stack)).mergeStyle(TextFormatting.GRAY));
 	}
 
 	private void updatePlayerFlyStatus(LivingUpdateEvent event) {
