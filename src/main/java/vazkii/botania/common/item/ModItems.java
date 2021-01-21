@@ -210,7 +210,7 @@ public final class ModItems {
 	public static final Item manasteelShovel = new ItemManasteelShovel(unstackable());
 	public static final Item manasteelAxe = new ItemManasteelAxe(unstackable());
 	public static final Item manasteelSword = new ItemManasteelSword(unstackable());
-	public static final Item manasteelShears = new ItemManasteelShears(unstackable());
+	public static final Item manasteelShears = new ItemManasteelShears(unstackable().defaultMaxDamage(238));
 	public static final Item elementiumHelm = new ItemElementiumHelm(unstackable());
 	public static final Item elementiumChest = new ItemElementiumChest(unstackable());
 	public static final Item elementiumLegs = new ItemElementiumLegs(unstackable());
@@ -219,7 +219,7 @@ public final class ModItems {
 	public static final Item elementiumShovel = new ItemElementiumShovel(unstackable());
 	public static final Item elementiumAxe = new ItemElementiumAxe(unstackable());
 	public static final Item elementiumSword = new ItemElementiumSword(unstackable());
-	public static final Item elementiumShears = new ItemElementiumShears(unstackable());
+	public static final Item elementiumShears = new ItemElementiumShears(unstackable().defaultMaxDamage(238));
 	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable().isImmuneToFire().rarity(Rarity.UNCOMMON));
 	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlotType.CHEST, unstackable().isImmuneToFire().rarity(Rarity.UNCOMMON));
 	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlotType.LEGS, unstackable().isImmuneToFire().rarity(Rarity.UNCOMMON));

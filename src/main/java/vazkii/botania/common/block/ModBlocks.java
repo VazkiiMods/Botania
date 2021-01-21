@@ -18,6 +18,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.StairsBlock;
 import net.minecraft.block.WallBlock;
 import net.minecraft.block.material.Material;
+import net.minecraft.dispenser.BeehiveDispenseBehavior;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.dispenser.IDispenseItemBehavior;
 import net.minecraft.dispenser.IPosition;
@@ -905,6 +906,9 @@ public final class ModBlocks {
 
 		behavior = AccessorDispenserBlock.getDispenseBehaviorRegistry().get(Items.GLASS_BOTTLE);
 		DispenserBlock.registerDispenseBehavior(Items.GLASS_BOTTLE, new BehaviourEnderAirBottling(behavior));
+
+		DispenserBlock.registerDispenseBehavior(ModItems.manasteelShears, new BeehiveDispenseBehavior());
+		DispenserBlock.registerDispenseBehavior(ModItems.elementiumShears, new BeehiveDispenseBehavior());
 
 		SeedBehaviours.init();
 	}
