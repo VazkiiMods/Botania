@@ -16,10 +16,10 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
@@ -29,10 +29,17 @@ import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.UUID;
+
+import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
 
 public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
+
+	private static final UUID STEP_BOOST_UUID = UUID.fromString("8511cd62-2650-4078-8d69-9ebe80b21eb5");
+	private static final EntityAttributeModifier STEP_BOOST = new EntityAttributeModifier(
+			STEP_BOOST_UUID,
+			"botania:travel_belt",
+			0.65, EntityAttributeModifier.Operation.ADDITION);
 
 	private static final Identifier texture = new Identifier(LibResources.MODEL_TRAVEL_BELT);
 	@Environment(EnvType.CLIENT)
@@ -40,8 +47,6 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	private static final int COST = 1;
 	private static final int COST_INTERVAL = 10;
-
-	public static final List<String> playersWithStepup = new ArrayList<>();
 
 	public final float speed;
 	public final float jump;
@@ -68,39 +73,37 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	public static void updatePlayerStepStatus(PlayerEntity player) {
 		ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
-		String s = playerStr(player);
 
-		if (playersWithStepup.contains(s)) {
-			if (shouldPlayerHaveStepup(player)) {
+		EntityAttributeInstance attrib = player.getAttributeInstance(StepHeightEntityAttributeMain.STEP_HEIGHT);
+		boolean hasBoost = attrib.hasModifier(STEP_BOOST);
+
+		if (tryConsumeMana(player)) {
+			if (player.world.isClient) {
 				ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
+				if ((player.isOnGround() || player.abilities.flying) && player.forwardSpeed > 0F && !player.isInsideWaterOrBubbleColumn()) {
+					float speed = beltItem.getSpeed(belt);
+					player.updateVelocity(player.abilities.flying ? speed : speed, new Vec3d(0, 0, 1));
+					beltItem.onMovedTick(belt, player);
 
-				if (player.world.isClient) {
-					if ((player.isOnGround() || player.abilities.flying) && player.forwardSpeed > 0F && !player.isInsideWaterOrBubbleColumn()) {
-						float speed = beltItem.getSpeed(belt);
-						player.updateVelocity(player.abilities.flying ? speed : speed, new Vec3d(0, 0, 1));
-						beltItem.onMovedTick(belt, player);
-
-						if (player.age % COST_INTERVAL == 0) {
-							ManaItemHandler.instance().requestManaExact(belt, player, COST, true);
-						}
-					} else {
-						beltItem.onNotMovingTick(belt, player);
+					if (player.age % COST_INTERVAL == 0) {
+						ManaItemHandler.instance().requestManaExact(belt, player, COST, true);
+					}
+				} else {
+					beltItem.onNotMovingTick(belt, player);
+				}
+			} else {
+				if (player.isSneaking()) {
+					if (hasBoost) {
+						attrib.removeModifier(STEP_BOOST);
+					}
+				} else {
+					if (!hasBoost) {
+						attrib.addTemporaryModifier(STEP_BOOST);
 					}
 				}
-
-				if (player.isSneaking()) {
-					player.stepHeight = 0.60001F; // Not 0.6F because that is the default
-				} else {
-					player.stepHeight = 1.25F;
-				}
-
-			} else {
-				player.stepHeight = 0.6F;
-				playersWithStepup.remove(s);
 			}
-		} else if (shouldPlayerHaveStepup(player)) {
-			playersWithStepup.add(s);
-			player.stepHeight = 1.25F;
+		} else if (!player.world.isClient && hasBoost) {
+			attrib.removeModifier(STEP_BOOST);
 		}
 	}
 
@@ -112,7 +115,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	public void onNotMovingTick(ItemStack stack, PlayerEntity player) {}
 
-	public void onPlayerJump(LivingEntity living) {
+	public static void onPlayerJump(LivingEntity living) {
 		if (living instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) living;
 			ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
@@ -123,19 +126,9 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		}
 	}
 
-	private static boolean shouldPlayerHaveStepup(PlayerEntity player) {
+	private static boolean tryConsumeMana(PlayerEntity player) {
 		ItemStack result = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 		return !result.isEmpty() && ManaItemHandler.instance().requestManaExact(result, player, COST, false);
-	}
-
-	public static void playerLoggedOut(ServerPlayNetworkHandler handler, MinecraftServer server) {
-		String username = handler.player.getGameProfile().getName();
-		playersWithStepup.remove(username + ":false");
-		playersWithStepup.remove(username + ":true");
-	}
-
-	public static String playerStr(PlayerEntity player) {
-		return player.getGameProfile().getName() + ":" + player.world.isClient;
 	}
 
 	@Environment(EnvType.CLIENT)

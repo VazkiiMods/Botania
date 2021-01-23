@@ -50,16 +50,15 @@ repositories {
 	      url = 'https://dl.bintray.com/ladysnake/libs'
     }
     maven {
-        name "storagedrawers"
-        url = "https://dl.bintray.com/jaquadro/dev/"
-    }
-    maven {
-        name = "BuildCraft"
+        name = "BuildCraft" // for LBA
         url = "https://mod-buildcraft.com/maven"
     }
     maven {
         name "entity reach"
         url "https://maven.jamieswhiteshirt.com/libs-release/"
+    }
+    maven {
+        url "https://jitpack.io" // for step height eam
     }
 }
 
@@ -81,9 +80,14 @@ dependencies {
     include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:2.7.2"
 
     compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
+
     modImplementation "top.theillusivec4.curios:curios-fabric:0.0.10-1.16.3"
+
     modImplementation "com.jamieswhiteshirt:reach-entity-attributes:1.0.1"
     include "com.jamieswhiteshirt:reach-entity-attributes:1.0.1"
+
+    modImplementation "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
+    include "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
 
     minecraft "com.mojang:minecraft:${mc_version}"
     mappings "net.fabricmc:yarn:${mc_version}+build.7:v2"
