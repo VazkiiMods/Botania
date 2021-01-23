@@ -99,6 +99,7 @@ public class Botania implements ModInitializer {
 		ConfigHandler.setup();
 
 		IMCSender.enqueue();
+		EquipmentHandler.init();
 		ModFeatures.registerFeatures();
 		ModItems.registerItems();
 		ModItems.registerRecipeSerializers();
@@ -140,7 +141,6 @@ public class Botania implements ModInitializer {
 	private void commonSetup() {
 		PacketHandler.init();
 
-		EquipmentHandler.init();
 		CorporeaHelper.instance().registerRequestMatcher(prefix("string"), CorporeaStringMatcher.class, CorporeaStringMatcher::createFromNBT);
 		CorporeaHelper.instance().registerRequestMatcher(prefix("item_stack"), CorporeaItemStackMatcher.class, CorporeaItemStackMatcher::createFromNBT);
 

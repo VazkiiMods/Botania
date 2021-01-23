@@ -56,10 +56,7 @@ public abstract class EquipmentHandler {
 	}
 
 	public static void initBaubleCap(Item item) {
-		if (instance != null) // Happens to be called in ModItems class init, which is too early to know about which handler to use
-		{
-			instance.registerComponentEvent(item);
-		}
+		instance.registerComponentEvent(item);
 	}
 
 	protected abstract Inventory getAllWornItems(LivingEntity living);

@@ -13,12 +13,12 @@ import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.util.Identifier;
 
+import javax.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import jdk.internal.jline.internal.Nullable;
 
 public class OverrideHolder {
 	final List<ModelOverride> modelOverrides = new ArrayList<>();
