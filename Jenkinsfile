@@ -1,6 +1,9 @@
 #!/usr/bin/env groovy
 
 pipeline {
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+    }
     agent any
     stages {
         stage('Clean') {
