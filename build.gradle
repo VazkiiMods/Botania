@@ -60,6 +60,9 @@ repositories {
     maven {
         url "https://jitpack.io" // for step height eam
     }
+    maven {
+        url "https://maven.siphalor.de" // for nbt crafting
+    }
 }
 
 dependencies {
@@ -88,6 +91,8 @@ dependencies {
 
     modImplementation "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
     include "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
+
+    modImplementation "de.siphalor:nbtcrafting-1.16:2+"
 
     minecraft "com.mojang:minecraft:${mc_version}"
     mappings "net.fabricmc:yarn:${mc_version}+build.7:v2"
