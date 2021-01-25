@@ -78,7 +78,7 @@
   "botaniamisc.notYourSagittarius": "\u00a74Эта реликвия не ваша",
   "botaniamisc.diceRoll": "На костях выпало %s. Вы замечаете, что это число превращается в нечто другое...",
   "botaniamisc.dudDiceRoll": "На костях выпало %s и они исчезают.",
-  "botaniamisc.flugelBound": Привязан к %s d %s",
+  "botaniamisc.flugelBound": "Привязан к %s d %s",
   "botaniamisc.flugelUnbound": "Свободен в %s",
   "botaniamisc.blockAway": "1 блок остался",
   "botaniamisc.blocksAway": "%s блоков осталось",
