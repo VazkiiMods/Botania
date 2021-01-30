@@ -137,7 +137,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 
 		return GlobalPos.CODEC.parse(NBTDynamicOps.INSTANCE, ItemNBTHelper.get(stack, TAG_POS))
 				.result()
-				.filter(x -> x.getPos().getY() != -1)
+				.filter(pos -> pos.getPos().getY() != -1)
 				.orElse(null);
 	}
 
