@@ -34,7 +34,6 @@ import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class RenderTileSpecialFlower extends TileEntityRenderer<TileEntity> {
 	public RenderTileSpecialFlower(TileEntityRendererDispatcher dispatcher) {
@@ -90,8 +89,7 @@ public class RenderTileSpecialFlower extends TileEntityRenderer<TileEntity> {
 	public static boolean hasBindingAttempt(LivingEntity view, BlockPos tilePos) {
 		ItemStack stackHeld = PlayerHelper.getFirstHeldItem(view, ModItems.twigWand);
 		if (!stackHeld.isEmpty() && ItemTwigWand.getBindMode(stackHeld)) {
-			Optional<BlockPos> coords = ItemTwigWand.getBindingAttempt(stackHeld);
-			return coords.isPresent() && coords.get().equals(tilePos);
+			return ItemTwigWand.getBindingAttempt(stackHeld).filter(tilePos::equals).isPresent();
 		}
 		return false;
 	}

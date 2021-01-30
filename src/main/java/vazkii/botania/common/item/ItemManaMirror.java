@@ -37,8 +37,6 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import java.util.Optional;
-
 public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, IManaTooltipDisplay {
 
 	private static final String TAG_MANA = "mana";
@@ -137,16 +135,10 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 			return null;
 		}
 
-		Optional<GlobalPos> pos = GlobalPos.CODEC.parse(NBTDynamicOps.INSTANCE, ItemNBTHelper.get(stack, TAG_POS)).result();
-		if (!pos.isPresent()) {
-			return null;
-		}
-
-		BlockPos coords = pos.get().getPos();
-		if (coords.getY() == -1) {
-			return null;
-		}
-		return pos.get();
+		return GlobalPos.CODEC.parse(NBTDynamicOps.INSTANCE, ItemNBTHelper.get(stack, TAG_POS))
+				.result()
+				.filter(x -> x.getPos().getY() != -1)
+				.orElse(null);
 	}
 
 	@Nullable

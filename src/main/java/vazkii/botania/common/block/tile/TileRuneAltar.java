@@ -203,12 +203,9 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 			if (currentRecipe != null) {
 				this.manaToGet = currentRecipe.getManaUsage();
 			} else {
-				Optional<IRuneAltarRecipe> maybeRecipe = world.getRecipeManager().getRecipe(ModRecipeTypes.RUNE_TYPE, getItemHandler(), world);
-				if (maybeRecipe.isPresent()) {
-					this.manaToGet = maybeRecipe.get().getManaUsage();
-					break getMana;
-				}
-				this.manaToGet = 0;
+				this.manaToGet = world.getRecipeManager().getRecipe(ModRecipeTypes.RUNE_TYPE, getItemHandler(), world)
+						.map(IRuneAltarRecipe::getManaUsage)
+						.orElse(0);
 			}
 		}
 
