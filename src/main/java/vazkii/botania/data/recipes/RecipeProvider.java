@@ -73,6 +73,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 		specialRecipe(consumer, MergeVialRecipe.SERIALIZER);
 		specialRecipe(consumer, PhantomInkRecipe.SERIALIZER);
 		specialRecipe(consumer, SpellClothRecipe.SERIALIZER);
+		specialRecipe(consumer, SplitLensRecipe.SERIALIZER);
 		specialRecipe(consumer, TerraPickTippingRecipe.SERIALIZER);
 
 		registerMain(consumer);

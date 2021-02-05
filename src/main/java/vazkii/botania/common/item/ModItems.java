@@ -717,6 +717,7 @@ public final class ModItems {
 		register(r, "merge_vial", MergeVialRecipe.SERIALIZER);
 		register(r, "phantom_ink_apply", PhantomInkRecipe.SERIALIZER);
 		register(r, "spell_cloth_apply", SpellClothRecipe.SERIALIZER);
+		register(r, "split_lens", SplitLensRecipe.SERIALIZER);
 		register(r, "terra_pick_tipping", TerraPickTippingRecipe.SERIALIZER);
 		register(r, "twig_wand", TwigWandRecipe.SERIALIZER);
 
