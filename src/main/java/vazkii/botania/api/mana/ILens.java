@@ -30,7 +30,8 @@ public interface ILens extends ILensEffect {
 
 	/**
 	 * Sets the composite lens for the sourceLens as the compositeLens, returns
-	 * the ItemStack with the combination.
+	 * the ItemStack with the combination. If compositeLens is empty, this removes
+	 * the composite.
 	 */
 	public ItemStack setCompositeLens(ItemStack sourceLens, ItemStack compositeLens);
 
