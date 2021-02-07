@@ -22,7 +22,6 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
