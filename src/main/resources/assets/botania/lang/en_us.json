@@ -2144,7 +2144,7 @@
 
   "botania.entry.solegnolia": "Solegnolia",
   "botania.tagline.solegnolia": "Creates spaces where the Ring of Magnetization doesn't work",
-  "botania.page.solegnolia0": "The $(l:baubles/magnet_ring)$(item)Ring of Magnetization$(0)$(/l) is quite the handy tool for any diggers or collectors; however, it can also pick up unwanted items, possibly disrupting automation setups in the process. The $(item)Solegnolia$(0) disrupts the ring's field of effect and prevents any items near it from being pulled towards a ring-bearer; any rings within its radius are also prevented from picking items up. It does not consume $(thing)Mana$(0).",
+  "botania.page.solegnolia0": "The $(l:baubles/magnet_ring)$(item)Ring of Magnetization$(0)$(/l) is quite the handy tool for any diggers or collectors. However, it can also pick up unwanted items, disrupting automation setups in the process. The $(item)Solegnolia$(0) disrupts the ring's field of effect and prevents any items in its range from being pulled towards a ring-bearer. It also prevents any ring-bearers in its range from pulling any items. It does not consume $(thing)Mana$(0).",
   "botania.page.solegnolia1": "On/Off",
 
   "botania.entry.bergamute": "Bergamute",
