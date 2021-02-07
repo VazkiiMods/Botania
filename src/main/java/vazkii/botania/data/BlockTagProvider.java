@@ -135,6 +135,9 @@ public class BlockTagProvider extends BlockTagsProvider {
 				ModBlocks.fabulousPool, ModBlocks.terraPlate, ModBlocks.runeAltar);
 
 		getOrCreateBuilder(ModTags.Blocks.TERRA_PLATE_BASE).add(ModBlocks.livingrock, ModBlocks.shimmerrock);
+
+		getOrCreateBuilder(BlockTags.BAMBOO_PLANTABLE_ON).add(ModBlocks.dryGrass, ModBlocks.goldenGrass, ModBlocks.vividGrass,
+				ModBlocks.scorchedGrass, ModBlocks.infusedGrass, ModBlocks.mutatedGrass);
 	}
 
 	@Nonnull
