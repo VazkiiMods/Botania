@@ -22,10 +22,11 @@
     "AccessorStats",
     "AccessorWitherEntity",
     "MixinAbstractMinecartEntity",
-    "MixinEndermanPickupBlock",
+    "MixinBeeEntity",
     "MixinEntitySpawnPlacementRegistry",
     "MixinLootTable",
     "MixinPlayerEntity",
+    "MixinPollinateGoal",
     "MixinThrowableEntity",
     "MixinWorldEntitySpawner"
   ],
