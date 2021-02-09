@@ -2086,7 +2086,7 @@
 
   "botania.entry.labelia": "Labellia",
   "botania.tagline.labelia": "Renames things",
-  "botania.page.labelia0": "For a moderate sum of $(thing)Mana$(0), the $(item)Labellia$(0) picks up $(thing)Name Tags$(0) dropped on top of it, and uses them to name nearby $(thing)Items$(0) within a 5x5 radius.",
+  "botania.page.labelia0": "For a moderate sum of $(thing)Mana$(0), the $(item)Labellia$(0) picks up $(thing)Name Tags$(0) dropped on top of it, and uses them to name nearby items and mobs within a 5x5 radius.",
   "botania.page.labelia1": "$(o)What's in a name?$().",
 
   "botania.entry.rannuncarpus": "Rannuncarpus",
@@ -3346,7 +3346,7 @@
   "botania.subtitle.equipBauble": "Trinket equips",
   "botania.subtitle.gaiaTrap": "Gaia Guardian's spell swooshes",
   "botania.subtitle.holyCloak": "Cloak of Virtue activates",
-  "botania.subtitle.labelia": "Labellia labels item",
+  "botania.subtitle.labelia": "Labellia renames something",
   "botania.subtitle.laputaStart": "Laputa Shard triggers",
   "botania.subtitle.lexiconOpen": "Lexica Botania opens",
   "botania.subtitle.lexiconPage": "Lexica Botania page turns",

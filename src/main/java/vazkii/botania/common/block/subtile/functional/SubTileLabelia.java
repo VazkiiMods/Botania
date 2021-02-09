@@ -76,7 +76,6 @@ public class SubTileLabelia extends TileEntityFunctionalFlower {
 								return i.isAlive() && i != nameTagEnt && iAge >= 60 + getSlowdownFactor() && !name.equals(i.getItem().getDisplayName());
 							});
 
-
 					if (!nameableItems.isEmpty() || !nameableEntities.isEmpty()) {
 						for (LivingEntity e : nameableEntities) {
 							// [VanillaCopy] from net.minecraft.item.NameTagItem
