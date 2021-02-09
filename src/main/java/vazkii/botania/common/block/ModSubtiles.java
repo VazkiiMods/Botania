@@ -173,6 +173,9 @@ public class ModSubtiles {
 	public static final Block orechidIgnem = new BlockSpecialFlower(Effects.FIRE_RESISTANCE, 600, FLOWER_PROPS, SubTileOrechidIgnem::new);
 	public static final Block orechidIgnemFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileOrechidIgnem::new);
 
+	public static final Block labelia = new BlockSpecialFlower(Effects.FIRE_RESISTANCE, 600, FLOWER_PROPS, SubTileLabelia::new);
+	public static final Block labeliaFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileLabelia::new);
+
 	public static final TileEntityType<SubTilePureDaisy> PURE_DAISY = TileEntityType.Builder.create(SubTilePureDaisy::new, pureDaisy, pureDaisyFloating).build(null);
 	public static final TileEntityType<SubTileManastar> MANASTAR = TileEntityType.Builder.create(SubTileManastar::new, manastar, manastarFloating).build(null);
 	public static final TileEntityType<SubTileHydroangeas> HYDROANGEAS = TileEntityType.Builder.create(SubTileHydroangeas::new, hydroangeas, hydroangeasFloating).build(null);
@@ -222,6 +225,7 @@ public class ModSubtiles {
 	public static final TileEntityType<SubTileSolegnolia> SOLEGNOLIA = TileEntityType.Builder.create(SubTileSolegnolia::new, solegnolia, solegnoliaFloating).build(null);
 	public static final TileEntityType<SubTileSolegnolia.Mini> SOLEGNOLIA_CHIBI = TileEntityType.Builder.create(SubTileSolegnolia.Mini::new, solegnoliaChibi, solegnoliaChibiFloating).build(null);
 	public static final TileEntityType<SubTileOrechidIgnem> ORECHID_IGNEM = TileEntityType.Builder.create(SubTileOrechidIgnem::new, orechidIgnem, orechidIgnemFloating).build(null);
+	public static final TileEntityType<SubTileLabelia> LABELIA = TileEntityType.Builder.create(SubTileLabelia::new, labelia, labeliaFloating).build(null);
 
 	private static ResourceLocation floating(ResourceLocation orig) {
 		return new ResourceLocation(orig.getNamespace(), "floating_" + orig.getPath());
@@ -375,6 +379,9 @@ public class ModSubtiles {
 
 		register(r, LibBlockNames.SUBTILE_ORECHID_IGNEM, orechidIgnem);
 		register(r, floating(LibBlockNames.SUBTILE_ORECHID_IGNEM), orechidIgnemFloating);
+
+		register(r, LibBlockNames.SUBTILE_LABELIA, labelia);
+		register(r, floating(LibBlockNames.SUBTILE_LABELIA), labeliaFloating);
 	}
 
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
@@ -519,6 +526,9 @@ public class ModSubtiles {
 
 		register(r, getId(orechidIgnem), new ItemBlockSpecialFlower(orechidIgnem, props));
 		register(r, getId(orechidIgnemFloating), new ItemBlockSpecialFlower(orechidIgnemFloating, props));
+
+		register(r, getId(labelia), new ItemBlockSpecialFlower(labelia, props));
+		register(r, getId(labeliaFloating), new ItemBlockSpecialFlower(labeliaFloating, props));
 	}
 
 	public static void registerTEs(RegistryEvent.Register<TileEntityType<?>> evt) {
@@ -572,5 +582,6 @@ public class ModSubtiles {
 		register(r, getId(solegnolia), SOLEGNOLIA);
 		register(r, getId(solegnoliaChibi), SOLEGNOLIA_CHIBI);
 		register(r, getId(orechidIgnem), ORECHID_IGNEM);
+		register(r, getId(labelia), LABELIA);
 	}
 }

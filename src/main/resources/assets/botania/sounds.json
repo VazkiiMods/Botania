@@ -28,6 +28,7 @@
 	"equip_bauble": { "sounds":["botania:equipbauble"], "subtitle": "botania.subtitle.equipBauble" },
 	"gaia_trap": { "sounds":["botania:gaiatrap"], "subtitle": "botania.subtitle.gaiaTrap" },
 	"holy_cloak": { "sounds":["botania:holycloak"], "subtitle": "botania.subtitle.holyCloak" },
+	"labelia": { "sounds":[{"type": "event", "name": "minecraft:item.book.page_turn"}], "subtitle": "botania.subtitle.labelia" },
 	"laputa_start": { "sounds":["botania:laputastart"], "subtitle": "botania.subtitle.laputaStart" },
 	"lexicon_open": { "sounds":["botania:lexiconopen"], "subtitle": "botania.subtitle.lexiconOpen" },
 	"lexicon_page": { "sounds":["botania:lexiconpage"], "subtitle": "botania.subtitle.lexiconPage" },
