@@ -108,7 +108,7 @@ public class ManaInfusionProvider extends RecipeProvider {
 
 		cycle(consumer, 200, "", Items.GUNPOWDER, Items.FLINT);
 
-		consumer.accept(FinishedRecipe.alchemy(id("book_to_name_tag"), new ItemStack(Items.NAME_TAG), ingr(Items.WRITABLE_BOOK), 16000));
+		consumer.accept(FinishedRecipe.alchemy(id("book_to_name_tag"), new ItemStack(Items.NAME_TAG), ingr(Items.WRITABLE_BOOK), 6000));
 
 		consumer.accept(FinishedRecipe.alchemy(id("wool_deconstruct"), new ItemStack(Items.STRING, 3), Ingredient.fromTag(ItemTags.WOOL), 100));
 
