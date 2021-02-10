@@ -63,6 +63,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 	private static final ResourceLocation textureGenderfluid = new ResourceLocation(LibResources.MODEL_TINY_POTATO_GENDERFLUID);
 	private static final ResourceLocation textureAce = new ResourceLocation(LibResources.MODEL_TINY_POTATO_ACE);
 	private static final ResourceLocation textureAro = new ResourceLocation(LibResources.MODEL_TINY_POTATO_ARO);
+	private static final ResourceLocation textureAgender = new ResourceLocation(LibResources.MODEL_TINY_POTATO_AGENDER);
 	private static final ResourceLocation textureBosnia = new ResourceLocation(LibResources.MODEL_TINY_POTATO_BOSNIA);
 	private final ModelRenderer potatoModel = new ModelRenderer(16, 16, 0, 0);
 
@@ -156,6 +157,9 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		case "aromantictater":
 		case "tataro":
 			base = RenderType.getEntitySolid(textureAro);
+			break;
+		case "agendertater":
+			base = RenderType.getEntitySolid(textureAgender);
 			break;
 		case "botaniatater":
 		case "botater":
