@@ -52,6 +52,7 @@ public final class LibResources {
 	public static final String MODEL_TINY_POTATO_GENDERFLUID = PREFIX_MODEL + "tiny_potato_genderfluid.png";
 	public static final String MODEL_TINY_POTATO_ACE = PREFIX_MODEL + "tiny_potato_ace.png";
 	public static final String MODEL_TINY_POTATO_ARO = PREFIX_MODEL + "tiny_potato_aro.png";
+	public static final String MODEL_TINY_POTATO_BOSNIA = PREFIX_MODEL + "tiny_potato_bosnia.png";
 	public static final String MODEL_TRAVEL_BELT = PREFIX_MODEL + "belt_travel.png";
 	public static final String MODEL_SUPER_TRAVEL_BELT = PREFIX_MODEL + "belt_travel_super.png";
 	public static final String MODEL_SPEED_UP_BELT = PREFIX_MODEL + "belt_speed.png";
