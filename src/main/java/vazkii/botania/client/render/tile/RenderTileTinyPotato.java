@@ -99,63 +99,71 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 
 	private static RenderType getRenderLayer(@Nullable ShaderHelper.BotaniaShader shader, String name) {
 		RenderType base;
+		if (name.startsWith(":")) {
+			name = name.substring(1);
+		}
+		if (name.endsWith(":")) {
+			name = name.substring(0, name.length() - 1);
+		}
 		switch (name) {
 		case "kyle hyde":
 			base = RenderType.getEntitySolid(textureGrayscale);
 			break;
-		case ":transtater:":
-		case ":eggtater:":
-		case ":tategg:":
+		case "transtater":
+		case "eggtater":
+		case "tategg":
 			base = RenderType.getEntitySolid(textureTrans);
 			break;
-		case ":wiretater:":
-		case ":enbytater:":
-		case ":nbtater:":
-		case ":nonbinarytater:":
+		case "wiretater":
+		case "enbytater":
+		case "nbtater":
+		case "nonbinarytater":
 			base = RenderType.getEntitySolid(textureWire);
 			break;
-		case ":pridetater:":
-		case ":gaytater:":
-		case ":gayter:":
-		case ":lgbtater:":
+		case "pridetater":
+		case "gaytater":
+		case "gayter":
+		case "lgbtater":
 			base = RenderType.getEntitySolid(texturePride);
 			break;
-		case ":bitater:":
-		case ":biter:":
+		case "bitater":
+		case "biter":
 			base = RenderType.getEntitySolid(textureBi);
 			break;
-		case ":pantater:":
-		case ":panter:":
+		case "pantater":
+		case "panter":
 			base = RenderType.getEntitySolid(texturePan);
 			break;
-		case ":lesbiantater:":
-		case ":lesbitater:":
-		case ":lesbiabtater:":
-		case ":lesbiamtater:":
-		case ":lessbientater:":
-		case ":girlstater:":
+		case "lesbiantater":
+		case "lesbitater":
+		case "lesbiabtater":
+		case "lesbiamtater":
+		case "lessbientater":
+		case "girlstater":
 			base = RenderType.getEntitySolid(textureLesbian);
 			break;
-		case ":genderfluidtater:":
-		case ":taterfluid:":
+		case "genderfluidtater":
+		case "taterfluid":
 			base = RenderType.getEntitySolid(textureGenderfluid);
 			break;
-		case ":acetater:":
-		case ":asexualtater:":
-		case ":tacer:":
-		case ":taceter:":
+		case "acetater":
+		case "asexualtater":
+		case "tacer":
+		case "taceter":
 			base = RenderType.getEntitySolid(textureAce);
 			break;
-		case ":arotater:":
-		case ":aromantictater:":
-		case ":tataro:":
+		case "arotater":
+		case "aromantictater":
+		case "tataro":
 			base = RenderType.getEntitySolid(textureAro);
 			break;
-		case ":botaniatater:":
-		case ":botater:":
-		case ":bosniantater:":
-		case ":botaniaherzegovina:":
-		case ":botania-herzegovina:":
+		case "botaniatater":
+		case "botater":
+		case "bosniantater":
+		case "botaniaherzegovina":
+		case "botania-herzegovina":
+		case "bosniaherzegovina":
+		case "bosnia-herzegovina":
 			base = RenderType.getEntitySolid(textureBosnia);
 			break;
 		default:
