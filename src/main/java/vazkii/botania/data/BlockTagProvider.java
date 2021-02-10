@@ -69,6 +69,13 @@ public class BlockTagProvider extends BlockTagsProvider {
 						.toArray(Block[]::new)
 		);
 
+		getOrCreateBuilder(ModTags.Blocks.SHINY_MYSTICAL_FLOWERS).add(
+				Arrays.stream(DyeColor.values())
+						.map(ModBlocks::getShinyFlower)
+						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
+						.toArray(Block[]::new)
+		);
+
 		getOrCreateBuilder(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
 						.map(ModBlocks::getDoubleFlower)
@@ -99,6 +106,10 @@ public class BlockTagProvider extends BlockTagsProvider {
 		getOrCreateBuilder(ModTags.Blocks.MINI_FLOWERS).add(
 				getModBlocks(b -> b instanceof BlockSpecialFlower && registry.getKey(b).getPath().endsWith("_chibi"))
 		);
+
+		getOrCreateBuilder(ModTags.Blocks.ENCHANTER_FLOWERS).addTag(ModTags.Blocks.MYSTICAL_FLOWERS)
+				.addTag(ModTags.Blocks.SHINY_MYSTICAL_FLOWERS)
+				.addTag(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS);
 
 		// Special flowers intentionally excluded due to unwanted behaviors with tree growth and mod compat.
 		getOrCreateBuilder(BlockTags.TALL_FLOWERS).addTag(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
