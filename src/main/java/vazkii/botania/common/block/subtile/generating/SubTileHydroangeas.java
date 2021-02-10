@@ -8,7 +8,9 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.IBucketPickupHandler;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.nbt.CompoundNBT;
@@ -66,6 +68,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 				for (BlockPos offset : offsets) {
 					BlockPos pos = getEffectivePos().add(offset);
 
+					BlockState bstate = getWorld().getBlockState(pos);
 					FluidState fstate = getWorld().getFluidState(pos);
 					ITag<Fluid> search = getMaterialToSearchFor();
 					if (fstate.isTagged(search) && fstate.isSource()) {
@@ -80,7 +83,11 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 							}
 
 							if (waterAround < 2) {
-								getWorld().setBlockState(pos, Blocks.AIR.getDefaultState());
+								if (bstate.getBlock() instanceof IBucketPickupHandler) {
+									((IBucketPickupHandler) bstate.getBlock()).pickupFluid(getWorld(), pos, bstate);
+								} else {
+									getWorld().setBlockState(pos, Blocks.AIR.getDefaultState());
+								}
 							}
 						}
 
