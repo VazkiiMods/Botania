@@ -13,6 +13,7 @@
       "text": "botania.page.shinyFlowers3"
     },
     {
+      "anchor": "shiny",
       "type": "botania:crafting_multi",
       "text": "botania.page.shinyFlowers1",
       "recipes": [
@@ -35,6 +36,7 @@
       ]
     },
     {
+      "anchor": "floating",
       "type": "botania:crafting_multi",
       "text": "botania.page.shinyFlowers2",
       "recipes": [

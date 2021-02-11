@@ -104,7 +104,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 			'L', Blocks.LAPIS_BLOCK,
 			'B', Blocks.OBSIDIAN,
 			'0', Blocks.OBSIDIAN,
-			'F', PatchouliAPI.instance.predicateMatcher(ModBlocks.whiteFlower, state -> state.getBlock().isIn(ModTags.Blocks.MYSTICAL_FLOWERS))
+			'F', PatchouliAPI.instance.predicateMatcher(ModBlocks.whiteFlower, state -> state.getBlock().isIn(ModTags.Blocks.ENCHANTER_FLOWERS))
 	));
 
 	private static final LazyValue<IMultiblock> FORMED_MULTIBLOCK = new LazyValue<>(() -> PatchouliAPI.instance.makeMultiblock(
@@ -113,7 +113,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, ITickabl
 			'L', ModBlocks.enchanter,
 			'B', Blocks.OBSIDIAN,
 			'0', Blocks.OBSIDIAN,
-			'F', PatchouliAPI.instance.predicateMatcher(ModBlocks.whiteFlower, state -> state.getBlock().isIn(ModTags.Blocks.MYSTICAL_FLOWERS))
+			'F', PatchouliAPI.instance.predicateMatcher(ModBlocks.whiteFlower, state -> state.getBlock().isIn(ModTags.Blocks.ENCHANTER_FLOWERS))
 	));
 
 	public State stage = State.IDLE;
