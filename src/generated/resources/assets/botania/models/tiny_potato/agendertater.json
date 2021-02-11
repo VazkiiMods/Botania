@@ -1,0 +1,7 @@
+{
+  "parent": "botania:tiny_potato/default",
+  "textures": {
+    "all": "botania:model/tiny_potato/agender",
+    "particle": "botania:model/tiny_potato/agender"
+  }
+}

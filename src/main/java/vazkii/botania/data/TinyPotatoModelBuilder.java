@@ -1,0 +1,55 @@
+package vazkii.botania.data;
+
+import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.generators.ModelBuilder;
+import net.minecraftforge.common.data.ExistingFileHelper;
+
+import java.util.function.Consumer;
+
+public class TinyPotatoModelBuilder extends ModelBuilder<TinyPotatoModelBuilder> {
+    protected TinyPotatoModelBuilder(ResourceLocation outputLocation, ExistingFileHelper existingFileHelper) {
+        super(outputLocation, existingFileHelper);
+    }
+
+    public TinyPotatoModelBuilder allAndParticles(ResourceLocation texture) {
+        return this
+                .texture("all", texture)
+                .texture("particle", texture);
+    }
+
+    public TaterBuilder tater() {
+        return new TaterBuilder();
+    }
+
+    public class TaterBuilder {
+
+        private final ElementBuilder element;
+
+        TaterBuilder() {
+            element = element();
+        }
+
+        public TaterBuilder from(float x, float y, float z) {
+            element.from(x, y, z);
+            return this;
+        }
+
+        public TaterBuilder to(float x, float y, float z) {
+            element.to(x, y, z);
+            return this;
+        }
+
+        public TinyPotatoModelBuilder end() {
+            return element
+                    .textureAll("#all")
+                    .face(Direction.WEST).uvs(0.0F, 4.0F, 4.0F, 10.0F).end()
+                    .face(Direction.NORTH).uvs(4.0F, 4.0F, 8.0F, 10.0F).end()
+                    .face(Direction.EAST).uvs(8.0F, 4.0F, 12.0F, 10.0F).end()
+                    .face(Direction.SOUTH).uvs(12.0F, 4.0F, 16.0F, 10.0F).end()
+                    .face(Direction.UP).uvs(4.0F, 0.0F, 8.0F, 4.0F).end()
+                    .face(Direction.DOWN).uvs(8.0F, 0.0F, 12.0F, 4.0F).end()
+                    .end();
+        }
+    }
+}
