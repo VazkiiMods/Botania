@@ -54,6 +54,17 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TINY_POTATO);
 	private static final ResourceLocation textureGrayscale = new ResourceLocation(LibResources.MODEL_TINY_POTATO_GS);
 	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_TINY_POTATO_HALLOWEEN);
+	private static final ResourceLocation textureTrans = new ResourceLocation(LibResources.MODEL_TINY_POTATO_TRANS);
+	private static final ResourceLocation textureWire = new ResourceLocation(LibResources.MODEL_TINY_POTATO_WIRE);
+	private static final ResourceLocation texturePride = new ResourceLocation(LibResources.MODEL_TINY_POTATO_PRIDE);
+	private static final ResourceLocation textureBi = new ResourceLocation(LibResources.MODEL_TINY_POTATO_BI);
+	private static final ResourceLocation texturePan = new ResourceLocation(LibResources.MODEL_TINY_POTATO_PAN);
+	private static final ResourceLocation textureLesbian = new ResourceLocation(LibResources.MODEL_TINY_POTATO_LESBIAN);
+	private static final ResourceLocation textureGenderfluid = new ResourceLocation(LibResources.MODEL_TINY_POTATO_GENDERFLUID);
+	private static final ResourceLocation textureAce = new ResourceLocation(LibResources.MODEL_TINY_POTATO_ACE);
+	private static final ResourceLocation textureAro = new ResourceLocation(LibResources.MODEL_TINY_POTATO_ARO);
+	private static final ResourceLocation textureAgender = new ResourceLocation(LibResources.MODEL_TINY_POTATO_AGENDER);
+	private static final ResourceLocation textureBosnia = new ResourceLocation(LibResources.MODEL_TINY_POTATO_BOSNIA);
 	private final ModelRenderer potatoModel = new ModelRenderer(16, 16, 0, 0);
 
 	public RenderTileTinyPotato(TileEntityRendererDispatcher manager) {
@@ -89,12 +100,76 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 
 	private static RenderType getRenderLayer(@Nullable ShaderHelper.BotaniaShader shader, String name) {
 		RenderType base;
-		if ("kyle hyde".equals(name)) {
+		switch (name) {
+		case "kyle hyde":
 			base = RenderType.getEntitySolid(textureGrayscale);
-		} else if (ClientProxy.dootDoot) {
-			base = RenderType.getEntitySolid(textureHalloween);
-		} else {
-			base = RenderType.getEntitySolid(texture);
+			break;
+		case "transtater":
+		case "eggtater":
+		case "tategg":
+			base = RenderType.getEntitySolid(textureTrans);
+			break;
+		case "wiretater":
+		case "enbytater":
+		case "nbtater":
+		case "nonbinarytater":
+			base = RenderType.getEntitySolid(textureWire);
+			break;
+		case "pridetater":
+		case "gaytater":
+		case "gayter":
+		case "lgbtater":
+			base = RenderType.getEntitySolid(texturePride);
+			break;
+		case "bitater":
+		case "biter":
+			base = RenderType.getEntitySolid(textureBi);
+			break;
+		case "pantater":
+		case "panter":
+			base = RenderType.getEntitySolid(texturePan);
+			break;
+		case "lesbiantater":
+		case "lesbitater":
+		case "lesbiabtater":
+		case "lesbiamtater":
+		case "lessbientater":
+		case "girlstater":
+			base = RenderType.getEntitySolid(textureLesbian);
+			break;
+		case "genderfluidtater":
+		case "taterfluid":
+			base = RenderType.getEntitySolid(textureGenderfluid);
+			break;
+		case "acetater":
+		case "asexualtater":
+		case "tacer":
+		case "taceter":
+			base = RenderType.getEntitySolid(textureAce);
+			break;
+		case "arotater":
+		case "aromantictater":
+		case "tataro":
+			base = RenderType.getEntitySolid(textureAro);
+			break;
+		case "agendertater":
+			base = RenderType.getEntitySolid(textureAgender);
+			break;
+		case "botaniatater":
+		case "botater":
+		case "bosniantater":
+		case "botaniaherzegovina":
+		case "botania-herzegovina":
+		case "bosniaherzegovina":
+		case "bosnia-herzegovina":
+			base = RenderType.getEntitySolid(textureBosnia);
+			break;
+		default:
+			if (ClientProxy.dootDoot) {
+				base = RenderType.getEntitySolid(textureHalloween);
+			} else {
+				base = RenderType.getEntitySolid(texture);
+			}
 		}
 		return shader == null || !ShaderHelper.useShaders() ? base : new ShaderWrappedRenderLayer(shader, null, base);
 

@@ -43,6 +43,17 @@ public final class LibResources {
 	public static final String MODEL_TINY_POTATO = PREFIX_MODEL + "tiny_potato.png";
 	public static final String MODEL_TINY_POTATO_GS = PREFIX_MODEL + "tiny_potato_gray.png";
 	public static final String MODEL_TINY_POTATO_HALLOWEEN = PREFIX_MODEL + "tiny_potato_halloween.png";
+	public static final String MODEL_TINY_POTATO_TRANS = PREFIX_MODEL + "tiny_potato_trans.png";
+	public static final String MODEL_TINY_POTATO_WIRE = PREFIX_MODEL + "tiny_potato_wire.png";
+	public static final String MODEL_TINY_POTATO_PRIDE = PREFIX_MODEL + "tiny_potato_pride.png";
+	public static final String MODEL_TINY_POTATO_BI = PREFIX_MODEL + "tiny_potato_bi.png";
+	public static final String MODEL_TINY_POTATO_PAN = PREFIX_MODEL + "tiny_potato_pan.png";
+	public static final String MODEL_TINY_POTATO_LESBIAN = PREFIX_MODEL + "tiny_potato_lesbian.png";
+	public static final String MODEL_TINY_POTATO_GENDERFLUID = PREFIX_MODEL + "tiny_potato_genderfluid.png";
+	public static final String MODEL_TINY_POTATO_ACE = PREFIX_MODEL + "tiny_potato_ace.png";
+	public static final String MODEL_TINY_POTATO_ARO = PREFIX_MODEL + "tiny_potato_aro.png";
+	public static final String MODEL_TINY_POTATO_AGENDER = PREFIX_MODEL + "tiny_potato_agender.png";
+	public static final String MODEL_TINY_POTATO_BOSNIA = PREFIX_MODEL + "tiny_potato_bosnia.png";
 	public static final String MODEL_TRAVEL_BELT = PREFIX_MODEL + "belt_travel.png";
 	public static final String MODEL_SUPER_TRAVEL_BELT = PREFIX_MODEL + "belt_travel_super.png";
 	public static final String MODEL_SPEED_UP_BELT = PREFIX_MODEL + "belt_speed.png";
