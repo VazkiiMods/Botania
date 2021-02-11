@@ -141,6 +141,14 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.addCriterion("has_item", hasItem(ModBlocks.shimmerrock))
 				.addCriterion("has_alt_item", hasItem(ModItems.rainbowRod))
 				.build(consumer);
+		ShapedRecipeBuilder.shapedRecipe(ModBlocks.fabulousPool)
+				.key('P', ModBlocks.manaPool)
+				.key('B', ModBlocks.bifrostPerm)
+				.patternLine("BPB")
+				.patternLine("BBB")
+				.addCriterion("has_item", hasItem(ModBlocks.bifrostPerm))
+				.addCriterion("has_alt_item", hasItem(ModItems.rainbowRod))
+				.build(consumer, prefix(Registry.ITEM.getKey(ModBlocks.fabulousPool.asItem()).getPath() + "_upgrade"));
 		ShapedRecipeBuilder.shapedRecipe(ModBlocks.runeAltar)
 				.key('P', Ingredient.fromItemListStream(Stream.of(
 						new Ingredient.SingleItemList(new ItemStack(ModItems.manaPearl)),
