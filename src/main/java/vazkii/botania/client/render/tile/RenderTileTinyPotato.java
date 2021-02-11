@@ -11,6 +11,7 @@ package vazkii.botania.client.render.tile;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.datafixers.util.Pair;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
@@ -33,6 +34,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.MinecraftForge;
+
 import vazkii.botania.api.item.TinyPotatoRenderEvent;
 import vazkii.botania.client.core.handler.ContributorFancinessHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -48,6 +50,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
 import java.util.Locale;
 import java.util.regex.Pattern;
 
@@ -158,15 +161,15 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		if (render) {
 			ms.push();
 			switch (name) {
-				case "pahimar":
-					ms.scale(1F, 0.3F, 1F);
-					ms.translate(0F, 3.5F, 0F);
-					break;
-				case "dinnerbone":
-				case "grumm":
-					ms.rotate(Vector3f.ZP.rotationDegrees(180F));
-					ms.translate(0F, -2.625F, 0F);
-					break;
+			case "pahimar":
+				ms.scale(1F, 0.3F, 1F);
+				ms.translate(0F, 3.5F, 0F);
+				break;
+			case "dinnerbone":
+			case "grumm":
+				ms.rotate(Vector3f.ZP.rotationDegrees(180F));
+				ms.translate(0F, -2.625F, 0F);
+				break;
 			}
 			ms.scale(-1F, -1F, 1F);
 			ms.translate(-0.5F, -1.5F, -0.5F);
@@ -323,67 +326,67 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 			ms.translate(0F, 1F, 0F);
 			ms.scale(scale, scale, scale);
 			switch (name) {
-				case "phi":
-				case "vazkii":
-					ms.push();
-					ms.translate(-0.15, 0.1, 0.4);
-					ms.rotate(Vector3f.YP.rotationDegrees(90F));
-					ms.rotate(new Vector3f(1, 0, 1).rotationDegrees(20));
-					renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.phiFlowerModel);
-					ms.pop();
+			case "phi":
+			case "vazkii":
+				ms.push();
+				ms.translate(-0.15, 0.1, 0.4);
+				ms.rotate(Vector3f.YP.rotationDegrees(90F));
+				ms.rotate(new Vector3f(1, 0, 1).rotationDegrees(20));
+				renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.phiFlowerModel);
+				ms.pop();
 
-					if (name.equals("vazkii")) {
-						ms.scale(1.25F, 1.25F, 1.25F);
-						ms.rotate(Vector3f.XP.rotationDegrees(180F));
-						ms.rotate(Vector3f.YP.rotationDegrees(-90F));
-						ms.translate(0.2, -1.25, 0);
-						renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.nerfBatModel);
-					}
-					break;
-				case "haighyorkie":
+				if (name.equals("vazkii")) {
 					ms.scale(1.25F, 1.25F, 1.25F);
-					ms.rotate(Vector3f.ZP.rotationDegrees(180F));
+					ms.rotate(Vector3f.XP.rotationDegrees(180F));
 					ms.rotate(Vector3f.YP.rotationDegrees(-90F));
-					ms.translate(-0.5F, -1.2F, -0.075F);
-					renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.goldfishModel);
-					break;
-				case "martysgames":
-				case "marty":
-					ms.scale(0.7F, 0.7F, 0.7F);
-					ms.rotate(Vector3f.ZP.rotationDegrees(180F));
-					ms.translate(-0.3F, -2.7F, -1.2F);
-					ms.rotate(Vector3f.ZP.rotationDegrees(15F));
-					renderItem(ms, buffers, light, overlay, new ItemStack(ModItems.infiniteFruit, 1).setDisplayName(new StringTextComponent("das boot")));
-					break;
-				case "jibril":
-					ms.scale(1.5F, 1.5F, 1.5F);
-					ms.translate(0F, 0.8F, 0F);
-					ItemFlightTiara.renderHalo(null, null, ms, buffers, partialTicks);
-					break;
-				case "kingdaddydmac":
-					ms.scale(0.5F, 0.5F, 0.5F);
-					ms.rotate(Vector3f.ZP.rotationDegrees(180));
-					ms.rotate(Vector3f.YP.rotationDegrees(90));
-					ms.push();
-					ms.translate(0F, -2.5F, 0.65F);
-					ItemStack ring = new ItemStack(ModItems.manaRing);
-					renderItem(ms, buffers, light, overlay, ring);
-					ms.translate(0F, 0F, -4F);
-					renderItem(ms, buffers, light, overlay, ring);
-					ms.pop();
+					ms.translate(0.2, -1.25, 0);
+					renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.nerfBatModel);
+				}
+				break;
+			case "haighyorkie":
+				ms.scale(1.25F, 1.25F, 1.25F);
+				ms.rotate(Vector3f.ZP.rotationDegrees(180F));
+				ms.rotate(Vector3f.YP.rotationDegrees(-90F));
+				ms.translate(-0.5F, -1.2F, -0.075F);
+				renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.goldfishModel);
+				break;
+			case "martysgames":
+			case "marty":
+				ms.scale(0.7F, 0.7F, 0.7F);
+				ms.rotate(Vector3f.ZP.rotationDegrees(180F));
+				ms.translate(-0.3F, -2.7F, -1.2F);
+				ms.rotate(Vector3f.ZP.rotationDegrees(15F));
+				renderItem(ms, buffers, light, overlay, new ItemStack(ModItems.infiniteFruit, 1).setDisplayName(new StringTextComponent("das boot")));
+				break;
+			case "jibril":
+				ms.scale(1.5F, 1.5F, 1.5F);
+				ms.translate(0F, 0.8F, 0F);
+				ItemFlightTiara.renderHalo(null, null, ms, buffers, partialTicks);
+				break;
+			case "kingdaddydmac":
+				ms.scale(0.5F, 0.5F, 0.5F);
+				ms.rotate(Vector3f.ZP.rotationDegrees(180));
+				ms.rotate(Vector3f.YP.rotationDegrees(90));
+				ms.push();
+				ms.translate(0F, -2.5F, 0.65F);
+				ItemStack ring = new ItemStack(ModItems.manaRing);
+				renderItem(ms, buffers, light, overlay, ring);
+				ms.translate(0F, 0F, -4F);
+				renderItem(ms, buffers, light, overlay, ring);
+				ms.pop();
 
-					ms.translate(1.5, -4, -2.5);
-					renderBlock(ms, buffers, light, overlay, Blocks.CAKE);
-					break;
-				default:
-					ItemStack icon = ContributorFancinessHandler.getFlower(name);
-					if (!icon.isEmpty()) {
-						ms.rotate(Vector3f.XP.rotationDegrees(180));
-						ms.rotate(Vector3f.YP.rotationDegrees(180));
-						ms.translate(0, -0.75, -0.5);
-						Minecraft.getInstance().getItemRenderer().renderItem(icon, ItemCameraTransforms.TransformType.HEAD, light, overlay, ms, buffers);
-					}
-					break;
+				ms.translate(1.5, -4, -2.5);
+				renderBlock(ms, buffers, light, overlay, Blocks.CAKE);
+				break;
+			default:
+				ItemStack icon = ContributorFancinessHandler.getFlower(name);
+				if (!icon.isEmpty()) {
+					ms.rotate(Vector3f.XP.rotationDegrees(180));
+					ms.rotate(Vector3f.YP.rotationDegrees(180));
+					ms.translate(0, -0.75, -0.5);
+					Minecraft.getInstance().getItemRenderer().renderItem(icon, ItemCameraTransforms.TransformType.HEAD, light, overlay, ms, buffers);
+				}
+				break;
 			}
 		}
 		ms.pop();
