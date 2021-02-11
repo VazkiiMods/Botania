@@ -31,6 +31,7 @@ import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.MinecraftForge;
@@ -125,33 +126,31 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		RenderType layer = getRenderLayer(shader);
 		IBakedModel model = getModel(name);
 
-		ms.translate(0.5F, 1.5F, 0.5F);
-		ms.scale(1F, -1F, -1F);
-
+		ms.translate(0.5F, 0F, 0.5F);
 		Direction potatoFacing = potato.getBlockState().get(BlockStateProperties.HORIZONTAL_FACING);
 		float rotY = 0;
 		switch (potatoFacing) {
 		default:
 		case SOUTH:
-			break;
-		case NORTH:
 			rotY = 180F;
 			break;
-		case EAST:
-			rotY = 270F;
+		case NORTH:
 			break;
-		case WEST:
+		case EAST:
 			rotY = 90F;
 			break;
+		case WEST:
+			rotY = 270F;
+			break;
 		}
-		ms.rotate(Vector3f.YP.rotationDegrees(rotY));
+		ms.rotate(Vector3f.YN.rotationDegrees(rotY));
 
 		float jump = potato.jumpTicks;
 		if (jump > 0) {
 			jump -= partialTicks;
 		}
 
-		float up = (float) -Math.abs(Math.sin(jump / 10 * Math.PI)) * 0.2F;
+		float up = (float) Math.abs(Math.sin(jump / 10 * Math.PI)) * 0.2F;
 		float rotZ = (float) Math.sin(jump / 10 * Math.PI) * 2;
 
 		ms.translate(0F, up, 0F);
@@ -160,38 +159,25 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		boolean render = !(name.equals("mami") || name.equals("soaryn") || name.equals("eloraam") && jump != 0);
 		if (render) {
 			ms.push();
-			switch (name) {
-			case "pahimar":
-				ms.scale(1F, 0.3F, 1F);
-				ms.translate(0F, 3.5F, 0F);
-				break;
-			case "dinnerbone":
-			case "grumm":
-				ms.rotate(Vector3f.ZP.rotationDegrees(180F));
-				ms.translate(0F, -2.625F, 0F);
-				break;
-			}
-			ms.scale(-1F, -1F, 1F);
-			ms.translate(-0.5F, -1.5F, -0.5F);
+			ms.translate(-0.5F, 0, -0.5F);
 			IVertexBuilder buffer = buffers.getBuffer(layer);
 
 			renderModel(ms, buffer, light, overlay, model);
-			if (name.equals("kingdaddydmac")) {
-				ms.translate(-0.5F, 0F, 0F);
-				renderModel(ms, buffer, light, overlay, model);
-			}
 			ms.pop();
 		}
 
+		ms.translate(0F, 1.5F, 0F);
+		ms.push();
+		ms.rotate(Vector3f.ZP.rotationDegrees(180F));
 		renderItems(potato, potatoFacing, name, partialTicks, ms, buffers, light, overlay);
 
 		ms.push();
 		MinecraftForge.EVENT_BUS.post(new TinyPotatoRenderEvent(potato, potato.name, partialTicks, ms, buffers, light, overlay));
 		ms.pop();
+		ms.pop();
 
 		ms.rotate(Vector3f.ZP.rotationDegrees(-rotZ));
-		ms.rotate(Vector3f.YP.rotationDegrees(-rotY));
-		ms.scale(1F, -1F, -1F);
+		ms.rotate(Vector3f.YN.rotationDegrees(-rotY));
 
 		renderName(potato, name, ms, buffers, light);
 		ms.pop();

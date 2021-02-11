@@ -1,8 +1,7 @@
 {
-  "parent": "minecraft:block/block",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "botania:model/tiny_potato/default",
-    "particle": "botania:model/tiny_potato/default"
+    "all": "botania:model/tiny_potato/default"
   },
   "elements": [
     {
@@ -20,19 +19,19 @@
         "down": {
           "texture": "#all",
           "uv": [
-            8.0,
-            0.0,
             12.0,
-            4.0
+            4.0,
+            8.0,
+            0.0
           ]
         },
         "up": {
           "texture": "#all",
           "uv": [
-            4.0,
-            0.0,
             8.0,
-            4.0
+            4.0,
+            4.0,
+            0.0
           ]
         },
         "north": {
@@ -56,18 +55,18 @@
         "west": {
           "texture": "#all",
           "uv": [
-            0.0,
+            8.0,
             4.0,
-            4.0,
+            12.0,
             10.0
           ]
         },
         "east": {
           "texture": "#all",
           "uv": [
-            8.0,
+            0.0,
             4.0,
-            12.0,
+            4.0,
             10.0
           ]
         }
@@ -88,19 +87,19 @@
         "down": {
           "texture": "#all",
           "uv": [
-            8.0,
-            0.0,
             12.0,
-            4.0
+            4.0,
+            8.0,
+            0.0
           ]
         },
         "up": {
           "texture": "#all",
           "uv": [
-            4.0,
-            0.0,
             8.0,
-            4.0
+            4.0,
+            4.0,
+            0.0
           ]
         },
         "north": {
@@ -124,18 +123,18 @@
         "west": {
           "texture": "#all",
           "uv": [
-            0.0,
+            8.0,
             4.0,
-            4.0,
+            12.0,
             10.0
           ]
         },
         "east": {
           "texture": "#all",
           "uv": [
-            8.0,
+            0.0,
             4.0,
-            12.0,
+            4.0,
             10.0
           ]
         }
@@ -156,19 +155,19 @@
         "down": {
           "texture": "#all",
           "uv": [
-            8.0,
-            0.0,
             12.0,
-            4.0
+            4.0,
+            8.0,
+            0.0
           ]
         },
         "up": {
           "texture": "#all",
           "uv": [
-            4.0,
-            0.0,
             8.0,
-            4.0
+            4.0,
+            4.0,
+            0.0
           ]
         },
         "north": {
@@ -192,18 +191,18 @@
         "west": {
           "texture": "#all",
           "uv": [
-            0.0,
+            8.0,
             4.0,
-            4.0,
+            12.0,
             10.0
           ]
         },
         "east": {
           "texture": "#all",
           "uv": [
-            8.0,
+            0.0,
             4.0,
-            12.0,
+            4.0,
             10.0
           ]
         }

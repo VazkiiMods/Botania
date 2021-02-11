@@ -1,7 +1,6 @@
 {
   "parent": "botania:tiny_potato/default",
   "textures": {
-    "all": "botania:model/tiny_potato/genderfluid",
-    "particle": "botania:model/tiny_potato/genderfluid"
+    "all": "botania:model/tiny_potato/genderfluid"
   }
 }

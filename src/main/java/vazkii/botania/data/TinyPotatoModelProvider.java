@@ -27,8 +27,8 @@ public class TinyPotatoModelProvider extends ModelProvider<TinyPotatoModelBuilde
 
 	@Override
 	protected void registerModels() {
-		withExistingParent("default", BLOCK_FOLDER + "/block")
-				.allAndParticles(taterTex("default"))
+		withExistingParent("default", BLOCK_FOLDER + "/cube_all")
+				.texture("all", taterTex("default"))
 				.tater()
 				.from(6.0F, 0.0F, 6.0F)
 				.to(10.0F, 6.0F, 10.0F)
@@ -42,7 +42,7 @@ public class TinyPotatoModelProvider extends ModelProvider<TinyPotatoModelBuilde
 				"kyle_hyde", null,
 
 				"trans",
-				"transtater", "tategg", "egg", null,
+				"transtater", "tategg", "eggtater", null,
 
 				"wire",
 				"wiretater", "enbytater", "nbtater", "nonbinarytater", null,
@@ -85,12 +85,12 @@ public class TinyPotatoModelProvider extends ModelProvider<TinyPotatoModelBuilde
 			String alias;
 			while ((alias = taters[++i]) != null) {
 				withExistingParent(alias, prefix(LibResources.PREFIX_TINY_POTATO + "default"))
-						.allAndParticles(taterTex(texture));
+						.texture("all", taterTex(texture));
 			}
 		}
 
-		withExistingParent("snorps", BLOCK_FOLDER + "/block")
-				.allAndParticles(taterTex("default"))
+		withExistingParent("snorps", BLOCK_FOLDER + "/cube_all")
+				.texture("all", taterTex("default"))
 				.tater()
 				.from(6.0F, 0.0F, 6.0F)
 				.to(10.0F, 6.0F, 10.0F)
@@ -106,6 +106,32 @@ public class TinyPotatoModelProvider extends ModelProvider<TinyPotatoModelBuilde
 		for (String alias : new String[] { "pluraltater", "manytater", "systemtater", "systater" }) {
 			withExistingParent(alias, prefix(LibResources.PREFIX_TINY_POTATO + "snorps"));
 		}
+
+		withExistingParent("dinnerbone", BLOCK_FOLDER + "/cube_all")
+				.texture("all", taterTex("default"))
+				.tater()
+				.from(10.0F, 6.0F, 6.0F)
+				.to(6.0F, 0.0F, 10.0F)
+				.end();
+		withExistingParent("grumm", prefix(LibResources.PREFIX_TINY_POTATO + "dinnerbone"));
+
+		withExistingParent("pahimar", BLOCK_FOLDER + "/cube_all")
+				.texture("all", taterTex("default"))
+				.tater()
+				.from(6.0F, 0.0F, 6.0F)
+				.to(10.0F, 1.8f, 10.0F)
+				.end();
+
+		withExistingParent("kingdaddydmac", BLOCK_FOLDER + "/cube_all")
+				.texture("all", taterTex("default"))
+				.tater()
+				.from(6.0F, 0.0F, 6.0F)
+				.to(10.0F, 6.0F, 10.0F)
+				.end()
+				.tater()
+				.from(-2.0F, 0.0F, 6.0F)
+				.to(2.0F, 6.0F, 10.0F)
+				.end();
 	}
 
 	private ResourceLocation taterTex(String texture) {

@@ -18,12 +18,6 @@ public class TinyPotatoModelBuilder extends ModelBuilder<TinyPotatoModelBuilder>
 		super(outputLocation, existingFileHelper);
 	}
 
-	public TinyPotatoModelBuilder allAndParticles(ResourceLocation texture) {
-		return this
-				.texture("all", texture)
-				.texture("particle", texture);
-	}
-
 	public TaterBuilder tater() {
 		return new TaterBuilder();
 	}
@@ -49,12 +43,12 @@ public class TinyPotatoModelBuilder extends ModelBuilder<TinyPotatoModelBuilder>
 		public TinyPotatoModelBuilder end() {
 			return element
 					.textureAll("#all")
-					.face(Direction.WEST).uvs(0.0F, 4.0F, 4.0F, 10.0F).end()
+					.face(Direction.EAST).uvs(0.0F, 4.0F, 4.0F, 10.0F).end()
+					.face(Direction.WEST).uvs(8.0F, 4.0F, 12.0F, 10.0F).end()
 					.face(Direction.NORTH).uvs(4.0F, 4.0F, 8.0F, 10.0F).end()
-					.face(Direction.EAST).uvs(8.0F, 4.0F, 12.0F, 10.0F).end()
 					.face(Direction.SOUTH).uvs(12.0F, 4.0F, 16.0F, 10.0F).end()
-					.face(Direction.UP).uvs(4.0F, 0.0F, 8.0F, 4.0F).end()
-					.face(Direction.DOWN).uvs(8.0F, 0.0F, 12.0F, 4.0F).end()
+					.face(Direction.UP).uvs(8.0F, 4.0F, 4.0F, 0.0F).end()
+					.face(Direction.DOWN).uvs(12.0F, 4.0F, 8.0F, 0.0F).end()
 					.end();
 		}
 	}

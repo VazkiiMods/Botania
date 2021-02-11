@@ -1,7 +1,6 @@
 {
   "parent": "botania:tiny_potato/default",
   "textures": {
-    "all": "botania:model/tiny_potato/pan",
-    "particle": "botania:model/tiny_potato/pan"
+    "all": "botania:model/tiny_potato/pan"
   }
 }
