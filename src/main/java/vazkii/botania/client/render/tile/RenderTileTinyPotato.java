@@ -100,12 +100,6 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 
 	private static RenderType getRenderLayer(@Nullable ShaderHelper.BotaniaShader shader, String name) {
 		RenderType base;
-		if (name.startsWith(":")) {
-			name = name.substring(1);
-		}
-		if (name.endsWith(":")) {
-			name = name.substring(0, name.length() - 1);
-		}
 		switch (name) {
 		case "kyle hyde":
 			base = RenderType.getEntitySolid(textureGrayscale);
