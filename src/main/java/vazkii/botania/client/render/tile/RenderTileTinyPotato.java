@@ -31,8 +31,8 @@ import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -52,7 +52,6 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
@@ -70,6 +69,10 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 
 	private static String removeFromFront(String name, String match) {
 		return name.substring(match.length()).trim();
+	}
+
+	public static IBakedModel getModelFromDisplayName(ITextComponent displayName) {
+		return getModel(stripShaderName(displayName.getString().trim().toLowerCase()).getSecond());
 	}
 
 	private static Pair<ShaderHelper.BotaniaShader, String> stripShaderName(String name) {
@@ -107,7 +110,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 	}
 
 	private static String normalizeName(String name) {
-		return ESCAPED.matcher(name.toLowerCase(Locale.ROOT)).replaceAll("_");
+		return ESCAPED.matcher(name).replaceAll("_");
 	}
 
 	private static RenderType getRenderLayer(@Nullable ShaderHelper.BotaniaShader shader) {
