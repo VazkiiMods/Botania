@@ -168,7 +168,7 @@ public class ModTags {
 
 	public static class Blocks {
 		public static final ITag.INamedTag<Block> MYSTICAL_FLOWERS = tag("mystical_flowers");
-		public static final ITag.INamedTag<Block> SHINY_MYSTICAL_FLOWERS = tag("shiny_mystical_flowers");
+		public static final ITag.INamedTag<Block> SHINY_FLOWERS = tag("shiny_flowers");
 		public static final ITag.INamedTag<Block> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
 
 		public static final ITag.INamedTag<Block> SPECIAL_FLOWERS = tag("special_flowers");
