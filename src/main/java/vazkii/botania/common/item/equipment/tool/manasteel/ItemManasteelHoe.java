@@ -8,31 +8,30 @@
  */
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.HoeItem;
+import net.minecraft.item.IItemTier;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.function.Consumer;
 
-public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, ISortableTool {
-
+public class ItemManasteelHoe extends HoeItem implements IManaUsingItem {
 	private static final int MANA_PER_DAMAGE = 60;
 
-	public ItemManasteelShovel(Properties props) {
-		this(BotaniaAPI.instance().getManasteelItemTier(), props);
+	public ItemManasteelHoe(Properties props) {
+		this(BotaniaAPI.instance().getManasteelItemTier(), props, -1f);
 	}
 
-	public ItemManasteelShovel(IItemTier mat, Properties props) {
-		super(mat, 1.5F, -3.0F, props);
+	public ItemManasteelHoe(IItemTier mat, Properties properties, float attackSpeed) {
+		super(mat, (int) -mat.getAttackDamage(), attackSpeed, properties);
 	}
 
 	@Override
@@ -54,10 +53,5 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
-	}
-
-	@Override
-	public int getSortingPriority(ItemStack stack, BlockState state) {
-		return ToolCommons.getToolPriority(stack);
 	}
 }

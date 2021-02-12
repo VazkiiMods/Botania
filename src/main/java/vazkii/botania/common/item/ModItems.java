@@ -209,6 +209,7 @@ public final class ModItems {
 	public static final Item manasteelPick = new ItemManasteelPick(unstackable());
 	public static final Item manasteelShovel = new ItemManasteelShovel(unstackable());
 	public static final Item manasteelAxe = new ItemManasteelAxe(unstackable());
+	public static final Item manasteelHoe = new ItemManasteelHoe(unstackable());
 	public static final Item manasteelSword = new ItemManasteelSword(unstackable());
 	public static final Item manasteelShears = new ItemManasteelShears(unstackable().defaultMaxDamage(238));
 	public static final Item elementiumHelm = new ItemElementiumHelm(unstackable());
@@ -218,6 +219,7 @@ public final class ModItems {
 	public static final Item elementiumPick = new ItemElementiumPick(unstackable());
 	public static final Item elementiumShovel = new ItemElementiumShovel(unstackable());
 	public static final Item elementiumAxe = new ItemElementiumAxe(unstackable());
+	public static final Item elementiumHoe = new ItemElementiumHoe(unstackable());
 	public static final Item elementiumSword = new ItemElementiumSword(unstackable());
 	public static final Item elementiumShears = new ItemElementiumShears(unstackable().defaultMaxDamage(238));
 	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable().isImmuneToFire().rarity(Rarity.UNCOMMON));
@@ -524,6 +526,7 @@ public final class ModItems {
 		register(r, LibItemNames.MANASTEEL_BOOTS, manasteelBoots);
 		register(r, LibItemNames.MANASTEEL_PICK, manasteelPick);
 		register(r, LibItemNames.MANASTEEL_SHOVEL, manasteelShovel);
+		register(r, LibItemNames.MANASTEEL_HOE, manasteelHoe);
 		register(r, LibItemNames.MANASTEEL_AXE, manasteelAxe);
 		register(r, LibItemNames.MANASTEEL_SWORD, manasteelSword);
 		register(r, LibItemNames.MANASTEEL_SHEARS, manasteelShears);
@@ -533,6 +536,7 @@ public final class ModItems {
 		register(r, LibItemNames.ELEMENTIUM_BOOTS, elementiumBoots);
 		register(r, LibItemNames.ELEMENTIUM_PICK, elementiumPick);
 		register(r, LibItemNames.ELEMENTIUM_SHOVEL, elementiumShovel);
+		register(r, LibItemNames.ELEMENTIUM_HOE, elementiumHoe);
 		register(r, LibItemNames.ELEMENTIUM_AXE, elementiumAxe);
 		register(r, LibItemNames.ELEMENTIUM_SWORD, elementiumSword);
 		register(r, LibItemNames.ELEMENTIUM_SHEARS, elementiumShears);

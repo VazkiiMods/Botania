@@ -58,6 +58,7 @@ public final class LibItemNames {
 	public static final String MANASTEEL_PICK = "manasteel_pick";
 	public static final String MANASTEEL_SHOVEL = "manasteel_shovel";
 	public static final String MANASTEEL_AXE = "manasteel_axe";
+	public static final String MANASTEEL_HOE = "manasteel_hoe";
 	public static final String MANASTEEL_SWORD = "manasteel_sword";
 	public static final String MANASTEEL_SHEARS = "manasteel_shears";
 	public static final String GRASS_HORN = "horn_grass";
@@ -102,6 +103,7 @@ public final class LibItemNames {
 	public static final String ELEMENTIUM_PICK = "elementium_pickaxe";
 	public static final String ELEMENTIUM_SHOVEL = "elementium_shovel";
 	public static final String ELEMENTIUM_AXE = "elementium_axe";
+	public static final String ELEMENTIUM_HOE = "elementium_hoe";
 	public static final String ELEMENTIUM_SWORD = "elementium_sword";
 	public static final String ELEMENTIUM_SHEARS = "elementium_shears";
 	public static final String OPEN_BUCKET = "open_bucket";
