@@ -998,10 +998,10 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 
 		registerToolSetRecipes(consumer, Ingredient.fromTag(ModTags.Items.INGOTS_MANASTEEL), Ingredient.fromItems(ModItems.livingwoodTwig),
 				hasItem(ModTags.Items.INGOTS_MANASTEEL), ModItems.manasteelSword, ModItems.manasteelPick, ModItems.manasteelAxe,
-				ModItems.manasteelShovel, ModItems.manasteelShears);
+				ModItems.manasteelHoe, ModItems.manasteelShovel, ModItems.manasteelShears);
 		registerToolSetRecipes(consumer, Ingredient.fromTag(ModTags.Items.INGOTS_ELEMENTIUM), Ingredient.fromItems(ModItems.dreamwoodTwig),
 				hasItem(ModTags.Items.INGOTS_ELEMENTIUM), ModItems.elementiumSword, ModItems.elementiumPick, ModItems.elementiumAxe,
-				ModItems.elementiumShovel, ModItems.elementiumShears);
+				ModItems.elementiumHoe, ModItems.elementiumShovel, ModItems.elementiumShears);
 
 		ShapedRecipeBuilder.shapedRecipe(ModItems.terraSword)
 				.key('S', ModItems.livingwoodTwig)
@@ -2277,7 +2277,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 
 	private void registerToolSetRecipes(Consumer<IFinishedRecipe> consumer, Ingredient item, Ingredient stick,
 			ICriterionInstance criterion, IItemProvider sword, IItemProvider pickaxe,
-			IItemProvider axe, IItemProvider shovel, IItemProvider shears) {
+			IItemProvider axe, IItemProvider hoe, IItemProvider shovel, IItemProvider shears) {
 		ShapedRecipeBuilder.shapedRecipe(pickaxe)
 				.key('S', item)
 				.key('T', stick)
@@ -2300,6 +2300,14 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				.patternLine("SS")
 				.patternLine("TS")
 				.patternLine("T ")
+				.addCriterion("has_item", criterion)
+				.build(consumer);
+		ShapedRecipeBuilder.shapedRecipe(hoe)
+				.key('S', item)
+				.key('T', stick)
+				.patternLine("SS")
+				.patternLine(" T")
+				.patternLine(" T")
 				.addCriterion("has_item", criterion)
 				.build(consumer);
 		ShapedRecipeBuilder.shapedRecipe(sword)

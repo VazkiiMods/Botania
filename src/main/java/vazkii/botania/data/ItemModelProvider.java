@@ -114,8 +114,8 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 				.texture("layer2", prefix("item/" + name(thirdEye) + "_2"));
 		items.remove(thirdEye);
 
-		takeAll(items, cobbleRod, dirtRod, diviningRod, elementiumAxe, elementiumPick, elementiumShovel, elementiumSword,
-				exchangeRod, fireRod, glassPick, gravityRod, manasteelAxe, manasteelPick, manasteelShears, manasteelShovel,
+		takeAll(items, cobbleRod, dirtRod, diviningRod, elementiumAxe, elementiumPick, elementiumShovel, elementiumHoe, elementiumSword,
+				exchangeRod, fireRod, glassPick, gravityRod, manasteelAxe, manasteelPick, manasteelShears, manasteelShovel, manasteelHoe,
 				missileRod, obedienceStick, rainbowRod, smeltRod, starSword, terraSword, terraformRod, thunderSword, waterRod,
 				kingKey, skyDirtRod).forEach(this::handheldItem);
 
