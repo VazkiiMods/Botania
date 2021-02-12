@@ -8,7 +8,10 @@
  */
 package vazkii.botania.client.core.handler;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.resources.IResourceManager;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
@@ -16,6 +19,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.FloatingFlowerModel;
 import vazkii.botania.client.render.tile.*;
 import vazkii.botania.common.block.ModSubtiles;
@@ -42,6 +46,7 @@ public final class ModelHandler {
 		ModelLoader.addSpecialModel(prefix("block/mana_spreader_inside"));
 		ModelLoader.addSpecialModel(prefix("block/redstone_spreader_inside"));
 		registerIslands();
+		registerTaters();
 
 		ClientRegistry.bindTileEntityRenderer(ModTiles.ALTAR, RenderTileAltar::new);
 		ClientRegistry.bindTileEntityRenderer(ModTiles.SPREADER, RenderTileSpreader::new);
@@ -139,6 +144,17 @@ public final class ModelHandler {
 		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.SCORCHED, prefix("block/islands/island_scorched"));
 		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.INFUSED, prefix("block/islands/island_infused"));
 		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.MUTATED, prefix("block/islands/island_mutated"));
+	}
+
+	private static void registerTaters() {
+		IResourceManager rm = Minecraft.getInstance().getResourceManager();
+		for (ResourceLocation model : rm.getAllResourceLocations(LibResources.PREFIX_MODELS + LibResources.PREFIX_TINY_POTATO, s -> s.endsWith(LibResources.ENDING_JSON))) {
+			if (LibMisc.MOD_ID.equals(model.getNamespace())) {
+				String path = model.getPath();
+				path = path.substring(LibResources.PREFIX_MODELS.length(), path.length() - LibResources.ENDING_JSON.length());
+				ModelLoader.addSpecialModel(new ResourceLocation(LibMisc.MOD_ID, path));
+			}
+		}
 	}
 
 	private ModelHandler() {}

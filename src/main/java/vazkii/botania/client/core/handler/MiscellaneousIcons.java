@@ -21,6 +21,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.LexiconModel;
 import vazkii.botania.client.model.PlatformModel;
+import vazkii.botania.client.model.TinyPotatoModel;
 import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
 import vazkii.botania.client.render.tile.RenderTilePump;
 import vazkii.botania.common.Botania;
@@ -156,6 +157,11 @@ public class MiscellaneousIcons {
 		ModelResourceLocation clipKey = new ModelResourceLocation("botania:mana_gun_clip", "inventory");
 		IBakedModel originalModelClip = evt.getModelRegistry().get(clipKey);
 		evt.getModelRegistry().put(key, new GunModel(evt.getModelLoader(), originalModel, originalModelClip));
+
+		// Tiny Potato
+		ModelResourceLocation tinyPotato = new ModelResourceLocation("botania:tiny_potato", "inventory");
+		IBakedModel originalPotato = evt.getModelRegistry().get(tinyPotato);
+		evt.getModelRegistry().put(tinyPotato, new TinyPotatoModel(originalPotato));
 
 		RenderTileCorporeaCrystalCube.cubeModel = evt.getModelRegistry().get(prefix("block/corporea_crystal_cube_glass"));
 		RenderTilePump.headModel = evt.getModelRegistry().get(prefix("block/pump_head"));

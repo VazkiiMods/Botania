@@ -1,0 +1,76 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "botania:model/tiny_potato/default"
+  },
+  "elements": [
+    {
+      "from": [
+        6,
+        0,
+        6
+      ],
+      "to": [
+        10,
+        1.8,
+        10
+      ],
+      "faces": {
+        "down": {
+          "texture": "#all",
+          "uv": [
+            12.0,
+            4.0,
+            8.0,
+            0.0
+          ]
+        },
+        "up": {
+          "texture": "#all",
+          "uv": [
+            8.0,
+            4.0,
+            4.0,
+            0.0
+          ]
+        },
+        "north": {
+          "texture": "#all",
+          "uv": [
+            4.0,
+            4.0,
+            8.0,
+            10.0
+          ]
+        },
+        "south": {
+          "texture": "#all",
+          "uv": [
+            12.0,
+            4.0,
+            16.0,
+            10.0
+          ]
+        },
+        "west": {
+          "texture": "#all",
+          "uv": [
+            8.0,
+            4.0,
+            12.0,
+            10.0
+          ]
+        },
+        "east": {
+          "texture": "#all",
+          "uv": [
+            0.0,
+            4.0,
+            4.0,
+            10.0
+          ]
+        }
+      }
+    }
+  ]
+}
