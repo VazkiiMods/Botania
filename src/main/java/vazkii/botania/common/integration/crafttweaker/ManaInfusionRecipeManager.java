@@ -44,7 +44,7 @@ public class ManaInfusionRecipeManager implements IRecipeManager {
 			recipe = new RecipeManaInfusion(resourceLocation, output.getInternal(), input.asVanillaIngredient(), mana, "", catalystState) {
 				@Nonnull
 				@Override
-				public ItemStack getRecipeOutputDynamic(@Nonnull ItemStack input) {
+				public ItemStack getRecipeOutput(@Nonnull ItemStack input) {
 					return function.process(new MCItemStack(getRecipeOutput()), new MCItemStack(input)).getInternal().copy();
 				}
 			};

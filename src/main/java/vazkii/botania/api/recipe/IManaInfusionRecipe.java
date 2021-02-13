@@ -28,13 +28,13 @@ public interface IManaInfusionRecipe extends IRecipe<IInventory> {
 	boolean matches(ItemStack stack);
 
 	@Nonnull
-	default ItemStack getRecipeOutputDynamic(@Nonnull ItemStack input) {
-		return getRecipeOutput().copy();
-	}
-
-	@Nonnull
 	@Override
 	ItemStack getRecipeOutput();
+
+	@Nonnull
+	default ItemStack getRecipeOutput(@Nonnull ItemStack input) {
+		return getRecipeOutput().copy();
+	}
 
 	@Nullable
 	BlockState getCatalyst();
