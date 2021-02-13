@@ -28,7 +28,8 @@ public interface IManaInfusionRecipe extends IRecipe<IInventory> {
 	/**
 	 * Attempts to match the recipe.
 	 *
-	 * @param stack The whole stack that is in the Mana Pool (when actually crafting) or in the player's hand (for the HUD).
+	 * @param stack The whole stack that is in the Mana Pool (when actually crafting)
+	 *              or in the player's hand (for the HUD).
 	 * @return Whether this recipe matches the given stack.
 	 */
 	boolean matches(ItemStack stack);
