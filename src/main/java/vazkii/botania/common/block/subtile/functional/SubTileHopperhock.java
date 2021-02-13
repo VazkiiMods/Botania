@@ -78,7 +78,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 
 		for (ItemEntity item : items) {
 			int age = ((AccessorItemEntity) item).getAge();
-			if (age < 60 + slowdown || age >= 105 && age < 110 || !item.isAlive() || item.getItem().isEmpty()) {
+			if (age < 60 + slowdown || age >= 105 && age < 110 || !item.isAlive() || item.getItem().isEmpty() || item.getPersistentData().getBoolean("PreventRemoteMovement")) {
 				continue;
 			}
 
