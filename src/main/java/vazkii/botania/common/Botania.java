@@ -121,7 +121,7 @@ public class Botania {
 	public static final Logger LOGGER = LogManager.getLogger(LibMisc.MOD_ID);
 
 	public Botania() {
-		gardenOfGlassLoaded = ModList.get().isLoaded("gardenofglass");
+		gardenOfGlassLoaded = ModList.get().isLoaded(LibMisc.GOG_MOD_ID);
 		curiosLoaded = ModList.get().isLoaded("curios");
 
 		DistExecutor.callWhenOn(Dist.CLIENT, () -> () -> proxy = new ClientProxy());

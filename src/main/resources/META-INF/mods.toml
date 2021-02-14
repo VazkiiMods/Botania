@@ -32,4 +32,4 @@ Botania is a mod that adds nature magic to Minecraft'''
 [[dependencies.botania]]
     modId="gardenofglass"
     mandatory=false
-    versionRange="[1.6,)"
+    versionRange="[1.7,)"

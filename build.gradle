@@ -127,8 +127,8 @@ dependencies {
     compileOnly fg.deobf("vazkii.autoreglib:AutoRegLib:1.6-46.85")
     compileOnly fg.deobf("vazkii.quark:Quark:r2.4-276.1408")
 
-    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-48:api")
-    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-48")
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-50:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-50")
 
     compileOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.58:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.58")
