@@ -18,17 +18,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IRelic;
-import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.common.advancements.RelicBindTrigger;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.item.ModItems;
 
 import java.util.List;
 import java.util.UUID;
@@ -51,11 +47,6 @@ public class ItemRelic extends Item implements IRelic {
 	@Environment(EnvType.CLIENT)
 	@Override
 	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext flags) {
-		TooltipHandler.addOnShift(tooltip, () -> addInformationAfterShift(stack, world, tooltip, flags));
-	}
-
-	@Environment(EnvType.CLIENT)
-	public void addInformationAfterShift(ItemStack stack, World world, List<Text> tooltip, TooltipContext flags) {
 		if (!hasUUID(stack)) {
 			tooltip.add(new TranslatableText("botaniamisc.relicUnbound"));
 		} else {
@@ -63,14 +54,6 @@ public class ItemRelic extends Item implements IRelic {
 				tooltip.add(new TranslatableText("botaniamisc.notYourSagittarius"));
 			} else {
 				tooltip.add(new TranslatableText("botaniamisc.relicSoulbound", MinecraftClient.getInstance().player.getName()));
-			}
-		}
-
-		if (stack.getItem() == ModItems.dice) {
-			tooltip.add(new LiteralText(""));
-			String name = stack.getTranslationKey() + ".poem";
-			for (int i = 0; i < 4; i++) {
-				tooltip.add(new TranslatableText(name + i).formatted(Formatting.GRAY, Formatting.ITALIC));
 			}
 		}
 	}

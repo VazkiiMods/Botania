@@ -16,7 +16,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -29,7 +28,6 @@ import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.recipe.IElvenItem;
-import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -63,11 +61,7 @@ public class ItemLexicon extends Item implements IElvenItem {
 	@Override
 	@Environment(EnvType.CLIENT)
 	public void appendTooltip(ItemStack stack, World worldIn, List<Text> tooltip, TooltipContext flagIn) {
-		super.appendTooltip(stack, worldIn, tooltip, flagIn);
-
-		TooltipHandler.addOnShift(tooltip, () -> {
-			tooltip.add(getEdition().shallowCopy().formatted(Formatting.GRAY));
-		});
+		tooltip.add(getEdition().shallowCopy().formatted(Formatting.GRAY));
 	}
 
 	@Nonnull

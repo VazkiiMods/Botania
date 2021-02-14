@@ -198,7 +198,9 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 
 	@Override
 	public ItemStack setCompositeLens(ItemStack sourceLens, ItemStack compositeLens) {
-		if (!compositeLens.isEmpty()) {
+		if (compositeLens.isEmpty()) {
+			ItemNBTHelper.removeEntry(sourceLens, TAG_COMPOSITE_LENS);
+		} else {
 			CompoundTag cmp = compositeLens.toTag(new CompoundTag());
 			ItemNBTHelper.setCompound(sourceLens, TAG_COMPOSITE_LENS, cmp);
 		}

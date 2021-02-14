@@ -71,8 +71,8 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext adv) {
-		super.addHiddenTooltip(stack, world, tooltip, adv);
+	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext adv) {
+		super.appendTooltip(stack, world, tooltip, adv);
 
 		Brew brew = getBrew(stack);
 		if (brew == ModBrews.fallbackBrew) {

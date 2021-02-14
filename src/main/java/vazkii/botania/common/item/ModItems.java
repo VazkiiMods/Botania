@@ -205,7 +205,7 @@ public final class ModItems {
 	public static final Item manasteelShovel = new ItemManasteelShovel(unstackable().customDamage(ItemManasteelShovel::damageItem));
 	public static final Item manasteelAxe = new ItemManasteelAxe(unstackable().customDamage(ItemManasteelAxe::damageItem));
 	public static final Item manasteelSword = new ItemManasteelSword(unstackable().customDamage(ItemManasteelSword::damageItem));
-	public static final Item manasteelShears = new ItemManasteelShears(unstackable().customDamage(ItemManasteelShears::damageItem));
+	public static final Item manasteelShears = new ItemManasteelShears(unstackable().maxDamageIfAbsent(238).customDamage(ItemManasteelShears::damageItem));
 	public static final Item elementiumHelm = new ItemElementiumHelm(unstackable().customDamage(ItemManasteelArmor::damageItem));
 	public static final Item elementiumChest = new ItemElementiumChest(unstackable().customDamage(ItemManasteelArmor::damageItem));
 	public static final Item elementiumLegs = new ItemElementiumLegs(unstackable().customDamage(ItemManasteelArmor::damageItem));
@@ -214,7 +214,7 @@ public final class ModItems {
 	public static final Item elementiumShovel = new ItemElementiumShovel(unstackable().customDamage(ItemManasteelShovel::damageItem));
 	public static final Item elementiumAxe = new ItemElementiumAxe(unstackable().customDamage(ItemManasteelAxe::damageItem));
 	public static final Item elementiumSword = new ItemElementiumSword(unstackable().customDamage(ItemManasteelSword::damageItem));
-	public static final Item elementiumShears = new ItemElementiumShears(unstackable().customDamage(ItemManasteelShears::damageItem));
+	public static final Item elementiumShears = new ItemElementiumShears(unstackable().maxDamageIfAbsent(238).customDamage(ItemManasteelShears::damageItem));
 	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
 	public static final Item terrasteelChest = new ItemTerrasteelArmor(EquipmentSlot.CHEST, unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
 	public static final Item terrasteelLegs = new ItemTerrasteelArmor(EquipmentSlot.LEGS, unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
@@ -712,6 +712,7 @@ public final class ModItems {
 		register(r, "merge_vial", MergeVialRecipe.SERIALIZER);
 		register(r, "phantom_ink_apply", PhantomInkRecipe.SERIALIZER);
 		register(r, "spell_cloth_apply", SpellClothRecipe.SERIALIZER);
+		register(r, "split_lens", SplitLensRecipe.SERIALIZER);
 		register(r, "terra_pick_tipping", TerraPickTippingRecipe.SERIALIZER);
 		register(r, "twig_wand", TwigWandRecipe.SERIALIZER);
 

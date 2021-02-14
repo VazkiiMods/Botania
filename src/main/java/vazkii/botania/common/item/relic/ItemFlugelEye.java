@@ -157,8 +157,8 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void addInformationAfterShift(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext flags) {
-		super.addInformationAfterShift(stack, world, tooltip, flags);
+	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext flags) {
+		super.appendTooltip(stack, world, tooltip, flags);
 
 		if (world == null) {
 			return;

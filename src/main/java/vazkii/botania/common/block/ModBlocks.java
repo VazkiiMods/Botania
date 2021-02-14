@@ -15,6 +15,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.dispenser.DispenserBehavior;
 import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
 import net.minecraft.block.dispenser.ProjectileDispenserBehavior;
+import net.minecraft.block.dispenser.ShearsDispenserBehavior;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.projectile.ProjectileEntity;
@@ -896,6 +897,9 @@ public final class ModBlocks {
 
 		behavior = AccessorDispenserBlock.getDispenseBehaviorRegistry().get(Items.GLASS_BOTTLE);
 		DispenserBlock.registerBehavior(Items.GLASS_BOTTLE, new BehaviourEnderAirBottling(behavior));
+
+		DispenserBlock.registerBehavior(ModItems.manasteelShears, new ShearsDispenserBehavior());
+		DispenserBlock.registerBehavior(ModItems.elementiumShears, new ShearsDispenserBehavior());
 
 		SeedBehaviours.init();
 	}

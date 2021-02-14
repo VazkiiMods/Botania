@@ -103,8 +103,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void addHiddenTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext flags) {
-		super.addHiddenTooltip(stack, world, tooltip, flags);
+	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext flags) {
+		super.appendTooltip(stack, world, tooltip, flags);
 		tooltip.add(new TranslatableText("botania.wings" + getVariant(stack)));
 	}
 

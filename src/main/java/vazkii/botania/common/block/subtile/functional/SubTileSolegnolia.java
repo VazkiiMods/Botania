@@ -44,6 +44,12 @@ public class SubTileSolegnolia extends TileEntityFunctionalFlower {
 	}
 
 	@Override
+	public void markRemoved() {
+		super.markRemoved();
+		existingFlowers.remove(this);
+	}
+
+	@Override
 	public boolean acceptsRedstone() {
 		return true;
 	}
@@ -52,7 +58,7 @@ public class SubTileSolegnolia extends TileEntityFunctionalFlower {
 		return existingFlowers.stream()
 				.filter(f -> f.redstoneSignal == 0)
 				.filter(f -> f.getWorld() == e.world)
-				.anyMatch(f -> f.getEffectivePos().getSquaredDistance(e.getX(), e.getY(), e.getZ(), false) <= f.getRange() * f.getRange());
+				.anyMatch(f -> f.getEffectivePos().getSquaredDistance(e.getX(), e.getY(), e.getZ(), true) <= f.getRange() * f.getRange());
 	}
 
 	@Override

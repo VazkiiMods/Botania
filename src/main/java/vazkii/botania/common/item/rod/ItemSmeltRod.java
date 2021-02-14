@@ -37,7 +37,6 @@ import vazkii.botania.common.item.rod.ItemSmeltRod.SmeltData;
 import javax.annotation.Nonnull;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.WeakHashMap;
 
 public class ItemSmeltRod extends Item implements IManaUsingItem {
@@ -88,59 +87,55 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 			BlockState state = world.getBlockState(pos.getBlockPos());
 
 			dummyInv.setStack(0, new ItemStack(state.getBlock()));
-			Optional<ItemStack> maybeResult = world.getRecipeManager()
-					.getFirstMatch(RecipeType.SMELTING, dummyInv, p.world)
-					.map(r -> r.craft(dummyInv));
+			world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, dummyInv, p.world)
+					.map(r -> r.craft(dummyInv))
+					.filter(r -> !r.isEmpty() && r.getItem() instanceof BlockItem)
+					.ifPresent(result -> {
+						boolean decremented = false;
 
-			if (maybeResult.isPresent()
-					&& !maybeResult.get().isEmpty()
-					&& maybeResult.get().getItem() instanceof BlockItem) {
-				ItemStack result = maybeResult.get();
-				boolean decremented = false;
+						if (playerData.containsKey(p)) {
+							SmeltData data = playerData.get(p);
 
-				if (playerData.containsKey(p)) {
-					SmeltData data = playerData.get(p);
+							if (data.equalPos(pos)) {
+								data.progress--;
+								decremented = true;
+								if (data.progress <= 0) {
+									if (!world.isClient) {
+										world.setBlockState(pos.getBlockPos(), Block.getBlockFromItem(result.getItem()).getDefaultState());
+										world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.6F, 1F);
+										world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
 
-					if (data.equalPos(pos)) {
-						data.progress--;
-						decremented = true;
-						if (data.progress <= 0) {
-							if (!world.isClient) {
-								world.setBlockState(pos.getBlockPos(), Block.getBlockFromItem(result.getItem()).getDefaultState());
-								world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.6F, 1F);
-								world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
+										ManaItemHandler.instance().requestManaExactForTool(stack, p, COST_PER_TICK, true);
+										playerData.remove(p);
+										decremented = false;
+									}
 
-								ManaItemHandler.instance().requestManaExactForTool(stack, p, COST_PER_TICK, true);
-								playerData.remove(p);
-								decremented = false;
+									WispParticleData data1 = WispParticleData.wisp(0.5F, 1F, 0.2F, 0.2F, 1);
+									for (int i = 0; i < 25; i++) {
+										double x = pos.getBlockPos().getX() + Math.random();
+										double y = pos.getBlockPos().getY() + Math.random();
+										double z = pos.getBlockPos().getZ() + Math.random();
+										world.addParticle(data1, x, y, z, 0, (float) -Math.random() / 10F, 0);
+									}
+								}
 							}
+						}
 
-							WispParticleData data1 = WispParticleData.wisp(0.5F, 1F, 0.2F, 0.2F, 1);
-							for (int i = 0; i < 25; i++) {
+						if (!decremented) {
+							playerData.put(p, new SmeltData(pos, IManaProficiencyArmor.hasProficiency(p, stack) ? (int) (TIME * 0.6) : TIME));
+						} else {
+							for (int i = 0; i < 2; i++) {
 								double x = pos.getBlockPos().getX() + Math.random();
 								double y = pos.getBlockPos().getY() + Math.random();
 								double z = pos.getBlockPos().getZ() + Math.random();
-								world.addParticle(data1, x, y, z, 0, (float) -Math.random() / 10F, 0);
+								WispParticleData data = WispParticleData.wisp(0.5F, 1F, 0.2F, 0.2F, 1);
+								world.addParticle(data, x, y, z, 0, (float) Math.random() / 10F, 0);
+							}
+							if (time % 10 == 0) {
+								world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
 							}
 						}
-					}
-				}
-
-				if (!decremented) {
-					playerData.put(p, new SmeltData(pos, IManaProficiencyArmor.hasProficiency(p, stack) ? (int) (TIME * 0.6) : TIME));
-				} else {
-					for (int i = 0; i < 2; i++) {
-						double x = pos.getBlockPos().getX() + Math.random();
-						double y = pos.getBlockPos().getY() + Math.random();
-						double z = pos.getBlockPos().getZ() + Math.random();
-						WispParticleData data = WispParticleData.wisp(0.5F, 1F, 0.2F, 0.2F, 1);
-						world.addParticle(data, x, y, z, 0, (float) Math.random() / 10F, 0);
-					}
-					if (time % 10 == 0) {
-						world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
-					}
-				}
-			}
+					});
 		}
 	}
 

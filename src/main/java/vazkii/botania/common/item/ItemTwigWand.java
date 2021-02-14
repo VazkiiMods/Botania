@@ -167,7 +167,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		}
 
 		if (player.isSneaking()) {
-			if (boundPos.isPresent() && tryCompleteBinding(boundPos.get(), stack, ctx)) {
+			if (boundPos.filter(loc -> tryCompleteBinding(loc, stack, ctx)).isPresent()) {
 				return ActionResult.SUCCESS;
 			}
 
@@ -191,7 +191,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 			boolean wanded;
 			if (getBindMode(stack) && bindable && player.isSneaking() && ((IWandBindable) tile).canSelect(player, stack, pos, side)) {
-				if (boundPos.isPresent() && boundPos.get().equals(pos)) {
+				if (boundPos.filter(pos::equals).isPresent()) {
 					setBindingAttempt(stack, UNBOUND_POS);
 				} else {
 					setBindingAttempt(stack, pos);

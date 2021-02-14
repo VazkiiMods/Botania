@@ -24,7 +24,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.KeybindText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
@@ -32,7 +31,6 @@ import net.minecraft.world.World;
 
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.IPhantomInkable;
-import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -58,14 +56,6 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 	@Override
 	@Environment(EnvType.CLIENT)
 	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext flags) {
-		TooltipHandler.addOnShift(tooltip, () -> addHiddenTooltip(stack, world, tooltip, flags));
-	}
-
-	@Environment(EnvType.CLIENT)
-	public void addHiddenTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext flags) {
-		Text key = new KeybindText("key.curios.open.desc").formatted(Formatting.AQUA);
-		tooltip.add(new TranslatableText("botania.baubletooltip", key).formatted(Formatting.GRAY));
-
 		ItemStack cosmetic = getCosmeticItem(stack);
 		if (!cosmetic.isEmpty()) {
 			tooltip.add(new TranslatableText("botaniamisc.hasCosmetic", cosmetic.getName()).formatted(Formatting.GRAY, Formatting.ITALIC));

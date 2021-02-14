@@ -32,7 +32,7 @@ No project is completable with just one contributor, and Botania is no exception
 <li><b>ScottWears</b> for hosting my website.<br></li>
 <li><b>The TConstruct and OpenBlocks teams</b> for code snippets I took from their repositories.<br></li>
 <li><b>TheIllusiveC4</b> for creating the Curios API.<br></li>
-<li><b>Tobbvald</b> for the Livingwood, Dreamwood and Lexica Botania textures and the alternate textures in the Unity texture pack style that were available in the config.<br></li>
+<li><b>Tovlyn</b> for the Livingwood, Dreamwood and Lexica Botania textures and the alternate textures in the Unity texture pack style that were available in the config.<br></li>
 <li><b>wiiv</b> for a bunch more texture work both before and after dylan4ever left.<br></li>
 <li><b>WTFG33ks</b> for making the getting started video that was linked within the Lexica Botania.<br></li>
 </ul>

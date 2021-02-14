@@ -31,7 +31,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.Objects;
-import java.util.Optional;
 
 public class RecipeManaInfusion implements IManaInfusionRecipe {
 	private final Identifier id;
@@ -123,11 +122,9 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 					if (catalystId == null) {
 						throw new IllegalArgumentException("Invalid catalyst ID: " + s);
 					}
-					Optional<Block> cat = Registry.BLOCK.getOrEmpty(catalystId);
-					if (!cat.isPresent()) {
-						throw new IllegalArgumentException("Unknown catalyst: " + s);
-					}
-					catalystState = cat.get().getDefaultState();
+					catalystState = Registry.BLOCK.getOrEmpty(catalystId)
+							.map(Block::getDefaultState)
+							.orElseThrow(() -> new IllegalArgumentException("Unknown catalyst: " + s));
 				} else {
 					catalystState = StateIngredientHelper.readBlockState(JsonHelper.getObject(json, "catalyst"));
 				}
