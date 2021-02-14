@@ -32,6 +32,7 @@ import vazkii.botania.client.gui.bag.ContainerFlowerBag;
 import vazkii.botania.client.gui.bag.GuiFlowerBag;
 import vazkii.botania.client.gui.box.ContainerBaubleBox;
 import vazkii.botania.client.gui.box.GuiBaubleBox;
+import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.BotaniaCreativeTab;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -715,6 +716,8 @@ public final class ModItems {
 		register(r, "twig_wand", TwigWandRecipe.SERIALIZER);
 
 		// todo 1.16-fabric replace with nbtcrafting CraftingHelper.register(prefix("fuzzy_nbt"), FuzzyNBTIngredient.SERIALIZER);
+
+		ModBanners.init();
 	}
 
 	@Environment(EnvType.CLIENT)

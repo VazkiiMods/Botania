@@ -15,6 +15,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.world.ServerWorldAccess;
+
 import vazkii.botania.common.brew.ModPotions;
 
 public class PotionBloodthirst extends StatusEffect {
@@ -24,7 +25,6 @@ public class PotionBloodthirst extends StatusEffect {
 	public PotionBloodthirst() {
 		super(StatusEffectType.BENEFICIAL, 0xC30000);
 	}
-
 
 	public static boolean overrideSpawn(ServerWorldAccess world, BlockPos pos, SpawnGroup entityClass) {
 		if (entityClass == SpawnGroup.MONSTER) {

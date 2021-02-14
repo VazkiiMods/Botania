@@ -2064,6 +2064,7 @@
   "botania.page.gIntro0": "$(thing)生產瑪那$(0)應是每個植物魔法 師最優先的事項.幸運的是有 一系列$(thing)產能花$(0)能勝任這項工 作.$(p)這些花,就如它們的名字那樣, 產生$(thing)瑪那$(0),既是主動也是被動 的.除非另有說明,所有$(thing)產能$(0) $(thing)花$(0)在特定條件下才會被動產 生$(thing)瑪那$(0).",
   "botania.page.gIntro1": "所有的$(thing)產能花$(0),不同於$(thing)功能花$(0) 那樣有少量$(thing)瑪那$(0)緩存.$(p)查看$(thing)瑪那$(0)的標準方法就是,用 $(item)森林法杖$(0)右擊更新瑪那讀數.$(p)這些瑪那會被存入附近最近 的$(item)瑪那發射器$(0)中.",
   "botania.page.gIntro2": "注意這些花會記住它們存入 $(thing)瑪那$(0)的$(item)瑪那發射器$(0).它們只會 存入被種下時最近的發射器 (或之後放置得最近的發射器 ,如果種下時沒有的話),僅 此一個,除非該發射器被移除 .可用$(thing)綁定模式$(0)的法杖將它綁 定到另一個發射器.",
+  "botania.page.gIntro3": "選擇你的第一種$(thing)產能花$(0)不昰一件難事. 對一個初出茅廬的植物魔法師而言, 最簡單的選項有兩個: $(l:generating_flowers/endoflame)$(item)火紅蓮$(0)$(/l) 和 $(l:generating_flowers/hydroangeas)$(item)水繡球$(0)$(/l). $(p)前者以 $(item)煤炭$(0) 或其他燃料生產 $(thing)瑪那$(0). 後者則以 $(item)水$(0) 生產 $(thing)瑪那$(0), 但會在運作三日後凋謝.", 
 
   "botania.entry.passiveGen": "被動產能的注意事項",
   "botania.tagline.passiveGen": "要免費還是要實惠",
@@ -2096,6 +2097,7 @@
   "botania.entry.hydroangeas": "水繡球",
   "botania.tagline.hydroangeas": "水力產魔機",
   "botania.page.hydroangeas2": "一個簡單的$(item)水繡球$(0)系統",
+  "botania.page.hydroangeas0": "$(item)水繡球$(0) 是一種水系被動產能花. 它會吸收自身周遭一格內 (相同Y軸的) 所有靜止的水 , 並轉化為$(thing)瑪那$(0). 雖然它能在$(thing)雨天$(0)運作得更快, 但它的基本$(thing)瑪那$(0)轉化速度偏低, 更會在運作三日後凋謝. 因此不適合作為長期生產$(thing)瑪那$(0)的手段.", 
   "botania.page.hydroangeas1": "$(o)超次元來物$(0)?",
 
   "botania.entry.thermalily": "熾玫瑰",
@@ -2210,7 +2212,7 @@
   "botania.page.manaAlchemy22": "粉碎$(item)黏土$(0)$(item)和磚塊$(0)",
   "botania.page.manaAlchemy23": "製作$(item)劣質土$(0)",
   "botania.page.manaAlchemy24": "$(item)草類$(0)的轉化",
-  "": "otania.page.manaAlchemy25尋常花之間轉化",
+  "botania.page.manaAlchemy25": "尋常花之間轉化",
 
   "botania.entry.brewery": "植物釀造",
   "botania.tagline.brewery": "釀造更強大的藥水",

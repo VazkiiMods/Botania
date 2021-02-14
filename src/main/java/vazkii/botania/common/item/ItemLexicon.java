@@ -94,7 +94,7 @@ public class ItemLexicon extends Item implements IElvenItem {
 
 		String akashicTomeNBT = "akashictome:displayName";
 		if (stack.hasTag() && stack.getTag().contains(akashicTomeNBT)) {
-			title = new LiteralText(stack.getTag().getString(akashicTomeNBT));
+			title = Text.Serializer.fromJson(stack.getTag().getString(akashicTomeNBT));
 		}
 
 		return title;

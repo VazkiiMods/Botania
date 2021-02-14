@@ -10,7 +10,6 @@ package vazkii.botania.common.item.equipment.armor.terrasteel;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -27,7 +26,6 @@ import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.mana.IManaDiscountArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.mixin.AccessorDamageSource;
 
 import javax.annotation.Nullable;
 
@@ -94,40 +92,38 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		return false;
 	}
 
-	private float onEntityAttacked(DamageSource source, float amount, PlayerEntity player, Entity entity) {
-		if (entity instanceof LivingEntity) {
-			LivingEntity living = (LivingEntity) entity;
-			if (hasArmorSet(player)) {
-				// TODO 1.16 Move to mixin, this does not actually work as it's triggered after the attack strength changes
-				// [VanillaCopy] crit logic from PlayerEntity.attackTargetEntityWithCurrentItem
-				boolean strong = player.getAttackCooldownProgress(0.5F) > 0.9F;
-				boolean crit = strong && player.fallDistance > 0.0F && !player.isOnGround() && !player.isClimbing() && !player.isTouchingWater() && !player.hasStatusEffect(StatusEffects.BLINDNESS) && !player.hasVehicle();
-				crit = crit && !player.isSprinting();
-
-				ItemStack stack = player.getEquippedStack(EquipmentSlot.HEAD);
-				if (crit && !stack.isEmpty() && stack.getItem() instanceof ItemTerrasteelHelm) {
-					if (hasAncientWill(stack, AncientWillType.AHRIM)) {
-						living.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 20, 1));
-					}
-					if (hasAncientWill(stack, AncientWillType.GUTHAN)) {
-						player.heal(amount * 0.25F);
-					}
-					if (hasAncientWill(stack, AncientWillType.TORAG)) {
-						living.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 1));
-					}
-					if (hasAncientWill(stack, AncientWillType.VERAC)) {
-						((AccessorDamageSource) source).botania_setBypassArmor();
-					}
-					if (hasAncientWill(stack, AncientWillType.KARIL)) {
-						living.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 60, 1));
-					}
-					if (hasAncientWill(stack, AncientWillType.DHAROK)) {
-						return amount * (1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F);
-					}
-				}
+	public float onCritDamageCalc(float amount, PlayerEntity player) {
+		if (hasArmorSet(player)) {
+			ItemStack stack = player.getEquippedStack(EquipmentSlot.HEAD);
+			if (!stack.isEmpty() && stack.getItem() instanceof ItemTerrasteelHelm
+					&& hasAncientWill(stack, AncientWillType.DHAROK)) {
+				return amount * (1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F);
 			}
 		}
 		return amount;
+	}
+
+	public void onEntityAttacked(DamageSource source, float amount, PlayerEntity player, LivingEntity entity) {
+		if (hasArmorSet(player)) {
+			ItemStack stack = player.getEquippedStack(EquipmentSlot.HEAD);
+			if (!stack.isEmpty() && stack.getItem() instanceof ItemTerrasteelHelm) {
+				if (hasAncientWill(stack, AncientWillType.AHRIM)) {
+					entity.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 20, 1));
+				}
+				if (hasAncientWill(stack, AncientWillType.GUTHAN)) {
+					player.heal(amount * 0.25F);
+				}
+				if (hasAncientWill(stack, AncientWillType.TORAG)) {
+					entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 1));
+				}
+				if (hasAncientWill(stack, AncientWillType.VERAC)) {
+					source.bypassesArmor();
+				}
+				if (hasAncientWill(stack, AncientWillType.KARIL)) {
+					entity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 60, 1));
+				}
+			}
+		}
 	}
 
 }

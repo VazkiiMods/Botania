@@ -109,6 +109,7 @@
   "botaniamisc.command.skyblock.help.2": "/gardenofglass spawn - teleports the user to the spawn island",
   "botaniamisc.command.skyblock.help.3": "/gardenofglass visit <player|playerUuid> - teleports the user to the specified player's island",
   "botaniamisc.command.skyblock.help.4": "/gardenofglass regen-island <player|playerUuid> - rebuilds the specified player's island",
+  "botaniamisc.command.full_book_function": "Granted all missing lexicon progression advancements.",
   "botaniamisc.pay2win": "Upgrade your Mana Pool to infuse this item",
   "botaniamisc.justDoIt": "DO IT",
   "botaniamisc.changes0": "\u00a7aBotania\u00a77 has changed since you last used it in this instance!",

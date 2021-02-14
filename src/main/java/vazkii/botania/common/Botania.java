@@ -38,7 +38,6 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.mana.ManaNetworkCallback;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.advancements.*;
-import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.ModSubtiles;
@@ -155,7 +154,6 @@ public class Botania implements ModInitializer {
 		FabricDefaultAttributeRegistry.register(ModEntities.PIXIE, MobEntity.createMobAttributes()
 				.add(EntityAttributes.GENERIC_MAX_HEALTH, 2.0));
 		FabricDefaultAttributeRegistry.register(ModEntities.PINK_WITHER, WitherEntity.createWitherAttributes());
-		ModBanners.init();
 
 		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getId(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getId(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.get());
