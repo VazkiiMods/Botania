@@ -74,6 +74,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider im
 		specialRecipe(consumer, ManaGunClipRecipe.SERIALIZER);
 		specialRecipe(consumer, ManaGunLensRecipe.SERIALIZER);
 		specialRecipe(consumer, ManaGunRemoveLensRecipe.SERIALIZER);
+		specialRecipe(consumer, MergeVialRecipe.SERIALIZER);
 		specialRecipe(consumer, PhantomInkRecipe.SERIALIZER);
 		specialRecipe(consumer, SpellClothRecipe.SERIALIZER);
 		specialRecipe(consumer, TerraPickTippingRecipe.SERIALIZER);
