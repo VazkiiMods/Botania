@@ -12,8 +12,8 @@ import com.blamejared.crafttweaker.api.exceptions.ScriptException;
 import com.blamejared.crafttweaker.api.logger.ILogger;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionRecipeBase;
-import com.blamejared.crafttweaker.impl.blocks.MCBlockState;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -27,16 +27,16 @@ import java.util.Map;
 
 public class ActionRemovePureDaisyRecipe extends ActionRecipeBase {
 
-	private final MCBlockState output;
+	private final BlockState output;
 
-	public ActionRemovePureDaisyRecipe(IRecipeManager manager, MCBlockState output) {
+	public ActionRemovePureDaisyRecipe(IRecipeManager manager, BlockState output) {
 		super(manager);
 		this.output = output;
 	}
 
 	@Override
 	public void apply() {
-		StateIngredient state = StateIngredientHelper.of(output.getInternal());
+		StateIngredient state = StateIngredientHelper.of(output);
 		Iterator<Map.Entry<ResourceLocation, IRecipe<?>>> iter = getManager().getRecipes().entrySet().iterator();
 		while (iter.hasNext()) {
 			IPureDaisyRecipe recipe = (IPureDaisyRecipe) iter.next().getValue();
