@@ -42,6 +42,15 @@
     },
     {
       "type": "text",
+      "text": "botania.page.elfGear7a"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.elfGear7b",
+      "recipe": "botania:elementium_hoe"
+    },
+    {
+      "type": "text",
       "text": "botania.page.elfGear8"
     },
     {

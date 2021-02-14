@@ -148,8 +148,8 @@ public class ItemModelProvider implements DataProvider {
 				consumer);
 		items.remove(thirdEye);
 
-		takeAll(items, cobbleRod, dirtRod, diviningRod, elementiumAxe, elementiumPick, elementiumShovel, elementiumSword,
-				exchangeRod, fireRod, glassPick, gravityRod, manasteelAxe, manasteelPick, manasteelShears, manasteelShovel,
+		takeAll(items, cobbleRod, dirtRod, diviningRod, elementiumAxe, elementiumPick, elementiumShovel, elementiumHoe, elementiumSword,
+				exchangeRod, fireRod, glassPick, gravityRod, manasteelAxe, manasteelPick, manasteelShears, manasteelShovel, manasteelHoe,
 				missileRod, obedienceStick, rainbowRod, smeltRod, starSword, terraSword, terraformRod, thunderSword, waterRod,
 				kingKey, skyDirtRod).forEach(i -> Models.HANDHELD.upload(ModelIds.getItemModelId(i), Texture.layer0(i), consumer));
 

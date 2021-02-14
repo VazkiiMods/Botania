@@ -36,6 +36,7 @@ public final class ModSounds {
 	public static final SoundEvent equipBauble = makeSoundEvent("equip_bauble");
 	public static final SoundEvent gaiaTrap = makeSoundEvent("gaia_trap");
 	public static final SoundEvent holyCloak = makeSoundEvent("holy_cloak");
+	public static final SoundEvent labelia = makeSoundEvent("labelia");
 	public static final SoundEvent laputaStart = makeSoundEvent("laputa_start");
 	public static final SoundEvent lexiconOpen = makeSoundEvent("lexicon_open");
 	public static final SoundEvent lexiconPage = makeSoundEvent("lexicon_page");

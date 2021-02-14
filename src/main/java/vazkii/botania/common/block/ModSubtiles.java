@@ -171,6 +171,9 @@ public class ModSubtiles {
 	public static final Block orechidIgnem = new BlockSpecialFlower(StatusEffects.FIRE_RESISTANCE, 600, FLOWER_PROPS, SubTileOrechidIgnem::new);
 	public static final Block orechidIgnemFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileOrechidIgnem::new);
 
+	public static final Block labelia = new BlockSpecialFlower(StatusEffects.FIRE_RESISTANCE, 600, FLOWER_PROPS, SubTileLabelia::new);
+	public static final Block labeliaFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileLabelia::new);
+
 	public static final BlockEntityType<SubTilePureDaisy> PURE_DAISY = BlockEntityType.Builder.create(SubTilePureDaisy::new, pureDaisy, pureDaisyFloating).build(null);
 	public static final BlockEntityType<SubTileManastar> MANASTAR = BlockEntityType.Builder.create(SubTileManastar::new, manastar, manastarFloating).build(null);
 	public static final BlockEntityType<SubTileHydroangeas> HYDROANGEAS = BlockEntityType.Builder.create(SubTileHydroangeas::new, hydroangeas, hydroangeasFloating).build(null);
@@ -205,6 +208,7 @@ public class ModSubtiles {
 	public static final BlockEntityType<SubTileRannuncarpus> RANNUNCARPUS = BlockEntityType.Builder.create(SubTileRannuncarpus::new, rannuncarpus, rannuncarpusFloating).build(null);
 	public static final BlockEntityType<SubTileRannuncarpus.Mini> RANNUNCARPUS_CHIBI = BlockEntityType.Builder.create(SubTileRannuncarpus.Mini::new, rannuncarpusChibi, rannuncarpusChibiFloating).build(null);
 	public static final BlockEntityType<SubTileHyacidus> HYACIDUS = BlockEntityType.Builder.create(SubTileHyacidus::new, hyacidus, hyacidusFloating).build(null);
+	public static final BlockEntityType<SubTileLabelia> LABELIA = BlockEntityType.Builder.create(SubTileLabelia::new, labelia, labeliaFloating).build(null);
 	public static final BlockEntityType<SubTilePollidisiac> POLLIDISIAC = BlockEntityType.Builder.create(SubTilePollidisiac::new, pollidisiac, pollidisiacFloating).build(null);
 	public static final BlockEntityType<SubTileClayconia> CLAYCONIA = BlockEntityType.Builder.create(SubTileClayconia::new, clayconia, clayconiaFloating).build(null);
 	public static final BlockEntityType<SubTileClayconia.Mini> CLAYCONIA_CHIBI = BlockEntityType.Builder.create(SubTileClayconia.Mini::new, clayconiaChibi, clayconiaChibiFloating).build(null);
@@ -373,6 +377,9 @@ public class ModSubtiles {
 
 		register(r, LibBlockNames.SUBTILE_ORECHID_IGNEM, orechidIgnem);
 		register(r, floating(LibBlockNames.SUBTILE_ORECHID_IGNEM), orechidIgnemFloating);
+
+		register(r, LibBlockNames.SUBTILE_LABELIA, labelia);
+		register(r, floating(LibBlockNames.SUBTILE_LABELIA), labeliaFloating);
 	}
 
 	public static void registerItemBlocks() {
@@ -517,6 +524,9 @@ public class ModSubtiles {
 
 		register(r, getId(orechidIgnem), new ItemBlockSpecialFlower(orechidIgnem, props));
 		register(r, getId(orechidIgnemFloating), new ItemBlockSpecialFlower(orechidIgnemFloating, props));
+
+		register(r, getId(labelia), new ItemBlockSpecialFlower(labelia, props));
+		register(r, getId(labeliaFloating), new ItemBlockSpecialFlower(labeliaFloating, props));
 	}
 
 	public static void registerTEs() {
@@ -570,5 +580,6 @@ public class ModSubtiles {
 		register(r, getId(solegnolia), SOLEGNOLIA);
 		register(r, getId(solegnoliaChibi), SOLEGNOLIA_CHIBI);
 		register(r, getId(orechidIgnem), ORECHID_IGNEM);
+		register(r, getId(labelia), LABELIA);
 	}
 }

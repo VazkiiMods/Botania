@@ -13,12 +13,16 @@ import vazkii.botania.common.lib.LibMisc;
 public final class LibResources {
 
 	public static final String PREFIX_MOD = LibMisc.MOD_ID + ":";
+	public static final String ENDING_JSON = ".json";
 
 	public static final String PREFIX_SHADER = "shader/";
+	public static final String PREFIX_MODELS = "models/";
 
 	public static final String PREFIX_GUI = PREFIX_MOD + "textures/gui/";
 	public static final String PREFIX_MODEL = PREFIX_MOD + "textures/model/";
 	public static final String PREFIX_MISC = PREFIX_MOD + "textures/misc/";
+
+	public static final String PREFIX_TINY_POTATO = "tiny_potato/";
 
 	public static final String GUI_MANA_HUD = PREFIX_GUI + "mana_hud.png";
 	public static final String GUI_CREATIVE = "botania.png";
@@ -40,9 +44,6 @@ public final class LibResources {
 	public static final String MODEL_MANAWEAVE_NEW_HOLIDAY = PREFIX_MODEL + "armor_manaweave_holiday.png";
 	public static final String MODEL_PIXIE = PREFIX_MODEL + "pixie.png";
 	public static final String MODEL_PIXIE_HALLOWEEN = PREFIX_MODEL + "pixie_halloween.png";
-	public static final String MODEL_TINY_POTATO = PREFIX_MODEL + "tiny_potato.png";
-	public static final String MODEL_TINY_POTATO_GS = PREFIX_MODEL + "tiny_potato_gray.png";
-	public static final String MODEL_TINY_POTATO_HALLOWEEN = PREFIX_MODEL + "tiny_potato_halloween.png";
 	public static final String MODEL_TRAVEL_BELT = PREFIX_MODEL + "belt_travel.png";
 	public static final String MODEL_SUPER_TRAVEL_BELT = PREFIX_MODEL + "belt_travel_super.png";
 	public static final String MODEL_SPEED_UP_BELT = PREFIX_MODEL + "belt_speed.png";

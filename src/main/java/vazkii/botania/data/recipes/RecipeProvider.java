@@ -1016,10 +1016,10 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider im
 
 		registerToolSetRecipes(consumer, Ingredient.fromTag(ModTags.Items.INGOTS_MANASTEEL), Ingredient.ofItems(ModItems.livingwoodTwig),
 				conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL), ModItems.manasteelSword, ModItems.manasteelPick, ModItems.manasteelAxe,
-				ModItems.manasteelShovel, ModItems.manasteelShears);
+				ModItems.manasteelHoe, ModItems.manasteelShovel, ModItems.manasteelShears);
 		registerToolSetRecipes(consumer, Ingredient.fromTag(ModTags.Items.INGOTS_ELEMENTIUM), Ingredient.ofItems(ModItems.dreamwoodTwig),
 				conditionsFromTag(ModTags.Items.INGOTS_ELEMENTIUM), ModItems.elementiumSword, ModItems.elementiumPick, ModItems.elementiumAxe,
-				ModItems.elementiumShovel, ModItems.elementiumShears);
+				ModItems.elementiumHoe, ModItems.elementiumShovel, ModItems.elementiumShears);
 
 		ShapedRecipeJsonFactory.create(ModItems.terraSword)
 				.input('S', ModItems.livingwoodTwig)
@@ -2296,7 +2296,7 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider im
 
 	private void registerToolSetRecipes(Consumer<RecipeJsonProvider> consumer, Ingredient item, Ingredient stick,
 			CriterionConditions criterion, ItemConvertible sword, ItemConvertible pickaxe,
-			ItemConvertible axe, ItemConvertible shovel, ItemConvertible shears) {
+			ItemConvertible axe, ItemConvertible hoe, ItemConvertible shovel, ItemConvertible shears) {
 		ShapedRecipeJsonFactory.create(pickaxe)
 				.input('S', item)
 				.input('T', stick)
@@ -2319,6 +2319,14 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider im
 				.pattern("SS")
 				.pattern("TS")
 				.pattern("T ")
+				.criterion("has_item", criterion)
+				.offerTo(consumer);
+		ShapedRecipeJsonFactory.create(hoe)
+				.input('S', item)
+				.input('T', stick)
+				.pattern("SS")
+				.pattern(" T")
+				.pattern(" T")
 				.criterion("has_item", criterion)
 				.offerTo(consumer);
 		ShapedRecipeJsonFactory.create(sword)

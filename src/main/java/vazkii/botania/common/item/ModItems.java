@@ -204,6 +204,7 @@ public final class ModItems {
 	public static final Item manasteelPick = new ItemManasteelPick(unstackable().customDamage(ItemManasteelPick::damageItem));
 	public static final Item manasteelShovel = new ItemManasteelShovel(unstackable().customDamage(ItemManasteelShovel::damageItem));
 	public static final Item manasteelAxe = new ItemManasteelAxe(unstackable().customDamage(ItemManasteelAxe::damageItem));
+	public static final Item manasteelHoe = new ItemManasteelHoe(unstackable().customDamage(ItemManasteelHoe::damageItem));
 	public static final Item manasteelSword = new ItemManasteelSword(unstackable().customDamage(ItemManasteelSword::damageItem));
 	public static final Item manasteelShears = new ItemManasteelShears(unstackable().maxDamageIfAbsent(238).customDamage(ItemManasteelShears::damageItem));
 	public static final Item elementiumHelm = new ItemElementiumHelm(unstackable().customDamage(ItemManasteelArmor::damageItem));
@@ -213,6 +214,7 @@ public final class ModItems {
 	public static final Item elementiumPick = new ItemElementiumPick(unstackable().customDamage(ItemManasteelPick::damageItem));
 	public static final Item elementiumShovel = new ItemElementiumShovel(unstackable().customDamage(ItemManasteelShovel::damageItem));
 	public static final Item elementiumAxe = new ItemElementiumAxe(unstackable().customDamage(ItemManasteelAxe::damageItem));
+	public static final Item elementiumHoe = new ItemElementiumHoe(unstackable().customDamage(ItemManasteelHoe::damageItem));
 	public static final Item elementiumSword = new ItemElementiumSword(unstackable().customDamage(ItemManasteelSword::damageItem));
 	public static final Item elementiumShears = new ItemElementiumShears(unstackable().maxDamageIfAbsent(238).customDamage(ItemManasteelShears::damageItem));
 	public static final Item terrasteelHelm = new ItemTerrasteelHelm(unstackable().fireproof().rarity(Rarity.UNCOMMON).customDamage(ItemManasteelArmor::damageItem));
@@ -519,6 +521,7 @@ public final class ModItems {
 		register(r, LibItemNames.MANASTEEL_BOOTS, manasteelBoots);
 		register(r, LibItemNames.MANASTEEL_PICK, manasteelPick);
 		register(r, LibItemNames.MANASTEEL_SHOVEL, manasteelShovel);
+		register(r, LibItemNames.MANASTEEL_HOE, manasteelHoe);
 		register(r, LibItemNames.MANASTEEL_AXE, manasteelAxe);
 		register(r, LibItemNames.MANASTEEL_SWORD, manasteelSword);
 		register(r, LibItemNames.MANASTEEL_SHEARS, manasteelShears);
@@ -528,6 +531,7 @@ public final class ModItems {
 		register(r, LibItemNames.ELEMENTIUM_BOOTS, elementiumBoots);
 		register(r, LibItemNames.ELEMENTIUM_PICK, elementiumPick);
 		register(r, LibItemNames.ELEMENTIUM_SHOVEL, elementiumShovel);
+		register(r, LibItemNames.ELEMENTIUM_HOE, elementiumHoe);
 		register(r, LibItemNames.ELEMENTIUM_AXE, elementiumAxe);
 		register(r, LibItemNames.ELEMENTIUM_SWORD, elementiumSword);
 		register(r, LibItemNames.ELEMENTIUM_SHEARS, elementiumShears);

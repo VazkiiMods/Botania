@@ -21,6 +21,7 @@ import net.minecraft.util.Identifier;
 import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.LexiconModel;
 import vazkii.botania.client.model.PlatformModel;
+import vazkii.botania.client.model.TinyPotatoModel;
 import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
 import vazkii.botania.client.render.tile.RenderTilePump;
 import vazkii.botania.common.Botania;
@@ -158,6 +159,11 @@ public class MiscellaneousIcons {
 		ModelIdentifier clipKey = new ModelIdentifier("botania:mana_gun_clip", "inventory");
 		BakedModel originalModelClip = map.get(clipKey);
 		map.put(key, new GunModel(loader, originalModel, originalModelClip));
+
+		// Tiny Potato
+		ModelIdentifier tinyPotato = new ModelIdentifier("botania:tiny_potato", "inventory");
+		BakedModel originalPotato = map.get(tinyPotato);
+		map.put(tinyPotato, new TinyPotatoModel(originalPotato));
 
 		// todo 1.16-fabric remove OrDefault when williewillus/botania-fabric-issues#15 is fixed
 		BakedModel missing = map.get(ModelLoader.MISSING);

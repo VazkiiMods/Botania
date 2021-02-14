@@ -30,6 +30,11 @@
     },
     {
       "type": "crafting",
+      "text": "botania.page.manaGear3a",
+      "recipe": "botania:manasteel_hoe"
+    },
+    {
+      "type": "crafting",
       "text": "botania.page.manaGear4",
       "recipe": "botania:manasteel_shears"
     },

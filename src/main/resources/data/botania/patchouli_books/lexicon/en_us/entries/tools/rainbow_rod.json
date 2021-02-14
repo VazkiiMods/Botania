@@ -43,6 +43,11 @@
       "type": "crafting",
       "text": "botania.page.rainbowRod7",
       "recipe": "botania:fabulous_pool"
+    },
+    {
+      "type": "crafting",
+      "text": "botania.page.rainbowRod7",
+      "recipe": "botania:fabulous_pool_upgrade"
     }
   ]
 }

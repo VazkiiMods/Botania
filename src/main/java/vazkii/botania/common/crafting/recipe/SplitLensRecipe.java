@@ -11,35 +11,35 @@ package vazkii.botania.common.crafting.recipe;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.item.crafting.SpecialRecipeSerializer;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.recipe.SpecialCraftingRecipe;
+import net.minecraft.recipe.SpecialRecipeSerializer;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.mana.ILens;
 
 import javax.annotation.Nonnull;
 
-public class SplitLensRecipe extends SpecialRecipe {
+public class SplitLensRecipe extends SpecialCraftingRecipe {
 	public static final SpecialRecipeSerializer<SplitLensRecipe> SERIALIZER = new SpecialRecipeSerializer<>(SplitLensRecipe::new);
 
-	public SplitLensRecipe(ResourceLocation idIn) {
+	public SplitLensRecipe(Identifier idIn) {
 		super(idIn);
 	}
 
 	@Override
 	public boolean matches(@Nonnull CraftingInventory inv, @Nonnull World worldIn) {
-		return !getCraftingResult(inv).isEmpty();
+		return !craft(inv).isEmpty();
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(CraftingInventory inv) {
+	public ItemStack craft(CraftingInventory inv) {
 		ItemStack found = ItemStack.EMPTY;
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack candidate = inv.getStackInSlot(i);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack candidate = inv.getStack(i);
 			if (candidate.isEmpty()) {
 				continue;
 			}
@@ -60,10 +60,10 @@ public class SplitLensRecipe extends SpecialRecipe {
 
 	@Nonnull
 	@Override
-	public NonNullList<ItemStack> getRemainingItems(CraftingInventory inv) {
-		NonNullList<ItemStack> remaining = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
-		for (int i = 0; i < inv.getSizeInventory(); i++) {
-			ItemStack candidate = inv.getStackInSlot(i);
+	public DefaultedList<ItemStack> getRemainingStacks(CraftingInventory inv) {
+		DefaultedList<ItemStack> remaining = DefaultedList.ofSize(inv.size(), ItemStack.EMPTY);
+		for (int i = 0; i < inv.size(); i++) {
+			ItemStack candidate = inv.getStack(i);
 			if (candidate.getItem() instanceof ILens) {
 				ItemStack newLens = candidate.copy();
 				ILens lens = (ILens) candidate.getItem();
@@ -75,13 +75,13 @@ public class SplitLensRecipe extends SpecialRecipe {
 	}
 
 	@Override
-	public boolean canFit(int width, int height) {
+	public boolean fits(int width, int height) {
 		return width * height >= 1;
 	}
 
 	@Nonnull
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return SERIALIZER;
 	}
 }

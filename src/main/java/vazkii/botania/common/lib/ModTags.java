@@ -169,6 +169,7 @@ public class ModTags {
 
 	public static class Blocks {
 		public static final Tag.Identified<Block> MYSTICAL_FLOWERS = tag("mystical_flowers");
+		public static final Tag.Identified<Block> SHINY_FLOWERS = tag("shiny_flowers");
 		public static final Tag.Identified<Block> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
 
 		public static final Tag.Identified<Block> SPECIAL_FLOWERS = tag("special_flowers");
@@ -180,6 +181,8 @@ public class ModTags {
 		public static final Tag.Identified<Block> FLOATING_FLOWERS = tag("floating_flowers");
 		public static final Tag.Identified<Block> MUNDANE_FLOATING_FLOWERS = tag("mundane_floating_flowers");
 		public static final Tag.Identified<Block> SPECIAL_FLOATING_FLOWERS = tag("special_floating_flowers");
+
+		public static final Tag.Identified<Block> ENCHANTER_FLOWERS = tag("enchanter_flowers");
 
 		public static final Tag.Identified<Block> LIVINGROCK = tag("livingrock");
 		public static final Tag.Identified<Block> LIVINGWOOD = tag("livingwood");

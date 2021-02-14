@@ -13,7 +13,7 @@ import net.minecraft.util.math.Box;
 
 /**
  * This object describes the Radius of a SubTileEntity. It can either be
- * a circle or rectangle, it's to note that the
+ * a circle or rectangle.
  */
 public class RadiusDescriptor {
 

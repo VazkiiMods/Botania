@@ -18,6 +18,7 @@ import net.minecraft.util.Identifier;
 
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
+import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.tile.*;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
@@ -49,6 +50,7 @@ public final class ModelHandler {
 		consumer.accept(prefix("block/redstone_spreader_inside"));
 
 		registerIslands();
+		registerTaters(rm, consumer);
 	}
 
 	public static void registerRenderers() {
@@ -136,6 +138,7 @@ public final class ModelHandler {
 		BlockEntityRendererRegistry.INSTANCE.register(ModSubtiles.SOLEGNOLIA, RenderTileSpecialFlower::new);
 		BlockEntityRendererRegistry.INSTANCE.register(ModSubtiles.SOLEGNOLIA_CHIBI, RenderTileSpecialFlower::new);
 		BlockEntityRendererRegistry.INSTANCE.register(ModSubtiles.ORECHID_IGNEM, RenderTileSpecialFlower::new);
+		BlockEntityRendererRegistry.INSTANCE.register(ModSubtiles.LABELIA, RenderTileSpecialFlower::new);
 		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.manaPylon.asItem(), new RenderTilePylon.TEISR());
 		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.naturaPylon.asItem(), new RenderTilePylon.TEISR());
 		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.gaiaPylon.asItem(), new RenderTilePylon.TEISR());
@@ -158,6 +161,16 @@ public final class ModelHandler {
 		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.SCORCHED, prefix("block/islands/island_scorched"));
 		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.INFUSED, prefix("block/islands/island_infused"));
 		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.MUTATED, prefix("block/islands/island_mutated"));
+	}
+
+	private static void registerTaters(ResourceManager rm, Consumer<Identifier> consumer) {
+		for (Identifier model : rm.findResources(LibResources.PREFIX_MODELS + LibResources.PREFIX_TINY_POTATO, s -> s.endsWith(LibResources.ENDING_JSON))) {
+			if (LibMisc.MOD_ID.equals(model.getNamespace())) {
+				String path = model.getPath();
+				path = path.substring(LibResources.PREFIX_MODELS.length(), path.length() - LibResources.ENDING_JSON.length());
+				consumer.accept(new Identifier(LibMisc.MOD_ID, path));
+			}
+		}
 	}
 
 	private ModelHandler() {}

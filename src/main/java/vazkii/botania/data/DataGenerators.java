@@ -88,6 +88,7 @@ public class DataGenerators {
 			generator.install(new BlockstateProvider(generator, evt.getExistingFileHelper()));
 			generator.install(new FloatingFlowerModelProvider(generator, evt.getExistingFileHelper()));
 			generator.install(new ItemModelProvider(generator, evt.getExistingFileHelper()));
+			generator.install(new TinyPotatoModelProvider(generator, evt.getExistingFileHelper()));
 		}
 		*/
 		generator.run();

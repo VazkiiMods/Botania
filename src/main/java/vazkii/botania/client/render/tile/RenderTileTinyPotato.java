@@ -13,7 +13,6 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
 import net.minecraft.client.render.VertexConsumer;
@@ -21,6 +20,7 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
@@ -28,6 +28,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -45,21 +46,22 @@ import vazkii.botania.common.block.tile.TileTinyPotato;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
+import vazkii.botania.common.lib.LibMisc;
+import vazkii.botania.mixin.AccessorBakedModelManager;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import java.util.Map;
+import java.util.regex.Pattern;
+
 public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
-	private static final Identifier texture = new Identifier(LibResources.MODEL_TINY_POTATO);
-	private static final Identifier textureGrayscale = new Identifier(LibResources.MODEL_TINY_POTATO_GS);
-	private static final Identifier textureHalloween = new Identifier(LibResources.MODEL_TINY_POTATO_HALLOWEEN);
-	private final ModelPart potatoModel = new ModelPart(16, 16, 0, 0);
+	public static final String DEFAULT = "default";
+	public static final String HALLOWEEN = "halloween";
+	private static final Pattern ESCAPED = Pattern.compile("[ -]");
 
 	public RenderTileTinyPotato(BlockEntityRenderDispatcher manager) {
 		super(manager);
-		potatoModel.addCuboid(0F, 0F, 0F, 4, 6, 4);
-		potatoModel.setPivot(-2F, 18F, -2F);
-		potatoModel.setTextureSize(64, 32);
 	}
 
 	private static boolean matches(String name, String match) {
@@ -68,6 +70,10 @@ public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 
 	private static String removeFromFront(String name, String match) {
 		return name.substring(match.length()).trim();
+	}
+
+	public static BakedModel getModelFromDisplayName(Text displayName) {
+		return getModel(stripShaderName(displayName.getString().trim().toLowerCase()).getSecond());
 	}
 
 	private static Pair<ShaderHelper.BotaniaShader, String> stripShaderName(String name) {
@@ -86,46 +92,61 @@ public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 		}
 	}
 
-	private static RenderLayer getRenderLayer(@Nullable ShaderHelper.BotaniaShader shader, String name) {
-		RenderLayer base;
-		if ("kyle hyde".equals(name)) {
-			base = RenderLayer.getEntitySolid(textureGrayscale);
-		} else if (ClientProxy.dootDoot) {
-			base = RenderLayer.getEntitySolid(textureHalloween);
-		} else {
-			base = RenderLayer.getEntitySolid(texture);
+	private static BakedModel getModel(String name) {
+		BakedModelManager bmm = MinecraftClient.getInstance().getBakedModelManager();
+		Map<Identifier, BakedModel> mm = ((AccessorBakedModelManager) bmm).getModels();
+		BakedModel missing = bmm.getMissingModel();
+		Identifier location = taterLocation(name);
+		BakedModel model = mm.get(location);
+		if (model == null) {
+			if (ClientProxy.dootDoot) {
+				return mm.getOrDefault(taterLocation(HALLOWEEN), missing);
+			} else {
+				return mm.getOrDefault(taterLocation(DEFAULT), missing);
+			}
 		}
-		return shader == null || !ShaderHelper.useShaders() ? base : new ShaderWrappedRenderLayer(shader, null, base);
+		return model;
+	}
 
+	private static Identifier taterLocation(String name) {
+		return new Identifier(LibMisc.MOD_ID, LibResources.PREFIX_TINY_POTATO + normalizeName(name));
+	}
+
+	private static String normalizeName(String name) {
+		return ESCAPED.matcher(name).replaceAll("_");
+	}
+
+	private static RenderLayer getRenderLayer(@Nullable ShaderHelper.BotaniaShader shader) {
+		RenderLayer base = TexturedRenderLayers.getEntityTranslucentCull();
+		return shader == null || !ShaderHelper.useShaders() ? base : new ShaderWrappedRenderLayer(shader, null, base);
 	}
 
 	@Override
-	public void render(@Nonnull TileTinyPotato potato, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
+	public void render(@Nonnull TileTinyPotato potato, float partialTicks, MatrixStack ms, @Nonnull VertexConsumerProvider buffers, int light, int overlay) {
 		ms.push();
 
 		String name = potato.name.getString().toLowerCase().trim();
 		Pair<ShaderHelper.BotaniaShader, String> shaderStrippedName = stripShaderName(name);
 		ShaderHelper.BotaniaShader shader = shaderStrippedName.getFirst();
 		name = shaderStrippedName.getSecond();
-		RenderLayer layer = getRenderLayer(shader, name);
+		RenderLayer layer = getRenderLayer(shader);
+		BakedModel model = getModel(name);
 
-		ms.translate(0.5F, 1.5F, 0.5F);
-		ms.scale(1F, -1F, -1F);
-
+		ms.translate(0.5F, 0F, 0.5F);
 		Direction potatoFacing = potato.getCachedState().get(Properties.HORIZONTAL_FACING);
 		float rotY = 0;
 		switch (potatoFacing) {
 		default:
 		case SOUTH:
-			break;
-		case NORTH:
 			rotY = 180F;
 			break;
+		case NORTH:
+			break;
 		case EAST:
-			rotY = 270F;
+			rotY = 90F;
 			break;
 		case WEST:
-			rotY = 90F;
+			rotY = 270F;
 			break;
 		}
 		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(rotY));
@@ -135,51 +156,34 @@ public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 			jump -= partialTicks;
 		}
 
-		float up = (float) -Math.abs(Math.sin(jump / 10 * Math.PI)) * 0.2F;
+		float up = (float) Math.abs(Math.sin(jump / 10 * Math.PI)) * 0.2F;
 		float rotZ = (float) Math.sin(jump / 10 * Math.PI) * 2;
 
 		ms.translate(0F, up, 0F);
 		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(rotZ));
 
-		ms.push();
-		float r = 1;
-		float g = 1;
-		float b = 1;
-		switch (name) {
-		case "pahimar":
-			ms.scale(1F, 0.3F, 1F);
-			ms.translate(0F, 3.5F, 0F);
-			break;
-		case "dinnerbone":
-		case "grumm":
-			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
-			ms.translate(0F, -2.625F, 0F);
-			break;
-		case "aureylian":
-			g = 0.5F;
-			break;
-		}
-
-		VertexConsumer buffer = buffers.getBuffer(layer);
 		boolean render = !(name.equals("mami") || name.equals("soaryn") || name.equals("eloraam") && jump != 0);
 		if (render) {
-			potatoModel.render(ms, buffer, light, overlay, r, g, b, 1);
-		}
-		if (name.equals("kingdaddydmac")) {
-			ms.translate(0.5F, 0F, 0F);
-			potatoModel.render(ms, buffer, light, overlay, r, g, b, 1);
-		}
-		ms.pop();
+			ms.push();
+			ms.translate(-0.5F, 0, -0.5F);
+			VertexConsumer buffer = buffers.getBuffer(layer);
 
+			renderModel(ms, buffer, light, overlay, model);
+			ms.pop();
+		}
+
+		ms.translate(0F, 1.5F, 0F);
+		ms.push();
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
 		renderItems(potato, potatoFacing, name, partialTicks, ms, buffers, light, overlay);
 
 		ms.push();
 		TinyPotatoRenderCallback.EVENT.invoker().onRender(potato, potato.name, partialTicks, ms, buffers, light, overlay);
 		ms.pop();
+		ms.pop();
 
 		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(-rotZ));
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-rotY));
-		ms.scale(1F, -1F, -1F);
+		ms.multiply(Vector3f.NEGATIVE_Y.getDegreesQuaternion(-rotY));
 
 		renderName(potato, name, ms, buffers, light);
 		ms.pop();
@@ -313,7 +317,9 @@ public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 			float scale = 1F / 4F;
 			ms.translate(0F, 1F, 0F);
 			ms.scale(scale, scale, scale);
-			if (name.equals("phi") || name.equals("vazkii")) {
+			switch (name) {
+			case "phi":
+			case "vazkii":
 				ms.push();
 				ms.translate(-0.15, 0.1, 0.4);
 				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
@@ -328,23 +334,28 @@ public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 					ms.translate(0.2, -1.25, 0);
 					renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.nerfBatModel);
 				}
-			} else if (name.equals("haighyorkie")) {
+				break;
+			case "haighyorkie":
 				ms.scale(1.25F, 1.25F, 1.25F);
 				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
 				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(-90F));
 				ms.translate(-0.5F, -1.2F, -0.075F);
 				renderModel(ms, buffers, light, overlay, MiscellaneousIcons.INSTANCE.goldfishModel);
-			} else if (name.equals("martysgames") || name.equals("marty")) {
+				break;
+			case "martysgames":
+			case "marty":
 				ms.scale(0.7F, 0.7F, 0.7F);
 				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
 				ms.translate(-0.3F, -2.7F, -1.2F);
 				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(15F));
 				renderItem(ms, buffers, light, overlay, new ItemStack(ModItems.infiniteFruit, 1).setCustomName(new LiteralText("das boot")));
-			} else if (name.equals("jibril")) {
+				break;
+			case "jibril":
 				ms.scale(1.5F, 1.5F, 1.5F);
 				ms.translate(0F, 0.8F, 0F);
 				ItemFlightTiara.renderHalo(null, null, ms, buffers, partialTicks);
-			} else if (name.equals("kingdaddydmac")) {
+				break;
+			case "kingdaddydmac":
 				ms.scale(0.5F, 0.5F, 0.5F);
 				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180));
 				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90));
@@ -358,7 +369,8 @@ public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 
 				ms.translate(1.5, -4, -2.5);
 				renderBlock(ms, buffers, light, overlay, Blocks.CAKE);
-			} else {
+				break;
+			default:
 				ItemStack icon = ContributorFancinessHandler.getFlower(name);
 				if (!icon.isEmpty()) {
 					ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
@@ -366,13 +378,18 @@ public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 					ms.translate(0, -0.75, -0.5);
 					MinecraftClient.getInstance().getItemRenderer().renderItem(icon, ModelTransformation.Mode.HEAD, light, overlay, ms, buffers);
 				}
+				break;
 			}
 		}
 		ms.pop();
 	}
 
 	private void renderModel(MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay, BakedModel model) {
-		MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer().render(ms.peek(), buffers.getBuffer(TexturedRenderLayers.getEntityTranslucentCull()), null, model, 1, 1, 1, light, overlay);
+		renderModel(ms, buffers.getBuffer(TexturedRenderLayers.getEntityTranslucentCull()), light, overlay, model);
+	}
+
+	private void renderModel(MatrixStack ms, VertexConsumer buffer, int light, int overlay, BakedModel model) {
+		MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer().render(ms.peek(), buffer, null, model, 1, 1, 1, light, overlay);
 	}
 
 	private void renderItem(MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay, ItemStack stack) {

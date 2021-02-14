@@ -22,7 +22,6 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -66,8 +65,10 @@ public class LexiconElvenTradeRecipe implements IElvenTradeRecipe {
 
 	@Override
 	public Optional<List<ItemStack>> match(List<ItemStack> stacks) {
-		if (stacks.size() == 1 && stacks.get(0).getItem() == ModItems.lexicon && !ItemNBTHelper.getBoolean(stacks.get(0), ItemLexicon.TAG_ELVEN_UNLOCK, false)) {
-			return Optional.of(new ArrayList<>(stacks));
+		for (ItemStack stack : stacks) {
+			if (containsItem(stack)) {
+				return Optional.of(Collections.singletonList(stack));
+			}
 		}
 		return Optional.empty();
 	}

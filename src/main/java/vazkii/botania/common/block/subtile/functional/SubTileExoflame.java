@@ -42,7 +42,7 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 			if (tile != null) {
 				IExoflameHeatable heatable = BlockEntityComponents.EXOFLAME_HEATABLE.getNullable(tile);
 				if (heatable != null) {
-					if (heatable.canSmelt() && getMana() > 2) {
+					if (heatable.canSmelt() && getMana() >= COST) {
 						if (heatable.getBurnTime() < 2) {
 							heatable.boostBurnTime();
 							addMana(-COST);

@@ -8,16 +8,11 @@
  */
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -25,9 +20,6 @@ import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.mixin.AccessorHoeItem;
-
-import javax.annotation.Nonnull;
 
 import java.util.function.Consumer;
 
@@ -50,47 +42,6 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 
 	public int getManaPerDamage() {
 		return MANA_PER_DAMAGE;
-	}
-
-	@Nonnull
-	@Override
-	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		ActionResult pathResult = super.useOnBlock(ctx);
-		if (pathResult.isAccepted()) {
-			return pathResult;
-		}
-
-		ItemStack stack = ctx.getStack();
-		PlayerEntity player = ctx.getPlayer();
-		World world = ctx.getWorld();
-		BlockPos pos = ctx.getBlockPos();
-
-		if (player == null || !player.canPlaceOn(pos, ctx.getSide(), stack)) {
-			return ActionResult.PASS;
-		}
-
-		Block block = world.getBlockState(pos).getBlock();
-		BlockState converted = AccessorHoeItem.getConversions().get(block);
-		if (converted == null) {
-			return ActionResult.PASS;
-		}
-
-		if (ctx.getSide() != Direction.DOWN && world.getBlockState(pos.up()).isAir()) {
-			world.playSound(null, pos, converted.getSoundGroup().getStepSound(),
-					SoundCategory.BLOCKS,
-					(converted.getSoundGroup().getVolume() + 1.0F) / 2.0F,
-					converted.getSoundGroup().getPitch() * 0.8F);
-
-			if (world.isClient) {
-				return ActionResult.SUCCESS;
-			} else {
-				world.setBlockState(pos, converted);
-				stack.damage(1, player, p -> p.sendToolBreakStatus(ctx.getHand()));
-				return ActionResult.SUCCESS;
-			}
-		}
-
-		return ActionResult.PASS;
 	}
 
 	@Override

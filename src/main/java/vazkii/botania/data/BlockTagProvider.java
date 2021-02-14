@@ -68,6 +68,13 @@ public class BlockTagProvider extends BlockTagsProvider {
 						.toArray(Block[]::new)
 		);
 
+		getOrCreateTagBuilder(ModTags.Blocks.SHINY_FLOWERS).add(
+				Arrays.stream(DyeColor.values())
+						.map(ModBlocks::getShinyFlower)
+						.sorted(Comparator.comparing(Registry.BLOCK::getId))
+						.toArray(Block[]::new)
+		);
+
 		getOrCreateTagBuilder(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
 						.map(ModBlocks::getDoubleFlower)
@@ -87,7 +94,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 				bubbell, bubbellChibi, clayconia, clayconiaChibi,
 				daffomill, dreadthorn, exoflame, fallenKanade, heiseiDream,
 				hopperhock, hopperhockChibi, hyacidus, jadedAmaranthus,
-				jiyuulia, loonium, marimorphosis, marimorphosisChibi,
+				jiyuulia, labelia, loonium, marimorphosis, marimorphosisChibi,
 				medumone, orechid, orechidIgnem, pollidisiac, rannuncarpus, rannuncarpusChibi,
 				solegnolia, solegnoliaChibi, spectranthemum, tangleberrie, tigerseye, vinculotus
 		);
@@ -99,8 +106,13 @@ public class BlockTagProvider extends BlockTagsProvider {
 				getModBlocks(b -> b instanceof BlockSpecialFlower && registry.getId(b).getPath().endsWith("_chibi"))
 		);
 
+		getOrCreateTagBuilder(ModTags.Blocks.ENCHANTER_FLOWERS).addTag(ModTags.Blocks.MYSTICAL_FLOWERS)
+				.addTag(ModTags.Blocks.SHINY_FLOWERS)
+				.addTag(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS);
+
+		// Special flowers intentionally excluded due to unwanted behaviors with tree growth and mod compat.
 		getOrCreateTagBuilder(BlockTags.TALL_FLOWERS).addTag(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
-		getOrCreateTagBuilder(BlockTags.SMALL_FLOWERS).addTag(ModTags.Blocks.MYSTICAL_FLOWERS).addTag(ModTags.Blocks.SPECIAL_FLOWERS);
+		getOrCreateTagBuilder(BlockTags.SMALL_FLOWERS).addTag(ModTags.Blocks.MYSTICAL_FLOWERS);
 
 		getOrCreateTagBuilder(BlockTags.IMPERMEABLE).add(ModBlocks.elfGlass, ModBlocks.manaGlass, ModBlocks.bifrost, ModBlocks.bifrostPerm);
 		getOrCreateTagBuilder(BlockTags.BEACON_BASE_BLOCKS).add(ModBlocks.manasteelBlock, ModBlocks.terrasteelBlock, ModBlocks.elementiumBlock,
