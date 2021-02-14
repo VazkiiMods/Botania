@@ -36,6 +36,7 @@
     "MixinEndermanPickupBlock",
     "MixinEntity",
     "MixinEntityShapeContext",
+    "MixinEntitySpawnPlacementRegistry",
     "MixinExplosion",
     "MixinItemEntity",
     "MixinLivingEntity",
@@ -49,7 +50,8 @@
     "MixinServerPlayNetworkHandler",
     "MixinServerWorld",
     "MixinSpawnHelper",
-    "MixinThrowableEntity"
+    "MixinThrowableEntity",
+    "MixinWorldEntitySpawner"
   ],
   "client": [
     "AccessorBiomeGeneratorTypeScreens",

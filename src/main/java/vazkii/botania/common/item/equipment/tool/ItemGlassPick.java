@@ -89,7 +89,7 @@ public class ItemGlassPick extends ItemManasteelPick {
 		super.inventoryTick(stack, world, player, slot, selected);
 		if (stack.getOrCreateTag().getBoolean(TAG_SILK_HACK)) {
 			stack.getTag().remove(TAG_SILK_HACK);
-			Map<Enchantment, Integer> ench = EnchantmentHelper.get(stack);
+			Map<Enchantment, Integer> ench = EnchantmentHelper.fromTag(stack.getEnchantments());
 			ench.remove(Enchantments.SILK_TOUCH);
 			EnchantmentHelper.set(ench, stack);
 		}

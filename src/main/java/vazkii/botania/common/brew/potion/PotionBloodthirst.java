@@ -8,8 +8,14 @@
  */
 package vazkii.botania.common.brew.potion;
 
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
+import net.minecraft.world.ServerWorldAccess;
+import vazkii.botania.common.brew.ModPotions;
 
 public class PotionBloodthirst extends StatusEffect {
 
@@ -19,21 +25,19 @@ public class PotionBloodthirst extends StatusEffect {
 		super(StatusEffectType.BENEFICIAL, 0xC30000);
 	}
 
-	/* todo 1.16-fabric
-	public static void onSpawn(LivingSpawnEvent.CheckSpawn event) {
-		if (event.getResult() != Event.Result.ALLOW && event.getEntityLiving() instanceof Monster) {
-			Box aabb = new Box(event.getX() - RANGE, event.getY() - RANGE, event.getZ() - RANGE,
-					event.getX() + RANGE, event.getY() + RANGE, event.getZ() + RANGE);
-			for (PlayerEntity player : event.getWorld().getPlayers()) {
+
+	public static boolean overrideSpawn(ServerWorldAccess world, BlockPos pos, SpawnGroup entityClass) {
+		if (entityClass == SpawnGroup.MONSTER) {
+			Box aabb = new Box(pos).expand(RANGE);
+			for (PlayerEntity player : world.getPlayers()) {
 				if (player.hasStatusEffect(ModPotions.bloodthrst)
 						&& !player.hasStatusEffect(ModPotions.emptiness)
 						&& player.getBoundingBox().intersects(aabb)) {
-					event.setResult(Event.Result.ALLOW);
-					return;
+					return true;
 				}
 			}
 		}
+		return false;
 	}
-	*/
 
 }
