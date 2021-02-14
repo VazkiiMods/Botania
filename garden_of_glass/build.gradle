@@ -1,82 +1,84 @@
-buildscript {
-    repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
-        jcenter()
-        mavenCentral()
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
-    }
-}
-apply plugin: 'net.minecraftforge.gradle'
-// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
-
-def parseConfig(File config) {
-	if(config.exists()){
-		config.withReader {
-			def prop = new Properties()
-			prop.load(it)
-			return (new ConfigSlurper().parse(prop))
-		}
-	} else {
-		return null
-	}
+plugins {
+    id 'fabric-loom' version '0.5-SNAPSHOT'
+    id 'maven-publish'
 }
 
-ext.config = parseConfig(file('../build.properties'))
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
-version = '1.6'
-group = 'vazkii.botania' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'gardenofglass'
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+def mc_version = "1.16.4"
+version = "1.6-FABRIC"
+
+group = "vazkii.botania"
+archivesBaseName = "gardenofglass"
 
 minecraft {
-    mappings channel: 'snapshot', version: "20201028-1.16.3"
-    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
-    runs {
-        // No run configurations: Build this and run in a Botania workspace to debug
-    }
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:1.16.4-35.1.7"
+    minecraft "com.mojang:minecraft:${mc_version}"
+    mappings "net.fabricmc:yarn:${mc_version}+build.7:v2"
+    modCompile "net.fabricmc:fabric-loader:0.10.6+build.214"
+
+    // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
+    // You may need to force-disable transitiveness on them.
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include "fabric.mod.json"
+        expand "version": project.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude "fabric.mod.json"
+    }
+}
+
+// ensure that the encoding is set to UTF-8, no matter what the system default is
+// this fixes some edge cases with special characters not displaying correctly
+// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+// if it is present.
+// If you remove this task, sources will not be generated.
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = "sources"
+    from sourceSets.main.allSource
 }
 
 jar {
-    manifest {
-        attributes([
-            "Specification-Title": project.name,
-            "Specification-Vendor": project.name,
-            "Specification-Version": "1", // We are version 1 of ourselves
-            "Implementation-Title": project.name,
-            "Implementation-Version": "${version}",
-            "Implementation-Vendor" : project.name,
-            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
-    }
+    from "LICENSE"
+
+    exclude "**/*.bat"
+    exclude "**/*.psd"
+    exclude "**/*.exe"
 }
 
-// Example configuration to allow publishing using the maven-publish task
-// we define a custom artifact that is sourced from the reobfJar output task
-// and then declare that to be published
-// Note you'll need to add a repository here
-def reobfFile = file("$buildDir/reobfJar/output.jar")
-def reobfArtifact = artifacts.add('default', reobfFile) {
-    type 'jar'
-    builtBy 'reobfJar'
-}
+// configure the maven publication
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifact reobfArtifact
+            // add all the jars that should be included when publishing to maven
+            artifact(remapJar) {
+                builtBy remapJar
+            }
+            artifact(sourcesJar) {
+                builtBy remapSourcesJar
+            }
         }
     }
+
+    // select the repositories you want to publish to
     repositories {
         maven {
-            url "file:///${project.projectDir}/mcmodsrepo"
+            url "file://" + System.getenv("local_maven")
         }
     }
 }

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "gardenofglass",
+  "version": "${version}",
+
+  "name": "Garden of Glass",
+  "description": "An extension to Botania that adds skyblock like gameplay",
+  "authors": [
+    "Vazkii",
+    "williewillus"
+  ],
+  "contact": {
+    "sources": "https://github.com/Vazkii/Botania"
+  },
+
+  "license": "Botania license",
+  "icon": "logo_gog.png",
+
+  "environment": "*",
+  "entrypoints": {
+  },
+  "mixins": [
+  ],
+
+  "depends": {
+    "botania" : "*"
+  }
+}
