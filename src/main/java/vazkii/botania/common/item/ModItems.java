@@ -724,6 +724,7 @@ public final class ModItems {
 		register(r, "split_lens", SplitLensRecipe.SERIALIZER);
 		register(r, "terra_pick_tipping", TerraPickTippingRecipe.SERIALIZER);
 		register(r, "twig_wand", TwigWandRecipe.SERIALIZER);
+		register(r, "gog_alternation", GogAlternationRecipe.SERIALIZER);
 
 		CraftingHelper.register(FluxfieldCondition.SERIALIZER);
 		CraftingHelper.register(prefix("fuzzy_nbt"), FuzzyNBTIngredient.SERIALIZER);
