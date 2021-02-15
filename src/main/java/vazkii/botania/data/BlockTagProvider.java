@@ -146,10 +146,23 @@ public class BlockTagProvider extends BlockTagsProvider {
 				ModBlocks.fabulousPool, ModBlocks.terraPlate, ModBlocks.runeAltar);
 
 		getOrCreateTagBuilder(ModTags.Blocks.TERRA_PLATE_BASE).add(ModBlocks.livingrock, ModBlocks.shimmerrock);
-		getOrCreateTagBuilder(ModTags.Blocks.LAPIS_BLOCKS).add(Blocks.LAPIS_BLOCK);
 
 		getOrCreateTagBuilder(BlockTags.BAMBOO_PLANTABLE_ON).add(ModBlocks.dryGrass, ModBlocks.goldenGrass, ModBlocks.vividGrass,
 				ModBlocks.scorchedGrass, ModBlocks.infusedGrass, ModBlocks.mutatedGrass);
+
+		registerCommonTags();
+	}
+
+	private void registerCommonTags() {
+		getOrCreateTagBuilder(ModTags.Blocks.LAPIS_BLOCKS).add(Blocks.LAPIS_BLOCK);
+
+		getOrCreateTagBuilder(ModTags.Blocks.COAL_ORES).add(Blocks.COAL_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.IRON_ORES).add(Blocks.IRON_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.GOLD_ORES).add(Blocks.GOLD_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.LAPIS_ORES).add(Blocks.LAPIS_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.REDSTONE_ORES).add(Blocks.REDSTONE_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.DIAMOND_ORES).add(Blocks.DIAMOND_ORE);
+		getOrCreateTagBuilder(ModTags.Blocks.EMERALD_ORES).add(Blocks.EMERALD_ORE);
 	}
 
 	@Nonnull

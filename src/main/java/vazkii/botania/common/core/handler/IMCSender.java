@@ -142,12 +142,12 @@ public class IMCSender {
 	}
 
 	private static void addOreWeight(String oreTag, int weight) {
-		Identifier tag = new Identifier("forge", "ores/" + oreTag);
+		Identifier tag = new Identifier("c", oreTag + "_ores");
 		BotaniaAPI.instance().registerOreWeight(tag, weight);
 	}
 
 	private static void addOreWeightNether(String oreTag, int weight) {
-		Identifier tag = new Identifier("forge", "ores/" + oreTag);
+		Identifier tag = new Identifier("c", oreTag + "_ores");
 		BotaniaAPI.instance().registerNetherOreWeight(tag, weight);
 	}
 }
