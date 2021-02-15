@@ -1,12 +1,27 @@
 {
-  "type": "minecraft:crafting_shapeless",
-  "ingredients": [
-    {
-      "item": "botania:blaze_block"
+  "type": "botania:gog_alternation",
+  "gog": {
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+      {
+        "item": "botania:blaze_block"
+      }
+    ],
+    "result": {
+      "item": "minecraft:blaze_powder",
+      "count": 9
     }
-  ],
-  "result": {
-    "item": "minecraft:blaze_rod",
-    "count": 9
+  },
+  "base": {
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+      {
+        "item": "botania:blaze_block"
+      }
+    ],
+    "result": {
+      "item": "minecraft:blaze_rod",
+      "count": 9
+    }
   }
 }

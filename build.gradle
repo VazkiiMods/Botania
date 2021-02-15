@@ -68,7 +68,7 @@ repositories {
 dependencies {
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
-    modImplementation "vazkii.patchouli:Patchouli:1.16.4-48-FABRIC"
+    modImplementation "vazkii.patchouli:Patchouli:1.16.4-50-FABRIC"
 
     modCompile "alexiil.mc.lib:libblockattributes-all:0.8.4"
 

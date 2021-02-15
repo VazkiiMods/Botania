@@ -92,7 +92,7 @@ public class Botania implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		gardenOfGlassLoaded = FabricLoader.getInstance().isModLoaded("gardenofglass");
+		gardenOfGlassLoaded = FabricLoader.getInstance().isModLoaded(LibMisc.GOG_MOD_ID);
 		curiosLoaded = FabricLoader.getInstance().isModLoaded("curios");
 		ConfigHandler.setup();
 

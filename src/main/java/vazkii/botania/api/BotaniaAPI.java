@@ -39,6 +39,7 @@ import java.util.function.Function;
 
 public interface BotaniaAPI {
 	String MODID = "botania";
+	String GOG_MODID = "gardenofglass";
 
 	Lazy<BotaniaAPI> INSTANCE = new Lazy<>(() -> {
 		try {

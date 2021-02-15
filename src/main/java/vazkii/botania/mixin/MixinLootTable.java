@@ -24,12 +24,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumPick;
+import vazkii.botania.common.lib.LibMisc;
 
 import java.util.function.Consumer;
 
 @Mixin(LootTable.class)
 public class MixinLootTable {
-	private static final Identifier GOG_SEEDS = new Identifier("gardenofglass", "extra_seeds");
+	private static final Identifier GOG_SEEDS = new Identifier(LibMisc.GOG_MOD_ID, "extra_seeds");
 
 	@Unique
 	private boolean callingGogTable;
