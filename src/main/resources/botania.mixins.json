@@ -57,6 +57,7 @@
   "client": [
     "AccessorBakedModelManager",
     "AccessorBiomeGeneratorTypeScreens",
+    "AccessorBlockSoundGroup",
     "AccessorEndPortalTileEntityRenderer",
     "AccessorEntityRenderDispatcher",
     "AccessorFirstPersonRenderer",

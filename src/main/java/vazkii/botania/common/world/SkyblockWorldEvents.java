@@ -19,6 +19,7 @@ import net.minecraft.item.Items;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -36,6 +37,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.network.PacketGogWorld;
+import vazkii.botania.mixin.AccessorBlockSoundGroup;
 
 public final class SkyblockWorldEvents {
 
@@ -76,7 +78,8 @@ public final class SkyblockWorldEvents {
 				Tag<Block> tag = world.getTagManager().getBlocks().getTagOrEmpty(PEBBLE_SOURCES);
 				if (tag.contains(block)) {
 					BlockSoundGroup st = state.getSoundGroup();
-					player.playSound(st.getBreakSound(), st.getVolume() * 0.4F, st.getPitch() + (float) (Math.random() * 0.2 - 0.1));
+					SoundEvent sound = ((AccessorBlockSoundGroup) st).botania_getBreakSound();
+					player.playSound(sound, st.getVolume() * 0.4F, st.getPitch() + (float) (Math.random() * 0.2 - 0.1));
 
 					if (world.isClient) {
 						player.swingHand(hand);
