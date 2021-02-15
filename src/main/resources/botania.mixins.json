@@ -8,6 +8,7 @@
     "AccessorAbstractHorseEntity",
     "AccessorAbstractSpawner",
     "AccessorAvoidEntityGoal",
+    "AccessorBlockSoundGroup",
     "AccessorBucketItem",
     "AccessorCreeperEntity",
     "AccessorCriteria",
@@ -57,7 +58,6 @@
   "client": [
     "AccessorBakedModelManager",
     "AccessorBiomeGeneratorTypeScreens",
-    "AccessorBlockSoundGroup",
     "AccessorEndPortalTileEntityRenderer",
     "AccessorEntityRenderDispatcher",
     "AccessorFirstPersonRenderer",
