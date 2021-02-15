@@ -15,7 +15,7 @@
         "item": "botania:fel_pumpkin"
       },
       "I": {
-        "tag": "forge:ingots/manasteel"
+        "tag": "botania:manasteel_ingots"
       }
     },
     "result": {

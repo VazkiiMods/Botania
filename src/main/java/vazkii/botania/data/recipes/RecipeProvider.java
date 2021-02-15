@@ -127,14 +127,14 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider im
 				.criterion("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD))
 				.offerTo(base::setValue);
 		ShapedRecipeJsonFactory.create(ModBlocks.manaSpreader)
-			.input('P', ModTags.Items.PETALS)
-			.input('W', ModTags.Items.LIVINGWOOD)
-			.pattern("WWW")
-			.pattern("WP ")
-			.pattern("WWW")
-			.group("botania:spreader")
-			.criterion("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD))
-			.offerTo(gog::setValue);
+				.input('P', ModTags.Items.PETALS)
+				.input('W', ModTags.Items.LIVINGWOOD)
+				.pattern("WWW")
+				.pattern("WP ")
+				.pattern("WWW")
+				.group("botania:spreader")
+				.criterion("has_item", conditionsFromTag(ModTags.Items.LIVINGWOOD))
+				.offerTo(gog::setValue);
 		consumer.accept(new GogAlternationResult(gog.getValue(), base.getValue()));
 		ShapelessRecipeJsonFactory.create(ModBlocks.redstoneSpreader)
 				.input(ModBlocks.manaSpreader)
@@ -509,14 +509,14 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider im
 				.criterion("has_item", conditionsFromItem(ModBlocks.felPumpkin))
 				.offerTo(base::setValue);
 		ShapedRecipeJsonFactory.create(ModBlocks.cocoon)
-			.input('S', Items.STRING)
-			.input('P', ModBlocks.felPumpkin)
-			.input('I', ModTags.Items.INGOTS_MANASTEEL)
-			.pattern("SSS")
-			.pattern("SPS")
-			.pattern("SIS")
-			.criterion("has_item", conditionsFromItem(ModBlocks.felPumpkin))
-			.offerTo(gog::setValue);
+				.input('S', Items.STRING)
+				.input('P', ModBlocks.felPumpkin)
+				.input('I', ModTags.Items.INGOTS_MANASTEEL)
+				.pattern("SSS")
+				.pattern("SPS")
+				.pattern("SIS")
+				.criterion("has_item", conditionsFromItem(ModBlocks.felPumpkin))
+				.offerTo(gog::setValue);
 		consumer.accept(new GogAlternationResult(gog.getValue(), base.getValue()));
 		ShapelessRecipeJsonFactory.create(ModBlocks.lightRelayDefault)
 				.input(ModItems.redString)
@@ -642,10 +642,10 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider im
 				.criterion("has_item", hasAnyDye)
 				.offerTo(base::setValue, "botania:fertilizer_dye");
 		ShapelessRecipeJsonFactory.create(ModItems.fertilizer, 3)
-			.input(Items.BONE_MEAL)
-			.input(dyes, 4)
-			.criterion("has_item", hasAnyDye)
-			.offerTo(gog::setValue, "botania:fertilizer_dye");
+				.input(Items.BONE_MEAL)
+				.input(dyes, 4)
+				.criterion("has_item", hasAnyDye)
+				.offerTo(gog::setValue, "botania:fertilizer_dye");
 		consumer.accept(new GogAlternationResult(gog.getValue(), base.getValue()));
 		ShapelessRecipeJsonFactory.create(ModItems.drySeeds)
 				.input(ModItems.grassSeeds)
@@ -2059,12 +2059,12 @@ public class RecipeProvider extends net.minecraft.data.server.RecipesProvider im
 		MutableObject<RecipeJsonProvider> gog = new MutableObject<>();
 		compression(ModBlocks.blazeBlock, Items.BLAZE_ROD).offerTo(base::setValue);
 		ShapedRecipeJsonFactory.create(ModBlocks.blazeBlock)
-			.input('I', Items.BLAZE_POWDER)
-			.pattern("III")
-			.pattern("III")
-			.pattern("III")
-			.criterion("has_item", conditionsFromItem(Items.BLAZE_POWDER))
-			.offerTo(gog::setValue);
+				.input('I', Items.BLAZE_POWDER)
+				.pattern("III")
+				.pattern("III")
+				.pattern("III")
+				.criterion("has_item", conditionsFromItem(Items.BLAZE_POWDER))
+				.offerTo(gog::setValue);
 		consumer.accept(new GogAlternationResult(gog.getValue(), base.getValue()));
 
 		deconstructPetalBlock(consumer, ModItems.whitePetal, ModBlocks.petalBlockWhite);

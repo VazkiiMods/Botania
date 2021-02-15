@@ -109,8 +109,8 @@ public class PetalProvider extends RecipesProvider implements BotaniaRecipeProvi
 		consumer.accept(make(ModSubtiles.heiseiDream, magenta, magenta, purple, pink, runeWrath, pixieDust));
 		consumer.accept(make(ModSubtiles.tigerseye, yellow, brown, orange, lime, runeAutumn));
 
-		IFinishedRecipe base = make(ModSubtiles.orechid, gray, gray, yellow, green, red, runePride, runeGreed, redstoneRoot, pixieDust);
-		IFinishedRecipe gog = make(ModSubtiles.orechid, gray, gray, yellow, yellow, green, green, red, red);
+		RecipeJsonProvider base = make(ModSubtiles.orechid, gray, gray, yellow, green, red, runePride, runeGreed, redstoneRoot, pixieDust);
+		RecipeJsonProvider gog = make(ModSubtiles.orechid, gray, gray, yellow, yellow, green, green, red, red);
 		consumer.accept(new GogAlternationResult(gog, base));
 
 		consumer.accept(make(ModSubtiles.orechidIgnem, red, red, white, white, pink, runePride, runeGreed, redstoneRoot, pixieDust));

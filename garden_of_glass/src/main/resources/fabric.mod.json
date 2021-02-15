@@ -23,6 +23,6 @@
   ],
 
   "depends": {
-    "botania" : "*"
+    "botania" : ">=1.16.4-413"
   }
 }

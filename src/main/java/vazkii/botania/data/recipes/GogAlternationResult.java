@@ -10,49 +10,49 @@ package vazkii.botania.data.recipes;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.server.recipe.RecipeJsonProvider;
+import net.minecraft.recipe.RecipeSerializer;
+import net.minecraft.util.Identifier;
 
 import vazkii.botania.common.crafting.recipe.GogAlternationRecipe;
 
 import javax.annotation.Nullable;
 
-public class GogAlternationResult implements IFinishedRecipe {
-	private final IFinishedRecipe gogRecipe;
-	private final IFinishedRecipe baseRecipe;
+public class GogAlternationResult implements RecipeJsonProvider {
+	private final RecipeJsonProvider gogRecipe;
+	private final RecipeJsonProvider baseRecipe;
 
-	public GogAlternationResult(IFinishedRecipe gogRecipe, IFinishedRecipe baseRecipe) {
+	public GogAlternationResult(RecipeJsonProvider gogRecipe, RecipeJsonProvider baseRecipe) {
 		this.gogRecipe = gogRecipe;
 		this.baseRecipe = baseRecipe;
 	}
 
 	@Override
 	public void serialize(JsonObject json) {
-		json.add("gog", gogRecipe.getRecipeJson());
-		json.add("base", baseRecipe.getRecipeJson());
+		json.add("gog", gogRecipe.toJson());
+		json.add("base", baseRecipe.toJson());
 	}
 
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return GogAlternationRecipe.SERIALIZER;
 	}
 
 	// Take these from the base recipe
 	@Override
-	public ResourceLocation getID() {
-		return baseRecipe.getID();
+	public Identifier getRecipeId() {
+		return baseRecipe.getRecipeId();
 	}
 
 	@Nullable
 	@Override
-	public JsonObject getAdvancementJson() {
-		return baseRecipe.getAdvancementJson();
+	public JsonObject toAdvancementJson() {
+		return baseRecipe.toAdvancementJson();
 	}
 
 	@Nullable
 	@Override
-	public ResourceLocation getAdvancementID() {
-		return baseRecipe.getAdvancementID();
+	public Identifier getAdvancementId() {
+		return baseRecipe.getAdvancementId();
 	}
 }
