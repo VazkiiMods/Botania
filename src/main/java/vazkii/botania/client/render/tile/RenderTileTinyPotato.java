@@ -106,7 +106,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 	}
 
 	private static ResourceLocation taterLocation(String name) {
-		return new ResourceLocation(LibMisc.MOD_ID, LibResources.PREFIX_TINY_POTATO + normalizeName(name));
+		return new ResourceLocation(LibMisc.MOD_ID, LibResources.PREFIX_TINY_POTATO + "/" + normalizeName(name));
 	}
 
 	private static String normalizeName(String name) {
