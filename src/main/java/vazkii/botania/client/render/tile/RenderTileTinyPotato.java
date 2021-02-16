@@ -271,7 +271,6 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 			ms.rotate(mc.getRenderManager().getCameraOrientation());
 			float f1 = 0.016666668F * 1.6F;
 			ms.scale(-f1, -f1, f1);
-			ms.translate(0.0F, 0F / f1, 0.0F);
 			int halfWidth = mc.fontRenderer.getStringWidth(potato.name.getString()) / 2;
 
 			float opacity = Minecraft.getInstance().gameSettings.getTextBackgroundOpacity(0.25F);
