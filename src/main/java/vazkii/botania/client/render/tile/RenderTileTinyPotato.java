@@ -41,6 +41,7 @@ import vazkii.botania.client.core.handler.ContributorFancinessHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
+import vazkii.botania.client.core.helper.TinyPotatoShaderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.tile.TileTinyPotato;
@@ -63,32 +64,8 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		super(manager);
 	}
 
-	private static boolean matches(String name, String match) {
-		return name.equals(match) || name.startsWith(match + " ");
-	}
-
-	private static String removeFromFront(String name, String match) {
-		return name.substring(match.length()).trim();
-	}
-
 	public static IBakedModel getModelFromDisplayName(ITextComponent displayName) {
-		return getModel(stripShaderName(displayName.getString().trim().toLowerCase()).getSecond());
-	}
-
-	private static Pair<ShaderHelper.BotaniaShader, String> stripShaderName(String name) {
-		if (matches(name, "gaia")) {
-			return Pair.of(ShaderHelper.BotaniaShader.DOPPLEGANGER, removeFromFront(name, "gaia"));
-		} else if (matches(name, "hot")) {
-			return Pair.of(ShaderHelper.BotaniaShader.HALO, removeFromFront(name, "hot"));
-		} else if (matches(name, "magic")) {
-			return Pair.of(ShaderHelper.BotaniaShader.ENCHANTER_RUNE, removeFromFront(name, "magic"));
-		} else if (matches(name, "gold")) {
-			return Pair.of(ShaderHelper.BotaniaShader.GOLD, removeFromFront(name, "gold"));
-		} else if (matches(name, "snoop")) {
-			return Pair.of(ShaderHelper.BotaniaShader.TERRA_PLATE, removeFromFront(name, "snoop"));
-		} else {
-			return Pair.of(null, name);
-		}
+		return getModel(TinyPotatoShaderHelper.stripShaderName(displayName.getString().trim().toLowerCase()).getSecond());
 	}
 
 	private static IBakedModel getModel(String name) {
@@ -123,7 +100,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 		ms.push();
 
 		String name = potato.name.getString().toLowerCase().trim();
-		Pair<ShaderHelper.BotaniaShader, String> shaderStrippedName = stripShaderName(name);
+		Pair<ShaderHelper.BotaniaShader, String> shaderStrippedName = TinyPotatoShaderHelper.stripShaderName(name);
 		ShaderHelper.BotaniaShader shader = shaderStrippedName.getFirst();
 		name = shaderStrippedName.getSecond();
 		RenderType layer = getRenderLayer(shader);
