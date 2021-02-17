@@ -28,6 +28,8 @@ import vazkii.botania.common.core.helper.PlayerHelper;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import java.util.Locale;
+
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class TileTinyPotato extends TileExposedSimpleInventory implements ITickableTileEntity, INameable {
@@ -65,7 +67,7 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements ITicka
 		if (!world.isRemote) {
 			jump();
 
-			if (name.getString().toLowerCase().trim().endsWith("shia labeouf") && nextDoIt == 0) {
+			if (name.getString().toLowerCase(Locale.ROOT).trim().endsWith("shia labeouf") && nextDoIt == 0) {
 				nextDoIt = 40;
 				world.playSound(null, pos, ModSounds.doit, SoundCategory.BLOCKS, 1F, 1F);
 			}

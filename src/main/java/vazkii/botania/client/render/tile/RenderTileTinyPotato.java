@@ -52,6 +52,7 @@ import vazkii.botania.common.lib.LibMisc;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
@@ -72,7 +73,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 	}
 
 	public static IBakedModel getModelFromDisplayName(ITextComponent displayName) {
-		return getModel(stripShaderName(displayName.getString().trim().toLowerCase()).getSecond());
+		return getModel(stripShaderName(displayName.getString().trim().toLowerCase(Locale.ROOT)).getSecond());
 	}
 
 	private static Pair<ShaderHelper.BotaniaShader, String> stripShaderName(String name) {
@@ -122,7 +123,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 	public void render(@Nonnull TileTinyPotato potato, float partialTicks, MatrixStack ms, @Nonnull IRenderTypeBuffer buffers, int light, int overlay) {
 		ms.push();
 
-		String name = potato.name.getString().toLowerCase().trim();
+		String name = potato.name.getString().toLowerCase(Locale.ROOT).trim();
 		Pair<ShaderHelper.BotaniaShader, String> shaderStrippedName = stripShaderName(name);
 		ShaderHelper.BotaniaShader shader = shaderStrippedName.getFirst();
 		name = shaderStrippedName.getSecond();

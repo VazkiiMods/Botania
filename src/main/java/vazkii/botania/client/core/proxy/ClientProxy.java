@@ -221,7 +221,7 @@ public class ClientProxy implements IProxy {
 		registerPropertyGetter(ModItems.elementiumShears, prefix("reddit"),
 				(stack, world, entity) -> stack.getDisplayName().getString().equalsIgnoreCase("dammit reddit") ? 1F : 0F);
 		registerPropertyGetter(ModItems.manasteelSword, prefix("elucidator"),
-				(stack, world, entity) -> "the elucidator".equals(stack.getDisplayName().getString().toLowerCase().trim()) ? 1 : 0);
+				(stack, world, entity) -> "the elucidator".equals(stack.getDisplayName().getString().toLowerCase(Locale.ROOT).trim()) ? 1 : 0);
 		registerPropertyGetter(ModItems.terraAxe, prefix("active"),
 				(stack, world, entity) -> entity instanceof PlayerEntity && !ItemTerraAxe.shouldBreak((PlayerEntity) entity) ? 0 : 1);
 		registerPropertyGetter(ModItems.terraPick, prefix("tipped"),

@@ -23,5 +23,6 @@
     <rule ref="category/java/design.xml/SimplifiedTernary" />
     <rule ref="category/java/errorprone.xml/UnnecessaryCaseChange" />
     <rule ref="category/java/errorprone.xml/UseCorrectExceptionLogging" />
+    <rule ref="category/java/errorprone.xml/UseLocaleWithCaseConversions" />
 
 </ruleset>
