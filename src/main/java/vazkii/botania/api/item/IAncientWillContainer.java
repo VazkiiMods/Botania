@@ -24,8 +24,8 @@ public interface IAncientWillContainer {
 		KARIL
 	}
 
-	public void addAncientWill(ItemStack stack, AncientWillType will);
+	void addAncientWill(ItemStack stack, AncientWillType will);
 
-	public boolean hasAncientWill(ItemStack stack, AncientWillType will);
+	boolean hasAncientWill(ItemStack stack, AncientWillType will);
 
 }

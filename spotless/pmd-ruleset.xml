@@ -17,7 +17,7 @@
     <rule ref="category/java/bestpractices.xml/UseTryWithResources" />
 
     <rule ref="category/java/codestyle.xml/ControlStatementBraces" />
-    <!--<rule ref="category/java/codestyle.xml/UnnecessaryModifier" /> todo consider this one?-->
+    <rule ref="category/java/codestyle.xml/UnnecessaryModifier" />
     <rule ref="category/java/codestyle.xml/UseDiamondOperator" />
 
     <rule ref="category/java/design.xml/SimplifiedTernary" />

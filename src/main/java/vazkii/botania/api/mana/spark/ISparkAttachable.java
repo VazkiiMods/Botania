@@ -22,29 +22,29 @@ public interface ISparkAttachable extends IManaReceiver {
 	 * Can this block have a Spark attached to it. Note that this will not
 	 * unattach the Spark if it's changed later.
 	 */
-	public boolean canAttachSpark(ItemStack stack);
+	boolean canAttachSpark(ItemStack stack);
 
 	/**
 	 * Called when the Spark is attached.
 	 */
-	public void attachSpark(ISparkEntity entity);
+	void attachSpark(ISparkEntity entity);
 
 	/**
 	 * Returns how much space for mana is available in this block, normally the total - the current.
 	 * Should NEVER return negative values. Make sure to check against that.
 	 */
-	public int getAvailableSpaceForMana();
+	int getAvailableSpaceForMana();
 
 	/**
 	 * Gets the Spark that is attached to this block. A common implementation is
 	 * to check for Spark entities above using world.getEntitiesWithinAABB()
 	 */
-	public ISparkEntity getAttachedSpark();
+	ISparkEntity getAttachedSpark();
 
 	/**
 	 * Return true if this Tile no longer requires mana and all Sparks
 	 * transferring mana to it should cancel their transfer.
 	 */
-	public boolean areIncomingTranfersDone();
+	boolean areIncomingTranfersDone();
 
 }

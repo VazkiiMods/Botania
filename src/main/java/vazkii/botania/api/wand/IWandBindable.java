@@ -23,12 +23,12 @@ public interface IWandBindable extends ITileBound {
 	/**
 	 * Return true if the Wand can select this tile.
 	 */
-	public boolean canSelect(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side);
+	boolean canSelect(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side);
 
 	/**
 	 * Call to bind the TileEntity to where the player clicked. Return true to deselect
 	 * the TileEntity for another bind or false case the TileEntity should stay selected.
 	 */
-	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side);
+	boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side);
 
 }

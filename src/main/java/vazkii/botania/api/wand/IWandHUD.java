@@ -23,6 +23,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public interface IWandHUD {
 
 	@OnlyIn(Dist.CLIENT)
-	public void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos);
+	void renderHUD(MatrixStack ms, Minecraft mc, World world, BlockPos pos);
 
 }

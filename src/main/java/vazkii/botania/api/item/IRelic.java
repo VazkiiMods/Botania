@@ -24,18 +24,18 @@ public interface IRelic {
 	/**
 	 * Binds to the UUID passed in.
 	 */
-	public void bindToUUID(UUID uuid, ItemStack stack);
+	void bindToUUID(UUID uuid, ItemStack stack);
 
 	/**
 	 * Gets the UUID of the person this relic is bound to, or null if a well-formed UUID could not be found
 	 */
 	@Nullable
-	public UUID getSoulbindUUID(ItemStack stack);
+	UUID getSoulbindUUID(ItemStack stack);
 
 	/**
 	 * Checks if the relic contains a well-formed UUID.
 	 */
-	public boolean hasUUID(ItemStack stack);
+	boolean hasUUID(ItemStack stack);
 
 	/**
 	 * Get the advancement granted when this relic binds

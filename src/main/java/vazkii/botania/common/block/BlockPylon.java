@@ -35,7 +35,7 @@ public class BlockPylon extends BlockModWaterloggable implements ITileEntityProv
 		public final float r, g, b;
 		public final Block targetBlock;
 
-		private Variant(float epb, float r, float g, float b, Block tb) {
+		Variant(float epb, float r, float g, float b, Block tb) {
 			enchantPowerBonus = epb;
 			this.r = r;
 			this.g = g;

@@ -23,6 +23,6 @@ public interface IWireframeAABBProvider {
 	/**
 	 * Retrieves wireframes to render, in world coordinates
 	 */
-	public List<AxisAlignedBB> getWireframeAABB(World world, BlockPos pos);
+	List<AxisAlignedBB> getWireframeAABB(World world, BlockPos pos);
 
 }

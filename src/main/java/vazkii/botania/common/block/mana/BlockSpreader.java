@@ -65,7 +65,7 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 		public final float lossPerTick;
 		public final float motionModifier;
 
-		private Variant(int bm, int mc, int c, int hc, int plt, float lpt, float mm) {
+		Variant(int bm, int mc, int c, int hc, int plt, float lpt, float mm) {
 			burstMana = bm;
 			manaCapacity = mc;
 			color = c;

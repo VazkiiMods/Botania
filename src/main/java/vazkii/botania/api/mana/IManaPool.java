@@ -25,18 +25,18 @@ public interface IManaPool extends IManaReceiver {
 	 * Returns false if the mana pool is accepting power from other power items,
 	 * true if it's sending power into them.
 	 */
-	public boolean isOutputtingPower();
+	boolean isOutputtingPower();
 
 	/**
 	 * @return The color of this pool.
 	 */
-	public DyeColor getColor();
+	DyeColor getColor();
 
 	/**
 	 * Sets the color of this pool.
 	 * 
 	 * @param color The color to set.
 	 */
-	public void setColor(DyeColor color);
+	void setColor(DyeColor color);
 
 }

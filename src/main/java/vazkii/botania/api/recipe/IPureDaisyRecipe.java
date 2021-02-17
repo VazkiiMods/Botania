@@ -22,7 +22,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
 public interface IPureDaisyRecipe extends IRecipe<IInventory> {
-	static ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "pure_daisy");
+	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "pure_daisy");
 
 	/**
 	 * This gets called every tick, please be careful with your checks.
