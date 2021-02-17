@@ -95,10 +95,12 @@ public class TinyPotatoShaderHelper {
 
 			@Override
 			public boolean equals(Object o) {
-				if (this == o)
+				if (this == o) {
 					return true;
-				if (o == null || getClass() != o.getClass())
+				}
+				if (o == null || getClass() != o.getClass()) {
 					return false;
+				}
 				TrieResult<?> that = (TrieResult<?>) o;
 				return keyLength == that.keyLength && Objects.equals(value, that.value);
 			}
