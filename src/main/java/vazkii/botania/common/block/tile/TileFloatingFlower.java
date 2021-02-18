@@ -63,6 +63,6 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvid
 
 	@Override
 	public Object getRenderAttachmentData() {
-		return floatingData;
+		return floatingData.getIslandType();
 	}
 }

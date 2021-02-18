@@ -307,7 +307,7 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 	@Override
 	public Object getRenderAttachmentData() {
 		if (isFloating()) {
-			return floatingData;
+			return floatingData.getIslandType();
 		}
 		return null;
 	}

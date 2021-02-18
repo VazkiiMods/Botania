@@ -82,15 +82,10 @@ public class DataGenerators {
 		generator.install(new PetalProvider(generator));
 		generator.install(new RuneProvider(generator));
 		generator.install(new TerraPlateProvider(generator));
+		// generator.install(new BlockstateProvider(generator, evt.getExistingFileHelper()));
+		generator.install(new FloatingFlowerModelProvider(generator));
 		generator.install(new ItemModelProvider(generator));
-		/* todo 1.16-fabric
-		if (evt.includeClient()) {
-			generator.install(new BlockstateProvider(generator, evt.getExistingFileHelper()));
-			generator.install(new FloatingFlowerModelProvider(generator, evt.getExistingFileHelper()));
-			generator.install(new ItemModelProvider(generator, evt.getExistingFileHelper()));
-			generator.install(new TinyPotatoModelProvider(generator, evt.getExistingFileHelper()));
-		}
-		*/
+		// generator.install(new TinyPotatoModelProvider(generator, evt.getExistingFileHelper()));
 		generator.run();
 	}
 
