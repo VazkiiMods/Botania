@@ -13,7 +13,6 @@ import com.google.gson.JsonObject;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.server.RecipesProvider;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.*;
 import net.minecraft.recipe.Ingredient;
@@ -39,7 +38,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ManaInfusionProvider extends RecipesProvider implements BotaniaRecipeProvider {
+public class ManaInfusionProvider extends BotaniaRecipeProvider {
 	public ManaInfusionProvider(DataGenerator gen) {
 		super(gen);
 	}

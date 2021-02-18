@@ -13,7 +13,6 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.server.RecipesProvider;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -33,7 +32,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class RuneProvider extends RecipesProvider implements BotaniaRecipeProvider {
+public class RuneProvider extends BotaniaRecipeProvider {
 	public RuneProvider(DataGenerator gen) {
 		super(gen);
 	}

@@ -12,7 +12,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.server.RecipesProvider;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
@@ -30,7 +29,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class TerraPlateProvider extends RecipesProvider implements BotaniaRecipeProvider {
+public class TerraPlateProvider extends BotaniaRecipeProvider {
 	public TerraPlateProvider(DataGenerator gen) {
 		super(gen);
 	}

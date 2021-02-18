@@ -14,7 +14,6 @@ import com.google.gson.JsonObject;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.server.RecipesProvider;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.tag.BlockTags;
@@ -31,7 +30,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class PureDaisyProvider extends RecipesProvider implements BotaniaRecipeProvider {
+public class PureDaisyProvider extends BotaniaRecipeProvider {
 	public PureDaisyProvider(DataGenerator generator) {
 		super(generator);
 	}

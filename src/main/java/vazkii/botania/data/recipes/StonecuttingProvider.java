@@ -12,7 +12,6 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.server.RecipesProvider;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.data.server.recipe.SingleItemRecipeJsonFactory;
 import net.minecraft.item.Item;
@@ -38,7 +37,7 @@ import java.util.stream.IntStream;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class StonecuttingProvider extends RecipesProvider implements BotaniaRecipeProvider {
+public class StonecuttingProvider extends BotaniaRecipeProvider {
 	public StonecuttingProvider(DataGenerator generator) {
 		super(generator);
 	}

@@ -46,7 +46,6 @@
     "MixinPlantBlock",
     "MixinPlayerEntity",
     "MixinPollinateGoal",
-    "MixinRecipesProvider",
     "MixinServerPlayerEntity",
     "MixinServerPlayerInteractionManager",
     "MixinServerPlayNetworkHandler",

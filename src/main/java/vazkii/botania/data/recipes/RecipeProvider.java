@@ -57,7 +57,7 @@ import java.util.stream.Stream;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class RecipeProvider extends net.minecraft.data.server.RecipesProvider implements BotaniaRecipeProvider {
+public class RecipeProvider extends BotaniaRecipeProvider {
 	public RecipeProvider(DataGenerator generator) {
 		super(generator);
 	}

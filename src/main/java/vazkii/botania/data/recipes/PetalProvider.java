@@ -13,7 +13,6 @@ import com.google.gson.JsonObject;
 
 import net.fabricmc.fabric.impl.tag.extension.TagDelegate;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.server.RecipesProvider;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemStack;
@@ -37,7 +36,7 @@ import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class PetalProvider extends RecipesProvider implements BotaniaRecipeProvider {
+public class PetalProvider extends BotaniaRecipeProvider {
 	public PetalProvider(DataGenerator gen) {
 		super(gen);
 	}

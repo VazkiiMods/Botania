@@ -10,7 +10,6 @@ package vazkii.botania.data.recipes;
 
 import net.minecraft.advancement.criterion.InventoryChangedCriterion;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.server.RecipesProvider;
 import net.minecraft.data.server.recipe.CookingRecipeJsonFactory;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.ItemConvertible;
@@ -21,7 +20,7 @@ import vazkii.botania.mixin.AccessorRecipesProvider;
 
 import java.util.function.Consumer;
 
-public class SmeltingProvider extends RecipesProvider implements BotaniaRecipeProvider {
+public class SmeltingProvider extends BotaniaRecipeProvider {
 	public SmeltingProvider(DataGenerator generatorIn) {
 		super(generatorIn);
 	}
