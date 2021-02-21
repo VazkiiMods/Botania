@@ -5,7 +5,7 @@ issueTrackerURL="https://github.com/Vazkii/Botania/issues" #optional
 displayURL="https://botaniamod.net" #optional
 logoFile="logo.png" #optional
 credits="Azanor, Flaxbeard, Futureazoo, Rorax, Lorc, Adubbz, WTFG33ks, Auric245524, MegaManki, Kain Vinosec, Kihira, mDiyo, Mikeemoo, ChickenBones, PowerCrystals, cpw" #optional
-authors="Vazkii, wiiv, williewillus, dylan4ever" #optional
+authors="Vazkii, wiiv, williewillus, dylan4ever, Hubry" #optional
 
 [[mods]]
 modId="botania"
