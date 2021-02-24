@@ -30,10 +30,10 @@ import vazkii.botania.common.crafting.RecipeManaInfusion;
 public class ManaInfusionRecipeManager implements IRecipeManager {
 
 	@ZenCodeType.Method
-	public void addRecipe(String name, IItemStack output, IIngredient input, int mana, @ZenCodeType.Optional BlockState catalystState) {
+	public void addRecipe(String name, IItemStack output, IIngredient input, int mana, @ZenCodeType.Optional BlockState catalystState, @ZenCodeType.OptionalString String group) {
 		name = fixRecipeName(name);
 		ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
-		CraftTweakerAPI.apply(new ActionAddRecipe(this, new RecipeManaInfusion(resourceLocation, output.getInternal(), input.asVanillaIngredient(), mana, "", catalystState), ""));
+		CraftTweakerAPI.apply(new ActionAddRecipe(this, new RecipeManaInfusion(resourceLocation, output.getInternal(), input.asVanillaIngredient(), mana, group, catalystState), ""));
 	}
 
 	@Override
