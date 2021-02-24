@@ -3,6 +3,7 @@
   "category": "botania:mana",
   "icon": "botania:mana_fluxfield",
   "advancement": "botania:main/mana_pool_pickup",
+  "flag": "botania:fluxfield",
   "pages": [
     {
       "type": "text",

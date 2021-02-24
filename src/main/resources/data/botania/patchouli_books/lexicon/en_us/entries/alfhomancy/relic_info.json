@@ -4,6 +4,7 @@
   "icon": "botania:dice",
   "entry_color": "aa00aa",
   "advancement": "botania:challenge/gaia_guardian_hardmode",
+  "flag": "botania:relics",
   "pages": [
     {
       "type": "text",

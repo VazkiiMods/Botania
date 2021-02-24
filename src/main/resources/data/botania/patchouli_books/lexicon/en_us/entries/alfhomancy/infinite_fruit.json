@@ -4,6 +4,7 @@
   "icon": "botania:infinite_fruit",
   "entry_color": "aa00aa",
   "advancement": "botania:challenge/infinite_fruit",
+  "flag": "botania:relics",
   "pages": [
     {
       "type": "text",

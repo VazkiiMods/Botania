@@ -14,6 +14,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
 import vazkii.botania.common.Botania;
+import vazkii.patchouli.api.PatchouliAPI;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -235,6 +236,12 @@ public final class ConfigHandler {
 	public static void onConfigLoad() {
 		blacklistedRannuncarpusItems = COMMON.rannuncarpusItemBlacklist.get().stream().map(ResourceLocation::new).collect(Collectors.toSet());
 		blacklistedRannuncarpusModIds = new HashSet<>(COMMON.rannuncarpusModBlacklist.get());
+
+		PatchouliAPI.get().setConfigFlag("botania:relics", COMMON.relicsEnabled.get());
+		PatchouliAPI.get().setConfigFlag("botania:enchanter", COMMON.enchanterEnabled.get());
+		PatchouliAPI.get().setConfigFlag("botania:fluxfield", COMMON.fluxfieldEnabled.get());
+		PatchouliAPI.get().setConfigFlag("botania:ender_hand_pickpocket", COMMON.enderPickpocketEnabled.get());
+
 		Botania.configLoaded = true;
 	}
 }

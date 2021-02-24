@@ -6,7 +6,13 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.enderHand0"
+      "text": "botania.page.enderHand0",
+      "flag": "botania:ender_hand_pickpocket"
+    },
+    {
+      "type": "text",
+      "text": "botania.page.enderHand0a",
+      "flag": "!botania:ender_hand_pickpocket"
     },
     {
       "type": "text",
