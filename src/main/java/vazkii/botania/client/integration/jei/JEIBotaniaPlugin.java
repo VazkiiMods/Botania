@@ -103,7 +103,8 @@ public class JEIBotaniaPlugin implements IModPlugin {
 				new ElvenTradeRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
 				new BreweryRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
 				new OrechidRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
-				new OrechidIgnemRecipeCategory(registry.getJeiHelpers().getGuiHelper())
+				new OrechidIgnemRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
+				new TerraPlateRecipeCategory(registry.getJeiHelpers().getGuiHelper())
 		);
 	}
 
@@ -128,6 +129,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.ELVEN_TRADE_TYPE).values(), ElvenTradeRecipeCategory.UID);
 		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.RUNE_TYPE).values(), RunicAltarRecipeCategory.UID);
 		registry.addRecipes(TilePool.manaInfusionRecipes(Minecraft.getInstance().world), ManaPoolRecipeCategory.UID);
+		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.TERRA_PLATE_TYPE).values(), TerraPlateRecipeCategory.UID);
 
 		registry.addRecipes(
 				BotaniaAPI.instance().getOreWeights().entrySet().stream()
@@ -181,6 +183,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.pureDaisyFloating), PureDaisyRecipeCategory.UID);
 
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.runeAltar), RunicAltarRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.terraPlate), TerraPlateRecipeCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModItems.autocraftingHalo), VanillaRecipeCategoryUid.CRAFTING);
 		registry.addRecipeCatalyst(new ItemStack(ModItems.craftingHalo), VanillaRecipeCategoryUid.CRAFTING);
 	}

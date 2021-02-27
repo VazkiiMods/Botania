@@ -62,8 +62,6 @@ public class TerraPlateComponent implements ICustomComponent {
 
 		ms.translate(0F, 0F, 5F);
 		context.renderItemStack(ms, x + 13, y, mouseX, mouseY, plateBlock);
-		ms.translate(0F, 0F, -10.0f);
-
 		ms.pop();
 	}
 
