@@ -83,7 +83,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 	}
 
 	@Override
-	public void setIngredients(IPetalRecipe recipe, IIngredients iIngredients) {
+	public void setIngredients(IPetalRecipe recipe, @Nonnull IIngredients iIngredients) {
 		List<List<ItemStack>> list = new ArrayList<>();
 		for (Ingredient ingr : recipe.getIngredients()) {
 			list.add(Arrays.asList(ingr.getMatchingStacks()));
@@ -93,7 +93,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 	}
 
 	@Override
-	public void draw(IPetalRecipe recipe, MatrixStack ms, double mouseX, double mouseY) {
+	public void draw(@Nonnull IPetalRecipe recipe, @Nonnull MatrixStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 0, 4);
@@ -103,12 +103,12 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 
 	@Override
 	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull IPetalRecipe recipe, @Nonnull IIngredients ingredients) {
-		recipeLayout.getItemStacks().init(0, true, 47, 44);
+		recipeLayout.getItemStacks().init(0, true, 48, 45);
 		recipeLayout.getItemStacks().set(0, new ItemStack(ModBlocks.defaultAltar));
 
 		int index = 1;
 		double angleBetweenEach = 360.0 / ingredients.getInputs(VanillaTypes.ITEM).size();
-		Vector2f point = new Vector2f(47, 12), center = new Vector2f(47, 44);
+		Vector2f point = new Vector2f(48, 13), center = new Vector2f(48, 45);
 
 		for (List<ItemStack> o : ingredients.getInputs(VanillaTypes.ITEM)) {
 			recipeLayout.getItemStacks().init(index, true, (int) point.x, (int) point.y);
@@ -117,7 +117,7 @@ public class PetalApothecaryRecipeCategory implements IRecipeCategory<IPetalReci
 			point = rotatePointAbout(point, center, angleBetweenEach);
 		}
 
-		recipeLayout.getItemStacks().init(index, false, 86, 11);
+		recipeLayout.getItemStacks().init(index, false, 86, 10);
 		recipeLayout.getItemStacks().set(index, ingredients.getOutputs(VanillaTypes.ITEM).get(0));
 	}
 
