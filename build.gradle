@@ -2,10 +2,14 @@ buildscript {
     repositories {
         mavenCentral()
         maven {
-            name "forge"
+            name "Forge"
             url "https://files.minecraftforge.net/maven"
         }
-        maven { url = 'https://dist.creeper.host/Sponge/maven' }
+        maven {
+            name "Sponge"
+            url "https://repo.spongepowered.org/repository/maven-public/"
+            content { includeGroup "org.spongepowered" }
+        }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.0.+'
