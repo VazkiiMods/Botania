@@ -23,7 +23,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.core.handler.EquipmentHandler;
@@ -35,7 +35,7 @@ public class ItemSuperLavaPendant extends ItemBauble {
 		MinecraftForge.EVENT_BUS.addListener(this::onDamage);
 	}
 
-	private void onDamage(LivingHurtEvent evt) {
+	private void onDamage(LivingAttackEvent evt) {
 		if (evt.getSource().isFireDamage()
 				&& !EquipmentHandler.findOrEmpty(this, evt.getEntityLiving()).isEmpty()) {
 			evt.setCanceled(true);
