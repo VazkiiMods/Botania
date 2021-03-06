@@ -24,6 +24,7 @@
     "MixinAbstractMinecartEntity",
     "MixinBeeEntity",
     "MixinEntitySpawnPlacementRegistry",
+    "MixinFarmlandBlock",
     "MixinLootTable",
     "MixinPlayerEntity",
     "MixinPollinateGoal",
