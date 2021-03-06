@@ -132,7 +132,7 @@ public class PetalProvider extends RecipeProvider {
 		consumer.accept(make(ModSubtiles.bubbell, cyan, cyan, lightBlue, lightBlue, blue, blue, runeWater, runeSummer, pixieDust));
 		consumer.accept(make(ModSubtiles.solegnolia, brown, brown, red, blue, redstoneRoot));
 		consumer.accept(make(ModSubtiles.bergamute, orange, green, green, redstoneRoot));
-		consumer.accept(make(ModSubtiles.labelia, purple, purple, blue, white, black, runeAutumn, redstoneRoot, pixieDust));
+//		consumer.accept(make(ModSubtiles.labelia, purple, purple, blue, white, black, runeAutumn, redstoneRoot, pixieDust)); TODO uncomment when labelia ready
 
 		consumer.accept(make(ModBlocks.motifDaybloom, yellow, yellow, orange, lightBlue));
 		consumer.accept(make(ModBlocks.motifNightshade, black, black, purple, gray));

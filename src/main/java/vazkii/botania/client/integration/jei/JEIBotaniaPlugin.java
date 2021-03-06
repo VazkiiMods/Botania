@@ -11,6 +11,7 @@ package vazkii.botania.client.integration.jei;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeManager;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
@@ -65,6 +66,7 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
 import javax.annotation.Nonnull;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -208,6 +210,9 @@ public class JEIBotaniaPlugin implements IModPlugin {
 				.ifPresent(r -> recipeRegistry.hideRecipe(r, PetalApothecaryRecipeCategory.UID));
 		recipeManager.getRecipe(prefix("petal_apothecary/nightshade_motif"))
 				.ifPresent(r -> recipeRegistry.hideRecipe(r, PetalApothecaryRecipeCategory.UID));
+
+		jeiRuntime.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM, //TODO unhide labelia when ready
+				Arrays.asList(new ItemStack(ModSubtiles.labelia), new ItemStack(ModSubtiles.labeliaFloating)));
 
 		CorporeaInputHandler.jeiPanelSupplier = () -> {
 			Object o = jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse();

@@ -2012,7 +2012,7 @@ public class RecipeProvider extends net.minecraft.data.RecipeProvider {
 				ModSubtiles.clayconiaChibi, ModSubtiles.loonium, ModSubtiles.daffomill, ModSubtiles.vinculotus,
 				ModSubtiles.spectranthemum, ModSubtiles.medumone, ModSubtiles.marimorphosis, ModSubtiles.marimorphosisChibi,
 				ModSubtiles.bubbell, ModSubtiles.bubbellChibi, ModSubtiles.solegnolia, ModSubtiles.solegnoliaChibi,
-				ModSubtiles.orechidIgnem }) {
+				ModSubtiles.orechidIgnem }) { //TODO add labelia here
 			createFloatingFlowerRecipe(consumer, block);
 		}
 	}
