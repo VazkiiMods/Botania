@@ -79,22 +79,29 @@ public class MixinWorldRenderer {
 		}
 	}
 
+	/**
+	 * Tilt the ground visually when it has been tilted by a hoe.
+	 */
 	@Inject(
 		method = "renderBlockLayer(Lnet/minecraft/client/renderer/RenderType;Lcom/mojang/blaze3d/matrix/MatrixStack;DDD)V",
 		at = @At("HEAD")
 	)
-	private void tiltWorld(RenderType blockLayerIn, MatrixStack matrixStackIn, double xIn, double yIn, double zIn, CallbackInfo ci) {
+	private void tiltGround(RenderType blockLayerIn, MatrixStack matrixStackIn, double xIn, double yIn, double zIn, CallbackInfo ci) {
 		if (ItemManasteelHoe.shouldTilt()) {
 			matrixStackIn.push();
 			matrixStackIn.rotate(Vector3f.XP.rotationDegrees(5));
 		}
 	}
 
+	/**
+	 * Tilt the ground back after it has been tilted by
+	 * {@link #tiltGround(RenderType, MatrixStack, double, double, double, CallbackInfo)}.
+	 */
 	@Inject(
 		method = "renderBlockLayer(Lnet/minecraft/client/renderer/RenderType;Lcom/mojang/blaze3d/matrix/MatrixStack;DDD)V",
 		at = @At("TAIL")
 	)
-	private void untiltWorld(RenderType blockLayerIn, MatrixStack matrixStackIn, double xIn, double yIn, double zIn, CallbackInfo ci) {
+	private void untiltGround(RenderType blockLayerIn, MatrixStack matrixStackIn, double xIn, double yIn, double zIn, CallbackInfo ci) {
 		if (ItemManasteelHoe.shouldTilt()) {
 			matrixStackIn.pop();
 		}
