@@ -100,6 +100,7 @@ public class ClientProxy implements IProxy {
 
 	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;
+	public static boolean hoeTilts = false;
 
 	public static KeyBinding CORPOREA_REQUEST;
 
@@ -148,6 +149,9 @@ public class ClientProxy implements IProxy {
 			}
 			if (now.getMonth() == Month.OCTOBER) {
 				dootDoot = true;
+			}
+			if (now.getMonth() == Month.APRIL && now.getDayOfMonth() == 1) {
+				hoeTilts = true;
 			}
 		}
 

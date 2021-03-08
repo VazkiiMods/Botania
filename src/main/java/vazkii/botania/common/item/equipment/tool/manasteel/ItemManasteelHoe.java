@@ -14,17 +14,24 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.HoeItem;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUseContext;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
+import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
+
+import javax.annotation.Nonnull;
 
 import java.util.function.Consumer;
 
 public class ItemManasteelHoe extends HoeItem implements IManaUsingItem {
 	private static final int MANA_PER_DAMAGE = 60;
+	private static long tiltUntil = -1;
 
 	public ItemManasteelHoe(Properties props) {
 		this(BotaniaAPI.instance().getManasteelItemTier(), props, -1f);
@@ -32,6 +39,20 @@ public class ItemManasteelHoe extends HoeItem implements IManaUsingItem {
 
 	public ItemManasteelHoe(IItemTier mat, Properties properties, float attackSpeed) {
 		super(mat, (int) -mat.getAttackDamage(), attackSpeed, properties);
+	}
+
+	@Nonnull
+	@Override
+	public ActionResultType onItemUse(@Nonnull ItemUseContext context) {
+		ActionResultType result = super.onItemUse(context);
+		if (context.getWorld().isRemote && ClientProxy.hoeTilts && result.isSuccessOrConsume()) {
+			tiltUntil = ClientTickHandler.ticksInGame + 10;
+		}
+		return result;
+	}
+
+	public static boolean shouldTilt() {
+		return ClientTickHandler.ticksInGame <= tiltUntil;
 	}
 
 	@Override

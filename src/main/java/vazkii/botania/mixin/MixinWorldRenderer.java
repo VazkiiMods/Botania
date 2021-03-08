@@ -11,9 +11,11 @@ package vazkii.botania.mixin;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 
 import org.spongepowered.asm.mixin.Final;
@@ -26,6 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import vazkii.botania.client.core.SkyblockWorldInfo;
 import vazkii.botania.client.render.world.SkyblockSkyRenderer;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelHoe;
 
 import javax.annotation.Nullable;
 
@@ -73,6 +76,27 @@ public class MixinWorldRenderer {
 	private void renderExtras(MatrixStack ms, float partialTicks, CallbackInfo ci) {
 		if (isGogSky()) {
 			SkyblockSkyRenderer.renderExtra(ms, Minecraft.getInstance().world, partialTicks, 0);
+		}
+	}
+
+	@Inject(
+		method = "renderBlockLayer(Lnet/minecraft/client/renderer/RenderType;Lcom/mojang/blaze3d/matrix/MatrixStack;DDD)V",
+		at = @At("HEAD")
+	)
+	private void tiltWorld(RenderType blockLayerIn, MatrixStack matrixStackIn, double xIn, double yIn, double zIn, CallbackInfo ci) {
+		if (ItemManasteelHoe.shouldTilt()) {
+			matrixStackIn.push();
+			matrixStackIn.rotate(Vector3f.XP.rotationDegrees(5));
+		}
+	}
+
+	@Inject(
+		method = "renderBlockLayer(Lnet/minecraft/client/renderer/RenderType;Lcom/mojang/blaze3d/matrix/MatrixStack;DDD)V",
+		at = @At("TAIL")
+	)
+	private void untiltWorld(RenderType blockLayerIn, MatrixStack matrixStackIn, double xIn, double yIn, double zIn, CallbackInfo ci) {
+		if (ItemManasteelHoe.shouldTilt()) {
+			matrixStackIn.pop();
 		}
 	}
 
