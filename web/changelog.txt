@@ -1,3 +1,5 @@
+1.16.4-414
+* Fix tiny potatoes named anything other than a-z, 0-9, _, or - crashing on render
 1.16.4-413
 * Add: Recipe to split composite lenses apart, losing the slime ball (Eutro)
 * Add: Recipe to upgrade a Mana Pool to a Fabulous Pool (BlueAgent)
