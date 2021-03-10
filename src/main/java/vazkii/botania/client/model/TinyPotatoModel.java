@@ -29,7 +29,10 @@ public class TinyPotatoModel extends DelegatedModel {
 		return new ItemOverrideList() {
 			@Override
 			public IBakedModel getOverrideModel(@Nonnull IBakedModel model, @Nonnull ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity livingEntity) {
-				return RenderTileTinyPotato.getModelFromDisplayName(stack.getDisplayName());
+				if (stack.hasDisplayName()) {
+					return RenderTileTinyPotato.getModelFromDisplayName(stack.getDisplayName());
+				}
+				return model;
 			}
 		};
 	}
