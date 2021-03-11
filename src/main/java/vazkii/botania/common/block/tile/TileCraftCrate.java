@@ -31,15 +31,17 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
+import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Optional;
+import java.util.Queue;
 
 public class TileCraftCrate extends TileOpenCrate {
 	private static final String TAG_CRAFTING_RESULT = "craft_result";
 	private int signal = 0;
 	private ItemStack craftResult = ItemStack.EMPTY;
 
-	private ResourceLocation currentRecipe;
+	private final Queue<ResourceLocation> lastRecipes = new ArrayDeque<>();
 	private boolean dirty;
 
 	public TileCraftCrate() {
@@ -108,7 +110,7 @@ public class TileCraftCrate extends TileOpenCrate {
 			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 		}
 
-		if (dirty && world != null && !world.isRemote) {
+		if (dirty) {
 			dirty = false;
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
@@ -159,7 +161,7 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	private Optional<ICraftingRecipe> getMatchingRecipe(CraftingInventory craft) {
-		if (currentRecipe != null) {
+		for (ResourceLocation currentRecipe : lastRecipes) {
 			Optional<? extends IRecipe<?>> recipe = world.getRecipeManager().getRecipe(currentRecipe)
 					.filter(r -> r instanceof ICraftingRecipe)
 					.filter(r -> ((ICraftingRecipe) r).matches(craft, world));
@@ -169,7 +171,10 @@ public class TileCraftCrate extends TileOpenCrate {
 		}
 		Optional<ICraftingRecipe> recipe = world.getRecipeManager().getRecipe(IRecipeType.CRAFTING, craft, world);
 		if (recipe.isPresent()) {
-			currentRecipe = recipe.get().getId();
+			if (lastRecipes.size() >= 8) {
+				lastRecipes.remove();
+			}
+			lastRecipes.add(recipe.get().getId());
 			return recipe;
 		}
 		return Optional.empty();
