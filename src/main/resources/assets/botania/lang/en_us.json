@@ -3090,7 +3090,7 @@
 
   "botania.entry.swapRing": "Ring of Correction",
   "botania.tagline.swapRing": "Make sure you have the right tool for the job",
-  "botania.page.swapRing0": "Switching tools can be a pain, especially when you find yourself shoveling away at dirt with... an axe? The $(item)Ring of Correction$(0) is a great way to, well, correct those problems.$(p)With this ring equipped, the tool in hand will always be the right one for the block being broken, be it pick, axe or shovel. As long as you have the relevant $(thing)Mana$(0)-using tools on hand.",
+  "botania.page.swapRing0": "Switching tools can be a pain, especially when you find yourself shoveling away at dirt with... an axe? The $(item)Ring of Correction$(0) is a great way to, well, correct those problems.$(p)With this ring equipped, the tool in hand will always be the right one for the block being broken, be it pick, axe, shovel, hoe, or shears. As long as you have the relevant $(thing)Mana$(0)-using tools on hand.",
   "botania.page.swapRing1": "Use the right tools",
 
   "botania.entry.speedUpBelt": "Planestrider's Sash",
