@@ -36,6 +36,7 @@ import vazkii.botania.api.mana.*;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.BlockPistonRelay;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.network.PacketSpawnEntity;
 
@@ -492,7 +493,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 	}
 
 	private void onReceiverImpact(IManaReceiver tile, BlockPos pos) {
-		if (hasWarped()) {
+		if (hasWarped() && this.hasAlreadyCollidedAt(pos)) {
 			return;
 		}
 
