@@ -22,6 +22,8 @@ import net.minecraft.world.World;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaBlock;
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.BlockPistonRelay;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
@@ -45,7 +47,8 @@ public class LensMine extends Lens {
 		ItemStack composite = ((ItemLens) stack.getItem()).getCompositeLens(stack);
 		boolean warp = !composite.isEmpty() && composite.getItem() == ModItems.lensWarp;
 
-		if (warp && (block == ModBlocks.pistonRelay || block == Blocks.PISTON || block == Blocks.MOVING_PISTON || block == Blocks.PISTON_HEAD)) {
+		if (warp && (block == ModBlocks.pistonRelay || block == Blocks.PISTON || block == Blocks.MOVING_PISTON
+				|| block == Blocks.PISTON_HEAD)) {
 			return false;
 		}
 
@@ -58,18 +61,17 @@ public class LensMine extends Lens {
 		int mana = burst.getMana();
 
 		BlockPos source = burst.getBurstSourceBlockPos();
-		if (!source.equals(collidePos)
-				&& !(tile instanceof IManaBlock)
-				&& neededHarvestLevel <= harvestLevel
-				&& hardness != -1 && hardness < 50F
-				&& (burst.isFake() || mana >= 24)) {
+		if (!source.equals(collidePos) && !(tile instanceof IManaBlock) && neededHarvestLevel <= harvestLevel
+				&& hardness != -1 && hardness < 50F && (burst.isFake() || mana >= 24)) {
 			if (!burst.hasAlreadyCollidedAt(collidePos)) {
 				if (!burst.isFake()) {
 					List<ItemStack> items = Block.getDroppedStacks(state, (ServerWorld) world, collidePos, tile);
 
-					world.removeBlock(collidePos, false);
-					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
-						world.syncWorldEvent(2001, collidePos, Block.getRawIdFromState(state));
+					if (!(world.getBlockState(collidePos).getBlock() instanceof BlockPistonRelay)) {
+						world.removeBlock(collidePos, false);
+						if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
+							world.syncWorldEvent(2001, collidePos, Block.getRawIdFromState(state));
+						}
 					}
 
 					boolean offBounds = source.getY() < 0;
