@@ -107,7 +107,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 		if (!world.isRemote && pos.getY() < 160 && !world.getDimensionType().isUltrawarm()) {
 			world.playSound(null, pos, ModSounds.laputaStart, SoundCategory.BLOCKS, 1.0F + world.rand.nextFloat(), world.rand.nextFloat() * 0.7F + 1.3F);
 			ItemStack stack = ctx.getItem();
-			spawnBurstFirst(world, pos, stack);
+			spawnFirstBurst(world, pos, stack);
 			if (ctx.getPlayer() != null) {
 				UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayerEntity) ctx.getPlayer(), stack, (ServerWorld) world, pos.getX(), pos.getY(), pos.getZ());
 			}
@@ -121,18 +121,18 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 		return BASE_RANGE + getShardLevel(shard);
 	}
 
-	public void spawnBurstFirst(World world, BlockPos pos, ItemStack shard) {
+	protected void spawnFirstBurst(World world, BlockPos pos, ItemStack shard) {
 		int range = getRange(shard);
 		boolean pointy = world.rand.nextDouble() < 0.25;
 		double heightscale = (world.rand.nextDouble() + 0.5) * ((double) BASE_RANGE / (double) range);
-		spawnBurst(world, pos, shard, pointy, heightscale);
+		spawnNextBurst(world, pos, shard, pointy, heightscale);
 	}
 
-	public void spawnBurst(World world, BlockPos pos, ItemStack lens) {
+	protected void spawnNextBurst(World world, BlockPos pos, ItemStack lens) {
 		boolean pointy = ItemNBTHelper.getBoolean(lens, TAG_POINTY, false);
 		double heightscale = ItemNBTHelper.getDouble(lens, TAG_HEIGHTSCALE, 1);
 
-		spawnBurst(world, pos, lens, pointy, heightscale);
+		spawnNextBurst(world, pos, lens, pointy, heightscale);
 	}
 
 	private static boolean canMove(BlockState state, World world, BlockPos pos) {
@@ -147,7 +147,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 				&& state.getBlockHardness(world, pos) != -1;
 	}
 
-	public void spawnBurst(World world, BlockPos pos, ItemStack shard, boolean pointy, double heightscale) {
+	private void spawnNextBurst(World world, BlockPos pos, ItemStack shard, boolean pointy, double heightscale) {
 		int range = getRange(shard);
 
 		int i = ItemNBTHelper.getInt(shard, TAG_ITERATION_I, 0);
@@ -161,54 +161,63 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 			k = 0;
 		}
 
-		if (!world.isRemote) {
-			for (; i < range * 2 + 1; i++) {
-				for (; j > -BASE_RANGE * 2; j--) {
-					for (; k < range * 2 + 1; k++) {
-						BlockPos pos_ = pos.add(-range + i, -BASE_RANGE + j, -range + k);
+		for (; i < range * 2 + 1; i++) {
+			for (; j > -BASE_RANGE * 2; j--) {
+				for (; k < range * 2 + 1; k++) {
+					BlockPos pos_ = pos.add(-range + i, -BASE_RANGE + j, -range + k);
 
-						if (inRange(pos_, pos, range, heightscale, pointy)) {
-							BlockState state = world.getBlockState(pos_);
-							Block block = state.getBlock();
-							if (canMove(state, world, pos_)) {
-								TileEntity tile = world.getTileEntity(pos_);
-
-								if (tile != null) {
-									// Reset the TE so e.g. chests don't spawn their drops
-									TileEntity newTile = block.createTileEntity(state, world);
-									world.setTileEntity(pos_, newTile);
-								}
-								world.playEvent(2001, pos_, Block.getStateId(state));
-								world.setBlockState(pos_, Blocks.AIR.getDefaultState());
-
-								ItemStack copyLens = new ItemStack(this);
-								copyLens.getOrCreateTag().putInt(TAG_LEVEL, getShardLevel(shard));
-								copyLens.getTag().put(TAG_STATE, NBTUtil.writeBlockState(state));
-								CompoundNBT cmp = new CompoundNBT();
-								if (tile != null) {
-									cmp = tile.write(cmp);
-								}
-								ItemNBTHelper.setCompound(copyLens, TAG_TILE, cmp);
-								ItemNBTHelper.setInt(copyLens, TAG_X, pos.getX());
-								ItemNBTHelper.setInt(copyLens, TAG_Y, pos.getY());
-								ItemNBTHelper.setInt(copyLens, TAG_Y_START, pos_.getY());
-								ItemNBTHelper.setInt(copyLens, TAG_Z, pos.getZ());
-								ItemNBTHelper.setBoolean(copyLens, TAG_POINTY, pointy);
-								ItemNBTHelper.setDouble(copyLens, TAG_HEIGHTSCALE, heightscale);
-								ItemNBTHelper.setInt(copyLens, TAG_ITERATION_I, i);
-								ItemNBTHelper.setInt(copyLens, TAG_ITERATION_J, j);
-								ItemNBTHelper.setInt(copyLens, TAG_ITERATION_K, k);
-
-								EntityManaBurst burst = getBurst(world, pos_, copyLens);
-								world.addEntity(burst);
-								return;
-							}
-						}
+					if (!inRange(pos_, pos, range, heightscale, pointy)) {
+						continue;
 					}
-					k = 0;
+
+					BlockState state = world.getBlockState(pos_);
+					Block block = state.getBlock();
+
+					if (!canMove(state, world, pos_)) {
+						continue;
+					}
+
+					TileEntity tile = world.getTileEntity(pos_);
+
+					CompoundNBT cmp = new CompoundNBT();
+					if (tile != null) {
+						cmp = tile.write(cmp);
+						// Reset the TE so e.g. chests don't spawn their drops
+						world.setTileEntity(pos_, block.createTileEntity(state, world));
+					}
+
+					// This can fail from e.g. permissions plugins or event cancellations
+					if (!world.setBlockState(pos_, Blocks.AIR.getDefaultState())) {
+						// put the original TE back
+						if (tile != null) {
+							world.setTileEntity(pos_, tile);
+						}
+						continue;
+					}
+
+					world.playEvent(2001, pos_, Block.getStateId(state));
+
+					ItemStack copyLens = new ItemStack(this);
+					copyLens.getOrCreateTag().putInt(TAG_LEVEL, getShardLevel(shard));
+					copyLens.getTag().put(TAG_STATE, NBTUtil.writeBlockState(state));
+					ItemNBTHelper.setCompound(copyLens, TAG_TILE, cmp);
+					ItemNBTHelper.setInt(copyLens, TAG_X, pos.getX());
+					ItemNBTHelper.setInt(copyLens, TAG_Y, pos.getY());
+					ItemNBTHelper.setInt(copyLens, TAG_Y_START, pos_.getY());
+					ItemNBTHelper.setInt(copyLens, TAG_Z, pos.getZ());
+					ItemNBTHelper.setBoolean(copyLens, TAG_POINTY, pointy);
+					ItemNBTHelper.setDouble(copyLens, TAG_HEIGHTSCALE, heightscale);
+					ItemNBTHelper.setInt(copyLens, TAG_ITERATION_I, i);
+					ItemNBTHelper.setInt(copyLens, TAG_ITERATION_J, j);
+					ItemNBTHelper.setInt(copyLens, TAG_ITERATION_K, k);
+
+					EntityManaBurst burst = getBurst(world, pos_, copyLens);
+					world.addEntity(burst);
+					return;
 				}
-				j = BASE_OFFSET - BASE_RANGE / 2;
+				k = 0;
 			}
+			j = BASE_OFFSET - BASE_RANGE / 2;
 		}
 	}
 
@@ -272,7 +281,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 				int z = ItemNBTHelper.getInt(lens, TAG_Z, 0);
 
 				if (y != -1) {
-					spawnBurst(entity.world, new BlockPos(x, y, z), lens);
+					spawnNextBurst(entity.world, new BlockPos(x, y, z), lens);
 				}
 			} else if (burst.getTicksExisted() == placeTicks) {
 				int x = net.minecraft.util.math.MathHelper.floor(entity.getPosX());
