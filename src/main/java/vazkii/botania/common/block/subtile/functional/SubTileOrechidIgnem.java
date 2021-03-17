@@ -10,12 +10,12 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.internal.OrechidOutput;
 import vazkii.botania.common.block.ModSubtiles;
 
-import java.util.Map;
+import java.util.List;
 import java.util.function.Predicate;
 
 public class SubTileOrechidIgnem extends SubTileOrechid {
@@ -31,8 +31,8 @@ public class SubTileOrechidIgnem extends SubTileOrechid {
 	}
 
 	@Override
-	public Map<ResourceLocation, Integer> getOreMap() {
-		return BotaniaAPI.instance().getNetherOreWeights();
+	public List<OrechidOutput> getOreList() {
+		return BotaniaAPI.instance().getNetherOrechidWeights();
 	}
 
 	@Override

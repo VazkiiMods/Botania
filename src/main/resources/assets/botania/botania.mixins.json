@@ -27,6 +27,7 @@
     "MixinFarmlandBlock",
     "MixinLootTable",
     "MixinPlayerEntity",
+    "MixinPlayerList",
     "MixinPollinateGoal",
     "MixinThrowableEntity",
     "MixinWorldEntitySpawner"

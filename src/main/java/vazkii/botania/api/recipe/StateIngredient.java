@@ -14,9 +14,17 @@ import net.minecraft.block.BlockState;
 import net.minecraft.network.PacketBuffer;
 
 import java.util.List;
+import java.util.Random;
 import java.util.function.Predicate;
 
+/**
+ * A basic interface for inputs and outputs for in-world blocks.
+ */
 public interface StateIngredient extends Predicate<BlockState> {
+	@Override
+	boolean test(BlockState state);
+
+	BlockState pick(Random random);
 
 	JsonObject serialize();
 

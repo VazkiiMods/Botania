@@ -207,7 +207,8 @@ public final class ConfigHandler {
 			orechidPriorityMods = builder
 					.comment("List of modids to prioritize when choosing a random ore from the tag.\n" +
 							"By default, the chosen ore is randomly picked from all ores in the ore's tag.\n" +
-							"Ores from mods present on this list will be picked over mods listed lower or not listed at all.")
+							"Ores from mods present on this list will be picked over mods listed lower or not listed at all.\n" +
+							"Applying changes at runtime requires /reload afterwards.")
 					.defineList("orechidPriorityMods", Collections.emptyList(), s -> s instanceof String && ResourceLocation.tryCreate(s + ":test") != null);
 			worldgenEnabled = builder
 					.comment("Set this to false to disable mystical flower and mushroom worldgen. More fine-tuned customization should be done with datapacks.")
