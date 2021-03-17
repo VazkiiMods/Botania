@@ -18,6 +18,7 @@ import vazkii.botania.api.recipe.StateIngredient;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class StateIngredientBlockState implements StateIngredient {
 	private final BlockState state;
@@ -29,6 +30,11 @@ public class StateIngredientBlockState implements StateIngredient {
 	@Override
 	public boolean test(BlockState blockState) {
 		return this.state == blockState;
+	}
+
+	@Override
+	public BlockState pick(Random random) {
+		return state;
 	}
 
 	@Override
@@ -49,4 +55,19 @@ public class StateIngredientBlockState implements StateIngredient {
 		return Collections.singletonList(state);
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		return state == ((StateIngredientBlockState) o).state;
+	}
+
+	@Override
+	public int hashCode() {
+		return state.hashCode();
+	}
 }

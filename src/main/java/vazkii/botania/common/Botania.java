@@ -131,7 +131,6 @@ public class Botania {
 
 		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
 		modBus.addListener(this::commonSetup);
-		modBus.addListener(IMCSender::enqueue);
 		modBus.addListener(DataGenerators::gatherData);
 		modBus.addGenericListener(Feature.class, ModFeatures::registerFeatures);
 		modBus.addGenericListener(Item.class, ModItems::registerItems);
@@ -185,6 +184,7 @@ public class Botania {
 		forgeBus.addListener(EventPriority.HIGHEST, TileCorporeaIndex.getInputHandler()::onChatMessage);
 		forgeBus.addListener(LootHandler::lootLoad);
 		forgeBus.addListener(EventPriority.HIGH, ModFeatures::onBiomeLoad);
+		forgeBus.addListener(OrechidResourceListener::registerListener);
 
 		ModLootModifiers.init();
 		ModCriteriaTriggers.init();
@@ -195,6 +195,7 @@ public class Botania {
 		CapabilityManager.INSTANCE.register(IExoflameHeatable.class, new NoopCapStorage<>(), NoopExoflameHeatable::new);
 
 		PacketHandler.init();
+		PaintableData.init();
 
 		EquipmentHandler.init();
 		CorporeaHelper.instance().registerRequestMatcher(prefix("string"), CorporeaStringMatcher.class, CorporeaStringMatcher::createFromNBT);

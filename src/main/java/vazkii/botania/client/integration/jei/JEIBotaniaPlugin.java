@@ -43,9 +43,7 @@ import vazkii.botania.client.integration.jei.crafting.AncientWillRecipeWrapper;
 import vazkii.botania.client.integration.jei.crafting.CompositeLensRecipeWrapper;
 import vazkii.botania.client.integration.jei.crafting.TerraPickTippingRecipeWrapper;
 import vazkii.botania.client.integration.jei.orechid.OrechidIgnemRecipeCategory;
-import vazkii.botania.client.integration.jei.orechid.OrechidIgnemRecipeWrapper;
 import vazkii.botania.client.integration.jei.orechid.OrechidRecipeCategory;
-import vazkii.botania.client.integration.jei.orechid.OrechidRecipeWrapper;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;
@@ -68,7 +66,6 @@ import javax.annotation.Nonnull;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -133,22 +130,8 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipes(TilePool.manaInfusionRecipes(Minecraft.getInstance().world), ManaPoolRecipeCategory.UID);
 		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.TERRA_PLATE_TYPE).values(), TerraPlateRecipeCategory.UID);
 
-		registry.addRecipes(
-				BotaniaAPI.instance().getOreWeights().entrySet().stream()
-						.filter(e -> doesOreExist(e.getKey()))
-						.map(OrechidRecipeWrapper::new)
-						.sorted()
-						.collect(Collectors.toList()),
-				OrechidRecipeCategory.UID);
-
-		registry.addRecipes(
-				BotaniaAPI.instance().getNetherOreWeights().entrySet().stream()
-						.filter(e -> doesOreExist(e.getKey()))
-						.map(OrechidIgnemRecipeWrapper::new)
-						.sorted()
-						.collect(Collectors.toList()),
-				OrechidIgnemRecipeCategory.UID);
-
+		registry.addRecipes(BotaniaAPI.instance().getOrechidWeights(), OrechidRecipeCategory.UID);
+		registry.addRecipes(BotaniaAPI.instance().getNetherOrechidWeights(), OrechidIgnemRecipeCategory.UID);
 	}
 
 	@Override

@@ -16,15 +16,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.internal.OrechidOutput;
 import vazkii.botania.common.block.ModSubtiles;
 
 import javax.annotation.Nonnull;
 
-import java.util.Map;
+import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class OrechidRecipeCategory extends OrechidRecipeCategoryBase<OrechidRecipeWrapper> {
+public class OrechidRecipeCategory extends OrechidRecipeCategoryBase {
 	public static final ResourceLocation UID = prefix("orechid");
 
 	public OrechidRecipeCategory(IGuiHelper guiHelper) {
@@ -38,15 +39,9 @@ public class OrechidRecipeCategory extends OrechidRecipeCategoryBase<OrechidReci
 		return UID;
 	}
 
-	@Nonnull
 	@Override
-	public Class<? extends OrechidRecipeWrapper> getRecipeClass() {
-		return OrechidRecipeWrapper.class;
-	}
-
-	@Override
-	protected Map<ResourceLocation, Integer> getOreWeights() {
-		return BotaniaAPI.instance().getOreWeights();
+	protected List<OrechidOutput> getOreWeights() {
+		return BotaniaAPI.instance().getOrechidWeights();
 	}
 
 }

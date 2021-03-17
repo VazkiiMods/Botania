@@ -11,16 +11,14 @@ package vazkii.botania.common.block.subtile.functional;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.WeightedRandom;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.internal.OrechidOutput;
+import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.Botania;
@@ -32,10 +30,7 @@ import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class SubTileOrechid extends TileEntityFunctionalFlower {
 	private static final int COST = 17500;
@@ -82,36 +77,14 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 
 	@Nullable
 	private BlockState getOreToPut() {
-		Map<ResourceLocation, Integer> map = getOreMap();
-		List<TagRandomItem> values = map.entrySet().stream()
-				.flatMap(e -> {
-					ITag<Block> tag = BlockTags.getCollection().get(e.getKey());
-					if (tag != null && !tag.getAllElements().isEmpty()) {
-						return Stream.of(new TagRandomItem(e.getValue(), tag));
-					} else {
-						return Stream.empty();
-					}
-				})
-				.collect(Collectors.toList());
+		List<OrechidOutput> values = getOreList();
 
 		if (WeightedRandom.getTotalWeight(values) == 0) {
 			return null;
 		}
 
-		ITag<Block> ore = WeightedRandom.getRandomItem(getWorld().rand, values).tag;
-		return selectFromTag(ore).getDefaultState();
-	}
-
-	private Block selectFromTag(ITag<Block> ore) {
-		List<? extends String> mods = ConfigHandler.COMMON.orechidPriorityMods.get();
-		for (String modid : mods) {
-			for (Block block : ore.getAllElements()) {
-				if (modid.equals(Registry.BLOCK.getKey(block).getNamespace())) {
-					return block;
-				}
-			}
-		}
-		return ore.getRandomElement(getWorld().getRandom());
+		StateIngredient ore = WeightedRandom.getRandomItem(getWorld().rand, values).getOutput();
+		return ore.pick(getWorld().getRandom());
 	}
 
 	private BlockPos getCoordsToPut() {
@@ -135,8 +108,8 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 		return true;
 	}
 
-	public Map<ResourceLocation, Integer> getOreMap() {
-		return BotaniaAPI.instance().getOreWeights();
+	public List<OrechidOutput> getOreList() {
+		return BotaniaAPI.instance().getOrechidWeights();
 	}
 
 	public Predicate<BlockState> getReplaceMatcher() {
@@ -171,14 +144,4 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 		return getCost();
 	}
 
-	private static class TagRandomItem extends WeightedRandom.Item {
-
-		public final ITag<Block> tag;
-
-		public TagRandomItem(int weight, ITag<Block> tag) {
-			super(weight);
-			this.tag = tag;
-		}
-
-	}
 }
