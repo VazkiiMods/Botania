@@ -28,13 +28,11 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.mixin.AccessorRecipeManager;
 
 import javax.annotation.Nonnull;
 
-import java.util.ArrayDeque;
-import java.util.List;
-import java.util.Optional;
-import java.util.Queue;
+import java.util.*;
 
 public class TileCraftCrate extends TileOpenCrate {
 	private static final String TAG_CRAFTING_RESULT = "craft_result";
@@ -162,11 +160,11 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	private Optional<ICraftingRecipe> getMatchingRecipe(CraftingInventory craft) {
 		for (ResourceLocation currentRecipe : lastRecipes) {
-			Optional<? extends IRecipe<?>> recipe = world.getRecipeManager().getRecipe(currentRecipe)
-					.filter(r -> r instanceof ICraftingRecipe)
-					.filter(r -> ((ICraftingRecipe) r).matches(craft, world));
-			if (recipe.isPresent()) {
-				return recipe.map(r -> (ICraftingRecipe) r);
+			IRecipe<CraftingInventory> recipe = ((AccessorRecipeManager) world.getRecipeManager())
+					.botania_getRecipes(IRecipeType.CRAFTING)
+					.get(currentRecipe);
+			if (recipe instanceof ICraftingRecipe && recipe.matches(craft, world)) {
+				return Optional.of((ICraftingRecipe) recipe);
 			}
 		}
 		Optional<ICraftingRecipe> recipe = world.getRecipeManager().getRecipe(IRecipeType.CRAFTING, craft, world);
