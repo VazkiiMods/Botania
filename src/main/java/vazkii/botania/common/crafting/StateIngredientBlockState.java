@@ -70,4 +70,9 @@ public class StateIngredientBlockState implements StateIngredient {
 	public int hashCode() {
 		return state.hashCode();
 	}
+
+	@Override
+	public String toString() {
+		return "StateIngredientBlockState{" + state + "}";
+	}
 }
