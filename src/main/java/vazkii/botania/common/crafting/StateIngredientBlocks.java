@@ -89,4 +89,9 @@ public class StateIngredientBlocks implements StateIngredient {
 	protected Collection<Block> getBlocks() {
 		return blocks;
 	}
+
+	@Override
+	public String toString() {
+		return "StateIngredientBlocks{" + blocks.toString() + "}";
+	}
 }

@@ -22,19 +22,17 @@ import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.internal.OrechidOutput;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
@@ -64,7 +62,9 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
 import javax.annotation.Nonnull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -107,11 +107,6 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		);
 	}
 
-	public static boolean doesOreExist(ResourceLocation tagId) {
-		ITag<Block> tag = BlockTags.getCollection().get(tagId);
-		return tag != null && !tag.getAllElements().isEmpty();
-	}
-
 	@Override
 	public void registerVanillaCategoryExtensions(IVanillaCategoryExtensionRegistration registration) {
 		registration.getCraftingCategory().addCategoryExtension(AncientWillRecipe.class, AncientWillRecipeWrapper::new);
@@ -130,8 +125,13 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipes(TilePool.manaInfusionRecipes(Minecraft.getInstance().world), ManaPoolRecipeCategory.UID);
 		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.TERRA_PLATE_TYPE).values(), TerraPlateRecipeCategory.UID);
 
-		registry.addRecipes(BotaniaAPI.instance().getOrechidWeights(), OrechidRecipeCategory.UID);
-		registry.addRecipes(BotaniaAPI.instance().getNetherOrechidWeights(), OrechidIgnemRecipeCategory.UID);
+		List<OrechidOutput> weights = new ArrayList<>(BotaniaAPI.instance().getOrechidWeights());
+		weights.sort(Comparator.naturalOrder());
+		registry.addRecipes(weights, OrechidRecipeCategory.UID);
+
+		weights = new ArrayList<>(BotaniaAPI.instance().getNetherOrechidWeights());
+		weights.sort(Comparator.naturalOrder());
+		registry.addRecipes(weights, OrechidIgnemRecipeCategory.UID);
 	}
 
 	@Override

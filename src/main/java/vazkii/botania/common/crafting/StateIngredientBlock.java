@@ -73,4 +73,9 @@ public class StateIngredientBlock implements StateIngredient {
 	public int hashCode() {
 		return block.hashCode();
 	}
+
+	@Override
+	public String toString() {
+		return "StateIngredientBlock{" + block + "}";
+	}
 }

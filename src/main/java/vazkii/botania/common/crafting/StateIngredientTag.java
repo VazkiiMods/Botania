@@ -62,6 +62,10 @@ public class StateIngredientTag extends StateIngredientBlocks {
 		return resolve().getAllElements().stream().map(Block::getDefaultState).collect(Collectors.toList());
 	}
 
+	public ResourceLocation getTagId() {
+		return tag;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -76,5 +80,10 @@ public class StateIngredientTag extends StateIngredientBlocks {
 	@Override
 	public int hashCode() {
 		return tag.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return "StateIngredientTag{" + tag + "}";
 	}
 }
