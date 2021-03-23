@@ -17,9 +17,14 @@ import net.minecraft.tags.ITag;
 import net.minecraft.tags.TagCollectionManager;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.Collection;
+import vazkii.botania.api.recipe.StateIngredient;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import java.util.List;
 import java.util.Random;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 public class StateIngredientTag extends StateIngredientBlocks {
@@ -30,8 +35,9 @@ public class StateIngredientTag extends StateIngredientBlocks {
 		this.tag = id;
 	}
 
+	@Nonnull
 	protected ITag<Block> resolve() {
-		return TagCollectionManager.getManager().getBlockTags().get(tag);
+		return TagCollectionManager.getManager().getBlockTags().getTagByID(tag);
 	}
 
 	@Override
@@ -52,14 +58,28 @@ public class StateIngredientTag extends StateIngredientBlocks {
 		return object;
 	}
 
+	@Nonnull
 	@Override
-	protected Collection<Block> getBlocks() {
+	protected List<Block> getBlocks() {
 		return resolve().getAllElements();
 	}
 
 	@Override
 	public List<BlockState> getDisplayed() {
 		return resolve().getAllElements().stream().map(Block::getDefaultState).collect(Collectors.toList());
+	}
+
+	@Nullable
+	@Override
+	public StateIngredient resolveAndFilter(UnaryOperator<List<Block>> operator) {
+		if (resolve().getAllElements().isEmpty()) {
+			return null;
+		}
+		List<Block> list = operator.apply(getBlocks());
+		if (list != null) {
+			return list.isEmpty() ? null : StateIngredientHelper.of(list);
+		}
+		return this;
 	}
 
 	public ResourceLocation getTagId() {

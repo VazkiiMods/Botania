@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.crafting;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -21,17 +20,17 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import vazkii.botania.api.recipe.StateIngredient;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 public class StateIngredientBlocks implements StateIngredient {
-	protected final Collection<Block> blocks;
-
-	public StateIngredientBlocks(List<Block> blocks) {
-		this.blocks = ImmutableList.copyOf(blocks);
-	}
+	protected final ImmutableSet<Block> blocks;
 
 	public StateIngredientBlocks(Collection<Block> blocks) {
 		this.blocks = ImmutableSet.copyOf(blocks);
@@ -44,19 +43,7 @@ public class StateIngredientBlocks implements StateIngredient {
 
 	@Override
 	public BlockState pick(Random random) {
-		if (blocks instanceof List) {
-			return ((List<Block>) blocks).get(random.nextInt(blocks.size())).getDefaultState();
-		}
-
-		// Slow path, iterating over the set
-		int i = random.nextInt(blocks.size());
-		for (Block block : blocks) {
-			if (i == 0) {
-				return block.getDefaultState();
-			}
-			i--;
-		}
-		throw new IllegalStateException();
+		return blocks.asList().get(random.nextInt(blocks.size())).getDefaultState();
 	}
 
 	@Override
@@ -74,7 +61,6 @@ public class StateIngredientBlocks implements StateIngredient {
 	@Override
 	public void write(PacketBuffer buffer) {
 		buffer.writeVarInt(0);
-		Collection<Block> blocks = getBlocks();
 		buffer.writeVarInt(blocks.size());
 		for (Block block : blocks) {
 			buffer.writeRegistryIdUnsafe(ForgeRegistries.BLOCKS, block);
@@ -86,8 +72,19 @@ public class StateIngredientBlocks implements StateIngredient {
 		return blocks.stream().map(Block::getDefaultState).collect(Collectors.toList());
 	}
 
-	protected Collection<Block> getBlocks() {
-		return blocks;
+	@Nullable
+	@Override
+	public StateIngredient resolveAndFilter(UnaryOperator<List<Block>> operator) {
+		List<Block> list = operator.apply(this.getBlocks());
+		if (list != null) {
+			return list.isEmpty() ? null : StateIngredientHelper.of(list);
+		}
+		return this;
+	}
+
+	@Nonnull
+	protected List<Block> getBlocks() {
+		return blocks.asList();
 	}
 
 	@Override

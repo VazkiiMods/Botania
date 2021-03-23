@@ -38,11 +38,11 @@ public class OrechidManager {
 		this.name = name;
 	}
 
-	@ZenCodeType.Field
-	public static OrechidManager main = new OrechidManager(() -> BotaniaAPIImpl.weights, "Orechid");
+	@ZenCodeType.Field("main")
+	public static final OrechidManager MAIN = new OrechidManager(() -> BotaniaAPIImpl.weights, "Orechid");
 
-	@ZenCodeType.Field
-	public static OrechidManager nether = new OrechidManager(() -> BotaniaAPIImpl.netherWeights, "Orechid Ignem");
+	@ZenCodeType.Field("nether")
+	public static final OrechidManager NETHER = new OrechidManager(() -> BotaniaAPIImpl.netherWeights, "Orechid Ignem");
 
 	@ZenCodeType.Method
 	public void registerOreWeight(BlockState state, int weight) {
