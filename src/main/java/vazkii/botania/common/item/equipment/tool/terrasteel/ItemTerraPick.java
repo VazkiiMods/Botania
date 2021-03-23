@@ -8,6 +8,9 @@
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
+import com.google.common.collect.ImmutableSet;
+
+import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -44,8 +47,8 @@ import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -58,7 +61,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	private static final int MAX_MANA = Integer.MAX_VALUE;
 	private static final int MANA_PER_DAMAGE = 100;
 
-	private static final List<Material> MATERIALS = Arrays.asList(Material.ROCK, Material.IRON, Material.ICE,
+	private static final Set<Material> MATERIALS = ImmutableSet.of(Material.ROCK, Material.IRON, Material.ICE,
 			Material.GLASS, Material.PISTON, Material.ANVIL, Material.ORGANIC, Material.EARTH, Material.SAND,
 			Material.SNOW, Material.SNOW_BLOCK, Material.CLAY);
 
@@ -165,8 +168,8 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		}
 
 		World world = player.world;
-		Material mat = world.getBlockState(pos).getMaterial();
-		if (!MATERIALS.contains(mat)) {
+		BlockState targetState = world.getBlockState(pos);
+		if (stack.getDestroySpeed(targetState) <= 1.0F && !MATERIALS.contains(targetState.getMaterial())) {
 			return;
 		}
 
@@ -195,7 +198,8 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		Vector3i beginDiff = new Vector3i(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
 		Vector3i endDiff = new Vector3i(doX ? range : 0, doY ? rangeY * 2 - 1 : 0, doZ ? range : 0);
 
-		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, state -> MATERIALS.contains(state.getMaterial()));
+		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff,
+				state -> stack.getDestroySpeed(state) > 1.0F || MATERIALS.contains(state.getMaterial()));
 
 		if (origLevel == 5) {
 			PlayerHelper.grantCriterion((ServerPlayerEntity) player, prefix("challenge/rank_ss_pick"), "code_triggered");
