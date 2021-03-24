@@ -156,7 +156,7 @@ public class RenderTileTinyPotato extends TileEntityRenderer<TileTinyPotato> {
 
 		float up = (float) Math.abs(Math.sin(jump / 10 * Math.PI)) * 0.2F;
 		float rotZ = (float) Math.sin(jump / 10 * Math.PI) * 2;
-		float wiggle = (float) Math.sin(jump / 10 * Math.PI) * 0.1F;
+		float wiggle = (float) Math.sin(jump / 10 * Math.PI) * 0.05F;
 
 		ms.translate(wiggle, up, 0F);
 		ms.rotate(Vector3f.ZP.rotationDegrees(rotZ));
