@@ -31,7 +31,7 @@ public class SubTileMedumone extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getWorld().isRemote && getMana() > 0) {
+		if (!getWorld().isRemote && getMana() > 0 && redstoneSignal == 0) {
 			List<LivingEntity> entities = getWorld().getEntitiesWithinAABB(LivingEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
 
 			for (LivingEntity entity : entities) {
