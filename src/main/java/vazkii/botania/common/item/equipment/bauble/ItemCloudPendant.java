@@ -41,7 +41,7 @@ public class ItemCloudPendant extends ItemBauble {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
+		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
 			if (player == Minecraft.getInstance().player) {
 				ClientPlayerEntity playerSp = (ClientPlayerEntity) player;
 

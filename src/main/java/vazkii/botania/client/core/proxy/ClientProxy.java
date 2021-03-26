@@ -390,14 +390,14 @@ public class ClientProxy implements IProxy {
 
 	@Override
 	public void showMultiblock(IMultiblock mb, ITextComponent name, BlockPos anchor, Rotation rot) {
-		PatchouliAPI.instance.showMultiblock(mb, name, anchor, rot);
+		PatchouliAPI.get().showMultiblock(mb, name, anchor, rot);
 	}
 
 	@Override
 	public void clearSextantMultiblock() {
-		IMultiblock mb = PatchouliAPI.instance.getCurrentMultiblock();
+		IMultiblock mb = PatchouliAPI.get().getCurrentMultiblock();
 		if (mb != null && mb.getID().equals(ItemSextant.MULTIBLOCK_ID)) {
-			PatchouliAPI.instance.clearMultiblock();
+			PatchouliAPI.get().clearMultiblock();
 		}
 	}
 

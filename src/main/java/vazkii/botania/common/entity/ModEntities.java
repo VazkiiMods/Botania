@@ -10,7 +10,11 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.boss.WitherEntity;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import vazkii.botania.common.block.tile.TileLightRelay.EntityPlayerMover;
@@ -154,4 +158,15 @@ public final class ModEntities {
 		register(r, LibEntityNames.FALLING_STAR, FALLING_STAR);
 	}
 
+	public static void registerAttributes(EntityAttributeCreationEvent event) {
+		event.put(ModEntities.DOPPLEGANGER, MobEntity.func_233666_p_()
+				.createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4)
+				.createMutableAttribute(Attributes.MAX_HEALTH, EntityDoppleganger.MAX_HP)
+				.createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 1.0)
+				.create());
+		event.put(ModEntities.PIXIE, MobEntity.func_233666_p_()
+				.createMutableAttribute(Attributes.MAX_HEALTH, 2.0)
+				.create());
+		event.put(ModEntities.PINK_WITHER, WitherEntity.registerAttributes().create());
+	}
 }

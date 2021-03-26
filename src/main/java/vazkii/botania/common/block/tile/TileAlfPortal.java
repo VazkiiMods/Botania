@@ -49,7 +49,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class TileAlfPortal extends TileMod implements ITickableTileEntity {
-	public static final LazyValue<IMultiblock> MULTIBLOCK = new LazyValue<>(() -> PatchouliAPI.instance.makeMultiblock(
+	public static final LazyValue<IMultiblock> MULTIBLOCK = new LazyValue<>(() -> PatchouliAPI.get().makeMultiblock(
 			new String[][] {
 					{ "_", "W", "G", "W", "_" },
 					{ "W", " ", " ", " ", "W" },

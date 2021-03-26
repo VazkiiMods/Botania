@@ -78,7 +78,7 @@ public class ItemCraftingHalo extends Item {
 	public ItemCraftingHalo(Properties props) {
 		super(props);
 		MinecraftForge.EVENT_BUS.addListener(this::onItemCrafted);
-		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
+		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
 			MinecraftForge.EVENT_BUS.addListener(this::onRenderWorldLast);
 		});
 	}

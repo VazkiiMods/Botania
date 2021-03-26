@@ -57,7 +57,7 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 	public ItemManasteelArmor(EquipmentSlotType type, IArmorMaterial mat, Properties props) {
 		super(mat, type, props);
 		this.type = type;
-		this.model = DistExecutor.runForDist(() -> () -> new LazyValue<>(() -> this.provideArmorModelForSlot(type)),
+		this.model = DistExecutor.unsafeRunForDist(() -> () -> new LazyValue<>(() -> this.provideArmorModelForSlot(type)),
 				() -> () -> null);
 	}
 

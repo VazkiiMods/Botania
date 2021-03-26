@@ -11,11 +11,7 @@ package vazkii.botania.common;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
-import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -83,7 +79,6 @@ import vazkii.botania.common.core.loot.LootHandler;
 import vazkii.botania.common.core.loot.ModLootModifiers;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.crafting.ModRecipeTypes;
-import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.corporea.CorporeaItemStackMatcher;
@@ -124,7 +119,7 @@ public class Botania {
 		gardenOfGlassLoaded = ModList.get().isLoaded(LibMisc.GOG_MOD_ID);
 		curiosLoaded = ModList.get().isLoaded("curios");
 
-		DistExecutor.callWhenOn(Dist.CLIENT, () -> () -> proxy = new ClientProxy());
+		DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> proxy = new ClientProxy());
 		proxy.registerHandlers();
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigHandler.CLIENT_SPEC);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ConfigHandler.COMMON_SPEC);
@@ -155,6 +150,7 @@ public class Botania {
 		modBus.addGenericListener(ForgeWorldType.class, ModFeatures::registerWorldType);
 		modBus.addListener((ModConfig.Loading e) -> ConfigHandler.onConfigLoad());
 		modBus.addListener((ModConfig.Reloading e) -> ConfigHandler.onConfigLoad());
+		modBus.addListener(ModEntities::registerAttributes);
 
 		IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		forgeBus.addListener(this::serverAboutToStart);
@@ -210,19 +206,9 @@ public class Botania {
 		event.enqueueWork(() -> {
 			SkyblockChunkGenerator.init();
 
-			GlobalEntityTypeAttributes.put(ModEntities.DOPPLEGANGER, MobEntity.func_233666_p_()
-					.createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4)
-					.createMutableAttribute(Attributes.MAX_HEALTH, EntityDoppleganger.MAX_HP)
-					.createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 1.0)
-					.create());
-			GlobalEntityTypeAttributes.put(ModEntities.PIXIE, MobEntity.func_233666_p_()
-					.createMutableAttribute(Attributes.MAX_HEALTH, 2.0)
-					.create());
-			GlobalEntityTypeAttributes.put(ModEntities.PINK_WITHER, WitherEntity.registerAttributes().create());
-
-			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getKey(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.getValue());
-			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getKey(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.getValue());
-			PatchouliAPI.instance.registerMultiblock(Registry.BLOCK.getKey(ModBlocks.enchanter), TileEnchanter.MULTIBLOCK.getValue());
+			PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.getValue());
+			PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.getValue());
+			PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.enchanter), TileEnchanter.MULTIBLOCK.getValue());
 
 			String[][] pat = new String[][] {
 					{
@@ -259,16 +245,16 @@ public class Botania {
 							"_________",
 					}
 			};
-			IStateMatcher sm = PatchouliAPI.instance.predicateMatcher(Blocks.IRON_BLOCK,
+			IStateMatcher sm = PatchouliAPI.get().predicateMatcher(Blocks.IRON_BLOCK,
 					state -> state.isIn(BlockTags.BEACON_BASE_BLOCKS));
-			IMultiblock mb = PatchouliAPI.instance.makeMultiblock(
+			IMultiblock mb = PatchouliAPI.get().makeMultiblock(
 					pat,
 					'P', ModBlocks.gaiaPylon,
 					'B', Blocks.BEACON,
 					'I', sm,
 					'0', sm
 			);
-			PatchouliAPI.instance.registerMultiblock(prefix("gaia_ritual"), mb);
+			PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), mb);
 
 			ModBlocks.addDispenserBehaviours();
 

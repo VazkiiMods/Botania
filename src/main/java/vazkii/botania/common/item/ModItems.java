@@ -738,7 +738,7 @@ public final class ModItems {
 		register(r, Registry.ITEM.getKey(flowerBag), FLOWER_BAG_CONTAINER);
 		register(r, Registry.ITEM.getKey(baubleBox), BAUBLE_BOX_CONTAINER);
 
-		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
+		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
 			ScreenManager.registerFactory(FLOWER_BAG_CONTAINER, GuiFlowerBag::new);
 			ScreenManager.registerFactory(BAUBLE_BOX_CONTAINER, GuiBaubleBox::new);
 		});
