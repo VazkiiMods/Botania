@@ -60,6 +60,7 @@ public class StateIngredientBlocks implements StateIngredient {
 
 	@Override
 	public void write(PacketBuffer buffer) {
+		List<Block> blocks = getBlocks();
 		buffer.writeVarInt(0);
 		buffer.writeVarInt(blocks.size());
 		for (Block block : blocks) {
