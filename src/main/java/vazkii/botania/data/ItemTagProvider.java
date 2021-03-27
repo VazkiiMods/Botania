@@ -19,6 +19,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
@@ -35,8 +36,8 @@ import java.util.List;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ItemTagProvider extends ItemTagsProvider {
-	public ItemTagProvider(DataGenerator generatorIn, BlockTagProvider blockTagProvider) {
-		super(generatorIn, blockTagProvider);
+	public ItemTagProvider(DataGenerator generatorIn, BlockTagProvider blockTagProvider, ExistingFileHelper helper) {
+		super(generatorIn, blockTagProvider, LibMisc.MOD_ID, helper);
 	}
 
 	@Override

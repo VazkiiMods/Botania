@@ -7,13 +7,13 @@
     },
     {
       "type": "block",
-      "block": "minecraft:ancient_debris",
-      "weight": 148
+      "block": "minecraft:nether_gold_ore",
+      "weight": 3635
     },
     {
       "type": "block",
-      "block": "minecraft:nether_gold_ore",
-      "weight": 4000
+      "block": "minecraft:ancient_debris",
+      "weight": 148
     },
     {
       "type": "tag",
@@ -39,11 +39,6 @@
       "type": "tag",
       "tag": "forge:ores/nether/diamond",
       "weight": 175
-    },
-    {
-      "type": "tag",
-      "tag": "forge:ores/nether/gold",
-      "weight": 3635
     },
     {
       "type": "tag",

@@ -15,6 +15,7 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.lib.LibMisc;
@@ -31,8 +32,8 @@ import static vazkii.botania.common.block.ModSubtiles.*;
 public class BlockTagProvider extends BlockTagsProvider {
 	private static final Predicate<Block> BOTANIA_BLOCK = b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace());
 
-	public BlockTagProvider(DataGenerator generator) {
-		super(generator);
+	public BlockTagProvider(DataGenerator generator, ExistingFileHelper helper) {
+		super(generator, LibMisc.MOD_ID, helper);
 	}
 
 	@Override
