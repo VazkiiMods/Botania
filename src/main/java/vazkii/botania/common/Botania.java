@@ -39,6 +39,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.event.server.FMLServerStoppingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -269,6 +270,10 @@ public class Botania {
 					+ "This will cause crashes and compatibility issues, and that's why it's marked as"
 					+ " \"Do not Override\". Whoever had the brilliant idea of overriding it needs to go"
 					+ " back to elementary school and learn to read. (Actual classname: " + clname + ")");
+		}
+
+		if (FMLEnvironment.dist.isDedicatedServer()) {
+			ContributorList.firstStart();
 		}
 	}
 

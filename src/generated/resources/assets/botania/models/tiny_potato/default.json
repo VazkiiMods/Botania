@@ -1,5 +1,14 @@
 {
   "parent": "minecraft:block/cube_all",
+  "display": {
+    "head": {
+      "translation": [
+        0,
+        14.5,
+        0
+      ]
+    }
+  },
   "textures": {
     "all": "botania:model/tiny_potato/default"
   },
