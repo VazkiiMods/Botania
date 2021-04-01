@@ -199,6 +199,8 @@ public class ModTags {
 		public static final ITag.INamedTag<Block> CORPOREA_SPARK_OVERRIDE = tag("corporea_spark_override");
 		public static final ITag.INamedTag<Block> TERRA_PLATE_BASE = tag("terra_plate_base");
 
+		public static final ITag.INamedTag<Block> MUSHROOMS = forgeTag("mushrooms");
+
 		private static ITag.INamedTag<Block> tag(String name) {
 			return BlockTags.makeWrapperTag(prefix(name).toString());
 		}

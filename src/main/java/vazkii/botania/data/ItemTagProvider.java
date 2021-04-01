@@ -33,6 +33,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import static net.minecraftforge.common.Tags.Items.MUSHROOMS;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ItemTagProvider extends ItemTagsProvider {
@@ -135,6 +136,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		for (DyeColor color : DyeColor.values()) {
 			ITag.INamedTag<Item> petalTag = ModTags.Items.getPetalTag(color);
 			this.getOrCreateBuilder(petalTag).add(ModItems.getPetal(color), ModBlocks.getMushroom(color).asItem());
+			this.getOrCreateBuilder(MUSHROOMS).add(ModBlocks.getMushroom(color).asItem());
 			allPetals.addTag(petalTag);
 		}
 
