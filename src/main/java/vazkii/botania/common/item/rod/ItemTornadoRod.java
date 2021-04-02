@@ -71,7 +71,12 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 					player.fallDistance = 0F;
 					double my = IManaProficiencyArmor.hasProficiency(player, stack) ? 1.6 : 1.25;
 					Vector3d oldMot = player.getMotion();
-					player.setMotion(new Vector3d(oldMot.getX(), my, oldMot.getZ()));
+					if (player.isElytraFlying()) {
+						Vector3d lookDir = player.getLookVec();
+						player.setMotion(new Vector3d(lookDir.getX() * my, lookDir.getY() * my, lookDir.getZ() * my));
+					} else {
+						player.setMotion(new Vector3d(oldMot.getX(), my, oldMot.getZ()));
+					}
 
 					player.playSound(ModSounds.airRod, 0.1F, 0.25F);
 					for (int i = 0; i < 5; i++) {
@@ -146,20 +151,45 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 			int rangeY = 3;
 			List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(te.getPos().add(-0.5 - range, -0.5 - rangeY, -0.5 - range), te.getPos().add(0.5 + range, 0.5 + rangeY, 0.5 + range)));
 			for (PlayerEntity p : players) {
-				if (p.getMotion().getY() > 0.3 && p.getMotion().getY() < 2 && !p.isSneaking()) {
-					p.setMotion(p.getMotion().getX(), 2.8, p.getMotion().getZ());
-
-					for (int i = 0; i < 20; i++) {
-						for (int j = 0; j < 5; j++) {
-							WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
-							world.addParticle(data, p.getPosX(), p.getPosY() + i, p.getPosZ(), 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
+				if (!p.isSneaking()) {
+					if (p.getMotion().length() > 0.2 && p.getMotion().length() < 1.20 && p.isElytraFlying()) {
+						Vector3d lookDir = (p.getLookVec());
+						p.setMotion(p.getMotion().getX() + lookDir.getX() * 1.25
+								, p.getMotion().getY() + lookDir.getY() * 1.25
+								, p.getMotion().getZ() + lookDir.getZ() * 1.25);
+						for (int i = 0; i < 20; i++) {
+							for (int j = 0; j < 5; j++) {
+								WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
+								world.addParticle(data, p.getPosX() + lookDir.getX() * i
+										, p.getPosY() + lookDir.getY() * i
+										, p.getPosZ() + lookDir.getZ() * i
+										, 0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getX()
+										, 0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getX()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getY()					//FIX YOUR SHIT, MAKE PARTICLES GO THE RIGHT WAY
+										, 0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getX())) + -0.01F * (float) Math.random() * lookDir.getZ());
+							}
 						}
-					}
 
-					if (!world.isRemote) {
-						p.world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
-						p.addPotionEffect(new EffectInstance(ModPotions.featherfeet, 100, 0));
-						tile.receiveMana(-COST);
+						if (!world.isRemote) {
+							p.world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
+							p.addPotionEffect(new EffectInstance(ModPotions.featherfeet, 100, 0));
+							tile.receiveMana(-COST);
+						}
+
+					} else if (p.getMotion().getY() > 0.3 && p.getMotion().getY() < 2 && !p.isElytraFlying()) {
+						p.setMotion(p.getMotion().getX(), 2.8, p.getMotion().getZ());
+
+						for (int i = 0; i < 20; i++) {
+							for (int j = 0; j < 5; j++) {
+								WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
+								world.addParticle(data, p.getPosX(), p.getPosY() + i, p.getPosZ(), 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
+							}
+						}
+
+						if (!world.isRemote) {
+							p.world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
+							p.addPotionEffect(new EffectInstance(ModPotions.featherfeet, 100, 0));
+							tile.receiveMana(-COST);
+						}
 					}
 				}
 			}
