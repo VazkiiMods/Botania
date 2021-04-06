@@ -47,11 +47,11 @@ public class DopplegangerNoArmorTrigger extends AbstractCriterionTrigger<Doppleg
 		triggerListeners(player, instance -> instance.test(player, guardian, src));
 	}
 
-	static class Instance extends CriterionInstance {
+	public static class Instance extends CriterionInstance {
 		private final EntityPredicate guardian;
 		private final DamageSourcePredicate killingBlow;
 
-		Instance(EntityPredicate.AndPredicate playerPred, EntityPredicate count, DamageSourcePredicate indexPos) {
+		public Instance(EntityPredicate.AndPredicate playerPred, EntityPredicate count, DamageSourcePredicate indexPos) {
 			super(ID, playerPred);
 			this.guardian = count;
 			this.killingBlow = indexPos;
@@ -66,5 +66,13 @@ public class DopplegangerNoArmorTrigger extends AbstractCriterionTrigger<Doppleg
 		boolean test(ServerPlayerEntity player, EntityDoppleganger guardian, DamageSource src) {
 			return this.guardian.test(player, guardian) && this.killingBlow.test(player, src);
 		}
-	}
+
+        public EntityPredicate getGuardian() {
+            return this.guardian;
+        }
+
+        public DamageSourcePredicate getKillingBlow() {
+            return this.killingBlow;
+        }
+    }
 }

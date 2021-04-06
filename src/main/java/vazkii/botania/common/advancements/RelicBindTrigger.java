@@ -45,10 +45,10 @@ public class RelicBindTrigger extends AbstractCriterionTrigger<RelicBindTrigger.
 		triggerListeners(player, instance -> instance.test(relic));
 	}
 
-	static class Instance extends CriterionInstance {
+	public static class Instance extends CriterionInstance {
 		private final ItemPredicate predicate;
 
-		Instance(EntityPredicate.AndPredicate playerPred, ItemPredicate predicate) {
+		public Instance(EntityPredicate.AndPredicate playerPred, ItemPredicate predicate) {
 			super(ID, playerPred);
 			this.predicate = predicate;
 		}
@@ -62,5 +62,9 @@ public class RelicBindTrigger extends AbstractCriterionTrigger<RelicBindTrigger.
 		boolean test(ItemStack stack) {
 			return predicate.test(stack);
 		}
-	}
+
+        public ItemPredicate getPredicate() {
+            return this.predicate;
+        }
+    }
 }

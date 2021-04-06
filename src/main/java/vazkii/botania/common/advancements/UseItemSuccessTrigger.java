@@ -45,11 +45,11 @@ public class UseItemSuccessTrigger extends AbstractCriterionTrigger<UseItemSucce
 		triggerListeners(player, instance -> instance.test(stack, world, x, y, z));
 	}
 
-	static class Instance extends CriterionInstance {
+	public static class Instance extends CriterionInstance {
 		private final ItemPredicate item;
 		private final LocationPredicate location;
 
-		Instance(EntityPredicate.AndPredicate playerPred, ItemPredicate count, LocationPredicate indexPos) {
+		public Instance(EntityPredicate.AndPredicate playerPred, ItemPredicate count, LocationPredicate indexPos) {
 			super(ID, playerPred);
 			this.item = count;
 			this.location = indexPos;
@@ -64,5 +64,13 @@ public class UseItemSuccessTrigger extends AbstractCriterionTrigger<UseItemSucce
 		boolean test(ItemStack stack, ServerWorld world, double x, double y, double z) {
 			return this.item.test(stack) && this.location.test(world, x, y, z);
 		}
-	}
+
+        public ItemPredicate getItem() {
+            return this.item;
+        }
+
+        public LocationPredicate getLocation() {
+            return this.location;
+        }
+    }
 }

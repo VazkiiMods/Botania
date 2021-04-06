@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ManaGunTrigger extends AbstractCriterionTrigger<ManaGunTrigger.Instance> {
-	private static final ResourceLocation ID = prefix("fire_mana_blaster");
+	public static final ResourceLocation ID = prefix("fire_mana_blaster");
 	public static final ManaGunTrigger INSTANCE = new ManaGunTrigger();
 
 	private ManaGunTrigger() {}
@@ -49,13 +49,13 @@ public class ManaGunTrigger extends AbstractCriterionTrigger<ManaGunTrigger.Inst
 		triggerListeners(player, instance -> instance.test(stack, player));
 	}
 
-	static class Instance extends CriterionInstance {
+	public static class Instance extends CriterionInstance {
 		private final ItemPredicate item;
 		private final EntityPredicate user;
 		@Nullable
 		private final Boolean desu;
 
-		Instance(EntityPredicate.AndPredicate entityPred, ItemPredicate count, EntityPredicate user, Boolean desu) {
+		public Instance(EntityPredicate.AndPredicate entityPred, ItemPredicate count, EntityPredicate user, Boolean desu) {
 			super(ID, entityPred);
 			this.item = count;
 			this.user = user;
@@ -72,5 +72,18 @@ public class ManaGunTrigger extends AbstractCriterionTrigger<ManaGunTrigger.Inst
 			return this.item.test(stack) && this.user.test(entity, entity)
 					&& (desu == null || desu == ItemManaGun.isSugoiKawaiiDesuNe(stack));
 		}
-	}
+
+        public ItemPredicate getItem() {
+            return this.item;
+        }
+
+        public EntityPredicate getUser() {
+            return this.user;
+        }
+
+        @Nullable
+        public Boolean getDesu() {
+            return this.desu;
+        }
+    }
 }

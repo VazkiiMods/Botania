@@ -44,11 +44,11 @@ public class AlfPortalTrigger extends AbstractCriterionTrigger<AlfPortalTrigger.
 		triggerListeners(player, instance -> instance.test(world, pos, wand));
 	}
 
-	static class Instance extends CriterionInstance {
+	public static class Instance extends CriterionInstance {
 		private final ItemPredicate wand;
 		private final LocationPredicate pos;
 
-		Instance(EntityPredicate.AndPredicate playerPred, ItemPredicate predicate, LocationPredicate pos) {
+		public Instance(EntityPredicate.AndPredicate playerPred, ItemPredicate predicate, LocationPredicate pos) {
 			super(ID, playerPred);
 			this.wand = predicate;
 			this.pos = pos;
@@ -63,5 +63,13 @@ public class AlfPortalTrigger extends AbstractCriterionTrigger<AlfPortalTrigger.
 		boolean test(ServerWorld world, BlockPos pos, ItemStack wand) {
 			return this.wand.test(wand) && this.pos.test(world, pos.getX(), pos.getY(), pos.getZ());
 		}
-	}
+
+        public ItemPredicate getWand() {
+            return this.wand;
+        }
+
+        public LocationPredicate getPos() {
+            return this.pos;
+        }
+    }
 }
