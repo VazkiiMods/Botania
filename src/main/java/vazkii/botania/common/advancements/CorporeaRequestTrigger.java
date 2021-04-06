@@ -63,13 +63,13 @@ public class CorporeaRequestTrigger extends AbstractCriterionTrigger<CorporeaReq
 			return this.count.test(count) && this.indexPos.test(world, pos.getX(), pos.getY(), pos.getZ());
 		}
 
-        public MinMaxBounds.IntBound getCount() {
-            return this.count;
-        }
+		public MinMaxBounds.IntBound getCount() {
+			return this.count;
+		}
 
-        public LocationPredicate getIndexPos() {
-            return this.indexPos;
-        }
-    }
+		public LocationPredicate getIndexPos() {
+			return this.indexPos;
+		}
+	}
 
 }

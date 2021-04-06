@@ -64,8 +64,8 @@ public class AlfPortalBreadTrigger extends AbstractCriterionTrigger<AlfPortalBre
 			return this.portal.test(world, portal.getX(), portal.getY(), portal.getZ());
 		}
 
-        public LocationPredicate getPortal() {
-            return this.portal;
-        }
-    }
+		public LocationPredicate getPortal() {
+			return this.portal;
+		}
+	}
 }

@@ -65,12 +65,12 @@ public class UseItemSuccessTrigger extends AbstractCriterionTrigger<UseItemSucce
 			return this.item.test(stack) && this.location.test(world, x, y, z);
 		}
 
-        public ItemPredicate getItem() {
-            return this.item;
-        }
+		public ItemPredicate getItem() {
+			return this.item;
+		}
 
-        public LocationPredicate getLocation() {
-            return this.location;
-        }
-    }
+		public LocationPredicate getLocation() {
+			return this.location;
+		}
+	}
 }

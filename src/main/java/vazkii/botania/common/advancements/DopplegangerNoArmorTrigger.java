@@ -67,12 +67,12 @@ public class DopplegangerNoArmorTrigger extends AbstractCriterionTrigger<Doppleg
 			return this.guardian.test(player, guardian) && this.killingBlow.test(player, src);
 		}
 
-        public EntityPredicate getGuardian() {
-            return this.guardian;
-        }
+		public EntityPredicate getGuardian() {
+			return this.guardian;
+		}
 
-        public DamageSourcePredicate getKillingBlow() {
-            return this.killingBlow;
-        }
-    }
+		public DamageSourcePredicate getKillingBlow() {
+			return this.killingBlow;
+		}
+	}
 }

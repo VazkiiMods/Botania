@@ -64,16 +64,16 @@ public class LokiPlaceTrigger extends AbstractCriterionTrigger<LokiPlaceTrigger.
 			return this.player.test(player, null) && this.ring.test(ring) && this.blocksPlaced.test(blocksPlaced);
 		}
 
-        public EntityPredicate getPlayer() {
-            return this.player;
-        }
+		public EntityPredicate getPlayer() {
+			return this.player;
+		}
 
-        public ItemPredicate getRing() {
-            return this.ring;
-        }
+		public ItemPredicate getRing() {
+			return this.ring;
+		}
 
-        public MinMaxBounds.IntBound getBlocksPlaced() {
-            return this.blocksPlaced;
-        }
-    }
+		public MinMaxBounds.IntBound getBlocksPlaced() {
+			return this.blocksPlaced;
+		}
+	}
 }

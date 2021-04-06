@@ -64,12 +64,12 @@ public class AlfPortalTrigger extends AbstractCriterionTrigger<AlfPortalTrigger.
 			return this.wand.test(wand) && this.pos.test(world, pos.getX(), pos.getY(), pos.getZ());
 		}
 
-        public ItemPredicate getWand() {
-            return this.wand;
-        }
+		public ItemPredicate getWand() {
+			return this.wand;
+		}
 
-        public LocationPredicate getPos() {
-            return this.pos;
-        }
-    }
+		public LocationPredicate getPos() {
+			return this.pos;
+		}
+	}
 }

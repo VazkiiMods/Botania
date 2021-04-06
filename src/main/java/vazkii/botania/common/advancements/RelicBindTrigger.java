@@ -63,8 +63,8 @@ public class RelicBindTrigger extends AbstractCriterionTrigger<RelicBindTrigger.
 			return predicate.test(stack);
 		}
 
-        public ItemPredicate getPredicate() {
-            return this.predicate;
-        }
-    }
+		public ItemPredicate getPredicate() {
+			return this.predicate;
+		}
+	}
 }

@@ -73,17 +73,17 @@ public class ManaGunTrigger extends AbstractCriterionTrigger<ManaGunTrigger.Inst
 					&& (desu == null || desu == ItemManaGun.isSugoiKawaiiDesuNe(stack));
 		}
 
-        public ItemPredicate getItem() {
-            return this.item;
-        }
+		public ItemPredicate getItem() {
+			return this.item;
+		}
 
-        public EntityPredicate getUser() {
-            return this.user;
-        }
+		public EntityPredicate getUser() {
+			return this.user;
+		}
 
-        @Nullable
-        public Boolean getDesu() {
-            return this.desu;
-        }
-    }
+		@Nullable
+		public Boolean getDesu() {
+			return this.desu;
+		}
+	}
 }
