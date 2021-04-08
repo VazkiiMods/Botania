@@ -12,6 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
@@ -48,6 +49,7 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 
 	private static final String TAG_FLYING = "flying";
 	private static final String TAG_FLYCOUNTER = "flyCounter";
+	private static final String TAG_COOLDOWNS = "boostCooldowns";
 
 	public ItemTornadoRod(Properties props) {
 		super(props);
@@ -147,51 +149,96 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 		TileEntity te = tile.tileEntity();
 		World world = te.getWorld();
 		if (tile.getCurrentMana() >= COST && tile.isEnabled()) {
+			CompoundNBT cooldownTag = getAvatarCooldowns(te);
+			if (!world.isRemote) {
+				decAvatarCooldowns(cooldownTag);
+			}
+
 			int range = 5;
 			int rangeY = 3;
 			List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(te.getPos().add(-0.5 - range, -0.5 - rangeY, -0.5 - range), te.getPos().add(0.5 + range, 0.5 + rangeY, 0.5 + range)));
 			for (PlayerEntity p : players) {
-				if (!p.isSneaking()) {
-					if (p.getMotion().length() > 0.2 && p.getMotion().length() < 1.20 && p.isElytraFlying()) {
-						Vector3d lookDir = (p.getLookVec());
-						p.setMotion(p.getMotion().getX() + lookDir.getX() * 1.25
-								, p.getMotion().getY() + lookDir.getY() * 1.25
-								, p.getMotion().getZ() + lookDir.getZ() * 1.25);
-						for (int i = 0; i < 20; i++) {
-							for (int j = 0; j < 5; j++) {
-								WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
-								world.addParticle(data, p.getPosX() + lookDir.getX() * i
-										, p.getPosY() + lookDir.getY() * i
-										, p.getPosZ() + lookDir.getZ() * i
-										, 0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getX()
-										, 0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getX()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getY()					//FIX YOUR SHIT, MAKE PARTICLES GO THE RIGHT WAY
-										, 0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getX())) + -0.01F * (float) Math.random() * lookDir.getZ());
-							}
-						}
-
+				int cooldown = 0;
+				if (cooldownTag.contains(p.getUniqueID().toString())) {
+					cooldown = cooldownTag.getInt(p.getUniqueID().toString());
+				}
+				if (!p.isSneaking() && cooldown <= 0) {
+					if (p.getMotion().length() > 0.2 && p.getMotion().length() < 5 && p.isElytraFlying()) {
+						doAvatarElytraBoost(p, world);
 						if (!world.isRemote) {
-							p.world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
-							p.addPotionEffect(new EffectInstance(ModPotions.featherfeet, 100, 0));
-							tile.receiveMana(-COST);
+							doAvatarMiscEffects(p, tile);
+							cooldownTag.putInt(p.getUniqueID().toString(), 20);
 						}
-
 					} else if (p.getMotion().getY() > 0.3 && p.getMotion().getY() < 2 && !p.isElytraFlying()) {
-						p.setMotion(p.getMotion().getX(), 2.8, p.getMotion().getZ());
-
-						for (int i = 0; i < 20; i++) {
-							for (int j = 0; j < 5; j++) {
-								WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
-								world.addParticle(data, p.getPosX(), p.getPosY() + i, p.getPosZ(), 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
-							}
-						}
-
+						doAvatarJump(p, world);
 						if (!world.isRemote) {
-							p.world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
-							p.addPotionEffect(new EffectInstance(ModPotions.featherfeet, 100, 0));
-							tile.receiveMana(-COST);
+							doAvatarMiscEffects(p, tile);
 						}
 					}
 				}
+			}
+			if (!world.isRemote) {
+				setAvatarCooldowns(te, cooldownTag);
+			}
+		}
+	}
+
+	private void doAvatarElytraBoost(PlayerEntity p, World world) {
+		Vector3d lookDir = p.getLookVec();
+		double mult = 1.25*Math.pow(2.71828, -0.5 * p.getMotion().length());
+		p.setMotion(p.getMotion().getX() + lookDir.getX() * mult
+				, p.getMotion().getY() + lookDir.getY() * mult
+				, p.getMotion().getZ() + lookDir.getZ() * mult);
+
+		for (int i = 0; i < 20; i++) {
+			for (int j = 0; j < 5; j++) {
+				WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
+				world.addParticle(data, p.getPosX() + lookDir.getX() * i
+						, p.getPosY() + lookDir.getY() * i
+						, p.getPosZ() + lookDir.getZ() * i
+						, 0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getX()
+						, 0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getX()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getY()
+						, 0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getX())) + -0.01F * (float) Math.random() * lookDir.getZ());
+			}
+		}
+	}
+
+	private void doAvatarJump(PlayerEntity p, World world) {
+		p.setMotion(p.getMotion().getX(), 2.8, p.getMotion().getZ());
+
+		for (int i = 0; i < 20; i++) {
+			for (int j = 0; j < 5; j++) {
+				WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
+				world.addParticle(data, p.getPosX(), p.getPosY() + i, p.getPosZ(), 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
+			}
+		}
+	}
+
+	private void doAvatarMiscEffects(PlayerEntity p, IAvatarTile tile) {
+		p.world.playSound(null, p.getPosX(), p.getPosY(), p.getPosZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
+		p.addPotionEffect(new EffectInstance(ModPotions.featherfeet, 100, 0));
+		tile.receiveMana(-COST);
+	}
+
+	private CompoundNBT getAvatarCooldowns(TileEntity te) {
+		if (te.getTileData().contains(TAG_COOLDOWNS)) {
+			return ((CompoundNBT) te.getTileData().get(TAG_COOLDOWNS));
+		} else {
+			return new CompoundNBT();
+		}
+	}
+
+	private void setAvatarCooldowns(TileEntity te, CompoundNBT cooldownTag) {
+		te.getTileData().put(TAG_COOLDOWNS, cooldownTag);
+	}
+
+	private void decAvatarCooldowns(CompoundNBT cooldownTag) {
+		for (String key : cooldownTag.keySet()) {
+			int val = cooldownTag.getInt(key);
+			if (val > 0) {
+				cooldownTag.putInt(key, val - 1);
+			} else {
+				cooldownTag.remove(key);
 			}
 		}
 	}
