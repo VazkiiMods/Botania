@@ -83,7 +83,10 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 					player.playSound(ModSounds.airRod, 0.1F, 0.25F);
 					for (int i = 0; i < 5; i++) {
 						WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
-						world.addParticle(data, player.getPosX(), player.getPosY(), player.getPosZ(), 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
+						world.addParticle(data, player.getPosX(), player.getPosY(), player.getPosZ(),
+								0.2F * (float) (Math.random() - 0.5),
+								-0.01F * (float) Math.random(),
+								0.2F * (float) (Math.random() - 0.5));
 					}
 				}
 
@@ -185,20 +188,20 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 
 	private void doAvatarElytraBoost(PlayerEntity p, World world) {
 		Vector3d lookDir = p.getLookVec();
-		double mult = 1.25*Math.pow(2.71828, -0.5 * p.getMotion().length());
-		p.setMotion(p.getMotion().getX() + lookDir.getX() * mult
-				, p.getMotion().getY() + lookDir.getY() * mult
-				, p.getMotion().getZ() + lookDir.getZ() * mult);
+		double mult = 1.25 * Math.pow(2.71828, -0.5 * p.getMotion().length());
+		p.setMotion(p.getMotion().getX() + lookDir.getX() * mult,
+				p.getMotion().getY() + lookDir.getY() * mult,
+				p.getMotion().getZ() + lookDir.getZ() * mult);
 
 		for (int i = 0; i < 20; i++) {
 			for (int j = 0; j < 5; j++) {
 				WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
-				world.addParticle(data, p.getPosX() + lookDir.getX() * i
-						, p.getPosY() + lookDir.getY() * i
-						, p.getPosZ() + lookDir.getZ() * i
-						, 0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getX()
-						, 0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getX()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getY()
-						, 0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getX())) + -0.01F * (float) Math.random() * lookDir.getZ());
+				world.addParticle(data, p.getPosX() + lookDir.getX() * i,
+						p.getPosY() + lookDir.getY() * i,
+						p.getPosZ() + lookDir.getZ() * i,
+						0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getX(),
+						0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getX()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getY(),
+						0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getX())) + -0.01F * (float) Math.random() * lookDir.getZ());
 			}
 		}
 	}
@@ -209,7 +212,11 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 		for (int i = 0; i < 20; i++) {
 			for (int j = 0; j < 5; j++) {
 				WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
-				world.addParticle(data, p.getPosX(), p.getPosY() + i, p.getPosZ(), 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
+				world.addParticle(data, p.getPosX(),
+						p.getPosY() + i, p.getPosZ(),
+						0.2F * (float) (Math.random() - 0.5),
+						-0.01F * (float) Math.random(),
+						0.2F * (float) (Math.random() - 0.5));
 			}
 		}
 	}
