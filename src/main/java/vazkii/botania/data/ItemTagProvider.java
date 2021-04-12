@@ -143,6 +143,20 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.getOrCreateBuilder(ModTags.Items.LOONIUM_BLACKLIST).add(ModItems.lexicon, ModItems.overgrowthSeed,
 				ModItems.blackLotus, ModItems.blackerLotus).addTag(ItemTags.MUSIC_DISCS);
 		this.getOrCreateBuilder(ModTags.Items.MAGNET_RING_BLACKLIST);
+		this.getOrCreateBuilder(ModTags.Items.RODS).add(
+				ModItems.dirtRod,
+				ModItems.skyDirtRod,
+				ModItems.terraformRod,
+				ModItems.cobbleRod,
+				ModItems.waterRod,
+				ModItems.tornadoRod,
+				ModItems.fireRod,
+				ModItems.diviningRod,
+				ModItems.smeltRod,
+				ModItems.exchangeRod,
+				ModItems.rainbowRod,
+				ModItems.gravityRod,
+				ModItems.missileRod);
 	}
 
 	@Nonnull

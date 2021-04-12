@@ -118,6 +118,7 @@ public class ModTags {
 
 		public static final ITag.INamedTag<Item> BURST_VIEWERS = tag("burst_viewers");
 		public static final ITag.INamedTag<Item> TERRA_PICK_BLACKLIST = tag("terra_pick_blacklist");
+		public static final ITag.INamedTag<Item> RODS = tag("rods");
 
 		public static ITag.INamedTag<Item> getPetalTag(DyeColor color) {
 			switch (color) {

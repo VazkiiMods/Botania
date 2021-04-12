@@ -3100,7 +3100,7 @@
 
   "botania.entry.baubleBox": "Trinket Case",
   "botania.tagline.baubleBox": "A handy container to store your Trinkets in",
-  "botania.page.baubleBox0": "It's possible to have $(o)too$() many $(thing)Trinkets$(0) on hand-- after all, inventory space is limited. A solution: stash them in a $(item)Trinket Case$(0), a handy container for $(thing)Trinkets$(0).$(p)The case's interface lets its user quickly swap their equipped $(thing)Trinkets$(0). The case can also store $(thing)Mana$(0)-containing items, like $(l:mana/mana_tablet)$(item)Mana Tablets$(0)$(/l) (though they can't provide $(thing)Mana$(0) when in the box).",
+  "botania.page.baubleBox0": "It's possible to have $(o)too$() many $(thing)Trinkets$(0) on hand-- after all, inventory space is limited. A solution: stash them in a $(item)Trinket Case$(0), a handy container for $(thing)Trinkets$(0).$(p)The case's interface lets its user quickly swap their equipped $(thing)Trinkets$(0). The case can also store $(thing)Rods$(0) and $(thing)Mana$(0)-containing items, like $(l:mana/mana_tablet)$(item)Mana Tablets$(0)$(/l) (though they can't provide $(thing)Mana$(0) when in the box).",
   "botania.page.baubleBox1": "It could even be a boat!",
 
   "botania.entry.dodgeRing": "Ring of Dexterous Motion",
