@@ -15,13 +15,13 @@ import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
 
 import org.openzen.zencode.java.ZenCodeType;
 
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
+import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.RecipeManaInfusion;
 
@@ -30,10 +30,10 @@ import vazkii.botania.common.crafting.RecipeManaInfusion;
 public class ManaInfusionRecipeManager implements IRecipeManager {
 
 	@ZenCodeType.Method
-	public void addRecipe(String name, IItemStack output, IIngredient input, int mana, @ZenCodeType.Optional BlockState catalystState, @ZenCodeType.OptionalString String group) {
+	public void addRecipe(String name, IItemStack output, IIngredient input, int mana, @ZenCodeType.Optional StateIngredient catalyst, @ZenCodeType.OptionalString String group) {
 		name = fixRecipeName(name);
 		ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
-		CraftTweakerAPI.apply(new ActionAddRecipe(this, new RecipeManaInfusion(resourceLocation, output.getInternal(), input.asVanillaIngredient(), mana, group, catalystState), ""));
+		CraftTweakerAPI.apply(new ActionAddRecipe(this, new RecipeManaInfusion(resourceLocation, output.getInternal(), input.asVanillaIngredient(), mana, group, catalyst), ""));
 	}
 
 	@Override

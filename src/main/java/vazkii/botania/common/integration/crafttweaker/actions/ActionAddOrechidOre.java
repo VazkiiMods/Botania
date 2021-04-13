@@ -9,6 +9,7 @@
 package vazkii.botania.common.integration.crafttweaker.actions;
 
 import com.blamejared.crafttweaker.api.actions.IRuntimeAction;
+import com.blamejared.crafttweaker.api.exceptions.ScriptException;
 import com.blamejared.crafttweaker.api.logger.ILogger;
 
 import vazkii.botania.api.internal.OrechidOutput;
@@ -39,7 +40,7 @@ public class ActionAddOrechidOre implements IRuntimeAction {
 	@Override
 	public boolean validate(ILogger logger) {
 		if (weight <= 0) {
-			logger.error("Weight must be positive!");
+			logger.throwingWarn("Weight must be positive!", new ScriptException("Output weight is " + weight + ", must be positive!"));
 			return false;
 		}
 		return true;
