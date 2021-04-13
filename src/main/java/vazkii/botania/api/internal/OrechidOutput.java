@@ -31,6 +31,6 @@ public final class OrechidOutput extends WeightedRandom.Item implements Comparab
 	/** Note: ordering is inconsistent with equals */
 	@Override
 	public int compareTo(OrechidOutput o) {
-		return Integer.compare(this.itemWeight, o.itemWeight);
+		return Integer.compare(o.itemWeight, this.itemWeight);
 	}
 }
