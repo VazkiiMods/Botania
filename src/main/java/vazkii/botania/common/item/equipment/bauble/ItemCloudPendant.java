@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -30,7 +31,13 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.network.PacketJump;
 
+import java.util.Collections;
+import java.util.Set;
+import java.util.WeakHashMap;
+
 public class ItemCloudPendant extends ItemBauble {
+
+	private static final Set<PlayerEntity> JUMPING_PLAYERS = Collections.newSetFromMap(new WeakHashMap<>());
 
 	private static int timesJumped;
 	private static boolean jumpDown;
@@ -61,6 +68,17 @@ public class ItemCloudPendant extends ItemBauble {
 				}
 			}
 		});
+	}
+
+	public static void setJumping(PlayerEntity entity) {
+		JUMPING_PLAYERS.add(entity);
+	}
+
+	public static boolean popJumping(PlayerEntity entity) {
+		if (entity.world.isRemote) {
+			return timesJumped > 0;
+		}
+		return JUMPING_PLAYERS.remove(entity);
 	}
 
 	@Override
