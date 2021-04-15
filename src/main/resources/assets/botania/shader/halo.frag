@@ -11,7 +11,7 @@ void main() {
    
    for(int i = -4 ; i < 4; i++)
         for(int j = -3; j < 3; j++)
-            sum += texture2D(bgl_RenderedTexture, texcoord + vec2(0, 0) * 0.004) * 0.25;
+            sum += texture2D(bgl_RenderedTexture, texcoord) * 0.25;
 
     if(texture2D(bgl_RenderedTexture, texcoord).r < 0.3)
        gl_FragColor = sum * sum * 0.012 + texture2D(bgl_RenderedTexture, texcoord);
