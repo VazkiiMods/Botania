@@ -36,7 +36,7 @@ The Mana Pool holds a <i>lot</i> of mana. Flowers like the Hydroangeas produce v
 Report it on the <a href="https://github.com/Vazkii/Botania/issues">issue tracker</a>. Please read the <a href="https://github.com/Vazkii/Botania/blob/master/.github/CONTRIBUTING.md">contributor guidelines</a> first, though!</li><br>
 
 <li id="q11-fake"><b>I have a suggestion for Botania. Where do I put it?</b> <a href="#q11">(permalink)</a><br>
-The best place for suggestions is the <a href="https://www.reddit.com/r/botania">/r/botania</a> subreddit. Before you do, however, please read <a href="https://vazkii.net/#blog/not-in-botania">this blog post</a>, so you don't suggest something that I've denied countless times already. Do keep in mind, however, that Botania is feature-complete; suggestions are very unlikely to make it into the mod at this point in time.</li><br>
+The best place for suggestions is the <a href="https://www.reddit.com/r/botania">/r/botania</a> subreddit. Before you do, however, please read <a href="https://vazkii.net/blog_archive/#blog/not-in-botania">this blog post</a>, so you don't suggest something that I've denied countless times already. Do keep in mind, however, that Botania is feature-complete; suggestions are very unlikely to make it into the mod at this point in time.</li><br>
 
 <li id="q14-fake"><b>Is the Terra Blade from Terraria?</b> <a href="#q14">(permalink)</a><br>
 <a href="https://botaniamod.net/terrablade.html">...</a></li><br>
