@@ -46,7 +46,7 @@ public class TilePylon extends TileEntity implements ITickableTileEntity {
 		BlockPylon.Variant variant = ((BlockPylon) getBlockState().getBlock()).variant;
 
 		if (activated && world.isRemote) {
-			if (world.getBlockState(centerPos).getBlock() != variant.targetBlock
+			if (world.getBlockState(centerPos).getBlock() != variant.getTargetBlock()
 					|| variant == BlockPylon.Variant.NATURA && (portalOff() || !(world.getBlockState(getPos().down()).getBlock() instanceof BlockPool))) {
 				activated = false;
 				return;
