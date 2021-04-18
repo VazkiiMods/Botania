@@ -20,13 +20,13 @@ public class ItemAuraRing extends ItemBauble {
 
 	public ItemAuraRing(Properties props, int interval) {
 		super(props);
-		this.interval = interval;
+		this.interval = 5 * interval;
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
 		if (!player.world.isRemote && player instanceof PlayerEntity && player.ticksExisted % interval == 0) {
-			ManaItemHandler.instance().dispatchManaExact(stack, (PlayerEntity) player, 1, true);
+			ManaItemHandler.instance().dispatchManaExact(stack, (PlayerEntity) player, 5, true);
 		}
 	}
 }
