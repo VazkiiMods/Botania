@@ -43,8 +43,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBlockProvider;
@@ -82,7 +80,6 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 
 	public ItemExchangeRod(Properties props) {
 		super(props);
-		MinecraftForge.EVENT_BUS.addListener(this::onLeftClick);
 	}
 
 	@Nonnull
@@ -123,18 +120,19 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	}
 
 	@Override
-	public boolean canPlayerBreakBlockWhileHolding(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) {
-		return !player.isCreative();
-	}
+	public boolean canPlayerBreakBlockWhileHolding(BlockState state, World world, BlockPos pos, PlayerEntity player) {
+		if (!world.isRemote) {
+			ItemStack stack = player.getHeldItem(Hand.MAIN_HAND);
 
-	private void onLeftClick(PlayerInteractEvent.LeftClickBlock event) {
-		ItemStack stack = event.getItemStack();
-		if (!stack.isEmpty() && stack.getItem() == this && canExchange(stack) && ManaItemHandler.instance().requestManaExactForTool(stack, event.getPlayer(), COST, false)) {
-			int cost = exchange(event.getWorld(), event.getPlayer(), event.getPos(), stack, getItemToPlace(stack));
-			if (cost > 0) {
-				ManaItemHandler.instance().requestManaForTool(stack, event.getPlayer(), cost, true);
+			if (!stack.isEmpty() && stack.getItem() == this && canExchange(stack)
+					&& ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
+				int cost = exchange(world, player, pos, stack, getItemToPlace(stack));
+				if (cost > 0) {
+					ManaItemHandler.instance().requestManaForTool(stack, player, cost, true);
+				}
 			}
 		}
+		return false;
 	}
 
 	@Override
