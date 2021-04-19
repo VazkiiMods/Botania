@@ -56,9 +56,9 @@ public interface IManaInfusionRecipe extends IRecipe<IInventory> {
 	}
 
 	/**
-	 * Get the block state that must be under the Mana Pool for this recipe, or {@code null} if it can be anything.
+	 * Get the catalyst that must be under the Mana Pool for this recipe, or {@code null} if it can be anything.
 	 *
-	 * @return The catalyst block state.
+	 * @return The catalyst ingredient.
 	 */
 	@Nullable
 	StateIngredient getRecipeCatalyst();
