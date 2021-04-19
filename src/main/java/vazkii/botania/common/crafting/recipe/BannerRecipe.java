@@ -21,6 +21,7 @@ import net.minecraft.nbt.ListNBT;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.tileentity.BannerTileEntity;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -80,6 +81,19 @@ public class BannerRecipe extends SpecialRecipe {
 			}
 		}
 		return applyPattern(banner, pattern, dye);
+	}
+
+	@Nonnull
+	@Override
+	public NonNullList<ItemStack> getRemainingItems(@Nonnull CraftingInventory inv) {
+		return RecipeUtils.getRemainingItemsSub(inv, s -> {
+			if (ModBanners.PATTERNS.containsKey(s.getItem().delegate)) {
+				ItemStack stack = s.copy();
+				stack.setCount(1);
+				return stack;
+			}
+			return null;
+		});
 	}
 
 	// [VanillaCopy] From LoomContainer.createOutputStack, edits noted

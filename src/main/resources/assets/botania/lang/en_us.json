@@ -136,6 +136,7 @@
   "botania.nei.lexica": "Lexica Botania",
   "botania.nei.orechid": "Orechid",
   "botania.nei.orechidIgnem": "Orechid Ignem",
+  "botania.nei.terraPlate": "Terrestrial Agglomeration",
 
   "key.botania_corporea_request": "Corporea Request",
 
@@ -1061,6 +1062,8 @@
   "block.botania.bergamute": "Bergamute",
   "block.botania.bergamute.reference": "My lips are sealed",
   "block.botania.floating_bergamute": "Floating Bergamute",
+  "block.botania.labelia": "Labellia",
+  "block.botania.labelia.reference": "[NYI] The engineer's second hardest problem",
   "block.botania.daybloom_motif": "Daybloom Motif",
   "block.botania.nightshade_motif": "Nightshade Motif",
   "block.botania.hydroangeas_motif": "Hydroangeas Motif",
@@ -1181,6 +1184,7 @@
   "item.botania.manasteel_pick": "Manasteel Pickaxe",
   "item.botania.manasteel_shovel": "Manasteel Shovel",
   "item.botania.manasteel_axe": "Manasteel Axe",
+  "item.botania.manasteel_hoe": "Manasteel Hoe",
   "item.botania.manasteel_sword": "Manasteel Sword",
   "item.botania.manasteel_shears": "Manasteel Shears",
   "item.botania.horn_grass": "Horn of the Wild",
@@ -1229,6 +1233,7 @@
   "item.botania.elementium_pickaxe": "Elementium Pickaxe",
   "item.botania.elementium_shovel": "Elementium Shovel",
   "item.botania.elementium_axe": "Elementium Axe",
+  "item.botania.elementium_hoe": "Elementium Hoe",
   "item.botania.elementium_sword": "Elementium Sword",
   "item.botania.elementium_shears": "Elementium Shears",
   "item.botania.open_bucket": "Extrapolated Bucket",
@@ -2082,6 +2087,11 @@
   "botania.page.jiyuulia0": "The $(item)Jiyuulia$(0) is a flower that, for a small $(thing)Mana$(0) drain, keeps any nearby animals or monsters at bay, protecting a circular area from entry.",
   "botania.page.jiyuulia1": "$(o)You're free to go everywhere but here$().",
 
+  "botania.entry.labelia": "Labellia",
+  "botania.tagline.labelia": "Renames things",
+  "botania.page.labelia0": "For a moderate sum of $(thing)Mana$(0), the $(item)Labellia$(0) picks up $(thing)Name Tags$(0) dropped on top of it, and uses them to name nearby items and mobs within a 5x5 radius.",
+  "botania.page.labelia1": "$(o)What's in a name?$().",
+
   "botania.entry.rannuncarpus": "Rannuncarpus",
   "botania.tagline.rannuncarpus": "Places blocks down",
   "botania.page.rannuncarpus0": "Quite a handy flower indeed, the $(item)Rannuncarpus$(0) will pick up nearby placeable items and place them within a large radius around itself as blocks, preferably facing them towards itself. However, it will only place blocks on top of a specific block type at a time; to specify this block, place it right below the soil the flower rests on.",
@@ -2144,7 +2154,7 @@
 
   "botania.entry.solegnolia": "Solegnolia",
   "botania.tagline.solegnolia": "Creates spaces where the Ring of Magnetization doesn't work",
-  "botania.page.solegnolia0": "The $(l:baubles/magnet_ring)$(item)Ring of Magnetization$(0)$(/l) is quite the handy tool for any diggers or collectors; however, it can also pick up unwanted items, possibly disrupting automation setups in the process. The $(item)Solegnolia$(0) disrupts the ring's field of effect and prevents any items near it from being pulled towards a ring-bearer; any rings within its radius are also prevented from picking items up. It does not consume $(thing)Mana$(0).",
+  "botania.page.solegnolia0": "The $(l:baubles/magnet_ring)$(item)Ring of Magnetization$(0)$(/l) is quite the handy tool for any diggers or collectors. However, it can also pick up unwanted items, disrupting automation setups in the process. The $(item)Solegnolia$(0) disrupts the ring's field of effect and prevents any items in its range from being pulled towards a ring-bearer. It also prevents any ring-bearers in its range from pulling any items. It does not consume $(thing)Mana$(0).",
   "botania.page.solegnolia1": "On/Off",
 
   "botania.entry.bergamute": "Bergamute",
@@ -2252,7 +2262,7 @@
   "botania.entry.manaEnchanting": "Enchanting with Mana",
   "botania.tagline.manaEnchanting": "Using mana to enchant your tools",
   "botania.page.manaEnchanting0": "With the magical power emitted from $(l:devices/pylon)$(item)Mana Pylons$(0)$(/l), a structure can be built that performs enchants with books without consuming them. The construction of a $(item)Mana Enchanter$(0) isn't cheap, though, neither in space nor materials.",
-  "botania.page.manaEnchanting1": "A $(item)Mana Enchanter$(0) takes up an area around 11x7 in size, and is constructed from 17 $(item)Obsidian$(0) blocks, 10 $(l:basics/flowers)$(item)Mystical Flowers$(0)$(/l) of any color, 6 $(l:devices/pylon)$(item)Mana Pylons$(0)$(/l), and one $(item)Lapis Lazuli Block$(0).$(p)Instructions on assembling this marvelous contraption follow.",
+  "botania.page.manaEnchanting1": "A $(item)Mana Enchanter$(0) takes up an area around 11x7 in size, and is constructed from 17 $(item)Obsidian$(0) blocks, 10 $(l:basics/flowers)$(item)Mystical Flowers$(0)$(/l) of any color or their $(l:misc/shiny_flowers#shiny)$(item)Glimmering$(0)$(/l) or $(l:misc/shiny_flowers#floating)$(item)Floating$(0)$(/l) variants, 6 $(l:devices/pylon)$(item)Mana Pylons$(0)$(/l), and one $(item)Lapis Lazuli Block$(0).$(p)Instructions on assembling this marvelous contraption follow.",
   "botania.page.manaEnchanting2": "Mana Enchanter",
   "botania.page.manaEnchanting5": "After construction, right-click the core lapis block with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l) to activate the enchanter.$(p)To use the enchanter, place (via right-click) the item to be enchanted in the enchanter itself and drop $(item)Enchanted Books$(0) with the desired enchantments within the obsidian circle. Note that pre-enchanted items can't be placed in the enchanter.",
   "botania.page.manaEnchanting6": "To start the enchantment, right-click the enchanter with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l). Once it's finished scanning nearby books, a spell circle will appear around the core, indicating that the books can be safely picked up again. Note that the scan will only pick up the first enchantment on a given book; multiple enchantments from one book will not be applied.",
@@ -2513,10 +2523,11 @@
   "botania.entry.manaGear": "Manasteel Equipment",
   "botania.tagline.manaGear": "Iron-tier equipment that repairs itself with Mana",
   "botania.page.manaGear0": "$(item)Manasteel$(0), like other metals, can be shaped into tools and armor alike.$(p)Tools or armor crafted from this material will share most of their qualities with $(item)Iron$(0), albeit with superior enchantability and durability. Additionally, all $(item)Manasteel$(0) items can heal their durabilities with $(thing)Mana$(0) from their user's inventory (e.g. in a $(l:mana/mana_tablet)$(item)Mana Tablet$(0)$(/l)).",
-  "botania.page.manaGear10": "Some $(item)Manasteel$(0) tools perform special actions when right-clicked: the $(item)Pickaxe$(0) will place a torch from the user's inventory, the $(item)Axe$(0) will do the same with a sapling, and the $(item)Shovel$(0) will till the earth like a hoe would.$(p)Do note that $(item)Shears$(0) made of mana-based materials will trigger tripwires, unlike iron ones.",
+  "botania.page.manaGear10": "Some $(item)Manasteel$(0) tools perform special actions when right-clicked: the $(item)Pickaxe$(0) will place a torch from the user's inventory, and the $(item)Axe$(0) will do the same with a sapling.$(p)Do note that $(item)Shears$(0) made of mana-based materials will trigger tripwires, unlike iron ones.",
   "botania.page.manaGear1": "The $(item)Manasteel Pickaxe$(0)",
   "botania.page.manaGear2": "The $(item)Manasteel Shovel$(0)",
   "botania.page.manaGear3": "The $(item)Manasteel Axe$(0)",
+  "botania.page.manaGear3a": "The $(item)Manasteel Hoe$(0)",
   "botania.page.manaGear4": "The $(item)Manasteel Shears$(0)",
   "botania.page.manaGear5": "The $(item)Manasteel Sword$(0)",
   "botania.page.manaGear6": "The $(item)Manasteel Helmet$(0)",
@@ -2568,6 +2579,8 @@
   "botania.page.elfGear5": "The $(item)Elementium Shovel$(0)",
   "botania.page.elfGear6": "The $(item)Elementium Axe$(0) doubles as a weapon. If used to strike the finishing blow to a $(thing)Zombie$(0), $(thing)Skeleton$(0), $(thing)Creeper$(0), or another $(thing)Player$(0), it might decapitate its victim, leaving a severed head or skull behind.",
   "botania.page.elfGear7": "The $(item)Elementium Axe$(0)",
+  "botania.page.elfGear7a": "The $(item)Elementium Hoe$(0) will instantly moisten farmland it creates, regardless of proximity to water, or whether water can even exist in the vicinity. Perfect for impatient farmers!",
+  "botania.page.elfGear7b": "The $(item)Elementium Hoe$(0)",
   "botania.page.elfGear8": "The $(item)Elementium Shears$(0) can, when drawn back like a bow, speedily shear nearby sheep within a large area of effect centered on the holder.",
   "botania.page.elfGear9": "The $(item)Elementium Shears$(0)",
   "botania.page.elfGear10": "Finally, the $(item)Elementium Sword$(0), when held, increases the chance of a $(thing)Pixie$(0) spawning when hit (this holds true even when no $(item)Elementium Armor$(0) is worn), and augments the strength of any $(thing)Pixies$(0) spawned.",
@@ -2733,8 +2746,8 @@
   "botania.entry.exchangeRod": "Rod of the Shifting Crust",
   "botania.tagline.exchangeRod": "A rod for swapping blocks",
   "botania.page.exchangeRod0": "The $(item)Rod of the Shifting Crust$(0) is a magical device with the ability to swap blocks in the world at very high speeds. To set up the rod, sneak-right click a block to select it.$(p)After a block is selected, punching any other block in the world with the rod will use $(thing)Mana$(0) to swap it for the selected block (assuming the latter is present in the user's inventory).",
-  "botania.page.exchangeRod1": "Right-clicking a block in the world will perform a larger transformation, swapping all highlighted blocks with the selected one. Blocks being placed (obviously) come from the user's inventory, and require $(thing)Mana$(0) for placement. Only proper, full-sized blocks can be used for this swap-- no flowers, torches, or other shenanigans of that sort, though slabs are fine.",
-  "botania.page.exchangeRod2": "Other rods or devices can supply blocks to the $(item)Rod of the Shifting Crust$(0).$(p)For example, a $(l:tools/dirt_rod)$(item)Rod of the Lands$(0)$(/l) in a user's inventory will provide their $(item)Rod of the Shifting Crust$(0) with an endless supply of $(item)Dirt$(0) (assuming sufficient $(thing)Mana$(0) to conjure each dirt block, of course).",
+  "botania.page.exchangeRod1": "Right-clicking a block in the world will perform a larger transformation, swapping all highlighted blocks with the selected one. Blocks being placed (obviously) come from the user's inventory, and require $(thing)Mana$(0) for placement. Only proper, full-sized blocks can be used for this swap-- no flowers, torches, or other shenanigans of that sort, though slabs are fine.$(p)Very hard blocks may consume more $(thing)Mana$(0) to be replaced.",
+  "botania.page.exchangeRod2": "Other rods or devices can supply blocks to the $(item)Rod of the Shifting Crust$(0).$(p)For example, a $(l:tools/dirt_rod)$(item)Rod of the Lands$(0)$(/l) in a user's inventory will provide their $(item)Rod of the Shifting Crust$(0) with an endless supply of $(item)Dirt$(0) (assuming sufficient $(thing)Mana$(0) to conjure each dirt block, of course).$(p)If replacing a cubical area is not desired, using the $(l:tools/temperance_stone)$(item)Stone of Temperance$(0)$(/l) can reduce it to a plane of blocks.",
   "botania.page.exchangeRod3": "Bootlegged equal trade",
 
   "botania.entry.manaweave": "Manaweave Cloth",
@@ -2783,6 +2796,7 @@
   "botania.entry.enderHand": "Hand of Ender",
   "botania.tagline.enderHand": "Ender Chest access anywhere",
   "botania.page.enderHand0": "The $(item)Hand of Ender$(0) allows its user to access their interdimensional Ender subspace pocket; in other words, their $(item)Ender Chest$(0) inventory. Said inventory can be opened with some $(thing)Mana$(0) by right-clicking with the Hand, no matter the place.$(p)Using the hand on another player will use substantially more $(thing)Mana$(0), but will open $(o)their$() inventory instead.",
+  "botania.page.enderHand0a": "The $(item)Hand of Ender$(0) allows its user to access their interdimensional Ender subspace pocket; in other words, their $(item)Ender Chest$(0) inventory. Said inventory can be opened with some $(thing)Mana$(0) by right-clicking with the Hand, no matter the place.",
   "botania.page.enderHand2": "Furthermore, a $(item)Hand of Ender$(0) automatically provides the $(l:tools/exchange_rod)$(item)Rod of the Shifting Crust$(0)$(/l) access to its user's $(item)Ender Chest$(0)'s contents, for a small $(thing)Mana$(0) cost per block.",
   "botania.page.enderHand1": "It's like the 5G of Ender Chests",
 
@@ -3076,7 +3090,7 @@
 
   "botania.entry.swapRing": "Ring of Correction",
   "botania.tagline.swapRing": "Make sure you have the right tool for the job",
-  "botania.page.swapRing0": "Switching tools can be a pain, especially when you find yourself shoveling away at dirt with... an axe? The $(item)Ring of Correction$(0) is a great way to, well, correct those problems.$(p)With this ring equipped, the tool in hand will always be the right one for the block being broken, be it pick, axe or shovel. As long as you have the relevant $(thing)Mana$(0)-using tools on hand.",
+  "botania.page.swapRing0": "Switching tools can be a pain, especially when you find yourself shoveling away at dirt with... an axe? The $(item)Ring of Correction$(0) is a great way to, well, correct those problems.$(p)With this ring equipped, the tool in hand will always be the right one for the block being broken, be it pick, axe, shovel, hoe, or shears. As long as you have the relevant $(thing)Mana$(0)-using tools on hand.",
   "botania.page.swapRing1": "Use the right tools",
 
   "botania.entry.speedUpBelt": "Planestrider's Sash",
@@ -3086,7 +3100,7 @@
 
   "botania.entry.baubleBox": "Trinket Case",
   "botania.tagline.baubleBox": "A handy container to store your Trinkets in",
-  "botania.page.baubleBox0": "It's possible to have $(o)too$() many $(thing)Trinkets$(0) on hand-- after all, inventory space is limited. A solution: stash them in a $(item)Trinket Case$(0), a handy container for $(thing)Trinkets$(0).$(p)The case's interface lets its user quickly swap their equipped $(thing)Trinkets$(0). The case can also store $(thing)Mana$(0)-containing items, like $(l:mana/mana_tablet)$(item)Mana Tablets$(0)$(/l) (though they can't provide $(thing)Mana$(0) when in the box).",
+  "botania.page.baubleBox0": "It's possible to have $(o)too$() many $(thing)Trinkets$(0) on hand-- after all, inventory space is limited. A solution: stash them in a $(item)Trinket Case$(0), a handy container for $(thing)Trinkets$(0).$(p)The case's interface lets its user quickly swap their equipped $(thing)Trinkets$(0). The case can also store $(thing)Rods$(0) and $(thing)Mana$(0)-containing items, like $(l:mana/mana_tablet)$(item)Mana Tablets$(0)$(/l) (though they can't provide $(thing)Mana$(0) when in the box).",
   "botania.page.baubleBox1": "It could even be a boat!",
 
   "botania.entry.dodgeRing": "Ring of Dexterous Motion",
@@ -3339,6 +3353,7 @@
   "botania.subtitle.equipBauble": "Trinket equips",
   "botania.subtitle.gaiaTrap": "Gaia Guardian's spell swooshes",
   "botania.subtitle.holyCloak": "Cloak of Virtue activates",
+  "botania.subtitle.labelia": "Labellia renames something",
   "botania.subtitle.laputaStart": "Laputa Shard triggers",
   "botania.subtitle.lexiconOpen": "Lexica Botania opens",
   "botania.subtitle.lexiconPage": "Lexica Botania page turns",

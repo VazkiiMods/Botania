@@ -17,11 +17,12 @@
     <rule ref="category/java/bestpractices.xml/UseTryWithResources" />
 
     <rule ref="category/java/codestyle.xml/ControlStatementBraces" />
-    <!--<rule ref="category/java/codestyle.xml/UnnecessaryModifier" /> todo consider this one?-->
+    <rule ref="category/java/codestyle.xml/UnnecessaryModifier" />
     <rule ref="category/java/codestyle.xml/UseDiamondOperator" />
 
     <rule ref="category/java/design.xml/SimplifiedTernary" />
     <rule ref="category/java/errorprone.xml/UnnecessaryCaseChange" />
     <rule ref="category/java/errorprone.xml/UseCorrectExceptionLogging" />
+    <rule ref="category/java/errorprone.xml/UseLocaleWithCaseConversions" />
 
 </ruleset>

@@ -16,6 +16,6 @@ import net.minecraft.world.World;
  */
 public interface ILaputaImmobile {
 
-	public boolean canMove(World world, BlockPos pos);
+	boolean canMove(World world, BlockPos pos);
 
 }

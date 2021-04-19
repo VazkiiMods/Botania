@@ -61,6 +61,10 @@ public interface IManaInfusionRecipe extends IRecipe<IInventory> {
 	 * @return The catalyst block state.
 	 */
 	@Nullable
+	StateIngredient getRecipeCatalyst();
+
+	@Nullable
+	@Deprecated
 	BlockState getCatalyst();
 
 	/**

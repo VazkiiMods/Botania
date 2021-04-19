@@ -45,7 +45,7 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 				if (cap.isPresent()) {
 					IExoflameHeatable heatable = cap.orElseThrow(NullPointerException::new);
 
-					if (heatable.canSmelt() && getMana() > 2) {
+					if (heatable.canSmelt() && getMana() >= COST) {
 						if (heatable.getBurnTime() < 2) {
 							heatable.boostBurnTime();
 							addMana(-COST);

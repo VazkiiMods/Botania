@@ -118,6 +118,7 @@ public class ModTags {
 
 		public static final ITag.INamedTag<Item> BURST_VIEWERS = tag("burst_viewers");
 		public static final ITag.INamedTag<Item> TERRA_PICK_BLACKLIST = tag("terra_pick_blacklist");
+		public static final ITag.INamedTag<Item> RODS = tag("rods");
 
 		public static ITag.INamedTag<Item> getPetalTag(DyeColor color) {
 			switch (color) {
@@ -168,6 +169,7 @@ public class ModTags {
 
 	public static class Blocks {
 		public static final ITag.INamedTag<Block> MYSTICAL_FLOWERS = tag("mystical_flowers");
+		public static final ITag.INamedTag<Block> SHINY_FLOWERS = tag("shiny_flowers");
 		public static final ITag.INamedTag<Block> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
 
 		public static final ITag.INamedTag<Block> SPECIAL_FLOWERS = tag("special_flowers");
@@ -179,6 +181,8 @@ public class ModTags {
 		public static final ITag.INamedTag<Block> FLOATING_FLOWERS = tag("floating_flowers");
 		public static final ITag.INamedTag<Block> MUNDANE_FLOATING_FLOWERS = tag("mundane_floating_flowers");
 		public static final ITag.INamedTag<Block> SPECIAL_FLOATING_FLOWERS = tag("special_floating_flowers");
+
+		public static final ITag.INamedTag<Block> ENCHANTER_FLOWERS = tag("enchanter_flowers");
 
 		public static final ITag.INamedTag<Block> LIVINGROCK = tag("livingrock");
 		public static final ITag.INamedTag<Block> LIVINGWOOD = tag("livingwood");
@@ -195,6 +199,8 @@ public class ModTags {
 
 		public static final ITag.INamedTag<Block> CORPOREA_SPARK_OVERRIDE = tag("corporea_spark_override");
 		public static final ITag.INamedTag<Block> TERRA_PLATE_BASE = tag("terra_plate_base");
+
+		public static final ITag.INamedTag<Block> MUSHROOMS = forgeTag("mushrooms");
 
 		private static ITag.INamedTag<Block> tag(String name) {
 			return BlockTags.makeWrapperTag(prefix(name).toString());

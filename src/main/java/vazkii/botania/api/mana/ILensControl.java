@@ -16,18 +16,18 @@ import net.minecraft.item.ItemStack;
  */
 public interface ILensControl extends ILens {
 
-	public boolean isControlLens(ItemStack stack);
+	boolean isControlLens(ItemStack stack);
 
-	public boolean allowBurstShooting(ItemStack stack, IManaSpreader spreader, boolean redstone);
+	boolean allowBurstShooting(ItemStack stack, IManaSpreader spreader, boolean redstone);
 
 	/**
 	 * Used for the tick of a non-redstone spreader.
 	 */
-	public void onControlledSpreaderTick(ItemStack stack, IManaSpreader spreader, boolean redstone);
+	void onControlledSpreaderTick(ItemStack stack, IManaSpreader spreader, boolean redstone);
 
 	/**
 	 * Used for when a redstone spreader gets a pulse.
 	 */
-	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader, boolean redstone);
+	void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader, boolean redstone);
 
 }

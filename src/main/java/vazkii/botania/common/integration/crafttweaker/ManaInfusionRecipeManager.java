@@ -16,7 +16,6 @@ import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
 import com.blamejared.crafttweaker.impl.item.MCItemStack;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
@@ -24,6 +23,7 @@ import net.minecraft.util.ResourceLocation;
 import org.openzen.zencode.java.ZenCodeType;
 
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
+import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.RecipeManaInfusion;
 
@@ -34,14 +34,14 @@ import javax.annotation.Nonnull;
 public class ManaInfusionRecipeManager implements IRecipeManager {
 
 	@ZenCodeType.Method
-	public void addRecipe(String name, IItemStack output, IIngredient input, int mana, @ZenCodeType.Optional BlockState catalystState, @ZenCodeType.Optional RecipeFunctionSingle function) {
+	public void addRecipe(String name, IItemStack output, IIngredient input, int mana, @ZenCodeType.Optional StateIngredient catalyst, @ZenCodeType.OptionalString String group, @ZenCodeType.Optional RecipeFunctionSingle function) {
 		name = fixRecipeName(name);
 		ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
 		RecipeManaInfusion recipe;
 		if (function == null) {
-			recipe = new RecipeManaInfusion(resourceLocation, output.getInternal(), input.asVanillaIngredient(), mana, "", catalystState);
+			recipe = new RecipeManaInfusion(resourceLocation, output.getInternal(), input.asVanillaIngredient(), mana, group, catalyst);
 		} else {
-			recipe = new RecipeManaInfusion(resourceLocation, output.getInternal(), input.asVanillaIngredient(), mana, "", catalystState) {
+			recipe = new RecipeManaInfusion(resourceLocation, output.getInternal(), input.asVanillaIngredient(), mana, group, catalyst) {
 				@Nonnull
 				@Override
 				public ItemStack getRecipeOutput(@Nonnull ItemStack input) {

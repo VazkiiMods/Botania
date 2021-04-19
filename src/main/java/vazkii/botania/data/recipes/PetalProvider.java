@@ -108,7 +108,9 @@ public class PetalProvider extends RecipeProvider {
 		consumer.accept(make(ModSubtiles.heiseiDream, magenta, magenta, purple, pink, runeWrath, pixieDust));
 		consumer.accept(make(ModSubtiles.tigerseye, yellow, brown, orange, lime, runeAutumn));
 
-		consumer.accept(make(ModSubtiles.orechid, gray, gray, yellow, green, red, runePride, runeGreed, redstoneRoot, pixieDust));
+		IFinishedRecipe base = make(ModSubtiles.orechid, gray, gray, yellow, green, red, runePride, runeGreed, redstoneRoot, pixieDust);
+		IFinishedRecipe gog = make(ModSubtiles.orechid, gray, gray, yellow, yellow, green, green, red, red);
+		consumer.accept(new GogAlternationResult(gog, base));
 
 		consumer.accept(make(ModSubtiles.orechidIgnem, red, red, white, white, pink, runePride, runeGreed, redstoneRoot, pixieDust));
 		consumer.accept(make(ModSubtiles.fallenKanade, white, white, yellow, yellow, orange, runeSpring));
@@ -130,6 +132,7 @@ public class PetalProvider extends RecipeProvider {
 		consumer.accept(make(ModSubtiles.bubbell, cyan, cyan, lightBlue, lightBlue, blue, blue, runeWater, runeSummer, pixieDust));
 		consumer.accept(make(ModSubtiles.solegnolia, brown, brown, red, blue, redstoneRoot));
 		consumer.accept(make(ModSubtiles.bergamute, orange, green, green, redstoneRoot));
+//		consumer.accept(make(ModSubtiles.labelia, purple, purple, blue, white, black, runeAutumn, redstoneRoot, pixieDust)); TODO uncomment when labelia ready
 
 		consumer.accept(make(ModBlocks.motifDaybloom, yellow, yellow, orange, lightBlue));
 		consumer.accept(make(ModBlocks.motifNightshade, black, black, purple, gray));

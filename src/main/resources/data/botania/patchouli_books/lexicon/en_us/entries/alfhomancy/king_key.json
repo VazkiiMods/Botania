@@ -4,6 +4,7 @@
   "icon": "botania:king_key",
   "entry_color": "aa00aa",
   "advancement": "botania:challenge/king_key",
+  "flag": "botania:relics",
   "pages": [
     {
       "type": "text",

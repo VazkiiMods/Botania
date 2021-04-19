@@ -10,6 +10,7 @@ package vazkii.botania.common.crafting;
 
 import com.google.gson.JsonObject;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.registry.Registry;
@@ -19,17 +20,23 @@ import vazkii.botania.api.recipe.StateIngredient;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class StateIngredientBlock implements StateIngredient {
-	private final net.minecraft.block.Block block;
+	private final Block block;
 
-	public StateIngredientBlock(net.minecraft.block.Block block) {
+	public StateIngredientBlock(Block block) {
 		this.block = block;
 	}
 
 	@Override
 	public boolean test(BlockState blockState) {
 		return block == blockState.getBlock();
+	}
+
+	@Override
+	public BlockState pick(Random random) {
+		return block.getDefaultState();
 	}
 
 	@Override
@@ -51,4 +58,24 @@ public class StateIngredientBlock implements StateIngredient {
 		return Collections.singletonList(block.getDefaultState());
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		return block == ((StateIngredientBlock) o).block;
+	}
+
+	@Override
+	public int hashCode() {
+		return block.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return "StateIngredientBlock{" + block + "}";
+	}
 }

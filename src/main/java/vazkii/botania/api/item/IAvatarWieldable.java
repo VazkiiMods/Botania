@@ -19,11 +19,11 @@ public interface IAvatarWieldable {
 	/**
 	 * Called on update of the avatar tile.
 	 */
-	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack);
+	void onAvatarUpdate(IAvatarTile tile, ItemStack stack);
 
 	/**
 	 * Gets the overlay resource to render on top of the avatar tile.
 	 */
-	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack);
+	ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack);
 
 }

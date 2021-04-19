@@ -8,29 +8,18 @@
  */
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.UseHoeEvent;
-import net.minecraftforge.eventbus.api.Event;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
-import vazkii.botania.mixin.AccessorHoeItem;
-
-import javax.annotation.Nonnull;
 
 import java.util.function.Consumer;
 
@@ -53,57 +42,6 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 
 	public int getManaPerDamage() {
 		return MANA_PER_DAMAGE;
-	}
-
-	@Nonnull
-	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
-		ActionResultType pathResult = super.onItemUse(ctx);
-		if (pathResult.isSuccessOrConsume()) {
-			return pathResult;
-		}
-
-		ItemStack stack = ctx.getItem();
-		PlayerEntity player = ctx.getPlayer();
-		World world = ctx.getWorld();
-		BlockPos pos = ctx.getPos();
-
-		if (player == null || !player.canPlayerEdit(pos, ctx.getFace(), stack)) {
-			return ActionResultType.PASS;
-		}
-
-		UseHoeEvent event = new UseHoeEvent(ctx);
-		if (MinecraftForge.EVENT_BUS.post(event)) {
-			return ActionResultType.FAIL;
-		}
-
-		if (event.getResult() == Event.Result.ALLOW) {
-			stack.damageItem(1, player, p -> p.sendBreakAnimation(ctx.getHand()));
-			return ActionResultType.SUCCESS;
-		}
-
-		Block block = world.getBlockState(pos).getBlock();
-		BlockState converted = AccessorHoeItem.getConversions().get(block);
-		if (converted == null) {
-			return ActionResultType.PASS;
-		}
-
-		if (ctx.getFace() != Direction.DOWN && world.getBlockState(pos.up()).getBlock().isAir(world.getBlockState(pos.up()), world, pos.up())) {
-			world.playSound(null, pos, converted.getSoundType().getStepSound(),
-					SoundCategory.BLOCKS,
-					(converted.getSoundType().getVolume() + 1.0F) / 2.0F,
-					converted.getSoundType().getPitch() * 0.8F);
-
-			if (world.isRemote) {
-				return ActionResultType.SUCCESS;
-			} else {
-				world.setBlockState(pos, converted);
-				stack.damageItem(1, player, p -> p.sendBreakAnimation(ctx.getHand()));
-				return ActionResultType.SUCCESS;
-			}
-		}
-
-		return ActionResultType.PASS;
 	}
 
 	@Override

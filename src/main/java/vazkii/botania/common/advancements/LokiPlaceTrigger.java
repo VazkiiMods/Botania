@@ -42,12 +42,12 @@ public class LokiPlaceTrigger extends AbstractCriterionTrigger<LokiPlaceTrigger.
 		triggerListeners(player, instance -> instance.test(player, ring, blocksPlaced));
 	}
 
-	static class Instance extends CriterionInstance {
+	public static class Instance extends CriterionInstance {
 		private final EntityPredicate player;
 		private final ItemPredicate ring;
 		private final MinMaxBounds.IntBound blocksPlaced;
 
-		Instance(EntityPredicate.AndPredicate playerPred, EntityPredicate player, ItemPredicate ring, MinMaxBounds.IntBound blocksPlaced) {
+		public Instance(EntityPredicate.AndPredicate playerPred, EntityPredicate player, ItemPredicate ring, MinMaxBounds.IntBound blocksPlaced) {
 			super(ID, playerPred);
 			this.player = player;
 			this.ring = ring;
@@ -62,6 +62,18 @@ public class LokiPlaceTrigger extends AbstractCriterionTrigger<LokiPlaceTrigger.
 
 		boolean test(ServerPlayerEntity player, ItemStack ring, int blocksPlaced) {
 			return this.player.test(player, null) && this.ring.test(ring) && this.blocksPlaced.test(blocksPlaced);
+		}
+
+		public EntityPredicate getPlayer() {
+			return this.player;
+		}
+
+		public ItemPredicate getRing() {
+			return this.ring;
+		}
+
+		public MinMaxBounds.IntBound getBlocksPlaced() {
+			return this.blocksPlaced;
 		}
 	}
 }

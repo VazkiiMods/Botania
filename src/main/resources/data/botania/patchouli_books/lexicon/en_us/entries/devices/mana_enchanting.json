@@ -3,6 +3,7 @@
   "category": "botania:devices",
   "icon": "botania:enchanter",
   "advancement": "botania:main/mana_pool_pickup",
+  "flag": "botania:enchanter",
   "pages": [
     {
       "type": "text",

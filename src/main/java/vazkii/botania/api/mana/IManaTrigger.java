@@ -19,6 +19,6 @@ import vazkii.botania.api.internal.IManaBurst;
  */
 public interface IManaTrigger {
 
-	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos);
+	void onBurstCollision(IManaBurst burst, World world, BlockPos pos);
 
 }

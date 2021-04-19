@@ -9,6 +9,7 @@
   "mana": 2500,
   "group": "botania:flower_shrinking",
   "catalyst": {
-    "name": "botania:alchemy_catalyst"
+    "type": "block",
+    "block": "botania:alchemy_catalyst"
   }
 }

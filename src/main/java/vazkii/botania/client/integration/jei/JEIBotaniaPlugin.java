@@ -11,6 +11,7 @@ package vazkii.botania.client.integration.jei;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeManager;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
@@ -21,36 +22,26 @@ import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
 import mezz.jei.api.runtime.IJeiRuntime;
 import mezz.jei.api.runtime.IRecipesGui;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.internal.OrechidOutput;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
-import vazkii.botania.client.integration.jei.brewery.BreweryRecipeCategory;
 import vazkii.botania.client.integration.jei.crafting.AncientWillRecipeWrapper;
 import vazkii.botania.client.integration.jei.crafting.CompositeLensRecipeWrapper;
 import vazkii.botania.client.integration.jei.crafting.TerraPickTippingRecipeWrapper;
-import vazkii.botania.client.integration.jei.elventrade.ElvenTradeRecipeCategory;
-import vazkii.botania.client.integration.jei.manapool.ManaPoolRecipeCategory;
 import vazkii.botania.client.integration.jei.orechid.OrechidIgnemRecipeCategory;
-import vazkii.botania.client.integration.jei.orechid.OrechidIgnemRecipeWrapper;
 import vazkii.botania.client.integration.jei.orechid.OrechidRecipeCategory;
-import vazkii.botania.client.integration.jei.orechid.OrechidRecipeWrapper;
-import vazkii.botania.client.integration.jei.petalapothecary.PetalApothecaryRecipeCategory;
-import vazkii.botania.client.integration.jei.puredaisy.PureDaisyRecipeCategory;
-import vazkii.botania.client.integration.jei.runicaltar.RunicAltarRecipeCategory;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;
@@ -71,8 +62,10 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
 import javax.annotation.Nonnull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -109,13 +102,9 @@ public class JEIBotaniaPlugin implements IModPlugin {
 				new ElvenTradeRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
 				new BreweryRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
 				new OrechidRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
-				new OrechidIgnemRecipeCategory(registry.getJeiHelpers().getGuiHelper())
+				new OrechidIgnemRecipeCategory(registry.getJeiHelpers().getGuiHelper()),
+				new TerraPlateRecipeCategory(registry.getJeiHelpers().getGuiHelper())
 		);
-	}
-
-	public static boolean doesOreExist(ResourceLocation tagId) {
-		ITag<Block> tag = BlockTags.getCollection().get(tagId);
-		return tag != null && !tag.getAllElements().isEmpty();
 	}
 
 	@Override
@@ -134,23 +123,15 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.ELVEN_TRADE_TYPE).values(), ElvenTradeRecipeCategory.UID);
 		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.RUNE_TYPE).values(), RunicAltarRecipeCategory.UID);
 		registry.addRecipes(TilePool.manaInfusionRecipes(Minecraft.getInstance().world), ManaPoolRecipeCategory.UID);
+		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.TERRA_PLATE_TYPE).values(), TerraPlateRecipeCategory.UID);
 
-		registry.addRecipes(
-				BotaniaAPI.instance().getOreWeights().entrySet().stream()
-						.filter(e -> doesOreExist(e.getKey()))
-						.map(OrechidRecipeWrapper::new)
-						.sorted()
-						.collect(Collectors.toList()),
-				OrechidRecipeCategory.UID);
+		List<OrechidOutput> weights = new ArrayList<>(BotaniaAPI.instance().getOrechidWeights());
+		weights.sort(Comparator.naturalOrder());
+		registry.addRecipes(weights, OrechidRecipeCategory.UID);
 
-		registry.addRecipes(
-				BotaniaAPI.instance().getNetherOreWeights().entrySet().stream()
-						.filter(e -> doesOreExist(e.getKey()))
-						.map(OrechidIgnemRecipeWrapper::new)
-						.sorted()
-						.collect(Collectors.toList()),
-				OrechidIgnemRecipeCategory.UID);
-
+		weights = new ArrayList<>(BotaniaAPI.instance().getNetherOrechidWeights());
+		weights.sort(Comparator.naturalOrder());
+		registry.addRecipes(weights, OrechidIgnemRecipeCategory.UID);
 	}
 
 	@Override
@@ -187,6 +168,7 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		registry.addRecipeCatalyst(new ItemStack(ModSubtiles.pureDaisyFloating), PureDaisyRecipeCategory.UID);
 
 		registry.addRecipeCatalyst(new ItemStack(ModBlocks.runeAltar), RunicAltarRecipeCategory.UID);
+		registry.addRecipeCatalyst(new ItemStack(ModBlocks.terraPlate), TerraPlateRecipeCategory.UID);
 		registry.addRecipeCatalyst(new ItemStack(ModItems.autocraftingHalo), VanillaRecipeCategoryUid.CRAFTING);
 		registry.addRecipeCatalyst(new ItemStack(ModItems.craftingHalo), VanillaRecipeCategoryUid.CRAFTING);
 	}
@@ -211,6 +193,9 @@ public class JEIBotaniaPlugin implements IModPlugin {
 				.ifPresent(r -> recipeRegistry.hideRecipe(r, PetalApothecaryRecipeCategory.UID));
 		recipeManager.getRecipe(prefix("petal_apothecary/nightshade_motif"))
 				.ifPresent(r -> recipeRegistry.hideRecipe(r, PetalApothecaryRecipeCategory.UID));
+
+		jeiRuntime.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM, //TODO unhide labelia when ready
+				Arrays.asList(new ItemStack(ModSubtiles.labelia), new ItemStack(ModSubtiles.labeliaFloating)));
 
 		CorporeaInputHandler.jeiPanelSupplier = () -> {
 			Object o = jeiRuntime.getIngredientListOverlay().getIngredientUnderMouse();

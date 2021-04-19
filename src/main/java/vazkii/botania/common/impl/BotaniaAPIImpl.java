@@ -26,6 +26,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.internal.IManaNetwork;
+import vazkii.botania.api.internal.OrechidOutput;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.brew.ModBrews;
@@ -40,7 +41,9 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
@@ -48,6 +51,9 @@ import java.util.function.Supplier;
 
 public class BotaniaAPIImpl implements BotaniaAPI {
 	private static final LazyValue<Rarity> RELIC_RARITY = new LazyValue<>(() -> Rarity.create("RELIC", TextFormatting.GOLD));
+
+	public static List<OrechidOutput> weights = new ArrayList<>();
+	public static List<OrechidOutput> netherWeights = new ArrayList<>();
 
 	private enum ArmorMaterial implements IArmorMaterial {
 		MANASTEEL("manasteel", 16, new int[] { 2, 5, 6, 2 }, 18, () -> SoundEvents.ITEM_ARMOR_EQUIP_IRON, () -> ModItems.manaSteel, 0),
@@ -172,7 +178,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	@Override
 	public int apiVersion() {
-		return 1;
+		return 2;
 	}
 
 	@Override
@@ -256,28 +262,38 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		return ConfigHandler.COMMON.flowerForceCheck.get();
 	}
 
-	private final Map<ResourceLocation, Integer> oreWeights = new ConcurrentHashMap<>();
-	private final Map<ResourceLocation, Integer> netherOreWeights = new ConcurrentHashMap<>();
+	private final Map<ResourceLocation, Integer> legacyOreWeights = new ConcurrentHashMap<>();
+	private final Map<ResourceLocation, Integer> legacyNetherOreWeights = new ConcurrentHashMap<>();
 	private final Map<ResourceLocation, Function<DyeColor, Block>> paintableBlocks = new ConcurrentHashMap<>();
 
 	@Override
+	public List<OrechidOutput> getOrechidWeights() {
+		return Collections.unmodifiableList(weights);
+	}
+
+	@Override
+	public List<OrechidOutput> getNetherOrechidWeights() {
+		return Collections.unmodifiableList(netherWeights);
+	}
+
+	@Override
 	public Map<ResourceLocation, Integer> getOreWeights() {
-		return Collections.unmodifiableMap(oreWeights);
+		return Collections.unmodifiableMap(legacyOreWeights);
 	}
 
 	@Override
 	public Map<ResourceLocation, Integer> getNetherOreWeights() {
-		return Collections.unmodifiableMap(netherOreWeights);
+		return Collections.unmodifiableMap(legacyNetherOreWeights);
 	}
 
 	@Override
 	public void registerOreWeight(ResourceLocation tag, int weight) {
-		oreWeights.put(tag, weight);
+		legacyOreWeights.put(tag, weight);
 	}
 
 	@Override
 	public void registerNetherOreWeight(ResourceLocation tag, int weight) {
-		netherOreWeights.put(tag, weight);
+		legacyNetherOreWeights.put(tag, weight);
 	}
 
 	@Override

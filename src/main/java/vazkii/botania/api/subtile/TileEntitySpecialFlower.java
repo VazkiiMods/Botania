@@ -44,7 +44,9 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandBindable;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 import vazkii.botania.common.lib.ModTags;
 
@@ -77,6 +79,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	/** true if this flower is working on Enchanted Soil and this is the second tick **/
 	public boolean overgrowthBoost = false;
 	private BlockPos positionOverride;
+	private boolean isFloating;
 
 	public static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_FLOATING_DATA = "floating";
@@ -87,6 +90,10 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 
 	@Override
 	public final void tick() {
+		if (isFloating != getBlockState().isIn(ModTags.Blocks.FLOATING_FLOWERS)) {
+			Botania.LOGGER.error("Special flower changed floating state, this is not supported!", new Throwable());
+			isFloating = !isFloating;
+		}
 		TileEntity tileBelow = world.getTileEntity(pos.down());
 		if (tileBelow instanceof TileRedStringRelay) {
 			BlockPos coords = ((TileRedStringRelay) tileBelow).getBinding();
@@ -118,16 +125,23 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	@Nonnull
 	@Override
 	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-		if (cap == FLOATING_FLOWER_CAP) {
-			if (hasWorld() && getBlockState().isIn(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS)) {
-				return floatingDataCap.cast();
-			}
+		if (cap == FLOATING_FLOWER_CAP && isFloating()) {
+			return floatingDataCap.cast();
 		}
 		return super.getCapability(cap, side);
 	}
 
-	public boolean isFloating() {
-		return getCapability(FLOATING_FLOWER_CAP).isPresent();
+	public final boolean isFloating() {
+		return this.isFloating;
+	}
+
+	/**
+	 * WARNING: This should only be called during or soon after construction.
+	 * Switching between nonfloating/floating at play time is not supported and a fresh
+	 * Block Entity should be created instead.
+	 */
+	public final void setFloating(boolean floating) {
+		this.isFloating = floating;
 	}
 
 	private boolean isOnSpecialSoil() {
@@ -156,6 +170,9 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 		if (cmp.contains(TAG_TICKS_EXISTED)) {
 			ticksExisted = cmp.getInt(TAG_TICKS_EXISTED);
 		}
+		if (state.getBlock() instanceof BlockFloatingFlower) {
+			setFloating(true);
+		}
 		readFromPacketNBT(cmp);
 	}
 
@@ -179,7 +196,7 @@ public class TileEntitySpecialFlower extends TileEntity implements ITickableTile
 	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket packet) {
 		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
 		readFromPacketNBT(packet.getNbtCompound());
-		if (oldType != floatingData.getIslandType() && isFloating()) {
+		if (isFloating() && oldType != floatingData.getIslandType()) {
 			ModelDataManager.requestModelDataRefresh(this);
 			world.notifyBlockUpdate(getPos(), getBlockState(), getBlockState(), 0);
 		}

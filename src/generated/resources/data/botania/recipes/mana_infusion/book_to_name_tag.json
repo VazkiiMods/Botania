@@ -6,8 +6,9 @@
   "output": {
     "item": "minecraft:name_tag"
   },
-  "mana": 16000,
+  "mana": 6000,
   "catalyst": {
-    "name": "botania:alchemy_catalyst"
+    "type": "block",
+    "block": "botania:alchemy_catalyst"
   }
 }

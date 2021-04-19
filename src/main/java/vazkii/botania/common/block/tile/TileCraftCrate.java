@@ -11,13 +11,16 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ICraftingRecipe;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -25,16 +28,19 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.mixin.AccessorRecipeManager;
 
 import javax.annotation.Nonnull;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class TileCraftCrate extends TileOpenCrate {
 	private static final String TAG_CRAFTING_RESULT = "craft_result";
 	private int signal = 0;
 	private ItemStack craftResult = ItemStack.EMPTY;
+
+	private final Queue<ResourceLocation> lastRecipes = new ArrayDeque<>();
+	private boolean dirty;
 
 	public TileCraftCrate() {
 		super(ModTiles.CRAFT_CRATE);
@@ -101,9 +107,15 @@ public class TileCraftCrate extends TileOpenCrate {
 			signal = newSignal;
 			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
 		}
+
+		if (dirty) {
+			dirty = false;
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
 	}
 
 	private boolean craft(boolean fullCheck) {
+		world.getProfiler().startSection("craft");
 		if (fullCheck && !isFull()) {
 			return false;
 		}
@@ -124,22 +136,46 @@ public class TileCraftCrate extends TileOpenCrate {
 			craft.setInventorySlotContents(i, stack);
 		}
 
-		Optional<ICraftingRecipe> matchingRecipe = world.getRecipeManager().getRecipe(IRecipeType.CRAFTING, craft, world);
+		Optional<ICraftingRecipe> matchingRecipe = getMatchingRecipe(craft);
 		matchingRecipe.ifPresent(recipe -> {
 			craftResult = recipe.getCraftingResult(craft);
 
+			IInventory handler = getItemHandler();
 			List<ItemStack> remainders = recipe.getRemainingItems(craft);
+
 			for (int i = 0; i < craft.getSizeInventory(); i++) {
 				ItemStack s = remainders.get(i);
-				if (!getItemHandler().getStackInSlot(i).isEmpty()
-						&& getItemHandler().getStackInSlot(i).getItem() == ModItems.placeholder) {
+				ItemStack inSlot = handler.getStackInSlot(i);
+				if ((inSlot.isEmpty() && s.isEmpty())
+						|| (!inSlot.isEmpty() && inSlot.getItem() == ModItems.placeholder)) {
 					continue;
 				}
-				getItemHandler().setInventorySlotContents(i, s);
+				handler.setInventorySlotContents(i, s);
 			}
 		});
 
+		world.getProfiler().endSection();
 		return matchingRecipe.isPresent();
+	}
+
+	private Optional<ICraftingRecipe> getMatchingRecipe(CraftingInventory craft) {
+		for (ResourceLocation currentRecipe : lastRecipes) {
+			IRecipe<CraftingInventory> recipe = ((AccessorRecipeManager) world.getRecipeManager())
+					.botania_getRecipes(IRecipeType.CRAFTING)
+					.get(currentRecipe);
+			if (recipe instanceof ICraftingRecipe && recipe.matches(craft, world)) {
+				return Optional.of((ICraftingRecipe) recipe);
+			}
+		}
+		Optional<ICraftingRecipe> recipe = world.getRecipeManager().getRecipe(IRecipeType.CRAFTING, craft, world);
+		if (recipe.isPresent()) {
+			if (lastRecipes.size() >= 8) {
+				lastRecipes.remove();
+			}
+			lastRecipes.add(recipe.get().getId());
+			return recipe;
+		}
+		return Optional.empty();
 	}
 
 	boolean isFull() {
@@ -157,8 +193,8 @@ public class TileCraftCrate extends TileOpenCrate {
 			ItemStack stack = getItemHandler().getStackInSlot(i);
 			if (!stack.isEmpty()) {
 				eject(stack, false);
+				getItemHandler().setInventorySlotContents(i, ItemStack.EMPTY);
 			}
-			getItemHandler().setInventorySlotContents(i, ItemStack.EMPTY);
 		}
 		if (!craftResult.isEmpty()) {
 			eject(craftResult, false);
@@ -178,7 +214,7 @@ public class TileCraftCrate extends TileOpenCrate {
 	public void markDirty() {
 		super.markDirty();
 		if (world != null && !world.isRemote) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			this.dirty = true;
 		}
 	}
 

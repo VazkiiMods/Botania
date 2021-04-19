@@ -21,30 +21,30 @@ public interface ISparkEntity {
 	 * Which TileEntity is this Spark attached to? A common implementation is checking the block below.
 	 * using world.getTileEntity(new BlockPos(this).down())
 	 */
-	public ISparkAttachable getAttachedTile();
+	ISparkAttachable getAttachedTile();
 
 	/**
 	 * Gets a collection of all Sparks this is tranfering to.
 	 */
-	public Collection<ISparkEntity> getTransfers();
+	Collection<ISparkEntity> getTransfers();
 
 	/**
 	 * Registers the Spark passed in as a Spark meant for mana to be transfered towards.
 	 */
-	public void registerTransfer(ISparkEntity entity);
+	void registerTransfer(ISparkEntity entity);
 
-	public SparkUpgradeType getUpgrade();
+	SparkUpgradeType getUpgrade();
 
-	public void setUpgrade(SparkUpgradeType upgrade);
+	void setUpgrade(SparkUpgradeType upgrade);
 
 	/**
 	 * See {@link ISparkAttachable#areIncomingTranfersDone()}
 	 */
-	public boolean areIncomingTransfersDone();
+	boolean areIncomingTransfersDone();
 
 	/**
 	 * Gets the network that this spark is on, or the color it's displaying. Sparks may only connect to others
 	 * of the same network.
 	 */
-	public DyeColor getNetwork();
+	DyeColor getNetwork();
 }

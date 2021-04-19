@@ -13,13 +13,15 @@ import net.minecraft.data.EntityTypeTagsProvider;
 import net.minecraft.entity.EntityType;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
 import vazkii.botania.common.entity.ModEntities;
+import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 
 public class EntityTagProvider extends EntityTypeTagsProvider {
-	public EntityTagProvider(DataGenerator generator) {
-		super(generator);
+	public EntityTagProvider(DataGenerator generator, ExistingFileHelper helper) {
+		super(generator, LibMisc.MOD_ID, helper);
 	}
 
 	@Override

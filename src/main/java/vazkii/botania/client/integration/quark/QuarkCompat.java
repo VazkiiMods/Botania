@@ -19,7 +19,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 
-import vazkii.botania.client.core.handler.ContributorFancinessHandler;
+import vazkii.botania.common.core.handler.ContributorList;
 import vazkii.quark.api.IRuneColorProvider;
 
 import javax.annotation.Nonnull;
@@ -52,7 +52,7 @@ public class QuarkCompat {
 		@Override
 		public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
 			CompoundNBT tag = stack.getTag();
-			if (tag != null && tag.getBoolean(ContributorFancinessHandler.TAG_HEADFLOWER)) {
+			if (tag != null && tag.getBoolean(ContributorList.TAG_HEADFLOWER)) {
 				return runeColorCap.orEmpty(cap, COLOR);
 			}
 			return LazyOptional.empty();

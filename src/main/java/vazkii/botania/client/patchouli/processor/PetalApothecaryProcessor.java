@@ -8,11 +8,10 @@
  */
 package vazkii.botania.client.patchouli.processor;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
@@ -24,10 +23,7 @@ public class PetalApothecaryProcessor implements IComponentProcessor {
 	@Override
 	public void setup(IVariableProvider variables) {
 		ResourceLocation id = new ResourceLocation(variables.get("recipe").asString());
-		this.recipe = ModRecipeTypes.getRecipes(Minecraft.getInstance().world, ModRecipeTypes.PETAL_TYPE).get(id);
-		if (recipe == null) {
-			Botania.LOGGER.warn("Missing apothecary recipe " + id);
-		}
+		this.recipe = PatchouliUtils.getRecipe(ModRecipeTypes.PETAL_TYPE, id);
 	}
 
 	@Override

@@ -1,23 +1,46 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "group": "botania:spreader",
-  "pattern": [
-    "WWW",
-    "GP ",
-    "WWW"
-  ],
-  "key": {
-    "P": {
-      "tag": "botania:petals"
+  "type": "botania:gog_alternation",
+  "gog": {
+    "type": "minecraft:crafting_shaped",
+    "group": "botania:spreader",
+    "pattern": [
+      "WWW",
+      "WP ",
+      "WWW"
+    ],
+    "key": {
+      "P": {
+        "tag": "botania:petals"
+      },
+      "W": {
+        "tag": "botania:livingwood"
+      }
     },
-    "W": {
-      "tag": "botania:livingwood"
-    },
-    "G": {
-      "tag": "forge:ingots/gold"
+    "result": {
+      "item": "botania:mana_spreader"
     }
   },
-  "result": {
-    "item": "botania:mana_spreader"
+  "base": {
+    "type": "minecraft:crafting_shaped",
+    "group": "botania:spreader",
+    "pattern": [
+      "WWW",
+      "GP ",
+      "WWW"
+    ],
+    "key": {
+      "P": {
+        "tag": "botania:petals"
+      },
+      "W": {
+        "tag": "botania:livingwood"
+      },
+      "G": {
+        "tag": "forge:ingots/gold"
+      }
+    },
+    "result": {
+      "item": "botania:mana_spreader"
+    }
   }
 }

@@ -19,6 +19,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
@@ -32,11 +33,12 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import static net.minecraftforge.common.Tags.Items.MUSHROOMS;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ItemTagProvider extends ItemTagsProvider {
-	public ItemTagProvider(DataGenerator generatorIn, BlockTagProvider blockTagProvider) {
-		super(generatorIn, blockTagProvider);
+	public ItemTagProvider(DataGenerator generatorIn, BlockTagProvider blockTagProvider, ExistingFileHelper helper) {
+		super(generatorIn, blockTagProvider, LibMisc.MOD_ID, helper);
 	}
 
 	@Override
@@ -134,12 +136,27 @@ public class ItemTagProvider extends ItemTagsProvider {
 		for (DyeColor color : DyeColor.values()) {
 			ITag.INamedTag<Item> petalTag = ModTags.Items.getPetalTag(color);
 			this.getOrCreateBuilder(petalTag).add(ModItems.getPetal(color), ModBlocks.getMushroom(color).asItem());
+			this.getOrCreateBuilder(MUSHROOMS).add(ModBlocks.getMushroom(color).asItem());
 			allPetals.addTag(petalTag);
 		}
 
 		this.getOrCreateBuilder(ModTags.Items.LOONIUM_BLACKLIST).add(ModItems.lexicon, ModItems.overgrowthSeed,
 				ModItems.blackLotus, ModItems.blackerLotus).addTag(ItemTags.MUSIC_DISCS);
 		this.getOrCreateBuilder(ModTags.Items.MAGNET_RING_BLACKLIST);
+		this.getOrCreateBuilder(ModTags.Items.RODS).add(
+				ModItems.dirtRod,
+				ModItems.skyDirtRod,
+				ModItems.terraformRod,
+				ModItems.cobbleRod,
+				ModItems.waterRod,
+				ModItems.tornadoRod,
+				ModItems.fireRod,
+				ModItems.diviningRod,
+				ModItems.smeltRod,
+				ModItems.exchangeRod,
+				ModItems.rainbowRod,
+				ModItems.gravityRod,
+				ModItems.missileRod);
 	}
 
 	@Nonnull

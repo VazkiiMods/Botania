@@ -37,9 +37,7 @@ import java.util.function.Predicate;
 
 public final class ToolCommons {
 
-	public static final List<Material> materialsPick = Arrays.asList(Material.ROCK, Material.IRON, Material.ICE, Material.GLASS, Material.PISTON, Material.ANVIL, Material.SHULKER);
-	public static final List<Material> materialsShovel = Arrays.asList(Material.ORGANIC, Material.EARTH, Material.SAND, Material.SNOW, Material.SNOW_BLOCK, Material.CLAY);
-	public static final List<Material> materialsAxe = Arrays.asList(Material.CORAL, Material.LEAVES, Material.PLANTS, Material.WOOD, Material.GOURD);
+	public static final List<Material> materialsAxe = Arrays.asList(Material.CORAL, Material.LEAVES, Material.PLANTS, Material.WOOD, Material.NETHER_WOOD, Material.GOURD);
 	private static boolean recCall = false;
 
 	/**
@@ -85,7 +83,8 @@ public final class ToolCommons {
 
 	/**
 	 * NB: Cannot be called in a call chain leading from PlayerInteractionManager.tryHarvestBlock
-	 * without additional protection like {@link #recCall} in {@link #removeBlocksInIteration},
+	 * without additional protection like {@link #recCall} in {@link #removeBlocksInIteration}
+	 * or {@link vazkii.botania.common.item.relic.ItemLokiRing#breakOnAllCursors},
 	 * since this method calls that method also and would lead to an infinite loop.
 	 */
 	public static void removeBlockWithDrops(PlayerEntity player, ItemStack stack, World world, BlockPos pos,

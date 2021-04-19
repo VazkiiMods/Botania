@@ -11,6 +11,7 @@ package vazkii.botania.common.item.block;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Util;
@@ -18,8 +19,10 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
+import vazkii.botania.common.core.handler.ContributorList;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class ItemBlockTinyPotato extends BlockItem {
@@ -69,4 +72,9 @@ public class ItemBlockTinyPotato extends BlockItem {
 		}
 	}
 
+	@Override
+	public boolean canEquip(ItemStack stack, EquipmentSlotType armorType, Entity entity) {
+		return armorType == EquipmentSlotType.HEAD && entity instanceof PlayerEntity
+				&& ContributorList.hasFlower(((PlayerEntity) entity).getGameProfile().getName().toLowerCase(Locale.ROOT));
+	}
 }

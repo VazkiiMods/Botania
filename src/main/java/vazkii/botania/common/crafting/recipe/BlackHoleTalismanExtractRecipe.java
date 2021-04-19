@@ -95,6 +95,7 @@ public class BlackHoleTalismanExtractRecipe extends SpecialRecipe {
 
 				int extract = Math.min(64, count);
 				ItemStack copy = s.copy();
+				copy.setCount(1);
 				ItemBlackHoleTalisman.remove(copy, extract);
 				ItemNBTHelper.setBoolean(copy, ItemBlackHoleTalisman.TAG_ACTIVE, false);
 

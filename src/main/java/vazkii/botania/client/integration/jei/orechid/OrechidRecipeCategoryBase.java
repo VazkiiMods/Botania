@@ -21,22 +21,18 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.util.ResourceLocation;
 
-import vazkii.botania.client.integration.jei.JEIBotaniaPlugin;
+import vazkii.botania.api.internal.OrechidOutput;
+import vazkii.botania.common.crafting.StateIngredientHelper;
 
 import javax.annotation.Nonnull;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> implements IRecipeCategory<T> {
+public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<OrechidOutput> {
 
 	private final IDrawableStatic background;
 	private final String localizedName;
@@ -57,7 +53,9 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> 
 
 	@Nonnull
 	@Override
-	public abstract Class<? extends T> getRecipeClass();
+	public Class<? extends OrechidOutput> getRecipeClass() {
+		return OrechidOutput.class;
+	}
 
 	@Nonnull
 	@Override
@@ -78,36 +76,30 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> 
 	}
 
 	@Override
-	public void setIngredients(T recipe, IIngredients ingredients) {
+	public void setIngredients(OrechidOutput recipe, IIngredients ingredients) {
 		ingredients.setInput(VanillaTypes.ITEM, inputStack);
 
-		final int myWeight = recipe.entry.getValue();
+		final int myWeight = recipe.itemWeight;
 		final int amount = Math.max(1, Math.round((float) myWeight * 64 / getTotalOreWeight(getOreWeights(), myWeight)));
 
 		// Shouldn't ever return an empty list since the ore weight
 		// list is filtered to only have ores with ItemBlocks
-		List<ItemStack> stackList = BlockTags.getCollection().getTagByID(recipe.entry.getKey())
-				.getAllElements()
-				.stream()
-				.filter(s -> s.asItem() != Items.AIR)
-				.map(ItemStack::new)
-				.collect(Collectors.toList());
+		List<ItemStack> stackList = StateIngredientHelper.toStackList(recipe.getOutput());
 
 		stackList.forEach(s -> s.setCount(amount));
 		ingredients.setOutputLists(VanillaTypes.ITEM, Collections.singletonList(stackList));
 	}
 
-	public static float getTotalOreWeight(Map<ResourceLocation, Integer> weights, int myWeight) {
-		return (weights.entrySet().stream()
-				.filter(e -> JEIBotaniaPlugin.doesOreExist(e.getKey()))
-				.map(Map.Entry::getValue)
+	public static float getTotalOreWeight(List<OrechidOutput> weights, int myWeight) {
+		return (weights.stream()
+				.map(OrechidOutput::getWeight)
 				.reduce(Integer::sum)).orElse(myWeight * 64 * 64);
 	}
 
-	protected abstract Map<ResourceLocation, Integer> getOreWeights();
+	protected abstract List<OrechidOutput> getOreWeights();
 
 	@Override
-	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull T recipeWrapper, @Nonnull IIngredients ingredients) {
+	public void setRecipe(@Nonnull IRecipeLayout recipeLayout, @Nonnull OrechidOutput recipeWrapper, @Nonnull IIngredients ingredients) {
 		final IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
 
 		itemStacks.init(0, true, 9, 12);
@@ -121,7 +113,7 @@ public abstract class OrechidRecipeCategoryBase<T extends OrechidRecipeWrapper> 
 	}
 
 	@Override
-	public void draw(T recipe, MatrixStack ms, double mouseX, double mouseY) {
+	public void draw(OrechidOutput recipe, MatrixStack ms, double mouseX, double mouseY) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
 		overlay.draw(ms, 17, 0);

@@ -23,6 +23,6 @@ public interface IManaDissolvable {
 	 * Called for every tick the item is on a mana pool. If the stack has stack
 	 * size 0 the item is killed. This is called serverside.
 	 */
-	public void onDissolveTick(IManaPool pool, ItemStack stack, ItemEntity item);
+	void onDissolveTick(IManaPool pool, ItemStack stack, ItemEntity item);
 
 }

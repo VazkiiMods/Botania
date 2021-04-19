@@ -4,6 +4,7 @@
   "icon": "botania:loki_ring",
   "entry_color": "aa00aa",
   "advancement": "botania:challenge/loki_ring",
+  "flag": "botania:relics",
   "pages": [
     {
       "type": "text",

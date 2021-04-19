@@ -15,6 +15,7 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ExistingFileHelper;
 
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.lib.LibMisc;
@@ -31,8 +32,8 @@ import static vazkii.botania.common.block.ModSubtiles.*;
 public class BlockTagProvider extends BlockTagsProvider {
 	private static final Predicate<Block> BOTANIA_BLOCK = b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace());
 
-	public BlockTagProvider(DataGenerator generator) {
-		super(generator);
+	public BlockTagProvider(DataGenerator generator, ExistingFileHelper helper) {
+		super(generator, LibMisc.MOD_ID, helper);
 	}
 
 	@Override
@@ -69,6 +70,13 @@ public class BlockTagProvider extends BlockTagsProvider {
 						.toArray(Block[]::new)
 		);
 
+		getOrCreateBuilder(ModTags.Blocks.SHINY_FLOWERS).add(
+				Arrays.stream(DyeColor.values())
+						.map(ModBlocks::getShinyFlower)
+						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
+						.toArray(Block[]::new)
+		);
+
 		getOrCreateBuilder(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
 						.map(ModBlocks::getDoubleFlower)
@@ -88,7 +96,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 				bubbell, bubbellChibi, clayconia, clayconiaChibi,
 				daffomill, dreadthorn, exoflame, fallenKanade, heiseiDream,
 				hopperhock, hopperhockChibi, hyacidus, jadedAmaranthus,
-				jiyuulia, loonium, marimorphosis, marimorphosisChibi,
+				jiyuulia, labelia, loonium, marimorphosis, marimorphosisChibi,
 				medumone, orechid, orechidIgnem, pollidisiac, rannuncarpus, rannuncarpusChibi,
 				solegnolia, solegnoliaChibi, spectranthemum, tangleberrie, tigerseye, vinculotus
 		);
@@ -100,8 +108,13 @@ public class BlockTagProvider extends BlockTagsProvider {
 				getModBlocks(b -> b instanceof BlockSpecialFlower && registry.getKey(b).getPath().endsWith("_chibi"))
 		);
 
+		getOrCreateBuilder(ModTags.Blocks.ENCHANTER_FLOWERS).addTag(ModTags.Blocks.MYSTICAL_FLOWERS)
+				.addTag(ModTags.Blocks.SHINY_FLOWERS)
+				.addTag(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS);
+
+		// Special flowers intentionally excluded due to unwanted behaviors with tree growth and mod compat.
 		getOrCreateBuilder(BlockTags.TALL_FLOWERS).addTag(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
-		getOrCreateBuilder(BlockTags.SMALL_FLOWERS).addTag(ModTags.Blocks.MYSTICAL_FLOWERS).addTag(ModTags.Blocks.SPECIAL_FLOWERS);
+		getOrCreateBuilder(BlockTags.SMALL_FLOWERS).addTag(ModTags.Blocks.MYSTICAL_FLOWERS);
 
 		getOrCreateBuilder(BlockTags.IMPERMEABLE).add(ModBlocks.elfGlass, ModBlocks.manaGlass, ModBlocks.bifrost, ModBlocks.bifrostPerm);
 		getOrCreateBuilder(BlockTags.BEACON_BASE_BLOCKS).add(ModBlocks.manasteelBlock, ModBlocks.terrasteelBlock, ModBlocks.elementiumBlock,
@@ -135,6 +148,14 @@ public class BlockTagProvider extends BlockTagsProvider {
 				ModBlocks.fabulousPool, ModBlocks.terraPlate, ModBlocks.runeAltar);
 
 		getOrCreateBuilder(ModTags.Blocks.TERRA_PLATE_BASE).add(ModBlocks.livingrock, ModBlocks.shimmerrock);
+
+		getOrCreateBuilder(BlockTags.BAMBOO_PLANTABLE_ON).add(ModBlocks.dryGrass, ModBlocks.goldenGrass, ModBlocks.vividGrass,
+				ModBlocks.scorchedGrass, ModBlocks.infusedGrass, ModBlocks.mutatedGrass);
+		getOrCreateBuilder(BlockTags.CLIMBABLE).add(ModBlocks.solidVines);
+
+		for (DyeColor color : DyeColor.values()) {
+			this.getOrCreateBuilder(ModTags.Blocks.MUSHROOMS).add(ModBlocks.getMushroom(color));
+		}
 	}
 
 	@Nonnull

@@ -13,9 +13,7 @@ import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
-import com.blamejared.crafttweaker.impl.tag.MCTag;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
@@ -23,50 +21,21 @@ import net.minecraft.util.ResourceLocation;
 import org.openzen.zencode.java.ZenCodeType;
 
 import vazkii.botania.api.recipe.IPureDaisyRecipe;
+import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.RecipePureDaisy;
-import vazkii.botania.common.crafting.StateIngredientHelper;
 import vazkii.botania.common.integration.crafttweaker.actions.ActionRemovePureDaisyRecipe;
-
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 @ZenRegister
 @ZenCodeType.Name("mods.botania.PureDaisy")
 public class PureDaisyRecipeManager implements IRecipeManager {
 
 	@ZenCodeType.Method
-	public void addRecipe(String name, BlockState output, BlockState input, int time) {
+	public void addRecipe(String name, BlockState output, StateIngredient input, @ZenCodeType.OptionalInt(RecipePureDaisy.DEFAULT_TIME) int time) {
 		name = fixRecipeName(name);
 		ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
 		CraftTweakerAPI.apply(new ActionAddRecipe(this,
-				new RecipePureDaisy(resourceLocation,
-						StateIngredientHelper.of(input),
-						output, time),
-				""));
-	}
-
-	@ZenCodeType.Method
-	public void addRecipe(String name, BlockState output, Block[] inputs, int time) {
-		name = fixRecipeName(name);
-		ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
-		CraftTweakerAPI.apply(new ActionAddRecipe(this,
-				new RecipePureDaisy(resourceLocation,
-						StateIngredientHelper.of(
-								Arrays.stream(inputs).collect(Collectors.toSet())),
-						output, time),
-				""));
-	}
-
-	@ZenCodeType.Method
-	public void addRecipe(String name, BlockState output, MCTag<Block> input, int time) {
-		name = fixRecipeName(name);
-		ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
-		CraftTweakerAPI.apply(new ActionAddRecipe(this,
-				new RecipePureDaisy(resourceLocation,
-						StateIngredientHelper.of(input.getIdInternal()),
-						output, time),
-				""));
+				new RecipePureDaisy(resourceLocation, input, output, time), ""));
 	}
 
 	@ZenCodeType.Method

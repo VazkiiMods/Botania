@@ -42,7 +42,9 @@ public class TerraPlateProvider extends RecipeProvider {
 
 	@Override
 	protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-		consumer.accept(new FinishedRecipe(idFor("terrasteel_ingot"), TilePool.MAX_MANA / 2, new ItemStack(ModItems.terrasteel), Ingredient.fromItems(ModItems.manaSteel), Ingredient.fromItems(ModItems.manaDiamond), Ingredient.fromItems(ModItems.manaPearl)));
+		consumer.accept(new FinishedRecipe(idFor("terrasteel_ingot"), TilePool.MAX_MANA / 2,
+				new ItemStack(ModItems.terrasteel), Ingredient.fromItems(ModItems.manaSteel),
+				Ingredient.fromItems(ModItems.manaPearl), Ingredient.fromItems(ModItems.manaDiamond)));
 	}
 
 	private static ResourceLocation idFor(String s) {

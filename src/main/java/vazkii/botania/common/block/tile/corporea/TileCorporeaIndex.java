@@ -384,7 +384,7 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 
 			List<TileCorporeaIndex> nearbyIndexes = getNearbyIndexes(event.getPlayer());
 			if (!nearbyIndexes.isEmpty()) {
-				String msg = event.getMessage().toLowerCase().trim();
+				String msg = event.getMessage().toLowerCase(Locale.ROOT).trim();
 				for (TileCorporeaIndex index : nearbyIndexes) {
 					ICorporeaSpark spark = index.getSpark();
 					if (spark != null) {
@@ -395,14 +395,14 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 							if (matcher.matches()) {
 								IRegexStacker stacker = patterns.get(pattern);
 								count = stacker.getCount(matcher);
-								name = stacker.getName(matcher).toLowerCase().trim();
+								name = stacker.getName(matcher).toLowerCase(Locale.ROOT).trim();
 							}
 						}
 
 						if (name.equals("this")) {
 							ItemStack stack = event.getPlayer().getHeldItemMainhand();
 							if (!stack.isEmpty()) {
-								name = stack.getDisplayName().getString().toLowerCase().trim();
+								name = stack.getDisplayName().getString().toLowerCase(Locale.ROOT).trim();
 							}
 						}
 

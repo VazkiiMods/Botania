@@ -23,6 +23,6 @@ public interface ITileBound {
 	 * Gets where this block is bound to
 	 */
 	@Nullable
-	public BlockPos getBinding();
+	BlockPos getBinding();
 
 }
