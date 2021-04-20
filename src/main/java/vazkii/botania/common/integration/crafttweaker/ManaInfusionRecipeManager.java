@@ -14,7 +14,9 @@ import com.blamejared.crafttweaker.api.item.IIngredient;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
+import com.blamejared.crafttweaker.impl.item.MCItemStack;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
 
@@ -25,15 +27,29 @@ import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.RecipeManaInfusion;
 
+import javax.annotation.Nonnull;
+
 @ZenRegister
 @ZenCodeType.Name("mods.botania.ManaInfusion")
 public class ManaInfusionRecipeManager implements IRecipeManager {
 
 	@ZenCodeType.Method
-	public void addRecipe(String name, IItemStack output, IIngredient input, int mana, @ZenCodeType.Optional StateIngredient catalyst, @ZenCodeType.OptionalString String group) {
+	public void addRecipe(String name, IItemStack output, IIngredient input, int mana, @ZenCodeType.Optional StateIngredient catalyst, @ZenCodeType.OptionalString String group, @ZenCodeType.Optional RecipeFunctionSingle function) {
 		name = fixRecipeName(name);
 		ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
-		CraftTweakerAPI.apply(new ActionAddRecipe(this, new RecipeManaInfusion(resourceLocation, output.getInternal(), input.asVanillaIngredient(), mana, group, catalyst), ""));
+		RecipeManaInfusion recipe;
+		if (function == null) {
+			recipe = new RecipeManaInfusion(resourceLocation, output.getInternal(), input.asVanillaIngredient(), mana, group, catalyst);
+		} else {
+			recipe = new RecipeManaInfusion(resourceLocation, output.getInternal(), input.asVanillaIngredient(), mana, group, catalyst) {
+				@Nonnull
+				@Override
+				public ItemStack getRecipeOutput(@Nonnull ItemStack input) {
+					return function.process(new MCItemStack(getRecipeOutput()), new MCItemStack(input)).getInternal().copy();
+				}
+			};
+		}
+		CraftTweakerAPI.apply(new ActionAddRecipe(this, recipe, ""));
 	}
 
 	@Override
