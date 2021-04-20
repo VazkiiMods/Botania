@@ -141,8 +141,8 @@ public class BlockTagProvider extends BlockTagsProvider {
 				ModBlocks.corporeaBrickWall, ModBlocks.corporeaCrystalCube, ModBlocks.corporeaFunnel, ModBlocks.corporeaIndex,
 				ModBlocks.corporeaInterceptor, ModBlocks.corporeaSlab, ModBlocks.corporeaStairs);
 
-//		getOrCreateBuilder(ModTags.Blocks.TERRAFORMABLE).addTag(Tags.Blocks.STONE).addTag(Tags.Blocks.DIRT).addTag(BlockTags.SAND)
-//				.add(Blocks.GRASS_BLOCK, Blocks.GRAVEL, Blocks.SNOW); TODO work around forge bug or wait for fix?
+		getOrCreateBuilder(ModTags.Blocks.TERRAFORMABLE).addTag(Tags.Blocks.STONE).addTag(Tags.Blocks.DIRT).addTag(BlockTags.SAND)
+				.add(Blocks.GRASS_BLOCK, Blocks.GRAVEL, Blocks.SNOW);
 		getOrCreateBuilder(ModTags.Blocks.GAIA_BREAK_BLACKLIST).add(Blocks.BEACON, ModBlocks.manaPylon, ModBlocks.naturaPylon, ModBlocks.gaiaPylon);
 		getOrCreateBuilder(ModTags.Blocks.MAGNET_RING_BLACKLIST).add(ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool,
 				ModBlocks.fabulousPool, ModBlocks.terraPlate, ModBlocks.runeAltar);
