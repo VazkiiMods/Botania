@@ -114,7 +114,7 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem,
 			if (count > 0) {
 				world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.bifrostRod, SoundCategory.PLAYERS, 0.5F, 0.25F);
 				ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_COST, false);
-				player.getCooldownTracker().setCooldown(this, TIME);
+				player.getCooldownTracker().setCooldown(this, player.isCreative() ? 10 : TIME);
 			}
 		}
 
