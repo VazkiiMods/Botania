@@ -102,7 +102,6 @@ public class OrechidResourceListener extends ReloadListener<OrechidResourceListe
 		try (IResource r = resource;
 				InputStream stream = r.getInputStream();
 				BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
-			Botania.LOGGER.debug("Reading {} from {}", r.getLocation(), r.getPackName());
 			JsonObject json = GSON.fromJson(reader, JsonObject.class);
 
 			if (JSONUtils.getBoolean(json, "replace", false)) {
@@ -124,6 +123,11 @@ public class OrechidResourceListener extends ReloadListener<OrechidResourceListe
 				StateIngredient state = StateIngredientHelper.tryDeserialize(object);
 				if (state != null) {
 					int weight = JSONUtils.getInt(object, "weight");
+					if (weight <= 0) {
+						Botania.LOGGER.error("Invalid weight: {} in file {} / {}, should be positive!",
+								weight, resource.getPackName(), location);
+						continue;
+					}
 					map.put(state, weight);
 				}
 			}
