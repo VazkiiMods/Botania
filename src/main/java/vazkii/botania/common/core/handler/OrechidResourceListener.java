@@ -63,7 +63,7 @@ public class OrechidResourceListener extends ReloadListener<OrechidResourceListe
 		return new Data(weights, nether);
 	}
 
-	private static Object2IntMap<StateIngredient> loadWeights(IResourceManager manager, String filename) {
+	protected static Object2IntMap<StateIngredient> loadWeights(IResourceManager manager, String filename) {
 		Stopwatch stopwatch = Stopwatch.createStarted();
 		Object2IntMap<StateIngredient> map = new Object2IntOpenHashMap<>();
 
@@ -81,7 +81,7 @@ public class OrechidResourceListener extends ReloadListener<OrechidResourceListe
 		return map;
 	}
 
-	private static void readResource(Object2IntMap<StateIngredient> map, IResource resource, ResourceLocation location) {
+	protected static void readResource(Object2IntMap<StateIngredient> map, IResource resource, ResourceLocation location) {
 		try (IResource r = resource;
 				InputStream stream = r.getInputStream();
 				BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
@@ -124,7 +124,7 @@ public class OrechidResourceListener extends ReloadListener<OrechidResourceListe
 		profiler.endSection();
 	}
 
-	private List<OrechidOutput> postprocess(Object2IntMap<StateIngredient> map) {
+	protected List<OrechidOutput> postprocess(Object2IntMap<StateIngredient> map) {
 		List<OrechidOutput> result = new ArrayList<>();
 		for (Object2IntMap.Entry<StateIngredient> entry : map.object2IntEntrySet()) {
 			StateIngredient process = entry.getKey().resolveAndFilter(OrechidResourceListener::prioritizeConfig);
@@ -137,7 +137,7 @@ public class OrechidResourceListener extends ReloadListener<OrechidResourceListe
 		return result;
 	}
 
-	private static List<Block> prioritizeConfig(List<Block> blocks) {
+	protected static List<Block> prioritizeConfig(List<Block> blocks) {
 		List<Block> out = new ArrayList<>();
 		for (String mod : ConfigHandler.COMMON.orechidPriorityMods.get()) {
 			for (Block block : blocks) {
