@@ -101,6 +101,9 @@ public class StateIngredientHelper {
 			Collection<Block> blocks = ((StateIngredientBlocks) ingr).blocks;
 			List<Block> list = new ArrayList<>(blocks);
 			if (list.removeIf(b -> b == Blocks.AIR)) {
+				if (list.size() == 0) {
+					return null;
+				}
 				return of(list);
 			}
 		}
