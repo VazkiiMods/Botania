@@ -9,6 +9,7 @@
 package vazkii.botania.common.item.rod;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -56,50 +57,44 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem,
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if (!world.isRemote && ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_COST, false)) {
-			Block place = ModBlocks.bifrost;
+			BlockState bifrost = ModBlocks.bifrost.getDefaultState();
 			Vector3 vector = new Vector3(player.getLookVec()).normalize();
 
 			double x = player.getPosX();
-			double y = player.getPosY();
+			double y = player.getPosY() - 1;
 			double z = player.getPosZ();
 			BlockPos.Mutable pos = new BlockPos.Mutable((int) x, (int) y, (int) z);
 
 			double lastX = 0;
 			double lastY = -1;
 			double lastZ = 0;
-			BlockPos.Mutable lastChecker = new BlockPos.Mutable();
+			BlockPos.Mutable previousPos = new BlockPos.Mutable();
 
 			int count = 0;
+			boolean placedAny = false;
+
 			boolean prof = IManaProficiencyArmor.hasProficiency(player, stack);
 			int maxlen = prof ? 160 : 100;
 			int time = prof ? (int) (TIME * 1.6) : TIME;
 
 			BlockPos.Mutable placePos = new BlockPos.Mutable();
-			while (count < maxlen) {
-				lastChecker.setPos(lastX, lastY, lastZ);
 
-				if (!lastChecker.equals(pos)) {
-					if (y >= world.getHeight() || y <= 0
-							|| !world.isAirBlock(pos) && world.getBlockState(pos).getBlock() != place) {
+			while (count < maxlen) {
+				previousPos.setPos(lastX, lastY, lastZ);
+
+				if (!previousPos.equals(pos)) { // Occasionally moving to the next segment stays on the same location, skip it
+					if (!world.isAirBlock(pos) && world.getBlockState(pos) != bifrost && count >= 4) {
+						break; // Stop placing if you hit a wall (bifrost blocks are fine), but only after 4 segments.
+					}
+					if (World.isYOutOfBounds(pos.getY())) {
 						break;
 					}
-
-					for (int i = -2; i < 1; i++) {
-						for (int j = -2; j < 1; j++) {
-							placePos.setPos(pos.getX() + i, pos.getY(), pos.getZ() + j);
-							if (world.isAirBlock(placePos)
-									|| world.getBlockState(placePos).getBlock() == place) {
-								world.setBlockState(placePos, place.getDefaultState(), 2);
-								TileBifrost tile = (TileBifrost) world.getTileEntity(placePos);
-								if (tile != null) {
-									tile.ticks = time;
-								}
-							}
-
-						}
+					if (placeBridgeSegment(world, pos, placePos, time)) {
+						placedAny = true;
 					}
-					count++;
 				}
+
+				count++;
 
 				lastX = x;
 				lastY = y;
@@ -111,14 +106,35 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem,
 				pos.setPos(x, y, z);
 			}
 
-			if (count > 0) {
+			if (placedAny) {
 				world.playSound(null, player.getPosX(), player.getPosY(), player.getPosZ(), ModSounds.bifrostRod, SoundCategory.PLAYERS, 0.5F, 0.25F);
-				ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_COST, false);
+				ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_COST, true);
 				player.getCooldownTracker().setCooldown(this, player.isCreative() ? 10 : TIME);
 			}
 		}
 
 		return ActionResult.resultSuccess(stack);
+	}
+
+	private static boolean placeBridgeSegment(World world, BlockPos center, BlockPos.Mutable placePos, int time) {
+		BlockState bifrost = ModBlocks.bifrost.getDefaultState();
+		boolean placed = false;
+
+		for (int i = -1; i <= 1; i++) {
+			for (int j = -1; j <= 1; j++) {
+				placePos.setPos(center.getX() + i, center.getY(), center.getZ() + j);
+				if (world.isAirBlock(placePos) || world.getBlockState(placePos) == bifrost) {
+					world.setBlockState(placePos, bifrost, 2);
+
+					TileBifrost tile = (TileBifrost) world.getTileEntity(placePos);
+					if (tile != null) {
+						tile.ticks = time;
+						placed = true;
+					}
+				}
+			}
+		}
+		return placed;
 	}
 
 	@Override
