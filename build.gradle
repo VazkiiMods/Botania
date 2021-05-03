@@ -113,10 +113,6 @@ repositories {
         name "curios"
         url "https://maven.theillusivec4.top/"
     }
-    maven {
-        name "storagedrawers"
-        url = "https://dl.bintray.com/jaquadro/dev/"
-    }
 }
 
 test {
