@@ -45,7 +45,7 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem,
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_RAINBOW);
 
 	private static final int MANA_COST = 750;
-	private static final int MANA_COST_AVATAR = 10;
+	private static final int MANA_COST_AVATAR = 4;
 	private static final int TIME = 600;
 
 	public ItemRainbowRod(Properties props) {
@@ -199,7 +199,7 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem,
 					} else if (block == ModBlocks.bifrost) {
 						TileBifrost tileBifrost = (TileBifrost) world.getTileEntity(pos);
 						if (tileBifrost.ticks < 2) {
-							tileBifrost.ticks = 10;
+							tileBifrost.ticks += 10;
 							tile.receiveMana(-MANA_COST_AVATAR);
 						}
 					}
