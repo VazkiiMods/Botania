@@ -10,8 +10,10 @@ package vazkii.botania.common.item.rod;
 
 import com.google.common.collect.ImmutableList;
 
+import net.minecraft.block.AbstractGlassBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.PaneBlock;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -98,7 +100,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		if (player != null && player.isSneaking()) {
 			TileEntity tile = world.getTileEntity(pos);
 			if (tile == null && block.asItem() != Items.AIR && BlockPlatform.isValidBlock(wstate, world, pos)
-					&& wstate.isSolid()
+					&& (wstate.isSolid() || block instanceof AbstractGlassBlock || block instanceof PaneBlock)
 					&& block.asItem() instanceof BlockItem) {
 				setItemToPlace(stack, block.asItem());
 				setSwapDirection(stack, ctx.getFace());
