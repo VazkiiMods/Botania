@@ -59,6 +59,11 @@ public class EntityVineBall extends ThrowableEntity implements IRendersAsItem {
 		dataManager.set(GRAVITY, gravity ? 0.03F : 0F);
 	}
 
+	public EntityVineBall(double x, double y, double z, World worldIn) {
+		super(ModEntities.VINE_BALL, x, y, z, worldIn);
+		dataManager.set(GRAVITY, 0.03F);
+	}
+
 	@Override
 	protected void registerData() {
 		dataManager.register(GRAVITY, 0F);

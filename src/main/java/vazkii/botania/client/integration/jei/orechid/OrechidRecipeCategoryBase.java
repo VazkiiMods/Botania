@@ -20,17 +20,15 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 
 import vazkii.botania.api.internal.OrechidOutput;
+import vazkii.botania.common.crafting.StateIngredientHelper;
 
 import javax.annotation.Nonnull;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -86,11 +84,7 @@ public abstract class OrechidRecipeCategoryBase implements IRecipeCategory<Orech
 
 		// Shouldn't ever return an empty list since the ore weight
 		// list is filtered to only have ores with ItemBlocks
-		List<ItemStack> stackList = recipe.getOutput().getDisplayed().stream()
-				.map(AbstractBlock.AbstractBlockState::getBlock)
-				.filter(s -> s.asItem() != Items.AIR)
-				.map(ItemStack::new)
-				.collect(Collectors.toList());
+		List<ItemStack> stackList = StateIngredientHelper.toStackList(recipe.getOutput());
 
 		stackList.forEach(s -> s.setCount(amount));
 		ingredients.setOutputLists(VanillaTypes.ITEM, Collections.singletonList(stackList));

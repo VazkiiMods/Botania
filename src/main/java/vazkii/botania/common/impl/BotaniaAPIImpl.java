@@ -28,6 +28,7 @@ import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.internal.OrechidOutput;
 import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -288,11 +289,21 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	@Override
 	public void registerOreWeight(ResourceLocation tag, int weight) {
+		if (weight <= 0) {
+			Botania.LOGGER.error("Invalid weight {} for ore {}, must be positive!",
+					weight, tag, new IllegalArgumentException("Invalid weight"));
+			return;
+		}
 		legacyOreWeights.put(tag, weight);
 	}
 
 	@Override
 	public void registerNetherOreWeight(ResourceLocation tag, int weight) {
+		if (weight <= 0) {
+			Botania.LOGGER.error("Invalid weight {} for ore {}, must be positive!",
+					weight, tag, new IllegalArgumentException("Invalid weight"));
+			return;
+		}
 		legacyNetherOreWeights.put(tag, weight);
 	}
 

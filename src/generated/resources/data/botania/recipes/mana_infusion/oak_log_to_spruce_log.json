@@ -9,6 +9,7 @@
   "mana": 40,
   "group": "botania:log_cycle",
   "catalyst": {
-    "name": "botania:alchemy_catalyst"
+    "type": "block",
+    "block": "botania:alchemy_catalyst"
   }
 }

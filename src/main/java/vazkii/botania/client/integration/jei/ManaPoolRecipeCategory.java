@@ -19,10 +19,8 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
@@ -30,6 +28,7 @@ import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.crafting.StateIngredientHelper;
 
 import javax.annotation.Nonnull;
 
@@ -92,11 +91,10 @@ public class ManaPoolRecipeCategory implements IRecipeCategory<IManaInfusionReci
 
 		builder.add(Arrays.asList(recipe.getIngredients().get(0).getMatchingStacks()));
 
-		if (recipe.getCatalyst() != null) {
-			Block block = recipe.getCatalyst().getBlock();
-			if (block.asItem() != Items.AIR) {
-				builder.add(ImmutableList.of(new ItemStack(block)));
-			}
+		if (recipe.getRecipeCatalyst() != null) {
+			builder.add(ImmutableList.copyOf(
+					StateIngredientHelper.toStackList(recipe.getRecipeCatalyst()))
+			);
 		}
 
 		iIngredients.setInputLists(VanillaTypes.ITEM, builder.build());

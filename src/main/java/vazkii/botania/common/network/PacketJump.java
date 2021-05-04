@@ -15,7 +15,6 @@ import net.minecraftforge.fml.network.NetworkEvent;
 
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.item.equipment.bauble.ItemCloudPendant;
-import vazkii.botania.common.item.equipment.bauble.ItemTravelBelt;
 
 import java.util.function.Supplier;
 
@@ -35,11 +34,7 @@ public class PacketJump {
 				if (!amuletStack.isEmpty()) {
 					player.addExhaustion(0.3F);
 					player.fallDistance = 0;
-
-					ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
-					if (!belt.isEmpty()) {
-						player.fallDistance = -((ItemTravelBelt) belt.getItem()).fallBuffer * ((ItemCloudPendant) amuletStack.getItem()).getMaxAllowedJumps();
-					}
+					ItemCloudPendant.setJumping(player);
 				}
 			});
 		}

@@ -3,10 +3,9 @@
   "values": [
     "#forge:stone",
     "#forge:dirt",
-    "minecraft:grass_block",
     "#minecraft:sand",
+    "minecraft:grass_block",
     "minecraft:gravel",
     "minecraft:snow"
-
   ]
 }

@@ -152,9 +152,9 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 		for (IManaInfusionRecipe recipe : manaInfusionRecipes(world)) {
 			if (recipe.matches(stack)) {
-				if (recipe.getCatalyst() == null) {
+				if (recipe.getRecipeCatalyst() == null) {
 					matchingNonCatRecipes.add(recipe);
-				} else if (recipe.getCatalyst() == state) {
+				} else if (recipe.getRecipeCatalyst().test(state)) {
 					matchingCatRecipes.add(recipe);
 				}
 			}
@@ -187,10 +187,10 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			if (getCurrentMana() >= mana) {
 				receiveMana(-mana);
 
+				ItemStack output = recipe.getRecipeOutput(stack);
 				stack.shrink(1);
 				item.setOnGround(false); //Force entity collision update to run every tick if crafting is in progress
 
-				ItemStack output = recipe.getRecipeOutput().copy();
 				ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
 				((AccessorItemEntity) outputItem).setAge(105);
 				world.addEntity(outputItem);

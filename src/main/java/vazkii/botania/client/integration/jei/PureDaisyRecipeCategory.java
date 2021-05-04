@@ -31,11 +31,11 @@ import net.minecraftforge.fluids.FluidStack;
 import vazkii.botania.api.recipe.IPureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.crafting.StateIngredientHelper;
 
 import javax.annotation.Nonnull;
 
 import java.util.Collections;
-import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -89,11 +89,7 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 	public void setIngredients(IPureDaisyRecipe recipe, IIngredients iIngredients) {
 		StateIngredient input = recipe.getInput();
 		if (input.getDisplayed().size() > 1) {
-			iIngredients.setInputLists(VanillaTypes.ITEM, Collections.singletonList(input.getDisplayed().stream()
-					.map(BlockState::getBlock)
-					.map(ItemStack::new)
-					.filter(s -> !s.isEmpty())
-					.collect(Collectors.toList())));
+			iIngredients.setInputLists(VanillaTypes.ITEM, Collections.singletonList(StateIngredientHelper.toStackList(input)));
 		} else {
 			BlockState state = input.getDisplayed().get(0);
 			Block b = state.getBlock();

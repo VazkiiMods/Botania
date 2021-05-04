@@ -240,7 +240,7 @@ public class ItemAstrolabe extends Item {
 
 	public void displayRemainderCounter(PlayerEntity player, ItemStack stack) {
 		Block block = getBlock(stack);
-		int count = ItemExchangeRod.getInventoryItemCount(player, stack, block);
+		int count = ItemExchangeRod.getInventoryItemCount(player, stack, block.asItem());
 		if (!player.world.isRemote) {
 			ItemsRemainingRenderHandler.send(player, new ItemStack(block), count);
 		}

@@ -24,6 +24,7 @@ import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.integration.curios.CurioIntegration;
 import vazkii.botania.common.item.equipment.bauble.ItemBauble;
+import vazkii.botania.common.lib.ModTags;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -74,7 +75,7 @@ public abstract class EquipmentHandler {
 	protected abstract ICapabilityProvider initCap(ItemStack stack);
 
 	public boolean isAccessory(ItemStack stack) {
-		return stack.getItem() instanceof ItemBauble || stack.getItem() instanceof IManaItem;
+		return ModTags.Items.RODS.contains(stack.getItem()) || stack.getItem() instanceof ItemBauble || stack.getItem() instanceof IManaItem;
 	}
 
 	// Fallback equipment handler for curios-less (or baubles-less) installs.
