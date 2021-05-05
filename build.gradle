@@ -53,12 +53,13 @@ minecraft {
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
-            properties 'forge.logging.console.level': 'debug'
-            properties 'fml.earlyprogresswindow': 'false'
-            properties 'mixin.env.disableRefMap': 'true'
-//            properties 'mixin.debug.verbose': 'true'
-//            properties 'mixin.debug.export': 'true'
-//            properties 'mixin.debug.dumpTargetOnFailure': 'true'
+            property 'forge.logging.console.level', 'debug'
+            property 'fml.earlyprogresswindow', 'false'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+//            property 'mixin.debug.verbose', 'true'
+//            property 'mixin.debug.export', 'true'
+//            property 'mixin.debug.dumpTargetOnFailure', 'true'
             workingDirectory project.file('run')
             mods {
                 botania {
@@ -67,8 +68,9 @@ minecraft {
             }
         }
         server {
-            properties 'forge.logging.console.level': 'debug'
-            properties 'mixin.env.disableRefMap': 'true'
+            property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             workingDirectory project.file('run')
             mods {
                 botania {
@@ -77,8 +79,9 @@ minecraft {
             }
         }
         data {
-            properties 'fml.earlyprogresswindow': 'false'
-            properties 'mixin.env.disableRefMap': 'true'
+            property 'fml.earlyprogresswindow', 'false'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             workingDirectory project.file('run')
             forceExit false
             mods {
