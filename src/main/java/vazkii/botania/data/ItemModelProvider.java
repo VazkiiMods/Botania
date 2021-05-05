@@ -252,10 +252,10 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 				.model(handheldItem(name(terraAxe) + "_active")).end();
 		items.remove(terraAxe);
 
-		ModelFile enabledModel = withExistingParent(name(terraPick) + "_active", GENERATED)
+		ModelFile enabledModel = withExistingParent(name(terraPick) + "_active", HANDHELD)
 				.texture("layer0", prefix("item/" + name(terraPick)))
 				.texture("layer1", prefix("item/" + name(terraPick) + "_active"));
-		ModelFile tippedEnabledModel = withExistingParent(name(terraPick) + "_tipped_active", GENERATED)
+		ModelFile tippedEnabledModel = withExistingParent(name(terraPick) + "_tipped_active", HANDHELD)
 				.texture("layer0", prefix("item/" + name(terraPick) + "_tipped"))
 				.texture("layer1", prefix("item/" + name(terraPick) + "_active"));
 
@@ -264,7 +264,7 @@ public class ItemModelProvider extends net.minecraftforge.client.model.generator
 				.model(enabledModel).end()
 				.override()
 				.predicate(prefix("tipped"), 1)
-				.model(generatedItem(name(terraPick) + "_tipped")).end()
+				.model(handheldItem(name(terraPick) + "_tipped")).end()
 				.override()
 				.predicate(prefix("tipped"), 1).predicate(prefix("active"), 1)
 				.model(tippedEnabledModel).end();
