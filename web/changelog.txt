@@ -1,4 +1,22 @@
-1.16.4-415
+1.16.5-416
+* Add: Rod of the Depths, Rod of the Lands, and Black Hole Talisman now support Quark reacharound
+* Add: API support for dynamic mana infusion recipes (eutro)
+* Add: Potted plants are now valid targets for the Red String Spoofer
+* Add: Vine balls can now be shot from dispensers
+* Add: Orechid entries can now be removed using datapacks
+* Add: CraftTweaker dumper for orechid outputs
+* Change: Rod of the Hells and Rod of the Bifrost cooldowns dramatically lowered in Creative Mode
+* Change: Reorder categories in the Lexicon to be more logically consistent (DasGerippe)
+* Change: Avatars using Rod of the Bifrost now consume about half as much mana as before
+* Change: Reallow swapping glass and glass panes using Rod of the Shifting Crust
+* Change: Flugel Tiara no longer consumes mana in creative
+* Fix: Solid vines not being in vanilla climbable tag
+* Fix: Rod of Shifting Crust not activating until the block is broken in survival mode
+* Fix: Rod of Bifrost general improvements to bridge placing
+* Fix: Rod of Bifrost not consuming mana (for 7 years)
+* Fix: Terra pick models being positioned incorrectly
+* Fix: Fel pumpkins not rotating properly
+1.16.5-415
 * Change: Mana infusion recipes can now specify their catalysts with state ingredients
 * Change: Rods can now be put into the Trinket Case (Alwinfy)
 * Change: Rod of Shifting Crust now operates by simulating placement instead of directly placing blocks
