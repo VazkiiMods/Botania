@@ -110,9 +110,6 @@ repositories {
         url "https://dvs1.progwml6.com/files/maven"
     }
     maven {
-        url "https://minecraft.curseforge.com/api/maven/"
-    }
-    maven {
         name "curios"
         url "https://maven.theillusivec4.top/"
     }
