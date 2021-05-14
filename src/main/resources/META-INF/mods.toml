@@ -1,18 +1,17 @@
-modLoader="javafml" #mandatory
-loaderVersion="[35,)"
+modLoader="javafml"
+loaderVersion="[36,)"
 license="Botania License"
-issueTrackerURL="https://github.com/Vazkii/Botania/issues" #optional
-displayURL="https://botaniamod.net" #optional
-logoFile="logo.png" #optional
-credits="Azanor, Flaxbeard, Futureazoo, Rorax, Lorc, Adubbz, WTFG33ks, Auric245524, MegaManki, Kain Vinosec, Kihira, mDiyo, Mikeemoo, ChickenBones, PowerCrystals, cpw" #optional
-authors="Vazkii, wiiv, williewillus, dylan4ever, Hubry" #optional
+issueTrackerURL="https://github.com/Vazkii/Botania/issues"
+logoFile="logo.png"
 
 [[mods]]
 modId="botania"
 version="${file.jarVersion}"
 displayName="Botania"
-description='''
-Botania is a mod that adds nature magic to Minecraft'''
+displayURL="https://botaniamod.net"
+description="Botania is a mod that adds nature magic to Minecraft."
+authors="Vazkii, wiiv, williewillus, dylan4ever, Hubry"
+credits="Azanor, Flaxbeard, Futureazoo, Rorax, Lorc, Adubbz, WTFG33ks, Auric245524, MegaManki, Kain Vinosec, Kihira, mDiyo, Mikeemoo, ChickenBones, PowerCrystals, cpw, quat1024, ToMe25, Alwinfy, Eutro and others"
 
 [[dependencies.botania]]
     modId="forge"
