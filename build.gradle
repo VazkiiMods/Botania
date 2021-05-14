@@ -122,7 +122,9 @@ test {
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-36.0.46"
 
-    annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
+    if (System.getProperty("idea.sync.active") != "true") {
+        annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
+    }
 
     compileOnly fg.deobf("vazkii.autoreglib:AutoRegLib:1.6-46.85")
     compileOnly fg.deobf("vazkii.quark:Quark:r2.4-276.1408")
@@ -260,15 +262,6 @@ publishing {
     repositories {
         maven {
             url "file://" + System.getenv("local_maven")
-        }
-    }
-}
-
-// Prevent Mixin annotation processor from getting into IDEA's annotation processor settings
-if (System.getProperty("idea.sync.active") == "true") {
-    afterEvaluate {
-        tasks.withType(JavaCompile).all {
-            it.options.annotationProcessorPath = files()
         }
     }
 }
