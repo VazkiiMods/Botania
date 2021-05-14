@@ -13,6 +13,9 @@ description="Botania is a mod that adds nature magic to Minecraft."
 authors="Vazkii, wiiv, williewillus, dylan4ever, Hubry"
 credits="Azanor, Flaxbeard, Futureazoo, Rorax, Lorc, Adubbz, WTFG33ks, Auric245524, MegaManki, Kain Vinosec, Kihira, mDiyo, Mikeemoo, ChickenBones, PowerCrystals, cpw, quat1024, ToMe25, Alwinfy, Eutro and others"
 
+itemIcon="botania:cosmetic_botanist_emblem" # custom icon for Catalogue's mod list
+configBackground="botania:textures/block/livingrock_bricks.png" # background for Configured's generated config screen
+
 [[dependencies.botania]]
     modId="forge"
     mandatory=true

@@ -12,6 +12,8 @@ displayURL="https://botaniamod.net/gardenofglass.php"
 description="An extension to Botania that adds skyblock like gameplay."
 authors="Vazkii, wiiv, williewillus, Hubry"
 
+itemIcon="botania:cosmetic_botanist_emblem" # custom icon for Catalogue's mod list
+
 [[dependencies.gardenofglass]]
     modId="botania"
     versionRange="[1.16.4-413,)"
