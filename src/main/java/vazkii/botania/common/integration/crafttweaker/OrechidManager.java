@@ -10,6 +10,7 @@ package vazkii.botania.common.integration.crafttweaker;
 
 import com.blamejared.crafttweaker.api.CraftTweakerAPI;
 import com.blamejared.crafttweaker.api.annotations.ZenRegister;
+import com.blamejared.crafttweaker_annotations.annotations.Document;
 
 import net.minecraft.block.BlockState;
 
@@ -25,6 +26,16 @@ import vazkii.botania.common.integration.crafttweaker.actions.ActionRemoveOrechi
 import java.util.List;
 import java.util.function.Supplier;
 
+/**
+ * Allows editing lists of results from the Orechid and Orechid Ignem.
+ *
+ * Note that outputs added through this list will not be affected by the priority config option.
+ *
+ * To dump the full list of loaded results, run the `/ct dump orechidOutputs` command.
+ *
+ * @docParam this Orechid.main
+ */
+@Document("mods/Botania/Orechid")
 @ZenRegister
 @ZenCodeType.Name("mods.botania.Orechid")
 public class OrechidManager {
@@ -36,25 +47,49 @@ public class OrechidManager {
 		this.name = name;
 	}
 
+	/**
+	 * The manager for the standard Orechid.
+	 */
 	@ZenCodeType.Field("main")
 	public static final OrechidManager MAIN = new OrechidManager(() -> BotaniaAPIImpl.weights, "Orechid");
 
+	/**
+	 * The manager for the nether variant, Orechid Ignem.
+	 */
 	@ZenCodeType.Field("nether")
 	public static final OrechidManager NETHER = new OrechidManager(() -> BotaniaAPIImpl.netherWeights, "Orechid Ignem");
 
-	/** Adds the specified ingredient with the specified weight at the end of the ore list. */
+	/**
+	 * Adds the specified ingredient with the specified weight at the end of the ore list.
+	 *
+	 * As the output is a state ingredient, you can use blocks, blockstates and tags as the output.
+	 *
+	 * @param output The block result
+	 * @param weight The weight of the result
+	 *
+	 * @docParam output <block:minecraft:coal_ore>
+	 * @docParam weight 250
+	 */
 	@ZenCodeType.Method
-	public void registerOreWeight(StateIngredient ingredient, int weight) {
-		CraftTweakerAPI.apply(new ActionAddOrechidOre(ingredient, weight, this));
+	public void registerOreWeight(StateIngredient output, int weight) {
+		CraftTweakerAPI.apply(new ActionAddOrechidOre(output, weight, this));
 	}
 
-	/** Removes all outputs that contain the specified state. */
+	/**
+	 * Removes all outputs that contain the specified state.
+	 *
+	 * @param state State to remove
+	 *
+	 * @docParam state <blockstate:minecraft:diamond_ore>
+	 */
 	@ZenCodeType.Method
 	public void removeOreWeight(BlockState state) {
 		CraftTweakerAPI.apply(new ActionRemoveOrechidOre(state, this));
 	}
 
-	/** Completely clears the ore list. */
+	/**
+	 * Completely clears the ore list.
+	 */
 	@ZenCodeType.Method
 	public void clear() {
 		CraftTweakerAPI.apply(new ActionClearOrechidList(this));

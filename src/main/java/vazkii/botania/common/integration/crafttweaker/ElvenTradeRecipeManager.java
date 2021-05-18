@@ -14,6 +14,7 @@ import com.blamejared.crafttweaker.api.item.IIngredient;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
+import com.blamejared.crafttweaker_annotations.annotations.Document;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
@@ -29,10 +30,25 @@ import vazkii.botania.common.integration.crafttweaker.actions.ActionRemoveElvenT
 
 import java.util.Arrays;
 
+/**
+ * @docParam this <recipetype:botania:elven_trade>
+ */
+@Document("mods/Botania/ElvenTrade")
 @ZenRegister
 @ZenCodeType.Name("mods.botania.ElvenTrade")
 public class ElvenTradeRecipeManager implements IRecipeManager {
 
+	/**
+	 * Adds an elven trade recipe.
+	 *
+	 * @param name    Name of the recipe to add
+	 * @param outputs Array of outputs
+	 * @param inputs  Inputs for the recipe
+	 *
+	 * @docParam name "elven_trade_test"
+	 * @docParam outputs [<item:minecraft:apple>, <item:minecraft:lapis_block>]
+	 * @docParam inputs <item:minecraft:glowstone>, <item:minecraft:yellow_wool>
+	 */
 	@ZenCodeType.Method
 	public void addRecipe(String name, IItemStack[] outputs, IIngredient... inputs) {
 		name = fixRecipeName(name);
@@ -44,11 +60,27 @@ public class ElvenTradeRecipeManager implements IRecipeManager {
 				""));
 	}
 
+	/**
+	 * Removes a single-output recipe.
+	 *
+	 * @param output Recipe output
+	 *
+	 * @docParam output <item:botania:dragonstone>
+	 */
 	@Override
 	public void removeRecipe(IItemStack output) {
 		removeRecipe(new IItemStack[] { output });
 	}
 
+	/**
+	 * Removes a recipe with multiple outputs.
+	 *
+	 * Note that as Botania does not come with any multiple-output recipes, this example will not work out of the box.
+	 *
+	 * @param outputs Recipe outputs
+	 *
+	 * @docParam [<item:botania:dragonstone>, <item:minecraft:diamond>]
+	 */
 	@ZenCodeType.Method
 	public void removeRecipe(IItemStack[] outputs) {
 		CraftTweakerAPI.apply(new ActionRemoveElvenTradeRecipe(this, outputs));
