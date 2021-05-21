@@ -24,17 +24,21 @@ import mezz.jei.api.runtime.IRecipesGui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.OrechidOutput;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
+import vazkii.botania.api.recipe.IManaInfusionRecipe;
+import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.client.core.handler.CorporeaInputHandler;
 import vazkii.botania.client.gui.crafting.ContainerCraftingHalo;
 import vazkii.botania.client.integration.jei.crafting.AncientWillRecipeWrapper;
@@ -45,7 +49,6 @@ import vazkii.botania.client.integration.jei.orechid.OrechidRecipeCategory;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;
-import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.crafting.LexiconElvenTradeRecipe;
 import vazkii.botania.common.crafting.ModRecipeTypes;
@@ -64,6 +67,7 @@ import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
@@ -116,14 +120,13 @@ public class JEIBotaniaPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipes(@Nonnull IRecipeRegistration registry) {
-		World world = Minecraft.getInstance().world;
-		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.BREW_TYPE).values(), BreweryRecipeCategory.UID);
-		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.PURE_DAISY_TYPE).values(), PureDaisyRecipeCategory.UID);
-		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.PETAL_TYPE).values(), PetalApothecaryRecipeCategory.UID);
-		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.ELVEN_TRADE_TYPE).values(), ElvenTradeRecipeCategory.UID);
-		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.RUNE_TYPE).values(), RunicAltarRecipeCategory.UID);
-		registry.addRecipes(TilePool.manaInfusionRecipes(Minecraft.getInstance().world), ManaPoolRecipeCategory.UID);
-		registry.addRecipes(ModRecipeTypes.getRecipes(world, ModRecipeTypes.TERRA_PLATE_TYPE).values(), TerraPlateRecipeCategory.UID);
+		registry.addRecipes(sortRecipes(ModRecipeTypes.BREW_TYPE, BY_ID), BreweryRecipeCategory.UID);
+		registry.addRecipes(sortRecipes(ModRecipeTypes.PURE_DAISY_TYPE, BY_ID), PureDaisyRecipeCategory.UID);
+		registry.addRecipes(sortRecipes(ModRecipeTypes.PETAL_TYPE, BY_ID), PetalApothecaryRecipeCategory.UID);
+		registry.addRecipes(sortRecipes(ModRecipeTypes.ELVEN_TRADE_TYPE, BY_ID), ElvenTradeRecipeCategory.UID);
+		registry.addRecipes(sortRecipes(ModRecipeTypes.RUNE_TYPE, BY_ID), RunicAltarRecipeCategory.UID);
+		registry.addRecipes(sortRecipes(ModRecipeTypes.MANA_INFUSION_TYPE, BY_CATALYST.thenComparing(BY_GROUP).thenComparing(BY_ID)), ManaPoolRecipeCategory.UID);
+		registry.addRecipes(sortRecipes(ModRecipeTypes.TERRA_PLATE_TYPE, BY_ID), TerraPlateRecipeCategory.UID);
 
 		List<OrechidOutput> weights = new ArrayList<>(BotaniaAPI.instance().getOrechidWeights());
 		weights.sort(Comparator.naturalOrder());
@@ -132,6 +135,28 @@ public class JEIBotaniaPlugin implements IModPlugin {
 		weights = new ArrayList<>(BotaniaAPI.instance().getNetherOrechidWeights());
 		weights.sort(Comparator.naturalOrder());
 		registry.addRecipes(weights, OrechidIgnemRecipeCategory.UID);
+	}
+
+	private static final Comparator<IRecipe<?>> BY_ID = Comparator.comparing(IRecipe::getId);
+	private static final Comparator<IRecipe<?>> BY_GROUP = Comparator.comparing(IRecipe::getGroup);
+	private static final Comparator<IManaInfusionRecipe> BY_CATALYST = (l, r) -> {
+		StateIngredient left = l.getRecipeCatalyst();
+		StateIngredient right = r.getRecipeCatalyst();
+		if (left == null) {
+			return right == null ? 0 : -1;
+		} else if (right == null) {
+			return 1;
+		} else {
+			return left.toString().compareTo(right.toString());
+		}
+	};
+
+	private static <T extends IRecipe<C>, C extends IInventory> Collection<T> sortRecipes(IRecipeType<T> type, Comparator<? super T> comparator) {
+		@SuppressWarnings("unchecked")
+		Collection<T> recipes = (Collection<T>) ModRecipeTypes.getRecipes(Minecraft.getInstance().world, type).values();
+		List<T> list = new ArrayList<>(recipes);
+		list.sort(comparator);
+		return list;
 	}
 
 	@Override
