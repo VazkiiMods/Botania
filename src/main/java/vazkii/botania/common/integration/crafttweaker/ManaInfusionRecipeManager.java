@@ -59,9 +59,12 @@ public class ManaInfusionRecipeManager implements IRecipeManager {
 	 * @docParam function (usualOut as IItemStack, input as IItemStack) => { return usualOut.withTag(input.tag); }
 	 */
 	@ZenCodeType.Method
-	public void addRecipe(String name, IItemStack output, IIngredient input, int mana, @ZenCodeType.Optional StateIngredient catalyst, @ZenCodeType.OptionalString("test") String group, @ZenCodeType.Optional RecipeFunctionSingle function) {
+	public void addRecipe(String name, IItemStack output, IIngredient input, int mana, @ZenCodeType.Optional StateIngredient catalyst, @ZenCodeType.OptionalString String group, @ZenCodeType.Optional RecipeFunctionSingle function) {
 		name = fixRecipeName(name);
 		ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
+		if (group == null) {
+			group = "";
+		}
 		RecipeManaInfusion recipe;
 		if (function == null) {
 			recipe = new RecipeManaInfusion(resourceLocation, output.getInternal(), input.asVanillaIngredient(), mana, group, catalyst);
