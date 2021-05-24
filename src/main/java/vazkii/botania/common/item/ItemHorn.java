@@ -25,11 +25,13 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.item.IHornHarvestable.EnumHornType;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -85,8 +87,10 @@ public class ItemHorn extends Item {
 		for (BlockPos pos : BlockPos.getAllInBoxMutable(srcPos.add(-range, -rangeY, -range),
 				srcPos.add(range, rangeY, range))) {
 			Block block = world.getBlockState(pos).getBlock();
-			if (block instanceof IHornHarvestable
-					? ((IHornHarvestable) block).canHornHarvest(world, pos, stack, type)
+			IHornHarvestable harvestable = getHarvestable(block);
+
+			if (harvestable != null
+					? harvestable.canHornHarvest(world, pos, stack, type)
 					: type == EnumHornType.WILD && block instanceof BushBlock && !block.isIn(ModTags.Blocks.SPECIAL_FLOWERS)
 							|| type == EnumHornType.CANOPY && BlockTags.LEAVES.contains(block)
 							|| type == EnumHornType.COVERING && block == Blocks.SNOW) {
@@ -101,13 +105,22 @@ public class ItemHorn extends Item {
 			BlockPos currCoords = coords.get(i);
 			BlockState state = world.getBlockState(currCoords);
 			Block block = state.getBlock();
+			IHornHarvestable harvestable = getHarvestable(block);
 
-			if (block instanceof IHornHarvestable && ((IHornHarvestable) block).hasSpecialHornHarvest(world, currCoords, stack, type)) {
-				((IHornHarvestable) block).harvestByHorn(world, currCoords, stack, type);
+			if (harvestable != null && harvestable.hasSpecialHornHarvest(world, currCoords, stack, type)) {
+				harvestable.harvestByHorn(world, currCoords, stack, type);
 			} else {
 				world.destroyBlock(currCoords, true);
 			}
 		}
+	}
+
+	@Nullable
+	public static IHornHarvestable getHarvestable(Block block) {
+		if(block instanceof IHornHarvestable) {
+			return (IHornHarvestable) block;
+		}
+		return BotaniaAPI.instance().getHornHarvestable(block).orElse(null);
 	}
 
 }

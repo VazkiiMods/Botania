@@ -27,6 +27,7 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.internal.OrechidOutput;
+import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
@@ -42,10 +43,7 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -266,6 +264,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	private final Map<ResourceLocation, Integer> legacyOreWeights = new ConcurrentHashMap<>();
 	private final Map<ResourceLocation, Integer> legacyNetherOreWeights = new ConcurrentHashMap<>();
 	private final Map<ResourceLocation, Function<DyeColor, Block>> paintableBlocks = new ConcurrentHashMap<>();
+	private final Map<ResourceLocation, IHornHarvestable> hornHarvestableBlocks = new ConcurrentHashMap<>();
 
 	@Override
 	public List<OrechidOutput> getOrechidWeights() {
@@ -315,6 +314,16 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	@Override
 	public void registerPaintableBlock(ResourceLocation block, Function<DyeColor, Block> transformer) {
 		paintableBlocks.put(block, transformer);
+	}
+
+	@Override
+	public Optional<IHornHarvestable> getHornHarvestable(Block block) {
+		return Optional.ofNullable(hornHarvestableBlocks.getOrDefault(block.getRegistryName(), null));
+	}
+
+	@Override
+	public void registerHornHarvestableBlock(ResourceLocation block, IHornHarvestable harvestable) {
+		hornHarvestableBlocks.put(block, harvestable);
 	}
 
 	@Override

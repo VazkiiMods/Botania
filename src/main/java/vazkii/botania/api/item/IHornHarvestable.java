@@ -14,6 +14,7 @@ import net.minecraft.world.World;
 
 /**
  * A Block that implements this can be uprooted by the various horns in Botania.
+ * Alternatively, implementations of this can be registered independently via BotaniaAPI#registerHornHarvestableBlock
  */
 public interface IHornHarvestable {
 
