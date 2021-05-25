@@ -152,8 +152,8 @@ public interface BotaniaAPI {
 	/**
 	 * Make Botania recognize a Block as IHornHarvestable without explicitly implementing the interface
 	 *
-	 * @param blockId		The block ID
-	 * @param harvestable	The harvestable
+	 * @param blockId     The block ID
+	 * @param harvestable The harvestable
 	 */
 	default void registerHornHarvestableBlock(ResourceLocation blockId, IHornHarvestable harvestable) {
 

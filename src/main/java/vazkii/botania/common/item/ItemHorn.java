@@ -117,7 +117,7 @@ public class ItemHorn extends Item {
 
 	@Nullable
 	public static IHornHarvestable getHarvestable(Block block) {
-		if(block instanceof IHornHarvestable) {
+		if (block instanceof IHornHarvestable) {
 			return (IHornHarvestable) block;
 		}
 		return BotaniaAPI.instance().getHornHarvestable(block).orElse(null);
