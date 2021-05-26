@@ -31,7 +31,6 @@ import vazkii.botania.api.item.IHornHarvestable.EnumHornType;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -87,7 +86,7 @@ public class ItemHorn extends Item {
 		for (BlockPos pos : BlockPos.getAllInBoxMutable(srcPos.add(-range, -rangeY, -range),
 				srcPos.add(range, rangeY, range))) {
 			Block block = world.getBlockState(pos).getBlock();
-			IHornHarvestable harvestable = getHarvestable(block);
+			IHornHarvestable harvestable = BotaniaAPI.instance().getHornHarvestable(block).orElse(null);
 
 			if (harvestable != null
 					? harvestable.canHornHarvest(world, pos, stack, type)
@@ -105,7 +104,7 @@ public class ItemHorn extends Item {
 			BlockPos currCoords = coords.get(i);
 			BlockState state = world.getBlockState(currCoords);
 			Block block = state.getBlock();
-			IHornHarvestable harvestable = getHarvestable(block);
+			IHornHarvestable harvestable = BotaniaAPI.instance().getHornHarvestable(block).orElse(null);
 
 			if (harvestable != null && harvestable.hasSpecialHornHarvest(world, currCoords, stack, type)) {
 				harvestable.harvestByHorn(world, currCoords, stack, type);
@@ -113,14 +112,6 @@ public class ItemHorn extends Item {
 				world.destroyBlock(currCoords, true);
 			}
 		}
-	}
-
-	@Nullable
-	public static IHornHarvestable getHarvestable(Block block) {
-		if (block instanceof IHornHarvestable) {
-			return (IHornHarvestable) block;
-		}
-		return BotaniaAPI.instance().getHornHarvestable(block).orElse(null);
 	}
 
 }

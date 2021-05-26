@@ -13,8 +13,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /**
- * A Block that implements this can be uprooted by the various horns in Botania.
- * Alternatively, implementations of this can be registered independently via BotaniaAPI#registerHornHarvestableBlock
+ * This interface handles uprooting by the various horns in Botania.
+ * Implementations can be registered via BotaniaAPI#registerHornHarvestableBlock
  */
 public interface IHornHarvestable {
 

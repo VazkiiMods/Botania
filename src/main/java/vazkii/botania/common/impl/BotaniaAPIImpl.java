@@ -318,6 +318,10 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	@Override
 	public Optional<IHornHarvestable> getHornHarvestable(Block block) {
+		if (block instanceof IHornHarvestable) {
+			// callers of this method on blocks which still implement the interface should still receive the instance
+			return Optional.of((IHornHarvestable) block);
+		}
 		return Optional.ofNullable(hornHarvestableBlocks.getOrDefault(block.getRegistryName(), null));
 	}
 
