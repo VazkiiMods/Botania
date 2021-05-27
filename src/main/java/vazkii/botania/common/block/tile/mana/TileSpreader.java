@@ -103,7 +103,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 	private float mmForcedVelocityMultiplier = 1F;
 
 	private String inputKey = "";
-	private final String outputKey = "";
+	private String outputKey = "";
 
 	// End Map Maker Tags
 
@@ -328,7 +328,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 			inputKey = cmp.getString(TAG_INPUT_KEY);
 		}
 		if (cmp.contains(TAG_OUTPUT_KEY)) {
-			inputKey = cmp.getString(TAG_OUTPUT_KEY);
+			outputKey = cmp.getString(TAG_OUTPUT_KEY);
 		}
 
 		mapmakerOverride = cmp.getBoolean(TAG_MAPMAKER_OVERRIDE);
