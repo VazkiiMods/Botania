@@ -23,7 +23,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.recipe.ICustomApothecaryColor;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -32,7 +31,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockModMushroom extends MushroomBlock implements IHornHarvestable, ICustomApothecaryColor {
+public class BlockModMushroom extends MushroomBlock implements ICustomApothecaryColor {
 
 	private static final VoxelShape SHAPE = makeCuboidShape(4.8, 0, 4.8, 12.8, 16, 12.8);
 	public final DyeColor color;
@@ -73,19 +72,6 @@ public class BlockModMushroom extends MushroomBlock implements IHornHarvestable,
 			world.addParticle(data, pos.getX() + 0.3 + rand.nextFloat() * 0.5, pos.getY() + 0.5 + rand.nextFloat() * 0.5, pos.getZ() + 0.3 + rand.nextFloat() * 0.5, 0, 0, 0);
 		}
 	}
-
-	@Override
-	public boolean canHornHarvest(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
-		return false;
-	}
-
-	@Override
-	public boolean hasSpecialHornHarvest(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
-		return false;
-	}
-
-	@Override
-	public void harvestByHorn(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {}
 
 	@Override
 	public int getParticleColor(ItemStack stack) {
