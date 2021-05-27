@@ -67,13 +67,12 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	public static final int PARTICLE_COLOR = 0x00C6FF;
 	public static final int MAX_MANA = 1000000;
 	private static final int MAX_MANA_DILLUTED = 10000;
+	private static final int MANA_TRANSFER_RATE = 1000;
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_OUTPUTTING = "outputting";
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_MANA_CAP = "manaCap";
-	private static final String TAG_CAN_ACCEPT = "canAccept";
-	private static final String TAG_CAN_SPARE = "canSpare";
 	private static final String TAG_FRAGILE = "fragile";
 	private static final String TAG_INPUT_KEY = "inputKey";
 	private static final String TAG_OUTPUT_KEY = "outputKey";
@@ -87,8 +86,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	public int manaCap = -1;
 	private int soundTicks = 0;
-	private boolean canAccept = true;
-	private boolean canSpare = true;
 	public boolean fragile = false;
 	boolean isDoingTransfer = false;
 	int ticksDoingTransfer = 0;
@@ -291,37 +288,30 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 				if (outputting && mana.canReceiveManaFromPool(stack, this) || !outputting && mana.canExportManaToPool(stack, this)) {
 					boolean didSomething = false;
 
-					int bellowCount = 0;
 					if (outputting) {
+						int bellowCount = 0;
 						for (Direction dir : Direction.Plane.HORIZONTAL) {
 							TileEntity tile = world.getTileEntity(pos.offset(dir));
 							if (tile instanceof TileBellows && ((TileBellows) tile).getLinkedTile() == this) {
 								bellowCount++;
 							}
 						}
-					}
-					int transfRate = 1000 * (bellowCount + 1);
 
-					if (outputting) {
-						if (canSpare) {
-							if (getCurrentMana() > 0 && mana.getMana(stack) < mana.getMaxMana(stack)) {
-								didSomething = true;
-							}
-
-							int manaVal = Math.min(transfRate, Math.min(getCurrentMana(), mana.getMaxMana(stack) - mana.getMana(stack)));
-							mana.addMana(stack, manaVal);
-							receiveMana(-manaVal);
+						if (getCurrentMana() > 0 && mana.getMana(stack) < mana.getMaxMana(stack)) {
+							didSomething = true;
 						}
+
+						int manaVal = Math.min(MANA_TRANSFER_RATE * (bellowCount + 1), Math.min(getCurrentMana(), mana.getMaxMana(stack) - mana.getMana(stack)));
+						mana.addMana(stack, manaVal);
+						receiveMana(-manaVal);
 					} else {
-						if (canAccept) {
-							if (mana.getMana(stack) > 0 && !isFull()) {
-								didSomething = true;
-							}
-
-							int manaVal = Math.min(transfRate, Math.min(manaCap - getCurrentMana(), mana.getMana(stack)));
-							mana.addMana(stack, -manaVal);
-							receiveMana(manaVal);
+						if (mana.getMana(stack) > 0 && !isFull()) {
+							didSomething = true;
 						}
+
+						int manaVal = Math.min(MANA_TRANSFER_RATE, Math.min(manaCap - getCurrentMana(), mana.getMana(stack)));
+						mana.addMana(stack, -manaVal);
+						receiveMana(manaVal);
 					}
 
 					if (didSomething) {
@@ -353,8 +343,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		cmp.putInt(TAG_COLOR, color.getId());
 
 		cmp.putInt(TAG_MANA_CAP, manaCap);
-		cmp.putBoolean(TAG_CAN_ACCEPT, canAccept);
-		cmp.putBoolean(TAG_CAN_SPARE, canSpare);
 		cmp.putBoolean(TAG_FRAGILE, fragile);
 
 		cmp.putString(TAG_INPUT_KEY, inputKey);
@@ -369,12 +357,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 		if (cmp.contains(TAG_MANA_CAP)) {
 			manaCap = cmp.getInt(TAG_MANA_CAP);
-		}
-		if (cmp.contains(TAG_CAN_ACCEPT)) {
-			canAccept = cmp.getBoolean(TAG_CAN_ACCEPT);
-		}
-		if (cmp.contains(TAG_CAN_SPARE)) {
-			canSpare = cmp.getBoolean(TAG_CAN_SPARE);
 		}
 		fragile = cmp.getBoolean(TAG_FRAGILE);
 
