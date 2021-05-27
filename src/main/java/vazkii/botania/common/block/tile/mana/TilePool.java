@@ -91,7 +91,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	int ticksDoingTransfer = 0;
 
 	private String inputKey = "";
-	private final String outputKey = "";
+	private String outputKey = "";
 
 	private int ticks = 0;
 	private boolean sendPacket = false;
