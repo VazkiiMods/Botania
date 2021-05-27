@@ -364,7 +364,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			inputKey = cmp.getString(TAG_INPUT_KEY);
 		}
 		if (cmp.contains(TAG_OUTPUT_KEY)) {
-			inputKey = cmp.getString(TAG_OUTPUT_KEY);
+			outputKey = cmp.getString(TAG_OUTPUT_KEY);
 		}
 
 	}
