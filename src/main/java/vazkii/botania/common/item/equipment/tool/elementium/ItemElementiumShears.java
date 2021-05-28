@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item.equipment.tool.elementium;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Shearable;
@@ -78,4 +79,8 @@ public class ItemElementiumShears extends ItemManasteelShears {
 		return repairBy.getItem() == ModItems.elementium || super.canRepair(toRepair, repairBy);
 	}
 
+	@Override
+	public int getSortingPriority(ItemStack stack, BlockState state) {
+		return super.getSortingPriority(stack, state) + 100;
+	}
 }

@@ -11,13 +11,16 @@ package vazkii.botania.common.block.tile;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.recipe.CraftingRecipe;
+import net.minecraft.recipe.Recipe;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -25,16 +28,19 @@ import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.mixin.AccessorRecipeManager;
 
 import javax.annotation.Nonnull;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class TileCraftCrate extends TileOpenCrate {
 	private static final String TAG_CRAFTING_RESULT = "craft_result";
 	private int signal = 0;
 	private ItemStack craftResult = ItemStack.EMPTY;
+
+	private final Queue<Identifier> lastRecipes = new ArrayDeque<>();
+	private boolean dirty;
 
 	public TileCraftCrate() {
 		super(ModTiles.CRAFT_CRATE);
@@ -101,9 +107,15 @@ public class TileCraftCrate extends TileOpenCrate {
 			signal = newSignal;
 			world.updateComparators(pos, getCachedState().getBlock());
 		}
+
+		if (dirty) {
+			dirty = false;
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		}
 	}
 
 	private boolean craft(boolean fullCheck) {
+		world.getProfiler().push("craft");
 		if (fullCheck && !isFull()) {
 			return false;
 		}
@@ -124,22 +136,46 @@ public class TileCraftCrate extends TileOpenCrate {
 			craft.setStack(i, stack);
 		}
 
-		Optional<CraftingRecipe> matchingRecipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, craft, world);
+		Optional<CraftingRecipe> matchingRecipe = getMatchingRecipe(craft);
 		matchingRecipe.ifPresent(recipe -> {
 			craftResult = recipe.craft(craft);
 
+			Inventory handler = getItemHandler();
 			List<ItemStack> remainders = recipe.getRemainingStacks(craft);
+
 			for (int i = 0; i < craft.size(); i++) {
 				ItemStack s = remainders.get(i);
-				if (!getItemHandler().getStack(i).isEmpty()
-						&& getItemHandler().getStack(i).getItem() == ModItems.placeholder) {
+				ItemStack inSlot = handler.getStack(i);
+				if ((inSlot.isEmpty() && s.isEmpty())
+						|| (!inSlot.isEmpty() && inSlot.getItem() == ModItems.placeholder)) {
 					continue;
 				}
-				getItemHandler().setStack(i, s);
+				handler.setStack(i, s);
 			}
 		});
 
+		world.getProfiler().pop();
 		return matchingRecipe.isPresent();
+	}
+
+	private Optional<CraftingRecipe> getMatchingRecipe(CraftingInventory craft) {
+		for (Identifier currentRecipe : lastRecipes) {
+			Recipe<CraftingInventory> recipe = ((AccessorRecipeManager) world.getRecipeManager())
+					.botania_getAll(RecipeType.CRAFTING)
+					.get(currentRecipe);
+			if (recipe instanceof CraftingRecipe && recipe.matches(craft, world)) {
+				return Optional.of((CraftingRecipe) recipe);
+			}
+		}
+		Optional<CraftingRecipe> recipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, craft, world);
+		if (recipe.isPresent()) {
+			if (lastRecipes.size() >= 8) {
+				lastRecipes.remove();
+			}
+			lastRecipes.add(recipe.get().getId());
+			return recipe;
+		}
+		return Optional.empty();
 	}
 
 	boolean isFull() {
@@ -157,8 +193,8 @@ public class TileCraftCrate extends TileOpenCrate {
 			ItemStack stack = getItemHandler().getStack(i);
 			if (!stack.isEmpty()) {
 				eject(stack, false);
+				getItemHandler().setStack(i, ItemStack.EMPTY);
 			}
-			getItemHandler().setStack(i, ItemStack.EMPTY);
 		}
 		if (!craftResult.isEmpty()) {
 			eject(craftResult, false);
@@ -178,7 +214,7 @@ public class TileCraftCrate extends TileOpenCrate {
 	public void markDirty() {
 		super.markDirty();
 		if (world != null && !world.isClient) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+			this.dirty = true;
 		}
 	}
 

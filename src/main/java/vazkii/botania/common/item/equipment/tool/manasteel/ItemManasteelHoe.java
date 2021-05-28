@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,13 +18,14 @@ import net.minecraft.item.ToolMaterial;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.function.Consumer;
 
-public class ItemManasteelHoe extends HoeItem implements IManaUsingItem {
+public class ItemManasteelHoe extends HoeItem implements IManaUsingItem, ISortableTool {
 	private static final int MANA_PER_DAMAGE = 60;
 
 	public ItemManasteelHoe(Settings props) {
@@ -53,5 +55,10 @@ public class ItemManasteelHoe extends HoeItem implements IManaUsingItem {
 	@Override
 	public boolean usesMana(ItemStack stack) {
 		return true;
+	}
+
+	@Override
+	public int getSortingPriority(ItemStack stack, BlockState state) {
+		return ToolCommons.getToolPriority(stack);
 	}
 }

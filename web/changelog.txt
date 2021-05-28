@@ -1,3 +1,39 @@
+1.16.4-414
+* Fix tiny potatoes named anything other than a-z, 0-9, _, or - crashing on render
+1.16.4-413
+* Add: Recipe to split composite lenses apart, losing the slime ball (Eutro)
+* Add: Recipe to upgrade a Mana Pool to a Fabulous Pool (BlueAgent)
+* Add: Extra tiny potato models (SuicidalSteve)
+* Add: Allow Glimmering and Floating Flowers to be used with the Mana Enchanter (BlueAgent)
+* Add: Manasteel and Elementium Hoes, since vanilla is starting to emphasize the importance of hoes
+* Add: Any models within the /assets/botania/models/tiny_potato/ folder is automatically loaded as a custom tiny potato model (Eutro)
+* Add: JEI integration for Terra Plate recipes
+* Change: Most items no longer have "Shift to expand tooltip" as their tooltips were too short anyways
+* Change: Magical flowers are no longer in the vanilla small_flowers block tag due to the multitude of issues it causes. They remain in the corresponding item tag.
+* Change: Garden of Glass overrides of Botania recipes are moved back to Botania itself. Botania now requires Garden of Glass 1.7 or higher.
+* Change: Crafting Botania banners no longer consumes the pattern item, consistent with vanilla
+* Fix: Terra Plate right click only accepting Manasteel/mana pearl/mana diamond instead of any item used in a terra plate recipe
+* Fix: Botania shears not working in dispensers and being unbreakable
+* Fix: Solegnolia distance calculation being based on block corner instead of center
+* Fix: Solegnolia effects lingering for a short while after removal
+* Fix: Bamboo not being plantable on Botania grasses
+* Fix: Solegnolia lexicon entry being confusing
+* Fix: Lexicon elven trade recipe not working sometimes
+* Fix: Exoflame materializing free mana out of thin air
+* Fix: Hydroangeas un-waterlog waterlogged blocks instead of deleting them entirely
+* Fix: More instances of the lighting bug where entire chunks go dark
+* Fix: Floating pure daisies not saving what kind of island they're on
+* Fix: Several dupe glitches when Botania is played with broken mods that allow stacking items that should not be stacked
+* Fix: Garden of Glass skybox crashing with other mods sometimes
+* Fix: Lexicon recipes being broken when custom recipes are added by CraftTweaker
+* Fix: Locked hourglass message displaying twice
+* Fix: Items disabled in the config no longer show up in the lexicon
+* Fix: Lexicon can now display any terra plate recipe
+* Fix: Crimson Pendant not preventing the damage sound and effects
+* Fix: Loki Ring and Terrasteel Pick being broken together
+* Fix: Floating Flowers destroy farmland immediately below themselves
+* I18n: ru_ru changes (pgkrol)
+* Cleanup: Optional cleanup (Alwinfy)
 1.16.4-411
 * Add CraftTweaker support for Botania (jaredlll08)
 * Odin Ring now protects against magma blocks and flying into walls

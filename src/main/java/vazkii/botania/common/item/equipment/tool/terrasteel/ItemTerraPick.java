@@ -8,8 +8,11 @@
  */
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
+import com.google.common.collect.ImmutableSet;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.item.TooltipContext;
@@ -45,8 +48,8 @@ import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -59,7 +62,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	private static final int MAX_MANA = Integer.MAX_VALUE;
 	private static final int MANA_PER_DAMAGE = 100;
 
-	private static final List<Material> MATERIALS = Arrays.asList(Material.STONE, Material.METAL, Material.ICE,
+	private static final Set<Material> MATERIALS = ImmutableSet.of(Material.STONE, Material.METAL, Material.ICE,
 			Material.GLASS, Material.PISTON, Material.REPAIR_STATION, Material.SOLID_ORGANIC, Material.SOIL, Material.AGGREGATE,
 			Material.SNOW_LAYER, Material.SNOW_BLOCK, Material.ORGANIC_PRODUCT);
 
@@ -165,8 +168,8 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		}
 
 		World world = player.world;
-		Material mat = world.getBlockState(pos).getMaterial();
-		if (!MATERIALS.contains(mat)) {
+		BlockState targetState = world.getBlockState(pos);
+		if (stack.getMiningSpeedMultiplier(targetState) <= 1.0F && !MATERIALS.contains(targetState.getMaterial())) {
 			return;
 		}
 
@@ -195,7 +198,8 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		Vec3i beginDiff = new Vec3i(doX ? -range : 0, doY ? -1 : 0, doZ ? -range : 0);
 		Vec3i endDiff = new Vec3i(doX ? range : 0, doY ? rangeY * 2 - 1 : 0, doZ ? range : 0);
 
-		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff, state -> MATERIALS.contains(state.getMaterial()));
+		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff,
+				state -> stack.getMiningSpeedMultiplier(state) > 1.0F || MATERIALS.contains(state.getMaterial()));
 
 		if (origLevel == 5) {
 			PlayerHelper.grantCriterion((ServerPlayerEntity) player, prefix("challenge/rank_ss_pick"), "code_triggered");

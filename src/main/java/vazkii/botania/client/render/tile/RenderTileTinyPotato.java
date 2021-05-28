@@ -59,7 +59,7 @@ import java.util.regex.Pattern;
 public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 	public static final String DEFAULT = "default";
 	public static final String HALLOWEEN = "halloween";
-	private static final Pattern ESCAPED = Pattern.compile("[ -]");
+	private static final Pattern ESCAPED = Pattern.compile("[^a-z0-9/._-]");
 
 	public RenderTileTinyPotato(BlockEntityRenderDispatcher manager) {
 		super(manager);

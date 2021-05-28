@@ -29,7 +29,10 @@ public class TinyPotatoModel extends DelegatedModel {
 		return new ModelOverrideList() {
 			@Override
 			public BakedModel apply(@Nonnull BakedModel model, @Nonnull ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity livingEntity) {
-				return RenderTileTinyPotato.getModelFromDisplayName(stack.getName());
+				if (stack.hasCustomName()) {
+					return RenderTileTinyPotato.getModelFromDisplayName(stack.getName());
+				}
+				return model;
 			}
 		};
 	}
