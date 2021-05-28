@@ -39,6 +39,7 @@
     "MixinEntityShapeContext",
     "MixinEntitySpawnPlacementRegistry",
     "MixinExplosion",
+    "MixinFarmlandBlock",
     "MixinItemEntity",
     "MixinLivingEntity",
     "MixinLootTable",

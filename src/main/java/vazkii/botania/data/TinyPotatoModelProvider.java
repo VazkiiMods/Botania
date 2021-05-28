@@ -75,7 +75,7 @@ public class TinyPotatoModelProvider extends ModelProvider<TinyPotatoModelBuilde
 			String texture = Objects.requireNonNull(taters[i]);
 			String alias;
 			while ((alias = taters[++i]) != null) {
-				withExistingParent(alias, prefix(LibResources.PREFIX_TINY_POTATO + "default"))
+				withExistingParent(alias, prefix(LibResources.PREFIX_TINY_POTATO + "/default"))
 						.texture("all", taterTex(texture));
 			}
 		}
@@ -95,7 +95,7 @@ public class TinyPotatoModelProvider extends ModelProvider<TinyPotatoModelBuilde
 				.to(12.0F, 3.0F, 9.0F)
 				.end();
 		for (String alias : new String[] { "pluraltater", "manytater", "systemtater", "systater" }) {
-			withExistingParent(alias, prefix(LibResources.PREFIX_TINY_POTATO + "snorps"));
+			withExistingParent(alias, prefix(LibResources.PREFIX_TINY_POTATO + "/snorps"));
 		}
 
 		withExistingParent("dinnerbone", BLOCK_FOLDER + "/cube_all")
@@ -104,7 +104,7 @@ public class TinyPotatoModelProvider extends ModelProvider<TinyPotatoModelBuilde
 				.from(10.0F, 6.0F, 6.0F)
 				.to(6.0F, 0.0F, 10.0F)
 				.end();
-		withExistingParent("grumm", prefix(LibResources.PREFIX_TINY_POTATO + "dinnerbone"));
+		withExistingParent("grumm", prefix(LibResources.PREFIX_TINY_POTATO + "/dinnerbone"));
 
 		withExistingParent("pahimar", BLOCK_FOLDER + "/cube_all")
 				.texture("all", taterTex("default"))

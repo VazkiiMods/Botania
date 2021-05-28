@@ -88,18 +88,18 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 
 	@Override
 	public int getMana(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_MANA, 0);
+		return ItemNBTHelper.getInt(stack, TAG_MANA, 0) * stack.getCount();
 	}
 
 	@Override
 	public int getMaxMana(ItemStack stack) {
-		return isStackCreative(stack) ? MAX_MANA + 1000 : MAX_MANA;
+		return (isStackCreative(stack) ? MAX_MANA + 1000 : MAX_MANA) * stack.getCount();
 	}
 
 	@Override
 	public void addMana(ItemStack stack, int mana) {
 		if (!isStackCreative(stack)) {
-			setMana(stack, Math.min(getMana(stack) + mana, MAX_MANA));
+			setMana(stack, Math.min(getMana(stack) + mana, getMaxMana(stack)) / stack.getCount());
 		}
 	}
 

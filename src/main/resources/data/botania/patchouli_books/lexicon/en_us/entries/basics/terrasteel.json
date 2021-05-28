@@ -28,6 +28,7 @@
     },
     {
       "type": "botania:terrasteel",
+      "recipe": "botania:terra_plate/terrasteel_ingot",
       "text": "botania.page.terrasteel3"
     }
   ],

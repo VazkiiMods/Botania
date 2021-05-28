@@ -3,6 +3,7 @@
   "category": "botania:functional_flowers",
   "icon": "botania:labelia",
   "advancement": "botania:main/elf_lexicon_pickup",
+  "flag": "debug",
   "pages": [
     {
       "type": "text",

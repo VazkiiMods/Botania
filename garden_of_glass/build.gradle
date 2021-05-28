@@ -8,10 +8,10 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 
 def mc_version = "1.16.4"
-version = "1.6-FABRIC"
+version = '1.7-FABRIC'
+group = 'vazkii.botania' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'gardenofglass'
 
-group = "vazkii.botania"
-archivesBaseName = "gardenofglass"
 
 minecraft {
 }

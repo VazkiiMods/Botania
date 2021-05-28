@@ -41,7 +41,9 @@ public class TerraPlateProvider extends BotaniaRecipeProvider {
 
 	@Override
 	public void registerRecipes(Consumer<RecipeJsonProvider> consumer) {
-		consumer.accept(new FinishedRecipe(idFor("terrasteel_ingot"), TilePool.MAX_MANA / 2, new ItemStack(ModItems.terrasteel), Ingredient.ofItems(ModItems.manaSteel), Ingredient.ofItems(ModItems.manaDiamond), Ingredient.ofItems(ModItems.manaPearl)));
+		consumer.accept(new FinishedRecipe(idFor("terrasteel_ingot"), TilePool.MAX_MANA / 2,
+				new ItemStack(ModItems.terrasteel), Ingredient.ofItems(ModItems.manaSteel),
+				Ingredient.ofItems(ModItems.manaPearl), Ingredient.ofItems(ModItems.manaDiamond)));
 	}
 
 	private static Identifier idFor(String s) {

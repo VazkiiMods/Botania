@@ -48,17 +48,17 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 
 	@Override
 	public int getMana(ItemStack stack) {
-		return ItemNBTHelper.getInt(stack, TAG_MANA, 0);
+		return ItemNBTHelper.getInt(stack, TAG_MANA, 0) * stack.getCount();
 	}
 
 	@Override
 	public int getMaxMana(ItemStack stack) {
-		return MAX_MANA;
+		return MAX_MANA * stack.getCount();
 	}
 
 	@Override
 	public void addMana(ItemStack stack, int mana) {
-		setMana(stack, Math.min(getMana(stack) + mana, getMaxMana(stack)));
+		setMana(stack, Math.min(getMana(stack) + mana, getMaxMana(stack)) / stack.getCount());
 	}
 
 	@Override

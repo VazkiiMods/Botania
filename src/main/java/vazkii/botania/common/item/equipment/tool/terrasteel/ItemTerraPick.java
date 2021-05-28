@@ -224,7 +224,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@Override
 	public int getMana(ItemStack stack) {
-		return getMana_(stack);
+		return getMana_(stack) * stack.getCount();
 	}
 
 	public static int getMana_(ItemStack stack) {
@@ -244,12 +244,12 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@Override
 	public int getMaxMana(ItemStack stack) {
-		return MAX_MANA;
+		return MAX_MANA * stack.getCount();
 	}
 
 	@Override
 	public void addMana(ItemStack stack, int mana) {
-		setMana(stack, Math.min(getMana(stack) + mana, MAX_MANA));
+		setMana(stack, Math.min(getMana(stack) + mana, getMaxMana(stack)) / stack.getCount());
 	}
 
 	@Override

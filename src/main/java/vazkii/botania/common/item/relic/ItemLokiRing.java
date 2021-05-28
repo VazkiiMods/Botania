@@ -63,6 +63,8 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	private static final String TAG_Y_ORIGIN = "yOrigin";
 	private static final String TAG_Z_ORIGIN = "zOrigin";
 
+	private static boolean recCall = false;
+
 	public ItemLokiRing(Settings props) {
 		super(props);
 	}
@@ -147,15 +149,24 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 			return;
 		}
 
+		if (recCall) {
+			return;
+		}
+		recCall = true;
+
 		List<BlockPos> cursors = getCursorList(lokiRing);
 		ISequentialBreaker breaker = (ISequentialBreaker) item;
 
-		for (BlockPos offset : cursors) {
-			BlockPos coords = pos.add(offset);
-			BlockState state = player.world.getBlockState(coords);
-			breaker.breakOtherBlock(player, stack, coords, pos, side);
-			ToolCommons.removeBlockWithDrops(player, stack, player.world, coords,
-					s -> s.getBlock() == state.getBlock() && s.getMaterial() == state.getMaterial());
+		try {
+			for (BlockPos offset : cursors) {
+				BlockPos coords = pos.add(offset);
+				BlockState state = player.world.getBlockState(coords);
+				breaker.breakOtherBlock(player, stack, coords, pos, side);
+				ToolCommons.removeBlockWithDrops(player, stack, player.world, coords,
+						s -> s.getBlock() == state.getBlock() && s.getMaterial() == state.getMaterial());
+			}
+		} finally {
+			recCall = false;
 		}
 	}
 
