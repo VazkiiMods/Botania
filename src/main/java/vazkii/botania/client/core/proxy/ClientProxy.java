@@ -231,7 +231,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		registerPropertyGetter(ModItems.elementiumShears, prefix("reddit"),
 				(stack, world, entity) -> stack.getName().getString().equalsIgnoreCase("dammit reddit") ? 1F : 0F);
 		registerPropertyGetter(ModItems.manasteelSword, prefix("elucidator"),
-				(stack, world, entity) -> "the elucidator".equals(stack.getName().getString().toLowerCase().trim()) ? 1 : 0);
+				(stack, world, entity) -> "the elucidator".equals(stack.getName().getString().toLowerCase(Locale.ROOT).trim()) ? 1 : 0);
 		registerPropertyGetter(ModItems.terraAxe, prefix("active"),
 				(stack, world, entity) -> entity instanceof PlayerEntity && !ItemTerraAxe.shouldBreak((PlayerEntity) entity) ? 0 : 1);
 		registerPropertyGetter(ModItems.terraPick, prefix("tipped"),

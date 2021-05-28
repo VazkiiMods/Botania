@@ -27,7 +27,7 @@ public interface IWireframeCoordinateListProvider {
 	 * Returns a list of BlockPos for the wireframes to draw.
 	 * Will not be null.
 	 */
-	public List<BlockPos> getWireframesToDraw(PlayerEntity player, ItemStack stack);
+	List<BlockPos> getWireframesToDraw(PlayerEntity player, ItemStack stack);
 
 	/**
 	 * Gets a wireframe to draw thicker than the rest.

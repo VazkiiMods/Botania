@@ -24,7 +24,7 @@ public interface ILensEffect {
 	 * Called when a mana spreader that has this focus shoots a burst. This is where
 	 * you change the properties of the burst.
 	 */
-	public void apply(ItemStack stack, BurstProperties props);
+	void apply(ItemStack stack, BurstProperties props);
 
 	/**
 	 * Called when a mana burst fired from a mana spreader with this focus collides against
@@ -32,24 +32,24 @@ public interface ILensEffect {
 	 * 
 	 * @return True to kill the burst. False to keep it alive.
 	 */
-	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack);
+	boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack);
 
 	/**
 	 * Called when a mana burst fired from a mana spreader with this focus is updated.
 	 * This is called before the update is handled.
 	 */
-	public void updateBurst(IManaBurst burst, ItemStack stack);
+	void updateBurst(IManaBurst burst, ItemStack stack);
 
 	/**
 	 * Called when the mana burst should do it's particles. Return false to not
 	 * do any particles.
 	 */
-	public boolean doParticles(IManaBurst burst, ItemStack stack);
+	boolean doParticles(IManaBurst burst, ItemStack stack);
 
 	/**
 	 * Gets the amount of mana to transfer to the passed in mana receiver block.
 	 */
-	public default int getManaToTransfer(IManaBurst burst, ItemStack stack, IManaReceiver receiver) {
+	default int getManaToTransfer(IManaBurst burst, ItemStack stack, IManaReceiver receiver) {
 		return burst.getMana();
 	}
 
@@ -57,7 +57,7 @@ public interface ILensEffect {
 	 * @deprecated use the version without the entity argument and call burst.entity() instead
 	 */
 	@Deprecated
-	public default int getManaToTransfer(IManaBurst burst, ThrownEntity entity, ItemStack stack, IManaReceiver receiver) {
+	default int getManaToTransfer(IManaBurst burst, ThrownEntity entity, ItemStack stack, IManaReceiver receiver) {
 		return getManaToTransfer(burst, stack, receiver);
 	}
 

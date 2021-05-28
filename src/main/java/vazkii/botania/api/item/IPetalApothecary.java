@@ -48,10 +48,10 @@ public interface IPetalApothecary {
 	/**
 	 * Set the contained fluid.
 	 */
-	public void setFluid(State fluid);
+	void setFluid(State fluid);
 
 	/**
 	 * Get the contained fluid.
 	 */
-	public State getFluid();
+	State getFluid();
 }

@@ -65,6 +65,8 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	@Nonnull
 	@Override
 	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
-		return teProvider.get();
+		TileEntitySpecialFlower te = teProvider.get();
+		te.setFloating(true);
+		return te;
 	}
 }

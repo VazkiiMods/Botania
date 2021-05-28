@@ -18,6 +18,6 @@ import net.minecraft.world.World;
  */
 public interface IManaCollisionGhost {
 
-	public boolean isGhost(BlockState state, World world, BlockPos pos);
+	boolean isGhost(BlockState state, World world, BlockPos pos);
 
 }

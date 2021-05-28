@@ -16,6 +16,6 @@ import net.minecraft.item.ItemStack;
  */
 public interface ITinyPlanetExcempt {
 
-	public boolean shouldPull(ItemStack stack);
+	boolean shouldPull(ItemStack stack);
 
 }

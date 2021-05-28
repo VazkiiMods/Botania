@@ -52,6 +52,7 @@ import vazkii.botania.mixin.AccessorBakedModelManager;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -73,7 +74,7 @@ public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 	}
 
 	public static BakedModel getModelFromDisplayName(Text displayName) {
-		return getModel(stripShaderName(displayName.getString().trim().toLowerCase()).getSecond());
+		return getModel(stripShaderName(displayName.getString().trim().toLowerCase(Locale.ROOT)).getSecond());
 	}
 
 	private static Pair<ShaderHelper.BotaniaShader, String> stripShaderName(String name) {
@@ -109,7 +110,7 @@ public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 	}
 
 	private static Identifier taterLocation(String name) {
-		return new Identifier(LibMisc.MOD_ID, LibResources.PREFIX_TINY_POTATO + normalizeName(name));
+		return new Identifier(LibMisc.MOD_ID, LibResources.PREFIX_TINY_POTATO + "/" + normalizeName(name));
 	}
 
 	private static String normalizeName(String name) {
@@ -125,7 +126,7 @@ public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 	public void render(@Nonnull TileTinyPotato potato, float partialTicks, MatrixStack ms, @Nonnull VertexConsumerProvider buffers, int light, int overlay) {
 		ms.push();
 
-		String name = potato.name.getString().toLowerCase().trim();
+		String name = potato.name.getString().toLowerCase(Locale.ROOT).trim();
 		Pair<ShaderHelper.BotaniaShader, String> shaderStrippedName = stripShaderName(name);
 		ShaderHelper.BotaniaShader shader = shaderStrippedName.getFirst();
 		name = shaderStrippedName.getSecond();
@@ -199,7 +200,6 @@ public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 			ms.multiply(mc.getEntityRenderDispatcher().getRotation());
 			float f1 = 0.016666668F * 1.6F;
 			ms.scale(-f1, -f1, f1);
-			ms.translate(0.0F, 0F / f1, 0.0F);
 			int halfWidth = mc.textRenderer.getWidth(potato.name.getString()) / 2;
 
 			float opacity = MinecraftClient.getInstance().options.getTextBackgroundOpacity(0.25F);

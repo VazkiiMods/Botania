@@ -28,6 +28,7 @@ import vazkii.botania.common.block.ModBlocks;
 import javax.annotation.Nullable;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 public class TileAnimatedTorch extends TileMod implements Tickable {
 	private static final String TAG_SIDE = "side";
@@ -129,7 +130,7 @@ public class TileAnimatedTorch extends TileMod implements Tickable {
 		int y = mc.getWindow().getScaledHeight() / 2 - 8;
 
 		mc.getItemRenderer().renderInGuiWithOverrides(new ItemStack(Blocks.REDSTONE_TORCH), x, y);
-		mc.textRenderer.drawWithShadow(ms, I18n.translate("botania.animatedTorch." + torchMode.name().toLowerCase()), x + 18, y + 6, 0xFF4444);
+		mc.textRenderer.drawWithShadow(ms, I18n.translate("botania.animatedTorch." + torchMode.name().toLowerCase(Locale.ROOT)), x + 18, y + 6, 0xFF4444);
 	}
 
 	@Override

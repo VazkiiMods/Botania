@@ -18,11 +18,11 @@ public interface ICompositableLens extends ILens {
 	/**
 	 * Returns the properties of the itemstack, used to check if two lenses can combine.
 	 */
-	public int getProps(ItemStack stack);
+	int getProps(ItemStack stack);
 
 	/**
 	 * Checks if the lens is combinable.
 	 */
-	public boolean isCombinable(ItemStack stack);
+	boolean isCombinable(ItemStack stack);
 
 }

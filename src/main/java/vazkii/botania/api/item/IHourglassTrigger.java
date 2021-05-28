@@ -18,6 +18,6 @@ import net.minecraft.world.World;
  */
 public interface IHourglassTrigger {
 
-	public void onTriggeredByHourglass(World world, BlockPos pos, BlockEntity hourglass);
+	void onTriggeredByHourglass(World world, BlockPos pos, BlockEntity hourglass);
 
 }

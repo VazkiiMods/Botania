@@ -36,7 +36,9 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IFloatingFlower;
 import vazkii.botania.api.item.IFloatingFlowerProvider;
 import vazkii.botania.api.wand.IWandBindable;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.block.decor.BlockFloatingFlower;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
 import vazkii.botania.common.lib.ModTags;
 
@@ -66,6 +68,7 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 	/** true if this flower is working on Enchanted Soil and this is the second tick **/
 	public boolean overgrowthBoost = false;
 	private BlockPos positionOverride;
+	private boolean isFloating;
 
 	public static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_FLOATING_DATA = "floating";
@@ -76,6 +79,10 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 
 	@Override
 	public final void tick() {
+		if (isFloating != getCachedState().isIn(ModTags.Blocks.FLOATING_FLOWERS)) {
+			Botania.LOGGER.error("Special flower changed floating state, this is not supported!", new Throwable());
+			isFloating = !isFloating;
+		}
 		BlockEntity tileBelow = world.getBlockEntity(pos.down());
 		if (tileBelow instanceof TileRedStringRelay) {
 			BlockPos coords = ((TileRedStringRelay) tileBelow).getBinding();
@@ -107,14 +114,23 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 	@Nullable
 	@Override
 	public IFloatingFlower getFloatingData() {
-		if (hasWorld() && getCachedState().isIn(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS)) {
+		if (hasWorld() && isFloating()) {
 			return floatingData;
 		}
 		return null;
 	}
 
-	public boolean isFloating() {
-		return getFloatingData() != null;
+	public final boolean isFloating() {
+		return this.isFloating;
+	}
+
+	/**
+	 * WARNING: This should only be called during or soon after construction.
+	 * Switching between nonfloating/floating at play time is not supported and a fresh
+	 * Block Entity should be created instead.
+	 */
+	public final void setFloating(boolean floating) {
+		this.isFloating = floating;
 	}
 
 	private boolean isOnSpecialSoil() {
@@ -143,6 +159,9 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 		if (cmp.contains(TAG_TICKS_EXISTED)) {
 			ticksExisted = cmp.getInt(TAG_TICKS_EXISTED);
 		}
+		if (state.getBlock() instanceof BlockFloatingFlower) {
+			setFloating(true);
+		}
 		readFromPacketNBT(cmp);
 	}
 
@@ -165,7 +184,7 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 	public void fromClientTag(CompoundTag tag) {
 		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
 		readFromPacketNBT(tag);
-		if (oldType != floatingData.getIslandType() && isFloating()) {
+		if (isFloating() && oldType != floatingData.getIslandType()) {
 			world.updateListeners(getPos(), getCachedState(), getCachedState(), 0);
 		}
 	}

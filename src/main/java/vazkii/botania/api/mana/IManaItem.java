@@ -20,17 +20,17 @@ public interface IManaItem {
 	/**
 	 * Gets the amount of mana this item contains
 	 */
-	public int getMana(ItemStack stack);
+	int getMana(ItemStack stack);
 
 	/**
 	 * Gets the max amount of mana this item can hold.
 	 */
-	public int getMaxMana(ItemStack stack);
+	int getMaxMana(ItemStack stack);
 
 	/**
 	 * Adds mana to this item.
 	 */
-	public void addMana(ItemStack stack, int mana);
+	void addMana(ItemStack stack, int mana);
 
 	/**
 	 * Can this item receive mana from a mana Pool?
@@ -38,12 +38,12 @@ public interface IManaItem {
 	 * @param pool The pool it's receiving mana from, can be casted to IManaPool.
 	 * @see IManaPool#isOutputtingPower()
 	 */
-	public boolean canReceiveManaFromPool(ItemStack stack, BlockEntity pool);
+	boolean canReceiveManaFromPool(ItemStack stack, BlockEntity pool);
 
 	/**
 	 * Can this item recieve mana from another item?
 	 */
-	public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack);
+	boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack);
 
 	/**
 	 * Can this item export mana to a mana Pool?
@@ -51,18 +51,18 @@ public interface IManaItem {
 	 * @param pool The pool it's exporting mana to, can be casted to IManaPool.
 	 * @see IManaPool#isOutputtingPower()
 	 */
-	public boolean canExportManaToPool(ItemStack stack, BlockEntity pool);
+	boolean canExportManaToPool(ItemStack stack, BlockEntity pool);
 
 	/**
 	 * Can this item export mana to another item?
 	 */
-	public boolean canExportManaToItem(ItemStack stack, ItemStack otherStack);
+	boolean canExportManaToItem(ItemStack stack, ItemStack otherStack);
 
 	/**
 	 * If this item simply does not export mana at all, set this to true. This is
 	 * used to skip items that contain mana but can't export it when drawing the
 	 * mana bar above the XP bar.
 	 */
-	public boolean isNoExport(ItemStack stack);
+	boolean isNoExport(ItemStack stack);
 
 }

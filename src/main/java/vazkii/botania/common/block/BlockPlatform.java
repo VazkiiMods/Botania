@@ -54,7 +54,7 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 		public final boolean indestructible;
 		public final BiPredicate<BlockPos, ShapeContext> collide;
 
-		private Variant(boolean i, BiPredicate<BlockPos, ShapeContext> p) {
+		Variant(boolean i, BiPredicate<BlockPos, ShapeContext> p) {
 			indestructible = i;
 			collide = p;
 		}

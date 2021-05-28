@@ -21,22 +21,22 @@ public interface IAvatarTile extends IManaReceiver {
 	/**
 	 * Gets the avatar's inventory
 	 */
-	public Inventory getInventory();
+	Inventory getInventory();
 
 	/**
 	 * Gets the avatar's facing.
 	 */
-	public Direction getAvatarFacing();
+	Direction getAvatarFacing();
 
 	/**
 	 * Gets the amount of ticks that have elapsed on this avatar while it's functional
 	 * (has redstone signal).
 	 */
-	public int getElapsedFunctionalTicks();
+	int getElapsedFunctionalTicks();
 
 	/**
 	 * Gets if this avatar is enabled (isn't powered by a redstone signal).
 	 */
-	public boolean isEnabled();
+	boolean isEnabled();
 
 }

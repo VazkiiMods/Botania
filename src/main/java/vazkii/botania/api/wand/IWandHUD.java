@@ -22,6 +22,6 @@ import net.minecraft.world.World;
 public interface IWandHUD {
 
 	@Environment(EnvType.CLIENT)
-	public void renderHUD(MatrixStack ms, MinecraftClient mc, World world, BlockPos pos);
+	void renderHUD(MatrixStack ms, MinecraftClient mc, World world, BlockPos pos);
 
 }

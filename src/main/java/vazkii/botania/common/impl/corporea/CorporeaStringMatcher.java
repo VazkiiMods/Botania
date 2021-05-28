@@ -17,6 +17,7 @@ import org.apache.commons.lang3.text.WordUtils;
 
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
 
+import java.util.Locale;
 import java.util.StringJoiner;
 import java.util.regex.Pattern;
 
@@ -52,7 +53,7 @@ public class CorporeaStringMatcher implements ICorporeaRequestMatcher {
 			return false;
 		}
 
-		String name = stripControlCodes(stack.getName().getString().toLowerCase().trim());
+		String name = stripControlCodes(stack.getName().getString().toLowerCase(Locale.ROOT).trim());
 		return matchGlob(name)
 				|| matchGlob(name + "s")
 				|| matchGlob(name + "es")
