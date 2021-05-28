@@ -47,7 +47,7 @@ repositories {
     }
     maven {
           name = "Ladysnake Libs"
-	      url = 'https://dl.bintray.com/ladysnake/libs'
+          url = 'https://ladysnake.jfrog.io/artifactory/mods'
     }
     maven {
         name = "BuildCraft" // for LBA
