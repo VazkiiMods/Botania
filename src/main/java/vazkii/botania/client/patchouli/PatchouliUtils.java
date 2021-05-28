@@ -8,17 +8,75 @@
  */
 package vazkii.botania.client.patchouli;
 
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.util.Identifier;
 
+import vazkii.botania.common.Botania;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IVariable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class PatchouliUtils {
+	private static boolean crafttweakerInfoNote = false;
+
+	/**
+	 * Gets a recipe of a specified type and ID, and replaces the namespace
+	 * with {@code crafttweaker} to try and find replacements if the recipe doesn't exist.
+	 *
+	 * If the recipe has no replacement, it will be logged.
+	 */
+	public static <T extends Recipe<C>, C extends Inventory> T getRecipe(RecipeType<T> type, Identifier id) {
+		@SuppressWarnings("unchecked")
+		Map<Identifier, T> map = (Map<Identifier, T>) ModRecipeTypes.getRecipes(MinecraftClient.getInstance().world, type);
+		T r = map.get(id);
+		if (r != null) {
+			return r;
+		}
+		r = map.get(new Identifier("crafttweaker", id.getPath()));
+		if (r != null) {
+			return r;
+		}
+
+		Botania.LOGGER.warn("Template references nonexistent recipe {} of type {}", id, type);
+		if (!crafttweakerInfoNote) {
+			crafttweakerInfoNote = true;
+			if (FabricLoader.getInstance().isModLoaded("crafttweaker")) {
+				Botania.LOGGER.info("To add a recipe that replaces a builtin recipe with CT, \n" +
+						"add one with the same type, named the same as the path of the missing recipe.\n" +
+						"eg. for recipe {}, add a recipe named \"{}\".", id, id.getPath());
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Get all recipes of the specified type that belong to the specified recipe group.
+	 */
+	public static <T extends Recipe<C>, C extends Inventory> List<T> getRecipeGroup(RecipeType<T> type, String group) {
+		@SuppressWarnings("unchecked")
+		Map<Identifier, T> map = (Map<Identifier, T>) ModRecipeTypes.getRecipes(MinecraftClient.getInstance().world, type);
+		List<T> list = new ArrayList<>();
+		for (T value : map.values()) {
+			if (group.equals(value.getGroup())) {
+				list.add(value);
+			}
+		}
+		if (list.isEmpty()) {
+			Botania.LOGGER.warn("Template references empty group {} of recipe type {}", group, type);
+		}
+		return list;
+	}
 
 	/**
 	 * Combines the ingredients, returning the first matching stack of each, then the second stack of each, etc.

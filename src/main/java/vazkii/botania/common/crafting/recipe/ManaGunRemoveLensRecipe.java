@@ -62,6 +62,7 @@ public class ManaGunRemoveLensRecipe extends SpecialCraftingRecipe {
 		}
 
 		ItemStack gunCopy = gun.copy();
+		gunCopy.setCount(1);
 		ItemManaGun.setLens(gunCopy, ItemStack.EMPTY);
 
 		return gunCopy;
@@ -83,7 +84,9 @@ public class ManaGunRemoveLensRecipe extends SpecialCraftingRecipe {
 	public DefaultedList<ItemStack> getRemainingStacks(@Nonnull CraftingInventory inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
 			if (s.getItem() == ModItems.manaGun) {
-				return ItemManaGun.getLens(s);
+				ItemStack stack = ItemManaGun.getLens(s);
+				stack.setCount(1);
+				return stack;
 			}
 			return null;
 		});

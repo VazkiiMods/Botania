@@ -10,9 +10,7 @@ package vazkii.botania.client.patchouli.processor;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.text.KeybindText;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
@@ -23,7 +21,6 @@ import net.minecraft.util.Identifier;
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
@@ -45,16 +42,12 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 		ImmutableList.Builder<IManaInfusionRecipe> builder = ImmutableList.builder();
 		if (variables.has("group")) {
 			String group = variables.get("group").asString();
-			TilePool.manaInfusionRecipes(MinecraftClient.getInstance().world).stream()
-					.filter(r -> r.getGroup().equals(group))
-					.forEach(builder::add);
+			builder.addAll(PatchouliUtils.getRecipeGroup(ModRecipeTypes.MANA_INFUSION_TYPE, group));
 		} else {
 			for (IVariable s : variables.get("recipes").asListOrSingleton()) {
-				Recipe<?> recipe = ModRecipeTypes.getRecipes(MinecraftClient.getInstance().world, ModRecipeTypes.MANA_INFUSION_TYPE).get(new Identifier(s.asString()));
-				if (recipe instanceof IManaInfusionRecipe) {
-					builder.add((IManaInfusionRecipe) recipe);
-				} else {
-					Botania.LOGGER.warn("Mana infusion template references nonexistent recipe {}", s);
+				IManaInfusionRecipe recipe = PatchouliUtils.getRecipe(ModRecipeTypes.MANA_INFUSION_TYPE, new Identifier(s.asString()));
+				if (recipe != null) {
+					builder.add(recipe);
 				}
 			}
 		}

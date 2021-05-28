@@ -19,7 +19,10 @@ import net.minecraft.recipe.SpecialCraftingRecipe;
 import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
+
+import vazkii.botania.common.block.ModBanners;
 
 import javax.annotation.Nonnull;
 
@@ -81,6 +84,19 @@ public class BannerRecipe extends SpecialCraftingRecipe {
 		}
 		return applyPattern(banner, pattern, dye);
 		*/
+	}
+
+	@Nonnull
+	@Override
+	public DefaultedList<ItemStack> getRemainingStacks(@Nonnull CraftingInventory inv) {
+		return RecipeUtils.getRemainingItemsSub(inv, s -> {
+			if (ModBanners.PATTERNS.containsKey(s.getItem())) {
+				ItemStack stack = s.copy();
+				stack.setCount(1);
+				return stack;
+			}
+			return null;
+		});
 	}
 
 	// [VanillaCopy] From LoomContainer.createOutputStack, edits noted

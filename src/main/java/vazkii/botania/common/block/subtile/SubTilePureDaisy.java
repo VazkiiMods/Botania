@@ -158,6 +158,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 
 	@Override
 	public void readFromPacketNBT(CompoundTag cmp) {
+		super.readFromPacketNBT(cmp);
 		positionAt = cmp.getInt(TAG_POSITION);
 
 		for (int i = 0; i < ticksRemaining.length; i++) {
@@ -167,6 +168,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 
 	@Override
 	public void writeToPacketNBT(CompoundTag cmp) {
+		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_POSITION, positionAt);
 		for (int i = 0; i < ticksRemaining.length; i++) {
 			cmp.putInt(TAG_TICKS_REMAINING + i, ticksRemaining[i]);

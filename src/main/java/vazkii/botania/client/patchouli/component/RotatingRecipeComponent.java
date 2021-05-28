@@ -8,6 +8,7 @@
  */
 package vazkii.botania.client.patchouli.component;
 
+import com.google.common.collect.ImmutableList;
 import com.google.gson.annotations.SerializedName;
 
 import net.minecraft.client.MinecraftClient;
@@ -46,7 +47,7 @@ public class RotatingRecipeComponent extends RotatingItemListComponentBase {
 		}
 		Recipe<?> recipe = map.get(new Identifier(recipeName));
 		if (recipe == null) {
-			throw new RuntimeException("Missing recipe " + recipeName);
+			return ImmutableList.of();
 		}
 		return recipe.getPreviewInputs();
 	}

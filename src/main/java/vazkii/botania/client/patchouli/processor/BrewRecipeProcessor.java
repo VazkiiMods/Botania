@@ -8,14 +8,12 @@
  */
 package vazkii.botania.client.patchouli.processor;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 
 import vazkii.botania.api.recipe.IBrewRecipe;
-import vazkii.botania.common.Botania;
+import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ModItems;
 import vazkii.patchouli.api.IComponentProcessor;
@@ -31,17 +29,15 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 	@Override
 	public void setup(IVariableProvider variables) {
 		Identifier id = new Identifier(variables.get("recipe").asString());
-		Recipe<?> recipe = ModRecipeTypes.getRecipes(MinecraftClient.getInstance().world, ModRecipeTypes.BREW_TYPE).get(id);
-		if (recipe instanceof IBrewRecipe) {
-			this.recipe = (IBrewRecipe) recipe;
-		} else {
-			Botania.LOGGER.warn("Missing brew recipe " + id);
-		}
+		this.recipe = PatchouliUtils.getRecipe(ModRecipeTypes.BREW_TYPE, id);
 	}
 
 	@Override
 	public IVariable process(String key) {
 		if (recipe == null) {
+			if (key.equals("is_offset")) {
+				return IVariable.wrap(false);
+			}
 			return null;
 		} else if (key.equals("heading")) {
 			return IVariable.from(new TranslatableText("botaniamisc.brewOf", new TranslatableText(recipe.getBrew().getTranslationKey())));
@@ -59,7 +55,8 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 			} else {
 				return null;
 			}
-		} else if (key.equals("is_offset")) {
+		}
+		if (key.equals("is_offset")) {
 			return IVariable.wrap(recipe.getPreviewInputs().size() % 2 == 0);
 		}
 		return null;

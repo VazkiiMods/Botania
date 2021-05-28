@@ -10,15 +10,12 @@ package vazkii.botania.client.patchouli.processor;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
 import net.minecraft.util.Identifier;
 
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
@@ -35,11 +32,9 @@ public class ElvenTradeProcessor implements IComponentProcessor {
 	public void setup(IVariableProvider variables) {
 		ImmutableList.Builder<IElvenTradeRecipe> builder = ImmutableList.builder();
 		for (IVariable s : variables.get("recipes").asListOrSingleton()) {
-			Recipe<?> recipe = ModRecipeTypes.getRecipes(MinecraftClient.getInstance().world, ModRecipeTypes.ELVEN_TRADE_TYPE).get(new Identifier(s.asString()));
-			if (recipe instanceof IElvenTradeRecipe) {
-				builder.add((IElvenTradeRecipe) recipe);
-			} else {
-				Botania.LOGGER.warn("Missing elven trade recipe " + s);
+			IElvenTradeRecipe recipe = PatchouliUtils.getRecipe(ModRecipeTypes.ELVEN_TRADE_TYPE, new Identifier(s.asString()));
+			if (recipe != null) {
+				builder.add(recipe);
 			}
 		}
 		recipes = builder.build();

@@ -2795,6 +2795,7 @@
   "botania.entry.enderHand": "Hand of Ender",
   "botania.tagline.enderHand": "Ender Chest access anywhere",
   "botania.page.enderHand0": "The $(item)Hand of Ender$(0) allows its user to access their interdimensional Ender subspace pocket; in other words, their $(item)Ender Chest$(0) inventory. Said inventory can be opened with some $(thing)Mana$(0) by right-clicking with the Hand, no matter the place.$(p)Using the hand on another player will use substantially more $(thing)Mana$(0), but will open $(o)their$() inventory instead.",
+  "botania.page.enderHand0a": "The $(item)Hand of Ender$(0) allows its user to access their interdimensional Ender subspace pocket; in other words, their $(item)Ender Chest$(0) inventory. Said inventory can be opened with some $(thing)Mana$(0) by right-clicking with the Hand, no matter the place.",
   "botania.page.enderHand2": "Furthermore, a $(item)Hand of Ender$(0) automatically provides the $(l:tools/exchange_rod)$(item)Rod of the Shifting Crust$(0)$(/l) access to its user's $(item)Ender Chest$(0)'s contents, for a small $(thing)Mana$(0) cost per block.",
   "botania.page.enderHand1": "It's like the 5G of Ender Chests",
 

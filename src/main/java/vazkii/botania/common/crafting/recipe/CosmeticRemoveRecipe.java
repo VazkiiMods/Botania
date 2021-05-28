@@ -66,6 +66,7 @@ public class CosmeticRemoveRecipe extends SpecialCraftingRecipe {
 		}
 
 		ItemStack copy = attachableItem.copy();
+		copy.setCount(1);
 		attachable.setCosmeticItem(copy, ItemStack.EMPTY);
 		return copy;
 	}
@@ -86,7 +87,9 @@ public class CosmeticRemoveRecipe extends SpecialCraftingRecipe {
 	public DefaultedList<ItemStack> getRemainingStacks(@Nonnull CraftingInventory inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
 			if (s.getItem() instanceof ItemBauble) {
-				return ((ItemBauble) s.getItem()).getCosmeticItem(s);
+				ItemStack stack = ((ItemBauble) s.getItem()).getCosmeticItem(s);
+				stack.setCount(1);
+				return stack;
 			}
 			return null;
 		});

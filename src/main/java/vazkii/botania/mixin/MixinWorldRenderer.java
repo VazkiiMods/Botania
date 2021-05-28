@@ -66,7 +66,8 @@ public class MixinWorldRenderer {
 			ordinal = 0,
 			value = "INVOKE",
 			target = "Lnet/minecraft/client/util/math/MatrixStack;multiply(Lnet/minecraft/util/math/Quaternion;)V"
-		)
+		),
+		require = 0
 	)
 	private void renderExtras(MatrixStack ms, float partialTicks, CallbackInfo ci) {
 		if (isGogSky()) {
@@ -80,7 +81,8 @@ public class MixinWorldRenderer {
 	@ModifyConstant(
 		method = "renderSky",
 		slice = @Slice(to = @At(ordinal = 0, value = "INVOKE", target = "Lnet/minecraft/client/texture/TextureManager;bindTexture(Lnet/minecraft/util/Identifier;)V")),
-		constant = { @Constant(floatValue = 30.0F) }
+		constant = { @Constant(floatValue = 30.0F) },
+		require = 0
 	)
 	private float makeSunBigger(float oldValue) {
 		if (isGogSky()) {
@@ -99,7 +101,8 @@ public class MixinWorldRenderer {
 			from = @At(ordinal = 0, value = "INVOKE", target = "Lnet/minecraft/client/texture/TextureManager;bindTexture(Lnet/minecraft/util/Identifier;)V"),
 			to = @At(ordinal = 1, value = "INVOKE", target = "Lnet/minecraft/client/texture/TextureManager;bindTexture(Lnet/minecraft/util/Identifier;)V")
 		),
-		constant = { @Constant(floatValue = 20.0F) }
+		constant = @Constant(floatValue = 20.0F),
+		require = 0
 	)
 	private float makeMoonBigger(float oldValue) {
 		if (isGogSky()) {
@@ -114,7 +117,8 @@ public class MixinWorldRenderer {
 	 */
 	@Inject(
 		method = "renderSky",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;method_23787(F)F")
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;method_23787(F)F"),
+		require = 0
 	)
 	private void renderExtraStars(MatrixStack ms, float partialTicks, CallbackInfo ci) {
 		if (isGogSky()) {

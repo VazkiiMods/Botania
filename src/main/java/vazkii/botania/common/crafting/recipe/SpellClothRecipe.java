@@ -88,6 +88,7 @@ public class SpellClothRecipe extends SpecialCraftingRecipe {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
 			if (s.getItem() == ModItems.spellCloth) {
 				ItemStack copy = s.copy();
+				copy.setCount(1);
 				copy.setDamage(copy.getDamage() + 1);
 				return copy;
 			}
