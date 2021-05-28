@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.compat.rei.orechid;
+package vazkii.botania.common.compat.rei;
 
 import net.minecraft.util.Identifier;
 

@@ -6,19 +6,18 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.compat.rei.puredaisy;
+package vazkii.botania.common.compat.rei;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.block.Block;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.compat.rei.CategoryUtils;
-import vazkii.botania.common.crafting.RecipePureDaisy;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.ArrayList;
@@ -32,33 +31,41 @@ import me.shedaniel.rei.api.widgets.Widgets;
 import me.shedaniel.rei.gui.widget.Widget;
 
 @Environment(EnvType.CLIENT)
-public class PureDaisyREICategory implements RecipeCategory<PureDaisyREIDisplay> {
-	private EntryStack daisy = EntryStack.create(new ItemStack(ModSubtiles.pureDaisy));
+public class OrechidREICategory implements RecipeCategory<OrechidBaseREIDisplay> {
+	private EntryStack orechid;
+	private Identifier ID;
+	private boolean isIgnem;
 	private Identifier OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
+
+	public OrechidREICategory(Block orechid) {
+		this.orechid = EntryStack.create(orechid);
+		this.ID = Registry.BLOCK.getId(orechid);
+		this.isIgnem = orechid == ModSubtiles.orechidIgnem;
+	}
 
 	@Override
 	public @NotNull Identifier getIdentifier() {
-		return RecipePureDaisy.TYPE_ID;
+		return ID;
 	}
 
 	@Override
 	public @NotNull EntryStack getLogo() {
-		return daisy;
+		return orechid;
 	}
 
 	@Override
 	public @NotNull String getCategoryName() {
-		return I18n.translate("botania.nei.pureDaisy");
+		return I18n.translate(isIgnem ? "botania.nei.orechidIgnem" : "botania.nei.orechid");
 	}
 
 	@Override
-	public @NotNull List<Widget> setupDisplay(PureDaisyREIDisplay display, Rectangle bounds) {
+	public @NotNull List<Widget> setupDisplay(OrechidBaseREIDisplay display, Rectangle bounds) {
 		List<Widget> widgets = new ArrayList<>();
 		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 16);
 
 		widgets.add(CategoryUtils.drawRecipeBackground(bounds));
 		widgets.add(Widgets.createDrawableWidget(((helper, matrices, mouseX, mouseY, delta) -> CategoryUtils.drawOverlay(helper, matrices, OVERLAY, center.x - 24, center.y - 14, 0, 0, 65, 44))));
-		widgets.add(Widgets.createSlot(center).entry(daisy).disableBackground());
+		widgets.add(Widgets.createSlot(center).entry(orechid).disableBackground());
 		widgets.add(Widgets.createSlot(new Point(center.x - 31, center.y)).entries(display.getInputEntries().get(0)).disableBackground());
 		widgets.add(Widgets.createSlot(new Point(center.x + 29, center.y)).entries(display.getResultingEntries().get(0)).disableBackground());
 		return widgets;

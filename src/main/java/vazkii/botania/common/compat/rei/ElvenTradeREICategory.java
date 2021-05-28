@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.compat.rei.elventrade;
+package vazkii.botania.common.compat.rei;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -26,7 +26,6 @@ import net.minecraft.util.math.Matrix4f;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.compat.rei.CategoryUtils;
 import vazkii.botania.common.crafting.RecipeElvenTrade;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 

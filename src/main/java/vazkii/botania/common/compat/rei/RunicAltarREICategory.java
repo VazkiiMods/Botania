@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.compat.rei.runicaltar;
+package vazkii.botania.common.compat.rei;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -19,7 +19,6 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
-import vazkii.botania.common.compat.rei.CategoryUtils;
 import vazkii.botania.common.crafting.RecipeRuneAltar;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
