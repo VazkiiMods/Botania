@@ -150,6 +150,10 @@ public class BlockTagProvider extends BlockTagsProvider {
 		getOrCreateTagBuilder(BlockTags.BAMBOO_PLANTABLE_ON).add(ModBlocks.dryGrass, ModBlocks.goldenGrass, ModBlocks.vividGrass,
 				ModBlocks.scorchedGrass, ModBlocks.infusedGrass, ModBlocks.mutatedGrass);
 
+		for (DyeColor color : DyeColor.values()) {
+			this.getOrCreateTagBuilder(ModTags.Blocks.MUSHROOMS).add(ModBlocks.getMushroom(color));
+		}
+
 		registerCommonTags();
 	}
 

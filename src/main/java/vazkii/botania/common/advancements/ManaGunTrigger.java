@@ -49,13 +49,13 @@ public class ManaGunTrigger extends AbstractCriterion<ManaGunTrigger.Instance> {
 		test(player, instance -> instance.test(stack, player));
 	}
 
-	static class Instance extends AbstractCriterionConditions {
+	public static class Instance extends AbstractCriterionConditions {
 		private final ItemPredicate item;
 		private final EntityPredicate user;
 		@Nullable
 		private final Boolean desu;
 
-		Instance(EntityPredicate.Extended entityPred, ItemPredicate count, EntityPredicate user, Boolean desu) {
+		public Instance(EntityPredicate.Extended entityPred, ItemPredicate count, EntityPredicate user, Boolean desu) {
 			super(ID, entityPred);
 			this.item = count;
 			this.user = user;
@@ -71,6 +71,19 @@ public class ManaGunTrigger extends AbstractCriterion<ManaGunTrigger.Instance> {
 		boolean test(ItemStack stack, ServerPlayerEntity entity) {
 			return this.item.test(stack) && this.user.test(entity, entity)
 					&& (desu == null || desu == ItemManaGun.isSugoiKawaiiDesuNe(stack));
+		}
+
+		public ItemPredicate getItem() {
+			return this.item;
+		}
+
+		public EntityPredicate getUser() {
+			return this.user;
+		}
+
+		@Nullable
+		public Boolean getDesu() {
+			return this.desu;
 		}
 	}
 }

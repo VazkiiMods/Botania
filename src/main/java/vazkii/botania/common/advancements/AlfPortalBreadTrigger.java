@@ -46,10 +46,10 @@ public class AlfPortalBreadTrigger extends AbstractCriterion<AlfPortalBreadTrigg
 		this.test(player, instance -> instance.test(player.getServerWorld(), portal));
 	}
 
-	static class Instance extends AbstractCriterionConditions {
+	public static class Instance extends AbstractCriterionConditions {
 		private final LocationPredicate portal;
 
-		Instance(EntityPredicate.Extended playerPredicate, LocationPredicate portal) {
+		public Instance(EntityPredicate.Extended playerPredicate, LocationPredicate portal) {
 			super(ID, playerPredicate);
 			this.portal = portal;
 		}
@@ -62,6 +62,10 @@ public class AlfPortalBreadTrigger extends AbstractCriterion<AlfPortalBreadTrigg
 
 		boolean test(ServerWorld world, BlockPos portal) {
 			return this.portal.test(world, portal.getX(), portal.getY(), portal.getZ());
+		}
+
+		public LocationPredicate getPortal() {
+			return this.portal;
 		}
 	}
 }

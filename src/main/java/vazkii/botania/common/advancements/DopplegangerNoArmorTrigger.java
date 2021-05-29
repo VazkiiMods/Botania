@@ -47,11 +47,11 @@ public class DopplegangerNoArmorTrigger extends AbstractCriterion<DopplegangerNo
 		test(player, instance -> instance.test(player, guardian, src));
 	}
 
-	static class Instance extends AbstractCriterionConditions {
+	public static class Instance extends AbstractCriterionConditions {
 		private final EntityPredicate guardian;
 		private final DamageSourcePredicate killingBlow;
 
-		Instance(EntityPredicate.Extended playerPred, EntityPredicate count, DamageSourcePredicate indexPos) {
+		public Instance(EntityPredicate.Extended playerPred, EntityPredicate count, DamageSourcePredicate indexPos) {
 			super(ID, playerPred);
 			this.guardian = count;
 			this.killingBlow = indexPos;
@@ -65,6 +65,14 @@ public class DopplegangerNoArmorTrigger extends AbstractCriterion<DopplegangerNo
 
 		boolean test(ServerPlayerEntity player, EntityDoppleganger guardian, DamageSource src) {
 			return this.guardian.test(player, guardian) && this.killingBlow.test(player, src);
+		}
+
+		public EntityPredicate getGuardian() {
+			return this.guardian;
+		}
+
+		public DamageSourcePredicate getKillingBlow() {
+			return this.killingBlow;
 		}
 	}
 }

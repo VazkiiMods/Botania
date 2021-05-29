@@ -36,13 +36,13 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Direction.Axis;
 
 import vazkii.botania.api.item.TinyPotatoRenderCallback;
-import vazkii.botania.client.core.handler.ContributorFancinessHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.tile.TileTinyPotato;
+import vazkii.botania.common.core.handler.ContributorList;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
@@ -313,7 +313,7 @@ public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 
 		ms.push();
 		if (!name.isEmpty()) {
-			ContributorFancinessHandler.firstStart();
+			ContributorList.firstStart();
 
 			float scale = 1F / 4F;
 			ms.translate(0F, 1F, 0F);
@@ -372,7 +372,7 @@ public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 				renderBlock(ms, buffers, light, overlay, Blocks.CAKE);
 				break;
 			default:
-				ItemStack icon = ContributorFancinessHandler.getFlower(name);
+				ItemStack icon = ContributorList.getFlower(name);
 				if (!icon.isEmpty()) {
 					ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180));
 					ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180));

@@ -23,6 +23,11 @@ public class TinyPotatoModelProvider extends ModelProvider<TinyPotatoModelBuilde
 				.tater()
 				.from(6.0F, 0.0F, 6.0F)
 				.to(10.0F, 6.0F, 10.0F)
+				.end()
+				.transforms()
+				.transform(ModelBuilder.Perspective.HEAD)
+				.translation(0F, 14.5F, 0F)
+				.scale(1F, 1F, 1F)
 				.end();
 
 		String[] taters = {

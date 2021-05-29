@@ -69,4 +69,11 @@ public class ItemBlockTinyPotato extends BlockItem {
 		}
 	}
 
+	/* todo fabric
+	@Override
+	public boolean canEquip(ItemStack stack, EquipmentSlotType armorType, Entity entity) {
+		return armorType == EquipmentSlotType.HEAD && entity instanceof PlayerEntity
+				&& ContributorList.hasFlower(((PlayerEntity) entity).getGameProfile().getName().toLowerCase(Locale.ROOT));
+	}
+	*/
 }

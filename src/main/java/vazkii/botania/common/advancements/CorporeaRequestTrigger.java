@@ -49,11 +49,11 @@ public class CorporeaRequestTrigger extends AbstractCriterion<CorporeaRequestTri
 		this.test(player, instance -> instance.test(world, pos, count));
 	}
 
-	static class Instance extends AbstractCriterionConditions {
+	public static class Instance extends AbstractCriterionConditions {
 		private final NumberRange.IntRange count;
 		private final LocationPredicate indexPos;
 
-		Instance(EntityPredicate.Extended playerPredicate, NumberRange.IntRange count, LocationPredicate indexPos) {
+		public Instance(EntityPredicate.Extended playerPredicate, NumberRange.IntRange count, LocationPredicate indexPos) {
 			super(ID, playerPredicate);
 			this.count = count;
 			this.indexPos = indexPos;
@@ -67,6 +67,14 @@ public class CorporeaRequestTrigger extends AbstractCriterion<CorporeaRequestTri
 
 		boolean test(ServerWorld world, BlockPos pos, int count) {
 			return this.count.test(count) && this.indexPos.test(world, pos.getX(), pos.getY(), pos.getZ());
+		}
+
+		public NumberRange.IntRange getCount() {
+			return this.count;
+		}
+
+		public LocationPredicate getIndexPos() {
+			return this.indexPos;
 		}
 	}
 

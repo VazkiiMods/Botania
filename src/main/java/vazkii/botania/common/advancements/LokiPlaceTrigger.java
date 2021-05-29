@@ -46,12 +46,12 @@ public class LokiPlaceTrigger extends AbstractCriterion<LokiPlaceTrigger.Instanc
 		test(player, instance -> instance.test(player, ring, blocksPlaced));
 	}
 
-	static class Instance extends AbstractCriterionConditions {
+	public static class Instance extends AbstractCriterionConditions {
 		private final EntityPredicate player;
 		private final ItemPredicate ring;
 		private final NumberRange.IntRange blocksPlaced;
 
-		Instance(EntityPredicate.Extended playerPred, EntityPredicate player, ItemPredicate ring, NumberRange.IntRange blocksPlaced) {
+		public Instance(EntityPredicate.Extended playerPred, EntityPredicate player, ItemPredicate ring, NumberRange.IntRange blocksPlaced) {
 			super(ID, playerPred);
 			this.player = player;
 			this.ring = ring;
@@ -66,6 +66,18 @@ public class LokiPlaceTrigger extends AbstractCriterion<LokiPlaceTrigger.Instanc
 
 		boolean test(ServerPlayerEntity player, ItemStack ring, int blocksPlaced) {
 			return this.player.test(player, null) && this.ring.test(ring) && this.blocksPlaced.test(blocksPlaced);
+		}
+
+		public EntityPredicate getPlayer() {
+			return this.player;
+		}
+
+		public ItemPredicate getRing() {
+			return this.ring;
+		}
+
+		public NumberRange.IntRange getBlocksPlaced() {
+			return this.blocksPlaced;
 		}
 	}
 }

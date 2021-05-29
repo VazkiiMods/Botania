@@ -119,6 +119,7 @@ public class ModTags {
 
 		public static final Tag.Identified<Item> BURST_VIEWERS = tag("burst_viewers");
 		public static final Tag.Identified<Item> TERRA_PICK_BLACKLIST = tag("terra_pick_blacklist");
+		public static final Tag.Identified<Item> MUSHROOMS = commonTag("mushrooms");
 
 		public static Tag.Identified<Item> getPetalTag(DyeColor color) {
 			switch (color) {
@@ -209,6 +210,7 @@ public class ModTags {
 		public static final Tag.Identified<Block> REDSTONE_ORES = commonTag("redstone_ores");
 		public static final Tag.Identified<Block> DIAMOND_ORES = commonTag("diamond_ores");
 		public static final Tag.Identified<Block> EMERALD_ORES = commonTag("emerald_ores");
+		public static final Tag.Identified<Block> MUSHROOMS = commonTag("mushrooms");
 
 		private static Tag.Identified<Block> tag(String name) {
 			return TagRegistry.create(prefix(name), BlockTags::getTagGroup);

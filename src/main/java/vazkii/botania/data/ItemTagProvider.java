@@ -127,6 +127,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		for (DyeColor color : DyeColor.values()) {
 			Tag.Identified<Item> petalTag = ModTags.Items.getPetalTag(color);
 			this.getOrCreateTagBuilder(petalTag).add(ModItems.getPetal(color), ModBlocks.getMushroom(color).asItem());
+			this.getOrCreateTagBuilder(ModTags.Items.MUSHROOMS).add(ModBlocks.getMushroom(color).asItem());
 			allPetals.addTag(petalTag);
 		}
 
