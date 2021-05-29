@@ -20,7 +20,6 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.ResourceType;
@@ -87,7 +86,6 @@ public class OrechidResourceListener extends SinglePreparationResourceReloadList
 	}
 
 	private static void readResource(Object2IntMap<StateIngredient> map, Resource resource, Identifier location) {
-		Botania.LOGGER.debug("Reading file {}/{}", resource.getResourcePackName(), location);
 		try (Resource r = resource;
 				InputStream stream = r.getInputStream();
 				BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
@@ -108,7 +106,6 @@ public class OrechidResourceListener extends SinglePreparationResourceReloadList
 
 	@Override
 	protected void apply(@Nonnull Data data, @Nonnull ResourceManager manager, @Nonnull Profiler profiler) {
-		Botania.LOGGER.debug("Processing Orechid data");
 		profiler.push("orechidApply");
 		Map<Identifier, Integer> map = BotaniaAPI.instance().getOreWeights();
 		if (!map.isEmpty()) {
@@ -134,7 +131,7 @@ public class OrechidResourceListener extends SinglePreparationResourceReloadList
 	private List<OrechidOutput> postprocess(Object2IntMap<StateIngredient> map) {
 		List<OrechidOutput> result = new ArrayList<>();
 		for (Object2IntMap.Entry<StateIngredient> entry : map.object2IntEntrySet()) {
-			StateIngredient process = StateIngredientHelper.resolveAndFilter(entry.getKey(), OrechidResourceListener::filter);
+			StateIngredient process = entry.getKey().resolveAndFilter(OrechidResourceListener::prioritizeConfig);
 			if (process != null) {
 				result.add(new OrechidOutput(entry.getIntValue(), process));
 			}
@@ -144,7 +141,7 @@ public class OrechidResourceListener extends SinglePreparationResourceReloadList
 		return result;
 	}
 
-	private static List<Block> filter(List<Block> blocks) {
+	private static List<Block> prioritizeConfig(List<Block> blocks) {
 		List<Block> out = new ArrayList<>();
 		for (String mod : ConfigHandler.COMMON.orechidPriorityMods.getValue()) {
 			for (Block block : blocks) {
@@ -155,14 +152,6 @@ public class OrechidResourceListener extends SinglePreparationResourceReloadList
 			if (!out.isEmpty()) {
 				return out;
 			}
-		}
-		for (Block block : blocks) {
-			if (block != Blocks.AIR) {
-				out.add(block);
-			}
-		}
-		if (out.size() != blocks.size()) {
-			return out;
 		}
 		return null;
 	}

@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 public class PureDaisyRecipeManager implements IRecipeManager {
 
 	@ZenCodeType.Method
-	public void addRecipe(String name, BlockState output, BlockState input, int time) {
+	public void addRecipe(String name, BlockState output, BlockState input, @ZenCodeType.OptionalInt(RecipePureDaisy.DEFAULT_TIME) int time) {
 		name = fixRecipeName(name);
 		ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
 		CraftTweakerAPI.apply(new ActionAddRecipe(this,
@@ -47,7 +47,7 @@ public class PureDaisyRecipeManager implements IRecipeManager {
 	}
 
 	@ZenCodeType.Method
-	public void addRecipe(String name, BlockState output, Block[] inputs, int time) {
+	public void addRecipe(String name, BlockState output, Block[] inputs, @ZenCodeType.OptionalInt(RecipePureDaisy.DEFAULT_TIME) int time) {
 		name = fixRecipeName(name);
 		ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
 		CraftTweakerAPI.apply(new ActionAddRecipe(this,
@@ -59,7 +59,7 @@ public class PureDaisyRecipeManager implements IRecipeManager {
 	}
 
 	@ZenCodeType.Method
-	public void addRecipe(String name, BlockState output, MCTag<Block> input, int time) {
+	public void addRecipe(String name, BlockState output, MCTag<Block> input, @ZenCodeType.OptionalInt(RecipePureDaisy.DEFAULT_TIME) int time) {
 		name = fixRecipeName(name);
 		ResourceLocation resourceLocation = new ResourceLocation("crafttweaker", name);
 		CraftTweakerAPI.apply(new ActionAddRecipe(this,
