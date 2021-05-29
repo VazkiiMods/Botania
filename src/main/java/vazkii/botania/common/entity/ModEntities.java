@@ -8,10 +8,14 @@
  */
 package vazkii.botania.common.entity;
 
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
+import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.common.block.tile.TileLightRelay.EntityPlayerMover;
@@ -157,4 +161,13 @@ public final class ModEntities {
 		register(r, LibEntityNames.FALLING_STAR, FALLING_STAR);
 	}
 
+	public static void registerAttributes() {
+		FabricDefaultAttributeRegistry.register(ModEntities.DOPPLEGANGER, MobEntity.createMobAttributes()
+				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4)
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, EntityDoppleganger.MAX_HP)
+				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0));
+		FabricDefaultAttributeRegistry.register(ModEntities.PIXIE, MobEntity.createMobAttributes()
+				.add(EntityAttributes.GENERIC_MAX_HEALTH, 2.0));
+		FabricDefaultAttributeRegistry.register(ModEntities.PINK_WITHER, WitherEntity.createWitherAttributes());
+	}
 }

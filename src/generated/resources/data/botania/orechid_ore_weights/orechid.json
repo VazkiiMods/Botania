@@ -7,13 +7,13 @@
     },
     {
       "type": "block",
-      "block": "minecraft:diamond_ore",
-      "weight": 883
+      "block": "minecraft:iron_ore",
+      "weight": 29371
     },
     {
       "type": "block",
-      "block": "minecraft:emerald_ore",
-      "weight": 1239
+      "block": "minecraft:redstone_ore",
+      "weight": 7654
     },
     {
       "type": "block",
@@ -22,8 +22,8 @@
     },
     {
       "type": "block",
-      "block": "minecraft:iron_ore",
-      "weight": 29371
+      "block": "minecraft:emerald_ore",
+      "weight": 1239
     },
     {
       "type": "block",
@@ -32,8 +32,8 @@
     },
     {
       "type": "block",
-      "block": "minecraft:redstone_ore",
-      "weight": 7654
+      "block": "minecraft:diamond_ore",
+      "weight": 883
     },
     {
       "type": "tag",

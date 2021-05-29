@@ -19,12 +19,8 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.boss.WitherEntity;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.tag.BlockTags;
@@ -56,7 +52,6 @@ import vazkii.botania.common.core.loot.LootHandler;
 import vazkii.botania.common.core.loot.ModLootModifiers;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.crafting.ModRecipeTypes;
-import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.corporea.CorporeaItemStackMatcher;
@@ -148,13 +143,7 @@ public class Botania implements ModInitializer {
 
 		SkyblockChunkGenerator.init();
 
-		FabricDefaultAttributeRegistry.register(ModEntities.DOPPLEGANGER, MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4)
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, EntityDoppleganger.MAX_HP)
-				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0));
-		FabricDefaultAttributeRegistry.register(ModEntities.PIXIE, MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 2.0));
-		FabricDefaultAttributeRegistry.register(ModEntities.PINK_WITHER, WitherEntity.createWitherAttributes());
+		ModEntities.registerAttributes();
 
 		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getId(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.get());
 		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getId(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.get());
