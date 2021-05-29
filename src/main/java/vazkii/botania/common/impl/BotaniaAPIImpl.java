@@ -27,6 +27,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.internal.IManaNetwork;
+import vazkii.botania.api.internal.OrechidOutput;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.brew.ModBrews;
@@ -40,13 +41,18 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class BotaniaAPIImpl implements BotaniaAPI {
+	public static List<OrechidOutput> weights = new ArrayList<>();
+	public static List<OrechidOutput> netherWeights = new ArrayList<>();
+
 	private static final Lazy<Rarity> RELIC_RARITY = new Lazy<>(() -> Rarity.EPIC);
 
 	private enum ArmorMaterial implements net.minecraft.item.ArmorMaterial {
@@ -172,7 +178,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	@Override
 	public int apiVersion() {
-		return 1;
+		return 2;
 	}
 
 	@Override
@@ -256,28 +262,38 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		return ConfigHandler.COMMON.flowerForceCheck.getValue();
 	}
 
-	private final Map<Identifier, Integer> oreWeights = new ConcurrentHashMap<>();
-	private final Map<Identifier, Integer> netherOreWeights = new ConcurrentHashMap<>();
+	private final Map<Identifier, Integer> legacyOreWeights = new ConcurrentHashMap<>();
+	private final Map<Identifier, Integer> legacyNetherOreWeights = new ConcurrentHashMap<>();
 	private final Map<Identifier, Function<DyeColor, Block>> paintableBlocks = new ConcurrentHashMap<>();
 
 	@Override
+	public List<OrechidOutput> getOrechidWeights() {
+		return Collections.unmodifiableList(weights);
+	}
+
+	@Override
+	public List<OrechidOutput> getNetherOrechidWeights() {
+		return Collections.unmodifiableList(netherWeights);
+	}
+
+	@Override
 	public Map<Identifier, Integer> getOreWeights() {
-		return Collections.unmodifiableMap(oreWeights);
+		return Collections.unmodifiableMap(legacyOreWeights);
 	}
 
 	@Override
 	public Map<Identifier, Integer> getNetherOreWeights() {
-		return Collections.unmodifiableMap(netherOreWeights);
+		return Collections.unmodifiableMap(legacyNetherOreWeights);
 	}
 
 	@Override
 	public void registerOreWeight(Identifier tag, int weight) {
-		oreWeights.put(tag, weight);
+		legacyOreWeights.put(tag, weight);
 	}
 
 	@Override
 	public void registerNetherOreWeight(Identifier tag, int weight) {
-		netherOreWeights.put(tag, weight);
+		legacyNetherOreWeights.put(tag, weight);
 	}
 
 	@Override

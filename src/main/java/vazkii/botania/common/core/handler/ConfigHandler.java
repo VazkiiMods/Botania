@@ -276,7 +276,8 @@ public final class ConfigHandler {
 					.beginValue("orechidPriorityMods", ConfigTypes.makeList(STRING), Collections.emptyList())
 					.withComment("List of modids to prioritize when choosing a random ore from the tag.\n" +
 							"By default, the chosen ore is randomly picked from all ores in the ore's tag.\n" +
-							"Ores from mods present on this list will be picked over mods listed lower or not listed at all.")
+							"Ores from mods present on this list will be picked over mods listed lower or not listed at all.\n" +
+							"Applying changes at runtime requires /reload afterwards.")
 					.finishValue(orechidPriorityMods::mirror)
 
 					.beginValue("rannuncarpusItemBlackList", ConfigTypes.makeList(STRING), Collections.emptyList())

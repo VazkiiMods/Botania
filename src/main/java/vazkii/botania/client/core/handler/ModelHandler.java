@@ -84,7 +84,7 @@ public final class ModelHandler {
 		BlockEntityRendererRegistry.INSTANCE.register(ModTiles.BELLOWS, RenderTileBellows::new);
 		@SuppressWarnings("unchecked")
 		Function<BlockEntityRenderDispatcher, BlockEntityRenderer<TileGaiaHead>> gaia = manager -> (BlockEntityRenderer<TileGaiaHead>) (BlockEntityRenderer<?>) new RenderTileGaiaHead(manager);
-		BlockEntityRendererRegistry.INSTANCE.register(ModTiles.GAIA_HEAD, gaia);
+		// todo wtf BlockEntityRendererRegistry.INSTANCE.register(ModTiles.GAIA_HEAD, gaia);
 		BlockEntityRendererRegistry.INSTANCE.register(ModTiles.TERU_TERU_BOZU, RenderTileTeruTeruBozu::new);
 		BlockEntityRendererRegistry.INSTANCE.register(ModTiles.AVATAR, RenderTileAvatar::new);
 		BlockEntityRendererRegistry.INSTANCE.register(ModTiles.ANIMATED_TORCH, RenderTileAnimatedTorch::new);

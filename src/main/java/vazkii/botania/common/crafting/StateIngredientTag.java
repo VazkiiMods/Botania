@@ -13,12 +13,13 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.tag.BlockTags;
+import net.minecraft.tag.ServerTagManagerHolder;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class StateIngredientTag extends StateIngredientBlocks {
@@ -29,13 +30,18 @@ public class StateIngredientTag extends StateIngredientBlocks {
 		this.tag = id;
 	}
 
-	private Tag<Block> resolve() {
-		return BlockTags.getTagGroup().getTagOrEmpty(tag);
+	protected Tag<Block> resolve() {
+		return ServerTagManagerHolder.getTagManager().getBlocks().getTagOrEmpty(tag);
 	}
 
 	@Override
 	public boolean test(BlockState state) {
 		return resolve().contains(state.getBlock());
+	}
+
+	@Override
+	public BlockState pick(Random random) {
+		return resolve().getRandom(random).getDefaultState();
 	}
 
 	@Override
@@ -56,4 +62,19 @@ public class StateIngredientTag extends StateIngredientBlocks {
 		return resolve().values().stream().map(Block::getDefaultState).collect(Collectors.toList());
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		return tag.equals(((StateIngredientTag) o).tag);
+	}
+
+	@Override
+	public int hashCode() {
+		return tag.hashCode();
+	}
 }

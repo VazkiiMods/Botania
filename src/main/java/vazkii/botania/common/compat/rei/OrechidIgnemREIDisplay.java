@@ -15,10 +15,11 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.internal.OrechidOutput;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.Collections;
-import java.util.Map;
+import java.util.List;
 
 import me.shedaniel.rei.api.EntryStack;
 
@@ -29,8 +30,8 @@ public class OrechidIgnemREIDisplay extends OrechidBaseREIDisplay {
 	}
 
 	@Override
-	protected Map<Identifier, Integer> getOreWeights() {
-		return BotaniaAPI.instance().getNetherOreWeights();
+	protected List<OrechidOutput> getOreWeights() {
+		return BotaniaAPI.instance().getNetherOrechidWeights();
 	}
 
 	@Override

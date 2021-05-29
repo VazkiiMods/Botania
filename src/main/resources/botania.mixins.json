@@ -46,6 +46,7 @@
     "MixinPiglinBrain",
     "MixinPlantBlock",
     "MixinPlayerEntity",
+    "MixinPlayerList",
     "MixinPollinateGoal",
     "MixinServerPlayerEntity",
     "MixinServerPlayerInteractionManager",

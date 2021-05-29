@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.crafting;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -21,11 +22,15 @@ import vazkii.botania.api.recipe.StateIngredient;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class StateIngredientBlocks implements StateIngredient {
-	private final Set<Block> blocks;
+	protected final Collection<Block> blocks;
+
+	public StateIngredientBlocks(List<Block> blocks) {
+		this.blocks = ImmutableList.copyOf(blocks);
+	}
 
 	public StateIngredientBlocks(Collection<Block> blocks) {
 		this.blocks = ImmutableSet.copyOf(blocks);
@@ -34,6 +39,23 @@ public class StateIngredientBlocks implements StateIngredient {
 	@Override
 	public boolean test(BlockState state) {
 		return blocks.contains(state.getBlock());
+	}
+
+	@Override
+	public BlockState pick(Random random) {
+		if (blocks instanceof List) {
+			return ((List<Block>) blocks).get(random.nextInt(blocks.size())).getDefaultState();
+		}
+
+		// Slow path, iterating over the set
+		int i = random.nextInt(blocks.size());
+		for (Block block : blocks) {
+			if (i == 0) {
+				return block.getDefaultState();
+			}
+			i--;
+		}
+		throw new IllegalStateException();
 	}
 
 	@Override

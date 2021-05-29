@@ -82,6 +82,7 @@ public class DataGenerators {
 		generator.install(new PetalProvider(generator));
 		generator.install(new RuneProvider(generator));
 		generator.install(new TerraPlateProvider(generator));
+		generator.install(new OrechidProvider(generator));
 		// generator.install(new BlockstateProvider(generator, evt.getExistingFileHelper()));
 		generator.install(new FloatingFlowerModelProvider(generator));
 		generator.install(new ItemModelProvider(generator));

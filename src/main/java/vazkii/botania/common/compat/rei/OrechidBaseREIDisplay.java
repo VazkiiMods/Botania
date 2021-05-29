@@ -13,13 +13,13 @@ import net.fabricmc.api.Environment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.tag.BlockTags;
-import net.minecraft.util.Identifier;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.api.internal.OrechidOutput;
+
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import me.shedaniel.rei.api.EntryStack;
@@ -32,7 +32,7 @@ public abstract class OrechidBaseREIDisplay implements RecipeDisplay {
 
 	public OrechidBaseREIDisplay(OrechidRecipeWrapper recipe) {
 		final int myWeight = recipe.entry.getValue();
-		final int amount = Math.max(1, Math.round((float) (myWeight * 64) / CategoryUtils.getTotalOreWeight(getOreWeights(), myWeight)));
+		final int amount = 0; // todo fix this Math.max(1, Math.round((float) (myWeight * 64) / CategoryUtils.getTotalOreWeight(getOreWeights(), myWeight)));
 
 		// Shouldn't ever return an empty list since the ore weight
 		// list is filtered to only have ores with ItemBlocks
@@ -49,7 +49,13 @@ public abstract class OrechidBaseREIDisplay implements RecipeDisplay {
 		ores = Collections.singletonList(EntryStack.ofItemStacks(stackList));
 	}
 
-	protected abstract Map<Identifier, Integer> getOreWeights();
+	public static float getTotalOreWeight(List<OrechidOutput> weights, int myWeight) {
+		return (weights.stream()
+				.map(OrechidOutput::getWeight)
+				.reduce(Integer::sum)).orElse(myWeight * 64 * 64);
+	}
+
+	protected abstract List<OrechidOutput> getOreWeights();
 
 	@Override
 	public @NotNull List<List<EntryStack>> getInputEntries() {

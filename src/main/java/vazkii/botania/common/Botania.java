@@ -96,7 +96,6 @@ public class Botania implements ModInitializer {
 		curiosLoaded = FabricLoader.getInstance().isModLoaded("curios");
 		ConfigHandler.setup();
 
-		IMCSender.enqueue();
 		EquipmentHandler.init();
 		ModFeatures.registerFeatures();
 		ModItems.registerItems();
@@ -130,6 +129,7 @@ public class Botania implements ModInitializer {
 		ManaNetworkCallback.EVENT.register(ManaNetworkHandler.instance::onNetworkEvent);
 		LootTableLoadingCallback.EVENT.register(LootHandler::lootLoad);
 		ServerPlayConnectionEvents.DISCONNECT.register(ItemFlightTiara::playerLoggedOut);
+		OrechidResourceListener.registerListener();
 
 		ModLootModifiers.init();
 		ModCriteriaTriggers.init();
@@ -137,6 +137,7 @@ public class Botania implements ModInitializer {
 
 	private void commonSetup() {
 		PacketHandler.init();
+		PaintableData.init();
 
 		CorporeaHelper.instance().registerRequestMatcher(prefix("string"), CorporeaStringMatcher.class, CorporeaStringMatcher::createFromNBT);
 		CorporeaHelper.instance().registerRequestMatcher(prefix("item_stack"), CorporeaItemStackMatcher.class, CorporeaItemStackMatcher::createFromNBT);

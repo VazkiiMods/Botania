@@ -32,6 +32,7 @@ public final class PacketHandler {
 		ClientPlayNetworking.registerGlobalReceiver(PacketSpawnDoppleganger.ID, PacketSpawnDoppleganger.Handler::handle);
 		ClientPlayNetworking.registerGlobalReceiver(PacketUpdateItemsRemaining.ID, PacketUpdateItemsRemaining.Handler::handle);
 		ClientPlayNetworking.registerGlobalReceiver(PacketGogWorld.ID, PacketGogWorld.Handler::handle);
+		ClientPlayNetworking.registerGlobalReceiver(PacketOrechidData.ID, PacketOrechidData::handle);
 	}
 
 	private PacketHandler() {}

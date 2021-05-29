@@ -30,10 +30,12 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.internal.DummyManaNetwork;
 import vazkii.botania.api.internal.IManaNetwork;
+import vazkii.botania.api.internal.OrechidOutput;
 
 import javax.annotation.Nonnull;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -70,10 +72,32 @@ public interface BotaniaAPI {
 		return null;
 	}
 
+	/**
+	 * Get a sorted, unmodifiable list of outputs for the orechid.
+	 */
+	default List<OrechidOutput> getOrechidWeights() {
+		return Collections.emptyList();
+	}
+
+	/**
+	 * Get a sorted, unmodifiable list of outputs for the orechid ignem.
+	 */
+	default List<OrechidOutput> getNetherOrechidWeights() {
+		return Collections.emptyList();
+	}
+
+	/**
+	 * @deprecated Use {@link #getOrechidWeights()}
+	 */
+	@Deprecated
 	default Map<Identifier, Integer> getOreWeights() {
 		return Collections.emptyMap();
 	}
 
+	/**
+	 * @deprecated Use {@link #getNetherOrechidWeights()}
+	 */
+	@Deprecated
 	default Map<Identifier, Integer> getNetherOreWeights() {
 		return Collections.emptyMap();
 	}
@@ -82,8 +106,11 @@ public interface BotaniaAPI {
 	 * Register ore to be produced by the Orechid
 	 * 
 	 * @param tag    Block tag ID containing the ores to register
-	 * @param weight Relative weight of tis entry
+	 * @param weight Relative weight of this entry
+	 *
+	 * @deprecated Use the orechid weight JSON to provide weights.
 	 */
+	@Deprecated
 	default void registerOreWeight(Identifier tag, int weight) {
 
 	}
@@ -92,7 +119,10 @@ public interface BotaniaAPI {
 	 * Register ore to be produced by the Orechid Ignem
 	 * 
 	 * @see #registerOreWeight
+	 *
+	 * @deprecated Use the orechid weight JSON to provide weights.
 	 */
+	@Deprecated
 	default void registerNetherOreWeight(Identifier tag, int weight) {
 
 	}
