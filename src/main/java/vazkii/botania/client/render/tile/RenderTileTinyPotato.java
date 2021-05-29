@@ -159,8 +159,9 @@ public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 
 		float up = (float) Math.abs(Math.sin(jump / 10 * Math.PI)) * 0.2F;
 		float rotZ = (float) Math.sin(jump / 10 * Math.PI) * 2;
+		float wiggle = (float) Math.sin(jump / 10 * Math.PI) * 0.05F;
 
-		ms.translate(0F, up, 0F);
+		ms.translate(wiggle, up, 0F);
 		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(rotZ));
 
 		boolean render = !(name.equals("mami") || name.equals("soaryn") || name.equals("eloraam") && jump != 0);

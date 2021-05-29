@@ -14,7 +14,7 @@ ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
 ext.priv = parseConfig(file('private.properties'))
 
-def mc_version = "1.16.4"
+def mc_version = "1.16.5"
 version = "${mc_version}-${config.build_number}-FABRIC"
 if (System.getenv().RELEASE_MODE == null) {
     version += '-SNAPSHOT'
@@ -68,7 +68,7 @@ repositories {
 dependencies {
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
-    modImplementation "vazkii.patchouli:Patchouli:1.16.4-50-FABRIC"
+    modImplementation "vazkii.patchouli:Patchouli:1.16.4-51-FABRIC"
 
     modCompile "alexiil.mc.lib:libblockattributes-all:0.8.4"
 
