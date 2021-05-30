@@ -57,22 +57,20 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 	}
 
 	public static float onPlayerFall(PlayerEntity entity, float dist) {
-		if (entity instanceof PlayerEntity) {
-			boolean pendantJump = ItemCloudPendant.popJumping((PlayerEntity) entity);
-			ItemStack stack = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, entity);
+		boolean pendantJump = ItemCloudPendant.popJumping(entity);
+		ItemStack stack = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, entity);
 
-			if (!stack.isEmpty()) {
-				float fallBuffer = ((ItemTravelBelt) stack.getItem()).fallBuffer;
+		if (!stack.isEmpty()) {
+			float fallBuffer = ((ItemTravelBelt) stack.getItem()).fallBuffer;
 
-				if (pendantJump) {
-					ItemStack amulet = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemCloudPendant, entity);
-					if (!amulet.isEmpty()) {
-						fallBuffer *= ((ItemCloudPendant) amulet.getItem()).getMaxAllowedJumps();
-					}
+			if (pendantJump) {
+				ItemStack amulet = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemCloudPendant, entity);
+				if (!amulet.isEmpty()) {
+					fallBuffer *= ((ItemCloudPendant) amulet.getItem()).getMaxAllowedJumps();
 				}
-
-				return Math.max(0, dist - fallBuffer);
 			}
+
+			return Math.max(0, dist - fallBuffer);
 		}
 		return dist;
 	}

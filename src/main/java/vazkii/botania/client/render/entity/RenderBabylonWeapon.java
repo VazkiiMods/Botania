@@ -48,17 +48,19 @@ public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {
 		float chargeMul = charge / 10F;
 
 		ms.push();
+		ms.translate(-0.75, 0, 1); // X shifts the weapon hilt to the center of the circle, Z makes it intersect it.
 		float s = 1.5F;
 		ms.scale(s, s, s);
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
+		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F)); // Rotate to make it match facing, instead of perpendicular to the circle
+		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(-45F)); // Perpendicular to the ground, instead of the rising 45 deg of the sprite
 
 		BakedModel model = MiscellaneousIcons.INSTANCE.kingKeyWeaponModels[weapon.getVariety()];
 		MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer().render(ms.peek(), buffers.getBuffer(TexturedRenderLayers.getItemEntityTranslucentCull()), null, model, 1, 1, 1, 0xF000F0, OverlayTexture.DEFAULT_UV);
 		ms.pop();
 
 		Random rand = new Random(weapon.getUuid().getMostSignificantBits());
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(-90F));
-		ms.translate(0F, -0.3F + rand.nextFloat() * 0.1F, 1F);
+		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(-90F)); // Lay the circle horizontally
+		ms.translate(0F, -0.3F + rand.nextFloat() * 0.1F, 0F); // Randomly offset how deep the item is in the circle
 
 		s = chargeMul;
 		if (live > delay) {

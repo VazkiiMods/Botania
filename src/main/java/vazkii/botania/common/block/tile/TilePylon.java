@@ -47,7 +47,7 @@ public class TilePylon extends BlockEntity implements Tickable {
 		BlockPylon.Variant variant = ((BlockPylon) getCachedState().getBlock()).variant;
 
 		if (activated && world.isClient) {
-			if (world.getBlockState(centerPos).getBlock() != variant.targetBlock
+			if (world.getBlockState(centerPos).getBlock() != variant.getTargetBlock()
 					|| variant == BlockPylon.Variant.NATURA && (portalOff() || !(world.getBlockState(getPos().down()).getBlock() instanceof BlockPool))) {
 				activated = false;
 				return;

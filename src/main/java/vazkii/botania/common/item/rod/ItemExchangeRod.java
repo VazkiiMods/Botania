@@ -12,7 +12,6 @@ import com.google.common.collect.ImmutableList;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -36,6 +35,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
@@ -76,7 +76,6 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 
 	public ItemExchangeRod(Settings props) {
 		super(props);
-		AttackBlockCallback.EVENT.register(this::onLeftClick);
 	}
 
 	@Nonnull
@@ -95,6 +94,8 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 					&& wstate.isOpaque()
 					&& block.asItem() instanceof BlockItem) {
 				setItemToPlace(stack, block.asItem());
+				setSwapDirection(stack, ctx.getSide());
+				setHitPos(stack, ctx.getHitPos());
 
 				displayRemainderCounter(player, stack);
 				return ActionResult.SUCCESS;
@@ -107,8 +108,6 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 				ItemNBTHelper.setInt(stack, TAG_SELECT_X, pos.getX());
 				ItemNBTHelper.setInt(stack, TAG_SELECT_Y, pos.getY());
 				ItemNBTHelper.setInt(stack, TAG_SELECT_Z, pos.getZ());
-				setSwapDirection(stack, ctx.getSide());
-				setHitPos(stack, ctx.getHitPos());
 				setTarget(stack, block);
 			}
 		}
@@ -117,19 +116,19 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	}
 
 	@Override
-	public boolean canMine(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) {
-		return !player.isCreative();
-	}
+	public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity player) {
+		if (!world.isClient) {
+			ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
 
-	private ActionResult onLeftClick(PlayerEntity player, World world, Hand hand, BlockPos pos, Direction direction) {
-		ItemStack stack = player.getStackInHand(hand);
-		if (!stack.isEmpty() && stack.getItem() == this && canExchange(stack) && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
-			int cost = exchange(world, player, pos, stack, getItemToPlace(stack));
-			if (cost > 0) {
-				ManaItemHandler.instance().requestManaForTool(stack, player, cost, true);
+			if (!stack.isEmpty() && stack.getItem() == this && canExchange(stack)
+					&& ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
+				int cost = exchange(world, player, pos, stack, getItemToPlace(stack));
+				if (cost > 0) {
+					ManaItemHandler.instance().requestManaForTool(stack, player, cost, true);
+				}
 			}
 		}
-		return ActionResult.PASS;
+		return false;
 	}
 
 	@Override
@@ -160,7 +159,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		Item replacement = getItemToPlace(stack);
 		if (ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
 			if (!ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
-				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
+				endSwapping(stack);
 				return;
 			}
 
@@ -170,7 +169,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 			Block target = getTargetState(stack);
 			List<BlockPos> swap = getTargetPositions(world, stack, replacement, new BlockPos(x, y, z), target, getSwapDirection(stack));
 			if (swap.size() == 0) {
-				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
+				endSwapping(stack);
 				return;
 			}
 
@@ -179,7 +178,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 			if (exchange > 0) {
 				ManaItemHandler.instance().requestManaForTool(stack, player, exchange, true);
 			} else {
-				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
+				endSwapping(stack);
 			}
 		}
 	}
@@ -248,8 +247,10 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 				float hardness = stateAt.getHardness(world, pos);
 				if (!world.isClient) {
 					world.breakBlock(pos, !player.abilities.creativeMode);
-					BlockHitResult hit = new BlockHitResult(getHitPos(rod), getSwapDirection(rod), pos, false);
+					BlockHitResult hit = new BlockHitResult(getHitPos(rod, pos), getSwapDirection(rod), pos, false);
 					ActionResult result = PlayerHelper.substituteUse(new ItemUsageContext(player, Hand.MAIN_HAND, hit), placeStack);
+					// TODO: provide an use context that overrides player facing direction/yaw?
+					//  currently it pulls from the player directly
 
 					if (!player.abilities.creativeMode) {
 						if (result.isAccepted()) {
@@ -393,15 +394,17 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 
 	private void setHitPos(ItemStack stack, Vec3d vec) {
 		ListTag list = new ListTag();
-		list.add(DoubleTag.of(vec.getX()));
-		list.add(DoubleTag.of(vec.getY()));
-		list.add(DoubleTag.of(vec.getZ()));
+		list.add(DoubleTag.of(MathHelper.fractionalPart(vec.getX())));
+		list.add(DoubleTag.of(MathHelper.fractionalPart(vec.getY())));
+		list.add(DoubleTag.of(MathHelper.fractionalPart(vec.getZ())));
 		stack.getOrCreateTag().put(TAG_SWAP_HIT_VEC, list);
 	}
 
-	private Vec3d getHitPos(ItemStack stack) {
+	private Vec3d getHitPos(ItemStack stack, BlockPos pos) {
 		ListTag list = stack.getOrCreateTag().getList(TAG_SWAP_HIT_VEC, 6);
-		return new Vec3d(list.getDouble(0), list.getDouble(1), list.getDouble(2));
+		return new Vec3d(pos.getX() + list.getDouble(0),
+				pos.getY() + list.getDouble(1),
+				pos.getZ() + list.getDouble(2));
 	}
 
 	private void setSwapDirection(ItemStack stack, Direction direction) {
@@ -417,6 +420,14 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 			return 0;
 		}
 		return RANGE + ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1) - 1;
+	}
+
+	private static void endSwapping(ItemStack stack) {
+		ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, false);
+		ItemNBTHelper.removeEntry(stack, TAG_SELECT_X);
+		ItemNBTHelper.removeEntry(stack, TAG_SELECT_Y);
+		ItemNBTHelper.removeEntry(stack, TAG_SELECT_Z);
+		ItemNBTHelper.removeEntry(stack, TAG_TARGET_BLOCK_NAME);
 	}
 
 	@Nonnull
