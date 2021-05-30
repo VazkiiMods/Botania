@@ -31,6 +31,6 @@ public final class OrechidOutput extends WeightedPicker.Entry implements Compara
 	/** Note: ordering is inconsistent with equals */
 	@Override
 	public int compareTo(OrechidOutput o) {
-		return Integer.compare(this.weight, o.weight);
+		return Integer.compare(o.weight, this.weight);
 	}
 }

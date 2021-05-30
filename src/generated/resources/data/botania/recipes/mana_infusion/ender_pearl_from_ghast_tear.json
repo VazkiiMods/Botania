@@ -8,6 +8,7 @@
   },
   "mana": 28000,
   "catalyst": {
-    "name": "botania:alchemy_catalyst"
+    "type": "block",
+    "block": "botania:alchemy_catalyst"
   }
 }

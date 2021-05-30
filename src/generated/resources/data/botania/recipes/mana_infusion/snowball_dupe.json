@@ -9,6 +9,7 @@
   },
   "mana": 200,
   "catalyst": {
-    "name": "botania:conjuration_catalyst"
+    "type": "block",
+    "block": "botania:conjuration_catalyst"
   }
 }

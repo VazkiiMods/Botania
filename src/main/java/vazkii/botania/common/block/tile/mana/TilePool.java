@@ -146,9 +146,9 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 		for (IManaInfusionRecipe recipe : manaInfusionRecipes(world)) {
 			if (recipe.matches(stack)) {
-				if (recipe.getCatalyst() == null) {
+				if (recipe.getRecipeCatalyst() == null) {
 					matchingNonCatRecipes.add(recipe);
-				} else if (recipe.getCatalyst() == state) {
+				} else if (recipe.getRecipeCatalyst().test(state)) {
 					matchingCatRecipes.add(recipe);
 				}
 			}

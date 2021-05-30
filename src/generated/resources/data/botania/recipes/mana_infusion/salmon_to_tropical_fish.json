@@ -9,6 +9,7 @@
   "mana": 200,
   "group": "botania:fish_cycle",
   "catalyst": {
-    "name": "botania:alchemy_catalyst"
+    "type": "block",
+    "block": "botania:alchemy_catalyst"
   }
 }

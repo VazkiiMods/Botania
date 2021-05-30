@@ -28,6 +28,10 @@ public interface IManaInfusionRecipe extends Recipe<Inventory> {
 	boolean matches(ItemStack stack);
 
 	@Nullable
+	StateIngredient getRecipeCatalyst();
+
+	@Nullable
+	@Deprecated
 	BlockState getCatalyst();
 
 	int getManaToConsume();

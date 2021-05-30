@@ -12,7 +12,6 @@ import com.google.common.base.Preconditions;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
@@ -25,6 +24,7 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.registry.Registry;
 
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
+import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.ModBlocks;
 
 import javax.annotation.Nonnull;
@@ -38,18 +38,24 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 	private final Ingredient input;
 	private final int mana;
 	@Nullable
-	private final BlockState catalystState;
+	private final StateIngredient catalyst;
 	private final String group;
 
 	public RecipeManaInfusion(Identifier id, ItemStack output, Ingredient input, int mana,
-			@Nullable String group, @Nullable BlockState catalystState) {
+			@Nullable String group, @Nullable StateIngredient catalyst) {
 		this.id = id;
 		this.output = output;
 		this.input = input;
 		this.mana = mana;
 		Preconditions.checkArgument(mana < 100000);
 		this.group = group == null ? "" : group;
-		this.catalystState = catalystState;
+		this.catalyst = catalyst;
+	}
+
+	@Deprecated
+	public RecipeManaInfusion(Identifier id, ItemStack output, Ingredient input, int mana,
+			@Nullable String group, @Nullable BlockState catalystState) {
+		this(id, output, input, mana, group, StateIngredientHelper.of(catalystState));
 	}
 
 	@Nonnull
@@ -72,7 +78,15 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 	@Nullable
 	@Override
 	public BlockState getCatalyst() {
-		return catalystState;
+		if (catalyst == null) {
+			return null;
+		}
+		return catalyst.getDisplayed().get(0);
+	}
+
+	@Override
+	public StateIngredient getRecipeCatalyst() {
+		return catalyst;
 	}
 
 	@Override
@@ -114,24 +128,25 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 			ItemStack output = ShapedRecipe.getItemStack(JsonHelper.getObject(json, "output"));
 			int mana = JsonHelper.getInt(json, "mana");
 			String group = JsonHelper.getString(json, "group", "");
-			BlockState catalystState = null;
-			if (json.has("catalyst")) {
-				if (json.get("catalyst").isJsonPrimitive()) {
+			StateIngredient catalyst = null;
+			if (json.has("catalyst")) { // TODO migrate entirely to state ingredients
+				JsonElement element = json.get("catalyst");
+				if (element.isJsonPrimitive()) {
 					String s = JsonHelper.getString(json, "catalyst");
 					Identifier catalystId = Identifier.tryParse(s);
 					if (catalystId == null) {
 						throw new IllegalArgumentException("Invalid catalyst ID: " + s);
 					}
-					catalystState = Registry.BLOCK.getOrEmpty(catalystId)
-							.map(Block::getDefaultState)
-							.orElseThrow(() -> new IllegalArgumentException("Unknown catalyst: " + s));
+					catalyst = StateIngredientHelper.of(Registry.BLOCK.getOrEmpty(catalystId)
+							.orElseThrow(() -> new IllegalArgumentException("Unknown catalyst: " + s)));
+				} else if (!element.getAsJsonObject().has("type")) {
+					catalyst = StateIngredientHelper.of(StateIngredientHelper.readBlockState(JsonHelper.getObject(json, "catalyst")));
 				} else {
-					catalystState = StateIngredientHelper.readBlockState(JsonHelper.getObject(json, "catalyst"));
+					catalyst = StateIngredientHelper.deserialize(element.getAsJsonObject());
 				}
 			}
 
-			RecipeManaInfusion ret = new RecipeManaInfusion(id, output, ing, mana, group, catalystState);
-			return ret;
+			return new RecipeManaInfusion(id, output, ing, mana, group, catalyst);
 		}
 
 		@Nullable
@@ -140,10 +155,12 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 			Ingredient input = Ingredient.fromPacket(buf);
 			ItemStack output = buf.readItemStack();
 			int mana = buf.readVarInt();
-			int catalystId = buf.readInt();
+			StateIngredient catalyst = null;
+			if (buf.readBoolean()) {
+				catalyst = StateIngredientHelper.read(buf);
+			}
 			String group = buf.readString();
-			BlockState catalystState = catalystId == -1 ? null : Block.getStateFromRawId(catalystId);
-			return new RecipeManaInfusion(id, output, input, mana, group, catalystState);
+			return new RecipeManaInfusion(id, output, input, mana, group, catalyst);
 		}
 
 		@Override
@@ -151,7 +168,11 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 			recipe.getPreviewInputs().get(0).write(buf);
 			buf.writeItemStack(recipe.getOutput());
 			buf.writeVarInt(recipe.getManaToConsume());
-			buf.writeInt(recipe.getCatalyst() == null ? -1 : Block.getRawIdFromState(recipe.getCatalyst()));
+			boolean hasCatalyst = recipe.getRecipeCatalyst() != null;
+			buf.writeBoolean(hasCatalyst);
+			if (hasCatalyst) {
+				recipe.getRecipeCatalyst().write(buf);
+			}
 			buf.writeString(recipe.getGroup());
 		}
 	}

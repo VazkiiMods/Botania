@@ -10,19 +10,18 @@ package vazkii.botania.data.recipes;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.server.recipe.RecipeJsonProvider;
 import net.minecraft.item.*;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.state.property.Property;
 import net.minecraft.tag.ItemTags;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
+import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.ModSubtiles;
@@ -193,16 +192,19 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 	}
 
 	private static class FinishedRecipe implements RecipeJsonProvider {
+		private static final StateIngredient CONJURATION = StateIngredientHelper.of(ModBlocks.conjurationCatalyst);
+		private static final StateIngredient ALCHEMY = StateIngredientHelper.of(ModBlocks.alchemyCatalyst);
+
 		private final Identifier id;
 		private final Ingredient input;
 		private final ItemStack output;
 		private final int mana;
 		private final String group;
 		@Nullable
-		private final BlockState catalyst;
+		private final StateIngredient catalyst;
 
 		public static FinishedRecipe conjuration(Identifier id, ItemStack output, Ingredient input, int mana) {
-			return new FinishedRecipe(id, output, input, mana, "", ModBlocks.conjurationCatalyst.getDefaultState());
+			return new FinishedRecipe(id, output, input, mana, "", CONJURATION);
 		}
 
 		public static FinishedRecipe alchemy(Identifier id, ItemStack output, Ingredient input, int mana) {
@@ -210,7 +212,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		}
 
 		public static FinishedRecipe alchemy(Identifier id, ItemStack output, Ingredient input, int mana, String group) {
-			return new FinishedRecipe(id, output, input, mana, group, ModBlocks.alchemyCatalyst.getDefaultState());
+			return new FinishedRecipe(id, output, input, mana, group, ALCHEMY);
 		}
 
 		public FinishedRecipe(Identifier id, ItemStack output, Ingredient input, int mana) {
@@ -221,7 +223,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 			this(id, output, input, mana, group, null);
 		}
 
-		public FinishedRecipe(Identifier id, ItemStack output, Ingredient input, int mana, String group, @Nullable BlockState catalyst) {
+		public FinishedRecipe(Identifier id, ItemStack output, Ingredient input, int mana, String group, @Nullable StateIngredient catalyst) {
 			this.id = id;
 			this.input = input;
 			this.output = output;
@@ -239,13 +241,8 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 				json.addProperty("group", group);
 			}
 			if (catalyst != null) {
-				json.add("catalyst", StateIngredientHelper.serializeBlockState(catalyst));
+				json.add("catalyst", catalyst.serialize());
 			}
-		}
-
-		@SuppressWarnings("unchecked")
-		private static <T extends Comparable<T>> String getName(Property<T> prop, Comparable<?> val) {
-			return prop.name((T) val);
 		}
 
 		@Override

@@ -73,14 +73,14 @@ public interface BotaniaAPI {
 	}
 
 	/**
-	 * Get a sorted, unmodifiable list of outputs for the orechid.
+	 * Get an unmodifiable list of outputs for the orechid.
 	 */
 	default List<OrechidOutput> getOrechidWeights() {
 		return Collections.emptyList();
 	}
 
 	/**
-	 * Get a sorted, unmodifiable list of outputs for the orechid ignem.
+	 * Get an unmodifiable list of outputs for the orechid ignem.
 	 */
 	default List<OrechidOutput> getNetherOrechidWeights() {
 		return Collections.emptyList();

@@ -22,12 +22,14 @@ import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.crafting.ModRecipeTypes;
+import vazkii.botania.common.crafting.StateIngredientHelper;
 import vazkii.patchouli.api.IComponentProcessor;
 import vazkii.patchouli.api.IVariable;
 import vazkii.patchouli.api.IVariableProvider;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ManaInfusionProcessor implements IComponentProcessor {
 	private List<IManaInfusionRecipe> recipes;
@@ -72,12 +74,12 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 		case "output":
 			return IVariable.wrapList(recipes.stream().map(IManaInfusionRecipe::getOutput).map(IVariable::from).collect(Collectors.toList()));
 		case "catalyst":
-			return IVariable.wrapList(recipes.stream().map(IManaInfusionRecipe::getCatalyst)
-					.map(state -> {
-						if (state == null) {
-							return ItemStack.EMPTY;
+			return IVariable.wrapList(recipes.stream().map(IManaInfusionRecipe::getRecipeCatalyst)
+					.flatMap(ingr -> {
+						if (ingr == null) {
+							return Stream.of(ItemStack.EMPTY);
 						}
-						return new ItemStack(state.getBlock().asItem());
+						return StateIngredientHelper.toStackList(ingr).stream();
 					})
 					.map(IVariable::from)
 					.collect(Collectors.toList()));
