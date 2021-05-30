@@ -14,13 +14,13 @@ import com.google.common.base.Predicates;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.common.block.BlockPistonRelay;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +33,7 @@ public final class CorporeaHelper {
 
 	private static final List<InvWithLocation> empty = ImmutableList.of();
 	private static final WeakHashMap<List<ICorporeaSpark>, List<InvWithLocation>> cachedNetworks = new WeakHashMap<>();
+	private static final Map<BlockPistonRelay.DimWithPos, ICorporeaSpark> cachedSparks = new HashMap<>();
 	private static final List<ICorporeaAutoCompleteController> autoCompleteControllers = new ArrayList<>();
 
 	private static final Pattern patternControlCode = Pattern.compile("(?i)\\u00A7[0-9A-FK-OR]");
@@ -207,8 +208,7 @@ public final class CorporeaHelper {
 	 * Gets the spark attached to the inventory passed case it's a TileEntity.
 	 */
 	public static ICorporeaSpark getSparkForInventory(InvWithLocation inv) {
-		TileEntity tile = inv.world.getTileEntity(inv.pos);
-		return getSparkForBlock(tile.getWorld(), tile.getPos());
+		return getSparkForBlock(inv.world, inv.pos);
 	}
 
 	/**
@@ -216,8 +216,29 @@ public final class CorporeaHelper {
 	 * in are for the block that the spark will be on, not the coords of the spark itself.
 	 */
 	public static ICorporeaSpark getSparkForBlock(World world, BlockPos pos) {
-		List<Entity> sparks = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up(), pos.add(1, 2, 1)), Predicates.instanceOf(ICorporeaSpark.class));
-		return sparks.isEmpty() ? null : (ICorporeaSpark) sparks.get(0);
+		if (world.isRemote) {
+			// This should never be called on client, but safe than sorry
+			return getSparkForBlockFromWorld(world, pos);
+		}
+		int dimension = world.provider.getDimension();
+		BlockPistonRelay.DimWithPos key = new BlockPistonRelay.DimWithPos(dimension, pos);
+		ICorporeaSpark spark = cachedSparks.get(key);
+		
+		if (spark != null && ((Entity) spark).getEntityWorld() == world && ((Entity) spark).isEntityAlive()) {
+			return spark;
+		}
+		spark = getSparkForBlockFromWorld(world, pos);
+		cachedSparks.put(key, spark);
+		return spark;
+	}
+
+	private static ICorporeaSpark getSparkForBlockFromWorld(World world, BlockPos pos) {
+		List<Entity> sparks = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.up(), pos.add(1, 2, 1)),
+				Predicates.instanceOf(ICorporeaSpark.class));
+		if (sparks.isEmpty()) {
+			return null;
+		}
+		return (ICorporeaSpark) sparks.get(0);
 	}
 
 	/**
@@ -268,6 +289,7 @@ public final class CorporeaHelper {
 	 */
 	public static void clearCache() {
 		cachedNetworks.clear();
+		cachedSparks.clear();
 	}
 
 	/**
