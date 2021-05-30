@@ -593,7 +593,7 @@ advancement.botania:lokiRing=Arithmetic
 advancement.botania:lokiRing.desc=Be rewarded the Ring of Loki for a heroic feat
 
 advancement.botania:nullFlower=Take it Easy
-advancement.botania:nullFlower.desc=Find a bug that lets you have an undefined Botania Flower. Don't forget to report it!
+advancement.botania:nullFlower.desc=Find a bug that lets you have an undefined Botania Flower. Don't report it, it is fixed in 1.14+ versions!
 advancement.botania:desuGun=Two-Faced Lovers
 advancement.botania:desuGun.desc=ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 #                                 ^ Don't localize
