@@ -50,6 +50,25 @@ import java.util.Map;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
+/**
+ * Loads the orechid data files.
+ * Files for the basic Orechid are located in {@code botania:orechid_ore_weights/orechid.json},
+ * files for the Orechid Ignem are in {@code botania:orechid_ore_weights/orechid_ignem.json}.
+ *
+ * <p>
+ * The structure of the file is loosely based on tag jsons. It consists of the following values:
+ * <ul>
+ * <li>{@code replace} - an optional boolean flag signifying that all values read from preceding
+ * datapacks should be discarded.</li>
+ * <li>{@code remove} - an optional JSON array of {@linkplain StateIngredient state ingredients} to remove.
+ * The exact same ingredients will be removed from the list.</li>
+ * <li>{@code values} (<i>required</i>) - a JSON array of serialized {@linkplain StateIngredient state ingredients}
+ * with an additional {@code weight} integer value.</li>
+ * </ul>
+ * </p>
+ *
+ * @see vazkii.botania.common.integration.crafttweaker.OrechidManager CraftTweaker Orechid integration
+ */
 public class OrechidResourceListener extends SinglePreparationResourceReloadListener<OrechidResourceListener.Data> implements IdentifiableResourceReloadListener {
 	private static final Gson GSON = new Gson();
 
@@ -61,41 +80,56 @@ public class OrechidResourceListener extends SinglePreparationResourceReloadList
 	@Override
 	protected Data prepare(@Nonnull ResourceManager manager, @Nonnull Profiler profiler) {
 		profiler.push("orechidParse");
-		Object2IntMap<StateIngredient> weights = loadWeights(manager, "orechid.json");
-		Object2IntMap<StateIngredient> nether = loadWeights(manager, "orechid_ignem.json");
+		Object2IntMap<StateIngredient> weights = loadWeights(manager, prefix("orechid.json"));
+		Object2IntMap<StateIngredient> nether = loadWeights(manager, prefix("orechid_ignem.json"));
 		profiler.pop();
 		return new Data(weights, nether);
 	}
 
-	private static Object2IntMap<StateIngredient> loadWeights(ResourceManager manager, String filename) {
+	protected static Object2IntMap<StateIngredient> loadWeights(ResourceManager manager, Identifier filename) {
 		Stopwatch stopwatch = Stopwatch.createStarted();
 		Object2IntMap<StateIngredient> map = new Object2IntOpenHashMap<>();
-
-		for (String namespace : manager.getAllNamespaces()) {
-			Identifier location = new Identifier(namespace, "orechid_ore_weights/" + filename);
-			try {
-				for (Resource resource : manager.getAllResources(location)) {
-					readResource(map, resource, location);
-				}
-			} catch (IOException ignored) {
-				// Probably data file missing in namespace, ignored
+		Identifier location = new Identifier(filename.getNamespace(), "orechid_ore_weights/" + filename.getPath());
+		try {
+			for (Resource resource : manager.getAllResources(location)) {
+				readResource(map, resource, location);
 			}
-		}
+		} catch (IOException ignored) {}
+
 		Botania.LOGGER.debug("Read {} data files in {}", filename, stopwatch.stop());
 		return map;
 	}
 
-	private static void readResource(Object2IntMap<StateIngredient> map, Resource resource, Identifier location) {
+	protected static void readResource(Object2IntMap<StateIngredient> map, Resource resource, Identifier location) {
 		try (Resource r = resource;
 				InputStream stream = r.getInputStream();
 				BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
 			JsonObject json = GSON.fromJson(reader, JsonObject.class);
 
-			for (JsonElement values : JsonHelper.getArray(json, "values")) {
-				JsonObject object = values.getAsJsonObject();
+			if (JsonHelper.getBoolean(json, "replace", false)) {
+				map.clear();
+			}
+
+			if (JsonHelper.hasArray(json, "remove")) {
+				for (JsonElement value : JsonHelper.getArray(json, "remove")) {
+					JsonObject object = value.getAsJsonObject();
+					StateIngredient state = StateIngredientHelper.tryDeserialize(object);
+					if (state != null) {
+						map.removeInt(state);
+					}
+				}
+			}
+
+			for (JsonElement value : JsonHelper.getArray(json, "values")) {
+				JsonObject object = value.getAsJsonObject();
 				StateIngredient state = StateIngredientHelper.tryDeserialize(object);
 				if (state != null) {
 					int weight = JsonHelper.getInt(object, "weight");
+					if (weight <= 0) {
+						Botania.LOGGER.error("Invalid weight: {} in file {} / {}, should be positive!",
+								weight, resource.getResourcePackName(), location);
+						continue;
+					}
 					map.put(state, weight);
 				}
 			}
@@ -128,7 +162,7 @@ public class OrechidResourceListener extends SinglePreparationResourceReloadList
 		profiler.pop();
 	}
 
-	private List<OrechidOutput> postprocess(Object2IntMap<StateIngredient> map) {
+	protected List<OrechidOutput> postprocess(Object2IntMap<StateIngredient> map) {
 		List<OrechidOutput> result = new ArrayList<>();
 		for (Object2IntMap.Entry<StateIngredient> entry : map.object2IntEntrySet()) {
 			StateIngredient process = entry.getKey().resolveAndFilter(OrechidResourceListener::prioritizeConfig);
@@ -141,7 +175,7 @@ public class OrechidResourceListener extends SinglePreparationResourceReloadList
 		return result;
 	}
 
-	private static List<Block> prioritizeConfig(List<Block> blocks) {
+	protected static List<Block> prioritizeConfig(List<Block> blocks) {
 		List<Block> out = new ArrayList<>();
 		for (String mod : ConfigHandler.COMMON.orechidPriorityMods.getValue()) {
 			for (Block block : blocks) {

@@ -57,6 +57,11 @@ public class EntityVineBall extends ThrownEntity implements FlyingItemEntity {
 		dataTracker.set(GRAVITY, gravity ? 0.03F : 0F);
 	}
 
+	public EntityVineBall(double x, double y, double z, World worldIn) {
+		super(ModEntities.VINE_BALL, x, y, z, worldIn);
+		dataTracker.set(GRAVITY, 0.03F);
+	}
+
 	@Override
 	protected void initDataTracker() {
 		dataTracker.startTracking(GRAVITY, 0F);

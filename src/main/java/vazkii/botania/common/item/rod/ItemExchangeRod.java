@@ -12,6 +12,7 @@ import com.google.common.collect.ImmutableList;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -76,6 +77,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 
 	public ItemExchangeRod(Settings props) {
 		super(props);
+		AttackBlockCallback.EVENT.register(this::onLeftClick);
 	}
 
 	@Nonnull
@@ -117,18 +119,19 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 
 	@Override
 	public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity player) {
-		if (!world.isClient) {
-			ItemStack stack = player.getStackInHand(Hand.MAIN_HAND);
+		return !player.isCreative();
+	}
 
-			if (!stack.isEmpty() && stack.getItem() == this && canExchange(stack)
-					&& ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
-				int cost = exchange(world, player, pos, stack, getItemToPlace(stack));
-				if (cost > 0) {
-					ManaItemHandler.instance().requestManaForTool(stack, player, cost, true);
-				}
+	private ActionResult onLeftClick(PlayerEntity player, World world, Hand hand, BlockPos pos, Direction side) {
+		ItemStack stack = player.getStackInHand(hand);
+		if (!stack.isEmpty() && stack.getItem() == this && canExchange(stack) && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
+			int cost = exchange(world, player, pos, stack, getItemToPlace(stack));
+			if (cost > 0) {
+				ManaItemHandler.instance().requestManaForTool(stack, player, cost, true);
+				return ActionResult.SUCCESS;
 			}
 		}
-		return false;
+		return ActionResult.PASS;
 	}
 
 	@Override

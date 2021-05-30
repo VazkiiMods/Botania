@@ -8,10 +8,7 @@
  */
 package vazkii.botania.common.block.tile.string;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.FlowerBlock;
-import net.minecraft.block.MushroomPlantBlock;
-import net.minecraft.block.TallPlantBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 
@@ -30,8 +27,19 @@ public class TileRedStringRelay extends TileRedString {
 		}
 
 		Block block = world.getBlockState(pos).getBlock();
-		BlockEntity tile = world.getBlockEntity(pos);
-		return (block instanceof FlowerBlock || block instanceof MushroomPlantBlock || block instanceof TallPlantBlock) && (tile == null || !(tile instanceof TileEntitySpecialFlower));
+		if (isValidPlant(block)) {
+			BlockEntity tile = world.getBlockEntity(pos);
+			return !(tile instanceof TileEntitySpecialFlower);
+		}
+		return false;
+
+	}
+
+	private static boolean isValidPlant(Block block) {
+		if (block instanceof FlowerPotBlock) {
+			block = ((FlowerPotBlock) block).getContent();
+		}
+		return block instanceof FlowerBlock || block instanceof MushroomBlock || block instanceof TallPlantBlock;
 	}
 
 }

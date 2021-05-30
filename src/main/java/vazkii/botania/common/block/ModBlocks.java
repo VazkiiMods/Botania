@@ -43,6 +43,7 @@ import vazkii.botania.common.block.dispenser.*;
 import vazkii.botania.common.block.mana.*;
 import vazkii.botania.common.block.string.*;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
+import vazkii.botania.common.entity.EntityVineBall;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockDreamwood;
 import vazkii.botania.common.item.block.ItemBlockElven;
@@ -900,6 +901,13 @@ public final class ModBlocks {
 
 		DispenserBlock.registerBehavior(ModItems.manasteelShears, new ShearsDispenserBehavior());
 		DispenserBlock.registerBehavior(ModItems.elementiumShears, new ShearsDispenserBehavior());
+		DispenserBlock.registerBehavior(ModItems.vineBall, new ProjectileDispenserBehavior() {
+			@Nonnull
+			@Override
+			protected ProjectileEntity createProjectile(@Nonnull World world, @Nonnull Position pos, @Nonnull ItemStack stack) {
+				return new EntityVineBall(pos.getX(), pos.getY(), pos.getZ(), world);
+			}
+		});
 
 		SeedBehaviours.init();
 	}

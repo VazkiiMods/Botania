@@ -24,6 +24,7 @@ import javax.annotation.Nullable;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
@@ -90,5 +91,21 @@ public class StateIngredientBlocks implements StateIngredient {
 	@Override
 	public String toString() {
 		return "StateIngredientBlocks{" + blocks.toString() + "}";
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		return blocks.equals(((StateIngredientBlocks) o).blocks);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(blocks);
 	}
 }

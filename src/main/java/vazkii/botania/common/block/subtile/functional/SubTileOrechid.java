@@ -79,7 +79,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 	private BlockState getOreToPut() {
 		List<OrechidOutput> values = getOreList();
 
-		if (WeightedPicker.getWeightSum(values) == 0) {
+		if (values.isEmpty()) {
 			return null;
 		}
 
