@@ -149,6 +149,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 
 		getOrCreateTagBuilder(BlockTags.BAMBOO_PLANTABLE_ON).add(ModBlocks.dryGrass, ModBlocks.goldenGrass, ModBlocks.vividGrass,
 				ModBlocks.scorchedGrass, ModBlocks.infusedGrass, ModBlocks.mutatedGrass);
+		getOrCreateTagBuilder(BlockTags.CLIMBABLE).add(ModBlocks.solidVines);
 
 		for (DyeColor color : DyeColor.values()) {
 			this.getOrCreateTagBuilder(ModTags.Blocks.MUSHROOMS).add(ModBlocks.getMushroom(color));

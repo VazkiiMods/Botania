@@ -25,8 +25,41 @@ import javax.annotation.Nullable;
 public interface IManaInfusionRecipe extends Recipe<Inventory> {
 	Identifier TYPE_ID = new Identifier(BotaniaAPI.MODID, "mana_infusion");
 
+	/**
+	 * Attempts to match the recipe.
+	 *
+	 * @param stack The whole stack that is in the Mana Pool (when actually crafting)
+	 *              or in the player's hand (for the HUD).
+	 * @return Whether this recipe matches the given stack.
+	 */
 	boolean matches(ItemStack stack);
 
+	/**
+	 * Get the recipe output, used for display (in JEI or the HUD).
+	 * If {@link #getRecipeOutput(ItemStack)} isn't overridden, this is also the actual result of the crafting recipe.
+	 *
+	 * @return The output stack of the recipe.
+	 */
+	@Nonnull
+	@Override
+	ItemStack getOutput();
+
+	/**
+	 * Get the actual recipe output, not just for display. Defaults to a copy of {@link #getOutput()}.
+	 *
+	 * @param input The whole stack that is in the Mana Pool, not a copy.
+	 * @return The output stack of the recipe for the specific input.
+	 */
+	@Nonnull
+	default ItemStack getRecipeOutput(@Nonnull ItemStack input) {
+		return getOutput().copy();
+	}
+
+	/**
+	 * Get the catalyst that must be under the Mana Pool for this recipe, or {@code null} if it can be anything.
+	 *
+	 * @return The catalyst ingredient.
+	 */
 	@Nullable
 	StateIngredient getRecipeCatalyst();
 
@@ -34,6 +67,9 @@ public interface IManaInfusionRecipe extends Recipe<Inventory> {
 	@Deprecated
 	BlockState getCatalyst();
 
+	/**
+	 * @return How much mana this recipe consumes from the pool.
+	 */
 	int getManaToConsume();
 
 	@Nonnull

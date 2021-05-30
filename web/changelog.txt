@@ -1,3 +1,29 @@
+1.16.4-415
+* Change: Mana infusion recipes can now specify their catalysts with state ingredients
+* Change: Rods can now be put into the Trinket Case (Alwinfy)
+* Change: Rod of Shifting Crust now operates by simulating placement instead of directly placing blocks
+* Change: Rod of Shifting Crust now only works on solid blocks again, in consistency with lexicon
+* Change: Rod of Shifting Crust can now be limited to a 7x7 plane by the Stone of Temperance
+* Change: Rod of Shifting Crust now applies a mana cost penalty when breaking very hard blocks
+* Change: Add mushrooms to vanilla tags (Patrigan)
+* Change: Orechids now use JSON to declare what ores they can produce
+* Change: Ring of Correction now supports hoes and shears
+* Change: Add a recipe cache for the Crafty Crate to reduce lag
+* Fix: King Key weapons rendering weirdly
+* Fix: Attempt to reduce the frequency at which item NBT syncs happen, which can cause as ghost duplicate items clientside
+* Fix: Pylon crash on OpenJ9 JVM
+* Fix: sash and jump amulet not reducing damage properly
+* Fix: luminizer glow having a square background
+* Fix: King Key weapon spell circle transparency being weird
+* Fix: Tiny Potato positioning when in head slot
+* Fix: Tiny Potato wiggle when jumping being off (_0Steven)
+* Fix: Medumone ignoring redstone
+* Fix: Terra Pick not mining some stone like blocks like AS Marble
+* Fix: Laputa Shard bursts infinitely retrying if denied by e.g. permissions plugins
+* Fix: entity tracking ranges being way too big
+* Integration: Make criterion instances public (noeppi_noeppi)
+* Integration: CraftTweaker pure daisy time argument is now optional
+* Integration: Added CraftTweaker compatibility for orechid registrations
 1.16.4-414
 * Fix tiny potatoes named anything other than a-z, 0-9, _, or - crashing on render
 1.16.4-413
