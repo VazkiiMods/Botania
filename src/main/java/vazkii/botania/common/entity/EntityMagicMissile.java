@@ -10,13 +10,18 @@
  */
 package vazkii.botania.common.entity;
 
+import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.passive.AbstractHorse;
+import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,13 +29,12 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.helper.Vector3;
-import vazkii.botania.common.lib.LibObfuscation;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -165,30 +169,56 @@ public class EntityMagicMissile extends EntityThrowable {
 		EntityLivingBase target = getTargetEntity();
 		if(target != null && target.getHealth() > 0 && !target.isDead && world.loadedEntityList.contains(target))
 			return true;
-		if(target != null)
+		if(target != null) {
+			target = null;
 			setTarget(null);
+		}
 
 		double range = 12;
 		AxisAlignedBB bounds = new AxisAlignedBB(posX - range, posY - range, posZ - range, posX + range, posY + range, posZ + range);
-		List entities;
+		List<EntityLivingBase> entities;
 		if(isEvil()) {
 			entities = world.getEntitiesWithinAABB(EntityPlayer.class, bounds);
 		} else {
-			entities = world.getEntitiesWithinAABB(Entity.class, bounds, Predicates.instanceOf(IMob.class));
+			entities = world.getEntitiesWithinAABB(EntityLivingBase.class, bounds, targetPredicate(getThrower()));
 		}
-		while(entities.size() > 0) {
-			Entity e = (Entity) entities.get(world.rand.nextInt(entities.size()));
-			if(!(e instanceof EntityLivingBase) || e.isDead) { // Just in case...
-				entities.remove(e);
-				continue;
-			}
-
-			target = (EntityLivingBase) e;
+		if (entities.size() > 0) {
+			target = entities.get(world.rand.nextInt(entities.size()));
 			setTarget(target);
-			break;
 		}
 
 		return target != null;
+	}
+
+	public static Predicate<EntityLivingBase> targetPredicate(Entity owner) {
+		return target -> shouldTarget(owner, target);
+	}
+
+	public static boolean shouldTarget(Entity owner, EntityLivingBase e) {
+		if (!e.isEntityAlive()) {
+			return false;
+		}
+		// always defend yourself
+		if (e instanceof EntityMob && isHostile(owner, ((EntityMob) e).getAttackTarget())) {
+			return true;
+		}
+		// don't target tamed creatures...
+		if (e instanceof EntityTameable && ((EntityTameable) e).isTamed() || e instanceof AbstractHorse && ((AbstractHorse) e).isTame()) {
+			return false;
+		}
+
+		// ...but other mobs die
+		return e instanceof IMob;
+	}
+
+	public static boolean isHostile(Entity owner, Entity attackTarget) {
+		// if the owner can attack the target thru PvP...
+		if (owner instanceof EntityPlayer && attackTarget instanceof EntityPlayer && ((EntityPlayer) owner).canAttackPlayer((EntityPlayer) attackTarget)) {
+			// ... then only defend self
+			return owner == attackTarget;
+		}
+		// otherwise, kill any player-hostiles
+		return attackTarget instanceof EntityPlayer;
 	}
 
 	@Override
