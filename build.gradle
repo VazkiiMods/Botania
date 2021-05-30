@@ -64,6 +64,9 @@ repositories {
     maven {
         url "https://maven.siphalor.de" // for nbt crafting
     }
+    maven {
+        url "https://maven.shedaniel.me/" // for rei
+    }
 }
 
 test {
@@ -73,23 +76,24 @@ test {
 dependencies {
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
-    modImplementation "vazkii.patchouli:Patchouli:1.16.4-51-FABRIC"
+    modImplementation "vazkii.patchouli:Patchouli:1.16.4-52-FABRIC-SNAPSHOT"
+    modImplementation "me.shedaniel:RoughlyEnoughItems:5.12.235"
 
     modCompile "alexiil.mc.lib:libblockattributes-all:0.8.4"
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"
     include "me.zeroeightsix:fiber:0.23.0-2"
 
-    // Match version with curios, don't include base and entity as curios includes it already
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.7.2"
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.7.2"
+    // Don't include base and entity as curios includes it already
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.8.3"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.8.3"
 
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:2.7.2"
-    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:2.7.2"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:2.8.3"
+    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:2.8.3"
 
     compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
 
-    modImplementation "top.theillusivec4.curios:curios-fabric:0.0.10-1.16.3"
+    modImplementation "top.theillusivec4.curios:curios-fabric:0.0.13-1.16.5"
 
     modImplementation "com.jamieswhiteshirt:reach-entity-attributes:1.0.1"
     include "com.jamieswhiteshirt:reach-entity-attributes:1.0.1"
