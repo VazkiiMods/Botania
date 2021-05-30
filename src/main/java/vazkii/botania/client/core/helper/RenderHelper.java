@@ -156,7 +156,9 @@ public final class RenderHelper {
 				.transparency(TRANSLUCENT_TRANSPARENCY)
 				.target(itemTarget)
 				.cull(disableCull)
-				.shadeModel(smoothShade).build(true);
+				.shadeModel(smoothShade)
+				.alpha(new RenderPhase.Alpha(0.05F))
+				.lightmap(enableLightmap).build(true);
 		RenderLayer babylonIcon = RenderLayer.of(LibResources.PREFIX_MOD + "babylon", VertexFormats.POSITION_COLOR_TEXTURE, GL11.GL_QUADS, 64, glState);
 		BABYLON_ICON = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, babylonIcon) : babylonIcon;
 
