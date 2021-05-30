@@ -13,8 +13,10 @@ import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
+import net.minecraft.block.AbstractGlassBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.PaneBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
@@ -93,7 +95,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		if (player != null && player.isSneaking()) {
 			BlockEntity tile = world.getBlockEntity(pos);
 			if (tile == null && block.asItem() != Items.AIR && BlockPlatform.isValidBlock(wstate, world, pos)
-					&& wstate.isOpaque()
+					&& (wstate.isOpaque() || block instanceof AbstractGlassBlock || block instanceof PaneBlock)
 					&& block.asItem() instanceof BlockItem) {
 				setItemToPlace(stack, block.asItem());
 				setSwapDirection(stack, ctx.getSide());

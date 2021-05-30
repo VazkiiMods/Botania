@@ -117,7 +117,9 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				player.abilities.allowFlying = true;
 				if (player.abilities.flying) {
 					if (!player.world.isClient) {
-						ManaItemHandler.instance().requestManaExact(tiara, player, getCost(tiara, left), true);
+						if (!player.isCreative() && !player.isSpectator()) {
+							ManaItemHandler.instance().requestManaExact(tiara, player, getCost(tiara, left), true);
+						}
 					} else if (Math.abs(player.getVelocity().getX()) > 0.1 || Math.abs(player.getVelocity().getZ()) > 0.1) {
 						double x = player.getX() - 0.5;
 						double y = player.getY() - 0.5;

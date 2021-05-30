@@ -9,6 +9,7 @@
 package vazkii.botania.common.item.rod;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -44,7 +45,7 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem,
 	private static final Identifier avatarOverlay = new Identifier(LibResources.MODEL_AVATAR_RAINBOW);
 
 	private static final int MANA_COST = 750;
-	private static final int MANA_COST_AVATAR = 10;
+	private static final int MANA_COST_AVATAR = 4;
 	private static final int TIME = 600;
 
 	public ItemRainbowRod(Settings props) {
@@ -56,50 +57,44 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem,
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
 		ItemStack stack = player.getStackInHand(hand);
 		if (!world.isClient && ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_COST, false)) {
-			Block place = ModBlocks.bifrost;
+			BlockState bifrost = ModBlocks.bifrost.getDefaultState();
 			Vector3 vector = new Vector3(player.getRotationVector()).normalize();
 
 			double x = player.getX();
-			double y = player.getY();
+			double y = player.getY() - 1;
 			double z = player.getZ();
 			BlockPos.Mutable pos = new BlockPos.Mutable((int) x, (int) y, (int) z);
 
 			double lastX = 0;
 			double lastY = -1;
 			double lastZ = 0;
-			BlockPos.Mutable lastChecker = new BlockPos.Mutable();
+			BlockPos.Mutable previousPos = new BlockPos.Mutable();
 
 			int count = 0;
+			boolean placedAny = false;
+
 			boolean prof = IManaProficiencyArmor.hasProficiency(player, stack);
 			int maxlen = prof ? 160 : 100;
 			int time = prof ? (int) (TIME * 1.6) : TIME;
 
 			BlockPos.Mutable placePos = new BlockPos.Mutable();
-			while (count < maxlen) {
-				lastChecker.set(lastX, lastY, lastZ);
 
-				if (!lastChecker.equals(pos)) {
-					if (y >= world.getHeight() || y <= 0
-							|| !world.isAir(pos) && world.getBlockState(pos).getBlock() != place) {
+			while (count < maxlen) {
+				previousPos.set(lastX, lastY, lastZ);
+
+				if (!previousPos.equals(pos)) { // Occasionally moving to the next segment stays on the same location, skip it
+					if (!world.isAir(pos) && world.getBlockState(pos) != bifrost && count >= 4) {
+						break; // Stop placing if you hit a wall (bifrost blocks are fine), but only after 4 segments.
+					}
+					if (World.isOutOfBuildLimitVertically(pos.getY())) {
 						break;
 					}
-
-					for (int i = -2; i < 1; i++) {
-						for (int j = -2; j < 1; j++) {
-							placePos.set(pos.getX() + i, pos.getY(), pos.getZ() + j);
-							if (world.isAir(placePos)
-									|| world.getBlockState(placePos).getBlock() == place) {
-								world.setBlockState(placePos, place.getDefaultState(), 2);
-								TileBifrost tile = (TileBifrost) world.getBlockEntity(placePos);
-								if (tile != null) {
-									tile.ticks = time;
-								}
-							}
-
-						}
+					if (placeBridgeSegment(world, pos, placePos, time)) {
+						placedAny = true;
 					}
-					count++;
 				}
+
+				count++;
 
 				lastX = x;
 				lastY = y;
@@ -111,7 +106,7 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem,
 				pos.set(x, y, z);
 			}
 
-			if (count > 0) {
+			if (placedAny) {
 				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.bifrostRod, SoundCategory.PLAYERS, 0.5F, 0.25F);
 				ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_COST, false);
 				player.getItemCooldownManager().set(this, player.isCreative() ? 10 : TIME);
@@ -119,6 +114,27 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem,
 		}
 
 		return TypedActionResult.success(stack);
+	}
+
+	private static boolean placeBridgeSegment(World world, BlockPos center, BlockPos.Mutable placePos, int time) {
+		BlockState bifrost = ModBlocks.bifrost.getDefaultState();
+		boolean placed = false;
+
+		for (int i = -1; i <= 1; i++) {
+			for (int j = -1; j <= 1; j++) {
+				placePos.set(center.getX() + i, center.getY(), center.getZ() + j);
+				if (world.isAir(placePos) || world.getBlockState(placePos) == bifrost) {
+					world.setBlockState(placePos, bifrost, 2);
+
+					TileBifrost tile = (TileBifrost) world.getBlockEntity(placePos);
+					if (tile != null) {
+						tile.ticks = time;
+						placed = true;
+					}
+				}
+			}
+		}
+		return placed;
 	}
 
 	@Override
@@ -183,7 +199,7 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem,
 					} else if (block == ModBlocks.bifrost) {
 						TileBifrost tileBifrost = (TileBifrost) world.getBlockEntity(pos);
 						if (tileBifrost.ticks < 2) {
-							tileBifrost.ticks = 10;
+							tileBifrost.ticks += 10;
 							tile.receiveMana(-MANA_COST_AVATAR);
 						}
 					}
