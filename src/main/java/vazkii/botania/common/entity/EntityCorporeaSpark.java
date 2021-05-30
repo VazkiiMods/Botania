@@ -210,6 +210,18 @@ public class EntityCorporeaSpark extends Entity implements ICorporeaSpark {
 	}
 
 	@Override
+	public boolean handleWaterMovement() {
+		//Avoids expensive getBlockState check in Entity#onEntityUpdate (see super impl)
+		return false;
+	}
+
+	@Override
+	public boolean isInLava() {
+		//Avoids expensive getBlockState check in Entity#onEntityUpdate (see super impl)
+		return false;
+	}
+
+	@Override
 	public void onItemsRequested(List<ItemStack> stacks) {
 		if(!stacks.isEmpty()) {
 			setItemDisplayTicks(-10);
