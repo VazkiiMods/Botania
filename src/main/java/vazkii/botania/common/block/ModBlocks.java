@@ -31,6 +31,7 @@ import net.minecraft.util.math.Position;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
+import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
@@ -44,6 +45,7 @@ import vazkii.botania.common.block.mana.*;
 import vazkii.botania.common.block.string.*;
 import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.entity.EntityVineBall;
+import vazkii.botania.common.impl.DefaultHornHarvestable;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockDreamwood;
 import vazkii.botania.common.item.block.ItemBlockElven;
@@ -613,6 +615,40 @@ public final class ModBlocks {
 		register(r, LibBlockNames.MOTIF_DAYBLOOM, motifDaybloom);
 		register(r, LibBlockNames.MOTIF_NIGHTSHADE, motifNightshade);
 		register(r, LibBlockNames.MOTIF_HYDROANGEAS, motifHydroangeas);
+
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(whiteShinyFlower), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(orangeShinyFlower), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(magentaShinyFlower), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(lightBlueShinyFlower), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(yellowShinyFlower), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(limeShinyFlower), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(pinkShinyFlower), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(grayShinyFlower), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(lightGrayShinyFlower), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(cyanShinyFlower), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(purpleShinyFlower), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(blueShinyFlower), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(brownShinyFlower), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(greenShinyFlower), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(redShinyFlower), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(blackShinyFlower), DefaultHornHarvestable.INSTANCE);
+
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(whiteMushroom), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(orangeMushroom), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(magentaMushroom), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(lightBlueMushroom), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(yellowMushroom), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(limeMushroom), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(pinkMushroom), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(grayMushroom), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(lightGrayMushroom), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(cyanMushroom), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(purpleMushroom), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(blueMushroom), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(brownMushroom), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(greenMushroom), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(redMushroom), DefaultHornHarvestable.INSTANCE);
+		BotaniaAPI.instance().registerHornHarvestableBlock(Registry.BLOCK.getId(blackShinyFlower), DefaultHornHarvestable.INSTANCE);
 	}
 
 	public static void registerItemBlocks() {

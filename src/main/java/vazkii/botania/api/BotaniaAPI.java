@@ -31,12 +31,14 @@ import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.internal.DummyManaNetwork;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.internal.OrechidOutput;
+import vazkii.botania.api.item.IHornHarvestable;
 
 import javax.annotation.Nonnull;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 
 public interface BotaniaAPI {
@@ -143,6 +145,20 @@ public interface BotaniaAPI {
 	 * @param transformer Function from color to a new block
 	 */
 	default void registerPaintableBlock(Identifier blockId, Function<DyeColor, Block> transformer) {
+
+	}
+
+	default Optional<IHornHarvestable> getHornHarvestable(Block block) {
+		return Optional.empty();
+	}
+
+	/**
+	 * Make Botania recognize a Block as IHornHarvestable without explicitly implementing the interface
+	 *
+	 * @param blockId     The block ID
+	 * @param harvestable The harvestable
+	 */
+	default void registerHornHarvestableBlock(Identifier blockId, IHornHarvestable harvestable) {
 
 	}
 

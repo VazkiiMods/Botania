@@ -68,7 +68,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.getOrCreateTagBuilder(ItemTags.SMALL_FLOWERS).addTag(ModTags.Items.MYSTICAL_FLOWERS).addTag(ModTags.Items.SPECIAL_FLOWERS);
 
 		this.getOrCreateTagBuilder(ModTags.Items.BURST_VIEWERS).add(ModItems.monocle);
-		this.getOrCreateTagBuilder(ModTags.Items.TERRA_PICK_BLACKLIST).add(ModItems.auraRing, ModItems.auraRingGreater, ModItems.terrasteelHelm);
+		this.getOrCreateTagBuilder(ModTags.Items.TERRA_PICK_BLACKLIST).add(ModItems.auraRing, ModItems.auraRingGreater, ModItems.terrasteelHelm, ModItems.spark);
 		AbstractTagProvider.ObjectBuilder<Item> builder = this.getOrCreateTagBuilder(ModTags.Items.LENS);
 		Registry.ITEM.stream().filter(i -> i instanceof ItemLens && Registry.ITEM.getId(i).getNamespace().equals(LibMisc.MOD_ID))
 				.sorted(Comparator.comparing(Registry.ITEM::getId))

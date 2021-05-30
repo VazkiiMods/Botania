@@ -43,6 +43,7 @@ repositories {
         url = "https://maven.blamejared.com/"
     }
     maven {
+        name "curios"
         url = "https://maven.theillusivec4.top/"
     }
     maven {
@@ -231,3 +232,5 @@ publishing {
         }
     }
 }
+
+defaultTasks 'clean', 'checkSyntax', 'build'

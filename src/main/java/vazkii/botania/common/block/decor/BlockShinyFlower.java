@@ -9,18 +9,15 @@
 package vazkii.botania.common.block.decor;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
 
-import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.common.block.BlockModFlower;
 
 import javax.annotation.Nonnull;
 
-public class BlockShinyFlower extends BlockModFlower implements IHornHarvestable {
+public class BlockShinyFlower extends BlockModFlower {
 
 	public BlockShinyFlower(DyeColor color, Settings builder) {
 		super(color, builder);
@@ -30,18 +27,5 @@ public class BlockShinyFlower extends BlockModFlower implements IHornHarvestable
 	public boolean isFertilizable(@Nonnull BlockView world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean fuckifiknow) {
 		return false;
 	}
-
-	@Override
-	public boolean canHornHarvest(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
-		return false;
-	}
-
-	@Override
-	public boolean hasSpecialHornHarvest(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
-		return false;
-	}
-
-	@Override
-	public void harvestByHorn(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {}
 
 }

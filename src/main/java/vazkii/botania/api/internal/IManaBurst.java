@@ -45,6 +45,12 @@ public interface IManaBurst {
 
 	void setManaLossPerTick(float mana);
 
+	/** @deprecated use {@link #getBurstGravity()}, name conflicts with mojmap */
+	@Deprecated
+	default float getGravity() {
+		return getBurstGravity();
+	}
+
 	float getBurstGravity();
 
 	void setGravity(float gravity);

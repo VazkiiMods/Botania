@@ -60,3 +60,6 @@ Temporary Items
 
 # Data Generator cache
 /src/generated/resources/.cache/
+
+# CraftTweaker generated docs
+/docsOut
