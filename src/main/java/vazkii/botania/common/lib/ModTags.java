@@ -120,6 +120,7 @@ public class ModTags {
 		public static final Tag.Identified<Item> BURST_VIEWERS = tag("burst_viewers");
 		public static final Tag.Identified<Item> TERRA_PICK_BLACKLIST = tag("terra_pick_blacklist");
 		public static final Tag.Identified<Item> MUSHROOMS = commonTag("mushrooms");
+		public static final Tag.Identified<Item> RODS = tag("rods");
 
 		public static Tag.Identified<Item> getPetalTag(DyeColor color) {
 			switch (color) {

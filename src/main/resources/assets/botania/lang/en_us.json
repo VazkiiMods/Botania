@@ -2746,8 +2746,8 @@
   "botania.entry.exchangeRod": "Rod of the Shifting Crust",
   "botania.tagline.exchangeRod": "A rod for swapping blocks",
   "botania.page.exchangeRod0": "The $(item)Rod of the Shifting Crust$(0) is a magical device with the ability to swap blocks in the world at very high speeds. To set up the rod, sneak-right click a block to select it.$(p)After a block is selected, punching any other block in the world with the rod will use $(thing)Mana$(0) to swap it for the selected block (assuming the latter is present in the user's inventory).",
-  "botania.page.exchangeRod1": "Right-clicking a block in the world will perform a larger transformation, swapping all highlighted blocks with the selected one. Blocks being placed (obviously) come from the user's inventory, and require $(thing)Mana$(0) for placement. Only proper, full-sized blocks can be used for this swap-- no flowers, torches, or other shenanigans of that sort, though slabs are fine.",
-  "botania.page.exchangeRod2": "Other rods or devices can supply blocks to the $(item)Rod of the Shifting Crust$(0).$(p)For example, a $(l:tools/dirt_rod)$(item)Rod of the Lands$(0)$(/l) in a user's inventory will provide their $(item)Rod of the Shifting Crust$(0) with an endless supply of $(item)Dirt$(0) (assuming sufficient $(thing)Mana$(0) to conjure each dirt block, of course).",
+  "botania.page.exchangeRod1": "Right-clicking a block in the world will perform a larger transformation, swapping all highlighted blocks with the selected one. Blocks being placed (obviously) come from the user's inventory, and require $(thing)Mana$(0) for placement. Only proper, full-sized blocks can be used for this swap-- no flowers, torches, or other shenanigans of that sort, though slabs are fine.$(p)Very hard blocks may consume more $(thing)Mana$(0) to be replaced.",
+  "botania.page.exchangeRod2": "Other rods or devices can supply blocks to the $(item)Rod of the Shifting Crust$(0).$(p)For example, a $(l:tools/dirt_rod)$(item)Rod of the Lands$(0)$(/l) in a user's inventory will provide their $(item)Rod of the Shifting Crust$(0) with an endless supply of $(item)Dirt$(0) (assuming sufficient $(thing)Mana$(0) to conjure each dirt block, of course).$(p)If replacing a cubical area is not desired, using the $(l:tools/temperance_stone)$(item)Stone of Temperance$(0)$(/l) can reduce it to a plane of blocks.",
   "botania.page.exchangeRod3": "Bootlegged equal trade",
 
   "botania.entry.manaweave": "Manaweave Cloth",
@@ -3100,7 +3100,7 @@
 
   "botania.entry.baubleBox": "Trinket Case",
   "botania.tagline.baubleBox": "A handy container to store your Trinkets in",
-  "botania.page.baubleBox0": "It's possible to have $(o)too$() many $(thing)Trinkets$(0) on hand-- after all, inventory space is limited. A solution: stash them in a $(item)Trinket Case$(0), a handy container for $(thing)Trinkets$(0).$(p)The case's interface lets its user quickly swap their equipped $(thing)Trinkets$(0). The case can also store $(thing)Mana$(0)-containing items, like $(l:mana/mana_tablet)$(item)Mana Tablets$(0)$(/l) (though they can't provide $(thing)Mana$(0) when in the box).",
+  "botania.page.baubleBox0": "It's possible to have $(o)too$() many $(thing)Trinkets$(0) on hand-- after all, inventory space is limited. A solution: stash them in a $(item)Trinket Case$(0), a handy container for $(thing)Trinkets$(0).$(p)The case's interface lets its user quickly swap their equipped $(thing)Trinkets$(0). The case can also store $(thing)Rods$(0) and $(thing)Mana$(0)-containing items, like $(l:mana/mana_tablet)$(item)Mana Tablets$(0)$(/l) (though they can't provide $(thing)Mana$(0) when in the box).",
   "botania.page.baubleBox1": "It could even be a boat!",
 
   "botania.entry.dodgeRing": "Ring of Dexterous Motion",
