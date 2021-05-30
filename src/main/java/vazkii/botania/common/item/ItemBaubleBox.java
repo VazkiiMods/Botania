@@ -10,7 +10,6 @@
  */
 package vazkii.botania.common.item;
 
-import baubles.api.IBauble;
 import baubles.api.cap.BaublesCapabilities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,10 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -31,6 +27,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import vazkii.botania.api.mana.IManaItem;
+import vazkii.botania.client.gui.box.ContainerBaubleBox;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibGuiIDs;
 import vazkii.botania.common.lib.LibItemNames;
@@ -61,7 +58,7 @@ public class ItemBaubleBox extends ItemMod {
 			public ItemStack insertItem(int slot, @Nonnull ItemStack toInsert, boolean simulate) {
 				if(!toInsert.isEmpty()) {
 					boolean isBauble = toInsert.hasCapability(BaublesCapabilities.CAPABILITY_ITEM_BAUBLE, null);
-					if(toInsert.getItem() instanceof IManaItem || isBauble)
+					if (toInsert.getItem() instanceof IManaItem || isBauble || ContainerBaubleBox.RODS.contains(toInsert.getItem().getRegistryName()))
 						return super.insertItem(slot, toInsert, simulate);
 				}
 				return toInsert;

@@ -14,24 +14,45 @@ import baubles.api.BaublesApi;
 import baubles.api.IBauble;
 import baubles.api.cap.IBaublesItemHandler;
 import baubles.common.container.SlotBauble;
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.SlotItemHandler;
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.client.gui.SlotLocked;
+import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Set;
 
 public class ContainerBaubleBox extends Container {
 
+	public static final Set<ResourceLocation> RODS = ImmutableSet.of(
+			ModItems.dirtRod.getRegistryName(),
+			ModItems.terraformRod.getRegistryName(),
+			ModItems.waterRod.getRegistryName(),
+			ModItems.rainbowRod.getRegistryName(),
+			ModItems.tornadoRod.getRegistryName(),
+			ModItems.fireRod.getRegistryName(),
+			ModItems.skyDirtRod.getRegistryName(),
+			ModItems.gravityRod.getRegistryName(),
+			ModItems.missileRod.getRegistryName(),
+			ModItems.cobbleRod.getRegistryName(),
+			ModItems.smeltRod.getRegistryName(),
+			ModItems.exchangeRod.getRegistryName(),
+			new ResourceLocation("incorporeal", "fractured_space_rod")
+	);
+
 	private final InventoryBaubleBox baubleBoxInv;
-    public IBaublesItemHandler baubles;
+	public IBaublesItemHandler baubles;
 
 	public ContainerBaubleBox(EntityPlayer player, InventoryBaubleBox boxInv) {
 		int i;
@@ -46,7 +67,7 @@ public class ContainerBaubleBox extends Container {
 		addSlotToContainer(new SlotBauble(player, baubles, 1, 8, 8 + 1 * 18));
 		addSlotToContainer(new SlotBauble(player, baubles, 2, 8, 8 + 2 * 18));
 		addSlotToContainer(new SlotBauble(player, baubles, 3, 8, 8 + 3 * 18));
-		
+
 		addSlotToContainer(new SlotBauble(player, baubles, 4, 27, 8 + 0 * 18));
 		addSlotToContainer(new SlotBauble(player, baubles, 5, 27, 8 + 1 * 18));
 		addSlotToContainer(new SlotBauble(player, baubles, 6, 27, 8 + 2 * 18));
@@ -91,6 +112,7 @@ public class ContainerBaubleBox extends Container {
 		if(slot != null && slot.getHasStack()) {
 			ItemStack itemstack1 = slot.getStack();
 			itemstack = itemstack1.copy();
+			Item item = itemstack1.getItem();
 
 			int boxStart = 7;
 			int boxEnd = boxStart + 24;
@@ -100,7 +122,9 @@ public class ContainerBaubleBox extends Container {
 				if(!mergeItemStack(itemstack1, boxEnd, invEnd, true))
 					return ItemStack.EMPTY;
 			} else {
-				if(!itemstack1.isEmpty() && (itemstack1.getItem() instanceof IBauble || itemstack1.getItem() instanceof IManaItem) && !mergeItemStack(itemstack1, boxStart, boxEnd, false))
+				if(!itemstack1.isEmpty()
+						&& (item instanceof IBauble || item instanceof IManaItem || RODS.contains(item.getRegistryName()))
+						&& !mergeItemStack(itemstack1, boxStart, boxEnd, false))
 					return ItemStack.EMPTY;
 			}
 

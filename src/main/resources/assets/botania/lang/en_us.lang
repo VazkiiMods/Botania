@@ -3549,7 +3549,7 @@ botania.page.speedUpBelt1=If you go slow you're a Planeswalker
 # -- BAUBLE CASE
 botania.entry.baubleBox=Bauble Case
 botania.tagline.baubleBox=A handy container to store your Baubles
-botania.page.baubleBox0=Somtimes having too many &4Baubles&0 to pick from can be a real problem, as inventory space is limited. A better way would be to store all of these in a &1Bauble Case&0, a handy container for any &4Baubles&0.<br>The case's interface allows for quick switching of the current equipped baubles. The case can also store &4Mana&0 containing items like a &1Mana Tablet&0.
+botania.page.baubleBox0=Somtimes having too many &4Baubles&0 to pick from can be a real problem, as inventory space is limited. A better way would be to store all of these in a &1Bauble Case&0, a handy container for any &4Baubles&0.<br>The case's interface allows for quick switching of the current equipped baubles. The case can also store &4Mana&0 containing items like a &1Mana Tablet&0, as well as &Rods&0.
 botania.page.baubleBox1=It could even be a boat!
 
 # -- RING OF DEXTEROUS MOTION
