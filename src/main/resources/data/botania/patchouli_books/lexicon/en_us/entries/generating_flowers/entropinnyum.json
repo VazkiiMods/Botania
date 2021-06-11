@@ -17,5 +17,8 @@
       "type": "text",
       "text": "botania.page.entropinnyum2"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_entropinnyum": 1
+  }
 }

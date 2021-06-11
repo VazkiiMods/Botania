@@ -14,5 +14,8 @@
       "text": "botania.page.rafflowsia1",
       "recipe": "botania:petal_apothecary/rafflowsia"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_rafflowsia": 1
+  }
 }

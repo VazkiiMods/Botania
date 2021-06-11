@@ -13,5 +13,8 @@
       "text": "botania.page.clayconia1",
       "recipe": "botania:petal_apothecary/clayconia"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_clayconia": 1
+  }
 }

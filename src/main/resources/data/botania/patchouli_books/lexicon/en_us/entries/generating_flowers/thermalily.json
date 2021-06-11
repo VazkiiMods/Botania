@@ -21,5 +21,8 @@
       "text": "botania.page.thermalily1",
       "recipe": "botania:petal_apothecary/thermalily"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_thermalily": 1
+  }
 }

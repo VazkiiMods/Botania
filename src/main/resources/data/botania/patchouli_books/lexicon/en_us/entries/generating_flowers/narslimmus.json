@@ -13,5 +13,8 @@
       "text": "botania.page.narslimmus1",
       "recipe": "botania:petal_apothecary/narslimmus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_narslimmus": 1
+  }
 }

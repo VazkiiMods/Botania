@@ -13,5 +13,8 @@
       "text": "botania.page.jiyuulia1",
       "recipe": "botania:petal_apothecary/jiyuulia"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_jiyuulia": 1
+  }
 }

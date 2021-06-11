@@ -13,5 +13,8 @@
       "text": "botania.page.bellethorne1",
       "recipe": "botania:petal_apothecary/bellethorn"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_bellethorn": 1
+  }
 }

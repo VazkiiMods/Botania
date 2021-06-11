@@ -51,5 +51,8 @@
       "text": "botania.page.dandelifeon9",
       "recipe": "botania:cell_block"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_dandelifeon": 1
+  }
 }
