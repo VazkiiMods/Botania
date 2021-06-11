@@ -12,6 +12,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3d;
@@ -194,6 +195,14 @@ public class Vector3 {
 
 	public Vector3 rotate(double angle, Vector3 axis) {
 		return Quat.aroundAxis(axis.normalize(), angle).rotate(this);
+	}
+
+	public AxisAlignedBB boxForRange(double range) {
+		return boxForRange(range, range, range);
+	}
+
+	public AxisAlignedBB boxForRange(double rangeX, double rangeY, double rangeZ) {
+		return new AxisAlignedBB(x - rangeX, y - rangeY, z - rangeZ, x + rangeX, y + rangeY, z + rangeZ);
 	}
 
 	@Override
