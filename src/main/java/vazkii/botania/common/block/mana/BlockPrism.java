@@ -16,12 +16,15 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.RedstoneParticleData;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -44,6 +47,8 @@ import vazkii.botania.common.block.tile.mana.TilePrism;
 import vazkii.botania.common.entity.EntityManaBurst;
 
 import javax.annotation.Nonnull;
+
+import java.util.Random;
 
 public class BlockPrism extends BlockModWaterloggable implements ITileEntityProvider, IManaTrigger, IManaCollisionGhost, IWandHUD {
 	private static final VoxelShape SHAPE = makeCuboidShape(4, 0, 4, 12, 16, 12);
@@ -70,6 +75,18 @@ public class BlockPrism extends BlockModWaterloggable implements ITileEntityProv
 			return SHAPE;
 		} else {
 			return super.getCollisionShape(state, world, pos, context);
+		}
+	}
+
+	@Override
+	@OnlyIn(Dist.CLIENT)
+	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
+		if (state.get(BlockStateProperties.POWERED) && rand.nextBoolean()) {
+			AxisAlignedBB localBox = state.getShape(world, pos).getBoundingBox();
+			double x = pos.getX() + localBox.minX + rand.nextDouble() * (localBox.maxX - localBox.minX);
+			double y = pos.getY() + localBox.minY + rand.nextDouble() * (localBox.maxY - localBox.minY);
+			double z = pos.getZ() + localBox.minZ + rand.nextDouble() * (localBox.maxZ - localBox.minZ);
+			world.addParticle(RedstoneParticleData.REDSTONE_DUST, x, y, z, 0, 0, 0);
 		}
 	}
 
@@ -103,6 +120,14 @@ public class BlockPrism extends BlockModWaterloggable implements ITileEntityProv
 		}
 
 		return ActionResultType.SUCCESS;
+	}
+
+	@Override
+	public BlockState getStateForPlacement(BlockItemUseContext context) {
+		World world = context.getWorld();
+		BlockPos pos = context.getPos();
+		boolean power = world.getRedstonePowerFromNeighbors(pos) > 0 || world.getRedstonePowerFromNeighbors(pos.up()) > 0;
+		return this.getDefaultState().with(BlockStateProperties.POWERED, power);
 	}
 
 	@Override
