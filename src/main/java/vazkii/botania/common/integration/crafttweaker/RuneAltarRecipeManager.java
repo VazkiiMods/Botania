@@ -46,6 +46,7 @@ public class RuneAltarRecipeManager implements IRecipeManager {
 	 *
 	 * @docParam name "petal_apothecary_test"
 	 * @docParam output <item:minecraft:diamond>
+	 * @docParam mana 5000
 	 * @docParam inputs <item:botania:rune_>, <item:botania:orange_petal>, <item:botania:red_petal>
 	 */
 	@ZenCodeType.Method
