@@ -81,7 +81,13 @@ public class BlockPrism extends BlockModWaterloggable implements ITileEntityProv
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
-		if (state.get(BlockStateProperties.POWERED) && rand.nextBoolean()) {
+		if (state.get(BlockStateProperties.POWERED)) {
+			redstoneParticlesInShape(state, world, pos, rand);
+		}
+	}
+
+	public static void redstoneParticlesInShape(BlockState state, World world, BlockPos pos, Random rand) {
+		if (rand.nextBoolean()) {
 			AxisAlignedBB localBox = state.getShape(world, pos).getBoundingBox();
 			double x = pos.getX() + localBox.minX + rand.nextDouble() * (localBox.maxX - localBox.minX);
 			double y = pos.getY() + localBox.minY + rand.nextDouble() * (localBox.maxY - localBox.minY);

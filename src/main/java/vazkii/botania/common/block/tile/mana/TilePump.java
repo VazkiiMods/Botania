@@ -11,7 +11,6 @@ package vazkii.botania.common.block.tile.mana;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.Direction;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -36,14 +35,7 @@ public class TilePump extends TileMod implements ITickableTileEntity {
 
 	@Override
 	public void tick() {
-		hasRedstone = false;
-		for (Direction dir : Direction.values()) {
-			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
-			if (redstoneSide > 0) {
-				hasRedstone = true;
-				break;
-			}
-		}
+		hasRedstone = world.isBlockPowered(pos);
 
 		float max = 8F;
 		float min = 0F;
