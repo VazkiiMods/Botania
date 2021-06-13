@@ -45,7 +45,9 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {}
+	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
+		BlockSpecialFlower.redstoneParticlesIfPowered(state, world, pos, rand);
+	}
 
 	@Override
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
