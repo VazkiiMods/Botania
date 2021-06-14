@@ -2,7 +2,7 @@
   "pools": [
     {
       "name": "life_essence",
-      "conditions": [{ "condition": "killed_by_player" }],
+      "conditions": [{ "condition": "botania:killed_by_player" }],
       "rolls": 1,
       "entries": [{
         "type": "item",
@@ -20,7 +20,7 @@
     {
       "name": "black_lotuses",
       "conditions": [
-        { "condition": "killed_by_player" },
+        { "condition": "botania:killed_by_player" },
         { "condition": "random_chance", "chance": 0.5 }
       ],
       "rolls": 1,
@@ -45,7 +45,7 @@
     },
     {
       "name": "ancient_wills",
-      "conditions": [{ "condition": "killed_by_player" }],
+      "conditions": [{ "condition": "botania:killed_by_player" }],
       "rolls": 1,
       "entries": [
         {
@@ -77,7 +77,7 @@
     {
       "name": "overgrowth_seeds",
       "conditions": [
-        { "condition": "killed_by_player" },
+        { "condition": "botania:killed_by_player" },
         { "condition": "random_chance", "chance": 0.25 }
       ],
       "rolls": 1,
@@ -90,7 +90,7 @@
     {
       "name": "manasteel",
       "conditions": [
-        { "condition": "killed_by_player" },
+        { "condition": "botania:killed_by_player" },
         { "condition": "random_chance", "chance": 0.9 }
       ],
       "rolls": 1,
@@ -103,7 +103,7 @@
     {
       "name": "mana_pearl",
       "conditions": [
-        { "condition": "killed_by_player" },
+        { "condition": "botania:killed_by_player" },
         { "condition": "random_chance", "chance": 0.7 }
       ],
       "rolls": 1,
@@ -118,7 +118,7 @@
     {
       "name": "mana_diamond",
       "conditions": [
-        { "condition": "killed_by_player" },
+        { "condition": "botania:killed_by_player" },
         { "condition": "random_chance", "chance": 0.5 }
       ],
       "rolls": 1,
@@ -132,7 +132,7 @@
     },
     {
       "name": "runes",
-      "conditions": [{ "condition": "killed_by_player" }],
+      "conditions": [{ "condition": "botania:killed_by_player" }],
       "rolls": { "min": 1, "max": 6 },
       "entries": [
         {
@@ -236,7 +236,7 @@
     {
       "name": "pinkinator",
       "conditions": [
-        { "condition": "killed_by_player" },
+        { "condition": "botania:killed_by_player" },
         { "condition": "random_chance", "chance": 0.2 }
       ],
       "rolls": 1,
@@ -248,7 +248,7 @@
     {
       "name": "music_discs",
       "conditions": [
-        { "condition": "killed_by_player" },
+        { "condition": "botania:killed_by_player" },
         { "condition": "random_chance", "chance": 0.44 }
       ],
       "rolls": 1,
@@ -273,7 +273,7 @@
     {
       "name": "relics",
       "conditions": [
-        { "condition": "killed_by_player" },
+        { "condition": "botania:killed_by_player" },
         { "condition": "botania:enable_relics" }
       ],
       "rolls": 1,
