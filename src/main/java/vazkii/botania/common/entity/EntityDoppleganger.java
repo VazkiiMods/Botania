@@ -29,6 +29,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.PacketBuffer;
@@ -99,6 +100,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 	private static final int MOB_SPAWN_TICKS = MOB_SPAWN_BASE_TICKS + MOB_SPAWN_START_TICKS + MOB_SPAWN_END_TICKS;
 	private static final int MOB_SPAWN_WAVES = 10;
 	private static final int MOB_SPAWN_WAVE_TIME = MOB_SPAWN_BASE_TICKS / MOB_SPAWN_WAVES;
+	private static final int DAMAGE_CAP = 32;
 
 	private static final String TAG_INVUL_TIME = "invulTime";
 	private static final String TAG_AGGRO = "aggro";
@@ -375,8 +377,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 				playersWhoAttacked.add(player.getUniqueID());
 			}
 
-			int cap = 25;
-			return super.attackEntityFrom(source, Math.min(cap, amount));
+			return super.attackEntityFrom(source, Math.min(DAMAGE_CAP, amount));
 		}
 
 		return false;
@@ -397,7 +398,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 
 	@Override
 	protected void damageEntity(@Nonnull DamageSource source, float amount) {
-		super.damageEntity(source, amount);
+		super.damageEntity(source, Math.min(DAMAGE_CAP, amount));
 
 		Entity attacker = source.getImmediateSource();
 		if (attacker != null) {
@@ -413,6 +414,12 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 
 			aggro = true;
 		}
+		hurtResistantTime = Math.max(hurtResistantTime, 20);
+	}
+
+	@Override
+	protected float applyArmorCalculations(DamageSource source, float damage) {
+		return super.applyArmorCalculations(source, Math.min(DAMAGE_CAP, damage));
 	}
 
 	@Override
