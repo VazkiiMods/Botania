@@ -205,7 +205,13 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 
 			int playerCount = e.getPlayersAround().size();
 			e.playerCount = playerCount;
-			e.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MAX_HP * playerCount);
+
+			float healthMultiplier = 1;
+			if (playerCount > 1) {
+				healthMultiplier += playerCount * 0.25F;
+			}
+			e.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MAX_HP * healthMultiplier);
+
 			if (hard) {
 				e.getAttribute(Attributes.ARMOR).setBaseValue(15);
 			}
@@ -409,10 +415,8 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 			if (getHealth() > 0) {
 				setMotion(-motionVector.x, 0.5, -motionVector.z);
 				tpDelay = 4;
-				spawnPixies = aggro;
+				spawnPixies = true;
 			}
-
-			aggro = true;
 		}
 		hurtResistantTime = Math.max(hurtResistantTime, 20);
 	}
@@ -441,20 +445,23 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 
 	@Override
 	public ResourceLocation getLootTable() {
+		if (mobSpawnTicks > 0) {
+			return LootTables.EMPTY;
+		}
 		return prefix(hardMode ? "gaia_guardian_2" : "gaia_guardian");
 	}
 
 	@Override
 	protected void dropLoot(@Nonnull DamageSource source, boolean wasRecentlyHit) {
 		// Save true killer, they get extra loot
-		if (wasRecentlyHit && source.getTrueSource() instanceof PlayerEntity) {
+		if (wasRecentlyHit && isTruePlayer(source.getTrueSource())) {
 			trueKiller = (PlayerEntity) source.getTrueSource();
 		}
 
 		// Generate loot table for every single attacking player
 		for (UUID u : playersWhoAttacked) {
 			PlayerEntity player = world.getPlayerByUuid(u);
-			if (player == null) {
+			if (!isTruePlayer(player)) {
 				continue;
 			}
 
@@ -790,7 +797,8 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 					spawnMissile();
 				}
 			} else {
-				damageEntity(DamageSource.causePlayerDamage(players.get(0)), 0);
+				tpDelay = 30; // Trigger first teleport
+				aggro = true;
 			}
 		}
 	}
