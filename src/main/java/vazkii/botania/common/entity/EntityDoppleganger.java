@@ -382,7 +382,7 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 		return false;
 	}
 
-	private static final Pattern FAKE_PLAYER_PATTERN = Pattern.compile("^(?:\\[.*\\])|(?:ComputerCraft)$");
+	private static final Pattern FAKE_PLAYER_PATTERN = Pattern.compile("^(?:\\[.*]|ComputerCraft)$");
 
 	public static boolean isTruePlayer(Entity e) {
 		if (!(e instanceof PlayerEntity)) {

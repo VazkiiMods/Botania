@@ -2,7 +2,7 @@
   "pools": [
     {
       "name": "life_essence",
-      "conditions": [{ "condition": "killed_by_player" }],
+      "conditions": [{ "condition": "botania:killed_by_player" }],
       "rolls": 1,
       "entries": [{
         "type": "item",
@@ -20,7 +20,7 @@
     {
       "name": "music_disc",
       "conditions": [
-        { "condition": "killed_by_player" },
+        { "condition": "botania:killed_by_player" },
         { "condition": "random_chance", "chance": 0.2 }
       ],
       "rolls": 1,
