@@ -13,6 +13,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -429,9 +430,23 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 	@Override
 	public void onDeath(@Nonnull DamageSource source) {
 		super.onDeath(source);
-		LivingEntity entitylivingbase = getAttackingEntity();
-		if (entitylivingbase instanceof ServerPlayerEntity && !anyWithArmor) {
-			DopplegangerNoArmorTrigger.INSTANCE.trigger((ServerPlayerEntity) entitylivingbase, this, source);
+		LivingEntity lastAttacker = getAttackingEntity();
+
+		if (!world.isRemote) {
+			for (UUID u : playersWhoAttacked) {
+				PlayerEntity player = world.getPlayerByUuid(u);
+				if (!isTruePlayer(player)) {
+					continue;
+				}
+				DamageSource currSource = player == lastAttacker ? source : DamageSource.causePlayerDamage(player);
+				if (player != lastAttacker) {
+					// Vanilla handles this in attack code, but only for the killer
+					CriteriaTriggers.PLAYER_KILLED_ENTITY.trigger((ServerPlayerEntity) player, this, currSource);
+				}
+				if (!anyWithArmor) {
+					DopplegangerNoArmorTrigger.INSTANCE.trigger((ServerPlayerEntity) player, this, currSource);
+				}
+			}
 		}
 
 		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
