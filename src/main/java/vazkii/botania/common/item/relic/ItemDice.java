@@ -14,12 +14,17 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootContext;
+import net.minecraft.loot.LootParameterSets;
+import net.minecraft.loot.LootParameters;
+import net.minecraft.loot.LootTable;
 import net.minecraft.util.*;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
@@ -27,6 +32,7 @@ import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -69,14 +75,31 @@ public class ItemDice extends ItemRelic {
 				}
 			}
 
-			if (possible.isEmpty()) {
-				player.sendMessage(new TranslationTextComponent("botaniamisc.dudDiceRoll", world.rand.nextInt(6) + 1).mergeStyle(TextFormatting.DARK_GREEN), Util.DUMMY_UUID);
-				stack.shrink(1);
-				return ActionResult.resultSuccess(stack);
-			} else {
+			if (!possible.isEmpty()) {
 				int relic = possible.get(world.rand.nextInt(possible.size()));
 				player.sendMessage(new TranslationTextComponent("botaniamisc.diceRoll", relic + 1).mergeStyle(TextFormatting.DARK_GREEN), Util.DUMMY_UUID);
 				return ActionResult.resultSuccess(new ItemStack(getRelics()[relic]));
+			} else {
+				int roll = world.rand.nextInt(6) + 1;
+				ResourceLocation tableId = ResourceLocationHelper.prefix("dice/roll_" + roll);
+				LootTable table = world.getServer().getLootTableManager().getLootTableFromLocation(tableId);
+				LootContext context = new LootContext.Builder(((ServerWorld) world))
+						.withParameter(LootParameters.THIS_ENTITY, player)
+						.withParameter(LootParameters.field_237457_g_, player.getPositionVec())
+						.withLuck(player.getLuck())
+						.build(LootParameterSets.GIFT);
+
+				List<ItemStack> generated = table.generate(context);
+				for (ItemStack drop : generated) {
+					if (!player.inventory.addItemStackToInventory(drop)) {
+						player.dropItem(drop, false);
+					}
+				}
+				String langKey = generated.isEmpty() ? "botaniamisc.dudDiceRoll" : "botaniamisc.diceRoll";
+				player.sendMessage(new TranslationTextComponent(langKey, roll).mergeStyle(TextFormatting.DARK_GREEN), Util.DUMMY_UUID);
+
+				stack.shrink(1);
+				return ActionResult.resultSuccess(stack);
 			}
 		}
 
