@@ -26,20 +26,8 @@
       "rolls": 1,
       "entries": [
         {
-          "type": "item",
-          "entryName": "superBlackLotus",
-          "name": "botania:blacker_lotus",
-          "weight": 3,
-          "quality": 1
-        },
-        {
-          "type": "item",
-          "entryName": "normalBlackLotus",
-          "name": "botania:black_lotus",
-          "weight": 7,
-          "functions": [
-            { "function": "set_count", "count": { "min": 1, "max": 3 } }
-          ]
+          "type": "minecraft:loot_table",
+          "name": "botania:gaia_guardian/lotuses"
         }
       ]
     },
@@ -88,47 +76,15 @@
       }]
     },
     {
-      "name": "manasteel",
-      "conditions": [
-        { "condition": "botania:killed_by_player" },
-        { "condition": "random_chance", "chance": 0.9 }
-      ],
+      "name": "materials",
+      "conditions": [{ "condition": "botania:killed_by_player" }],
       "rolls": 1,
-      "entries": [{
-        "type": "item",
-        "name": "botania:manasteel_ingot",
-        "functions": [{ "function": "set_count", "count": { "min": 16, "max": 27 } }]
-      }]
-    },
-    {
-      "name": "mana_pearl",
-      "conditions": [
-        { "condition": "botania:killed_by_player" },
-        { "condition": "random_chance", "chance": 0.7 }
-      ],
-      "rolls": 1,
-      "entries": [{
-        "type": "item",
-        "name": "botania:mana_pearl",
-        "functions": [
-          { "function": "set_count", "count": { "min": 8, "max": 13 } }
-        ]
-      }]
-    },
-    {
-      "name": "mana_diamond",
-      "conditions": [
-        { "condition": "botania:killed_by_player" },
-        { "condition": "random_chance", "chance": 0.5 }
-      ],
-      "rolls": 1,
-      "entries": [{
-        "type": "item",
-        "name": "botania:mana_diamond",
-        "functions": [
-          { "function": "set_count", "count": { "min": 4, "max": 6 } }
-        ]
-      }]
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "botania:gaia_guardian/materials"
+        }
+      ]
     },
     {
       "name": "runes",
@@ -136,100 +92,8 @@
       "rolls": { "min": 1, "max": 6 },
       "entries": [
         {
-          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
-          "type": "item",
-          "name": "botania:rune_water",
-          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
-        },
-        {
-          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
-          "type": "item",
-          "name": "botania:rune_fire",
-          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
-        },
-        {
-          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
-          "type": "item",
-          "name": "botania:rune_earth",
-          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
-        },
-        {
-          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
-          "type": "item",
-          "name": "botania:rune_air",
-          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
-        },
-        {
-          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
-          "type": "item",
-          "name": "botania:rune_spring",
-          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
-        },
-        {
-          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
-          "type": "item",
-          "name": "botania:rune_summer",
-          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
-        },
-        {
-          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
-          "type": "item",
-          "name": "botania:rune_autumn",
-          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
-        },
-        {
-          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
-          "type": "item",
-          "name": "botania:rune_winter",
-          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
-        },
-        {
-          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
-          "type": "item",
-          "name": "botania:rune_mana",
-          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
-        },
-        {
-          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
-          "type": "item",
-          "name": "botania:rune_lust",
-          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
-        },
-        {
-          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
-          "type": "item",
-          "name": "botania:rune_gluttony",
-          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
-        },
-        {
-          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
-          "type": "item",
-          "name": "botania:rune_greed",
-          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
-        },
-        {
-          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
-          "type": "item",
-          "name": "botania:rune_sloth",
-          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
-        },
-        {
-          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
-          "type": "item",
-          "name": "botania:rune_wrath",
-          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
-        },
-        {
-          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
-          "type": "item",
-          "name": "botania:rune_envy",
-          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
-        },
-        {
-          "conditions": [{ "condition": "random_chance", "chance": 0.3 }],
-          "type": "item",
-          "name": "botania:rune_pride",
-          "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }]
+          "type": "minecraft:loot_table",
+          "name": "botania:gaia_guardian/runes"
         }
       ]
     },
