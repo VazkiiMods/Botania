@@ -447,6 +447,19 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 					DopplegangerNoArmorTrigger.INSTANCE.trigger((ServerPlayerEntity) player, this, currSource);
 				}
 			}
+
+			// Clear wither from nearby players
+			for (PlayerEntity player : getPlayersAround()) {
+				if (player.getActivePotionEffect(Effects.WITHER) != null) {
+					player.removePotionEffect(Effects.WITHER);
+				}
+			}
+
+			// Stop all the pixies leftover from the fight
+			for (EntityPixie pixie : world.getEntitiesWithinAABB(EntityPixie.class, getArenaBB(getSource()), p -> p.isAlive() && p.getPixieType() == 1)) {
+				pixie.spawnExplosionParticle();
+				pixie.remove();
+			}
 		}
 
 		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
@@ -503,14 +516,18 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 	}
 
 	public List<PlayerEntity> getPlayersAround() {
-		float range = 15F;
-		return world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range), player -> isTruePlayer(player) && !player.isSpectator());
+		return world.getEntitiesWithinAABB(PlayerEntity.class, getArenaBB(source), player -> isTruePlayer(player) && !player.isSpectator());
 	}
 
 	private static int countGaiaGuardiansAround(World world, BlockPos source) {
-		float range = 15F;
-		List<EntityDoppleganger> l = world.getEntitiesWithinAABB(EntityDoppleganger.class, new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range));
+		List<EntityDoppleganger> l = world.getEntitiesWithinAABB(EntityDoppleganger.class, getArenaBB(source));
 		return l.size();
+	}
+
+	@Nonnull
+	private static AxisAlignedBB getArenaBB(@Nonnull BlockPos source) {
+		double range = 15.0;
+		return new AxisAlignedBB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range);
 	}
 
 	private void particles() {
