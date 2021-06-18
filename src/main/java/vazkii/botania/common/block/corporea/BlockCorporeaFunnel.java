@@ -41,8 +41,8 @@ public class BlockCorporeaFunnel extends BlockMod implements ITileEntityProvider
 		boolean powered = state.get(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
-			((TileCorporeaFunnel) world.getTileEntity(pos)).doRequest();
 			world.setBlockState(pos, state.with(BlockStateProperties.POWERED, true), 4);
+			((TileCorporeaFunnel) world.getTileEntity(pos)).doRequest();
 		} else if (!power && powered) {
 			world.setBlockState(pos, state.with(BlockStateProperties.POWERED, false), 4);
 		}
