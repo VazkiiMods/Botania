@@ -15,11 +15,11 @@ Judges (Discord username in Vazkii's Discord):
   <li>williewillus#8490</li>
   <li>Hubry#2750</li>
   <li>Alwinfy#7306</li>
-  <li>...one more TBD</li>
+  <li>lucidobservor#0436</li>
 </ul>
 
 <h2>When</h2>
-Submission window: Monday, June 21, 2021 00:00 UTC until Sunday, July 11, 2021 23:59 UTC<br />
+Submission window: <a href="https://www.timeanddate.com/countdown/generic?p0=1440&iso=20210621T00&csz=1">Monday, June 21, 2021 00:00 UTC</a> until <a href="https://www.timeanddate.com/countdown/generic?iso=20210711T235959&p0=1440&font=cursive&csz=1">Sunday, July 11, 2021 23:59 UTC</a><br />
 Judging period: The rest of July<br />
 Winners Announced: At latest, August 1, 2021, but likely before then<br />
 
@@ -40,7 +40,7 @@ About the build:
       <li>...Your imagination is the limit!</li>
     </ul>
   </li>
-  <li>The build must be completed on Botania version 416 or later. Only Botania and vanilla Minecraft may be used in the build.</li>
+  <li>The build must be completed on Botania version 416 or later. Only Botania and vanilla Minecraft content may be used in the build.</li>
   <li>The build must be theoretically possible (though not necessarily practical) to build in survival mode.</li>
   <li>Garden of Glass is allowed at your choice, but see the previous bullet.</li>
   <li>The build should be reasonably sized. This isn't to say massive builds are disallowed, but do not just submit your entire base as a "contraption".</li>
@@ -73,7 +73,7 @@ Your build will be judged on the following aspects, in rough order of importance
   <li>Presentation: Does the submission post represent the build well?</li>
 </ul>
 
-<h2>Prizes?</h2>
+<h2>Prizes</h2>
 The winning build will be featured on the Botania website homepage (you'll have to provide us a GIF of your build, if you didn't submit one),
 and will also receive a $50 Steam gift card.<br />
 The runner-up build will receive a $25 Steam gift card.<br />
