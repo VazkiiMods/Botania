@@ -7,7 +7,7 @@
 Aside from this, certain items and blocks are added and recipes tweaked to fit Skyblock gameplay better.<br>
 This addon is designed so that every single item in the game can be acquired legitimately.<br>
 The jarfile required to play in this gamemode is a mod, but contains no code and behaves like a glorified datapack.<br>
-It contains the recipe changes to the base game, and tells the base Botania mod to enable other GoG features.<br>
+It contains some datapack additions to the base game, and tells the base Botania mod to enable other GoG features.<br>
 <a class="btn btn-lg btn-material-cyan" href="https://minecraft.curseforge.com/projects/botania-garden-of-glass" role="button" style="width:500px">Download Garden of Glass</a>
 <hr>
 
