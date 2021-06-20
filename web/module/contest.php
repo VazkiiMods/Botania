@@ -1,5 +1,5 @@
 <div class='section-header'>
-	<span class='glyphicon glyphicon-briefcase'></span>
+	<span class='glyphicon glyphicon-star'></span>
 	[TBD] The Summer 2021 Botania Build Contest
 </div>
 
