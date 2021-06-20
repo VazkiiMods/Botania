@@ -34,14 +34,13 @@ About the build:
     <ul>
       <li>A Botania-powered tree farm</li>
       <li>A fully-automated Entropinnyum setup</li>
-      <li>A high-chain-count Rannuncarpus or Gourmaryllis setup</li>
+      <li>A high-chain-count Rafflowsia or Gourmaryllis setup</li>
       <li>A corporea-integrated storage system that has a fancy availability display and automatically-recrafts missing items</li>
       <li>A dynamic mana routing system based on recoloring sparks</li>
       <li>...Your imagination is the limit!</li>
     </ul>
   </li>
-  <li>The build must be completed on Botania version 416 or later.</li>
-  <li>Any functional blocks in the build must be from Botania and vanilla Minecraft. Decorative blocks from other mods are allowed.</li>
+  <li>The build must be completed on Botania version 416 or later. Only Botania and vanilla Minecraft may be used in the build.</li>
   <li>The build must be theoretically possible (though not necessarily practical) to build in survival mode.</li>
   <li>Garden of Glass is allowed at your choice, but see the previous bullet.</li>
   <li>The build should be reasonably sized. This isn't to say massive builds are disallowed, but do not just submit your entire base as a "contraption".</li>
@@ -54,7 +53,7 @@ About the submission:
   <li>Submissions may be made in your preferred medium (screenshot album, GIF, video). Please choose whichever you think will present your build in the best light.</li>
   <li>
     All submissions should be posted on the <a href="https://old.reddit.com/r/Botania">Botania subreddit</a>.
-    Additionally, please PM /u/williewillus a copy of your world (and any mods besides Botania or Patchouli required to run it).
+    Additionally, please PM /u/williewillus a copy of your world.
     Whether you publish your world otherwise is your choice.
   </li>
   <li>
