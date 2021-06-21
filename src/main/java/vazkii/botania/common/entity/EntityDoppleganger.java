@@ -460,6 +460,9 @@ public class EntityDoppleganger extends MobEntity implements IEntityAdditionalSp
 				pixie.spawnExplosionParticle();
 				pixie.remove();
 			}
+			for (EntityMagicLandmine landmine : world.getEntitiesWithinAABB(EntityMagicLandmine.class, getArenaBB(getSource()))) {
+				landmine.remove();
+			}
 		}
 
 		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
