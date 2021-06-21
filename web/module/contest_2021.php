@@ -4,7 +4,9 @@
 </div>
 
 <h2>What</h2>
-The Vazkii's Mods developers are holding a Botania build contest!
+The Vazkii's Mods developers are holding a Botania build contest!<br />
+
+Discuss on <a href="https://old.reddit.com/r/feedthebeast/comments/o48gvb/announcing_the_summer_2021_botania_build_contest/">/r/feedthebeast</a> and <a href="https://old.reddit.com/r/botania/comments/o48cc4/announcing_the_summer_2021_botania_build_contest/">/r/Botania</a>.
 
 <h2>Who</h2>
 Players who are not members of the Vazkii's Mods team and who are not judges are eligible to participate.
