@@ -46,6 +46,7 @@ public class ContributorList {
 			.put("arcanerose", LibBlockNames.SUBTILE_ARCANE_ROSE.getPath())
 			.put("jadedamaranthus", LibBlockNames.SUBTILE_JADED_AMARANTHUS.getPath())
 			.put("orechidignem", LibBlockNames.SUBTILE_ORECHID_IGNEM.getPath())
+			.put("labellia", LibBlockNames.SUBTILE_LABELIA.getPath())
 			.build();
 	private static volatile Map<String, ItemStack> flowerMap = Collections.emptyMap();
 	private static boolean startedLoading = false;
