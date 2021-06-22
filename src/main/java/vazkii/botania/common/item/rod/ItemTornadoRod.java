@@ -10,9 +10,9 @@ package vazkii.botania.common.item.rod;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResult;
@@ -33,10 +33,14 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.lib.PacketAvatarTornadoRod;
+import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWieldable {
 
@@ -49,7 +53,6 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 
 	private static final String TAG_FLYING = "flying";
 	private static final String TAG_FLYCOUNTER = "flyCounter";
-	private static final String TAG_COOLDOWNS = "boostCooldowns";
 
 	public ItemTornadoRod(Properties props) {
 		super(props);
@@ -151,73 +154,77 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
 		TileEntity te = tile.tileEntity();
 		World world = te.getWorld();
-		if (tile.getCurrentMana() >= COST && tile.isEnabled()) {
-			CompoundNBT cooldownTag = getAvatarCooldowns(te);
-			if (!world.isRemote) {
-				decAvatarCooldowns(cooldownTag);
-			}
+		Map<UUID, Integer> cooldowns = tile.getBoostCooldowns();
 
+		if (!world.isRemote) {
+			decAvatarCooldowns(cooldowns);
+		}
+		if (!world.isRemote && tile.getCurrentMana() >= COST && tile.isEnabled()) {
 			int range = 5;
 			int rangeY = 3;
-			List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class, new AxisAlignedBB(te.getPos().add(-0.5 - range, -0.5 - rangeY, -0.5 - range), te.getPos().add(0.5 + range, 0.5 + rangeY, 0.5 + range)));
+			List<PlayerEntity> players = world.getEntitiesWithinAABB(PlayerEntity.class,
+					new AxisAlignedBB(te.getPos().add(-0.5 - range, -0.5 - rangeY, -0.5 - range),
+							te.getPos().add(0.5 + range, 0.5 + rangeY, 0.5 + range)));
 			for (PlayerEntity p : players) {
 				int cooldown = 0;
-				if (cooldownTag.contains(p.getUniqueID().toString())) {
-					cooldown = cooldownTag.getInt(p.getUniqueID().toString());
+				if (cooldowns.containsKey(p.getUniqueID())) {
+					cooldown = cooldowns.get(p.getUniqueID());
 				}
 				if (!p.isSneaking() && cooldown <= 0) {
 					if (p.getMotion().length() > 0.2 && p.getMotion().length() < 5 && p.isElytraFlying()) {
 						doAvatarElytraBoost(p, world);
-						if (!world.isRemote) {
-							doAvatarMiscEffects(p, tile);
-							cooldownTag.putInt(p.getUniqueID().toString(), 20);
-						}
+						doAvatarMiscEffects(p, tile);
+						cooldowns.put(p.getUniqueID(), 20);
+						te.markDirty();
 					} else if (p.getMotion().getY() > 0.3 && p.getMotion().getY() < 2 && !p.isElytraFlying()) {
 						doAvatarJump(p, world);
-						if (!world.isRemote) {
-							doAvatarMiscEffects(p, tile);
-						}
+						doAvatarMiscEffects(p, tile);
 					}
 				}
-			}
-			if (!world.isRemote) {
-				setAvatarCooldowns(te, cooldownTag);
 			}
 		}
 	}
 
-	private void doAvatarElytraBoost(PlayerEntity p, World world) {
+	public static void doAvatarElytraBoost(PlayerEntity p, World world) {
 		Vector3d lookDir = p.getLookVec();
-		double mult = 1.25 * Math.pow(2.71828, -0.5 * p.getMotion().length());
+		double mult = 1.25 * Math.pow(Math.E, -0.5 * p.getMotion().length());
 		p.setMotion(p.getMotion().getX() + lookDir.getX() * mult,
 				p.getMotion().getY() + lookDir.getY() * mult,
 				p.getMotion().getZ() + lookDir.getZ() * mult);
 
-		for (int i = 0; i < 20; i++) {
-			for (int j = 0; j < 5; j++) {
-				WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
-				world.addParticle(data, p.getPosX() + lookDir.getX() * i,
-						p.getPosY() + lookDir.getY() * i,
-						p.getPosZ() + lookDir.getZ() * i,
-						0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getX(),
-						0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getX()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getY(),
-						0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getX())) + -0.01F * (float) Math.random() * lookDir.getZ());
+		if (world.isRemote) {
+			for (int i = 0; i < 20; i++) {
+				for (int j = 0; j < 5; j++) {
+					WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
+					world.addParticle(data, p.getPosX() + lookDir.getX() * i,
+							p.getPosY() + lookDir.getY() * i,
+							p.getPosZ() + lookDir.getZ() * i,
+							0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getX(),
+							0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getX()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getY(),
+							0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getX())) + -0.01F * (float) Math.random() * lookDir.getZ());
+				}
 			}
+		} else {
+			PacketHandler.sendTo((ServerPlayerEntity) p, new PacketAvatarTornadoRod(true));
 		}
 	}
 
-	private void doAvatarJump(PlayerEntity p, World world) {
+	public static void doAvatarJump(PlayerEntity p, World world) {
 		p.setMotion(p.getMotion().getX(), 2.8, p.getMotion().getZ());
 
-		for (int i = 0; i < 20; i++) {
-			for (int j = 0; j < 5; j++) {
-				WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
-				world.addParticle(data, p.getPosX(),
-						p.getPosY() + i, p.getPosZ(),
-						0.2F * (float) (Math.random() - 0.5),
-						-0.01F * (float) Math.random(),
-						0.2F * (float) (Math.random() - 0.5));
+		if (world.isRemote) {
+			for (int i = 0; i < 20; i++) {
+				for (int j = 0; j < 5; j++) {
+					WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
+					world.addParticle(data, p.getPosX(),
+							p.getPosY() + i, p.getPosZ(),
+							0.2F * (float) (Math.random() - 0.5),
+							-0.01F * (float) Math.random(),
+							0.2F * (float) (Math.random() - 0.5));
+				}
 			}
+		} else {
+			PacketHandler.sendTo((ServerPlayerEntity) p, new PacketAvatarTornadoRod(false));
 		}
 	}
 
@@ -227,23 +234,11 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 		tile.receiveMana(-COST);
 	}
 
-	private CompoundNBT getAvatarCooldowns(TileEntity te) {
-		if (te.getTileData().contains(TAG_COOLDOWNS)) {
-			return ((CompoundNBT) te.getTileData().get(TAG_COOLDOWNS));
-		} else {
-			return new CompoundNBT();
-		}
-	}
-
-	private void setAvatarCooldowns(TileEntity te, CompoundNBT cooldownTag) {
-		te.getTileData().put(TAG_COOLDOWNS, cooldownTag);
-	}
-
-	private void decAvatarCooldowns(CompoundNBT cooldownTag) {
-		for (String key : cooldownTag.keySet()) {
-			int val = cooldownTag.getInt(key);
+	private void decAvatarCooldowns(Map<UUID, Integer> cooldownTag) {
+		for (UUID key : cooldownTag.keySet()) {
+			int val = cooldownTag.get(key);
 			if (val > 0) {
-				cooldownTag.putInt(key, val - 1);
+				cooldownTag.put(key, val - 1);
 			} else {
 				cooldownTag.remove(key);
 			}

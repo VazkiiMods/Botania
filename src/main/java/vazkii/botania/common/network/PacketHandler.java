@@ -19,10 +19,12 @@ import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 
+import vazkii.botania.common.lib.PacketAvatarTornadoRod;
+
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class PacketHandler {
-	private static final String PROTOCOL = "9";
+	private static final String PROTOCOL = "10";
 	public static final SimpleChannel HANDLER = NetworkRegistry.newSimpleChannel(
 			prefix("chan"),
 			() -> PROTOCOL,
@@ -41,6 +43,7 @@ public final class PacketHandler {
 		HANDLER.registerMessage(id++, PacketUpdateItemsRemaining.class, PacketUpdateItemsRemaining::encode, PacketUpdateItemsRemaining::decode, PacketUpdateItemsRemaining::handle);
 		HANDLER.registerMessage(id++, PacketGogWorld.class, PacketGogWorld::encode, PacketGogWorld::decode, PacketGogWorld::handle);
 		HANDLER.registerMessage(id++, PacketOrechidData.class, PacketOrechidData::encode, PacketOrechidData::decode, PacketOrechidData::handle);
+		HANDLER.registerMessage(id++, PacketAvatarTornadoRod.class, PacketAvatarTornadoRod::encode, PacketAvatarTornadoRod::decode, PacketAvatarTornadoRod::handle);
 	}
 
 	/**
