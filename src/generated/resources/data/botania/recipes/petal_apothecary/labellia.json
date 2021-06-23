@@ -1,7 +1,7 @@
 {
   "type": "botania:petal_apothecary",
   "output": {
-    "item": "botania:labelia"
+    "item": "botania:labellia"
   },
   "ingredients": [
     {

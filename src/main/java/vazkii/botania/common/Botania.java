@@ -183,6 +183,7 @@ public class Botania {
 		forgeBus.addListener(LootHandler::lootLoad);
 		forgeBus.addListener(EventPriority.HIGH, ModFeatures::onBiomeLoad);
 		forgeBus.addListener(OrechidResourceListener::registerListener);
+		ModSubtiles.registerRemappers(forgeBus);
 
 		ModLootModifiers.init();
 		ModCriteriaTriggers.init();

@@ -130,7 +130,7 @@ public final class ModelHandler {
 		ClientRegistry.bindTileEntityRenderer(ModSubtiles.SOLEGNOLIA, RenderTileSpecialFlower::new);
 		ClientRegistry.bindTileEntityRenderer(ModSubtiles.SOLEGNOLIA_CHIBI, RenderTileSpecialFlower::new);
 		ClientRegistry.bindTileEntityRenderer(ModSubtiles.ORECHID_IGNEM, RenderTileSpecialFlower::new);
-		ClientRegistry.bindTileEntityRenderer(ModSubtiles.LABELIA, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.LABELLIA, RenderTileSpecialFlower::new);
 	}
 
 	private static void registerIslands() {

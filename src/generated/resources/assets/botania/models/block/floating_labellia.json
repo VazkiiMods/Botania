@@ -2,6 +2,6 @@
   "parent": "minecraft:block/block",
   "loader": "botania:floating_flower",
   "flower": {
-    "parent": "botania:block/labelia"
+    "parent": "botania:block/labellia"
   }
 }

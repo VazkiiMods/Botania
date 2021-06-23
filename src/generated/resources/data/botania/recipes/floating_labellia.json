@@ -5,10 +5,10 @@
       "tag": "botania:floating_flowers"
     },
     {
-      "item": "botania:labelia"
+      "item": "botania:labellia"
     }
   ],
   "result": {
-    "item": "botania:floating_labelia"
+    "item": "botania:floating_labellia"
   }
 }

@@ -15,10 +15,15 @@ import net.minecraft.item.Item;
 import net.minecraft.potion.Effects;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraftforge.registries.RegistryManager;
 
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
 import vazkii.botania.common.block.subtile.functional.*;
@@ -27,6 +32,10 @@ import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockSpecialFlower;
 import vazkii.botania.common.lib.LibBlockNames;
+import vazkii.botania.common.lib.LibMisc;
+
+import java.util.List;
+import java.util.function.Consumer;
 
 import static vazkii.botania.common.block.ModBlocks.register;
 
@@ -173,8 +182,8 @@ public class ModSubtiles {
 	public static final Block orechidIgnem = new BlockSpecialFlower(Effects.FIRE_RESISTANCE, 600, FLOWER_PROPS, SubTileOrechidIgnem::new);
 	public static final Block orechidIgnemFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileOrechidIgnem::new);
 
-	public static final Block labelia = new BlockSpecialFlower(Effects.FIRE_RESISTANCE, 600, FLOWER_PROPS, SubTileLabelia::new);
-	public static final Block labeliaFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileLabelia::new);
+	public static final Block labellia = new BlockSpecialFlower(Effects.FIRE_RESISTANCE, 600, FLOWER_PROPS, SubTileLabellia::new);
+	public static final Block labelliaFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileLabellia::new);
 
 	public static final TileEntityType<SubTilePureDaisy> PURE_DAISY = TileEntityType.Builder.create(SubTilePureDaisy::new, pureDaisy, pureDaisyFloating).build(null);
 	public static final TileEntityType<SubTileManastar> MANASTAR = TileEntityType.Builder.create(SubTileManastar::new, manastar, manastarFloating).build(null);
@@ -225,7 +234,7 @@ public class ModSubtiles {
 	public static final TileEntityType<SubTileSolegnolia> SOLEGNOLIA = TileEntityType.Builder.create(SubTileSolegnolia::new, solegnolia, solegnoliaFloating).build(null);
 	public static final TileEntityType<SubTileSolegnolia.Mini> SOLEGNOLIA_CHIBI = TileEntityType.Builder.create(SubTileSolegnolia.Mini::new, solegnoliaChibi, solegnoliaChibiFloating).build(null);
 	public static final TileEntityType<SubTileOrechidIgnem> ORECHID_IGNEM = TileEntityType.Builder.create(SubTileOrechidIgnem::new, orechidIgnem, orechidIgnemFloating).build(null);
-	public static final TileEntityType<SubTileLabelia> LABELIA = TileEntityType.Builder.create(SubTileLabelia::new, labelia, labeliaFloating).build(null);
+	public static final TileEntityType<SubTileLabellia> LABELLIA = TileEntityType.Builder.create(SubTileLabellia::new, labellia, labelliaFloating).build(null);
 
 	private static ResourceLocation floating(ResourceLocation orig) {
 		return new ResourceLocation(orig.getNamespace(), "floating_" + orig.getPath());
@@ -380,8 +389,8 @@ public class ModSubtiles {
 		register(r, LibBlockNames.SUBTILE_ORECHID_IGNEM, orechidIgnem);
 		register(r, floating(LibBlockNames.SUBTILE_ORECHID_IGNEM), orechidIgnemFloating);
 
-		register(r, LibBlockNames.SUBTILE_LABELIA, labelia);
-		register(r, floating(LibBlockNames.SUBTILE_LABELIA), labeliaFloating);
+		register(r, LibBlockNames.SUBTILE_LABELLIA, labellia);
+		register(r, floating(LibBlockNames.SUBTILE_LABELLIA), labelliaFloating);
 	}
 
 	public static void registerItemBlocks(RegistryEvent.Register<Item> evt) {
@@ -527,8 +536,8 @@ public class ModSubtiles {
 		register(r, getId(orechidIgnem), new ItemBlockSpecialFlower(orechidIgnem, props));
 		register(r, getId(orechidIgnemFloating), new ItemBlockSpecialFlower(orechidIgnemFloating, props));
 
-		register(r, getId(labelia), new ItemBlockSpecialFlower(labelia, props));
-		register(r, getId(labeliaFloating), new ItemBlockSpecialFlower(labeliaFloating, props));
+		register(r, getId(labellia), new ItemBlockSpecialFlower(labellia, props));
+		register(r, getId(labelliaFloating), new ItemBlockSpecialFlower(labelliaFloating, props));
 	}
 
 	public static void registerTEs(RegistryEvent.Register<TileEntityType<?>> evt) {
@@ -582,6 +591,26 @@ public class ModSubtiles {
 		register(r, getId(solegnolia), SOLEGNOLIA);
 		register(r, getId(solegnoliaChibi), SOLEGNOLIA_CHIBI);
 		register(r, getId(orechidIgnem), ORECHID_IGNEM);
-		register(r, getId(labelia), LABELIA);
+		register(r, getId(labellia), LABELLIA);
+	}
+
+	public static void registerRemappers(IEventBus bus) {
+		bus.addGenericListener(Block.class, (Consumer<RegistryEvent.MissingMappings<Block>>) ModSubtiles::remapLabellia);
+		bus.addGenericListener(Item.class, (Consumer<RegistryEvent.MissingMappings<Item>>) ModSubtiles::remapLabellia);
+		bus.addGenericListener(SoundEvent.class, (Consumer<RegistryEvent.MissingMappings<SoundEvent>>) ModSubtiles::remapLabellia);
+	}
+
+	private static <T extends IForgeRegistryEntry<T>> void remapLabellia(RegistryEvent.MissingMappings<T> event) {
+		List<? extends RegistryEvent.MissingMappings.Mapping<T>> list = event.getMappings(LibMisc.MOD_ID);
+		for (RegistryEvent.MissingMappings.Mapping<T> mapping : list) {
+			String path = mapping.key.getPath();
+			if (path.endsWith("labelia")) {
+				ResourceLocation newId = new ResourceLocation(LibMisc.MOD_ID, path.replace("labelia", "labellia"));
+				T value = RegistryManager.ACTIVE.getRegistry(mapping.registry.getRegistrySuperType()).getValue(newId);
+				Botania.LOGGER.debug("Remapping value for {} from id {} to id {}",
+						mapping.registry.getRegistrySuperType(), mapping.key, newId);
+				mapping.remap(value);
+			}
+		}
 	}
 }
