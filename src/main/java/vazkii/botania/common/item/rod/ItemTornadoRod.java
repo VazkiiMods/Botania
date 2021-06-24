@@ -34,6 +34,7 @@ import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.lib.PacketAvatarTornadoRod;
+import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketHandler;
 
 import javax.annotation.Nonnull;
@@ -192,39 +193,26 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 				p.getMotion().getY() + lookDir.getY() * mult,
 				p.getMotion().getZ() + lookDir.getZ() * mult);
 
-		if (world.isRemote) {
-			for (int i = 0; i < 20; i++) {
-				for (int j = 0; j < 5; j++) {
-					WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
-					world.addParticle(data, p.getPosX() + lookDir.getX() * i,
-							p.getPosY() + lookDir.getY() * i,
-							p.getPosZ() + lookDir.getZ() * i,
-							0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getX(),
-							0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getX()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getY(),
-							0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getX())) + -0.01F * (float) Math.random() * lookDir.getZ());
-				}
-			}
-		} else {
+		if (!world.isRemote) {
 			PacketHandler.sendTo((ServerPlayerEntity) p, new PacketAvatarTornadoRod(true));
+			PacketHandler.sendToNearby(world, p, new PacketBotaniaEffect(
+					PacketBotaniaEffect.EffectType.AVATAR_TORNADO_BOOST,
+					p.getPosX(), p.getPosY(), p.getPosZ(),
+					p.getEntityId()
+			));
 		}
 	}
 
 	public static void doAvatarJump(PlayerEntity p, World world) {
 		p.setMotion(p.getMotion().getX(), 2.8, p.getMotion().getZ());
 
-		if (world.isRemote) {
-			for (int i = 0; i < 20; i++) {
-				for (int j = 0; j < 5; j++) {
-					WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
-					world.addParticle(data, p.getPosX(),
-							p.getPosY() + i, p.getPosZ(),
-							0.2F * (float) (Math.random() - 0.5),
-							-0.01F * (float) Math.random(),
-							0.2F * (float) (Math.random() - 0.5));
-				}
-			}
-		} else {
+		if (!world.isRemote) {
 			PacketHandler.sendTo((ServerPlayerEntity) p, new PacketAvatarTornadoRod(false));
+			PacketHandler.sendToNearby(world, p, new PacketBotaniaEffect(
+					PacketBotaniaEffect.EffectType.AVATAR_TORNADO_JUMP,
+					p.getPosX(), p.getPosY(), p.getPosZ(),
+					p.getEntityId()
+			));
 		}
 	}
 

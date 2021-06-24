@@ -299,6 +299,39 @@ public class PacketBotaniaEffect {
 
 						break;
 					}
+					case AVATAR_TORNADO_JUMP: {
+						Entity p = world.getEntityByID(message.args[0]);
+						if (p != null) {
+							for (int i = 0; i < 20; i++) {
+								for (int j = 0; j < 5; j++) {
+									WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
+									world.addParticle(data, p.getPosX(),
+											p.getPosY() + i, p.getPosZ(),
+											0.2F * (float) (Math.random() - 0.5),
+											-0.01F * (float) Math.random(),
+											0.2F * (float) (Math.random() - 0.5));
+								}
+							}
+						}
+						break;
+					}
+					case AVATAR_TORNADO_BOOST: {
+						Entity p = world.getEntityByID(message.args[0]);
+						if (p != null) {
+							Vector3d lookDir = p.getLookVec();
+							for (int i = 0; i < 20; i++) {
+								for (int j = 0; j < 5; j++) {
+									WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
+									world.addParticle(data, p.getPosX() + lookDir.getX() * i,
+											p.getPosY() + lookDir.getY() * i,
+											p.getPosZ() + lookDir.getZ() * i,
+											0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getX(),
+											0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getX()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getY(),
+											0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getX())) + -0.01F * (float) Math.random() * lookDir.getZ());
+								}
+							}
+						}
+					}
 					}
 				}
 			});
@@ -320,6 +353,8 @@ public class PacketBotaniaEffect {
 		PARTICLE_BEAM(3), // Args: dest xyz
 		DIVA_EFFECT(1), // Arg: Entity ID
 		HALO_CRAFT(1), // Arg: Entity ID
+		AVATAR_TORNADO_JUMP(1), // Arg: Entity ID
+		AVATAR_TORNADO_BOOST(1), // Arg: Entity ID
 		;
 
 		private final int argCount;
