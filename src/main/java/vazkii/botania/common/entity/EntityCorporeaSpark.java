@@ -102,7 +102,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 			firstTick = false;
 		}
 
-		if (master != null && (((Entity) master).removed || master.getNetwork() != getNetwork())) {
+		if (master != null && (!((Entity) master).isAlive() || master.getNetwork() != getNetwork())) {
 			master = null;
 		}
 	}
@@ -123,7 +123,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	public void registerConnections(ICorporeaSpark master, ICorporeaSpark referrer, List<ICorporeaSpark> connections) {
 		relatives.clear();
 		for (ICorporeaSpark spark : getNearbySparks()) {
-			if (spark == null || connections.contains(spark) || spark.getNetwork() != getNetwork() || spark.isMaster() || ((Entity) spark).removed) {
+			if (spark == null || connections.contains(spark) || spark.getNetwork() != getNetwork() || spark.isMaster() || !((Entity) spark).isAlive()) {
 				continue;
 			}
 
@@ -155,7 +155,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	private void findNetwork() {
 		for (ICorporeaSpark spark : getNearbySparks()) {
-			if (spark.getNetwork() == getNetwork() && !((Entity) spark).removed) {
+			if (spark.getNetwork() == getNetwork() && ((Entity) spark).isAlive()) {
 				ICorporeaSpark master = spark.getMaster();
 				if (master != null) {
 					this.master = master;

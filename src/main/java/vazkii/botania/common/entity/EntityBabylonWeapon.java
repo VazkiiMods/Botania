@@ -92,7 +92,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	@Override
 	public void tick() {
 		Entity thrower = func_234616_v_();
-		if (!world.isRemote && (thrower == null || !(thrower instanceof PlayerEntity) || thrower.removed)) {
+		if (!world.isRemote && (thrower == null || !(thrower instanceof PlayerEntity) || !thrower.isAlive())) {
 			remove();
 			return;
 		}
