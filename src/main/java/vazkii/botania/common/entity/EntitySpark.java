@@ -215,7 +215,7 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity {
 	private void particlesTowards(Entity e) {
 		PacketHandler.sendToNearby(world, this,
 				new PacketBotaniaEffect(PacketBotaniaEffect.EffectType.SPARK_MANA_FLOW, getPosX(), getPosY(), getPosZ(),
-						getEntityId(), e.getEntityId()));
+						getEntityId(), e.getEntityId(), getNetwork().getColorValue()));
 	}
 
 	public static void particleBeam(PlayerEntity player, Entity e1, Entity e2) {
