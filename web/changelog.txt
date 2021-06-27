@@ -1,3 +1,39 @@
+1.16.5-417
+* Info: The Summer 2021 Botania Build Contest is in progress! Submit a Botania contraption for the chance to win prizes, bragging rights, and a spot on the Botania homepage!
+* Info: See https://botaniamod.net/contest_2021.php for more information.
+* Add: The Labellia, a functional flower that takes a name tag plus mana and renames all items and entities in a small area around itself. Texture provided by gamma-delta.
+* Add: Rod of the Skies can now be used to boost elytra flight at the cost of mana. It provides a boost around that of the lowest tier firework. (00-Steven)
+* Add: Avatars holding Rod of the Skies now boost elytra flying players nearby. This boost is slightly stronger than the handheld boost. (00-Steven)
+* Add: Added compatibility with the Catalogue and Configured mods
+* Add: [API] IHornHarvestable no longer needs to be implemented directly on the block, a separate handler can now be registered (InfinityRaider)
+* Revert logo in mod list to previous one
+* Improved CraftTweaker documentation
+* Botania recipes in JEI are now sorted
+* Particles that appear when mana flows between sparks are now colored according to the spark's network
+* Tweaks to particles:
+* - Cacophonium emits note particles when activated
+* - Prism emits redstone particles when powered
+* - Functional flowers that can be disabled show redstone particles when powered
+* - Avatar, Open and Crafty Crate, Mana Pump, and Spreader Turntable show redstone particles when powered
+* Tweaks to Gaia Guardian:
+* - Check for fake players when rolling loot table
+* - Increase damage cap slightly and fix it not being applied sometimes
+* - Prevent multihits
+* - Nerf health amount for multiplayer fights
+* - All players now get the related advancements from a Gaia Guardian kill
+* - When the fight is completed, kill all straggling pixies and poison clouds, and cure wither effect
+* Fix method name conflict with Mojmap
+* Fix mod metadata being incorrect in places
+* Fix Terra shatterer charging from dispersive sparks
+* Fix Rod of the Shaded Mesa duping items sometimes
+* Fix Clayconia not recognizing modded sand blocks
+* Fix floating flowers not being linked to their base flower's page in the lexicon
+* Fix Prism not acting powered if placed in a powered initial position
+* Fix Corporea + Storage Drawers dupe bug
+* Fix glow effect on Avatars jumping around in brightness
+* Fix orechid trying to use empty tags sometimes
+* Fix there being a slight stutter every time you pass through a luminizer when on a multi-luminizer track
+* Fix corporea crystal cube comparator output not updating after a relog
 1.16.5-416
 * Add: Rod of the Depths, Rod of the Lands, and Black Hole Talisman now support Quark reacharound
 * Add: API support for dynamic mana infusion recipes (eutro)
