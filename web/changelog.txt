@@ -22,6 +22,7 @@
 * - Nerf health amount for multiplayer fights
 * - All players now get the related advancements from a Gaia Guardian kill
 * - When the fight is completed, kill all straggling pixies and poison clouds, and cure wither effect
+* - Dice of Fate now gives extra goodies from a random pool once you've acquired all the relics
 * Fix method name conflict with Mojmap
 * Fix mod metadata being incorrect in places
 * Fix Terra shatterer charging from dispersive sparks
