@@ -83,27 +83,28 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 			return;
 		}
 
-		int oldCount = itemCount;
-		itemCount = 0;
+		int sum = 0;
 		ICorporeaSpark spark = getSpark();
 		if (spark != null && spark.getMaster() != null && requestTarget != null) {
 			List<ItemStack> stacks = CorporeaHelper.instance().requestItem(CorporeaHelper.instance().createMatcher(requestTarget, true), -1, spark, false).getStacks();
 			for (ItemStack stack : stacks) {
-				itemCount += stack.getCount();
+				sum += stack.getCount();
 			}
 		}
 
-		if (itemCount != oldCount) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
-			onUpdateCount();
-		}
+		setCount(sum);
 	}
 
-	private void onUpdateCount() {
-		int oldCompValue = compValue;
-		compValue = CorporeaHelper.instance().signalStrengthForRequestSize(itemCount);
-		if (compValue != oldCompValue) {
-			world.updateComparatorOutputLevel(pos, getBlockState().getBlock());
+	private void setCount(int count) {
+		int oldCount = this.itemCount;
+		this.itemCount = count;
+		if (this.itemCount != oldCount) {
+			int oldCompValue = this.compValue;
+			this.compValue = CorporeaHelper.instance().signalStrengthForRequestSize(itemCount);
+			if (this.compValue != oldCompValue && this.world != null) {
+				this.world.updateComparatorOutputLevel(this.pos, getBlockState().getBlock());
+			}
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 	}
 
@@ -124,7 +125,7 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		super.readPacketNBT(tag);
 		CompoundNBT cmp = tag.getCompound(TAG_REQUEST_TARGET);
 		requestTarget = ItemStack.read(cmp);
-		itemCount = tag.getInt(TAG_ITEM_COUNT);
+		setCount(tag.getInt(TAG_ITEM_COUNT));
 		locked = tag.getBoolean(TAG_LOCK);
 	}
 
@@ -137,18 +138,18 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		List<ItemStack> stacks = CorporeaHelper.instance().requestItem(request, count, spark, true).getStacks();
 		spark.onItemsRequested(stacks);
 		boolean did = false;
+		int sum = 0;
 		for (ItemStack reqStack : stacks) {
 			if (requestTarget != null) {
 				ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, reqStack);
 				world.addEntity(item);
-				itemCount -= reqStack.getCount();
+				sum += reqStack.getCount();
 				did = true;
 			}
 		}
 
 		if (did) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
-			onUpdateCount();
+			setCount(getItemCount() - sum);
 		}
 	}
 }
