@@ -1,3 +1,5 @@
+1.16.5-418
+* Fix server crash
 1.16.5-417
 * Info: The Summer 2021 Botania Build Contest is in progress! Submit a Botania contraption for the chance to win prizes, bragging rights, and a spot on the Botania homepage!
 * Info: See https://botaniamod.net/contest_2021.php for more information.
