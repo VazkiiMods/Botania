@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.common.lib;
+package vazkii.botania.common.network;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
@@ -35,13 +35,17 @@ public class PacketAvatarTornadoRod {
 
 	public static void handle(PacketAvatarTornadoRod pkt, Supplier<NetworkEvent.Context> ctx) {
 		if (ctx.get().getDirection().getReceptionSide().isClient()) {
-			ctx.get().enqueueWork(() -> {
-				PlayerEntity player = Minecraft.getInstance().player;
-				World world = Minecraft.getInstance().world;
-				if (pkt.elytra) {
-					ItemTornadoRod.doAvatarElytraBoost(player, world);
-				} else {
-					ItemTornadoRod.doAvatarJump(player, world);
+			//noinspection Convert2Lambda
+			ctx.get().enqueueWork(new Runnable() {
+				@Override
+				public void run() {
+					PlayerEntity player = Minecraft.getInstance().player;
+					World world = Minecraft.getInstance().world;
+					if (pkt.elytra) {
+						ItemTornadoRod.doAvatarElytraBoost(player, world);
+					} else {
+						ItemTornadoRod.doAvatarJump(player, world);
+					}
 				}
 			});
 		}

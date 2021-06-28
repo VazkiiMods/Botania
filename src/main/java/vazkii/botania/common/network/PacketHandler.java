@@ -19,8 +19,6 @@ import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 
-import vazkii.botania.common.lib.PacketAvatarTornadoRod;
-
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class PacketHandler {
