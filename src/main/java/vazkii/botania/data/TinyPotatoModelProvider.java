@@ -51,7 +51,7 @@ public class TinyPotatoModelProvider extends ModelProvider<TinyPotatoModelBuilde
 				"transtater", "tategg", "eggtater", null,
 
 				"wire",
-				"wiretater", "enbytater", "nbtater", "nonbinarytater", null,
+				"wiretater", "eutrotater", "enbytater", "nbtater", "nonbinarytater", null,
 
 				"pride",
 				"pridetater", "gaytater", "gayter", "lgbtater", null,
