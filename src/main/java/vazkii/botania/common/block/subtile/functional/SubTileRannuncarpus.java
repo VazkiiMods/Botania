@@ -122,22 +122,22 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 		}
 	}
 
-	public BlockState getUnderlyingBlock() {
-		return getWorld().getBlockState(getEffectivePos().down(isFloating() ? 1 : 2));
+	public Block getUnderlyingBlock() {
+		return getWorld().getBlockState(getEffectivePos().down(isFloating() ? 1 : 2)).getBlock();
 	}
 
 	private List<BlockPos> getCandidatePositions() {
 		int rangePlace = getPlaceRange();
 		int rangePlaceY = getVerticalPlaceRange();
 		BlockPos center = getEffectivePos();
-		BlockState filter = getUnderlyingBlock();
+		Block filter = getUnderlyingBlock();
 		List<BlockPos> ret = new ArrayList<>();
 
 		for (BlockPos pos : BlockPos.getAllInBoxMutable(center.add(-rangePlace, -rangePlaceY, -rangePlace),
 				center.add(rangePlace, rangePlaceY, rangePlace))) {
 			BlockState state = getWorld().getBlockState(pos);
 			BlockState up = getWorld().getBlockState(pos.up());
-			if (filter == state && (up.isAir(getWorld(), pos.up()) || up.getMaterial().isReplaceable())) {
+			if (state.isIn(filter) && (up.isAir(getWorld(), pos.up()) || up.getMaterial().isReplaceable())) {
 				ret.add(pos.toImmutable());
 			}
 		}
@@ -154,8 +154,8 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		super.renderHUD(ms, mc);
 
-		BlockState filter = getUnderlyingBlock();
-		ItemStack recieverStack = new ItemStack(filter.getBlock());
+		Block filter = getUnderlyingBlock();
+		ItemStack recieverStack = new ItemStack(filter);
 		int color = getColor();
 
 		if (!recieverStack.isEmpty()) {
