@@ -45,9 +45,9 @@ public class BlockFelPumpkin extends BlockMod {
 		super.onBlockAdded(state, world, pos, oldState, isMoving);
 
 		if (!world.isRemote && world.getBlockState(pos.down()).getBlock() == Blocks.IRON_BARS && world.getBlockState(pos.down(2)).getBlock() == Blocks.IRON_BARS) {
-			world.setBlockState(pos, Blocks.AIR.getDefaultState());
-			world.setBlockState(pos.down(), Blocks.AIR.getDefaultState());
-			world.setBlockState(pos.down(2), Blocks.AIR.getDefaultState());
+			world.removeBlock(pos, false);
+			world.removeBlock(pos.down(), false);
+			world.removeBlock(pos.down(2), false);
 			BlazeEntity blaze = EntityType.BLAZE.create(world);
 			blaze.setLocationAndAngles(pos.getX() + 0.5D, pos.getY() - 1.95D, pos.getZ() + 0.5D, 0.0F, 0.0F);
 			((AccessorMobEntity) blaze).setDeathLootTable(LOOT_TABLE);
