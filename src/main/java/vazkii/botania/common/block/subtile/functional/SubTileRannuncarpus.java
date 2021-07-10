@@ -14,11 +14,14 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
@@ -30,6 +33,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -42,6 +46,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.mixin.AccessorItemEntity;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.*;
 
@@ -55,6 +60,8 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	private static final int RANGE_PLACE_MANA_MINI = 3;
 	private static final int RANGE_PLACE_MINI = 2;
 	private static final int RANGE_PLACE_Y_MINI = 2;
+	private static final String TAG_STATE_SENSITIVE = "stateSensitive";
+	private boolean stateSensitive = false;
 
 	public SubTileRannuncarpus(TileEntityType<?> type) {
 		super(type);
@@ -74,7 +81,6 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 
 		if (ticksExisted % 10 == 0) {
 			List<ItemEntity> items = getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getEffectivePos().add(-PICKUP_RANGE, -PICKUP_RANGE_Y, -PICKUP_RANGE), getEffectivePos().add(PICKUP_RANGE + 1, PICKUP_RANGE_Y + 1, PICKUP_RANGE + 1)));
-			List<BlockPos> validPositions = getCandidatePositions();
 			int slowdown = getSlowdownFactor();
 
 			for (ItemEntity item : items) {
@@ -92,60 +98,95 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 				}
 
 				if (stackItem instanceof BlockItem || stackItem instanceof IFlowerPlaceable) {
-					if (!validPositions.isEmpty()) {
-						BlockPos coords = validPositions.get(getWorld().rand.nextInt(validPositions.size()));
-						BlockRayTraceResult ray = new BlockRayTraceResult(new Vector3d(coords.getX() + 0.5, coords.getY() + 1, coords.getZ() + 0.5), Direction.UP, coords, false);
-						BlockItemUseContext ctx = new RannuncarpusPlaceContext(getWorld(), stack, ray, pos);
+					BlockPos coords = getCandidatePosition(getWorld().rand);
+					if (coords == null) {
+						continue;
+					}
+					BlockRayTraceResult ray = new BlockRayTraceResult(new Vector3d(coords.getX() + 0.5, coords.getY() + 1, coords.getZ() + 0.5), Direction.UP, coords, false);
+					BlockItemUseContext ctx = new RannuncarpusPlaceContext(getWorld(), stack, ray, pos);
 
-						boolean success = false;
-						if (stackItem instanceof IFlowerPlaceable) {
-							success = ((IFlowerPlaceable) stackItem).tryPlace(this, ctx);
-						}
-						if (stackItem instanceof BlockItem) {
-							success = ((BlockItem) stackItem).tryPlace(ctx).isSuccessOrConsume();
-						}
+					boolean success = false;
+					if (stackItem instanceof IFlowerPlaceable) {
+						success = ((IFlowerPlaceable) stackItem).tryPlace(this, ctx);
+					}
+					if (stackItem instanceof BlockItem) {
+						success = ((BlockItem) stackItem).tryPlace(ctx).isSuccessOrConsume();
+					}
 
-						if (success) {
-							if (ConfigHandler.COMMON.blockBreakParticles.get()) {
-								BlockState state = getWorld().getBlockState(ctx.getPos());
-								getWorld().playEvent(2001, coords, Block.getStateId(state));
-							}
-							validPositions.remove(coords);
-							if (getMana() > 1) {
-								addMana(-1);
-							}
-							return;
+					if (success) {
+						if (ConfigHandler.COMMON.blockBreakParticles.get()) {
+							BlockState state = getWorld().getBlockState(ctx.getPos());
+							getWorld().playEvent(2001, coords, Block.getStateId(state));
 						}
+						if (getMana() > 1) {
+							addMana(-1);
+						}
+						return;
 					}
 				}
 			}
 		}
 	}
 
-	public Block getUnderlyingBlock() {
-		return getWorld().getBlockState(getEffectivePos().down(isFloating() ? 1 : 2)).getBlock();
+	public BlockState getUnderlyingBlock() {
+		return getWorld().getBlockState(getEffectivePos().down(isFloating() ? 1 : 2));
 	}
 
-	private List<BlockPos> getCandidatePositions() {
+	@Nullable
+	private BlockPos getCandidatePosition(Random rand) {
 		int rangePlace = getPlaceRange();
 		int rangePlaceY = getVerticalPlaceRange();
 		BlockPos center = getEffectivePos();
-		Block filter = getUnderlyingBlock();
+		BlockState filter = getUnderlyingBlock();
 		List<BlockPos> ret = new ArrayList<>();
 
 		for (BlockPos pos : BlockPos.getAllInBoxMutable(center.add(-rangePlace, -rangePlaceY, -rangePlace),
 				center.add(rangePlace, rangePlaceY, rangePlace))) {
 			BlockState state = getWorld().getBlockState(pos);
 			BlockState up = getWorld().getBlockState(pos.up());
-			if (state.isIn(filter) && (up.isAir(getWorld(), pos.up()) || up.getMaterial().isReplaceable())) {
+
+			boolean matches;
+			if (stateSensitive) {
+				matches = state == filter;
+			} else {
+				matches = state.isIn(filter.getBlock());
+			}
+
+			if (matches && (up.isAir(getWorld(), pos.up()) || up.getMaterial().isReplaceable())) {
 				ret.add(pos.toImmutable());
 			}
 		}
-		return ret;
+
+		return ret.isEmpty() ? null : ret.get(rand.nextInt(ret.size()));
 	}
 
 	@Override
 	public boolean acceptsRedstone() {
+		return true;
+	}
+
+	@Override
+	public void readFromPacketNBT(CompoundNBT cmp) {
+		super.readFromPacketNBT(cmp);
+		if (cmp.contains(TAG_STATE_SENSITIVE)) {
+			stateSensitive = cmp.getBoolean(TAG_STATE_SENSITIVE);
+		} else {
+			// old flowers stay state sensitive, new flowers are state insensitive
+			stateSensitive = true;
+		}
+	}
+
+	@Override
+	public void writeToPacketNBT(CompoundNBT cmp) {
+		super.writeToPacketNBT(cmp);
+		cmp.putBoolean(TAG_STATE_SENSITIVE, stateSensitive);
+	}
+
+	@Override
+	public boolean onWanded(PlayerEntity player, ItemStack wand) {
+		stateSensitive = !stateSensitive;
+		markDirty();
+		sync();
 		return true;
 	}
 
@@ -154,8 +195,8 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	public void renderHUD(MatrixStack ms, Minecraft mc) {
 		super.renderHUD(ms, mc);
 
-		Block filter = getUnderlyingBlock();
-		ItemStack recieverStack = new ItemStack(filter);
+		BlockState filter = getUnderlyingBlock();
+		ItemStack recieverStack = new ItemStack(filter.getBlock());
 		int color = getColor();
 
 		if (!recieverStack.isEmpty()) {
@@ -166,6 +207,11 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 
 			mc.fontRenderer.func_243246_a(ms, stackName, x + 20, y + 5, color);
 			mc.getItemRenderer().renderItemAndEffectIntoGUI(recieverStack, x, y);
+
+			String mode = I18n.format("botaniamisc.rannuncarpus." + (stateSensitive ? "state_sensitive" : "state_insensitive"));
+			x = mc.getMainWindow().getScaledWidth() / 2 - mc.fontRenderer.getStringWidth(mode) / 2;
+			y = mc.getMainWindow().getScaledHeight() / 2 + 50;
+			mc.fontRenderer.drawStringWithShadow(ms, mode, x, y, TextFormatting.WHITE.getColor());
 		}
 
 	}

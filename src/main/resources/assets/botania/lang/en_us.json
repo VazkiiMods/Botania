@@ -125,6 +125,8 @@
   "botaniamisc.santaweaveInfo": "Manaweave, changed up for the \u00a7cs\u00a7fe\u00a7ca\u00a7fs\u00a7co\u00a7fn",
   "botaniamisc.scaleChange": "Change Scale",
   "botaniamisc.invalidDodge": "Invalid Dodge Packet",
+  "botaniamisc.rannuncarpus.state_sensitive": "Match Exact State",
+  "botaniamisc.rannuncarpus.state_insensitive": "Match Block Only",
 
   "botania.nei.brewery": "Botanical Brewery",
   "botania.nei.elvenTrade": "Elven Trade",
