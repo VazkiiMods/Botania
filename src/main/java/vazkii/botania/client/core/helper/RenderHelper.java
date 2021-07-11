@@ -220,12 +220,11 @@ public final class RenderHelper {
 	public static void renderStar(MatrixStack ms, IRenderTypeBuffer buffers, int color, float xScale, float yScale, float zScale, long seed) {
 		IVertexBuilder buffer = buffers.getBuffer(STAR);
 
-		float ticks = (ClientTickHandler.ticksInGame % 200) + ClientTickHandler.partialTicks;
-		if (ticks >= 100) {
-			ticks = 200 - ticks - 1;
-		}
+		float ticks = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
+		float semiPeriodTicks = 200;
+		float f1 = MathHelper.abs(MathHelper.sin((float) Math.PI / semiPeriodTicks * ticks))
+				* 0.9F + 0.1F; // shift to [0.1, 1.0]
 
-		float f1 = ticks / 200F;
 		float f2 = f1 > 0.F ? (f1 - 0.7F) / 0.2F : 0;
 		Random random = new Random(seed);
 
@@ -245,7 +244,7 @@ public final class RenderHelper {
 			float g = ((color & 0xFF00) >> 8) / 255F;
 			float b = (color & 0xFF) / 255F;
 			Matrix4f mat = ms.getLast().getMatrix();
-			Runnable center = () -> buffer.pos(mat, 0, 0, 0).color(r, g, b, 1F - f2).endVertex();
+			Runnable center = () -> buffer.pos(mat, 0, 0, 0).color(r, g, b, f1).endVertex();
 			Runnable[] vertices = {
 					() -> buffer.pos(mat, -0.866F * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex(),
 					() -> buffer.pos(mat, 0.866F * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex(),
