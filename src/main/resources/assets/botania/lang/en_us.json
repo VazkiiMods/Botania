@@ -2164,7 +2164,7 @@
 
   "botania.entry.bergamute": "Bergamute",
   "botania.tagline.bergamute": "Absorbs sound",
-  "botania.page.bergamute0": "Anyone who's ever attempted ranching knows of the cacophonous din emitted by herds of animals. Luckily, the $(item)Bergamute$(0) can deafen such a din.$(p)It absorbs sound energy emitted in a close radius around itself, converting it into nominal amounts of mana and re-emitting it harmlessly. The absorption itself needs no $(thing)Mana$(0) to occur.",
+  "botania.page.bergamute0": "Anyone who's ever attempted ranching knows of the cacophonous din emitted by herds of animals. Luckily, the $(item)Bergamute$(0) can deafen such a din.$(p)It absorbs sound energy emitted in a close radius around itself, converting it into trace amounts of mana and dispersing it harmlessly. The absorption itself needs no $(thing)Mana$(0) to occur.",
   "botania.page.bergamute1": "Deaf to All but the Song",
 
   "botania.entry.gIntro": "Generating Flora",
