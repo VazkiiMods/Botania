@@ -1,3 +1,13 @@
+1.16.5-419
+* Add: eutrotater (Eutro)
+* Change: Buff bellethorne
+* Change: Rannuncarpus is now blockstate-agnostic by default. You can recover the old behaviour by toggling with a wand. Existing flowers remain blockstate-sensitive.
+* Change: Fel blazes no longer despawn
+* Change: A single Bergamute now mutes less (0.5x instead of 0.15x). However, Bergamutes also now stack with each other.
+* Fix: When a fel blaze is spawned and the iron bars are waterlogged, the water now stays behind
+* Fix: Floating labellia name was missing
+* Fix: "Star" effect as used by the runic altar and manastorm charge having weird brightness flickering
+* Fix: Avatars' activation being inverted (supposed to be power-to-deactivate, was mistakenly power-to-activate
 1.16.5-418
 * Fix server crash
 1.16.5-417
