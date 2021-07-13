@@ -3278,7 +3278,7 @@
   "botania.entry.headCreating": "Head Creation",
   "botania.tagline.headCreating": "Create any player's head",
   "botania.page.headCreating0": "A commonly-invoked spell of the Elves is the use of a few resources and a $(item)Name Tag$(0) to transmute a piece of $(l:basics/pure_daisy)$(item)Livingrock$(0)$(/l) into the head of the $(thing)Player$(0) named by the tag.$(p)Its exact mechanics are unknown, but the spell seems easy enough to replicate on a $(l:basics/rune_altar)$(item)Runic Altar$(0)$(/l).",
-  "botania.page.headCreating2": "A subset of the $(thing)Minecraft$(0) community (whoops fourth wall) has dedicated itself to creating heads that serve as all sorts of decorations. $(l:https://freshcoal.com/maincollection)Clicking on this sentence will take you to a website with a list of names usable for this purpose.$(/l) Do note, however, that this list is not affiliated with Botania in any way, shape, or form, and is definitely not the only place to find these types of heads.",
+  "botania.page.headCreating2": "A subset of the $(thing)Minecraft$(0) community (whoops fourth wall) has dedicated itself to creating heads that serve as all sorts of decorations. Avid decorators might consider visiting some community websites that aggregate these heads.",
   "botania.page.headCreating1": "Get your head in the game",
 
   "botania.entry.azulejo": "Azulejos",
