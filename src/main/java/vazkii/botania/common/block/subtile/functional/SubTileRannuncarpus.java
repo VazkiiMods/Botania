@@ -184,10 +184,13 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 
 	@Override
 	public boolean onWanded(PlayerEntity player, ItemStack wand) {
-		stateSensitive = !stateSensitive;
-		markDirty();
-		sync();
-		return true;
+		if (player == null || player.isSneaking()) {
+			stateSensitive = !stateSensitive;
+			markDirty();
+			sync();
+			return true;
+		}
+		return super.onWanded(player, wand);
 	}
 
 	@OnlyIn(Dist.CLIENT)
