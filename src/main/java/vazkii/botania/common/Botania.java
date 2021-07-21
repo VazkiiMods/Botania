@@ -84,6 +84,7 @@ import vazkii.botania.common.entity.ModEntities;
 import vazkii.botania.common.impl.BotaniaAPIImpl;
 import vazkii.botania.common.impl.corporea.CorporeaItemStackMatcher;
 import vazkii.botania.common.impl.corporea.CorporeaStringMatcher;
+import vazkii.botania.common.integration.crafttweaker.CTIntegration;
 import vazkii.botania.common.item.ItemGrassSeeds;
 import vazkii.botania.common.item.ItemKeepIvy;
 import vazkii.botania.common.item.ItemVirus;
@@ -182,6 +183,7 @@ public class Botania {
 		forgeBus.addListener(LootHandler::lootLoad);
 		forgeBus.addListener(EventPriority.HIGH, ModFeatures::onBiomeLoad);
 		forgeBus.addListener(OrechidResourceListener::registerListener);
+		ModSubtiles.registerRemappers(forgeBus);
 
 		ModLootModifiers.init();
 		ModCriteriaTriggers.init();
@@ -202,6 +204,10 @@ public class Botania {
 			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::syncGogStatus);
 			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::onPlayerJoin);
 			MinecraftForge.EVENT_BUS.addListener(SkyblockWorldEvents::onPlayerInteract);
+		}
+
+		if (ModList.get().isLoaded("crafttweaker")) {
+			CTIntegration.register();
 		}
 
 		event.enqueueWork(() -> {

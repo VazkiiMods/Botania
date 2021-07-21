@@ -187,7 +187,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 					}
 
 					// This can fail from e.g. permissions plugins or event cancellations
-					if (!world.setBlockState(pos_, Blocks.AIR.getDefaultState())) {
+					if (!world.removeBlock(pos_, false)) {
 						// put the original TE back
 						if (tile != null) {
 							world.setTileEntity(pos_, tile);

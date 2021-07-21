@@ -58,6 +58,10 @@ public class StateIngredientBlock implements StateIngredient {
 		return Collections.singletonList(block.getDefaultState());
 	}
 
+	public Block getBlock() {
+		return block;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {

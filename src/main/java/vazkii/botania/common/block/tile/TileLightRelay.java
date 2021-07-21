@@ -294,7 +294,8 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 			BlockPos pos = getPosition();
 			BlockPos exitPos = getExitPos();
 
-			if (pos.equals(exitPos)) {
+			if (!world.isRemote && pos.equals(exitPos)) {
+				boolean done = true;
 				TileEntity tile = world.getTileEntity(pos);
 				if (tile instanceof TileLightRelay) {
 					BlockState state = world.getBlockState(pos);
@@ -307,37 +308,39 @@ public class TileLightRelay extends TileMod implements ITickableTileEntity, IWan
 					BlockPos bind = relay.getNextDestination();
 					if (bind != null && relay.isValidBinding()) {
 						setExit(bind);
-						return;
+						done = false;
 					}
 				}
 
-				for (Entity e : getPassengers()) {
-					e.stopRiding();
+				if (done) {
+					for (Entity e : getPassengers()) {
+						e.stopRiding();
+					}
+					remove();
+					return;
 				}
-				remove();
-			} else {
-				Vector3d thisVec = getPositionVec();
-				Vector3d motVec = thisVec.inverse().add(exitPos.getX() + 0.5, exitPos.getY() + 0.5, exitPos.getZ() + 0.5).normalize().scale(0.5);
-
-				int color;
-
-				int count = 4;
-				for (int i = 0; i < count; i++) {
-					color = MathHelper.hsvToRGB(ticksExisted / 36F + 1F / count * i, 1F, 1F);
-					double rad = Math.PI * 2.0 / count * i + ticksExisted / Math.PI;
-					double cos = Math.cos(rad);
-					double sin = Math.sin(rad);
-					double s = 0.4;
-
-					int r = (color >> 16) & 0xFF;
-					int g = (color >> 8) & 0xFF;
-					int b = color & 0xFF;
-					SparkleParticleData data = SparkleParticleData.sparkle(1.2F, r / 255F, g / 255F, b / 255F, 10);
-					world.addParticle(data, getPosX() + cos * s, getPosY() - 0.5, getPosZ() + sin * s, 0, 0, 0);
-				}
-
-				setPosition(getPosX() + motVec.x, getPosY() + motVec.y, getPosZ() + motVec.z);
 			}
+			Vector3d thisVec = getPositionVec();
+			Vector3d motVec = thisVec.inverse().add(exitPos.getX() + 0.5, exitPos.getY() + 0.5, exitPos.getZ() + 0.5).normalize().scale(0.5);
+
+			int color;
+
+			int count = 4;
+			for (int i = 0; i < count; i++) {
+				color = MathHelper.hsvToRGB(ticksExisted / 36F + 1F / count * i, 1F, 1F);
+				double rad = Math.PI * 2.0 / count * i + ticksExisted / Math.PI;
+				double cos = Math.cos(rad);
+				double sin = Math.sin(rad);
+				double s = 0.4;
+
+				int r = (color >> 16) & 0xFF;
+				int g = (color >> 8) & 0xFF;
+				int b = color & 0xFF;
+				SparkleParticleData data = SparkleParticleData.sparkle(1.2F, r / 255F, g / 255F, b / 255F, 10);
+				world.addParticle(data, getPosX() + cos * s, getPosY() - 0.5, getPosZ() + sin * s, 0, 0, 0);
+			}
+
+			setPosition(getPosX() + motVec.x, getPosY() + motVec.y, getPosZ() + motVec.z);
 		}
 
 		@Override

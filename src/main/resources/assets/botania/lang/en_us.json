@@ -125,6 +125,8 @@
   "botaniamisc.santaweaveInfo": "Manaweave, changed up for the \u00a7cs\u00a7fe\u00a7ca\u00a7fs\u00a7co\u00a7fn",
   "botaniamisc.scaleChange": "Change Scale",
   "botaniamisc.invalidDodge": "Invalid Dodge Packet",
+  "botaniamisc.rannuncarpus.state_sensitive": "Match Exact State",
+  "botaniamisc.rannuncarpus.state_insensitive": "Match Block Only",
 
   "botania.nei.brewery": "Botanical Brewery",
   "botania.nei.elvenTrade": "Elven Trade",
@@ -435,6 +437,9 @@
   "botania.challengelevel.normal": "Normal",
   "botania.challengelevel.hard": "Hard",
   "botania.challengelevel.lunatic": "Lunatic",
+
+  "botania.challenge.contest_2021": "Summer 2021 Contest",
+  "botania.challenge.contest_2021.desc": "All Botania lovers are invited to participate in the Summer 2021 Botania Build Contest! Show off your best Botania contraptions and win exciting prizes, maybe even a featured spot on the Botania website!",
 
   "botania.challenge.flowerFarm": "Flower Farm",
   "botania.challenge.flowerFarm.desc": "Create an automated farm of all 16 colors of Botania flowers. Bonus points if the flowers are sorted.",
@@ -1062,8 +1067,9 @@
   "block.botania.bergamute": "Bergamute",
   "block.botania.bergamute.reference": "My lips are sealed",
   "block.botania.floating_bergamute": "Floating Bergamute",
-  "block.botania.labelia": "Labellia",
-  "block.botania.labelia.reference": "[NYI] The engineer's second hardest problem",
+  "block.botania.labellia": "Labellia",
+  "block.botania.labellia.reference": "The engineer's second hardest problem",
+  "block.botania.floating_labellia": "Floating Labellia",
   "block.botania.daybloom_motif": "Daybloom Motif",
   "block.botania.nightshade_motif": "Nightshade Motif",
   "block.botania.hydroangeas_motif": "Hydroangeas Motif",
@@ -2087,10 +2093,10 @@
   "botania.page.jiyuulia0": "The $(item)Jiyuulia$(0) is a flower that, for a small $(thing)Mana$(0) drain, keeps any nearby animals or monsters at bay, protecting a circular area from entry.",
   "botania.page.jiyuulia1": "$(o)You're free to go everywhere but here$().",
 
-  "botania.entry.labelia": "Labellia",
-  "botania.tagline.labelia": "Renames things",
-  "botania.page.labelia0": "For a moderate sum of $(thing)Mana$(0), the $(item)Labellia$(0) picks up $(thing)Name Tags$(0) dropped on top of it, and uses them to name nearby items and mobs within a 5x5 radius.",
-  "botania.page.labelia1": "$(o)What's in a name?$().",
+  "botania.entry.labellia": "Labellia",
+  "botania.tagline.labellia": "Renames things",
+  "botania.page.labellia0": "For a moderate sum of $(thing)Mana$(0), the $(item)Labellia$(0) picks up $(thing)Name Tags$(0) dropped on top of it, and uses them to name nearby items and mobs within a 5x5 radius.",
+  "botania.page.labellia1": "$(o)What's in a name?$().",
 
   "botania.entry.rannuncarpus": "Rannuncarpus",
   "botania.tagline.rannuncarpus": "Places blocks down",
@@ -2159,7 +2165,7 @@
 
   "botania.entry.bergamute": "Bergamute",
   "botania.tagline.bergamute": "Absorbs sound",
-  "botania.page.bergamute0": "Anyone who's ever attempted ranching knows of the cacophonous din emitted by herds of animals. Luckily, the $(item)Bergamute$(0) can deafen such a din.$(p)It absorbs sound energy emitted in a close radius around itself, converting it into nominal amounts of mana and re-emitting it harmlessly. The absorption itself needs no $(thing)Mana$(0) to occur.",
+  "botania.page.bergamute0": "Anyone who's ever attempted ranching knows of the cacophonous din emitted by herds of animals. Luckily, the $(item)Bergamute$(0) can deafen such a din.$(p)It absorbs sound energy emitted in a close radius around itself, converting it into trace amounts of mana and dispersing it harmlessly. The absorption itself needs no $(thing)Mana$(0) to occur.",
   "botania.page.bergamute1": "Deaf to All but the Song",
 
   "botania.entry.gIntro": "Generating Flora",
@@ -3272,7 +3278,7 @@
   "botania.entry.headCreating": "Head Creation",
   "botania.tagline.headCreating": "Create any player's head",
   "botania.page.headCreating0": "A commonly-invoked spell of the Elves is the use of a few resources and a $(item)Name Tag$(0) to transmute a piece of $(l:basics/pure_daisy)$(item)Livingrock$(0)$(/l) into the head of the $(thing)Player$(0) named by the tag.$(p)Its exact mechanics are unknown, but the spell seems easy enough to replicate on a $(l:basics/rune_altar)$(item)Runic Altar$(0)$(/l).",
-  "botania.page.headCreating2": "A subset of the $(thing)Minecraft$(0) community (whoops fourth wall) has dedicated itself to creating heads that serve as all sorts of decorations. $(l:https://freshcoal.com/maincollection)Clicking on this sentence will take you to a website with a list of names usable for this purpose.$(/l) Do note, however, that this list is not affiliated with Botania in any way, shape, or form, and is definitely not the only place to find these types of heads.",
+  "botania.page.headCreating2": "A subset of the $(thing)Minecraft$(0) community (whoops fourth wall) has dedicated itself to creating heads that serve as all sorts of decorations. Avid decorators might consider visiting some community websites that aggregate these heads.",
   "botania.page.headCreating1": "Get your head in the game",
 
   "botania.entry.azulejo": "Azulejos",
@@ -3353,7 +3359,7 @@
   "botania.subtitle.equipBauble": "Trinket equips",
   "botania.subtitle.gaiaTrap": "Gaia Guardian's spell swooshes",
   "botania.subtitle.holyCloak": "Cloak of Virtue activates",
-  "botania.subtitle.labelia": "Labellia renames something",
+  "botania.subtitle.labellia": "Labellia renames something",
   "botania.subtitle.laputaStart": "Laputa Shard triggers",
   "botania.subtitle.lexiconOpen": "Lexica Botania opens",
   "botania.subtitle.lexiconPage": "Lexica Botania page turns",

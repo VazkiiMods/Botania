@@ -22,5 +22,8 @@
       "text": "botania.page.endoflame2",
       "recipe": "botania:petal_apothecary/endoflame"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_endoflame": 1
+  }
 }

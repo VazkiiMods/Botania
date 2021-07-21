@@ -14,5 +14,8 @@
       "text": "botania.page.loonium1",
       "recipe": "botania:petal_apothecary/loonium"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_loonium": 1
+  }
 }

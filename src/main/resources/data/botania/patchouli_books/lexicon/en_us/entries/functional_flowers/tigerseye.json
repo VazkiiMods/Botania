@@ -13,5 +13,8 @@
       "text": "botania.page.tigerseye1",
       "recipe": "botania:petal_apothecary/tigerseye"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_tigerseye": 1
+  }
 }

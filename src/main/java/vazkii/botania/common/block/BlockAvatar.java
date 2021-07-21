@@ -28,10 +28,13 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IAvatarWieldable;
+import vazkii.botania.common.block.mana.BlockPrism;
 import vazkii.botania.common.block.tile.TileAvatar;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 
 import javax.annotation.Nonnull;
+
+import java.util.Random;
 
 public class BlockAvatar extends BlockModWaterloggable implements ITileEntityProvider {
 
@@ -115,5 +118,12 @@ public class BlockAvatar extends BlockModWaterloggable implements ITileEntityPro
 	@Override
 	public BlockState rotate(@Nonnull BlockState state, Rotation rot) {
 		return state.with(BlockStateProperties.HORIZONTAL_FACING, rot.rotate(state.get(BlockStateProperties.HORIZONTAL_FACING)));
+	}
+
+	@Override
+	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
+		if (world.isBlockPowered(pos)) {
+			BlockPrism.redstoneParticlesInShape(state, world, pos, rand);
+		}
 	}
 }

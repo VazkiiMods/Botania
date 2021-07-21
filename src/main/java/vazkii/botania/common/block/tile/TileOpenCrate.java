@@ -43,14 +43,7 @@ public class TileOpenCrate extends TileExposedSimpleInventory implements ITickab
 			return;
 		}
 
-		boolean redstone = false;
-		for (Direction dir : Direction.values()) {
-			int redstoneSide = world.getRedstonePower(pos.offset(dir), dir);
-			if (redstoneSide > 0) {
-				redstone = true;
-				break;
-			}
-		}
+		boolean redstone = world.isBlockPowered(pos);
 
 		if (canEject()) {
 			ItemStack stack = getItemHandler().getStackInSlot(0);

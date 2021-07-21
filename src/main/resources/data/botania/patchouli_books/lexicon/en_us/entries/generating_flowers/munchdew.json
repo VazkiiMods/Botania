@@ -17,5 +17,8 @@
       "text": "botania.page.munchdew2",
       "recipe": "botania:petal_apothecary/munchdew"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_munchdew": 1
+  }
 }

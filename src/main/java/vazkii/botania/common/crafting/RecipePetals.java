@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.crafting;
 
+import com.google.common.base.Preconditions;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -38,6 +39,7 @@ public class RecipePetals implements IPetalRecipe {
 	private final NonNullList<Ingredient> inputs;
 
 	public RecipePetals(ResourceLocation id, ItemStack output, Ingredient... inputs) {
+		Preconditions.checkArgument(inputs.length <= 16, "Cannot have more than 16 ingredients");
 		this.id = id;
 		this.output = output;
 		this.inputs = NonNullList.from(Ingredient.EMPTY, inputs);

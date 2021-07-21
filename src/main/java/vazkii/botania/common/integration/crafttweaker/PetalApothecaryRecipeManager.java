@@ -27,10 +27,25 @@ import vazkii.botania.common.crafting.RecipePetals;
 
 import java.util.Arrays;
 
+/**
+ * @docParam this <recipetype:botania:petal_apothecary>
+ */
 @ZenRegister
 @ZenCodeType.Name("mods.botania.PetalApothecary")
 public class PetalApothecaryRecipeManager implements IRecipeManager {
 
+	/**
+	 * Adds the specified petal apothecary recipe.
+	 *
+	 * @param name   Name of the recipe to add
+	 * @param output Output item
+	 * @param inputs Input items
+	 *
+	 * @docParam name "rune_altar_test"
+	 * @docParam output <item:minecraft:diamond>
+	 * @docParam mana 2000
+	 * @docParam inputs <item:minecraft:dirt>, <item:minecraft:apple>
+	 */
 	@ZenCodeType.Method
 	public void addRecipe(String name, IItemStack output, IIngredient... inputs) {
 		name = fixRecipeName(name);

@@ -27,6 +27,8 @@ import vazkii.botania.common.block.tile.mana.TilePump;
 
 import javax.annotation.Nonnull;
 
+import java.util.Random;
+
 public class BlockPump extends BlockModWaterloggable implements ITileEntityProvider {
 
 	private static final VoxelShape X_SHAPE = makeCuboidShape(0, 0, 4, 16, 8, 12);
@@ -73,5 +75,12 @@ public class BlockPump extends BlockModWaterloggable implements ITileEntityProvi
 	@Override
 	public TileEntity createNewTileEntity(@Nonnull IBlockReader world) {
 		return new TilePump();
+	}
+
+	@Override
+	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
+		if (world.isBlockPowered(pos)) {
+			BlockPrism.redstoneParticlesInShape(state, world, pos, rand);
+		}
 	}
 }

@@ -14,6 +14,7 @@ import com.blamejared.crafttweaker.api.item.IIngredient;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
+import com.blamejared.crafttweaker_annotations.annotations.Document;
 
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
@@ -27,10 +28,27 @@ import vazkii.botania.common.crafting.RecipeRuneAltar;
 
 import java.util.Arrays;
 
+/**
+ * @docParam this <recipetype:botania:runic_altar>
+ */
+@Document("mods/Botania/RunicAltar")
 @ZenRegister
 @ZenCodeType.Name("mods.botania.RuneAltar")
 public class RuneAltarRecipeManager implements IRecipeManager {
 
+	/**
+	 * Adds the specified runic altar recipe.
+	 *
+	 * @param name   Name of the recipe to add
+	 * @param output Output item
+	 * @param mana   Recipe mana cost
+	 * @param inputs Input items
+	 *
+	 * @docParam name "rune_altar_test"
+	 * @docParam output <item:minecraft:diamond>
+	 * @docParam mana 5000
+	 * @docParam inputs <item:botania:rune_air>, <item:botania:orange_petal>, <item:botania:red_petal>
+	 */
 	@ZenCodeType.Method
 	public void addRecipe(String name, IItemStack output, int mana, IIngredient... inputs) {
 		name = fixRecipeName(name);

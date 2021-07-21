@@ -41,8 +41,12 @@ public class MixinSoundEngine {
 
 	@ModifyArg(index = 0, at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;clamp(FFF)F"), method = "getClampedVolume")
 	private float bergamuateAttenuate(float volume) {
-		if (shouldSilence(tmpSound) && SubTileBergamute.muteSound(tmpSound)) {
-			return volume * 0.15F;
+		if (shouldSilence(tmpSound)) {
+			int count = SubTileBergamute.countFlowersAround(tmpSound);
+			if (count > 0) {
+				// If the multiplier here is adjusted, see also SubTileBergamute.getBergamutesNearby
+				return volume * (float) Math.pow(0.5, count);
+			}
 		}
 		return volume;
 	}

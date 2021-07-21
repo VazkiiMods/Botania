@@ -1,0 +1,32 @@
+{
+  "type": "botania:petal_apothecary",
+  "output": {
+    "item": "botania:labellia"
+  },
+  "ingredients": [
+    {
+      "tag": "botania:petals/yellow"
+    },
+    {
+      "tag": "botania:petals/yellow"
+    },
+    {
+      "tag": "botania:petals/blue"
+    },
+    {
+      "tag": "botania:petals/white"
+    },
+    {
+      "tag": "botania:petals/black"
+    },
+    {
+      "tag": "botania:runes/autumn"
+    },
+    {
+      "item": "botania:redstone_root"
+    },
+    {
+      "item": "botania:pixie_dust"
+    }
+  ]
+}

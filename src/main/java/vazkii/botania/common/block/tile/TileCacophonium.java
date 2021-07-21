@@ -10,7 +10,9 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.world.server.ServerWorld;
 
 import vazkii.botania.common.item.ItemCacophonium;
 
@@ -25,6 +27,10 @@ public class TileCacophonium extends TileMod {
 
 	public void annoyDirewolf() {
 		ItemCacophonium.playSound(world, stack, pos.getX(), pos.getY(), pos.getZ(), SoundCategory.BLOCKS, 1F);
+		if (!world.isRemote) {
+			float noteColor = world.rand.nextInt(25) / 24.0F;
+			((ServerWorld) world).spawnParticle(ParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, 0, noteColor, 0, 0, 1);
+		}
 	}
 
 	@Override

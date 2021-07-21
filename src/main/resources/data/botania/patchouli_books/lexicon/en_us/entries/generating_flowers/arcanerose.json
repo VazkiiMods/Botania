@@ -13,5 +13,8 @@
       "text": "botania.page.arcanerose1",
       "recipe": "botania:petal_apothecary/rosa_arcana"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_rosa_arcana": 1
+  }
 }

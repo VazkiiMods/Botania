@@ -1,0 +1,75 @@
+{
+  "pools": [
+    {
+      "name": "runes",
+      "rolls": 1,
+      "functions": [{ "function": "set_count", "count": { "min": 2, "max": 4 } }],
+      "entries": [
+        {
+          "type": "item",
+          "name": "botania:rune_water"
+        },
+        {
+          "type": "item",
+          "name": "botania:rune_fire"
+        },
+        {
+          "type": "item",
+          "name": "botania:rune_earth"
+        },
+        {
+          "type": "item",
+          "name": "botania:rune_air"
+        },
+        {
+          "type": "item",
+          "name": "botania:rune_spring"
+        },
+        {
+          "type": "item",
+          "name": "botania:rune_summer"
+        },
+        {
+          "type": "item",
+          "name": "botania:rune_autumn"
+        },
+        {
+          "type": "item",
+          "name": "botania:rune_winter"
+        },
+        {
+          "type": "item",
+          "name": "botania:rune_mana"
+        },
+        {
+          "type": "item",
+          "name": "botania:rune_lust"
+        },
+        {
+          "type": "item",
+          "name": "botania:rune_gluttony"
+        },
+        {
+          "type": "item",
+          "name": "botania:rune_greed"
+        },
+        {
+          "type": "item",
+          "name": "botania:rune_sloth"
+        },
+        {
+          "type": "item",
+          "name": "botania:rune_wrath"
+        },
+        {
+          "type": "item",
+          "name": "botania:rune_envy"
+        },
+        {
+          "type": "item",
+          "name": "botania:rune_pride"
+        }
+      ]
+    }
+  ]
+}

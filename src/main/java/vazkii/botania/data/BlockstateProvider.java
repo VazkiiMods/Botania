@@ -146,8 +146,13 @@ public class BlockstateProvider extends BlockStateProvider {
 		remainingBlocks.remove(enchantedSoil);
 
 		String felName = Registry.BLOCK.getKey(felPumpkin).getPath();
-		simpleBlock(felPumpkin, models().orientable(felName, new ResourceLocation("block/pumpkin_side"), prefix("block/" + felName),
-				new ResourceLocation("block/pumpkin_top")));
+
+		ModelFile pumpkinModel = models().orientable(felName, new ResourceLocation("block/pumpkin_side"),
+				prefix("block/" + felName), new ResourceLocation("block/pumpkin_top"));
+		getVariantBuilder(felPumpkin).forAllStates(state -> {
+			Direction direction = state.get(BlockStateProperties.HORIZONTAL_FACING).getOpposite();
+			return new ConfiguredModel[] { new ConfiguredModel(pumpkinModel, 0, ((int) direction.getHorizontalAngle()), false) };
+		});
 		remainingBlocks.remove(felPumpkin);
 
 		String forestEyeName = Registry.BLOCK.getKey(forestEye).getPath();

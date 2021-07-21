@@ -21,5 +21,8 @@
       "text": "botania.page.gourmaryllis3",
       "recipe": "botania:petal_apothecary/gourmaryllis"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_gourmaryllis": 1
+  }
 }

@@ -13,5 +13,8 @@
       "text": "botania.page.agricarnation1",
       "recipe": "botania:petal_apothecary/agricarnation"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_agricarnation": 1
+  }
 }

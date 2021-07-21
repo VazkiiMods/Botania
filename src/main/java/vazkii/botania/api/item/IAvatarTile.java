@@ -13,6 +13,9 @@ import net.minecraft.util.Direction;
 
 import vazkii.botania.api.mana.IManaReceiver;
 
+import java.util.Map;
+import java.util.UUID;
+
 /**
  * A TileEntity that implements this is considered an Avatar.
  */
@@ -35,8 +38,13 @@ public interface IAvatarTile extends IManaReceiver {
 	int getElapsedFunctionalTicks();
 
 	/**
-	 * Gets if this avatar is enabled (isn't powered by a redstone signal).
+	 * Gets if this avatar is enabled (is powered by a redstone signal).
 	 */
 	boolean isEnabled();
+
+	/**
+	 * @return Tag of UUID -> cooldown for Rod of the Skies boosting
+	 */
+	Map<UUID, Integer> getBoostCooldowns();
 
 }

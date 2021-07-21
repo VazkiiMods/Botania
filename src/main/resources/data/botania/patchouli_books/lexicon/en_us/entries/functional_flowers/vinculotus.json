@@ -13,5 +13,8 @@
       "text": "botania.page.vinculotus1",
       "recipe": "botania:petal_apothecary/vinculotus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_vinculotus": 1
+  }
 }

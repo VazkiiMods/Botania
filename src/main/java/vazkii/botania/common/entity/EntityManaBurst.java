@@ -233,7 +233,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 		tag.putInt(TAG_STARTING_MANA, getStartingMana());
 		tag.putInt(TAG_MIN_MANA_LOSS, getMinManaLoss());
 		tag.putFloat(TAG_TICK_MANA_LOSS, getManaLossPerTick());
-		tag.putFloat(TAG_GRAVITY, getGravity());
+		tag.putFloat(TAG_GRAVITY, getBurstGravity());
 
 		ItemStack stack = getSourceLens();
 		CompoundNBT lensCmp = new CompoundNBT();
@@ -539,7 +539,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 
 	@Override
 	protected float getGravityVelocity() {
-		return getGravity();
+		return getBurstGravity();
 	}
 
 	@Override
@@ -607,7 +607,7 @@ public class EntityManaBurst extends ThrowableEntity implements IManaBurst {
 	}
 
 	@Override
-	public float getGravity() {
+	public float getBurstGravity() {
 		return dataManager.get(GRAVITY);
 	}
 

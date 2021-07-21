@@ -197,7 +197,7 @@ public final class LibBlockNames {
 	public static final ResourceLocation SUBTILE_BUBBELL = prefix("bubbell");
 	public static final ResourceLocation SUBTILE_SOLEGNOLIA = prefix("solegnolia");
 	public static final ResourceLocation SUBTILE_ORECHID_IGNEM = prefix("orechid_ignem");
-	public static final ResourceLocation SUBTILE_LABELIA = prefix("labelia");
+	public static final ResourceLocation SUBTILE_LABELLIA = prefix("labellia");
 
 	public static final String MOTIF_DAYBLOOM = "daybloom_motif";
 	public static final String MOTIF_NIGHTSHADE = "nightshade_motif";

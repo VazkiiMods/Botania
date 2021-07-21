@@ -10,6 +10,7 @@ package vazkii.botania.common.block.mana;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,9 +26,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.BlockMod;
+import vazkii.botania.common.block.BlockOpenCrate;
 import vazkii.botania.common.block.tile.mana.TileTurntable;
 
 import javax.annotation.Nonnull;
+
+import java.util.Random;
 
 public class BlockTurntable extends BlockMod implements ITileEntityProvider, IWandable, IWandHUD {
 
@@ -53,4 +57,10 @@ public class BlockTurntable extends BlockMod implements ITileEntityProvider, IWa
 		return true;
 	}
 
+	@Override
+	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
+		if (world.isBlockPowered(pos) && rand.nextDouble() < 0.2) {
+			BlockOpenCrate.redstoneParticlesOnFullBlock(world, pos, rand);
+		}
+	}
 }

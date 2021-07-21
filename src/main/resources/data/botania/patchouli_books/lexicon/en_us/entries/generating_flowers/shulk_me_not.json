@@ -18,5 +18,8 @@
       "text": "botania.page.shulk_me_not2",
       "recipe": "botania:petal_apothecary/shulk_me_not"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_shulk_me_not": 1
+  }
 }

@@ -174,13 +174,19 @@ public class PacketBotaniaEffect {
 						Vector3 receiverVec = Vector3.fromEntityCenter(e2).add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
 
 						Vector3 motion = receiverVec.subtract(thisVec).multiply(0.04F);
-						float r = 0.4F + 0.3F * (float) Math.random();
-						float g = 0.4F + 0.3F * (float) Math.random();
-						float b = 0.4F + 0.3F * (float) Math.random();
+						int color = message.args[2];
+						float r = ((color >> 16) & 0xFF) / 255.0F;
+						float g = ((color >> 8) & 0xFF) / 255.0F;
+						float b = (color & 0xFF) / 255.0F;
+						if (world.rand.nextFloat() < 0.25) {
+							r += 0.2F * (float) world.rand.nextGaussian();
+							g += 0.2F * (float) world.rand.nextGaussian();
+							b += 0.2F * (float) world.rand.nextGaussian();
+						}
 						float size = 0.125F + 0.125F * (float) Math.random();
 
 						WispParticleData data = WispParticleData.wisp(size, r, g, b).withNoClip(true);
-						world.addOptionalParticle(data, thisVec.x, thisVec.y, thisVec.z, (float) motion.x, (float) motion.y, (float) motion.z);
+						world.addOptionalParticle(data, thisVec.x, thisVec.y, thisVec.z, motion.x, motion.y, motion.z);
 						break;
 					}
 					case ENCHANTER_DESTROY: {
@@ -299,6 +305,39 @@ public class PacketBotaniaEffect {
 
 						break;
 					}
+					case AVATAR_TORNADO_JUMP: {
+						Entity p = world.getEntityByID(message.args[0]);
+						if (p != null) {
+							for (int i = 0; i < 20; i++) {
+								for (int j = 0; j < 5; j++) {
+									WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
+									world.addParticle(data, p.getPosX(),
+											p.getPosY() + i, p.getPosZ(),
+											0.2F * (float) (Math.random() - 0.5),
+											-0.01F * (float) Math.random(),
+											0.2F * (float) (Math.random() - 0.5));
+								}
+							}
+						}
+						break;
+					}
+					case AVATAR_TORNADO_BOOST: {
+						Entity p = world.getEntityByID(message.args[0]);
+						if (p != null) {
+							Vector3d lookDir = p.getLookVec();
+							for (int i = 0; i < 20; i++) {
+								for (int j = 0; j < 5; j++) {
+									WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
+									world.addParticle(data, p.getPosX() + lookDir.getX() * i,
+											p.getPosY() + lookDir.getY() * i,
+											p.getPosZ() + lookDir.getZ() * i,
+											0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getX(),
+											0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getX()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getY(),
+											0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getX())) + -0.01F * (float) Math.random() * lookDir.getZ());
+								}
+							}
+						}
+					}
 					}
 				}
 			});
@@ -312,7 +351,7 @@ public class PacketBotaniaEffect {
 		ARENA_INDICATOR(0),
 		ITEM_SMOKE(2), // Arg: Entity ID, number of particles
 		SPARK_NET_INDICATOR(2), // Arg: Entity ID from, Entity ID towards
-		SPARK_MANA_FLOW(2), // Arg: Entity ID from, Entity ID towards
+		SPARK_MANA_FLOW(3), // Arg: Entity ID from, Entity ID towards, color
 		ENCHANTER_DESTROY(0),
 		BLACK_LOTUS_DISSOLVE(0),
 		TERRA_PLATE(1), // Arg: Completion proportion (transmuted from float)
@@ -320,6 +359,8 @@ public class PacketBotaniaEffect {
 		PARTICLE_BEAM(3), // Args: dest xyz
 		DIVA_EFFECT(1), // Arg: Entity ID
 		HALO_CRAFT(1), // Arg: Entity ID
+		AVATAR_TORNADO_JUMP(1), // Arg: Entity ID
+		AVATAR_TORNADO_BOOST(1), // Arg: Entity ID
 		;
 
 		private final int argCount;

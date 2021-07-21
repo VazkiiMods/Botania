@@ -90,6 +90,8 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.Locale;
 import java.util.Map;
 import java.util.SortedMap;
@@ -138,6 +140,14 @@ public class ClientProxy implements IProxy {
 	}
 
 	private void clientSetup(FMLClientSetupEvent event) {
+		boolean contestOngoing = ZonedDateTime.now().isBefore(
+				ZonedDateTime.of(
+						LocalDateTime.of(2021, Month.JULY, 11, 23, 0), // Stop showing 1 hour before contest ends
+						ZoneOffset.UTC
+				)
+		);
+		PatchouliAPI.get().setConfigFlag("botania:contest_2021_ongoing", contestOngoing);
+
 		PersistentVariableHelper.init();
 		PersistentVariableHelper.save();
 

@@ -35,5 +35,8 @@
         "botania:apothecary_mesa"
       ]
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_marimorphosis": 1
+  }
 }

@@ -13,5 +13,8 @@
       "text": "botania.page.solegnolia1",
       "recipe": "botania:petal_apothecary/solegnolia"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_solegnolia": 1
+  }
 }

@@ -22,5 +22,8 @@
       "text": "botania.page.spectrolus2",
       "recipe": "botania:petal_apothecary/spectrolus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_spectrolus": 1
+  }
 }

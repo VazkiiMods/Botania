@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
         maven {
             name "Forge"
-            url "https://files.minecraftforge.net/maven"
+            url "https://maven.minecraftforge.net/"
         }
         maven {
             name "Sponge"
@@ -53,12 +53,13 @@ minecraft {
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client {
-            properties 'forge.logging.console.level': 'debug'
-            properties 'fml.earlyprogresswindow': 'false'
-            properties 'mixin.env.disableRefMap': 'true'
-//            properties 'mixin.debug.verbose': 'true'
-//            properties 'mixin.debug.export': 'true'
-//            properties 'mixin.debug.dumpTargetOnFailure': 'true'
+            property 'forge.logging.console.level', 'debug'
+            property 'fml.earlyprogresswindow', 'false'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+//            property 'mixin.debug.verbose', 'true'
+//            property 'mixin.debug.export', 'true'
+//            property 'mixin.debug.dumpTargetOnFailure', 'true'
             workingDirectory project.file('run')
             mods {
                 botania {
@@ -67,8 +68,9 @@ minecraft {
             }
         }
         server {
-            properties 'forge.logging.console.level': 'debug'
-            properties 'mixin.env.disableRefMap': 'true'
+            property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             workingDirectory project.file('run')
             mods {
                 botania {
@@ -77,8 +79,9 @@ minecraft {
             }
         }
         data {
-            properties 'fml.earlyprogresswindow': 'false'
-            properties 'mixin.env.disableRefMap': 'true'
+            property 'fml.earlyprogresswindow', 'false'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             workingDirectory project.file('run')
             forceExit false
             mods {
@@ -107,9 +110,6 @@ repositories {
         url "https://dvs1.progwml6.com/files/maven"
     }
     maven {
-        url "https://minecraft.curseforge.com/api/maven/"
-    }
-    maven {
         name "curios"
         url "https://maven.theillusivec4.top/"
     }
@@ -122,13 +122,11 @@ test {
 dependencies {
     minecraft "net.minecraftforge:forge:${mc_version}-36.0.46"
 
-    annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
-
     compileOnly fg.deobf("vazkii.autoreglib:AutoRegLib:1.6-46.85")
     compileOnly fg.deobf("vazkii.quark:Quark:r2.4-276.1408")
 
-    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-50:api")
-    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-50")
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-51:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-51")
 
     compileOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.58:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.58")
@@ -136,10 +134,19 @@ dependencies {
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.4-4.0.3.5:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.4-4.0.3.5")
 
-    compileOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-1.16.4:7.1.0.77")
+    compileOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-1.16.5:7.1.0.314")
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
+
+    if (System.getProperty("idea.sync.active") != "true") {
+        annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
+
+//  CT docs generation
+//        annotationProcessor "com.blamejared.crafttweaker:CraftTweaker-1.16.5:7.1.0.314"
+//        annotationProcessor "com.blamejared.crafttweaker:Crafttweaker_Annotation_Processors-1.16.5:1.0.0.314"
+//        annotationProcessor "org.reflections:reflections:0.9.10" // CT dep
+    }
 }
 
 spotless {
@@ -173,7 +180,6 @@ jar {
                     "Implementation-Title": project.name,
                     "Implementation-Version": "${version}",
                     "Implementation-Vendor": "botania",
-                    "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
                     "MixinConnector": "vazkii.botania.common.MixinConnector"
         ])
     }
@@ -260,15 +266,6 @@ publishing {
     repositories {
         maven {
             url "file://" + System.getenv("local_maven")
-        }
-    }
-}
-
-// Prevent Mixin annotation processor from getting into IDEA's annotation processor settings
-if (System.getProperty("idea.sync.active") == "true") {
-    afterEvaluate {
-        tasks.withType(JavaCompile).all {
-            it.options.annotationProcessorPath = files()
         }
     }
 }
