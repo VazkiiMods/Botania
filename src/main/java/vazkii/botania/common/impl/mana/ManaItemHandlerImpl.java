@@ -89,7 +89,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 				}
 
 				manaReceived += mana;
-				
+
 				if (manaReceived >= manaToGet) {
 					break;
 				}
@@ -118,21 +118,21 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 				if (stack.getItem() instanceof IManaItem && !((IManaItem) stack.getItem()).canReceiveManaFromItem(stack, stackInSlot)) {
 					continue;
 				}
-				
+
 				int mana = Math.min(manaToGet - manaReceived, manaItemSlot.getMana(stackInSlot));
 
 				if (remove) {
 					manaToRemove.put(stackInSlot, mana);
 				}
-				
+
 				manaReceived += mana;
-				
+
 				if (manaReceived >= manaToGet) {
 					break;
 				}
 			}
 		}
-		
+
 		if (manaReceived == manaToGet) {
 			for (Map.Entry<ItemStack, Integer> entry : manaToRemove.entrySet()) {
 				((IManaItem) entry.getKey().getItem()).addMana(entry.getKey(), entry.getValue());
