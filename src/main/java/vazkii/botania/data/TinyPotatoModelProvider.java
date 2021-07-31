@@ -9,6 +9,7 @@
 package vazkii.botania.data;
 
 import net.minecraft.data.DataGenerator;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ModelBuilder;
 import net.minecraftforge.client.model.generators.ModelProvider;
@@ -137,6 +138,20 @@ public class TinyPotatoModelProvider extends ModelProvider<TinyPotatoModelBuilde
 				.tater()
 				.from(-2.0F, 0.0F, 6.0F)
 				.to(2.0F, 6.0F, 10.0F)
+				.end();
+
+		withExistingParent("tomater", BLOCK_FOLDER + "/cube_all")
+				.texture("all", taterTex("tomato"))
+				.element()
+				.from(5.5F, 0.0F, 5.5F)
+				.to(10.5F, 5.0F, 10.5F)
+				.textureAll("#all")
+				.face(Direction.EAST).uvs(10.0F, 0.0F, 15.0F, 5.0F).end()
+				.face(Direction.WEST).uvs(10.0F, 5.0F, 15.0F, 10.0F).end()
+				.face(Direction.NORTH).uvs(5.0F, 0.0F, 10.0F, 5.0F).end()
+				.face(Direction.SOUTH).uvs(5.0F, 5.0F, 10.0F, 10.0F).end()
+				.face(Direction.UP).uvs(0.0F, 0.0F, 5.0F, 5.0F).end()
+				.face(Direction.DOWN).uvs(0.0F, 5.0F, 5.0F, 10.0F).end()
 				.end();
 	}
 
