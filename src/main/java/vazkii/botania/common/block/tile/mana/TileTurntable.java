@@ -37,16 +37,7 @@ public class TileTurntable extends TileMod implements Tickable {
 
 	@Override
 	public void tick() {
-		boolean redstone = false;
-
-		for (Direction dir : Direction.values()) {
-			int redstoneSide = world.getEmittedRedstonePower(pos.offset(dir), dir);
-			if (redstoneSide > 0) {
-				redstone = true;
-			}
-		}
-
-		if (!redstone) {
+		if (!world.isReceivingRedstonePower(pos)) {
 			BlockEntity tile = world.getBlockEntity(pos.up());
 			if (tile instanceof TileSpreader) {
 				TileSpreader spreader = (TileSpreader) tile;

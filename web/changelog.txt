@@ -500,6 +500,15 @@ r1.11 372
 * Known Issue: Miscellaneous things in the Lexicon are missing or inconsistent
 * Known Issue: Double flowers can be collected without shears
 * Known Issue: Botania shears don't act as such
+r1.10 364
+* This one-off <b>1.12.2 backport release</b> is dedicated to the users and the developer of the Floramancer modpack.
+* Change: Cache lookups for Corporea sparks on inventories, <i>massively</i> increasing runtime performance of large Corporea networks
+* Change: The invalid flower advancement no longer asks to report it
+* Change: Rods can now be put into the Bauble Case (from 1.16.5-415)
+* Change: Obedience stick is now usable from a dispenser (from 1.16.3-407)
+* Change: Clean up JEI integration layouts (centered things properly, etc.) (from 1.16-400)
+* Change: Rod of the Unstable Reservoir targetting tweaks (from 1.16-398)
+* Fix: Avatar and life imbuer wasting a lot of mana (from 1.16.3-407)
 r1.10 363
 * This is the final release for Minecraft 1.12.x. Thanks for all the support!
 * Diva Charm no longer brainwashes boss mobs

@@ -18,7 +18,9 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
@@ -27,6 +29,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
@@ -44,6 +47,8 @@ import vazkii.botania.common.core.ExtendedShapeContext;
 import vazkii.botania.common.entity.EntityManaBurst;
 
 import javax.annotation.Nonnull;
+
+import java.util.Random;
 
 public class BlockPrism extends BlockModWaterloggable implements BlockEntityProvider, IManaTrigger, IManaCollisionGhost, IWandHUD {
 	private static final VoxelShape SHAPE = createCuboidShape(4, 0, 4, 12, 16, 12);
@@ -70,6 +75,24 @@ public class BlockPrism extends BlockModWaterloggable implements BlockEntityProv
 			return SHAPE;
 		} else {
 			return super.getCollisionShape(state, world, pos, context);
+		}
+	}
+
+	@Override
+	@Environment(EnvType.CLIENT)
+	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
+		if (state.get(Properties.POWERED)) {
+			redstoneParticlesInShape(state, world, pos, rand);
+		}
+	}
+
+	public static void redstoneParticlesInShape(BlockState state, World world, BlockPos pos, Random rand) {
+		if (rand.nextBoolean()) {
+			Box localBox = state.getOutlineShape(world, pos).getBoundingBox();
+			double x = pos.getX() + localBox.minX + rand.nextDouble() * (localBox.maxX - localBox.minX);
+			double y = pos.getY() + localBox.minY + rand.nextDouble() * (localBox.maxY - localBox.minY);
+			double z = pos.getZ() + localBox.minZ + rand.nextDouble() * (localBox.maxZ - localBox.minZ);
+			world.addParticle(DustParticleEffect.RED, x, y, z, 0, 0, 0);
 		}
 	}
 
@@ -103,6 +126,14 @@ public class BlockPrism extends BlockModWaterloggable implements BlockEntityProv
 		}
 
 		return ActionResult.SUCCESS;
+	}
+
+	@Override
+	public BlockState getPlacementState(ItemPlacementContext context) {
+		World world = context.getWorld();
+		BlockPos pos = context.getBlockPos();
+		boolean power = world.getReceivedRedstonePower(pos) > 0 || world.getReceivedRedstonePower(pos.up()) > 0;
+		return this.getDefaultState().with(Properties.POWERED, power);
 	}
 
 	@Override

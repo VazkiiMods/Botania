@@ -77,8 +77,8 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 			addMana(manaToRemove);
 		}
 
+		redstoneSignal = 0;
 		if (acceptsRedstone()) {
-			redstoneSignal = 0;
 			for (Direction dir : Direction.values()) {
 				int redstoneSide = getWorld().getEmittedRedstonePower(getPos().offset(dir), dir);
 				redstoneSignal = Math.max(redstoneSignal, redstoneSide);

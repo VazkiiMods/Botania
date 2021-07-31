@@ -36,14 +36,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, Tick
 
 	@Override
 	public void tick() {
-		enabled = true;
-		for (Direction dir : Direction.values()) {
-			int redstoneSide = world.getEmittedRedstonePower(pos.offset(dir), dir);
-			if (redstoneSide > 0) {
-				enabled = false;
-				break;
-			}
-		}
+		enabled = world.isReceivingRedstonePower(pos);
 
 		ItemStack stack = getItemHandler().getStack(0);
 		if (!stack.isEmpty() && stack.getItem() instanceof IAvatarWieldable) {

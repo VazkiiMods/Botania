@@ -13,5 +13,8 @@
       "text": "botania.page.hyacidus1",
       "recipe": "botania:petal_apothecary/hyacidus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_hyacidus": 1
+  }
 }

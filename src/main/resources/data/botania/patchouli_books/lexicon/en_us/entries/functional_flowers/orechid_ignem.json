@@ -14,5 +14,8 @@
       "text": "botania.page.orechidIgnem1",
       "recipe": "botania:petal_apothecary/orechid_ignem"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_orechid_ignem": 1
+  }
 }

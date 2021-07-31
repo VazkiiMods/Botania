@@ -22,13 +22,16 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
+import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
@@ -36,6 +39,7 @@ import vazkii.botania.api.wand.IWandable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import java.util.Random;
 import java.util.function.Supplier;
 
 public class BlockSpecialFlower extends FlowerBlock implements BlockEntityProvider, IWandable, IWandHUD {
@@ -88,5 +92,29 @@ public class BlockSpecialFlower extends FlowerBlock implements BlockEntityProvid
 	@Override
 	public void renderHUD(MatrixStack ms, MinecraftClient mc, World world, BlockPos pos) {
 		((TileEntitySpecialFlower) world.getBlockEntity(pos)).renderHUD(ms, mc);
+	}
+
+	@Override
+	@Environment(EnvType.CLIENT)
+	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
+		redstoneParticlesIfPowered(state, world, pos, rand);
+	}
+
+	public static void redstoneParticlesIfPowered(BlockState state, World world, BlockPos pos, Random rand) {
+		BlockEntity te = world.getBlockEntity(pos);
+		if (te instanceof TileEntityFunctionalFlower && rand.nextBoolean()) {
+			TileEntityFunctionalFlower flower = (TileEntityFunctionalFlower) te;
+			if (flower.acceptsRedstone() && flower.redstoneSignal > 0) {
+				VoxelShape shape = state.getOutlineShape(world, pos);
+				if (!shape.isEmpty()) {
+					Box localBox = shape.getBoundingBox();
+					BlockPos effPos = flower.getEffectivePos();
+					double x = effPos.getX() + localBox.minX + rand.nextDouble() * (localBox.maxX - localBox.minX);
+					double y = effPos.getY() + localBox.minY + rand.nextDouble() * (localBox.maxY - localBox.minY);
+					double z = effPos.getZ() + localBox.minZ + rand.nextDouble() * (localBox.maxZ - localBox.minZ);
+					world.addParticle(DustParticleEffect.RED, x, y, z, 0, 0, 0);
+				}
+			}
+		}
 	}
 }

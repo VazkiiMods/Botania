@@ -44,7 +44,9 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {}
+	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
+		BlockSpecialFlower.redstoneParticlesIfPowered(state, world, pos, rand);
+	}
 
 	@Override
 	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {

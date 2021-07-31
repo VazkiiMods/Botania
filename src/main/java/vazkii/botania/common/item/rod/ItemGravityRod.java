@@ -20,7 +20,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 
 import vazkii.botania.api.item.IManaProficiencyArmor;
@@ -38,11 +37,13 @@ import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class ItemGravityRod extends Item implements IManaUsingItem {
 	private static final Tag.Identified<EntityType<?>> BLACKLIST = ModTags.Entities.SHADED_MESA_BLACKLIST;
 	private static final float RANGE = 3F;
 	private static final int COST = 2;
+	private static final Predicate<Entity> CAN_TARGET = e -> !e.isSpectator() && e.isAlive() && !BLACKLIST.contains(e.getType());
 
 	private static final String TAG_TICKS_TILL_EXPIRE = "ticksTillExpire";
 	private static final String TAG_TICKS_COOLDOWN = "ticksCooldown";
@@ -120,7 +121,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
 					targetVec = targetVec.add(new Vector3(player.getRotationVector()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.world.getOtherEntities(player, new Box(targetVec.x - RANGE, targetVec.y - RANGE, targetVec.z - RANGE, targetVec.x + RANGE, targetVec.y + RANGE, targetVec.z + RANGE));
+					entities = player.world.getOtherEntities(player, targetVec.boxForRange(RANGE), CAN_TARGET);
 					distance++;
 					if (entities.contains(taritem)) {
 						found = true;
@@ -138,7 +139,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
 					targetVec = targetVec.add(new Vector3(player.getRotationVector()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.world.getOtherEntities(player, new Box(targetVec.x - RANGE, targetVec.y - RANGE, targetVec.z - RANGE, targetVec.x + RANGE, targetVec.y + RANGE, targetVec.z + RANGE));
+					entities = player.world.getOtherEntities(player, targetVec.boxForRange(RANGE), CAN_TARGET);
 					distance++;
 				}
 
@@ -221,7 +222,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
 					target = target.add(new Vector3(player.getRotationVector()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.world.getOtherEntities(player, new Box(target.x - RANGE, target.y - RANGE, target.z - RANGE, target.x + RANGE, target.y + RANGE, target.z + RANGE));
+					entities = player.world.getOtherEntities(player, target.boxForRange(RANGE), CAN_TARGET);
 					distance++;
 					if (entities.contains(taritem)) {
 						found = true;

@@ -9,11 +9,11 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -48,9 +48,10 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 			if (getMana() >= COST) {
 				BlockPos coords = getCoordsToPut();
 				if (coords != null) {
+					int stateId = Block.getRawIdFromState(getWorld().getBlockState(coords));
 					getWorld().removeBlock(coords, false);
 					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
-						getWorld().syncWorldEvent(2001, coords, Block.getRawIdFromState(Blocks.SAND.getDefaultState()));
+						getWorld().syncWorldEvent(2001, coords, stateId);
 					}
 					ItemEntity item = new ItemEntity(getWorld(), coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, new ItemStack(Items.CLAY_BALL));
 					getWorld().spawnEntity(item);
@@ -71,7 +72,7 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 				for (int k = -range; k < range + 1; k++) {
 					BlockPos pos = getEffectivePos().add(i, j, k);
 					Block block = getWorld().getBlockState(pos).getBlock();
-					if (block == Blocks.SAND) {
+					if (block.isIn(BlockTags.SAND)) {
 						possibleCoords.add(pos);
 					}
 				}

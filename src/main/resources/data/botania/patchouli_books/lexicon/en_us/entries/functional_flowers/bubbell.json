@@ -14,5 +14,8 @@
       "text": "botania.page.bubbell1",
       "recipe": "botania:petal_apothecary/bubbell"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_bubbell": 1
+  }
 }

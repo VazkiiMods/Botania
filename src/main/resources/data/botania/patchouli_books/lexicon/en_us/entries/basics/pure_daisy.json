@@ -33,6 +33,7 @@
     }
   ],
   "extra_recipe_mappings": {
+    "botania:floating_pure_daisy": 1,
     "botania:livingrock": 1,
     "botania:livingwood": 1,
     "minecraft:snow": 1,

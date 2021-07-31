@@ -14,5 +14,15 @@
       "text": "botania.page.flowerShrinking1",
       "group": "botania:flower_shrinking"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_agricarnation_chibi": 1,
+    "botania:floating_bellethorn_chibi": 1,
+    "botania:floating_bubbell_chibi": 1,
+    "botania:floating_clayconia_chibi": 1,
+    "botania:floating_hopperhock_chibi": 1,
+    "botania:floating_marimorphosis_chibi": 1,
+    "botania:floating_rannuncarpus_chibi": 1,
+    "botania:floating_solegnolia_chibi": 1
+  }
 }

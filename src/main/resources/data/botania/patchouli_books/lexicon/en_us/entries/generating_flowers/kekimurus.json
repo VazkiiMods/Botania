@@ -14,5 +14,8 @@
       "text": "botania.page.kekimurus1",
       "recipe": "botania:petal_apothecary/kekimurus"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_kekimurus": 1
+  }
 }

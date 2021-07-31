@@ -13,5 +13,8 @@
       "text": "botania.page.bergamute1",
       "recipe": "botania:petal_apothecary/bergamute"
     }
-  ]
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_bergamute": 1
+  }
 }
