@@ -12,6 +12,8 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.Tickable;
 import net.minecraft.util.math.Direction;
@@ -19,16 +21,22 @@ import net.minecraft.util.math.Direction;
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 public class TileAvatar extends TileSimpleInventory implements IAvatarTile, Tickable {
 	private static final int MAX_MANA = 6400;
 
 	private static final String TAG_ENABLED = "enabled";
 	private static final String TAG_TICKS_ELAPSED = "ticksElapsed";
 	private static final String TAG_MANA = "mana";
+	private static final String TAG_COOLDOWNS = "boostCooldowns";
 
 	private boolean enabled;
 	private int ticksElapsed;
 	private int mana;
+	private final Map<UUID, Integer> boostCooldowns = new HashMap<>();
 
 	public TileAvatar() {
 		super(ModTiles.AVATAR);
@@ -55,6 +63,14 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, Tick
 		tag.putBoolean(TAG_ENABLED, enabled);
 		tag.putInt(TAG_TICKS_ELAPSED, ticksElapsed);
 		tag.putInt(TAG_MANA, mana);
+		ListTag boostCooldowns = new ListTag();
+		for (Map.Entry<UUID, Integer> e : this.boostCooldowns.entrySet()) {
+			CompoundTag cmp = new CompoundTag();
+			cmp.putUuid("id", e.getKey());
+			cmp.putInt("cooldown", e.getValue());
+			boostCooldowns.add(cmp);
+		}
+		tag.put(TAG_COOLDOWNS, boostCooldowns);
 	}
 
 	@Override
@@ -63,6 +79,14 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, Tick
 		enabled = tag.getBoolean(TAG_ENABLED);
 		ticksElapsed = tag.getInt(TAG_TICKS_ELAPSED);
 		mana = tag.getInt(TAG_MANA);
+		boostCooldowns.clear();
+		ListTag boostCooldowns = tag.getList(TAG_COOLDOWNS, 10);
+		for (Tag nbt : boostCooldowns) {
+			CompoundTag cmp = ((CompoundTag) nbt);
+			UUID id = cmp.getUuid("id");
+			int cooldown = cmp.getInt("cooldown");
+			this.boostCooldowns.put(id, cooldown);
+		}
 	}
 
 	@Override
@@ -115,4 +139,8 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, Tick
 		return enabled;
 	}
 
+	@Override
+	public Map<UUID, Integer> getBoostCooldowns() {
+		return boostCooldowns;
+	}
 }

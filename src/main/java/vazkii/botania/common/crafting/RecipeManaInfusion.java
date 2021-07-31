@@ -43,11 +43,12 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 
 	public RecipeManaInfusion(Identifier id, ItemStack output, Ingredient input, int mana,
 			@Nullable String group, @Nullable StateIngredient catalyst) {
+		Preconditions.checkArgument(mana > 0, "Mana cost must be positive");
+		Preconditions.checkArgument(mana <= 1_000_001, "Mana cost must be at most a pool"); // Leaving wiggle room for a certain modpack having creative-pool-only recipes
 		this.id = id;
 		this.output = output;
 		this.input = input;
 		this.mana = mana;
-		Preconditions.checkArgument(mana < 100000);
 		this.group = group == null ? "" : group;
 		this.catalyst = catalyst;
 	}

@@ -1,0 +1,20 @@
+{
+  "name": "botania.entry.labellia",
+  "category": "botania:functional_flowers",
+  "icon": "botania:labellia",
+  "advancement": "botania:main/elf_lexicon_pickup",
+  "pages": [
+    {
+      "type": "text",
+      "text": "botania.page.labellia0"
+    },
+    {
+      "type": "botania:petal_apothecary",
+      "text": "botania.page.labellia1",
+      "recipe": "botania:petal_apothecary/labellia"
+    }
+  ],
+  "extra_recipe_mappings": {
+    "botania:floating_labellia": 1
+  }
+}

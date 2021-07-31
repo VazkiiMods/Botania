@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.crafting;
 
+import com.google.common.base.Preconditions;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -37,6 +38,7 @@ public class RecipePetals implements IPetalRecipe {
 	private final DefaultedList<Ingredient> inputs;
 
 	public RecipePetals(Identifier id, ItemStack output, Ingredient... inputs) {
+		Preconditions.checkArgument(inputs.length <= 16, "Cannot have more than 16 ingredients");
 		this.id = id;
 		this.output = output;
 		this.inputs = DefaultedList.copyOf(Ingredient.EMPTY, inputs);

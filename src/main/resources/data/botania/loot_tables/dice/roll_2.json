@@ -1,0 +1,32 @@
+{
+  "type": "gift",
+  "pools": [
+    {
+      "name": "life_essence",
+      "rolls": 1,
+      "entries": [{
+        "type": "item",
+        "name": "botania:life_essence",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": { "min": 2, "max": 4 }
+          }
+        ]
+      }]
+    },
+    {
+      "name": "overgrowth_seeds",
+      "rolls": 1,
+      "entries": [{
+        "type": "item",
+        "name": "botania:overgrowth_seed",
+        "functions": [
+          {
+            "function": "set_count", "count": 1
+          }
+        ]
+      }]
+    }
+  ]
+}

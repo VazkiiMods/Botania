@@ -2037,7 +2037,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				ModSubtiles.clayconiaChibi, ModSubtiles.loonium, ModSubtiles.daffomill, ModSubtiles.vinculotus,
 				ModSubtiles.spectranthemum, ModSubtiles.medumone, ModSubtiles.marimorphosis, ModSubtiles.marimorphosisChibi,
 				ModSubtiles.bubbell, ModSubtiles.bubbellChibi, ModSubtiles.solegnolia, ModSubtiles.solegnoliaChibi,
-				ModSubtiles.orechidIgnem }) { //TODO add labelia here
+				ModSubtiles.orechidIgnem, ModSubtiles.labellia }) {
 			createFloatingFlowerRecipe(consumer, block);
 		}
 	}

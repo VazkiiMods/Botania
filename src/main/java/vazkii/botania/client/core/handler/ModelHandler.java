@@ -138,7 +138,7 @@ public final class ModelHandler {
 		BlockEntityRendererRegistry.INSTANCE.register(ModSubtiles.SOLEGNOLIA, RenderTileSpecialFlower::new);
 		BlockEntityRendererRegistry.INSTANCE.register(ModSubtiles.SOLEGNOLIA_CHIBI, RenderTileSpecialFlower::new);
 		BlockEntityRendererRegistry.INSTANCE.register(ModSubtiles.ORECHID_IGNEM, RenderTileSpecialFlower::new);
-		BlockEntityRendererRegistry.INSTANCE.register(ModSubtiles.LABELIA, RenderTileSpecialFlower::new);
+		BlockEntityRendererRegistry.INSTANCE.register(ModSubtiles.LABELLIA, RenderTileSpecialFlower::new);
 		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.manaPylon.asItem(), new RenderTilePylon.TEISR());
 		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.naturaPylon.asItem(), new RenderTilePylon.TEISR());
 		BuiltinItemRendererRegistry.INSTANCE.register(ModBlocks.gaiaPylon.asItem(), new RenderTilePylon.TEISR());

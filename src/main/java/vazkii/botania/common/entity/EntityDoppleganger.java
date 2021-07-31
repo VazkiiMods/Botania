@@ -14,6 +14,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BeaconBlockEntity;
@@ -41,6 +42,7 @@ import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.s2c.play.RemoveEntityStatusEffectS2CPacket;
@@ -99,6 +101,7 @@ public class EntityDoppleganger extends MobEntity {
 	private static final int MOB_SPAWN_TICKS = MOB_SPAWN_BASE_TICKS + MOB_SPAWN_START_TICKS + MOB_SPAWN_END_TICKS;
 	private static final int MOB_SPAWN_WAVES = 10;
 	private static final int MOB_SPAWN_WAVE_TIME = MOB_SPAWN_BASE_TICKS / MOB_SPAWN_WAVES;
+	private static final int DAMAGE_CAP = 32;
 
 	private static final String TAG_INVUL_TIME = "invulTime";
 	private static final String TAG_AGGRO = "aggro";
@@ -202,7 +205,13 @@ public class EntityDoppleganger extends MobEntity {
 
 			int playerCount = e.getPlayersAround().size();
 			e.playerCount = playerCount;
-			e.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(MAX_HP * playerCount);
+
+			float healthMultiplier = 1;
+			if (playerCount > 1) {
+				healthMultiplier += playerCount * 0.25F;
+			}
+			e.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(MAX_HP * healthMultiplier);
+
 			if (hard) {
 				e.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).setBaseValue(15);
 			}
@@ -374,14 +383,13 @@ public class EntityDoppleganger extends MobEntity {
 				playersWhoAttacked.add(player.getUuid());
 			}
 
-			int cap = 25;
-			return super.damage(source, Math.min(cap, amount));
+			return super.damage(source, Math.min(DAMAGE_CAP, amount));
 		}
 
 		return false;
 	}
 
-	private static final Pattern FAKE_PLAYER_PATTERN = Pattern.compile("^(?:\\[.*\\])|(?:ComputerCraft)$");
+	private static final Pattern FAKE_PLAYER_PATTERN = Pattern.compile("^(?:\\[.*]|ComputerCraft)$");
 
 	public static boolean isTruePlayer(Entity e) {
 		if (!(e instanceof PlayerEntity)) {
@@ -396,7 +404,7 @@ public class EntityDoppleganger extends MobEntity {
 
 	@Override
 	protected void applyDamage(@Nonnull DamageSource source, float amount) {
-		super.applyDamage(source, amount);
+		super.applyDamage(source, Math.min(DAMAGE_CAP, amount));
 
 		Entity attacker = source.getSource();
 		if (attacker != null) {
@@ -407,19 +415,53 @@ public class EntityDoppleganger extends MobEntity {
 			if (getHealth() > 0) {
 				setVelocity(-motionVector.x, 0.5, -motionVector.z);
 				tpDelay = 4;
-				spawnPixies = aggro;
+				spawnPixies = true;
 			}
-
-			aggro = true;
 		}
+		timeUntilRegen = Math.max(timeUntilRegen, 20);
+	}
+
+	@Override
+	protected float applyArmorToDamage(DamageSource source, float damage) {
+		return super.applyArmorToDamage(source, Math.min(DAMAGE_CAP, damage));
 	}
 
 	@Override
 	public void onDeath(@Nonnull DamageSource source) {
 		super.onDeath(source);
-		LivingEntity entitylivingbase = getPrimeAdversary();
-		if (entitylivingbase instanceof ServerPlayerEntity && !anyWithArmor) {
-			DopplegangerNoArmorTrigger.INSTANCE.trigger((ServerPlayerEntity) entitylivingbase, this, source);
+		LivingEntity lastAttacker = getPrimeAdversary();
+
+		if (!world.isClient) {
+			for (UUID u : playersWhoAttacked) {
+				PlayerEntity player = world.getPlayerByUuid(u);
+				if (!isTruePlayer(player)) {
+					continue;
+				}
+				DamageSource currSource = player == lastAttacker ? source : DamageSource.player(player);
+				if (player != lastAttacker) {
+					// Vanilla handles this in attack code, but only for the killer
+					Criteria.PLAYER_KILLED_ENTITY.trigger((ServerPlayerEntity) player, this, currSource);
+				}
+				if (!anyWithArmor) {
+					DopplegangerNoArmorTrigger.INSTANCE.trigger((ServerPlayerEntity) player, this, currSource);
+				}
+			}
+
+			// Clear wither from nearby players
+			for (PlayerEntity player : getPlayersAround()) {
+				if (player.getStatusEffect(StatusEffects.WITHER) != null) {
+					player.removeStatusEffect(StatusEffects.WITHER);
+				}
+			}
+
+			// Stop all the pixies leftover from the fight
+			for (EntityPixie pixie : world.getEntitiesByClass(EntityPixie.class, getArenaBB(getSource()), p -> p.isAlive() && p.getPixieType() == 1)) {
+				pixie.playSpawnEffects();
+				pixie.remove();
+			}
+			for (EntityMagicLandmine landmine : world.getNonSpectatingEntities(EntityMagicLandmine.class, getArenaBB(getSource()))) {
+				landmine.remove();
+			}
 		}
 
 		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
@@ -433,20 +475,23 @@ public class EntityDoppleganger extends MobEntity {
 
 	@Override
 	public Identifier getLootTableId() {
+		if (mobSpawnTicks > 0) {
+			return LootTables.EMPTY;
+		}
 		return prefix(hardMode ? "gaia_guardian_2" : "gaia_guardian");
 	}
 
 	@Override
 	protected void dropLoot(@Nonnull DamageSource source, boolean wasRecentlyHit) {
 		// Save true killer, they get extra loot
-		if (wasRecentlyHit && source.getAttacker() instanceof PlayerEntity) {
+		if (wasRecentlyHit && isTruePlayer(source.getAttacker())) {
 			trueKiller = (PlayerEntity) source.getAttacker();
 		}
 
 		// Generate loot table for every single attacking player
 		for (UUID u : playersWhoAttacked) {
 			PlayerEntity player = world.getPlayerByUuid(u);
-			if (player == null) {
+			if (!isTruePlayer(player)) {
 				continue;
 			}
 
@@ -473,14 +518,18 @@ public class EntityDoppleganger extends MobEntity {
 	}
 
 	public List<PlayerEntity> getPlayersAround() {
-		float range = 15F;
-		return world.getEntitiesByClass(PlayerEntity.class, new Box(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range), player -> isTruePlayer(player) && !player.isSpectator());
+		return world.getEntitiesByClass(PlayerEntity.class, getArenaBB(source), player -> isTruePlayer(player) && !player.isSpectator());
 	}
 
 	private static int countGaiaGuardiansAround(World world, BlockPos source) {
-		float range = 15F;
-		List<EntityDoppleganger> l = world.getNonSpectatingEntities(EntityDoppleganger.class, new Box(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range));
+		List<EntityDoppleganger> l = world.getNonSpectatingEntities(EntityDoppleganger.class, getArenaBB(source));
 		return l.size();
+	}
+
+	@Nonnull
+	private static Box getArenaBB(@Nonnull BlockPos source) {
+		double range = 15.0;
+		return new Box(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range);
 	}
 
 	private void particles() {
@@ -782,7 +831,8 @@ public class EntityDoppleganger extends MobEntity {
 					spawnMissile();
 				}
 			} else {
-				applyDamage(DamageSource.player(players.get(0)), 0);
+				tpDelay = 30; // Trigger first teleport
+				aggro = true;
 			}
 		}
 	}

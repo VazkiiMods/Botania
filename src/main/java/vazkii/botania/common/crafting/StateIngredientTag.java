@@ -47,7 +47,11 @@ public class StateIngredientTag extends StateIngredientBlocks {
 
 	@Override
 	public BlockState pick(Random random) {
-		return resolve().getRandom(random).getDefaultState();
+		Tag<Block> tag = resolve();
+		if (tag.values().isEmpty()) {
+			return null;
+		}
+		return tag.getRandom(random).getDefaultState();
 	}
 
 	@Override

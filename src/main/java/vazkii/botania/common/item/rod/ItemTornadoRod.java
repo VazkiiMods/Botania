@@ -14,6 +14,7 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -32,10 +33,14 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.common.lib.PacketAvatarTornadoRod;
+import vazkii.botania.common.network.PacketBotaniaEffect;
 
 import javax.annotation.Nonnull;
 
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWieldable {
 
@@ -71,12 +76,20 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 					player.fallDistance = 0F;
 					double my = IManaProficiencyArmor.hasProficiency(player, stack) ? 1.6 : 1.25;
 					Vec3d oldMot = player.getVelocity();
-					player.setVelocity(new Vec3d(oldMot.getX(), my, oldMot.getZ()));
+					if (player.isFallFlying()) {
+						Vec3d lookDir = player.getRotationVector();
+						player.setVelocity(new Vec3d(lookDir.getX() * my, lookDir.getY() * my, lookDir.getZ() * my));
+					} else {
+						player.setVelocity(new Vec3d(oldMot.getX(), my, oldMot.getZ()));
+					}
 
 					player.playSound(ModSounds.airRod, 0.1F, 0.25F);
 					for (int i = 0; i < 5; i++) {
 						WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
-						world.addParticle(data, player.getX(), player.getY(), player.getZ(), 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
+						world.addParticle(data, player.getX(), player.getY(), player.getZ(),
+								0.2F * (float) (Math.random() - 0.5),
+								-0.01F * (float) Math.random(),
+								0.2F * (float) (Math.random() - 0.5));
 					}
 				}
 
@@ -143,27 +156,79 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
 		BlockEntity te = tile.tileEntity();
 		World world = te.getWorld();
-		if (tile.getCurrentMana() >= COST && tile.isEnabled()) {
+		Map<UUID, Integer> cooldowns = tile.getBoostCooldowns();
+
+		if (!world.isClient) {
+			decAvatarCooldowns(cooldowns);
+		}
+		if (!world.isClient && tile.getCurrentMana() >= COST && tile.isEnabled()) {
 			int range = 5;
 			int rangeY = 3;
-			List<PlayerEntity> players = world.getNonSpectatingEntities(PlayerEntity.class, new Box(te.getPos().add(-0.5 - range, -0.5 - rangeY, -0.5 - range), te.getPos().add(0.5 + range, 0.5 + rangeY, 0.5 + range)));
+			List<PlayerEntity> players = world.getNonSpectatingEntities(PlayerEntity.class,
+					new Box(te.getPos().add(-0.5 - range, -0.5 - rangeY, -0.5 - range),
+							te.getPos().add(0.5 + range, 0.5 + rangeY, 0.5 + range)));
 			for (PlayerEntity p : players) {
-				if (p.getVelocity().getY() > 0.3 && p.getVelocity().getY() < 2 && !p.isSneaking()) {
-					p.setVelocity(p.getVelocity().getX(), 2.8, p.getVelocity().getZ());
-
-					for (int i = 0; i < 20; i++) {
-						for (int j = 0; j < 5; j++) {
-							WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
-							world.addParticle(data, p.getX(), p.getY() + i, p.getZ(), 0.2F * (float) (Math.random() - 0.5), -0.01F * (float) Math.random(), 0.2F * (float) (Math.random() - 0.5));
-						}
-					}
-
-					if (!world.isClient) {
-						p.world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
-						p.addStatusEffect(new StatusEffectInstance(ModPotions.featherfeet, 100, 0));
-						tile.receiveMana(-COST);
+				int cooldown = 0;
+				if (cooldowns.containsKey(p.getUuid())) {
+					cooldown = cooldowns.get(p.getUuid());
+				}
+				if (!p.isSneaking() && cooldown <= 0) {
+					if (p.getVelocity().length() > 0.2 && p.getVelocity().length() < 5 && p.isFallFlying()) {
+						doAvatarElytraBoost(p, world);
+						doAvatarMiscEffects(p, tile);
+						cooldowns.put(p.getUuid(), 20);
+						te.markDirty();
+					} else if (p.getVelocity().getY() > 0.3 && p.getVelocity().getY() < 2 && !p.isFallFlying()) {
+						doAvatarJump(p, world);
+						doAvatarMiscEffects(p, tile);
 					}
 				}
+			}
+		}
+	}
+
+	public static void doAvatarElytraBoost(PlayerEntity p, World world) {
+		Vec3d lookDir = p.getRotationVector();
+		double mult = 1.25 * Math.pow(Math.E, -0.5 * p.getVelocity().length());
+		p.setVelocity(p.getVelocity().getX() + lookDir.getX() * mult,
+				p.getVelocity().getY() + lookDir.getY() * mult,
+				p.getVelocity().getZ() + lookDir.getZ() * mult);
+
+		if (!world.isClient) {
+			PacketAvatarTornadoRod.sendTo((ServerPlayerEntity) p, true);
+			PacketBotaniaEffect.sendNearby(p,
+					PacketBotaniaEffect.EffectType.AVATAR_TORNADO_BOOST,
+					p.getX(), p.getY(), p.getZ(),
+					p.getEntityId());
+		}
+	}
+
+	public static void doAvatarJump(PlayerEntity p, World world) {
+		p.setVelocity(p.getVelocity().getX(), 2.8, p.getVelocity().getZ());
+
+		if (!world.isClient) {
+			PacketAvatarTornadoRod.sendTo((ServerPlayerEntity) p, false);
+			PacketBotaniaEffect.sendNearby(p,
+					PacketBotaniaEffect.EffectType.AVATAR_TORNADO_JUMP,
+					p.getX(), p.getY(), p.getZ(),
+					p.getEntityId()
+			);
+		}
+	}
+
+	private void doAvatarMiscEffects(PlayerEntity p, IAvatarTile tile) {
+		p.world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
+		p.addStatusEffect(new StatusEffectInstance(ModPotions.featherfeet, 100, 0));
+		tile.receiveMana(-COST);
+	}
+
+	private void decAvatarCooldowns(Map<UUID, Integer> cooldownTag) {
+		for (UUID key : cooldownTag.keySet()) {
+			int val = cooldownTag.get(key);
+			if (val > 0) {
+				cooldownTag.put(key, val - 1);
+			} else {
+				cooldownTag.remove(key);
 			}
 		}
 	}

@@ -73,7 +73,7 @@ public class RenderTileAvatar extends BlockEntityRenderer<TileAvatar> {
 				ms.scale(s, s, s);
 				ms.translate(0F, -0.01F, 0F);
 				float alpha = (float) Math.sin(ClientTickHandler.ticksInGame / 20D) / 2F + 0.5F;
-				model.render(ms, buffer, 0xF000F0, overlay, 1, 1, 1, alpha + 0.183F);
+				model.render(ms, buffer, 0xF000F0, overlay, 1, 1, 1, alpha);
 				ms.pop();
 			}
 		}

@@ -30,13 +30,13 @@ import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.List;
 
-public class SubTileLabelia extends TileEntityFunctionalFlower {
+public class SubTileLabellia extends TileEntityFunctionalFlower {
 	private static final int PICKUP_RANGE = 0;
 	private static final int RENAME_RANGE = 2;
 	private static final int COST = 500;
 
-	public SubTileLabelia() {
-		super(ModSubtiles.LABELIA);
+	public SubTileLabellia() {
+		super(ModSubtiles.LABELLIA);
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class SubTileLabelia extends TileEntityFunctionalFlower {
 						}
 						addMana(-COST);
 						nameTag.decrement(1);
-						world.playSound(null, x + 0.5, y + 0.5, z + 0.5, ModSounds.labelia,
+						world.playSound(null, x + 0.5, y + 0.5, z + 0.5, ModSounds.labellia,
 								SoundCategory.BLOCKS, 1, 1);
 						break;
 					}

@@ -40,8 +40,7 @@ public class RecipeRuneAltar implements IRuneAltarRecipe {
 	private final int mana;
 
 	public RecipeRuneAltar(Identifier id, ItemStack output, int mana, Ingredient... inputs) {
-		Preconditions.checkArgument(inputs.length <= 16);
-		Preconditions.checkArgument(mana <= 100000);
+		Preconditions.checkArgument(inputs.length <= 16, "Cannot have more than 16 ingredients");
 		this.id = id;
 		this.output = output;
 		this.inputs = DefaultedList.copyOf(Ingredient.EMPTY, inputs);

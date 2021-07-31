@@ -1,0 +1,31 @@
+{
+  "type": "gift",
+  "pools": [
+    {
+      "name": "life_essence",
+      "rolls": 1,
+      "entries": [{
+        "type": "item",
+        "name": "botania:life_essence",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": { "min": 4, "max": 8 }
+          }
+        ]
+      }]
+    },
+    {
+      "name": "materials",
+      "rolls": 1,
+      "entries": [{
+        "type": "minecraft:loot_table",
+        "name": "botania:gaia_guardian/materials"
+      }],
+      "functions": [{
+        "function": "set_count",
+        "count": { "min": 2, "max": 10 }
+      }]
+    }
+  ]
+}

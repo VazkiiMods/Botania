@@ -12,6 +12,8 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
 
+import vazkii.botania.common.lib.PacketAvatarTornadoRod;
+
 
 import io.netty.buffer.Unpooled;
 
@@ -33,6 +35,7 @@ public final class PacketHandler {
 		ClientPlayNetworking.registerGlobalReceiver(PacketUpdateItemsRemaining.ID, PacketUpdateItemsRemaining.Handler::handle);
 		ClientPlayNetworking.registerGlobalReceiver(PacketGogWorld.ID, PacketGogWorld.Handler::handle);
 		ClientPlayNetworking.registerGlobalReceiver(PacketOrechidData.ID, PacketOrechidData::handle);
+		ClientPlayNetworking.registerGlobalReceiver(PacketAvatarTornadoRod.ID, PacketAvatarTornadoRod::handle);
 	}
 
 	private PacketHandler() {}

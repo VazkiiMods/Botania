@@ -94,7 +94,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 				bubbell, bubbellChibi, clayconia, clayconiaChibi,
 				daffomill, dreadthorn, exoflame, fallenKanade, heiseiDream,
 				hopperhock, hopperhockChibi, hyacidus, jadedAmaranthus,
-				jiyuulia, labelia, loonium, marimorphosis, marimorphosisChibi,
+				jiyuulia, labellia, loonium, marimorphosis, marimorphosisChibi,
 				medumone, orechid, orechidIgnem, pollidisiac, rannuncarpus, rannuncarpusChibi,
 				solegnolia, solegnoliaChibi, spectranthemum, tangleberrie, tigerseye, vinculotus
 		);

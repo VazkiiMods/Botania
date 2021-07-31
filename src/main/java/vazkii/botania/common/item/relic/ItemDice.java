@@ -15,7 +15,12 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.LiteralText;
@@ -27,6 +32,7 @@ import net.minecraft.world.World;
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.common.item.ModItems;
+import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -69,14 +75,31 @@ public class ItemDice extends ItemRelic {
 				}
 			}
 
-			if (possible.isEmpty()) {
-				player.sendSystemMessage(new TranslatableText("botaniamisc.dudDiceRoll", world.random.nextInt(6) + 1).formatted(Formatting.DARK_GREEN), Util.NIL_UUID);
-				stack.decrement(1);
-				return TypedActionResult.success(stack);
-			} else {
+			if (!possible.isEmpty()) {
 				int relic = possible.get(world.random.nextInt(possible.size()));
 				player.sendSystemMessage(new TranslatableText("botaniamisc.diceRoll", relic + 1).formatted(Formatting.DARK_GREEN), Util.NIL_UUID);
 				return TypedActionResult.success(new ItemStack(getRelics()[relic]));
+			} else {
+				int roll = world.random.nextInt(6) + 1;
+				Identifier tableId = ResourceLocationHelper.prefix("dice/roll_" + roll);
+				LootTable table = world.getServer().getLootManager().getTable(tableId);
+				LootContext context = new LootContext.Builder(((ServerWorld) world))
+						.parameter(LootContextParameters.THIS_ENTITY, player)
+						.parameter(LootContextParameters.ORIGIN, player.getPos())
+						.luck(player.getLuck())
+						.build(LootContextTypes.GIFT);
+
+				List<ItemStack> generated = table.generateLoot(context);
+				for (ItemStack drop : generated) {
+					if (!player.inventory.insertStack(drop)) {
+						player.dropItem(drop, false);
+					}
+				}
+				String langKey = generated.isEmpty() ? "botaniamisc.dudDiceRoll" : "botaniamisc.diceRoll";
+				player.sendSystemMessage(new TranslatableText(langKey, roll).formatted(Formatting.DARK_GREEN), Util.NIL_UUID);
+
+				stack.decrement(1);
+				return TypedActionResult.success(stack);
 			}
 		}
 
