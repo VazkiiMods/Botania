@@ -292,7 +292,8 @@ public class TileLightRelay extends TileMod implements Tickable, IWandBindable {
 			BlockPos pos = getBlockPos();
 			BlockPos exitPos = getExitPos();
 
-			if (pos.equals(exitPos)) {
+			if (!world.isClient && pos.equals(exitPos)) {
+				boolean done = true;
 				BlockEntity tile = world.getBlockEntity(pos);
 				if (tile instanceof TileLightRelay) {
 					BlockState state = world.getBlockState(pos);
@@ -305,37 +306,39 @@ public class TileLightRelay extends TileMod implements Tickable, IWandBindable {
 					BlockPos bind = relay.getNextDestination();
 					if (bind != null && relay.isValidBinding()) {
 						setExit(bind);
-						return;
+						done = false;
 					}
 				}
 
-				for (Entity e : getPassengerList()) {
-					e.stopRiding();
+				if (done) {
+					for (Entity e : getPassengerList()) {
+						e.stopRiding();
+					}
+					remove();
+					return;
 				}
-				remove();
-			} else {
-				Vec3d thisVec = getPos();
-				Vec3d motVec = thisVec.negate().add(exitPos.getX() + 0.5, exitPos.getY() + 0.5, exitPos.getZ() + 0.5).normalize().multiply(0.5);
-
-				int color;
-
-				int count = 4;
-				for (int i = 0; i < count; i++) {
-					color = MathHelper.hsvToRgb(age / 36F + 1F / count * i, 1F, 1F);
-					double rad = Math.PI * 2.0 / count * i + age / Math.PI;
-					double cos = Math.cos(rad);
-					double sin = Math.sin(rad);
-					double s = 0.4;
-
-					int r = (color >> 16) & 0xFF;
-					int g = (color >> 8) & 0xFF;
-					int b = color & 0xFF;
-					SparkleParticleData data = SparkleParticleData.sparkle(1.2F, r / 255F, g / 255F, b / 255F, 10);
-					world.addParticle(data, getX() + cos * s, getY() - 0.5, getZ() + sin * s, 0, 0, 0);
-				}
-
-				updatePosition(getX() + motVec.x, getY() + motVec.y, getZ() + motVec.z);
 			}
+			Vec3d thisVec = getPos();
+			Vec3d motVec = thisVec.negate().add(exitPos.getX() + 0.5, exitPos.getY() + 0.5, exitPos.getZ() + 0.5).normalize().multiply(0.5);
+
+			int color;
+
+			int count = 4;
+			for (int i = 0; i < count; i++) {
+				color = MathHelper.hsvToRgb(age / 36F + 1F / count * i, 1F, 1F);
+				double rad = Math.PI * 2.0 / count * i + age / Math.PI;
+				double cos = Math.cos(rad);
+				double sin = Math.sin(rad);
+				double s = 0.4;
+
+				int r = (color >> 16) & 0xFF;
+				int g = (color >> 8) & 0xFF;
+				int b = color & 0xFF;
+				SparkleParticleData data = SparkleParticleData.sparkle(1.2F, r / 255F, g / 255F, b / 255F, 10);
+				world.addParticle(data, getX() + cos * s, getY() - 0.5, getZ() + sin * s, 0, 0, 0);
+			}
+
+			setPos(getX() + motVec.x, getY() + motVec.y, getZ() + motVec.z);
 		}
 
 		/* todo 1.16-fabric

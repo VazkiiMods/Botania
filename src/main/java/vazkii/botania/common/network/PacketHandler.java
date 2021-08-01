@@ -12,8 +12,6 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.PacketByteBuf;
 
-import vazkii.botania.common.lib.PacketAvatarTornadoRod;
-
 
 import io.netty.buffer.Unpooled;
 

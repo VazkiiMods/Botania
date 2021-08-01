@@ -1,0 +1,15 @@
+{
+  "name": "botania.challenge.contest_2021",
+  "category": "botania:challenges",
+  "flag": "botania:contest_2021_ongoing",
+  "icon": "botania:lexicon",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "link",
+      "url": "https://botaniamod.net/contest_2021.php",
+      "link_text": "Learn More",
+      "text": "botania.challenge.contest_2021.desc"
+    }
+  ]
+}

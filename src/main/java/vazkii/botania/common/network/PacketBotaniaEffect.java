@@ -195,13 +195,19 @@ public class PacketBotaniaEffect {
 						Vector3 receiverVec = Vector3.fromEntityCenter(e2).add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
 
 						Vector3 motion = receiverVec.subtract(thisVec).multiply(0.04F);
-						float r = 0.4F + 0.3F * (float) Math.random();
-						float g = 0.4F + 0.3F * (float) Math.random();
-						float b = 0.4F + 0.3F * (float) Math.random();
+						int color = args[2];
+						float r = ((color >> 16) & 0xFF) / 255.0F;
+						float g = ((color >> 8) & 0xFF) / 255.0F;
+						float b = (color & 0xFF) / 255.0F;
+						if (world.random.nextFloat() < 0.25) {
+							r += 0.2F * (float) world.random.nextGaussian();
+							g += 0.2F * (float) world.random.nextGaussian();
+							b += 0.2F * (float) world.random.nextGaussian();
+						}
 						float size = 0.125F + 0.125F * (float) Math.random();
 
 						WispParticleData data = WispParticleData.wisp(size, r, g, b).withNoClip(true);
-						world.addImportantParticle(data, thisVec.x, thisVec.y, thisVec.z, (float) motion.x, (float) motion.y, (float) motion.z);
+						world.addImportantParticle(data, thisVec.x, thisVec.y, thisVec.z, motion.x, motion.y, motion.z);
 						break;
 					}
 					case ENCHANTER_DESTROY: {
@@ -364,7 +370,7 @@ public class PacketBotaniaEffect {
 		ARENA_INDICATOR(0),
 		ITEM_SMOKE(2), // Arg: Entity ID, number of particles
 		SPARK_NET_INDICATOR(2), // Arg: Entity ID from, Entity ID towards
-		SPARK_MANA_FLOW(2), // Arg: Entity ID from, Entity ID towards
+		SPARK_MANA_FLOW(3), // Arg: Entity ID from, Entity ID towards, color
 		ENCHANTER_DESTROY(0),
 		BLACK_LOTUS_DISSOLVE(0),
 		TERRA_PLATE(1), // Arg: Completion proportion (transmuted from float)

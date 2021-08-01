@@ -79,6 +79,7 @@ Your build will be judged on the following aspects, in rough order of importance
 The winning build will be featured on the Botania website homepage (you'll have to provide us a GIF of your build, if you didn't submit one),
 and will also receive a $50 Steam gift card.<br />
 The runner-up build will receive a $25 Steam gift card.<br />
+Vazkii has promised $100 and eternal top-tier patron perks to the prize pool, how this will be divided is TBD.<br />
 More prizes TBD.<br />
 Both the winner and runner-up will also be given a Botania head-flower of their choice.<br />
 Some honorable mentions may be given, which come with no prize besides bragging rights.

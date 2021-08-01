@@ -33,7 +33,7 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.lib.PacketAvatarTornadoRod;
+import vazkii.botania.common.network.PacketAvatarTornadoRod;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 
 import javax.annotation.Nonnull;

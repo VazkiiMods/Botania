@@ -15,6 +15,7 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Matrix4f;
 import net.minecraft.util.math.Vec3d;
 
@@ -192,8 +193,22 @@ public class Vector3 {
 		return b.multiply(m);
 	}
 
-	public Vector3 rotate(double angle, Vector3 axis) {
-		return Quat.aroundAxis(axis.normalize(), angle).rotate(this);
+	public Vector3 rotate(double theta, Vector3 axis) {
+		if (MathHelper.approximatelyEquals(theta, 0)) {
+			return this;
+		}
+
+		// Rodrigues rotation formula
+		Vector3 k = axis.normalize();
+		Vector3 v = this;
+
+		float cosTheta = MathHelper.cos((float) theta);
+		Vector3 firstTerm = v.multiply(cosTheta);
+		Vector3 secondTerm = k.crossProduct(v).multiply(MathHelper.sin((float) theta));
+		Vector3 thirdTerm = k.multiply(k.dotProduct(v) * (1 - cosTheta));
+		return new Vector3(firstTerm.x + secondTerm.x + thirdTerm.x,
+				firstTerm.y + secondTerm.y + thirdTerm.y,
+				firstTerm.z + secondTerm.z + thirdTerm.z);
 	}
 
 	public Box boxForRange(double range) {

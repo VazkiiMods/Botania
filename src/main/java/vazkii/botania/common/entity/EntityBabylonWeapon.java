@@ -92,7 +92,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	@Override
 	public void tick() {
 		Entity thrower = getOwner();
-		if (!world.isClient && (thrower == null || !(thrower instanceof PlayerEntity) || thrower.removed)) {
+		if (!world.isClient && (thrower == null || !(thrower instanceof PlayerEntity) || !thrower.isAlive())) {
 			remove();
 			return;
 		}

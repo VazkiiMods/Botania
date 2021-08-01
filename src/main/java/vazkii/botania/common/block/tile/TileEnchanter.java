@@ -47,6 +47,7 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.patchouli.api.IMultiblock;
+import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
 
 import javax.annotation.Nullable;
@@ -97,12 +98,17 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, Tickable
 			}
 	};
 
+	private static final Lazy<IStateMatcher> OBSIDIAN_MATCHER = new Lazy<>(() -> PatchouliAPI.get().predicateMatcher(
+			Blocks.OBSIDIAN,
+			state -> state.isOf(Blocks.OBSIDIAN) || state.isOf(Blocks.CRYING_OBSIDIAN)
+	));
+
 	public static final Lazy<IMultiblock> MULTIBLOCK = new Lazy<>(() -> PatchouliAPI.get().makeMultiblock(
 			PATTERN,
 			'P', ModBlocks.manaPylon,
 			'L', Blocks.LAPIS_BLOCK,
-			'B', Blocks.OBSIDIAN,
-			'0', Blocks.OBSIDIAN,
+			'B', OBSIDIAN_MATCHER.get(),
+			'0', OBSIDIAN_MATCHER.get(),
 			'F', PatchouliAPI.get().predicateMatcher(ModBlocks.whiteFlower, state -> state.getBlock().isIn(ModTags.Blocks.ENCHANTER_FLOWERS))
 	));
 
@@ -110,8 +116,8 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, Tickable
 			PATTERN,
 			'P', ModBlocks.manaPylon,
 			'L', ModBlocks.enchanter,
-			'B', Blocks.OBSIDIAN,
-			'0', Blocks.OBSIDIAN,
+			'B', OBSIDIAN_MATCHER.get(),
+			'0', OBSIDIAN_MATCHER.get(),
 			'F', PatchouliAPI.get().predicateMatcher(ModBlocks.whiteFlower, state -> state.getBlock().isIn(ModTags.Blocks.ENCHANTER_FLOWERS))
 	));
 

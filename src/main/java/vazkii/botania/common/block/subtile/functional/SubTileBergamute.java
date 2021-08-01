@@ -8,10 +8,11 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import com.mojang.datafixers.util.Pair;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.sound.SoundInstance;
-import net.minecraft.util.math.Direction;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
@@ -19,11 +20,7 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.tile.mana.TilePool;
 
-import javax.annotation.Nullable;
-
-import java.util.Collections;
-import java.util.Set;
-import java.util.WeakHashMap;
+import java.util.*;
 
 public class SubTileBergamute extends TileEntitySpecialFlower {
 	private static final int RANGE = 4;
@@ -40,14 +37,7 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 		super.tickFlower();
 
 		if (getWorld().isClient) {
-			disabled = false;
-			for (Direction dir : Direction.values()) {
-				int redstoneSide = getWorld().getEmittedRedstonePower(getPos().offset(dir), dir);
-				if (redstoneSide > 0) {
-					disabled = true;
-					break;
-				}
-			}
+			disabled = getWorld().isReceivingRedstonePower(getPos());
 			existingFlowers.add(this);
 		}
 	}
@@ -59,30 +49,42 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 	}
 
 	// todo seems expensive when we have lots of sounds cache maybe?
-	@Nullable
-	private static SubTileBergamute getBergamuteNearby(double x, double y, double z) {
+	private static Pair<Integer, SubTileBergamute> getBergamutesNearby(double x, double y, double z) {
+		int count = 0;
+		SubTileBergamute tile = null;
+
 		for (SubTileBergamute f : existingFlowers) {
 			if (!f.disabled && f.getEffectivePos().getSquaredDistance(x, y, z, true) <= RANGE * RANGE) {
-				return f;
+				count++;
+				if (count == 1) {
+					tile = f;
+				} else if (count >= 8) {
+					// We halve the volume for each flower (see MixinSoundEngine)
+					// halving 8 times already brings the multiplier to near zero, so no
+					// need to keep going if we've seen more than 8.
+					break;
+				}
 			}
 		}
-		return null;
+		return Pair.of(count, tile);
 	}
 
 	@Environment(EnvType.CLIENT)
-	public static boolean muteSound(SoundInstance sound) {
-		SubTileBergamute berg = getBergamuteNearby(sound.getX(), sound.getY(), sound.getZ());
-		if (berg != null) {
+	public static int countFlowersAround(SoundInstance sound) {
+		Pair<Integer, SubTileBergamute> countAndBerg = getBergamutesNearby(sound.getX(), sound.getY(), sound.getZ());
+		int count = countAndBerg.getFirst();
+		if (count > 0) {
 			if (mutedSounds.add(sound) && Math.random() < 0.5) {
 				int color = TilePool.PARTICLE_COLOR;
 				float red = (color >> 16 & 0xFF) / 255F;
 				float green = (color >> 8 & 0xFF) / 255F;
 				float blue = (color & 0xFF) / 255F;
 				SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 5);
+				SubTileBergamute berg = countAndBerg.getSecond();
 				berg.getWorld().addParticle(data, berg.getEffectivePos().getX() + 0.3 + Math.random() * 0.5, berg.getEffectivePos().getY() + 0.5 + Math.random() * 0.5, berg.getEffectivePos().getZ() + 0.3 + Math.random() * 0.5, 0, 0, 0);
 			}
 		}
-		return berg != null;
+		return count;
 	}
 
 	@Override

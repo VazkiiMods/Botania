@@ -45,6 +45,11 @@ public class SubTileLabellia extends TileEntityFunctionalFlower {
 	}
 
 	@Override
+	public int getColor() {
+		return 0xFFEE83;
+	}
+
+	@Override
 	public void tickFlower() {
 		super.tickFlower();
 
