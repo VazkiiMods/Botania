@@ -77,10 +77,11 @@ public final class ManaNetworkHandler implements IManaNetwork {
 		double minDist = Double.MAX_VALUE;
 		TileEntity closest = null;
 
+		double sqLimit = (limit + 0.5) * (limit + 0.5);
 		for (TileEntity te : tiles) {
 			if (!te.isRemoved()) {
-				double distance = te.getPos().distanceSq(pos);
-				if (distance <= limit * limit && distance < minDist) {
+				double distance = te.getPos().distanceSq(pos.getX(), pos.getY(), pos.getZ(), false);
+				if (distance <= sqLimit && distance < minDist) {
 					minDist = distance;
 					closest = te;
 				}

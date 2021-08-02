@@ -214,11 +214,11 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 
 	@Override
 	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
-		int range = 10;
-		range *= range;
+		double sqRange = (LINK_RANGE + 0.5) * (LINK_RANGE + 0.5);
 
-		double dist = pos.distanceSq(getPos());
-		if (range >= dist) {
+		BlockPos flower = getPos();
+		double dist = pos.distanceSq(flower.getX(), flower.getY(), flower.getZ(), false);
+		if (sqRange >= dist) {
 			TileEntity tile = player.world.getTileEntity(pos);
 			if (tile instanceof IManaPool) {
 				linkedPool = tile;

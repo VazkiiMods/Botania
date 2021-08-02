@@ -45,10 +45,11 @@ public class ItemObedienceStick extends Item {
 			boolean pool = tileAt instanceof IManaPool;
 			BiFunction<TileEntitySpecialFlower, TileEntity, Boolean> act = pool ? functionalActuator : generatingActuator;
 			int range = pool ? TileEntityFunctionalFlower.LINK_RANGE : TileEntityGeneratingFlower.LINK_RANGE;
+			double sqRange = (range + 0.5) * (range + 0.5);
 
 			for (BlockPos iterPos : BlockPos.getAllInBoxMutable(pos.add(-range, -range, -range),
 					pos.add(range, range, range))) {
-				if (iterPos.distanceSq(pos) > range * range) {
+				if (iterPos.distanceSq(pos.getX(), pos.getY(), pos.getZ(), false) > sqRange) {
 					continue;
 				}
 
