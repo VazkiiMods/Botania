@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.components.KeptItemsComponent;
@@ -28,7 +28,7 @@ public class ItemKeepIvy extends Item {
 	private static final String TAG_DROP_COUNT = "dropCount";
 	private static final String TAG_DROP_PREFIX = "dropPrefix";
 
-	public ItemKeepIvy(Settings props) {
+	public ItemKeepIvy(Properties props) {
 		super(props);
 	}
 
@@ -37,13 +37,13 @@ public class ItemKeepIvy extends Item {
 	}
 
 	// Curios are handled in CurioIntegration#keepCurioDrops
-	public static void onPlayerDrops(PlayerEntity player) {
+	public static void onPlayerDrops(Player player) {
 		List<ItemStack> keeps = new ArrayList<>();
-		for (int i = 0; i < player.inventory.size(); i++) {
-			ItemStack stack = player.inventory.getStack(i);
+		for (int i = 0; i < player.inventory.getContainerSize(); i++) {
+			ItemStack stack = player.inventory.getItem(i);
 			if (!stack.isEmpty() && stack.hasTag() && ItemNBTHelper.getBoolean(stack, TAG_KEEP, false)) {
 				keeps.add(stack);
-				player.inventory.setStack(i, ItemStack.EMPTY);
+				player.inventory.setItem(i, ItemStack.EMPTY);
 			}
 		}
 
@@ -53,15 +53,15 @@ public class ItemKeepIvy extends Item {
 		}
 	}
 
-	public static void onPlayerRespawn(ServerPlayerEntity oldPlayer, ServerPlayerEntity newPlayer, boolean alive) {
+	public static void onPlayerRespawn(ServerPlayer oldPlayer, ServerPlayer newPlayer, boolean alive) {
 		if (!alive) {
 			KeptItemsComponent keeps = EntityComponents.KEPT_ITEMS.get(oldPlayer);
 
 			for (ItemStack stack : keeps.getStacks()) {
 				ItemStack copy = stack.copy();
-				copy.removeSubTag(TAG_KEEP);
-				if (!newPlayer.inventory.insertStack(copy)) {
-					newPlayer.dropStack(copy);
+				copy.removeTagKey(TAG_KEEP);
+				if (!newPlayer.inventory.add(copy)) {
+					newPlayer.spawnAtLocation(copy);
 				}
 			}
 		}

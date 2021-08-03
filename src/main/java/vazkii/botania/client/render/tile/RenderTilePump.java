@@ -8,16 +8,17 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.state.property.Properties;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3f;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.common.block.tile.mana.TilePump;
 
@@ -29,11 +30,11 @@ public class RenderTilePump extends BlockEntityRenderer<TilePump> {
 	}
 
 	@Override
-	public void render(TilePump pump, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
-		ms.push();
+	public void render(TilePump pump, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+		ms.pushPose();
 		ms.translate(0.5, 0, 0.5);
 		float angle = 0;
-		switch (pump.getCachedState().get(Properties.HORIZONTAL_FACING)) {
+		switch (pump.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING)) {
 		default:
 		case NORTH:
 			break;
@@ -47,12 +48,12 @@ public class RenderTilePump extends BlockEntityRenderer<TilePump> {
 			angle = 90;
 			break;
 		}
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(angle));
+		ms.mulPose(Vector3f.YP.rotationDegrees(angle));
 		ms.translate(-0.5, 0, -0.5);
 		double diff = Math.max(0F, Math.min(8F, pump.innerRingPos + pump.moving * partialTicks));
 		ms.translate(0, 0, diff / 14);
-		VertexConsumer buffer = buffers.getBuffer(RenderLayer.getSolid());
-		MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer().render(ms.peek(), buffer, null, headModel, 1, 1, 1, light, overlay);
-		ms.pop();
+		VertexConsumer buffer = buffers.getBuffer(RenderType.solid());
+		Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(ms.last(), buffer, null, headModel, 1, 1, 1, light, overlay);
+		ms.popPose();
 	}
 }

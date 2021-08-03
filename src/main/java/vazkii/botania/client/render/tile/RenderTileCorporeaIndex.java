@@ -8,16 +8,17 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Quaternion;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
+
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
@@ -26,7 +27,7 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import javax.annotation.Nullable;
 
 public class RenderTileCorporeaIndex extends BlockEntityRenderer<TileCorporeaIndex> {
-	private static final RenderLayer LAYER = RenderLayer.getEntityCutoutNoCull(new Identifier(LibResources.MODEL_CORPOREA_INDEX));
+	private static final RenderType LAYER = RenderType.entityCutoutNoCull(new ResourceLocation(LibResources.MODEL_CORPOREA_INDEX));
 	private static final float ANGLE = (float) Math.sin(Math.toRadians(45));
 	private final ModelPart ring;
 	private final ModelPart cube;
@@ -34,34 +35,34 @@ public class RenderTileCorporeaIndex extends BlockEntityRenderer<TileCorporeaInd
 	public RenderTileCorporeaIndex(BlockEntityRenderDispatcher manager) {
 		super(manager);
 		this.ring = new ModelPart(64, 32, 0, 0);
-		this.ring.addCuboid(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F);
+		this.ring.addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F);
 		this.cube = new ModelPart(64, 32, 32, 0);
-		this.cube.addCuboid(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F);
+		this.cube.addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F);
 	}
 
 	@Override
-	public void render(@Nullable TileCorporeaIndex index, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
-		ms.push();
+	public void render(@Nullable TileCorporeaIndex index, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+		ms.pushPose();
 		ms.translate(0.5, 0, 0.5);
 		float translation = index != null ? (float) ((Math.cos((index.ticksWithCloseby + (index.hasCloseby ? partialTicks : 0)) / 10F) * 0.5 + 0.5) * 0.25) : 0F;
 		float rotation = index != null ? index.ticks * 2 + partialTicks : 0F;
 		VertexConsumer buffer = buffers.getBuffer(LAYER);
-		ms.push();
+		ms.pushPose();
 		ms.translate(0.0D, -1, 0.0D);
 
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(rotation));
+		ms.mulPose(Vector3f.YP.rotationDegrees(rotation));
 		ms.translate(0.0D, 1.5F + translation / 2.0F, 0.0D);
-		ms.multiply(new Quaternion(new Vector3f(ANGLE, 0.0F, ANGLE), 60.0F, true));
+		ms.mulPose(new Quaternion(new Vector3f(ANGLE, 0.0F, ANGLE), 60.0F, true));
 		this.ring.render(ms, buffer, light, overlay);
 		ms.scale(0.875F, 0.875F, 0.875F);
-		ms.multiply(new Quaternion(new Vector3f(ANGLE, 0.0F, ANGLE), 60.0F, true));
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(rotation));
+		ms.mulPose(new Quaternion(new Vector3f(ANGLE, 0.0F, ANGLE), 60.0F, true));
+		ms.mulPose(Vector3f.YP.rotationDegrees(rotation));
 		this.ring.render(ms, buffer, light, overlay);
 		ms.scale(0.875F, 0.875F, 0.875F);
-		ms.multiply(new Quaternion(new Vector3f(ANGLE, 0.0F, ANGLE), 60.0F, true));
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(rotation));
+		ms.mulPose(new Quaternion(new Vector3f(ANGLE, 0.0F, ANGLE), 60.0F, true));
+		ms.mulPose(Vector3f.YP.rotationDegrees(rotation));
 		this.cube.render(ms, buffer, light, overlay);
-		ms.pop();
+		ms.popPose();
 
 		if (index != null && index.closeby > 0F) {
 			float starScale = 0.02F;
@@ -70,7 +71,7 @@ public class RenderTileCorporeaIndex extends BlockEntityRenderer<TileCorporeaInd
 			double starX = Math.cos(rads) * starRadius;
 			double starZ = Math.sin(rads) * starRadius;
 			int color = 0xFF00FF;
-			int seed = index.getPos().getX() ^ index.getPos().getY() ^ index.getPos().getZ();
+			int seed = index.getBlockPos().getX() ^ index.getBlockPos().getY() ^ index.getBlockPos().getZ();
 
 			ms.translate(starX, 0.3, starZ);
 			RenderHelper.renderStar(ms, buffers, color, starScale, starScale, starScale, seed);
@@ -87,7 +88,7 @@ public class RenderTileCorporeaIndex extends BlockEntityRenderer<TileCorporeaInd
 			RenderHelper.renderStar(ms, buffers, color, starScale, starScale, starScale, seed);
 			ms.translate(starX, 0, starZ);
 		}
-		ms.pop();
+		ms.popPose();
 	}
 
 }

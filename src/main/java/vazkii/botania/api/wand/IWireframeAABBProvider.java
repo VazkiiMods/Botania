@@ -8,9 +8,9 @@
  */
 package vazkii.botania.api.wand;
 
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 
 import java.util.List;
 
@@ -23,6 +23,6 @@ public interface IWireframeAABBProvider {
 	/**
 	 * Retrieves wireframes to render, in world coordinates
 	 */
-	List<Box> getWireframeAABB(World world, BlockPos pos);
+	List<AABB> getWireframeAABB(Level world, BlockPos pos);
 
 }

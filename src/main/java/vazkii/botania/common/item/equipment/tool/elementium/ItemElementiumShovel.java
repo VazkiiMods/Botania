@@ -8,14 +8,14 @@
  */
 package vazkii.botania.common.item.equipment.tool.elementium;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FallingBlock;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FallingBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -23,14 +23,14 @@ import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShovel;
 
 public class ItemElementiumShovel extends ItemManasteelShovel {
 
-	public ItemElementiumShovel(Settings props) {
+	public ItemElementiumShovel(Properties props) {
 		super(BotaniaAPI.instance().getElementiumItemTier(), props);
 	}
 
-	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
-		World world = player.world;
+	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
+		Level world = player.level;
 		BlockState blockState = world.getBlockState(pos);
-		if (this.getMiningSpeedMultiplier(stack, blockState) <= 1.0F) {
+		if (this.getDestroySpeed(stack, blockState) <= 1.0F) {
 			return false;
 		}
 

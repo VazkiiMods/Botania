@@ -10,25 +10,31 @@ package vazkii.botania.common.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.wand.IWandable;
@@ -41,7 +47,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.BiPredicate;
 
-public class BlockPlatform extends BlockMod implements IWandable, IManaCollisionGhost, BlockEntityProvider {
+public class BlockPlatform extends BlockMod implements IWandable, IManaCollisionGhost, EntityBlock {
 
 	public enum Variant {
 		ABSTRUSE(false, (pos, context) -> {
@@ -52,9 +58,9 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 		INFRANGIBLE(true, (pos, context) -> true);
 
 		public final boolean indestructible;
-		public final BiPredicate<BlockPos, ShapeContext> collide;
+		public final BiPredicate<BlockPos, CollisionContext> collide;
 
-		Variant(boolean i, BiPredicate<BlockPos, ShapeContext> p) {
+		Variant(boolean i, BiPredicate<BlockPos, CollisionContext> p) {
 			indestructible = i;
 			collide = p;
 		}
@@ -62,86 +68,86 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 
 	private final Variant variant;
 
-	public BlockPlatform(@Nonnull Variant v, Settings builder) {
+	public BlockPlatform(@Nonnull Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getOutlineShape(@Nonnull BlockState state, @Nonnull BlockView world, @Nonnull BlockPos pos, @Nonnull ShapeContext context) {
+	public VoxelShape getShape(@Nonnull BlockState state, @Nonnull BlockGetter world, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
 		BlockEntity te = world.getBlockEntity(pos);
 		if (te instanceof TilePlatform && ((TilePlatform) te).getCamoState() != null) {
-			return ((TilePlatform) te).getCamoState().getOutlineShape(world, pos);
+			return ((TilePlatform) te).getCamoState().getShape(world, pos);
 		} else {
-			return super.getOutlineShape(state, world, pos, context);
+			return super.getShape(state, world, pos, context);
 		}
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull BlockView world, @Nonnull BlockPos pos, ShapeContext context) {
+	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull BlockGetter world, @Nonnull BlockPos pos, CollisionContext context) {
 		if (variant.collide.test(pos, context)) {
 			// NB: Use full shape from super.getOutlineShape instead of camo state. May change later.
-			return super.getOutlineShape(state, world, pos, context);
+			return super.getShape(state, world, pos, context);
 		} else {
-			return VoxelShapes.empty();
+			return Shapes.empty();
 		}
 	}
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TilePlatform();
 	}
 
 	@Override
-	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
+	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
 		TilePlatform tile = (TilePlatform) world.getBlockEntity(pos);
 		return tile.onWanded(player);
 	}
 
 	@Override
-	public boolean isGhost(BlockState state, World world, BlockPos pos) {
+	public boolean isGhost(BlockState state, Level world, BlockPos pos) {
 		return true;
 	}
 
-	public static boolean isValidBlock(@Nullable BlockState state, World world, BlockPos pos) {
-		return state != null && (state.isOpaqueFullCube(world, pos) || state.getRenderType() == BlockRenderType.MODEL);
+	public static boolean isValidBlock(@Nullable BlockState state, Level world, BlockPos pos) {
+		return state != null && (state.isSolidRender(world, pos) || state.getRenderShape() == RenderShape.MODEL);
 	}
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void appendTooltip(ItemStack stack, @Nullable BlockView worldIn, List<Text> tooltip, TooltipContext flagIn) {
+	public void appendHoverText(ItemStack stack, @Nullable BlockGetter worldIn, List<Component> tooltip, TooltipFlag flagIn) {
 		if (variant.indestructible) {
-			tooltip.add(new TranslatableText("botaniamisc.creative").formatted(Formatting.GRAY));
+			tooltip.add(new TranslatableComponent("botaniamisc.creative").withStyle(ChatFormatting.GRAY));
 		}
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		BlockEntity tile = world.getBlockEntity(pos);
-		ItemStack currentStack = player.getStackInHand(hand);
+		ItemStack currentStack = player.getItemInHand(hand);
 		if (!currentStack.isEmpty()
-				&& Block.getBlockFromItem(currentStack.getItem()) != Blocks.AIR
+				&& Block.byItem(currentStack.getItem()) != Blocks.AIR
 				&& tile instanceof TilePlatform) {
 			TilePlatform camo = (TilePlatform) tile;
-			ItemPlacementContext ctx = new ItemPlacementContext(player, hand, currentStack, hit);
-			BlockState changeState = Block.getBlockFromItem(currentStack.getItem()).getPlacementState(ctx);
+			BlockPlaceContext ctx = new BlockPlaceContext(player, hand, currentStack, hit);
+			BlockState changeState = Block.byItem(currentStack.getItem()).getStateForPlacement(ctx);
 
 			if (changeState != null && isValidBlock(changeState, world, pos)
 					&& !(changeState.getBlock() instanceof BlockPlatform)
 					&& changeState.getMaterial() != Material.AIR) {
-				if (!world.isClient) {
+				if (!world.isClientSide) {
 					camo.setCamoState(changeState);
 				}
 
-				return ActionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 }

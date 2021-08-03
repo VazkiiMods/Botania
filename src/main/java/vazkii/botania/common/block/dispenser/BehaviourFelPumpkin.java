@@ -8,37 +8,37 @@
  */
 package vazkii.botania.common.block.dispenser;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPointer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockSource;
+import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DispenserBlock;
 
 import vazkii.botania.common.block.ModBlocks;
 
 import javax.annotation.Nonnull;
 
 // Taken from vanilla pumpkin dispense behaviour
-public class BehaviourFelPumpkin extends FallibleItemDispenserBehavior {
+public class BehaviourFelPumpkin extends OptionalDispenseItemBehavior {
 	@Nonnull
 	@Override
-	protected ItemStack dispenseSilently(BlockPointer source, ItemStack stack) {
-		World world = source.getWorld();
-		BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().get(DispenserBlock.FACING));
+	protected ItemStack execute(BlockSource source, ItemStack stack) {
+		Level world = source.getLevel();
+		BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
 		Block blockcarvedpumpkin = ModBlocks.felPumpkin;
 		this.setSuccess(false);
-		if (world.isAir(blockpos) && world.getBlockState(blockpos.down()).getBlock() == Blocks.IRON_BARS
-				&& world.getBlockState(blockpos.down(2)).getBlock() == Blocks.IRON_BARS) // Botania - Check for iron bars
+		if (world.isEmptyBlock(blockpos) && world.getBlockState(blockpos.below()).getBlock() == Blocks.IRON_BARS
+				&& world.getBlockState(blockpos.below(2)).getBlock() == Blocks.IRON_BARS) // Botania - Check for iron bars
 		{
 			this.setSuccess(true);
-			if (!world.isClient) {
-				world.setBlockState(blockpos, blockcarvedpumpkin.getDefaultState(), 3);
+			if (!world.isClientSide) {
+				world.setBlock(blockpos, blockcarvedpumpkin.defaultBlockState(), 3);
 			}
 
-			stack.decrement(1);
+			stack.shrink(1);
 		}
 
 		return stack;

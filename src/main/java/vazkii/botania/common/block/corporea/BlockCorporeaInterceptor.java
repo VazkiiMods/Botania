@@ -8,16 +8,16 @@
  */
 package vazkii.botania.common.block.corporea;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
@@ -27,36 +27,36 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockCorporeaInterceptor extends BlockMod implements BlockEntityProvider {
+public class BlockCorporeaInterceptor extends BlockMod implements EntityBlock {
 
-	public BlockCorporeaInterceptor(AbstractBlock.Settings builder) {
+	public BlockCorporeaInterceptor(BlockBehaviour.Properties builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(Properties.POWERED, false));
+		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(Properties.POWERED);
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(BlockStateProperties.POWERED);
 	}
 
 	@Override
-	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-		world.setBlockState(pos, state.with(Properties.POWERED, false));
+	public void tick(BlockState state, ServerLevel world, BlockPos pos, Random rand) {
+		world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
 	}
 
 	@Override
-	public boolean emitsRedstonePower(BlockState state) {
+	public boolean isSignalSource(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction side) {
-		return state.get(Properties.POWERED) ? 15 : 0;
+	public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction side) {
+		return state.getValue(BlockStateProperties.POWERED) ? 15 : 0;
 	}
 
 	@Nonnull
 	@Override
-	public TileCorporeaBase createBlockEntity(@Nonnull BlockView world) {
+	public TileCorporeaBase newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileCorporeaInterceptor();
 	}
 

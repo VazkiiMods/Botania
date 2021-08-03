@@ -8,19 +8,20 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.PlayerModelPart;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.PlayerEntityModel;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.PlayerModelPart;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.core.handler.ContributorList;
 
@@ -28,14 +29,14 @@ import javax.annotation.Nonnull;
 
 import java.util.*;
 
-public final class ContributorFancinessHandler extends FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
+public final class ContributorFancinessHandler extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
 
-	public ContributorFancinessHandler(FeatureRendererContext<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> renderer) {
+	public ContributorFancinessHandler(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> renderer) {
 		super(renderer);
 	}
 
 	@Override
-	public void render(MatrixStack ms, VertexConsumerProvider buffers, int light, @Nonnull AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void render(PoseStack ms, MultiBufferSource buffers, int light, @Nonnull AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		ContributorList.firstStart();
 
 		if (player.isInvisible()) {
@@ -48,7 +49,7 @@ public final class ContributorFancinessHandler extends FeatureRenderer<AbstractC
 			renderGoldfish(ms, buffers);
 		}
 
-		if (player.isPartVisible(PlayerModelPart.CAPE)) {
+		if (player.isModelPartShown(PlayerModelPart.CAPE)) {
 			ItemStack flower = ContributorList.getFlower(name.toLowerCase(Locale.ROOT));
 			if (!flower.isEmpty()) {
 				renderFlower(ms, buffers, player, flower);
@@ -57,21 +58,21 @@ public final class ContributorFancinessHandler extends FeatureRenderer<AbstractC
 
 	}
 
-	private void renderGoldfish(MatrixStack ms, VertexConsumerProvider buffers) {
-		ms.push();
-		getContextModel().head.rotate(ms);
+	private void renderGoldfish(PoseStack ms, MultiBufferSource buffers) {
+		ms.pushPose();
+		getParentModel().head.translateAndRotate(ms);
 		ms.translate(-0.15F, -0.60F, 0F);
 		ms.scale(0.4F, -0.4F, -0.4F);
-		MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer().render(ms.peek(), buffers.getBuffer(TexturedRenderLayers.getEntityTranslucentCull()), null, MiscellaneousIcons.INSTANCE.goldfishModel, 1, 1, 1, 0xF000F0, OverlayTexture.DEFAULT_UV);
-		ms.pop();
+		Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(ms.last(), buffers.getBuffer(Sheets.translucentCullBlockSheet()), null, MiscellaneousIcons.INSTANCE.goldfishModel, 1, 1, 1, 0xF000F0, OverlayTexture.NO_OVERLAY);
+		ms.popPose();
 	}
 
-	private void renderFlower(MatrixStack ms, VertexConsumerProvider buffers, PlayerEntity player, ItemStack flower) {
-		ms.push();
-		getContextModel().head.rotate(ms);
+	private void renderFlower(PoseStack ms, MultiBufferSource buffers, Player player, ItemStack flower) {
+		ms.pushPose();
+		getParentModel().head.translateAndRotate(ms);
 		ms.translate(0, -0.75, 0);
 		ms.scale(0.5F, -0.5F, -0.5F);
-		MinecraftClient.getInstance().getItemRenderer().renderItem(player, flower, ModelTransformation.Mode.NONE, false, ms, buffers, player.world, 0xF000F0, OverlayTexture.DEFAULT_UV);
-		ms.pop();
+		Minecraft.getInstance().getItemRenderer().renderStatic(player, flower, ItemTransforms.TransformType.NONE, false, ms, buffers, player.level, 0xF000F0, OverlayTexture.NO_OVERLAY);
+		ms.popPose();
 	}
 }

@@ -10,31 +10,38 @@ package vazkii.botania.common.item;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.CommandBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.state.property.Property;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.GlobalPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.*;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.dynamic.GlobalPos;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.*;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CommandBlock;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.ICoordBoundItem;
@@ -72,19 +79,19 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 	private static final String TAG_BIND_MODE = "bindMode";
 	private static final BlockPos UNBOUND_POS = new BlockPos(0, -1, 0);
 
-	public ItemTwigWand(Item.Settings builder) {
+	public ItemTwigWand(Item.Properties builder) {
 		super(builder);
 	}
 
-	private static boolean tryCompleteBinding(BlockPos src, ItemStack stack, ItemUsageContext ctx) {
-		BlockPos dest = ctx.getBlockPos();
+	private static boolean tryCompleteBinding(BlockPos src, ItemStack stack, UseOnContext ctx) {
+		BlockPos dest = ctx.getClickedPos();
 		if (!dest.equals(src)) {
 			setBindingAttempt(stack, UNBOUND_POS);
 
-			BlockEntity srcTile = ctx.getWorld().getBlockEntity(src);
+			BlockEntity srcTile = ctx.getLevel().getBlockEntity(src);
 			if (srcTile instanceof IWandBindable) {
-				if (((IWandBindable) srcTile).bindTo(ctx.getPlayer(), stack, dest, ctx.getSide())) {
-					doParticleBeamWithOffset(ctx.getWorld(), src, dest);
+				if (((IWandBindable) srcTile).bindTo(ctx.getPlayer(), stack, dest, ctx.getClickedFace())) {
+					doParticleBeamWithOffset(ctx.getLevel(), src, dest);
 					setBindingAttempt(stack, UNBOUND_POS);
 				}
 				return true;
@@ -93,16 +100,16 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		return false;
 	}
 
-	private static boolean tryFormEnchanter(ItemUsageContext ctx) {
-		World world = ctx.getWorld();
-		BlockPos pos = ctx.getBlockPos();
+	private static boolean tryFormEnchanter(UseOnContext ctx) {
+		Level world = ctx.getLevel();
+		BlockPos pos = ctx.getClickedPos();
 		Direction.Axis axis = TileEnchanter.canEnchanterExist(world, pos);
 
 		if (axis != null) {
-			if (!world.isClient) {
-				world.setBlockState(pos, ModBlocks.enchanter.getDefaultState().with(BotaniaStateProps.ENCHANTER_DIRECTION, axis));
-				world.playSound(null, pos, ModSounds.enchanterForm, SoundCategory.BLOCKS, 0.5F, 0.6F);
-				PlayerHelper.grantCriterion((ServerPlayerEntity) ctx.getPlayer(), prefix("main/enchanter_make"), "code_triggered");
+			if (!world.isClientSide) {
+				world.setBlockAndUpdate(pos, ModBlocks.enchanter.defaultBlockState().setValue(BotaniaStateProps.ENCHANTER_DIRECTION, axis));
+				world.playSound(null, pos, ModSounds.enchanterForm, SoundSource.BLOCKS, 0.5F, 0.6F);
+				PlayerHelper.grantCriterion((ServerPlayer) ctx.getPlayer(), prefix("main/enchanter_make"), "code_triggered");
 			} else {
 				for (int i = 0; i < 50; i++) {
 					float red = (float) Math.random();
@@ -128,23 +135,23 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		return false;
 	}
 
-	private static boolean tryCompletePistonRelayBinding(ItemUsageContext ctx) {
-		World world = ctx.getWorld();
-		BlockPos pos = ctx.getBlockPos();
-		PlayerEntity player = ctx.getPlayer();
+	private static boolean tryCompletePistonRelayBinding(UseOnContext ctx) {
+		Level world = ctx.getLevel();
+		BlockPos pos = ctx.getClickedPos();
+		Player player = ctx.getPlayer();
 
-		GlobalPos bindPos = ((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.get(player.getUuid());
-		if (bindPos != null && bindPos.getDimension() == world.getRegistryKey()) {
-			((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.remove(player.getUuid());
+		GlobalPos bindPos = ((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.get(player.getUUID());
+		if (bindPos != null && bindPos.dimension() == world.dimension()) {
+			((BlockPistonRelay) ModBlocks.pistonRelay).activeBindingAttempts.remove(player.getUUID());
 			BlockPistonRelay.WorldData data = BlockPistonRelay.WorldData.get(world);
-			data.mapping.put(bindPos.getPos(), pos.toImmutable());
-			data.markDirty();
+			data.mapping.put(bindPos.pos(), pos.immutable());
+			data.setDirty();
 
 			PacketBotaniaEffect.sendNearby(world, pos, PacketBotaniaEffect.EffectType.PARTICLE_BEAM,
-					bindPos.getPos().getX() + 0.5, bindPos.getPos().getY() + 0.5, bindPos.getPos().getZ() + 0.5,
+					bindPos.pos().getX() + 0.5, bindPos.pos().getY() + 0.5, bindPos.pos().getZ() + 0.5,
 					pos.getX(), pos.getY(), pos.getZ());
 
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundSource.PLAYERS, 1F, 1F);
 			return true;
 		}
 		return false;
@@ -152,37 +159,37 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 	@Nonnull
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		ItemStack stack = ctx.getStack();
-		World world = ctx.getWorld();
-		PlayerEntity player = ctx.getPlayer();
-		BlockPos pos = ctx.getBlockPos();
+	public InteractionResult useOn(UseOnContext ctx) {
+		ItemStack stack = ctx.getItemInHand();
+		Level world = ctx.getLevel();
+		Player player = ctx.getPlayer();
+		BlockPos pos = ctx.getClickedPos();
 		BlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
-		Direction side = ctx.getSide();
+		Direction side = ctx.getClickedFace();
 		Optional<BlockPos> boundPos = getBindingAttempt(stack);
 
 		if (player == null) {
-			return ActionResult.PASS;
+			return InteractionResult.PASS;
 		}
 
-		if (player.isSneaking()) {
+		if (player.isShiftKeyDown()) {
 			if (boundPos.filter(loc -> tryCompleteBinding(loc, stack, ctx)).isPresent()) {
-				return ActionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 
-			if (player.canPlaceOn(pos, side, stack)
-					&& (!(block instanceof CommandBlock) || player.isCreativeLevelTwoOp())) {
+			if (player.mayUseItemAt(pos, side, stack)
+					&& (!(block instanceof CommandBlock) || player.canUseGameMasterBlocks())) {
 				BlockState newState = rotate(state, side.getAxis());
 				if (newState != state) {
-					world.setBlockState(pos, newState);
-					return ActionResult.SUCCESS;
+					world.setBlockAndUpdate(pos, newState);
+					return InteractionResult.SUCCESS;
 				}
 			}
 		}
 
 		if (block == Blocks.LAPIS_BLOCK && ConfigHandler.COMMON.enchanterEnabled.getValue() && tryFormEnchanter(ctx)) {
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
 		if (block instanceof IWandable) {
@@ -190,14 +197,14 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 			boolean bindable = tile instanceof IWandBindable;
 
 			boolean wanded;
-			if (getBindMode(stack) && bindable && player.isSneaking() && ((IWandBindable) tile).canSelect(player, stack, pos, side)) {
+			if (getBindMode(stack) && bindable && player.isShiftKeyDown() && ((IWandBindable) tile).canSelect(player, stack, pos, side)) {
 				if (boundPos.filter(pos::equals).isPresent()) {
 					setBindingAttempt(stack, UNBOUND_POS);
 				} else {
 					setBindingAttempt(stack, pos);
 				}
 
-				if (world.isClient) {
+				if (world.isClientSide) {
 					player.playSound(ModSounds.ding, 0.11F, 1F);
 				}
 
@@ -206,31 +213,31 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 				wanded = ((IWandable) block).onUsedByWand(player, stack, world, pos, side);
 			}
 
-			return wanded ? ActionResult.SUCCESS : ActionResult.FAIL;
+			return wanded ? InteractionResult.SUCCESS : InteractionResult.FAIL;
 		}
 
-		if (!world.isClient && getBindMode(stack) && tryCompletePistonRelayBinding(ctx)) {
-			return ActionResult.SUCCESS;
+		if (!world.isClientSide && getBindMode(stack) && tryCompletePistonRelayBinding(ctx)) {
+			return InteractionResult.SUCCESS;
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	private static BlockState rotate(BlockState old, Direction.Axis axis) {
 		for (Property<?> prop : old.getProperties()) {
-			if (prop.getName().equals("facing") && prop.getType() == Direction.class) {
+			if (prop.getName().equals("facing") && prop.getValueClass() == Direction.class) {
 				@SuppressWarnings("unchecked")
 				Property<Direction> facingProp = (Property<Direction>) prop;
 
-				Direction oldDir = old.get(facingProp);
+				Direction oldDir = old.getValue(facingProp);
 				Direction newDir = rotateAround(oldDir, axis);
-				if (oldDir != newDir && facingProp.getValues().contains(newDir)) {
-					return old.with(facingProp, newDir);
+				if (oldDir != newDir && facingProp.getPossibleValues().contains(newDir)) {
+					return old.setValue(facingProp, newDir);
 				}
 			}
 		}
 
-		return old.rotate(BlockRotation.CLOCKWISE_90);
+		return old.rotate(Rotation.CLOCKWISE_90);
 	}
 
 	private static Direction rotateAround(Direction old, Direction.Axis axis) {
@@ -279,16 +286,16 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		return old;
 	}
 
-	public static void doParticleBeamWithOffset(World world, BlockPos orig, BlockPos end) {
-		Vec3d origOffset = world.getBlockState(orig).getModelOffset(world, orig);
-		Vector3 vorig = new Vector3(orig.getX() + origOffset.getX() + 0.5, orig.getY() + origOffset.getY() + 0.5, orig.getZ() + origOffset.getZ() + 0.5);
-		Vec3d endOffset = world.getBlockState(end).getModelOffset(world, end);
-		Vector3 vend = new Vector3(end.getX() + endOffset.getX() + 0.5, end.getY() + endOffset.getY() + 0.5, end.getZ() + endOffset.getZ() + 0.5);
+	public static void doParticleBeamWithOffset(Level world, BlockPos orig, BlockPos end) {
+		Vec3 origOffset = world.getBlockState(orig).getOffset(world, orig);
+		Vector3 vorig = new Vector3(orig.getX() + origOffset.x() + 0.5, orig.getY() + origOffset.y() + 0.5, orig.getZ() + origOffset.z() + 0.5);
+		Vec3 endOffset = world.getBlockState(end).getOffset(world, end);
+		Vector3 vend = new Vector3(end.getX() + endOffset.x() + 0.5, end.getY() + endOffset.y() + 0.5, end.getZ() + endOffset.z() + 0.5);
 		doParticleBeam(world, vorig, vend);
 	}
 
-	public static void doParticleBeam(World world, Vector3 orig, Vector3 end) {
-		if (!world.isClient) {
+	public static void doParticleBeam(Level world, Vector3 orig, Vector3 end) {
+		if (!world.isClientSide) {
 			return;
 		}
 
@@ -301,7 +308,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		Vector3 currentPos = orig;
 		for (int i = 0; i < iters; i++) {
 			float hue = i * huePer + hueSum;
-			int color = MathHelper.hsvToRgb(MathHelper.fractionalPart(hue), 1F, 1F);
+			int color = Mth.hsvToRgb(Mth.frac(hue), 1F, 1F);
 			float r = (color >> 16 & 0xFF) / 255F;
 			float g = (color >> 8 & 0xFF) / 255F;
 			float b = (color & 0xFF) / 255F;
@@ -313,7 +320,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		getBindingAttempt(stack).ifPresent(coords -> {
 			BlockEntity tile = world.getBlockEntity(coords);
 			if (!(tile instanceof IWandBindable)) {
@@ -324,22 +331,22 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getStackInHand(hand);
-		if (player.isSneaking()) {
-			if (!world.isClient) {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
+		if (player.isShiftKeyDown()) {
+			if (!world.isClientSide) {
 				setBindMode(stack, !getBindMode(stack));
 			} else {
 				player.playSound(ModSounds.ding, 0.1F, 1F);
 			}
 		}
 
-		return TypedActionResult.success(stack);
+		return InteractionResultHolder.success(stack);
 	}
 
 	@Override
-	public void appendStacks(@Nonnull ItemGroup group, @Nonnull DefaultedList<ItemStack> stacks) {
-		if (isIn(group)) {
+	public void fillItemCategory(@Nonnull CreativeModeTab group, @Nonnull NonNullList<ItemStack> stacks) {
+		if (allowdedIn(group)) {
 			for (int i = 0; i < 16; i++) {
 				stacks.add(forColors(i, i));
 			}
@@ -348,8 +355,8 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendTooltip(ItemStack stack, World world, List<Text> list, TooltipContext flags) {
-		list.add(new TranslatableText(getModeString(stack)).formatted(Formatting.GRAY));
+	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
+		list.add(new TranslatableComponent(getModeString(stack)).withStyle(ChatFormatting.GRAY));
 	}
 
 	/* todo 1.16-fabric
@@ -405,13 +412,13 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 	@Nullable
 	@Override
-	public BlockPos getBinding(World world, ItemStack stack) {
+	public BlockPos getBinding(Level world, ItemStack stack) {
 		Optional<BlockPos> bound = getBindingAttempt(stack);
 		if (bound.isPresent()) {
 			return bound.get();
 		}
 
-		HitResult pos = MinecraftClient.getInstance().crosshairTarget;
+		HitResult pos = Minecraft.getInstance().hitResult;
 		if (pos != null && pos.getType() == HitResult.Type.BLOCK) {
 			BlockEntity tile = world.getBlockEntity(((BlockHitResult) pos).getBlockPos());
 			if (tile instanceof ITileBound) {

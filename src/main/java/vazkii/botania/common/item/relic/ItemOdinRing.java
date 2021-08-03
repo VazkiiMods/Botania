@@ -11,13 +11,13 @@ package vazkii.botania.common.item.relic;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.item.ModItems;
@@ -31,43 +31,43 @@ public class ItemOdinRing extends ItemRelicBauble {
 
 	private static final Set<String> damageNegations = new HashSet<>();
 
-	public ItemOdinRing(Settings props) {
+	public ItemOdinRing(Properties props) {
 		super(props);
 
-		damageNegations.add(DamageSource.DROWN.name);
-		damageNegations.add(DamageSource.FALL.name);
-		damageNegations.add(DamageSource.LAVA.name);
-		damageNegations.add(DamageSource.IN_WALL.name);
-		damageNegations.add(DamageSource.STARVE.name);
-		damageNegations.add(DamageSource.IN_FIRE.name);
-		damageNegations.add(DamageSource.ON_FIRE.name);
-		damageNegations.add(DamageSource.HOT_FLOOR.name);
-		damageNegations.add(DamageSource.FLY_INTO_WALL.name);
+		damageNegations.add(DamageSource.DROWN.msgId);
+		damageNegations.add(DamageSource.FALL.msgId);
+		damageNegations.add(DamageSource.LAVA.msgId);
+		damageNegations.add(DamageSource.IN_WALL.msgId);
+		damageNegations.add(DamageSource.STARVE.msgId);
+		damageNegations.add(DamageSource.IN_FIRE.msgId);
+		damageNegations.add(DamageSource.ON_FIRE.msgId);
+		damageNegations.add(DamageSource.HOT_FLOOR.msgId);
+		damageNegations.add(DamageSource.FLY_INTO_WALL.msgId);
 	}
 
 	@Override
-	public void onValidPlayerWornTick(PlayerEntity player) {
+	public void onValidPlayerWornTick(Player player) {
 		if (player.isOnFire()) {
-			player.extinguish();
+			player.clearFire();
 		}
 	}
 
 	@Override
-	public Multimap<EntityAttribute, EntityAttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
-		Multimap<EntityAttribute, EntityAttributeModifier> attributes = HashMultimap.create();
-		attributes.put(EntityAttributes.GENERIC_MAX_HEALTH,
-				new EntityAttributeModifier(getBaubleUUID(stack), "Odin Ring", 20, EntityAttributeModifier.Operation.ADDITION));
+	public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
+		Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
+		attributes.put(Attributes.MAX_HEALTH,
+				new AttributeModifier(getBaubleUUID(stack), "Odin Ring", 20, AttributeModifier.Operation.ADDITION));
 		return attributes;
 	}
 
-	public static boolean onPlayerAttacked(PlayerEntity player, DamageSource src) {
-		boolean negate = damageNegations.contains(src.name);
+	public static boolean onPlayerAttacked(Player player, DamageSource src) {
+		boolean negate = damageNegations.contains(src.msgId);
 		boolean hasRing = !EquipmentHandler.findOrEmpty(ModItems.odinRing, player).isEmpty();
 		return negate && hasRing;
 	}
 
 	@Override
-	public Identifier getAdvancement() {
+	public ResourceLocation getAdvancement() {
 		return prefix("challenge/odin_ring");
 	}
 

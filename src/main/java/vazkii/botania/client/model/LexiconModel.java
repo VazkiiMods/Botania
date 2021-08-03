@@ -8,13 +8,13 @@
  */
 package vazkii.botania.client.model;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.BakedQuad;
-import net.minecraft.client.render.model.json.ModelOverrideList;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.util.math.Direction;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.ItemOverrides;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
 
@@ -53,35 +53,35 @@ public class LexiconModel implements BakedModel {
 	}
 
 	@Override
-	public boolean hasDepth() {
+	public boolean isGui3d() {
 		return false;
 	}
 
 	@Override
-	public boolean isBuiltin() {
+	public boolean isCustomRenderer() {
 		return false;
 	}
 
 	@Override
-	public boolean isSideLit() {
-		return original.isSideLit();
+	public boolean usesBlockLight() {
+		return original.usesBlockLight();
 	}
 
 	@Nonnull
 	@Override
-	public Sprite getSprite() {
-		return original.getSprite();
+	public TextureAtlasSprite getParticleIcon() {
+		return original.getParticleIcon();
 	}
 
 	@Nonnull
 	@Override
-	public ModelTransformation getTransformation() {
-		return original.getTransformation();
+	public ItemTransforms getTransforms() {
+		return original.getTransforms();
 	}
 
 	@Nonnull
 	@Override
-	public ModelOverrideList getOverrides() {
+	public ItemOverrides getOverrides() {
 		return original.getOverrides();
 	}
 }

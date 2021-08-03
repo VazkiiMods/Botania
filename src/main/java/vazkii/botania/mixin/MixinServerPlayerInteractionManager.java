@@ -8,10 +8,10 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.network.ServerPlayerInteractionManager;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerPlayerGameMode;
+import net.minecraft.world.item.ItemStack;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -25,15 +25,15 @@ import vazkii.botania.common.item.equipment.tool.elementium.ItemElementiumShovel
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraAxe;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
-@Mixin(ServerPlayerInteractionManager.class)
+@Mixin(ServerPlayerGameMode.class)
 public class MixinServerPlayerInteractionManager {
 	@Shadow
-	public ServerPlayerEntity player;
+	public ServerPlayer player;
 
-	@Inject(method = "tryBreakBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;onBreak(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/entity/player/PlayerEntity;)V"))
+	@Inject(method = "destroyBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/Block;playerWillDestroy(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/entity/player/Player;)V"))
 	private void onStartBreak(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-		ServerPlayerEntity player = this.player;
-		ItemStack stack = player.getMainHandStack();
+		ServerPlayer player = this.player;
+		ItemStack stack = player.getMainHandItem();
 		if (stack.getItem() == ModItems.terraAxe) {
 			((ItemTerraAxe) ModItems.terraAxe).onBlockStartBreak(stack, pos, player);
 		} else if (stack.getItem() == ModItems.terraPick) {

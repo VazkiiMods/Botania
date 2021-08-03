@@ -8,58 +8,58 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.mob.BlazeEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.monster.Blaze;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.mixin.AccessorMobEntity;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class BlockFelPumpkin extends BlockMod {
-	private static final Identifier LOOT_TABLE = prefix("fel_blaze");
+	private static final ResourceLocation LOOT_TABLE = prefix("fel_blaze");
 
-	public BlockFelPumpkin(Settings builder) {
+	public BlockFelPumpkin(Properties builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.SOUTH));
+		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(Properties.HORIZONTAL_FACING);
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(BlockStateProperties.HORIZONTAL_FACING);
 	}
 
 	@Override
-	public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean isMoving) {
-		super.onBlockAdded(state, world, pos, oldState, isMoving);
+	public void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean isMoving) {
+		super.onPlace(state, world, pos, oldState, isMoving);
 
-		if (!world.isClient && world.getBlockState(pos.down()).getBlock() == Blocks.IRON_BARS && world.getBlockState(pos.down(2)).getBlock() == Blocks.IRON_BARS) {
+		if (!world.isClientSide && world.getBlockState(pos.below()).getBlock() == Blocks.IRON_BARS && world.getBlockState(pos.below(2)).getBlock() == Blocks.IRON_BARS) {
 			world.removeBlock(pos, false);
-			world.removeBlock(pos.down(), false);
-			world.removeBlock(pos.down(2), false);
-			BlazeEntity blaze = EntityType.BLAZE.create(world);
-			blaze.refreshPositionAndAngles(pos.getX() + 0.5D, pos.getY() - 1.95D, pos.getZ() + 0.5D, 0.0F, 0.0F);
-			blaze.setPersistent();
+			world.removeBlock(pos.below(), false);
+			world.removeBlock(pos.below(2), false);
+			Blaze blaze = EntityType.BLAZE.create(world);
+			blaze.moveTo(pos.getX() + 0.5D, pos.getY() - 1.95D, pos.getZ() + 0.5D, 0.0F, 0.0F);
+			blaze.setPersistenceRequired();
 			((AccessorMobEntity) blaze).setLootTable(LOOT_TABLE);
-			blaze.initialize((ServerWorldAccess) world, world.getLocalDifficulty(pos), SpawnReason.EVENT, null, null);
-			world.spawnEntity(blaze);
+			blaze.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(pos), MobSpawnType.EVENT, null, null);
+			world.addFreshEntity(blaze);
 		}
 	}
 
 	@Override
-	public BlockState getPlacementState(ItemPlacementContext context) {
-		return getDefaultState().with(Properties.HORIZONTAL_FACING, context.getPlayerFacing().getOpposite());
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		return defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
 	}
 
 }

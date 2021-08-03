@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.lib;
 
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 public class ResourceLocationHelper {
-	public static Identifier prefix(String path) {
-		return new Identifier(LibMisc.MOD_ID, path);
+	public static ResourceLocation prefix(String path) {
+		return new ResourceLocation(LibMisc.MOD_ID, path);
 	}
 }

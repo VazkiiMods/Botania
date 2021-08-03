@@ -8,12 +8,12 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.block.BlockPistonRelay;
@@ -24,18 +24,18 @@ public class LensWarp extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		Entity entity = burst.entity();
-		if (entity.world.isClient || burst.isFake() || pos.getType() != HitResult.Type.BLOCK) {
+		if (entity.level.isClientSide || burst.isFake() || pos.getType() != HitResult.Type.BLOCK) {
 			return dead;
 		}
 
 		BlockPos hit = ((BlockHitResult) pos).getBlockPos();
-		Block block = entity.world.getBlockState(hit).getBlock();
+		Block block = entity.level.getBlockState(hit).getBlock();
 		if (block == ModBlocks.pistonRelay) {
-			BlockPistonRelay.WorldData data = BlockPistonRelay.WorldData.get(entity.world);
+			BlockPistonRelay.WorldData data = BlockPistonRelay.WorldData.get(entity.level);
 			BlockPos dest = data.mapping.get(hit);
 
 			if (dest != null) {
-				entity.updatePosition(dest.getX() + 0.5, dest.getY() + 0.5, dest.getZ() + 0.5);
+				entity.setPos(dest.getX() + 0.5, dest.getY() + 0.5, dest.getZ() + 0.5);
 				burst.setCollidedAt(dest);
 
 				burst.setWarped(true);

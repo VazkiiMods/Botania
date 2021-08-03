@@ -12,11 +12,11 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
 
@@ -76,7 +76,7 @@ public final class ItemNBTHelper {
 	}
 
 	public static void setUuid(ItemStack stack, String tag, UUID value) {
-		stack.getOrCreateTag().putUuid(tag, value);
+		stack.getOrCreateTag().putUUID(tag, value);
 	}
 
 	public static void setList(ItemStack stack, String tag, ListTag list) {
@@ -144,7 +144,7 @@ public final class ItemNBTHelper {
 
 	@Nullable
 	public static UUID getUuid(ItemStack stack, String tag) {
-		return verifyExistance(stack, tag + "Most") && verifyExistance(stack, tag + "Least") ? stack.getOrCreateTag().getUuid(tag) : null;
+		return verifyExistance(stack, tag + "Most") && verifyExistance(stack, tag + "Least") ? stack.getOrCreateTag().getUUID(tag) : null;
 	}
 
 	public static ListTag getList(ItemStack stack, String tag, int objtype, boolean nullifyOnFail) {
@@ -156,7 +156,7 @@ public final class ItemNBTHelper {
 	 * would be able to read the result back
 	 */
 	public static JsonObject serializeStack(ItemStack stack) {
-		CompoundTag nbt = stack.toTag(new CompoundTag());
+		CompoundTag nbt = stack.save(new CompoundTag());
 		byte c = nbt.getByte("Count");
 		if (c != 1) {
 			nbt.putByte("count", c);
@@ -185,11 +185,11 @@ public final class ItemNBTHelper {
 	}
 
 	private static boolean matchTagCompound(CompoundTag template, CompoundTag target) {
-		if (template.getSize() > target.getSize()) {
+		if (template.size() > target.size()) {
 			return false;
 		}
 
-		for (String key : template.getKeys()) {
+		for (String key : template.getAllKeys()) {
 			if (!matchTag(template.get(key), target.get(key))) {
 				return false;
 			}

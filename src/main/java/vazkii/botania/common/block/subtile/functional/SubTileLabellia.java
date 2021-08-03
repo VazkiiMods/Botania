@@ -8,19 +8,19 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.Text;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -53,54 +53,54 @@ public class SubTileLabellia extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!world.isClient && redstoneSignal == 0 && getMana() >= COST) {
+		if (!level.isClientSide && redstoneSignal == 0 && getMana() >= COST) {
 			BlockPos effPos = getEffectivePos();
 			int x = effPos.getX();
 			int y = effPos.getY();
 			int z = effPos.getZ();
 
-			for (ItemEntity nameTagEnt : world.getEntitiesByClass(ItemEntity.class,
-					new Box(x - PICKUP_RANGE, y, z - PICKUP_RANGE,
+			for (ItemEntity nameTagEnt : level.getEntitiesOfClass(ItemEntity.class,
+					new AABB(x - PICKUP_RANGE, y, z - PICKUP_RANGE,
 							x + PICKUP_RANGE + 1, y + 1, z + PICKUP_RANGE + 1),
-					EntityPredicates.VALID_ENTITY)) {
-				ItemStack nameTag = nameTagEnt.getStack();
+					EntitySelector.ENTITY_STILL_ALIVE)) {
+				ItemStack nameTag = nameTagEnt.getItem();
 				int age = ((AccessorItemEntity) nameTagEnt).getAge();
 				if (age < 60 + getSlowdownFactor() || nameTag.isEmpty()) {
 					continue;
 				}
 
-				if (nameTag.getItem() == Items.NAME_TAG && nameTag.hasCustomName()) {
-					Box renameArea = new Box(x - RENAME_RANGE, y, z - RENAME_RANGE, x + RENAME_RANGE + 1, y + 1, z + RENAME_RANGE + 1);
-					Text name = nameTag.getName();
-					List<LivingEntity> nameableEntities = world.getEntitiesByClass(LivingEntity.class, renameArea,
-							EntityPredicates.VALID_ENTITY.and(e -> !name.equals(e.getCustomName()) && !(e instanceof PlayerEntity)));
+				if (nameTag.getItem() == Items.NAME_TAG && nameTag.hasCustomHoverName()) {
+					AABB renameArea = new AABB(x - RENAME_RANGE, y, z - RENAME_RANGE, x + RENAME_RANGE + 1, y + 1, z + RENAME_RANGE + 1);
+					Component name = nameTag.getHoverName();
+					List<LivingEntity> nameableEntities = level.getEntitiesOfClass(LivingEntity.class, renameArea,
+							EntitySelector.ENTITY_STILL_ALIVE.and(e -> !name.equals(e.getCustomName()) && !(e instanceof Player)));
 
-					List<ItemEntity> nameableItems = world.getEntitiesByClass(ItemEntity.class, renameArea,
+					List<ItemEntity> nameableItems = level.getEntitiesOfClass(ItemEntity.class, renameArea,
 							i -> {
 								int iAge = ((AccessorItemEntity) i).getAge();
-								return i.isAlive() && i != nameTagEnt && iAge >= 60 + getSlowdownFactor() && !name.equals(i.getStack().getName());
+								return i.isAlive() && i != nameTagEnt && iAge >= 60 + getSlowdownFactor() && !name.equals(i.getItem().getHoverName());
 							});
 
 					if (!nameableItems.isEmpty() || !nameableEntities.isEmpty()) {
 						for (LivingEntity e : nameableEntities) {
 							// [VanillaCopy] from net.minecraft.item.NameTagItem
 							e.setCustomName(name);
-							if (e instanceof MobEntity) {
-								((MobEntity) e).setPersistent();
+							if (e instanceof Mob) {
+								((Mob) e).setPersistenceRequired();
 							}
 						}
 						for (ItemEntity i : nameableItems) {
-							i.getStack().setCustomName(name);
-							i.setStack(i.getStack()); // ensure it syncs
-							((ServerWorld) world).spawnParticles(ParticleTypes.INSTANT_EFFECT,
+							i.getItem().setHoverName(name);
+							i.setItem(i.getItem()); // ensure it syncs
+							((ServerLevel) level).sendParticles(ParticleTypes.INSTANT_EFFECT,
 									i.getX(), i.getY(), i.getZ(),
 									3, 0, 0, 0, 0);
 
 						}
 						addMana(-COST);
-						nameTag.decrement(1);
-						world.playSound(null, x + 0.5, y + 0.5, z + 0.5, ModSounds.labellia,
-								SoundCategory.BLOCKS, 1, 1);
+						nameTag.shrink(1);
+						level.playSound(null, x + 0.5, y + 0.5, z + 0.5, ModSounds.labellia,
+								SoundSource.BLOCKS, 1, 1);
 						break;
 					}
 				}

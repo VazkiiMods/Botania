@@ -8,20 +8,21 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.color.world.BiomeColors;
-import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Matrix4f;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix4f;
+import com.mojang.math.Vector3f;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.api.item.IPetalApothecary;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -36,14 +37,14 @@ public class RenderTileAltar extends BlockEntityRenderer<TileAltar> {
 	}
 
 	@Override
-	public void render(@Nonnull TileAltar altar, float pticks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
-		ms.push();
+	public void render(@Nonnull TileAltar altar, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+		ms.pushPose();
 		ms.translate(0.5, 1.5, 0.5);
 
 		boolean water = altar.getFluid() == IPetalApothecary.State.WATER;
 		boolean lava = altar.getFluid() == IPetalApothecary.State.LAVA;
 		if (water || lava) {
-			ms.push();
+			ms.pushPose();
 			float s = 1F / 256F * 10F;
 			float v = 1F / 8F;
 			float w = -v * 2.5F;
@@ -51,7 +52,7 @@ public class RenderTileAltar extends BlockEntityRenderer<TileAltar> {
 			if (water) {
 				int petals = 0;
 				for (int i = 0; i < altar.inventorySize(); i++) {
-					if (!altar.getItemHandler().getStack(i).isEmpty()) {
+					if (!altar.getItemHandler().getItem(i).isEmpty()) {
 						petals++;
 					} else {
 						break;
@@ -67,7 +68,7 @@ public class RenderTileAltar extends BlockEntityRenderer<TileAltar> {
 					double ticks = (ClientTickHandler.ticksInGame + pticks) * 0.5;
 					float offsetPerPetal = 360 / petals;
 
-					ms.push();
+					ms.pushPose();
 					ms.translate(-0.05F, -0.5F, 0F);
 					ms.scale(v, v, v);
 					for (int i = 0; i < petals; i++) {
@@ -80,7 +81,7 @@ public class RenderTileAltar extends BlockEntityRenderer<TileAltar> {
 						float z = (float) (radiusZ * Math.sin(rad));
 						float y = (float) Math.cos((ticks + 50 * i) / 5F) / 10F;
 
-						ms.push();
+						ms.pushPose();
 						ms.translate(x, y, z);
 						float xRotate = (float) Math.sin(ticks * rotationModifier) / 2F;
 						float yRotate = (float) Math.max(0.6F, Math.sin(ticks * 0.1F) / 2F + 0.5F);
@@ -88,45 +89,45 @@ public class RenderTileAltar extends BlockEntityRenderer<TileAltar> {
 
 						v /= 2F;
 						ms.translate(v, v, v);
-						ms.multiply(new Vector3f(xRotate, yRotate, zRotate).getDegreesQuaternion(deg));
+						ms.mulPose(new Vector3f(xRotate, yRotate, zRotate).rotationDegrees(deg));
 						ms.translate(-v, -v, -v);
 						v *= 2F;
 
-						ItemStack stack = altar.getItemHandler().getStack(i);
-						MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.GROUND, light, overlay, ms, buffers);
-						ms.pop();
+						ItemStack stack = altar.getItemHandler().getItem(i);
+						Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND, light, overlay, ms, buffers);
+						ms.popPose();
 					}
 
-					ms.pop();
+					ms.popPose();
 				}
 			}
 
 			float alpha = lava ? 1F : 0.7F;
 
 			ms.translate(w, -0.3F, w);
-			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90));
+			ms.mulPose(Vector3f.XP.rotationDegrees(90));
 			ms.scale(s, s, s);
 
-			Sprite sprite = lava ? MinecraftClient.getInstance().getBakedModelManager().getBlockModels().getModel(Blocks.LAVA.getDefaultState()).getSprite()
-					: MinecraftClient.getInstance().getBakedModelManager().getBlockModels().getModel(Blocks.WATER.getDefaultState()).getSprite();
+			TextureAtlasSprite sprite = lava ? Minecraft.getInstance().getModelManager().getBlockModelShaper().getBlockModel(Blocks.LAVA.defaultBlockState()).getParticleIcon()
+					: Minecraft.getInstance().getModelManager().getBlockModelShaper().getBlockModel(Blocks.WATER.defaultBlockState()).getParticleIcon();
 			int color = lava ? -1
-					: BiomeColors.getWaterColor(altar.getWorld(), altar.getPos());
-			VertexConsumer buffer = buffers.getBuffer(TexturedRenderLayers.getEntityTranslucentCull());
+					: BiomeColors.getAverageWaterColor(altar.getLevel(), altar.getBlockPos());
+			VertexConsumer buffer = buffers.getBuffer(Sheets.translucentCullBlockSheet());
 			renderIcon(ms, buffer, sprite, color, alpha, overlay, lava ? 0xF000F0 : light);
-			ms.pop();
+			ms.popPose();
 		}
-		ms.pop();
+		ms.popPose();
 	}
 
-	private void renderIcon(MatrixStack ms, VertexConsumer builder, Sprite sprite, int color, float alpha, int overlay, int light) {
+	private void renderIcon(PoseStack ms, VertexConsumer builder, TextureAtlasSprite sprite, int color, float alpha, int overlay, int light) {
 		int red = ((color >> 16) & 0xFF);
 		int green = ((color >> 8) & 0xFF);
 		int blue = (color & 0xFF);
-		Matrix4f mat = ms.peek().getModel();
-		builder.vertex(mat, 0, 16, 0).color(red, green, blue, (int) (alpha * 255F)).texture(sprite.getMinU(), sprite.getMaxV()).overlay(overlay).light(light).normal(0, 0, 1).next();
-		builder.vertex(mat, 16, 16, 0).color(red, green, blue, (int) (alpha * 255F)).texture(sprite.getMaxU(), sprite.getMaxV()).overlay(overlay).light(light).normal(0, 0, 1).next();
-		builder.vertex(mat, 16, 0, 0).color(red, green, blue, (int) (alpha * 255F)).texture(sprite.getMaxU(), sprite.getMinV()).overlay(overlay).light(light).normal(0, 0, 1).next();
-		builder.vertex(mat, 0, 0, 0).color(red, green, blue, (int) (alpha * 255F)).texture(sprite.getMinU(), sprite.getMinV()).overlay(overlay).light(light).normal(0, 0, 1).next();
+		Matrix4f mat = ms.last().pose();
+		builder.vertex(mat, 0, 16, 0).color(red, green, blue, (int) (alpha * 255F)).uv(sprite.getU0(), sprite.getV1()).overlayCoords(overlay).uv2(light).normal(0, 0, 1).endVertex();
+		builder.vertex(mat, 16, 16, 0).color(red, green, blue, (int) (alpha * 255F)).uv(sprite.getU1(), sprite.getV1()).overlayCoords(overlay).uv2(light).normal(0, 0, 1).endVertex();
+		builder.vertex(mat, 16, 0, 0).color(red, green, blue, (int) (alpha * 255F)).uv(sprite.getU1(), sprite.getV0()).overlayCoords(overlay).uv2(light).normal(0, 0, 1).endVertex();
+		builder.vertex(mat, 0, 0, 0).color(red, green, blue, (int) (alpha * 255F)).uv(sprite.getU0(), sprite.getV0()).overlayCoords(overlay).uv2(light).normal(0, 0, 1).endVertex();
 	}
 
 }

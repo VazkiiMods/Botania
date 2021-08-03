@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.core.handler;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.ModEntities;
@@ -23,15 +23,15 @@ public final class SleepingHandler {
 	private SleepingHandler() {}
 
 	@Nullable
-	public static PlayerEntity.SleepFailureReason trySleep(PlayerEntity player) {
-		World world = player.world;
-		if (!world.isClient()) {
-			boolean nearGuardian = ((ServerWorld) world).getEntitiesByType(ModEntities.DOPPLEGANGER, EntityPredicates.VALID_ENTITY)
+	public static Player.BedSleepingProblem trySleep(Player player) {
+		Level world = player.level;
+		if (!world.isClientSide()) {
+			boolean nearGuardian = ((ServerLevel) world).getEntities(ModEntities.DOPPLEGANGER, EntitySelector.ENTITY_STILL_ALIVE)
 					.stream()
 					.anyMatch(e -> ((EntityDoppleganger) e).getPlayersAround().contains(player));
 
 			if (nearGuardian) {
-				return PlayerEntity.SleepFailureReason.NOT_SAFE;
+				return Player.BedSleepingProblem.NOT_SAFE;
 			}
 		}
 		return null;

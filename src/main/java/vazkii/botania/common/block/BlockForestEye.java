@@ -8,47 +8,47 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.common.block.tile.TileForestEye;
 
 import javax.annotation.Nonnull;
 
-public class BlockForestEye extends BlockModWaterloggable implements BlockEntityProvider {
+public class BlockForestEye extends BlockModWaterloggable implements EntityBlock {
 
-	private static final VoxelShape SHAPE = createCuboidShape(4, 4, 4, 12, 12, 12);
+	private static final VoxelShape SHAPE = box(4, 4, 4, 12, 12, 12);
 
-	public BlockForestEye(Settings builder) {
+	public BlockForestEye(Properties builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
 	@Override
-	public boolean hasComparatorOutput(BlockState state) {
+	public boolean hasAnalogOutputSignal(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
 		TileForestEye eye = (TileForestEye) world.getBlockEntity(pos);
 		return eye == null ? 0 : Math.min(15, Math.max(0, eye.entities - 1));
 	}
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileForestEye();
 	}
 

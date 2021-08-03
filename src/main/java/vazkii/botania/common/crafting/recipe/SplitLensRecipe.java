@@ -8,38 +8,38 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.SpecialCraftingRecipe;
-import net.minecraft.recipe.SpecialRecipeSerializer;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.mana.ILens;
 
 import javax.annotation.Nonnull;
 
-public class SplitLensRecipe extends SpecialCraftingRecipe {
-	public static final SpecialRecipeSerializer<SplitLensRecipe> SERIALIZER = new SpecialRecipeSerializer<>(SplitLensRecipe::new);
+public class SplitLensRecipe extends CustomRecipe {
+	public static final SimpleRecipeSerializer<SplitLensRecipe> SERIALIZER = new SimpleRecipeSerializer<>(SplitLensRecipe::new);
 
-	public SplitLensRecipe(Identifier idIn) {
+	public SplitLensRecipe(ResourceLocation idIn) {
 		super(idIn);
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingInventory inv, @Nonnull World worldIn) {
-		return !craft(inv).isEmpty();
+	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level worldIn) {
+		return !assemble(inv).isEmpty();
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack craft(CraftingInventory inv) {
+	public ItemStack assemble(CraftingContainer inv) {
 		ItemStack found = ItemStack.EMPTY;
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack candidate = inv.getStack(i);
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack candidate = inv.getItem(i);
 			if (candidate.isEmpty()) {
 				continue;
 			}
@@ -60,10 +60,10 @@ public class SplitLensRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public DefaultedList<ItemStack> getRemainingStacks(CraftingInventory inv) {
-		DefaultedList<ItemStack> remaining = DefaultedList.ofSize(inv.size(), ItemStack.EMPTY);
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack candidate = inv.getStack(i);
+	public NonNullList<ItemStack> getRemainingItems(CraftingContainer inv) {
+		NonNullList<ItemStack> remaining = NonNullList.withSize(inv.getContainerSize(), ItemStack.EMPTY);
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack candidate = inv.getItem(i);
 			if (candidate.getItem() instanceof ILens) {
 				ItemStack newLens = candidate.copy();
 				ILens lens = (ILens) candidate.getItem();
@@ -75,7 +75,7 @@ public class SplitLensRecipe extends SpecialCraftingRecipe {
 	}
 
 	@Override
-	public boolean fits(int width, int height) {
+	public boolean canCraftInDimensions(int width, int height) {
 		return width * height >= 1;
 	}
 

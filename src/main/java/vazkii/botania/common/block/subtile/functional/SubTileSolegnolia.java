@@ -10,8 +10,8 @@ package vazkii.botania.common.block.subtile.functional;
 
 import com.google.common.collect.MapMaker;
 
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -44,8 +44,8 @@ public class SubTileSolegnolia extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public void markRemoved() {
-		super.markRemoved();
+	public void setRemoved() {
+		super.setRemoved();
 		existingFlowers.remove(this);
 	}
 
@@ -57,8 +57,8 @@ public class SubTileSolegnolia extends TileEntityFunctionalFlower {
 	public static boolean hasSolegnoliaAround(Entity e) {
 		return existingFlowers.stream()
 				.filter(f -> f.redstoneSignal == 0)
-				.filter(f -> f.getWorld() == e.world)
-				.anyMatch(f -> f.getEffectivePos().getSquaredDistance(e.getX(), e.getY(), e.getZ(), true) <= f.getRange() * f.getRange());
+				.filter(f -> f.getLevel() == e.level)
+				.anyMatch(f -> f.getEffectivePos().distSqr(e.getX(), e.getY(), e.getZ(), true) <= f.getRange() * f.getRange());
 	}
 
 	@Override

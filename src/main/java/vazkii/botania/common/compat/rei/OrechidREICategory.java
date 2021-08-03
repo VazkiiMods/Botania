@@ -10,10 +10,10 @@ package vazkii.botania.common.compat.rei;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Block;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -33,18 +33,18 @@ import me.shedaniel.rei.gui.widget.Widget;
 @Environment(EnvType.CLIENT)
 public class OrechidREICategory implements RecipeCategory<OrechidBaseREIDisplay> {
 	private EntryStack orechid;
-	private Identifier ID;
+	private ResourceLocation ID;
 	private boolean isIgnem;
-	private Identifier OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
+	private ResourceLocation OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
 
 	public OrechidREICategory(Block orechid) {
 		this.orechid = EntryStack.create(orechid);
-		this.ID = Registry.BLOCK.getId(orechid);
+		this.ID = Registry.BLOCK.getKey(orechid);
 		this.isIgnem = orechid == ModSubtiles.orechidIgnem;
 	}
 
 	@Override
-	public @NotNull Identifier getIdentifier() {
+	public @NotNull ResourceLocation getIdentifier() {
 		return ID;
 	}
 
@@ -55,7 +55,7 @@ public class OrechidREICategory implements RecipeCategory<OrechidBaseREIDisplay>
 
 	@Override
 	public @NotNull String getCategoryName() {
-		return I18n.translate(isIgnem ? "botania.nei.orechidIgnem" : "botania.nei.orechid");
+		return I18n.get(isIgnem ? "botania.nei.orechidIgnem" : "botania.nei.orechid");
 	}
 
 	@Override

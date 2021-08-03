@@ -8,21 +8,26 @@
  */
 package vazkii.botania.api;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.*;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 
 import org.apache.logging.log4j.LogManager;
 
@@ -45,7 +50,7 @@ public interface BotaniaAPI {
 	String MODID = "botania";
 	String GOG_MODID = "gardenofglass";
 
-	Lazy<BotaniaAPI> INSTANCE = new Lazy<>(() -> {
+	LazyLoadedValue<BotaniaAPI> INSTANCE = new LazyLoadedValue<>(() -> {
 		try {
 			return (BotaniaAPI) Class.forName("vazkii.botania.common.impl.BotaniaAPIImpl").newInstance();
 		} catch (ReflectiveOperationException e) {
@@ -92,7 +97,7 @@ public interface BotaniaAPI {
 	 * @deprecated Use {@link #getOrechidWeights()}
 	 */
 	@Deprecated
-	default Map<Identifier, Integer> getOreWeights() {
+	default Map<ResourceLocation, Integer> getOreWeights() {
 		return Collections.emptyMap();
 	}
 
@@ -100,7 +105,7 @@ public interface BotaniaAPI {
 	 * @deprecated Use {@link #getNetherOrechidWeights()}
 	 */
 	@Deprecated
-	default Map<Identifier, Integer> getNetherOreWeights() {
+	default Map<ResourceLocation, Integer> getNetherOreWeights() {
 		return Collections.emptyMap();
 	}
 
@@ -113,7 +118,7 @@ public interface BotaniaAPI {
 	 * @deprecated Use the orechid weight JSON to provide weights.
 	 */
 	@Deprecated
-	default void registerOreWeight(Identifier tag, int weight) {
+	default void registerOreWeight(ResourceLocation tag, int weight) {
 
 	}
 
@@ -125,16 +130,16 @@ public interface BotaniaAPI {
 	 * @deprecated Use the orechid weight JSON to provide weights.
 	 */
 	@Deprecated
-	default void registerNetherOreWeight(Identifier tag, int weight) {
+	default void registerNetherOreWeight(ResourceLocation tag, int weight) {
 
 	}
 
-	default Map<Identifier, Function<DyeColor, Block>> getPaintableBlocks() {
+	default Map<ResourceLocation, Function<DyeColor, Block>> getPaintableBlocks() {
 		return Collections.emptyMap();
 	}
 
 	default void registerPaintableBlock(Block block, Function<DyeColor, Block> transformer) {
-		registerPaintableBlock(Registry.BLOCK.getId(block), transformer);
+		registerPaintableBlock(Registry.BLOCK.getKey(block), transformer);
 	}
 
 	/**
@@ -144,7 +149,7 @@ public interface BotaniaAPI {
 	 * @param blockId     The block ID
 	 * @param transformer Function from color to a new block
 	 */
-	default void registerPaintableBlock(Identifier blockId, Function<DyeColor, Block> transformer) {
+	default void registerPaintableBlock(ResourceLocation blockId, Function<DyeColor, Block> transformer) {
 
 	}
 
@@ -158,30 +163,30 @@ public interface BotaniaAPI {
 	 * @param blockId     The block ID
 	 * @param harvestable The harvestable
 	 */
-	default void registerHornHarvestableBlock(Identifier blockId, IHornHarvestable harvestable) {
+	default void registerHornHarvestableBlock(ResourceLocation blockId, IHornHarvestable harvestable) {
 
 	}
 
 	ArmorMaterial DUMMY_ARMOR_MATERIAL = new ArmorMaterial() {
 		@Override
-		public int getDurability(@Nonnull EquipmentSlot slot) {
+		public int getDurabilityForSlot(@Nonnull EquipmentSlot slot) {
 			return 0;
 		}
 
 		@Override
-		public int getProtectionAmount(@Nonnull EquipmentSlot slot) {
+		public int getDefenseForSlot(@Nonnull EquipmentSlot slot) {
 			return 0;
 		}
 
 		@Override
-		public int getEnchantability() {
+		public int getEnchantmentValue() {
 			return 0;
 		}
 
 		@Nonnull
 		@Override
 		public SoundEvent getEquipSound() {
-			return SoundEvents.ITEM_ARMOR_EQUIP_LEATHER;
+			return SoundEvents.ARMOR_EQUIP_LEATHER;
 		}
 
 		@Nonnull
@@ -206,29 +211,29 @@ public interface BotaniaAPI {
 		}
 	};
 
-	ToolMaterial DUMMY_ITEM_TIER = new ToolMaterial() {
+	Tier DUMMY_ITEM_TIER = new Tier() {
 		@Override
-		public int getDurability() {
+		public int getUses() {
 			return 0;
 		}
 
 		@Override
-		public float getMiningSpeedMultiplier() {
+		public float getSpeed() {
 			return 0;
 		}
 
 		@Override
-		public float getAttackDamage() {
+		public float getAttackDamageBonus() {
 			return 0;
 		}
 
 		@Override
-		public int getMiningLevel() {
+		public int getLevel() {
 			return 0;
 		}
 
 		@Override
-		public int getEnchantability() {
+		public int getEnchantmentValue() {
 			return 0;
 		}
 
@@ -255,15 +260,15 @@ public interface BotaniaAPI {
 		return DUMMY_ARMOR_MATERIAL;
 	}
 
-	default ToolMaterial getManasteelItemTier() {
+	default Tier getManasteelItemTier() {
 		return DUMMY_ITEM_TIER;
 	}
 
-	default ToolMaterial getElementiumItemTier() {
+	default Tier getElementiumItemTier() {
 		return DUMMY_ITEM_TIER;
 	}
 
-	default ToolMaterial getTerrasteelItemTier() {
+	default Tier getTerrasteelItemTier() {
 		return DUMMY_ITEM_TIER;
 	}
 
@@ -282,21 +287,21 @@ public interface BotaniaAPI {
 		return 0;
 	}
 
-	default Inventory getAccessoriesInventory(PlayerEntity player) {
-		return new SimpleInventory(0);
+	default Container getAccessoriesInventory(Player player) {
+		return new SimpleContainer(0);
 	}
 
 	/**
 	 * Break all the blocks the given player has selected with the loki ring.
 	 * The item passed must implement {@link vazkii.botania.api.item.ISequentialBreaker}.
 	 */
-	default void breakOnAllCursors(PlayerEntity player, ItemStack stack, BlockPos pos, Direction side) {}
+	default void breakOnAllCursors(Player player, ItemStack stack, BlockPos pos, Direction side) {}
 
 	default boolean hasSolegnoliaAround(Entity e) {
 		return false;
 	}
 
-	default void sparkleFX(World world, double x, double y, double z, float r, float g, float b, float size, int m) {}
+	default void sparkleFX(Level world, double x, double y, double z, float r, float g, float b, float size, int m) {}
 
 	/**
 	 * See config value "flower.forceCheck" for more information

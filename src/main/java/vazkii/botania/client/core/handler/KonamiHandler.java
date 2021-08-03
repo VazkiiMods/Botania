@@ -9,13 +9,13 @@
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.sound.PositionedSoundInstance;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.resources.ResourceLocation;
 
 import org.lwjgl.glfw.GLFW;
 
@@ -33,7 +33,7 @@ public class KonamiHandler {
 	private static int nextLetter = 0;
 	private static int konamiTime = 0;
 
-	public static void clientTick(MinecraftClient client) {
+	public static void clientTick(Minecraft client) {
 		if (konamiTime > 0) {
 			konamiTime--;
 		}
@@ -44,12 +44,12 @@ public class KonamiHandler {
 	}
 
 	public static void handleInput(int key, int action, int modifiers) {
-		MinecraftClient mc = MinecraftClient.getInstance();
+		Minecraft mc = Minecraft.getInstance();
 		if (modifiers == 0 && action == GLFW.GLFW_PRESS && ItemLexicon.isOpen()) {
 			if (konamiTime == 0 && key == KONAMI_CODE[nextLetter]) {
 				nextLetter++;
 				if (nextLetter >= KONAMI_CODE.length) {
-					mc.getSoundManager().play(PositionedSoundInstance.master(ModSounds.way, 1.0F));
+					mc.getSoundManager().play(SimpleSoundInstance.forUI(ModSounds.way, 1.0F));
 					nextLetter = 0;
 					konamiTime = 240;
 				}
@@ -59,20 +59,20 @@ public class KonamiHandler {
 		}
 	}
 
-	public static void renderBook(Identifier book, Screen gui, int mouseX, int mouseY, float partialTicks, MatrixStack ms) {
+	public static void renderBook(ResourceLocation book, Screen gui, int mouseX, int mouseY, float partialTicks, PoseStack ms) {
 		if (konamiTime > 0) {
-			String meme = I18n.translate("botania.subtitle.way");
+			String meme = I18n.get("botania.subtitle.way");
 			RenderSystem.disableDepthTest();
-			ms.push();
-			int fullWidth = MinecraftClient.getInstance().textRenderer.getWidth(meme);
+			ms.pushPose();
+			int fullWidth = Minecraft.getInstance().font.width(meme);
 			int left = gui.width;
 			double widthPerTick = (fullWidth + gui.width) / 240;
 			double currWidth = left - widthPerTick * (240 - (konamiTime - partialTicks)) * 3.2;
 
 			ms.translate(currWidth, gui.height / 2 - 10, 0);
 			ms.scale(4, 4, 4);
-			MinecraftClient.getInstance().textRenderer.drawWithShadow(ms, meme, 0, 0, 0xFFFFFF);
-			ms.pop();
+			Minecraft.getInstance().font.drawShadow(ms, meme, 0, 0, 0xFFFFFF);
+			ms.popPose();
 			RenderSystem.enableDepthTest();
 		}
 	}

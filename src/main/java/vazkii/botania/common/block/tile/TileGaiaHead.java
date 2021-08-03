@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.SkullBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.SkullBlockEntity;
 
 import javax.annotation.Nonnull;
 

@@ -10,9 +10,9 @@ package vazkii.botania.client.core.handler;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.client.render.tile.RenderTileRedString;
@@ -43,11 +43,11 @@ public final class ClientTickHandler {
 		partialTicks = renderTickTime;
 	}
 
-	public static void clientTickEnd(MinecraftClient mc) {
+	public static void clientTickEnd(Minecraft mc) {
 		RenderTileRedString.tick();
 		ItemsRemainingRenderHandler.tick();
 
-		if (MinecraftClient.getInstance().world == null) {
+		if (Minecraft.getInstance().level == null) {
 			ManaNetworkHandler.instance.clear();
 			SubTileVinculotus.existingFlowers.clear();
 		}
@@ -56,10 +56,10 @@ public final class ClientTickHandler {
 			ticksInGame++;
 			partialTicks = 0;
 
-			PlayerEntity player = mc.player;
+			Player player = mc.player;
 			if (player != null) {
 				if (PlayerHelper.hasHeldItemClass(player, ModItems.twigWand)) {
-					for (BlockEntity tile : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(MinecraftClient.getInstance().world))) {
+					for (BlockEntity tile : ImmutableList.copyOf(ManaNetworkHandler.instance.getAllCollectorsInWorld(Minecraft.getInstance().level))) {
 						if (tile instanceof IManaCollector) {
 							((IManaCollector) tile).onClientDisplayTick();
 						}

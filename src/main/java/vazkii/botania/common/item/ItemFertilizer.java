@@ -8,12 +8,12 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModBlocks;
@@ -25,25 +25,25 @@ import java.util.List;
 
 public class ItemFertilizer extends Item {
 
-	public ItemFertilizer(Settings props) {
+	public ItemFertilizer(Properties props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		World world = ctx.getWorld();
-		BlockPos pos = ctx.getBlockPos();
+	public InteractionResult useOn(UseOnContext ctx) {
+		Level world = ctx.getLevel();
+		BlockPos pos = ctx.getClickedPos();
 		final int range = 3;
-		if (!world.isClient) {
+		if (!world.isClientSide) {
 			List<BlockPos> validCoords = new ArrayList<>();
 
 			for (int i = -range - 1; i < range; i++) {
 				for (int j = -range - 1; j < range; j++) {
 					for (int k = 2; k >= -2; k--) {
-						BlockPos pos_ = pos.add(i + 1, k + 1, j + 1);
-						if (world.isAir(pos_) && (!world.getDimension().isUltrawarm() || pos_.getY() < 255)
-								&& ModBlocks.whiteFlower.getDefaultState().canPlaceAt(world, pos_)) {
+						BlockPos pos_ = pos.offset(i + 1, k + 1, j + 1);
+						if (world.isEmptyBlock(pos_) && (!world.dimensionType().ultraWarm() || pos_.getY() < 255)
+								&& ModBlocks.whiteFlower.defaultBlockState().canSurvive(world, pos_)) {
 							validCoords.add(pos_);
 						}
 					}
@@ -54,9 +54,9 @@ public class ItemFertilizer extends Item {
 			for (int i = 0; i < flowerCount; i++) {
 				BlockPos coords = validCoords.get(world.random.nextInt(validCoords.size()));
 				validCoords.remove(coords);
-				world.setBlockState(coords, ModBlocks.getFlower(DyeColor.byId(world.random.nextInt(16))).getDefaultState());
+				world.setBlockAndUpdate(coords, ModBlocks.getFlower(DyeColor.byId(world.random.nextInt(16))).defaultBlockState());
 			}
-			ctx.getStack().decrement(1);
+			ctx.getItemInHand().shrink(1);
 		} else {
 			for (int i = 0; i < 15; i++) {
 				double x = pos.getX() - range + world.random.nextInt(range * 2 + 1) + Math.random();
@@ -70,6 +70,6 @@ public class ItemFertilizer extends Item {
 			}
 		}
 
-		return ActionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 }

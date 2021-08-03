@@ -10,17 +10,17 @@ package vazkii.botania.common.item;
 
 import com.google.common.collect.ImmutableMap;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.item.IFloatingFlower.IslandType;
 import vazkii.botania.client.fx.WispParticleData;
@@ -35,7 +35,7 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 	 * Represents a map of dimension IDs to a set of all block swappers
 	 * active in that dimension.
 	 */
-	private static final Map<RegistryKey<World>, Set<BlockSwapper>> blockSwappers = new HashMap<>();
+	private static final Map<ResourceKey<Level>, Set<BlockSwapper>> blockSwappers = new HashMap<>();
 	private static final Map<IslandType, float[]> COLORS = ImmutableMap.<IslandType, float[]>builder()
 			.put(IslandType.GRASS, new float[] { 0F, 0.4F, 0F })
 			.put(IslandType.PODZOL, new float[] { 0.5F, 0.37F, 0F })
@@ -50,24 +50,24 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 
 	private final IslandType type;
 
-	public ItemGrassSeeds(IslandType type, Settings props) {
+	public ItemGrassSeeds(IslandType type, Properties props) {
 		super(props);
 		this.type = type;
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		World world = ctx.getWorld();
-		BlockPos pos = ctx.getBlockPos();
+	public InteractionResult useOn(UseOnContext ctx) {
+		Level world = ctx.getLevel();
+		BlockPos pos = ctx.getClickedPos();
 		BlockState state = world.getBlockState(pos);
-		ItemStack stack = ctx.getStack();
+		ItemStack stack = ctx.getItemInHand();
 
 		if (state.getBlock() == Blocks.DIRT || state.getBlock() == Blocks.GRASS_BLOCK && type != IslandType.GRASS) {
-			if (!world.isClient) {
+			if (!world.isClientSide) {
 				BlockSwapper swapper = addBlockSwapper(world, pos, type);
-				world.setBlockState(pos, swapper.stateToSet);
-				stack.decrement(1);
+				world.setBlockAndUpdate(pos, swapper.stateToSet);
+				stack.shrink(1);
 			} else {
 				float r = 0F;
 				float g = 0.4F;
@@ -94,14 +94,14 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 				}
 			}
 
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
-	public static void onTickEnd(ServerWorld world) {
-		RegistryKey<World> dim = world.getRegistryKey();
+	public static void onTickEnd(ServerLevel world) {
+		ResourceKey<Level> dim = world.dimension();
 		if (blockSwappers.containsKey(dim)) {
 			blockSwappers.get(dim).removeIf(next -> next == null || !next.tick());
 		}
@@ -120,10 +120,10 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 	 * @param type  The IslandType of the grass seed
 	 * @return The created block swapper.
 	 */
-	private static BlockSwapper addBlockSwapper(World world, BlockPos pos, IslandType type) {
+	private static BlockSwapper addBlockSwapper(Level world, BlockPos pos, IslandType type) {
 		BlockSwapper swapper = new BlockSwapper(world, pos, stateForType(type));
 
-		RegistryKey<World> dim = world.getRegistryKey();
+		ResourceKey<Level> dim = world.dimension();
 		blockSwappers.computeIfAbsent(dim, d -> new HashSet<>()).add(swapper);
 
 		return swapper;
@@ -131,23 +131,23 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 
 	private static BlockState stateForType(IslandType type) {
 		if (type == IslandType.PODZOL) {
-			return Blocks.PODZOL.getDefaultState();
+			return Blocks.PODZOL.defaultBlockState();
 		} else if (type == IslandType.MYCEL) {
-			return Blocks.MYCELIUM.getDefaultState();
+			return Blocks.MYCELIUM.defaultBlockState();
 		} else if (type == IslandType.DRY) {
-			return ModBlocks.dryGrass.getDefaultState();
+			return ModBlocks.dryGrass.defaultBlockState();
 		} else if (type == IslandType.GOLDEN) {
-			return ModBlocks.goldenGrass.getDefaultState();
+			return ModBlocks.goldenGrass.defaultBlockState();
 		} else if (type == IslandType.VIVID) {
-			return ModBlocks.vividGrass.getDefaultState();
+			return ModBlocks.vividGrass.defaultBlockState();
 		} else if (type == IslandType.SCORCHED) {
-			return ModBlocks.scorchedGrass.getDefaultState();
+			return ModBlocks.scorchedGrass.defaultBlockState();
 		} else if (type == IslandType.INFUSED) {
-			return ModBlocks.infusedGrass.getDefaultState();
+			return ModBlocks.infusedGrass.defaultBlockState();
 		} else if (type == IslandType.MUTATED) {
-			return ModBlocks.mutatedGrass.getDefaultState();
+			return ModBlocks.mutatedGrass.defaultBlockState();
 		} else {
-			return Blocks.GRASS_BLOCK.getDefaultState();
+			return Blocks.GRASS_BLOCK.defaultBlockState();
 		}
 	}
 
@@ -167,7 +167,7 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 		 */
 		public static final int TICK_RANGE = 1;
 
-		private final World world;
+		private final Level world;
 		private final Random rand;
 		private final BlockState stateToSet;
 
@@ -182,7 +182,7 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 		 * @param coords The central coordinates to swap blocks around.
 		 * @param state  The target blockstate to swap dirt and grass to.
 		 */
-		public BlockSwapper(World world, BlockPos coords, BlockState state) {
+		public BlockSwapper(Level world, BlockPos coords, BlockState state) {
 			this.world = world;
 			stateToSet = state;
 			rand = new Random(coords.hashCode());
@@ -199,8 +199,8 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 		 */
 		public boolean tick() {
 			if (++ticksExisted % 20 == 0) {
-				for (BlockPos pos : BlockPos.iterate(startCoords.add(-RANGE, 0, -RANGE),
-						startCoords.add(RANGE, 0, RANGE))) {
+				for (BlockPos pos : BlockPos.betweenClosed(startCoords.offset(-RANGE, 0, -RANGE),
+						startCoords.offset(RANGE, 0, RANGE))) {
 					if (world.getBlockState(pos) == stateToSet) {
 						tickBlock(pos);
 					}
@@ -228,8 +228,8 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 						continue;
 					}
 
-					if (isValidSwapPosition(pos.add(xOffset, 0, zOffset))) {
-						validCoords.add(pos.add(xOffset, 0, zOffset));
+					if (isValidSwapPosition(pos.offset(xOffset, 0, zOffset))) {
+						validCoords.add(pos.offset(xOffset, 0, zOffset));
 					}
 				}
 			}
@@ -239,7 +239,7 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 			if (!validCoords.isEmpty()) {
 				BlockPos toSwap = validCoords.get(rand.nextInt(validCoords.size()));
 
-				world.setBlockState(toSwap, stateToSet);
+				world.setBlockAndUpdate(toSwap, stateToSet);
 			}
 		}
 
@@ -263,7 +263,7 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 			// levels by 2 or more blocks grass growth.
 
 			return (block == Blocks.DIRT || block == Blocks.GRASS_BLOCK)
-					&& world.getBlockState(pos.up()).getOpacity(world, pos.up()) <= 1;
+					&& world.getBlockState(pos.above()).getLightBlock(world, pos.above()) <= 1;
 		}
 	}
 

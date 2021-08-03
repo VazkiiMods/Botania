@@ -8,34 +8,34 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import net.minecraft.block.entity.BannerPattern;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.DyeItem;
-import net.minecraft.item.ItemStack;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.SpecialCraftingRecipe;
-import net.minecraft.recipe.SpecialRecipeSerializer;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BannerPattern;
 
 import vazkii.botania.common.block.ModBanners;
 
 import javax.annotation.Nonnull;
 
 // Workaround recipe for the loom hardcoding problem.
-public class BannerRecipe extends SpecialCraftingRecipe {
-	public static SpecialRecipeSerializer<BannerRecipe> SERIALIZER = new SpecialRecipeSerializer<>(BannerRecipe::new);
+public class BannerRecipe extends CustomRecipe {
+	public static SimpleRecipeSerializer<BannerRecipe> SERIALIZER = new SimpleRecipeSerializer<>(BannerRecipe::new);
 
-	public BannerRecipe(Identifier id) {
+	public BannerRecipe(ResourceLocation id) {
 		super(id);
 	}
 
 	@Override
-	public boolean matches(CraftingInventory inv, @Nonnull World world) {
+	public boolean matches(CraftingContainer inv, @Nonnull Level world) {
 		return false;
 		/* todo 1.16-fabric
 		boolean foundBanner = false;
@@ -64,7 +64,7 @@ public class BannerRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack craft(@Nonnull CraftingInventory inv) {
+	public ItemStack assemble(@Nonnull CraftingContainer inv) {
 		ItemStack banner = ItemStack.EMPTY;
 		ItemStack dye = ItemStack.EMPTY;
 		BannerPattern pattern = null;
@@ -88,7 +88,7 @@ public class BannerRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public DefaultedList<ItemStack> getRemainingStacks(@Nonnull CraftingInventory inv) {
+	public NonNullList<ItemStack> getRemainingItems(@Nonnull CraftingContainer inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
 			if (ModBanners.PATTERNS.containsKey(s.getItem())) {
 				ItemStack stack = s.copy();
@@ -110,8 +110,8 @@ public class BannerRecipe extends SpecialCraftingRecipe {
 			itemstack2 = itemstack.copy();
 			itemstack2.setCount(1);
 			BannerPattern bannerpattern = pattern; // Replace the pattern with provided one
-			DyeColor dyecolor = ((DyeItem) itemstack1.getItem()).getColor();
-			CompoundTag compoundnbt = itemstack2.getOrCreateSubTag("BlockEntityTag");
+			DyeColor dyecolor = ((DyeItem) itemstack1.getItem()).getDyeColor();
+			CompoundTag compoundnbt = itemstack2.getOrCreateTagElement("BlockEntityTag");
 			ListTag listnbt;
 			if (compoundnbt.contains("Patterns", 9)) {
 				listnbt = compoundnbt.getList("Patterns", 10);
@@ -121,7 +121,7 @@ public class BannerRecipe extends SpecialCraftingRecipe {
 			}
 
 			CompoundTag compoundnbt1 = new CompoundTag();
-			compoundnbt1.putString("Pattern", bannerpattern.getId());
+			compoundnbt1.putString("Pattern", bannerpattern.getHashname());
 			compoundnbt1.putInt("Color", dyecolor.getId());
 			listnbt.add(compoundnbt1);
 		}
@@ -129,7 +129,7 @@ public class BannerRecipe extends SpecialCraftingRecipe {
 	}
 
 	@Override
-	public boolean fits(int width, int height) {
+	public boolean canCraftInDimensions(int width, int height) {
 		return true;
 	}
 

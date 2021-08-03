@@ -12,11 +12,11 @@ import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockRenderView;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.block.ModBlocks;
@@ -36,9 +36,9 @@ public class PlatformModel extends ForwardingBakedModel {
 	}
 
 	@Override
-	public void emitBlockQuads(BlockRenderView blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
+	public void emitBlockQuads(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
 		if (!(state.getBlock() instanceof BlockPlatform)) {
-			context.fallbackConsumer().accept(MinecraftClient.getInstance().getBlockRenderManager().getModels().getModelManager().getMissingModel());
+			context.fallbackConsumer().accept(Minecraft.getInstance().getBlockRenderer().getBlockModelShaper().getModelManager().getMissingModel());
 			return;
 		}
 
@@ -56,7 +56,7 @@ public class PlatformModel extends ForwardingBakedModel {
 					return;
 				}
 
-				BakedModel model = MinecraftClient.getInstance().getBlockRenderManager().getModels().getModel(heldState);
+				BakedModel model = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper().getBlockModel(heldState);
 				if (model instanceof FabricBakedModel) {
 					// Steal camo's model
 					((FabricBakedModel) model).emitBlockQuads(blockView, heldState, heldPos, randomSupplier, context);

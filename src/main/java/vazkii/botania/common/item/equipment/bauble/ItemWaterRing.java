@@ -8,12 +8,12 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -24,25 +24,25 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 
 	private static final int COST = 3;
 
-	public ItemWaterRing(Settings props) {
+	public ItemWaterRing(Properties props) {
 		super(props);
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity living) {
-		if (living.isInsideWaterOrBubbleColumn()) {
+		if (living.isInWaterOrBubble()) {
 			// only activate for one ring at a time
 			ItemStack result = EquipmentHandler.findOrEmpty(ModItems.waterRing, living);
 			if (result != stack) {
 				return;
 			}
 
-			if (!living.world.isClient) {
-				if (living instanceof PlayerEntity && !ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) living, COST, true)) {
+			if (!living.level.isClientSide) {
+				if (living instanceof Player && !ManaItemHandler.instance().requestManaExact(stack, (Player) living, COST, true)) {
 					onUnequipped(stack, living);
 				} else {
-					addEffect(living, StatusEffects.CONDUIT_POWER);
-					addEffect(living, StatusEffects.DOLPHINS_GRACE);
+					addEffect(living, MobEffects.CONDUIT_POWER);
+					addEffect(living, MobEffects.DOLPHINS_GRACE);
 				}
 			}
 		} else {
@@ -50,11 +50,11 @@ public class ItemWaterRing extends ItemBauble implements IManaUsingItem {
 		}
 	}
 
-	private static void addEffect(LivingEntity living, StatusEffect effect) {
-		StatusEffectInstance inst = living.getStatusEffect(effect);
+	private static void addEffect(LivingEntity living, MobEffect effect) {
+		MobEffectInstance inst = living.getEffect(effect);
 		if (inst == null || (inst.getAmplifier() == 0 && inst.getDuration() == 1)) {
-			StatusEffectInstance neweffect = new StatusEffectInstance(effect, 100, 0, true, true);
-			living.addStatusEffect(neweffect);
+			MobEffectInstance neweffect = new MobEffectInstance(effect, 100, 0, true, true);
+			living.addEffect(neweffect);
 		}
 	}
 

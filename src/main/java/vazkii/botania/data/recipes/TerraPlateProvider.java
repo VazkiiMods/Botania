@@ -12,11 +12,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import vazkii.botania.common.block.tile.mana.TilePool;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -40,23 +39,23 @@ public class TerraPlateProvider extends BotaniaRecipeProvider {
 	}
 
 	@Override
-	public void registerRecipes(Consumer<RecipeJsonProvider> consumer) {
+	public void registerRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
 		consumer.accept(new FinishedRecipe(idFor("terrasteel_ingot"), TilePool.MAX_MANA / 2,
-				new ItemStack(ModItems.terrasteel), Ingredient.ofItems(ModItems.manaSteel),
-				Ingredient.ofItems(ModItems.manaPearl), Ingredient.ofItems(ModItems.manaDiamond)));
+				new ItemStack(ModItems.terrasteel), Ingredient.of(ModItems.manaSteel),
+				Ingredient.of(ModItems.manaPearl), Ingredient.of(ModItems.manaDiamond)));
 	}
 
-	private static Identifier idFor(String s) {
+	private static ResourceLocation idFor(String s) {
 		return prefix("terra_plate/" + s);
 	}
 
-	private static class FinishedRecipe implements RecipeJsonProvider {
-		private final Identifier id;
+	private static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
+		private final ResourceLocation id;
 		private final int mana;
 		private final ItemStack output;
 		private final Ingredient[] inputs;
 
-		private FinishedRecipe(Identifier id, int mana, ItemStack output, Ingredient... inputs) {
+		private FinishedRecipe(ResourceLocation id, int mana, ItemStack output, Ingredient... inputs) {
 			this.id = id;
 			this.mana = mana;
 			this.output = output;
@@ -64,7 +63,7 @@ public class TerraPlateProvider extends BotaniaRecipeProvider {
 		}
 
 		@Override
-		public void serialize(JsonObject json) {
+		public void serializeRecipeData(JsonObject json) {
 			json.addProperty("mana", mana);
 			JsonArray ingredients = new JsonArray();
 			for (Ingredient ingr : inputs) {
@@ -75,24 +74,24 @@ public class TerraPlateProvider extends BotaniaRecipeProvider {
 		}
 
 		@Override
-		public Identifier getRecipeId() {
+		public ResourceLocation getId() {
 			return id;
 		}
 
 		@Override
-		public RecipeSerializer<?> getSerializer() {
+		public RecipeSerializer<?> getType() {
 			return ModRecipeTypes.TERRA_PLATE_SERIALIZER;
 		}
 
 		@Nullable
 		@Override
-		public JsonObject toAdvancementJson() {
+		public JsonObject serializeAdvancement() {
 			return null;
 		}
 
 		@Nullable
 		@Override
-		public Identifier getAdvancementId() {
+		public ResourceLocation getAdvancementId() {
 			return null;
 		}
 	}

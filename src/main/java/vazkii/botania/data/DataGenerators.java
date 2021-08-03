@@ -13,13 +13,13 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.ChatFormatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.server.command.CommandManager;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 
 import vazkii.botania.common.Botania;
 import vazkii.botania.data.recipes.*;
@@ -34,32 +34,32 @@ public class DataGenerators {
 		return Paths.get("../src/generated/resources").toAbsolutePath().normalize();
 	}
 
-	public static void registerCommands(CommandDispatcher<ServerCommandSource> disp) {
+	public static void registerCommands(CommandDispatcher<CommandSourceStack> disp) {
 		if (!FabricLoader.getInstance().isDevelopmentEnvironment()) {
 			return;
 		}
 
-		LiteralArgumentBuilder<ServerCommandSource> command = CommandManager.literal("botania_gendata")
-				.then(CommandManager.literal("confirm").executes(ctx -> {
+		LiteralArgumentBuilder<CommandSourceStack> command = Commands.literal("botania_gendata")
+				.then(Commands.literal("confirm").executes(ctx -> {
 					Path p = inferOutputPath();
-					ctx.getSource().sendFeedback(new LiteralText("Generating data into " + p + "..."), false);
+					ctx.getSource().sendSuccess(new TextComponent("Generating data into " + p + "..."), false);
 					try {
 						gatherData(p);
-						ctx.getSource().sendFeedback(new LiteralText("Done"), false);
+						ctx.getSource().sendSuccess(new TextComponent("Done"), false);
 						return Command.SINGLE_SUCCESS;
 					} catch (IOException e) {
 						Botania.LOGGER.error("Failed to generate data", e);
-						ctx.getSource().sendError(new LiteralText("Failed, see logs"));
+						ctx.getSource().sendFailure(new TextComponent("Failed, see logs"));
 						return 0;
 					}
 				}))
 				.executes(ctx -> {
 					Path p = inferOutputPath();
-					Text yes = new LiteralText("[yes]")
-							.styled(s -> s.withColor(Formatting.GREEN)
+					Component yes = new TextComponent("[yes]")
+							.withStyle(s -> s.withColor(ChatFormatting.GREEN)
 									.withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/botania_gendata confirm")));
-					Text msg = new LiteralText(String.format("Will generate data into [%s]. Ok? ", p)).append(yes);
-					ctx.getSource().sendFeedback(msg, false);
+					Component msg = new TextComponent(String.format("Will generate data into [%s]. Ok? ", p)).append(yes);
+					ctx.getSource().sendSuccess(msg, false);
 					return Command.SINGLE_SUCCESS;
 				});
 		disp.register(command);
@@ -67,25 +67,25 @@ public class DataGenerators {
 
 	private static void gatherData(Path output) throws IOException {
 		DataGenerator generator = new DataGenerator(output, Collections.emptyList());
-		generator.install(new BlockLootProvider(generator));
+		generator.addProvider(new BlockLootProvider(generator));
 		BlockTagProvider blockTagProvider = new BlockTagProvider(generator);
-		generator.install(blockTagProvider);
-		generator.install(new ItemTagProvider(generator, blockTagProvider));
-		generator.install(new EntityTagProvider(generator));
-		generator.install(new StonecuttingProvider(generator));
-		generator.install(new RecipeProvider(generator));
-		generator.install(new SmeltingProvider(generator));
-		generator.install(new ElvenTradeProvider(generator));
-		generator.install(new ManaInfusionProvider(generator));
-		generator.install(new PureDaisyProvider(generator));
-		generator.install(new BrewProvider(generator));
-		generator.install(new PetalProvider(generator));
-		generator.install(new RuneProvider(generator));
-		generator.install(new TerraPlateProvider(generator));
-		generator.install(new OrechidProvider(generator));
+		generator.addProvider(blockTagProvider);
+		generator.addProvider(new ItemTagProvider(generator, blockTagProvider));
+		generator.addProvider(new EntityTagProvider(generator));
+		generator.addProvider(new StonecuttingProvider(generator));
+		generator.addProvider(new RecipeProvider(generator));
+		generator.addProvider(new SmeltingProvider(generator));
+		generator.addProvider(new ElvenTradeProvider(generator));
+		generator.addProvider(new ManaInfusionProvider(generator));
+		generator.addProvider(new PureDaisyProvider(generator));
+		generator.addProvider(new BrewProvider(generator));
+		generator.addProvider(new PetalProvider(generator));
+		generator.addProvider(new RuneProvider(generator));
+		generator.addProvider(new TerraPlateProvider(generator));
+		generator.addProvider(new OrechidProvider(generator));
 		// generator.install(new BlockstateProvider(generator, evt.getExistingFileHelper()));
-		generator.install(new FloatingFlowerModelProvider(generator));
-		generator.install(new ItemModelProvider(generator));
+		generator.addProvider(new FloatingFlowerModelProvider(generator));
+		generator.addProvider(new ItemModelProvider(generator));
 		// generator.install(new TinyPotatoModelProvider(generator, evt.getExistingFileHelper()));
 		generator.run();
 	}

@@ -10,16 +10,16 @@ package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancement.criterion.AbstractCriterion;
-import net.minecraft.advancement.criterion.AbstractCriterionConditions;
-import net.minecraft.item.ItemStack;
-import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
-import net.minecraft.predicate.entity.EntityPredicate;
-import net.minecraft.predicate.entity.LocationPredicate;
-import net.minecraft.predicate.item.ItemPredicate;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
+import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
+import net.minecraft.advancements.critereon.DeserializationContext;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.LocationPredicate;
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
@@ -27,33 +27,33 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 // Catch-all "used an item and it succeeded" trigger for Botania items, because making a separate
 // trigger for each one is dumb.
-public class UseItemSuccessTrigger extends AbstractCriterion<UseItemSuccessTrigger.Instance> {
-	public static final Identifier ID = prefix("use_item_success");
+public class UseItemSuccessTrigger extends SimpleCriterionTrigger<UseItemSuccessTrigger.Instance> {
+	public static final ResourceLocation ID = prefix("use_item_success");
 	public static final UseItemSuccessTrigger INSTANCE = new UseItemSuccessTrigger();
 
 	private UseItemSuccessTrigger() {}
 
 	@Nonnull
 	@Override
-	public Identifier getId() {
+	public ResourceLocation getId() {
 		return ID;
 	}
 
 	@Nonnull
 	@Override
-	public UseItemSuccessTrigger.Instance conditionsFromJson(@Nonnull JsonObject json, @Nonnull EntityPredicate.Extended playerPred, AdvancementEntityPredicateDeserializer conditions) {
+	public UseItemSuccessTrigger.Instance createInstance(@Nonnull JsonObject json, @Nonnull EntityPredicate.Composite playerPred, DeserializationContext conditions) {
 		return new UseItemSuccessTrigger.Instance(playerPred, ItemPredicate.fromJson(json.get("item")), LocationPredicate.fromJson(json.get("location")));
 	}
 
-	public void trigger(ServerPlayerEntity player, ItemStack stack, ServerWorld world, double x, double y, double z) {
-		test(player, instance -> instance.test(stack, world, x, y, z));
+	public void trigger(ServerPlayer player, ItemStack stack, ServerLevel world, double x, double y, double z) {
+		trigger(player, instance -> instance.test(stack, world, x, y, z));
 	}
 
-	public static class Instance extends AbstractCriterionConditions {
+	public static class Instance extends AbstractCriterionTriggerInstance {
 		private final ItemPredicate item;
 		private final LocationPredicate location;
 
-		public Instance(EntityPredicate.Extended playerPred, ItemPredicate count, LocationPredicate indexPos) {
+		public Instance(EntityPredicate.Composite playerPred, ItemPredicate count, LocationPredicate indexPos) {
 			super(ID, playerPred);
 			this.item = count;
 			this.location = indexPos;
@@ -61,12 +61,12 @@ public class UseItemSuccessTrigger extends AbstractCriterion<UseItemSuccessTrigg
 
 		@Nonnull
 		@Override
-		public Identifier getId() {
+		public ResourceLocation getCriterion() {
 			return ID;
 		}
 
-		boolean test(ItemStack stack, ServerWorld world, double x, double y, double z) {
-			return this.item.test(stack) && this.location.test(world, x, y, z);
+		boolean test(ItemStack stack, ServerLevel world, double x, double y, double z) {
+			return this.item.matches(stack) && this.location.matches(world, x, y, z);
 		}
 
 		public ItemPredicate getItem() {

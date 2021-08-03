@@ -8,42 +8,42 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 
 public class ItemInvisibilityCloak extends ItemBauble implements IManaUsingItem {
 
-	public ItemInvisibilityCloak(Settings props) {
+	public ItemInvisibilityCloak(Properties props) {
 		super(props);
 	}
 
 	@Override
 	public void onUnequipped(ItemStack stack, LivingEntity player) {
-		StatusEffectInstance effect = player.getStatusEffect(StatusEffects.INVISIBILITY);
-		if (effect != null && player instanceof PlayerEntity && effect.getAmplifier() == -42) {
-			player.removeStatusEffect(StatusEffects.INVISIBILITY);
+		MobEffectInstance effect = player.getEffect(MobEffects.INVISIBILITY);
+		if (effect != null && player instanceof Player && effect.getAmplifier() == -42) {
+			player.removeEffect(MobEffects.INVISIBILITY);
 		}
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		if (player instanceof PlayerEntity && !player.world.isClient) {
+		if (player instanceof Player && !player.level.isClientSide) {
 			int manaCost = 2;
-			boolean hasMana = ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) player, manaCost, true);
+			boolean hasMana = ManaItemHandler.instance().requestManaExact(stack, (Player) player, manaCost, true);
 			if (!hasMana) {
 				onUnequipped(stack, player);
 			} else {
-				if (player.getStatusEffect(StatusEffects.INVISIBILITY) != null) {
-					player.removeStatusEffect(StatusEffects.INVISIBILITY);
+				if (player.getEffect(MobEffects.INVISIBILITY) != null) {
+					player.removeEffect(MobEffects.INVISIBILITY);
 				}
 
-				player.addStatusEffect(new StatusEffectInstance(StatusEffects.INVISIBILITY, Integer.MAX_VALUE, -42, true, true));
+				player.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Integer.MAX_VALUE, -42, true, true));
 			}
 		}
 	}

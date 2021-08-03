@@ -10,18 +10,18 @@ package vazkii.botania.common.crafting.recipe;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.CraftingRecipe;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.item.ItemTwigWand;
@@ -40,16 +40,16 @@ public class TwigWandRecipe implements CraftingRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingInventory inv, @Nonnull World worldIn) {
+	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level worldIn) {
 		return compose.matches(inv, worldIn);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack craft(CraftingInventory inv) {
+	public ItemStack assemble(CraftingContainer inv) {
 		int first = -1;
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack stack = inv.getStack(i);
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack stack = inv.getItem(i);
 			Item item = stack.getItem();
 
 			int colorId;
@@ -70,32 +70,32 @@ public class TwigWandRecipe implements CraftingRecipe {
 	}
 
 	@Override
-	public boolean fits(int width, int height) {
-		return compose.fits(width, height);
+	public boolean canCraftInDimensions(int width, int height) {
+		return compose.canCraftInDimensions(width, height);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getOutput() {
+	public ItemStack getResultItem() {
 		return new ItemStack(ModItems.twigWand);
 	}
 
 	@Nonnull
 	@Override
-	public Identifier getId() {
+	public ResourceLocation getId() {
 		return compose.getId();
 	}
 
 	@Nonnull
 	@Override
-	public DefaultedList<ItemStack> getRemainingStacks(CraftingInventory inv) {
-		return compose.getRemainingStacks(inv);
+	public NonNullList<ItemStack> getRemainingItems(CraftingContainer inv) {
+		return compose.getRemainingItems(inv);
 	}
 
 	@Nonnull
 	@Override
-	public DefaultedList<Ingredient> getPreviewInputs() {
-		return compose.getPreviewInputs();
+	public NonNullList<Ingredient> getIngredients() {
+		return compose.getIngredients();
 	}
 
 	@Nonnull
@@ -106,8 +106,8 @@ public class TwigWandRecipe implements CraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getRecipeKindIcon() {
-		return compose.getRecipeKindIcon();
+	public ItemStack getToastSymbol() {
+		return compose.getToastSymbol();
 	}
 
 	@Nonnull
@@ -119,19 +119,19 @@ public class TwigWandRecipe implements CraftingRecipe {
 	private static class Serializer implements RecipeSerializer<TwigWandRecipe> {
 		@Nonnull
 		@Override
-		public TwigWandRecipe read(@Nonnull Identifier recipeId, @Nonnull JsonObject json) {
-			return new TwigWandRecipe(SHAPED.read(recipeId, json));
+		public TwigWandRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
+			return new TwigWandRecipe(SHAPED_RECIPE.fromJson(recipeId, json));
 		}
 
 		@Nullable
 		@Override
-		public TwigWandRecipe read(@Nonnull Identifier recipeId, @Nonnull PacketByteBuf buffer) {
-			return new TwigWandRecipe(SHAPED.read(recipeId, buffer));
+		public TwigWandRecipe fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
+			return new TwigWandRecipe(SHAPED_RECIPE.fromNetwork(recipeId, buffer));
 		}
 
 		@Override
-		public void write(@Nonnull PacketByteBuf buffer, @Nonnull TwigWandRecipe recipe) {
-			SHAPED.write(buffer, recipe.compose);
+		public void toNetwork(@Nonnull FriendlyByteBuf buffer, @Nonnull TwigWandRecipe recipe) {
+			SHAPED_RECIPE.toNetwork(buffer, recipe.compose);
 		}
 	}
 }

@@ -8,8 +8,8 @@
  */
 package vazkii.botania.client.patchouli.processor;
 
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import vazkii.botania.api.recipe.ITerraPlateRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
@@ -25,7 +25,7 @@ public class TerraPlateProcessor implements IComponentProcessor {
 
 	@Override
 	public void setup(IVariableProvider variables) {
-		Identifier id = new Identifier(variables.get("recipe").asString());
+		ResourceLocation id = new ResourceLocation(variables.get("recipe").asString());
 		this.recipe = PatchouliUtils.getRecipe(ModRecipeTypes.TERRA_PLATE_TYPE, id);
 	}
 
@@ -35,13 +35,13 @@ public class TerraPlateProcessor implements IComponentProcessor {
 			return null;
 		}
 		if (key.equals("output")) {
-			return IVariable.from(recipe.getOutput());
+			return IVariable.from(recipe.getResultItem());
 		}
 		if (key.startsWith("input")) {
 			int index = Integer.parseInt(key.substring(5)) - 1;
-			List<Ingredient> list = recipe.getPreviewInputs();
+			List<Ingredient> list = recipe.getIngredients();
 			if (index >= 0 && index < list.size()) {
-				return IVariable.from(list.get(index).getMatchingStacksClient());
+				return IVariable.from(list.get(index).getItems());
 			}
 		}
 		return null;

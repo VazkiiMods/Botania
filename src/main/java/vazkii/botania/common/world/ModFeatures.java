@@ -11,14 +11,14 @@ package vazkii.botania.common.world;
 import com.google.common.collect.ImmutableSet;
 
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.decorator.Decorator;
-import net.minecraft.world.gen.decorator.DecoratorConfig;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.configurations.DecoratorConfiguration;
+import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -31,18 +31,18 @@ public class ModFeatures {
 	public static final Feature<MysticalFlowerConfig> MYSTICAL_FLOWERS = new MysticalFlowerFeature();
 	public static final Feature<MysticalMushroomConfig> MYSTICAL_MUSHROOMS = new MysticalMushroomFeature();
 	public static final ConfiguredFeature<?, ?> MYSTICAL_FLOWERS_CONF = MYSTICAL_FLOWERS
-			.configure(new MysticalFlowerConfig(6, 2, 2, 16, 0.05))
-			.decorate(Decorator.NOPE.configure(DecoratorConfig.DEFAULT));
+			.configured(new MysticalFlowerConfig(6, 2, 2, 16, 0.05))
+			.decorated(FeatureDecorator.NOPE.configured(DecoratorConfiguration.NONE));
 	public static final ConfiguredFeature<?, ?> MYSTICAL_MUSHROOMS_CONF = MYSTICAL_MUSHROOMS
-			.configure(new MysticalMushroomConfig(40))
-			.decorate(Decorator.NOPE.configure(DecoratorConfig.DEFAULT));
+			.configured(new MysticalMushroomConfig(40))
+			.decorated(FeatureDecorator.NOPE.configured(DecoratorConfiguration.NONE));
 
 	// todo 1.16.2 blacklist, this is about the closest to the old one?
-	public static final Set<Biome.Category> TYPE_BLACKLIST = ImmutableSet.of(
-			Biome.Category.NETHER,
-			Biome.Category.THEEND,
-			Biome.Category.ICY,
-			Biome.Category.MUSHROOM
+	public static final Set<Biome.BiomeCategory> TYPE_BLACKLIST = ImmutableSet.of(
+			Biome.BiomeCategory.NETHER,
+			Biome.BiomeCategory.THEEND,
+			Biome.BiomeCategory.ICY,
+			Biome.BiomeCategory.MUSHROOM
 	);
 
 	public static void registerFeatures() {
@@ -56,15 +56,15 @@ public class ModFeatures {
 
 		if (ConfigHandler.COMMON.worldgenEnabled.getValue()) {
 			BiomeModifications.addFeature(ctx -> {
-				Biome.Category category = ctx.getBiome().getCategory();
+				Biome.BiomeCategory category = ctx.getBiome().getBiomeCategory();
 				return !TYPE_BLACKLIST.contains(category);
 			},
-					GenerationStep.Feature.VEGETAL_DECORATION,
-					BuiltinRegistries.CONFIGURED_FEATURE.getKey(MYSTICAL_FLOWERS_CONF).get());
+					GenerationStep.Decoration.VEGETAL_DECORATION,
+					BuiltinRegistries.CONFIGURED_FEATURE.getResourceKey(MYSTICAL_FLOWERS_CONF).get());
 			BiomeModifications.addFeature(ctx -> {
-				return ctx.getBiome().getCategory() != Biome.Category.THEEND;
-			}, GenerationStep.Feature.VEGETAL_DECORATION,
-					BuiltinRegistries.CONFIGURED_FEATURE.getKey(MYSTICAL_MUSHROOMS_CONF).get());
+				return ctx.getBiome().getBiomeCategory() != Biome.BiomeCategory.THEEND;
+			}, GenerationStep.Decoration.VEGETAL_DECORATION,
+					BuiltinRegistries.CONFIGURED_FEATURE.getResourceKey(MYSTICAL_MUSHROOMS_CONF).get());
 		}
 
 	}

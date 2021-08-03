@@ -10,26 +10,32 @@ package vazkii.botania.common.item;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Block;
-import net.minecraft.block.NoteBlock;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.CreeperEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.SlimeEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.ChatFormatting;
+import net.minecraft.ResourceLocationException;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Slime;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.NoteBlock;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCacophonium;
@@ -47,91 +53,91 @@ public class ItemCacophonium extends Item {
 	private static final String TAG_SOUND = "sound";
 	private static final String TAG_SOUND_NAME = "soundName";
 
-	public ItemCacophonium(Settings props) {
+	public ItemCacophonium(Properties props) {
 		super(props);
 	}
 
 	@Override
-	public ActionResult useOnEntity(ItemStack stack, PlayerEntity player, LivingEntity entity, Hand hand) {
-		if (entity instanceof MobEntity) {
-			MobEntity living = (MobEntity) entity;
+	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity, InteractionHand hand) {
+		if (entity instanceof Mob) {
+			Mob living = (Mob) entity;
 			SoundEvent sound = null;
 
-			if (living instanceof CreeperEntity) {
-				sound = SoundEvents.ENTITY_CREEPER_PRIMED;
-			} else if (living instanceof SlimeEntity) {
-				sound = ((SlimeEntity) living).isSmall() ? SoundEvents.ENTITY_SLIME_SQUISH_SMALL : SoundEvents.ENTITY_SLIME_SQUISH;
+			if (living instanceof Creeper) {
+				sound = SoundEvents.CREEPER_PRIMED;
+			} else if (living instanceof Slime) {
+				sound = ((Slime) living).isTiny() ? SoundEvents.SLIME_SQUISH_SMALL : SoundEvents.SLIME_SQUISH;
 			} else {
 				sound = ((AccessorMobEntity) living).botania_getAmbientSound();
 			}
 
 			if (sound != null) {
-				if (!player.world.isClient) {
-					ItemNBTHelper.setString(stack, TAG_SOUND, Registry.SOUND_EVENT.getKey(sound).toString());
-					ItemNBTHelper.setString(stack, TAG_SOUND_NAME, entity.getType().getTranslationKey());
-					player.setStackInHand(hand, stack);
+				if (!player.level.isClientSide) {
+					ItemNBTHelper.setString(stack, TAG_SOUND, Registry.SOUND_EVENT.getResourceKey(sound).toString());
+					ItemNBTHelper.setString(stack, TAG_SOUND_NAME, entity.getType().getDescriptionId());
+					player.setItemInHand(hand, stack);
 				}
 
-				return ActionResult.success(player.world.isClient);
+				return InteractionResult.sidedSuccess(player.level.isClientSide);
 			}
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		ItemStack stack = ctx.getStack();
+	public InteractionResult useOn(UseOnContext ctx) {
+		ItemStack stack = ctx.getItemInHand();
 		if (getSound(stack) != null) {
-			World world = ctx.getWorld();
-			BlockPos pos = ctx.getBlockPos();
+			Level world = ctx.getLevel();
+			BlockPos pos = ctx.getClickedPos();
 
 			Block block = world.getBlockState(pos).getBlock();
 			if (block instanceof NoteBlock) {
-				world.setBlockState(pos, ModBlocks.cacophonium.getDefaultState());
+				world.setBlockAndUpdate(pos, ModBlocks.cacophonium.defaultBlockState());
 				((TileCacophonium) world.getBlockEntity(pos)).stack = stack.copy();
-				stack.decrement(1);
-				return ActionResult.SUCCESS;
+				stack.shrink(1);
+				return InteractionResult.SUCCESS;
 			}
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendTooltip(ItemStack stack, World world, List<Text> list, TooltipContext flags) {
+	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
 		if (isDOIT(stack)) {
-			list.add(new TranslatableText("botaniamisc.justDoIt").formatted(Formatting.GRAY));
+			list.add(new TranslatableComponent("botaniamisc.justDoIt").withStyle(ChatFormatting.GRAY));
 		} else if (getSound(stack) != null) {
-			list.add(new TranslatableText(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")).formatted(Formatting.GRAY));
+			list.add(new TranslatableComponent(ItemNBTHelper.getString(stack, TAG_SOUND_NAME, "")).withStyle(ChatFormatting.GRAY));
 		}
 	}
 
 	@Override
-	public int getMaxUseTime(ItemStack stack) {
+	public int getUseDuration(ItemStack stack) {
 		return 72000;
 	}
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getStackInHand(hand);
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
 		if (getSound(stack) != null) {
-			player.setCurrentHand(hand);
+			player.startUsingItem(hand);
 		}
-		return TypedActionResult.consume(stack);
+		return InteractionResultHolder.consume(stack);
 	}
 
 	@Override
-	public void usageTick(World world, @Nonnull LivingEntity player, @Nonnull ItemStack stack, int count) {
-		if (!world.isClient && count % (isDOIT(stack) ? 20 : 6) == 0) {
-			playSound(player.world, stack, player.getX(), player.getY(), player.getZ(), SoundCategory.PLAYERS, 0.9F);
+	public void onUseTick(Level world, @Nonnull LivingEntity player, @Nonnull ItemStack stack, int count) {
+		if (!world.isClientSide && count % (isDOIT(stack) ? 20 : 6) == 0) {
+			playSound(player.level, stack, player.getX(), player.getY(), player.getZ(), SoundSource.PLAYERS, 0.9F);
 		}
 	}
 
-	public static void playSound(World world, ItemStack stack, double x, double y, double z, SoundCategory category, float volume) {
+	public static void playSound(Level world, ItemStack stack, double x, double y, double z, SoundSource category, float volume) {
 		if (stack.isEmpty()) {
 			return;
 		}
@@ -149,14 +155,14 @@ public class ItemCacophonium extends Item {
 			return ModSounds.doit;
 		} else {
 			try {
-				return Registry.SOUND_EVENT.getOrEmpty(new Identifier(ItemNBTHelper.getString(stack, TAG_SOUND, ""))).orElse(null);
-			} catch (InvalidIdentifierException ex) {
+				return Registry.SOUND_EVENT.getOptional(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_SOUND, ""))).orElse(null);
+			} catch (ResourceLocationException ex) {
 				return null;
 			}
 		}
 	}
 
 	private static boolean isDOIT(ItemStack stack) {
-		return !stack.isEmpty() && stack.getName().getString().equalsIgnoreCase("shia labeouf");
+		return !stack.isEmpty() && stack.getHoverName().getString().equalsIgnoreCase("shia labeouf");
 	}
 }

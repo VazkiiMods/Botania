@@ -10,58 +10,58 @@ package vazkii.botania.common.block.tile;
 
 import com.google.common.base.Preconditions;
 
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.world.Container;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public abstract class TileSimpleInventory extends TileMod {
 
-	private final SimpleInventory itemHandler = createItemHandler();
+	private final SimpleContainer itemHandler = createItemHandler();
 
 	public TileSimpleInventory(BlockEntityType<?> type) {
 		super(type);
-		itemHandler.addListener(i -> markDirty());
+		itemHandler.addListener(i -> setChanged());
 	}
 
-	private static void copyToInv(DefaultedList<ItemStack> src, Inventory dest) {
-		Preconditions.checkArgument(src.size() == dest.size());
+	private static void copyToInv(NonNullList<ItemStack> src, Container dest) {
+		Preconditions.checkArgument(src.size() == dest.getContainerSize());
 		for (int i = 0; i < src.size(); i++) {
-			dest.setStack(i, src.get(i));
+			dest.setItem(i, src.get(i));
 		}
 	}
 
-	private static DefaultedList<ItemStack> copyFromInv(Inventory inv) {
-		DefaultedList<ItemStack> ret = DefaultedList.ofSize(inv.size(), ItemStack.EMPTY);
-		for (int i = 0; i < inv.size(); i++) {
-			ret.set(i, inv.getStack(i));
+	private static NonNullList<ItemStack> copyFromInv(Container inv) {
+		NonNullList<ItemStack> ret = NonNullList.withSize(inv.getContainerSize(), ItemStack.EMPTY);
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ret.set(i, inv.getItem(i));
 		}
 		return ret;
 	}
 
 	@Override
 	public void readPacketNBT(CompoundTag tag) {
-		DefaultedList<ItemStack> tmp = DefaultedList.ofSize(inventorySize(), ItemStack.EMPTY);
-		Inventories.fromTag(tag, tmp);
+		NonNullList<ItemStack> tmp = NonNullList.withSize(inventorySize(), ItemStack.EMPTY);
+		ContainerHelper.loadAllItems(tag, tmp);
 		copyToInv(tmp, itemHandler);
 	}
 
 	@Override
 	public void writePacketNBT(CompoundTag tag) {
-		Inventories.toTag(tag, copyFromInv(itemHandler));
+		ContainerHelper.saveAllItems(tag, copyFromInv(itemHandler));
 	}
 
 	// NB: Cannot be named the same as the corresponding method in vanilla's interface -- causes obf issues with MCP
 	public final int inventorySize() {
-		return getItemHandler().size();
+		return getItemHandler().getContainerSize();
 	}
 
-	protected abstract SimpleInventory createItemHandler();
+	protected abstract SimpleContainer createItemHandler();
 
-	public final Inventory getItemHandler() {
+	public final Container getItemHandler() {
 		return itemHandler;
 	}
 }

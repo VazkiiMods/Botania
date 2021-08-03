@@ -8,12 +8,12 @@
  */
 package vazkii.botania.common.item.equipment.tool.bow;
 
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
@@ -24,7 +24,7 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 
 	private static final int ARROW_COST = 200;
 
-	public ItemCrystalBow(Settings builder) {
+	public ItemCrystalBow(Properties builder) {
 		super(builder);
 	}
 
@@ -34,18 +34,18 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 	}
 
 	@Override
-	boolean canFire(ItemStack stack, PlayerEntity player) {
-		boolean infinity = EnchantmentHelper.getLevel(Enchantments.INFINITY, stack) > 0;
-		return player.abilities.creativeMode || ManaItemHandler.instance().requestManaExactForTool(stack, player, ARROW_COST / (infinity ? 2 : 1), false);
+	boolean canFire(ItemStack stack, Player player) {
+		boolean infinity = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, stack) > 0;
+		return player.abilities.instabuild || ManaItemHandler.instance().requestManaExactForTool(stack, player, ARROW_COST / (infinity ? 2 : 1), false);
 	}
 
 	@Override
-	void onFire(ItemStack stack, LivingEntity living, boolean infinity, PersistentProjectileEntity arrow) {
-		arrow.pickupType = PersistentProjectileEntity.PickupPermission.CREATIVE_ONLY;
+	void onFire(ItemStack stack, LivingEntity living, boolean infinity, AbstractArrow arrow) {
+		arrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
 	}
 
 	public static <T extends LivingEntity> int damageItem(ItemStack stack, int amount, T entity, Consumer<T> onBroken) {
-		boolean infinity = EnchantmentHelper.getLevel(Enchantments.INFINITY, stack) > 0;
+		boolean infinity = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, stack) > 0;
 		return ToolCommons.damageItemIfPossible(stack, amount, entity, ARROW_COST / (infinity ? 2 : 1));
 	}
 }

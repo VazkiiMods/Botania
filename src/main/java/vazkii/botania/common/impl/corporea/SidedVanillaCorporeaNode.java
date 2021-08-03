@@ -10,11 +10,11 @@ package vazkii.botania.common.impl.corporea;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.inventory.SidedInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.corporea.ICorporeaRequest;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -22,10 +22,10 @@ import vazkii.botania.api.corporea.ICorporeaSpark;
 import java.util.List;
 
 public class SidedVanillaCorporeaNode extends AbstractCorporeaNode {
-	private final SidedInventory inv;
+	private final WorldlyContainer inv;
 	private final Direction side;
 
-	public SidedVanillaCorporeaNode(World world, BlockPos pos, ICorporeaSpark spark, SidedInventory inv, Direction side) {
+	public SidedVanillaCorporeaNode(Level world, BlockPos pos, ICorporeaSpark spark, WorldlyContainer inv, Direction side) {
 		super(world, pos, spark);
 		this.inv = inv;
 		this.side = side;
@@ -44,11 +44,11 @@ public class SidedVanillaCorporeaNode extends AbstractCorporeaNode {
 	protected List<ItemStack> examineInventory(ICorporeaRequest request, boolean doit) {
 		ImmutableList.Builder<ItemStack> builder = ImmutableList.builder();
 
-		int[] slots = inv.getAvailableSlots(side);
+		int[] slots = inv.getSlotsForFace(side);
 		for (int i = slots.length - 1; i >= 0; i--) {
 			int slot = slots[i];
-			ItemStack stack = inv.getStack(slot);
-			boolean canTake = inv.canExtract(slot, stack, side);
+			ItemStack stack = inv.getItem(slot);
+			boolean canTake = inv.canTakeItemThroughFace(slot, stack, side);
 
 			if (canTake && request.getMatcher().test(stack)) {
 				request.trackFound(stack.getCount());
@@ -59,7 +59,7 @@ public class SidedVanillaCorporeaNode extends AbstractCorporeaNode {
 
 					ItemStack copy = stack.copy();
 					if (doit) {
-						builder.addAll(breakDownBigStack(inv.removeStack(i, rem)));
+						builder.addAll(breakDownBigStack(inv.removeItem(i, rem)));
 						getSpark().onItemExtracted(copy);
 						request.trackExtracted(rem);
 					} else {

@@ -8,14 +8,14 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.ModBlocks;
 
@@ -23,26 +23,26 @@ import javax.annotation.Nonnull;
 
 public class ItemOvergrowthSeed extends Item {
 
-	public ItemOvergrowthSeed(Settings props) {
+	public ItemOvergrowthSeed(Properties props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		World world = ctx.getWorld();
-		BlockPos pos = ctx.getBlockPos();
+	public InteractionResult useOn(UseOnContext ctx) {
+		Level world = ctx.getLevel();
+		BlockPos pos = ctx.getClickedPos();
 
 		BlockState state = world.getBlockState(pos);
 		if (state.getBlock() == Blocks.GRASS_BLOCK) {
-			if (!world.isClient) {
-				world.syncWorldEvent(2001, pos, Block.getRawIdFromState(state));
-				world.setBlockState(pos, ModBlocks.enchantedSoil.getDefaultState());
-				ctx.getStack().decrement(1);
+			if (!world.isClientSide) {
+				world.levelEvent(2001, pos, Block.getId(state));
+				world.setBlockAndUpdate(pos, ModBlocks.enchantedSoil.defaultBlockState());
+				ctx.getItemInHand().shrink(1);
 			}
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 }

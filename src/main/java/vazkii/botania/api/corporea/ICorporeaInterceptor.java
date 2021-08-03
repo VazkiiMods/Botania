@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.corporea;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 

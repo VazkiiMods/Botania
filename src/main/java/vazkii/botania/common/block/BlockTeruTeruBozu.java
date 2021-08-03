@@ -8,63 +8,63 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 
 import javax.annotation.Nonnull;
 
-public class BlockTeruTeruBozu extends BlockModWaterloggable implements BlockEntityProvider {
+public class BlockTeruTeruBozu extends BlockModWaterloggable implements EntityBlock {
 
-	private static final VoxelShape SHAPE = createCuboidShape(4, 0.16, 4, 12, 15.84, 12);
+	private static final VoxelShape SHAPE = box(4, 0.16, 4, 12, 15.84, 12);
 
-	public BlockTeruTeruBozu(Settings builder) {
+	public BlockTeruTeruBozu(Properties builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
 	@Override
-	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity e) {
-		if (!world.isClient && e instanceof ItemEntity) {
+	public void entityInside(BlockState state, Level world, BlockPos pos, Entity e) {
+		if (!world.isClientSide && e instanceof ItemEntity) {
 			ItemEntity item = (ItemEntity) e;
-			ItemStack stack = item.getStack();
+			ItemStack stack = item.getItem();
 			if (isSunflower(stack) && removeRain(world) || isBlueOrchid(stack) && startRain(world)) {
-				stack.decrement(1);
+				stack.shrink(1);
 			}
 		}
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		ItemStack stack = player.getStackInHand(hand);
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		ItemStack stack = player.getItemInHand(hand);
 		if (!stack.isEmpty() && (isSunflower(stack) && removeRain(world) || isBlueOrchid(stack) && startRain(world))) {
-			if (!player.abilities.creativeMode) {
-				stack.decrement(1);
+			if (!player.abilities.instabuild) {
+				stack.shrink(1);
 			}
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	private boolean isSunflower(ItemStack stack) {
@@ -75,19 +75,19 @@ public class BlockTeruTeruBozu extends BlockModWaterloggable implements BlockEnt
 		return stack.getItem() == Blocks.BLUE_ORCHID.asItem();
 	}
 
-	private boolean removeRain(World world) {
+	private boolean removeRain(Level world) {
 		if (world.isRaining()) {
-			world.getLevelProperties().setRaining(false);
+			world.getLevelData().setRaining(false);
 			TileTeruTeruBozu.resetRainTime(world);
 			return true;
 		}
 		return false;
 	}
 
-	private boolean startRain(World world) {
+	private boolean startRain(Level world) {
 		if (!world.isRaining()) {
 			if (world.random.nextInt(10) == 0) {
-				world.getLevelProperties().setRaining(true);
+				world.getLevelData().setRaining(true);
 				TileTeruTeruBozu.resetRainTime(world);
 			}
 			return true;
@@ -96,24 +96,24 @@ public class BlockTeruTeruBozu extends BlockModWaterloggable implements BlockEnt
 	}
 
 	@Override
-	public boolean hasComparatorOutput(BlockState state) {
+	public boolean hasAnalogOutputSignal(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
 		return world.isRaining() ? 15 : 0;
 	}
 
 	@Nonnull
 	@Override
-	public BlockRenderType getRenderType(BlockState state) {
-		return BlockRenderType.ENTITYBLOCK_ANIMATED;
+	public RenderShape getRenderShape(BlockState state) {
+		return RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileTeruTeruBozu();
 	}
 

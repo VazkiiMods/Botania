@@ -8,8 +8,8 @@
  */
 package vazkii.botania.client.patchouli.processor;
 
-import net.minecraft.recipe.Recipe;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Recipe;
 
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.crafting.ModRecipeTypes;
@@ -22,7 +22,7 @@ public class PetalApothecaryProcessor implements IComponentProcessor {
 
 	@Override
 	public void setup(IVariableProvider variables) {
-		Identifier id = new Identifier(variables.get("recipe").asString());
+		ResourceLocation id = new ResourceLocation(variables.get("recipe").asString());
 		this.recipe = PatchouliUtils.getRecipe(ModRecipeTypes.PETAL_TYPE, id);
 	}
 
@@ -35,9 +35,9 @@ public class PetalApothecaryProcessor implements IComponentProcessor {
 		case "recipe":
 			return IVariable.wrap(recipe.getId().toString());
 		case "output":
-			return IVariable.from(recipe.getOutput());
+			return IVariable.from(recipe.getResultItem());
 		case "heading":
-			return IVariable.from(recipe.getOutput().getName());
+			return IVariable.from(recipe.getResultItem().getHoverName());
 		}
 		return null;
 	}

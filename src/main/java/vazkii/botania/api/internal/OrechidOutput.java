@@ -8,11 +8,11 @@
  */
 package vazkii.botania.api.internal;
 
-import net.minecraft.util.collection.WeightedPicker;
+import net.minecraft.util.WeighedRandom;
 
 import vazkii.botania.api.recipe.StateIngredient;
 
-public final class OrechidOutput extends WeightedPicker.Entry implements Comparable<OrechidOutput> {
+public final class OrechidOutput extends WeighedRandom.WeighedRandomItem implements Comparable<OrechidOutput> {
 	private final StateIngredient output;
 
 	public OrechidOutput(int weight, StateIngredient output) {

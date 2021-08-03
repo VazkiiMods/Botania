@@ -12,37 +12,36 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.condition.LootConditionType;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.util.JsonSerializer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 import vazkii.botania.common.entity.EntityDoppleganger;
 
 import javax.annotation.Nonnull;
 
-public class TrueGuardianKiller implements LootCondition {
+public class TrueGuardianKiller implements LootItemCondition {
 
 	@Override
 	public boolean test(@Nonnull LootContext context) {
-		Entity victim = context.get(LootContextParameters.THIS_ENTITY);
+		Entity victim = context.getParamOrNull(LootContextParams.THIS_ENTITY);
 		return victim instanceof EntityDoppleganger
-				&& context.get(LootContextParameters.KILLER_ENTITY) == ((EntityDoppleganger) victim).trueKiller;
+				&& context.getParamOrNull(LootContextParams.KILLER_ENTITY) == ((EntityDoppleganger) victim).trueKiller;
 	}
 
 	@Override
-	public LootConditionType getType() {
+	public LootItemConditionType getType() {
 		return ModLootModifiers.TRUE_GUARDIAN_KILLER;
 	}
 
-	public static class Serializer implements JsonSerializer<TrueGuardianKiller> {
+	public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<TrueGuardianKiller> {
 		@Override
-		public void toJson(JsonObject json, TrueGuardianKiller condition, JsonSerializationContext ctx) {}
+		public void serialize(JsonObject json, TrueGuardianKiller condition, JsonSerializationContext ctx) {}
 
 		@Override
-		public TrueGuardianKiller fromJson(JsonObject json, JsonDeserializationContext ctx) {
+		public TrueGuardianKiller deserialize(JsonObject json, JsonDeserializationContext ctx) {
 			return new TrueGuardianKiller();
 		}
 	}

@@ -8,14 +8,15 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.entity.ItemEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3f;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.world.entity.item.ItemEntity;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -35,7 +36,7 @@ public class RenderTileEnchanter extends BlockEntityRenderer<TileEnchanter> {
 	}
 
 	@Override
-	public void render(@Nonnull TileEnchanter enchanter, float f, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
+	public void render(@Nonnull TileEnchanter enchanter, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		float alphaMod = 0F;
 
 		if (enchanter.stage == TileEnchanter.State.GATHER_MANA) {
@@ -46,21 +47,21 @@ public class RenderTileEnchanter extends BlockEntityRenderer<TileEnchanter> {
 			alphaMod = 1F;
 		}
 
-		ms.push();
+		ms.pushPose();
 		if (!enchanter.itemToEnchant.isEmpty()) {
 			if (item == null) {
-				item = new ItemEntity(enchanter.getWorld(), enchanter.getPos().getX(), enchanter.getPos().getY() + 1, enchanter.getPos().getZ(), enchanter.itemToEnchant);
+				item = new ItemEntity(enchanter.getLevel(), enchanter.getBlockPos().getX(), enchanter.getBlockPos().getY() + 1, enchanter.getBlockPos().getZ(), enchanter.itemToEnchant);
 			}
 
 			((AccessorItemEntity) item).setAge(ClientTickHandler.ticksInGame);
-			item.setStack(enchanter.itemToEnchant);
+			item.setItem(enchanter.itemToEnchant);
 
 			ms.translate(0.5F, 1.25F, 0.5F);
-			MinecraftClient.getInstance().getEntityRenderDispatcher().render(item, 0, 0, 0, 0, f, ms, buffers, light);
+			Minecraft.getInstance().getEntityRenderDispatcher().render(item, 0, 0, 0, 0, f, ms, buffers, light);
 			ms.translate(-0.5F, -1.25F, -0.5F);
 		}
 
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90F));
+		ms.mulPose(Vector3f.XP.rotationDegrees(90F));
 		ms.translate(-2F, -2F, -0.001F);
 
 		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 5D + 0.4D) * alphaMod;
@@ -74,15 +75,15 @@ public class RenderTileEnchanter extends BlockEntityRenderer<TileEnchanter> {
 
 				ms.translate(2.5F, 2.5F, -yTranslation);
 				ms.scale(scale, scale, 1F);
-				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(angle));
+				ms.mulPose(Vector3f.ZP.rotationDegrees(angle));
 				ms.translate(-2.5F, -2.5F, 0F);
 			}
 
 			VertexConsumer buffer = buffers.getBuffer(RenderHelper.ENCHANTER);
-			IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.enchanterOverlay.getSprite(), 5, 5, alpha);
+			IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.enchanterOverlay.sprite(), 5, 5, alpha);
 		}
 
-		ms.pop();
+		ms.popPose();
 	}
 
 }

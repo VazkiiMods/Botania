@@ -8,15 +8,15 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.util.Tickable;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TilePump extends TileMod implements Tickable {
+public class TilePump extends TileMod implements TickableBlockEntity {
 	private static final String TAG_ACTIVE = "active";
 
 	public float innerRingPos;
@@ -35,7 +35,7 @@ public class TilePump extends TileMod implements Tickable {
 
 	@Override
 	public void tick() {
-		hasRedstone = world.isReceivingRedstonePower(pos);
+		hasRedstone = level.hasNeighborSignal(worldPosition);
 
 		float max = 8F;
 		float min = 0F;
@@ -49,7 +49,7 @@ public class TilePump extends TileMod implements Tickable {
 				innerRingPos = Math.min(max, innerRingPos);
 				moving = 0F;
 				for (int x = 0; x < 2; x++) {
-					world.addParticle(ParticleTypes.SMOKE, getPos().getX() + Math.random(), getPos().getY() + Math.random(), getPos().getZ() + Math.random(), 0, 0, 0);
+					level.addParticle(ParticleTypes.SMOKE, getBlockPos().getX() + Math.random(), getBlockPos().getY() + Math.random(), getBlockPos().getZ() + Math.random(), 0, 0, 0);
 				}
 			}
 		} else if (innerRingPos > min) {
@@ -75,7 +75,7 @@ public class TilePump extends TileMod implements Tickable {
 		hasCartOnTop = false;
 
 		if (comparator != lastComparator) {
-			world.updateComparators(pos, getCachedState().getBlock());
+			level.updateNeighbourForOutputSignal(worldPosition, getBlockState().getBlock());
 		}
 		lastComparator = comparator;
 	}
@@ -91,7 +91,7 @@ public class TilePump extends TileMod implements Tickable {
 	}
 
 	public void setActive(boolean active) {
-		if (!world.isClient) {
+		if (!level.isClientSide) {
 			boolean diff = this.active != active;
 			this.active = active;
 			if (diff) {

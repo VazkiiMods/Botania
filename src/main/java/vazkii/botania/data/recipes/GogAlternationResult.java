@@ -10,49 +10,49 @@ package vazkii.botania.data.recipes;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.util.Identifier;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import vazkii.botania.common.crafting.recipe.GogAlternationRecipe;
 
 import javax.annotation.Nullable;
 
-public class GogAlternationResult implements RecipeJsonProvider {
-	private final RecipeJsonProvider gogRecipe;
-	private final RecipeJsonProvider baseRecipe;
+public class GogAlternationResult implements FinishedRecipe {
+	private final FinishedRecipe gogRecipe;
+	private final FinishedRecipe baseRecipe;
 
-	public GogAlternationResult(RecipeJsonProvider gogRecipe, RecipeJsonProvider baseRecipe) {
+	public GogAlternationResult(FinishedRecipe gogRecipe, FinishedRecipe baseRecipe) {
 		this.gogRecipe = gogRecipe;
 		this.baseRecipe = baseRecipe;
 	}
 
 	@Override
-	public void serialize(JsonObject json) {
-		json.add("gog", gogRecipe.toJson());
-		json.add("base", baseRecipe.toJson());
+	public void serializeRecipeData(JsonObject json) {
+		json.add("gog", gogRecipe.serializeRecipe());
+		json.add("base", baseRecipe.serializeRecipe());
 	}
 
 	@Override
-	public RecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getType() {
 		return GogAlternationRecipe.SERIALIZER;
 	}
 
 	// Take these from the base recipe
 	@Override
-	public Identifier getRecipeId() {
-		return baseRecipe.getRecipeId();
+	public ResourceLocation getId() {
+		return baseRecipe.getId();
 	}
 
 	@Nullable
 	@Override
-	public JsonObject toAdvancementJson() {
-		return baseRecipe.toAdvancementJson();
+	public JsonObject serializeAdvancement() {
+		return baseRecipe.serializeAdvancement();
 	}
 
 	@Nullable
 	@Override
-	public Identifier getAdvancementId() {
+	public ResourceLocation getAdvancementId() {
 		return baseRecipe.getAdvancementId();
 	}
 }

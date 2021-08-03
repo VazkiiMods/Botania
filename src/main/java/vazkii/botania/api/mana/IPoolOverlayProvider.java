@@ -10,9 +10,9 @@ package vazkii.botania.api.mana;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 
 /**
  * A block that implements this can provide a sprite
@@ -24,6 +24,6 @@ public interface IPoolOverlayProvider {
 	 * @return A sprite to render. Must be stitched to the main block/item atlas.
 	 */
 	@Environment(EnvType.CLIENT)
-	Sprite getIcon(World world, BlockPos pos);
+	TextureAtlasSprite getIcon(Level world, BlockPos pos);
 
 }

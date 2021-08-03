@@ -8,10 +8,10 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import net.minecraft.world.explosion.Explosion;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,7 +28,7 @@ import java.util.List;
 public class MixinExplosion {
 	@Shadow
 	@Final
-	private World world;
+	private Level level;
 
 	@Shadow
 	@Final
@@ -44,10 +44,10 @@ public class MixinExplosion {
 
 	@Shadow
 	@Final
-	private List<BlockPos> affectedBlocks;
+	private List<BlockPos> toBlow;
 
-	@Inject(method = "affectWorld", at = @At("HEAD"))
+	@Inject(method = "finalizeExplosion", at = @At("HEAD"))
 	private void onAffectWorld(boolean particles, CallbackInfo ci) {
-		ItemGoddessCharm.onExplosion(world, new Vec3d(x, y, z), affectedBlocks);
+		ItemGoddessCharm.onExplosion(level, new Vec3(x, y, z), toBlow);
 	}
 }

@@ -8,16 +8,16 @@
  */
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.ToolMaterial;
-import net.minecraft.util.ActionResult;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISortableTool;
@@ -38,11 +38,11 @@ public class ItemManasteelAxe extends AxeItem implements IManaUsingItem, ISortab
 
 	private static final int MANA_PER_DAMAGE = 60;
 
-	public ItemManasteelAxe(Settings props) {
+	public ItemManasteelAxe(Properties props) {
 		this(BotaniaAPI.instance().getManasteelItemTier(), props);
 	}
 
-	public ItemManasteelAxe(ToolMaterial mat, Settings props) {
+	public ItemManasteelAxe(Tier mat, Properties props) {
 		super(mat, 6F, -3.1F, props);
 	}
 
@@ -57,30 +57,30 @@ public class ItemManasteelAxe extends AxeItem implements IManaUsingItem, ISortab
 
 	@Nonnull
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		PlayerEntity player = ctx.getPlayer();
+	public InteractionResult useOn(UseOnContext ctx) {
+		Player player = ctx.getPlayer();
 		if (player != null) {
-			for (int i = 0; i < player.inventory.size(); i++) {
-				ItemStack stackAt = player.inventory.getStack(i);
-				if (!stackAt.isEmpty() && SAPLING_PATTERN.matcher(stackAt.getItem().getTranslationKey()).find()) {
+			for (int i = 0; i < player.inventory.getContainerSize(); i++) {
+				ItemStack stackAt = player.inventory.getItem(i);
+				if (!stackAt.isEmpty() && SAPLING_PATTERN.matcher(stackAt.getItem().getDescriptionId()).find()) {
 					ItemStack displayStack = stackAt.copy();
-					if (PlayerHelper.substituteUse(ctx, stackAt).isAccepted()) {
-						if (!ctx.getWorld().isClient) {
+					if (PlayerHelper.substituteUse(ctx, stackAt).consumesAction()) {
+						if (!ctx.getLevel().isClientSide) {
 							ItemsRemainingRenderHandler.send(player, displayStack, SAPLING_PATTERN);
 						}
-						return ActionResult.SUCCESS;
+						return InteractionResult.SUCCESS;
 					}
 				}
 			}
 		}
 
-		return super.useOnBlock(ctx);
+		return super.useOn(ctx);
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected) {
-		if (!world.isClient && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.instance().requestManaExactForTool(stack, (PlayerEntity) player, getManaPerDamage() * 2, true)) {
-			stack.setDamage(stack.getDamage() - 1);
+	public void inventoryTick(ItemStack stack, Level world, Entity player, int slot, boolean selected) {
+		if (!world.isClientSide && player instanceof Player && stack.getDamageValue() > 0 && ManaItemHandler.instance().requestManaExactForTool(stack, (Player) player, getManaPerDamage() * 2, true)) {
+			stack.setDamageValue(stack.getDamageValue() - 1);
 		}
 	}
 

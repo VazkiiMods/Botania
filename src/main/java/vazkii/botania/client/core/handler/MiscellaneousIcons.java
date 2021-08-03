@@ -8,15 +8,15 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.block.entity.BannerPattern;
-import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.ModelLoader;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.client.util.ModelIdentifier;
-import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.level.block.entity.BannerPattern;
 
 import vazkii.botania.client.model.GunModel;
 import vazkii.botania.client.model.LexiconModel;
@@ -42,23 +42,23 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public class MiscellaneousIcons {
 	public static final MiscellaneousIcons INSTANCE = new MiscellaneousIcons();
 
-	public final SpriteIdentifier alfPortalTex = mainAtlas("block/alfheim_portal_swirl");
-	public final SpriteIdentifier lightRelayWorldIcon = mainAtlas("block/light_relay");
-	public final SpriteIdentifier lightRelayDetectorWorldIcon = mainAtlas("block/detector_light_relay");
-	public final SpriteIdentifier lightRelayForkWorldIcon = mainAtlas("block/fork_light_relay");
-	public final SpriteIdentifier lightRelayToggleWorldIcon = mainAtlas("block/toggle_light_relay");
-	public final SpriteIdentifier alchemyCatalystOverlay = mainAtlas("block/alchemy_catalyst_overlay");
-	public final SpriteIdentifier conjurationCatalystOverlay = mainAtlas("block/conjuration_catalyst_overlay");
-	public final SpriteIdentifier enchanterOverlay = mainAtlas("block/enchanter_overlay");
-	public final SpriteIdentifier manaVoidOverlay = mainAtlas("block/mana_void_overlay");
-	public final SpriteIdentifier manaWater = mainAtlas("block/mana_water");
-	public final SpriteIdentifier terraPlateOverlay = mainAtlas("block/terra_plate_overlay");
-	public final SpriteIdentifier corporeaWorldIcon = mainAtlas("item/corporea_spark");
-	public final SpriteIdentifier corporeaWorldIconMaster = mainAtlas("item/corporea_spark_master");
-	public final SpriteIdentifier corporeaIconStar = mainAtlas("item/corporea_spark_star");
-	public final SpriteIdentifier sparkWorldIcon = mainAtlas("item/spark");
+	public final Material alfPortalTex = mainAtlas("block/alfheim_portal_swirl");
+	public final Material lightRelayWorldIcon = mainAtlas("block/light_relay");
+	public final Material lightRelayDetectorWorldIcon = mainAtlas("block/detector_light_relay");
+	public final Material lightRelayForkWorldIcon = mainAtlas("block/fork_light_relay");
+	public final Material lightRelayToggleWorldIcon = mainAtlas("block/toggle_light_relay");
+	public final Material alchemyCatalystOverlay = mainAtlas("block/alchemy_catalyst_overlay");
+	public final Material conjurationCatalystOverlay = mainAtlas("block/conjuration_catalyst_overlay");
+	public final Material enchanterOverlay = mainAtlas("block/enchanter_overlay");
+	public final Material manaVoidOverlay = mainAtlas("block/mana_void_overlay");
+	public final Material manaWater = mainAtlas("block/mana_water");
+	public final Material terraPlateOverlay = mainAtlas("block/terra_plate_overlay");
+	public final Material corporeaWorldIcon = mainAtlas("item/corporea_spark");
+	public final Material corporeaWorldIconMaster = mainAtlas("item/corporea_spark_master");
+	public final Material corporeaIconStar = mainAtlas("item/corporea_spark_star");
+	public final Material sparkWorldIcon = mainAtlas("item/spark");
 
-	public final SpriteIdentifier[] sparkUpgradeIcons = new SpriteIdentifier[] {
+	public final Material[] sparkUpgradeIcons = new Material[] {
 			mainAtlas("item/spark_upgrade_rune_dispersive"),
 			mainAtlas("item/spark_upgrade_rune_dominant"),
 			mainAtlas("item/spark_upgrade_rune_recessive"),
@@ -86,8 +86,8 @@ public class MiscellaneousIcons {
 
 	public final BakedModel[] kingKeyWeaponModels = new BakedModel[ItemKingKey.WEAPON_TYPES];
 
-	public void onModelRegister(ResourceManager rm, Consumer<Identifier> consumer) {
-		Set<SpriteIdentifier> materials = AccessorModelBakery.getMaterials();
+	public void onModelRegister(ResourceManager rm, Consumer<ResourceLocation> consumer) {
+		Set<Material> materials = AccessorModelBakery.getMaterials();
 
 		materials.addAll(Arrays.asList(alfPortalTex, lightRelayWorldIcon, lightRelayDetectorWorldIcon,
 				lightRelayForkWorldIcon, lightRelayToggleWorldIcon, alchemyCatalystOverlay, conjurationCatalystOverlay,
@@ -97,9 +97,9 @@ public class MiscellaneousIcons {
 		materials.add(RenderLexicon.TEXTURE);
 		materials.add(RenderLexicon.ELVEN_TEXTURE);
 		for (BannerPattern pattern : BannerPattern.values()) {
-			if (pattern.getName().startsWith(LibMisc.MOD_ID)) {
-				materials.add(new SpriteIdentifier(TexturedRenderLayers.SHIELD_PATTERNS_ATLAS_TEXTURE, pattern.getSpriteId(false)));
-				materials.add(new SpriteIdentifier(TexturedRenderLayers.BANNER_PATTERNS_ATLAS_TEXTURE, pattern.getSpriteId(true)));
+			if (pattern.getFilename().startsWith(LibMisc.MOD_ID)) {
+				materials.add(new Material(Sheets.SHIELD_SHEET, pattern.location(false)));
+				materials.add(new Material(Sheets.BANNER_SHEET, pattern.location(true)));
 			}
 		}
 		consumer.accept(prefix("icon/goldfish"));
@@ -125,17 +125,17 @@ public class MiscellaneousIcons {
 		}
 	}
 
-	public void onModelBake(ModelLoader loader, Map<Identifier, BakedModel> map) {
+	public void onModelBake(ModelBakery loader, Map<ResourceLocation, BakedModel> map) {
 		if (!ModelHandler.registeredModels) {
 			Botania.LOGGER.error("Additional models failed to register! Aborting baking models to avoid early crashing.");
 			return;
 		}
 		// Platforms
-		ModelIdentifier abstruseName = new ModelIdentifier("botania:abstruse_platform", "");
+		ModelResourceLocation abstruseName = new ModelResourceLocation("botania:abstruse_platform", "");
 		BakedModel abstruse = map.get(abstruseName);
-		ModelIdentifier spectralName = new ModelIdentifier("botania:spectral_platform", "");
+		ModelResourceLocation spectralName = new ModelResourceLocation("botania:spectral_platform", "");
 		BakedModel spectral = map.get(spectralName);
-		ModelIdentifier infrangibleName = new ModelIdentifier("botania:infrangible_platform", "");
+		ModelResourceLocation infrangibleName = new ModelResourceLocation("botania:infrangible_platform", "");
 		BakedModel infrangible = map.get(infrangibleName);
 
 		map.put(abstruseName, new PlatformModel(abstruse));
@@ -143,8 +143,8 @@ public class MiscellaneousIcons {
 		map.put(infrangibleName, new PlatformModel(infrangible));
 
 		// Lexicon
-		BakedModel original = map.get(new ModelIdentifier("botania:lexicon", "inventory"));
-		map.put(new ModelIdentifier("botania:lexicon", "inventory"),
+		BakedModel original = map.get(new ModelResourceLocation("botania:lexicon", "inventory"));
+		map.put(new ModelResourceLocation("botania:lexicon", "inventory"),
 				new LexiconModel(original));
 
 		// models referenced using json overrides aren't put in the model registry, so just go through all override models and wrap them there
@@ -154,19 +154,19 @@ public class MiscellaneousIcons {
 		}
 
 		// Mana Blaster
-		ModelIdentifier key = new ModelIdentifier("botania:mana_gun", "inventory");
+		ModelResourceLocation key = new ModelResourceLocation("botania:mana_gun", "inventory");
 		BakedModel originalModel = map.get(key);
-		ModelIdentifier clipKey = new ModelIdentifier("botania:mana_gun_clip", "inventory");
+		ModelResourceLocation clipKey = new ModelResourceLocation("botania:mana_gun_clip", "inventory");
 		BakedModel originalModelClip = map.get(clipKey);
 		map.put(key, new GunModel(loader, originalModel, originalModelClip));
 
 		// Tiny Potato
-		ModelIdentifier tinyPotato = new ModelIdentifier("botania:tiny_potato", "inventory");
+		ModelResourceLocation tinyPotato = new ModelResourceLocation("botania:tiny_potato", "inventory");
 		BakedModel originalPotato = map.get(tinyPotato);
 		map.put(tinyPotato, new TinyPotatoModel(originalPotato));
 
 		// todo 1.16-fabric remove OrDefault when williewillus/botania-fabric-issues#15 is fixed
-		BakedModel missing = map.get(ModelLoader.MISSING);
+		BakedModel missing = map.get(ModelBakery.MISSING_MODEL_LOCATION);
 		RenderTileCorporeaCrystalCube.cubeModel = map.getOrDefault(prefix("block/corporea_crystal_cube_glass"), missing);
 		RenderTilePump.headModel = map.getOrDefault(prefix("block/pump_head"), missing);
 		elvenSpreaderInside = map.getOrDefault(prefix("block/elven_spreader_inside"), missing);
@@ -199,8 +199,8 @@ public class MiscellaneousIcons {
 		}
 	}
 
-	private static SpriteIdentifier mainAtlas(String name) {
-		return new SpriteIdentifier(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, prefix(name));
+	private static Material mainAtlas(String name) {
+		return new Material(TextureAtlas.LOCATION_BLOCKS, prefix(name));
 	}
 
 	private MiscellaneousIcons() {}

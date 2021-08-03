@@ -8,22 +8,22 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Lazy;
-import net.minecraft.util.Tickable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.World;
-import net.minecraft.world.explosion.Explosion;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.recipe.ElvenPortalUpdateCallback;
 import vazkii.botania.api.recipe.IElvenItem;
@@ -48,8 +48,8 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class TileAlfPortal extends TileMod implements Tickable {
-	public static final Lazy<IMultiblock> MULTIBLOCK = new Lazy<>(() -> PatchouliAPI.get().makeMultiblock(
+public class TileAlfPortal extends TileMod implements TickableBlockEntity {
+	public static final LazyLoadedValue<IMultiblock> MULTIBLOCK = new LazyLoadedValue<>(() -> PatchouliAPI.get().makeMultiblock(
 			new String[][] {
 					{ "_", "W", "G", "W", "_" },
 					{ "W", " ", " ", " ", "W" },
@@ -83,33 +83,33 @@ public class TileAlfPortal extends TileMod implements Tickable {
 
 	@Override
 	public void tick() {
-		if (getCachedState().get(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF) {
+		if (getBlockState().getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF) {
 			ticksOpen = 0;
 			return;
 		}
-		AlfPortalState state = getCachedState().get(BotaniaStateProps.ALFPORTAL_STATE);
+		AlfPortalState state = getBlockState().getValue(BotaniaStateProps.ALFPORTAL_STATE);
 		AlfPortalState newState = getValidState();
 
 		ticksOpen++;
 
-		Box aabb = getPortalAABB();
+		AABB aabb = getPortalAABB();
 		boolean open = ticksOpen > 60;
 		ElvenPortalUpdateCallback.EVENT.invoker().onElvenPortalTick(this, aabb, open, stacksIn);
 
 		if (ticksOpen > 60) {
 			ticksSinceLastItem++;
-			if (world.isClient && ConfigHandler.CLIENT.elfPortalParticlesEnabled.getValue()) {
+			if (level.isClientSide && ConfigHandler.CLIENT.elfPortalParticlesEnabled.getValue()) {
 				blockParticle(state);
 			}
 
-			List<ItemEntity> items = world.getNonSpectatingEntities(ItemEntity.class, aabb);
-			if (!world.isClient) {
+			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, aabb);
+			if (!level.isClientSide) {
 				for (ItemEntity item : items) {
 					if (!item.isAlive()) {
 						continue;
 					}
 
-					ItemStack stack = item.getStack();
+					ItemStack stack = item.getItem();
 					boolean consume;
 					if (EntityComponents.INTERNAL_ITEM.get(item).alfPortalSpawned) {
 						consume = false;
@@ -131,14 +131,14 @@ public class TileAlfPortal extends TileMod implements Tickable {
 				}
 			}
 
-			if (!world.isClient && !stacksIn.isEmpty() && ticksSinceLastItem >= 4) {
+			if (!level.isClientSide && !stacksIn.isEmpty() && ticksSinceLastItem >= 4) {
 				resolveRecipes();
 			}
 		}
 
 		if (closeNow) {
-			if (!world.isClient) {
-				world.setBlockState(getPos(), ModBlocks.alfPortal.getDefaultState());
+			if (!level.isClientSide) {
+				level.setBlockAndUpdate(getBlockPos(), ModBlocks.alfPortal.defaultBlockState());
 			}
 			for (int i = 0; i < 36; i++) {
 				blockParticle(state);
@@ -151,18 +151,18 @@ public class TileAlfPortal extends TileMod implements Tickable {
 				}
 			}
 
-			if (!world.isClient) {
-				world.setBlockState(getPos(), getCachedState().with(BotaniaStateProps.ALFPORTAL_STATE, newState));
+			if (!level.isClientSide) {
+				level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BotaniaStateProps.ALFPORTAL_STATE, newState));
 			}
 		} else if (explode) {
-			world.createExplosion(null, pos.getX() + .5, pos.getY() + 2.0, pos.getZ() + .5,
-					3f, Explosion.DestructionType.BREAK);
+			level.explode(null, worldPosition.getX() + .5, worldPosition.getY() + 2.0, worldPosition.getZ() + .5,
+					3f, Explosion.BlockInteraction.BREAK);
 			explode = false;
 
-			if (!world.isClient && breadPlayer != null) {
-				PlayerEntity entity = world.getPlayerByUuid(breadPlayer);
-				if (entity instanceof ServerPlayerEntity) {
-					AlfPortalBreadTrigger.INSTANCE.trigger((ServerPlayerEntity) entity, getPos());
+			if (!level.isClientSide && breadPlayer != null) {
+				Player entity = level.getPlayerByUUID(breadPlayer);
+				if (entity instanceof ServerPlayer) {
+					AlfPortalBreadTrigger.INSTANCE.trigger((ServerPlayer) entity, getBlockPos());
 				}
 			}
 			breadPlayer = null;
@@ -170,8 +170,8 @@ public class TileAlfPortal extends TileMod implements Tickable {
 	}
 
 	private boolean validateItemUsage(ItemEntity entity) {
-		ItemStack inputStack = entity.getStack();
-		for (Recipe<?> recipe : ModRecipeTypes.getRecipes(world, ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
+		ItemStack inputStack = entity.getItem();
+		for (Recipe<?> recipe : ModRecipeTypes.getRecipes(level, ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
 			if (recipe instanceof IElvenTradeRecipe && ((IElvenTradeRecipe) recipe).containsItem(inputStack)) {
 				return true;
 			}
@@ -189,7 +189,7 @@ public class TileAlfPortal extends TileMod implements Tickable {
 		double dh, dy;
 
 		// Pick one of the inner positions
-		switch (world.random.nextInt(9)) {
+		switch (level.random.nextInt(9)) {
 		default:
 		case 0:
 			dh = 0;
@@ -233,15 +233,15 @@ public class TileAlfPortal extends TileMod implements Tickable {
 
 		float motionMul = 0.2F;
 		WispParticleData data = WispParticleData.wisp((float) (Math.random() * 0.15F + 0.1F), (float) (Math.random() * 0.25F), (float) (Math.random() * 0.5F + 0.5F), (float) (Math.random() * 0.25F));
-		world.addParticle(data, getPos().getX() + dx, getPos().getY() + dy, getPos().getZ() + dz, (float) (Math.random() - 0.5F) * motionMul, (float) (Math.random() - 0.5F) * motionMul, (float) (Math.random() - 0.5F) * motionMul);
+		level.addParticle(data, getBlockPos().getX() + dx, getBlockPos().getY() + dy, getBlockPos().getZ() + dz, (float) (Math.random() - 0.5F) * motionMul, (float) (Math.random() - 0.5F) * motionMul, (float) (Math.random() - 0.5F) * motionMul);
 	}
 
 	public boolean onWanded() {
-		AlfPortalState state = getCachedState().get(BotaniaStateProps.ALFPORTAL_STATE);
+		AlfPortalState state = getBlockState().getValue(BotaniaStateProps.ALFPORTAL_STATE);
 		if (state == AlfPortalState.OFF) {
 			AlfPortalState newState = getValidState();
 			if (newState != AlfPortalState.OFF) {
-				world.setBlockState(getPos(), getCachedState().with(BotaniaStateProps.ALFPORTAL_STATE, newState));
+				level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BotaniaStateProps.ALFPORTAL_STATE, newState));
 				return true;
 			}
 		}
@@ -249,10 +249,10 @@ public class TileAlfPortal extends TileMod implements Tickable {
 		return false;
 	}
 
-	private Box getPortalAABB() {
-		Box aabb = new Box(pos.add(-1, 1, 0), pos.add(2, 4, 1));
-		if (getCachedState().get(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.ON_X) {
-			aabb = new Box(pos.add(0, 1, -1), pos.add(1, 4, 2));
+	private AABB getPortalAABB() {
+		AABB aabb = new AABB(worldPosition.offset(-1, 1, 0), worldPosition.offset(2, 4, 1));
+		if (getBlockState().getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.ON_X) {
+			aabb = new AABB(worldPosition.offset(0, 1, -1), worldPosition.offset(1, 4, 2));
 		}
 
 		return aabb;
@@ -267,7 +267,7 @@ public class TileAlfPortal extends TileMod implements Tickable {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static Collection<IElvenTradeRecipe> elvenTradeRecipes(World world) {
+	public static Collection<IElvenTradeRecipe> elvenTradeRecipes(Level world) {
 		// By virtue of IRecipeType's type parameter,
 		// we know all the recipes in the map must be IElvenTradeRecipe.
 		// However, vanilla's signature on this method is dumb (should be Map<ResourceLocation, T>)
@@ -276,7 +276,7 @@ public class TileAlfPortal extends TileMod implements Tickable {
 
 	private void resolveRecipes() {
 		List<BlockPos> pylons = locatePylons();
-		for (Recipe<?> r : ModRecipeTypes.getRecipes(world, ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
+		for (Recipe<?> r : ModRecipeTypes.getRecipes(level, ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
 			if (!(r instanceof IElvenTradeRecipe)) {
 				continue;
 			}
@@ -298,21 +298,21 @@ public class TileAlfPortal extends TileMod implements Tickable {
 	}
 
 	private void spawnItem(ItemStack stack) {
-		ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, stack);
+		ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, stack);
 		EntityComponents.INTERNAL_ITEM.get(item).alfPortalSpawned = true;
-		world.spawnEntity(item);
+		level.addFreshEntity(item);
 		ticksSinceLastItem = 0;
 	}
 
 	@Nonnull
 	@Override
-	public CompoundTag toTag(CompoundTag cmp) {
-		CompoundTag ret = super.toTag(cmp);
+	public CompoundTag save(CompoundTag cmp) {
+		CompoundTag ret = super.save(cmp);
 
 		cmp.putInt(TAG_STACK_COUNT, stacksIn.size());
 		int i = 0;
 		for (ItemStack stack : stacksIn) {
-			CompoundTag stackcmp = stack.toTag(new CompoundTag());
+			CompoundTag stackcmp = stack.save(new CompoundTag());
 			cmp.put(TAG_STACK + i, stackcmp);
 			i++;
 		}
@@ -321,14 +321,14 @@ public class TileAlfPortal extends TileMod implements Tickable {
 	}
 
 	@Override
-	public void fromTag(BlockState state, CompoundTag cmp) {
-		super.fromTag(state, cmp);
+	public void load(BlockState state, CompoundTag cmp) {
+		super.load(state, cmp);
 
 		int count = cmp.getInt(TAG_STACK_COUNT);
 		stacksIn.clear();
 		for (int i = 0; i < count; i++) {
 			CompoundTag stackcmp = cmp.getCompound(TAG_STACK + i);
-			ItemStack stack = ItemStack.fromTag(stackcmp);
+			ItemStack stack = ItemStack.of(stackcmp);
 			stacksIn.add(stack);
 		}
 	}
@@ -346,7 +346,7 @@ public class TileAlfPortal extends TileMod implements Tickable {
 	}
 
 	private AlfPortalState getValidState() {
-		BlockRotation rot = MULTIBLOCK.get().validate(world, getPos());
+		Rotation rot = MULTIBLOCK.get().validate(level, getBlockPos());
 		if (rot == null) {
 			return AlfPortalState.OFF;
 		}
@@ -366,12 +366,12 @@ public class TileAlfPortal extends TileMod implements Tickable {
 	public List<BlockPos> locatePylons() {
 		int range = 5;
 
-		BlockState pylonState = ModBlocks.naturaPylon.getDefaultState();
+		BlockState pylonState = ModBlocks.naturaPylon.defaultBlockState();
 
-		return BlockPos.stream(getPos().add(-range, -range, -range), getPos().add(range, range, range))
-				.filter(world::isChunkLoaded)
-				.filter(p -> world.getBlockState(p) == pylonState && world.getBlockState(p.down()).getBlock() instanceof BlockPool)
-				.map(BlockPos::toImmutable)
+		return BlockPos.betweenClosedStream(getBlockPos().offset(-range, -range, -range), getBlockPos().offset(range, range, range))
+				.filter(level::hasChunkAt)
+				.filter(p -> level.getBlockState(p) == pylonState && level.getBlockState(p.below()).getBlock() instanceof BlockPool)
+				.map(BlockPos::immutable)
 				.collect(Collectors.toList());
 	}
 
@@ -382,11 +382,11 @@ public class TileAlfPortal extends TileMod implements Tickable {
 
 		List<BlockPos> pylons = locatePylons();
 		for (BlockPos pos : pylons) {
-			BlockEntity tile = world.getBlockEntity(pos);
+			BlockEntity tile = level.getBlockEntity(pos);
 			if (tile instanceof TilePylon) {
 				TilePylon pylon = (TilePylon) tile;
 				pylon.activated = true;
-				pylon.centerPos = getPos();
+				pylon.centerPos = getBlockPos();
 			}
 		}
 
@@ -408,21 +408,21 @@ public class TileAlfPortal extends TileMod implements Tickable {
 		int expectedConsumption = costPer * pylons.size();
 
 		for (BlockPos pos : pylons) {
-			BlockEntity tile = world.getBlockEntity(pos);
+			BlockEntity tile = level.getBlockEntity(pos);
 			if (tile instanceof TilePylon) {
 				TilePylon pylon = (TilePylon) tile;
 				pylon.activated = true;
-				pylon.centerPos = getPos();
+				pylon.centerPos = getBlockPos();
 			}
 
-			tile = world.getBlockEntity(pos.down());
+			tile = level.getBlockEntity(pos.below());
 			if (tile instanceof TilePool) {
 				TilePool pool = (TilePool) tile;
 
 				if (pool.getCurrentMana() < costPer) {
 					closeNow = closeNow || close;
 					return false;
-				} else if (!world.isClient) {
+				} else if (!level.isClientSide) {
 					consumePools.add(pool);
 					consumed += costPer;
 				}

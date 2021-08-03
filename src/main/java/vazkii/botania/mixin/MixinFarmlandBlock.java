@@ -8,10 +8,10 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FarmlandBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.WorldView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.FarmBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,13 +21,13 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
 
-@Mixin(FarmlandBlock.class)
+@Mixin(FarmBlock.class)
 public class MixinFarmlandBlock {
 	@Inject(
-		method = "canPlaceAt", at = @At(value = "RETURN"),
+		method = "canSurvive", at = @At(value = "RETURN"),
 		cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT
 	)
-	private void floatingFlowerOverride(BlockState state, WorldView worldIn, BlockPos pos,
+	private void floatingFlowerOverride(BlockState state, LevelReader worldIn, BlockPos pos,
 			CallbackInfoReturnable<Boolean> cir, BlockState stateAbove) {
 		if (stateAbove.getBlock() instanceof BlockFloatingFlower) {
 			cir.setReturnValue(true);

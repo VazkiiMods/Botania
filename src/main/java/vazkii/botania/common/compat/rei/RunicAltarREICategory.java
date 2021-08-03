@@ -10,9 +10,9 @@ package vazkii.botania.common.compat.rei;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -35,10 +35,10 @@ import me.shedaniel.rei.gui.widget.Widget;
 @Environment(EnvType.CLIENT)
 public class RunicAltarREICategory implements RecipeCategory<RunicAltarREIDisplay> {
 	private EntryStack altar = EntryStack.create(new ItemStack(ModBlocks.runeAltar));
-	private Identifier PETAL_OVERLAY = ResourceLocationHelper.prefix("textures/gui/petal_overlay.png");
+	private ResourceLocation PETAL_OVERLAY = ResourceLocationHelper.prefix("textures/gui/petal_overlay.png");
 
 	@Override
-	public @NotNull Identifier getIdentifier() {
+	public @NotNull ResourceLocation getIdentifier() {
 		return RecipeRuneAltar.TYPE_ID;
 	}
 
@@ -49,7 +49,7 @@ public class RunicAltarREICategory implements RecipeCategory<RunicAltarREIDispla
 
 	@Override
 	public @NotNull String getCategoryName() {
-		return I18n.translate("botania.nei.runicAltar");
+		return I18n.get("botania.nei.runicAltar");
 	}
 
 	@Override

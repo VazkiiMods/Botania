@@ -8,9 +8,9 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.dispenser.DispenserBehavior;
-import net.minecraft.item.Item;
+import net.minecraft.core.dispenser.DispenseItemBehavior;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.DispenserBlock;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -19,8 +19,8 @@ import java.util.Map;
 
 @Mixin(DispenserBlock.class)
 public interface AccessorDispenserBlock {
-	@Accessor("BEHAVIORS")
-	static Map<Item, DispenserBehavior> getDispenseBehaviorRegistry() {
+	@Accessor("DISPENSER_REGISTRY")
+	static Map<Item, DispenseItemBehavior> getDispenserRegistry() {
 		throw new IllegalStateException();
 	}
 }

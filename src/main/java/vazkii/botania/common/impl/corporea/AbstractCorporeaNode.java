@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.impl.corporea;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.corporea.ICorporeaNode;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -22,18 +22,18 @@ import java.util.List;
 
 public abstract class AbstractCorporeaNode implements ICorporeaNode {
 
-	private final World world;
+	private final Level world;
 	private final BlockPos pos;
 	private final ICorporeaSpark spark;
 
-	public AbstractCorporeaNode(World world, BlockPos pos, ICorporeaSpark spark) {
+	public AbstractCorporeaNode(Level world, BlockPos pos, ICorporeaSpark spark) {
 		this.world = world;
 		this.pos = pos;
 		this.spark = spark;
 	}
 
 	@Override
-	public World getWorld() {
+	public Level getWorld() {
 		return world;
 	}
 
@@ -52,20 +52,20 @@ public abstract class AbstractCorporeaNode implements ICorporeaNode {
 	 * Used when performing extractions with {@link #extractItems}. Not necessary for {@link #countItems}.
 	 */
 	protected static Collection<ItemStack> breakDownBigStack(ItemStack stack) {
-		if (stack.getCount() < stack.getMaxCount()) {
+		if (stack.getCount() < stack.getMaxStackSize()) {
 			return Collections.singleton(stack);
 		}
 
 		List<ItemStack> stacks = new ArrayList<>();
 
-		int additionalStacks = stack.getCount() / stack.getMaxCount();
+		int additionalStacks = stack.getCount() / stack.getMaxStackSize();
 		ItemStack fullStack = stack.copy();
-		fullStack.setCount(stack.getMaxCount());
+		fullStack.setCount(stack.getMaxStackSize());
 		for (int i = 0; i < additionalStacks; i++) {
 			stacks.add(fullStack.copy());
 		}
 
-		int lastStackSize = stack.getCount() % stack.getMaxCount();
+		int lastStackSize = stack.getCount() % stack.getMaxStackSize();
 		ItemStack lastStack = stack.copy();
 		lastStack.setCount(lastStackSize);
 		stacks.add(lastStack);

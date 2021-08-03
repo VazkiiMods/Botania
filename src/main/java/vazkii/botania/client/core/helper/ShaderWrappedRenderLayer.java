@@ -8,7 +8,7 @@
  */
 package vazkii.botania.client.core.helper;
 
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.renderer.RenderType;
 
 import vazkii.botania.client.lib.LibResources;
 
@@ -17,22 +17,22 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.Optional;
 
-public class ShaderWrappedRenderLayer extends RenderLayer {
-	private final RenderLayer delegate;
+public class ShaderWrappedRenderLayer extends RenderType {
+	private final RenderType delegate;
 	private final ShaderHelper.BotaniaShader shader;
 
 	@Nullable
 	private final ShaderCallback cb;
 
-	public ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader shader, @Nullable ShaderCallback cb, RenderLayer delegate) {
-		super(LibResources.PREFIX_MOD + delegate.toString() + "_with_" + shader.name(), delegate.getVertexFormat(), delegate.getDrawMode(), delegate.getExpectedBufferSize(), delegate.hasCrumbling(), true,
+	public ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader shader, @Nullable ShaderCallback cb, RenderType delegate) {
+		super(LibResources.PREFIX_MOD + delegate.toString() + "_with_" + shader.name(), delegate.format(), delegate.mode(), delegate.bufferSize(), delegate.affectsCrumbling(), true,
 				() -> {
-					delegate.startDrawing();
+					delegate.setupRenderState();
 					ShaderHelper.useShader(shader, cb);
 				},
 				() -> {
 					ShaderHelper.releaseShader();
-					delegate.endDrawing();
+					delegate.clearRenderState();
 				});
 		this.delegate = delegate;
 		this.shader = shader;
@@ -40,8 +40,8 @@ public class ShaderWrappedRenderLayer extends RenderLayer {
 	}
 
 	@Override
-	public Optional<RenderLayer> getAffectedOutline() {
-		return delegate.getAffectedOutline();
+	public Optional<RenderType> outline() {
+		return delegate.outline();
 	}
 
 	@Override

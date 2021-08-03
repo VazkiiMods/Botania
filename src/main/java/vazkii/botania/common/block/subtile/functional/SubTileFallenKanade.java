@@ -8,11 +8,11 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.World;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -32,12 +32,12 @@ public class SubTileFallenKanade extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getWorld().isClient && getWorld().getRegistryKey() != World.END) {
+		if (!getLevel().isClientSide && getLevel().dimension() != Level.END) {
 			boolean did = false;
-			List<PlayerEntity> players = getWorld().getNonSpectatingEntities(PlayerEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
-			for (PlayerEntity player : players) {
-				if (player.getStatusEffect(StatusEffects.REGENERATION) == null && getMana() >= COST) {
-					player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 59, 2, true, true));
+			List<Player> players = getLevel().getEntitiesOfClass(Player.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)));
+			for (Player player : players) {
+				if (player.getEffect(MobEffects.REGENERATION) == null && getMana() >= COST) {
+					player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 59, 2, true, true));
 					addMana(-COST);
 					did = true;
 				}

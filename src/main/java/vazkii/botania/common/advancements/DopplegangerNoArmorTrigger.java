@@ -10,14 +10,14 @@ package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancement.criterion.AbstractCriterion;
-import net.minecraft.advancement.criterion.AbstractCriterionConditions;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
-import net.minecraft.predicate.entity.DamageSourcePredicate;
-import net.minecraft.predicate.entity.EntityPredicate;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
+import net.minecraft.advancements.critereon.DamageSourcePredicate;
+import net.minecraft.advancements.critereon.DeserializationContext;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
 
 import vazkii.botania.common.entity.EntityDoppleganger;
 
@@ -25,33 +25,33 @@ import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class DopplegangerNoArmorTrigger extends AbstractCriterion<DopplegangerNoArmorTrigger.Instance> {
-	public static final Identifier ID = prefix("gaia_guardian_no_armor");
+public class DopplegangerNoArmorTrigger extends SimpleCriterionTrigger<DopplegangerNoArmorTrigger.Instance> {
+	public static final ResourceLocation ID = prefix("gaia_guardian_no_armor");
 	public static final DopplegangerNoArmorTrigger INSTANCE = new DopplegangerNoArmorTrigger();
 
 	private DopplegangerNoArmorTrigger() {}
 
 	@Nonnull
 	@Override
-	public Identifier getId() {
+	public ResourceLocation getId() {
 		return ID;
 	}
 
 	@Nonnull
 	@Override
-	public DopplegangerNoArmorTrigger.Instance conditionsFromJson(@Nonnull JsonObject json, EntityPredicate.Extended playerPred, AdvancementEntityPredicateDeserializer conditions) {
+	public DopplegangerNoArmorTrigger.Instance createInstance(@Nonnull JsonObject json, EntityPredicate.Composite playerPred, DeserializationContext conditions) {
 		return new DopplegangerNoArmorTrigger.Instance(playerPred, EntityPredicate.fromJson(json.get("guardian")), DamageSourcePredicate.fromJson(json.get("killing_blow")));
 	}
 
-	public void trigger(ServerPlayerEntity player, EntityDoppleganger guardian, DamageSource src) {
-		test(player, instance -> instance.test(player, guardian, src));
+	public void trigger(ServerPlayer player, EntityDoppleganger guardian, DamageSource src) {
+		trigger(player, instance -> instance.test(player, guardian, src));
 	}
 
-	public static class Instance extends AbstractCriterionConditions {
+	public static class Instance extends AbstractCriterionTriggerInstance {
 		private final EntityPredicate guardian;
 		private final DamageSourcePredicate killingBlow;
 
-		public Instance(EntityPredicate.Extended playerPred, EntityPredicate count, DamageSourcePredicate indexPos) {
+		public Instance(EntityPredicate.Composite playerPred, EntityPredicate count, DamageSourcePredicate indexPos) {
 			super(ID, playerPred);
 			this.guardian = count;
 			this.killingBlow = indexPos;
@@ -59,12 +59,12 @@ public class DopplegangerNoArmorTrigger extends AbstractCriterion<DopplegangerNo
 
 		@Nonnull
 		@Override
-		public Identifier getId() {
+		public ResourceLocation getCriterion() {
 			return ID;
 		}
 
-		boolean test(ServerPlayerEntity player, EntityDoppleganger guardian, DamageSource src) {
-			return this.guardian.test(player, guardian) && this.killingBlow.test(player, src);
+		boolean test(ServerPlayer player, EntityDoppleganger guardian, DamageSource src) {
+			return this.guardian.matches(player, guardian) && this.killingBlow.matches(player, src);
 		}
 
 		public EntityPredicate getGuardian() {

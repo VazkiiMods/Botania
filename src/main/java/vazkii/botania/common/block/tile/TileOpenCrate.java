@@ -8,22 +8,22 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Tickable;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.core.Direction;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.mixin.AccessorItemEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileOpenCrate extends TileExposedSimpleInventory implements Tickable {
+public class TileOpenCrate extends TileExposedSimpleInventory implements TickableBlockEntity {
 	public TileOpenCrate() {
 		this(ModTiles.OPEN_CRATE);
 	}
@@ -33,20 +33,20 @@ public class TileOpenCrate extends TileExposedSimpleInventory implements Tickabl
 	}
 
 	@Override
-	protected SimpleInventory createItemHandler() {
-		return new SimpleInventory(1);
+	protected SimpleContainer createItemHandler() {
+		return new SimpleContainer(1);
 	}
 
 	@Override
 	public void tick() {
-		if (world.isClient) {
+		if (level.isClientSide) {
 			return;
 		}
 
-		boolean redstone = world.isReceivingRedstonePower(pos);
+		boolean redstone = level.hasNeighborSignal(worldPosition);
 
 		if (canEject()) {
-			ItemStack stack = getItemHandler().getStack(0);
+			ItemStack stack = getItemHandler().getItem(0);
 			if (!stack.isEmpty()) {
 				eject(stack, redstone);
 			}
@@ -57,27 +57,27 @@ public class TileOpenCrate extends TileExposedSimpleInventory implements Tickabl
 		float width = EntityType.ITEM.getWidth();
 		float height = EntityType.ITEM.getHeight();
 
-		double ejectX = pos.getX() + 0.5;
-		double ejectY = pos.getY() - height;
-		double ejectZ = pos.getZ() + 0.5;
-		Box itemBB = new Box(ejectX - width / 2, ejectY, ejectZ - width / 2, ejectX + width / 2, ejectY + height, ejectZ + width / 2);
-		return world.isSpaceEmpty(itemBB);
+		double ejectX = worldPosition.getX() + 0.5;
+		double ejectY = worldPosition.getY() - height;
+		double ejectZ = worldPosition.getZ() + 0.5;
+		AABB itemBB = new AABB(ejectX - width / 2, ejectY, ejectZ - width / 2, ejectX + width / 2, ejectY + height, ejectZ + width / 2);
+		return level.noCollision(itemBB);
 	}
 
 	public void eject(ItemStack stack, boolean redstone) {
-		double ejectY = pos.getY() - EntityType.ITEM.getHeight();
-		ItemEntity item = new ItemEntity(world, pos.getX() + 0.5, ejectY, pos.getZ() + 0.5, stack);
-		item.setVelocity(Vec3d.ZERO);
+		double ejectY = worldPosition.getY() - EntityType.ITEM.getHeight();
+		ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, ejectY, worldPosition.getZ() + 0.5, stack);
+		item.setDeltaMovement(Vec3.ZERO);
 		if (redstone) {
 			((AccessorItemEntity) item).setAge(-200);
 		}
 
-		getItemHandler().setStack(0, ItemStack.EMPTY);
-		world.spawnEntity(item);
+		getItemHandler().setItem(0, ItemStack.EMPTY);
+		level.addFreshEntity(item);
 	}
 
 	@Override
-	public boolean canExtract(int index, @Nonnull ItemStack stack, @Nullable Direction direction) {
+	public boolean canTakeItemThroughFace(int index, @Nonnull ItemStack stack, @Nullable Direction direction) {
 		return false;
 	}
 }

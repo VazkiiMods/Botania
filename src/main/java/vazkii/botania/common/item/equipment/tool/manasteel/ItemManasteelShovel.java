@@ -8,12 +8,14 @@
  */
 package vazkii.botania.common.item.equipment.tool.manasteel;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISortableTool;
@@ -27,11 +29,11 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 
 	private static final int MANA_PER_DAMAGE = 60;
 
-	public ItemManasteelShovel(Settings props) {
+	public ItemManasteelShovel(Properties props) {
 		this(BotaniaAPI.instance().getManasteelItemTier(), props);
 	}
 
-	public ItemManasteelShovel(ToolMaterial mat, Settings props) {
+	public ItemManasteelShovel(Tier mat, Properties props) {
 		super(mat, 1.5F, -3.0F, props);
 	}
 
@@ -45,9 +47,9 @@ public class ItemManasteelShovel extends ShovelItem implements IManaUsingItem, I
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity player, int slot, boolean selected) {
-		if (!world.isClient && player instanceof PlayerEntity && stack.getDamage() > 0 && ManaItemHandler.instance().requestManaExactForTool(stack, (PlayerEntity) player, getManaPerDamage() * 2, true)) {
-			stack.setDamage(stack.getDamage() - 1);
+	public void inventoryTick(ItemStack stack, Level world, Entity player, int slot, boolean selected) {
+		if (!world.isClientSide && player instanceof Player && stack.getDamageValue() > 0 && ManaItemHandler.instance().requestManaExactForTool(stack, (Player) player, getManaPerDamage() * 2, true)) {
+			stack.setDamageValue(stack.getDamageValue() - 1);
 		}
 	}
 

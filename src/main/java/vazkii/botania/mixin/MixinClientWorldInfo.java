@@ -8,7 +8,7 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.world.ClientWorld;
+import net.minecraft.client.multiplayer.ClientLevel;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.client.core.SkyblockWorldInfo;
 
-@Mixin(ClientWorld.Properties.class)
+@Mixin(ClientLevel.ClientLevelData.class)
 public abstract class MixinClientWorldInfo implements SkyblockWorldInfo {
 	private boolean gardenOfGlass;
 
@@ -31,14 +31,14 @@ public abstract class MixinClientWorldInfo implements SkyblockWorldInfo {
 		gardenOfGlass = true;
 	}
 
-	@Inject(at = @At("HEAD"), method = "getSkyDarknessHeight", cancellable = true)
+	@Inject(at = @At("HEAD"), method = "getHorizonHeight", cancellable = true)
 	private void gogHorizon(CallbackInfoReturnable<Double> cir) {
 		if (gardenOfGlass) {
 			cir.setReturnValue(0.0);
 		}
 	}
 
-	@Inject(at = @At("HEAD"), method = "getHorizonShadingRatio", cancellable = true)
+	@Inject(at = @At("HEAD"), method = "getClearColorScale", cancellable = true)
 	private void gogFog(CallbackInfoReturnable<Double> cir) {
 		if (gardenOfGlass) {
 			cir.setReturnValue(1.0);

@@ -12,7 +12,7 @@ import com.mojang.datafixers.util.Pair;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.sound.SoundInstance;
+import net.minecraft.client.resources.sounds.SoundInstance;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
@@ -36,15 +36,15 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isClient) {
-			disabled = getWorld().isReceivingRedstonePower(getPos());
+		if (getLevel().isClientSide) {
+			disabled = getLevel().hasNeighborSignal(getBlockPos());
 			existingFlowers.add(this);
 		}
 	}
 
 	@Override
-	public void markRemoved() {
-		super.markRemoved();
+	public void setRemoved() {
+		super.setRemoved();
 		existingFlowers.remove(this);
 	}
 
@@ -54,7 +54,7 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 		SubTileBergamute tile = null;
 
 		for (SubTileBergamute f : existingFlowers) {
-			if (!f.disabled && f.getEffectivePos().getSquaredDistance(x, y, z, true) <= RANGE * RANGE) {
+			if (!f.disabled && f.getEffectivePos().distSqr(x, y, z, true) <= RANGE * RANGE) {
 				count++;
 				if (count == 1) {
 					tile = f;
@@ -81,7 +81,7 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 				float blue = (color & 0xFF) / 255F;
 				SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 5);
 				SubTileBergamute berg = countAndBerg.getSecond();
-				berg.getWorld().addParticle(data, berg.getEffectivePos().getX() + 0.3 + Math.random() * 0.5, berg.getEffectivePos().getY() + 0.5 + Math.random() * 0.5, berg.getEffectivePos().getZ() + 0.3 + Math.random() * 0.5, 0, 0, 0);
+				berg.getLevel().addParticle(data, berg.getEffectivePos().getX() + 0.3 + Math.random() * 0.5, berg.getEffectivePos().getY() + 0.5 + Math.random() * 0.5, berg.getEffectivePos().getZ() + 0.3 + Math.random() * 0.5, 0, 0, 0);
 			}
 		}
 		return count;

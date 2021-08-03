@@ -11,11 +11,11 @@ package vazkii.botania.data.recipes;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 
-import net.minecraft.data.DataCache;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
-import net.minecraft.util.Identifier;
+import net.minecraft.data.HashCache;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.mixin.AccessorRecipesProvider;
 
@@ -32,21 +32,21 @@ public abstract class BotaniaRecipeProvider implements DataProvider {
 
 	// [VanillaCopy] RecipeProvider
 	@Override
-	public void run(DataCache cache) {
-		Path path = this.generator.getOutput();
-		Set<Identifier> set = Sets.newHashSet();
+	public void run(HashCache cache) {
+		Path path = this.generator.getOutputFolder();
+		Set<ResourceLocation> set = Sets.newHashSet();
 		registerRecipes((recipeJsonProvider) -> {
-			if (!set.add(recipeJsonProvider.getRecipeId())) {
-				throw new IllegalStateException("Duplicate recipe " + recipeJsonProvider.getRecipeId());
+			if (!set.add(recipeJsonProvider.getId())) {
+				throw new IllegalStateException("Duplicate recipe " + recipeJsonProvider.getId());
 			} else {
-				AccessorRecipesProvider.callSaveRecipe(cache, recipeJsonProvider.toJson(), path.resolve("data/" + recipeJsonProvider.getRecipeId().getNamespace() + "/recipes/" + recipeJsonProvider.getRecipeId().getPath() + ".json"));
-				JsonObject jsonObject = recipeJsonProvider.toAdvancementJson();
+				AccessorRecipesProvider.callSaveRecipe(cache, recipeJsonProvider.serializeRecipe(), path.resolve("data/" + recipeJsonProvider.getId().getNamespace() + "/recipes/" + recipeJsonProvider.getId().getPath() + ".json"));
+				JsonObject jsonObject = recipeJsonProvider.serializeAdvancement();
 				if (jsonObject != null) {
-					AccessorRecipesProvider.callSaveRecipeAdvancement(cache, jsonObject, path.resolve("data/" + recipeJsonProvider.getRecipeId().getNamespace() + "/advancements/" + recipeJsonProvider.getAdvancementId().getPath() + ".json"));
+					AccessorRecipesProvider.callSaveRecipeAdvancement(cache, jsonObject, path.resolve("data/" + recipeJsonProvider.getId().getNamespace() + "/advancements/" + recipeJsonProvider.getAdvancementId().getPath() + ".json"));
 				}
 			}
 		});
 	}
 
-	abstract void registerRecipes(Consumer<RecipeJsonProvider> consumer);
+	abstract void registerRecipes(Consumer<FinishedRecipe> consumer);
 }

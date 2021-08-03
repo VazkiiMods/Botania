@@ -10,14 +10,14 @@ package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancement.criterion.AbstractCriterion;
-import net.minecraft.advancement.criterion.AbstractCriterionConditions;
-import net.minecraft.item.ItemStack;
-import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
-import net.minecraft.predicate.entity.EntityPredicate;
-import net.minecraft.predicate.item.ItemPredicate;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
+import net.minecraft.advancements.critereon.DeserializationContext;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.item.ItemManaGun;
 
@@ -26,36 +26,36 @@ import javax.annotation.Nullable;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class ManaGunTrigger extends AbstractCriterion<ManaGunTrigger.Instance> {
-	private static final Identifier ID = prefix("fire_mana_blaster");
+public class ManaGunTrigger extends SimpleCriterionTrigger<ManaGunTrigger.Instance> {
+	private static final ResourceLocation ID = prefix("fire_mana_blaster");
 	public static final ManaGunTrigger INSTANCE = new ManaGunTrigger();
 
 	private ManaGunTrigger() {}
 
 	@Nonnull
 	@Override
-	public Identifier getId() {
+	public ResourceLocation getId() {
 		return ID;
 	}
 
 	@Nonnull
 	@Override
-	public ManaGunTrigger.Instance conditionsFromJson(@Nonnull JsonObject json, EntityPredicate.Extended playerPred, AdvancementEntityPredicateDeserializer conditions) {
+	public ManaGunTrigger.Instance createInstance(@Nonnull JsonObject json, EntityPredicate.Composite playerPred, DeserializationContext conditions) {
 		Boolean desu = json.get("desu") == null ? null : json.get("desu").getAsBoolean();
 		return new ManaGunTrigger.Instance(playerPred, ItemPredicate.fromJson(json.get("item")), EntityPredicate.fromJson(json.get("user")), desu);
 	}
 
-	public void trigger(ServerPlayerEntity player, ItemStack stack) {
-		test(player, instance -> instance.test(stack, player));
+	public void trigger(ServerPlayer player, ItemStack stack) {
+		trigger(player, instance -> instance.test(stack, player));
 	}
 
-	public static class Instance extends AbstractCriterionConditions {
+	public static class Instance extends AbstractCriterionTriggerInstance {
 		private final ItemPredicate item;
 		private final EntityPredicate user;
 		@Nullable
 		private final Boolean desu;
 
-		public Instance(EntityPredicate.Extended entityPred, ItemPredicate count, EntityPredicate user, Boolean desu) {
+		public Instance(EntityPredicate.Composite entityPred, ItemPredicate count, EntityPredicate user, Boolean desu) {
 			super(ID, entityPred);
 			this.item = count;
 			this.user = user;
@@ -64,12 +64,12 @@ public class ManaGunTrigger extends AbstractCriterion<ManaGunTrigger.Instance> {
 
 		@Nonnull
 		@Override
-		public Identifier getId() {
+		public ResourceLocation getCriterion() {
 			return ID;
 		}
 
-		boolean test(ItemStack stack, ServerPlayerEntity entity) {
-			return this.item.test(stack) && this.user.test(entity, entity)
+		boolean test(ItemStack stack, ServerPlayer entity) {
+			return this.item.matches(stack) && this.user.matches(entity, entity)
 					&& (desu == null || desu == ItemManaGun.isSugoiKawaiiDesuNe(stack));
 		}
 

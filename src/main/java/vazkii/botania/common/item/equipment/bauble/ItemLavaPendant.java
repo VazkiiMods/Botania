@@ -8,45 +8,46 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 
 public class ItemLavaPendant extends ItemBauble {
 
-	public ItemLavaPendant(Settings props) {
+	public ItemLavaPendant(Properties props) {
 		super(props);
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
 		if (player.isOnFire()) {
-			player.extinguish();
+			player.clearFire();
 		}
 	}
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		boolean armor = !player.getEquippedStack(EquipmentSlot.CHEST).isEmpty();
-		bipedModel.torso.rotate(ms);
+	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		boolean armor = !player.getItemBySlot(EquipmentSlot.CHEST).isEmpty();
+		bipedModel.body.translateAndRotate(ms);
 		ms.translate(-0.25, 0.5, armor ? 0.05 : 0.12);
 		ms.scale(0.5F, -0.5F, -0.5F);
 		BakedModel model = MiscellaneousIcons.INSTANCE.pyroclastGem;
-		VertexConsumer buffer = buffers.getBuffer(TexturedRenderLayers.getEntityCutout());
-		MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer()
-				.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
+		VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());
+		Minecraft.getInstance().getBlockRenderer().getModelRenderer()
+				.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
 	}
 }

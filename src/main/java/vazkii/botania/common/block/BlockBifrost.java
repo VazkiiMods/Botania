@@ -8,33 +8,33 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class BlockBifrost extends BlockBifrostPerm implements BlockEntityProvider {
+public class BlockBifrost extends BlockBifrostPerm implements EntityBlock {
 
-	public BlockBifrost(Settings builder) {
+	public BlockBifrost(Properties builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getPickStack(@Nonnull BlockView world, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public ItemStack getCloneItemStack(@Nonnull BlockGetter world, @Nonnull BlockPos pos, @Nonnull BlockState state) {
 		return new ItemStack(ModItems.rainbowRod);
 	}
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileBifrost();
 	}
 }

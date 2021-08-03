@@ -8,21 +8,22 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.gl.VertexBuffer;
-import net.minecraft.client.render.VertexFormat;
-import net.minecraft.client.render.WorldRenderer;
+import com.mojang.blaze3d.vertex.VertexBuffer;
+import com.mojang.blaze3d.vertex.VertexFormat;
+
+import net.minecraft.client.renderer.LevelRenderer;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(WorldRenderer.class)
+@Mixin(LevelRenderer.class)
 public interface AccessorWorldRenderer {
 	@Accessor
-	VertexFormat getSkyVertexFormat();
+	VertexFormat getSkyFormat();
 
-	@Accessor("lightSkyBuffer")
-	VertexBuffer getSkyVBO();
+	@Accessor
+	VertexBuffer getSkyBuffer();
 
-	@Accessor("starsBuffer")
-	VertexBuffer getStarVBO();
+	@Accessor
+	VertexBuffer getStarBuffer();
 }

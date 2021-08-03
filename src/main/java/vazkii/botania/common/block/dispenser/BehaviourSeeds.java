@@ -8,18 +8,18 @@
  */
 package vazkii.botania.common.block.dispenser;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPointer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockSource;
+import net.minecraft.core.Direction;
+import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DispenserBlock;
 
 import javax.annotation.Nonnull;
 
-public class BehaviourSeeds extends FallibleItemDispenserBehavior {
+public class BehaviourSeeds extends OptionalDispenseItemBehavior {
 	private Block block;
 
 	public BehaviourSeeds(Block block) {
@@ -28,15 +28,15 @@ public class BehaviourSeeds extends FallibleItemDispenserBehavior {
 
 	@Nonnull
 	@Override
-	public ItemStack dispenseSilently(BlockPointer source, ItemStack stack) {
-		Direction facing = source.getBlockState().get(DispenserBlock.FACING);
-		BlockPos pos = source.getBlockPos().offset(facing);
-		World world = source.getWorld();
+	public ItemStack execute(BlockSource source, ItemStack stack) {
+		Direction facing = source.getBlockState().getValue(DispenserBlock.FACING);
+		BlockPos pos = source.getPos().relative(facing);
+		Level world = source.getLevel();
 
 		setSuccess(false);
-		if (world.isAir(pos) && block.getDefaultState().canPlaceAt(world, pos)) {
-			world.setBlockState(pos, block.getDefaultState());
-			stack.decrement(1);
+		if (world.isEmptyBlock(pos) && block.defaultBlockState().canSurvive(world, pos)) {
+			world.setBlockAndUpdate(pos, block.defaultBlockState());
+			stack.shrink(1);
 			setSuccess(true);
 		}
 

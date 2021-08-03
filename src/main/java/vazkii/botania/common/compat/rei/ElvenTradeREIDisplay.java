@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.compat.rei;
 
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -38,7 +38,7 @@ public class ElvenTradeREIDisplay extends BotaniaRecipeDisplay<RecipeElvenTrade>
 	}
 
 	@Override
-	public @NotNull Identifier getRecipeCategory() {
+	public @NotNull ResourceLocation getRecipeCategory() {
 		return RecipeElvenTrade.TYPE_ID;
 	}
 }

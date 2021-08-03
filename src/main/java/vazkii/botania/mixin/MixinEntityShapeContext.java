@@ -8,8 +8,8 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.block.EntityShapeContext;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -21,13 +21,13 @@ import vazkii.botania.common.core.ExtendedShapeContext;
 
 import javax.annotation.Nullable;
 
-@Mixin(EntityShapeContext.class)
+@Mixin(EntityCollisionContext.class)
 public class MixinEntityShapeContext implements ExtendedShapeContext {
 	@Nullable
 	@Unique
 	private Entity entity;
 
-	@Inject(at = @At("RETURN"), method = "<init>(Lnet/minecraft/entity/Entity;)V")
+	@Inject(at = @At("RETURN"), method = "<init>(Lnet/minecraft/world/entity/Entity;)V")
 	private void captureEntity(Entity entity, CallbackInfo ci) {
 		this.entity = entity;
 	}

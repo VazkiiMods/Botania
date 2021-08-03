@@ -8,10 +8,10 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.network.ClientConnection;
-import net.minecraft.network.packet.s2c.play.SynchronizeRecipesS2CPacket;
-import net.minecraft.server.PlayerManager;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.game.ClientboundUpdateRecipesPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.players.PlayerList;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,28 +23,28 @@ import vazkii.botania.common.network.PacketOrechidData;
 
 import java.util.Iterator;
 
-@Mixin(PlayerManager.class)
+@Mixin(PlayerList.class)
 public class MixinPlayerList {
 	// Required around this spot as going later will prevent working with JEI on first login.
 	// The alternative is Forge's login packets (please no)
 	@Inject(
-		method = "onPlayerConnect",
-		at = @At(value = "NEW", target = "net/minecraft/network/packet/s2c/play/SynchronizeRecipesS2CPacket")
+		method = "placeNewPlayer",
+		at = @At(value = "NEW", target = "net/minecraft/network/protocol/game/ClientboundUpdateRecipesPacket")
 	)
-	private void sendOrechidData(ClientConnection netManager, ServerPlayerEntity playerIn, CallbackInfo ci) {
+	private void sendOrechidData(Connection netManager, ServerPlayer playerIn, CallbackInfo ci) {
 		PacketOrechidData.sendNonLocal(playerIn);
 	}
 
 	// Resync after data reload.
 	@Inject(
-		method = "onDataPacksReloaded", locals = LocalCapture.CAPTURE_FAILHARD,
+		method = "reloadResources", locals = LocalCapture.CAPTURE_FAILHARD,
 		at = @At(
-			value = "INVOKE", target = "Lnet/minecraft/server/network/ServerRecipeBook;sendInitRecipesPacket(Lnet/minecraft/server/network/ServerPlayerEntity;)V",
+			value = "INVOKE", target = "Lnet/minecraft/stats/ServerRecipeBook;sendInitialRecipeBook(Lnet/minecraft/server/level/ServerPlayer;)V",
 			shift = At.Shift.AFTER
 		)
 	)
-	private void resendOrechidData(CallbackInfo ci, SynchronizeRecipesS2CPacket packet,
-			Iterator<ServerPlayerEntity> iter, ServerPlayerEntity player) {
+	private void resendOrechidData(CallbackInfo ci, ClientboundUpdateRecipesPacket packet,
+			Iterator<ServerPlayer> iter, ServerPlayer player) {
 		PacketOrechidData.sendNonLocal(player);
 	}
 }

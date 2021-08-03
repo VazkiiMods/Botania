@@ -8,14 +8,14 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.Item;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import vazkii.botania.common.block.subtile.SubTileManastar;
 import vazkii.botania.common.block.subtile.SubTilePureDaisy;
@@ -29,90 +29,90 @@ import vazkii.botania.common.lib.LibBlockNames;
 import static vazkii.botania.common.block.ModBlocks.register;
 
 public class ModSubtiles {
-	private static final AbstractBlock.Settings FLOWER_PROPS = AbstractBlock.Settings.copy(Blocks.POPPY);
-	private static final AbstractBlock.Settings FLOATING_PROPS = ModBlocks.FLOATING_PROPS;
+	private static final BlockBehaviour.Properties FLOWER_PROPS = BlockBehaviour.Properties.copy(Blocks.POPPY);
+	private static final BlockBehaviour.Properties FLOATING_PROPS = ModBlocks.FLOATING_PROPS;
 
 	public static final Block pureDaisy = new BlockSpecialFlower(ModPotions.clear, 1, FLOWER_PROPS, SubTilePureDaisy::new);
 	public static final Block pureDaisyFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTilePureDaisy::new);
 
-	public static final Block manastar = new BlockSpecialFlower(StatusEffects.GLOWING, 10, FLOWER_PROPS, SubTileManastar::new);
+	public static final Block manastar = new BlockSpecialFlower(MobEffects.GLOWING, 10, FLOWER_PROPS, SubTileManastar::new);
 	public static final Block manastarFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileManastar::new);
 
-	public static final Block hydroangeas = new BlockSpecialFlower(StatusEffects.UNLUCK, 10, FLOWER_PROPS, SubTileHydroangeas::new);
+	public static final Block hydroangeas = new BlockSpecialFlower(MobEffects.UNLUCK, 10, FLOWER_PROPS, SubTileHydroangeas::new);
 	public static final Block hydroangeasFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileHydroangeas::new);
 
-	public static final Block endoflame = new BlockSpecialFlower(StatusEffects.SLOWNESS, 10, FLOWER_PROPS, SubTileEndoflame::new);
+	public static final Block endoflame = new BlockSpecialFlower(MobEffects.MOVEMENT_SLOWDOWN, 10, FLOWER_PROPS, SubTileEndoflame::new);
 	public static final Block endoflameFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileEndoflame::new);
 
-	public static final Block thermalily = new BlockSpecialFlower(StatusEffects.FIRE_RESISTANCE, 120, FLOWER_PROPS, SubTileThermalily::new);
+	public static final Block thermalily = new BlockSpecialFlower(MobEffects.FIRE_RESISTANCE, 120, FLOWER_PROPS, SubTileThermalily::new);
 	public static final Block thermalilyFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileThermalily::new);
 
-	public static final Block rosaArcana = new BlockSpecialFlower(StatusEffects.LUCK, 64, FLOWER_PROPS, SubTileArcaneRose::new);
+	public static final Block rosaArcana = new BlockSpecialFlower(MobEffects.LUCK, 64, FLOWER_PROPS, SubTileArcaneRose::new);
 	public static final Block rosaArcanaFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileArcaneRose::new);
 
-	public static final Block munchdew = new BlockSpecialFlower(StatusEffects.SLOW_FALLING, 300, FLOWER_PROPS, SubTileMunchdew::new);
+	public static final Block munchdew = new BlockSpecialFlower(MobEffects.SLOW_FALLING, 300, FLOWER_PROPS, SubTileMunchdew::new);
 	public static final Block munchdewFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileMunchdew::new);
 
-	public static final Block entropinnyum = new BlockSpecialFlower(StatusEffects.RESISTANCE, 72, FLOWER_PROPS, SubTileEntropinnyum::new);
+	public static final Block entropinnyum = new BlockSpecialFlower(MobEffects.DAMAGE_RESISTANCE, 72, FLOWER_PROPS, SubTileEntropinnyum::new);
 	public static final Block entropinnyumFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileEntropinnyum::new);
 
-	public static final Block kekimurus = new BlockSpecialFlower(StatusEffects.SATURATION, 15, FLOWER_PROPS, SubTileKekimurus::new);
+	public static final Block kekimurus = new BlockSpecialFlower(MobEffects.SATURATION, 15, FLOWER_PROPS, SubTileKekimurus::new);
 	public static final Block kekimurusFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileKekimurus::new);
 
-	public static final Block gourmaryllis = new BlockSpecialFlower(StatusEffects.HUNGER, 180, FLOWER_PROPS, SubTileGourmaryllis::new);
+	public static final Block gourmaryllis = new BlockSpecialFlower(MobEffects.HUNGER, 180, FLOWER_PROPS, SubTileGourmaryllis::new);
 	public static final Block gourmaryllisFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileGourmaryllis::new);
 
 	public static final Block narslimmus = new BlockSpecialFlower(ModPotions.featherfeet, 240, FLOWER_PROPS, SubTileNarslimmus::new);
 	public static final Block narslimmusFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileNarslimmus::new);
 
-	public static final Block spectrolus = new BlockSpecialFlower(StatusEffects.BLINDNESS, 240, FLOWER_PROPS, SubTileSpectrolus::new);
+	public static final Block spectrolus = new BlockSpecialFlower(MobEffects.BLINDNESS, 240, FLOWER_PROPS, SubTileSpectrolus::new);
 	public static final Block spectrolusFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileSpectrolus::new);
 
-	public static final Block dandelifeon = new BlockSpecialFlower(StatusEffects.NAUSEA, 240, FLOWER_PROPS, SubTileDandelifeon::new);
+	public static final Block dandelifeon = new BlockSpecialFlower(MobEffects.CONFUSION, 240, FLOWER_PROPS, SubTileDandelifeon::new);
 	public static final Block dandelifeonFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileDandelifeon::new);
 
-	public static final Block rafflowsia = new BlockSpecialFlower(StatusEffects.HEALTH_BOOST, 18, FLOWER_PROPS, SubTileRafflowsia::new);
+	public static final Block rafflowsia = new BlockSpecialFlower(MobEffects.HEALTH_BOOST, 18, FLOWER_PROPS, SubTileRafflowsia::new);
 	public static final Block rafflowsiaFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileRafflowsia::new);
 
-	public static final Block shulkMeNot = new BlockSpecialFlower(StatusEffects.LEVITATION, 72, FLOWER_PROPS, SubTileShulkMeNot::new);
+	public static final Block shulkMeNot = new BlockSpecialFlower(MobEffects.LEVITATION, 72, FLOWER_PROPS, SubTileShulkMeNot::new);
 	public static final Block shulkMeNotFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileShulkMeNot::new);
 
-	public static final Block bellethorn = new BlockSpecialFlower(StatusEffects.WITHER, 10, FLOWER_PROPS, SubTileBellethorn::new);
-	public static final Block bellethornChibi = new BlockSpecialFlower(StatusEffects.WITHER, 10, FLOWER_PROPS, SubTileBellethorn.Mini::new);
+	public static final Block bellethorn = new BlockSpecialFlower(MobEffects.WITHER, 10, FLOWER_PROPS, SubTileBellethorn::new);
+	public static final Block bellethornChibi = new BlockSpecialFlower(MobEffects.WITHER, 10, FLOWER_PROPS, SubTileBellethorn.Mini::new);
 	public static final Block bellethornFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileBellethorn::new);
 	public static final Block bellethornChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileBellethorn.Mini::new);
 
-	public static final Block bergamute = new BlockSpecialFlower(StatusEffects.BLINDNESS, 10, FLOWER_PROPS, SubTileBergamute::new);
+	public static final Block bergamute = new BlockSpecialFlower(MobEffects.BLINDNESS, 10, FLOWER_PROPS, SubTileBergamute::new);
 	public static final Block bergamuteFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileBergamute::new);
 
-	public static final Block dreadthorn = new BlockSpecialFlower(StatusEffects.WITHER, 10, FLOWER_PROPS, SubTileDreadthorn::new);
+	public static final Block dreadthorn = new BlockSpecialFlower(MobEffects.WITHER, 10, FLOWER_PROPS, SubTileDreadthorn::new);
 	public static final Block dreadthornFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileDreadthorn::new);
 
 	public static final Block heiseiDream = new BlockSpecialFlower(ModPotions.soulCross, 300, FLOWER_PROPS, SubTileHeiseiDream::new);
 	public static final Block heiseiDreamFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileHeiseiDream::new);
 
-	public static final Block tigerseye = new BlockSpecialFlower(StatusEffects.STRENGTH, 90, FLOWER_PROPS, SubTileTigerseye::new);
+	public static final Block tigerseye = new BlockSpecialFlower(MobEffects.DAMAGE_BOOST, 90, FLOWER_PROPS, SubTileTigerseye::new);
 	public static final Block tigerseyeFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileTigerseye::new);
 
-	public static final Block jadedAmaranthus = new BlockSpecialFlower(StatusEffects.INSTANT_HEALTH, 1, FLOWER_PROPS, SubTileJadedAmaranthus::new);
+	public static final Block jadedAmaranthus = new BlockSpecialFlower(MobEffects.HEAL, 1, FLOWER_PROPS, SubTileJadedAmaranthus::new);
 	public static final Block jadedAmaranthusFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileJadedAmaranthus::new);
 
-	public static final Block orechid = new BlockSpecialFlower(StatusEffects.HASTE, 10, FLOWER_PROPS, SubTileOrechid::new);
+	public static final Block orechid = new BlockSpecialFlower(MobEffects.DIG_SPEED, 10, FLOWER_PROPS, SubTileOrechid::new);
 	public static final Block orechidFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileOrechid::new);
 
-	public static final Block fallenKanade = new BlockSpecialFlower(StatusEffects.REGENERATION, 90, FLOWER_PROPS, SubTileFallenKanade::new);
+	public static final Block fallenKanade = new BlockSpecialFlower(MobEffects.REGENERATION, 90, FLOWER_PROPS, SubTileFallenKanade::new);
 	public static final Block fallenKanadeFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileFallenKanade::new);
 
-	public static final Block exoflame = new BlockSpecialFlower(StatusEffects.SPEED, 240, FLOWER_PROPS, SubTileExoflame::new);
+	public static final Block exoflame = new BlockSpecialFlower(MobEffects.MOVEMENT_SPEED, 240, FLOWER_PROPS, SubTileExoflame::new);
 	public static final Block exoflameFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileExoflame::new);
 
-	public static final Block agricarnation = new BlockSpecialFlower(StatusEffects.ABSORPTION, 48, FLOWER_PROPS, SubTileAgricarnation::new);
-	public static final Block agricarnationChibi = new BlockSpecialFlower(StatusEffects.ABSORPTION, 48, FLOWER_PROPS, SubTileAgricarnation.Mini::new);
+	public static final Block agricarnation = new BlockSpecialFlower(MobEffects.ABSORPTION, 48, FLOWER_PROPS, SubTileAgricarnation::new);
+	public static final Block agricarnationChibi = new BlockSpecialFlower(MobEffects.ABSORPTION, 48, FLOWER_PROPS, SubTileAgricarnation.Mini::new);
 	public static final Block agricarnationFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileAgricarnation::new);
 	public static final Block agricarnationChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileAgricarnation.Mini::new);
 
-	public static final Block hopperhock = new BlockSpecialFlower(StatusEffects.SPEED, 30, FLOWER_PROPS, SubTileHopperhock::new);
-	public static final Block hopperhockChibi = new BlockSpecialFlower(StatusEffects.SPEED, 30, FLOWER_PROPS, SubTileHopperhock.Mini::new);
+	public static final Block hopperhock = new BlockSpecialFlower(MobEffects.MOVEMENT_SPEED, 30, FLOWER_PROPS, SubTileHopperhock::new);
+	public static final Block hopperhockChibi = new BlockSpecialFlower(MobEffects.MOVEMENT_SPEED, 30, FLOWER_PROPS, SubTileHopperhock.Mini::new);
 	public static final Block hopperhockFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileHopperhock::new);
 	public static final Block hopperhockChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileHopperhock.Mini::new);
 
@@ -122,119 +122,119 @@ public class ModSubtiles {
 	public static final Block jiyuulia = new BlockSpecialFlower(ModPotions.emptiness, 120, FLOWER_PROPS, SubTileJiyuulia::new);
 	public static final Block jiyuuliaFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileJiyuulia::new);
 
-	public static final Block rannuncarpus = new BlockSpecialFlower(StatusEffects.JUMP_BOOST, 30, FLOWER_PROPS, SubTileRannuncarpus::new);
-	public static final Block rannuncarpusChibi = new BlockSpecialFlower(StatusEffects.JUMP_BOOST, 30, FLOWER_PROPS, SubTileRannuncarpus.Mini::new);
+	public static final Block rannuncarpus = new BlockSpecialFlower(MobEffects.JUMP, 30, FLOWER_PROPS, SubTileRannuncarpus::new);
+	public static final Block rannuncarpusChibi = new BlockSpecialFlower(MobEffects.JUMP, 30, FLOWER_PROPS, SubTileRannuncarpus.Mini::new);
 	public static final Block rannuncarpusFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileRannuncarpus::new);
 	public static final Block rannuncarpusChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileRannuncarpus.Mini::new);
 
-	public static final Block hyacidus = new BlockSpecialFlower(StatusEffects.POISON, 48, FLOWER_PROPS, SubTileHyacidus::new);
+	public static final Block hyacidus = new BlockSpecialFlower(MobEffects.POISON, 48, FLOWER_PROPS, SubTileHyacidus::new);
 	public static final Block hyacidusFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileHyacidus::new);
 
-	public static final Block pollidisiac = new BlockSpecialFlower(StatusEffects.HASTE, 369, FLOWER_PROPS, SubTilePollidisiac::new);
+	public static final Block pollidisiac = new BlockSpecialFlower(MobEffects.DIG_SPEED, 369, FLOWER_PROPS, SubTilePollidisiac::new);
 	public static final Block pollidisiacFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTilePollidisiac::new);
 
-	public static final Block clayconia = new BlockSpecialFlower(StatusEffects.WEAKNESS, 30, FLOWER_PROPS, SubTileClayconia::new);
-	public static final Block clayconiaChibi = new BlockSpecialFlower(StatusEffects.WEAKNESS, 30, FLOWER_PROPS, SubTileClayconia.Mini::new);
+	public static final Block clayconia = new BlockSpecialFlower(MobEffects.WEAKNESS, 30, FLOWER_PROPS, SubTileClayconia::new);
+	public static final Block clayconiaChibi = new BlockSpecialFlower(MobEffects.WEAKNESS, 30, FLOWER_PROPS, SubTileClayconia.Mini::new);
 	public static final Block clayconiaFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileClayconia::new);
 	public static final Block clayconiaChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileClayconia.Mini::new);
 
 	public static final Block loonium = new BlockSpecialFlower(ModPotions.allure, 900, FLOWER_PROPS, SubTileLoonuim::new);
 	public static final Block looniumFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileLoonuim::new);
 
-	public static final Block daffomill = new BlockSpecialFlower(StatusEffects.LEVITATION, 6, FLOWER_PROPS, SubTileDaffomill::new);
+	public static final Block daffomill = new BlockSpecialFlower(MobEffects.LEVITATION, 6, FLOWER_PROPS, SubTileDaffomill::new);
 	public static final Block daffomillFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileDaffomill::new);
 
-	public static final Block vinculotus = new BlockSpecialFlower(StatusEffects.NIGHT_VISION, 900, FLOWER_PROPS, SubTileVinculotus::new);
+	public static final Block vinculotus = new BlockSpecialFlower(MobEffects.NIGHT_VISION, 900, FLOWER_PROPS, SubTileVinculotus::new);
 	public static final Block vinculotusFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileVinculotus::new);
 
-	public static final Block spectranthemum = new BlockSpecialFlower(StatusEffects.INVISIBILITY, 360, FLOWER_PROPS, SubTileSpectranthemum::new);
+	public static final Block spectranthemum = new BlockSpecialFlower(MobEffects.INVISIBILITY, 360, FLOWER_PROPS, SubTileSpectranthemum::new);
 	public static final Block spectranthemumFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileSpectranthemum::new);
 
-	public static final Block medumone = new BlockSpecialFlower(StatusEffects.SLOWNESS, 3600, FLOWER_PROPS, SubTileMedumone::new);
+	public static final Block medumone = new BlockSpecialFlower(MobEffects.MOVEMENT_SLOWDOWN, 3600, FLOWER_PROPS, SubTileMedumone::new);
 	public static final Block medumoneFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileMedumone::new);
 
-	public static final Block marimorphosis = new BlockSpecialFlower(StatusEffects.MINING_FATIGUE, 60, FLOWER_PROPS, SubTileMarimorphosis::new);
-	public static final Block marimorphosisChibi = new BlockSpecialFlower(StatusEffects.MINING_FATIGUE, 60, FLOWER_PROPS, SubTileMarimorphosis.Mini::new);
+	public static final Block marimorphosis = new BlockSpecialFlower(MobEffects.DIG_SLOWDOWN, 60, FLOWER_PROPS, SubTileMarimorphosis::new);
+	public static final Block marimorphosisChibi = new BlockSpecialFlower(MobEffects.DIG_SLOWDOWN, 60, FLOWER_PROPS, SubTileMarimorphosis.Mini::new);
 	public static final Block marimorphosisFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileMarimorphosis::new);
 	public static final Block marimorphosisChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileMarimorphosis.Mini::new);
 
-	public static final Block bubbell = new BlockSpecialFlower(StatusEffects.WATER_BREATHING, 240, FLOWER_PROPS, SubTileBubbell::new);
-	public static final Block bubbellChibi = new BlockSpecialFlower(StatusEffects.WATER_BREATHING, 240, FLOWER_PROPS, SubTileBubbell.Mini::new);
+	public static final Block bubbell = new BlockSpecialFlower(MobEffects.WATER_BREATHING, 240, FLOWER_PROPS, SubTileBubbell::new);
+	public static final Block bubbellChibi = new BlockSpecialFlower(MobEffects.WATER_BREATHING, 240, FLOWER_PROPS, SubTileBubbell.Mini::new);
 	public static final Block bubbellFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileBubbell::new);
 	public static final Block bubbellChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileBubbell.Mini::new);
 
-	public static final Block solegnolia = new BlockSpecialFlower(StatusEffects.INSTANT_DAMAGE, 1, FLOWER_PROPS, SubTileSolegnolia::new);
-	public static final Block solegnoliaChibi = new BlockSpecialFlower(StatusEffects.INSTANT_DAMAGE, 1, FLOWER_PROPS, SubTileSolegnolia.Mini::new);
+	public static final Block solegnolia = new BlockSpecialFlower(MobEffects.HARM, 1, FLOWER_PROPS, SubTileSolegnolia::new);
+	public static final Block solegnoliaChibi = new BlockSpecialFlower(MobEffects.HARM, 1, FLOWER_PROPS, SubTileSolegnolia.Mini::new);
 	public static final Block solegnoliaFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileSolegnolia::new);
 	public static final Block solegnoliaChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileSolegnolia.Mini::new);
 
-	public static final Block orechidIgnem = new BlockSpecialFlower(StatusEffects.FIRE_RESISTANCE, 600, FLOWER_PROPS, SubTileOrechidIgnem::new);
+	public static final Block orechidIgnem = new BlockSpecialFlower(MobEffects.FIRE_RESISTANCE, 600, FLOWER_PROPS, SubTileOrechidIgnem::new);
 	public static final Block orechidIgnemFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileOrechidIgnem::new);
 
-	public static final Block labellia = new BlockSpecialFlower(StatusEffects.FIRE_RESISTANCE, 600, FLOWER_PROPS, SubTileLabellia::new);
+	public static final Block labellia = new BlockSpecialFlower(MobEffects.FIRE_RESISTANCE, 600, FLOWER_PROPS, SubTileLabellia::new);
 	public static final Block labelliaFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileLabellia::new);
 
-	public static final BlockEntityType<SubTilePureDaisy> PURE_DAISY = BlockEntityType.Builder.create(SubTilePureDaisy::new, pureDaisy, pureDaisyFloating).build(null);
-	public static final BlockEntityType<SubTileManastar> MANASTAR = BlockEntityType.Builder.create(SubTileManastar::new, manastar, manastarFloating).build(null);
-	public static final BlockEntityType<SubTileHydroangeas> HYDROANGEAS = BlockEntityType.Builder.create(SubTileHydroangeas::new, hydroangeas, hydroangeasFloating).build(null);
-	public static final BlockEntityType<SubTileEndoflame> ENDOFLAME = BlockEntityType.Builder.create(SubTileEndoflame::new, endoflame, endoflameFloating).build(null);
-	public static final BlockEntityType<SubTileThermalily> THERMALILY = BlockEntityType.Builder.create(SubTileThermalily::new, thermalily, thermalilyFloating).build(null);
-	public static final BlockEntityType<SubTileArcaneRose> ROSA_ARCANA = BlockEntityType.Builder.create(SubTileArcaneRose::new, rosaArcana, rosaArcanaFloating).build(null);
-	public static final BlockEntityType<SubTileMunchdew> MUNCHDEW = BlockEntityType.Builder.create(SubTileMunchdew::new, munchdew, munchdewFloating).build(null);
-	public static final BlockEntityType<SubTileEntropinnyum> ENTROPINNYUM = BlockEntityType.Builder.create(SubTileEntropinnyum::new, entropinnyum, entropinnyumFloating).build(null);
-	public static final BlockEntityType<SubTileKekimurus> KEKIMURUS = BlockEntityType.Builder.create(SubTileKekimurus::new, kekimurus, kekimurusFloating).build(null);
-	public static final BlockEntityType<SubTileGourmaryllis> GOURMARYLLIS = BlockEntityType.Builder.create(SubTileGourmaryllis::new, gourmaryllis, gourmaryllisFloating).build(null);
-	public static final BlockEntityType<SubTileNarslimmus> NARSLIMMUS = BlockEntityType.Builder.create(SubTileNarslimmus::new, narslimmus, narslimmusFloating).build(null);
-	public static final BlockEntityType<SubTileSpectrolus> SPECTROLUS = BlockEntityType.Builder.create(SubTileSpectrolus::new, spectrolus, spectrolusFloating).build(null);
-	public static final BlockEntityType<SubTileDandelifeon> DANDELIFEON = BlockEntityType.Builder.create(SubTileDandelifeon::new, dandelifeon, dandelifeonFloating).build(null);
-	public static final BlockEntityType<SubTileRafflowsia> RAFFLOWSIA = BlockEntityType.Builder.create(SubTileRafflowsia::new, rafflowsia, rafflowsiaFloating).build(null);
-	public static final BlockEntityType<SubTileShulkMeNot> SHULK_ME_NOT = BlockEntityType.Builder.create(SubTileShulkMeNot::new, shulkMeNot, shulkMeNotFloating).build(null);
-	public static final BlockEntityType<SubTileBellethorn> BELLETHORNE = BlockEntityType.Builder.create(SubTileBellethorn::new, bellethorn, bellethornFloating).build(null);
-	public static final BlockEntityType<SubTileBellethorn.Mini> BELLETHORNE_CHIBI = BlockEntityType.Builder.create(SubTileBellethorn.Mini::new, bellethornChibi, bellethornChibiFloating).build(null);
-	public static final BlockEntityType<SubTileBergamute> BERGAMUTE = BlockEntityType.Builder.create(SubTileBergamute::new, bergamute, bergamuteFloating).build(null);
-	public static final BlockEntityType<SubTileDreadthorn> DREADTHORN = BlockEntityType.Builder.create(SubTileDreadthorn::new, dreadthorn, dreadthornFloating).build(null);
-	public static final BlockEntityType<SubTileHeiseiDream> HEISEI_DREAM = BlockEntityType.Builder.create(SubTileHeiseiDream::new, heiseiDream, heiseiDreamFloating).build(null);
-	public static final BlockEntityType<SubTileTigerseye> TIGERSEYE = BlockEntityType.Builder.create(SubTileTigerseye::new, tigerseye, tigerseyeFloating).build(null);
-	public static final BlockEntityType<SubTileJadedAmaranthus> JADED_AMARANTHUS = BlockEntityType.Builder.create(SubTileJadedAmaranthus::new, jadedAmaranthus, jadedAmaranthusFloating).build(null);
-	public static final BlockEntityType<SubTileOrechid> ORECHID = BlockEntityType.Builder.create(SubTileOrechid::new, orechid, orechidFloating).build(null);
-	public static final BlockEntityType<SubTileFallenKanade> FALLEN_KANADE = BlockEntityType.Builder.create(SubTileFallenKanade::new, fallenKanade, fallenKanadeFloating).build(null);
-	public static final BlockEntityType<SubTileExoflame> EXOFLAME = BlockEntityType.Builder.create(SubTileExoflame::new, exoflame, exoflameFloating).build(null);
-	public static final BlockEntityType<SubTileAgricarnation> AGRICARNATION = BlockEntityType.Builder.create(SubTileAgricarnation::new, agricarnation, agricarnationFloating).build(null);
-	public static final BlockEntityType<SubTileAgricarnation.Mini> AGRICARNATION_CHIBI = BlockEntityType.Builder.create(SubTileAgricarnation.Mini::new, agricarnationChibi, agricarnationChibiFloating).build(null);
-	public static final BlockEntityType<SubTileHopperhock> HOPPERHOCK = BlockEntityType.Builder.create(SubTileHopperhock::new, hopperhock, hopperhockFloating).build(null);
-	public static final BlockEntityType<SubTileHopperhock.Mini> HOPPERHOCK_CHIBI = BlockEntityType.Builder.create(SubTileHopperhock.Mini::new, hopperhockChibi, hopperhockChibiFloating).build(null);
-	public static final BlockEntityType<SubTileTangleberrie> TANGLEBERRIE = BlockEntityType.Builder.create(SubTileTangleberrie::new, tangleberrie, tangleberrieFloating).build(null);
-	public static final BlockEntityType<SubTileJiyuulia> JIYUULIA = BlockEntityType.Builder.create(SubTileJiyuulia::new, jiyuulia, jiyuuliaFloating).build(null);
-	public static final BlockEntityType<SubTileRannuncarpus> RANNUNCARPUS = BlockEntityType.Builder.create(SubTileRannuncarpus::new, rannuncarpus, rannuncarpusFloating).build(null);
-	public static final BlockEntityType<SubTileRannuncarpus.Mini> RANNUNCARPUS_CHIBI = BlockEntityType.Builder.create(SubTileRannuncarpus.Mini::new, rannuncarpusChibi, rannuncarpusChibiFloating).build(null);
-	public static final BlockEntityType<SubTileHyacidus> HYACIDUS = BlockEntityType.Builder.create(SubTileHyacidus::new, hyacidus, hyacidusFloating).build(null);
-	public static final BlockEntityType<SubTileLabellia> LABELLIA = BlockEntityType.Builder.create(SubTileLabellia::new, labellia, labelliaFloating).build(null);
-	public static final BlockEntityType<SubTilePollidisiac> POLLIDISIAC = BlockEntityType.Builder.create(SubTilePollidisiac::new, pollidisiac, pollidisiacFloating).build(null);
-	public static final BlockEntityType<SubTileClayconia> CLAYCONIA = BlockEntityType.Builder.create(SubTileClayconia::new, clayconia, clayconiaFloating).build(null);
-	public static final BlockEntityType<SubTileClayconia.Mini> CLAYCONIA_CHIBI = BlockEntityType.Builder.create(SubTileClayconia.Mini::new, clayconiaChibi, clayconiaChibiFloating).build(null);
-	public static final BlockEntityType<SubTileLoonuim> LOONIUM = BlockEntityType.Builder.create(SubTileLoonuim::new, loonium, looniumFloating).build(null);
-	public static final BlockEntityType<SubTileDaffomill> DAFFOMILL = BlockEntityType.Builder.create(SubTileDaffomill::new, daffomill, daffomillFloating).build(null);
-	public static final BlockEntityType<SubTileVinculotus> VINCULOTUS = BlockEntityType.Builder.create(SubTileVinculotus::new, vinculotus, vinculotusFloating).build(null);
-	public static final BlockEntityType<SubTileSpectranthemum> SPECTRANTHEMUM = BlockEntityType.Builder.create(SubTileSpectranthemum::new, spectranthemum, spectranthemumFloating).build(null);
-	public static final BlockEntityType<SubTileMedumone> MEDUMONE = BlockEntityType.Builder.create(SubTileMedumone::new, medumone, medumoneFloating).build(null);
-	public static final BlockEntityType<SubTileMarimorphosis> MARIMORPHOSIS = BlockEntityType.Builder.create(SubTileMarimorphosis::new, marimorphosis, marimorphosisFloating).build(null);
-	public static final BlockEntityType<SubTileMarimorphosis.Mini> MARIMORPHOSIS_CHIBI = BlockEntityType.Builder.create(SubTileMarimorphosis.Mini::new, marimorphosisChibi, marimorphosisChibiFloating).build(null);
-	public static final BlockEntityType<SubTileBubbell> BUBBELL = BlockEntityType.Builder.create(SubTileBubbell::new, bubbell, bubbellFloating).build(null);
-	public static final BlockEntityType<SubTileBubbell.Mini> BUBBELL_CHIBI = BlockEntityType.Builder.create(SubTileBubbell.Mini::new, bubbellChibi, bubbellChibiFloating).build(null);
-	public static final BlockEntityType<SubTileSolegnolia> SOLEGNOLIA = BlockEntityType.Builder.create(SubTileSolegnolia::new, solegnolia, solegnoliaFloating).build(null);
-	public static final BlockEntityType<SubTileSolegnolia.Mini> SOLEGNOLIA_CHIBI = BlockEntityType.Builder.create(SubTileSolegnolia.Mini::new, solegnoliaChibi, solegnoliaChibiFloating).build(null);
-	public static final BlockEntityType<SubTileOrechidIgnem> ORECHID_IGNEM = BlockEntityType.Builder.create(SubTileOrechidIgnem::new, orechidIgnem, orechidIgnemFloating).build(null);
+	public static final BlockEntityType<SubTilePureDaisy> PURE_DAISY = BlockEntityType.Builder.of(SubTilePureDaisy::new, pureDaisy, pureDaisyFloating).build(null);
+	public static final BlockEntityType<SubTileManastar> MANASTAR = BlockEntityType.Builder.of(SubTileManastar::new, manastar, manastarFloating).build(null);
+	public static final BlockEntityType<SubTileHydroangeas> HYDROANGEAS = BlockEntityType.Builder.of(SubTileHydroangeas::new, hydroangeas, hydroangeasFloating).build(null);
+	public static final BlockEntityType<SubTileEndoflame> ENDOFLAME = BlockEntityType.Builder.of(SubTileEndoflame::new, endoflame, endoflameFloating).build(null);
+	public static final BlockEntityType<SubTileThermalily> THERMALILY = BlockEntityType.Builder.of(SubTileThermalily::new, thermalily, thermalilyFloating).build(null);
+	public static final BlockEntityType<SubTileArcaneRose> ROSA_ARCANA = BlockEntityType.Builder.of(SubTileArcaneRose::new, rosaArcana, rosaArcanaFloating).build(null);
+	public static final BlockEntityType<SubTileMunchdew> MUNCHDEW = BlockEntityType.Builder.of(SubTileMunchdew::new, munchdew, munchdewFloating).build(null);
+	public static final BlockEntityType<SubTileEntropinnyum> ENTROPINNYUM = BlockEntityType.Builder.of(SubTileEntropinnyum::new, entropinnyum, entropinnyumFloating).build(null);
+	public static final BlockEntityType<SubTileKekimurus> KEKIMURUS = BlockEntityType.Builder.of(SubTileKekimurus::new, kekimurus, kekimurusFloating).build(null);
+	public static final BlockEntityType<SubTileGourmaryllis> GOURMARYLLIS = BlockEntityType.Builder.of(SubTileGourmaryllis::new, gourmaryllis, gourmaryllisFloating).build(null);
+	public static final BlockEntityType<SubTileNarslimmus> NARSLIMMUS = BlockEntityType.Builder.of(SubTileNarslimmus::new, narslimmus, narslimmusFloating).build(null);
+	public static final BlockEntityType<SubTileSpectrolus> SPECTROLUS = BlockEntityType.Builder.of(SubTileSpectrolus::new, spectrolus, spectrolusFloating).build(null);
+	public static final BlockEntityType<SubTileDandelifeon> DANDELIFEON = BlockEntityType.Builder.of(SubTileDandelifeon::new, dandelifeon, dandelifeonFloating).build(null);
+	public static final BlockEntityType<SubTileRafflowsia> RAFFLOWSIA = BlockEntityType.Builder.of(SubTileRafflowsia::new, rafflowsia, rafflowsiaFloating).build(null);
+	public static final BlockEntityType<SubTileShulkMeNot> SHULK_ME_NOT = BlockEntityType.Builder.of(SubTileShulkMeNot::new, shulkMeNot, shulkMeNotFloating).build(null);
+	public static final BlockEntityType<SubTileBellethorn> BELLETHORNE = BlockEntityType.Builder.of(SubTileBellethorn::new, bellethorn, bellethornFloating).build(null);
+	public static final BlockEntityType<SubTileBellethorn.Mini> BELLETHORNE_CHIBI = BlockEntityType.Builder.of(SubTileBellethorn.Mini::new, bellethornChibi, bellethornChibiFloating).build(null);
+	public static final BlockEntityType<SubTileBergamute> BERGAMUTE = BlockEntityType.Builder.of(SubTileBergamute::new, bergamute, bergamuteFloating).build(null);
+	public static final BlockEntityType<SubTileDreadthorn> DREADTHORN = BlockEntityType.Builder.of(SubTileDreadthorn::new, dreadthorn, dreadthornFloating).build(null);
+	public static final BlockEntityType<SubTileHeiseiDream> HEISEI_DREAM = BlockEntityType.Builder.of(SubTileHeiseiDream::new, heiseiDream, heiseiDreamFloating).build(null);
+	public static final BlockEntityType<SubTileTigerseye> TIGERSEYE = BlockEntityType.Builder.of(SubTileTigerseye::new, tigerseye, tigerseyeFloating).build(null);
+	public static final BlockEntityType<SubTileJadedAmaranthus> JADED_AMARANTHUS = BlockEntityType.Builder.of(SubTileJadedAmaranthus::new, jadedAmaranthus, jadedAmaranthusFloating).build(null);
+	public static final BlockEntityType<SubTileOrechid> ORECHID = BlockEntityType.Builder.of(SubTileOrechid::new, orechid, orechidFloating).build(null);
+	public static final BlockEntityType<SubTileFallenKanade> FALLEN_KANADE = BlockEntityType.Builder.of(SubTileFallenKanade::new, fallenKanade, fallenKanadeFloating).build(null);
+	public static final BlockEntityType<SubTileExoflame> EXOFLAME = BlockEntityType.Builder.of(SubTileExoflame::new, exoflame, exoflameFloating).build(null);
+	public static final BlockEntityType<SubTileAgricarnation> AGRICARNATION = BlockEntityType.Builder.of(SubTileAgricarnation::new, agricarnation, agricarnationFloating).build(null);
+	public static final BlockEntityType<SubTileAgricarnation.Mini> AGRICARNATION_CHIBI = BlockEntityType.Builder.of(SubTileAgricarnation.Mini::new, agricarnationChibi, agricarnationChibiFloating).build(null);
+	public static final BlockEntityType<SubTileHopperhock> HOPPERHOCK = BlockEntityType.Builder.of(SubTileHopperhock::new, hopperhock, hopperhockFloating).build(null);
+	public static final BlockEntityType<SubTileHopperhock.Mini> HOPPERHOCK_CHIBI = BlockEntityType.Builder.of(SubTileHopperhock.Mini::new, hopperhockChibi, hopperhockChibiFloating).build(null);
+	public static final BlockEntityType<SubTileTangleberrie> TANGLEBERRIE = BlockEntityType.Builder.of(SubTileTangleberrie::new, tangleberrie, tangleberrieFloating).build(null);
+	public static final BlockEntityType<SubTileJiyuulia> JIYUULIA = BlockEntityType.Builder.of(SubTileJiyuulia::new, jiyuulia, jiyuuliaFloating).build(null);
+	public static final BlockEntityType<SubTileRannuncarpus> RANNUNCARPUS = BlockEntityType.Builder.of(SubTileRannuncarpus::new, rannuncarpus, rannuncarpusFloating).build(null);
+	public static final BlockEntityType<SubTileRannuncarpus.Mini> RANNUNCARPUS_CHIBI = BlockEntityType.Builder.of(SubTileRannuncarpus.Mini::new, rannuncarpusChibi, rannuncarpusChibiFloating).build(null);
+	public static final BlockEntityType<SubTileHyacidus> HYACIDUS = BlockEntityType.Builder.of(SubTileHyacidus::new, hyacidus, hyacidusFloating).build(null);
+	public static final BlockEntityType<SubTileLabellia> LABELLIA = BlockEntityType.Builder.of(SubTileLabellia::new, labellia, labelliaFloating).build(null);
+	public static final BlockEntityType<SubTilePollidisiac> POLLIDISIAC = BlockEntityType.Builder.of(SubTilePollidisiac::new, pollidisiac, pollidisiacFloating).build(null);
+	public static final BlockEntityType<SubTileClayconia> CLAYCONIA = BlockEntityType.Builder.of(SubTileClayconia::new, clayconia, clayconiaFloating).build(null);
+	public static final BlockEntityType<SubTileClayconia.Mini> CLAYCONIA_CHIBI = BlockEntityType.Builder.of(SubTileClayconia.Mini::new, clayconiaChibi, clayconiaChibiFloating).build(null);
+	public static final BlockEntityType<SubTileLoonuim> LOONIUM = BlockEntityType.Builder.of(SubTileLoonuim::new, loonium, looniumFloating).build(null);
+	public static final BlockEntityType<SubTileDaffomill> DAFFOMILL = BlockEntityType.Builder.of(SubTileDaffomill::new, daffomill, daffomillFloating).build(null);
+	public static final BlockEntityType<SubTileVinculotus> VINCULOTUS = BlockEntityType.Builder.of(SubTileVinculotus::new, vinculotus, vinculotusFloating).build(null);
+	public static final BlockEntityType<SubTileSpectranthemum> SPECTRANTHEMUM = BlockEntityType.Builder.of(SubTileSpectranthemum::new, spectranthemum, spectranthemumFloating).build(null);
+	public static final BlockEntityType<SubTileMedumone> MEDUMONE = BlockEntityType.Builder.of(SubTileMedumone::new, medumone, medumoneFloating).build(null);
+	public static final BlockEntityType<SubTileMarimorphosis> MARIMORPHOSIS = BlockEntityType.Builder.of(SubTileMarimorphosis::new, marimorphosis, marimorphosisFloating).build(null);
+	public static final BlockEntityType<SubTileMarimorphosis.Mini> MARIMORPHOSIS_CHIBI = BlockEntityType.Builder.of(SubTileMarimorphosis.Mini::new, marimorphosisChibi, marimorphosisChibiFloating).build(null);
+	public static final BlockEntityType<SubTileBubbell> BUBBELL = BlockEntityType.Builder.of(SubTileBubbell::new, bubbell, bubbellFloating).build(null);
+	public static final BlockEntityType<SubTileBubbell.Mini> BUBBELL_CHIBI = BlockEntityType.Builder.of(SubTileBubbell.Mini::new, bubbellChibi, bubbellChibiFloating).build(null);
+	public static final BlockEntityType<SubTileSolegnolia> SOLEGNOLIA = BlockEntityType.Builder.of(SubTileSolegnolia::new, solegnolia, solegnoliaFloating).build(null);
+	public static final BlockEntityType<SubTileSolegnolia.Mini> SOLEGNOLIA_CHIBI = BlockEntityType.Builder.of(SubTileSolegnolia.Mini::new, solegnoliaChibi, solegnoliaChibiFloating).build(null);
+	public static final BlockEntityType<SubTileOrechidIgnem> ORECHID_IGNEM = BlockEntityType.Builder.of(SubTileOrechidIgnem::new, orechidIgnem, orechidIgnemFloating).build(null);
 
-	private static Identifier floating(Identifier orig) {
-		return new Identifier(orig.getNamespace(), "floating_" + orig.getPath());
+	private static ResourceLocation floating(ResourceLocation orig) {
+		return new ResourceLocation(orig.getNamespace(), "floating_" + orig.getPath());
 	}
 
-	private static Identifier chibi(Identifier orig) {
-		return new Identifier(orig.getNamespace(), orig.getPath() + "_chibi");
+	private static ResourceLocation chibi(ResourceLocation orig) {
+		return new ResourceLocation(orig.getNamespace(), orig.getPath() + "_chibi");
 	}
 
-	private static Identifier getId(Block b) {
-		return Registry.BLOCK.getId(b);
+	private static ResourceLocation getId(Block b) {
+		return Registry.BLOCK.getKey(b);
 	}
 
 	public static void registerBlocks() {
@@ -384,7 +384,7 @@ public class ModSubtiles {
 
 	public static void registerItemBlocks() {
 		Registry<Item> r = Registry.ITEM;
-		Item.Settings props = ModItems.defaultBuilder();
+		Item.Properties props = ModItems.defaultBuilder();
 
 		register(r, getId(pureDaisy), new ItemBlockSpecialFlower(pureDaisy, props));
 		register(r, getId(pureDaisyFloating), new ItemBlockSpecialFlower(pureDaisyFloating, props));

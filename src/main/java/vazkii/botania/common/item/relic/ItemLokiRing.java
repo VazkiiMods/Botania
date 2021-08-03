@@ -12,26 +12,26 @@ import com.google.common.collect.ImmutableList;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.item.ISequentialBreaker;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
@@ -65,27 +65,27 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 	private static boolean recCall = false;
 
-	public ItemLokiRing(Settings props) {
+	public ItemLokiRing(Properties props) {
 		super(props);
 	}
 
-	public static ActionResult onPlayerInteract(PlayerEntity player, World world, Hand hand, BlockHitResult lookPos) {
+	public static InteractionResult onPlayerInteract(Player player, Level world, InteractionHand hand, BlockHitResult lookPos) {
 		ItemStack lokiRing = getLokiRing(player);
-		if (lokiRing.isEmpty() || !player.isSneaking()) {
-			return ActionResult.PASS;
+		if (lokiRing.isEmpty() || !player.isShiftKeyDown()) {
+			return InteractionResult.PASS;
 		}
 
-		ItemStack stack = player.getStackInHand(hand);
+		ItemStack stack = player.getItemInHand(hand);
 		List<BlockPos> cursors = getCursorList(lokiRing);
 
 		if (lookPos.getType() != HitResult.Type.BLOCK) {
-			return ActionResult.PASS;
+			return InteractionResult.PASS;
 		}
 
 		BlockPos hit = lookPos.getBlockPos();
-		if (stack.isEmpty() && hand == Hand.MAIN_HAND) {
+		if (stack.isEmpty() && hand == InteractionHand.MAIN_HAND) {
 			BlockPos originCoords = getBindingCenter(lokiRing);
-			if (!world.isClient) {
+			if (!world.isClientSide) {
 				if (originCoords.getY() == -1) {
 					// Initiate a new pending list of positions
 					setBindingCenter(lokiRing, hit);
@@ -107,27 +107,27 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 				}
 			}
 
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		} else {
 			int cost = Math.min(cursors.size(), (int) Math.pow(Math.E, cursors.size() * 0.25));
 			ItemStack original = stack.copy();
 			int successes = 0;
 			for (BlockPos cursor : cursors) {
-				BlockPos pos = hit.add(cursor);
+				BlockPos pos = hit.offset(cursor);
 				if (ManaItemHandler.instance().requestManaExact(lokiRing, player, cost, false)) {
-					Vec3d lookHit = lookPos.getPos();
-					Vec3d newHitVec = new Vec3d(pos.getX() + MathHelper.fractionalPart(lookHit.getX()), pos.getY() + MathHelper.fractionalPart(lookHit.getY()), pos.getZ() + MathHelper.fractionalPart(lookHit.getZ()));
-					BlockHitResult newHit = new BlockHitResult(newHitVec, lookPos.getSide(), pos, false);
-					ItemUsageContext ctx = new ItemUsageContext(player, hand, newHit);
+					Vec3 lookHit = lookPos.getLocation();
+					Vec3 newHitVec = new Vec3(pos.getX() + Mth.frac(lookHit.x()), pos.getY() + Mth.frac(lookHit.y()), pos.getZ() + Mth.frac(lookHit.z()));
+					BlockHitResult newHit = new BlockHitResult(newHitVec, lookPos.getDirection(), pos, false);
+					UseOnContext ctx = new UseOnContext(player, hand, newHit);
 
-					ActionResult result;
+					InteractionResult result;
 					if (player.isCreative()) {
 						result = PlayerHelper.substituteUse(ctx, original.copy());
 					} else {
-						result = stack.useOnBlock(ctx);
+						result = stack.useOn(ctx);
 					}
 
-					if (result.isAccepted()) {
+					if (result.consumesAction()) {
 						ManaItemHandler.instance().requestManaExact(lokiRing, player, cost, true);
 						successes++;
 					}
@@ -135,17 +135,17 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 					break;
 				}
 			}
-			if (successes > 0 && player instanceof ServerPlayerEntity) {
-				LokiPlaceTrigger.INSTANCE.trigger((ServerPlayerEntity) player, lokiRing, successes);
+			if (successes > 0 && player instanceof ServerPlayer) {
+				LokiPlaceTrigger.INSTANCE.trigger((ServerPlayer) player, lokiRing, successes);
 			}
-			return successes > 0 ? ActionResult.SUCCESS : ActionResult.PASS;
+			return successes > 0 ? InteractionResult.SUCCESS : InteractionResult.PASS;
 		}
 	}
 
-	public static void breakOnAllCursors(PlayerEntity player, ItemStack stack, BlockPos pos, Direction side) {
+	public static void breakOnAllCursors(Player player, ItemStack stack, BlockPos pos, Direction side) {
 		Item item = stack.getItem();
 		ItemStack lokiRing = getLokiRing(player);
-		if (lokiRing.isEmpty() || player.world.isClient || !(item instanceof ISequentialBreaker)) {
+		if (lokiRing.isEmpty() || player.level.isClientSide || !(item instanceof ISequentialBreaker)) {
 			return;
 		}
 
@@ -159,10 +159,10 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 		try {
 			for (BlockPos offset : cursors) {
-				BlockPos coords = pos.add(offset);
-				BlockState state = player.world.getBlockState(coords);
+				BlockPos coords = pos.offset(offset);
+				BlockState state = player.level.getBlockState(coords);
 				breaker.breakOtherBlock(player, stack, coords, pos, side);
-				ToolCommons.removeBlockWithDrops(player, stack, player.world, coords,
+				ToolCommons.removeBlockWithDrops(player, stack, player.level, coords,
 						s -> s.getBlock() == state.getBlock() && s.getMaterial() == state.getMaterial());
 			}
 		} finally {
@@ -179,7 +179,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	// This prevents a player from accidentally entering binding mode, then forgetting where the binding center
 	// is and thus being unable to exit binding mode.
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean held) {
+	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean held) {
 		super.inventoryTick(stack, world, entity, slot, held);
 		// Curios actually calls this method, but with a negative slot, so we can check if we're in the "real" inventory this way
 		if (slot >= 0) {
@@ -189,24 +189,24 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public List<BlockPos> getWireframesToDraw(PlayerEntity player, ItemStack stack) {
+	public List<BlockPos> getWireframesToDraw(Player player, ItemStack stack) {
 		if (getLokiRing(player) != stack) {
 			return ImmutableList.of();
 		}
 
-		HitResult lookPos = MinecraftClient.getInstance().crosshairTarget;
+		HitResult lookPos = Minecraft.getInstance().hitResult;
 
 		if (lookPos != null
 				&& lookPos.getType() == HitResult.Type.BLOCK
-				&& !player.world.isAir(((BlockHitResult) lookPos).getBlockPos())) {
+				&& !player.level.isEmptyBlock(((BlockHitResult) lookPos).getBlockPos())) {
 			List<BlockPos> list = getCursorList(stack);
 			BlockPos origin = getBindingCenter(stack);
 
 			for (int i = 0; i < list.size(); i++) {
 				if (origin.getY() != -1) {
-					list.set(i, list.get(i).add(origin));
+					list.set(i, list.get(i).offset(origin));
 				} else {
-					list.set(i, list.get(i).add(((BlockHitResult) lookPos).getBlockPos()));
+					list.set(i, list.get(i).offset(((BlockHitResult) lookPos).getBlockPos()));
 				}
 			}
 
@@ -218,23 +218,23 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public BlockPos getSourceWireframe(PlayerEntity player, ItemStack stack) {
-		MinecraftClient mc = MinecraftClient.getInstance();
+	public BlockPos getSourceWireframe(Player player, ItemStack stack) {
+		Minecraft mc = Minecraft.getInstance();
 		if (getLokiRing(player) == stack) {
 			BlockPos currentBuildCenter = getBindingCenter(stack);
 			if (currentBuildCenter.getY() != -1) {
 				return currentBuildCenter;
-			} else if (mc.crosshairTarget instanceof BlockHitResult
-					&& mc.crosshairTarget.getType() == HitResult.Type.BLOCK
+			} else if (mc.hitResult instanceof BlockHitResult
+					&& mc.hitResult.getType() == HitResult.Type.BLOCK
 					&& !getCursorList(stack).isEmpty()) {
-				return ((BlockHitResult) mc.crosshairTarget).getBlockPos();
+				return ((BlockHitResult) mc.hitResult).getBlockPos();
 			}
 		}
 
 		return null;
 	}
 
-	private static ItemStack getLokiRing(PlayerEntity player) {
+	private static ItemStack getLokiRing(Player player) {
 		return EquipmentHandler.findOrEmpty(ModItems.lokiRing, player);
 	}
 
@@ -300,7 +300,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	}
 
 	@Override
-	public Identifier getAdvancement() {
+	public ResourceLocation getAdvancement() {
 		return prefix("challenge/loki_ring");
 	}
 

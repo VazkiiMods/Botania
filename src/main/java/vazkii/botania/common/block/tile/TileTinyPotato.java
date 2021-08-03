@@ -8,17 +8,21 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.Util;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.*;
-import net.minecraft.util.math.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.Nameable;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
@@ -33,72 +37,72 @@ import java.util.Locale;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class TileTinyPotato extends TileExposedSimpleInventory implements Tickable, Nameable {
+public class TileTinyPotato extends TileExposedSimpleInventory implements TickableBlockEntity, Nameable {
 	private static final String TAG_NAME = "name";
 	private static final int JUMP_EVENT = 0;
 
 	public int jumpTicks = 0;
-	public Text name = new LiteralText("");
+	public Component name = new TextComponent("");
 	private int nextDoIt = 0;
 
 	public TileTinyPotato() {
 		super(ModTiles.TINY_POTATO);
 	}
 
-	public void interact(PlayerEntity player, Hand hand, ItemStack stack, Direction side) {
-		int index = side.getId();
+	public void interact(Player player, InteractionHand hand, ItemStack stack, Direction side) {
+		int index = side.get3DDataValue();
 		if (index >= 0) {
-			ItemStack stackAt = getItemHandler().getStack(index);
+			ItemStack stackAt = getItemHandler().getItem(index);
 			if (!stackAt.isEmpty() && stack.isEmpty()) {
-				player.setStackInHand(hand, stackAt);
-				getItemHandler().setStack(index, ItemStack.EMPTY);
+				player.setItemInHand(hand, stackAt);
+				getItemHandler().setItem(index, ItemStack.EMPTY);
 			} else if (!stack.isEmpty()) {
 				ItemStack copy = stack.split(1);
 
 				if (stack.isEmpty()) {
-					player.setStackInHand(hand, stackAt);
+					player.setItemInHand(hand, stackAt);
 				} else if (!stackAt.isEmpty()) {
-					player.inventory.offerOrDrop(player.world, stackAt);
+					player.inventory.placeItemBackInInventory(player.level, stackAt);
 				}
 
-				getItemHandler().setStack(index, copy);
+				getItemHandler().setItem(index, copy);
 			}
 		}
 
-		if (!world.isClient) {
+		if (!level.isClientSide) {
 			jump();
 
 			if (name.getString().toLowerCase(Locale.ROOT).trim().endsWith("shia labeouf") && nextDoIt == 0) {
 				nextDoIt = 40;
-				world.playSound(null, pos, ModSounds.doit, SoundCategory.BLOCKS, 1F, 1F);
+				level.playSound(null, worldPosition, ModSounds.doit, SoundSource.BLOCKS, 1F, 1F);
 			}
 
 			for (int i = 0; i < inventorySize(); i++) {
-				ItemStack stackAt = getItemHandler().getStack(i);
+				ItemStack stackAt = getItemHandler().getItem(i);
 				if (!stackAt.isEmpty() && stackAt.getItem() == ModBlocks.tinyPotato.asItem()) {
-					player.sendSystemMessage(new LiteralText("Don't talk to me or my son ever again."), Util.NIL_UUID);
+					player.sendMessage(new TextComponent("Don't talk to me or my son ever again."), Util.NIL_UUID);
 					return;
 				}
 			}
 
-			player.incrementStat(ModStats.TINY_POTATOES_PETTED);
-			PlayerHelper.grantCriterion((ServerPlayerEntity) player, prefix("main/tiny_potato_pet"), "code_triggered");
+			player.awardStat(ModStats.TINY_POTATOES_PETTED);
+			PlayerHelper.grantCriterion((ServerPlayer) player, prefix("main/tiny_potato_pet"), "code_triggered");
 		}
 	}
 
 	private void jump() {
 		if (jumpTicks == 0) {
-			world.addSyncedBlockEvent(getPos(), getCachedState().getBlock(), JUMP_EVENT, 20);
+			level.blockEvent(getBlockPos(), getBlockState().getBlock(), JUMP_EVENT, 20);
 		}
 	}
 
 	@Override
-	public boolean onSyncedBlockEvent(int id, int param) {
+	public boolean triggerEvent(int id, int param) {
 		if (id == JUMP_EVENT) {
 			jumpTicks = param;
 			return true;
 		} else {
-			return super.onSyncedBlockEvent(id, param);
+			return super.triggerEvent(id, param);
 		}
 	}
 
@@ -108,8 +112,8 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Tickab
 			jumpTicks--;
 		}
 
-		if (!world.isClient) {
-			if (world.random.nextInt(100) == 0) {
+		if (!level.isClientSide) {
+			if (level.random.nextInt(100) == 0) {
 				jump();
 			}
 			if (nextDoIt > 0) {
@@ -119,9 +123,9 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Tickab
 	}
 
 	@Override
-	public void markDirty() {
-		super.markDirty();
-		if (world != null && !world.isClient) {
+	public void setChanged() {
+		super.setChanged();
+		if (level != null && !level.isClientSide) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 	}
@@ -129,35 +133,35 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Tickab
 	@Override
 	public void writePacketNBT(CompoundTag cmp) {
 		super.writePacketNBT(cmp);
-		cmp.putString(TAG_NAME, Text.Serializer.toJson(name));
+		cmp.putString(TAG_NAME, Component.Serializer.toJson(name));
 	}
 
 	@Override
 	public void readPacketNBT(CompoundTag cmp) {
 		super.readPacketNBT(cmp);
-		name = Text.Serializer.fromJson(cmp.getString(TAG_NAME));
+		name = Component.Serializer.fromJson(cmp.getString(TAG_NAME));
 	}
 
 	@Override
-	protected SimpleInventory createItemHandler() {
-		return new SimpleInventory(6);
+	protected SimpleContainer createItemHandler() {
+		return new SimpleContainer(6);
 	}
 
 	@Nonnull
 	@Override
-	public Text getName() {
-		return new TranslatableText(ModBlocks.tinyPotato.getTranslationKey());
+	public Component getName() {
+		return new TranslatableComponent(ModBlocks.tinyPotato.getDescriptionId());
 	}
 
 	@Nullable
 	@Override
-	public Text getCustomName() {
+	public Component getCustomName() {
 		return name.getString().isEmpty() ? null : name;
 	}
 
 	@Nonnull
 	@Override
-	public Text getDisplayName() {
+	public Component getDisplayName() {
 		return hasCustomName() ? getCustomName() : getName();
 	}
 }

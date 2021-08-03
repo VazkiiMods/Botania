@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.impl.corporea;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.corporea.ICorporeaRequest;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class DummyCorporeaNode extends AbstractCorporeaNode {
-	public DummyCorporeaNode(World world, BlockPos pos, ICorporeaSpark spark) {
+	public DummyCorporeaNode(Level world, BlockPos pos, ICorporeaSpark spark) {
 		super(world, pos, spark);
 	}
 

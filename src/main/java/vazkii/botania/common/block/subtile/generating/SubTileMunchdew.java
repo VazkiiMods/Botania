@@ -8,12 +8,12 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
@@ -43,7 +43,7 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isClient) {
+		if (getLevel().isClientSide) {
 			return;
 		}
 
@@ -60,12 +60,12 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 				List<BlockPos> coords = new ArrayList<>();
 				BlockPos pos = getEffectivePos();
 
-				nextCoord: for (BlockPos pos_ : BlockPos.iterate(pos.add(-RANGE, 0, -RANGE),
-						pos.add(RANGE, RANGE_Y, RANGE))) {
-					if (getWorld().getBlockState(pos_).getBlock().isIn(BlockTags.LEAVES)) {
+				nextCoord: for (BlockPos pos_ : BlockPos.betweenClosed(pos.offset(-RANGE, 0, -RANGE),
+						pos.offset(RANGE, RANGE_Y, RANGE))) {
+					if (getLevel().getBlockState(pos_).getBlock().is(BlockTags.LEAVES)) {
 						for (Direction dir : Direction.values()) {
-							if (getWorld().isAir(pos_.offset(dir))) {
-								coords.add(pos_.toImmutable());
+							if (getLevel().isEmptyBlock(pos_.relative(dir))) {
+								coords.add(pos_.immutable());
 								break nextCoord;
 							}
 						}
@@ -78,12 +78,12 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 
 				Collections.shuffle(coords);
 				BlockPos breakCoords = coords.get(0);
-				BlockState state = getWorld().getBlockState(breakCoords);
-				getWorld().removeBlock(breakCoords, false);
+				BlockState state = getLevel().getBlockState(breakCoords);
+				getLevel().removeBlock(breakCoords, false);
 				ticksWithoutEating = 0;
 				ateOnce = true;
 				if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
-					getWorld().syncWorldEvent(2001, breakCoords, Block.getRawIdFromState(state));
+					getLevel().levelEvent(2001, breakCoords, Block.getId(state));
 				}
 				addMana(manaPerLeaf);
 			}

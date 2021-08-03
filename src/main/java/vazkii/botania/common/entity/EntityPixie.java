@@ -8,48 +8,48 @@
  */
 package vazkii.botania.common.entity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.mob.FlyingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.World;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.FlyingMob;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 
 import javax.annotation.Nonnull;
 
-public class EntityPixie extends FlyingEntity {
-	private static final TrackedData<Integer> PIXIE_TYPE = DataTracker.registerData(EntityPixie.class, TrackedDataHandlerRegistry.INTEGER);
+public class EntityPixie extends FlyingMob {
+	private static final EntityDataAccessor<Integer> PIXIE_TYPE = SynchedEntityData.defineId(EntityPixie.class, EntityDataSerializers.INT);
 
 	private LivingEntity summoner = null;
 	private float damage = 0;
-	private StatusEffectInstance effect = null;
+	private MobEffectInstance effect = null;
 
-	public EntityPixie(EntityType<EntityPixie> type, World world) {
+	public EntityPixie(EntityType<EntityPixie> type, Level world) {
 		super(type, world);
 	}
 
-	public EntityPixie(World world) {
+	public EntityPixie(Level world) {
 		this(ModEntities.PIXIE, world);
 	}
 
 	@Override
-	protected void initDataTracker() {
-		super.initDataTracker();
-		dataTracker.startTracking(PIXIE_TYPE, 0);
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		entityData.define(PIXIE_TYPE, 0);
 	}
 
 	public void setPixieType(int type) {
-		dataTracker.set(PIXIE_TYPE, type);
+		entityData.set(PIXIE_TYPE, type);
 	}
 
 	public int getPixieType() {
-		return dataTracker.get(PIXIE_TYPE);
+		return entityData.get(PIXIE_TYPE);
 	}
 
 	public void setProps(LivingEntity target, LivingEntity summoner, int type, float damage) {
@@ -59,17 +59,17 @@ public class EntityPixie extends FlyingEntity {
 		setPixieType(type);
 	}
 
-	public void setApplyPotionEffect(StatusEffectInstance effect) {
+	public void setApplyPotionEffect(MobEffectInstance effect) {
 		this.effect = effect;
 	}
 
 	@Override
-	protected void mobTick() {
+	protected void customServerAiStep() {
 		LivingEntity target = getTarget();
 		if (target != null) {
-			double d0 = target.getX() + target.getWidth() / 2 - getX();
-			double d1 = target.getY() + target.getHeight() / 2 - getY();
-			double d2 = target.getZ() + target.getWidth() / 2 - getZ();
+			double d0 = target.getX() + target.getBbWidth() / 2 - getX();
+			double d1 = target.getY() + target.getBbHeight() / 2 - getY();
+			double d2 = target.getZ() + target.getBbWidth() / 2 - getZ();
 			double d3 = d0 * d0 + d1 * d1 + d2 * d2;
 
 			float mod = 0.45F;
@@ -77,33 +77,33 @@ public class EntityPixie extends FlyingEntity {
 				mod = 0.1F;
 			}
 
-			setVelocity(d0 / d3 * mod, d1 / d3 * mod, d2 / d3 * mod);
+			setDeltaMovement(d0 / d3 * mod, d1 / d3 * mod, d2 / d3 * mod);
 
 			if (Math.sqrt(d3) < 1F) {
 				if (summoner != null) {
-					if (summoner instanceof PlayerEntity) {
-						target.damage(DamageSource.player((PlayerEntity) summoner), damage);
+					if (summoner instanceof Player) {
+						target.hurt(DamageSource.playerAttack((Player) summoner), damage);
 					} else {
-						target.damage(DamageSource.mob(summoner), damage);
+						target.hurt(DamageSource.mobAttack(summoner), damage);
 					}
 				} else {
-					target.damage(DamageSource.mob(this), damage);
+					target.hurt(DamageSource.mobAttack(this), damage);
 				}
-				if (effect != null && !(target instanceof PlayerEntity)) {
-					target.addStatusEffect(effect);
+				if (effect != null && !(target instanceof Player)) {
+					target.addEffect(effect);
 				}
 				remove();
 			}
 		}
 
-		bodyYaw = yaw = -((float) Math.atan2(getVelocity().getX(), getVelocity().getZ()))
+		yBodyRot = yRot = -((float) Math.atan2(getDeltaMovement().x(), getDeltaMovement().z()))
 				* 180.0F / (float) Math.PI;
 	}
 
 	@Override
-	public boolean damage(@Nonnull DamageSource source, float amount) {
-		if (getPixieType() == 0 && source.getAttacker() != summoner || getPixieType() == 1 && source.getAttacker() instanceof PlayerEntity) {
-			return super.damage(source, amount);
+	public boolean hurt(@Nonnull DamageSource source, float amount) {
+		if (getPixieType() == 0 && source.getEntity() != summoner || getPixieType() == 1 && source.getEntity() instanceof Player) {
+			return super.hurt(source, amount);
 		}
 		return false;
 	}
@@ -112,41 +112,41 @@ public class EntityPixie extends FlyingEntity {
 	public void baseTick() {
 		super.baseTick();
 
-		if (!world.isClient
-				&& (getTarget() == null || age > 200)) {
+		if (!level.isClientSide
+				&& (getTarget() == null || tickCount > 200)) {
 			remove();
 		}
 
 		boolean dark = getPixieType() == 1;
-		if (world.isClient) {
+		if (level.isClientSide) {
 			for (int i = 0; i < 4; i++) {
 				float r = dark ? 0.1F : 1F;
 				float g = dark ? 0.025F : 0.25F;
 				float b = dark ? 0.09F : 0.9F;
 				SparkleParticleData data = SparkleParticleData.sparkle(0.1F + (float) Math.random() * 0.25F, r, g, b, 12);
-				world.addParticle(data, getX() + (Math.random() - 0.5) * 0.25, getY() + 0.5 + (Math.random() - 0.5) * 0.25, getZ() + (Math.random() - 0.5) * 0.25, 0, 0, 0);
+				level.addParticle(data, getX() + (Math.random() - 0.5) * 0.25, getY() + 0.5 + (Math.random() - 0.5) * 0.25, getZ() + (Math.random() - 0.5) * 0.25, 0, 0, 0);
 			}
 		}
 	}
 
 	@Override
 	public void remove() {
-		if (world != null && world.isClient && getPixieType() == 0) {
+		if (level != null && level.isClientSide && getPixieType() == 0) {
 			for (int i = 0; i < 12; i++) {
 				SparkleParticleData data = SparkleParticleData.sparkle(1F + (float) Math.random() * 0.25F, 1F, 0.25F, 0.9F, 5);
-				world.addParticle(data, getX() + (Math.random() - 0.5) * 0.25, getY() + 0.5 + (Math.random() - 0.5) * 0.25, getZ() + (Math.random() - 0.5) * 0.25, 0, 0, 0);
+				level.addParticle(data, getX() + (Math.random() - 0.5) * 0.25, getY() + 0.5 + (Math.random() - 0.5) * 0.25, getZ() + (Math.random() - 0.5) * 0.25, 0, 0, 0);
 			}
 		}
 		super.remove();
 	}
 
 	@Override
-	public boolean collides() {
+	public boolean isPickable() {
 		return isAlive();
 	}
 
 	@Override
-	public boolean canBeLeashedBy(PlayerEntity player) {
+	public boolean canBeLeashed(Player player) {
 		return false;
 	}
 }

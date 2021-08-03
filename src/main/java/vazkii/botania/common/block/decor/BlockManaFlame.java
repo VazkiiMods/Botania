@@ -8,21 +8,21 @@
  */
 package vazkii.botania.common.block.decor;
 
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tag.ItemTags;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
@@ -34,44 +34,44 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockManaFlame extends BlockMod implements BlockEntityProvider {
+public class BlockManaFlame extends BlockMod implements EntityBlock {
 
-	private static final VoxelShape SHAPE = createCuboidShape(4, 4, 4, 12, 12, 12);
+	private static final VoxelShape SHAPE = box(4, 4, 4, 12, 12, 12);
 
-	public BlockManaFlame(Settings builder) {
+	public BlockManaFlame(Properties builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
 	@Nonnull
 	@Override
-	public BlockRenderType getRenderType(BlockState state) {
-		return BlockRenderType.INVISIBLE;
+	public RenderShape getRenderShape(BlockState state) {
+		return RenderShape.INVISIBLE;
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		if (Botania.gardenOfGlassLoaded) {
-			ItemStack stack = player.getStackInHand(hand);
+			ItemStack stack = player.getItemInHand(hand);
 			if (!stack.isEmpty() && ItemTags.SAPLINGS.contains(stack.getItem()) && !player.inventory.contains(new ItemStack(ModItems.lexicon))) {
-				if (!world.isClient) {
-					stack.decrement(1);
-					player.inventory.offerOrDrop(player.world, new ItemStack(ModItems.lexicon));
+				if (!world.isClientSide) {
+					stack.shrink(1);
+					player.inventory.placeItemBackInInventory(player.level, new ItemStack(ModItems.lexicon));
 				}
-				return ActionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 
 		}
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Override
-	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
 		BlockEntity te = world.getBlockEntity(pos);
 		if (te instanceof TileManaFlame) {
 			int color = ((TileManaFlame) te).getColor();
@@ -105,7 +105,7 @@ public class BlockManaFlame extends BlockMod implements BlockEntityProvider {
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileManaFlame();
 	}
 }

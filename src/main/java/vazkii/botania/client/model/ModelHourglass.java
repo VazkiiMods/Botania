@@ -8,12 +8,13 @@
  */
 package vazkii.botania.client.model;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3f;
+
 import net.minecraft.client.model.Model;
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.RenderType;
 
 public class ModelHourglass extends Model {
 
@@ -27,41 +28,41 @@ public class ModelHourglass extends Model {
 	public ModelPart sandB;
 
 	public ModelHourglass() {
-		super(RenderLayer::getEntityTranslucent);
+		super(RenderType::entityTranslucent);
 
-		textureWidth = 64;
-		textureHeight = 32;
+		texWidth = 64;
+		texHeight = 32;
 
 		top = new ModelPart(this, 20, 0);
-		top.setPivot(0.0F, 0.0F, 0.0F);
-		top.addCuboid(-3.0F, -6.5F, -3.0F, 6, 1, 6, 0.0F);
+		top.setPos(0.0F, 0.0F, 0.0F);
+		top.addBox(-3.0F, -6.5F, -3.0F, 6, 1, 6, 0.0F);
 		glassT = new ModelPart(this, 0, 0);
-		glassT.setPivot(0.0F, 0.0F, 0.0F);
-		glassT.addCuboid(-2.5F, -5.5F, -2.5F, 5, 5, 5, 0.0F);
+		glassT.setPos(0.0F, 0.0F, 0.0F);
+		glassT.addBox(-2.5F, -5.5F, -2.5F, 5, 5, 5, 0.0F);
 		ring = new ModelPart(this, 0, 20);
-		ring.setPivot(0.0F, 0.0F, 0.0F);
-		ring.addCuboid(-1.5F, -0.5F, -1.5F, 3, 1, 3, 0.0F);
+		ring.setPos(0.0F, 0.0F, 0.0F);
+		ring.addBox(-1.5F, -0.5F, -1.5F, 3, 1, 3, 0.0F);
 		glassB = new ModelPart(this, 0, 10);
-		glassB.setPivot(0.0F, 0.0F, 0.0F);
-		glassB.addCuboid(-2.5F, 0.5F, -2.5F, 5, 5, 5, 0.0F);
+		glassB.setPos(0.0F, 0.0F, 0.0F);
+		glassB.addBox(-2.5F, 0.5F, -2.5F, 5, 5, 5, 0.0F);
 		bottom = new ModelPart(this, 20, 7);
-		bottom.setPivot(0.0F, 0.0F, 0.0F);
-		bottom.addCuboid(-3.0F, 5.5F, -3.0F, 6, 1, 6, 0.0F);
+		bottom.setPos(0.0F, 0.0F, 0.0F);
+		bottom.addBox(-3.0F, 5.5F, -3.0F, 6, 1, 6, 0.0F);
 
 		sandT = new ModelPart(this, 20, 14);
-		sandT.setPivot(0.0F, 0.0F, 0.0F);
-		sandT.addCuboid(0.0F, 0.0F, 0.0F, 4, 4, 4, 0.0F); // -2.0F, -5.0F, -2.0F
+		sandT.setPos(0.0F, 0.0F, 0.0F);
+		sandT.addBox(0.0F, 0.0F, 0.0F, 4, 4, 4, 0.0F); // -2.0F, -5.0F, -2.0F
 		sandB = new ModelPart(this, 20, 14);
-		sandB.setPivot(0.0F, 0.0F, 0.0F);
-		sandB.addCuboid(0.0F, 0.0F, 0.0F, 4, 4, 4, 0.0F); // -2.0F, 1.0F, -2.05F
+		sandB.setPos(0.0F, 0.0F, 0.0F);
+		sandB.addBox(0.0F, 0.0F, 0.0F, 4, 4, 4, 0.0F); // -2.0F, 1.0F, -2.05F
 	}
 
 	@Override
-	public void render(MatrixStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
+	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
 		render(ms, buffer, light, overlay, r, g, b, a, 0, 1, false);
 	}
 
-	public void render(MatrixStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a, float fract1, float fract2, boolean flip) {
+	public void render(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a, float fract1, float fract2, boolean flip) {
 		if (flip) {
 			float tmp = fract1;
 			fract1 = fract2;
@@ -74,29 +75,29 @@ public class ModelHourglass extends Model {
 		bottom.render(ms, buffer, light, overlay, 1, 1, 1, a);
 
 		if (fract1 > 0) {
-			ms.push();
+			ms.pushPose();
 			if (flip) {
 				ms.translate(-2.0F * f, 1.0F * f, -2.0F * f);
 			} else {
-				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
+				ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
 				ms.translate(-2.0F * f, -5.0F * f, -2.0F * f);
 			}
 			ms.scale(1F, fract1, 1F);
 			sandT.render(ms, buffer, light, overlay, r, g, b, a);
-			ms.pop();
+			ms.popPose();
 		}
 
 		if (fract2 > 0) {
-			ms.push();
+			ms.pushPose();
 			if (flip) {
 				ms.translate(-2.0F * f, -5.0F * f, -2.0F * f);
 			} else {
-				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
+				ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
 				ms.translate(-2.0F * f, 1.0F * f, -2.0F * f);
 			}
 			ms.scale(1F, fract2, 1F);
 			sandB.render(ms, buffer, light, overlay, r, g, b, a);
-			ms.pop();
+			ms.popPose();
 		}
 
 		glassT.render(ms, buffer, light, overlay, 1, 1, 1, a);

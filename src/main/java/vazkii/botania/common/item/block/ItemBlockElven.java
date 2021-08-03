@@ -8,15 +8,15 @@
  */
 package vazkii.botania.common.item.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.recipe.IElvenItem;
 
 public class ItemBlockElven extends BlockItem implements IElvenItem {
 
-	public ItemBlockElven(Block block, Settings props) {
+	public ItemBlockElven(Block block, Properties props) {
 		super(block, props);
 	}
 

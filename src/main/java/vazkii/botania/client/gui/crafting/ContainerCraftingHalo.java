@@ -8,10 +8,10 @@
  */
 package vazkii.botania.client.gui.crafting;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.CraftingScreenHandler;
-import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
+import net.minecraft.world.inventory.CraftingMenu;
 
 import javax.annotation.Nonnull;
 
@@ -21,14 +21,14 @@ import javax.annotation.Nonnull;
  * So on the server we have this container while the client will think it's just interacting
  * with a normal WorkbenchContainer.
  */
-public class ContainerCraftingHalo extends CraftingScreenHandler {
+public class ContainerCraftingHalo extends CraftingMenu {
 
-	public ContainerCraftingHalo(int windowId, PlayerInventory playerInv, ScreenHandlerContext wp) {
+	public ContainerCraftingHalo(int windowId, Inventory playerInv, ContainerLevelAccess wp) {
 		super(windowId, playerInv, wp);
 	}
 
 	@Override
-	public boolean canUse(@Nonnull PlayerEntity player) {
+	public boolean stillValid(@Nonnull Player player) {
 		return true;
 	}
 }

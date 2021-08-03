@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.mana.IManaSpreader;
 import vazkii.botania.client.fx.WispParticleData;
@@ -42,16 +42,16 @@ public class LensFlare extends Lens {
 
 		// Lots of EntityThrowable copypasta
 		float f = 0.3F;
-		float mx = (float) (MathHelper.sin(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f / 2D);
-		float mz = (float) (-(MathHelper.cos(rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D);
-		float my = (float) (MathHelper.sin(rotationPitch / 180.0F * (float) Math.PI) * f / 2D);
+		float mx = (float) (Mth.sin(rotationYaw / 180.0F * (float) Math.PI) * Mth.cos(rotationPitch / 180.0F * (float) Math.PI) * f / 2D);
+		float mz = (float) (-(Mth.cos(rotationYaw / 180.0F * (float) Math.PI) * Mth.cos(rotationPitch / 180.0F * (float) Math.PI) * f) / 2D);
+		float my = (float) (Mth.sin(rotationPitch / 180.0F * (float) Math.PI) * f / 2D);
 
 		int storedColor = ItemLens.getStoredColor(stack);
 		int hex = -1;
 
 		BlockEntity tile = spreader.tileEntity();
 		if (storedColor == 16) {
-			hex = MathHelper.hsvToRgb(tile.getWorld().getTime() * 2 % 360 / 360F, 1F, 1F);
+			hex = Mth.hsvToRgb(tile.getLevel().getGameTime() * 2 % 360 / 360F, 1F, 1F);
 		} else if (storedColor >= 0) {
 			hex = ColorHelper.getColorValue(DyeColor.byId(storedColor));
 		}
@@ -61,7 +61,7 @@ public class LensFlare extends Lens {
 		float b = (hex & 0xFF) / 255F;
 
 		WispParticleData data = WispParticleData.wisp(0.4F, r, g, b);
-		tile.getWorld().addParticle(data, tile.getPos().getX() + 0.5, tile.getPos().getY() + 0.5, tile.getPos().getZ() + 0.5, mx, my, mz);
+		tile.getLevel().addParticle(data, tile.getBlockPos().getX() + 0.5, tile.getBlockPos().getY() + 0.5, tile.getBlockPos().getZ() + 0.5, mx, my, mz);
 	}
 
 }

@@ -8,13 +8,13 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(Item.class)
 public interface AccessorItem {
-	@Accessor
+	@Accessor("craftingRemainingItem")
 	void setRecipeRemainder(Item i);
 }

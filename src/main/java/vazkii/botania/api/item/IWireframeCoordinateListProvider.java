@@ -8,9 +8,9 @@
  */
 package vazkii.botania.api.item;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
 
@@ -27,7 +27,7 @@ public interface IWireframeCoordinateListProvider {
 	 * Returns a list of BlockPos for the wireframes to draw.
 	 * Will not be null.
 	 */
-	List<BlockPos> getWireframesToDraw(PlayerEntity player, ItemStack stack);
+	List<BlockPos> getWireframesToDraw(Player player, ItemStack stack);
 
 	/**
 	 * Gets a wireframe to draw thicker than the rest.
@@ -36,7 +36,7 @@ public interface IWireframeCoordinateListProvider {
 	 * @return The position of a single wireframe to draw thicker than all the others.
 	 */
 	@Nullable
-	default BlockPos getSourceWireframe(PlayerEntity player, ItemStack stack) {
+	default BlockPos getSourceWireframe(Player player, ItemStack stack) {
 		return null;
 	}
 

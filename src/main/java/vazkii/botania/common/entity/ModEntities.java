@@ -10,13 +10,13 @@ package vazkii.botania.common.entity;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.boss.WitherEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.world.entity.EntityDimensions;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
 
 import vazkii.botania.common.block.tile.TileLightRelay.EntityPlayerMover;
 import vazkii.botania.common.lib.LibEntityNames;
@@ -27,112 +27,112 @@ public final class ModEntities {
 	private static final EntityDimensions ZERO_SIZE = EntityDimensions.fixed(0, 0);
 
 	public static final EntityType<EntityManaBurst> MANA_BURST = FabricEntityTypeBuilder.<EntityManaBurst>create(
-			SpawnGroup.MISC, EntityManaBurst::new)
+			MobCategory.MISC, EntityManaBurst::new)
 			.dimensions(ZERO_SIZE)
 			.trackedUpdateRate(10)
 			.trackRangeChunks(6)
 			.forceTrackedVelocityUpdates(true)
 			.build();
-	public static final EntityType<EntityPixie> PIXIE = FabricEntityTypeBuilder.<EntityPixie>create(SpawnGroup.MISC, EntityPixie::new)
-			.dimensions(EntityDimensions.changing(1, 1))
+	public static final EntityType<EntityPixie> PIXIE = FabricEntityTypeBuilder.<EntityPixie>create(MobCategory.MISC, EntityPixie::new)
+			.dimensions(EntityDimensions.scalable(1, 1))
 			.trackedUpdateRate(3)
 			.trackRangeChunks(6)
 			.forceTrackedVelocityUpdates(true)
 			.build();
-	public static final EntityType<EntityFlameRing> FLAME_RING = FabricEntityTypeBuilder.<EntityFlameRing>create(SpawnGroup.MISC, EntityFlameRing::new)
+	public static final EntityType<EntityFlameRing> FLAME_RING = FabricEntityTypeBuilder.<EntityFlameRing>create(MobCategory.MISC, EntityFlameRing::new)
 			.dimensions(ZERO_SIZE)
 			.trackRangeChunks(3)
 			.trackedUpdateRate(40)
 			.forceTrackedVelocityUpdates(false)
 			.build();
-	public static final EntityType<EntityVineBall> VINE_BALL = FabricEntityTypeBuilder.<EntityVineBall>create(SpawnGroup.MISC, EntityVineBall::new)
-			.dimensions(EntityDimensions.changing(0.25F, 0.25F))
+	public static final EntityType<EntityVineBall> VINE_BALL = FabricEntityTypeBuilder.<EntityVineBall>create(MobCategory.MISC, EntityVineBall::new)
+			.dimensions(EntityDimensions.scalable(0.25F, 0.25F))
 			.trackRangeChunks(4)
 			.trackedUpdateRate(10)
 			.forceTrackedVelocityUpdates(true)
 			.build();
-	public static final EntityType<EntityDoppleganger> DOPPLEGANGER = FabricEntityTypeBuilder.create(SpawnGroup.MONSTER, EntityDoppleganger::new)
-			.dimensions(EntityDimensions.changing(0.6F, 1.8F))
+	public static final EntityType<EntityDoppleganger> DOPPLEGANGER = FabricEntityTypeBuilder.create(MobCategory.MONSTER, EntityDoppleganger::new)
+			.dimensions(EntityDimensions.scalable(0.6F, 1.8F))
 			.fireImmune()
 			.trackRangeChunks(10)
 			.trackedUpdateRate(10)
 			.forceTrackedVelocityUpdates(true)
 			.build();
-	public static final EntityType<EntityMagicLandmine> MAGIC_LANDMINE = FabricEntityTypeBuilder.create(SpawnGroup.MISC, EntityMagicLandmine::new)
-			.dimensions(EntityDimensions.changing(5F, 0.1F))
+	public static final EntityType<EntityMagicLandmine> MAGIC_LANDMINE = FabricEntityTypeBuilder.create(MobCategory.MISC, EntityMagicLandmine::new)
+			.dimensions(EntityDimensions.scalable(5F, 0.1F))
 			.trackRangeChunks(8)
 			.trackedUpdateRate(40)
 			.forceTrackedVelocityUpdates(false)
 			.build();
-	public static final EntityType<EntitySpark> SPARK = FabricEntityTypeBuilder.<EntitySpark>create(SpawnGroup.MISC, EntitySpark::new)
-			.dimensions(EntityDimensions.changing(0.2F, 0.5F))
+	public static final EntityType<EntitySpark> SPARK = FabricEntityTypeBuilder.<EntitySpark>create(MobCategory.MISC, EntitySpark::new)
+			.dimensions(EntityDimensions.scalable(0.2F, 0.5F))
 			.fireImmune()
 			.trackRangeChunks(4)
 			.trackedUpdateRate(10)
 			.forceTrackedVelocityUpdates(false)
 			.build();
-	public static final EntityType<EntityThrownItem> THROWN_ITEM = FabricEntityTypeBuilder.<EntityThrownItem>create(SpawnGroup.MISC, EntityThrownItem::new)
-			.dimensions(EntityDimensions.changing(0.25F, 0.25F))
+	public static final EntityType<EntityThrownItem> THROWN_ITEM = FabricEntityTypeBuilder.<EntityThrownItem>create(MobCategory.MISC, EntityThrownItem::new)
+			.dimensions(EntityDimensions.scalable(0.25F, 0.25F))
 			.trackRangeChunks(4)
 			.trackedUpdateRate(20)
 			.forceTrackedVelocityUpdates(true)
 			.build();
-	public static final EntityType<EntityMagicMissile> MAGIC_MISSILE = FabricEntityTypeBuilder.<EntityMagicMissile>create(SpawnGroup.MISC, EntityMagicMissile::new)
+	public static final EntityType<EntityMagicMissile> MAGIC_MISSILE = FabricEntityTypeBuilder.<EntityMagicMissile>create(MobCategory.MISC, EntityMagicMissile::new)
 			.dimensions(ZERO_SIZE)
 			.trackRangeChunks(4)
 			.trackedUpdateRate(2)
 			.forceTrackedVelocityUpdates(true)
 			.build();
-	public static final EntityType<EntityThornChakram> THORN_CHAKRAM = FabricEntityTypeBuilder.<EntityThornChakram>create(SpawnGroup.MISC, EntityThornChakram::new)
-			.dimensions(EntityDimensions.changing(0.25F, 0.25F))
+	public static final EntityType<EntityThornChakram> THORN_CHAKRAM = FabricEntityTypeBuilder.<EntityThornChakram>create(MobCategory.MISC, EntityThornChakram::new)
+			.dimensions(EntityDimensions.scalable(0.25F, 0.25F))
 			.trackRangeChunks(5)
 			.trackedUpdateRate(10)
 			.forceTrackedVelocityUpdates(true)
 			.build();
-	public static final EntityType<EntityCorporeaSpark> CORPOREA_SPARK = FabricEntityTypeBuilder.<EntityCorporeaSpark>create(SpawnGroup.MISC, EntityCorporeaSpark::new)
-			.dimensions(EntityDimensions.changing(0.2F, 0.5F))
+	public static final EntityType<EntityCorporeaSpark> CORPOREA_SPARK = FabricEntityTypeBuilder.<EntityCorporeaSpark>create(MobCategory.MISC, EntityCorporeaSpark::new)
+			.dimensions(EntityDimensions.scalable(0.2F, 0.5F))
 			.fireImmune()
 			.trackRangeChunks(4)
 			.trackedUpdateRate(40)
 			.forceTrackedVelocityUpdates(false)
 			.build();
-	public static final EntityType<EntityEnderAirBottle> ENDER_AIR_BOTTLE = FabricEntityTypeBuilder.<EntityEnderAirBottle>create(SpawnGroup.MISC, EntityEnderAirBottle::new)
-			.dimensions(EntityDimensions.changing(0.25F, 0.25F))
+	public static final EntityType<EntityEnderAirBottle> ENDER_AIR_BOTTLE = FabricEntityTypeBuilder.<EntityEnderAirBottle>create(MobCategory.MISC, EntityEnderAirBottle::new)
+			.dimensions(EntityDimensions.scalable(0.25F, 0.25F))
 			.trackRangeChunks(4)
 			.trackedUpdateRate(10)
 			.forceTrackedVelocityUpdates(true)
 			.build();
-	public static final EntityType<EntityPoolMinecart> POOL_MINECART = FabricEntityTypeBuilder.<EntityPoolMinecart>create(SpawnGroup.MISC, EntityPoolMinecart::new)
-			.dimensions(EntityDimensions.changing(0.98F, 0.7F))
+	public static final EntityType<EntityPoolMinecart> POOL_MINECART = FabricEntityTypeBuilder.<EntityPoolMinecart>create(MobCategory.MISC, EntityPoolMinecart::new)
+			.dimensions(EntityDimensions.scalable(0.98F, 0.7F))
 			.trackRangeChunks(5)
 			.trackedUpdateRate(3)
 			.forceTrackedVelocityUpdates(true)
 			.build();
-	public static final EntityType<EntityPinkWither> PINK_WITHER = FabricEntityTypeBuilder.create(SpawnGroup.MISC, EntityPinkWither::new)
-			.dimensions(EntityDimensions.changing(0.9F, 3.5F))
+	public static final EntityType<EntityPinkWither> PINK_WITHER = FabricEntityTypeBuilder.create(MobCategory.MISC, EntityPinkWither::new)
+			.dimensions(EntityDimensions.scalable(0.9F, 3.5F))
 			.trackRangeChunks(6)
 			.trackedUpdateRate(3)
 			.forceTrackedVelocityUpdates(false)
 			.build();
-	public static final EntityType<EntityPlayerMover> PLAYER_MOVER = FabricEntityTypeBuilder.<EntityPlayerMover>create(SpawnGroup.MISC, EntityPlayerMover::new)
+	public static final EntityType<EntityPlayerMover> PLAYER_MOVER = FabricEntityTypeBuilder.<EntityPlayerMover>create(MobCategory.MISC, EntityPlayerMover::new)
 			.dimensions(ZERO_SIZE)
 			.trackRangeChunks(10)
 			.trackedUpdateRate(3)
 			.forceTrackedVelocityUpdates(true)
 			.build();
-	public static final EntityType<EntityManaStorm> MANA_STORM = FabricEntityTypeBuilder.create(SpawnGroup.MISC, EntityManaStorm::new)
-			.dimensions(EntityDimensions.changing(0.98F, 0.98F))
+	public static final EntityType<EntityManaStorm> MANA_STORM = FabricEntityTypeBuilder.create(MobCategory.MISC, EntityManaStorm::new)
+			.dimensions(EntityDimensions.scalable(0.98F, 0.98F))
 			.trackRangeChunks(4)
 			.trackedUpdateRate(10)
 			.forceTrackedVelocityUpdates(false)
 			.build();
-	public static final EntityType<EntityBabylonWeapon> BABYLON_WEAPON = FabricEntityTypeBuilder.<EntityBabylonWeapon>create(SpawnGroup.MISC, EntityBabylonWeapon::new)
+	public static final EntityType<EntityBabylonWeapon> BABYLON_WEAPON = FabricEntityTypeBuilder.<EntityBabylonWeapon>create(MobCategory.MISC, EntityBabylonWeapon::new)
 			.dimensions(ZERO_SIZE)
 			.trackRangeChunks(6)
 			.trackedUpdateRate(10)
 			.forceTrackedVelocityUpdates(true)
 			.build();
-	public static final EntityType<EntityFallingStar> FALLING_STAR = FabricEntityTypeBuilder.<EntityFallingStar>create(SpawnGroup.MISC, EntityFallingStar::new)
+	public static final EntityType<EntityFallingStar> FALLING_STAR = FabricEntityTypeBuilder.<EntityFallingStar>create(MobCategory.MISC, EntityFallingStar::new)
 			.dimensions(ZERO_SIZE)
 			.trackRangeChunks(4)
 			.trackedUpdateRate(10)
@@ -162,12 +162,12 @@ public final class ModEntities {
 	}
 
 	public static void registerAttributes() {
-		FabricDefaultAttributeRegistry.register(ModEntities.DOPPLEGANGER, MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.4)
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, EntityDoppleganger.MAX_HP)
-				.add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0));
-		FabricDefaultAttributeRegistry.register(ModEntities.PIXIE, MobEntity.createMobAttributes()
-				.add(EntityAttributes.GENERIC_MAX_HEALTH, 2.0));
-		FabricDefaultAttributeRegistry.register(ModEntities.PINK_WITHER, WitherEntity.createWitherAttributes());
+		FabricDefaultAttributeRegistry.register(ModEntities.DOPPLEGANGER, Mob.createMobAttributes()
+				.add(Attributes.MOVEMENT_SPEED, 0.4)
+				.add(Attributes.MAX_HEALTH, EntityDoppleganger.MAX_HP)
+				.add(Attributes.KNOCKBACK_RESISTANCE, 1.0));
+		FabricDefaultAttributeRegistry.register(ModEntities.PIXIE, Mob.createMobAttributes()
+				.add(Attributes.MAX_HEALTH, 2.0));
+		FabricDefaultAttributeRegistry.register(ModEntities.PINK_WITHER, WitherBoss.createAttributes());
 	}
 }

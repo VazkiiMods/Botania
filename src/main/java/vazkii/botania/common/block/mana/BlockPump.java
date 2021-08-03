@@ -8,19 +8,19 @@
  */
 package vazkii.botania.common.block.mana;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.mana.TilePump;
@@ -29,32 +29,32 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockPump extends BlockModWaterloggable implements BlockEntityProvider {
+public class BlockPump extends BlockModWaterloggable implements EntityBlock {
 
-	private static final VoxelShape X_SHAPE = createCuboidShape(0, 0, 4, 16, 8, 12);
-	private static final VoxelShape Z_SHAPE = createCuboidShape(4, 0, 0, 12, 8, 16);
+	private static final VoxelShape X_SHAPE = box(0, 0, 4, 16, 8, 12);
+	private static final VoxelShape Z_SHAPE = box(4, 0, 0, 12, 8, 16);
 
-	public BlockPump(Settings builder) {
+	public BlockPump(Properties builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.SOUTH));
+		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		super.appendProperties(builder);
-		builder.add(Properties.HORIZONTAL_FACING);
-	}
-
-	@Nonnull
-	@Override
-	public BlockState getPlacementState(ItemPlacementContext context) {
-		return super.getPlacementState(context).with(Properties.HORIZONTAL_FACING, context.getPlayerFacing().getOpposite());
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(BlockStateProperties.HORIZONTAL_FACING);
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
-		if (state.get(Properties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		return super.getStateForPlacement(context).setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
+	}
+
+	@Nonnull
+	@Override
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+		if (state.getValue(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
 			return X_SHAPE;
 		} else {
 			return Z_SHAPE;
@@ -62,24 +62,24 @@ public class BlockPump extends BlockModWaterloggable implements BlockEntityProvi
 	}
 
 	@Override
-	public boolean hasComparatorOutput(BlockState state) {
+	public boolean hasAnalogOutputSignal(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
 		return ((TilePump) world.getBlockEntity(pos)).comparator;
 	}
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TilePump();
 	}
 
 	@Override
-	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
-		if (world.isReceivingRedstonePower(pos)) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
+		if (world.hasNeighborSignal(pos)) {
 			BlockPrism.redstoneParticlesInShape(state, world, pos, rand);
 		}
 	}

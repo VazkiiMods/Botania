@@ -8,10 +8,10 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.CraftingResultSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.inventory.ResultSlot;
+import net.minecraft.world.item.ItemStack;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,21 +22,21 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.common.item.ItemCraftingHalo;
 
-@Mixin(CraftingResultSlot.class)
+@Mixin(ResultSlot.class)
 public class MixinCraftingResultSlot {
 	@Shadow
 	@Final
-	private CraftingInventory input;
+	private CraftingContainer craftSlots;
 
 	@Shadow
 	@Final
-	private PlayerEntity player;
+	private Player player;
 
 	@Inject(
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;onCraft(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;I)V"),
-		method = "onCrafted(Lnet/minecraft/item/ItemStack;)V"
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;onCraftedBy(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;I)V"),
+		method = "checkTakeAchievements"
 	)
 	private void onCraft(ItemStack stack, CallbackInfo ci) {
-		ItemCraftingHalo.onItemCrafted(player, input);
+		ItemCraftingHalo.onItemCrafted(player, craftSlots);
 	}
 }

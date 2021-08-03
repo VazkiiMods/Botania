@@ -8,27 +8,28 @@
  */
 package vazkii.botania.common.block;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.item.IHourglassTrigger;
@@ -40,65 +41,65 @@ import vazkii.botania.common.block.tile.TileAnimatedTorch;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockAnimatedTorch extends BlockModWaterloggable implements BlockEntityProvider, IWandable, IManaTrigger, IHourglassTrigger, IWandHUD {
+public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityBlock, IWandable, IManaTrigger, IHourglassTrigger, IWandHUD {
 
-	private static final VoxelShape SHAPE = createCuboidShape(0, 0, 0, 16, 4, 16);
+	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 4, 16);
 
-	public BlockAnimatedTorch(Settings builder) {
+	public BlockAnimatedTorch(Properties builder) {
 		super(builder);
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockHitResult hit) {
-		if (hand == Hand.MAIN_HAND && playerIn.isSneaking() && playerIn.getStackInHand(hand).isEmpty()) {
+	public InteractionResult use(BlockState state, Level worldIn, BlockPos pos, Player playerIn, InteractionHand hand, BlockHitResult hit) {
+		if (hand == InteractionHand.MAIN_HAND && playerIn.isShiftKeyDown() && playerIn.getItemInHand(hand).isEmpty()) {
 			((TileAnimatedTorch) worldIn.getBlockEntity(pos)).handRotate();
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Override
-	public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
+	public void setPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
 		((TileAnimatedTorch) world.getBlockEntity(pos)).onPlace(entity);
 	}
 
 	@Override
-	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
+	public void onBurstCollision(IManaBurst burst, Level world, BlockPos pos) {
 		if (!burst.isFake()) {
 			((TileAnimatedTorch) world.getBlockEntity(pos)).toggle();
 		}
 	}
 
 	@Override
-	public void onTriggeredByHourglass(World world, BlockPos pos, BlockEntity hourglass) {
+	public void onTriggeredByHourglass(Level world, BlockPos pos, BlockEntity hourglass) {
 		((TileAnimatedTorch) world.getBlockEntity(pos)).toggle();
 	}
 
 	@Override
-	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
+	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
 		((TileAnimatedTorch) world.getBlockEntity(pos)).onWanded();
 		return true;
 	}
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void renderHUD(MatrixStack ms, MinecraftClient mc, World world, BlockPos pos) {
+	public void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos) {
 		((TileAnimatedTorch) world.getBlockEntity(pos)).renderHUD(ms, mc);
 	}
 
 	@Override
-	public boolean emitsRedstonePower(BlockState state) {
+	public boolean isSignalSource(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getStrongRedstonePower(BlockState blockState, BlockView blockAccess, BlockPos pos, Direction side) {
-		return getWeakRedstonePower(blockState, blockAccess, pos, side);
+	public int getDirectSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side) {
+		return getSignal(blockState, blockAccess, pos, side);
 	}
 
 	@Override
-	public int getWeakRedstonePower(BlockState blockState, BlockView blockAccess, BlockPos pos, Direction side) {
+	public int getSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side) {
 		TileAnimatedTorch tile = (TileAnimatedTorch) blockAccess.getBlockEntity(pos);
 
 		if (tile.rotating) {
@@ -114,26 +115,26 @@ public class BlockAnimatedTorch extends BlockModWaterloggable implements BlockEn
 
 	@Nonnull
 	@Override
-	public BlockRenderType getRenderType(BlockState state) {
-		return BlockRenderType.ENTITYBLOCK_ANIMATED;
+	public RenderShape getRenderShape(BlockState state) {
+		return RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileAnimatedTorch();
 	}
 
 	@Override
-	public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
+	public void destroy(LevelAccessor world, BlockPos pos, BlockState state) {
 		// TE is already gone so best we can do is just notify everyone
-		world.updateNeighbors(pos, this);
-		super.onBroken(world, pos, state);
+		world.blockUpdated(pos, this);
+		super.destroy(world, pos, state);
 	}
 
 }

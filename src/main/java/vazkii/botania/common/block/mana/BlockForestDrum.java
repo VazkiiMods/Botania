@@ -8,26 +8,26 @@
  */
 package vazkii.botania.common.block.mana;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.Shearable;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.CowEntity;
-import net.minecraft.entity.passive.MooshroomEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.Shearable;
+import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.animal.MushroomCow;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
@@ -50,34 +50,34 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 		CANOPY
 	}
 
-	private static final VoxelShape SHAPE = Block.createCuboidShape(3, 1, 3, 13, 15, 13);
+	private static final VoxelShape SHAPE = Block.box(3, 1, 3, 13, 15, 13);
 	private final Variant variant;
 
-	public BlockForestDrum(Variant v, Settings builder) {
+	public BlockForestDrum(Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
 	public void convertNearby(Entity entity, Item from, Item to) {
-		World world = entity.world;
-		List<ItemEntity> items = world.getNonSpectatingEntities(ItemEntity.class, entity.getBoundingBox());
+		Level world = entity.level;
+		List<ItemEntity> items = world.getEntitiesOfClass(ItemEntity.class, entity.getBoundingBox());
 		for (ItemEntity item : items) {
-			ItemStack itemstack = item.getStack();
-			if (!itemstack.isEmpty() && itemstack.getItem() == from && !world.isClient) {
+			ItemStack itemstack = item.getItem();
+			if (!itemstack.isEmpty() && itemstack.getItem() == from && !world.isClientSide) {
 				while (itemstack.getCount() > 0) {
-					ItemEntity ent = entity.dropStack(new ItemStack(to), 1.0F);
-					ent.setVelocity(ent.getVelocity().add(
+					ItemEntity ent = entity.spawnAtLocation(new ItemStack(to), 1.0F);
+					ent.setDeltaMovement(ent.getDeltaMovement().add(
 							world.random.nextFloat() * 0.05F,
 							(world.random.nextFloat() - world.random.nextFloat()) * 0.1F,
 							(world.random.nextFloat() - world.random.nextFloat()) * 0.1F
 					));
-					itemstack.decrement(1);
+					itemstack.shrink(1);
 				}
 				item.remove();
 			}
@@ -85,11 +85,11 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 	}
 
 	@Override
-	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
+	public void onBurstCollision(IManaBurst burst, Level world, BlockPos pos) {
 		if (burst.isFake()) {
 			return;
 		}
-		if (world.isClient) {
+		if (world.isClientSide) {
 			world.addParticle(ParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5D, 1.0 / 24.0, 0, 0);
 			return;
 		}
@@ -99,17 +99,17 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 			ItemHorn.breakGrass(world, new ItemStack(ModItems.leavesHorn), pos);
 		} else {
 			int range = 10;
-			List<MobEntity> entities = world.getNonSpectatingEntities(MobEntity.class, new Box(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
-			List<MobEntity> shearables = new ArrayList<>();
+			List<Mob> entities = world.getEntitiesOfClass(Mob.class, new AABB(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1)));
+			List<Mob> shearables = new ArrayList<>();
 			ItemStack stack = new ItemStack(ModBlocks.gatheringDrum);
 
-			for (MobEntity entity : entities) {
-				if (entity instanceof CowEntity) {
+			for (Mob entity : entities) {
+				if (entity instanceof Cow) {
 					convertNearby(entity, Items.BUCKET, Items.MILK_BUCKET);
-					if (entity instanceof MooshroomEntity) {
+					if (entity instanceof MushroomCow) {
 						convertNearby(entity, Items.BOWL, Items.MUSHROOM_STEW);
 					}
-				} else if (entity instanceof Shearable && ((Shearable) entity).isShearable()) {
+				} else if (entity instanceof Shearable && ((Shearable) entity).readyForShearing()) {
 					shearables.add(entity);
 				}
 			}
@@ -117,13 +117,13 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 			Collections.shuffle(shearables);
 			int sheared = 0;
 
-			for (MobEntity entity : shearables) {
+			for (Mob entity : shearables) {
 				if (sheared > 4) {
 					break;
 				}
 
 				if (entity instanceof Shearable) {
-					((Shearable) entity).sheared(SoundCategory.BLOCKS);
+					((Shearable) entity).shear(SoundSource.BLOCKS);
 				}
 
 				++sheared;
@@ -131,7 +131,7 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 		}
 
 		for (int i = 0; i < 10; i++) {
-			world.playSound(null, pos, SoundEvents.BLOCK_NOTE_BLOCK_BASEDRUM, SoundCategory.BLOCKS, 1F, 1F);
+			world.playSound(null, pos, SoundEvents.NOTE_BLOCK_BASEDRUM, SoundSource.BLOCKS, 1F, 1F);
 		}
 	}
 }

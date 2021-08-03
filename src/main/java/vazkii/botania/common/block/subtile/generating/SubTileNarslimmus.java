@@ -8,17 +8,17 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.mob.SlimeEntity;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
-import net.minecraft.world.gen.ChunkRandom;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.monster.Slime;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.levelgen.WorldgenRandom;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
@@ -40,26 +40,26 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 		super.tickFlower();
 
 		if (ticksExisted % 5 == 0) {
-			List<SlimeEntity> slimes = getWorld().getNonSpectatingEntities(SlimeEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
-			for (SlimeEntity slime : slimes) {
+			List<Slime> slimes = getLevel().getEntitiesOfClass(Slime.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)));
+			for (Slime slime : slimes) {
 				if (slime.isAlive() && EntityComponents.NARSLIMMUS.get(slime).isNaturalSpawned()) {
 					int size = slime.getSize();
 					int mul = (int) Math.pow(2, size);
 					int mana = 1200 * mul;
-					if (!slime.world.isClient) {
+					if (!slime.level.isClientSide) {
 						slime.remove();
-						slime.playSound(size > 1 ? SoundEvents.ENTITY_SLIME_SQUISH : SoundEvents.ENTITY_SLIME_SQUISH_SMALL, 1, 0.02F);
+						slime.playSound(size > 1 ? SoundEvents.SLIME_SQUISH : SoundEvents.SLIME_SQUISH_SMALL, 1, 0.02F);
 						addMana(mana);
 						sync();
 					}
 
 					for (int j = 0; j < mul * 8; ++j) {
-						float f = slime.world.random.nextFloat() * (float) Math.PI * 2.0F;
-						float f1 = slime.world.random.nextFloat() * 0.5F + 0.5F;
-						float f2 = MathHelper.sin(f) * size * 0.5F * f1;
-						float f3 = MathHelper.cos(f) * size * 0.5F * f1;
-						float f4 = slime.world.random.nextFloat() * size * 0.5F * f1;
-						slime.world.addParticle(ParticleTypes.ITEM_SLIME, slime.getX() + f2, slime.getBoundingBox().minY + f4, slime.getZ() + f3, 0.0D, 0.0D, 0.0D);
+						float f = slime.level.random.nextFloat() * (float) Math.PI * 2.0F;
+						float f1 = slime.level.random.nextFloat() * 0.5F + 0.5F;
+						float f2 = Mth.sin(f) * size * 0.5F * f1;
+						float f3 = Mth.cos(f) * size * 0.5F * f1;
+						float f4 = slime.level.random.nextFloat() * size * 0.5F * f1;
+						slime.level.addParticle(ParticleTypes.ITEM_SLIME, slime.getX() + f2, slime.getBoundingBox().minY + f4, slime.getZ() + f3, 0.0D, 0.0D, 0.0D);
 					}
 					break;
 				}
@@ -83,23 +83,23 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 	}
 
 	public static void onSpawn(Entity entity) {
-		boolean slimeChunk = isSlimeChunk(entity.world, entity.getX(), entity.getZ());
+		boolean slimeChunk = isSlimeChunk(entity.level, entity.getX(), entity.getZ());
 		if (slimeChunk) {
-			entity.streamPassengersRecursively().forEach(e -> {
-				if (e instanceof SlimeEntity) {
+			entity.getSelfAndPassengers().forEach(e -> {
+				if (e instanceof Slime) {
 					EntityComponents.NARSLIMMUS.get(e).setNaturalSpawn(true);
 				}
 			});
 		}
 	}
 
-	private static boolean isSlimeChunk(World world, double x, double z) {
+	private static boolean isSlimeChunk(Level world, double x, double z) {
 		return isSlimeChunk(world, new BlockPos(x, 0, z));
 	}
 
-	public static boolean isSlimeChunk(World world, BlockPos pos) {
+	public static boolean isSlimeChunk(Level world, BlockPos pos) {
 		ChunkPos chunkpos = new ChunkPos(pos);
-		return ChunkRandom.getSlimeRandom(chunkpos.x, chunkpos.z, ((ServerWorld) world).getSeed(), 987234911L).nextInt(10) == 0;
+		return WorldgenRandom.seedSlimeChunk(chunkpos.x, chunkpos.z, ((ServerLevel) world).getSeed(), 987234911L).nextInt(10) == 0;
 	}
 
 }

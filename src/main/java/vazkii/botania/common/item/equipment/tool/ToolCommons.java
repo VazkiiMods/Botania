@@ -8,23 +8,23 @@
  */
 package vazkii.botania.common.item.equipment.tool;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.MiningToolItem;
-import net.minecraft.item.ToolMaterial;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DiggerItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -37,18 +37,18 @@ import java.util.function.Predicate;
 
 public final class ToolCommons {
 
-	public static final List<Material> materialsAxe = Arrays.asList(Material.UNUSED_PLANT, Material.LEAVES, Material.PLANT, Material.WOOD, Material.NETHER_WOOD, Material.GOURD);
+	public static final List<Material> materialsAxe = Arrays.asList(Material.CORAL, Material.LEAVES, Material.PLANT, Material.WOOD, Material.NETHER_WOOD, Material.VEGETABLE);
 	private static boolean recCall = false;
 
 	/**
 	 * Consumes as much mana as possible, returning the amount of damage that couldn't be paid with mana
 	 */
 	public static int damageItemIfPossible(ItemStack stack, int amount, LivingEntity entity, int manaPerDamage) {
-		if (!(entity instanceof PlayerEntity)) {
+		if (!(entity instanceof Player)) {
 			return amount;
 		}
 
-		PlayerEntity player = (PlayerEntity) entity;
+		Player player = (Player) entity;
 		while (amount > 0) {
 			if (ManaItemHandler.instance().requestManaExactForTool(stack, player, manaPerDamage, true)) {
 				amount--;
@@ -60,7 +60,7 @@ public final class ToolCommons {
 		return amount;
 	}
 
-	public static void removeBlocksInIteration(PlayerEntity player, ItemStack stack, World world, BlockPos centerPos,
+	public static void removeBlocksInIteration(Player player, ItemStack stack, Level world, BlockPos centerPos,
 			Vec3i startDelta, Vec3i endDelta, Predicate<BlockState> filter) {
 		if (recCall) {
 			return;
@@ -68,8 +68,8 @@ public final class ToolCommons {
 
 		recCall = true;
 		try {
-			for (BlockPos iterPos : BlockPos.iterate(centerPos.add(startDelta),
-					centerPos.add(endDelta))) {
+			for (BlockPos iterPos : BlockPos.betweenClosed(centerPos.offset(startDelta),
+					centerPos.offset(endDelta))) {
 				// skip original block space, vanilla code will handle it
 				if (iterPos.equals(centerPos)) {
 					continue;
@@ -87,20 +87,20 @@ public final class ToolCommons {
 	 * or {@link vazkii.botania.common.item.relic.ItemLokiRing#breakOnAllCursors},
 	 * since this method calls that method also and would lead to an infinite loop.
 	 */
-	public static void removeBlockWithDrops(PlayerEntity player, ItemStack stack, World world, BlockPos pos,
+	public static void removeBlockWithDrops(Player player, ItemStack stack, Level world, BlockPos pos,
 			Predicate<BlockState> filter) {
-		if (!world.isChunkLoaded(pos)) {
+		if (!world.hasChunkAt(pos)) {
 			return;
 		}
 
 		BlockState blockstate = world.getBlockState(pos);
-		boolean unminable = blockstate.calcBlockBreakingDelta(player, world, pos) == 0;
+		boolean unminable = blockstate.getDestroyProgress(player, world, pos) == 0;
 
-		if (!world.isClient && !unminable && filter.test(blockstate) && !blockstate.isAir()) {
-			ItemStack save = player.getMainHandStack();
-			player.setStackInHand(Hand.MAIN_HAND, stack);
-			((ServerPlayerEntity) player).interactionManager.tryBreakBlock(pos);
-			player.setStackInHand(Hand.MAIN_HAND, save);
+		if (!world.isClientSide && !unminable && filter.test(blockstate) && !blockstate.isAir()) {
+			ItemStack save = player.getMainHandItem();
+			player.setItemInHand(InteractionHand.MAIN_HAND, stack);
+			((ServerPlayer) player).gameMode.destroyBlock(pos);
+			player.setItemInHand(InteractionHand.MAIN_HAND, save);
 		}
 	}
 
@@ -110,12 +110,12 @@ public final class ToolCommons {
 		}
 
 		Item item = stack.getItem();
-		if (!(item instanceof MiningToolItem)) {
+		if (!(item instanceof DiggerItem)) {
 			return 0;
 		}
 
-		MiningToolItem tool = (MiningToolItem) item;
-		ToolMaterial material = tool.getMaterial();
+		DiggerItem tool = (DiggerItem) item;
+		Tier material = tool.getTier();
 		int materialLevel = 0;
 		if (material == BotaniaAPI.instance().getManasteelItemTier()) {
 			materialLevel = 10;
@@ -132,11 +132,11 @@ public final class ToolCommons {
 			modifier = ItemTerraPick.getLevel(stack);
 		}
 
-		int efficiency = EnchantmentHelper.getLevel(Enchantments.EFFICIENCY, stack);
+		int efficiency = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack);
 		return materialLevel * 100 + modifier * 10 + efficiency;
 	}
 
 	public static BlockHitResult raytraceFromEntity(Entity e, double distance, boolean fluids) {
-		return (BlockHitResult) e.raycast(distance, 1, fluids);
+		return (BlockHitResult) e.pick(distance, 1, fluids);
 	}
 }

@@ -10,16 +10,16 @@ package vazkii.botania.common.core.handler;
 
 import com.google.common.collect.ImmutableMap;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.logging.UncaughtExceptionLogger;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.DefaultUncaughtExceptionHandler;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
@@ -57,7 +57,7 @@ public class ContributorList {
 			Thread thread = new Thread(ContributorList::fetch);
 			thread.setName("Botania Contributor Fanciness Thread");
 			thread.setDaemon(true);
-			thread.setUncaughtExceptionHandler(new UncaughtExceptionLogger(Botania.LOGGER));
+			thread.setUncaughtExceptionHandler(new DefaultUncaughtExceptionHandler(Botania.LOGGER));
 			thread.start();
 
 			startedLoading = true;
@@ -89,8 +89,8 @@ public class ContributorList {
 				String rawName = value.toLowerCase(Locale.ROOT);
 				String flowerName = LEGACY_FLOWER_NAMES.getOrDefault(rawName, rawName);
 
-				Item item = ModTags.Items.CONTRIBUTOR_HEADFLOWERS.values().stream()
-						.filter(flower -> Registry.ITEM.getId(flower).getPath().equals(flowerName))
+				Item item = ModTags.Items.CONTRIBUTOR_HEADFLOWERS.getValues().stream()
+						.filter(flower -> Registry.ITEM.getKey(flower).getPath().equals(flowerName))
 						.findFirst().orElse(Items.POPPY);
 				stack = cachedStacks.computeIfAbsent(item, ContributorList::configureStack);
 			}
@@ -103,11 +103,11 @@ public class ContributorList {
 		ItemStack stack = new ItemStack(item);
 		Map<Enchantment, Integer> ench = new HashMap<>();
 		ench.put(Enchantments.UNBREAKING, 1);
-		Registry.ENCHANTMENT.getOrEmpty(new Identifier("charm", "tinted")).ifPresent(e -> ench.put(e, 1));
-		EnchantmentHelper.set(ench, stack);
+		Registry.ENCHANTMENT.getOptional(new ResourceLocation("charm", "tinted")).ifPresent(e -> ench.put(e, 1));
+		EnchantmentHelper.setEnchantments(ench, stack);
 
 		stack.getTag().putBoolean(TAG_HEADFLOWER, true);
-		stack.getTag().putString("charm_glint", DyeColor.YELLOW.asString());
+		stack.getTag().putString("charm_glint", DyeColor.YELLOW.getSerializedName());
 		return stack;
 	}
 

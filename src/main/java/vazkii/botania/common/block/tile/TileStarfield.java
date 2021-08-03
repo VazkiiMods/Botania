@@ -8,30 +8,30 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.util.Tickable;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.Botania;
 
-public class TileStarfield extends TileMod implements Tickable {
+public class TileStarfield extends TileMod implements TickableBlockEntity {
 	public TileStarfield() {
 		super(ModTiles.STARFIELD);
 	}
 
 	@Override
 	public void tick() {
-		if (world.isClient) {
-			world.calculateAmbientDarkness(); // ensure isDayTime works properly by updating skylightSubtracted
-			if (world.isDay()) {
+		if (level.isClientSide) {
+			level.updateSkyBrightness(); // ensure isDayTime works properly by updating skylightSubtracted
+			if (level.isDay()) {
 				return;
 			}
 
 			double radius = 512;
 			int iter = 2;
 			for (int i = 0; i < iter; i++) {
-				double x = pos.getX() + 0.5 + (Math.random() - 0.5) * radius;
-				double y = Math.min(256, pos.getY() + Botania.proxy.getClientRenderDistance() * 16);
-				double z = pos.getZ() + 0.5 + (Math.random() - 0.5) * radius;
+				double x = worldPosition.getX() + 0.5 + (Math.random() - 0.5) * radius;
+				double y = Math.min(256, worldPosition.getY() + Botania.proxy.getClientRenderDistance() * 16);
+				double z = worldPosition.getZ() + 0.5 + (Math.random() - 0.5) * radius;
 
 				float w = 0.6F;
 				float c = 1F - w;
@@ -44,7 +44,7 @@ public class TileStarfield extends TileMod implements Tickable {
 				int m = 50;
 
 				SparkleParticleData data = SparkleParticleData.sparkle(s, r, g, b, m);
-				Botania.proxy.addParticleForce(world, data, x, y, z, 0, 0, 0);
+				Botania.proxy.addParticleForce(level, data, x, y, z, 0, 0, 0);
 			}
 		}
 	}

@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.core.handler;
 
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.recipe.AbstractCookingRecipe;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.common.Botania;
@@ -41,7 +41,7 @@ public class ExoflameFurnaceHandler {
 
 		@Override
 		public boolean canSmelt() {
-			if (furnace.getStack(0).isEmpty()) {
+			if (furnace.getItem(0).isEmpty()) {
 				return false;
 			}
 			try {
@@ -49,12 +49,12 @@ public class ExoflameFurnaceHandler {
 					this.recipeType = ExoflameFurnaceHandler.getRecipeType(furnace);
 				}
 				if (currentRecipe != null) { // This is already more caching than Mojang does
-					if (currentRecipe.matches(furnace, furnace.getWorld())
+					if (currentRecipe.matches(furnace, furnace.getLevel())
 							&& ExoflameFurnaceHandler.canSmelt(furnace, currentRecipe)) {
 						return true;
 					}
 				}
-				currentRecipe = furnace.getWorld().getRecipeManager().getFirstMatch(recipeType, furnace, furnace.getWorld()).orElse(null);
+				currentRecipe = furnace.getLevel().getRecipeManager().getRecipeFor(recipeType, furnace, furnace.getLevel()).orElse(null);
 				return ExoflameFurnaceHandler.canSmelt(furnace, currentRecipe);
 			} catch (Throwable t) {
 				Botania.LOGGER.error("Failed to determine if furnace TE can smelt", t);
@@ -64,24 +64,24 @@ public class ExoflameFurnaceHandler {
 
 		@Override
 		public int getBurnTime() {
-			return ((AccessorAbstractFurnaceTileEntity) furnace).getBurnTime();
+			return ((AccessorAbstractFurnaceTileEntity) furnace).getLitTime();
 		}
 
 		@Override
 		public void boostBurnTime() {
 			if (getBurnTime() == 0) {
-				World world = furnace.getWorld();
-				BlockPos pos = furnace.getPos();
-				world.setBlockState(pos, world.getBlockState(pos).with(Properties.LIT, true));
+				Level world = furnace.getLevel();
+				BlockPos pos = furnace.getBlockPos();
+				world.setBlockAndUpdate(pos, world.getBlockState(pos).setValue(BlockStateProperties.LIT, true));
 			}
-			int burnTime = ((AccessorAbstractFurnaceTileEntity) furnace).getBurnTime();
-			((AccessorAbstractFurnaceTileEntity) furnace).setBurnTime(burnTime + 200);
+			int burnTime = ((AccessorAbstractFurnaceTileEntity) furnace).getLitTime();
+			((AccessorAbstractFurnaceTileEntity) furnace).setLitTime(burnTime + 200);
 		}
 
 		@Override
 		public void boostCookTime() {
-			int cookTime = ((AccessorAbstractFurnaceTileEntity) furnace).getCookTime();
-			((AccessorAbstractFurnaceTileEntity) furnace).setCookTime(Math.min(currentRecipe.getCookTime() - 1, cookTime + 1));
+			int cookTime = ((AccessorAbstractFurnaceTileEntity) furnace).getCookingProgress();
+			((AccessorAbstractFurnaceTileEntity) furnace).setCookingProgress(Math.min(currentRecipe.getCookingTime() - 1, cookTime + 1));
 		}
 	}
 }

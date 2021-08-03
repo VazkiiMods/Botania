@@ -8,9 +8,9 @@
  */
 package vazkii.botania.api.item;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 
 /**
  * An Item that implements this can provide blocks to other items that use them.
@@ -25,7 +25,7 @@ public interface IBlockProvider {
 	 * If you need to use calls to ManaItemHandler.requestMana[Exact], use
 	 * the requestor as the ItemStack passed in.
 	 */
-	boolean provideBlock(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block, boolean doit);
+	boolean provideBlock(Player player, ItemStack requestor, ItemStack stack, Block block, boolean doit);
 
 	/**
 	 * Gets the amount of blocks of the type passed stored in this item. You must
@@ -33,6 +33,6 @@ public interface IBlockProvider {
 	 * -1 states that the item can provide infinite of the item passed in (for example,
 	 * the Rod of the Lands would return -1 if the block is dirt).
 	 */
-	int getBlockCount(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block);
+	int getBlockCount(Player player, ItemStack requestor, ItemStack stack, Block block);
 
 }

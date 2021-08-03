@@ -9,9 +9,9 @@
 package vazkii.botania.common.block.tile;
 
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.item.IFloatingFlower;
@@ -24,7 +24,7 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvid
 	private final IFloatingFlower floatingData = new FloatingFlowerImpl() {
 		@Override
 		public ItemStack getDisplayStack() {
-			Block b = getCachedState().getBlock();
+			Block b = getBlockState().getBlock();
 			if (b instanceof BlockFloatingFlower) {
 				return new ItemStack(ModBlocks.getShinyFlower(((BlockFloatingFlower) b).color));
 			} else {
@@ -47,7 +47,7 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvid
 		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
 		super.fromClientTag(tag);
 		if (oldType != floatingData.getIslandType()) {
-			world.updateListeners(getPos(), getCachedState(), getCachedState(), 0);
+			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 0);
 		}
 	}
 

@@ -8,27 +8,27 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.entity.passive.VillagerEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.tag.Tag;
-import net.minecraft.util.Tickable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.village.VillagerType;
-import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.entity.AgableMob;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.VillagerType;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
 
 import vazkii.botania.common.lib.ModTags;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileCocoon extends TileMod implements Tickable {
+public class TileCocoon extends TileMod implements TickableBlockEntity {
 	private static final String TAG_TIME_PASSED = "timePassed";
 	private static final String TAG_EMERALDS_GIVEN = "emeraldsGiven";
 	private static final String TAG_CHORUS_FRUIT_GIVEN = "chorusFruitGiven";
@@ -57,12 +57,12 @@ public class TileCocoon extends TileMod implements Tickable {
 	}
 
 	private void hatch() {
-		if (!world.isClient) {
+		if (!level.isClientSide) {
 			timePassed = 0;
-			world.breakBlock(pos, false);
+			level.destroyBlock(worldPosition, false);
 
-			MobEntity entity = null;
-			BlockPos placePos = pos;
+			Mob entity = null;
+			BlockPos placePos = worldPosition;
 			float rareChance = gaiaSpiritGiven ? 1F : SPECIAL_CHANCE;
 
 			float villagerChance = Math.min(1F, (float) emeraldsGiven / (float) MAX_EMERALDS);
@@ -70,24 +70,24 @@ public class TileCocoon extends TileMod implements Tickable {
 
 			List<BlockPos> validWater = new ArrayList<>();
 			for (Direction d : Direction.values()) {
-				BlockPos blockPos = (d == Direction.UP) ? pos : pos.offset(d);
-				if (world.isChunkLoaded(blockPos)
-						&& world.getBlockState(blockPos).getBlock() == Blocks.WATER) {
+				BlockPos blockPos = (d == Direction.UP) ? worldPosition : worldPosition.relative(d);
+				if (level.hasChunkAt(blockPos)
+						&& level.getBlockState(blockPos).getBlock() == Blocks.WATER) {
 					validWater.add(blockPos);
 				}
 			}
 
 			if (Math.random() < shulkerChance) {
-				entity = EntityType.SHULKER.create(world);
+				entity = EntityType.SHULKER.create(level);
 			} else if (Math.random() < villagerChance) {
-				VillagerEntity villager = EntityType.VILLAGER.create(world);
+				Villager villager = EntityType.VILLAGER.create(level);
 				if (villager != null) {
-					VillagerType type = VillagerType.forBiome(world.getBiomeKey(pos));
-					villager.setVillagerData(villager.getVillagerData().withType(type));
+					VillagerType type = VillagerType.byBiome(level.getBiomeName(worldPosition));
+					villager.setVillagerData(villager.getVillagerData().setType(type));
 				}
 				entity = villager;
 			} else if (!validWater.isEmpty()) {
-				placePos = validWater.get(world.random.nextInt(validWater.size()));
+				placePos = validWater.get(level.random.nextInt(validWater.size()));
 				if (Math.random() < rareChance) {
 					entity = random(ModTags.Entities.COCOON_RARE_AQUATIC);
 				} else {
@@ -102,14 +102,14 @@ public class TileCocoon extends TileMod implements Tickable {
 			}
 
 			if (entity != null) {
-				entity.updatePosition(placePos.getX() + 0.5, placePos.getY() + 0.5, placePos.getZ() + 0.5);
-				if (entity instanceof PassiveEntity) {
-					((PassiveEntity) entity).setBreedingAge(-24000);
+				entity.setPos(placePos.getX() + 0.5, placePos.getY() + 0.5, placePos.getZ() + 0.5);
+				if (entity instanceof AgableMob) {
+					((AgableMob) entity).setAge(-24000);
 				}
-				entity.initialize((ServerWorldAccess) world, world.getLocalDifficulty(getPos()), SpawnReason.EVENT, null, null);
-				entity.setPersistent();
-				world.spawnEntity(entity);
-				entity.playSpawnEffects();
+				entity.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(getBlockPos()), MobSpawnType.EVENT, null, null);
+				entity.setPersistenceRequired();
+				level.addFreshEntity(entity);
+				entity.spawnAnim();
 			}
 		}
 	}
@@ -119,13 +119,13 @@ public class TileCocoon extends TileMod implements Tickable {
 		timePassed = Math.max(timePassed, TOTAL_TIME / 2);
 	}
 
-	private MobEntity random(Tag<EntityType<?>> tag) {
-		EntityType<?> type = tag.getRandom(world.random);
-		if (type == EntityType.COW && world.random.nextFloat() < 0.01) {
+	private Mob random(Tag<EntityType<?>> tag) {
+		EntityType<?> type = tag.getRandomElement(level.random);
+		if (type == EntityType.COW && level.random.nextFloat() < 0.01) {
 			type = EntityType.MOOSHROOM;
 		}
-		Entity entity = type.create(world);
-		return entity instanceof MobEntity ? (MobEntity) entity : null;
+		Entity entity = type.create(level);
+		return entity instanceof Mob ? (Mob) entity : null;
 	}
 
 	@Override

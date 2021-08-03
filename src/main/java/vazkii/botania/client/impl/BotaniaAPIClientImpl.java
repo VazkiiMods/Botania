@@ -9,10 +9,10 @@
 package vazkii.botania.client.impl;
 
 import com.google.common.collect.Maps;
+import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
@@ -22,25 +22,25 @@ import java.util.Collections;
 import java.util.Map;
 
 public class BotaniaAPIClientImpl implements BotaniaAPIClient {
-	private final Map<IFloatingFlower.IslandType, Identifier> islandTypeModels = Maps.newHashMap();
+	private final Map<IFloatingFlower.IslandType, ResourceLocation> islandTypeModels = Maps.newHashMap();
 
 	@Override
-	public void registerIslandTypeModel(IFloatingFlower.IslandType islandType, Identifier model) {
+	public void registerIslandTypeModel(IFloatingFlower.IslandType islandType, ResourceLocation model) {
 		islandTypeModels.put(islandType, model);
 	}
 
 	@Override
-	public Map<IFloatingFlower.IslandType, Identifier> getRegisteredIslandTypeModels() {
+	public Map<IFloatingFlower.IslandType, ResourceLocation> getRegisteredIslandTypeModels() {
 		return Collections.unmodifiableMap(islandTypeModels);
 	}
 
 	@Override
-	public void drawSimpleManaHUD(MatrixStack ms, int color, int mana, int maxMana, String name) {
+	public void drawSimpleManaHUD(PoseStack ms, int color, int mana, int maxMana, String name) {
 		HUDHandler.drawSimpleManaHUD(ms, color, mana, maxMana, name);
 	}
 
 	@Override
-	public void drawComplexManaHUD(MatrixStack ms, int color, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound) {
+	public void drawComplexManaHUD(PoseStack ms, int color, int mana, int maxMana, String name, ItemStack bindDisplay, boolean properlyBound) {
 		HUDHandler.drawComplexManaHUD(color, ms, mana, maxMana, name, bindDisplay, properlyBound);
 	}
 }

@@ -8,15 +8,15 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -30,30 +30,30 @@ public class LensFire extends Lens {
 		BlockPos coords = burst.getBurstSourceBlockPos();
 		Entity entity = burst.entity();
 
-		if (!entity.world.isClient && rtr.getType() == HitResult.Type.BLOCK
+		if (!entity.level.isClientSide && rtr.getType() == HitResult.Type.BLOCK
 				&& !burst.isFake() && !isManaBlock) {
 			BlockHitResult brtr = (BlockHitResult) rtr;
 			BlockPos pos = brtr.getBlockPos();
 			if (!coords.equals(pos)) {
-				Direction dir = brtr.getSide();
+				Direction dir = brtr.getDirection();
 
-				BlockPos offPos = pos.offset(dir);
+				BlockPos offPos = pos.relative(dir);
 
-				Block blockAt = entity.world.getBlockState(pos).getBlock();
-				BlockState stateAtOffset = entity.world.getBlockState(offPos);
+				Block blockAt = entity.level.getBlockState(pos).getBlock();
+				BlockState stateAtOffset = entity.level.getBlockState(offPos);
 				Block blockAtOffset = stateAtOffset.getBlock();
 
 				if (blockAt == Blocks.NETHER_PORTAL) {
-					entity.world.removeBlock(pos, false);
+					entity.level.removeBlock(pos, false);
 				}
 				if (blockAtOffset == Blocks.NETHER_PORTAL) {
-					entity.world.removeBlock(offPos, false);
+					entity.level.removeBlock(offPos, false);
 				} else if (blockAt == ModBlocks.incensePlate) {
-					TileIncensePlate plate = (TileIncensePlate) entity.world.getBlockEntity(pos);
+					TileIncensePlate plate = (TileIncensePlate) entity.level.getBlockEntity(pos);
 					plate.ignite();
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
 				} else if (stateAtOffset.isAir()) {
-					entity.world.setBlockState(offPos, Blocks.FIRE.getDefaultState());
+					entity.level.setBlockAndUpdate(offPos, Blocks.FIRE.defaultBlockState());
 				}
 			}
 		}

@@ -10,8 +10,8 @@ package vazkii.botania.api.mana;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public interface ManaProficiencyCallback {
 	Event<ManaProficiencyCallback> EVENT = EventFactory.createArrayBacked(ManaProficiencyCallback.class,
@@ -23,5 +23,5 @@ public interface ManaProficiencyCallback {
 				return cur;
 			});
 
-	boolean getProficient(PlayerEntity player, ItemStack tool, boolean curProficient);
+	boolean getProficient(Player player, ItemStack tool, boolean curProficient);
 }

@@ -10,28 +10,32 @@ package vazkii.botania.common.entity;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.EnvironmentInterface;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.*;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.projectile.thrown.ThrownEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.loot.context.LootContextTypes;
-import net.minecraft.network.Packet;
-import net.minecraft.particle.ItemStackParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.projectile.ItemSupplier;
+import net.minecraft.world.entity.projectile.ThrowableProjectile;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketSpawnEntity;
@@ -45,37 +49,37 @@ import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-@EnvironmentInterface(value = EnvType.CLIENT, itf = FlyingItemEntity.class)
-public class EntityEnderAirBottle extends ThrownEntity implements FlyingItemEntity {
-	private static final Identifier GHAST_LOOT_TABLE = prefix("ghast_ender_air_crying");
+@EnvironmentInterface(value = EnvType.CLIENT, itf = ItemSupplier.class)
+public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSupplier {
+	private static final ResourceLocation GHAST_LOOT_TABLE = prefix("ghast_ender_air_crying");
 
-	public EntityEnderAirBottle(EntityType<EntityEnderAirBottle> type, World world) {
+	public EntityEnderAirBottle(EntityType<EntityEnderAirBottle> type, Level world) {
 		super(type, world);
 	}
 
-	public EntityEnderAirBottle(LivingEntity entity, World world) {
+	public EntityEnderAirBottle(LivingEntity entity, Level world) {
 		super(ModEntities.ENDER_AIR_BOTTLE, entity, world);
 	}
 
-	public EntityEnderAirBottle(double x, double y, double z, World world) {
+	public EntityEnderAirBottle(double x, double y, double z, Level world) {
 		super(ModEntities.ENDER_AIR_BOTTLE, x, y, z, world);
 	}
 
 	private void convertStone(@Nonnull BlockPos pos) {
 		List<BlockPos> coordsList = getCoordsToPut(pos);
-		world.syncWorldEvent(2002, getBlockPos(), 8);
+		level.levelEvent(2002, blockPosition(), 8);
 
 		for (BlockPos coords : coordsList) {
-			world.setBlockState(coords, Blocks.END_STONE.getDefaultState());
+			level.setBlockAndUpdate(coords, Blocks.END_STONE.defaultBlockState());
 			if (Math.random() < 0.1) {
-				world.syncWorldEvent(2001, coords, Block.getRawIdFromState(Blocks.END_STONE.getDefaultState()));
+				level.levelEvent(2001, coords, Block.getId(Blocks.END_STONE.defaultBlockState()));
 			}
 		}
 	}
 
 	@Override
-	protected void onBlockHit(@Nonnull BlockHitResult result) {
-		if (world.isClient) {
+	protected void onHitBlock(@Nonnull BlockHitResult result) {
+		if (level.isClientSide) {
 			return;
 		}
 		convertStone(result.getBlockPos());
@@ -83,39 +87,39 @@ public class EntityEnderAirBottle extends ThrownEntity implements FlyingItemEnti
 	}
 
 	@Override
-	protected void onEntityHit(@Nonnull EntityHitResult result) {
-		if (world.isClient) {
+	protected void onHitEntity(@Nonnull EntityHitResult result) {
+		if (level.isClientSide) {
 			return;
 		}
 		Entity entity = result.getEntity();
-		if (entity.getType() == EntityType.GHAST && world.getRegistryKey() == World.OVERWORLD) {
-			world.syncWorldEvent(2002, getBlockPos(), 8);
-			DamageSource source = DamageSource.thrownProjectile(this, getOwner());
-			entity.damage(source, 0);
+		if (entity.getType() == EntityType.GHAST && level.dimension() == Level.OVERWORLD) {
+			level.levelEvent(2002, blockPosition(), 8);
+			DamageSource source = DamageSource.thrown(this, getOwner());
+			entity.hurt(source, 0);
 
 			// Ghasts always appear to be aligned horizontally - but the look doesn't always match, correct for that
-			Vec3d lookVec = entity.getRotationVector();
-			Vec3d vec = new Vec3d(lookVec.getX(), 0, lookVec.getZ()).normalize();
+			Vec3 lookVec = entity.getLookAngle();
+			Vec3 vec = new Vec3(lookVec.x(), 0, lookVec.z()).normalize();
 
 			// Position chosen to appear roughly in the ghast's face
-			((ServerWorld) world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, new ItemStack(Items.GHAST_TEAR)),
+			((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(Items.GHAST_TEAR)),
 					entity.getX() + (2.3 * vec.x), entity.getY() + vec.y + 2.6, entity.getZ() + (2.3 * vec.z),
 					40,
 					Math.abs(vec.z) + 0.15, 0.2, Math.abs(vec.x) + 0.15, 0.2);
 
-			LootTable table = world.getServer().getLootManager().getTable(GHAST_LOOT_TABLE);
-			LootContext.Builder builder = new LootContext.Builder(((ServerWorld) world));
-			builder.parameter(LootContextParameters.THIS_ENTITY, entity);
-			builder.parameter(LootContextParameters.ORIGIN, entity.getPos());
-			builder.parameter(LootContextParameters.DAMAGE_SOURCE, source);
+			LootTable table = level.getServer().getLootTables().get(GHAST_LOOT_TABLE);
+			LootContext.Builder builder = new LootContext.Builder(((ServerLevel) level));
+			builder.withParameter(LootContextParams.THIS_ENTITY, entity);
+			builder.withParameter(LootContextParams.ORIGIN, entity.position());
+			builder.withParameter(LootContextParams.DAMAGE_SOURCE, source);
 
-			LootContext context = builder.build(LootContextTypes.ENTITY);
-			for (ItemStack stack : table.generateLoot(context)) {
-				ItemEntity item = entity.dropStack(stack, 2);
-				item.setVelocity(item.getVelocity().add(vec.multiply(0.4)));
+			LootContext context = builder.create(LootContextParamSets.ENTITY);
+			for (ItemStack stack : table.getRandomItems(context)) {
+				ItemEntity item = entity.spawnAtLocation(stack, 2);
+				item.setDeltaMovement(item.getDeltaMovement().add(vec.scale(0.4)));
 			}
 		} else {
-			convertStone(new BlockPos(result.getPos()));
+			convertStone(new BlockPos(result.getLocation()));
 		}
 		remove();
 	}
@@ -125,11 +129,11 @@ public class EntityEnderAirBottle extends ThrownEntity implements FlyingItemEnti
 		int range = 4;
 		int rangeY = 4;
 
-		for (BlockPos bPos : BlockPos.iterate(pos.add(-range, -rangeY, -range),
-				pos.add(range, rangeY, range))) {
-			BlockState state = world.getBlockState(bPos);
+		for (BlockPos bPos : BlockPos.betweenClosed(pos.offset(-range, -rangeY, -range),
+				pos.offset(range, rangeY, range))) {
+			BlockState state = level.getBlockState(bPos);
 			if (state.getBlock() == Blocks.STONE) {
-				possibleCoords.add(bPos.toImmutable());
+				possibleCoords.add(bPos.immutable());
 			}
 		}
 
@@ -139,17 +143,17 @@ public class EntityEnderAirBottle extends ThrownEntity implements FlyingItemEnti
 	}
 
 	@Override
-	protected void initDataTracker() {}
+	protected void defineSynchedData() {}
 
 	@Nonnull
 	@Override
-	public Packet<?> createSpawnPacket() {
+	public Packet<?> getAddEntityPacket() {
 		return PacketSpawnEntity.make(this);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getStack() {
+	public ItemStack getItem() {
 		return new ItemStack(ModItems.enderAirBottle);
 	}
 }

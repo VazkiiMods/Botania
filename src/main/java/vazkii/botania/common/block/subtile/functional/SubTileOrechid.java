@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.collection.WeightedPicker;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.WeighedRandom;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.OrechidOutput;
@@ -52,7 +52,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isClient || redstoneSignal > 0 || !canOperate()) {
+		if (getLevel().isClientSide || redstoneSignal > 0 || !canOperate()) {
 			return;
 		}
 
@@ -62,11 +62,11 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 			if (coords != null) {
 				BlockState state = getOreToPut();
 				if (state != null) {
-					getWorld().setBlockState(coords, state);
+					getLevel().setBlockAndUpdate(coords, state);
 					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
-						getWorld().syncWorldEvent(2001, coords, Block.getRawIdFromState(state));
+						getLevel().levelEvent(2001, coords, Block.getId(state));
 					}
-					getWorld().playSound(null, coords, ModSounds.orechid, SoundCategory.BLOCKS, 2F, 1F);
+					getLevel().playSound(null, coords, ModSounds.orechid, SoundSource.BLOCKS, 2F, 1F);
 
 					addMana(-cost);
 					sync();
@@ -83,25 +83,25 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 			return null;
 		}
 
-		StateIngredient ore = WeightedPicker.getRandom(getWorld().random, values).getOutput();
-		return ore.pick(getWorld().getRandom());
+		StateIngredient ore = WeighedRandom.getRandomItem(getLevel().random, values).getOutput();
+		return ore.pick(getLevel().getRandom());
 	}
 
 	private BlockPos getCoordsToPut() {
 		List<BlockPos> possibleCoords = new ArrayList<>();
 
-		for (BlockPos pos : BlockPos.iterate(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE),
-				getEffectivePos().add(RANGE, RANGE_Y, RANGE))) {
-			BlockState state = getWorld().getBlockState(pos);
+		for (BlockPos pos : BlockPos.betweenClosed(getEffectivePos().offset(-RANGE, -RANGE_Y, -RANGE),
+				getEffectivePos().offset(RANGE, RANGE_Y, RANGE))) {
+			BlockState state = getLevel().getBlockState(pos);
 			if (getReplaceMatcher().test(state)) {
-				possibleCoords.add(pos.toImmutable());
+				possibleCoords.add(pos.immutable());
 			}
 		}
 
 		if (possibleCoords.isEmpty()) {
 			return null;
 		}
-		return possibleCoords.get(getWorld().random.nextInt(possibleCoords.size()));
+		return possibleCoords.get(getLevel().random.nextInt(possibleCoords.size()));
 	}
 
 	public boolean canOperate() {

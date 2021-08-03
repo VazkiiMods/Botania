@@ -10,10 +10,10 @@ package vazkii.botania.api.brew;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionUtil;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.alchemy.PotionUtils;
 
 import vazkii.botania.api.BotaniaAPI;
 
@@ -26,22 +26,22 @@ import java.util.function.Supplier;
 public class Brew {
 	private final Supplier<Integer> color;
 	private final int cost;
-	private final Supplier<List<StatusEffectInstance>> effects;
+	private final Supplier<List<MobEffectInstance>> effects;
 	private boolean canInfuseBloodPendant = true;
 	private boolean canInfuseIncense = true;
 
 	/**
 	 * @param color   The color for the potion to be rendered in the bottle, note that it will get
 	 *                changed a bit when it renders (for more or less brightness) to give a fancy effect.
-	 *                See {@link net.minecraft.potion.PotionUtil#getColor} for a method
+	 *                See {@link net.minecraft.world.item.alchemy.PotionUtils#getColor} for a method
 	 *                to calculate this automatically.
 	 * @param cost    The cost, in Mana for this brew.
 	 * @param effects A list of effects to apply to the player when they drink it.
 	 */
-	public Brew(int color, int cost, StatusEffectInstance... effects) {
+	public Brew(int color, int cost, MobEffectInstance... effects) {
 		this.color = () -> color;
 		this.cost = cost;
-		List<StatusEffectInstance> savedEffects = ImmutableList.copyOf(effects);
+		List<MobEffectInstance> savedEffects = ImmutableList.copyOf(effects);
 		this.effects = () -> savedEffects;
 	}
 
@@ -49,8 +49,8 @@ public class Brew {
 	 * @param cost    The cost, in Mana for this brew.
 	 * @param effects A supplier that supplies a list of effects to apply to the player when they drink it.
 	 */
-	public Brew(int cost, Supplier<List<StatusEffectInstance>> effects) {
-		this.color = () -> PotionUtil.getColor(effects.get());
+	public Brew(int cost, Supplier<List<MobEffectInstance>> effects) {
+		this.color = () -> PotionUtils.getColor(effects.get());
 		this.cost = cost;
 		this.effects = effects;
 	}
@@ -83,7 +83,7 @@ public class Brew {
 	 * Gets the insensitive unlocalized name. This is used for the lexicon.
 	 */
 	public String getTranslationKey() {
-		Identifier id = BotaniaAPI.instance().getBrewRegistry().getId(this);
+		ResourceLocation id = BotaniaAPI.instance().getBrewRegistry().getKey(this);
 		return String.format("%s.brew.%s", id.getNamespace(), id.getPath());
 	}
 
@@ -122,7 +122,7 @@ public class Brew {
 	 * Note that for the lexicon, this passes in a botania Managlass
 	 * Vial or an Alfglass Flask at all times.
 	 */
-	public List<StatusEffectInstance> getPotionEffects(ItemStack stack) {
+	public List<MobEffectInstance> getPotionEffects(ItemStack stack) {
 		return effects.get();
 	}
 

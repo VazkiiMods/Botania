@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.block.string;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringComparator;
@@ -23,24 +23,24 @@ import javax.annotation.Nonnull;
 
 public class BlockRedStringComparator extends BlockRedString {
 
-	public BlockRedStringComparator(AbstractBlock.Settings builder) {
+	public BlockRedStringComparator(BlockBehaviour.Properties builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(Properties.FACING, Direction.DOWN));
+		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN));
 	}
 
 	@Override
-	public boolean hasComparatorOutput(BlockState state) {
+	public boolean hasAnalogOutputSignal(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
 		return ((TileRedStringComparator) world.getBlockEntity(pos)).getComparatorValue();
 	}
 
 	@Nonnull
 	@Override
-	public TileRedString createBlockEntity(@Nonnull BlockView world) {
+	public TileRedString newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileRedStringComparator();
 	}
 

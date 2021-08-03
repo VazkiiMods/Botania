@@ -8,19 +8,20 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.RenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.util.math.MathHelper;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3f;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -45,26 +46,26 @@ public class RenderTilePool extends BlockEntityRenderer<TilePool> {
 	}
 
 	@Override
-	public void render(@Nullable TilePool pool, float f, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
-		ms.push();
+	public void render(@Nullable TilePool pool, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+		ms.pushPose();
 
-		boolean fab = pool != null && ((BlockPool) pool.getCachedState().getBlock()).variant == BlockPool.Variant.FABULOUS;
+		boolean fab = pool != null && ((BlockPool) pool.getBlockState().getBlock()).variant == BlockPool.Variant.FABULOUS;
 
 		if (fab) {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
-			time += new Random(pool.getPos().getX() ^ pool.getPos().getY() ^ pool.getPos().getZ()).nextInt(100000);
+			time += new Random(pool.getBlockPos().getX() ^ pool.getBlockPos().getY() ^ pool.getBlockPos().getZ()).nextInt(100000);
 			time *= 0.005F;
 			int poolColor = ColorHelper.getColorValue(pool.color);
-			int color = vazkii.botania.common.core.helper.MathHelper.multiplyColor(MathHelper.hsvToRgb(MathHelper.fractionalPart(time), 0.6F, 1F), poolColor);
+			int color = vazkii.botania.common.core.helper.MathHelper.multiplyColor(Mth.hsvToRgb(Mth.frac(time), 0.6F, 1F), poolColor);
 
 			int red = (color & 0xFF0000) >> 16;
 			int green = (color & 0xFF00) >> 8;
 			int blue = color & 0xFF;
-			BlockState state = pool.getCachedState();
-			BakedModel model = MinecraftClient.getInstance().getBlockRenderManager().getModels().getModel(state);
-			VertexConsumer buffer = buffers.getBuffer(RenderLayers.getEntityBlockLayer(state, false));
-			MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer()
-					.render(ms.peek(), buffer, state, model, red / 255F, green / 255F, blue / 255F, light, overlay);
+			BlockState state = pool.getBlockState();
+			BakedModel model = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper().getBlockModel(state);
+			VertexConsumer buffer = buffers.getBuffer(ItemBlockRenderTypes.getRenderType(state, false));
+			Minecraft.getInstance().getBlockRenderer().getModelRenderer()
+					.renderModel(ms.last(), buffer, state, model, red / 255F, green / 255F, blue / 255F, light, overlay);
 		}
 
 		ms.translate(0.5F, 1.5F, 0.5F);
@@ -82,37 +83,37 @@ public class RenderTilePool extends BlockEntityRenderer<TilePool> {
 		float w = -v * 3.5F;
 
 		if (pool != null) {
-			Block below = pool.getWorld().getBlockState(pool.getPos().down()).getBlock();
+			Block below = pool.getLevel().getBlockState(pool.getBlockPos().below()).getBlock();
 			if (below instanceof IPoolOverlayProvider) {
-				Sprite overlayIcon = ((IPoolOverlayProvider) below).getIcon(pool.getWorld(), pool.getPos());
+				TextureAtlasSprite overlayIcon = ((IPoolOverlayProvider) below).getIcon(pool.getLevel(), pool.getBlockPos());
 				if (overlayIcon != null) {
-					ms.push();
+					ms.pushPose();
 					float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 20.0) + 1) * 0.3 + 0.2);
 					ms.translate(-0.5F, -1F - 0.43F, -0.5F);
-					ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90F));
+					ms.mulPose(Vector3f.XP.rotationDegrees(90F));
 					ms.scale(s, s, s);
 
 					VertexConsumer buffer = buffers.getBuffer(RenderHelper.ICON_OVERLAY);
 					IconHelper.renderIcon(ms, buffer, 0, 0, overlayIcon, 16, 16, alpha);
 
-					ms.pop();
+					ms.popPose();
 				}
 			}
 		}
 
 		if (waterLevel > 0) {
 			s = 1F / 256F * 14F;
-			ms.push();
+			ms.pushPose();
 			ms.translate(w, -1F - (0.43F - waterLevel), w);
-			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90F));
+			ms.mulPose(Vector3f.XP.rotationDegrees(90F));
 			ms.scale(s, s, s);
 
 			VertexConsumer buffer = buffers.getBuffer(RenderHelper.MANA_POOL_WATER);
-			IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.manaWater.getSprite(), 16, 16, 1);
+			IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.manaWater.sprite(), 16, 16, 1);
 
-			ms.pop();
+			ms.popPose();
 		}
-		ms.pop();
+		ms.popPose();
 
 		cartMana = -1;
 	}

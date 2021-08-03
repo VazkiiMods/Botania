@@ -8,14 +8,14 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
@@ -87,17 +87,17 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 
 		int mana = 2100;
 
-		if (getMaxMana() - this.getMana() >= mana && !getWorld().isClient && ticksExisted % 40 == 0) {
+		if (getMaxMana() - this.getMana() >= mana && !getLevel().isClientSide && ticksExisted % 40 == 0) {
 			for (int i = 0; i < RANGE * 2 + 1; i++) {
 				for (int j = 0; j < RANGE * 2 + 1; j++) {
 					for (int k = 0; k < RANGE * 2 + 1; k++) {
-						BlockPos pos = getEffectivePos().add(i - RANGE, j - RANGE, k - RANGE);
+						BlockPos pos = getEffectivePos().offset(i - RANGE, j - RANGE, k - RANGE);
 
-						BlockState state = getWorld().getBlockState(pos);
-						if (state.isIn(ModTags.Blocks.SPECIAL_FLOWERS) && state.getBlock() != ModSubtiles.rafflowsia) {
+						BlockState state = getLevel().getBlockState(pos);
+						if (state.is(ModTags.Blocks.SPECIAL_FLOWERS) && state.getBlock() != ModSubtiles.rafflowsia) {
 							streakLength = Math.min(streakLength + 1, processFlower(state.getBlock()));
 
-							getWorld().breakBlock(pos, false);
+							getLevel().destroyBlock(pos, false);
 							addMana(getValueForStreak(streakLength));
 							sync();
 							return;
@@ -114,7 +114,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 
 		ListTag flowerList = new ListTag();
 		for (Block flower : lastFlowers) {
-			flowerList.add(StringTag.of(Registry.BLOCK.getKey(flower).toString()));
+			flowerList.add(StringTag.valueOf(Registry.BLOCK.getResourceKey(flower).toString()));
 		}
 		cmp.put(TAG_LAST_FLOWERS, flowerList);
 		cmp.putInt(TAG_LAST_FLOWER_TIMES, lastFlowerCount);
@@ -128,7 +128,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 		lastFlowers.clear();
 		ListTag flowerList = cmp.getList(TAG_LAST_FLOWERS, 8);
 		for (int i = 0; i < flowerList.size(); i++) {
-			lastFlowers.add(Registry.BLOCK.get(Identifier.tryParse(flowerList.getString(i))));
+			lastFlowers.add(Registry.BLOCK.get(ResourceLocation.tryParse(flowerList.getString(i))));
 		}
 		lastFlowerCount = cmp.getInt(TAG_LAST_FLOWER_TIMES);
 		streakLength = cmp.getInt(TAG_STREAK_LENGTH);

@@ -9,47 +9,47 @@
 package vazkii.botania.client.gui.box;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
 
 import vazkii.botania.client.lib.LibResources;
 
-public class GuiBaubleBox extends HandledScreen<ContainerBaubleBox> {
+public class GuiBaubleBox extends AbstractContainerScreen<ContainerBaubleBox> {
 
-	private static final Identifier texture = new Identifier(LibResources.GUI_BAUBLE_BOX);
+	private static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_BAUBLE_BOX);
 	private int mouseX;
 	private int mouseY;
 
-	public GuiBaubleBox(ContainerBaubleBox container, PlayerInventory player, Text title) {
+	public GuiBaubleBox(ContainerBaubleBox container, Inventory player, Component title) {
 		super(container, player, title);
 	}
 
 	@Override
-	public void render(MatrixStack ms, int mouseX, int mouseY, float partialTicks) {
+	public void render(PoseStack ms, int mouseX, int mouseY, float partialTicks) {
 		this.renderBackground(ms);
 		super.render(ms, mouseX, mouseY, partialTicks);
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
-		this.drawMouseoverTooltip(ms, mouseX, mouseY);
+		this.renderTooltip(ms, mouseX, mouseY);
 	}
 
 	@Override
-	protected void drawForeground(MatrixStack matrixStack, int x, int y) {
+	protected void renderLabels(PoseStack matrixStack, int x, int y) {
 		// No-op, there's no space for gui titles
 	}
 
 	@Override
-	protected void drawBackground(MatrixStack ms, float partialTicks, int mouseX, int mouseY) {
+	protected void renderBg(PoseStack ms, float partialTicks, int mouseX, int mouseY) {
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		MinecraftClient.getInstance().getTextureManager().bindTexture(texture);
-		drawTexture(ms, x, y, 0, 0, backgroundWidth, backgroundHeight);
-		InventoryScreen.drawEntity(x + 31, y + 75, 30, x + 31 - this.mouseX, y + 75 - 50 - this.mouseY, client.player);
+		Minecraft.getInstance().getTextureManager().bind(texture);
+		blit(ms, leftPos, topPos, 0, 0, imageWidth, imageHeight);
+		InventoryScreen.renderEntityInInventory(leftPos + 31, topPos + 75, 30, leftPos + 31 - this.mouseX, topPos + 75 - 50 - this.mouseY, minecraft.player);
 	}
 
 }

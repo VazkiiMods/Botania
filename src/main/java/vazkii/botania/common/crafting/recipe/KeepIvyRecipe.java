@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.SpecialCraftingRecipe;
-import net.minecraft.recipe.SpecialRecipeSerializer;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemKeepIvy;
@@ -22,26 +22,26 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class KeepIvyRecipe extends SpecialCraftingRecipe {
-	public static final SpecialRecipeSerializer<KeepIvyRecipe> SERIALIZER = new SpecialRecipeSerializer<>(KeepIvyRecipe::new);
+public class KeepIvyRecipe extends CustomRecipe {
+	public static final SimpleRecipeSerializer<KeepIvyRecipe> SERIALIZER = new SimpleRecipeSerializer<>(KeepIvyRecipe::new);
 
-	public KeepIvyRecipe(Identifier id) {
+	public KeepIvyRecipe(ResourceLocation id) {
 		super(id);
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingInventory inv, @Nonnull World world) {
+	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level world) {
 		boolean foundIvy = false;
 		boolean foundItem = false;
 
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack stack = inv.getStack(i);
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() == ModItems.keepIvy) {
 					foundIvy = true;
 				} else if (!foundItem
 						&& !(stack.hasTag() && ItemNBTHelper.getBoolean(stack, ItemKeepIvy.TAG_KEEP, false))
-						&& !stack.getItem().hasRecipeRemainder()) {
+						&& !stack.getItem().hasCraftingRemainingItem()) {
 					foundItem = true;
 				} else {
 					return false;
@@ -54,11 +54,11 @@ public class KeepIvyRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack craft(@Nonnull CraftingInventory inv) {
+	public ItemStack assemble(@Nonnull CraftingContainer inv) {
 		ItemStack item = ItemStack.EMPTY;
 
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack stack = inv.getStack(i);
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty() && stack.getItem() != ModItems.keepIvy) {
 				item = stack;
 			}
@@ -71,7 +71,7 @@ public class KeepIvyRecipe extends SpecialCraftingRecipe {
 	}
 
 	@Override
-	public boolean fits(int width, int height) {
+	public boolean canCraftInDimensions(int width, int height) {
 		return width * height >= 2;
 	}
 

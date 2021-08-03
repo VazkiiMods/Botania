@@ -9,26 +9,26 @@
 package vazkii.botania.client.render.tile;
 
 import com.mojang.authlib.GameProfile;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 
-import net.minecraft.block.SkullBlock;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.SkullBlockEntityRenderer;
-import net.minecraft.client.render.entity.model.SkullEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.boss.WitherEntity;
-import net.minecraft.entity.boss.dragon.EnderDragonEntity;
-import net.minecraft.entity.mob.CreeperEntity;
-import net.minecraft.entity.mob.SkeletonEntity;
-import net.minecraft.entity.mob.WitherSkeletonEntity;
-import net.minecraft.entity.mob.ZombieEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.Direction;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.SkullModel;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.monster.WitherSkeleton;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.SkullBlock;
 
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
@@ -37,35 +37,35 @@ import vazkii.botania.mixin.AccessorSkullTileEntityRenderer;
 
 import javax.annotation.Nullable;
 
-public class RenderTileGaiaHead extends SkullBlockEntityRenderer {
+public class RenderTileGaiaHead extends SkullBlockRenderer {
 	public RenderTileGaiaHead(BlockEntityRenderDispatcher manager) {
 		super(manager);
 	}
 
 	// [VanillaCopy] super, but finding the skull type and profile ourselves and calling our own method to get RenderType
-	public static void gaiaRender(@Nullable Direction facing, float rotation, float animationProgress, MatrixStack ms, VertexConsumerProvider buffers, int light) {
-		Entity view = MinecraftClient.getInstance().getCameraEntity();
-		SkullBlock.SkullType type = SkullBlock.Type.PLAYER;
+	public static void gaiaRender(@Nullable Direction facing, float rotation, float animationProgress, PoseStack ms, MultiBufferSource buffers, int light) {
+		Entity view = Minecraft.getInstance().getCameraEntity();
+		SkullBlock.Type type = SkullBlock.Types.PLAYER;
 		GameProfile profile = null;
 
-		if (view instanceof PlayerEntity) {
-			profile = ((PlayerEntity) view).getGameProfile();
-		} else if (view instanceof SkeletonEntity) {
-			type = SkullBlock.Type.SKELETON;
-		} else if (view instanceof WitherSkeletonEntity) {
-			type = SkullBlock.Type.WITHER_SKELETON;
-		} else if (view instanceof WitherEntity) {
-			type = SkullBlock.Type.WITHER_SKELETON;
-		} else if (view instanceof ZombieEntity) {
-			type = SkullBlock.Type.ZOMBIE;
-		} else if (view instanceof CreeperEntity) {
-			type = SkullBlock.Type.CREEPER;
-		} else if (view instanceof EnderDragonEntity) {
-			type = SkullBlock.Type.DRAGON;
+		if (view instanceof Player) {
+			profile = ((Player) view).getGameProfile();
+		} else if (view instanceof Skeleton) {
+			type = SkullBlock.Types.SKELETON;
+		} else if (view instanceof WitherSkeleton) {
+			type = SkullBlock.Types.WITHER_SKELETON;
+		} else if (view instanceof WitherBoss) {
+			type = SkullBlock.Types.WITHER_SKELETON;
+		} else if (view instanceof Zombie) {
+			type = SkullBlock.Types.ZOMBIE;
+		} else if (view instanceof Creeper) {
+			type = SkullBlock.Types.CREEPER;
+		} else if (view instanceof EnderDragon) {
+			type = SkullBlock.Types.DRAGON;
 		}
 
-		SkullEntityModel genericheadmodel = AccessorSkullTileEntityRenderer.getModels().get(type);
-		ms.push();
+		SkullModel genericheadmodel = AccessorSkullTileEntityRenderer.getModels().get(type);
+		ms.pushPose();
 		if (facing == null) {
 			ms.translate(0.5D, 0.0D, 0.5D);
 		} else {
@@ -86,13 +86,13 @@ public class RenderTileGaiaHead extends SkullBlockEntityRenderer {
 		}
 
 		ms.scale(-1.0F, -1.0F, 1.0F);
-		RenderLayer layer = AccessorSkullTileEntityRenderer.botania_getRenderType(type, profile);
+		RenderType layer = AccessorSkullTileEntityRenderer.botania_getRenderType(type, profile);
 		if (ShaderHelper.useShaders()) {
 			layer = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.DOPPLEGANGER, RenderDoppleganger.defaultCallback, layer);
 		}
 		VertexConsumer ivertexbuilder = buffers.getBuffer(layer);
-		genericheadmodel.method_2821(animationProgress, rotation, 0.0F);
-		genericheadmodel.render(ms, ivertexbuilder, light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
-		ms.pop();
+		genericheadmodel.setupAnim(animationProgress, rotation, 0.0F);
+		genericheadmodel.renderToBuffer(ms, ivertexbuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+		ms.popPose();
 	}
 }

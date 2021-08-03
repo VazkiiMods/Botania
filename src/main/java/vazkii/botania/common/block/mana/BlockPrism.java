@@ -8,31 +8,32 @@
  */
 package vazkii.botania.common.block.mana;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.DustParticleEffect;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.ILens;
@@ -50,25 +51,25 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockPrism extends BlockModWaterloggable implements BlockEntityProvider, IManaTrigger, IManaCollisionGhost, IWandHUD {
-	private static final VoxelShape SHAPE = createCuboidShape(4, 0, 4, 12, 16, 12);
+public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IManaTrigger, IManaCollisionGhost, IWandHUD {
+	private static final VoxelShape SHAPE = box(4, 0, 4, 12, 16, 12);
 
-	public BlockPrism(Settings builder) {
+	public BlockPrism(Properties builder) {
 		super(builder);
-		setDefaultState(getDefaultState()
-				.with(Properties.POWERED, false)
-				.with(BotaniaStateProps.HAS_LENS, false));
+		registerDefaultState(defaultBlockState()
+				.setValue(BlockStateProperties.POWERED, false)
+				.setValue(BotaniaStateProps.HAS_LENS, false));
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull BlockView world, @Nonnull BlockPos pos, @Nonnull ShapeContext context) {
+	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull BlockGetter world, @Nonnull BlockPos pos, @Nonnull CollisionContext context) {
 		if (ExtendedShapeContext.getEntity(context) instanceof EntityManaBurst) {
 			// Expose the shape so bursts can actually collide with us
 			// they will still go through the prism via IManaCollisionGhost
@@ -80,95 +81,95 @@ public class BlockPrism extends BlockModWaterloggable implements BlockEntityProv
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
-		if (state.get(Properties.POWERED)) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
+		if (state.getValue(BlockStateProperties.POWERED)) {
 			redstoneParticlesInShape(state, world, pos, rand);
 		}
 	}
 
-	public static void redstoneParticlesInShape(BlockState state, World world, BlockPos pos, Random rand) {
+	public static void redstoneParticlesInShape(BlockState state, Level world, BlockPos pos, Random rand) {
 		if (rand.nextBoolean()) {
-			Box localBox = state.getOutlineShape(world, pos).getBoundingBox();
+			AABB localBox = state.getShape(world, pos).bounds();
 			double x = pos.getX() + localBox.minX + rand.nextDouble() * (localBox.maxX - localBox.minX);
 			double y = pos.getY() + localBox.minY + rand.nextDouble() * (localBox.maxY - localBox.minY);
 			double z = pos.getZ() + localBox.minZ + rand.nextDouble() * (localBox.maxZ - localBox.minZ);
-			world.addParticle(DustParticleEffect.RED, x, y, z, 0, 0, 0);
+			world.addParticle(DustParticleOptions.REDSTONE, x, y, z, 0, 0, 0);
 		}
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		super.appendProperties(builder);
-		builder.add(Properties.POWERED, BotaniaStateProps.HAS_LENS);
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(BlockStateProperties.POWERED, BotaniaStateProps.HAS_LENS);
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		BlockEntity tile = world.getBlockEntity(pos);
 		if (!(tile instanceof TilePrism)) {
-			return ActionResult.PASS;
+			return InteractionResult.PASS;
 		}
 
 		TilePrism prism = (TilePrism) tile;
-		ItemStack lens = prism.getItemHandler().getStack(0);
-		ItemStack heldItem = player.getStackInHand(hand);
+		ItemStack lens = prism.getItemHandler().getItem(0);
+		ItemStack heldItem = player.getItemInHand(hand);
 		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
 
 		if (lens.isEmpty() && isHeldItemLens) {
-			if (!player.abilities.creativeMode) {
-				player.setStackInHand(hand, ItemStack.EMPTY);
+			if (!player.abilities.instabuild) {
+				player.setItemInHand(hand, ItemStack.EMPTY);
 			}
 
-			prism.getItemHandler().setStack(0, heldItem.copy());
+			prism.getItemHandler().setItem(0, heldItem.copy());
 		} else if (!lens.isEmpty()) {
-			player.inventory.offerOrDrop(player.world, lens);
-			prism.getItemHandler().setStack(0, ItemStack.EMPTY);
+			player.inventory.placeItemBackInInventory(player.level, lens);
+			prism.getItemHandler().setItem(0, ItemStack.EMPTY);
 		}
 
-		return ActionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override
-	public BlockState getPlacementState(ItemPlacementContext context) {
-		World world = context.getWorld();
-		BlockPos pos = context.getBlockPos();
-		boolean power = world.getReceivedRedstonePower(pos) > 0 || world.getReceivedRedstonePower(pos.up()) > 0;
-		return this.getDefaultState().with(Properties.POWERED, power);
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		Level world = context.getLevel();
+		BlockPos pos = context.getClickedPos();
+		boolean power = world.getBestNeighborSignal(pos) > 0 || world.getBestNeighborSignal(pos.above()) > 0;
+		return this.defaultBlockState().setValue(BlockStateProperties.POWERED, power);
 	}
 
 	@Override
-	public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-		boolean power = world.getReceivedRedstonePower(pos) > 0 || world.getReceivedRedstonePower(pos.up()) > 0;
-		boolean powered = state.get(Properties.POWERED);
+	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+		boolean power = world.getBestNeighborSignal(pos) > 0 || world.getBestNeighborSignal(pos.above()) > 0;
+		boolean powered = state.getValue(BlockStateProperties.POWERED);
 
-		if (!world.isClient) {
+		if (!world.isClientSide) {
 			if (power && !powered) {
-				world.setBlockState(pos, state.with(Properties.POWERED, true));
+				world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, true));
 			} else if (!power && powered) {
-				world.setBlockState(pos, state.with(Properties.POWERED, false));
+				world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
 			}
 		}
 	}
 
 	@Override
-	public void onStateReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
 			BlockEntity be = world.getBlockEntity(pos);
 			if (be instanceof TileSimpleInventory) {
-				ItemScatterer.spawn(world, pos, ((TileSimpleInventory) be).getItemHandler());
+				Containers.dropContents(world, pos, ((TileSimpleInventory) be).getItemHandler());
 			}
-			super.onStateReplaced(state, world, pos, newState, isMoving);
+			super.onRemove(state, world, pos, newState, isMoving);
 		}
 	}
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TilePrism();
 	}
 
 	@Override
-	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
+	public void onBurstCollision(IManaBurst burst, Level world, BlockPos pos) {
 		BlockEntity tile = world.getBlockEntity(pos);
 		if (tile instanceof TilePrism) {
 			((TilePrism) tile).onBurstCollision(burst);
@@ -176,24 +177,24 @@ public class BlockPrism extends BlockModWaterloggable implements BlockEntityProv
 	}
 
 	@Override
-	public boolean isGhost(BlockState state, World world, BlockPos pos) {
+	public boolean isGhost(BlockState state, Level world, BlockPos pos) {
 		return true;
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void renderHUD(MatrixStack ms, MinecraftClient mc, World world, BlockPos pos) {
+	public void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos) {
 		BlockEntity te = world.getBlockEntity(pos);
 		if (te instanceof TilePrism) {
-			ItemStack lens = ((TilePrism) te).getStack(0);
+			ItemStack lens = ((TilePrism) te).getItem(0);
 			if (!lens.isEmpty()) {
-				Text lensName = lens.getName();
-				int width = 16 + mc.textRenderer.getWidth(lensName) / 2;
-				int x = mc.getWindow().getScaledWidth() / 2 - width;
-				int y = mc.getWindow().getScaledHeight() / 2;
+				Component lensName = lens.getHoverName();
+				int width = 16 + mc.font.width(lensName) / 2;
+				int x = mc.getWindow().getGuiScaledWidth() / 2 - width;
+				int y = mc.getWindow().getGuiScaledHeight() / 2;
 
-				mc.textRenderer.drawWithShadow(ms, lensName, x + 20, y + 5, -1);
-				mc.getItemRenderer().renderInGuiWithOverrides(lens, x, y);
+				mc.font.drawShadow(ms, lensName, x + 20, y + 5, -1);
+				mc.getItemRenderer().renderAndDecorateItem(lens, x, y);
 			}
 		}
 	}

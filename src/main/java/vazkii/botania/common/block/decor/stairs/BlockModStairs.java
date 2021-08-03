@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.block.decor.stairs;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.StairsBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 
-public class BlockModStairs extends StairsBlock {
+public class BlockModStairs extends StairBlock {
 
-	public BlockModStairs(BlockState state, AbstractBlock.Settings builder) {
+	public BlockModStairs(BlockState state, BlockBehaviour.Properties builder) {
 		super(state, builder);
 	}
 }

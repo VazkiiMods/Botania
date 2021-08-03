@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.core.handler;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.util.DyeColor;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.core.helper.ColorHelper;

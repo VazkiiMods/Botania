@@ -8,16 +8,17 @@
  */
 package vazkii.botania.common.core.helper;
 
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix4f;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -38,7 +39,7 @@ public class Vector3 {
 		z = d2;
 	}
 
-	public Vector3(Vec3d vec) {
+	public Vector3(Vec3 vec) {
 		this(vec.x, vec.y, vec.z);
 	}
 
@@ -47,11 +48,11 @@ public class Vector3 {
 	}
 
 	public static Vector3 fromEntityCenter(Entity e) {
-		return new Vector3(e.getX(), e.getY() - e.getHeightOffset() + e.getHeight() / 2, e.getZ());
+		return new Vector3(e.getX(), e.getY() - e.getMyRidingOffset() + e.getBbHeight() / 2, e.getZ());
 	}
 
 	public static Vector3 fromTileEntity(BlockEntity e) {
-		return fromBlockPos(e.getPos());
+		return fromBlockPos(e.getBlockPos());
 	}
 
 	public static Vector3 fromTileEntityCenter(BlockEntity e) {
@@ -156,13 +157,13 @@ public class Vector3 {
 		return new Vector3(d, 0, d1);
 	}
 
-	public Vec3d toVector3d() {
-		return new Vec3d(x, y, z);
+	public Vec3 toVector3d() {
+		return new Vec3(x, y, z);
 	}
 
 	public double angle(Vector3 vec) {
 		double projection = normalize().dotProduct(vec.normalize());
-		return Math.acos(net.minecraft.util.math.MathHelper.clamp(projection, -1, 1));
+		return Math.acos(net.minecraft.util.Mth.clamp(projection, -1, 1));
 	}
 
 	public boolean isZero() {
@@ -194,7 +195,7 @@ public class Vector3 {
 	}
 
 	public Vector3 rotate(double theta, Vector3 axis) {
-		if (MathHelper.approximatelyEquals(theta, 0)) {
+		if (Mth.equal(theta, 0)) {
 			return this;
 		}
 
@@ -202,21 +203,21 @@ public class Vector3 {
 		Vector3 k = axis.normalize();
 		Vector3 v = this;
 
-		float cosTheta = MathHelper.cos((float) theta);
+		float cosTheta = Mth.cos((float) theta);
 		Vector3 firstTerm = v.multiply(cosTheta);
-		Vector3 secondTerm = k.crossProduct(v).multiply(MathHelper.sin((float) theta));
+		Vector3 secondTerm = k.crossProduct(v).multiply(Mth.sin((float) theta));
 		Vector3 thirdTerm = k.multiply(k.dotProduct(v) * (1 - cosTheta));
 		return new Vector3(firstTerm.x + secondTerm.x + thirdTerm.x,
 				firstTerm.y + secondTerm.y + thirdTerm.y,
 				firstTerm.z + secondTerm.z + thirdTerm.z);
 	}
 
-	public Box boxForRange(double range) {
+	public AABB boxForRange(double range) {
 		return boxForRange(range, range, range);
 	}
 
-	public Box boxForRange(double rangeX, double rangeY, double rangeZ) {
-		return new Box(x - rangeX, y - rangeY, z - rangeZ, x + rangeX, y + rangeY, z + rangeZ);
+	public AABB boxForRange(double rangeX, double rangeY, double rangeZ) {
+		return new AABB(x - rangeX, y - rangeY, z - rangeZ, x + rangeX, y + rangeY, z + rangeZ);
 	}
 
 	@Override

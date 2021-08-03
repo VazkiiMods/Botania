@@ -8,8 +8,8 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
 
@@ -26,7 +26,7 @@ public interface IManaDiscountArmor {
 	 * Value is to be from 0.0 to 1.0. 0.1 is 10% discount, as an example.
 	 * You can also return negative values to make tools cost more.
 	 */
-	default float getDiscount(ItemStack stack, int slot, PlayerEntity player, @Nullable ItemStack tool) {
+	default float getDiscount(ItemStack stack, int slot, Player player, @Nullable ItemStack tool) {
 		return 0;
 	}
 }

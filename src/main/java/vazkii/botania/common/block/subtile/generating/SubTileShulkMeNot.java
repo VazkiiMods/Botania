@@ -8,19 +8,19 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.Monster;
-import net.minecraft.entity.mob.ShulkerEntity;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.monster.Shulker;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
@@ -41,26 +41,26 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 
 		int generate = getMaxMana();
 
-		World world = getWorld();
+		Level world = getLevel();
 		BlockPos pos = getEffectivePos();
-		Vec3d posD = new Vec3d(pos.getX(), pos.getY(), pos.getZ());
-		if (!world.isClient) {
-			List<ShulkerEntity> shulkers = world.getNonSpectatingEntities(ShulkerEntity.class, new Box(pos).expand(RADIUS));
-			for (ShulkerEntity shulker : shulkers) {
+		Vec3 posD = new Vec3(pos.getX(), pos.getY(), pos.getZ());
+		if (!world.isClientSide) {
+			List<Shulker> shulkers = world.getEntitiesOfClass(Shulker.class, new AABB(pos).inflate(RADIUS));
+			for (Shulker shulker : shulkers) {
 				if (getMaxMana() - getMana() < generate) {
 					break;
 				}
 
-				if (shulker.isAlive() && shulker.squaredDistanceTo(posD) < RADIUS * RADIUS) {
+				if (shulker.isAlive() && shulker.distanceToSqr(posD) < RADIUS * RADIUS) {
 					LivingEntity target = shulker.getTarget();
-					if (target instanceof Monster && target.isAlive()
-							&& target.squaredDistanceTo(posD) < RADIUS * RADIUS && target.getStatusEffect(StatusEffects.LEVITATION) != null) {
+					if (target instanceof Enemy && target.isAlive()
+							&& target.distanceToSqr(posD) < RADIUS * RADIUS && target.getEffect(MobEffects.LEVITATION) != null) {
 						target.remove();
 						shulker.remove();
 
 						for (int i = 0; i < 10; i++) // so it's really loud >_>
 						{
-							world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.ENTITY_SHULKER_DEATH, SoundCategory.BLOCKS, 10F, 0.1F);
+							world.playSound(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, SoundEvents.SHULKER_DEATH, SoundSource.BLOCKS, 10F, 0.1F);
 						}
 						particles(world, pos, target);
 						particles(world, pos, shulker);
@@ -73,15 +73,15 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 		}
 	}
 
-	private void particles(World world, BlockPos pos, Entity entity) {
-		if (world instanceof ServerWorld) {
-			ServerWorld ws = (ServerWorld) world;
-			ws.spawnParticles(ParticleTypes.EXPLOSION,
-					entity.getX() + entity.getWidth() / 2,
-					entity.getY() + entity.getHeight() / 2,
-					entity.getZ() + entity.getWidth() / 2,
-					100, entity.getWidth(), entity.getHeight(), entity.getWidth(), 0.05);
-			ws.spawnParticles(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 40, 0, 0, 0, 0.6);
+	private void particles(Level world, BlockPos pos, Entity entity) {
+		if (world instanceof ServerLevel) {
+			ServerLevel ws = (ServerLevel) world;
+			ws.sendParticles(ParticleTypes.EXPLOSION,
+					entity.getX() + entity.getBbWidth() / 2,
+					entity.getY() + entity.getBbHeight() / 2,
+					entity.getZ() + entity.getBbWidth() / 2,
+					100, entity.getBbWidth(), entity.getBbHeight(), entity.getBbWidth(), 0.05);
+			ws.sendParticles(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 40, 0, 0, 0, 0.6);
 		}
 	}
 

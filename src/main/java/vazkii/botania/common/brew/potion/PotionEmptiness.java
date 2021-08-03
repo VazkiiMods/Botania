@@ -8,29 +8,29 @@
  */
 package vazkii.botania.common.brew.potion;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectType;
-import net.minecraft.entity.mob.Monster;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.Box;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.common.brew.ModPotions;
 
-public class PotionEmptiness extends StatusEffect {
+public class PotionEmptiness extends MobEffect {
 
 	private static final int RANGE = 128;
 
 	public PotionEmptiness() {
-		super(StatusEffectType.BENEFICIAL, 0xFACFFF);
+		super(MobEffectCategory.BENEFICIAL, 0xFACFFF);
 	}
 
 	public static boolean shouldCancel(LivingEntity entity) {
-		if (entity instanceof Monster) {
-			Box aabb = new Box(entity.getX() - RANGE, entity.getY() - RANGE, entity.getZ() - RANGE,
+		if (entity instanceof Enemy) {
+			AABB aabb = new AABB(entity.getX() - RANGE, entity.getY() - RANGE, entity.getZ() - RANGE,
 					entity.getX() + RANGE, entity.getY() + RANGE, entity.getZ() + RANGE);
-			for (PlayerEntity player : entity.world.getPlayers()) {
-				if (player.hasStatusEffect(ModPotions.emptiness) && player.getBoundingBox().intersects(aabb)) {
+			for (Player player : entity.level.players()) {
+				if (player.hasEffect(ModPotions.emptiness) && player.getBoundingBox().intersects(aabb)) {
 					return true;
 				}
 			}

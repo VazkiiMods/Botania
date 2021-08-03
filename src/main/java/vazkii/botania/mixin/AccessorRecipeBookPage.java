@@ -8,14 +8,14 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.gui.screen.recipebook.AnimatedResultButton;
-import net.minecraft.client.gui.screen.recipebook.RecipeBookResults;
+import net.minecraft.client.gui.screens.recipebook.RecipeBookPage;
+import net.minecraft.client.gui.screens.recipebook.RecipeButton;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(RecipeBookResults.class)
+@Mixin(RecipeBookPage.class)
 public interface AccessorRecipeBookPage {
 	@Accessor
-	AnimatedResultButton getHoveredResultButton();
+	RecipeButton getHoveredButton();
 }

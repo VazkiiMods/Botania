@@ -8,9 +8,9 @@
  */
 package vazkii.botania.api.wand;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
@@ -23,6 +23,6 @@ import javax.annotation.Nullable;
 public interface ICoordBoundItem {
 
 	@Nullable
-	BlockPos getBinding(World world, ItemStack stack);
+	BlockPos getBinding(Level world, ItemStack stack);
 
 }

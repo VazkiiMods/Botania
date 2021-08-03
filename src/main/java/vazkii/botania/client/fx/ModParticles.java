@@ -9,8 +9,8 @@
 package vazkii.botania.client.fx;
 
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
-import net.minecraft.particle.ParticleType;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.core.particles.ParticleType;
 
 import static vazkii.botania.common.block.ModBlocks.register;
 

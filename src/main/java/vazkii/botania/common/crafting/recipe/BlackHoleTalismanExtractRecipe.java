@@ -8,15 +8,15 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import net.minecraft.block.Block;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.SpecialCraftingRecipe;
-import net.minecraft.recipe.SpecialRecipeSerializer;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ItemBlackHoleTalisman;
@@ -24,19 +24,19 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class BlackHoleTalismanExtractRecipe extends SpecialCraftingRecipe {
-	public static final SpecialRecipeSerializer<BlackHoleTalismanExtractRecipe> SERIALIZER = new SpecialRecipeSerializer<>(BlackHoleTalismanExtractRecipe::new);
+public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
+	public static final SimpleRecipeSerializer<BlackHoleTalismanExtractRecipe> SERIALIZER = new SimpleRecipeSerializer<>(BlackHoleTalismanExtractRecipe::new);
 
-	public BlackHoleTalismanExtractRecipe(Identifier id) {
+	public BlackHoleTalismanExtractRecipe(ResourceLocation id) {
 		super(id);
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingInventory inv, @Nonnull World world) {
+	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level world) {
 		boolean foundTalisman = false;
 
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack stack = inv.getStack(i);
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() == ModItems.blackHoleTalisman && !foundTalisman) {
 					foundTalisman = true;
@@ -51,11 +51,11 @@ public class BlackHoleTalismanExtractRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack craft(@Nonnull CraftingInventory inv) {
+	public ItemStack assemble(@Nonnull CraftingContainer inv) {
 		ItemStack talisman = ItemStack.EMPTY;
 
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack stack = inv.getStack(i);
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
 				talisman = stack;
 			}
@@ -73,7 +73,7 @@ public class BlackHoleTalismanExtractRecipe extends SpecialCraftingRecipe {
 	}
 
 	@Override
-	public boolean fits(int width, int height) {
+	public boolean canCraftInDimensions(int width, int height) {
 		return width * height > 0;
 	}
 
@@ -85,7 +85,7 @@ public class BlackHoleTalismanExtractRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public DefaultedList<ItemStack> getRemainingStacks(@Nonnull CraftingInventory inv) {
+	public NonNullList<ItemStack> getRemainingItems(@Nonnull CraftingContainer inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
 			if (s.getItem() == ModItems.blackHoleTalisman) {
 				int count = ItemBlackHoleTalisman.getBlockCount(s);

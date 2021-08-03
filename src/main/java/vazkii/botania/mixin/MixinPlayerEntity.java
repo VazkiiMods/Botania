@@ -8,18 +8,18 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import org.apache.commons.lang3.mutable.MutableFloat;
 import org.spongepowered.asm.mixin.Final;
@@ -48,19 +48,19 @@ import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 import vazkii.botania.common.item.equipment.bauble.*;
 import vazkii.botania.common.item.relic.ItemOdinRing;
 
-@Mixin(PlayerEntity.class)
+@Mixin(Player.class)
 public abstract class MixinPlayerEntity extends LivingEntity {
 
-	protected MixinPlayerEntity(EntityType<? extends LivingEntity> entityType, World world) {
+	protected MixinPlayerEntity(EntityType<? extends LivingEntity> entityType, Level world) {
 		super(entityType, world);
 	}
 
 	@Shadow
-	public abstract void increaseStat(Identifier stat, int amount);
+	public abstract void awardStat(ResourceLocation stat, int amount);
 
 	@Shadow
 	@Final
-	public PlayerInventory inventory;
+	public Inventory inventory;
 
 	@Unique
 	private LivingEntity critTarget;
@@ -71,8 +71,8 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 	/**
 	 * Registers the pixie spawn chance attribute on players
 	 */
-	@Inject(at = @At("RETURN"), method = "createPlayerAttributes")
-	private static void addPixieAttribute(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
+	@Inject(at = @At("RETURN"), method = "createAttributes")
+	private static void addPixieAttribute(CallbackInfoReturnable<AttributeSupplier.Builder> cir) {
 		cir.getReturnValue().add(PixieHandler.PIXIE_SPAWN_CHANCE);
 	}
 
@@ -81,7 +81,7 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 	 */
 	@Inject(at = @At("HEAD"), method = "isInvulnerableTo", cancellable = true)
 	private void odinRing(DamageSource src, CallbackInfoReturnable<Boolean> cir) {
-		if (ItemOdinRing.onPlayerAttacked((PlayerEntity) (Object) this, src)) {
+		if (ItemOdinRing.onPlayerAttacked((Player) (Object) this, src)) {
 			cir.setReturnValue(true);
 		}
 	}
@@ -90,26 +90,26 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 	 * Updates the distance by luminizer stat
 	 */
 	@Inject(
-		at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/entity/player/PlayerEntity;getVehicle()Lnet/minecraft/entity/Entity;"),
-		method = "increaseRidingMotionStats", locals = LocalCapture.CAPTURE_FAILSOFT
+		at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/entity/player/Player;getVehicle()Lnet/minecraft/world/entity/Entity;"),
+		method = "checkRidingStatistics", locals = LocalCapture.CAPTURE_FAILSOFT
 	)
 	private void trackLuminizerTravel(double dx, double dy, double dz, CallbackInfo ci, int cm, Entity mount) {
 		if (mount.getType() == ModEntities.PLAYER_MOVER) {
-			increaseStat(ModStats.LUMINIZER_ONE_CM, cm);
+			awardStat(ModStats.LUMINIZER_ONE_CM, cm);
 		}
 	}
 
 	/**
 	 * Performs many reactions when being hit
 	 */
-	@ModifyArgs(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"))
+	@ModifyArgs(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"))
 	private void onHurt(Args args) {
-		PlayerEntity self = (PlayerEntity) (Object) this;
+		Player self = (Player) (Object) this;
 		DamageSource src = args.get(0);
 		MutableFloat amount = new MutableFloat((float) args.get(1));
-		Inventory worn = EquipmentHandler.getAllWorn(self);
-		for (int i = 0; i < worn.size(); i++) {
-			ItemStack stack = worn.getStack(i);
+		Container worn = EquipmentHandler.getAllWorn(self);
+		for (int i = 0; i < worn.getContainerSize(); i++) {
+			ItemStack stack = worn.getItem(i);
 			if (stack.getItem() instanceof ItemHolyCloak) {
 				((ItemHolyCloak) stack.getItem()).effectOnDamage(src, amount, self, stack);
 			}
@@ -124,48 +124,48 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 	/**
 	 * Tells the magnet ring about item drops
 	 */
-	@Inject(at = @At("HEAD"), method = "dropItem(Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/entity/ItemEntity;")
+	@Inject(at = @At("HEAD"), method = "drop(Lnet/minecraft/world/item/ItemStack;ZZ)Lnet/minecraft/world/entity/item/ItemEntity;")
 	public void onDrop(ItemStack stack, boolean throwRandomly, boolean retainOwnership, CallbackInfoReturnable<ItemEntity> cir) {
-		World world = this.world;
-		if (!stack.isEmpty() && !world.isClient) {
-			ItemMagnetRing.onTossItem((PlayerEntity) (Object) this);
+		Level world = this.level;
+		if (!stack.isEmpty() && !world.isClientSide) {
+			ItemMagnetRing.onTossItem((Player) (Object) this);
 		}
 	}
 
 	@Inject(at = @At("RETURN"), method = "tick")
 	private void tickBeltTiara(CallbackInfo ci) {
-		ItemFlightTiara.updatePlayerFlyStatus((PlayerEntity) (Object) this);
-		ItemTravelBelt.updatePlayerStepStatus((PlayerEntity) (Object) this);
+		ItemFlightTiara.updatePlayerFlyStatus((Player) (Object) this);
+		ItemTravelBelt.updatePlayerStepStatus((Player) (Object) this);
 	}
 
-	@ModifyArg(index = 0, method = "handleFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;handleFallDamage(FF)Z"))
+	@ModifyArg(index = 0, method = "causeFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;causeFallDamage(FF)Z"))
 	private float cushionFall(float originalDist) {
-		return ItemTravelBelt.onPlayerFall((PlayerEntity) (Object) this, originalDist);
+		return ItemTravelBelt.onPlayerFall((Player) (Object) this, originalDist);
 	}
 
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerInventory;updateItems()V"), method = "tickMovement")
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;tick()V"), method = "aiStep")
 	private void tickArmor(CallbackInfo ci) {
-		PlayerEntity self = (PlayerEntity) (Object) this;
+		Player self = (Player) (Object) this;
 		for (ItemStack stack : inventory.armor) {
 			if (stack.getItem() instanceof ItemManasteelArmor) {
-				((ItemManasteelArmor) stack.getItem()).onArmorTick(stack, self.world, self);
+				((ItemManasteelArmor) stack.getItem()).onArmorTick(stack, self.level, self);
 			}
 		}
 	}
 
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerEntity;onAttacking(Lnet/minecraft/entity/Entity;)V"), method = "attack")
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;setLastHurtMob(Lnet/minecraft/world/entity/Entity;)V"), method = "attack")
 	private void onAttack(Entity target, CallbackInfo ci) {
-		ItemDivaCharm.onEntityDamaged((PlayerEntity) (Object) this, target);
+		ItemDivaCharm.onEntityDamaged((Player) (Object) this, target);
 	}
 
-	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerInventory;dropAll()V"), method = "dropInventory")
+	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;dropAll()V"), method = "dropEquipment")
 	private void keepIvy(CallbackInfo ci) {
-		ItemKeepIvy.onPlayerDrops((PlayerEntity) (Object) this);
+		ItemKeepIvy.onPlayerDrops((Player) (Object) this);
 	}
 
 	// Capture the entity we are attacking, at the start of the method part dealing damage.
 	@Inject(
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getKnockback(Lnet/minecraft/entity/LivingEntity;)I"),
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/EnchantmentHelper;getKnockbackBonus(Lnet/minecraft/world/entity/LivingEntity;)I"),
 		method = "attack"
 	)
 	private void captureTarget(Entity target, CallbackInfo ci) {
@@ -177,7 +177,7 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 	// Clear the entity on any return after the capture.
 	@Inject(
 		at = @At(value = "RETURN"), method = "attack",
-		slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getKnockback(Lnet/minecraft/entity/LivingEntity;)I"))
+		slice = @Slice(from = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/EnchantmentHelper;getKnockbackBonus(Lnet/minecraft/world/entity/LivingEntity;)I"))
 	)
 	private void clearTarget(CallbackInfo ci) {
 		this.critTarget = null;
@@ -190,17 +190,17 @@ public abstract class MixinPlayerEntity extends LivingEntity {
 	@ModifyVariable(at = @At(value = "LOAD", ordinal = 2), method = "attack", ordinal = 0)
 	private float onCritMul(float f) {
 		this.critting = true;
-		return ((ItemTerrasteelHelm) ModItems.terrasteelHelm).onCritDamageCalc(f, (PlayerEntity) (Object) this);
+		return ((ItemTerrasteelHelm) ModItems.terrasteelHelm).onCritDamageCalc(f, (Player) (Object) this);
 	}
 
 	// Perform damage source modifications and apply the potion effects.
 	@ModifyArg(
 		method = "attack",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z")
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z")
 	)
 	private DamageSource onDamageTarget(DamageSource source, float amount) {
 		if (this.critting && this.critTarget != null) {
-			((ItemTerrasteelHelm) ModItems.terrasteelHelm).onEntityAttacked(source, amount, (PlayerEntity) (Object) this, critTarget);
+			((ItemTerrasteelHelm) ModItems.terrasteelHelm).onEntityAttacked(source, amount, (Player) (Object) this, critTarget);
 		}
 		return source;
 	}

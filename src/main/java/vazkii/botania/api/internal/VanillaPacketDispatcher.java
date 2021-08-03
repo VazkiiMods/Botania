@@ -8,23 +8,23 @@
  */
 package vazkii.botania.api.internal;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
-import net.minecraft.server.world.ServerChunkManager;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.level.ServerChunkCache;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 public final class VanillaPacketDispatcher {
 
 	public static void dispatchTEToNearbyPlayers(BlockEntity tile) {
-		if (tile.getWorld() instanceof ServerWorld) {
-			BlockEntityUpdateS2CPacket packet = tile.toUpdatePacket();
+		if (tile.getLevel() instanceof ServerLevel) {
+			ClientboundBlockEntityDataPacket packet = tile.getUpdatePacket();
 			if (packet != null) {
-				BlockPos pos = tile.getPos();
-				((ServerChunkManager) tile.getWorld().getChunkManager()).threadedAnvilChunkStorage
-						.getPlayersWatchingChunk(new ChunkPos(pos), false)
-						.forEach(e -> e.networkHandler.sendPacket(packet));
+				BlockPos pos = tile.getBlockPos();
+				((ServerChunkCache) tile.getLevel().getChunkSource()).chunkMap
+						.getPlayers(new ChunkPos(pos), false)
+						.forEach(e -> e.connection.send(packet));
 			}
 		}
 	}

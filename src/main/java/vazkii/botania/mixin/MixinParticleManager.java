@@ -10,10 +10,10 @@ package vazkii.botania.mixin;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.client.particle.ParticleManager;
-import net.minecraft.client.particle.ParticleTextureSheet;
-import net.minecraft.client.texture.TextureManager;
-import net.minecraft.client.world.ClientWorld;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.ParticleEngine;
+import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.renderer.texture.TextureManager;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,16 +29,16 @@ import vazkii.botania.client.fx.FXWisp;
 
 import java.util.List;
 
-@Mixin(ParticleManager.class)
+@Mixin(ParticleEngine.class)
 public class MixinParticleManager {
 	@Mutable
 	@Final
 	@Shadow
-	private static List<ParticleTextureSheet> PARTICLE_TEXTURE_SHEETS;
+	private static List<ParticleRenderType> RENDER_ORDER;
 
 	@Inject(at = @At("RETURN"), method = "<init>")
-	private void addTypes(ClientWorld world, TextureManager textureManager, CallbackInfo ci) {
-		PARTICLE_TEXTURE_SHEETS = ImmutableList.<ParticleTextureSheet>builder().addAll(PARTICLE_TEXTURE_SHEETS)
+	private void addTypes(ClientLevel world, TextureManager textureManager, CallbackInfo ci) {
+		RENDER_ORDER = ImmutableList.<ParticleRenderType>builder().addAll(RENDER_ORDER)
 				.add(FXWisp.NORMAL_RENDER, FXWisp.DIW_RENDER)
 				.add(FXSparkle.NORMAL_RENDER, FXSparkle.CORRUPT_RENDER)
 				.add(FXLightning.RENDER)

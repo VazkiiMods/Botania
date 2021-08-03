@@ -8,17 +8,17 @@
  */
 package vazkii.botania.common.item.rod;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.UseAction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
@@ -35,35 +35,35 @@ import javax.annotation.Nonnull;
 
 public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWieldable {
 
-	private static final Identifier avatarOverlay = new Identifier(LibResources.MODEL_AVATAR_MISSILE);
+	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_MISSILE);
 
 	private static final int COST_PER = 120;
 	private static final int COST_AVATAR = 40;
 
-	public ItemMissileRod(Settings props) {
+	public ItemMissileRod(Properties props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public UseAction getUseAction(ItemStack stack) {
-		return UseAction.BOW;
+	public UseAnim getUseAnimation(ItemStack stack) {
+		return UseAnim.BOW;
 	}
 
 	@Override
-	public int getMaxUseTime(ItemStack stack) {
+	public int getUseDuration(ItemStack stack) {
 		return 72000;
 	}
 
 	@Override
-	public void usageTick(World world, LivingEntity living, ItemStack stack, int count) {
-		if (!(living instanceof PlayerEntity)) {
+	public void onUseTick(Level world, LivingEntity living, ItemStack stack, int count) {
+		if (!(living instanceof Player)) {
 			return;
 		}
-		PlayerEntity player = (PlayerEntity) living;
+		Player player = (Player) living;
 
-		if (count != getMaxUseTime(stack) && count % (IManaProficiencyArmor.hasProficiency(player, stack) ? 1 : 2) == 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, false)) {
-			if (!world.isClient && spawnMissile(world, player, player.getX() + (Math.random() - 0.5 * 0.1), player.getY() + 2.4 + (Math.random() - 0.5 * 0.1), player.getZ() + (Math.random() - 0.5 * 0.1))) {
+		if (count != getUseDuration(stack) && count % (IManaProficiencyArmor.hasProficiency(player, stack) ? 1 : 2) == 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, false)) {
+			if (!world.isClientSide && spawnMissile(world, player, player.getX() + (Math.random() - 0.5 * 0.1), player.getY() + 2.4 + (Math.random() - 0.5 * 0.1), player.getZ() + (Math.random() - 0.5 * 0.1))) {
 				ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, true);
 			}
 
@@ -72,7 +72,7 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 		}
 	}
 
-	public boolean spawnMissile(World world, LivingEntity thrower, double x, double y, double z) {
+	public boolean spawnMissile(Level world, LivingEntity thrower, double x, double y, double z) {
 		EntityMagicMissile missile;
 		if (thrower != null) {
 			missile = new EntityMagicMissile(thrower, false);
@@ -80,11 +80,11 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 			missile = ModEntities.MAGIC_MISSILE.create(world);
 		}
 
-		missile.updatePosition(x, y, z);
+		missile.setPos(x, y, z);
 		if (missile.findTarget()) {
-			if (!world.isClient) {
+			if (!world.isClientSide) {
 				missile.playSound(ModSounds.missile, 0.6F, 0.8F + (float) Math.random() * 0.2F);
-				world.spawnEntity(missile);
+				world.addFreshEntity(missile);
 			}
 
 			return true;
@@ -94,9 +94,9 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		player.setCurrentHand(hand);
-		return TypedActionResult.consume(player.getStackInHand(hand));
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		player.startUsingItem(hand);
+		return InteractionResultHolder.consume(player.getItemInHand(hand));
 	}
 
 	@Override
@@ -107,11 +107,11 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
 		BlockEntity te = tile.tileEntity();
-		World world = te.getWorld();
-		BlockPos pos = te.getPos();
+		Level world = te.getLevel();
+		BlockPos pos = te.getBlockPos();
 		if (tile.getCurrentMana() >= COST_AVATAR && tile.getElapsedFunctionalTicks() % 3 == 0 && tile.isEnabled()) {
 			if (spawnMissile(world, null, pos.getX() + 0.5 + (Math.random() - 0.5 * 0.1), pos.getY() + 2.5 + (Math.random() - 0.5 * 0.1), pos.getZ() + (Math.random() - 0.5 * 0.1))) {
-				if (!world.isClient) {
+				if (!world.isClientSide) {
 					tile.receiveMana(-COST_AVATAR);
 				}
 				SparkleParticleData data = SparkleParticleData.sparkle(6F, 1F, 0.4F, 1F, 6);
@@ -121,7 +121,7 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 	}
 
 	@Override
-	public Identifier getOverlayResource(IAvatarTile tile, ItemStack stack) {
+	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
 		return avatarOverlay;
 	}
 }

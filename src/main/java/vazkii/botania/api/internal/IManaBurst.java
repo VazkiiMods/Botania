@@ -8,9 +8,9 @@
  */
 package vazkii.botania.api.internal;
 
-import net.minecraft.entity.projectile.thrown.ThrownEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.projectile.ThrowableProjectile;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
 
@@ -106,7 +106,7 @@ public interface IManaBurst {
 	/**
 	 * @return this Mana Burst as an ThrowableEntity
 	 */
-	default ThrownEntity entity() {
-		return (ThrownEntity) this;
+	default ThrowableProjectile entity() {
+		return (ThrowableProjectile) this;
 	}
 }

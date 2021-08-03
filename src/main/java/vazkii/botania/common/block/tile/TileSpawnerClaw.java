@@ -8,18 +8,21 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.MobSpawnerBlockEntity;
-import net.minecraft.entity.*;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Tickable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.MobSpawnerLogic;
-import net.minecraft.world.World;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.level.BaseSpawner;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.client.fx.WispParticleData;
@@ -27,7 +30,7 @@ import vazkii.botania.mixin.AccessorAbstractSpawner;
 
 import java.util.Optional;
 
-public class TileSpawnerClaw extends TileMod implements IManaReceiver, Tickable {
+public class TileSpawnerClaw extends TileMod implements IManaReceiver, TickableBlockEntity {
 	private static final String TAG_MANA = "mana";
 	private static final int MAX_MANA = 160;
 
@@ -39,21 +42,21 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, Tickable 
 
 	@Override
 	public void tick() {
-		BlockEntity tileBelow = world.getBlockEntity(pos.down());
-		if (mana >= 5 && tileBelow instanceof MobSpawnerBlockEntity) {
-			MobSpawnerBlockEntity spawner = (MobSpawnerBlockEntity) tileBelow;
-			MobSpawnerLogic logic = spawner.getLogic();
+		BlockEntity tileBelow = level.getBlockEntity(worldPosition.below());
+		if (mana >= 5 && tileBelow instanceof SpawnerBlockEntity) {
+			SpawnerBlockEntity spawner = (SpawnerBlockEntity) tileBelow;
+			BaseSpawner logic = spawner.getSpawner();
 			AccessorAbstractSpawner mLogic = (AccessorAbstractSpawner) logic;
 
 			// [VanillaCopy] AbstractSpawner.tick, edits noted
 			if (!mLogic.botania_isPlayerInRange()) { // Activate when vanilla is *not* running the spawner
-				World world = this.getWorld();
+				Level world = this.getLevel();
 				BlockPos blockpos = logic.getPos();
-				if (world.isClient) {
+				if (world.isClientSide) {
 					// Botania - use own particles
 					if (Math.random() > 0.5) {
 						WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, 0.6F - (float) Math.random() * 0.3F, 0.1F, 0.6F - (float) Math.random() * 0.3F, 2F);
-						world.addParticle(data, getPos().getX() + 0.3 + Math.random() * 0.5, getPos().getY() - 0.3 + Math.random() * 0.25, getPos().getZ() + Math.random(), 0, -(-0.025F - 0.005F * (float) Math.random()), 0);
+						world.addParticle(data, getBlockPos().getX() + 0.3 + Math.random() * 0.5, getBlockPos().getY() - 0.3 + Math.random() * 0.25, getBlockPos().getZ() + Math.random(), 0, -(-0.025F - 0.005F * (float) Math.random()), 0);
 					}
 					if (mLogic.getSpawnDelay() > 0) {
 						mLogic.setSpawnDelay(mLogic.getSpawnDelay() - 1);
@@ -77,8 +80,8 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, Tickable 
 					boolean flag = false;
 
 					for (int i = 0; i < mLogic.getSpawnCount(); ++i) {
-						CompoundTag compoundnbt = mLogic.getSpawnEntry().getEntityTag();
-						Optional<EntityType<?>> optional = EntityType.fromTag(compoundnbt);
+						CompoundTag compoundnbt = mLogic.getSpawnEntry().getTag();
+						Optional<EntityType<?>> optional = EntityType.by(compoundnbt);
 						if (!optional.isPresent()) {
 							mLogic.botania_updateSpawns();
 							return;
@@ -89,10 +92,10 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, Tickable 
 						double d0 = j >= 1 ? listnbt.getDouble(0) : (double) blockpos.getX() + (world.random.nextDouble() - world.random.nextDouble()) * (double) mLogic.getSpawnRange() + 0.5D;
 						double d1 = j >= 2 ? listnbt.getDouble(1) : (double) (blockpos.getY() + world.random.nextInt(3) - 1);
 						double d2 = j >= 3 ? listnbt.getDouble(2) : (double) blockpos.getZ() + (world.random.nextDouble() - world.random.nextDouble()) * (double) mLogic.getSpawnRange() + 0.5D;
-						if (world.isSpaceEmpty(optional.get().createSimpleBoundingBox(d0, d1, d2))) {
-							ServerWorld serverWorld = (ServerWorld) world;
-							Entity entity = EntityType.loadEntityWithPassengers(compoundnbt, world, (p_221408_6_) -> {
-								p_221408_6_.refreshPositionAndAngles(d0, d1, d2, p_221408_6_.yaw, p_221408_6_.pitch);
+						if (world.noCollision(optional.get().getAABB(d0, d1, d2))) {
+							ServerLevel serverWorld = (ServerLevel) world;
+							Entity entity = EntityType.loadEntityRecursive(compoundnbt, world, (p_221408_6_) -> {
+								p_221408_6_.moveTo(d0, d1, d2, p_221408_6_.yRot, p_221408_6_.xRot);
 								return p_221408_6_;
 							});
 							if (entity == null) {
@@ -100,27 +103,27 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, Tickable 
 								return;
 							}
 
-							int k = world.getNonSpectatingEntities(entity.getClass(), (new Box((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ(), (double) (blockpos.getX() + 1), (double) (blockpos.getY() + 1), (double) (blockpos.getZ() + 1))).expand((double) mLogic.getSpawnRange())).size();
+							int k = world.getEntitiesOfClass(entity.getClass(), (new AABB((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ(), (double) (blockpos.getX() + 1), (double) (blockpos.getY() + 1), (double) (blockpos.getZ() + 1))).inflate((double) mLogic.getSpawnRange())).size();
 							if (k >= mLogic.getMaxNearbyEntities()) {
 								mLogic.botania_updateSpawns();
 								return;
 							}
 
-							entity.refreshPositionAndAngles(entity.getX(), entity.getY(), entity.getZ(), world.random.nextFloat() * 360.0F, 0.0F);
-							if (entity instanceof MobEntity) {
-								MobEntity mobentity = (MobEntity) entity;
-								if (!mobentity.canSpawn(world, SpawnReason.SPAWNER) || !mobentity.canSpawn(world)) {
+							entity.moveTo(entity.getX(), entity.getY(), entity.getZ(), world.random.nextFloat() * 360.0F, 0.0F);
+							if (entity instanceof Mob) {
+								Mob mobentity = (Mob) entity;
+								if (!mobentity.checkSpawnRules(world, MobSpawnType.SPAWNER) || !mobentity.checkSpawnObstruction(world)) {
 									continue;
 								}
 
-								if (mLogic.getSpawnEntry().getEntityTag().getSize() == 1 && mLogic.getSpawnEntry().getEntityTag().contains("id", 8)) {
-									((MobEntity) entity).initialize(serverWorld, world.getLocalDifficulty(entity.getBlockPos()), SpawnReason.SPAWNER, (EntityData) null, (CompoundTag) null);
+								if (mLogic.getSpawnEntry().getTag().size() == 1 && mLogic.getSpawnEntry().getTag().contains("id", 8)) {
+									((Mob) entity).finalizeSpawn(serverWorld, world.getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.SPAWNER, (SpawnGroupData) null, (CompoundTag) null);
 								}
 
-								serverWorld.shouldCreateNewEntityWithPassenger(entity);
-								world.syncWorldEvent(2004, blockpos, 0);
-								if (entity instanceof MobEntity) {
-									((MobEntity) entity).playSpawnEffects();
+								serverWorld.tryAddFreshEntityWithPassengers(entity);
+								world.levelEvent(2004, blockpos, 0);
+								if (entity instanceof Mob) {
+									((Mob) entity).spawnAnim();
 								}
 
 								flag = true;

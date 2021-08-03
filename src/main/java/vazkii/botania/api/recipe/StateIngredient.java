@@ -10,9 +10,9 @@ package vazkii.botania.api.recipe;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
@@ -32,7 +32,7 @@ public interface StateIngredient extends Predicate<BlockState> {
 
 	JsonObject serialize();
 
-	void write(PacketByteBuf buffer);
+	void write(FriendlyByteBuf buffer);
 
 	List<BlockState> getDisplayed();
 

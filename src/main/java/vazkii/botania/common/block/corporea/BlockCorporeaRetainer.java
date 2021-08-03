@@ -8,23 +8,24 @@
  */
 package vazkii.botania.common.block.corporea;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
@@ -33,50 +34,50 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
 
 import javax.annotation.Nonnull;
 
-public class BlockCorporeaRetainer extends BlockMod implements BlockEntityProvider, IWandable, IWandHUD {
+public class BlockCorporeaRetainer extends BlockMod implements EntityBlock, IWandable, IWandHUD {
 
-	public BlockCorporeaRetainer(AbstractBlock.Settings builder) {
+	public BlockCorporeaRetainer(BlockBehaviour.Properties builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(Properties.POWERED, false));
+		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(Properties.POWERED);
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(BlockStateProperties.POWERED);
 	}
 
 	@Override
-	public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-		boolean power = world.getReceivedRedstonePower(pos) > 0 || world.getReceivedRedstonePower(pos.up()) > 0;
-		boolean powered = state.get(Properties.POWERED);
+	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+		boolean power = world.getBestNeighborSignal(pos) > 0 || world.getBestNeighborSignal(pos.above()) > 0;
+		boolean powered = state.getValue(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
 			((TileCorporeaRetainer) world.getBlockEntity(pos)).fulfilRequest();
-			world.setBlockState(pos, state.with(Properties.POWERED, true));
+			world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, true));
 		} else if (!power && powered) {
-			world.setBlockState(pos, state.with(Properties.POWERED, false));
+			world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
 		}
 	}
 
 	@Override
-	public boolean hasComparatorOutput(BlockState state) {
+	public boolean hasAnalogOutputSignal(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
 		return ((TileCorporeaRetainer) world.getBlockEntity(pos)).getComparatorValue();
 	}
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileCorporeaRetainer();
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void renderHUD(MatrixStack ms, MinecraftClient mc, World world, BlockPos pos) {
+	public void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos) {
 		BlockEntity te = world.getBlockEntity(pos);
 		if (te instanceof TileCorporeaRetainer) {
 			((TileCorporeaRetainer) te).renderHUD(ms, mc);
@@ -84,7 +85,7 @@ public class BlockCorporeaRetainer extends BlockMod implements BlockEntityProvid
 	}
 
 	@Override
-	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
+	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
 		BlockEntity te = world.getBlockEntity(pos);
 		return te instanceof TileCorporeaRetainer && ((TileCorporeaRetainer) te).onUsedByWand();
 	}

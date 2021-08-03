@@ -8,15 +8,16 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.item.ItemStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.TileAnimatedTorch;
@@ -30,14 +31,14 @@ public class RenderTileAnimatedTorch extends BlockEntityRenderer<TileAnimatedTor
 	}
 
 	@Override
-	public void render(TileAnimatedTorch te, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
-		MinecraftClient mc = MinecraftClient.getInstance();
-		ms.push();
+	public void render(TileAnimatedTorch te, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+		Minecraft mc = Minecraft.getInstance();
+		ms.pushPose();
 
-		boolean hasWorld = te != null && te.getWorld() != null;
+		boolean hasWorld = te != null && te.getLevel() != null;
 		int wtime = !hasWorld ? 0 : ClientTickHandler.ticksInGame;
 		if (wtime != 0) {
-			wtime += new Random(te.getPos().hashCode()).nextInt(360);
+			wtime += new Random(te.getBlockPos().hashCode()).nextInt(360);
 		}
 
 		float time = wtime == 0 ? 0 : wtime + partialTicks;
@@ -47,15 +48,15 @@ public class RenderTileAnimatedTorch extends BlockEntityRenderer<TileAnimatedTor
 		ms.translate(xt, yt, zt);
 
 		ms.scale(2, 2, 2);
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90));
+		ms.mulPose(Vector3f.XP.rotationDegrees(90));
 		float rotation = (float) te.rotation;
 		if (te.rotating) {
 			rotation += te.anglePerTick * partialTicks;
 		}
 
-		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(rotation));
-		mc.getItemRenderer().renderItem(new ItemStack(Blocks.REDSTONE_TORCH), ModelTransformation.Mode.GROUND, light, overlay, ms, buffers);
-		ms.pop();
+		ms.mulPose(Vector3f.ZP.rotationDegrees(rotation));
+		mc.getItemRenderer().renderStatic(new ItemStack(Blocks.REDSTONE_TORCH), ItemTransforms.TransformType.GROUND, light, overlay, ms, buffers);
+		ms.popPose();
 	}
 
 }

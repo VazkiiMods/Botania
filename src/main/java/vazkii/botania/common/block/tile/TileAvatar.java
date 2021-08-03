@@ -8,15 +8,15 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.Tickable;
-import net.minecraft.util.math.Direction;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class TileAvatar extends TileSimpleInventory implements IAvatarTile, Tickable {
+public class TileAvatar extends TileSimpleInventory implements IAvatarTile, TickableBlockEntity {
 	private static final int MAX_MANA = 6400;
 
 	private static final String TAG_ENABLED = "enabled";
@@ -44,9 +44,9 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, Tick
 
 	@Override
 	public void tick() {
-		enabled = !world.isReceivingRedstonePower(pos);
+		enabled = !level.hasNeighborSignal(worldPosition);
 
-		ItemStack stack = getItemHandler().getStack(0);
+		ItemStack stack = getItemHandler().getItem(0);
 		if (!stack.isEmpty() && stack.getItem() instanceof IAvatarWieldable) {
 			IAvatarWieldable wieldable = (IAvatarWieldable) stack.getItem();
 			wieldable.onAvatarUpdate(this, stack);
@@ -66,7 +66,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, Tick
 		ListTag boostCooldowns = new ListTag();
 		for (Map.Entry<UUID, Integer> e : this.boostCooldowns.entrySet()) {
 			CompoundTag cmp = new CompoundTag();
-			cmp.putUuid("id", e.getKey());
+			cmp.putUUID("id", e.getKey());
 			cmp.putInt("cooldown", e.getValue());
 			boostCooldowns.add(cmp);
 		}
@@ -83,17 +83,17 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, Tick
 		ListTag boostCooldowns = tag.getList(TAG_COOLDOWNS, 10);
 		for (Tag nbt : boostCooldowns) {
 			CompoundTag cmp = ((CompoundTag) nbt);
-			UUID id = cmp.getUuid("id");
+			UUID id = cmp.getUUID("id");
 			int cooldown = cmp.getInt("cooldown");
 			this.boostCooldowns.put(id, cooldown);
 		}
 	}
 
 	@Override
-	protected SimpleInventory createItemHandler() {
-		return new SimpleInventory(1) {
+	protected SimpleContainer createItemHandler() {
+		return new SimpleContainer(1) {
 			@Override
-			public int getMaxCountPerStack() {
+			public int getMaxStackSize() {
 				return 1;
 			}
 		};
@@ -111,7 +111,7 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, Tick
 
 	@Override
 	public boolean canReceiveManaFromBursts() {
-		return !getItemHandler().getStack(0).isEmpty();
+		return !getItemHandler().getItem(0).isEmpty();
 	}
 
 	@Override
@@ -120,13 +120,13 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, Tick
 	}
 
 	@Override
-	public Inventory getInventory() {
+	public Container getInventory() {
 		return getItemHandler();
 	}
 
 	@Override
 	public Direction getAvatarFacing() {
-		return getCachedState().get(Properties.HORIZONTAL_FACING);
+		return getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
 	}
 
 	@Override

@@ -10,18 +10,18 @@ package vazkii.botania.common.item;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Rarity;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.mana.ICreativeManaProvider;
 import vazkii.botania.api.mana.IManaItem;
@@ -40,13 +40,13 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 	private static final String TAG_CREATIVE = "creative";
 	private static final String TAG_ONE_USE = "oneUse";
 
-	public ItemManaTablet(Settings props) {
+	public ItemManaTablet(Properties props) {
 		super(props);
 	}
 
 	@Override
-	public void appendStacks(@Nonnull ItemGroup tab, @Nonnull DefaultedList<ItemStack> stacks) {
-		if (isIn(tab)) {
+	public void fillItemCategory(@Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> stacks) {
+		if (allowdedIn(tab)) {
 			stacks.add(new ItemStack(this));
 
 			ItemStack fullPower = new ItemStack(this);
@@ -68,9 +68,9 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendTooltip(ItemStack stack, World world, List<Text> stacks, TooltipContext flags) {
+	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
 		if (isStackCreative(stack)) {
-			stacks.add(new TranslatableText("botaniamisc.creative").formatted(Formatting.GRAY));
+			stacks.add(new TranslatableComponent("botaniamisc.creative").withStyle(ChatFormatting.GRAY));
 		}
 	}
 
@@ -150,6 +150,6 @@ public class ItemManaTablet extends Item implements IManaItem, ICreativeManaProv
 
 	@Override
 	public int getDurabilityColor(ItemStack stack) {
-		return MathHelper.hsvToRgb(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
+		return Mth.hsvToRgb(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
 	}
 }

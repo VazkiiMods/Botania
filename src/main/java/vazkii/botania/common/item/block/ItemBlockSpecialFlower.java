@@ -10,17 +10,17 @@ package vazkii.botania.common.item.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Block;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tag.Tag;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -31,34 +31,34 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemBlockSpecialFlower extends BlockItem {
-	private static final Tag.Identified<Item> GENERATING = ModTags.Items.GENERATING_SPECIAL_FLOWERS;
-	private static final Tag.Identified<Item> FUNCTIONAL = ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS;
-	private static final Tag.Identified<Item> MISC = ModTags.Items.MISC_SPECIAL_FLOWERS;
+	private static final Tag.Named<Item> GENERATING = ModTags.Items.GENERATING_SPECIAL_FLOWERS;
+	private static final Tag.Named<Item> FUNCTIONAL = ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS;
+	private static final Tag.Named<Item> MISC = ModTags.Items.MISC_SPECIAL_FLOWERS;
 
-	public ItemBlockSpecialFlower(Block block1, Settings props) {
+	public ItemBlockSpecialFlower(Block block1, Properties props) {
 		super(block1, props);
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendTooltip(@Nonnull ItemStack stack, World world, @Nonnull List<Text> tooltip, @Nonnull TooltipContext flag) {
+	public void appendHoverText(@Nonnull ItemStack stack, Level world, @Nonnull List<Component> tooltip, @Nonnull TooltipFlag flag) {
 		// Prevent crash when tooltips queried before configs load
 		if (Botania.configLoaded) {
 			if (world != null) {
 				if (GENERATING.contains(this)) {
-					tooltip.add(new TranslatableText("botania.flowerType.generating").formatted(Formatting.ITALIC, Formatting.BLUE));
+					tooltip.add(new TranslatableComponent("botania.flowerType.generating").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
 				} else if (FUNCTIONAL.contains(this)) {
-					tooltip.add(new TranslatableText("botania.flowerType.functional").formatted(Formatting.ITALIC, Formatting.BLUE));
+					tooltip.add(new TranslatableComponent("botania.flowerType.functional").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
 				} else if (MISC.contains(this)) {
-					tooltip.add(new TranslatableText("botania.flowerType.misc").formatted(Formatting.ITALIC, Formatting.BLUE));
+					tooltip.add(new TranslatableComponent("botania.flowerType.misc").withStyle(ChatFormatting.ITALIC, ChatFormatting.BLUE));
 				}
 			}
 
 			if (ConfigHandler.CLIENT.referencesEnabled.getValue()) {
-				String key = getTranslationKey() + ".reference";
-				MutableText lore = new TranslatableText(key);
+				String key = getDescriptionId() + ".reference";
+				MutableComponent lore = new TranslatableComponent(key);
 				if (!lore.getString().equals(key)) {
-					tooltip.add(lore.formatted(Formatting.ITALIC, Formatting.GRAY));
+					tooltip.add(lore.withStyle(ChatFormatting.ITALIC, ChatFormatting.GRAY));
 				}
 			}
 		}

@@ -8,19 +8,19 @@
  */
 package vazkii.botania.common.item.rod;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tag.Tag;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.world.World;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class ItemGravityRod extends Item implements IManaUsingItem {
-	private static final Tag.Identified<EntityType<?>> BLACKLIST = ModTags.Entities.SHADED_MESA_BLACKLIST;
+	private static final Tag.Named<EntityType<?>> BLACKLIST = ModTags.Entities.SHADED_MESA_BLACKLIST;
 	private static final float RANGE = 3F;
 	private static final int COST = 2;
 	private static final Predicate<Entity> CAN_TARGET = e -> !e.isSpectator() && e.isAlive() && !BLACKLIST.contains(e.getType());
@@ -50,7 +50,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 	private static final String TAG_TARGET = "target";
 	private static final String TAG_DIST = "dist";
 
-	public ItemGravityRod(Settings props) {
+	public ItemGravityRod(Properties props) {
 		super(props);
 	}
 
@@ -62,8 +62,8 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 	*/
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean held) {
-		if (!(entity instanceof PlayerEntity)) {
+	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean held) {
+		if (!(entity instanceof Player)) {
 			return;
 		}
 
@@ -87,10 +87,10 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 	}
 
 	public static void onEntitySwing(LivingEntity entity) {
-		if (!(entity instanceof PlayerEntity)) {
+		if (!(entity instanceof Player)) {
 			return;
 		}
-		PlayerEntity player = (PlayerEntity) entity;
+		Player player = (Player) entity;
 		leftClick(player);
 	}
 
@@ -104,24 +104,24 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getStackInHand(hand);
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
 		int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
 		int ticksCooldown = ItemNBTHelper.getInt(stack, TAG_TICKS_COOLDOWN, 0);
 		double length = ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
 
 		if (ticksCooldown == 0) {
 			Entity target = null;
-			if (targetID != -1 && player.world.getEntityById(targetID) != null) {
-				Entity taritem = player.world.getEntityById(targetID);
+			if (targetID != -1 && player.level.getEntity(targetID) != null) {
+				Entity taritem = player.level.getEntity(targetID);
 
 				boolean found = false;
 				Vector3 targetVec = Vector3.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
-					targetVec = targetVec.add(new Vector3(player.getRotationVector()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.world.getOtherEntities(player, targetVec.boxForRange(RANGE), CAN_TARGET);
+					targetVec = targetVec.add(new Vector3(player.getLookAngle()).multiply(distance)).add(0, 0.5, 0);
+					entities = player.level.getEntities(player, targetVec.boxForRange(RANGE), CAN_TARGET);
 					distance++;
 					if (entities.contains(taritem)) {
 						found = true;
@@ -129,7 +129,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 				}
 
 				if (found) {
-					target = player.world.getEntityById(targetID);
+					target = player.level.getEntity(targetID);
 				}
 			}
 
@@ -138,8 +138,8 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
-					targetVec = targetVec.add(new Vector3(player.getRotationVector()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.world.getOtherEntities(player, targetVec.boxForRange(RANGE), CAN_TARGET);
+					targetVec = targetVec.add(new Vector3(player.getLookAngle()).multiply(distance)).add(0, 0.5, 0);
+					entities = player.level.getEntities(player, targetVec.boxForRange(RANGE), CAN_TARGET);
 					distance++;
 				}
 
@@ -154,24 +154,24 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 
 			if (target != null) {
 				if (BLACKLIST.contains(target.getType())) {
-					return TypedActionResult.fail(stack);
+					return InteractionResultHolder.fail(stack);
 				}
 
 				if (ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true)) {
 					if (target instanceof ItemEntity) {
-						((ItemEntity) target).setPickupDelay(5);
+						((ItemEntity) target).setPickUpDelay(5);
 					}
 
 					if (target instanceof LivingEntity) {
 						LivingEntity targetEntity = (LivingEntity) target;
 						targetEntity.fallDistance = 0.0F;
-						if (targetEntity.getStatusEffect(StatusEffects.SLOWNESS) == null) {
-							targetEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 2, 3, true, true));
+						if (targetEntity.getEffect(MobEffects.MOVEMENT_SLOWDOWN) == null) {
+							targetEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 2, 3, true, true));
 						}
 					}
 
 					Vector3 target3 = Vector3.fromEntityCenter(player)
-							.add(new Vector3(player.getRotationVector()).multiply(length)).add(0, 0.5, 0);
+							.add(new Vector3(player.getLookAngle()).multiply(length)).add(0, 0.5, 0);
 					if (target instanceof ItemEntity) {
 						target3 = target3.add(0, 0.25, 0);
 					}
@@ -185,20 +185,20 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 						float ym = ((float) Math.random() - 0.5F) * m;
 						float zm = ((float) Math.random() - 0.5F) * m;
 						WispParticleData data = WispParticleData.wisp(s, r, 0F, b);
-						world.addParticle(data, target.getX() + target.getWidth() / 2, target.getY() + target.getHeight() / 2, target.getZ() + target.getWidth() / 2, xm, ym, zm);
+						world.addParticle(data, target.getX() + target.getBbWidth() / 2, target.getY() + target.getBbHeight() / 2, target.getZ() + target.getBbWidth() / 2, xm, ym, zm);
 					}
 
 					MathHelper.setEntityMotionFromVector(target, target3, 0.3333333F);
 
-					ItemNBTHelper.setInt(stack, TAG_TARGET, target.getEntityId());
+					ItemNBTHelper.setInt(stack, TAG_TARGET, target.getId());
 					ItemNBTHelper.setDouble(stack, TAG_DIST, length);
 				}
 
 				ItemNBTHelper.setInt(stack, TAG_TICKS_TILL_EXPIRE, 5);
-				return TypedActionResult.consume(stack);
+				return InteractionResultHolder.consume(stack);
 			}
 		}
-		return TypedActionResult.pass(stack);
+		return InteractionResultHolder.pass(stack);
 	}
 
 	@Override
@@ -206,23 +206,23 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 		return true;
 	}
 
-	private static void leftClick(PlayerEntity player) {
-		ItemStack stack = player.getMainHandStack();
+	private static void leftClick(Player player) {
+		ItemStack stack = player.getMainHandItem();
 		if (!stack.isEmpty() && stack.getItem() == ModItems.gravityRod) {
 			int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
 			ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
 			Entity item;
 
-			if (targetID != -1 && player.world.getEntityById(targetID) != null) {
-				Entity taritem = player.world.getEntityById(targetID);
+			if (targetID != -1 && player.level.getEntity(targetID) != null) {
+				Entity taritem = player.level.getEntity(targetID);
 
 				boolean found = false;
 				Vector3 target = Vector3.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
-					target = target.add(new Vector3(player.getRotationVector()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.world.getOtherEntities(player, target.boxForRange(RANGE), CAN_TARGET);
+					target = target.add(new Vector3(player.getLookAngle()).multiply(distance)).add(0, 0.5, 0);
+					entities = player.level.getEntities(player, target.boxForRange(RANGE), CAN_TARGET);
 					distance++;
 					if (entities.contains(taritem)) {
 						found = true;
@@ -233,18 +233,18 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 					item = taritem;
 					ItemNBTHelper.setInt(stack, TAG_TARGET, -1);
 					ItemNBTHelper.setDouble(stack, TAG_DIST, -1);
-					Vector3 moveVector = new Vector3(player.getRotationVector().normalize());
+					Vector3 moveVector = new Vector3(player.getLookAngle().normalize());
 					if (item instanceof ItemEntity) {
-						((ItemEntity) item).setPickupDelay(20);
+						((ItemEntity) item).setPickUpDelay(20);
 						float mot = IManaProficiencyArmor.hasProficiency(player, stack) ? 2.25F : 1.5F;
-						item.setVelocity(moveVector.x * mot, moveVector.y, moveVector.z * mot);
-						if (!player.world.isClient) {
-							EntityThrownItem thrown = new EntityThrownItem(item.world, item.getX(), item.getY(), item.getZ(), (ItemEntity) item);
-							item.world.spawnEntity(thrown);
+						item.setDeltaMovement(moveVector.x * mot, moveVector.y, moveVector.z * mot);
+						if (!player.level.isClientSide) {
+							EntityThrownItem thrown = new EntityThrownItem(item.level, item.getX(), item.getY(), item.getZ(), (ItemEntity) item);
+							item.level.addFreshEntity(thrown);
 						}
 						item.remove();
 					} else {
-						item.setVelocity(moveVector.multiply(3, 1.5, 3).toVector3d());
+						item.setDeltaMovement(moveVector.multiply(3, 1.5, 3).toVector3d());
 					}
 					ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, 10);
 				}

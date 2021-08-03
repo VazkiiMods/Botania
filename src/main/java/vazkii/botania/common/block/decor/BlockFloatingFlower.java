@@ -10,22 +10,22 @@ package vazkii.botania.common.block.decor;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IFloatingFlower;
@@ -42,31 +42,31 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockFloatingFlower extends BlockModWaterloggable implements BlockEntityProvider {
+public class BlockFloatingFlower extends BlockModWaterloggable implements EntityBlock {
 
-	private static final VoxelShape SHAPE = createCuboidShape(1.6, 1.6, 1.6, 14.4, 14.4, 14.4);
+	private static final VoxelShape SHAPE = box(1.6, 1.6, 1.6, 14.4, 14.4, 14.4);
 	public final DyeColor color;
 
-	public BlockFloatingFlower(DyeColor color, Settings props) {
+	public BlockFloatingFlower(DyeColor color, Properties props) {
 		super(props);
 		this.color = color;
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
 	@Nonnull
 	@Override
-	public BlockRenderType getRenderType(BlockState state) {
-		return ConfigHandler.CLIENT.staticFloaters.getValue() ? BlockRenderType.MODEL : BlockRenderType.ENTITYBLOCK_ANIMATED;
+	public RenderShape getRenderShape(BlockState state) {
+		return ConfigHandler.CLIENT.staticFloaters.getValue() ? RenderShape.MODEL : RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
 		int hex = ColorHelper.getColorValue(color);
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
@@ -79,8 +79,8 @@ public class BlockFloatingFlower extends BlockModWaterloggable implements BlockE
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		ItemStack stack = player.getStackInHand(hand);
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		ItemStack stack = player.getItemInHand(hand);
 		BlockEntity te = world.getBlockEntity(pos);
 		if (!stack.isEmpty() && te instanceof IFloatingFlowerProvider && ((IFloatingFlowerProvider) te).getFloatingData() != null) {
 			IFloatingFlower flower = ((IFloatingFlowerProvider) te).getFloatingData();
@@ -95,23 +95,23 @@ public class BlockFloatingFlower extends BlockModWaterloggable implements BlockE
 			}
 
 			if (type != null && type != flower.getIslandType()) {
-				if (!world.isClient) {
+				if (!world.isClientSide) {
 					flower.setIslandType(type);
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(te);
 				}
 
-				if (!player.abilities.creativeMode) {
-					stack.decrement(1);
+				if (!player.abilities.instabuild) {
+					stack.shrink(1);
 				}
-				return ActionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 		}
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileFloatingFlower();
 	}
 }

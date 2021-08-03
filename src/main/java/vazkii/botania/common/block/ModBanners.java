@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.entity.BannerPattern;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.Items;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.entity.BannerPattern;
 
 import vazkii.botania.common.item.ModItems;
 
@@ -42,7 +42,7 @@ public final class ModBanners {
 		addPattern("sword", "srd", Items.IRON_SWORD);
 	}
 
-	private static void addPattern(String name, String id, ItemConvertible craftingItem) {
+	private static void addPattern(String name, String id, ItemLike craftingItem) {
 		name = "botania_" + name;
 		id = "bt_" + id;
 		/* todo 1.16-fabric

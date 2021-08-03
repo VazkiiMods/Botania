@@ -8,14 +8,15 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.item.ItemStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.block.tile.TileSparkChanger;
 
@@ -28,17 +29,17 @@ public class RenderTileSparkChanger extends BlockEntityRenderer<TileSparkChanger
 	}
 
 	@Override
-	public void render(@Nonnull TileSparkChanger tileentity, float pticks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
-		ms.push();
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90));
+	public void render(@Nonnull TileSparkChanger tileentity, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+		ms.pushPose();
+		ms.mulPose(Vector3f.XP.rotationDegrees(90));
 		ms.translate(1.0F, -0.125F, -0.25F);
-		ItemStack stack = tileentity.getItemHandler().getStack(0);
+		ItemStack stack = tileentity.getItemHandler().getItem(0);
 		if (!stack.isEmpty()) {
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180));
+			ms.mulPose(Vector3f.YP.rotationDegrees(180));
 			ms.translate(0.5F, 0.5F, 0);
-			MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.GROUND, light, overlay, ms, buffers);
+			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND, light, overlay, ms, buffers);
 		}
-		ms.pop();
+		ms.popPose();
 	}
 
 }

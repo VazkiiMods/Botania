@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.impl;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.IHornHarvestable;
 
@@ -18,15 +18,15 @@ public class DefaultHornHarvestable implements IHornHarvestable {
 	public static final IHornHarvestable INSTANCE = new DefaultHornHarvestable();
 
 	@Override
-	public boolean canHornHarvest(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
+	public boolean canHornHarvest(Level world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
 		return false;
 	}
 
 	@Override
-	public boolean hasSpecialHornHarvest(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
+	public boolean hasSpecialHornHarvest(Level world, BlockPos pos, ItemStack stack, EnumHornType hornType) {
 		return false;
 	}
 
 	@Override
-	public void harvestByHorn(World world, BlockPos pos, ItemStack stack, EnumHornType hornType) {}
+	public void harvestByHorn(Level world, BlockPos pos, ItemStack stack, EnumHornType hornType) {}
 }

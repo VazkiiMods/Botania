@@ -8,20 +8,21 @@
  */
 package vazkii.botania.common.compat.rei;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix3f;
+import com.mojang.math.Matrix4f;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Matrix3f;
-import net.minecraft.util.math.Matrix4f;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -42,10 +43,10 @@ import me.shedaniel.rei.gui.widget.Widget;
 @Environment(EnvType.CLIENT)
 public class ElvenTradeREICategory implements RecipeCategory<ElvenTradeREIDisplay> {
 	private EntryStack gateway = EntryStack.create(new ItemStack(ModBlocks.alfPortal));
-	private Identifier TRADE_OVERLAY = ResourceLocationHelper.prefix("textures/gui/elven_trade_overlay.png");
+	private ResourceLocation TRADE_OVERLAY = ResourceLocationHelper.prefix("textures/gui/elven_trade_overlay.png");
 
 	@Override
-	public @NotNull Identifier getIdentifier() {
+	public @NotNull ResourceLocation getIdentifier() {
 		return RecipeElvenTrade.TYPE_ID;
 	}
 
@@ -56,7 +57,7 @@ public class ElvenTradeREICategory implements RecipeCategory<ElvenTradeREIDispla
 
 	@Override
 	public @NotNull String getCategoryName() {
-		return I18n.translate("botania.nei.elvenTrade");
+		return I18n.get("botania.nei.elvenTrade");
 	}
 
 	@Override
@@ -86,20 +87,20 @@ public class ElvenTradeREICategory implements RecipeCategory<ElvenTradeREIDispla
 		return 100;
 	}
 
-	void drawPortal(MatrixStack matrices, Point point) {
-		Sprite sprite = MinecraftClient.getInstance().getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).apply(ResourceLocationHelper.prefix("block/alfheim_portal_swirl"));
-		VertexConsumerProvider.Immediate immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
-		VertexConsumer v = immediate.getBuffer(RenderLayer.getSolid());
+	void drawPortal(PoseStack matrices, Point point) {
+		TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_BLOCKS).apply(ResourceLocationHelper.prefix("block/alfheim_portal_swirl"));
+		MultiBufferSource.BufferSource immediate = Minecraft.getInstance().renderBuffers().bufferSource();
+		VertexConsumer v = immediate.getBuffer(RenderType.solid());
 		int startX = point.x - 43;
 		int startY = point.y - 17;
 		int stopX = startX + 48;
 		int stopY = startY + 48;
-		Matrix4f mat = matrices.peek().getModel();
-		Matrix3f n = matrices.peek().getNormal();
-		v.vertex(mat, startX, startY, 0).color(1f, 1f, 1f, 1f).texture(sprite.getMinU(), sprite.getMinV()).light(0xF000F0).normal(n, 1, 0, 0).next();
-		v.vertex(mat, startX, stopY, 0).color(1f, 1f, 1f, 1f).texture(sprite.getMinU(), sprite.getMaxV()).light(0xF000F0).normal(n, 1, 0, 0).next();
-		v.vertex(mat, stopX, stopY, 0).color(1f, 1f, 1f, 1f).texture(sprite.getMaxU(), sprite.getMaxV()).light(0xF000F0).normal(n, 1, 0, 0).next();
-		v.vertex(mat, stopX, startY, 0).color(1f, 1f, 1f, 1f).texture(sprite.getMaxU(), sprite.getMinV()).light(0xF000F0).normal(n, 1, 0, 0).next();
-		immediate.draw();
+		Matrix4f mat = matrices.last().pose();
+		Matrix3f n = matrices.last().normal();
+		v.vertex(mat, startX, startY, 0).color(1f, 1f, 1f, 1f).uv(sprite.getU0(), sprite.getV0()).uv2(0xF000F0).normal(n, 1, 0, 0).endVertex();
+		v.vertex(mat, startX, stopY, 0).color(1f, 1f, 1f, 1f).uv(sprite.getU0(), sprite.getV1()).uv2(0xF000F0).normal(n, 1, 0, 0).endVertex();
+		v.vertex(mat, stopX, stopY, 0).color(1f, 1f, 1f, 1f).uv(sprite.getU1(), sprite.getV1()).uv2(0xF000F0).normal(n, 1, 0, 0).endVertex();
+		v.vertex(mat, stopX, startY, 0).color(1f, 1f, 1f, 1f).uv(sprite.getU1(), sprite.getV0()).uv2(0xF000F0).normal(n, 1, 0, 0).endVertex();
+		immediate.endBatch();
 	}
 }

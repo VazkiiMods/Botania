@@ -10,14 +10,14 @@ package vazkii.botania.common.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.TallFlowerBlock;
-import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.TallFlowerBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -30,7 +30,7 @@ import java.util.Random;
 public class BlockModDoubleFlower extends TallFlowerBlock {
 	private final DyeColor color;
 
-	public BlockModDoubleFlower(DyeColor color, Settings builder) {
+	public BlockModDoubleFlower(DyeColor color, Properties builder) {
 		super(builder);
 		this.color = color;
 	}
@@ -38,24 +38,24 @@ public class BlockModDoubleFlower extends TallFlowerBlock {
 	// Normally, when an upper block is broken, the lower block recognizes the plant is no longer whole and automatically breaks itself.
 	// But since we require shears, this is needed to pass the breaking context (tool, etc.) to the lower block.
 	@Override
-	public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-		if (state.get(HALF) == DoubleBlockHalf.UPPER) {
-			BlockState lower = world.getBlockState(pos.down());
-			if (lower.getBlock() == this && lower.get(HALF) == DoubleBlockHalf.LOWER) {
-				lower.getBlock().onBreak(world, pos.down(), lower, player);
+	public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) {
+		if (state.getValue(HALF) == DoubleBlockHalf.UPPER) {
+			BlockState lower = world.getBlockState(pos.below());
+			if (lower.getBlock() == this && lower.getValue(HALF) == DoubleBlockHalf.LOWER) {
+				lower.getBlock().playerWillDestroy(world, pos.below(), lower, player);
 			}
 		}
-		super.onBreak(world, pos, state, player);
+		super.playerWillDestroy(world, pos, state, player);
 	}
 
 	@Override
-	public boolean isFertilizable(@Nonnull BlockView world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean fuckifiknow) {
+	public boolean isValidBonemealTarget(@Nonnull BlockGetter world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean fuckifiknow) {
 		return false;
 	}
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
 		int hex = ColorHelper.getColorValue(color);
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;

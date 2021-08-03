@@ -10,13 +10,13 @@ package vazkii.botania.common.item;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.IAncientWillContainer;
 
@@ -26,15 +26,15 @@ import java.util.Locale;
 public class ItemAncientWill extends Item {
 	public final IAncientWillContainer.AncientWillType type;
 
-	public ItemAncientWill(IAncientWillContainer.AncientWillType variant, Settings props) {
+	public ItemAncientWill(IAncientWillContainer.AncientWillType variant, Properties props) {
 		super(props);
 		this.type = variant;
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendTooltip(ItemStack stack, World world, List<Text> list, TooltipContext flag) {
-		list.add(new TranslatableText("botaniamisc.craftToAddWill").formatted(Formatting.GREEN));
-		list.add(new TranslatableText("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".shortDesc").formatted(Formatting.GRAY));
+	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flag) {
+		list.add(new TranslatableComponent("botaniamisc.craftToAddWill").withStyle(ChatFormatting.GREEN));
+		list.add(new TranslatableComponent("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".shortDesc").withStyle(ChatFormatting.GRAY));
 	}
 }

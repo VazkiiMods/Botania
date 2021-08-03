@@ -8,27 +8,28 @@
  */
 package vazkii.botania.api.subtile;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Tickable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.capability.FloatingFlowerImpl;
@@ -48,16 +49,16 @@ import javax.annotation.Nullable;
 /**
  * Common superclass of all magical flower TE's
  */
-public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IWandBindable, IFloatingFlowerProvider, RenderAttachmentBlockEntity, BlockEntityClientSerializable {
-	public static final Identifier DING_SOUND_EVENT = new Identifier(BotaniaAPI.MODID, "ding");
+public class TileEntitySpecialFlower extends BlockEntity implements TickableBlockEntity, IWandBindable, IFloatingFlowerProvider, RenderAttachmentBlockEntity, BlockEntityClientSerializable {
+	public static final ResourceLocation DING_SOUND_EVENT = new ResourceLocation(BotaniaAPI.MODID, "ding");
 	public static final int SLOWDOWN_FACTOR_PODZOL = 5;
 	public static final int SLOWDOWN_FACTOR_MYCEL = 10;
 
 	private final IFloatingFlower floatingData = new FloatingFlowerImpl() {
 		@Override
 		public ItemStack getDisplayStack() {
-			Identifier id = Registry.BLOCK_ENTITY_TYPE.getId(getType());
-			return Registry.ITEM.getOrEmpty(id).map(ItemStack::new).orElse(super.getDisplayStack());
+			ResourceLocation id = Registry.BLOCK_ENTITY_TYPE.getKey(getType());
+			return Registry.ITEM.getOptional(id).map(ItemStack::new).orElse(super.getDisplayStack());
 		}
 	};
 
@@ -79,11 +80,11 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 
 	@Override
 	public final void tick() {
-		if (isFloating != getCachedState().isIn(ModTags.Blocks.FLOATING_FLOWERS)) {
+		if (isFloating != getBlockState().is(ModTags.Blocks.FLOATING_FLOWERS)) {
 			Botania.LOGGER.error("Special flower changed floating state, this is not supported!", new Throwable());
 			isFloating = !isFloating;
 		}
-		BlockEntity tileBelow = world.getBlockEntity(pos.down());
+		BlockEntity tileBelow = level.getBlockEntity(worldPosition.below());
 		if (tileBelow instanceof TileRedStringRelay) {
 			BlockPos coords = ((TileRedStringRelay) tileBelow).getBinding();
 			if (coords != null) {
@@ -114,7 +115,7 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 	@Nullable
 	@Override
 	public IFloatingFlower getFloatingData() {
-		if (hasWorld() && isFloating()) {
+		if (hasLevel() && isFloating()) {
 			return floatingData;
 		}
 		return null;
@@ -137,7 +138,7 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 		if (isFloating()) {
 			return false;
 		} else {
-			return world.getBlockState(pos.down()).getBlock() == ModBlocks.enchantedSoil;
+			return level.getBlockState(worldPosition.below()).getBlock() == ModBlocks.enchantedSoil;
 		}
 	}
 
@@ -146,7 +147,7 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 	 *         red string spoofers.
 	 */
 	public final BlockPos getEffectivePos() {
-		return positionOverride != null ? positionOverride : getPos();
+		return positionOverride != null ? positionOverride : getBlockPos();
 	}
 
 	protected void tickFlower() {
@@ -154,8 +155,8 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 	}
 
 	@Override
-	public final void fromTag(BlockState state, CompoundTag cmp) {
-		super.fromTag(state, cmp);
+	public final void load(BlockState state, CompoundTag cmp) {
+		super.load(state, cmp);
 		if (cmp.contains(TAG_TICKS_EXISTED)) {
 			ticksExisted = cmp.getInt(TAG_TICKS_EXISTED);
 		}
@@ -167,8 +168,8 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 
 	@Nonnull
 	@Override
-	public final CompoundTag toTag(CompoundTag cmp) {
-		cmp = super.toTag(cmp);
+	public final CompoundTag save(CompoundTag cmp) {
+		cmp = super.save(cmp);
 		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
 		writeToPacketNBT(cmp);
 		return cmp;
@@ -185,14 +186,14 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 		IFloatingFlower.IslandType oldType = floatingData.getIslandType();
 		readFromPacketNBT(tag);
 		if (isFloating() && oldType != floatingData.getIslandType()) {
-			world.updateListeners(getPos(), getCachedState(), getCachedState(), 0);
+			level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 0);
 		}
 	}
 
 	@Nonnull
 	@Override
-	public CompoundTag toInitialChunkDataTag() {
-		return toTag(new CompoundTag());
+	public CompoundTag getUpdateTag() {
+		return save(new CompoundTag());
 	}
 
 	/**
@@ -226,14 +227,14 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 	 * Called when a Wand of the Forest is used on this sub tile. Note that the
 	 * player parameter can be null if this is called from a dispenser.
 	 */
-	public boolean onWanded(PlayerEntity player, ItemStack wand) {
+	public boolean onWanded(Player player, ItemStack wand) {
 		return false;
 	}
 
 	/**
 	 * Called when this sub tile is placed in the world (by an entity).
 	 */
-	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {}
+	public void onBlockPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {}
 
 	/**
 	 * Gets the block coordinates this is bound to, for use with the wireframe render
@@ -265,18 +266,18 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 	}
 
 	/**
-	 * @see IWandBindable#canSelect(PlayerEntity, ItemStack, net.minecraft.util.math.BlockPos, Direction)
+	 * @see IWandBindable#canSelect(Player, ItemStack, net.minecraft.core.BlockPos, Direction)
 	 */
 	@Override
-	public boolean canSelect(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
+	public boolean canSelect(Player player, ItemStack wand, BlockPos pos, Direction side) {
 		return false;
 	}
 
 	/**
-	 * @see IWandBindable#bindTo(PlayerEntity, ItemStack, net.minecraft.util.math.BlockPos, Direction)
+	 * @see IWandBindable#bindTo(Player, ItemStack, net.minecraft.core.BlockPos, Direction)
 	 */
 	@Override
-	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
+	public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
 		return false;
 	}
 
@@ -285,7 +286,7 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 	 * Used to render a HUD portraying some data from this sub tile.
 	 */
 	@Environment(EnvType.CLIENT)
-	public void renderHUD(MatrixStack ms, MinecraftClient mc) {}
+	public void renderHUD(PoseStack ms, Minecraft mc) {}
 
 	/**
 	 * Gets if this SubTileEntity is affected by Enchanted Soil's speed boost.
@@ -309,7 +310,7 @@ public class TileEntitySpecialFlower extends BlockEntity implements Tickable, IW
 				return SLOWDOWN_FACTOR_PODZOL;
 			}
 		} else {
-			Block below = world.getBlockState(getPos().down()).getBlock();
+			Block below = level.getBlockState(getBlockPos().below()).getBlock();
 			if (below == Blocks.MYCELIUM) {
 				return SLOWDOWN_FACTOR_MYCEL;
 			}

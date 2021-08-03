@@ -8,20 +8,20 @@
  */
 package vazkii.botania.common.item.rod;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
@@ -44,7 +44,7 @@ import java.util.UUID;
 
 public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWieldable {
 
-	private static final Identifier avatarOverlay = new Identifier(LibResources.MODEL_AVATAR_TORNADO);
+	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_TORNADO);
 
 	private static final int FLY_TIME = 20;
 	private static final int FALL_MULTIPLIER = 3;
@@ -54,16 +54,16 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 	private static final String TAG_FLYING = "flying";
 	private static final String TAG_FLYCOUNTER = "flyCounter";
 
-	public ItemTornadoRod(Settings props) {
+	public ItemTornadoRod(Properties props) {
 		super(props);
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity ent, int slot, boolean active) {
-		if (ent instanceof PlayerEntity) {
-			PlayerEntity player = (PlayerEntity) ent;
+	public void inventoryTick(ItemStack stack, Level world, Entity ent, int slot, boolean active) {
+		if (ent instanceof Player) {
+			Player player = (Player) ent;
 			boolean damaged = getFlyCounter(stack) > 0;
-			boolean held = player.getMainHandStack() == stack || player.getOffHandStack() == stack;
+			boolean held = player.getMainHandItem() == stack || player.getOffhandItem() == stack;
 
 			if (damaged && !isFlying(stack)) {
 				setFlyCounter(stack, getFlyCounter(stack) - 1);
@@ -75,12 +75,12 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 				if (held) {
 					player.fallDistance = 0F;
 					double my = IManaProficiencyArmor.hasProficiency(player, stack) ? 1.6 : 1.25;
-					Vec3d oldMot = player.getVelocity();
+					Vec3 oldMot = player.getDeltaMovement();
 					if (player.isFallFlying()) {
-						Vec3d lookDir = player.getRotationVector();
-						player.setVelocity(new Vec3d(lookDir.getX() * my, lookDir.getY() * my, lookDir.getZ() * my));
+						Vec3 lookDir = player.getLookAngle();
+						player.setDeltaMovement(new Vec3(lookDir.x() * my, lookDir.y() * my, lookDir.z() * my));
 					} else {
-						player.setVelocity(new Vec3d(oldMot.getX(), my, oldMot.getZ()));
+						player.setDeltaMovement(new Vec3(oldMot.x(), my, oldMot.z()));
 					}
 
 					player.playSound(ModSounds.airRod, 0.1F, 0.25F);
@@ -119,16 +119,16 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getStackInHand(hand);
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
 		int fly = getFlyCounter(stack);
 		if (fly == 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
 			ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true);
 			setFlying(stack, true);
-			return TypedActionResult.success(stack);
+			return InteractionResultHolder.success(stack);
 		}
 
-		return TypedActionResult.pass(stack);
+		return InteractionResultHolder.pass(stack);
 	}
 
 	public static boolean isFlying(ItemStack stack) {
@@ -155,30 +155,30 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
 		BlockEntity te = tile.tileEntity();
-		World world = te.getWorld();
+		Level world = te.getLevel();
 		Map<UUID, Integer> cooldowns = tile.getBoostCooldowns();
 
-		if (!world.isClient) {
+		if (!world.isClientSide) {
 			decAvatarCooldowns(cooldowns);
 		}
-		if (!world.isClient && tile.getCurrentMana() >= COST && tile.isEnabled()) {
+		if (!world.isClientSide && tile.getCurrentMana() >= COST && tile.isEnabled()) {
 			int range = 5;
 			int rangeY = 3;
-			List<PlayerEntity> players = world.getNonSpectatingEntities(PlayerEntity.class,
-					new Box(te.getPos().add(-0.5 - range, -0.5 - rangeY, -0.5 - range),
-							te.getPos().add(0.5 + range, 0.5 + rangeY, 0.5 + range)));
-			for (PlayerEntity p : players) {
+			List<Player> players = world.getEntitiesOfClass(Player.class,
+					new AABB(te.getBlockPos().offset(-0.5 - range, -0.5 - rangeY, -0.5 - range),
+							te.getBlockPos().offset(0.5 + range, 0.5 + rangeY, 0.5 + range)));
+			for (Player p : players) {
 				int cooldown = 0;
-				if (cooldowns.containsKey(p.getUuid())) {
-					cooldown = cooldowns.get(p.getUuid());
+				if (cooldowns.containsKey(p.getUUID())) {
+					cooldown = cooldowns.get(p.getUUID());
 				}
-				if (!p.isSneaking() && cooldown <= 0) {
-					if (p.getVelocity().length() > 0.2 && p.getVelocity().length() < 5 && p.isFallFlying()) {
+				if (!p.isShiftKeyDown() && cooldown <= 0) {
+					if (p.getDeltaMovement().length() > 0.2 && p.getDeltaMovement().length() < 5 && p.isFallFlying()) {
 						doAvatarElytraBoost(p, world);
 						doAvatarMiscEffects(p, tile);
-						cooldowns.put(p.getUuid(), 20);
-						te.markDirty();
-					} else if (p.getVelocity().getY() > 0.3 && p.getVelocity().getY() < 2 && !p.isFallFlying()) {
+						cooldowns.put(p.getUUID(), 20);
+						te.setChanged();
+					} else if (p.getDeltaMovement().y() > 0.3 && p.getDeltaMovement().y() < 2 && !p.isFallFlying()) {
 						doAvatarJump(p, world);
 						doAvatarMiscEffects(p, tile);
 					}
@@ -187,38 +187,38 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 		}
 	}
 
-	public static void doAvatarElytraBoost(PlayerEntity p, World world) {
-		Vec3d lookDir = p.getRotationVector();
-		double mult = 1.25 * Math.pow(Math.E, -0.5 * p.getVelocity().length());
-		p.setVelocity(p.getVelocity().getX() + lookDir.getX() * mult,
-				p.getVelocity().getY() + lookDir.getY() * mult,
-				p.getVelocity().getZ() + lookDir.getZ() * mult);
+	public static void doAvatarElytraBoost(Player p, Level world) {
+		Vec3 lookDir = p.getLookAngle();
+		double mult = 1.25 * Math.pow(Math.E, -0.5 * p.getDeltaMovement().length());
+		p.setDeltaMovement(p.getDeltaMovement().x() + lookDir.x() * mult,
+				p.getDeltaMovement().y() + lookDir.y() * mult,
+				p.getDeltaMovement().z() + lookDir.z() * mult);
 
-		if (!world.isClient) {
-			PacketAvatarTornadoRod.sendTo((ServerPlayerEntity) p, true);
+		if (!world.isClientSide) {
+			PacketAvatarTornadoRod.sendTo((ServerPlayer) p, true);
 			PacketBotaniaEffect.sendNearby(p,
 					PacketBotaniaEffect.EffectType.AVATAR_TORNADO_BOOST,
 					p.getX(), p.getY(), p.getZ(),
-					p.getEntityId());
+					p.getId());
 		}
 	}
 
-	public static void doAvatarJump(PlayerEntity p, World world) {
-		p.setVelocity(p.getVelocity().getX(), 2.8, p.getVelocity().getZ());
+	public static void doAvatarJump(Player p, Level world) {
+		p.setDeltaMovement(p.getDeltaMovement().x(), 2.8, p.getDeltaMovement().z());
 
-		if (!world.isClient) {
-			PacketAvatarTornadoRod.sendTo((ServerPlayerEntity) p, false);
+		if (!world.isClientSide) {
+			PacketAvatarTornadoRod.sendTo((ServerPlayer) p, false);
 			PacketBotaniaEffect.sendNearby(p,
 					PacketBotaniaEffect.EffectType.AVATAR_TORNADO_JUMP,
 					p.getX(), p.getY(), p.getZ(),
-					p.getEntityId()
+					p.getId()
 			);
 		}
 	}
 
-	private void doAvatarMiscEffects(PlayerEntity p, IAvatarTile tile) {
-		p.world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.dash, SoundCategory.PLAYERS, 1F, 1F);
-		p.addStatusEffect(new StatusEffectInstance(ModPotions.featherfeet, 100, 0));
+	private void doAvatarMiscEffects(Player p, IAvatarTile tile) {
+		p.level.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.dash, SoundSource.PLAYERS, 1F, 1F);
+		p.addEffect(new MobEffectInstance(ModPotions.featherfeet, 100, 0));
 		tile.receiveMana(-COST);
 	}
 
@@ -241,7 +241,7 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 	*/
 
 	@Override
-	public Identifier getOverlayResource(IAvatarTile tile, ItemStack stack) {
+	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
 		return avatarOverlay;
 	}
 

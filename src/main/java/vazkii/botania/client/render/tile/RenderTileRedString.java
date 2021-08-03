@@ -8,15 +8,16 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -32,7 +33,7 @@ public class RenderTileRedString<T extends TileRedString> extends BlockEntityRen
 	private static int transparency = 0;
 
 	public static void tick() {
-		PlayerEntity player = MinecraftClient.getInstance().player;
+		Player player = Minecraft.getInstance().player;
 		boolean hasWand = player != null && PlayerHelper.hasHeldItem(player, ModItems.twigWand);
 		if (transparency > 0 && !hasWand) {
 			transparency--;
@@ -46,7 +47,7 @@ public class RenderTileRedString<T extends TileRedString> extends BlockEntityRen
 	}
 
 	@Override
-	public void render(TileRedString tile, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
+	public void render(TileRedString tile, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		if (transparency <= 0) {
 			return;
 		}
@@ -58,16 +59,16 @@ public class RenderTileRedString<T extends TileRedString> extends BlockEntityRen
 		BlockPos bind = tile.getBinding();
 
 		if (bind != null) {
-			ms.push();
+			ms.pushPose();
 			ms.translate(0.5, 0.5, 0.5);
-			Vector3 vecOrig = new Vector3(bind.getX() - tile.getPos().getX(), bind.getY() - tile.getPos().getY(), bind.getZ() - tile.getPos().getZ());
+			Vector3 vecOrig = new Vector3(bind.getX() - tile.getBlockPos().getX(), bind.getY() - tile.getBlockPos().getY(), bind.getZ() - tile.getBlockPos().getZ());
 			Vector3 vecNorm = vecOrig.normalize();
 			Vector3 vecMag = vecNorm.multiply(0.025);
 			Vector3 vecApply = vecMag;
 
 			int stages = (int) (vecOrig.mag() / vecMag.mag());
 
-			double len = (double) -ClientTickHandler.ticksInGame / 100F + new Random(dir.ordinal() ^ tile.getPos().hashCode()).nextInt(10000);
+			double len = (double) -ClientTickHandler.ticksInGame / 100F + new Random(dir.ordinal() ^ tile.getBlockPos().hashCode()).nextInt(10000);
 			double add = vecMag.mag();
 			double rand = Math.random() - 0.5;
 			VertexConsumer buffer = buffers.getBuffer(RenderHelper.LINE_1);
@@ -79,24 +80,24 @@ public class RenderTileRedString<T extends TileRedString> extends BlockEntityRen
 				addVertexAtWithTranslation(ms, buffer, color, dir, vecApply.x, vecApply.y, vecApply.z, rand, len);
 			}
 
-			ms.pop();
+			ms.popPose();
 		}
 	}
 
-	private static void addVertexAtWithTranslation(MatrixStack ms, VertexConsumer buffer, int color, Direction dir, double xpos, double ypos, double zpos, double rand, double l) {
+	private static void addVertexAtWithTranslation(PoseStack ms, VertexConsumer buffer, int color, Direction dir, double xpos, double ypos, double zpos, double rand, double l) {
 		double freq = 20;
 		float sizeAlpha = transparency / 10.0F;
 		double ampl = (0.15 * (Math.sin(l * 2F) * 0.5 + 0.5) + 0.1) * sizeAlpha;
 		double randMul = 0.05;
-		double x = xpos + Math.sin(l * freq) * ampl * Math.abs(Math.abs(dir.getOffsetX()) - 1) + rand * randMul;
-		double y = ypos + Math.cos(l * freq) * ampl * Math.abs(Math.abs(dir.getOffsetY()) - 1) + rand * randMul;
-		double z = zpos + (dir.getOffsetY() == 0 ? Math.sin(l * freq) : Math.cos(l * freq)) * ampl * Math.abs(Math.abs(dir.getOffsetZ()) - 1) + rand * randMul;
+		double x = xpos + Math.sin(l * freq) * ampl * Math.abs(Math.abs(dir.getStepX()) - 1) + rand * randMul;
+		double y = ypos + Math.cos(l * freq) * ampl * Math.abs(Math.abs(dir.getStepY()) - 1) + rand * randMul;
+		double z = zpos + (dir.getStepY() == 0 ? Math.sin(l * freq) : Math.cos(l * freq)) * ampl * Math.abs(Math.abs(dir.getStepZ()) - 1) + rand * randMul;
 
 		int a = (color >> 24) & 0xFF;
 		int r = (color >> 16) & 0xFF;
 		int g = (color >> 8) & 0xFF;
 		int b = color & 0xFF;
-		buffer.vertex(ms.peek().getModel(), (float) x, (float) y, (float) z).color(r, g, b, a).next();
+		buffer.vertex(ms.last().pose(), (float) x, (float) y, (float) z).color(r, g, b, a).endVertex();
 	}
 
 }

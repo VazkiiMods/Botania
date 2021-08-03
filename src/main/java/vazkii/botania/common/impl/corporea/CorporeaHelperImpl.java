@@ -10,15 +10,15 @@ package vazkii.botania.common.impl.corporea;
 
 import com.google.common.base.Predicates;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaRetainer;
@@ -141,8 +141,8 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 	}
 
 	@Override
-	public ICorporeaSpark getSparkForBlock(World world, BlockPos pos) {
-		List<Entity> sparks = world.getEntitiesByClass(Entity.class, new Box(pos.up(), pos.add(1, 2, 1)), Predicates.instanceOf(ICorporeaSpark.class));
+	public ICorporeaSpark getSparkForBlock(Level world, BlockPos pos) {
+		List<Entity> sparks = world.getEntitiesOfClass(Entity.class, new AABB(pos.above(), pos.offset(1, 2, 1)), Predicates.instanceOf(ICorporeaSpark.class));
 		return sparks.isEmpty() ? null : (ICorporeaSpark) sparks.get(0);
 	}
 
@@ -153,12 +153,12 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 		} else if (requestSize >= 16384) {
 			return 15;
 		} else {
-			return Math.min(15, MathHelper.log2(requestSize) + 1);
+			return Math.min(15, Mth.log2(requestSize) + 1);
 		}
 	}
 
 	@Override
-	public <T extends ICorporeaRequestMatcher> void registerRequestMatcher(Identifier id, Class<T> clazz, Function<CompoundTag, T> deserializer) {
+	public <T extends ICorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundTag, T> deserializer) {
 		TileCorporeaRetainer.addCorporeaRequestMatcher(id, clazz, deserializer);
 	}
 

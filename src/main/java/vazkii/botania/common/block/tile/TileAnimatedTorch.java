@@ -8,19 +8,20 @@
  */
 package vazkii.botania.common.block.tile;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.particle.DustParticleEffect;
-import net.minecraft.util.Tickable;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
@@ -30,7 +31,7 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class TileAnimatedTorch extends TileMod implements Tickable {
+public class TileAnimatedTorch extends TileMod implements TickableBlockEntity {
 	private static final String TAG_SIDE = "side";
 	private static final String TAG_ROTATING = "rotating";
 	private static final String TAG_ROTATION_TICKS = "rotationTicks";
@@ -49,7 +50,7 @@ public class TileAnimatedTorch extends TileMod implements Tickable {
 	public double rotation;
 	public boolean rotating;
 	public double lastTickRotation;
-	public int nextRandomRotation = MathHelper.floor(Math.random() * 3);
+	public int nextRandomRotation = Mth.floor(Math.random() * 3);
 	public int currentRandomRotation;
 
 	private int rotationTicks;
@@ -62,22 +63,22 @@ public class TileAnimatedTorch extends TileMod implements Tickable {
 	}
 
 	public void handRotate() {
-		if (!world.isClient) {
-			world.addSyncedBlockEvent(getPos(), ModBlocks.animatedTorch, 0, (side + 1) % 4);
+		if (!level.isClientSide) {
+			level.blockEvent(getBlockPos(), ModBlocks.animatedTorch, 0, (side + 1) % 4);
 		}
 	}
 
 	public void onPlace(@Nullable LivingEntity entity) {
 		if (entity != null) {
-			side = Arrays.asList(SIDES).indexOf(entity.getHorizontalFacing().getOpposite());
+			side = Arrays.asList(SIDES).indexOf(entity.getDirection().getOpposite());
 		}
-		world.updateNeighborsAlways(getPos().offset(SIDES[side].getOpposite()), getCachedState().getBlock());
+		level.updateNeighborsAt(getBlockPos().relative(SIDES[side].getOpposite()), getBlockState().getBlock());
 	}
 
 	public void toggle() {
-		if (!world.isClient) {
-			world.addSyncedBlockEvent(getPos(), ModBlocks.animatedTorch, 0, torchMode.modeSwitcher.rotate(this, side));
-			nextRandomRotation = world.random.nextInt(4);
+		if (!level.isClientSide) {
+			level.blockEvent(getBlockPos(), ModBlocks.animatedTorch, 0, torchMode.modeSwitcher.rotate(this, side));
+			nextRandomRotation = level.random.nextInt(4);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 	}
@@ -90,12 +91,12 @@ public class TileAnimatedTorch extends TileMod implements Tickable {
 	}
 
 	@Override
-	public boolean onSyncedBlockEvent(int id, int param) {
+	public boolean triggerEvent(int id, int param) {
 		if (id == 0) {
 			rotateTo(param);
 			return true;
 		} else {
-			return super.onSyncedBlockEvent(id, param);
+			return super.triggerEvent(id, param);
 		}
 	}
 
@@ -118,19 +119,19 @@ public class TileAnimatedTorch extends TileMod implements Tickable {
 		rotating = true;
 
 		// tell neighbors that signal is off because we are rotating
-		world.updateNeighborsAlways(getPos(), getCachedState().getBlock());
+		level.updateNeighborsAt(getBlockPos(), getBlockState().getBlock());
 		for (Direction e : Direction.values()) {
-			world.updateNeighborsAlways(getPos().offset(e), getCachedState().getBlock());
+			level.updateNeighborsAt(getBlockPos().relative(e), getBlockState().getBlock());
 		}
 	}
 
 	@Environment(EnvType.CLIENT)
-	public void renderHUD(MatrixStack ms, MinecraftClient mc) {
-		int x = mc.getWindow().getScaledWidth() / 2 + 10;
-		int y = mc.getWindow().getScaledHeight() / 2 - 8;
+	public void renderHUD(PoseStack ms, Minecraft mc) {
+		int x = mc.getWindow().getGuiScaledWidth() / 2 + 10;
+		int y = mc.getWindow().getGuiScaledHeight() / 2 - 8;
 
-		mc.getItemRenderer().renderInGuiWithOverrides(new ItemStack(Blocks.REDSTONE_TORCH), x, y);
-		mc.textRenderer.drawWithShadow(ms, I18n.translate("botania.animatedTorch." + torchMode.name().toLowerCase(Locale.ROOT)), x + 18, y + 6, 0xFF4444);
+		mc.getItemRenderer().renderAndDecorateItem(new ItemStack(Blocks.REDSTONE_TORCH), x, y);
+		mc.font.drawShadow(ms, I18n.get("botania.animatedTorch." + torchMode.name().toLowerCase(Locale.ROOT)), x + 18, y + 6, 0xFF4444);
 	}
 
 	@Override
@@ -143,9 +144,9 @@ public class TileAnimatedTorch extends TileMod implements Tickable {
 			if (rotationTicks <= 0) {
 				rotating = false;
 				// done rotating, tell neighbors
-				world.updateNeighborsAlways(getPos(), getCachedState().getBlock());
+				level.updateNeighborsAt(getBlockPos(), getBlockState().getBlock());
 				for (Direction e : Direction.values()) {
-					world.updateNeighborsAlways(getPos().offset(e), getCachedState().getBlock());
+					level.updateNeighborsAt(getBlockPos().relative(e), getBlockState().getBlock());
 				}
 			}
 
@@ -153,14 +154,14 @@ public class TileAnimatedTorch extends TileMod implements Tickable {
 			rotation = side * 90;
 		}
 
-		if (world.isClient) {
+		if (level.isClientSide) {
 			int amt = rotating ? 3 : Math.random() < 0.1 ? 1 : 0;
-			double x = getPos().getX() + 0.5 + Math.cos((rotation + 90) / 180.0 * Math.PI) * 0.35;
-			double y = getPos().getY() + 0.2;
-			double z = getPos().getZ() + 0.5 + Math.sin((rotation + 90) / 180.0 * Math.PI) * 0.35;
+			double x = getBlockPos().getX() + 0.5 + Math.cos((rotation + 90) / 180.0 * Math.PI) * 0.35;
+			double y = getBlockPos().getY() + 0.2;
+			double z = getBlockPos().getZ() + 0.5 + Math.sin((rotation + 90) / 180.0 * Math.PI) * 0.35;
 
 			for (int i = 0; i < amt; i++) {
-				world.addParticle(DustParticleEffect.RED, x, y, z, 0.0D, 0.0D, 0.0D);
+				level.addParticle(DustParticleOptions.REDSTONE, x, y, z, 0.0D, 0.0D, 0.0D);
 			}
 		}
 	}
@@ -179,7 +180,7 @@ public class TileAnimatedTorch extends TileMod implements Tickable {
 	public void readPacketNBT(CompoundTag cmp) {
 		side = cmp.getInt(TAG_SIDE);
 		rotating = cmp.getBoolean(TAG_ROTATING);
-		if (world != null && !world.isClient) {
+		if (level != null && !level.isClientSide) {
 			rotationTicks = cmp.getInt(TAG_ROTATION_TICKS);
 		}
 		anglePerTick = cmp.getDouble(TAG_ANGLE_PER_TICK);

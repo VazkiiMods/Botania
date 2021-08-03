@@ -8,12 +8,12 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.util.Tickable;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldProperties;
-import net.minecraft.world.level.ServerWorldProperties;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.storage.LevelData;
+import net.minecraft.world.level.storage.ServerLevelData;
 
-public class TileTeruTeruBozu extends TileMod implements Tickable {
+public class TileTeruTeruBozu extends TileMod implements TickableBlockEntity {
 	private boolean wasRaining = false;
 
 	public TileTeruTeruBozu() {
@@ -22,27 +22,27 @@ public class TileTeruTeruBozu extends TileMod implements Tickable {
 
 	@Override
 	public void tick() {
-		if (world.isClient) {
+		if (level.isClientSide) {
 			return;
 		}
 
-		boolean isRaining = world.isRaining();
-		if (isRaining && world.random.nextInt(9600) == 0) {
-			world.getLevelProperties().setRaining(false);
-			resetRainTime(world);
+		boolean isRaining = level.isRaining();
+		if (isRaining && level.random.nextInt(9600) == 0) {
+			level.getLevelData().setRaining(false);
+			resetRainTime(level);
 		}
 
 		if (wasRaining != isRaining) {
-			world.updateComparators(pos, getCachedState().getBlock());
+			level.updateNeighbourForOutputSignal(worldPosition, getBlockState().getBlock());
 		}
 		wasRaining = isRaining;
 	}
 
-	public static void resetRainTime(World w) {
-		int time = w.random.nextInt(w.getLevelProperties().isRaining() ? 12000 : 168000) + 12000;
-		WorldProperties info = w.getLevelProperties();
-		if (info instanceof ServerWorldProperties) {
-			((ServerWorldProperties) info).setRainTime(time);
+	public static void resetRainTime(Level w) {
+		int time = w.random.nextInt(w.getLevelData().isRaining() ? 12000 : 168000) + 12000;
+		LevelData info = w.getLevelData();
+		if (info instanceof ServerLevelData) {
+			((ServerLevelData) info).setRainTime(time);
 		}
 	}
 }

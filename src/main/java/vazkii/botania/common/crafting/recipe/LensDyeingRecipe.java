@@ -8,16 +8,16 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.SpecialCraftingRecipe;
-import net.minecraft.recipe.SpecialRecipeSerializer;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Lazy;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.common.item.ModItems;
@@ -28,22 +28,22 @@ import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
 
-public class LensDyeingRecipe extends SpecialCraftingRecipe {
-	public static final SpecialRecipeSerializer<LensDyeingRecipe> SERIALIZER = new SpecialRecipeSerializer<>(LensDyeingRecipe::new);
+public class LensDyeingRecipe extends CustomRecipe {
+	public static final SimpleRecipeSerializer<LensDyeingRecipe> SERIALIZER = new SimpleRecipeSerializer<>(LensDyeingRecipe::new);
 
-	private final Lazy<List<Ingredient>> dyes = new Lazy<>(() -> Arrays.asList(
-			Ingredient.ofItems(Items.WHITE_DYE), Ingredient.ofItems(Items.ORANGE_DYE),
-			Ingredient.ofItems(Items.MAGENTA_DYE), Ingredient.ofItems(Items.LIGHT_BLUE_DYE),
-			Ingredient.ofItems(Items.YELLOW_DYE), Ingredient.ofItems(Items.LIME_DYE),
-			Ingredient.ofItems(Items.PINK_DYE), Ingredient.ofItems(Items.GRAY_DYE),
-			Ingredient.ofItems(Items.LIGHT_GRAY_DYE), Ingredient.ofItems(Items.CYAN_DYE),
-			Ingredient.ofItems(Items.PURPLE_DYE), Ingredient.ofItems(Items.BLUE_DYE),
-			Ingredient.ofItems(Items.BROWN_DYE), Ingredient.ofItems(Items.GREEN_DYE),
-			Ingredient.ofItems(Items.RED_DYE), Ingredient.ofItems(Items.BLACK_DYE),
-			Ingredient.ofItems(ModItems.manaPearl)
+	private final LazyLoadedValue<List<Ingredient>> dyes = new LazyLoadedValue<>(() -> Arrays.asList(
+			Ingredient.of(Items.WHITE_DYE), Ingredient.of(Items.ORANGE_DYE),
+			Ingredient.of(Items.MAGENTA_DYE), Ingredient.of(Items.LIGHT_BLUE_DYE),
+			Ingredient.of(Items.YELLOW_DYE), Ingredient.of(Items.LIME_DYE),
+			Ingredient.of(Items.PINK_DYE), Ingredient.of(Items.GRAY_DYE),
+			Ingredient.of(Items.LIGHT_GRAY_DYE), Ingredient.of(Items.CYAN_DYE),
+			Ingredient.of(Items.PURPLE_DYE), Ingredient.of(Items.BLUE_DYE),
+			Ingredient.of(Items.BROWN_DYE), Ingredient.of(Items.GREEN_DYE),
+			Ingredient.of(Items.RED_DYE), Ingredient.of(Items.BLACK_DYE),
+			Ingredient.of(ModItems.manaPearl)
 	));
 
-	public LensDyeingRecipe(Identifier id) {
+	public LensDyeingRecipe(ResourceLocation id) {
 		super(id);
 	}
 
@@ -54,12 +54,12 @@ public class LensDyeingRecipe extends SpecialCraftingRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingInventory inv, @Nonnull World world) {
+	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level world) {
 		boolean foundLens = false;
 		boolean foundDye = false;
 
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack stack = inv.getStack(i);
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof ILens && !foundLens) {
 					foundLens = true;
@@ -81,12 +81,12 @@ public class LensDyeingRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack craft(@Nonnull CraftingInventory inv) {
+	public ItemStack assemble(@Nonnull CraftingContainer inv) {
 		ItemStack lens = ItemStack.EMPTY;
 		int color = -1;
 
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack stack = inv.getStack(i);
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof ILens && lens.isEmpty()) {
 					lens = stack;
@@ -107,7 +107,7 @@ public class LensDyeingRecipe extends SpecialCraftingRecipe {
 	}
 
 	@Override
-	public boolean fits(int width, int height) {
+	public boolean canCraftInDimensions(int width, int height) {
 		return width * height >= 2;
 	}
 

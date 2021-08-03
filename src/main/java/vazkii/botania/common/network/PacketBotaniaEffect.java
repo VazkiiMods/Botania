@@ -11,23 +11,23 @@ package vazkii.botania.common.network;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.Packet;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
@@ -45,37 +45,37 @@ import io.netty.buffer.Unpooled;
 // Prefer using World.addBlockEvent/Block.eventReceived/TileEntity.receiveClientEvent where possible
 // as those use less network bandwidth (~14 bytes), vs 26+ bytes here
 public class PacketBotaniaEffect {
-	public static final Identifier ID = prefix("eff");
+	public static final ResourceLocation ID = prefix("eff");
 
-	public static void send(PlayerEntity player, EffectType type, double x, double y, double z, int... args) {
-		if (player instanceof ServerPlayerEntity) {
-			((ServerPlayerEntity) player).networkHandler.sendPacket(make(type, x, y, z, args));
+	public static void send(Player player, EffectType type, double x, double y, double z, int... args) {
+		if (player instanceof ServerPlayer) {
+			((ServerPlayer) player).connection.send(make(type, x, y, z, args));
 		}
 	}
 
 	public static void sendNearby(Entity e, EffectType type, double x, double y, double z, int... args) {
-		if (!e.world.isClient) {
+		if (!e.level.isClientSide) {
 			Packet<?> pkt = make(type, x, y, z, args);
 			PlayerLookup.tracking(e).stream()
-					.filter(p -> p.squaredDistanceTo(e.getPos()) < 64 * 64)
-					.forEach(p -> p.networkHandler.sendPacket(pkt));
-			if (e instanceof ServerPlayerEntity) {
-				((ServerPlayerEntity) e).networkHandler.sendPacket(pkt);
+					.filter(p -> p.distanceToSqr(e.position()) < 64 * 64)
+					.forEach(p -> p.connection.send(pkt));
+			if (e instanceof ServerPlayer) {
+				((ServerPlayer) e).connection.send(pkt);
 			}
 		}
 	}
 
-	public static void sendNearby(World world, BlockPos pos, EffectType type, double x, double y, double z, int... args) {
-		if (world instanceof ServerWorld) {
+	public static void sendNearby(Level world, BlockPos pos, EffectType type, double x, double y, double z, int... args) {
+		if (world instanceof ServerLevel) {
 			Packet<?> pkt = make(type, x, y, z, args);
-			PlayerLookup.tracking((ServerWorld) world, pos).stream()
-					.filter(p -> p.squaredDistanceTo(pos.getX(), pos.getY(), pos.getZ()) < 64 * 64)
-					.forEach(p -> p.networkHandler.sendPacket(pkt));
+			PlayerLookup.tracking((ServerLevel) world, pos).stream()
+					.filter(p -> p.distanceToSqr(pos.getX(), pos.getY(), pos.getZ()) < 64 * 64)
+					.forEach(p -> p.connection.send(pkt));
 		}
 	}
 
 	public static Packet<?> make(EffectType type, double x, double y, double z, int... args) {
-		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+		FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
 		buf.writeByte(type.ordinal());
 		buf.writeDouble(x);
 		buf.writeDouble(y);
@@ -89,7 +89,7 @@ public class PacketBotaniaEffect {
 	}
 
 	public static class Handler {
-		public static void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
+		public static void handle(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
 			EffectType type = EffectType.values()[buf.readByte()];
 			double x = buf.readDouble();
 			double y = buf.readDouble();
@@ -104,8 +104,8 @@ public class PacketBotaniaEffect {
 				// Use anon - lambda causes classloading issues
 				@Override
 				public void run() {
-					MinecraftClient mc = MinecraftClient.getInstance();
-					World world = mc.world;
+					Minecraft mc = Minecraft.getInstance();
+					Level world = mc.level;
 					switch (type) {
 					case PAINT_LENS: {
 						DyeColor placeColor = DyeColor.byId(args[0]);
@@ -114,7 +114,7 @@ public class PacketBotaniaEffect {
 						int g = (hex & 0xFF00) >> 8;
 						int b = hex & 0xFF;
 						for (int i = 0; i < 10; i++) {
-							BlockPos pos = new BlockPos(x, y, z).offset(Direction.random(world.random));
+							BlockPos pos = new BlockPos(x, y, z).relative(Direction.getRandom(world.random));
 							SparkleParticleData data = SparkleParticleData.sparkle(0.6F + (float) Math.random() * 0.5F, r / 255F, g / 255F, b / 255F, 5);
 							world.addParticle(data, pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(), 0, 0, 0);
 						}
@@ -132,7 +132,7 @@ public class PacketBotaniaEffect {
 						break;
 					}
 					case ITEM_SMOKE: {
-						Entity item = world.getEntityById(args[0]);
+						Entity item = world.getEntity(args[0]);
 						if (item == null) {
 							return;
 						}
@@ -141,19 +141,19 @@ public class PacketBotaniaEffect {
 
 						for (int i = 0; i < p; i++) {
 							double m = 0.01;
-							double d0 = item.world.random.nextGaussian() * m;
-							double d1 = item.world.random.nextGaussian() * m;
-							double d2 = item.world.random.nextGaussian() * m;
+							double d0 = item.level.random.nextGaussian() * m;
+							double d1 = item.level.random.nextGaussian() * m;
+							double d2 = item.level.random.nextGaussian() * m;
 							double d3 = 10.0D;
-							item.world.addParticle(ParticleTypes.POOF,
-									x + item.world.random.nextFloat() * item.getWidth() * 2.0F - item.getWidth() - d0 * d3, y + item.world.random.nextFloat() * item.getHeight() - d1 * d3,
-									z + item.world.random.nextFloat() * item.getWidth() * 2.0F - item.getWidth() - d2 * d3, d0, d1, d2);
+							item.level.addParticle(ParticleTypes.POOF,
+									x + item.level.random.nextFloat() * item.getBbWidth() * 2.0F - item.getBbWidth() - d0 * d3, y + item.level.random.nextFloat() * item.getBbHeight() - d1 * d3,
+									z + item.level.random.nextFloat() * item.getBbWidth() * 2.0F - item.getBbWidth() - d2 * d3, d0, d1, d2);
 						}
 						break;
 					}
 					case SPARK_NET_INDICATOR: {
-						Entity e1 = world.getEntityById(args[0]);
-						Entity e2 = world.getEntityById(args[1]);
+						Entity e1 = world.getEntity(args[0]);
+						Entity e2 = world.getEntity(args[1]);
 
 						if (e1 == null || e2 == null) {
 							return;
@@ -170,21 +170,21 @@ public class PacketBotaniaEffect {
 						Vector3 currentPos = orig;
 						for (int i = 0; i < iters; i++) {
 							float hue = i * huePer + hueSum;
-							int color = MathHelper.hsvToRgb(MathHelper.fractionalPart(hue), 1F, 1F);
+							int color = Mth.hsvToRgb(Mth.frac(hue), 1F, 1F);
 							float r = Math.min(1F, (color >> 16 & 0xFF) / 255F + 0.4F);
 							float g = Math.min(1F, (color >> 8 & 0xFF) / 255F + 0.4F);
 							float b = Math.min(1F, (color & 0xFF) / 255F + 0.4F);
 
 							SparkleParticleData data = SparkleParticleData.noClip(1, r, g, b, 12);
-							world.addImportantParticle(data, true, currentPos.x, currentPos.y, currentPos.z, 0, 0, 0);
+							world.addAlwaysVisibleParticle(data, true, currentPos.x, currentPos.y, currentPos.z, 0, 0, 0);
 							currentPos = currentPos.add(movement);
 						}
 
 						break;
 					}
 					case SPARK_MANA_FLOW: {
-						Entity e1 = world.getEntityById(args[0]);
-						Entity e2 = world.getEntityById(args[1]);
+						Entity e1 = world.getEntity(args[0]);
+						Entity e2 = world.getEntity(args[1]);
 
 						if (e1 == null || e2 == null) {
 							return;
@@ -207,7 +207,7 @@ public class PacketBotaniaEffect {
 						float size = 0.125F + 0.125F * (float) Math.random();
 
 						WispParticleData data = WispParticleData.wisp(size, r, g, b).withNoClip(true);
-						world.addImportantParticle(data, thisVec.x, thisVec.y, thisVec.z, motion.x, motion.y, motion.z);
+						world.addAlwaysVisibleParticle(data, thisVec.x, thisVec.y, thisVec.z, motion.x, motion.y, motion.z);
 						break;
 					}
 					case ENCHANTER_DESTROY: {
@@ -278,7 +278,7 @@ public class PacketBotaniaEffect {
 						break;
 					}
 					case FLUGEL_EFFECT: {
-						Entity entity = world.getEntityById(args[0]);
+						Entity entity = world.getEntity(args[0]);
 						if (entity != null) {
 							for (int i = 0; i < 15; i++) {
 								float x = (float) (entity.getX() + Math.random());
@@ -291,13 +291,13 @@ public class PacketBotaniaEffect {
 						break;
 					}
 					case PARTICLE_BEAM: {
-						ItemTwigWand.doParticleBeam(MinecraftClient.getInstance().world,
+						ItemTwigWand.doParticleBeam(Minecraft.getInstance().level,
 								new Vector3(x, y, z),
 								new Vector3(args[0] + 0.5, args[1] + 0.5, args[2] + 0.5));
 						break;
 					}
 					case DIVA_EFFECT: {
-						Entity target = MinecraftClient.getInstance().world.getEntityById(args[0]);
+						Entity target = Minecraft.getInstance().level.getEntity(args[0]);
 						if (target == null) {
 							break;
 						}
@@ -308,26 +308,26 @@ public class PacketBotaniaEffect {
 
 						SparkleParticleData data = SparkleParticleData.sparkle(1F, 1F, 1F, 0.25F, 3);
 						for (int i = 0; i < 50; i++) {
-							world.addParticle(data, x + Math.random() * target.getWidth(), y + Math.random() * target.getHeight(), z + Math.random() * target.getWidth(), 0, 0, 0);
+							world.addParticle(data, x + Math.random() * target.getBbWidth(), y + Math.random() * target.getBbHeight(), z + Math.random() * target.getBbWidth(), 0, 0, 0);
 						}
 						break;
 					}
 					case HALO_CRAFT: {
-						Entity target = MinecraftClient.getInstance().world.getEntityById(args[0]);
+						Entity target = Minecraft.getInstance().level.getEntity(args[0]);
 						if (target != null) {
-							Vec3d lookVec3 = target.getRotationVector();
+							Vec3 lookVec3 = target.getLookAngle();
 							Vector3 centerVector = Vector3.fromEntityCenter(target).add(lookVec3.x * 3, 1.3, lookVec3.z * 3);
 							float m = 0.1F;
 							for (int i = 0; i < 4; i++) {
 								WispParticleData data = WispParticleData.wisp(0.2F + 0.2F * (float) Math.random(), 1F, 0F, 1F);
-								target.world.addParticle(data, centerVector.x, centerVector.y, centerVector.z, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m);
+								target.level.addParticle(data, centerVector.x, centerVector.y, centerVector.z, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m, ((float) Math.random() - 0.5F) * m);
 							}
 						}
 
 						break;
 					}
 					case AVATAR_TORNADO_JUMP: {
-						Entity p = world.getEntityById(args[0]);
+						Entity p = world.getEntity(args[0]);
 						if (p != null) {
 							for (int i = 0; i < 20; i++) {
 								for (int j = 0; j < 5; j++) {
@@ -343,18 +343,18 @@ public class PacketBotaniaEffect {
 						break;
 					}
 					case AVATAR_TORNADO_BOOST: {
-						Entity p = world.getEntityById(args[0]);
+						Entity p = world.getEntity(args[0]);
 						if (p != null) {
-							Vec3d lookDir = p.getRotationVector();
+							Vec3 lookDir = p.getLookAngle();
 							for (int i = 0; i < 20; i++) {
 								for (int j = 0; j < 5; j++) {
 									WispParticleData data = WispParticleData.wisp(0.35F + (float) Math.random() * 0.1F, 0.25F, 0.25F, 0.25F);
-									world.addParticle(data, p.getX() + lookDir.getX() * i,
-											p.getY() + lookDir.getY() * i,
-											p.getZ() + lookDir.getZ() * i,
-											0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getX(),
-											0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getX()) + Math.abs(lookDir.getZ())) + -0.01F * (float) Math.random() * lookDir.getY(),
-											0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.getY()) + Math.abs(lookDir.getX())) + -0.01F * (float) Math.random() * lookDir.getZ());
+									world.addParticle(data, p.getX() + lookDir.x() * i,
+											p.getY() + lookDir.y() * i,
+											p.getZ() + lookDir.z() * i,
+											0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.y()) + Math.abs(lookDir.z())) + -0.01F * (float) Math.random() * lookDir.x(),
+											0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.x()) + Math.abs(lookDir.z())) + -0.01F * (float) Math.random() * lookDir.y(),
+											0.2F * (float) (Math.random() - 0.5) * (Math.abs(lookDir.y()) + Math.abs(lookDir.x())) + -0.01F * (float) Math.random() * lookDir.z());
 								}
 							}
 						}

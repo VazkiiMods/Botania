@@ -10,10 +10,10 @@ package vazkii.botania.mixin;
 
 import com.mojang.authlib.GameProfile;
 
-import net.minecraft.block.SkullBlock;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.block.entity.SkullBlockEntityRenderer;
-import net.minecraft.client.render.entity.model.SkullEntityModel;
+import net.minecraft.client.model.SkullModel;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
+import net.minecraft.world.level.block.SkullBlock;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -23,15 +23,15 @@ import javax.annotation.Nullable;
 
 import java.util.Map;
 
-@Mixin(SkullBlockEntityRenderer.class)
+@Mixin(SkullBlockRenderer.class)
 public interface AccessorSkullTileEntityRenderer {
-	@Accessor("MODELS")
-	static Map<SkullBlock.SkullType, SkullEntityModel> getModels() {
+	@Accessor("MODEL_BY_TYPE")
+	static Map<SkullBlock.Type, SkullModel> getModels() {
 		throw new IllegalStateException();
 	}
 
-	@Invoker("method_3578")
-	static RenderLayer botania_getRenderType(SkullBlock.SkullType skullType, @Nullable GameProfile profile) {
+	@Invoker("getRenderType")
+	static RenderType botania_getRenderType(SkullBlock.Type skullType, @Nullable GameProfile profile) {
 		throw new IllegalStateException();
 	}
 }

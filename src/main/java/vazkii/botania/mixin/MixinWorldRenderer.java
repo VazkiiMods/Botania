@@ -8,12 +8,13 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gl.VertexBuffer;
-import net.minecraft.client.render.VertexFormat;
-import net.minecraft.client.render.WorldRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.world.World;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexBuffer;
+import com.mojang.blaze3d.vertex.VertexFormat;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.world.level.Level;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,22 +32,22 @@ import javax.annotation.Nullable;
 /**
  * This Mixin implements the Garden of Glass skybox
  */
-@Mixin(WorldRenderer.class)
+@Mixin(LevelRenderer.class)
 public class MixinWorldRenderer {
 	@Shadow
 	@Final
-	private VertexFormat skyVertexFormat;
+	private VertexFormat skyFormat;
 
 	@Shadow
 	@Nullable
-	private VertexBuffer starsBuffer;
+	private VertexBuffer starBuffer;
 
 	@Unique
 	private static boolean isGogSky() {
-		World world = MinecraftClient.getInstance().world;
-		boolean isGog = world.getLevelProperties() instanceof SkyblockWorldInfo && ((SkyblockWorldInfo) world.getLevelProperties()).isGardenOfGlass();
+		Level world = Minecraft.getInstance().level;
+		boolean isGog = world.getLevelData() instanceof SkyblockWorldInfo && ((SkyblockWorldInfo) world.getLevelData()).isGardenOfGlass();
 		return ConfigHandler.CLIENT.enableFancySkybox.getValue()
-				&& world.getRegistryKey() == World.OVERWORLD
+				&& world.dimension() == Level.OVERWORLD
 				&& (ConfigHandler.CLIENT.enableFancySkyboxInNormalWorlds.getValue() || isGog);
 	}
 
@@ -58,20 +59,20 @@ public class MixinWorldRenderer {
 		slice = @Slice(
 			from = @At(
 				ordinal = 0, value = "INVOKE",
-				target = "Lnet/minecraft/client/world/ClientWorld;getRainGradient(F)F"
+				target = "Lnet/minecraft/world/level/Level;getRainLevel(F)F"
 			)
 		),
 		at = @At(
 			shift = At.Shift.AFTER,
 			ordinal = 0,
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/util/math/MatrixStack;multiply(Lnet/minecraft/util/math/Quaternion;)V"
+			target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lcom/mojang/math/Quaternion;)V"
 		),
 		require = 0
 	)
-	private void renderExtras(MatrixStack ms, float partialTicks, CallbackInfo ci) {
+	private void renderExtras(PoseStack ms, float partialTicks, CallbackInfo ci) {
 		if (isGogSky()) {
-			SkyblockSkyRenderer.renderExtra(ms, MinecraftClient.getInstance().world, partialTicks, 0);
+			SkyblockSkyRenderer.renderExtra(ms, Minecraft.getInstance().level, partialTicks, 0);
 		}
 	}
 
@@ -80,7 +81,7 @@ public class MixinWorldRenderer {
 	 */
 	@ModifyConstant(
 		method = "renderSky",
-		slice = @Slice(to = @At(ordinal = 0, value = "INVOKE", target = "Lnet/minecraft/client/texture/TextureManager;bindTexture(Lnet/minecraft/util/Identifier;)V")),
+		slice = @Slice(to = @At(ordinal = 0, value = "INVOKE", target = "Lnet/minecraft/client/renderer/texture/TextureManager;bind(Lnet/minecraft/resources/ResourceLocation;)V")),
 		constant = { @Constant(floatValue = 30.0F) },
 		require = 0
 	)
@@ -98,8 +99,8 @@ public class MixinWorldRenderer {
 	@ModifyConstant(
 		method = "renderSky",
 		slice = @Slice(
-			from = @At(ordinal = 0, value = "INVOKE", target = "Lnet/minecraft/client/texture/TextureManager;bindTexture(Lnet/minecraft/util/Identifier;)V"),
-			to = @At(ordinal = 1, value = "INVOKE", target = "Lnet/minecraft/client/texture/TextureManager;bindTexture(Lnet/minecraft/util/Identifier;)V")
+			from = @At(ordinal = 0, value = "INVOKE", target = "Lnet/minecraft/client/renderer/texture/TextureManager;bind(Lnet/minecraft/resources/ResourceLocation;)V"),
+			to = @At(ordinal = 1, value = "INVOKE", target = "Lnet/minecraft/client/renderer/texture/TextureManager;bind(Lnet/minecraft/resources/ResourceLocation;)V")
 		),
 		constant = @Constant(floatValue = 20.0F),
 		require = 0
@@ -117,12 +118,12 @@ public class MixinWorldRenderer {
 	 */
 	@Inject(
 		method = "renderSky",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/client/world/ClientWorld;method_23787(F)F"),
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;getStarBrightness(F)F"),
 		require = 0
 	)
-	private void renderExtraStars(MatrixStack ms, float partialTicks, CallbackInfo ci) {
+	private void renderExtraStars(PoseStack ms, float partialTicks, CallbackInfo ci) {
 		if (isGogSky()) {
-			SkyblockSkyRenderer.renderStars(skyVertexFormat, starsBuffer, ms, partialTicks);
+			SkyblockSkyRenderer.renderStars(skyFormat, starBuffer, ms, partialTicks);
 		}
 	}
 }

@@ -8,12 +8,13 @@
  */
 package vazkii.botania.api.item;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.Text;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 /**
  * Why would you ever want this ._.
@@ -26,5 +27,5 @@ public interface TinyPotatoRenderCallback {
 				}
 			});
 
-	void onRender(BlockEntity potato, Text name, float tickDelta, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay);
+	void onRender(BlockEntity potato, Component name, float tickDelta, PoseStack ms, MultiBufferSource buffers, int light, int overlay);
 }

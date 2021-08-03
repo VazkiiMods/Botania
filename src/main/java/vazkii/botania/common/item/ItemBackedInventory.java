@@ -8,18 +8,18 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 /**
  * An inventory that writes into the provided stack's NBT on save
  */
-public class ItemBackedInventory extends SimpleInventory {
+public class ItemBackedInventory extends SimpleContainer {
 	private static final String TAG_ITEMS = "Items";
 	private final ItemStack stack;
 
@@ -30,21 +30,21 @@ public class ItemBackedInventory extends SimpleInventory {
 		ListTag lst = ItemNBTHelper.getList(stack, TAG_ITEMS, 10, false);
 		int i = 0;
 		for (; i < expectedSize && i < lst.size(); i++) {
-			setStack(i, ItemStack.fromTag(lst.getCompound(i)));
+			setItem(i, ItemStack.of(lst.getCompound(i)));
 		}
 	}
 
 	@Override
-	public boolean canPlayerUse(PlayerEntity player) {
+	public boolean stillValid(Player player) {
 		return !stack.isEmpty();
 	}
 
 	@Override
-	public void markDirty() {
-		super.markDirty();
+	public void setChanged() {
+		super.setChanged();
 		ListTag list = new ListTag();
-		for (int i = 0; i < size(); i++) {
-			list.add(getStack(i).toTag(new CompoundTag()));
+		for (int i = 0; i < getContainerSize(); i++) {
+			list.add(getItem(i).save(new CompoundTag()));
 		}
 		ItemNBTHelper.setList(stack, TAG_ITEMS, list);
 	}

@@ -8,15 +8,16 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.item.ItemStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -31,19 +32,19 @@ public class RenderTilePrism extends BlockEntityRenderer<TilePrism> {
 	}
 
 	@Override
-	public void render(@Nonnull TilePrism prism, float partTicks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
+	public void render(@Nonnull TilePrism prism, float partTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		float pos = (float) Math.sin((ClientTickHandler.ticksInGame + partTicks) * 0.05F) * 0.5F * (1F - 1F / 16F) - 0.5F;
 
-		ItemStack stack = prism.getItemHandler().getStack(0);
+		ItemStack stack = prism.getItemHandler().getItem(0);
 
 		if (!stack.isEmpty()) {
-			MinecraftClient.getInstance().getTextureManager().bindTexture(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE);
+			Minecraft.getInstance().getTextureManager().bind(TextureAtlas.LOCATION_BLOCKS);
 			if (stack.getItem() instanceof ILens) {
-				ms.push();
-				ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90));
+				ms.pushPose();
+				ms.mulPose(Vector3f.XP.rotationDegrees(90));
 				ms.translate(0.5F, 0.5F, pos);
-				MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.NONE, light, overlay, ms, buffers);
-				ms.pop();
+				Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE, light, overlay, ms, buffers);
+				ms.popPose();
 			}
 		}
 	}

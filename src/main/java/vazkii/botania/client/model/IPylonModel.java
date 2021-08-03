@@ -8,11 +8,11 @@
  */
 package vazkii.botania.client.model;
 
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.util.math.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 
 public interface IPylonModel {
-	void renderRing(MatrixStack ms, VertexConsumer buffer, int light, int overlay);
+	void renderRing(PoseStack ms, VertexConsumer buffer, int light, int overlay);
 
-	void renderCrystal(MatrixStack ms, VertexConsumer buffer, int light, int overlay);
+	void renderCrystal(PoseStack ms, VertexConsumer buffer, int light, int overlay);
 }

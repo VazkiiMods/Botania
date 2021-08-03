@@ -8,12 +8,12 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.entity.boss.WitherEntity;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(WitherEntity.class)
+@Mixin(WitherBoss.class)
 public interface AccessorWitherEntity {
 	@Invoker("getHeadX")
 	double botania_getHeadX(int idx);

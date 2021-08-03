@@ -10,9 +10,9 @@ package vazkii.botania.common.compat.rei;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.crafting.Recipe;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -24,15 +24,15 @@ import me.shedaniel.rei.api.EntryStack;
 import me.shedaniel.rei.api.RecipeDisplay;
 
 @Environment(EnvType.CLIENT)
-public abstract class BotaniaRecipeDisplay<T extends Recipe<Inventory>> implements RecipeDisplay {
+public abstract class BotaniaRecipeDisplay<T extends Recipe<Container>> implements RecipeDisplay {
 	protected T recipe;
 	protected List<List<EntryStack>> inputs;
 	protected List<EntryStack> outputs;
 
 	public BotaniaRecipeDisplay(T recipe) {
 		this.recipe = recipe;
-		this.inputs = EntryStack.ofIngredients(recipe.getPreviewInputs());
-		this.outputs = Collections.singletonList(EntryStack.create(recipe.getOutput()));
+		this.inputs = EntryStack.ofIngredients(recipe.getIngredients());
+		this.outputs = Collections.singletonList(EntryStack.create(recipe.getResultItem()));
 	}
 
 	@Override
@@ -48,7 +48,7 @@ public abstract class BotaniaRecipeDisplay<T extends Recipe<Inventory>> implemen
 	}
 
 	@Override
-	public @NotNull Optional<Identifier> getRecipeLocation() {
+	public @NotNull Optional<ResourceLocation> getRecipeLocation() {
 		return Optional.ofNullable(this.recipe).map(T::getId);
 	}
 }

@@ -10,15 +10,15 @@ package vazkii.botania.common.network;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.network.Packet;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.packet.s2c.play.MobSpawnS2CPacket;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundAddMobPacket;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 
 import vazkii.botania.common.entity.EntityDoppleganger;
 
@@ -30,39 +30,39 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 import io.netty.buffer.Unpooled;
 
 public class PacketSpawnDoppleganger {
-	public static final Identifier ID = prefix("spg");
+	public static final ResourceLocation ID = prefix("spg");
 
 	public static Packet<?> make(EntityDoppleganger entity, int playerCount, boolean hardMode,
 			BlockPos source, UUID bossInfoId) {
-		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+		FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
 		try {
-			new MobSpawnS2CPacket(entity).write(buf);
+			new ClientboundAddMobPacket(entity).write(buf);
 		} catch (IOException ignored) {} // isn't actually thrown by write
 
 		buf.writeVarInt(playerCount);
 		buf.writeBoolean(hardMode);
 		buf.writeBlockPos(source);
-		buf.writeUuid(bossInfoId);
+		buf.writeUUID(bossInfoId);
 		return ServerPlayNetworking.createS2CPacket(ID, buf);
 	}
 
 	public static class Handler {
-		public static void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
-			MobSpawnS2CPacket pkt = new MobSpawnS2CPacket();
+		public static void handle(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
+			ClientboundAddMobPacket pkt = new ClientboundAddMobPacket();
 			try {
 				pkt.read(buf);
 			} catch (IOException ignored) {} // isn't actually thrown
 			int playerCount = buf.readVarInt();
 			boolean hardMode = buf.readBoolean();
 			BlockPos source = buf.readBlockPos();
-			UUID bossInfoUuid = buf.readUuid();
+			UUID bossInfoUuid = buf.readUUID();
 
 			client.execute(() -> {
-				ClientPlayerEntity player = client.player;
+				LocalPlayer player = client.player;
 				if (player != null) {
-					player.networkHandler.onMobSpawn(pkt);
+					player.connection.handleAddMob(pkt);
 					int eid = pkt.getId();
-					Entity e = player.world.getEntityById(eid);
+					Entity e = player.level.getEntity(eid);
 					if (e instanceof EntityDoppleganger) {
 						((EntityDoppleganger) e).readSpawnData(playerCount, hardMode, source, bossInfoUuid);
 					}

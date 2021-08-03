@@ -10,11 +10,11 @@ package vazkii.botania.mixin;
 
 import com.mojang.datafixers.util.Either;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,29 +28,29 @@ import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.SleepingHandler;
 import vazkii.botania.common.world.SkyblockWorldEvents;
 
-@Mixin(ServerPlayerEntity.class)
+@Mixin(ServerPlayer.class)
 public class MixinServerPlayerEntity {
 	/**
 	 * Setups up a player when spawning into a GoG world for the first time
 	 */
-	@Inject(at = @At("RETURN"), method = "onSpawn")
+	@Inject(at = @At("RETURN"), method = "initMenu")
 	private void onLogin(CallbackInfo ci) {
 		if (Botania.gardenOfGlassLoaded) {
-			SkyblockWorldEvents.onPlayerJoin((ServerPlayerEntity) (Object) this);
+			SkyblockWorldEvents.onPlayerJoin((ServerPlayer) (Object) this);
 		}
 	}
 
 	/**
 	 * Sends any item entity ages to the client when they start being tracked
 	 */
-	@Inject(at = @At("RETURN"), method = "onStartedTracking")
+	@Inject(at = @At("RETURN"), method = "cancelRemoveEntity")
 	private void sendItemAge(Entity entity, CallbackInfo ci) {
-		SubTileDaffomill.onItemTrack((ServerPlayerEntity) (Object) this, entity);
+		SubTileDaffomill.onItemTrack((ServerPlayer) (Object) this, entity);
 	}
 
-	@Inject(at = @At("HEAD"), method = "trySleep", cancellable = true)
-	private void preventGaiaSleep(BlockPos pos, CallbackInfoReturnable<Either<PlayerEntity.SleepFailureReason, Unit>> cir) {
-		PlayerEntity.SleepFailureReason fail = SleepingHandler.trySleep((PlayerEntity) (Object) this);
+	@Inject(at = @At("HEAD"), method = "startSleepInBed", cancellable = true)
+	private void preventGaiaSleep(BlockPos pos, CallbackInfoReturnable<Either<Player.BedSleepingProblem, Unit>> cir) {
+		Player.BedSleepingProblem fail = SleepingHandler.trySleep((Player) (Object) this);
 		if (fail != null) {
 			cir.setReturnValue(Either.left(fail));
 		}
@@ -59,7 +59,7 @@ public class MixinServerPlayerEntity {
 	@Inject(at = @At("RETURN"), method = "tick")
 	private void onTick(CallbackInfo ci) {
 		if (EquipmentHandler.instance instanceof EquipmentHandler.InventoryEquipmentHandler) {
-			((EquipmentHandler.InventoryEquipmentHandler) EquipmentHandler.instance).onPlayerTick((PlayerEntity) (Object) this);
+			((EquipmentHandler.InventoryEquipmentHandler) EquipmentHandler.instance).onPlayerTick((Player) (Object) this);
 		}
 	}
 

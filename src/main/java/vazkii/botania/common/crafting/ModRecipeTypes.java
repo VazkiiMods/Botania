@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.crafting;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.SpecialRecipeSerializer;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.recipe.*;
 import vazkii.botania.common.crafting.recipe.HeadRecipe;
@@ -26,23 +26,23 @@ import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModRecipeTypes {
-	public static final net.minecraft.recipe.RecipeType<IManaInfusionRecipe> MANA_INFUSION_TYPE = new RecipeType<>();
+	public static final net.minecraft.world.item.crafting.RecipeType<IManaInfusionRecipe> MANA_INFUSION_TYPE = new RecipeType<>();
 	public static final RecipeSerializer<RecipeManaInfusion> MANA_INFUSION_SERIALIZER = new RecipeManaInfusion.Serializer();
 
-	public static final net.minecraft.recipe.RecipeType<IElvenTradeRecipe> ELVEN_TRADE_TYPE = new RecipeType<>();
+	public static final net.minecraft.world.item.crafting.RecipeType<IElvenTradeRecipe> ELVEN_TRADE_TYPE = new RecipeType<>();
 	public static final RecipeSerializer<RecipeElvenTrade> ELVEN_TRADE_SERIALIZER = new RecipeElvenTrade.Serializer();
-	public static final SpecialRecipeSerializer<LexiconElvenTradeRecipe> LEXICON_ELVEN_TRADE_SERIALIZER = new SpecialRecipeSerializer<>(LexiconElvenTradeRecipe::new);
+	public static final SimpleRecipeSerializer<LexiconElvenTradeRecipe> LEXICON_ELVEN_TRADE_SERIALIZER = new SimpleRecipeSerializer<>(LexiconElvenTradeRecipe::new);
 
-	public static final net.minecraft.recipe.RecipeType<IPureDaisyRecipe> PURE_DAISY_TYPE = new RecipeType<>();
+	public static final net.minecraft.world.item.crafting.RecipeType<IPureDaisyRecipe> PURE_DAISY_TYPE = new RecipeType<>();
 	public static final RecipeSerializer<RecipePureDaisy> PURE_DAISY_SERIALIZER = new RecipePureDaisy.Serializer();
 
-	public static final net.minecraft.recipe.RecipeType<IBrewRecipe> BREW_TYPE = new RecipeType<>();
+	public static final net.minecraft.world.item.crafting.RecipeType<IBrewRecipe> BREW_TYPE = new RecipeType<>();
 	public static final RecipeSerializer<RecipeBrew> BREW_SERIALIZER = new RecipeBrew.Serializer();
 
-	public static final net.minecraft.recipe.RecipeType<IPetalRecipe> PETAL_TYPE = new RecipeType<>();
+	public static final net.minecraft.world.item.crafting.RecipeType<IPetalRecipe> PETAL_TYPE = new RecipeType<>();
 	public static final RecipeSerializer<RecipePetals> PETAL_SERIALIZER = new RecipePetals.Serializer();
 
-	public static final net.minecraft.recipe.RecipeType<IRuneAltarRecipe> RUNE_TYPE = new RecipeType<>();
+	public static final net.minecraft.world.item.crafting.RecipeType<IRuneAltarRecipe> RUNE_TYPE = new RecipeType<>();
 	public static final RecipeSerializer<RecipeRuneAltar> RUNE_SERIALIZER = new RecipeRuneAltar.Serializer();
 	public static final RecipeSerializer<HeadRecipe> RUNE_HEAD_SERIALIZER = new HeadRecipe.Serializer();
 
@@ -50,7 +50,7 @@ public class ModRecipeTypes {
 	public static final RecipeSerializer<RecipeTerraPlate> TERRA_PLATE_SERIALIZER = new RecipeTerraPlate.Serializer();
 
 	public static void registerRecipeTypes() {
-		Identifier id = prefix("elven_trade");
+		ResourceLocation id = prefix("elven_trade");
 		Registry.register(Registry.RECIPE_TYPE, id, ELVEN_TRADE_TYPE);
 		Registry<RecipeSerializer<?>> r = Registry.RECIPE_SERIALIZER;
 		register(r, id, ELVEN_TRADE_SERIALIZER);
@@ -82,14 +82,14 @@ public class ModRecipeTypes {
 		register(r, id, TERRA_PLATE_SERIALIZER);
 	}
 
-	private static class RecipeType<T extends Recipe<?>> implements net.minecraft.recipe.RecipeType<T> {
+	private static class RecipeType<T extends Recipe<?>> implements net.minecraft.world.item.crafting.RecipeType<T> {
 		@Override
 		public String toString() {
-			return Registry.RECIPE_TYPE.getId(this).toString();
+			return Registry.RECIPE_TYPE.getKey(this).toString();
 		}
 	}
 
-	public static <C extends Inventory, T extends Recipe<C>> Map<Identifier, Recipe<C>> getRecipes(World world, net.minecraft.recipe.RecipeType<T> type) {
+	public static <C extends Container, T extends Recipe<C>> Map<ResourceLocation, Recipe<C>> getRecipes(Level world, net.minecraft.world.item.crafting.RecipeType<T> type) {
 		return ((AccessorRecipeManager) world.getRecipeManager()).botania_getAll(type);
 	}
 }

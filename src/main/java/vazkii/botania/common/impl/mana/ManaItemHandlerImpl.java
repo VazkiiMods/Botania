@@ -10,11 +10,11 @@ package vazkii.botania.common.impl.mana;
 
 import com.google.common.collect.Iterables;
 
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.mana.*;
@@ -25,14 +25,14 @@ import java.util.List;
 
 public class ManaItemHandlerImpl implements ManaItemHandler {
 	@Override
-	public List<ItemStack> getManaItems(PlayerEntity player) {
+	public List<ItemStack> getManaItems(Player player) {
 		if (player == null) {
 			return Collections.emptyList();
 		}
 
 		List<ItemStack> toReturn = new ArrayList<>();
 
-		for (ItemStack stackInSlot : Iterables.concat(player.inventory.main, player.inventory.offHand)) {
+		for (ItemStack stackInSlot : Iterables.concat(player.inventory.items, player.inventory.offhand)) {
 			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IManaItem) {
 				toReturn.add(stackInSlot);
 			}
@@ -43,17 +43,17 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 	}
 
 	@Override
-	public List<ItemStack> getManaAccesories(PlayerEntity player) {
+	public List<ItemStack> getManaAccesories(Player player) {
 		if (player == null) {
 			return Collections.emptyList();
 		}
 
-		Inventory acc = BotaniaAPI.instance().getAccessoriesInventory(player);
+		Container acc = BotaniaAPI.instance().getAccessoriesInventory(player);
 
-		List<ItemStack> toReturn = new ArrayList<>(acc.size());
+		List<ItemStack> toReturn = new ArrayList<>(acc.getContainerSize());
 
-		for (int slot = 0; slot < acc.size(); slot++) {
-			ItemStack stackInSlot = acc.getStack(slot);
+		for (int slot = 0; slot < acc.getContainerSize(); slot++) {
+			ItemStack stackInSlot = acc.getItem(slot);
 
 			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IManaItem) {
 				toReturn.add(stackInSlot);
@@ -64,7 +64,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 	}
 
 	@Override
-	public int requestMana(ItemStack stack, PlayerEntity player, int manaToGet, boolean remove) {
+	public int requestMana(ItemStack stack, Player player, int manaToGet, boolean remove) {
 		if (stack.isEmpty()) {
 			return 0;
 		}
@@ -95,7 +95,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 	}
 
 	@Override
-	public boolean requestManaExact(ItemStack stack, PlayerEntity player, int manaToGet, boolean remove) {
+	public boolean requestManaExact(ItemStack stack, Player player, int manaToGet, boolean remove) {
 		if (stack.isEmpty()) {
 			return false;
 		}
@@ -124,7 +124,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 	}
 
 	@Override
-	public int dispatchMana(ItemStack stack, PlayerEntity player, int manaToSend, boolean add) {
+	public int dispatchMana(ItemStack stack, Player player, int manaToSend, boolean add) {
 		if (stack.isEmpty()) {
 			return 0;
 		}
@@ -160,7 +160,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 	}
 
 	@Override
-	public boolean dispatchManaExact(ItemStack stack, PlayerEntity player, int manaToSend, boolean add) {
+	public boolean dispatchManaExact(ItemStack stack, Player player, int manaToSend, boolean add) {
 		if (stack.isEmpty()) {
 			return false;
 		}
@@ -188,25 +188,25 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 		return false;
 	}
 
-	private int discountManaForTool(ItemStack stack, PlayerEntity player, int inCost) {
+	private int discountManaForTool(ItemStack stack, Player player, int inCost) {
 		float multiplier = Math.max(0F, 1F - getFullDiscountForTools(player, stack));
 		return (int) (inCost * multiplier);
 	}
 
 	@Override
-	public int requestManaForTool(ItemStack stack, PlayerEntity player, int manaToGet, boolean remove) {
+	public int requestManaForTool(ItemStack stack, Player player, int manaToGet, boolean remove) {
 		int cost = discountManaForTool(stack, player, manaToGet);
 		return requestMana(stack, player, cost, remove);
 	}
 
 	@Override
-	public boolean requestManaExactForTool(ItemStack stack, PlayerEntity player, int manaToGet, boolean remove) {
+	public boolean requestManaExactForTool(ItemStack stack, Player player, int manaToGet, boolean remove) {
 		int cost = discountManaForTool(stack, player, manaToGet);
 		return requestManaExact(stack, player, cost, remove);
 	}
 
 	@Override
-	public int getInvocationCountForTool(ItemStack stack, PlayerEntity player, int manaToGet) {
+	public int getInvocationCountForTool(ItemStack stack, Player player, int manaToGet) {
 		if (stack.isEmpty()) {
 			return 0;
 		}
@@ -235,7 +235,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 	}
 
 	@Override
-	public float getFullDiscountForTools(PlayerEntity player, ItemStack tool) {
+	public float getFullDiscountForTools(Player player, ItemStack tool) {
 		float discount = 0F;
 		for (int i = 0; i < player.inventory.armor.size(); i++) {
 			ItemStack armor = player.inventory.armor.get(i);
@@ -244,7 +244,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 			}
 		}
 
-		int unbreaking = EnchantmentHelper.getLevel(Enchantments.UNBREAKING, tool);
+		int unbreaking = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.UNBREAKING, tool);
 		discount += unbreaking * 0.05F;
 		discount = ManaDiscountCallback.EVENT.invoker().getManaDiscount(player, discount, tool);
 

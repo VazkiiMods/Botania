@@ -10,9 +10,9 @@ package vazkii.botania.api.state;
 
 import com.google.common.base.Predicates;
 
-import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
 
 import vazkii.botania.api.state.enums.AlfPortalState;
 import vazkii.botania.api.state.enums.CratePattern;
@@ -26,16 +26,16 @@ public final class BotaniaStateProps {
 	// todo 1.16-fabric public static final ModelProperty<IFloatingFlower> FLOATING_DATA = new ModelProperty<>();
 
 	// BlockAlfPortal
-	public static final EnumProperty<AlfPortalState> ALFPORTAL_STATE = EnumProperty.of("state", AlfPortalState.class);
+	public static final EnumProperty<AlfPortalState> ALFPORTAL_STATE = EnumProperty.create("state", AlfPortalState.class);
 
 	// BlockEnchanter
-	public static final EnumProperty<Direction.Axis> ENCHANTER_DIRECTION = EnumProperty.of("facing", Direction.Axis.class, Predicates.not(Predicates.equalTo(Direction.Axis.Y)));
+	public static final EnumProperty<Direction.Axis> ENCHANTER_DIRECTION = EnumProperty.create("facing", Direction.Axis.class, Predicates.not(Predicates.equalTo(Direction.Axis.Y)));
 
 	// BlockCraftyCrate
-	public static final EnumProperty<CratePattern> CRATE_PATTERN = EnumProperty.of("pattern", CratePattern.class);
+	public static final EnumProperty<CratePattern> CRATE_PATTERN = EnumProperty.create("pattern", CratePattern.class);
 
 	// BlockPrism
-	public static final BooleanProperty HAS_LENS = BooleanProperty.of("has_lens");
+	public static final BooleanProperty HAS_LENS = BooleanProperty.create("has_lens");
 
 	private BotaniaStateProps() {}
 

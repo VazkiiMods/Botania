@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.compat.rei;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -36,7 +36,7 @@ public class OrechidREIDisplay extends OrechidBaseREIDisplay {
 	}
 
 	@Override
-	public @NotNull Identifier getRecipeCategory() {
+	public @NotNull ResourceLocation getRecipeCategory() {
 		return ResourceLocationHelper.prefix("orechid");
 	}
 }

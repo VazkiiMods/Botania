@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.mana.spark;
 
-import net.minecraft.util.DyeColor;
+import net.minecraft.world.item.DyeColor;
 
 import java.util.Collection;
 

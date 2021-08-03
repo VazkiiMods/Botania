@@ -10,28 +10,28 @@ package vazkii.botania.common.network;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 
 import vazkii.botania.client.core.SkyblockWorldInfo;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PacketGogWorld {
-	public static final Identifier ID = prefix("gog");
+	public static final ResourceLocation ID = prefix("gog");
 
-	public static void send(ServerPlayerEntity player) {
+	public static void send(ServerPlayer player) {
 		ServerPlayNetworking.send(player, ID, PacketHandler.EMPTY_BUF);
 	}
 
 	public static class Handler {
-		public static void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
+		public static void handle(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
 			client.execute(() -> {
-				ClientWorld.Properties info = client.world.getLevelProperties();
+				ClientLevel.ClientLevelData info = client.level.getLevelData();
 				if (info instanceof SkyblockWorldInfo) {
 					((SkyblockWorldInfo) info).markGardenOfGlass();
 				}

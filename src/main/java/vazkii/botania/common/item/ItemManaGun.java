@@ -10,27 +10,27 @@ package vazkii.botania.common.item;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.world.World;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.mana.BurstProperties;
 import vazkii.botania.api.mana.ILens;
@@ -58,47 +58,47 @@ public class ItemManaGun extends Item implements IManaUsingItem, IDurabilityExte
 	private static final int CLIP_SLOTS = 6;
 	private static final int COOLDOWN = 30;
 
-	public ItemManaGun(Settings props) {
+	public ItemManaGun(Properties props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getStackInHand(hand);
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
 		int effCd = COOLDOWN;
-		StatusEffectInstance effect = player.getStatusEffect(StatusEffects.HASTE);
+		MobEffectInstance effect = player.getEffect(MobEffects.DIG_SPEED);
 		if (effect != null) {
 			effCd -= (effect.getAmplifier() + 1) * 8;
 		}
 
-		if (player.isSneaking() && hasClip(stack)) {
+		if (player.isShiftKeyDown() && hasClip(stack)) {
 			rotatePos(stack);
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_STONE_BUTTON_CLICK_ON, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
-			if (!world.isClient) {
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.STONE_BUTTON_CLICK_ON, SoundSource.PLAYERS, 0.6F, (1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
+			if (!world.isClientSide) {
 				ItemStack lens = getLens(stack);
 				ItemsRemainingRenderHandler.send(player, lens, -2);
 				setCooldown(stack, effCd);
 			}
-			return TypedActionResult.success(stack, world.isClient);
+			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide);
 		} else if (getCooldown(stack) == 0) {
 			EntityManaBurst burst = getBurst(player, stack, true, hand);
 			if (burst != null && ManaItemHandler.instance().requestManaExact(stack, player, burst.getMana(), true)) {
-				if (!world.isClient) {
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.manaBlaster, SoundCategory.PLAYERS, 0.6F, 1);
-					world.spawnEntity(burst);
-					ManaGunTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack);
+				if (!world.isClientSide) {
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.manaBlaster, SoundSource.PLAYERS, 0.6F, 1);
+					world.addFreshEntity(burst);
+					ManaGunTrigger.INSTANCE.trigger((ServerPlayer) player, stack);
 					setCooldown(stack, effCd);
 				} else {
-					player.setVelocity(player.getVelocity().subtract(burst.getVelocity().multiply(0.1, 0.3, 0.1)));
+					player.setDeltaMovement(player.getDeltaMovement().subtract(burst.getDeltaMovement().multiply(0.1, 0.3, 0.1)));
 				}
-			} else if (!world.isClient) {
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_LEVER_CLICK, SoundCategory.PLAYERS, 0.6F, (1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
+			} else if (!world.isClientSide) {
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.LEVER_CLICK, SoundSource.PLAYERS, 0.6F, (1.0F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
 			}
-			return TypedActionResult.success(stack, world.isClient);
+			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide);
 		}
 
-		return TypedActionResult.pass(stack);
+		return InteractionResultHolder.pass(stack);
 	}
 
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
@@ -116,11 +116,11 @@ public class ItemManaGun extends Item implements IManaUsingItem, IDurabilityExte
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 	// ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN ASADA-SAN
 	public static boolean isSugoiKawaiiDesuNe(ItemStack stack) {
-		return stack.getName().getString().equalsIgnoreCase("desu gun");
+		return stack.getHoverName().getString().equalsIgnoreCase("desu gun");
 	}
 
 	@Nonnull
-	public BurstProperties getBurstProps(PlayerEntity player, ItemStack stack, boolean request, Hand hand) {
+	public BurstProperties getBurstProps(Player player, ItemStack stack, boolean request, InteractionHand hand) {
 		int maxMana = 120;
 		int color = 0x20FF20;
 		int ticksBeforeManaLoss = 60;
@@ -136,7 +136,7 @@ public class ItemManaGun extends Item implements IManaUsingItem, IDurabilityExte
 		return props;
 	}
 
-	private EntityManaBurst getBurst(PlayerEntity player, ItemStack stack, boolean request, Hand hand) {
+	private EntityManaBurst getBurst(Player player, ItemStack stack, boolean request, InteractionHand hand) {
 		EntityManaBurst burst = new EntityManaBurst(player);
 		BurstProperties props = getBurstProps(player, stack, request, hand);
 
@@ -148,9 +148,9 @@ public class ItemManaGun extends Item implements IManaUsingItem, IDurabilityExte
 			burst.setMinManaLoss(props.ticksBeforeManaLoss);
 			burst.setManaLossPerTick(props.manaLossPerTick);
 			burst.setGravity(props.gravity);
-			burst.setBurstMotion(burst.getVelocity().getX() * props.motionModifier,
-					burst.getVelocity().getY() * props.motionModifier,
-					burst.getVelocity().getZ() * props.motionModifier);
+			burst.setBurstMotion(burst.getDeltaMovement().x() * props.motionModifier,
+					burst.getDeltaMovement().y() * props.motionModifier,
+					burst.getDeltaMovement().z() * props.motionModifier);
 
 			return burst;
 		}
@@ -159,7 +159,7 @@ public class ItemManaGun extends Item implements IManaUsingItem, IDurabilityExte
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext flags) {
+	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
 		boolean clip = hasClip(stack);
 		if (clip && !Screen.hasShiftDown()) {
 			tooltip.add(TooltipHandler.getShiftInfoTooltip());
@@ -168,7 +168,7 @@ public class ItemManaGun extends Item implements IManaUsingItem, IDurabilityExte
 
 		ItemStack lens = getLens(stack);
 		if (!lens.isEmpty()) {
-			List<Text> lensTip = lens.getTooltip(MinecraftClient.getInstance().player, TooltipContext.Default.NORMAL);
+			List<Component> lensTip = lens.getTooltipLines(Minecraft.getInstance().player, TooltipFlag.Default.NORMAL);
 			if (lensTip.size() > 1) {
 				tooltip.addAll(lensTip.subList(1, lensTip.size()));
 			}
@@ -176,19 +176,19 @@ public class ItemManaGun extends Item implements IManaUsingItem, IDurabilityExte
 
 		if (clip) {
 			int pos = getClipPos(stack);
-			tooltip.add(new TranslatableText("botaniamisc.hasClip"));
+			tooltip.add(new TranslatableComponent("botaniamisc.hasClip"));
 			for (int i = 0; i < CLIP_SLOTS; i++) {
 				ItemStack lensAt = getLensAtPos(stack, i);
 
-				Text name;
+				Component name;
 				if (lensAt.isEmpty()) {
-					name = new TranslatableText("botaniamisc.clipEmpty");
+					name = new TranslatableComponent("botaniamisc.clipEmpty");
 				} else {
-					name = lensAt.getName();
+					name = lensAt.getHoverName();
 				}
 
-				MutableText tip = new LiteralText(" - ").append(name);
-				tip.formatted(i == pos ? Formatting.GREEN : Formatting.GRAY);
+				MutableComponent tip = new TextComponent(" - ").append(name);
+				tip.withStyle(i == pos ? ChatFormatting.GREEN : ChatFormatting.GRAY);
 				tooltip.add(tip);
 			}
 		}
@@ -196,12 +196,12 @@ public class ItemManaGun extends Item implements IManaUsingItem, IDurabilityExte
 
 	@Nonnull
 	@Override
-	public Text getName(@Nonnull ItemStack stack) {
+	public Component getName(@Nonnull ItemStack stack) {
 		ItemStack lens = getLens(stack);
-		MutableText cmp = super.getName(stack).shallowCopy();
+		MutableComponent cmp = super.getName(stack).copy();
 		if (!lens.isEmpty()) {
 			cmp.append(" (");
-			cmp.append(lens.getName().shallowCopy().formatted(Formatting.GREEN));
+			cmp.append(lens.getHoverName().copy().withStyle(ChatFormatting.GREEN));
 			cmp.append(")");
 		}
 		return cmp;
@@ -248,7 +248,7 @@ public class ItemManaGun extends Item implements IManaUsingItem, IDurabilityExte
 	public static ItemStack getLensAtPos(ItemStack stack, int pos) {
 		CompoundTag cmp = ItemNBTHelper.getCompound(stack, TAG_LENS + pos, true);
 		if (cmp != null) {
-			return ItemStack.fromTag(cmp);
+			return ItemStack.of(cmp);
 		}
 		return ItemStack.EMPTY;
 	}
@@ -256,7 +256,7 @@ public class ItemManaGun extends Item implements IManaUsingItem, IDurabilityExte
 	public static void setLensAtPos(ItemStack stack, ItemStack lens, int pos) {
 		CompoundTag cmp = new CompoundTag();
 		if (lens != null) {
-			cmp = lens.toTag(cmp);
+			cmp = lens.save(cmp);
 		}
 		ItemNBTHelper.setCompound(stack, TAG_LENS + pos, cmp);
 	}
@@ -268,7 +268,7 @@ public class ItemManaGun extends Item implements IManaUsingItem, IDurabilityExte
 
 		CompoundTag cmp = new CompoundTag();
 		if (!lens.isEmpty()) {
-			cmp = lens.toTag(cmp);
+			cmp = lens.save(cmp);
 		}
 		ItemNBTHelper.setCompound(stack, TAG_LENS, cmp);
 	}
@@ -280,7 +280,7 @@ public class ItemManaGun extends Item implements IManaUsingItem, IDurabilityExte
 
 		CompoundTag cmp = ItemNBTHelper.getCompound(stack, TAG_LENS, true);
 		if (cmp != null) {
-			return ItemStack.fromTag(cmp);
+			return ItemStack.of(cmp);
 		}
 		return ItemStack.EMPTY;
 	}
@@ -296,7 +296,7 @@ public class ItemManaGun extends Item implements IManaUsingItem, IDurabilityExte
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		if (getCooldown(stack) > 0) {
 			setCooldown(stack, getCooldown(stack) - 1);
 		}

@@ -10,24 +10,24 @@ package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
-import net.minecraft.world.World;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.IPhantomInkable;
@@ -48,21 +48,21 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 	private static final String TAG_COSMETIC_ITEM = "cosmeticItem";
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
-	public ItemBauble(Settings props) {
+	public ItemBauble(Properties props) {
 		super(props);
 		EquipmentHandler.initBaubleCap(this);
 	}
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext flags) {
+	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
 		ItemStack cosmetic = getCosmeticItem(stack);
 		if (!cosmetic.isEmpty()) {
-			tooltip.add(new TranslatableText("botaniamisc.hasCosmetic", cosmetic.getName()).formatted(Formatting.GRAY, Formatting.ITALIC));
+			tooltip.add(new TranslatableComponent("botaniamisc.hasCosmetic", cosmetic.getHoverName()).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
 		}
 
 		if (hasPhantomInk(stack)) {
-			tooltip.add(new TranslatableText("botaniamisc.hasPhantomInk").formatted(Formatting.AQUA));
+			tooltip.add(new TranslatableComponent("botaniamisc.hasPhantomInk").withStyle(ChatFormatting.AQUA));
 		}
 	}
 
@@ -72,14 +72,14 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 		if (cmp == null) {
 			return ItemStack.EMPTY;
 		}
-		return ItemStack.fromTag(cmp);
+		return ItemStack.of(cmp);
 	}
 
 	@Override
 	public void setCosmeticItem(ItemStack stack, ItemStack cosmetic) {
 		CompoundTag cmp = new CompoundTag();
 		if (!cosmetic.isEmpty()) {
-			cmp = cosmetic.toTag(cmp);
+			cmp = cosmetic.save(cmp);
 		}
 		ItemNBTHelper.setCompound(stack, TAG_COSMETIC_ITEM, cmp);
 	}
@@ -110,8 +110,8 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 	public void onWornTick(ItemStack stack, LivingEntity entity) {}
 
 	public void onEquipped(ItemStack stack, LivingEntity entity) {
-		if (!entity.world.isClient && entity instanceof ServerPlayerEntity) {
-			PlayerHelper.grantCriterion((ServerPlayerEntity) entity, prefix("main/bauble_wear"), "code_triggered");
+		if (!entity.level.isClientSide && entity instanceof ServerPlayer) {
+			PlayerHelper.grantCriterion((ServerPlayer) entity, prefix("main/bauble_wear"), "code_triggered");
 		}
 	}
 
@@ -121,7 +121,7 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 		return true;
 	}
 
-	public Multimap<EntityAttribute, EntityAttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
+	public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
 		return HashMultimap.create();
 	}
 
@@ -132,5 +132,5 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 	}
 
 	@Environment(EnvType.CLIENT)
-	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {}
+	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {}
 }

@@ -8,7 +8,7 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.texture.AbstractTexture;
+import net.minecraft.client.renderer.texture.AbstractTexture;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,7 +19,7 @@ import vazkii.botania.client.core.ExtendedTexture;
 @Mixin(AbstractTexture.class)
 public abstract class MixinAbstractTexture implements ExtendedTexture {
 	@Shadow
-	protected boolean bilinear;
+	protected boolean blur;
 
 	@Shadow
 	protected boolean mipmap;
@@ -35,7 +35,7 @@ public abstract class MixinAbstractTexture implements ExtendedTexture {
 
 	@Override
 	public void setFilterSave(boolean bilinear, boolean mipmap) {
-		this.lastBilinear = this.bilinear;
+		this.lastBilinear = this.blur;
 		this.lastMipmap = this.mipmap;
 		setFilter(bilinear, mipmap);
 	}

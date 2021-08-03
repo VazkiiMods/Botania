@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public class ItemGreaterManaRing extends ItemManaRing {
 
 	private static final int MAX_MANA = ItemManaRing.MAX_MANA * 4;
 
-	public ItemGreaterManaRing(Settings props) {
+	public ItemGreaterManaRing(Properties props) {
 		super(props);
 	}
 

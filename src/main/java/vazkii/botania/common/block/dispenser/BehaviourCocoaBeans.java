@@ -8,34 +8,34 @@
  */
 package vazkii.botania.common.block.dispenser;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
-import net.minecraft.item.AutomaticItemPlacementContext;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPointer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockSource;
+import net.minecraft.core.Direction;
+import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.DirectionalPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
 
-public class BehaviourCocoaBeans extends FallibleItemDispenserBehavior {
+public class BehaviourCocoaBeans extends OptionalDispenseItemBehavior {
 	@Nonnull
 	@Override
-	public ItemStack dispenseSilently(BlockPointer source, ItemStack stack) {
+	public ItemStack execute(BlockSource source, ItemStack stack) {
 		Block block = Blocks.COCOA;
-		Direction facing = source.getBlockState().get(DispenserBlock.FACING);
-		BlockPos pos = source.getBlockPos().offset(facing);
-		World world = source.getWorld();
-		ItemPlacementContext ctx = new AutomaticItemPlacementContext(source.getWorld(), source.getBlockPos().offset(facing), facing, new ItemStack(block), facing.getOpposite());
-		BlockState cocoa = block.getPlacementState(ctx);
-		if (cocoa != null && world.isAir(pos)) {
-			world.setBlockState(pos, cocoa);
-			stack.decrement(1);
+		Direction facing = source.getBlockState().getValue(DispenserBlock.FACING);
+		BlockPos pos = source.getPos().relative(facing);
+		Level world = source.getLevel();
+		BlockPlaceContext ctx = new DirectionalPlaceContext(source.getLevel(), source.getPos().relative(facing), facing, new ItemStack(block), facing.getOpposite());
+		BlockState cocoa = block.getStateForPlacement(ctx);
+		if (cocoa != null && world.isEmptyBlock(pos)) {
+			world.setBlockAndUpdate(pos, cocoa);
+			stack.shrink(1);
 			return stack;
 		}
 

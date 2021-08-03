@@ -10,28 +10,28 @@ package vazkii.botania.common.item;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsage;
-import net.minecraft.item.Items;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.UseAction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
-import net.minecraft.world.explosion.Explosion;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.entity.EntityPixie;
@@ -46,68 +46,68 @@ public class ItemBottledMana extends Item {
 	private static final String TAG_SWIGS_LEFT = "swigsLeft";
 	private static final String TAG_SEED = "randomSeed";
 
-	public ItemBottledMana(Settings props) {
+	public ItemBottledMana(Properties props) {
 		super(props);
 	}
 
 	public void effect(ItemStack stack, LivingEntity living, int id) {
 		switch (id) {
 		case 0: { // Random motion
-			living.setVelocity((Math.random() - 0.5) * 3, living.getVelocity().getY(),
+			living.setDeltaMovement((Math.random() - 0.5) * 3, living.getDeltaMovement().y(),
 					(Math.random() - 0.5) * 3);
 			break;
 		}
 		case 1: { // Water
-			if (!living.world.isClient && !living.world.getDimension().isUltrawarm()) {
-				living.world.setBlockState(living.getBlockPos(), Blocks.WATER.getDefaultState());
+			if (!living.level.isClientSide && !living.level.dimensionType().ultraWarm()) {
+				living.level.setBlockAndUpdate(living.blockPosition(), Blocks.WATER.defaultBlockState());
 			}
 			break;
 		}
 		case 2: { // Set on Fire
-			if (!living.world.isClient) {
-				living.setOnFireFor(4);
+			if (!living.level.isClientSide) {
+				living.setSecondsOnFire(4);
 			}
 			break;
 		}
 		case 3: { // Mini Explosion
-			if (!living.world.isClient) {
-				living.world.createExplosion(null, living.getX(), living.getY(),
-						living.getZ(), 0.25F, Explosion.DestructionType.NONE);
+			if (!living.level.isClientSide) {
+				living.level.explode(null, living.getX(), living.getY(),
+						living.getZ(), 0.25F, Explosion.BlockInteraction.NONE);
 			}
 			break;
 		}
 		case 4: { // Mega Jump
-			if (!living.world.getDimension().isUltrawarm()) {
-				if (!living.world.isClient) {
-					living.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 300, 5));
+			if (!living.level.dimensionType().ultraWarm()) {
+				if (!living.level.isClientSide) {
+					living.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 300, 5));
 				}
-				living.setVelocity(living.getVelocity().getX(), 6, living.getVelocity().getZ());
+				living.setDeltaMovement(living.getDeltaMovement().x(), 6, living.getDeltaMovement().z());
 			}
 
 			break;
 		}
 		case 5: { // Randomly set HP
-			if (!living.world.isClient) {
-				living.setHealth(living.world.random.nextInt(19) + 1);
+			if (!living.level.isClientSide) {
+				living.setHealth(living.level.random.nextInt(19) + 1);
 			}
 			break;
 		}
 		case 6: { // Lots O' Hearts
-			if (!living.world.isClient) {
-				living.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 20 * 60 * 2, 9));
+			if (!living.level.isClientSide) {
+				living.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 20 * 60 * 2, 9));
 			}
 			break;
 		}
 		case 7: { // All your inventory is belong to us
-			if (!living.world.isClient && living instanceof PlayerEntity) {
-				PlayerEntity player = (PlayerEntity) living;
-				for (int i = 0; i < player.inventory.size(); i++) {
-					ItemStack stackAt = player.inventory.getStack(i);
+			if (!living.level.isClientSide && living instanceof Player) {
+				Player player = (Player) living;
+				for (int i = 0; i < player.inventory.getContainerSize(); i++) {
+					ItemStack stackAt = player.inventory.getItem(i);
 					if (stackAt != stack) {
 						if (!stackAt.isEmpty()) {
-							player.dropStack(stackAt, 0);
+							player.spawnAtLocation(stackAt, 0);
 						}
-						player.inventory.setStack(i, ItemStack.EMPTY);
+						player.inventory.setItem(i, ItemStack.EMPTY);
 					}
 				}
 			}
@@ -115,20 +115,20 @@ public class ItemBottledMana extends Item {
 			break;
 		}
 		case 8: { // Break your neck
-			living.pitch = (float) Math.random() * 360F;
-			living.yaw = (float) Math.random() * 180F;
+			living.xRot = (float) Math.random() * 360F;
+			living.yRot = (float) Math.random() * 180F;
 
 			break;
 		}
 		case 9: { // Highest Possible
-			int x = MathHelper.floor(living.getX());
-			int z = MathHelper.floor(living.getZ());
+			int x = Mth.floor(living.getX());
+			int z = Mth.floor(living.getZ());
 			for (int i = 256; i > 0; i--) {
-				BlockState state = living.world.getBlockState(new BlockPos(x, i, z));
+				BlockState state = living.level.getBlockState(new BlockPos(x, i, z));
 				if (!state.isAir()) {
-					if (living instanceof ServerPlayerEntity) {
-						ServerPlayerEntity mp = (ServerPlayerEntity) living;
-						mp.networkHandler.requestTeleport(living.getX(), i, living.getZ(), living.yaw, living.pitch);
+					if (living instanceof ServerPlayer) {
+						ServerPlayer mp = (ServerPlayer) living;
+						mp.connection.teleport(living.getX(), i, living.getZ(), living.yRot, living.xRot);
 					}
 					break;
 				}
@@ -137,46 +137,46 @@ public class ItemBottledMana extends Item {
 			break;
 		}
 		case 10: { // HYPERSPEEEEEED
-			if (!living.world.isClient) {
-				living.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, 60, 200));
+			if (!living.level.isClientSide) {
+				living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 60, 200));
 			}
 			break;
 		}
 		case 11: { // Night Vision
-			if (!living.world.isClient) {
-				living.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 6000, 0));
+			if (!living.level.isClientSide) {
+				living.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 6000, 0));
 			}
 			break;
 		}
 		case 12: { // ???
-			if (!living.world.isClient) {
+			if (!living.level.isClientSide) {
 				// todo 1.16 pick something new
 			}
 
 			break;
 		}
 		case 13: { // Pixie Friend
-			if (!living.world.isClient) {
-				EntityPixie pixie = new EntityPixie(living.world);
-				pixie.updatePosition(living.getX(), living.getY() + 1.5, living.getZ());
-				living.world.spawnEntity(pixie);
+			if (!living.level.isClientSide) {
+				EntityPixie pixie = new EntityPixie(living.level);
+				pixie.setPos(living.getX(), living.getY() + 1.5, living.getZ());
+				living.level.addFreshEntity(pixie);
 			}
 			break;
 		}
 		case 14: { // Nausea + Blindness :3
-			if (!living.world.isClient) {
-				living.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 160, 3));
-				living.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 160, 0));
+			if (!living.level.isClientSide) {
+				living.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 160, 3));
+				living.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 160, 0));
 			}
 
 			break;
 		}
 		case 15: { // Drop own Head
-			if (!living.world.isClient && living instanceof PlayerEntity) {
-				living.damage(DamageSource.MAGIC, living.getHealth() - 1);
+			if (!living.level.isClientSide && living instanceof Player) {
+				living.hurt(DamageSource.MAGIC, living.getHealth() - 1);
 				ItemStack skull = new ItemStack(Items.PLAYER_HEAD);
-				ItemNBTHelper.setString(skull, "SkullOwner", ((PlayerEntity) living).getGameProfile().getName());
-				living.dropStack(skull, 0);
+				ItemNBTHelper.setString(skull, "SkullOwner", ((Player) living).getGameProfile().getName());
+				living.spawnAtLocation(skull, 0);
 			}
 			break;
 		}
@@ -196,26 +196,26 @@ public class ItemBottledMana extends Item {
 	}
 
 	private long randomSeed(ItemStack stack) {
-		long seed = Math.abs(RANDOM.nextLong());
+		long seed = Math.abs(random.nextLong());
 		ItemNBTHelper.setLong(stack, TAG_SEED, seed);
 		return seed;
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendTooltip(ItemStack stack, World world, List<Text> stacks, TooltipContext flags) {
-		stacks.add(new TranslatableText("botaniamisc.bottleTooltip"));
+	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
+		stacks.add(new TranslatableComponent("botaniamisc.bottleTooltip"));
 	}
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		return ItemUsage.consumeHeldItem(world, player, hand);
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		return ItemUtils.useDrink(world, player, hand);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack finishUsing(@Nonnull ItemStack stack, World world, LivingEntity living) {
+	public ItemStack finishUsingItem(@Nonnull ItemStack stack, Level world, LivingEntity living) {
 		randomEffect(living, stack);
 		int left = getSwigsLeft(stack);
 		if (left <= 1) {
@@ -228,14 +228,14 @@ public class ItemBottledMana extends Item {
 	}
 
 	@Override
-	public int getMaxUseTime(ItemStack stack) {
+	public int getUseDuration(ItemStack stack) {
 		return 20;
 	}
 
 	@Nonnull
 	@Override
-	public UseAction getUseAction(ItemStack stack) {
-		return UseAction.DRINK;
+	public UseAnim getUseAnimation(ItemStack stack) {
+		return UseAnim.DRINK;
 	}
 
 	public static int getSwigsLeft(ItemStack stack) {

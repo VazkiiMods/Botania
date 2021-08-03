@@ -8,25 +8,25 @@
  */
 package vazkii.botania.common.entity;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Packet;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import net.minecraft.world.explosion.Explosion;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -49,55 +49,55 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	private static final String TAG_DELAY = "delay";
 	private static final String TAG_ROTATION = "rotation";
 
-	private static final TrackedData<Boolean> CHARGING = DataTracker.registerData(EntityBabylonWeapon.class, TrackedDataHandlerRegistry.BOOLEAN);
-	private static final TrackedData<Integer> VARIETY = DataTracker.registerData(EntityBabylonWeapon.class, TrackedDataHandlerRegistry.INTEGER);
-	private static final TrackedData<Integer> CHARGE_TICKS = DataTracker.registerData(EntityBabylonWeapon.class, TrackedDataHandlerRegistry.INTEGER);
-	private static final TrackedData<Integer> LIVE_TICKS = DataTracker.registerData(EntityBabylonWeapon.class, TrackedDataHandlerRegistry.INTEGER);
-	private static final TrackedData<Integer> DELAY = DataTracker.registerData(EntityBabylonWeapon.class, TrackedDataHandlerRegistry.INTEGER);
-	private static final TrackedData<Float> ROTATION = DataTracker.registerData(EntityBabylonWeapon.class, TrackedDataHandlerRegistry.FLOAT);
+	private static final EntityDataAccessor<Boolean> CHARGING = SynchedEntityData.defineId(EntityBabylonWeapon.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Integer> VARIETY = SynchedEntityData.defineId(EntityBabylonWeapon.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> CHARGE_TICKS = SynchedEntityData.defineId(EntityBabylonWeapon.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> LIVE_TICKS = SynchedEntityData.defineId(EntityBabylonWeapon.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> DELAY = SynchedEntityData.defineId(EntityBabylonWeapon.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Float> ROTATION = SynchedEntityData.defineId(EntityBabylonWeapon.class, EntityDataSerializers.FLOAT);
 
-	public EntityBabylonWeapon(EntityType<EntityBabylonWeapon> type, World world) {
+	public EntityBabylonWeapon(EntityType<EntityBabylonWeapon> type, Level world) {
 		super(type, world);
 	}
 
-	public EntityBabylonWeapon(LivingEntity thrower, World world) {
+	public EntityBabylonWeapon(LivingEntity thrower, Level world) {
 		super(ModEntities.BABYLON_WEAPON, thrower, world);
 	}
 
 	@Override
-	protected void initDataTracker() {
-		dataTracker.startTracking(CHARGING, false);
-		dataTracker.startTracking(VARIETY, 0);
-		dataTracker.startTracking(CHARGE_TICKS, 0);
-		dataTracker.startTracking(LIVE_TICKS, 0);
-		dataTracker.startTracking(DELAY, 0);
-		dataTracker.startTracking(ROTATION, 0F);
+	protected void defineSynchedData() {
+		entityData.define(CHARGING, false);
+		entityData.define(VARIETY, 0);
+		entityData.define(CHARGE_TICKS, 0);
+		entityData.define(LIVE_TICKS, 0);
+		entityData.define(DELAY, 0);
+		entityData.define(ROTATION, 0F);
 	}
 
 	@Override
-	public Packet<?> createSpawnPacket() {
+	public Packet<?> getAddEntityPacket() {
 		return PacketSpawnEntity.make(this);
 	}
 
 	@Override
-	public boolean shouldRender(double dist) {
+	public boolean shouldRenderAtSqrDistance(double dist) {
 		return dist < 64 * 64;
 	}
 
 	@Override
-	public boolean isImmuneToExplosion() {
+	public boolean ignoreExplosion() {
 		return true;
 	}
 
 	@Override
 	public void tick() {
 		Entity thrower = getOwner();
-		if (!world.isClient && (thrower == null || !(thrower instanceof PlayerEntity) || !thrower.isAlive())) {
+		if (!level.isClientSide && (thrower == null || !(thrower instanceof Player) || !thrower.isAlive())) {
 			remove();
 			return;
 		}
-		PlayerEntity player = (PlayerEntity) thrower;
-		if (!world.isClient) {
+		Player player = (Player) thrower;
+		if (!level.isClientSide) {
 			ItemStack stack = PlayerHelper.getFirstHeldItem(player, ModItems.kingKey);
 			boolean newCharging = !stack.isEmpty() && ItemKingKey.isCharging(stack);
 			if (isCharging() != newCharging) {
@@ -105,43 +105,43 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 			}
 		}
 
-		Vec3d mot = getVelocity();
+		Vec3 mot = getDeltaMovement();
 
 		int liveTime = getLiveTicks();
 		int delay = getDelay();
 		boolean charging = isCharging() && liveTime == 0;
 
 		if (charging) {
-			setVelocity(Vec3d.ZERO);
+			setDeltaMovement(Vec3.ZERO);
 
 			int chargeTime = getChargeTicks();
 			setChargeTicks(chargeTime + 1);
 
-			if (world.random.nextInt(20) == 0) {
-				world.playSound(null, getX(), getY(), getZ(), ModSounds.babylonSpawn, SoundCategory.PLAYERS, 0.1F, 1F + world.random.nextFloat() * 3F);
+			if (level.random.nextInt(20) == 0) {
+				level.playSound(null, getX(), getY(), getZ(), ModSounds.babylonSpawn, SoundSource.PLAYERS, 0.1F, 1F + level.random.nextFloat() * 3F);
 			}
 		} else {
 			if (liveTime < delay) {
-				setVelocity(Vec3d.ZERO);
+				setDeltaMovement(Vec3.ZERO);
 			} else if (liveTime == delay && player != null) {
-				Vec3d playerLook;
+				Vec3 playerLook;
 				BlockHitResult rtr = ToolCommons.raytraceFromEntity(player, 64, true);
 				if (rtr.getType() != HitResult.Type.BLOCK) {
-					playerLook = player.getRotationVector().multiply(64).add(player.getPos());
+					playerLook = player.getLookAngle().scale(64).add(player.position());
 				} else {
-					playerLook = Vec3d.ofCenter(rtr.getBlockPos());
+					playerLook = Vec3.atCenterOf(rtr.getBlockPos());
 				}
 
 				Vector3 thisVec = Vector3.fromEntityCenter(this);
 
-				mot = playerLook.subtract(thisVec.x, thisVec.y, thisVec.z).normalize().multiply(2);
-				world.playSound(null, getX(), getY(), getZ(), ModSounds.babylonAttack, SoundCategory.PLAYERS, 2F, 0.1F + world.random.nextFloat() * 3F);
+				mot = playerLook.subtract(thisVec.x, thisVec.y, thisVec.z).normalize().scale(2);
+				level.playSound(null, getX(), getY(), getZ(), ModSounds.babylonAttack, SoundSource.PLAYERS, 2F, 0.1F + level.random.nextFloat() * 3F);
 			}
 
-			if (!world.isClient) {
+			if (!level.isClientSide) {
 				setLiveTicks(liveTime + 1);
-				Box axis = new Box(getX(), getY(), getZ(), lastRenderX, lastRenderY, lastRenderZ).expand(2);
-				List<LivingEntity> entities = world.getNonSpectatingEntities(LivingEntity.class, axis);
+				AABB axis = new AABB(getX(), getY(), getZ(), xOld, yOld, zOld).inflate(2);
+				List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, axis);
 				for (LivingEntity living : entities) {
 					if (living == thrower) {
 						continue;
@@ -149,11 +149,11 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 
 					if (living.hurtTime == 0) {
 						if (player != null) {
-							living.damage(DamageSource.player(player), 20);
+							living.hurt(DamageSource.playerAttack(player), 20);
 						} else {
-							living.damage(DamageSource.GENERIC, 20);
+							living.hurt(DamageSource.GENERIC, 20);
 						}
-						onCollision(new EntityHitResult(living));
+						onHit(new EntityHitResult(living));
 						return;
 					}
 				}
@@ -163,30 +163,30 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		super.tick();
 
 		// Apply after super tick so drag is not applied by super
-		setVelocity(mot);
+		setDeltaMovement(mot);
 
-		if (world.isClient && liveTime > delay) {
+		if (level.isClientSide && liveTime > delay) {
 			WispParticleData data = WispParticleData.wisp(0.3F, 1F, 1F, 0F, 1);
-			world.addParticle(data, getX(), getY(), getZ(), 0, -0F, 0);
+			level.addParticle(data, getX(), getY(), getZ(), 0, -0F, 0);
 		}
 
-		if (!world.isClient && liveTime > 200 + delay) {
+		if (!level.isClientSide && liveTime > 200 + delay) {
 			remove();
 		}
 	}
 
 	@Override
-	protected void onCollision(HitResult pos) {
+	protected void onHit(HitResult pos) {
 		Entity thrower = getOwner();
 		if (pos.getType() != HitResult.Type.ENTITY || ((EntityHitResult) pos).getEntity() != thrower) {
-			world.createExplosion(this, getX(), getY(), getZ(), 3F, Explosion.DestructionType.NONE);
+			level.explode(this, getX(), getY(), getZ(), 3F, Explosion.BlockInteraction.NONE);
 			remove();
 		}
 	}
 
 	@Override
-	public void writeCustomDataToTag(@Nonnull CompoundTag cmp) {
-		super.writeCustomDataToTag(cmp);
+	public void addAdditionalSaveData(@Nonnull CompoundTag cmp) {
+		super.addAdditionalSaveData(cmp);
 		cmp.putBoolean(TAG_CHARGING, isCharging());
 		cmp.putInt(TAG_VARIETY, getVariety());
 		cmp.putInt(TAG_CHARGE_TICKS, getChargeTicks());
@@ -196,8 +196,8 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	}
 
 	@Override
-	public void readCustomDataFromTag(@Nonnull CompoundTag cmp) {
-		super.readCustomDataFromTag(cmp);
+	public void readAdditionalSaveData(@Nonnull CompoundTag cmp) {
+		super.readAdditionalSaveData(cmp);
 		setCharging(cmp.getBoolean(TAG_CHARGING));
 		setVariety(cmp.getInt(TAG_VARIETY));
 		setChargeTicks(cmp.getInt(TAG_CHARGE_TICKS));
@@ -207,51 +207,51 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	}
 
 	public boolean isCharging() {
-		return dataTracker.get(CHARGING);
+		return entityData.get(CHARGING);
 	}
 
 	public void setCharging(boolean charging) {
-		dataTracker.set(CHARGING, charging);
+		entityData.set(CHARGING, charging);
 	}
 
 	public int getVariety() {
-		return dataTracker.get(VARIETY);
+		return entityData.get(VARIETY);
 	}
 
 	public void setVariety(int var) {
-		dataTracker.set(VARIETY, var);
+		entityData.set(VARIETY, var);
 	}
 
 	public int getChargeTicks() {
-		return dataTracker.get(CHARGE_TICKS);
+		return entityData.get(CHARGE_TICKS);
 	}
 
 	public void setChargeTicks(int ticks) {
-		dataTracker.set(CHARGE_TICKS, ticks);
+		entityData.set(CHARGE_TICKS, ticks);
 	}
 
 	public int getLiveTicks() {
-		return dataTracker.get(LIVE_TICKS);
+		return entityData.get(LIVE_TICKS);
 	}
 
 	public void setLiveTicks(int ticks) {
-		dataTracker.set(LIVE_TICKS, ticks);
+		entityData.set(LIVE_TICKS, ticks);
 	}
 
 	public int getDelay() {
-		return dataTracker.get(DELAY);
+		return entityData.get(DELAY);
 	}
 
 	public void setDelay(int delay) {
-		dataTracker.set(DELAY, delay);
+		entityData.set(DELAY, delay);
 	}
 
 	public float getRotation() {
-		return dataTracker.get(ROTATION);
+		return entityData.get(ROTATION);
 	}
 
 	public void setRotation(float rot) {
-		dataTracker.set(ROTATION, rot);
+		entityData.set(ROTATION, rot);
 	}
 
 }

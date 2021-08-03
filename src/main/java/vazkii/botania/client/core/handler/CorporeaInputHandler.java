@@ -8,15 +8,15 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
-import net.minecraft.client.gui.screen.recipebook.AnimatedResultButton;
-import net.minecraft.client.gui.screen.recipebook.RecipeBookResults;
-import net.minecraft.client.gui.screen.recipebook.RecipeBookWidget;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.Slot;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
+import net.minecraft.client.gui.screens.recipebook.RecipeBookPage;
+import net.minecraft.client.gui.screens.recipebook.RecipeButton;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
@@ -34,13 +34,13 @@ public class CorporeaInputHandler {
 	public static Supplier<ItemStack> jeiPanelSupplier = () -> ItemStack.EMPTY;
 
 	/** Filter for usable guis to handle requests. Added to in JEIBotaniaPlugin */
-	public static Predicate<Screen> supportedGuiFilter = gui -> gui instanceof HandledScreen;
+	public static Predicate<Screen> supportedGuiFilter = gui -> gui instanceof AbstractContainerScreen;
 
 	public static boolean buttonPressed(int keyCode, int scanCode) {
-		MinecraftClient mc = MinecraftClient.getInstance();
+		Minecraft mc = Minecraft.getInstance();
 
-		if (mc.world == null || !supportedGuiFilter.test(mc.currentScreen)
-				|| !ClientProxy.CORPOREA_REQUEST.matchesKey(keyCode, scanCode)
+		if (mc.level == null || !supportedGuiFilter.test(mc.screen)
+				|| !ClientProxy.CORPOREA_REQUEST.matches(keyCode, scanCode)
 				|| TileCorporeaIndex.InputHandler.getNearbyIndexes(mc.player).isEmpty()) {
 			return false;
 		}
@@ -48,7 +48,7 @@ public class CorporeaInputHandler {
 		ItemStack stack = getStackUnderMouse();
 		if (stack != null && !stack.isEmpty()) {
 			int count = 1;
-			int max = stack.getMaxCount();
+			int max = stack.getMaxStackSize();
 
 			if (Screen.hasShiftDown()) {
 				count = max;
@@ -70,22 +70,22 @@ public class CorporeaInputHandler {
 	}
 
 	private static ItemStack getStackUnderMouse() {
-		Screen screen = MinecraftClient.getInstance().currentScreen;
-		if (screen instanceof HandledScreen) {
-			Slot slotUnderMouse = ((AccessorHandledScreen) screen).getFocusedSlot();
+		Screen screen = Minecraft.getInstance().screen;
+		if (screen instanceof AbstractContainerScreen) {
+			Slot slotUnderMouse = ((AccessorHandledScreen) screen).getHoveredSlot();
 			if (slotUnderMouse != null) {
-				ItemStack stack = slotUnderMouse.getStack().copy();
+				ItemStack stack = slotUnderMouse.getItem().copy();
 				stack.setTag(null); // Wipe NBT of inventory items before request, as player items will often have data
 				return stack; // that's better to ignore. This is still an improvement over matching names only.
 			}
 		}
 
-		if (screen instanceof InventoryScreen && ((InventoryScreen) screen).getRecipeBookWidget().isOpen()) {
-			RecipeBookWidget recipeBook = ((InventoryScreen) screen).getRecipeBookWidget();
-			RecipeBookResults page = ((AccessorRecipeBookGui) recipeBook).getRecipesArea();
-			AnimatedResultButton widget = ((AccessorRecipeBookPage) page).getHoveredResultButton();
+		if (screen instanceof InventoryScreen && ((InventoryScreen) screen).getRecipeBookComponent().isVisible()) {
+			RecipeBookComponent recipeBook = ((InventoryScreen) screen).getRecipeBookComponent();
+			RecipeBookPage page = ((AccessorRecipeBookGui) recipeBook).getRecipesArea();
+			RecipeButton widget = ((AccessorRecipeBookPage) page).getHoveredButton();
 			if (widget != null) {
-				return widget.currentRecipe().getOutput();
+				return widget.getRecipe().getResultItem();
 			}
 		}
 

@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Box;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -32,31 +32,31 @@ public class SubTilePollidisiac extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getWorld().isClient) {
+		if (!getLevel().isClientSide) {
 
-			List<ItemEntity> items = getWorld().getNonSpectatingEntities(ItemEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
-			List<AnimalEntity> animals = getWorld().getNonSpectatingEntities(AnimalEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<Animal> animals = getLevel().getEntitiesOfClass(Animal.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)));
 			int slowdown = getSlowdownFactor();
 
-			for (AnimalEntity animal : animals) {
+			for (Animal animal : animals) {
 				if (getMana() < MANA_COST) {
 					break;
 				}
 
-				if (animal.getBreedingAge() == 0 && !animal.isInLove()) {
+				if (animal.getAge() == 0 && !animal.isInLove()) {
 					for (ItemEntity item : items) {
 						int age = ((AccessorItemEntity) item).getAge();
 						if (age < 60 + slowdown || !item.isAlive()) {
 							continue;
 						}
 
-						ItemStack stack = item.getStack();
-						if (!stack.isEmpty() && animal.isBreedingItem(stack)) {
-							stack.decrement(1);
+						ItemStack stack = item.getItem();
+						if (!stack.isEmpty() && animal.isFood(stack)) {
+							stack.shrink(1);
 
 							addMana(-MANA_COST);
-							animal.setLoveTicks(1200);
-							getWorld().sendEntityStatus(animal, (byte) 18);
+							animal.setInLoveTime(1200);
+							getLevel().broadcastEntityEvent(animal, (byte) 18);
 						}
 					}
 				}

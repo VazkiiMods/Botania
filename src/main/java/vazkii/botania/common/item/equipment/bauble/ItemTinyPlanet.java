@@ -9,19 +9,19 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.base.Predicates;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.thrown.ThrownEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.ThrowableProjectile;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
@@ -32,32 +32,32 @@ import java.util.List;
 
 public class ItemTinyPlanet extends ItemBauble {
 
-	public ItemTinyPlanet(Settings props) {
+	public ItemTinyPlanet(Properties props) {
 		super(props);
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
 		double x = player.getX();
-		double y = player.getY() + player.getStandingEyeHeight();
+		double y = player.getY() + player.getEyeHeight();
 		double z = player.getZ();
 
-		applyEffect(player.world, x, y, z);
+		applyEffect(player.level, x, y, z);
 	}
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity living, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		bipedModel.head.rotate(ms);
+	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		bipedModel.head.translateAndRotate(ms);
 		ms.translate(-0.25, -0.4, 0);
 		ms.scale(0.5F, -0.5F, -0.5F);
-		MinecraftClient.getInstance().getBlockRenderManager().renderBlockAsEntity(ModBlocks.tinyPlanet.getDefaultState(), ms, buffers, light, OverlayTexture.DEFAULT_UV);
+		Minecraft.getInstance().getBlockRenderer().renderSingleBlock(ModBlocks.tinyPlanet.defaultBlockState(), ms, buffers, light, OverlayTexture.NO_OVERLAY);
 	}
 
-	public static void applyEffect(World world, double x, double y, double z) {
+	public static void applyEffect(Level world, double x, double y, double z) {
 		int range = 8;
-		List<ThrownEntity> entities = world.getEntitiesByClass(ThrownEntity.class, new Box(x - range, y - range, z - range, x + range, y + range, z + range), Predicates.instanceOf(IManaBurst.class));
-		for (ThrownEntity entity : entities) {
+		List<ThrowableProjectile> entities = world.getEntitiesOfClass(ThrowableProjectile.class, new AABB(x - range, y - range, z - range, x + range, y + range, z + range), Predicates.instanceOf(IManaBurst.class));
+		for (ThrowableProjectile entity : entities) {
 			IManaBurst burst = (IManaBurst) entity;
 			ItemStack lens = burst.getSourceLens();
 			if (lens != null && lens.getItem() instanceof ITinyPlanetExcempt && !((ITinyPlanetExcempt) lens.getItem()).shouldPull(lens)) {

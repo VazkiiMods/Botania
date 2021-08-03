@@ -9,24 +9,24 @@
 package vazkii.botania.common.item.equipment.bauble;
 
 import com.google.common.base.Predicates;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.mob.CreeperEntity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.Monster;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.math.Box;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -41,16 +41,16 @@ import java.util.List;
 
 public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 
-	public ItemDivaCharm(Settings props) {
+	public ItemDivaCharm(Properties props) {
 		super(props);
 	}
 
-	public static void onEntityDamaged(PlayerEntity player, Entity entity) {
-		if (entity instanceof MobEntity
-				&& !entity.world.isClient
-				&& entity.canUsePortals()
+	public static void onEntityDamaged(Player player, Entity entity) {
+		if (entity instanceof Mob
+				&& !entity.level.isClientSide
+				&& entity.canChangeDimensions()
 				&& Math.random() < 0.6F) {
-			MobEntity target = (MobEntity) entity;
+			Mob target = (Mob) entity;
 			ItemStack amulet = EquipmentHandler.findOrEmpty(ModItems.divaCharm, player);
 
 			if (!amulet.isEmpty()) {
@@ -59,18 +59,18 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 					final int range = 20;
 
 					@SuppressWarnings("unchecked")
-					List<Monster> mobs = (List<Monster>) (List<?>) player.world.getEntitiesByClass(Entity.class, new Box(target.getX() - range, target.getY() - range, target.getZ() - range, target.getX() + range, target.getY() + range, target.getZ() + range), Predicates.instanceOf(Monster.class));
+					List<Enemy> mobs = (List<Enemy>) (List<?>) player.level.getEntitiesOfClass(Entity.class, new AABB(target.getX() - range, target.getY() - range, target.getZ() - range, target.getX() + range, target.getY() + range, target.getZ() + range), Predicates.instanceOf(Enemy.class));
 					if (mobs.size() > 1) {
 						if (SubTileHeiseiDream.brainwashEntity(target, mobs)) {
 							target.heal(target.getMaxHealth());
 							target.removed = false;
-							if (target instanceof CreeperEntity) {
+							if (target instanceof Creeper) {
 								((AccessorCreeperEntity) target).setCurrentFuseTime(2);
 							}
 
 							ManaItemHandler.instance().requestManaExact(amulet, player, cost, true);
-							player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.divaCharm, SoundCategory.PLAYERS, 1F, 1F);
-							PacketBotaniaEffect.sendNearby(target, PacketBotaniaEffect.EffectType.DIVA_EFFECT, target.getX(), target.getY(), target.getZ(), target.getEntityId());
+							player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.divaCharm, SoundSource.PLAYERS, 1F, 1F);
+							PacketBotaniaEffect.sendNearby(target, PacketBotaniaEffect.EffectType.DIVA_EFFECT, target.getX(), target.getY(), target.getZ(), target.getId());
 						}
 					}
 				}
@@ -85,10 +85,10 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		bipedModel.head.rotate(ms);
+	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		bipedModel.head.translateAndRotate(ms);
 		ms.translate(0.15, -0.42, -0.35);
 		ms.scale(0.4F, -0.4F, -0.4F);
-		MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.NONE, light, OverlayTexture.DEFAULT_UV, ms, buffers);
+		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE, light, OverlayTexture.NO_OVERLAY, ms, buffers);
 	}
 }

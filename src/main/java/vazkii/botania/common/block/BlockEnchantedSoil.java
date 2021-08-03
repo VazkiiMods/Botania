@@ -10,7 +10,7 @@ package vazkii.botania.common.block;
 
 public class BlockEnchantedSoil extends BlockMod {
 
-	public BlockEnchantedSoil(Settings builder) {
+	public BlockEnchantedSoil(Properties builder) {
 		super(builder);
 	}
 

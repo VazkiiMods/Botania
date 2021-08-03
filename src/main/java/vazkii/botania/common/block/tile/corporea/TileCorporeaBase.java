@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
-import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -21,7 +21,7 @@ public abstract class TileCorporeaBase extends TileMod {
 	}
 
 	public ICorporeaSpark getSpark() {
-		return CorporeaHelper.instance().getSparkForBlock(world, getPos());
+		return CorporeaHelper.instance().getSparkForBlock(level, getBlockPos());
 	}
 
 }

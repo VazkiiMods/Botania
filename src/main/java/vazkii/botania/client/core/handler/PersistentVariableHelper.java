@@ -8,7 +8,7 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
 
@@ -45,7 +45,7 @@ public final class PersistentVariableHelper {
 	}
 
 	public static void init() {
-		cacheFile = new File(MinecraftClient.getInstance().runDirectory, "BotaniaVars.dat");
+		cacheFile = new File(Minecraft.getInstance().gameDirectory, "BotaniaVars.dat");
 		try {
 			cacheFile.createNewFile();
 		} catch (IOException e) {

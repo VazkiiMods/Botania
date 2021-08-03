@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.corporea;
 
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
@@ -23,5 +23,5 @@ public interface ICorporeaNodeDetector {
 	 * @return A corporea node that this detector found at the given location, else null
 	 */
 	@Nullable
-	ICorporeaNode getNode(World world, ICorporeaSpark spark);
+	ICorporeaNode getNode(Level world, ICorporeaSpark spark);
 }

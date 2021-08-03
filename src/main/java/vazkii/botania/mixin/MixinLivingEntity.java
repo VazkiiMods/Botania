@@ -8,13 +8,13 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -35,46 +35,46 @@ import javax.annotation.Nullable;
 @Mixin(LivingEntity.class)
 public abstract class MixinLivingEntity extends Entity {
 
-	public MixinLivingEntity(EntityType<?> type, World world) {
+	public MixinLivingEntity(EntityType<?> type, Level world) {
 		super(type, world);
 	}
 
 	@Shadow
-	public abstract ItemStack getStackInHand(Hand hand);
+	public abstract ItemStack getItemInHand(InteractionHand hand);
 
 	@Shadow
-	protected int playerHitTimer;
+	protected int lastHurtByPlayerTime;
 
-	@Inject(at = @At("HEAD"), cancellable = true, method = "dropLoot")
+	@Inject(at = @At("HEAD"), cancellable = true, method = "dropFromLootTable")
 	private void dropLoonium(DamageSource source, boolean causedByPlayer, CallbackInfo ci) {
 		LooniumComponent comp = EntityComponents.LOONIUM_DROP.getNullable(this);
 		if (comp != null && !comp.getDrop().isEmpty()) {
-			dropStack(comp.getDrop());
+			spawnAtLocation(comp.getDrop());
 			ci.cancel();
 		}
 	}
 
-	@Inject(at = @At("RETURN"), method = "drop")
+	@Inject(at = @At("RETURN"), method = "dropAllDeathLoot")
 	private void dropEnd(DamageSource source, CallbackInfo ci) {
-		ItemElementiumAxe.onEntityDrops(playerHitTimer, source, (LivingEntity) (Object) this);
+		ItemElementiumAxe.onEntityDrops(lastHurtByPlayerTime, source, (LivingEntity) (Object) this);
 	}
 
 	/**
 	 * Applies soul cross effect when being killed
 	 */
-	@Inject(at = @At("RETURN"), method = "onKilledBy")
+	@Inject(at = @At("RETURN"), method = "createWitherRose")
 	private void healKiller(@Nullable LivingEntity adversary, CallbackInfo ci) {
-		if (!world.isClient && adversary != null) {
+		if (!level.isClientSide && adversary != null) {
 			PotionSoulCross.onEntityKill((LivingEntity) (Object) this, adversary);
 		}
 
 	}
 
-	@Inject(at = @At("HEAD"), method = "swingHand(Lnet/minecraft/util/Hand;Z)V", cancellable = true)
-	private void onSwing(Hand hand, boolean bl, CallbackInfo ci) {
-		ItemStack stack = getStackInHand(hand);
+	@Inject(at = @At("HEAD"), method = "swing(Lnet/minecraft/world/InteractionHand;Z)V", cancellable = true)
+	private void onSwing(InteractionHand hand, boolean bl, CallbackInfo ci) {
+		ItemStack stack = getItemInHand(hand);
 		LivingEntity self = (LivingEntity) (Object) this;
-		if (!world.isClient) {
+		if (!level.isClientSide) {
 			if (stack.getItem() instanceof ItemCraftingHalo && ItemCraftingHalo.onEntitySwing(stack, self)) {
 				ci.cancel();
 			} else if (stack.getItem() instanceof ItemGravityRod) {
@@ -83,7 +83,7 @@ public abstract class MixinLivingEntity extends Entity {
 		}
 	}
 
-	@Inject(at = @At("RETURN"), method = "jump")
+	@Inject(at = @At("RETURN"), method = "jumpFromGround")
 	private void onJump(CallbackInfo ci) {
 		ItemTravelBelt.onPlayerJump((LivingEntity) (Object) this);
 	}

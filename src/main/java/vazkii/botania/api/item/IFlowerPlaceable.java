@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.item;
 
-import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.world.item.context.BlockPlaceContext;
 
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
@@ -21,5 +21,5 @@ public interface IFlowerPlaceable {
 	 * @param ctx The placement context, aiming downwards towards the downward neighbor position
 	 * @return Whether the block was placed successfully
 	 */
-	boolean tryPlace(TileEntitySpecialFlower flower, ItemPlacementContext ctx);
+	boolean tryPlace(TileEntitySpecialFlower flower, BlockPlaceContext ctx);
 }

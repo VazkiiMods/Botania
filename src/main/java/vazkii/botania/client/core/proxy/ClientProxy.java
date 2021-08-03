@@ -8,6 +8,8 @@
  */
 package vazkii.botania.client.core.proxy;
 
+import com.mojang.blaze3d.vertex.BufferBuilder;
+
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
@@ -20,31 +22,33 @@ import net.fabricmc.fabric.api.client.rendereregistry.v1.LivingEntityFeatureRend
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderingRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.FlowerBlock;
-import net.minecraft.block.TallFlowerBlock;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.item.ModelPredicateProvider;
-import net.minecraft.client.item.ModelPredicateProviderRegistry;
-import net.minecraft.client.options.KeyBinding;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
-import net.minecraft.client.render.entity.ItemEntityRenderer;
-import net.minecraft.client.render.entity.LivingEntityRenderer;
-import net.minecraft.client.render.entity.PlayerEntityRenderer;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.text.Text;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.client.Camera;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.ItemEntityRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.client.renderer.item.ItemPropertyFunction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.TallFlowerBlock;
 
 import org.lwjgl.glfw.GLFW;
 
@@ -111,7 +115,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	public static boolean jingleTheBells = false;
 	public static boolean dootDoot = false;
 
-	public static KeyBinding CORPOREA_REQUEST;
+	public static KeyMapping CORPOREA_REQUEST;
 
 	@Override
 	public void onInitializeClient() {
@@ -161,7 +165,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 			AccessorBiomeGeneratorTypeScreens.getAllTypes().add(WorldTypeSkyblock.INSTANCE);
 		}
 
-		CORPOREA_REQUEST = new KeyBinding("key.botania_corporea_request", GLFW.GLFW_KEY_C, LibMisc.MOD_NAME);
+		CORPOREA_REQUEST = new KeyMapping("key.botania_corporea_request", GLFW.GLFW_KEY_C, LibMisc.MOD_NAME);
 		KeyBindingHelper.registerKeyBinding(CORPOREA_REQUEST);
 		registerPropertyGetters();
 		registerArmors();
@@ -170,17 +174,17 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	private static void registerArmors() {
 		List<Item> armors = Registry.ITEM.stream()
 				.filter(i -> i instanceof ItemManasteelArmor
-						&& Registry.ITEM.getId(i).getNamespace().equals(LibMisc.MOD_ID))
+						&& Registry.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
 				.collect(Collectors.toList());
 
 		ArmorRenderingRegistry.ModelProvider p = (entity, stack, slot, original) -> ((ItemManasteelArmor) stack.getItem()).getArmorModel(entity, stack, slot, original);
 		ArmorRenderingRegistry.registerModel(p, armors);
 
-		ArmorRenderingRegistry.TextureProvider t = (entity, stack, slot, secondLayer, suffix, original) -> new Identifier(((ItemManasteelArmor) stack.getItem()).getArmorTexture(stack, slot));
+		ArmorRenderingRegistry.TextureProvider t = (entity, stack, slot, secondLayer, suffix, original) -> new ResourceLocation(((ItemManasteelArmor) stack.getItem()).getArmorTexture(stack, slot));
 		ArmorRenderingRegistry.registerTexture(t, armors);
 	}
 
-	private static void registerPropertyGetter(ItemConvertible item, Identifier id, ModelPredicateProvider propGetter) {
+	private static void registerPropertyGetter(ItemLike item, ResourceLocation id, ItemPropertyFunction propGetter) {
 		FabricModelPredicateProviderRegistry.register(item.asItem(), id, propGetter);
 	}
 
@@ -190,15 +194,15 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		registerPropertyGetter(ModItems.manaBottle, prefix("swigs_taken"),
 				(stack, world, entity) -> ItemBottledMana.SWIGS - ItemBottledMana.getSwigsLeft(stack));
 
-		Identifier vuvuzelaId = prefix("vuvuzela");
-		ModelPredicateProvider isVuvuzela = (stack, world, entity) -> stack.getName().getString().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0;
+		ResourceLocation vuvuzelaId = prefix("vuvuzela");
+		ItemPropertyFunction isVuvuzela = (stack, world, entity) -> stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0;
 		registerPropertyGetter(ModItems.grassHorn, vuvuzelaId, isVuvuzela);
 		registerPropertyGetter(ModItems.leavesHorn, vuvuzelaId, isVuvuzela);
 		registerPropertyGetter(ModItems.snowHorn, vuvuzelaId, isVuvuzela);
 
 		registerPropertyGetter(ModItems.lexicon, prefix("elven"), (stack, world, living) -> ModItems.lexicon.isElvenItem(stack) ? 1 : 0);
 		registerPropertyGetter(ModItems.manaCookie, prefix("totalbiscuit"),
-				(stack, world, entity) -> stack.getName().getString().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F);
+				(stack, world, entity) -> stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F);
 		registerPropertyGetter(ModItems.slimeBottle, prefix("active"),
 				(stack, world, entity) -> stack.hasTag() && stack.getTag().getBoolean(ItemSlimeBottle.TAG_ACTIVE) ? 1.0F : 0.0F);
 		registerPropertyGetter(ModItems.spawnerMover, prefix("full"),
@@ -208,8 +212,8 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		registerPropertyGetter(ModItems.twigWand, prefix("bindmode"),
 				(stack, world, entity) -> ItemTwigWand.getBindMode(stack) ? 1 : 0);
 
-		Identifier poolFullId = prefix("full");
-		ModelPredicateProvider poolFull = (stack, world, entity) -> {
+		ResourceLocation poolFullId = prefix("full");
+		ItemPropertyFunction poolFull = (stack, world, entity) -> {
 			Block block = ((BlockItem) stack.getItem()).getBlock();
 			boolean renderFull = ((BlockPool) block).variant == BlockPool.Variant.CREATIVE || stack.hasTag() && stack.getTag().getBoolean("RenderFull");
 			return renderFull ? 1F : 0F;
@@ -219,30 +223,30 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		registerPropertyGetter(ModBlocks.creativePool, poolFullId, poolFull);
 		registerPropertyGetter(ModBlocks.fabulousPool, poolFullId, poolFull);
 
-		ModelPredicateProvider brewGetter = (stack, world, entity) -> {
+		ItemPropertyFunction brewGetter = (stack, world, entity) -> {
 			ItemBrewBase item = ((ItemBrewBase) stack.getItem());
 			return item.getSwigs() - item.getSwigsLeft(stack);
 		};
 		registerPropertyGetter(ModItems.brewVial, prefix("swigs_taken"), brewGetter);
 		registerPropertyGetter(ModItems.brewFlask, prefix("swigs_taken"), brewGetter);
 
-		Identifier holidayId = prefix("holiday");
-		ModelPredicateProvider holidayGetter = (stack, worldIn, entityIn) -> ClientProxy.jingleTheBells ? 1 : 0;
+		ResourceLocation holidayId = prefix("holiday");
+		ItemPropertyFunction holidayGetter = (stack, worldIn, entityIn) -> ClientProxy.jingleTheBells ? 1 : 0;
 		registerPropertyGetter(ModItems.manaweaveHelm, holidayId, holidayGetter);
 		registerPropertyGetter(ModItems.manaweaveChest, holidayId, holidayGetter);
 		registerPropertyGetter(ModItems.manaweaveBoots, holidayId, holidayGetter);
 		registerPropertyGetter(ModItems.manaweaveLegs, holidayId, holidayGetter);
 
-		ModelPredicateProvider ringOnGetter = (stack, worldIn, entityIn) -> ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0;
+		ItemPropertyFunction ringOnGetter = (stack, worldIn, entityIn) -> ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0;
 		registerPropertyGetter(ModItems.magnetRing, prefix("active"), ringOnGetter);
 		registerPropertyGetter(ModItems.magnetRingGreater, prefix("active"), ringOnGetter);
 
 		registerPropertyGetter(ModItems.elementiumShears, prefix("reddit"),
-				(stack, world, entity) -> stack.getName().getString().equalsIgnoreCase("dammit reddit") ? 1F : 0F);
+				(stack, world, entity) -> stack.getHoverName().getString().equalsIgnoreCase("dammit reddit") ? 1F : 0F);
 		registerPropertyGetter(ModItems.manasteelSword, prefix("elucidator"),
-				(stack, world, entity) -> "the elucidator".equals(stack.getName().getString().toLowerCase(Locale.ROOT).trim()) ? 1 : 0);
+				(stack, world, entity) -> "the elucidator".equals(stack.getHoverName().getString().toLowerCase(Locale.ROOT).trim()) ? 1 : 0);
 		registerPropertyGetter(ModItems.terraAxe, prefix("active"),
-				(stack, world, entity) -> entity instanceof PlayerEntity && !ItemTerraAxe.shouldBreak((PlayerEntity) entity) ? 0 : 1);
+				(stack, world, entity) -> entity instanceof Player && !ItemTerraAxe.shouldBreak((Player) entity) ? 0 : 1);
 		registerPropertyGetter(ModItems.terraPick, prefix("tipped"),
 				(stack, world, entity) -> ItemTerraPick.isTipped(stack) ? 1 : 0);
 		registerPropertyGetter(ModItems.terraPick, prefix("active"),
@@ -252,59 +256,59 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		registerPropertyGetter(ModItems.tornadoRod, prefix("active"),
 				(stack, world, living) -> ItemTornadoRod.isFlying(stack) ? 1 : 0);
 
-		ModelPredicateProvider pulling = ModelPredicateProviderRegistry.get(Items.BOW, new Identifier("pulling"));
-		ModelPredicateProvider pull = (stack, worldIn, entity) -> {
+		ItemPropertyFunction pulling = ItemProperties.getProperty(Items.BOW, new ResourceLocation("pulling"));
+		ItemPropertyFunction pull = (stack, worldIn, entity) -> {
 			if (entity == null) {
 				return 0.0F;
 			} else {
 				ItemLivingwoodBow item = ((ItemLivingwoodBow) stack.getItem());
-				return entity.getActiveItem() != stack
+				return entity.getUseItem() != stack
 						? 0.0F
-						: (stack.getMaxUseTime() - entity.getItemUseTimeLeft()) * item.chargeVelocityMultiplier() / 20.0F;
+						: (stack.getUseDuration() - entity.getUseItemRemainingTicks()) * item.chargeVelocityMultiplier() / 20.0F;
 			}
 		};
-		registerPropertyGetter(ModItems.livingwoodBow, new Identifier("pulling"), pulling);
-		registerPropertyGetter(ModItems.livingwoodBow, new Identifier("pull"), pull);
-		registerPropertyGetter(ModItems.crystalBow, new Identifier("pulling"), pulling);
-		registerPropertyGetter(ModItems.crystalBow, new Identifier("pull"), pull);
+		registerPropertyGetter(ModItems.livingwoodBow, new ResourceLocation("pulling"), pulling);
+		registerPropertyGetter(ModItems.livingwoodBow, new ResourceLocation("pull"), pull);
+		registerPropertyGetter(ModItems.crystalBow, new ResourceLocation("pulling"), pulling);
+		registerPropertyGetter(ModItems.crystalBow, new ResourceLocation("pull"), pull);
 	}
 
 	private static void registerRenderTypes() {
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.defaultAltar, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.forestAltar, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.plainsAltar, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.mountainAltar, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.fungalAltar, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.swampAltar, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.desertAltar, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.taigaAltar, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.mesaAltar, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.mossyAltar, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ghostRail, RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.solidVines, RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.defaultAltar, RenderType.cutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.forestAltar, RenderType.cutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.plainsAltar, RenderType.cutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.mountainAltar, RenderType.cutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.fungalAltar, RenderType.cutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.swampAltar, RenderType.cutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.desertAltar, RenderType.cutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.taigaAltar, RenderType.cutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.mesaAltar, RenderType.cutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.mossyAltar, RenderType.cutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ghostRail, RenderType.cutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.solidVines, RenderType.cutout());
 
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.corporeaCrystalCube, RenderLayer.getTranslucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.manaGlass, RenderLayer.getTranslucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModFluffBlocks.managlassPane, RenderLayer.getTranslucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.elfGlass, RenderLayer.getTranslucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModFluffBlocks.alfglassPane, RenderLayer.getTranslucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.bifrost, RenderLayer.getTranslucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModFluffBlocks.bifrostPane, RenderLayer.getTranslucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.bifrostPerm, RenderLayer.getTranslucent());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.prism, RenderLayer.getTranslucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.corporeaCrystalCube, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.manaGlass, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModFluffBlocks.managlassPane, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.elfGlass, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModFluffBlocks.alfglassPane, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.bifrost, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModFluffBlocks.bifrostPane, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.bifrostPerm, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.prism, RenderType.translucent());
 
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.starfield, RenderLayer.getCutoutMipped());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.starfield, RenderType.cutoutMipped());
 		/* todo 1.16-fabric
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.abstrusePlatform, t -> true);
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.infrangiblePlatform, t -> true);
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.spectralPlatform, t -> true);
 		*/
 
-		Registry.BLOCK.stream().filter(b -> Registry.BLOCK.getId(b).getNamespace().equals(LibMisc.MOD_ID))
+		Registry.BLOCK.stream().filter(b -> Registry.BLOCK.getKey(b).getNamespace().equals(LibMisc.MOD_ID))
 				.forEach(b -> {
 					if (b instanceof BlockFloatingFlower || b instanceof FlowerBlock
 							|| b instanceof TallFlowerBlock || b instanceof BlockModMushroom) {
-						BlockRenderLayerMap.INSTANCE.putBlock(b, RenderLayer.getCutout());
+						BlockRenderLayerMap.INSTANCE.putBlock(b, RenderType.cutout());
 					}
 				});
 	}
@@ -326,40 +330,40 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		EntityRendererRegistry.INSTANCE.register(ModEntities.MANA_STORM, RenderManaStorm::new);
 		EntityRendererRegistry.INSTANCE.register(ModEntities.BABYLON_WEAPON, RenderBabylonWeapon::new);
 
-		EntityRendererRegistry.INSTANCE.register(ModEntities.THORN_CHAKRAM, (m, ctx) -> new FlyingItemEntityRenderer<>(m, ctx.getItemRenderer()));
-		EntityRendererRegistry.INSTANCE.register(ModEntities.VINE_BALL, (m, ctx) -> new FlyingItemEntityRenderer<>(m, ctx.getItemRenderer()));
-		EntityRendererRegistry.INSTANCE.register(ModEntities.ENDER_AIR_BOTTLE, (m, ctx) -> new FlyingItemEntityRenderer<>(m, ctx.getItemRenderer()));
+		EntityRendererRegistry.INSTANCE.register(ModEntities.THORN_CHAKRAM, (m, ctx) -> new ThrownItemRenderer<>(m, ctx.getItemRenderer()));
+		EntityRendererRegistry.INSTANCE.register(ModEntities.VINE_BALL, (m, ctx) -> new ThrownItemRenderer<>(m, ctx.getItemRenderer()));
+		EntityRendererRegistry.INSTANCE.register(ModEntities.ENDER_AIR_BOTTLE, (m, ctx) -> new ThrownItemRenderer<>(m, ctx.getItemRenderer()));
 	}
 
-	private void loadComplete(MinecraftClient mc) {
+	private void loadComplete(Minecraft mc) {
 		ColorHandler.init();
 
 		// Needed to prevent mana pools on carts from X-raying through the cart
-		SortedMap<RenderLayer, BufferBuilder> layers = ((AccessorRenderTypeBuffers) mc.getBufferBuilders()).getEntityBuilders();
-		layers.put(RenderHelper.MANA_POOL_WATER, new BufferBuilder(RenderHelper.MANA_POOL_WATER.getExpectedBufferSize()));
+		SortedMap<RenderType, BufferBuilder> layers = ((AccessorRenderTypeBuffers) mc.renderBuffers()).getEntityBuilders();
+		layers.put(RenderHelper.MANA_POOL_WATER, new BufferBuilder(RenderHelper.MANA_POOL_WATER.bufferSize()));
 	}
 
 	private void initAuxiliaryRender(EntityType<? extends LivingEntity> type, LivingEntityRenderer<?, ?> renderer, LivingEntityFeatureRendererRegistrationCallback.RegistrationHelper helper) {
-		if (type == EntityType.PLAYER && renderer instanceof PlayerEntityRenderer) {
-			helper.register(new ContributorFancinessHandler((PlayerEntityRenderer) renderer));
-			helper.register(new ManaTabletRenderHandler((PlayerEntityRenderer) renderer));
-			helper.register(new LayerTerraHelmet((PlayerEntityRenderer) renderer));
+		if (type == EntityType.PLAYER && renderer instanceof PlayerRenderer) {
+			helper.register(new ContributorFancinessHandler((PlayerRenderer) renderer));
+			helper.register(new ManaTabletRenderHandler((PlayerRenderer) renderer));
+			helper.register(new LayerTerraHelmet((PlayerRenderer) renderer));
 		}
 	}
 
 	@Override
 	public boolean isTheClientPlayer(LivingEntity entity) {
-		return entity == MinecraftClient.getInstance().player;
+		return entity == Minecraft.getInstance().player;
 	}
 
 	@Override
-	public PlayerEntity getClientPlayer() {
-		return MinecraftClient.getInstance().player;
+	public Player getClientPlayer() {
+		return Minecraft.getInstance().player;
 	}
 
 	@Override
 	public boolean isClientPlayerWearingMonocle() {
-		return ItemMonocle.hasMonocle(MinecraftClient.getInstance().player);
+		return ItemMonocle.hasMonocle(Minecraft.getInstance().player);
 	}
 
 	@Override
@@ -369,7 +373,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 
 	@Override
 	public void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
-		MinecraftClient.getInstance().particleManager.addParticle(new FXLightning(MinecraftClient.getInstance().world, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner));
+		Minecraft.getInstance().particleEngine.add(new FXLightning(Minecraft.getInstance().level, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner));
 	}
 
 	@Override
@@ -384,24 +388,24 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 
 	@Override
 	public int getClientRenderDistance() {
-		return MinecraftClient.getInstance().options.viewDistance;
+		return Minecraft.getInstance().options.renderDistance;
 	}
 
 	@Override
-	public void addParticleForce(World world, ParticleEffect particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+	public void addParticleForce(Level world, ParticleOptions particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
 		world.addParticle(particleData, true, x, y, z, xSpeed, ySpeed, zSpeed);
 	}
 
 	@Override
-	public void addParticleForceNear(World world, ParticleEffect particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-		Camera info = MinecraftClient.getInstance().gameRenderer.getCamera();
-		if (info.isReady() && info.getPos().squaredDistanceTo(x, y, z) <= 1024.0D) {
+	public void addParticleForceNear(Level world, ParticleOptions particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+		Camera info = Minecraft.getInstance().gameRenderer.getMainCamera();
+		if (info.isInitialized() && info.getPosition().distanceToSqr(x, y, z) <= 1024.0D) {
 			addParticleForce(world, particleData, x, y, z, xSpeed, ySpeed, zSpeed);
 		}
 	}
 
 	@Override
-	public void showMultiblock(IMultiblock mb, Text name, BlockPos anchor, BlockRotation rot) {
+	public void showMultiblock(IMultiblock mb, Component name, BlockPos anchor, Rotation rot) {
 		PatchouliAPI.get().showMultiblock(mb, name, anchor, rot);
 	}
 

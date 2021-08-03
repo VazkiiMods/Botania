@@ -10,9 +10,9 @@ package vazkii.botania.common.crafting;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.recipe.StateIngredient;
 
@@ -45,9 +45,9 @@ public class StateIngredientBlockState implements StateIngredient {
 	}
 
 	@Override
-	public void write(PacketByteBuf buffer) {
+	public void write(FriendlyByteBuf buffer) {
 		buffer.writeVarInt(2);
-		buffer.writeVarInt(Block.getRawIdFromState(state));
+		buffer.writeVarInt(Block.getId(state));
 	}
 
 	@Override

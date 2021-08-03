@@ -8,22 +8,22 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.PlantBlock;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.UseAction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IHornHarvestable;
@@ -37,39 +37,39 @@ import java.util.Collections;
 import java.util.List;
 
 public class ItemHorn extends Item {
-	public ItemHorn(Settings props) {
+	public ItemHorn(Properties props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public UseAction getUseAction(ItemStack stack) {
-		return UseAction.BOW;
+	public UseAnim getUseAnimation(ItemStack stack) {
+		return UseAnim.BOW;
 	}
 
 	@Override
-	public int getMaxUseTime(ItemStack stack) {
+	public int getUseDuration(ItemStack stack) {
 		return 72000;
 	}
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		player.setCurrentHand(hand);
-		return TypedActionResult.consume(player.getStackInHand(hand));
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		player.startUsingItem(hand);
+		return InteractionResultHolder.consume(player.getItemInHand(hand));
 	}
 
 	@Override
-	public void usageTick(World world, @Nonnull LivingEntity player, @Nonnull ItemStack stack, int time) {
-		if (!world.isClient) {
-			if (time != getMaxUseTime(stack) && time % 5 == 0) {
-				breakGrass(world, stack, player.getBlockPos());
+	public void onUseTick(Level world, @Nonnull LivingEntity player, @Nonnull ItemStack stack, int time) {
+		if (!world.isClientSide) {
+			if (time != getUseDuration(stack) && time % 5 == 0) {
+				breakGrass(world, stack, player.blockPosition());
 			}
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_NOTE_BLOCK_BASS, SoundCategory.BLOCKS, 1F, 0.001F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.NOTE_BLOCK_BASS, SoundSource.BLOCKS, 1F, 0.001F);
 		}
 	}
 
-	public static void breakGrass(World world, ItemStack stack, BlockPos srcPos) {
+	public static void breakGrass(Level world, ItemStack stack, BlockPos srcPos) {
 		EnumHornType type = null;
 		if (stack.getItem() == ModItems.grassHorn) {
 			type = EnumHornType.WILD;
@@ -83,17 +83,17 @@ public class ItemHorn extends Item {
 		int rangeY = 3 + type.ordinal() * 4;
 		List<BlockPos> coords = new ArrayList<>();
 
-		for (BlockPos pos : BlockPos.iterate(srcPos.add(-range, -rangeY, -range),
-				srcPos.add(range, rangeY, range))) {
+		for (BlockPos pos : BlockPos.betweenClosed(srcPos.offset(-range, -rangeY, -range),
+				srcPos.offset(range, rangeY, range))) {
 			Block block = world.getBlockState(pos).getBlock();
 			IHornHarvestable harvestable = BotaniaAPI.instance().getHornHarvestable(block).orElse(null);
 
 			if (harvestable != null
 					? harvestable.canHornHarvest(world, pos, stack, type)
-					: type == EnumHornType.WILD && block instanceof PlantBlock && !block.isIn(ModTags.Blocks.SPECIAL_FLOWERS)
+					: type == EnumHornType.WILD && block instanceof BushBlock && !block.is(ModTags.Blocks.SPECIAL_FLOWERS)
 							|| type == EnumHornType.CANOPY && BlockTags.LEAVES.contains(block)
 							|| type == EnumHornType.COVERING && block == Blocks.SNOW) {
-				coords.add(pos.toImmutable());
+				coords.add(pos.immutable());
 			}
 		}
 
@@ -109,7 +109,7 @@ public class ItemHorn extends Item {
 			if (harvestable != null && harvestable.hasSpecialHornHarvest(world, currCoords, stack, type)) {
 				harvestable.harvestByHorn(world, currCoords, stack, type);
 			} else {
-				world.breakBlock(currCoords, true);
+				world.destroyBlock(currCoords, true);
 			}
 		}
 	}

@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.decoration.ItemFrameEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.decoration.ItemFrame;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.corporea.ICorporeaInterceptor;
 import vazkii.botania.api.corporea.ICorporeaNode;
@@ -43,13 +43,13 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 					missing -= stack_.getCount();
 				}
 
-				if (missing > 0 && !getCachedState().get(Properties.POWERED)) {
-					world.setBlockState(getPos(), getCachedState().with(Properties.POWERED, true));
-					world.getBlockTickScheduler().schedule(getPos(), getCachedState().getBlock(), 2);
+				if (missing > 0 && !getBlockState().getValue(BlockStateProperties.POWERED)) {
+					level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BlockStateProperties.POWERED, true));
+					level.getBlockTicks().scheduleTick(getBlockPos(), getBlockState().getBlock(), 2);
 
 					BlockPos requestorPos = source.getSparkNode().getPos();
 					for (Direction dir : Direction.values()) {
-						BlockEntity tile = world.getBlockEntity(pos.offset(dir));
+						BlockEntity tile = level.getBlockEntity(worldPosition.relative(dir));
 						if (tile instanceof TileCorporeaRetainer) {
 							((TileCorporeaRetainer) tile).remember(requestorPos, request, count, missing);
 						}
@@ -66,11 +66,11 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 		List<ItemStack> filter = new ArrayList<>();
 
 		for (Direction dir : Direction.values()) {
-			List<ItemFrameEntity> frames = world.getNonSpectatingEntities(ItemFrameEntity.class, new Box(pos.offset(dir), pos.offset(dir).add(1, 1, 1)));
-			for (ItemFrameEntity frame : frames) {
-				Direction orientation = frame.getHorizontalFacing();
+			List<ItemFrame> frames = level.getEntitiesOfClass(ItemFrame.class, new AABB(worldPosition.relative(dir), worldPosition.relative(dir).offset(1, 1, 1)));
+			for (ItemFrame frame : frames) {
+				Direction orientation = frame.getDirection();
 				if (orientation == dir) {
-					filter.add(frame.getHeldItemStack());
+					filter.add(frame.getItem());
 				}
 			}
 		}

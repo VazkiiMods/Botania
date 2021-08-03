@@ -8,12 +8,12 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.entity.EntityGroup;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.Box;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -33,14 +33,14 @@ public class SubTileHyacidus extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isClient || redstoneSignal > 0) {
+		if (getLevel().isClientSide || redstoneSignal > 0) {
 			return;
 		}
 
-		List<LivingEntity> entities = getWorld().getNonSpectatingEntities(LivingEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
+		List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)));
 		for (LivingEntity entity : entities) {
-			if (!(entity instanceof PlayerEntity) && entity.getStatusEffect(StatusEffects.POISON) == null && getMana() >= COST && !entity.world.isClient && entity.getGroup() != EntityGroup.UNDEAD) {
-				entity.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 60, 0));
+			if (!(entity instanceof Player) && entity.getEffect(MobEffects.POISON) == null && getMana() >= COST && !entity.level.isClientSide && entity.getMobType() != MobType.UNDEAD) {
+				entity.addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0));
 				addMana(-COST);
 			}
 		}

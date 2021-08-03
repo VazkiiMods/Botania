@@ -8,9 +8,9 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.HoeItem;
+import net.minecraft.world.item.HoeItem;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -19,8 +19,8 @@ import java.util.Map;
 
 @Mixin(HoeItem.class)
 public interface AccessorHoeItem {
-	@Accessor("TILLED_BLOCKS")
-	static Map<Block, BlockState> getConversions() {
+	@Accessor("TILLABLES")
+	static Map<Block, BlockState> getTillables() {
 		throw new IllegalStateException();
 	}
 }

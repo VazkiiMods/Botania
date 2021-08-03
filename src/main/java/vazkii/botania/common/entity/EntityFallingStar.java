@@ -8,19 +8,20 @@
  */
 package vazkii.botania.common.entity;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.Packet;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.*;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -29,19 +30,19 @@ import vazkii.botania.common.network.PacketSpawnEntity;
 import java.util.List;
 
 public class EntityFallingStar extends EntityThrowableCopy {
-	public EntityFallingStar(EntityType<EntityFallingStar> type, World world) {
+	public EntityFallingStar(EntityType<EntityFallingStar> type, Level world) {
 		super(type, world);
 	}
 
-	public EntityFallingStar(LivingEntity e, World world) {
+	public EntityFallingStar(LivingEntity e, Level world) {
 		super(ModEntities.FALLING_STAR, e, world);
 	}
 
 	@Override
-	protected void initDataTracker() {}
+	protected void defineSynchedData() {}
 
 	@Override
-	public Packet<?> createSpawnPacket() {
+	public Packet<?> getAddEntityPacket() {
 		return PacketSpawnEntity.make(this);
 	}
 
@@ -55,33 +56,33 @@ public class EntityFallingStar extends EntityThrowableCopy {
 			float xs = (float) (Math.random() - 0.5) * dist;
 			float ys = (float) (Math.random() - 0.5) * dist;
 			float zs = (float) (Math.random() - 0.5) * dist;
-			world.addParticle(data, getX() + xs, getY() + ys, getZ() + zs, 0, 0, 0);
+			level.addParticle(data, getX() + xs, getY() + ys, getZ() + zs, 0, 0, 0);
 		}
 
 		Entity thrower = getOwner();
-		if (!world.isClient && thrower != null) {
-			Box axis = new Box(getX(), getY(), getZ(), lastRenderX, lastRenderY, lastRenderZ).expand(2);
-			List<LivingEntity> entities = world.getNonSpectatingEntities(LivingEntity.class, axis);
+		if (!level.isClientSide && thrower != null) {
+			AABB axis = new AABB(getX(), getY(), getZ(), xOld, yOld, zOld).inflate(2);
+			List<LivingEntity> entities = level.getEntitiesOfClass(LivingEntity.class, axis);
 			for (LivingEntity living : entities) {
 				if (living == thrower) {
 					continue;
 				}
 
 				if (living.hurtTime == 0) {
-					onCollision(new EntityHitResult(living));
+					onHit(new EntityHitResult(living));
 					return;
 				}
 			}
 		}
 
-		if (age > 200) {
+		if (tickCount > 200) {
 			remove();
 		}
 	}
 
 	@Override
-	protected void onCollision(HitResult pos) {
-		if (world.isClient) {
+	protected void onHit(HitResult pos) {
+		if (level.isClientSide) {
 			return;
 		}
 
@@ -89,19 +90,19 @@ public class EntityFallingStar extends EntityThrowableCopy {
 		if (pos.getType() == HitResult.Type.ENTITY && thrower != null) {
 			Entity e = ((EntityHitResult) pos).getEntity();
 			if (e != thrower && e.isAlive()) {
-				if (thrower instanceof PlayerEntity) {
-					e.damage(DamageSource.player((PlayerEntity) thrower), Math.random() < 0.25 ? 10 : 5);
+				if (thrower instanceof Player) {
+					e.hurt(DamageSource.playerAttack((Player) thrower), Math.random() < 0.25 ? 10 : 5);
 				} else {
-					e.damage(DamageSource.GENERIC, Math.random() < 0.25 ? 10 : 5);
+					e.hurt(DamageSource.GENERIC, Math.random() < 0.25 ? 10 : 5);
 				}
 			}
 		}
 
 		if (pos.getType() == HitResult.Type.BLOCK) {
 			BlockPos bpos = ((BlockHitResult) pos).getBlockPos();
-			BlockState state = world.getBlockState(bpos);
+			BlockState state = level.getBlockState(bpos);
 			if (ConfigHandler.COMMON.blockBreakParticles.getValue() && !state.isAir()) {
-				world.syncWorldEvent(2001, bpos, Block.getRawIdFromState(state));
+				level.levelEvent(2001, bpos, Block.getId(state));
 			}
 		}
 

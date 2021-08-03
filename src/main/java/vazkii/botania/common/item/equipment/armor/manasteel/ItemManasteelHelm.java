@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.item.equipment.armor.manasteel;
 
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.mana.IManaDiscountArmor;
 
@@ -18,12 +18,12 @@ import javax.annotation.Nullable;
 
 public class ItemManasteelHelm extends ItemManasteelArmor implements IManaDiscountArmor {
 
-	public ItemManasteelHelm(Settings props) {
+	public ItemManasteelHelm(Properties props) {
 		super(EquipmentSlot.HEAD, props);
 	}
 
 	@Override
-	public float getDiscount(ItemStack stack, int slot, PlayerEntity player, @Nullable ItemStack tool) {
+	public float getDiscount(ItemStack stack, int slot, Player player, @Nullable ItemStack tool) {
 		return hasArmorSet(player) ? 0.1F : 0F;
 	}
 

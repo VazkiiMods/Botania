@@ -12,16 +12,15 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 
-import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.condition.LootConditionType;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.util.JsonSerializer;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nonnull;
 
-public class EnableRelics implements LootCondition {
+public class EnableRelics implements LootItemCondition {
 
 	@Override
 	public boolean test(@Nonnull LootContext context) {
@@ -29,17 +28,17 @@ public class EnableRelics implements LootCondition {
 	}
 
 	@Override
-	public LootConditionType getType() {
+	public LootItemConditionType getType() {
 		return ModLootModifiers.ENABLE_RELICS;
 	}
 
-	public static class Serializer implements JsonSerializer<EnableRelics> {
+	public static class Serializer implements net.minecraft.world.level.storage.loot.Serializer<EnableRelics> {
 		@Override
-		public void toJson(@Nonnull JsonObject json, @Nonnull EnableRelics value, @Nonnull JsonSerializationContext context) {}
+		public void serialize(@Nonnull JsonObject json, @Nonnull EnableRelics value, @Nonnull JsonSerializationContext context) {}
 
 		@Nonnull
 		@Override
-		public EnableRelics fromJson(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
+		public EnableRelics deserialize(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
 			return new EnableRelics();
 		}
 	}

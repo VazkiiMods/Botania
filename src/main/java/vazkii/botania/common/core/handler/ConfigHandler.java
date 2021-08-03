@@ -10,7 +10,7 @@ package vazkii.botania.common.core.handler;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.lib.LibMisc;
@@ -294,11 +294,11 @@ public final class ConfigHandler {
 	}
 
 	public static final Common COMMON = new Common();
-	public static Set<Identifier> blacklistedRannuncarpusItems;
+	public static Set<ResourceLocation> blacklistedRannuncarpusItems;
 	public static Set<String> blacklistedRannuncarpusModIds;
 
 	private static void onConfigLoad() {
-		blacklistedRannuncarpusItems = COMMON.rannuncarpusItemBlacklist.getValue().stream().map(Identifier::new).collect(Collectors.toSet());
+		blacklistedRannuncarpusItems = COMMON.rannuncarpusItemBlacklist.getValue().stream().map(ResourceLocation::new).collect(Collectors.toSet());
 		blacklistedRannuncarpusModIds = new HashSet<>(COMMON.rannuncarpusModBlacklist.getValue());
 
 		PatchouliAPI.get().setConfigFlag("botania:relics", COMMON.relicsEnabled.getValue());

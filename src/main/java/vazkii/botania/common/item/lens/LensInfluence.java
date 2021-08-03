@@ -10,14 +10,14 @@ package vazkii.botania.common.item.lens;
 
 import com.google.common.base.Predicates;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.FallingBlockEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.projectile.thrown.ThrownEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Box;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.ThrowableProjectile;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.item.ModItems;
@@ -31,12 +31,12 @@ public class LensInfluence extends Lens {
 		Entity entity = burst.entity();
 		if (!burst.isFake()) {
 			double range = 3.5;
-			Box bounds = new Box(entity.getX() - range, entity.getY() - range, entity.getZ() - range, entity.getX() + range, entity.getY() + range, entity.getZ() + range);
-			List<Entity> movables = entity.world.getNonSpectatingEntities(ItemEntity.class, bounds);
-			movables.addAll(entity.world.getNonSpectatingEntities(ExperienceOrbEntity.class, bounds));
-			movables.addAll(entity.world.getNonSpectatingEntities(PersistentProjectileEntity.class, bounds));
-			movables.addAll(entity.world.getNonSpectatingEntities(FallingBlockEntity.class, bounds));
-			movables.addAll(entity.world.getEntitiesByClass(ThrownEntity.class, bounds, Predicates.instanceOf(IManaBurst.class)));
+			AABB bounds = new AABB(entity.getX() - range, entity.getY() - range, entity.getZ() - range, entity.getX() + range, entity.getY() + range, entity.getZ() + range);
+			List<Entity> movables = entity.level.getEntitiesOfClass(ItemEntity.class, bounds);
+			movables.addAll(entity.level.getEntitiesOfClass(ExperienceOrb.class, bounds));
+			movables.addAll(entity.level.getEntitiesOfClass(AbstractArrow.class, bounds));
+			movables.addAll(entity.level.getEntitiesOfClass(FallingBlockEntity.class, bounds));
+			movables.addAll(entity.level.getEntitiesOfClass(ThrowableProjectile.class, bounds, Predicates.instanceOf(IManaBurst.class)));
 
 			for (Entity movable : movables) {
 				if (movable == burst) {
@@ -50,10 +50,10 @@ public class LensInfluence extends Lens {
 						continue;
 					}
 
-					((IManaBurst) movable).setBurstMotion(entity.getVelocity().getX(),
-							entity.getVelocity().getY(), entity.getVelocity().getZ());
+					((IManaBurst) movable).setBurstMotion(entity.getDeltaMovement().x(),
+							entity.getDeltaMovement().y(), entity.getDeltaMovement().z());
 				} else {
-					movable.setVelocity(entity.getVelocity());
+					movable.setDeltaMovement(entity.getDeltaMovement());
 				}
 			}
 		}

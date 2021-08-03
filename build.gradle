@@ -104,7 +104,7 @@ dependencies {
     modImplementation "de.siphalor:nbtcrafting-1.16:2+"
 
     minecraft "com.mojang:minecraft:${mc_version}"
-    mappings "net.fabricmc:yarn:${mc_version}+build.9:v2"
+    mappings minecraft.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:0.11.3"
 
     // Fabric API. This is technically optional, but you probably want it anyway.
@@ -142,13 +142,8 @@ task checkSyntax (group: "verification") {
 processResources {
     inputs.property "version", project.version
 
-    from(sourceSets.main.resources.srcDirs) {
-        include "fabric.mod.json"
+    filesMatching("fabric.mod.json") {
         expand "version": project.version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude "fabric.mod.json"
     }
 
     // Exclude datagenerator .cache directory

@@ -8,15 +8,15 @@
  */
 package vazkii.botania.common.block.tile.string;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.common.block.tile.ModTiles;
 
@@ -35,23 +35,23 @@ public class TileRedStringInterceptor extends TileRedString {
 	@Override
 	public void tick() {
 		super.tick();
-		if (!world.isClient) {
+		if (!level.isClientSide) {
 			interceptors.add(this);
 		}
 	}
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
-		return world.getBlockEntity(pos) != null;
+		return level.getBlockEntity(pos) != null;
 	}
 
 	private boolean saneState() {
-		return !isRemoved() && world.getBlockEntity(pos) == this;
+		return !isRemoved() && level.getBlockEntity(worldPosition) == this;
 	}
 
-	public static ActionResult onInteract(PlayerEntity player, World world, BlockPos pos, Hand hand) {
-		if (world.isClient) {
-			return ActionResult.PASS;
+	public static InteractionResult onInteract(Player player, Level world, BlockPos pos, InteractionHand hand) {
+		if (world.isClientSide) {
+			return InteractionResult.PASS;
 		}
 
 		List<TileRedStringInterceptor> remove = new ArrayList<>();
@@ -63,12 +63,12 @@ public class TileRedStringInterceptor extends TileRedString {
 				continue;
 			}
 
-			if (inter.world == world) {
+			if (inter.level == world) {
 				BlockPos coords = inter.getBinding();
 				if (coords != null && coords.equals(pos)) {
-					Block block = inter.getCachedState().getBlock();
-					world.setBlockState(inter.getPos(), world.getBlockState(inter.getPos()).with(Properties.POWERED, true));
-					world.getBlockTickScheduler().schedule(inter.getPos(), block, 2);
+					Block block = inter.getBlockState().getBlock();
+					world.setBlockAndUpdate(inter.getBlockPos(), world.getBlockState(inter.getBlockPos()).setValue(BlockStateProperties.POWERED, true));
+					world.getBlockTicks().scheduleTick(inter.getBlockPos(), block, 2);
 					did = true;
 				}
 			}
@@ -76,11 +76,11 @@ public class TileRedStringInterceptor extends TileRedString {
 
 		interceptors.removeAll(remove);
 		if (did) {
-			player.swingHand(hand);
-			world.playSound(null, pos, SoundEvents.BLOCK_DISPENSER_DISPENSE, SoundCategory.BLOCKS, 0.3F, 0.6F);
-			return ActionResult.SUCCESS;
+			player.swing(hand);
+			world.playSound(null, pos, SoundEvents.DISPENSER_DISPENSE, SoundSource.BLOCKS, 0.3F, 0.6F);
+			return InteractionResult.SUCCESS;
 		}
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 }

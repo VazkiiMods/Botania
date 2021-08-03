@@ -8,14 +8,14 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.SpecialCraftingRecipe;
-import net.minecraft.recipe.SpecialRecipeSerializer;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.ICosmeticAttachable;
 import vazkii.botania.api.item.ICosmeticBauble;
@@ -23,19 +23,19 @@ import vazkii.botania.common.item.equipment.bauble.ItemBauble;
 
 import javax.annotation.Nonnull;
 
-public class CosmeticRemoveRecipe extends SpecialCraftingRecipe {
-	public static final SpecialRecipeSerializer<CosmeticRemoveRecipe> SERIALIZER = new SpecialRecipeSerializer<>(CosmeticRemoveRecipe::new);
+public class CosmeticRemoveRecipe extends CustomRecipe {
+	public static final SimpleRecipeSerializer<CosmeticRemoveRecipe> SERIALIZER = new SimpleRecipeSerializer<>(CosmeticRemoveRecipe::new);
 
-	public CosmeticRemoveRecipe(Identifier id) {
+	public CosmeticRemoveRecipe(ResourceLocation id) {
 		super(id);
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingInventory inv, @Nonnull World world) {
+	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level world) {
 		boolean foundAttachable = false;
 
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack stack = inv.getStack(i);
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof ICosmeticAttachable && !(stack.getItem() instanceof ICosmeticBauble) && !((ICosmeticAttachable) stack.getItem()).getCosmeticItem(stack).isEmpty()) {
 					foundAttachable = true;
@@ -50,11 +50,11 @@ public class CosmeticRemoveRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack craft(@Nonnull CraftingInventory inv) {
+	public ItemStack assemble(@Nonnull CraftingContainer inv) {
 		ItemStack attachableItem = ItemStack.EMPTY;
 
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack stack = inv.getStack(i);
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
 				attachableItem = stack;
 			}
@@ -72,7 +72,7 @@ public class CosmeticRemoveRecipe extends SpecialCraftingRecipe {
 	}
 
 	@Override
-	public boolean fits(int width, int height) {
+	public boolean canCraftInDimensions(int width, int height) {
 		return width * height > 0;
 	}
 
@@ -84,7 +84,7 @@ public class CosmeticRemoveRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public DefaultedList<ItemStack> getRemainingStacks(@Nonnull CraftingInventory inv) {
+	public NonNullList<ItemStack> getRemainingItems(@Nonnull CraftingContainer inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
 			if (s.getItem() instanceof ItemBauble) {
 				ItemStack stack = ((ItemBauble) s.getItem()).getCosmeticItem(s);

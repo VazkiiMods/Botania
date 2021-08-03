@@ -10,10 +10,10 @@ package vazkii.botania.common.crafting;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.recipe.StateIngredient;
 
@@ -35,26 +35,26 @@ public class StateIngredientBlock implements StateIngredient {
 
 	@Override
 	public BlockState pick(Random random) {
-		return block.getDefaultState();
+		return block.defaultBlockState();
 	}
 
 	@Override
 	public JsonObject serialize() {
 		JsonObject object = new JsonObject();
 		object.addProperty("type", "block");
-		object.addProperty("block", Registry.BLOCK.getId(block).toString());
+		object.addProperty("block", Registry.BLOCK.getKey(block).toString());
 		return object;
 	}
 
 	@Override
-	public void write(PacketByteBuf buffer) {
+	public void write(FriendlyByteBuf buffer) {
 		buffer.writeVarInt(1);
-		buffer.writeVarInt(Registry.BLOCK.getRawId(block));
+		buffer.writeVarInt(Registry.BLOCK.getId(block));
 	}
 
 	@Override
 	public List<BlockState> getDisplayed() {
-		return Collections.singletonList(block.getDefaultState());
+		return Collections.singletonList(block.defaultBlockState());
 	}
 
 	public Block getBlock() {

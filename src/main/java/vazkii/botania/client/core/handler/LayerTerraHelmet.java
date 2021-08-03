@@ -8,44 +8,45 @@
  */
 package vazkii.botania.client.core.handler;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.feature.FeatureRenderer;
-import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.PlayerEntityModel;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.item.ItemStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.PlayerModel;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelArmor;
 import vazkii.botania.common.item.equipment.armor.terrasteel.ItemTerrasteelHelm;
 
 import javax.annotation.Nonnull;
 
-public class LayerTerraHelmet extends FeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
-	public LayerTerraHelmet(FeatureRendererContext<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> renderer) {
+public class LayerTerraHelmet extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
+	public LayerTerraHelmet(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> renderer) {
 		super(renderer);
 	}
 
 	@Override
-	public void render(@Nonnull MatrixStack ms, @Nonnull VertexConsumerProvider buffers, int light, AbstractClientPlayerEntity player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		ItemStack helm = player.getEquippedStack(EquipmentSlot.HEAD);
+	public void render(@Nonnull PoseStack ms, @Nonnull MultiBufferSource buffers, int light, AbstractClientPlayer player, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		ItemStack helm = player.getItemBySlot(EquipmentSlot.HEAD);
 		if (!helm.isEmpty() && helm.getItem() instanceof ItemTerrasteelHelm) {
 			if (ItemTerrasteelHelm.hasAnyWill(helm) && !((ItemTerrasteelArmor) helm.getItem()).hasPhantomInk(helm)) {
-				ms.push();
-				getContextModel().head.rotate(ms);
+				ms.pushPose();
+				getParentModel().head.translateAndRotate(ms);
 				ms.translate(-0.2, -0.15, -0.3);
 				ms.scale(0.4F, -0.4F, -0.4F);
 				BakedModel model = MiscellaneousIcons.INSTANCE.terrasteelHelmWillModel;
-				VertexConsumer buffer = buffers.getBuffer(TexturedRenderLayers.getEntityCutout());
-				MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer()
-						.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
-				ms.pop();
+				VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());
+				Minecraft.getInstance().getBlockRenderer().getModelRenderer()
+						.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
+				ms.popPose();
 			}
 		}
 	}

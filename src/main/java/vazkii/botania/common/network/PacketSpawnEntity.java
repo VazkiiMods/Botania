@@ -10,17 +10,17 @@ package vazkii.botania.common.network;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.network.Packet;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.core.Registry;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.common.lib.LibMisc;
 
@@ -33,36 +33,36 @@ import io.netty.buffer.Unpooled;
 // This should only be used for non-living entities. Vanilla's MobSpawn packet handles modded living entities fine.
 // [VanillaCopy] Format is basically same as EntitySpawnS2CPacket.
 public class PacketSpawnEntity {
-	public static final Identifier ID = prefix("sp");
+	public static final ResourceLocation ID = prefix("sp");
 
 	public static Packet<?> make(Entity e) {
-		if (!Registry.ENTITY_TYPE.getId(e.getType()).getNamespace().equals(LibMisc.MOD_ID)) {
+		if (!Registry.ENTITY_TYPE.getKey(e.getType()).getNamespace().equals(LibMisc.MOD_ID)) {
 			throw new IllegalArgumentException("Only should be used by Botania entities");
 		}
 
-		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
-		buf.writeVarInt(e.getEntityId());
-		buf.writeUuid(e.getUuid());
-		buf.writeVarInt(Registry.ENTITY_TYPE.getRawId(e.getType()));
+		FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
+		buf.writeVarInt(e.getId());
+		buf.writeUUID(e.getUUID());
+		buf.writeVarInt(Registry.ENTITY_TYPE.getId(e.getType()));
 		buf.writeDouble(e.getX());
 		buf.writeDouble(e.getY());
 		buf.writeDouble(e.getZ());
-		buf.writeByte(MathHelper.floor(e.pitch * 256.0F / 360.0F));
-		buf.writeByte(MathHelper.floor(e.yaw * 256.0F / 360.0F));
+		buf.writeByte(Mth.floor(e.xRot * 256.0F / 360.0F));
+		buf.writeByte(Mth.floor(e.yRot * 256.0F / 360.0F));
 
-		Vec3d velocity = e.getVelocity();
-		buf.writeShort((int) (MathHelper.clamp(velocity.x, -3.9D, 3.9D) * 8000.0D));
-		buf.writeShort((int) (MathHelper.clamp(velocity.y, -3.9D, 3.9D) * 8000.0D));
-		buf.writeShort((int) (MathHelper.clamp(velocity.z, -3.9D, 3.9D) * 8000.0D));
+		Vec3 velocity = e.getDeltaMovement();
+		buf.writeShort((int) (Mth.clamp(velocity.x, -3.9D, 3.9D) * 8000.0D));
+		buf.writeShort((int) (Mth.clamp(velocity.y, -3.9D, 3.9D) * 8000.0D));
+		buf.writeShort((int) (Mth.clamp(velocity.z, -3.9D, 3.9D) * 8000.0D));
 
 		return ServerPlayNetworking.createS2CPacket(ID, buf);
 	}
 
 	public static class Handler {
-		public static void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
+		public static void handle(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
 			int id = buf.readVarInt();
-			UUID uuid = buf.readUuid();
-			EntityType<?> type = Registry.ENTITY_TYPE.get(buf.readVarInt());
+			UUID uuid = buf.readUUID();
+			EntityType<?> type = Registry.ENTITY_TYPE.byId(buf.readVarInt());
 			double x = buf.readDouble();
 			double y = buf.readDouble();
 			double z = buf.readDouble();
@@ -73,17 +73,17 @@ public class PacketSpawnEntity {
 			double dz = buf.readShort() / 8000.0;
 
 			client.execute(() -> {
-				ClientWorld world = client.world;
+				ClientLevel world = client.level;
 				Entity e = type.create(world);
 				if (e != null) {
-					e.updateTrackedPosition(x, y, z);
-					e.refreshPositionAfterTeleport(x, y, z);
-					e.pitch = pitch;
-					e.yaw = yaw;
-					e.setEntityId(id);
-					e.setUuid(uuid);
-					e.setVelocityClient(dx, dy, dz);
-					world.addEntity(id, e);
+					e.setPacketCoordinates(x, y, z);
+					e.moveTo(x, y, z);
+					e.xRot = pitch;
+					e.yRot = yaw;
+					e.setId(id);
+					e.setUUID(uuid);
+					e.lerpMotion(dx, dy, dz);
+					world.putNonPlayerEntity(id, e);
 				}
 			});
 		}

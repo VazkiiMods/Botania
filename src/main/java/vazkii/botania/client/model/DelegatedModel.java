@@ -8,13 +8,13 @@
  */
 package vazkii.botania.client.model;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.BakedQuad;
-import net.minecraft.client.render.model.json.ModelOverrideList;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.util.math.Direction;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.ItemOverrides;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
@@ -34,32 +34,32 @@ public class DelegatedModel implements BakedModel {
 	}
 
 	@Override
-	public boolean hasDepth() {
-		return originalModel.hasDepth();
+	public boolean isGui3d() {
+		return originalModel.isGui3d();
 	}
 
 	@Override
-	public boolean isSideLit() {
-		return originalModel.isSideLit();
+	public boolean usesBlockLight() {
+		return originalModel.usesBlockLight();
 	}
 
 	@Override
-	public boolean isBuiltin() {
-		return originalModel.isBuiltin();
+	public boolean isCustomRenderer() {
+		return originalModel.isCustomRenderer();
 	}
 
 	@Override
-	public Sprite getSprite() {
-		return originalModel.getSprite();
+	public TextureAtlasSprite getParticleIcon() {
+		return originalModel.getParticleIcon();
 	}
 
 	@Override
-	public ModelTransformation getTransformation() {
-		return originalModel.getTransformation();
+	public ItemTransforms getTransforms() {
+		return originalModel.getTransforms();
 	}
 
 	@Override
-	public ModelOverrideList getOverrides() {
+	public ItemOverrides getOverrides() {
 		return originalModel.getOverrides();
 	}
 

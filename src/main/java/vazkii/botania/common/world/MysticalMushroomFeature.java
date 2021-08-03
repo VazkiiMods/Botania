@@ -8,12 +8,12 @@
  */
 package vazkii.botania.common.world;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.StructureWorldAccess;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.feature.Feature;
 
 import vazkii.botania.common.block.ModBlocks;
 
@@ -25,7 +25,7 @@ public class MysticalMushroomFeature extends Feature<MysticalMushroomConfig> {
 	}
 
 	@Override
-	public boolean generate(StructureWorldAccess world, ChunkGenerator generator, Random rand, BlockPos pos, MysticalMushroomConfig config) {
+	public boolean place(WorldGenLevel world, ChunkGenerator generator, Random rand, BlockPos pos, MysticalMushroomConfig config) {
 		boolean any = false;
 		for (int i = 0; i < config.getMushroomPatchSize(); i++) {
 			int x = pos.getX() + rand.nextInt(16) + 8;
@@ -33,9 +33,9 @@ public class MysticalMushroomFeature extends Feature<MysticalMushroomConfig> {
 			int y = rand.nextInt(26) + 4;
 			BlockPos pos3 = new BlockPos(x, y, z);
 			DyeColor color = DyeColor.byId(rand.nextInt(16));
-			BlockState mushroom = ModBlocks.getMushroom(color).getDefaultState();
-			if (world.isAir(pos3) && mushroom.canPlaceAt(world, pos3)) {
-				world.setBlockState(pos3, mushroom, 2);
+			BlockState mushroom = ModBlocks.getMushroom(color).defaultBlockState();
+			if (world.isEmptyBlock(pos3) && mushroom.canSurvive(world, pos3)) {
+				world.setBlock(pos3, mushroom, 2);
 				any = true;
 			}
 		}

@@ -8,25 +8,25 @@
  */
 package vazkii.botania.common.brew.potion;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectType;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.LivingEntity;
 
 import javax.annotation.Nonnull;
 
-public class PotionFeatherfeet extends StatusEffect {
+public class PotionFeatherfeet extends MobEffect {
 
 	public PotionFeatherfeet() {
-		super(StatusEffectType.BENEFICIAL, 0x26ADFF);
+		super(MobEffectCategory.BENEFICIAL, 0x26ADFF);
 	}
 
 	@Override
-	public boolean canApplyUpdateEffect(int duration, int amplifier) {
+	public boolean isDurationEffectTick(int duration, int amplifier) {
 		return true;
 	}
 
 	@Override
-	public void applyUpdateEffect(@Nonnull LivingEntity living, int amplified) {
+	public void applyEffectTick(@Nonnull LivingEntity living, int amplified) {
 		if (living.fallDistance > 2.5F) {
 			living.fallDistance = 2.5F;
 		}

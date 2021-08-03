@@ -13,20 +13,20 @@ import com.google.common.collect.Multimap;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Lazy;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.core.Registry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
@@ -41,13 +41,13 @@ import java.util.UUID;
 
 public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
-	public ItemTerrasteelArmor(EquipmentSlot type, Settings props) {
+	public ItemTerrasteelArmor(EquipmentSlot type, Properties props) {
 		super(type, BotaniaAPI.instance().getTerrasteelArmorMaterial(), props);
 	}
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	protected BipedEntityModel<LivingEntity> provideArmorModelForSlot(EquipmentSlot slot) {
+	protected HumanoidModel<LivingEntity> provideArmorModelForSlot(EquipmentSlot slot) {
 		return new ModelArmorTerrasteel(slot);
 	}
 
@@ -58,19 +58,19 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
 	@Nonnull
 	@Override
-	public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(@Nonnull EquipmentSlot slot) {
-		Multimap<EntityAttribute, EntityAttributeModifier> ret = super.getAttributeModifiers(slot);
-		UUID uuid = new UUID(Registry.ITEM.getId(this).hashCode() + slot.toString().hashCode(), 0);
-		if (slot == getSlotType()) {
+	public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@Nonnull EquipmentSlot slot) {
+		Multimap<Attribute, AttributeModifier> ret = super.getDefaultAttributeModifiers(slot);
+		UUID uuid = new UUID(Registry.ITEM.getKey(this).hashCode() + slot.toString().hashCode(), 0);
+		if (slot == getSlot()) {
 			ret = HashMultimap.create(ret);
-			int reduction = getMaterial().getProtectionAmount(slot);
-			ret.put(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE,
-					new EntityAttributeModifier(uuid, "Terrasteel modifier " + type, (double) reduction / 20, EntityAttributeModifier.Operation.ADDITION));
+			int reduction = getMaterial().getDefenseForSlot(slot);
+			ret.put(Attributes.KNOCKBACK_RESISTANCE,
+					new AttributeModifier(uuid, "Terrasteel modifier " + type, (double) reduction / 20, AttributeModifier.Operation.ADDITION));
 		}
 		return ret;
 	}
 
-	private static final Lazy<ItemStack[]> armorSet = new Lazy<>(() -> new ItemStack[] {
+	private static final LazyLoadedValue<ItemStack[]> armorSet = new LazyLoadedValue<>(() -> new ItemStack[] {
 			new ItemStack(ModItems.terrasteelHelm),
 			new ItemStack(ModItems.terrasteelChest),
 			new ItemStack(ModItems.terrasteelLegs),
@@ -83,12 +83,12 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 	}
 
 	@Override
-	public boolean hasArmorSetItem(PlayerEntity player, EquipmentSlot slot) {
+	public boolean hasArmorSetItem(Player player, EquipmentSlot slot) {
 		if (player == null) {
 			return false;
 		}
 
-		ItemStack stack = player.getEquippedStack(slot);
+		ItemStack stack = player.getItemBySlot(slot);
 		if (stack.isEmpty()) {
 			return false;
 		}
@@ -108,15 +108,15 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 	}
 
 	@Override
-	public MutableText getArmorSetName() {
-		return new TranslatableText("botania.armorset.terrasteel.name");
+	public MutableComponent getArmorSetName() {
+		return new TranslatableComponent("botania.armorset.terrasteel.name");
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void addArmorSetDescription(ItemStack stack, List<Text> list) {
-		list.add(new TranslatableText("botania.armorset.terrasteel.desc0").formatted(Formatting.GRAY));
-		list.add(new TranslatableText("botania.armorset.terrasteel.desc1").formatted(Formatting.GRAY));
-		list.add(new TranslatableText("botania.armorset.terrasteel.desc2").formatted(Formatting.GRAY));
+	public void addArmorSetDescription(ItemStack stack, List<Component> list) {
+		list.add(new TranslatableComponent("botania.armorset.terrasteel.desc0").withStyle(ChatFormatting.GRAY));
+		list.add(new TranslatableComponent("botania.armorset.terrasteel.desc1").withStyle(ChatFormatting.GRAY));
+		list.add(new TranslatableComponent("botania.armorset.terrasteel.desc2").withStyle(ChatFormatting.GRAY));
 	}
 }

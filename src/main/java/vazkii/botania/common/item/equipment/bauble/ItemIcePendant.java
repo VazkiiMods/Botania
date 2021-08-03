@@ -8,75 +8,76 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.enchantment.FrostWalkerEnchantment;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.BlockStateParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.FrostWalkerEnchantment;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 
 public class ItemIcePendant extends ItemBauble {
 
-	public ItemIcePendant(Settings props) {
+	public ItemIcePendant(Properties props) {
 		super(props);
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity entity) {
-		if (!entity.world.isClient && !entity.isSneaking()) {
+		if (!entity.level.isClientSide && !entity.isShiftKeyDown()) {
 			boolean lastOnGround = entity.isOnGround();
 			entity.setOnGround(true);
-			FrostWalkerEnchantment.freezeWater(entity, entity.world, entity.getBlockPos(), 8);
+			FrostWalkerEnchantment.onEntityMoved(entity, entity.level, entity.blockPosition(), 8);
 			entity.setOnGround(lastOnGround);
 
-			int x = MathHelper.floor(entity.getX());
-			int y = MathHelper.floor(entity.getY());
-			int z = MathHelper.floor(entity.getZ());
-			BlockState blockstate = Blocks.SNOW.getDefaultState();
+			int x = Mth.floor(entity.getX());
+			int y = Mth.floor(entity.getY());
+			int z = Mth.floor(entity.getZ());
+			BlockState blockstate = Blocks.SNOW.defaultBlockState();
 
 			for (int l = 0; l < 4; ++l) {
-				x = MathHelper.floor(entity.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
-				z = MathHelper.floor(entity.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
+				x = Mth.floor(entity.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
+				z = Mth.floor(entity.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
 				BlockPos blockpos = new BlockPos(x, y, z);
-				if (entity.world.isAir(blockpos) && entity.world.getBiome(blockpos).getTemperature(blockpos) < 0.9F && blockstate.canPlaceAt(entity.world, blockpos)) {
-					entity.world.setBlockState(blockpos, blockstate);
+				if (entity.level.isEmptyBlock(blockpos) && entity.level.getBiome(blockpos).getTemperature(blockpos) < 0.9F && blockstate.canSurvive(entity.level, blockpos)) {
+					entity.level.setBlockAndUpdate(blockpos, blockstate);
 				}
 			}
-		} else if (entity.world.isClient && !entity.isSneaking()) {
-			if (entity.world.random.nextFloat() >= 0.25F) {
-				entity.world.addParticle(new BlockStateParticleEffect(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.getDefaultState()), entity.getX() + entity.world.random.nextFloat() * 0.6 - 0.3, entity.getY() + 1.1, entity.getZ() + entity.world.random.nextFloat() * 0.6 - 0.3, 0, -0.15, 0);
+		} else if (entity.level.isClientSide && !entity.isShiftKeyDown()) {
+			if (entity.level.random.nextFloat() >= 0.25F) {
+				entity.level.addParticle(new BlockParticleOption(ParticleTypes.FALLING_DUST, Blocks.SNOW_BLOCK.defaultBlockState()), entity.getX() + entity.level.random.nextFloat() * 0.6 - 0.3, entity.getY() + 1.1, entity.getZ() + entity.level.random.nextFloat() * 0.6 - 0.3, 0, -0.15, 0);
 			}
 		}
 	}
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		boolean armor = !player.getEquippedStack(EquipmentSlot.CHEST).isEmpty();
-		bipedModel.torso.rotate(ms);
+	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		boolean armor = !player.getItemBySlot(EquipmentSlot.CHEST).isEmpty();
+		bipedModel.body.translateAndRotate(ms);
 		ms.translate(-0.25, 0.5, armor ? 0.05 : 0.12);
 		ms.scale(0.5F, -0.5F, -0.5F);
 
 		BakedModel model = MiscellaneousIcons.INSTANCE.snowflakePendantGem;
-		VertexConsumer buffer = buffers.getBuffer(TexturedRenderLayers.getEntityCutout());
-		MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer()
-				.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
+		VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());
+		Minecraft.getInstance().getBlockRenderer().getModelRenderer()
+				.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
 	}
 
 }

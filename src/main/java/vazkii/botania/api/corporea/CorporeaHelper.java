@@ -8,12 +8,12 @@
  */
 package vazkii.botania.api.corporea;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Lazy;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import org.apache.logging.log4j.LogManager;
 
@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 public interface CorporeaHelper {
-	Lazy<CorporeaHelper> INSTANCE = new Lazy<>(() -> {
+	LazyLoadedValue<CorporeaHelper> INSTANCE = new LazyLoadedValue<>(() -> {
 		try {
 			return (CorporeaHelper) Class.forName("vazkii.botania.common.impl.corporea.CorporeaHelperImpl").newInstance();
 		} catch (ReflectiveOperationException e) {
@@ -127,7 +127,7 @@ public interface CorporeaHelper {
 	 * in are for the block that the spark will be on, not the coords of the spark itself.
 	 */
 	@Nullable
-	default ICorporeaSpark getSparkForBlock(World world, BlockPos pos) {
+	default ICorporeaSpark getSparkForBlock(Level world, BlockPos pos) {
 		return null;
 	}
 
@@ -135,7 +135,7 @@ public interface CorporeaHelper {
 	 * Gets if the block in the coords passed in has a spark attached. Note that the coords passed
 	 * in are for the block that the spark will be on, not the coords of the spark itself.
 	 */
-	default boolean doesBlockHaveSpark(World world, BlockPos pos) {
+	default boolean doesBlockHaveSpark(Level world, BlockPos pos) {
 		return getSparkForBlock(world, pos) != null;
 	}
 
@@ -147,5 +147,5 @@ public interface CorporeaHelper {
 		return 0;
 	}
 
-	default <T extends ICorporeaRequestMatcher> void registerRequestMatcher(Identifier id, Class<T> clazz, Function<CompoundTag, T> deserializer) {}
+	default <T extends ICorporeaRequestMatcher> void registerRequestMatcher(ResourceLocation id, Class<T> clazz, Function<CompoundTag, T> deserializer) {}
 }

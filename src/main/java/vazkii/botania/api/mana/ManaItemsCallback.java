@@ -10,8 +10,8 @@ package vazkii.botania.api.mana;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
@@ -28,5 +28,5 @@ public interface ManaItemsCallback {
 				}
 			});
 
-	void getManaItems(PlayerEntity player, List<ItemStack> items);
+	void getManaItems(Player player, List<ItemStack> items);
 }

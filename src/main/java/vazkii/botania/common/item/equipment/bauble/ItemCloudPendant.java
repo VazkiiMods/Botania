@@ -8,21 +8,22 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.Botania;
@@ -35,27 +36,27 @@ import java.util.WeakHashMap;
 
 public class ItemCloudPendant extends ItemBauble {
 
-	private static final Set<PlayerEntity> JUMPING_PLAYERS = Collections.newSetFromMap(new WeakHashMap<>());
+	private static final Set<Player> JUMPING_PLAYERS = Collections.newSetFromMap(new WeakHashMap<>());
 
 	private static int timesJumped;
 	private static boolean jumpDown;
 
-	public ItemCloudPendant(Settings props) {
+	public ItemCloudPendant(Properties props) {
 		super(props);
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
 		Botania.proxy.runOnClient(() -> () -> {
-			if (player == MinecraftClient.getInstance().player) {
-				ClientPlayerEntity playerSp = (ClientPlayerEntity) player;
+			if (player == Minecraft.getInstance().player) {
+				LocalPlayer playerSp = (LocalPlayer) player;
 
 				if (playerSp.isOnGround()) {
 					timesJumped = 0;
 				} else {
 					if (playerSp.input.jumping) {
 						if (!jumpDown && timesJumped < ((ItemCloudPendant) stack.getItem()).getMaxAllowedJumps()) {
-							playerSp.jump();
+							playerSp.jumpFromGround();
 							PacketJump.send();
 							timesJumped++;
 						}
@@ -68,12 +69,12 @@ public class ItemCloudPendant extends ItemBauble {
 		});
 	}
 
-	public static void setJumping(PlayerEntity entity) {
+	public static void setJumping(Player entity) {
 		JUMPING_PLAYERS.add(entity);
 	}
 
-	public static boolean popJumping(PlayerEntity entity) {
-		if (entity.world.isClient) {
+	public static boolean popJumping(Player entity) {
+		if (entity.level.isClientSide) {
 			return timesJumped > 0;
 		}
 		return JUMPING_PLAYERS.remove(entity);
@@ -81,18 +82,18 @@ public class ItemCloudPendant extends ItemBauble {
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		boolean armor = !player.getEquippedStack(EquipmentSlot.CHEST).isEmpty();
-		bipedModel.torso.rotate(ms);
+	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		boolean armor = !player.getItemBySlot(EquipmentSlot.CHEST).isEmpty();
+		bipedModel.body.translateAndRotate(ms);
 		ms.translate(-0.3, 0.4, armor ? 0.05 : 0.12);
 		ms.scale(0.5F, -0.5F, -0.5F);
 
 		BakedModel model = stack.getItem() == ModItems.superCloudPendant
 				? MiscellaneousIcons.INSTANCE.nimbusGem
 				: MiscellaneousIcons.INSTANCE.cirrusGem;
-		VertexConsumer buffer = buffers.getBuffer(TexturedRenderLayers.getEntityCutout());
-		MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer()
-				.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
+		VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());
+		Minecraft.getInstance().getBlockRenderer().getModelRenderer()
+				.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
 	}
 
 	public int getMaxAllowedJumps() {

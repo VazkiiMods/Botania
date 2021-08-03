@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.block.tile.string;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.tile.ModTiles;
 
@@ -27,14 +27,14 @@ public class TileRedStringComparator extends TileRedString {
 		BlockState state = getStateAtBinding();
 		int origVal = comparatorValue;
 
-		if (state.hasComparatorOutput()) {
-			comparatorValue = state.getComparatorOutput(world, binding);
+		if (state.hasAnalogOutputSignal()) {
+			comparatorValue = state.getAnalogOutputSignal(level, binding);
 		} else {
 			comparatorValue = 0;
 		}
 
 		if (origVal != comparatorValue) {
-			world.updateComparators(pos, getCachedState().getBlock());
+			level.updateNeighbourForOutputSignal(worldPosition, getBlockState().getBlock());
 		}
 	}
 
@@ -44,7 +44,7 @@ public class TileRedStringComparator extends TileRedString {
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
-		return world.getBlockState(pos).hasComparatorOutput();
+		return level.getBlockState(pos).hasAnalogOutputSignal();
 	}
 
 }

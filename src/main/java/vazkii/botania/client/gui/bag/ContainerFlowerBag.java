@@ -8,16 +8,16 @@
  */
 package vazkii.botania.client.gui.bag;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.Hand;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.Container;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.item.ItemFlowerBag;
@@ -25,25 +25,25 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class ContainerFlowerBag extends ScreenHandler {
-	public static ContainerFlowerBag fromNetwork(int windowId, PlayerInventory inv, PacketByteBuf buf) {
-		Hand hand = buf.readBoolean() ? Hand.MAIN_HAND : Hand.OFF_HAND;
-		return new ContainerFlowerBag(windowId, inv, inv.player.getStackInHand(hand));
+public class ContainerFlowerBag extends AbstractContainerMenu {
+	public static ContainerFlowerBag fromNetwork(int windowId, Inventory inv, FriendlyByteBuf buf) {
+		InteractionHand hand = buf.readBoolean() ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+		return new ContainerFlowerBag(windowId, inv, inv.player.getItemInHand(hand));
 	}
 
 	private final ItemStack bag;
-	public final Inventory flowerBagInv;
+	public final Container flowerBagInv;
 
-	public ContainerFlowerBag(int windowId, PlayerInventory playerInv, ItemStack bag) {
+	public ContainerFlowerBag(int windowId, Inventory playerInv, ItemStack bag) {
 		super(ModItems.FLOWER_BAG_CONTAINER, windowId);
 		int i;
 		int j;
 
 		this.bag = bag;
-		if (!playerInv.player.world.isClient) {
+		if (!playerInv.player.level.isClientSide) {
 			flowerBagInv = ItemFlowerBag.getInventory(bag);
 		} else {
-			flowerBagInv = new SimpleInventory(ItemFlowerBag.SIZE);
+			flowerBagInv = new SimpleContainer(ItemFlowerBag.SIZE);
 		}
 
 		for (i = 0; i < 2; ++i) {
@@ -51,7 +51,7 @@ public class ContainerFlowerBag extends ScreenHandler {
 				int k = j + i * 8;
 				addSlot(new Slot(flowerBagInv, k, 17 + j * 18, 26 + i * 18) {
 					@Override
-					public boolean canInsert(@Nonnull ItemStack stack) {
+					public boolean mayPlace(@Nonnull ItemStack stack) {
 						return ItemFlowerBag.isValid(k, stack);
 					}
 				});
@@ -71,48 +71,48 @@ public class ContainerFlowerBag extends ScreenHandler {
 	}
 
 	@Override
-	public boolean canUse(@Nonnull PlayerEntity player) {
-		ItemStack main = player.getMainHandStack();
-		ItemStack off = player.getOffHandStack();
+	public boolean stillValid(@Nonnull Player player) {
+		ItemStack main = player.getMainHandItem();
+		ItemStack off = player.getOffhandItem();
 		return !main.isEmpty() && main == bag || !off.isEmpty() && off == bag;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack transferSlot(PlayerEntity player, int slotIndex) {
+	public ItemStack quickMoveStack(Player player, int slotIndex) {
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = slots.get(slotIndex);
 
-		if (slot != null && slot.hasStack()) {
-			ItemStack itemstack1 = slot.getStack();
+		if (slot != null && slot.hasItem()) {
+			ItemStack itemstack1 = slot.getItem();
 			itemstack = itemstack1.copy();
 
 			if (slotIndex < 16) {
-				if (!insertItem(itemstack1, 16, 52, true)) {
+				if (!moveItemStackTo(itemstack1, 16, 52, true)) {
 					return ItemStack.EMPTY;
 				}
 			} else {
-				Block b = Block.getBlockFromItem(itemstack.getItem());
+				Block b = Block.byItem(itemstack.getItem());
 				int i = b instanceof BlockModFlower ? ((BlockModFlower) b).color.getId() : -1;
 				if (i >= 0 && i < 16) {
 					Slot slot1 = slots.get(i);
-					if (slot1.canInsert(itemstack) && !insertItem(itemstack1, i, i + 1, true)) {
+					if (slot1.mayPlace(itemstack) && !moveItemStackTo(itemstack1, i, i + 1, true)) {
 						return ItemStack.EMPTY;
 					}
 				}
 			}
 
 			if (itemstack1.isEmpty()) {
-				slot.setStack(ItemStack.EMPTY);
+				slot.set(ItemStack.EMPTY);
 			} else {
-				slot.markDirty();
+				slot.setChanged();
 			}
 
 			if (itemstack1.getCount() == itemstack.getCount()) {
 				return ItemStack.EMPTY;
 			}
 
-			slot.onTakeItem(player, itemstack1);
+			slot.onTake(player, itemstack1);
 		}
 
 		return itemstack;

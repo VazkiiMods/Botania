@@ -8,24 +8,24 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.SkullBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.world.BlockView;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.SkullBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.common.block.tile.TileGaiaHead;
 
 import javax.annotation.Nonnull;
 
 public class BlockGaiaHead extends SkullBlock {
-	public static final SkullBlock.SkullType GAIA_TYPE = new SkullBlock.SkullType() {};
+	public static final SkullBlock.Type GAIA_TYPE = new SkullBlock.Type() {};
 
-	public BlockGaiaHead(Settings builder) {
+	public BlockGaiaHead(Properties builder) {
 		super(GAIA_TYPE, builder);
 	}
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(BlockView world) {
+	public BlockEntity newBlockEntity(BlockGetter world) {
 		return new TileGaiaHead();
 	}
 }

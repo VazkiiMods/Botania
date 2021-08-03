@@ -10,47 +10,47 @@ package vazkii.botania.common.core.helper;
 
 import com.mojang.datafixers.util.Pair;
 
-import net.minecraft.advancement.Advancement;
-import net.minecraft.advancement.PlayerAdvancementTracker;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.server.ServerAdvancementLoader;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.PlayerAdvancements;
+import net.minecraft.server.ServerAdvancementManager;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 
 import java.util.function.Predicate;
 
 public final class PlayerHelper {
 
 	// Checks if either of the player's hands has an item.
-	public static boolean hasAnyHeldItem(PlayerEntity player) {
-		return !player.getMainHandStack().isEmpty() || !player.getOffHandStack().isEmpty();
+	public static boolean hasAnyHeldItem(Player player) {
+		return !player.getMainHandItem().isEmpty() || !player.getOffhandItem().isEmpty();
 	}
 
 	// Checks main hand, then off hand for this item.
-	public static boolean hasHeldItem(PlayerEntity player, Item item) {
-		return !player.getMainHandStack().isEmpty() && player.getMainHandStack().getItem() == item
-				|| !player.getOffHandStack().isEmpty() && player.getOffHandStack().getItem() == item;
+	public static boolean hasHeldItem(Player player, Item item) {
+		return !player.getMainHandItem().isEmpty() && player.getMainHandItem().getItem() == item
+				|| !player.getOffhandItem().isEmpty() && player.getOffhandItem().getItem() == item;
 	}
 
 	// Checks main hand, then off hand for this item class.
-	public static boolean hasHeldItemClass(PlayerEntity player, Item template) {
+	public static boolean hasHeldItemClass(Player player, Item template) {
 		return hasHeldItemClass(player, template.getClass());
 	}
 
 	// Checks main hand, then off hand for this item class.
-	public static boolean hasHeldItemClass(PlayerEntity player, Class<?> template) {
-		return !player.getMainHandStack().isEmpty() && template.isAssignableFrom(player.getMainHandStack().getItem().getClass())
-				|| !player.getOffHandStack().isEmpty() && template.isAssignableFrom(player.getOffHandStack().getItem().getClass());
+	public static boolean hasHeldItemClass(Player player, Class<?> template) {
+		return !player.getMainHandItem().isEmpty() && template.isAssignableFrom(player.getMainHandItem().getItem().getClass())
+				|| !player.getOffhandItem().isEmpty() && template.isAssignableFrom(player.getOffhandItem().getItem().getClass());
 	}
 
 	public static ItemStack getFirstHeldItem(LivingEntity living, Item item) {
@@ -58,8 +58,8 @@ public final class PlayerHelper {
 	}
 
 	public static ItemStack getFirstHeldItem(LivingEntity living, Predicate<ItemStack> pred) {
-		ItemStack main = living.getMainHandStack();
-		ItemStack offhand = living.getOffHandStack();
+		ItemStack main = living.getMainHandItem();
+		ItemStack offhand = living.getOffhandItem();
 		if (!main.isEmpty() && pred.test(main)) {
 			return main;
 		} else if (!offhand.isEmpty() && pred.test(offhand)) {
@@ -69,19 +69,19 @@ public final class PlayerHelper {
 		}
 	}
 
-	public static ItemStack getFirstHeldItemClass(PlayerEntity player, Class<?> template) {
+	public static ItemStack getFirstHeldItemClass(Player player, Class<?> template) {
 		return getFirstHeldItem(player, s -> template.isAssignableFrom(s.getItem().getClass()));
 	}
 
-	public static ItemStack getAmmo(PlayerEntity player, Predicate<ItemStack> ammoFunc) {
+	public static ItemStack getAmmo(Player player, Predicate<ItemStack> ammoFunc) {
 		// Mainly from ItemBow.findAmmo
-		if (ammoFunc.test(player.getStackInHand(Hand.OFF_HAND))) {
-			return player.getStackInHand(Hand.OFF_HAND);
-		} else if (ammoFunc.test(player.getStackInHand(Hand.MAIN_HAND))) {
-			return player.getStackInHand(Hand.MAIN_HAND);
+		if (ammoFunc.test(player.getItemInHand(InteractionHand.OFF_HAND))) {
+			return player.getItemInHand(InteractionHand.OFF_HAND);
+		} else if (ammoFunc.test(player.getItemInHand(InteractionHand.MAIN_HAND))) {
+			return player.getItemInHand(InteractionHand.MAIN_HAND);
 		} else {
-			for (int i = 0; i < player.inventory.size(); ++i) {
-				ItemStack itemstack = player.inventory.getStack(i);
+			for (int i = 0; i < player.inventory.getContainerSize(); ++i) {
+				ItemStack itemstack = player.inventory.getItem(i);
 
 				if (ammoFunc.test(itemstack)) {
 					return itemstack;
@@ -92,36 +92,36 @@ public final class PlayerHelper {
 		}
 	}
 
-	public static boolean hasAmmo(PlayerEntity player, Predicate<ItemStack> ammoFunc) {
+	public static boolean hasAmmo(Player player, Predicate<ItemStack> ammoFunc) {
 		return !getAmmo(player, ammoFunc).isEmpty();
 	}
 
-	public static void consumeAmmo(PlayerEntity player, Predicate<ItemStack> ammoFunc) {
+	public static void consumeAmmo(Player player, Predicate<ItemStack> ammoFunc) {
 		ItemStack ammo = getAmmo(player, ammoFunc);
 		if (!ammo.isEmpty()) {
-			ammo.decrement(1);
+			ammo.shrink(1);
 		}
 	}
 
-	public static boolean hasItem(PlayerEntity player, Predicate<ItemStack> itemFunc) {
-		for (int i = 0; i < player.inventory.size(); i++) {
-			if (itemFunc.test(player.inventory.getStack(i))) {
+	public static boolean hasItem(Player player, Predicate<ItemStack> itemFunc) {
+		for (int i = 0; i < player.inventory.getContainerSize(); i++) {
+			if (itemFunc.test(player.inventory.getItem(i))) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public static void grantCriterion(ServerPlayerEntity player, Identifier advancementId, String criterion) {
-		PlayerAdvancementTracker advancements = player.getAdvancementTracker();
-		ServerAdvancementLoader manager = player.getServerWorld().getServer().getAdvancementLoader();
-		Advancement advancement = manager.get(advancementId);
+	public static void grantCriterion(ServerPlayer player, ResourceLocation advancementId, String criterion) {
+		PlayerAdvancements advancements = player.getAdvancements();
+		ServerAdvancementManager manager = player.getLevel().getServer().getAdvancements();
+		Advancement advancement = manager.getAdvancement(advancementId);
 		if (advancement != null) {
-			advancements.grantCriterion(advancement, criterion);
+			advancements.award(advancement, criterion);
 		}
 	}
 
-	public static ActionResult substituteUse(ItemUsageContext ctx, ItemStack toUse) {
+	public static InteractionResult substituteUse(UseOnContext ctx, ItemStack toUse) {
 		return substituteUseTrackPos(ctx, toUse).getFirst();
 	}
 
@@ -134,34 +134,34 @@ public final class PlayerHelper {
 	 * @return The usage result, as well as a properly offset block position pointing at where the block was placed
 	 *         (if the item was a BlockItem)
 	 */
-	public static Pair<ActionResult, BlockPos> substituteUseTrackPos(ItemUsageContext ctx, ItemStack toUse) {
+	public static Pair<InteractionResult, BlockPos> substituteUseTrackPos(UseOnContext ctx, ItemStack toUse) {
 		ItemStack save = ItemStack.EMPTY;
-		BlockHitResult hit = new BlockHitResult(ctx.getHitPos(), ctx.getSide(), ctx.getBlockPos(), ctx.hitsInsideBlock());
-		ItemUsageContext newCtx;
+		BlockHitResult hit = new BlockHitResult(ctx.getClickLocation(), ctx.getClickedFace(), ctx.getClickedPos(), ctx.isInside());
+		UseOnContext newCtx;
 
 		if (ctx.getPlayer() != null) {
-			save = ctx.getPlayer().getStackInHand(ctx.getHand());
-			ctx.getPlayer().setStackInHand(ctx.getHand(), toUse);
+			save = ctx.getPlayer().getItemInHand(ctx.getHand());
+			ctx.getPlayer().setItemInHand(ctx.getHand(), toUse);
 			// Need to construct a new one still to refresh the itemstack
-			newCtx = new ItemUsageContext(ctx.getPlayer(), ctx.getHand(), hit);
+			newCtx = new UseOnContext(ctx.getPlayer(), ctx.getHand(), hit);
 		} else {
-			newCtx = new ItemUseContextWithNullPlayer(ctx.getWorld(), ctx.getHand(), toUse, hit);
+			newCtx = new ItemUseContextWithNullPlayer(ctx.getLevel(), ctx.getHand(), toUse, hit);
 		}
 
-		BlockPos finalPos = new ItemPlacementContext(newCtx).getBlockPos();
+		BlockPos finalPos = new BlockPlaceContext(newCtx).getClickedPos();
 
-		ActionResult result = toUse.useOnBlock(newCtx);
+		InteractionResult result = toUse.useOn(newCtx);
 
 		if (ctx.getPlayer() != null) {
-			ctx.getPlayer().setStackInHand(ctx.getHand(), save);
+			ctx.getPlayer().setItemInHand(ctx.getHand(), save);
 		}
 
 		return Pair.of(result, finalPos);
 	}
 
 	// To expose protected ctor
-	private static class ItemUseContextWithNullPlayer extends ItemUsageContext {
-		public ItemUseContextWithNullPlayer(World world, Hand hand, ItemStack stack, BlockHitResult rayTraceResult) {
+	private static class ItemUseContextWithNullPlayer extends UseOnContext {
+		public ItemUseContextWithNullPlayer(Level world, InteractionHand hand, ItemStack stack, BlockHitResult rayTraceResult) {
 			super(world, null, hand, stack, rayTraceResult);
 		}
 	}

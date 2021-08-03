@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.item.material;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 import vazkii.botania.mixin.AccessorItem;
 
 public class ItemSelfReturning extends Item {
 
-	public ItemSelfReturning(Item.Settings builder) {
+	public ItemSelfReturning(Item.Properties builder) {
 		super(builder);
 		((AccessorItem) this).setRecipeRemainder(this);
 	}

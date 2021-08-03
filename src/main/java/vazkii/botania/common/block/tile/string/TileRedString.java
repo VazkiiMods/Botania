@@ -8,22 +8,22 @@
  */
 package vazkii.botania.common.block.tile.string;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.Tickable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.wand.ITileBound;
 import vazkii.botania.common.block.tile.TileMod;
 
 import javax.annotation.Nullable;
 
-public abstract class TileRedString extends TileMod implements ITileBound, Tickable {
+public abstract class TileRedString extends TileMod implements ITileBound, TickableBlockEntity {
 
 	private BlockPos binding;
 
@@ -34,18 +34,18 @@ public abstract class TileRedString extends TileMod implements ITileBound, Ticka
 	@Override
 	public void tick() {
 		Direction dir = getOrientation();
-		BlockPos pos_ = getPos();
+		BlockPos pos_ = getBlockPos();
 		int range = getRange();
 		BlockPos currBinding = getBinding();
 		setBinding(null);
 
 		for (int i = 0; i < range; i++) {
-			pos_ = pos_.offset(dir);
-			if (world.isAir(pos_)) {
+			pos_ = pos_.relative(dir);
+			if (level.isEmptyBlock(pos_)) {
 				continue;
 			}
 
-			BlockEntity tile = world.getBlockEntity(pos_);
+			BlockEntity tile = level.getBlockEntity(pos_);
 			if (tile instanceof TileRedString) {
 				continue;
 			}
@@ -79,17 +79,17 @@ public abstract class TileRedString extends TileMod implements ITileBound, Ticka
 	}
 
 	public Direction getOrientation() {
-		return getCachedState().get(Properties.FACING);
+		return getBlockState().getValue(BlockStateProperties.FACING);
 	}
 
 	public BlockEntity getTileAtBinding() {
 		BlockPos binding = getBinding();
-		return binding == null || world == null ? null : world.getBlockEntity(binding);
+		return binding == null || level == null ? null : level.getBlockEntity(binding);
 	}
 
 	public BlockState getStateAtBinding() {
 		BlockPos binding = getBinding();
-		return binding == null ? Blocks.AIR.getDefaultState() : world.getBlockState(binding);
+		return binding == null ? Blocks.AIR.defaultBlockState() : level.getBlockState(binding);
 	}
 
 	public Block getBlockAtBinding() {

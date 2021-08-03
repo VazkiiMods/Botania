@@ -9,21 +9,21 @@
 package vazkii.botania.client.fx;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.Tesselator;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.particle.ParticleTextureSheet;
-import net.minecraft.client.particle.SpriteBillboardParticle;
-import net.minecraft.client.particle.SpriteProvider;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexFormats;
-import net.minecraft.client.texture.AbstractTexture;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.client.texture.TextureManager;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.ParticleRenderType;
+import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.renderer.texture.AbstractTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.phys.Vec3;
 
 import org.lwjgl.opengl.GL11;
 
@@ -32,99 +32,99 @@ import vazkii.botania.client.core.helper.ShaderHelper;
 
 import javax.annotation.Nonnull;
 
-public class FXSparkle extends SpriteBillboardParticle {
+public class FXSparkle extends TextureSheetParticle {
 	private final boolean corrupt;
 	public final boolean fake;
 	public final int particle = 16;
 	private final boolean slowdown = true;
-	private final SpriteProvider sprite;
+	private final SpriteSet sprite;
 
-	public FXSparkle(ClientWorld world, double x, double y, double z, float size,
+	public FXSparkle(ClientLevel world, double x, double y, double z, float size,
 			float red, float green, float blue, int m,
-			boolean fake, boolean noClip, boolean corrupt, SpriteProvider sprite) {
+			boolean fake, boolean noClip, boolean corrupt, SpriteSet sprite) {
 		super(world, x, y, z, 0.0D, 0.0D, 0.0D);
-		colorRed = red;
-		colorGreen = green;
-		colorBlue = blue;
-		colorAlpha = 0.75F;
-		gravityStrength = 0;
-		velocityX = velocityY = velocityZ = 0;
-		scale = (this.random.nextFloat() * 0.5F + 0.5F) * 0.2F * size;
-		maxAge = 3 * m;
-		setBoundingBoxSpacing(0.01F, 0.01F);
-		prevPosX = x;
-		prevPosY = y;
-		prevPosZ = z;
+		rCol = red;
+		gCol = green;
+		bCol = blue;
+		alpha = 0.75F;
+		gravity = 0;
+		xd = yd = zd = 0;
+		quadSize = (this.random.nextFloat() * 0.5F + 0.5F) * 0.2F * size;
+		lifetime = 3 * m;
+		setSize(0.01F, 0.01F);
+		xo = x;
+		yo = y;
+		zo = z;
 		this.fake = fake;
 		this.corrupt = corrupt;
-		this.collidesWithWorld = !fake && !noClip;
+		this.hasPhysics = !fake && !noClip;
 		this.sprite = sprite;
-		setSpriteForAge(sprite);
+		setSpriteFromAge(sprite);
 	}
 
 	@Override
-	public float getSize(float partialTicks) {
-		return scale * (maxAge - age + 1) / (float) maxAge;
+	public float getQuadSize(float partialTicks) {
+		return quadSize * (lifetime - age + 1) / (float) lifetime;
 	}
 
 	@Override
 	public void tick() {
-		setSpriteForAge(sprite);
-		prevPosX = x;
-		prevPosY = y;
-		prevPosZ = z;
+		setSpriteFromAge(sprite);
+		xo = x;
+		yo = y;
+		zo = z;
 
-		if (age++ >= maxAge) {
-			markDead();
+		if (age++ >= lifetime) {
+			remove();
 		}
 
-		velocityY -= 0.04D * gravityStrength;
+		yd -= 0.04D * gravity;
 
-		if (collidesWithWorld && !fake) {
+		if (hasPhysics && !fake) {
 			wiggleAround(x, (getBoundingBox().minY + getBoundingBox().maxY) / 2.0D, z);
 		}
 
-		this.move(velocityX, velocityY, velocityZ);
+		this.move(xd, yd, zd);
 
 		if (slowdown) {
-			velocityX *= 0.908000001907348633D;
-			velocityY *= 0.908000001907348633D;
-			velocityZ *= 0.908000001907348633D;
+			xd *= 0.908000001907348633D;
+			yd *= 0.908000001907348633D;
+			zd *= 0.908000001907348633D;
 
 			if (onGround) {
-				velocityX *= 0.69999998807907104D;
-				velocityZ *= 0.69999998807907104D;
+				xd *= 0.69999998807907104D;
+				zd *= 0.69999998807907104D;
 			}
 		}
 
 		if (fake && age > 1) {
-			markDead();
+			remove();
 		}
 	}
 
 	@Nonnull
 	@Override
-	public ParticleTextureSheet getType() {
+	public ParticleRenderType getRenderType() {
 		return corrupt ? CORRUPT_RENDER : NORMAL_RENDER;
 	}
 
 	public void setGravity(float value) {
-		gravityStrength = value;
+		gravity = value;
 	}
 
 	// [VanillaCopy] Entity.pushOutOfBlocks with tweaks
 	private void wiggleAround(double x, double y, double z) {
 		BlockPos blockpos = new BlockPos(x, y, z);
-		Vec3d Vector3d = new Vec3d(x - (double) blockpos.getX(), y - (double) blockpos.getY(), z - (double) blockpos.getZ());
-		BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
+		Vec3 Vector3d = new Vec3(x - (double) blockpos.getX(), y - (double) blockpos.getY(), z - (double) blockpos.getZ());
+		BlockPos.MutableBlockPos blockpos$mutable = new BlockPos.MutableBlockPos();
 		Direction direction = Direction.UP;
 		double d0 = Double.MAX_VALUE;
 
 		for (Direction direction1 : new Direction[] { Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST, Direction.UP }) {
 			blockpos$mutable.set(blockpos).move(direction1);
-			if (!this.world.getBlockState(blockpos$mutable).isFullCube(this.world, blockpos$mutable)) {
-				double d1 = Vector3d.getComponentAlongAxis(direction1.getAxis());
-				double d2 = direction1.getDirection() == Direction.AxisDirection.POSITIVE ? 1.0D - d1 : d1;
+			if (!this.level.getBlockState(blockpos$mutable).isCollisionShapeFullBlock(this.level, blockpos$mutable)) {
+				double d1 = Vector3d.get(direction1.getAxis());
+				double d2 = direction1.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 1.0D - d1 : d1;
 				if (d2 < d0) {
 					d0 = d2;
 					direction = direction1;
@@ -134,22 +134,22 @@ public class FXSparkle extends SpriteBillboardParticle {
 
 		// Botania - made multiplier and add both smaller
 		float f = this.random.nextFloat() * 0.05F + 0.025F;
-		float f1 = (float) direction.getDirection().offset();
+		float f1 = (float) direction.getAxisDirection().getStep();
 		// Botania - Randomness in other axes as well
 		float secondary = (random.nextFloat() - random.nextFloat()) * 0.1F;
 		float secondary2 = (random.nextFloat() - random.nextFloat()) * 0.1F;
 		if (direction.getAxis() == Direction.Axis.X) {
-			velocityX = (double) (f1 * f);
-			velocityY = secondary;
-			velocityZ = secondary2;
+			xd = (double) (f1 * f);
+			yd = secondary;
+			zd = secondary2;
 		} else if (direction.getAxis() == Direction.Axis.Y) {
-			velocityX = secondary;
-			velocityY = (double) (f1 * f);
-			velocityZ = secondary2;
+			xd = secondary;
+			yd = (double) (f1 * f);
+			zd = secondary2;
 		} else if (direction.getAxis() == Direction.Axis.Z) {
-			velocityX = secondary;
-			velocityY = secondary2;
-			velocityZ = (double) (f1 * f);
+			xd = secondary;
+			yd = secondary2;
+			zd = (double) (f1 * f);
 		}
 	}
 
@@ -159,29 +159,29 @@ public class FXSparkle extends SpriteBillboardParticle {
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
 		RenderSystem.alphaFunc(GL11.GL_GREATER, 0.003921569F);
 		RenderSystem.disableLighting();
-		textureManager.bindTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEXTURE);
-		AbstractTexture tex = textureManager.getTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEXTURE);
+		textureManager.bind(TextureAtlas.LOCATION_PARTICLES);
+		AbstractTexture tex = textureManager.getTexture(TextureAtlas.LOCATION_PARTICLES);
 		((ExtendedTexture) tex).setFilterSave(true, false);
-		buffer.begin(GL11.GL_QUADS, VertexFormats.POSITION_TEXTURE_COLOR_LIGHT);
+		buffer.begin(GL11.GL_QUADS, DefaultVertexFormat.PARTICLE);
 	}
 
 	private static void endRenderCommon() {
-		AbstractTexture tex = MinecraftClient.getInstance().getTextureManager().getTexture(SpriteAtlasTexture.PARTICLE_ATLAS_TEXTURE);
+		AbstractTexture tex = Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_PARTICLES);
 		((ExtendedTexture) tex).restoreLastFilter();
 		RenderSystem.alphaFunc(GL11.GL_GREATER, 0.1F);
 		RenderSystem.disableBlend();
 		RenderSystem.depthMask(true);
 	}
 
-	public static final ParticleTextureSheet NORMAL_RENDER = new ParticleTextureSheet() {
+	public static final ParticleRenderType NORMAL_RENDER = new ParticleRenderType() {
 		@Override
 		public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
 			beginRenderCommon(bufferBuilder, textureManager);
 		}
 
 		@Override
-		public void draw(Tessellator tessellator) {
-			tessellator.draw();
+		public void end(Tesselator tessellator) {
+			tessellator.end();
 			endRenderCommon();
 		}
 
@@ -191,7 +191,7 @@ public class FXSparkle extends SpriteBillboardParticle {
 		}
 	};
 
-	public static final ParticleTextureSheet CORRUPT_RENDER = new ParticleTextureSheet() {
+	public static final ParticleRenderType CORRUPT_RENDER = new ParticleRenderType() {
 		@Override
 		public void begin(BufferBuilder bufferBuilder, TextureManager textureManager) {
 			beginRenderCommon(bufferBuilder, textureManager);
@@ -199,8 +199,8 @@ public class FXSparkle extends SpriteBillboardParticle {
 		}
 
 		@Override
-		public void draw(Tessellator tessellator) {
-			tessellator.draw();
+		public void end(Tesselator tessellator) {
+			tessellator.end();
 			ShaderHelper.releaseShader();
 			endRenderCommon();
 		}

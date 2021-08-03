@@ -10,18 +10,18 @@ package vazkii.botania.common.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.HoeItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.HoeItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 
@@ -40,32 +40,32 @@ public class BlockAltGrass extends BlockMod {
 
 	private final Variant variant;
 
-	public BlockAltGrass(Variant v, Settings builder) {
+	public BlockAltGrass(Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		ItemStack held = player.getStackInHand(hand);
-		if (held.getItem() instanceof HoeItem && world.isAir(pos.up())) {
-			held.damage(1, player, e -> e.sendToolBreakStatus(hand));
-			world.setBlockState(pos, Blocks.FARMLAND.getDefaultState());
-			return ActionResult.SUCCESS;
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		ItemStack held = player.getItemInHand(hand);
+		if (held.getItem() instanceof HoeItem && world.isEmptyBlock(pos.above())) {
+			held.hurtAndBreak(1, player, e -> e.broadcastBreakEvent(hand));
+			world.setBlockAndUpdate(pos, Blocks.FARMLAND.defaultBlockState());
+			return InteractionResult.SUCCESS;
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Override
-	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-		if (!world.isClient && state.getBlock() == this && world.getLightLevel(pos.up()) >= 9) {
+	public void tick(BlockState state, ServerLevel world, BlockPos pos, Random rand) {
+		if (!world.isClientSide && state.getBlock() == this && world.getMaxLocalRawBrightness(pos.above()) >= 9) {
 			for (int l = 0; l < 4; ++l) {
-				BlockPos pos1 = pos.add(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
-				BlockPos pos1up = pos1.up();
+				BlockPos pos1 = pos.offset(rand.nextInt(3) - 1, rand.nextInt(5) - 3, rand.nextInt(3) - 1);
+				BlockPos pos1up = pos1.above();
 
-				if (world.getBlockState(pos1).getBlock() == Blocks.DIRT && world.getLightLevel(pos1up) >= 4 && world.getBlockState(pos1up).getOpacity(world, pos1up) <= 2) {
-					world.setBlockState(pos1, getDefaultState());
+				if (world.getBlockState(pos1).getBlock() == Blocks.DIRT && world.getMaxLocalRawBrightness(pos1up) >= 4 && world.getBlockState(pos1up).getLightBlock(world, pos1up) <= 2) {
+					world.setBlockAndUpdate(pos1, defaultBlockState());
 				}
 			}
 		}
@@ -73,7 +73,7 @@ public class BlockAltGrass extends BlockMod {
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random r) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, Random r) {
 		switch (variant) {
 		case DRY:
 			break;

@@ -8,9 +8,9 @@
  */
 package vazkii.botania.api.item;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 /**
  * Have a block implement this class to make it do something when an adjacent
@@ -18,6 +18,6 @@ import net.minecraft.world.World;
  */
 public interface IHourglassTrigger {
 
-	void onTriggeredByHourglass(World world, BlockPos pos, BlockEntity hourglass);
+	void onTriggeredByHourglass(Level world, BlockPos pos, BlockEntity hourglass);
 
 }

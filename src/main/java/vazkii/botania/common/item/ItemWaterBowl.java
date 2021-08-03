@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 
 import alexiil.mc.lib.attributes.AttributeProviderItem;
@@ -28,7 +28,7 @@ import alexiil.mc.lib.attributes.misc.Reference;
 
 public class ItemWaterBowl extends Item implements AttributeProviderItem {
 
-	public ItemWaterBowl(Settings builder) {
+	public ItemWaterBowl(Properties builder) {
 		super(builder);
 	}
 
@@ -50,7 +50,7 @@ public class ItemWaterBowl extends Item implements AttributeProviderItem {
 			}
 
 			ItemStack oldStack = stackRef.get().copy();
-			oldStack.decrement(1);
+			oldStack.shrink(1);
 
 			if (setStacks(simulation, oldStack, new ItemStack(Items.BOWL))) {
 				return FluidKeys.WATER.withAmount(FluidAmount.BUCKET);

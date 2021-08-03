@@ -8,8 +8,9 @@
  */
 package vazkii.botania.client.patchouli.component;
 
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.item.ItemStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
@@ -38,8 +39,8 @@ public class TerraPlateComponent implements ICustomComponent {
 	}
 
 	@Override
-	public void render(MatrixStack ms, IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
-		ms.push();
+	public void render(PoseStack ms, IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
+		ms.pushPose();
 		ms.translate(0, 0, -10);
 		context.renderItemStack(ms, x + 13, y + 1, mouseX, mouseY, cornerBlock);
 
@@ -61,7 +62,7 @@ public class TerraPlateComponent implements ICustomComponent {
 
 		ms.translate(0F, 0F, 5F);
 		context.renderItemStack(ms, x + 13, y, mouseX, mouseY, plateBlock);
-		ms.pop();
+		ms.popPose();
 	}
 
 	@Override

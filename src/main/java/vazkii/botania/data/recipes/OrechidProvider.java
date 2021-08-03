@@ -16,12 +16,12 @@ import com.google.gson.JsonObject;
 import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.data.DataCache;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.util.Identifier;
+import net.minecraft.data.HashCache;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.Botania;
@@ -43,10 +43,10 @@ public class OrechidProvider implements DataProvider {
 	}
 
 	@Override
-	public void run(DataCache cache) throws IOException {
+	public void run(HashCache cache) throws IOException {
 		registerMaps((Object2IntMap<StateIngredient> map, String loc) -> {
 			try {
-				DataProvider.writeToPath(GSON, cache, convertMapToJson(map), getPath(generator.getOutput(), prefix(loc)));
+				DataProvider.save(GSON, cache, convertMapToJson(map), getPath(generator.getOutputFolder(), prefix(loc)));
 			} catch (IOException e) {
 				Botania.LOGGER.error("Exception writing file", e);
 			}
@@ -167,12 +167,12 @@ public class OrechidProvider implements DataProvider {
 		return map;
 	}
 
-	private static Path getPath(Path root, Identifier id) {
+	private static Path getPath(Path root, ResourceLocation id) {
 		return root.resolve("data/" + id.getNamespace() + "/orechid_ore_weights/" + id.getPath() + ".json");
 	}
 
 	protected static StateIngredient forOreTag(String oreTag) {
-		return StateIngredientHelper.of(new Identifier("forge", "ores/" + oreTag));
+		return StateIngredientHelper.of(new ResourceLocation("forge", "ores/" + oreTag));
 	}
 
 	protected static StateIngredient forBlock(Block block) {

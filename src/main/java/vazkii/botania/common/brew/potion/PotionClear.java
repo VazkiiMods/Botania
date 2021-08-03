@@ -8,22 +8,22 @@
  */
 package vazkii.botania.common.brew.potion;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.InstantStatusEffect;
-import net.minecraft.entity.effect.StatusEffectType;
+import net.minecraft.world.effect.InstantenousMobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 
 import javax.annotation.Nonnull;
 
-public class PotionClear extends InstantStatusEffect {
+public class PotionClear extends InstantenousMobEffect {
 
 	public PotionClear() {
-		super(StatusEffectType.NEUTRAL, 0xFFFFFF);
+		super(MobEffectCategory.NEUTRAL, 0xFFFFFF);
 	}
 
 	@Override
-	public void applyInstantEffect(Entity e, Entity e1, @Nonnull LivingEntity e2, int t, double d) {
-		e2.clearStatusEffects();
+	public void applyInstantenousEffect(Entity e, Entity e1, @Nonnull LivingEntity e2, int t, double d) {
+		e2.removeAllEffects();
 	}
 
 }

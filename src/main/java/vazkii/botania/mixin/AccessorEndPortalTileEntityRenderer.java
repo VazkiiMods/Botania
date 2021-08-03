@@ -8,18 +8,18 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.block.entity.EndPortalBlockEntityRenderer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.TheEndPortalRenderer;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.List;
 
-@Mixin(EndPortalBlockEntityRenderer.class)
+@Mixin(TheEndPortalRenderer.class)
 public interface AccessorEndPortalTileEntityRenderer {
-	@Accessor("field_21732")
-	static List<RenderLayer> getLayers() {
+	@Accessor("RENDER_TYPES")
+	static List<RenderType> getLayers() {
 		throw new IllegalStateException();
 	}
 }

@@ -10,16 +10,16 @@ package vazkii.botania.common.crafting.recipe;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.CraftingRecipe;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.ShapelessRecipe;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapelessRecipe;
+import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 
@@ -31,36 +31,36 @@ public class ShapelessManaUpgradeRecipe implements CraftingRecipe {
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingInventory inv, @Nonnull World world) {
+	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level world) {
 		return compose.matches(inv, world);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack craft(@Nonnull CraftingInventory inv) {
-		return ManaUpgradeRecipe.output(compose.craft(inv), inv);
+	public ItemStack assemble(@Nonnull CraftingContainer inv) {
+		return ManaUpgradeRecipe.output(compose.assemble(inv), inv);
 	}
 
 	@Override
-	public boolean fits(int width, int height) {
-		return compose.fits(width, height);
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack getOutput() {
-		return compose.getOutput();
+	public boolean canCraftInDimensions(int width, int height) {
+		return compose.canCraftInDimensions(width, height);
 	}
 
 	@Nonnull
 	@Override
-	public DefaultedList<Ingredient> getPreviewInputs() {
-		return compose.getPreviewInputs();
+	public ItemStack getResultItem() {
+		return compose.getResultItem();
 	}
 
 	@Nonnull
 	@Override
-	public Identifier getId() {
+	public NonNullList<Ingredient> getIngredients() {
+		return compose.getIngredients();
+	}
+
+	@Nonnull
+	@Override
+	public ResourceLocation getId() {
 		return compose.getId();
 	}
 
@@ -75,20 +75,20 @@ public class ShapelessManaUpgradeRecipe implements CraftingRecipe {
 	private static class Serializer implements RecipeSerializer<ShapelessManaUpgradeRecipe> {
 		@Nonnull
 		@Override
-		public ShapelessManaUpgradeRecipe read(@Nonnull Identifier recipeId, @Nonnull JsonObject json) {
-			return new ShapelessManaUpgradeRecipe(RecipeSerializer.SHAPELESS.read(recipeId, json));
+		public ShapelessManaUpgradeRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
+			return new ShapelessManaUpgradeRecipe(RecipeSerializer.SHAPELESS_RECIPE.fromJson(recipeId, json));
 		}
 
 		@Nonnull
 		@Override
-		public ShapelessManaUpgradeRecipe read(@Nonnull Identifier recipeId, @Nonnull PacketByteBuf buffer) {
-			return new ShapelessManaUpgradeRecipe(RecipeSerializer.SHAPELESS.read(recipeId, buffer));
+		public ShapelessManaUpgradeRecipe fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
+			return new ShapelessManaUpgradeRecipe(RecipeSerializer.SHAPELESS_RECIPE.fromNetwork(recipeId, buffer));
 		}
 
 		@SuppressWarnings("unchecked")
 		@Override
-		public void write(@Nonnull PacketByteBuf buffer, @Nonnull ShapelessManaUpgradeRecipe recipe) {
-			RecipeSerializer.SHAPELESS.write(buffer, recipe.compose);
+		public void toNetwork(@Nonnull FriendlyByteBuf buffer, @Nonnull ShapelessManaUpgradeRecipe recipe) {
+			RecipeSerializer.SHAPELESS_RECIPE.toNetwork(buffer, recipe.compose);
 		}
 	}
 }

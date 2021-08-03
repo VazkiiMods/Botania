@@ -8,12 +8,12 @@
  */
 package vazkii.botania.common.block.tile.string;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Fertilizable;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
 
 import vazkii.botania.common.block.tile.ModTiles;
 
@@ -24,30 +24,30 @@ public class TileRedStringFertilizer extends TileRedString {
 		super(ModTiles.RED_STRING_FERTILIZER);
 	}
 
-	public boolean canGrow(BlockView world, boolean isClient) {
+	public boolean canGrow(BlockGetter world, boolean isClient) {
 		BlockPos binding = getBinding();
 		Block block = getBlockAtBinding();
 
-		return block instanceof Fertilizable && ((Fertilizable) block).isFertilizable(world, binding, world.getBlockState(binding), isClient);
+		return block instanceof BonemealableBlock && ((BonemealableBlock) block).isValidBonemealTarget(world, binding, world.getBlockState(binding), isClient);
 	}
 
-	public boolean canUseBonemeal(World world, Random rand) {
+	public boolean canUseBonemeal(Level world, Random rand) {
 		BlockPos binding = getBinding();
 		Block block = getBlockAtBinding();
-		return block instanceof Fertilizable && ((Fertilizable) block).canGrow(world, rand, binding, world.getBlockState(binding));
+		return block instanceof BonemealableBlock && ((BonemealableBlock) block).isBonemealSuccess(world, rand, binding, world.getBlockState(binding));
 	}
 
-	public void grow(ServerWorld world, Random rand) {
+	public void grow(ServerLevel world, Random rand) {
 		BlockPos binding = getBinding();
 		Block block = getBlockAtBinding();
-		if (block instanceof Fertilizable) {
-			((Fertilizable) block).grow(world, rand, binding, world.getBlockState(binding));
+		if (block instanceof BonemealableBlock) {
+			((BonemealableBlock) block).performBonemeal(world, rand, binding, world.getBlockState(binding));
 		}
 	}
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
-		return world.getBlockState(pos).getBlock() instanceof Fertilizable;
+		return level.getBlockState(pos).getBlock() instanceof BonemealableBlock;
 	}
 
 }

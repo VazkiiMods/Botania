@@ -8,17 +8,19 @@
  */
 package vazkii.botania.common.item.material;
 
-import net.minecraft.entity.AreaEffectCloudEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.*;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.AreaEffectCloud;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.common.entity.EntityEnderAirBottle;
 import vazkii.botania.common.item.ModItems;
@@ -28,53 +30,53 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public class ItemEnderAir extends Item {
-	public ItemEnderAir(Settings props) {
+	public ItemEnderAir(Properties props) {
 		super(props);
 	}
 
-	public static TypedActionResult<ItemStack> onPlayerInteract(PlayerEntity player, World world, Hand hand) {
-		ItemStack stack = player.getStackInHand(hand);
+	public static InteractionResultHolder<ItemStack> onPlayerInteract(Player player, Level world, InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
 
-		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.getRegistryKey() == World.END) {
-			if (!isClearFromDragonBreath(world, player.getBoundingBox().expand(3.5D))) {
-				return TypedActionResult.pass(stack);
+		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.dimension() == Level.END) {
+			if (!isClearFromDragonBreath(world, player.getBoundingBox().inflate(3.5D))) {
+				return InteractionResultHolder.pass(stack);
 			}
 
-			if (!world.isClient) {
+			if (!world.isClientSide) {
 				ItemStack enderAir = new ItemStack(ModItems.enderAirBottle);
-				player.inventory.offerOrDrop(world, enderAir);
-				stack.decrement(1);
-				world.playSound(null, player.getBlockPos(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.NEUTRAL, 0.5F, 1F);
+				player.inventory.placeItemBackInInventory(world, enderAir);
+				stack.shrink(1);
+				world.playSound(null, player.blockPosition(), SoundEvents.ITEM_PICKUP, SoundSource.NEUTRAL, 0.5F, 1F);
 			}
 
-			return TypedActionResult.success(stack);
+			return InteractionResultHolder.success(stack);
 		}
 
-		return TypedActionResult.pass(stack);
+		return InteractionResultHolder.pass(stack);
 	}
 
-	public static boolean isClearFromDragonBreath(World world, Box aabb) {
-		List<AreaEffectCloudEntity> list = world.getEntitiesByClass(AreaEffectCloudEntity.class,
+	public static boolean isClearFromDragonBreath(Level world, AABB aabb) {
+		List<AreaEffectCloud> list = world.getEntitiesOfClass(AreaEffectCloud.class,
 				aabb, entity -> entity != null && entity.isAlive()
-						&& entity.getParticleType().getType() == ParticleTypes.DRAGON_BREATH);
+						&& entity.getParticle().getType() == ParticleTypes.DRAGON_BREATH);
 		return list.isEmpty();
 	}
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getStackInHand(hand);
-		if (!player.abilities.creativeMode) {
-			stack.decrement(1);
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
+		if (!player.abilities.instabuild) {
+			stack.shrink(1);
 		}
 
-		world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (RANDOM.nextFloat() * 0.4F + 0.8F));
+		world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 
-		if (!world.isClient) {
+		if (!world.isClientSide) {
 			EntityEnderAirBottle b = new EntityEnderAirBottle(player, world);
-			b.setProperties(player, player.pitch, player.yaw, 0F, 1.5F, 1F);
-			world.spawnEntity(b);
+			b.shootFromRotation(player, player.xRot, player.yRot, 0F, 1.5F, 1F);
+			world.addFreshEntity(b);
 		}
-		return TypedActionResult.success(stack, world.isClient);
+		return InteractionResultHolder.sidedSuccess(stack, world.isClientSide);
 	}
 }

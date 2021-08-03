@@ -9,16 +9,16 @@
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.network.PacketUpdateItemsRemaining;
 
@@ -33,48 +33,48 @@ public final class ItemsRemainingRenderHandler {
 
 	private static ItemStack stack = ItemStack.EMPTY;
 	@Nullable
-	private static Text customString;
+	private static Component customString;
 	private static int ticks, count;
 
 	@Environment(EnvType.CLIENT)
-	public static void render(MatrixStack ms, float partTicks) {
+	public static void render(PoseStack ms, float partTicks) {
 		if (ticks > 0 && !stack.isEmpty()) {
 			int pos = maxTicks - ticks;
-			MinecraftClient mc = MinecraftClient.getInstance();
-			int x = mc.getWindow().getScaledWidth() / 2 + 10 + Math.max(0, pos - leaveTicks);
-			int y = mc.getWindow().getScaledHeight() / 2;
+			Minecraft mc = Minecraft.getInstance();
+			int x = mc.getWindow().getGuiScaledWidth() / 2 + 10 + Math.max(0, pos - leaveTicks);
+			int y = mc.getWindow().getGuiScaledHeight() / 2;
 
 			int start = maxTicks - leaveTicks;
 			float alpha = ticks + partTicks > start ? 1F : (ticks + partTicks) / start;
 
 			// RenderSystem.color4f(1F, 1F, 1F, alpha);
 			int xp = x + (int) (16F * (1F - alpha));
-			ms.push();
+			ms.pushPose();
 			ms.translate(xp, y, 0F);
 			ms.scale(alpha, 1F, 1F);
 			RenderSystem.pushMatrix();
-			RenderSystem.multMatrix(ms.peek().getModel());
-			mc.getItemRenderer().renderInGuiWithOverrides(stack, 0, 0);
+			RenderSystem.multMatrix(ms.last().pose());
+			mc.getItemRenderer().renderAndDecorateItem(stack, 0, 0);
 			RenderSystem.popMatrix();
-			ms.pop();
+			ms.popPose();
 
-			Text text = LiteralText.EMPTY;
+			Component text = TextComponent.EMPTY;
 
 			if (customString == null) {
 				if (!stack.isEmpty()) {
-					text = stack.getName().shallowCopy().formatted(Formatting.GREEN);
+					text = stack.getHoverName().copy().withStyle(ChatFormatting.GREEN);
 					if (count >= 0) {
-						int max = stack.getMaxCount();
+						int max = stack.getMaxStackSize();
 						int stacks = count / max;
 						int rem = count % max;
 
 						if (stacks == 0) {
-							text = new LiteralText(Integer.toString(count));
+							text = new TextComponent(Integer.toString(count));
 						} else {
-							Text stacksText = new LiteralText(Integer.toString(stacks)).formatted(Formatting.AQUA);
-							Text maxText = new LiteralText(Integer.toString(max)).formatted(Formatting.GRAY);
-							Text remText = new LiteralText(Integer.toString(rem)).formatted(Formatting.YELLOW);
-							text = new LiteralText(count + " (")
+							Component stacksText = new TextComponent(Integer.toString(stacks)).withStyle(ChatFormatting.AQUA);
+							Component maxText = new TextComponent(Integer.toString(max)).withStyle(ChatFormatting.GRAY);
+							Component remText = new TextComponent(Integer.toString(rem)).withStyle(ChatFormatting.YELLOW);
+							text = new TextComponent(count + " (")
 									.append(stacksText)
 									.append("*")
 									.append(maxText)
@@ -83,7 +83,7 @@ public final class ItemsRemainingRenderHandler {
 									.append(")");
 						}
 					} else if (count == -1) {
-						text = new LiteralText("\u221E");
+						text = new TextComponent("\u221E");
 					}
 				}
 			} else {
@@ -91,7 +91,7 @@ public final class ItemsRemainingRenderHandler {
 			}
 
 			int color = 0x00FFFFFF | (int) (alpha * 0xFF) << 24;
-			mc.textRenderer.drawWithShadow(ms, text, x + 20, y + 6, color);
+			mc.font.drawShadow(ms, text, x + 20, y + 6, color);
 		}
 	}
 
@@ -102,26 +102,26 @@ public final class ItemsRemainingRenderHandler {
 		}
 	}
 
-	public static void send(PlayerEntity player, ItemStack stack, int count) {
+	public static void send(Player player, ItemStack stack, int count) {
 		send(player, stack, count, null);
 	}
 
-	public static void set(ItemStack stack, int count, @Nullable Text str) {
+	public static void set(ItemStack stack, int count, @Nullable Component str) {
 		ItemsRemainingRenderHandler.stack = stack;
 		ItemsRemainingRenderHandler.count = count;
 		ItemsRemainingRenderHandler.customString = str;
 		ticks = stack.isEmpty() ? 0 : maxTicks;
 	}
 
-	public static void send(PlayerEntity entity, ItemStack stack, int count, @Nullable Text str) {
+	public static void send(Player entity, ItemStack stack, int count, @Nullable Component str) {
 		PacketUpdateItemsRemaining.send(entity, stack, count, str);
 	}
 
-	public static void send(PlayerEntity player, ItemStack displayStack, Pattern pattern) {
+	public static void send(Player player, ItemStack displayStack, Pattern pattern) {
 		int count = 0;
-		for (int i = 0; i < player.inventory.size(); i++) {
-			ItemStack stack = player.inventory.getStack(i);
-			if (!stack.isEmpty() && pattern.matcher(stack.getTranslationKey()).find()) {
+		for (int i = 0; i < player.inventory.getContainerSize(); i++) {
+			ItemStack stack = player.inventory.getItem(i);
+			if (!stack.isEmpty() && pattern.matcher(stack.getDescriptionId()).find()) {
 				count += stack.getCount();
 			}
 		}

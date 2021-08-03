@@ -12,20 +12,20 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.jamieswhiteshirt.reachentityattributes.ReachEntityAttributes;
 
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.ItemStack;
 
 public class ItemReachRing extends ItemBauble {
 
-	public ItemReachRing(Settings props) {
+	public ItemReachRing(Properties props) {
 		super(props);
 	}
 
 	@Override
-	public Multimap<EntityAttribute, EntityAttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
-		Multimap<EntityAttribute, EntityAttributeModifier> attributes = HashMultimap.create();
-		attributes.put(ReachEntityAttributes.REACH, new EntityAttributeModifier(getBaubleUUID(stack), "Reach Ring", 3.5, EntityAttributeModifier.Operation.ADDITION));
+	public Multimap<Attribute, AttributeModifier> getEquippedAttributeModifiers(ItemStack stack) {
+		Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
+		attributes.put(ReachEntityAttributes.REACH, new AttributeModifier(getBaubleUUID(stack), "Reach Ring", 3.5, AttributeModifier.Operation.ADDITION));
 		return attributes;
 	}
 }

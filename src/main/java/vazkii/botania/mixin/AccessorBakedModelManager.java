@@ -8,17 +8,17 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.BakedModelManager;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.ModelManager;
+import net.minecraft.resources.ResourceLocation;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.Map;
 
-@Mixin(BakedModelManager.class)
+@Mixin(ModelManager.class)
 public interface AccessorBakedModelManager {
 	@Accessor
-	Map<Identifier, BakedModel> getModels();
+	Map<ResourceLocation, BakedModel> getBakedRegistry();
 }

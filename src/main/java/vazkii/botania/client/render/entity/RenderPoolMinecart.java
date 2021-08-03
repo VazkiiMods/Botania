@@ -8,14 +8,15 @@
  */
 package vazkii.botania.client.render.entity;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.render.entity.MinecartEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.MinecartRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.render.tile.RenderTilePool;
@@ -24,7 +25,7 @@ import vazkii.botania.common.entity.EntityPoolMinecart;
 
 import javax.annotation.Nonnull;
 
-public class RenderPoolMinecart extends MinecartEntityRenderer<EntityPoolMinecart> {
+public class RenderPoolMinecart extends MinecartRenderer<EntityPoolMinecart> {
 	private static final TilePool DUMMY = new TilePool();
 
 	public RenderPoolMinecart(EntityRenderDispatcher manager, EntityRendererRegistry.Context ctx) {
@@ -32,10 +33,10 @@ public class RenderPoolMinecart extends MinecartEntityRenderer<EntityPoolMinecar
 	}
 
 	@Override
-	protected void renderBlock(EntityPoolMinecart poolCart, float partialTicks, @Nonnull BlockState state, MatrixStack ms, VertexConsumerProvider buffers, int light) {
-		super.renderBlock(poolCart, partialTicks, state, ms, buffers, light);
+	protected void renderMinecartContents(EntityPoolMinecart poolCart, float partialTicks, @Nonnull BlockState state, PoseStack ms, MultiBufferSource buffers, int light) {
+		super.renderMinecartContents(poolCart, partialTicks, state, ms, buffers, light);
 		RenderTilePool.cartMana = poolCart.getMana();
-		BlockEntityRenderDispatcher.INSTANCE.get(DUMMY).render(null, ClientTickHandler.partialTicks, ms, buffers, light, OverlayTexture.DEFAULT_UV);
+		BlockEntityRenderDispatcher.instance.getRenderer(DUMMY).render(null, ClientTickHandler.partialTicks, ms, buffers, light, OverlayTexture.NO_OVERLAY);
 	}
 
 }

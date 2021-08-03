@@ -8,26 +8,30 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.function.BooleanBiFunction;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.util.shape.VoxelShapes;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IPetalApothecary.State;
@@ -57,14 +61,14 @@ import alexiil.mc.lib.attributes.misc.LimitedConsumer;
 import alexiil.mc.lib.attributes.misc.Ref;
 import alexiil.mc.lib.attributes.misc.Reference;
 
-public class BlockAltar extends BlockMod implements BlockEntityProvider {
+public class BlockAltar extends BlockMod implements EntityBlock {
 
-	public static final EnumProperty<State> FLUID = EnumProperty.of("fluid", State.class);
-	private static final VoxelShape BASE = Block.createCuboidShape(0, 0, 0, 16, 2, 16);
-	private static final VoxelShape MIDDLE = Block.createCuboidShape(2, 2, 2, 14, 12, 14);
-	private static final VoxelShape TOP = Block.createCuboidShape(2, 12, 2, 14, 20, 14);
-	private static final VoxelShape TOP_CUTOUT = Block.createCuboidShape(3, 14, 3, 13, 20, 13);
-	private static final VoxelShape SHAPE = VoxelShapes.union(VoxelShapes.union(BASE, MIDDLE), VoxelShapes.combineAndSimplify(TOP, TOP_CUTOUT, BooleanBiFunction.ONLY_FIRST));
+	public static final EnumProperty<State> FLUID = EnumProperty.create("fluid", State.class);
+	private static final VoxelShape BASE = Block.box(0, 0, 0, 16, 2, 16);
+	private static final VoxelShape MIDDLE = Block.box(2, 2, 2, 14, 12, 14);
+	private static final VoxelShape TOP = Block.box(2, 12, 2, 14, 20, 14);
+	private static final VoxelShape TOP_CUTOUT = Block.box(3, 14, 3, 13, 20, 13);
+	private static final VoxelShape SHAPE = Shapes.or(Shapes.or(BASE, MIDDLE), Shapes.join(TOP, TOP_CUTOUT, BooleanOp.ONLY_FIRST));
 
 	public enum Variant {
 		DEFAULT,
@@ -81,27 +85,27 @@ public class BlockAltar extends BlockMod implements BlockEntityProvider {
 
 	public final Variant variant;
 
-	protected BlockAltar(Variant v, AbstractBlock.Settings builder) {
+	protected BlockAltar(Variant v, BlockBehaviour.Properties builder) {
 		super(builder);
 		this.variant = v;
-		setDefaultState(getDefaultState().with(FLUID, State.EMPTY));
+		registerDefaultState(defaultBlockState().setValue(FLUID, State.EMPTY));
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		super.appendProperties(builder);
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
 		builder.add(FLUID);
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
 	@Override
-	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-		if (!world.isClient && entity instanceof ItemEntity) {
+	public void entityInside(BlockState state, Level world, BlockPos pos, Entity entity) {
+		if (!world.isClientSide && entity instanceof ItemEntity) {
 			TileAltar tile = (TileAltar) world.getBlockEntity(pos);
 			if (tile.collideEntityItem((ItemEntity) entity)) {
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
@@ -110,67 +114,67 @@ public class BlockAltar extends BlockMod implements BlockEntityProvider {
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		TileAltar tile = (TileAltar) world.getBlockEntity(pos);
 		State fluid = tile.getFluid();
-		ItemStack stack = player.getStackInHand(hand);
-		if (player.isSneaking()) {
+		ItemStack stack = player.getItemInHand(hand);
+		if (player.isShiftKeyDown()) {
 			InventoryHelper.withdrawFromInventory(tile, player);
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(tile);
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		} else if (tile.isEmpty() && fluid == State.WATER && stack.isEmpty()) {
 			tile.trySetLastRecipe(player);
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		} else {
 			if (!stack.isEmpty() && fluid != State.EMPTY && isValidFluidContainerToFill(stack, tile.getFluid().asVanilla()) && !Botania.gardenOfGlassLoaded) {
-				if (!player.abilities.creativeMode) {
+				if (!player.abilities.instabuild) {
 					//support bucket stacks
 					if (stack.getCount() == 1) {
-						player.setStackInHand(hand, fill(tile.getFluid().asVanilla(), stack));
+						player.setItemInHand(hand, fill(tile.getFluid().asVanilla(), stack));
 					} else {
-						player.inventory.offerOrDrop(player.world, new ItemStack(stack.getItem()));
-						stack.decrement(1);
+						player.inventory.placeItemBackInInventory(player.level, new ItemStack(stack.getItem()));
+						stack.shrink(1);
 					}
 				}
 
 				tile.setFluid(State.EMPTY);
-				world.getChunkManager().getLightingProvider().checkBlock(pos);
+				world.getChunkSource().getLightEngine().checkBlock(pos);
 
-				return ActionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			} else if (!stack.isEmpty() && (isValidFluidContainerToDrain(stack, Fluids.WATER) || stack.getItem() == ModItems.waterRod && ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, false))) {
 				if (tile.getFluid() == State.EMPTY) {
 					if (stack.getItem() == ModItems.waterRod) {
 						ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, true);
-					} else if (!player.abilities.creativeMode) {
-						player.setStackInHand(hand, drain(Fluids.WATER, stack));
+					} else if (!player.abilities.instabuild) {
+						player.setItemInHand(hand, drain(Fluids.WATER, stack));
 					}
 
 					tile.setFluid(State.WATER);
 				}
 
-				return ActionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			} else if (!stack.isEmpty() && isValidFluidContainerToDrain(stack, Fluids.LAVA)) {
 				if (tile.getFluid() == State.EMPTY) {
-					if (!player.abilities.creativeMode) {
-						player.setStackInHand(hand, drain(Fluids.LAVA, stack));
+					if (!player.abilities.instabuild) {
+						player.setItemInHand(hand, drain(Fluids.LAVA, stack));
 					}
 
 					tile.setFluid(State.LAVA);
 				}
 
-				return ActionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Override
-	public void rainTick(World world, BlockPos pos) {
+	public void handleRain(Level world, BlockPos pos) {
 		if (world.random.nextInt(20) == 1) {
 			BlockState state = world.getBlockState(pos);
-			if (state.get(FLUID) == State.EMPTY) {
-				world.setBlockState(pos, state.with(FLUID, State.WATER));
+			if (state.getValue(FLUID) == State.EMPTY) {
+				world.setBlockAndUpdate(pos, state.setValue(FLUID, State.WATER));
 			}
 		}
 	}
@@ -249,28 +253,28 @@ public class BlockAltar extends BlockMod implements BlockEntityProvider {
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileAltar();
 	}
 
 	@Override
-	public void onStateReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
 			BlockEntity be = world.getBlockEntity(pos);
 			if (be instanceof TileSimpleInventory) {
-				ItemScatterer.spawn(world, pos, ((TileSimpleInventory) be).getItemHandler());
+				Containers.dropContents(world, pos, ((TileSimpleInventory) be).getItemHandler());
 			}
-			super.onStateReplaced(state, world, pos, newState, isMoving);
+			super.onRemove(state, world, pos, newState, isMoving);
 		}
 	}
 
 	@Override
-	public boolean hasComparatorOutput(BlockState state) {
+	public boolean hasAnalogOutputSignal(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
-		return state.get(FLUID) == State.WATER ? 15 : 0;
+	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
+		return state.getValue(FLUID) == State.WATER ? 15 : 0;
 	}
 }

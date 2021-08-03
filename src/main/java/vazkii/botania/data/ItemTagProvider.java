@@ -9,16 +9,16 @@
 package vazkii.botania.data;
 
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.server.AbstractTagProvider;
-import net.minecraft.data.server.ItemTagsProvider;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.tag.ItemTags;
-import net.minecraft.tag.Tag;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
@@ -40,14 +40,14 @@ public class ItemTagProvider extends ItemTagsProvider {
 	}
 
 	@Override
-	protected void configure() {
+	protected void addTags() {
 		this.copy(BlockTags.RAILS, ItemTags.RAILS);
 		this.copy(BlockTags.SLABS, ItemTags.SLABS);
 		this.copy(BlockTags.STAIRS, ItemTags.STAIRS);
 		this.copy(BlockTags.WALLS, ItemTags.WALLS);
 		this.copy(BlockTags.FENCES, ItemTags.FENCES);
 
-		this.getOrCreateTagBuilder((Tag.Identified<Item>) FabricToolTags.SHEARS).add(ModItems.elementiumShears, ModItems.manasteelShears);
+		this.tag((Tag.Named<Item>) FabricToolTags.SHEARS).add(ModItems.elementiumShears, ModItems.manasteelShears);
 
 		this.copy(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS, ModTags.Items.MUNDANE_FLOATING_FLOWERS);
 		this.copy(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS, ModTags.Items.SPECIAL_FLOATING_FLOWERS);
@@ -60,36 +60,36 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS, ModTags.Items.FUNCTIONAL_SPECIAL_FLOWERS);
 		this.copy(ModTags.Blocks.SPECIAL_FLOWERS, ModTags.Items.SPECIAL_FLOWERS);
 		this.copy(ModTags.Blocks.MINI_FLOWERS, ModTags.Items.MINI_FLOWERS);
-		this.getOrCreateTagBuilder(ModTags.Items.CONTRIBUTOR_HEADFLOWERS)
+		this.tag(ModTags.Items.CONTRIBUTOR_HEADFLOWERS)
 				.addTag(ModTags.Items.SPECIAL_FLOWERS)
 				.add(ModBlocks.motifDaybloom.asItem(), ModBlocks.motifNightshade.asItem());
 
-		this.getOrCreateTagBuilder(ItemTags.TALL_FLOWERS).addTag(ModTags.Items.DOUBLE_MYSTICAL_FLOWERS);
-		this.getOrCreateTagBuilder(ItemTags.SMALL_FLOWERS).addTag(ModTags.Items.MYSTICAL_FLOWERS).addTag(ModTags.Items.SPECIAL_FLOWERS);
+		this.tag(ItemTags.TALL_FLOWERS).addTag(ModTags.Items.DOUBLE_MYSTICAL_FLOWERS);
+		this.tag(ItemTags.SMALL_FLOWERS).addTag(ModTags.Items.MYSTICAL_FLOWERS).addTag(ModTags.Items.SPECIAL_FLOWERS);
 
-		this.getOrCreateTagBuilder(ModTags.Items.BURST_VIEWERS).add(ModItems.monocle);
-		this.getOrCreateTagBuilder(ModTags.Items.TERRA_PICK_BLACKLIST).add(ModItems.auraRing, ModItems.auraRingGreater, ModItems.terrasteelHelm, ModItems.spark);
-		AbstractTagProvider.ObjectBuilder<Item> builder = this.getOrCreateTagBuilder(ModTags.Items.LENS);
-		Registry.ITEM.stream().filter(i -> i instanceof ItemLens && Registry.ITEM.getId(i).getNamespace().equals(LibMisc.MOD_ID))
-				.sorted(Comparator.comparing(Registry.ITEM::getId))
+		this.tag(ModTags.Items.BURST_VIEWERS).add(ModItems.monocle);
+		this.tag(ModTags.Items.TERRA_PICK_BLACKLIST).add(ModItems.auraRing, ModItems.auraRingGreater, ModItems.terrasteelHelm, ModItems.spark);
+		TagsProvider.TagAppender<Item> builder = this.tag(ModTags.Items.LENS);
+		Registry.ITEM.stream().filter(i -> i instanceof ItemLens && Registry.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
+				.sorted(Comparator.comparing(Registry.ITEM::getKey))
 				.forEach(builder::add);
 
-		this.getOrCreateTagBuilder(ItemTags.PIGLIN_LOVED).add(ModBlocks.alchemyCatalyst.asItem(), ModItems.cacophonium, ModItems.divaCharm,
+		this.tag(ItemTags.PIGLIN_LOVED).add(ModBlocks.alchemyCatalyst.asItem(), ModItems.cacophonium, ModItems.divaCharm,
 				ModBlocks.hourglass.asItem(), ModBlocks.manaPylon.asItem(), ModItems.monocle);
-		this.getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(ModItems.recordGaia1, ModItems.recordGaia2);
+		this.tag(ItemTags.MUSIC_DISCS).add(ModItems.recordGaia1, ModItems.recordGaia2);
 
-		this.getOrCreateTagBuilder(ModTags.Items.DUSTS_MANA).add(ModItems.manaPowder);
+		this.tag(ModTags.Items.DUSTS_MANA).add(ModItems.manaPowder);
 
-		this.getOrCreateTagBuilder(ModTags.Items.GEMS_DRAGONSTONE).add(ModItems.dragonstone);
-		this.getOrCreateTagBuilder(ModTags.Items.GEMS_MANA_DIAMOND).add(ModItems.manaDiamond);
+		this.tag(ModTags.Items.GEMS_DRAGONSTONE).add(ModItems.dragonstone);
+		this.tag(ModTags.Items.GEMS_MANA_DIAMOND).add(ModItems.manaDiamond);
 
-		this.getOrCreateTagBuilder(ModTags.Items.INGOTS_ELEMENTIUM).add(ModItems.elementium);
-		this.getOrCreateTagBuilder(ModTags.Items.INGOTS_MANASTEEL).add(ModItems.manaSteel);
-		this.getOrCreateTagBuilder(ModTags.Items.INGOTS_TERRASTEEL).add(ModItems.terrasteel);
+		this.tag(ModTags.Items.INGOTS_ELEMENTIUM).add(ModItems.elementium);
+		this.tag(ModTags.Items.INGOTS_MANASTEEL).add(ModItems.manaSteel);
+		this.tag(ModTags.Items.INGOTS_TERRASTEEL).add(ModItems.terrasteel);
 
-		this.getOrCreateTagBuilder(ModTags.Items.NUGGETS_ELEMENTIUM).add(ModItems.elementiumNugget);
-		this.getOrCreateTagBuilder(ModTags.Items.NUGGETS_MANASTEEL).add(ModItems.manasteelNugget);
-		this.getOrCreateTagBuilder(ModTags.Items.NUGGETS_TERRASTEEL).add(ModItems.terrasteelNugget);
+		this.tag(ModTags.Items.NUGGETS_ELEMENTIUM).add(ModItems.elementiumNugget);
+		this.tag(ModTags.Items.NUGGETS_MANASTEEL).add(ModItems.manasteelNugget);
+		this.tag(ModTags.Items.NUGGETS_TERRASTEEL).add(ModItems.terrasteelNugget);
 
 		this.copy(ModTags.Blocks.BLOCKS_ELEMENTIUM, ModTags.Items.BLOCKS_ELEMENTIUM);
 		this.copy(ModTags.Blocks.BLOCKS_MANASTEEL, ModTags.Items.BLOCKS_MANASTEEL);
@@ -99,8 +99,8 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(ModTags.Blocks.LIVINGWOOD, ModTags.Items.LIVINGWOOD);
 		this.copy(ModTags.Blocks.LIVINGROCK, ModTags.Items.LIVINGROCK);
 
-		this.getOrCreateTagBuilder(ModTags.Items.DISPOSABLE).add(Items.DIRT, Items.SAND, Items.GRAVEL, Items.COBBLESTONE, Items.NETHERRACK);
-		this.getOrCreateTagBuilder(ModTags.Items.SEMI_DISPOSABLE).add(Items.ANDESITE, Items.DIORITE, Items.GRANITE);
+		this.tag(ModTags.Items.DISPOSABLE).add(Items.DIRT, Items.SAND, Items.GRAVEL, Items.COBBLESTONE, Items.NETHERRACK);
+		this.tag(ModTags.Items.SEMI_DISPOSABLE).add(Items.ANDESITE, Items.DIORITE, Items.GRANITE);
 		/* todo 1.16-fabric
 			.addOptional(new Identifier("quark", "basalt"))
 			.addOptional(new Identifier("quark", "jasper"))
@@ -110,31 +110,31 @@ public class ItemTagProvider extends ItemTagsProvider {
 		
 		*/
 
-		List<Tag.Identified<Item>> runes = Arrays.asList(
+		List<Tag.Named<Item>> runes = Arrays.asList(
 				ModTags.Items.RUNES_WATER, ModTags.Items.RUNES_FIRE, ModTags.Items.RUNES_EARTH, ModTags.Items.RUNES_AIR,
 				ModTags.Items.RUNES_SPRING, ModTags.Items.RUNES_SUMMER, ModTags.Items.RUNES_AUTUMN, ModTags.Items.RUNES_WINTER,
 				ModTags.Items.RUNES_MANA, ModTags.Items.RUNES_LUST, ModTags.Items.RUNES_GLUTTONY, ModTags.Items.RUNES_GREED,
 				ModTags.Items.RUNES_SLOTH, ModTags.Items.RUNES_WRATH, ModTags.Items.RUNES_ENVY, ModTags.Items.RUNES_PRIDE
 		);
-		ObjectBuilder<Item> allRunes = this.getOrCreateTagBuilder(ModTags.Items.RUNES);
-		for (Tag.Identified<Item> item : runes) {
-			this.getOrCreateTagBuilder(item).add(registry.get(
-					prefix("rune_" + item.getId().getPath().split("/")[1])));
+		TagAppender<Item> allRunes = this.tag(ModTags.Items.RUNES);
+		for (Tag.Named<Item> item : runes) {
+			this.tag(item).add(registry.get(
+					prefix("rune_" + item.getName().getPath().split("/")[1])));
 			allRunes.addTag(item);
 		}
 
-		ObjectBuilder<Item> allPetals = this.getOrCreateTagBuilder(ModTags.Items.PETALS);
+		TagAppender<Item> allPetals = this.tag(ModTags.Items.PETALS);
 		for (DyeColor color : DyeColor.values()) {
-			Tag.Identified<Item> petalTag = ModTags.Items.getPetalTag(color);
-			this.getOrCreateTagBuilder(petalTag).add(ModItems.getPetal(color), ModBlocks.getMushroom(color).asItem());
-			this.getOrCreateTagBuilder(ModTags.Items.MUSHROOMS).add(ModBlocks.getMushroom(color).asItem());
+			Tag.Named<Item> petalTag = ModTags.Items.getPetalTag(color);
+			this.tag(petalTag).add(ModItems.getPetal(color), ModBlocks.getMushroom(color).asItem());
+			this.tag(ModTags.Items.MUSHROOMS).add(ModBlocks.getMushroom(color).asItem());
 			allPetals.addTag(petalTag);
 		}
 
-		this.getOrCreateTagBuilder(ModTags.Items.LOONIUM_BLACKLIST).add(ModItems.lexicon, ModItems.overgrowthSeed,
+		this.tag(ModTags.Items.LOONIUM_BLACKLIST).add(ModItems.lexicon, ModItems.overgrowthSeed,
 				ModItems.blackLotus, ModItems.blackerLotus).addTag(ItemTags.MUSIC_DISCS);
-		this.getOrCreateTagBuilder(ModTags.Items.MAGNET_RING_BLACKLIST);
-		this.getOrCreateTagBuilder(ModTags.Items.RODS).add(
+		this.tag(ModTags.Items.MAGNET_RING_BLACKLIST);
+		this.tag(ModTags.Items.RODS).add(
 				ModItems.dirtRod,
 				ModItems.skyDirtRod,
 				ModItems.terraformRod,

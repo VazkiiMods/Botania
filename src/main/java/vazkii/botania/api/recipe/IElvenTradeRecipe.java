@@ -8,15 +8,15 @@
  */
 package vazkii.botania.api.recipe;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.BotaniaAPI;
 
@@ -25,8 +25,8 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Optional;
 
-public interface IElvenTradeRecipe extends Recipe<Inventory> {
-	Identifier TYPE_ID = new Identifier(BotaniaAPI.MODID, "elven_trade");
+public interface IElvenTradeRecipe extends Recipe<Container> {
+	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "elven_trade");
 
 	/**
 	 * Attempts to match the recipe
@@ -47,7 +47,7 @@ public interface IElvenTradeRecipe extends Recipe<Inventory> {
 	 */
 	@Nonnull
 	@Override
-	DefaultedList<Ingredient> getPreviewInputs();
+	NonNullList<Ingredient> getIngredients();
 
 	/**
 	 * @return Preview of the outputs
@@ -62,34 +62,34 @@ public interface IElvenTradeRecipe extends Recipe<Inventory> {
 	@Nonnull
 	@Override
 	default RecipeType<?> getType() {
-		return Registry.RECIPE_TYPE.getOrEmpty(TYPE_ID).get();
+		return Registry.RECIPE_TYPE.getOptional(TYPE_ID).get();
 	}
 
 	// Ignored IRecipe boilerplate
 
 	@Override
-	default boolean matches(@Nonnull Inventory inv, @Nonnull World world) {
+	default boolean matches(@Nonnull Container inv, @Nonnull Level world) {
 		return false;
 	}
 
 	@Nonnull
 	@Override
-	default ItemStack craft(@Nonnull Inventory inv) {
+	default ItemStack assemble(@Nonnull Container inv) {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	default boolean fits(int width, int height) {
+	default boolean canCraftInDimensions(int width, int height) {
 		return false;
 	}
 
 	@Override
-	default ItemStack getOutput() {
+	default ItemStack getResultItem() {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	default boolean isIgnoredInRecipeBook() {
+	default boolean isSpecial() {
 		return true;
 	}
 }

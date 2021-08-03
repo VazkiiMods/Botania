@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.item.rod;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.util.ActionResult;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -26,13 +26,13 @@ public class ItemCobbleRod extends Item implements IManaUsingItem, IBlockProvide
 
 	static final int COST = 150;
 
-	public ItemCobbleRod(Settings props) {
+	public ItemCobbleRod(Properties props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext ctx) {
+	public InteractionResult useOn(UseOnContext ctx) {
 		return ItemDirtRod.place(ctx, Blocks.COBBLESTONE, COST, 0.3F, 0.3F, 0.3F);
 	}
 
@@ -42,7 +42,7 @@ public class ItemCobbleRod extends Item implements IManaUsingItem, IBlockProvide
 	}
 
 	@Override
-	public boolean provideBlock(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
+	public boolean provideBlock(Player player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
 		if (block == Blocks.COBBLESTONE) {
 			return (doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, true)) ||
 					(!doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, false));
@@ -51,7 +51,7 @@ public class ItemCobbleRod extends Item implements IManaUsingItem, IBlockProvide
 	}
 
 	@Override
-	public int getBlockCount(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block) {
+	public int getBlockCount(Player player, ItemStack requestor, ItemStack stack, Block block) {
 		if (block == Blocks.COBBLESTONE) {
 			return ManaItemHandler.instance().getInvocationCountForTool(requestor, player, COST);
 		}

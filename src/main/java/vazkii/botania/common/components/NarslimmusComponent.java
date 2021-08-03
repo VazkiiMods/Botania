@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.components;
 
-import net.minecraft.entity.mob.SlimeEntity;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.monster.Slime;
 
 
 import dev.onyxstudios.cca.api.v3.component.Component;
@@ -18,7 +18,7 @@ public class NarslimmusComponent implements Component {
 	public static final String TAG_WORLD_SPAWNED = "botania:world_spawned";
 	private boolean naturalSpawned = false;
 
-	public NarslimmusComponent(SlimeEntity e) {}
+	public NarslimmusComponent(Slime e) {}
 
 	@Override
 	public void readFromNbt(CompoundTag tag) {

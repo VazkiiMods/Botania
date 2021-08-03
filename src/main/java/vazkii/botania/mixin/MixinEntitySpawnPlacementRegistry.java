@@ -8,12 +8,12 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.SpawnRestriction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.level.ServerLevelAccessor;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,7 +24,7 @@ import vazkii.botania.common.brew.potion.PotionBloodthirst;
 
 import java.util.Random;
 
-@Mixin(SpawnRestriction.class)
+@Mixin(SpawnPlacements.class)
 public class MixinEntitySpawnPlacementRegistry {
 	// This injection is kind of scuffed:
 	// In vanilla code, canSpawnEntity calls a per-entity predicate to determine spawnability.
@@ -32,9 +32,9 @@ public class MixinEntitySpawnPlacementRegistry {
 	// which ordinarily should be jumped over under Bloodthirst.
 	// However, certain mobs (e.g. slimes) use the predicate for actual logic (e.g. slimechunks),
 	// and we jump over that in Bloodthirst as well.
-	@Inject(at = @At("RETURN"), cancellable = true, method = "canSpawn")
-	private static <T extends Entity> void bloodthirstOverride(EntityType<T> type, ServerWorldAccess world, SpawnReason reason, BlockPos position, Random rng, CallbackInfoReturnable<Boolean> cir) {
-		if (reason == SpawnReason.NATURAL && PotionBloodthirst.overrideSpawn(world, position, type.getSpawnGroup())) {
+	@Inject(at = @At("RETURN"), cancellable = true, method = "checkSpawnRules")
+	private static <T extends Entity> void bloodthirstOverride(EntityType<T> type, ServerLevelAccessor world, MobSpawnType reason, BlockPos position, Random rng, CallbackInfoReturnable<Boolean> cir) {
+		if (reason == MobSpawnType.NATURAL && PotionBloodthirst.overrideSpawn(world, position, type.getCategory())) {
 			cir.setReturnValue(true);
 		}
 	}

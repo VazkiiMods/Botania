@@ -11,14 +11,14 @@ package vazkii.botania.common.crafting;
 import com.google.common.base.Preconditions;
 import com.google.gson.JsonObject;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.recipe.IPureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
@@ -31,7 +31,7 @@ public class RecipePureDaisy implements IPureDaisyRecipe {
 
 	public static final int DEFAULT_TIME = 150;
 
-	private final Identifier id;
+	private final ResourceLocation id;
 	private final StateIngredient input;
 	private final BlockState outputState;
 	private final int time;
@@ -44,7 +44,7 @@ public class RecipePureDaisy implements IPureDaisyRecipe {
 	 *              total time.
 	 *              The Pure Daisy only ticks one block at a time in a round robin fashion.
 	 */
-	public RecipePureDaisy(Identifier id, StateIngredient input, BlockState state, int time) {
+	public RecipePureDaisy(ResourceLocation id, StateIngredient input, BlockState state, int time) {
 		Preconditions.checkArgument(time >= 0, "Time must be nonnegative");
 		this.id = id;
 		this.input = input;
@@ -53,14 +53,14 @@ public class RecipePureDaisy implements IPureDaisyRecipe {
 	}
 
 	@Override
-	public boolean matches(World world, BlockPos pos, TileEntitySpecialFlower pureDaisy, BlockState state) {
+	public boolean matches(Level world, BlockPos pos, TileEntitySpecialFlower pureDaisy, BlockState state) {
 		return input.test(state);
 	}
 
 	@Override
-	public boolean set(World world, BlockPos pos, TileEntitySpecialFlower pureDaisy) {
-		if (!world.isClient) {
-			world.setBlockState(pos, outputState);
+	public boolean set(Level world, BlockPos pos, TileEntitySpecialFlower pureDaisy) {
+		if (!world.isClientSide) {
+			world.setBlockAndUpdate(pos, outputState);
 		}
 		return true;
 	}
@@ -81,7 +81,7 @@ public class RecipePureDaisy implements IPureDaisyRecipe {
 	}
 
 	@Override
-	public Identifier getId() {
+	public ResourceLocation getId() {
 		return id;
 	}
 
@@ -93,25 +93,25 @@ public class RecipePureDaisy implements IPureDaisyRecipe {
 	public static class Serializer implements RecipeSerializer<RecipePureDaisy> {
 		@Nonnull
 		@Override
-		public RecipePureDaisy read(@Nonnull Identifier id, JsonObject object) {
-			StateIngredient input = StateIngredientHelper.deserialize(JsonHelper.getObject(object, "input"));
-			BlockState output = StateIngredientHelper.readBlockState(JsonHelper.getObject(object, "output"));
-			int time = JsonHelper.getInt(object, "time", DEFAULT_TIME);
+		public RecipePureDaisy fromJson(@Nonnull ResourceLocation id, JsonObject object) {
+			StateIngredient input = StateIngredientHelper.deserialize(GsonHelper.getAsJsonObject(object, "input"));
+			BlockState output = StateIngredientHelper.readBlockState(GsonHelper.getAsJsonObject(object, "output"));
+			int time = GsonHelper.getAsInt(object, "time", DEFAULT_TIME);
 			return new RecipePureDaisy(id, input, output, time);
 		}
 
 		@Override
-		public void write(@Nonnull PacketByteBuf buf, RecipePureDaisy recipe) {
+		public void toNetwork(@Nonnull FriendlyByteBuf buf, RecipePureDaisy recipe) {
 			recipe.input.write(buf);
-			buf.writeVarInt(Block.getRawIdFromState(recipe.outputState));
+			buf.writeVarInt(Block.getId(recipe.outputState));
 			buf.writeVarInt(recipe.time);
 		}
 
 		@Nullable
 		@Override
-		public RecipePureDaisy read(@Nonnull Identifier id, @Nonnull PacketByteBuf buf) {
+		public RecipePureDaisy fromNetwork(@Nonnull ResourceLocation id, @Nonnull FriendlyByteBuf buf) {
 			StateIngredient input = StateIngredientHelper.read(buf);
-			BlockState output = Block.getStateFromRawId(buf.readVarInt());
+			BlockState output = Block.stateById(buf.readVarInt());
 			int time = buf.readVarInt();
 			return new RecipePureDaisy(id, input, output, time);
 		}

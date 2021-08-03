@@ -10,48 +10,48 @@ package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancement.criterion.AbstractCriterion;
-import net.minecraft.advancement.criterion.AbstractCriterionConditions;
-import net.minecraft.item.ItemStack;
-import net.minecraft.predicate.NumberRange;
-import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
-import net.minecraft.predicate.entity.EntityPredicate;
-import net.minecraft.predicate.item.ItemPredicate;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
+import net.minecraft.advancements.critereon.DeserializationContext;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class LokiPlaceTrigger extends AbstractCriterion<LokiPlaceTrigger.Instance> {
-	public static final Identifier ID = prefix("loki_placed_blocks");
+public class LokiPlaceTrigger extends SimpleCriterionTrigger<LokiPlaceTrigger.Instance> {
+	public static final ResourceLocation ID = prefix("loki_placed_blocks");
 	public static final LokiPlaceTrigger INSTANCE = new LokiPlaceTrigger();
 
 	private LokiPlaceTrigger() {}
 
 	@Nonnull
 	@Override
-	public Identifier getId() {
+	public ResourceLocation getId() {
 		return ID;
 	}
 
 	@Nonnull
 	@Override
-	public LokiPlaceTrigger.Instance conditionsFromJson(@Nonnull JsonObject json, EntityPredicate.Extended playerPred, AdvancementEntityPredicateDeserializer conditions) {
-		return new LokiPlaceTrigger.Instance(playerPred, EntityPredicate.fromJson(json.get("player")), ItemPredicate.fromJson(json.get("ring")), NumberRange.IntRange.fromJson(json.get("blocks_placed")));
+	public LokiPlaceTrigger.Instance createInstance(@Nonnull JsonObject json, EntityPredicate.Composite playerPred, DeserializationContext conditions) {
+		return new LokiPlaceTrigger.Instance(playerPred, EntityPredicate.fromJson(json.get("player")), ItemPredicate.fromJson(json.get("ring")), MinMaxBounds.Ints.fromJson(json.get("blocks_placed")));
 	}
 
-	public void trigger(ServerPlayerEntity player, ItemStack ring, int blocksPlaced) {
-		test(player, instance -> instance.test(player, ring, blocksPlaced));
+	public void trigger(ServerPlayer player, ItemStack ring, int blocksPlaced) {
+		trigger(player, instance -> instance.test(player, ring, blocksPlaced));
 	}
 
-	public static class Instance extends AbstractCriterionConditions {
+	public static class Instance extends AbstractCriterionTriggerInstance {
 		private final EntityPredicate player;
 		private final ItemPredicate ring;
-		private final NumberRange.IntRange blocksPlaced;
+		private final MinMaxBounds.Ints blocksPlaced;
 
-		public Instance(EntityPredicate.Extended playerPred, EntityPredicate player, ItemPredicate ring, NumberRange.IntRange blocksPlaced) {
+		public Instance(EntityPredicate.Composite playerPred, EntityPredicate player, ItemPredicate ring, MinMaxBounds.Ints blocksPlaced) {
 			super(ID, playerPred);
 			this.player = player;
 			this.ring = ring;
@@ -60,12 +60,12 @@ public class LokiPlaceTrigger extends AbstractCriterion<LokiPlaceTrigger.Instanc
 
 		@Nonnull
 		@Override
-		public Identifier getId() {
+		public ResourceLocation getCriterion() {
 			return ID;
 		}
 
-		boolean test(ServerPlayerEntity player, ItemStack ring, int blocksPlaced) {
-			return this.player.test(player, null) && this.ring.test(ring) && this.blocksPlaced.test(blocksPlaced);
+		boolean test(ServerPlayer player, ItemStack ring, int blocksPlaced) {
+			return this.player.matches(player, null) && this.ring.matches(ring) && this.blocksPlaced.matches(blocksPlaced);
 		}
 
 		public EntityPredicate getPlayer() {
@@ -76,7 +76,7 @@ public class LokiPlaceTrigger extends AbstractCriterion<LokiPlaceTrigger.Instanc
 			return this.ring;
 		}
 
-		public NumberRange.IntRange getBlocksPlaced() {
+		public MinMaxBounds.Ints getBlocksPlaced() {
 			return this.blocksPlaced;
 		}
 	}

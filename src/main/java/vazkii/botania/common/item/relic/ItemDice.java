@@ -10,24 +10,29 @@ package vazkii.botania.common.item.relic;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.advancement.Advancement;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.loot.context.LootContextTypes;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.*;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.client.core.handler.TooltipHandler;
@@ -41,7 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemDice extends ItemRelic {
-	public ItemDice(Settings props) {
+	public ItemDice(Properties props) {
 		super(props);
 	}
 
@@ -58,15 +63,15 @@ public class ItemDice extends ItemRelic {
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getStackInHand(hand);
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
 
 		if (isRightPlayer(player, stack)) {
-			if (world.isClient) {
-				return TypedActionResult.success(stack);
+			if (world.isClientSide) {
+				return InteractionResultHolder.success(stack);
 			}
 
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 0.5F, 0.4F / (world.random.nextFloat() * 0.4F + 0.8F));
 
 			List<Integer> possible = new ArrayList<>();
 			for (int i = 0; i < 6; i++) {
@@ -77,44 +82,44 @@ public class ItemDice extends ItemRelic {
 
 			if (!possible.isEmpty()) {
 				int relic = possible.get(world.random.nextInt(possible.size()));
-				player.sendSystemMessage(new TranslatableText("botaniamisc.diceRoll", relic + 1).formatted(Formatting.DARK_GREEN), Util.NIL_UUID);
-				return TypedActionResult.success(new ItemStack(getRelics()[relic]));
+				player.sendMessage(new TranslatableComponent("botaniamisc.diceRoll", relic + 1).withStyle(ChatFormatting.DARK_GREEN), Util.NIL_UUID);
+				return InteractionResultHolder.success(new ItemStack(getRelics()[relic]));
 			} else {
 				int roll = world.random.nextInt(6) + 1;
-				Identifier tableId = ResourceLocationHelper.prefix("dice/roll_" + roll);
-				LootTable table = world.getServer().getLootManager().getTable(tableId);
-				LootContext context = new LootContext.Builder(((ServerWorld) world))
-						.parameter(LootContextParameters.THIS_ENTITY, player)
-						.parameter(LootContextParameters.ORIGIN, player.getPos())
-						.luck(player.getLuck())
-						.build(LootContextTypes.GIFT);
+				ResourceLocation tableId = ResourceLocationHelper.prefix("dice/roll_" + roll);
+				LootTable table = world.getServer().getLootTables().get(tableId);
+				LootContext context = new LootContext.Builder(((ServerLevel) world))
+						.withParameter(LootContextParams.THIS_ENTITY, player)
+						.withParameter(LootContextParams.ORIGIN, player.position())
+						.withLuck(player.getLuck())
+						.create(LootContextParamSets.GIFT);
 
-				List<ItemStack> generated = table.generateLoot(context);
+				List<ItemStack> generated = table.getRandomItems(context);
 				for (ItemStack drop : generated) {
-					if (!player.inventory.insertStack(drop)) {
-						player.dropItem(drop, false);
+					if (!player.inventory.add(drop)) {
+						player.drop(drop, false);
 					}
 				}
 				String langKey = generated.isEmpty() ? "botaniamisc.dudDiceRoll" : "botaniamisc.diceRoll";
-				player.sendSystemMessage(new TranslatableText(langKey, roll).formatted(Formatting.DARK_GREEN), Util.NIL_UUID);
+				player.sendMessage(new TranslatableComponent(langKey, roll).withStyle(ChatFormatting.DARK_GREEN), Util.NIL_UUID);
 
-				stack.decrement(1);
-				return TypedActionResult.success(stack);
+				stack.shrink(1);
+				return InteractionResultHolder.success(stack);
 			}
 		}
 
-		return TypedActionResult.pass(stack);
+		return InteractionResultHolder.pass(stack);
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext flags) {
-		super.appendTooltip(stack, world, tooltip, flags);
-		tooltip.add(new LiteralText(""));
+	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flags) {
+		super.appendHoverText(stack, world, tooltip, flags);
+		tooltip.add(new TextComponent(""));
 		TooltipHandler.addOnShift(tooltip, () -> {
-			String name = stack.getTranslationKey() + ".poem";
+			String name = stack.getDescriptionId() + ".poem";
 			for (int i = 0; i < 4; i++) {
-				tooltip.add(new TranslatableText(name + i).formatted(Formatting.GRAY, Formatting.ITALIC));
+				tooltip.add(new TranslatableComponent(name + i).withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
 			}
 		});
 	}
@@ -124,18 +129,18 @@ public class ItemDice extends ItemRelic {
 		return false;
 	}
 
-	private boolean hasRelicAlready(PlayerEntity player, int relic) {
-		if (relic < 0 || relic > 6 || !(player instanceof ServerPlayerEntity)) {
+	private boolean hasRelicAlready(Player player, int relic) {
+		if (relic < 0 || relic > 6 || !(player instanceof ServerPlayer)) {
 			return true;
 		}
 
-		ServerPlayerEntity mpPlayer = (ServerPlayerEntity) player;
+		ServerPlayer mpPlayer = (ServerPlayer) player;
 		Item item = getRelics()[relic];
-		Identifier advId = ((IRelic) item).getAdvancement();
+		ResourceLocation advId = ((IRelic) item).getAdvancement();
 
 		if (advId != null) {
-			Advancement adv = player.world.getServer().getAdvancementLoader().get(advId);
-			return adv != null && mpPlayer.getAdvancementTracker().getProgress(adv).isDone();
+			Advancement adv = player.level.getServer().getAdvancements().getAdvancement(advId);
+			return adv != null && mpPlayer.getAdvancements().getOrStartProgress(adv).isDone();
 		}
 
 		return false;

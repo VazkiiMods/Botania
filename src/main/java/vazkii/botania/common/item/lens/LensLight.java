@@ -8,14 +8,14 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.block.ModBlocks;
@@ -27,19 +27,19 @@ public class LensLight extends Lens {
 	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		Entity entity = burst.entity();
 		BlockPos coords = burst.getBurstSourceBlockPos();
-		if (!entity.world.isClient && pos.getType() == HitResult.Type.BLOCK && !burst.isFake() && !isManaBlock) {
+		if (!entity.level.isClientSide && pos.getType() == HitResult.Type.BLOCK && !burst.isFake() && !isManaBlock) {
 			BlockHitResult rtr = (BlockHitResult) pos;
 			if (!coords.equals(rtr.getBlockPos())) {
-				BlockPos neighborPos = rtr.getBlockPos().offset(rtr.getSide());
+				BlockPos neighborPos = rtr.getBlockPos().relative(rtr.getDirection());
 
-				Block blockAt = entity.world.getBlockState(rtr.getBlockPos()).getBlock();
-				BlockState neighbor = entity.world.getBlockState(neighborPos);
+				Block blockAt = entity.level.getBlockState(rtr.getBlockPos()).getBlock();
+				BlockState neighbor = entity.level.getBlockState(neighborPos);
 
 				if (blockAt == ModBlocks.manaFlame) {
-					entity.world.removeBlock(rtr.getBlockPos(), false);
+					entity.level.removeBlock(rtr.getBlockPos(), false);
 				} else if (neighbor.isAir() || neighbor.getMaterial().isReplaceable()) {
-					entity.world.setBlockState(neighborPos, ModBlocks.manaFlame.getDefaultState());
-					BlockEntity tile = entity.world.getBlockEntity(neighborPos);
+					entity.level.setBlockAndUpdate(neighborPos, ModBlocks.manaFlame.defaultBlockState());
+					BlockEntity tile = entity.level.getBlockEntity(neighborPos);
 
 					if (tile instanceof TileManaFlame) {
 						((TileManaFlame) tile).setColor(burst.getColor());

@@ -8,11 +8,11 @@
  */
 package vazkii.botania.client.model;
 
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.json.ModelOverrideList;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.block.model.ItemOverrides;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.render.tile.RenderTileTinyPotato;
 
@@ -25,12 +25,12 @@ public class TinyPotatoModel extends DelegatedModel {
 	}
 
 	@Override
-	public ModelOverrideList getOverrides() {
-		return new ModelOverrideList() {
+	public ItemOverrides getOverrides() {
+		return new ItemOverrides() {
 			@Override
-			public BakedModel apply(@Nonnull BakedModel model, @Nonnull ItemStack stack, @Nullable ClientWorld world, @Nullable LivingEntity livingEntity) {
-				if (stack.hasCustomName()) {
-					return RenderTileTinyPotato.getModelFromDisplayName(stack.getName());
+			public BakedModel resolve(@Nonnull BakedModel model, @Nonnull ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity livingEntity) {
+				if (stack.hasCustomHoverName()) {
+					return RenderTileTinyPotato.getModelFromDisplayName(stack.getHoverName());
 				}
 				return model;
 			}

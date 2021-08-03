@@ -8,11 +8,11 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.Tickable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
@@ -27,7 +27,7 @@ import vazkii.botania.common.core.helper.ColorHelper;
 
 import java.util.Random;
 
-public class TilePylon extends BlockEntity implements Tickable {
+public class TilePylon extends BlockEntity implements TickableBlockEntity {
 	boolean activated = false;
 	BlockPos centerPos;
 	private int ticks = 0;
@@ -40,77 +40,77 @@ public class TilePylon extends BlockEntity implements Tickable {
 	public void tick() {
 		++ticks;
 
-		if (!(getCachedState().getBlock() instanceof BlockPylon)) {
+		if (!(getBlockState().getBlock() instanceof BlockPylon)) {
 			return;
 		}
 
-		BlockPylon.Variant variant = ((BlockPylon) getCachedState().getBlock()).variant;
+		BlockPylon.Variant variant = ((BlockPylon) getBlockState().getBlock()).variant;
 
-		if (activated && world.isClient) {
-			if (world.getBlockState(centerPos).getBlock() != variant.getTargetBlock()
-					|| variant == BlockPylon.Variant.NATURA && (portalOff() || !(world.getBlockState(getPos().down()).getBlock() instanceof BlockPool))) {
+		if (activated && level.isClientSide) {
+			if (level.getBlockState(centerPos).getBlock() != variant.getTargetBlock()
+					|| variant == BlockPylon.Variant.NATURA && (portalOff() || !(level.getBlockState(getBlockPos().below()).getBlock() instanceof BlockPool))) {
 				activated = false;
 				return;
 			}
 
-			Vec3d centerBlock = new Vec3d(centerPos.getX() + 0.5, centerPos.getY() + 0.75 + (Math.random() - 0.5 * 0.25), centerPos.getZ() + 0.5);
+			Vec3 centerBlock = new Vec3(centerPos.getX() + 0.5, centerPos.getY() + 0.75 + (Math.random() - 0.5 * 0.25), centerPos.getZ() + 0.5);
 
 			if (variant == BlockPylon.Variant.NATURA) {
 				if (ConfigHandler.CLIENT.elfPortalParticlesEnabled.getValue()) {
 					double worldTime = ticks;
-					worldTime += new Random(pos.hashCode()).nextInt(1000);
+					worldTime += new Random(worldPosition.hashCode()).nextInt(1000);
 					worldTime /= 5;
 
 					float r = 0.75F + (float) Math.random() * 0.05F;
-					double x = pos.getX() + 0.5 + Math.cos(worldTime) * r;
-					double z = pos.getZ() + 0.5 + Math.sin(worldTime) * r;
+					double x = worldPosition.getX() + 0.5 + Math.cos(worldTime) * r;
+					double z = worldPosition.getZ() + 0.5 + Math.sin(worldTime) * r;
 
-					Vec3d ourCoords = new Vec3d(x, pos.getY() + 0.25, z);
+					Vec3 ourCoords = new Vec3(x, worldPosition.getY() + 0.25, z);
 					centerBlock = centerBlock.subtract(0, 0.5, 0);
-					Vec3d movementVector = centerBlock.subtract(ourCoords).normalize().multiply(0.2);
+					Vec3 movementVector = centerBlock.subtract(ourCoords).normalize().scale(0.2);
 
 					WispParticleData data = WispParticleData.wisp(0.25F + (float) Math.random() * 0.1F, (float) Math.random() * 0.25F, 0.75F + (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 1);
-					world.addParticle(data, x, pos.getY() + 0.25, z, 0, -(-0.075F - (float) Math.random() * 0.015F), 0);
-					if (world.random.nextInt(3) == 0) {
+					level.addParticle(data, x, worldPosition.getY() + 0.25, z, 0, -(-0.075F - (float) Math.random() * 0.015F), 0);
+					if (level.random.nextInt(3) == 0) {
 						WispParticleData data1 = WispParticleData.wisp(0.25F + (float) Math.random() * 0.1F, (float) Math.random() * 0.25F, 0.75F + (float) Math.random() * 0.25F, (float) Math.random() * 0.25F);
-						world.addParticle(data1, x, pos.getY() + 0.25, z, (float) movementVector.x, (float) movementVector.y, (float) movementVector.z);
+						level.addParticle(data1, x, worldPosition.getY() + 0.25, z, (float) movementVector.x, (float) movementVector.y, (float) movementVector.z);
 					}
 				}
 			} else {
-				Vec3d ourCoords = Vec3d.ofCenter(getPos()).add(0, 1 + (Math.random() - 0.5 * 0.25), 0);
-				Vec3d movementVector = centerBlock.subtract(ourCoords).normalize().multiply(0.2);
+				Vec3 ourCoords = Vec3.atCenterOf(getBlockPos()).add(0, 1 + (Math.random() - 0.5 * 0.25), 0);
+				Vec3 movementVector = centerBlock.subtract(ourCoords).normalize().scale(0.2);
 
-				Block block = world.getBlockState(pos.down()).getBlock();
+				Block block = level.getBlockState(worldPosition.below()).getBlock();
 				if (block instanceof BlockModFlower) {
 					int hex = ColorHelper.getColorValue(((BlockModFlower) block).color);
 					int r = (hex & 0xFF0000) >> 16;
 					int g = (hex & 0xFF00) >> 8;
 					int b = hex & 0xFF;
 
-					if (world.random.nextInt(4) == 0) {
+					if (level.random.nextInt(4) == 0) {
 						SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), r / 255F, g / 255F, b / 255F, 8);
-						world.addParticle(data, centerBlock.x + (Math.random() - 0.5) * 0.5, centerBlock.y, centerBlock.z + (Math.random() - 0.5) * 0.5, 0, 0, 0);
+						level.addParticle(data, centerBlock.x + (Math.random() - 0.5) * 0.5, centerBlock.y, centerBlock.z + (Math.random() - 0.5) * 0.5, 0, 0, 0);
 					}
 
 					WispParticleData data1 = WispParticleData.wisp((float) Math.random() / 3F, r / 255F, g / 255F, b / 255F, 1);
-					world.addParticle(data1, pos.getX() + 0.5 + (Math.random() - 0.5) * 0.25, pos.getY() - 0.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.25, 0, - -0.04F, 0);
+					level.addParticle(data1, worldPosition.getX() + 0.5 + (Math.random() - 0.5) * 0.25, worldPosition.getY() - 0.5, worldPosition.getZ() + 0.5 + (Math.random() - 0.5) * 0.25, 0, - -0.04F, 0);
 					WispParticleData data = WispParticleData.wisp((float) Math.random() / 5F, r / 255F, g / 255F, b / 255F, 1);
-					world.addParticle(data, pos.getX() + 0.5 + (Math.random() - 0.5) * 0.125, pos.getY() + 1.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.125, 0, - -0.001F, 0);
+					level.addParticle(data, worldPosition.getX() + 0.5 + (Math.random() - 0.5) * 0.125, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5 + (Math.random() - 0.5) * 0.125, 0, - -0.001F, 0);
 					WispParticleData data2 = WispParticleData.wisp((float) Math.random() / 8F, r / 255F, g / 255F, b / 255F);
-					world.addParticle(data2, pos.getX() + 0.5 + (Math.random() - 0.5) * 0.25, pos.getY() + 1.5, pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.25, (float) movementVector.x, (float) movementVector.y, (float) movementVector.z);
+					level.addParticle(data2, worldPosition.getX() + 0.5 + (Math.random() - 0.5) * 0.25, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5 + (Math.random() - 0.5) * 0.25, (float) movementVector.x, (float) movementVector.y, (float) movementVector.z);
 				}
 			}
 		}
 
-		if (world.random.nextBoolean() && world.isClient) {
+		if (level.random.nextBoolean() && level.isClientSide) {
 			SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), variant.r, variant.g, variant.b, 2);
-			world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random() * 1.5, pos.getZ() + Math.random(), 0, 0, 0);
+			level.addParticle(data, worldPosition.getX() + Math.random(), worldPosition.getY() + Math.random() * 1.5, worldPosition.getZ() + Math.random(), 0, 0, 0);
 		}
 	}
 
 	private boolean portalOff() {
-		return world.getBlockState(centerPos).getBlock() != ModBlocks.alfPortal
-				|| world.getBlockState(centerPos).get(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF;
+		return level.getBlockState(centerPos).getBlock() != ModBlocks.alfPortal
+				|| level.getBlockState(centerPos).getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF;
 	}
 
 }

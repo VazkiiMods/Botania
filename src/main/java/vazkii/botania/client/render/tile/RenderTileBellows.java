@@ -8,14 +8,15 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.Identifier;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3f;
+
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModelBellows;
@@ -24,7 +25,7 @@ import vazkii.botania.common.block.tile.mana.TileBellows;
 import javax.annotation.Nullable;
 
 public class RenderTileBellows extends BlockEntityRenderer<TileBellows> {
-	private static final Identifier texture = new Identifier(LibResources.MODEL_BELLOWS);
+	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_BELLOWS);
 	private static final ModelBellows model = new ModelBellows();
 
 	public RenderTileBellows(BlockEntityRenderDispatcher manager) {
@@ -32,13 +33,13 @@ public class RenderTileBellows extends BlockEntityRenderer<TileBellows> {
 	}
 
 	@Override
-	public void render(@Nullable TileBellows bellows, float f, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
-		ms.push();
+	public void render(@Nullable TileBellows bellows, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+		ms.pushPose();
 		ms.translate(0.5F, 1.5F, 0.5F);
 		ms.scale(1F, -1F, -1F);
 		float angle = 0;
 		if (bellows != null) {
-			switch (bellows.getCachedState().get(Properties.HORIZONTAL_FACING)) {
+			switch (bellows.getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING)) {
 			case SOUTH:
 				break;
 			case NORTH:
@@ -52,11 +53,11 @@ public class RenderTileBellows extends BlockEntityRenderer<TileBellows> {
 				break;
 			}
 		}
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(angle));
+		ms.mulPose(Vector3f.YP.rotationDegrees(angle));
 		float fract = Math.max(0.1F, 1F - (bellows == null ? 0 : bellows.movePos + bellows.moving * f + 0.1F));
-		VertexConsumer buffer = buffers.getBuffer(model.getLayer(texture));
+		VertexConsumer buffer = buffers.getBuffer(model.renderType(texture));
 		model.render(ms, buffer, light, overlay, 1, 1, 1, 1, fract);
-		ms.pop();
+		ms.popPose();
 	}
 
 }

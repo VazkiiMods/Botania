@@ -10,25 +10,30 @@ package vazkii.botania.common.entity;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.thrown.ThrownEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.ItemStack;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.Packet;
-import net.minecraft.tag.Tag;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.*;
-import net.minecraft.world.World;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.tags.Tag;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ThrowableProjectile;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -44,7 +49,7 @@ import javax.annotation.Nullable;
 
 import java.util.*;
 
-public class EntityManaBurst extends ThrownEntity implements IManaBurst {
+public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	private static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_COLOR = "color";
 	private static final String TAG_MANA = "mana";
@@ -69,14 +74,14 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 	private static final String TAG_TRIPPED = "tripped";
 	private static final String TAG_MAGNETIZE_POS = "magnetizePos";
 
-	private static final TrackedData<Integer> COLOR = DataTracker.registerData(EntityManaBurst.class, TrackedDataHandlerRegistry.INTEGER);
-	private static final TrackedData<Integer> MANA = DataTracker.registerData(EntityManaBurst.class, TrackedDataHandlerRegistry.INTEGER);
-	private static final TrackedData<Integer> START_MANA = DataTracker.registerData(EntityManaBurst.class, TrackedDataHandlerRegistry.INTEGER);
-	private static final TrackedData<Integer> MIN_MANA_LOSS = DataTracker.registerData(EntityManaBurst.class, TrackedDataHandlerRegistry.INTEGER);
-	private static final TrackedData<Float> MANA_LOSS_PER_TICK = DataTracker.registerData(EntityManaBurst.class, TrackedDataHandlerRegistry.FLOAT);
-	private static final TrackedData<Float> GRAVITY = DataTracker.registerData(EntityManaBurst.class, TrackedDataHandlerRegistry.FLOAT);
-	private static final TrackedData<BlockPos> SOURCE_COORDS = DataTracker.registerData(EntityManaBurst.class, TrackedDataHandlerRegistry.BLOCK_POS);
-	private static final TrackedData<ItemStack> SOURCE_LENS = DataTracker.registerData(EntityManaBurst.class, TrackedDataHandlerRegistry.ITEM_STACK);
+	private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> MANA = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> START_MANA = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Integer> MIN_MANA_LOSS = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Float> MANA_LOSS_PER_TICK = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<Float> GRAVITY = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.FLOAT);
+	private static final EntityDataAccessor<BlockPos> SOURCE_COORDS = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.BLOCK_POS);
+	private static final EntityDataAccessor<ItemStack> SOURCE_LENS = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.ITEM_STACK);
 
 	private float accumulatedManaLoss = 0;
 	private boolean fake = false;
@@ -93,51 +98,51 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 
 	public final List<PositionProperties> propsList = new ArrayList<>();
 
-	public EntityManaBurst(EntityType<EntityManaBurst> type, World world) {
+	public EntityManaBurst(EntityType<EntityManaBurst> type, Level world) {
 		super(type, world);
 	}
 
 	@Override
-	protected void initDataTracker() {
-		dataTracker.startTracking(COLOR, 0);
-		dataTracker.startTracking(MANA, 0);
-		dataTracker.startTracking(START_MANA, 0);
-		dataTracker.startTracking(MIN_MANA_LOSS, 0);
-		dataTracker.startTracking(MANA_LOSS_PER_TICK, 0F);
-		dataTracker.startTracking(GRAVITY, 0F);
-		dataTracker.startTracking(SOURCE_COORDS, BlockPos.ORIGIN);
-		dataTracker.startTracking(SOURCE_LENS, ItemStack.EMPTY);
+	protected void defineSynchedData() {
+		entityData.define(COLOR, 0);
+		entityData.define(MANA, 0);
+		entityData.define(START_MANA, 0);
+		entityData.define(MIN_MANA_LOSS, 0);
+		entityData.define(MANA_LOSS_PER_TICK, 0F);
+		entityData.define(GRAVITY, 0F);
+		entityData.define(SOURCE_COORDS, BlockPos.ZERO);
+		entityData.define(SOURCE_LENS, ItemStack.EMPTY);
 	}
 
 	public EntityManaBurst(IManaSpreader spreader, boolean fake) {
-		this(ModEntities.MANA_BURST, ((BlockEntity) spreader).getWorld());
+		this(ModEntities.MANA_BURST, ((BlockEntity) spreader).getLevel());
 
 		BlockEntity tile = spreader.tileEntity();
 
 		this.fake = fake;
 
-		setBurstSourceCoords(tile.getPos());
-		refreshPositionAndAngles(tile.getPos().getX() + 0.5, tile.getPos().getY() + 0.5, tile.getPos().getZ() + 0.5, 0, 0);
-		yaw = -(spreader.getRotationX() + 90F);
-		pitch = spreader.getRotationY();
+		setBurstSourceCoords(tile.getBlockPos());
+		moveTo(tile.getBlockPos().getX() + 0.5, tile.getBlockPos().getY() + 0.5, tile.getBlockPos().getZ() + 0.5, 0, 0);
+		yRot = -(spreader.getRotationX() + 90F);
+		xRot = spreader.getRotationY();
 
 		float f = 0.4F;
-		double mx = MathHelper.sin(yaw / 180.0F * (float) Math.PI) * MathHelper.cos(pitch / 180.0F * (float) Math.PI) * f / 2D;
-		double mz = -(MathHelper.cos(yaw / 180.0F * (float) Math.PI) * MathHelper.cos(pitch / 180.0F * (float) Math.PI) * f) / 2D;
-		double my = MathHelper.sin(pitch / 180.0F * (float) Math.PI) * f / 2D;
+		double mx = Mth.sin(yRot / 180.0F * (float) Math.PI) * Mth.cos(xRot / 180.0F * (float) Math.PI) * f / 2D;
+		double mz = -(Mth.cos(yRot / 180.0F * (float) Math.PI) * Mth.cos(xRot / 180.0F * (float) Math.PI) * f) / 2D;
+		double my = Mth.sin(xRot / 180.0F * (float) Math.PI) * f / 2D;
 		setBurstMotion(mx, my, mz);
 	}
 
-	public EntityManaBurst(PlayerEntity player) {
-		super(ModEntities.MANA_BURST, player, player.world);
+	public EntityManaBurst(Player player) {
+		super(ModEntities.MANA_BURST, player, player.level);
 
 		setBurstSourceCoords(new BlockPos(0, -1, 0));
-		setRotation(player.yaw + 180, -player.pitch);
+		setRot(player.yRot + 180, -player.xRot);
 
 		float f = 0.4F;
-		double mx = MathHelper.sin(yaw / 180.0F * (float) Math.PI) * MathHelper.cos(pitch / 180.0F * (float) Math.PI) * f / 2D;
-		double mz = -(MathHelper.cos(yaw / 180.0F * (float) Math.PI) * MathHelper.cos(pitch / 180.0F * (float) Math.PI) * f) / 2D;
-		double my = MathHelper.sin(pitch / 180.0F * (float) Math.PI) * f / 2D;
+		double mx = Mth.sin(yRot / 180.0F * (float) Math.PI) * Mth.cos(xRot / 180.0F * (float) Math.PI) * f / 2D;
+		double mz = -(Mth.cos(yRot / 180.0F * (float) Math.PI) * Mth.cos(xRot / 180.0F * (float) Math.PI) * f) / 2D;
+		double my = Mth.sin(xRot / 180.0F * (float) Math.PI) * f / 2D;
 		setBurstMotion(mx, my, mz);
 	}
 
@@ -169,7 +174,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 
 		particles();
 
-		setBurstMotion(getVelocity().getX(), getVelocity().getY(), getVelocity().getZ());
+		setBurstMotion(getDeltaMovement().x(), getDeltaMovement().y(), getDeltaMovement().z());
 
 		fullManaLastTick = getMana() == getStartingMana();
 
@@ -188,13 +193,13 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void updateTrackedPositionAndAngles(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport) {
-		updatePosition(x, y, z);
-		setRotation(yaw, pitch);
+	public void lerpTo(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport) {
+		setPos(x, y, z);
+		setRot(yaw, pitch);
 	}
 
 	@Override
-	public boolean updateMovementInFluid(Tag<Fluid> fluid, double mag) {
+	public boolean updateFluidHeightAndDoFluidPushing(Tag<Fluid> fluid, double mag) {
 		return false;
 	}
 
@@ -223,8 +228,8 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 	}
 
 	@Override
-	public void writeCustomDataToTag(CompoundTag tag) {
-		super.writeCustomDataToTag(tag);
+	public void addAdditionalSaveData(CompoundTag tag) {
+		super.addAdditionalSaveData(tag);
 		tag.putInt(TAG_TICKS_EXISTED, getTicksExisted());
 		tag.putInt(TAG_COLOR, getColor());
 		tag.putInt(TAG_MANA, getMana());
@@ -236,7 +241,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 		ItemStack stack = getSourceLens();
 		CompoundTag lensCmp = new CompoundTag();
 		if (!stack.isEmpty()) {
-			lensCmp = stack.toTag(lensCmp);
+			lensCmp = stack.save(lensCmp);
 		}
 		tag.put(TAG_LENS_STACK, lensCmp);
 
@@ -245,9 +250,9 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 		tag.putInt(TAG_SPREADER_Y, coords.getY());
 		tag.putInt(TAG_SPREADER_Z, coords.getZ());
 
-		tag.putDouble(TAG_LAST_MOTION_X, getVelocity().getX());
-		tag.putDouble(TAG_LAST_MOTION_Y, getVelocity().getY());
-		tag.putDouble(TAG_LAST_MOTION_Z, getVelocity().getZ());
+		tag.putDouble(TAG_LAST_MOTION_X, getDeltaMovement().x());
+		tag.putDouble(TAG_LAST_MOTION_Y, getDeltaMovement().y());
+		tag.putDouble(TAG_LAST_MOTION_Z, getDeltaMovement().z());
 
 		if (lastCollision != null) {
 			tag.putInt(TAG_LAST_COLLISION_X, coords.getX());
@@ -259,7 +264,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 		boolean hasShooter = identity != null;
 		tag.putBoolean(TAG_HAS_SHOOTER, hasShooter);
 		if (hasShooter) {
-			tag.putUuid(TAG_SHOOTER, identity);
+			tag.putUUID(TAG_SHOOTER, identity);
 		}
 		tag.putBoolean(TAG_WARPED, warped);
 		tag.putInt(TAG_ORBIT_TIME, orbitTime);
@@ -270,8 +275,8 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 	}
 
 	@Override
-	public void readCustomDataFromTag(CompoundTag cmp) {
-		super.readCustomDataFromTag(cmp);
+	public void readAdditionalSaveData(CompoundTag cmp) {
+		super.readAdditionalSaveData(cmp);
 		setTicksExisted(cmp.getInt(TAG_TICKS_EXISTED));
 		setColor(cmp.getInt(TAG_COLOR));
 		setMana(cmp.getInt(TAG_MANA));
@@ -281,7 +286,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 		setGravity(cmp.getFloat(TAG_GRAVITY));
 
 		CompoundTag lensCmp = cmp.getCompound(TAG_LENS_STACK);
-		ItemStack stack = ItemStack.fromTag(lensCmp);
+		ItemStack stack = ItemStack.of(lensCmp);
 		if (!stack.isEmpty()) {
 			setSourceLens(stack);
 		} else {
@@ -309,7 +314,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 
 		boolean hasShooter = cmp.getBoolean(TAG_HAS_SHOOTER);
 		if (hasShooter) {
-			UUID serializedUuid = cmp.getUuid(TAG_SHOOTER);
+			UUID serializedUuid = cmp.getUUID(TAG_SHOOTER);
 			UUID identity = getShooterUUID();
 			if (!serializedUuid.equals(identity)) {
 				setShooterUUID(serializedUuid);
@@ -326,7 +331,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 	}
 
 	public void particles() {
-		if (!isAlive() || !world.isClient) {
+		if (!isAlive() || !level.isClientSide) {
 			return;
 		}
 
@@ -351,14 +356,14 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 
 			if (!noParticles && shouldDoFakeParticles()) {
 				SparkleParticleData data = SparkleParticleData.fake(0.4F * size, r, g, b, 1);
-				Botania.proxy.addParticleForce(world, data, getX(), getY(), getZ(), 0, 0, 0);
+				Botania.proxy.addParticleForce(level, data, getX(), getY(), getZ(), 0, 0, 0);
 			}
 		} else {
 			boolean depth = !Botania.proxy.isClientPlayerWearingMonocle();
 
 			if (ConfigHandler.CLIENT.subtlePowerSystem.getValue()) {
 				WispParticleData data = WispParticleData.wisp(0.1F * size, r, g, b, depth);
-				Botania.proxy.addParticleForceNear(world, data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
+				Botania.proxy.addParticleForceNear(level, data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.02F, (float) (Math.random() - 0.5F) * 0.01F);
 			} else {
 				float or = r;
 				float og = g;
@@ -370,10 +375,10 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 				double iterY = getY();
 				double iterZ = getZ();
 
-				Vec3d currentPos = getPos();
-				Vec3d oldPos = new Vec3d(prevX, prevY, prevZ);
-				Vec3d diffVec = oldPos.subtract(currentPos);
-				Vec3d diffVecNorm = diffVec.normalize();
+				Vec3 currentPos = position();
+				Vec3 oldPos = new Vec3(xo, yo, zo);
+				Vec3 diffVec = oldPos.subtract(currentPos);
+				Vec3 diffVecNorm = diffVec.normalize();
 
 				double distance = 0.095;
 
@@ -385,16 +390,16 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 					}
 					size = osize + ((float) Math.random() - 0.5F) * 0.065F + (float) Math.sin(new Random(uuid.getMostSignificantBits()).nextInt(9001)) * 0.4F;
 					WispParticleData data = WispParticleData.wisp(0.2F * size, r, g, b, depth);
-					Botania.proxy.addParticleForceNear(world, data, iterX, iterY, iterZ,
-							(float) -getVelocity().getX() * 0.01F,
-							(float) -getVelocity().getY() * 0.01F,
-							(float) -getVelocity().getZ() * 0.01F);
+					Botania.proxy.addParticleForceNear(level, data, iterX, iterY, iterZ,
+							(float) -getDeltaMovement().x() * 0.01F,
+							(float) -getDeltaMovement().y() * 0.01F,
+							(float) -getDeltaMovement().z() * 0.01F);
 
 					iterX += diffVecNorm.x * distance;
 					iterY += diffVecNorm.y * distance;
 					iterZ += diffVecNorm.z * distance;
 
-					currentPos = new Vec3d(iterX, iterY, iterZ);
+					currentPos = new Vec3(iterX, iterY, iterZ);
 					diffVec = oldPos.subtract(currentPos);
 					if (getOrbitTime() > 0) {
 						break;
@@ -402,7 +407,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 				} while (Math.abs(diffVec.length()) > distance);
 
 				WispParticleData data = WispParticleData.wisp(0.1F * size, or, og, ob, depth);
-				world.addParticle(data, iterX, iterY, iterZ, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F);
+				level.addParticle(data, iterX, iterY, iterZ, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F, (float) (Math.random() - 0.5F) * 0.06F);
 			}
 		}
 	}
@@ -412,7 +417,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 	}
 
 	@Override
-	protected void onCollision(@Nonnull HitResult rtr) {
+	protected void onHit(@Nonnull HitResult rtr) {
 		BlockPos pos = null;
 		boolean dead = false;
 
@@ -421,31 +426,31 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 			if (pos.equals(lastCollision)) {
 				return;
 			}
-			lastCollision = pos.toImmutable();
-			BlockEntity tile = world.getBlockEntity(pos);
-			BlockState state = world.getBlockState(pos);
+			lastCollision = pos.immutable();
+			BlockEntity tile = level.getBlockEntity(pos);
+			BlockState state = level.getBlockState(pos);
 			Block block = state.getBlock();
 
 			if (block instanceof IManaCollisionGhost
-					&& ((IManaCollisionGhost) block).isGhost(state, world, pos)
+					&& ((IManaCollisionGhost) block).isGhost(state, level, pos)
 					&& !(block instanceof IManaTrigger)
-					|| block instanceof PlantBlock
+					|| block instanceof BushBlock
 					|| block instanceof LeavesBlock) {
 				return;
 			}
 
 			BlockPos coords = getBurstSourceBlockPos();
-			if (tile != null && !tile.getPos().equals(coords)) {
+			if (tile != null && !tile.getBlockPos().equals(coords)) {
 				collidedTile = tile;
 			}
 
-			if (tile == null || !tile.getPos().equals(coords)) {
-				if (!fake && !noParticles && !world.isClient && tile instanceof IManaReceiver && ((IManaReceiver) tile).canReceiveManaFromBursts()) {
-					onReceiverImpact((IManaReceiver) tile, tile.getPos());
+			if (tile == null || !tile.getBlockPos().equals(coords)) {
+				if (!fake && !noParticles && !level.isClientSide && tile instanceof IManaReceiver && ((IManaReceiver) tile).canReceiveManaFromBursts()) {
+					onReceiverImpact((IManaReceiver) tile, tile.getBlockPos());
 				}
 
 				if (block instanceof IManaTrigger) {
-					((IManaTrigger) block).onBurstCollision(this, world, pos);
+					((IManaTrigger) block).onBurstCollision(this, level, pos);
 				}
 
 				boolean ghost = block instanceof IManaCollisionGhost;
@@ -467,7 +472,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 		}
 
 		if (dead && isAlive()) {
-			if (!fake && world.isClient) {
+			if (!fake && level.isClientSide) {
 				int color = getColor();
 				float r = (color >> 16 & 0xFF) / 255F;
 				float g = (color >> 8 & 0xFF) / 255F;
@@ -480,11 +485,11 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 				if (!ConfigHandler.CLIENT.subtlePowerSystem.getValue()) {
 					for (int i = 0; i < 4; i++) {
 						WispParticleData data = WispParticleData.wisp(0.15F * size, r, g, b);
-						world.addParticle(data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
+						level.addParticle(data, getX(), getY(), getZ(), (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F, (float) (Math.random() - 0.5F) * 0.04F);
 					}
 				}
 				SparkleParticleData data = SparkleParticleData.sparkle((float) 4, r, g, b, 2);
-				world.addParticle(data, getX(), getY(), getZ(), 0, 0, 0);
+				level.addParticle(data, getX(), getY(), getZ(), 0, 0, 0);
 			}
 
 			remove();
@@ -532,7 +537,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 	}
 
 	private BlockEntity getShooter() {
-		return world.getBlockEntity(getBurstSourceBlockPos());
+		return level.getBlockEntity(getBurstSourceBlockPos());
 	}
 
 	@Override
@@ -556,82 +561,82 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 
 	@Override
 	public int getColor() {
-		return dataTracker.get(COLOR);
+		return entityData.get(COLOR);
 	}
 
 	@Override
 	public void setColor(int color) {
-		dataTracker.set(COLOR, color);
+		entityData.set(COLOR, color);
 	}
 
 	@Override
 	public int getMana() {
-		return dataTracker.get(MANA);
+		return entityData.get(MANA);
 	}
 
 	@Override
 	public void setMana(int mana) {
-		dataTracker.set(MANA, mana);
+		entityData.set(MANA, mana);
 	}
 
 	@Override
 	public int getStartingMana() {
-		return dataTracker.get(START_MANA);
+		return entityData.get(START_MANA);
 	}
 
 	@Override
 	public void setStartingMana(int mana) {
-		dataTracker.set(START_MANA, mana);
+		entityData.set(START_MANA, mana);
 	}
 
 	@Override
 	public int getMinManaLoss() {
-		return dataTracker.get(MIN_MANA_LOSS);
+		return entityData.get(MIN_MANA_LOSS);
 	}
 
 	@Override
 	public void setMinManaLoss(int minManaLoss) {
-		dataTracker.set(MIN_MANA_LOSS, minManaLoss);
+		entityData.set(MIN_MANA_LOSS, minManaLoss);
 	}
 
 	@Override
 	public float getManaLossPerTick() {
-		return dataTracker.get(MANA_LOSS_PER_TICK);
+		return entityData.get(MANA_LOSS_PER_TICK);
 	}
 
 	@Override
 	public void setManaLossPerTick(float mana) {
-		dataTracker.set(MANA_LOSS_PER_TICK, mana);
+		entityData.set(MANA_LOSS_PER_TICK, mana);
 	}
 
 	@Override
 	public float getBurstGravity() {
-		return dataTracker.get(GRAVITY);
+		return entityData.get(GRAVITY);
 	}
 
 	@Override
 	public void setGravity(float gravity) {
-		dataTracker.set(GRAVITY, gravity);
+		entityData.set(GRAVITY, gravity);
 	}
 
 	@Override
 	public BlockPos getBurstSourceBlockPos() {
-		return dataTracker.get(SOURCE_COORDS);
+		return entityData.get(SOURCE_COORDS);
 	}
 
 	@Override
 	public void setBurstSourceCoords(BlockPos pos) {
-		dataTracker.set(SOURCE_COORDS, pos);
+		entityData.set(SOURCE_COORDS, pos);
 	}
 
 	@Override
 	public ItemStack getSourceLens() {
-		return dataTracker.get(SOURCE_LENS);
+		return entityData.get(SOURCE_LENS);
 	}
 
 	@Override
 	public void setSourceLens(ItemStack lens) {
-		dataTracker.set(SOURCE_LENS, lens);
+		entityData.set(SOURCE_LENS, lens);
 	}
 
 	@Override
@@ -654,7 +659,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 
 	@Override
 	public void setBurstMotion(double x, double y, double z) {
-		this.setVelocity(x, y, z);
+		this.setDeltaMovement(x, y, z);
 	}
 
 	@Override
@@ -665,7 +670,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 	@Override
 	public void setCollidedAt(BlockPos pos) {
 		if (!hasAlreadyCollidedAt(pos)) {
-			alreadyCollidedAt.add(pos.toImmutable());
+			alreadyCollidedAt.add(pos.immutable());
 		}
 	}
 
@@ -730,7 +735,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 
 	@Nonnull
 	@Override
-	public Packet<?> createSpawnPacket() {
+	public Packet<?> getAddEntityPacket() {
 		return PacketSpawnEntity.make(this);
 	}
 
@@ -758,7 +763,7 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 
 	private void setDeathTicksForFakeParticle() {
 		BlockPos coords = getBurstSourceBlockPos();
-		BlockEntity tile = world.getBlockEntity(coords);
+		BlockEntity tile = level.getBlockEntity(coords);
 		if (tile != null && tile instanceof IManaSpreader) {
 			((IManaSpreader) tile).setLastBurstDeathTick(getTicksExisted());
 		}
@@ -772,19 +777,19 @@ public class EntityManaBurst extends ThrownEntity implements IManaBurst {
 		public boolean invalid = false;
 
 		public PositionProperties(Entity entity) {
-			int x = MathHelper.floor(entity.getX());
-			int y = MathHelper.floor(entity.getY());
-			int z = MathHelper.floor(entity.getZ());
+			int x = Mth.floor(entity.getX());
+			int y = Mth.floor(entity.getY());
+			int z = Mth.floor(entity.getZ());
 			coords = new BlockPos(x, y, z);
-			state = entity.world.getBlockState(coords);
+			state = entity.level.getBlockState(coords);
 		}
 
 		public boolean coordsEqual(PositionProperties props) {
 			return coords.equals(props.coords);
 		}
 
-		public boolean contentsEqual(World world) {
-			if (!world.isChunkLoaded(coords)) {
+		public boolean contentsEqual(Level world) {
+			if (!world.hasChunkAt(coords)) {
 				invalid = true;
 				return false;
 			}

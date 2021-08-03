@@ -8,14 +8,14 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.world.World;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.entity.EntityThornChakram;
 
@@ -23,29 +23,29 @@ import javax.annotation.Nonnull;
 
 public class ItemThornChakram extends Item {
 
-	public ItemThornChakram(Settings builder) {
+	public ItemThornChakram(Properties builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getStackInHand(hand);
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
 
-		if (!world.isClient) {
+		if (!world.isClientSide) {
 			ItemStack copy = stack.copy();
 			copy.setCount(1);
 			EntityThornChakram c = new EntityThornChakram(player, world, copy);
-			c.setProperties(player, player.pitch, player.yaw, 0.0F, 1.5F, 1.0F);
+			c.shootFromRotation(player, player.xRot, player.yRot, 0.0F, 1.5F, 1.0F);
 			if (stack.getItem() == ModItems.flareChakram) {
 				c.setFire(true);
 			}
-			world.spawnEntity(c);
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 0.5F, 0.4F / (RANDOM.nextFloat() * 0.4F + 0.8F));
-			stack.decrement(1);
+			world.addFreshEntity(c);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+			stack.shrink(1);
 		}
 
-		return TypedActionResult.success(stack);
+		return InteractionResultHolder.success(stack);
 	}
 
 }

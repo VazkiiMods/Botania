@@ -8,16 +8,20 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.PistonBlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.TntEntity;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DetectorRailBlock;
+import net.minecraft.world.level.block.HoneyBlock;
+import net.minecraft.world.level.block.SlimeBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.piston.PistonMovingBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
@@ -37,11 +41,11 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 	}
 
 	public static boolean isUnethical(Entity e) {
-		if (!e.world.getChunkManager().shouldTickEntity(e)) {
+		if (!e.level.getChunkSource().isEntityTickingChunk(e)) {
 			return false;
 		}
 
-		BlockPos center = e.getBlockPos();
+		BlockPos center = e.blockPosition();
 		int x = center.getX();
 		int y = center.getY();
 		int z = center.getZ();
@@ -51,13 +55,13 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 		int movingPistons = 0;
 		int rails = 0;
 		int slimes = 0;
-		for (BlockPos pos : BlockPos.iterate(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1)) {
-			BlockState state = e.world.getBlockState(pos);
+		for (BlockPos pos : BlockPos.betweenClosed(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1)) {
+			BlockState state = e.level.getBlockState(pos);
 			if (state.getBlock() == Blocks.MOVING_PISTON) {
 				movingPistons++;
-				BlockEntity te = e.world.getBlockEntity(pos);
-				if (te instanceof PistonBlockEntity) {
-					state = ((PistonBlockEntity) te).getPushedBlock();
+				BlockEntity te = e.level.getBlockEntity(pos);
+				if (te instanceof PistonMovingBlockEntity) {
+					state = ((PistonMovingBlockEntity) te).getMovedState();
 				}
 			}
 
@@ -79,18 +83,18 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getWorld().isClient && getMana() == 0) {
-			List<TntEntity> tnts = getWorld().getNonSpectatingEntities(TntEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)));
-			for (TntEntity tnt : tnts) {
-				FluidState fluid = getWorld().getFluidState(tnt.getBlockPos());
-				if (tnt.getFuseTimer() == 1 && tnt.isAlive() && fluid.isEmpty()) {
+		if (!getLevel().isClientSide && getMana() == 0) {
+			List<PrimedTnt> tnts = getLevel().getEntitiesOfClass(PrimedTnt.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)));
+			for (PrimedTnt tnt : tnts) {
+				FluidState fluid = getLevel().getFluidState(tnt.blockPosition());
+				if (tnt.getLife() == 1 && tnt.isAlive() && fluid.isEmpty()) {
 					boolean unethical = EntityComponents.TNT_ETHICAL.get(tnt).unethical;
-					tnt.playSound(unethical ? SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE : SoundEvents.ENTITY_GENERIC_EXPLODE, 0.2F, (1F + (getWorld().random.nextFloat() - getWorld().random.nextFloat()) * 0.2F) * 0.7F);
+					tnt.playSound(unethical ? SoundEvents.GENERIC_EXTINGUISH_FIRE : SoundEvents.GENERIC_EXPLODE, 0.2F, (1F + (getLevel().random.nextFloat() - getLevel().random.nextFloat()) * 0.2F) * 0.7F);
 					tnt.remove();
 					addMana(unethical ? 3 : getMaxMana());
 					sync();
 
-					getWorld().addSyncedBlockEvent(getPos(), getCachedState().getBlock(), unethical ? ANGRY_EFFECT_EVENT : EXPLODE_EFFECT_EVENT, tnt.getEntityId());
+					getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), unethical ? ANGRY_EFFECT_EVENT : EXPLODE_EFFECT_EVENT, tnt.getId());
 					break;
 				}
 			}
@@ -98,31 +102,31 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public boolean onSyncedBlockEvent(int event, int param) {
+	public boolean triggerEvent(int event, int param) {
 		if (event == EXPLODE_EFFECT_EVENT) {
-			if (getWorld().isClient && getWorld().getEntityById(param) instanceof TntEntity) {
-				Entity e = getWorld().getEntityById(param);
+			if (getLevel().isClientSide && getLevel().getEntity(param) instanceof PrimedTnt) {
+				Entity e = getLevel().getEntity(param);
 
 				for (int i = 0; i < 50; i++) {
 					SparkleParticleData data = SparkleParticleData.sparkle((float) (Math.random() * 0.65F + 1.25F), 1F, (float) Math.random() * 0.25F, (float) Math.random() * 0.25F, 12);
-					world.addParticle(data, e.getX() + Math.random() * 4 - 2, e.getY() + Math.random() * 4 - 2, e.getZ() + Math.random() * 4 - 2, 0, 0, 0);
+					level.addParticle(data, e.getX() + Math.random() * 4 - 2, e.getY() + Math.random() * 4 - 2, e.getZ() + Math.random() * 4 - 2, 0, 0, 0);
 				}
 
-				getWorld().addParticle(ParticleTypes.EXPLOSION_EMITTER, e.getX(), e.getY(), e.getZ(), 1D, 0D, 0D);
+				getLevel().addParticle(ParticleTypes.EXPLOSION_EMITTER, e.getX(), e.getY(), e.getZ(), 1D, 0D, 0D);
 			}
 			return true;
 		} else if (event == ANGRY_EFFECT_EVENT) {
-			if (getWorld().isClient && getWorld().getEntityById(param) instanceof TntEntity) {
-				Entity e = getWorld().getEntityById(param);
+			if (getLevel().isClientSide && getLevel().getEntity(param) instanceof PrimedTnt) {
+				Entity e = getLevel().getEntity(param);
 
 				for (int i = 0; i < 50; i++) {
-					world.addParticle(ParticleTypes.ANGRY_VILLAGER, e.getX() + Math.random() * 4 - 2, e.getY() + Math.random() * 4 - 2, e.getZ() + Math.random() * 4 - 2, 0, 0, 0);
+					level.addParticle(ParticleTypes.ANGRY_VILLAGER, e.getX() + Math.random() * 4 - 2, e.getY() + Math.random() * 4 - 2, e.getZ() + Math.random() * 4 - 2, 0, 0, 0);
 				}
 			}
 
 			return true;
 		} else {
-			return super.onSyncedBlockEvent(event, param);
+			return super.triggerEvent(event, param);
 		}
 	}
 

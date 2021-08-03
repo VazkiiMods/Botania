@@ -8,14 +8,14 @@
  */
 package vazkii.botania.common.core.helper;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
 
 public final class MathHelper {
 
-	public static double angleBetween(Vec3d a, Vec3d b) {
-		double projection = a.normalize().dotProduct(b.normalize());
-		return Math.acos(net.minecraft.util.math.MathHelper.clamp(projection, -1, 1));
+	public static double angleBetween(Vec3 a, Vec3 b) {
+		double projection = a.normalize().dot(b.normalize());
+		return Math.acos(net.minecraft.util.Mth.clamp(projection, -1, 1));
 	}
 
 	public static float pointDistanceSpace(double x1, double y1, double z1, double x2, double y2, double z2) {
@@ -34,7 +34,7 @@ public final class MathHelper {
 			finalVector = finalVector.normalize();
 		}
 
-		entity.setVelocity(finalVector.multiply(modifier).toVector3d());
+		entity.setDeltaMovement(finalVector.multiply(modifier).toVector3d());
 	}
 
 	public static int multiplyColor(int c1, int c2) {

@@ -8,11 +8,15 @@
  */
 package vazkii.botania.client.patchouli.processor;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.recipe.*;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.ShapedRecipe;
 
 import vazkii.botania.client.patchouli.PatchouliUtils;
 import vazkii.botania.common.Botania;
@@ -34,18 +38,18 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 
 	@Override
 	public void setup(IVariableProvider variables) {
-		Map<Identifier, Recipe<CraftingInventory>> recipeMap = ModRecipeTypes.getRecipes(MinecraftClient.getInstance().world, RecipeType.CRAFTING);
+		Map<ResourceLocation, Recipe<CraftingContainer>> recipeMap = ModRecipeTypes.getRecipes(Minecraft.getInstance().level, RecipeType.CRAFTING);
 		List<String> names = variables.get("recipes").asStream().map(IVariable::asString).collect(Collectors.toList());
 		this.recipes = new ArrayList<>();
 		for (String name : names) {
-			Recipe<?> recipe = recipeMap.get(new Identifier(name));
+			Recipe<?> recipe = recipeMap.get(new ResourceLocation(name));
 			if (recipe != null) {
 				recipes.add((CraftingRecipe) recipe);
 				if (shapeless) {
 					shapeless = !(recipe instanceof ShapedRecipe);
 				}
-				for (Ingredient ingredient : recipe.getPreviewInputs()) {
-					int size = ingredient.getMatchingStacksClient().length;
+				for (Ingredient ingredient : recipe.getIngredients()) {
+					int size = ingredient.getItems().length;
 					if (longestIngredientSize < size) {
 						longestIngredientSize = size;
 					}
@@ -64,7 +68,7 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 		}
 		if (key.equals("heading")) {
 			if (!hasCustomHeading) {
-				return IVariable.from(recipes.get(0).getOutput().getName());
+				return IVariable.from(recipes.get(0).getResultItem().getHoverName());
 			}
 			return null;
 		}
@@ -80,19 +84,19 @@ public class MultiCraftingProcessor implements IComponentProcessor {
 						ingredients.add(Ingredient.EMPTY);
 					} else {
 						int realIndex = index - (shapedY * (3 - shaped.getWidth()));
-						DefaultedList<Ingredient> list = recipe.getPreviewInputs();
+						NonNullList<Ingredient> list = recipe.getIngredients();
 						ingredients.add(list.size() > realIndex ? list.get(realIndex) : Ingredient.EMPTY);
 					}
 
 				} else {
-					DefaultedList<Ingredient> list = recipe.getPreviewInputs();
+					NonNullList<Ingredient> list = recipe.getIngredients();
 					ingredients.add(list.size() > index ? list.get(index) : Ingredient.EMPTY);
 				}
 			}
 			return PatchouliUtils.interweaveIngredients(ingredients, longestIngredientSize);
 		}
 		if (key.equals("output")) {
-			return IVariable.wrapList(recipes.stream().map(CraftingRecipe::getOutput).map(IVariable::from).collect(Collectors.toList()));
+			return IVariable.wrapList(recipes.stream().map(CraftingRecipe::getResultItem).map(IVariable::from).collect(Collectors.toList()));
 		}
 		if (key.equals("shapeless")) {
 			return IVariable.wrap(shapeless);

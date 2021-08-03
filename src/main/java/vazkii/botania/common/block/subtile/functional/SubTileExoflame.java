@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -30,15 +30,15 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isClient || getMana() <= 2) {
+		if (getLevel().isClientSide || getMana() <= 2) {
 			return;
 		}
 
 		boolean did = false;
 
-		for (BlockPos pos : BlockPos.iterate(getEffectivePos().add(-RANGE, -RANGE_Y, -RANGE),
-				getEffectivePos().add(RANGE, RANGE_Y, RANGE))) {
-			BlockEntity tile = getWorld().getBlockEntity(pos);
+		for (BlockPos pos : BlockPos.betweenClosed(getEffectivePos().offset(-RANGE, -RANGE_Y, -RANGE),
+				getEffectivePos().offset(RANGE, RANGE_Y, RANGE))) {
+			BlockEntity tile = getLevel().getBlockEntity(pos);
 			if (tile != null) {
 				IExoflameHeatable heatable = BlockEntityComponents.EXOFLAME_HEATABLE.getNullable(tile);
 				if (heatable != null) {

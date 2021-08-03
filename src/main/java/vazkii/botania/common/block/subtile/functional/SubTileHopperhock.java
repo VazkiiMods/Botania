@@ -9,28 +9,28 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ChestBlock;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.HopperBlockEntity;
-import net.minecraft.block.enums.ChestType;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.decoration.ItemFrameEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.decoration.ItemFrame;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.ChestType;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -64,7 +64,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isClient || redstoneSignal > 0) {
+		if (getLevel().isClientSide || redstoneSignal > 0) {
 			return;
 		}
 
@@ -73,25 +73,25 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 
 		BlockPos pos = getEffectivePos();
 
-		List<ItemEntity> items = getWorld().getNonSpectatingEntities(ItemEntity.class, new Box(pos.add(-range, -range, -range), pos.add(range + 1, range + 1, range + 1)));
+		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1)));
 		int slowdown = getSlowdownFactor();
 
 		for (ItemEntity item : items) {
 			int age = ((AccessorItemEntity) item).getAge();
-			if (age < 60 + slowdown || age >= 105 && age < 110 || !item.isAlive() || item.getStack().isEmpty()) {
+			if (age < 60 + slowdown || age >= 105 && age < 110 || !item.isAlive() || item.getItem().isEmpty()) {
 				continue;
 			}
 
-			ItemStack stack = item.getStack();
-			Inventory invToPutItemIn = null;
+			ItemStack stack = item.getItem();
+			Container invToPutItemIn = null;
 			boolean priorityInv = false;
 			int amountToPutIn = 0;
 			Direction direction = null;
 
 			for (Direction dir : Direction.values()) {
-				BlockPos pos_ = pos.offset(dir);
+				BlockPos pos_ = pos.relative(dir);
 
-				Inventory inv = InventoryHelper.getInventory(getWorld(), pos_, dir.getOpposite());
+				Container inv = InventoryHelper.getInventory(getLevel(), pos_, dir.getOpposite());
 				if (inv != null) {
 					List<ItemStack> filter = getFilterForInventory(pos_, true);
 					boolean canAccept = canAcceptItem(stack, filter, filterType);
@@ -120,8 +120,8 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 
 			if (invToPutItemIn != null && item.isAlive()) {
 				SubTileSpectranthemum.spawnExplosionParticles(item, 3);
-				HopperBlockEntity.transfer(null, invToPutItemIn, stack.split(amountToPutIn), direction);
-				item.setStack(stack); // Just in case someone subclasses EntityItem and changes something important.
+				HopperBlockEntity.addItem(null, invToPutItemIn, stack.split(amountToPutIn), direction);
+				item.setItem(stack); // Just in case someone subclasses EntityItem and changes something important.
 				pulledAny = true;
 			}
 		}
@@ -173,7 +173,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 			IManaItem manaItem = (IManaItem) item;
 			return getFullness(manaItem, stack) == getFullness(manaItem, filter);
 		} else {
-			return ItemStack.areTagsEqual(filter, stack);
+			return ItemStack.tagMatches(filter, stack);
 		}
 	}
 
@@ -191,13 +191,13 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 		List<ItemStack> filter = new ArrayList<>();
 
 		if (recursiveForDoubleChests) {
-			BlockState chest = getWorld().getBlockState(pos);
+			BlockState chest = getLevel().getBlockState(pos);
 
-			if (chest.contains(ChestBlock.CHEST_TYPE)) {
-				ChestType type = chest.get(ChestBlock.CHEST_TYPE);
+			if (chest.hasProperty(ChestBlock.TYPE)) {
+				ChestType type = chest.getValue(ChestBlock.TYPE);
 				if (type != ChestType.SINGLE) {
-					BlockPos other = pos.offset(ChestBlock.getFacing(chest));
-					if (getWorld().getBlockState(other).getBlock() == chest.getBlock()) {
+					BlockPos other = pos.relative(ChestBlock.getConnectedDirection(chest));
+					if (getLevel().getBlockState(other).getBlock() == chest.getBlock()) {
 						filter.addAll(getFilterForInventory(other, false));
 					}
 				}
@@ -205,11 +205,11 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 		}
 
 		for (Direction dir : Direction.values()) {
-			Box aabb = new Box(pos.offset(dir));
-			List<ItemFrameEntity> frames = getWorld().getNonSpectatingEntities(ItemFrameEntity.class, aabb);
-			for (ItemFrameEntity frame : frames) {
-				if (frame.getHorizontalFacing() == dir) {
-					filter.add(frame.getHeldItemStack());
+			AABB aabb = new AABB(pos.relative(dir));
+			List<ItemFrame> frames = getLevel().getEntitiesOfClass(ItemFrame.class, aabb);
+			for (ItemFrame frame : frames) {
+				if (frame.getDirection() == dir) {
+					filter.add(frame.getItem());
 				}
 			}
 		}
@@ -223,8 +223,8 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public boolean onWanded(PlayerEntity player, ItemStack wand) {
-		if (player == null || player.isSneaking()) {
+	public boolean onWanded(Player player, ItemStack wand) {
+		if (player == null || player.isShiftKeyDown()) {
 			filterType = filterType == 2 ? 0 : filterType + 1;
 			sync();
 
@@ -259,14 +259,14 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void renderHUD(MatrixStack ms, MinecraftClient mc) {
+	public void renderHUD(PoseStack ms, Minecraft mc) {
 		super.renderHUD(ms, mc);
 
-		String filter = I18n.translate("botaniamisc.filter" + filterType);
-		int x = mc.getWindow().getScaledWidth() / 2 - mc.textRenderer.getWidth(filter) / 2;
-		int y = mc.getWindow().getScaledHeight() / 2 + 30;
+		String filter = I18n.get("botaniamisc.filter" + filterType);
+		int x = mc.getWindow().getGuiScaledWidth() / 2 - mc.font.width(filter) / 2;
+		int y = mc.getWindow().getGuiScaledHeight() / 2 + 30;
 
-		mc.textRenderer.drawWithShadow(ms, filter, x, y, Formatting.GRAY.getColorValue());
+		mc.font.drawShadow(ms, filter, x, y, ChatFormatting.GRAY.getColor());
 		RenderSystem.disableLighting();
 	}
 

@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.block.dispenser;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.item.Items;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DispenserBlock;
 
 public class SeedBehaviours {
 

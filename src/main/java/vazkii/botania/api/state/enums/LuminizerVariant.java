@@ -8,18 +8,18 @@
  */
 package vazkii.botania.api.state.enums;
 
-import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.StringRepresentable;
 
 import java.util.Locale;
 
-public enum LuminizerVariant implements StringIdentifiable {
+public enum LuminizerVariant implements StringRepresentable {
 	DEFAULT,
 	DETECTOR,
 	FORK,
 	TOGGLE;
 
 	@Override
-	public String asString() {
+	public String getSerializedName() {
 		return name().toLowerCase(Locale.ROOT);
 	}
 

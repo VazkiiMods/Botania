@@ -10,18 +10,18 @@ package vazkii.botania.common.core.loot;
 
 import net.fabricmc.fabric.api.loot.v1.FabricLootSupplierBuilder;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
-import net.minecraft.loot.LootManager;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.entry.LootPoolEntry;
-import net.minecraft.loot.entry.LootTableEntry;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTables;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
+import net.minecraft.world.level.storage.loot.entries.LootTableReference;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class LootHandler {
 
-	public static void lootLoad(ResourceManager resourceManager, LootManager manager, Identifier id, FabricLootSupplierBuilder supplier, LootTableLoadingCallback.LootTableSetter setter) {
+	public static void lootLoad(ResourceManager resourceManager, LootTables manager, ResourceLocation id, FabricLootSupplierBuilder supplier, LootTableLoadingCallback.LootTableSetter setter) {
 		String prefix = "minecraft:chests/";
 		String name = id.toString();
 
@@ -44,16 +44,16 @@ public final class LootHandler {
 	}
 
 	public static LootPool getInjectPool(String entryName) {
-		return LootPool.builder()
-				.with(getInjectEntry(entryName, 1))
+		return LootPool.lootPool()
+				.add(getInjectEntry(entryName, 1))
 				// todo 1.16-fabric .bonusRolls(0, 1)
 				.build();
 	}
 
-	private static LootPoolEntry.Builder<?> getInjectEntry(String name, int weight) {
-		Identifier table = prefix("inject/" + name);
-		return LootTableEntry.builder(table)
-				.weight(weight);
+	private static LootPoolEntryContainer.Builder<?> getInjectEntry(String name, int weight) {
+		ResourceLocation table = prefix("inject/" + name);
+		return LootTableReference.lootTableReference(table)
+				.setWeight(weight);
 	}
 
 }

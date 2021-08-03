@@ -8,15 +8,15 @@
  */
 package vazkii.botania.client.gui.box;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.util.Hand;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.Container;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.gui.SlotLocked;
 import vazkii.botania.common.core.handler.EquipmentHandler;
@@ -25,25 +25,25 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class ContainerBaubleBox extends ScreenHandler {
-	public static ContainerBaubleBox fromNetwork(int windowId, PlayerInventory inv, PacketByteBuf buf) {
-		Hand hand = buf.readBoolean() ? Hand.MAIN_HAND : Hand.OFF_HAND;
-		return new ContainerBaubleBox(windowId, inv, inv.player.getStackInHand(hand));
+public class ContainerBaubleBox extends AbstractContainerMenu {
+	public static ContainerBaubleBox fromNetwork(int windowId, Inventory inv, FriendlyByteBuf buf) {
+		InteractionHand hand = buf.readBoolean() ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND;
+		return new ContainerBaubleBox(windowId, inv, inv.player.getItemInHand(hand));
 	}
 
 	private final ItemStack box;
 
-	public ContainerBaubleBox(int windowId, PlayerInventory playerInv, ItemStack box) {
+	public ContainerBaubleBox(int windowId, Inventory playerInv, ItemStack box) {
 		super(ModItems.BAUBLE_BOX_CONTAINER, windowId);
 		int i;
 		int j;
 
 		this.box = box;
-		Inventory baubleBoxInv;
-		if (!playerInv.player.world.isClient) {
+		Container baubleBoxInv;
+		if (!playerInv.player.level.isClientSide) {
 			baubleBoxInv = ItemBaubleBox.getInventory(box);
 		} else {
-			baubleBoxInv = new SimpleInventory(ItemBaubleBox.SIZE);
+			baubleBoxInv = new SimpleContainer(ItemBaubleBox.SIZE);
 		}
 
 		for (i = 0; i < 4; ++i) {
@@ -51,7 +51,7 @@ public class ContainerBaubleBox extends ScreenHandler {
 				int k = j + i * 6;
 				addSlot(new Slot(baubleBoxInv, k, 62 + j * 18, 8 + i * 18) {
 					@Override
-					public boolean canInsert(@Nonnull ItemStack stack) {
+					public boolean mayPlace(@Nonnull ItemStack stack) {
 						return EquipmentHandler.instance.isAccessory(stack);
 					}
 				});
@@ -65,7 +65,7 @@ public class ContainerBaubleBox extends ScreenHandler {
 		}
 
 		for (i = 0; i < 9; ++i) {
-			if (playerInv.getStack(i) == box) {
+			if (playerInv.getItem(i) == box) {
 				addSlot(new SlotLocked(playerInv, i, 8 + i * 18, 142));
 			} else {
 				addSlot(new Slot(playerInv, i, 8 + i * 18, 142));
@@ -75,20 +75,20 @@ public class ContainerBaubleBox extends ScreenHandler {
 	}
 
 	@Override
-	public boolean canUse(@Nonnull PlayerEntity player) {
-		ItemStack main = player.getMainHandStack();
-		ItemStack off = player.getOffHandStack();
+	public boolean stillValid(@Nonnull Player player) {
+		ItemStack main = player.getMainHandItem();
+		ItemStack off = player.getOffhandItem();
 		return !main.isEmpty() && main == box || !off.isEmpty() && off == box;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack transferSlot(PlayerEntity player, int slotIndex) {
+	public ItemStack quickMoveStack(Player player, int slotIndex) {
 		ItemStack itemstack = ItemStack.EMPTY;
 		Slot slot = slots.get(slotIndex);
 
-		if (slot != null && slot.hasStack()) {
-			ItemStack itemstack1 = slot.getStack();
+		if (slot != null && slot.hasItem()) {
+			ItemStack itemstack1 = slot.getItem();
 			itemstack = itemstack1.copy();
 
 			int boxStart = 0;
@@ -96,26 +96,26 @@ public class ContainerBaubleBox extends ScreenHandler {
 			int invEnd = boxEnd + 36;
 
 			if (slotIndex < boxEnd) {
-				if (!insertItem(itemstack1, boxEnd, invEnd, true)) {
+				if (!moveItemStackTo(itemstack1, boxEnd, invEnd, true)) {
 					return ItemStack.EMPTY;
 				}
 			} else {
-				if (!itemstack1.isEmpty() && EquipmentHandler.instance.isAccessory(itemstack1) && !insertItem(itemstack1, boxStart, boxEnd, false)) {
+				if (!itemstack1.isEmpty() && EquipmentHandler.instance.isAccessory(itemstack1) && !moveItemStackTo(itemstack1, boxStart, boxEnd, false)) {
 					return ItemStack.EMPTY;
 				}
 			}
 
 			if (itemstack1.isEmpty()) {
-				slot.setStack(ItemStack.EMPTY);
+				slot.set(ItemStack.EMPTY);
 			} else {
-				slot.markDirty();
+				slot.setChanged();
 			}
 
 			if (itemstack1.getCount() == itemstack.getCount()) {
 				return ItemStack.EMPTY;
 			}
 
-			slot.onTakeItem(player, itemstack1);
+			slot.onTake(player, itemstack1);
 		}
 
 		return itemstack;

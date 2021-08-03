@@ -8,17 +8,18 @@
  */
 package vazkii.botania.client.core.helper;
 
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.entity.LivingEntity;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
+
+import net.minecraft.world.entity.LivingEntity;
 
 public final class AccessoryRenderHelper {
 
 	/**
 	 * Rotates the render for a bauble correctly if the player is sneaking.
 	 */
-	public static void rotateIfSneaking(MatrixStack ms, LivingEntity player) {
-		if (player.isInSneakingPose()) {
+	public static void rotateIfSneaking(PoseStack ms, LivingEntity player) {
+		if (player.isCrouching()) {
 			applySneakingRotation(ms);
 		}
 	}
@@ -26,9 +27,9 @@ public final class AccessoryRenderHelper {
 	/**
 	 * Rotates the render for a bauble correctly for a sneaking player.
 	 */
-	public static void applySneakingRotation(MatrixStack ms) {
+	public static void applySneakingRotation(PoseStack ms) {
 		ms.translate(0F, 0.2F, 0F);
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90F / (float) Math.PI));
+		ms.mulPose(Vector3f.XP.rotationDegrees(90F / (float) Math.PI));
 	}
 
 }

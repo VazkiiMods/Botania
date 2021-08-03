@@ -8,15 +8,15 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.projectile.FireworkRocketEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.projectile.FireworkRocketEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -26,15 +26,15 @@ public class LensFirework extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		Entity entity = burst.entity();
-		if (!entity.world.isClient && !burst.isFake()) {
+		if (!entity.level.isClientSide && !burst.isFake()) {
 			BlockPos coords = burst.getBurstSourceBlockPos();
 			if (pos.getType() == HitResult.Type.BLOCK
 					&& !isManaBlock
 					&& !((BlockHitResult) pos).getBlockPos().equals(coords)) {
 				ItemStack fireworkStack = generateFirework(burst.getColor());
 
-				FireworkRocketEntity rocket = new FireworkRocketEntity(entity.world, entity.getX(), entity.getY(), entity.getZ(), fireworkStack);
-				entity.world.spawnEntity(rocket);
+				FireworkRocketEntity rocket = new FireworkRocketEntity(entity.level, entity.getX(), entity.getY(), entity.getZ(), fireworkStack);
+				entity.level.addFreshEntity(rocket);
 			}
 		} else {
 			dead = false;

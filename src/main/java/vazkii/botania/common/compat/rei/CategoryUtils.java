@@ -9,16 +9,16 @@
 package vazkii.botania.common.compat.rei;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Block;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.tag.Tag;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.level.block.Block;
 
 import java.util.Map;
 
@@ -40,11 +40,11 @@ public interface CategoryUtils {
 	 * Widgets#createTexturedWidget doesn't allow partial transparency, so this is called in createDrawableWidget
 	 * instead.
 	 */
-	static void drawOverlay(DrawableHelper helper, MatrixStack matrices, Identifier texture, int x, int y, int u, int v, int width, int height) {
+	static void drawOverlay(GuiComponent helper, PoseStack matrices, ResourceLocation texture, int x, int y, int u, int v, int width, int height) {
 		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
-		MinecraftClient.getInstance().getTextureManager().bindTexture(texture);
-		helper.drawTexture(matrices, x, y, u, v, width, height);
+		Minecraft.getInstance().getTextureManager().bind(texture);
+		helper.blit(matrices, x, y, u, v, width, height);
 		RenderSystem.disableBlend();
 		RenderSystem.disableAlphaTest();
 	}
@@ -59,12 +59,12 @@ public interface CategoryUtils {
 		return new Point((int) newX, (int) newY);
 	}
 
-	static boolean doesOreExist(Identifier tagId) {
-		Tag<Block> tag = BlockTags.getTagGroup().getTag(tagId);
-		return tag != null && !tag.values().isEmpty();
+	static boolean doesOreExist(ResourceLocation tagId) {
+		Tag<Block> tag = BlockTags.getAllTags().getTag(tagId);
+		return tag != null && !tag.getValues().isEmpty();
 	}
 
-	static float getTotalOreWeight(Map<Identifier, Integer> weights, int myWeight) {
+	static float getTotalOreWeight(Map<ResourceLocation, Integer> weights, int myWeight) {
 		return (weights.entrySet().stream()
 				.filter(e -> doesOreExist(e.getKey()))
 				.map(Map.Entry::getValue)

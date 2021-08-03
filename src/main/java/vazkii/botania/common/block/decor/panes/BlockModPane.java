@@ -8,11 +8,11 @@
  */
 package vazkii.botania.common.block.decor.panes;
 
-import net.minecraft.block.PaneBlock;
+import net.minecraft.world.level.block.IronBarsBlock;
 
-public class BlockModPane extends PaneBlock {
+public class BlockModPane extends IronBarsBlock {
 
-	public BlockModPane(Settings props) {
+	public BlockModPane(Properties props) {
 		super(props);
 	}
 }

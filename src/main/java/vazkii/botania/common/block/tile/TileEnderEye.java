@@ -8,51 +8,51 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.Tickable;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.Box;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 import java.util.List;
 
-public class TileEnderEye extends TileMod implements Tickable {
+public class TileEnderEye extends TileMod implements TickableBlockEntity {
 	public TileEnderEye() {
 		super(ModTiles.ENDER_EYE);
 	}
 
 	@Override
 	public void tick() {
-		if (world.isClient) {
+		if (level.isClientSide) {
 			return;
 		}
 
-		boolean wasLooking = getCachedState().get(Properties.POWERED);
+		boolean wasLooking = getBlockState().getValue(BlockStateProperties.POWERED);
 		int range = 80;
-		List<PlayerEntity> players = world.getNonSpectatingEntities(PlayerEntity.class, new Box(pos.add(-range, -range, -range), pos.add(range, range, range)));
+		List<Player> players = level.getEntitiesOfClass(Player.class, new AABB(worldPosition.offset(-range, -range, -range), worldPosition.offset(range, range, range)));
 
 		boolean looking = false;
-		for (PlayerEntity player : players) {
-			ItemStack helm = player.getEquippedStack(EquipmentSlot.HEAD);
+		for (Player player : players) {
+			ItemStack helm = player.getItemBySlot(EquipmentSlot.HEAD);
 			if (!helm.isEmpty() && helm.getItem() == Blocks.PUMPKIN.asItem()) {
 				continue;
 			}
 
 			BlockHitResult hit = ToolCommons.raytraceFromEntity(player, 64, false);
-			if (hit.getType() == HitResult.Type.BLOCK && hit.getBlockPos().equals(getPos())) {
+			if (hit.getType() == HitResult.Type.BLOCK && hit.getBlockPos().equals(getBlockPos())) {
 				looking = true;
 				break;
 			}
 		}
 
 		if (looking != wasLooking) {
-			world.setBlockState(getPos(), getCachedState().with(Properties.POWERED, looking));
+			level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BlockStateProperties.POWERED, looking));
 		}
 	}
 

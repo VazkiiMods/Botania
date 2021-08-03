@@ -10,13 +10,19 @@ package vazkii.botania.common.block.decor;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.*;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModBlocks;
@@ -26,26 +32,26 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockBuriedPetals extends PlantBlock implements Fertilizable {
+public class BlockBuriedPetals extends BushBlock implements BonemealableBlock {
 
-	private static final VoxelShape SHAPE = createCuboidShape(0, 0, 0, 16, 1.6, 16);
+	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 1.6, 16);
 
 	public final DyeColor color;
 
-	public BlockBuriedPetals(DyeColor color, Settings builder) {
+	public BlockBuriedPetals(DyeColor color, Properties builder) {
 		super(builder);
 		this.color = color;
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, @Nonnull BlockView world, @Nonnull BlockPos pos, ShapeContext ctx) {
+	public VoxelShape getShape(BlockState state, @Nonnull BlockGetter world, @Nonnull BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
 		int hex = ColorHelper.getColorValue(color);
 		int r = (hex & 0xFF0000) >> 16;
 		int g = (hex & 0xFF00) >> 8;
@@ -57,25 +63,25 @@ public class BlockBuriedPetals extends PlantBlock implements Fertilizable {
 
 	@Nonnull
 	@Override
-	public BlockRenderType getRenderType(BlockState state) {
-		return BlockRenderType.INVISIBLE;
+	public RenderShape getRenderShape(BlockState state) {
+		return RenderShape.INVISIBLE;
 	}
 
 	@Override
-	public boolean isFertilizable(@Nonnull BlockView world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean fuckifiknow) {
-		return world.getBlockState(pos.up()).isAir();
+	public boolean isValidBonemealTarget(@Nonnull BlockGetter world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean fuckifiknow) {
+		return world.getBlockState(pos.above()).isAir();
 	}
 
 	@Override
-	public boolean canGrow(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
-		return isFertilizable(world, pos, state, false);
+	public boolean isBonemealSuccess(@Nonnull Level world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return isValidBonemealTarget(world, pos, state, false);
 	}
 
 	@Override
-	public void grow(@Nonnull ServerWorld world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
+	public void performBonemeal(@Nonnull ServerLevel world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
 		Block block = ModBlocks.getDoubleFlower(color);
-		if (block instanceof TallPlantBlock) {
-			((TallPlantBlock) block).placeAt(world, pos, 3);
+		if (block instanceof DoublePlantBlock) {
+			((DoublePlantBlock) block).placeAt(world, pos, 3);
 		}
 	}
 }

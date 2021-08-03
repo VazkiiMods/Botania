@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Box;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaSpreader;
@@ -30,12 +30,12 @@ public class LensTripwire extends Lens {
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
 		Entity entity = burst.entity();
 		if (burst.isFake()) {
-			if (entity.world.isClient) {
+			if (entity.level.isClientSide) {
 				return;
 			}
 
-			Box axis = new Box(entity.getX(), entity.getY(), entity.getZ(), entity.lastRenderX, entity.lastRenderY, entity.lastRenderZ).expand(0.25);
-			List<LivingEntity> entities = entity.world.getNonSpectatingEntities(LivingEntity.class, axis);
+			AABB axis = new AABB(entity.getX(), entity.getY(), entity.getZ(), entity.xOld, entity.yOld, entity.zOld).inflate(0.25);
+			List<LivingEntity> entities = entity.level.getEntitiesOfClass(LivingEntity.class, axis);
 			if (!entities.isEmpty()) {
 				burst.setTripped(true);
 			}

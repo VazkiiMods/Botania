@@ -8,27 +8,28 @@
  */
 package vazkii.botania.common.block.tile;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ChatUtil;
-import net.minecraft.util.Tickable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.util.StringUtil;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IHourglassTrigger;
 import vazkii.botania.common.item.ModItems;
 
-public class TileHourglass extends TileExposedSimpleInventory implements Tickable {
+public class TileHourglass extends TileExposedSimpleInventory implements TickableBlockEntity {
 	private static final String TAG_TIME = "time";
 	private static final String TAG_TIME_FRACTION = "timeFraction";
 	private static final String TAG_FLIP = "flip";
@@ -49,7 +50,7 @@ public class TileHourglass extends TileExposedSimpleInventory implements Tickabl
 	}
 
 	private boolean isDust() {
-		ItemStack stack = getItemHandler().getStack(0);
+		ItemStack stack = getItemHandler().getItem(0);
 		return !stack.isEmpty() && stack.getItem() == ModItems.manaPowder;
 	}
 
@@ -67,16 +68,16 @@ public class TileHourglass extends TileExposedSimpleInventory implements Tickabl
 				time = 0;
 				flip = !flip;
 				flipTicks = 4;
-				if (!world.isClient) {
-					world.setBlockState(getPos(), getCachedState().with(Properties.POWERED, true), 1);
-					world.getBlockTickScheduler().schedule(pos, getCachedState().getBlock(), 4);
+				if (!level.isClientSide) {
+					level.setBlock(getBlockPos(), getBlockState().setValue(BlockStateProperties.POWERED, true), 1);
+					level.getBlockTicks().scheduleTick(worldPosition, getBlockState().getBlock(), 4);
 				}
 
 				for (Direction facing : Direction.values()) {
-					BlockPos pos = getPos().offset(facing);
-					BlockState state = world.getBlockState(pos);
+					BlockPos pos = getBlockPos().relative(facing);
+					BlockState state = level.getBlockState(pos);
 					if (state.getBlock() instanceof IHourglassTrigger) {
-						((IHourglassTrigger) state.getBlock()).onTriggeredByHourglass(world, pos, this);
+						((IHourglassTrigger) state.getBlock()).onTriggeredByHourglass(level, pos, this);
 					}
 				}
 			}
@@ -95,7 +96,7 @@ public class TileHourglass extends TileExposedSimpleInventory implements Tickabl
 	}
 
 	public void onManaCollide() {
-		if (!world.isClient) {
+		if (!level.isClientSide) {
 			if (isDust()) {
 				time++;
 			} else {
@@ -106,7 +107,7 @@ public class TileHourglass extends TileExposedSimpleInventory implements Tickabl
 	}
 
 	public int getTotalTime() {
-		ItemStack stack = getItemHandler().getStack(0);
+		ItemStack stack = getItemHandler().getItem(0);
 		if (stack.isEmpty()) {
 			return 0;
 		}
@@ -134,7 +135,7 @@ public class TileHourglass extends TileExposedSimpleInventory implements Tickabl
 	}
 
 	public int getColor() {
-		ItemStack stack = getItemHandler().getStack(0);
+		ItemStack stack = getItemHandler().getItem(0);
 		if (stack.isEmpty()) {
 			return 0;
 		}
@@ -155,10 +156,10 @@ public class TileHourglass extends TileExposedSimpleInventory implements Tickabl
 	}
 
 	@Override
-	protected SimpleInventory createItemHandler() {
-		return new SimpleInventory(1) {
+	protected SimpleContainer createItemHandler() {
+		return new SimpleContainer(1) {
 			@Override
-			public boolean isValid(int index, ItemStack stack) {
+			public boolean canPlaceItem(int index, ItemStack stack) {
 				return !stack.isEmpty() && (stack.getItem() == Blocks.SAND.asItem()
 						|| stack.getItem() == Blocks.RED_SAND.asItem()
 						|| stack.getItem() == Blocks.SOUL_SAND.asItem()
@@ -168,9 +169,9 @@ public class TileHourglass extends TileExposedSimpleInventory implements Tickabl
 	}
 
 	@Override
-	public void markDirty() {
-		super.markDirty();
-		if (world != null && !world.isClient) {
+	public void setChanged() {
+		super.setChanged();
+		if (level != null && !level.isClientSide) {
 			time = 0;
 			timeFraction = 0F;
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(TileHourglass.this);
@@ -200,19 +201,19 @@ public class TileHourglass extends TileExposedSimpleInventory implements Tickabl
 	}
 
 	@Environment(EnvType.CLIENT)
-	public void renderHUD(MatrixStack ms) {
-		MinecraftClient mc = MinecraftClient.getInstance();
-		int x = mc.getWindow().getScaledWidth() / 2 + 10;
-		int y = mc.getWindow().getScaledHeight() / 2 - 10;
+	public void renderHUD(PoseStack ms) {
+		Minecraft mc = Minecraft.getInstance();
+		int x = mc.getWindow().getGuiScaledWidth() / 2 + 10;
+		int y = mc.getWindow().getGuiScaledHeight() / 2 - 10;
 
-		ItemStack stack = getItemHandler().getStack(0);
+		ItemStack stack = getItemHandler().getItem(0);
 		if (!stack.isEmpty()) {
-			mc.getItemRenderer().renderGuiItemIcon(stack, x, y);
-			mc.getItemRenderer().renderGuiItemOverlay(mc.textRenderer, stack, x, y);
+			mc.getItemRenderer().renderGuiItem(stack, x, y);
+			mc.getItemRenderer().renderGuiItemDecorations(mc.font, stack, x, y);
 
 			int time = getTotalTime();
-			String timeStr = ChatUtil.ticksToString(time);
-			mc.textRenderer.drawWithShadow(ms, timeStr, x + 20, y, getColor());
+			String timeStr = StringUtil.formatTickDuration(time);
+			mc.font.drawShadow(ms, timeStr, x + 20, y, getColor());
 
 			String status = "";
 			if (lock) {
@@ -222,7 +223,7 @@ public class TileHourglass extends TileExposedSimpleInventory implements Tickabl
 				status = status.isEmpty() ? "stopped" : "lockedStopped";
 			}
 			if (!status.isEmpty()) {
-				mc.textRenderer.drawWithShadow(ms, I18n.translate("botaniamisc." + status), x + 20, y + 12, getColor());
+				mc.font.drawShadow(ms, I18n.get("botaniamisc." + status), x + 20, y + 12, getColor());
 			}
 		}
 

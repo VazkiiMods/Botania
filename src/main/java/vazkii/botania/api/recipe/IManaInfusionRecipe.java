@@ -8,22 +8,22 @@
  */
 package vazkii.botania.api.recipe;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public interface IManaInfusionRecipe extends Recipe<Inventory> {
-	Identifier TYPE_ID = new Identifier(BotaniaAPI.MODID, "mana_infusion");
+public interface IManaInfusionRecipe extends Recipe<Container> {
+	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_infusion");
 
 	/**
 	 * Attempts to match the recipe.
@@ -42,17 +42,17 @@ public interface IManaInfusionRecipe extends Recipe<Inventory> {
 	 */
 	@Nonnull
 	@Override
-	ItemStack getOutput();
+	ItemStack getResultItem();
 
 	/**
-	 * Get the actual recipe output, not just for display. Defaults to a copy of {@link #getOutput()}.
+	 * Get the actual recipe output, not just for display. Defaults to a copy of {@link #getResultItem()}.
 	 *
 	 * @param input The whole stack that is in the Mana Pool, not a copy.
 	 * @return The output stack of the recipe for the specific input.
 	 */
 	@Nonnull
 	default ItemStack getRecipeOutput(@Nonnull ItemStack input) {
-		return getOutput().copy();
+		return getResultItem().copy();
 	}
 
 	/**
@@ -75,29 +75,29 @@ public interface IManaInfusionRecipe extends Recipe<Inventory> {
 	@Nonnull
 	@Override
 	default RecipeType<?> getType() {
-		return Registry.RECIPE_TYPE.getOrEmpty(TYPE_ID).get();
+		return Registry.RECIPE_TYPE.getOptional(TYPE_ID).get();
 	}
 
 	// Ignored IRecipe stuff
 
 	@Nonnull
 	@Override
-	default ItemStack craft(@Nonnull Inventory inv) {
+	default ItemStack assemble(@Nonnull Container inv) {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	default boolean matches(@Nonnull Inventory inv, @Nonnull World world) {
+	default boolean matches(@Nonnull Container inv, @Nonnull Level world) {
 		return false;
 	}
 
 	@Override
-	default boolean fits(int width, int height) {
+	default boolean canCraftInDimensions(int width, int height) {
 		return false;
 	}
 
 	@Override
-	default boolean isIgnoredInRecipeBook() {
+	default boolean isSpecial() {
 		return true;
 	}
 }

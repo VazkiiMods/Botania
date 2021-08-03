@@ -8,17 +8,17 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.stat.StatFormatter;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.stats.StatFormatter;
+import net.minecraft.stats.Stats;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(Stats.class)
 public interface AccessorStats {
-	@Invoker("register")
-	static Identifier botania_callRegisterCustom(String id, StatFormatter formatter) {
+	@Invoker("makeCustomStat")
+	static ResourceLocation botania_callRegisterCustom(String id, StatFormatter formatter) {
 		throw new IllegalStateException();
 	}
 }

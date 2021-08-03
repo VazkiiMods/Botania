@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.world;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.math.BlockPos;
 
 public final class IslandPos {
 	private final int x;

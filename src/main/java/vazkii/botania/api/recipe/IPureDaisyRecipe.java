@@ -8,33 +8,33 @@
  */
 package vazkii.botania.api.recipe;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 
-public interface IPureDaisyRecipe extends Recipe<Inventory> {
-	Identifier TYPE_ID = new Identifier(BotaniaAPI.MODID, "pure_daisy");
+public interface IPureDaisyRecipe extends Recipe<Container> {
+	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "pure_daisy");
 
 	/**
 	 * This gets called every tick, please be careful with your checks.
 	 */
-	boolean matches(World world, BlockPos pos, TileEntitySpecialFlower pureDaisy, BlockState state);
+	boolean matches(Level world, BlockPos pos, TileEntitySpecialFlower pureDaisy, BlockState state);
 
 	/**
 	 * Returns true if the block was placed (and if the Pure Daisy should do particles and stuffs).
 	 * Should only place the block if !world.isRemote, but should return true if it would've placed
 	 * it otherwise. You may return false to cancel the normal particles and do your own.
 	 */
-	boolean set(World world, BlockPos pos, TileEntitySpecialFlower pureDaisy);
+	boolean set(Level world, BlockPos pos, TileEntitySpecialFlower pureDaisy);
 
 	StateIngredient getInput();
 
@@ -44,31 +44,31 @@ public interface IPureDaisyRecipe extends Recipe<Inventory> {
 
 	@Override
 	default RecipeType<?> getType() {
-		return Registry.RECIPE_TYPE.getOrEmpty(TYPE_ID).get();
+		return Registry.RECIPE_TYPE.getOptional(TYPE_ID).get();
 	}
 
 	@Override
-	default boolean matches(Inventory p_77569_1_, World p_77569_2_) {
+	default boolean matches(Container p_77569_1_, Level p_77569_2_) {
 		return false;
 	}
 
 	@Override
-	default ItemStack craft(Inventory p_77572_1_) {
+	default ItemStack assemble(Container p_77572_1_) {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	default boolean fits(int p_194133_1_, int p_194133_2_) {
+	default boolean canCraftInDimensions(int p_194133_1_, int p_194133_2_) {
 		return false;
 	}
 
 	@Override
-	default ItemStack getOutput() {
+	default ItemStack getResultItem() {
 		return ItemStack.EMPTY;
 	}
 
 	@Override
-	default boolean isIgnoredInRecipeBook() {
+	default boolean isSpecial() {
 		return true;
 	}
 }

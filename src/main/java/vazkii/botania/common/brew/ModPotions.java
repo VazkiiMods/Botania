@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.brew;
 
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.world.effect.MobEffect;
 
 import vazkii.botania.common.brew.potion.*;
 import vazkii.botania.common.lib.LibPotionNames;
@@ -18,15 +18,15 @@ import static vazkii.botania.common.block.ModBlocks.register;
 
 public class ModPotions {
 
-	public static final StatusEffect soulCross = new PotionSoulCross();
-	public static final StatusEffect featherfeet = new PotionFeatherfeet();
-	public static final StatusEffect emptiness = new PotionEmptiness();
-	public static final StatusEffect bloodthrst = new PotionBloodthirst();
-	public static final StatusEffect allure = new PotionAllure();
-	public static final StatusEffect clear = new PotionClear();
+	public static final MobEffect soulCross = new PotionSoulCross();
+	public static final MobEffect featherfeet = new PotionFeatherfeet();
+	public static final MobEffect emptiness = new PotionEmptiness();
+	public static final MobEffect bloodthrst = new PotionBloodthirst();
+	public static final MobEffect allure = new PotionAllure();
+	public static final MobEffect clear = new PotionClear();
 
 	public static void registerPotions() {
-		Registry<StatusEffect> r = Registry.STATUS_EFFECT;
+		Registry<MobEffect> r = Registry.MOB_EFFECT;
 		register(r, LibPotionNames.SOUL_CROSS, soulCross);
 		register(r, LibPotionNames.FEATHER_FEET, featherfeet);
 		register(r, LibPotionNames.EMPTINESS, emptiness);

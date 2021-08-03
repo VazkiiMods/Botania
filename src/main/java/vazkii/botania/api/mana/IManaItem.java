@@ -8,8 +8,8 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 /**
  * An item that implements this can be counted as an item that can

@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -44,17 +44,17 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getWorld().isClient && ticksExisted % 5 == 0) {
+		if (!getLevel().isClientSide && ticksExisted % 5 == 0) {
 			if (getMana() >= COST) {
 				BlockPos coords = getCoordsToPut();
 				if (coords != null) {
-					int stateId = Block.getRawIdFromState(getWorld().getBlockState(coords));
-					getWorld().removeBlock(coords, false);
+					int stateId = Block.getId(getLevel().getBlockState(coords));
+					getLevel().removeBlock(coords, false);
 					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
-						getWorld().syncWorldEvent(2001, coords, stateId);
+						getLevel().levelEvent(2001, coords, stateId);
 					}
-					ItemEntity item = new ItemEntity(getWorld(), coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, new ItemStack(Items.CLAY_BALL));
-					getWorld().spawnEntity(item);
+					ItemEntity item = new ItemEntity(getLevel(), coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, new ItemStack(Items.CLAY_BALL));
+					getLevel().addFreshEntity(item);
 					addMana(-COST);
 				}
 			}
@@ -70,9 +70,9 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 		for (int i = -range; i < range + 1; i++) {
 			for (int j = -rangeY; j < rangeY + 1; j++) {
 				for (int k = -range; k < range + 1; k++) {
-					BlockPos pos = getEffectivePos().add(i, j, k);
-					Block block = getWorld().getBlockState(pos).getBlock();
-					if (block.isIn(BlockTags.SAND)) {
+					BlockPos pos = getEffectivePos().offset(i, j, k);
+					Block block = getLevel().getBlockState(pos).getBlock();
+					if (block.is(BlockTags.SAND)) {
 						possibleCoords.add(pos);
 					}
 				}
@@ -82,7 +82,7 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 		if (possibleCoords.isEmpty()) {
 			return null;
 		}
-		return possibleCoords.get(getWorld().random.nextInt(possibleCoords.size()));
+		return possibleCoords.get(getLevel().random.nextInt(possibleCoords.size()));
 	}
 
 	@Override

@@ -8,22 +8,23 @@
  */
 package vazkii.botania.api.subtile;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
@@ -34,7 +35,7 @@ import vazkii.botania.api.mana.IManaCollector;
  * The basic class for a Generating Flower.
  */
 public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
-	private static final Identifier SPREADER_ID = new Identifier(BotaniaAPI.MODID, "mana_spreader");
+	private static final ResourceLocation SPREADER_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_spreader");
 
 	public static final int LINK_RANGE = 6;
 
@@ -63,7 +64,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 		linkCollector();
 
-		if (!getWorld().isClient && canGeneratePassively()) {
+		if (!getLevel().isClientSide && canGeneratePassively()) {
 			int delay = getDelayBetweenPassiveGeneration();
 			if (delay > 0 && ticksExisted % delay == 0) {
 				addMana(getValueForPassiveGeneration());
@@ -71,7 +72,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		}
 		emptyManaIntoCollector();
 
-		if (getWorld().isClient) {
+		if (getLevel().isClientSide) {
 			double particleChance = 1F - (double) getMana() / (double) getMaxMana() / 3.5F;
 			int color = getColor();
 			float red = (color >> 16 & 0xFF) / 255F;
@@ -79,11 +80,11 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			float blue = (color & 0xFF) / 255F;
 
 			if (Math.random() > particleChance) {
-				Vec3d offset = getWorld().getBlockState(getPos()).getModelOffset(getWorld(), getPos());
-				double x = getPos().getX() + offset.x;
-				double y = getPos().getY() + offset.y;
-				double z = getPos().getZ() + offset.z;
-				BotaniaAPI.instance().sparkleFX(getWorld(), x + 0.3 + Math.random() * 0.5, y + 0.5 + Math.random() * 0.5, z + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
+				Vec3 offset = getLevel().getBlockState(getBlockPos()).getOffset(getLevel(), getBlockPos());
+				double x = getBlockPos().getX() + offset.x;
+				double y = getBlockPos().getY() + offset.y;
+				double z = getBlockPos().getZ() + offset.z;
+				BotaniaAPI.instance().sparkleFX(getLevel(), x + 0.3 + Math.random() * 0.5, y + 0.5 + Math.random() * 0.5, z + 0.3 + Math.random() * 0.5, red, green, blue, (float) Math.random(), 5);
 			}
 		} else {
 			boolean passive = isPassiveFlower();
@@ -94,9 +95,9 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			}
 
 			if (passive && muhBalance > 0 && passiveDecayTicks > muhBalance) {
-				getWorld().breakBlock(getPos(), false);
-				if (Blocks.DEAD_BUSH.getDefaultState().canPlaceAt(getWorld(), getPos())) {
-					getWorld().setBlockState(getPos(), Blocks.DEAD_BUSH.getDefaultState());
+				getLevel().destroyBlock(getBlockPos(), false);
+				if (Blocks.DEAD_BUSH.defaultBlockState().canSurvive(getLevel(), getBlockPos())) {
+					getLevel().setBlockAndUpdate(getBlockPos(), Blocks.DEAD_BUSH.defaultBlockState());
 				}
 			}
 		}
@@ -109,9 +110,9 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 			if (cachedCollectorCoordinates != null) {
 				needsNew = false;
-				if (getWorld().isChunkLoaded(cachedCollectorCoordinates)) {
+				if (getLevel().hasChunkAt(cachedCollectorCoordinates)) {
 					needsNew = true;
-					BlockEntity tileAt = getWorld().getBlockEntity(cachedCollectorCoordinates);
+					BlockEntity tileAt = getLevel().getBlockEntity(cachedCollectorCoordinates);
 					if (tileAt instanceof IManaCollector && !tileAt.isRemoved()) {
 						linkedCollector = tileAt;
 						needsNew = false;
@@ -120,7 +121,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 				}
 			}
 		} else {
-			BlockEntity tileAt = getWorld().getBlockEntity(linkedCollector.getPos());
+			BlockEntity tileAt = getLevel().getBlockEntity(linkedCollector.getBlockPos());
 			if (tileAt instanceof IManaCollector) {
 				linkedCollector = tileAt;
 			}
@@ -128,9 +129,9 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 		if (needsNew && ticksExisted == 1) { // New flowers only
 			IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
-			int size = network.getAllCollectorsInWorld(getWorld()).size();
+			int size = network.getAllCollectorsInWorld(getLevel()).size();
 			if (BotaniaAPI.instance().shouldForceCheck() || size != sizeLastCheck) {
-				linkedCollector = network.getClosestCollector(getPos(), getWorld(), LINK_RANGE);
+				linkedCollector = network.getClosestCollector(getBlockPos(), getLevel(), LINK_RANGE);
 				sizeLastCheck = size;
 			}
 		}
@@ -142,7 +143,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 	public void addMana(int mana) {
 		this.mana = Math.min(getMaxMana(), this.getMana() + mana);
-		markDirty();
+		setChanged();
 	}
 
 	public void emptyManaIntoCollector() {
@@ -174,16 +175,16 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public boolean onWanded(PlayerEntity player, ItemStack wand) {
+	public boolean onWanded(Player player, ItemStack wand) {
 		if (player == null) {
 			return false;
 		}
 
-		if (!player.world.isClient) {
+		if (!player.level.isClientSide) {
 			sync();
 		}
 
-		Registry.SOUND_EVENT.getOrEmpty(DING_SOUND_EVENT).ifPresent(evt -> player.playSound(evt, 0.1F, 1F));
+		Registry.SOUND_EVENT.getOptional(DING_SOUND_EVENT).ifPresent(evt -> player.playSound(evt, 0.1F, 1F));
 
 		return super.onWanded(player, wand);
 	}
@@ -221,9 +222,9 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			cmp.putInt(TAG_COLLECTOR_Y, cachedCollectorCoordinates.getY());
 			cmp.putInt(TAG_COLLECTOR_Z, cachedCollectorCoordinates.getZ());
 		} else {
-			int x = linkedCollector == null ? 0 : linkedCollector.getPos().getX();
-			int y = linkedCollector == null ? -1 : linkedCollector.getPos().getY();
-			int z = linkedCollector == null ? 0 : linkedCollector.getPos().getZ();
+			int x = linkedCollector == null ? 0 : linkedCollector.getBlockPos().getX();
+			int y = linkedCollector == null ? -1 : linkedCollector.getBlockPos().getY();
+			int z = linkedCollector == null ? 0 : linkedCollector.getBlockPos().getZ();
 
 			cmp.putInt(TAG_COLLECTOR_X, x);
 			cmp.putInt(TAG_COLLECTOR_Y, y);
@@ -236,22 +237,22 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		if (linkedCollector == null) {
 			return null;
 		}
-		return linkedCollector.getPos();
+		return linkedCollector.getBlockPos();
 	}
 
 	@Override
-	public boolean canSelect(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
+	public boolean canSelect(Player player, ItemStack wand, BlockPos pos, Direction side) {
 		return true;
 	}
 
 	@Override
-	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
+	public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
 		int range = 6;
 		range *= range;
 
-		double dist = pos.getSquaredDistance(getPos());
+		double dist = pos.distSqr(getBlockPos());
 		if (range >= dist) {
-			BlockEntity tile = player.world.getBlockEntity(pos);
+			BlockEntity tile = player.level.getBlockEntity(pos);
 			if (tile instanceof IManaCollector) {
 				linkedCollector = tile;
 				sync();
@@ -263,17 +264,17 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	}
 
 	public boolean isValidBinding() {
-		return linkedCollector != null && !linkedCollector.isRemoved() && getWorld().getBlockEntity(linkedCollector.getPos()) == linkedCollector;
+		return linkedCollector != null && !linkedCollector.isRemoved() && getLevel().getBlockEntity(linkedCollector.getBlockPos()) == linkedCollector;
 	}
 
 	public ItemStack getHudIcon() {
-		return Registry.ITEM.getOrEmpty(SPREADER_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
+		return Registry.ITEM.getOptional(SPREADER_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void renderHUD(MatrixStack ms, MinecraftClient mc) {
-		String name = I18n.translate(getCachedState().getBlock().getTranslationKey());
+	public void renderHUD(PoseStack ms, Minecraft mc) {
+		String name = I18n.get(getBlockState().getBlock().getDescriptionId());
 		int color = getColor();
 		BotaniaAPIClient.instance().drawComplexManaHUD(ms, color, getMana(), getMaxMana(), name, getHudIcon(), isValidBinding());
 	}

@@ -9,61 +9,61 @@
 package vazkii.botania.client.gui.bag;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.text.Text;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.item.ModItems;
 
-public class GuiFlowerBag extends HandledScreen<ContainerFlowerBag> {
+public class GuiFlowerBag extends AbstractContainerScreen<ContainerFlowerBag> {
 
-	private static final Identifier texture = new Identifier(LibResources.GUI_FLOWER_BAG);
+	private static final ResourceLocation texture = new ResourceLocation(LibResources.GUI_FLOWER_BAG);
 
-	public GuiFlowerBag(ContainerFlowerBag container, PlayerInventory playerInv, Text title) {
+	public GuiFlowerBag(ContainerFlowerBag container, Inventory playerInv, Component title) {
 		super(container, playerInv, title);
 	}
 
 	@Override
-	public void render(MatrixStack ms, int mouseX, int mouseY, float partialTicks) {
+	public void render(PoseStack ms, int mouseX, int mouseY, float partialTicks) {
 		this.renderBackground(ms);
 		super.render(ms, mouseX, mouseY, partialTicks);
-		this.drawMouseoverTooltip(ms, mouseX, mouseY);
+		this.renderTooltip(ms, mouseX, mouseY);
 	}
 
 	@Override
-	protected void drawForeground(MatrixStack ms, int mouseX, int mouseY) {
-		String s = I18n.translate(ModItems.flowerBag.getTranslationKey());
-		textRenderer.draw(ms, s, backgroundWidth / 2 - textRenderer.getWidth(s) / 2, 6, 4210752);
-		textRenderer.draw(ms, I18n.translate("container.inventory"), 8, backgroundHeight - 96 + 2, 4210752);
+	protected void renderLabels(PoseStack ms, int mouseX, int mouseY) {
+		String s = I18n.get(ModItems.flowerBag.getDescriptionId());
+		font.draw(ms, s, imageWidth / 2 - font.width(s) / 2, 6, 4210752);
+		font.draw(ms, I18n.get("container.inventory"), 8, imageHeight - 96 + 2, 4210752);
 	}
 
 	@Override
-	protected void drawBackground(MatrixStack ms, float partialTicks, int mouseX, int mouseY) {
-		MinecraftClient mc = MinecraftClient.getInstance();
+	protected void renderBg(PoseStack ms, float partialTicks, int mouseX, int mouseY) {
+		Minecraft mc = Minecraft.getInstance();
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.getTextureManager().bindTexture(texture);
-		int k = (width - backgroundWidth) / 2;
-		int l = (height - backgroundHeight) / 2;
-		drawTexture(ms, k, l, 0, 0, backgroundWidth, backgroundHeight);
+		mc.getTextureManager().bind(texture);
+		int k = (width - imageWidth) / 2;
+		int l = (height - imageHeight) / 2;
+		blit(ms, k, l, 0, 0, imageWidth, imageHeight);
 
-		for (Slot slot : handler.slots) {
-			if (slot.inventory == handler.flowerBagInv && !slot.hasStack()) {
-				DyeColor color = DyeColor.byId(slot.id);
+		for (Slot slot : menu.slots) {
+			if (slot.container == menu.flowerBagInv && !slot.hasItem()) {
+				DyeColor color = DyeColor.byId(slot.index);
 				ItemStack stack = new ItemStack(ModBlocks.getFlower(color));
-				int x = this.x + slot.x;
-				int y = this.y + slot.y;
-				mc.getItemRenderer().renderGuiItemIcon(stack, x, y);
-				mc.textRenderer.drawWithShadow(ms, "0", x + 11, y + 9, 0xFF6666);
+				int x = this.leftPos + slot.x;
+				int y = this.topPos + slot.y;
+				mc.getItemRenderer().renderGuiItem(stack, x, y);
+				mc.font.drawShadow(ms, "0", x + 11, y + 9, 0xFF6666);
 			}
 		}
 	}

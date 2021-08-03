@@ -8,12 +8,18 @@
  */
 package vazkii.botania.data;
 
-import net.minecraft.block.*;
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.server.BlockTagsProvider;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FenceBlock;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WallBlock;
 
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.lib.LibMisc;
@@ -28,68 +34,68 @@ import java.util.function.Predicate;
 import static vazkii.botania.common.block.ModSubtiles.*;
 
 public class BlockTagProvider extends BlockTagsProvider {
-	private static final Predicate<Block> BOTANIA_BLOCK = b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getId(b).getNamespace());
+	private static final Predicate<Block> BOTANIA_BLOCK = b -> LibMisc.MOD_ID.equals(Registry.BLOCK.getKey(b).getNamespace());
 
 	public BlockTagProvider(DataGenerator generator) {
 		super(generator);
 	}
 
 	@Override
-	protected void configure() {
-		getOrCreateTagBuilder(BlockTags.RAILS).add(ModBlocks.ghostRail);
-		getOrCreateTagBuilder(BlockTags.SLABS).add(getModBlocks(b -> b instanceof SlabBlock));
-		getOrCreateTagBuilder(BlockTags.STAIRS).add(getModBlocks(b -> b instanceof StairsBlock));
-		getOrCreateTagBuilder(BlockTags.WALLS).add(getModBlocks(b -> b instanceof WallBlock));
-		getOrCreateTagBuilder(BlockTags.FENCES).add(getModBlocks(b -> b instanceof FenceBlock));
-		getOrCreateTagBuilder(BlockTags.FENCE_GATES).add(getModBlocks(b -> b instanceof FenceGateBlock));
-		getOrCreateTagBuilder(BlockTags.DRAGON_IMMUNE).add(ModBlocks.infrangiblePlatform);
-		getOrCreateTagBuilder(BlockTags.WITHER_IMMUNE).add(ModBlocks.infrangiblePlatform);
+	protected void addTags() {
+		tag(BlockTags.RAILS).add(ModBlocks.ghostRail);
+		tag(BlockTags.SLABS).add(getModBlocks(b -> b instanceof SlabBlock));
+		tag(BlockTags.STAIRS).add(getModBlocks(b -> b instanceof StairBlock));
+		tag(BlockTags.WALLS).add(getModBlocks(b -> b instanceof WallBlock));
+		tag(BlockTags.FENCES).add(getModBlocks(b -> b instanceof FenceBlock));
+		tag(BlockTags.FENCE_GATES).add(getModBlocks(b -> b instanceof FenceGateBlock));
+		tag(BlockTags.DRAGON_IMMUNE).add(ModBlocks.infrangiblePlatform);
+		tag(BlockTags.WITHER_IMMUNE).add(ModBlocks.infrangiblePlatform);
 
-		getOrCreateTagBuilder(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS).add(
+		tag(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
 						.map(ModBlocks::getFloatingFlower)
-						.sorted(Comparator.comparing(Registry.BLOCK::getId))
+						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
-		getOrCreateTagBuilder(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS).add(registry.stream().filter(BOTANIA_BLOCK)
+		tag(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS).add(registry.stream().filter(BOTANIA_BLOCK)
 				.filter(b -> b instanceof BlockFloatingSpecialFlower)
-				.sorted(Comparator.comparing(Registry.BLOCK::getId))
+				.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 				.toArray(Block[]::new)
 		);
 
-		getOrCreateTagBuilder(ModTags.Blocks.FLOATING_FLOWERS).addTag(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS)
+		tag(ModTags.Blocks.FLOATING_FLOWERS).addTag(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS)
 				.addTag(ModTags.Blocks.SPECIAL_FLOATING_FLOWERS);
 
-		getOrCreateTagBuilder(ModTags.Blocks.MYSTICAL_FLOWERS).add(
+		tag(ModTags.Blocks.MYSTICAL_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
 						.map(ModBlocks::getFlower)
-						.sorted(Comparator.comparing(Registry.BLOCK::getId))
+						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
-		getOrCreateTagBuilder(ModTags.Blocks.SHINY_FLOWERS).add(
+		tag(ModTags.Blocks.SHINY_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
 						.map(ModBlocks::getShinyFlower)
-						.sorted(Comparator.comparing(Registry.BLOCK::getId))
+						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
-		getOrCreateTagBuilder(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS).add(
+		tag(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS).add(
 				Arrays.stream(DyeColor.values())
 						.map(ModBlocks::getDoubleFlower)
-						.sorted(Comparator.comparing(Registry.BLOCK::getId))
+						.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 						.toArray(Block[]::new)
 		);
 
-		getOrCreateTagBuilder(ModTags.Blocks.MISC_SPECIAL_FLOWERS).add(manastar, pureDaisy, bergamute);
-		getOrCreateTagBuilder(ModTags.Blocks.GENERATING_SPECIAL_FLOWERS).add(
+		tag(ModTags.Blocks.MISC_SPECIAL_FLOWERS).add(manastar, pureDaisy, bergamute);
+		tag(ModTags.Blocks.GENERATING_SPECIAL_FLOWERS).add(
 				dandelifeon, endoflame, entropinnyum,
 				gourmaryllis, hydroangeas, kekimurus,
 				munchdew, narslimmus, rafflowsia, rosaArcana,
 				shulkMeNot, spectrolus, thermalily
 		);
-		getOrCreateTagBuilder(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS).add(
+		tag(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS).add(
 				agricarnation, agricarnationChibi, bellethorn, bellethornChibi,
 				bubbell, bubbellChibi, clayconia, clayconiaChibi,
 				daffomill, dreadthorn, exoflame, fallenKanade, heiseiDream,
@@ -98,83 +104,83 @@ public class BlockTagProvider extends BlockTagsProvider {
 				medumone, orechid, orechidIgnem, pollidisiac, rannuncarpus, rannuncarpusChibi,
 				solegnolia, solegnoliaChibi, spectranthemum, tangleberrie, tigerseye, vinculotus
 		);
-		getOrCreateTagBuilder(ModTags.Blocks.SPECIAL_FLOWERS).addTag(ModTags.Blocks.MISC_SPECIAL_FLOWERS)
+		tag(ModTags.Blocks.SPECIAL_FLOWERS).addTag(ModTags.Blocks.MISC_SPECIAL_FLOWERS)
 				.addTag(ModTags.Blocks.GENERATING_SPECIAL_FLOWERS)
 				.addTag(ModTags.Blocks.FUNCTIONAL_SPECIAL_FLOWERS);
 
-		getOrCreateTagBuilder(ModTags.Blocks.MINI_FLOWERS).add(
-				getModBlocks(b -> b instanceof BlockSpecialFlower && registry.getId(b).getPath().endsWith("_chibi"))
+		tag(ModTags.Blocks.MINI_FLOWERS).add(
+				getModBlocks(b -> b instanceof BlockSpecialFlower && registry.getKey(b).getPath().endsWith("_chibi"))
 		);
 
-		getOrCreateTagBuilder(ModTags.Blocks.ENCHANTER_FLOWERS).addTag(ModTags.Blocks.MYSTICAL_FLOWERS)
+		tag(ModTags.Blocks.ENCHANTER_FLOWERS).addTag(ModTags.Blocks.MYSTICAL_FLOWERS)
 				.addTag(ModTags.Blocks.SHINY_FLOWERS)
 				.addTag(ModTags.Blocks.MUNDANE_FLOATING_FLOWERS);
 
 		// Special flowers intentionally excluded due to unwanted behaviors with tree growth and mod compat.
-		getOrCreateTagBuilder(BlockTags.TALL_FLOWERS).addTag(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
-		getOrCreateTagBuilder(BlockTags.SMALL_FLOWERS).addTag(ModTags.Blocks.MYSTICAL_FLOWERS);
+		tag(BlockTags.TALL_FLOWERS).addTag(ModTags.Blocks.DOUBLE_MYSTICAL_FLOWERS);
+		tag(BlockTags.SMALL_FLOWERS).addTag(ModTags.Blocks.MYSTICAL_FLOWERS);
 
-		getOrCreateTagBuilder(BlockTags.IMPERMEABLE).add(ModBlocks.elfGlass, ModBlocks.manaGlass, ModBlocks.bifrost, ModBlocks.bifrostPerm);
-		getOrCreateTagBuilder(BlockTags.BEACON_BASE_BLOCKS).add(ModBlocks.manasteelBlock, ModBlocks.terrasteelBlock, ModBlocks.elementiumBlock,
+		tag(BlockTags.IMPERMEABLE).add(ModBlocks.elfGlass, ModBlocks.manaGlass, ModBlocks.bifrost, ModBlocks.bifrostPerm);
+		tag(BlockTags.BEACON_BASE_BLOCKS).add(ModBlocks.manasteelBlock, ModBlocks.terrasteelBlock, ModBlocks.elementiumBlock,
 				ModBlocks.manaDiamondBlock, ModBlocks.dragonstoneBlock);
 
 		// todo 1.16-fabric getOrCreateTagBuilder(Tags.Blocks.DIRT).add(getModBlocks(b -> b instanceof BlockAltGrass));
-		getOrCreateTagBuilder(ModTags.Blocks.BLOCKS_ELEMENTIUM).add(ModBlocks.elementiumBlock);
-		getOrCreateTagBuilder(ModTags.Blocks.BLOCKS_MANASTEEL).add(ModBlocks.manasteelBlock);
-		getOrCreateTagBuilder(ModTags.Blocks.BLOCKS_QUARTZ).add(
+		tag(ModTags.Blocks.BLOCKS_ELEMENTIUM).add(ModBlocks.elementiumBlock);
+		tag(ModTags.Blocks.BLOCKS_MANASTEEL).add(ModBlocks.manasteelBlock);
+		tag(ModTags.Blocks.BLOCKS_QUARTZ).add(
 				ModFluffBlocks.darkQuartz, ModFluffBlocks.manaQuartz, ModFluffBlocks.blazeQuartz,
 				ModFluffBlocks.lavenderQuartz, ModFluffBlocks.redQuartz, ModFluffBlocks.elfQuartz, ModFluffBlocks.sunnyQuartz
 		);
-		getOrCreateTagBuilder(ModTags.Blocks.BLOCKS_TERRASTEEL).add(ModBlocks.terrasteelBlock);
+		tag(ModTags.Blocks.BLOCKS_TERRASTEEL).add(ModBlocks.terrasteelBlock);
 
-		getOrCreateTagBuilder(ModTags.Blocks.LIVINGROCK).add(ModBlocks.livingrock);
-		getOrCreateTagBuilder(ModTags.Blocks.LIVINGWOOD).add(ModBlocks.livingwood);
+		tag(ModTags.Blocks.LIVINGROCK).add(ModBlocks.livingrock);
+		tag(ModTags.Blocks.LIVINGWOOD).add(ModBlocks.livingwood);
 
-		getOrCreateTagBuilder(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE).add(
+		tag(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE).add(
 				ModBlocks.corporeaBlock, ModBlocks.corporeaBrick, ModBlocks.corporeaBrickSlab, ModBlocks.corporeaBrickStairs,
 				ModBlocks.corporeaBrickWall, ModBlocks.corporeaCrystalCube, ModBlocks.corporeaFunnel, ModBlocks.corporeaIndex,
 				ModBlocks.corporeaInterceptor, ModBlocks.corporeaSlab, ModBlocks.corporeaStairs);
 
-		getOrCreateTagBuilder(BlockTags.SAND); // We aren't calling vanilla's generation, so need to add a dummy so that using this below doesn't error out.
-		getOrCreateTagBuilder(ModTags.Blocks.TERRAFORMABLE)
+		tag(BlockTags.SAND); // We aren't calling vanilla's generation, so need to add a dummy so that using this below doesn't error out.
+		tag(ModTags.Blocks.TERRAFORMABLE)
 				.add(Blocks.ANDESITE, Blocks.DIORITE, Blocks.GRANITE, Blocks.INFESTED_STONE, Blocks.STONE, Blocks.POLISHED_ANDESITE, Blocks.POLISHED_DIORITE, Blocks.POLISHED_GRANITE)
 				.add(Blocks.DIRT, Blocks.GRASS_BLOCK, Blocks.COARSE_DIRT, Blocks.PODZOL, Blocks.MYCELIUM)
 				.add(Blocks.GRASS_BLOCK, Blocks.GRAVEL, Blocks.SNOW)
 				.addTag(BlockTags.SAND);
-		getOrCreateTagBuilder(ModTags.Blocks.GAIA_BREAK_BLACKLIST).add(Blocks.BEACON, ModBlocks.manaPylon, ModBlocks.naturaPylon, ModBlocks.gaiaPylon);
-		getOrCreateTagBuilder(ModTags.Blocks.MAGNET_RING_BLACKLIST).add(ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool,
+		tag(ModTags.Blocks.GAIA_BREAK_BLACKLIST).add(Blocks.BEACON, ModBlocks.manaPylon, ModBlocks.naturaPylon, ModBlocks.gaiaPylon);
+		tag(ModTags.Blocks.MAGNET_RING_BLACKLIST).add(ModBlocks.manaPool, ModBlocks.creativePool, ModBlocks.dilutedPool,
 				ModBlocks.fabulousPool, ModBlocks.terraPlate, ModBlocks.runeAltar);
 
-		getOrCreateTagBuilder(ModTags.Blocks.TERRA_PLATE_BASE).add(ModBlocks.livingrock, ModBlocks.shimmerrock);
+		tag(ModTags.Blocks.TERRA_PLATE_BASE).add(ModBlocks.livingrock, ModBlocks.shimmerrock);
 
-		getOrCreateTagBuilder(BlockTags.BAMBOO_PLANTABLE_ON).add(ModBlocks.dryGrass, ModBlocks.goldenGrass, ModBlocks.vividGrass,
+		tag(BlockTags.BAMBOO_PLANTABLE_ON).add(ModBlocks.dryGrass, ModBlocks.goldenGrass, ModBlocks.vividGrass,
 				ModBlocks.scorchedGrass, ModBlocks.infusedGrass, ModBlocks.mutatedGrass);
-		getOrCreateTagBuilder(BlockTags.CLIMBABLE).add(ModBlocks.solidVines);
+		tag(BlockTags.CLIMBABLE).add(ModBlocks.solidVines);
 
 		for (DyeColor color : DyeColor.values()) {
-			this.getOrCreateTagBuilder(ModTags.Blocks.MUSHROOMS).add(ModBlocks.getMushroom(color));
+			this.tag(ModTags.Blocks.MUSHROOMS).add(ModBlocks.getMushroom(color));
 		}
 
 		registerCommonTags();
 	}
 
 	private void registerCommonTags() {
-		getOrCreateTagBuilder(ModTags.Blocks.LAPIS_BLOCKS).add(Blocks.LAPIS_BLOCK);
+		tag(ModTags.Blocks.LAPIS_BLOCKS).add(Blocks.LAPIS_BLOCK);
 
-		getOrCreateTagBuilder(ModTags.Blocks.COAL_ORES).add(Blocks.COAL_ORE);
-		getOrCreateTagBuilder(ModTags.Blocks.IRON_ORES).add(Blocks.IRON_ORE);
-		getOrCreateTagBuilder(ModTags.Blocks.GOLD_ORES).add(Blocks.GOLD_ORE);
-		getOrCreateTagBuilder(ModTags.Blocks.LAPIS_ORES).add(Blocks.LAPIS_ORE);
-		getOrCreateTagBuilder(ModTags.Blocks.REDSTONE_ORES).add(Blocks.REDSTONE_ORE);
-		getOrCreateTagBuilder(ModTags.Blocks.DIAMOND_ORES).add(Blocks.DIAMOND_ORE);
-		getOrCreateTagBuilder(ModTags.Blocks.EMERALD_ORES).add(Blocks.EMERALD_ORE);
+		tag(ModTags.Blocks.COAL_ORES).add(Blocks.COAL_ORE);
+		tag(ModTags.Blocks.IRON_ORES).add(Blocks.IRON_ORE);
+		tag(ModTags.Blocks.GOLD_ORES).add(Blocks.GOLD_ORE);
+		tag(ModTags.Blocks.LAPIS_ORES).add(Blocks.LAPIS_ORE);
+		tag(ModTags.Blocks.REDSTONE_ORES).add(Blocks.REDSTONE_ORE);
+		tag(ModTags.Blocks.DIAMOND_ORES).add(Blocks.DIAMOND_ORE);
+		tag(ModTags.Blocks.EMERALD_ORES).add(Blocks.EMERALD_ORE);
 	}
 
 	@Nonnull
 	private Block[] getModBlocks(Predicate<Block> predicate) {
 		return registry.stream().filter(BOTANIA_BLOCK)
 				.filter(predicate)
-				.sorted(Comparator.comparing(Registry.BLOCK::getId))
+				.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 				.toArray(Block[]::new);
 	}
 

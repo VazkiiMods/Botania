@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.SidedInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Lazy;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -25,8 +25,8 @@ import java.util.stream.IntStream;
 /**
  * Version of {@link TileSimpleInventory} where the backing inventory is exposed to automation
  */
-public abstract class TileExposedSimpleInventory extends TileSimpleInventory implements SidedInventory {
-	private final Lazy<int[]> slots = new Lazy<>(() -> IntStream.range(0, size()).toArray());
+public abstract class TileExposedSimpleInventory extends TileSimpleInventory implements WorldlyContainer {
+	private final LazyLoadedValue<int[]> slots = new LazyLoadedValue<>(() -> IntStream.range(0, getContainerSize()).toArray());
 
 	public TileExposedSimpleInventory(BlockEntityType<?> type) {
 		super(type);
@@ -38,90 +38,90 @@ public abstract class TileExposedSimpleInventory extends TileSimpleInventory imp
 	}
 
 	@Override
-	public int size() {
+	public int getContainerSize() {
 		return inventorySize();
 	}
 
 	@Override
-	public ItemStack getStack(int index) {
-		return getItemHandler().getStack(index);
+	public ItemStack getItem(int index) {
+		return getItemHandler().getItem(index);
 	}
 
 	@Override
-	public ItemStack removeStack(int index, int count) {
-		return getItemHandler().removeStack(index, count);
+	public ItemStack removeItem(int index, int count) {
+		return getItemHandler().removeItem(index, count);
 	}
 
 	@Override
-	public ItemStack removeStack(int index) {
-		return getItemHandler().removeStack(index);
+	public ItemStack removeItemNoUpdate(int index) {
+		return getItemHandler().removeItemNoUpdate(index);
 	}
 
 	@Override
-	public void setStack(int index, ItemStack stack) {
-		getItemHandler().setStack(index, stack);
+	public void setItem(int index, ItemStack stack) {
+		getItemHandler().setItem(index, stack);
 	}
 
 	@Override
-	public boolean canPlayerUse(PlayerEntity player) {
-		return getItemHandler().canPlayerUse(player);
+	public boolean stillValid(Player player) {
+		return getItemHandler().stillValid(player);
 	}
 
 	@Override
-	public void clear() {
-		getItemHandler().clear();
+	public void clearContent() {
+		getItemHandler().clearContent();
 	}
 
 	@Override
-	public int getMaxCountPerStack() {
-		return getItemHandler().getMaxCountPerStack();
+	public int getMaxStackSize() {
+		return getItemHandler().getMaxStackSize();
 	}
 
 	@Override
-	public void onOpen(PlayerEntity player) {
-		getItemHandler().onOpen(player);
+	public void startOpen(Player player) {
+		getItemHandler().startOpen(player);
 	}
 
 	@Override
-	public void onClose(PlayerEntity player) {
-		getItemHandler().onClose(player);
+	public void stopOpen(Player player) {
+		getItemHandler().stopOpen(player);
 	}
 
 	@Override
-	public boolean isValid(int index, ItemStack stack) {
-		return getItemHandler().isValid(index, stack);
+	public boolean canPlaceItem(int index, ItemStack stack) {
+		return getItemHandler().canPlaceItem(index, stack);
 	}
 
 	@Override
-	public int count(Item item) {
-		return getItemHandler().count(item);
+	public int countItem(Item item) {
+		return getItemHandler().countItem(item);
 	}
 
 	@Override
-	public boolean containsAny(Set<Item> set) {
-		return getItemHandler().containsAny(set);
+	public boolean hasAnyOf(Set<Item> set) {
+		return getItemHandler().hasAnyOf(set);
 	}
 
 	@Nonnull
 	@Override
-	public int[] getAvailableSlots(@Nonnull Direction side) {
+	public int[] getSlotsForFace(@Nonnull Direction side) {
 		return slots.get();
 	}
 
 	@Override
-	public boolean canInsert(int index, @Nonnull ItemStack stack, @Nullable Direction direction) {
-		if (isValid(index, stack)) {
+	public boolean canPlaceItemThroughFace(int index, @Nonnull ItemStack stack, @Nullable Direction direction) {
+		if (canPlaceItem(index, stack)) {
 			// Vanilla hoppers do not check the inventory's stack limit, so do so here.
 			// We don't have to check anything else like stackability because the hopper logic will do it
-			ItemStack existing = getStack(index);
-			return existing.isEmpty() || existing.getCount() + stack.getCount() <= getMaxCountPerStack();
+			ItemStack existing = getItem(index);
+			return existing.isEmpty() || existing.getCount() + stack.getCount() <= getMaxStackSize();
 		}
 
 		return false;
 	}
 
 	@Override
-	public boolean canExtract(int index, @Nonnull ItemStack stack, @Nullable Direction direction) {
+	public boolean canTakeItemThroughFace(int index, @Nonnull ItemStack stack, @Nullable Direction direction) {
 		return true;
 	}
 

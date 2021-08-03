@@ -8,24 +8,29 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Properties;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.*;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.common.block.mana.BlockPrism;
@@ -36,20 +41,20 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockAvatar extends BlockModWaterloggable implements BlockEntityProvider {
+public class BlockAvatar extends BlockModWaterloggable implements EntityBlock {
 
-	private static final VoxelShape X_AABB = createCuboidShape(5, 0, 3.5, 11, 17, 12.5);
-	private static final VoxelShape Z_AABB = createCuboidShape(3.5, 0, 5, 12.5, 17, 11);
+	private static final VoxelShape X_AABB = box(5, 0, 3.5, 11, 17, 12.5);
+	private static final VoxelShape Z_AABB = box(3.5, 0, 5, 12.5, 17, 11);
 
-	protected BlockAvatar(Settings builder) {
+	protected BlockAvatar(Properties builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.NORTH));
+		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH));
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
-		if (state.get(Properties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+		if (state.getValue(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
 			return X_AABB;
 		} else {
 			return Z_AABB;
@@ -57,72 +62,72 @@ public class BlockAvatar extends BlockModWaterloggable implements BlockEntityPro
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		super.appendProperties(builder);
-		builder.add(Properties.HORIZONTAL_FACING);
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(BlockStateProperties.HORIZONTAL_FACING);
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		TileAvatar avatar = (TileAvatar) world.getBlockEntity(pos);
-		ItemStack stackOnAvatar = avatar.getItemHandler().getStack(0);
-		ItemStack stackOnPlayer = player.getStackInHand(hand);
+		ItemStack stackOnAvatar = avatar.getItemHandler().getItem(0);
+		ItemStack stackOnPlayer = player.getItemInHand(hand);
 		if (!stackOnAvatar.isEmpty()) {
-			avatar.getItemHandler().setStack(0, ItemStack.EMPTY);
-			player.inventory.offerOrDrop(player.world, stackOnAvatar);
-			return ActionResult.SUCCESS;
+			avatar.getItemHandler().setItem(0, ItemStack.EMPTY);
+			player.inventory.placeItemBackInInventory(player.level, stackOnAvatar);
+			return InteractionResult.SUCCESS;
 		} else if (!stackOnPlayer.isEmpty() && stackOnPlayer.getItem() instanceof IAvatarWieldable) {
-			avatar.getItemHandler().setStack(0, stackOnPlayer.split(1));
-			return ActionResult.SUCCESS;
+			avatar.getItemHandler().setItem(0, stackOnPlayer.split(1));
+			return InteractionResult.SUCCESS;
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Override
-	public void onStateReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newstate, boolean isMoving) {
+	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newstate, boolean isMoving) {
 		if (state.getBlock() != newstate.getBlock()) {
 			BlockEntity be = world.getBlockEntity(pos);
 			if (be instanceof TileSimpleInventory) {
-				ItemScatterer.spawn(world, pos, ((TileSimpleInventory) be).getItemHandler());
+				Containers.dropContents(world, pos, ((TileSimpleInventory) be).getItemHandler());
 			}
-			super.onStateReplaced(state, world, pos, newstate, isMoving);
+			super.onRemove(state, world, pos, newstate, isMoving);
 		}
 	}
 
 	@Nonnull
 	@Override
-	public BlockState getPlacementState(ItemPlacementContext context) {
-		return super.getPlacementState(context).with(Properties.HORIZONTAL_FACING, context.getPlayerFacing().getOpposite());
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		return super.getStateForPlacement(context).setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
 	}
 
 	@Nonnull
 	@Override
-	public BlockRenderType getRenderType(BlockState state) {
-		return BlockRenderType.ENTITYBLOCK_ANIMATED;
+	public RenderShape getRenderShape(BlockState state) {
+		return RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileAvatar();
 	}
 
 	@Nonnull
 	@Override
-	public BlockState mirror(@Nonnull BlockState state, BlockMirror mirror) {
-		return state.with(Properties.HORIZONTAL_FACING, mirror.apply(state.get(Properties.HORIZONTAL_FACING)));
+	public BlockState mirror(@Nonnull BlockState state, Mirror mirror) {
+		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, mirror.mirror(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 
 	@Nonnull
 	@Override
-	public BlockState rotate(@Nonnull BlockState state, BlockRotation rot) {
-		return state.with(Properties.HORIZONTAL_FACING, rot.rotate(state.get(Properties.HORIZONTAL_FACING)));
+	public BlockState rotate(@Nonnull BlockState state, Rotation rot) {
+		return state.setValue(BlockStateProperties.HORIZONTAL_FACING, rot.rotate(state.getValue(BlockStateProperties.HORIZONTAL_FACING)));
 	}
 
 	@Override
-	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
-		if (world.isReceivingRedstonePower(pos)) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
+		if (world.hasNeighborSignal(pos)) {
 			BlockPrism.redstoneParticlesInShape(state, world, pos, rand);
 		}
 	}

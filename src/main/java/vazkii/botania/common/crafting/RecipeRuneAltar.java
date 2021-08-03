@@ -13,16 +13,16 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.recipe.IRuneAltarRecipe;
 import vazkii.botania.common.block.ModBlocks;
@@ -34,51 +34,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeRuneAltar implements IRuneAltarRecipe {
-	private final Identifier id;
+	private final ResourceLocation id;
 	private final ItemStack output;
-	private final DefaultedList<Ingredient> inputs;
+	private final NonNullList<Ingredient> inputs;
 	private final int mana;
 
-	public RecipeRuneAltar(Identifier id, ItemStack output, int mana, Ingredient... inputs) {
+	public RecipeRuneAltar(ResourceLocation id, ItemStack output, int mana, Ingredient... inputs) {
 		Preconditions.checkArgument(inputs.length <= 16, "Cannot have more than 16 ingredients");
 		this.id = id;
 		this.output = output;
-		this.inputs = DefaultedList.copyOf(Ingredient.EMPTY, inputs);
+		this.inputs = NonNullList.of(Ingredient.EMPTY, inputs);
 		this.mana = mana;
 	}
 
 	@Override
-	public boolean matches(Inventory inv, @Nonnull World world) {
+	public boolean matches(Container inv, @Nonnull Level world) {
 		return RecipeUtils.matches(inputs, inv, null);
 	}
 
 	@Nonnull
 	@Override
-	public final ItemStack getOutput() {
+	public final ItemStack getResultItem() {
 		return output;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack craft(@Nonnull Inventory inv) {
-		return getOutput().copy();
+	public ItemStack assemble(@Nonnull Container inv) {
+		return getResultItem().copy();
 	}
 
 	@Nonnull
 	@Override
-	public DefaultedList<Ingredient> getPreviewInputs() {
+	public NonNullList<Ingredient> getIngredients() {
 		return inputs;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getRecipeKindIcon() {
+	public ItemStack getToastSymbol() {
 		return new ItemStack(ModBlocks.runeAltar);
 	}
 
 	@Nonnull
 	@Override
-	public Identifier getId() {
+	public ResourceLocation getId() {
 		return id;
 	}
 
@@ -96,10 +96,10 @@ public class RecipeRuneAltar implements IRuneAltarRecipe {
 	public static class Serializer implements RecipeSerializer<RecipeRuneAltar> {
 		@Nonnull
 		@Override
-		public RecipeRuneAltar read(@Nonnull Identifier id, @Nonnull JsonObject json) {
-			ItemStack output = ShapedRecipe.getItemStack(JsonHelper.getObject(json, "output"));
-			int mana = JsonHelper.getInt(json, "mana");
-			JsonArray ingrs = JsonHelper.getArray(json, "ingredients");
+		public RecipeRuneAltar fromJson(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {
+			ItemStack output = ShapedRecipe.itemFromJson(GsonHelper.getAsJsonObject(json, "output"));
+			int mana = GsonHelper.getAsInt(json, "mana");
+			JsonArray ingrs = GsonHelper.getAsJsonArray(json, "ingredients");
 			List<Ingredient> inputs = new ArrayList<>();
 			for (JsonElement e : ingrs) {
 				inputs.add(Ingredient.fromJson(e));
@@ -108,23 +108,23 @@ public class RecipeRuneAltar implements IRuneAltarRecipe {
 		}
 
 		@Override
-		public RecipeRuneAltar read(@Nonnull Identifier id, @Nonnull PacketByteBuf buf) {
+		public RecipeRuneAltar fromNetwork(@Nonnull ResourceLocation id, @Nonnull FriendlyByteBuf buf) {
 			Ingredient[] inputs = new Ingredient[buf.readVarInt()];
 			for (int i = 0; i < inputs.length; i++) {
-				inputs[i] = Ingredient.fromPacket(buf);
+				inputs[i] = Ingredient.fromNetwork(buf);
 			}
-			ItemStack output = buf.readItemStack();
+			ItemStack output = buf.readItem();
 			int mana = buf.readVarInt();
 			return new RecipeRuneAltar(id, output, mana, inputs);
 		}
 
 		@Override
-		public void write(@Nonnull PacketByteBuf buf, @Nonnull RecipeRuneAltar recipe) {
-			buf.writeVarInt(recipe.getPreviewInputs().size());
-			for (Ingredient input : recipe.getPreviewInputs()) {
-				input.write(buf);
+		public void toNetwork(@Nonnull FriendlyByteBuf buf, @Nonnull RecipeRuneAltar recipe) {
+			buf.writeVarInt(recipe.getIngredients().size());
+			for (Ingredient input : recipe.getIngredients()) {
+				input.toNetwork(buf);
 			}
-			buf.writeItemStack(recipe.getOutput());
+			buf.writeItem(recipe.getResultItem());
 			buf.writeVarInt(recipe.getManaUsage());
 		}
 	}

@@ -10,9 +10,9 @@ package vazkii.botania.api.recipe;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Box;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.AABB;
 
 import java.util.List;
 
@@ -31,6 +31,6 @@ public interface ElvenPortalUpdateCallback {
 	/**
 	 * @param portal May be casted to TileAlfPortal if you have botania code access aside from the API.
 	 */
-	void onElvenPortalTick(BlockEntity portal, Box bounds, boolean open, List<ItemStack> stacksInside);
+	void onElvenPortalTick(BlockEntity portal, AABB bounds, boolean open, List<ItemStack> stacksInside);
 
 }

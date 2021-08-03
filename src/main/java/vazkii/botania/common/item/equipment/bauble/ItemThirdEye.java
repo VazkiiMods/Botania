@@ -8,23 +8,24 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Box;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -38,37 +39,37 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 
 	private static final int COST = 2;
 
-	public ItemThirdEye(Settings props) {
+	public ItemThirdEye(Properties props) {
 		super(props);
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity living) {
-		if (!(living instanceof PlayerEntity)) {
+		if (!(living instanceof Player)) {
 			return;
 		}
-		PlayerEntity eplayer = (PlayerEntity) living;
+		Player eplayer = (Player) living;
 
 		double range = 24;
-		Box aabb = new Box(living.getX(), living.getY(), living.getZ(), living.getX(), living.getY(), living.getZ()).expand(range);
-		List<LivingEntity> mobs = living.world.getEntitiesByClass(LivingEntity.class, aabb, EntityMagicMissile.targetPredicate(living));
+		AABB aabb = new AABB(living.getX(), living.getY(), living.getZ(), living.getX(), living.getY(), living.getZ()).inflate(range);
+		List<LivingEntity> mobs = living.level.getEntitiesOfClass(LivingEntity.class, aabb, EntityMagicMissile.targetPredicate(living));
 
 		for (LivingEntity e : mobs) {
-			StatusEffectInstance potion = e.getStatusEffect(StatusEffects.GLOWING);
+			MobEffectInstance potion = e.getEffect(MobEffects.GLOWING);
 			if ((potion == null || potion.getDuration() <= 2) && ManaItemHandler.instance().requestManaExact(stack, eplayer, COST, true)) {
-				e.addStatusEffect(new StatusEffectInstance(StatusEffects.GLOWING, 12, 0));
+				e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 12, 0));
 			}
 		}
 	}
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity living, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		boolean armor = !living.getEquippedStack(EquipmentSlot.CHEST).isEmpty();
+	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity living, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		boolean armor = !living.getItemBySlot(EquipmentSlot.CHEST).isEmpty();
 
 		for (int i = 0; i < 3; i++) {
-			ms.push();
-			bipedModel.torso.rotate(ms);
+			ms.pushPose();
+			bipedModel.body.translateAndRotate(ms);
 
 			switch (i) {
 			case 0:
@@ -89,10 +90,10 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 			ms.translate(-0.3, 0.6, armor ? 0.10 : 0.15);
 			ms.scale(0.6F, -0.6F, -0.6F);
 			BakedModel model = MiscellaneousIcons.INSTANCE.thirdEyeLayers[i];
-			VertexConsumer buffer = buffers.getBuffer(TexturedRenderLayers.getEntityCutout());
-			MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer()
-					.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
-			ms.pop();
+			VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());
+			Minecraft.getInstance().getBlockRenderer().getModelRenderer()
+					.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
+			ms.popPose();
 		}
 	}
 

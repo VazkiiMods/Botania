@@ -13,12 +13,12 @@ import com.google.common.collect.ImmutableSet;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.tag.ItemTags;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IAncientWillContainer;
@@ -43,10 +43,10 @@ import me.shedaniel.rei.plugin.crafting.DefaultCustomDisplay;
 
 @Environment(EnvType.CLIENT)
 public class BotaniaREIPlugin implements REIPluginV0 {
-	public static final Identifier PLUGIN = prefix("rei_plugin");
+	public static final ResourceLocation PLUGIN = prefix("rei_plugin");
 
 	@Override
-	public Identifier getPluginIdentifier() {
+	public ResourceLocation getPluginIdentifier() {
 		return PLUGIN;
 	}
 
@@ -84,7 +84,7 @@ public class BotaniaREIPlugin implements REIPluginV0 {
 
 	@Override
 	public void registerOthers(RecipeHelper helper) {
-		Set<ItemConvertible> apothecaries = ImmutableSet.of(
+		Set<ItemLike> apothecaries = ImmutableSet.of(
 				ModBlocks.defaultAltar,
 				ModBlocks.desertAltar,
 				ModBlocks.forestAltar,
@@ -95,17 +95,17 @@ public class BotaniaREIPlugin implements REIPluginV0 {
 				ModBlocks.plainsAltar,
 				ModBlocks.swampAltar,
 				ModBlocks.taigaAltar);
-		for (ItemConvertible altar : apothecaries) {
+		for (ItemLike altar : apothecaries) {
 			helper.registerWorkingStations(RecipePetals.TYPE_ID, EntryStack.create(altar));
 		}
 		helper.registerWorkingStations(RecipeBrew.TYPE_ID, EntryStack.create(ModBlocks.brewery));
 		helper.registerWorkingStations(RecipeElvenTrade.TYPE_ID, EntryStack.create(ModBlocks.alfPortal));
-		Set<ItemConvertible> manaPools = ImmutableSet.of(
+		Set<ItemLike> manaPools = ImmutableSet.of(
 				ModBlocks.manaPool,
 				ModBlocks.dilutedPool,
 				ModBlocks.fabulousPool
 		);
-		for (ItemConvertible pool : manaPools) {
+		for (ItemLike pool : manaPools) {
 			helper.registerWorkingStations(RecipeManaInfusion.TYPE_ID, EntryStack.create(pool));
 		}
 		helper.registerWorkingStations(prefix("orechid"), EntryStack.create(ModSubtiles.orechid), EntryStack.create(ModSubtiles.orechidFloating));
@@ -141,8 +141,8 @@ public class BotaniaREIPlugin implements REIPluginV0 {
 	}
 
 	void registerCompositeLensRecipeWrapper(RecipeHelper helper) {
-		List<ItemStack> lensStacks = ItemTags.getTagGroup().getTagOrEmpty(prefix("lens"))
-				.values().stream()
+		List<ItemStack> lensStacks = ItemTags.getAllTags().getTagOrEmpty(prefix("lens"))
+				.getValues().stream()
 				.map(ItemStack::new)
 				.filter(s -> !((ItemLens) s.getItem()).isControlLens(s))
 				.filter(s -> ((ItemLens) s.getItem()).isCombinable(s))
@@ -184,7 +184,7 @@ public class BotaniaREIPlugin implements REIPluginV0 {
 	}
 
 	void registerOrechidRecipes(RecipeHelper helper, boolean isIgnem) {
-		Map<Identifier, Integer> oreWeights = isIgnem ? BotaniaAPI.instance().getNetherOreWeights() : BotaniaAPI.instance().getOreWeights();
+		Map<ResourceLocation, Integer> oreWeights = isIgnem ? BotaniaAPI.instance().getNetherOreWeights() : BotaniaAPI.instance().getOreWeights();
 		List<OrechidRecipeWrapper> orechidRecipes = oreWeights.entrySet().stream()
 				.filter(e -> doesOreExist(e.getKey()))
 				.map(OrechidRecipeWrapper::new)

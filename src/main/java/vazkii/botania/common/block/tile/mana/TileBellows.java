@@ -10,18 +10,18 @@ package vazkii.botania.common.block.tile.mana;
 
 import com.mojang.datafixers.util.Pair;
 
-import net.minecraft.block.FurnaceBlock;
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.FurnaceBlockEntity;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.recipe.AbstractCookingRecipe;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.Tickable;
-import net.minecraft.util.math.Direction;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.FurnaceBlock;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -30,7 +30,7 @@ import vazkii.botania.common.core.handler.ExoflameFurnaceHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.mixin.AccessorAbstractFurnaceTileEntity;
 
-public class TileBellows extends TileMod implements Tickable {
+public class TileBellows extends TileMod implements TickableBlockEntity {
 	private static final String TAG_ACTIVE = "active";
 
 	public float movePos;
@@ -69,7 +69,7 @@ public class TileBellows extends TileMod implements Tickable {
 
 		if (movePos < max && active && moving >= 0F) {
 			if (moving == 0F) {
-				world.playSound(null, pos, ModSounds.bellows, SoundCategory.BLOCKS, 0.1F, 3F);
+				level.playSound(null, worldPosition, ModSounds.bellows, SoundSource.BLOCKS, 0.1F, 3F);
 			}
 
 			if (tile instanceof AbstractFurnaceBlockEntity) {
@@ -80,27 +80,27 @@ public class TileBellows extends TileMod implements Tickable {
 					boolean canSmelt = p.getSecond();
 					if (canSmelt) {
 						AccessorAbstractFurnaceTileEntity mFurnace = (AccessorAbstractFurnaceTileEntity) furnace;
-						mFurnace.setCookTime(Math.min(recipe.getCookTime() - 1, mFurnace.getCookTime() + 20));
-						mFurnace.setBurnTime(Math.max(0, mFurnace.getBurnTime() - 10));
+						mFurnace.setCookingProgress(Math.min(recipe.getCookingTime() - 1, mFurnace.getCookingProgress() + 20));
+						mFurnace.setLitTime(Math.max(0, mFurnace.getLitTime() - 10));
 					}
 
 					if (furnace instanceof FurnaceBlockEntity
-							&& furnace.hasWorld() && furnace.getCachedState().get(FurnaceBlock.LIT)) {
+							&& furnace.hasLevel() && furnace.getBlockState().getValue(FurnaceBlock.LIT)) {
 						// [VanillaCopy] BlockFurnace
-						double d0 = (double) pos.getX() + 0.5D;
-						double d1 = (double) pos.getY();
-						double d2 = (double) pos.getZ() + 0.5D;
+						double d0 = (double) worldPosition.getX() + 0.5D;
+						double d1 = (double) worldPosition.getY();
+						double d2 = (double) worldPosition.getZ() + 0.5D;
 						// Botania: no playSound
 
-						Direction enumfacing = furnace.getCachedState().get(FurnaceBlock.FACING);
+						Direction enumfacing = furnace.getBlockState().getValue(FurnaceBlock.FACING);
 						Direction.Axis enumfacing$axis = enumfacing.getAxis();
 						double d3 = 0.52D;
-						double d4 = world.random.nextDouble() * 0.6D - 0.3D;
-						double d5 = enumfacing$axis == Direction.Axis.X ? (double) enumfacing.getOffsetX() * 0.52D : d4;
-						double d6 = world.random.nextDouble() * 6.0D / 16.0D;
-						double d7 = enumfacing$axis == Direction.Axis.Z ? (double) enumfacing.getOffsetZ() * 0.52D : d4;
-						world.addParticle(ParticleTypes.SMOKE, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
-						world.addParticle(ParticleTypes.FLAME, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
+						double d4 = level.random.nextDouble() * 0.6D - 0.3D;
+						double d5 = enumfacing$axis == Direction.Axis.X ? (double) enumfacing.getStepX() * 0.52D : d4;
+						double d6 = level.random.nextDouble() * 6.0D / 16.0D;
+						double d7 = enumfacing$axis == Direction.Axis.Z ? (double) enumfacing.getStepZ() * 0.52D : d4;
+						level.addParticle(ParticleTypes.SMOKE, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
+						level.addParticle(ParticleTypes.FLAME, d0 + d5, d1 + d6, d2 + d7, 0.0D, 0.0D, 0.0D);
 					}
 				}
 			}
@@ -126,8 +126,8 @@ public class TileBellows extends TileMod implements Tickable {
 	}
 
 	public BlockEntity getLinkedTile() {
-		Direction side = getCachedState().get(Properties.HORIZONTAL_FACING);
-		return world.getBlockEntity(getPos().offset(side));
+		Direction side = getBlockState().getValue(BlockStateProperties.HORIZONTAL_FACING);
+		return level.getBlockEntity(getBlockPos().relative(side));
 	}
 
 	@Override
@@ -141,7 +141,7 @@ public class TileBellows extends TileMod implements Tickable {
 	}
 
 	public void setActive(boolean active) {
-		if (!world.isClient) {
+		if (!level.isClientSide) {
 			boolean diff = this.active != active;
 			this.active = active;
 			if (diff) {
@@ -152,7 +152,7 @@ public class TileBellows extends TileMod implements Tickable {
 
 	public static Pair<AbstractCookingRecipe, Boolean> canSmelt(AbstractFurnaceBlockEntity furnace) {
 		RecipeType<? extends AbstractCookingRecipe> rt = ExoflameFurnaceHandler.getRecipeType(furnace);
-		AbstractCookingRecipe recipe = furnace.getWorld().getRecipeManager().getFirstMatch(rt, furnace, furnace.getWorld()).orElse(null);
+		AbstractCookingRecipe recipe = furnace.getLevel().getRecipeManager().getRecipeFor(rt, furnace, furnace.getLevel()).orElse(null);
 		boolean canSmelt = ExoflameFurnaceHandler.canSmelt(furnace, recipe);
 		return Pair.of(recipe, canSmelt);
 	}

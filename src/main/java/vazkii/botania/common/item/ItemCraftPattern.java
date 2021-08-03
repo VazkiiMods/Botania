@@ -8,12 +8,12 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.CratePattern;
@@ -24,25 +24,25 @@ import javax.annotation.Nonnull;
 public class ItemCraftPattern extends Item {
 	public final CratePattern pattern;
 
-	public ItemCraftPattern(CratePattern pattern, Settings props) {
+	public ItemCraftPattern(CratePattern pattern, Properties props) {
 		super(props);
 		this.pattern = pattern;
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		World world = ctx.getWorld();
-		BlockPos pos = ctx.getBlockPos();
+	public InteractionResult useOn(UseOnContext ctx) {
+		Level world = ctx.getLevel();
+		BlockPos pos = ctx.getClickedPos();
 		BlockState state = world.getBlockState(pos);
 
 		if (state.getBlock() == ModBlocks.craftCrate) {
-			if (pattern != state.get(BotaniaStateProps.CRATE_PATTERN)) {
-				world.setBlockState(pos, state.with(BotaniaStateProps.CRATE_PATTERN, this.pattern));
-				return ActionResult.SUCCESS;
+			if (pattern != state.getValue(BotaniaStateProps.CRATE_PATTERN)) {
+				world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProps.CRATE_PATTERN, this.pattern));
+				return InteractionResult.SUCCESS;
 			}
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 }

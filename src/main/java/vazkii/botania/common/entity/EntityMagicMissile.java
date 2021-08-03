@@ -8,30 +8,30 @@
  */
 package vazkii.botania.common.entity;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.PlantBlock;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.Monster;
-import net.minecraft.entity.passive.HorseBaseEntity;
-import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.thrown.ThrownEntity;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Packet;
-import net.minecraft.predicate.entity.EntityPredicates;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.World;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ThrowableProjectile;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.helper.Vector3;
@@ -42,50 +42,50 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class EntityMagicMissile extends ThrownEntity {
+public class EntityMagicMissile extends ThrowableProjectile {
 	private static final String TAG_TIME = "time";
-	private static final TrackedData<Boolean> EVIL = DataTracker.registerData(EntityMagicMissile.class, TrackedDataHandlerRegistry.BOOLEAN);
-	private static final TrackedData<Integer> TARGET = DataTracker.registerData(EntityMagicMissile.class, TrackedDataHandlerRegistry.INTEGER);
+	private static final EntityDataAccessor<Boolean> EVIL = SynchedEntityData.defineId(EntityMagicMissile.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Integer> TARGET = SynchedEntityData.defineId(EntityMagicMissile.class, EntityDataSerializers.INT);
 
 	double lockX, lockY = -1, lockZ;
 	int time = 0;
 
-	public EntityMagicMissile(EntityType<EntityMagicMissile> type, World world) {
+	public EntityMagicMissile(EntityType<EntityMagicMissile> type, Level world) {
 		super(type, world);
 	}
 
 	public EntityMagicMissile(LivingEntity owner, boolean evil) {
-		super(ModEntities.MAGIC_MISSILE, owner, owner.world);
+		super(ModEntities.MAGIC_MISSILE, owner, owner.level);
 		setEvil(evil);
 	}
 
 	@Override
-	protected void initDataTracker() {
-		dataTracker.startTracking(EVIL, false);
-		dataTracker.startTracking(TARGET, 0);
+	protected void defineSynchedData() {
+		entityData.define(EVIL, false);
+		entityData.define(TARGET, 0);
 	}
 
 	@Nonnull
 	@Override
-	public Packet<?> createSpawnPacket() {
+	public Packet<?> getAddEntityPacket() {
 		return PacketSpawnEntity.make(this);
 	}
 
 	public void setEvil(boolean evil) {
-		dataTracker.set(EVIL, evil);
+		entityData.set(EVIL, evil);
 	}
 
 	public boolean isEvil() {
-		return dataTracker.get(EVIL);
+		return entityData.get(EVIL);
 	}
 
 	public void setTarget(LivingEntity e) {
-		dataTracker.set(TARGET, e == null ? -1 : e.getEntityId());
+		entityData.set(TARGET, e == null ? -1 : e.getId());
 	}
 
 	public LivingEntity getTargetEntity() {
-		int id = dataTracker.get(TARGET);
-		Entity e = world.getEntityById(id);
+		int id = entityData.get(TARGET);
+		Entity e = level.getEntity(id);
 		if (e instanceof LivingEntity) {
 			return (LivingEntity) e;
 		}
@@ -95,13 +95,13 @@ public class EntityMagicMissile extends ThrownEntity {
 
 	@Override
 	public void tick() {
-		double lastTickPosX = this.lastRenderX;
-		double lastTickPosY = this.lastRenderY;
-		double lastTickPosZ = this.lastRenderZ;
+		double lastTickPosX = this.xOld;
+		double lastTickPosY = this.yOld;
+		double lastTickPosZ = this.zOld;
 
 		super.tick();
 
-		if (!world.isClient && (!findTarget() || time > 40)) {
+		if (!level.isClientSide && (!findTarget() || time > 40)) {
 			remove();
 			return;
 		}
@@ -117,10 +117,10 @@ public class EntityMagicMissile extends ThrownEntity {
 		SparkleParticleData data = evil ? SparkleParticleData.corrupt(0.8F, 1F, 0.0F, 1F, 2)
 				: SparkleParticleData.sparkle(0.8F, 1F, 0.4F, 1F, 2);
 		for (int i = 0; i < steps; i++) {
-			world.addParticle(data, particlePos.x, particlePos.y, particlePos.z, 0, 0, 0);
+			level.addParticle(data, particlePos.x, particlePos.y, particlePos.z, 0, 0, 0);
 
-			if (world.random.nextInt(steps) <= 1) {
-				world.addParticle(data, particlePos.x + (Math.random() - 0.5) * 0.4, particlePos.y + (Math.random() - 0.5) * 0.4, particlePos.z + (Math.random() - 0.5) * 0.4, 0, 0, 0);
+			if (level.random.nextInt(steps) <= 1) {
+				level.addParticle(data, particlePos.x + (Math.random() - 0.5) * 0.4, particlePos.y + (Math.random() - 0.5) * 0.4, particlePos.z + (Math.random() - 0.5) * 0.4, 0, 0, 0);
 			}
 
 			particlePos = particlePos.add(step);
@@ -137,19 +137,19 @@ public class EntityMagicMissile extends ThrownEntity {
 			Vector3 targetVec = evil ? new Vector3(lockX, lockY, lockZ) : Vector3.fromEntityCenter(target);
 			Vector3 diffVec = targetVec.subtract(thisVec);
 			Vector3 motionVec = diffVec.normalize().multiply(evil ? 0.5 : 0.6);
-			setVelocity(motionVec.toVector3d());
+			setDeltaMovement(motionVec.toVector3d());
 			if (time < 10) {
-				setVelocity(getVelocity().getX(), Math.abs(getVelocity().getY()), getVelocity().getZ());
+				setDeltaMovement(getDeltaMovement().x(), Math.abs(getDeltaMovement().y()), getDeltaMovement().z());
 			}
 
-			List<LivingEntity> targetList = world.getNonSpectatingEntities(LivingEntity.class, new Box(getX() - 0.5, getY() - 0.5, getZ() - 0.5, getX() + 0.5, getY() + 0.5, getZ() + 0.5));
+			List<LivingEntity> targetList = level.getEntitiesOfClass(LivingEntity.class, new AABB(getX() - 0.5, getY() - 0.5, getZ() - 0.5, getX() + 0.5, getY() + 0.5, getZ() + 0.5));
 			if (targetList.contains(target)) {
 				Entity owner = getOwner();
 				if (owner instanceof LivingEntity) {
-					PlayerEntity player = owner instanceof PlayerEntity ? (PlayerEntity) owner : null;
-					target.damage(player == null ? DamageSource.mob((LivingEntity) owner) : DamageSource.player(player), evil ? 12 : 7);
+					Player player = owner instanceof Player ? (Player) owner : null;
+					target.hurt(player == null ? DamageSource.mobAttack((LivingEntity) owner) : DamageSource.playerAttack(player), evil ? 12 : 7);
 				} else {
-					target.damage(DamageSource.GENERIC, evil ? 12 : 7);
+					target.hurt(DamageSource.GENERIC, evil ? 12 : 7);
 				}
 
 				remove();
@@ -164,14 +164,14 @@ public class EntityMagicMissile extends ThrownEntity {
 	}
 
 	@Override
-	public void writeCustomDataToTag(CompoundTag cmp) {
-		super.writeCustomDataToTag(cmp);
+	public void addAdditionalSaveData(CompoundTag cmp) {
+		super.addAdditionalSaveData(cmp);
 		cmp.putInt(TAG_TIME, time);
 	}
 
 	@Override
-	public void readCustomDataFromTag(CompoundTag cmp) {
-		super.readCustomDataFromTag(cmp);
+	public void readAdditionalSaveData(CompoundTag cmp) {
+		super.readAdditionalSaveData(cmp);
 		time = cmp.getInt(TAG_TIME);
 	}
 
@@ -187,18 +187,18 @@ public class EntityMagicMissile extends ThrownEntity {
 		}
 
 		double range = 12;
-		Box bounds = new Box(getX() - range, getY() - range, getZ() - range, getX() + range, getY() + range, getZ() + range);
+		AABB bounds = new AABB(getX() - range, getY() - range, getZ() - range, getX() + range, getY() + range, getZ() + range);
 		List<LivingEntity> entities;
 		if (isEvil()) {
-			entities = world.getNonSpectatingEntities(PlayerEntity.class, bounds);
+			entities = level.getEntitiesOfClass(Player.class, bounds);
 		} else {
 			Entity owner = getOwner();
-			Predicate<LivingEntity> pred = EntityPredicates.VALID_LIVING_ENTITY.and(targetPredicate(owner));
-			entities = world.getEntitiesByClass(LivingEntity.class, bounds, pred);
+			Predicate<LivingEntity> pred = EntitySelector.LIVING_ENTITY_STILL_ALIVE.and(targetPredicate(owner));
+			entities = level.getEntitiesOfClass(LivingEntity.class, bounds, pred);
 		}
 
 		if (entities.size() > 0) {
-			target = entities.get(world.random.nextInt(entities.size()));
+			target = entities.get(level.random.nextInt(entities.size()));
 			setTarget(target);
 		}
 
@@ -211,34 +211,34 @@ public class EntityMagicMissile extends ThrownEntity {
 
 	public static boolean shouldTarget(Entity owner, LivingEntity e) {
 		// always defend yourself
-		if (e instanceof MobEntity && isHostile(owner, ((MobEntity) e).getTarget())) {
+		if (e instanceof Mob && isHostile(owner, ((Mob) e).getTarget())) {
 			return true;
 		}
 		// don't target tamed creatures...
-		if (e instanceof TameableEntity && ((TameableEntity) e).isTamed() || e instanceof HorseBaseEntity && ((HorseBaseEntity) e).isTame()) {
+		if (e instanceof TamableAnimal && ((TamableAnimal) e).isTame() || e instanceof AbstractHorse && ((AbstractHorse) e).isTamed()) {
 			return false;
 		}
 
 		// ...but other mobs die
-		return e instanceof Monster;
+		return e instanceof Enemy;
 	}
 
 	public static boolean isHostile(Entity owner, Entity attackTarget) {
 		// if the owner can attack the target thru PvP...
-		if (owner instanceof PlayerEntity && attackTarget instanceof PlayerEntity && ((PlayerEntity) owner).shouldDamagePlayer((PlayerEntity) attackTarget)) {
+		if (owner instanceof Player && attackTarget instanceof Player && ((Player) owner).canHarmPlayer((Player) attackTarget)) {
 			// ... then only defend self
 			return owner == attackTarget;
 		}
 		// otherwise, kill any player-hostiles
-		return attackTarget instanceof PlayerEntity;
+		return attackTarget instanceof Player;
 	}
 
 	@Override
-	protected void onCollision(@Nonnull HitResult pos) {
+	protected void onHit(@Nonnull HitResult pos) {
 		switch (pos.getType()) {
 		case BLOCK: {
-			Block block = world.getBlockState(((BlockHitResult) pos).getBlockPos()).getBlock();
-			if (!(block instanceof PlantBlock) && !(block instanceof LeavesBlock)) {
+			Block block = level.getBlockState(((BlockHitResult) pos).getBlockPos()).getBlock();
+			if (!(block instanceof BushBlock) && !(block instanceof LeavesBlock)) {
 				remove();
 			}
 			break;

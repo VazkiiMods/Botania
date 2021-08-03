@@ -9,12 +9,12 @@
 package vazkii.botania.client.render.entity;
 
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.minecraft.client.render.Frustum;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.culling.Frustum;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 
 import javax.annotation.Nonnull;
 
@@ -30,7 +30,7 @@ public class RenderNoop<T extends Entity> extends EntityRenderer<T> {
 
 	@Nonnull
 	@Override
-	public Identifier getTexture(@Nonnull T entity) {
-		return SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
+	public ResourceLocation getTextureLocation(@Nonnull T entity) {
+		return TextureAtlas.LOCATION_BLOCKS;
 	}
 }

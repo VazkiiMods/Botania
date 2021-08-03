@@ -8,62 +8,62 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.Containers;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.common.block.tile.TileCacophonium;
 
 import javax.annotation.Nonnull;
 
-public class BlockCacophonium extends BlockMod implements BlockEntityProvider {
-	protected BlockCacophonium(Settings builder) {
+public class BlockCacophonium extends BlockMod implements EntityBlock {
+	protected BlockCacophonium(Properties builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(Properties.POWERED, false));
+		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(Properties.POWERED);
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(BlockStateProperties.POWERED);
 	}
 
 	@Override
-	public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-		boolean power = world.getReceivedRedstonePower(pos) > 0 || world.getReceivedRedstonePower(pos.up()) > 0;
-		boolean powered = state.get(Properties.POWERED);
+	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+		boolean power = world.getBestNeighborSignal(pos) > 0 || world.getBestNeighborSignal(pos.above()) > 0;
+		boolean powered = state.getValue(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
 			BlockEntity tile = world.getBlockEntity(pos);
 			if (tile instanceof TileCacophonium) {
 				((TileCacophonium) tile).annoyDirewolf();
 			}
-			world.setBlockState(pos, state.with(Properties.POWERED, true), 4);
+			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), 4);
 		} else if (!power && powered) {
-			world.setBlockState(pos, state.with(Properties.POWERED, false), 4);
+			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), 4);
 		}
 	}
 
 	@Override
-	public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean isMoving) {
+	public void onRemove(BlockState state, Level world, BlockPos pos, BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
 			BlockEntity te = world.getBlockEntity(pos);
 			if (te instanceof TileCacophonium) {
-				ItemScatterer.spawn(world, pos.getX(), pos.getY(), pos.getZ(), ((TileCacophonium) te).stack);
+				Containers.dropItemStack(world, pos.getX(), pos.getY(), pos.getZ(), ((TileCacophonium) te).stack);
 			}
-			super.onStateReplaced(state, world, pos, newState, isMoving);
+			super.onRemove(state, world, pos, newState, isMoving);
 		}
 	}
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileCacophonium();
 	}
 

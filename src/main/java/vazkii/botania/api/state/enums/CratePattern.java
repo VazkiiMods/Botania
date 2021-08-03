@@ -11,12 +11,12 @@ package vazkii.botania.api.state.enums;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.StringRepresentable;
 
 import java.util.List;
 import java.util.Locale;
 
-public enum CratePattern implements StringIdentifiable {
+public enum CratePattern implements StringRepresentable {
 	NONE(true, true, true,
 			true, true, true,
 			true, true, true),
@@ -56,7 +56,7 @@ public enum CratePattern implements StringIdentifiable {
 	}
 
 	@Override
-	public String asString() {
+	public String getSerializedName() {
 		return name().toLowerCase(Locale.ROOT);
 	}
 }

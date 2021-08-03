@@ -8,13 +8,13 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundEvent;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.level.block.SoundType;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(BlockSoundGroup.class)
+@Mixin(SoundType.class)
 public interface AccessorBlockSoundGroup {
 	@Accessor("breakSound")
 	SoundEvent botania_getBreakSound();

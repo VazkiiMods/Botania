@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -19,14 +19,14 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 public class ItemSlimeBottle extends Item {
 	public static final String TAG_ACTIVE = "active";
 
-	public ItemSlimeBottle(Settings builder) {
+	public ItemSlimeBottle(Properties builder) {
 		super(builder);
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity entity, int something, boolean somethingelse) {
-		if (!world.isClient) {
-			boolean slime = SubTileNarslimmus.isSlimeChunk(world, entity.getBlockPos());
+	public void inventoryTick(ItemStack stack, Level world, Entity entity, int something, boolean somethingelse) {
+		if (!world.isClientSide) {
+			boolean slime = SubTileNarslimmus.isSlimeChunk(world, entity.blockPosition());
 			ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, slime);
 		}
 	}

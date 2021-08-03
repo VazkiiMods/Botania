@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -31,28 +31,28 @@ public class SubTileJadedAmaranthus extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isClient || redstoneSignal > 0) {
+		if (getLevel().isClientSide || redstoneSignal > 0) {
 			return;
 		}
 
 		if (ticksExisted % 30 == 0 && getMana() >= COST) {
 			BlockPos pos = new BlockPos(
-					getEffectivePos().getX() - RANGE + getWorld().random.nextInt(RANGE * 2 + 1),
+					getEffectivePos().getX() - RANGE + getLevel().random.nextInt(RANGE * 2 + 1),
 					getEffectivePos().getY() + RANGE,
-					getEffectivePos().getZ() - RANGE + getWorld().random.nextInt(RANGE * 2 + 1)
+					getEffectivePos().getZ() - RANGE + getLevel().random.nextInt(RANGE * 2 + 1)
 			);
 
-			BlockPos up = pos.up();
+			BlockPos up = pos.above();
 
 			for (int i = 0; i < RANGE * 2; i++) {
-				DyeColor color = DyeColor.byId(getWorld().random.nextInt(16));
-				BlockState flower = ModBlocks.getFlower(color).getDefaultState();
+				DyeColor color = DyeColor.byId(getLevel().random.nextInt(16));
+				BlockState flower = ModBlocks.getFlower(color).defaultBlockState();
 
-				if (getWorld().isAir(up) && flower.canPlaceAt(getWorld(), up)) {
+				if (getLevel().isEmptyBlock(up) && flower.canSurvive(getLevel(), up)) {
 					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
-						getWorld().syncWorldEvent(2001, up, Block.getRawIdFromState(flower));
+						getLevel().levelEvent(2001, up, Block.getId(flower));
 					}
-					getWorld().setBlockState(up, flower);
+					getLevel().setBlockAndUpdate(up, flower);
 					addMana(-COST);
 					sync();
 
@@ -60,7 +60,7 @@ public class SubTileJadedAmaranthus extends TileEntityFunctionalFlower {
 				}
 
 				up = pos;
-				pos = pos.down();
+				pos = pos.below();
 			}
 		}
 	}

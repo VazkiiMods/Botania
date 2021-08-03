@@ -8,23 +8,23 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 import vazkii.botania.common.block.tile.TileSparkChanger;
@@ -32,79 +32,79 @@ import vazkii.botania.common.item.ItemSparkUpgrade;
 
 import javax.annotation.Nonnull;
 
-public class BlockSparkChanger extends BlockModWaterloggable implements BlockEntityProvider {
+public class BlockSparkChanger extends BlockModWaterloggable implements EntityBlock {
 
-	private static final VoxelShape SHAPE = createCuboidShape(0, 0, 0, 16, 3, 16);
+	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 3, 16);
 
-	public BlockSparkChanger(Settings builder) {
+	public BlockSparkChanger(Properties builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(Properties.POWERED, true));
+		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, true));
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		super.appendProperties(builder);
-		builder.add(Properties.POWERED);
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(BlockStateProperties.POWERED);
 	}
 
 	@Override
-	public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-		boolean power = world.getReceivedRedstonePower(pos) > 0 || world.getReceivedRedstonePower(pos.up()) > 0;
-		boolean powered = state.get(Properties.POWERED);
+	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+		boolean power = world.getBestNeighborSignal(pos) > 0 || world.getBestNeighborSignal(pos.above()) > 0;
+		boolean powered = state.getValue(BlockStateProperties.POWERED);
 
 		if (power && !powered) {
 			((TileSparkChanger) world.getBlockEntity(pos)).doSwap();
-			world.setBlockState(pos, state.with(Properties.POWERED, true), 4);
+			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, true), 4);
 		} else if (!power && powered) {
-			world.setBlockState(pos, state.with(Properties.POWERED, false), 4);
+			world.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), 4);
 		}
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		TileSparkChanger changer = (TileSparkChanger) world.getBlockEntity(pos);
-		ItemStack pstack = player.getStackInHand(hand);
-		ItemStack cstack = changer.getItemHandler().getStack(0);
+		ItemStack pstack = player.getItemInHand(hand);
+		ItemStack cstack = changer.getItemHandler().getItem(0);
 		if (!cstack.isEmpty()) {
-			changer.getItemHandler().setStack(0, ItemStack.EMPTY);
-			player.inventory.offerOrDrop(player.world, cstack);
-			return ActionResult.SUCCESS;
+			changer.getItemHandler().setItem(0, ItemStack.EMPTY);
+			player.inventory.placeItemBackInInventory(player.level, cstack);
+			return InteractionResult.SUCCESS;
 		} else if (!pstack.isEmpty() && pstack.getItem() instanceof ItemSparkUpgrade) {
-			changer.getItemHandler().setStack(0, pstack.split(1));
-			changer.markDirty();
+			changer.getItemHandler().setItem(0, pstack.split(1));
+			changer.setChanged();
 
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Override
-	public void onStateReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
 			BlockEntity be = world.getBlockEntity(pos);
 			if (be instanceof TileSimpleInventory) {
-				ItemScatterer.spawn(world, pos, ((TileSimpleInventory) be).getItemHandler());
+				Containers.dropContents(world, pos, ((TileSimpleInventory) be).getItemHandler());
 			}
-			super.onStateReplaced(state, world, pos, newState, isMoving);
+			super.onRemove(state, world, pos, newState, isMoving);
 		}
 	}
 
 	@Override
-	public boolean hasComparatorOutput(BlockState state) {
+	public boolean hasAnalogOutputSignal(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
 		TileSparkChanger changer = (TileSparkChanger) world.getBlockEntity(pos);
-		ItemStack stack = changer.getItemHandler().getStack(0);
+		ItemStack stack = changer.getItemHandler().getItem(0);
 		if (!stack.isEmpty() && stack.getItem() instanceof ItemSparkUpgrade) {
 			return ((ItemSparkUpgrade) stack.getItem()).type.ordinal() + 1;
 		}
@@ -113,7 +113,7 @@ public class BlockSparkChanger extends BlockModWaterloggable implements BlockEnt
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileSparkChanger();
 	}
 

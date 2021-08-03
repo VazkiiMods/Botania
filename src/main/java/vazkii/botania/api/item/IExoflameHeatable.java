@@ -9,7 +9,7 @@
 package vazkii.botania.api.item;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.api.BotaniaAPI;
 
@@ -24,7 +24,7 @@ public interface IExoflameHeatable extends ComponentV3 {
 	/**
 	 * The component ID used by Botania
 	 */
-	Identifier ID = new Identifier(BotaniaAPI.MODID, "exoflame_heatable");
+	ResourceLocation ID = new ResourceLocation(BotaniaAPI.MODID, "exoflame_heatable");
 
 	/**
 	 * Can this TileEntity smelt its contents. If true, the Exoflame is allowed

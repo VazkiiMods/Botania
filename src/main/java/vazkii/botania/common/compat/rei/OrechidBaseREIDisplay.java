@@ -10,9 +10,9 @@ package vazkii.botania.common.compat.rei;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.tag.BlockTags;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -36,8 +36,8 @@ public abstract class OrechidBaseREIDisplay implements RecipeDisplay {
 
 		// Shouldn't ever return an empty list since the ore weight
 		// list is filtered to only have ores with ItemBlocks
-		List<ItemStack> stackList = BlockTags.getTagGroup().getTagOrEmpty(recipe.entry.getKey())
-				.values()
+		List<ItemStack> stackList = BlockTags.getAllTags().getTagOrEmpty(recipe.entry.getKey())
+				.getValues()
 				.stream()
 				.filter(s -> s.asItem() != Items.AIR)
 				.map(ItemStack::new)

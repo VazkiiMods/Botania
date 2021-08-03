@@ -8,74 +8,74 @@
  */
 package vazkii.botania.common.entity;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.FollowTargetGoal;
-import net.minecraft.entity.ai.goal.ProjectileAttackGoal;
-import net.minecraft.entity.ai.goal.RevengeGoal;
-import net.minecraft.entity.boss.WitherEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.ai.goal.RangedAttackGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.mixin.AccessorGoalSelector;
 import vazkii.botania.mixin.AccessorWitherEntity;
 
 import javax.annotation.Nonnull;
 
-public class EntityPinkWither extends WitherEntity {
-	public EntityPinkWither(EntityType<EntityPinkWither> type, World world) {
+public class EntityPinkWither extends WitherBoss {
+	public EntityPinkWither(EntityType<EntityPinkWither> type, Level world) {
 		super(type, world);
 	}
 
 	@Override
-	protected void initGoals() {
-		super.initGoals();
+	protected void registerGoals() {
+		super.registerGoals();
 
 		// Remove firing wither skulls
-		((AccessorGoalSelector) goalSelector).getGoals().removeIf(entry -> entry.getGoal() instanceof ProjectileAttackGoal);
+		((AccessorGoalSelector) goalSelector).getAvailableGoals().removeIf(entry -> entry.getGoal() instanceof RangedAttackGoal);
 
 		// Remove revenge and aggro
-		((AccessorGoalSelector) targetSelector).getGoals().removeIf(entry -> entry.getGoal() instanceof RevengeGoal
-				|| entry.getGoal() instanceof FollowTargetGoal);
+		((AccessorGoalSelector) targetSelector).getAvailableGoals().removeIf(entry -> entry.getGoal() instanceof HurtByTargetGoal
+				|| entry.getGoal() instanceof NearestAttackableTargetGoal);
 	}
 
 	@Override
-	public void tickMovement() {
-		super.tickMovement();
+	public void aiStep() {
+		super.aiStep();
 
 		if (Math.random() < 0.1) {
 			for (int j = 0; j < 3; ++j) {
 				double x = ((AccessorWitherEntity) this).botania_getHeadX(j);
 				double y = ((AccessorWitherEntity) this).botania_getHeadY(j);
 				double z = ((AccessorWitherEntity) this).botania_getHeadZ(j);
-				world.addParticle(ParticleTypes.HEART, x + random.nextGaussian() * 0.3, y + random.nextGaussian() * 0.3, z + random.nextGaussian() * 0.3, 0.0D, 0.0D, 0.0D);
+				level.addParticle(ParticleTypes.HEART, x + random.nextGaussian() * 0.3, y + random.nextGaussian() * 0.3, z + random.nextGaussian() * 0.3, 0.0D, 0.0D, 0.0D);
 			}
 		}
 	}
 
 	@Override
-	protected void dropEquipment(DamageSource source, int lootingMultiplier, boolean allowDrops) {}
+	protected void dropCustomDeathLoot(DamageSource source, int lootingMultiplier, boolean allowDrops) {}
 
 	@Override
-	public void mobTick() {
-		if (age % 20 == 0) {
+	public void customServerAiStep() {
+		if (tickCount % 20 == 0) {
 			heal(1.0F);
 		}
 	}
 
 	@Override
-	protected ActionResult interactMob(PlayerEntity player, Hand hand) {
-		if (!player.isSneaking()) {
+	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+		if (!player.isShiftKeyDown()) {
 			player.startRiding(this);
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Override
-	public void onStartedTrackingBy(@Nonnull ServerPlayerEntity player) {}
+	public void startSeenByPlayer(@Nonnull ServerPlayer player) {}
 }

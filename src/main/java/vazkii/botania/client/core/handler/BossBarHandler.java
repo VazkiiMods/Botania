@@ -9,9 +9,9 @@
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderCallback;
@@ -29,7 +29,7 @@ public final class BossBarHandler {
 
 	// Only access on the client thread!
 	public static final Set<EntityDoppleganger> bosses = Collections.newSetFromMap(new WeakHashMap<>());
-	public static final Identifier defaultBossBar = new Identifier(LibResources.GUI_BOSS_BAR);
+	public static final ResourceLocation defaultBossBar = new ResourceLocation(LibResources.GUI_BOSS_BAR);
 	private static final BarCallback barUniformCallback = new BarCallback();
 
 	/* todo 1.16-fabric
@@ -67,7 +67,7 @@ public final class BossBarHandler {
 	}
 	*/
 
-	private static void drawBar(MatrixStack ms, EntityDoppleganger currentBoss, int x, int y, int u, int v, int w, int h, boolean bg) {
+	private static void drawBar(PoseStack ms, EntityDoppleganger currentBoss, int x, int y, int u, int v, int w, int h, boolean bg) {
 		ShaderHelper.BotaniaShader program = currentBoss.getBossBarShaderProgram(bg);
 
 		if (program != null) {
@@ -89,11 +89,11 @@ public final class BossBarHandler {
 
 		@Override
 		public void call(int shader) {
-			int startXUniform = GlStateManager.getUniformLocation(shader, "startX");
-			int startYUniform = GlStateManager.getUniformLocation(shader, "startY");
+			int startXUniform = GlStateManager._glGetUniformLocation(shader, "startX");
+			int startYUniform = GlStateManager._glGetUniformLocation(shader, "startY");
 
-			GlStateManager.uniform1(startXUniform, x);
-			GlStateManager.uniform1(startYUniform, y);
+			GlStateManager._glUniform1i(startXUniform, x);
+			GlStateManager._glUniform1i(startYUniform, y);
 
 			if (callback != null) {
 				callback.call(shader);

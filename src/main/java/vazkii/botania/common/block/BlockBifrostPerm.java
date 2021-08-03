@@ -10,9 +10,9 @@ package vazkii.botania.common.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.decor.BlockModGlass;
@@ -20,13 +20,13 @@ import vazkii.botania.common.block.decor.BlockModGlass;
 import java.util.Random;
 
 public class BlockBifrostPerm extends BlockModGlass {
-	public BlockBifrostPerm(Settings builder) {
+	public BlockBifrostPerm(Properties builder) {
 		super(builder);
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
 		if (rand.nextBoolean()) {
 			SparkleParticleData data = SparkleParticleData.sparkle(0.45F + 0.2F * (float) Math.random(), (float) Math.random(), (float) Math.random(), (float) Math.random(), 6);
 			world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);

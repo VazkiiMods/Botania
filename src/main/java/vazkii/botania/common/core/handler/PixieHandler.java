@@ -8,21 +8,21 @@
  */
 package vazkii.botania.common.core.handler;
 
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.attribute.ClampedEntityAttribute;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Util;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.Util;
+import net.minecraft.core.Registry;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.RangedAttribute;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ServerLevelAccessor;
 
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityPixie;
@@ -40,7 +40,7 @@ public final class PixieHandler {
 
 	private PixieHandler() {}
 
-	public static final EntityAttribute PIXIE_SPAWN_CHANCE = new ClampedEntityAttribute("attribute.name.botania.pixieSpawnChance", 0, 0, 1);
+	public static final Attribute PIXIE_SPAWN_CHANCE = new RangedAttribute("attribute.name.botania.pixieSpawnChance", 0, 0, 1);
 	private static final Map<EquipmentSlot, UUID> DEFAULT_MODIFIER_UUIDS = Util.make(new EnumMap<>(EquipmentSlot.class), m -> {
 		m.put(EquipmentSlot.HEAD, UUID.fromString("3c1f559c-9ec4-412d-ada0-dbf3e714088e"));
 		m.put(EquipmentSlot.CHEST, UUID.fromString("9631121c-16f0-4ed4-ba0a-0e7a063cb71c"));
@@ -50,33 +50,33 @@ public final class PixieHandler {
 		m.put(EquipmentSlot.OFFHAND, UUID.fromString("34f62de8-f652-4fe7-899f-a8fc938c4940"));
 	});
 
-	private static final StatusEffect[] potions = {
-			StatusEffects.BLINDNESS,
-			StatusEffects.WITHER,
-			StatusEffects.SLOWNESS,
-			StatusEffects.WEAKNESS
+	private static final MobEffect[] potions = {
+			MobEffects.BLINDNESS,
+			MobEffects.WITHER,
+			MobEffects.MOVEMENT_SLOWDOWN,
+			MobEffects.WEAKNESS
 	};
 
 	public static void registerAttribute() {
-		Registry<EntityAttribute> r = Registry.ATTRIBUTE;
+		Registry<Attribute> r = Registry.ATTRIBUTE;
 		register(r, prefix("pixie_spawn_chance"), PIXIE_SPAWN_CHANCE);
 	}
 
-	public static EntityAttributeModifier makeModifier(EquipmentSlot slot, String name, double amount) {
-		return new EntityAttributeModifier(DEFAULT_MODIFIER_UUIDS.get(slot), name, amount, EntityAttributeModifier.Operation.ADDITION);
+	public static AttributeModifier makeModifier(EquipmentSlot slot, String name, double amount) {
+		return new AttributeModifier(DEFAULT_MODIFIER_UUIDS.get(slot), name, amount, AttributeModifier.Operation.ADDITION);
 	}
 
-	public static void onDamageTaken(PlayerEntity player, DamageSource source) {
-		if (!player.world.isClient && source.getAttacker() instanceof LivingEntity) {
+	public static void onDamageTaken(Player player, DamageSource source) {
+		if (!player.level.isClientSide && source.getEntity() instanceof LivingEntity) {
 			double chance = player.getAttributeValue(PIXIE_SPAWN_CHANCE);
 			ItemStack sword = PlayerHelper.getFirstHeldItem(player, s -> s.getItem() == ModItems.elementiumSword);
 
 			if (Math.random() < chance) {
-				EntityPixie pixie = new EntityPixie(player.world);
-				pixie.updatePosition(player.getX(), player.getY() + 2, player.getZ());
+				EntityPixie pixie = new EntityPixie(player.level);
+				pixie.setPos(player.getX(), player.getY() + 2, player.getZ());
 
 				if (((ItemElementiumHelm) ModItems.elementiumHelm).hasArmorSet(player)) {
-					pixie.setApplyPotionEffect(new StatusEffectInstance(potions[player.world.random.nextInt(potions.length)], 40, 0));
+					pixie.setApplyPotionEffect(new MobEffectInstance(potions[player.level.random.nextInt(potions.length)], 40, 0));
 				}
 
 				float dmg = 4;
@@ -84,10 +84,10 @@ public final class PixieHandler {
 					dmg += 2;
 				}
 
-				pixie.setProps((LivingEntity) source.getAttacker(), player, 0, dmg);
-				pixie.initialize((ServerWorldAccess) player.world, player.world.getLocalDifficulty(pixie.getBlockPos()),
-						SpawnReason.EVENT, null, null);
-				player.world.spawnEntity(pixie);
+				pixie.setProps((LivingEntity) source.getEntity(), player, 0, dmg);
+				pixie.finalizeSpawn((ServerLevelAccessor) player.level, player.level.getCurrentDifficultyAt(pixie.blockPosition()),
+						MobSpawnType.EVENT, null, null);
+				player.level.addFreshEntity(pixie);
 			}
 		}
 	}

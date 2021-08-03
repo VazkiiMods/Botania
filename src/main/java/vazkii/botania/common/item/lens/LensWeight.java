@@ -8,18 +8,18 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FallingBlock;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.FallingBlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.BlockStateParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.FallingBlockEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.FallingBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -28,23 +28,23 @@ public class LensWeight extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		Entity entity = burst.entity();
-		if (!entity.world.isClient && !burst.isFake() && pos.getType() == HitResult.Type.BLOCK) {
+		if (!entity.level.isClientSide && !burst.isFake() && pos.getType() == HitResult.Type.BLOCK) {
 			int harvestLevel = ConfigHandler.COMMON.harvestLevelWeight.getValue();
 
 			BlockPos bPos = ((BlockHitResult) pos).getBlockPos();
-			Block block = entity.world.getBlockState(bPos).getBlock();
-			BlockState state = entity.world.getBlockState(bPos);
+			Block block = entity.level.getBlockState(bPos).getBlock();
+			BlockState state = entity.level.getBlockState(bPos);
 			int neededHarvestLevel = -1 /* todo 1.16-fabric block.getHarvestLevel(state) */;
 
-			if (FallingBlock.canFallThrough(entity.world.getBlockState(bPos.down()))
-					&& state.getHardness(entity.world, bPos) != -1
+			if (FallingBlock.isFree(entity.level.getBlockState(bPos.below()))
+					&& state.getDestroySpeed(entity.level, bPos) != -1
 					&& neededHarvestLevel <= harvestLevel
-					&& entity.world.getBlockEntity(bPos) == null) {
-				FallingBlockEntity falling = new FallingBlockEntity(entity.world, bPos.getX() + 0.5, bPos.getY(), bPos.getZ() + 0.5, state);
-				falling.timeFalling = 1;
-				entity.world.removeBlock(bPos, false);
-				((ServerWorld) entity.world).spawnParticles(new BlockStateParticleEffect(ParticleTypes.FALLING_DUST, state), bPos.getX() + 0.5, bPos.getY() + 0.5, bPos.getZ() + 0.5, 10, 0.45, 0.45, 0.45, 5);
-				entity.world.spawnEntity(falling);
+					&& entity.level.getBlockEntity(bPos) == null) {
+				FallingBlockEntity falling = new FallingBlockEntity(entity.level, bPos.getX() + 0.5, bPos.getY(), bPos.getZ() + 0.5, state);
+				falling.time = 1;
+				entity.level.removeBlock(bPos, false);
+				((ServerLevel) entity.level).sendParticles(new BlockParticleOption(ParticleTypes.FALLING_DUST, state), bPos.getX() + 0.5, bPos.getY() + 0.5, bPos.getZ() + 0.5, 10, 0.45, 0.45, 0.45, 5);
+				entity.level.addFreshEntity(falling);
 			}
 		}
 

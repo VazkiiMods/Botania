@@ -10,33 +10,33 @@ package vazkii.botania.client.core.helper;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix4f;
+import com.mojang.math.Vector3f;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.RenderLayers;
-import net.minecraft.client.render.RenderPhase;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.VertexFormats;
-import net.minecraft.client.render.item.BuiltinModelItemRenderer;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.BakedQuad;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Matrix4f;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderStateShard;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.state.BlockState;
 
 import org.lwjgl.opengl.GL11;
 
@@ -54,213 +54,213 @@ import java.util.OptionalDouble;
 import java.util.Random;
 
 public final class RenderHelper {
-	private static final RenderPhase.Transparency TRANSLUCENT_TRANSPARENCY = AccessorRenderState.getTranslucentTransparency();
-	private static final RenderLayer STAR;
-	public static final RenderLayer RECTANGLE;
-	public static final RenderLayer CIRCLE;
-	public static final RenderLayer LINE_1;
-	public static final RenderLayer LINE_1_NO_DEPTH;
-	public static final RenderLayer LINE_4_NO_DEPTH;
-	public static final RenderLayer LINE_5_NO_DEPTH;
-	public static final RenderLayer LINE_8_NO_DEPTH;
-	public static final RenderLayer SPARK;
-	public static final RenderLayer LIGHT_RELAY;
-	public static final RenderLayer SPINNING_CUBE;
-	public static final RenderLayer SPINNING_CUBE_GHOST;
-	public static final RenderLayer ICON_OVERLAY;
-	public static final RenderLayer BABYLON_ICON;
-	public static final RenderLayer MANA_POOL_WATER;
-	public static final RenderLayer TERRA_PLATE;
-	public static final RenderLayer ENCHANTER;
-	public static final RenderLayer HALO;
-	public static final RenderLayer MANA_PYLON_GLOW = getPylonGlow("mana_pylon_glow", RenderTilePylon.MANA_TEXTURE);
-	public static final RenderLayer NATURA_PYLON_GLOW = getPylonGlow("natura_pylon_glow", RenderTilePylon.NATURA_TEXTURE);
-	public static final RenderLayer GAIA_PYLON_GLOW = getPylonGlow("gaia_pylon_glow", RenderTilePylon.GAIA_TEXTURE);
-	public static final RenderLayer MANA_PYLON_GLOW_DIRECT = getPylonGlowDirect("mana_pylon_glow_direct", RenderTilePylon.MANA_TEXTURE);
-	public static final RenderLayer NATURA_PYLON_GLOW_DIRECT = getPylonGlowDirect("natura_pylon_glow_direct", RenderTilePylon.NATURA_TEXTURE);
-	public static final RenderLayer GAIA_PYLON_GLOW_DIRECT = getPylonGlowDirect("gaia_pylon_glow_direct", RenderTilePylon.GAIA_TEXTURE);
+	private static final RenderStateShard.TransparencyStateShard TRANSLUCENT_TRANSPARENCY = AccessorRenderState.getTranslucentTransparency();
+	private static final RenderType STAR;
+	public static final RenderType RECTANGLE;
+	public static final RenderType CIRCLE;
+	public static final RenderType LINE_1;
+	public static final RenderType LINE_1_NO_DEPTH;
+	public static final RenderType LINE_4_NO_DEPTH;
+	public static final RenderType LINE_5_NO_DEPTH;
+	public static final RenderType LINE_8_NO_DEPTH;
+	public static final RenderType SPARK;
+	public static final RenderType LIGHT_RELAY;
+	public static final RenderType SPINNING_CUBE;
+	public static final RenderType SPINNING_CUBE_GHOST;
+	public static final RenderType ICON_OVERLAY;
+	public static final RenderType BABYLON_ICON;
+	public static final RenderType MANA_POOL_WATER;
+	public static final RenderType TERRA_PLATE;
+	public static final RenderType ENCHANTER;
+	public static final RenderType HALO;
+	public static final RenderType MANA_PYLON_GLOW = getPylonGlow("mana_pylon_glow", RenderTilePylon.MANA_TEXTURE);
+	public static final RenderType NATURA_PYLON_GLOW = getPylonGlow("natura_pylon_glow", RenderTilePylon.NATURA_TEXTURE);
+	public static final RenderType GAIA_PYLON_GLOW = getPylonGlow("gaia_pylon_glow", RenderTilePylon.GAIA_TEXTURE);
+	public static final RenderType MANA_PYLON_GLOW_DIRECT = getPylonGlowDirect("mana_pylon_glow_direct", RenderTilePylon.MANA_TEXTURE);
+	public static final RenderType NATURA_PYLON_GLOW_DIRECT = getPylonGlowDirect("natura_pylon_glow_direct", RenderTilePylon.NATURA_TEXTURE);
+	public static final RenderType GAIA_PYLON_GLOW_DIRECT = getPylonGlowDirect("gaia_pylon_glow_direct", RenderTilePylon.GAIA_TEXTURE);
 
-	public static final RenderLayer ASTROLABE_PREVIEW;
+	public static final RenderType ASTROLABE_PREVIEW;
 
 	static {
 		// todo 1.16 update to match vanilla where necessary (alternate render targets, etc.)
-		RenderPhase.Transparency lightningTransparency = AccessorRenderState.getLightningTransparency();
-		RenderPhase.Texture mipmapBlockAtlasTexture = new RenderPhase.Texture(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, false, true);
-		RenderPhase.Cull disableCull = new RenderPhase.Cull(false);
-		RenderPhase.Layering viewOffsetZLayering = AccessorRenderState.getViewOffsetZLayer();
-		RenderPhase.WriteMaskState colorMask = new RenderPhase.WriteMaskState(true, false);
-		RenderPhase.ShadeModel smoothShade = new RenderPhase.ShadeModel(true);
-		RenderPhase.Lightmap enableLightmap = new RenderPhase.Lightmap(true);
-		RenderPhase.Overlay enableOverlay = new RenderPhase.Overlay(true);
-		RenderPhase.DiffuseLighting enableDiffuse = new RenderPhase.DiffuseLighting(true);
-		RenderPhase.Alpha oneTenthAlpha = new RenderPhase.Alpha(0.004F);
-		RenderPhase.DepthTest noDepth = new RenderPhase.DepthTest("always", GL11.GL_ALWAYS);
-		RenderPhase.Target itemTarget = AccessorRenderState.getItemEntityTarget();
+		RenderStateShard.TransparencyStateShard lightningTransparency = AccessorRenderState.getLightningTransparency();
+		RenderStateShard.TextureStateShard mipmapBlockAtlasTexture = new RenderStateShard.TextureStateShard(TextureAtlas.LOCATION_BLOCKS, false, true);
+		RenderStateShard.CullStateShard disableCull = new RenderStateShard.CullStateShard(false);
+		RenderStateShard.LayeringStateShard viewOffsetZLayering = AccessorRenderState.getViewOffsetZLayer();
+		RenderStateShard.WriteMaskStateShard colorMask = new RenderStateShard.WriteMaskStateShard(true, false);
+		RenderStateShard.ShadeModelStateShard smoothShade = new RenderStateShard.ShadeModelStateShard(true);
+		RenderStateShard.LightmapStateShard enableLightmap = new RenderStateShard.LightmapStateShard(true);
+		RenderStateShard.OverlayStateShard enableOverlay = new RenderStateShard.OverlayStateShard(true);
+		RenderStateShard.DiffuseLightingStateShard enableDiffuse = new RenderStateShard.DiffuseLightingStateShard(true);
+		RenderStateShard.AlphaStateShard oneTenthAlpha = new RenderStateShard.AlphaStateShard(0.004F);
+		RenderStateShard.DepthTestStateShard noDepth = new RenderStateShard.DepthTestStateShard("always", GL11.GL_ALWAYS);
+		RenderStateShard.OutputStateShard itemTarget = AccessorRenderState.getItemEntityTarget();
 		boolean useShaders = ShaderHelper.useShaders();
 
-		RenderLayer.MultiPhaseParameters glState = RenderLayer.MultiPhaseParameters.builder().shadeModel(smoothShade)
-				.writeMaskState(colorMask)
-				.transparency(lightningTransparency)
-				.build(false);
-		STAR = RenderLayer.of(LibResources.PREFIX_MOD + "star", VertexFormats.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, false, glState);
+		RenderType.CompositeState glState = RenderType.CompositeState.builder().setShadeModelState(smoothShade)
+				.setWriteMaskState(colorMask)
+				.setTransparencyState(lightningTransparency)
+				.createCompositeState(false);
+		STAR = RenderType.create(LibResources.PREFIX_MOD + "star", DefaultVertexFormat.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, false, glState);
 
-		glState = RenderLayer.MultiPhaseParameters.builder()
-				.transparency(TRANSLUCENT_TRANSPARENCY)
-				.target(itemTarget)
-				.cull(disableCull).build(false);
-		RECTANGLE = RenderLayer.of(LibResources.PREFIX_MOD + "rectangle_highlight", VertexFormats.POSITION_COLOR, GL11.GL_QUADS, 256, false, true, glState);
-		CIRCLE = RenderLayer.of(LibResources.PREFIX_MOD + "circle_highlight", VertexFormats.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, false, glState);
+		glState = RenderType.CompositeState.builder()
+				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+				.setOutputState(itemTarget)
+				.setCullState(disableCull).createCompositeState(false);
+		RECTANGLE = RenderType.create(LibResources.PREFIX_MOD + "rectangle_highlight", DefaultVertexFormat.POSITION_COLOR, GL11.GL_QUADS, 256, false, true, glState);
+		CIRCLE = RenderType.create(LibResources.PREFIX_MOD + "circle_highlight", DefaultVertexFormat.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, false, glState);
 
-		glState = RenderLayer.MultiPhaseParameters.builder().lineWidth(new RenderPhase.LineWidth(OptionalDouble.of(1))).layering(viewOffsetZLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMaskState(colorMask).build(false);
-		LINE_1 = RenderLayer.of(LibResources.PREFIX_MOD + "line_1", VertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, glState);
-		glState = RenderLayer.MultiPhaseParameters.builder().lineWidth(new RenderPhase.LineWidth(OptionalDouble.of(1))).layering(viewOffsetZLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMaskState(colorMask).depthTest(noDepth).build(false);
-		LINE_1_NO_DEPTH = RenderLayer.of(LibResources.PREFIX_MOD + "line_1_no_depth", VertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, glState);
-		glState = RenderLayer.MultiPhaseParameters.builder().lineWidth(new RenderPhase.LineWidth(OptionalDouble.of(4))).layering(viewOffsetZLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMaskState(colorMask).depthTest(noDepth).build(false);
-		LINE_4_NO_DEPTH = RenderLayer.of(LibResources.PREFIX_MOD + "line_4_no_depth", VertexFormats.POSITION_COLOR, GL11.GL_LINES, 128, glState);
-		glState = RenderLayer.MultiPhaseParameters.builder().lineWidth(new RenderPhase.LineWidth(OptionalDouble.of(5))).layering(viewOffsetZLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMaskState(colorMask).depthTest(noDepth).build(false);
-		LINE_5_NO_DEPTH = RenderLayer.of(LibResources.PREFIX_MOD + "line_5_no_depth", VertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, glState);
-		glState = RenderLayer.MultiPhaseParameters.builder().lineWidth(new RenderPhase.LineWidth(OptionalDouble.of(8))).layering(viewOffsetZLayering).transparency(TRANSLUCENT_TRANSPARENCY).writeMaskState(colorMask).depthTest(noDepth).build(false);
-		LINE_8_NO_DEPTH = RenderLayer.of(LibResources.PREFIX_MOD + "line_8_no_depth", VertexFormats.POSITION_COLOR, GL11.GL_LINES, 64, glState);
+		glState = RenderType.CompositeState.builder().setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(1))).setLayeringState(viewOffsetZLayering).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setWriteMaskState(colorMask).createCompositeState(false);
+		LINE_1 = RenderType.create(LibResources.PREFIX_MOD + "line_1", DefaultVertexFormat.POSITION_COLOR, GL11.GL_LINES, 128, glState);
+		glState = RenderType.CompositeState.builder().setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(1))).setLayeringState(viewOffsetZLayering).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setWriteMaskState(colorMask).setDepthTestState(noDepth).createCompositeState(false);
+		LINE_1_NO_DEPTH = RenderType.create(LibResources.PREFIX_MOD + "line_1_no_depth", DefaultVertexFormat.POSITION_COLOR, GL11.GL_LINES, 128, glState);
+		glState = RenderType.CompositeState.builder().setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(4))).setLayeringState(viewOffsetZLayering).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setWriteMaskState(colorMask).setDepthTestState(noDepth).createCompositeState(false);
+		LINE_4_NO_DEPTH = RenderType.create(LibResources.PREFIX_MOD + "line_4_no_depth", DefaultVertexFormat.POSITION_COLOR, GL11.GL_LINES, 128, glState);
+		glState = RenderType.CompositeState.builder().setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(5))).setLayeringState(viewOffsetZLayering).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setWriteMaskState(colorMask).setDepthTestState(noDepth).createCompositeState(false);
+		LINE_5_NO_DEPTH = RenderType.create(LibResources.PREFIX_MOD + "line_5_no_depth", DefaultVertexFormat.POSITION_COLOR, GL11.GL_LINES, 64, glState);
+		glState = RenderType.CompositeState.builder().setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(8))).setLayeringState(viewOffsetZLayering).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setWriteMaskState(colorMask).setDepthTestState(noDepth).createCompositeState(false);
+		LINE_8_NO_DEPTH = RenderType.create(LibResources.PREFIX_MOD + "line_8_no_depth", DefaultVertexFormat.POSITION_COLOR, GL11.GL_LINES, 64, glState);
 
-		glState = RenderLayer.MultiPhaseParameters.builder()
-				.texture(mipmapBlockAtlasTexture)
-				.transparency(TRANSLUCENT_TRANSPARENCY)
-				.target(itemTarget)
-				.alpha(new RenderPhase.Alpha(0.05F))
-				.lightmap(enableLightmap).build(true);
-		SPARK = RenderLayer.of(LibResources.PREFIX_MOD + "spark", VertexFormats.POSITION_COLOR_TEXTURE_LIGHT, GL11.GL_QUADS, 256, glState);
-		RenderLayer lightRelay = RenderLayer.of(LibResources.PREFIX_MOD + "light_relay", VertexFormats.POSITION_COLOR_TEXTURE_LIGHT, GL11.GL_QUADS, 64, glState);
+		glState = RenderType.CompositeState.builder()
+				.setTextureState(mipmapBlockAtlasTexture)
+				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+				.setOutputState(itemTarget)
+				.setAlphaState(new RenderStateShard.AlphaStateShard(0.05F))
+				.setLightmapState(enableLightmap).createCompositeState(true);
+		SPARK = RenderType.create(LibResources.PREFIX_MOD + "spark", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, GL11.GL_QUADS, 256, glState);
+		RenderType lightRelay = RenderType.create(LibResources.PREFIX_MOD + "light_relay", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, GL11.GL_QUADS, 64, glState);
 		LIGHT_RELAY = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, lightRelay) : lightRelay;
 
-		glState = RenderLayer.MultiPhaseParameters.builder().texture(new RenderPhase.Texture()).diffuseLighting(enableDiffuse).build(false);
-		SPINNING_CUBE = RenderLayer.of(LibResources.PREFIX_MOD + "spinning_cube", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, GL11.GL_QUADS, 64, glState);
+		glState = RenderType.CompositeState.builder().setTextureState(new RenderStateShard.TextureStateShard()).setDiffuseLightingState(enableDiffuse).createCompositeState(false);
+		SPINNING_CUBE = RenderType.create(LibResources.PREFIX_MOD + "spinning_cube", DefaultVertexFormat.NEW_ENTITY, GL11.GL_QUADS, 64, glState);
 
-		glState = RenderLayer.MultiPhaseParameters.builder()
-				.texture(new RenderPhase.Texture())
-				.diffuseLighting(enableDiffuse)
-				.transparency(TRANSLUCENT_TRANSPARENCY)
-				.target(itemTarget)
-				.build(false);
-		SPINNING_CUBE_GHOST = RenderLayer.of(LibResources.PREFIX_MOD + "spinning_cube_ghost", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, GL11.GL_QUADS, 64, glState);
+		glState = RenderType.CompositeState.builder()
+				.setTextureState(new RenderStateShard.TextureStateShard())
+				.setDiffuseLightingState(enableDiffuse)
+				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+				.setOutputState(itemTarget)
+				.createCompositeState(false);
+		SPINNING_CUBE_GHOST = RenderType.create(LibResources.PREFIX_MOD + "spinning_cube_ghost", DefaultVertexFormat.NEW_ENTITY, GL11.GL_QUADS, 64, glState);
 
-		glState = RenderLayer.MultiPhaseParameters.builder().texture(mipmapBlockAtlasTexture)
-				.transparency(TRANSLUCENT_TRANSPARENCY)
-				.target(itemTarget)
-				.diffuseLighting(new RenderPhase.DiffuseLighting(true))
-				.alpha(oneTenthAlpha)
-				.lightmap(enableLightmap).build(true);
-		ICON_OVERLAY = RenderLayer.of(LibResources.PREFIX_MOD + "icon_overlay", VertexFormats.POSITION_COLOR_TEXTURE_LIGHT, GL11.GL_QUADS, 128, glState);
+		glState = RenderType.CompositeState.builder().setTextureState(mipmapBlockAtlasTexture)
+				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+				.setOutputState(itemTarget)
+				.setDiffuseLightingState(new RenderStateShard.DiffuseLightingStateShard(true))
+				.setAlphaState(oneTenthAlpha)
+				.setLightmapState(enableLightmap).createCompositeState(true);
+		ICON_OVERLAY = RenderType.create(LibResources.PREFIX_MOD + "icon_overlay", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, GL11.GL_QUADS, 128, glState);
 
-		RenderPhase.Texture babylonTexture = new RenderPhase.Texture(new Identifier(LibResources.MISC_BABYLON), false, true);
-		glState = RenderLayer.MultiPhaseParameters.builder().texture(babylonTexture)
-				.transparency(TRANSLUCENT_TRANSPARENCY)
-				.target(itemTarget)
-				.cull(disableCull)
-				.shadeModel(smoothShade)
-				.alpha(new RenderPhase.Alpha(0.05F))
-				.lightmap(enableLightmap).build(true);
-		RenderLayer babylonIcon = RenderLayer.of(LibResources.PREFIX_MOD + "babylon", VertexFormats.POSITION_COLOR_TEXTURE, GL11.GL_QUADS, 64, glState);
+		RenderStateShard.TextureStateShard babylonTexture = new RenderStateShard.TextureStateShard(new ResourceLocation(LibResources.MISC_BABYLON), false, true);
+		glState = RenderType.CompositeState.builder().setTextureState(babylonTexture)
+				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+				.setOutputState(itemTarget)
+				.setCullState(disableCull)
+				.setShadeModelState(smoothShade)
+				.setAlphaState(new RenderStateShard.AlphaStateShard(0.05F))
+				.setLightmapState(enableLightmap).createCompositeState(true);
+		RenderType babylonIcon = RenderType.create(LibResources.PREFIX_MOD + "babylon", DefaultVertexFormat.POSITION_COLOR_TEX, GL11.GL_QUADS, 64, glState);
 		BABYLON_ICON = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, babylonIcon) : babylonIcon;
 
 		MANA_POOL_WATER = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.MANA_POOL, null, ICON_OVERLAY) : ICON_OVERLAY;
 		TERRA_PLATE = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.TERRA_PLATE, null, ICON_OVERLAY) : ICON_OVERLAY;
 		ENCHANTER = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ENCHANTER_RUNE, null, ICON_OVERLAY) : ICON_OVERLAY;
 
-		RenderPhase.Texture haloTexture = new RenderPhase.Texture(ItemFlightTiara.textureHalo, false, true);
-		glState = RenderLayer.MultiPhaseParameters.builder().texture(haloTexture)
-				.transparency(TRANSLUCENT_TRANSPARENCY)
-				.diffuseLighting(new RenderPhase.DiffuseLighting(true))
-				.alpha(oneTenthAlpha)
-				.cull(disableCull)
-				.build(true);
-		RenderLayer halo = RenderLayer.of(LibResources.PREFIX_MOD + "halo", VertexFormats.POSITION_TEXTURE, GL11.GL_QUADS, 64, glState);
+		RenderStateShard.TextureStateShard haloTexture = new RenderStateShard.TextureStateShard(ItemFlightTiara.textureHalo, false, true);
+		glState = RenderType.CompositeState.builder().setTextureState(haloTexture)
+				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+				.setDiffuseLightingState(new RenderStateShard.DiffuseLightingStateShard(true))
+				.setAlphaState(oneTenthAlpha)
+				.setCullState(disableCull)
+				.createCompositeState(true);
+		RenderType halo = RenderType.create(LibResources.PREFIX_MOD + "halo", DefaultVertexFormat.POSITION_TEX, GL11.GL_QUADS, 64, glState);
 		HALO = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, halo) : halo;
 
 		// Same as entity_translucent, with no depth test and a shader
-		glState = RenderLayer.MultiPhaseParameters.builder().depthTest(new RenderPhase.DepthTest("always", GL11.GL_ALWAYS)).texture(new RenderPhase.Texture(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE, false, false)).transparency(TRANSLUCENT_TRANSPARENCY).diffuseLighting(enableDiffuse).alpha(oneTenthAlpha).cull(disableCull).lightmap(enableLightmap).overlay(enableOverlay).build(true);
+		glState = RenderType.CompositeState.builder().setDepthTestState(new RenderStateShard.DepthTestStateShard("always", GL11.GL_ALWAYS)).setTextureState(new RenderStateShard.TextureStateShard(TextureAtlas.LOCATION_BLOCKS, false, false)).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setDiffuseLightingState(enableDiffuse).setAlphaState(oneTenthAlpha).setCullState(disableCull).setLightmapState(enableLightmap).setOverlayState(enableOverlay).createCompositeState(true);
 		ShaderCallback cb = shader -> {
-			int alpha = GlStateManager.getUniformLocation(shader, "alpha");
+			int alpha = GlStateManager._glGetUniformLocation(shader, "alpha");
 			ShaderHelper.FLOAT_BUF.position(0);
 			ShaderHelper.FLOAT_BUF.put(0, 0.4F);
 			RenderSystem.glUniform1(alpha, ShaderHelper.FLOAT_BUF);
 		};
-		RenderLayer astrolabePreview = RenderLayer.of(LibResources.PREFIX_MOD + "astrolabe_preview", VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, 7, 256, true, true, glState);
+		RenderType astrolabePreview = RenderType.create(LibResources.PREFIX_MOD + "astrolabe_preview", DefaultVertexFormat.NEW_ENTITY, 7, 256, true, true, glState);
 		ASTROLABE_PREVIEW = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ALPHA, cb, astrolabePreview) : astrolabePreview;
 	}
 
-	private static RenderLayer getPylonGlowDirect(String name, Identifier texture) {
+	private static RenderType getPylonGlowDirect(String name, ResourceLocation texture) {
 		return getPylonGlow(name, texture, true);
 	}
 
-	private static RenderLayer getPylonGlow(String name, Identifier texture) {
+	private static RenderType getPylonGlow(String name, ResourceLocation texture) {
 		return getPylonGlow(name, texture, false);
 	}
 
-	private static RenderLayer getPylonGlow(String name, Identifier texture, boolean direct) {
-		RenderLayer.MultiPhaseParameters.Builder glState = RenderLayer.MultiPhaseParameters.builder()
-				.texture(new RenderPhase.Texture(texture, false, false))
-				.transparency(TRANSLUCENT_TRANSPARENCY)
-				.diffuseLighting(new RenderPhase.DiffuseLighting(true))
-				.alpha(new RenderPhase.Alpha(0))
-				.cull(new RenderPhase.Cull(false))
-				.lightmap(new RenderPhase.Lightmap(true));
+	private static RenderType getPylonGlow(String name, ResourceLocation texture, boolean direct) {
+		RenderType.CompositeState.CompositeStateBuilder glState = RenderType.CompositeState.builder()
+				.setTextureState(new RenderStateShard.TextureStateShard(texture, false, false))
+				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+				.setDiffuseLightingState(new RenderStateShard.DiffuseLightingStateShard(true))
+				.setAlphaState(new RenderStateShard.AlphaStateShard(0))
+				.setCullState(new RenderStateShard.CullStateShard(false))
+				.setLightmapState(new RenderStateShard.LightmapStateShard(true));
 		if (!direct) {
-			glState = glState.target(AccessorRenderState.getItemEntityTarget());
+			glState = glState.setOutputState(AccessorRenderState.getItemEntityTarget());
 		}
-		RenderLayer layer = RenderLayer.of(LibResources.PREFIX_MOD + name, VertexFormats.POSITION_COLOR_TEXTURE_OVERLAY_LIGHT_NORMAL, GL11.GL_QUADS, 128, glState.build(false));
+		RenderType layer = RenderType.create(LibResources.PREFIX_MOD + name, DefaultVertexFormat.NEW_ENTITY, GL11.GL_QUADS, 128, glState.createCompositeState(false));
 		return ShaderHelper.useShaders() ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.PYLON_GLOW, null, layer) : layer;
 	}
 
-	public static RenderLayer getHaloLayer(Identifier texture) {
-		RenderLayer.MultiPhaseParameters glState = RenderLayer.MultiPhaseParameters.builder()
-				.texture(new RenderPhase.Texture(texture, true, false))
-				.cull(new RenderPhase.Cull(false))
-				.transparency(TRANSLUCENT_TRANSPARENCY).build(false);
-		return RenderLayer.of(LibResources.PREFIX_MOD + "crafting_halo", VertexFormats.POSITION_COLOR_TEXTURE, GL11.GL_QUADS, 64, false, true, glState);
+	public static RenderType getHaloLayer(ResourceLocation texture) {
+		RenderType.CompositeState glState = RenderType.CompositeState.builder()
+				.setTextureState(new RenderStateShard.TextureStateShard(texture, true, false))
+				.setCullState(new RenderStateShard.CullStateShard(false))
+				.setTransparencyState(TRANSLUCENT_TRANSPARENCY).createCompositeState(false);
+		return RenderType.create(LibResources.PREFIX_MOD + "crafting_halo", DefaultVertexFormat.POSITION_COLOR_TEX, GL11.GL_QUADS, 64, false, true, glState);
 	}
 
-	public static void drawTexturedModalRect(MatrixStack ms, int x, int y, int u, int v, int width, int height) {
-		DrawableHelper.drawTexture(ms, x, y, u, v, width, height, 256, 256);
+	public static void drawTexturedModalRect(PoseStack ms, int x, int y, int u, int v, int width, int height) {
+		GuiComponent.blit(ms, x, y, u, v, width, height, 256, 256);
 	}
 
-	public static void renderStar(MatrixStack ms, VertexConsumerProvider buffers, int color, float xScale, float yScale, float zScale, long seed) {
+	public static void renderStar(PoseStack ms, MultiBufferSource buffers, int color, float xScale, float yScale, float zScale, long seed) {
 		VertexConsumer buffer = buffers.getBuffer(STAR);
 
 		float ticks = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 		float semiPeriodTicks = 200;
-		float f1 = MathHelper.abs(MathHelper.sin((float) Math.PI / semiPeriodTicks * ticks))
+		float f1 = Mth.abs(Mth.sin((float) Math.PI / semiPeriodTicks * ticks))
 				* 0.9F + 0.1F; // shift to [0.1, 1.0]
 
 		float f2 = f1 > 0.F ? (f1 - 0.7F) / 0.2F : 0;
 		Random random = new Random(seed);
 
-		ms.push();
+		ms.pushPose();
 		ms.scale(xScale, yScale, zScale);
 
 		for (int i = 0; i < (f1 + f1 * f1) / 2F * 90F + 30F; i++) {
-			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(random.nextFloat() * 360F));
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(random.nextFloat() * 360F));
-			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(random.nextFloat() * 360F));
-			ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(random.nextFloat() * 360F));
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(random.nextFloat() * 360F));
-			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(random.nextFloat() * 360F + f1 * 90F));
+			ms.mulPose(Vector3f.XP.rotationDegrees(random.nextFloat() * 360F));
+			ms.mulPose(Vector3f.YP.rotationDegrees(random.nextFloat() * 360F));
+			ms.mulPose(Vector3f.ZP.rotationDegrees(random.nextFloat() * 360F));
+			ms.mulPose(Vector3f.XP.rotationDegrees(random.nextFloat() * 360F));
+			ms.mulPose(Vector3f.YP.rotationDegrees(random.nextFloat() * 360F));
+			ms.mulPose(Vector3f.ZP.rotationDegrees(random.nextFloat() * 360F + f1 * 90F));
 			float f3 = random.nextFloat() * 20F + 5F + f2 * 10F;
 			float f4 = random.nextFloat() * 2F + 1F + f2 * 2F;
 			float r = ((color & 0xFF0000) >> 16) / 255F;
 			float g = ((color & 0xFF00) >> 8) / 255F;
 			float b = (color & 0xFF) / 255F;
-			Matrix4f mat = ms.peek().getModel();
-			Runnable center = () -> buffer.vertex(mat, 0, 0, 0).color(r, g, b, f1).next();
+			Matrix4f mat = ms.last().pose();
+			Runnable center = () -> buffer.vertex(mat, 0, 0, 0).color(r, g, b, f1).endVertex();
 			Runnable[] vertices = {
-					() -> buffer.vertex(mat, -0.866F * f4, f3, -0.5F * f4).color(0, 0, 0, 0).next(),
-					() -> buffer.vertex(mat, 0.866F * f4, f3, -0.5F * f4).color(0, 0, 0, 0).next(),
-					() -> buffer.vertex(mat, 0, f3, 1F * f4).color(0, 0, 0, 0).next(),
-					() -> buffer.vertex(mat, -0.866F * f4, f3, -0.5F * f4).color(0, 0, 0, 0).next()
+					() -> buffer.vertex(mat, -0.866F * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex(),
+					() -> buffer.vertex(mat, 0.866F * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex(),
+					() -> buffer.vertex(mat, 0, f3, 1F * f4).color(0, 0, 0, 0).endVertex(),
+					() -> buffer.vertex(mat, -0.866F * f4, f3, -0.5F * f4).color(0, 0, 0, 0).endVertex()
 			};
 			triangleFan(center, vertices);
 		}
 
-		ms.pop();
+		ms.popPose();
 	}
 
 	public static void triangleFan(Runnable center, Runnable... vertices) {
@@ -279,9 +279,9 @@ public final class RenderHelper {
 		}
 	}
 
-	public static void renderProgressPie(MatrixStack ms, int x, int y, float progress, ItemStack stack) {
-		MinecraftClient mc = MinecraftClient.getInstance();
-		mc.getItemRenderer().renderInGuiWithOverrides(stack, x, y);
+	public static void renderProgressPie(PoseStack ms, int x, int y, float progress, ItemStack stack) {
+		Minecraft mc = Minecraft.getInstance();
+		mc.getItemRenderer().renderAndDecorateItem(stack, x, y);
 
 		RenderSystem.clear(GL11.GL_DEPTH_BUFFER_BIT, true);
 		GL11.glEnable(GL11.GL_STENCIL_TEST);
@@ -290,9 +290,9 @@ public final class RenderHelper {
 		RenderSystem.stencilFunc(GL11.GL_NEVER, 1, 0xFF);
 		RenderSystem.stencilOp(GL11.GL_REPLACE, GL11.GL_KEEP, GL11.GL_KEEP);
 		RenderSystem.stencilMask(0xFF);
-		mc.getItemRenderer().renderInGuiWithOverrides(stack, x, y);
+		mc.getItemRenderer().renderAndDecorateItem(stack, x, y);
 
-		mc.getTextureManager().bindTexture(new Identifier(LibResources.GUI_MANA_HUD));
+		mc.getTextureManager().bind(new ResourceLocation(LibResources.GUI_MANA_HUD));
 		int r = 10;
 		int centerX = x + 8;
 		int centerY = y + 8;
@@ -309,18 +309,18 @@ public final class RenderHelper {
 		RenderSystem.stencilMask(0x00);
 		RenderSystem.stencilFunc(GL11.GL_EQUAL, 1, 0xFF);
 
-		Matrix4f mat = ms.peek().getModel();
-		BufferBuilder buf = Tessellator.getInstance().getBuffer();
-		buf.begin(GL11.GL_TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
-		buf.vertex(mat, centerX, centerY, 0).color(0, 0.5F, 0.5F, a).next();
+		Matrix4f mat = ms.last().pose();
+		BufferBuilder buf = Tesselator.getInstance().getBuilder();
+		buf.begin(GL11.GL_TRIANGLE_FAN, DefaultVertexFormat.POSITION_COLOR);
+		buf.vertex(mat, centerX, centerY, 0).color(0, 0.5F, 0.5F, a).endVertex();
 
 		for (int i = degs; i > 0; i--) {
 			float rad = (i - 90) / 180F * (float) Math.PI;
-			buf.vertex(mat, centerX + MathHelper.cos(rad) * r, centerY + MathHelper.sin(rad) * r, 0).color(0F, 1F, 0.5F, a).next();
+			buf.vertex(mat, centerX + Mth.cos(rad) * r, centerY + Mth.sin(rad) * r, 0).color(0F, 1F, 0.5F, a).endVertex();
 		}
 
-		buf.vertex(mat, centerX, centerY, 0).color(0F, 1F, 0.5F, a).next();
-		Tessellator.getInstance().draw();
+		buf.vertex(mat, centerX, centerY, 0).color(0F, 1F, 0.5F, a).endVertex();
+		Tesselator.getInstance().end();
 
 		RenderSystem.disableBlend();
 		RenderSystem.enableTexture();
@@ -332,31 +332,31 @@ public final class RenderHelper {
 	 * @param color Must include alpha
 	 */
 	// [VanillaCopy] ItemRenderer.renderItem with simplifications + color support + custom model
-	public static void renderItemCustomColor(LivingEntity entity, ItemStack stack, int color, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay, @Nullable BakedModel model) {
-		ms.push();
+	public static void renderItemCustomColor(LivingEntity entity, ItemStack stack, int color, PoseStack ms, MultiBufferSource buffers, int light, int overlay, @Nullable BakedModel model) {
+		ms.pushPose();
 		if (model == null) {
-			model = MinecraftClient.getInstance().getItemRenderer().getHeldItemModel(stack, entity.world, entity);
+			model = Minecraft.getInstance().getItemRenderer().getModel(stack, entity.level, entity);
 		}
-		model.getTransformation().getTransformation(ModelTransformation.Mode.NONE).apply(false, ms);
+		model.getTransforms().getTransform(ItemTransforms.TransformType.NONE).apply(false, ms);
 		ms.translate(-0.5D, -0.5D, -0.5D);
 
-		if (!model.isBuiltin() && (stack.getItem() != Items.TRIDENT)) {
-			RenderLayer rendertype = RenderLayers.getItemLayer(stack, true);
-			VertexConsumer ivertexbuilder = ItemRenderer.getDirectItemGlintConsumer(buffers, rendertype, true, stack.hasGlint());
+		if (!model.isCustomRenderer() && (stack.getItem() != Items.TRIDENT)) {
+			RenderType rendertype = ItemBlockRenderTypes.getRenderType(stack, true);
+			VertexConsumer ivertexbuilder = ItemRenderer.getFoilBufferDirect(buffers, rendertype, true, stack.hasFoil());
 			renderBakedItemModel(model, stack, color, light, overlay, ms, ivertexbuilder);
 		} else {
-			BuiltinModelItemRenderer.INSTANCE.render(stack, ModelTransformation.Mode.NONE, ms, buffers, light, overlay);
+			BlockEntityWithoutLevelRenderer.instance.renderByItem(stack, ItemTransforms.TransformType.NONE, ms, buffers, light, overlay);
 		}
 
-		ms.pop();
+		ms.popPose();
 	}
 
-	public static void renderItemCustomColor(LivingEntity entity, ItemStack stack, int color, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
+	public static void renderItemCustomColor(LivingEntity entity, ItemStack stack, int color, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		renderItemCustomColor(entity, stack, color, ms, buffers, light, overlay, null);
 	}
 
 	// [VanillaCopy] ItemRenderer with custom color
-	private static void renderBakedItemModel(BakedModel model, ItemStack stack, int color, int light, int overlay, MatrixStack ms, VertexConsumer buffer) {
+	private static void renderBakedItemModel(BakedModel model, ItemStack stack, int color, int light, int overlay, PoseStack ms, VertexConsumer buffer) {
 		Random random = new Random();
 		long i = 42L;
 
@@ -370,8 +370,8 @@ public final class RenderHelper {
 	}
 
 	// [VanillaCopy] ItemRenderer, with custom color + alpha support
-	private static void renderBakedItemQuads(MatrixStack ms, VertexConsumer buffer, int color, List<BakedQuad> quads, ItemStack stack, int light, int overlay) {
-		MatrixStack.Entry matrixstack$entry = ms.peek();
+	private static void renderBakedItemQuads(PoseStack ms, VertexConsumer buffer, int color, List<BakedQuad> quads, ItemStack stack, int light, int overlay) {
+		PoseStack.Pose matrixstack$entry = ms.last();
 
 		for (BakedQuad bakedquad : quads) {
 			int i = color;

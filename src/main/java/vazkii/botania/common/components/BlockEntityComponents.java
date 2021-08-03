@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.components;
 
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.common.core.handler.ExoflameFurnaceHandler;

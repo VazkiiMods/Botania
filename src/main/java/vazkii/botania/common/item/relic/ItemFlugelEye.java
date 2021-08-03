@@ -10,22 +10,28 @@ package vazkii.botania.common.item.relic;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -45,7 +51,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUsingItem {
 
-	public ItemFlugelEye(Settings props) {
+	public ItemFlugelEye(Properties props) {
 		super(props);
 	}
 
@@ -53,13 +59,13 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 	@Nonnull
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		World world = ctx.getWorld();
-		BlockPos pos = ctx.getBlockPos();
-		PlayerEntity player = ctx.getPlayer();
+	public InteractionResult useOn(UseOnContext ctx) {
+		Level world = ctx.getLevel();
+		BlockPos pos = ctx.getClickedPos();
+		Player player = ctx.getPlayer();
 
-		if (player != null && player.isSneaking()) {
-			if (world.isClient) {
+		if (player != null && player.isShiftKeyDown()) {
+			if (world.isClientSide) {
 				for (int i = 0; i < 10; i++) {
 					float x1 = (float) (pos.getX() + Math.random());
 					float y1 = pos.getY() + 1;
@@ -68,24 +74,24 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 					world.addParticle(data, x1, y1, z1, 0, 0.05F - (float) Math.random() * 0.05F, 0);
 				}
 			} else {
-				ItemStack stack = ctx.getStack();
+				ItemStack stack = ctx.getItemInHand();
 				Tag nbt = BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).get().orThrow();
-				ItemNBTHelper.set(stack, TAG_TARGET_PREFIX + world.getRegistryKey().getValue().toString(), nbt);
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 5F);
+				ItemNBTHelper.set(stack, TAG_TARGET_PREFIX + world.dimension().location().toString(), nbt);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1F, 5F);
 			}
 
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Override
-	public void usageTick(World world, LivingEntity living, ItemStack stack, int count) {
-		if (world.isClient) {
-			float x = (float) (living.getX() - Math.random() * living.getWidth());
+	public void onUseTick(Level world, LivingEntity living, ItemStack stack, int count) {
+		if (world.isClientSide) {
+			float x = (float) (living.getX() - Math.random() * living.getBbWidth());
 			float y = (float) (living.getY() + Math.random());
-			float z = (float) (living.getZ() - Math.random() * living.getWidth());
+			float z = (float) (living.getZ() - Math.random() * living.getBbWidth());
 			WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.7F, (float) Math.random(), (float) Math.random(), (float) Math.random(), 1);
 			world.addParticle(data, x, y, z, 0, 0.05F + (float) Math.random() * 0.05F, 0);
 		}
@@ -93,15 +99,15 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		player.setCurrentHand(hand);
-		return TypedActionResult.consume(player.getStackInHand(hand));
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		player.startUsingItem(hand);
+		return InteractionResultHolder.consume(player.getItemInHand(hand));
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack finishUsing(@Nonnull ItemStack stack, World world, LivingEntity living) {
-		String tag = TAG_TARGET_PREFIX + world.getRegistryKey().getValue().toString();
+	public ItemStack finishUsingItem(@Nonnull ItemStack stack, Level world, LivingEntity living) {
+		String tag = TAG_TARGET_PREFIX + world.dimension().location().toString();
 		Tag nbt = ItemNBTHelper.get(stack, tag);
 		if (nbt == null) {
 			return stack;
@@ -118,9 +124,9 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 		int cost = (int) (MathHelper.pointDistanceSpace(x + 0.5, y + 0.5, z + 0.5, living.getX(), living.getY(), living.getZ()) * 10);
 
-		if (!(living instanceof PlayerEntity) || ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) living, cost, true)) {
+		if (!(living instanceof Player) || ManaItemHandler.instance().requestManaExact(stack, (Player) living, cost, true)) {
 			moveParticlesAndSound(living);
-			living.requestTeleport(x + 0.5, y + 1.5, z + 0.5);
+			living.teleportTo(x + 0.5, y + 1.5, z + 0.5);
 			moveParticlesAndSound(living);
 		}
 
@@ -128,25 +134,25 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	}
 
 	private static void moveParticlesAndSound(Entity entity) {
-		PacketBotaniaEffect.sendNearby(entity, PacketBotaniaEffect.EffectType.FLUGEL_EFFECT, entity.getX(), entity.getY(), entity.getZ(), entity.getEntityId());
-		entity.world.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.PLAYERS, 1F, 1F);
+		PacketBotaniaEffect.sendNearby(entity, PacketBotaniaEffect.EffectType.FLUGEL_EFFECT, entity.getX(), entity.getY(), entity.getZ(), entity.getId());
+		entity.level.playSound(null, entity.getX(), entity.getY(), entity.getZ(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1F, 1F);
 	}
 
 	@Override
-	public int getMaxUseTime(ItemStack stack) {
+	public int getUseDuration(ItemStack stack) {
 		return 40;
 	}
 
 	@Nonnull
 	@Override
-	public UseAction getUseAction(ItemStack stack) {
-		return UseAction.BOW;
+	public UseAnim getUseAnimation(ItemStack stack) {
+		return UseAnim.BOW;
 	}
 
 	@Nullable
 	@Override
-	public BlockPos getBinding(World world, ItemStack stack) {
-		String tag = TAG_TARGET_PREFIX + world.getRegistryKey().getValue().toString();
+	public BlockPos getBinding(Level world, ItemStack stack) {
+		String tag = TAG_TARGET_PREFIX + world.dimension().location().toString();
 		Tag nbt = ItemNBTHelper.get(stack, tag);
 		if (nbt != null) {
 			return BlockPos.CODEC.parse(NbtOps.INSTANCE, nbt).result()
@@ -157,28 +163,28 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext flags) {
-		super.appendTooltip(stack, world, tooltip, flags);
+	public void appendHoverText(ItemStack stack, @Nullable Level world, List<Component> tooltip, TooltipFlag flags) {
+		super.appendHoverText(stack, world, tooltip, flags);
 
 		if (world == null) {
 			return;
 		}
 
 		BlockPos binding = getBinding(world, stack);
-		Text worldText = new LiteralText(world.getRegistryKey().getValue().toString()).formatted(Formatting.GREEN);
+		Component worldText = new TextComponent(world.dimension().location().toString()).withStyle(ChatFormatting.GREEN);
 
 		if (binding == null) {
-			tooltip.add(new TranslatableText("botaniamisc.flugelUnbound", worldText).formatted(Formatting.GRAY));
+			tooltip.add(new TranslatableComponent("botaniamisc.flugelUnbound", worldText).withStyle(ChatFormatting.GRAY));
 		} else {
-			Text bindingText = new LiteralText("[").formatted(Formatting.WHITE)
-					.append(new LiteralText(Integer.toString(binding.getX())).formatted(Formatting.GOLD))
+			Component bindingText = new TextComponent("[").withStyle(ChatFormatting.WHITE)
+					.append(new TextComponent(Integer.toString(binding.getX())).withStyle(ChatFormatting.GOLD))
 					.append(", ")
-					.append(new LiteralText(Integer.toString(binding.getY())).formatted(Formatting.GOLD))
+					.append(new TextComponent(Integer.toString(binding.getY())).withStyle(ChatFormatting.GOLD))
 					.append(", ")
-					.append(new LiteralText(Integer.toString(binding.getZ())).formatted(Formatting.GOLD))
+					.append(new TextComponent(Integer.toString(binding.getZ())).withStyle(ChatFormatting.GOLD))
 					.append("]");
 
-			tooltip.add(new TranslatableText("botaniamisc.flugelBound", bindingText, worldText).formatted(Formatting.GRAY));
+			tooltip.add(new TranslatableComponent("botaniamisc.flugelBound", bindingText, worldText).withStyle(ChatFormatting.GRAY));
 		}
 	}
 
@@ -188,7 +194,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 	}
 
 	@Override
-	public Identifier getAdvancement() {
+	public ResourceLocation getAdvancement() {
 		return prefix("challenge/flugel_eye");
 	}
 

@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.util.collection.WeightedPicker;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.WeighedRandom;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -35,25 +35,25 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 
 	// TODO should this try to match the exact same biome sets as <=1.16.1? is this close enough?
 	private enum Type {
-		FOREST(ModFluffBlocks.biomeStoneForest, Biome.Category.FOREST),
-		PLAINS(ModFluffBlocks.biomeStonePlains, Biome.Category.PLAINS),
-		MOUNTAIN(ModFluffBlocks.biomeStoneMountain, Biome.Category.EXTREME_HILLS),
-		MUSHROOM(ModFluffBlocks.biomeStoneFungal, Biome.Category.MUSHROOM),
-		SWAMP(ModFluffBlocks.biomeStoneSwamp, Biome.Category.SWAMP),
-		SANDY(ModFluffBlocks.biomeStoneDesert, Biome.Category.DESERT, Biome.Category.BEACH),
-		COLD(ModFluffBlocks.biomeStoneTaiga, Biome.Category.ICY, Biome.Category.TAIGA),
-		MESA(ModFluffBlocks.biomeStoneMesa, Biome.Category.MESA);
+		FOREST(ModFluffBlocks.biomeStoneForest, Biome.BiomeCategory.FOREST),
+		PLAINS(ModFluffBlocks.biomeStonePlains, Biome.BiomeCategory.PLAINS),
+		MOUNTAIN(ModFluffBlocks.biomeStoneMountain, Biome.BiomeCategory.EXTREME_HILLS),
+		MUSHROOM(ModFluffBlocks.biomeStoneFungal, Biome.BiomeCategory.MUSHROOM),
+		SWAMP(ModFluffBlocks.biomeStoneSwamp, Biome.BiomeCategory.SWAMP),
+		SANDY(ModFluffBlocks.biomeStoneDesert, Biome.BiomeCategory.DESERT, Biome.BiomeCategory.BEACH),
+		COLD(ModFluffBlocks.biomeStoneTaiga, Biome.BiomeCategory.ICY, Biome.BiomeCategory.TAIGA),
+		MESA(ModFluffBlocks.biomeStoneMesa, Biome.BiomeCategory.MESA);
 
 		private final Block biomeStone;
-		private final Biome.Category[] categories;
+		private final Biome.BiomeCategory[] categories;
 
-		Type(Block biomeStone, Biome.Category... categories) {
+		Type(Block biomeStone, Biome.BiomeCategory... categories) {
 			this.biomeStone = biomeStone;
 			this.categories = categories;
 		}
 
-		public boolean contains(Biome.Category category) {
-			for (Biome.Category c : categories) {
+		public boolean contains(Biome.BiomeCategory category) {
+			for (Biome.BiomeCategory c : categories) {
 				if (c == category) {
 					return true;
 				}
@@ -73,7 +73,7 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 	@Override
 	public void tickFlower() {
 		super.tickFlower();
-		if (getWorld().isClient || redstoneSignal > 0) {
+		if (getLevel().isClientSide || redstoneSignal > 0) {
 			return;
 		}
 
@@ -82,9 +82,9 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 			if (coords != null) {
 				BlockState state = getStoneToPut(coords);
 				if (state != null) {
-					getWorld().setBlockState(coords, state);
+					getLevel().setBlockAndUpdate(coords, state);
 					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
-						getWorld().syncWorldEvent(2001, coords, Block.getRawIdFromState(state));
+						getLevel().levelEvent(2001, coords, Block.getId(state));
 					}
 
 					addMana(-COST);
@@ -95,16 +95,16 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 	}
 
 	public BlockState getStoneToPut(BlockPos coords) {
-		Biome.Category category = getWorld().getBiome(coords).getCategory();
+		Biome.BiomeCategory category = getLevel().getBiome(coords).getBiomeCategory();
 
 		List<StoneEntry> values = new ArrayList<>();
 		for (Type type : Type.values()) {
 			values.add(new StoneEntry(type, type.contains(category) ? 12 : 1));
 		}
-		return WeightedPicker.getRandom(getWorld().random, values).type.biomeStone.getDefaultState();
+		return WeighedRandom.getRandomItem(getLevel().random, values).type.biomeStone.defaultBlockState();
 	}
 
-	private static class StoneEntry extends WeightedPicker.Entry {
+	private static class StoneEntry extends WeighedRandom.WeighedRandomItem {
 		private final Type type;
 
 		public StoneEntry(Type type, int weight) {
@@ -119,18 +119,18 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 		int range = getRange();
 		int rangeY = getRangeY();
 
-		for (BlockPos pos : BlockPos.iterate(getEffectivePos().add(-range, -rangeY, -range),
-				getEffectivePos().add(range, rangeY, range))) {
-			BlockState state = getWorld().getBlockState(pos);
+		for (BlockPos pos : BlockPos.betweenClosed(getEffectivePos().offset(-range, -rangeY, -range),
+				getEffectivePos().offset(range, rangeY, range))) {
+			BlockState state = getLevel().getBlockState(pos);
 			if (state.getBlock() == Blocks.STONE) {
-				possibleCoords.add(pos.toImmutable());
+				possibleCoords.add(pos.immutable());
 			}
 		}
 
 		if (possibleCoords.isEmpty()) {
 			return null;
 		}
-		return possibleCoords.get(getWorld().random.nextInt(possibleCoords.size()));
+		return possibleCoords.get(getLevel().random.nextInt(possibleCoords.size()));
 	}
 
 	@Override

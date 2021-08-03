@@ -12,16 +12,15 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import net.fabricmc.fabric.impl.tag.extension.TagDelegate;
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.server.recipe.RecipeJsonProvider;
-import net.minecraft.item.ItemConvertible;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.tag.ItemTags;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.ItemLike;
 
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
@@ -47,7 +46,7 @@ public class PetalProvider extends BotaniaRecipeProvider {
 	}
 
 	@Override
-	public void registerRecipes(Consumer<RecipeJsonProvider> consumer) {
+	public void registerRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
 		Ingredient white = tagIngr("petals/white");
 		Ingredient orange = tagIngr("petals/orange");
 		Ingredient magenta = tagIngr("petals/magenta");
@@ -81,9 +80,9 @@ public class PetalProvider extends BotaniaRecipeProvider {
 		Ingredient runeEnvy = tagIngr("runes/envy");
 		Ingredient runePride = tagIngr("runes/pride");
 
-		Ingredient redstoneRoot = Ingredient.ofItems(ModItems.redstoneRoot);
-		Ingredient pixieDust = Ingredient.ofItems(ModItems.pixieDust);
-		Ingredient gaiaSpirit = Ingredient.ofItems(ModItems.lifeEssence);
+		Ingredient redstoneRoot = Ingredient.of(ModItems.redstoneRoot);
+		Ingredient pixieDust = Ingredient.of(ModItems.pixieDust);
+		Ingredient gaiaSpirit = Ingredient.of(ModItems.lifeEssence);
 
 		consumer.accept(make(ModSubtiles.pureDaisy, white, white, white, white));
 		consumer.accept(make(ModSubtiles.manastar, lightBlue, green, red, cyan));
@@ -108,8 +107,8 @@ public class PetalProvider extends BotaniaRecipeProvider {
 		consumer.accept(make(ModSubtiles.heiseiDream, magenta, magenta, purple, pink, runeWrath, pixieDust));
 		consumer.accept(make(ModSubtiles.tigerseye, yellow, brown, orange, lime, runeAutumn));
 
-		RecipeJsonProvider base = make(ModSubtiles.orechid, gray, gray, yellow, green, red, runePride, runeGreed, redstoneRoot, pixieDust);
-		RecipeJsonProvider gog = make(ModSubtiles.orechid, gray, gray, yellow, yellow, green, green, red, red);
+		net.minecraft.data.recipes.FinishedRecipe base = make(ModSubtiles.orechid, gray, gray, yellow, green, red, runePride, runeGreed, redstoneRoot, pixieDust);
+		net.minecraft.data.recipes.FinishedRecipe gog = make(ModSubtiles.orechid, gray, gray, yellow, yellow, green, green, red, red);
 		consumer.accept(new GogAlternationResult(gog, base));
 
 		consumer.accept(make(ModSubtiles.orechidIgnem, red, red, white, white, pink, runePride, runeGreed, redstoneRoot, pixieDust));
@@ -145,30 +144,30 @@ public class PetalProvider extends BotaniaRecipeProvider {
 	}
 
 	private static Ingredient tagIngr(String tag) {
-		return Ingredient.fromTag(new TagDelegate<>(prefix(tag), ItemTags::getTagGroup));
+		return Ingredient.of(new TagDelegate<>(prefix(tag), ItemTags::getAllTags));
 	}
 
-	private static FinishedRecipe make(ItemConvertible item, Ingredient... ingredients) {
-		return new FinishedRecipe(idFor(Registry.ITEM.getId(item.asItem())), new ItemStack(item), ingredients);
+	private static FinishedRecipe make(ItemLike item, Ingredient... ingredients) {
+		return new FinishedRecipe(idFor(Registry.ITEM.getKey(item.asItem())), new ItemStack(item), ingredients);
 	}
 
-	private static Identifier idFor(Identifier name) {
-		return new Identifier(name.getNamespace(), "petal_apothecary/" + name.getPath());
+	private static ResourceLocation idFor(ResourceLocation name) {
+		return new ResourceLocation(name.getNamespace(), "petal_apothecary/" + name.getPath());
 	}
 
-	private static class FinishedRecipe implements RecipeJsonProvider {
-		private final Identifier id;
+	private static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
+		private final ResourceLocation id;
 		private final ItemStack output;
 		private final Ingredient[] inputs;
 
-		private FinishedRecipe(Identifier id, ItemStack output, Ingredient... inputs) {
+		private FinishedRecipe(ResourceLocation id, ItemStack output, Ingredient... inputs) {
 			this.id = id;
 			this.output = output;
 			this.inputs = inputs;
 		}
 
 		@Override
-		public void serialize(JsonObject json) {
+		public void serializeRecipeData(JsonObject json) {
 			json.add("output", ItemNBTHelper.serializeStack(output));
 			JsonArray ingredients = new JsonArray();
 			for (Ingredient ingr : inputs) {
@@ -178,24 +177,24 @@ public class PetalProvider extends BotaniaRecipeProvider {
 		}
 
 		@Override
-		public Identifier getRecipeId() {
+		public ResourceLocation getId() {
 			return id;
 		}
 
 		@Override
-		public RecipeSerializer<?> getSerializer() {
+		public RecipeSerializer<?> getType() {
 			return ModRecipeTypes.PETAL_SERIALIZER;
 		}
 
 		@Nullable
 		@Override
-		public JsonObject toAdvancementJson() {
+		public JsonObject serializeAdvancement() {
 			return null;
 		}
 
 		@Nullable
 		@Override
-		public Identifier getAdvancementId() {
+		public ResourceLocation getAdvancementId() {
 			return null;
 		}
 	}

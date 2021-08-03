@@ -10,14 +10,14 @@ package vazkii.botania.common.block.subtile.functional;
 
 import com.google.common.base.Predicates;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.GoalSelector;
-import net.minecraft.entity.ai.goal.PrioritizedGoal;
-import net.minecraft.entity.ai.goal.RevengeGoal;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.Monster;
-import net.minecraft.util.math.Box;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.goal.GoalSelector;
+import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -39,17 +39,17 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isClient) {
+		if (getLevel().isClientSide) {
 			return;
 		}
 
 		@SuppressWarnings("unchecked")
-		List<Monster> mobs = (List) getWorld().getEntitiesByClass(Entity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)), Predicates.instanceOf(Monster.class));
+		List<Enemy> mobs = (List) getLevel().getEntitiesOfClass(Entity.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)), Predicates.instanceOf(Enemy.class));
 
 		if (mobs.size() > 1 && getMana() >= COST) {
-			for (Monster mob : mobs) {
-				if (mob instanceof MobEntity) {
-					MobEntity entity = (MobEntity) mob;
+			for (Enemy mob : mobs) {
+				if (mob instanceof Mob) {
+					Mob entity = (Mob) mob;
 					if (brainwashEntity(entity, mobs)) {
 						addMana(-COST);
 						sync();
@@ -60,32 +60,32 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 		}
 	}
 
-	public static boolean brainwashEntity(MobEntity entity, List<Monster> mobs) {
+	public static boolean brainwashEntity(Mob entity, List<Enemy> mobs) {
 		LivingEntity target = entity.getTarget();
 		boolean did = false;
 
-		if (!(target instanceof Monster)) {
-			Monster newTarget;
+		if (!(target instanceof Enemy)) {
+			Enemy newTarget;
 			do {
-				newTarget = mobs.get(entity.world.random.nextInt(mobs.size()));
+				newTarget = mobs.get(entity.level.random.nextInt(mobs.size()));
 			} while (newTarget == entity);
 
-			if (newTarget instanceof MobEntity) {
+			if (newTarget instanceof Mob) {
 				entity.setTarget(null);
 
 				// Move any EntityAIHurtByTarget to highest priority
 				GoalSelector targetSelector = ((AccessorMobEntity) entity).getTargetSelector();
-				for (PrioritizedGoal entry : ((AccessorGoalSelector) targetSelector).getGoals()) {
-					if (entry.getGoal() instanceof RevengeGoal) {
+				for (WrappedGoal entry : ((AccessorGoalSelector) targetSelector).getAvailableGoals()) {
+					if (entry.getGoal() instanceof HurtByTargetGoal) {
 						// Concurrent modification OK since we break out of the loop
-						targetSelector.remove(entry.getGoal());
-						targetSelector.add(-1, entry.getGoal());
+						targetSelector.removeGoal(entry.getGoal());
+						targetSelector.addGoal(-1, entry.getGoal());
 						break;
 					}
 				}
 
 				// Now set revenge target, which EntityAIHurtByTarget will pick up
-				entity.setAttacker((MobEntity) newTarget);
+				entity.setLastHurtByMob((Mob) newTarget);
 				did = true;
 			}
 		}

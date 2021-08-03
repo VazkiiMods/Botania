@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.core;
 
-import net.minecraft.block.ShapeContext;
-import net.minecraft.entity.Entity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.shapes.CollisionContext;
 
 import javax.annotation.Nullable;
 
@@ -17,7 +17,7 @@ public interface ExtendedShapeContext {
 	@Nullable
 	Entity botania_getEntity();
 
-	static Entity getEntity(ShapeContext ctx) {
+	static Entity getEntity(CollisionContext ctx) {
 		return ctx instanceof ExtendedShapeContext ? ((ExtendedShapeContext) ctx).botania_getEntity() : null;
 	}
 }

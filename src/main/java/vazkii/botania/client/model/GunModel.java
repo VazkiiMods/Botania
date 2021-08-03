@@ -9,29 +9,29 @@
 package vazkii.botania.client.model;
 
 import com.google.common.base.Preconditions;
+import com.mojang.math.Transformation;
+import com.mojang.math.Vector3f;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.render.model.BakedQuad;
-import net.minecraft.client.render.model.ModelBakeSettings;
-import net.minecraft.client.render.model.UnbakedModel;
-import net.minecraft.client.render.model.json.ItemModelGenerator;
-import net.minecraft.client.render.model.json.JsonUnbakedModel;
-import net.minecraft.client.render.model.json.ModelOverrideList;
-import net.minecraft.client.render.model.json.ModelTransformation;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.util.ModelIdentifier;
-import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.client.util.math.AffineTransformation;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.BlockModel;
+import net.minecraft.client.renderer.block.model.ItemModelGenerator;
+import net.minecraft.client.renderer.block.model.ItemOverrides;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.resources.model.ModelState;
+import net.minecraft.client.resources.model.UnbakedModel;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -48,27 +48,27 @@ import java.util.function.Function;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class GunModel implements BakedModel {
-	private static final ModelIdentifier DESU = new ModelIdentifier(LibMisc.MOD_ID + ":desu_gun", "inventory");
-	private static final ModelIdentifier DESU_CLIP = new ModelIdentifier(LibMisc.MOD_ID + ":desu_gun_clip", "inventory");
+	private static final ModelResourceLocation DESU = new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun", "inventory");
+	private static final ModelResourceLocation DESU_CLIP = new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun_clip", "inventory");
 
-	private final net.minecraft.client.render.model.ModelLoader bakery;
+	private final net.minecraft.client.resources.model.ModelBakery bakery;
 	private final BakedModel originalModel;
 	private final BakedModel originalModelClip;
 
-	public GunModel(net.minecraft.client.render.model.ModelLoader bakery, BakedModel originalModel, BakedModel originalModelClip) {
+	public GunModel(net.minecraft.client.resources.model.ModelBakery bakery, BakedModel originalModel, BakedModel originalModelClip) {
 		this.bakery = bakery;
 		this.originalModel = Preconditions.checkNotNull(originalModel);
 		this.originalModelClip = Preconditions.checkNotNull(originalModelClip);
 	}
 
-	private final ModelOverrideList itemHandler = new ModelOverrideList() {
+	private final ItemOverrides itemHandler = new ItemOverrides() {
 		@Nonnull
 		@Override
-		public BakedModel apply(BakedModel model, ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
+		public BakedModel resolve(BakedModel model, ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn) {
 			boolean clip = ItemManaGun.hasClip(stack);
 
 			if (ItemManaGun.isSugoiKawaiiDesuNe(stack)) {
-				return MinecraftClient.getInstance().getBakedModelManager().getModel(clip ? DESU_CLIP : DESU);
+				return Minecraft.getInstance().getModelManager().getModel(clip ? DESU_CLIP : DESU);
 			}
 
 			ItemStack lens = ItemManaGun.getLens(stack);
@@ -82,7 +82,7 @@ public class GunModel implements BakedModel {
 
 	@Nonnull
 	@Override
-	public ModelOverrideList getOverrides() {
+	public ItemOverrides getOverrides() {
 		return itemHandler;
 	}
 
@@ -98,30 +98,30 @@ public class GunModel implements BakedModel {
 	}
 
 	@Override
-	public boolean hasDepth() {
-		return originalModel.hasDepth();
+	public boolean isGui3d() {
+		return originalModel.isGui3d();
 	}
 
 	@Override
-	public boolean isBuiltin() {
-		return originalModel.isBuiltin();
-	}
-
-	@Nonnull
-	@Override
-	public Sprite getSprite() {
-		return originalModel.getSprite();
+	public boolean isCustomRenderer() {
+		return originalModel.isCustomRenderer();
 	}
 
 	@Nonnull
 	@Override
-	public ModelTransformation getTransformation() {
-		return originalModel.getTransformation();
+	public TextureAtlasSprite getParticleIcon() {
+		return originalModel.getParticleIcon();
+	}
+
+	@Nonnull
+	@Override
+	public ItemTransforms getTransforms() {
+		return originalModel.getTransforms();
 	}
 
 	@Override
-	public boolean isSideLit() {
-		return originalModel.isSideLit();
+	public boolean usesBlockLight() {
+		return originalModel.usesBlockLight();
 	}
 
 	private final HashMap<Pair<Item, Boolean>, CompositeBakedModel> cache = new HashMap<>();
@@ -134,25 +134,25 @@ public class GunModel implements BakedModel {
 		private final List<BakedQuad> genQuads = new ArrayList<>();
 		private final Map<Direction, List<BakedQuad>> faceQuads = new EnumMap<>(Direction.class);
 
-		CompositeBakedModel(net.minecraft.client.render.model.ModelLoader bakery, ItemStack lens, BakedModel gun) {
+		CompositeBakedModel(net.minecraft.client.resources.model.ModelBakery bakery, ItemStack lens, BakedModel gun) {
 			super(gun);
 
-			Identifier lensId = Registry.ITEM.getId(lens.getItem());
-			UnbakedModel lensUnbaked = bakery.getOrLoadModel(new ModelIdentifier(lensId, "inventory"));
-			ModelBakeSettings transform = new ModelBakeSettings() {
+			ResourceLocation lensId = Registry.ITEM.getKey(lens.getItem());
+			UnbakedModel lensUnbaked = bakery.getModel(new ModelResourceLocation(lensId, "inventory"));
+			ModelState transform = new ModelState() {
 				@Override
-				public AffineTransformation getRotation() {
-					return new AffineTransformation(new Vector3f(-0.4F, 0.2F, 0.0F), Vector3f.POSITIVE_Y.getRadialQuaternion((float) Math.PI / 2), new Vector3f(0.625F, 0.625F, 0.625F), null);
+				public Transformation getRotation() {
+					return new Transformation(new Vector3f(-0.4F, 0.2F, 0.0F), Vector3f.YP.rotation((float) Math.PI / 2), new Vector3f(0.625F, 0.625F, 0.625F), null);
 				}
 			};
-			Identifier name = prefix("gun_with_" + lensId.toString().replace(':', '_'));
+			ResourceLocation name = prefix("gun_with_" + lensId.toString().replace(':', '_'));
 
-			Function<SpriteIdentifier, Sprite> textureGetter = ((AccessorModelBakery) bakery).getSpriteAtlasManager()::getSprite;
+			Function<Material, TextureAtlasSprite> textureGetter = ((AccessorModelBakery) bakery).getSpriteAtlasManager()::getSprite;
 			BakedModel lensBaked;
-			if (lensUnbaked instanceof JsonUnbakedModel && ((JsonUnbakedModel) lensUnbaked).getRootModel() == net.minecraft.client.render.model.ModelLoader.GENERATION_MARKER) {
-				JsonUnbakedModel bm = (JsonUnbakedModel) lensUnbaked;
+			if (lensUnbaked instanceof BlockModel && ((BlockModel) lensUnbaked).getRootModel() == net.minecraft.client.resources.model.ModelBakery.GENERATION_MARKER) {
+				BlockModel bm = (BlockModel) lensUnbaked;
 				lensBaked = new ItemModelGenerator()
-						.create(textureGetter, bm)
+						.generateBlockModel(textureGetter, bm)
 						.bake(bakery, bm, textureGetter, transform, name, false);
 			} else {
 				lensBaked = lensUnbaked.bake(bakery, textureGetter, transform, name);

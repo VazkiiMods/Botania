@@ -8,12 +8,12 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaPool;
@@ -27,28 +27,28 @@ import java.util.function.BiFunction;
 
 public class ItemObedienceStick extends Item {
 
-	public ItemObedienceStick(Settings props) {
+	public ItemObedienceStick(Properties props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		World world = ctx.getWorld();
-		BlockPos pos = ctx.getBlockPos();
-		return applyStick(world, pos) ? ActionResult.SUCCESS : ActionResult.PASS;
+	public InteractionResult useOn(UseOnContext ctx) {
+		Level world = ctx.getLevel();
+		BlockPos pos = ctx.getClickedPos();
+		return applyStick(world, pos) ? InteractionResult.SUCCESS : InteractionResult.PASS;
 	}
 
-	public static boolean applyStick(World world, BlockPos pos) {
+	public static boolean applyStick(Level world, BlockPos pos) {
 		BlockEntity tileAt = world.getBlockEntity(pos);
 		if (tileAt instanceof IManaPool || tileAt instanceof IManaCollector) {
 			boolean pool = tileAt instanceof IManaPool;
 			BiFunction<TileEntitySpecialFlower, BlockEntity, Boolean> act = pool ? functionalActuator : generatingActuator;
 			int range = pool ? TileEntityFunctionalFlower.LINK_RANGE : TileEntityGeneratingFlower.LINK_RANGE;
 
-			for (BlockPos iterPos : BlockPos.iterate(pos.add(-range, -range, -range),
-					pos.add(range, range, range))) {
-				if (iterPos.getSquaredDistance(pos) > range * range) {
+			for (BlockPos iterPos : BlockPos.betweenClosed(pos.offset(-range, -range, -range),
+					pos.offset(range, range, range))) {
+				if (iterPos.distSqr(pos) > range * range) {
 					continue;
 				}
 

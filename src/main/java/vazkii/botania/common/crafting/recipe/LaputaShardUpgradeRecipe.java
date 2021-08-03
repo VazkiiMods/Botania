@@ -8,34 +8,34 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.SpecialCraftingRecipe;
-import net.minecraft.recipe.SpecialRecipeSerializer;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.item.ItemLaputaShard;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class LaputaShardUpgradeRecipe extends SpecialCraftingRecipe {
-	public static final SpecialRecipeSerializer<LaputaShardUpgradeRecipe> SERIALIZER = new SpecialRecipeSerializer<>(LaputaShardUpgradeRecipe::new);
+public class LaputaShardUpgradeRecipe extends CustomRecipe {
+	public static final SimpleRecipeSerializer<LaputaShardUpgradeRecipe> SERIALIZER = new SimpleRecipeSerializer<>(LaputaShardUpgradeRecipe::new);
 
-	public LaputaShardUpgradeRecipe(Identifier id) {
+	public LaputaShardUpgradeRecipe(ResourceLocation id) {
 		super(id);
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingInventory inv, @Nonnull World worldIn) {
+	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level worldIn) {
 		boolean foundShard = false;
 		boolean foundSpirit = false;
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack stack = inv.getStack(i);
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack stack = inv.getItem(i);
 			if (stack.isEmpty()) {
 				continue;
 			}
@@ -53,23 +53,23 @@ public class LaputaShardUpgradeRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getOutput() {
+	public ItemStack getResultItem() {
 		return new ItemStack(ModItems.laputaShard);
 	}
 
 	@Nonnull
 	@Override
-	public DefaultedList<Ingredient> getPreviewInputs() {
-		return DefaultedList.copyOf(Ingredient.EMPTY,
-				Ingredient.ofItems(ModItems.laputaShard),
-				Ingredient.ofItems(ModItems.lifeEssence));
+	public NonNullList<Ingredient> getIngredients() {
+		return NonNullList.of(Ingredient.EMPTY,
+				Ingredient.of(ModItems.laputaShard),
+				Ingredient.of(ModItems.lifeEssence));
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack craft(@Nonnull CraftingInventory inv) {
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack stack = inv.getStack(i);
+	public ItemStack assemble(@Nonnull CraftingContainer inv) {
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack stack = inv.getItem(i);
 			if (stack.getItem() == ModItems.laputaShard) {
 				ItemStack result = stack.copy();
 				result.getOrCreateTag().putInt(ItemLaputaShard.TAG_LEVEL, ItemLaputaShard.getShardLevel(stack) + 1);
@@ -80,7 +80,7 @@ public class LaputaShardUpgradeRecipe extends SpecialCraftingRecipe {
 	}
 
 	@Override
-	public boolean fits(int width, int height) {
+	public boolean canCraftInDimensions(int width, int height) {
 		return width * height >= 2;
 	}
 

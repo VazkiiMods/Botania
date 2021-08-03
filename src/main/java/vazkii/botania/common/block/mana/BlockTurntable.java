@@ -8,19 +8,20 @@
  */
 package vazkii.botania.common.block.mana;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
@@ -32,33 +33,33 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockTurntable extends BlockMod implements BlockEntityProvider, IWandable, IWandHUD {
+public class BlockTurntable extends BlockMod implements EntityBlock, IWandable, IWandHUD {
 
-	public BlockTurntable(Settings builder) {
+	public BlockTurntable(Properties builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileTurntable();
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void renderHUD(MatrixStack ms, MinecraftClient mc, World world, BlockPos pos) {
+	public void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos) {
 		((TileTurntable) world.getBlockEntity(pos)).renderHUD(ms, mc);
 	}
 
 	@Override
-	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
+	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
 		((TileTurntable) world.getBlockEntity(pos)).onWanded(player, stack, side);
 		return true;
 	}
 
 	@Override
-	public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random rand) {
-		if (world.isReceivingRedstonePower(pos) && rand.nextDouble() < 0.2) {
+	public void animateTick(BlockState state, Level world, BlockPos pos, Random rand) {
+		if (world.hasNeighborSignal(pos) && rand.nextDouble() < 0.2) {
 			BlockOpenCrate.redstoneParticlesOnFullBlock(world, pos, rand);
 		}
 	}

@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.block.string;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringRelay;
@@ -20,14 +20,14 @@ import javax.annotation.Nonnull;
 
 public class BlockRedStringRelay extends BlockRedString {
 
-	public BlockRedStringRelay(AbstractBlock.Settings builder) {
+	public BlockRedStringRelay(BlockBehaviour.Properties builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(Properties.FACING, Direction.DOWN));
+		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN));
 	}
 
 	@Nonnull
 	@Override
-	public TileRedString createBlockEntity(@Nonnull BlockView world) {
+	public TileRedString newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileRedStringRelay();
 	}
 

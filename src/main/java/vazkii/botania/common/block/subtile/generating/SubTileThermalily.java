@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import net.minecraft.fluid.Fluid;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.tag.FluidTags;
-import net.minecraft.tag.Tag;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.level.material.Fluid;
 
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModSubtiles;
@@ -30,7 +30,7 @@ public class SubTileThermalily extends SubTileHydroangeas {
 	@Override
 	public void doBurnParticles() {
 		WispParticleData data = WispParticleData.wisp((float) Math.random() / 6, 0.7F, 0.05F, 0.05F, 1);
-		world.addParticle(data, getEffectivePos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getY() + 0.9 + Math.random() * 0.2 - 0.1, getEffectivePos().getZ() + 0.5, 0, (float) Math.random() / 60, 0);
+		level.addParticle(data, getEffectivePos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getY() + 0.9 + Math.random() * 0.2 - 0.1, getEffectivePos().getZ() + 0.5, 0, (float) Math.random() / 60, 0);
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class SubTileThermalily extends SubTileHydroangeas {
 
 	@Override
 	public void playSound() {
-		getWorld().playSound(null, getEffectivePos(), ModSounds.thermalily, SoundCategory.BLOCKS, 0.2F, 1F);
+		getLevel().playSound(null, getEffectivePos(), ModSounds.thermalily, SoundSource.BLOCKS, 0.2F, 1F);
 	}
 
 	@Override

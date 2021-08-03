@@ -8,22 +8,22 @@
  */
 package vazkii.botania.common.entity;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.EndGatewayBlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.network.Packet;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.*;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.TheEndGatewayBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.common.network.PacketSpawnEntity;
 import vazkii.botania.mixin.AccessorItemEntity;
@@ -33,15 +33,15 @@ import javax.annotation.Nonnull;
 import java.util.function.Predicate;
 
 public class EntityThrownItem extends ItemEntity {
-	public EntityThrownItem(EntityType<EntityThrownItem> type, World world) {
+	public EntityThrownItem(EntityType<EntityThrownItem> type, Level world) {
 		super(type, world);
 	}
 
-	public EntityThrownItem(World world, double x,
+	public EntityThrownItem(Level world, double x,
 			double y, double z, ItemEntity item) {
-		super(world, x, y, z, item.getStack());
-		setPickupDelay(((AccessorItemEntity) item).getPickupDelay());
-		setVelocity(item.getVelocity());
+		super(world, x, y, z, item.getItem());
+		setPickUpDelay(((AccessorItemEntity) item).getPickupDelay());
+		setDeltaMovement(item.getDeltaMovement());
 		setInvulnerable(true);
 	}
 
@@ -53,7 +53,7 @@ public class EntityThrownItem extends ItemEntity {
 
 	@Nonnull
 	@Override
-	public Packet<?> createSpawnPacket() {
+	public Packet<?> getAddEntityPacket() {
 		return PacketSpawnEntity.make(this);
 	}
 
@@ -63,36 +63,36 @@ public class EntityThrownItem extends ItemEntity {
 
 		// [VanillaCopy] derivative from ThrowableEntity
 		int pickupDelay = ((AccessorItemEntity) this).getPickupDelay();
-		Predicate<Entity> filter = e -> !e.isSpectator() && e.isAlive() && e.collides() && (!(e instanceof PlayerEntity) || pickupDelay == 0);
-		HitResult ray = ProjectileUtil.getCollision(this, filter);
+		Predicate<Entity> filter = e -> !e.isSpectator() && e.isAlive() && e.isPickable() && (!(e instanceof Player) || pickupDelay == 0);
+		HitResult ray = ProjectileUtil.getHitResult(this, filter);
 		if (ray.getType() == HitResult.Type.BLOCK) {
 			BlockPos pos = ((BlockHitResult) ray).getBlockPos();
-			BlockState state = this.world.getBlockState(pos);
-			if (state.isOf(Blocks.NETHER_PORTAL)) {
-				this.setInNetherPortal(pos);
-			} else if (state.isOf(Blocks.END_GATEWAY)) {
-				BlockEntity tileentity = this.world.getBlockEntity(pos);
-				if (tileentity instanceof EndGatewayBlockEntity) {
-					((EndGatewayBlockEntity) tileentity).tryTeleportingEntity(this);
+			BlockState state = this.level.getBlockState(pos);
+			if (state.is(Blocks.NETHER_PORTAL)) {
+				this.handleInsidePortal(pos);
+			} else if (state.is(Blocks.END_GATEWAY)) {
+				BlockEntity tileentity = this.level.getBlockEntity(pos);
+				if (tileentity instanceof TheEndGatewayBlockEntity) {
+					((TheEndGatewayBlockEntity) tileentity).teleportEntity(this);
 				}
 			}
 		}
 
 		// Bonk any entities hit
-		if (!world.isClient && ray.getType() == HitResult.Type.ENTITY) {
+		if (!level.isClientSide && ray.getType() == HitResult.Type.ENTITY) {
 			Entity bonk = ((EntityHitResult) ray).getEntity();
-			bonk.damage(DamageSource.MAGIC, 2.0F);
-			Entity item = new ItemEntity(world, getX(), getY(), getZ(), getStack());
-			world.spawnEntity(item);
-			item.setVelocity(getVelocity().multiply(0.25));
+			bonk.hurt(DamageSource.MAGIC, 2.0F);
+			Entity item = new ItemEntity(level, getX(), getY(), getZ(), getItem());
+			level.addFreshEntity(item);
+			item.setDeltaMovement(getDeltaMovement().scale(0.25));
 			remove();
 			return;
 		}
 
-		if (!world.isClient && getVelocity().length() < 1.0F) {
-			Entity item = new ItemEntity(world, getX(), getY(), getZ(), getStack());
-			world.spawnEntity(item);
-			item.setVelocity(getVelocity());
+		if (!level.isClientSide && getDeltaMovement().length() < 1.0F) {
+			Entity item = new ItemEntity(level, getX(), getY(), getZ(), getItem());
+			level.addFreshEntity(item);
+			item.setDeltaMovement(getDeltaMovement());
 			remove();
 		}
 	}

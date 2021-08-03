@@ -8,26 +8,27 @@
  */
 package vazkii.botania.common.block.mana;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.state.StateManager;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.BlockHitResult;
 
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.wand.IWandHUD;
@@ -38,30 +39,30 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class BlockEnchanter extends BlockMod implements BlockEntityProvider, IWandable, IWandHUD {
+public class BlockEnchanter extends BlockMod implements EntityBlock, IWandable, IWandHUD {
 
-	public BlockEnchanter(Settings builder) {
+	public BlockEnchanter(Properties builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(BotaniaStateProps.ENCHANTER_DIRECTION, Direction.Axis.X));
+		registerDefaultState(defaultBlockState().setValue(BotaniaStateProps.ENCHANTER_DIRECTION, Direction.Axis.X));
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(BotaniaStateProps.ENCHANTER_DIRECTION);
 	}
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileEnchanter();
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		TileEnchanter enchanter = (TileEnchanter) world.getBlockEntity(pos);
-		ItemStack stack = player.getStackInHand(hand);
+		ItemStack stack = player.getItemInHand(hand);
 		if (!stack.isEmpty() && stack.getItem() == ModItems.twigWand) {
-			return ActionResult.PASS;
+			return InteractionResult.PASS;
 		}
 
 		boolean stackEnchantable = !stack.isEmpty()
@@ -72,22 +73,22 @@ public class BlockEnchanter extends BlockMod implements BlockEntityProvider, IWa
 		if (enchanter.itemToEnchant.isEmpty()) {
 			if (stackEnchantable) {
 				enchanter.itemToEnchant = stack.copy();
-				player.setStackInHand(hand, ItemStack.EMPTY);
+				player.setItemInHand(hand, ItemStack.EMPTY);
 				enchanter.sync();
 			} else {
-				return ActionResult.PASS;
+				return InteractionResult.PASS;
 			}
 		} else if (enchanter.stage == TileEnchanter.State.IDLE) {
-			player.inventory.offerOrDrop(player.world, enchanter.itemToEnchant.copy());
+			player.inventory.placeItemBackInInventory(player.level, enchanter.itemToEnchant.copy());
 			enchanter.itemToEnchant = ItemStack.EMPTY;
 			enchanter.sync();
 		}
 
-		return ActionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override
-	public void onStateReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
 			BlockEntity tile = world.getBlockEntity(pos);
 
@@ -95,23 +96,23 @@ public class BlockEnchanter extends BlockMod implements BlockEntityProvider, IWa
 				TileEnchanter enchanter = (TileEnchanter) tile;
 
 				if (!enchanter.itemToEnchant.isEmpty()) {
-					world.spawnEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), enchanter.itemToEnchant));
+					world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), enchanter.itemToEnchant));
 				}
 			}
 
-			super.onStateReplaced(state, world, pos, newState, isMoving);
+			super.onRemove(state, world, pos, newState, isMoving);
 		}
 	}
 
 	@Override
-	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
+	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
 		((TileEnchanter) world.getBlockEntity(pos)).onWanded(player, stack);
 		return true;
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void renderHUD(MatrixStack ms, MinecraftClient mc, World world, BlockPos pos) {
+	public void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos) {
 		((TileEnchanter) world.getBlockEntity(pos)).renderHUD(ms);
 	}
 }

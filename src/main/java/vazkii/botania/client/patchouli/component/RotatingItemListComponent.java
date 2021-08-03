@@ -8,7 +8,7 @@
  */
 package vazkii.botania.client.patchouli.component;
 
-import net.minecraft.recipe.Ingredient;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import vazkii.patchouli.api.IVariable;
 

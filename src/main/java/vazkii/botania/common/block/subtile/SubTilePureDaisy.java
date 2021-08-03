@@ -8,12 +8,12 @@
  */
 package vazkii.botania.common.block.subtile;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.recipe.IPureDaisyRecipe;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -58,12 +58,12 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isClient) {
+		if (getLevel().isClientSide) {
 			for (int i = 0; i < POSITIONS.length; i++) {
 				if (ticksRemaining[i] > 0) {
-					BlockPos coords = getEffectivePos().add(POSITIONS[i]);
+					BlockPos coords = getEffectivePos().offset(POSITIONS[i]);
 					SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), 1F, 1F, 1F, 5);
-					world.addParticle(data, coords.getX() + Math.random(), coords.getY() + Math.random(), coords.getZ() + Math.random(), 0, 0, 0);
+					level.addParticle(data, coords.getX() + Math.random(), coords.getY() + Math.random(), coords.getZ() + Math.random(), 0, 0, 0);
 				}
 			}
 
@@ -76,9 +76,9 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 		}
 
 		BlockPos acoords = POSITIONS[positionAt];
-		BlockPos coords = getEffectivePos().add(acoords);
-		World world = getWorld();
-		if (!world.isAir(coords)) {
+		BlockPos coords = getEffectivePos().offset(acoords);
+		Level world = getLevel();
+		if (!world.isEmptyBlock(coords)) {
 			world.getProfiler().push("findRecipe");
 			IPureDaisyRecipe recipe = findRecipe(coords);
 			world.getProfiler().pop();
@@ -95,9 +95,9 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 
 					if (recipe.set(world, coords, this)) {
 						if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
-							getWorld().syncWorldEvent(2001, coords, Block.getRawIdFromState(recipe.getOutputState()));
+							getLevel().levelEvent(2001, coords, Block.getId(recipe.getOutputState()));
 						}
-						getWorld().addSyncedBlockEvent(getPos(), getCachedState().getBlock(), RECIPE_COMPLETE_EVENT, positionAt);
+						getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), RECIPE_COMPLETE_EVENT, positionAt);
 					}
 				}
 
@@ -109,7 +109,7 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 		}
 
 		if (!Arrays.equals(ticksRemaining, prevTicksRemaining)) {
-			markDirty();
+			setChanged();
 			sync();
 			System.arraycopy(ticksRemaining, 0, prevTicksRemaining, 0, POSITIONS.length);
 		}
@@ -117,10 +117,10 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 
 	@Nullable
 	private IPureDaisyRecipe findRecipe(BlockPos coords) {
-		BlockState state = getWorld().getBlockState(coords);
+		BlockState state = getLevel().getBlockState(coords);
 
-		for (Recipe<?> recipe : ModRecipeTypes.getRecipes(world, ModRecipeTypes.PURE_DAISY_TYPE).values()) {
-			if (recipe instanceof IPureDaisyRecipe && ((IPureDaisyRecipe) recipe).matches(getWorld(), coords, this, state)) {
+		for (Recipe<?> recipe : ModRecipeTypes.getRecipes(level, ModRecipeTypes.PURE_DAISY_TYPE).values()) {
+			if (recipe instanceof IPureDaisyRecipe && ((IPureDaisyRecipe) recipe).matches(getLevel(), coords, this, state)) {
 				return ((IPureDaisyRecipe) recipe);
 			}
 		}
@@ -129,25 +129,25 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public boolean onSyncedBlockEvent(int type, int param) {
+	public boolean triggerEvent(int type, int param) {
 		switch (type) {
 		case RECIPE_COMPLETE_EVENT: {
-			if (getWorld().isClient) {
-				BlockPos coords = getEffectivePos().add(POSITIONS[param]);
+			if (getLevel().isClientSide) {
+				BlockPos coords = getEffectivePos().offset(POSITIONS[param]);
 				for (int i = 0; i < 25; i++) {
 					double x = coords.getX() + Math.random();
 					double y = coords.getY() + Math.random() + 0.5;
 					double z = coords.getZ() + Math.random();
 
 					WispParticleData data = WispParticleData.wisp((float) Math.random() / 2F, 1, 1, 1);
-					getWorld().addParticle(data, x, y, z, 0, 0, 0);
+					getLevel().addParticle(data, x, y, z, 0, 0, 0);
 				}
 			}
 
 			return true;
 		}
 		default:
-			return super.onSyncedBlockEvent(type, param);
+			return super.triggerEvent(type, param);
 		}
 	}
 

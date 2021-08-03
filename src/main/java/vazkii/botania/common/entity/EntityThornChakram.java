@@ -10,32 +10,32 @@ package vazkii.botania.common.entity;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.EnvironmentInterface;
-import net.minecraft.block.Block;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.PlantBlock;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.FlyingItemEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.thrown.ThrownEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Packet;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ItemSupplier;
+import net.minecraft.world.entity.projectile.ThrowableProjectile;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
@@ -43,52 +43,52 @@ import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 
-@EnvironmentInterface(value = EnvType.CLIENT, itf = FlyingItemEntity.class)
-public class EntityThornChakram extends ThrownEntity implements FlyingItemEntity {
-	private static final TrackedData<Integer> BOUNCES = DataTracker.registerData(EntityThornChakram.class, TrackedDataHandlerRegistry.INTEGER);
-	private static final TrackedData<Boolean> FLARE = DataTracker.registerData(EntityThornChakram.class, TrackedDataHandlerRegistry.BOOLEAN);
-	private static final TrackedData<Integer> RETURN_TO = DataTracker.registerData(EntityThornChakram.class, TrackedDataHandlerRegistry.INTEGER);
+@EnvironmentInterface(value = EnvType.CLIENT, itf = ItemSupplier.class)
+public class EntityThornChakram extends ThrowableProjectile implements ItemSupplier {
+	private static final EntityDataAccessor<Integer> BOUNCES = SynchedEntityData.defineId(EntityThornChakram.class, EntityDataSerializers.INT);
+	private static final EntityDataAccessor<Boolean> FLARE = SynchedEntityData.defineId(EntityThornChakram.class, EntityDataSerializers.BOOLEAN);
+	private static final EntityDataAccessor<Integer> RETURN_TO = SynchedEntityData.defineId(EntityThornChakram.class, EntityDataSerializers.INT);
 	private static final int MAX_BOUNCES = 16;
 	private boolean bounced = false;
 	private ItemStack stack = ItemStack.EMPTY;
 
-	public EntityThornChakram(EntityType<EntityThornChakram> type, World world) {
+	public EntityThornChakram(EntityType<EntityThornChakram> type, Level world) {
 		super(type, world);
 	}
 
-	public EntityThornChakram(LivingEntity e, World world, ItemStack stack) {
+	public EntityThornChakram(LivingEntity e, Level world, ItemStack stack) {
 		super(ModEntities.THORN_CHAKRAM, e, world);
 		this.stack = stack.copy();
 	}
 
 	@Override
-	protected void initDataTracker() {
-		dataTracker.startTracking(BOUNCES, 0);
-		dataTracker.startTracking(FLARE, false);
-		dataTracker.startTracking(RETURN_TO, -1);
+	protected void defineSynchedData() {
+		entityData.define(BOUNCES, 0);
+		entityData.define(FLARE, false);
+		entityData.define(RETURN_TO, -1);
 	}
 
 	@Nonnull
 	@Override
-	public Packet<?> createSpawnPacket() {
+	public Packet<?> getAddEntityPacket() {
 		return PacketSpawnEntity.make(this);
 	}
 
 	@Override
-	public boolean isImmuneToExplosion() {
+	public boolean ignoreExplosion() {
 		return true;
 	}
 
 	@Override
 	public void tick() {
 		// Standard motion
-		Vec3d old = getVelocity();
+		Vec3 old = getDeltaMovement();
 
 		super.tick();
 
 		if (!bounced) {
 			// Reset the drag applied by super
-			setVelocity(old);
+			setDeltaMovement(old);
 		}
 
 		bounced = false;
@@ -98,27 +98,27 @@ public class EntityThornChakram extends ThrownEntity implements FlyingItemEntity
 			Entity thrower = getOwner();
 			if (thrower != null) {
 				Vector3 motion = Vector3.fromEntityCenter(thrower).subtract(Vector3.fromEntityCenter(this)).normalize();
-				setVelocity(motion.toVector3d());
+				setDeltaMovement(motion.toVector3d());
 			}
 		}
 
 		// Client FX
-		if (world.isClient && isFire()) {
+		if (level.isClientSide && isFire()) {
 			double r = 0.1;
 			double m = 0.1;
 			for (int i = 0; i < 3; i++) {
-				world.addParticle(ParticleTypes.FLAME, getX() + r * (Math.random() - 0.5), getY() + r * (Math.random() - 0.5), getZ() + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
+				level.addParticle(ParticleTypes.FLAME, getX() + r * (Math.random() - 0.5), getY() + r * (Math.random() - 0.5), getZ() + r * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5), m * (Math.random() - 0.5));
 			}
 		}
 
 		// Server state control
-		if (!world.isClient && (getTimesBounced() >= MAX_BOUNCES || age > 60)) {
+		if (!level.isClientSide && (getTimesBounced() >= MAX_BOUNCES || tickCount > 60)) {
 			Entity thrower = getOwner();
 			if (thrower == null) {
 				dropAndKill();
 			} else {
-				setEntityToReturnTo(thrower.getEntityId());
-				if (squaredDistanceTo(thrower) < 2) {
+				setEntityToReturnTo(thrower.getId());
+				if (distanceToSqr(thrower) < 2) {
 					dropAndKill();
 				}
 			}
@@ -127,8 +127,8 @@ public class EntityThornChakram extends ThrownEntity implements FlyingItemEntity
 
 	private void dropAndKill() {
 		ItemStack stack = getItemStack();
-		ItemEntity item = new ItemEntity(world, getX(), getY(), getZ(), stack);
-		world.spawnEntity(item);
+		ItemEntity item = new ItemEntity(level, getX(), getY(), getZ(), stack);
+		level.addFreshEntity(item);
 		remove();
 	}
 
@@ -139,7 +139,7 @@ public class EntityThornChakram extends ThrownEntity implements FlyingItemEntity
 	}
 
 	@Override
-	protected void onCollision(@Nonnull HitResult pos) {
+	protected void onHit(@Nonnull HitResult pos) {
 		if (isReturning()) {
 			return;
 		}
@@ -147,22 +147,22 @@ public class EntityThornChakram extends ThrownEntity implements FlyingItemEntity
 		switch (pos.getType()) {
 		case BLOCK: {
 			BlockHitResult rtr = (BlockHitResult) pos;
-			Block block = world.getBlockState(rtr.getBlockPos()).getBlock();
-			if (block instanceof PlantBlock || block instanceof LeavesBlock) {
+			Block block = level.getBlockState(rtr.getBlockPos()).getBlock();
+			if (block instanceof BushBlock || block instanceof LeavesBlock) {
 				return;
 			}
 
 			int bounces = getTimesBounced();
 			if (bounces < MAX_BOUNCES) {
-				Vector3 currentMovementVec = new Vector3(getVelocity());
-				Direction dir = rtr.getSide();
-				Vector3 normalVector = new Vector3(dir.getOffsetX(), dir.getOffsetY(), dir.getOffsetZ()).normalize();
+				Vector3 currentMovementVec = new Vector3(getDeltaMovement());
+				Direction dir = rtr.getDirection();
+				Vector3 normalVector = new Vector3(dir.getStepX(), dir.getStepY(), dir.getStepZ()).normalize();
 				Vector3 movementVec = normalVector.multiply(-2 * currentMovementVec.dotProduct(normalVector)).add(currentMovementVec);
 
-				setVelocity(movementVec.toVector3d());
+				setDeltaMovement(movementVec.toVector3d());
 				bounced = true;
 
-				if (!world.isClient) {
+				if (!level.isClientSide) {
 					setTimesBounced(getTimesBounced() + 1);
 				}
 			}
@@ -171,19 +171,19 @@ public class EntityThornChakram extends ThrownEntity implements FlyingItemEntity
 		}
 		case ENTITY: {
 			EntityHitResult rtr = (EntityHitResult) pos;
-			if (!world.isClient && rtr.getEntity() instanceof LivingEntity && rtr.getEntity() != getOwner()) {
+			if (!level.isClientSide && rtr.getEntity() instanceof LivingEntity && rtr.getEntity() != getOwner()) {
 				Entity thrower = getOwner();
 				DamageSource src = DamageSource.GENERIC;
-				if (thrower instanceof PlayerEntity) {
-					src = DamageSource.thrownProjectile(this, thrower);
+				if (thrower instanceof Player) {
+					src = DamageSource.thrown(this, thrower);
 				} else if (thrower instanceof LivingEntity) {
-					src = DamageSource.mob((LivingEntity) thrower);
+					src = DamageSource.mobAttack((LivingEntity) thrower);
 				}
-				rtr.getEntity().damage(src, 12);
+				rtr.getEntity().hurt(src, 12);
 				if (isFire()) {
-					rtr.getEntity().setOnFireFor(5);
-				} else if (world.random.nextInt(3) == 0) {
-					((LivingEntity) rtr.getEntity()).addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 60, 0));
+					rtr.getEntity().setSecondsOnFire(5);
+				} else if (level.random.nextInt(3) == 0) {
+					((LivingEntity) rtr.getEntity()).addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0));
 				}
 			}
 
@@ -200,19 +200,19 @@ public class EntityThornChakram extends ThrownEntity implements FlyingItemEntity
 	}
 
 	private int getTimesBounced() {
-		return dataTracker.get(BOUNCES);
+		return entityData.get(BOUNCES);
 	}
 
 	private void setTimesBounced(int times) {
-		dataTracker.set(BOUNCES, times);
+		entityData.set(BOUNCES, times);
 	}
 
 	public boolean isFire() {
-		return dataTracker.get(FLARE);
+		return entityData.get(FLARE);
 	}
 
 	public void setFire(boolean fire) {
-		dataTracker.set(FLARE, fire);
+		entityData.set(FLARE, fire);
 	}
 
 	private boolean isReturning() {
@@ -220,34 +220,34 @@ public class EntityThornChakram extends ThrownEntity implements FlyingItemEntity
 	}
 
 	private int getEntityToReturnTo() {
-		return dataTracker.get(RETURN_TO);
+		return entityData.get(RETURN_TO);
 	}
 
 	private void setEntityToReturnTo(int entityID) {
-		dataTracker.set(RETURN_TO, entityID);
+		entityData.set(RETURN_TO, entityID);
 	}
 
 	@Override
-	public void writeCustomDataToTag(CompoundTag compound) {
-		super.writeCustomDataToTag(compound);
+	public void addAdditionalSaveData(CompoundTag compound) {
+		super.addAdditionalSaveData(compound);
 		if (!stack.isEmpty()) {
-			compound.put("fly_stack", stack.toTag(new CompoundTag()));
+			compound.put("fly_stack", stack.save(new CompoundTag()));
 		}
 		compound.putBoolean("flare", isFire());
 	}
 
 	@Override
-	public void readCustomDataFromTag(CompoundTag compound) {
-		super.readCustomDataFromTag(compound);
+	public void readAdditionalSaveData(CompoundTag compound) {
+		super.readAdditionalSaveData(compound);
 		if (compound.contains("fly_stack")) {
-			stack = ItemStack.fromTag(compound.getCompound("fly_stack"));
+			stack = ItemStack.of(compound.getCompound("fly_stack"));
 		}
 		setFire(compound.getBoolean("flare"));
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getStack() {
+	public ItemStack getItem() {
 		return getItemStack();
 	}
 }

@@ -9,10 +9,10 @@
 package vazkii.botania.common.block.tile;
 
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
 
@@ -23,21 +23,21 @@ public class TileMod extends BlockEntity implements BlockEntityClientSerializabl
 
 	@Nonnull
 	@Override
-	public CompoundTag toTag(CompoundTag tag) {
-		CompoundTag ret = super.toTag(tag);
+	public CompoundTag save(CompoundTag tag) {
+		CompoundTag ret = super.save(tag);
 		writePacketNBT(ret);
 		return ret;
 	}
 
 	@Nonnull
 	@Override
-	public final CompoundTag toInitialChunkDataTag() {
-		return toTag(new CompoundTag());
+	public final CompoundTag getUpdateTag() {
+		return save(new CompoundTag());
 	}
 
 	@Override
-	public void fromTag(BlockState state, CompoundTag tag) {
-		super.fromTag(state, tag);
+	public void load(BlockState state, CompoundTag tag) {
+		super.load(state, tag);
 		readPacketNBT(tag);
 	}
 

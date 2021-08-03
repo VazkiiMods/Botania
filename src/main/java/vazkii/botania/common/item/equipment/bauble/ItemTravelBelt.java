@@ -8,20 +8,21 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -36,14 +37,14 @@ import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
 public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 
 	private static final UUID STEP_BOOST_UUID = UUID.fromString("8511cd62-2650-4078-8d69-9ebe80b21eb5");
-	private static final EntityAttributeModifier STEP_BOOST = new EntityAttributeModifier(
+	private static final AttributeModifier STEP_BOOST = new AttributeModifier(
 			STEP_BOOST_UUID,
 			"botania:travel_belt",
-			0.65, EntityAttributeModifier.Operation.ADDITION);
+			0.65, AttributeModifier.Operation.ADDITION);
 
-	private static final Identifier texture = new Identifier(LibResources.MODEL_TRAVEL_BELT);
+	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TRAVEL_BELT);
 	@Environment(EnvType.CLIENT)
-	private static BipedEntityModel<LivingEntity> model;
+	private static HumanoidModel<LivingEntity> model;
 
 	private static final int COST = 1;
 	private static final int COST_INTERVAL = 10;
@@ -52,11 +53,11 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 	public final float jump;
 	public final float fallBuffer;
 
-	public ItemTravelBelt(Settings props) {
+	public ItemTravelBelt(Properties props) {
 		this(props, 0.035F, 0.2F, 2F);
 	}
 
-	public static float onPlayerFall(PlayerEntity entity, float dist) {
+	public static float onPlayerFall(Player entity, float dist) {
 		boolean pendantJump = ItemCloudPendant.popJumping(entity);
 		ItemStack stack = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, entity);
 
@@ -75,45 +76,45 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		return dist;
 	}
 
-	public ItemTravelBelt(Settings props, float speed, float jump, float fallBuffer) {
+	public ItemTravelBelt(Properties props, float speed, float jump, float fallBuffer) {
 		super(props);
 		this.speed = speed;
 		this.jump = jump;
 		this.fallBuffer = fallBuffer;
 	}
 
-	public static void updatePlayerStepStatus(PlayerEntity player) {
+	public static void updatePlayerStepStatus(Player player) {
 		ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 
-		EntityAttributeInstance attrib = player.getAttributeInstance(StepHeightEntityAttributeMain.STEP_HEIGHT);
+		AttributeInstance attrib = player.getAttribute(StepHeightEntityAttributeMain.STEP_HEIGHT);
 		boolean hasBoost = attrib.hasModifier(STEP_BOOST);
 
 		if (tryConsumeMana(player)) {
-			if (player.world.isClient) {
+			if (player.level.isClientSide) {
 				ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
-				if ((player.isOnGround() || player.abilities.flying) && player.forwardSpeed > 0F && !player.isInsideWaterOrBubbleColumn()) {
+				if ((player.isOnGround() || player.abilities.flying) && player.zza > 0F && !player.isInWaterOrBubble()) {
 					float speed = beltItem.getSpeed(belt);
-					player.updateVelocity(player.abilities.flying ? speed : speed, new Vec3d(0, 0, 1));
+					player.moveRelative(player.abilities.flying ? speed : speed, new Vec3(0, 0, 1));
 					beltItem.onMovedTick(belt, player);
 
-					if (player.age % COST_INTERVAL == 0) {
+					if (player.tickCount % COST_INTERVAL == 0) {
 						ManaItemHandler.instance().requestManaExact(belt, player, COST, true);
 					}
 				} else {
 					beltItem.onNotMovingTick(belt, player);
 				}
 			} else {
-				if (player.isSneaking()) {
+				if (player.isShiftKeyDown()) {
 					if (hasBoost) {
 						attrib.removeModifier(STEP_BOOST);
 					}
 				} else {
 					if (!hasBoost) {
-						attrib.addTemporaryModifier(STEP_BOOST);
+						attrib.addTransientModifier(STEP_BOOST);
 					}
 				}
 			}
-		} else if (!player.world.isClient && hasBoost) {
+		} else if (!player.level.isClientSide && hasBoost) {
 			attrib.removeModifier(STEP_BOOST);
 		}
 	}
@@ -122,46 +123,46 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		return speed;
 	}
 
-	public void onMovedTick(ItemStack stack, PlayerEntity player) {}
+	public void onMovedTick(ItemStack stack, Player player) {}
 
-	public void onNotMovingTick(ItemStack stack, PlayerEntity player) {}
+	public void onNotMovingTick(ItemStack stack, Player player) {}
 
 	public static void onPlayerJump(LivingEntity living) {
-		if (living instanceof PlayerEntity) {
-			PlayerEntity player = (PlayerEntity) living;
+		if (living instanceof Player) {
+			Player player = (Player) living;
 			ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 
 			if (!belt.isEmpty() && ManaItemHandler.instance().requestManaExact(belt, player, COST, false)) {
-				player.setVelocity(player.getVelocity().add(0, ((ItemTravelBelt) belt.getItem()).jump, 0));
+				player.setDeltaMovement(player.getDeltaMovement().add(0, ((ItemTravelBelt) belt.getItem()).jump, 0));
 			}
 		}
 	}
 
-	private static boolean tryConsumeMana(PlayerEntity player) {
+	private static boolean tryConsumeMana(Player player) {
 		ItemStack result = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 		return !result.isEmpty() && ManaItemHandler.instance().requestManaExact(result, player, COST, false);
 	}
 
 	@Environment(EnvType.CLIENT)
-	Identifier getRenderTexture() {
+	ResourceLocation getRenderTexture() {
 		return texture;
 	}
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		AccessoryRenderHelper.rotateIfSneaking(ms, player);
 		ms.translate(0F, 0.2F, 0F);
 
 		float s = 0.85F;
 		ms.scale(s, s, s);
 		if (model == null) {
-			model = new BipedEntityModel<>(1F);
+			model = new HumanoidModel<>(1F);
 		}
 
-		Identifier texture = ((ItemTravelBelt) stack.getItem()).getRenderTexture();
-		VertexConsumer buffer = buffers.getBuffer(model.getLayer(texture));
-		model.torso.render(ms, buffer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
+		ResourceLocation texture = ((ItemTravelBelt) stack.getItem()).getRenderTexture();
+		VertexConsumer buffer = buffers.getBuffer(model.renderType(texture));
+		model.body.render(ms, buffer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 	}
 
 	@Override

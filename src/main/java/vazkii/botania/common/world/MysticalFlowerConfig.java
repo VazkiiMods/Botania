@@ -11,9 +11,9 @@ package vazkii.botania.common.world;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.world.gen.feature.FeatureConfig;
+import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
-public class MysticalFlowerConfig implements FeatureConfig {
+public class MysticalFlowerConfig implements FeatureConfiguration {
 	public static final Codec<MysticalFlowerConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
 			Codec.INT.fieldOf("patch_radius").forGetter(MysticalFlowerConfig::getPatchRadius),
 			Codec.INT.fieldOf("patch_count").forGetter(MysticalFlowerConfig::getPatchCount),

@@ -12,16 +12,16 @@ import com.google.common.base.Preconditions;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.ShapedRecipe;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.Registry;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
@@ -33,7 +33,7 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 
 public class RecipeManaInfusion implements IManaInfusionRecipe {
-	private final Identifier id;
+	private final ResourceLocation id;
 	private final ItemStack output;
 	private final Ingredient input;
 	private final int mana;
@@ -41,7 +41,7 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 	private final StateIngredient catalyst;
 	private final String group;
 
-	public RecipeManaInfusion(Identifier id, ItemStack output, Ingredient input, int mana,
+	public RecipeManaInfusion(ResourceLocation id, ItemStack output, Ingredient input, int mana,
 			@Nullable String group, @Nullable StateIngredient catalyst) {
 		Preconditions.checkArgument(mana > 0, "Mana cost must be positive");
 		Preconditions.checkArgument(mana <= 1_000_001, "Mana cost must be at most a pool"); // Leaving wiggle room for a certain modpack having creative-pool-only recipes
@@ -54,14 +54,14 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 	}
 
 	@Deprecated
-	public RecipeManaInfusion(Identifier id, ItemStack output, Ingredient input, int mana,
+	public RecipeManaInfusion(ResourceLocation id, ItemStack output, Ingredient input, int mana,
 			@Nullable String group, @Nullable BlockState catalystState) {
 		this(id, output, input, mana, group, StateIngredientHelper.of(catalystState));
 	}
 
 	@Nonnull
 	@Override
-	public final Identifier getId() {
+	public final ResourceLocation getId() {
 		return id;
 	}
 
@@ -97,14 +97,14 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getOutput() {
+	public ItemStack getResultItem() {
 		return output;
 	}
 
 	@Nonnull
 	@Override
-	public DefaultedList<Ingredient> getPreviewInputs() {
-		return DefaultedList.copyOf(Ingredient.EMPTY, input);
+	public NonNullList<Ingredient> getIngredients() {
+		return NonNullList.of(Ingredient.EMPTY, input);
 	}
 
 	@Nonnull
@@ -115,7 +115,7 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack getRecipeKindIcon() {
+	public ItemStack getToastSymbol() {
 		return new ItemStack(ModBlocks.manaPool);
 	}
 
@@ -123,25 +123,25 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 
 		@Nonnull
 		@Override
-		public RecipeManaInfusion read(@Nonnull Identifier id, @Nonnull JsonObject json) {
+		public RecipeManaInfusion fromJson(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {
 			JsonElement input = Objects.requireNonNull(json.get("input"));
 			Ingredient ing = Ingredient.fromJson(input);
-			ItemStack output = ShapedRecipe.getItemStack(JsonHelper.getObject(json, "output"));
-			int mana = JsonHelper.getInt(json, "mana");
-			String group = JsonHelper.getString(json, "group", "");
+			ItemStack output = ShapedRecipe.itemFromJson(GsonHelper.getAsJsonObject(json, "output"));
+			int mana = GsonHelper.getAsInt(json, "mana");
+			String group = GsonHelper.getAsString(json, "group", "");
 			StateIngredient catalyst = null;
 			if (json.has("catalyst")) { // TODO migrate entirely to state ingredients
 				JsonElement element = json.get("catalyst");
 				if (element.isJsonPrimitive()) {
-					String s = JsonHelper.getString(json, "catalyst");
-					Identifier catalystId = Identifier.tryParse(s);
+					String s = GsonHelper.getAsString(json, "catalyst");
+					ResourceLocation catalystId = ResourceLocation.tryParse(s);
 					if (catalystId == null) {
 						throw new IllegalArgumentException("Invalid catalyst ID: " + s);
 					}
-					catalyst = StateIngredientHelper.of(Registry.BLOCK.getOrEmpty(catalystId)
+					catalyst = StateIngredientHelper.of(Registry.BLOCK.getOptional(catalystId)
 							.orElseThrow(() -> new IllegalArgumentException("Unknown catalyst: " + s)));
 				} else if (!element.getAsJsonObject().has("type")) {
-					catalyst = StateIngredientHelper.of(StateIngredientHelper.readBlockState(JsonHelper.getObject(json, "catalyst")));
+					catalyst = StateIngredientHelper.of(StateIngredientHelper.readBlockState(GsonHelper.getAsJsonObject(json, "catalyst")));
 				} else {
 					catalyst = StateIngredientHelper.deserialize(element.getAsJsonObject());
 				}
@@ -152,29 +152,29 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 
 		@Nullable
 		@Override
-		public RecipeManaInfusion read(@Nonnull Identifier id, @Nonnull PacketByteBuf buf) {
-			Ingredient input = Ingredient.fromPacket(buf);
-			ItemStack output = buf.readItemStack();
+		public RecipeManaInfusion fromNetwork(@Nonnull ResourceLocation id, @Nonnull FriendlyByteBuf buf) {
+			Ingredient input = Ingredient.fromNetwork(buf);
+			ItemStack output = buf.readItem();
 			int mana = buf.readVarInt();
 			StateIngredient catalyst = null;
 			if (buf.readBoolean()) {
 				catalyst = StateIngredientHelper.read(buf);
 			}
-			String group = buf.readString();
+			String group = buf.readUtf();
 			return new RecipeManaInfusion(id, output, input, mana, group, catalyst);
 		}
 
 		@Override
-		public void write(@Nonnull PacketByteBuf buf, @Nonnull RecipeManaInfusion recipe) {
-			recipe.getPreviewInputs().get(0).write(buf);
-			buf.writeItemStack(recipe.getOutput());
+		public void toNetwork(@Nonnull FriendlyByteBuf buf, @Nonnull RecipeManaInfusion recipe) {
+			recipe.getIngredients().get(0).toNetwork(buf);
+			buf.writeItem(recipe.getResultItem());
 			buf.writeVarInt(recipe.getManaToConsume());
 			boolean hasCatalyst = recipe.getRecipeCatalyst() != null;
 			buf.writeBoolean(hasCatalyst);
 			if (hasCatalyst) {
 				recipe.getRecipeCatalyst().write(buf);
 			}
-			buf.writeString(recipe.getGroup());
+			buf.writeUtf(recipe.getGroup());
 		}
 	}
 }

@@ -11,11 +11,11 @@ package vazkii.botania.common.crafting;
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonObject;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.tag.ServerTagManagerHolder;
-import net.minecraft.tag.Tag;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.SerializationTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.recipe.StateIngredient;
 
@@ -28,16 +28,16 @@ import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 public class StateIngredientTag extends StateIngredientBlocks {
-	private final Identifier tag;
+	private final ResourceLocation tag;
 
-	public StateIngredientTag(Identifier id) {
+	public StateIngredientTag(ResourceLocation id) {
 		super(ImmutableSet.of());
 		this.tag = id;
 	}
 
 	@Nonnull
 	protected Tag<Block> resolve() {
-		return ServerTagManagerHolder.getTagManager().getBlocks().getTagOrEmpty(tag);
+		return SerializationTags.getInstance().getBlocks().getTagOrEmpty(tag);
 	}
 
 	@Override
@@ -48,10 +48,10 @@ public class StateIngredientTag extends StateIngredientBlocks {
 	@Override
 	public BlockState pick(Random random) {
 		Tag<Block> tag = resolve();
-		if (tag.values().isEmpty()) {
+		if (tag.getValues().isEmpty()) {
 			return null;
 		}
-		return tag.getRandom(random).getDefaultState();
+		return tag.getRandomElement(random).defaultBlockState();
 	}
 
 	@Override
@@ -65,18 +65,18 @@ public class StateIngredientTag extends StateIngredientBlocks {
 	@Nonnull
 	@Override
 	protected List<Block> getBlocks() {
-		return resolve().values();
+		return resolve().getValues();
 	}
 
 	@Override
 	public List<BlockState> getDisplayed() {
-		return resolve().values().stream().map(Block::getDefaultState).collect(Collectors.toList());
+		return resolve().getValues().stream().map(Block::defaultBlockState).collect(Collectors.toList());
 	}
 
 	@Nullable
 	@Override
 	public StateIngredient resolveAndFilter(UnaryOperator<List<Block>> operator) {
-		if (resolve().values().isEmpty()) {
+		if (resolve().getValues().isEmpty()) {
 			return null;
 		}
 		List<Block> list = operator.apply(getBlocks());
@@ -86,7 +86,7 @@ public class StateIngredientTag extends StateIngredientBlocks {
 		return this;
 	}
 
-	public Identifier getTagId() {
+	public ResourceLocation getTagId() {
 		return tag;
 	}
 

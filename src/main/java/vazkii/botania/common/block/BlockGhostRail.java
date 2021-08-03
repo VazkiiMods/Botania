@@ -10,94 +10,94 @@ package vazkii.botania.common.block;
 
 import com.google.common.base.Preconditions;
 
-import net.minecraft.block.AbstractRailBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.enums.RailShape;
-import net.minecraft.entity.vehicle.AbstractMinecartEntity;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseRailBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.block.state.properties.RailShape;
 
 import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.components.GhostRailComponent;
 
 import javax.annotation.Nonnull;
 
-public class BlockGhostRail extends AbstractRailBlock {
+public class BlockGhostRail extends BaseRailBlock {
 
 	public static final String TAG_FLOAT_TICKS = "botania:float_ticks";
 
-	public BlockGhostRail(Settings builder) {
+	public BlockGhostRail(Properties builder) {
 		super(true, builder);
-		setDefaultState(getDefaultState().with(Properties.STRAIGHT_RAIL_SHAPE, RailShape.NORTH_SOUTH));
+		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.RAIL_SHAPE_STRAIGHT, RailShape.NORTH_SOUTH));
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(Properties.STRAIGHT_RAIL_SHAPE);
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		builder.add(BlockStateProperties.RAIL_SHAPE_STRAIGHT);
 	}
 
-	private void updateFloating(AbstractMinecartEntity cart) {
-		cart.world.getProfiler().push("cartFloating");
+	private void updateFloating(AbstractMinecart cart) {
+		cart.level.getProfiler().push("cartFloating");
 		GhostRailComponent persistentData = EntityComponents.GHOST_RAIL.get(cart);
 		int floatTicks = persistentData.floatTicks;
 		Preconditions.checkState(floatTicks > 0);
 
-		BlockPos entPos = cart.getBlockPos();
-		BlockState state = cart.world.getBlockState(entPos);
+		BlockPos entPos = cart.blockPosition();
+		BlockState state = cart.level.getBlockState(entPos);
 		boolean air = state.isAir();
 
 		if (state.getBlock() == ModBlocks.dreamwood
-				|| (state.getBlock() != ModBlocks.ghostRail && state.isIn(BlockTags.RAILS))) {
-			cart.world.syncWorldEvent(2003, entPos, 0);
+				|| (state.getBlock() != ModBlocks.ghostRail && state.is(BlockTags.RAILS))) {
+			cart.level.levelEvent(2003, entPos, 0);
 			persistentData.floatTicks = 0;
 		} else {
-			BlockPos down = entPos.down();
-			BlockState stateBelow = cart.world.getBlockState(down);
+			BlockPos down = entPos.below();
+			BlockState stateBelow = cart.level.getBlockState(down);
 			boolean airBelow = stateBelow.isAir();
 			if (air && airBelow || !air && !airBelow) {
-				cart.noClip = true;
+				cart.noPhysics = true;
 			}
-			cart.setVelocity(cart.getVelocity().getX() * 1.4, 0.2, cart.getVelocity().getZ() * 1.4);
+			cart.setDeltaMovement(cart.getDeltaMovement().x() * 1.4, 0.2, cart.getDeltaMovement().z() * 1.4);
 			persistentData.floatTicks--;
-			cart.world.syncWorldEvent(2000, entPos, 0);
+			cart.level.levelEvent(2000, entPos, 0);
 		}
 
-		cart.world.getProfiler().pop();
+		cart.level.getProfiler().pop();
 	}
 
-	public void onMinecartPass(World world, AbstractMinecartEntity cart) {
-		if (!world.isClient) {
+	public void onMinecartPass(Level world, AbstractMinecart cart) {
+		if (!world.isClientSide) {
 			EntityComponents.GHOST_RAIL.get(cart).floatTicks = 20;
 			updateFloating(cart);
 		}
 	}
 
-	public void tickCart(AbstractMinecartEntity c) {
-		if (c.world.isClient) {
+	public void tickCart(AbstractMinecart c) {
+		if (c.level.isClientSide) {
 			return;
 		}
 
 		GhostRailComponent persistentData = EntityComponents.GHOST_RAIL.get(c);
 		if (!c.isAlive() || persistentData.floatTicks <= 0) {
-			c.noClip = false;
+			c.noPhysics = false;
 			return;
 		}
 
 		updateFloating(c);
 
 		if (persistentData.floatTicks <= 0) {
-			c.noClip = false;
+			c.noPhysics = false;
 		}
 	}
 
 	@Nonnull
 	@Override
 	public Property<RailShape> getShapeProperty() {
-		return Properties.STRAIGHT_RAIL_SHAPE;
+		return BlockStateProperties.RAIL_SHAPE_STRAIGHT;
 	}
 }

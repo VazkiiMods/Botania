@@ -8,8 +8,8 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,34 +22,34 @@ import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraSword;
 
 import javax.annotation.Nullable;
 
-@Mixin(MinecraftClient.class)
+@Mixin(Minecraft.class)
 public abstract class MixinMinecraftClient {
 	@Shadow
 	public abstract boolean isPaused();
 
 	@Shadow
-	private float pausedTickDelta;
+	private float pausePartialTick;
 
 	@Shadow
-	public abstract float getTickDelta();
+	public abstract float getFrameTime();
 
 	@Shadow
 	@Nullable
-	public ClientPlayerEntity player;
+	public LocalPlayer player;
 
-	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;render(FJZ)V"))
+	@Inject(method = "runTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GameRenderer;render(FJZ)V"))
 	private void onFrameStart(boolean tick, CallbackInfo ci) {
-		ClientTickHandler.renderTick(isPaused() ? pausedTickDelta : getTickDelta());
+		ClientTickHandler.renderTick(isPaused() ? pausePartialTick : getFrameTime());
 
 	}
 
-	@Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/GameRenderer;render(FJZ)V", shift = At.Shift.AFTER))
+	@Inject(method = "runTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GameRenderer;render(FJZ)V", shift = At.Shift.AFTER))
 	private void onFrameEnd(boolean tick, CallbackInfo ci) {
 		ClientTickHandler.calcDelta();
 	}
 
-	@Inject(method = "doAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;resetLastAttackedTicks()V"))
+	@Inject(method = "startAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;resetAttackStrengthTicker()V"))
 	private void leftClickEmpty(CallbackInfo ci) {
-		ItemTerraSword.leftClick(player.getMainHandStack());
+		ItemTerraSword.leftClick(player.getMainHandItem());
 	}
 }

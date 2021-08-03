@@ -8,9 +8,13 @@
  */
 package vazkii.botania.common.block.tile.string;
 
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.FlowerPotBlock;
+import net.minecraft.world.level.block.HugeMushroomBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -22,13 +26,13 @@ public class TileRedStringRelay extends TileRedString {
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
-		if (pos.equals(getPos().up())) {
+		if (pos.equals(getBlockPos().above())) {
 			return false;
 		}
 
-		Block block = world.getBlockState(pos).getBlock();
+		Block block = level.getBlockState(pos).getBlock();
 		if (isValidPlant(block)) {
-			BlockEntity tile = world.getBlockEntity(pos);
+			BlockEntity tile = level.getBlockEntity(pos);
 			return !(tile instanceof TileEntitySpecialFlower);
 		}
 		return false;
@@ -39,7 +43,7 @@ public class TileRedStringRelay extends TileRedString {
 		if (block instanceof FlowerPotBlock) {
 			block = ((FlowerPotBlock) block).getContent();
 		}
-		return block instanceof FlowerBlock || block instanceof MushroomBlock || block instanceof TallPlantBlock;
+		return block instanceof FlowerBlock || block instanceof HugeMushroomBlock || block instanceof DoublePlantBlock;
 	}
 
 }

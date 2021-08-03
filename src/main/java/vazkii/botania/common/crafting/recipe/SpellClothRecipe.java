@@ -8,35 +8,35 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.SpecialCraftingRecipe;
-import net.minecraft.recipe.SpecialRecipeSerializer;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class SpellClothRecipe extends SpecialCraftingRecipe {
-	public static final SpecialRecipeSerializer<SpellClothRecipe> SERIALIZER = new SpecialRecipeSerializer<>(SpellClothRecipe::new);
+public class SpellClothRecipe extends CustomRecipe {
+	public static final SimpleRecipeSerializer<SpellClothRecipe> SERIALIZER = new SimpleRecipeSerializer<>(SpellClothRecipe::new);
 
-	public SpellClothRecipe(Identifier id) {
+	public SpellClothRecipe(ResourceLocation id) {
 		super(id);
 	}
 
 	@Override
-	public boolean matches(@Nonnull CraftingInventory inv, @Nonnull World world) {
+	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level world) {
 		boolean foundCloth = false;
 		boolean foundEnchanted = false;
 
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack stack = inv.getStack(i);
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.hasEnchantments() && !foundEnchanted && stack.getItem() != ModItems.spellCloth) {
+				if (stack.isEnchanted() && !foundEnchanted && stack.getItem() != ModItems.spellCloth) {
 					foundEnchanted = true;
 				} else if (stack.getItem() == ModItems.spellCloth && !foundCloth) {
 					foundCloth = true;
@@ -51,11 +51,11 @@ public class SpellClothRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public ItemStack craft(@Nonnull CraftingInventory inv) {
+	public ItemStack assemble(@Nonnull CraftingContainer inv) {
 		ItemStack stackToDisenchant = ItemStack.EMPTY;
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack stack = inv.getStack(i);
-			if (!stack.isEmpty() && stack.hasEnchantments() && stack.getItem() != ModItems.spellCloth) {
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack stack = inv.getItem(i);
+			if (!stack.isEmpty() && stack.isEnchanted() && stack.getItem() != ModItems.spellCloth) {
 				stackToDisenchant = stack.copy();
 				stackToDisenchant.setCount(1);
 				break;
@@ -66,13 +66,13 @@ public class SpellClothRecipe extends SpecialCraftingRecipe {
 			return ItemStack.EMPTY;
 		}
 
-		stackToDisenchant.removeSubTag("Enchantments"); // Remove enchantments
-		stackToDisenchant.removeSubTag("RepairCost");
+		stackToDisenchant.removeTagKey("Enchantments"); // Remove enchantments
+		stackToDisenchant.removeTagKey("RepairCost");
 		return stackToDisenchant;
 	}
 
 	@Override
-	public boolean fits(int width, int height) {
+	public boolean canCraftInDimensions(int width, int height) {
 		return width * height >= 2;
 	}
 
@@ -84,12 +84,12 @@ public class SpellClothRecipe extends SpecialCraftingRecipe {
 
 	@Nonnull
 	@Override
-	public DefaultedList<ItemStack> getRemainingStacks(@Nonnull CraftingInventory inv) {
+	public NonNullList<ItemStack> getRemainingItems(@Nonnull CraftingContainer inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
 			if (s.getItem() == ModItems.spellCloth) {
 				ItemStack copy = s.copy();
 				copy.setCount(1);
-				copy.setDamage(copy.getDamage() + 1);
+				copy.setDamageValue(copy.getDamageValue() + 1);
 				return copy;
 			}
 			return null;

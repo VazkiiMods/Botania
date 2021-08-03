@@ -10,12 +10,12 @@ package vazkii.botania.common.block.mana;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -24,22 +24,22 @@ import vazkii.botania.common.block.tile.mana.TileManaVoid;
 
 import javax.annotation.Nonnull;
 
-public class BlockManaVoid extends BlockMod implements IPoolOverlayProvider, BlockEntityProvider {
+public class BlockManaVoid extends BlockMod implements IPoolOverlayProvider, EntityBlock {
 
-	public BlockManaVoid(Settings builder) {
+	public BlockManaVoid(Properties builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileManaVoid();
 	}
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public Sprite getIcon(World world, BlockPos pos) {
-		return MiscellaneousIcons.INSTANCE.manaVoidOverlay.getSprite();
+	public TextureAtlasSprite getIcon(Level world, BlockPos pos) {
+		return MiscellaneousIcons.INSTANCE.manaVoidOverlay.sprite();
 	}
 
 }

@@ -9,8 +9,8 @@
 package vazkii.botania.common.core;
 
 import net.fabricmc.fabric.impl.item.group.ItemGroupExtensions;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.item.ModItems;
@@ -18,23 +18,23 @@ import vazkii.botania.common.lib.LibMisc;
 
 import javax.annotation.Nonnull;
 
-public final class BotaniaCreativeTab extends ItemGroup {
+public final class BotaniaCreativeTab extends CreativeModeTab {
 
 	public static final BotaniaCreativeTab INSTANCE = new BotaniaCreativeTab();
 
 	public BotaniaCreativeTab() {
 		super(computeIndex(), LibMisc.MOD_ID);
-		setTexture(LibResources.GUI_CREATIVE);
+		setBackgroundSuffix(LibResources.GUI_CREATIVE);
 	}
 
 	private static int computeIndex() {
-		((ItemGroupExtensions) ItemGroup.BUILDING_BLOCKS).fabric_expandArray();
-		return ItemGroup.GROUPS.length - 1;
+		((ItemGroupExtensions) CreativeModeTab.TAB_BUILDING_BLOCKS).fabric_expandArray();
+		return CreativeModeTab.TABS.length - 1;
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack createIcon() {
+	public ItemStack makeIcon() {
 		return new ItemStack(ModItems.lexicon);
 	}
 }

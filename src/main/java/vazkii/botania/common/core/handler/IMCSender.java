@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.core.handler;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.core.helper.ColorHelper;
@@ -142,12 +142,12 @@ public class IMCSender {
 	}
 
 	private static void addOreWeight(String oreTag, int weight) {
-		Identifier tag = new Identifier("c", oreTag + "_ores");
+		ResourceLocation tag = new ResourceLocation("c", oreTag + "_ores");
 		BotaniaAPI.instance().registerOreWeight(tag, weight);
 	}
 
 	private static void addOreWeightNether(String oreTag, int weight) {
-		Identifier tag = new Identifier("c", oreTag + "_ores");
+		ResourceLocation tag = new ResourceLocation("c", oreTag + "_ores");
 		BotaniaAPI.instance().registerNetherOreWeight(tag, weight);
 	}
 }

@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.components;
 
-import net.minecraft.entity.TntEntity;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.item.PrimedTnt;
 
 import vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum;
 
@@ -20,7 +20,7 @@ public class EthicalComponent implements Component {
 	private static final String TAG_UNETHICAL = "botania:unethical";
 	public boolean unethical;
 
-	public EthicalComponent(TntEntity entity) {
+	public EthicalComponent(PrimedTnt entity) {
 		unethical = SubTileEntropinnyum.isUnethical(entity);
 	}
 

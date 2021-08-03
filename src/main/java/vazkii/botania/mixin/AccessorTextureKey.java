@@ -8,15 +8,15 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.data.client.model.TextureKey;
+import net.minecraft.data.models.model.TextureSlot;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(TextureKey.class)
+@Mixin(TextureSlot.class)
 public interface AccessorTextureKey {
-	@Invoker("method_27043")
-	static TextureKey make(String name) {
+	@Invoker("create")
+	static TextureSlot make(String name) {
 		throw new IllegalStateException("");
 	}
 }

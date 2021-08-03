@@ -8,33 +8,33 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.item.ISortableTool;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
 public class ItemSwapRing extends ItemBauble {
 
-	public ItemSwapRing(Settings props) {
+	public ItemSwapRing(Properties props) {
 		super(props);
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity entity) {
-		if (entity.world.isClient && !(entity instanceof PlayerEntity)) {
+		if (entity.level.isClientSide && !(entity instanceof Player)) {
 			return;
 		}
 
-		PlayerEntity player = (PlayerEntity) entity;
-		ItemStack currentStack = player.getMainHandStack();
+		Player player = (Player) entity;
+		ItemStack currentStack = player.getMainHandItem();
 		if (currentStack.isEmpty() || !(currentStack.getItem() instanceof ISortableTool)
-				|| !player.handSwinging) {
+				|| !player.swinging) {
 			return;
 		}
 
@@ -44,17 +44,17 @@ public class ItemSwapRing extends ItemBauble {
 		if (pos.getType() != HitResult.Type.BLOCK) {
 			return;
 		}
-		BlockState state = entity.world.getBlockState(pos.getBlockPos());
+		BlockState state = entity.level.getBlockState(pos.getBlockPos());
 
 		ItemStack bestTool = currentStack;
-		int bestToolPriority = currentStack.getMiningSpeedMultiplier(state) > 1.0F ? tool.getSortingPriority(currentStack, state) : -1;
+		int bestToolPriority = currentStack.getDestroySpeed(state) > 1.0F ? tool.getSortingPriority(currentStack, state) : -1;
 		int bestSlot = -1;
 
-		for (int i = 0; i < player.inventory.size(); i++) {
-			ItemStack stackInSlot = player.inventory.getStack(i);
+		for (int i = 0; i < player.inventory.getContainerSize(); i++) {
+			ItemStack stackInSlot = player.inventory.getItem(i);
 			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof ISortableTool && stackInSlot != currentStack) {
 				ISortableTool toolInSlot = (ISortableTool) stackInSlot.getItem();
-				if (stackInSlot.getMiningSpeedMultiplier(state) > 1.0F) {
+				if (stackInSlot.getDestroySpeed(state) > 1.0F) {
 					int priority = toolInSlot.getSortingPriority(stackInSlot, state);
 					if (priority > bestToolPriority) {
 						bestTool = stackInSlot;
@@ -66,8 +66,8 @@ public class ItemSwapRing extends ItemBauble {
 		}
 
 		if (bestSlot != -1) {
-			player.setStackInHand(Hand.MAIN_HAND, bestTool);
-			player.inventory.setStack(bestSlot, currentStack);
+			player.setItemInHand(InteractionHand.MAIN_HAND, bestTool);
+			player.inventory.setItem(bestSlot, currentStack);
 		}
 	}
 }

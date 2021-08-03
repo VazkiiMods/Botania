@@ -8,104 +8,104 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.attribute.EntityAttributeInstance;
-import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.SkeletonHorseEntity;
-import net.minecraft.entity.mob.ZombieHorseEntity;
-import net.minecraft.entity.passive.HorseBaseEntity;
-import net.minecraft.entity.passive.HorseEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.entity.animal.horse.SkeletonHorse;
+import net.minecraft.world.entity.animal.horse.ZombieHorse;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ServerLevelAccessor;
 
 import vazkii.botania.mixin.AccessorAbstractHorseEntity;
 
 public class ItemVirus extends Item {
-	public ItemVirus(Settings builder) {
+	public ItemVirus(Properties builder) {
 		super(builder);
 	}
 
 	@Override
-	public ActionResult useOnEntity(ItemStack stack, PlayerEntity player, LivingEntity living, Hand hand) {
-		if (living instanceof HorseEntity) {
-			if (player.world.isClient) {
-				return ActionResult.SUCCESS;
+	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity living, InteractionHand hand) {
+		if (living instanceof Horse) {
+			if (player.level.isClientSide) {
+				return InteractionResult.SUCCESS;
 			}
-			HorseBaseEntity horse = (HorseBaseEntity) living;
-			if (horse.isTame()) {
-				SimpleInventory inv = ((AccessorAbstractHorseEntity) horse).getItems();
-				ItemStack saddle = inv.getStack(0);
+			AbstractHorse horse = (AbstractHorse) living;
+			if (horse.isTamed()) {
+				SimpleContainer inv = ((AccessorAbstractHorseEntity) horse).getInventory();
+				ItemStack saddle = inv.getItem(0);
 
 				// Not all AbstractHorse's have saddles in slot 0
 				if (!saddle.isEmpty() && saddle.getItem() != Items.SADDLE) {
-					horse.dropStack(saddle, 0);
+					horse.spawnAtLocation(saddle, 0);
 					saddle = ItemStack.EMPTY;
 				}
 
-				for (int i = 1; i < inv.size(); i++) {
-					if (!inv.getStack(i).isEmpty()) {
-						horse.dropStack(inv.getStack(i), 0);
+				for (int i = 1; i < inv.getContainerSize(); i++) {
+					if (!inv.getItem(i).isEmpty()) {
+						horse.spawnAtLocation(inv.getItem(i), 0);
 					}
 				}
 
 				horse.remove();
 
-				HorseBaseEntity newHorse = stack.getItem() == ModItems.necroVirus
-						? EntityType.ZOMBIE_HORSE.create(player.world)
-						: EntityType.SKELETON_HORSE.create(player.world);
-				newHorse.bondWithPlayer(player);
-				newHorse.updatePositionAndAngles(horse.getX(), horse.getY(), horse.getZ(), horse.yaw, horse.pitch);
+				AbstractHorse newHorse = stack.getItem() == ModItems.necroVirus
+						? EntityType.ZOMBIE_HORSE.create(player.level)
+						: EntityType.SKELETON_HORSE.create(player.level);
+				newHorse.tameWithName(player);
+				newHorse.absMoveTo(horse.getX(), horse.getY(), horse.getZ(), horse.yRot, horse.xRot);
 
 				// Put the saddle back
 				if (!saddle.isEmpty()) {
-					SimpleInventory newInv = ((AccessorAbstractHorseEntity) newHorse).getItems();
-					newInv.setStack(0, saddle);
+					SimpleContainer newInv = ((AccessorAbstractHorseEntity) newHorse).getInventory();
+					newInv.setItem(0, saddle);
 				}
 
-				EntityAttributeInstance movementSpeed = newHorse.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
-				movementSpeed.setBaseValue(horse.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED).getBaseValue());
-				movementSpeed.addPersistentModifier(new EntityAttributeModifier("Ermergerd Virus D:", movementSpeed.getBaseValue(), EntityAttributeModifier.Operation.ADDITION));
+				AttributeInstance movementSpeed = newHorse.getAttribute(Attributes.MOVEMENT_SPEED);
+				movementSpeed.setBaseValue(horse.getAttribute(Attributes.MOVEMENT_SPEED).getBaseValue());
+				movementSpeed.addPermanentModifier(new AttributeModifier("Ermergerd Virus D:", movementSpeed.getBaseValue(), AttributeModifier.Operation.ADDITION));
 
-				EntityAttributeInstance health = newHorse.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
-				health.setBaseValue(horse.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).getBaseValue());
-				health.addPersistentModifier(new EntityAttributeModifier("Ermergerd Virus D:", health.getBaseValue(), EntityAttributeModifier.Operation.ADDITION));
+				AttributeInstance health = newHorse.getAttribute(Attributes.MAX_HEALTH);
+				health.setBaseValue(horse.getAttribute(Attributes.MAX_HEALTH).getBaseValue());
+				health.addPermanentModifier(new AttributeModifier("Ermergerd Virus D:", health.getBaseValue(), AttributeModifier.Operation.ADDITION));
 
-				EntityAttributeInstance jumpHeight = newHorse.getAttributeInstance(EntityAttributes.HORSE_JUMP_STRENGTH);
-				jumpHeight.setBaseValue(horse.getAttributeInstance(EntityAttributes.HORSE_JUMP_STRENGTH).getBaseValue());
-				jumpHeight.addPersistentModifier(new EntityAttributeModifier("Ermergerd Virus D:", jumpHeight.getBaseValue() * 0.5, EntityAttributeModifier.Operation.ADDITION));
+				AttributeInstance jumpHeight = newHorse.getAttribute(Attributes.JUMP_STRENGTH);
+				jumpHeight.setBaseValue(horse.getAttribute(Attributes.JUMP_STRENGTH).getBaseValue());
+				jumpHeight.addPermanentModifier(new AttributeModifier("Ermergerd Virus D:", jumpHeight.getBaseValue() * 0.5, AttributeModifier.Operation.ADDITION));
 
-				newHorse.playSound(SoundEvents.ENTITY_ZOMBIE_VILLAGER_CURE, 1.0F + living.world.random.nextFloat(), living.world.random.nextFloat() * 0.7F + 1.3F);
-				newHorse.initialize((ServerWorldAccess) player.world, player.world.getLocalDifficulty(newHorse.getBlockPos()), SpawnReason.CONVERSION, null, null);
-				newHorse.setBreedingAge(horse.getBreedingAge());
-				player.world.spawnEntity(newHorse);
-				newHorse.playSpawnEffects();
+				newHorse.playSound(SoundEvents.ZOMBIE_VILLAGER_CURE, 1.0F + living.level.random.nextFloat(), living.level.random.nextFloat() * 0.7F + 1.3F);
+				newHorse.finalizeSpawn((ServerLevelAccessor) player.level, player.level.getCurrentDifficultyAt(newHorse.blockPosition()), MobSpawnType.CONVERSION, null, null);
+				newHorse.setAge(horse.getAge());
+				player.level.addFreshEntity(newHorse);
+				newHorse.spawnAnim();
 
-				stack.decrement(1);
-				return ActionResult.SUCCESS;
+				stack.shrink(1);
+				return InteractionResult.SUCCESS;
 			}
 		}
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	public static boolean onLivingHurt(LivingEntity entity, DamageSource source) {
-		if (entity.hasVehicle() && entity.getVehicle() instanceof LivingEntity) {
+		if (entity.isPassenger() && entity.getVehicle() instanceof LivingEntity) {
 			entity = (LivingEntity) entity.getVehicle();
 		}
 
-		if ((entity instanceof ZombieHorseEntity || entity instanceof SkeletonHorseEntity)
+		if ((entity instanceof ZombieHorse || entity instanceof SkeletonHorse)
 				&& source == DamageSource.FALL
-				&& ((HorseBaseEntity) entity).isTame()) {
+				&& ((AbstractHorse) entity).isTamed()) {
 			return true;
 		}
 

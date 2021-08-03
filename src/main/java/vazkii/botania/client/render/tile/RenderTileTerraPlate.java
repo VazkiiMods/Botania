@@ -8,12 +8,13 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3f;
+
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -30,19 +31,19 @@ public class RenderTileTerraPlate extends BlockEntityRenderer<TileTerraPlate> {
 	}
 
 	@Override
-	public void render(@Nonnull TileTerraPlate plate, float f, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
+	public void render(@Nonnull TileTerraPlate plate, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		float alphaMod = Math.min(1.0F, plate.getCompletion() / 0.1F);
 
-		ms.push();
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90F));
+		ms.pushPose();
+		ms.mulPose(Vector3f.XP.rotationDegrees(90F));
 		ms.translate(0F, 0F, -3F / 16F - 0.001F);
 
 		float alpha = (float) ((Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 5D + 0.6D) * alphaMod;
 
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.TERRA_PLATE);
-		IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.terraPlateOverlay.getSprite(), 1, 1, alpha);
+		IconHelper.renderIcon(ms, buffer, 0, 0, MiscellaneousIcons.INSTANCE.terraPlateOverlay.sprite(), 1, 1, alpha);
 
-		ms.pop();
+		ms.popPose();
 	}
 
 }

@@ -8,14 +8,14 @@
  */
 package vazkii.botania.common.item.relic;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.UseAction;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
@@ -29,53 +29,53 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 
-	public ItemInfiniteFruit(Settings props) {
+	public ItemInfiniteFruit(Properties props) {
 		super(props);
 	}
 
 	@Override
-	public int getMaxUseTime(ItemStack stack) {
+	public int getUseDuration(ItemStack stack) {
 		return 32;
 	}
 
 	@Nonnull
 	@Override
-	public UseAction getUseAction(ItemStack stack) {
-		return isBoot(stack) ? UseAction.DRINK : UseAction.EAT;
+	public UseAnim getUseAnimation(ItemStack stack) {
+		return isBoot(stack) ? UseAnim.DRINK : UseAnim.EAT;
 	}
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getStackInHand(hand);
-		if (player.canConsume(false) && isRightPlayer(player, stack)) {
-			player.setCurrentHand(hand);
-			return TypedActionResult.consume(stack);
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
+		if (player.canEat(false) && isRightPlayer(player, stack)) {
+			player.startUsingItem(hand);
+			return InteractionResultHolder.consume(stack);
 		}
-		return TypedActionResult.pass(stack);
+		return InteractionResultHolder.pass(stack);
 	}
 
 	@Override
-	public void usageTick(@Nonnull World world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int count) {
-		if (!(living instanceof PlayerEntity)) {
+	public void onUseTick(@Nonnull Level world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int count) {
+		if (!(living instanceof Player)) {
 			return;
 		}
-		PlayerEntity player = (PlayerEntity) living;
+		Player player = (Player) living;
 		if (ManaItemHandler.instance().requestManaExact(stack, player, 500, true)) {
 			if (count % 5 == 0) {
-				player.getHungerManager().add(2, 2.4F);
+				player.getFoodData().eat(2, 2.4F);
 			}
 
 			if (count == 5) {
-				if (player.canConsume(false)) {
-					((AccessorLivingEntity) player).setItemUseTimeLeft(20);
+				if (player.canEat(false)) {
+					((AccessorLivingEntity) player).setUseItemRemaining(20);
 				}
 			}
 		}
 	}
 
 	public static boolean isBoot(ItemStack stack) {
-		String name = stack.getName().getString().toLowerCase(Locale.ROOT).trim();
+		String name = stack.getHoverName().getString().toLowerCase(Locale.ROOT).trim();
 		return name.equals("das boot");
 	}
 
@@ -85,7 +85,7 @@ public class ItemInfiniteFruit extends ItemRelic implements IManaUsingItem {
 	}
 
 	@Override
-	public Identifier getAdvancement() {
+	public ResourceLocation getAdvancement() {
 		return prefix("challenge/infinite_fruit");
 	}
 

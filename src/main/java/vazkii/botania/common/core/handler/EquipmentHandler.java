@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.core.handler;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 import top.theillusivec4.curios.api.event.DropRulesCallback;
 
@@ -44,7 +44,7 @@ public abstract class EquipmentHandler {
 		}
 	}
 
-	public static Inventory getAllWorn(LivingEntity living) {
+	public static Container getAllWorn(LivingEntity living) {
 		return instance.getAllWornItems(living);
 	}
 
@@ -60,7 +60,7 @@ public abstract class EquipmentHandler {
 		instance.registerComponentEvent(item);
 	}
 
-	protected abstract Inventory getAllWornItems(LivingEntity living);
+	protected abstract Container getAllWornItems(LivingEntity living);
 
 	protected abstract ItemStack findItem(Item item, LivingEntity living);
 
@@ -74,10 +74,10 @@ public abstract class EquipmentHandler {
 
 	// Fallback equipment handler for curios-less (or baubles-less) installs.
 	public static class InventoryEquipmentHandler extends EquipmentHandler {
-		private final Map<PlayerEntity, ItemStack[]> map = new WeakHashMap<>();
+		private final Map<Player, ItemStack[]> map = new WeakHashMap<>();
 
-		public void onPlayerTick(PlayerEntity player) {
-			player.world.getProfiler().push("botania:tick_wearables");
+		public void onPlayerTick(Player player) {
+			player.level.getProfiler().push("botania:tick_wearables");
 
 			ItemStack[] oldStacks = map.computeIfAbsent(player, p -> {
 				ItemStack[] array = new ItemStack[9];
@@ -85,18 +85,18 @@ public abstract class EquipmentHandler {
 				return array;
 			});
 
-			PlayerInventory inv = player.inventory;
+			Inventory inv = player.inventory;
 			for (int i = 0; i < 9; i++) {
 				ItemStack old = oldStacks[i];
-				ItemStack current = inv.getStack(i);
+				ItemStack current = inv.getItem(i);
 
-				if (!ItemStack.areEqual(old, current)) {
+				if (!ItemStack.matches(old, current)) {
 					if (old.getItem() instanceof ItemBauble) {
-						player.getAttributes().removeModifiers(((ItemBauble) old.getItem()).getEquippedAttributeModifiers(old));
+						player.getAttributes().removeAttributeModifiers(((ItemBauble) old.getItem()).getEquippedAttributeModifiers(old));
 						((ItemBauble) old.getItem()).onUnequipped(old, player);
 					}
 					if (canEquip(current, player)) {
-						player.getAttributes().addTemporaryModifiers(((ItemBauble) current.getItem()).getEquippedAttributeModifiers(current));
+						player.getAttributes().addTransientAttributeModifiers(((ItemBauble) current.getItem()).getEquippedAttributeModifiers(current));
 						((ItemBauble) current.getItem()).onEquipped(current, player);
 					}
 					oldStacks[i] = current.copy(); // shift-clicking mutates the stack we stored,
@@ -107,20 +107,20 @@ public abstract class EquipmentHandler {
 					((ItemBauble) current.getItem()).onWornTick(current, player);
 				}
 			}
-			player.world.getProfiler().pop();
+			player.level.getProfiler().pop();
 		}
 
 		@Override
-		protected Inventory getAllWornItems(LivingEntity living) {
-			return new SimpleInventory(0);
+		protected Container getAllWornItems(LivingEntity living) {
+			return new SimpleContainer(0);
 		}
 
 		@Override
 		protected ItemStack findItem(Item item, LivingEntity living) {
-			if (living instanceof PlayerEntity) {
-				PlayerInventory inv = ((PlayerEntity) living).inventory;
+			if (living instanceof Player) {
+				Inventory inv = ((Player) living).inventory;
 				for (int i = 0; i < 9; i++) {
-					ItemStack stack = inv.getStack(i);
+					ItemStack stack = inv.getItem(i);
 					if (stack.getItem() == item && canEquip(stack, living)) {
 						return stack;
 					}
@@ -131,10 +131,10 @@ public abstract class EquipmentHandler {
 
 		@Override
 		protected ItemStack findItem(Predicate<ItemStack> pred, LivingEntity living) {
-			if (living instanceof PlayerEntity) {
-				PlayerInventory inv = ((PlayerEntity) living).inventory;
+			if (living instanceof Player) {
+				Inventory inv = ((Player) living).inventory;
 				for (int i = 0; i < 9; i++) {
-					ItemStack stack = inv.getStack(i);
+					ItemStack stack = inv.getItem(i);
 					if (pred.test(stack) && canEquip(stack, living)) {
 						return stack;
 					}

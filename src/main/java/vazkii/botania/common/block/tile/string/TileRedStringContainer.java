@@ -8,15 +8,15 @@
  */
 package vazkii.botania.common.block.tile.string;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SidedInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.Container;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import vazkii.botania.common.block.tile.ModTiles;
 
@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-public class TileRedStringContainer extends TileRedString implements SidedInventory {
+public class TileRedStringContainer extends TileRedString implements WorldlyContainer {
 
 	public TileRedStringContainer() {
 		this(ModTiles.RED_STRING_CONTAINER);
@@ -37,134 +37,134 @@ public class TileRedStringContainer extends TileRedString implements SidedInvent
 
 	@Override
 	public boolean acceptBlock(BlockPos pos) {
-		BlockEntity tile = world.getBlockEntity(pos);
-		return tile instanceof Inventory;
+		BlockEntity tile = level.getBlockEntity(pos);
+		return tile instanceof Container;
 	}
 
 	@Nullable
-	private Inventory getInventoryAtBinding() {
-		return (Inventory) getTileAtBinding();
+	private Container getInventoryAtBinding() {
+		return (Container) getTileAtBinding();
 	}
 
 	@Override
-	public int size() {
-		Inventory inv = getInventoryAtBinding();
-		return inv != null ? inv.size() : 0;
+	public int getContainerSize() {
+		Container inv = getInventoryAtBinding();
+		return inv != null ? inv.getContainerSize() : 0;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		Inventory inv = getInventoryAtBinding();
+		Container inv = getInventoryAtBinding();
 		return inv == null || inv.isEmpty();
 	}
 
 	@Override
-	public ItemStack getStack(int slot) {
-		Inventory inv = getInventoryAtBinding();
-		return inv != null ? inv.getStack(slot) : ItemStack.EMPTY;
+	public ItemStack getItem(int slot) {
+		Container inv = getInventoryAtBinding();
+		return inv != null ? inv.getItem(slot) : ItemStack.EMPTY;
 	}
 
 	@Override
-	public ItemStack removeStack(int slot, int amount) {
-		Inventory inv = getInventoryAtBinding();
-		return inv != null ? inv.removeStack(slot, amount) : ItemStack.EMPTY;
+	public ItemStack removeItem(int slot, int amount) {
+		Container inv = getInventoryAtBinding();
+		return inv != null ? inv.removeItem(slot, amount) : ItemStack.EMPTY;
 	}
 
 	@Override
-	public ItemStack removeStack(int slot) {
-		Inventory inv = getInventoryAtBinding();
-		return inv != null ? inv.removeStack(slot) : ItemStack.EMPTY;
+	public ItemStack removeItemNoUpdate(int slot) {
+		Container inv = getInventoryAtBinding();
+		return inv != null ? inv.removeItemNoUpdate(slot) : ItemStack.EMPTY;
 	}
 
 	@Override
-	public void setStack(int slot, ItemStack stack) {
-		Inventory inv = getInventoryAtBinding();
+	public void setItem(int slot, ItemStack stack) {
+		Container inv = getInventoryAtBinding();
 		if (inv != null) {
-			inv.setStack(slot, stack);
+			inv.setItem(slot, stack);
 		}
 	}
 
 	@Override
-	public int getMaxCountPerStack() {
-		Inventory inv = getInventoryAtBinding();
-		return inv != null ? inv.getMaxCountPerStack() : 0;
+	public int getMaxStackSize() {
+		Container inv = getInventoryAtBinding();
+		return inv != null ? inv.getMaxStackSize() : 0;
 	}
 
 	@Override
-	public void markDirty() {
-		super.markDirty();
+	public void setChanged() {
+		super.setChanged();
 		BlockEntity tile = getTileAtBinding();
 		if (tile != null) {
-			tile.markDirty();
+			tile.setChanged();
 		}
 	}
 
 	@Override
-	public boolean canPlayerUse(PlayerEntity player) {
+	public boolean stillValid(Player player) {
 		return true;
 	}
 
 	@Override
-	public void onOpen(PlayerEntity player) {}
+	public void startOpen(Player player) {}
 
 	@Override
-	public void onClose(PlayerEntity player) {}
+	public void stopOpen(Player player) {}
 
 	@Override
-	public boolean isValid(int slot, ItemStack stack) {
-		Inventory inv = getInventoryAtBinding();
-		return inv != null && inv.isValid(slot, stack);
+	public boolean canPlaceItem(int slot, ItemStack stack) {
+		Container inv = getInventoryAtBinding();
+		return inv != null && inv.canPlaceItem(slot, stack);
 	}
 
 	@Override
-	public int count(Item item) {
-		Inventory inv = getInventoryAtBinding();
-		return inv != null ? inv.count(item) : 0;
+	public int countItem(Item item) {
+		Container inv = getInventoryAtBinding();
+		return inv != null ? inv.countItem(item) : 0;
 	}
 
 	@Override
-	public boolean containsAny(Set<Item> items) {
-		Inventory inv = getInventoryAtBinding();
-		return inv != null && inv.containsAny(items);
+	public boolean hasAnyOf(Set<Item> items) {
+		Container inv = getInventoryAtBinding();
+		return inv != null && inv.hasAnyOf(items);
 	}
 
 	@Override
-	public int[] getAvailableSlots(Direction side) {
-		Inventory inv = getInventoryAtBinding();
-		if (inv instanceof SidedInventory) {
-			return ((SidedInventory) inv).getAvailableSlots(side);
+	public int[] getSlotsForFace(Direction side) {
+		Container inv = getInventoryAtBinding();
+		if (inv instanceof WorldlyContainer) {
+			return ((WorldlyContainer) inv).getSlotsForFace(side);
 		} else if (inv != null) {
-			return IntStream.range(0, inv.size()).toArray();
+			return IntStream.range(0, inv.getContainerSize()).toArray();
 		} else {
 			return new int[0];
 		}
 	}
 
 	@Override
-	public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-		Inventory inv = getInventoryAtBinding();
-		if (inv instanceof SidedInventory) {
-			return ((SidedInventory) inv).canInsert(slot, stack, dir);
+	public boolean canPlaceItemThroughFace(int slot, ItemStack stack, @Nullable Direction dir) {
+		Container inv = getInventoryAtBinding();
+		if (inv instanceof WorldlyContainer) {
+			return ((WorldlyContainer) inv).canPlaceItemThroughFace(slot, stack, dir);
 		} else {
 			return inv != null;
 		}
 	}
 
 	@Override
-	public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-		Inventory inv = getInventoryAtBinding();
-		if (inv instanceof SidedInventory) {
-			return ((SidedInventory) inv).canExtract(slot, stack, dir);
+	public boolean canTakeItemThroughFace(int slot, ItemStack stack, Direction dir) {
+		Container inv = getInventoryAtBinding();
+		if (inv instanceof WorldlyContainer) {
+			return ((WorldlyContainer) inv).canTakeItemThroughFace(slot, stack, dir);
 		} else {
 			return inv != null;
 		}
 	}
 
 	@Override
-	public void clear() {
-		Inventory inv = getInventoryAtBinding();
+	public void clearContent() {
+		Container inv = getInventoryAtBinding();
 		if (inv != null) {
-			inv.clear();
+			inv.clearContent();
 		}
 	}
 }

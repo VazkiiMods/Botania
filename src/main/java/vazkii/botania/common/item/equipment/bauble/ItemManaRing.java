@@ -8,11 +8,11 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.core.NonNullList;
+import net.minecraft.util.Mth;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaTooltipDisplay;
@@ -27,13 +27,13 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 
 	private static final String TAG_MANA = "mana";
 
-	public ItemManaRing(Settings props) {
+	public ItemManaRing(Properties props) {
 		super(props);
 	}
 
 	@Override
-	public void appendStacks(@Nonnull ItemGroup tab, @Nonnull DefaultedList<ItemStack> stacks) {
-		if (isIn(tab)) {
+	public void fillItemCategory(@Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> stacks) {
+		if (allowdedIn(tab)) {
 			stacks.add(new ItemStack(this));
 
 			ItemStack full = new ItemStack(this);
@@ -103,6 +103,6 @@ public class ItemManaRing extends ItemBauble implements IManaItem, IManaTooltipD
 
 	@Override
 	public int getDurabilityColor(ItemStack stack) {
-		return MathHelper.hsvToRgb(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
+		return Mth.hsvToRgb(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
 	}
 }

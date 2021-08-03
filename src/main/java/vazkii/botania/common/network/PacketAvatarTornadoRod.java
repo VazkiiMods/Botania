@@ -10,13 +10,13 @@ package vazkii.botania.common.network;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.item.rod.ItemTornadoRod;
 
@@ -25,21 +25,21 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 import io.netty.buffer.Unpooled;
 
 public class PacketAvatarTornadoRod {
-	public static final Identifier ID = prefix("avatar_tornado_rod");
+	public static final ResourceLocation ID = prefix("avatar_tornado_rod");
 
-	public static void sendTo(ServerPlayerEntity player, boolean elytra) {
-		if (!player.world.isClient) {
-			PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+	public static void sendTo(ServerPlayer player, boolean elytra) {
+		if (!player.level.isClientSide) {
+			FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
 			buf.writeBoolean(elytra);
 			ServerPlayNetworking.send(player, ID, buf);
 		}
 	}
 
-	public static void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
+	public static void handle(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
 		boolean elytra = buf.readBoolean();
 		client.execute(() -> {
-			PlayerEntity player = MinecraftClient.getInstance().player;
-			World world = MinecraftClient.getInstance().world;
+			Player player = Minecraft.getInstance().player;
+			Level world = Minecraft.getInstance().level;
 			if (elytra) {
 				ItemTornadoRod.doAvatarElytraBoost(player, world);
 			} else {

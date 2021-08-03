@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.AnimalEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.animal.Animal;
 
 import vazkii.botania.common.block.ModSubtiles;
 
@@ -27,7 +27,7 @@ public class SubTileDreadthorn extends SubTileBellethorn {
 
 	@Override
 	public Predicate<Entity> getSelector() {
-		return var1 -> var1 instanceof AnimalEntity && !((AnimalEntity) var1).isBaby();
+		return var1 -> var1 instanceof Animal && !((Animal) var1).isBaby();
 	}
 
 	@Override

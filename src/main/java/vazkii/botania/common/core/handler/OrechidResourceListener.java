@@ -19,15 +19,15 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.minecraft.block.Block;
-import net.minecraft.resource.Resource;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.resource.ResourceType;
-import net.minecraft.resource.SinglePreparationResourceReloadListener;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.profiler.Profiler;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.OrechidOutput;
@@ -69,16 +69,16 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
  *
  * @see vazkii.botania.common.integration.crafttweaker.OrechidManager CraftTweaker Orechid integration
  */
-public class OrechidResourceListener extends SinglePreparationResourceReloadListener<OrechidResourceListener.Data> implements IdentifiableResourceReloadListener {
+public class OrechidResourceListener extends SimplePreparableReloadListener<OrechidResourceListener.Data> implements IdentifiableResourceReloadListener {
 	private static final Gson GSON = new Gson();
 
 	public static void registerListener() {
-		ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new OrechidResourceListener());
+		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new OrechidResourceListener());
 	}
 
 	@Nonnull
 	@Override
-	protected Data prepare(@Nonnull ResourceManager manager, @Nonnull Profiler profiler) {
+	protected Data prepare(@Nonnull ResourceManager manager, @Nonnull ProfilerFiller profiler) {
 		profiler.push("orechidParse");
 		Object2IntMap<StateIngredient> weights = loadWeights(manager, prefix("orechid.json"));
 		Object2IntMap<StateIngredient> nether = loadWeights(manager, prefix("orechid_ignem.json"));
@@ -86,12 +86,12 @@ public class OrechidResourceListener extends SinglePreparationResourceReloadList
 		return new Data(weights, nether);
 	}
 
-	protected static Object2IntMap<StateIngredient> loadWeights(ResourceManager manager, Identifier filename) {
+	protected static Object2IntMap<StateIngredient> loadWeights(ResourceManager manager, ResourceLocation filename) {
 		Stopwatch stopwatch = Stopwatch.createStarted();
 		Object2IntMap<StateIngredient> map = new Object2IntOpenHashMap<>();
-		Identifier location = new Identifier(filename.getNamespace(), "orechid_ore_weights/" + filename.getPath());
+		ResourceLocation location = new ResourceLocation(filename.getNamespace(), "orechid_ore_weights/" + filename.getPath());
 		try {
-			for (Resource resource : manager.getAllResources(location)) {
+			for (Resource resource : manager.getResources(location)) {
 				readResource(map, resource, location);
 			}
 		} catch (IOException ignored) {}
@@ -100,18 +100,18 @@ public class OrechidResourceListener extends SinglePreparationResourceReloadList
 		return map;
 	}
 
-	protected static void readResource(Object2IntMap<StateIngredient> map, Resource resource, Identifier location) {
+	protected static void readResource(Object2IntMap<StateIngredient> map, Resource resource, ResourceLocation location) {
 		try (Resource r = resource;
 				InputStream stream = r.getInputStream();
 				BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
 			JsonObject json = GSON.fromJson(reader, JsonObject.class);
 
-			if (JsonHelper.getBoolean(json, "replace", false)) {
+			if (GsonHelper.getAsBoolean(json, "replace", false)) {
 				map.clear();
 			}
 
-			if (JsonHelper.hasArray(json, "remove")) {
-				for (JsonElement value : JsonHelper.getArray(json, "remove")) {
+			if (GsonHelper.isArrayNode(json, "remove")) {
+				for (JsonElement value : GsonHelper.getAsJsonArray(json, "remove")) {
 					JsonObject object = value.getAsJsonObject();
 					StateIngredient state = StateIngredientHelper.tryDeserialize(object);
 					if (state != null) {
@@ -120,31 +120,31 @@ public class OrechidResourceListener extends SinglePreparationResourceReloadList
 				}
 			}
 
-			for (JsonElement value : JsonHelper.getArray(json, "values")) {
+			for (JsonElement value : GsonHelper.getAsJsonArray(json, "values")) {
 				JsonObject object = value.getAsJsonObject();
 				StateIngredient state = StateIngredientHelper.tryDeserialize(object);
 				if (state != null) {
-					int weight = JsonHelper.getInt(object, "weight");
+					int weight = GsonHelper.getAsInt(object, "weight");
 					if (weight <= 0) {
 						Botania.LOGGER.error("Invalid weight: {} in file {} / {}, should be positive!",
-								weight, resource.getResourcePackName(), location);
+								weight, resource.getSourceName(), location);
 						continue;
 					}
 					map.put(state, weight);
 				}
 			}
 		} catch (IllegalArgumentException | JsonParseException | IOException e) {
-			Botania.LOGGER.error("Exception parsing orechid weights from {} / {}", resource.getResourcePackName(), location, e);
+			Botania.LOGGER.error("Exception parsing orechid weights from {} / {}", resource.getSourceName(), location, e);
 		}
 	}
 
 	@Override
-	protected void apply(@Nonnull Data data, @Nonnull ResourceManager manager, @Nonnull Profiler profiler) {
+	protected void apply(@Nonnull Data data, @Nonnull ResourceManager manager, @Nonnull ProfilerFiller profiler) {
 		profiler.push("orechidApply");
-		Map<Identifier, Integer> map = BotaniaAPI.instance().getOreWeights();
+		Map<ResourceLocation, Integer> map = BotaniaAPI.instance().getOreWeights();
 		if (!map.isEmpty()) {
 			Botania.LOGGER.warn("{} orechid weights using legacy api found", map.size());
-			for (Map.Entry<Identifier, Integer> entry : map.entrySet()) {
+			for (Map.Entry<ResourceLocation, Integer> entry : map.entrySet()) {
 				data.normal.put(StateIngredientHelper.of(entry.getKey()), (int) entry.getValue());
 			}
 		}
@@ -152,7 +152,7 @@ public class OrechidResourceListener extends SinglePreparationResourceReloadList
 		map = BotaniaAPI.instance().getNetherOreWeights();
 		if (!map.isEmpty()) {
 			Botania.LOGGER.warn("{} nether orechid weights using legacy api found", map.size());
-			for (Map.Entry<Identifier, Integer> entry : map.entrySet()) {
+			for (Map.Entry<ResourceLocation, Integer> entry : map.entrySet()) {
 				data.nether.put(StateIngredientHelper.of(entry.getKey()), (int) entry.getValue());
 			}
 		}
@@ -179,7 +179,7 @@ public class OrechidResourceListener extends SinglePreparationResourceReloadList
 		List<Block> out = new ArrayList<>();
 		for (String mod : ConfigHandler.COMMON.orechidPriorityMods.getValue()) {
 			for (Block block : blocks) {
-				if (mod.equals(Registry.BLOCK.getId(block).getNamespace())) {
+				if (mod.equals(Registry.BLOCK.getKey(block).getNamespace())) {
 					out.add(block);
 				}
 			}
@@ -191,7 +191,7 @@ public class OrechidResourceListener extends SinglePreparationResourceReloadList
 	}
 
 	@Override
-	public Identifier getFabricId() {
+	public ResourceLocation getFabricId() {
 		return prefix("orechid");
 	}
 

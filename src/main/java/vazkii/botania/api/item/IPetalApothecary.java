@@ -8,9 +8,9 @@
  */
 package vazkii.botania.api.item;
 
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.util.StringIdentifiable;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
 
 import javax.annotation.Nonnull;
 
@@ -21,14 +21,14 @@ import java.util.Locale;
  * be safely casted to TileEntity.
  */
 public interface IPetalApothecary {
-	enum State implements StringIdentifiable {
+	enum State implements StringRepresentable {
 		EMPTY,
 		WATER,
 		LAVA;
 
 		@Nonnull
 		@Override
-		public String asString() {
+		public String getSerializedName() {
 			return name().toLowerCase(Locale.ROOT);
 		}
 

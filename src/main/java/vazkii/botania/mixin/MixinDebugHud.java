@@ -8,7 +8,7 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.gui.hud.DebugHud;
+import net.minecraft.client.gui.components.DebugScreenOverlay;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,9 +19,9 @@ import vazkii.botania.client.core.handler.DebugHandler;
 
 import java.util.List;
 
-@Mixin(DebugHud.class)
+@Mixin(DebugScreenOverlay.class)
 public class MixinDebugHud {
-	@Inject(at = @At("RETURN"), method = "getLeftText")
+	@Inject(at = @At("RETURN"), method = "getGameInformation")
 	private void addLeftText(CallbackInfoReturnable<List<String>> cir) {
 		DebugHandler.onDrawDebugText(cir.getReturnValue());
 	}

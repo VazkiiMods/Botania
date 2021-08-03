@@ -10,17 +10,17 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -54,12 +54,12 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getWorld().isClient && redstoneSignal == 0 && getWorld().isChunkLoaded(bindPos)) {
+		if (!getLevel().isClientSide && redstoneSignal == 0 && getLevel().hasChunkAt(bindPos)) {
 			BlockPos pos = getEffectivePos();
 
 			boolean did = false;
 
-			List<ItemEntity> items = getWorld().getNonSpectatingEntities(ItemEntity.class, new Box(pos.add(-RANGE, -RANGE, -RANGE), pos.add(RANGE + 1, RANGE + 1, RANGE + 1)));
+			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos.offset(-RANGE, -RANGE, -RANGE), pos.offset(RANGE + 1, RANGE + 1, RANGE + 1)));
 			int slowdown = getSlowdownFactor();
 
 			for (ItemEntity item : items) {
@@ -69,7 +69,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 					continue;
 				}
 
-				ItemStack stack = item.getStack();
+				ItemStack stack = item.getItem();
 				if (!stack.isEmpty()) {
 					Item sitem = stack.getItem();
 					if (sitem instanceof IManaItem) {
@@ -79,9 +79,9 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 					int cost = stack.getCount() * COST;
 					if (getMana() >= cost) {
 						spawnExplosionParticles(item, 10);
-						item.updatePosition(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
+						item.setPos(bindPos.getX() + 0.5, bindPos.getY() + 1.5, bindPos.getZ() + 0.5);
 						flags.spectranthemumTeleported = true;
-						item.setVelocity(Vec3d.ZERO);
+						item.setDeltaMovement(Vec3.ZERO);
 						spawnExplosionParticles(item, 10);
 						addMana(-cost);
 						did = true;
@@ -96,7 +96,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	}
 
 	static void spawnExplosionParticles(Entity item, int p) {
-		PacketBotaniaEffect.sendNearby(item, PacketBotaniaEffect.EffectType.ITEM_SMOKE, item.getX(), item.getY(), item.getZ(), item.getEntityId(), p);
+		PacketBotaniaEffect.sendNearby(item, PacketBotaniaEffect.EffectType.ITEM_SMOKE, item.getX(), item.getY(), item.getZ(), item.getId(), p);
 	}
 
 	@Override
@@ -143,10 +143,10 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	}
 
 	@Override
-	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
+	public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
 		boolean bound = super.bindTo(player, wand, pos, side);
 
-		if (!bound && !pos.equals(bindPos) && pos.getSquaredDistance(getEffectivePos()) <= BIND_RANGE * BIND_RANGE && !pos.equals(getEffectivePos())) {
+		if (!bound && !pos.equals(bindPos) && pos.distSqr(getEffectivePos()) <= BIND_RANGE * BIND_RANGE && !pos.equals(getEffectivePos())) {
 			bindPos = pos;
 			sync();
 
@@ -159,7 +159,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	@Override
 	@Environment(EnvType.CLIENT)
 	public BlockPos getBinding() {
-		return MinecraftClient.getInstance().player.isSneaking() && bindPos.getY() != -1 ? bindPos : super.getBinding();
+		return Minecraft.getInstance().player.isShiftKeyDown() && bindPos.getY() != -1 ? bindPos : super.getBinding();
 	}
 
 }

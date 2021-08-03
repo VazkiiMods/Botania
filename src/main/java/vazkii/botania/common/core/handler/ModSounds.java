@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.core.handler;
 
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -62,7 +62,7 @@ public final class ModSounds {
 	public static final SoundEvent gaiaMusic2 = makeSoundEvent("music.gaia2");
 
 	private static SoundEvent makeSoundEvent(String name) {
-		Identifier loc = prefix(name);
+		ResourceLocation loc = prefix(name);
 		return Registry.register(Registry.SOUND_EVENT, loc, new SoundEvent(loc));
 	}
 

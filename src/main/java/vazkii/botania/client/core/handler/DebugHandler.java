@@ -9,12 +9,12 @@
 package vazkii.botania.client.core.handler;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
@@ -31,10 +31,10 @@ public final class DebugHandler {
 
 	private DebugHandler() {}
 
-	private static final String PREFIX = Formatting.GREEN + "[Botania] " + Formatting.RESET;
+	private static final String PREFIX = ChatFormatting.GREEN + "[Botania] " + ChatFormatting.RESET;
 
 	public static void onDrawDebugText(List<String> left) {
-		World world = MinecraftClient.getInstance().world;
+		Level world = Minecraft.getInstance().level;
 		if (ConfigHandler.CLIENT.debugInfo.getValue()) {
 			left.add("");
 			String version = FabricLoader.getInstance().getModContainer(LibMisc.MOD_ID)
@@ -43,11 +43,11 @@ public final class DebugHandler {
 
 			left.add(PREFIX + "(CLIENT) netColl: " + ManaNetworkHandler.instance.getAllCollectorsInWorld(world).size() + ", netPool: " + ManaNetworkHandler.instance.getAllPoolsInWorld(world).size() + ", rv: " + version);
 
-			if (MinecraftClient.getInstance().isIntegratedServerRunning()) {
-				RegistryKey<World> dim = MinecraftClient.getInstance().world.getRegistryKey();
-				Identifier dimName = dim.getValue();
-				if (MinecraftClient.getInstance().getServer() != null) {
-					World serverWorld = MinecraftClient.getInstance().getServer().getWorld(dim);
+			if (Minecraft.getInstance().hasSingleplayerServer()) {
+				ResourceKey<Level> dim = Minecraft.getInstance().level.dimension();
+				ResourceLocation dimName = dim.location();
+				if (Minecraft.getInstance().getSingleplayerServer() != null) {
+					Level serverWorld = Minecraft.getInstance().getSingleplayerServer().getLevel(dim);
 					left.add(PREFIX + String.format("(INTEGRATED SERVER %s) netColl : %d, netPool: %d", dimName, ManaNetworkHandler.instance.getAllCollectorsInWorld(serverWorld).size(), ManaNetworkHandler.instance.getAllPoolsInWorld(serverWorld).size()));
 				}
 			}
@@ -64,7 +64,7 @@ public final class DebugHandler {
 				left.add("  GL_ARB_multitexture: " + caps.GL_ARB_multitexture);
 				left.add("  GL_ARB_texture_non_power_of_two: " + caps.GL_ARB_texture_non_power_of_two);
 				left.add("  OpenGL13: " + caps.OpenGL13);
-			} else if (MinecraftClient.IS_SYSTEM_MAC) {
+			} else if (Minecraft.ON_OSX) {
 				left.add(PREFIX + "SHIFT+CMD for context");
 			} else {
 				left.add(PREFIX + "SHIFT+CTRL for context");

@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
@@ -19,19 +19,19 @@ import vazkii.botania.common.entity.ModEntities;
 
 public class BlockManaBomb extends BlockMod implements IManaTrigger {
 
-	public BlockManaBomb(Settings builder) {
+	public BlockManaBomb(Properties builder) {
 		super(builder);
 	}
 
 	@Override
-	public void onBurstCollision(IManaBurst burst, World world, BlockPos pos) {
-		if (!burst.isFake() && !world.isClient) {
-			world.syncWorldEvent(2001, pos, Block.getRawIdFromState(getDefaultState()));
+	public void onBurstCollision(IManaBurst burst, Level world, BlockPos pos) {
+		if (!burst.isFake() && !world.isClientSide) {
+			world.levelEvent(2001, pos, Block.getId(defaultBlockState()));
 			world.removeBlock(pos, false);
 			EntityManaStorm storm = ModEntities.MANA_STORM.create(world);
 			storm.burstColor = burst.getColor();
-			storm.updatePosition(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
-			world.spawnEntity(storm);
+			storm.setPos(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+			world.addFreshEntity(storm);
 		}
 	}
 }

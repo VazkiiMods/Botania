@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
@@ -29,14 +29,14 @@ public class TileSparkChanger extends TileExposedSimpleInventory {
 	}
 
 	public void doSwap() {
-		if (world.isClient) {
+		if (level.isClientSide) {
 			return;
 		}
 
-		ItemStack changeStack = getItemHandler().getStack(0);
+		ItemStack changeStack = getItemHandler().getItem(0);
 		List<ISparkAttachable> attachables = new ArrayList<>();
-		for (Direction dir : Direction.Type.HORIZONTAL) {
-			BlockEntity tile = world.getBlockEntity(pos.offset(dir));
+		for (Direction dir : Direction.Plane.HORIZONTAL) {
+			BlockEntity tile = level.getBlockEntity(worldPosition.relative(dir));
 			if (tile instanceof ISparkAttachable) {
 				ISparkAttachable attach = (ISparkAttachable) tile;
 				ISparkEntity spark = attach.getAttachedSpark();
@@ -51,7 +51,7 @@ public class TileSparkChanger extends TileExposedSimpleInventory {
 		}
 
 		if (attachables.size() > 0) {
-			ISparkAttachable attach = attachables.get(world.random.nextInt(attachables.size()));
+			ISparkAttachable attach = attachables.get(level.random.nextInt(attachables.size()));
 			ISparkEntity spark = attach.getAttachedSpark();
 			SparkUpgradeType upg = spark.getUpgrade();
 			ItemStack sparkStack = ItemSparkUpgrade.getByType(upg);
@@ -61,29 +61,29 @@ public class TileSparkChanger extends TileExposedSimpleInventory {
 			if (transfers != null) {
 				transfers.clear();
 			}
-			getItemHandler().setStack(0, sparkStack);
+			getItemHandler().setItem(0, sparkStack);
 		}
 	}
 
 	@Override
-	protected SimpleInventory createItemHandler() {
-		return new SimpleInventory(1) {
+	protected SimpleContainer createItemHandler() {
+		return new SimpleContainer(1) {
 			@Override
-			public int getMaxCountPerStack() {
+			public int getMaxStackSize() {
 				return 1;
 			}
 
 			@Override
-			public boolean isValid(int index, ItemStack stack) {
+			public boolean canPlaceItem(int index, ItemStack stack) {
 				return !stack.isEmpty() && stack.getItem() instanceof ItemSparkUpgrade;
 			}
 		};
 	}
 
 	@Override
-	public void markDirty() {
-		super.markDirty();
-		if (world != null && !world.isClient) {
+	public void setChanged() {
+		super.setChanged();
+		if (level != null && !level.isClientSide) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 	}

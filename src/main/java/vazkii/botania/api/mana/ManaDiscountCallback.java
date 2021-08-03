@@ -10,8 +10,8 @@ package vazkii.botania.api.mana;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 public interface ManaDiscountCallback {
 	Event<ManaDiscountCallback> EVENT = EventFactory.createArrayBacked(ManaDiscountCallback.class,
@@ -23,5 +23,5 @@ public interface ManaDiscountCallback {
 				return cur;
 			});
 
-	float getManaDiscount(PlayerEntity player, float curDiscount, ItemStack tool);
+	float getManaDiscount(Player player, float curDiscount, ItemStack tool);
 }

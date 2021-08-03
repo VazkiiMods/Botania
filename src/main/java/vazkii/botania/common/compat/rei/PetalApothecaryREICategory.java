@@ -10,9 +10,9 @@ package vazkii.botania.common.compat.rei;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -33,10 +33,10 @@ import me.shedaniel.rei.gui.widget.Widget;
 @Environment(EnvType.CLIENT)
 public class PetalApothecaryREICategory implements RecipeCategory<BotaniaRecipeDisplay<RecipePetals>> {
 	private EntryStack apothecary = EntryStack.create(new ItemStack(ModBlocks.defaultAltar));
-	private Identifier PETAL_OVERLAY = ResourceLocationHelper.prefix("textures/gui/petal_overlay.png");
+	private ResourceLocation PETAL_OVERLAY = ResourceLocationHelper.prefix("textures/gui/petal_overlay.png");
 
 	@Override
-	public @NotNull Identifier getIdentifier() {
+	public @NotNull ResourceLocation getIdentifier() {
 		return RecipePetals.TYPE_ID;
 	}
 
@@ -47,7 +47,7 @@ public class PetalApothecaryREICategory implements RecipeCategory<BotaniaRecipeD
 
 	@Override
 	public @NotNull String getCategoryName() {
-		return I18n.translate("botania.nei.petalApothecary");
+		return I18n.get("botania.nei.petalApothecary");
 	}
 
 	@Override

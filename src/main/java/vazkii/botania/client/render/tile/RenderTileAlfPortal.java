@@ -8,16 +8,17 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.util.math.Matrix3f;
-import net.minecraft.util.math.Matrix4f;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix3f;
+import com.mojang.math.Matrix4f;
+import com.mojang.math.Vector3f;
+
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
@@ -34,44 +35,44 @@ public class RenderTileAlfPortal extends BlockEntityRenderer<TileAlfPortal> {
 	}
 
 	@Override
-	public void render(@Nonnull TileAlfPortal portal, float f, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
-		AlfPortalState state = portal.getCachedState().get(BotaniaStateProps.ALFPORTAL_STATE);
+	public void render(@Nonnull TileAlfPortal portal, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+		AlfPortalState state = portal.getBlockState().getValue(BotaniaStateProps.ALFPORTAL_STATE);
 		if (state == AlfPortalState.OFF) {
 			return;
 		}
 
 		float alpha = (float) Math.min(1F, (Math.sin((ClientTickHandler.ticksInGame + f) / 8D) + 1D) / 7D + 0.6D) * (Math.min(60, portal.ticksOpen) / 60F) * 0.5F;
 
-		ms.push();
+		ms.pushPose();
 		if (state == AlfPortalState.ON_X) {
 			ms.translate(0.75, 1, 2);
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90));
+			ms.mulPose(Vector3f.YP.rotationDegrees(90));
 		} else {
 			ms.translate(-1, 1, 0.75);
 		}
-		renderIcon(ms, buffers, MiscellaneousIcons.INSTANCE.alfPortalTex.getSprite(), 0, 0, 3, 3, alpha, overlay);
-		ms.pop();
+		renderIcon(ms, buffers, MiscellaneousIcons.INSTANCE.alfPortalTex.sprite(), 0, 0, 3, 3, alpha, overlay);
+		ms.popPose();
 
-		ms.push();
+		ms.pushPose();
 		if (state == AlfPortalState.ON_X) {
 			ms.translate(0.25, 1, -1);
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90));
+			ms.mulPose(Vector3f.YP.rotationDegrees(90));
 		} else {
 			ms.translate(2, 1, 0.25);
 		}
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180));
-		renderIcon(ms, buffers, MiscellaneousIcons.INSTANCE.alfPortalTex.getSprite(), 0, 0, 3, 3, alpha, overlay);
-		ms.pop();
+		ms.mulPose(Vector3f.YP.rotationDegrees(180));
+		renderIcon(ms, buffers, MiscellaneousIcons.INSTANCE.alfPortalTex.sprite(), 0, 0, 3, 3, alpha, overlay);
+		ms.popPose();
 	}
 
-	public void renderIcon(MatrixStack ms, VertexConsumerProvider buffers, Sprite icon, int x, int y, int width, int height, float alpha, int overlay) {
-		VertexConsumer buffer = buffers.getBuffer(TexturedRenderLayers.getItemEntityTranslucentCull());
-		Matrix4f model = ms.peek().getModel();
-		Matrix3f normal = ms.peek().getNormal();
-		buffer.vertex(model, x, y + height, 0).color(1, 1, 1, alpha).texture(icon.getMinU(), icon.getMaxV()).overlay(overlay).light(0xF000F0).normal(normal, 1, 0, 0).next();
-		buffer.vertex(model, x + width, y + height, 0).color(1, 1, 1, alpha).texture(icon.getMaxU(), icon.getMaxV()).overlay(overlay).light(0xF000F0).normal(normal, 1, 0, 0).next();
-		buffer.vertex(model, x + width, y, 0).color(1, 1, 1, alpha).texture(icon.getMaxU(), icon.getMinV()).overlay(overlay).light(0xF000F0).normal(normal, 1, 0, 0).next();
-		buffer.vertex(model, x, y, 0).color(1, 1, 1, alpha).texture(icon.getMinU(), icon.getMinV()).overlay(overlay).light(0xF000F0).normal(normal, 1, 0, 0).next();
+	public void renderIcon(PoseStack ms, MultiBufferSource buffers, TextureAtlasSprite icon, int x, int y, int width, int height, float alpha, int overlay) {
+		VertexConsumer buffer = buffers.getBuffer(Sheets.translucentItemSheet());
+		Matrix4f model = ms.last().pose();
+		Matrix3f normal = ms.last().normal();
+		buffer.vertex(model, x, y + height, 0).color(1, 1, 1, alpha).uv(icon.getU0(), icon.getV1()).overlayCoords(overlay).uv2(0xF000F0).normal(normal, 1, 0, 0).endVertex();
+		buffer.vertex(model, x + width, y + height, 0).color(1, 1, 1, alpha).uv(icon.getU1(), icon.getV1()).overlayCoords(overlay).uv2(0xF000F0).normal(normal, 1, 0, 0).endVertex();
+		buffer.vertex(model, x + width, y, 0).color(1, 1, 1, alpha).uv(icon.getU1(), icon.getV0()).overlayCoords(overlay).uv2(0xF000F0).normal(normal, 1, 0, 0).endVertex();
+		buffer.vertex(model, x, y, 0).color(1, 1, 1, alpha).uv(icon.getU0(), icon.getV0()).overlayCoords(overlay).uv2(0xF000F0).normal(normal, 1, 0, 0).endVertex();
 	}
 
 }

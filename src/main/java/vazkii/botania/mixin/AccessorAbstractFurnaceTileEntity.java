@@ -8,10 +8,10 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.recipe.AbstractCookingRecipe;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeType;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -21,21 +21,21 @@ import javax.annotation.Nullable;
 
 @Mixin(AbstractFurnaceBlockEntity.class)
 public interface AccessorAbstractFurnaceTileEntity {
-	@Invoker("canAcceptRecipeOutput")
+	@Invoker("canBurn")
 	boolean botania_canAcceptRecipeOutput(@Nullable Recipe<?> recipe);
 
 	@Accessor
 	RecipeType<? extends AbstractCookingRecipe> getRecipeType();
 
 	@Accessor
-	int getBurnTime();
+	int getLitTime();
 
 	@Accessor
-	void setBurnTime(int burnTime);
+	void setLitTime(int burnTime);
 
 	@Accessor
-	int getCookTime();
+	int getCookingProgress();
 
 	@Accessor
-	void setCookTime(int cookTime);
+	void setCookingProgress(int cookTime);
 }

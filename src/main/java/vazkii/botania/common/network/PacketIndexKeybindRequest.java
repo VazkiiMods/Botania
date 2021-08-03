@@ -10,12 +10,12 @@ package vazkii.botania.common.network;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
@@ -25,16 +25,16 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 import io.netty.buffer.Unpooled;
 
 public class PacketIndexKeybindRequest {
-	public static final Identifier ID = prefix("idx");
+	public static final ResourceLocation ID = prefix("idx");
 
 	public static void send(ItemStack stack) {
-		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
-		buf.writeItemStack(stack);
+		FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
+		buf.writeItem(stack);
 		ClientPlayNetworking.send(ID, buf);
 	}
 
-	public static void handle(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
-		ItemStack stack = buf.readItemStack();
+	public static void handle(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender) {
+		ItemStack stack = buf.readItem();
 		server.execute(() -> {
 			if (player.isSpectator()) {
 				return;

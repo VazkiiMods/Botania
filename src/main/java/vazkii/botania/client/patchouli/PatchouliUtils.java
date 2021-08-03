@@ -9,13 +9,13 @@
 package vazkii.botania.client.patchouli;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
 
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.crafting.ModRecipeTypes;
@@ -36,14 +36,14 @@ public class PatchouliUtils {
 	 *
 	 * If the recipe has no replacement, it will be logged.
 	 */
-	public static <T extends Recipe<C>, C extends Inventory> T getRecipe(RecipeType<T> type, Identifier id) {
+	public static <T extends Recipe<C>, C extends Container> T getRecipe(RecipeType<T> type, ResourceLocation id) {
 		@SuppressWarnings("unchecked")
-		Map<Identifier, T> map = (Map<Identifier, T>) ModRecipeTypes.getRecipes(MinecraftClient.getInstance().world, type);
+		Map<ResourceLocation, T> map = (Map<ResourceLocation, T>) ModRecipeTypes.getRecipes(Minecraft.getInstance().level, type);
 		T r = map.get(id);
 		if (r != null) {
 			return r;
 		}
-		r = map.get(new Identifier("crafttweaker", id.getPath()));
+		r = map.get(new ResourceLocation("crafttweaker", id.getPath()));
 		if (r != null) {
 			return r;
 		}
@@ -63,9 +63,9 @@ public class PatchouliUtils {
 	/**
 	 * Get all recipes of the specified type that belong to the specified recipe group.
 	 */
-	public static <T extends Recipe<C>, C extends Inventory> List<T> getRecipeGroup(RecipeType<T> type, String group) {
+	public static <T extends Recipe<C>, C extends Container> List<T> getRecipeGroup(RecipeType<T> type, String group) {
 		@SuppressWarnings("unchecked")
-		Map<Identifier, T> map = (Map<Identifier, T>) ModRecipeTypes.getRecipes(MinecraftClient.getInstance().world, type);
+		Map<ResourceLocation, T> map = (Map<ResourceLocation, T>) ModRecipeTypes.getRecipes(Minecraft.getInstance().level, type);
 		List<T> list = new ArrayList<>();
 		for (T value : map.values()) {
 			if (group.equals(value.getGroup())) {
@@ -89,14 +89,14 @@ public class PatchouliUtils {
 	 */
 	public static IVariable interweaveIngredients(List<Ingredient> ingredients, int longestIngredientSize) {
 		if (ingredients.size() == 1) {
-			return IVariable.wrapList(Arrays.stream(ingredients.get(0).getMatchingStacksClient()).map(IVariable::from).collect(Collectors.toList()));
+			return IVariable.wrapList(Arrays.stream(ingredients.get(0).getItems()).map(IVariable::from).collect(Collectors.toList()));
 		}
 
 		ItemStack[] empty = { ItemStack.EMPTY };
 		List<ItemStack[]> stacks = new ArrayList<>();
 		for (Ingredient ingredient : ingredients) {
 			if (ingredient != null && !ingredient.isEmpty()) {
-				stacks.add(ingredient.getMatchingStacksClient());
+				stacks.add(ingredient.getItems());
 			} else {
 				stacks.add(empty);
 			}
@@ -114,6 +114,6 @@ public class PatchouliUtils {
 	 * Overload of the method above that uses the provided list's longest ingredient size.
 	 */
 	public static IVariable interweaveIngredients(List<Ingredient> ingredients) {
-		return interweaveIngredients(ingredients, ingredients.stream().mapToInt(ingr -> ingr.getMatchingStacksClient().length).max().orElse(1));
+		return interweaveIngredients(ingredients, ingredients.stream().mapToInt(ingr -> ingr.getItems().length).max().orElse(1));
 	}
 }

@@ -8,8 +8,8 @@
  */
 package vazkii.botania.api.item;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * This interface describes a tool that can be sorted by the Ring of

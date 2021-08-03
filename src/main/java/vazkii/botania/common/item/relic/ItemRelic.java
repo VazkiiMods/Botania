@@ -10,17 +10,17 @@ package vazkii.botania.common.item.relic;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.IRelic;
 import vazkii.botania.common.advancements.RelicBindTrigger;
@@ -33,27 +33,27 @@ public class ItemRelic extends Item implements IRelic {
 
 	private static final String TAG_SOULBIND_UUID = "soulbindUUID";
 
-	public ItemRelic(Settings props) {
+	public ItemRelic(Properties props) {
 		super(props);
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		if (!world.isClient && entity instanceof PlayerEntity) {
-			updateRelic(stack, (PlayerEntity) entity);
+	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
+		if (!world.isClientSide && entity instanceof Player) {
+			updateRelic(stack, (Player) entity);
 		}
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext flags) {
+	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
 		if (!hasUUID(stack)) {
-			tooltip.add(new TranslatableText("botaniamisc.relicUnbound"));
+			tooltip.add(new TranslatableComponent("botaniamisc.relicUnbound"));
 		} else {
-			if (!getSoulbindUUID(stack).equals(MinecraftClient.getInstance().player.getUuid())) {
-				tooltip.add(new TranslatableText("botaniamisc.notYourSagittarius"));
+			if (!getSoulbindUUID(stack).equals(Minecraft.getInstance().player.getUUID())) {
+				tooltip.add(new TranslatableComponent("botaniamisc.notYourSagittarius"));
 			} else {
-				tooltip.add(new TranslatableText("botaniamisc.relicSoulbound", MinecraftClient.getInstance().player.getName()));
+				tooltip.add(new TranslatableComponent("botaniamisc.relicSoulbound", Minecraft.getInstance().player.getName()));
 			}
 		}
 	}
@@ -62,7 +62,7 @@ public class ItemRelic extends Item implements IRelic {
 		return true;
 	}
 
-	public void updateRelic(ItemStack stack, PlayerEntity player) {
+	public void updateRelic(ItemStack stack, Player player) {
 		if (stack.isEmpty() || !(stack.getItem() instanceof IRelic)) {
 			return;
 		}
@@ -70,21 +70,21 @@ public class ItemRelic extends Item implements IRelic {
 		boolean rightPlayer = true;
 
 		if (!hasUUID(stack)) {
-			bindToUUID(player.getUuid(), stack);
-			if (player instanceof ServerPlayerEntity) {
-				RelicBindTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack);
+			bindToUUID(player.getUUID(), stack);
+			if (player instanceof ServerPlayer) {
+				RelicBindTrigger.INSTANCE.trigger((ServerPlayer) player, stack);
 			}
-		} else if (!getSoulbindUUID(stack).equals(player.getUuid())) {
+		} else if (!getSoulbindUUID(stack).equals(player.getUUID())) {
 			rightPlayer = false;
 		}
 
-		if (!rightPlayer && player.age % 10 == 0 && (!(stack.getItem() instanceof ItemRelic) || ((ItemRelic) stack.getItem()).shouldDamageWrongPlayer())) {
-			player.damage(damageSource(), 2);
+		if (!rightPlayer && player.tickCount % 10 == 0 && (!(stack.getItem() instanceof ItemRelic) || ((ItemRelic) stack.getItem()).shouldDamageWrongPlayer())) {
+			player.hurt(damageSource(), 2);
 		}
 	}
 
-	public boolean isRightPlayer(PlayerEntity player, ItemStack stack) {
-		return hasUUID(stack) && getSoulbindUUID(stack).equals(player.getUuid());
+	public boolean isRightPlayer(Player player, ItemStack stack) {
+		return hasUUID(stack) && getSoulbindUUID(stack).equals(player.getUUID());
 	}
 
 	public static DamageSource damageSource() {

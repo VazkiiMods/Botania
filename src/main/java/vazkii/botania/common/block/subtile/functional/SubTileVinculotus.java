@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.entity.mob.EndermanEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -33,7 +33,7 @@ public class SubTileVinculotus extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getWorld().isClient) {
+		if (!getLevel().isClientSide) {
 			existingFlowers.add(this);
 		}
 	}
@@ -59,7 +59,7 @@ public class SubTileVinculotus extends TileEntityFunctionalFlower {
 	}
 
 	@Nullable
-	public static Vec3d onEndermanTeleport(EndermanEntity entity, double targetX, double targetY, double targetZ) {
+	public static Vec3 onEndermanTeleport(EnderMan entity, double targetX, double targetY, double targetZ) {
 		int cost = 50;
 
 		List<SubTileVinculotus> possibleFlowers = new ArrayList<>();
@@ -67,8 +67,8 @@ public class SubTileVinculotus extends TileEntityFunctionalFlower {
 			BlockPos activePos = flower.getEffectivePos();
 
 			if (flower.redstoneSignal > 0 || flower.getMana() <= cost
-					|| flower.getWorld() != entity.world
-					|| flower.getWorld().getBlockEntity(flower.getPos()) != flower) {
+					|| flower.getLevel() != entity.level
+					|| flower.getLevel().getBlockEntity(flower.getBlockPos()) != flower) {
 				continue;
 			}
 
@@ -82,7 +82,7 @@ public class SubTileVinculotus extends TileEntityFunctionalFlower {
 		}
 
 		if (!possibleFlowers.isEmpty()) {
-			SubTileVinculotus flower = possibleFlowers.get(entity.world.random.nextInt(possibleFlowers.size()));
+			SubTileVinculotus flower = possibleFlowers.get(entity.level.random.nextInt(possibleFlowers.size()));
 			BlockPos activePos = flower.getEffectivePos();
 
 			double x = activePos.getX() + 0.5;
@@ -92,7 +92,7 @@ public class SubTileVinculotus extends TileEntityFunctionalFlower {
 			flower.addMana(-cost);
 			flower.sync();
 
-			return new Vec3d(x + Math.random() * 3 - 1, y, z + Math.random() * 3 - 1);
+			return new Vec3(x + Math.random() * 3 - 1, y, z + Math.random() * 3 - 1);
 		}
 
 		return null;

@@ -8,8 +8,8 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.passive.BeeEntity;
+import net.minecraft.world.entity.animal.Bee;
+import net.minecraft.world.level.block.state.BlockState;
 
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,12 +23,12 @@ import vazkii.botania.common.lib.ModTags;
 
 import java.util.function.Predicate;
 
-@Mixin(targets = "net.minecraft.entity.passive.BeeEntity$PollinateGoal")
+@Mixin(targets = "net.minecraft.world.entity.animal.Bee$BeePollinateGoal")
 public class MixinPollinateGoal {
 	@Shadow
 	@Mutable
 	@Final
-	private Predicate<BlockState> flowerPredicate;
+	private Predicate<BlockState> VALID_POLLINATION_BLOCKS;
 
 	/**
 	 * Allows bees to detect special flowers when looking for a block to pollinate.
@@ -36,8 +36,8 @@ public class MixinPollinateGoal {
 	 * @see MixinBeeEntity
 	 */
 	@SuppressWarnings("UnresolvedMixinReference") // MCDev warning
-	@Inject(method = "<init>(Lnet/minecraft/entity/passive/BeeEntity;)V", at = @At("TAIL"))
-	private void extendPredicate(BeeEntity outer, CallbackInfo ci) {
-		flowerPredicate = flowerPredicate.or(b -> b.isIn(ModTags.Blocks.SPECIAL_FLOWERS));
+	@Inject(method = "<init>(Lnet/minecraft/world/entity/animal/Bee;)V", at = @At("TAIL"))
+	private void extendPredicate(Bee outer, CallbackInfo ci) {
+		VALID_POLLINATION_BLOCKS = VALID_POLLINATION_BLOCKS.or(b -> b.is(ModTags.Blocks.SPECIAL_FLOWERS));
 	}
 }

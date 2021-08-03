@@ -8,33 +8,34 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
@@ -52,14 +53,14 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	private static final String TAG_BREW_KEY = "brewKey";
 
-	public ItemBloodPendant(Settings props) {
+	public ItemBloodPendant(Properties props) {
 		super(props);
 	}
 
 	@Override
-	public void appendStacks(ItemGroup tab, DefaultedList<ItemStack> list) {
-		super.appendStacks(tab, list);
-		if (isIn(tab)) {
+	public void fillItemCategory(CreativeModeTab tab, NonNullList<ItemStack> list) {
+		super.fillItemCategory(tab, list);
+		if (allowdedIn(tab)) {
 			for (Brew brew : BotaniaAPI.instance().getBrewRegistry()) {
 				ItemStack brewStack = getItemForBrew(brew, new ItemStack(this));
 				if (!brewStack.isEmpty()) {
@@ -71,41 +72,41 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext adv) {
-		super.appendTooltip(stack, world, tooltip, adv);
+	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag adv) {
+		super.appendHoverText(stack, world, tooltip, adv);
 
 		Brew brew = getBrew(stack);
 		if (brew == ModBrews.fallbackBrew) {
-			tooltip.add(new TranslatableText("botaniamisc.notInfused").formatted(Formatting.LIGHT_PURPLE));
+			tooltip.add(new TranslatableComponent("botaniamisc.notInfused").withStyle(ChatFormatting.LIGHT_PURPLE));
 			return;
 		}
 
-		tooltip.add(new TranslatableText("botaniamisc.brewOf", I18n.translate(brew.getTranslationKey(stack))).formatted(Formatting.LIGHT_PURPLE));
-		for (StatusEffectInstance effect : brew.getPotionEffects(stack)) {
-			Formatting format = effect.getEffectType().getType().getFormatting();
-			MutableText cmp = new TranslatableText(effect.getTranslationKey());
+		tooltip.add(new TranslatableComponent("botaniamisc.brewOf", I18n.get(brew.getTranslationKey(stack))).withStyle(ChatFormatting.LIGHT_PURPLE));
+		for (MobEffectInstance effect : brew.getPotionEffects(stack)) {
+			ChatFormatting format = effect.getEffect().getCategory().getTooltipFormatting();
+			MutableComponent cmp = new TranslatableComponent(effect.getDescriptionId());
 			if (effect.getAmplifier() > 0) {
 				cmp.append(" ");
-				cmp.append(new TranslatableText("botania.roman" + (effect.getAmplifier() + 1)));
+				cmp.append(new TranslatableComponent("botania.roman" + (effect.getAmplifier() + 1)));
 			}
-			tooltip.add(cmp.formatted(format));
+			tooltip.add(cmp.withStyle(format));
 		}
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
 		Brew brew = ((IBrewItem) stack.getItem()).getBrew(stack);
-		if (brew != ModBrews.fallbackBrew && player instanceof PlayerEntity && !player.world.isClient) {
-			PlayerEntity eplayer = (PlayerEntity) player;
-			StatusEffectInstance effect = brew.getPotionEffects(stack).get(0);
+		if (brew != ModBrews.fallbackBrew && player instanceof Player && !player.level.isClientSide) {
+			Player eplayer = (Player) player;
+			MobEffectInstance effect = brew.getPotionEffects(stack).get(0);
 			float cost = (float) brew.getManaCost(stack) / effect.getDuration() / (1 + effect.getAmplifier()) * 2.5F;
 			boolean doRand = cost < 1;
 			if (ManaItemHandler.instance().requestManaExact(stack, eplayer, (int) Math.ceil(cost), false)) {
-				StatusEffectInstance currentEffect = player.getStatusEffect(effect.getEffectType());
-				boolean nightVision = effect.getEffectType() == StatusEffects.NIGHT_VISION;
+				MobEffectInstance currentEffect = player.getEffect(effect.getEffect());
+				boolean nightVision = effect.getEffect() == MobEffects.NIGHT_VISION;
 				if (currentEffect == null || currentEffect.getDuration() < (nightVision ? 305 : 3)) {
-					StatusEffectInstance applyEffect = new StatusEffectInstance(effect.getEffectType(), nightVision ? 385 : 80, effect.getAmplifier(), true, true);
-					player.addStatusEffect(applyEffect);
+					MobEffectInstance applyEffect = new MobEffectInstance(effect.getEffect(), nightVision ? 385 : 80, effect.getAmplifier(), true, true);
+					player.addEffect(applyEffect);
 				}
 
 				if (!doRand || Math.random() < cost) {
@@ -117,43 +118,43 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-		boolean armor = !player.getEquippedStack(EquipmentSlot.CHEST).isEmpty();
-		bipedModel.torso.rotate(ms);
+	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+		boolean armor = !player.getItemBySlot(EquipmentSlot.CHEST).isEmpty();
+		bipedModel.body.translateAndRotate(ms);
 		ms.translate(-0.25, 0.4, armor ? 0.05 : 0.12);
 		ms.scale(0.5F, -0.5F, -0.5F);
 
 		BakedModel model = MiscellaneousIcons.INSTANCE.bloodPendantChain;
-		VertexConsumer buffer = buffers.getBuffer(TexturedRenderLayers.getEntityCutout());
-		MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer()
-				.render(ms.peek(), buffer, null, model, 1, 1, 1, light, OverlayTexture.DEFAULT_UV);
+		VertexConsumer buffer = buffers.getBuffer(Sheets.cutoutBlockSheet());
+		Minecraft.getInstance().getBlockRenderer().getModelRenderer()
+				.renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, OverlayTexture.NO_OVERLAY);
 
 		model = MiscellaneousIcons.INSTANCE.bloodPendantGem;
 		int color = ColorProviderRegistry.ITEM.get(stack.getItem()).getColor(stack, 1);
 		float r = (color >> 16 & 0xFF) / 255F;
 		float g = (color >> 8 & 0xFF) / 255F;
 		float b = (color & 0xFF) / 255F;
-		MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer()
-				.render(ms.peek(), buffer, null, model, r, g, b, 0xF000F0, OverlayTexture.DEFAULT_UV);
+		Minecraft.getInstance().getBlockRenderer().getModelRenderer()
+				.renderModel(ms.last(), buffer, null, model, r, g, b, 0xF000F0, OverlayTexture.NO_OVERLAY);
 	}
 
 	@Override
 	public Brew getBrew(ItemStack stack) {
 		String key = ItemNBTHelper.getString(stack, TAG_BREW_KEY, "");
-		return BotaniaAPI.instance().getBrewRegistry().get(Identifier.tryParse(key));
+		return BotaniaAPI.instance().getBrewRegistry().get(ResourceLocation.tryParse(key));
 	}
 
 	public static void setBrew(ItemStack stack, Brew brew) {
-		setBrew(stack, BotaniaAPI.instance().getBrewRegistry().getId(brew));
+		setBrew(stack, BotaniaAPI.instance().getBrewRegistry().getKey(brew));
 	}
 
-	public static void setBrew(ItemStack stack, Identifier brew) {
+	public static void setBrew(ItemStack stack, ResourceLocation brew) {
 		ItemNBTHelper.setString(stack, TAG_BREW_KEY, brew.toString());
 	}
 
 	@Override
 	public ItemStack getItemForBrew(Brew brew, ItemStack stack) {
-		if (!brew.canInfuseBloodPendant() || brew.getPotionEffects(stack).size() != 1 || brew.getPotionEffects(stack).get(0).getEffectType().isInstant()) {
+		if (!brew.canInfuseBloodPendant() || brew.getPotionEffects(stack).size() != 1 || brew.getPotionEffects(stack).get(0).getEffect().isInstantenous()) {
 			return ItemStack.EMPTY;
 		}
 

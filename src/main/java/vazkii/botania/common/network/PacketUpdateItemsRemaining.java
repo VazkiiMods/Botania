@@ -10,14 +10,14 @@ package vazkii.botania.common.network;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
 
@@ -28,23 +28,23 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 import io.netty.buffer.Unpooled;
 
 public class PacketUpdateItemsRemaining {
-	public static final Identifier ID = prefix("rem");
+	public static final ResourceLocation ID = prefix("rem");
 
-	public static void send(PlayerEntity player, ItemStack stack, int count, @Nullable Text tooltip) {
-		if (player instanceof ServerPlayerEntity) {
-			PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
-			buf.writeItemStack(stack);
+	public static void send(Player player, ItemStack stack, int count, @Nullable Component tooltip) {
+		if (player instanceof ServerPlayer) {
+			FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
+			buf.writeItem(stack);
 			buf.writeVarInt(count);
-			buf.writeText(tooltip);
-			ServerPlayNetworking.send((ServerPlayerEntity) player, ID, buf);
+			buf.writeComponent(tooltip);
+			ServerPlayNetworking.send((ServerPlayer) player, ID, buf);
 		}
 	}
 
 	public static class Handler {
-		public static void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
-			ItemStack stack = buf.readItemStack();
+		public static void handle(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
+			ItemStack stack = buf.readItem();
 			int count = buf.readVarInt();
-			Text tooltip = buf.readText();
+			Component tooltip = buf.readComponent();
 			client.execute(() -> ItemsRemainingRenderHandler.set(stack, count, tooltip));
 		}
 	}

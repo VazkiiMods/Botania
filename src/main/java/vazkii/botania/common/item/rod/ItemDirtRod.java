@@ -8,21 +8,21 @@
  */
 package vazkii.botania.common.item.rod;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
@@ -37,48 +37,48 @@ import javax.annotation.Nonnull;
 
 public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider, IAvatarWieldable {
 
-	private static final Identifier avatarOverlay = new Identifier(LibResources.MODEL_AVATAR_DIRT);
+	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_DIRT);
 
 	static final int COST = 75;
 
-	public ItemDirtRod(Settings props) {
+	public ItemDirtRod(Properties props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext ctx) {
+	public InteractionResult useOn(UseOnContext ctx) {
 		return place(ctx, Blocks.DIRT, COST, 0.35F, 0.2F, 0.05F);
 	}
 
-	public static ActionResult place(ItemUsageContext ctx, Block block, int cost, float r, float g, float b) {
-		PlayerEntity player = ctx.getPlayer();
-		ItemStack stack = ctx.getStack();
-		World world = ctx.getWorld();
-		Direction side = ctx.getSide();
-		BlockPos pos = ctx.getBlockPos();
+	public static InteractionResult place(UseOnContext ctx, Block block, int cost, float r, float g, float b) {
+		Player player = ctx.getPlayer();
+		ItemStack stack = ctx.getItemInHand();
+		Level world = ctx.getLevel();
+		Direction side = ctx.getClickedFace();
+		BlockPos pos = ctx.getClickedPos();
 
 		if (player != null && ManaItemHandler.instance().requestManaExactForTool(stack, player, cost, false)) {
-			int entities = world.getNonSpectatingEntities(LivingEntity.class,
-					new Box(pos.offset(side), pos.offset(side).add(1, 1, 1))).size();
+			int entities = world.getEntitiesOfClass(LivingEntity.class,
+					new AABB(pos.relative(side), pos.relative(side).offset(1, 1, 1))).size();
 
 			if (entities == 0) {
-				ActionResult result = PlayerHelper.substituteUse(ctx, new ItemStack(block));
+				InteractionResult result = PlayerHelper.substituteUse(ctx, new ItemStack(block));
 
-				if (result.isAccepted()) {
+				if (result.consumesAction()) {
 					ManaItemHandler.instance().requestManaExactForTool(stack, player, cost, true);
 					SparkleParticleData data = SparkleParticleData.sparkle(1F, r, g, b, 5);
 					for (int i = 0; i < 6; i++) {
-						world.addParticle(data, pos.getX() + side.getOffsetX() + Math.random(), pos.getY() + side.getOffsetY() + Math.random(), pos.getZ() + side.getOffsetZ() + Math.random(), 0, 0, 0);
+						world.addParticle(data, pos.getX() + side.getStepX() + Math.random(), pos.getY() + side.getStepY() + Math.random(), pos.getZ() + side.getStepZ() + Math.random(), 0, 0, 0);
 					}
 					return result;
 				}
 			}
 
-			return ActionResult.FAIL;
+			return InteractionResult.FAIL;
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 	}
 
 	@Override
-	public boolean provideBlock(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
+	public boolean provideBlock(Player player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
 		if (block == Blocks.DIRT) {
 			return (doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, true)) ||
 					(!doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, false));
@@ -96,7 +96,7 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 	}
 
 	@Override
-	public int getBlockCount(PlayerEntity player, ItemStack requestor, ItemStack stack, Block block) {
+	public int getBlockCount(Player player, ItemStack requestor, ItemStack stack, Block block) {
 		if (block == Blocks.DIRT) {
 			return ManaItemHandler.instance().getInvocationCountForTool(requestor, player, COST);
 		}
@@ -106,20 +106,20 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
 		BlockEntity te = tile.tileEntity();
-		World world = te.getWorld();
-		if (!world.isClient && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.random.nextInt(8) == 0 && tile.isEnabled()) {
-			BlockPos pos = ((BlockEntity) tile).getPos().offset(tile.getAvatarFacing());
+		Level world = te.getLevel();
+		if (!world.isClientSide && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 4 == 0 && world.random.nextInt(8) == 0 && tile.isEnabled()) {
+			BlockPos pos = ((BlockEntity) tile).getBlockPos().relative(tile.getAvatarFacing());
 			BlockState state = world.getBlockState(pos);
 			if (state.isAir()) {
-				world.setBlockState(pos, Blocks.DIRT.getDefaultState());
-				world.syncWorldEvent(2001, pos, Block.getRawIdFromState(Blocks.DIRT.getDefaultState()));
+				world.setBlockAndUpdate(pos, Blocks.DIRT.defaultBlockState());
+				world.levelEvent(2001, pos, Block.getId(Blocks.DIRT.defaultBlockState()));
 				tile.receiveMana(-COST);
 			}
 		}
 	}
 
 	@Override
-	public Identifier getOverlayResource(IAvatarTile tile, ItemStack stack) {
+	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
 		return avatarOverlay;
 	}
 

@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.Tickable;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
 
-public class TileBifrost extends TileMod implements Tickable {
+public class TileBifrost extends TileMod implements TickableBlockEntity {
 	private static final String TAG_TICKS = "ticks";
 
 	public int ticks = 0;
@@ -25,9 +25,9 @@ public class TileBifrost extends TileMod implements Tickable {
 
 	@Override
 	public void tick() {
-		if (!world.isClient) {
+		if (!level.isClientSide) {
 			if (ticks <= 0) {
-				world.removeBlock(pos, false);
+				level.removeBlock(worldPosition, false);
 			} else {
 				ticks--;
 			}
@@ -36,15 +36,15 @@ public class TileBifrost extends TileMod implements Tickable {
 
 	@Nonnull
 	@Override
-	public CompoundTag toTag(CompoundTag tag) {
-		CompoundTag ret = super.toTag(tag);
+	public CompoundTag save(CompoundTag tag) {
+		CompoundTag ret = super.save(tag);
 		ret.putInt(TAG_TICKS, ticks);
 		return ret;
 	}
 
 	@Override
-	public void fromTag(BlockState state, CompoundTag tag) {
-		super.fromTag(state, tag);
+	public void load(BlockState state, CompoundTag tag) {
+		super.load(state, tag);
 		ticks = tag.getInt(TAG_TICKS);
 	}
 

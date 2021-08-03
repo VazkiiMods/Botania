@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.integration.corporea;
 
-import net.minecraft.util.Util;
-import net.minecraft.world.World;
+import net.minecraft.Util;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.corporea.ICorporeaNode;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
@@ -32,7 +32,7 @@ public class CorporeaNodeDetectors {
 		DETECTORS.addFirst(detector);
 	}
 
-	public static ICorporeaNode findNode(World world, ICorporeaSpark spark) {
+	public static ICorporeaNode findNode(Level world, ICorporeaSpark spark) {
 		for (ICorporeaNodeDetector detector : DETECTORS) {
 			ICorporeaNode node = detector.getNode(world, spark);
 			if (node != null) {

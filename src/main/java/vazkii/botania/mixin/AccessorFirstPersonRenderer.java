@@ -8,18 +8,19 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.render.item.HeldItemRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.Arm;
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import net.minecraft.client.renderer.ItemInHandRenderer;
+import net.minecraft.world.entity.HumanoidArm;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(HeldItemRenderer.class)
+@Mixin(ItemInHandRenderer.class)
 public interface AccessorFirstPersonRenderer {
-	@Invoker("applyEquipOffset")
-	void botania_equipOffset(MatrixStack ms, Arm side, float equip);
+	@Invoker("applyItemArmTransform")
+	void botania_equipOffset(PoseStack ms, HumanoidArm side, float equip);
 
-	@Invoker("applySwingOffset")
-	void botania_swingOffset(MatrixStack ms, Arm side, float swing);
+	@Invoker("applyItemArmAttackTransform")
+	void botania_swingOffset(PoseStack ms, HumanoidArm side, float swing);
 }

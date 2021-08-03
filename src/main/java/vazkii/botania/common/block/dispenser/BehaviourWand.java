@@ -8,27 +8,27 @@
  */
 package vazkii.botania.common.block.dispenser;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPointer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockSource;
+import net.minecraft.core.Direction;
+import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DispenserBlock;
 
 import vazkii.botania.api.wand.IWandable;
 
 import javax.annotation.Nonnull;
 
-public class BehaviourWand extends FallibleItemDispenserBehavior {
+public class BehaviourWand extends OptionalDispenseItemBehavior {
 
 	@Nonnull
 	@Override
-	protected ItemStack dispenseSilently(BlockPointer source, ItemStack stack) {
-		World world = source.getWorld();
-		Direction facing = world.getBlockState(source.getBlockPos()).get(DispenserBlock.FACING);
-		BlockPos pos = source.getBlockPos().offset(facing);
+	protected ItemStack execute(BlockSource source, ItemStack stack) {
+		Level world = source.getLevel();
+		Direction facing = world.getBlockState(source.getPos()).getValue(DispenserBlock.FACING);
+		BlockPos pos = source.getPos().relative(facing);
 		Block block = world.getBlockState(pos).getBlock();
 		boolean wandable = block instanceof IWandable;
 		setSuccess(wandable);

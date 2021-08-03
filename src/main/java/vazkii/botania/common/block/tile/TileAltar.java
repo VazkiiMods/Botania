@@ -9,29 +9,29 @@
 package vazkii.botania.common.block.tile;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.FishBucketItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Tickable;
-import net.minecraft.util.math.Box;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.FishBucketItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IPetalApothecary;
@@ -65,7 +65,7 @@ import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import alexiil.mc.lib.attributes.misc.Ref;
 import alexiil.mc.lib.attributes.misc.Reference;
 
-public class TileAltar extends TileSimpleInventory implements IPetalApothecary, Tickable {
+public class TileAltar extends TileSimpleInventory implements IPetalApothecary, TickableBlockEntity {
 
 	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
 	private static final int SET_KEEP_TICKS_EVENT = 0;
@@ -81,19 +81,19 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	}
 
 	public boolean collideEntityItem(ItemEntity item) {
-		ItemStack stack = item.getStack();
-		if (world.isClient || stack.isEmpty() || !item.isAlive()) {
+		ItemStack stack = item.getItem();
+		if (level.isClientSide || stack.isEmpty() || !item.isAlive()) {
 			return false;
 		}
 
-		if (getCachedState().getBlock() == ModBlocks.defaultAltar && stack.getItem() == Blocks.VINE.asItem()) {
+		if (getBlockState().getBlock() == ModBlocks.defaultAltar && stack.getItem() == Blocks.VINE.asItem()) {
 			CompoundTag tmp = new CompoundTag();
 			writePacketNBT(tmp);
 
-			stack.decrement(1);
-			world.setBlockState(getPos(), ModBlocks.mossyAltar.getDefaultState());
+			stack.shrink(1);
+			level.setBlockAndUpdate(getBlockPos(), ModBlocks.mossyAltar.defaultBlockState());
 
-			BlockEntity newAltar = world.getBlockEntity(getPos());
+			BlockEntity newAltar = level.getBlockEntity(getBlockPos());
 			if (newAltar instanceof TileAltar) {
 				((TileAltar) newAltar).readPacketNBT(tmp);
 			}
@@ -108,8 +108,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			// todo fabric: check if LBA gives fish buckets this
 			if (stack.getItem() instanceof FishBucketItem && ((AccessorBucketItem) stack.getItem()).getFluid() == Fluids.WATER) {
 				setFluid(State.WATER);
-				((FishBucketItem) stack.getItem()).onEmptied(world, stack, getPos().up()); // Spawns the fish
-				item.setStack(new ItemStack(Items.BUCKET));
+				((FishBucketItem) stack.getItem()).checkExtraContent(level, stack, getBlockPos().above()); // Spawns the fish
+				item.setItem(new ItemStack(Items.BUCKET));
 				return true;
 			}
 
@@ -124,7 +124,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 				if (waterExtracted.getAmount_F().equals(FluidAmount.BUCKET)) {
 					extr.attemptExtraction(waterFilt, FluidAmount.BUCKET, Simulation.ACTION);
 					setFluid(State.WATER);
-					item.setStack(ref.get());
+					item.setItem(ref.get());
 					return true;
 				}
 
@@ -133,7 +133,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 				if (lavaExtracted.getAmount_F().equals(FluidAmount.BUCKET)) {
 					extr.attemptExtraction(lavaFilt, FluidAmount.BUCKET, Simulation.ACTION);
 					setFluid(State.LAVA);
-					item.setStack(ref.get());
+					item.setItem(ref.get());
 					return true;
 				}
 
@@ -143,40 +143,40 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		}
 
 		if (getFluid() == State.LAVA) {
-			item.setOnFireFor(100);
+			item.setSecondsOnFire(100);
 			return true;
 		}
 
-		if (SEED_PATTERN.matcher(stack.getTranslationKey()).find()) {
-			Optional<IPetalRecipe> maybeRecipe = world.getRecipeManager().getFirstMatch(ModRecipeTypes.PETAL_TYPE, getItemHandler(), world);
+		if (SEED_PATTERN.matcher(stack.getDescriptionId()).find()) {
+			Optional<IPetalRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.PETAL_TYPE, getItemHandler(), level);
 			maybeRecipe.ifPresent(recipe -> {
 				saveLastRecipe();
-				ItemStack output = recipe.craft(getItemHandler());
+				ItemStack output = recipe.assemble(getItemHandler());
 
 				for (int i = 0; i < inventorySize(); i++) {
-					getItemHandler().setStack(i, ItemStack.EMPTY);
+					getItemHandler().setItem(i, ItemStack.EMPTY);
 				}
 
-				stack.decrement(1);
+				stack.shrink(1);
 
-				ItemEntity outputItem = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.5, pos.getZ() + 0.5, output);
+				ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 				EntityComponents.INTERNAL_ITEM.get(outputItem).apothecarySpawned = true;
-				world.spawnEntity(outputItem);
+				level.addFreshEntity(outputItem);
 
 				setFluid(State.EMPTY);
 
-				world.addSyncedBlockEvent(getPos(), getCachedState().getBlock(), CRAFT_EFFECT_EVENT, 0);
+				level.blockEvent(getBlockPos(), getBlockState().getBlock(), CRAFT_EFFECT_EVENT, 0);
 			});
 			return maybeRecipe.isPresent();
 		} else if (!hasFluidCapability && !EntityComponents.INTERNAL_ITEM.get(item).apothecarySpawned) {
-			if (!getItemHandler().getStack(inventorySize() - 1).isEmpty()) {
+			if (!getItemHandler().getItem(inventorySize() - 1).isEmpty()) {
 				return false;
 			}
 
 			for (int i = 0; i < inventorySize(); i++) {
-				if (getItemHandler().getStack(i).isEmpty()) {
-					getItemHandler().setStack(i, stack.split(1));
-					world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
+				if (getItemHandler().getItem(i).isEmpty()) {
+					getItemHandler().setItem(i, stack.split(1));
+					level.playSound(null, worldPosition, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.1F, 10F);
 					return true;
 				}
 			}
@@ -197,25 +197,25 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	public void saveLastRecipe() {
 		lastRecipe = new ArrayList<>();
 		for (int i = 0; i < inventorySize(); i++) {
-			ItemStack stack = getItemHandler().getStack(i);
+			ItemStack stack = getItemHandler().getItem(i);
 			if (stack.isEmpty()) {
 				break;
 			}
 			lastRecipe.add(stack.copy());
 		}
 		recipeKeepTicks = 400;
-		world.addSyncedBlockEvent(getPos(), getCachedState().getBlock(), SET_KEEP_TICKS_EVENT, 400);
+		level.blockEvent(getBlockPos(), getBlockState().getBlock(), SET_KEEP_TICKS_EVENT, 400);
 	}
 
-	public void trySetLastRecipe(PlayerEntity player) {
+	public void trySetLastRecipe(Player player) {
 		tryToSetLastRecipe(player, getItemHandler(), lastRecipe);
 		if (!isEmpty()) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
 		}
 	}
 
-	public static void tryToSetLastRecipe(PlayerEntity player, Inventory inv, List<ItemStack> lastRecipe) {
-		if (lastRecipe == null || lastRecipe.isEmpty() || player.world.isClient) {
+	public static void tryToSetLastRecipe(Player player, Container inv, List<ItemStack> lastRecipe) {
+		if (lastRecipe == null || lastRecipe.isEmpty() || player.level.isClientSide) {
 			return;
 		}
 
@@ -226,10 +226,10 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 				continue;
 			}
 
-			for (int i = 0; i < player.inventory.size(); i++) {
-				ItemStack pstack = player.inventory.getStack(i);
-				if (player.isCreative() || (!pstack.isEmpty() && pstack.isItemEqualIgnoreDamage(stack) && ItemStack.areTagsEqual(stack, pstack))) {
-					inv.setStack(index, player.isCreative() ? stack.copy() : pstack.split(1));
+			for (int i = 0; i < player.inventory.getContainerSize(); i++) {
+				ItemStack pstack = player.inventory.getItem(i);
+				if (player.isCreative() || (!pstack.isEmpty() && pstack.sameItem(stack) && ItemStack.tagMatches(stack, pstack))) {
+					inv.setItem(index, player.isCreative() ? stack.copy() : pstack.split(1));
 					didAny = true;
 					index++;
 					break;
@@ -238,15 +238,15 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		}
 
 		if (didAny) {
-			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
-			ServerPlayerEntity mp = (ServerPlayerEntity) player;
-			mp.playerScreenHandler.sendContentUpdates();
+			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.1F, 10F);
+			ServerPlayer mp = (ServerPlayer) player;
+			mp.inventoryMenu.broadcastChanges();
 		}
 	}
 
 	public boolean isEmpty() {
 		for (int i = 0; i < inventorySize(); i++) {
-			if (!getItemHandler().getStack(i).isEmpty()) {
+			if (!getItemHandler().getItem(i).isEmpty()) {
 				return false;
 			}
 		}
@@ -256,8 +256,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 	@Override
 	public void tick() {
-		if (!world.isClient) {
-			List<ItemEntity> items = world.getNonSpectatingEntities(ItemEntity.class, new Box(pos.add(0, 1D / 16D * 20D, 0), pos.add(1, 1D / 16D * 32D, 1)));
+		if (!level.isClientSide) {
+			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition.offset(0, 1D / 16D * 20D, 0), worldPosition.offset(1, 1D / 16D * 32D, 1)));
 
 			boolean didChange = false;
 			for (ItemEntity item : items) {
@@ -269,7 +269,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 			}
 		} else {
 			for (int i = 0; i < inventorySize(); i++) {
-				ItemStack stackAt = getItemHandler().getStack(i);
+				ItemStack stackAt = getItemHandler().getItem(i);
 				if (stackAt.isEmpty()) {
 					break;
 				}
@@ -282,17 +282,17 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 					float green = (color >> 8 & 0xFF) / 255F;
 					float blue = (color & 0xFF) / 255F;
 					if (Math.random() >= 0.75F) {
-						world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_SPLASH, SoundCategory.BLOCKS, 0.1F, 10F);
+						level.playSound(null, worldPosition, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.1F, 10F);
 					}
 					SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
-					world.addParticle(data, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1.2, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
+					level.addParticle(data, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 1.2, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
 				}
 			}
 
 			if (getFluid() == State.LAVA) {
-				world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.05, 0);
+				level.addParticle(ParticleTypes.SMOKE, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 1, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.05, 0);
 				if (Math.random() > 0.9) {
-					world.addParticle(ParticleTypes.LAVA, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.01, 0);
+					level.addParticle(ParticleTypes.LAVA, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 1, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.01, 0);
 				}
 			}
 		}
@@ -305,34 +305,34 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	}
 
 	@Override
-	public boolean onSyncedBlockEvent(int id, int param) {
+	public boolean triggerEvent(int id, int param) {
 		switch (id) {
 		case SET_KEEP_TICKS_EVENT:
 			recipeKeepTicks = param;
 			return true;
 		case CRAFT_EFFECT_EVENT: {
-			if (world.isClient) {
+			if (level.isClientSide) {
 				for (int i = 0; i < 25; i++) {
 					float red = (float) Math.random();
 					float green = (float) Math.random();
 					float blue = (float) Math.random();
 					SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
-					world.addParticle(data, pos.getX() + 0.5 + Math.random() * 0.4 - 0.2, pos.getY() + 1, pos.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
+					level.addParticle(data, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 1, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
 				}
-				world.playSound(pos.getX(), pos.getY(), pos.getZ(), ModSounds.altarCraft, SoundCategory.BLOCKS, 1F, 1F, false);
+				level.playLocalSound(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), ModSounds.altarCraft, SoundSource.BLOCKS, 1F, 1F, false);
 			}
 			return true;
 		}
 		default:
-			return super.onSyncedBlockEvent(id, param);
+			return super.triggerEvent(id, param);
 		}
 	}
 
 	@Override
-	protected SimpleInventory createItemHandler() {
-		return new SimpleInventory(16) {
+	protected SimpleContainer createItemHandler() {
+		return new SimpleContainer(16) {
 			@Override
-			public int getMaxCountPerStack() {
+			public int getMaxStackSize() {
 				return 1;
 			}
 		};
@@ -340,24 +340,24 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 
 	@Override
 	public void setFluid(State fluid) {
-		world.setBlockState(getPos(), getCachedState().with(BlockAltar.FLUID, fluid));
+		level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BlockAltar.FLUID, fluid));
 	}
 
 	@Override
 	public State getFluid() {
-		return getCachedState().get(BlockAltar.FLUID);
+		return getBlockState().getValue(BlockAltar.FLUID);
 	}
 
 	@Environment(EnvType.CLIENT)
-	public void renderHUD(MatrixStack ms, MinecraftClient mc) {
-		int xc = mc.getWindow().getScaledWidth() / 2;
-		int yc = mc.getWindow().getScaledHeight() / 2;
+	public void renderHUD(PoseStack ms, Minecraft mc) {
+		int xc = mc.getWindow().getGuiScaledWidth() / 2;
+		int yc = mc.getWindow().getGuiScaledHeight() / 2;
 
 		float angle = -90;
 		int radius = 24;
 		int amt = 0;
 		for (int i = 0; i < inventorySize(); i++) {
-			if (getItemHandler().getStack(i).isEmpty()) {
+			if (getItemHandler().getItem(i).isEmpty()) {
 				break;
 			}
 			amt++;
@@ -366,33 +366,33 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		if (amt > 0) {
 			float anglePer = 360F / amt;
 
-			Optional<IPetalRecipe> maybeRecipe = world.getRecipeManager().getFirstMatch(ModRecipeTypes.PETAL_TYPE, getItemHandler(), world);
+			Optional<IPetalRecipe> maybeRecipe = level.getRecipeManager().getRecipeFor(ModRecipeTypes.PETAL_TYPE, getItemHandler(), level);
 			maybeRecipe.ifPresent(recipe -> {
 				RenderSystem.color4f(1F, 1F, 1F, 1F);
-				mc.getTextureManager().bindTexture(HUDHandler.manaBar);
+				mc.getTextureManager().bind(HUDHandler.manaBar);
 				RenderHelper.drawTexturedModalRect(ms, xc + radius + 9, yc - 8, 0, 8, 22, 15);
 
-				ItemStack stack = recipe.craft(getItemHandler());
+				ItemStack stack = recipe.assemble(getItemHandler());
 
-				mc.getItemRenderer().renderGuiItemIcon(stack, xc + radius + 32, yc - 8);
-				mc.getItemRenderer().renderGuiItemIcon(new ItemStack(Items.WHEAT_SEEDS), xc + radius + 16, yc + 6);
-				mc.textRenderer.draw(ms, "+", xc + radius + 14, yc + 10, 0xFFFFFF);
+				mc.getItemRenderer().renderGuiItem(stack, xc + radius + 32, yc - 8);
+				mc.getItemRenderer().renderGuiItem(new ItemStack(Items.WHEAT_SEEDS), xc + radius + 16, yc + 6);
+				mc.font.draw(ms, "+", xc + radius + 14, yc + 10, 0xFFFFFF);
 			});
 
 			for (int i = 0; i < amt; i++) {
 				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
 				RenderSystem.translated(xPos, yPos, 0);
-				mc.getItemRenderer().renderGuiItemIcon(getItemHandler().getStack(i), 0, 0);
+				mc.getItemRenderer().renderGuiItem(getItemHandler().getItem(i), 0, 0);
 				RenderSystem.translated(-xPos, -yPos, 0);
 
 				angle += anglePer;
 			}
 		} else if (recipeKeepTicks > 0 && getFluid() == State.WATER) {
-			String s = I18n.translate("botaniamisc.altarRefill0");
-			mc.textRenderer.draw(ms, s, xc - mc.textRenderer.getWidth(s) / 2, yc + 10, 0xFFFFFF);
-			s = I18n.translate("botaniamisc.altarRefill1");
-			mc.textRenderer.draw(ms, s, xc - mc.textRenderer.getWidth(s) / 2, yc + 20, 0xFFFFFF);
+			String s = I18n.get("botaniamisc.altarRefill0");
+			mc.font.draw(ms, s, xc - mc.font.width(s) / 2, yc + 10, 0xFFFFFF);
+			s = I18n.get("botaniamisc.altarRefill1");
+			mc.font.draw(ms, s, xc - mc.font.width(s) / 2, yc + 20, 0xFFFFFF);
 		}
 	}
 

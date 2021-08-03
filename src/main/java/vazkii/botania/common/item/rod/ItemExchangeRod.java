@@ -13,35 +13,39 @@ import com.google.common.collect.ImmutableList;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
-import net.minecraft.block.AbstractGlassBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.PaneBlock;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.*;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtHelper;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.world.Container;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AbstractGlassBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.IronBarsBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IBlockProvider;
@@ -77,36 +81,36 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	private static final String TAG_SWAP_DIRECTION = "swapDirection";
 	private static final String TAG_TEMPERANCE_STONE = "temperanceStone";
 
-	public ItemExchangeRod(Settings props) {
+	public ItemExchangeRod(Properties props) {
 		super(props);
 		AttackBlockCallback.EVENT.register(this::onLeftClick);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		World world = ctx.getWorld();
-		BlockPos pos = ctx.getBlockPos();
-		PlayerEntity player = ctx.getPlayer();
-		ItemStack stack = ctx.getStack();
+	public InteractionResult useOn(UseOnContext ctx) {
+		Level world = ctx.getLevel();
+		BlockPos pos = ctx.getClickedPos();
+		Player player = ctx.getPlayer();
+		ItemStack stack = ctx.getItemInHand();
 		BlockState wstate = world.getBlockState(pos);
 		Block block = wstate.getBlock();
 
-		if (player != null && player.isSneaking()) {
+		if (player != null && player.isShiftKeyDown()) {
 			BlockEntity tile = world.getBlockEntity(pos);
 			if (tile == null && block.asItem() != Items.AIR && BlockPlatform.isValidBlock(wstate, world, pos)
-					&& (wstate.isOpaque() || block instanceof AbstractGlassBlock || block instanceof PaneBlock)
+					&& (wstate.canOcclude() || block instanceof AbstractGlassBlock || block instanceof IronBarsBlock)
 					&& block.asItem() instanceof BlockItem) {
 				setItemToPlace(stack, block.asItem());
-				setSwapDirection(stack, ctx.getSide());
-				setHitPos(stack, ctx.getHitPos());
+				setSwapDirection(stack, ctx.getClickedFace());
+				setHitPos(stack, ctx.getClickLocation());
 
 				displayRemainderCounter(player, stack);
-				return ActionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 		} else if (canExchange(stack) && !ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
 			Item replacement = getItemToPlace(stack);
-			List<BlockPos> swap = getTargetPositions(world, stack, replacement, pos, block, ctx.getSide());
+			List<BlockPos> swap = getTargetPositions(world, stack, replacement, pos, block, ctx.getClickedFace());
 			if (swap.size() > 0) {
 				ItemNBTHelper.setBoolean(stack, TAG_SWAPPING, true);
 				ItemNBTHelper.setInt(stack, TAG_SELECT_X, pos.getX());
@@ -116,40 +120,40 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 			}
 		}
 
-		return ActionResult.SUCCESS;
+		return InteractionResult.SUCCESS;
 	}
 
 	@Override
-	public boolean canMine(BlockState state, World world, BlockPos pos, PlayerEntity player) {
+	public boolean canAttackBlock(BlockState state, Level world, BlockPos pos, Player player) {
 		return !player.isCreative();
 	}
 
-	private ActionResult onLeftClick(PlayerEntity player, World world, Hand hand, BlockPos pos, Direction side) {
-		ItemStack stack = player.getStackInHand(hand);
+	private InteractionResult onLeftClick(Player player, Level world, InteractionHand hand, BlockPos pos, Direction side) {
+		ItemStack stack = player.getItemInHand(hand);
 		if (!stack.isEmpty() && stack.getItem() == this && canExchange(stack) && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
 			int cost = exchange(world, player, pos, stack, getItemToPlace(stack));
 			if (cost > 0) {
 				ManaItemHandler.instance().requestManaForTool(stack, player, cost, true);
-				return ActionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 		}
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean equipped) {
-		if (!canExchange(stack) || !(entity instanceof PlayerEntity)) {
+	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean equipped) {
+		if (!canExchange(stack) || !(entity instanceof Player)) {
 			return;
 		}
 
 		// TODO 1.17 remove this - reading legacy replacement block
 		if (stack.hasTag() && stack.getTag().contains(TAG_REPLACEMENT_BLOCK, 10)) {
-			BlockState state = NbtHelper.toBlockState(stack.getSubTag(TAG_REPLACEMENT_BLOCK));
+			BlockState state = NbtUtils.readBlockState(stack.getTagElement(TAG_REPLACEMENT_BLOCK));
 			setItemToPlace(stack, state.getBlock().asItem());
-			stack.removeSubTag(TAG_REPLACEMENT_BLOCK);
+			stack.removeTagKey(TAG_REPLACEMENT_BLOCK);
 		}
 
-		PlayerEntity player = (PlayerEntity) entity;
+		Player player = (Player) entity;
 
 		int extraRange = ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1);
 		int extraRangeNew = IManaProficiencyArmor.hasProficiency(player, stack) ? 3 : 1;
@@ -188,7 +192,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		}
 	}
 
-	public List<BlockPos> getTargetPositions(World world, ItemStack stack, Item toPlace, BlockPos pos, Block toReplace, Direction clickedSide) {
+	public List<BlockPos> getTargetPositions(Level world, ItemStack stack, Item toPlace, BlockPos pos, Block toReplace, Direction clickedSide) {
 		// Our result list
 		List<BlockPos> coordsList = new ArrayList<>();
 
@@ -204,7 +208,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		for (int offsetX = -xRange; offsetX <= xRange; offsetX++) {
 			for (int offsetY = -yRange; offsetY <= yRange; offsetY++) {
 				for (int offsetZ = -zRange; offsetZ <= zRange; offsetZ++) {
-					BlockPos pos_ = pos.add(offsetX, offsetY, offsetZ);
+					BlockPos pos_ = pos.offset(offsetX, offsetY, offsetZ);
 
 					BlockState currentState = world.getBlockState(pos_);
 
@@ -222,10 +226,10 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 
 					// Check to see if the block is visible on any side:
 					for (Direction dir : Direction.values()) {
-						BlockPos adjPos = pos_.offset(dir);
+						BlockPos adjPos = pos_.relative(dir);
 						BlockState adjState = world.getBlockState(adjPos);
 
-						if (!Block.isFaceFullSquare(adjState.getSidesShape(world, pos), dir.getOpposite())) {
+						if (!Block.isFaceFull(adjState.getBlockSupportShape(world, pos), dir.getOpposite())) {
 							coordsList.add(pos_);
 							break;
 						}
@@ -237,7 +241,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		return coordsList;
 	}
 
-	public int exchange(World world, PlayerEntity player, BlockPos pos, ItemStack rod, Item replacement) {
+	public int exchange(Level world, Player player, BlockPos pos, ItemStack rod, Item replacement) {
 		BlockEntity tile = world.getBlockEntity(pos);
 		if (tile != null) {
 			return 0;
@@ -247,22 +251,22 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		if (!placeStack.isEmpty()) {
 			BlockState stateAt = world.getBlockState(pos);
 			Block blockAt = stateAt.getBlock();
-			if (!stateAt.isAir() && stateAt.calcBlockBreakingDelta(player, world, pos) > 0
+			if (!stateAt.isAir() && stateAt.getDestroyProgress(player, world, pos) > 0
 					&& stateAt.getBlock().asItem() != replacement) {
-				float hardness = stateAt.getHardness(world, pos);
-				if (!world.isClient) {
-					world.breakBlock(pos, !player.abilities.creativeMode);
+				float hardness = stateAt.getDestroySpeed(world, pos);
+				if (!world.isClientSide) {
+					world.destroyBlock(pos, !player.abilities.instabuild);
 					BlockHitResult hit = new BlockHitResult(getHitPos(rod, pos), getSwapDirection(rod), pos, false);
-					ActionResult result = PlayerHelper.substituteUse(new ItemUsageContext(player, Hand.MAIN_HAND, hit), placeStack);
+					InteractionResult result = PlayerHelper.substituteUse(new UseOnContext(player, InteractionHand.MAIN_HAND, hit), placeStack);
 					// TODO: provide an use context that overrides player facing direction/yaw?
 					//  currently it pulls from the player directly
 
-					if (!player.abilities.creativeMode) {
-						if (result.isAccepted()) {
+					if (!player.abilities.instabuild) {
+						if (result.consumesAction()) {
 							removeFromInventory(player, rod, replacement, true);
 							displayRemainderCounter(player, rod);
 						} else {
-							((ServerWorld) world).spawnParticles(ParticleTypes.LARGE_SMOKE, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
+							((ServerLevel) world).sendParticles(ParticleTypes.LARGE_SMOKE, pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
 									2, 0.1, 0.1, 0.1, 0);
 						}
 					}
@@ -278,10 +282,10 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		return getItemToPlace(stack) != Items.AIR;
 	}
 
-	public static ItemStack removeFromInventory(PlayerEntity player, Inventory inv, ItemStack tool, Item requested, boolean doit) {
+	public static ItemStack removeFromInventory(Player player, Container inv, ItemStack tool, Item requested, boolean doit) {
 		List<ItemStack> providers = new ArrayList<>();
-		for (int i = inv.size() - 1; i >= 0; i--) {
-			ItemStack invStack = inv.getStack(i);
+		for (int i = inv.getContainerSize() - 1; i >= 0; i--) {
+			ItemStack invStack = inv.getItem(i);
 			if (invStack.isEmpty()) {
 				continue;
 			}
@@ -290,7 +294,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 			if (item == requested) {
 				ItemStack ret;
 				if (doit) {
-					ret = inv.removeStack(i, 1);
+					ret = inv.removeItem(i, 1);
 				} else {
 					ret = invStack.copy();
 					ret.setCount(1);
@@ -316,8 +320,8 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		return ItemStack.EMPTY;
 	}
 
-	public static ItemStack removeFromInventory(PlayerEntity player, ItemStack tool, Item item, boolean doit) {
-		if (player.abilities.creativeMode) {
+	public static ItemStack removeFromInventory(Player player, ItemStack tool, Item item, boolean doit) {
+		if (player.abilities.instabuild) {
 			return new ItemStack(item);
 		}
 
@@ -328,8 +332,8 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		return outStack;
 	}
 
-	public static int getInventoryItemCount(PlayerEntity player, ItemStack stack, Item item) {
-		if (player.abilities.creativeMode) {
+	public static int getInventoryItemCount(Player player, ItemStack stack, Item item) {
+		if (player.abilities.instabuild) {
 			return -1;
 		}
 
@@ -346,14 +350,14 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		return count + baubleCount;
 	}
 
-	public static int getInventoryItemCount(PlayerEntity player, Inventory inv, ItemStack stack, Item requested) {
-		if (player.abilities.creativeMode) {
+	public static int getInventoryItemCount(Player player, Container inv, ItemStack stack, Item requested) {
+		if (player.abilities.instabuild) {
 			return -1;
 		}
 
 		int count = 0;
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack invStack = inv.getStack(i);
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack invStack = inv.getItem(i);
 			if (invStack.isEmpty()) {
 				continue;
 			}
@@ -376,8 +380,8 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		return count;
 	}
 
-	public void displayRemainderCounter(PlayerEntity player, ItemStack stack) {
-		if (!player.world.isClient) {
+	public void displayRemainderCounter(Player player, ItemStack stack) {
+		if (!player.level.isClientSide) {
 			Item item = getItemToPlace(stack);
 			int count = getInventoryItemCount(player, stack, item);
 			ItemsRemainingRenderHandler.send(player, new ItemStack(item), count);
@@ -390,34 +394,34 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	}
 
 	private void setItemToPlace(ItemStack stack, Item item) {
-		ItemNBTHelper.setString(stack, TAG_REPLACEMENT_ITEM, Registry.ITEM.getKey(item).toString());
+		ItemNBTHelper.setString(stack, TAG_REPLACEMENT_ITEM, Registry.ITEM.getResourceKey(item).toString());
 	}
 
 	private Item getItemToPlace(ItemStack stack) {
-		return Registry.ITEM.get(new Identifier(ItemNBTHelper.getString(stack, TAG_REPLACEMENT_ITEM, "air")));
+		return Registry.ITEM.get(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_REPLACEMENT_ITEM, "air")));
 	}
 
-	private void setHitPos(ItemStack stack, Vec3d vec) {
+	private void setHitPos(ItemStack stack, Vec3 vec) {
 		ListTag list = new ListTag();
-		list.add(DoubleTag.of(MathHelper.fractionalPart(vec.getX())));
-		list.add(DoubleTag.of(MathHelper.fractionalPart(vec.getY())));
-		list.add(DoubleTag.of(MathHelper.fractionalPart(vec.getZ())));
+		list.add(DoubleTag.valueOf(Mth.frac(vec.x())));
+		list.add(DoubleTag.valueOf(Mth.frac(vec.y())));
+		list.add(DoubleTag.valueOf(Mth.frac(vec.z())));
 		stack.getOrCreateTag().put(TAG_SWAP_HIT_VEC, list);
 	}
 
-	private Vec3d getHitPos(ItemStack stack, BlockPos pos) {
+	private Vec3 getHitPos(ItemStack stack, BlockPos pos) {
 		ListTag list = stack.getOrCreateTag().getList(TAG_SWAP_HIT_VEC, 6);
-		return new Vec3d(pos.getX() + list.getDouble(0),
+		return new Vec3(pos.getX() + list.getDouble(0),
 				pos.getY() + list.getDouble(1),
 				pos.getZ() + list.getDouble(2));
 	}
 
 	private void setSwapDirection(ItemStack stack, Direction direction) {
-		stack.getOrCreateTag().putInt(TAG_SWAP_DIRECTION, direction.getId());
+		stack.getOrCreateTag().putInt(TAG_SWAP_DIRECTION, direction.get3DDataValue());
 	}
 
 	private Direction getSwapDirection(ItemStack stack) {
-		return Direction.byId(stack.getOrCreateTag().getInt(TAG_SWAP_DIRECTION));
+		return Direction.from3DDataValue(stack.getOrCreateTag().getInt(TAG_SWAP_DIRECTION));
 	}
 
 	private int getRange(ItemStack stack, Direction.Axis clickAxis, Direction.Axis rangeAxis) {
@@ -437,39 +441,39 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 
 	@Nonnull
 	@Override
-	public Text getName(@Nonnull ItemStack stack) {
+	public Component getName(@Nonnull ItemStack stack) {
 		Item item = getItemToPlace(stack);
-		MutableText cmp = super.getName(stack).shallowCopy();
+		MutableComponent cmp = super.getName(stack).copy();
 		if (item != Items.AIR) {
 			cmp.append(" (");
-			Text sub = new ItemStack(item).getName();
-			cmp.append(sub.shallowCopy().formatted(Formatting.GREEN));
+			Component sub = new ItemStack(item).getHoverName();
+			cmp.append(sub.copy().withStyle(ChatFormatting.GREEN));
 			cmp.append(")");
 		}
 		return cmp;
 	}
 
 	private void setTarget(ItemStack stack, Block block) {
-		ItemNBTHelper.setString(stack, TAG_TARGET_BLOCK_NAME, Registry.BLOCK.getId(block).toString());
+		ItemNBTHelper.setString(stack, TAG_TARGET_BLOCK_NAME, Registry.BLOCK.getKey(block).toString());
 	}
 
 	public static Block getTargetState(ItemStack stack) {
-		Identifier id = new Identifier(ItemNBTHelper.getString(stack, TAG_TARGET_BLOCK_NAME, "minecraft:air"));
+		ResourceLocation id = new ResourceLocation(ItemNBTHelper.getString(stack, TAG_TARGET_BLOCK_NAME, "minecraft:air"));
 		return Registry.BLOCK.get(id);
 	}
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public List<BlockPos> getWireframesToDraw(PlayerEntity player, ItemStack stack) {
-		ItemStack holding = player.getMainHandStack();
+	public List<BlockPos> getWireframesToDraw(Player player, ItemStack stack) {
+		ItemStack holding = player.getMainHandItem();
 		if (holding != stack || !canExchange(stack)) {
 			return ImmutableList.of();
 		}
 
-		HitResult pos = MinecraftClient.getInstance().crosshairTarget;
+		HitResult pos = Minecraft.getInstance().hitResult;
 		if (pos != null && pos.getType() == HitResult.Type.BLOCK) {
 			BlockPos bPos = ((BlockHitResult) pos).getBlockPos();
-			Block target = MinecraftClient.getInstance().world.getBlockState(bPos).getBlock();
+			Block target = Minecraft.getInstance().level.getBlockState(bPos).getBlock();
 			if (ItemNBTHelper.getBoolean(stack, TAG_SWAPPING, false)) {
 				bPos = new BlockPos(
 						ItemNBTHelper.getInt(stack, TAG_SELECT_X, 0),
@@ -479,9 +483,9 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 				target = getTargetState(stack);
 			}
 
-			if (!player.world.isAir(bPos)) {
+			if (!player.level.isEmptyBlock(bPos)) {
 				Item item = getItemToPlace(stack);
-				List<BlockPos> coordsList = getTargetPositions(player.world, stack, item, bPos, target, ((BlockHitResult) pos).getSide());
+				List<BlockPos> coordsList = getTargetPositions(player.level, stack, item, bPos, target, ((BlockHitResult) pos).getDirection());
 				coordsList.removeIf(bPos::equals);
 				return coordsList;
 			}

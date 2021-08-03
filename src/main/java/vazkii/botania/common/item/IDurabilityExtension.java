@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * An Item that implements this interface can have its durability bar modified.

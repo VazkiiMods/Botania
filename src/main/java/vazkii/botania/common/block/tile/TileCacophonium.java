@@ -8,11 +8,11 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.item.ItemCacophonium;
 
@@ -26,10 +26,10 @@ public class TileCacophonium extends TileMod {
 	}
 
 	public void annoyDirewolf() {
-		ItemCacophonium.playSound(world, stack, pos.getX(), pos.getY(), pos.getZ(), SoundCategory.BLOCKS, 1F);
-		if (!world.isClient) {
-			float noteColor = world.random.nextInt(25) / 24.0F;
-			((ServerWorld) world).spawnParticles(ParticleTypes.NOTE, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, 0, noteColor, 0, 0, 1);
+		ItemCacophonium.playSound(level, stack, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), SoundSource.BLOCKS, 1F);
+		if (!level.isClientSide) {
+			float noteColor = level.random.nextInt(25) / 24.0F;
+			((ServerLevel) level).sendParticles(ParticleTypes.NOTE, worldPosition.getX() + 0.5, worldPosition.getY() + 1.2, worldPosition.getZ() + 0.5, 0, noteColor, 0, 0, 1);
 		}
 	}
 
@@ -39,7 +39,7 @@ public class TileCacophonium extends TileMod {
 
 		CompoundTag cmp1 = new CompoundTag();
 		if (!stack.isEmpty()) {
-			cmp1 = stack.toTag(cmp1);
+			cmp1 = stack.save(cmp1);
 		}
 		cmp.put(TAG_STACK, cmp1);
 	}
@@ -49,7 +49,7 @@ public class TileCacophonium extends TileMod {
 		super.readPacketNBT(cmp);
 
 		CompoundTag cmp1 = cmp.getCompound(TAG_STACK);
-		stack = ItemStack.fromTag(cmp1);
+		stack = ItemStack.of(cmp1);
 	}
 
 }

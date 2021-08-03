@@ -10,9 +10,9 @@ package vazkii.botania.common.compat.rei;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -33,10 +33,10 @@ import me.shedaniel.rei.gui.widget.Widget;
 @Environment(EnvType.CLIENT)
 public class PureDaisyREICategory implements RecipeCategory<PureDaisyREIDisplay> {
 	private EntryStack daisy = EntryStack.create(new ItemStack(ModSubtiles.pureDaisy));
-	private Identifier OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
+	private ResourceLocation OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
 
 	@Override
-	public @NotNull Identifier getIdentifier() {
+	public @NotNull ResourceLocation getIdentifier() {
 		return RecipePureDaisy.TYPE_ID;
 	}
 
@@ -47,7 +47,7 @@ public class PureDaisyREICategory implements RecipeCategory<PureDaisyREIDisplay>
 
 	@Override
 	public @NotNull String getCategoryName() {
-		return I18n.translate("botania.nei.pureDaisy");
+		return I18n.get("botania.nei.pureDaisy");
 	}
 
 	@Override

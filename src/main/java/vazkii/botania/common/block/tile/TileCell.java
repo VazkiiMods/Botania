@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.math.BlockPos;
 
 import vazkii.botania.common.block.subtile.generating.SubTileDandelifeon;
 
@@ -36,15 +36,15 @@ public class TileCell extends TileMod {
 		generation = gen;
 		if (!ticked) {
 			flowerCoords = flower.getEffectivePos();
-			validCoords = getPos();
+			validCoords = getBlockPos();
 			ticked = true;
-		} else if (!validCoords.equals(getPos()) || !flowerCoords.equals(flower.getEffectivePos())) {
-			world.removeBlock(pos, false);
+		} else if (!validCoords.equals(getBlockPos()) || !flowerCoords.equals(flower.getEffectivePos())) {
+			level.removeBlock(worldPosition, false);
 		}
 	}
 
 	public boolean isSameFlower(SubTileDandelifeon flower) {
-		return validCoords.equals(getPos()) && flowerCoords.equals(flower.getEffectivePos());
+		return validCoords.equals(getBlockPos()) && flowerCoords.equals(flower.getEffectivePos());
 	}
 
 	public int getGeneration() {

@@ -8,17 +8,17 @@
  */
 package vazkii.botania.common.core.loot;
 
-import net.minecraft.loot.condition.LootConditionType;
-import net.minecraft.loot.function.LootFunctionType;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModLootModifiers {
-	public static final LootConditionType TRUE_GUARDIAN_KILLER = new LootConditionType(new TrueGuardianKiller.Serializer());
-	public static final LootConditionType ENABLE_RELICS = new LootConditionType(new EnableRelics.Serializer());
-	public static final LootConditionType KILLED_BY_REAL_PLAYER = new LootConditionType(new RealPlayerCondition.Serializer());
-	public static final LootFunctionType BIND_UUID = new LootFunctionType(new BindUuid.Serializer());
+	public static final LootItemConditionType TRUE_GUARDIAN_KILLER = new LootItemConditionType(new TrueGuardianKiller.Serializer());
+	public static final LootItemConditionType ENABLE_RELICS = new LootItemConditionType(new EnableRelics.Serializer());
+	public static final LootItemConditionType KILLED_BY_REAL_PLAYER = new LootItemConditionType(new RealPlayerCondition.Serializer());
+	public static final LootItemFunctionType BIND_UUID = new LootItemFunctionType(new BindUuid.Serializer());
 
 	public static void init() {
 		Registry.register(Registry.LOOT_CONDITION_TYPE, prefix("true_guardian_killer"), TRUE_GUARDIAN_KILLER);

@@ -8,8 +8,8 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.OrechidOutput;
@@ -27,7 +27,7 @@ public class SubTileOrechidIgnem extends SubTileOrechid {
 
 	@Override
 	public boolean canOperate() {
-		return getWorld().getDimension().hasCeiling();
+		return getLevel().dimensionType().hasCeiling();
 	}
 
 	@Override

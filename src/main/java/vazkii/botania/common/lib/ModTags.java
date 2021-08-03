@@ -9,15 +9,15 @@
 package vazkii.botania.common.lib;
 
 import net.fabricmc.fabric.api.tag.TagRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.Item;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.tag.EntityTypeTags;
-import net.minecraft.tag.ItemTags;
-import net.minecraft.tag.Tag;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 import java.util.List;
 import java.util.function.Function;
@@ -25,11 +25,11 @@ import java.util.function.Function;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModTags {
-	private static <T> Tag.Identified<T> getOrRegister(List<? extends Tag.Identified<T>> list,
-			Function<Identifier, Tag.Identified<T>> register,
-			Identifier loc) {
-		for (Tag.Identified<T> existing : list) {
-			if (existing.getId().equals(loc)) {
+	private static <T> Tag.Named<T> getOrRegister(List<? extends Tag.Named<T>> list,
+			Function<ResourceLocation, Tag.Named<T>> register,
+			ResourceLocation loc) {
+		for (Tag.Named<T> existing : list) {
+			if (existing.getName().equals(loc)) {
 				return existing;
 			}
 		}
@@ -38,91 +38,91 @@ public class ModTags {
 	}
 
 	public static class Items {
-		public static final Tag.Identified<Item> DUSTS_MANA = tag("mana_dusts");
+		public static final Tag.Named<Item> DUSTS_MANA = tag("mana_dusts");
 
-		public static final Tag.Identified<Item> GEMS_DRAGONSTONE = tag("dragonstone_gems");
-		public static final Tag.Identified<Item> GEMS_MANA_DIAMOND = tag("mana_diamond_gems");
+		public static final Tag.Named<Item> GEMS_DRAGONSTONE = tag("dragonstone_gems");
+		public static final Tag.Named<Item> GEMS_MANA_DIAMOND = tag("mana_diamond_gems");
 
-		public static final Tag.Identified<Item> INGOTS_ELEMENTIUM = tag("elementium_ingots");
-		public static final Tag.Identified<Item> INGOTS_MANASTEEL = tag("manasteel_ingots");
-		public static final Tag.Identified<Item> INGOTS_TERRASTEEL = tag("terrasteel_ingots");
+		public static final Tag.Named<Item> INGOTS_ELEMENTIUM = tag("elementium_ingots");
+		public static final Tag.Named<Item> INGOTS_MANASTEEL = tag("manasteel_ingots");
+		public static final Tag.Named<Item> INGOTS_TERRASTEEL = tag("terrasteel_ingots");
 
-		public static final Tag.Identified<Item> NUGGETS_ELEMENTIUM = tag("elementium_nuggets");
-		public static final Tag.Identified<Item> NUGGETS_MANASTEEL = tag("manasteel_nuggets");
-		public static final Tag.Identified<Item> NUGGETS_TERRASTEEL = tag("terrasteel_nuggets");
+		public static final Tag.Named<Item> NUGGETS_ELEMENTIUM = tag("elementium_nuggets");
+		public static final Tag.Named<Item> NUGGETS_MANASTEEL = tag("manasteel_nuggets");
+		public static final Tag.Named<Item> NUGGETS_TERRASTEEL = tag("terrasteel_nuggets");
 
-		public static final Tag.Identified<Item> BLOCKS_ELEMENTIUM = tag("elementium_blocks");
-		public static final Tag.Identified<Item> BLOCKS_MANASTEEL = tag("manasteel_blocks");
-		public static final Tag.Identified<Item> BLOCKS_QUARTZ = commonTag("quartz_blocks");
-		public static final Tag.Identified<Item> BLOCKS_TERRASTEEL = tag("terrasteel_blocks");
+		public static final Tag.Named<Item> BLOCKS_ELEMENTIUM = tag("elementium_blocks");
+		public static final Tag.Named<Item> BLOCKS_MANASTEEL = tag("manasteel_blocks");
+		public static final Tag.Named<Item> BLOCKS_QUARTZ = commonTag("quartz_blocks");
+		public static final Tag.Named<Item> BLOCKS_TERRASTEEL = tag("terrasteel_blocks");
 
-		public static final Tag.Identified<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
-		public static final Tag.Identified<Item> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
+		public static final Tag.Named<Item> MYSTICAL_FLOWERS = tag("mystical_flowers");
+		public static final Tag.Named<Item> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
 
-		public static final Tag.Identified<Item> CONTRIBUTOR_HEADFLOWERS = tag("contributor_headflowers");
-		public static final Tag.Identified<Item> SPECIAL_FLOWERS = tag("special_flowers");
-		public static final Tag.Identified<Item> MINI_FLOWERS = tag("mini_flowers");
-		public static final Tag.Identified<Item> MISC_SPECIAL_FLOWERS = tag("misc_special_flowers");
-		public static final Tag.Identified<Item> FUNCTIONAL_SPECIAL_FLOWERS = tag("functional_special_flowers");
-		public static final Tag.Identified<Item> GENERATING_SPECIAL_FLOWERS = tag("generating_special_flowers");
+		public static final Tag.Named<Item> CONTRIBUTOR_HEADFLOWERS = tag("contributor_headflowers");
+		public static final Tag.Named<Item> SPECIAL_FLOWERS = tag("special_flowers");
+		public static final Tag.Named<Item> MINI_FLOWERS = tag("mini_flowers");
+		public static final Tag.Named<Item> MISC_SPECIAL_FLOWERS = tag("misc_special_flowers");
+		public static final Tag.Named<Item> FUNCTIONAL_SPECIAL_FLOWERS = tag("functional_special_flowers");
+		public static final Tag.Named<Item> GENERATING_SPECIAL_FLOWERS = tag("generating_special_flowers");
 
-		public static final Tag.Identified<Item> FLOATING_FLOWERS = tag("floating_flowers");
-		public static final Tag.Identified<Item> MUNDANE_FLOATING_FLOWERS = tag("mundane_floating_flowers");
-		public static final Tag.Identified<Item> SPECIAL_FLOATING_FLOWERS = tag("special_floating_flowers");
+		public static final Tag.Named<Item> FLOATING_FLOWERS = tag("floating_flowers");
+		public static final Tag.Named<Item> MUNDANE_FLOATING_FLOWERS = tag("mundane_floating_flowers");
+		public static final Tag.Named<Item> SPECIAL_FLOATING_FLOWERS = tag("special_floating_flowers");
 
-		public static final Tag.Identified<Item> LENS = tag("lens");
-		public static final Tag.Identified<Item> LIVINGROCK = tag("livingrock");
-		public static final Tag.Identified<Item> LIVINGWOOD = tag("livingwood");
+		public static final Tag.Named<Item> LENS = tag("lens");
+		public static final Tag.Named<Item> LIVINGROCK = tag("livingrock");
+		public static final Tag.Named<Item> LIVINGWOOD = tag("livingwood");
 
-		public static final Tag.Identified<Item> MAGNET_RING_BLACKLIST = tag("magnet_ring_blacklist");
-		public static final Tag.Identified<Item> LOONIUM_BLACKLIST = tag("loonium_blacklist");
+		public static final Tag.Named<Item> MAGNET_RING_BLACKLIST = tag("magnet_ring_blacklist");
+		public static final Tag.Named<Item> LOONIUM_BLACKLIST = tag("loonium_blacklist");
 
-		public static final Tag.Identified<Item> DISPOSABLE = tag("disposable");
-		public static final Tag.Identified<Item> SEMI_DISPOSABLE = tag("semi_disposable");
+		public static final Tag.Named<Item> DISPOSABLE = tag("disposable");
+		public static final Tag.Named<Item> SEMI_DISPOSABLE = tag("semi_disposable");
 
-		public static final Tag.Identified<Item> PETALS = tag("petals");
-		public static final Tag.Identified<Item> PETALS_BLACK = tag("petals/black");
-		public static final Tag.Identified<Item> PETALS_BLUE = tag("petals/blue");
-		public static final Tag.Identified<Item> PETALS_BROWN = tag("petals/brown");
-		public static final Tag.Identified<Item> PETALS_CYAN = tag("petals/cyan");
-		public static final Tag.Identified<Item> PETALS_GRAY = tag("petals/gray");
-		public static final Tag.Identified<Item> PETALS_GREEN = tag("petals/green");
-		public static final Tag.Identified<Item> PETALS_LIGHT_BLUE = tag("petals/light_blue");
-		public static final Tag.Identified<Item> PETALS_LIGHT_GRAY = tag("petals/light_gray");
-		public static final Tag.Identified<Item> PETALS_LIME = tag("petals/lime");
-		public static final Tag.Identified<Item> PETALS_MAGENTA = tag("petals/magenta");
-		public static final Tag.Identified<Item> PETALS_ORANGE = tag("petals/orange");
-		public static final Tag.Identified<Item> PETALS_PINK = tag("petals/pink");
-		public static final Tag.Identified<Item> PETALS_PURPLE = tag("petals/purple");
-		public static final Tag.Identified<Item> PETALS_RED = tag("petals/red");
-		public static final Tag.Identified<Item> PETALS_WHITE = tag("petals/white");
-		public static final Tag.Identified<Item> PETALS_YELLOW = tag("petals/yellow");
+		public static final Tag.Named<Item> PETALS = tag("petals");
+		public static final Tag.Named<Item> PETALS_BLACK = tag("petals/black");
+		public static final Tag.Named<Item> PETALS_BLUE = tag("petals/blue");
+		public static final Tag.Named<Item> PETALS_BROWN = tag("petals/brown");
+		public static final Tag.Named<Item> PETALS_CYAN = tag("petals/cyan");
+		public static final Tag.Named<Item> PETALS_GRAY = tag("petals/gray");
+		public static final Tag.Named<Item> PETALS_GREEN = tag("petals/green");
+		public static final Tag.Named<Item> PETALS_LIGHT_BLUE = tag("petals/light_blue");
+		public static final Tag.Named<Item> PETALS_LIGHT_GRAY = tag("petals/light_gray");
+		public static final Tag.Named<Item> PETALS_LIME = tag("petals/lime");
+		public static final Tag.Named<Item> PETALS_MAGENTA = tag("petals/magenta");
+		public static final Tag.Named<Item> PETALS_ORANGE = tag("petals/orange");
+		public static final Tag.Named<Item> PETALS_PINK = tag("petals/pink");
+		public static final Tag.Named<Item> PETALS_PURPLE = tag("petals/purple");
+		public static final Tag.Named<Item> PETALS_RED = tag("petals/red");
+		public static final Tag.Named<Item> PETALS_WHITE = tag("petals/white");
+		public static final Tag.Named<Item> PETALS_YELLOW = tag("petals/yellow");
 
-		public static final Tag.Identified<Item> RUNES = tag("runes");
+		public static final Tag.Named<Item> RUNES = tag("runes");
 
-		public static final Tag.Identified<Item> RUNES_AIR = tag("runes/air");
-		public static final Tag.Identified<Item> RUNES_AUTUMN = tag("runes/autumn");
-		public static final Tag.Identified<Item> RUNES_EARTH = tag("runes/earth");
-		public static final Tag.Identified<Item> RUNES_ENVY = tag("runes/envy");
-		public static final Tag.Identified<Item> RUNES_FIRE = tag("runes/fire");
-		public static final Tag.Identified<Item> RUNES_GLUTTONY = tag("runes/gluttony");
-		public static final Tag.Identified<Item> RUNES_GREED = tag("runes/greed");
-		public static final Tag.Identified<Item> RUNES_LUST = tag("runes/lust");
-		public static final Tag.Identified<Item> RUNES_MANA = tag("runes/mana");
-		public static final Tag.Identified<Item> RUNES_PRIDE = tag("runes/pride");
-		public static final Tag.Identified<Item> RUNES_SLOTH = tag("runes/sloth");
-		public static final Tag.Identified<Item> RUNES_SPRING = tag("runes/spring");
-		public static final Tag.Identified<Item> RUNES_SUMMER = tag("runes/summer");
-		public static final Tag.Identified<Item> RUNES_WATER = tag("runes/water");
-		public static final Tag.Identified<Item> RUNES_WINTER = tag("runes/winter");
-		public static final Tag.Identified<Item> RUNES_WRATH = tag("runes/wrath");
+		public static final Tag.Named<Item> RUNES_AIR = tag("runes/air");
+		public static final Tag.Named<Item> RUNES_AUTUMN = tag("runes/autumn");
+		public static final Tag.Named<Item> RUNES_EARTH = tag("runes/earth");
+		public static final Tag.Named<Item> RUNES_ENVY = tag("runes/envy");
+		public static final Tag.Named<Item> RUNES_FIRE = tag("runes/fire");
+		public static final Tag.Named<Item> RUNES_GLUTTONY = tag("runes/gluttony");
+		public static final Tag.Named<Item> RUNES_GREED = tag("runes/greed");
+		public static final Tag.Named<Item> RUNES_LUST = tag("runes/lust");
+		public static final Tag.Named<Item> RUNES_MANA = tag("runes/mana");
+		public static final Tag.Named<Item> RUNES_PRIDE = tag("runes/pride");
+		public static final Tag.Named<Item> RUNES_SLOTH = tag("runes/sloth");
+		public static final Tag.Named<Item> RUNES_SPRING = tag("runes/spring");
+		public static final Tag.Named<Item> RUNES_SUMMER = tag("runes/summer");
+		public static final Tag.Named<Item> RUNES_WATER = tag("runes/water");
+		public static final Tag.Named<Item> RUNES_WINTER = tag("runes/winter");
+		public static final Tag.Named<Item> RUNES_WRATH = tag("runes/wrath");
 
-		public static final Tag.Identified<Item> BURST_VIEWERS = tag("burst_viewers");
-		public static final Tag.Identified<Item> TERRA_PICK_BLACKLIST = tag("terra_pick_blacklist");
-		public static final Tag.Identified<Item> MUSHROOMS = commonTag("mushrooms");
-		public static final Tag.Identified<Item> RODS = tag("rods");
+		public static final Tag.Named<Item> BURST_VIEWERS = tag("burst_viewers");
+		public static final Tag.Named<Item> TERRA_PICK_BLACKLIST = tag("terra_pick_blacklist");
+		public static final Tag.Named<Item> MUSHROOMS = commonTag("mushrooms");
+		public static final Tag.Named<Item> RODS = tag("rods");
 
-		public static Tag.Identified<Item> getPetalTag(DyeColor color) {
+		public static Tag.Named<Item> getPetalTag(DyeColor color) {
 			switch (color) {
 			default:
 			case WHITE:
@@ -160,78 +160,78 @@ public class ModTags {
 			}
 		}
 
-		private static Tag.Identified<Item> tag(String name) {
-			return TagRegistry.create(prefix(name), ItemTags::getTagGroup);
+		private static Tag.Named<Item> tag(String name) {
+			return TagRegistry.create(prefix(name), ItemTags::getAllTags);
 		}
 
-		private static Tag.Identified<Item> commonTag(String name) {
-			return TagRegistry.create(new Identifier("c", name), ItemTags::getTagGroup);
+		private static Tag.Named<Item> commonTag(String name) {
+			return TagRegistry.create(new ResourceLocation("c", name), ItemTags::getAllTags);
 		}
 	}
 
 	public static class Blocks {
-		public static final Tag.Identified<Block> MYSTICAL_FLOWERS = tag("mystical_flowers");
-		public static final Tag.Identified<Block> SHINY_FLOWERS = tag("shiny_flowers");
-		public static final Tag.Identified<Block> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
+		public static final Tag.Named<Block> MYSTICAL_FLOWERS = tag("mystical_flowers");
+		public static final Tag.Named<Block> SHINY_FLOWERS = tag("shiny_flowers");
+		public static final Tag.Named<Block> DOUBLE_MYSTICAL_FLOWERS = tag("double_mystical_flowers");
 
-		public static final Tag.Identified<Block> SPECIAL_FLOWERS = tag("special_flowers");
-		public static final Tag.Identified<Block> MINI_FLOWERS = tag("mini_flowers");
-		public static final Tag.Identified<Block> MISC_SPECIAL_FLOWERS = tag("misc_special_flowers");
-		public static final Tag.Identified<Block> FUNCTIONAL_SPECIAL_FLOWERS = tag("functional_special_flowers");
-		public static final Tag.Identified<Block> GENERATING_SPECIAL_FLOWERS = tag("generating_special_flowers");
+		public static final Tag.Named<Block> SPECIAL_FLOWERS = tag("special_flowers");
+		public static final Tag.Named<Block> MINI_FLOWERS = tag("mini_flowers");
+		public static final Tag.Named<Block> MISC_SPECIAL_FLOWERS = tag("misc_special_flowers");
+		public static final Tag.Named<Block> FUNCTIONAL_SPECIAL_FLOWERS = tag("functional_special_flowers");
+		public static final Tag.Named<Block> GENERATING_SPECIAL_FLOWERS = tag("generating_special_flowers");
 
-		public static final Tag.Identified<Block> FLOATING_FLOWERS = tag("floating_flowers");
-		public static final Tag.Identified<Block> MUNDANE_FLOATING_FLOWERS = tag("mundane_floating_flowers");
-		public static final Tag.Identified<Block> SPECIAL_FLOATING_FLOWERS = tag("special_floating_flowers");
+		public static final Tag.Named<Block> FLOATING_FLOWERS = tag("floating_flowers");
+		public static final Tag.Named<Block> MUNDANE_FLOATING_FLOWERS = tag("mundane_floating_flowers");
+		public static final Tag.Named<Block> SPECIAL_FLOATING_FLOWERS = tag("special_floating_flowers");
 
-		public static final Tag.Identified<Block> ENCHANTER_FLOWERS = tag("enchanter_flowers");
+		public static final Tag.Named<Block> ENCHANTER_FLOWERS = tag("enchanter_flowers");
 
-		public static final Tag.Identified<Block> LIVINGROCK = tag("livingrock");
-		public static final Tag.Identified<Block> LIVINGWOOD = tag("livingwood");
+		public static final Tag.Named<Block> LIVINGROCK = tag("livingrock");
+		public static final Tag.Named<Block> LIVINGWOOD = tag("livingwood");
 
-		public static final Tag.Identified<Block> BLOCKS_ELEMENTIUM = tag("elementium_blocks");
-		public static final Tag.Identified<Block> BLOCKS_MANASTEEL = tag("manasteel_blocks");
-		public static final Tag.Identified<Block> BLOCKS_QUARTZ = commonTag("quartz_blocks");
-		public static final Tag.Identified<Block> BLOCKS_TERRASTEEL = tag("terrasteel_blocks");
+		public static final Tag.Named<Block> BLOCKS_ELEMENTIUM = tag("elementium_blocks");
+		public static final Tag.Named<Block> BLOCKS_MANASTEEL = tag("manasteel_blocks");
+		public static final Tag.Named<Block> BLOCKS_QUARTZ = commonTag("quartz_blocks");
+		public static final Tag.Named<Block> BLOCKS_TERRASTEEL = tag("terrasteel_blocks");
 
-		public static final Tag.Identified<Block> GAIA_BREAK_BLACKLIST = tag("gaia_break_blacklist");
-		public static final Tag.Identified<Block> MAGNET_RING_BLACKLIST = tag("magnet_ring_blacklist");
+		public static final Tag.Named<Block> GAIA_BREAK_BLACKLIST = tag("gaia_break_blacklist");
+		public static final Tag.Named<Block> MAGNET_RING_BLACKLIST = tag("magnet_ring_blacklist");
 
-		public static final Tag.Identified<Block> TERRAFORMABLE = tag("terraformable");
+		public static final Tag.Named<Block> TERRAFORMABLE = tag("terraformable");
 
-		public static final Tag.Identified<Block> CORPOREA_SPARK_OVERRIDE = tag("corporea_spark_override");
-		public static final Tag.Identified<Block> TERRA_PLATE_BASE = tag("terra_plate_base");
+		public static final Tag.Named<Block> CORPOREA_SPARK_OVERRIDE = tag("corporea_spark_override");
+		public static final Tag.Named<Block> TERRA_PLATE_BASE = tag("terra_plate_base");
 
-		public static final Tag.Identified<Block> LAPIS_BLOCKS = commonTag("lapis_blocks");
+		public static final Tag.Named<Block> LAPIS_BLOCKS = commonTag("lapis_blocks");
 
-		public static final Tag.Identified<Block> COAL_ORES = commonTag("coal_ores");
-		public static final Tag.Identified<Block> IRON_ORES = commonTag("iron_ores");
-		public static final Tag.Identified<Block> GOLD_ORES = commonTag("gold_ores");
-		public static final Tag.Identified<Block> LAPIS_ORES = commonTag("lapis_ores");
-		public static final Tag.Identified<Block> REDSTONE_ORES = commonTag("redstone_ores");
-		public static final Tag.Identified<Block> DIAMOND_ORES = commonTag("diamond_ores");
-		public static final Tag.Identified<Block> EMERALD_ORES = commonTag("emerald_ores");
-		public static final Tag.Identified<Block> MUSHROOMS = commonTag("mushrooms");
+		public static final Tag.Named<Block> COAL_ORES = commonTag("coal_ores");
+		public static final Tag.Named<Block> IRON_ORES = commonTag("iron_ores");
+		public static final Tag.Named<Block> GOLD_ORES = commonTag("gold_ores");
+		public static final Tag.Named<Block> LAPIS_ORES = commonTag("lapis_ores");
+		public static final Tag.Named<Block> REDSTONE_ORES = commonTag("redstone_ores");
+		public static final Tag.Named<Block> DIAMOND_ORES = commonTag("diamond_ores");
+		public static final Tag.Named<Block> EMERALD_ORES = commonTag("emerald_ores");
+		public static final Tag.Named<Block> MUSHROOMS = commonTag("mushrooms");
 
-		private static Tag.Identified<Block> tag(String name) {
-			return TagRegistry.create(prefix(name), BlockTags::getTagGroup);
+		private static Tag.Named<Block> tag(String name) {
+			return TagRegistry.create(prefix(name), BlockTags::getAllTags);
 		}
 
-		private static Tag.Identified<Block> commonTag(String name) {
-			return TagRegistry.create(new Identifier("c", name), BlockTags::getTagGroup);
+		private static Tag.Named<Block> commonTag(String name) {
+			return TagRegistry.create(new ResourceLocation("c", name), BlockTags::getAllTags);
 		}
 	}
 
 	public static class Entities {
-		public static final Tag.Identified<EntityType<?>> SHADED_MESA_BLACKLIST = tag("shaded_mesa_blacklist");
+		public static final Tag.Named<EntityType<?>> SHADED_MESA_BLACKLIST = tag("shaded_mesa_blacklist");
 
-		public static final Tag.Identified<EntityType<?>> COCOON_COMMON = tag("cocoon/common");
-		public static final Tag.Identified<EntityType<?>> COCOON_RARE = tag("cocoon/rare");
-		public static final Tag.Identified<EntityType<?>> COCOON_COMMON_AQUATIC = tag("cocoon/common_aquatic");
-		public static final Tag.Identified<EntityType<?>> COCOON_RARE_AQUATIC = tag("cocoon/rare_aquatic");
+		public static final Tag.Named<EntityType<?>> COCOON_COMMON = tag("cocoon/common");
+		public static final Tag.Named<EntityType<?>> COCOON_RARE = tag("cocoon/rare");
+		public static final Tag.Named<EntityType<?>> COCOON_COMMON_AQUATIC = tag("cocoon/common_aquatic");
+		public static final Tag.Named<EntityType<?>> COCOON_RARE_AQUATIC = tag("cocoon/rare_aquatic");
 
-		private static Tag.Identified<EntityType<?>> tag(String name) {
-			return TagRegistry.create(prefix(name), EntityTypeTags::getTagGroup);
+		private static Tag.Named<EntityType<?>> tag(String name) {
+			return TagRegistry.create(prefix(name), EntityTypeTags::getAllTags);
 		}
 	}
 }

@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.components;
 
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,7 +35,7 @@ public class KeptItemsComponent implements Component {
 		stacks.clear();
 		ListTag list = tag.getList("stacks", 10);
 		for (Tag t : list) {
-			stacks.add(ItemStack.fromTag((CompoundTag) t));
+			stacks.add(ItemStack.of((CompoundTag) t));
 		}
 	}
 
@@ -43,7 +43,7 @@ public class KeptItemsComponent implements Component {
 	public void writeToNbt(CompoundTag tag) {
 		ListTag list = new ListTag();
 		for (ItemStack stack : stacks) {
-			list.add(stack.toTag(new CompoundTag()));
+			list.add(stack.save(new CompoundTag()));
 		}
 		tag.put("stacks", list);
 	}

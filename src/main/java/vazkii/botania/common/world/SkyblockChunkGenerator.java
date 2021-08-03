@@ -11,19 +11,22 @@ package vazkii.botania.common.world;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.server.world.ServerChunkManager;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.ChunkRegion;
-import net.minecraft.world.Heightmap;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldAccess;
-import net.minecraft.world.biome.source.BiomeAccess;
-import net.minecraft.world.biome.source.BiomeSource;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.gen.*;
-import net.minecraft.world.gen.chunk.*;
+import net.minecraft.core.Registry;
+import net.minecraft.server.level.ServerChunkCache;
+import net.minecraft.server.level.WorldGenRegion;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.NoiseColumn;
+import net.minecraft.world.level.StructureFeatureManager;
+import net.minecraft.world.level.biome.BiomeManager;
+import net.minecraft.world.level.biome.BiomeSource;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 
 import java.util.function.Supplier;
 
@@ -33,9 +36,9 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 	// [VanillaCopy] overworld chunk generator codec
 	public static final Codec<SkyblockChunkGenerator> CODEC = RecordCodecBuilder.create(
 			(instance) -> instance.group(
-					BiomeSource.CODEC.fieldOf("biome_source").forGetter((gen) -> gen.biomeSource),
+					BiomeSource.CODEC.fieldOf("biome_source").forGetter((gen) -> gen.runtimeBiomeSource),
 					Codec.LONG.fieldOf("seed").stable().forGetter((gen) -> gen.seed),
-					ChunkGeneratorSettings.REGISTRY_CODEC.fieldOf("settings").forGetter((gen) -> gen.settings)
+					NoiseGeneratorSettings.CODEC.fieldOf("settings").forGetter((gen) -> gen.settings)
 			).apply(instance, instance.stable(SkyblockChunkGenerator::new)));
 
 	public static void init() {
@@ -43,52 +46,52 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 	}
 
 	private final long seed;
-	private final Supplier<ChunkGeneratorSettings> settings;
+	private final Supplier<NoiseGeneratorSettings> settings;
 
-	public SkyblockChunkGenerator(BiomeSource provider, long seed, Supplier<ChunkGeneratorSettings> settings) {
-		super(provider, provider, settings.get().getStructuresConfig(), seed);
+	public SkyblockChunkGenerator(BiomeSource provider, long seed, Supplier<NoiseGeneratorSettings> settings) {
+		super(provider, provider, settings.get().structureSettings(), seed);
 		this.seed = seed;
 		this.settings = settings;
 	}
 
-	public static boolean isWorldSkyblock(World world) {
-		return world.getChunkManager() instanceof ServerChunkManager
-				&& ((ServerChunkManager) world.getChunkManager()).getChunkGenerator() instanceof SkyblockChunkGenerator;
+	public static boolean isWorldSkyblock(Level world) {
+		return world.getChunkSource() instanceof ServerChunkCache
+				&& ((ServerChunkCache) world.getChunkSource()).getGenerator() instanceof SkyblockChunkGenerator;
 	}
 
 	@Override
-	protected Codec<? extends ChunkGenerator> getCodec() {
+	protected Codec<? extends ChunkGenerator> codec() {
 		return CODEC;
 	}
 
 	@Override
 	public ChunkGenerator withSeed(long newSeed) {
-		return new SkyblockChunkGenerator(this.biomeSource.withSeed(newSeed), newSeed, settings);
+		return new SkyblockChunkGenerator(this.runtimeBiomeSource.withSeed(newSeed), newSeed, settings);
 	}
 
 	@Override
-	public void populateNoise(WorldAccess world, StructureAccessor structureManager, Chunk chunk) {
-
-	}
-
-	@Override
-	public void buildSurface(ChunkRegion region, Chunk chunk) {
+	public void fillFromNoise(LevelAccessor world, StructureFeatureManager structureManager, ChunkAccess chunk) {
 
 	}
 
 	@Override
-	public void carve(long seed, BiomeAccess biomes, Chunk chunk, GenerationStep.Carver stage) {}
+	public void buildSurfaceAndBedrock(WorldGenRegion region, ChunkAccess chunk) {
+
+	}
 
 	@Override
-	public void generateFeatures(ChunkRegion region, StructureAccessor structureManager) {}
+	public void applyCarvers(long seed, BiomeManager biomes, ChunkAccess chunk, GenerationStep.Carving stage) {}
 
 	@Override
-	public int getHeight(int x, int z, Heightmap.Type heightmapType) {
+	public void applyBiomeDecoration(WorldGenRegion region, StructureFeatureManager structureManager) {}
+
+	@Override
+	public int getBaseHeight(int x, int z, Heightmap.Types heightmapType) {
 		return 0;
 	}
 
 	@Override
-	public BlockView getColumnSample(int p_230348_1_, int p_230348_2_) {
-		return new VerticalBlockSample(new BlockState[0]);
+	public BlockGetter getBaseColumn(int p_230348_1_, int p_230348_2_) {
+		return new NoiseColumn(new BlockState[0]);
 	}
 }

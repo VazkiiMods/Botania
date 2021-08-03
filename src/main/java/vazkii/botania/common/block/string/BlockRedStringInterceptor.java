@@ -8,20 +8,20 @@
  */
 package vazkii.botania.common.block.string;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.BlockHitResult;
 
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.block.tile.string.TileRedStringInterceptor;
@@ -32,39 +32,39 @@ import java.util.Random;
 
 public class BlockRedStringInterceptor extends BlockRedString {
 
-	public BlockRedStringInterceptor(AbstractBlock.Settings builder) {
+	public BlockRedStringInterceptor(BlockBehaviour.Properties builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(Properties.FACING, Direction.DOWN).with(Properties.POWERED, false));
+		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.FACING, Direction.DOWN).setValue(BlockStateProperties.POWERED, false));
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		super.appendProperties(builder);
-		builder.add(Properties.POWERED);
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(BlockStateProperties.POWERED);
 	}
 
-	public static ActionResult onInteract(PlayerEntity player, World world, Hand hand, BlockHitResult hit) {
+	public static InteractionResult onInteract(Player player, Level world, InteractionHand hand, BlockHitResult hit) {
 		return TileRedStringInterceptor.onInteract(player, world, hit.getBlockPos(), hand);
 	}
 
 	@Override
-	public boolean emitsRedstonePower(BlockState state) {
+	public boolean isSignalSource(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction side) {
-		return state.get(Properties.POWERED) ? 15 : 0;
+	public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction side) {
+		return state.getValue(BlockStateProperties.POWERED) ? 15 : 0;
 	}
 
 	@Override
-	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random update) {
-		world.setBlockState(pos, state.with(Properties.POWERED, false));
+	public void tick(BlockState state, ServerLevel world, BlockPos pos, Random update) {
+		world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
 	}
 
 	@Nonnull
 	@Override
-	public TileRedString createBlockEntity(@Nonnull BlockView world) {
+	public TileRedString newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileRedStringInterceptor();
 	}
 }

@@ -10,13 +10,13 @@ package vazkii.botania.common.network;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
 
 
 import io.netty.buffer.Unpooled;
 
 public final class PacketHandler {
-	public static final PacketByteBuf EMPTY_BUF = new PacketByteBuf(Unpooled.buffer(0, 0));
+	public static final FriendlyByteBuf EMPTY_BUF = new FriendlyByteBuf(Unpooled.buffer(0, 0));
 
 	public static void init() {
 		ServerPlayNetworking.registerGlobalReceiver(PacketLeftClick.ID, PacketLeftClick::handle);

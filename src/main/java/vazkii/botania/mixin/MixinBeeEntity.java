@@ -8,11 +8,11 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.entity.passive.BeeEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Bee;
+import net.minecraft.world.level.Level;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,9 +21,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.common.lib.ModTags;
 
-@Mixin(BeeEntity.class)
-public abstract class MixinBeeEntity extends AnimalEntity {
-	protected MixinBeeEntity(EntityType<? extends AnimalEntity> type, World worldIn) {
+@Mixin(Bee.class)
+public abstract class MixinBeeEntity extends Animal {
+	protected MixinBeeEntity(EntityType<? extends Animal> type, Level worldIn) {
 		super(type, worldIn);
 	}
 
@@ -34,11 +34,11 @@ public abstract class MixinBeeEntity extends AnimalEntity {
 	 * @see MixinPollinateGoal
 	 */
 	@Inject(
-		method = "isFlowers", cancellable = true,
-		at = @At(value = "FIELD", target = "Lnet/minecraft/entity/passive/BeeEntity;world:Lnet/minecraft/world/World;", ordinal = 1)
+		method = "isFlowerValid", cancellable = true,
+		at = @At(value = "FIELD", target = "Lnet/minecraft/world/entity/animal/Bee;level:Lnet/minecraft/world/level/Level;", ordinal = 1)
 	)
 	private void isSpecialFlower(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
-		if (world.getBlockState(pos).isIn(ModTags.Blocks.SPECIAL_FLOWERS)) {
+		if (level.isLoaded(pos) && level.getBlockState(pos).is(ModTags.Blocks.SPECIAL_FLOWERS)) {
 			cir.setReturnValue(true);
 		}
 	}

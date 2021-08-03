@@ -8,47 +8,47 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 
 public class ItemMiningRing extends ItemBauble implements IManaUsingItem {
 
-	public ItemMiningRing(Settings props) {
+	public ItemMiningRing(Properties props) {
 		super(props);
 	}
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		if (player instanceof PlayerEntity && !player.world.isClient) {
+		if (player instanceof Player && !player.level.isClientSide) {
 			int manaCost = 5;
-			boolean hasMana = ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) player, manaCost, false);
+			boolean hasMana = ManaItemHandler.instance().requestManaExact(stack, (Player) player, manaCost, false);
 			if (!hasMana) {
 				onUnequipped(stack, player);
 			} else {
-				if (player.getStatusEffect(StatusEffects.HASTE) != null) {
-					player.removeStatusEffect(StatusEffects.HASTE);
+				if (player.getEffect(MobEffects.DIG_SPEED) != null) {
+					player.removeEffect(MobEffects.DIG_SPEED);
 				}
 
-				player.addStatusEffect(new StatusEffectInstance(StatusEffects.HASTE, Integer.MAX_VALUE, 1, true, true));
+				player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, Integer.MAX_VALUE, 1, true, true));
 			}
 
-			if (player.handSwingProgress == 0.25F) {
-				ManaItemHandler.instance().requestManaExact(stack, (PlayerEntity) player, manaCost, true);
+			if (player.attackAnim == 0.25F) {
+				ManaItemHandler.instance().requestManaExact(stack, (Player) player, manaCost, true);
 			}
 		}
 	}
 
 	@Override
 	public void onUnequipped(ItemStack stack, LivingEntity player) {
-		StatusEffectInstance effect = player.getStatusEffect(StatusEffects.HASTE);
+		MobEffectInstance effect = player.getEffect(MobEffects.DIG_SPEED);
 		if (effect != null && effect.getAmplifier() == 1) {
-			player.removeStatusEffect(StatusEffects.HASTE);
+			player.removeEffect(MobEffects.DIG_SPEED);
 		}
 	}
 

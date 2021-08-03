@@ -8,12 +8,12 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.thrown.ThrownEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Box;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ThrowableProjectile;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.internal.IManaBurst;
 
@@ -23,14 +23,14 @@ public class LensDamage extends Lens {
 
 	@Override
 	public void updateBurst(IManaBurst burst, ItemStack stack) {
-		ThrownEntity entity = burst.entity();
-		if (entity.world.isClient) {
+		ThrowableProjectile entity = burst.entity();
+		if (entity.level.isClientSide) {
 			return;
 		}
-		Box axis = new Box(entity.getX(), entity.getY(), entity.getZ(), entity.lastRenderX, entity.lastRenderY, entity.lastRenderZ).expand(1);
-		List<LivingEntity> entities = entity.world.getNonSpectatingEntities(LivingEntity.class, axis);
+		AABB axis = new AABB(entity.getX(), entity.getY(), entity.getZ(), entity.xOld, entity.yOld, entity.zOld).inflate(1);
+		List<LivingEntity> entities = entity.level.getEntitiesOfClass(LivingEntity.class, axis);
 		for (LivingEntity living : entities) {
-			if (living instanceof PlayerEntity) {
+			if (living instanceof Player) {
 				continue;
 			}
 
@@ -40,9 +40,9 @@ public class LensDamage extends Lens {
 					burst.setMana(mana - 16);
 					if (!burst.isFake()) {
 						DamageSource src = entity.getOwner() != null
-								? DamageSource.magic(entity, entity.getOwner())
+								? DamageSource.indirectMagic(entity, entity.getOwner())
 								: DamageSource.MAGIC;
-						living.damage(src, 8);
+						living.hurt(src, 8);
 					}
 					break;
 				}

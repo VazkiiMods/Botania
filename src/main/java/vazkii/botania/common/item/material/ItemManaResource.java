@@ -8,11 +8,11 @@
  */
 package vazkii.botania.common.item.material;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.Items;
-import net.minecraft.util.ActionResult;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.UseOnContext;
 
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ModItems;
@@ -20,21 +20,21 @@ import vazkii.botania.common.item.ModItems;
 import javax.annotation.Nonnull;
 
 public class ItemManaResource extends Item {
-	public ItemManaResource(Settings props) {
+	public ItemManaResource(Properties props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		ItemStack stack = ctx.getStack();
+	public InteractionResult useOn(UseOnContext ctx) {
+		ItemStack stack = ctx.getItemInHand();
 
 		if (this == ModItems.terrasteel || this == ModItems.gaiaIngot) {
-			return EntityDoppleganger.spawn(ctx.getPlayer(), stack, ctx.getWorld(), ctx.getBlockPos(), this == ModItems.gaiaIngot) ? ActionResult.SUCCESS : ActionResult.FAIL;
+			return EntityDoppleganger.spawn(ctx.getPlayer(), stack, ctx.getLevel(), ctx.getClickedPos(), this == ModItems.gaiaIngot) ? InteractionResult.SUCCESS : InteractionResult.FAIL;
 		} else if (this == ModItems.livingroot) {
-			return Items.BONE_MEAL.useOnBlock(ctx);
+			return Items.BONE_MEAL.useOn(ctx);
 		}
 
-		return super.useOnBlock(ctx);
+		return super.useOn(ctx);
 	}
 }

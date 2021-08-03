@@ -10,8 +10,8 @@ package vazkii.botania.common.compat.rei;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -41,7 +41,7 @@ public class ManaPoolREIDisplay extends BotaniaRecipeDisplay<RecipeManaInfusion>
 	}
 
 	@Override
-	public @NotNull Identifier getRecipeCategory() {
+	public @NotNull ResourceLocation getRecipeCategory() {
 		return RecipeManaInfusion.TYPE_ID;
 	}
 }

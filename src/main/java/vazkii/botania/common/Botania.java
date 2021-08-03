@@ -20,11 +20,11 @@ import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.loot.v1.event.LootTableLoadingCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.block.Blocks;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.core.Registry;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -145,9 +145,9 @@ public class Botania implements ModInitializer {
 
 		ModEntities.registerAttributes();
 
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getId(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getId(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.get());
-		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getId(ModBlocks.enchanter), TileEnchanter.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.alfPortal), TileAlfPortal.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.terraPlate), TileTerraPlate.MULTIBLOCK.get());
+		PatchouliAPI.get().registerMultiblock(Registry.BLOCK.getKey(ModBlocks.enchanter), TileEnchanter.MULTIBLOCK.get());
 
 		String[][] pat = new String[][] {
 				{
@@ -185,7 +185,7 @@ public class Botania implements ModInitializer {
 				}
 		};
 		IStateMatcher sm = PatchouliAPI.get().predicateMatcher(Blocks.IRON_BLOCK,
-				state -> state.isIn(BlockTags.BEACON_BASE_BLOCKS));
+				state -> state.is(BlockTags.BEACON_BASE_BLOCKS));
 		IMultiblock mb = PatchouliAPI.get().makeMultiblock(
 				pat,
 				'P', ModBlocks.gaiaPylon,
@@ -209,12 +209,12 @@ public class Botania implements ModInitializer {
 					+ " back to elementary school and learn to read. (Actual classname: " + clname + ")");
 		}
 
-		if (server.isDedicated()) {
+		if (server.isDedicatedServer()) {
 			ContributorList.firstStart();
 		}
 	}
 
-	private void registerCommands(CommandDispatcher<ServerCommandSource> dispatcher, boolean dedicated) {
+	private void registerCommands(CommandDispatcher<CommandSourceStack> dispatcher, boolean dedicated) {
 		if (Botania.gardenOfGlassLoaded) {
 			SkyblockCommand.register(dispatcher);
 		}
@@ -223,7 +223,7 @@ public class Botania implements ModInitializer {
 
 	private void serverStopping(MinecraftServer server) {
 		ManaNetworkHandler.instance.clear();
-		TileCorporeaIndex.clearCache();
+		TileCorporeaIndex.clearIndexCache();
 	}
 
 }

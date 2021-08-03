@@ -10,11 +10,11 @@ package vazkii.botania.common.network;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.OrechidOutput;
@@ -32,18 +32,18 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 import io.netty.buffer.Unpooled;
 
 public class PacketOrechidData {
-	public static final Identifier ID = prefix("orechid");
+	public static final ResourceLocation ID = prefix("orechid");
 
-	public static void sendNonLocal(ServerPlayerEntity player) {
-		if (player.server.isDedicated() || !player.getGameProfile().getName().equals(player.server.getUserName())) {
+	public static void sendNonLocal(ServerPlayer player) {
+		if (player.server.isDedicatedServer() || !player.getGameProfile().getName().equals(player.server.getSingleplayerName())) {
 			send(player);
 		}
 	}
 
-	private static void send(ServerPlayerEntity player) {
+	private static void send(ServerPlayer player) {
 		List<OrechidOutput> normal = BotaniaAPI.instance().getOrechidWeights();
 		List<OrechidOutput> nether = BotaniaAPI.instance().getNetherOrechidWeights();
-		PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+		FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
 		buf.writeVarInt(normal.size());
 		for (OrechidOutput output : normal) {
 			output.getOutput().write(buf);
@@ -57,7 +57,7 @@ public class PacketOrechidData {
 		ServerPlayNetworking.send(player, ID, buf);
 	}
 
-	public static void handle(MinecraftClient client, ClientPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
+	public static void handle(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
 		int count = buf.readVarInt();
 		List<OrechidOutput> normal = Stream.generate(() -> {
 			StateIngredient ingr = StateIngredientHelper.read(buf);

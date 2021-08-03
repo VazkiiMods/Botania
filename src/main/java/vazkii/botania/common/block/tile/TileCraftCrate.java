@@ -8,20 +8,20 @@
  */
 package vazkii.botania.common.block.tile;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.recipe.CraftingRecipe;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -39,7 +39,7 @@ public class TileCraftCrate extends TileOpenCrate {
 	private int signal = 0;
 	private ItemStack craftResult = ItemStack.EMPTY;
 
-	private final Queue<Identifier> lastRecipes = new ArrayDeque<>();
+	private final Queue<ResourceLocation> lastRecipes = new ArrayDeque<>();
 	private boolean dirty;
 
 	public TileCraftCrate() {
@@ -47,26 +47,26 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	@Override
-	protected SimpleInventory createItemHandler() {
-		return new SimpleInventory(9) {
+	protected SimpleContainer createItemHandler() {
+		return new SimpleContainer(9) {
 			@Override
-			public int getMaxCountPerStack() {
+			public int getMaxStackSize() {
 				return 1;
 			}
 
 			@Override
-			public boolean isValid(int slot, ItemStack stack) {
+			public boolean canPlaceItem(int slot, ItemStack stack) {
 				return !isLocked(slot);
 			}
 		};
 	}
 
 	public CratePattern getPattern() {
-		BlockState state = getCachedState();
+		BlockState state = getBlockState();
 		if (state.getBlock() != ModBlocks.craftCrate) {
 			return CratePattern.NONE;
 		}
-		return state.get(BotaniaStateProps.CRATE_PATTERN);
+		return state.getValue(BotaniaStateProps.CRATE_PATTERN);
 	}
 
 	private boolean isLocked(int slot) {
@@ -76,18 +76,18 @@ public class TileCraftCrate extends TileOpenCrate {
 	@Override
 	public void readPacketNBT(CompoundTag tag) {
 		super.readPacketNBT(tag);
-		craftResult = ItemStack.fromTag(tag.getCompound(TAG_CRAFTING_RESULT));
+		craftResult = ItemStack.of(tag.getCompound(TAG_CRAFTING_RESULT));
 	}
 
 	@Override
 	public void writePacketNBT(CompoundTag tag) {
 		super.writePacketNBT(tag);
-		tag.put(TAG_CRAFTING_RESULT, craftResult.toTag(new CompoundTag()));
+		tag.put(TAG_CRAFTING_RESULT, craftResult.save(new CompoundTag()));
 	}
 
 	@Override
 	public void tick() {
-		if (world.isClient) {
+		if (level.isClientSide) {
 			return;
 		}
 
@@ -98,14 +98,14 @@ public class TileCraftCrate extends TileOpenCrate {
 		int newSignal = 0;
 		for (; newSignal < 9; newSignal++) // dis for loop be derpy
 		{
-			if (!isLocked(newSignal) && getItemHandler().getStack(newSignal).isEmpty()) {
+			if (!isLocked(newSignal) && getItemHandler().getItem(newSignal).isEmpty()) {
 				break;
 			}
 		}
 
 		if (newSignal != signal) {
 			signal = newSignal;
-			world.updateComparators(pos, getCachedState().getBlock());
+			level.updateNeighbourForOutputSignal(worldPosition, getBlockState().getBlock());
 		}
 
 		if (dirty) {
@@ -115,59 +115,59 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	private boolean craft(boolean fullCheck) {
-		world.getProfiler().push("craft");
+		level.getProfiler().push("craft");
 		if (fullCheck && !isFull()) {
 			return false;
 		}
 
-		CraftingInventory craft = new CraftingInventory(new ScreenHandler(ScreenHandlerType.CRAFTING, -1) {
+		CraftingContainer craft = new CraftingContainer(new AbstractContainerMenu(MenuType.CRAFTING, -1) {
 			@Override
-			public boolean canUse(@Nonnull PlayerEntity player) {
+			public boolean stillValid(@Nonnull Player player) {
 				return false;
 			}
 		}, 3, 3);
-		for (int i = 0; i < craft.size(); i++) {
-			ItemStack stack = getItemHandler().getStack(i);
+		for (int i = 0; i < craft.getContainerSize(); i++) {
+			ItemStack stack = getItemHandler().getItem(i);
 
 			if (stack.isEmpty() || isLocked(i) || stack.getItem() == ModItems.placeholder) {
 				continue;
 			}
 
-			craft.setStack(i, stack);
+			craft.setItem(i, stack);
 		}
 
 		Optional<CraftingRecipe> matchingRecipe = getMatchingRecipe(craft);
 		matchingRecipe.ifPresent(recipe -> {
-			craftResult = recipe.craft(craft);
+			craftResult = recipe.assemble(craft);
 
-			Inventory handler = getItemHandler();
-			List<ItemStack> remainders = recipe.getRemainingStacks(craft);
+			Container handler = getItemHandler();
+			List<ItemStack> remainders = recipe.getRemainingItems(craft);
 
-			for (int i = 0; i < craft.size(); i++) {
+			for (int i = 0; i < craft.getContainerSize(); i++) {
 				ItemStack s = remainders.get(i);
-				ItemStack inSlot = handler.getStack(i);
+				ItemStack inSlot = handler.getItem(i);
 				if ((inSlot.isEmpty() && s.isEmpty())
 						|| (!inSlot.isEmpty() && inSlot.getItem() == ModItems.placeholder)) {
 					continue;
 				}
-				handler.setStack(i, s);
+				handler.setItem(i, s);
 			}
 		});
 
-		world.getProfiler().pop();
+		level.getProfiler().pop();
 		return matchingRecipe.isPresent();
 	}
 
-	private Optional<CraftingRecipe> getMatchingRecipe(CraftingInventory craft) {
-		for (Identifier currentRecipe : lastRecipes) {
-			Recipe<CraftingInventory> recipe = ((AccessorRecipeManager) world.getRecipeManager())
+	private Optional<CraftingRecipe> getMatchingRecipe(CraftingContainer craft) {
+		for (ResourceLocation currentRecipe : lastRecipes) {
+			Recipe<CraftingContainer> recipe = ((AccessorRecipeManager) level.getRecipeManager())
 					.botania_getAll(RecipeType.CRAFTING)
 					.get(currentRecipe);
-			if (recipe instanceof CraftingRecipe && recipe.matches(craft, world)) {
+			if (recipe instanceof CraftingRecipe && recipe.matches(craft, level)) {
 				return Optional.of((CraftingRecipe) recipe);
 			}
 		}
-		Optional<CraftingRecipe> recipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, craft, world);
+		Optional<CraftingRecipe> recipe = level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, craft, level);
 		if (recipe.isPresent()) {
 			if (lastRecipes.size() >= 8) {
 				lastRecipes.remove();
@@ -179,8 +179,8 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	boolean isFull() {
-		for (int i = 0; i < getItemHandler().size(); i++) {
-			if (!isLocked(i) && getItemHandler().getStack(i).isEmpty()) {
+		for (int i = 0; i < getItemHandler().getContainerSize(); i++) {
+			if (!isLocked(i) && getItemHandler().getItem(i).isEmpty()) {
 				return false;
 			}
 		}
@@ -190,10 +190,10 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	private void ejectAll() {
 		for (int i = 0; i < inventorySize(); ++i) {
-			ItemStack stack = getItemHandler().getStack(i);
+			ItemStack stack = getItemHandler().getItem(i);
 			if (!stack.isEmpty()) {
 				eject(stack, false);
-				getItemHandler().setStack(i, ItemStack.EMPTY);
+				getItemHandler().setItem(i, ItemStack.EMPTY);
 			}
 		}
 		if (!craftResult.isEmpty()) {
@@ -202,8 +202,8 @@ public class TileCraftCrate extends TileOpenCrate {
 		}
 	}
 
-	public boolean onWanded(World world) {
-		if (!world.isClient && canEject()) {
+	public boolean onWanded(Level world) {
+		if (!world.isClientSide && canEject()) {
 			craft(false);
 			ejectAll();
 		}
@@ -211,9 +211,9 @@ public class TileCraftCrate extends TileOpenCrate {
 	}
 
 	@Override
-	public void markDirty() {
-		super.markDirty();
-		if (world != null && !world.isClient) {
+	public void setChanged() {
+		super.setChanged();
+		if (level != null && !level.isClientSide) {
 			this.dirty = true;
 		}
 	}

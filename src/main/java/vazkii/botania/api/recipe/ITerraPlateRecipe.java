@@ -8,41 +8,41 @@
  */
 package vazkii.botania.api.recipe;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
 
 import vazkii.botania.api.BotaniaAPI;
 
 import javax.annotation.Nonnull;
 
-public interface ITerraPlateRecipe extends Recipe<Inventory> {
-	Identifier TERRA_PLATE_ID = new Identifier(BotaniaAPI.MODID, "terra_plate");
-	Identifier TYPE_ID = TERRA_PLATE_ID;
+public interface ITerraPlateRecipe extends Recipe<Container> {
+	ResourceLocation TERRA_PLATE_ID = new ResourceLocation(BotaniaAPI.MODID, "terra_plate");
+	ResourceLocation TYPE_ID = TERRA_PLATE_ID;
 
 	int getMana();
 
 	@Override
 	default RecipeType<?> getType() {
-		return Registry.RECIPE_TYPE.getOrEmpty(TYPE_ID).get();
+		return Registry.RECIPE_TYPE.getOptional(TYPE_ID).get();
 	}
 
 	@Override
-	default boolean fits(int width, int height) {
+	default boolean canCraftInDimensions(int width, int height) {
 		return false;
 	}
 
 	@Nonnull
 	@Override
-	default ItemStack getRecipeKindIcon() {
-		return Registry.ITEM.getOrEmpty(TERRA_PLATE_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
+	default ItemStack getToastSymbol() {
+		return Registry.ITEM.getOptional(TERRA_PLATE_ID).map(ItemStack::new).orElse(ItemStack.EMPTY);
 	}
 
 	@Override
-	default boolean isIgnoredInRecipeBook() {
+	default boolean isSpecial() {
 		return true;
 	}
 }

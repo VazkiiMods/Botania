@@ -10,11 +10,11 @@ package vazkii.botania.client.core.handler;
 
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.util.ModelIdentifier;
-import net.minecraft.resource.ResourceManager;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
 
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
@@ -34,14 +34,14 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 public final class ModelHandler {
 	static boolean registeredModels = false;
 
-	public static void registerModels(ResourceManager rm, Consumer<Identifier> consumer) {
+	public static void registerModels(ResourceManager rm, Consumer<ResourceLocation> consumer) {
 		if (!registeredModels) {
 			registeredModels = true;
 			// todo fabric ModelLoaderRegistry.registerLoader(FloatingFlowerModel.Loader.ID, FloatingFlowerModel.Loader.INSTANCE);
 		}
-		consumer.accept(new ModelIdentifier(LibMisc.MOD_ID + ":mana_gun_clip", "inventory"));
-		consumer.accept(new ModelIdentifier(LibMisc.MOD_ID + ":desu_gun", "inventory"));
-		consumer.accept(new ModelIdentifier(LibMisc.MOD_ID + ":desu_gun_clip", "inventory"));
+		consumer.accept(new ModelResourceLocation(LibMisc.MOD_ID + ":mana_gun_clip", "inventory"));
+		consumer.accept(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun", "inventory"));
+		consumer.accept(new ModelResourceLocation(LibMisc.MOD_ID + ":desu_gun_clip", "inventory"));
 		consumer.accept(prefix("block/corporea_crystal_cube_glass"));
 		consumer.accept(prefix("block/pump_head"));
 		consumer.accept(prefix("block/elven_spreader_inside"));
@@ -163,12 +163,12 @@ public final class ModelHandler {
 		BotaniaAPIClient.instance().registerIslandTypeModel(IFloatingFlower.IslandType.MUTATED, prefix("block/islands/island_mutated"));
 	}
 
-	private static void registerTaters(ResourceManager rm, Consumer<Identifier> consumer) {
-		for (Identifier model : rm.findResources(LibResources.PREFIX_MODELS + LibResources.PREFIX_TINY_POTATO, s -> s.endsWith(LibResources.ENDING_JSON))) {
+	private static void registerTaters(ResourceManager rm, Consumer<ResourceLocation> consumer) {
+		for (ResourceLocation model : rm.listResources(LibResources.PREFIX_MODELS + LibResources.PREFIX_TINY_POTATO, s -> s.endsWith(LibResources.ENDING_JSON))) {
 			if (LibMisc.MOD_ID.equals(model.getNamespace())) {
 				String path = model.getPath();
 				path = path.substring(LibResources.PREFIX_MODELS.length(), path.length() - LibResources.ENDING_JSON.length());
-				consumer.accept(new Identifier(LibMisc.MOD_ID, path));
+				consumer.accept(new ResourceLocation(LibMisc.MOD_ID, path));
 			}
 		}
 	}

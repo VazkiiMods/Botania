@@ -8,17 +8,17 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaBlock;
@@ -32,9 +32,9 @@ public class LensMine extends Lens {
 	@Override
 	public boolean collideBurst(IManaBurst burst, HitResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
 		Entity entity = burst.entity();
-		World world = entity.world;
+		Level world = entity.level;
 
-		if (world.isClient || rtr.getType() != HitResult.Type.BLOCK) {
+		if (world.isClientSide || rtr.getType() != HitResult.Type.BLOCK) {
 			return false;
 		}
 
@@ -53,7 +53,7 @@ public class LensMine extends Lens {
 
 		BlockEntity tile = world.getBlockEntity(collidePos);
 
-		float hardness = state.getHardness(world, collidePos);
+		float hardness = state.getDestroySpeed(world, collidePos);
 		int neededHarvestLevel = -1 /* todo 1.16-fabric block.getHarvestLevel(state) */;
 		int mana = burst.getMana();
 
@@ -65,11 +65,11 @@ public class LensMine extends Lens {
 				&& (burst.isFake() || mana >= 24)) {
 			if (!burst.hasAlreadyCollidedAt(collidePos)) {
 				if (!burst.isFake()) {
-					List<ItemStack> items = Block.getDroppedStacks(state, (ServerWorld) world, collidePos, tile);
+					List<ItemStack> items = Block.getDrops(state, (ServerLevel) world, collidePos, tile);
 
 					world.removeBlock(collidePos, false);
 					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
-						world.syncWorldEvent(2001, collidePos, Block.getRawIdFromState(state));
+						world.levelEvent(2001, collidePos, Block.getId(state));
 					}
 
 					boolean offBounds = source.getY() < 0;
@@ -77,7 +77,7 @@ public class LensMine extends Lens {
 					BlockPos dropCoord = doWarp ? source : collidePos;
 
 					for (ItemStack stack_ : items) {
-						Block.dropStack(world, dropCoord, stack_);
+						Block.popResource(world, dropCoord, stack_);
 					}
 
 					burst.setMana(mana - 24);

@@ -8,11 +8,12 @@
  */
 package vazkii.botania.client.model;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+
 import net.minecraft.client.model.Model;
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.RenderType;
 
 public class ModelPylonMana extends Model implements IPylonModel {
 
@@ -27,45 +28,45 @@ public class ModelPylonMana extends Model implements IPylonModel {
 	private final ModelPart shardrb;
 
 	public ModelPylonMana() {
-		super(RenderLayer::getEntityTranslucent);
+		super(RenderType::entityTranslucent);
 
-		textureWidth = 64;
-		textureHeight = 64;
+		texWidth = 64;
+		texHeight = 64;
 
 		//plates
 		platef = new ModelPart(this, 36, 0);
-		platef.setPivot(0.0F, 16.0F, 0.0F);
-		platef.addCuboid(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
+		platef.setPos(0.0F, 16.0F, 0.0F);
+		platef.addBox(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
 		plateb = new ModelPart(this, 36, 0);
-		plateb.setPivot(0.0F, 16.0F, 0.0F);
-		plateb.addCuboid(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
+		plateb.setPos(0.0F, 16.0F, 0.0F);
+		plateb.addBox(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
 		setRotation(plateb, 0.0F, 3.141592653589793F, 0.0F);
 		platel = new ModelPart(this, 36, 0);
-		platel.setPivot(0.0F, 16.0F, 0.0F);
-		platel.addCuboid(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
+		platel.setPos(0.0F, 16.0F, 0.0F);
+		platel.addBox(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
 		setRotation(platel, 0.0F, 1.5707963267948966F, 0.0F);
 		plater = new ModelPart(this, 36, 0);
-		plater.setPivot(0.0F, 16.0F, 0.0F);
-		plater.addCuboid(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
+		plater.setPos(0.0F, 16.0F, 0.0F);
+		plater.addBox(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
 		setRotation(plater, 0.0F, -1.5707963267948966F, 0.0F);
 
 		//shards
 		shardlf = new ModelPart(this, 0, 21);
-		shardlf.setPivot(0.0F, 16.0F, 0.0F);
-		shardlf.addCuboid(-5.0F, -9.0F, -5.0F, 5, 16, 3, 0.0F);
+		shardlf.setPos(0.0F, 16.0F, 0.0F);
+		shardlf.addBox(-5.0F, -9.0F, -5.0F, 5, 16, 3, 0.0F);
 		shardrf = new ModelPart(this, 16, 21);
-		shardrf.setPivot(0.0F, 16.0F, 0.0F);
-		shardrf.addCuboid(2.0F, -12.0F, -5.0F, 3, 16, 3, 0.0F);
+		shardrf.setPos(0.0F, 16.0F, 0.0F);
+		shardrf.addBox(2.0F, -12.0F, -5.0F, 3, 16, 3, 0.0F);
 		shardlb = new ModelPart(this, 0, 0);
-		shardlb.setPivot(0.0F, 16.0F, 0.0F);
-		shardlb.addCuboid(-5.0F, -10.0F, 0.0F, 6, 16, 5, 0.0F);
+		shardlb.setPos(0.0F, 16.0F, 0.0F);
+		shardlb.addBox(-5.0F, -10.0F, 0.0F, 6, 16, 5, 0.0F);
 		shardrb = new ModelPart(this, 22, 0);
-		shardrb.setPivot(0.0F, 16.0F, 0.0F);
-		shardrb.addCuboid(3.0F, -11.0F, 0.0F, 2, 16, 5, 0.0F);
+		shardrb.setPos(0.0F, 16.0F, 0.0F);
+		shardrb.addBox(3.0F, -11.0F, 0.0F, 2, 16, 5, 0.0F);
 	}
 
 	@Override
-	public void renderCrystal(MatrixStack ms, VertexConsumer buffer, int light, int overlay) {
+	public void renderCrystal(PoseStack ms, VertexConsumer buffer, int light, int overlay) {
 		shardlf.render(ms, buffer, light, overlay);
 		shardrf.render(ms, buffer, light, overlay);
 		shardlb.render(ms, buffer, light, overlay);
@@ -73,7 +74,7 @@ public class ModelPylonMana extends Model implements IPylonModel {
 	}
 
 	@Override
-	public void renderRing(MatrixStack ms, VertexConsumer buffer, int light, int overlay) {
+	public void renderRing(PoseStack ms, VertexConsumer buffer, int light, int overlay) {
 		platef.render(ms, buffer, light, overlay);
 		plateb.render(ms, buffer, light, overlay);
 		platel.render(ms, buffer, light, overlay);
@@ -81,13 +82,13 @@ public class ModelPylonMana extends Model implements IPylonModel {
 	}
 
 	private void setRotation(ModelPart model, float x, float y, float z) {
-		model.pitch = x;
-		model.yaw = y;
-		model.roll = z;
+		model.xRot = x;
+		model.yRot = y;
+		model.zRot = z;
 	}
 
 	@Override
-	public void render(MatrixStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
+	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
 		throw new UnsupportedOperationException("unimplemented");
 	}
 }

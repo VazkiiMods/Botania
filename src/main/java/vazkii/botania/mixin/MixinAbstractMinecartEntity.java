@@ -8,9 +8,9 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.vehicle.AbstractMinecartEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.level.block.state.BlockState;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,20 +20,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import vazkii.botania.common.block.BlockGhostRail;
 import vazkii.botania.common.block.ModBlocks;
 
-@Mixin(AbstractMinecartEntity.class)
+@Mixin(AbstractMinecart.class)
 public class MixinAbstractMinecartEntity {
 	@Inject(at = @At("RETURN"), method = "tick")
 	private void onTick(CallbackInfo ci) {
-		AbstractMinecartEntity self = (AbstractMinecartEntity) (Object) this;
+		AbstractMinecart self = (AbstractMinecart) (Object) this;
 		((BlockGhostRail) ModBlocks.ghostRail).tickCart(self);
 
 	}
 
-	@Inject(at = @At("HEAD"), method = "moveOnRail")
+	@Inject(at = @At("HEAD"), method = "moveAlongTrack")
 	private void handleOnRail(BlockPos pos, BlockState state, CallbackInfo ci) {
-		if (state.isOf(ModBlocks.ghostRail)) {
-			AbstractMinecartEntity self = (AbstractMinecartEntity) (Object) this;
-			((BlockGhostRail) ModBlocks.ghostRail).onMinecartPass(self.world, self);
+		if (state.is(ModBlocks.ghostRail)) {
+			AbstractMinecart self = (AbstractMinecart) (Object) this;
+			((BlockGhostRail) ModBlocks.ghostRail).onMinecartPass(self.level, self);
 		}
 
 	}

@@ -9,15 +9,15 @@
 package vazkii.botania.client.core.handler;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexFormats;
-import net.minecraft.client.texture.TextureManager;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.profiler.Profiler;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.entity.Entity;
 
 import org.lwjgl.opengl.GL11;
 
@@ -32,66 +32,66 @@ public class LightningHandler {
 	private LightningHandler() {}
 
 	private static final int BATCH_THRESHOLD = 200;
-	private static final Identifier outsideResource = new Identifier(LibResources.MISC_WISP_LARGE);
-	private static final Identifier insideResource = new Identifier(LibResources.MISC_WISP_SMALL);
+	private static final ResourceLocation outsideResource = new ResourceLocation(LibResources.MISC_WISP_LARGE);
+	private static final ResourceLocation insideResource = new ResourceLocation(LibResources.MISC_WISP_SMALL);
 	public static final Deque<FXLightning> queuedLightningBolts = new ArrayDeque<>();
 
-	public static void onRenderWorldLast(float frame, MatrixStack ms) {
-		Profiler profiler = MinecraftClient.getInstance().getProfiler();
+	public static void onRenderWorldLast(float frame, PoseStack ms) {
+		ProfilerFiller profiler = Minecraft.getInstance().getProfiler();
 
 		profiler.push("botania-particles");
 		profiler.push("lightning");
 
-		Entity entity = MinecraftClient.getInstance().player;
-		TextureManager render = MinecraftClient.getInstance().getTextureManager();
+		Entity entity = Minecraft.getInstance().player;
+		TextureManager render = Minecraft.getInstance().getTextureManager();
 
-		double interpPosX = entity.lastRenderX + (entity.getX() - entity.lastRenderX) * frame;
-		double interpPosY = entity.lastRenderY + (entity.getY() - entity.lastRenderY) * frame;
-		double interpPosZ = entity.lastRenderZ + (entity.getZ() - entity.lastRenderZ) * frame;
+		double interpPosX = entity.xOld + (entity.getX() - entity.xOld) * frame;
+		double interpPosY = entity.yOld + (entity.getY() - entity.yOld) * frame;
+		double interpPosZ = entity.zOld + (entity.getZ() - entity.zOld) * frame;
 
-		ms.push();
+		ms.pushPose();
 		ms.translate(-interpPosX, -interpPosY, -interpPosZ);
 
-		Tessellator tessellator = Tessellator.getInstance();
+		Tesselator tessellator = Tesselator.getInstance();
 
 		RenderSystem.depthMask(false);
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-		render.bindTexture(outsideResource);
+		render.bind(outsideResource);
 		int counter = 0;
 
-		tessellator.getBuffer().begin(GL11.GL_QUADS, VertexFormats.POSITION_COLOR_TEXTURE_LIGHT);
+		tessellator.getBuilder().begin(GL11.GL_QUADS, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);
 		for (FXLightning bolt : queuedLightningBolts) {
-			bolt.renderBolt(ms, tessellator.getBuffer(), 0, false);
+			bolt.renderBolt(ms, tessellator.getBuilder(), 0, false);
 			if (counter % BATCH_THRESHOLD == BATCH_THRESHOLD - 1) {
-				tessellator.draw();
-				tessellator.getBuffer().begin(GL11.GL_QUADS, VertexFormats.POSITION_COLOR_TEXTURE_LIGHT);
+				tessellator.end();
+				tessellator.getBuilder().begin(GL11.GL_QUADS, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);
 			}
 			counter++;
 		}
-		tessellator.draw();
+		tessellator.end();
 
-		render.bindTexture(insideResource);
+		render.bind(insideResource);
 		counter = 0;
 
-		tessellator.getBuffer().begin(GL11.GL_QUADS, VertexFormats.POSITION_COLOR_TEXTURE_LIGHT);
+		tessellator.getBuilder().begin(GL11.GL_QUADS, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);
 		for (FXLightning bolt : queuedLightningBolts) {
-			bolt.renderBolt(ms, tessellator.getBuffer(), 1, true);
+			bolt.renderBolt(ms, tessellator.getBuilder(), 1, true);
 			if (counter % BATCH_THRESHOLD == BATCH_THRESHOLD - 1) {
-				tessellator.draw();
-				tessellator.getBuffer().begin(GL11.GL_QUADS, VertexFormats.POSITION_COLOR_TEXTURE_LIGHT);
+				tessellator.end();
+				tessellator.getBuilder().begin(GL11.GL_QUADS, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);
 			}
 			counter++;
 		}
-		tessellator.draw();
+		tessellator.end();
 
 		queuedLightningBolts.clear();
 
 		RenderSystem.disableBlend();
 		RenderSystem.depthMask(true);
 
-		ms.pop();
+		ms.popPose();
 
 		profiler.pop();
 		profiler.pop();

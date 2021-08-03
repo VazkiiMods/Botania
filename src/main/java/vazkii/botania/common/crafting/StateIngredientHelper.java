@@ -14,19 +14,19 @@ import com.google.gson.JsonParseException;
 import com.mojang.serialization.Dynamic;
 import com.mojang.serialization.JsonOps;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtHelper;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.tag.Tag;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.nbt.NbtUtils;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.Tag;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
@@ -50,11 +50,11 @@ public class StateIngredientHelper {
 		return new StateIngredientBlockState(state);
 	}
 
-	public static StateIngredient of(Tag.Identified<Block> tag) {
-		return of(tag.getId());
+	public static StateIngredient of(Tag.Named<Block> tag) {
+		return of(tag.getName());
 	}
 
-	public static StateIngredient of(Identifier id) {
+	public static StateIngredient of(ResourceLocation id) {
 		return new StateIngredientTag(id);
 	}
 
@@ -63,17 +63,17 @@ public class StateIngredientHelper {
 	}
 
 	public static StateIngredient deserialize(JsonObject object) {
-		switch (JsonHelper.getString(object, "type")) {
+		switch (GsonHelper.getAsString(object, "type")) {
 		case "tag":
-			return new StateIngredientTag(new Identifier(JsonHelper.getString(object, "tag")));
+			return new StateIngredientTag(new ResourceLocation(GsonHelper.getAsString(object, "tag")));
 		case "block":
-			return new StateIngredientBlock(Registry.BLOCK.get(new Identifier(JsonHelper.getString(object, "block"))));
+			return new StateIngredientBlock(Registry.BLOCK.get(new ResourceLocation(GsonHelper.getAsString(object, "block"))));
 		case "state":
 			return new StateIngredientBlockState(readBlockState(object));
 		case "blocks":
 			List<Block> blocks = new ArrayList<>();
-			for (JsonElement element : JsonHelper.getArray(object, "blocks")) {
-				blocks.add(Registry.BLOCK.get(new Identifier(element.getAsString())));
+			for (JsonElement element : GsonHelper.getAsJsonArray(object, "blocks")) {
+				blocks.add(Registry.BLOCK.get(new ResourceLocation(element.getAsString())));
 			}
 			return new StateIngredientBlocks(blocks);
 		default:
@@ -93,7 +93,7 @@ public class StateIngredientHelper {
 			return ingr;
 		}
 		if (ingr instanceof StateIngredientBlock || ingr instanceof StateIngredientBlockState) {
-			if (ingr.test(Blocks.AIR.getDefaultState())) {
+			if (ingr.test(Blocks.AIR.defaultBlockState())) {
 				return null;
 			}
 		} else if (ingr instanceof StateIngredientBlocks) {
@@ -109,21 +109,21 @@ public class StateIngredientHelper {
 		return ingr;
 	}
 
-	public static StateIngredient read(PacketByteBuf buffer) {
+	public static StateIngredient read(FriendlyByteBuf buffer) {
 		switch (buffer.readVarInt()) {
 		case 0:
 			int count = buffer.readVarInt();
 			Set<Block> set = new HashSet<>();
 			for (int i = 0; i < count; i++) {
 				int id = buffer.readVarInt();
-				Block block = Registry.BLOCK.get(id);
+				Block block = Registry.BLOCK.byId(id);
 				set.add(block);
 			}
 			return new StateIngredientBlocks(set);
 		case 1:
-			return new StateIngredientBlock(Registry.BLOCK.get(buffer.readVarInt()));
+			return new StateIngredientBlock(Registry.BLOCK.byId(buffer.readVarInt()));
 		case 2:
-			return new StateIngredientBlockState(Block.getStateFromRawId(buffer.readVarInt()));
+			return new StateIngredientBlockState(Block.stateById(buffer.readVarInt()));
 		default:
 			throw new IllegalArgumentException("Unknown input discriminator!");
 		}
@@ -133,7 +133,7 @@ public class StateIngredientHelper {
 	 * Writes data about the block state to the provided json object.
 	 */
 	public static JsonObject serializeBlockState(BlockState state) {
-		CompoundTag nbt = NbtHelper.fromBlockState(state);
+		CompoundTag nbt = NbtUtils.writeBlockState(state);
 		ItemNBTHelper.renameTag(nbt, "Name", "name");
 		ItemNBTHelper.renameTag(nbt, "Properties", "properties");
 		Dynamic<net.minecraft.nbt.Tag> dyn = new Dynamic<>(NbtOps.INSTANCE, nbt);
@@ -148,11 +148,11 @@ public class StateIngredientHelper {
 		ItemNBTHelper.renameTag(nbt, "name", "Name");
 		ItemNBTHelper.renameTag(nbt, "properties", "Properties");
 		String name = nbt.getString("Name");
-		Identifier id = Identifier.tryParse(name);
-		if (id == null || !Registry.BLOCK.getOrEmpty(id).isPresent()) {
+		ResourceLocation id = ResourceLocation.tryParse(name);
+		if (id == null || !Registry.BLOCK.getOptional(id).isPresent()) {
 			throw new IllegalArgumentException("Invalid or unknown block ID: " + name);
 		}
-		return NbtHelper.toBlockState(nbt);
+		return NbtUtils.readBlockState(nbt);
 	}
 
 	@Nonnull

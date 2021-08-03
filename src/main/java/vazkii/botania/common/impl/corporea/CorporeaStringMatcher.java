@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.impl.corporea;
 
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.item.ItemStack;
 
 import org.apache.commons.lang3.text.WordUtils;
 
@@ -53,7 +53,7 @@ public class CorporeaStringMatcher implements ICorporeaRequestMatcher {
 			return false;
 		}
 
-		String name = stripControlCodes(stack.getName().getString().toLowerCase(Locale.ROOT).trim());
+		String name = stripControlCodes(stack.getHoverName().getString().toLowerCase(Locale.ROOT).trim());
 		return matchGlob(name)
 				|| matchGlob(name + "s")
 				|| matchGlob(name + "es")
@@ -72,13 +72,13 @@ public class CorporeaStringMatcher implements ICorporeaRequestMatcher {
 
 	@Override
 	@SuppressWarnings("deprecation")
-	public Text getRequestName() {
+	public Component getRequestName() {
 		String value = WordUtils.capitalizeFully(toString());
 		// cope with initial globs
 		if (value.charAt(0) == '*') {
 			value = "*" + Character.toUpperCase(value.charAt(1)) + value.substring(2);
 		}
-		return new LiteralText(value);
+		return new TextComponent(value);
 	}
 
 	@Override

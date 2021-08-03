@@ -9,17 +9,17 @@
 package vazkii.botania.common.item.equipment.tool.terrasteel;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.minecraft.block.Block;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
@@ -60,28 +60,28 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * Represents a map of dimension IDs to a set of all block swappers
 	 * active in that dimension.
 	 */
-	private static final Map<RegistryKey<World>, Set<BlockSwapper>> blockSwappers = new HashMap<>();
+	private static final Map<ResourceKey<Level>, Set<BlockSwapper>> blockSwappers = new HashMap<>();
 
 	/**
 	 * Toggled during the block swapper ticking to prevent adding more of them during the map iteration.
 	 */
 	private static boolean tickingSwappers = false;
 
-	public ItemTerraAxe(Settings props) {
+	public ItemTerraAxe(Properties props) {
 		super(BotaniaAPI.instance().getTerrasteelItemTier(), props);
 		ServerTickEvents.END_WORLD_TICK.register(this::onTickEnd);
 	}
 
-	public static boolean shouldBreak(PlayerEntity player) {
-		return !player.isSneaking() && !ItemTemperanceStone.hasTemperanceActive(player);
+	public static boolean shouldBreak(Player player) {
+		return !player.isShiftKeyDown() && !ItemTemperanceStone.hasTemperanceActive(player);
 	}
 
-	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
+	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
 		BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
 		if (raycast.getType() == HitResult.Type.BLOCK) {
-			Direction face = raycast.getSide();
+			Direction face = raycast.getDirection();
 			breakOtherBlock(player, stack, pos, pos, face);
-			if (player.shouldCancelInteraction()) {
+			if (player.isSecondaryUseActive()) {
 				BotaniaAPI.instance().breakOnAllCursors(player, stack, pos, face);
 			}
 		}
@@ -95,14 +95,14 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	}
 
 	@Override
-	public void breakOtherBlock(PlayerEntity player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side) {
+	public void breakOtherBlock(Player player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side) {
 		if (shouldBreak(player) && !tickingSwappers) {
-			addBlockSwapper(player.world, player, stack, pos, 32, true);
+			addBlockSwapper(player.level, player, stack, pos, 32, true);
 		}
 	}
 
-	private void onTickEnd(ServerWorld world) {
-		RegistryKey<World> dim = world.getRegistryKey();
+	private void onTickEnd(ServerLevel world) {
+		ResourceKey<Level> dim = world.dimension();
 		if (blockSwappers.containsKey(dim)) {
 			tickingSwappers = true;
 			Set<BlockSwapper> swappers = blockSwappers.get(dim);
@@ -128,15 +128,15 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	 * @param leaves     If true, will treat leaves specially (see the BlockSwapper
 	 *                   documentation).
 	 */
-	private static void addBlockSwapper(World world, PlayerEntity player, ItemStack stack, BlockPos origCoords, int steps, boolean leaves) {
+	private static void addBlockSwapper(Level world, Player player, ItemStack stack, BlockPos origCoords, int steps, boolean leaves) {
 		// Block swapper registration should only occur on the server
-		if (world.isClient) {
+		if (world.isClientSide) {
 			return;
 		}
 
 		BlockSwapper swapper = new BlockSwapper(world, player, stack, origCoords, steps, leaves);
 
-		RegistryKey<World> dim = world.getRegistryKey();
+		ResourceKey<Level> dim = world.dimension();
 		blockSwappers.computeIfAbsent(dim, d -> new HashSet<>()).add(swapper);
 	}
 
@@ -164,12 +164,12 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		/**
 		 * The world the block swapper is doing the swapping in.
 		 */
-		private final World world;
+		private final Level world;
 
 		/**
 		 * The player the swapper is swapping for.
 		 */
-		private final PlayerEntity player;
+		private final Player player;
 
 		/**
 		 * The Terra Truncator which created this swapper.
@@ -213,7 +213,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 		 * @param leaves     If true, leaves will be treated specially and
 		 *                   severely reduce the radius of further spreading when encountered.
 		 */
-		public BlockSwapper(World world, PlayerEntity player, ItemStack truncator, BlockPos origCoords, int range, boolean leaves) {
+		public BlockSwapper(Level world, Player player, ItemStack truncator, BlockPos origCoords, int range, boolean leaves) {
 			this.world = world;
 			this.player = player;
 			this.truncator = truncator;
@@ -306,7 +306,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 							continue;
 						}
 
-						coords.add(original.add(dx, dy, dz));
+						coords.add(original.offset(dx, dy, dz));
 					}
 				}
 			}

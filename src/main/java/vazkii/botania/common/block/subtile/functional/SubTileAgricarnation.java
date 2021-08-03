@@ -10,11 +10,20 @@ package vazkii.botania.common.block.subtile.functional;
 
 import com.google.common.collect.ImmutableSet;
 
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.SaplingBlock;
+import net.minecraft.world.level.block.SpreadingSnowyDirtBlock;
+import net.minecraft.world.level.block.StemBlock;
+import net.minecraft.world.level.block.SweetBerryBushBlock;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -25,8 +34,8 @@ import vazkii.botania.common.core.handler.ModSounds;
 import java.util.Set;
 
 public class SubTileAgricarnation extends TileEntityFunctionalFlower {
-	private static final Set<Material> MATERIALS = ImmutableSet.of(Material.PLANT, Material.CACTUS, Material.SOLID_ORGANIC,
-			Material.LEAVES, Material.GOURD, Material.UNDERWATER_PLANT, Material.BAMBOO, Material.BAMBOO_SAPLING);
+	private static final Set<Material> MATERIALS = ImmutableSet.of(Material.PLANT, Material.CACTUS, Material.GRASS,
+			Material.LEAVES, Material.VEGETABLE, Material.WATER_PLANT, Material.BAMBOO, Material.BAMBOO_SAPLING);
 	private static final int RANGE = 5;
 	private static final int RANGE_MINI = 2;
 
@@ -42,7 +51,7 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isClient) {
+		if (getLevel().isClientSide) {
 			return;
 		}
 
@@ -52,24 +61,24 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 
 		if (ticksExisted % 6 == 0 && redstoneSignal == 0) {
 			int range = getRange();
-			int x = getEffectivePos().getX() + getWorld().random.nextInt(range * 2 + 1) - range;
-			int z = getEffectivePos().getZ() + getWorld().random.nextInt(range * 2 + 1) - range;
+			int x = getEffectivePos().getX() + getLevel().random.nextInt(range * 2 + 1) - range;
+			int z = getEffectivePos().getZ() + getLevel().random.nextInt(range * 2 + 1) - range;
 
 			for (int i = 4; i > -2; i--) {
 				int y = getEffectivePos().getY() + i;
 				BlockPos pos = new BlockPos(x, y, z);
-				if (getWorld().isAir(pos)) {
+				if (getLevel().isEmptyBlock(pos)) {
 					continue;
 				}
 
 				if (isPlant(pos) && getMana() > 5) {
-					BlockState state = getWorld().getBlockState(pos);
+					BlockState state = getLevel().getBlockState(pos);
 					addMana(-5);
-					state.randomTick((ServerWorld) world, pos, world.random);
+					state.randomTick((ServerLevel) level, pos, level.random);
 					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
-						getWorld().syncWorldEvent(2005, pos, 6 + getWorld().random.nextInt(4));
+						getLevel().levelEvent(2005, pos, 6 + getLevel().random.nextInt(4));
 					}
-					getWorld().playSound(null, x, y, z, ModSounds.agricarnation, SoundCategory.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);
+					getLevel().playSound(null, x, y, z, ModSounds.agricarnation, SoundSource.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);
 
 					break;
 				}
@@ -89,23 +98,23 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 	 *         action would have happened normally over time without bonemeal.
 	 */
 	private boolean isPlant(BlockPos pos) {
-		BlockState state = getWorld().getBlockState(pos);
+		BlockState state = getLevel().getBlockState(pos);
 		Block block = state.getBlock();
 
 		// Spreads when ticked
-		if (block instanceof SpreadableBlock) {
+		if (block instanceof SpreadingSnowyDirtBlock) {
 			return false;
 		}
 
 		// Exclude all BushBlock except known vanilla subclasses
-		if (block instanceof PlantBlock && !(block instanceof CropBlock) && !(block instanceof StemBlock)
+		if (block instanceof BushBlock && !(block instanceof CropBlock) && !(block instanceof StemBlock)
 				&& !(block instanceof SaplingBlock) && !(block instanceof SweetBerryBushBlock)) {
 			return false;
 		}
 
 		return MATERIALS.contains(state.getMaterial())
-				&& block instanceof Fertilizable
-				&& ((Fertilizable) block).isFertilizable(getWorld(), pos, state, getWorld().isClient);
+				&& block instanceof BonemealableBlock
+				&& ((BonemealableBlock) block).isValidBonemealTarget(getLevel(), pos, state, getLevel().isClientSide);
 	}
 
 	@Override

@@ -8,23 +8,23 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class BlockMod extends Block {
 
-	public BlockMod(AbstractBlock.Settings builder) {
+	public BlockMod(BlockBehaviour.Properties builder) {
 		super(builder);
 	}
 
 	@Override
-	public boolean onSyncedBlockEvent(BlockState state, World world, BlockPos pos, int id, int param) {
-		super.onSyncedBlockEvent(state, world, pos, id, param);
+	public boolean triggerEvent(BlockState state, Level world, BlockPos pos, int id, int param) {
+		super.triggerEvent(state, world, pos, id, param);
 		BlockEntity tileentity = world.getBlockEntity(pos);
-		return tileentity != null && tileentity.onSyncedBlockEvent(id, param);
+		return tileentity != null && tileentity.triggerEvent(id, param);
 	}
 }

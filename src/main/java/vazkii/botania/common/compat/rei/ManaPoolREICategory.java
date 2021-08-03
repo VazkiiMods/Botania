@@ -10,10 +10,10 @@ package vazkii.botania.common.compat.rei;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -38,10 +38,10 @@ import me.shedaniel.rei.gui.widget.Widget;
 @Environment(EnvType.CLIENT)
 public class ManaPoolREICategory implements RecipeCategory<ManaPoolREIDisplay> {
 	private EntryStack manaPool = EntryStack.create(new ItemStack(ModBlocks.manaPool));
-	private Identifier OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
+	private ResourceLocation OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
 
 	@Override
-	public @NotNull Identifier getIdentifier() {
+	public @NotNull ResourceLocation getIdentifier() {
 		return RecipeManaInfusion.TYPE_ID;
 	}
 
@@ -52,7 +52,7 @@ public class ManaPoolREICategory implements RecipeCategory<ManaPoolREIDisplay> {
 
 	@Override
 	public @NotNull String getCategoryName() {
-		return I18n.translate("botania.nei.manaPool");
+		return I18n.get("botania.nei.manaPool");
 	}
 
 	@Override

@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.recipe.IElvenItem;
 
 public class ItemElven extends Item implements IElvenItem {
-	public ItemElven(Settings props) {
+	public ItemElven(Properties props) {
 		super(props);
 	}
 

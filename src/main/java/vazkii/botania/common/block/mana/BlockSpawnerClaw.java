@@ -8,46 +8,46 @@
  */
 package vazkii.botania.common.block.mana;
 
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileSpawnerClaw;
 
 import javax.annotation.Nonnull;
 
-public class BlockSpawnerClaw extends BlockModWaterloggable implements BlockEntityProvider {
+public class BlockSpawnerClaw extends BlockModWaterloggable implements EntityBlock {
 
-	private static final VoxelShape SHAPE = createCuboidShape(2, 0, 2, 14, 2, 14);
+	private static final VoxelShape SHAPE = box(2, 0, 2, 14, 2, 14);
 
-	public BlockSpawnerClaw(Settings builder) {
+	public BlockSpawnerClaw(Properties builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
 	@Override
-	public void addStacksForDisplay(ItemGroup group, DefaultedList<ItemStack> list) {
-		super.addStacksForDisplay(group, list);
+	public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> list) {
+		super.fillItemCategory(group, list);
 		list.add(new ItemStack(Blocks.SPAWNER));
 	}
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(BlockView world) {
+	public BlockEntity newBlockEntity(BlockGetter world) {
 		return new TileSpawnerClaw();
 	}
 

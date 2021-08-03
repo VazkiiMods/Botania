@@ -10,8 +10,8 @@ package vazkii.botania.common.compat.rei;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -58,7 +58,7 @@ public class BreweryREIDisplay extends BotaniaRecipeDisplay<RecipeBrew> {
 	}
 
 	@Override
-	public @NotNull Identifier getRecipeCategory() {
+	public @NotNull ResourceLocation getRecipeCategory() {
 		return RecipeBrew.TYPE_ID;
 	}
 }

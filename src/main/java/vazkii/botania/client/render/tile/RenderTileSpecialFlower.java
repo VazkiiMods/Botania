@@ -8,18 +8,22 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix4f;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
@@ -41,47 +45,47 @@ public class RenderTileSpecialFlower<T extends TileEntitySpecialFlower> extends 
 	}
 
 	@Override
-	public void render(TileEntitySpecialFlower tile, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
+	public void render(TileEntitySpecialFlower tile, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		RenderTileFloatingFlower.renderFloatingIsland(tile, partialTicks, ms, buffers, light, overlay);
-		if (!(MinecraftClient.getInstance().cameraEntity instanceof LivingEntity)) {
+		if (!(Minecraft.getInstance().cameraEntity instanceof LivingEntity)) {
 			return;
 		}
 
-		LivingEntity view = (LivingEntity) MinecraftClient.getInstance().cameraEntity;
+		LivingEntity view = (LivingEntity) Minecraft.getInstance().cameraEntity;
 		if (!ItemMonocle.hasMonocle(view)) {
 			return;
 		}
 		BlockPos pos = null;
-		HitResult ray = MinecraftClient.getInstance().crosshairTarget;
+		HitResult ray = Minecraft.getInstance().hitResult;
 		if (ray != null && ray.getType() == HitResult.Type.BLOCK) {
 			pos = ((BlockHitResult) ray).getBlockPos();
 		}
-		boolean hasBindingAttempt = hasBindingAttempt(view, tile.getPos());
+		boolean hasBindingAttempt = hasBindingAttempt(view, tile.getBlockPos());
 
-		if (hasBindingAttempt || tile.getPos().equals(pos)) {
+		if (hasBindingAttempt || tile.getBlockPos().equals(pos)) {
 			TileEntitySpecialFlower flower = tile;
-			ms.push();
+			ms.pushPose();
 			if (hasBindingAttempt) {
 				ms.translate(0, 0.005, 0);
 			}
 			renderRadius(tile, ms, buffers, flower.getRadius());
 			ms.translate(0, 0.002, 0);
 			renderRadius(tile, ms, buffers, flower.getSecondaryRadius());
-			ms.pop();
+			ms.popPose();
 
 		}
 	}
 
-	public static void renderRadius(BlockEntity tile, MatrixStack ms, VertexConsumerProvider buffers, @Nullable RadiusDescriptor descriptor) {
+	public static void renderRadius(BlockEntity tile, PoseStack ms, MultiBufferSource buffers, @Nullable RadiusDescriptor descriptor) {
 		if (descriptor != null) {
-			ms.push();
-			ms.translate(-tile.getPos().getX(), -tile.getPos().getY(), -tile.getPos().getZ());
+			ms.pushPose();
+			ms.translate(-tile.getBlockPos().getX(), -tile.getBlockPos().getY(), -tile.getBlockPos().getZ());
 			if (descriptor.isCircle()) {
 				renderCircle(ms, buffers, descriptor.getSubtileCoords(), descriptor.getCircleRadius());
 			} else {
 				renderRectangle(ms, buffers, descriptor.getAABB(), true, null, (byte) 32);
 			}
-			ms.pop();
+			ms.popPose();
 		}
 	}
 
@@ -93,13 +97,13 @@ public class RenderTileSpecialFlower<T extends TileEntitySpecialFlower> extends 
 		return false;
 	}
 
-	private static void renderCircle(MatrixStack ms, VertexConsumerProvider buffers, BlockPos center, double radius) {
-		ms.push();
+	private static void renderCircle(PoseStack ms, MultiBufferSource buffers, BlockPos center, double radius) {
+		ms.pushPose();
 		double x = center.getX() + 0.5;
 		double y = center.getY();
 		double z = center.getZ() + 0.5;
 		ms.translate(x, y, z);
-		int color = MathHelper.hsvToRgb(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
+		int color = Mth.hsvToRgb(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 		int r = (color >> 16 & 0xFF);
 		int g = (color >> 8 & 0xFF);
 		int b = (color & 0xFF);
@@ -113,15 +117,15 @@ public class RenderTileSpecialFlower<T extends TileEntitySpecialFlower> extends 
 
 		radius -= f;
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.CIRCLE);
-		Matrix4f mat = ms.peek().getModel();
+		Matrix4f mat = ms.last().pose();
 
-		Runnable centerFunc = () -> buffer.vertex(mat, 0, f, 0).color(r, g, b, alpha).next();
+		Runnable centerFunc = () -> buffer.vertex(mat, 0, f, 0).color(r, g, b, alpha).endVertex();
 		List<Runnable> vertexFuncs = new ArrayList<>();
 		for (int i = 0; i < totalAngles + 1; i += step) {
 			double rad = (totalAngles - i) * Math.PI / 180.0;
 			float xp = (float) (Math.cos(rad) * radius);
 			float zp = (float) (Math.sin(rad) * radius);
-			vertexFuncs.add(() -> buffer.vertex(mat, xp, f, zp).color(r, g, b, alpha).next());
+			vertexFuncs.add(() -> buffer.vertex(mat, xp, f, zp).color(r, g, b, alpha).endVertex());
 		}
 		RenderHelper.triangleFan(centerFunc, vertexFuncs);
 
@@ -129,24 +133,24 @@ public class RenderTileSpecialFlower<T extends TileEntitySpecialFlower> extends 
 		float f1 = f + f / 4F;
 		int alpha2 = 64;
 
-		centerFunc = () -> buffer.vertex(mat, 0, f1, 0).color(r, g, b, alpha2).next();
+		centerFunc = () -> buffer.vertex(mat, 0, f1, 0).color(r, g, b, alpha2).endVertex();
 		vertexFuncs.clear();
 		for (int i = 0; i < totalAngles + 1; i += step) {
 			double rad = (totalAngles - i) * Math.PI / 180.0;
 			float xp = (float) (Math.cos(rad) * radius);
 			float zp = (float) (Math.sin(rad) * radius);
-			vertexFuncs.add(() -> buffer.vertex(mat, xp, f1, zp).color(r, g, b, alpha2).next());
+			vertexFuncs.add(() -> buffer.vertex(mat, xp, f1, zp).color(r, g, b, alpha2).endVertex());
 		}
 		RenderHelper.triangleFan(centerFunc, vertexFuncs);
-		ms.pop();
+		ms.popPose();
 	}
 
-	public static void renderRectangle(MatrixStack ms, VertexConsumerProvider buffers, Box aabb, boolean inner, @Nullable Integer color, byte alpha) {
-		ms.push();
+	public static void renderRectangle(PoseStack ms, MultiBufferSource buffers, AABB aabb, boolean inner, @Nullable Integer color, byte alpha) {
+		ms.pushPose();
 		ms.translate(aabb.minX, aabb.minY, aabb.minZ);
 
 		if (color == null) {
-			color = MathHelper.hsvToRgb(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
+			color = Mth.hsvToRgb(ClientTickHandler.ticksInGame % 200 / 200F, 0.6F, 1F);
 		}
 		int r = (color >> 16 & 0xFF);
 		int g = (color >> 8 & 0xFF);
@@ -157,23 +161,23 @@ public class RenderTileSpecialFlower<T extends TileEntitySpecialFlower> extends 
 		float z = (float) (aabb.maxZ - aabb.minZ - f);
 
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.RECTANGLE);
-		Matrix4f mat = ms.peek().getModel();
-		buffer.vertex(mat, x, f, f).color(r, g, b, alpha).next();
-		buffer.vertex(mat, f, f, f).color(r, g, b, alpha).next();
-		buffer.vertex(mat, f, f, z).color(r, g, b, alpha).next();
-		buffer.vertex(mat, x, f, z).color(r, g, b, alpha).next();
+		Matrix4f mat = ms.last().pose();
+		buffer.vertex(mat, x, f, f).color(r, g, b, alpha).endVertex();
+		buffer.vertex(mat, f, f, f).color(r, g, b, alpha).endVertex();
+		buffer.vertex(mat, f, f, z).color(r, g, b, alpha).endVertex();
+		buffer.vertex(mat, x, f, z).color(r, g, b, alpha).endVertex();
 
 		if (inner) {
 			x += f;
 			z += f;
 			float f1 = f + f / 4F;
 			alpha *= 2;
-			buffer.vertex(mat, x, f1, 0).color(r, g, b, alpha).next();
-			buffer.vertex(mat, 0, f1, 0).color(r, g, b, alpha).next();
-			buffer.vertex(mat, 0, f1, z).color(r, g, b, alpha).next();
-			buffer.vertex(mat, x, f1, z).color(r, g, b, alpha).next();
+			buffer.vertex(mat, x, f1, 0).color(r, g, b, alpha).endVertex();
+			buffer.vertex(mat, 0, f1, 0).color(r, g, b, alpha).endVertex();
+			buffer.vertex(mat, 0, f1, z).color(r, g, b, alpha).endVertex();
+			buffer.vertex(mat, x, f1, z).color(r, g, b, alpha).endVertex();
 		}
 
-		ms.pop();
+		ms.popPose();
 	}
 }

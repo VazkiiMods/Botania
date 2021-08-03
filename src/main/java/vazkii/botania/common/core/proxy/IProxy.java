@@ -9,14 +9,14 @@
 package vazkii.botania.common.core.proxy;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particle.ParticleEffect;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.text.Text;
-import net.minecraft.util.BlockRotation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Rotation;
 
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityDoppleganger;
@@ -29,7 +29,7 @@ public interface IProxy {
 		return false;
 	}
 
-	default PlayerEntity getClientPlayer() {
+	default Player getClientPlayer() {
 		return null;
 	}
 
@@ -40,7 +40,7 @@ public interface IProxy {
 	default long getWorldElapsedTicks() {
 		Object game = FabricLoader.getInstance().getGameInstance();
 		if (game instanceof MinecraftServer) {
-			return ((MinecraftServer) game).getWorld(World.OVERWORLD).getTime();
+			return ((MinecraftServer) game).getLevel(Level.OVERWORLD).getGameTime();
 		}
 		return 0;
 	}
@@ -66,12 +66,12 @@ public interface IProxy {
 	}
 
 	/** Side-safe version of world.addParticle with the unlimited distance flag, ignoring reduced particle settings. */
-	default void addParticleForce(World world, ParticleEffect particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {}
+	default void addParticleForce(Level world, ParticleOptions particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {}
 
 	/** A version of {@link IProxy#addParticleForce} that culls particles below 32 block distances. */
-	default void addParticleForceNear(World world, ParticleEffect particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {}
+	default void addParticleForceNear(Level world, ParticleOptions particleData, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {}
 
-	default void showMultiblock(IMultiblock mb, Text name, BlockPos anchor, BlockRotation rot) {}
+	default void showMultiblock(IMultiblock mb, Component name, BlockPos anchor, Rotation rot) {}
 
 	default void clearSextantMultiblock() {}
 

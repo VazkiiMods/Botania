@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.world.entity.LivingEntity;
 
 import vazkii.botania.common.block.ModSubtiles;
 

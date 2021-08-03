@@ -9,19 +9,19 @@
 package vazkii.botania.common.item;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.world.World;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.client.gui.box.ContainerBaubleBox;
 import vazkii.botania.common.core.handler.EquipmentHandler;
@@ -31,14 +31,14 @@ import javax.annotation.Nonnull;
 public class ItemBaubleBox extends Item {
 	public static final int SIZE = 24;
 
-	public ItemBaubleBox(Settings props) {
+	public ItemBaubleBox(Properties props) {
 		super(props);
 	}
 
-	public static SimpleInventory getInventory(ItemStack stack) {
+	public static SimpleContainer getInventory(ItemStack stack) {
 		return new ItemBackedInventory(stack, SIZE) {
 			@Override
-			public boolean isValid(int index, @Nonnull ItemStack stack) {
+			public boolean canPlaceItem(int index, @Nonnull ItemStack stack) {
 				return EquipmentHandler.instance.isAccessory(stack);
 			}
 		};
@@ -46,27 +46,27 @@ public class ItemBaubleBox extends Item {
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		if (!world.isClient) {
-			ItemStack stack = player.getStackInHand(hand);
-			NamedScreenHandlerFactory container = new ExtendedScreenHandlerFactory() {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		if (!world.isClientSide) {
+			ItemStack stack = player.getItemInHand(hand);
+			MenuProvider container = new ExtendedScreenHandlerFactory() {
 				@Override
-				public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-					buf.writeBoolean(hand == Hand.MAIN_HAND);
+				public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
+					buf.writeBoolean(hand == InteractionHand.MAIN_HAND);
 				}
 
 				@Override
-				public Text getDisplayName() {
-					return stack.getName();
+				public Component getDisplayName() {
+					return stack.getHoverName();
 				}
 
 				@Override
-				public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+				public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
 					return new ContainerBaubleBox(syncId, inv, stack);
 				}
 			};
-			player.openHandledScreen(container);
+			player.openMenu(container);
 		}
-		return TypedActionResult.success(player.getStackInHand(hand));
+		return InteractionResultHolder.success(player.getItemInHand(hand));
 	}
 }

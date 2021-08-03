@@ -10,14 +10,14 @@ package vazkii.botania.common.item.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.Block;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.common.block.mana.BlockPool;
 
@@ -27,16 +27,16 @@ import java.util.List;
 
 public class ItemBlockPool extends BlockItem {
 
-	public ItemBlockPool(Block block, Settings props) {
+	public ItemBlockPool(Block block, Properties props) {
 		super(block, props);
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendTooltip(@Nonnull ItemStack stack, World world, @Nonnull List<Text> stacks, @Nonnull TooltipContext flag) {
+	public void appendHoverText(@Nonnull ItemStack stack, Level world, @Nonnull List<Component> stacks, @Nonnull TooltipFlag flag) {
 		if (((BlockPool) getBlock()).variant == BlockPool.Variant.CREATIVE) {
 			for (int i = 0; i < 2; i++) {
-				stacks.add(new TranslatableText("botaniamisc.creativePool" + i).formatted(Formatting.GRAY));
+				stacks.add(new TranslatableComponent("botaniamisc.creativePool" + i).withStyle(ChatFormatting.GRAY));
 			}
 		}
 	}

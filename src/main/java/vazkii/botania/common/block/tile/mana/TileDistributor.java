@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.Tickable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
 
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
@@ -21,7 +21,7 @@ import vazkii.botania.common.block.tile.TileMod;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileDistributor extends TileMod implements IManaReceiver, Tickable {
+public class TileDistributor extends TileMod implements IManaReceiver, TickableBlockEntity {
 	private final List<IManaReceiver> validPools = new ArrayList<>();
 
 	public TileDistributor() {
@@ -30,14 +30,14 @@ public class TileDistributor extends TileMod implements IManaReceiver, Tickable 
 
 	@Override
 	public void tick() {
-		if (world.isClient) {
+		if (level.isClientSide) {
 			return;
 		}
 		validPools.clear();
-		for (Direction dir : Direction.Type.HORIZONTAL) {
-			BlockPos pos = this.pos.offset(dir);
-			if (world.isChunkLoaded(pos)) {
-				BlockEntity tileAt = world.getBlockEntity(pos);
+		for (Direction dir : Direction.Plane.HORIZONTAL) {
+			BlockPos pos = this.worldPosition.relative(dir);
+			if (level.hasChunkAt(pos)) {
+				BlockEntity tileAt = level.getBlockEntity(pos);
 				if (tileAt instanceof IManaPool && !tileAt.isRemoved()) {
 					IManaReceiver receiver = (IManaReceiver) tileAt;
 					if (!receiver.isFull()) {

@@ -10,12 +10,12 @@ package vazkii.botania.common.network;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.item.equipment.bauble.ItemCloudPendant;
@@ -23,17 +23,17 @@ import vazkii.botania.common.item.equipment.bauble.ItemCloudPendant;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PacketJump {
-	public static final Identifier ID = prefix("jmp");
+	public static final ResourceLocation ID = prefix("jmp");
 
 	public static void send() {
 		ClientPlayNetworking.send(ID, PacketHandler.EMPTY_BUF);
 	}
 
-	public static void handle(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender responseSender) {
+	public static void handle(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler, FriendlyByteBuf buf, PacketSender responseSender) {
 		server.execute(() -> {
 			ItemStack amuletStack = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemCloudPendant, player);
 			if (!amuletStack.isEmpty()) {
-				player.addExhaustion(0.3F);
+				player.causeFoodExhaustion(0.3F);
 				player.fallDistance = 0;
 
 				ItemCloudPendant.setJumping(player);

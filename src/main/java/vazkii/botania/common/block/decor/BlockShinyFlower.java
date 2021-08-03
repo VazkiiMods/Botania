@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.block.decor;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.BlockModFlower;
 
@@ -19,12 +19,12 @@ import javax.annotation.Nonnull;
 
 public class BlockShinyFlower extends BlockModFlower {
 
-	public BlockShinyFlower(DyeColor color, Settings builder) {
+	public BlockShinyFlower(DyeColor color, Properties builder) {
 		super(color, builder);
 	}
 
 	@Override
-	public boolean isFertilizable(@Nonnull BlockView world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean fuckifiknow) {
+	public boolean isValidBonemealTarget(@Nonnull BlockGetter world, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean fuckifiknow) {
 		return false;
 	}
 

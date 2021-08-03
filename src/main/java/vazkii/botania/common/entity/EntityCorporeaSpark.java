@@ -11,28 +11,28 @@ package vazkii.botania.common.entity;
 import com.google.common.base.Predicates;
 
 import net.fabricmc.fabric.api.entity.EntityPickInteractionAware;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Packet;
-import net.minecraft.particle.ItemStackParticleEffect;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.corporea.ICorporeaNode;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -53,26 +53,26 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	private static final String TAG_MASTER = "master";
 
-	private static final TrackedData<Boolean> MASTER = DataTracker.registerData(EntityCorporeaSpark.class, TrackedDataHandlerRegistry.BOOLEAN);
+	private static final EntityDataAccessor<Boolean> MASTER = SynchedEntityData.defineId(EntityCorporeaSpark.class, EntityDataSerializers.BOOLEAN);
 
 	private ICorporeaSpark master;
 	private List<ICorporeaSpark> connections = new ArrayList<>();
 	private List<ICorporeaSpark> relatives = new ArrayList<>();
 	private boolean firstTick = true;
 
-	public EntityCorporeaSpark(EntityType<EntityCorporeaSpark> type, World world) {
+	public EntityCorporeaSpark(EntityType<EntityCorporeaSpark> type, Level world) {
 		super(type, world);
 	}
 
 	@Override
-	protected void initDataTracker() {
-		super.initDataTracker();
-		dataTracker.startTracking(MASTER, false);
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		entityData.define(MASTER, false);
 	}
 
 	@Nonnull
 	@Override
-	public ItemStack getPickedStack(@Nullable PlayerEntity player, HitResult target) {
+	public ItemStack getPickedStack(@Nullable Player player, HitResult target) {
 		return isMaster() ? new ItemStack(ModItems.corporeaSparkMaster) : new ItemStack(ModItems.corporeaSpark);
 	}
 
@@ -80,12 +80,12 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	public void tick() {
 		super.tick();
 
-		if (world.isClient) {
+		if (level.isClientSide) {
 			return;
 		}
 
 		ICorporeaNode node = getSparkNode();
-		if (node instanceof DummyCorporeaNode && !world.getBlockState(getAttachPos()).isIn(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE)) {
+		if (node instanceof DummyCorporeaNode && !level.getBlockState(getAttachPos()).is(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE)) {
 			dropAndKill();
 			return;
 		}
@@ -110,7 +110,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	private void dropAndKill() {
-		dropStack(new ItemStack(isMaster() ? ModItems.corporeaSparkMaster : ModItems.corporeaSpark), 0F);
+		spawnAtLocation(new ItemStack(isMaster() ? ModItems.corporeaSparkMaster : ModItems.corporeaSpark), 0F);
 		remove();
 	}
 
@@ -140,7 +140,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	@SuppressWarnings("unchecked")
 	private List<ICorporeaSpark> getNearbySparks() {
-		return (List) world.getEntitiesByClass(Entity.class, new Box(getX() - SCAN_RANGE, getY() - SCAN_RANGE, getZ() - SCAN_RANGE, getX() + SCAN_RANGE, getY() + SCAN_RANGE, getZ() + SCAN_RANGE), Predicates.instanceOf(ICorporeaSpark.class));
+		return (List) level.getEntitiesOfClass(Entity.class, new AABB(getX() - SCAN_RANGE, getY() - SCAN_RANGE, getZ() - SCAN_RANGE, getX() + SCAN_RANGE, getY() + SCAN_RANGE, getZ() + SCAN_RANGE), Predicates.instanceOf(ICorporeaSpark.class));
 	}
 
 	private void restartNetwork() {
@@ -169,7 +169,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 		}
 	}
 
-	private static void displayRelatives(PlayerEntity player, List<ICorporeaSpark> checked, ICorporeaSpark spark) {
+	private static void displayRelatives(Player player, List<ICorporeaSpark> checked, ICorporeaSpark spark) {
 		if (spark == null) {
 			return;
 		}
@@ -190,15 +190,15 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	@Override
 	public BlockPos getAttachPos() {
-		int x = MathHelper.floor(getX());
-		int y = MathHelper.floor(getY() - 1);
-		int z = MathHelper.floor(getZ());
+		int x = Mth.floor(getX());
+		int y = Mth.floor(getY() - 1);
+		int z = Mth.floor(getZ());
 		return new BlockPos(x, y, z);
 	}
 
 	@Override
 	public ICorporeaNode getSparkNode() {
-		return CorporeaNodeDetectors.findNode(world, this);
+		return CorporeaNodeDetectors.findNode(level, this);
 	}
 
 	@Override
@@ -213,7 +213,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	@Override
 	public void onItemExtracted(ItemStack stack) {
-		((ServerWorld) world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, stack), getX(), getY(), getZ(), 10, 0.125, 0.125, 0.125, 0.05);
+		((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), getX(), getY(), getZ(), 10, 0.125, 0.125, 0.125, 0.05);
 	}
 
 	@Override
@@ -222,7 +222,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 		for (ItemStack stack : stacks) {
 			if (!shownItems.contains(stack.getItem())) {
 				shownItems.add(stack.getItem());
-				((ServerWorld) world).spawnParticles(new ItemStackParticleEffect(ParticleTypes.ITEM, stack), getX(), getY(), getZ(), 10, 0.125, 0.125, 0.125, 0.05);
+				((ServerLevel) level).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), getX(), getY(), getZ(), 10, 0.125, 0.125, 0.125, 0.05);
 			}
 		}
 	}
@@ -233,21 +233,21 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	public void setMaster(boolean master) {
-		dataTracker.set(MASTER, master);
+		entityData.set(MASTER, master);
 	}
 
 	@Override
 	public boolean isMaster() {
-		return dataTracker.get(MASTER);
+		return entityData.get(MASTER);
 	}
 
 	@Override
-	public ActionResult interact(PlayerEntity player, Hand hand) {
-		ItemStack stack = player.getStackInHand(hand);
+	public InteractionResult interact(Player player, InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
 		if (!removed && !stack.isEmpty()) {
 			if (stack.getItem() == ModItems.twigWand) {
-				if (!world.isClient) {
-					if (player.isSneaking()) {
+				if (!level.isClientSide) {
+					if (player.isShiftKeyDown()) {
 						dropAndKill();
 						if (isMaster()) {
 							restartNetwork();
@@ -256,27 +256,27 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 						displayRelatives(player, new ArrayList<>(), master);
 					}
 				}
-				return ActionResult.success(world.isClient);
+				return InteractionResult.sidedSuccess(level.isClientSide);
 			} else if (stack.getItem() instanceof DyeItem) {
-				DyeColor color = ((DyeItem) stack.getItem()).getColor();
+				DyeColor color = ((DyeItem) stack.getItem()).getDyeColor();
 				if (color != getNetwork()) {
-					if (!world.isClient) {
+					if (!level.isClientSide) {
 						setNetwork(color);
 
-						stack.decrement(1);
+						stack.shrink(1);
 					}
 
-					return ActionResult.success(world.isClient);
+					return InteractionResult.sidedSuccess(level.isClientSide);
 				}
 			} else if (stack.getItem() == ModItems.phantomInk) {
-				if (!world.isClient) {
+				if (!level.isClientSide) {
 					setInvisible(true);
 				}
-				return ActionResult.success(world.isClient);
+				return InteractionResult.sidedSuccess(level.isClientSide);
 			}
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Override
@@ -299,19 +299,19 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	@Nonnull
 	@Override
-	public Packet<?> createSpawnPacket() {
+	public Packet<?> getAddEntityPacket() {
 		return PacketSpawnEntity.make(this);
 	}
 
 	@Override
-	protected void readCustomDataFromTag(@Nonnull CompoundTag cmp) {
-		super.readCustomDataFromTag(cmp);
+	protected void readAdditionalSaveData(@Nonnull CompoundTag cmp) {
+		super.readAdditionalSaveData(cmp);
 		setMaster(cmp.getBoolean(TAG_MASTER));
 	}
 
 	@Override
-	protected void writeCustomDataToTag(@Nonnull CompoundTag cmp) {
-		super.writeCustomDataToTag(cmp);
+	protected void addAdditionalSaveData(@Nonnull CompoundTag cmp) {
+		super.addAdditionalSaveData(cmp);
 		cmp.putBoolean(TAG_MASTER, isMaster());
 	}
 

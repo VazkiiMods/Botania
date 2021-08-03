@@ -8,50 +8,50 @@
  */
 package vazkii.botania.common.entity;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.DyeColor;
-import net.minecraft.world.World;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.Level;
 
 public abstract class EntitySparkBase extends Entity {
 	private static final String TAG_INVIS = "invis";
 	private static final String TAG_NETWORK = "network";
-	private static final TrackedData<Integer> NETWORK = DataTracker.registerData(EntitySparkBase.class, TrackedDataHandlerRegistry.INTEGER);
+	private static final EntityDataAccessor<Integer> NETWORK = SynchedEntityData.defineId(EntitySparkBase.class, EntityDataSerializers.INT);
 
-	public EntitySparkBase(EntityType<?> type, World world) {
+	public EntitySparkBase(EntityType<?> type, Level world) {
 		super(type, world);
 	}
 
 	@Override
-	protected void initDataTracker() {
-		dataTracker.startTracking(NETWORK, 0);
+	protected void defineSynchedData() {
+		entityData.define(NETWORK, 0);
 	}
 
 	public DyeColor getNetwork() {
-		return DyeColor.byId(dataTracker.get(NETWORK));
+		return DyeColor.byId(entityData.get(NETWORK));
 	}
 
 	public void setNetwork(DyeColor color) {
-		dataTracker.set(NETWORK, color.getId());
+		entityData.set(NETWORK, color.getId());
 	}
 
 	@Override
-	public boolean collides() {
+	public boolean isPickable() {
 		return true;
 	}
 
 	@Override
-	protected void readCustomDataFromTag(CompoundTag compound) {
+	protected void readAdditionalSaveData(CompoundTag compound) {
 		setInvisible(compound.getBoolean(TAG_INVIS));
 		setNetwork(DyeColor.byId(compound.getInt(TAG_NETWORK)));
 	}
 
 	@Override
-	protected void writeCustomDataToTag(CompoundTag compound) {
+	protected void addAdditionalSaveData(CompoundTag compound) {
 		compound.putBoolean(TAG_INVIS, isInvisible());
 		compound.putInt(TAG_NETWORK, getNetwork().getId());
 	}

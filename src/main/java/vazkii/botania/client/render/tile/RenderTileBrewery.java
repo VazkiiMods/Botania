@@ -8,10 +8,11 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.model.ModelBrewery;
@@ -27,8 +28,8 @@ public class RenderTileBrewery extends BlockEntityRenderer<TileBrewery> {
 	}
 
 	@Override
-	public void render(@Nullable TileBrewery brewery, float f, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
-		ms.push();
+	public void render(@Nullable TileBrewery brewery, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+		ms.pushPose();
 
 		ms.scale(1F, -1F, -1F);
 		ms.translate(0.5F, -1.5F, -0.5F);
@@ -36,7 +37,7 @@ public class RenderTileBrewery extends BlockEntityRenderer<TileBrewery> {
 		double time = ClientTickHandler.ticksInGame + f;
 
 		model.render(brewery, time, ms, buffers, light, overlay);
-		ms.pop();
+		ms.popPose();
 	}
 
 }

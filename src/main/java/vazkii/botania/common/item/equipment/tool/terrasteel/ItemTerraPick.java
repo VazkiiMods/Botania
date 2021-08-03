@@ -12,27 +12,32 @@ import com.google.common.collect.ImmutableSet;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
+import net.minecraft.core.Vec3i;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.*;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.ISequentialBreaker;
@@ -63,8 +68,8 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	private static final int MANA_PER_DAMAGE = 100;
 
 	private static final Set<Material> MATERIALS = ImmutableSet.of(Material.STONE, Material.METAL, Material.ICE,
-			Material.GLASS, Material.PISTON, Material.REPAIR_STATION, Material.SOLID_ORGANIC, Material.SOIL, Material.AGGREGATE,
-			Material.SNOW_LAYER, Material.SNOW_BLOCK, Material.ORGANIC_PRODUCT);
+			Material.GLASS, Material.PISTON, Material.HEAVY_METAL, Material.GRASS, Material.DIRT, Material.SAND,
+			Material.TOP_SNOW, Material.SNOW, Material.CLAY);
 
 	public static final int[] LEVELS = new int[] {
 			0, 10000, 1000000, 10000000, 100000000, 1000000000
@@ -74,13 +79,13 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 			10000 - 1, 1000000 - 1, 10000000 - 1, 100000000 - 1, 1000000000 - 1, MAX_MANA - 1
 	};
 
-	public ItemTerraPick(Settings props) {
+	public ItemTerraPick(Properties props) {
 		super(BotaniaAPI.instance().getTerrasteelItemTier(), props, -2.8F);
 	}
 
 	@Override
-	public void appendStacks(@Nonnull ItemGroup tab, @Nonnull DefaultedList<ItemStack> list) {
-		if (isIn(tab)) {
+	public void fillItemCategory(@Nonnull CreativeModeTab tab, @Nonnull NonNullList<ItemStack> list) {
+		if (allowdedIn(tab)) {
 			for (int mana : CREATIVE_MANA) {
 				ItemStack stack = new ItemStack(this);
 				setMana(stack, mana);
@@ -95,60 +100,60 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendTooltip(ItemStack stack, World world, List<Text> stacks, TooltipContext flags) {
-		Text rank = new TranslatableText("botania.rank" + getLevel(stack));
-		Text rankFormat = new TranslatableText("botaniamisc.toolRank", rank);
+	public void appendHoverText(ItemStack stack, Level world, List<Component> stacks, TooltipFlag flags) {
+		Component rank = new TranslatableComponent("botania.rank" + getLevel(stack));
+		Component rankFormat = new TranslatableComponent("botaniamisc.toolRank", rank);
 		stacks.add(rankFormat);
 		if (getMana(stack) == Integer.MAX_VALUE) {
-			stacks.add(new TranslatableText("botaniamisc.getALife").formatted(Formatting.RED));
+			stacks.add(new TranslatableComponent("botaniamisc.getALife").withStyle(ChatFormatting.RED));
 		}
 	}
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getStackInHand(hand);
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
 
 		getMana(stack);
 		int level = getLevel(stack);
 
 		if (level != 0) {
 			setEnabled(stack, !isEnabled(stack));
-			if (!world.isClient) {
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraPickMode, SoundCategory.PLAYERS, 0.5F, 0.4F);
+			if (!world.isClientSide) {
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraPickMode, SoundSource.PLAYERS, 0.5F, 0.4F);
 			}
 		}
 
-		return TypedActionResult.success(stack);
+		return InteractionResultHolder.success(stack);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		return ctx.getPlayer() == null || ctx.getPlayer().isSneaking() ? super.useOnBlock(ctx)
-				: ActionResult.PASS;
+	public InteractionResult useOn(UseOnContext ctx) {
+		return ctx.getPlayer() == null || ctx.getPlayer().isShiftKeyDown() ? super.useOn(ctx)
+				: InteractionResult.PASS;
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
 		super.inventoryTick(stack, world, entity, slot, selected);
 		if (isEnabled(stack)) {
 			int level = getLevel(stack);
 
 			if (level == 0) {
 				setEnabled(stack, false);
-			} else if (entity instanceof PlayerEntity && !((PlayerEntity) entity).handSwinging) {
+			} else if (entity instanceof Player && !((Player) entity).swinging) {
 				addMana(stack, -level);
 			}
 		}
 	}
 
-	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, PlayerEntity player) {
+	public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, Player player) {
 		BlockHitResult raycast = ToolCommons.raytraceFromEntity(player, 10, false);
-		if (!player.world.isClient && raycast.getType() == HitResult.Type.BLOCK) {
-			Direction face = raycast.getSide();
+		if (!player.level.isClientSide && raycast.getType() == HitResult.Type.BLOCK) {
+			Direction face = raycast.getDirection();
 			breakOtherBlock(player, stack, pos, pos, face);
-			if (player.shouldCancelInteraction()) {
+			if (player.isSecondaryUseActive()) {
 				BotaniaAPI.instance().breakOnAllCursors(player, stack, pos, face);
 			}
 		}
@@ -162,25 +167,25 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	}
 
 	@Override
-	public void breakOtherBlock(PlayerEntity player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side) {
+	public void breakOtherBlock(Player player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side) {
 		if (!isEnabled(stack)) {
 			return;
 		}
 
-		World world = player.world;
+		Level world = player.level;
 		BlockState targetState = world.getBlockState(pos);
-		if (stack.getMiningSpeedMultiplier(targetState) <= 1.0F && !MATERIALS.contains(targetState.getMaterial())) {
+		if (stack.getDestroySpeed(targetState) <= 1.0F && !MATERIALS.contains(targetState.getMaterial())) {
 			return;
 		}
 
-		if (world.isAir(pos)) {
+		if (world.isEmptyBlock(pos)) {
 			return;
 		}
 
 		boolean thor = !ItemThorRing.getThorRing(player).isEmpty();
-		boolean doX = thor || side.getOffsetX() == 0;
-		boolean doY = thor || side.getOffsetY() == 0;
-		boolean doZ = thor || side.getOffsetZ() == 0;
+		boolean doX = thor || side.getStepX() == 0;
+		boolean doY = thor || side.getStepY() == 0;
+		boolean doZ = thor || side.getStepZ() == 0;
 
 		int origLevel = getLevel(stack);
 		int level = origLevel + (thor ? 1 : 0);
@@ -199,10 +204,10 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		Vec3i endDiff = new Vec3i(doX ? range : 0, doY ? rangeY * 2 - 1 : 0, doZ ? range : 0);
 
 		ToolCommons.removeBlocksInIteration(player, stack, world, pos, beginDiff, endDiff,
-				state -> stack.getMiningSpeedMultiplier(state) > 1.0F || MATERIALS.contains(state.getMaterial()));
+				state -> stack.getDestroySpeed(state) > 1.0F || MATERIALS.contains(state.getMaterial()));
 
 		if (origLevel == 5) {
-			PlayerHelper.grantCriterion((ServerPlayerEntity) player, prefix("challenge/rank_ss_pick"), "code_triggered");
+			PlayerHelper.grantCriterion((ServerPlayer) player, prefix("challenge/rank_ss_pick"), "code_triggered");
 		}
 	}
 
@@ -263,7 +268,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@Override
 	public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack) {
-		return !otherStack.getItem().isIn(ModTags.Items.TERRA_PICK_BLACKLIST);
+		return !otherStack.getItem().is(ModTags.Items.TERRA_PICK_BLACKLIST);
 	}
 
 	@Override
@@ -292,7 +297,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	@Override
 	public Rarity getRarity(@Nonnull ItemStack stack) {
 		int level = getLevel(stack);
-		if (stack.hasEnchantments()) {
+		if (stack.isEnchanted()) {
 			level++;
 		}
 		if (level >= 5) { // SS rank/enchanted S rank

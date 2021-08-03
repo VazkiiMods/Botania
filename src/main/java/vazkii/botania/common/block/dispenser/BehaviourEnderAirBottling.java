@@ -8,53 +8,53 @@
  */
 package vazkii.botania.common.block.dispenser;
 
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.block.dispenser.DispenserBehavior;
-import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
-import net.minecraft.block.dispenser.ItemDispenserBehavior;
-import net.minecraft.block.entity.DispenserBlockEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPointer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.BlockSource;
+import net.minecraft.core.Direction;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.core.dispenser.DispenseItemBehavior;
+import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.entity.DispenserBlockEntity;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.material.ItemEnderAir;
 
 import javax.annotation.Nonnull;
 
-public class BehaviourEnderAirBottling extends FallibleItemDispenserBehavior {
-	private final ItemDispenserBehavior defaultBehaviour = new ItemDispenserBehavior();
-	private final DispenserBehavior parent;
+public class BehaviourEnderAirBottling extends OptionalDispenseItemBehavior {
+	private final DefaultDispenseItemBehavior defaultBehaviour = new DefaultDispenseItemBehavior();
+	private final DispenseItemBehavior parent;
 
-	public BehaviourEnderAirBottling(DispenserBehavior parent) {
+	public BehaviourEnderAirBottling(DispenseItemBehavior parent) {
 		this.parent = parent;
 	}
 
 	@Override
-	protected void playSound(BlockPointer source) {
+	protected void playSound(BlockSource source) {
 		if (this.isSuccess()) {
 			super.playSound(source);
 		}
 	}
 
 	@Override
-	protected void spawnParticles(BlockPointer source, Direction facingIn) {
+	protected void playAnimation(BlockSource source, Direction facingIn) {
 		if (this.isSuccess()) {
-			super.spawnParticles(source, facingIn);
+			super.playAnimation(source, facingIn);
 		}
 	}
 
 	@Nonnull
 	@Override
-	protected ItemStack dispenseSilently(BlockPointer source, @Nonnull ItemStack stack) {
-		World world = source.getWorld();
-		BlockPos blockpos = source.getBlockPos().offset(source.getBlockState().get(DispenserBlock.FACING));
-		if (world.getRegistryKey() == World.END
-				&& world.isAir(blockpos) && world.isAir(blockpos.up())
-				&& ItemEnderAir.isClearFromDragonBreath(world, new Box(blockpos).expand(2.0D))) {
+	protected ItemStack execute(BlockSource source, @Nonnull ItemStack stack) {
+		Level world = source.getLevel();
+		BlockPos blockpos = source.getPos().relative(source.getBlockState().getValue(DispenserBlock.FACING));
+		if (world.dimension() == Level.END
+				&& world.isEmptyBlock(blockpos) && world.isEmptyBlock(blockpos.above())
+				&& ItemEnderAir.isClearFromDragonBreath(world, new AABB(blockpos).inflate(2.0D))) {
 			this.setSuccess(true);
 			return fillBottle(source, stack, new ItemStack(ModItems.enderAirBottle));
 		}
@@ -62,12 +62,12 @@ public class BehaviourEnderAirBottling extends FallibleItemDispenserBehavior {
 		return parent.dispense(source, stack);
 	}
 
-	private ItemStack fillBottle(BlockPointer source, ItemStack input, ItemStack output) {
-		input.decrement(1);
+	private ItemStack fillBottle(BlockSource source, ItemStack input, ItemStack output) {
+		input.shrink(1);
 		if (input.isEmpty()) {
 			return output.copy();
 		} else {
-			if (((DispenserBlockEntity) source.getBlockEntity()).addToFirstFreeSlot(output.copy()) < 0) {
+			if (((DispenserBlockEntity) source.getEntity()).addItem(output.copy()) < 0) {
 				this.defaultBehaviour.dispense(source, output.copy());
 			}
 			return input;

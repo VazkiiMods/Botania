@@ -8,26 +8,26 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.wand.IWandable;
@@ -37,82 +37,82 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockLightRelay extends BlockModWaterloggable implements BlockEntityProvider, IWandable {
+public class BlockLightRelay extends BlockModWaterloggable implements EntityBlock, IWandable {
 
-	private static final VoxelShape SHAPE = createCuboidShape(5, 5, 5, 11, 11, 11);
+	private static final VoxelShape SHAPE = box(5, 5, 5, 11, 11, 11);
 	public final LuminizerVariant variant;
 
-	protected BlockLightRelay(LuminizerVariant variant, Settings builder) {
+	protected BlockLightRelay(LuminizerVariant variant, Properties builder) {
 		super(builder);
 		this.variant = variant;
-		setDefaultState(getDefaultState().with(Properties.POWERED, false));
+		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.POWERED, false));
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		super.appendProperties(builder);
-		builder.add(Properties.POWERED);
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(BlockStateProperties.POWERED);
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		if (player.getStackInHand(hand).getItem() != Items.ENDER_PEARL) {
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		if (player.getItemInHand(hand).getItem() != Items.ENDER_PEARL) {
 			BlockEntity te = world.getBlockEntity(pos);
 			if (te instanceof TileLightRelay) {
 				((TileLightRelay) te).mountEntity(player);
-				return ActionResult.SUCCESS;
+				return InteractionResult.SUCCESS;
 			}
 		}
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Override
-	public void neighborUpdate(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
-		if (!worldIn.isClient && variant == LuminizerVariant.TOGGLE) {
-			if (state.get(Properties.POWERED) && !worldIn.isReceivingRedstonePower(pos)) {
-				worldIn.setBlockState(pos, state.with(Properties.POWERED, false));
-			} else if (!state.get(Properties.POWERED) && worldIn.isReceivingRedstonePower(pos)) {
-				worldIn.setBlockState(pos, state.with(Properties.POWERED, true));
+	public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+		if (!worldIn.isClientSide && variant == LuminizerVariant.TOGGLE) {
+			if (state.getValue(BlockStateProperties.POWERED) && !worldIn.hasNeighborSignal(pos)) {
+				worldIn.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
+			} else if (!state.getValue(BlockStateProperties.POWERED) && worldIn.hasNeighborSignal(pos)) {
+				worldIn.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, true));
 			}
 		}
 	}
 
 	@Override
-	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
-		world.setBlockState(pos, state.with(Properties.POWERED, false));
+	public void tick(BlockState state, ServerLevel world, BlockPos pos, Random rand) {
+		world.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, false));
 	}
 
 	@Override
-	public boolean emitsRedstonePower(BlockState state) {
+	public boolean isSignalSource(BlockState state) {
 		return variant == LuminizerVariant.DETECTOR;
 	}
 
 	@Override
-	public int getWeakRedstonePower(BlockState state, BlockView world, BlockPos pos, Direction s) {
+	public int getSignal(BlockState state, BlockGetter world, BlockPos pos, Direction s) {
 		return variant == LuminizerVariant.DETECTOR
-				&& state.get(Properties.POWERED) ? 15 : 0;
+				&& state.getValue(BlockStateProperties.POWERED) ? 15 : 0;
 	}
 
 	@Nonnull
 	@Override
-	public BlockRenderType getRenderType(BlockState state) {
-		return BlockRenderType.ENTITYBLOCK_ANIMATED;
+	public RenderShape getRenderShape(BlockState state) {
+		return RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileLightRelay();
 	}
 
 	@Override
-	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
+	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
 		return false;
 	}
 

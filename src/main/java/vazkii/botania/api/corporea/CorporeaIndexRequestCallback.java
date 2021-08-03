@@ -10,7 +10,7 @@ package vazkii.botania.api.corporea;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.level.ServerPlayer;
 
 /**
  * CorporeaIndexRequestEvent is fired when a player attempts to request an item from a corporea index.
@@ -29,5 +29,5 @@ public interface CorporeaIndexRequestCallback {
 	/**
 	 * @return {@code true} to cancel the request
 	 */
-	boolean onIndexRequest(ServerPlayerEntity requester, ICorporeaRequestMatcher request, int requestCount, ICorporeaSpark indexSpark);
+	boolean onIndexRequest(ServerPlayer requester, ICorporeaRequestMatcher request, int requestCount, ICorporeaSpark indexSpark);
 }

@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.item.relic;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.item.ModItems;
@@ -19,16 +19,16 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ItemThorRing extends ItemRelicBauble {
 
-	public ItemThorRing(Settings props) {
+	public ItemThorRing(Properties props) {
 		super(props);
 	}
 
 	@Override
-	public Identifier getAdvancement() {
+	public ResourceLocation getAdvancement() {
 		return prefix("challenge/thor_ring");
 	}
 
-	public static ItemStack getThorRing(PlayerEntity player) {
+	public static ItemStack getThorRing(Player player) {
 		return EquipmentHandler.findOrEmpty(ModItems.thorRing, player);
 	}
 }

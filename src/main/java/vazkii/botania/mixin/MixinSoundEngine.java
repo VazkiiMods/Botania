@@ -8,9 +8,9 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.sound.SoundInstance;
-import net.minecraft.client.sound.SoundSystem;
-import net.minecraft.sound.SoundCategory;
+import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.client.sounds.SoundEngine;
+import net.minecraft.sounds.SoundSource;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -21,25 +21,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.common.block.subtile.functional.SubTileBergamute;
 
-@Mixin(SoundSystem.class)
+@Mixin(SoundEngine.class)
 public class MixinSoundEngine {
 	@Unique
 	private SoundInstance tmpSound;
 
-	@Inject(at = @At("HEAD"), method = "getAdjustedVolume")
+	@Inject(at = @At("HEAD"), method = "calculateVolume")
 	private void captureSound(SoundInstance sound, CallbackInfoReturnable<Float> cir) {
 		tmpSound = sound;
 	}
 
 	@Unique
 	private static boolean shouldSilence(SoundInstance sound) {
-		return sound.getCategory() != SoundCategory.VOICE
-				&& sound.getCategory() != SoundCategory.MUSIC
-				&& sound.getCategory() != SoundCategory.RECORDS
-				&& sound.getCategory() != SoundCategory.AMBIENT;
+		return sound.getSource() != SoundSource.VOICE
+				&& sound.getSource() != SoundSource.MUSIC
+				&& sound.getSource() != SoundSource.RECORDS
+				&& sound.getSource() != SoundSource.AMBIENT;
 	}
 
-	@ModifyArg(index = 0, at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/MathHelper;clamp(FFF)F"), method = "getAdjustedVolume")
+	@ModifyArg(index = 0, at = @At(value = "INVOKE", target = "Lnet/minecraft/util/Mth;clamp(FFF)F"), method = "calculateVolume")
 	private float bergamuateAttenuate(float volume) {
 		if (shouldSilence(tmpSound)) {
 			int count = SubTileBergamute.countFlowersAround(tmpSound);
@@ -51,7 +51,7 @@ public class MixinSoundEngine {
 		return volume;
 	}
 
-	@Inject(at = @At("RETURN"), method = "getAdjustedVolume")
+	@Inject(at = @At("RETURN"), method = "calculateVolume")
 	private void clearSound(SoundInstance sound, CallbackInfoReturnable<Float> cir) {
 		tmpSound = null;
 	}

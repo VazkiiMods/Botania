@@ -8,17 +8,17 @@
  */
 package vazkii.botania.common.integration.corporea;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ChestBlock;
-import net.minecraft.block.InventoryProvider;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SidedInventory;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.Container;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.WorldlyContainerHolder;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.corporea.ICorporeaNode;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
@@ -31,27 +31,27 @@ import javax.annotation.Nullable;
 public class VanillaNodeDetector implements ICorporeaNodeDetector {
 	@Nullable
 	@Override
-	public ICorporeaNode getNode(World world, ICorporeaSpark spark) {
+	public ICorporeaNode getNode(Level world, ICorporeaSpark spark) {
 		BlockPos pos = spark.getAttachPos();
 
 		// [VanillaCopy] HopperBlockEntity
-		Inventory inventory = null;
+		Container inventory = null;
 		BlockState blockState = world.getBlockState(pos);
 		Block block = blockState.getBlock();
-		if (block instanceof InventoryProvider) {
-			inventory = ((InventoryProvider) block).getInventory(blockState, world, pos);
-		} else if (block.hasBlockEntity()) {
+		if (block instanceof WorldlyContainerHolder) {
+			inventory = ((WorldlyContainerHolder) block).getContainer(blockState, world, pos);
+		} else if (block.isEntityBlock()) {
 			BlockEntity blockEntity = world.getBlockEntity(pos);
-			if (blockEntity instanceof Inventory) {
-				inventory = (Inventory) blockEntity;
+			if (blockEntity instanceof Container) {
+				inventory = (Container) blockEntity;
 				if (inventory instanceof ChestBlockEntity && block instanceof ChestBlock) {
-					inventory = ChestBlock.getInventory((ChestBlock) block, blockState, world, pos, true);
+					inventory = ChestBlock.getContainer((ChestBlock) block, blockState, world, pos, true);
 				}
 			}
 		}
 
-		if (inventory instanceof SidedInventory) {
-			return new SidedVanillaCorporeaNode(world, spark.getAttachPos(), spark, (SidedInventory) inventory, Direction.UP);
+		if (inventory instanceof WorldlyContainer) {
+			return new SidedVanillaCorporeaNode(world, spark.getAttachPos(), spark, (WorldlyContainer) inventory, Direction.UP);
 		} else if (inventory != null) {
 			return new VanillaCorporeaNode(world, spark.getAttachPos(), inventory, spark);
 		}

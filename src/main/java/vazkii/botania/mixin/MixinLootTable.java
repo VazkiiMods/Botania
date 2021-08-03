@@ -8,12 +8,12 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.context.LootContextParameters;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -30,28 +30,29 @@ import java.util.function.Consumer;
 
 @Mixin(LootTable.class)
 public class MixinLootTable {
-	private static final Identifier GOG_SEEDS = new Identifier(LibMisc.GOG_MOD_ID, "extra_seeds");
+	private static final ResourceLocation GOG_SEEDS = new ResourceLocation(LibMisc.GOG_MOD_ID, "extra_seeds");
 
 	@Unique
 	private boolean callingGogTable;
 
-	@Inject(at = @At("RETURN"), method = "generateLoot(Lnet/minecraft/loot/context/LootContext;Ljava/util/function/Consumer;)V")
+	@Inject(at = @At("RETURN"), method = "getRandomItemsRaw")
 	private void addGogSeeds(LootContext context, Consumer<ItemStack> stacksOut, CallbackInfo ci) {
 		if (Botania.gardenOfGlassLoaded && !callingGogTable) {
 			callingGogTable = true;
-			context.getSupplier(GOG_SEEDS).generateLoot(context, stacksOut);
+			context.getLootTable(GOG_SEEDS).getRandomItems(context, stacksOut);
 			callingGogTable = false;
 		}
 	}
 
 	@ModifyArg(
-		method = "generateLoot(Lnet/minecraft/loot/context/LootContext;Ljava/util/function/Consumer;)V",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/loot/LootTable;generateUnprocessedLoot(Lnet/minecraft/loot/context/LootContext;Ljava/util/function/Consumer;)V")
+		method = "getRandomItems(Lnet/minecraft/world/level/storage/loot/LootContext;Ljava/util/function/Consumer;)V",
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/loot/LootTable;createStackSplitter(Ljava/util/function/Consumer;)Ljava/util/function/Consumer;"),
+		index = 1
 	)
 	private Consumer<ItemStack> filterDisposables(LootContext context, Consumer<ItemStack> inner) {
 		return stack -> {
-			Entity e = context.get(LootContextParameters.THIS_ENTITY);
-			ItemStack tool = context.get(LootContextParameters.TOOL);
+			Entity e = context.getParamOrNull(LootContextParams.THIS_ENTITY);
+			ItemStack tool = context.getParamOrNull(LootContextParams.TOOL);
 			if (e != null && tool != null) {
 				if (ItemElementiumPick.shouldFilterOut(e, tool, stack)) {
 					return;

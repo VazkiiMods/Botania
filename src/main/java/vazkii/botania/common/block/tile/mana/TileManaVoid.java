@@ -33,7 +33,7 @@ public class TileManaVoid extends TileMod implements IManaReceiver {
 	@Override
 	public void receiveMana(int mana) {
 		if (mana > 0) {
-			world.addSyncedBlockEvent(getPos(), getCachedState().getBlock(), SPARKLE_EVENT, 0);
+			level.blockEvent(getBlockPos(), getBlockState().getBlock(), SPARKLE_EVENT, 0);
 		}
 	}
 
@@ -43,16 +43,16 @@ public class TileManaVoid extends TileMod implements IManaReceiver {
 	}
 
 	@Override
-	public boolean onSyncedBlockEvent(int id, int payload) {
+	public boolean triggerEvent(int id, int payload) {
 		if (id == SPARKLE_EVENT) {
-			if (world.isClient) {
+			if (level.isClientSide) {
 				for (int i = 0; i < 10; i++) {
 					SparkleParticleData data = SparkleParticleData.sparkle(0.7F + 0.5F * (float) Math.random(), 0.2F, 0.2F, 0.2F, 5);
-					world.addParticle(data, pos.getX() + Math.random(), pos.getY() + Math.random(), pos.getZ() + Math.random(), 0, 0, 0);
+					level.addParticle(data, worldPosition.getX() + Math.random(), worldPosition.getY() + Math.random(), worldPosition.getZ() + Math.random(), 0, 0, 0);
 				}
 			}
 			return true;
 		}
-		return super.onSyncedBlockEvent(id, payload);
+		return super.triggerEvent(id, payload);
 	}
 }

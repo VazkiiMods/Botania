@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.brew;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * An Item that implements this is a Brew item, by which it contains

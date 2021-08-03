@@ -10,16 +10,16 @@ package vazkii.botania.common.item.equipment.armor.elementium;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Lazy;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
@@ -31,13 +31,13 @@ import java.util.List;
 
 public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 
-	public ItemElementiumArmor(EquipmentSlot type, Settings props) {
+	public ItemElementiumArmor(EquipmentSlot type, Properties props) {
 		super(type, BotaniaAPI.instance().getElementiumArmorMaterial(), props);
 	}
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	protected BipedEntityModel<LivingEntity> provideArmorModelForSlot(EquipmentSlot slot) {
+	protected HumanoidModel<LivingEntity> provideArmorModelForSlot(EquipmentSlot slot) {
 		return new ModelArmorElementium(slot);
 	}
 
@@ -46,7 +46,7 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 		return LibResources.MODEL_ELEMENTIUM_NEW;
 	}
 
-	private static final Lazy<ItemStack[]> armorSet = new Lazy<>(() -> new ItemStack[] {
+	private static final LazyLoadedValue<ItemStack[]> armorSet = new LazyLoadedValue<>(() -> new ItemStack[] {
 			new ItemStack(ModItems.elementiumHelm),
 			new ItemStack(ModItems.elementiumChest),
 			new ItemStack(ModItems.elementiumLegs),
@@ -59,12 +59,12 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 	}
 
 	@Override
-	public boolean hasArmorSetItem(PlayerEntity player, EquipmentSlot slot) {
+	public boolean hasArmorSetItem(Player player, EquipmentSlot slot) {
 		if (player == null) {
 			return false;
 		}
 
-		ItemStack stack = player.getEquippedStack(slot);
+		ItemStack stack = player.getItemBySlot(slot);
 		if (stack.isEmpty()) {
 			return false;
 		}
@@ -84,15 +84,15 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 	}
 
 	@Override
-	public MutableText getArmorSetName() {
-		return new TranslatableText("botania.armorset.elementium.name");
+	public MutableComponent getArmorSetName() {
+		return new TranslatableComponent("botania.armorset.elementium.name");
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void addArmorSetDescription(ItemStack stack, List<Text> list) {
+	public void addArmorSetDescription(ItemStack stack, List<Component> list) {
 		super.addArmorSetDescription(stack, list);
-		list.add(new TranslatableText("botania.armorset.elementium.desc").formatted(Formatting.GRAY));
+		list.add(new TranslatableComponent("botania.armorset.elementium.desc").withStyle(ChatFormatting.GRAY));
 	}
 
 }

@@ -8,12 +8,12 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IRelic;
@@ -35,16 +35,16 @@ public class ItemMagnetRing extends ItemBauble {
 
 	private final int range;
 
-	public ItemMagnetRing(Settings props) {
+	public ItemMagnetRing(Properties props) {
 		this(props, 6);
 	}
 
-	public ItemMagnetRing(Settings props, int range) {
+	public ItemMagnetRing(Properties props, int range) {
 		super(props);
 		this.range = range;
 	}
 
-	public static void onTossItem(PlayerEntity player) {
+	public static void onTossItem(Player player) {
 		ItemStack ring = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemMagnetRing, player);
 		if (!ring.isEmpty()) {
 			setCooldown(ring, 100);
@@ -69,13 +69,13 @@ public class ItemMagnetRing extends ItemBauble {
 		}
 
 		if (cooldown <= 0) {
-			if (living.isSneaking() == ConfigHandler.COMMON.invertMagnetRing.getValue()) {
+			if (living.isShiftKeyDown() == ConfigHandler.COMMON.invertMagnetRing.getValue()) {
 				double x = living.getX();
 				double y = living.getY() + 0.75;
 				double z = living.getZ();
 
 				int range = ((ItemMagnetRing) stack.getItem()).range;
-				List<ItemEntity> items = living.world.getNonSpectatingEntities(ItemEntity.class, new Box(x - range, y - range, z - range, x + range, y + range, z + range));
+				List<ItemEntity> items = living.level.getEntitiesOfClass(ItemEntity.class, new AABB(x - range, y - range, z - range, x + range, y + range, z + range));
 				int pulled = 0;
 				for (ItemEntity item : items) {
 					if (((ItemMagnetRing) stack.getItem()).canPullItem(item)) {
@@ -84,12 +84,12 @@ public class ItemMagnetRing extends ItemBauble {
 						}
 
 						MathHelper.setEntityMotionFromVector(item, new Vector3(x, y, z), 0.45F);
-						if (living.world.isClient) {
-							boolean red = living.world.random.nextBoolean();
+						if (living.level.isClientSide) {
+							boolean red = living.level.random.nextBoolean();
 							float r = red ? 1F : 0F;
 							float b = red ? 0F : 1F;
 							SparkleParticleData data = SparkleParticleData.sparkle(1F, r, 0F, b, 3);
-							living.world.addParticle(data, item.getX(), item.getY(), item.getZ(), 0, 0, 0);
+							living.level.addParticle(data, item.getX(), item.getY(), item.getZ(), 0, 0, 0);
 						}
 						pulled++;
 					}
@@ -106,18 +106,18 @@ public class ItemMagnetRing extends ItemBauble {
 			return false;
 		}
 
-		ItemStack stack = item.getStack();
+		ItemStack stack = item.getItem();
 		if (stack.isEmpty() || stack.getItem() instanceof IManaItem || stack.getItem() instanceof IRelic || ModTags.Items.MAGNET_RING_BLACKLIST.contains(stack.getItem())) {
 			return false;
 		}
 
-		BlockPos pos = item.getBlockPos();
+		BlockPos pos = item.blockPosition();
 
-		if (ModTags.Blocks.MAGNET_RING_BLACKLIST.contains(item.world.getBlockState(pos).getBlock())) {
+		if (ModTags.Blocks.MAGNET_RING_BLACKLIST.contains(item.level.getBlockState(pos).getBlock())) {
 			return false;
 		}
 
-		if (ModTags.Blocks.MAGNET_RING_BLACKLIST.contains(item.world.getBlockState(pos.down()).getBlock())) {
+		if (ModTags.Blocks.MAGNET_RING_BLACKLIST.contains(item.level.getBlockState(pos.below()).getBlock())) {
 			return false;
 		}
 

@@ -10,13 +10,13 @@ package vazkii.botania.client.patchouli.processor;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.KeybindText;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.KeybindComponent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.recipe.IManaInfusionRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
@@ -47,7 +47,7 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 			builder.addAll(PatchouliUtils.getRecipeGroup(ModRecipeTypes.MANA_INFUSION_TYPE, group));
 		} else {
 			for (IVariable s : variables.get("recipes").asListOrSingleton()) {
-				IManaInfusionRecipe recipe = PatchouliUtils.getRecipe(ModRecipeTypes.MANA_INFUSION_TYPE, new Identifier(s.asString()));
+				IManaInfusionRecipe recipe = PatchouliUtils.getRecipe(ModRecipeTypes.MANA_INFUSION_TYPE, new ResourceLocation(s.asString()));
 				if (recipe != null) {
 					builder.add(recipe);
 				}
@@ -66,13 +66,13 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 		switch (key) {
 		case "heading":
 			if (!hasCustomHeading) {
-				return IVariable.from(recipes.get(0).getOutput().getName());
+				return IVariable.from(recipes.get(0).getResultItem().getHoverName());
 			}
 			return null;
 		case "input":
-			return PatchouliUtils.interweaveIngredients(recipes.stream().map(r -> r.getPreviewInputs().get(0)).collect(Collectors.toList()));
+			return PatchouliUtils.interweaveIngredients(recipes.stream().map(r -> r.getIngredients().get(0)).collect(Collectors.toList()));
 		case "output":
-			return IVariable.wrapList(recipes.stream().map(IManaInfusionRecipe::getOutput).map(IVariable::from).collect(Collectors.toList()));
+			return IVariable.wrapList(recipes.stream().map(IManaInfusionRecipe::getResultItem).map(IVariable::from).collect(Collectors.toList()));
 		case "catalyst":
 			return IVariable.wrapList(recipes.stream().map(IManaInfusionRecipe::getRecipeCatalyst)
 					.flatMap(ingr -> {
@@ -86,12 +86,12 @@ public class ManaInfusionProcessor implements IComponentProcessor {
 		case "mana":
 			return IVariable.wrapList(recipes.stream().mapToInt(IManaInfusionRecipe::getManaToConsume).mapToObj(IVariable::wrap).collect(Collectors.toList()));
 		case "drop":
-			Text q = new LiteralText("(?)").formatted(Formatting.BOLD);
-			return IVariable.from(new TranslatableText("botaniamisc.drop").append(" ").append(q));
+			Component q = new TextComponent("(?)").withStyle(ChatFormatting.BOLD);
+			return IVariable.from(new TranslatableComponent("botaniamisc.drop").append(" ").append(q));
 		case "dropTip0":
 		case "dropTip1":
-			Text drop = new KeybindText("key.drop").formatted(Formatting.GREEN);
-			return IVariable.from(new TranslatableText("botaniamisc." + key, drop));
+			Component drop = new KeybindComponent("key.drop").withStyle(ChatFormatting.GREEN);
+			return IVariable.from(new TranslatableComponent("botaniamisc." + key, drop));
 		}
 		return null;
 	}

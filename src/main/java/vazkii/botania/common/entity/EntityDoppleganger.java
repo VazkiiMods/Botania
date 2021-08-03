@@ -11,58 +11,64 @@ package vazkii.botania.common.entity;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BeaconBlockEntity;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.sound.MovingSoundInstance;
-import net.minecraft.client.util.Rect2i;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.*;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.boss.BossBar;
-import net.minecraft.entity.boss.ServerBossBar;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.data.TrackedData;
-import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffectType;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.entity.mob.WitherSkeletonEntity;
-import net.minecraft.entity.mob.ZombieEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.loot.LootTables;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.Rect2i;
+import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Packet;
-import net.minecraft.network.packet.s2c.play.RemoveEntityStatusEffectS2CPacket;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.tag.Tag;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundRemoveMobEffectPacket;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.monster.WitherSkeleton;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BeaconBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.core.handler.BossBarHandler;
 import vazkii.botania.client.core.helper.ShaderCallback;
@@ -88,7 +94,7 @@ import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class EntityDoppleganger extends MobEntity {
+public class EntityDoppleganger extends Mob {
 	public static final float ARENA_RANGE = 12F;
 	public static final int ARENA_HEIGHT = 5;
 
@@ -111,9 +117,9 @@ public class EntityDoppleganger extends MobEntity {
 	private static final String TAG_MOB_SPAWN_TICKS = "mobSpawnTicks";
 	private static final String TAG_HARD_MODE = "hardMode";
 	private static final String TAG_PLAYER_COUNT = "playerCount";
-	private static final Tag.Identified<Block> BLACKLIST = ModTags.Blocks.GAIA_BREAK_BLACKLIST;
+	private static final Tag.Named<Block> BLACKLIST = ModTags.Blocks.GAIA_BREAK_BLACKLIST;
 
-	private static final TrackedData<Integer> INVUL_TIME = DataTracker.registerData(EntityDoppleganger.class, TrackedDataHandlerRegistry.INTEGER);
+	private static final EntityDataAccessor<Integer> INVUL_TIME = SynchedEntityData.defineId(EntityDoppleganger.class, EntityDataSerializers.INT);
 
 	private static final List<BlockPos> PYLON_LOCATIONS = ImmutableList.of(
 			new BlockPos(4, 1, 4),
@@ -122,9 +128,9 @@ public class EntityDoppleganger extends MobEntity {
 			new BlockPos(-4, 1, -4)
 	);
 
-	private static final List<Identifier> CHEATY_BLOCKS = Arrays.asList(
-			new Identifier("openblocks", "beartrap"),
-			new Identifier("thaumictinkerer", "magnet")
+	private static final List<ResourceLocation> CHEATY_BLOCKS = Arrays.asList(
+			new ResourceLocation("openblocks", "beartrap"),
+			new ResourceLocation("thaumictinkerer", "magnet")
 	);
 
 	private boolean spawnLandmines = false;
@@ -135,21 +141,21 @@ public class EntityDoppleganger extends MobEntity {
 	private int mobSpawnTicks = 0;
 	private int playerCount = 0;
 	private boolean hardMode = false;
-	private BlockPos source = BlockPos.ORIGIN;
+	private BlockPos source = BlockPos.ZERO;
 	private final List<UUID> playersWhoAttacked = new ArrayList<>();
-	private final ServerBossBar bossInfo = (ServerBossBar) new ServerBossBar(ModEntities.DOPPLEGANGER.getName(), BossBar.Color.PINK, BossBar.Style.PROGRESS).setThickenFog(true);;
-	private UUID bossInfoUUID = bossInfo.getUuid();
-	public PlayerEntity trueKiller = null;
+	private final ServerBossEvent bossInfo = (ServerBossEvent) new ServerBossEvent(ModEntities.DOPPLEGANGER.getDescription(), BossEvent.BossBarColor.PINK, BossEvent.BossBarOverlay.PROGRESS).setCreateWorldFog(true);;
+	private UUID bossInfoUUID = bossInfo.getId();
+	public Player trueKiller = null;
 
-	public EntityDoppleganger(EntityType<EntityDoppleganger> type, World world) {
+	public EntityDoppleganger(EntityType<EntityDoppleganger> type, Level world) {
 		super(type, world);
-		experiencePoints = 825;
-		if (world.isClient) {
+		xpReward = 825;
+		if (world.isClientSide) {
 			Botania.proxy.addBoss(this);
 		}
 	}
 
-	public static boolean spawn(PlayerEntity player, ItemStack stack, World world, BlockPos pos, boolean hard) {
+	public static boolean spawn(Player player, ItemStack stack, Level world, BlockPos pos, boolean hard) {
 		//initial checks
 		if (!(world.getBlockEntity(pos) instanceof BeaconBlockEntity) ||
 				!isTruePlayer(player) ||
@@ -159,8 +165,8 @@ public class EntityDoppleganger extends MobEntity {
 
 		//check difficulty
 		if (world.getDifficulty() == Difficulty.PEACEFUL) {
-			if (!world.isClient) {
-				player.sendSystemMessage(new TranslatableText("botaniamisc.peacefulNoob").formatted(Formatting.RED), Util.NIL_UUID);
+			if (!world.isClientSide) {
+				player.sendMessage(new TranslatableComponent("botaniamisc.peacefulNoob").withStyle(ChatFormatting.RED), Util.NIL_UUID);
 			}
 			return false;
 		}
@@ -168,10 +174,10 @@ public class EntityDoppleganger extends MobEntity {
 		//check pylons
 		List<BlockPos> invalidPylonBlocks = checkPylons(world, pos);
 		if (!invalidPylonBlocks.isEmpty()) {
-			if (world.isClient) {
+			if (world.isClientSide) {
 				warnInvalidBlocks(world, invalidPylonBlocks);
 			} else {
-				player.sendSystemMessage(new TranslatableText("botaniamisc.needsCatalysts").formatted(Formatting.RED), Util.NIL_UUID);
+				player.sendMessage(new TranslatableComponent("botaniamisc.needsCatalysts").withStyle(ChatFormatting.RED), Util.NIL_UUID);
 			}
 
 			return false;
@@ -180,23 +186,23 @@ public class EntityDoppleganger extends MobEntity {
 		//check arena shape
 		List<BlockPos> invalidArenaBlocks = checkArena(world, pos);
 		if (!invalidArenaBlocks.isEmpty()) {
-			if (world.isClient) {
+			if (world.isClientSide) {
 				warnInvalidBlocks(world, invalidArenaBlocks);
 			} else {
 				PacketBotaniaEffect.send(player, PacketBotaniaEffect.EffectType.ARENA_INDICATOR, pos.getX(), pos.getY(), pos.getZ());
 
-				player.sendSystemMessage(new TranslatableText("botaniamisc.badArena").formatted(Formatting.RED), Util.NIL_UUID);
+				player.sendMessage(new TranslatableComponent("botaniamisc.badArena").withStyle(ChatFormatting.RED), Util.NIL_UUID);
 			}
 
 			return false;
 		}
 
 		//all checks ok, spawn the boss
-		if (!world.isClient) {
-			stack.decrement(1);
+		if (!world.isClientSide) {
+			stack.shrink(1);
 
 			EntityDoppleganger e = ModEntities.DOPPLEGANGER.create(world);
-			e.updatePosition(pos.getX() + 0.5, pos.getY() + 3, pos.getZ() + 0.5);
+			e.setPos(pos.getX() + 0.5, pos.getY() + 3, pos.getZ() + 0.5);
 			e.setInvulTime(SPAWN_TICKS);
 			e.setHealth(1F);
 			e.source = pos;
@@ -210,25 +216,25 @@ public class EntityDoppleganger extends MobEntity {
 			if (playerCount > 1) {
 				healthMultiplier += playerCount * 0.25F;
 			}
-			e.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH).setBaseValue(MAX_HP * healthMultiplier);
+			e.getAttribute(Attributes.MAX_HEALTH).setBaseValue(MAX_HP * healthMultiplier);
 
 			if (hard) {
-				e.getAttributeInstance(EntityAttributes.GENERIC_ARMOR).setBaseValue(15);
+				e.getAttribute(Attributes.ARMOR).setBaseValue(15);
 			}
 
-			e.playSound(SoundEvents.ENTITY_ENDER_DRAGON_GROWL, 10F, 0.1F);
-			e.initialize((ServerWorldAccess) world, world.getLocalDifficulty(e.getBlockPos()), SpawnReason.EVENT, null, null);
-			world.spawnEntity(e);
+			e.playSound(SoundEvents.ENDER_DRAGON_GROWL, 10F, 0.1F);
+			e.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(e.blockPosition()), MobSpawnType.EVENT, null, null);
+			world.addFreshEntity(e);
 		}
 
 		return true;
 	}
 
-	private static List<BlockPos> checkPylons(World world, BlockPos beaconPos) {
+	private static List<BlockPos> checkPylons(Level world, BlockPos beaconPos) {
 		List<BlockPos> invalidPylonBlocks = new ArrayList<>();
 
 		for (BlockPos coords : PYLON_LOCATIONS) {
-			BlockPos pos_ = beaconPos.add(coords);
+			BlockPos pos_ = beaconPos.offset(coords);
 
 			BlockState state = world.getBlockState(pos_);
 			if (state.getBlock() != ModBlocks.gaiaPylon) {
@@ -239,7 +245,7 @@ public class EntityDoppleganger extends MobEntity {
 		return invalidPylonBlocks;
 	}
 
-	private static List<BlockPos> checkArena(World world, BlockPos beaconPos) {
+	private static List<BlockPos> checkArena(Level world, BlockPos beaconPos) {
 		List<BlockPos> trippedPositions = new ArrayList<>();
 		int range = (int) Math.ceil(ARENA_RANGE);
 		BlockPos pos;
@@ -257,7 +263,7 @@ public class EntityDoppleganger extends MobEntity {
 						continue; //the beacon
 					}
 
-					pos = beaconPos.add(x, y, z);
+					pos = beaconPos.offset(x, y, z);
 
 					BlockState state = world.getBlockState(pos);
 
@@ -271,7 +277,7 @@ public class EntityDoppleganger extends MobEntity {
 
 					if (y == 0 && !hasFloor) //column is entirely missing floor
 					{
-						trippedPositions.add(pos.down());
+						trippedPositions.add(pos.below());
 					}
 
 					if (!allowBlockHere && isBlockHere && !BLACKLIST.contains(state.getBlock())) //ceiling is obstructed in this column
@@ -285,7 +291,7 @@ public class EntityDoppleganger extends MobEntity {
 		return trippedPositions;
 	}
 
-	private static void warnInvalidBlocks(World world, Iterable<BlockPos> invalidPositions) {
+	private static void warnInvalidBlocks(Level world, Iterable<BlockPos> invalidPositions) {
 		WispParticleData data = WispParticleData.wisp(0.5F, 1, 0.2F, 0.2F, 8, false);
 		for (BlockPos pos_ : invalidPositions) {
 			world.addParticle(data, pos_.getX() + 0.5, pos_.getY() + 0.5, pos_.getZ() + 0.5, 0, 0, 0);
@@ -293,19 +299,19 @@ public class EntityDoppleganger extends MobEntity {
 	}
 
 	@Override
-	protected void initGoals() {
-		goalSelector.add(0, new SwimGoal(this));
-		goalSelector.add(1, new LookAtEntityGoal(this, PlayerEntity.class, ARENA_RANGE * 1.5F));
+	protected void registerGoals() {
+		goalSelector.addGoal(0, new FloatGoal(this));
+		goalSelector.addGoal(1, new LookAtPlayerGoal(this, Player.class, ARENA_RANGE * 1.5F));
 	}
 
 	@Override
-	protected void initDataTracker() {
-		super.initDataTracker();
-		dataTracker.startTracking(INVUL_TIME, 0);
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		entityData.define(INVUL_TIME, 0);
 	}
 
 	public int getInvulTime() {
-		return dataTracker.get(INVUL_TIME);
+		return entityData.get(INVUL_TIME);
 	}
 
 	public BlockPos getSource() {
@@ -313,12 +319,12 @@ public class EntityDoppleganger extends MobEntity {
 	}
 
 	public void setInvulTime(int time) {
-		dataTracker.set(INVUL_TIME, time);
+		entityData.set(INVUL_TIME, time);
 	}
 
 	@Override
-	public void writeCustomDataToTag(CompoundTag cmp) {
-		super.writeCustomDataToTag(cmp);
+	public void addAdditionalSaveData(CompoundTag cmp) {
+		super.addAdditionalSaveData(cmp);
 		cmp.putInt(TAG_INVUL_TIME, getInvulTime());
 		cmp.putBoolean(TAG_AGGRO, aggro);
 		cmp.putInt(TAG_MOB_SPAWN_TICKS, mobSpawnTicks);
@@ -332,8 +338,8 @@ public class EntityDoppleganger extends MobEntity {
 	}
 
 	@Override
-	public void readCustomDataFromTag(CompoundTag cmp) {
-		super.readCustomDataFromTag(cmp);
+	public void readAdditionalSaveData(CompoundTag cmp) {
+		super.readAdditionalSaveData(cmp);
 		setInvulTime(cmp.getInt(TAG_INVUL_TIME));
 		aggro = cmp.getBoolean(TAG_AGGRO);
 		mobSpawnTicks = cmp.getInt(TAG_MOB_SPAWN_TICKS);
@@ -356,7 +362,7 @@ public class EntityDoppleganger extends MobEntity {
 	}
 
 	@Override
-	public void setCustomName(@Nullable Text name) {
+	public void setCustomName(@Nullable Component name) {
 		super.setCustomName(name);
 		this.bossInfo.setName(this.getDisplayName());
 	}
@@ -374,16 +380,16 @@ public class EntityDoppleganger extends MobEntity {
 	}
 
 	@Override
-	public boolean damage(@Nonnull DamageSource source, float amount) {
-		Entity e = source.getAttacker();
-		if (e instanceof PlayerEntity && isTruePlayer(e) && getInvulTime() == 0) {
-			PlayerEntity player = (PlayerEntity) e;
+	public boolean hurt(@Nonnull DamageSource source, float amount) {
+		Entity e = source.getEntity();
+		if (e instanceof Player && isTruePlayer(e) && getInvulTime() == 0) {
+			Player player = (Player) e;
 
-			if (!playersWhoAttacked.contains(player.getUuid())) {
-				playersWhoAttacked.add(player.getUuid());
+			if (!playersWhoAttacked.contains(player.getUUID())) {
+				playersWhoAttacked.add(player.getUUID());
 			}
 
-			return super.damage(source, Math.min(DAMAGE_CAP, amount));
+			return super.hurt(source, Math.min(DAMAGE_CAP, amount));
 		}
 
 		return false;
@@ -392,118 +398,118 @@ public class EntityDoppleganger extends MobEntity {
 	private static final Pattern FAKE_PLAYER_PATTERN = Pattern.compile("^(?:\\[.*]|ComputerCraft)$");
 
 	public static boolean isTruePlayer(Entity e) {
-		if (!(e instanceof PlayerEntity)) {
+		if (!(e instanceof Player)) {
 			return false;
 		}
 
-		PlayerEntity player = (PlayerEntity) e;
+		Player player = (Player) e;
 
 		String name = player.getName().getString();
 		return !FAKE_PLAYER_PATTERN.matcher(name).matches();
 	}
 
 	@Override
-	protected void applyDamage(@Nonnull DamageSource source, float amount) {
-		super.applyDamage(source, Math.min(DAMAGE_CAP, amount));
+	protected void actuallyHurt(@Nonnull DamageSource source, float amount) {
+		super.actuallyHurt(source, Math.min(DAMAGE_CAP, amount));
 
-		Entity attacker = source.getSource();
+		Entity attacker = source.getDirectEntity();
 		if (attacker != null) {
 			Vector3 thisVector = Vector3.fromEntityCenter(this);
 			Vector3 playerVector = Vector3.fromEntityCenter(attacker);
 			Vector3 motionVector = thisVector.subtract(playerVector).normalize().multiply(0.75);
 
 			if (getHealth() > 0) {
-				setVelocity(-motionVector.x, 0.5, -motionVector.z);
+				setDeltaMovement(-motionVector.x, 0.5, -motionVector.z);
 				tpDelay = 4;
 				spawnPixies = true;
 			}
 		}
-		timeUntilRegen = Math.max(timeUntilRegen, 20);
+		invulnerableTime = Math.max(invulnerableTime, 20);
 	}
 
 	@Override
-	protected float applyArmorToDamage(DamageSource source, float damage) {
-		return super.applyArmorToDamage(source, Math.min(DAMAGE_CAP, damage));
+	protected float getDamageAfterArmorAbsorb(DamageSource source, float damage) {
+		return super.getDamageAfterArmorAbsorb(source, Math.min(DAMAGE_CAP, damage));
 	}
 
 	@Override
-	public void onDeath(@Nonnull DamageSource source) {
-		super.onDeath(source);
-		LivingEntity lastAttacker = getPrimeAdversary();
+	public void die(@Nonnull DamageSource source) {
+		super.die(source);
+		LivingEntity lastAttacker = getKillCredit();
 
-		if (!world.isClient) {
+		if (!level.isClientSide) {
 			for (UUID u : playersWhoAttacked) {
-				PlayerEntity player = world.getPlayerByUuid(u);
+				Player player = level.getPlayerByUUID(u);
 				if (!isTruePlayer(player)) {
 					continue;
 				}
-				DamageSource currSource = player == lastAttacker ? source : DamageSource.player(player);
+				DamageSource currSource = player == lastAttacker ? source : DamageSource.playerAttack(player);
 				if (player != lastAttacker) {
 					// Vanilla handles this in attack code, but only for the killer
-					Criteria.PLAYER_KILLED_ENTITY.trigger((ServerPlayerEntity) player, this, currSource);
+					CriteriaTriggers.PLAYER_KILLED_ENTITY.trigger((ServerPlayer) player, this, currSource);
 				}
 				if (!anyWithArmor) {
-					DopplegangerNoArmorTrigger.INSTANCE.trigger((ServerPlayerEntity) player, this, currSource);
+					DopplegangerNoArmorTrigger.INSTANCE.trigger((ServerPlayer) player, this, currSource);
 				}
 			}
 
 			// Clear wither from nearby players
-			for (PlayerEntity player : getPlayersAround()) {
-				if (player.getStatusEffect(StatusEffects.WITHER) != null) {
-					player.removeStatusEffect(StatusEffects.WITHER);
+			for (Player player : getPlayersAround()) {
+				if (player.getEffect(MobEffects.WITHER) != null) {
+					player.removeEffect(MobEffects.WITHER);
 				}
 			}
 
 			// Stop all the pixies leftover from the fight
-			for (EntityPixie pixie : world.getEntitiesByClass(EntityPixie.class, getArenaBB(getSource()), p -> p.isAlive() && p.getPixieType() == 1)) {
-				pixie.playSpawnEffects();
+			for (EntityPixie pixie : level.getEntitiesOfClass(EntityPixie.class, getArenaBB(getSource()), p -> p.isAlive() && p.getPixieType() == 1)) {
+				pixie.spawnAnim();
 				pixie.remove();
 			}
-			for (EntityMagicLandmine landmine : world.getNonSpectatingEntities(EntityMagicLandmine.class, getArenaBB(getSource()))) {
+			for (EntityMagicLandmine landmine : level.getEntitiesOfClass(EntityMagicLandmine.class, getArenaBB(getSource()))) {
 				landmine.remove();
 			}
 		}
 
-		playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 20F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
-		world.addParticle(ParticleTypes.EXPLOSION_EMITTER, getX(), getY(), getZ(), 1D, 0D, 0D);
+		playSound(SoundEvents.GENERIC_EXPLODE, 20F, (1F + (level.random.nextFloat() - level.random.nextFloat()) * 0.2F) * 0.7F);
+		level.addParticle(ParticleTypes.EXPLOSION_EMITTER, getX(), getY(), getZ(), 1D, 0D, 0D);
 	}
 
 	@Override
-	public boolean canImmediatelyDespawn(double dist) {
+	public boolean removeWhenFarAway(double dist) {
 		return false;
 	}
 
 	@Override
-	public Identifier getLootTableId() {
+	public ResourceLocation getDefaultLootTable() {
 		if (mobSpawnTicks > 0) {
-			return LootTables.EMPTY;
+			return BuiltInLootTables.EMPTY;
 		}
 		return prefix(hardMode ? "gaia_guardian_2" : "gaia_guardian");
 	}
 
 	@Override
-	protected void dropLoot(@Nonnull DamageSource source, boolean wasRecentlyHit) {
+	protected void dropFromLootTable(@Nonnull DamageSource source, boolean wasRecentlyHit) {
 		// Save true killer, they get extra loot
-		if (wasRecentlyHit && isTruePlayer(source.getAttacker())) {
-			trueKiller = (PlayerEntity) source.getAttacker();
+		if (wasRecentlyHit && isTruePlayer(source.getEntity())) {
+			trueKiller = (Player) source.getEntity();
 		}
 
 		// Generate loot table for every single attacking player
 		for (UUID u : playersWhoAttacked) {
-			PlayerEntity player = world.getPlayerByUuid(u);
+			Player player = level.getPlayerByUUID(u);
 			if (!isTruePlayer(player)) {
 				continue;
 			}
 
-			PlayerEntity saveLastAttacker = attackingPlayer;
-			Vec3d savePos = getPos();
+			Player saveLastAttacker = lastHurtByPlayer;
+			Vec3 savePos = position();
 
-			attackingPlayer = player; // Fake attacking player as the killer
+			lastHurtByPlayer = player; // Fake attacking player as the killer
 			// Spoof pos so drops spawn at the player
-			updatePosition(player.getX(), player.getY(), player.getZ());
-			super.dropLoot(DamageSource.player(player), wasRecentlyHit);
-			updatePosition(savePos.getX(), savePos.getY(), savePos.getZ());
-			attackingPlayer = saveLastAttacker;
+			setPos(player.getX(), player.getY(), player.getZ());
+			super.dropFromLootTable(DamageSource.playerAttack(player), wasRecentlyHit);
+			setPos(savePos.x(), savePos.y(), savePos.z());
+			lastHurtByPlayer = saveLastAttacker;
 		}
 
 		trueKiller = null;
@@ -511,25 +517,25 @@ public class EntityDoppleganger extends MobEntity {
 
 	@Override
 	public void remove() {
-		if (world.isClient) {
+		if (level.isClientSide) {
 			Botania.proxy.removeBoss(this);
 		}
 		super.remove();
 	}
 
-	public List<PlayerEntity> getPlayersAround() {
-		return world.getEntitiesByClass(PlayerEntity.class, getArenaBB(source), player -> isTruePlayer(player) && !player.isSpectator());
+	public List<Player> getPlayersAround() {
+		return level.getEntitiesOfClass(Player.class, getArenaBB(source), player -> isTruePlayer(player) && !player.isSpectator());
 	}
 
-	private static int countGaiaGuardiansAround(World world, BlockPos source) {
-		List<EntityDoppleganger> l = world.getNonSpectatingEntities(EntityDoppleganger.class, getArenaBB(source));
+	private static int countGaiaGuardiansAround(Level world, BlockPos source) {
+		List<EntityDoppleganger> l = world.getEntitiesOfClass(EntityDoppleganger.class, getArenaBB(source));
 		return l.size();
 	}
 
 	@Nonnull
-	private static Box getArenaBB(@Nonnull BlockPos source) {
+	private static AABB getArenaBB(@Nonnull BlockPos source) {
 		double range = 15.0;
-		return new Box(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range);
+		return new AABB(source.getX() + 0.5 - range, source.getY() + 0.5 - range, source.getZ() + 0.5 - range, source.getX() + 0.5 + range, source.getY() + 0.5 + range, source.getZ() + 0.5 + range);
 	}
 
 	private void particles() {
@@ -546,14 +552,14 @@ public class EntityDoppleganger extends MobEntity {
 			double z = source.getZ() + 0.5 - Math.sin(rad) * ARENA_RANGE;
 
 			WispParticleData data = WispParticleData.wisp(0.5F, r, g, b);
-			world.addParticle(data, x, y, z, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * mv, (float) (Math.random() - 0.5F) * m);
+			level.addParticle(data, x, y, z, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * mv, (float) (Math.random() - 0.5F) * m);
 		}
 
 		if (getInvulTime() > 10) {
 			Vector3 pos = Vector3.fromEntityCenter(this).subtract(new Vector3(0, 0.2, 0));
 			for (BlockPos arr : PYLON_LOCATIONS) {
 				Vector3 pylonPos = new Vector3(source.getX() + arr.getX(), source.getY() + arr.getY(), source.getZ() + arr.getZ());
-				double worldTime = age;
+				double worldTime = tickCount;
 				worldTime /= 5;
 
 				float rad = 0.75F + (float) Math.random() * 0.05F;
@@ -568,9 +574,9 @@ public class EntityDoppleganger extends MobEntity {
 				float b = 0.7F + (float) Math.random() * 0.3F;
 
 				WispParticleData data = WispParticleData.wisp(0.25F + (float) Math.random() * 0.1F, r, g, b, 1);
-				world.addParticle(data, partPos.x, partPos.y, partPos.z, 0, -(-0.075F - (float) Math.random() * 0.015F), 0);
+				level.addParticle(data, partPos.x, partPos.y, partPos.z, 0, -(-0.075F - (float) Math.random() * 0.015F), 0);
 				WispParticleData data1 = WispParticleData.wisp(0.4F, r, g, b);
-				world.addParticle(data1, partPos.x, partPos.y, partPos.z, (float) mot.x, (float) mot.y, (float) mot.z);
+				level.addParticle(data1, partPos.x, partPos.y, partPos.z, (float) mot.x, (float) mot.y, (float) mot.z);
 			}
 		}
 	}
@@ -584,15 +590,15 @@ public class EntityDoppleganger extends MobEntity {
 					int z = centerZ + dz;
 
 					BlockPos pos = new BlockPos(x, y, z);
-					BlockState state = world.getBlockState(pos);
+					BlockState state = level.getBlockState(pos);
 					Block block = state.getBlock();
 
-					if (state.getHardness(world, pos) == -1) {
+					if (state.getDestroySpeed(level, pos) == -1) {
 						continue;
 					}
 
-					if (CHEATY_BLOCKS.contains(Registry.BLOCK.getId(block))) {
-						world.breakBlock(pos, true);
+					if (CHEATY_BLOCKS.contains(Registry.BLOCK.getKey(block))) {
+						level.destroyBlock(pos, true);
 					} else {
 						//don't break blacklisted blocks
 						if (BLACKLIST.contains(block)) {
@@ -607,66 +613,66 @@ public class EntityDoppleganger extends MobEntity {
 							continue;
 						}
 
-						world.breakBlock(pos, true);
+						level.destroyBlock(pos, true);
 					}
 				}
 			}
 		}
 	}
 
-	private void clearPotions(PlayerEntity player) {
-		List<StatusEffect> potionsToRemove = player.getStatusEffects().stream()
-				.filter(effect -> effect.getDuration() < 160 && effect.isAmbient() && ((AccessorStatusEffect) effect.getEffectType()).getType() != StatusEffectType.HARMFUL)
-				.map(StatusEffectInstance::getEffectType)
+	private void clearPotions(Player player) {
+		List<MobEffect> potionsToRemove = player.getActiveEffects().stream()
+				.filter(effect -> effect.getDuration() < 160 && effect.isAmbient() && ((AccessorStatusEffect) effect.getEffect()).getType() != MobEffectCategory.HARMFUL)
+				.map(MobEffectInstance::getEffect)
 				.distinct()
 				.collect(Collectors.toList());
 
 		potionsToRemove.forEach(potion -> {
-			player.removeStatusEffect(potion);
-			((ServerWorld) world).getChunkManager().sendToNearbyPlayers(player,
-					new RemoveEntityStatusEffectS2CPacket(player.getEntityId(), potion));
+			player.removeEffect(potion);
+			((ServerLevel) level).getChunkSource().broadcastAndSend(player,
+					new ClientboundRemoveMobEffectPacket(player.getId(), potion));
 		});
 	}
 
-	private void keepInsideArena(PlayerEntity player) {
+	private void keepInsideArena(Player player) {
 		if (vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(player.getX(), player.getY(), player.getZ(), source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5) >= ARENA_RANGE) {
 			Vector3 sourceVector = new Vector3(source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5);
 			Vector3 playerVector = Vector3.fromEntityCenter(player);
 			Vector3 motion = sourceVector.subtract(playerVector).normalize();
 
-			player.setVelocity(motion.x, 0.2, motion.z);
-			player.velocityModified = true;
+			player.setDeltaMovement(motion.x, 0.2, motion.z);
+			player.hurtMarked = true;
 		}
 	}
 
-	private void spawnMobs(List<PlayerEntity> players) {
+	private void spawnMobs(List<Player> players) {
 		for (int pl = 0; pl < playerCount; pl++) {
-			for (int i = 0; i < 3 + world.random.nextInt(2); i++) {
-				MobEntity entity = null;
-				switch (world.random.nextInt(3)) {
+			for (int i = 0; i < 3 + level.random.nextInt(2); i++) {
+				Mob entity = null;
+				switch (level.random.nextInt(3)) {
 				case 0: {
-					entity = new ZombieEntity(world);
-					if (world.random.nextInt(hardMode ? 3 : 12) == 0) {
-						entity = EntityType.WITCH.create(world);
+					entity = new Zombie(level);
+					if (level.random.nextInt(hardMode ? 3 : 12) == 0) {
+						entity = EntityType.WITCH.create(level);
 					}
 					break;
 				}
 				case 1: {
-					entity = EntityType.SKELETON.create(world);
-					if (world.random.nextInt(8) == 0) {
-						entity = EntityType.WITHER_SKELETON.create(world);
+					entity = EntityType.SKELETON.create(level);
+					if (level.random.nextInt(8) == 0) {
+						entity = EntityType.WITHER_SKELETON.create(level);
 					}
 					break;
 				}
 				case 2: {
 					if (!players.isEmpty()) {
-						for (int j = 0; j < 1 + world.random.nextInt(hardMode ? 8 : 5); j++) {
-							EntityPixie pixie = new EntityPixie(world);
+						for (int j = 0; j < 1 + level.random.nextInt(hardMode ? 8 : 5); j++) {
+							EntityPixie pixie = new EntityPixie(level);
 							pixie.setProps(players.get(random.nextInt(players.size())), this, 1, 8);
-							pixie.updatePosition(getX() + getWidth() / 2, getY() + 2, getZ() + getWidth() / 2);
-							pixie.initialize((ServerWorldAccess) world, world.getLocalDifficulty(pixie.getBlockPos()),
-									SpawnReason.MOB_SUMMONED, null, null);
-							world.spawnEntity(pixie);
+							pixie.setPos(getX() + getBbWidth() / 2, getY() + 2, getZ() + getBbWidth() / 2);
+							pixie.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(pixie.blockPosition()),
+									MobSpawnType.MOB_SUMMONED, null, null);
+							level.addFreshEntity(pixie);
 						}
 					}
 					break;
@@ -674,58 +680,58 @@ public class EntityDoppleganger extends MobEntity {
 				}
 
 				if (entity != null) {
-					if (!entity.isFireImmune()) {
-						entity.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 600, 0));
+					if (!entity.fireImmune()) {
+						entity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 600, 0));
 					}
 					float range = 6F;
-					entity.updatePosition(getX() + 0.5 + Math.random() * range - range / 2, getY() - 1,
+					entity.setPos(getX() + 0.5 + Math.random() * range - range / 2, getY() - 1,
 							getZ() + 0.5 + Math.random() * range - range / 2);
-					entity.initialize((ServerWorldAccess) world, world.getLocalDifficulty(entity.getBlockPos()),
-							SpawnReason.MOB_SUMMONED, null, null);
-					if (entity instanceof WitherSkeletonEntity && hardMode) {
-						entity.equipStack(EquipmentSlot.MAINHAND, new ItemStack(ModItems.elementiumSword));
+					entity.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(entity.blockPosition()),
+							MobSpawnType.MOB_SUMMONED, null, null);
+					if (entity instanceof WitherSkeleton && hardMode) {
+						entity.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.elementiumSword));
 					}
-					world.spawnEntity(entity);
+					level.addFreshEntity(entity);
 				}
 			}
 		}
 	}
 
 	@Override
-	public void tickMovement() {
-		super.tickMovement();
+	public void aiStep() {
+		super.aiStep();
 
 		int invul = getInvulTime();
 
-		if (world.isClient) {
+		if (level.isClientSide) {
 			particles();
-			PlayerEntity player = Botania.proxy.getClientPlayer();
+			Player player = Botania.proxy.getClientPlayer();
 			if (getPlayersAround().contains(player)) {
-				player.abilities.flying &= player.abilities.creativeMode;
+				player.abilities.flying &= player.abilities.instabuild;
 			}
 			return;
 		}
 
 		bossInfo.setPercent(getHealth() / getMaxHealth());
 
-		if (hasVehicle()) {
+		if (isPassenger()) {
 			stopRiding();
 		}
 
-		if (world.getDifficulty() == Difficulty.PEACEFUL) {
+		if (level.getDifficulty() == Difficulty.PEACEFUL) {
 			remove();
 		}
 
-		smashBlocksAround(MathHelper.floor(getX()), MathHelper.floor(getY()), MathHelper.floor(getZ()), 1);
+		smashBlocksAround(Mth.floor(getX()), Mth.floor(getY()), Mth.floor(getZ()), 1);
 
-		List<PlayerEntity> players = getPlayersAround();
+		List<Player> players = getPlayersAround();
 
-		if (players.isEmpty() && !world.getPlayers().isEmpty()) {
+		if (players.isEmpty() && !level.players().isEmpty()) {
 			remove();
 		} else {
-			for (PlayerEntity player : players) {
+			for (Player player : players) {
 				for (EquipmentSlot e : EquipmentSlot.values()) {
-					if (e.getType() == EquipmentSlot.Type.ARMOR && !player.getEquippedStack(e).isEmpty()) {
+					if (e.getType() == EquipmentSlot.Type.ARMOR && !player.getItemBySlot(e).isEmpty()) {
 						anyWithArmor = true;
 						break;
 					}
@@ -733,12 +739,12 @@ public class EntityDoppleganger extends MobEntity {
 
 				//also see SleepingHandler
 				if (player.isSleeping()) {
-					player.wakeUp();
+					player.stopSleeping();
 				}
 
 				clearPotions(player);
 				keepInsideArena(player);
-				player.abilities.flying &= player.abilities.creativeMode;
+				player.abilities.flying &= player.abilities.instabuild;
 			}
 		}
 
@@ -746,13 +752,13 @@ public class EntityDoppleganger extends MobEntity {
 			return;
 		}
 
-		boolean spawnMissiles = hardMode && age % 15 < 4;
+		boolean spawnMissiles = hardMode && tickCount % 15 < 4;
 
 		if (invul > 0 && mobSpawnTicks == MOB_SPAWN_TICKS) {
 			if (invul < SPAWN_TICKS) {
-				if (invul > SPAWN_TICKS / 2 && world.random.nextInt(SPAWN_TICKS - invul + 1) == 0) {
+				if (invul > SPAWN_TICKS / 2 && level.random.nextInt(SPAWN_TICKS - invul + 1) == 0) {
 					for (int i = 0; i < 2; i++) {
-						playSpawnEffects();
+						spawnAnim();
 					}
 				}
 			}
@@ -760,23 +766,23 @@ public class EntityDoppleganger extends MobEntity {
 			setHealth(getHealth() + (getMaxHealth() - 1F) / SPAWN_TICKS);
 			setInvulTime(invul - 1);
 
-			setVelocity(getVelocity().getX(), 0, getVelocity().getZ());
+			setDeltaMovement(getDeltaMovement().x(), 0, getDeltaMovement().z());
 		} else {
 			if (aggro) {
 				boolean dying = getHealth() / getMaxHealth() < 0.2;
 				if (dying && mobSpawnTicks > 0) {
-					setVelocity(Vec3d.ZERO);
+					setDeltaMovement(Vec3.ZERO);
 
 					int reverseTicks = MOB_SPAWN_TICKS - mobSpawnTicks;
 					if (reverseTicks < MOB_SPAWN_START_TICKS) {
-						setVelocity(getVelocity().getX(), 0.2, getVelocity().getZ());
+						setDeltaMovement(getDeltaMovement().x(), 0.2, getDeltaMovement().z());
 						setInvulTime(invul + 1);
 					}
 
 					if (reverseTicks > MOB_SPAWN_START_TICKS * 2 && mobSpawnTicks > MOB_SPAWN_END_TICKS && mobSpawnTicks % MOB_SPAWN_WAVE_TIME == 0) {
 						spawnMobs(players);
 
-						if (hardMode && age % 3 < 2) {
+						if (hardMode && tickCount % 3 < 2) {
 							for (int i = 0; i < playerCount; i++) {
 								spawnMissile();
 							}
@@ -802,22 +808,22 @@ public class EntityDoppleganger extends MobEntity {
 								int y = (int) players.get(random.nextInt(players.size())).getY();
 								int z = source.getZ() - 10 + random.nextInt(20);
 
-								EntityMagicLandmine landmine = ModEntities.MAGIC_LANDMINE.create(world);
-								landmine.updatePosition(x + 0.5, y, z + 0.5);
+								EntityMagicLandmine landmine = ModEntities.MAGIC_LANDMINE.create(level);
+								landmine.setPos(x + 0.5, y, z + 0.5);
 								landmine.summoner = this;
-								world.spawnEntity(landmine);
+								level.addFreshEntity(landmine);
 							}
 
 						}
 
 						for (int pl = 0; pl < playerCount; pl++) {
-							for (int i = 0; i < (spawnPixies ? world.random.nextInt(hardMode ? 6 : 3) : 1); i++) {
-								EntityPixie pixie = new EntityPixie(world);
+							for (int i = 0; i < (spawnPixies ? level.random.nextInt(hardMode ? 6 : 3) : 1); i++) {
+								EntityPixie pixie = new EntityPixie(level);
 								pixie.setProps(players.get(random.nextInt(players.size())), this, 1, 8);
-								pixie.updatePosition(getX() + getWidth() / 2, getY() + 2, getZ() + getWidth() / 2);
-								pixie.initialize((ServerWorldAccess) world, world.getLocalDifficulty(pixie.getBlockPos()),
-										SpawnReason.MOB_SUMMONED, null, null);
-								world.spawnEntity(pixie);
+								pixie.setPos(getX() + getBbWidth() / 2, getY() + 2, getZ() + getBbWidth() / 2);
+								pixie.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(pixie.blockPosition()),
+										MobSpawnType.MOB_SUMMONED, null, null);
+								level.addFreshEntity(pixie);
 							}
 						}
 
@@ -838,26 +844,26 @@ public class EntityDoppleganger extends MobEntity {
 	}
 
 	@Override
-	public boolean canUsePortals() {
+	public boolean canChangeDimensions() {
 		return false;
 	}
 
 	@Override
-	public void onStartedTrackingBy(ServerPlayerEntity player) {
-		super.onStartedTrackingBy(player);
+	public void startSeenByPlayer(ServerPlayer player) {
+		super.startSeenByPlayer(player);
 		bossInfo.addPlayer(player);
 	}
 
 	@Override
-	public void onStoppedTrackingBy(ServerPlayerEntity player) {
-		super.onStoppedTrackingBy(player);
+	public void stopSeenByPlayer(ServerPlayer player) {
+		super.stopSeenByPlayer(player);
 		bossInfo.removePlayer(player);
 	}
 
 	@Override
-	protected void tickCramming() {
+	protected void pushEntities() {
 		if (getInvulTime() == 0) {
-			super.tickCramming();
+			super.pushEntities();
 		}
 	}
 
@@ -868,10 +874,10 @@ public class EntityDoppleganger extends MobEntity {
 
 	private void spawnMissile() {
 		EntityMagicMissile missile = new EntityMagicMissile(this, true);
-		missile.updatePosition(getX() + (Math.random() - 0.5 * 0.1), getY() + 2.4 + (Math.random() - 0.5 * 0.1), getZ() + (Math.random() - 0.5 * 0.1));
+		missile.setPos(getX() + (Math.random() - 0.5 * 0.1), getY() + 2.4 + (Math.random() - 0.5 * 0.1), getZ() + (Math.random() - 0.5 * 0.1));
 		if (missile.findTarget()) {
 			playSound(ModSounds.missile, 0.6F, 0.8F + (float) Math.random() * 0.2F);
-			world.spawnEntity(missile);
+			level.addFreshEntity(missile);
 		}
 	}
 
@@ -897,16 +903,16 @@ public class EntityDoppleganger extends MobEntity {
 
 		//for low-floor arenas, ensure landing on the ground
 		BlockPos tentativeFloorPos = new BlockPos(newX, newY - 1, newZ);
-		if (world.getBlockState(tentativeFloorPos).getCollisionShape(world, tentativeFloorPos).isEmpty()) {
+		if (level.getBlockState(tentativeFloorPos).getCollisionShape(level, tentativeFloorPos).isEmpty()) {
 			newY--;
 		}
 
 		//teleport there
-		requestTeleport(newX, newY, newZ);
+		teleportTo(newX, newY, newZ);
 
 		//play sound
-		world.playSound(null, oldX, oldY, oldZ, SoundEvents.ENTITY_ENDERMAN_TELEPORT, this.getSoundCategory(), 1.0F, 1.0F);
-		this.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 1.0F, 1.0F);
+		level.playSound(null, oldX, oldY, oldZ, SoundEvents.ENDERMAN_TELEPORT, this.getSoundSource(), 1.0F, 1.0F);
+		this.playSound(SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F);
 
 		Random random = getRandom();
 
@@ -917,22 +923,22 @@ public class EntityDoppleganger extends MobEntity {
 			float vx = (random.nextFloat() - 0.5F) * 0.2F;
 			float vy = (random.nextFloat() - 0.5F) * 0.2F;
 			float vz = (random.nextFloat() - 0.5F) * 0.2F;
-			double px = oldX + (newX - oldX) * progress + (random.nextDouble() - 0.5D) * getWidth() * 2.0D;
-			double py = oldY + (newY - oldY) * progress + random.nextDouble() * getHeight();
-			double pz = oldZ + (newZ - oldZ) * progress + (random.nextDouble() - 0.5D) * getWidth() * 2.0D;
-			world.addParticle(ParticleTypes.PORTAL, px, py, pz, vx, vy, vz);
+			double px = oldX + (newX - oldX) * progress + (random.nextDouble() - 0.5D) * getBbWidth() * 2.0D;
+			double py = oldY + (newY - oldY) * progress + random.nextDouble() * getBbHeight();
+			double pz = oldZ + (newZ - oldZ) * progress + (random.nextDouble() - 0.5D) * getBbWidth() * 2.0D;
+			level.addParticle(ParticleTypes.PORTAL, px, py, pz, vx, vy, vz);
 		}
 
-		Vec3d oldPosVec = new Vec3d(oldX, oldY + getHeight() / 2, oldZ);
-		Vec3d newPosVec = new Vec3d(newX, newY + getHeight() / 2, newZ);
+		Vec3 oldPosVec = new Vec3(oldX, oldY + getBbHeight() / 2, oldZ);
+		Vec3 newPosVec = new Vec3(newX, newY + getBbHeight() / 2, newZ);
 
-		if (oldPosVec.squaredDistanceTo(newPosVec) > 1) {
+		if (oldPosVec.distanceToSqr(newPosVec) > 1) {
 			//damage players in the path of the teleport
-			for (PlayerEntity player : getPlayersAround()) {
-				boolean hit = player.getBoundingBox().expand(0.25).raycast(oldPosVec, newPosVec)
+			for (Player player : getPlayersAround()) {
+				boolean hit = player.getBoundingBox().inflate(0.25).clip(oldPosVec, newPosVec)
 						.isPresent();
 				if (hit) {
-					player.damage(DamageSource.mob(this), 6);
+					player.hurt(DamageSource.mobAttack(this), 6);
 				}
 			}
 
@@ -941,9 +947,9 @@ public class EntityDoppleganger extends MobEntity {
 			if (breakSteps >= 2) {
 				for (int i = 0; i < breakSteps; i++) {
 					float progress = i / (float) (breakSteps - 1);
-					int breakX = MathHelper.floor(oldX + (newX - oldX) * progress);
-					int breakY = MathHelper.floor(oldY + (newY - oldY) * progress);
-					int breakZ = MathHelper.floor(oldZ + (newZ - oldZ) * progress);
+					int breakX = Mth.floor(oldX + (newX - oldX) * progress);
+					int breakY = Mth.floor(oldY + (newY - oldY) * progress);
+					int breakZ = Mth.floor(oldZ + (newZ - oldZ) * progress);
 
 					smashBlocksAround(breakX, breakY, breakZ, 1);
 				}
@@ -952,7 +958,7 @@ public class EntityDoppleganger extends MobEntity {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public Identifier getBossBarTexture() {
+	public ResourceLocation getBossBarTexture() {
 		return BossBarHandler.defaultBossBar;
 	}
 
@@ -968,17 +974,17 @@ public class EntityDoppleganger extends MobEntity {
 	}
 
 	@Environment(EnvType.CLIENT)
-	public int bossBarRenderCallback(MatrixStack ms, int x, int y) {
-		ms.push();
+	public int bossBarRenderCallback(PoseStack ms, int x, int y) {
+		ms.pushPose();
 		int px = x + 160;
 		int py = y + 12;
 
-		MinecraftClient mc = MinecraftClient.getInstance();
+		Minecraft mc = Minecraft.getInstance();
 		ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
-		mc.getItemRenderer().renderGuiItemIcon(stack, px, py);
+		mc.getItemRenderer().renderGuiItem(stack, px, py);
 
-		mc.textRenderer.drawWithShadow(ms, Integer.toString(playerCount), px + 15, py + 4, 0xFFFFFF);
-		ms.pop();
+		mc.font.drawShadow(ms, Integer.toString(playerCount), px + 15, py + 4, 0xFFFFFF);
+		ms.popPose();
 
 		return 5;
 	}
@@ -1000,8 +1006,8 @@ public class EntityDoppleganger extends MobEntity {
 	public ShaderCallback getBossBarShaderCallback(boolean background) {
 		if (shaderCallback == null) {
 			shaderCallback = shader1 -> {
-				int grainIntensityUniform = GlStateManager.getUniformLocation(shader1, "grainIntensity");
-				int hpFractUniform = GlStateManager.getUniformLocation(shader1, "hpFract");
+				int grainIntensityUniform = GlStateManager._glGetUniformLocation(shader1, "grainIntensity");
+				int hpFractUniform = GlStateManager._glGetUniformLocation(shader1, "hpFract");
 
 				float time = getInvulTime();
 				float grainIntensity = time > 20 ? 1F : Math.max(hardMode ? 0.5F : 0F, time / 20F);
@@ -1025,26 +1031,26 @@ public class EntityDoppleganger extends MobEntity {
 		this.hardMode = hardMode;
 		this.source = source;
 		this.bossInfoUUID = bossInfoUUID;
-		MinecraftClient.getInstance().getSoundManager().play(new DopplegangerMusic(this));
+		Minecraft.getInstance().getSoundManager().play(new DopplegangerMusic(this));
 	}
 
 	@Nonnull
 	@Override
-	public Packet<?> createSpawnPacket() {
+	public Packet<?> getAddEntityPacket() {
 		return PacketSpawnDoppleganger.make(this, playerCount, hardMode, source, bossInfoUUID);
 	}
 
 	@Override
-	public boolean canBeLeashedBy(PlayerEntity player) {
+	public boolean canBeLeashed(Player player) {
 		return false;
 	}
 
 	@Environment(EnvType.CLIENT)
-	private static class DopplegangerMusic extends MovingSoundInstance {
+	private static class DopplegangerMusic extends AbstractTickableSoundInstance {
 		private final EntityDoppleganger guardian;
 
 		public DopplegangerMusic(EntityDoppleganger guardian) {
-			super(guardian.hardMode ? ModSounds.gaiaMusic2 : ModSounds.gaiaMusic1, SoundCategory.RECORDS);
+			super(guardian.hardMode ? ModSounds.gaiaMusic2 : ModSounds.gaiaMusic1, SoundSource.RECORDS);
 			this.guardian = guardian;
 			this.x = guardian.getSource().getX();
 			this.y = guardian.getSource().getY();
@@ -1055,7 +1061,7 @@ public class EntityDoppleganger extends MobEntity {
 		@Override
 		public void tick() {
 			if (!guardian.isAlive()) {
-				setDone();
+				stop();
 			}
 		}
 	}

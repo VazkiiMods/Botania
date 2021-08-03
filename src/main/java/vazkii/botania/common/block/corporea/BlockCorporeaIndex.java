@@ -8,8 +8,11 @@
  */
 package vazkii.botania.common.block.corporea;
 
-import net.minecraft.block.*;
-import net.minecraft.world.BlockView;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaBase;
@@ -17,20 +20,20 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 
 import javax.annotation.Nonnull;
 
-public class BlockCorporeaIndex extends BlockModWaterloggable implements BlockEntityProvider {
-	public BlockCorporeaIndex(AbstractBlock.Settings builder) {
+public class BlockCorporeaIndex extends BlockModWaterloggable implements EntityBlock {
+	public BlockCorporeaIndex(BlockBehaviour.Properties builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public BlockRenderType getRenderType(BlockState state) {
-		return BlockRenderType.ENTITYBLOCK_ANIMATED;
+	public RenderShape getRenderShape(BlockState state) {
+		return RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
 	@Nonnull
 	@Override
-	public TileCorporeaBase createBlockEntity(@Nonnull BlockView world) {
+	public TileCorporeaBase newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileCorporeaIndex();
 	}
 }

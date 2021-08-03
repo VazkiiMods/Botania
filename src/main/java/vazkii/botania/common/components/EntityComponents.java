@@ -8,10 +8,19 @@
  */
 package vazkii.botania.common.components;
 
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.TntEntity;
-import net.minecraft.entity.mob.*;
-import net.minecraft.entity.vehicle.AbstractMinecartEntity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.entity.monster.CaveSpider;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.Drowned;
+import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.entity.monster.Husk;
+import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.monster.Slime;
+import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.monster.Stray;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -31,20 +40,20 @@ public class EntityComponents implements EntityComponentInitializer {
 
 	@Override
 	public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
-		registry.registerFor(EndermanEntity.class, LOONIUM_DROP, e -> new LooniumComponent());
-		registry.registerFor(CreeperEntity.class, LOONIUM_DROP, e -> new LooniumComponent());
-		registry.registerFor(HuskEntity.class, LOONIUM_DROP, e -> new LooniumComponent());
-		registry.registerFor(DrownedEntity.class, LOONIUM_DROP, e -> new LooniumComponent());
-		registry.registerFor(ZombieEntity.class, LOONIUM_DROP, e -> new LooniumComponent());
-		registry.registerFor(StrayEntity.class, LOONIUM_DROP, e -> new LooniumComponent());
-		registry.registerFor(SkeletonEntity.class, LOONIUM_DROP, e -> new LooniumComponent());
-		registry.registerFor(CaveSpiderEntity.class, LOONIUM_DROP, e -> new LooniumComponent());
-		registry.registerFor(SpiderEntity.class, LOONIUM_DROP, e -> new LooniumComponent());
+		registry.registerFor(EnderMan.class, LOONIUM_DROP, e -> new LooniumComponent());
+		registry.registerFor(Creeper.class, LOONIUM_DROP, e -> new LooniumComponent());
+		registry.registerFor(Husk.class, LOONIUM_DROP, e -> new LooniumComponent());
+		registry.registerFor(Drowned.class, LOONIUM_DROP, e -> new LooniumComponent());
+		registry.registerFor(Zombie.class, LOONIUM_DROP, e -> new LooniumComponent());
+		registry.registerFor(Stray.class, LOONIUM_DROP, e -> new LooniumComponent());
+		registry.registerFor(Skeleton.class, LOONIUM_DROP, e -> new LooniumComponent());
+		registry.registerFor(CaveSpider.class, LOONIUM_DROP, e -> new LooniumComponent());
+		registry.registerFor(Spider.class, LOONIUM_DROP, e -> new LooniumComponent());
 
-		registry.registerFor(TntEntity.class, TNT_ETHICAL, EthicalComponent::new);
-		registry.registerFor(SlimeEntity.class, NARSLIMMUS, NarslimmusComponent::new);
+		registry.registerFor(PrimedTnt.class, TNT_ETHICAL, EthicalComponent::new);
+		registry.registerFor(Slime.class, NARSLIMMUS, NarslimmusComponent::new);
 		registry.registerFor(ItemEntity.class, INTERNAL_ITEM, e -> new ItemFlagsComponent());
-		registry.registerFor(AbstractMinecartEntity.class, GHOST_RAIL, e -> new GhostRailComponent());
+		registry.registerFor(AbstractMinecart.class, GHOST_RAIL, e -> new GhostRailComponent());
 		// Never copy as we handle it ourselves in ItemKeepIvy.onPlayerRespawn
 		registry.registerForPlayers(KEPT_ITEMS, e -> new KeptItemsComponent(), RespawnCopyStrategy.NEVER_COPY);
 	}

@@ -8,19 +8,19 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.world.MobSpawnerEntry;
-import net.minecraft.world.MobSpawnerLogic;
+import net.minecraft.world.level.BaseSpawner;
+import net.minecraft.world.level.SpawnData;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
-@Mixin(MobSpawnerLogic.class)
+@Mixin(BaseSpawner.class)
 public interface AccessorAbstractSpawner {
-	@Invoker("isPlayerInRange")
+	@Invoker("isNearPlayer")
 	boolean botania_isPlayerInRange();
 
-	@Invoker("updateSpawns")
+	@Invoker("delay")
 	void botania_updateSpawns();
 
 	@Accessor
@@ -29,19 +29,19 @@ public interface AccessorAbstractSpawner {
 	@Accessor
 	int getSpawnRange();
 
-	@Accessor
-	MobSpawnerEntry getSpawnEntry();
+	@Accessor("nextSpawnData")
+	SpawnData getSpawnEntry();
 
 	@Accessor
 	int getMaxNearbyEntities();
 
-	@Accessor("field_9161")
+	@Accessor("spin")
 	double getMobRotation();
 
-	@Accessor("field_9161")
+	@Accessor("spin")
 	void setMobRotation(double rot);
 
-	@Accessor("field_9159")
+	@Accessor("oSpin")
 	void setPrevMobRotation(double rot);
 
 	@Accessor

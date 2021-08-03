@@ -8,16 +8,16 @@
  */
 package vazkii.botania.common.compat.rei;
 
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nonnull;
 
 import java.util.Map;
 
 public class OrechidRecipeWrapper implements Comparable<OrechidRecipeWrapper> {
-	public final Map.Entry<Identifier, Integer> entry;
+	public final Map.Entry<ResourceLocation, Integer> entry;
 
-	public OrechidRecipeWrapper(Map.Entry<Identifier, Integer> entry) {
+	public OrechidRecipeWrapper(Map.Entry<ResourceLocation, Integer> entry) {
 		this.entry = entry;
 	}
 

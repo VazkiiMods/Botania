@@ -8,10 +8,10 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.Box;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -43,12 +43,12 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 			double maxDist = getMaxDistance();
 			double range = getRange();
 
-			Box boundingBox = new Box(x1 - range, y1 - range, z1 - range, x1 + range + 1, y1 + range + 1, z1 + range + 1);
-			List<LivingEntity> entities = getWorld().getNonSpectatingEntities(LivingEntity.class, boundingBox);
+			AABB boundingBox = new AABB(x1 - range, y1 - range, z1 - range, x1 + range + 1, y1 + range + 1, z1 + range + 1);
+			List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class, boundingBox);
 
 			SparkleParticleData data = SparkleParticleData.sparkle(1F, 0.5F, 0.5F, 0.5F, 3);
 			for (LivingEntity entity : entities) {
-				if (entity instanceof PlayerEntity || !entity.canUsePortals()) {
+				if (entity instanceof Player || !entity.canChangeDimensions()) {
 					continue;
 				}
 
@@ -60,8 +60,8 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 
 				if (distance > maxDist && distance < range) {
 					MathHelper.setEntityMotionFromVector(entity, new Vector3(x1, y1, z1), getMotionVelocity(entity));
-					if (getWorld().random.nextInt(3) == 0) {
-						world.addParticle(data, x2 + Math.random() * entity.getWidth(), y2 + Math.random() * entity.getHeight(), z2 + Math.random() * entity.getWidth(), 0, 0, 0);
+					if (getLevel().random.nextInt(3) == 0) {
+						level.addParticle(data, x2 + Math.random() * entity.getBbWidth(), y2 + Math.random() * entity.getBbHeight(), z2 + Math.random() * entity.getBbWidth(), 0, 0, 0);
 					}
 				}
 			}
@@ -82,7 +82,7 @@ public class SubTileTangleberrie extends TileEntityFunctionalFlower {
 	}
 
 	float getMotionVelocity(LivingEntity entity) {
-		return Math.max(entity.getMovementSpeed() / 2F, 0.05F);
+		return Math.max(entity.getSpeed() / 2F, 0.05F);
 	}
 
 	@Override

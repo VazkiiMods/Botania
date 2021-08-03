@@ -10,10 +10,10 @@ package vazkii.botania.common.impl.corporea;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.corporea.ICorporeaRequest;
 import vazkii.botania.api.corporea.ICorporeaSpark;
@@ -22,9 +22,9 @@ import java.util.List;
 
 public class VanillaCorporeaNode extends AbstractCorporeaNode {
 
-	protected final Inventory inv;
+	protected final Container inv;
 
-	public VanillaCorporeaNode(World world, BlockPos pos, Inventory inv, ICorporeaSpark spark) {
+	public VanillaCorporeaNode(Level world, BlockPos pos, Container inv, ICorporeaSpark spark) {
 		super(world, pos, spark);
 		this.inv = inv;
 	}
@@ -42,8 +42,8 @@ public class VanillaCorporeaNode extends AbstractCorporeaNode {
 	protected List<ItemStack> iterateOverSlots(ICorporeaRequest request, boolean doit) {
 		ImmutableList.Builder<ItemStack> builder = ImmutableList.builder();
 
-		for (int i = inv.size() - 1; i >= 0; i--) {
-			ItemStack stackAt = inv.getStack(i);
+		for (int i = inv.getContainerSize() - 1; i >= 0; i--) {
+			ItemStack stackAt = inv.getItem(i);
 			if (request.getMatcher().test(stackAt)) {
 				request.trackFound(stackAt.getCount());
 
@@ -53,7 +53,7 @@ public class VanillaCorporeaNode extends AbstractCorporeaNode {
 
 					if (doit) {
 						ItemStack copy = stackAt.copy();
-						builder.addAll(breakDownBigStack(inv.removeStack(i, rem)));
+						builder.addAll(breakDownBigStack(inv.removeItem(i, rem)));
 						getSpark().onItemExtracted(copy);
 						request.trackExtracted(rem);
 					} else {

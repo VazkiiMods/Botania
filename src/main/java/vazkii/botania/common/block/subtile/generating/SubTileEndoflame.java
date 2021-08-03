@@ -8,16 +8,16 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
@@ -46,10 +46,10 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 			burnTime--;
 		}
 
-		if (getWorld().isClient) {
-			if (burnTime > 0 && getWorld().random.nextInt(10) == 0) {
-				Vec3d offset = getWorld().getBlockState(getEffectivePos()).getModelOffset(getWorld(), getEffectivePos()).add(0.4, 0.7, 0.4);
-				getWorld().addParticle(ParticleTypes.FLAME, getEffectivePos().getX() + offset.x + Math.random() * 0.2, getEffectivePos().getY() + offset.y, getEffectivePos().getZ() + offset.z + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
+		if (getLevel().isClientSide) {
+			if (burnTime > 0 && getLevel().random.nextInt(10) == 0) {
+				Vec3 offset = getLevel().getBlockState(getEffectivePos()).getOffset(getLevel(), getEffectivePos()).add(0.4, 0.7, 0.4);
+				getLevel().addParticle(ParticleTypes.FLAME, getEffectivePos().getX() + offset.x + Math.random() * 0.2, getEffectivePos().getY() + offset.y, getEffectivePos().getZ() + offset.z + Math.random() * 0.2, 0.0D, 0.0D, 0.0D);
 			}
 			return;
 		}
@@ -59,11 +59,11 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 				if (getMana() < getMaxMana()) {
 					int slowdown = getSlowdownFactor();
 
-					for (ItemEntity item : getWorld().getNonSpectatingEntities(ItemEntity.class, new Box(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)))) {
+					for (ItemEntity item : getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)))) {
 						int age = ((AccessorItemEntity) item).getAge();
 						if (age >= 59 + slowdown && item.isAlive()) {
-							ItemStack stack = item.getStack();
-							if (stack.isEmpty() || stack.getItem().hasRecipeRemainder()) {
+							ItemStack stack = item.getItem();
+							if (stack.isEmpty() || stack.getItem().hasCraftingRemainingItem()) {
 								continue;
 							}
 
@@ -71,9 +71,9 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 							if (burnTime > 0 && stack.getCount() > 0) {
 								this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
-								stack.decrement(1);
-								getWorld().playSound(null, getEffectivePos(), ModSounds.endoflame, SoundCategory.BLOCKS, 0.2F, 1F);
-								getWorld().addSyncedBlockEvent(getPos(), getCachedState().getBlock(), START_BURN_EVENT, item.getEntityId());
+								stack.shrink(1);
+								getLevel().playSound(null, getEffectivePos(), ModSounds.endoflame, SoundSource.BLOCKS, 0.2F, 1F);
+								getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), START_BURN_EVENT, item.getId());
 								sync();
 
 								return;
@@ -86,16 +86,16 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 	}
 
 	@Override
-	public boolean onSyncedBlockEvent(int event, int param) {
+	public boolean triggerEvent(int event, int param) {
 		if (event == START_BURN_EVENT) {
-			Entity e = getWorld().getEntityById(param);
+			Entity e = getLevel().getEntity(param);
 			if (e != null) {
-				e.world.addParticle(ParticleTypes.LARGE_SMOKE, e.getX(), e.getY() + 0.1, e.getZ(), 0.0D, 0.0D, 0.0D);
-				e.world.addParticle(ParticleTypes.FLAME, e.getX(), e.getY(), e.getZ(), 0.0D, 0.0D, 0.0D);
+				e.level.addParticle(ParticleTypes.LARGE_SMOKE, e.getX(), e.getY() + 0.1, e.getZ(), 0.0D, 0.0D, 0.0D);
+				e.level.addParticle(ParticleTypes.FLAME, e.getX(), e.getY(), e.getZ(), 0.0D, 0.0D, 0.0D);
 			}
 			return true;
 		} else {
-			return super.onSyncedBlockEvent(event, param);
+			return super.triggerEvent(event, param);
 		}
 	}
 
@@ -144,10 +144,10 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 	}
 
 	private int getBurnTime(ItemStack stack) {
-		if (stack.isEmpty() || Block.getBlockFromItem(stack.getItem()) instanceof BlockSpreader) {
+		if (stack.isEmpty() || Block.byItem(stack.getItem()) instanceof BlockSpreader) {
 			return 0;
 		} else {
-			return AbstractFurnaceBlockEntity.createFuelTimeMap().getOrDefault(stack.getItem(), 0);
+			return AbstractFurnaceBlockEntity.getFuel().getOrDefault(stack.getItem(), 0);
 		}
 	}
 

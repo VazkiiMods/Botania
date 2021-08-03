@@ -10,8 +10,8 @@ package vazkii.botania.common.compat.rei;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -28,7 +28,7 @@ public class PureDaisyREIDisplay extends BotaniaRecipeDisplay<RecipePureDaisy> {
 		ImmutableList.Builder<EntryStack> inputs = ImmutableList.builder();
 		for (BlockState state : recipe.getInput().getDisplayed()) {
 			if (!state.getFluidState().isEmpty()) {
-				inputs.add(EntryStack.create(state.getFluidState().getFluid()));
+				inputs.add(EntryStack.create(state.getFluidState().getType()));
 			} else {
 				inputs.add(EntryStack.create(state.getBlock()));
 			}
@@ -49,7 +49,7 @@ public class PureDaisyREIDisplay extends BotaniaRecipeDisplay<RecipePureDaisy> {
 	}
 
 	@Override
-	public @NotNull Identifier getRecipeCategory() {
+	public @NotNull ResourceLocation getRecipeCategory() {
 		return RecipePureDaisy.TYPE_ID;
 	}
 }

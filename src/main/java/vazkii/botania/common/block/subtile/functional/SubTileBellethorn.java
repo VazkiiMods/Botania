@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.WitchEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.Box;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Witch;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -49,7 +49,7 @@ public class SubTileBellethorn extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isClient || redstoneSignal > 0) {
+		if (getLevel().isClientSide || redstoneSignal > 0) {
 			return;
 		}
 
@@ -61,7 +61,7 @@ public class SubTileBellethorn extends TileEntityFunctionalFlower {
 
 		if (ticksExisted % 5 == 0) {
 			int range = getRange();
-			List<LivingEntity> entities = getWorld().getEntitiesByClass(LivingEntity.class, new Box(getEffectivePos().add(-range, -range, -range), getEffectivePos().add(range + 1, range + 1, range + 1)), getSelector());
+			List<LivingEntity> entities = getLevel().getEntitiesOfClass(LivingEntity.class, new AABB(getEffectivePos().offset(-range, -range, -range), getEffectivePos().offset(range + 1, range + 1, range + 1)), getSelector());
 
 			for (LivingEntity entity : entities) {
 				if (getMana() < manaToUse) {
@@ -69,11 +69,11 @@ public class SubTileBellethorn extends TileEntityFunctionalFlower {
 				}
 				if (entity.hurtTime == 0) {
 					int dmg = 4;
-					if (entity instanceof WitchEntity) {
+					if (entity instanceof Witch) {
 						dmg = 20;
 					}
 
-					entity.damage(DamageSource.MAGIC, dmg);
+					entity.hurt(DamageSource.MAGIC, dmg);
 					addMana(-manaToUse);
 				}
 			}
@@ -94,7 +94,7 @@ public class SubTileBellethorn extends TileEntityFunctionalFlower {
 	}
 
 	public Predicate<Entity> getSelector() {
-		return entity -> !(entity instanceof PlayerEntity);
+		return entity -> !(entity instanceof Player);
 	}
 
 	@Override

@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.block.subtile;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
@@ -32,19 +32,19 @@ public class SubTileManastar extends TileEntitySpecialFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isClient) {
+		if (getLevel().isClientSide) {
 			if (state != NONE && Math.random() > 0.6) {
 				float r = state == INCREASING ? 0.05F : 1F;
 				float b = state == INCREASING ? 1F : 0.05F;
 				WispParticleData data = WispParticleData.wisp((float) Math.random() / 7, r, 0.05F, b, 1);
-				world.addParticle(data, getEffectivePos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getY() + 0.75 + Math.random() * 0.2 - 0.1, getEffectivePos().getZ() + 0.5, 0, (float) Math.random() / 50, 0);
+				level.addParticle(data, getEffectivePos().getX() + 0.55 + Math.random() * 0.2 - 0.1, getEffectivePos().getY() + 0.75 + Math.random() * 0.2 - 0.1, getEffectivePos().getZ() + 0.5, 0, (float) Math.random() / 50, 0);
 			}
 		} else {
 			int mana = 0;
-			for (Direction dir : Direction.Type.HORIZONTAL) {
-				BlockPos pos = getEffectivePos().offset(dir);
-				if (getWorld().isChunkLoaded(pos)) {
-					BlockEntity tile = getWorld().getBlockEntity(pos);
+			for (Direction dir : Direction.Plane.HORIZONTAL) {
+				BlockPos pos = getEffectivePos().relative(dir);
+				if (getLevel().hasChunkAt(pos)) {
+					BlockEntity tile = getLevel().getBlockEntity(pos);
 					if (tile instanceof IManaPool) {
 						mana += ((IManaPool) tile).getCurrentMana();
 					}
@@ -53,7 +53,7 @@ public class SubTileManastar extends TileEntitySpecialFlower {
 
 			int newState = mana > lastMana ? INCREASING : mana < lastMana ? DECREASING : NONE;
 			if (newState != state) {
-				getWorld().addSyncedBlockEvent(getPos(), getCachedState().getBlock(), SET_STATE_EVENT, newState);
+				getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), SET_STATE_EVENT, newState);
 			}
 
 			if (ticksExisted % 60 == 0) {
@@ -63,12 +63,12 @@ public class SubTileManastar extends TileEntitySpecialFlower {
 	}
 
 	@Override
-	public boolean onSyncedBlockEvent(int id, int param) {
+	public boolean triggerEvent(int id, int param) {
 		if (id == SET_STATE_EVENT) {
 			state = param;
 			return true;
 		} else {
-			return super.onSyncedBlockEvent(id, param);
+			return super.triggerEvent(id, param);
 		}
 	}
 

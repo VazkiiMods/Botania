@@ -8,18 +8,20 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.SheepEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.EntityHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.*;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.animal.Sheep;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.IManaBurst;
@@ -36,29 +38,29 @@ public class LensPaint extends Lens {
 	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		Entity entity = burst.entity();
 		int storedColor = ItemLens.getStoredColor(stack);
-		if (!entity.world.isClient && !burst.isFake() && storedColor > -1 && storedColor < 17) {
+		if (!entity.level.isClientSide && !burst.isFake() && storedColor > -1 && storedColor < 17) {
 			if (pos.getType() == HitResult.Type.ENTITY) {
 				Entity collidedWith = ((EntityHitResult) pos).getEntity();
-				if (collidedWith instanceof SheepEntity) {
+				if (collidedWith instanceof Sheep) {
 					int r = 20;
-					SheepEntity sheep = (SheepEntity) collidedWith;
+					Sheep sheep = (Sheep) collidedWith;
 					DyeColor sheepColor = sheep.getColor();
-					List<SheepEntity> sheepList = entity.world.getNonSpectatingEntities(SheepEntity.class,
-							new Box(sheep.getX() - r, sheep.getY() - r, sheep.getZ() - r,
+					List<Sheep> sheepList = entity.level.getEntitiesOfClass(Sheep.class,
+							new AABB(sheep.getX() - r, sheep.getY() - r, sheep.getZ() - r,
 									sheep.getX() + r, sheep.getY() + r, sheep.getZ() + r));
-					for (SheepEntity other : sheepList) {
+					for (Sheep other : sheepList) {
 						if (other.getColor() == sheepColor) {
-							other.setColor(DyeColor.byId(storedColor == 16 ? other.world.random.nextInt(16) : storedColor));
+							other.setColor(DyeColor.byId(storedColor == 16 ? other.level.random.nextInt(16) : storedColor));
 						}
 					}
 					dead = true;
 				} else if (collidedWith instanceof EntitySparkBase) {
-					((EntitySparkBase) collidedWith).setNetwork(DyeColor.byId(storedColor == 16 ? collidedWith.world.random.nextInt(16) : storedColor));
+					((EntitySparkBase) collidedWith).setNetwork(DyeColor.byId(storedColor == 16 ? collidedWith.level.random.nextInt(16) : storedColor));
 				}
 			} else if (pos.getType() == HitResult.Type.BLOCK) {
 				BlockPos hit = ((BlockHitResult) pos).getBlockPos();
-				BlockState state = entity.world.getBlockState(hit);
-				Identifier blockId = Registry.BLOCK.getId(state.getBlock());
+				BlockState state = entity.level.getBlockState(hit);
+				ResourceLocation blockId = Registry.BLOCK.getKey(state.getBlock());
 
 				if (BotaniaAPI.instance().getPaintableBlocks().containsKey(blockId)) {
 					List<BlockPos> coordsToPaint = new ArrayList<>();
@@ -72,8 +74,8 @@ public class LensPaint extends Lens {
 							coordsToPaint.add(coords);
 
 							for (Direction dir : Direction.values()) {
-								BlockPos coords_ = coords.offset(dir);
-								BlockState state_ = entity.world.getBlockState(coords_);
+								BlockPos coords_ = coords.relative(dir);
+								BlockState state_ = entity.level.getBlockState(coords_);
 								if (state_ == state && !coordsFound.contains(coords_) && !coordsToPaint.contains(coords_)) {
 									coordsFound.add(coords_);
 								}
@@ -82,14 +84,14 @@ public class LensPaint extends Lens {
 					} while (!coordsFound.isEmpty() && coordsToPaint.size() < 1000);
 
 					for (BlockPos coords : coordsToPaint) {
-						DyeColor placeColor = DyeColor.byId(storedColor == 16 ? entity.world.random.nextInt(16) : storedColor);
-						BlockState stateThere = entity.world.getBlockState(coords);
+						DyeColor placeColor = DyeColor.byId(storedColor == 16 ? entity.level.random.nextInt(16) : storedColor);
+						BlockState stateThere = entity.level.getBlockState(coords);
 
 						Function<DyeColor, Block> f = BotaniaAPI.instance().getPaintableBlocks().get(blockId);
 						Block newBlock = f.apply(placeColor);
 						if (newBlock != stateThere.getBlock()) {
-							entity.world.setBlockState(coords, newBlock.getDefaultState());
-							PacketBotaniaEffect.sendNearby(entity.world, coords, PacketBotaniaEffect.EffectType.PAINT_LENS, coords.getX(), coords.getY(), coords.getZ(), placeColor.getId());
+							entity.level.setBlockAndUpdate(coords, newBlock.defaultBlockState());
+							PacketBotaniaEffect.sendNearby(entity.level, coords, PacketBotaniaEffect.EffectType.PAINT_LENS, coords.getX(), coords.getY(), coords.getZ(), placeColor.getId());
 						}
 					}
 				}

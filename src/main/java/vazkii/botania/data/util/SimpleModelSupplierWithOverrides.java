@@ -12,13 +12,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import net.minecraft.data.client.model.SimpleModelSupplier;
-import net.minecraft.util.Identifier;
+import net.minecraft.data.models.model.DelegatedModel;
+import net.minecraft.resources.ResourceLocation;
 
-public class SimpleModelSupplierWithOverrides extends SimpleModelSupplier {
+public class SimpleModelSupplierWithOverrides extends DelegatedModel {
 	private final OverrideHolder overrides;
 
-	public SimpleModelSupplierWithOverrides(Identifier parent, OverrideHolder overrides) {
+	public SimpleModelSupplierWithOverrides(ResourceLocation parent, OverrideHolder overrides) {
 		super(parent);
 		this.overrides = overrides;
 	}

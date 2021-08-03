@@ -8,29 +8,29 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.client.lib.LibResources;
 
 public class ItemAutocraftingHalo extends ItemCraftingHalo {
 
-	private static final Identifier glowTexture = new Identifier(LibResources.MISC_GLOW_CYAN);
+	private static final ResourceLocation glowTexture = new ResourceLocation(LibResources.MISC_GLOW_CYAN);
 
-	public ItemAutocraftingHalo(Item.Settings props) {
+	public ItemAutocraftingHalo(Item.Properties props) {
 		super(props);
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity entity, int pos, boolean equipped) {
+	public void inventoryTick(ItemStack stack, Level world, Entity entity, int pos, boolean equipped) {
 		super.inventoryTick(stack, world, entity, pos, equipped);
 
-		if (!world.isClient && entity instanceof PlayerEntity && !equipped) {
-			PlayerEntity player = (PlayerEntity) entity;
+		if (!world.isClientSide && entity instanceof Player && !equipped) {
+			Player player = (Player) entity;
 
 			for (int i = 1; i < SEGMENTS; i++) {
 				tryCraft(player, stack, i, false);
@@ -39,7 +39,7 @@ public class ItemAutocraftingHalo extends ItemCraftingHalo {
 	}
 
 	@Override
-	public Identifier getGlowResource() {
+	public ResourceLocation getGlowResource() {
 		return glowTexture;
 	}
 

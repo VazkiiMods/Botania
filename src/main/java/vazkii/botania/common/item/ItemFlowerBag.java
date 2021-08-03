@@ -9,26 +9,29 @@
 package vazkii.botania.common.item;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.HopperBlockEntity;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.Text;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.world.World;
+import net.minecraft.world.Container;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
 
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
 import vazkii.botania.common.block.BlockModFlower;
@@ -38,55 +41,55 @@ import javax.annotation.Nonnull;
 public class ItemFlowerBag extends Item {
 	public static final int SIZE = 16;
 
-	public ItemFlowerBag(Settings props) {
+	public ItemFlowerBag(Properties props) {
 		super(props);
 	}
 
 	public static boolean isValid(int slot, ItemStack stack) {
-		Block blk = Block.getBlockFromItem(stack.getItem());
+		Block blk = Block.byItem(stack.getItem());
 		return !stack.isEmpty()
 				&& blk.getClass() == BlockModFlower.class
 				&& slot == ((BlockModFlower) blk).color.getId();
 	}
 
-	public static SimpleInventory getInventory(ItemStack stack) {
+	public static SimpleContainer getInventory(ItemStack stack) {
 		return new ItemBackedInventory(stack, SIZE) {
 			@Override
-			public boolean isValid(int slot, @Nonnull ItemStack stack) {
-				return isValid(slot, stack);
+			public boolean canPlaceItem(int slot, @Nonnull ItemStack stack) {
+				return canPlaceItem(slot, stack);
 			}
 		};
 	}
 
-	public static boolean onPickupItem(ItemEntity entity, PlayerEntity player) {
-		ItemStack entityStack = entity.getStack();
-		if (Block.getBlockFromItem(entityStack.getItem()) instanceof BlockModFlower && entityStack.getCount() > 0) {
-			int color = ((BlockModFlower) Block.getBlockFromItem(entityStack.getItem())).color.getId();
+	public static boolean onPickupItem(ItemEntity entity, Player player) {
+		ItemStack entityStack = entity.getItem();
+		if (Block.byItem(entityStack.getItem()) instanceof BlockModFlower && entityStack.getCount() > 0) {
+			int color = ((BlockModFlower) Block.byItem(entityStack.getItem())).color.getId();
 
-			for (int i = 0; i < player.inventory.size(); i++) {
-				if (i == player.inventory.selectedSlot) {
+			for (int i = 0; i < player.inventory.getContainerSize(); i++) {
+				if (i == player.inventory.selected) {
 					continue; // prevent item deletion
 				}
 
-				ItemStack bag = player.inventory.getStack(i);
+				ItemStack bag = player.inventory.getItem(i);
 				if (!bag.isEmpty() && bag.getItem() == ModItems.flowerBag) {
-					SimpleInventory bagInv = getInventory(bag);
-					ItemStack existing = bagInv.getStack(color);
+					SimpleContainer bagInv = getInventory(bag);
+					ItemStack existing = bagInv.getItem(color);
 					int newCount = Math.min(existing.getCount() + entityStack.getCount(),
-							Math.min(existing.getMaxCount(), bagInv.getMaxCountPerStack()));
+							Math.min(existing.getMaxStackSize(), bagInv.getMaxStackSize()));
 					int numPickedUp = newCount - existing.getCount();
 
 					if (numPickedUp > 0) {
 						if (existing.isEmpty()) {
-							bagInv.setStack(color, entityStack.split(numPickedUp));
+							bagInv.setItem(color, entityStack.split(numPickedUp));
 						} else {
-							existing.increment(numPickedUp);
-							entityStack.decrement(numPickedUp);
+							existing.grow(numPickedUp);
+							entityStack.shrink(numPickedUp);
 						}
-						entity.setStack(entityStack);
-						bagInv.markDirty();
+						entity.setItem(entityStack);
+						bagInv.setChanged();
 
-						player.sendPickup(entity, numPickedUp);
+						player.take(entity, numPickedUp);
 
 						return true;
 					}
@@ -98,58 +101,58 @@ public class ItemFlowerBag extends Item {
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		if (!world.isClient) {
-			ItemStack stack = player.getStackInHand(hand);
-			NamedScreenHandlerFactory container = new ExtendedScreenHandlerFactory() {
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		if (!world.isClientSide) {
+			ItemStack stack = player.getItemInHand(hand);
+			MenuProvider container = new ExtendedScreenHandlerFactory() {
 				@Override
-				public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-					buf.writeBoolean(hand == Hand.MAIN_HAND);
+				public void writeScreenOpeningData(ServerPlayer player, FriendlyByteBuf buf) {
+					buf.writeBoolean(hand == InteractionHand.MAIN_HAND);
 				}
 
 				@Override
-				public Text getDisplayName() {
-					return stack.getName();
+				public Component getDisplayName() {
+					return stack.getHoverName();
 				}
 
 				@Override
-				public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+				public AbstractContainerMenu createMenu(int syncId, Inventory inv, Player player) {
 					return new ContainerFlowerBag(syncId, inv, stack);
 				}
 			};
-			player.openHandledScreen(container);
+			player.openMenu(container);
 		}
-		return TypedActionResult.success(player.getStackInHand(hand));
+		return InteractionResultHolder.success(player.getItemInHand(hand));
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		World world = ctx.getWorld();
-		BlockPos pos = ctx.getBlockPos();
-		Direction side = ctx.getSide();
+	public InteractionResult useOn(UseOnContext ctx) {
+		Level world = ctx.getLevel();
+		BlockPos pos = ctx.getClickedPos();
+		Direction side = ctx.getClickedFace();
 
 		BlockEntity tile = world.getBlockEntity(pos);
 		if (tile != null) {
-			if (!world.isClient) {
-				Inventory tileInv;
-				if (tile instanceof Inventory) {
-					tileInv = (Inventory) tile;
+			if (!world.isClientSide) {
+				Container tileInv;
+				if (tile instanceof Container) {
+					tileInv = (Container) tile;
 				} else {
-					return ActionResult.FAIL;
+					return InteractionResult.FAIL;
 				}
 
-				Inventory bagInv = getInventory(ctx.getStack());
-				for (int i = 0; i < bagInv.size(); i++) {
-					ItemStack flower = bagInv.getStack(i);
-					ItemStack rem = HopperBlockEntity.transfer(bagInv, tileInv, flower, side);
-					bagInv.setStack(i, rem);
+				Container bagInv = getInventory(ctx.getItemInHand());
+				for (int i = 0; i < bagInv.getContainerSize(); i++) {
+					ItemStack flower = bagInv.getItem(i);
+					ItemStack rem = HopperBlockEntity.addItem(bagInv, tileInv, flower, side);
+					bagInv.setItem(i, rem);
 				}
 
 			}
 
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 }

@@ -8,15 +8,15 @@
  */
 package vazkii.botania.common.item.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.LiteralText;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Util;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
@@ -52,18 +52,18 @@ public class ItemBlockTinyPotato extends BlockItem {
 
 	private static final String TAG_TICKS = "notMyNameTicks";
 
-	public ItemBlockTinyPotato(Block block, Settings props) {
+	public ItemBlockTinyPotato(Block block, Properties props) {
 		super(block, props);
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity e, int t, boolean idunno) {
-		if (!world.isClient && e instanceof PlayerEntity && e.age % 30 == 0
-				&& TYPOS.matcher(stack.getName().getString()).matches()) {
-			PlayerEntity player = (PlayerEntity) e;
+	public void inventoryTick(ItemStack stack, Level world, Entity e, int t, boolean idunno) {
+		if (!world.isClientSide && e instanceof Player && e.tickCount % 30 == 0
+				&& TYPOS.matcher(stack.getHoverName().getString()).matches()) {
+			Player player = (Player) e;
 			int ticks = ItemNBTHelper.getInt(stack, TAG_TICKS, 0);
 			if (ticks < NOT_MY_NAME.length) {
-				player.sendSystemMessage(new LiteralText(NOT_MY_NAME[ticks]).formatted(Formatting.RED), Util.NIL_UUID);
+				player.sendMessage(new TextComponent(NOT_MY_NAME[ticks]).withStyle(ChatFormatting.RED), Util.NIL_UUID);
 				ItemNBTHelper.setInt(stack, TAG_TICKS, ticks + 1);
 			}
 		}

@@ -12,9 +12,9 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.client.core.helper.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
@@ -25,17 +25,17 @@ import vazkii.botania.common.entity.EntityPixie;
 
 import javax.annotation.Nonnull;
 
-public class RenderPixie extends MobEntityRenderer<EntityPixie, ModelPixie> {
+public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
 
 	public static final ShaderCallback SHADER_CALLBACK = shader -> {
 		// Frag Uniforms
-		int disfigurationUniform = GlStateManager.getUniformLocation(shader, "disfiguration");
+		int disfigurationUniform = GlStateManager._glGetUniformLocation(shader, "disfiguration");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, 0.025F);
 		RenderSystem.glUniform1(disfigurationUniform, ShaderHelper.FLOAT_BUF);
 
 		// Vert Uniforms
-		int grainIntensityUniform = GlStateManager.getUniformLocation(shader, "grainIntensity");
+		int grainIntensityUniform = GlStateManager._glGetUniformLocation(shader, "grainIntensity");
 		ShaderHelper.FLOAT_BUF.position(0);
 		ShaderHelper.FLOAT_BUF.put(0, 0.05F);
 		RenderSystem.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
@@ -47,9 +47,9 @@ public class RenderPixie extends MobEntityRenderer<EntityPixie, ModelPixie> {
 
 	@Nonnull
 	@Override
-	public Identifier getTexture(@Nonnull EntityPixie entity) {
+	public ResourceLocation getTextureLocation(@Nonnull EntityPixie entity) {
 		return ClientProxy.dootDoot
-				? new Identifier(LibResources.MODEL_PIXIE_HALLOWEEN)
-				: new Identifier(LibResources.MODEL_PIXIE);
+				? new ResourceLocation(LibResources.MODEL_PIXIE_HALLOWEEN)
+				: new ResourceLocation(LibResources.MODEL_PIXIE);
 	}
 }

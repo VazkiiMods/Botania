@@ -8,19 +8,20 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3f;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaCrystalCube;
@@ -38,43 +39,43 @@ public class RenderTileCorporeaCrystalCube extends BlockEntityRenderer<TileCorpo
 	}
 
 	@Override
-	public void render(@Nullable TileCorporeaCrystalCube cube, float f, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
+	public void render(@Nullable TileCorporeaCrystalCube cube, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		ItemStack stack = ItemStack.EMPTY;
 		if (cube != null) {
 			if (entity == null) {
-				entity = new ItemEntity(cube.getWorld(), cube.getPos().getX(), cube.getPos().getY(), cube.getPos().getZ(), new ItemStack(Blocks.STONE));
+				entity = new ItemEntity(cube.getLevel(), cube.getBlockPos().getX(), cube.getBlockPos().getY(), cube.getBlockPos().getZ(), new ItemStack(Blocks.STONE));
 			}
 
 			((AccessorItemEntity) entity).setAge(ClientTickHandler.ticksInGame);
 			stack = cube.getRequestTarget();
-			entity.setStack(stack);
+			entity.setItem(stack);
 		}
 
 		double time = ClientTickHandler.ticksInGame + f;
-		double worldTicks = cube == null || cube.getWorld() == null ? 0 : time;
+		double worldTicks = cube == null || cube.getLevel() == null ? 0 : time;
 
-		MinecraftClient mc = MinecraftClient.getInstance();
-		ms.push();
+		Minecraft mc = Minecraft.getInstance();
+		ms.pushPose();
 		ms.translate(0.5F, 1.5F, 0.5F);
 		ms.scale(1F, -1F, -1F);
 		ms.translate(0F, (float) Math.sin(worldTicks / 20.0 * 1.55) * 0.025F, 0F);
 
 		if (!stack.isEmpty()) {
-			ms.push();
+			ms.pushPose();
 			float s = stack.getItem() instanceof BlockItem ? 0.7F : 0.5F;
 			ms.translate(0F, 0.8F, 0F);
 			ms.scale(s, s, s);
-			ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(180F));
-			MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(entity).render(entity, 0, f, ms, buffers, light);
-			ms.pop();
+			ms.mulPose(Vector3f.ZP.rotationDegrees(180F));
+			Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(entity).render(entity, 0, f, ms, buffers, light);
+			ms.popPose();
 		}
 
 		if (cubeModel != null) {
-			ms.push();
+			ms.pushPose();
 			ms.translate(-0.5F, 0.25F, -0.5F);
-			VertexConsumer buffer = buffers.getBuffer(TexturedRenderLayers.getEntityTranslucentCull());
-			MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer().render(ms.peek(), buffer, null, cubeModel, 1, 1, 1, light, overlay);
-			ms.pop();
+			VertexConsumer buffer = buffers.getBuffer(Sheets.translucentCullBlockSheet());
+			Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(ms.last(), buffer, null, cubeModel, 1, 1, 1, light, overlay);
+			ms.popPose();
 		}
 
 		if (!stack.isEmpty()) {
@@ -94,20 +95,20 @@ public class RenderTileCorporeaCrystalCube extends BlockEntityRenderer<TileCorpo
 
 			float s = 1F / 64F;
 			ms.scale(s, s, s);
-			int l = mc.textRenderer.getWidth(countStr);
+			int l = mc.font.width(countStr);
 
 			ms.translate(0F, 55F, 0F);
 			float tr = -16.5F;
 			for (int i = 0; i < 4; i++) {
-				ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F));
+				ms.mulPose(Vector3f.YP.rotationDegrees(90F));
 				ms.translate(0F, 0F, tr);
-				mc.textRenderer.draw(countStr, -l / 2, 0, color, false, ms.peek().getModel(), buffers, false, 0, light);
+				mc.font.drawInBatch(countStr, -l / 2, 0, color, false, ms.last().pose(), buffers, false, 0, light);
 				ms.translate(0F, 0F, 0.1F);
-				mc.textRenderer.draw(countStr, -l / 2 + 1, 1, colorShade, false, ms.peek().getModel(), buffers, false, 0, light);
+				mc.font.drawInBatch(countStr, -l / 2 + 1, 1, colorShade, false, ms.last().pose(), buffers, false, 0, light);
 				ms.translate(0F, 0F, -tr - 0.1F);
 			}
 		}
 
-		ms.pop();
+		ms.popPose();
 	}
 }

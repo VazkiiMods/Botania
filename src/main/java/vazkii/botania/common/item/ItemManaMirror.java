@@ -8,22 +8,22 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.dynamic.GlobalPos;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.World;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.mana.IManaPool;
@@ -44,7 +44,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 
 	private static final DummyPool fallbackPool = new DummyPool();
 
-	public ItemManaMirror(Settings props) {
+	public ItemManaMirror(Properties props) {
 		super(props);
 	}
 
@@ -59,8 +59,8 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 	}
 
 	@Override
-	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-		if (world.isClient) {
+	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean selected) {
+		if (world.isClientSide) {
 			return;
 		}
 
@@ -78,20 +78,20 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 
 	@Nonnull
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		World world = ctx.getWorld();
-		PlayerEntity player = ctx.getPlayer();
+	public InteractionResult useOn(UseOnContext ctx) {
+		Level world = ctx.getLevel();
+		Player player = ctx.getPlayer();
 
-		if (player != null && player.isSneaking() && !world.isClient) {
-			BlockEntity tile = world.getBlockEntity(ctx.getBlockPos());
+		if (player != null && player.isShiftKeyDown() && !world.isClientSide) {
+			BlockEntity tile = world.getBlockEntity(ctx.getClickedPos());
 			if (tile instanceof IManaPool) {
-				bindPool(ctx.getStack(), tile);
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundCategory.PLAYERS, 1F, 1F);
-				return ActionResult.SUCCESS;
+				bindPool(ctx.getItemInHand(), tile);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.ding, SoundSource.PLAYERS, 1F, 1F);
+				return InteractionResult.SUCCESS;
 			}
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Override
@@ -123,7 +123,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 	}
 
 	public void bindPool(ItemStack stack, BlockEntity pool) {
-		GlobalPos pos = GlobalPos.create(pool.getWorld().getRegistryKey(), pool.getPos());
+		GlobalPos pos = GlobalPos.of(pool.getLevel().dimension(), pool.getBlockPos());
 		Tag ser = GlobalPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).get().orThrow();
 		ItemNBTHelper.set(stack, TAG_POS, ser);
 	}
@@ -136,7 +136,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 
 		return GlobalPos.CODEC.parse(NbtOps.INSTANCE, ItemNBTHelper.get(stack, TAG_POS))
 				.result()
-				.filter(pos -> pos.getPos().getY() != -1)
+				.filter(pos -> pos.pos().getY() != -1)
 				.orElse(null);
 	}
 
@@ -151,10 +151,10 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 			return fallbackPool;
 		}
 
-		RegistryKey<World> type = pos.getDimension();
-		World world = server.getWorld(type);
+		ResourceKey<Level> type = pos.dimension();
+		Level world = server.getLevel(type);
 		if (world != null) {
-			BlockEntity tile = world.getBlockEntity(pos.getPos());
+			BlockEntity tile = world.getBlockEntity(pos.pos());
 			if (tile instanceof IManaPool) {
 				return (IManaPool) tile;
 			}
@@ -225,14 +225,14 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 
 	@Nullable
 	@Override
-	public BlockPos getBinding(World world, ItemStack stack) {
+	public BlockPos getBinding(Level world, ItemStack stack) {
 		GlobalPos pos = getBoundPos(stack);
 		if (pos == null) {
 			return null;
 		}
 
-		if (pos.getDimension() == world.getRegistryKey()) {
-			return pos.getPos();
+		if (pos.dimension() == world.dimension()) {
+			return pos.pos();
 		}
 
 		return null;

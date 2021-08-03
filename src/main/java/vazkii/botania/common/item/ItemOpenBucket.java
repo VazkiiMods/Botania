@@ -8,73 +8,73 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.advancement.criterion.Criteria;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FluidDrainable;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
-import net.minecraft.tag.FluidTags;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.RaycastContext;
-import net.minecraft.world.World;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.stats.Stats;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BucketPickup;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import javax.annotation.Nonnull;
 
 public class ItemOpenBucket extends Item {
 
-	public ItemOpenBucket(Settings props) {
+	public ItemOpenBucket(Properties props) {
 		super(props);
 	}
 
 	// [VanillaCopy] BucketItem, only the empty cases
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, @Nonnull Hand handIn) {
-		ItemStack itemstack = playerIn.getStackInHand(handIn);
-		HitResult raytraceresult = raycast(worldIn, playerIn, RaycastContext.FluidHandling.SOURCE_ONLY);
+	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, @Nonnull InteractionHand handIn) {
+		ItemStack itemstack = playerIn.getItemInHand(handIn);
+		HitResult raytraceresult = getPlayerPOVHitResult(worldIn, playerIn, ClipContext.Fluid.SOURCE_ONLY);
 		if (raytraceresult.getType() == HitResult.Type.MISS) {
-			return new TypedActionResult<>(ActionResult.PASS, itemstack);
+			return new InteractionResultHolder<>(InteractionResult.PASS, itemstack);
 		} else if (raytraceresult.getType() != HitResult.Type.BLOCK) {
-			return new TypedActionResult<>(ActionResult.PASS, itemstack);
+			return new InteractionResultHolder<>(InteractionResult.PASS, itemstack);
 		} else {
 			BlockHitResult blockraytraceresult = (BlockHitResult) raytraceresult;
 			BlockPos blockpos = blockraytraceresult.getBlockPos();
-			if (worldIn.canPlayerModifyAt(playerIn, blockpos) && playerIn.canPlaceOn(blockpos, blockraytraceresult.getSide(), itemstack)) {
+			if (worldIn.mayInteract(playerIn, blockpos) && playerIn.mayUseItemAt(blockpos, blockraytraceresult.getDirection(), itemstack)) {
 				BlockState blockstate1 = worldIn.getBlockState(blockpos);
-				if (blockstate1.getBlock() instanceof FluidDrainable) {
-					Fluid fluid = ((FluidDrainable) blockstate1.getBlock()).tryDrainFluid(worldIn, blockpos, blockstate1);
+				if (blockstate1.getBlock() instanceof BucketPickup) {
+					Fluid fluid = ((BucketPickup) blockstate1.getBlock()).takeLiquid(worldIn, blockpos, blockstate1);
 					if (fluid != Fluids.EMPTY) {
-						playerIn.incrementStat(Stats.USED.getOrCreateStat(this));
-						playerIn.playSound(fluid.isIn(FluidTags.LAVA) ? SoundEvents.ITEM_BUCKET_FILL_LAVA : SoundEvents.ITEM_BUCKET_FILL, 1.0F, 1.0F);
+						playerIn.awardStat(Stats.ITEM_USED.get(this));
+						playerIn.playSound(fluid.is(FluidTags.LAVA) ? SoundEvents.BUCKET_FILL_LAVA : SoundEvents.BUCKET_FILL, 1.0F, 1.0F);
 						// Botania: some particles
 						for (int x = 0; x < 5; x++) {
 							worldIn.addParticle(ParticleTypes.POOF, blockpos.getX() + Math.random(), blockpos.getY() + Math.random(), blockpos.getZ() + Math.random(), 0, 0, 0);
 						}
 
 						ItemStack itemstack1 = itemstack; // this.fillBucket(itemstack, playerIn, fluid.getFilledBucket());
-						if (!worldIn.isClient) {
-							Criteria.FILLED_BUCKET.trigger((ServerPlayerEntity) playerIn, new ItemStack(fluid.getBucketItem()));
+						if (!worldIn.isClientSide) {
+							CriteriaTriggers.FILLED_BUCKET.trigger((ServerPlayer) playerIn, new ItemStack(fluid.getBucket()));
 						}
 
-						return new TypedActionResult<>(ActionResult.SUCCESS, itemstack1);
+						return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack1);
 					}
 				}
 
-				return new TypedActionResult<>(ActionResult.FAIL, itemstack);
+				return new InteractionResultHolder<>(InteractionResult.FAIL, itemstack);
 			} else {
-				return new TypedActionResult<>(ActionResult.FAIL, itemstack);
+				return new InteractionResultHolder<>(InteractionResult.FAIL, itemstack);
 			}
 		}
 	}

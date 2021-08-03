@@ -8,18 +8,18 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.block.entity.HopperBlockEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.Direction;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.HopperBlockEntity;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(HopperBlockEntity.class)
 public interface AccessorHopperBlockEntity {
-	@Invoker("canInsert")
-	static boolean botania_canInsert(Inventory to, ItemStack stack, int slot, Direction direction) {
+	@Invoker("canPlaceItemInContainer")
+	static boolean botania_canInsert(Container to, ItemStack stack, int slot, Direction direction) {
 		throw new IllegalStateException("");
 	}
 

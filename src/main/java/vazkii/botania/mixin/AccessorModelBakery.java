@@ -8,22 +8,22 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.render.model.ModelLoader;
-import net.minecraft.client.render.model.SpriteAtlasManager;
-import net.minecraft.client.util.SpriteIdentifier;
+import net.minecraft.client.renderer.texture.AtlasSet;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.client.resources.model.ModelBakery;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
 import java.util.Set;
 
-@Mixin(ModelLoader.class)
+@Mixin(ModelBakery.class)
 public interface AccessorModelBakery {
-	@Accessor("DEFAULT_TEXTURES")
-	static Set<SpriteIdentifier> getMaterials() {
+	@Accessor("UNREFERENCED_TEXTURES")
+	static Set<Material> getMaterials() {
 		throw new IllegalStateException();
 	}
 
-	@Accessor
-	SpriteAtlasManager getSpriteAtlasManager();
+	@Accessor("atlasSet")
+	AtlasSet getSpriteAtlasManager();
 }

@@ -10,17 +10,17 @@ package vazkii.botania.common.item.equipment.armor.terrasteel;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.mana.IManaDiscountArmor;
@@ -36,26 +36,26 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 
 	public static final String TAG_ANCIENT_WILL = "AncientWill";
 
-	public ItemTerrasteelHelm(Settings props) {
+	public ItemTerrasteelHelm(Properties props) {
 		super(EquipmentSlot.HEAD, props);
 	}
 
 	@Override
-	public void onArmorTick(ItemStack stack, World world, PlayerEntity player) {
+	public void onArmorTick(ItemStack stack, Level world, Player player) {
 		super.onArmorTick(stack, world, player);
-		if (!world.isClient && hasArmorSet(player)) {
-			int food = player.getHungerManager().getFoodLevel();
-			if (food > 0 && food < 18 && player.canFoodHeal() && player.age % 80 == 0) {
+		if (!world.isClientSide && hasArmorSet(player)) {
+			int food = player.getFoodData().getFoodLevel();
+			if (food > 0 && food < 18 && player.isHurt() && player.tickCount % 80 == 0) {
 				player.heal(1F);
 			}
-			if (player.age % 10 == 0) {
+			if (player.tickCount % 10 == 0) {
 				ManaItemHandler.instance().dispatchManaExact(stack, player, 10, true);
 			}
 		}
 	}
 
 	@Override
-	public float getDiscount(ItemStack stack, int slot, PlayerEntity player, @Nullable ItemStack tool) {
+	public float getDiscount(ItemStack stack, int slot, Player player, @Nullable ItemStack tool) {
 		return hasArmorSet(player) ? 0.2F : 0F;
 	}
 
@@ -75,11 +75,11 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void addArmorSetDescription(ItemStack stack, List<Text> list) {
+	public void addArmorSetDescription(ItemStack stack, List<Component> list) {
 		super.addArmorSetDescription(stack, list);
 		for (AncientWillType type : AncientWillType.values()) {
 			if (hasAncientWill(stack, type)) {
-				list.add(new TranslatableText("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".desc").formatted(Formatting.GRAY));
+				list.add(new TranslatableComponent("botania.armorset.will_" + type.name().toLowerCase(Locale.ROOT) + ".desc").withStyle(ChatFormatting.GRAY));
 			}
 		}
 	}
@@ -94,9 +94,9 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		return false;
 	}
 
-	public float onCritDamageCalc(float amount, PlayerEntity player) {
+	public float onCritDamageCalc(float amount, Player player) {
 		if (hasArmorSet(player)) {
-			ItemStack stack = player.getEquippedStack(EquipmentSlot.HEAD);
+			ItemStack stack = player.getItemBySlot(EquipmentSlot.HEAD);
 			if (!stack.isEmpty() && stack.getItem() instanceof ItemTerrasteelHelm
 					&& hasAncientWill(stack, AncientWillType.DHAROK)) {
 				return amount * (1F + (1F - player.getHealth() / player.getMaxHealth()) * 0.5F);
@@ -105,24 +105,24 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 		return amount;
 	}
 
-	public void onEntityAttacked(DamageSource source, float amount, PlayerEntity player, LivingEntity entity) {
+	public void onEntityAttacked(DamageSource source, float amount, Player player, LivingEntity entity) {
 		if (hasArmorSet(player)) {
-			ItemStack stack = player.getEquippedStack(EquipmentSlot.HEAD);
+			ItemStack stack = player.getItemBySlot(EquipmentSlot.HEAD);
 			if (!stack.isEmpty() && stack.getItem() instanceof ItemTerrasteelHelm) {
 				if (hasAncientWill(stack, AncientWillType.AHRIM)) {
-					entity.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, 20, 1));
+					entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20, 1));
 				}
 				if (hasAncientWill(stack, AncientWillType.GUTHAN)) {
 					player.heal(amount * 0.25F);
 				}
 				if (hasAncientWill(stack, AncientWillType.TORAG)) {
-					entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 60, 1));
+					entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 1));
 				}
 				if (hasAncientWill(stack, AncientWillType.VERAC)) {
-					source.bypassesArmor();
+					source.isBypassArmor();
 				}
 				if (hasAncientWill(stack, AncientWillType.KARIL)) {
-					entity.addStatusEffect(new StatusEffectInstance(StatusEffects.WITHER, 60, 1));
+					entity.addEffect(new MobEffectInstance(MobEffects.WITHER, 60, 1));
 				}
 			}
 		}

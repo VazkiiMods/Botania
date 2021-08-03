@@ -8,16 +8,17 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.RenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3f;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.tile.TileCocoon;
 
@@ -30,7 +31,7 @@ public class RenderTileCocoon extends BlockEntityRenderer<TileCocoon> {
 	}
 
 	@Override
-	public void render(@Nonnull TileCocoon cocoon, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
+	public void render(@Nonnull TileCocoon cocoon, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		float rot = 0F;
 		float modval = 60F - (float) cocoon.timePassed / (float) TileCocoon.TOTAL_TIME * 30F;
 		if (cocoon.timePassed % modval < 10) {
@@ -39,14 +40,14 @@ public class RenderTileCocoon extends BlockEntityRenderer<TileCocoon> {
 			rot = (float) Math.sin(v) * (float) Math.log(cocoon.timePassed + partialTicks);
 		}
 
-		ms.push();
+		ms.pushPose();
 		ms.translate(0.5, 0, 0);
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(rot));
+		ms.mulPose(Vector3f.XP.rotationDegrees(rot));
 		ms.translate(-0.5, 0, 0);
-		BlockState state = cocoon.getCachedState();
-		BakedModel model = MinecraftClient.getInstance().getBlockRenderManager().getModels().getModel(state);
-		VertexConsumer buffer = buffers.getBuffer(RenderLayers.getBlockLayer(state));
-		MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer().render(ms.peek(), buffer, state, model, 1, 1, 1, light, overlay);
-		ms.pop();
+		BlockState state = cocoon.getBlockState();
+		BakedModel model = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper().getBlockModel(state);
+		VertexConsumer buffer = buffers.getBuffer(ItemBlockRenderTypes.getChunkRenderType(state));
+		Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(ms.last(), buffer, state, model, 1, 1, 1, light, overlay);
+		ms.popPose();
 	}
 }

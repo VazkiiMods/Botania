@@ -12,13 +12,13 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import net.minecraft.block.Block;
-import net.minecraft.data.DataCache;
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.data.HashCache;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Tuple;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
@@ -39,10 +39,10 @@ public class FloatingFlowerModelProvider implements DataProvider {
 	}
 
 	@Override
-	public void run(DataCache cache) throws IOException {
-		List<Pair<String, JsonElement>> jsons = new ArrayList<>();
+	public void run(HashCache cache) throws IOException {
+		List<Tuple<String, JsonElement>> jsons = new ArrayList<>();
 		for (Block b : Registry.BLOCK) {
-			Identifier id = Registry.BLOCK.getId(b);
+			ResourceLocation id = Registry.BLOCK.getKey(b);
 			if (LibMisc.MOD_ID.equals(id.getNamespace()) && b instanceof BlockFloatingFlower) {
 				String name = id.getPath();
 				String nonFloat;
@@ -54,14 +54,14 @@ public class FloatingFlowerModelProvider implements DataProvider {
 
 				JsonObject obj = new JsonObject();
 				obj.addProperty("flower", LibResources.PREFIX_MOD + "block/" + nonFloat);
-				jsons.add(new Pair<>("block/" + name, obj));
+				jsons.add(new Tuple<>("block/" + name, obj));
 			}
 		}
 
 		Gson gson = new Gson();
-		for (Pair<String, JsonElement> pair : jsons) {
-			Path p = generator.getOutput().resolve("assets/" + LibMisc.MOD_ID + "/models/" + pair.getLeft() + ".json");
-			DataProvider.writeToPath(gson, cache, pair.getRight(), p);
+		for (Tuple<String, JsonElement> pair : jsons) {
+			Path p = generator.getOutputFolder().resolve("assets/" + LibMisc.MOD_ID + "/models/" + pair.getA() + ".json");
+			DataProvider.save(gson, cache, pair.getB(), p);
 		}
 	}
 

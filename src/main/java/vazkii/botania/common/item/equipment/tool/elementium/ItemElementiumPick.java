@@ -8,9 +8,9 @@
  */
 package vazkii.botania.common.item.equipment.tool.elementium;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.common.item.ModItems;
@@ -20,14 +20,14 @@ import vazkii.botania.common.lib.ModTags;
 
 public class ItemElementiumPick extends ItemManasteelPick {
 
-	public ItemElementiumPick(Settings props) {
+	public ItemElementiumPick(Properties props) {
 		super(BotaniaAPI.instance().getElementiumItemTier(), props, -2.8F);
 	}
 
 	public static boolean shouldFilterOut(Entity e, ItemStack tool, ItemStack drop) {
 		if (!tool.isEmpty() && (tool.getItem() == ModItems.elementiumPick
 				|| tool.getItem() == ModItems.terraPick && ItemTerraPick.isTipped(tool))) {
-			return !drop.isEmpty() && (isDisposable(drop) || isSemiDisposable(drop) && !e.isSneaking());
+			return !drop.isEmpty() && (isDisposable(drop) || isSemiDisposable(drop) && !e.isShiftKeyDown());
 		}
 		return false;
 	}

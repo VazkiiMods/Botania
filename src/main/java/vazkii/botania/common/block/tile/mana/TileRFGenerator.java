@@ -9,14 +9,14 @@
 package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.Tickable;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
 
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
-public class TileRFGenerator extends TileMod implements IManaReceiver, Tickable {
+public class TileRFGenerator extends TileMod implements IManaReceiver, TickableBlockEntity {
 	private static final int MANA_TO_FE = 10;
 	private static final int MAX_ENERGY = 1280 * MANA_TO_FE;
 
@@ -65,7 +65,7 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, Tickable 
 
 	@Override
 	public void tick() {
-		if (!world.isClient && ConfigHandler.COMMON.fluxfieldEnabled.getValue()) {
+		if (!level.isClientSide && ConfigHandler.COMMON.fluxfieldEnabled.getValue()) {
 			int transfer = Math.min(energy, 160 * MANA_TO_FE);
 			energy -= transfer;
 			energy += transmitEnergy(transfer);

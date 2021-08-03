@@ -8,10 +8,10 @@
  */
 package vazkii.botania.api.item;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 /**
  * An item that implements this can break multiple blocks at once
@@ -20,7 +20,7 @@ import net.minecraft.util.math.Direction;
  */
 public interface ISequentialBreaker {
 
-	void breakOtherBlock(PlayerEntity player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side);
+	void breakOtherBlock(Player player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side);
 
 	@Deprecated // todo 1.17 remove
 	default boolean disposeOfTrashBlocks(ItemStack stack) {

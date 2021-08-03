@@ -8,16 +8,16 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.UseAction;
-import net.minecraft.world.World;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityVineBall;
@@ -30,15 +30,15 @@ public class ItemSlingshot extends Item {
 
 	private static final Predicate<ItemStack> AMMO_FUNC = s -> s != null && s.getItem() == ModItems.vineBall;
 
-	public ItemSlingshot(Settings builder) {
+	public ItemSlingshot(Properties builder) {
 		super(builder);
 	}
 
 	@Override
-	public void onStoppedUsing(ItemStack stack, World world, LivingEntity living, int duration) {
-		int j = getMaxUseTime(stack) - duration;
+	public void releaseUsing(ItemStack stack, Level world, LivingEntity living, int duration) {
+		int j = getUseDuration(stack) - duration;
 
-		if (!world.isClient && (!(living instanceof PlayerEntity) || ((PlayerEntity) living).abilities.creativeMode || PlayerHelper.hasAmmo((PlayerEntity) living, AMMO_FUNC))) {
+		if (!world.isClientSide && (!(living instanceof Player) || ((Player) living).abilities.instabuild || PlayerHelper.hasAmmo((Player) living, AMMO_FUNC))) {
 			float f = j / 20.0F;
 			f = (f * f + f * 2.0F) / 3.0F;
 
@@ -46,39 +46,39 @@ public class ItemSlingshot extends Item {
 				return;
 			}
 
-			if (living instanceof PlayerEntity && !((PlayerEntity) living).abilities.creativeMode) {
-				PlayerHelper.consumeAmmo((PlayerEntity) living, AMMO_FUNC);
+			if (living instanceof Player && !((Player) living).abilities.instabuild) {
+				PlayerHelper.consumeAmmo((Player) living, AMMO_FUNC);
 			}
 
 			EntityVineBall ball = new EntityVineBall(living, false);
-			ball.setProperties(living, living.pitch, living.yaw, 0F, 1.5F, 1F);
-			ball.setVelocity(ball.getVelocity().multiply(1.6));
-			world.spawnEntity(ball);
-			world.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.NEUTRAL, 0.5F, 0.4F / (RANDOM.nextFloat() * 0.4F + 0.8F));
+			ball.shootFromRotation(living, living.xRot, living.yRot, 0F, 1.5F, 1F);
+			ball.setDeltaMovement(ball.getDeltaMovement().scale(1.6));
+			world.addFreshEntity(ball);
+			world.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 		}
 	}
 
 	@Override
-	public int getMaxUseTime(ItemStack stack) {
+	public int getUseDuration(ItemStack stack) {
 		return 72000;
 	}
 
 	@Nonnull
 	@Override
-	public UseAction getUseAction(ItemStack stack) {
-		return UseAction.BOW;
+	public UseAnim getUseAnimation(ItemStack stack) {
+		return UseAnim.BOW;
 	}
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getStackInHand(hand);
-		if (player.abilities.creativeMode || PlayerHelper.hasAmmo(player, AMMO_FUNC)) {
-			player.setCurrentHand(hand);
-			return TypedActionResult.consume(stack);
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
+		if (player.abilities.instabuild || PlayerHelper.hasAmmo(player, AMMO_FUNC)) {
+			player.startUsingItem(hand);
+			return InteractionResultHolder.consume(stack);
 		}
 
-		return TypedActionResult.pass(stack);
+		return InteractionResultHolder.pass(stack);
 	}
 
 }

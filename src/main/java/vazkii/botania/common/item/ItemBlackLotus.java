@@ -10,15 +10,15 @@ package vazkii.botania.common.item;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
 import vazkii.botania.api.item.IManaDissolvable;
 import vazkii.botania.api.mana.IManaPool;
@@ -32,12 +32,12 @@ public class ItemBlackLotus extends Item implements IManaDissolvable {
 	private static final int MANA_PER = 8000;
 	private static final int MANA_PER_T2 = 100000;
 
-	public ItemBlackLotus(Settings props) {
+	public ItemBlackLotus(Properties props) {
 		super(props);
 	}
 
 	@Override
-	public boolean hasGlint(ItemStack stack) {
+	public boolean isFoil(ItemStack stack) {
 		return stack.getItem() == ModItems.blackerLotus;
 	}
 
@@ -47,12 +47,12 @@ public class ItemBlackLotus extends Item implements IManaDissolvable {
 			return;
 		}
 
-		BlockPos pos = pool.tileEntity().getPos();
+		BlockPos pos = pool.tileEntity().getBlockPos();
 		boolean t2 = stack.getItem() == ModItems.blackerLotus;
 
-		if (!item.world.isClient) {
+		if (!item.level.isClientSide) {
 			pool.receiveMana(t2 ? MANA_PER_T2 : MANA_PER);
-			stack.decrement(1);
+			stack.shrink(1);
 			PacketBotaniaEffect.sendNearby(item, PacketBotaniaEffect.EffectType.BLACK_LOTUS_DISSOLVE, pos.getX(), pos.getY() + 0.5, pos.getZ());
 		}
 
@@ -61,8 +61,8 @@ public class ItemBlackLotus extends Item implements IManaDissolvable {
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendTooltip(ItemStack stack, World world, List<Text> list, TooltipContext flags) {
-		list.add(new TranslatableText("botaniamisc.lotusDesc").formatted(Formatting.GRAY));
+	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
+		list.add(new TranslatableComponent("botaniamisc.lotusDesc").withStyle(ChatFormatting.GRAY));
 	}
 
 }

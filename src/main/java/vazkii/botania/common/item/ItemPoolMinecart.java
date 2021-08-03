@@ -8,17 +8,17 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.block.AbstractRailBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.enums.RailShape;
-import net.minecraft.entity.vehicle.AbstractMinecartEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.vehicle.AbstractMinecart;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseRailBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.RailShape;
 
 import vazkii.botania.common.entity.EntityPoolMinecart;
 
@@ -26,38 +26,38 @@ import javax.annotation.Nonnull;
 
 public class ItemPoolMinecart extends Item {
 
-	public ItemPoolMinecart(Settings builder) {
+	public ItemPoolMinecart(Properties builder) {
 		super(builder);
 	}
 
 	// [VanillaCopy] MinecartItem
 	@Nonnull
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext context) {
-		World world = context.getWorld();
-		BlockPos blockPos = context.getBlockPos();
+	public InteractionResult useOn(UseOnContext context) {
+		Level world = context.getLevel();
+		BlockPos blockPos = context.getClickedPos();
 		BlockState blockState = world.getBlockState(blockPos);
-		if (!blockState.isIn(BlockTags.RAILS)) {
-			return ActionResult.FAIL;
+		if (!blockState.is(BlockTags.RAILS)) {
+			return InteractionResult.FAIL;
 		} else {
-			ItemStack itemStack = context.getStack();
-			if (!world.isClient) {
-				RailShape railShape = blockState.getBlock() instanceof AbstractRailBlock ? blockState.get(((AbstractRailBlock) blockState.getBlock()).getShapeProperty()) : RailShape.NORTH_SOUTH;
+			ItemStack itemStack = context.getItemInHand();
+			if (!world.isClientSide) {
+				RailShape railShape = blockState.getBlock() instanceof BaseRailBlock ? blockState.getValue(((BaseRailBlock) blockState.getBlock()).getShapeProperty()) : RailShape.NORTH_SOUTH;
 				double d = 0.0D;
 				if (railShape.isAscending()) {
 					d = 0.5D;
 				}
 
-				AbstractMinecartEntity abstractMinecartEntity = new EntityPoolMinecart(world, (double) blockPos.getX() + 0.5D, (double) blockPos.getY() + 0.0625D + d, (double) blockPos.getZ() + 0.5D);
-				if (itemStack.hasCustomName()) {
-					abstractMinecartEntity.setCustomName(itemStack.getName());
+				AbstractMinecart abstractMinecartEntity = new EntityPoolMinecart(world, (double) blockPos.getX() + 0.5D, (double) blockPos.getY() + 0.0625D + d, (double) blockPos.getZ() + 0.5D);
+				if (itemStack.hasCustomHoverName()) {
+					abstractMinecartEntity.setCustomName(itemStack.getHoverName());
 				}
 
-				world.spawnEntity(abstractMinecartEntity);
+				world.addFreshEntity(abstractMinecartEntity);
 			}
 
-			itemStack.decrement(1);
-			return ActionResult.success(world.isClient);
+			itemStack.shrink(1);
+			return InteractionResult.sidedSuccess(world.isClientSide);
 		}
 	}
 

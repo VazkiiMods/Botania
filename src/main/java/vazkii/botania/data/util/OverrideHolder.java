@@ -11,7 +11,7 @@ package vazkii.botania.data.util;
 import com.google.gson.JsonArray;
 import com.mojang.datafixers.util.Pair;
 
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nullable;
 
@@ -24,9 +24,9 @@ public class OverrideHolder {
 	final List<ModelOverride> modelOverrides = new ArrayList<>();
 
 	@SafeVarargs
-	public final OverrideHolder add(Identifier model, Pair<Identifier, Double>... preds) {
-		Map<Identifier, Double> predMap = new LinkedHashMap<>();
-		for (Pair<Identifier, Double> pred : preds) {
+	public final OverrideHolder add(ResourceLocation model, Pair<ResourceLocation, Double>... preds) {
+		Map<ResourceLocation, Double> predMap = new LinkedHashMap<>();
+		for (Pair<ResourceLocation, Double> pred : preds) {
 			predMap.put(pred.getFirst(), pred.getSecond());
 		}
 		modelOverrides.add(new ModelOverride(predMap, model));

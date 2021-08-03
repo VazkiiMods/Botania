@@ -8,9 +8,9 @@
  */
 package vazkii.botania.api.capability;
 
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.item.IFloatingFlower;
 

@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Material;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -42,7 +42,7 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (getWorld().isClient) {
+		if (getLevel().isClientSide) {
 			return;
 		}
 
@@ -57,12 +57,12 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 				range++;
 			}
 
-			for (BlockPos pos : BlockPos.iterate(getEffectivePos().add(-range, -range, -range), getEffectivePos().add(range, range, range))) {
-				if (getEffectivePos().getSquaredDistance(pos) < range * range) {
-					BlockState state = getWorld().getBlockState(pos);
+			for (BlockPos pos : BlockPos.betweenClosed(getEffectivePos().offset(-range, -range, -range), getEffectivePos().offset(range, range, range))) {
+				if (getEffectivePos().distSqr(pos) < range * range) {
+					BlockState state = getLevel().getBlockState(pos);
 					if (state.getMaterial() == Material.WATER) {
-						getWorld().setBlockState(pos, ModBlocks.fakeAir.getDefaultState(), 2);
-						TileFakeAir air = (TileFakeAir) getWorld().getBlockEntity(pos);
+						getLevel().setBlock(pos, ModBlocks.fakeAir.defaultBlockState(), 2);
+						TileFakeAir air = (TileFakeAir) getLevel().getBlockEntity(pos);
 						air.setFlower(this);
 					}
 				}
@@ -70,7 +70,7 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 		}
 	}
 
-	public static boolean isValidBubbell(World world, BlockPos pos) {
+	public static boolean isValidBubbell(Level world, BlockPos pos) {
 		BlockEntity tile = world.getBlockEntity(pos);
 		if (tile instanceof SubTileBubbell) {
 			return ((SubTileBubbell) tile).getMana() > COST_PER_TICK;

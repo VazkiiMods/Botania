@@ -8,42 +8,42 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.common.block.tile.TileTinyPlanet;
 
 import javax.annotation.Nonnull;
 
-public class BlockTinyPlanet extends BlockModWaterloggable implements IManaCollisionGhost, BlockEntityProvider {
+public class BlockTinyPlanet extends BlockModWaterloggable implements IManaCollisionGhost, EntityBlock {
 
-	private static final VoxelShape AABB = createCuboidShape(3, 3, 3, 13, 13, 13);
+	private static final VoxelShape AABB = box(3, 3, 3, 13, 13, 13);
 
-	protected BlockTinyPlanet(Settings builder) {
+	protected BlockTinyPlanet(Properties builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return AABB;
 	}
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileTinyPlanet();
 	}
 
 	@Override
-	public boolean isGhost(BlockState state, World world, BlockPos pos) {
+	public boolean isGhost(BlockState state, Level world, BlockPos pos) {
 		return true;
 	}
 }

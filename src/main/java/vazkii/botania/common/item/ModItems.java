@@ -13,15 +13,16 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.item.*;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.Rarity;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IAncientWillContainer;
@@ -230,12 +231,12 @@ public final class ModItems {
 	public static final Item manaweaveChest = new ItemManaweaveArmor(EquipmentSlot.CHEST, unstackable().customDamage(ItemManasteelArmor::damageItem));
 	public static final Item manaweaveLegs = new ItemManaweaveArmor(EquipmentSlot.LEGS, unstackable().customDamage(ItemManasteelArmor::damageItem));
 	public static final Item manaweaveBoots = new ItemManaweaveArmor(EquipmentSlot.FEET, unstackable().customDamage(ItemManasteelArmor::damageItem));
-	public static final Item enderDagger = new ItemEnderDagger(unstackable().maxDamageIfAbsent(69) /* todo 1.16-fabric .setNoRepair()*/); // What you looking at?
+	public static final Item enderDagger = new ItemEnderDagger(unstackable().defaultDurability(69) /* todo 1.16-fabric .setNoRepair()*/); // What you looking at?
 	public static final Item glassPick = new ItemGlassPick(unstackable().customDamage(ItemManasteelPick::damageItem));
 	public static final Item livingwoodBow = new ItemLivingwoodBow(defaultBuilder().maxDamageIfAbsent(500).customDamage(ItemLivingwoodBow::damageItem));
 	public static final Item crystalBow = new ItemCrystalBow(defaultBuilder().maxDamageIfAbsent(500).customDamage(ItemCrystalBow::damageItem));
-	public static final Item thornChakram = new ItemThornChakram(defaultBuilder().maxCount(6));
-	public static final Item flareChakram = new ItemThornChakram(defaultBuilder().maxCount(6));
+	public static final Item thornChakram = new ItemThornChakram(defaultBuilder().stacksTo(6));
+	public static final Item flareChakram = new ItemThornChakram(defaultBuilder().stacksTo(6));
 
 	// Misc tools
 	public static final Item manaTablet = new ItemManaTablet(unstackable());
@@ -252,7 +253,7 @@ public final class ModItems {
 	public static final Item enderHand = new ItemEnderHand(unstackable());
 	public static final Item craftingHalo = new ItemCraftingHalo(unstackable());
 	public static final Item autocraftingHalo = new ItemAutocraftingHalo(unstackable());
-	public static final Item spellCloth = new ItemSpellCloth(unstackable().maxDamageIfAbsent(35)/* todo 1.16-fabric.setNoRepair()*/);
+	public static final Item spellCloth = new ItemSpellCloth(unstackable().defaultDurability(35)/* todo 1.16-fabric.setNoRepair()*/);
 	public static final Item flowerBag = new ItemFlowerBag(unstackable());
 	public static final Item blackHoleTalisman = new ItemBlackHoleTalisman(unstackable());
 	public static final Item temperanceStone = new ItemTemperanceStone(unstackable());
@@ -298,7 +299,7 @@ public final class ModItems {
 	public static final Item flightTiara = new ItemFlightTiara(unstackable().rarity(Rarity.UNCOMMON));
 
 	// Misc
-	public static final Item manaCookie = new Item(defaultBuilder().food(new FoodComponent.Builder().hunger(0).saturationModifier(0.1F).statusEffect(new StatusEffectInstance(StatusEffects.SATURATION, 20, 0), 1).build()));
+	public static final Item manaCookie = new Item(defaultBuilder().food(new FoodProperties.Builder().nutrition(0).saturationMod(0.1F).effect(new MobEffectInstance(MobEffects.SATURATION, 20, 0), 1).build()));
 	public static final Item manaBottle = new ItemBottledMana(unstackable());
 	public static final Item laputaShard = new ItemLaputaShard(unstackable().rarity(Rarity.UNCOMMON));
 	public static final Item necroVirus = new ItemVirus(defaultBuilder());
@@ -329,13 +330,13 @@ public final class ModItems {
 	public static final Item craftPatternDonut = new ItemCraftPattern(CratePattern.CRAFTY_DONUT, unstackable());
 
 	// Guardian of Gaia drops
-	public static final Item dice = new ItemDice(unstackable().fireproof().rarity(BotaniaAPI.instance().getRelicRarity()));
-	public static final Item infiniteFruit = new ItemInfiniteFruit(unstackable().fireproof().rarity(BotaniaAPI.instance().getRelicRarity()));
-	public static final Item kingKey = new ItemKingKey(unstackable().fireproof().rarity(BotaniaAPI.instance().getRelicRarity()));
-	public static final Item flugelEye = new ItemFlugelEye(unstackable().fireproof().rarity(BotaniaAPI.instance().getRelicRarity()));
-	public static final Item thorRing = new ItemThorRing(unstackable().fireproof().rarity(BotaniaAPI.instance().getRelicRarity()));
-	public static final Item odinRing = new ItemOdinRing(unstackable().fireproof().rarity(BotaniaAPI.instance().getRelicRarity()));
-	public static final Item lokiRing = new ItemLokiRing(unstackable().fireproof().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item dice = new ItemDice(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item infiniteFruit = new ItemInfiniteFruit(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item kingKey = new ItemKingKey(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item flugelEye = new ItemFlugelEye(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item thorRing = new ItemThorRing(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item odinRing = new ItemOdinRing(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity()));
+	public static final Item lokiRing = new ItemLokiRing(unstackable().fireResistant().rarity(BotaniaAPI.instance().getRelicRarity()));
 	public static final Item recordGaia1 = new ItemModRecord(1, ModSounds.gaiaMusic1, unstackable().rarity(Rarity.RARE));
 	public static final Item recordGaia2 = new ItemModRecord(1, ModSounds.gaiaMusic2, unstackable().rarity(Rarity.RARE));
 	public static final Item ancientWillAhrim = new ItemAncientWill(IAncientWillContainer.AncientWillType.AHRIM, unstackable().rarity(Rarity.UNCOMMON));
@@ -389,8 +390,8 @@ public final class ModItems {
 	public static final Item questgiverMark = new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.QUESTGIVER_MARK, unstackable());
 	public static final Item thinkingHand = new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.THINKING_HAND, unstackable());
 
-	public static final ScreenHandlerType<ContainerFlowerBag> FLOWER_BAG_CONTAINER = ScreenHandlerRegistry.registerExtended(prefix(LibItemNames.FLOWER_BAG), ContainerFlowerBag::fromNetwork);
-	public static final ScreenHandlerType<ContainerBaubleBox> BAUBLE_BOX_CONTAINER = ScreenHandlerRegistry.registerExtended(prefix(LibItemNames.BAUBLE_BOX), ContainerBaubleBox::fromNetwork);
+	public static final MenuType<ContainerFlowerBag> FLOWER_BAG_CONTAINER = ScreenHandlerRegistry.registerExtended(prefix(LibItemNames.FLOWER_BAG), ContainerFlowerBag::fromNetwork);
+	public static final MenuType<ContainerBaubleBox> BAUBLE_BOX_CONTAINER = ScreenHandlerRegistry.registerExtended(prefix(LibItemNames.BAUBLE_BOX), ContainerBaubleBox::fromNetwork);
 
 	public static FabricItemSettings defaultBuilder() {
 		return new FabricItemSettings().group(BotaniaCreativeTab.INSTANCE);

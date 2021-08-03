@@ -8,14 +8,14 @@
  */
 package vazkii.botania.common.item.material;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.recipe.ICustomApothecaryColor;
 
 public class ItemRune extends Item implements ICustomApothecaryColor {
 
-	public ItemRune(Item.Settings builder) {
+	public ItemRune(Item.Properties builder) {
 		super(builder);
 	}
 

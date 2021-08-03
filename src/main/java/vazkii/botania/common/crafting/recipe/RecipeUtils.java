@@ -10,10 +10,10 @@ package vazkii.botania.common.crafting.recipe;
 
 import it.unimi.dsi.fastutil.ints.IntSet;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.Ingredient;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import javax.annotation.Nullable;
 
@@ -26,11 +26,11 @@ public class RecipeUtils {
 	 * Check if every ingredient in {@code inputs} is satisfied by {@code inv}.
 	 * Optionally, the slots from the inventory used to fulfill the inputs are placed into {@code usedSlots}.
 	 */
-	public static boolean matches(List<Ingredient> inputs, Inventory inv, @Nullable IntSet usedSlots) {
+	public static boolean matches(List<Ingredient> inputs, Container inv, @Nullable IntSet usedSlots) {
 		List<Ingredient> ingredientsMissing = new ArrayList<>(inputs);
 
-		for (int i = 0; i < inv.size(); i++) {
-			ItemStack input = inv.getStack(i);
+		for (int i = 0; i < inv.getContainerSize(); i++) {
+			ItemStack input = inv.getItem(i);
 			if (input.isEmpty()) {
 				break;
 			}
@@ -62,16 +62,16 @@ public class RecipeUtils {
 	 * Like the vanilla method on recipe interface, but specialHandler is called first, and if it returns
 	 * nonnull, that result is used instead of vanilla's
 	 */
-	public static DefaultedList<ItemStack> getRemainingItemsSub(Inventory inv, Function<ItemStack, ItemStack> specialHandler) {
-		DefaultedList<ItemStack> ret = DefaultedList.ofSize(inv.size(), ItemStack.EMPTY);
+	public static NonNullList<ItemStack> getRemainingItemsSub(Container inv, Function<ItemStack, ItemStack> specialHandler) {
+		NonNullList<ItemStack> ret = NonNullList.withSize(inv.getContainerSize(), ItemStack.EMPTY);
 
 		for (int i = 0; i < ret.size(); ++i) {
-			ItemStack item = inv.getStack(i);
+			ItemStack item = inv.getItem(i);
 			ItemStack special = specialHandler.apply(item);
 			if (special != null) {
 				ret.set(i, special);
-			} else if (item.getItem().hasRecipeRemainder()) {
-				ret.set(i, new ItemStack(item.getItem().getRecipeRemainder()));
+			} else if (item.getItem().hasCraftingRemainingItem()) {
+				ret.set(i, new ItemStack(item.getItem().getCraftingRemainingItem()));
 			}
 		}
 

@@ -8,24 +8,24 @@
  */
 package vazkii.botania.common.item.rod;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.UseAction;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.world.World;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.Container;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -45,37 +45,37 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 	private static final int COST = 300;
 	private static final int COST_PER_TICK = COST / TIME;
 
-	public static final Map<PlayerEntity, SmeltData> playerData = new WeakHashMap<>();
+	public static final Map<Player, SmeltData> playerData = new WeakHashMap<>();
 
-	public ItemSmeltRod(Settings props) {
+	public ItemSmeltRod(Properties props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public UseAction getUseAction(ItemStack stack) {
-		return UseAction.BOW;
+	public UseAnim getUseAnimation(ItemStack stack) {
+		return UseAnim.BOW;
 	}
 
 	@Override
-	public int getMaxUseTime(ItemStack stack) {
+	public int getUseDuration(ItemStack stack) {
 		return 72000;
 	}
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		player.setCurrentHand(hand);
-		return TypedActionResult.consume(player.getStackInHand(hand));
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		player.startUsingItem(hand);
+		return InteractionResultHolder.consume(player.getItemInHand(hand));
 	}
 
 	@Override
-	public void usageTick(World world, LivingEntity living, ItemStack stack, int time) {
-		if (!(living instanceof PlayerEntity)) {
+	public void onUseTick(Level world, LivingEntity living, ItemStack stack, int time) {
+		if (!(living instanceof Player)) {
 			return;
 		}
-		PlayerEntity p = (PlayerEntity) living;
-		Inventory dummyInv = new SimpleInventory(1);
+		Player p = (Player) living;
+		Container dummyInv = new SimpleContainer(1);
 
 		if (!ManaItemHandler.instance().requestManaExactForTool(stack, p, COST_PER_TICK, false)) {
 			return;
@@ -86,9 +86,9 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 		if (pos.getType() == HitResult.Type.BLOCK) {
 			BlockState state = world.getBlockState(pos.getBlockPos());
 
-			dummyInv.setStack(0, new ItemStack(state.getBlock()));
-			world.getRecipeManager().getFirstMatch(RecipeType.SMELTING, dummyInv, p.world)
-					.map(r -> r.craft(dummyInv))
+			dummyInv.setItem(0, new ItemStack(state.getBlock()));
+			world.getRecipeManager().getRecipeFor(RecipeType.SMELTING, dummyInv, p.level)
+					.map(r -> r.assemble(dummyInv))
 					.filter(r -> !r.isEmpty() && r.getItem() instanceof BlockItem)
 					.ifPresent(result -> {
 						boolean decremented = false;
@@ -100,10 +100,10 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 								data.progress--;
 								decremented = true;
 								if (data.progress <= 0) {
-									if (!world.isClient) {
-										world.setBlockState(pos.getBlockPos(), Block.getBlockFromItem(result.getItem()).getDefaultState());
-										world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.PLAYERS, 0.6F, 1F);
-										world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, 1F, 1F);
+									if (!world.isClientSide) {
+										world.setBlockAndUpdate(pos.getBlockPos(), Block.byItem(result.getItem()).defaultBlockState());
+										world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.FLINTANDSTEEL_USE, SoundSource.PLAYERS, 0.6F, 1F);
+										world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.FIRE_AMBIENT, SoundSource.PLAYERS, 1F, 1F);
 
 										ManaItemHandler.instance().requestManaExactForTool(stack, p, COST_PER_TICK, true);
 										playerData.remove(p);
@@ -132,7 +132,7 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 								world.addParticle(data, x, y, z, 0, (float) Math.random() / 10F, 0);
 							}
 							if (time % 10 == 0) {
-								world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.BLOCK_FIRE_AMBIENT, SoundCategory.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
+								world.playSound(null, p.getX(), p.getY(), p.getZ(), SoundEvents.FIRE_AMBIENT, SoundSource.PLAYERS, (float) Math.random() / 2F + 0.5F, 1F);
 							}
 						}
 					});

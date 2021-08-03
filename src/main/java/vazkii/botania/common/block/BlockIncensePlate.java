@@ -8,78 +8,78 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.Properties;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ItemScatterer;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.Containers;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.TileIncensePlate;
 
 import javax.annotation.Nonnull;
 
-public class BlockIncensePlate extends BlockModWaterloggable implements BlockEntityProvider {
+public class BlockIncensePlate extends BlockModWaterloggable implements EntityBlock {
 
-	private static final VoxelShape X_SHAPE = createCuboidShape(6, 0, 2, 10, 1, 14);
-	private static final VoxelShape Z_SHAPE = createCuboidShape(2, 0, 6, 14, 1, 10);
+	private static final VoxelShape X_SHAPE = box(6, 0, 2, 10, 1, 14);
+	private static final VoxelShape Z_SHAPE = box(2, 0, 6, 14, 1, 10);
 
-	protected BlockIncensePlate(Settings builder) {
+	protected BlockIncensePlate(Properties builder) {
 		super(builder);
-		setDefaultState(getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.SOUTH));
+		registerDefaultState(defaultBlockState().setValue(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH));
 	}
 
 	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		super.appendProperties(builder);
-		builder.add(Properties.HORIZONTAL_FACING);
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+		super.createBlockStateDefinition(builder);
+		builder.add(BlockStateProperties.HORIZONTAL_FACING);
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		TileIncensePlate plate = (TileIncensePlate) world.getBlockEntity(pos);
-		ItemStack plateStack = plate.getItemHandler().getStack(0);
-		ItemStack stack = player.getStackInHand(hand);
+		ItemStack plateStack = plate.getItemHandler().getItem(0);
+		ItemStack stack = player.getItemInHand(hand);
 		boolean did = false;
 
-		if (world.isClient) {
-			if (state.get(Properties.WATERLOGGED)
+		if (world.isClientSide) {
+			if (state.getValue(BlockStateProperties.WATERLOGGED)
 					&& !plateStack.isEmpty()
 					&& !plate.burning
 					&& !stack.isEmpty()
 					&& stack.getItem() == Items.FLINT_AND_STEEL) {
 				plate.spawnSmokeParticles();
 			}
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 
 		if (plateStack.isEmpty() && plate.acceptsItem(stack)) {
-			plate.getItemHandler().setStack(0, stack.copy());
-			stack.decrement(1);
+			plate.getItemHandler().setItem(0, stack.copy());
+			stack.shrink(1);
 			did = true;
 		} else if (!plateStack.isEmpty() && !plate.burning) {
 			if (!stack.isEmpty() && stack.getItem() == Items.FLINT_AND_STEEL) {
 				plate.ignite();
-				stack.damage(1, player, e -> e.sendToolBreakStatus(hand));
+				stack.hurtAndBreak(1, player, e -> e.broadcastBreakEvent(hand));
 				did = true;
 			} else {
-				player.inventory.offerOrDrop(player.world, plateStack);
-				plate.getItemHandler().setStack(0, ItemStack.EMPTY);
+				player.inventory.placeItemBackInInventory(player.level, plateStack);
+				plate.getItemHandler().setItem(0, ItemStack.EMPTY);
 
 				did = true;
 			}
@@ -89,28 +89,28 @@ public class BlockIncensePlate extends BlockModWaterloggable implements BlockEnt
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
 		}
 
-		return did ? ActionResult.SUCCESS : ActionResult.PASS;
+		return did ? InteractionResult.SUCCESS : InteractionResult.PASS;
 	}
 
 	@Override
-	public BlockState getPlacementState(ItemPlacementContext context) {
-		return super.getPlacementState(context).with(Properties.HORIZONTAL_FACING, context.getPlayerFacing().getOpposite());
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
+		return super.getStateForPlacement(context).setValue(BlockStateProperties.HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
 	}
 
 	@Override
-	public boolean hasComparatorOutput(BlockState state) {
+	public boolean hasAnalogOutputSignal(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
 		return ((TileIncensePlate) world.getBlockEntity(pos)).comparatorOutput;
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
-		if (state.get(Properties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
+		if (state.getValue(BlockStateProperties.HORIZONTAL_FACING).getAxis() == Direction.Axis.X) {
 			return X_SHAPE;
 		} else {
 			return Z_SHAPE;
@@ -119,19 +119,19 @@ public class BlockIncensePlate extends BlockModWaterloggable implements BlockEnt
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileIncensePlate();
 	}
 
 	@Override
-	public void onStateReplaced(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
+	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (state.getBlock() != newState.getBlock()) {
 			BlockEntity plate = world.getBlockEntity(pos);
 			if (plate instanceof TileIncensePlate && !((TileIncensePlate) plate).burning) {
-				ItemScatterer.spawn(world, pos, ((TileIncensePlate) plate).getItemHandler());
+				Containers.dropContents(world, pos, ((TileIncensePlate) plate).getItemHandler());
 			}
 		}
-		super.onStateReplaced(state, world, pos, newState, isMoving);
+		super.onRemove(state, world, pos, newState, isMoving);
 	}
 
 }

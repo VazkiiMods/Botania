@@ -8,17 +8,17 @@
  */
 package vazkii.botania.common.item.equipment.tool.elementium;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.Shearable;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.UseAction;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Shearable;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.manasteel.ItemManasteelShears;
@@ -30,43 +30,43 @@ import java.util.function.Predicate;
 
 public class ItemElementiumShears extends ItemManasteelShears {
 
-	public ItemElementiumShears(Settings props) {
+	public ItemElementiumShears(Properties props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public UseAction getUseAction(ItemStack stack) {
-		return UseAction.BOW;
+	public UseAnim getUseAnimation(ItemStack stack) {
+		return UseAnim.BOW;
 	}
 
 	@Override
-	public int getMaxUseTime(ItemStack stack) {
+	public int getUseDuration(ItemStack stack) {
 		return 72000;
 	}
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		player.setCurrentHand(hand);
-		return TypedActionResult.consume(player.getStackInHand(hand));
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		player.startUsingItem(hand);
+		return InteractionResultHolder.consume(player.getItemInHand(hand));
 	}
 
 	@Override
-	public void usageTick(World world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int count) {
-		if (world.isClient) {
+	public void onUseTick(Level world, @Nonnull LivingEntity living, @Nonnull ItemStack stack, int count) {
+		if (world.isClientSide) {
 			return;
 		}
 
-		if (count != getMaxUseTime(stack) && count % 5 == 0) {
+		if (count != getUseDuration(stack) && count % 5 == 0) {
 			int range = 12;
 			Predicate<Entity> shearablePred = e -> e instanceof Shearable;
-			List<Entity> shearable = world.getEntitiesByClass(Entity.class, new Box(living.getX() - range, living.getY() - range, living.getZ() - range, living.getX() + range, living.getY() + range, living.getZ() + range), shearablePred);
+			List<Entity> shearable = world.getEntitiesOfClass(Entity.class, new AABB(living.getX() - range, living.getY() - range, living.getZ() - range, living.getX() + range, living.getY() + range, living.getZ() + range), shearablePred);
 			if (shearable.size() > 0) {
 				for (Entity entity : shearable) {
-					if (entity instanceof Shearable && ((Shearable) entity).isShearable()) {
-						((Shearable) entity).sheared(living.getSoundCategory());
-						stack.damage(1, living, l -> l.sendToolBreakStatus(l.getActiveHand()));
+					if (entity instanceof Shearable && ((Shearable) entity).readyForShearing()) {
+						((Shearable) entity).shear(living.getSoundSource());
+						stack.hurtAndBreak(1, living, l -> l.broadcastBreakEvent(l.getUsedItemHand()));
 						break;
 					}
 				}
@@ -75,8 +75,8 @@ public class ItemElementiumShears extends ItemManasteelShears {
 	}
 
 	@Override
-	public boolean canRepair(ItemStack toRepair, @Nonnull ItemStack repairBy) {
-		return repairBy.getItem() == ModItems.elementium || super.canRepair(toRepair, repairBy);
+	public boolean isValidRepairItem(ItemStack toRepair, @Nonnull ItemStack repairBy) {
+		return repairBy.getItem() == ModItems.elementium || super.isValidRepairItem(toRepair, repairBy);
 	}
 
 	@Override

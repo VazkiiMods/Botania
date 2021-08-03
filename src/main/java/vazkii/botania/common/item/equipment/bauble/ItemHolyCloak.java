@@ -8,21 +8,22 @@
  */
 package vazkii.botania.common.item.equipment.bauble;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import org.apache.commons.lang3.mutable.MutableFloat;
 
@@ -36,8 +37,8 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 public class ItemHolyCloak extends ItemBauble {
 
-	private static final Identifier texture = new Identifier(LibResources.MODEL_HOLY_CLOAK);
-	private static final Identifier textureGlow = new Identifier(LibResources.MODEL_HOLY_CLOAK_GLOW);
+	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_HOLY_CLOAK);
+	private static final ResourceLocation textureGlow = new ResourceLocation(LibResources.MODEL_HOLY_CLOAK_GLOW);
 
 	@Environment(EnvType.CLIENT)
 	private static ModelCloak model;
@@ -45,12 +46,12 @@ public class ItemHolyCloak extends ItemBauble {
 	private static final String TAG_COOLDOWN = "cooldown";
 	private static final String TAG_IN_EFFECT = "inEffect";
 
-	public ItemHolyCloak(Settings props) {
+	public ItemHolyCloak(Properties props) {
 		super(props);
 	}
 
-	public float onPlayerDamage(PlayerEntity player, DamageSource src, float amount) {
-		if (!src.isOutOfWorld()) {
+	public float onPlayerDamage(Player player, DamageSource src, float amount) {
+		if (!src.isBypassInvul()) {
 			ItemStack stack = EquipmentHandler.findOrEmpty(this, player);
 
 			if (!stack.isEmpty() && !isInEffect(stack)) {
@@ -80,38 +81,38 @@ public class ItemHolyCloak extends ItemBauble {
 
 	@Override
 	@Environment(EnvType.CLIENT)
-	public void doRender(BipedEntityModel<?> bipedModel, ItemStack stack, LivingEntity player, MatrixStack ms, VertexConsumerProvider buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void doRender(HumanoidModel<?> bipedModel, ItemStack stack, LivingEntity player, PoseStack ms, MultiBufferSource buffers, int light, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 		ItemHolyCloak item = ((ItemHolyCloak) stack.getItem());
 		AccessoryRenderHelper.rotateIfSneaking(ms, player);
-		boolean armor = !player.getEquippedStack(EquipmentSlot.CHEST).isEmpty();
+		boolean armor = !player.getItemBySlot(EquipmentSlot.CHEST).isEmpty();
 		ms.translate(0F, armor ? -0.07F : -0.01F, 0F);
 
 		if (model == null) {
 			model = new ModelCloak();
 		}
 
-		MinecraftClient.getInstance().getTextureManager().bindTexture(item.getCloakTexture());
-		VertexConsumer buffer = buffers.getBuffer(model.getLayer(item.getCloakTexture()));
-		model.render(ms, buffer, light, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
+		Minecraft.getInstance().getTextureManager().bind(item.getCloakTexture());
+		VertexConsumer buffer = buffers.getBuffer(model.renderType(item.getCloakTexture()));
+		model.renderToBuffer(ms, buffer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 
-		buffer = buffers.getBuffer(model.getLayer(item.getCloakGlowTexture()));
-		model.render(ms, buffer, 0xF000F0, OverlayTexture.DEFAULT_UV, 1, 1, 1, 1);
+		buffer = buffers.getBuffer(model.renderType(item.getCloakGlowTexture()));
+		model.renderToBuffer(ms, buffer, 0xF000F0, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 	}
 
-	public boolean effectOnDamage(DamageSource src, MutableFloat amount, PlayerEntity player, ItemStack stack) {
-		if (!src.getMagic()) {
+	public boolean effectOnDamage(DamageSource src, MutableFloat amount, Player player, ItemStack stack) {
+		if (!src.isMagic()) {
 			amount.setValue(0);
-			player.world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.holyCloak, SoundCategory.PLAYERS, 1F, 1F);
+			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.holyCloak, SoundSource.PLAYERS, 1F, 1F);
 			for (int i = 0; i < 30; i++) {
-				double x = player.getX() + Math.random() * player.getWidth() * 2 - player.getWidth();
-				double y = player.getY() + Math.random() * player.getHeight();
-				double z = player.getZ() + Math.random() * player.getWidth() * 2 - player.getWidth();
+				double x = player.getX() + Math.random() * player.getBbWidth() * 2 - player.getBbWidth();
+				double y = player.getY() + Math.random() * player.getBbHeight();
+				double z = player.getZ() + Math.random() * player.getBbWidth() * 2 - player.getBbWidth();
 				boolean yellow = Math.random() > 0.5;
 				float r = yellow ? 1F : 0.3F;
 				float g = yellow ? 1F : 0.3F;
 				float b = yellow ? 0.3F : 1F;
 				SparkleParticleData data = SparkleParticleData.sparkle(0.8F + (float) Math.random() * 0.4F, r, g, b, 3);
-				player.world.addParticle(data, x, y, z, 0, 0, 0);
+				player.level.addParticle(data, x, y, z, 0, 0, 0);
 			}
 			return true;
 		}
@@ -140,12 +141,12 @@ public class ItemHolyCloak extends ItemBauble {
 	}
 
 	@Environment(EnvType.CLIENT)
-	Identifier getCloakTexture() {
+	ResourceLocation getCloakTexture() {
 		return texture;
 	}
 
 	@Environment(EnvType.CLIENT)
-	Identifier getCloakGlowTexture() {
+	ResourceLocation getCloakGlowTexture() {
 		return textureGlow;
 	}
 }

@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.lib;
 
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -154,50 +154,50 @@ public final class LibBlockNames {
 	public static final String FENCE_SUFFIX = "_fence";
 	public static final String FENCE_GATE_SUFFIX = "_fence_gate";
 
-	public static final Identifier SUBTILE_PUREDAISY = prefix("pure_daisy");
-	public static final Identifier SUBTILE_MANASTAR = prefix("manastar");
+	public static final ResourceLocation SUBTILE_PUREDAISY = prefix("pure_daisy");
+	public static final ResourceLocation SUBTILE_MANASTAR = prefix("manastar");
 
-	public static final Identifier SUBTILE_ENDOFLAME = prefix("endoflame");
-	public static final Identifier SUBTILE_HYDROANGEAS = prefix("hydroangeas");
-	public static final Identifier SUBTILE_THERMALILY = prefix("thermalily");
-	public static final Identifier SUBTILE_ARCANE_ROSE = prefix("rosa_arcana");
-	public static final Identifier SUBTILE_MUNCHDEW = prefix("munchdew");
-	public static final Identifier SUBTILE_ENTROPINNYUM = prefix("entropinnyum");
-	public static final Identifier SUBTILE_KEKIMURUS = prefix("kekimurus");
-	public static final Identifier SUBTILE_GOURMARYLLIS = prefix("gourmaryllis");
-	public static final Identifier SUBTILE_NARSLIMMUS = prefix("narslimmus");
-	public static final Identifier SUBTILE_SPECTROLUS = prefix("spectrolus");
-	public static final Identifier SUBTILE_DANDELIFEON = prefix("dandelifeon");
-	public static final Identifier SUBTILE_RAFFLOWSIA = prefix("rafflowsia");
-	public static final Identifier SUBTILE_SHULK_ME_NOT = prefix("shulk_me_not");
+	public static final ResourceLocation SUBTILE_ENDOFLAME = prefix("endoflame");
+	public static final ResourceLocation SUBTILE_HYDROANGEAS = prefix("hydroangeas");
+	public static final ResourceLocation SUBTILE_THERMALILY = prefix("thermalily");
+	public static final ResourceLocation SUBTILE_ARCANE_ROSE = prefix("rosa_arcana");
+	public static final ResourceLocation SUBTILE_MUNCHDEW = prefix("munchdew");
+	public static final ResourceLocation SUBTILE_ENTROPINNYUM = prefix("entropinnyum");
+	public static final ResourceLocation SUBTILE_KEKIMURUS = prefix("kekimurus");
+	public static final ResourceLocation SUBTILE_GOURMARYLLIS = prefix("gourmaryllis");
+	public static final ResourceLocation SUBTILE_NARSLIMMUS = prefix("narslimmus");
+	public static final ResourceLocation SUBTILE_SPECTROLUS = prefix("spectrolus");
+	public static final ResourceLocation SUBTILE_DANDELIFEON = prefix("dandelifeon");
+	public static final ResourceLocation SUBTILE_RAFFLOWSIA = prefix("rafflowsia");
+	public static final ResourceLocation SUBTILE_SHULK_ME_NOT = prefix("shulk_me_not");
 
-	public static final Identifier SUBTILE_BELLETHORN = prefix("bellethorn");
-	public static final Identifier SUBTILE_BERGAMUTE = prefix("bergamute");
-	public static final Identifier SUBTILE_DREADTHORN = prefix("dreadthorn");
-	public static final Identifier SUBTILE_HEISEI_DREAM = prefix("heisei_dream");
-	public static final Identifier SUBTILE_TIGERSEYE = prefix("tigerseye");
-	public static final Identifier SUBTILE_JADED_AMARANTHUS = prefix("jaded_amaranthus");
-	public static final Identifier SUBTILE_ORECHID = prefix("orechid");
-	public static final Identifier SUBTILE_FALLEN_KANADE = prefix("fallen_kanade");
-	public static final Identifier SUBTILE_EXOFLAME = prefix("exoflame");
-	public static final Identifier SUBTILE_AGRICARNATION = prefix("agricarnation");
-	public static final Identifier SUBTILE_HOPPERHOCK = prefix("hopperhock");
-	public static final Identifier SUBTILE_TANGLEBERRIE = prefix("tangleberrie");
-	public static final Identifier SUBTILE_JIYUULIA = prefix("jiyuulia");
-	public static final Identifier SUBTILE_RANNUNCARPUS = prefix("rannuncarpus");
-	public static final Identifier SUBTILE_HYACIDUS = prefix("hyacidus");
-	public static final Identifier SUBTILE_POLLIDISIAC = prefix("pollidisiac");
-	public static final Identifier SUBTILE_CLAYCONIA = prefix("clayconia");
-	public static final Identifier SUBTILE_LOONIUM = prefix("loonium");
-	public static final Identifier SUBTILE_DAFFOMILL = prefix("daffomill");
-	public static final Identifier SUBTILE_VINCULOTUS = prefix("vinculotus");
-	public static final Identifier SUBTILE_SPECTRANTHEMUM = prefix("spectranthemum");
-	public static final Identifier SUBTILE_MEDUMONE = prefix("medumone");
-	public static final Identifier SUBTILE_MARIMORPHOSIS = prefix("marimorphosis");
-	public static final Identifier SUBTILE_BUBBELL = prefix("bubbell");
-	public static final Identifier SUBTILE_SOLEGNOLIA = prefix("solegnolia");
-	public static final Identifier SUBTILE_ORECHID_IGNEM = prefix("orechid_ignem");
-	public static final Identifier SUBTILE_LABELLIA = prefix("labellia");
+	public static final ResourceLocation SUBTILE_BELLETHORN = prefix("bellethorn");
+	public static final ResourceLocation SUBTILE_BERGAMUTE = prefix("bergamute");
+	public static final ResourceLocation SUBTILE_DREADTHORN = prefix("dreadthorn");
+	public static final ResourceLocation SUBTILE_HEISEI_DREAM = prefix("heisei_dream");
+	public static final ResourceLocation SUBTILE_TIGERSEYE = prefix("tigerseye");
+	public static final ResourceLocation SUBTILE_JADED_AMARANTHUS = prefix("jaded_amaranthus");
+	public static final ResourceLocation SUBTILE_ORECHID = prefix("orechid");
+	public static final ResourceLocation SUBTILE_FALLEN_KANADE = prefix("fallen_kanade");
+	public static final ResourceLocation SUBTILE_EXOFLAME = prefix("exoflame");
+	public static final ResourceLocation SUBTILE_AGRICARNATION = prefix("agricarnation");
+	public static final ResourceLocation SUBTILE_HOPPERHOCK = prefix("hopperhock");
+	public static final ResourceLocation SUBTILE_TANGLEBERRIE = prefix("tangleberrie");
+	public static final ResourceLocation SUBTILE_JIYUULIA = prefix("jiyuulia");
+	public static final ResourceLocation SUBTILE_RANNUNCARPUS = prefix("rannuncarpus");
+	public static final ResourceLocation SUBTILE_HYACIDUS = prefix("hyacidus");
+	public static final ResourceLocation SUBTILE_POLLIDISIAC = prefix("pollidisiac");
+	public static final ResourceLocation SUBTILE_CLAYCONIA = prefix("clayconia");
+	public static final ResourceLocation SUBTILE_LOONIUM = prefix("loonium");
+	public static final ResourceLocation SUBTILE_DAFFOMILL = prefix("daffomill");
+	public static final ResourceLocation SUBTILE_VINCULOTUS = prefix("vinculotus");
+	public static final ResourceLocation SUBTILE_SPECTRANTHEMUM = prefix("spectranthemum");
+	public static final ResourceLocation SUBTILE_MEDUMONE = prefix("medumone");
+	public static final ResourceLocation SUBTILE_MARIMORPHOSIS = prefix("marimorphosis");
+	public static final ResourceLocation SUBTILE_BUBBELL = prefix("bubbell");
+	public static final ResourceLocation SUBTILE_SOLEGNOLIA = prefix("solegnolia");
+	public static final ResourceLocation SUBTILE_ORECHID_IGNEM = prefix("orechid_ignem");
+	public static final ResourceLocation SUBTILE_LABELLIA = prefix("labellia");
 
 	public static final String MOTIF_DAYBLOOM = "daybloom_motif";
 	public static final String MOTIF_NIGHTSHADE = "nightshade_motif";

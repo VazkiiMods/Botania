@@ -8,34 +8,34 @@
  */
 package vazkii.botania.api.recipe;
 
-import net.minecraft.inventory.Inventory;
-import net.minecraft.recipe.Recipe;
-import net.minecraft.recipe.RecipeType;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
 
 import vazkii.botania.api.BotaniaAPI;
 
 import javax.annotation.Nonnull;
 
-public interface IRuneAltarRecipe extends Recipe<Inventory> {
-	Identifier TYPE_ID = new Identifier(BotaniaAPI.MODID, "runic_altar");
+public interface IRuneAltarRecipe extends Recipe<Container> {
+	ResourceLocation TYPE_ID = new ResourceLocation(BotaniaAPI.MODID, "runic_altar");
 
 	int getManaUsage();
 
 	@Nonnull
 	@Override
 	default RecipeType<?> getType() {
-		return Registry.RECIPE_TYPE.getOrEmpty(TYPE_ID).get();
+		return Registry.RECIPE_TYPE.getOptional(TYPE_ID).get();
 	}
 
 	@Override
-	default boolean fits(int width, int height) {
+	default boolean canCraftInDimensions(int width, int height) {
 		return false;
 	}
 
 	@Override
-	default boolean isIgnoredInRecipeBook() {
+	default boolean isSpecial() {
 		return true;
 	}
 }

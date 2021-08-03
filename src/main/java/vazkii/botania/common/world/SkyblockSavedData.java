@@ -11,12 +11,12 @@ package vazkii.botania.common.world;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
+import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Util;
-import net.minecraft.world.PersistentState;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.saveddata.SavedData;
 
 import vazkii.botania.common.core.handler.ConfigHandler;
 
@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.UUID;
 
-public class SkyblockSavedData extends PersistentState {
+public class SkyblockSavedData extends SavedData {
 	private static final String NAME = "gog_skyblock_islands";
 
 	/** The offset is chosen to put islands under default settings in the center of a chunk region. */
@@ -38,8 +38,8 @@ public class SkyblockSavedData extends PersistentState {
 		super(NAME);
 	}
 
-	public static SkyblockSavedData get(ServerWorld world) {
-		return world.getPersistentStateManager().getOrCreate(SkyblockSavedData::new, NAME);
+	public static SkyblockSavedData get(ServerLevel world) {
+		return world.getDataStorage().computeIfAbsent(SkyblockSavedData::new, NAME);
 	}
 
 	public IslandPos getSpawn() {
@@ -48,7 +48,7 @@ public class SkyblockSavedData extends PersistentState {
 		}
 		IslandPos pos = new IslandPos(OFFSET, OFFSET);
 		skyblocks.put(pos, Util.NIL_UUID);
-		markDirty();
+		setDirty();
 		return pos;
 	}
 
@@ -61,16 +61,16 @@ public class SkyblockSavedData extends PersistentState {
 		} while (skyblocks.containsKey(islandPos));
 
 		skyblocks.put(islandPos, playerId);
-		markDirty();
+		setDirty();
 		return islandPos;
 	}
 
 	@Override
-	public void fromTag(CompoundTag nbt) {
+	public void load(CompoundTag nbt) {
 		HashBiMap<IslandPos, UUID> map = HashBiMap.create();
 		for (Tag inbt : nbt.getList("Islands", 10)) {
 			CompoundTag tag = (CompoundTag) inbt;
-			map.put(IslandPos.fromTag(tag), tag.getUuid("Player"));
+			map.put(IslandPos.fromTag(tag), tag.getUUID("Player"));
 		}
 		this.skyblocks = map;
 		this.spiral = Spiral.fromArray(nbt.getIntArray("SpiralState"));
@@ -78,11 +78,11 @@ public class SkyblockSavedData extends PersistentState {
 
 	@Nonnull
 	@Override
-	public CompoundTag toTag(@Nonnull CompoundTag nbt) {
+	public CompoundTag save(@Nonnull CompoundTag nbt) {
 		ListTag list = new ListTag();
 		for (Map.Entry<IslandPos, UUID> entry : skyblocks.entrySet()) {
 			CompoundTag entryTag = entry.getKey().toTag();
-			entryTag.putUuid("Player", entry.getValue());
+			entryTag.putUUID("Player", entry.getValue());
 			list.add(entryTag);
 		}
 		nbt.putIntArray("SpiralState", spiral.toIntArray());

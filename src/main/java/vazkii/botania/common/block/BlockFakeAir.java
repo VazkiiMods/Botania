@@ -8,12 +8,16 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AirBlock;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.tile.TileFakeAir;
 
@@ -21,33 +25,33 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class BlockFakeAir extends AirBlock implements BlockEntityProvider {
+public class BlockFakeAir extends AirBlock implements EntityBlock {
 
-	public BlockFakeAir(Settings builder) {
+	public BlockFakeAir(Properties builder) {
 		super(builder);
 	}
 
 	@Override
-	public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
+	public void neighborChanged(BlockState state, Level world, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
 		if (shouldRemove(world, pos)) {
-			world.getBlockTickScheduler().schedule(pos, this, 4);
+			world.getBlockTicks().scheduleTick(pos, this, 4);
 		}
 	}
 
-	private boolean shouldRemove(World world, BlockPos pos) {
-		return !world.isClient && world.getBlockEntity(pos) == null || !(world.getBlockEntity(pos) instanceof TileFakeAir) || !((TileFakeAir) world.getBlockEntity(pos)).canStay();
+	private boolean shouldRemove(Level world, BlockPos pos) {
+		return !world.isClientSide && world.getBlockEntity(pos) == null || !(world.getBlockEntity(pos) instanceof TileFakeAir) || !((TileFakeAir) world.getBlockEntity(pos)).canStay();
 	}
 
 	@Override
-	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+	public void tick(BlockState state, ServerLevel world, BlockPos pos, Random rand) {
 		if (shouldRemove(world, pos)) {
-			world.setBlockState(pos, rand.nextInt(10) == 0 ? Blocks.WATER.getDefaultState() : Blocks.AIR.getDefaultState());
+			world.setBlockAndUpdate(pos, rand.nextInt(10) == 0 ? Blocks.WATER.defaultBlockState() : Blocks.AIR.defaultBlockState());
 		}
 	}
 
 	@Nonnull
 	@Override
-	public BlockEntity createBlockEntity(@Nonnull BlockView world) {
+	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileFakeAir();
 	}
 }

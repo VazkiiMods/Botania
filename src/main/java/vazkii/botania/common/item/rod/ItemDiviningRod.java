@@ -8,19 +8,19 @@
  */
 package vazkii.botania.common.item.rod;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.item.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
@@ -37,40 +37,40 @@ import java.util.Random;
 
 public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWieldable {
 
-	private static final Identifier avatarOverlay = new Identifier(LibResources.MODEL_AVATAR_DIVINING);
+	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_DIVINING);
 
 	static final int COST = 3000;
 
-	public ItemDiviningRod(Settings props) {
+	public ItemDiviningRod(Properties props) {
 		super(props);
 	}
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity p, @Nonnull Hand hand) {
-		ItemStack stack = p.getStackInHand(hand);
+	public InteractionResultHolder<ItemStack> use(Level world, Player p, @Nonnull InteractionHand hand) {
+		ItemStack stack = p.getItemInHand(hand);
 		if (ManaItemHandler.instance().requestManaExactForTool(stack, p, COST, true)) {
-			if (world.isClient) {
+			if (world.isClientSide) {
 				int range = IManaProficiencyArmor.hasProficiency(p, stack) ? 20 : 15;
 				long seedxor = world.random.nextLong();
-				doHighlight(world, p.getBlockPos(), range, seedxor);
+				doHighlight(world, p.blockPosition(), range, seedxor);
 			} else {
-				world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.divinationRod, SoundCategory.PLAYERS, 1F, 1F);
+				world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.divinationRod, SoundSource.PLAYERS, 1F, 1F);
 			}
-			return TypedActionResult.success(stack, world.isClient);
+			return InteractionResultHolder.sidedSuccess(stack, world.isClientSide);
 		}
 
-		return TypedActionResult.pass(stack);
+		return InteractionResultHolder.pass(stack);
 	}
 
-	private void doHighlight(World world, BlockPos pos, int range, long seedxor) {
-		for (BlockPos pos_ : BlockPos.iterate(pos.add(-range, -range, -range),
-				pos.add(range, range, range))) {
+	private void doHighlight(Level world, BlockPos pos, int range, long seedxor) {
+		for (BlockPos pos_ : BlockPos.betweenClosed(pos.offset(-range, -range, -range),
+				pos.offset(range, range, range))) {
 			BlockState state = world.getBlockState(pos_);
 
 			Block block = state.getBlock();
 			if (false /* todo 1.16-fabric Tags.Blocks.ORES.contains(block) */) {
-				Random rand = new Random(Registry.BLOCK.getId(block).hashCode() ^ seedxor);
+				Random rand = new Random(Registry.BLOCK.getKey(block).hashCode() ^ seedxor);
 				WispParticleData data = WispParticleData.wisp(0.25F, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 8, false);
 				world.addParticle(data, pos_.getX() + world.random.nextFloat(),
 						pos_.getY() + world.random.nextFloat(),
@@ -88,15 +88,15 @@ public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWiel
 	@Override
 	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
 		BlockEntity te = (BlockEntity) tile;
-		World world = te.getWorld();
+		Level world = te.getLevel();
 		if (tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 200 == 0 && tile.isEnabled()) {
-			doHighlight(world, te.getPos(), 18, te.getPos().hashCode());
+			doHighlight(world, te.getBlockPos(), 18, te.getBlockPos().hashCode());
 			tile.receiveMana(-COST);
 		}
 	}
 
 	@Override
-	public Identifier getOverlayResource(IAvatarTile tile, ItemStack stack) {
+	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
 		return avatarOverlay;
 	}
 }

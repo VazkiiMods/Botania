@@ -8,15 +8,15 @@
  */
 package vazkii.botania.common.item.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 
 import vazkii.botania.api.recipe.IElvenItem;
 
 public class ItemBlockDreamwood extends BlockItem implements IElvenItem {
 
-	public ItemBlockDreamwood(Block block, Settings props) {
+	public ItemBlockDreamwood(Block block, Properties props) {
 		super(block, props);
 	}
 

@@ -8,8 +8,6 @@
  */
 package vazkii.botania.data;
 
-import net.minecraft.block.*;
-
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.*;
 

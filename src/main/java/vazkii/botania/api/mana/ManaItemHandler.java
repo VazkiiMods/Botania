@@ -8,9 +8,9 @@
  */
 package vazkii.botania.api.mana;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Lazy;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import org.apache.logging.log4j.LogManager;
 
@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 public interface ManaItemHandler {
-	Lazy<ManaItemHandler> INSTANCE = new Lazy<>(() -> {
+	LazyLoadedValue<ManaItemHandler> INSTANCE = new LazyLoadedValue<>(() -> {
 		try {
 			return (ManaItemHandler) Class.forName("vazkii.botania.common.impl.mana.ManaItemHandlerImpl").newInstance();
 		} catch (ReflectiveOperationException e) {
@@ -38,7 +38,7 @@ public interface ManaItemHandler {
 	 * 
 	 * @return The list of items
 	 */
-	default List<ItemStack> getManaItems(PlayerEntity player) {
+	default List<ItemStack> getManaItems(Player player) {
 		return Collections.emptyList();
 	}
 
@@ -47,7 +47,7 @@ public interface ManaItemHandler {
 	 * 
 	 * @return The list of items
 	 */
-	default List<ItemStack> getManaAccesories(PlayerEntity player) {
+	default List<ItemStack> getManaAccesories(Player player) {
 		return Collections.emptyList();
 	}
 
@@ -60,7 +60,7 @@ public interface ManaItemHandler {
 	 * @param remove    If true, the mana will be removed from the target item. Set to false to just check.
 	 * @return The amount of mana received from the request.
 	 */
-	default int requestMana(ItemStack stack, PlayerEntity player, int manaToGet, boolean remove) {
+	default int requestMana(ItemStack stack, Player player, int manaToGet, boolean remove) {
 		return 0;
 	}
 
@@ -72,7 +72,7 @@ public interface ManaItemHandler {
 	 * @param remove    If true, the mana will be removed from the target item. Set to false to just check.
 	 * @return If the request was succesful.
 	 */
-	default boolean requestManaExact(ItemStack stack, PlayerEntity player, int manaToGet, boolean remove) {
+	default boolean requestManaExact(ItemStack stack, Player player, int manaToGet, boolean remove) {
 		return false;
 	}
 
@@ -84,7 +84,7 @@ public interface ManaItemHandler {
 	 * @param add        If true, the mana will be added from the target item. Set to false to just check.
 	 * @return The amount of mana actually sent.
 	 */
-	default int dispatchMana(ItemStack stack, PlayerEntity player, int manaToSend, boolean add) {
+	default int dispatchMana(ItemStack stack, Player player, int manaToSend, boolean add) {
 		return 0;
 	}
 
@@ -96,7 +96,7 @@ public interface ManaItemHandler {
 	 * @param add        If true, the mana will be added from the target item. Set to false to just check.
 	 * @return If an item received the mana sent.
 	 */
-	default boolean dispatchManaExact(ItemStack stack, PlayerEntity player, int manaToSend, boolean add) {
+	default boolean dispatchManaExact(ItemStack stack, Player player, int manaToSend, boolean add) {
 		return false;
 	}
 
@@ -110,7 +110,7 @@ public interface ManaItemHandler {
 	 * @param remove    If true, the mana will be removed from the target item. Set to false to just check.
 	 * @return The amount of mana received from the request.
 	 */
-	default int requestManaForTool(ItemStack stack, PlayerEntity player, int manaToGet, boolean remove) {
+	default int requestManaForTool(ItemStack stack, Player player, int manaToGet, boolean remove) {
 		return 0;
 	}
 
@@ -123,7 +123,7 @@ public interface ManaItemHandler {
 	 * @param remove    If true, the mana will be removed from the target item. Set to false to just check.
 	 * @return If the request was succesful.
 	 */
-	default boolean requestManaExactForTool(ItemStack stack, PlayerEntity player, int manaToGet, boolean remove) {
+	default boolean requestManaExactForTool(ItemStack stack, Player player, int manaToGet, boolean remove) {
 		return false;
 	}
 
@@ -134,7 +134,7 @@ public interface ManaItemHandler {
 	 * @param manaToGet How much mana is to be requested per invocation
 	 * @return The number of invocations that could be executed before exhausting the player's mana available
 	 */
-	default int getInvocationCountForTool(ItemStack stack, PlayerEntity player, int manaToGet) {
+	default int getInvocationCountForTool(ItemStack stack, Player player, int manaToGet) {
 		return 0;
 	}
 
@@ -142,7 +142,7 @@ public interface ManaItemHandler {
 	 * Gets the sum of all the discounts on IManaDiscountArmor items equipped
 	 * on the player passed in. This discount can vary based on what the passed tool is.
 	 */
-	default float getFullDiscountForTools(PlayerEntity player, ItemStack tool) {
+	default float getFullDiscountForTools(Player player, ItemStack tool) {
 		return 0;
 	}
 }

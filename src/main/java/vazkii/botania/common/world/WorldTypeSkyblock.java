@@ -8,23 +8,23 @@
  */
 package vazkii.botania.common.world;
 
-import net.minecraft.client.world.GeneratorType;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.source.VanillaLayeredBiomeSource;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
+import net.minecraft.client.gui.screens.worldselection.WorldPreset;
+import net.minecraft.core.Registry;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.OverworldBiomeSource;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 
-public class WorldTypeSkyblock extends GeneratorType {
-	public static final GeneratorType INSTANCE = new WorldTypeSkyblock();
+public class WorldTypeSkyblock extends WorldPreset {
+	public static final WorldPreset INSTANCE = new WorldTypeSkyblock();
 
 	private WorldTypeSkyblock() {
 		super("botania-skyblock");
 	}
 
 	@Override
-	protected ChunkGenerator getChunkGenerator(Registry<Biome> biomes, Registry<ChunkGeneratorSettings> noiseSettings, long seed) {
-		return new SkyblockChunkGenerator(new VanillaLayeredBiomeSource(seed, false, false, biomes), seed,
-				() -> noiseSettings.get(ChunkGeneratorSettings.OVERWORLD));
+	protected ChunkGenerator generator(Registry<Biome> biomes, Registry<NoiseGeneratorSettings> noiseSettings, long seed) {
+		return new SkyblockChunkGenerator(new OverworldBiomeSource(seed, false, false, biomes), seed,
+				() -> noiseSettings.get(NoiseGeneratorSettings.OVERWORLD));
 	}
 }

@@ -8,9 +8,9 @@
  */
 package vazkii.botania.client.patchouli.processor;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Identifier;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.recipe.IBrewRecipe;
 import vazkii.botania.client.patchouli.PatchouliUtils;
@@ -28,7 +28,7 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 
 	@Override
 	public void setup(IVariableProvider variables) {
-		Identifier id = new Identifier(variables.get("recipe").asString());
+		ResourceLocation id = new ResourceLocation(variables.get("recipe").asString());
 		this.recipe = PatchouliUtils.getRecipe(ModRecipeTypes.BREW_TYPE, id);
 	}
 
@@ -40,24 +40,24 @@ public class BrewRecipeProcessor implements IComponentProcessor {
 			}
 			return null;
 		} else if (key.equals("heading")) {
-			return IVariable.from(new TranslatableText("botaniamisc.brewOf", new TranslatableText(recipe.getBrew().getTranslationKey())));
+			return IVariable.from(new TranslatableComponent("botaniamisc.brewOf", new TranslatableComponent(recipe.getBrew().getTranslationKey())));
 		} else if (key.equals("vial")) {
 			return IVariable.from(recipe.getOutput(new ItemStack(ModItems.vial)));
 		} else if (key.equals("flask")) {
 			return IVariable.from(recipe.getOutput(new ItemStack(ModItems.flask)));
 		} else if (key.startsWith("input")) {
 			int requestedIndex = Integer.parseInt(key.substring(5)) - 1;
-			int indexOffset = (6 - recipe.getPreviewInputs().size()) / 2; //Center the brew ingredients
+			int indexOffset = (6 - recipe.getIngredients().size()) / 2; //Center the brew ingredients
 			int index = requestedIndex - indexOffset;
 
-			if (index < recipe.getPreviewInputs().size() && index >= 0) {
-				return IVariable.wrapList(Arrays.stream(recipe.getPreviewInputs().get(index).getMatchingStacksClient()).map(IVariable::from).collect(Collectors.toList()));
+			if (index < recipe.getIngredients().size() && index >= 0) {
+				return IVariable.wrapList(Arrays.stream(recipe.getIngredients().get(index).getItems()).map(IVariable::from).collect(Collectors.toList()));
 			} else {
 				return null;
 			}
 		}
 		if (key.equals("is_offset")) {
-			return IVariable.wrap(recipe.getPreviewInputs().size() % 2 == 0);
+			return IVariable.wrap(recipe.getIngredients().size() % 2 == 0);
 		}
 		return null;
 	}

@@ -8,20 +8,21 @@
  */
 package vazkii.botania.client.render.entity;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix4f;
+import com.mojang.math.Vector3f;
+
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.OverlayTexture;
-import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.model.BakedModel;
-import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Matrix4f;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -38,28 +39,28 @@ public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {
 	}
 
 	@Override
-	public void render(@Nonnull EntityBabylonWeapon weapon, float yaw, float partialTicks, MatrixStack ms, VertexConsumerProvider buffers, int light) {
-		ms.push();
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(weapon.getRotation()));
+	public void render(@Nonnull EntityBabylonWeapon weapon, float yaw, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light) {
+		ms.pushPose();
+		ms.mulPose(Vector3f.YP.rotationDegrees(weapon.getRotation()));
 
 		int live = weapon.getLiveTicks();
 		int delay = weapon.getDelay();
 		float charge = Math.min(10F, Math.max(live, weapon.getChargeTicks()) + partialTicks);
 		float chargeMul = charge / 10F;
 
-		ms.push();
+		ms.pushPose();
 		ms.translate(-0.75, 0, 1); // X shifts the weapon hilt to the center of the circle, Z makes it intersect it.
 		float s = 1.5F;
 		ms.scale(s, s, s);
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(90F)); // Rotate to make it match facing, instead of perpendicular to the circle
-		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(-45F)); // Perpendicular to the ground, instead of the rising 45 deg of the sprite
+		ms.mulPose(Vector3f.YP.rotationDegrees(90F)); // Rotate to make it match facing, instead of perpendicular to the circle
+		ms.mulPose(Vector3f.ZP.rotationDegrees(-45F)); // Perpendicular to the ground, instead of the rising 45 deg of the sprite
 
 		BakedModel model = MiscellaneousIcons.INSTANCE.kingKeyWeaponModels[weapon.getVariety()];
-		MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer().render(ms.peek(), buffers.getBuffer(TexturedRenderLayers.getItemEntityTranslucentCull()), null, model, 1, 1, 1, 0xF000F0, OverlayTexture.DEFAULT_UV);
-		ms.pop();
+		Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(ms.last(), buffers.getBuffer(Sheets.translucentItemSheet()), null, model, 1, 1, 1, 0xF000F0, OverlayTexture.NO_OVERLAY);
+		ms.popPose();
 
-		Random rand = new Random(weapon.getUuid().getMostSignificantBits());
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(-90F)); // Lay the circle horizontally
+		Random rand = new Random(weapon.getUUID().getMostSignificantBits());
+		ms.mulPose(Vector3f.XP.rotationDegrees(-90F)); // Lay the circle horizontally
 		ms.translate(0F, -0.3F + rand.nextFloat() * 0.1F, 0F); // Randomly offset how deep the item is in the circle
 
 		s = chargeMul;
@@ -69,22 +70,22 @@ public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {
 		s *= 2F;
 		ms.scale(s, s, s);
 
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(charge * 9F + (weapon.age + partialTicks) * 0.5F + rand.nextFloat() * 360F));
+		ms.mulPose(Vector3f.YP.rotationDegrees(charge * 9F + (weapon.tickCount + partialTicks) * 0.5F + rand.nextFloat() * 360F));
 
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.BABYLON_ICON);
-		Matrix4f mat = ms.peek().getModel();
-		buffer.vertex(mat, -1, 0, -1).color(1, 1, 1, chargeMul).texture(0, 0).next();
-		buffer.vertex(mat, -1, 0, 1).color(1, 1, 1, chargeMul).texture(0, 1).next();
-		buffer.vertex(mat, 1, 0, 1).color(1, 1, 1, chargeMul).texture(1, 1).next();
-		buffer.vertex(mat, 1, 0, -1).color(1, 1, 1, chargeMul).texture(1, 0).next();
+		Matrix4f mat = ms.last().pose();
+		buffer.vertex(mat, -1, 0, -1).color(1, 1, 1, chargeMul).uv(0, 0).endVertex();
+		buffer.vertex(mat, -1, 0, 1).color(1, 1, 1, chargeMul).uv(0, 1).endVertex();
+		buffer.vertex(mat, 1, 0, 1).color(1, 1, 1, chargeMul).uv(1, 1).endVertex();
+		buffer.vertex(mat, 1, 0, -1).color(1, 1, 1, chargeMul).uv(1, 0).endVertex();
 
-		ms.pop();
+		ms.popPose();
 	}
 
 	@Nonnull
 	@Override
-	public Identifier getTexture(@Nonnull EntityBabylonWeapon entity) {
-		return SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE;
+	public ResourceLocation getTextureLocation(@Nonnull EntityBabylonWeapon entity) {
+		return TextureAtlas.LOCATION_BLOCKS;
 	}
 
 }

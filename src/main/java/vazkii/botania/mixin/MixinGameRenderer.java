@@ -8,8 +8,9 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.util.math.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import net.minecraft.client.renderer.GameRenderer;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -27,12 +28,12 @@ public class MixinGameRenderer {
 	@Inject(
 		at = @At(
 			value = "INVOKE",
-			target = "Lnet/minecraft/client/render/WorldRenderer;render(Lnet/minecraft/client/util/math/MatrixStack;FJZLnet/minecraft/client/render/Camera;Lnet/minecraft/client/render/GameRenderer;Lnet/minecraft/client/render/LightmapTextureManager;Lnet/minecraft/util/math/Matrix4f;)V",
+			target = "Lnet/minecraft/client/renderer/LevelRenderer;renderLevel(Lcom/mojang/blaze3d/vertex/PoseStack;FJZLnet/minecraft/client/Camera;Lnet/minecraft/client/renderer/GameRenderer;Lnet/minecraft/client/renderer/LightTexture;Lcom/mojang/math/Matrix4f;)V",
 			shift = At.Shift.AFTER
 		),
-		method = "renderWorld"
+		method = "renderLevel"
 	)
-	private void renderWorldLast(float tickDelta, long limitTime, MatrixStack matrix, CallbackInfo ci) {
+	private void renderWorldLast(float tickDelta, long limitTime, PoseStack matrix, CallbackInfo ci) {
 		ItemCraftingHalo.onRenderWorldLast(tickDelta, matrix);
 		LightningHandler.onRenderWorldLast(tickDelta, matrix);
 		BoundTileRenderer.onWorldRenderLast(matrix);

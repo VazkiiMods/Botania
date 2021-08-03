@@ -8,19 +8,20 @@
  */
 package vazkii.botania.client.render.tile;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
-import net.minecraft.client.render.block.entity.BlockEntityRenderer;
-import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.util.SpriteIdentifier;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.Matrix4f;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Matrix4f;
+import com.mojang.math.Vector3f;
+
+import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.model.Material;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.state.enums.LuminizerVariant;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -38,7 +39,7 @@ import java.util.Map;
 
 public class RenderTileLightRelay extends BlockEntityRenderer<TileLightRelay> {
 
-	private static final Map<LuminizerVariant, SpriteIdentifier> sprites = Util.make(new EnumMap<>(LuminizerVariant.class), m -> {
+	private static final Map<LuminizerVariant, Material> sprites = Util.make(new EnumMap<>(LuminizerVariant.class), m -> {
 		m.put(LuminizerVariant.DEFAULT, MiscellaneousIcons.INSTANCE.lightRelayWorldIcon);
 		m.put(LuminizerVariant.DETECTOR, MiscellaneousIcons.INSTANCE.lightRelayDetectorWorldIcon);
 		m.put(LuminizerVariant.FORK, MiscellaneousIcons.INSTANCE.lightRelayForkWorldIcon);
@@ -50,21 +51,21 @@ public class RenderTileLightRelay extends BlockEntityRenderer<TileLightRelay> {
 	}
 
 	@Override
-	public void render(@Nonnull TileLightRelay tile, float pticks, MatrixStack ms, VertexConsumerProvider buffers, int light, int overlay) {
-		BlockState state = tile.getCachedState();
+	public void render(@Nonnull TileLightRelay tile, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
+		BlockState state = tile.getBlockState();
 
-		MinecraftClient mc = MinecraftClient.getInstance();
+		Minecraft mc = Minecraft.getInstance();
 
 		if (mc.getCameraEntity() instanceof LivingEntity) {
 			LivingEntity view = (LivingEntity) mc.getCameraEntity();
-			if (ItemMonocle.hasMonocle(view) && RenderTileSpecialFlower.hasBindingAttempt(view, tile.getPos())) {
-				RenderTileSpecialFlower.renderRadius(tile, ms, buffers, new RadiusDescriptor.Circle(tile.getPos(), TileLightRelay.MAX_DIST));
+			if (ItemMonocle.hasMonocle(view) && RenderTileSpecialFlower.hasBindingAttempt(view, tile.getBlockPos())) {
+				RenderTileSpecialFlower.renderRadius(tile, ms, buffers, new RadiusDescriptor.Circle(tile.getBlockPos(), TileLightRelay.MAX_DIST));
 			}
 		}
 
-		Sprite iicon = sprites.get(((BlockLightRelay) state.getBlock()).variant).getSprite();
+		TextureAtlasSprite iicon = sprites.get(((BlockLightRelay) state.getBlock()).variant).sprite();
 
-		ms.push();
+		ms.pushPose();
 		ms.translate(0.5, 0.3, 0.5);
 
 		double time = ClientTickHandler.ticksInGame + pticks;
@@ -72,38 +73,38 @@ public class RenderTileLightRelay extends BlockEntityRenderer<TileLightRelay> {
 		float scale = 0.75F;
 		ms.scale(scale, scale, scale);
 
-		ms.multiply(mc.getEntityRenderDispatcher().getRotation());
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180.0F));
+		ms.mulPose(mc.getEntityRenderDispatcher().cameraOrientation());
+		ms.mulPose(Vector3f.YP.rotationDegrees(180.0F));
 
 		float off = 0.25F;
 		ms.translate(0F, off, 0F);
-		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion((float) time));
+		ms.mulPose(Vector3f.ZP.rotationDegrees((float) time));
 		ms.translate(0F, -off, 0F);
 
 		VertexConsumer buffer = buffers.getBuffer(RenderHelper.LIGHT_RELAY);
 		renderIcon(ms, buffer, iicon);
 
-		ms.pop();
+		ms.popPose();
 	}
 
-	private void renderIcon(MatrixStack ms, VertexConsumer buffer, Sprite icon) {
-		float size = icon.getMaxU() - icon.getMinU();
+	private void renderIcon(PoseStack ms, VertexConsumer buffer, TextureAtlasSprite icon) {
+		float size = icon.getU1() - icon.getU0();
 		float pad = size / 8F;
-		float f = icon.getMinU() + pad;
-		float f1 = icon.getMaxU() - pad;
-		float f2 = icon.getMinV() + pad;
-		float f3 = icon.getMaxV() - pad;
+		float f = icon.getU0() + pad;
+		float f1 = icon.getU1() - pad;
+		float f2 = icon.getV0() + pad;
+		float f3 = icon.getV1() - pad;
 
 		float f4 = 1.0F;
 		float f5 = 0.5F;
 		float f6 = 0.25F;
 
-		Matrix4f mat = ms.peek().getModel();
+		Matrix4f mat = ms.last().pose();
 		int fullbright = 0xF000F0;
-		buffer.vertex(mat, 0.0F - f5, 0.0F - f6, 0.0F).color(1F, 1F, 1F, 1F).texture(f, f3).light(fullbright).next();
-		buffer.vertex(mat, f4 - f5, 0.0F - f6, 0.0F).color(1F, 1F, 1F, 1F).texture(f1, f3).light(fullbright).next();
-		buffer.vertex(mat, f4 - f5, f4 - f6, 0.0F).color(1F, 1F, 1F, 1F).texture(f1, f2).light(fullbright).next();
-		buffer.vertex(mat, 0.0F - f5, f4 - f6, 0.0F).color(1F, 1F, 1F, 1F).texture(f, f2).light(fullbright).next();
+		buffer.vertex(mat, 0.0F - f5, 0.0F - f6, 0.0F).color(1F, 1F, 1F, 1F).uv(f, f3).uv2(fullbright).endVertex();
+		buffer.vertex(mat, f4 - f5, 0.0F - f6, 0.0F).color(1F, 1F, 1F, 1F).uv(f1, f3).uv2(fullbright).endVertex();
+		buffer.vertex(mat, f4 - f5, f4 - f6, 0.0F).color(1F, 1F, 1F, 1F).uv(f1, f2).uv2(fullbright).endVertex();
+		buffer.vertex(mat, 0.0F - f5, f4 - f6, 0.0F).color(1F, 1F, 1F, 1F).uv(f, f2).uv2(fullbright).endVertex();
 
 	}
 

@@ -8,7 +8,7 @@
  */
 package vazkii.botania.api.mana.spark;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.mana.IManaReceiver;
 

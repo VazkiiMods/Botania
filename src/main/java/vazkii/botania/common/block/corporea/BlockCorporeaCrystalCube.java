@@ -8,18 +8,21 @@
  */
 package vazkii.botania.common.block.corporea;
 
-import net.minecraft.block.*;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.wand.IWandable;
@@ -30,54 +33,54 @@ import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
 
-public class BlockCorporeaCrystalCube extends BlockModWaterloggable implements BlockEntityProvider, IWandable {
+public class BlockCorporeaCrystalCube extends BlockModWaterloggable implements EntityBlock, IWandable {
 
-	private static final VoxelShape SHAPE = createCuboidShape(3.0, 0, 3.0, 13.0, 16, 13.0);
+	private static final VoxelShape SHAPE = box(3.0, 0, 3.0, 13.0, 16, 13.0);
 
-	public BlockCorporeaCrystalCube(AbstractBlock.Settings builder) {
+	public BlockCorporeaCrystalCube(BlockBehaviour.Properties builder) {
 		super(builder);
 	}
 
 	@Override
-	public void onBlockBreakStart(BlockState state, World world, BlockPos pos, PlayerEntity player) {
-		if (!world.isClient) {
+	public void attack(BlockState state, Level world, BlockPos pos, Player player) {
+		if (!world.isClientSide) {
 			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getBlockEntity(pos);
-			cube.doRequest(player.isSneaking());
+			cube.doRequest(player.isShiftKeyDown());
 		}
 	}
 
 	@Nonnull
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
+	public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext ctx) {
 		return SHAPE;
 	}
 
 	@Override
-	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
-		ItemStack stack = player.getStackInHand(hand);
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		ItemStack stack = player.getItemInHand(hand);
 		if (!stack.isEmpty()) {
-			if (stack.getItem() == ModItems.twigWand && player.isSneaking()) {
-				return ActionResult.PASS;
+			if (stack.getItem() == ModItems.twigWand && player.isShiftKeyDown()) {
+				return InteractionResult.PASS;
 			}
 			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getBlockEntity(pos);
 			if (cube.locked) {
-				if (!world.isClient) {
-					player.sendMessage(new TranslatableText("botaniamisc.crystalCubeLocked"), false);
+				if (!world.isClientSide) {
+					player.displayClientMessage(new TranslatableComponent("botaniamisc.crystalCubeLocked"), false);
 				}
 			} else {
 				cube.setRequestTarget(stack);
 			}
-			return ActionResult.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Override
-	public boolean onUsedByWand(PlayerEntity player, ItemStack stack, World world, BlockPos pos, Direction side) {
-		if (player == null || player.isSneaking()) {
+	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
+		if (player == null || player.isShiftKeyDown()) {
 			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getBlockEntity(pos);
 			cube.locked = !cube.locked;
-			if (!world.isClient) {
+			if (!world.isClientSide) {
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(cube);
 			}
 			return true;
@@ -87,17 +90,17 @@ public class BlockCorporeaCrystalCube extends BlockModWaterloggable implements B
 
 	@Nonnull
 	@Override
-	public TileCorporeaBase createBlockEntity(@Nonnull BlockView world) {
+	public TileCorporeaBase newBlockEntity(@Nonnull BlockGetter world) {
 		return new TileCorporeaCrystalCube();
 	}
 
 	@Override
-	public boolean hasComparatorOutput(BlockState state) {
+	public boolean hasAnalogOutputSignal(BlockState state) {
 		return true;
 	}
 
 	@Override
-	public int getComparatorOutput(BlockState state, World world, BlockPos pos) {
+	public int getAnalogOutputSignal(BlockState state, Level world, BlockPos pos) {
 		return ((TileCorporeaCrystalCube) world.getBlockEntity(pos)).getComparatorValue();
 	}
 }

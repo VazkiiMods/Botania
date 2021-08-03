@@ -8,13 +8,13 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.common.entity.EntitySpark;
@@ -23,26 +23,26 @@ import javax.annotation.Nonnull;
 
 public class ItemSpark extends Item {
 
-	public ItemSpark(Settings builder) {
+	public ItemSpark(Properties builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public ActionResult useOnBlock(ItemUsageContext ctx) {
-		return attachSpark(ctx.getWorld(), ctx.getBlockPos(), ctx.getStack()) ? ActionResult.success(ctx.getWorld().isClient) : ActionResult.PASS;
+	public InteractionResult useOn(UseOnContext ctx) {
+		return attachSpark(ctx.getLevel(), ctx.getClickedPos(), ctx.getItemInHand()) ? InteractionResult.sidedSuccess(ctx.getLevel().isClientSide) : InteractionResult.PASS;
 	}
 
-	public static boolean attachSpark(World world, BlockPos pos, ItemStack stack) {
+	public static boolean attachSpark(Level world, BlockPos pos, ItemStack stack) {
 		BlockEntity tile = world.getBlockEntity(pos);
 		if (tile instanceof ISparkAttachable) {
 			ISparkAttachable attach = (ISparkAttachable) tile;
 			if (attach.canAttachSpark(stack) && attach.getAttachedSpark() == null) {
-				if (!world.isClient) {
-					stack.decrement(1);
+				if (!world.isClientSide) {
+					stack.shrink(1);
 					EntitySpark spark = new EntitySpark(world);
-					spark.updatePosition(pos.getX() + 0.5, pos.getY() + 1.25, pos.getZ() + 0.5);
-					world.spawnEntity(spark);
+					spark.setPos(pos.getX() + 0.5, pos.getY() + 1.25, pos.getZ() + 0.5);
+					world.addFreshEntity(spark);
 					attach.attachSpark(spark);
 				}
 				return true;

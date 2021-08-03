@@ -10,23 +10,23 @@ package vazkii.botania.common.item;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.boss.WitherEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.math.Box;
-import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.World;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
 import vazkii.botania.common.entity.EntityPinkWither;
@@ -38,43 +38,43 @@ import java.util.List;
 
 public class ItemPinkinator extends Item {
 
-	public ItemPinkinator(Settings builder) {
+	public ItemPinkinator(Properties builder) {
 		super(builder);
 	}
 
 	@Nonnull
 	@Override
-	public TypedActionResult<ItemStack> use(World world, PlayerEntity player, @Nonnull Hand hand) {
-		ItemStack stack = player.getStackInHand(hand);
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+		ItemStack stack = player.getItemInHand(hand);
 		int range = 16;
-		List<WitherEntity> withers = world.getNonSpectatingEntities(WitherEntity.class, new Box(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range));
-		for (WitherEntity wither : withers) {
-			if (!world.isClient && wither.isAlive() && !(wither instanceof EntityPinkWither)) {
+		List<WitherBoss> withers = world.getEntitiesOfClass(WitherBoss.class, new AABB(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range));
+		for (WitherBoss wither : withers) {
+			if (!world.isClientSide && wither.isAlive() && !(wither instanceof EntityPinkWither)) {
 				wither.remove();
 				EntityPinkWither pink = ModEntities.PINK_WITHER.create(world);
-				pink.refreshPositionAndAngles(wither.getX(), wither.getY(), wither.getZ(), wither.yaw, wither.pitch);
-				pink.setAiDisabled(wither.isAiDisabled());
+				pink.moveTo(wither.getX(), wither.getY(), wither.getZ(), wither.yRot, wither.xRot);
+				pink.setNoAi(wither.isNoAi());
 				if (wither.hasCustomName()) {
 					pink.setCustomName(wither.getCustomName());
 					pink.setCustomNameVisible(wither.isCustomNameVisible());
 				}
-				pink.initialize((ServerWorldAccess) world, world.getLocalDifficulty(pink.getBlockPos()), SpawnReason.CONVERSION, null, null);
-				world.spawnEntity(pink);
-				pink.playSpawnEffects();
-				pink.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 4F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
-				UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayerEntity) player, stack, (ServerWorld) world, player.getX(), player.getY(), player.getZ());
-				stack.decrement(1);
-				return TypedActionResult.success(stack);
+				pink.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(pink.blockPosition()), MobSpawnType.CONVERSION, null, null);
+				world.addFreshEntity(pink);
+				pink.spawnAnim();
+				pink.playSound(SoundEvents.GENERIC_EXPLODE, 4F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
+				UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayer) player, stack, (ServerLevel) world, player.getX(), player.getY(), player.getZ());
+				stack.shrink(1);
+				return InteractionResultHolder.success(stack);
 			}
 		}
 
-		return TypedActionResult.pass(stack);
+		return InteractionResultHolder.pass(stack);
 	}
 
 	@Environment(EnvType.CLIENT)
 	@Override
-	public void appendTooltip(ItemStack stack, World world, List<Text> tooltip, TooltipContext flags) {
-		tooltip.add(new TranslatableText("botaniamisc.pinkinatorDesc").formatted(Formatting.GRAY));
+	public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flags) {
+		tooltip.add(new TranslatableComponent("botaniamisc.pinkinatorDesc").withStyle(ChatFormatting.GRAY));
 	}
 
 }

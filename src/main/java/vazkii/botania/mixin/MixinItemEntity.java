@@ -8,9 +8,9 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -37,10 +37,10 @@ public class MixinItemEntity {
 	@Shadow
 	private UUID owner;
 
-	@Inject(at = @At("HEAD"), method = "onPlayerCollision", cancellable = true)
-	private void onPickup(PlayerEntity player, CallbackInfo ci) {
+	@Inject(at = @At("HEAD"), method = "playerTouch", cancellable = true)
+	private void onPickup(Player player, CallbackInfo ci) {
 		ItemEntity self = (ItemEntity) (Object) this;
-		if (!player.world.isClient && pickupDelay == 0 && (owner == null || owner.equals(player.getUuid()))
+		if (!player.level.isClientSide && pickupDelay == 0 && (owner == null || owner.equals(player.getUUID()))
 				&& ItemFlowerBag.onPickupItem(self, player)) {
 			ci.cancel();
 		}
@@ -49,7 +49,7 @@ public class MixinItemEntity {
 	@ModifyConstant(method = "tick", constant = @Constant(intValue = 6000))
 	private int disableDespawn(int value) {
 		ItemEntity self = (ItemEntity) (Object) this;
-		Item item = self.getStack().getItem();
+		Item item = self.getItem().getItem();
 		if (item instanceof ItemManaTablet || item instanceof ItemManaRing || item instanceof ItemTerraPick || item instanceof ItemRelic || item instanceof ItemRelicBauble) {
 			return Integer.MAX_VALUE;
 		}

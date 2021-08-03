@@ -10,16 +10,16 @@ package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancement.criterion.AbstractCriterion;
-import net.minecraft.advancement.criterion.AbstractCriterionConditions;
-import net.minecraft.predicate.NumberRange;
-import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
-import net.minecraft.predicate.entity.EntityPredicate;
-import net.minecraft.predicate.entity.LocationPredicate;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
+import net.minecraft.advancements.critereon.DeserializationContext;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.LocationPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 
 import vazkii.botania.common.advancements.CorporeaRequestTrigger.Instance;
 
@@ -27,33 +27,33 @@ import javax.annotation.Nonnull;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class CorporeaRequestTrigger extends AbstractCriterion<CorporeaRequestTrigger.Instance> {
-	public static final Identifier ID = prefix("corporea_index_request");
+public class CorporeaRequestTrigger extends SimpleCriterionTrigger<CorporeaRequestTrigger.Instance> {
+	public static final ResourceLocation ID = prefix("corporea_index_request");
 	public static final CorporeaRequestTrigger INSTANCE = new CorporeaRequestTrigger();
 
 	private CorporeaRequestTrigger() {}
 
 	@Nonnull
 	@Override
-	public Identifier getId() {
+	public ResourceLocation getId() {
 		return ID;
 	}
 
 	@Nonnull
 	@Override
-	protected Instance conditionsFromJson(JsonObject json, EntityPredicate.Extended playerPredicate, AdvancementEntityPredicateDeserializer conditions) {
-		return new Instance(playerPredicate, NumberRange.IntRange.fromJson(json.get("extracted")), LocationPredicate.fromJson(json.get("location")));
+	protected Instance createInstance(JsonObject json, EntityPredicate.Composite playerPredicate, DeserializationContext conditions) {
+		return new Instance(playerPredicate, MinMaxBounds.Ints.fromJson(json.get("extracted")), LocationPredicate.fromJson(json.get("location")));
 	}
 
-	public void trigger(ServerPlayerEntity player, ServerWorld world, BlockPos pos, int count) {
-		this.test(player, instance -> instance.test(world, pos, count));
+	public void trigger(ServerPlayer player, ServerLevel world, BlockPos pos, int count) {
+		this.trigger(player, instance -> instance.test(world, pos, count));
 	}
 
-	public static class Instance extends AbstractCriterionConditions {
-		private final NumberRange.IntRange count;
+	public static class Instance extends AbstractCriterionTriggerInstance {
+		private final MinMaxBounds.Ints count;
 		private final LocationPredicate indexPos;
 
-		public Instance(EntityPredicate.Extended playerPredicate, NumberRange.IntRange count, LocationPredicate indexPos) {
+		public Instance(EntityPredicate.Composite playerPredicate, MinMaxBounds.Ints count, LocationPredicate indexPos) {
 			super(ID, playerPredicate);
 			this.count = count;
 			this.indexPos = indexPos;
@@ -61,15 +61,15 @@ public class CorporeaRequestTrigger extends AbstractCriterion<CorporeaRequestTri
 
 		@Nonnull
 		@Override
-		public Identifier getId() {
+		public ResourceLocation getCriterion() {
 			return ID;
 		}
 
-		boolean test(ServerWorld world, BlockPos pos, int count) {
-			return this.count.test(count) && this.indexPos.test(world, pos.getX(), pos.getY(), pos.getZ());
+		boolean test(ServerLevel world, BlockPos pos, int count) {
+			return this.count.matches(count) && this.indexPos.matches(world, pos.getX(), pos.getY(), pos.getZ());
 		}
 
-		public NumberRange.IntRange getCount() {
+		public MinMaxBounds.Ints getCount() {
 			return this.count;
 		}
 

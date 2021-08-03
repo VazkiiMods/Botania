@@ -8,11 +8,11 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.property.Properties;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -30,8 +30,8 @@ public class TilePrism extends TileExposedSimpleInventory {
 	}
 
 	public void onBurstCollision(IManaBurst burst) {
-		ItemStack lens = getItemHandler().getStack(0);
-		boolean active = !getCachedState().get(Properties.POWERED);
+		ItemStack lens = getItemHandler().getItem(0);
+		boolean active = !getBlockState().getValue(BlockStateProperties.POWERED);
 		boolean valid = !lens.isEmpty() && lens.getItem() instanceof ILens && (!(lens.getItem() instanceof ITinyPlanetExcempt) || ((ITinyPlanetExcempt) lens.getItem()).shouldPull(lens));
 
 		if (active) {
@@ -50,33 +50,33 @@ public class TilePrism extends TileExposedSimpleInventory {
 				burst.setMinManaLoss(properties.ticksBeforeManaLoss);
 				burst.setManaLossPerTick(properties.manaLossPerTick);
 				burst.setGravity(properties.gravity);
-				burst.setBurstMotion(burstEntity.getVelocity().getX() * properties.motionModifier,
-						burstEntity.getVelocity().getY() * properties.motionModifier,
-						burstEntity.getVelocity().getZ() * properties.motionModifier);
+				burst.setBurstMotion(burstEntity.getDeltaMovement().x() * properties.motionModifier,
+						burstEntity.getDeltaMovement().y() * properties.motionModifier,
+						burstEntity.getDeltaMovement().z() * properties.motionModifier);
 			}
 		}
 	}
 
 	@Override
-	protected SimpleInventory createItemHandler() {
-		return new SimpleInventory(1) {
+	protected SimpleContainer createItemHandler() {
+		return new SimpleContainer(1) {
 			@Override
-			public boolean isValid(int index, ItemStack stack) {
+			public boolean canPlaceItem(int index, ItemStack stack) {
 				return !stack.isEmpty() && stack.getItem() instanceof ILens;
 			}
 		};
 	}
 
 	@Override
-	public void markDirty() {
-		super.markDirty();
-		if (world != null && !world.isClient) {
+	public void setChanged() {
+		super.setChanged();
+		if (level != null && !level.isClientSide) {
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
-			BlockState state = getCachedState();
-			boolean hasLens = !getItemHandler().getStack(0).isEmpty();
-			if (state.getBlock() != ModBlocks.prism || state.get(BotaniaStateProps.HAS_LENS) != hasLens) {
-				BlockState base = state.getBlock() == ModBlocks.prism ? state : ModBlocks.prism.getDefaultState();
-				world.setBlockState(pos, base.with(BotaniaStateProps.HAS_LENS, hasLens));
+			BlockState state = getBlockState();
+			boolean hasLens = !getItemHandler().getItem(0).isEmpty();
+			if (state.getBlock() != ModBlocks.prism || state.getValue(BotaniaStateProps.HAS_LENS) != hasLens) {
+				BlockState base = state.getBlock() == ModBlocks.prism ? state : ModBlocks.prism.defaultBlockState();
+				level.setBlockAndUpdate(worldPosition, base.setValue(BotaniaStateProps.HAS_LENS, hasLens));
 			}
 		}
 	}

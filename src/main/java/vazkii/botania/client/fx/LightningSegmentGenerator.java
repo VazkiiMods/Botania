@@ -10,14 +10,14 @@ package vazkii.botania.client.fx;
 
 import com.mojang.datafixers.util.Pair;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.RaycastContext;
-import net.minecraft.world.World;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.common.core.helper.Vector3;
 
@@ -160,10 +160,10 @@ public class LightningSegmentGenerator {
 	}
 
 	private float rayTraceResistance(Vector3 start, Vector3 end, float prevresistance) {
-		World world = MinecraftClient.getInstance().world;
-		Entity camera = MinecraftClient.getInstance().cameraEntity;
-		RaycastContext ctx = new RaycastContext(start.toVector3d(), end.toVector3d(), RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.NONE, camera);
-		BlockHitResult ray = world.raycast(ctx);
+		Level world = Minecraft.getInstance().level;
+		Entity camera = Minecraft.getInstance().cameraEntity;
+		ClipContext ctx = new ClipContext(start.toVector3d(), end.toVector3d(), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, camera);
+		BlockHitResult ray = world.clip(ctx);
 
 		if (ray.getType() == HitResult.Type.BLOCK) {
 			BlockPos pos = ray.getBlockPos();
@@ -173,7 +173,7 @@ public class LightningSegmentGenerator {
 				return prevresistance;
 			}
 
-			return prevresistance + state.getBlock().getBlastResistance() + 0.3F;
+			return prevresistance + state.getBlock().getExplosionResistance() + 0.3F;
 		} else {
 			return prevresistance;
 		}

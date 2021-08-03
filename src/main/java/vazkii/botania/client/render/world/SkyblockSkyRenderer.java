@@ -10,17 +10,17 @@ package vazkii.botania.client.render.world;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexBuffer;
+import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.math.Matrix4f;
+import com.mojang.math.Vector3f;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gl.VertexBuffer;
-import net.minecraft.client.render.Tessellator;
-import net.minecraft.client.render.VertexFormat;
-import net.minecraft.client.render.VertexFormats;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Matrix4f;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.resources.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -31,22 +31,22 @@ import java.util.Random;
 
 public class SkyblockSkyRenderer {
 
-	private static final Identifier textureSkybox = new Identifier(LibResources.MISC_SKYBOX);
-	private static final Identifier textureRainbow = new Identifier(LibResources.MISC_RAINBOW);
-	private static final Identifier[] planetTextures = new Identifier[] {
-			new Identifier(LibResources.MISC_PLANET + "0.png"),
-			new Identifier(LibResources.MISC_PLANET + "1.png"),
-			new Identifier(LibResources.MISC_PLANET + "2.png"),
-			new Identifier(LibResources.MISC_PLANET + "3.png"),
-			new Identifier(LibResources.MISC_PLANET + "4.png"),
-			new Identifier(LibResources.MISC_PLANET + "5.png")
+	private static final ResourceLocation textureSkybox = new ResourceLocation(LibResources.MISC_SKYBOX);
+	private static final ResourceLocation textureRainbow = new ResourceLocation(LibResources.MISC_RAINBOW);
+	private static final ResourceLocation[] planetTextures = new ResourceLocation[] {
+			new ResourceLocation(LibResources.MISC_PLANET + "0.png"),
+			new ResourceLocation(LibResources.MISC_PLANET + "1.png"),
+			new ResourceLocation(LibResources.MISC_PLANET + "2.png"),
+			new ResourceLocation(LibResources.MISC_PLANET + "3.png"),
+			new ResourceLocation(LibResources.MISC_PLANET + "4.png"),
+			new ResourceLocation(LibResources.MISC_PLANET + "5.png")
 	};
 
-	public static void renderExtra(MatrixStack ms, ClientWorld world, float partialTicks, float insideVoid) {
+	public static void renderExtra(PoseStack ms, ClientLevel world, float partialTicks, float insideVoid) {
 		// Botania - Begin extra stuff
-		Tessellator tessellator = Tessellator.getInstance();
-		float rain = 1.0F - world.getRainGradient(partialTicks);
-		float celAng = world.getSkyAngle(partialTicks);
+		Tesselator tessellator = Tesselator.getInstance();
+		float rain = 1.0F - world.getRainLevel(partialTicks);
+		float celAng = world.getTimeOfDay(partialTicks);
 		float effCelAng = celAng;
 		if (celAng > 0.5) {
 			effCelAng = 0.5F - (celAng - 0.5F);
@@ -58,53 +58,53 @@ public class SkyblockSkyRenderer {
 		float a = Math.max(0.1F, lowA);
 
 		RenderSystem.blendFuncSeparate(770, 771, 1, 0);
-		ms.push();
+		ms.pushPose();
 		RenderSystem.color4f(1F, 1F, 1F, a * 4 * (1F - insideVoid));
-		ms.multiply(new Vector3f(0.5F, 0.5F, 0F).getDegreesQuaternion(90));
+		ms.mulPose(new Vector3f(0.5F, 0.5F, 0F).rotationDegrees(90));
 		for (int p = 0; p < planetTextures.length; p++) {
-			MinecraftClient.getInstance().getTextureManager().bindTexture(planetTextures[p]);
-			Matrix4f mat = ms.peek().getModel();
-			tessellator.getBuffer().begin(GL11.GL_QUADS, VertexFormats.POSITION_TEXTURE);
-			tessellator.getBuffer().vertex(mat, -scale, 100, -scale).texture(0.0F, 0.0F).next();
-			tessellator.getBuffer().vertex(mat, scale, 100, -scale).texture(1.0F, 0.0F).next();
-			tessellator.getBuffer().vertex(mat, scale, 100, scale).texture(1.0F, 1.0F).next();
-			tessellator.getBuffer().vertex(mat, -scale, 100, scale).texture(0.0F, 1.0F).next();
-			tessellator.draw();
+			Minecraft.getInstance().getTextureManager().bind(planetTextures[p]);
+			Matrix4f mat = ms.last().pose();
+			tessellator.getBuilder().begin(GL11.GL_QUADS, DefaultVertexFormat.POSITION_TEX);
+			tessellator.getBuilder().vertex(mat, -scale, 100, -scale).uv(0.0F, 0.0F).endVertex();
+			tessellator.getBuilder().vertex(mat, scale, 100, -scale).uv(1.0F, 0.0F).endVertex();
+			tessellator.getBuilder().vertex(mat, scale, 100, scale).uv(1.0F, 1.0F).endVertex();
+			tessellator.getBuilder().vertex(mat, -scale, 100, scale).uv(0.0F, 1.0F).endVertex();
+			tessellator.end();
 
 			switch (p) {
 			case 0:
-				ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(70));
+				ms.mulPose(Vector3f.XP.rotationDegrees(70));
 				scale = 12F;
 				break;
 			case 1:
-				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(120));
+				ms.mulPose(Vector3f.ZP.rotationDegrees(120));
 				scale = 15F;
 				break;
 			case 2:
-				ms.multiply(new Vector3f(1, 0, 1).getDegreesQuaternion(80));
+				ms.mulPose(new Vector3f(1, 0, 1).rotationDegrees(80));
 				scale = 25F;
 				break;
 			case 3:
-				ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(100));
+				ms.mulPose(Vector3f.ZP.rotationDegrees(100));
 				scale = 10F;
 				break;
 			case 4:
-				ms.multiply(new Vector3f(1, 0, 0.5F).getDegreesQuaternion(-60));
+				ms.mulPose(new Vector3f(1, 0, 0.5F).rotationDegrees(-60));
 				scale = 40F;
 			}
 		}
 		RenderSystem.color4f(1F, 1F, 1F, 1F);
-		ms.pop();
+		ms.popPose();
 
 		// === Rays
-		MinecraftClient.getInstance().getTextureManager().bindTexture(textureSkybox);
+		Minecraft.getInstance().getTextureManager().bind(textureSkybox);
 
 		scale = 20F;
 		a = lowA;
-		ms.push();
+		ms.pushPose();
 		RenderSystem.blendFuncSeparate(770, 1, 1, 0);
 		ms.translate(0, -1, 0);
-		ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(220));
+		ms.mulPose(Vector3f.XP.rotationDegrees(220));
 		RenderSystem.color4f(1F, 1F, 1F, a);
 		int angles = 90;
 		float y = 2F;
@@ -117,10 +117,10 @@ public class SkyblockSkyRenderer {
 
 		for (int p = 0; p < 3; p++) {
 			float baseAngle = rotSpeed * rotSpeedMod * (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks);
-			ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.25F * rotSpeed * rotSpeedMod));
+			ms.mulPose(Vector3f.YP.rotationDegrees((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.25F * rotSpeed * rotSpeedMod));
 
-			Matrix4f mat = ms.peek().getModel();
-			tessellator.getBuffer().begin(GL11.GL_QUADS, VertexFormats.POSITION_TEXTURE);
+			Matrix4f mat = ms.last().pose();
+			tessellator.getBuilder().begin(GL11.GL_QUADS, DefaultVertexFormat.POSITION_TEX);
 			for (int i = 0; i < angles; i++) {
 				int j = i;
 				if (i % 2 == 0) {
@@ -134,37 +134,37 @@ public class SkyblockSkyRenderer {
 
 				float ut = ang * uPer;
 				if (i % 2 == 0) {
-					tessellator.getBuffer().vertex(mat, xp, yo + y0 + y, zp).texture(ut, 1F).next();
-					tessellator.getBuffer().vertex(mat, xp, yo + y0, zp).texture(ut, 0).next();
+					tessellator.getBuilder().vertex(mat, xp, yo + y0 + y, zp).uv(ut, 1F).endVertex();
+					tessellator.getBuilder().vertex(mat, xp, yo + y0, zp).uv(ut, 0).endVertex();
 				} else {
-					tessellator.getBuffer().vertex(mat, xp, yo + y0, zp).texture(ut, 0).next();
-					tessellator.getBuffer().vertex(mat, xp, yo + y0 + y, zp).texture(ut, 1F).next();
+					tessellator.getBuilder().vertex(mat, xp, yo + y0, zp).uv(ut, 0).endVertex();
+					tessellator.getBuilder().vertex(mat, xp, yo + y0 + y, zp).uv(ut, 1F).endVertex();
 				}
 
 			}
-			tessellator.draw();
+			tessellator.end();
 
 			switch (p) {
 			case 0:
-				ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(20));
+				ms.mulPose(Vector3f.XP.rotationDegrees(20));
 				RenderSystem.color4f(1F, 0.4F, 0.4F, a);
 				fuzzPer = Math.PI * 14 / angles;
 				rotSpeed = 0.2F;
 				break;
 			case 1:
-				ms.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(50));
+				ms.mulPose(Vector3f.XP.rotationDegrees(50));
 				RenderSystem.color4f(0.4F, 1F, 0.7F, a);
 				fuzzPer = Math.PI * 6 / angles;
 				rotSpeed = 2F;
 				break;
 			}
 		}
-		ms.pop();
+		ms.popPose();
 
 		// === Rainbow
-		ms.push();
-		GlStateManager.blendFuncSeparate(770, 771, 1, 0);
-		MinecraftClient.getInstance().getTextureManager().bindTexture(textureRainbow);
+		ms.pushPose();
+		GlStateManager._blendFuncSeparate(770, 771, 1, 0);
+		Minecraft.getInstance().getTextureManager().bind(textureRainbow);
 		scale = 10F;
 		float effCelAng1 = celAng;
 		if (effCelAng1 > 0.25F) {
@@ -172,17 +172,17 @@ public class SkyblockSkyRenderer {
 		}
 		effCelAng1 = 0.25F - Math.min(0.25F, effCelAng1);
 
-		long time = world.getTimeOfDay() + 1000;
+		long time = world.getDayTime() + 1000;
 		int day = (int) (time / 24000L);
 		Random rand = new Random(day * 0xFF);
 		float angle1 = rand.nextFloat() * 360F;
 		float angle2 = rand.nextFloat() * 360F;
 		RenderSystem.color4f(1F, 1F, 1F, effCelAng1 * (1F - insideVoid));
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(angle1));
-		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(angle2));
+		ms.mulPose(Vector3f.YP.rotationDegrees(angle1));
+		ms.mulPose(Vector3f.ZP.rotationDegrees(angle2));
 
-		Matrix4f mat = ms.peek().getModel();
-		tessellator.getBuffer().begin(GL11.GL_QUADS, VertexFormats.POSITION_TEXTURE);
+		Matrix4f mat = ms.last().pose();
+		tessellator.getBuilder().begin(GL11.GL_QUADS, DefaultVertexFormat.POSITION_TEX);
 		for (int i = 0; i < angles; i++) {
 			int j = i;
 			if (i % 2 == 0) {
@@ -196,24 +196,24 @@ public class SkyblockSkyRenderer {
 
 			float ut = ang * uPer;
 			if (i % 2 == 0) {
-				tessellator.getBuffer().vertex(mat, xp, yo + y0 + y, zp).texture(ut, 1F).next();
-				tessellator.getBuffer().vertex(mat, xp, yo + y0, zp).texture(ut, 0).next();
+				tessellator.getBuilder().vertex(mat, xp, yo + y0 + y, zp).uv(ut, 1F).endVertex();
+				tessellator.getBuilder().vertex(mat, xp, yo + y0, zp).uv(ut, 0).endVertex();
 			} else {
-				tessellator.getBuffer().vertex(mat, xp, yo + y0, zp).texture(ut, 0).next();
-				tessellator.getBuffer().vertex(mat, xp, yo + y0 + y, zp).texture(ut, 1F).next();
+				tessellator.getBuilder().vertex(mat, xp, yo + y0, zp).uv(ut, 0).endVertex();
+				tessellator.getBuilder().vertex(mat, xp, yo + y0 + y, zp).uv(ut, 1F).endVertex();
 			}
 
 		}
-		tessellator.draw();
-		ms.pop();
+		tessellator.end();
+		ms.popPose();
 		RenderSystem.color4f(1F, 1F, 1F, 1F - insideVoid);
-		GlStateManager.blendFuncSeparate(770, 1, 1, 0);
+		GlStateManager._blendFuncSeparate(770, 1, 1, 0);
 	}
 
-	public static void renderStars(VertexFormat format, VertexBuffer starVBO, MatrixStack ms, float partialTicks) {
-		MinecraftClient mc = MinecraftClient.getInstance();
-		float rain = 1.0F - mc.world.getRainGradient(partialTicks);
-		float celAng = mc.world.getSkyAngle(partialTicks);
+	public static void renderStars(VertexFormat format, VertexBuffer starVBO, PoseStack ms, float partialTicks) {
+		Minecraft mc = Minecraft.getInstance();
+		float rain = 1.0F - mc.level.getRainLevel(partialTicks);
+		float celAng = mc.level.getTimeOfDay(partialTicks);
 		float effCelAng = celAng;
 		if (celAng > 0.5) {
 			effCelAng = 0.5F - (celAng - 0.5F);
@@ -221,51 +221,51 @@ public class SkyblockSkyRenderer {
 		float alpha = rain * Math.max(0.1F, effCelAng * 2);
 
 		float t = (ClientTickHandler.ticksInGame + partialTicks + 2000) * 0.005F;
-		ms.push();
+		ms.pushPose();
 
 		starVBO.bind();
-		format.startDrawing(0);
+		format.setupBufferState(0);
 
-		ms.push();
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(t * 3));
+		ms.pushPose();
+		ms.mulPose(Vector3f.YP.rotationDegrees(t * 3));
 		RenderSystem.color4f(1F, 1F, 1F, alpha);
-		starVBO.draw(ms.peek().getModel(), GL11.GL_QUADS);
-		ms.pop();
+		starVBO.draw(ms.last().pose(), GL11.GL_QUADS);
+		ms.popPose();
 
-		ms.push();
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(t));
+		ms.pushPose();
+		ms.mulPose(Vector3f.YP.rotationDegrees(t));
 		RenderSystem.color4f(0.5F, 1F, 1F, alpha);
-		starVBO.draw(ms.peek().getModel(), GL11.GL_QUADS);
-		ms.pop();
+		starVBO.draw(ms.last().pose(), GL11.GL_QUADS);
+		ms.popPose();
 
-		ms.push();
-		ms.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(t * 2));
+		ms.pushPose();
+		ms.mulPose(Vector3f.YP.rotationDegrees(t * 2));
 		RenderSystem.color4f(1F, 0.75F, 0.75F, alpha);
-		starVBO.draw(ms.peek().getModel(), GL11.GL_QUADS);
-		ms.pop();
+		starVBO.draw(ms.last().pose(), GL11.GL_QUADS);
+		ms.popPose();
 
-		ms.push();
-		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(t * 3));
+		ms.pushPose();
+		ms.mulPose(Vector3f.ZP.rotationDegrees(t * 3));
 		RenderSystem.color4f(1F, 1F, 1F, 0.25F * alpha);
-		starVBO.draw(ms.peek().getModel(), GL11.GL_QUADS);
-		ms.pop();
+		starVBO.draw(ms.last().pose(), GL11.GL_QUADS);
+		ms.popPose();
 
-		ms.push();
-		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(t));
+		ms.pushPose();
+		ms.mulPose(Vector3f.ZP.rotationDegrees(t));
 		RenderSystem.color4f(0.5F, 1F, 1F, 0.25F * alpha);
-		starVBO.draw(ms.peek().getModel(), GL11.GL_QUADS);
-		ms.pop();
+		starVBO.draw(ms.last().pose(), GL11.GL_QUADS);
+		ms.popPose();
 
-		ms.push();
-		ms.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(t * 2));
+		ms.pushPose();
+		ms.mulPose(Vector3f.ZP.rotationDegrees(t * 2));
 		RenderSystem.color4f(1F, 0.75F, 0.75F, 0.25F * alpha);
-		starVBO.draw(ms.peek().getModel(), GL11.GL_QUADS);
-		ms.pop();
+		starVBO.draw(ms.last().pose(), GL11.GL_QUADS);
+		ms.popPose();
 
-		ms.pop();
+		ms.popPose();
 
 		VertexBuffer.unbind();
-		format.endDrawing();
+		format.clearBufferState();
 	}
 
 }

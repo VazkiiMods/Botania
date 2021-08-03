@@ -8,17 +8,17 @@
  */
 package vazkii.botania.common.entity;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Packet;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -31,16 +31,16 @@ import java.util.List;
 public class EntityMagicLandmine extends Entity {
 	public EntityDoppleganger summoner;
 
-	public EntityMagicLandmine(EntityType<EntityMagicLandmine> type, World world) {
+	public EntityMagicLandmine(EntityType<EntityMagicLandmine> type, Level world) {
 		super(type, world);
 	}
 
 	@Override
 	public void tick() {
-		setVelocity(Vec3d.ZERO);
+		setDeltaMovement(Vec3.ZERO);
 		super.tick();
 
-		float range = getWidth() / 2;
+		float range = getBbWidth() / 2;
 		float r = 0.2F;
 		float g = 0F;
 		float b = 0.2F;
@@ -48,27 +48,27 @@ public class EntityMagicLandmine extends Entity {
 		//Botania.proxy.wispFX(world, getPosX(), getPosY(), getPosZ(), r, g, b, 0.6F, -0.2F, 1);
 		for (int i = 0; i < 6; i++) {
 			WispParticleData data = WispParticleData.wisp(0.4F, r, g, b, (float) 1);
-			world.addParticle(data, getX() - range + Math.random() * range * 2, getY(), getZ() - range + Math.random() * range * 2, 0, - -0.015F, 0);
+			level.addParticle(data, getX() - range + Math.random() * range * 2, getY(), getZ() - range + Math.random() * range * 2, 0, - -0.015F, 0);
 		}
 
-		if (age >= 55) {
-			world.playSound(null, getX(), getY(), getZ(), ModSounds.gaiaTrap, SoundCategory.NEUTRAL, 0.3F, 1F);
+		if (tickCount >= 55) {
+			level.playSound(null, getX(), getY(), getZ(), ModSounds.gaiaTrap, SoundSource.NEUTRAL, 0.3F, 1F);
 
 			float m = 0.35F;
 			g = 0.4F;
 			for (int i = 0; i < 25; i++) {
 				WispParticleData data = WispParticleData.wisp(0.5F, r, g, b);
-				world.addParticle(data, getX(), getY() + 1, getZ(), (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m);
+				level.addParticle(data, getX(), getY() + 1, getZ(), (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m, (float) (Math.random() - 0.5F) * m);
 			}
 
-			if (!world.isClient) {
-				List<PlayerEntity> players = world.getNonSpectatingEntities(PlayerEntity.class, getBoundingBox());
-				for (PlayerEntity player : players) {
-					player.damage(DamageSource.magic(this, summoner), 10);
-					player.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 25, 0));
-					StatusEffectInstance wither = new StatusEffectInstance(StatusEffects.WITHER, 120, 2);
+			if (!level.isClientSide) {
+				List<Player> players = level.getEntitiesOfClass(Player.class, getBoundingBox());
+				for (Player player : players) {
+					player.hurt(DamageSource.indirectMagic(this, summoner), 10);
+					player.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 25, 0));
+					MobEffectInstance wither = new MobEffectInstance(MobEffects.WITHER, 120, 2);
 					// wither.getCurativeItems().clear();
-					player.addStatusEffect(wither);
+					player.addEffect(wither);
 				}
 			}
 
@@ -77,17 +77,17 @@ public class EntityMagicLandmine extends Entity {
 	}
 
 	@Override
-	protected void initDataTracker() {}
+	protected void defineSynchedData() {}
 
 	@Override
-	protected void readCustomDataFromTag(@Nonnull CompoundTag var1) {}
+	protected void readAdditionalSaveData(@Nonnull CompoundTag var1) {}
 
 	@Override
-	protected void writeCustomDataToTag(@Nonnull CompoundTag var1) {}
+	protected void addAdditionalSaveData(@Nonnull CompoundTag var1) {}
 
 	@Nonnull
 	@Override
-	public Packet<?> createSpawnPacket() {
+	public Packet<?> getAddEntityPacket() {
 		return PacketSpawnEntity.make(this);
 	}
 }

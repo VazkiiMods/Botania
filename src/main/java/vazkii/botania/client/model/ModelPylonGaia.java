@@ -8,11 +8,12 @@
  */
 package vazkii.botania.client.model;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+
 import net.minecraft.client.model.Model;
-import net.minecraft.client.model.ModelPart;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.RenderType;
 
 public class ModelPylonGaia extends Model implements IPylonModel {
 
@@ -32,58 +33,58 @@ public class ModelPylonGaia extends Model implements IPylonModel {
 	private final ModelPart shardrfb;
 
 	public ModelPylonGaia() {
-		super(RenderLayer::getEntityTranslucent);
+		super(RenderType::entityTranslucent);
 
-		textureWidth = 64;
-		textureHeight = 64;
+		texWidth = 64;
+		texHeight = 64;
 
 		//plates
 		platel = new ModelPart(this, 36, 0);
-		platel.setPivot(0.0F, 16.0F, 0.0F);
-		platel.addCuboid(-3.0F, -3.0F, -8.0F, 6, 6, 2, 0.0F);
+		platel.setPos(0.0F, 16.0F, 0.0F);
+		platel.addBox(-3.0F, -3.0F, -8.0F, 6, 6, 2, 0.0F);
 		setRotation(platel, 0.0F, 1.5707963267948966F, 0.0F);
 		plater = new ModelPart(this, 36, 0);
-		plater.setPivot(0.0F, 16.0F, 0.0F);
-		plater.addCuboid(-3.0F, -3.0F, -8.0F, 6, 6, 2, 0.0F);
+		plater.setPos(0.0F, 16.0F, 0.0F);
+		plater.addBox(-3.0F, -3.0F, -8.0F, 6, 6, 2, 0.0F);
 		setRotation(plater, 0.0F, -1.5707963267948966F, 0.0F);
 		platef = new ModelPart(this, 36, 0);
-		platef.setPivot(0.0F, 16.0F, 0.0F);
-		platef.addCuboid(-3.0F, -3.0F, -8.0F, 6, 6, 2, 0.0F);
+		platef.setPos(0.0F, 16.0F, 0.0F);
+		platef.addBox(-3.0F, -3.0F, -8.0F, 6, 6, 2, 0.0F);
 		plateb = new ModelPart(this, 36, 0);
-		plateb.setPivot(0.0F, 16.0F, 0.0F);
-		plateb.addCuboid(-3.0F, -3.0F, -8.0F, 6, 6, 2, 0.0F);
+		plateb.setPos(0.0F, 16.0F, 0.0F);
+		plateb.addBox(-3.0F, -3.0F, -8.0F, 6, 6, 2, 0.0F);
 		setRotation(plateb, 0.0F, 3.141592653589793F, 0.0F);
 
 		//shards
 		shardrft = new ModelPart(this, 16, 32);
-		shardrft.setPivot(0.0F, 16.0F, 0.0F);
-		shardrft.addCuboid(2.0F, -6.0F, -5.0F, 3, 2, 3, 0.0F);
+		shardrft.setPos(0.0F, 16.0F, 0.0F);
+		shardrft.addBox(2.0F, -6.0F, -5.0F, 3, 2, 3, 0.0F);
 		shardlbt = new ModelPart(this, 0, 0);
-		shardlbt.setPivot(0.0F, 16.0F, 0.0F);
-		shardlbt.addCuboid(-5.0F, -6.0F, 0.0F, 6, 5, 5, 0.0F);
+		shardlbt.setPos(0.0F, 16.0F, 0.0F);
+		shardlbt.addBox(-5.0F, -6.0F, 0.0F, 6, 5, 5, 0.0F);
 		shardrbt = new ModelPart(this, 22, 9);
-		shardrbt.setPivot(0.0F, 16.0F, 0.0F);
-		shardrbt.addCuboid(3.0F, -5.0F, 0.0F, 2, 4, 5, 0.0F);
+		shardrbt.setPos(0.0F, 16.0F, 0.0F);
+		shardrbt.addBox(3.0F, -5.0F, 0.0F, 2, 4, 5, 0.0F);
 		shardlft = new ModelPart(this, 0, 32);
-		shardlft.setPivot(0.0F, 16.0F, 0.0F);
-		shardlft.addCuboid(-5.0F, -7.0F, -5.0F, 5, 6, 3, 0.0F);
+		shardlft.setPos(0.0F, 16.0F, 0.0F);
+		shardlft.addBox(-5.0F, -7.0F, -5.0F, 5, 6, 3, 0.0F);
 
 		shardrfb = new ModelPart(this, 16, 37);
-		shardrfb.setPivot(0.0F, 16.0F, 0.0F);
-		shardrfb.addCuboid(2.0F, -2.0F, -5.0F, 3, 6, 3, 0.0F);
+		shardrfb.setPos(0.0F, 16.0F, 0.0F);
+		shardrfb.addBox(2.0F, -2.0F, -5.0F, 3, 6, 3, 0.0F);
 		shardlbb = new ModelPart(this, 0, 10);
-		shardlbb.setPivot(0.0F, 16.0F, 0.0F);
-		shardlbb.addCuboid(-5.0F, 1.0F, 0.0F, 6, 3, 5, 0.0F);
+		shardlbb.setPos(0.0F, 16.0F, 0.0F);
+		shardlbb.addBox(-5.0F, 1.0F, 0.0F, 6, 3, 5, 0.0F);
 		shardrbb = new ModelPart(this, 22, 0);
-		shardrbb.setPivot(0.0F, 16.0F, 0.0F);
-		shardrbb.addCuboid(3.0F, 1.0F, 0.0F, 2, 4, 5, 0.0F);
+		shardrbb.setPos(0.0F, 16.0F, 0.0F);
+		shardrbb.addBox(3.0F, 1.0F, 0.0F, 2, 4, 5, 0.0F);
 		shardlfb = new ModelPart(this, 0, 41);
-		shardlfb.setPivot(0.0F, 16.0F, 0.0F);
-		shardlfb.addCuboid(-5.0F, 1.0F, -5.0F, 5, 2, 3, 0.0F);
+		shardlfb.setPos(0.0F, 16.0F, 0.0F);
+		shardlfb.addBox(-5.0F, 1.0F, -5.0F, 5, 2, 3, 0.0F);
 	}
 
 	@Override
-	public void renderCrystal(MatrixStack ms, VertexConsumer buffer, int light, int overlay) {
+	public void renderCrystal(PoseStack ms, VertexConsumer buffer, int light, int overlay) {
 		shardrft.render(ms, buffer, light, overlay);
 		shardlbt.render(ms, buffer, light, overlay);
 		shardrbt.render(ms, buffer, light, overlay);
@@ -96,7 +97,7 @@ public class ModelPylonGaia extends Model implements IPylonModel {
 	}
 
 	@Override
-	public void renderRing(MatrixStack ms, VertexConsumer buffer, int light, int overlay) {
+	public void renderRing(PoseStack ms, VertexConsumer buffer, int light, int overlay) {
 		platef.render(ms, buffer, light, overlay);
 		plateb.render(ms, buffer, light, overlay);
 		platel.render(ms, buffer, light, overlay);
@@ -105,13 +106,13 @@ public class ModelPylonGaia extends Model implements IPylonModel {
 
 	private void setRotation(ModelPart model, float x, float y, float z) {
 
-		model.pitch = x;
-		model.yaw = y;
-		model.roll = z;
+		model.xRot = x;
+		model.yRot = y;
+		model.zRot = z;
 	}
 
 	@Override
-	public void render(MatrixStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
+	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
 		throw new UnsupportedOperationException("unimplemented");
 	}
 }

@@ -9,8 +9,8 @@
 package vazkii.botania.client.render.entity;
 
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
-import net.minecraft.client.texture.Sprite;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.common.entity.EntitySpark;
@@ -22,10 +22,10 @@ public class RenderSpark extends RenderSparkBase<EntitySpark> {
 	}
 
 	@Override
-	public Sprite getSpinningIcon(EntitySpark entity) {
+	public TextureAtlasSprite getSpinningIcon(EntitySpark entity) {
 		int upgrade = entity.getUpgrade().ordinal() - 1;
 		return upgrade >= 0 && upgrade < MiscellaneousIcons.INSTANCE.sparkUpgradeIcons.length
-				? MiscellaneousIcons.INSTANCE.sparkUpgradeIcons[upgrade].getSprite()
+				? MiscellaneousIcons.INSTANCE.sparkUpgradeIcons[upgrade].sprite()
 				: null;
 	}
 

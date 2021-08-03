@@ -8,10 +8,10 @@
  */
 package vazkii.botania.mixin;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.world.SpawnHelper;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.level.NaturalSpawner;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,14 +22,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
 import vazkii.botania.common.brew.potion.PotionEmptiness;
 
-@Mixin(SpawnHelper.class)
+@Mixin(NaturalSpawner.class)
 public class MixinSpawnHelper {
 	/**
 	 * Adds the naturally-spawned tag to slimes
 	 */
 	@ModifyArg(
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/server/world/ServerWorld;spawnEntityAndPassengers(Lnet/minecraft/entity/Entity;)V"),
-		method = "spawnEntitiesInChunk(Lnet/minecraft/entity/SpawnGroup;Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/world/chunk/Chunk;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/SpawnHelper$Checker;Lnet/minecraft/world/SpawnHelper$Runner;)V"
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/ServerLevelAccessor;addFreshEntityWithPassengers(Lnet/minecraft/world/entity/Entity;)V"),
+		method = "spawnCategoryForPosition"
 	)
 	private static Entity onSpawned(Entity entity) {
 		SubTileNarslimmus.onSpawn(entity);
@@ -39,8 +39,8 @@ public class MixinSpawnHelper {
 	/**
 	 * Prevents spawning when near emptiness users
 	 */
-	@Inject(at = @At("HEAD"), method = "isValidSpawn", cancellable = true)
-	private static void emptiness(ServerWorld world, MobEntity entity, double squaredDistance, CallbackInfoReturnable<Boolean> cir) {
+	@Inject(at = @At("HEAD"), method = "isValidPositionForMob", cancellable = true)
+	private static void emptiness(ServerLevel world, Mob entity, double squaredDistance, CallbackInfoReturnable<Boolean> cir) {
 		if (PotionEmptiness.shouldCancel(entity)) {
 			cir.setReturnValue(false);
 		}
