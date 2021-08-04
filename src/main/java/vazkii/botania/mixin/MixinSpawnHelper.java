@@ -28,7 +28,7 @@ public class MixinSpawnHelper {
 	 * Adds the naturally-spawned tag to slimes
 	 */
 	@ModifyArg(
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/ServerLevelAccessor;addFreshEntityWithPassengers(Lnet/minecraft/world/entity/Entity;)V"),
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerLevel;addFreshEntityWithPassengers(Lnet/minecraft/world/entity/Entity;)V"),
 		method = "spawnCategoryForPosition"
 	)
 	private static Entity onSpawned(Entity entity) {

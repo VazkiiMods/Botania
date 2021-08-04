@@ -46,7 +46,7 @@ public class MixinLootTable {
 
 	@ModifyArg(
 		method = "getRandomItems(Lnet/minecraft/world/level/storage/loot/LootContext;Ljava/util/function/Consumer;)V",
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/loot/LootTable;createStackSplitter(Ljava/util/function/Consumer;)Ljava/util/function/Consumer;"),
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/storage/loot/LootTable;getRandomItemsRaw(Lnet/minecraft/world/level/storage/loot/LootContext;Ljava/util/function/Consumer;)V"),
 		index = 1
 	)
 	private Consumer<ItemStack> filterDisposables(LootContext context, Consumer<ItemStack> inner) {
