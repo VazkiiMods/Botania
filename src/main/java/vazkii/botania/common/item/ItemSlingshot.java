@@ -73,7 +73,7 @@ public class ItemSlingshot extends Item {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (player.abilities.instabuild || PlayerHelper.hasAmmo(player, AMMO_FUNC)) {
+		if (player.getAbilities().instabuild || PlayerHelper.hasAmmo(player, AMMO_FUNC)) {
 			player.startUsingItem(hand);
 			return InteractionResultHolder.consume(stack);
 		}

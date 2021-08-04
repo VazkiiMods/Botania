@@ -226,8 +226,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 				continue;
 			}
 
-			for (int i = 0; i < player.inventory.getContainerSize(); i++) {
-				ItemStack pstack = player.inventory.getItem(i);
+			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+				ItemStack pstack = player.getInventory().getItem(i);
 				if (player.isCreative() || (!pstack.isEmpty() && pstack.sameItem(stack) && ItemStack.tagMatches(stack, pstack))) {
 					inv.setItem(index, player.isCreative() ? stack.copy() : pstack.split(1));
 					didAny = true;

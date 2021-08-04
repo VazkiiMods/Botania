@@ -167,7 +167,7 @@ public final class HUDHandler {
 			boolean anyRequest = false;
 			boolean creative = false;
 
-			Container mainInv = player.inventory;
+			Container mainInv = player.getInventory();
 			Container accInv = BotaniaAPI.instance().getAccessoriesInventory(player);
 
 			int invSize = mainInv.getContainerSize();

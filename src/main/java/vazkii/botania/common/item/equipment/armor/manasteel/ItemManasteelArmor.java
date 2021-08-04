@@ -146,7 +146,7 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 	}
 
 	public boolean hasArmorSetItem(Player player, EquipmentSlot slot) {
-		if (player == null || player.inventory == null || player.inventory.armor == null) {
+		if (player == null || player.getInventory() == null || player.getInventory().armor == null) {
 			return false;
 		}
 

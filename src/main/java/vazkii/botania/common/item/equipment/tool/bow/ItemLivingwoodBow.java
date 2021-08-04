@@ -131,7 +131,7 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 	}
 
 	boolean canFire(ItemStack stack, Player player) {
-		return player.abilities.instabuild
+		return player.getAbilities().instabuild
 				|| EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, stack) > 0
 				|| !player.getProjectile(stack).isEmpty();
 	}

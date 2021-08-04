@@ -92,9 +92,9 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 		if (tryConsumeMana(player)) {
 			if (player.level.isClientSide) {
 				ItemTravelBelt beltItem = (ItemTravelBelt) belt.getItem();
-				if ((player.isOnGround() || player.abilities.flying) && player.zza > 0F && !player.isInWaterOrBubble()) {
+				if ((player.isOnGround() || player.getAbilities().flying) && player.zza > 0F && !player.isInWaterOrBubble()) {
 					float speed = beltItem.getSpeed(belt);
-					player.moveRelative(player.abilities.flying ? speed : speed, new Vec3(0, 0, 1));
+					player.moveRelative(player.getAbilities().flying ? speed : speed, new Vec3(0, 0, 1));
 					beltItem.onMovedTick(belt, player);
 
 					if (player.tickCount % COST_INTERVAL == 0) {

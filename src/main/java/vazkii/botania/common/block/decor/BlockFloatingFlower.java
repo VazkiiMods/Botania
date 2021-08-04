@@ -100,7 +100,7 @@ public class BlockFloatingFlower extends BlockModWaterloggable implements Entity
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(te);
 				}
 
-				if (!player.abilities.instabuild) {
+				if (!player.getAbilities().instabuild) {
 					stack.shrink(1);
 				}
 				return InteractionResult.SUCCESS;

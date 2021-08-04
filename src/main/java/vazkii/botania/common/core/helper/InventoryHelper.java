@@ -104,7 +104,7 @@ public class InventoryHelper {
 			ItemStack stackAt = inv.getItemHandler().getItem(i);
 			if (!stackAt.isEmpty()) {
 				ItemStack copy = stackAt.copy();
-				player.inventory.placeItemBackInInventory(player.level, copy);
+				player.getInventory().placeItemBackInInventory(player.level, copy);
 				inv.getItemHandler().setItem(i, ItemStack.EMPTY);
 				break;
 			}

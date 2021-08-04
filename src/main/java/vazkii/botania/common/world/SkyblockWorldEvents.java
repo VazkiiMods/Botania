@@ -97,7 +97,7 @@ public final class SkyblockWorldEvents {
 							if (equipped.isEmpty()) {
 								player.setItemInHand(hand, new ItemStack(ModItems.waterBowl));
 							} else {
-								player.inventory.placeItemBackInInventory(player.level, new ItemStack(ModItems.waterBowl));
+								player.getInventory().placeItemBackInInventory(player.level, new ItemStack(ModItems.waterBowl));
 							}
 						}
 
@@ -118,7 +118,7 @@ public final class SkyblockWorldEvents {
 			pmp.teleportTo(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
 			pmp.setRespawnPosition(pmp.level.dimension(), pos, 0, true, false);
 			if (ConfigHandler.COMMON.gogSpawnWithLexicon.getValue()) {
-				player.inventory.add(new ItemStack(ModItems.lexicon));
+				player.getInventory().add(new ItemStack(ModItems.lexicon));
 			}
 		}
 	}

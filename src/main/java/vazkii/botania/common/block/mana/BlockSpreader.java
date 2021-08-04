@@ -141,13 +141,13 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 		}
 
 		if (lens.isEmpty() && isHeldItemLens) {
-			if (!player.abilities.instabuild) {
+			if (!player.getAbilities().instabuild) {
 				player.setItemInHand(hand, ItemStack.EMPTY);
 			}
 
 			spreader.getItemHandler().setItem(0, heldItem.copy());
 		} else if (!lens.isEmpty() && !wool) {
-			player.inventory.placeItemBackInInventory(player.level, lens);
+			player.getInventory().placeItemBackInInventory(player.level, lens);
 			spreader.getItemHandler().setItem(0, ItemStack.EMPTY);
 		}
 
@@ -160,7 +160,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 			}
 		} else if (heldItem.isEmpty() && spreader.paddingColor != null && lens.isEmpty()) {
 			ItemStack pad = new ItemStack(ColorHelper.WOOL_MAP.apply(spreader.paddingColor));
-			player.inventory.placeItemBackInInventory(player.level, pad);
+			player.getInventory().placeItemBackInInventory(player.level, pad);
 			spreader.paddingColor = null;
 			spreader.setChanged();
 		}

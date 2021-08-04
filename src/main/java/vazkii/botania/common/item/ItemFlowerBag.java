@@ -66,12 +66,12 @@ public class ItemFlowerBag extends Item {
 		if (Block.byItem(entityStack.getItem()) instanceof BlockModFlower && entityStack.getCount() > 0) {
 			int color = ((BlockModFlower) Block.byItem(entityStack.getItem())).color.getId();
 
-			for (int i = 0; i < player.inventory.getContainerSize(); i++) {
-				if (i == player.inventory.selected) {
+			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+				if (i == player.getInventory().selected) {
 					continue; // prevent item deletion
 				}
 
-				ItemStack bag = player.inventory.getItem(i);
+				ItemStack bag = player.getInventory().getItem(i);
 				if (!bag.isEmpty() && bag.getItem() == ModItems.flowerBag) {
 					SimpleContainer bagInv = getInventory(bag);
 					ItemStack existing = bagInv.getItem(color);

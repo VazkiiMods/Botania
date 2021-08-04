@@ -102,7 +102,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 				}
 				return InteractionResult.SUCCESS;
 			} else {
-				if (player == null || player.abilities.instabuild || getBlockCount(stack) > 0) {
+				if (player == null || player.getAbilities().instabuild || getBlockCount(stack) > 0) {
 					ItemStack toUse = new ItemStack(bBlock);
 					InteractionResult result = PlayerHelper.substituteUse(ctx, toUse);
 
@@ -127,10 +127,10 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 			Player player = (Player) entity;
 
 			int highest = -1;
-			int[] counts = new int[player.inventory.getContainerSize() - player.inventory.armor.size()];
+			int[] counts = new int[player.getInventory().getContainerSize() - player.getInventory().armor.size()];
 
 			for (int i = 0; i < counts.length; i++) {
-				ItemStack stack = player.inventory.getItem(i);
+				ItemStack stack = player.getInventory().getItem(i);
 				if (stack.isEmpty()) {
 					continue;
 				}
@@ -146,11 +146,11 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 			}
 
 			if (highest == -1) {
-				/*ItemStack heldItem = player.inventory.getItemStack();
+				/*ItemStack heldItem = player.getInventory().getItemStack();
 				if(hasFreeSlot && (heldItem == null || Item.getItemFromBlock(block) == heldItem.getItem() || heldItem.getItemDamage() != meta)) {
 					ItemStack stack = new ItemStack(block, remove(itemstack, 64), meta);
 					if(stack.stackSize != 0)
-						player.inventory.addItemStackToInventory(stack);
+						player.getInventory().addItemStackToInventory(stack);
 				}*/
 				// Used to keep one stack, disabled for now
 			} else {
@@ -163,14 +163,14 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 					}
 
 					add(itemstack, count);
-					player.inventory.setItem(i, ItemStack.EMPTY);
+					player.getInventory().setItem(i, ItemStack.EMPTY);
 				}
 
 				/*int countInHighest = counts[highest];
 				int maxSize = new ItemStack(block, 1, meta).getMaxStackSize();
 				if(countInHighest < maxSize) {
 					int missing = maxSize - countInHighest;
-					ItemStack stackInHighest = player.inventory.getStackInSlot(highest);
+					ItemStack stackInHighest = player.getInventory().getStackInSlot(highest);
 					stackInHighest.stackSize += remove(itemstack, missing);
 				}*/
 				// Used to keep one stack, disabled for now

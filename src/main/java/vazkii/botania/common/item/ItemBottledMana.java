@@ -101,13 +101,13 @@ public class ItemBottledMana extends Item {
 		case 7: { // All your inventory is belong to us
 			if (!living.level.isClientSide && living instanceof Player) {
 				Player player = (Player) living;
-				for (int i = 0; i < player.inventory.getContainerSize(); i++) {
-					ItemStack stackAt = player.inventory.getItem(i);
+				for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+					ItemStack stackAt = player.getInventory().getItem(i);
 					if (stackAt != stack) {
 						if (!stackAt.isEmpty()) {
 							player.spawnAtLocation(stackAt, 0);
 						}
-						player.inventory.setItem(i, ItemStack.EMPTY);
+						player.getInventory().setItem(i, ItemStack.EMPTY);
 					}
 				}
 			}

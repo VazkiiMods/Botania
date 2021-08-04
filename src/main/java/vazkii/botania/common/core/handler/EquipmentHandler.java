@@ -85,7 +85,7 @@ public abstract class EquipmentHandler {
 				return array;
 			});
 
-			Inventory inv = player.inventory;
+			Inventory inv = player.getInventory();
 			for (int i = 0; i < 9; i++) {
 				ItemStack old = oldStacks[i];
 				ItemStack current = inv.getItem(i);

@@ -127,12 +127,12 @@ public class BlockAltar extends BlockMod implements EntityBlock {
 			return InteractionResult.SUCCESS;
 		} else {
 			if (!stack.isEmpty() && fluid != State.EMPTY && isValidFluidContainerToFill(stack, tile.getFluid().asVanilla()) && !Botania.gardenOfGlassLoaded) {
-				if (!player.abilities.instabuild) {
+				if (!player.getAbilities().instabuild) {
 					//support bucket stacks
 					if (stack.getCount() == 1) {
 						player.setItemInHand(hand, fill(tile.getFluid().asVanilla(), stack));
 					} else {
-						player.inventory.placeItemBackInInventory(player.level, new ItemStack(stack.getItem()));
+						player.getInventory().placeItemBackInInventory(player.level, new ItemStack(stack.getItem()));
 						stack.shrink(1);
 					}
 				}
@@ -145,7 +145,7 @@ public class BlockAltar extends BlockMod implements EntityBlock {
 				if (tile.getFluid() == State.EMPTY) {
 					if (stack.getItem() == ModItems.waterRod) {
 						ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, true);
-					} else if (!player.abilities.instabuild) {
+					} else if (!player.getAbilities().instabuild) {
 						player.setItemInHand(hand, drain(Fluids.WATER, stack));
 					}
 
@@ -155,7 +155,7 @@ public class BlockAltar extends BlockMod implements EntityBlock {
 				return InteractionResult.SUCCESS;
 			} else if (!stack.isEmpty() && isValidFluidContainerToDrain(stack, Fluids.LAVA)) {
 				if (tile.getFluid() == State.EMPTY) {
-					if (!player.abilities.instabuild) {
+					if (!player.getAbilities().instabuild) {
 						player.setItemInHand(hand, drain(Fluids.LAVA, stack));
 					}
 

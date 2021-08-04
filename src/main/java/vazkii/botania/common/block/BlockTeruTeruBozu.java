@@ -59,7 +59,7 @@ public class BlockTeruTeruBozu extends BlockModWaterloggable implements EntityBl
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (!stack.isEmpty() && (isSunflower(stack) && removeRain(world) || isBlueOrchid(stack) && startRain(world))) {
-			if (!player.abilities.instabuild) {
+			if (!player.getAbilities().instabuild) {
 				stack.shrink(1);
 			}
 			return InteractionResult.SUCCESS;

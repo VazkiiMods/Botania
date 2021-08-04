@@ -255,13 +255,13 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 					&& stateAt.getBlock().asItem() != replacement) {
 				float hardness = stateAt.getDestroySpeed(world, pos);
 				if (!world.isClientSide) {
-					world.destroyBlock(pos, !player.abilities.instabuild);
+					world.destroyBlock(pos, !player.getAbilities().instabuild);
 					BlockHitResult hit = new BlockHitResult(getHitPos(rod, pos), getSwapDirection(rod), pos, false);
 					InteractionResult result = PlayerHelper.substituteUse(new UseOnContext(player, InteractionHand.MAIN_HAND, hit), placeStack);
 					// TODO: provide an use context that overrides player facing direction/yaw?
 					//  currently it pulls from the player directly
 
-					if (!player.abilities.instabuild) {
+					if (!player.getAbilities().instabuild) {
 						if (result.consumesAction()) {
 							removeFromInventory(player, rod, replacement, true);
 							displayRemainderCounter(player, rod);
@@ -321,19 +321,19 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	}
 
 	public static ItemStack removeFromInventory(Player player, ItemStack tool, Item item, boolean doit) {
-		if (player.abilities.instabuild) {
+		if (player.getAbilities().instabuild) {
 			return new ItemStack(item);
 		}
 
 		ItemStack outStack = removeFromInventory(player, BotaniaAPI.instance().getAccessoriesInventory(player), tool, item, doit);
 		if (outStack.isEmpty()) {
-			outStack = removeFromInventory(player, player.inventory, tool, item, doit);
+			outStack = removeFromInventory(player, player.getInventory(), tool, item, doit);
 		}
 		return outStack;
 	}
 
 	public static int getInventoryItemCount(Player player, ItemStack stack, Item item) {
-		if (player.abilities.instabuild) {
+		if (player.getAbilities().instabuild) {
 			return -1;
 		}
 
@@ -342,7 +342,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 			return -1;
 		}
 
-		int count = getInventoryItemCount(player, player.inventory, stack, item);
+		int count = getInventoryItemCount(player, player.getInventory(), stack, item);
 		if (count == -1) {
 			return -1;
 		}
@@ -351,7 +351,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	}
 
 	public static int getInventoryItemCount(Player player, Container inv, ItemStack stack, Item requested) {
-		if (player.abilities.instabuild) {
+		if (player.getAbilities().instabuild) {
 			return -1;
 		}
 

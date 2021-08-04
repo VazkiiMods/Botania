@@ -707,7 +707,7 @@ public class EntityDoppleganger extends Mob {
 			particles();
 			Player player = Botania.proxy.getClientPlayer();
 			if (getPlayersAround().contains(player)) {
-				player.abilities.flying &= player.abilities.instabuild;
+				player.getAbilities().flying &= player.getAbilities().instabuild;
 			}
 			return;
 		}
@@ -744,7 +744,7 @@ public class EntityDoppleganger extends Mob {
 
 				clearPotions(player);
 				keepInsideArena(player);
-				player.abilities.flying &= player.abilities.instabuild;
+				player.getAbilities().flying &= player.getAbilities().instabuild;
 			}
 		}
 

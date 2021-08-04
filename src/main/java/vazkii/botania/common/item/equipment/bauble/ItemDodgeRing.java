@@ -98,7 +98,7 @@ public class ItemDodgeRing extends ItemBauble {
 	}
 
 	private static void dodge(Player player, Direction dir) {
-		if (player.abilities.flying || !player.isOnGround() || dir == Direction.UP || dir == Direction.DOWN) {
+		if (player.getAbilities().flying || !player.isOnGround() || dir == Direction.UP || dir == Direction.DOWN) {
 			return;
 		}
 
@@ -122,7 +122,7 @@ public class ItemDodgeRing extends ItemBauble {
 		int xo = Minecraft.getInstance().getWindow().getGuiScaledWidth() / 2 - 20;
 		int y = Minecraft.getInstance().getWindow().getGuiScaledHeight() / 2 + 20;
 
-		if (!player.abilities.flying) {
+		if (!player.getAbilities().flying) {
 			int cd = ItemNBTHelper.getInt(stack, TAG_DODGE_COOLDOWN, 0);
 			int width = Math.min((int) ((cd - pticks) * 2), 40);
 			RenderSystem.color4f(1F, 1F, 1F, 1F);

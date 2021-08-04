@@ -114,8 +114,8 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 		if (playersWithFlight.contains(playerStr(player))) {
 			if (shouldPlayerHaveFlight(player)) {
-				player.abilities.mayfly = true;
-				if (player.abilities.flying) {
+				player.getAbilities().mayfly = true;
+				if (player.getAbilities().flying) {
 					if (!player.level.isClientSide) {
 						if (!player.isCreative() && !player.isSpectator()) {
 							ManaItemHandler.instance().requestManaExact(tiara, player, getCost(tiara, left), true);
@@ -185,16 +185,16 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 					}
 				}
 			} else {
-				if (!player.isSpectator() && !player.abilities.instabuild) {
-					player.abilities.mayfly = false;
-					player.abilities.flying = false;
-					player.abilities.invulnerable = false;
+				if (!player.isSpectator() && !player.getAbilities().instabuild) {
+					player.getAbilities().mayfly = false;
+					player.getAbilities().flying = false;
+					player.getAbilities().invulnerable = false;
 				}
 				playersWithFlight.remove(playerStr(player));
 			}
 		} else if (shouldPlayerHaveFlight(player)) {
 			playersWithFlight.add(playerStr(player));
-			player.abilities.mayfly = true;
+			player.getAbilities().mayfly = true;
 		}
 	}
 
@@ -213,7 +213,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		if (!armor.isEmpty()) {
 			int left = ItemNBTHelper.getInt(armor, TAG_TIME_LEFT, MAX_FLY_TIME);
 			boolean flying = ItemNBTHelper.getBoolean(armor, TAG_FLYING, false);
-			return (left > (flying ? 0 : MAX_FLY_TIME / 10) || player.inventory.contains(new ItemStack(ModItems.flugelEye))) && ManaItemHandler.instance().requestManaExact(armor, player, getCost(armor, left), false);
+			return (left > (flying ? 0 : MAX_FLY_TIME / 10) || player.getInventory().contains(new ItemStack(ModItems.flugelEye))) && ManaItemHandler.instance().requestManaExact(armor, player, getCost(armor, left), false);
 		}
 
 		return false;
@@ -537,7 +537,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			x += 8;
 		}
 
-		if (player.abilities.flying) {
+		if (player.getAbilities().flying) {
 			int width = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
 			RenderSystem.color4f(1F, 1F, 1F, 1F);
 			if (width > 0) {

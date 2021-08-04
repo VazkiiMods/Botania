@@ -32,7 +32,7 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 
 		List<ItemStack> toReturn = new ArrayList<>();
 
-		for (ItemStack stackInSlot : Iterables.concat(player.inventory.items, player.inventory.offhand)) {
+		for (ItemStack stackInSlot : Iterables.concat(player.getInventory().items, player.getInventory().offhand)) {
 			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IManaItem) {
 				toReturn.add(stackInSlot);
 			}
@@ -237,8 +237,8 @@ public class ManaItemHandlerImpl implements ManaItemHandler {
 	@Override
 	public float getFullDiscountForTools(Player player, ItemStack tool) {
 		float discount = 0F;
-		for (int i = 0; i < player.inventory.armor.size(); i++) {
-			ItemStack armor = player.inventory.armor.get(i);
+		for (int i = 0; i < player.getInventory().armor.size(); i++) {
+			ItemStack armor = player.getInventory().armor.get(i);
 			if (!armor.isEmpty() && armor.getItem() instanceof IManaDiscountArmor) {
 				discount += ((IManaDiscountArmor) armor.getItem()).getDiscount(armor, i, player, tool);
 			}

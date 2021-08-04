@@ -78,7 +78,7 @@ public final class BoundTileRenderer {
 			}
 		}
 
-		renderWireframeProviders(player.inventory, player, ms, color);
+		renderWireframeProviders(player.getInventory(), player, ms, color);
 		renderWireframeProviders(BotaniaAPI.instance().getAccessoriesInventory(player), player, ms, color);
 
 		ms.popPose();

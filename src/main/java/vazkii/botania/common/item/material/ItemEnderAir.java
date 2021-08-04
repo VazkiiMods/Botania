@@ -44,7 +44,7 @@ public class ItemEnderAir extends Item {
 
 			if (!world.isClientSide) {
 				ItemStack enderAir = new ItemStack(ModItems.enderAirBottle);
-				player.inventory.placeItemBackInInventory(world, enderAir);
+				player.getInventory().placeItemBackInInventory(world, enderAir);
 				stack.shrink(1);
 				world.playSound(null, player.blockPosition(), SoundEvents.ITEM_PICKUP, SoundSource.NEUTRAL, 0.5F, 1F);
 			}
@@ -66,7 +66,7 @@ public class ItemEnderAir extends Item {
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (!player.abilities.instabuild) {
+		if (!player.getAbilities().instabuild) {
 			stack.shrink(1);
 		}
 

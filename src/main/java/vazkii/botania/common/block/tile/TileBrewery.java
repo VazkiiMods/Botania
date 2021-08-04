@@ -67,7 +67,7 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, T
 				stackToAdd.setCount(1);
 				getItemHandler().setItem(i, stackToAdd);
 
-				if (player == null || !player.abilities.instabuild) {
+				if (player == null || !player.getAbilities().instabuild) {
 					stack.shrink(1);
 					if (stack.isEmpty() && player != null) {
 						player.setItemInHand(hand, ItemStack.EMPTY);

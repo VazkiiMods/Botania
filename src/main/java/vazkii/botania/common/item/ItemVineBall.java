@@ -30,7 +30,7 @@ public class ItemVineBall extends Item {
 	@Nonnull
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
-		if (!player.abilities.instabuild) {
+		if (!player.getAbilities().instabuild) {
 			player.getItemInHand(hand).shrink(1);
 		}
 

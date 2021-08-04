@@ -102,8 +102,8 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity, Entity
 			ItemStack input = new ItemStack(ModItems.spark);
 			for (Player player : players) {
 				List<ItemStack> stacks = new ArrayList<>();
-				stacks.addAll(player.inventory.items);
-				stacks.addAll(player.inventory.armor);
+				stacks.addAll(player.getInventory().items);
+				stacks.addAll(player.getInventory().armor);
 
 				Container inv = BotaniaAPI.instance().getAccessoriesInventory(player);
 				for (int i = 0; i < inv.getContainerSize(); i++) {

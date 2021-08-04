@@ -58,10 +58,10 @@ public class BlockManaFlame extends BlockMod implements EntityBlock {
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		if (Botania.gardenOfGlassLoaded) {
 			ItemStack stack = player.getItemInHand(hand);
-			if (!stack.isEmpty() && ItemTags.SAPLINGS.contains(stack.getItem()) && !player.inventory.contains(new ItemStack(ModItems.lexicon))) {
+			if (!stack.isEmpty() && ItemTags.SAPLINGS.contains(stack.getItem()) && !player.getInventory().contains(new ItemStack(ModItems.lexicon))) {
 				if (!world.isClientSide) {
 					stack.shrink(1);
-					player.inventory.placeItemBackInInventory(player.level, new ItemStack(ModItems.lexicon));
+					player.getInventory().placeItemBackInInventory(player.level, new ItemStack(ModItems.lexicon));
 				}
 				return InteractionResult.SUCCESS;
 			}

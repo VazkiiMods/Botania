@@ -57,8 +57,8 @@ public class ItemManasteelPick extends PickaxeItem implements IManaUsingItem, IS
 		Player player = ctx.getPlayer();
 
 		if (player != null) {
-			for (int i = 0; i < player.inventory.getContainerSize(); i++) {
-				ItemStack stackAt = player.inventory.getItem(i);
+			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+				ItemStack stackAt = player.getInventory().getItem(i);
 				if (!stackAt.isEmpty() && TORCH_PATTERN.matcher(stackAt.getItem().getDescriptionId()).find()) {
 					ItemStack displayStack = stackAt.copy();
 					InteractionResult did = PlayerHelper.substituteUse(ctx, stackAt);

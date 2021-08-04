@@ -50,8 +50,8 @@ public class ItemSwapRing extends ItemBauble {
 		int bestToolPriority = currentStack.getDestroySpeed(state) > 1.0F ? tool.getSortingPriority(currentStack, state) : -1;
 		int bestSlot = -1;
 
-		for (int i = 0; i < player.inventory.getContainerSize(); i++) {
-			ItemStack stackInSlot = player.inventory.getItem(i);
+		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+			ItemStack stackInSlot = player.getInventory().getItem(i);
 			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof ISortableTool && stackInSlot != currentStack) {
 				ISortableTool toolInSlot = (ISortableTool) stackInSlot.getItem();
 				if (stackInSlot.getDestroySpeed(state) > 1.0F) {
@@ -67,7 +67,7 @@ public class ItemSwapRing extends ItemBauble {
 
 		if (bestSlot != -1) {
 			player.setItemInHand(InteractionHand.MAIN_HAND, bestTool);
-			player.inventory.setItem(bestSlot, currentStack);
+			player.getInventory().setItem(bestSlot, currentStack);
 		}
 	}
 }

@@ -129,13 +129,13 @@ public class ItemAstrolabe extends Item {
 		player.level.setBlockAndUpdate(coords, state);
 		player.level.levelEvent(2001, coords, Block.getId(state));
 
-		if (player.abilities.instabuild) {
+		if (player.getAbilities().instabuild) {
 			return;
 		}
 
 		List<ItemStack> stacksToCheck = new ArrayList<>();
-		for (int i = 0; i < player.inventory.getContainerSize(); i++) {
-			ItemStack stackInSlot = player.inventory.getItem(i);
+		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+			ItemStack stackInSlot = player.getInventory().getItem(i);
 			if (!stackInSlot.isEmpty() && stackInSlot.getItem() == blockToPlace.getItem()) {
 				stackInSlot.shrink(1);
 				return;
@@ -157,7 +157,7 @@ public class ItemAstrolabe extends Item {
 	}
 
 	public static boolean hasBlocks(ItemStack stack, Player player, List<BlockPos> blocks) {
-		if (player.abilities.instabuild) {
+		if (player.getAbilities().instabuild) {
 			return true;
 		}
 
@@ -167,8 +167,8 @@ public class ItemAstrolabe extends Item {
 		int required = blocks.size();
 		int current = 0;
 		List<ItemStack> stacksToCheck = new ArrayList<>();
-		for (int i = 0; i < player.inventory.getContainerSize(); i++) {
-			ItemStack stackInSlot = player.inventory.getItem(i);
+		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+			ItemStack stackInSlot = player.getInventory().getItem(i);
 			if (!stackInSlot.isEmpty() && stackInSlot.getItem() == reqStack.getItem()) {
 				current += stackInSlot.getCount();
 				if (current >= required) {

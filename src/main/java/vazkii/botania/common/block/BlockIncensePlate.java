@@ -78,7 +78,7 @@ public class BlockIncensePlate extends BlockModWaterloggable implements EntityBl
 				stack.hurtAndBreak(1, player, e -> e.broadcastBreakEvent(hand));
 				did = true;
 			} else {
-				player.inventory.placeItemBackInInventory(player.level, plateStack);
+				player.getInventory().placeItemBackInInventory(player.level, plateStack);
 				plate.getItemHandler().setItem(0, ItemStack.EMPTY);
 
 				did = true;

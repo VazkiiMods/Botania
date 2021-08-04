@@ -75,7 +75,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 
 		if (stack.getItem() == ModBlocks.livingrock.asItem()) {
 			if (!level.isClientSide) {
-				ItemStack toSpawn = player != null && player.abilities.instabuild ? stack.copy().split(1) : stack.split(1);
+				ItemStack toSpawn = player != null && player.getAbilities().instabuild ? stack.copy().split(1) : stack.split(1);
 				ItemEntity item = new ItemEntity(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 1, getBlockPos().getZ() + 0.5, toSpawn);
 				item.setPickUpDelay(40);
 				item.setDeltaMovement(Vec3.ZERO);
@@ -98,7 +98,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 				stackToAdd.setCount(1);
 				getItemHandler().setItem(i, stackToAdd);
 
-				if (player == null || !player.abilities.instabuild) {
+				if (player == null || !player.getAbilities().instabuild) {
 					stack.shrink(1);
 				}
 
@@ -272,7 +272,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 				for (int i = 0; i < inventorySize(); i++) {
 					ItemStack stack = getItemHandler().getItem(i);
 					if (!stack.isEmpty()) {
-						if (stack.getItem() instanceof ItemRune && (player == null || !player.abilities.instabuild)) {
+						if (stack.getItem() instanceof ItemRune && (player == null || !player.getAbilities().instabuild)) {
 							ItemEntity outputRune = new ItemEntity(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 1.5, getBlockPos().getZ() + 0.5, stack.copy());
 							level.addFreshEntity(outputRune);
 						}

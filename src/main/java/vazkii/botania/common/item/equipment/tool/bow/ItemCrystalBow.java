@@ -36,7 +36,7 @@ public class ItemCrystalBow extends ItemLivingwoodBow {
 	@Override
 	boolean canFire(ItemStack stack, Player player) {
 		boolean infinity = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.INFINITY_ARROWS, stack) > 0;
-		return player.abilities.instabuild || ManaItemHandler.instance().requestManaExactForTool(stack, player, ARROW_COST / (infinity ? 2 : 1), false);
+		return player.getAbilities().instabuild || ManaItemHandler.instance().requestManaExactForTool(stack, player, ARROW_COST / (infinity ? 2 : 1), false);
 	}
 
 	@Override

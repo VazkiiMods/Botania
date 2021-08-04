@@ -148,7 +148,7 @@ public class ItemCraftingHalo extends Item {
 
 	private static boolean canCraftHeuristic(Player player, Recipe<CraftingContainer> recipe) {
 		StackedContents accounter = new StackedContents();
-		player.inventory.fillStackedContents(accounter);
+		player.getInventory().fillStackedContents(accounter);
 		return accounter.canCraft(recipe, null);
 	}
 
@@ -158,7 +158,7 @@ public class ItemCraftingHalo extends Item {
 			return;
 		}
 
-		CraftingMenu dummy = new CraftingMenu(-999, player.inventory);
+		CraftingMenu dummy = new CraftingMenu(-999, player.getInventory());
 		CraftingContainer craftInv = (CraftingContainer) dummy.getSlot(1).container;
 		RecipePlacer placer = new RecipePlacer(dummy);
 
@@ -178,17 +178,17 @@ public class ItemCraftingHalo extends Item {
 		ItemStack result = recipe.assemble(craftInv);
 
 		// Check if we have room for the result
-		if (!hasRoomFor(player.inventory, result)) {
+		if (!hasRoomFor(player.getInventory(), result)) {
 			placer.clearGrid();
 			return;
 		}
 
 		// Now we are good to go. Give the result
-		player.inventory.add(result);
+		player.getInventory().add(result);
 
 		// Give or toss all byproducts
 		NonNullList<ItemStack> remainingItems = recipe.getRemainingItems(craftInv);
-		remainingItems.forEach(s -> player.inventory.placeItemBackInInventory(player.level, s));
+		remainingItems.forEach(s -> player.getInventory().placeItemBackInInventory(player.level, s));
 
 		// The items we consumed will stay in the dummy workbench and get deleted
 
@@ -295,8 +295,8 @@ public class ItemCraftingHalo extends Item {
 		}
 
 		player.level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, inv, player.level).ifPresent(recipe -> {
-			for (int i = 0; i < player.inventory.getContainerSize(); i++) {
-				ItemStack stack = player.inventory.getItem(i);
+			for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+				ItemStack stack = player.getInventory().getItem(i);
 				if (!stack.isEmpty() && stack.getItem() instanceof ItemCraftingHalo) {
 					rememberLastRecipe(recipe.getId(), stack);
 				}
@@ -522,9 +522,9 @@ public class ItemCraftingHalo extends Item {
 		// [VanillaCopy] Based on super.place
 		public boolean place(ServerPlayer player, @Nullable Recipe<CraftingContainer> recipe) {
 			if (recipe != null) {
-				this.inventory = player.inventory;
+				this.inventory = player.getInventory();
 				this.stackedContents.clear();
-				player.inventory.fillStackedContents(this.stackedContents);
+				player.getInventory().fillStackedContents(this.stackedContents);
 				this.menu.fillCraftSlotsStackedContents(this.stackedContents);
 
 				boolean ret;
@@ -536,7 +536,7 @@ public class ItemCraftingHalo extends Item {
 					ret = false;
 				}
 
-				player.inventory.setChanged();
+				player.getInventory().setChanged();
 				return ret;
 			}
 			return false;

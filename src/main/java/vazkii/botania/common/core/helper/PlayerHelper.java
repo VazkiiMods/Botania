@@ -80,8 +80,8 @@ public final class PlayerHelper {
 		} else if (ammoFunc.test(player.getItemInHand(InteractionHand.MAIN_HAND))) {
 			return player.getItemInHand(InteractionHand.MAIN_HAND);
 		} else {
-			for (int i = 0; i < player.inventory.getContainerSize(); ++i) {
-				ItemStack itemstack = player.inventory.getItem(i);
+			for (int i = 0; i < player.getInventory().getContainerSize(); ++i) {
+				ItemStack itemstack = player.getInventory().getItem(i);
 
 				if (ammoFunc.test(itemstack)) {
 					return itemstack;
@@ -104,8 +104,8 @@ public final class PlayerHelper {
 	}
 
 	public static boolean hasItem(Player player, Predicate<ItemStack> itemFunc) {
-		for (int i = 0; i < player.inventory.getContainerSize(); i++) {
-			if (itemFunc.test(player.inventory.getItem(i))) {
+		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+			if (itemFunc.test(player.getInventory().getItem(i))) {
 				return true;
 			}
 		}

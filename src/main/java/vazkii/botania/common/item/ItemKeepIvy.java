@@ -39,11 +39,11 @@ public class ItemKeepIvy extends Item {
 	// Curios are handled in CurioIntegration#keepCurioDrops
 	public static void onPlayerDrops(Player player) {
 		List<ItemStack> keeps = new ArrayList<>();
-		for (int i = 0; i < player.inventory.getContainerSize(); i++) {
-			ItemStack stack = player.inventory.getItem(i);
+		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+			ItemStack stack = player.getInventory().getItem(i);
 			if (!stack.isEmpty() && stack.hasTag() && ItemNBTHelper.getBoolean(stack, TAG_KEEP, false)) {
 				keeps.add(stack);
-				player.inventory.setItem(i, ItemStack.EMPTY);
+				player.getInventory().setItem(i, ItemStack.EMPTY);
 			}
 		}
 

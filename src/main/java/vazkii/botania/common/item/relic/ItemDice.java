@@ -96,7 +96,7 @@ public class ItemDice extends ItemRelic {
 
 				List<ItemStack> generated = table.getRandomItems(context);
 				for (ItemStack drop : generated) {
-					if (!player.inventory.add(drop)) {
+					if (!player.getInventory().add(drop)) {
 						player.drop(drop, false);
 					}
 				}

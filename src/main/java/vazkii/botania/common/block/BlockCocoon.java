@@ -71,7 +71,7 @@ public class BlockCocoon extends BlockModWaterloggable implements EntityBlock {
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		ItemStack stack = player.getItemInHand(hand);
-		return addStack(world, pos, stack, player.abilities.instabuild);
+		return addStack(world, pos, stack, player.getAbilities().instabuild);
 	}
 
 	private InteractionResult addStack(Level world, BlockPos pos, ItemStack stack, boolean creative) {
