@@ -6,15 +6,11 @@ plugins {
 
 apply plugin: 'pmd'
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
-
-
 ext.configFile = file('build.properties')
 ext.config = parseConfig(configFile)
 ext.priv = parseConfig(file('private.properties'))
 
-def mc_version = "1.16.5"
+def mc_version = "1.17.1"
 version = "${mc_version}-${config.build_number}-FABRIC"
 if (System.getenv().RELEASE_MODE == null) {
     version += '-SNAPSHOT'
@@ -43,8 +39,7 @@ repositories {
         url = "https://maven.blamejared.com/"
     }
     maven {
-        name "curios"
-        url = "https://maven.theillusivec4.top/"
+        url = "https://maven.terraformersmc.com/" // for trinkets
     }
     maven {
           name = "Ladysnake Libs"
@@ -76,39 +71,39 @@ test {
 dependencies {
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
-    modImplementation "vazkii.patchouli:Patchouli:1.16.4-52-FABRIC-SNAPSHOT"
-    modImplementation "me.shedaniel:RoughlyEnoughItems:5.12.235"
+    modImplementation "vazkii.patchouli:Patchouli:1.17.1-55-FABRIC-SNAPSHOT"
+    modImplementation "me.shedaniel:RoughlyEnoughItems:5.12.248"
 
-    modImplementation "alexiil.mc.lib:libblockattributes-all:0.8.4"
+    modImplementation "alexiil.mc.lib:libblockattributes-all:0.9.0"
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"
     include "me.zeroeightsix:fiber:0.23.0-2"
 
     // Don't include base and entity as curios includes it already
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:2.8.3"
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:2.8.3"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:3.1.1"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:3.1.1"
 
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:2.8.3"
-    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:2.8.3"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:3.1.1"
+    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:3.1.1"
 
     compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
 
-    modImplementation "top.theillusivec4.curios:curios-fabric:0.0.13-1.16.5"
+    modImplementation "dev.emi:trinkets:3.0.0"
 
-    modImplementation "com.jamieswhiteshirt:reach-entity-attributes:1.0.1"
-    include "com.jamieswhiteshirt:reach-entity-attributes:1.0.1"
+    modImplementation "com.jamieswhiteshirt:reach-entity-attributes:2.1.1"
+    include "com.jamieswhiteshirt:reach-entity-attributes:2.1.1"
 
     modImplementation "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
     include "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
 
-    modImplementation "de.siphalor:nbtcrafting-1.16:2+"
+    // modImplementation "de.siphalor:nbtcrafting-1.16:2+"
 
     minecraft "com.mojang:minecraft:${mc_version}"
     mappings minecraft.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:0.11.3"
+    modImplementation "net.fabricmc:fabric-loader:0.11.6"
 
     // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.34.6+1.16"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.37.1+1.17"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
