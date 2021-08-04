@@ -97,7 +97,7 @@ public class RecipeRuneAltar implements IRuneAltarRecipe {
 		@Nonnull
 		@Override
 		public RecipeRuneAltar fromJson(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {
-			ItemStack output = ShapedRecipe.itemFromJson(GsonHelper.getAsJsonObject(json, "output"));
+			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
 			int mana = GsonHelper.getAsInt(json, "mana");
 			JsonArray ingrs = GsonHelper.getAsJsonArray(json, "ingredients");
 			List<Ingredient> inputs = new ArrayList<>();

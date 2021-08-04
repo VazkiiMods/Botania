@@ -103,7 +103,7 @@ public class RecipeTerraPlate implements ITerraPlateRecipe {
 			for (int i = 0; i < ingrs.size(); i++) {
 				ingredients[i] = Ingredient.fromJson(ingrs.get(i));
 			}
-			ItemStack output = ShapedRecipe.itemFromJson(GsonHelper.getAsJsonObject(json, "result"));
+			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
 			return new RecipeTerraPlate(recipeId, mana, NonNullList.of(Ingredient.EMPTY, ingredients), output);
 		}
 

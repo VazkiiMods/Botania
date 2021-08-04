@@ -114,7 +114,7 @@ public class RecipePetals implements IPetalRecipe {
 		@Nonnull
 		@Override
 		public RecipePetals fromJson(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {
-			ItemStack output = ShapedRecipe.itemFromJson(GsonHelper.getAsJsonObject(json, "output"));
+			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
 			JsonArray ingrs = GsonHelper.getAsJsonArray(json, "ingredients");
 			List<Ingredient> inputs = new ArrayList<>();
 			for (JsonElement e : ingrs) {

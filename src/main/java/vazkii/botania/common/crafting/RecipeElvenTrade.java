@@ -131,11 +131,11 @@ public class RecipeElvenTrade implements IElvenTradeRecipe {
 			if (output.isJsonArray()) {
 				for (JsonElement e : output.getAsJsonArray()) {
 					JsonObject o = GsonHelper.convertToJsonObject(e, "output stack");
-					outputStacks.add(ShapedRecipe.itemFromJson(o));
+					outputStacks.add(ShapedRecipe.itemStackFromJson(o));
 				}
 			} else {
 				JsonObject o = GsonHelper.convertToJsonObject(output, "output stack");
-				outputStacks.add(ShapedRecipe.itemFromJson(o));
+				outputStacks.add(ShapedRecipe.itemStackFromJson(o));
 			}
 
 			List<Ingredient> inputs = new ArrayList<>();

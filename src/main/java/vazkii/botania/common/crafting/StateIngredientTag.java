@@ -11,6 +11,7 @@ package vazkii.botania.common.crafting;
 import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonObject;
 
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.SerializationTags;
 import net.minecraft.tags.Tag;
@@ -37,7 +38,7 @@ public class StateIngredientTag extends StateIngredientBlocks {
 
 	@Nonnull
 	protected Tag<Block> resolve() {
-		return SerializationTags.getInstance().getBlocks().getTagOrEmpty(tag);
+		return SerializationTags.getInstance().getOrEmpty(Registry.BLOCK_REGISTRY).getTagOrEmpty(tag);
 	}
 
 	@Override

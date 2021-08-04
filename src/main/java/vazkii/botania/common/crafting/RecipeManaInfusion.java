@@ -126,7 +126,7 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 		public RecipeManaInfusion fromJson(@Nonnull ResourceLocation id, @Nonnull JsonObject json) {
 			JsonElement input = Objects.requireNonNull(json.get("input"));
 			Ingredient ing = Ingredient.fromJson(input);
-			ItemStack output = ShapedRecipe.itemFromJson(GsonHelper.getAsJsonObject(json, "output"));
+			ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "output"));
 			int mana = GsonHelper.getAsInt(json, "mana");
 			String group = GsonHelper.getAsString(json, "group", "");
 			StateIngredient catalyst = null;
