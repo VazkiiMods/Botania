@@ -83,7 +83,7 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 			return;
 		}
 		convertStone(result.getBlockPos());
-		remove();
+		discard();
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 		} else {
 			convertStone(new BlockPos(result.getLocation()));
 		}
-		remove();
+		discard();
 	}
 
 	private List<BlockPos> getCoordsToPut(BlockPos pos) {

@@ -111,12 +111,12 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 	private void dropAndKill() {
 		spawnAtLocation(new ItemStack(isMaster() ? ModItems.corporeaSparkMaster : ModItems.corporeaSpark), 0F);
-		remove();
+		discard();
 	}
 
 	@Override
-	public void remove() {
-		super.remove();
+	public void remove(RemovalReason reason) {
+		super.remove(reason);
 		connections.remove(this);
 		restartNetwork();
 	}
@@ -244,7 +244,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	@Override
 	public InteractionResult interact(Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (!removed && !stack.isEmpty()) {
+		if (isAlive() && !stack.isEmpty()) {
 			if (stack.getItem() == ModItems.twigWand) {
 				if (!level.isClientSide) {
 					if (player.isShiftKeyDown()) {

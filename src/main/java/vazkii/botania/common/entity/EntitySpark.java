@@ -230,7 +230,7 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity, Entity
 		if (upgrade != SparkUpgradeType.NONE) {
 			spawnAtLocation(ItemSparkUpgrade.getByType(upgrade), 0F);
 		}
-		remove();
+		discard();
 	}
 
 	@Override

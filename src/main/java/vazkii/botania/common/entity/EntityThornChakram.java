@@ -129,7 +129,7 @@ public class EntityThornChakram extends ThrowableProjectile implements ItemSuppl
 		ItemStack stack = getItemStack();
 		ItemEntity item = new ItemEntity(level, getX(), getY(), getZ(), stack);
 		level.addFreshEntity(item);
-		remove();
+		discard();
 	}
 
 	private ItemStack getItemStack() {

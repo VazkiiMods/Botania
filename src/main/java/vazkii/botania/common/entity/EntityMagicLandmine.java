@@ -72,7 +72,7 @@ public class EntityMagicLandmine extends Entity {
 				}
 			}
 
-			remove();
+			discard();
 		}
 	}
 

@@ -85,7 +85,7 @@ public class EntityThrownItem extends ItemEntity {
 			Entity item = new ItemEntity(level, getX(), getY(), getZ(), getItem());
 			level.addFreshEntity(item);
 			item.setDeltaMovement(getDeltaMovement().scale(0.25));
-			remove();
+			discard();
 			return;
 		}
 
@@ -93,7 +93,7 @@ public class EntityThrownItem extends ItemEntity {
 			Entity item = new ItemEntity(level, getX(), getY(), getZ(), getItem());
 			level.addFreshEntity(item);
 			item.setDeltaMovement(getDeltaMovement());
-			remove();
+			discard();
 		}
 	}
 }

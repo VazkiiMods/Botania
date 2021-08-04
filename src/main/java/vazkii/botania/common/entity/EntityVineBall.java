@@ -114,7 +114,7 @@ public class EntityVineBall extends ThrowableProjectile implements ItemSupplier 
 			}
 
 			this.level.broadcastEntityEvent(this, (byte) 3);
-			remove();
+			discard();
 		}
 	}
 

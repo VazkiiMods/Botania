@@ -74,7 +74,7 @@ public class EntityFlameRing extends Entity {
 		}
 
 		if (tickCount >= 300) {
-			remove();
+			discard();
 			return;
 		}
 

@@ -102,7 +102,7 @@ public class EntityMagicMissile extends ThrowableProjectile {
 		super.tick();
 
 		if (!level.isClientSide && (!findTarget() || time > 40)) {
-			remove();
+			discard();
 			return;
 		}
 
@@ -152,11 +152,11 @@ public class EntityMagicMissile extends ThrowableProjectile {
 					target.hurt(DamageSource.GENERIC, evil ? 12 : 7);
 				}
 
-				remove();
+				discard();
 			}
 
 			if (evil && diffVec.mag() < 1) {
-				remove();
+				discard();
 			}
 		}
 
@@ -239,18 +239,18 @@ public class EntityMagicMissile extends ThrowableProjectile {
 		case BLOCK: {
 			Block block = level.getBlockState(((BlockHitResult) pos).getBlockPos()).getBlock();
 			if (!(block instanceof BushBlock) && !(block instanceof LeavesBlock)) {
-				remove();
+				discard();
 			}
 			break;
 		}
 		case ENTITY: {
 			if (((EntityHitResult) pos).getEntity() == getTargetEntity()) {
-				remove();
+				discard();
 			}
 			break;
 		}
 		default: {
-			remove();
+			discard();
 			break;
 		}
 		}

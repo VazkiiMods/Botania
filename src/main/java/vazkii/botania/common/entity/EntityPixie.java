@@ -92,12 +92,13 @@ public class EntityPixie extends FlyingMob {
 				if (effect != null && !(target instanceof Player)) {
 					target.addEffect(effect);
 				}
-				remove();
+				discard();
 			}
 		}
 
-		yBodyRot = yRot = -((float) Math.atan2(getDeltaMovement().x(), getDeltaMovement().z()))
+		yBodyRot = -((float) Math.atan2(getDeltaMovement().x(), getDeltaMovement().z()))
 				* 180.0F / (float) Math.PI;
+		setYRot(yBodyRot);
 	}
 
 	@Override
@@ -114,7 +115,7 @@ public class EntityPixie extends FlyingMob {
 
 		if (!level.isClientSide
 				&& (getTarget() == null || tickCount > 200)) {
-			remove();
+			discard();
 		}
 
 		boolean dark = getPixieType() == 1;
@@ -130,14 +131,14 @@ public class EntityPixie extends FlyingMob {
 	}
 
 	@Override
-	public void remove() {
+	public void remove(RemovalReason reason) {
 		if (level != null && level.isClientSide && getPixieType() == 0) {
 			for (int i = 0; i < 12; i++) {
 				SparkleParticleData data = SparkleParticleData.sparkle(1F + (float) Math.random() * 0.25F, 1F, 0.25F, 0.9F, 5);
 				level.addParticle(data, getX() + (Math.random() - 0.5) * 0.25, getY() + 0.5 + (Math.random() - 0.5) * 0.25, getZ() + (Math.random() - 0.5) * 0.25, 0, 0, 0);
 			}
 		}
-		super.remove();
+		super.remove(reason);
 	}
 
 	@Override

@@ -93,7 +93,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 	public void tick() {
 		Entity thrower = getOwner();
 		if (!level.isClientSide && (thrower == null || !(thrower instanceof Player) || !thrower.isAlive())) {
-			remove();
+			discard();
 			return;
 		}
 		Player player = (Player) thrower;
@@ -171,7 +171,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		}
 
 		if (!level.isClientSide && liveTime > 200 + delay) {
-			remove();
+			discard();
 		}
 	}
 
@@ -180,7 +180,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 		Entity thrower = getOwner();
 		if (pos.getType() != HitResult.Type.ENTITY || ((EntityHitResult) pos).getEntity() != thrower) {
 			level.explode(this, getX(), getY(), getZ(), 3F, Explosion.BlockInteraction.NONE);
-			remove();
+			discard();
 		}
 	}
 

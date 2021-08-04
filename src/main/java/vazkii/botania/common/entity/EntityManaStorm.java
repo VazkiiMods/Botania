@@ -59,7 +59,7 @@ public class EntityManaStorm extends Entity {
 		if (burstsFired >= TOTAL_BURSTS) {
 			deathTime++;
 			if (deathTime >= DEATH_TIME) {
-				remove();
+				discard();
 				level.explode(this, getX(), getY(), getZ(), 8F, true, Explosion.BlockInteraction.DESTROY);
 			}
 		}

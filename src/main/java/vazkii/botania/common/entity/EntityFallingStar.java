@@ -76,7 +76,7 @@ public class EntityFallingStar extends EntityThrowableCopy {
 		}
 
 		if (tickCount > 200) {
-			remove();
+			discard();
 		}
 	}
 
@@ -106,6 +106,6 @@ public class EntityFallingStar extends EntityThrowableCopy {
 			}
 		}
 
-		remove();
+		discard();
 	}
 }

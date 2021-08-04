@@ -463,10 +463,10 @@ public class EntityDoppleganger extends Mob {
 			// Stop all the pixies leftover from the fight
 			for (EntityPixie pixie : level.getEntitiesOfClass(EntityPixie.class, getArenaBB(getSource()), p -> p.isAlive() && p.getPixieType() == 1)) {
 				pixie.spawnAnim();
-				pixie.remove();
+				pixie.discard();
 			}
 			for (EntityMagicLandmine landmine : level.getEntitiesOfClass(EntityMagicLandmine.class, getArenaBB(getSource()))) {
-				landmine.remove();
+				landmine.discard();
 			}
 		}
 
@@ -516,11 +516,11 @@ public class EntityDoppleganger extends Mob {
 	}
 
 	@Override
-	public void remove() {
+	public void remove(RemovalReason reason) {
 		if (level.isClientSide) {
 			Botania.proxy.removeBoss(this);
 		}
-		super.remove();
+		super.remove(reason);
 	}
 
 	public List<Player> getPlayersAround() {
@@ -712,14 +712,14 @@ public class EntityDoppleganger extends Mob {
 			return;
 		}
 
-		bossInfo.setPercent(getHealth() / getMaxHealth());
+		bossInfo.setProgress(getHealth() / getMaxHealth());
 
 		if (isPassenger()) {
 			stopRiding();
 		}
 
 		if (level.getDifficulty() == Difficulty.PEACEFUL) {
-			remove();
+			discard();
 		}
 
 		smashBlocksAround(Mth.floor(getX()), Mth.floor(getY()), Mth.floor(getZ()), 1);
@@ -727,7 +727,7 @@ public class EntityDoppleganger extends Mob {
 		List<Player> players = getPlayersAround();
 
 		if (players.isEmpty() && !level.players().isEmpty()) {
-			remove();
+			discard();
 		} else {
 			for (Player player : players) {
 				for (EquipmentSlot e : EquipmentSlot.values()) {

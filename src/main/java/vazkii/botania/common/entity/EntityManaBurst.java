@@ -123,13 +123,13 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 
 		setBurstSourceCoords(tile.getBlockPos());
 		moveTo(tile.getBlockPos().getX() + 0.5, tile.getBlockPos().getY() + 0.5, tile.getBlockPos().getZ() + 0.5, 0, 0);
-		yRot = -(spreader.getRotationX() + 90F);
-		xRot = spreader.getRotationY();
+		setYRot(-(spreader.getRotationX() + 90F));
+		setXRot(spreader.getRotationY());
 
 		float f = 0.4F;
-		double mx = Mth.sin(yRot / 180.0F * (float) Math.PI) * Mth.cos(xRot / 180.0F * (float) Math.PI) * f / 2D;
-		double mz = -(Mth.cos(yRot / 180.0F * (float) Math.PI) * Mth.cos(xRot / 180.0F * (float) Math.PI) * f) / 2D;
-		double my = Mth.sin(xRot / 180.0F * (float) Math.PI) * f / 2D;
+		double mx = Mth.sin(getYRot() / 180.0F * (float) Math.PI) * Mth.cos(getXRot() / 180.0F * (float) Math.PI) * f / 2D;
+		double mz = -(Mth.cos(getYRot() / 180.0F * (float) Math.PI) * Mth.cos(getXRot() / 180.0F * (float) Math.PI) * f) / 2D;
+		double my = Mth.sin(getXRot() / 180.0F * (float) Math.PI) * f / 2D;
 		setBurstMotion(mx, my, mz);
 	}
 
@@ -137,12 +137,12 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		super(ModEntities.MANA_BURST, player, player.level);
 
 		setBurstSourceCoords(new BlockPos(0, -1, 0));
-		setRot(player.yRot + 180, -player.xRot);
+		setRot(player.getYRot() + 180, -player.getXRot());
 
 		float f = 0.4F;
-		double mx = Mth.sin(yRot / 180.0F * (float) Math.PI) * Mth.cos(xRot / 180.0F * (float) Math.PI) * f / 2D;
-		double mz = -(Mth.cos(yRot / 180.0F * (float) Math.PI) * Mth.cos(xRot / 180.0F * (float) Math.PI) * f) / 2D;
-		double my = Mth.sin(xRot / 180.0F * (float) Math.PI) * f / 2D;
+		double mx = Mth.sin(getYRot() / 180.0F * (float) Math.PI) * Mth.cos(getXRot() / 180.0F * (float) Math.PI) * f / 2D;
+		double mz = -(Mth.cos(getYRot() / 180.0F * (float) Math.PI) * Mth.cos(getXRot() / 180.0F * (float) Math.PI) * f) / 2D;
+		double my = Mth.sin(getXRot() / 180.0F * (float) Math.PI) * f / 2D;
 		setBurstMotion(mx, my, mz);
 	}
 
@@ -168,7 +168,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 			accumulatedManaLoss -= loss;
 
 			if (getMana() <= 0) {
-				remove();
+				discard();
 			}
 		}
 
@@ -492,7 +492,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 				level.addParticle(data, getX(), getY(), getZ(), 0, 0, 0);
 			}
 
-			remove();
+			discard();
 		}
 	}
 
@@ -523,8 +523,8 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	}
 
 	@Override
-	public void remove() {
-		super.remove();
+	public void remove(RemovalReason reason) {
+		super.remove(reason);
 
 		if (!fake) {
 			BlockEntity tile = getShooter();
