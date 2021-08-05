@@ -24,6 +24,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -54,8 +55,8 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 	BlockPos cachedCollectorCoordinates = null;
 
-	public TileEntityGeneratingFlower(BlockEntityType<?> type) {
-		super(type);
+	public TileEntityGeneratingFlower(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
 	@Override

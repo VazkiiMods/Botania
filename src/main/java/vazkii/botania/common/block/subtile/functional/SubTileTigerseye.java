@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
@@ -16,6 +17,7 @@ import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -33,8 +35,8 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 	private static final int COST = 70;
 	private static final int SUCCESS_EVENT = 0;
 
-	public SubTileTigerseye() {
-		super(ModSubtiles.TIGERSEYE);
+	public SubTileTigerseye(BlockPos pos, BlockState state) {
+		super(ModSubtiles.TIGERSEYE, pos, state);
 	}
 
 	@Override

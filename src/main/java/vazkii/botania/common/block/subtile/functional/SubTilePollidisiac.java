@@ -8,9 +8,11 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -24,8 +26,8 @@ public class SubTilePollidisiac extends TileEntityFunctionalFlower {
 	private static final int RANGE = 6;
 	private static final int MANA_COST = 12;
 
-	public SubTilePollidisiac() {
-		super(ModSubtiles.POLLIDISIAC);
+	public SubTilePollidisiac(BlockPos pos, BlockState state) {
+		super(ModSubtiles.POLLIDISIAC, pos, state);
 	}
 
 	@Override

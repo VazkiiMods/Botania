@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.WorldlyContainer;
@@ -15,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -28,8 +30,8 @@ import java.util.stream.IntStream;
 public abstract class TileExposedSimpleInventory extends TileSimpleInventory implements WorldlyContainer {
 	private final LazyLoadedValue<int[]> slots = new LazyLoadedValue<>(() -> IntStream.range(0, getContainerSize()).toArray());
 
-	public TileExposedSimpleInventory(BlockEntityType<?> type) {
-		super(type);
+	public TileExposedSimpleInventory(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
 	@Override

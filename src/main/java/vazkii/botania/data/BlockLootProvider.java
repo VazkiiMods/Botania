@@ -29,11 +29,9 @@ import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.SlabType;
-import net.minecraft.world.level.storage.loot.ConstantIntValue;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.LootTables;
-import net.minecraft.world.level.storage.loot.RandomValueBounds;
 import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
@@ -47,6 +45,9 @@ import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.BlockAltGrass;
@@ -158,11 +159,11 @@ public class BlockLootProvider implements DataProvider {
 
 	private static LootTable.Builder genCopyNbt(Block b, String... tags) {
 		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(b);
-		CopyNbtFunction.Builder func = CopyNbtFunction.copyData(CopyNbtFunction.DataSource.BLOCK_ENTITY);
+		CopyNbtFunction.Builder func = CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY);
 		for (String tag : tags) {
 			func = func.copy(tag, "BlockEntityTag." + tag);
 		}
-		LootPool.Builder pool = LootPool.lootPool().setRolls(ConstantIntValue.exactly(1)).add(entry)
+		LootPool.Builder pool = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry)
 				.when(ExplosionCondition.survivesExplosion())
 				.apply(func);
 		return LootTable.lootTable().withPool(pool);
@@ -173,13 +174,13 @@ public class BlockLootProvider implements DataProvider {
 				.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1)));
 		LootPoolEntryContainer.Builder<?> silk = LootItem.lootTableItem(b)
 				.when(MatchTool.toolMatches(silkPred));
-		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantIntValue.exactly(1)).add(silk));
+		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(silk));
 	}
 
 	private static LootTable.Builder genTinyPotato(Block b) {
 		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(b)
 				.apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY));
-		LootPool.Builder pool = LootPool.lootPool().setRolls(ConstantIntValue.exactly(1)).add(entry)
+		LootPool.Builder pool = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry)
 				.when(ExplosionCondition.survivesExplosion());
 		return LootTable.lootTable().withPool(pool);
 	}
@@ -195,35 +196,35 @@ public class BlockLootProvider implements DataProvider {
 		LootPoolEntryContainer.Builder<?> stoneDrop = LootItem.lootTableItem(silkDrop).when(SILK_TOUCH);
 
 		return LootTable.lootTable().withPool(
-				LootPool.lootPool().setRolls(ConstantIntValue.exactly(1))
+				LootPool.lootPool().setRolls(ConstantValue.exactly(1))
 						.add(stoneDrop.otherwise(cobbleDrop)));
 	}
 
 	private static LootTable.Builder genSolidVine(Block b) {
 		LootPoolEntryContainer.Builder<?> entry = LootTableReference.lootTableReference(new ResourceLocation("blocks/vine"));
-		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantIntValue.exactly(1)).add(entry));
+		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry));
 	}
 
 	private static LootTable.Builder genRoot(Block b) {
 		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(ModItems.livingroot)
-				.apply(SetItemCountFunction.setCount(RandomValueBounds.between(2, 4)))
+				.apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 4)))
 				.apply(ApplyExplosionDecay.explosionDecay());
-		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantIntValue.exactly(1)).add(entry));
+		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry));
 	}
 
 	private static LootTable.Builder genSlab(Block b) {
 		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(b)
-				.apply(SetItemCountFunction.setCount(ConstantIntValue.exactly(2))
+				.apply(SetItemCountFunction.setCount(ConstantValue.exactly(2))
 						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(b).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SlabBlock.TYPE, SlabType.DOUBLE))))
 				.apply(ApplyExplosionDecay.explosionDecay());
-		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantIntValue.exactly(1)).add(entry));
+		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry));
 	}
 
 	private static LootTable.Builder genDoubleFlower(Block b) {
 		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(b)
 				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(b).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)))
 				.when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(FabricToolTags.SHEARS)));
-		LootPool.Builder pool = LootPool.lootPool().setRolls(ConstantIntValue.exactly(1)).add(entry)
+		LootPool.Builder pool = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry)
 				.when(ExplosionCondition.survivesExplosion());
 		return LootTable.lootTable().withPool(pool);
 	}
@@ -234,13 +235,13 @@ public class BlockLootProvider implements DataProvider {
 		LootPoolEntryContainer.Builder<?> dirt = LootItem.lootTableItem(Blocks.DIRT)
 				.when(ExplosionCondition.survivesExplosion());
 		LootPoolEntryContainer.Builder<?> entry = AlternativesEntry.alternatives(silk, dirt);
-		LootPool.Builder pool = LootPool.lootPool().setRolls(ConstantIntValue.exactly(1)).add(entry);
+		LootPool.Builder pool = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry);
 		return LootTable.lootTable().withPool(pool);
 	}
 
 	private static LootTable.Builder genRegular(Block b) {
 		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(b);
-		LootPool.Builder pool = LootPool.lootPool().setRolls(ConstantIntValue.exactly(1)).add(entry)
+		LootPool.Builder pool = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry)
 				.when(ExplosionCondition.survivesExplosion());
 		return LootTable.lootTable().withPool(pool);
 	}

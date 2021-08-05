@@ -13,6 +13,8 @@ import com.mojang.datafixers.util.Pair;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.resources.sounds.SoundInstance;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
@@ -28,8 +30,8 @@ public class SubTileBergamute extends TileEntitySpecialFlower {
 	private static final Set<SoundInstance> mutedSounds = Collections.newSetFromMap(new WeakHashMap<>());
 	private boolean disabled = false;
 
-	public SubTileBergamute() {
-		super(ModSubtiles.BERGAMUTE);
+	public SubTileBergamute(BlockPos pos, BlockState state) {
+		super(ModSubtiles.BERGAMUTE, pos, state);
 	}
 
 	@Override

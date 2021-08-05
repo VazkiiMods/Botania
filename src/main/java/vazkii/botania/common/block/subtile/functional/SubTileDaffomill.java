@@ -42,8 +42,8 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	// which can return 0 power on the client as their TE state is often not synced at all)
 	private boolean redstonePowered;
 
-	public SubTileDaffomill() {
-		super(ModSubtiles.DAFFOMILL);
+	public SubTileDaffomill(BlockPos pos, BlockState state) {
+		super(ModSubtiles.DAFFOMILL, pos, state);
 	}
 
 	@Override

@@ -19,6 +19,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -46,8 +47,8 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 
 	private BlockPos bindPos = new BlockPos(0, -1, 0);
 
-	public SubTileSpectranthemum() {
-		super(ModSubtiles.SPECTRANTHEMUM);
+	public SubTileSpectranthemum(BlockPos pos, BlockState state) {
+		super(ModSubtiles.SPECTRANTHEMUM, pos, state);
 	}
 
 	@Override

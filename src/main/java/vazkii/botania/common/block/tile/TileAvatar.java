@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -16,6 +17,7 @@ import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.item.IAvatarTile;
@@ -38,8 +40,8 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, Tick
 	private int mana;
 	private final Map<UUID, Integer> boostCooldowns = new HashMap<>();
 
-	public TileAvatar() {
-		super(ModTiles.AVATAR);
+	public TileAvatar(BlockPos pos, BlockState state) {
+		super(ModTiles.AVATAR, pos, state);
 	}
 
 	@Override

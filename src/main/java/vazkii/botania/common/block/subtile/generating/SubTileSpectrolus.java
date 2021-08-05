@@ -14,6 +14,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -28,6 +29,7 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -49,8 +51,8 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 
 	private DyeColor nextColor = DyeColor.WHITE;
 
-	public SubTileSpectrolus() {
-		super(ModSubtiles.SPECTROLUS);
+	public SubTileSpectrolus(BlockPos pos, BlockState state) {
+		super(ModSubtiles.SPECTROLUS, pos, state);
 	}
 
 	@Override

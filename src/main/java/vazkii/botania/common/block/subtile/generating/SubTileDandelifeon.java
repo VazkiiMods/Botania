@@ -41,8 +41,8 @@ public class SubTileDandelifeon extends TileEntityGeneratingFlower {
 			{ +0, -1 }
 	};
 
-	public SubTileDandelifeon() {
-		super(ModSubtiles.DANDELIFEON);
+	public SubTileDandelifeon(BlockPos pos, BlockState state) {
+		super(ModSubtiles.DANDELIFEON, pos, state);
 	}
 
 	@Override

@@ -10,6 +10,7 @@ package vazkii.botania.common.block.tile;
 
 import com.google.common.base.Preconditions;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.Container;
@@ -17,13 +18,14 @@ import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class TileSimpleInventory extends TileMod {
 
 	private final SimpleContainer itemHandler = createItemHandler();
 
-	public TileSimpleInventory(BlockEntityType<?> type) {
-		super(type);
+	public TileSimpleInventory(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 		itemHandler.addListener(i -> setChanged());
 	}
 

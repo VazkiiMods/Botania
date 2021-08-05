@@ -14,6 +14,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.nbt.CompoundTag;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
@@ -58,8 +60,8 @@ public class TileAnimatedTorch extends TileMod implements TickableBlockEntity {
 
 	private TorchMode torchMode = TorchMode.TOGGLE;
 
-	public TileAnimatedTorch() {
-		super(ModTiles.ANIMATED_TORCH);
+	public TileAnimatedTorch(BlockPos pos, BlockState state) {
+		super(ModTiles.ANIMATED_TORCH, pos, state);
 	}
 
 	public void handRotate() {

@@ -20,6 +20,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -35,8 +36,8 @@ public class SubTileLabellia extends TileEntityFunctionalFlower {
 	private static final int RENAME_RANGE = 2;
 	private static final int COST = 500;
 
-	public SubTileLabellia() {
-		super(ModSubtiles.LABELLIA);
+	public SubTileLabellia(BlockPos pos, BlockState state) {
+		super(ModSubtiles.LABELLIA, pos, state);
 	}
 
 	@Override

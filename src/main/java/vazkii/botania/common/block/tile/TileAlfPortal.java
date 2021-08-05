@@ -77,8 +77,8 @@ public class TileAlfPortal extends TileMod implements TickableBlockEntity {
 	@Nullable
 	private UUID breadPlayer = null;
 
-	public TileAlfPortal() {
-		super(ModTiles.ALF_PORTAL);
+	public TileAlfPortal(BlockPos pos, BlockState state) {
+		super(ModTiles.ALF_PORTAL, pos, state);
 	}
 
 	@Override

@@ -40,12 +40,12 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 	private static final int RANGE = 5;
 	private static final int RANGE_Y = 3;
 
-	public SubTileOrechid(BlockEntityType<?> type) {
-		super(type);
+	protected SubTileOrechid(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
-	public SubTileOrechid() {
-		this(ModSubtiles.ORECHID);
+	public SubTileOrechid(BlockPos pos, BlockState state) {
+		this(ModSubtiles.ORECHID, pos, state);
 	}
 
 	@Override

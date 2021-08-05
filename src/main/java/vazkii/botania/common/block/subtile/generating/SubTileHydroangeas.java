@@ -40,12 +40,12 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 
 	int burnTime, cooldown;
 
-	public SubTileHydroangeas() {
-		this(ModSubtiles.HYDROANGEAS);
+	public SubTileHydroangeas(BlockPos pos, BlockState state) {
+		this(ModSubtiles.HYDROANGEAS, pos, state);
 	}
 
-	public SubTileHydroangeas(BlockEntityType<?> type) {
-		super(type);
+	protected SubTileHydroangeas(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
 	@Override

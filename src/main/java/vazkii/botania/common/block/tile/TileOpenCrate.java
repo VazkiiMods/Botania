@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.EntityType;
@@ -15,6 +16,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -28,8 +30,8 @@ public class TileOpenCrate extends TileExposedSimpleInventory implements Tickabl
 		this(ModTiles.OPEN_CRATE);
 	}
 
-	public TileOpenCrate(BlockEntityType<?> type) {
-		super(type);
+	public TileOpenCrate(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
 	@Override

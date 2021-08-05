@@ -10,6 +10,7 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -25,8 +26,8 @@ public class SubTileVinculotus extends TileEntityFunctionalFlower {
 	public static final Set<SubTileVinculotus> existingFlowers = Collections.newSetFromMap(new WeakHashMap<>());
 	private static final int RANGE = 64;
 
-	public SubTileVinculotus() {
-		super(ModSubtiles.VINCULOTUS);
+	public SubTileVinculotus(BlockPos pos, BlockState state) {
+		super(ModSubtiles.VINCULOTUS, pos, state);
 	}
 
 	@Override

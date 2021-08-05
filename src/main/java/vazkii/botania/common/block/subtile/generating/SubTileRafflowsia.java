@@ -43,8 +43,8 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 	// Function created from a best-fit approximation on the sorted raw mana costs of production of each flower.
 	private static final int[] STREAK_OUTPUTS = { 300, 1100, 1900, 2700, 3500, 4400, 5300, 6300, 7300, 8300, 9400, 10500, 11600, 12800, 14000, 15200, 16500, 17900, 19200, 20700, 22200, 23800, 25400, 27100, 29000, 30900, 33000, 35200, 37700, 40300, 43200, 46500, 50200, 54300, 59100, 64600, 71100, 78600, 87600, 98400 };
 
-	public SubTileRafflowsia() {
-		super(ModSubtiles.RAFFLOWSIA);
+	public SubTileRafflowsia(BlockPos pos, BlockState state) {
+		super(ModSubtiles.RAFFLOWSIA, pos, state);
 	}
 
 	private int getMaxStreak() {

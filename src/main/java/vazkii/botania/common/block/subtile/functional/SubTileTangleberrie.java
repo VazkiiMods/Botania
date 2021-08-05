@@ -8,9 +8,11 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -23,12 +25,12 @@ import vazkii.botania.common.core.helper.Vector3;
 import java.util.List;
 
 public class SubTileTangleberrie extends TileEntityFunctionalFlower {
-	public SubTileTangleberrie(BlockEntityType<?> type) {
-		super(type);
+	protected SubTileTangleberrie(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
-	public SubTileTangleberrie() {
-		this(ModSubtiles.TANGLEBERRIE);
+	public SubTileTangleberrie(BlockPos pos, BlockState state) {
+		this(ModSubtiles.TANGLEBERRIE, pos, state);
 	}
 
 	@Override

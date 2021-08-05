@@ -17,6 +17,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.phys.AABB;
 
@@ -31,8 +32,8 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 
 	private static final int RANGE = 2;
 
-	public SubTileNarslimmus() {
-		super(ModSubtiles.NARSLIMMUS);
+	public SubTileNarslimmus(BlockPos pos, BlockState state) {
+		super(ModSubtiles.NARSLIMMUS, pos, state);
 	}
 
 	@Override

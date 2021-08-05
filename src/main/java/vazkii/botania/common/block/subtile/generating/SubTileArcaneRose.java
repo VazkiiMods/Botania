@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.ExperienceOrb;
@@ -18,6 +19,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -36,8 +38,8 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 	private static final int MANA_PER_XP_DISENCHANT = 40;
 	private static final int RANGE = 1;
 
-	public SubTileArcaneRose() {
-		super(ModSubtiles.ROSA_ARCANA);
+	public SubTileArcaneRose(BlockPos pos, BlockState state) {
+		super(ModSubtiles.ROSA_ARCANA, pos, state);
 	}
 
 	@Override

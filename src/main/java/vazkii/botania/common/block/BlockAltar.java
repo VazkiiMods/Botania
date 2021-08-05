@@ -253,8 +253,8 @@ public class BlockAltar extends BlockMod implements EntityBlock {
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileAltar();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileAltar(pos, state);
 	}
 
 	@Override

@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -21,8 +22,8 @@ import java.util.function.Predicate;
 public class SubTileOrechidIgnem extends SubTileOrechid {
 	private static final int COST = 20000;
 
-	public SubTileOrechidIgnem() {
-		super(ModSubtiles.ORECHID_IGNEM);
+	public SubTileOrechidIgnem(BlockPos pos, BlockState state) {
+		super(ModSubtiles.ORECHID_IGNEM, pos, state);
 	}
 
 	@Override

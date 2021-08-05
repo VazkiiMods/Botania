@@ -30,12 +30,12 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 
 	int range = 2;
 
-	public SubTileBubbell(BlockEntityType<?> type) {
-		super(type);
+	protected SubTileBubbell(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
-	public SubTileBubbell() {
-		this(ModSubtiles.BUBBELL);
+	public SubTileBubbell(BlockPos pos, BlockState state) {
+		this(ModSubtiles.BUBBELL, pos, state);
 	}
 
 	@Override
@@ -111,8 +111,8 @@ public class SubTileBubbell extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileBubbell {
-		public Mini() {
-			super(ModSubtiles.BUBBELL_CHIBI);
+		public Mini(BlockPos pos, BlockState state) {
+			super(ModSubtiles.BUBBELL_CHIBI, pos, state);
 		}
 
 		@Override

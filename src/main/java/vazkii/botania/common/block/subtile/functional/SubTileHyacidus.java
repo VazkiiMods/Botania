@@ -8,11 +8,13 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -25,8 +27,8 @@ public class SubTileHyacidus extends TileEntityFunctionalFlower {
 	private static final int RANGE = 6;
 	private static final int COST = 20;
 
-	public SubTileHyacidus() {
-		super(ModSubtiles.HYACIDUS);
+	public SubTileHyacidus(BlockPos pos, BlockState state) {
+		super(ModSubtiles.HYACIDUS, pos, state);
 	}
 
 	@Override

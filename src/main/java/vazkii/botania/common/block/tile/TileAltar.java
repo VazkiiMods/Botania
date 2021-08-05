@@ -15,6 +15,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
@@ -30,6 +31,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
 
@@ -76,8 +78,8 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 	private List<ItemStack> lastRecipe = null;
 	private int recipeKeepTicks = 0;
 
-	public TileAltar() {
-		super(ModTiles.ALTAR);
+	public TileAltar(BlockPos pos, BlockState state) {
+		super(ModTiles.ALTAR, pos, state);
 	}
 
 	public boolean collideEntityItem(ItemEntity item) {

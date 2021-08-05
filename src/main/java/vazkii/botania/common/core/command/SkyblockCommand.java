@@ -104,7 +104,7 @@ public class SkyblockCommand {
 		BlockPos blockPos = pos.getCenter();
 
 		player.teleportTo(world, blockPos.getX() + 0.5, blockPos.getY(),
-				blockPos.getZ() + 0.5, player.yRot, player.xRot);
+				blockPos.getZ() + 0.5, player.getYRot(), player.getXRot());
 		ctx.getSource().sendSuccess(feedback, true);
 		return Command.SINGLE_SUCCESS;
 	}

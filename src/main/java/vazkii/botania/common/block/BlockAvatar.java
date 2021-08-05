@@ -109,8 +109,8 @@ public class BlockAvatar extends BlockModWaterloggable implements EntityBlock {
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileAvatar();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileAvatar(pos, state);
 	}
 
 	@Nonnull

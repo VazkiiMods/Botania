@@ -10,6 +10,7 @@ package vazkii.botania.common.block.subtile.functional;
 
 import com.google.common.base.Predicates;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -31,8 +33,8 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 	private static final int RANGE = 5;
 	private static final int COST = 100;
 
-	public SubTileHeiseiDream() {
-		super(ModSubtiles.HEISEI_DREAM);
+	public SubTileHeiseiDream(BlockPos pos, BlockState state) {
+		super(ModSubtiles.HEISEI_DREAM, pos, state);
 	}
 
 	@Override

@@ -8,16 +8,18 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.ModSubtiles;
 
 import java.util.function.Predicate;
 
 public class SubTileDreadthorn extends SubTileBellethorn {
-	public SubTileDreadthorn() {
-		super(ModSubtiles.DREADTHORN);
+	public SubTileDreadthorn(BlockPos pos, BlockState state) {
+		super(ModSubtiles.DREADTHORN, pos, state);
 	}
 
 	@Override

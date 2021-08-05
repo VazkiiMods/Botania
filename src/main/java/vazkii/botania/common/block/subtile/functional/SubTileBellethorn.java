@@ -8,12 +8,14 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -27,12 +29,12 @@ public class SubTileBellethorn extends TileEntityFunctionalFlower {
 	public static final int RANGE = 6;
 	public static final int RANGE_MINI = 1;
 
-	public SubTileBellethorn(BlockEntityType<?> type) {
-		super(type);
+	protected SubTileBellethorn(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
-	public SubTileBellethorn() {
-		this(ModSubtiles.BELLETHORNE);
+	public SubTileBellethorn(BlockPos pos, BlockState state) {
+		this(ModSubtiles.BELLETHORNE, pos, state);
 	}
 
 	@Override
@@ -103,8 +105,8 @@ public class SubTileBellethorn extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileBellethorn {
-		public Mini() {
-			super(ModSubtiles.BELLETHORNE_CHIBI);
+		public Mini(BlockPos pos, BlockState state) {
+			super(ModSubtiles.BELLETHORNE_CHIBI, pos, state);
 		}
 
 		@Override

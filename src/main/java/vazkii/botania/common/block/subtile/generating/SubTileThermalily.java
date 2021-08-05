@@ -8,9 +8,11 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.Tag;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 
 import vazkii.botania.client.fx.WispParticleData;
@@ -18,8 +20,8 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ModSounds;
 
 public class SubTileThermalily extends SubTileHydroangeas {
-	public SubTileThermalily() {
-		super(ModSubtiles.THERMALILY);
+	public SubTileThermalily(BlockPos pos, BlockState state) {
+		super(ModSubtiles.THERMALILY, pos, state);
 	}
 
 	@Override

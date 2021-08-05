@@ -52,12 +52,12 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 
 	private int filterType = 0;
 
-	public SubTileHopperhock(BlockEntityType<?> type) {
-		super(type);
+	protected SubTileHopperhock(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
-	public SubTileHopperhock() {
-		this(ModSubtiles.HOPPERHOCK);
+	public SubTileHopperhock(BlockPos pos, BlockState state) {
+		this(ModSubtiles.HOPPERHOCK, pos, state);
 	}
 
 	@Override
@@ -281,8 +281,8 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileHopperhock {
-		public Mini() {
-			super(ModSubtiles.HOPPERHOCK_CHIBI);
+		public Mini(BlockPos pos, BlockState state) {
+			super(ModSubtiles.HOPPERHOCK_CHIBI, pos, state);
 		}
 
 		@Override

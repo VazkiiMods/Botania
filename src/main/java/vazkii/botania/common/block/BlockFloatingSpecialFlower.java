@@ -19,7 +19,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -33,12 +32,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.Random;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements IWandable, IWandHUD {
-	private final Supplier<? extends TileEntitySpecialFlower> teProvider;
+	private final BiFunction<BlockPos, BlockState, ? extends TileEntitySpecialFlower> teProvider;
 
-	public BlockFloatingSpecialFlower(Properties props, Supplier<? extends TileEntitySpecialFlower> teProvider) {
+	public BlockFloatingSpecialFlower(Properties props, BiFunction<BlockPos, BlockState, ? extends TileEntitySpecialFlower> teProvider) {
 		super(DyeColor.WHITE, props);
 		this.teProvider = teProvider;
 	}
@@ -67,8 +66,8 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		TileEntitySpecialFlower te = teProvider.get();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		TileEntitySpecialFlower te = teProvider.apply(pos, state);
 		te.setFloating(true);
 		return te;
 	}

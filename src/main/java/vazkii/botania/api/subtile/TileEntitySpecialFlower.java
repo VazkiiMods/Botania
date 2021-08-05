@@ -74,8 +74,8 @@ public class TileEntitySpecialFlower extends BlockEntity implements TickableBloc
 	public static final String TAG_TICKS_EXISTED = "ticksExisted";
 	private static final String TAG_FLOATING_DATA = "floating";
 
-	public TileEntitySpecialFlower(BlockEntityType<?> type) {
-		super(type);
+	public TileEntitySpecialFlower(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
 	@Override

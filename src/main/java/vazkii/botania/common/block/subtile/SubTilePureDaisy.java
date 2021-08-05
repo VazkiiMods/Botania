@@ -48,8 +48,8 @@ public class SubTilePureDaisy extends TileEntitySpecialFlower {
 	private final int[] prevTicksRemaining = new int[POSITIONS.length];
 	private final int[] ticksRemaining = new int[POSITIONS.length];
 
-	public SubTilePureDaisy() {
-		super(ModSubtiles.PURE_DAISY);
+	public SubTilePureDaisy(BlockPos pos, BlockState state) {
+		super(ModSubtiles.PURE_DAISY, pos, state);
 		Arrays.fill(prevTicksRemaining, -1);
 		Arrays.fill(ticksRemaining, -1);
 	}

@@ -39,15 +39,14 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 	private static final int RANGE = 5;
 	private static final int RANGE_MINI = 2;
 
-	protected SubTileAgricarnation(BlockEntityType<?> type) {
-		super(type);
+	protected SubTileAgricarnation(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
-	public SubTileAgricarnation() {
-		this(ModSubtiles.AGRICARNATION);
+	public SubTileAgricarnation(BlockPos pos, BlockState state) {
+		this(ModSubtiles.AGRICARNATION, pos, state);
 	}
 
-	@Override
 	public void tickFlower() {
 		super.tickFlower();
 
@@ -137,8 +136,8 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileAgricarnation {
-		public Mini() {
-			super(ModSubtiles.AGRICARNATION_CHIBI);
+		public Mini(BlockPos pos, BlockState state) {
+			super(ModSubtiles.AGRICARNATION_CHIBI, pos, state);
 		}
 
 		@Override

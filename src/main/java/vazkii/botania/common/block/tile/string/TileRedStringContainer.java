@@ -17,6 +17,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.tile.ModTiles;
 
@@ -31,8 +32,8 @@ public class TileRedStringContainer extends TileRedString implements WorldlyCont
 		this(ModTiles.RED_STRING_CONTAINER);
 	}
 
-	public TileRedStringContainer(BlockEntityType<?> type) {
-		super(type);
+	public TileRedStringContainer(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
 	@Override

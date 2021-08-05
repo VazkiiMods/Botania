@@ -8,10 +8,12 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -24,8 +26,8 @@ public class SubTileFallenKanade extends TileEntityFunctionalFlower {
 	private static final int RANGE = 2;
 	private static final int COST = 120;
 
-	public SubTileFallenKanade() {
-		super(ModSubtiles.FALLEN_KANADE);
+	public SubTileFallenKanade(BlockPos pos, BlockState state) {
+		super(ModSubtiles.FALLEN_KANADE, pos, state);
 	}
 
 	@Override

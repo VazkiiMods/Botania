@@ -19,6 +19,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -31,8 +32,8 @@ import java.util.List;
 public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 	private static final int RADIUS = 8;
 
-	public SubTileShulkMeNot() {
-		super(ModSubtiles.SHULK_ME_NOT);
+	public SubTileShulkMeNot(BlockPos pos, BlockState state) {
+		super(ModSubtiles.SHULK_ME_NOT, pos, state);
 	}
 
 	@Override

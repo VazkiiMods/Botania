@@ -31,7 +31,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 import io.netty.buffer.Unpooled;
 
 // This should only be used for non-living entities. Vanilla's MobSpawn packet handles modded living entities fine.
-// [VanillaCopy] Format is basically same as EntitySpawnS2CPacket.
+// [VanillaCopy] Format is basically same as ClientboundAddEntityPacket.
 public class PacketSpawnEntity {
 	public static final ResourceLocation ID = prefix("sp");
 
@@ -47,8 +47,8 @@ public class PacketSpawnEntity {
 		buf.writeDouble(e.getX());
 		buf.writeDouble(e.getY());
 		buf.writeDouble(e.getZ());
-		buf.writeByte(Mth.floor(e.xRot * 256.0F / 360.0F));
-		buf.writeByte(Mth.floor(e.yRot * 256.0F / 360.0F));
+		buf.writeByte(Mth.floor(e.getXRot() * 256.0F / 360.0F));
+		buf.writeByte(Mth.floor(e.getYRot() * 256.0F / 360.0F));
 
 		Vec3 velocity = e.getDeltaMovement();
 		buf.writeShort((int) (Mth.clamp(velocity.x, -3.9D, 3.9D) * 8000.0D));
@@ -78,8 +78,8 @@ public class PacketSpawnEntity {
 				if (e != null) {
 					e.setPacketCoordinates(x, y, z);
 					e.moveTo(x, y, z);
-					e.xRot = pitch;
-					e.yRot = yaw;
+					e.setXRot(pitch);
+					e.setYRot(yaw);
 					e.setId(id);
 					e.setUUID(uuid);
 					e.lerpMotion(dx, dy, dz);

@@ -36,8 +36,8 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 	private static final int EXPLODE_EFFECT_EVENT = 0;
 	private static final int ANGRY_EFFECT_EVENT = 1;
 
-	public SubTileEntropinnyum() {
-		super(ModSubtiles.ENTROPINNYUM);
+	public SubTileEntropinnyum(BlockPos pos, BlockState state) {
+		super(ModSubtiles.ENTROPINNYUM, pos, state);
 	}
 
 	public static boolean isUnethical(Entity e) {

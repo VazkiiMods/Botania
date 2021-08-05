@@ -32,6 +32,7 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.phys.Vec3;
@@ -54,8 +55,8 @@ public class SubTileLoonuim extends TileEntityFunctionalFlower {
 
 	private ResourceLocation lootTable = new ResourceLocation("minecraft", "chests/simple_dungeon");
 
-	public SubTileLoonuim() {
-		super(ModSubtiles.LOONIUM);
+	public SubTileLoonuim(BlockPos pos, BlockState state) {
+		super(ModSubtiles.LOONIUM, pos, state);
 	}
 
 	@Override

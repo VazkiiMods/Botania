@@ -22,7 +22,6 @@ import net.minecraft.world.entity.Entity;
 
 import vazkii.botania.common.entity.EntityDoppleganger;
 
-import java.io.IOException;
 import java.util.UUID;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -35,9 +34,7 @@ public class PacketSpawnDoppleganger {
 	public static Packet<?> make(EntityDoppleganger entity, int playerCount, boolean hardMode,
 			BlockPos source, UUID bossInfoId) {
 		FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
-		try {
-			new ClientboundAddMobPacket(entity).write(buf);
-		} catch (IOException ignored) {} // isn't actually thrown by write
+		new ClientboundAddMobPacket(entity).write(buf);
 
 		buf.writeVarInt(playerCount);
 		buf.writeBoolean(hardMode);
@@ -48,10 +45,7 @@ public class PacketSpawnDoppleganger {
 
 	public static class Handler {
 		public static void handle(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
-			ClientboundAddMobPacket pkt = new ClientboundAddMobPacket();
-			try {
-				pkt.read(buf);
-			} catch (IOException ignored) {} // isn't actually thrown
+			ClientboundAddMobPacket pkt = new ClientboundAddMobPacket(buf);
 			int playerCount = buf.readVarInt();
 			boolean hardMode = buf.readBoolean();
 			BlockPos source = buf.readBlockPos();

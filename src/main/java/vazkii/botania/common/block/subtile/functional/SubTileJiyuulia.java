@@ -8,13 +8,15 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.ModSubtiles;
 
 public class SubTileJiyuulia extends SubTileTangleberrie {
-	public SubTileJiyuulia() {
-		super(ModSubtiles.JIYUULIA);
+	public SubTileJiyuulia(BlockPos pos, BlockState state) {
+		super(ModSubtiles.JIYUULIA, pos, state);
 	}
 
 	@Override

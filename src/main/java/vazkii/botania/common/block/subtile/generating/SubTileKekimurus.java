@@ -22,8 +22,8 @@ import vazkii.botania.common.block.ModSubtiles;
 public class SubTileKekimurus extends TileEntityGeneratingFlower {
 	private static final int RANGE = 5;
 
-	public SubTileKekimurus() {
-		super(ModSubtiles.KEKIMURUS);
+	public SubTileKekimurus(BlockPos pos, BlockState state) {
+		super(ModSubtiles.KEKIMURUS, pos, state);
 	}
 
 	@Override

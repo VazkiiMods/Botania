@@ -8,10 +8,12 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -23,8 +25,8 @@ import java.util.List;
 public class SubTileMedumone extends TileEntityFunctionalFlower {
 	private static final int RANGE = 6;
 
-	public SubTileMedumone() {
-		super(ModSubtiles.MEDUMONE);
+	public SubTileMedumone(BlockPos pos, BlockState state) {
+		super(ModSubtiles.MEDUMONE, pos, state);
 	}
 
 	@Override

@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.tile;
 
 import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -17,8 +18,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import javax.annotation.Nonnull;
 
 public class TileMod extends BlockEntity implements BlockEntityClientSerializable {
-	public TileMod(BlockEntityType<?> type) {
-		super(type);
+	public TileMod(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
 	@Nonnull

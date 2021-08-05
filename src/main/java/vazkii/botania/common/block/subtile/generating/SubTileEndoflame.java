@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
@@ -16,6 +17,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -34,8 +36,8 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 
 	private int burnTime = 0;
 
-	public SubTileEndoflame() {
-		super(ModSubtiles.ENDOFLAME);
+	public SubTileEndoflame(BlockPos pos, BlockState state) {
+		super(ModSubtiles.ENDOFLAME, pos, state);
 	}
 
 	@Override

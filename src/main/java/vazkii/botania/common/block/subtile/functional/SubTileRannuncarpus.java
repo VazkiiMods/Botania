@@ -63,12 +63,12 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	private static final String TAG_STATE_SENSITIVE = "stateSensitive";
 	private boolean stateSensitive = false;
 
-	public SubTileRannuncarpus(BlockEntityType<?> type) {
-		super(type);
+	protected SubTileRannuncarpus(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
-	public SubTileRannuncarpus() {
-		this(ModSubtiles.RANNUNCARPUS);
+	public SubTileRannuncarpus(BlockPos pos, BlockState state) {
+		this(ModSubtiles.RANNUNCARPUS, pos, state);
 	}
 
 	@Override
@@ -251,8 +251,8 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileRannuncarpus {
-		public Mini() {
-			super(ModSubtiles.RANNUNCARPUS_CHIBI);
+		public Mini(BlockPos pos, BlockState state) {
+			super(ModSubtiles.RANNUNCARPUS_CHIBI, pos, state);
 		}
 
 		@Override

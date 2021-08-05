@@ -24,6 +24,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
@@ -52,8 +53,8 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 
 	BlockPos cachedPoolCoordinates = null;
 
-	public TileEntityFunctionalFlower(BlockEntityType<?> type) {
-		super(type);
+	public TileEntityFunctionalFlower(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
 	/**

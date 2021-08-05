@@ -62,12 +62,12 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 		}
 	}
 
-	public SubTileMarimorphosis(BlockEntityType<?> type) {
-		super(type);
+	protected SubTileMarimorphosis(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
-	public SubTileMarimorphosis() {
-		this(ModSubtiles.MARIMORPHOSIS);
+	public SubTileMarimorphosis(BlockPos pos, BlockState state) {
+		this(ModSubtiles.MARIMORPHOSIS, pos, state);
 	}
 
 	@Override
@@ -162,8 +162,8 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileMarimorphosis {
-		public Mini() {
-			super(ModSubtiles.MARIMORPHOSIS_CHIBI);
+		public Mini(BlockPos pos, BlockState state) {
+			super(ModSubtiles.MARIMORPHOSIS_CHIBI, pos, state);
 		}
 
 		@Override

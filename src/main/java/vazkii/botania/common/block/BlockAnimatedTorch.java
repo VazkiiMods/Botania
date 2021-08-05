@@ -126,8 +126,8 @@ public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityB
 	}
 
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileAnimatedTorch();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileAnimatedTorch(pos, state);
 	}
 
 	@Override

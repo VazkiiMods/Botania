@@ -10,6 +10,7 @@ package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.item.IExoflameHeatable;
 import vazkii.botania.api.subtile.RadiusDescriptor;
@@ -22,8 +23,8 @@ public class SubTileExoflame extends TileEntityFunctionalFlower {
 	private static final int RANGE_Y = 2;
 	private static final int COST = 300;
 
-	public SubTileExoflame() {
-		super(ModSubtiles.EXOFLAME);
+	public SubTileExoflame(BlockPos pos, BlockState state) {
+		super(ModSubtiles.EXOFLAME, pos, state);
 	}
 
 	@Override

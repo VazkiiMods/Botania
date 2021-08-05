@@ -35,8 +35,8 @@ public class SubTileMunchdew extends TileEntityGeneratingFlower {
 	private int ticksWithoutEating = -1;
 	private int cooldown = 0;
 
-	public SubTileMunchdew() {
-		super(ModSubtiles.MUNCHDEW);
+	public SubTileMunchdew(BlockPos pos, BlockState state) {
+		super(ModSubtiles.MUNCHDEW, pos, state);
 	}
 
 	@Override

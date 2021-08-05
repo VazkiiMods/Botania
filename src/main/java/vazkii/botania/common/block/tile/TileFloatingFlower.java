@@ -9,9 +9,12 @@
 package vazkii.botania.common.block.tile;
 
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachmentBlockEntity;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.item.IFloatingFlower;
@@ -33,8 +36,8 @@ public class TileFloatingFlower extends TileMod implements IFloatingFlowerProvid
 		}
 	};
 
-	public TileFloatingFlower() {
-		super(ModTiles.MINI_ISLAND);
+	public TileFloatingFlower(BlockEntityType<TileFloatingFlower> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
 	@Override

@@ -23,8 +23,8 @@ public class SubTileJadedAmaranthus extends TileEntityFunctionalFlower {
 	private static final int COST = 100;
 	final int RANGE = 4;
 
-	public SubTileJadedAmaranthus() {
-		super(ModSubtiles.JADED_AMARANTHUS);
+	public SubTileJadedAmaranthus(BlockPos pos, BlockState state) {
+		super(ModSubtiles.JADED_AMARANTHUS, pos, state);
 	}
 
 	@Override

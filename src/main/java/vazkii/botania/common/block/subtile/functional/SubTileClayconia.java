@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
@@ -32,12 +33,12 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 	private static final int RANGE_MINI = 2;
 	private static final int RANGE_Y_MINI = 1;
 
-	public SubTileClayconia(BlockEntityType<?> type) {
-		super(type);
+	protected SubTileClayconia(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 
-	public SubTileClayconia() {
-		this(ModSubtiles.CLAYCONIA);
+	public SubTileClayconia(BlockPos pos, BlockState state) {
+		this(ModSubtiles.CLAYCONIA, pos, state);
 	}
 
 	@Override
@@ -109,8 +110,8 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 	}
 
 	public static class Mini extends SubTileClayconia {
-		public Mini() {
-			super(ModSubtiles.CLAYCONIA_CHIBI);
+		public Mini(BlockPos pos, BlockState state) {
+			super(ModSubtiles.CLAYCONIA_CHIBI, pos, state);
 		}
 
 		@Override

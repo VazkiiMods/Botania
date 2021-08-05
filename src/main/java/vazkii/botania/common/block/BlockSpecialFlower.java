@@ -41,13 +41,13 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.Random;
-import java.util.function.Supplier;
+import java.util.function.BiFunction;
 
 public class BlockSpecialFlower extends FlowerBlock implements EntityBlock, IWandable, IWandHUD {
 	private static final VoxelShape SHAPE = box(4.8, 0, 4.8, 12.8, 16, 12.8);
-	private final Supplier<? extends TileEntitySpecialFlower> teProvider;
+	private final BiFunction<BlockPos, BlockState, ? extends TileEntitySpecialFlower> teProvider;
 
-	protected BlockSpecialFlower(MobEffect stewEffect, int stewDuration, Properties props, Supplier<? extends TileEntitySpecialFlower> teProvider) {
+	protected BlockSpecialFlower(MobEffect stewEffect, int stewDuration, Properties props, BiFunction<BlockPos, BlockState, ? extends TileEntitySpecialFlower> teProvider) {
 		super(stewEffect, stewDuration, props);
 		this.teProvider = teProvider;
 	}
@@ -75,8 +75,8 @@ public class BlockSpecialFlower extends FlowerBlock implements EntityBlock, IWan
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return teProvider.get();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return teProvider.apply(pos, state);
 	}
 
 	@Override

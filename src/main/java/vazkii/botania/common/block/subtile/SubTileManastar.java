@@ -11,6 +11,7 @@ package vazkii.botania.common.block.subtile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
@@ -24,8 +25,8 @@ public class SubTileManastar extends TileEntitySpecialFlower {
 	private int lastMana = 0;
 	private int state = NONE;
 
-	public SubTileManastar() {
-		super(ModSubtiles.MANASTAR);
+	public SubTileManastar(BlockPos pos, BlockState state) {
+		super(ModSubtiles.MANASTAR, pos, state);
 	}
 
 	@Override
