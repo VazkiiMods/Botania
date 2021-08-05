@@ -27,11 +27,11 @@ import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
@@ -60,7 +60,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
-public class TileSpreader extends TileExposedSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IDirectioned, TickableBlockEntity {
+public class TileSpreader extends TileExposedSimpleInventory implements IManaCollector, IWandBindable, IKeyLocked, IThrottledPacket, IManaSpreader, IDirectioned {
 	private static final int TICKS_ALLOWED_WITHOUT_PINGBACK = 20;
 	private static final double PINGBACK_EXPIRED_SEARCH_DISTANCE = 0.5;
 
@@ -156,11 +156,10 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		ManaNetworkCallback.removeCollector(this);
 	}
 
-	@Override
-	public void tick() {
-		boolean inNetwork = ManaNetworkHandler.instance.isCollectorIn(this);
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileSpreader self) {
+		boolean inNetwork = ManaNetworkHandler.instance.isCollectorIn(self);
 		boolean wasInNetwork = inNetwork;
-		if (!inNetwork && !isRemoved()) {
+		if (!inNetwork && !self.isRemoved()) {
 			ManaNetworkCallback.addCollector(this);
 		}
 
@@ -170,17 +169,17 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 			BlockEntity tileAt = level.getBlockEntity(worldPosition.relative(dir));
 			if (level.hasChunkAt(worldPosition.relative(dir)) && tileAt instanceof IManaPool) {
 				IManaPool pool = (IManaPool) tileAt;
-				if (wasInNetwork && (pool != receiver || getVariant() == BlockSpreader.Variant.REDSTONE)) {
-					if (pool instanceof IKeyLocked && !((IKeyLocked) pool).getOutputKey().equals(getInputKey())) {
+				if (wasInNetwork && (pool != self.receiver || self.getVariant() == BlockSpreader.Variant.REDSTONE)) {
+					if (pool instanceof IKeyLocked && !((IKeyLocked) pool).getOutputKey().equals(self.getInputKey())) {
 						continue;
 					}
 
 					int manaInPool = pool.getCurrentMana();
-					if (manaInPool > 0 && !isFull()) {
-						int manaMissing = getMaxMana() - mana;
+					if (manaInPool > 0 && !self.isFull()) {
+						int manaMissing = self.getMaxMana() - self.mana;
 						int manaToRemove = Math.min(manaInPool, manaMissing);
 						pool.receiveMana(-manaToRemove);
-						receiveMana(manaToRemove);
+						self.receiveMana(manaToRemove);
 					}
 				}
 			}
@@ -191,20 +190,20 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 			}
 		}
 
-		if (needsNewBurstSimulation()) {
-			checkForReceiver();
+		if (self.needsNewBurstSimulation()) {
+			self.checkForReceiver();
 		}
 
-		if (!canShootBurst) {
-			if (pingbackTicks <= 0) {
-				double x = lastPingbackX;
-				double y = lastPingbackY;
-				double z = lastPingbackZ;
+		if (!self.canShootBurst) {
+			if (self.pingbackTicks <= 0) {
+				double x = self.lastPingbackX;
+				double y = self.lastPingbackY;
+				double z = self.lastPingbackZ;
 				AABB aabb = new AABB(x, y, z, x, y, z).inflate(PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE, PINGBACK_EXPIRED_SEARCH_DISTANCE);
 				@SuppressWarnings("unchecked")
 				List<IManaBurst> bursts = (List<IManaBurst>) (List<?>) level.getEntitiesOfClass(ThrowableProjectile.class, aabb, Predicates.instanceOf(IManaBurst.class));
 				IManaBurst found = null;
-				UUID identity = getIdentifier();
+				UUID identity = self.getIdentifier();
 				for (IManaBurst burst : bursts) {
 					if (burst != null && identity.equals(burst.getShooterUUID())) {
 						found = burst;
@@ -215,49 +214,49 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 				if (found != null) {
 					found.ping();
 				} else {
-					setCanShoot(true);
+					self.setCanShoot(true);
 				}
 			} else {
-				pingbackTicks--;
+				self.pingbackTicks--;
 			}
 		}
 
 		boolean shouldShoot = !redstone;
 
-		boolean isredstone = getVariant() == BlockSpreader.Variant.REDSTONE;
+		boolean isredstone = self.getVariant() == BlockSpreader.Variant.REDSTONE;
 		if (isredstone) {
-			shouldShoot = redstone && !redstoneLastTick;
+			shouldShoot = redstone && !self.redstoneLastTick;
 		}
 
-		if (shouldShoot && receiver != null && receiver instanceof IKeyLocked) {
-			shouldShoot = ((IKeyLocked) receiver).getInputKey().equals(getOutputKey());
+		if (shouldShoot && self.receiver != null && self.receiver instanceof IKeyLocked) {
+			shouldShoot = ((IKeyLocked) self.receiver).getInputKey().equals(self.getOutputKey());
 		}
 
-		ItemStack lens = getItemHandler().getItem(0);
-		ILensControl control = getLensController(lens);
+		ItemStack lens = self.getItemHandler().getItem(0);
+		ILensControl control = self.getLensController(lens);
 		if (control != null) {
 			if (isredstone) {
 				if (shouldShoot) {
-					control.onControlledSpreaderPulse(lens, this, redstone);
+					control.onControlledSpreaderPulse(lens, self, redstone);
 				}
 			} else {
-				control.onControlledSpreaderTick(lens, this, redstone);
+				control.onControlledSpreaderTick(lens, self, redstone);
 			}
 
-			shouldShoot &= control.allowBurstShooting(lens, this, redstone);
+			shouldShoot &= control.allowBurstShooting(lens, self, redstone);
 		}
 
 		if (shouldShoot) {
-			tryShootBurst();
+			self.tryShootBurst();
 		}
 
-		if (receiverLastTick != receiver && !level.isClientSide) {
-			requestsClientUpdate = true;
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		if (self.receiverLastTick != self.receiver && !level.isClientSide) {
+			self.requestsClientUpdate = true;
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
 		}
 
-		redstoneLastTick = redstone;
-		receiverLastTick = receiver;
+		self.redstoneLastTick = redstone;
+		self.receiverLastTick = self.receiver;
 	}
 
 	@Override

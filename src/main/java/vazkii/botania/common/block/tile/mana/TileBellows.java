@@ -17,11 +17,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.FurnaceBlock;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
@@ -32,7 +32,7 @@ import vazkii.botania.common.core.handler.ExoflameFurnaceHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.mixin.AccessorAbstractFurnaceTileEntity;
 
-public class TileBellows extends TileMod implements TickableBlockEntity {
+public class TileBellows extends TileMod {
 	private static final String TAG_ACTIVE = "active";
 
 	public float movePos;
@@ -49,16 +49,15 @@ public class TileBellows extends TileMod implements TickableBlockEntity {
 		}
 	}
 
-	@Override
-	public void tick() {
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileBellows self) {
 		boolean disable = true;
-		BlockEntity tile = getLinkedTile();
-		if (!active && tile instanceof TilePool) {
+		BlockEntity tile = self.getLinkedTile();
+		if (!self.active && tile instanceof TilePool) {
 			TilePool pool = (TilePool) tile;
 			boolean transfer = pool.isDoingTransfer;
 			if (transfer) {
 				if (pool.ticksDoingTransfer > 0) {
-					setActive(true);
+					self.setActive(true);
 				}
 				disable = false;
 			}
@@ -69,8 +68,8 @@ public class TileBellows extends TileMod implements TickableBlockEntity {
 
 		float incr = max / 20F;
 
-		if (movePos < max && active && moving >= 0F) {
-			if (moving == 0F) {
+		if (self.movePos < max && self.active && self.moving >= 0F) {
+			if (self.moving == 0F) {
 				level.playSound(null, worldPosition, ModSounds.bellows, SoundSource.BLOCKS, 0.1F, 3F);
 			}
 
@@ -107,21 +106,21 @@ public class TileBellows extends TileMod implements TickableBlockEntity {
 				}
 			}
 
-			movePos += incr * 3;
-			moving = incr * 3;
-			if (movePos >= max) {
-				movePos = Math.min(max, movePos);
-				moving = 0F;
+			self.movePos += incr * 3;
+			self.moving = incr * 3;
+			if (self.movePos >= max) {
+				self.movePos = Math.min(max, self.movePos);
+				self.moving = 0F;
 				if (disable) {
-					setActive(false);
+					self.setActive(false);
 				}
 			}
-		} else if (movePos > min) {
-			movePos -= incr;
-			moving = -incr;
-			if (movePos <= min) {
-				movePos = Math.max(min, movePos);
-				moving = 0F;
+		} else if (self.movePos > min) {
+			self.movePos -= incr;
+			self.moving = -incr;
+			if (self.movePos <= min) {
+				self.movePos = Math.max(min, self.movePos);
+				self.moving = 0F;
 			}
 		}
 

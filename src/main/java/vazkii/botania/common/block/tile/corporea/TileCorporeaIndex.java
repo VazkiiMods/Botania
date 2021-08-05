@@ -16,7 +16,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
@@ -31,7 +31,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor, TickableBlockEntity {
+public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequestor {
 	public static final double RADIUS = 2.5;
 
 	private static InputHandler input;
@@ -265,34 +265,33 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		super(ModTiles.CORPOREA_INDEX, pos, state);
 	}
 
-	@Override
-	public void tick() {
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileCorporeaIndex self) {
 		double x = worldPosition.getX() + 0.5;
 		double y = worldPosition.getY() + 0.5;
 		double z = worldPosition.getZ() + 0.5;
 
 		List<Player> players = level.getEntitiesOfClass(Player.class, new AABB(x - RADIUS, y - RADIUS, z - RADIUS, x + RADIUS, y + RADIUS, z + RADIUS));
-		hasCloseby = false;
+		self.hasCloseby = false;
 		for (Player player : players) {
-			if (isInRangeOfIndex(player, this)) {
-				hasCloseby = true;
+			if (isInRangeOfIndex(player, self)) {
+				self.hasCloseby = true;
 				break;
 			}
 		}
 
 		float step = 0.2F;
-		ticks++;
-		if (hasCloseby) {
-			ticksWithCloseby++;
-			if (closeby < 1F) {
-				closeby += step;
+		self.ticks++;
+		if (self.hasCloseby) {
+			self.ticksWithCloseby++;
+			if (self.closeby < 1F) {
+				self.closeby += step;
 			}
-		} else if (closeby > 0F) {
-			closeby -= step;
+		} else if (self.closeby > 0F) {
+			self.closeby -= step;
 		}
 
-		if (!isRemoved()) {
-			addIndex(this);
+		if (!self.isRemoved()) {
+			addIndex(self);
 		}
 	}
 

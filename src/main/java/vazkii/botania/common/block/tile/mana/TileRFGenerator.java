@@ -10,7 +10,7 @@ package vazkii.botania.common.block.tile.mana;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.mana.IManaReceiver;
@@ -18,7 +18,7 @@ import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.core.handler.ConfigHandler;
 
-public class TileRFGenerator extends TileMod implements IManaReceiver, TickableBlockEntity {
+public class TileRFGenerator extends TileMod implements IManaReceiver {
 	private static final int MANA_TO_FE = 10;
 	private static final int MAX_ENERGY = 1280 * MANA_TO_FE;
 
@@ -65,12 +65,11 @@ public class TileRFGenerator extends TileMod implements IManaReceiver, TickableB
 		super(ModTiles.FLUXFIELD, pos, state);
 	}
 
-	@Override
-	public void tick() {
-		if (!level.isClientSide && ConfigHandler.COMMON.fluxfieldEnabled.getValue()) {
-			int transfer = Math.min(energy, 160 * MANA_TO_FE);
-			energy -= transfer;
-			energy += transmitEnergy(transfer);
+	public static void serverTick(Level level, BlockPos pos, BlockState state, TileRFGenerator self) {
+		if (ConfigHandler.COMMON.fluxfieldEnabled.getValue()) {
+			int transfer = Math.min(self.energy, 160 * MANA_TO_FE);
+			self.energy -= transfer;
+			self.energy += self.transmitEnergy(transfer);
 		}
 	}
 

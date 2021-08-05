@@ -12,7 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
@@ -24,7 +24,7 @@ import vazkii.botania.common.block.tile.ModTiles;
 
 import java.util.List;
 
-public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor, TickableBlockEntity {
+public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorporeaRequestor {
 	private static final String TAG_REQUEST_TARGET = "requestTarget";
 	private static final String TAG_ITEM_COUNT = "itemCount";
 	private static final String TAG_LOCK = "lock";
@@ -39,11 +39,10 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 		super(ModTiles.CORPOREA_CRYSTAL_CUBE, pos, state);
 	}
 
-	@Override
-	public void tick() {
-		++ticks;
-		if (ticks % 20 == 0) {
-			updateCount();
+	public static void serverTick(Level level, BlockPos pos, BlockState state, TileCorporeaCrystalCube self) {
+		++self.ticks;
+		if (self.ticks % 20 == 0) {
+			self.updateCount();
 		}
 	}
 

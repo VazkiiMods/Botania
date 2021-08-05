@@ -11,14 +11,14 @@ package vazkii.botania.common.block.tile.mana;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TilePump extends TileMod implements TickableBlockEntity {
+public class TilePump extends TileMod {
 	private static final String TAG_ACTIVE = "active";
 
 	public float innerRingPos;
@@ -35,51 +35,50 @@ public class TilePump extends TileMod implements TickableBlockEntity {
 		super(ModTiles.PUMP, pos, state);
 	}
 
-	@Override
-	public void tick() {
-		hasRedstone = level.hasNeighborSignal(worldPosition);
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TilePump self) {
+		self.hasRedstone = level.hasNeighborSignal(worldPosition);
 
 		float max = 8F;
 		float min = 0F;
 
 		float incr = max / 10F;
 
-		if (innerRingPos < max && active && moving >= 0F) {
-			innerRingPos += incr;
-			moving = incr;
-			if (innerRingPos >= max) {
-				innerRingPos = Math.min(max, innerRingPos);
-				moving = 0F;
+		if (self.innerRingPos < max && self.active && self.moving >= 0F) {
+			self.innerRingPos += incr;
+			self.moving = incr;
+			if (self.innerRingPos >= max) {
+				self.innerRingPos = Math.min(max, self.innerRingPos);
+				self.moving = 0F;
 				for (int x = 0; x < 2; x++) {
-					level.addParticle(ParticleTypes.SMOKE, getBlockPos().getX() + Math.random(), getBlockPos().getY() + Math.random(), getBlockPos().getZ() + Math.random(), 0, 0, 0);
+					level.addParticle(ParticleTypes.SMOKE, worldPosition.getX() + Math.random(), worldPosition.getY() + Math.random(), worldPosition.getZ() + Math.random(), 0, 0, 0);
 				}
 			}
-		} else if (innerRingPos > min) {
-			innerRingPos -= incr * 2;
-			moving = -incr * 2;
-			if (innerRingPos <= min) {
-				innerRingPos = Math.max(min, innerRingPos);
-				moving = 0F;
+		} else if (self.innerRingPos > min) {
+			self.innerRingPos -= incr * 2;
+			self.moving = -incr * 2;
+			if (self.innerRingPos <= min) {
+				self.innerRingPos = Math.max(min, self.innerRingPos);
+				self.moving = 0F;
 			}
 		}
 
-		if (!hasCartOnTop) {
-			comparator = 0;
+		if (!self.hasCartOnTop) {
+			self.comparator = 0;
 		}
-		if (!hasCart && active) {
-			setActive(false);
+		if (!self.hasCart && self.active) {
+			self.setActive(false);
 		}
-		if (active && hasRedstone) {
-			setActive(false);
+		if (self.active && self.hasRedstone) {
+			self.setActive(false);
 		}
 
-		hasCart = false;
-		hasCartOnTop = false;
+		self.hasCart = false;
+		self.hasCartOnTop = false;
 
-		if (comparator != lastComparator) {
-			level.updateNeighbourForOutputSignal(worldPosition, getBlockState().getBlock());
+		if (self.comparator != self.lastComparator) {
+			level.updateNeighbourForOutputSignal(worldPosition, state.getBlock());
 		}
-		lastComparator = comparator;
+		self.lastComparator = self.comparator;
 	}
 
 	@Override

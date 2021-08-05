@@ -27,7 +27,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
@@ -64,7 +63,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket, TickableBlockEntity {
+public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAttachable, IThrottledPacket {
 	public static final int PARTICLE_COLOR = 0x00C6FF;
 	public static final int MAX_MANA = 1000000;
 	private static final int MAX_MANA_DILLUTED = 10000;
@@ -240,38 +239,39 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		}
 	}
 
-	@Override
-	public void tick() {
+	private void initManaCapAndNetwork() {
 		if (manaCap == -1) {
 			manaCap = ((BlockPool) getBlockState().getBlock()).variant == BlockPool.Variant.DILUTED ? MAX_MANA_DILLUTED : MAX_MANA;
 		}
-
 		if (!ManaNetworkHandler.instance.isPoolIn(this) && !isRemoved()) {
 			ManaNetworkCallback.addPool(this);
 		}
+	}
 
-		if (level.isClientSide) {
-			double particleChance = 1F - (double) getCurrentMana() / (double) manaCap * 0.1;
-			if (Math.random() > particleChance) {
-				float red = (PARTICLE_COLOR >> 16 & 0xFF) / 255F;
-				float green = (PARTICLE_COLOR >> 8 & 0xFF) / 255F;
-				float blue = (PARTICLE_COLOR & 0xFF) / 255F;
-				WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, red, green, blue, 2F);
-				level.addParticle(data, worldPosition.getX() + 0.3 + Math.random() * 0.5, worldPosition.getY() + 0.6 + Math.random() * 0.25, worldPosition.getZ() + Math.random(), 0, (float) Math.random() / 25F, 0);
-			}
-			return;
+	public static void clientTick(Level level, BlockPos worldPosition, BlockState state, TilePool self) {
+		self.initManaCapAndNetwork();
+		double particleChance = 1F - (double) self.getCurrentMana() / (double) self.manaCap * 0.1;
+		if (Math.random() > particleChance) {
+			float red = (PARTICLE_COLOR >> 16 & 0xFF) / 255F;
+			float green = (PARTICLE_COLOR >> 8 & 0xFF) / 255F;
+			float blue = (PARTICLE_COLOR & 0xFF) / 255F;
+			WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, red, green, blue, 2F);
+			level.addParticle(data, worldPosition.getX() + 0.3 + Math.random() * 0.5, worldPosition.getY() + 0.6 + Math.random() * 0.25, worldPosition.getZ() + Math.random(), 0, (float) Math.random() / 25F, 0);
+		}
+	}
+
+	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, TilePool self) {
+		self.initManaCapAndNetwork();
+		boolean wasDoingTransfer = self.isDoingTransfer;
+		self.isDoingTransfer = false;
+
+		if (self.soundTicks > 0) {
+			self.soundTicks--;
 		}
 
-		boolean wasDoingTransfer = isDoingTransfer;
-		isDoingTransfer = false;
-
-		if (soundTicks > 0) {
-			soundTicks--;
-		}
-
-		if (sendPacket && ticks % 10 == 0) {
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
-			sendPacket = false;
+		if (self.sendPacket && self.ticks % 10 == 0) {
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
+			self.sendPacket = false;
 		}
 
 		List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition, worldPosition.offset(1, 1, 1)));
@@ -283,62 +283,62 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			ItemStack stack = item.getItem();
 			if (!stack.isEmpty() && stack.getItem() instanceof IManaItem) {
 				IManaItem mana = (IManaItem) stack.getItem();
-				if (outputting && mana.canReceiveManaFromPool(stack, this) || !outputting && mana.canExportManaToPool(stack, this)) {
+				if (self.outputting && mana.canReceiveManaFromPool(stack, self) || !self.outputting && mana.canExportManaToPool(stack, self)) {
 					boolean didSomething = false;
 
 					int bellowCount = 0;
-					if (outputting) {
+					if (self.outputting) {
 						for (Direction dir : Direction.Plane.HORIZONTAL) {
 							BlockEntity tile = level.getBlockEntity(worldPosition.relative(dir));
-							if (tile instanceof TileBellows && ((TileBellows) tile).getLinkedTile() == this) {
+							if (tile instanceof TileBellows && ((TileBellows) tile).getLinkedTile() == self) {
 								bellowCount++;
 							}
 						}
 					}
 					int transfRate = 1000 * (bellowCount + 1);
 
-					if (outputting) {
-						if (canSpare) {
-							if (getCurrentMana() > 0 && mana.getMana(stack) < mana.getMaxMana(stack)) {
+					if (self.outputting) {
+						if (self.canSpare) {
+							if (self.getCurrentMana() > 0 && mana.getMana(stack) < mana.getMaxMana(stack)) {
 								didSomething = true;
 							}
 
-							int manaVal = Math.min(transfRate, Math.min(getCurrentMana(), mana.getMaxMana(stack) - mana.getMana(stack)));
+							int manaVal = Math.min(transfRate, Math.min(self.getCurrentMana(), mana.getMaxMana(stack) - mana.getMana(stack)));
 							mana.addMana(stack, manaVal);
-							receiveMana(-manaVal);
+							self.receiveMana(-manaVal);
 						}
 					} else {
-						if (canAccept) {
-							if (mana.getMana(stack) > 0 && !isFull()) {
+						if (self.canAccept) {
+							if (mana.getMana(stack) > 0 && !self.isFull()) {
 								didSomething = true;
 							}
 
-							int manaVal = Math.min(transfRate, Math.min(manaCap - getCurrentMana(), mana.getMana(stack)));
+							int manaVal = Math.min(transfRate, Math.min(self.manaCap - self.getCurrentMana(), mana.getMana(stack)));
 							mana.addMana(stack, -manaVal);
-							receiveMana(manaVal);
+							self.receiveMana(manaVal);
 						}
 					}
 
 					if (didSomething) {
 						if (ConfigHandler.COMMON.chargingAnimationEnabled.getValue() && level.random.nextInt(20) == 0) {
-							level.blockEvent(getBlockPos(), getBlockState().getBlock(), CHARGE_EFFECT_EVENT, outputting ? 1 : 0);
+							level.blockEvent(worldPosition, state.getBlock(), CHARGE_EFFECT_EVENT, self.outputting ? 1 : 0);
 						}
-						isDoingTransfer = outputting;
+						self.isDoingTransfer = self.outputting;
 					}
 				}
 			}
 		}
 
-		if (isDoingTransfer) {
-			ticksDoingTransfer++;
+		if (self.isDoingTransfer) {
+			self.ticksDoingTransfer++;
 		} else {
-			ticksDoingTransfer = 0;
+			self.ticksDoingTransfer = 0;
 			if (wasDoingTransfer) {
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
 			}
 		}
 
-		ticks++;
+		self.ticks++;
 	}
 
 	@Override

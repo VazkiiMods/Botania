@@ -19,15 +19,15 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 
-public class TileTurntable extends TileMod implements TickableBlockEntity {
+public class TileTurntable extends TileMod {
 	private static final String TAG_SPEED = "speed";
 	private static final String TAG_BACKWARDS = "backwards";
 
@@ -38,13 +38,12 @@ public class TileTurntable extends TileMod implements TickableBlockEntity {
 		super(ModTiles.TURNTABLE, pos, state);
 	}
 
-	@Override
-	public void tick() {
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileTurntable self) {
 		if (!level.hasNeighborSignal(worldPosition)) {
 			BlockEntity tile = level.getBlockEntity(worldPosition.above());
 			if (tile instanceof TileSpreader) {
 				TileSpreader spreader = (TileSpreader) tile;
-				spreader.rotationX += speed * (backwards ? -1 : 1);
+				spreader.rotationX += self.speed * (self.backwards ? -1 : 1);
 				if (spreader.rotationX >= 360F) {
 					spreader.rotationX -= 360F;
 				}

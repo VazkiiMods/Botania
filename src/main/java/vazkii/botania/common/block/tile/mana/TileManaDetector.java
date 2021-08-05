@@ -22,6 +22,7 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 
+// TODO(williewillus) apply patch to make detector not-a-BE
 public class TileManaDetector extends TileMod implements TickableBlockEntity {
 	public TileManaDetector(BlockPos pos, BlockState state) {
 		super(ModTiles.MANA_DETECTOR, pos, state);
