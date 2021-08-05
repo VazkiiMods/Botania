@@ -8,14 +8,16 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.Botania;
 
 public class TileStarfield extends TileMod implements TickableBlockEntity {
-	public TileStarfield() {
-		super(ModTiles.STARFIELD);
+	public TileStarfield(BlockPos pos, BlockState state) {
+		super(ModTiles.STARFIELD, pos, state);
 	}
 
 	@Override

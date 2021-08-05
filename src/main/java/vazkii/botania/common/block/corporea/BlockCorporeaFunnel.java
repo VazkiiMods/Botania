@@ -9,7 +9,6 @@
 package vazkii.botania.common.block.corporea;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -50,8 +49,8 @@ public class BlockCorporeaFunnel extends BlockMod implements EntityBlock {
 
 	@Nonnull
 	@Override
-	public TileCorporeaBase newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileCorporeaFunnel();
+	public TileCorporeaBase newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileCorporeaFunnel(pos, state);
 	}
 
 }

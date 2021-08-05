@@ -119,8 +119,8 @@ public class BlockIncensePlate extends BlockModWaterloggable implements EntityBl
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileIncensePlate();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileIncensePlate(pos, state);
 	}
 
 	@Override

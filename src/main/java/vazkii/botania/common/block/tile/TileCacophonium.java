@@ -8,11 +8,13 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.item.ItemCacophonium;
 
@@ -21,8 +23,8 @@ public class TileCacophonium extends TileMod {
 
 	public ItemStack stack = ItemStack.EMPTY;
 
-	public TileCacophonium() {
-		super(ModTiles.CACOPHONIUM);
+	public TileCacophonium(BlockPos pos, BlockState state) {
+		super(ModTiles.CACOPHONIUM, pos, state);
 	}
 
 	public void annoyDirewolf() {

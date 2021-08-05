@@ -38,8 +38,8 @@ public class BlockDistributor extends BlockModWaterloggable implements EntityBlo
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileDistributor();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileDistributor(pos, state);
 	}
 
 }

@@ -107,7 +107,7 @@ public class BlockTinyPotato extends BlockModWaterloggable implements EntityBloc
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileTinyPotato();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileTinyPotato(pos, state);
 	}
 }

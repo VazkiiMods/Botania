@@ -64,7 +64,7 @@ public class BlockRedStringInterceptor extends BlockRedString {
 
 	@Nonnull
 	@Override
-	public TileRedString newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileRedStringInterceptor();
+	public TileRedString newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileRedStringInterceptor(pos, state);
 	}
 }

@@ -10,6 +10,7 @@ package vazkii.botania.common.block.tile;
 
 import com.google.common.base.Predicates;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.LazyLoadedValue;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -64,8 +66,8 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, Tickabl
 
 	private int mana;
 
-	public TileTerraPlate() {
-		super(ModTiles.TERRA_PLATE);
+	public TileTerraPlate(BlockPos pos, BlockState state) {
+		super(ModTiles.TERRA_PLATE, pos, state);
 	}
 
 	@Override

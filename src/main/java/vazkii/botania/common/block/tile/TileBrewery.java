@@ -11,6 +11,7 @@ package vazkii.botania.common.block.tile;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -19,6 +20,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 
@@ -49,8 +51,8 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, T
 	private int manaLastTick = 0;
 	public int signal = 0;
 
-	public TileBrewery() {
-		super(ModTiles.BREWERY);
+	public TileBrewery(BlockPos pos, BlockState state) {
+		super(ModTiles.BREWERY, pos, state);
 	}
 
 	public boolean addItem(@Nullable Player player, ItemStack stack, @Nullable InteractionHand hand) {

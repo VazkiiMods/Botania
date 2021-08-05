@@ -118,8 +118,8 @@ public class BlockPool extends BlockModWaterloggable implements EntityBlock, IWa
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TilePool();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TilePool(pos, state);
 	}
 
 	@Override

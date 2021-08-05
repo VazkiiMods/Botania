@@ -164,8 +164,8 @@ public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IM
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TilePrism();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TilePrism(pos, state);
 	}
 
 	@Override

@@ -113,8 +113,8 @@ public class BlockSparkChanger extends BlockModWaterloggable implements EntityBl
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileSparkChanger();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileSparkChanger(pos, state);
 	}
 
 }

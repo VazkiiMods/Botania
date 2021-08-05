@@ -56,8 +56,8 @@ public class BlockCorporeaInterceptor extends BlockMod implements EntityBlock {
 
 	@Nonnull
 	@Override
-	public TileCorporeaBase newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileCorporeaInterceptor();
+	public TileCorporeaBase newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileCorporeaInterceptor(pos, state);
 	}
 
 }

@@ -65,8 +65,8 @@ public class BlockManaDetector extends BlockMod implements IManaCollisionGhost, 
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileManaDetector();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileManaDetector(pos, state);
 	}
 
 	@Override

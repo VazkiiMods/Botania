@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
@@ -42,8 +43,8 @@ public class TileCraftCrate extends TileOpenCrate {
 	private final Queue<ResourceLocation> lastRecipes = new ArrayDeque<>();
 	private boolean dirty;
 
-	public TileCraftCrate() {
-		super(ModTiles.CRAFT_CRATE);
+	public TileCraftCrate(BlockPos pos, BlockState state) {
+		super(ModTiles.CRAFT_CRATE, pos, state);
 	}
 
 	@Override

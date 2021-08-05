@@ -18,7 +18,7 @@ import vazkii.botania.common.block.tile.TileMod;
 
 public abstract class TileCorporeaBase extends TileMod {
 
-	public TileCorporeaBase(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+	protected TileCorporeaBase(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
 

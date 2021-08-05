@@ -50,8 +50,8 @@ public class BlockEnderEye extends BlockMod implements EntityBlock {
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileEnderEye();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileEnderEye(pos, state);
 	}
 
 	@Override

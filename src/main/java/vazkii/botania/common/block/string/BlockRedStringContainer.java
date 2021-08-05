@@ -8,9 +8,10 @@
  */
 package vazkii.botania.common.block.string;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.common.block.tile.string.TileRedString;
@@ -27,8 +28,8 @@ public class BlockRedStringContainer extends BlockRedString {
 
 	@Nonnull
 	@Override
-	public TileRedString newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileRedStringContainer();
+	public TileRedString newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileRedStringContainer(pos, state);
 	}
 
 }

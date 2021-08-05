@@ -14,14 +14,15 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.tile.ModTiles;
 
 import java.util.Random;
 
 public class TileRedStringFertilizer extends TileRedString {
-	public TileRedStringFertilizer() {
-		super(ModTiles.RED_STRING_FERTILIZER);
+	public TileRedStringFertilizer(BlockPos pos, BlockState state) {
+		super(ModTiles.RED_STRING_FERTILIZER, pos, state);
 	}
 
 	public boolean canGrow(BlockGetter world, boolean isClient) {

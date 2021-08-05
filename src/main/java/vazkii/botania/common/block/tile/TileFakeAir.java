@@ -24,8 +24,8 @@ public class TileFakeAir extends TileMod {
 
 	private BlockPos flowerPos = BlockPos.ZERO;
 
-	public TileFakeAir() {
-		super(ModTiles.FAKE_AIR);
+	public TileFakeAir(BlockPos pos, BlockState state) {
+		super(ModTiles.FAKE_AIR, pos, state);
 	}
 
 	public void setFlower(BlockEntity tile) {

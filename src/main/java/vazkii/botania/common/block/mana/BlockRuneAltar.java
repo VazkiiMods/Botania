@@ -93,8 +93,8 @@ public class BlockRuneAltar extends BlockModWaterloggable implements EntityBlock
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileRuneAltar();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileRuneAltar(pos, state);
 	}
 
 	@Override

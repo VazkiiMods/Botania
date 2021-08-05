@@ -113,8 +113,8 @@ public class BlockTeruTeruBozu extends BlockModWaterloggable implements EntityBl
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileTeruTeruBozu();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileTeruTeruBozu(pos, state);
 	}
 
 }

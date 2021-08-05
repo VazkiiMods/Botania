@@ -26,8 +26,8 @@ public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity
 	@Nullable
 	private BlockState camoState;
 
-	public TilePlatform() {
-		super(ModTiles.PLATFORM);
+	public TilePlatform(BlockPos pos, BlockState state) {
+		super(ModTiles.PLATFORM, pos, state);
 	}
 
 	public boolean onWanded(Player player) {

@@ -76,8 +76,8 @@ public class BlockBellows extends BlockMod implements EntityBlock {
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileBellows();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileBellows(pos, state);
 	}
 
 }

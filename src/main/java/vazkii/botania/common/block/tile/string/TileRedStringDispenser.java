@@ -11,12 +11,13 @@ package vazkii.botania.common.block.tile.string;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.DispenserBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.tile.ModTiles;
 
 public class TileRedStringDispenser extends TileRedStringContainer {
-	public TileRedStringDispenser() {
-		super(ModTiles.RED_STRING_DISPENSER);
+	public TileRedStringDispenser(BlockPos pos, BlockState state) {
+		super(ModTiles.RED_STRING_DISPENSER, pos, state);
 	}
 
 	@Override

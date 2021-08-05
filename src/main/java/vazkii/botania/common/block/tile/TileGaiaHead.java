@@ -8,12 +8,18 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.SkullBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
 
 public class TileGaiaHead extends SkullBlockEntity {
+	public TileGaiaHead(BlockPos pos, BlockState state) {
+		super(pos, state);
+	}
+
 	@Nonnull
 	@Override
 	public BlockEntityType<TileGaiaHead> getType() {

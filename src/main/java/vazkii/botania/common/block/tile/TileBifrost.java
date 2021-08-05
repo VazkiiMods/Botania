@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -19,8 +20,8 @@ public class TileBifrost extends TileMod implements TickableBlockEntity {
 
 	public int ticks = 0;
 
-	public TileBifrost() {
-		super(ModTiles.BIFROST);
+	public TileBifrost(BlockPos pos, BlockState state) {
+		super(ModTiles.BIFROST, pos, state);
 	}
 
 	@Override

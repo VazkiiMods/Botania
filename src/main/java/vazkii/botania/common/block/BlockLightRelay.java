@@ -107,8 +107,8 @@ public class BlockLightRelay extends BlockModWaterloggable implements EntityBloc
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileLightRelay();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileLightRelay(pos, state);
 	}
 
 	@Override

@@ -8,10 +8,12 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.corporea.ICorporeaRequestMatcher;
@@ -33,8 +35,8 @@ public class TileCorporeaCrystalCube extends TileCorporeaBase implements ICorpor
 	private int compValue = 0;
 	public boolean locked = false;
 
-	public TileCorporeaCrystalCube() {
-		super(ModTiles.CORPOREA_CRYSTAL_CUBE);
+	public TileCorporeaCrystalCube(BlockPos pos, BlockState state) {
+		super(ModTiles.CORPOREA_CRYSTAL_CUBE, pos, state);
 	}
 
 	@Override

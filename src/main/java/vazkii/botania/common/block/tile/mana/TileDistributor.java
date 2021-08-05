@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.mana.IManaPool;
 import vazkii.botania.api.mana.IManaReceiver;
@@ -24,8 +25,8 @@ import java.util.List;
 public class TileDistributor extends TileMod implements IManaReceiver, TickableBlockEntity {
 	private final List<IManaReceiver> validPools = new ArrayList<>();
 
-	public TileDistributor() {
-		super(ModTiles.DISTRIBUTOR);
+	public TileDistributor(BlockPos pos, BlockState state) {
+		super(ModTiles.DISTRIBUTOR, pos, state);
 	}
 
 	@Override

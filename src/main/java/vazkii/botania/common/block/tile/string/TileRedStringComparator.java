@@ -16,8 +16,8 @@ import vazkii.botania.common.block.tile.ModTiles;
 public class TileRedStringComparator extends TileRedString {
 	private int comparatorValue = 0;
 
-	public TileRedStringComparator() {
-		super(ModTiles.RED_STRING_COMPARATOR);
+	public TileRedStringComparator(BlockPos pos, BlockState state) {
+		super(ModTiles.RED_STRING_COMPARATOR, pos, state);
 	}
 
 	@Override

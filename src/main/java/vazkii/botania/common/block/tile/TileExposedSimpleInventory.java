@@ -30,7 +30,7 @@ import java.util.stream.IntStream;
 public abstract class TileExposedSimpleInventory extends TileSimpleInventory implements WorldlyContainer {
 	private final LazyLoadedValue<int[]> slots = new LazyLoadedValue<>(() -> IntStream.range(0, getContainerSize()).toArray());
 
-	public TileExposedSimpleInventory(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+	protected TileExposedSimpleInventory(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
 

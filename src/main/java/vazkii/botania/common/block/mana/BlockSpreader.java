@@ -197,8 +197,8 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileSpreader();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileSpreader(pos, state);
 	}
 
 	@Environment(EnvType.CLIENT)

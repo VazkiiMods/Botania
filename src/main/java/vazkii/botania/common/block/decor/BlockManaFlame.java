@@ -105,7 +105,7 @@ public class BlockManaFlame extends BlockMod implements EntityBlock {
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileManaFlame();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileManaFlame(pos, state);
 	}
 }

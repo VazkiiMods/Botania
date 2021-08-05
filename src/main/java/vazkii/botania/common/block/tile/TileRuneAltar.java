@@ -13,6 +13,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -21,6 +22,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -64,8 +66,8 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 	private List<ItemStack> lastRecipe = null;
 	private int recipeKeepTicks = 0;
 
-	public TileRuneAltar() {
-		super(ModTiles.RUNE_ALTAR);
+	public TileRuneAltar(BlockPos pos, BlockState state) {
+		super(ModTiles.RUNE_ALTAR, pos, state);
 	}
 
 	public boolean addItem(@Nullable Player player, ItemStack stack, @Nullable InteractionHand hand) {

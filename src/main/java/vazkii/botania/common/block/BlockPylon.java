@@ -73,8 +73,8 @@ public class BlockPylon extends BlockModWaterloggable implements EntityBlock {
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TilePylon();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TilePylon(pos, state);
 	}
 
 }

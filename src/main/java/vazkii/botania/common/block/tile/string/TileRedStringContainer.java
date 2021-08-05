@@ -28,11 +28,11 @@ import java.util.stream.IntStream;
 
 public class TileRedStringContainer extends TileRedString implements WorldlyContainer {
 
-	public TileRedStringContainer() {
-		this(ModTiles.RED_STRING_CONTAINER);
+	public TileRedStringContainer(BlockPos pos, BlockState state) {
+		this(ModTiles.RED_STRING_CONTAINER, pos, state);
 	}
 
-	public TileRedStringContainer(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+	protected TileRedStringContainer(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
 

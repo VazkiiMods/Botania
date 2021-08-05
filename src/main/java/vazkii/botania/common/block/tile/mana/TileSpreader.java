@@ -32,6 +32,7 @@ import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
@@ -134,8 +135,8 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 	private List<PositionProperties> lastTentativeBurst;
 	private boolean invalidTentativeBurst = false;
 
-	public TileSpreader() {
-		super(ModTiles.SPREADER);
+	public TileSpreader(BlockPos pos, BlockState state) {
+		super(ModTiles.SPREADER, pos, state);
 	}
 
 	@Override

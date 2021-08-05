@@ -13,6 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 
@@ -26,8 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorporeaInterceptor {
-	public TileCorporeaInterceptor() {
-		super(ModTiles.CORPOREA_INTERCEPTOR);
+	public TileCorporeaInterceptor(BlockPos pos, BlockState state) {
+		super(ModTiles.CORPOREA_INTERCEPTOR, pos, state);
 	}
 
 	@Override

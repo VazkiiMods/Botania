@@ -8,9 +8,10 @@
  */
 package vazkii.botania.common.block.mana;
 
-import net.minecraft.world.level.BlockGetter;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.tile.mana.TileRFGenerator;
@@ -25,8 +26,8 @@ public class BlockRFGenerator extends BlockMod implements EntityBlock {
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileRFGenerator();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileRFGenerator(pos, state);
 	}
 
 }

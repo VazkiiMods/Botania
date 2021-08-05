@@ -22,6 +22,7 @@ import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.lib.ModTags;
 
@@ -44,8 +45,8 @@ public class TileCocoon extends TileMod implements TickableBlockEntity {
 	public int chorusFruitGiven;
 	public boolean gaiaSpiritGiven;
 
-	public TileCocoon() {
-		super(ModTiles.COCOON);
+	public TileCocoon(BlockPos pos, BlockState state) {
+		super(ModTiles.COCOON, pos, state);
 	}
 
 	@Override

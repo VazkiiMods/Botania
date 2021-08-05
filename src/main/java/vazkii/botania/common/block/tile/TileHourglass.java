@@ -45,8 +45,8 @@ public class TileHourglass extends TileExposedSimpleInventory implements Tickabl
 	public boolean lock = false;
 	public boolean move = true;
 
-	public TileHourglass() {
-		super(ModTiles.HOURGLASS);
+	public TileHourglass(BlockPos pos, BlockState state) {
+		super(ModTiles.HOURGLASS, pos, state);
 	}
 
 	private boolean isDust() {

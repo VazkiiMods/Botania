@@ -16,6 +16,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.common.block.tile.ModTiles;
@@ -28,8 +29,8 @@ import java.util.Set;
 public class TileRedStringInterceptor extends TileRedString {
 	private static final Set<TileRedStringInterceptor> interceptors = new HashSet<>();
 
-	public TileRedStringInterceptor() {
-		super(ModTiles.RED_STRING_INTERCEPTOR);
+	public TileRedStringInterceptor(BlockPos pos, BlockState state) {
+		super(ModTiles.RED_STRING_INTERCEPTOR, pos, state);
 	}
 
 	@Override

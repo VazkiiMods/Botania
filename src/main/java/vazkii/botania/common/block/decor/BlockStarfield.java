@@ -37,8 +37,8 @@ public class BlockStarfield extends BlockModWaterloggable implements EntityBlock
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileStarfield();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileStarfield(pos, state);
 	}
 
 }

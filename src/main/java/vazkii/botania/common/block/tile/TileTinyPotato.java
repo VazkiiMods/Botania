@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -23,6 +24,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.ModBlocks;
@@ -45,8 +47,8 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Tickab
 	public Component name = new TextComponent("");
 	private int nextDoIt = 0;
 
-	public TileTinyPotato() {
-		super(ModTiles.TINY_POTATO);
+	public TileTinyPotato(BlockPos pos, BlockState state) {
+		super(ModTiles.TINY_POTATO, pos, state);
 	}
 
 	public void interact(Player player, InteractionHand hand, ItemStack stack, Direction side) {

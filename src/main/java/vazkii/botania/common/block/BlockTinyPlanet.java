@@ -38,8 +38,8 @@ public class BlockTinyPlanet extends BlockModWaterloggable implements IManaColli
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileTinyPlanet();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileTinyPlanet(pos, state);
 	}
 
 	@Override

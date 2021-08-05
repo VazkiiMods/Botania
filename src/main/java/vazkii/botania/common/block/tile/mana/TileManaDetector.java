@@ -10,8 +10,10 @@ package vazkii.botania.common.block.tile.mana;
 
 import com.google.common.base.Predicates;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 
@@ -21,8 +23,8 @@ import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 
 public class TileManaDetector extends TileMod implements TickableBlockEntity {
-	public TileManaDetector() {
-		super(ModTiles.MANA_DETECTOR);
+	public TileManaDetector(BlockPos pos, BlockState state) {
+		super(ModTiles.MANA_DETECTOR, pos, state);
 	}
 
 	@Override

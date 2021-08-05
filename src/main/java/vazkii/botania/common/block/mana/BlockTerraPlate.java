@@ -84,8 +84,8 @@ public class BlockTerraPlate extends BlockModWaterloggable implements EntityBloc
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileTerraPlate();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileTerraPlate(pos, state);
 	}
 
 	@Override

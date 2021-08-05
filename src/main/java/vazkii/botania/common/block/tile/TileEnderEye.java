@@ -8,11 +8,13 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
@@ -23,8 +25,8 @@ import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import java.util.List;
 
 public class TileEnderEye extends TileMod implements TickableBlockEntity {
-	public TileEnderEye() {
-		super(ModTiles.ENDER_EYE);
+	public TileEnderEye(BlockPos pos, BlockState state) {
+		super(ModTiles.ENDER_EYE, pos, state);
 	}
 
 	@Override

@@ -48,8 +48,8 @@ public class BlockForestEye extends BlockModWaterloggable implements EntityBlock
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileForestEye();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileForestEye(pos, state);
 	}
 
 }

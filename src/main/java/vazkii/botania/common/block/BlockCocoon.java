@@ -110,8 +110,8 @@ public class BlockCocoon extends BlockModWaterloggable implements EntityBlock {
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileCocoon();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileCocoon(pos, state);
 	}
 
 }

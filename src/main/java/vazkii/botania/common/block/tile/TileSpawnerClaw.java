@@ -22,6 +22,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.mana.IManaReceiver;
@@ -36,8 +37,8 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver, TickableB
 
 	private int mana = 0;
 
-	public TileSpawnerClaw() {
-		super(ModTiles.SPAWNER_CLAW);
+	public TileSpawnerClaw(BlockPos pos, BlockState state) {
+		super(ModTiles.SPAWNER_CLAW, pos, state);
 	}
 
 	@Override

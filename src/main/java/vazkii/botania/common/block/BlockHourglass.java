@@ -135,8 +135,8 @@ public class BlockHourglass extends BlockModWaterloggable implements IManaTrigge
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileHourglass();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileHourglass(pos, state);
 	}
 
 	@Override

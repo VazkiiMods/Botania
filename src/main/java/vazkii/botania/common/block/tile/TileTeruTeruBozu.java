@@ -8,16 +8,18 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.LevelData;
 import net.minecraft.world.level.storage.ServerLevelData;
 
 public class TileTeruTeruBozu extends TileMod implements TickableBlockEntity {
 	private boolean wasRaining = false;
 
-	public TileTeruTeruBozu() {
-		super(ModTiles.TERU_TERU_BOZU);
+	public TileTeruTeruBozu(BlockPos pos, BlockState state) {
+		super(ModTiles.TERU_TERU_BOZU, pos, state);
 	}
 
 	@Override

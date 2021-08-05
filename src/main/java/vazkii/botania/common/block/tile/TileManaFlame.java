@@ -8,15 +8,17 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class TileManaFlame extends TileMod {
 	private static final String TAG_COLOR = "color";
 
 	private int color = 0x20FF20;
 
-	public TileManaFlame() {
-		super(ModTiles.MANA_FLAME);
+	public TileManaFlame(BlockPos pos, BlockState state) {
+		super(ModTiles.MANA_FLAME, pos, state);
 	}
 
 	public void setColor(int color) {

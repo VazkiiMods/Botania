@@ -8,10 +8,12 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.mana.spark.ISparkAttachable;
@@ -24,8 +26,8 @@ import java.util.Collection;
 import java.util.List;
 
 public class TileSparkChanger extends TileExposedSimpleInventory {
-	public TileSparkChanger() {
-		super(ModTiles.SPARK_CHANGER);
+	public TileSparkChanger(BlockPos pos, BlockState state) {
+		super(ModTiles.SPARK_CHANGER, pos, state);
 	}
 
 	public void doSwap() {

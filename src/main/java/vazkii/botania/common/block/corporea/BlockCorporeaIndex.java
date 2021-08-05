@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.block.corporea;
 
-import net.minecraft.world.level.BlockGetter;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -33,7 +33,7 @@ public class BlockCorporeaIndex extends BlockModWaterloggable implements EntityB
 
 	@Nonnull
 	@Override
-	public TileCorporeaBase newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileCorporeaIndex();
+	public TileCorporeaBase newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileCorporeaIndex(pos, state);
 	}
 }

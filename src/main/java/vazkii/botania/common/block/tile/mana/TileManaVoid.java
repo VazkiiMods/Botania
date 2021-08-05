@@ -8,6 +8,9 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.state.BlockState;
+
 import vazkii.botania.api.mana.IManaReceiver;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -16,8 +19,8 @@ import vazkii.botania.common.block.tile.TileMod;
 public class TileManaVoid extends TileMod implements IManaReceiver {
 	private static final int SPARKLE_EVENT = 0;
 
-	public TileManaVoid() {
-		super(ModTiles.MANA_VOID);
+	public TileManaVoid(BlockPos pos, BlockState state) {
+		super(ModTiles.MANA_VOID, pos, state);
 	}
 
 	@Override

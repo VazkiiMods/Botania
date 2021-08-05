@@ -15,13 +15,14 @@ import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
 import vazkii.botania.common.block.tile.ModTiles;
 
 public class TileRedStringRelay extends TileRedString {
-	public TileRedStringRelay() {
-		super(ModTiles.RED_STRING_RELAY);
+	public TileRedStringRelay(BlockPos pos, BlockState state) {
+		super(ModTiles.RED_STRING_RELAY, pos, state);
 	}
 
 	@Override

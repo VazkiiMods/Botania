@@ -33,7 +33,6 @@ import vazkii.botania.api.item.IFloatingFlower.IslandType;
 import vazkii.botania.api.item.IFloatingFlowerProvider;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.BlockModWaterloggable;
-import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileFloatingFlower;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ColorHelper;
@@ -113,6 +112,6 @@ public class BlockFloatingFlower extends BlockModWaterloggable implements Entity
 	@Nonnull
 	@Override
 	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
-		return new TileFloatingFlower(ModTiles.MINI_ISLAND, pos, state);
+		return new TileFloatingFlower(pos, state);
 	}
 }

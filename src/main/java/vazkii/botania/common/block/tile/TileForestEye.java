@@ -8,15 +8,17 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 public class TileForestEye extends TileMod implements TickableBlockEntity {
 	public int entities = 0;
 
-	public TileForestEye() {
-		super(ModTiles.FORSET_EYE);
+	public TileForestEye(BlockPos pos, BlockState state) {
+		super(ModTiles.FORSET_EYE, pos, state);
 	}
 
 	@Override

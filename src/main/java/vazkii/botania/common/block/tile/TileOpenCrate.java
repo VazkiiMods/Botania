@@ -26,11 +26,11 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TileOpenCrate extends TileExposedSimpleInventory implements TickableBlockEntity {
-	public TileOpenCrate() {
-		this(ModTiles.OPEN_CRATE);
+	public TileOpenCrate(BlockPos pos, BlockState state) {
+		this(ModTiles.OPEN_CRATE, pos, state);
 	}
 
-	public TileOpenCrate(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+	protected TileOpenCrate(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
 

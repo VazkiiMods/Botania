@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.tile;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -20,6 +21,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
 
@@ -45,8 +47,8 @@ public class TileIncensePlate extends TileExposedSimpleInventory implements Worl
 	public boolean burning = false;
 	public int comparatorOutput = 0;
 
-	public TileIncensePlate() {
-		super(ModTiles.INCENSE_PLATE);
+	public TileIncensePlate(BlockPos pos, BlockState state) {
+		super(ModTiles.INCENSE_PLATE, pos, state);
 	}
 
 	@Override

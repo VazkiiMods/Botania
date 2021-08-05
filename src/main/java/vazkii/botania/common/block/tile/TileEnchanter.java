@@ -143,8 +143,8 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, Tickable
 		PYLON_LOCATIONS.put(Direction.Axis.Z, new BlockPos[] { new BlockPos(0, 1, -5), new BlockPos(0, 1, 5), new BlockPos(3, 1, -4), new BlockPos(3, 1, 4), new BlockPos(-3, 1, -4), new BlockPos(-3, 1, 4) });
 	}
 
-	public TileEnchanter() {
-		super(ModTiles.ENCHANTER);
+	public TileEnchanter(BlockPos pos, BlockState state) {
+		super(ModTiles.ENCHANTER, pos, state);
 	}
 
 	public void onWanded(Player player, ItemStack wand) {

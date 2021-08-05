@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.tile.corporea;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.decoration.ItemFrame;
@@ -15,6 +16,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.api.corporea.CorporeaHelper;
@@ -28,8 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TileCorporeaFunnel extends TileCorporeaBase implements ICorporeaRequestor {
-	public TileCorporeaFunnel() {
-		super(ModTiles.CORPOREA_FUNNEL);
+	public TileCorporeaFunnel(BlockPos pos, BlockState state) {
+		super(ModTiles.CORPOREA_FUNNEL, pos, state);
 	}
 
 	public void doRequest() {

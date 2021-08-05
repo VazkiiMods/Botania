@@ -97,8 +97,8 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TilePlatform();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TilePlatform(pos, state);
 	}
 
 	@Override

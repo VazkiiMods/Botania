@@ -8,9 +8,11 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -29,8 +31,8 @@ public class TilePump extends TileMod implements TickableBlockEntity {
 	public boolean hasRedstone = false;
 	private int lastComparator = 0;
 
-	public TilePump() {
-		super(ModTiles.PUMP);
+	public TilePump(BlockPos pos, BlockState state) {
+		super(ModTiles.PUMP, pos, state);
 	}
 
 	@Override

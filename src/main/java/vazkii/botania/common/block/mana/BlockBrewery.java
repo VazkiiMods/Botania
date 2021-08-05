@@ -109,8 +109,8 @@ public class BlockBrewery extends BlockModWaterloggable implements EntityBlock, 
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileBrewery();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileBrewery(pos, state);
 	}
 
 	@Environment(EnvType.CLIENT)

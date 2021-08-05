@@ -24,7 +24,7 @@ public abstract class TileSimpleInventory extends TileMod {
 
 	private final SimpleContainer itemHandler = createItemHandler();
 
-	public TileSimpleInventory(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+	protected TileSimpleInventory(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 		itemHandler.addListener(i -> setChanged());
 	}

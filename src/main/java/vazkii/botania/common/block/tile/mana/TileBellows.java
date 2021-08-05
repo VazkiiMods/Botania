@@ -10,6 +10,7 @@ package vazkii.botania.common.block.tile.mana;
 
 import com.mojang.datafixers.util.Pair;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -21,6 +22,7 @@ import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.FurnaceBlockEntity;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -37,8 +39,8 @@ public class TileBellows extends TileMod implements TickableBlockEntity {
 	public boolean active = false;
 	public float moving = 0F;
 
-	public TileBellows() {
-		super(ModTiles.BELLOWS);
+	public TileBellows(BlockPos pos, BlockState state) {
+		super(ModTiles.BELLOWS, pos, state);
 	}
 
 	public void interact() {

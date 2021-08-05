@@ -65,8 +65,8 @@ public class TileLightRelay extends TileMod implements TickableBlockEntity, IWan
 	private BlockPos bindPos = new BlockPos(0, -1, 0);
 	private int ticksElapsed = 0;
 
-	public TileLightRelay() {
-		super(ModTiles.LIGHT_RELAY);
+	public TileLightRelay(BlockPos pos, BlockState state) {
+		super(ModTiles.LIGHT_RELAY, pos, state);
 	}
 
 	public void mountEntity(Entity e) {

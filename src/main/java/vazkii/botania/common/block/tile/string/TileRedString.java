@@ -27,7 +27,7 @@ public abstract class TileRedString extends TileMod implements ITileBound, Ticka
 
 	private BlockPos binding;
 
-	public TileRedString(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+	protected TileRedString(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
 

@@ -15,6 +15,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
@@ -99,8 +100,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 	private int ticks = 0;
 	private boolean sendPacket = false;
 
-	public TilePool() {
-		super(ModTiles.POOL);
+	public TilePool(BlockPos pos, BlockState state) {
+		super(ModTiles.POOL, pos, state);
 	}
 
 	@Override

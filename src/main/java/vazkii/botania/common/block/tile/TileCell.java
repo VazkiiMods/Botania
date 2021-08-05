@@ -10,6 +10,7 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.subtile.generating.SubTileDandelifeon;
 
@@ -28,8 +29,8 @@ public class TileCell extends TileMod {
 	private BlockPos flowerCoords = new BlockPos(0, -1, 0);
 	private BlockPos validCoords = new BlockPos(0, -1, 0);
 
-	public TileCell() {
-		super(ModTiles.CELL_BLOCK);
+	public TileCell(BlockPos pos, BlockState state) {
+		super(ModTiles.CELL_BLOCK, pos, state);
 	}
 
 	public void setGeneration(SubTileDandelifeon flower, int gen) {

@@ -47,8 +47,8 @@ public class BlockSpawnerClaw extends BlockModWaterloggable implements EntityBlo
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(BlockGetter world) {
-		return new TileSpawnerClaw();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileSpawnerClaw(pos, state);
 	}
 
 }

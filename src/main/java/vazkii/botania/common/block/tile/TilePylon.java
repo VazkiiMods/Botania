@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -32,8 +33,8 @@ public class TilePylon extends BlockEntity implements TickableBlockEntity {
 	BlockPos centerPos;
 	private int ticks = 0;
 
-	public TilePylon() {
-		super(ModTiles.PYLON);
+	public TilePylon(BlockPos pos, BlockState state) {
+		super(ModTiles.PYLON, pos, state);
 	}
 
 	@Override

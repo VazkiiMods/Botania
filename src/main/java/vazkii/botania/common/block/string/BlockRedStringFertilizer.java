@@ -49,7 +49,7 @@ public class BlockRedStringFertilizer extends BlockRedString implements Bonemeal
 
 	@Nonnull
 	@Override
-	public TileRedString newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileRedStringFertilizer();
+	public TileRedString newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileRedStringFertilizer(pos, state);
 	}
 }

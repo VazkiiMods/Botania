@@ -19,6 +19,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.corporea.*;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -50,8 +51,8 @@ public class TileCorporeaRetainer extends TileMod {
 	private int compValue;
 	private boolean retainMissing = false;
 
-	public TileCorporeaRetainer() {
-		super(ModTiles.CORPOREA_RETAINER);
+	public TileCorporeaRetainer(BlockPos pos, BlockState state) {
+		super(ModTiles.CORPOREA_RETAINER, pos, state);
 	}
 
 	public void remember(BlockPos pos, ICorporeaRequestMatcher request, int count, int missing) {

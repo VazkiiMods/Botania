@@ -34,7 +34,7 @@ public class BlockBifrost extends BlockBifrostPerm implements EntityBlock {
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileBifrost();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileBifrost(pos, state);
 	}
 }

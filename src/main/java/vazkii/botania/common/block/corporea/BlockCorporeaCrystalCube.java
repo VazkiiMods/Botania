@@ -90,8 +90,8 @@ public class BlockCorporeaCrystalCube extends BlockModWaterloggable implements E
 
 	@Nonnull
 	@Override
-	public TileCorporeaBase newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileCorporeaCrystalCube();
+	public TileCorporeaBase newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileCorporeaCrystalCube(pos, state);
 	}
 
 	@Override

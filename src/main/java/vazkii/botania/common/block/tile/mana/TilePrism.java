@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.block.tile.mana;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
@@ -25,8 +26,8 @@ import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileExposedSimpleInventory;
 
 public class TilePrism extends TileExposedSimpleInventory {
-	public TilePrism() {
-		super(ModTiles.PRISM);
+	public TilePrism(BlockPos pos, BlockState state) {
+		super(ModTiles.PRISM, pos, state);
 	}
 
 	public void onBurstCollision(IManaBurst burst) {

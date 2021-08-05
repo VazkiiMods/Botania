@@ -14,12 +14,14 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -32,8 +34,8 @@ public class TileTurntable extends TileMod implements TickableBlockEntity {
 	private int speed = 1;
 	private boolean backwards = false;
 
-	public TileTurntable() {
-		super(ModTiles.TURNTABLE);
+	public TileTurntable(BlockPos pos, BlockState state) {
+		super(ModTiles.TURNTABLE, pos, state);
 	}
 
 	@Override
