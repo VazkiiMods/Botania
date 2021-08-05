@@ -32,6 +32,7 @@ public class PacketJump {
 
 				ItemStack amuletStack = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemCloudPendant, player);
 				if (!amuletStack.isEmpty()) {
+					net.minecraftforge.common.ForgeHooks.onLivingJump(player);
 					player.addExhaustion(0.3F);
 					player.fallDistance = 0;
 					ItemCloudPendant.setJumping(player);
