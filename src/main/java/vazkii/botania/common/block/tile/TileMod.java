@@ -37,8 +37,8 @@ public class TileMod extends BlockEntity implements BlockEntityClientSerializabl
 	}
 
 	@Override
-	public void load(BlockState state, CompoundTag tag) {
-		super.load(state, tag);
+	public void load(@Nonnull CompoundTag tag) {
+		super.load(tag);
 		readPacketNBT(tag);
 	}
 

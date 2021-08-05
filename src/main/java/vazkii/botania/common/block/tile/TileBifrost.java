@@ -44,8 +44,8 @@ public class TileBifrost extends TileMod implements TickableBlockEntity {
 	}
 
 	@Override
-	public void load(BlockState state, CompoundTag tag) {
-		super.load(state, tag);
+	public void load(@Nonnull CompoundTag tag) {
+		super.load(tag);
 		ticks = tag.getInt(TAG_TICKS);
 	}
 

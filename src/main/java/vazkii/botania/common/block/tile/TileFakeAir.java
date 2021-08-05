@@ -48,8 +48,8 @@ public class TileFakeAir extends TileMod {
 	}
 
 	@Override
-	public void load(BlockState state, CompoundTag tag) {
-		super.load(state, tag);
+	public void load(@Nonnull CompoundTag tag) {
+		super.load(tag);
 		flowerPos = new BlockPos(
 				tag.getInt(TAG_FLOWER_X),
 				tag.getInt(TAG_FLOWER_Y),

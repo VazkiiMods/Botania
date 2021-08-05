@@ -321,8 +321,8 @@ public class TileAlfPortal extends TileMod implements TickableBlockEntity {
 	}
 
 	@Override
-	public void load(BlockState state, CompoundTag cmp) {
-		super.load(state, cmp);
+	public void load(@Nonnull CompoundTag cmp) {
+		super.load(cmp);
 
 		int count = cmp.getInt(TAG_STACK_COUNT);
 		stacksIn.clear();
