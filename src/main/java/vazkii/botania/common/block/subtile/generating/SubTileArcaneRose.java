@@ -66,7 +66,7 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 		for (ExperienceOrb orb : orbs) {
 			if (orb.isAlive()) {
 				addMana(orb.getValue() * 35);
-				orb.remove();
+				orb.discard();
 				float pitch = (level.random.nextFloat() - level.random.nextFloat()) * 0.35F + 0.9F;
 				level.playSound(null, getEffectivePos(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 0.07F, pitch);
 				sync();

@@ -87,10 +87,10 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 			List<PrimedTnt> tnts = getLevel().getEntitiesOfClass(PrimedTnt.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)));
 			for (PrimedTnt tnt : tnts) {
 				FluidState fluid = getLevel().getFluidState(tnt.blockPosition());
-				if (tnt.getLife() == 1 && tnt.isAlive() && fluid.isEmpty()) {
+				if (tnt.getFuse() == 1 && tnt.isAlive() && fluid.isEmpty()) {
 					boolean unethical = EntityComponents.TNT_ETHICAL.get(tnt).unethical;
 					tnt.playSound(unethical ? SoundEvents.GENERIC_EXTINGUISH_FIRE : SoundEvents.GENERIC_EXPLODE, 0.2F, (1F + (getLevel().random.nextFloat() - getLevel().random.nextFloat()) * 0.2F) * 0.7F);
-					tnt.remove();
+					tnt.discard();
 					addMana(unethical ? 3 : getMaxMana());
 					sync();
 

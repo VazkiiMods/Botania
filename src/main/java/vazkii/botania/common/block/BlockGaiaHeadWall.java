@@ -8,9 +8,10 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.world.level.BlockGetter;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.WallSkullBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.tile.TileGaiaHead;
 
@@ -23,7 +24,7 @@ public class BlockGaiaHeadWall extends WallSkullBlock {
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(BlockGetter world) {
-		return new TileGaiaHead();
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return new TileGaiaHead(pos, state);
 	}
 }

@@ -56,8 +56,8 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 					LivingEntity target = shulker.getTarget();
 					if (target instanceof Enemy && target.isAlive()
 							&& target.distanceToSqr(posD) < RADIUS * RADIUS && target.getEffect(MobEffects.LEVITATION) != null) {
-						target.remove();
-						shulker.remove();
+						target.discard();
+						shulker.discard();
 
 						for (int i = 0; i < 10; i++) // so it's really loud >_>
 						{

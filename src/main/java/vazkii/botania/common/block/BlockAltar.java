@@ -18,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -132,7 +133,7 @@ public class BlockAltar extends BlockMod implements EntityBlock {
 					if (stack.getCount() == 1) {
 						player.setItemInHand(hand, fill(tile.getFluid().asVanilla(), stack));
 					} else {
-						player.getInventory().placeItemBackInInventory(player.level, new ItemStack(stack.getItem()));
+						player.getInventory().placeItemBackInInventory(new ItemStack(stack.getItem()));
 						stack.shrink(1);
 					}
 				}
@@ -170,9 +171,8 @@ public class BlockAltar extends BlockMod implements EntityBlock {
 	}
 
 	@Override
-	public void handleRain(Level world, BlockPos pos) {
+	public void handlePrecipitation(BlockState state, Level world, BlockPos pos, Biome.Precipitation precipitation) {
 		if (world.random.nextInt(20) == 1) {
-			BlockState state = world.getBlockState(pos);
 			if (state.getValue(FLUID) == State.EMPTY) {
 				world.setBlockAndUpdate(pos, state.setValue(FLUID, State.WATER));
 			}

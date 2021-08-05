@@ -98,7 +98,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 						((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), target.getX(), target.getY(), target.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 					}
 
-					target.remove();
+					target.discard();
 				}
 			}
 		}

@@ -84,7 +84,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 
 							if (waterAround < 2) {
 								if (bstate.getBlock() instanceof BucketPickup) {
-									((BucketPickup) bstate.getBlock()).takeLiquid(getLevel(), pos, bstate);
+									((BucketPickup) bstate.getBlock()).pickupBlock(getLevel(), pos, bstate);
 								} else {
 									getLevel().setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 								}

@@ -64,7 +64,7 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Tickab
 				if (stack.isEmpty()) {
 					player.setItemInHand(hand, stackAt);
 				} else if (!stackAt.isEmpty()) {
-					player.getInventory().placeItemBackInInventory(player.level, stackAt);
+					player.getInventory().placeItemBackInInventory(stackAt);
 				}
 
 				getItemHandler().setItem(index, copy);

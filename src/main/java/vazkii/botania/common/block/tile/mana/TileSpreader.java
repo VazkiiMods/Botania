@@ -160,7 +160,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		boolean inNetwork = ManaNetworkHandler.instance.isCollectorIn(self);
 		boolean wasInNetwork = inNetwork;
 		if (!inNetwork && !self.isRemoved()) {
-			ManaNetworkCallback.addCollector(this);
+			ManaNetworkCallback.addCollector(self);
 		}
 
 		boolean redstone = false;

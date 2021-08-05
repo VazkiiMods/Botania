@@ -282,7 +282,7 @@ public class TileLightRelay extends TileMod implements TickableBlockEntity, IWan
 			super.tick();
 
 			if (getPassengers().isEmpty() && !level.isClientSide) {
-				remove();
+				discard();
 				return;
 			}
 
@@ -316,7 +316,7 @@ public class TileLightRelay extends TileMod implements TickableBlockEntity, IWan
 					for (Entity e : getPassengers()) {
 						e.stopRiding();
 					}
-					remove();
+					discard();
 					return;
 				}
 			}

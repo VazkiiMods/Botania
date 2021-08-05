@@ -122,7 +122,7 @@ public class TileAlfPortal extends TileMod implements TickableBlockEntity {
 					}
 
 					if (consume) {
-						item.remove();
+						item.discard();
 						if (validateItemUsage(item)) {
 							addItem(stack);
 						}

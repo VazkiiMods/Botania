@@ -63,7 +63,7 @@ public class BlockCocoon extends BlockModWaterloggable implements EntityBlock {
 			addStack(world, pos, stack, false);
 
 			if (stack.isEmpty()) {
-				item.remove();
+				item.discard();
 			}
 		}
 	}

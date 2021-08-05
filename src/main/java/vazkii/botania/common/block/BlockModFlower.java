@@ -110,7 +110,7 @@ public class BlockModFlower extends FlowerBlock implements BonemealableBlock {
 	public void performBonemeal(@Nonnull ServerLevel world, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
 		Block block = ModBlocks.getDoubleFlower(color);
 		if (block instanceof DoublePlantBlock) {
-			((DoublePlantBlock) block).placeAt(world, pos, 3);
+			DoublePlantBlock.placeAt(world, block.defaultBlockState(), pos, 3);
 		}
 	}
 }

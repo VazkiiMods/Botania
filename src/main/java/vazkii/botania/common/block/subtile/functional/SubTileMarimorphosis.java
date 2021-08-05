@@ -101,7 +101,7 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 		for (Type type : Type.values()) {
 			values.add(new StoneEntry(type, type.contains(category) ? 12 : 1));
 		}
-		return WeighedRandom.getRandomItem(getLevel().random, values).type.biomeStone.defaultBlockState();
+		return WeighedRandom.getRandomItem(getLevel().random, values).get().type.biomeStone.defaultBlockState();
 	}
 
 	private static class StoneEntry extends WeighedRandom.WeighedRandomItem {

@@ -73,7 +73,7 @@ public class BlockSparkChanger extends BlockModWaterloggable implements EntityBl
 		ItemStack cstack = changer.getItemHandler().getItem(0);
 		if (!cstack.isEmpty()) {
 			changer.getItemHandler().setItem(0, ItemStack.EMPTY);
-			player.getInventory().placeItemBackInInventory(player.level, cstack);
+			player.getInventory().placeItemBackInInventory(cstack);
 			return InteractionResult.SUCCESS;
 		} else if (!pstack.isEmpty() && pstack.getItem() instanceof ItemSparkUpgrade) {
 			changer.getItemHandler().setItem(0, pstack.split(1));

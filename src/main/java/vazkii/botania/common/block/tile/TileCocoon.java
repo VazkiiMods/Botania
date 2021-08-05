@@ -12,11 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.tags.Tag;
-import net.minecraft.world.entity.AgableMob;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -104,8 +100,8 @@ public class TileCocoon extends TileMod implements TickableBlockEntity {
 
 			if (entity != null) {
 				entity.setPos(placePos.getX() + 0.5, placePos.getY() + 0.5, placePos.getZ() + 0.5);
-				if (entity instanceof AgableMob) {
-					((AgableMob) entity).setAge(-24000);
+				if (entity instanceof AgeableMob ageable) {
+					ageable.setAge(-24000);
 				}
 				entity.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(getBlockPos()), MobSpawnType.EVENT, null, null);
 				entity.setPersistenceRequired();

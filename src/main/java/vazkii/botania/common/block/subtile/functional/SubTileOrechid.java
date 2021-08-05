@@ -18,7 +18,6 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.OrechidOutput;
-import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.Botania;
@@ -78,13 +77,9 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 	@Nullable
 	private BlockState getOreToPut() {
 		List<OrechidOutput> values = getOreList();
-
-		if (values.isEmpty()) {
-			return null;
-		}
-
-		StateIngredient ore = WeighedRandom.getRandomItem(getLevel().random, values).getOutput();
-		return ore.pick(getLevel().getRandom());
+		return WeighedRandom.getRandomItem(getLevel().random, values).map(oo -> {
+			return oo.getOutput().pick(getLevel().getRandom());
+		}).orElse(null);
 	}
 
 	private BlockPos getCoordsToPut() {

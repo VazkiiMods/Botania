@@ -139,7 +139,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 					((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), item.getX(), item.getY(), item.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);
 				}
 
-				item.remove();
+				item.discard();
 			}
 		}
 	}

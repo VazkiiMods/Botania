@@ -72,8 +72,8 @@ public class SubTileClayconia extends TileEntityFunctionalFlower {
 			for (int j = -rangeY; j < rangeY + 1; j++) {
 				for (int k = -range; k < range + 1; k++) {
 					BlockPos pos = getEffectivePos().offset(i, j, k);
-					Block block = getLevel().getBlockState(pos).getBlock();
-					if (block.is(BlockTags.SAND)) {
+					BlockState state = getLevel().getBlockState(pos);
+					if (state.is(BlockTags.SAND)) {
 						possibleCoords.add(pos);
 					}
 				}

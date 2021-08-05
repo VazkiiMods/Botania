@@ -48,7 +48,7 @@ public class SubTileNarslimmus extends TileEntityGeneratingFlower {
 					int mul = (int) Math.pow(2, size);
 					int mana = 1200 * mul;
 					if (!slime.level.isClientSide) {
-						slime.remove();
+						slime.discard();
 						slime.playSound(size > 1 ? SoundEvents.SLIME_SQUISH : SoundEvents.SLIME_SQUISH_SMALL, 1, 0.02F);
 						addMana(mana);
 						sync();
