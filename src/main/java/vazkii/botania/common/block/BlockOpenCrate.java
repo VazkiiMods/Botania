@@ -15,8 +15,13 @@ import net.minecraft.world.Containers;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.Nullable;
+
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileOpenCrate;
 import vazkii.botania.common.block.tile.TileSimpleInventory;
 
@@ -67,4 +72,12 @@ public class BlockOpenCrate extends BlockMod implements EntityBlock {
 		return new TileOpenCrate(pos, state);
 	}
 
+	@Nullable
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+		if (!level.isClientSide) {
+			return createTickerHelper(type, ModTiles.OPEN_CRATE, TileOpenCrate::serverTick);
+		}
+		return null;
+	}
 }

@@ -11,10 +11,16 @@ package vazkii.botania.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.jetbrains.annotations.Nullable;
+
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.item.ModItems;
 
@@ -36,5 +42,14 @@ public class BlockBifrost extends BlockBifrostPerm implements EntityBlock {
 	@Override
 	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
 		return new TileBifrost(pos, state);
+	}
+
+	@Nullable
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+		if (!level.isClientSide) {
+			return BlockMod.createTickerHelper(type, ModTiles.BIFROST, TileBifrost::serverTick);
+		}
+		return null;
 	}
 }

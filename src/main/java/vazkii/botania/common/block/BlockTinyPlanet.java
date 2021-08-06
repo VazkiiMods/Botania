@@ -13,11 +13,16 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.api.mana.IManaCollisionGhost;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileTinyPlanet;
 
 import javax.annotation.Nonnull;
@@ -40,6 +45,12 @@ public class BlockTinyPlanet extends BlockModWaterloggable implements IManaColli
 	@Override
 	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
 		return new TileTinyPlanet(pos, state);
+	}
+
+	@Nullable
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+		return createTickerHelper(type, ModTiles.TINY_PLANET, TileTinyPlanet::commonTick);
 	}
 
 	@Override

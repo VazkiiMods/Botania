@@ -10,27 +10,23 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
-public class TileForestEye extends TileMod implements TickableBlockEntity {
+public class TileForestEye extends TileMod {
 	public int entities = 0;
 
 	public TileForestEye(BlockPos pos, BlockState state) {
 		super(ModTiles.FORSET_EYE, pos, state);
 	}
 
-	@Override
-	public void tick() {
-		if (level.isClientSide) {
-			return;
-		}
+	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, TileForestEye self) {
 		int range = 6;
 		int entityCount = level.getEntitiesOfClass(Animal.class, new AABB(worldPosition.offset(-range, -range, -range), worldPosition.offset(range + 1, range + 1, range + 1))).size();
-		if (entityCount != entities) {
-			entities = entityCount;
-			level.updateNeighbourForOutputSignal(worldPosition, getBlockState().getBlock());
+		if (entityCount != self.entities) {
+			self.entities = entityCount;
+			level.updateNeighbourForOutputSignal(worldPosition, state.getBlock());
 		}
 	}
 

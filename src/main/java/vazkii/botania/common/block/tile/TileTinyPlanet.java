@@ -9,18 +9,17 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.item.equipment.bauble.ItemTinyPlanet;
 
-public class TileTinyPlanet extends TileMod implements TickableBlockEntity {
+public class TileTinyPlanet extends TileMod {
 	public TileTinyPlanet(BlockPos pos, BlockState state) {
 		super(ModTiles.TINY_PLANET, pos, state);
 	}
 
-	@Override
-	public void tick() {
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileTinyPlanet self) {
 		ItemTinyPlanet.applyEffect(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5);
 	}
 

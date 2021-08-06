@@ -130,11 +130,7 @@ public class BlockPool extends BlockModWaterloggable implements EntityBlock, IWa
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		if (level.isClientSide) {
-			return createTickerHelper(type, ModTiles.POOL, TilePool::clientTick);
-		} else {
-			return createTickerHelper(type, ModTiles.POOL, TilePool::serverTick);
-		}
+		return createTickerHelper(type, ModTiles.POOL, level.isClientSide ? TilePool::clientTick : TilePool::serverTick);
 	}
 
 	@Override

@@ -13,10 +13,15 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.Nullable;
+
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileForestEye;
 
 import javax.annotation.Nonnull;
@@ -52,4 +57,12 @@ public class BlockForestEye extends BlockModWaterloggable implements EntityBlock
 		return new TileForestEye(pos, state);
 	}
 
+	@Nullable
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+		if (!level.isClientSide) {
+			return createTickerHelper(type, ModTiles.FORSET_EYE, TileForestEye::serverTick);
+		}
+		return null;
+	}
 }

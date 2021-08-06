@@ -10,34 +10,28 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.LevelData;
 import net.minecraft.world.level.storage.ServerLevelData;
 
-public class TileTeruTeruBozu extends TileMod implements TickableBlockEntity {
+public class TileTeruTeruBozu extends TileMod {
 	private boolean wasRaining = false;
 
 	public TileTeruTeruBozu(BlockPos pos, BlockState state) {
 		super(ModTiles.TERU_TERU_BOZU, pos, state);
 	}
 
-	@Override
-	public void tick() {
-		if (level.isClientSide) {
-			return;
-		}
-
+	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, TileTeruTeruBozu self) {
 		boolean isRaining = level.isRaining();
 		if (isRaining && level.random.nextInt(9600) == 0) {
 			level.getLevelData().setRaining(false);
 			resetRainTime(level);
 		}
 
-		if (wasRaining != isRaining) {
-			level.updateNeighbourForOutputSignal(worldPosition, getBlockState().getBlock());
+		if (self.wasRaining != isRaining) {
+			level.updateNeighbourForOutputSignal(worldPosition, state.getBlock());
 		}
-		wasRaining = isRaining;
+		self.wasRaining = isRaining;
 	}
 
 	public static void resetRainTime(Level w) {

@@ -30,7 +30,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
@@ -55,7 +54,7 @@ import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class TileLightRelay extends TileMod implements TickableBlockEntity, IWandBindable {
+public class TileLightRelay extends TileMod implements IWandBindable {
 	public static final int MAX_DIST = 20;
 
 	private static final String TAG_BIND_X = "bindX";
@@ -86,50 +85,54 @@ public class TileLightRelay extends TileMod implements TickableBlockEntity, IWan
 		}
 	}
 
-	@Override
-	public void tick() {
-		ticksElapsed++;
+	public static void clientTick(Level level, BlockPos worldPosition, BlockState state, TileLightRelay self) {
+		self.ticksElapsed++;
 
-		BlockPos nextDest = getNextDestination();
-		if (nextDest != null && nextDest.getY() > -1 && isValidBinding()) {
-			if (level.isClientSide) {
-				Vector3 vec = getMovementVector();
-				if (vec != null) {
-					double dist = 0.1;
-					int size = (int) (vec.mag() / dist);
-					int count = 10;
-					int start = ticksElapsed % size;
+		BlockPos nextDest = self.getNextDestination();
+		if (nextDest != null && nextDest.getY() > -1 && self.isValidBinding()) {
+			Vector3 vec = self.getMovementVector();
+			if (vec != null) {
+				double dist = 0.1;
+				int size = (int) (vec.mag() / dist);
+				int count = 10;
+				int start = self.ticksElapsed % size;
 
-					Vector3 vecMag = vec.normalize().multiply(dist);
-					Vector3 vecTip = vecMag.multiply(start).add(worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5);
+				Vector3 vecMag = vec.normalize().multiply(dist);
+				Vector3 vecTip = vecMag.multiply(start).add(worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5);
 
-					double radPer = Math.PI / 16.0;
-					float mul = 0.5F;
-					float mulPer = 0.4F;
-					float maxMul = 2;
-					WispParticleData data = WispParticleData.wisp(0.1F, 0.4F, 0.4F, 1F, 1);
-					for (int i = start; i < start + count; i++) {
-						mul = Math.min(maxMul, mul + mulPer);
-						double rad = radPer * (i + ticksElapsed * 0.4);
-						Vector3 vecRot = vecMag.crossProduct(Vector3.ONE).multiply(mul).rotate(rad, vecMag).add(vecTip);
-						level.addParticle(data, vecRot.x, vecRot.y, vecRot.z, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z);
-						vecTip = vecTip.add(vecMag);
-					}
+				double radPer = Math.PI / 16.0;
+				float mul = 0.5F;
+				float mulPer = 0.4F;
+				float maxMul = 2;
+				WispParticleData data = WispParticleData.wisp(0.1F, 0.4F, 0.4F, 1F, 1);
+				for (int i = start; i < start + count; i++) {
+					mul = Math.min(maxMul, mul + mulPer);
+					double rad = radPer * (i + self.ticksElapsed * 0.4);
+					Vector3 vecRot = vecMag.crossProduct(Vector3.ONE).multiply(mul).rotate(rad, vecMag).add(vecTip);
+					level.addParticle(data, vecRot.x, vecRot.y, vecRot.z, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z);
+					vecTip = vecTip.add(vecMag);
 				}
-			} else {
-				BlockPos endpoint = getEndpoint();
+			}
+		}
+	}
 
-				if (endpoint != null) {
-					AABB aabb = getBlockState().getShape(level, worldPosition).bounds().move(worldPosition);
-					float range = 0.6F;
-					List<ThrownEnderpearl> enderPearls = level.getEntitiesOfClass(ThrownEnderpearl.class, aabb.inflate(range));
-					for (ThrownEnderpearl pearl : enderPearls) {
-						pearl.teleportTo(
-								endpoint.getX() + pearl.getX() - worldPosition.getX(),
-								endpoint.getY() + pearl.getY() - worldPosition.getY(),
-								endpoint.getZ() + pearl.getZ() - worldPosition.getZ()
-						);
-					}
+	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, TileLightRelay self) {
+		self.ticksElapsed++;
+
+		BlockPos nextDest = self.getNextDestination();
+		if (nextDest != null && nextDest.getY() > -1 && self.isValidBinding()) {
+			BlockPos endpoint = self.getEndpoint();
+
+			if (endpoint != null) {
+				AABB aabb = state.getShape(level, worldPosition).bounds().move(worldPosition);
+				float range = 0.6F;
+				List<ThrownEnderpearl> enderPearls = level.getEntitiesOfClass(ThrownEnderpearl.class, aabb.inflate(range));
+				for (ThrownEnderpearl pearl : enderPearls) {
+					pearl.teleportTo(
+							endpoint.getX() + pearl.getX() - worldPosition.getX(),
+							endpoint.getY() + pearl.getY() - worldPosition.getY(),
+							endpoint.getZ() + pearl.getZ() - worldPosition.getZ()
+					);
 				}
 			}
 		}

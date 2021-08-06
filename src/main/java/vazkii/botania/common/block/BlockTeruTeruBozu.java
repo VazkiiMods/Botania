@@ -21,11 +21,16 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.Nullable;
+
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 
 import javax.annotation.Nonnull;
@@ -117,4 +122,12 @@ public class BlockTeruTeruBozu extends BlockModWaterloggable implements EntityBl
 		return new TileTeruTeruBozu(pos, state);
 	}
 
+	@Nullable
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+		if (!level.isClientSide) {
+			return createTickerHelper(type, ModTiles.TERU_TERU_BOZU, TileTeruTeruBozu::serverTick);
+		}
+		return null;
+	}
 }

@@ -35,7 +35,7 @@ public class BlockMod extends Block {
 	// [VanillaCopy] BaseEntityBlock. typecheck hackery.
 	@Nullable
 	@SuppressWarnings("unchecked")
-	protected static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(BlockEntityType<A> candidate, BlockEntityType<E> desired, BlockEntityTicker<? super E> ticker) {
+	public static <E extends BlockEntity, A extends BlockEntity> BlockEntityTicker<A> createTickerHelper(BlockEntityType<A> candidate, BlockEntityType<E> desired, BlockEntityTicker<? super E> ticker) {
 		return desired == candidate ? (BlockEntityTicker<A>) ticker : null;
 	}
 }

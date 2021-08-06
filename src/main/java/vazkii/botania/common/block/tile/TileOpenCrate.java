@@ -14,8 +14,8 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -25,7 +25,7 @@ import vazkii.botania.mixin.AccessorItemEntity;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileOpenCrate extends TileExposedSimpleInventory implements TickableBlockEntity {
+public class TileOpenCrate extends TileExposedSimpleInventory {
 	public TileOpenCrate(BlockPos pos, BlockState state) {
 		this(ModTiles.OPEN_CRATE, pos, state);
 	}
@@ -39,18 +39,13 @@ public class TileOpenCrate extends TileExposedSimpleInventory implements Tickabl
 		return new SimpleContainer(1);
 	}
 
-	@Override
-	public void tick() {
-		if (level.isClientSide) {
-			return;
-		}
-
+	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, TileOpenCrate self) {
 		boolean redstone = level.hasNeighborSignal(worldPosition);
 
-		if (canEject()) {
-			ItemStack stack = getItemHandler().getItem(0);
+		if (self.canEject()) {
+			ItemStack stack = self.getItemHandler().getItem(0);
 			if (!stack.isEmpty()) {
-				eject(stack, redstone);
+				self.eject(stack, redstone);
 			}
 		}
 	}

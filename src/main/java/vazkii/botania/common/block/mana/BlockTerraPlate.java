@@ -20,6 +20,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
@@ -27,7 +29,10 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import org.jetbrains.annotations.Nullable;
+
 import vazkii.botania.common.block.BlockModWaterloggable;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.mixin.AccessorRecipeManager;
@@ -86,6 +91,15 @@ public class BlockTerraPlate extends BlockModWaterloggable implements EntityBloc
 	@Override
 	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
 		return new TileTerraPlate(pos, state);
+	}
+
+	@Nullable
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+		if (!level.isClientSide) {
+			return createTickerHelper(type, ModTiles.TERRA_PLATE, TileTerraPlate::serverTick);
+		}
+		return null;
 	}
 
 	@Override

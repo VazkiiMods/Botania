@@ -19,7 +19,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -42,7 +42,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileTerraPlate extends TileMod implements ISparkAttachable, TickableBlockEntity {
+public class TileTerraPlate extends TileMod implements ISparkAttachable {
 	public static final LazyLoadedValue<IMultiblock> MULTIBLOCK = new LazyLoadedValue<>(() -> PatchouliAPI.get().makeMultiblock(
 			new String[][] {
 					{
@@ -70,51 +70,46 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable, Tickabl
 		super(ModTiles.TERRA_PLATE, pos, state);
 	}
 
-	@Override
-	public void tick() {
-		if (level.isClientSide) {
-			return;
-		}
-
+	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, TileTerraPlate self) {
 		boolean removeMana = true;
 
-		if (hasValidPlatform()) {
-			List<ItemStack> items = getItems();
+		if (self.hasValidPlatform()) {
+			List<ItemStack> items = self.getItems();
 			SimpleContainer inv = new SimpleContainer(items.toArray(new ItemStack[0]));
 
-			ITerraPlateRecipe recipe = getCurrentRecipe(inv);
+			ITerraPlateRecipe recipe = self.getCurrentRecipe(inv);
 			if (recipe != null) {
 				removeMana = false;
-				ISparkEntity spark = getAttachedSpark();
+				ISparkEntity spark = self.getAttachedSpark();
 				if (spark != null) {
 					SparkHelper.getSparksAround(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5, spark.getNetwork())
 							.filter(otherSpark -> spark != otherSpark && otherSpark.getAttachedTile() instanceof IManaPool)
 							.forEach(os -> os.registerTransfer(spark));
 				}
-				if (mana > 0) {
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
-					int proportion = Float.floatToIntBits(getCompletion());
-					PacketBotaniaEffect.sendNearby(level, getBlockPos(),
-							PacketBotaniaEffect.EffectType.TERRA_PLATE, getBlockPos().getX(), getBlockPos().getY(), getBlockPos().getZ(), proportion);
+				if (self.mana > 0) {
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
+					int proportion = Float.floatToIntBits(self.getCompletion());
+					PacketBotaniaEffect.sendNearby(level, worldPosition,
+							PacketBotaniaEffect.EffectType.TERRA_PLATE, worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), proportion);
 				}
 
-				if (mana >= recipe.getMana()) {
+				if (self.mana >= recipe.getMana()) {
 					for (ItemStack item : items) {
 						item.shrink(1);
 					}
-					ItemEntity item = new ItemEntity(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 0.2, getBlockPos().getZ() + 0.5, recipe.assemble(inv));
+					ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.2, worldPosition.getZ() + 0.5, recipe.assemble(inv));
 					item.setDeltaMovement(Vec3.ZERO);
 					level.addFreshEntity(item);
 					level.playSound(null, item.getX(), item.getY(), item.getZ(), ModSounds.terrasteelCraft, SoundSource.BLOCKS, 1, 1);
-					mana = 0;
-					level.updateNeighbourForOutputSignal(worldPosition, getBlockState().getBlock());
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+					self.mana = 0;
+					level.updateNeighbourForOutputSignal(worldPosition, state.getBlock());
+					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
 				}
 			}
 		}
 
 		if (removeMana) {
-			receiveMana(-1000);
+			self.receiveMana(-1000);
 		}
 	}
 

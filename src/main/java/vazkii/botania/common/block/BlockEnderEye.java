@@ -16,10 +16,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import org.jetbrains.annotations.Nullable;
+
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileEnderEye;
 
 import javax.annotation.Nonnull;
@@ -52,6 +57,15 @@ public class BlockEnderEye extends BlockMod implements EntityBlock {
 	@Override
 	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
 		return new TileEnderEye(pos, state);
+	}
+
+	@Nullable
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+		if (!level.isClientSide) {
+			return createTickerHelper(type, ModTiles.ENDER_EYE, TileEnderEye::serverTick);
+		}
+		return null;
 	}
 
 	@Override

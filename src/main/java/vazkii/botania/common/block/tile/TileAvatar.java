@@ -16,7 +16,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class TileAvatar extends TileSimpleInventory implements IAvatarTile, TickableBlockEntity {
+public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 	private static final int MAX_MANA = 6400;
 
 	private static final String TAG_ENABLED = "enabled";
@@ -44,18 +44,16 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile, Tick
 		super(ModTiles.AVATAR, pos, state);
 	}
 
-	@Override
-	public void tick() {
-		enabled = !level.hasNeighborSignal(worldPosition);
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileAvatar self) {
+		self.enabled = !level.hasNeighborSignal(worldPosition);
 
-		ItemStack stack = getItemHandler().getItem(0);
-		if (!stack.isEmpty() && stack.getItem() instanceof IAvatarWieldable) {
-			IAvatarWieldable wieldable = (IAvatarWieldable) stack.getItem();
-			wieldable.onAvatarUpdate(this, stack);
+		ItemStack stack = self.getItemHandler().getItem(0);
+		if (!stack.isEmpty() && stack.getItem() instanceof IAvatarWieldable wieldable) {
+			wieldable.onAvatarUpdate(self, stack);
 		}
 
-		if (enabled) {
-			ticksElapsed++;
+		if (self.enabled) {
+			self.ticksElapsed++;
 		}
 	}
 

@@ -10,12 +10,12 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nonnull;
 
-public class TileBifrost extends TileMod implements TickableBlockEntity {
+public class TileBifrost extends TileMod {
 	private static final String TAG_TICKS = "ticks";
 
 	public int ticks = 0;
@@ -24,14 +24,11 @@ public class TileBifrost extends TileMod implements TickableBlockEntity {
 		super(ModTiles.BIFROST, pos, state);
 	}
 
-	@Override
-	public void tick() {
-		if (!level.isClientSide) {
-			if (ticks <= 0) {
-				level.removeBlock(worldPosition, false);
-			} else {
-				ticks--;
-			}
+	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, TileBifrost self) {
+		if (self.ticks <= 0) {
+			level.removeBlock(worldPosition, false);
+		} else {
+			self.ticks--;
 		}
 	}
 

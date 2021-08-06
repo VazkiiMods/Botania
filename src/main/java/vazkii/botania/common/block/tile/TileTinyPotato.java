@@ -23,7 +23,7 @@ import net.minecraft.world.Nameable;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -39,7 +39,7 @@ import java.util.Locale;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class TileTinyPotato extends TileExposedSimpleInventory implements TickableBlockEntity, Nameable {
+public class TileTinyPotato extends TileExposedSimpleInventory implements Nameable {
 	private static final String TAG_NAME = "name";
 	private static final int JUMP_EVENT = 0;
 
@@ -108,18 +108,17 @@ public class TileTinyPotato extends TileExposedSimpleInventory implements Tickab
 		}
 	}
 
-	@Override
-	public void tick() {
-		if (jumpTicks > 0) {
-			jumpTicks--;
+	public static void commonTick(Level level, BlockPos pos, BlockState state, TileTinyPotato self) {
+		if (self.jumpTicks > 0) {
+			self.jumpTicks--;
 		}
 
 		if (!level.isClientSide) {
 			if (level.random.nextInt(100) == 0) {
-				jump();
+				self.jump();
 			}
-			if (nextDoIt > 0) {
-				nextDoIt--;
+			if (self.nextDoIt > 0) {
+				self.nextDoIt--;
 			}
 		}
 	}

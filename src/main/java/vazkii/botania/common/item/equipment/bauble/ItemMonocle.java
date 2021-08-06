@@ -102,7 +102,7 @@ public class ItemMonocle extends ItemBauble implements ICosmeticBauble {
 				if (item instanceof ICosmeticAttachable) {
 					ICosmeticAttachable attach = (ICosmeticAttachable) item;
 					ItemStack cosmetic = attach.getCosmeticItem(stack);
-					return !cosmetic.isEmpty() && cosmetic.getItem().is(ModTags.Items.BURST_VIEWERS);
+					return !cosmetic.isEmpty() && cosmetic.is(ModTags.Items.BURST_VIEWERS);
 				}
 			}
 			return false;
