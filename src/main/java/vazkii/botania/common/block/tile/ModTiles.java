@@ -35,7 +35,6 @@ public class ModTiles {
 	public static final BlockEntityType<TilePylon> PYLON = FabricBlockEntityTypeBuilder.create(TilePylon::new, manaPylon, naturaPylon, gaiaPylon).build(null);
 	public static final BlockEntityType<TileDistributor> DISTRIBUTOR = FabricBlockEntityTypeBuilder.create(TileDistributor::new, distributor).build(null);
 	public static final BlockEntityType<TileManaVoid> MANA_VOID = FabricBlockEntityTypeBuilder.create(TileManaVoid::new, manaVoid).build(null);
-	public static final BlockEntityType<TileManaDetector> MANA_DETECTOR = FabricBlockEntityTypeBuilder.create(TileManaDetector::new, manaDetector).build(null);
 	public static final BlockEntityType<TileEnchanter> ENCHANTER = FabricBlockEntityTypeBuilder.create(TileEnchanter::new, enchanter).build(null);
 	public static final BlockEntityType<TileTurntable> TURNTABLE = FabricBlockEntityTypeBuilder.create(TileTurntable::new, turntable).build(null);
 	public static final BlockEntityType<TileTinyPlanet> TINY_PLANET = FabricBlockEntityTypeBuilder.create(TileTinyPlanet::new, tinyPlanet).build(null);
@@ -90,7 +89,6 @@ public class ModTiles {
 		register(r, LibBlockNames.PYLON, PYLON);
 		register(r, LibBlockNames.DISTRIBUTOR, DISTRIBUTOR);
 		register(r, LibBlockNames.MANA_VOID, MANA_VOID);
-		register(r, LibBlockNames.MANA_DETECTOR, MANA_DETECTOR);
 		register(r, LibBlockNames.ENCHANTER, ENCHANTER);
 		register(r, LibBlockNames.TURNTABLE, TURNTABLE);
 		register(r, LibBlockNames.TINY_PLANET, TINY_PLANET);
