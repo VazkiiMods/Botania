@@ -89,7 +89,7 @@ public class BlockEnchanter extends BlockMod implements EntityBlock, IWandable, 
 				return InteractionResult.PASS;
 			}
 		} else if (enchanter.stage == TileEnchanter.State.IDLE) {
-			player.getInventory().placeItemBackInInventory(player.level, enchanter.itemToEnchant.copy());
+			player.getInventory().placeItemBackInInventory(enchanter.itemToEnchant.copy());
 			enchanter.itemToEnchant = ItemStack.EMPTY;
 			enchanter.sync();
 		}

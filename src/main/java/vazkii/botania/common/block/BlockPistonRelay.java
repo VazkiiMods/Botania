@@ -96,18 +96,6 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		return null;
 	}
 
-	private BlockState getStateAt(GlobalPos key) {
-		Object game = FabricLoader.getInstance().getGameInstance();
-		if (game instanceof MinecraftServer) {
-			MinecraftServer server = (MinecraftServer) game;
-			Level world = server.getLevel(key.dimension());
-			if (world != null) {
-				return world.getBlockState(key.pos());
-			}
-		}
-		return Blocks.AIR.defaultBlockState();
-	}
-
 	@Override
 	public boolean onUsedByWand(Player player, ItemStack stack, Level world, BlockPos pos, Direction side) {
 		if (world.isClientSide) {
@@ -140,14 +128,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		private static final String ID = "PistonRelayPairs";
 		public final Map<BlockPos, BlockPos> mapping = new HashMap<>();
 
-		public WorldData() {
-			super(ID);
-		}
-
-		@Override
-		public void load(@Nonnull CompoundTag cmp) {
-			mapping.clear();
-
+		public WorldData(@Nonnull CompoundTag cmp) {
 			ListTag list = cmp.getList("list", 11);
 			for (int i = 0; i < list.size(); i += 2) {
 				Tag from = list.get(i);
@@ -176,9 +157,9 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 		public static WorldData get(Level world) {
 			WorldData data = ((ServerLevel) world).getDataStorage().get(WorldData::new, ID);
 			if (data == null) {
-				data = new WorldData();
+				data = new WorldData(new CompoundTag());
 				data.setDirty();
-				((ServerLevel) world).getDataStorage().set(data);
+				((ServerLevel) world).getDataStorage().set(ID, data);
 			}
 			return data;
 		}
@@ -194,7 +175,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 				continue;
 			}
 
-			BlockState state = getStateAt(s);
+			BlockState state = world.getBlockState(s.pos());
 			if (state.getBlock() == Blocks.MOVING_PISTON) {
 				boolean sticky = PistonType.STICKY == state.getValue(MovingPistonBlock.TYPE);
 				Direction dir = ((PistonMovingBlockEntity) getTeAt(s)).getMovementDirection();

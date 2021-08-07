@@ -41,11 +41,11 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 	}
 
 	public static boolean isUnethical(Entity e) {
-		if (!e.level.getChunkSource().isEntityTickingChunk(e)) {
+		BlockPos center = e.blockPosition();
+		if (!e.level.isLoaded(center)) {
 			return false;
 		}
 
-		BlockPos center = e.blockPosition();
 		int x = center.getX();
 		int y = center.getY();
 		int z = center.getZ();

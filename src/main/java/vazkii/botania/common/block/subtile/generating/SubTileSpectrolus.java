@@ -8,7 +8,7 @@
  */
 package vazkii.botania.common.block.subtile.generating;
 
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.google.common.collect.Iterables;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
@@ -38,7 +38,6 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.mixin.AccessorItemEntity;
 
-import java.util.List;
 import java.util.function.Predicate;
 
 public class SubTileSpectrolus extends TileEntityGeneratingFlower {
@@ -64,14 +63,14 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 		}
 
 		// sheep need to enter the actual block space
-		List<Entity> targets = getLevel().getEntitiesOfClass(Sheep.class, new AABB(getEffectivePos()), Entity::isAlive);
+		var sheeps = getLevel().getEntitiesOfClass(Sheep.class, new AABB(getEffectivePos()), Entity::isAlive);
 
 		AABB itemAABB = new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1));
 		int slowdown = getSlowdownFactor();
-		Predicate<Entity> selector = e -> (e instanceof ItemEntity && e.isAlive() && ((AccessorItemEntity) e).getAge() >= slowdown);
-		targets.addAll(getLevel().getEntitiesOfClass(Entity.class, itemAABB, selector));
+		Predicate<Entity> selector = e -> (e.isAlive() && ((AccessorItemEntity) e).getAge() >= slowdown);
+		var items = getLevel().getEntitiesOfClass(ItemEntity.class, itemAABB, selector);
 
-		for (Entity target : targets) {
+		for (Entity target : Iterables.concat(sheeps, items)) {
 			if (target instanceof Sheep) {
 				Sheep sheep = (Sheep) target;
 				if (!sheep.isSheared() && sheep.getColor() == nextColor) {
@@ -142,8 +141,6 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 			mc.font.drawShadow(ms, stackName, x + 20, y + 5, color);
 			mc.getItemRenderer().renderAndDecorateItem(stack, x, y);
 		}
-
-		RenderSystem.disableLighting();
 	}
 
 	@Override

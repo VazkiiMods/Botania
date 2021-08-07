@@ -12,10 +12,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.mana.IPoolOverlayProvider;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -32,8 +32,8 @@ public class BlockManaVoid extends BlockMod implements IPoolOverlayProvider, Ent
 
 	@Nonnull
 	@Override
-	public BlockEntity newBlockEntity(@Nonnull BlockGetter world) {
-		return new TileManaVoid();
+	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
+		return new TileManaVoid(pos, state);
 	}
 
 	@Override

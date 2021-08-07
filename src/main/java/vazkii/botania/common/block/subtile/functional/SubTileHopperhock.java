@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block.subtile.functional;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
@@ -267,7 +266,6 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 		int y = mc.getWindow().getGuiScaledHeight() / 2 + 30;
 
 		mc.font.drawShadow(ms, filter, x, y, ChatFormatting.GRAY.getColor());
-		RenderSystem.disableLighting();
 	}
 
 	@Override

@@ -79,7 +79,7 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 					));
 					itemstack.shrink(1);
 				}
-				item.remove();
+				item.discard();
 			}
 		}
 	}

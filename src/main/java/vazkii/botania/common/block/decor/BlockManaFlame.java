@@ -61,7 +61,7 @@ public class BlockManaFlame extends BlockMod implements EntityBlock {
 			if (!stack.isEmpty() && ItemTags.SAPLINGS.contains(stack.getItem()) && !player.getInventory().contains(new ItemStack(ModItems.lexicon))) {
 				if (!world.isClientSide) {
 					stack.shrink(1);
-					player.getInventory().placeItemBackInInventory(player.level, new ItemStack(ModItems.lexicon));
+					player.getInventory().placeItemBackInInventory(new ItemStack(ModItems.lexicon));
 				}
 				return InteractionResult.SUCCESS;
 			}

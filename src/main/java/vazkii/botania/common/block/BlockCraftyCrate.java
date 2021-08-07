@@ -21,13 +21,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+
+import org.jetbrains.annotations.Nullable;
 
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.CratePattern;
 import vazkii.botania.api.wand.IWandHUD;
 import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileCraftCrate;
 
 import javax.annotation.Nonnull;
@@ -62,6 +67,15 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD, IWanda
 	@Override
 	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
 		return new TileCraftCrate(pos, state);
+	}
+
+	@Override
+	@Nullable
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+		if (!level.isClientSide) {
+			return createTickerHelper(type, ModTiles.CRAFT_CRATE, TileCraftCrate::serverTick);
+		}
+		return null;
 	}
 
 	@Override

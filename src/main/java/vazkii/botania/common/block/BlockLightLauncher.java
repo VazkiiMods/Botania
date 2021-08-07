@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.block;
 
+import com.google.common.collect.Iterables;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
@@ -79,14 +81,12 @@ public class BlockLightLauncher extends BlockModWaterloggable {
 
 		if (!relays.isEmpty()) {
 			AABB aabb = new AABB(pos, pos.offset(1, 1, 1));
-			List<Entity> entities = world.getEntitiesOfClass(LivingEntity.class, aabb);
-			entities.addAll(world.getEntitiesOfClass(ItemEntity.class, aabb));
+			var living = world.getEntitiesOfClass(LivingEntity.class, aabb);
+			var items = world.getEntitiesOfClass(ItemEntity.class, aabb);
 
-			if (!entities.isEmpty()) {
-				for (Entity entity : entities) {
-					TileLightRelay relay = relays.get(world.random.nextInt(relays.size()));
-					relay.mountEntity(entity);
-				}
+			for (Entity entity : Iterables.concat(living, items)) {
+				TileLightRelay relay = relays.get(world.random.nextInt(relays.size()));
+				relay.mountEntity(entity);
 			}
 		}
 	}

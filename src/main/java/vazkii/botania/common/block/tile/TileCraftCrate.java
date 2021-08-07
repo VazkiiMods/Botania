@@ -86,32 +86,27 @@ public class TileCraftCrate extends TileOpenCrate {
 		tag.put(TAG_CRAFTING_RESULT, craftResult.save(new CompoundTag()));
 	}
 
-	@Override
-	public void tick() {
-		if (level.isClientSide) {
-			return;
-		}
-
-		if (canEject() && isFull() && craft(true)) {
-			ejectAll();
+	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, TileCraftCrate self) {
+		if (self.canEject() && self.isFull() && self.craft(true)) {
+			self.ejectAll();
 		}
 
 		int newSignal = 0;
 		for (; newSignal < 9; newSignal++) // dis for loop be derpy
 		{
-			if (!isLocked(newSignal) && getItemHandler().getItem(newSignal).isEmpty()) {
+			if (!self.isLocked(newSignal) && self.getItemHandler().getItem(newSignal).isEmpty()) {
 				break;
 			}
 		}
 
-		if (newSignal != signal) {
-			signal = newSignal;
-			level.updateNeighbourForOutputSignal(worldPosition, getBlockState().getBlock());
+		if (newSignal != self.signal) {
+			self.signal = newSignal;
+			level.updateNeighbourForOutputSignal(worldPosition, state.getBlock());
 		}
 
-		if (dirty) {
-			dirty = false;
-			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+		if (self.dirty) {
+			self.dirty = false;
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
 		}
 	}
 

@@ -27,6 +27,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -107,9 +108,9 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 		if (getFluid() == State.EMPTY) {
 			// XXX: special handling for now since fish buckets don't have fluid cap, may need to be changed later
 			// todo fabric: check if LBA gives fish buckets this
-			if (stack.getItem() instanceof FishBucketItem && ((AccessorBucketItem) stack.getItem()).getFluid() == Fluids.WATER) {
+			if (stack.getItem() instanceof MobBucketItem && ((AccessorBucketItem) stack.getItem()).getFluid() == Fluids.WATER) {
 				setFluid(State.WATER);
-				((FishBucketItem) stack.getItem()).checkExtraContent(level, stack, getBlockPos().above()); // Spawns the fish
+				((MobBucketItem) stack.getItem()).checkExtraContent(null, level, stack, getBlockPos().above()); // Spawns the fish
 				item.setItem(new ItemStack(Items.BUCKET));
 				return true;
 			}

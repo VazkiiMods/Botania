@@ -29,8 +29,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -699,6 +697,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		rotationY = rot;
 	}
 
+	/* TODO 1.17 these are just gone. mojang why
 	@Override
 	public void rotate(Rotation rotationIn) {
 		switch (rotationIn) {
@@ -714,12 +713,12 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		default:
 			break;
 		}
-
+	
 		if (rotationX >= 360F) {
 			rotationX -= 360F;
 		}
 	}
-
+	
 	@Override
 	public void mirror(Mirror mirrorIn) {
 		switch (mirrorIn) {
@@ -732,11 +731,12 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		default:
 			break;
 		}
-
+	
 		if (rotationX < 0F) {
 			rotationX += 360F;
 		}
 	}
+	*/
 
 	@Override
 	public void commitRedirection() {

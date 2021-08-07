@@ -122,7 +122,7 @@ public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IM
 
 			prism.getItemHandler().setItem(0, heldItem.copy());
 		} else if (!lens.isEmpty()) {
-			player.getInventory().placeItemBackInInventory(player.level, lens);
+			player.getInventory().placeItemBackInInventory(lens);
 			prism.getItemHandler().setItem(0, ItemStack.EMPTY);
 		}
 
