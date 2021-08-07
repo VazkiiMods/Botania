@@ -85,13 +85,14 @@ public class ItemHorn extends Item {
 
 		for (BlockPos pos : BlockPos.betweenClosed(srcPos.offset(-range, -rangeY, -range),
 				srcPos.offset(range, rangeY, range))) {
+			BlockState state = world.getBlockState(pos);
 			Block block = world.getBlockState(pos).getBlock();
 			IHornHarvestable harvestable = BotaniaAPI.instance().getHornHarvestable(block).orElse(null);
 
 			if (harvestable != null
 					? harvestable.canHornHarvest(world, pos, stack, type)
-					: type == EnumHornType.WILD && block instanceof BushBlock && !block.is(ModTags.Blocks.SPECIAL_FLOWERS)
-							|| type == EnumHornType.CANOPY && BlockTags.LEAVES.contains(block)
+					: type == EnumHornType.WILD && block instanceof BushBlock && !state.is(ModTags.Blocks.SPECIAL_FLOWERS)
+							|| type == EnumHornType.CANOPY && state.is(BlockTags.LEAVES)
 							|| type == EnumHornType.COVERING && block == Blocks.SNOW) {
 				coords.add(pos.immutable());
 			}

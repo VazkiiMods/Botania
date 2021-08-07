@@ -102,7 +102,7 @@ public class ItemDodgeRing extends ItemBauble {
 			return;
 		}
 
-		float yaw = player.yRot;
+		float yaw = player.getYRot();
 		float x = Mth.sin(-yaw * 0.017453292F - (float) Math.PI);
 		float z = Mth.cos(-yaw * 0.017453292F - (float) Math.PI);
 		if (dir == Direction.NORTH || dir == Direction.SOUTH) {

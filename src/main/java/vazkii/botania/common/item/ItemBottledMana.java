@@ -40,6 +40,7 @@ import javax.annotation.Nonnull;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ItemBottledMana extends Item {
 	public static final int SWIGS = 6;
@@ -115,8 +116,8 @@ public class ItemBottledMana extends Item {
 			break;
 		}
 		case 8: { // Break your neck
-			living.xRot = (float) Math.random() * 360F;
-			living.yRot = (float) Math.random() * 180F;
+			living.setXRot((float) Math.random() * 360F);
+			living.setYRot((float) Math.random() * 180F);
 
 			break;
 		}
@@ -128,7 +129,7 @@ public class ItemBottledMana extends Item {
 				if (!state.isAir()) {
 					if (living instanceof ServerPlayer) {
 						ServerPlayer mp = (ServerPlayer) living;
-						mp.connection.teleport(living.getX(), i, living.getZ(), living.yRot, living.xRot);
+						mp.connection.teleport(living.getX(), i, living.getZ(), living.getYRot(), living.getXRot());
 					}
 					break;
 				}
@@ -196,7 +197,7 @@ public class ItemBottledMana extends Item {
 	}
 
 	private long randomSeed(ItemStack stack) {
-		long seed = Math.abs(random.nextLong());
+		long seed = Math.abs(ThreadLocalRandom.current().nextLong());
 		ItemNBTHelper.setLong(stack, TAG_SEED, seed);
 		return seed;
 	}
@@ -210,7 +211,7 @@ public class ItemBottledMana extends Item {
 	@Nonnull
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
-		return ItemUtils.useDrink(world, player, hand);
+		return ItemUtils.startUsingInstantly(world, player, hand);
 	}
 
 	@Nonnull

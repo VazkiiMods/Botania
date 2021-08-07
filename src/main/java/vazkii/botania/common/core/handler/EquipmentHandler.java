@@ -118,7 +118,7 @@ public abstract class EquipmentHandler {
 		@Override
 		protected ItemStack findItem(Item item, LivingEntity living) {
 			if (living instanceof Player) {
-				Inventory inv = ((Player) living).inventory;
+				Inventory inv = ((Player) living).getInventory();
 				for (int i = 0; i < 9; i++) {
 					ItemStack stack = inv.getItem(i);
 					if (stack.getItem() == item && canEquip(stack, living)) {
@@ -132,7 +132,7 @@ public abstract class EquipmentHandler {
 		@Override
 		protected ItemStack findItem(Predicate<ItemStack> pred, LivingEntity living) {
 			if (living instanceof Player) {
-				Inventory inv = ((Player) living).inventory;
+				Inventory inv = ((Player) living).getInventory();
 				for (int i = 0; i < 9; i++) {
 					ItemStack stack = inv.getItem(i);
 					if (pred.test(stack) && canEquip(stack, living)) {

@@ -9,6 +9,7 @@
 package vazkii.botania.common.item.lens;
 
 import com.google.common.base.Predicates;
+import com.google.common.collect.Iterables;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ExperienceOrb;
@@ -22,8 +23,6 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.common.item.ModItems;
 
-import java.util.List;
-
 public class LensInfluence extends Lens {
 
 	@Override
@@ -32,13 +31,13 @@ public class LensInfluence extends Lens {
 		if (!burst.isFake()) {
 			double range = 3.5;
 			AABB bounds = new AABB(entity.getX() - range, entity.getY() - range, entity.getZ() - range, entity.getX() + range, entity.getY() + range, entity.getZ() + range);
-			List<Entity> movables = entity.level.getEntitiesOfClass(ItemEntity.class, bounds);
-			movables.addAll(entity.level.getEntitiesOfClass(ExperienceOrb.class, bounds));
-			movables.addAll(entity.level.getEntitiesOfClass(AbstractArrow.class, bounds));
-			movables.addAll(entity.level.getEntitiesOfClass(FallingBlockEntity.class, bounds));
-			movables.addAll(entity.level.getEntitiesOfClass(ThrowableProjectile.class, bounds, Predicates.instanceOf(IManaBurst.class)));
+			var items = entity.level.getEntitiesOfClass(ItemEntity.class, bounds);
+			var expOrbs = entity.level.getEntitiesOfClass(ExperienceOrb.class, bounds);
+			var arrows = entity.level.getEntitiesOfClass(AbstractArrow.class, bounds);
+			var fallingBlocks = entity.level.getEntitiesOfClass(FallingBlockEntity.class, bounds);
+			var bursts = entity.level.getEntitiesOfClass(ThrowableProjectile.class, bounds, Predicates.instanceOf(IManaBurst.class));
 
-			for (Entity movable : movables) {
+			for (Entity movable : Iterables.concat(items, expOrbs, arrows, fallingBlocks, bursts)) {
 				if (movable == burst) {
 					continue;
 				}

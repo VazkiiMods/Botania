@@ -42,8 +42,8 @@ public class ItemWorldSeed extends Item {
 
 		BlockPos coords = ((ServerLevel) world).getSharedSpawnPos();
 		if (world.dimension() == Level.OVERWORLD && MathHelper.pointDistanceSpace(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5, player.getX(), player.getY(), player.getZ()) > 24) {
-			player.xRot = 0F;
-			player.yRot = 0F;
+			player.setXRot(0F);
+			player.setYRot(0F);
 			player.teleportTo(coords.getX() + 0.5, coords.getY() + 0.5, coords.getZ() + 0.5);
 
 			while (!world.noCollision(player, player.getBoundingBox())) {

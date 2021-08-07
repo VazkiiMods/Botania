@@ -38,7 +38,7 @@ public class ItemSlingshot extends Item {
 	public void releaseUsing(ItemStack stack, Level world, LivingEntity living, int duration) {
 		int j = getUseDuration(stack) - duration;
 
-		if (!world.isClientSide && (!(living instanceof Player) || ((Player) living).abilities.instabuild || PlayerHelper.hasAmmo((Player) living, AMMO_FUNC))) {
+		if (!world.isClientSide && (!(living instanceof Player) || ((Player) living).getAbilities().instabuild || PlayerHelper.hasAmmo((Player) living, AMMO_FUNC))) {
 			float f = j / 20.0F;
 			f = (f * f + f * 2.0F) / 3.0F;
 
@@ -46,15 +46,15 @@ public class ItemSlingshot extends Item {
 				return;
 			}
 
-			if (living instanceof Player && !((Player) living).abilities.instabuild) {
+			if (living instanceof Player && !((Player) living).getAbilities().instabuild) {
 				PlayerHelper.consumeAmmo((Player) living, AMMO_FUNC);
 			}
 
 			EntityVineBall ball = new EntityVineBall(living, false);
-			ball.shootFromRotation(living, living.xRot, living.yRot, 0F, 1.5F, 1F);
+			ball.shootFromRotation(living, living.getXRot(), living.getYRot(), 0F, 1.5F, 1F);
 			ball.setDeltaMovement(ball.getDeltaMovement().scale(1.6));
 			world.addFreshEntity(ball);
-			world.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.NEUTRAL, 0.5F, 0.4F / (living.getRandom().nextFloat() * 0.4F + 0.8F));
 		}
 	}
 

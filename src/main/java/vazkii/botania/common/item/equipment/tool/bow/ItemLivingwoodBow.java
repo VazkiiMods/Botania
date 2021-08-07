@@ -49,7 +49,7 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 		ItemStack itemstack = playerIn.getItemInHand(handIn);
 		boolean flag = canFire(itemstack, playerIn); // Botania - custom check
 
-		if (!playerIn.abilities.instabuild && !flag) {
+		if (!playerIn.getAbilities().instabuild && !flag) {
 			return InteractionResultHolder.fail(itemstack);
 		} else {
 			playerIn.startUsingItem(handIn);
@@ -77,11 +77,11 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 
 				float f = getPowerForTime(i);
 				if (!((double) f < 0.1D)) {
-					boolean flag1 = playerentity.abilities.instabuild || itemstack.getItem() == Items.ARROW;
+					boolean flag1 = playerentity.getAbilities().instabuild || itemstack.getItem() == Items.ARROW;
 					if (!worldIn.isClientSide) {
 						ArrowItem arrowitem = (ArrowItem) (itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
 						AbstractArrow abstractarrowentity = arrowitem.createArrow(worldIn, itemstack, playerentity);
-						abstractarrowentity.shootFromRotation(playerentity, playerentity.xRot, playerentity.yRot, 0.0F, f * 3.0F, 1.0F);
+						abstractarrowentity.shootFromRotation(playerentity, playerentity.getXRot(), playerentity.getYRot(), 0.0F, f * 3.0F, 1.0F);
 						if (f == 1.0F) {
 							abstractarrowentity.setCritArrow(true);
 						}
@@ -105,18 +105,20 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 						stack.hurtAndBreak(1, playerentity, (p_220009_1_) -> {
 							p_220009_1_.broadcastBreakEvent(playerentity.getUsedItemHand());
 						});
-						if (flag1 || playerentity.abilities.instabuild && (itemstack.getItem() == Items.SPECTRAL_ARROW || itemstack.getItem() == Items.TIPPED_ARROW)) {
+						if (flag1 || playerentity.getAbilities().instabuild && (itemstack.getItem() == Items.SPECTRAL_ARROW || itemstack.getItem() == Items.TIPPED_ARROW)) {
 							abstractarrowentity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
 						}
 
 						worldIn.addFreshEntity(abstractarrowentity);
 					}
 
-					worldIn.playSound((Player) null, playerentity.getX(), playerentity.getY(), playerentity.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
-					if (!flag1 && !playerentity.abilities.instabuild) {
+					worldIn.playSound((Player) null, playerentity.getX(), playerentity.getY(), playerentity.getZ(),
+							SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS,
+							1.0F, 1.0F / (playerentity.getRandom().nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+					if (!flag1 && !playerentity.getAbilities().instabuild) {
 						itemstack.shrink(1);
 						if (itemstack.isEmpty()) {
-							playerentity.inventory.removeItem(itemstack);
+							playerentity.getInventory().removeItem(itemstack);
 						}
 					}
 

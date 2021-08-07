@@ -67,7 +67,7 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 		if (count != getUseDuration(stack) && spawned < 20 && !world.isClientSide && (!(living instanceof Player) || ManaItemHandler.instance().requestManaExact(stack, (Player) living, 150, true))) {
 			Vector3 look = new Vector3(living.getLookAngle()).multiply(1, 0, 1);
 
-			double playerRot = Math.toRadians(living.yRot + 90);
+			double playerRot = Math.toRadians(living.getYRot() + 90);
 			if (look.x == 0 && look.z == 0) {
 				look = new Vector3(Math.cos(playerRot), 0, Math.sin(playerRot));
 			}
@@ -93,10 +93,10 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 
 			EntityBabylonWeapon weapon = new EntityBabylonWeapon(living, world);
 			weapon.setPos(end.x, end.y, end.z);
-			weapon.yRot = living.yRot;
+			weapon.setYRot(living.getYRot());
 			weapon.setVariety(rand.nextInt(WEAPON_TYPES));
 			weapon.setDelay(spawned);
-			weapon.setRotation(Mth.wrapDegrees(-living.yRot + 180));
+			weapon.setRotation(Mth.wrapDegrees(-living.getYRot() + 180));
 
 			world.addFreshEntity(weapon);
 			weapon.playSound(ModSounds.babylonSpawn, 1F, 1F + world.random.nextFloat() * 3F);

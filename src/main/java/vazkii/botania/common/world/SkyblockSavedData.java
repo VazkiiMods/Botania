@@ -31,15 +31,22 @@ public class SkyblockSavedData extends SavedData {
 	/** The offset is chosen to put islands under default settings in the center of a chunk region. */
 	private static final int OFFSET = 1;
 
-	public BiMap<IslandPos, UUID> skyblocks = HashBiMap.create();
-	private Spiral spiral = new Spiral();
+	public final BiMap<IslandPos, UUID> skyblocks;
+	private final Spiral spiral;
 
-	public SkyblockSavedData() {
-		super(NAME);
+	public SkyblockSavedData(CompoundTag nbt) {
+		HashBiMap<IslandPos, UUID> map = HashBiMap.create();
+		for (Tag inbt : nbt.getList("Islands", 10)) {
+			CompoundTag tag = (CompoundTag) inbt;
+			map.put(IslandPos.fromTag(tag), tag.getUUID("Player"));
+		}
+		this.skyblocks = map;
+		this.spiral = Spiral.fromArray(nbt.getIntArray("SpiralState"));
 	}
 
 	public static SkyblockSavedData get(ServerLevel world) {
-		return world.getDataStorage().computeIfAbsent(SkyblockSavedData::new, NAME);
+		return world.getDataStorage().computeIfAbsent(SkyblockSavedData::new,
+				() -> new SkyblockSavedData(new CompoundTag()), NAME);
 	}
 
 	public IslandPos getSpawn() {
@@ -63,17 +70,6 @@ public class SkyblockSavedData extends SavedData {
 		skyblocks.put(islandPos, playerId);
 		setDirty();
 		return islandPos;
-	}
-
-	@Override
-	public void load(CompoundTag nbt) {
-		HashBiMap<IslandPos, UUID> map = HashBiMap.create();
-		for (Tag inbt : nbt.getList("Islands", 10)) {
-			CompoundTag tag = (CompoundTag) inbt;
-			map.put(IslandPos.fromTag(tag), tag.getUUID("Player"));
-		}
-		this.skyblocks = map;
-		this.spiral = Spiral.fromArray(nbt.getIntArray("SpiralState"));
 	}
 
 	@Nonnull

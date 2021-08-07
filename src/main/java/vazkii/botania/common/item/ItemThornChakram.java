@@ -36,12 +36,12 @@ public class ItemThornChakram extends Item {
 			ItemStack copy = stack.copy();
 			copy.setCount(1);
 			EntityThornChakram c = new EntityThornChakram(player, world, copy);
-			c.shootFromRotation(player, player.xRot, player.yRot, 0.0F, 1.5F, 1.0F);
+			c.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
 			if (stack.getItem() == ModItems.flareChakram) {
 				c.setFire(true);
 			}
 			world.addFreshEntity(c);
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 0.5F, 0.4F / (player.getRandom().nextFloat() * 0.4F + 0.8F));
 			stack.shrink(1);
 		}
 

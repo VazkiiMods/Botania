@@ -242,7 +242,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 							EntityThrownItem thrown = new EntityThrownItem(item.level, item.getX(), item.getY(), item.getZ(), (ItemEntity) item);
 							item.level.addFreshEntity(thrown);
 						}
-						item.remove();
+						item.discard();
 					} else {
 						item.setDeltaMovement(moveVector.multiply(3, 1.5, 3).toVector3d());
 					}

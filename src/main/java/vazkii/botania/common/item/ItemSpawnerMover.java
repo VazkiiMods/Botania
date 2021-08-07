@@ -107,7 +107,7 @@ public class ItemSpawnerMover extends Item {
 					spawnerTag.putInt("x", pos.getX());
 					spawnerTag.putInt("y", pos.getY());
 					spawnerTag.putInt("z", pos.getZ());
-					te.load(world.getBlockState(pos), spawnerTag);
+					te.load(spawnerTag);
 				}
 			} else {
 				for (int i = 0; i < 100; i++) {

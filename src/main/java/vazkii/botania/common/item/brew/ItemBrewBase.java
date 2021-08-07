@@ -85,7 +85,7 @@ public class ItemBrewBase extends Item implements IBrewItem {
 	@Nonnull
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
-		return ItemUtils.useDrink(world, player, hand);
+		return ItemUtils.startUsingInstantly(world, player, hand);
 	}
 
 	@Nonnull
@@ -106,10 +106,10 @@ public class ItemBrewBase extends Item implements IBrewItem {
 			}
 
 			int swigs = getSwigsLeft(stack);
-			if (living instanceof Player && !((Player) living).abilities.instabuild) {
+			if (living instanceof Player && !((Player) living).getAbilities().instabuild) {
 				if (swigs == 1) {
 					ItemStack result = getBaseStack();
-					if (!((Player) living).inventory.add(result)) {
+					if (!((Player) living).getInventory().add(result)) {
 						return result;
 					} else {
 						return ItemStack.EMPTY;

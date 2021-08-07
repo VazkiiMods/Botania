@@ -184,15 +184,15 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 					if (tile != null) {
 						cmp = tile.save(cmp);
 						// Reset the TE so e.g. chests don't spawn their drops
-						BlockEntity newTile = ((EntityBlock) block).newBlockEntity(world);
-						world.setBlockEntity(pos_, newTile);
+						BlockEntity newTile = ((EntityBlock) block).newBlockEntity(pos_, state);
+						world.setBlockEntity(newTile);
 					}
 
 					// This can fail from e.g. permissions plugins or event cancellations
 					if (!world.removeBlock(pos_, false)) {
 						// put the original TE back
 						if (tile != null) {
-							world.setBlockEntity(pos_, tile);
+							world.setBlockEntity(tile);
 						}
 						continue;
 					}
@@ -304,14 +304,13 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 					BlockEntity tile = null;
 					CompoundTag tilecmp = ItemNBTHelper.getCompound(lens, TAG_TILE, false);
 					if (tilecmp.contains("id")) {
-						tile = BlockEntity.loadStatic(placeState, tilecmp);
+						tile = BlockEntity.loadStatic(pos, placeState, tilecmp);
 					}
 
 					entity.level.setBlockAndUpdate(pos, placeState);
 					entity.level.levelEvent(2001, pos, Block.getId(placeState));
 					if (tile != null) {
-						tile.setPosition(pos);
-						entity.level.setBlockEntity(pos, tile);
+						entity.level.setBlockEntity(tile);
 					}
 				} else {
 					int ox = ItemNBTHelper.getInt(lens, TAG_X, 0);
@@ -320,7 +319,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 					Block.dropResources(placeState, entity.level, new BlockPos(ox, oy, oz));
 				}
 
-				entity.remove();
+				entity.discard();
 			}
 		}
 	}

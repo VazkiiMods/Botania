@@ -268,7 +268,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 
 	@Override
 	public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack) {
-		return !otherStack.getItem().is(ModTags.Items.TERRA_PICK_BLACKLIST);
+		return !otherStack.is(ModTags.Items.TERRA_PICK_BLACKLIST);
 	}
 
 	@Override

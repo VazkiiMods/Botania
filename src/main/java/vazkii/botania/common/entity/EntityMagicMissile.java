@@ -188,12 +188,12 @@ public class EntityMagicMissile extends ThrowableProjectile {
 
 		double range = 12;
 		AABB bounds = new AABB(getX() - range, getY() - range, getZ() - range, getX() + range, getY() + range, getZ() + range);
-		List<LivingEntity> entities;
+		List<? extends LivingEntity> entities;
 		if (isEvil()) {
 			entities = level.getEntitiesOfClass(Player.class, bounds);
 		} else {
 			Entity owner = getOwner();
-			Predicate<LivingEntity> pred = EntitySelector.LIVING_ENTITY_STILL_ALIVE.and(targetPredicate(owner));
+			Predicate<Entity> pred = EntitySelector.LIVING_ENTITY_STILL_ALIVE.and(targetPredicate(owner));
 			entities = level.getEntitiesOfClass(LivingEntity.class, bounds, pred);
 		}
 
@@ -205,8 +205,8 @@ public class EntityMagicMissile extends ThrowableProjectile {
 		return target != null;
 	}
 
-	public static Predicate<LivingEntity> targetPredicate(Entity owner) {
-		return target -> shouldTarget(owner, target);
+	public static Predicate<Entity> targetPredicate(Entity owner) {
+		return target -> target instanceof LivingEntity living && shouldTarget(owner, living);
 	}
 
 	public static boolean shouldTarget(Entity owner, LivingEntity e) {

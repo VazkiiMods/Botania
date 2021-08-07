@@ -96,7 +96,7 @@ public class ItemMonocle extends ItemBauble implements ICosmeticBauble {
 		return !EquipmentHandler.findOrEmpty(stack -> {
 			if (!stack.isEmpty()) {
 				Item item = stack.getItem();
-				if (item.is(ModTags.Items.BURST_VIEWERS)) {
+				if (stack.is(ModTags.Items.BURST_VIEWERS)) {
 					return true;
 				}
 				if (item instanceof ICosmeticAttachable) {

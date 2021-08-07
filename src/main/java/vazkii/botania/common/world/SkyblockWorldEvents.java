@@ -10,6 +10,7 @@ package vazkii.botania.common.world;
 
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -72,7 +73,7 @@ public final class SkyblockWorldEvents {
 				BlockState state = world.getBlockState(hit.getBlockPos());
 				Block block = state.getBlock();
 
-				Tag<Block> tag = world.getTagManager().getBlocks().getTagOrEmpty(PEBBLE_SOURCES);
+				Tag<Block> tag = world.getTagManager().getOrEmpty(Registry.BLOCK_REGISTRY).getTagOrEmpty(PEBBLE_SOURCES);
 				if (tag.contains(block)) {
 					SoundType st = state.getSoundType();
 					SoundEvent sound = ((AccessorBlockSoundGroup) st).botania_getBreakSound();
@@ -97,7 +98,7 @@ public final class SkyblockWorldEvents {
 							if (equipped.isEmpty()) {
 								player.setItemInHand(hand, new ItemStack(ModItems.waterBowl));
 							} else {
-								player.getInventory().placeItemBackInInventory(player.level, new ItemStack(ModItems.waterBowl));
+								player.getInventory().placeItemBackInInventory(new ItemStack(ModItems.waterBowl));
 							}
 						}
 

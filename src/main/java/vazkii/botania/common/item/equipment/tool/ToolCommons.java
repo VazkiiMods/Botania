@@ -37,7 +37,7 @@ import java.util.function.Predicate;
 
 public final class ToolCommons {
 
-	public static final List<Material> materialsAxe = Arrays.asList(Material.CORAL, Material.LEAVES, Material.PLANT, Material.WOOD, Material.NETHER_WOOD, Material.VEGETABLE);
+	public static final List<Material> materialsAxe = Arrays.asList(Material.LEAVES, Material.PLANT, Material.WOOD, Material.NETHER_WOOD, Material.VEGETABLE);
 	private static boolean recCall = false;
 
 	/**

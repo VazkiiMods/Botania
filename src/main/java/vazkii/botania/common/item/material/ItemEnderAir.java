@@ -44,7 +44,7 @@ public class ItemEnderAir extends Item {
 
 			if (!world.isClientSide) {
 				ItemStack enderAir = new ItemStack(ModItems.enderAirBottle);
-				player.getInventory().placeItemBackInInventory(world, enderAir);
+				player.getInventory().placeItemBackInInventory(enderAir);
 				stack.shrink(1);
 				world.playSound(null, player.blockPosition(), SoundEvents.ITEM_PICKUP, SoundSource.NEUTRAL, 0.5F, 1F);
 			}
@@ -70,11 +70,11 @@ public class ItemEnderAir extends Item {
 			stack.shrink(1);
 		}
 
-		world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+		world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 0.5F, 0.4F / (player.getRandom().nextFloat() * 0.4F + 0.8F));
 
 		if (!world.isClientSide) {
 			EntityEnderAirBottle b = new EntityEnderAirBottle(player, world);
-			b.shootFromRotation(player, player.xRot, player.yRot, 0F, 1.5F, 1F);
+			b.shootFromRotation(player, player.getXRot(), player.getYRot(), 0F, 1.5F, 1F);
 			world.addFreshEntity(b);
 		}
 		return InteractionResultHolder.sidedSuccess(stack, world.isClientSide);

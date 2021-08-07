@@ -135,7 +135,7 @@ public class ItemItemFinder extends ItemBauble {
 				} else if (e instanceof Player) {
 					Player targetPlayer = (Player) e;
 					Container binv = BotaniaAPI.instance().getAccessoriesInventory(targetPlayer);
-					if (scanInventory(targetPlayer.inventory, pstack) || scanInventory(binv, pstack)) {
+					if (scanInventory(targetPlayer.getInventory(), pstack) || scanInventory(binv, pstack)) {
 						entIdBuilder.add(targetPlayer.getId());
 					}
 

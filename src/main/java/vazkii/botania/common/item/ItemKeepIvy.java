@@ -60,7 +60,7 @@ public class ItemKeepIvy extends Item {
 			for (ItemStack stack : keeps.getStacks()) {
 				ItemStack copy = stack.copy();
 				copy.removeTagKey(TAG_KEEP);
-				if (!newPlayer.inventory.add(copy)) {
+				if (!newPlayer.getInventory().add(copy)) {
 					newPlayer.spawnAtLocation(copy);
 				}
 			}

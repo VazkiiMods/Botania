@@ -64,23 +64,31 @@ public class EntityThrownItem extends ItemEntity {
 		// [VanillaCopy] derivative from ThrowableEntity
 		int pickupDelay = ((AccessorItemEntity) this).getPickupDelay();
 		Predicate<Entity> filter = e -> !e.isSpectator() && e.isAlive() && e.isPickable() && (!(e instanceof Player) || pickupDelay == 0);
-		HitResult ray = ProjectileUtil.getHitResult(this, filter);
-		if (ray.getType() == HitResult.Type.BLOCK) {
-			BlockPos pos = ((BlockHitResult) ray).getBlockPos();
-			BlockState state = this.level.getBlockState(pos);
-			if (state.is(Blocks.NETHER_PORTAL)) {
-				this.handleInsidePortal(pos);
-			} else if (state.is(Blocks.END_GATEWAY)) {
-				BlockEntity tileentity = this.level.getBlockEntity(pos);
-				if (tileentity instanceof TheEndGatewayBlockEntity) {
-					((TheEndGatewayBlockEntity) tileentity).teleportEntity(this);
+		HitResult hitResult = ProjectileUtil.getHitResult(this, filter);
+		boolean teleported = false;
+		if (hitResult.getType() == HitResult.Type.BLOCK) {
+			BlockPos blockPos = ((BlockHitResult) hitResult).getBlockPos();
+			BlockState blockState = this.level.getBlockState(blockPos);
+			if (blockState.is(Blocks.NETHER_PORTAL)) {
+				this.handleInsidePortal(blockPos);
+				teleported = true;
+			} else if (blockState.is(Blocks.END_GATEWAY)) {
+				BlockEntity blockEntity = this.level.getBlockEntity(blockPos);
+				if (blockEntity instanceof TheEndGatewayBlockEntity && TheEndGatewayBlockEntity.canEntityTeleport(this)) {
+					TheEndGatewayBlockEntity.teleportEntity(this.level, blockPos, blockState, this, (TheEndGatewayBlockEntity) blockEntity);
 				}
+
+				teleported = true;
 			}
 		}
 
+		if (teleported) {
+			return;
+		}
+
 		// Bonk any entities hit
-		if (!level.isClientSide && ray.getType() == HitResult.Type.ENTITY) {
-			Entity bonk = ((EntityHitResult) ray).getEntity();
+		if (!level.isClientSide && hitResult.getType() == HitResult.Type.ENTITY) {
+			Entity bonk = ((EntityHitResult) hitResult).getEntity();
 			bonk.hurt(DamageSource.MAGIC, 2.0F);
 			Entity item = new ItemEntity(level, getX(), getY(), getZ(), getItem());
 			level.addFreshEntity(item);

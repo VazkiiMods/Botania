@@ -8,16 +8,13 @@
  */
 package vazkii.botania.common.entity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -27,100 +24,86 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+// [VanillaCopy] ThrowableProjectile
 public abstract class EntityThrowableCopy extends Projectile {
-	protected EntityThrowableCopy(EntityType<? extends EntityThrowableCopy> type, Level worldIn) {
-		super(type, worldIn);
+	protected EntityThrowableCopy(EntityType<? extends ThrowableProjectile> entityType, Level level) {
+		super(entityType, level);
 	}
 
-	protected EntityThrowableCopy(EntityType<? extends EntityThrowableCopy> type, double x, double y, double z, Level worldIn) {
-		this(type, worldIn);
-		this.setPos(x, y, z);
+	protected EntityThrowableCopy(EntityType<? extends ThrowableProjectile> entityType, double d, double e, double f, Level level) {
+		this(entityType, level);
+		this.setPos(d, e, f);
 	}
 
-	protected EntityThrowableCopy(EntityType<? extends EntityThrowableCopy> type, LivingEntity livingEntityIn, Level worldIn) {
-		this(type, livingEntityIn.getX(), livingEntityIn.getEyeY() - (double) 0.1F, livingEntityIn.getZ(), worldIn);
-		this.setOwner(livingEntityIn);
+	protected EntityThrowableCopy(EntityType<? extends ThrowableProjectile> entityType, LivingEntity livingEntity, Level level) {
+		this(entityType, livingEntity.getX(), livingEntity.getEyeY() - 0.10000000149011612D, livingEntity.getZ(), level);
+		this.setOwner(livingEntity);
 	}
 
-	/**
-	 * Checks if the entity is in range to render.
-	 */
 	@Override
-	@Environment(EnvType.CLIENT)
-	public boolean shouldRenderAtSqrDistance(double distance) {
-		double d0 = this.getBoundingBox().getSize() * 4.0D;
-		if (Double.isNaN(d0)) {
-			d0 = 4.0D;
+	public boolean shouldRenderAtSqrDistance(double d) {
+		double e = this.getBoundingBox().getSize() * 4.0D;
+		if (Double.isNaN(e)) {
+			e = 4.0D;
 		}
 
-		d0 = d0 * 64.0D;
-		return distance < d0 * d0;
+		e *= 64.0D;
+		return d < e * e;
 	}
 
-	/**
-	 * Called to update the entity's position/logic.
-	 */
 	@Override
 	public void tick() {
 		super.tick();
-		HitResult raytraceresult = ProjectileUtil.getHitResult(this, this::canHitEntity);
-		boolean flag = false;
-		if (raytraceresult.getType() == HitResult.Type.BLOCK) {
-			BlockPos blockpos = ((BlockHitResult) raytraceresult).getBlockPos();
-			BlockState blockstate = this.level.getBlockState(blockpos);
-			if (blockstate.is(Blocks.NETHER_PORTAL)) {
-				this.handleInsidePortal(blockpos);
-				flag = true;
-			} else if (blockstate.is(Blocks.END_GATEWAY)) {
-				BlockEntity tileentity = this.level.getBlockEntity(blockpos);
-				if (tileentity instanceof TheEndGatewayBlockEntity) {
-					((TheEndGatewayBlockEntity) tileentity).teleportEntity(this);
+		HitResult hitResult = ProjectileUtil.getHitResult(this, this::canHitEntity);
+		boolean bl = false;
+		if (hitResult.getType() == HitResult.Type.BLOCK) {
+			BlockPos blockPos = ((BlockHitResult) hitResult).getBlockPos();
+			BlockState blockState = this.level.getBlockState(blockPos);
+			if (blockState.is(Blocks.NETHER_PORTAL)) {
+				this.handleInsidePortal(blockPos);
+				bl = true;
+			} else if (blockState.is(Blocks.END_GATEWAY)) {
+				BlockEntity blockEntity = this.level.getBlockEntity(blockPos);
+				if (blockEntity instanceof TheEndGatewayBlockEntity && TheEndGatewayBlockEntity.canEntityTeleport(this)) {
+					TheEndGatewayBlockEntity.teleportEntity(this.level, blockPos, blockState, this, (TheEndGatewayBlockEntity) blockEntity);
 				}
 
-				flag = true;
+				bl = true;
 			}
 		}
 
-		if (raytraceresult.getType() != HitResult.Type.MISS && !flag) {
-			this.onHit(raytraceresult);
+		if (hitResult.getType() != HitResult.Type.MISS && !bl) {
+			this.onHit(hitResult);
 		}
 
 		this.checkInsideBlocks();
-		Vec3 vector3d = this.getDeltaMovement();
-		double d2 = this.getX() + vector3d.x;
-		double d0 = this.getY() + vector3d.y;
-		double d1 = this.getZ() + vector3d.z;
+		Vec3 vec3 = this.getDeltaMovement();
+		double d = this.getX() + vec3.x;
+		double e = this.getY() + vec3.y;
+		double f = this.getZ() + vec3.z;
 		this.updateRotation();
-		float f;
+		float j;
 		if (this.isInWater()) {
 			for (int i = 0; i < 4; ++i) {
-				float f1 = 0.25F;
-				this.level.addParticle(ParticleTypes.BUBBLE, d2 - vector3d.x * 0.25D, d0 - vector3d.y * 0.25D, d1 - vector3d.z * 0.25D, vector3d.x, vector3d.y, vector3d.z);
+				float g = 0.25F;
+				this.level.addParticle(ParticleTypes.BUBBLE, d - vec3.x * 0.25D, e - vec3.y * 0.25D, f - vec3.z * 0.25D, vec3.x, vec3.y, vec3.z);
 			}
 
-			f = 0.8F;
+			j = 0.8F;
 		} else {
-			f = 0.99F;
+			j = 0.99F;
 		}
 
-		this.setDeltaMovement(vector3d.scale((double) f));
+		this.setDeltaMovement(vec3.scale((double) j));
 		if (!this.isNoGravity()) {
-			Vec3 vector3d1 = this.getDeltaMovement();
-			this.setDeltaMovement(vector3d1.x, vector3d1.y - (double) this.getGravityVelocity(), vector3d1.z);
+			Vec3 vec32 = this.getDeltaMovement();
+			this.setDeltaMovement(vec32.x, vec32.y - (double) this.getGravity(), vec32.z);
 		}
 
-		this.setPos(d2, d0, d1);
+		this.setPos(d, e, f);
 	}
 
-	/**
-	 * Gets the amount of gravity to apply to the thrown entity with each tick.
-	 */
-	protected float getGravityVelocity() {
+	protected float getGravity() {
 		return 0.03F;
-	}
-
-	@Override
-	public Packet<?> getAddEntityPacket() {
-		return new ClientboundAddEntityPacket(this);
 	}
 }

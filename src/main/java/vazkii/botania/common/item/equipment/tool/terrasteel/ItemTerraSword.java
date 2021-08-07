@@ -127,7 +127,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 							source = DamageSource.mobAttack((LivingEntity) thrower);
 						}
 						living.hurt(source, damage);
-						entity.remove();
+						entity.discard();
 						break;
 					}
 				}

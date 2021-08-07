@@ -188,7 +188,7 @@ public class ItemCraftingHalo extends Item {
 
 		// Give or toss all byproducts
 		NonNullList<ItemStack> remainingItems = recipe.getRemainingItems(craftInv);
-		remainingItems.forEach(s -> player.getInventory().placeItemBackInInventory(player.level, s));
+		remainingItems.forEach(s -> player.getInventory().placeItemBackInInventory(s));
 
 		// The items we consumed will stay in the dummy workbench and get deleted
 
@@ -543,8 +543,8 @@ public class ItemCraftingHalo extends Item {
 		}
 
 		@Override
-		public void clearGrid() {
-			super.clearGrid();
+		public void clearGrid(boolean unknown) {
+			super.clearGrid(unknown);
 		}
 	}
 }

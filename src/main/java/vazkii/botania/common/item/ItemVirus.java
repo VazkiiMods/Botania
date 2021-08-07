@@ -59,13 +59,13 @@ public class ItemVirus extends Item {
 					}
 				}
 
-				horse.remove();
+				horse.discard();
 
 				AbstractHorse newHorse = stack.getItem() == ModItems.necroVirus
 						? EntityType.ZOMBIE_HORSE.create(player.level)
 						: EntityType.SKELETON_HORSE.create(player.level);
 				newHorse.tameWithName(player);
-				newHorse.absMoveTo(horse.getX(), horse.getY(), horse.getZ(), horse.yRot, horse.xRot);
+				newHorse.absMoveTo(horse.getX(), horse.getY(), horse.getZ(), horse.getYRot(), horse.getXRot());
 
 				// Put the saddle back
 				if (!saddle.isEmpty()) {

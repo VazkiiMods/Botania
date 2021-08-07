@@ -210,9 +210,9 @@ public class ItemAstrolabe extends Item {
 			int range = (getSize(stack) ^ 1) / 2;
 
 			Direction dir = rtr.getDirection();
-			Direction rotationDir = Direction.fromYRot(player.yRot);
+			Direction rotationDir = Direction.fromYRot(player.getYRot());
 
-			boolean pitchedVertically = Math.abs(player.xRot) > 50;
+			boolean pitchedVertically = Math.abs(player.getXRot()) > 50;
 
 			boolean axisX = rotationDir.getAxis() == Axis.X;
 			boolean axisZ = rotationDir.getAxis() == Axis.Z;

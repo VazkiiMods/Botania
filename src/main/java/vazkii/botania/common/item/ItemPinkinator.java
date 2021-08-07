@@ -50,9 +50,9 @@ public class ItemPinkinator extends Item {
 		List<WitherBoss> withers = world.getEntitiesOfClass(WitherBoss.class, new AABB(player.getX() - range, player.getY() - range, player.getZ() - range, player.getX() + range, player.getY() + range, player.getZ() + range));
 		for (WitherBoss wither : withers) {
 			if (!world.isClientSide && wither.isAlive() && !(wither instanceof EntityPinkWither)) {
-				wither.remove();
+				wither.discard();
 				EntityPinkWither pink = ModEntities.PINK_WITHER.create(world);
-				pink.moveTo(wither.getX(), wither.getY(), wither.getZ(), wither.yRot, wither.xRot);
+				pink.moveTo(wither.getX(), wither.getY(), wither.getZ(), wither.getYRot(), wither.getXRot());
 				pink.setNoAi(wither.isNoAi());
 				if (wither.hasCustomName()) {
 					pink.setCustomName(wither.getCustomName());

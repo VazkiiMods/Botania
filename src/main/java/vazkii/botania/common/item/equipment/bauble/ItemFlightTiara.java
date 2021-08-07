@@ -242,7 +242,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 	public void onWornTick(ItemStack stack, LivingEntity player) {
 		if (player instanceof Player) {
 			Player p = (Player) player;
-			boolean flying = p.abilities.flying;
+			boolean flying = p.getAbilities().flying;
 
 			boolean wasSprting = ItemNBTHelper.getBoolean(stack, TAG_IS_SPRINTING, false);
 			boolean isSprinting = p.isSprinting();
@@ -439,7 +439,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		}
 
 		BakedModel model = MiscellaneousIcons.INSTANCE.tiaraWingIcons[meta - 1];
-		boolean flying = living instanceof Player && ((Player) living).abilities.flying;
+		boolean flying = living instanceof Player && ((Player) living).getAbilities().flying;
 		float flap = 20F + (float) ((Math.sin((double) (living.tickCount + partialTicks) * (flying ? 0.4F : 0.2F)) + 0.5F) * (flying ? 30F : 5F));
 
 		switch (meta) {

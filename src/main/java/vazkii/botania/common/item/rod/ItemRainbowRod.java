@@ -86,7 +86,7 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem,
 					if (!world.isEmptyBlock(pos) && world.getBlockState(pos) != bifrost && count >= 4) {
 						break; // Stop placing if you hit a wall (bifrost blocks are fine), but only after 4 segments.
 					}
-					if (Level.isOutsideBuildHeight(pos.getY())) {
+					if (world.isOutsideBuildHeight(pos.getY())) {
 						break;
 					}
 					if (placeBridgeSegment(world, pos, placePos, time)) {
