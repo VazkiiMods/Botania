@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.labellia0"
+      "text": {
+        "translate": "botania.page.labellia0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.labellia1",
+      "text": {
+        "translate": "botania.page.labellia1"
+      },
       "recipe": "botania:petal_apothecary/labellia"
     }
   ],

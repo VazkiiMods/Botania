@@ -7,15 +7,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.missileRod0"
+      "text": {
+        "translate": "botania.page.missileRod0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.missileRod2"
+      "text": {
+        "translate": "botania.page.missileRod2"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.missileRod1",
+      "text": {
+        "translate": "botania.page.missileRod1"
+      },
       "recipe": "botania:missile_rod"
     }
   ]

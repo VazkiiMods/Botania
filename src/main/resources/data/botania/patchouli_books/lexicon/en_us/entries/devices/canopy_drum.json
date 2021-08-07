@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.canopyDrum0"
+      "text": {
+        "translate": "botania.page.canopyDrum0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.canopyDrum1",
+      "text": {
+        "translate": "botania.page.canopyDrum1"
+      },
       "recipe": "botania:drum_canopy"
     }
   ]

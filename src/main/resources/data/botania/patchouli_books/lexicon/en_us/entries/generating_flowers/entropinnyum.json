@@ -6,16 +6,22 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.entropinnyum0"
+      "text": {
+        "translate": "botania.page.entropinnyum0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.entropinnyum1",
+      "text": {
+        "translate": "botania.page.entropinnyum1"
+      },
       "recipe": "botania:petal_apothecary/entropinnyum"
     },
     {
       "type": "text",
-      "text": "botania.page.entropinnyum2"
+      "text": {
+        "translate": "botania.page.entropinnyum2"
+      }
     }
   ],
   "extra_recipe_mappings": {

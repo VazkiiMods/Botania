@@ -7,23 +7,33 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.corporeaCrystalCube0"
+      "text": {
+        "translate": "botania.page.corporeaCrystalCube0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.corporeaCrystalCube1"
+      "text": {
+        "translate": "botania.page.corporeaCrystalCube1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.corporeaCrystalCube3"
+      "text": {
+        "translate": "botania.page.corporeaCrystalCube3"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.corporeaCrystalCube4"
+      "text": {
+        "translate": "botania.page.corporeaCrystalCube4"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.corporeaCrystalCube2",
+      "text": {
+        "translate": "botania.page.corporeaCrystalCube2"
+      },
       "recipe": "botania:corporea_crystal_cube"
     }
   ]

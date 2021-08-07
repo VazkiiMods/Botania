@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.baubleBox0"
+      "text": {
+        "translate": "botania.page.baubleBox0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.baubleBox1",
+      "text": {
+        "translate": "botania.page.baubleBox1"
+      },
       "recipe": "botania:bauble_box"
     }
   ]

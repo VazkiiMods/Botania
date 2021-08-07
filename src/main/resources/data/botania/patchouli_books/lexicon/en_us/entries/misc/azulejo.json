@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.azulejo0"
+      "text": {
+        "translate": "botania.page.azulejo0"
+      }
     },
     {
       "type": "image",
-      "text": "botania.page.azulejo1",
+      "text": {
+        "translate": "botania.page.azulejo1"
+      },
       "images": [
         "botania:textures/gui/entries/azulejos_0.png",
         "botania:textures/gui/entries/azulejos_1.png",
@@ -19,12 +23,16 @@
     },
     {
       "type": "crafting",
-      "text": "botania.page.azulejo2",
+      "text": {
+        "translate": "botania.page.azulejo2"
+      },
       "recipe": "botania:azulejo_0"
     },
     {
       "type": "botania:crafting_multi",
-      "text": "botania.page.azulejo3",
+      "text": {
+        "translate": "botania.page.azulejo3"
+      },
       "recipes": [
         "botania:azulejo_0_alt",
         "botania:azulejo_1",

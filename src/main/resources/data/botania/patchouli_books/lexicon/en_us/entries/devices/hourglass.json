@@ -7,31 +7,45 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.hourglass0"
+      "text": {
+        "translate": "botania.page.hourglass0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.hourglass1"
+      "text": {
+        "translate": "botania.page.hourglass1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.hourglass2"
+      "text": {
+        "translate": "botania.page.hourglass2"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.hourglass3"
+      "text": {
+        "translate": "botania.page.hourglass3"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.hourglass4"
+      "text": {
+        "translate": "botania.page.hourglass4"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.hourglass6"
+      "text": {
+        "translate": "botania.page.hourglass6"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.hourglass5",
+      "text": {
+        "translate": "botania.page.hourglass5"
+      },
       "recipe": "botania:hourglass"
     }
   ]

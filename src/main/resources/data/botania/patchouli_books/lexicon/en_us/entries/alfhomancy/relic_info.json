@@ -8,11 +8,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.relicInfo0"
+      "text": {
+        "translate": "botania.page.relicInfo0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.relicInfo1"
+      "text": {
+        "translate": "botania.page.relicInfo1"
+      }
     }
   ]
 }

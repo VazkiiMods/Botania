@@ -6,24 +6,34 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.poolCart0"
+      "text": {
+        "translate": "botania.page.poolCart0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.poolCart1"
+      "text": {
+        "translate": "botania.page.poolCart1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.poolCart2"
+      "text": {
+        "translate": "botania.page.poolCart2"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.poolCart3",
+      "text": {
+        "translate": "botania.page.poolCart3"
+      },
       "recipe": "botania:pool_minecart"
     },
     {
       "type": "crafting",
-      "text": "botania.page.poolCart4",
+      "text": {
+        "translate": "botania.page.poolCart4"
+      },
       "recipe": "botania:pump"
     }
   ]

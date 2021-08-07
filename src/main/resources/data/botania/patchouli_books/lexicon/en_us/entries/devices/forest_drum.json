@@ -6,15 +6,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.forestDrum0"
+      "text": {
+        "translate": "botania.page.forestDrum0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.forestDrum1"
+      "text": {
+        "translate": "botania.page.forestDrum1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.forestDrum2",
+      "text": {
+        "translate": "botania.page.forestDrum2"
+      },
       "recipe": "botania:drum_wild"
     }
   ]

@@ -7,15 +7,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.sparkChanger0"
+      "text": {
+        "translate": "botania.page.sparkChanger0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.sparkChanger1"
+      "text": {
+        "translate": "botania.page.sparkChanger1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.sparkChanger2",
+      "text": {
+        "translate": "botania.page.sparkChanger2"
+      },
       "recipe": "botania:spark_changer"
     }
   ]

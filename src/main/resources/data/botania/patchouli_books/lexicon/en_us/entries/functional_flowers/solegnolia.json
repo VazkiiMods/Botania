@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.solegnolia0"
+      "text": {
+        "translate": "botania.page.solegnolia0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.solegnolia1",
+      "text": {
+        "translate": "botania.page.solegnolia1"
+      },
       "recipe": "botania:petal_apothecary/solegnolia"
     }
   ],

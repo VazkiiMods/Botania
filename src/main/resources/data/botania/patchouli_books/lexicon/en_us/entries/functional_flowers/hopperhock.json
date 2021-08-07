@@ -6,15 +6,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.hopperhock0"
+      "text": {
+        "translate": "botania.page.hopperhock0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.hopperhock1"
+      "text": {
+        "translate": "botania.page.hopperhock1"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.hopperhock2",
+      "text": {
+        "translate": "botania.page.hopperhock2"
+      },
       "recipe": "botania:petal_apothecary/hopperhock"
     }
   ],

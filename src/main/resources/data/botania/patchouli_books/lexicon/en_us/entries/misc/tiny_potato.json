@@ -6,15 +6,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.tinyPotato0"
+      "text": {
+        "translate": "botania.page.tinyPotato0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.tinyPotato2"
+      "text": {
+        "translate": "botania.page.tinyPotato2"
+      }
     },
     {
       "type": "botania:mana_infusion",
-      "text": "botania.page.tinyPotato1",
+      "text": {
+        "translate": "botania.page.tinyPotato1"
+      },
       "recipes": "botania:mana_infusion/tiny_potato"
     }
   ]

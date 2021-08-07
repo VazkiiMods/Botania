@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.medumone0"
+      "text": {
+        "translate": "botania.page.medumone0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.medumone1",
+      "text": {
+        "translate": "botania.page.medumone1"
+      },
       "recipe": "botania:petal_apothecary/medumone"
     }
   ],

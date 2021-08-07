@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.mushrooms0"
+      "text": {
+        "translate": "botania.page.mushrooms0"
+      }
     },
     {
       "type": "botania:crafting_multi",
-      "text": "botania.page.mushrooms1",
+      "text": {
+        "translate": "botania.page.mushrooms1"
+      },
       "recipes": [
         "botania:mushroom_0",
         "botania:mushroom_1",

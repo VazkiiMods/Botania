@@ -8,15 +8,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.gaiaRitualHardmode0"
+      "text": {
+        "translate": "botania.page.gaiaRitualHardmode0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.gaiaRitualHardmode1"
+      "text": {
+        "translate": "botania.page.gaiaRitualHardmode1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.gaiaRitualHardmode2",
+      "text": {
+        "translate": "botania.page.gaiaRitualHardmode2"
+      },
       "recipe": "botania:gaia_ingot"
     }
   ]

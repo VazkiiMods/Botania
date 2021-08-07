@@ -6,16 +6,22 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.shinyFlowers0"
+      "text": {
+        "translate": "botania.page.shinyFlowers0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.shinyFlowers3"
+      "text": {
+        "translate": "botania.page.shinyFlowers3"
+      }
     },
     {
       "anchor": "shiny",
       "type": "botania:crafting_multi",
-      "text": "botania.page.shinyFlowers1",
+      "text": {
+        "translate": "botania.page.shinyFlowers1"
+      },
       "recipes": [
         "botania:white_shiny_flower",
         "botania:orange_shiny_flower",
@@ -38,7 +44,9 @@
     {
       "anchor": "floating",
       "type": "botania:crafting_multi",
-      "text": "botania.page.shinyFlowers2",
+      "text": {
+        "translate": "botania.page.shinyFlowers2"
+      },
       "recipes": [
         "botania:white_floating_flower",
         "botania:orange_floating_flower",

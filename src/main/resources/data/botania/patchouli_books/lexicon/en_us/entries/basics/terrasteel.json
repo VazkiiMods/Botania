@@ -8,28 +8,38 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.terrasteel0"
+      "text": {
+        "translate": "botania.page.terrasteel0"
+      }
     },
     {
       "type": "crafting",
       "title": "botania.page.terrasteel4",
-      "text": "botania.page.terrasteel1",
+      "text": {
+        "translate": "botania.page.terrasteel1"
+      },
       "recipe": "botania:terra_plate"
     },
     {
       "type": "text",
-      "text": "botania.page.terrasteel2"
+      "text": {
+        "translate": "botania.page.terrasteel2"
+      }
     },
     {
       "type": "multiblock",
       "multiblock_id": "botania:terra_plate",
-      "text": "botania.page.terrasteel4",
+      "text": {
+        "translate": "botania.page.terrasteel4"
+      },
       "symmetrical": true
     },
     {
       "type": "botania:terrasteel",
       "recipe": "botania:terra_plate/terrasteel_ingot",
-      "text": "botania.page.terrasteel3"
+      "text": {
+        "translate": "botania.page.terrasteel3"
+      }
     }
   ],
   "extra_recipe_mappings": {

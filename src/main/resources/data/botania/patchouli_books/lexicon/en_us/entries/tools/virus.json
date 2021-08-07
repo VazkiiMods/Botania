@@ -7,16 +7,22 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.virus0"
+      "text": {
+        "translate": "botania.page.virus0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.virus1",
+      "text": {
+        "translate": "botania.page.virus1"
+      },
       "recipe": "botania:virus_necrodermal"
     },
     {
       "type": "crafting",
-      "text": "botania.page.virus2",
+      "text": {
+        "translate": "botania.page.virus2"
+      },
       "recipe": "botania:virus_nullodermal"
     }
   ]

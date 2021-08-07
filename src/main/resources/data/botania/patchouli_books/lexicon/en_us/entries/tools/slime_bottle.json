@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.slimeBottle0"
+      "text": {
+        "translate": "botania.page.slimeBottle0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.slimeBottle1",
+      "text": {
+        "translate": "botania.page.slimeBottle1"
+      },
       "recipe": "botania:slime_bottle"
     }
   ]

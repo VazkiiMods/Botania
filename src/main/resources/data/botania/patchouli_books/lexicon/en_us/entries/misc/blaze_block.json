@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.blazeBlock0"
+      "text": {
+        "translate": "botania.page.blazeBlock0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.blazeBlock1",
+      "text": {
+        "translate": "botania.page.blazeBlock1"
+      },
       "recipe": "botania:blaze_block"
     }
   ]

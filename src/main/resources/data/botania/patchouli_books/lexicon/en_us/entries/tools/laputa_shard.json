@@ -7,20 +7,28 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.laputaShard0"
+      "text": {
+        "translate": "botania.page.laputaShard0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.laputaShard2"
+      "text": {
+        "translate": "botania.page.laputaShard2"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.laputaShard1",
+      "text": {
+        "translate": "botania.page.laputaShard1"
+      },
       "recipe": "botania:laputa_shard"
     },
     {
       "type": "botania:crafting_multi",
-      "text": "botania.page.laputaShard3",
+      "text": {
+        "translate": "botania.page.laputaShard3"
+      },
       "recipes": [
         "botania:dynamic/laputa_shard_upgrade"
       ]

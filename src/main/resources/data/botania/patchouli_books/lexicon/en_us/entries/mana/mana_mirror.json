@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.manaMirror0"
+      "text": {
+        "translate": "botania.page.manaMirror0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.manaMirror1",
+      "text": {
+        "translate": "botania.page.manaMirror1"
+      },
       "recipe": "botania:mana_mirror"
     }
   ]

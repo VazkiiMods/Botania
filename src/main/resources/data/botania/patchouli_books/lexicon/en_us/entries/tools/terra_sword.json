@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.terraSword0"
+      "text": {
+        "translate": "botania.page.terraSword0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.terraSword1",
+      "text": {
+        "translate": "botania.page.terraSword1"
+      },
       "recipe": "botania:terra_sword"
     }
   ]

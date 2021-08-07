@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.loonium0"
+      "text": {
+        "translate": "botania.page.loonium0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.loonium1",
+      "text": {
+        "translate": "botania.page.loonium1"
+      },
       "recipe": "botania:petal_apothecary/loonium"
     }
   ],

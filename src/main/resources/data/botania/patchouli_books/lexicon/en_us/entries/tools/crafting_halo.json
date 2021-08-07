@@ -6,15 +6,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.craftingHalo0"
+      "text": {
+        "translate": "botania.page.craftingHalo0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.craftingHalo1"
+      "text": {
+        "translate": "botania.page.craftingHalo1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.craftingHalo2",
+      "text": {
+        "translate": "botania.page.craftingHalo2"
+      },
       "recipe": "botania:crafting_halo"
     }
   ]

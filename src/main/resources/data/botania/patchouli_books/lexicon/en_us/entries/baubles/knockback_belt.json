@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.knockbackBelt0"
+      "text": {
+        "translate": "botania.page.knockbackBelt0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.knockbackBelt1",
+      "text": {
+        "translate": "botania.page.knockbackBelt1"
+      },
       "recipe": "botania:knockback_belt"
     }
   ]

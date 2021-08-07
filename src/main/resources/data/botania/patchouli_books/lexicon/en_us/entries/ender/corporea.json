@@ -7,40 +7,58 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.corporea0"
+      "text": {
+        "translate": "botania.page.corporea0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.corporea1"
+      "text": {
+        "translate": "botania.page.corporea1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.corporea2"
+      "text": {
+        "translate": "botania.page.corporea2"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.corporea3"
+      "text": {
+        "translate": "botania.page.corporea3"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.corporea4"
+      "text": {
+        "translate": "botania.page.corporea4"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.corporea5"
+      "text": {
+        "translate": "botania.page.corporea5"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.corporea6"
+      "text": {
+        "translate": "botania.page.corporea6"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.corporea7",
+      "text": {
+        "translate": "botania.page.corporea7"
+      },
       "recipe": "botania:corporea_spark"
     },
     {
       "type": "crafting",
-      "text": "botania.page.corporea8",
+      "text": {
+        "translate": "botania.page.corporea8"
+      },
       "recipe": "botania:corporea_spark_master"
     }
   ]

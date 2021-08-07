@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.fallenKanade0"
+      "text": {
+        "translate": "botania.page.fallenKanade0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.fallenKanade1",
+      "text": {
+        "translate": "botania.page.fallenKanade1"
+      },
       "recipe": "botania:petal_apothecary/fallen_kanade"
     }
   ],

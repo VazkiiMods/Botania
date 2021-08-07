@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.narslimmus0"
+      "text": {
+        "translate": "botania.page.narslimmus0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.narslimmus1",
+      "text": {
+        "translate": "botania.page.narslimmus1"
+      },
       "recipe": "botania:petal_apothecary/narslimmus"
     }
   ],

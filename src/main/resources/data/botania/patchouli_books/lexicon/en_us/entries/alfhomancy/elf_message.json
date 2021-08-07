@@ -12,32 +12,44 @@
     },
     {
       "type": "botania:lore_page",
-      "text": "botania.page.elfMessage1",
+      "text": {
+        "translate": "botania.page.elfMessage1"
+      },
       "right_side": "true"
     },
     {
       "type": "botania:lore_page",
-      "text": "botania.page.elfMessage2",
+      "text": {
+        "translate": "botania.page.elfMessage2"
+      },
       "left_side": "true"
     },
     {
       "type": "botania:lore_page",
-      "text": "botania.page.elfMessage3",
+      "text": {
+        "translate": "botania.page.elfMessage3"
+      },
       "right_side": "true"
     },
     {
       "type": "botania:lore_page",
-      "text": "botania.page.elfMessage4",
+      "text": {
+        "translate": "botania.page.elfMessage4"
+      },
       "left_side": "true"
     },
     {
       "type": "botania:lore_page",
-      "text": "botania.page.elfMessage5",
+      "text": {
+        "translate": "botania.page.elfMessage5"
+      },
       "right_side": "true"
     },
     {
       "type": "botania:lore_page",
-      "text": "botania.page.elfMessage6",
+      "text": {
+        "translate": "botania.page.elfMessage6"
+      },
       "left_side": "true"
     }
   ]

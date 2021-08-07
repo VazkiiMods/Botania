@@ -6,15 +6,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.fireRod0"
+      "text": {
+        "translate": "botania.page.fireRod0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.fireRod2"
+      "text": {
+        "translate": "botania.page.fireRod2"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.fireRod1",
+      "text": {
+        "translate": "botania.page.fireRod1"
+      },
       "recipe": "botania:fire_rod"
     }
   ]

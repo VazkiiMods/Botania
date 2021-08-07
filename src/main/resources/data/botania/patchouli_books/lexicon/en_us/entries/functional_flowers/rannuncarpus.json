@@ -6,15 +6,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.rannuncarpus0"
+      "text": {
+        "translate": "botania.page.rannuncarpus0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.rannuncarpus1"
+      "text": {
+        "translate": "botania.page.rannuncarpus1"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.rannuncarpus2",
+      "text": {
+        "translate": "botania.page.rannuncarpus2"
+      },
       "recipe": "botania:petal_apothecary/rannuncarpus"
     }
   ],

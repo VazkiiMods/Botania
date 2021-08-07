@@ -6,15 +6,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.turntable0"
+      "text": {
+        "translate": "botania.page.turntable0"
+      }
     },
-	{
+    {
       "type": "text",
-      "text": "botania.page.turntable2"
+      "text": {
+        "translate": "botania.page.turntable2"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.turntable1",
+      "text": {
+        "translate": "botania.page.turntable1"
+      },
       "recipe": "botania:turntable"
     }
   ]

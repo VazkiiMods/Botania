@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.hydroangeas0"
+      "text": {
+        "translate": "botania.page.hydroangeas0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.hydroangeas1",
+      "text": {
+        "translate": "botania.page.hydroangeas1"
+      },
       "recipe": "botania:petal_apothecary/hydroangeas"
     }
   ],

@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.arcanerose0"
+      "text": {
+        "translate": "botania.page.arcanerose0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.arcanerose1",
+      "text": {
+        "translate": "botania.page.arcanerose1"
+      },
       "recipe": "botania:petal_apothecary/rosa_arcana"
     }
   ],

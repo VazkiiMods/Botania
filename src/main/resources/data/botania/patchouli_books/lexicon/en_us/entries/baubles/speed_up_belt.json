@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.speedUpBelt0"
+      "text": {
+        "translate": "botania.page.speedUpBelt0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.speedUpBelt1",
+      "text": {
+        "translate": "botania.page.speedUpBelt1"
+      },
       "recipe": "botania:speed_up_belt"
     }
   ]

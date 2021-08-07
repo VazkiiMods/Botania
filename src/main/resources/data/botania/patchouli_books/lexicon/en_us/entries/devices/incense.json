@@ -6,28 +6,40 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.incense0"
+      "text": {
+        "translate": "botania.page.incense0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.incense1"
+      "text": {
+        "translate": "botania.page.incense1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.incense2"
+      "text": {
+        "translate": "botania.page.incense2"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.incense5"
+      "text": {
+        "translate": "botania.page.incense5"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.incense3",
+      "text": {
+        "translate": "botania.page.incense3"
+      },
       "recipe": "botania:incense_stick"
     },
     {
       "type": "crafting",
-      "text": "botania.page.incense4",
+      "text": {
+        "translate": "botania.page.incense4"
+      },
       "recipe": "botania:incense_plate"
     }
   ]

@@ -7,15 +7,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.manaTablet0"
+      "text": {
+        "translate": "botania.page.manaTablet0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.manaTablet1"
+      "text": {
+        "translate": "botania.page.manaTablet1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.manaTablet2",
+      "text": {
+        "translate": "botania.page.manaTablet2"
+      },
       "recipe": "botania:mana_tablet"
     }
   ]

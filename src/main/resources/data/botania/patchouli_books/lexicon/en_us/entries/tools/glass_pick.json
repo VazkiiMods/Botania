@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.glassPick0"
+      "text": {
+        "translate": "botania.page.glassPick0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.glassPick1",
+      "text": {
+        "translate": "botania.page.glassPick1"
+      },
       "recipe": "botania:glass_pickaxe"
     }
   ]

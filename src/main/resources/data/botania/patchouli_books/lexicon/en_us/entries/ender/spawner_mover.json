@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.spawnerMover0"
+      "text": {
+        "translate": "botania.page.spawnerMover0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.spawnerMover1",
+      "text": {
+        "translate": "botania.page.spawnerMover1"
+      },
       "recipe": "botania:spawner_mover"
     }
   ]

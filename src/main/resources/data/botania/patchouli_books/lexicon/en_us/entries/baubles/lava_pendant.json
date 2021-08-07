@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.lavaPendant0"
+      "text": {
+        "translate": "botania.page.lavaPendant0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.lavaPendant1",
+      "text": {
+        "translate": "botania.page.lavaPendant1"
+      },
       "recipe": "botania:lava_pendant"
     }
   ]

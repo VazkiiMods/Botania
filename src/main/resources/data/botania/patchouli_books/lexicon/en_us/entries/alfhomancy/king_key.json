@@ -8,7 +8,9 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.kingKey0"
+      "text": {
+        "translate": "botania.page.kingKey0"
+      }
     }
   ]
 }

@@ -5,16 +5,22 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.cacophonium0"
+      "text": {
+        "translate": "botania.page.cacophonium0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.cacophonium1",
+      "text": {
+        "translate": "botania.page.cacophonium1"
+      },
       "recipe": "botania:cacophonium"
     },
     {
       "type": "text",
-      "text": "botania.page.cacophonium2"
+      "text": {
+        "translate": "botania.page.cacophonium2"
+      }
     }
   ],
   "extra_recipe_mappings": {

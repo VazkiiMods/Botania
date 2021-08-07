@@ -7,15 +7,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.spawnerClaw0"
+      "text": {
+        "translate": "botania.page.spawnerClaw0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.spawnerClaw1"
+      "text": {
+        "translate": "botania.page.spawnerClaw1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.spawnerClaw2",
+      "text": {
+        "translate": "botania.page.spawnerClaw2"
+      },
       "recipe": "botania:spawner_claw"
     }
   ]

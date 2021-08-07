@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.marimorphosis0"
+      "text": {
+        "translate": "botania.page.marimorphosis0"
+      }
     },
     {
       "type": "image",
-      "text": "botania.page.marimorphosis1",
+      "text": {
+        "translate": "botania.page.marimorphosis1"
+      },
       "images": [
         "botania:textures/gui/entries/metamorphic_stones_0.png",
         "botania:textures/gui/entries/metamorphic_stones_1.png"
@@ -18,12 +22,16 @@
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.marimorphosis2",
+      "text": {
+        "translate": "botania.page.marimorphosis2"
+      },
       "recipe": "botania:petal_apothecary/marimorphosis"
     },
     {
       "type": "botania:crafting_multi",
-      "text": "botania.page.marimorphosis3",
+      "text": {
+        "translate": "botania.page.marimorphosis3"
+      },
       "recipes": [
         "botania:apothecary_forest",
         "botania:apothecary_plains",

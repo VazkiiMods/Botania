@@ -8,11 +8,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.orechid0"
+      "text": {
+        "translate": "botania.page.orechid0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.orechid1",
+      "text": {
+        "translate": "botania.page.orechid1"
+      },
       "recipe": "botania:petal_apothecary/orechid"
     }
   ],

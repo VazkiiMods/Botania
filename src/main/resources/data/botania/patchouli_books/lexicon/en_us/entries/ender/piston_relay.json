@@ -6,15 +6,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.pistonRelay0"
+      "text": {
+        "translate": "botania.page.pistonRelay0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.pistonRelay1"
+      "text": {
+        "translate": "botania.page.pistonRelay1"
+      }
     },
     {
       "type": "botania:mana_infusion",
-      "text": "botania.page.pistonRelay2",
+      "text": {
+        "translate": "botania.page.pistonRelay2"
+      },
       "recipes": "botania:mana_infusion/piston_relay"
     }
   ]

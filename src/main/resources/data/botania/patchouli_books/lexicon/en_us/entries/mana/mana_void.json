@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.manaVoid0"
+      "text": {
+        "translate": "botania.page.manaVoid0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.manaVoid1",
+      "text": {
+        "translate": "botania.page.manaVoid1"
+      },
       "recipe": "botania:mana_void"
     }
   ]

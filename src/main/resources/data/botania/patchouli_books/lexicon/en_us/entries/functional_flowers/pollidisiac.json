@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.pollidisiac0"
+      "text": {
+        "translate": "botania.page.pollidisiac0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.pollidisiac1",
+      "text": {
+        "translate": "botania.page.pollidisiac1"
+      },
       "recipe": "botania:petal_apothecary/pollidisiac"
     }
   ],

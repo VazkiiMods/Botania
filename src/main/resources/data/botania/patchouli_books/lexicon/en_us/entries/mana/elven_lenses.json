@@ -7,60 +7,86 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.elvenLenses0"
+      "text": {
+        "translate": "botania.page.elvenLenses0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.elvenLenses1"
+      "text": {
+        "translate": "botania.page.elvenLenses1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.elvenLenses2",
+      "text": {
+        "translate": "botania.page.elvenLenses2"
+      },
       "recipe": "botania:lens_paint"
     },
     {
       "type": "text",
-      "text": "botania.page.elvenLenses3"
+      "text": {
+        "translate": "botania.page.elvenLenses3"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.elvenLenses4",
+      "text": {
+        "translate": "botania.page.elvenLenses4"
+      },
       "recipe": "botania:lens_warp"
     },
     {
       "type": "text",
-      "text": "botania.page.elvenLenses5"
+      "text": {
+        "translate": "botania.page.elvenLenses5"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.elvenLenses6",
+      "text": {
+        "translate": "botania.page.elvenLenses6"
+      },
       "recipe": "botania:lens_redirect"
     },
     {
       "type": "text",
-      "text": "botania.page.elvenLenses7"
+      "text": {
+        "translate": "botania.page.elvenLenses7"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.elvenLenses8",
+      "text": {
+        "translate": "botania.page.elvenLenses8"
+      },
       "recipe": "botania:lens_firework"
     },
     {
       "type": "text",
-      "text": "botania.page.elvenLenses9"
+      "text": {
+        "translate": "botania.page.elvenLenses9"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.elvenLenses10",
+      "text": {
+        "translate": "botania.page.elvenLenses10"
+      },
       "recipe": "botania:lens_flare"
     },
     {
       "type": "text",
-      "text": "botania.page.elvenLenses11"
+      "text": {
+        "translate": "botania.page.elvenLenses11"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.elvenLenses12",
+      "text": {
+        "translate": "botania.page.elvenLenses12"
+      },
       "recipe": "botania:lens_tripwire"
     }
   ]

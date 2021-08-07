@@ -7,41 +7,57 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.elvenLore0"
+      "text": {
+        "translate": "botania.page.elvenLore0"
+      }
     },
     {
       "type": "botania:lore_page",
-      "text": "botania.page.elvenLore1",
+      "text": {
+        "translate": "botania.page.elvenLore1"
+      },
       "right_side": "true"
     },
     {
       "type": "botania:lore_page",
-      "text": "botania.page.elvenLore2",
+      "text": {
+        "translate": "botania.page.elvenLore2"
+      },
       "left_side": "true"
     },
     {
       "type": "botania:lore_page",
-      "text": "botania.page.elvenLore3",
+      "text": {
+        "translate": "botania.page.elvenLore3"
+      },
       "right_side": "true"
     },
     {
       "type": "botania:lore_page",
-      "text": "botania.page.elvenLore4",
+      "text": {
+        "translate": "botania.page.elvenLore4"
+      },
       "left_side": "true"
     },
     {
       "type": "botania:lore_page",
-      "text": "botania.page.elvenLore5",
+      "text": {
+        "translate": "botania.page.elvenLore5"
+      },
       "right_side": "true"
     },
     {
       "type": "botania:lore_page",
-      "text": "botania.page.elvenLore6",
+      "text": {
+        "translate": "botania.page.elvenLore6"
+      },
       "left_side": "true"
     },
     {
       "type": "botania:lore_page",
-      "text": "botania.page.elvenLore7",
+      "text": {
+        "translate": "botania.page.elvenLore7"
+      },
       "right_side": "true"
     }
   ]

@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.phantomInk0"
+      "text": {
+        "translate": "botania.page.phantomInk0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.phantomInk1",
+      "text": {
+        "translate": "botania.page.phantomInk1"
+      },
       "recipe": "botania:phantom_ink"
     }
   ]

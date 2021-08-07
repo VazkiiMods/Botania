@@ -6,12 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.enderAir0"
+      "text": {
+        "translate": "botania.page.enderAir0"
+      }
     },
-
     {
       "type": "text",
-      "text": "botania.page.enderAir1"
+      "text": {
+        "translate": "botania.page.enderAir1"
+      }
     }
   ]
 }

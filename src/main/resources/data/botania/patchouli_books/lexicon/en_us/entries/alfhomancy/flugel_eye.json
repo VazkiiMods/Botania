@@ -8,11 +8,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.flugelEye0"
+      "text": {
+        "translate": "botania.page.flugelEye0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.flugelEye1"
+      "text": {
+        "translate": "botania.page.flugelEye1"
+      }
     }
   ]
 }

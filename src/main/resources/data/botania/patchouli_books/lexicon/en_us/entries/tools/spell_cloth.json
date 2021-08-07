@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.spellCloth0"
+      "text": {
+        "translate": "botania.page.spellCloth0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.spellCloth1",
+      "text": {
+        "translate": "botania.page.spellCloth1"
+      },
       "recipe": "botania:spell_cloth"
     }
   ]

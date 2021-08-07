@@ -7,39 +7,57 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.corporeaIndex0"
+      "text": {
+        "translate": "botania.page.corporeaIndex0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.corporeaIndex1"
+      "text": {
+        "translate": "botania.page.corporeaIndex1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.corporeaIndex2"
+      "text": {
+        "translate": "botania.page.corporeaIndex2"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.corporeaIndex3"
+      "text": {
+        "translate": "botania.page.corporeaIndex3"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.corporeaIndex4"
+      "text": {
+        "translate": "botania.page.corporeaIndex4"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.corporeaIndex5"
+      "text": {
+        "translate": "botania.page.corporeaIndex5"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.corporeaIndex6"
+      "text": {
+        "translate": "botania.page.corporeaIndex6"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.corporeaIndex7"
+      "text": {
+        "translate": "botania.page.corporeaIndex7"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.corporeaIndex8",
+      "text": {
+        "translate": "botania.page.corporeaIndex8"
+      },
       "recipe": "botania:corporea_index"
     }
   ]

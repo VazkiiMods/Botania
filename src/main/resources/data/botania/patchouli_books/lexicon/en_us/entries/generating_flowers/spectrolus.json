@@ -7,19 +7,27 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.spectrolus0"
+      "text": {
+        "translate": "botania.page.spectrolus0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.spectrolus1"
+      "text": {
+        "translate": "botania.page.spectrolus1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.spectrolus1.5"
+      "text": {
+        "translate": "botania.page.spectrolus1.5"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.spectrolus2",
+      "text": {
+        "translate": "botania.page.spectrolus2"
+      },
       "recipe": "botania:petal_apothecary/spectrolus"
     }
   ],

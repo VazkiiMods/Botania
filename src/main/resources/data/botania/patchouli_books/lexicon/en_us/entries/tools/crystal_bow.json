@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.crystalBow0"
+      "text": {
+        "translate": "botania.page.crystalBow0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.crystalBow1",
+      "text": {
+        "translate": "botania.page.crystalBow1"
+      },
       "recipe": "botania:crystal_bow"
     }
   ]

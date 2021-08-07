@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.flowers0"
+      "text": {
+        "translate": "botania.page.flowers0"
+      }
     },
     {
       "type": "image",
-      "text": "botania.page.flowers1",
+      "text": {
+        "translate": "botania.page.flowers1"
+      },
       "images": [
         "botania:textures/gui/entries/flowers_0.png",
         "botania:textures/gui/entries/flowers_1.png"
@@ -19,11 +23,15 @@
     },
     {
       "type": "text",
-      "text": "botania.page.flowers2"
+      "text": {
+        "translate": "botania.page.flowers2"
+      }
     },
     {
       "type": "botania:crafting_multi",
-      "text": "botania.page.flowers3",
+      "text": {
+        "translate": "botania.page.flowers3"
+      },
       "recipes": [
         "botania:petal_white",
         "botania:petal_orange",
@@ -45,12 +53,16 @@
     },
     {
       "type": "crafting",
-      "text": "botania.page.flowers4",
+      "text": {
+        "translate": "botania.page.flowers4"
+      },
       "recipe": "botania:pestle_and_mortar"
     },
     {
       "type": "botania:crafting_multi",
-      "text": "botania.page.flowers5",
+      "text": {
+        "translate": "botania.page.flowers5"
+      },
       "recipes": [
         "botania:dye_white",
         "botania:dye_orange",
@@ -72,24 +84,34 @@
     },
     {
       "type": "text",
-      "text": "botania.page.flowers6"
+      "text": {
+        "translate": "botania.page.flowers6"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.flowers8",
+      "text": {
+        "translate": "botania.page.flowers8"
+      },
       "recipe": "botania:fertilizer_dye"
     },
     {
       "type": "text",
-      "text": "botania.page.flowers10"
+      "text": {
+        "translate": "botania.page.flowers10"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.flowers12"
+      "text": {
+        "translate": "botania.page.flowers12"
+      }
     },
     {
       "type": "botania:crafting_multi",
-      "text": "botania.page.flowers11",
+      "text": {
+        "translate": "botania.page.flowers11"
+      },
       "recipes": [
         "botania:petal_white_double",
         "botania:petal_orange_double",
@@ -111,7 +133,9 @@
     },
     {
       "type": "botania:crafting_multi",
-      "text": "botania.page.flowers9",
+      "text": {
+        "translate": "botania.page.flowers9"
+      },
       "recipes": [
         "botania:white_petal_block",
         "botania:orange_petal_block",
@@ -133,7 +157,9 @@
     },
     {
       "type": "botania:crafting_multi",
-      "text": "botania.page.flowers13",
+      "text": {
+        "translate": "botania.page.flowers13"
+      },
       "recipes": [
         "botania:conversions/white_petal_block_deconstruct",
         "botania:conversions/orange_petal_block_deconstruct",

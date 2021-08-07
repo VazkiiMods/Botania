@@ -7,23 +7,33 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.fIntro0"
+      "text": {
+        "translate": "botania.page.fIntro0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.fIntro1"
+      "text": {
+        "translate": "botania.page.fIntro1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.fIntro2"
+      "text": {
+        "translate": "botania.page.fIntro2"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.fIntro3"
+      "text": {
+        "translate": "botania.page.fIntro3"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.fIntro4",
+      "text": {
+        "translate": "botania.page.fIntro4"
+      },
       "recipe": "botania:redstone_root"
     }
   ]

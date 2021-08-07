@@ -7,15 +7,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.headCreating0"
+      "text": {
+        "translate": "botania.page.headCreating0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.headCreating2"
+      "text": {
+        "translate": "botania.page.headCreating2"
+      }
     },
     {
       "type": "botania:runic_altar",
-      "text": "botania.page.headCreating1",
+      "text": {
+        "translate": "botania.page.headCreating1"
+      },
       "recipe": "botania:runic_altar/head"
     }
   ]

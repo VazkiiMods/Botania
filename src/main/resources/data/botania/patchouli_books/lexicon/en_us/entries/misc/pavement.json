@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.pavement0"
+      "text": {
+        "translate": "botania.page.pavement0"
+      }
     },
     {
       "type": "botania:crafting_multi",
-      "text": "botania.page.pavement1",
+      "text": {
+        "translate": "botania.page.pavement1"
+      },
       "recipes": [
         "botania:white_pavement",
         "botania:black_pavement",

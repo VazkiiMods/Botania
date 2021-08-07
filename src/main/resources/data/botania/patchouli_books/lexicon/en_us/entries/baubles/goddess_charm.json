@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.goddessCharm0"
+      "text": {
+        "translate": "botania.page.goddessCharm0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.goddessCharm1",
+      "text": {
+        "translate": "botania.page.goddessCharm1"
+      },
       "recipe": "botania:goddess_charm"
     }
   ]

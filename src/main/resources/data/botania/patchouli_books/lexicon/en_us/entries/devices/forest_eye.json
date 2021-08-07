@@ -6,15 +6,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.forestEye0"
+      "text": {
+        "translate": "botania.page.forestEye0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.forestEye1"
+      "text": {
+        "translate": "botania.page.forestEye1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.forestEye2",
+      "text": {
+        "translate": "botania.page.forestEye2"
+      },
       "recipe": "botania:forest_eye"
     }
   ]

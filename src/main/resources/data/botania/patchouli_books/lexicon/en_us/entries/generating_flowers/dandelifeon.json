@@ -7,48 +7,70 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.dandelifeon0"
+      "text": {
+        "translate": "botania.page.dandelifeon0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.dandelifeon1"
+      "text": {
+        "translate": "botania.page.dandelifeon1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.dandelifeon2"
+      "text": {
+        "translate": "botania.page.dandelifeon2"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.dandelifeon3"
+      "text": {
+        "translate": "botania.page.dandelifeon3"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.dandelifeon4"
+      "text": {
+        "translate": "botania.page.dandelifeon4"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.dandelifeon5"
+      "text": {
+        "translate": "botania.page.dandelifeon5"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.dandelifeon6"
+      "text": {
+        "translate": "botania.page.dandelifeon6"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.dandelifeon10"
+      "text": {
+        "translate": "botania.page.dandelifeon10"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.dandelifeon7"
+      "text": {
+        "translate": "botania.page.dandelifeon7"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.dandelifeon8",
+      "text": {
+        "translate": "botania.page.dandelifeon8"
+      },
       "recipe": "botania:petal_apothecary/dandelifeon"
     },
     {
       "type": "crafting",
-      "text": "botania.page.dandelifeon9",
+      "text": {
+        "translate": "botania.page.dandelifeon9"
+      },
       "recipe": "botania:cell_block"
     }
   ],

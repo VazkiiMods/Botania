@@ -8,15 +8,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.cocoon0"
+      "text": {
+        "translate": "botania.page.cocoon0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.cocoon1"
+      "text": {
+        "translate": "botania.page.cocoon1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.cocoon2",
+      "text": {
+        "translate": "botania.page.cocoon2"
+      },
       "recipe": "botania:cocoon"
     }
   ]

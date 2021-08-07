@@ -7,19 +7,27 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.wand0"
+      "text": {
+        "translate": "botania.page.wand0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.wand1"
+      "text": {
+        "translate": "botania.page.wand1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.wand2"
+      "text": {
+        "translate": "botania.page.wand2"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.wand3",
+      "text": {
+        "translate": "botania.page.wand3"
+      },
       "recipe": "botania:twig_wand"
     }
   ]

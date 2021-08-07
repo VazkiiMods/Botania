@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.skyDirtRod0"
+      "text": {
+        "translate": "botania.page.skyDirtRod0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.skyDirtRod1",
+      "text": {
+        "translate": "botania.page.skyDirtRod1"
+      },
       "recipe": "botania:skydirt_rod"
     }
   ]

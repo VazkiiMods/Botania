@@ -8,53 +8,83 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.elfResources0"
+      "text": {
+        "translate": "botania.page.elfResources0"
+      }
     },
     {
       "type": "botania:elven_trade",
-      "text": "botania.page.elfResources1",
+      "text": {
+        "translate": "botania.page.elfResources1"
+      },
       "recipes": "botania:elven_trade/dreamwood"
     },
     {
       "type": "text",
-      "text": "botania.page.elfResources2"
+      "text": {
+        "translate": "botania.page.elfResources2"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.elfResources10",
+      "text": {
+        "translate": "botania.page.elfResources10"
+      },
       "recipe": "botania:dreamwood_twig"
     },
     {
       "type": "botania:elven_trade",
-      "text": "botania.page.elfResources3",
-      "recipes": ["botania:elven_trade/elementium", "botania:elven_trade/elementium_block"]
+      "text": {
+        "translate": "botania.page.elfResources3"
+      },
+      "recipes": [
+        "botania:elven_trade/elementium",
+        "botania:elven_trade/elementium_block"
+      ]
     },
     {
       "type": "botania:elven_trade",
-      "text": "botania.page.elfResources4",
-      "recipes": ["botania:elven_trade/pixie_dust"]
+      "text": {
+        "translate": "botania.page.elfResources4"
+      },
+      "recipes": [
+        "botania:elven_trade/pixie_dust"
+      ]
     },
     {
       "type": "botania:elven_trade",
-      "text": "botania.page.elfResources5",
-      "recipes": ["botania:elven_trade/dragonstone", "botania:elven_trade/dragonstone_block"]
+      "text": {
+        "translate": "botania.page.elfResources5"
+      },
+      "recipes": [
+        "botania:elven_trade/dragonstone",
+        "botania:elven_trade/dragonstone_block"
+      ]
     },
     {
       "type": "text",
-      "text": "botania.page.elfResources6"
+      "text": {
+        "translate": "botania.page.elfResources6"
+      }
     },
     {
       "type": "botania:elven_trade",
-      "text": "botania.page.elfResources7",
+      "text": {
+        "translate": "botania.page.elfResources7"
+      },
       "recipes": "botania:elven_trade/elf_quartz"
     },
     {
       "type": "text",
-      "text": "botania.page.elfResources8"
+      "text": {
+        "translate": "botania.page.elfResources8"
+      }
     },
     {
       "type": "botania:elven_trade",
-      "text": "botania.page.elfResources9",
+      "text": {
+        "translate": "botania.page.elfResources9"
+      },
       "recipes": "botania:elven_trade/elf_glass"
     }
   ]

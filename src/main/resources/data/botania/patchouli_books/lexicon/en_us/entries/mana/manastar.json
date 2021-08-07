@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.manastar0"
+      "text": {
+        "translate": "botania.page.manastar0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.manastar1",
+      "text": {
+        "translate": "botania.page.manastar1"
+      },
       "recipe": "botania:petal_apothecary/manastar"
     }
   ],

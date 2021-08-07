@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.fireChakram0"
+      "text": {
+        "translate": "botania.page.fireChakram0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.fireChakram1",
+      "text": {
+        "translate": "botania.page.fireChakram1"
+      },
       "recipe": "botania:flare_chakram"
     }
   ]

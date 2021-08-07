@@ -6,15 +6,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.diviningRod0"
+      "text": {
+        "translate": "botania.page.diviningRod0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.diviningRod2"
+      "text": {
+        "translate": "botania.page.diviningRod2"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.diviningRod1",
+      "text": {
+        "translate": "botania.page.diviningRod1"
+      },
       "recipe": "botania:divining_rod"
     }
   ]

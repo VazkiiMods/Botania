@@ -8,39 +8,55 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.aIntro0"
+      "text": {
+        "translate": "botania.page.aIntro0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.aIntro1"
+      "text": {
+        "translate": "botania.page.aIntro1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.aIntro2",
+      "text": {
+        "translate": "botania.page.aIntro2"
+      },
       "recipe": "botania:alfheim_portal"
     },
     {
       "type": "crafting",
-      "text": "botania.page.aIntro3",
+      "text": {
+        "translate": "botania.page.aIntro3"
+      },
       "recipe": "botania:natura_pylon"
     },
     {
       "type": "multiblock",
       "multiblock_id": "botania:alfheim_portal",
-      "text": "botania.page.aIntro4",
+      "text": {
+        "translate": "botania.page.aIntro4"
+      },
       "symmetrical": true
     },
     {
       "type": "text",
-      "text": "botania.page.aIntro5"
+      "text": {
+        "translate": "botania.page.aIntro5"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.aIntro6"
+      "text": {
+        "translate": "botania.page.aIntro6"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.aIntro7"
+      "text": {
+        "translate": "botania.page.aIntro7"
+      }
     }
   ]
 }

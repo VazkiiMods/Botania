@@ -6,101 +6,137 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.brewery0"
+      "text": {
+        "translate": "botania.page.brewery0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.brewery1"
+      "text": {
+        "translate": "botania.page.brewery1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.brewery2",
+      "text": {
+        "translate": "botania.page.brewery2"
+      },
       "recipe": "botania:brewery"
     },
     {
       "type": "crafting",
-      "text": "botania.page.brewery3",
+      "text": {
+        "translate": "botania.page.brewery3"
+      },
       "recipe": "botania:vial"
     },
     {
       "type": "text",
-      "text": "botania.page.brewery4"
+      "text": {
+        "translate": "botania.page.brewery4"
+      }
     },
     {
       "type": "botania:brew",
-      "text": "botania.page.brewery5a",
+      "text": {
+        "translate": "botania.page.brewery5a"
+      },
       "flavor": "botania.page.brewery5b",
       "recipe": "botania:brew/speed"
     },
     {
       "type": "botania:brew",
-      "text": "botania.page.brewery6a",
+      "text": {
+        "translate": "botania.page.brewery6a"
+      },
       "flavor": "botania.page.brewery6b",
       "recipe": "botania:brew/strength"
     },
     {
       "type": "botania:brew",
-      "text": "botania.page.brewery7a",
+      "text": {
+        "translate": "botania.page.brewery7a"
+      },
       "flavor": "botania.page.brewery7b",
       "recipe": "botania:brew/haste"
     },
     {
       "type": "botania:brew",
-      "text": "botania.page.brewery8a",
+      "text": {
+        "translate": "botania.page.brewery8a"
+      },
       "flavor": "botania.page.brewery8b",
       "recipe": "botania:brew/healing"
     },
     {
       "type": "botania:brew",
-      "text": "botania.page.brewery9a",
+      "text": {
+        "translate": "botania.page.brewery9a"
+      },
       "flavor": "botania.page.brewery9b",
       "recipe": "botania:brew/jump_boost"
     },
     {
       "type": "botania:brew",
-      "text": "botania.page.brewery10a",
+      "text": {
+        "translate": "botania.page.brewery10a"
+      },
       "flavor": "botania.page.brewery10b",
       "recipe": "botania:brew/regeneration"
     },
     {
       "type": "botania:brew",
-      "text": "botania.page.brewery17a",
+      "text": {
+        "translate": "botania.page.brewery17a"
+      },
       "flavor": "botania.page.brewery17b",
       "recipe": "botania:brew/weak_regeneration"
     },
     {
       "type": "botania:brew",
-      "text": "botania.page.brewery11a",
+      "text": {
+        "translate": "botania.page.brewery11a"
+      },
       "flavor": "botania.page.brewery11b",
       "recipe": "botania:brew/resistance"
     },
     {
       "type": "botania:brew",
-      "text": "botania.page.brewery12a",
+      "text": {
+        "translate": "botania.page.brewery12a"
+      },
       "flavor": "botania.page.brewery12b",
       "recipe": "botania:brew/fire_resistance"
     },
     {
       "type": "botania:brew",
-      "text": "botania.page.brewery13a",
+      "text": {
+        "translate": "botania.page.brewery13a"
+      },
       "flavor": "botania.page.brewery13b",
       "recipe": "botania:brew/water_breathing"
     },
     {
       "type": "botania:brew",
-      "text": "botania.page.brewery14a",
+      "text": {
+        "translate": "botania.page.brewery14a"
+      },
       "flavor": "botania.page.brewery14b",
       "recipe": "botania:brew/invisibility"
     },
     {
       "type": "botania:brew",
-      "text": "botania.page.brewery15a",
+      "text": {
+        "translate": "botania.page.brewery15a"
+      },
       "flavor": "botania.page.brewery15b",
       "recipe": "botania:brew/night_vision"
     },
     {
       "type": "botania:brew",
-      "text": "botania.page.brewery16a",
+      "text": {
+        "translate": "botania.page.brewery16a"
+      },
       "flavor": "botania.page.brewery16b",
       "recipe": "botania:brew/absorption"
     }

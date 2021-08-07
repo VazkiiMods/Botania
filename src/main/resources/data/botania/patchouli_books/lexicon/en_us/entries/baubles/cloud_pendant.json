@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.cloudPendant0"
+      "text": {
+        "translate": "botania.page.cloudPendant0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.cloudPendant1",
+      "text": {
+        "translate": "botania.page.cloudPendant1"
+      },
       "recipe": "botania:cloud_pendant"
     }
   ]

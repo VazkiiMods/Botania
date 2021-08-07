@@ -6,19 +6,27 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.thermalily0"
+      "text": {
+        "translate": "botania.page.thermalily0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.thermalily2"
+      "text": {
+        "translate": "botania.page.thermalily2"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.thermalily3"
+      "text": {
+        "translate": "botania.page.thermalily3"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.thermalily1",
+      "text": {
+        "translate": "botania.page.thermalily1"
+      },
       "recipe": "botania:petal_apothecary/thermalily"
     }
   ],

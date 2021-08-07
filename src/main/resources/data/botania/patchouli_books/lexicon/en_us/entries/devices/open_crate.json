@@ -7,15 +7,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.openCrate0"
+      "text": {
+        "translate": "botania.page.openCrate0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.openCrate1"
+      "text": {
+        "translate": "botania.page.openCrate1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.openCrate2",
+      "text": {
+        "translate": "botania.page.openCrate2"
+      },
       "recipe": "botania:open_crate"
     }
   ]

@@ -6,16 +6,22 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.magnetRing0"
+      "text": {
+        "translate": "botania.page.magnetRing0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.magnetRing1",
+      "text": {
+        "translate": "botania.page.magnetRing1"
+      },
       "recipe": "botania:magnet_ring"
     },
     {
       "type": "crafting",
-      "text": "botania.page.magnetRing2",
+      "text": {
+        "translate": "botania.page.magnetRing2"
+      },
       "recipe": "botania:magnet_ring_greater",
       "advancement": "botania:main/terrasteel_pickup"
     }

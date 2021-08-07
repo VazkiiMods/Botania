@@ -6,16 +6,22 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.jadedAmaranthus0"
+      "text": {
+        "translate": "botania.page.jadedAmaranthus0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.jadedAmaranthus1",
+      "text": {
+        "translate": "botania.page.jadedAmaranthus1"
+      },
       "recipe": "botania:petal_apothecary/jaded_amaranthus"
     },
     {
       "type": "text",
-      "text": "botania.page.jadedAmaranthus2"
+      "text": {
+        "translate": "botania.page.jadedAmaranthus2"
+      }
     }
   ],
   "extra_recipe_mappings": {

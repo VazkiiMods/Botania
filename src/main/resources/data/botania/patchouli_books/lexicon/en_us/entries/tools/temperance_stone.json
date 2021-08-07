@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.temperanceStone0"
+      "text": {
+        "translate": "botania.page.temperanceStone0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.temperanceStone1",
+      "text": {
+        "translate": "botania.page.temperanceStone1"
+      },
       "recipe": "botania:temperance_stone"
     }
   ]

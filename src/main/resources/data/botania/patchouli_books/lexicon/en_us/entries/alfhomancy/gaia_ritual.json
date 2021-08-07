@@ -8,29 +8,41 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.gaiaRitual0"
+      "text": {
+        "translate": "botania.page.gaiaRitual0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.gaiaRitual1",
+      "text": {
+        "translate": "botania.page.gaiaRitual1"
+      },
       "recipe": "botania:gaia_pylon"
     },
     {
       "type": "multiblock",
       "multiblock_id": "botania:gaia_ritual",
-      "text": "botania.page.gaiaRitual2"
+      "text": {
+        "translate": "botania.page.gaiaRitual2"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.gaiaRitual3"
+      "text": {
+        "translate": "botania.page.gaiaRitual3"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.gaiaRitual4"
+      "text": {
+        "translate": "botania.page.gaiaRitual4"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.gaiaRitual5"
+      "text": {
+        "translate": "botania.page.gaiaRitual5"
+      }
     }
   ]
 }

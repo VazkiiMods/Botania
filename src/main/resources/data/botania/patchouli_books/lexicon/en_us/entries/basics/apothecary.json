@@ -8,38 +8,54 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.apothecary0"
+      "text": {
+        "translate": "botania.page.apothecary0"
+      }
     },
     {
       "type": "image",
-      "text": "botania.page.apothecary1",
+      "text": {
+        "translate": "botania.page.apothecary1"
+      },
       "images": [
         "botania:textures/gui/entries/apothecary.png"
       ]
     },
     {
       "type": "text",
-      "text": "botania.page.apothecary2"
+      "text": {
+        "translate": "botania.page.apothecary2"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.apothecary3"
+      "text": {
+        "translate": "botania.page.apothecary3"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.apothecary4"
+      "text": {
+        "translate": "botania.page.apothecary4"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.apothecary7"
+      "text": {
+        "translate": "botania.page.apothecary7"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.apothecary6"
+      "text": {
+        "translate": "botania.page.apothecary6"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.apothecary5",
+      "text": {
+        "translate": "botania.page.apothecary5"
+      },
       "recipe": "botania:apothecary_default"
     }
   ],

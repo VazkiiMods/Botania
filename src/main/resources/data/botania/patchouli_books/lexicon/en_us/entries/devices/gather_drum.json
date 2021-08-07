@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.gatherDrum0"
+      "text": {
+        "translate": "botania.page.gatherDrum0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.gatherDrum1",
+      "text": {
+        "translate": "botania.page.gatherDrum1"
+      },
       "recipe": "botania:drum_gathering"
     }
   ]

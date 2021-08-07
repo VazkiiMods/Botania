@@ -7,84 +7,120 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.elfGear0"
+      "text": {
+        "translate": "botania.page.elfGear0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.elfGear1"
+      "text": {
+        "translate": "botania.page.elfGear1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.elfGear2"
+      "text": {
+        "translate": "botania.page.elfGear2"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.elfGear3",
+      "text": {
+        "translate": "botania.page.elfGear3"
+      },
       "recipe": "botania:elementium_pickaxe"
     },
     {
       "type": "text",
-      "text": "botania.page.elfGear4"
+      "text": {
+        "translate": "botania.page.elfGear4"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.elfGear5",
+      "text": {
+        "translate": "botania.page.elfGear5"
+      },
       "recipe": "botania:elementium_shovel"
     },
     {
       "type": "text",
-      "text": "botania.page.elfGear6"
+      "text": {
+        "translate": "botania.page.elfGear6"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.elfGear7",
+      "text": {
+        "translate": "botania.page.elfGear7"
+      },
       "recipe": "botania:elementium_axe"
     },
     {
       "type": "text",
-      "text": "botania.page.elfGear7a"
+      "text": {
+        "translate": "botania.page.elfGear7a"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.elfGear7b",
+      "text": {
+        "translate": "botania.page.elfGear7b"
+      },
       "recipe": "botania:elementium_hoe"
     },
     {
       "type": "text",
-      "text": "botania.page.elfGear8"
+      "text": {
+        "translate": "botania.page.elfGear8"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.elfGear9",
+      "text": {
+        "translate": "botania.page.elfGear9"
+      },
       "recipe": "botania:elementium_shears"
     },
     {
       "type": "text",
-      "text": "botania.page.elfGear10"
+      "text": {
+        "translate": "botania.page.elfGear10"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.elfGear11",
+      "text": {
+        "translate": "botania.page.elfGear11"
+      },
       "recipe": "botania:elementium_sword"
     },
     {
       "type": "crafting",
-      "text": "botania.page.elfGear12",
+      "text": {
+        "translate": "botania.page.elfGear12"
+      },
       "recipe": "botania:elementium_helmet"
     },
     {
       "type": "crafting",
-      "text": "botania.page.elfGear13",
+      "text": {
+        "translate": "botania.page.elfGear13"
+      },
       "recipe": "botania:elementium_chestplate"
     },
     {
       "type": "crafting",
-      "text": "botania.page.elfGear14",
+      "text": {
+        "translate": "botania.page.elfGear14"
+      },
       "recipe": "botania:elementium_leggings"
     },
     {
       "type": "crafting",
-      "text": "botania.page.elfGear15",
+      "text": {
+        "translate": "botania.page.elfGear15"
+      },
       "recipe": "botania:elementium_boots"
     }
   ]

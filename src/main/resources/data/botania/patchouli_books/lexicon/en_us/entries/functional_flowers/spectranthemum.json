@@ -7,19 +7,27 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.spectranthemum0"
+      "text": {
+        "translate": "botania.page.spectranthemum0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.spectranthemum1"
+      "text": {
+        "translate": "botania.page.spectranthemum1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.spectranthemum2"
+      "text": {
+        "translate": "botania.page.spectranthemum2"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.spectranthemum3",
+      "text": {
+        "translate": "botania.page.spectranthemum3"
+      },
       "recipe": "botania:petal_apothecary/spectranthemum"
     }
   ],

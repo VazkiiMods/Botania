@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.waterRod0"
+      "text": {
+        "translate": "botania.page.waterRod0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.waterRod1",
+      "text": {
+        "translate": "botania.page.waterRod1"
+      },
       "recipe": "botania:water_rod"
     }
   ]

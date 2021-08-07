@@ -6,7 +6,9 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.dispenserTweaks0"
+      "text": {
+        "translate": "botania.page.dispenserTweaks0"
+      }
     }
   ]
 }

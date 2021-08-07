@@ -6,15 +6,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.munchdew0"
+      "text": {
+        "translate": "botania.page.munchdew0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.munchdew1"
+      "text": {
+        "translate": "botania.page.munchdew1"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.munchdew2",
+      "text": {
+        "translate": "botania.page.munchdew2"
+      },
       "recipe": "botania:petal_apothecary/munchdew"
     }
   ],

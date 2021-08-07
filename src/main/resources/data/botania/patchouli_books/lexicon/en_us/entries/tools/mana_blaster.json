@@ -6,19 +6,27 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.manaBlaster0"
+      "text": {
+        "translate": "botania.page.manaBlaster0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.manaBlaster1"
+      "text": {
+        "translate": "botania.page.manaBlaster1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.manaBlaster2"
+      "text": {
+        "translate": "botania.page.manaBlaster2"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.manaBlaster3",
+      "text": {
+        "translate": "botania.page.manaBlaster3"
+      },
       "recipe": "botania:mana_gun"
     }
   ]

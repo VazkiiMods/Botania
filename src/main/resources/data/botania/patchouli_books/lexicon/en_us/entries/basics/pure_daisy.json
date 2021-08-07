@@ -8,27 +8,37 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.pureDaisy0"
+      "text": {
+        "translate": "botania.page.pureDaisy0"
+      }
     },
     {
       "type": "image",
-      "text": "botania.page.pureDaisy1",
+      "text": {
+        "translate": "botania.page.pureDaisy1"
+      },
       "images": [
         "botania:textures/gui/entries/pure_daisy.png"
       ]
     },
     {
       "type": "crafting",
-      "text": "botania.page.pureDaisy2",
+      "text": {
+        "translate": "botania.page.pureDaisy2"
+      },
       "recipe": "botania:livingwood_twig"
     },
     {
       "type": "text",
-      "text": "botania.page.pureDaisy4"
+      "text": {
+        "translate": "botania.page.pureDaisy4"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.pureDaisy3",
+      "text": {
+        "translate": "botania.page.pureDaisy3"
+      },
       "recipe": "botania:petal_apothecary/pure_daisy"
     }
   ],

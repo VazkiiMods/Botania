@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.starSword0"
+      "text": {
+        "translate": "botania.page.starSword0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.starSword1",
+      "text": {
+        "translate": "botania.page.starSword1"
+      },
       "recipe": "botania:star_sword"
     }
   ]

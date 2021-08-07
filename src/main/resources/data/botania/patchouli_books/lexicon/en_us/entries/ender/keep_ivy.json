@@ -7,15 +7,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.keepIvy0"
+      "text": {
+        "translate": "botania.page.keepIvy0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.keepIvy2"
+      "text": {
+        "translate": "botania.page.keepIvy2"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.keepIvy1",
+      "text": {
+        "translate": "botania.page.keepIvy1"
+      },
       "recipe": "botania:keep_ivy"
     }
   ]

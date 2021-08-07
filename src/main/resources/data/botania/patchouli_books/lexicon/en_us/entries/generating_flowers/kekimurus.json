@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.kekimurus0"
+      "text": {
+        "translate": "botania.page.kekimurus0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.kekimurus1",
+      "text": {
+        "translate": "botania.page.kekimurus1"
+      },
       "recipe": "botania:petal_apothecary/kekimurus"
     }
   ],

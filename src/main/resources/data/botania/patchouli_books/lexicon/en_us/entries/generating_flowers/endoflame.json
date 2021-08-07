@@ -7,19 +7,27 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.endoflame0"
+      "text": {
+        "translate": "botania.page.endoflame0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.endoflame1"
+      "text": {
+        "translate": "botania.page.endoflame1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.endoflame3"
+      "text": {
+        "translate": "botania.page.endoflame3"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.endoflame2",
+      "text": {
+        "translate": "botania.page.endoflame2"
+      },
       "recipe": "botania:petal_apothecary/endoflame"
     }
   ],

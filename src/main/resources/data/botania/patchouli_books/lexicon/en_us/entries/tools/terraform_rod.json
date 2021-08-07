@@ -6,19 +6,27 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.terraformRod0"
+      "text": {
+        "translate": "botania.page.terraformRod0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.terraformRod1"
+      "text": {
+        "translate": "botania.page.terraformRod1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.terraformRod2"
+      "text": {
+        "translate": "botania.page.terraformRod2"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.terraformRod3",
+      "text": {
+        "translate": "botania.page.terraformRod3"
+      },
       "recipe": "botania:terraform_rod"
     }
   ]

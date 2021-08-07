@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.teruTeruBozu0"
+      "text": {
+        "translate": "botania.page.teruTeruBozu0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.teruTeruBozu1",
+      "text": {
+        "translate": "botania.page.teruTeruBozu1"
+      },
       "recipe": "botania:teru_teru_bozu"
     }
   ]

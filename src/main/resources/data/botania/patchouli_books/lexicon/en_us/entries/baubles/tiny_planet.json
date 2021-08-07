@@ -6,16 +6,22 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.tinyPlanet0"
+      "text": {
+        "translate": "botania.page.tinyPlanet0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.tinyPlanet1",
+      "text": {
+        "translate": "botania.page.tinyPlanet1"
+      },
       "recipe": "botania:tiny_planet"
     },
     {
       "type": "crafting",
-      "text": "botania.page.tinyPlanet2",
+      "text": {
+        "translate": "botania.page.tinyPlanet2"
+      },
       "recipe": "botania:tiny_planet_block"
     }
   ]

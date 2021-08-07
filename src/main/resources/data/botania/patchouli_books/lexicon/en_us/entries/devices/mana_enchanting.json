@@ -7,36 +7,52 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.manaEnchanting0"
+      "text": {
+        "translate": "botania.page.manaEnchanting0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.manaEnchanting1"
+      "text": {
+        "translate": "botania.page.manaEnchanting1"
+      }
     },
     {
       "type": "multiblock",
       "multiblock_id": "botania:enchanter",
-      "text": "botania.page.manaEnchanting2"
+      "text": {
+        "translate": "botania.page.manaEnchanting2"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.manaEnchanting5"
+      "text": {
+        "translate": "botania.page.manaEnchanting5"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.manaEnchanting6"
+      "text": {
+        "translate": "botania.page.manaEnchanting6"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.manaEnchanting7"
+      "text": {
+        "translate": "botania.page.manaEnchanting7"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.manaEnchanting8"
+      "text": {
+        "translate": "botania.page.manaEnchanting8"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.manaEnchanting9"
+      "text": {
+        "translate": "botania.page.manaEnchanting9"
+      }
     }
   ],
   "extra_recipe_mappings": {

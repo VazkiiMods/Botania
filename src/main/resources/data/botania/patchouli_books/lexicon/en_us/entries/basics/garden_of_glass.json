@@ -7,48 +7,68 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.gardenOfGlass0"
+      "text": {
+        "translate": "botania.page.gardenOfGlass0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.gardenOfGlass1"
+      "text": {
+        "translate": "botania.page.gardenOfGlass1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.gardenOfGlass2"
+      "text": {
+        "translate": "botania.page.gardenOfGlass2"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.gardenOfGlass3",
+      "text": {
+        "translate": "botania.page.gardenOfGlass3"
+      },
       "recipe": "gardenofglass:root_to_sapling"
     },
     {
       "type": "crafting",
-      "text": "botania.page.gardenOfGlass4",
+      "text": {
+        "translate": "botania.page.gardenOfGlass4"
+      },
       "recipe": "gardenofglass:root_to_fertilizer"
     },
     {
       "type": "crafting",
-      "text": "botania.page.gardenOfGlass5",
+      "text": {
+        "translate": "botania.page.gardenOfGlass5"
+      },
       "recipe": "gardenofglass:pebble_to_cobblestone"
     },
     {
       "type": "text",
-      "text": "botania.page.gardenOfGlass6"
+      "text": {
+        "translate": "botania.page.gardenOfGlass6"
+      }
     },
     {
       "type": "botania:mana_infusion",
-      "text": "botania.page.gardenOfGlass7",
+      "text": {
+        "translate": "botania.page.gardenOfGlass7"
+      },
       "recipes": "gardenofglass:mana_infusion/sugar_cane"
     },
     {
       "type": "crafting",
-      "text": "botania.page.gardenOfGlass8",
+      "text": {
+        "translate": "botania.page.gardenOfGlass8"
+      },
       "recipe": "gardenofglass:magma_cream_to_slime_ball"
     },
     {
       "type": "botania:mana_infusion",
-      "text": "botania.page.gardenOfGlass13",
+      "text": {
+        "translate": "botania.page.gardenOfGlass13"
+      },
       "recipes": [
         "gardenofglass:mana_infusion/prismarine_shard",
         "gardenofglass:mana_infusion/prismarine_crystals"
@@ -56,20 +76,28 @@
     },
     {
       "type": "text",
-      "text": "botania.page.gardenOfGlass9"
+      "text": {
+        "translate": "botania.page.gardenOfGlass9"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.gardenOfGlass11"
+      "text": {
+        "translate": "botania.page.gardenOfGlass11"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.gardenOfGlass12",
+      "text": {
+        "translate": "botania.page.gardenOfGlass12"
+      },
       "recipe": "gardenofglass:end_portal_frame"
     },
     {
       "type": "botania:mana_infusion",
-      "text": "botania.page.gardenOfGlass14",
+      "text": {
+        "translate": "botania.page.gardenOfGlass14"
+      },
       "recipes": "gardenofglass:mana_infusion/heart_of_the_sea"
     }
   ],

@@ -8,19 +8,27 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.lokiRing0"
+      "text": {
+        "translate": "botania.page.lokiRing0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.lokiRing1"
+      "text": {
+        "translate": "botania.page.lokiRing1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.lokiRing2"
+      "text": {
+        "translate": "botania.page.lokiRing2"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.lokiRing3"
+      "text": {
+        "translate": "botania.page.lokiRing3"
+      }
     }
   ]
 }

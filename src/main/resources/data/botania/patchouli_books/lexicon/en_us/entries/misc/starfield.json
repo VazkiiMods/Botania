@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.starfield0"
+      "text": {
+        "translate": "botania.page.starfield0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.starfield1",
+      "text": {
+        "translate": "botania.page.starfield1"
+      },
       "recipe": "botania:starfield"
     }
   ]

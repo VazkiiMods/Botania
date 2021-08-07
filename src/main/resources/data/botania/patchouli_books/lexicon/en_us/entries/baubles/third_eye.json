@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.thirdEye0"
+      "text": {
+        "translate": "botania.page.thirdEye0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.thirdEye1",
+      "text": {
+        "translate": "botania.page.thirdEye1"
+      },
       "recipe": "botania:third_eye"
     }
   ]

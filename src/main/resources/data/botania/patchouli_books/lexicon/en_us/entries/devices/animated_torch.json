@@ -6,19 +6,27 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.animatedTorch0"
+      "text": {
+        "translate": "botania.page.animatedTorch0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.animatedTorch1"
+      "text": {
+        "translate": "botania.page.animatedTorch1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.animatedTorch2"
+      "text": {
+        "translate": "botania.page.animatedTorch2"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.animatedTorch3",
+      "text": {
+        "translate": "botania.page.animatedTorch3"
+      },
       "recipe": "botania:animated_torch"
     }
   ]

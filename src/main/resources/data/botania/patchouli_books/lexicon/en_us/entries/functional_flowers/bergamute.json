@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.bergamute0"
+      "text": {
+        "translate": "botania.page.bergamute0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.bergamute1",
+      "text": {
+        "translate": "botania.page.bergamute1"
+      },
       "recipe": "botania:petal_apothecary/bergamute"
     }
   ],

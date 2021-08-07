@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.overgrowthSeed0"
+      "text": {
+        "translate": "botania.page.overgrowthSeed0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.overgrowthSeed1"
+      "text": {
+        "translate": "botania.page.overgrowthSeed1"
+      }
     }
   ],
   "extra_recipe_mappings": {

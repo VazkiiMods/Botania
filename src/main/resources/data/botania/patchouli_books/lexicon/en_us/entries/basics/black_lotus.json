@@ -5,7 +5,9 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.blackLotus0"
+      "text": {
+        "translate": "botania.page.blackLotus0"
+      }
     }
   ]
 }

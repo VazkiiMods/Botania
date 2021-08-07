@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.obedienceStick0"
+      "text": {
+        "translate": "botania.page.obedienceStick0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.obedienceStick1",
+      "text": {
+        "translate": "botania.page.obedienceStick1"
+      },
       "recipe": "botania:obedience_stick"
     }
   ]

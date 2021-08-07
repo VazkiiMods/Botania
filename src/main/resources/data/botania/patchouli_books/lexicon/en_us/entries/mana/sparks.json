@@ -7,19 +7,27 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.sparks0"
+      "text": {
+        "translate": "botania.page.sparks0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.sparks1"
+      "text": {
+        "translate": "botania.page.sparks1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.sparks3"
+      "text": {
+        "translate": "botania.page.sparks3"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.sparks2",
+      "text": {
+        "translate": "botania.page.sparks2"
+      },
       "recipe": "botania:spark"
     }
   ]

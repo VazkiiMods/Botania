@@ -5,15 +5,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.itemFinder0"
+      "text": {
+        "translate": "botania.page.itemFinder0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.itemFinder1"
+      "text": {
+        "translate": "botania.page.itemFinder1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.itemFinder2",
+      "text": {
+        "translate": "botania.page.itemFinder2"
+      },
       "recipe": "botania:itemfinder"
     }
   ]

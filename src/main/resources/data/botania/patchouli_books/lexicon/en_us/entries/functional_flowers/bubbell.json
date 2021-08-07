@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.bubbell0"
+      "text": {
+        "translate": "botania.page.bubbell0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.bubbell1",
+      "text": {
+        "translate": "botania.page.bubbell1"
+      },
       "recipe": "botania:petal_apothecary/bubbell"
     }
   ],

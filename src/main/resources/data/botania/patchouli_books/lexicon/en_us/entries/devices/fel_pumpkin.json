@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.felPumpkin0"
+      "text": {
+        "translate": "botania.page.felPumpkin0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.felPumpkin1",
+      "text": {
+        "translate": "botania.page.felPumpkin1"
+      },
       "recipe": "botania:fel_pumpkin"
     }
   ]

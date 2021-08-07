@@ -6,20 +6,28 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.vineBall0"
+      "text": {
+        "translate": "botania.page.vineBall0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.vineBall1"
+      "text": {
+        "translate": "botania.page.vineBall1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.vineBall2",
+      "text": {
+        "translate": "botania.page.vineBall2"
+      },
       "recipe": "botania:vine_ball"
     },
     {
       "type": "crafting",
-      "text": "botania.page.vineBall3",
+      "text": {
+        "translate": "botania.page.vineBall3"
+      },
       "recipe": "botania:slingshot"
     }
   ]

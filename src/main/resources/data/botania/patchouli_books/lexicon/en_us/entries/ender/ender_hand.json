@@ -6,21 +6,29 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.enderHand0",
+      "text": {
+        "translate": "botania.page.enderHand0"
+      },
       "flag": "botania:ender_hand_pickpocket"
     },
     {
       "type": "text",
-      "text": "botania.page.enderHand0a",
+      "text": {
+        "translate": "botania.page.enderHand0a"
+      },
       "flag": "!botania:ender_hand_pickpocket"
     },
     {
       "type": "text",
-      "text": "botania.page.enderHand2"
+      "text": {
+        "translate": "botania.page.enderHand2"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.enderHand1",
+      "text": {
+        "translate": "botania.page.enderHand1"
+      },
       "recipe": "botania:ender_hand"
     }
   ]

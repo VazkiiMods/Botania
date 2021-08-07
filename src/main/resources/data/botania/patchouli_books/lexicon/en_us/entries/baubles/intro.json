@@ -6,18 +6,24 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.bIntro0"
+      "text": {
+        "translate": "botania.page.bIntro0"
+      }
     },
     {
       "type": "image",
-      "text": "botania.page.bIntro1",
+      "text": {
+        "translate": "botania.page.bIntro1"
+      },
       "images": [
         "botania:textures/gui/entries/baubles.png"
       ]
     },
     {
       "type": "text",
-      "text": "botania.page.bIntro2"
+      "text": {
+        "translate": "botania.page.bIntro2"
+      }
     }
   ]
 }

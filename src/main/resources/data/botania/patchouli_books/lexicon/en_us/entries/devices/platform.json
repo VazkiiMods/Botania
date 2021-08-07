@@ -6,15 +6,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.platform0"
+      "text": {
+        "translate": "botania.page.platform0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.platform2"
+      "text": {
+        "translate": "botania.page.platform2"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.platform1",
+      "text": {
+        "translate": "botania.page.platform1"
+      },
       "recipe": "botania:abstruse_platform"
     }
   ]

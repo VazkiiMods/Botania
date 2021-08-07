@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.dreadthorne0"
+      "text": {
+        "translate": "botania.page.dreadthorne0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.dreadthorne1",
+      "text": {
+        "translate": "botania.page.dreadthorne1"
+      },
       "recipe": "botania:petal_apothecary/dreadthorn"
     }
   ],

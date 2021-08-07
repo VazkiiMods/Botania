@@ -6,19 +6,27 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.gourmaryllis0"
+      "text": {
+        "translate": "botania.page.gourmaryllis0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.gourmaryllis1"
+      "text": {
+        "translate": "botania.page.gourmaryllis1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.gourmaryllis2"
+      "text": {
+        "translate": "botania.page.gourmaryllis2"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.gourmaryllis3",
+      "text": {
+        "translate": "botania.page.gourmaryllis3"
+      },
       "recipe": "botania:petal_apothecary/gourmaryllis"
     }
   ],

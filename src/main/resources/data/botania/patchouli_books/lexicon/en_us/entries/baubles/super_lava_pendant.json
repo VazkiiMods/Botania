@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.superLavaPendant0"
+      "text": {
+        "translate": "botania.page.superLavaPendant0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.superLavaPendant1",
+      "text": {
+        "translate": "botania.page.superLavaPendant1"
+      },
       "recipe": "botania:super_lava_pendant"
     }
   ]

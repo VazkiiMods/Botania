@@ -7,11 +7,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.orechidIgnem0"
+      "text": {
+        "translate": "botania.page.orechidIgnem0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.orechidIgnem1",
+      "text": {
+        "translate": "botania.page.orechidIgnem1"
+      },
       "recipe": "botania:petal_apothecary/orechid_ignem"
     }
   ],

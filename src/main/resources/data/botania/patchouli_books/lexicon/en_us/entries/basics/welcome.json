@@ -7,27 +7,39 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.welcome0"
+      "text": {
+        "translate": "botania.page.welcome0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.welcome1"
+      "text": {
+        "translate": "botania.page.welcome1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.welcome2"
+      "text": {
+        "translate": "botania.page.welcome2"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.welcome3"
+      "text": {
+        "translate": "botania.page.welcome3"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.welcome5"
+      "text": {
+        "translate": "botania.page.welcome5"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.welcome6"
+      "text": {
+        "translate": "botania.page.welcome6"
+      }
     }
   ]
 }

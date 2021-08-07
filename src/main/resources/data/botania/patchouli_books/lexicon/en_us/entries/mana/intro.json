@@ -7,15 +7,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.mIntro0"
+      "text": {
+        "translate": "botania.page.mIntro0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.mIntro1"
+      "text": {
+        "translate": "botania.page.mIntro1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.mIntro2"
+      "text": {
+        "translate": "botania.page.mIntro2"
+      }
     }
   ]
 }

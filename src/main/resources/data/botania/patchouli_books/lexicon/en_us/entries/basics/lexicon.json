@@ -6,20 +6,28 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.lexicon0"
+      "text": {
+        "translate": "botania.page.lexicon0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.lexicon3"
+      "text": {
+        "translate": "botania.page.lexicon3"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.lexicon1",
+      "text": {
+        "translate": "botania.page.lexicon1"
+      },
       "recipe": "botania:lexicon"
     },
     {
       "type": "text",
-      "text": "botania.page.lexicon2"
+      "text": {
+        "translate": "botania.page.lexicon2"
+      }
     }
   ]
 }

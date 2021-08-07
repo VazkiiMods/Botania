@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.manaDetector0"
+      "text": {
+        "translate": "botania.page.manaDetector0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.manaDetector1",
+      "text": {
+        "translate": "botania.page.manaDetector1"
+      },
       "recipe": "botania:mana_detector"
     }
   ]

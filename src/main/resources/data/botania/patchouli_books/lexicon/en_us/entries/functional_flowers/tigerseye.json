@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.tigerseye0"
+      "text": {
+        "translate": "botania.page.tigerseye0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.tigerseye1",
+      "text": {
+        "translate": "botania.page.tigerseye1"
+      },
       "recipe": "botania:petal_apothecary/tigerseye"
     }
   ],

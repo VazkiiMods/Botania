@@ -7,175 +7,245 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.cosmeticBaubles0"
+      "text": {
+        "translate": "botania.page.cosmeticBaubles0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.cosmeticBaubles1"
+      "text": {
+        "translate": "botania.page.cosmeticBaubles1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles2",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles2"
+      },
       "recipe": "botania:cosmetic_black_bowtie"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles3",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles3"
+      },
       "recipe": "botania:cosmetic_black_tie"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles4",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles4"
+      },
       "recipe": "botania:cosmetic_red_glasses"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles5",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles5"
+      },
       "recipe": "botania:cosmetic_puffy_scarf"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles6",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles6"
+      },
       "recipe": "botania:cosmetic_engineer_goggles"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles7",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles7"
+      },
       "recipe": "botania:cosmetic_eyepatch"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles8",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles8"
+      },
       "recipe": "botania:cosmetic_wicked_eyepatch"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles9",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles9"
+      },
       "recipe": "botania:cosmetic_red_ribbons"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles10",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles10"
+      },
       "recipe": "botania:cosmetic_pink_flower_bud"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles11",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles11"
+      },
       "recipe": "botania:cosmetic_polka_dotted_bows"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles12",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles12"
+      },
       "recipe": "botania:cosmetic_blue_butterfly"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles13",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles13"
+      },
       "recipe": "botania:cosmetic_cat_ears"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles14",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles14"
+      },
       "recipe": "botania:cosmetic_witch_pin"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles15",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles15"
+      },
       "recipe": "botania:cosmetic_devil_tail"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles16",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles16"
+      },
       "recipe": "botania:cosmetic_kamui_eye"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles17",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles17"
+      },
       "recipe": "botania:cosmetic_googly_eyes"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles18",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles18"
+      },
       "recipe": "botania:cosmetic_four_leaf_clover"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles19",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles19"
+      },
       "recipe": "botania:cosmetic_clock_eye"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles20",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles20"
+      },
       "recipe": "botania:cosmetic_unicorn_horn"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles21",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles21"
+      },
       "recipe": "botania:cosmetic_devil_horns"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles22",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles22"
+      },
       "recipe": "botania:cosmetic_hyper_plus"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles23",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles23"
+      },
       "recipe": "botania:cosmetic_botanist_emblem"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles24",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles24"
+      },
       "recipe": "botania:cosmetic_ancient_mask"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles25",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles25"
+      },
       "recipe": "botania:cosmetic_eerie_mask"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles26",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles26"
+      },
       "recipe": "botania:cosmetic_alien_antenna"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles27",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles27"
+      },
       "recipe": "botania:cosmetic_anaglyph_glasses"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles28",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles28"
+      },
       "recipe": "botania:cosmetic_orange_shades"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles29",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles29"
+      },
       "recipe": "botania:cosmetic_groucho_glasses"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles30",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles30"
+      },
       "recipe": "botania:cosmetic_thick_eyebrows"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles31",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles31"
+      },
       "recipe": "botania:cosmetic_lusitanic_shield"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles32",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles32"
+      },
       "recipe": "botania:cosmetic_tiny_potato_mask"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles33",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles33"
+      },
       "recipe": "botania:cosmetic_questgiver_mark"
     },
     {
       "type": "crafting",
-      "text": "botania.page.cosmeticBaubles34",
+      "text": {
+        "translate": "botania.page.cosmeticBaubles34"
+      },
       "recipe": "botania:cosmetic_thinking_hand"
     }
   ]

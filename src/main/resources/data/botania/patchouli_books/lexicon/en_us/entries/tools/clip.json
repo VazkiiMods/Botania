@@ -7,15 +7,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.clip0"
+      "text": {
+        "translate": "botania.page.clip0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.clip1"
+      "text": {
+        "translate": "botania.page.clip1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.clip2",
+      "text": {
+        "translate": "botania.page.clip2"
+      },
       "recipe": "botania:clip"
     }
   ]

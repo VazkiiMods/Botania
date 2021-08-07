@@ -7,55 +7,79 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.luminizerTransport0"
+      "text": {
+        "translate": "botania.page.luminizerTransport0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.luminizerTransport1"
+      "text": {
+        "translate": "botania.page.luminizerTransport1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.luminizerTransport2",
+      "text": {
+        "translate": "botania.page.luminizerTransport2"
+      },
       "recipe": "botania:light_relay"
     },
     {
       "type": "text",
-      "text": "botania.page.luminizerTransport3"
+      "text": {
+        "translate": "botania.page.luminizerTransport3"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.luminizerTransport4",
+      "text": {
+        "translate": "botania.page.luminizerTransport4"
+      },
       "recipe": "botania:detector_light_relay"
     },
     {
       "type": "text",
-      "text": "botania.page.luminizerTransport7"
+      "text": {
+        "translate": "botania.page.luminizerTransport7"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.luminizerTransport8",
+      "text": {
+        "translate": "botania.page.luminizerTransport8"
+      },
       "recipe": "botania:fork_light_relay"
     },
     {
       "type": "text",
-      "text": "botania.page.luminizerTransport9"
+      "text": {
+        "translate": "botania.page.luminizerTransport9"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.luminizerTransport10"
+      "text": {
+        "translate": "botania.page.luminizerTransport10"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.luminizerTransport11",
+      "text": {
+        "translate": "botania.page.luminizerTransport11"
+      },
       "recipe": "botania:toggle_light_relay"
     },
     {
       "type": "text",
-      "text": "botania.page.luminizerTransport5"
+      "text": {
+        "translate": "botania.page.luminizerTransport5"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.luminizerTransport6",
+      "text": {
+        "translate": "botania.page.luminizerTransport6"
+      },
       "recipe": "botania:light_launcher"
     }
   ]

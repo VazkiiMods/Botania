@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.livingwoodBow0"
+      "text": {
+        "translate": "botania.page.livingwoodBow0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.livingwoodBow1",
+      "text": {
+        "translate": "botania.page.livingwoodBow1"
+      },
       "recipe": "botania:livingwood_bow"
     }
   ]

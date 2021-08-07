@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.jiyuulia0"
+      "text": {
+        "translate": "botania.page.jiyuulia0"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.jiyuulia1",
+      "text": {
+        "translate": "botania.page.jiyuulia1"
+      },
       "recipe": "botania:petal_apothecary/jiyuulia"
     }
   ],

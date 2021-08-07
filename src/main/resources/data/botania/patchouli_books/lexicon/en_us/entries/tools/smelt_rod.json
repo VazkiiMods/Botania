@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.smeltRod0"
+      "text": {
+        "translate": "botania.page.smeltRod0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.smeltRod1",
+      "text": {
+        "translate": "botania.page.smeltRod1"
+      },
       "recipe": "botania:smelt_rod"
     }
   ]

@@ -6,15 +6,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.avatar0"
+      "text": {
+        "translate": "botania.page.avatar0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.avatar1"
+      "text": {
+        "translate": "botania.page.avatar1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.avatar2",
+      "text": {
+        "translate": "botania.page.avatar2"
+      },
       "recipe": "botania:avatar"
     }
   ]

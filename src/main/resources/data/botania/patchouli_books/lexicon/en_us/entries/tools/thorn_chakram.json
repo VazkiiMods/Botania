@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.thornChakram0"
+      "text": {
+        "translate": "botania.page.thornChakram0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.thornChakram1",
+      "text": {
+        "translate": "botania.page.thornChakram1"
+      },
       "recipe": "botania:thorn_chakram"
     }
   ]

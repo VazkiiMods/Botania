@@ -6,87 +6,121 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.decorativeBlocks0"
+      "text": {
+        "translate": "botania.page.decorativeBlocks0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.decorativeBlocks1",
+      "text": {
+        "translate": "botania.page.decorativeBlocks1"
+      },
       "recipe": "botania:slab_recombine/livingrock_bricks",
       "recipe2": "botania:livingrock_bricks"
     },
     {
       "type": "crafting",
-      "text": "botania.page.decorativeBlocks2",
+      "text": {
+        "translate": "botania.page.decorativeBlocks2"
+      },
       "recipe": "botania:mossy_livingrock_bricks"
     },
     {
       "type": "crafting",
-      "text": "botania.page.decorativeBlocks3",
+      "text": {
+        "translate": "botania.page.decorativeBlocks3"
+      },
       "recipe": "botania:cracked_livingrock_bricks"
     },
     {
       "type": "crafting",
-      "text": "botania.page.decorativeBlocks4",
+      "text": {
+        "translate": "botania.page.decorativeBlocks4"
+      },
       "recipe": "botania:chiseled_livingrock_bricks"
     },
     {
       "type": "crafting",
-      "text": "botania.page.decorativeBlocks5",
+      "text": {
+        "translate": "botania.page.decorativeBlocks5"
+      },
       "recipe": "botania:slab_recombine/livingwood_planks",
       "recipe2": "botania:livingwood_planks"
     },
     {
       "type": "crafting",
-      "text": "botania.page.decorativeBlocks6",
+      "text": {
+        "translate": "botania.page.decorativeBlocks6"
+      },
       "recipe": "botania:mossy_livingwood_planks"
     },
     {
       "type": "crafting",
-      "text": "botania.page.decorativeBlocks7",
+      "text": {
+        "translate": "botania.page.decorativeBlocks7"
+      },
       "recipe": "botania:framed_livingwood"
     },
     {
       "type": "crafting",
-      "text": "botania.page.decorativeBlocks8",
+      "text": {
+        "translate": "botania.page.decorativeBlocks8"
+      },
       "recipe": "botania:pattern_framed_livingwood"
     },
     {
       "type": "crafting",
-      "text": "botania.page.decorativeBlocks9",
+      "text": {
+        "translate": "botania.page.decorativeBlocks9"
+      },
       "recipe": "botania:glimmering_livingwood"
     },
     {
       "type": "text",
-      "text": "botania.page.decorativeBlocks10"
+      "text": {
+        "translate": "botania.page.decorativeBlocks10"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.decorativeBlocks11",
+      "text": {
+        "translate": "botania.page.decorativeBlocks11"
+      },
       "recipe": "botania:quartz_dark"
     },
     {
       "type": "botania:mana_infusion",
-      "text": "botania.page.decorativeBlocks12",
+      "text": {
+        "translate": "botania.page.decorativeBlocks12"
+      },
       "recipes": "botania:mana_infusion/mana_quartz"
     },
     {
       "type": "crafting",
-      "text": "botania.page.decorativeBlocks13",
+      "text": {
+        "translate": "botania.page.decorativeBlocks13"
+      },
       "recipe": "botania:quartz_blaze"
     },
     {
       "type": "crafting",
-      "text": "botania.page.decorativeBlocks14",
+      "text": {
+        "translate": "botania.page.decorativeBlocks14"
+      },
       "recipe": "botania:quartz_lavender"
     },
     {
       "type": "crafting",
-      "text": "botania.page.decorativeBlocks15",
+      "text": {
+        "translate": "botania.page.decorativeBlocks15"
+      },
       "recipe": "botania:quartz_red"
     },
     {
       "type": "crafting",
-      "text": "botania.page.decorativeBlocks23",
+      "text": {
+        "translate": "botania.page.decorativeBlocks23"
+      },
       "recipe": "botania:quartz_sunny"
     }
   ]

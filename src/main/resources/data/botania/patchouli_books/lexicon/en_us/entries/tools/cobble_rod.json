@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.cobbleRod0"
+      "text": {
+        "translate": "botania.page.cobbleRod0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.cobbleRod1",
+      "text": {
+        "translate": "botania.page.cobbleRod1"
+      },
       "recipe": "botania:cobble_rod"
     }
   ]

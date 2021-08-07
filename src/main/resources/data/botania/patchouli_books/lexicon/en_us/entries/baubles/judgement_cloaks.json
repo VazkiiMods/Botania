@@ -7,25 +7,35 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.judgementCloaks0"
+      "text": {
+        "translate": "botania.page.judgementCloaks0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.judgementCloaks1"
+      "text": {
+        "translate": "botania.page.judgementCloaks1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.judgementCloaks2",
+      "text": {
+        "translate": "botania.page.judgementCloaks2"
+      },
       "recipe": "botania:holy_cloak"
     },
     {
       "type": "crafting",
-      "text": "botania.page.judgementCloaks3",
+      "text": {
+        "translate": "botania.page.judgementCloaks3"
+      },
       "recipe": "botania:unholy_cloak"
     },
     {
       "type": "crafting",
-      "text": "botania.page.judgementCloaks4",
+      "text": {
+        "translate": "botania.page.judgementCloaks4"
+      },
       "recipe": "botania:balance_cloak"
     }
   ]

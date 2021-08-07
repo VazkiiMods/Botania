@@ -7,15 +7,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.corporeaInterceptor0"
+      "text": {
+        "translate": "botania.page.corporeaInterceptor0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.corporeaInterceptor1"
+      "text": {
+        "translate": "botania.page.corporeaInterceptor1"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.corporeaInterceptor2",
+      "text": {
+        "translate": "botania.page.corporeaInterceptor2"
+      },
       "recipe": "botania:corporea_interceptor"
     }
   ]

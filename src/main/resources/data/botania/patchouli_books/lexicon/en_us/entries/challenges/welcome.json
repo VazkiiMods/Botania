@@ -7,15 +7,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.challenges0"
+      "text": {
+        "translate": "botania.page.challenges0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.challenges1"
+      "text": {
+        "translate": "botania.page.challenges1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.challenges2"
+      "text": {
+        "translate": "botania.page.challenges2"
+      }
     }
   ]
 }

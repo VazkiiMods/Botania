@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.swapRing0"
+      "text": {
+        "translate": "botania.page.swapRing0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.swapRing1",
+      "text": {
+        "translate": "botania.page.swapRing1"
+      },
       "recipe": "botania:swap_ring"
     }
   ]

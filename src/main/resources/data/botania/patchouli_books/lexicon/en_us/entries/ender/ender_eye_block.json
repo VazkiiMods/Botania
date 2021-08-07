@@ -5,11 +5,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.enderEyeBlock0"
+      "text": {
+        "translate": "botania.page.enderEyeBlock0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.enderEyeBlock1",
+      "text": {
+        "translate": "botania.page.enderEyeBlock1"
+      },
       "recipe": "botania:ender_eye_block"
     }
   ]

@@ -7,19 +7,27 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.prism0"
+      "text": {
+        "translate": "botania.page.prism0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.prism1"
+      "text": {
+        "translate": "botania.page.prism1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.prism2"
+      "text": {
+        "translate": "botania.page.prism2"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.prism3",
+      "text": {
+        "translate": "botania.page.prism3"
+      },
       "recipe": "botania:prism"
     }
   ]

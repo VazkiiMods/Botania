@@ -7,15 +7,21 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.shulk_me_not0"
+      "text": {
+        "translate": "botania.page.shulk_me_not0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.shulk_me_not1"
+      "text": {
+        "translate": "botania.page.shulk_me_not1"
+      }
     },
     {
       "type": "botania:petal_apothecary",
-      "text": "botania.page.shulk_me_not2",
+      "text": {
+        "translate": "botania.page.shulk_me_not2"
+      },
       "recipe": "botania:petal_apothecary/shulk_me_not"
     }
   ],

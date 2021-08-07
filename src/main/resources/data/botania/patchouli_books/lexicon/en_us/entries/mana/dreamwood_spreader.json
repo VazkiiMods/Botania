@@ -7,20 +7,28 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.dreamwoodSpreader0"
+      "text": {
+        "translate": "botania.page.dreamwoodSpreader0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.dreamwoodSpreader1",
+      "text": {
+        "translate": "botania.page.dreamwoodSpreader1"
+      },
       "recipe": "botania:elven_spreader"
     },
     {
       "type": "text",
-      "text": "botania.page.dreamwoodSpreader2"
+      "text": {
+        "translate": "botania.page.dreamwoodSpreader2"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.dreamwoodSpreader3",
+      "text": {
+        "translate": "botania.page.dreamwoodSpreader3"
+      },
       "recipe": "botania:gaia_spreader"
     }
   ]

@@ -6,11 +6,15 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.dodgeRing0"
+      "text": {
+        "translate": "botania.page.dodgeRing0"
+      }
     },
     {
       "type": "crafting",
-      "text": "botania.page.dodgeRing1",
+      "text": {
+        "translate": "botania.page.dodgeRing1"
+      },
       "recipe": "botania:dodge_ring"
     }
   ]

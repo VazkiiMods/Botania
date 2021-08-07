@@ -7,27 +7,39 @@
   "pages": [
     {
       "type": "text",
-      "text": "botania.page.sparkUpgrades0"
+      "text": {
+        "translate": "botania.page.sparkUpgrades0"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.sparkUpgrades1"
+      "text": {
+        "translate": "botania.page.sparkUpgrades1"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.sparkUpgrades2"
+      "text": {
+        "translate": "botania.page.sparkUpgrades2"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.sparkUpgrades3"
+      "text": {
+        "translate": "botania.page.sparkUpgrades3"
+      }
     },
     {
       "type": "text",
-      "text": "botania.page.sparkUpgrades4"
+      "text": {
+        "translate": "botania.page.sparkUpgrades4"
+      }
     },
     {
       "type": "botania:crafting_multi",
-      "text": "botania.page.sparkUpgrades5",
+      "text": {
+        "translate": "botania.page.sparkUpgrades5"
+      },
       "recipes": [
         "botania:spark_upgrade_dispersive",
         "botania:spark_upgrade_dominant",
