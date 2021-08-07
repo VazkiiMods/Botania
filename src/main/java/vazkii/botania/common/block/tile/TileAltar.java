@@ -25,12 +25,11 @@ import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.FishBucketItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.AABB;
@@ -67,7 +66,7 @@ import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
 import alexiil.mc.lib.attributes.misc.Ref;
 import alexiil.mc.lib.attributes.misc.Reference;
 
-public class TileAltar extends TileSimpleInventory implements IPetalApothecary, TickableBlockEntity {
+public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
 	private static final int SET_KEEP_TICKS_EVENT = 0;
@@ -256,54 +255,59 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary, 
 		return true;
 	}
 
-	@Override
-	public void tick() {
-		if (!level.isClientSide) {
-			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition.offset(0, 1D / 16D * 20D, 0), worldPosition.offset(1, 1D / 16D * 32D, 1)));
-
-			boolean didChange = false;
-			for (ItemEntity item : items) {
-				didChange = collideEntityItem(item) || didChange;
-			}
-
-			if (didChange) {
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
-			}
-		} else {
-			for (int i = 0; i < inventorySize(); i++) {
-				ItemStack stackAt = getItemHandler().getItem(i);
-				if (stackAt.isEmpty()) {
-					break;
-				}
-
-				if (Math.random() >= 0.97) {
-					ICustomApothecaryColor comp = getFlowerComponent(stackAt);
-
-					int color = comp == null ? 0x888888 : comp.getParticleColor(stackAt);
-					float red = (color >> 16 & 0xFF) / 255F;
-					float green = (color >> 8 & 0xFF) / 255F;
-					float blue = (color & 0xFF) / 255F;
-					if (Math.random() >= 0.75F) {
-						level.playSound(null, worldPosition, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.1F, 10F);
-					}
-					SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
-					level.addParticle(data, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 1.2, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
-				}
-			}
-
-			if (getFluid() == State.LAVA) {
-				level.addParticle(ParticleTypes.SMOKE, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 1, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.05, 0);
-				if (Math.random() > 0.9) {
-					level.addParticle(ParticleTypes.LAVA, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 1, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.01, 0);
-				}
-			}
-		}
-
+	private void tickRecipeKeep() {
 		if (recipeKeepTicks > 0) {
 			--recipeKeepTicks;
 		} else {
 			lastRecipe = null;
 		}
+	}
+
+	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, TileAltar self) {
+		List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition.offset(0, 1D / 16D * 20D, 0), worldPosition.offset(1, 1D / 16D * 32D, 1)));
+
+		boolean didChange = false;
+		for (ItemEntity item : items) {
+			didChange = self.collideEntityItem(item) || didChange;
+		}
+
+		if (didChange) {
+			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
+		}
+
+		self.tickRecipeKeep();
+	}
+
+	public static void clientTick(Level level, BlockPos worldPosition, BlockState state, TileAltar self) {
+		for (int i = 0; i < self.inventorySize(); i++) {
+			ItemStack stackAt = self.getItemHandler().getItem(i);
+			if (stackAt.isEmpty()) {
+				break;
+			}
+
+			if (Math.random() >= 0.97) {
+				ICustomApothecaryColor comp = self.getFlowerComponent(stackAt);
+
+				int color = comp == null ? 0x888888 : comp.getParticleColor(stackAt);
+				float red = (color >> 16 & 0xFF) / 255F;
+				float green = (color >> 8 & 0xFF) / 255F;
+				float blue = (color & 0xFF) / 255F;
+				if (Math.random() >= 0.75F) {
+					level.playSound(null, worldPosition, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 0.1F, 10F);
+				}
+				SparkleParticleData data = SparkleParticleData.sparkle((float) Math.random(), red, green, blue, 10);
+				level.addParticle(data, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 1.2, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0, 0);
+			}
+		}
+
+		if (self.getFluid() == State.LAVA) {
+			level.addParticle(ParticleTypes.SMOKE, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 1, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.05, 0);
+			if (Math.random() > 0.9) {
+				level.addParticle(ParticleTypes.LAVA, worldPosition.getX() + 0.5 + Math.random() * 0.4 - 0.2, worldPosition.getY() + 1, worldPosition.getZ() + 0.5 + Math.random() * 0.4 - 0.2, 0, 0.01, 0);
+			}
+		}
+
+		self.tickRecipeKeep();
 	}
 
 	@Override

@@ -21,8 +21,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
@@ -33,7 +33,7 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class TileAnimatedTorch extends TileMod implements TickableBlockEntity {
+public class TileAnimatedTorch extends TileMod {
 	private static final String TAG_SIDE = "side";
 	private static final String TAG_ROTATING = "rotating";
 	private static final String TAG_ROTATION_TICKS = "rotationTicks";
@@ -136,31 +136,30 @@ public class TileAnimatedTorch extends TileMod implements TickableBlockEntity {
 		mc.font.drawShadow(ms, I18n.get("botania.animatedTorch." + torchMode.name().toLowerCase(Locale.ROOT)), x + 18, y + 6, 0xFF4444);
 	}
 
-	@Override
-	public void tick() {
-		if (rotating) {
-			lastTickRotation = rotation;
-			rotation = (rotation + anglePerTick) % 360;
-			rotationTicks--;
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileAnimatedTorch self) {
+		if (self.rotating) {
+			self.lastTickRotation = self.rotation;
+			self.rotation = (self.rotation + self.anglePerTick) % 360;
+			self.rotationTicks--;
 
-			if (rotationTicks <= 0) {
-				rotating = false;
+			if (self.rotationTicks <= 0) {
+				self.rotating = false;
 				// done rotating, tell neighbors
-				level.updateNeighborsAt(getBlockPos(), getBlockState().getBlock());
+				level.updateNeighborsAt(worldPosition, state.getBlock());
 				for (Direction e : Direction.values()) {
-					level.updateNeighborsAt(getBlockPos().relative(e), getBlockState().getBlock());
+					level.updateNeighborsAt(worldPosition.relative(e), state.getBlock());
 				}
 			}
 
 		} else {
-			rotation = side * 90;
+			self.rotation = self.side * 90;
 		}
 
 		if (level.isClientSide) {
-			int amt = rotating ? 3 : Math.random() < 0.1 ? 1 : 0;
-			double x = getBlockPos().getX() + 0.5 + Math.cos((rotation + 90) / 180.0 * Math.PI) * 0.35;
-			double y = getBlockPos().getY() + 0.2;
-			double z = getBlockPos().getZ() + 0.5 + Math.sin((rotation + 90) / 180.0 * Math.PI) * 0.35;
+			int amt = self.rotating ? 3 : Math.random() < 0.1 ? 1 : 0;
+			double x = worldPosition.getX() + 0.5 + Math.cos((self.rotation + 90) / 180.0 * Math.PI) * 0.35;
+			double y = worldPosition.getY() + 0.2;
+			double z = worldPosition.getZ() + 0.5 + Math.sin((self.rotation + 90) / 180.0 * Math.PI) * 0.35;
 
 			for (int i = 0; i < amt; i++) {
 				level.addParticle(DustParticleOptions.REDSTONE, x, y, z, 0.0D, 0.0D, 0.0D);

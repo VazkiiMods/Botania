@@ -33,11 +33,10 @@ public class TileRedStringInterceptor extends TileRedString {
 		super(ModTiles.RED_STRING_INTERCEPTOR, pos, state);
 	}
 
-	@Override
-	public void tick() {
-		super.tick();
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileRedStringInterceptor self) {
+		TileRedString.commonTick(level, worldPosition, state, self);
 		if (!level.isClientSide) {
-			interceptors.add(this);
+			interceptors.add(self);
 		}
 	}
 

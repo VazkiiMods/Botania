@@ -9,9 +9,9 @@
 package vazkii.botania.common.block.tile;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
@@ -28,7 +28,7 @@ import vazkii.botania.common.core.helper.ColorHelper;
 
 import java.util.Random;
 
-public class TilePylon extends BlockEntity implements TickableBlockEntity {
+public class TilePylon extends BlockEntity {
 	boolean activated = false;
 	BlockPos centerPos;
 	private int ticks = 0;
@@ -37,28 +37,23 @@ public class TilePylon extends BlockEntity implements TickableBlockEntity {
 		super(ModTiles.PYLON, pos, state);
 	}
 
-	@Override
-	public void tick() {
-		++ticks;
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TilePylon self) {
+		++self.ticks;
 
-		if (!(getBlockState().getBlock() instanceof BlockPylon)) {
-			return;
-		}
+		BlockPylon.Variant variant = ((BlockPylon) state.getBlock()).variant;
 
-		BlockPylon.Variant variant = ((BlockPylon) getBlockState().getBlock()).variant;
-
-		if (activated && level.isClientSide) {
-			if (level.getBlockState(centerPos).getBlock() != variant.getTargetBlock()
-					|| variant == BlockPylon.Variant.NATURA && (portalOff() || !(level.getBlockState(getBlockPos().below()).getBlock() instanceof BlockPool))) {
-				activated = false;
+		if (self.activated && level.isClientSide) {
+			if (level.getBlockState(self.centerPos).getBlock() != variant.getTargetBlock()
+					|| variant == BlockPylon.Variant.NATURA && (self.portalOff() || !(level.getBlockState(worldPosition.below()).getBlock() instanceof BlockPool))) {
+				self.activated = false;
 				return;
 			}
 
-			Vec3 centerBlock = new Vec3(centerPos.getX() + 0.5, centerPos.getY() + 0.75 + (Math.random() - 0.5 * 0.25), centerPos.getZ() + 0.5);
+			Vec3 centerBlock = new Vec3(self.centerPos.getX() + 0.5, self.centerPos.getY() + 0.75 + (Math.random() - 0.5 * 0.25), self.centerPos.getZ() + 0.5);
 
 			if (variant == BlockPylon.Variant.NATURA) {
 				if (ConfigHandler.CLIENT.elfPortalParticlesEnabled.getValue()) {
-					double worldTime = ticks;
+					double worldTime = self.ticks;
 					worldTime += new Random(worldPosition.hashCode()).nextInt(1000);
 					worldTime /= 5;
 
@@ -78,7 +73,7 @@ public class TilePylon extends BlockEntity implements TickableBlockEntity {
 					}
 				}
 			} else {
-				Vec3 ourCoords = Vec3.atCenterOf(getBlockPos()).add(0, 1 + (Math.random() - 0.5 * 0.25), 0);
+				Vec3 ourCoords = Vec3.atCenterOf(worldPosition).add(0, 1 + (Math.random() - 0.5 * 0.25), 0);
 				Vec3 movementVector = centerBlock.subtract(ourCoords).normalize().scale(0.2);
 
 				Block block = level.getBlockState(worldPosition.below()).getBlock();

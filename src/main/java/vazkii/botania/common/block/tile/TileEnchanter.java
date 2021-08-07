@@ -34,7 +34,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
@@ -62,7 +61,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class TileEnchanter extends TileMod implements ISparkAttachable, TickableBlockEntity {
+public class TileEnchanter extends TileMod implements ISparkAttachable {
 	private static final String TAG_STAGE = "stage";
 	private static final String TAG_STAGE_TICKS = "stageTicks";
 	private static final String TAG_STAGE_3_END_TICKS = "stage3EndTicks";
@@ -239,23 +238,21 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, Tickable
 		}
 	}
 
-	@Override
-	public void tick() {
-		BlockState state = getBlockState();
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileEnchanter self) {
 		Direction.Axis axis = state.getValue(BotaniaStateProps.ENCHANTER_DIRECTION);
 
 		for (BlockPos pylon : PYLON_LOCATIONS.get(axis)) {
 			BlockEntity tile = level.getBlockEntity(worldPosition.offset(pylon));
 			if (tile instanceof TilePylon) {
-				((TilePylon) tile).activated = stage == State.GATHER_MANA;
-				if (stage == State.GATHER_MANA) {
+				((TilePylon) tile).activated = self.stage == State.GATHER_MANA;
+				if (self.stage == State.GATHER_MANA) {
 					((TilePylon) tile).centerPos = worldPosition;
 				}
 			}
 		}
 
-		if (stage != State.IDLE) {
-			stageTicks++;
+		if (self.stage != State.IDLE) {
+			self.stageTicks++;
 		}
 
 		if (level.isClientSide) {
@@ -269,33 +266,33 @@ public class TileEnchanter extends TileMod implements ISparkAttachable, Tickable
 			level.playSound(null, worldPosition, ModSounds.enchanterFade, SoundSource.BLOCKS, 0.5F, 10F);
 		}
 
-		switch (stage) {
+		switch (self.stage) {
 		case GATHER_ENCHANTS:
-			gatherEnchants();
+			self.gatherEnchants();
 			break;
 		case GATHER_MANA:
-			gatherMana(axis);
+			self.gatherMana(axis);
 			break;
 		case DO_ENCHANT: { // Enchant
-			if (stageTicks >= 100) {
-				for (EnchantmentInstance data : enchants) {
-					if (EnchantmentHelper.getItemEnchantmentLevel(data.enchantment, itemToEnchant) == 0) {
-						itemToEnchant.enchant(data.enchantment, data.level);
+			if (self.stageTicks >= 100) {
+				for (EnchantmentInstance data : self.enchants) {
+					if (EnchantmentHelper.getItemEnchantmentLevel(data.enchantment, self.itemToEnchant) == 0) {
+						self.itemToEnchant.enchant(data.enchantment, data.level);
 					}
 				}
 
-				enchants.clear();
-				manaRequired = -1;
-				mana = 0;
+				self.enchants.clear();
+				self.manaRequired = -1;
+				self.mana = 0;
 
-				level.blockEvent(getBlockPos(), ModBlocks.enchanter, CRAFT_EFFECT_EVENT, 0);
-				advanceStage();
+				level.blockEvent(worldPosition, ModBlocks.enchanter, CRAFT_EFFECT_EVENT, 0);
+				self.advanceStage();
 			}
 			break;
 		}
 		case RESET: { // Reset
-			if (stageTicks >= 20) {
-				advanceStage();
+			if (self.stageTicks >= 20) {
+				self.advanceStage();
 			}
 
 			break;

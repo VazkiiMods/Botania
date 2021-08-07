@@ -10,11 +10,11 @@ package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
@@ -23,7 +23,7 @@ import vazkii.botania.common.block.tile.TileMod;
 
 import javax.annotation.Nullable;
 
-public abstract class TileRedString extends TileMod implements ITileBound, TickableBlockEntity {
+public abstract class TileRedString extends TileMod implements ITileBound {
 
 	private BlockPos binding;
 
@@ -31,13 +31,11 @@ public abstract class TileRedString extends TileMod implements ITileBound, Ticka
 		super(type, pos, state);
 	}
 
-	@Override
-	public void tick() {
-		Direction dir = getOrientation();
-		BlockPos pos_ = getBlockPos();
-		int range = getRange();
-		BlockPos currBinding = getBinding();
-		setBinding(null);
+	public static void commonTick(Level level, BlockPos pos_, BlockState state, TileRedString self) {
+		Direction dir = self.getOrientation();
+		int range = self.getRange();
+		BlockPos currBinding = self.getBinding();
+		self.setBinding(null);
 
 		for (int i = 0; i < range; i++) {
 			pos_ = pos_.relative(dir);
@@ -50,10 +48,10 @@ public abstract class TileRedString extends TileMod implements ITileBound, Ticka
 				continue;
 			}
 
-			if (acceptBlock(pos_)) {
-				setBinding(pos_);
+			if (self.acceptBlock(pos_)) {
+				self.setBinding(pos_);
 				if (currBinding == null || !currBinding.equals(pos_)) {
-					onBound(pos_);
+					self.onBound(pos_);
 				}
 				break;
 			}

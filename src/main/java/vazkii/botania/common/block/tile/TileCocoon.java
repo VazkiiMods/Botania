@@ -15,9 +15,9 @@ import net.minecraft.tags.Tag;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.lib.ModTags;
@@ -25,7 +25,7 @@ import vazkii.botania.common.lib.ModTags;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TileCocoon extends TileMod implements TickableBlockEntity {
+public class TileCocoon extends TileMod {
 	private static final String TAG_TIME_PASSED = "timePassed";
 	private static final String TAG_EMERALDS_GIVEN = "emeraldsGiven";
 	private static final String TAG_CHORUS_FRUIT_GIVEN = "chorusFruitGiven";
@@ -45,11 +45,10 @@ public class TileCocoon extends TileMod implements TickableBlockEntity {
 		super(ModTiles.COCOON, pos, state);
 	}
 
-	@Override
-	public void tick() {
-		timePassed++;
-		if (timePassed >= TOTAL_TIME) {
-			hatch();
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileCocoon self) {
+		self.timePassed++;
+		if (self.timePassed >= TOTAL_TIME) {
+			self.hatch();
 		}
 	}
 

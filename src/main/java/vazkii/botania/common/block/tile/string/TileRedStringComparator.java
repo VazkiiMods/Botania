@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.common.block.tile.ModTiles;
@@ -20,21 +21,20 @@ public class TileRedStringComparator extends TileRedString {
 		super(ModTiles.RED_STRING_COMPARATOR, pos, state);
 	}
 
-	@Override
-	public void tick() {
-		super.tick();
-		BlockPos binding = getBinding();
-		BlockState state = getStateAtBinding();
-		int origVal = comparatorValue;
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileRedStringComparator self) {
+		TileRedString.commonTick(level, worldPosition, state, self);
+		BlockPos binding = self.getBinding();
+		BlockState bindState = self.getStateAtBinding();
+		int origVal = self.comparatorValue;
 
-		if (state.hasAnalogOutputSignal()) {
-			comparatorValue = state.getAnalogOutputSignal(level, binding);
+		if (bindState.hasAnalogOutputSignal()) {
+			self.comparatorValue = bindState.getAnalogOutputSignal(level, binding);
 		} else {
-			comparatorValue = 0;
+			self.comparatorValue = 0;
 		}
 
-		if (origVal != comparatorValue) {
-			level.updateNeighbourForOutputSignal(worldPosition, getBlockState().getBlock());
+		if (origVal != self.comparatorValue) {
+			level.updateNeighbourForOutputSignal(worldPosition, state.getBlock());
 		}
 	}
 

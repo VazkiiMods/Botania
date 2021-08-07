@@ -20,8 +20,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.StringUtil;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
@@ -29,7 +29,7 @@ import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.api.item.IHourglassTrigger;
 import vazkii.botania.common.item.ModItems;
 
-public class TileHourglass extends TileExposedSimpleInventory implements TickableBlockEntity {
+public class TileHourglass extends TileExposedSimpleInventory {
 	private static final String TAG_TIME = "time";
 	private static final String TAG_TIME_FRACTION = "timeFraction";
 	private static final String TAG_FLIP = "flip";
@@ -54,44 +54,43 @@ public class TileHourglass extends TileExposedSimpleInventory implements Tickabl
 		return !stack.isEmpty() && stack.getItem() == ModItems.manaPowder;
 	}
 
-	@Override
-	public void tick() {
-		int totalTime = getTotalTime();
-		boolean dust = isDust();
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileHourglass self) {
+		int totalTime = self.getTotalTime();
+		boolean dust = self.isDust();
 
 		if (totalTime > 0 || dust) {
-			if (move && !dust) {
-				time++;
+			if (self.move && !dust) {
+				self.time++;
 			}
 
-			if (time >= totalTime) {
-				time = 0;
-				flip = !flip;
-				flipTicks = 4;
+			if (self.time >= totalTime) {
+				self.time = 0;
+				self.flip = !self.flip;
+				self.flipTicks = 4;
 				if (!level.isClientSide) {
-					level.setBlock(getBlockPos(), getBlockState().setValue(BlockStateProperties.POWERED, true), 1);
-					level.getBlockTicks().scheduleTick(worldPosition, getBlockState().getBlock(), 4);
+					level.setBlock(worldPosition, state.setValue(BlockStateProperties.POWERED, true), 1);
+					level.getBlockTicks().scheduleTick(worldPosition, state.getBlock(), 4);
 				}
 
 				for (Direction facing : Direction.values()) {
-					BlockPos pos = getBlockPos().relative(facing);
-					BlockState state = level.getBlockState(pos);
-					if (state.getBlock() instanceof IHourglassTrigger) {
-						((IHourglassTrigger) state.getBlock()).onTriggeredByHourglass(level, pos, this);
+					BlockPos pos = worldPosition.relative(facing);
+					BlockState neighbor = level.getBlockState(pos);
+					if (neighbor.getBlock() instanceof IHourglassTrigger) {
+						((IHourglassTrigger) neighbor.getBlock()).onTriggeredByHourglass(level, pos, self);
 					}
 				}
 			}
 
-			lastFraction = timeFraction;
-			timeFraction = (float) time / (float) totalTime;
+			self.lastFraction = self.timeFraction;
+			self.timeFraction = (float) self.time / (float) totalTime;
 		} else {
-			time = 0;
-			lastFraction = 0F;
-			timeFraction = 0F;
+			self.time = 0;
+			self.lastFraction = 0F;
+			self.timeFraction = 0F;
 		}
 
-		if (flipTicks > 0) {
-			flipTicks--;
+		if (self.flipTicks > 0) {
+			self.flipTicks--;
 		}
 	}
 

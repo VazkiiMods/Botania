@@ -21,7 +21,6 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 
@@ -48,7 +47,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class TileAlfPortal extends TileMod implements TickableBlockEntity {
+public class TileAlfPortal extends TileMod {
 	public static final LazyLoadedValue<IMultiblock> MULTIBLOCK = new LazyLoadedValue<>(() -> PatchouliAPI.get().makeMultiblock(
 			new String[][] {
 					{ "_", "W", "G", "W", "_" },
@@ -81,25 +80,24 @@ public class TileAlfPortal extends TileMod implements TickableBlockEntity {
 		super(ModTiles.ALF_PORTAL, pos, state);
 	}
 
-	@Override
-	public void tick() {
-		if (getBlockState().getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF) {
-			ticksOpen = 0;
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState blockState, TileAlfPortal self) {
+		if (blockState.getValue(BotaniaStateProps.ALFPORTAL_STATE) == AlfPortalState.OFF) {
+			self.ticksOpen = 0;
 			return;
 		}
-		AlfPortalState state = getBlockState().getValue(BotaniaStateProps.ALFPORTAL_STATE);
-		AlfPortalState newState = getValidState();
+		AlfPortalState state = blockState.getValue(BotaniaStateProps.ALFPORTAL_STATE);
+		AlfPortalState newState = self.getValidState();
 
-		ticksOpen++;
+		self.ticksOpen++;
 
-		AABB aabb = getPortalAABB();
-		boolean open = ticksOpen > 60;
-		ElvenPortalUpdateCallback.EVENT.invoker().onElvenPortalTick(this, aabb, open, stacksIn);
+		AABB aabb = self.getPortalAABB();
+		boolean open = self.ticksOpen > 60;
+		ElvenPortalUpdateCallback.EVENT.invoker().onElvenPortalTick(self, aabb, open, self.stacksIn);
 
-		if (ticksOpen > 60) {
-			ticksSinceLastItem++;
+		if (self.ticksOpen > 60) {
+			self.ticksSinceLastItem++;
 			if (level.isClientSide && ConfigHandler.CLIENT.elfPortalParticlesEnabled.getValue()) {
-				blockParticle(state);
+				self.blockParticle(state);
 			}
 
 			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, aabb);
@@ -123,49 +121,49 @@ public class TileAlfPortal extends TileMod implements TickableBlockEntity {
 
 					if (consume) {
 						item.discard();
-						if (validateItemUsage(item)) {
-							addItem(stack);
+						if (self.validateItemUsage(item)) {
+							self.addItem(stack);
 						}
-						ticksSinceLastItem = 0;
+						self.ticksSinceLastItem = 0;
 					}
 				}
 			}
 
-			if (!level.isClientSide && !stacksIn.isEmpty() && ticksSinceLastItem >= 4) {
-				resolveRecipes();
+			if (!level.isClientSide && !self.stacksIn.isEmpty() && self.ticksSinceLastItem >= 4) {
+				self.resolveRecipes();
 			}
 		}
 
-		if (closeNow) {
+		if (self.closeNow) {
 			if (!level.isClientSide) {
-				level.setBlockAndUpdate(getBlockPos(), ModBlocks.alfPortal.defaultBlockState());
+				level.setBlockAndUpdate(worldPosition, ModBlocks.alfPortal.defaultBlockState());
 			}
 			for (int i = 0; i < 36; i++) {
-				blockParticle(state);
+				self.blockParticle(state);
 			}
-			closeNow = false;
+			self.closeNow = false;
 		} else if (newState != state) {
 			if (newState == AlfPortalState.OFF) {
 				for (int i = 0; i < 36; i++) {
-					blockParticle(state);
+					self.blockParticle(state);
 				}
 			}
 
 			if (!level.isClientSide) {
-				level.setBlockAndUpdate(getBlockPos(), getBlockState().setValue(BotaniaStateProps.ALFPORTAL_STATE, newState));
+				level.setBlockAndUpdate(worldPosition, blockState.setValue(BotaniaStateProps.ALFPORTAL_STATE, newState));
 			}
-		} else if (explode) {
+		} else if (self.explode) {
 			level.explode(null, worldPosition.getX() + .5, worldPosition.getY() + 2.0, worldPosition.getZ() + .5,
 					3f, Explosion.BlockInteraction.BREAK);
-			explode = false;
+			self.explode = false;
 
-			if (!level.isClientSide && breadPlayer != null) {
-				Player entity = level.getPlayerByUUID(breadPlayer);
+			if (!level.isClientSide && self.breadPlayer != null) {
+				Player entity = level.getPlayerByUUID(self.breadPlayer);
 				if (entity instanceof ServerPlayer) {
-					AlfPortalBreadTrigger.INSTANCE.trigger((ServerPlayer) entity, getBlockPos());
+					AlfPortalBreadTrigger.INSTANCE.trigger((ServerPlayer) entity, worldPosition);
 				}
 			}
-			breadPlayer = null;
+			self.breadPlayer = null;
 		}
 	}
 

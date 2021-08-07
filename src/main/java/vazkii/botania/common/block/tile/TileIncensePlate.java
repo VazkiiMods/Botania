@@ -20,7 +20,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
@@ -38,7 +38,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
-public class TileIncensePlate extends TileExposedSimpleInventory implements WorldlyContainer, TickableBlockEntity {
+public class TileIncensePlate extends TileExposedSimpleInventory implements WorldlyContainer {
 	private static final String TAG_TIME_LEFT = "timeLeft";
 	private static final String TAG_BURNING = "burning";
 	private static final int RANGE = 32;
@@ -51,19 +51,18 @@ public class TileIncensePlate extends TileExposedSimpleInventory implements Worl
 		super(ModTiles.INCENSE_PLATE, pos, state);
 	}
 
-	@Override
-	public void tick() {
-		ItemStack stack = getItemHandler().getItem(0);
-		if (!stack.isEmpty() && burning) {
-			if (getBlockState().getValue(BlockStateProperties.WATERLOGGED) && timeLeft > 1) {
-				timeLeft = 1;
-				spawnSmokeParticles();
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileIncensePlate self) {
+		ItemStack stack = self.getItemHandler().getItem(0);
+		if (!stack.isEmpty() && self.burning) {
+			if (state.getValue(BlockStateProperties.WATERLOGGED) && self.timeLeft > 1) {
+				self.timeLeft = 1;
+				self.spawnSmokeParticles();
 			}
 
 			Brew brew = ((ItemIncenseStick) ModItems.incenseStick).getBrew(stack);
 			MobEffectInstance effect = brew.getPotionEffects(stack).get(0);
-			if (timeLeft > 0) {
-				timeLeft--;
+			if (self.timeLeft > 0) {
+				self.timeLeft--;
 				if (!level.isClientSide) {
 					List<Player> players = level.getEntitiesOfClass(Player.class, new AABB(worldPosition.getX() + 0.5 - RANGE, worldPosition.getY() + 0.5 - RANGE, worldPosition.getZ() + 0.5 - RANGE, worldPosition.getX() + 0.5 + RANGE, worldPosition.getY() + 0.5 + RANGE, worldPosition.getZ() + 0.5 + RANGE));
 					for (Player player : players) {
@@ -94,24 +93,24 @@ public class TileIncensePlate extends TileExposedSimpleInventory implements Worl
 					level.addParticle(data, x - (Math.random() - 0.5) * 0.2, y - (Math.random() - 0.5) * 0.2, z - (Math.random() - 0.5) * 0.2, 0.005F - (float) Math.random() * 0.01F, 0.01F + (float) Math.random() * 0.001F, 0.005F - (float) Math.random() * 0.01F);
 				}
 			} else {
-				getItemHandler().setItem(0, ItemStack.EMPTY);
-				burning = false;
-				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(this);
+				self.getItemHandler().setItem(0, ItemStack.EMPTY);
+				self.burning = false;
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
 			}
 		} else {
-			timeLeft = 0;
+			self.timeLeft = 0;
 		}
 
 		int newComparator = 0;
 		if (!stack.isEmpty()) {
 			newComparator = 1;
 		}
-		if (burning) {
+		if (self.burning) {
 			newComparator = 2;
 		}
-		if (comparatorOutput != newComparator) {
-			comparatorOutput = newComparator;
-			level.updateNeighbourForOutputSignal(worldPosition, getBlockState().getBlock());
+		if (self.comparatorOutput != newComparator) {
+			self.comparatorOutput = newComparator;
+			level.updateNeighbourForOutputSignal(worldPosition, state.getBlock());
 		}
 	}
 

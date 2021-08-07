@@ -19,7 +19,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.AABB;
@@ -42,7 +42,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-public class TileBrewery extends TileSimpleInventory implements IManaReceiver, TickableBlockEntity {
+public class TileBrewery extends TileSimpleInventory implements IManaReceiver {
 	private static final String TAG_MANA = "mana";
 	private static final int CRAFT_EFFECT_EVENT = 0;
 
@@ -96,38 +96,37 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, T
 		});
 	}
 
-	@Override
-	public void tick() {
-		if (mana > 0 && recipe == null) {
-			findRecipe();
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileBrewery self) {
+		if (self.mana > 0 && self.recipe == null) {
+			self.findRecipe();
 
-			if (recipe == null) {
-				mana = 0;
+			if (self.recipe == null) {
+				self.mana = 0;
 			}
 		}
 
 		// Update every tick.
-		receiveMana(0);
+		self.receiveMana(0);
 
-		if (!level.isClientSide && recipe == null) {
+		if (!level.isClientSide && self.recipe == null) {
 			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), worldPosition.getX() + 1, worldPosition.getY() + 1, worldPosition.getZ() + 1));
 			for (ItemEntity item : items) {
 				if (item.isAlive() && !item.getItem().isEmpty()) {
 					ItemStack stack = item.getItem();
-					addItem(null, stack, null);
+					self.addItem(null, stack, null);
 				}
 			}
 		}
 
-		if (recipe != null) {
-			if (!recipe.matches(getItemHandler(), level)) {
-				recipe = null;
+		if (self.recipe != null) {
+			if (!self.recipe.matches(self.getItemHandler(), level)) {
+				self.recipe = null;
 				level.setBlockAndUpdate(worldPosition, ModBlocks.brewery.defaultBlockState());
 			}
 
-			if (recipe != null) {
-				if (mana != manaLastTick) {
-					int color = recipe.getBrew().getColor(getItemHandler().getItem(0));
+			if (self.recipe != null) {
+				if (self.mana != self.manaLastTick) {
+					int color = self.recipe.getBrew().getColor(self.getItemHandler().getItem(0));
 					float r = (color >> 16 & 0xFF) / 255F;
 					float g = (color >> 8 & 0xFF) / 255F;
 					float b = (color & 0xFF) / 255F;
@@ -141,33 +140,33 @@ public class TileBrewery extends TileSimpleInventory implements IManaReceiver, T
 					}
 				}
 
-				if (mana >= getManaCost() && !level.isClientSide) {
-					int mana = getManaCost();
-					receiveMana(-mana);
+				if (self.mana >= self.getManaCost() && !level.isClientSide) {
+					int mana = self.getManaCost();
+					self.receiveMana(-mana);
 
-					ItemStack output = recipe.getOutput(getItemHandler().getItem(0));
+					ItemStack output = self.recipe.getOutput(self.getItemHandler().getItem(0));
 					ItemEntity outputItem = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 1.5, worldPosition.getZ() + 0.5, output);
 					level.addFreshEntity(outputItem);
-					level.blockEvent(getBlockPos(), ModBlocks.brewery, CRAFT_EFFECT_EVENT, recipe.getBrew().getColor(output));
+					level.blockEvent(worldPosition, ModBlocks.brewery, CRAFT_EFFECT_EVENT, self.recipe.getBrew().getColor(output));
 
-					for (int i = 0; i < inventorySize(); i++) {
-						getItemHandler().setItem(i, ItemStack.EMPTY);
+					for (int i = 0; i < self.inventorySize(); i++) {
+						self.getItemHandler().setItem(i, ItemStack.EMPTY);
 					}
 				}
 			}
 		}
 
 		int newSignal = 0;
-		if (recipe != null) {
+		if (self.recipe != null) {
 			newSignal++;
 		}
 
-		if (newSignal != signal) {
-			signal = newSignal;
-			level.updateNeighbourForOutputSignal(worldPosition, getBlockState().getBlock());
+		if (newSignal != self.signal) {
+			self.signal = newSignal;
+			level.updateNeighbourForOutputSignal(worldPosition, state.getBlock());
 		}
 
-		manaLastTick = mana;
+		self.manaLastTick = self.mana;
 	}
 
 	@Override

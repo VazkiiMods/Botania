@@ -21,7 +21,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -49,7 +49,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver, TickableBlockEntity {
+public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver {
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_TO_GET = "manaToGet";
 	private static final int SET_KEEP_TICKS_EVENT = 0;
@@ -142,50 +142,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		}
 	}
 
-	@Override
-	public void tick() {
-
-		// Update every tick.
-		receiveMana(0);
-
-		if (!level.isClientSide) {
-			if (manaToGet == 0) {
-				List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition, worldPosition.offset(1, 1, 1)));
-				for (ItemEntity item : items) {
-					if (item.isAlive() && !item.getItem().isEmpty() && item.getItem().getItem() != ModBlocks.livingrock.asItem()) {
-						ItemStack stack = item.getItem();
-						addItem(null, stack, null);
-					}
-				}
-			}
-
-			int newSignal = 0;
-			if (manaToGet > 0) {
-				newSignal++;
-				if (mana >= manaToGet) {
-					newSignal++;
-				}
-			}
-
-			if (newSignal != signal) {
-				signal = newSignal;
-				level.updateNeighbourForOutputSignal(worldPosition, getBlockState().getBlock());
-			}
-
-			updateRecipe();
-		} else {
-			if (manaToGet > 0 && mana >= manaToGet && level.random.nextInt(20) == 0) {
-				Vector3 vec = Vector3.fromTileEntityCenter(this);
-				Vector3 endVec = vec.add(0, 2.5, 0);
-				Botania.proxy.lightningFX(vec, endVec, 2F, 0x00948B, 0x00E4D7);
-			}
-
-			if (cooldown > 0) {
-				WispParticleData data = WispParticleData.wisp(0.2F, 0.2F, 0.2F, 0.2F, 1);
-				level.addParticle(data, worldPosition.getX() + Math.random(), worldPosition.getY() + 0.8, worldPosition.getZ() + Math.random(), 0, - -0.025F, 0);
-			}
-		}
-
+	private void tickCooldown() {
 		if (cooldown > 0) {
 			cooldown--;
 		}
@@ -195,6 +152,48 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver,
 		} else {
 			lastRecipe = null;
 		}
+	}
+
+	public static void serverTick(Level level, BlockPos worldPosition, BlockState state, TileRuneAltar self) {
+		if (self.manaToGet == 0) {
+			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition, worldPosition.offset(1, 1, 1)));
+			for (ItemEntity item : items) {
+				if (item.isAlive() && !item.getItem().isEmpty() && item.getItem().getItem() != ModBlocks.livingrock.asItem()) {
+					ItemStack stack = item.getItem();
+					self.addItem(null, stack, null);
+				}
+			}
+		}
+
+		int newSignal = 0;
+		if (self.manaToGet > 0) {
+			newSignal++;
+			if (self.mana >= self.manaToGet) {
+				newSignal++;
+			}
+		}
+
+		if (newSignal != self.signal) {
+			self.signal = newSignal;
+			level.updateNeighbourForOutputSignal(worldPosition, state.getBlock());
+		}
+
+		self.updateRecipe();
+		self.tickCooldown();
+	}
+
+	public static void clientTick(Level level, BlockPos worldPosition, BlockState state, TileRuneAltar self) {
+		if (self.manaToGet > 0 && self.mana >= self.manaToGet && level.random.nextInt(20) == 0) {
+			Vector3 vec = Vector3.fromTileEntityCenter(self);
+			Vector3 endVec = vec.add(0, 2.5, 0);
+			Botania.proxy.lightningFX(vec, endVec, 2F, 0x00948B, 0x00E4D7);
+		}
+
+		if (self.cooldown > 0) {
+			WispParticleData data = WispParticleData.wisp(0.2F, 0.2F, 0.2F, 0.2F, 1);
+			level.addParticle(data, worldPosition.getX() + Math.random(), worldPosition.getY() + 0.8, worldPosition.getZ() + Math.random(), 0, - -0.025F, 0);
+		}
+		self.tickCooldown();
 	}
 
 	private void updateRecipe() {
