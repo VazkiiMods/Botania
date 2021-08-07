@@ -16,8 +16,8 @@ import com.mojang.math.Vector3f;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.world.entity.LivingEntity;
@@ -37,7 +37,7 @@ import javax.annotation.Nonnull;
 import java.util.EnumMap;
 import java.util.Map;
 
-public class RenderTileLightRelay extends BlockEntityRenderer<TileLightRelay> {
+public class RenderTileLightRelay implements BlockEntityRenderer<TileLightRelay> {
 
 	private static final Map<LuminizerVariant, Material> sprites = Util.make(new EnumMap<>(LuminizerVariant.class), m -> {
 		m.put(LuminizerVariant.DEFAULT, MiscellaneousIcons.INSTANCE.lightRelayWorldIcon);
@@ -46,9 +46,7 @@ public class RenderTileLightRelay extends BlockEntityRenderer<TileLightRelay> {
 		m.put(LuminizerVariant.TOGGLE, MiscellaneousIcons.INSTANCE.lightRelayToggleWorldIcon);
 	});
 
-	public RenderTileLightRelay(BlockEntityRenderDispatcher manager) {
-		super(manager);
-	}
+	public RenderTileLightRelay(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(@Nonnull TileLightRelay tile, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

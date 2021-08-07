@@ -13,8 +13,8 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -27,15 +27,13 @@ import javax.annotation.Nullable;
 
 import java.util.Random;
 
-public class RenderTileTeruTeruBozu extends BlockEntityRenderer<TileTeruTeruBozu> {
+public class RenderTileTeruTeruBozu implements BlockEntityRenderer<TileTeruTeruBozu> {
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TERU_TERU_BOZU);
 	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_TERU_TERU_BOZU_HALLOWEEN);
 	private final ModelTeruTeruBozu model = new ModelTeruTeruBozu();
 
-	public RenderTileTeruTeruBozu(BlockEntityRenderDispatcher manager) {
-		super(manager);
-	}
+	public RenderTileTeruTeruBozu(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(@Nullable TileTeruTeruBozu tileentity, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

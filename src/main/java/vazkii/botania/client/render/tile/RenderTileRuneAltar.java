@@ -16,8 +16,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -26,11 +26,10 @@ import vazkii.botania.common.block.tile.TileRuneAltar;
 
 import javax.annotation.Nonnull;
 
-public class RenderTileRuneAltar extends BlockEntityRenderer<TileRuneAltar> {
+public class RenderTileRuneAltar implements BlockEntityRenderer<TileRuneAltar> {
 	private final ModelPart spinningCube = new ModelPart(64, 32, 42, 0);
 
-	public RenderTileRuneAltar(BlockEntityRenderDispatcher manager) {
-		super(manager);
+	public RenderTileRuneAltar(BlockEntityRendererProvider.Context manager) {
 		spinningCube.addBox(0F, 0F, 0F, 1, 1, 1);
 		spinningCube.setPos(0F, 0F, 0F);
 		spinningCube.setTexSize(64, 64);

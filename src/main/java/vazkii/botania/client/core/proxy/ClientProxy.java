@@ -320,7 +320,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		EntityRendererRegistry.INSTANCE.register(ModEntities.MAGIC_LANDMINE, RenderMagicLandmine::new);
 		EntityRendererRegistry.INSTANCE.register(ModEntities.MAGIC_MISSILE, RenderNoop::new);
 		EntityRendererRegistry.INSTANCE.register(ModEntities.FALLING_STAR, RenderNoop::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.THROWN_ITEM, (m, ctx) -> new ItemEntityRenderer(m, ctx.getItemRenderer()));
+		EntityRendererRegistry.INSTANCE.register(ModEntities.THROWN_ITEM, ItemEntityRenderer::new);
 		EntityRendererRegistry.INSTANCE.register(ModEntities.PIXIE, RenderPixie::new);
 		EntityRendererRegistry.INSTANCE.register(ModEntities.DOPPLEGANGER, RenderDoppleganger::new);
 		EntityRendererRegistry.INSTANCE.register(ModEntities.SPARK, RenderSpark::new);
@@ -330,9 +330,9 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		EntityRendererRegistry.INSTANCE.register(ModEntities.MANA_STORM, RenderManaStorm::new);
 		EntityRendererRegistry.INSTANCE.register(ModEntities.BABYLON_WEAPON, RenderBabylonWeapon::new);
 
-		EntityRendererRegistry.INSTANCE.register(ModEntities.THORN_CHAKRAM, (m, ctx) -> new ThrownItemRenderer<>(m, ctx.getItemRenderer()));
-		EntityRendererRegistry.INSTANCE.register(ModEntities.VINE_BALL, (m, ctx) -> new ThrownItemRenderer<>(m, ctx.getItemRenderer()));
-		EntityRendererRegistry.INSTANCE.register(ModEntities.ENDER_AIR_BOTTLE, (m, ctx) -> new ThrownItemRenderer<>(m, ctx.getItemRenderer()));
+		EntityRendererRegistry.INSTANCE.register(ModEntities.THORN_CHAKRAM, ThrownItemRenderer::new);
+		EntityRendererRegistry.INSTANCE.register(ModEntities.VINE_BALL, ThrownItemRenderer::new);
+		EntityRendererRegistry.INSTANCE.register(ModEntities.ENDER_AIR_BOTTLE, ThrownItemRenderer::new);
 	}
 
 	private void loadComplete(Minecraft mc) {

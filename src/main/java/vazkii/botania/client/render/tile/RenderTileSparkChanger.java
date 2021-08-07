@@ -14,19 +14,17 @@ import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.common.block.tile.TileSparkChanger;
 
 import javax.annotation.Nonnull;
 
-public class RenderTileSparkChanger extends BlockEntityRenderer<TileSparkChanger> {
+public class RenderTileSparkChanger implements BlockEntityRenderer<TileSparkChanger> {
 
-	public RenderTileSparkChanger(BlockEntityRenderDispatcher manager) {
-		super(manager);
-	}
+	public RenderTileSparkChanger(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(@Nonnull TileSparkChanger tileentity, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

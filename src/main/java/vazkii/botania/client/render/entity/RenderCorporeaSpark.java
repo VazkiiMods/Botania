@@ -8,8 +8,7 @@
  */
 package vazkii.botania.client.render.entity;
 
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -17,8 +16,8 @@ import vazkii.botania.common.entity.EntityCorporeaSpark;
 
 public class RenderCorporeaSpark extends RenderSparkBase<EntityCorporeaSpark> {
 
-	public RenderCorporeaSpark(EntityRenderDispatcher manager, EntityRendererRegistry.Context ctx) {
-		super(manager);
+	public RenderCorporeaSpark(EntityRendererProvider.Context ctx) {
+		super(ctx);
 	}
 
 	@Override

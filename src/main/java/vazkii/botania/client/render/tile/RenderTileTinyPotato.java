@@ -17,9 +17,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.core.Direction;
@@ -56,13 +57,14 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
+public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato> {
 	public static final String DEFAULT = "default";
 	public static final String HALLOWEEN = "halloween";
 	private static final Pattern ESCAPED = Pattern.compile("[^a-z0-9/._-]");
+	private final BlockRenderDispatcher blockRenderDispatcher;
 
-	public RenderTileTinyPotato(BlockEntityRenderDispatcher manager) {
-		super(manager);
+	public RenderTileTinyPotato(BlockEntityRendererProvider.Context ctx) {
+		this.blockRenderDispatcher = ctx.getBlockRenderDispatcher();
 	}
 
 	private static boolean matches(String name, String match) {
@@ -390,7 +392,7 @@ public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 	}
 
 	private void renderModel(PoseStack ms, VertexConsumer buffer, int light, int overlay, BakedModel model) {
-		Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, overlay);
+		blockRenderDispatcher.getModelRenderer().renderModel(ms.last(), buffer, null, model, 1, 1, 1, light, overlay);
 	}
 
 	private void renderItem(PoseStack ms, MultiBufferSource buffers, int light, int overlay, ItemStack stack) {
@@ -398,6 +400,6 @@ public class RenderTileTinyPotato extends BlockEntityRenderer<TileTinyPotato> {
 	}
 
 	private void renderBlock(PoseStack ms, MultiBufferSource buffers, int light, int overlay, Block block) {
-		Minecraft.getInstance().getBlockRenderer().renderSingleBlock(block.defaultBlockState(), ms, buffers, light, overlay);
+		blockRenderDispatcher.renderSingleBlock(block.defaultBlockState(), ms, buffers, light, overlay);
 	}
 }

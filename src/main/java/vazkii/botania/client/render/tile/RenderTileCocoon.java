@@ -12,11 +12,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -24,10 +24,11 @@ import vazkii.botania.common.block.tile.TileCocoon;
 
 import javax.annotation.Nonnull;
 
-public class RenderTileCocoon extends BlockEntityRenderer<TileCocoon> {
+public class RenderTileCocoon implements BlockEntityRenderer<TileCocoon> {
+	private final BlockRenderDispatcher blockRenderDispatcher;
 
-	public RenderTileCocoon(BlockEntityRenderDispatcher manager) {
-		super(manager);
+	public RenderTileCocoon(BlockEntityRendererProvider.Context ctx) {
+		this.blockRenderDispatcher = ctx.getBlockRenderDispatcher();
 	}
 
 	@Override
@@ -45,9 +46,9 @@ public class RenderTileCocoon extends BlockEntityRenderer<TileCocoon> {
 		ms.mulPose(Vector3f.XP.rotationDegrees(rot));
 		ms.translate(-0.5, 0, 0);
 		BlockState state = cocoon.getBlockState();
-		BakedModel model = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper().getBlockModel(state);
+		BakedModel model = blockRenderDispatcher.getBlockModel(state);
 		VertexConsumer buffer = buffers.getBuffer(ItemBlockRenderTypes.getChunkRenderType(state));
-		Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(ms.last(), buffer, state, model, 1, 1, 1, light, overlay);
+		blockRenderDispatcher.getModelRenderer().renderModel(ms.last(), buffer, state, model, 1, 1, 1, light, overlay);
 		ms.popPose();
 	}
 }

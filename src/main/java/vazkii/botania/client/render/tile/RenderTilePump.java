@@ -12,21 +12,22 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.common.block.tile.mana.TilePump;
 
-public class RenderTilePump extends BlockEntityRenderer<TilePump> {
+public class RenderTilePump implements BlockEntityRenderer<TilePump> {
 	public static BakedModel headModel = null;
+	private final BlockRenderDispatcher blockRenderDispatcher;
 
-	public RenderTilePump(BlockEntityRenderDispatcher manager) {
-		super(manager);
+	public RenderTilePump(BlockEntityRendererProvider.Context ctx) {
+		this.blockRenderDispatcher = ctx.getBlockRenderDispatcher();
 	}
 
 	@Override
@@ -53,7 +54,7 @@ public class RenderTilePump extends BlockEntityRenderer<TilePump> {
 		double diff = Math.max(0F, Math.min(8F, pump.innerRingPos + pump.moving * partialTicks));
 		ms.translate(0, 0, diff / 14);
 		VertexConsumer buffer = buffers.getBuffer(RenderType.solid());
-		Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(ms.last(), buffer, null, headModel, 1, 1, 1, light, overlay);
+		blockRenderDispatcher.getModelRenderer().renderModel(ms.last(), buffer, null, headModel, 1, 1, 1, light, overlay);
 		ms.popPose();
 	}
 }

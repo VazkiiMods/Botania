@@ -13,8 +13,8 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -27,14 +27,12 @@ import javax.annotation.Nullable;
 
 import java.util.Random;
 
-public class RenderTileHourglass extends BlockEntityRenderer<TileHourglass> {
+public class RenderTileHourglass implements BlockEntityRenderer<TileHourglass> {
 
 	final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_HOURGLASS);
 	final ModelHourglass model = new ModelHourglass();
 
-	public RenderTileHourglass(BlockEntityRenderDispatcher manager) {
-		super(manager);
-	}
+	public RenderTileHourglass(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(@Nullable TileHourglass hourglass, float ticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

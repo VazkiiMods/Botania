@@ -11,8 +11,7 @@ package vazkii.botania.client.render.entity;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
@@ -41,8 +40,8 @@ public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
 		RenderSystem.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 	};
 
-	public RenderPixie(EntityRenderDispatcher renderManager, EntityRendererRegistry.Context ctx) {
-		super(renderManager, new ModelPixie(), 0.0F);
+	public RenderPixie(EntityRendererProvider.Context ctx) {
+		super(ctx, new ModelPixie(), 0.0F);
 	}
 
 	@Nonnull

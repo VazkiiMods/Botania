@@ -14,8 +14,8 @@ import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.entity.item.ItemEntity;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -27,13 +27,11 @@ import vazkii.botania.mixin.AccessorItemEntity;
 
 import javax.annotation.Nonnull;
 
-public class RenderTileEnchanter extends BlockEntityRenderer<TileEnchanter> {
+public class RenderTileEnchanter implements BlockEntityRenderer<TileEnchanter> {
 
 	private ItemEntity item;
 
-	public RenderTileEnchanter(BlockEntityRenderDispatcher manager) {
-		super(manager);
-	}
+	public RenderTileEnchanter(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(@Nonnull TileEnchanter enchanter, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

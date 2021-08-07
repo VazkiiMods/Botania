@@ -15,8 +15,8 @@ import com.mojang.math.Matrix4f;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 
@@ -27,13 +27,11 @@ import java.util.List;
 import java.util.Random;
 
 // [VanillaCopy] end portal TESR, relevant edits are commented
-public class RenderTileStarfield extends BlockEntityRenderer<TileStarfield> {
+public class RenderTileStarfield implements BlockEntityRenderer<TileStarfield> {
 	private static final Random RANDOM = new Random(31100L);
 	private static final List<RenderType> LAYERS = AccessorEndPortalTileEntityRenderer.getLayers();
 
-	public RenderTileStarfield(BlockEntityRenderDispatcher manager) {
-		super(manager);
-	}
+	public RenderTileStarfield(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(TileStarfield p_225616_1_, float p_225616_2_, PoseStack p_225616_3_, MultiBufferSource p_225616_4_, int p_225616_5_, int p_225616_6_) {

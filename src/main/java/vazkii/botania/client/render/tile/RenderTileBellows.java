@@ -13,8 +13,8 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
@@ -24,13 +24,11 @@ import vazkii.botania.common.block.tile.mana.TileBellows;
 
 import javax.annotation.Nullable;
 
-public class RenderTileBellows extends BlockEntityRenderer<TileBellows> {
+public class RenderTileBellows implements BlockEntityRenderer<TileBellows> {
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_BELLOWS);
 	private static final ModelBellows model = new ModelBellows();
 
-	public RenderTileBellows(BlockEntityRenderDispatcher manager) {
-		super(manager);
-	}
+	public RenderTileBellows(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(@Nullable TileBellows bellows, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

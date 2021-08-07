@@ -16,8 +16,8 @@ import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 import vazkii.botania.api.state.BotaniaStateProps;
@@ -28,11 +28,9 @@ import vazkii.botania.common.block.tile.TileAlfPortal;
 
 import javax.annotation.Nonnull;
 
-public class RenderTileAlfPortal extends BlockEntityRenderer<TileAlfPortal> {
+public class RenderTileAlfPortal implements BlockEntityRenderer<TileAlfPortal> {
 
-	public RenderTileAlfPortal(BlockEntityRenderDispatcher manager) {
-		super(manager);
-	}
+	public RenderTileAlfPortal(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(@Nonnull TileAlfPortal portal, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

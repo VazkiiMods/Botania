@@ -16,8 +16,8 @@ import com.mojang.math.Vector3f;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.client.core.helper.RenderHelper;
@@ -26,14 +26,13 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 
 import javax.annotation.Nullable;
 
-public class RenderTileCorporeaIndex extends BlockEntityRenderer<TileCorporeaIndex> {
+public class RenderTileCorporeaIndex implements BlockEntityRenderer<TileCorporeaIndex> {
 	private static final RenderType LAYER = RenderType.entityCutoutNoCull(new ResourceLocation(LibResources.MODEL_CORPOREA_INDEX));
 	private static final float ANGLE = (float) Math.sin(Math.toRadians(45));
 	private final ModelPart ring;
 	private final ModelPart cube;
 
-	public RenderTileCorporeaIndex(BlockEntityRenderDispatcher manager) {
-		super(manager);
+	public RenderTileCorporeaIndex(BlockEntityRendererProvider.Context ctx) {
 		this.ring = new ModelPart(64, 32, 0, 0);
 		this.ring.addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F);
 		this.cube = new ModelPart(64, 32, 32, 0);

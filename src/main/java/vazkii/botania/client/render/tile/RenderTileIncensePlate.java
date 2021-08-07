@@ -15,8 +15,8 @@ import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -27,13 +27,11 @@ import javax.annotation.Nonnull;
 
 import java.util.Map;
 
-public class RenderTileIncensePlate extends BlockEntityRenderer<TileIncensePlate> {
+public class RenderTileIncensePlate implements BlockEntityRenderer<TileIncensePlate> {
 
 	private static final Map<Direction, Integer> ROTATIONS = ImmutableMap.of(Direction.NORTH, 180, Direction.SOUTH, 0, Direction.WEST, 270, Direction.EAST, 90);
 
-	public RenderTileIncensePlate(BlockEntityRenderDispatcher manager) {
-		super(manager);
-	}
+	public RenderTileIncensePlate(BlockEntityRendererProvider.Context ctx) {}
 
 	@SuppressWarnings("deprecation")
 	@Override

@@ -15,8 +15,9 @@ import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.BlockItem;
@@ -29,13 +30,14 @@ import vazkii.botania.mixin.AccessorItemEntity;
 
 import javax.annotation.Nullable;
 
-public class RenderTileCorporeaCrystalCube extends BlockEntityRenderer<TileCorporeaCrystalCube> {
+public class RenderTileCorporeaCrystalCube implements BlockEntityRenderer<TileCorporeaCrystalCube> {
 	// Ugly but there's no other way to get the model besides grabbing it from the event
 	public static BakedModel cubeModel = null;
 	private ItemEntity entity = null;
+	private final BlockRenderDispatcher blockRenderDispatcher;
 
-	public RenderTileCorporeaCrystalCube(BlockEntityRenderDispatcher manager) {
-		super(manager);
+	public RenderTileCorporeaCrystalCube(BlockEntityRendererProvider.Context ctx) {
+		this.blockRenderDispatcher = ctx.getBlockRenderDispatcher();
 	}
 
 	@Override
@@ -74,7 +76,7 @@ public class RenderTileCorporeaCrystalCube extends BlockEntityRenderer<TileCorpo
 			ms.pushPose();
 			ms.translate(-0.5F, 0.25F, -0.5F);
 			VertexConsumer buffer = buffers.getBuffer(Sheets.translucentCullBlockSheet());
-			Minecraft.getInstance().getBlockRenderer().getModelRenderer().renderModel(ms.last(), buffer, null, cubeModel, 1, 1, 1, light, overlay);
+			blockRenderDispatcher.getModelRenderer().renderModel(ms.last(), buffer, null, cubeModel, 1, 1, 1, light, overlay);
 			ms.popPose();
 		}
 

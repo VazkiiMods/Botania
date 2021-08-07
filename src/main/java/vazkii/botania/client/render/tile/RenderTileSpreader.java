@@ -17,8 +17,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
@@ -34,11 +34,9 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class RenderTileSpreader extends BlockEntityRenderer<TileSpreader> {
+public class RenderTileSpreader implements BlockEntityRenderer<TileSpreader> {
 
-	public RenderTileSpreader(BlockEntityRenderDispatcher manager) {
-		super(manager);
-	}
+	public RenderTileSpreader(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(@Nonnull TileSpreader spreader, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

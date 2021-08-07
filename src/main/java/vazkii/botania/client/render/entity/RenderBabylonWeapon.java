@@ -13,12 +13,11 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.BakedModel;
@@ -34,8 +33,8 @@ import java.util.Random;
 
 public class RenderBabylonWeapon extends EntityRenderer<EntityBabylonWeapon> {
 
-	public RenderBabylonWeapon(EntityRenderDispatcher renderManager, EntityRendererRegistry.Context ctx) {
-		super(renderManager);
+	public RenderBabylonWeapon(EntityRendererProvider.Context ctx) {
+		super(ctx);
 	}
 
 	@Override

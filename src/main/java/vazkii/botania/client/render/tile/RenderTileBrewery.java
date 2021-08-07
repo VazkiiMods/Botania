@@ -11,8 +11,8 @@ package vazkii.botania.client.render.tile;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.model.ModelBrewery;
@@ -20,12 +20,10 @@ import vazkii.botania.common.block.tile.TileBrewery;
 
 import javax.annotation.Nullable;
 
-public class RenderTileBrewery extends BlockEntityRenderer<TileBrewery> {
+public class RenderTileBrewery implements BlockEntityRenderer<TileBrewery> {
 	final ModelBrewery model = new ModelBrewery();
 
-	public RenderTileBrewery(BlockEntityRenderDispatcher manager) {
-		super(manager);
-	}
+	public RenderTileBrewery(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(@Nullable TileBrewery brewery, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

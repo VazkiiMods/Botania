@@ -13,8 +13,8 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
@@ -24,11 +24,9 @@ import vazkii.botania.common.block.tile.TileTerraPlate;
 
 import javax.annotation.Nonnull;
 
-public class RenderTileTerraPlate extends BlockEntityRenderer<TileTerraPlate> {
+public class RenderTileTerraPlate implements BlockEntityRenderer<TileTerraPlate> {
 
-	public RenderTileTerraPlate(BlockEntityRenderDispatcher manager) {
-		super(manager);
-	}
+	public RenderTileTerraPlate(BlockEntityRendererProvider.Context manager) {}
 
 	@Override
 	public void render(@Nonnull TileTerraPlate plate, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

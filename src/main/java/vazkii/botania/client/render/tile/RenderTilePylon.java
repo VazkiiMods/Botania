@@ -13,11 +13,13 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.ItemStack;
@@ -31,6 +33,7 @@ import vazkii.botania.client.model.ModelPylonGaia;
 import vazkii.botania.client.model.ModelPylonMana;
 import vazkii.botania.client.model.ModelPylonNatura;
 import vazkii.botania.common.block.BlockPylon;
+import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TilePylon;
 
 import javax.annotation.Nonnull;
@@ -38,7 +41,7 @@ import javax.annotation.Nullable;
 
 import java.util.Random;
 
-public class RenderTilePylon extends BlockEntityRenderer<TilePylon> {
+public class RenderTilePylon implements BlockEntityRenderer<TilePylon> {
 
 	public static final ResourceLocation MANA_TEXTURE = new ResourceLocation(LibResources.MODEL_PYLON_MANA);
 	public static final ResourceLocation NATURA_TEXTURE = new ResourceLocation(LibResources.MODEL_PYLON_NATURA);
@@ -52,9 +55,7 @@ public class RenderTilePylon extends BlockEntityRenderer<TilePylon> {
 	private static BlockPylon.Variant forceVariant = BlockPylon.Variant.MANA;
 	private static ItemTransforms.TransformType forceTransform = ItemTransforms.TransformType.NONE;
 
-	public RenderTilePylon(BlockEntityRenderDispatcher manager) {
-		super(manager);
-	}
+	public RenderTilePylon(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(@Nonnull TilePylon pylon, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
@@ -133,14 +134,14 @@ public class RenderTilePylon extends BlockEntityRenderer<TilePylon> {
 	}
 
 	public static class TEISR implements BuiltinItemRendererRegistry.DynamicItemRenderer {
-		private static final LazyLoadedValue<TilePylon> DUMMY = new LazyLoadedValue<>(TilePylon::new);
+		private static final LazyLoadedValue<TilePylon> DUMMY = new LazyLoadedValue<>(() -> new TilePylon(new BlockPos(0, Integer.MIN_VALUE, 0), ModBlocks.manaPylon.defaultBlockState()));
 
 		@Override
 		public void render(ItemStack stack, ItemTransforms.TransformType type, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 			if (Block.byItem(stack.getItem()) instanceof BlockPylon) {
 				RenderTilePylon.forceVariant = ((BlockPylon) Block.byItem(stack.getItem())).variant;
 				RenderTilePylon.forceTransform = type;
-				BlockEntityRenderer<TilePylon> r = BlockEntityRenderDispatcher.instance.getRenderer(DUMMY.get());
+				BlockEntityRenderer<TilePylon> r = Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(DUMMY.get());
 				if (r instanceof RenderTilePylon) {
 					((RenderTilePylon) r).renderPylon(null, 0, ms, buffers, light, overlay);
 				}

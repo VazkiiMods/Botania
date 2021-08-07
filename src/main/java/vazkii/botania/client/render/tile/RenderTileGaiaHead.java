@@ -16,7 +16,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.SkullModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
@@ -38,8 +38,8 @@ import vazkii.botania.mixin.AccessorSkullTileEntityRenderer;
 import javax.annotation.Nullable;
 
 public class RenderTileGaiaHead extends SkullBlockRenderer {
-	public RenderTileGaiaHead(BlockEntityRenderDispatcher manager) {
-		super(manager);
+	public RenderTileGaiaHead(BlockEntityRendererProvider.Context ctx) {
+		super(ctx);
 	}
 
 	// [VanillaCopy] super, but finding the skull type and profile ourselves and calling our own method to get RenderType

@@ -15,8 +15,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -29,11 +29,9 @@ import javax.annotation.Nonnull;
 
 import java.util.Random;
 
-public class RenderTileFloatingFlower extends BlockEntityRenderer<TileFloatingFlower> {
+public class RenderTileFloatingFlower implements BlockEntityRenderer<TileFloatingFlower> {
 
-	public RenderTileFloatingFlower(BlockEntityRenderDispatcher manager) {
-		super(manager);
-	}
+	public RenderTileFloatingFlower(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(@Nonnull TileFloatingFlower tile, float t, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

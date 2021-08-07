@@ -12,13 +12,12 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.resources.ResourceLocation;
@@ -66,8 +65,8 @@ public class RenderDoppleganger extends HumanoidMobRenderer<EntityDoppleganger, 
 		RenderSystem.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
 	};
 
-	public RenderDoppleganger(EntityRenderDispatcher renderManager, EntityRendererRegistry.Context ctx) {
-		super(renderManager, new Model(), 0F);
+	public RenderDoppleganger(EntityRendererProvider.Context ctx) {
+		super(ctx, new Model(), 0F);
 	}
 
 	@Override

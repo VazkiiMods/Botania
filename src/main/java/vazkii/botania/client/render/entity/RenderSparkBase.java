@@ -14,8 +14,8 @@ import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
@@ -32,8 +32,8 @@ import java.util.Random;
 
 public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityRenderer<T> {
 
-	public RenderSparkBase(EntityRenderDispatcher manager) {
-		super(manager);
+	public RenderSparkBase(EntityRendererProvider.Context ctx) {
+		super(ctx);
 	}
 
 	@Override

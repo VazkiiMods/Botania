@@ -14,8 +14,8 @@ import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
@@ -24,11 +24,9 @@ import vazkii.botania.common.block.tile.TileAnimatedTorch;
 
 import java.util.Random;
 
-public class RenderTileAnimatedTorch extends BlockEntityRenderer<TileAnimatedTorch> {
+public class RenderTileAnimatedTorch implements BlockEntityRenderer<TileAnimatedTorch> {
 
-	public RenderTileAnimatedTorch(BlockEntityRenderDispatcher manager) {
-		super(manager);
-	}
+	public RenderTileAnimatedTorch(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(TileAnimatedTorch te, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

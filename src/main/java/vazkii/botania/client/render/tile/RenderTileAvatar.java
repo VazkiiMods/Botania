@@ -16,8 +16,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -31,7 +31,7 @@ import vazkii.botania.common.block.tile.TileAvatar;
 
 import javax.annotation.Nullable;
 
-public class RenderTileAvatar extends BlockEntityRenderer<TileAvatar> {
+public class RenderTileAvatar implements BlockEntityRenderer<TileAvatar> {
 
 	private static final float[] ROTATIONS = new float[] {
 			180F, 0F, 90F, 270F
@@ -40,9 +40,7 @@ public class RenderTileAvatar extends BlockEntityRenderer<TileAvatar> {
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_AVATAR);
 	private static final ModelAvatar model = new ModelAvatar();
 
-	public RenderTileAvatar(BlockEntityRenderDispatcher manager) {
-		super(manager);
-	}
+	public RenderTileAvatar(BlockEntityRendererProvider.Context context) {}
 
 	@Override
 	public void render(@Nullable TileAvatar avatar, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

@@ -13,8 +13,8 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
@@ -28,7 +28,7 @@ import vazkii.botania.common.item.ModItems;
 
 import java.util.Random;
 
-public class RenderTileRedString<T extends TileRedString> extends BlockEntityRenderer<T> {
+public class RenderTileRedString<T extends TileRedString> implements BlockEntityRenderer<T> {
 	// 0 -> none, 10 -> full
 	private static int transparency = 0;
 
@@ -42,9 +42,7 @@ public class RenderTileRedString<T extends TileRedString> extends BlockEntityRen
 		}
 	}
 
-	public RenderTileRedString(BlockEntityRenderDispatcher manager) {
-		super(manager);
-	}
+	public RenderTileRedString(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(TileRedString tile, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

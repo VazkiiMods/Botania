@@ -14,8 +14,8 @@ import com.mojang.math.Matrix4f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
@@ -39,10 +39,8 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RenderTileSpecialFlower<T extends TileEntitySpecialFlower> extends BlockEntityRenderer<T> {
-	public RenderTileSpecialFlower(BlockEntityRenderDispatcher dispatcher) {
-		super(dispatcher);
-	}
+public class RenderTileSpecialFlower<T extends TileEntitySpecialFlower> implements BlockEntityRenderer<T> {
+	public RenderTileSpecialFlower(BlockEntityRendererProvider.Context ctx) {}
 
 	@Override
 	public void render(TileEntitySpecialFlower tile, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

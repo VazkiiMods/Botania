@@ -8,8 +8,7 @@
  */
 package vazkii.botania.client.render.entity;
 
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.WitherBossRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
@@ -22,8 +21,8 @@ public class RenderPinkWither extends WitherBossRenderer {
 
 	private static final ResourceLocation resource = new ResourceLocation(LibResources.MODEL_PINK_WITHER);
 
-	public RenderPinkWither(EntityRenderDispatcher manager, EntityRendererRegistry.Context ctx) {
-		super(manager);
+	public RenderPinkWither(EntityRendererProvider.Context ctx) {
+		super(ctx);
 	}
 
 	@Nonnull

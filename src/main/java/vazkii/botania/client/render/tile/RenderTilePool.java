@@ -12,11 +12,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.util.Mth;
@@ -36,13 +36,14 @@ import javax.annotation.Nullable;
 
 import java.util.Random;
 
-public class RenderTilePool extends BlockEntityRenderer<TilePool> {
+public class RenderTilePool implements BlockEntityRenderer<TilePool> {
 
 	// Overrides for when we call this TESR from a cart
 	public static int cartMana = -1;
+	private final BlockRenderDispatcher blockRenderDispatcher;
 
-	public RenderTilePool(BlockEntityRenderDispatcher manager) {
-		super(manager);
+	public RenderTilePool(BlockEntityRendererProvider.Context ctx) {
+		this.blockRenderDispatcher = ctx.getBlockRenderDispatcher();
 	}
 
 	@Override
@@ -62,9 +63,9 @@ public class RenderTilePool extends BlockEntityRenderer<TilePool> {
 			int green = (color & 0xFF00) >> 8;
 			int blue = color & 0xFF;
 			BlockState state = pool.getBlockState();
-			BakedModel model = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper().getBlockModel(state);
+			BakedModel model = blockRenderDispatcher.getBlockModel(state);
 			VertexConsumer buffer = buffers.getBuffer(ItemBlockRenderTypes.getRenderType(state, false));
-			Minecraft.getInstance().getBlockRenderer().getModelRenderer()
+			blockRenderDispatcher.getModelRenderer()
 					.renderModel(ms.last(), buffer, state, model, red / 255F, green / 255F, blue / 255F, light, overlay);
 		}
 

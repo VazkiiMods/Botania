@@ -17,9 +17,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
@@ -30,10 +31,11 @@ import vazkii.botania.common.block.tile.TileAltar;
 
 import javax.annotation.Nonnull;
 
-public class RenderTileAltar extends BlockEntityRenderer<TileAltar> {
+public class RenderTileAltar implements BlockEntityRenderer<TileAltar> {
+	private final BlockRenderDispatcher blockRenderDispatcher;
 
-	public RenderTileAltar(BlockEntityRenderDispatcher manager) {
-		super(manager);
+	public RenderTileAltar(BlockEntityRendererProvider.Context context) {
+		this.blockRenderDispatcher = context.getBlockRenderDispatcher();
 	}
 
 	@Override
@@ -108,8 +110,8 @@ public class RenderTileAltar extends BlockEntityRenderer<TileAltar> {
 			ms.mulPose(Vector3f.XP.rotationDegrees(90));
 			ms.scale(s, s, s);
 
-			TextureAtlasSprite sprite = lava ? Minecraft.getInstance().getModelManager().getBlockModelShaper().getBlockModel(Blocks.LAVA.defaultBlockState()).getParticleIcon()
-					: Minecraft.getInstance().getModelManager().getBlockModelShaper().getBlockModel(Blocks.WATER.defaultBlockState()).getParticleIcon();
+			TextureAtlasSprite sprite = lava ? this.blockRenderDispatcher.getBlockModel(Blocks.LAVA.defaultBlockState()).getParticleIcon()
+					: this.blockRenderDispatcher.getBlockModel(Blocks.WATER.defaultBlockState()).getParticleIcon();
 			int color = lava ? -1
 					: BiomeColors.getAverageWaterColor(altar.getLevel(), altar.getBlockPos());
 			VertexConsumer buffer = buffers.getBuffer(Sheets.translucentCullBlockSheet());
