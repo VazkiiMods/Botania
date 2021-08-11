@@ -28,7 +28,7 @@ public class TinyPotatoModel extends DelegatedModel {
 	public ItemOverrides getOverrides() {
 		return new ItemOverrides() {
 			@Override
-			public BakedModel resolve(@Nonnull BakedModel model, @Nonnull ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity livingEntity) {
+			public BakedModel resolve(@Nonnull BakedModel model, @Nonnull ItemStack stack, @Nullable ClientLevel world, @Nullable LivingEntity livingEntity, int seed) {
 				if (stack.hasCustomHoverName()) {
 					return RenderTileTinyPotato.getModelFromDisplayName(stack.getHoverName());
 				}

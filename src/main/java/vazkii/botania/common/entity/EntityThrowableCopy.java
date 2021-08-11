@@ -14,7 +14,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -26,16 +25,16 @@ import net.minecraft.world.phys.Vec3;
 
 // [VanillaCopy] ThrowableProjectile
 public abstract class EntityThrowableCopy extends Projectile {
-	protected EntityThrowableCopy(EntityType<? extends ThrowableProjectile> entityType, Level level) {
+	protected EntityThrowableCopy(EntityType<? extends EntityThrowableCopy> entityType, Level level) {
 		super(entityType, level);
 	}
 
-	protected EntityThrowableCopy(EntityType<? extends ThrowableProjectile> entityType, double d, double e, double f, Level level) {
+	protected EntityThrowableCopy(EntityType<? extends EntityThrowableCopy> entityType, double d, double e, double f, Level level) {
 		this(entityType, level);
 		this.setPos(d, e, f);
 	}
 
-	protected EntityThrowableCopy(EntityType<? extends ThrowableProjectile> entityType, LivingEntity livingEntity, Level level) {
+	protected EntityThrowableCopy(EntityType<? extends EntityThrowableCopy> entityType, LivingEntity livingEntity, Level level) {
 		this(entityType, livingEntity.getX(), livingEntity.getEyeY() - 0.10000000149011612D, livingEntity.getZ(), level);
 		this.setOwner(livingEntity);
 	}

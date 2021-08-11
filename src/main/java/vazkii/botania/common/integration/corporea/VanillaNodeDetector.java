@@ -31,29 +31,28 @@ import javax.annotation.Nullable;
 public class VanillaNodeDetector implements ICorporeaNodeDetector {
 	@Nullable
 	@Override
-	public ICorporeaNode getNode(Level world, ICorporeaSpark spark) {
-		BlockPos pos = spark.getAttachPos();
-
+	public ICorporeaNode getNode(Level level, ICorporeaSpark spark) {
 		// [VanillaCopy] HopperBlockEntity
-		Container inventory = null;
-		BlockState blockState = world.getBlockState(pos);
+		Container container = null;
+		BlockPos blockPos = spark.getAttachPos();
+		BlockState blockState = level.getBlockState(blockPos);
 		Block block = blockState.getBlock();
 		if (block instanceof WorldlyContainerHolder) {
-			inventory = ((WorldlyContainerHolder) block).getContainer(blockState, world, pos);
-		} else if (block.isEntityBlock()) {
-			BlockEntity blockEntity = world.getBlockEntity(pos);
+			container = ((WorldlyContainerHolder) block).getContainer(blockState, level, blockPos);
+		} else if (blockState.hasBlockEntity()) {
+			BlockEntity blockEntity = level.getBlockEntity(blockPos);
 			if (blockEntity instanceof Container) {
-				inventory = (Container) blockEntity;
-				if (inventory instanceof ChestBlockEntity && block instanceof ChestBlock) {
-					inventory = ChestBlock.getContainer((ChestBlock) block, blockState, world, pos, true);
+				container = (Container) blockEntity;
+				if (container instanceof ChestBlockEntity && block instanceof ChestBlock) {
+					container = ChestBlock.getContainer((ChestBlock) block, blockState, level, blockPos, true);
 				}
 			}
 		}
 
-		if (inventory instanceof WorldlyContainer) {
-			return new SidedVanillaCorporeaNode(world, spark.getAttachPos(), spark, (WorldlyContainer) inventory, Direction.UP);
-		} else if (inventory != null) {
-			return new VanillaCorporeaNode(world, spark.getAttachPos(), inventory, spark);
+		if (container instanceof WorldlyContainer) {
+			return new SidedVanillaCorporeaNode(level, spark.getAttachPos(), spark, (WorldlyContainer) container, Direction.UP);
+		} else if (container != null) {
+			return new VanillaCorporeaNode(level, spark.getAttachPos(), container, spark);
 		}
 		return null;
 	}

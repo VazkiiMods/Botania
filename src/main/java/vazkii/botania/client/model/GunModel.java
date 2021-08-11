@@ -64,7 +64,7 @@ public class GunModel implements BakedModel {
 	private final ItemOverrides itemHandler = new ItemOverrides() {
 		@Nonnull
 		@Override
-		public BakedModel resolve(BakedModel model, ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn) {
+		public BakedModel resolve(BakedModel model, ItemStack stack, @Nullable ClientLevel worldIn, @Nullable LivingEntity entityIn, int seed) {
 			boolean clip = ItemManaGun.hasClip(stack);
 
 			if (ItemManaGun.isSugoiKawaiiDesuNe(stack)) {
