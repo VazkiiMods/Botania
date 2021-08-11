@@ -567,7 +567,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 			RenderSystem.disableLighting();
 		}
 
-		RenderSystem.color4f(1F, 1F, 1F, 1F);
+		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 	}
 
 	@Override

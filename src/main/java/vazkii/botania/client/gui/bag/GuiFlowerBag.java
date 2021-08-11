@@ -50,7 +50,7 @@ public class GuiFlowerBag extends AbstractContainerScreen<ContainerFlowerBag> {
 	@Override
 	protected void renderBg(PoseStack ms, float partialTicks, int mouseX, int mouseY) {
 		Minecraft mc = Minecraft.getInstance();
-		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.getTextureManager().bind(texture);
 		int k = (width - imageWidth) / 2;
 		int l = (height - imageHeight) / 2;

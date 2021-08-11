@@ -220,7 +220,7 @@ public final class HUDHandler {
 		profiler.pop();
 		profiler.pop();
 
-		RenderSystem.color4f(1F, 1F, 1F, 1F);
+		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 	}
 
 	private static void renderManaInvBar(PoseStack ms, boolean hasCreative, int totalMana, int totalMaxMana) {
@@ -249,14 +249,14 @@ public final class HUDHandler {
 		int r = (color >> 16 & 0xFF);
 		int g = (color >> 8 & 0xFF);
 		int b = color & 0xFF;
-		RenderSystem.color4f(r / 255F, g / 255F, b / 255F, 1 - (r / 255F));
+		RenderSystem.setShaderColor(r / 255F, g / 255F, b / 255F, 1 - (r / 255F));
 		mc.getTextureManager().bind(manaBar);
 
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		RenderHelper.drawTexturedModalRect(ms, x, y, 0, 251, width, 5);
 		RenderSystem.disableBlend();
-		RenderSystem.color4f(1, 1, 1, 1);
+		RenderSystem.setShaderColor(1, 1, 1, 1);
 	}
 
 	private static void renderPoolRecipeHUD(PoseStack ms, TilePool tile, ItemStack stack) {
@@ -277,7 +277,7 @@ public final class HUDHandler {
 
 			mc.getTextureManager().bind(manaBar);
 			RenderHelper.drawTexturedModalRect(ms, x, y, u, v, 22, 15);
-			RenderSystem.color4f(1F, 1F, 1F, 1F);
+			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 
 			mc.getItemRenderer().renderAndDecorateItem(stack, x - 20, y);
 			mc.getItemRenderer().renderAndDecorateItem(recipe.getResultItem(), x + 26, y);
@@ -379,7 +379,7 @@ public final class HUDHandler {
 	public static void renderManaBar(PoseStack ms, int x, int y, int color, float alpha, int mana, int maxMana) {
 		Minecraft mc = Minecraft.getInstance();
 
-		RenderSystem.color4f(1F, 1F, 1F, alpha);
+		RenderSystem.setShaderColor(1F, 1F, 1F, alpha);
 		mc.getTextureManager().bind(manaBar);
 		RenderHelper.drawTexturedModalRect(ms, x, y, 0, 0, 102, 5);
 
@@ -394,8 +394,8 @@ public final class HUDHandler {
 		float red = (color >> 16 & 0xFF) / 255F;
 		float green = (color >> 8 & 0xFF) / 255F;
 		float blue = (color & 0xFF) / 255F;
-		RenderSystem.color4f(red, green, blue, alpha);
+		RenderSystem.setShaderColor(red, green, blue, alpha);
 		RenderHelper.drawTexturedModalRect(ms, x + 1, y + 1, 0, 5, Math.min(100, manaPercentage), 3);
-		RenderSystem.color4f(1, 1, 1, 1);
+		RenderSystem.setShaderColor(1, 1, 1, 1);
 	}
 }

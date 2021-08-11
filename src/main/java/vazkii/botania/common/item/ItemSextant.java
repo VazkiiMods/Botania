@@ -208,7 +208,7 @@ public class ItemSextant extends Item {
 				RenderSystem.disableTexture();
 				RenderSystem.lineWidth(3F);
 				Tesselator.getInstance().getBuilder().begin(GL11.GL_LINE_STRIP, DefaultVertexFormat.POSITION);
-				RenderSystem.color4f(0F, 1F, 1F, 1F);
+				RenderSystem.setShaderColor(0F, 1F, 1F, 1F);
 				for (int i = 0; i < 361; i++) {
 					float radian = (float) (i * Math.PI / 180);
 					float xp = x + net.minecraft.util.Mth.cos(radian) * (float) radius;

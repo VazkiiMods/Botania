@@ -47,7 +47,7 @@ public final class ItemsRemainingRenderHandler {
 			int start = maxTicks - leaveTicks;
 			float alpha = ticks + partTicks > start ? 1F : (ticks + partTicks) / start;
 
-			// RenderSystem.color4f(1F, 1F, 1F, alpha);
+			// RenderSystem.setShaderColor(1F, 1F, 1F, alpha);
 			int xp = x + (int) (16F * (1F - alpha));
 			ms.pushPose();
 			ms.translate(xp, y, 0F);

@@ -59,7 +59,7 @@ public class SkyblockSkyRenderer {
 
 		RenderSystem.blendFuncSeparate(770, 771, 1, 0);
 		ms.pushPose();
-		RenderSystem.color4f(1F, 1F, 1F, a * 4 * (1F - insideVoid));
+		RenderSystem.setShaderColor(1F, 1F, 1F, a * 4 * (1F - insideVoid));
 		ms.mulPose(new Vector3f(0.5F, 0.5F, 0F).rotationDegrees(90));
 		for (int p = 0; p < planetTextures.length; p++) {
 			Minecraft.getInstance().getTextureManager().bind(planetTextures[p]);
@@ -93,7 +93,7 @@ public class SkyblockSkyRenderer {
 				scale = 40F;
 			}
 		}
-		RenderSystem.color4f(1F, 1F, 1F, 1F);
+		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 		ms.popPose();
 
 		// === Rays
@@ -105,7 +105,7 @@ public class SkyblockSkyRenderer {
 		RenderSystem.blendFuncSeparate(770, 1, 1, 0);
 		ms.translate(0, -1, 0);
 		ms.mulPose(Vector3f.XP.rotationDegrees(220));
-		RenderSystem.color4f(1F, 1F, 1F, a);
+		RenderSystem.setShaderColor(1F, 1F, 1F, a);
 		int angles = 90;
 		float y = 2F;
 		float y0 = 0F;
@@ -147,13 +147,13 @@ public class SkyblockSkyRenderer {
 			switch (p) {
 			case 0:
 				ms.mulPose(Vector3f.XP.rotationDegrees(20));
-				RenderSystem.color4f(1F, 0.4F, 0.4F, a);
+				RenderSystem.setShaderColor(1F, 0.4F, 0.4F, a);
 				fuzzPer = Math.PI * 14 / angles;
 				rotSpeed = 0.2F;
 				break;
 			case 1:
 				ms.mulPose(Vector3f.XP.rotationDegrees(50));
-				RenderSystem.color4f(0.4F, 1F, 0.7F, a);
+				RenderSystem.setShaderColor(0.4F, 1F, 0.7F, a);
 				fuzzPer = Math.PI * 6 / angles;
 				rotSpeed = 2F;
 				break;
@@ -177,7 +177,7 @@ public class SkyblockSkyRenderer {
 		Random rand = new Random(day * 0xFF);
 		float angle1 = rand.nextFloat() * 360F;
 		float angle2 = rand.nextFloat() * 360F;
-		RenderSystem.color4f(1F, 1F, 1F, effCelAng1 * (1F - insideVoid));
+		RenderSystem.setShaderColor(1F, 1F, 1F, effCelAng1 * (1F - insideVoid));
 		ms.mulPose(Vector3f.YP.rotationDegrees(angle1));
 		ms.mulPose(Vector3f.ZP.rotationDegrees(angle2));
 
@@ -206,7 +206,7 @@ public class SkyblockSkyRenderer {
 		}
 		tessellator.end();
 		ms.popPose();
-		RenderSystem.color4f(1F, 1F, 1F, 1F - insideVoid);
+		RenderSystem.setShaderColor(1F, 1F, 1F, 1F - insideVoid);
 		GlStateManager._blendFuncSeparate(770, 1, 1, 0);
 	}
 
@@ -228,37 +228,37 @@ public class SkyblockSkyRenderer {
 
 		ms.pushPose();
 		ms.mulPose(Vector3f.YP.rotationDegrees(t * 3));
-		RenderSystem.color4f(1F, 1F, 1F, alpha);
+		RenderSystem.setShaderColor(1F, 1F, 1F, alpha);
 		starVBO.draw(ms.last().pose(), GL11.GL_QUADS);
 		ms.popPose();
 
 		ms.pushPose();
 		ms.mulPose(Vector3f.YP.rotationDegrees(t));
-		RenderSystem.color4f(0.5F, 1F, 1F, alpha);
+		RenderSystem.setShaderColor(0.5F, 1F, 1F, alpha);
 		starVBO.draw(ms.last().pose(), GL11.GL_QUADS);
 		ms.popPose();
 
 		ms.pushPose();
 		ms.mulPose(Vector3f.YP.rotationDegrees(t * 2));
-		RenderSystem.color4f(1F, 0.75F, 0.75F, alpha);
+		RenderSystem.setShaderColor(1F, 0.75F, 0.75F, alpha);
 		starVBO.draw(ms.last().pose(), GL11.GL_QUADS);
 		ms.popPose();
 
 		ms.pushPose();
 		ms.mulPose(Vector3f.ZP.rotationDegrees(t * 3));
-		RenderSystem.color4f(1F, 1F, 1F, 0.25F * alpha);
+		RenderSystem.setShaderColor(1F, 1F, 1F, 0.25F * alpha);
 		starVBO.draw(ms.last().pose(), GL11.GL_QUADS);
 		ms.popPose();
 
 		ms.pushPose();
 		ms.mulPose(Vector3f.ZP.rotationDegrees(t));
-		RenderSystem.color4f(0.5F, 1F, 1F, 0.25F * alpha);
+		RenderSystem.setShaderColor(0.5F, 1F, 1F, 0.25F * alpha);
 		starVBO.draw(ms.last().pose(), GL11.GL_QUADS);
 		ms.popPose();
 
 		ms.pushPose();
 		ms.mulPose(Vector3f.ZP.rotationDegrees(t * 2));
-		RenderSystem.color4f(1F, 0.75F, 0.75F, 0.25F * alpha);
+		RenderSystem.setShaderColor(1F, 0.75F, 0.75F, 0.25F * alpha);
 		starVBO.draw(ms.last().pose(), GL11.GL_QUADS);
 		ms.popPose();
 

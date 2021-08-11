@@ -532,14 +532,14 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				RenderSystem.disableAlphaTest();
 			}
 
-			RenderSystem.color4f(1F, 1F, 1F, trans);
+			RenderSystem.setShaderColor(1F, 1F, 1F, trans);
 			RenderHelper.drawTexturedModalRect(ms, x, y, u, v, 9, 9);
 			x += 8;
 		}
 
 		if (player.getAbilities().flying) {
 			int width = ItemNBTHelper.getInt(stack, TAG_DASH_COOLDOWN, 0);
-			RenderSystem.color4f(1F, 1F, 1F, 1F);
+			RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 			if (width > 0) {
 				GuiComponent.fill(ms, xo, y - 2, xo + 80, y - 1, 0x88000000);
 			}
@@ -547,7 +547,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		}
 
 		RenderSystem.enableAlphaTest();
-		RenderSystem.color4f(1F, 1F, 1F, 1F);
+		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bind(GuiComponent.GUI_ICONS_LOCATION);
 	}
 

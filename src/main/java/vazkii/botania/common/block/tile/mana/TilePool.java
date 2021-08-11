@@ -407,7 +407,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 		mc.getTextureManager().bind(HUDHandler.manaBar);
 		RenderHelper.drawTexturedModalRect(ms, x, y, u, v, 22, 15);
-		RenderSystem.color4f(1F, 1F, 1F, 1F);
+		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 
 		ItemStack tablet = new ItemStack(ModItems.manaTablet);
 		ItemManaTablet.setStackCreative(tablet);

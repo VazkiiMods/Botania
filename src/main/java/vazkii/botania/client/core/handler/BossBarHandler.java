@@ -52,7 +52,7 @@ public final class BossBarHandler {
 				int fw = (int) ((double) fgRect.getWidth() * evt.getBossInfo().getPercent());
 				int tx = c - mc.textRenderer.getWidth(name) / 2;
 	
-				RenderSystem.color4f(1F, 1F, 1F, 1F);
+				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 				int auxHeight = currentBoss.bossBarRenderCallback(ms, x, y);
 				RenderSystem.enableBlend();
 				RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
