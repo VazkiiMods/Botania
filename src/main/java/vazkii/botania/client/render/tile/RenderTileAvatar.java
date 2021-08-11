@@ -61,7 +61,8 @@ public class RenderTileAvatar implements BlockEntityRenderer<TileAvatar> {
 				ms.scale(s, s, s);
 				ms.translate(-0.5F, 2F, -0.25F);
 				ms.mulPose(Vector3f.XP.rotationDegrees(-70));
-				Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, light, overlay, ms, buffers);
+				Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.THIRD_PERSON_RIGHT_HAND,
+						light, overlay, ms, buffers, 0);
 				ms.popPose();
 
 				IAvatarWieldable wieldable = (IAvatarWieldable) stack.getItem();

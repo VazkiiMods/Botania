@@ -115,7 +115,8 @@ public class ModelBrewery extends Model {
 
 			float s = 0.25F;
 			ms.scale(s, s, s);
-			mc.getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND, light, overlay, ms, buffers);
+			mc.getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND,
+					light, overlay, ms, buffers, 0);
 			ms.popPose();
 		}
 	}

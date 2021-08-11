@@ -60,7 +60,8 @@ public class ItemGoddessCharm extends ItemBauble implements IManaUsingItem {
 		ms.translate(0.275, -0.4, 0);
 		ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
 		ms.scale(0.55F, -0.55F, -0.55F);
-		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE, light, OverlayTexture.NO_OVERLAY, ms, buffers);
+		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
+				light, OverlayTexture.NO_OVERLAY, ms, buffers, player.getId());
 	}
 
 	@Override

@@ -53,7 +53,8 @@ public class RenderTileAnimatedTorch implements BlockEntityRenderer<TileAnimated
 		}
 
 		ms.mulPose(Vector3f.ZP.rotationDegrees(rotation));
-		mc.getItemRenderer().renderStatic(new ItemStack(Blocks.REDSTONE_TORCH), ItemTransforms.TransformType.GROUND, light, overlay, ms, buffers);
+		mc.getItemRenderer().renderStatic(new ItemStack(Blocks.REDSTONE_TORCH), ItemTransforms.TransformType.GROUND,
+				light, overlay, ms, buffers, 0);
 		ms.popPose();
 	}
 

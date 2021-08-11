@@ -39,7 +39,8 @@ public class RenderTilePrism implements BlockEntityRenderer<TilePrism> {
 				ms.pushPose();
 				ms.mulPose(Vector3f.XP.rotationDegrees(90));
 				ms.translate(0.5F, 0.5F, pos);
-				Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE, light, overlay, ms, buffers);
+				Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
+						light, overlay, ms, buffers, 0);
 				ms.popPose();
 			}
 		}

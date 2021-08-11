@@ -379,7 +379,8 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 					ms.mulPose(Vector3f.XP.rotationDegrees(180));
 					ms.mulPose(Vector3f.YP.rotationDegrees(180));
 					ms.translate(0, -0.75, -0.5);
-					Minecraft.getInstance().getItemRenderer().renderStatic(icon, ItemTransforms.TransformType.HEAD, light, overlay, ms, buffers);
+					Minecraft.getInstance().getItemRenderer().renderStatic(icon, ItemTransforms.TransformType.HEAD,
+							light, overlay, ms, buffers, 0);
 				}
 				break;
 			}
@@ -396,7 +397,8 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 	}
 
 	private void renderItem(PoseStack ms, MultiBufferSource buffers, int light, int overlay, ItemStack stack) {
-		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.HEAD, light, overlay, ms, buffers);
+		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.HEAD,
+				light, overlay, ms, buffers, 0);
 	}
 
 	private void renderBlock(PoseStack ms, MultiBufferSource buffers, int light, int overlay, Block block) {

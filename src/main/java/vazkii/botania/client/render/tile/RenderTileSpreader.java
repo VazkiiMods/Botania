@@ -86,7 +86,8 @@ public class RenderTileSpreader implements BlockEntityRenderer<TileSpreader> {
 			ms.mulPose(Vector3f.ZP.rotationDegrees(180));
 			ms.mulPose(Vector3f.XP.rotationDegrees(180));
 			ms.scale(1.0F, 1.0F, 1.0F);
-			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE, light, overlay, ms, buffers);
+			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
+					light, overlay, ms, buffers, 0);
 			ms.popPose();
 		}
 

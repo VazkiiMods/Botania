@@ -89,6 +89,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 		bipedModel.head.translateAndRotate(ms);
 		ms.translate(0.15, -0.42, -0.35);
 		ms.scale(0.4F, -0.4F, -0.4F);
-		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE, light, OverlayTexture.NO_OVERLAY, ms, buffers);
+		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
+				light, OverlayTexture.NO_OVERLAY, ms, buffers, player.getId());
 	}
 }

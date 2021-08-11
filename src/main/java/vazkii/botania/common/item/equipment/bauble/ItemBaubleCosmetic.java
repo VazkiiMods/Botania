@@ -288,7 +288,8 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 	}
 
 	public static void renderItem(ItemStack stack, PoseStack ms, MultiBufferSource buffers, int light) {
-		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE, light, OverlayTexture.NO_OVERLAY, ms, buffers);
+		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
+				light, OverlayTexture.NO_OVERLAY, ms, buffers, 0);
 	}
 
 }

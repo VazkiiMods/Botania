@@ -49,7 +49,8 @@ public class RenderTileIncensePlate implements BlockEntityRenderer<TileIncensePl
 		float s = 0.6F;
 		ms.translate(-0.11F, -1.35F, 0F);
 		ms.scale(s, s, s);
-		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND, light, overlay, ms, buffers);
+		Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND,
+				light, overlay, ms, buffers, 0);
 		ms.popPose();
 	}
 

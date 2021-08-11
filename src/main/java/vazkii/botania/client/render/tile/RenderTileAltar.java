@@ -96,7 +96,8 @@ public class RenderTileAltar implements BlockEntityRenderer<TileAltar> {
 						v *= 2F;
 
 						ItemStack stack = altar.getItemHandler().getItem(i);
-						Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND, light, overlay, ms, buffers);
+						Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND,
+								light, overlay, ms, buffers, 0);
 						ms.popPose();
 					}
 

@@ -67,7 +67,8 @@ public class RenderTileRuneAltar implements BlockEntityRenderer<TileRuneAltar> {
 			ItemStack stack = altar.getItemHandler().getItem(i);
 			Minecraft mc = Minecraft.getInstance();
 			if (!stack.isEmpty()) {
-				mc.getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND, light, overlay, ms, buffers);
+				mc.getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND,
+						light, overlay, ms, buffers, 0);
 			}
 			ms.popPose();
 		}

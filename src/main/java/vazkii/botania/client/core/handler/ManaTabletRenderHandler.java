@@ -60,7 +60,8 @@ public final class ManaTabletRenderHandler extends RenderLayer<AbstractClientPla
 				}
 
 				ms.scale(0.375F, -0.375F, -0.375F);
-				Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE, 0xF000F0, OverlayTexture.NO_OVERLAY, ms, buffers);
+				Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.NONE,
+						0xF000F0, OverlayTexture.NO_OVERLAY, ms, buffers, player.getId());
 				ms.popPose();
 
 				if (renderedOne) {

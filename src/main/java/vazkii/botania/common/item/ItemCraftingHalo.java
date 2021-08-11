@@ -395,7 +395,8 @@ public class ItemCraftingHalo extends Item {
 				ms.translate(seg == 0 ? 0.5F : 0F, seg == 0 ? -0.1F : 0.6F, 0F);
 
 				ms.mulPose(Vector3f.YP.rotationDegrees(90.0F));
-				Minecraft.getInstance().getItemRenderer().renderStatic(slotStack, ItemTransforms.TransformType.GUI, 0xF000F0, OverlayTexture.NO_OVERLAY, ms, buffers);
+				Minecraft.getInstance().getItemRenderer().renderStatic(slotStack, ItemTransforms.TransformType.GUI,
+						0xF000F0, OverlayTexture.NO_OVERLAY, ms, buffers, player.getId());
 			}
 			ms.popPose();
 

@@ -35,7 +35,8 @@ public class RenderTileSparkChanger implements BlockEntityRenderer<TileSparkChan
 		if (!stack.isEmpty()) {
 			ms.mulPose(Vector3f.YP.rotationDegrees(180));
 			ms.translate(0.5F, 0.5F, 0);
-			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND, light, overlay, ms, buffers);
+			Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemTransforms.TransformType.GROUND,
+					light, overlay, ms, buffers, 0);
 		}
 		ms.popPose();
 	}
