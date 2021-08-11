@@ -12,6 +12,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -162,7 +163,7 @@ public class FXSparkle extends TextureSheetParticle {
 		textureManager.bindForSetup(TextureAtlas.LOCATION_PARTICLES);
 		AbstractTexture tex = textureManager.getTexture(TextureAtlas.LOCATION_PARTICLES);
 		((ExtendedTexture) tex).setFilterSave(true, false);
-		buffer.begin(GL11.GL_QUADS, DefaultVertexFormat.PARTICLE);
+		buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);
 	}
 
 	private static void endRenderCommon() {

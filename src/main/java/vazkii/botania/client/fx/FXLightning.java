@@ -14,6 +14,7 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Matrix4f;
 
@@ -26,8 +27,6 @@ import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
-
-import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.helper.Vector3;
@@ -173,7 +172,7 @@ public class FXLightning extends Particle {
 			RenderSystem.depthMask(false);
 			RenderSystem.enableBlend();
 			RenderSystem.defaultBlendFunc();
-			buffer.begin(GL11.GL_QUADS, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);
+			buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);
 		}
 
 		@Override

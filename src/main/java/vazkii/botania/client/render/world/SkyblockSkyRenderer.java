@@ -64,7 +64,7 @@ public class SkyblockSkyRenderer {
 		for (int p = 0; p < planetTextures.length; p++) {
 			Minecraft.getInstance().getTextureManager().bindForSetup(planetTextures[p]);
 			Matrix4f mat = ms.last().pose();
-			tessellator.getBuilder().begin(GL11.GL_QUADS, DefaultVertexFormat.POSITION_TEX);
+			tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 			tessellator.getBuilder().vertex(mat, -scale, 100, -scale).uv(0.0F, 0.0F).endVertex();
 			tessellator.getBuilder().vertex(mat, scale, 100, -scale).uv(1.0F, 0.0F).endVertex();
 			tessellator.getBuilder().vertex(mat, scale, 100, scale).uv(1.0F, 1.0F).endVertex();
@@ -120,7 +120,7 @@ public class SkyblockSkyRenderer {
 			ms.mulPose(Vector3f.YP.rotationDegrees((ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) * 0.25F * rotSpeed * rotSpeedMod));
 
 			Matrix4f mat = ms.last().pose();
-			tessellator.getBuilder().begin(GL11.GL_QUADS, DefaultVertexFormat.POSITION_TEX);
+			tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 			for (int i = 0; i < angles; i++) {
 				int j = i;
 				if (i % 2 == 0) {
@@ -182,7 +182,7 @@ public class SkyblockSkyRenderer {
 		ms.mulPose(Vector3f.ZP.rotationDegrees(angle2));
 
 		Matrix4f mat = ms.last().pose();
-		tessellator.getBuilder().begin(GL11.GL_QUADS, DefaultVertexFormat.POSITION_TEX);
+		tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		for (int i = 0; i < angles; i++) {
 			int j = i;
 			if (i % 2 == 0) {

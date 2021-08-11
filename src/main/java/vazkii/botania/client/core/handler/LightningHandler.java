@@ -12,6 +12,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -61,12 +62,12 @@ public class LightningHandler {
 		render.bindForSetup(outsideResource);
 		int counter = 0;
 
-		tessellator.getBuilder().begin(GL11.GL_QUADS, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);
+		tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);
 		for (FXLightning bolt : queuedLightningBolts) {
 			bolt.renderBolt(ms, tessellator.getBuilder(), 0, false);
 			if (counter % BATCH_THRESHOLD == BATCH_THRESHOLD - 1) {
 				tessellator.end();
-				tessellator.getBuilder().begin(GL11.GL_QUADS, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);
+				tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);
 			}
 			counter++;
 		}
@@ -75,12 +76,12 @@ public class LightningHandler {
 		render.bindForSetup(insideResource);
 		counter = 0;
 
-		tessellator.getBuilder().begin(GL11.GL_QUADS, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);
+		tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);
 		for (FXLightning bolt : queuedLightningBolts) {
 			bolt.renderBolt(ms, tessellator.getBuilder(), 1, true);
 			if (counter % BATCH_THRESHOLD == BATCH_THRESHOLD - 1) {
 				tessellator.end();
-				tessellator.getBuilder().begin(GL11.GL_QUADS, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);
+				tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);
 			}
 			counter++;
 		}

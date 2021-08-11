@@ -12,6 +12,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -33,8 +34,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-
-import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
@@ -207,7 +206,7 @@ public class ItemSextant extends Item {
 				radius += 4;
 				RenderSystem.disableTexture();
 				RenderSystem.lineWidth(3F);
-				Tesselator.getInstance().getBuilder().begin(GL11.GL_LINE_STRIP, DefaultVertexFormat.POSITION);
+				Tesselator.getInstance().getBuilder().begin(VertexFormat.Mode.LINE_STRIP, DefaultVertexFormat.POSITION);
 				RenderSystem.setShaderColor(0F, 1F, 1F, 1F);
 				for (int i = 0; i < 361; i++) {
 					float radian = (float) (i * Math.PI / 180);
