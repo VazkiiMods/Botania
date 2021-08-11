@@ -26,6 +26,7 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ItemEntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -190,30 +191,30 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 
 	private static void registerPropertyGetters() {
 		registerPropertyGetter(ModItems.blackHoleTalisman, prefix("active"),
-				(stack, world, entity) -> ItemNBTHelper.getBoolean(stack, ItemBlackHoleTalisman.TAG_ACTIVE, false) ? 1 : 0);
+				(stack, world, entity, seed) -> ItemNBTHelper.getBoolean(stack, ItemBlackHoleTalisman.TAG_ACTIVE, false) ? 1 : 0);
 		registerPropertyGetter(ModItems.manaBottle, prefix("swigs_taken"),
-				(stack, world, entity) -> ItemBottledMana.SWIGS - ItemBottledMana.getSwigsLeft(stack));
+				(stack, world, entity, seed) -> ItemBottledMana.SWIGS - ItemBottledMana.getSwigsLeft(stack));
 
 		ResourceLocation vuvuzelaId = prefix("vuvuzela");
-		ItemPropertyFunction isVuvuzela = (stack, world, entity) -> stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0;
+		ItemPropertyFunction isVuvuzela = (stack, world, entity, seed) -> stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0;
 		registerPropertyGetter(ModItems.grassHorn, vuvuzelaId, isVuvuzela);
 		registerPropertyGetter(ModItems.leavesHorn, vuvuzelaId, isVuvuzela);
 		registerPropertyGetter(ModItems.snowHorn, vuvuzelaId, isVuvuzela);
 
-		registerPropertyGetter(ModItems.lexicon, prefix("elven"), (stack, world, living) -> ModItems.lexicon.isElvenItem(stack) ? 1 : 0);
+		registerPropertyGetter(ModItems.lexicon, prefix("elven"), (stack, world, living, seed) -> ModItems.lexicon.isElvenItem(stack) ? 1 : 0);
 		registerPropertyGetter(ModItems.manaCookie, prefix("totalbiscuit"),
-				(stack, world, entity) -> stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F);
+				(stack, world, entity, seed) -> stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains("totalbiscuit") ? 1F : 0F);
 		registerPropertyGetter(ModItems.slimeBottle, prefix("active"),
-				(stack, world, entity) -> stack.hasTag() && stack.getTag().getBoolean(ItemSlimeBottle.TAG_ACTIVE) ? 1.0F : 0.0F);
+				(stack, world, entity, seed) -> stack.hasTag() && stack.getTag().getBoolean(ItemSlimeBottle.TAG_ACTIVE) ? 1.0F : 0.0F);
 		registerPropertyGetter(ModItems.spawnerMover, prefix("full"),
-				(stack, world, entity) -> ItemSpawnerMover.hasData(stack) ? 1 : 0);
+				(stack, world, entity, seed) -> ItemSpawnerMover.hasData(stack) ? 1 : 0);
 		registerPropertyGetter(ModItems.temperanceStone, prefix("active"),
-				(stack, world, entity) -> ItemNBTHelper.getBoolean(stack, ItemTemperanceStone.TAG_ACTIVE, false) ? 1 : 0);
+				(stack, world, entity, seed) -> ItemNBTHelper.getBoolean(stack, ItemTemperanceStone.TAG_ACTIVE, false) ? 1 : 0);
 		registerPropertyGetter(ModItems.twigWand, prefix("bindmode"),
-				(stack, world, entity) -> ItemTwigWand.getBindMode(stack) ? 1 : 0);
+				(stack, world, entity, seed) -> ItemTwigWand.getBindMode(stack) ? 1 : 0);
 
 		ResourceLocation poolFullId = prefix("full");
-		ItemPropertyFunction poolFull = (stack, world, entity) -> {
+		ItemPropertyFunction poolFull = (stack, world, entity, seed) -> {
 			Block block = ((BlockItem) stack.getItem()).getBlock();
 			boolean renderFull = ((BlockPool) block).variant == BlockPool.Variant.CREATIVE || stack.hasTag() && stack.getTag().getBoolean("RenderFull");
 			return renderFull ? 1F : 0F;
@@ -223,7 +224,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		registerPropertyGetter(ModBlocks.creativePool, poolFullId, poolFull);
 		registerPropertyGetter(ModBlocks.fabulousPool, poolFullId, poolFull);
 
-		ItemPropertyFunction brewGetter = (stack, world, entity) -> {
+		ItemPropertyFunction brewGetter = (stack, world, entity, seed) -> {
 			ItemBrewBase item = ((ItemBrewBase) stack.getItem());
 			return item.getSwigs() - item.getSwigsLeft(stack);
 		};
@@ -231,33 +232,33 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		registerPropertyGetter(ModItems.brewFlask, prefix("swigs_taken"), brewGetter);
 
 		ResourceLocation holidayId = prefix("holiday");
-		ItemPropertyFunction holidayGetter = (stack, worldIn, entityIn) -> ClientProxy.jingleTheBells ? 1 : 0;
+		ItemPropertyFunction holidayGetter = (stack, worldIn, entityIn, seed) -> ClientProxy.jingleTheBells ? 1 : 0;
 		registerPropertyGetter(ModItems.manaweaveHelm, holidayId, holidayGetter);
 		registerPropertyGetter(ModItems.manaweaveChest, holidayId, holidayGetter);
 		registerPropertyGetter(ModItems.manaweaveBoots, holidayId, holidayGetter);
 		registerPropertyGetter(ModItems.manaweaveLegs, holidayId, holidayGetter);
 
-		ItemPropertyFunction ringOnGetter = (stack, worldIn, entityIn) -> ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0;
+		ItemPropertyFunction ringOnGetter = (stack, worldIn, entityIn, seed) -> ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0;
 		registerPropertyGetter(ModItems.magnetRing, prefix("active"), ringOnGetter);
 		registerPropertyGetter(ModItems.magnetRingGreater, prefix("active"), ringOnGetter);
 
 		registerPropertyGetter(ModItems.elementiumShears, prefix("reddit"),
-				(stack, world, entity) -> stack.getHoverName().getString().equalsIgnoreCase("dammit reddit") ? 1F : 0F);
+				(stack, world, entity, seed) -> stack.getHoverName().getString().equalsIgnoreCase("dammit reddit") ? 1F : 0F);
 		registerPropertyGetter(ModItems.manasteelSword, prefix("elucidator"),
-				(stack, world, entity) -> "the elucidator".equals(stack.getHoverName().getString().toLowerCase(Locale.ROOT).trim()) ? 1 : 0);
+				(stack, world, entity, seed) -> "the elucidator".equals(stack.getHoverName().getString().toLowerCase(Locale.ROOT).trim()) ? 1 : 0);
 		registerPropertyGetter(ModItems.terraAxe, prefix("active"),
-				(stack, world, entity) -> entity instanceof Player && !ItemTerraAxe.shouldBreak((Player) entity) ? 0 : 1);
+				(stack, world, entity, seed) -> entity instanceof Player && !ItemTerraAxe.shouldBreak((Player) entity) ? 0 : 1);
 		registerPropertyGetter(ModItems.terraPick, prefix("tipped"),
-				(stack, world, entity) -> ItemTerraPick.isTipped(stack) ? 1 : 0);
+				(stack, world, entity, seed) -> ItemTerraPick.isTipped(stack) ? 1 : 0);
 		registerPropertyGetter(ModItems.terraPick, prefix("active"),
-				(stack, world, entity) -> ItemTerraPick.isEnabled(stack) ? 1 : 0);
+				(stack, world, entity, seed) -> ItemTerraPick.isEnabled(stack) ? 1 : 0);
 		registerPropertyGetter(ModItems.infiniteFruit, prefix("boot"),
-				(stack, worldIn, entity) -> ItemInfiniteFruit.isBoot(stack) ? 1F : 0F);
+				(stack, worldIn, entity, seed) -> ItemInfiniteFruit.isBoot(stack) ? 1F : 0F);
 		registerPropertyGetter(ModItems.tornadoRod, prefix("active"),
-				(stack, world, living) -> ItemTornadoRod.isFlying(stack) ? 1 : 0);
+				(stack, world, living, seed) -> ItemTornadoRod.isFlying(stack) ? 1 : 0);
 
 		ItemPropertyFunction pulling = ItemProperties.getProperty(Items.BOW, new ResourceLocation("pulling"));
-		ItemPropertyFunction pull = (stack, worldIn, entity) -> {
+		ItemPropertyFunction pull = (stack, worldIn, entity, seed) -> {
 			if (entity == null) {
 				return 0.0F;
 			} else {
@@ -343,7 +344,8 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		layers.put(RenderHelper.MANA_POOL_WATER, new BufferBuilder(RenderHelper.MANA_POOL_WATER.bufferSize()));
 	}
 
-	private void initAuxiliaryRender(EntityType<? extends LivingEntity> type, LivingEntityRenderer<?, ?> renderer, LivingEntityFeatureRendererRegistrationCallback.RegistrationHelper helper) {
+	private void initAuxiliaryRender(EntityType<? extends LivingEntity> type, LivingEntityRenderer<?, ?> renderer,
+			LivingEntityFeatureRendererRegistrationCallback.RegistrationHelper helper, EntityRendererProvider.Context ctx) {
 		if (type == EntityType.PLAYER && renderer instanceof PlayerRenderer) {
 			helper.register(new ContributorFancinessHandler((PlayerRenderer) renderer));
 			helper.register(new ManaTabletRenderHandler((PlayerRenderer) renderer));
