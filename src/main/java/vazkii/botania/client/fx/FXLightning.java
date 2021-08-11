@@ -93,10 +93,10 @@ public class FXLightning extends Particle {
 		float boltAge = age < 0 ? 0 : (float) age / (float) lifetime;
 		float mainAlpha;
 		if (pass == 0) {
-			Minecraft.getInstance().getTextureManager().bind(outsideResource);
+			Minecraft.getInstance().getTextureManager().bindForSetup(outsideResource);
 			mainAlpha = (1 - boltAge) * 0.4F;
 		} else {
-			Minecraft.getInstance().getTextureManager().bind(insideResource);
+			Minecraft.getInstance().getTextureManager().bindForSetup(insideResource);
 			mainAlpha = 1 - boltAge * 0.5F;
 		}
 

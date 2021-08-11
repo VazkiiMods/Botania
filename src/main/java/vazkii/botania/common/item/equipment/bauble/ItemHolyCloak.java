@@ -91,7 +91,7 @@ public class ItemHolyCloak extends ItemBauble {
 			model = new ModelCloak();
 		}
 
-		Minecraft.getInstance().getTextureManager().bind(item.getCloakTexture());
+		Minecraft.getInstance().getTextureManager().bindForSetup(item.getCloakTexture());
 		VertexConsumer buffer = buffers.getBuffer(model.renderType(item.getCloakTexture()));
 		model.renderToBuffer(ms, buffer, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 

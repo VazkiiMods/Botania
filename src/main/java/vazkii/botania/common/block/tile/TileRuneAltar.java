@@ -366,7 +366,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 
 				float progress = (float) mana / (float) manaToGet;
 
-				mc.getTextureManager().bind(HUDHandler.manaBar);
+				mc.getTextureManager().bindForSetup(HUDHandler.manaBar);
 				RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 				RenderHelper.drawTexturedModalRect(ms, xc + radius + 9, yc - 8, progress == 1F ? 0 : 22, 8, 22, 15);
 

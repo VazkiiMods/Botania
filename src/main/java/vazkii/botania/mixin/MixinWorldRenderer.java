@@ -81,7 +81,7 @@ public class MixinWorldRenderer {
 	 */
 	@ModifyConstant(
 		method = "renderSky",
-		slice = @Slice(to = @At(ordinal = 0, value = "INVOKE", target = "Lnet/minecraft/client/renderer/texture/TextureManager;bind(Lnet/minecraft/resources/ResourceLocation;)V")),
+		slice = @Slice(to = @At(ordinal = 0, value = "INVOKE", target = "Lnet/minecraft/client/renderer/texture/TextureManager;bindForSetup(Lnet/minecraft/resources/ResourceLocation;)V")),
 		constant = { @Constant(floatValue = 30.0F) },
 		require = 0
 	)
@@ -99,8 +99,8 @@ public class MixinWorldRenderer {
 	@ModifyConstant(
 		method = "renderSky",
 		slice = @Slice(
-			from = @At(ordinal = 0, value = "INVOKE", target = "Lnet/minecraft/client/renderer/texture/TextureManager;bind(Lnet/minecraft/resources/ResourceLocation;)V"),
-			to = @At(ordinal = 1, value = "INVOKE", target = "Lnet/minecraft/client/renderer/texture/TextureManager;bind(Lnet/minecraft/resources/ResourceLocation;)V")
+			from = @At(ordinal = 0, value = "INVOKE", target = "Lnet/minecraft/client/renderer/texture/TextureManager;bindForSetup(Lnet/minecraft/resources/ResourceLocation;)V"),
+			to = @At(ordinal = 1, value = "INVOKE", target = "Lnet/minecraft/client/renderer/texture/TextureManager;bindForSetup(Lnet/minecraft/resources/ResourceLocation;)V")
 		),
 		constant = @Constant(floatValue = 20.0F),
 		require = 0
