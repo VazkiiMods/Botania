@@ -15,15 +15,18 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
+import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.client.model.ModelBrewery;
 import vazkii.botania.common.block.tile.TileBrewery;
 
 import javax.annotation.Nullable;
 
 public class RenderTileBrewery implements BlockEntityRenderer<TileBrewery> {
-	final ModelBrewery model = new ModelBrewery();
+	final ModelBrewery model;
 
-	public RenderTileBrewery(BlockEntityRendererProvider.Context ctx) {}
+	public RenderTileBrewery(BlockEntityRendererProvider.Context ctx) {
+		model = new ModelBrewery(ctx.bakeLayer(ModModelLayers.BREWERY));
+	}
 
 	@Override
 	public void render(@Nullable TileBrewery brewery, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

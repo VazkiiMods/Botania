@@ -41,14 +41,14 @@ public class ModelPixie extends EntityModel<EntityPixie> {
 				: normal;
 	}
 
-	public ModelPixie(ModelPart part) {
+	public ModelPixie(ModelPart root) {
 		super(ModelPixie::pixieLayer);
 
-		body = part.getChild("body");
-		leftWingT = part.getChild("leftWingT");
-		leftWingB = part.getChild("leftWingB");
-		rightWingT = part.getChild("rightWingT");
-		rightWingB = part.getChild("rightWingB");
+		body = root.getChild("body");
+		leftWingT = root.getChild("leftWingT");
+		leftWingB = root.getChild("leftWingB");
+		rightWingT = root.getChild("rightWingT");
+		rightWingB = root.getChild("rightWingB");
 	}
 
 	public static MeshDefinition createMesh() {

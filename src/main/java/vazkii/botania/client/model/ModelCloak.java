@@ -13,39 +13,43 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
 
 /**
- * armor_cloak - wiiv
- * Created using Tabula 4.1.1
+ * @author wiiv
  */
 public class ModelCloak extends Model {
 
-	public ModelPart collar;
-	public ModelPart sideL;
-	public ModelPart sideR;
+	private final ModelPart collar;
+	private final ModelPart sideL;
+	private final ModelPart sideR;
 
-	public ModelCloak() {
+	public ModelCloak(ModelPart root) {
 		super(RenderType::entityCutout);
 
-		texWidth = 64;
-		texHeight = 64;
-		float s = 0.01F;
+		collar = root.getChild("collar");
+		sideL = root.getChild("sideL");
+		sideR = root.getChild("sideR");
+	}
 
-		collar = new ModelPart(this, 0, 0);
-		collar.setPos(0.0F, -3.0F, -4.5F);
-		collar.addBox(-5.5F, 0.0F, -1.5F, 11, 5, 11, s);
-		setRotateAngle(collar, 0.08726646259971647F, 0.0F, 0.0F);
-		sideL = new ModelPart(this, 0, 16);
-		sideL.mirror = true;
-		sideL.setPos(0.0F, 0.0F, 0.0F);
-		sideL.addBox(-0.5F, -0.5F, -5.5F, 11, 21, 10, s);
-		setRotateAngle(sideL, 0.08726646259971647F, -0.08726646259971647F, -0.17453292519943295F);
-		sideR = new ModelPart(this, 0, 16);
-		sideR.setPos(0.0F, 0.0F, 0.0F);
-		sideR.addBox(-10.5F, -0.5F, -5.5F, 11, 21, 10, s);
-		setRotateAngle(sideR, 0.08726646259971647F, 0.08726646259971647F, 0.17453292519943295F);
-
+	public static MeshDefinition createMesh() {
+		var mesh = new MeshDefinition();
+		var root = mesh.getRoot();
+		var deformation = new CubeDeformation(0.01F);
+		root.addOrReplaceChild("collar", CubeListBuilder.create()
+				.addBox(-5.5F, 0.0F, -1.5F, 11, 5, 11, deformation),
+				PartPose.offsetAndRotation(0.0F, -3.0F, -4.5F, 0.0873F, 0.0F, 0.0F));
+		root.addOrReplaceChild("sideL", CubeListBuilder.create().texOffs(0, 16).mirror()
+				.addBox(-0.5F, -0.5F, -5.5F, 11, 21, 10, deformation),
+				PartPose.rotation(0.0873F, -0.0873F, -0.1745F));
+		root.addOrReplaceChild("sideR", CubeListBuilder.create().texOffs(0, 16)
+				.addBox(-10.5F, -0.5F, -5.5F, 11, 21, 10, deformation),
+				PartPose.rotation(0.0873F, 0.0873F, 0.1745F));
+		return mesh;
 	}
 
 	@Override
@@ -53,11 +57,5 @@ public class ModelCloak extends Model {
 		collar.render(ms, buffer, light, overlay, r, g, b, a);
 		sideL.render(ms, buffer, light, overlay, r, g, b, a);
 		sideR.render(ms, buffer, light, overlay, r, g, b, a);
-	}
-
-	public void setRotateAngle(ModelPart modelRenderer, float x, float y, float z) {
-		modelRenderer.xRot = x;
-		modelRenderer.yRot = y;
-		modelRenderer.zRot = z;
 	}
 }

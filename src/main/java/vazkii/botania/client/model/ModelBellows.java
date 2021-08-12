@@ -14,33 +14,43 @@ import com.mojang.math.Vector3f;
 
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
 
 public class ModelBellows extends Model {
 
-	final ModelPart top;
-	final ModelPart base;
-	final ModelPart pipe;
-	final ModelPart funnel;
+	private final ModelPart top;
+	private final ModelPart base;
+	private final ModelPart pipe;
+	private final ModelPart funnel;
 
-	public ModelBellows() {
+	public ModelBellows(ModelPart root) {
 		super(RenderType::entityCutout);
-		texWidth = 64;
-		texHeight = 32;
 
-		top = new ModelPart(this, 0, 0);
-		top.setPos(0.0F, 16.0F, 0.0F);
-		top.addBox(-4.0F, -2.0F, -4.0F, 8, 1, 8, 0.0F);
-		base = new ModelPart(this, 0, 9);
-		base.setPos(0.0F, 16.0F, 0.0F);
-		base.addBox(-5.0F, 6.0F, -5.0F, 10, 2, 10, 0.0F);
-		pipe = new ModelPart(this, 0, 21);
-		pipe.setPos(0.0F, 16.0F, 0.0F);
-		pipe.addBox(-1.0F, 6.0F, -8.0F, 2, 2, 3, 0.0F);
+		top = root.getChild("top");
+		base = root.getChild("base");
+		pipe = root.getChild("pipe");
+		funnel = root.getChild("funnel");
+	}
 
-		funnel = new ModelPart(this, 40, 0);
-		funnel.setPos(0.0F, 0.0F, 0.0F);
-		funnel.addBox(0.0F, 0.0F, 0.0F, 6, 7, 6, 0.0F);
+	public static MeshDefinition createMesh() {
+		var mesh = new MeshDefinition();
+		var root = mesh.getRoot();
+		root.addOrReplaceChild("top", CubeListBuilder.create()
+				.addBox(-4.0F, -2.0F, -4.0F, 8, 1, 8),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		root.addOrReplaceChild("base", CubeListBuilder.create().texOffs(0, 9)
+				.addBox(-5.0F, 6.0F, -5.0F, 10, 2, 10),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		root.addOrReplaceChild("pipe", CubeListBuilder.create().texOffs(0, 21)
+				.addBox(-1.0F, 6.0F, -8.0F, 2, 2, 3),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		root.addOrReplaceChild("funnel", CubeListBuilder.create().texOffs(40, 0)
+				.addBox(0.0F, 0.0F, 0.0F, 6, 7, 6),
+				PartPose.ZERO);
+		return mesh;
 	}
 
 	@Override

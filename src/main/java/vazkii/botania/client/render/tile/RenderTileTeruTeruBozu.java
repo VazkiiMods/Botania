@@ -20,6 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.client.model.ModelTeruTeruBozu;
 import vazkii.botania.common.block.tile.TileTeruTeruBozu;
 
@@ -31,9 +32,11 @@ public class RenderTileTeruTeruBozu implements BlockEntityRenderer<TileTeruTeruB
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_TERU_TERU_BOZU);
 	private static final ResourceLocation textureHalloween = new ResourceLocation(LibResources.MODEL_TERU_TERU_BOZU_HALLOWEEN);
-	private final ModelTeruTeruBozu model = new ModelTeruTeruBozu();
+	private final ModelTeruTeruBozu model;
 
-	public RenderTileTeruTeruBozu(BlockEntityRendererProvider.Context ctx) {}
+	public RenderTileTeruTeruBozu(BlockEntityRendererProvider.Context ctx) {
+		model = new ModelTeruTeruBozu(ctx.bakeLayer(ModModelLayers.TERU_TERU_BOZU));
+	}
 
 	@Override
 	public void render(@Nullable TileTeruTeruBozu tileentity, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

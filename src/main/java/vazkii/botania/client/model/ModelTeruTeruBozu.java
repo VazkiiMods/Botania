@@ -14,34 +14,42 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
 
 public class ModelTeruTeruBozu extends Model {
 
-	public final ModelPart thread;
-	public final ModelPart cloth;
-	public final ModelPart happyFace;
-	public final ModelPart sadFace;
+	private final ModelPart thread;
+	private final ModelPart cloth;
+	private final ModelPart happyFace;
+	private final ModelPart sadFace;
 
-	public ModelTeruTeruBozu() {
+	public ModelTeruTeruBozu(ModelPart root) {
 		super(RenderType::entityCutoutNoCull);
-		texWidth = 64;
-		texHeight = 32;
-		sadFace = new ModelPart(this, 32, 0);
-		sadFace.setPos(0.0F, 14.5F, 0.0F);
-		sadFace.addBox(-4.0F, -6.0F, -4.0F, 8, 8, 8, 0.0F);
-		setRotateAngle(sadFace, 0.17453292519943295F, 0.0F, 0.0F);
-		happyFace = new ModelPart(this, 0, 0);
-		happyFace.setPos(0.0F, 14.5F, 0.0F);
-		happyFace.addBox(-4.0F, -6.0F, -4.0F, 8, 8, 8, 0.0F);
-		setRotateAngle(happyFace, -0.17453292519943295F, 0.0F, 0.0F);
-		thread = new ModelPart(this, 32, 16);
-		thread.setPos(0.0F, 14.0F, 0.0F);
-		thread.addBox(-3.0F, 2.0F, -3.0F, 6, 1, 6, 0.0F);
-		cloth = new ModelPart(this, 0, 16);
-		cloth.setPos(0.0F, 21.5F, -1.0F);
-		cloth.addBox(-4.0F, -4.0F, -4.0F, 8, 8, 8, 0.0F);
-		setRotateAngle(cloth, 0.7853981633974483F, 2.2689280275926285F, 1.5707963267948966F);
+		sadFace = root.getChild("sad_face");
+		happyFace = root.getChild("happy_face");
+		thread = root.getChild("thread");
+		cloth = root.getChild("cloth");
+	}
+
+	public static MeshDefinition createMesh() {
+		var mesh = new MeshDefinition();
+		var root = mesh.getRoot();
+		root.addOrReplaceChild("sad_face", CubeListBuilder.create().texOffs(32, 0)
+				.addBox(-4.0F, -6.0F, -4.0F, 8, 8, 8),
+				PartPose.offsetAndRotation(0.0F, 14.5F, 0.0F, 0.1745F, 0.0F, 0.0F));
+		root.addOrReplaceChild("happy_face", CubeListBuilder.create().texOffs(0, 0)
+				.addBox(-4.0F, -6.0F, -4.0F, 8, 8, 8),
+				PartPose.offsetAndRotation(0.0F, 14.5F, 0.0F, 0.1745F, 0.0F, 0.0F));
+		root.addOrReplaceChild("thread", CubeListBuilder.create().texOffs(32, 16)
+				.addBox(-3.0F, 2.0F, -3.0F, 6, 1, 6),
+				PartPose.offset(0.0F, 14.0F, 0.0F));
+		root.addOrReplaceChild("cloth", CubeListBuilder.create().texOffs(0, 16)
+				.addBox(-4.0F, -4.0F, -4.0F, 8, 8, 8),
+				PartPose.offsetAndRotation(0.0F, 21.5F, -1.0F, 0.7854F, 2.2689F, 1.5708F));
+		return mesh;
 	}
 
 	@Override
@@ -53,11 +61,5 @@ public class ModelTeruTeruBozu extends Model {
 		}
 		thread.render(ms, buffer, light, overlay, r, g, b, a);
 		cloth.render(ms, buffer, light, overlay, r, g, b, a);
-	}
-
-	public void setRotateAngle(ModelPart modelRenderer, float x, float y, float z) {
-		modelRenderer.xRot = x;
-		modelRenderer.yRot = y;
-		modelRenderer.zRot = z;
 	}
 }

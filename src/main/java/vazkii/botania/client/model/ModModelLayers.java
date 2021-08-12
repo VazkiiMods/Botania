@@ -16,7 +16,11 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class ModModelLayers {
 	public static final ModelLayerLocation AVATAR = register("avatar");
+	public static final ModelLayerLocation BELLOWS = register("bellows");
+	public static final ModelLayerLocation BREWERY = register("brewery");
+	public static final ModelLayerLocation CLOAK = register("cloak");
 	public static final ModelLayerLocation PIXIE = register("pixie");
+	public static final ModelLayerLocation TERU_TERU_BOZU = register("teru_teru_bozu");
 
 	private static ModelLayerLocation register(String name) {
 		return register(name, "main");

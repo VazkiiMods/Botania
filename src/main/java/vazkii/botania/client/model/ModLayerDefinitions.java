@@ -17,6 +17,10 @@ public class ModLayerDefinitions {
 	// todo 1.17-fabric call from a mixin or event
 	public static void init(BiConsumer<ModelLayerLocation, LayerDefinition> consumer) {
 		consumer.accept(ModModelLayers.AVATAR, LayerDefinition.create(ModelAvatar.createMesh(), 32, 32));
+		consumer.accept(ModModelLayers.BELLOWS, LayerDefinition.create(ModelBellows.createMesh(), 64, 32));
+		consumer.accept(ModModelLayers.BREWERY, LayerDefinition.create(ModelBrewery.createMesh(), 32, 16));
+		consumer.accept(ModModelLayers.CLOAK, LayerDefinition.create(ModelCloak.createMesh(), 64, 64));
 		consumer.accept(ModModelLayers.PIXIE, LayerDefinition.create(ModelPixie.createMesh(), 32, 32));
+		consumer.accept(ModModelLayers.TERU_TERU_BOZU, LayerDefinition.create(ModelTeruTeruBozu.createMesh(), 64, 32));
 	}
 }

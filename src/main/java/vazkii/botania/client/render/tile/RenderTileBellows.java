@@ -19,6 +19,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.client.model.ModelBellows;
 import vazkii.botania.common.block.tile.mana.TileBellows;
 
@@ -26,9 +27,11 @@ import javax.annotation.Nullable;
 
 public class RenderTileBellows implements BlockEntityRenderer<TileBellows> {
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_BELLOWS);
-	private static final ModelBellows model = new ModelBellows();
+	private final ModelBellows model;
 
-	public RenderTileBellows(BlockEntityRendererProvider.Context ctx) {}
+	public RenderTileBellows(BlockEntityRendererProvider.Context ctx) {
+		model = new ModelBellows(ctx.bakeLayer(ModModelLayers.BELLOWS));
+	}
 
 	@Override
 	public void render(@Nullable TileBellows bellows, float f, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

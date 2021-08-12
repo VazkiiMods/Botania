@@ -16,6 +16,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
@@ -30,6 +31,7 @@ import org.apache.commons.lang3.mutable.MutableFloat;
 import vazkii.botania.client.core.helper.AccessoryRenderHelper;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.client.model.ModelCloak;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -88,7 +90,8 @@ public class ItemHolyCloak extends ItemBauble {
 		ms.translate(0F, armor ? -0.07F : -0.01F, 0F);
 
 		if (model == null) {
-			model = new ModelCloak();
+			EntityRendererProvider.Context ctx = null; // todo 1.17 get this somewhere
+			model = new ModelCloak(ctx.bakeLayer(ModModelLayers.CLOAK));
 		}
 
 		Minecraft.getInstance().getTextureManager().bindForSetup(item.getCloakTexture());

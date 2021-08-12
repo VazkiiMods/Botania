@@ -27,14 +27,14 @@ public class ModelAvatar extends Model {
 	private final ModelPart leftleg;
 	private final ModelPart head;
 
-	public ModelAvatar(ModelPart part) {
+	public ModelAvatar(ModelPart root) {
 		super(RenderType::entitySolid);
-		leftleg = part.getChild("left_leg");
-		rightarm = part.getChild("right_arm");
-		leftarm = part.getChild("left_arm");
-		head = part.getChild("head");
-		rightleg = part.getChild("right_leg");
-		body = part.getChild("body");
+		leftleg = root.getChild("left_leg");
+		rightarm = root.getChild("right_arm");
+		leftarm = root.getChild("left_arm");
+		head = root.getChild("head");
+		rightleg = root.getChild("right_leg");
+		body = root.getChild("body");
 	}
 
 	public static MeshDefinition createMesh() {

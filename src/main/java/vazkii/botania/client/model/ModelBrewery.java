@@ -15,6 +15,9 @@ import com.mojang.math.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -34,25 +37,31 @@ public class ModelBrewery extends Model {
 
 	final ModelPart plate;
 
-	public ModelBrewery() {
+	public ModelBrewery(ModelPart root) {
 		super(RenderType::entitySolid);
 
-		texWidth = 32;
-		texHeight = 16;
+		top = root.getChild("top");
+		pole = root.getChild("pole");
+		bottom = root.getChild("bottom");
+		plate = root.getChild("plate");
+	}
 
-		top = new ModelPart(this, 8, 0);
-		top.setPos(0.0F, 16.0F, 0.0F);
-		top.addBox(-2.0F, -7.0F, -2.0F, 4, 1, 4, 0.0F);
-		pole = new ModelPart(this, 0, 0);
-		pole.setPos(0.0F, 16.0F, 0.0F);
-		pole.addBox(-1.0F, -6.0F, -1.0F, 2, 10, 2, 0.0F);
-		bottom = new ModelPart(this, 8, 5);
-		bottom.setPos(0.0F, 16.0F, 0.0F);
-		bottom.addBox(-2.0F, 4.0F, -2.0F, 4, 1, 4, 0.0F);
-
-		plate = new ModelPart(this, 8, 5);
-		plate.setPos(0.0F, 17.0F, 0.0F);
-		plate.addBox(5.0F, 0.0F, -2.0F, 4, 1, 4, 0.0F);
+	public static MeshDefinition createMesh() {
+		var mesh = new MeshDefinition();
+		var root = mesh.getRoot();
+		root.addOrReplaceChild("top", CubeListBuilder.create().texOffs(8, 0)
+				.addBox(-2.0F, -7.0F, -2.0F, 4, 1, 4),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		root.addOrReplaceChild("pole", CubeListBuilder.create()
+				.addBox(-1.0F, -6.0F, -1.0F, 2, 10, 2),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		root.addOrReplaceChild("bottom", CubeListBuilder.create().texOffs(8, 5)
+				.addBox(-2.0F, 4.0F, -2.0F, 4, 1, 4),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		root.addOrReplaceChild("plate", CubeListBuilder.create().texOffs(8, 5)
+				.addBox(5.0F, 0.0F, -2.0F, 4, 1, 4),
+				PartPose.offset(0.0F, 17.0F, 0.0F));
+		return mesh;
 	}
 
 	public void render(@Nullable TileBrewery brewery, double time, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
