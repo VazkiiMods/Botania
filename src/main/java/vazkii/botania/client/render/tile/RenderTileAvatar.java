@@ -26,6 +26,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.client.model.ModelAvatar;
 import vazkii.botania.common.block.tile.TileAvatar;
 
@@ -38,9 +39,11 @@ public class RenderTileAvatar implements BlockEntityRenderer<TileAvatar> {
 	};
 
 	private static final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_AVATAR);
-	private static final ModelAvatar model = new ModelAvatar();
+	private final ModelAvatar model;
 
-	public RenderTileAvatar(BlockEntityRendererProvider.Context context) {}
+	public RenderTileAvatar(BlockEntityRendererProvider.Context context) {
+		model = new ModelAvatar(context.bakeLayer(ModModelLayers.AVATAR));
+	}
 
 	@Override
 	public void render(@Nullable TileAvatar avatar, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

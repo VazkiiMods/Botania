@@ -13,6 +13,9 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -23,11 +26,11 @@ import vazkii.botania.client.render.entity.RenderPixie;
 import vazkii.botania.common.entity.EntityPixie;
 
 public class ModelPixie extends EntityModel<EntityPixie> {
-	public ModelPart body;
-	public ModelPart leftWingT;
-	public ModelPart leftWingB;
-	public ModelPart rightWingT;
-	public ModelPart rightWingB;
+	private final ModelPart body;
+	private final ModelPart leftWingT;
+	private final ModelPart leftWingB;
+	private final ModelPart rightWingT;
+	private final ModelPart rightWingB;
 
 	private static boolean evil = false;
 
@@ -38,31 +41,33 @@ public class ModelPixie extends EntityModel<EntityPixie> {
 				: normal;
 	}
 
-	public ModelPixie() {
+	public ModelPixie(ModelPart part) {
 		super(ModelPixie::pixieLayer);
-		texWidth = 32;
-		texHeight = 32;
 
-		body = new ModelPart(this, 0, 0);
-		body.setPos(0.0F, 16.0F, 0.0F);
-		body.addBox(-2.5F, 0.0F, -2.5F, 5, 5, 5, 0.0F);
+		body = part.getChild("body");
+		leftWingT = part.getChild("leftWingT");
+		leftWingB = part.getChild("leftWingB");
+		rightWingT = part.getChild("rightWingT");
+		rightWingB = part.getChild("rightWingB");
+	}
 
-		leftWingT = new ModelPart(this, 0, 4);
-		leftWingT.setPos(2.5F, 18.0F, 0.5F);
-		leftWingT.addBox(0.0F, -5.0F, 0.0F, 0, 5, 6, 0.0F);
-		setRotateAngle(leftWingT, 0.2617993877991494F, 0.5235987755982988F, 0.2617993877991494F);
-		leftWingB = new ModelPart(this, 0, 11);
-		leftWingB.setPos(2.5F, 18.0F, 0.5F);
-		leftWingB.addBox(0.0F, 0.0F, 0.0F, 0, 3, 4, 0.0F);
-		setRotateAngle(leftWingB, -0.2617993877991494F, 0.2617993877991494F, -0.2617993877991494F);
-		rightWingT = new ModelPart(this, 0, 4);
-		rightWingT.setPos(-2.5F, 18.0F, 0.5F);
-		rightWingT.addBox(0.0F, -5.0F, 0.0F, 0, 5, 6, 0.0F);
-		setRotateAngle(rightWingT, 0.2617993877991494F, -0.5235987755982988F, -0.2617993877991494F);
-		rightWingB = new ModelPart(this, 0, 11);
-		rightWingB.setPos(-2.5F, 18.0F, 0.5F);
-		rightWingB.addBox(0.0F, 0.0F, 0.0F, 0, 3, 4, 0.0F);
-		setRotateAngle(rightWingB, -0.2617993877991494F, -0.2617993877991494F, 0.2617993877991494F);
+	public static MeshDefinition createMesh() {
+		var mesh = new MeshDefinition();
+		var root = mesh.getRoot();
+		root.addOrReplaceChild("body", CubeListBuilder.create().addBox(-2.5F, 0.0F, -2.5F, 5, 5, 5), PartPose.offset(0.0F, 16.0F, 0.0F));
+		root.addOrReplaceChild("leftWingT", CubeListBuilder.create().texOffs(0, 4)
+				.addBox(0.0F, -5.0F, 0.0F, 0, 5, 6),
+				PartPose.offsetAndRotation(2.5F, 18.0F, 0.5F, 0.2618F, 0.5236F, 0.2618F));
+		root.addOrReplaceChild("leftWingB", CubeListBuilder.create().texOffs(0, 11)
+				.addBox(0.0F, 0.0F, 0.0F, 0, 3, 4),
+				PartPose.offsetAndRotation(2.5F, 18.0F, 0.5F, -0.2618F, 0.2618F, -0.2618F));
+		root.addOrReplaceChild("rightWingT", CubeListBuilder.create().texOffs(0, 4)
+				.addBox(0.0F, -5.0F, 0.0F, 0, 5, 6),
+				PartPose.offsetAndRotation(-2.5F, 18.0F, 0.5F, 0.2618F, -0.5236F, -0.2618F));
+		root.addOrReplaceChild("rightWingB", CubeListBuilder.create().texOffs(0, 11)
+				.addBox(0.0F, 0.0F, 0.0F, 0, 3, 4),
+				PartPose.offsetAndRotation(-2.5F, 18.0F, 0.5F, -0.2618F, -0.2618F, 0.2618F));
+		return mesh;
 	}
 
 	@Override
@@ -73,12 +78,6 @@ public class ModelPixie extends EntityModel<EntityPixie> {
 		leftWingB.render(ms, buffer, light, overlay);
 		rightWingT.render(ms, buffer, light, overlay);
 		rightWingB.render(ms, buffer, light, overlay);
-	}
-
-	public void setRotateAngle(ModelPart modelRenderer, float x, float y, float z) {
-		modelRenderer.xRot = x;
-		modelRenderer.yRot = y;
-		modelRenderer.zRot = z;
 	}
 
 	@Override

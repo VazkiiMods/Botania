@@ -19,6 +19,7 @@ import vazkii.botania.client.core.helper.ShaderCallback;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.client.model.ModelPixie;
 import vazkii.botania.common.entity.EntityPixie;
 
@@ -41,7 +42,7 @@ public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
 	};
 
 	public RenderPixie(EntityRendererProvider.Context ctx) {
-		super(ctx, new ModelPixie(), 0.0F);
+		super(ctx, new ModelPixie(ctx.bakeLayer(ModModelLayers.PIXIE)), 0.0F);
 	}
 
 	@Nonnull
