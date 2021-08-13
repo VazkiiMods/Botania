@@ -486,7 +486,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		});
 	}
 
-	private void particleOnly(Set<Block> blocks, Block b, ResourceLocation particle) {
+	protected void particleOnly(Set<Block> blocks, Block b, ResourceLocation particle) {
 		String name = Registry.BLOCK.getKey(b).getPath();
 		ModelFile f = models().getBuilder(name)
 				.texture("particle", particle);
@@ -494,7 +494,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		blocks.remove(b);
 	}
 
-	private void manualModel(Set<Block> blocks, Block b) {
+	protected void manualModel(Set<Block> blocks, Block b) {
 		String name = Registry.BLOCK.getKey(b).getPath();
 		simpleBlock(b, models().getExistingFile(prefix("block/" + name)));
 		blocks.remove(b);
@@ -534,14 +534,14 @@ public class BlockstateProvider extends BlockStateProvider {
 		return ret;
 	}
 
-	private static final Map<Direction, EnumProperty<WallHeight>> DIRECTION_TO_WALL_SIDE = ImmutableMap.<Direction, EnumProperty<WallHeight>>builder()
+	protected static final Map<Direction, EnumProperty<WallHeight>> DIRECTION_TO_WALL_SIDE = ImmutableMap.<Direction, EnumProperty<WallHeight>>builder()
 			.put(Direction.NORTH, WallBlock.WALL_HEIGHT_NORTH)
 			.put(Direction.EAST, WallBlock.WALL_HEIGHT_EAST)
 			.put(Direction.SOUTH, WallBlock.WALL_HEIGHT_SOUTH)
 			.put(Direction.WEST, WallBlock.WALL_HEIGHT_WEST).build();
 
 	// Copy of super but fixed to account for blockstate property changes in 1.16
-	private void fixedWallBlock(WallBlock block, ResourceLocation tex) {
+	protected void fixedWallBlock(WallBlock block, ResourceLocation tex) {
 		String name = Registry.BLOCK.getKey(block).getPath();
 		ModelFile post = models().withExistingParent(name + "_post", "block/template_wall_post")
 				.texture("wall", tex);
@@ -561,7 +561,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		});
 	}
 
-	private void redStringBlock(Block b) {
+	protected void redStringBlock(Block b) {
 		String name = Registry.BLOCK.getKey(b).getPath();
 		ResourceLocation selfName = prefix("block/" + name);
 		ResourceLocation front = prefix("block/red_string_sender");

@@ -47,7 +47,7 @@ public class BlockSpecialFlower extends FlowerBlock implements ITileEntityProvid
 	private static final VoxelShape SHAPE = makeCuboidShape(4.8, 0, 4.8, 12.8, 16, 12.8);
 	private final Supplier<? extends TileEntitySpecialFlower> teProvider;
 
-	protected BlockSpecialFlower(Effect stewEffect, int stewDuration, Properties props, Supplier<? extends TileEntitySpecialFlower> teProvider) {
+	public BlockSpecialFlower(Effect stewEffect, int stewDuration, Properties props, Supplier<? extends TileEntitySpecialFlower> teProvider) {
 		super(stewEffect, stewDuration, props);
 		this.teProvider = teProvider;
 	}

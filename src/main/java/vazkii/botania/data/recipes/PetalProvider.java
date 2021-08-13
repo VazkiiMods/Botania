@@ -14,10 +14,12 @@ import com.google.gson.JsonObject;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.ResourceLocation;
@@ -34,6 +36,7 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
+import static vazkii.botania.common.lib.ModTags.Items.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PetalProvider extends RecipeProvider {
@@ -48,38 +51,38 @@ public class PetalProvider extends RecipeProvider {
 
 	@Override
 	protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-		Ingredient white = tagIngr("petals/white");
-		Ingredient orange = tagIngr("petals/orange");
-		Ingredient magenta = tagIngr("petals/magenta");
-		Ingredient lightBlue = tagIngr("petals/light_blue");
-		Ingredient yellow = tagIngr("petals/yellow");
-		Ingredient lime = tagIngr("petals/lime");
-		Ingredient pink = tagIngr("petals/pink");
-		Ingredient gray = tagIngr("petals/gray");
-		Ingredient lightGray = tagIngr("petals/light_gray");
-		Ingredient cyan = tagIngr("petals/cyan");
-		Ingredient purple = tagIngr("petals/purple");
-		Ingredient blue = tagIngr("petals/blue");
-		Ingredient brown = tagIngr("petals/brown");
-		Ingredient green = tagIngr("petals/green");
-		Ingredient red = tagIngr("petals/red");
-		Ingredient black = tagIngr("petals/black");
-		Ingredient runeWater = tagIngr("runes/water");
-		Ingredient runeFire = tagIngr("runes/fire");
-		Ingredient runeEarth = tagIngr("runes/earth");
-		Ingredient runeAir = tagIngr("runes/air");
-		Ingredient runeSpring = tagIngr("runes/spring");
-		Ingredient runeSummer = tagIngr("runes/summer");
-		Ingredient runeAutumn = tagIngr("runes/autumn");
-		Ingredient runeWinter = tagIngr("runes/winter");
-		Ingredient runeMana = tagIngr("runes/mana");
-		Ingredient runeLust = tagIngr("runes/lust");
-		Ingredient runeGluttony = tagIngr("runes/gluttony");
-		Ingredient runeGreed = tagIngr("runes/greed");
-		Ingredient runeSloth = tagIngr("runes/sloth");
-		Ingredient runeWrath = tagIngr("runes/wrath");
-		Ingredient runeEnvy = tagIngr("runes/envy");
-		Ingredient runePride = tagIngr("runes/pride");
+		Ingredient white = tagIngr(PETALS_WHITE);
+		Ingredient orange = tagIngr(PETALS_ORANGE);
+		Ingredient magenta = tagIngr(PETALS_MAGENTA);
+		Ingredient lightBlue = tagIngr(PETALS_LIGHT_BLUE);
+		Ingredient yellow = tagIngr(PETALS_YELLOW);
+		Ingredient lime = tagIngr(PETALS_LIME);
+		Ingredient pink = tagIngr(PETALS_PINK);
+		Ingredient gray = tagIngr(PETALS_GRAY);
+		Ingredient lightGray = tagIngr(PETALS_LIGHT_GRAY);
+		Ingredient cyan = tagIngr(PETALS_CYAN);
+		Ingredient purple = tagIngr(PETALS_PURPLE);
+		Ingredient blue = tagIngr(PETALS_BLUE);
+		Ingredient brown = tagIngr(PETALS_BROWN);
+		Ingredient green = tagIngr(PETALS_GREEN);
+		Ingredient red = tagIngr(PETALS_RED);
+		Ingredient black = tagIngr(PETALS_BLACK);
+		Ingredient runeWater = tagIngr(RUNES_WATER);
+		Ingredient runeFire = tagIngr(RUNES_FIRE);
+		Ingredient runeEarth = tagIngr(RUNES_EARTH);
+		Ingredient runeAir = tagIngr(RUNES_AIR);
+		Ingredient runeSpring = tagIngr(RUNES_SPRING);
+		Ingredient runeSummer = tagIngr(RUNES_SUMMER);
+		Ingredient runeAutumn = tagIngr(RUNES_AUTUMN);
+		Ingredient runeWinter = tagIngr(RUNES_WINTER);
+		Ingredient runeMana = tagIngr(RUNES_MANA);
+		Ingredient runeLust = tagIngr(RUNES_LUST);
+		Ingredient runeGluttony = tagIngr(RUNES_GLUTTONY);
+		Ingredient runeGreed = tagIngr(RUNES_GREED);
+		Ingredient runeSloth = tagIngr(RUNES_SLOTH);
+		Ingredient runeWrath = tagIngr(RUNES_WRATH);
+		Ingredient runeEnvy = tagIngr(RUNES_ENVY);
+		Ingredient runePride = tagIngr(RUNES_PRIDE);
 
 		Ingredient redstoneRoot = Ingredient.fromItems(ModItems.redstoneRoot);
 		Ingredient pixieDust = Ingredient.fromItems(ModItems.pixieDust);
@@ -144,19 +147,23 @@ public class PetalProvider extends RecipeProvider {
 		consumer.accept(new FinishedRecipe(idFor(prefix("vazkii_head")), stack, inputs));
 	}
 
-	private static Ingredient tagIngr(String tag) {
+	protected static Ingredient tagIngr(String tag) {
 		return Ingredient.fromTag(ItemTags.makeWrapperTag(prefix(tag).toString()));
 	}
 
-	private static FinishedRecipe make(IItemProvider item, Ingredient... ingredients) {
+	protected static Ingredient tagIngr(ITag<Item> tag) {
+		return Ingredient.fromTag(tag);
+	}
+
+	protected static FinishedRecipe make(IItemProvider item, Ingredient... ingredients) {
 		return new FinishedRecipe(idFor(Registry.ITEM.getKey(item.asItem())), new ItemStack(item), ingredients);
 	}
 
-	private static ResourceLocation idFor(ResourceLocation name) {
+	protected static ResourceLocation idFor(ResourceLocation name) {
 		return new ResourceLocation(name.getNamespace(), "petal_apothecary/" + name.getPath());
 	}
 
-	private static class FinishedRecipe implements IFinishedRecipe {
+	protected static class FinishedRecipe implements IFinishedRecipe {
 		private final ResourceLocation id;
 		private final ItemStack output;
 		private final Ingredient[] inputs;

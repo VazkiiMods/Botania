@@ -15,6 +15,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.RecipeProvider;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
@@ -59,7 +60,7 @@ public class PureDaisyProvider extends RecipeProvider {
 		return prefix("pure_daisy/" + path);
 	}
 
-	private static class FinishedRecipe implements IFinishedRecipe {
+	protected static class FinishedRecipe implements IFinishedRecipe {
 		public static final int DEFAULT_TIME = 150;
 
 		private final ResourceLocation id;
@@ -67,11 +68,11 @@ public class PureDaisyProvider extends RecipeProvider {
 		private final BlockState outputState;
 		private final int time;
 
-		private FinishedRecipe(ResourceLocation id, StateIngredient input, BlockState state) {
+		public FinishedRecipe(ResourceLocation id, StateIngredient input, BlockState state) {
 			this(id, input, state, DEFAULT_TIME);
 		}
 
-		private FinishedRecipe(ResourceLocation id, StateIngredient input, BlockState state, int time) {
+		public FinishedRecipe(ResourceLocation id, StateIngredient input, BlockState state, int time) {
 			Preconditions.checkArgument(time >= 0, "Time must be nonnegative");
 			this.id = id;
 			this.input = input;
