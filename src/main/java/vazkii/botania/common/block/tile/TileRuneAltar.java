@@ -372,10 +372,13 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 
 				if (progress == 1F) {
 					mc.getItemRenderer().renderGuiItem(new ItemStack(ModBlocks.livingrock), xc + radius + 16, yc + 8);
-					// change to MatrixStack ops when renderItemIntoGUI starts taking MatrixStack
-					RenderSystem.translated(0, 0, 100);
+					PoseStack pose = RenderSystem.getModelViewStack();
+					pose.pushPose();
+					pose.translate(0, 0, 100);
+					RenderSystem.applyModelViewMatrix();
 					mc.getItemRenderer().renderGuiItem(new ItemStack(ModItems.twigWand), xc + radius + 24, yc + 8);
-					RenderSystem.translated(0, 0, -100);
+					pose.popPose();
+					RenderSystem.applyModelViewMatrix();
 				}
 
 				RenderHelper.renderProgressPie(ms, xc + radius + 32, yc - 8, progress, recipe.assemble(getItemHandler()));
@@ -388,10 +391,13 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 			for (int i = 0; i < amt; i++) {
 				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
-				// change to MatrixStack ops when renderItemIntoGUI starts taking MatrixStack
-				RenderSystem.translated(xPos, yPos, 0);
+				PoseStack pose = RenderSystem.getModelViewStack();
+				pose.pushPose();
+				pose.translate(xPos, yPos, 0);
+				RenderSystem.applyModelViewMatrix();
 				mc.getItemRenderer().renderGuiItem(getItemHandler().getItem(i), 0, 0);
-				RenderSystem.translated(-xPos, -yPos, 0);
+				pose.popPose();
+				RenderSystem.applyModelViewMatrix();
 
 				angle += anglePer;
 			}

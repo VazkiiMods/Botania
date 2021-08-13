@@ -389,9 +389,13 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 			for (int i = 0; i < amt; i++) {
 				double xPos = xc + Math.cos(angle * Math.PI / 180D) * radius - 8;
 				double yPos = yc + Math.sin(angle * Math.PI / 180D) * radius - 8;
-				RenderSystem.translated(xPos, yPos, 0);
+				PoseStack pose = RenderSystem.getModelViewStack();
+				pose.pushPose();
+				pose.translate(xPos, yPos, 0);
+				RenderSystem.applyModelViewMatrix();
 				mc.getItemRenderer().renderGuiItem(getItemHandler().getItem(i), 0, 0);
-				RenderSystem.translated(-xPos, -yPos, 0);
+				pose.popPose();
+				RenderSystem.applyModelViewMatrix();
 
 				angle += anglePer;
 			}

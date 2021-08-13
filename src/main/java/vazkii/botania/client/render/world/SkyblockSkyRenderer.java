@@ -20,9 +20,10 @@ import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.FogRenderer;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.resources.ResourceLocation;
-
-import org.lwjgl.opengl.GL11;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
@@ -210,8 +211,10 @@ public class SkyblockSkyRenderer {
 		GlStateManager._blendFuncSeparate(770, 1, 1, 0);
 	}
 
-	public static void renderStars(VertexFormat format, VertexBuffer starVBO, PoseStack ms, float partialTicks) {
+	public static void renderStars(VertexBuffer starVBO, PoseStack ms, Matrix4f projMat, float partialTicks, Runnable resetFog) {
+		FogRenderer.setupNoFog();
 		Minecraft mc = Minecraft.getInstance();
+		ShaderInstance shader = GameRenderer.getPositionShader();
 		float rain = 1.0F - mc.level.getRainLevel(partialTicks);
 		float celAng = mc.level.getTimeOfDay(partialTicks);
 		float effCelAng = celAng;
@@ -223,49 +226,44 @@ public class SkyblockSkyRenderer {
 		float t = (ClientTickHandler.ticksInGame + partialTicks + 2000) * 0.005F;
 		ms.pushPose();
 
-		starVBO.bindForSetup();
-		format.setupBufferState(0);
-
 		ms.pushPose();
 		ms.mulPose(Vector3f.YP.rotationDegrees(t * 3));
 		RenderSystem.setShaderColor(1F, 1F, 1F, alpha);
-		starVBO.draw(ms.last().pose(), GL11.GL_QUADS);
+		starVBO.drawWithShader(ms.last().pose(), projMat, shader);
 		ms.popPose();
 
 		ms.pushPose();
 		ms.mulPose(Vector3f.YP.rotationDegrees(t));
 		RenderSystem.setShaderColor(0.5F, 1F, 1F, alpha);
-		starVBO.draw(ms.last().pose(), GL11.GL_QUADS);
+		starVBO.drawWithShader(ms.last().pose(), projMat, shader);
 		ms.popPose();
 
 		ms.pushPose();
 		ms.mulPose(Vector3f.YP.rotationDegrees(t * 2));
 		RenderSystem.setShaderColor(1F, 0.75F, 0.75F, alpha);
-		starVBO.draw(ms.last().pose(), GL11.GL_QUADS);
+		starVBO.drawWithShader(ms.last().pose(), projMat, shader);
 		ms.popPose();
 
 		ms.pushPose();
 		ms.mulPose(Vector3f.ZP.rotationDegrees(t * 3));
 		RenderSystem.setShaderColor(1F, 1F, 1F, 0.25F * alpha);
-		starVBO.draw(ms.last().pose(), GL11.GL_QUADS);
+		starVBO.drawWithShader(ms.last().pose(), projMat, shader);
 		ms.popPose();
 
 		ms.pushPose();
 		ms.mulPose(Vector3f.ZP.rotationDegrees(t));
 		RenderSystem.setShaderColor(0.5F, 1F, 1F, 0.25F * alpha);
-		starVBO.draw(ms.last().pose(), GL11.GL_QUADS);
+		starVBO.drawWithShader(ms.last().pose(), projMat, shader);
 		ms.popPose();
 
 		ms.pushPose();
 		ms.mulPose(Vector3f.ZP.rotationDegrees(t * 2));
 		RenderSystem.setShaderColor(1F, 0.75F, 0.75F, 0.25F * alpha);
-		starVBO.draw(ms.last().pose(), GL11.GL_QUADS);
+		starVBO.drawWithShader(ms.last().pose(), projMat, shader);
 		ms.popPose();
 
 		ms.popPose();
-
-		VertexBuffer.unbindForSetup();
-		format.clearBufferState();
+		resetFog.run();
 	}
 
 }

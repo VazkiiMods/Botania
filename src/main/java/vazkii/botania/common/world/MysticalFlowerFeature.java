@@ -55,7 +55,7 @@ public class MysticalFlowerFeature extends Feature<MysticalFlowerConfig> {
 								&& ((BlockModFlower) flower.getBlock()).isValidBonemealTarget(world, pos2, world.getBlockState(pos2), false)) {
 							Block block = ModBlocks.getDoubleFlower(color);
 							if (block instanceof DoublePlantBlock) {
-								((DoublePlantBlock) block).placeAt(world, pos2, 3);
+								DoublePlantBlock.placeAt(world, block.defaultBlockState(), pos2, 3);
 							}
 						}
 					}

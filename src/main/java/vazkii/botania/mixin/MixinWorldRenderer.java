@@ -10,13 +10,12 @@ package vazkii.botania.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexBuffer;
-import com.mojang.blaze3d.vertex.VertexFormat;
+import com.mojang.math.Matrix4f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.world.level.Level;
 
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -34,10 +33,6 @@ import javax.annotation.Nullable;
  */
 @Mixin(LevelRenderer.class)
 public class MixinWorldRenderer {
-	@Shadow
-	@Final
-	private VertexFormat skyFormat;
-
 	@Shadow
 	@Nullable
 	private VertexBuffer starBuffer;
@@ -59,7 +54,7 @@ public class MixinWorldRenderer {
 		slice = @Slice(
 			from = @At(
 				ordinal = 0, value = "INVOKE",
-				target = "Lnet/minecraft/world/level/Level;getRainLevel(F)F"
+				target = "Lnet/minecraft/client/multiplayer/ClientLevel;getRainLevel(F)F"
 			)
 		),
 		at = @At(
@@ -70,7 +65,7 @@ public class MixinWorldRenderer {
 		),
 		require = 0
 	)
-	private void renderExtras(PoseStack ms, float partialTicks, CallbackInfo ci) {
+	private void renderExtras(PoseStack ms, Matrix4f projMat, float partialTicks, Runnable resetFog, CallbackInfo ci) {
 		if (isGogSky()) {
 			SkyblockSkyRenderer.renderExtra(ms, Minecraft.getInstance().level, partialTicks, 0);
 		}
@@ -121,9 +116,9 @@ public class MixinWorldRenderer {
 		at = @At(value = "INVOKE", target = "Lnet/minecraft/client/multiplayer/ClientLevel;getStarBrightness(F)F"),
 		require = 0
 	)
-	private void renderExtraStars(PoseStack ms, float partialTicks, CallbackInfo ci) {
+	private void renderExtraStars(PoseStack ms, Matrix4f projMat, float partialTicks, Runnable resetFog, CallbackInfo ci) {
 		if (isGogSky()) {
-			SkyblockSkyRenderer.renderStars(skyFormat, starBuffer, ms, partialTicks);
+			SkyblockSkyRenderer.renderStars(starBuffer, ms, projMat, partialTicks, resetFog);
 		}
 	}
 }

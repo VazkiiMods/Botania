@@ -14,11 +14,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Registry;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.server.level.WorldGenRegion;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.NoiseColumn;
-import net.minecraft.world.level.StructureFeatureManager;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.biome.BiomeManager;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,6 +24,8 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
@@ -70,8 +68,8 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 	}
 
 	@Override
-	public void fillFromNoise(LevelAccessor world, StructureFeatureManager structureManager, ChunkAccess chunk) {
-
+	public CompletableFuture<ChunkAccess> fillFromNoise(Executor executor, StructureFeatureManager structureManager, ChunkAccess chunk) {
+		return CompletableFuture.completedFuture(chunk);
 	}
 
 	@Override
@@ -86,12 +84,12 @@ public class SkyblockChunkGenerator extends ChunkGenerator {
 	public void applyBiomeDecoration(WorldGenRegion region, StructureFeatureManager structureManager) {}
 
 	@Override
-	public int getBaseHeight(int x, int z, Heightmap.Types heightmapType) {
+	public int getBaseHeight(int x, int z, Heightmap.Types heightmapType, LevelHeightAccessor levelHeightAccessor) {
 		return 0;
 	}
 
 	@Override
-	public BlockGetter getBaseColumn(int p_230348_1_, int p_230348_2_) {
-		return new NoiseColumn(new BlockState[0]);
+	public NoiseColumn getBaseColumn(int i, int j, LevelHeightAccessor levelHeightAccessor) {
+		return new NoiseColumn(levelHeightAccessor.getMinBuildHeight(), new BlockState[0]);
 	}
 }

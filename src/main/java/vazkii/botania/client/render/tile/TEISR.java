@@ -12,10 +12,11 @@ import com.google.common.base.Preconditions;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.ItemStack;
@@ -31,14 +32,14 @@ public class TEISR implements BuiltinItemRendererRegistry.DynamicItemRenderer {
 		this.block = Preconditions.checkNotNull(block);
 		this.dummy = new LazyLoadedValue<>(() -> {
 			BlockEntityType<?> type = Registry.BLOCK_ENTITY_TYPE.getOptional(Registry.BLOCK.getKey(block)).get();
-			return type.create();
+			return type.create(new BlockPos(0, Integer.MIN_VALUE, 0), block.defaultBlockState());
 		});
 	}
 
 	@Override
 	public void render(ItemStack stack, ItemTransforms.TransformType mode, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
 		if (stack.getItem() == block.asItem()) {
-			BlockEntityRenderer<?> r = BlockEntityRenderDispatcher.instance.getRenderer(dummy.get());
+			BlockEntityRenderer<?> r = Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(dummy.get());
 			if (r != null) {
 				r.render(null, 0, ms, buffers, light, overlay);
 			}

@@ -171,7 +171,7 @@ public class ItemCraftingHalo extends Item {
 		if (!recipe.matches(craftInv, player.level)) {
 			// If the placer worked but the recipe still didn't, this might be a dynamic recipe with special conditions.
 			// Return items to the inventory and bail.
-			placer.clearGrid();
+			placer.clearGrid(false);
 			return;
 		}
 
@@ -179,7 +179,7 @@ public class ItemCraftingHalo extends Item {
 
 		// Check if we have room for the result
 		if (!hasRoomFor(player.getInventory(), result)) {
-			placer.clearGrid();
+			placer.clearGrid(false);
 			return;
 		}
 
@@ -234,7 +234,7 @@ public class ItemCraftingHalo extends Item {
 	// Screw the way minecraft handles rotation
 	// Really...
 	private static float getCheckingAngle(LivingEntity player, float base) {
-		float yaw = Mth.wrapDegrees(player.yRot) + 90F;
+		float yaw = Mth.wrapDegrees(player.getYRot()) + 90F;
 		int angles = 360;
 		int segAngles = angles / SEGMENTS;
 		float shift = segAngles / 2;
@@ -520,7 +520,7 @@ public class ItemCraftingHalo extends Item {
 			super(container);
 		}
 
-		// [VanillaCopy] Based on super.place
+		// [VanillaCopy] Based on super.recipeClicked
 		public boolean place(ServerPlayer player, @Nullable Recipe<CraftingContainer> recipe) {
 			if (recipe != null) {
 				this.inventory = player.getInventory();
@@ -533,7 +533,7 @@ public class ItemCraftingHalo extends Item {
 					this.handleRecipeClicked(recipe, false);
 					ret = true;
 				} else {
-					this.clearGrid();
+					this.clearGrid(true);
 					ret = false;
 				}
 

@@ -19,6 +19,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.MushroomBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
+import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -37,8 +41,19 @@ public class BlockModMushroom extends MushroomBlock implements ICustomApothecary
 	public final DyeColor color;
 
 	public BlockModMushroom(DyeColor color, Properties builder) {
-		super(builder);
+		super(builder, BlockModMushroom::getDummyFeature);
 		this.color = color;
+	}
+
+	private static ConfiguredFeature<NoneFeatureConfiguration, Feature<NoneFeatureConfiguration>> getDummyFeature() {
+		// Like NoOpFeature, but always fails instead of succeeding
+		var feature = new Feature<>(NoneFeatureConfiguration.CODEC) {
+			@Override
+			public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
+				return false;
+			}
+		};
+		return new ConfiguredFeature<>(feature, NoneFeatureConfiguration.INSTANCE);
 	}
 
 	@Nonnull
