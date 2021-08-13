@@ -20,6 +20,7 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.client.model.ModelHourglass;
 import vazkii.botania.common.block.tile.TileHourglass;
 
@@ -30,9 +31,11 @@ import java.util.Random;
 public class RenderTileHourglass implements BlockEntityRenderer<TileHourglass> {
 
 	final ResourceLocation texture = new ResourceLocation(LibResources.MODEL_HOURGLASS);
-	final ModelHourglass model = new ModelHourglass();
+	private final ModelHourglass model;
 
-	public RenderTileHourglass(BlockEntityRendererProvider.Context ctx) {}
+	public RenderTileHourglass(BlockEntityRendererProvider.Context ctx) {
+		model = new ModelHourglass(ctx.bakeLayer(ModModelLayers.HOURGLASS));
+	}
 
 	@Override
 	public void render(@Nullable TileHourglass hourglass, float ticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

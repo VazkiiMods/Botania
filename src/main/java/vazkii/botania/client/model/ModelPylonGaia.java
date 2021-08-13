@@ -11,11 +11,13 @@ package vazkii.botania.client.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
-import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.util.Mth;
 
-public class ModelPylonGaia extends Model implements IPylonModel {
+public class ModelPylonGaia implements IPylonModel {
 
 	private final ModelPart platef;
 	private final ModelPart plateb;
@@ -32,55 +34,61 @@ public class ModelPylonGaia extends Model implements IPylonModel {
 	private final ModelPart shardlfb;
 	private final ModelPart shardrfb;
 
-	public ModelPylonGaia() {
-		super(RenderType::entityTranslucent);
+	public ModelPylonGaia(ModelPart root) {
+		platef = root.getChild("platef");
+		plateb = root.getChild("plateb");
+		platel = root.getChild("platel");
+		plater = root.getChild("plater");
+		shardlbt = root.getChild("shardlbt");
+		shardrbt = root.getChild("shardrbt");
+		shardlft = root.getChild("shardlft");
+		shardrft = root.getChild("shardrft");
+		shardlbb = root.getChild("shardlbb");
+		shardrbb = root.getChild("shardrbb");
+		shardlfb = root.getChild("shardlfb");
+		shardrfb = root.getChild("shardrfb");
+	}
 
-		texWidth = 64;
-		texHeight = 64;
-
-		//plates
-		platel = new ModelPart(this, 36, 0);
-		platel.setPos(0.0F, 16.0F, 0.0F);
-		platel.addBox(-3.0F, -3.0F, -8.0F, 6, 6, 2, 0.0F);
-		setRotation(platel, 0.0F, 1.5707963267948966F, 0.0F);
-		plater = new ModelPart(this, 36, 0);
-		plater.setPos(0.0F, 16.0F, 0.0F);
-		plater.addBox(-3.0F, -3.0F, -8.0F, 6, 6, 2, 0.0F);
-		setRotation(plater, 0.0F, -1.5707963267948966F, 0.0F);
-		platef = new ModelPart(this, 36, 0);
-		platef.setPos(0.0F, 16.0F, 0.0F);
-		platef.addBox(-3.0F, -3.0F, -8.0F, 6, 6, 2, 0.0F);
-		plateb = new ModelPart(this, 36, 0);
-		plateb.setPos(0.0F, 16.0F, 0.0F);
-		plateb.addBox(-3.0F, -3.0F, -8.0F, 6, 6, 2, 0.0F);
-		setRotation(plateb, 0.0F, 3.141592653589793F, 0.0F);
-
-		//shards
-		shardrft = new ModelPart(this, 16, 32);
-		shardrft.setPos(0.0F, 16.0F, 0.0F);
-		shardrft.addBox(2.0F, -6.0F, -5.0F, 3, 2, 3, 0.0F);
-		shardlbt = new ModelPart(this, 0, 0);
-		shardlbt.setPos(0.0F, 16.0F, 0.0F);
-		shardlbt.addBox(-5.0F, -6.0F, 0.0F, 6, 5, 5, 0.0F);
-		shardrbt = new ModelPart(this, 22, 9);
-		shardrbt.setPos(0.0F, 16.0F, 0.0F);
-		shardrbt.addBox(3.0F, -5.0F, 0.0F, 2, 4, 5, 0.0F);
-		shardlft = new ModelPart(this, 0, 32);
-		shardlft.setPos(0.0F, 16.0F, 0.0F);
-		shardlft.addBox(-5.0F, -7.0F, -5.0F, 5, 6, 3, 0.0F);
-
-		shardrfb = new ModelPart(this, 16, 37);
-		shardrfb.setPos(0.0F, 16.0F, 0.0F);
-		shardrfb.addBox(2.0F, -2.0F, -5.0F, 3, 6, 3, 0.0F);
-		shardlbb = new ModelPart(this, 0, 10);
-		shardlbb.setPos(0.0F, 16.0F, 0.0F);
-		shardlbb.addBox(-5.0F, 1.0F, 0.0F, 6, 3, 5, 0.0F);
-		shardrbb = new ModelPart(this, 22, 0);
-		shardrbb.setPos(0.0F, 16.0F, 0.0F);
-		shardrbb.addBox(3.0F, 1.0F, 0.0F, 2, 4, 5, 0.0F);
-		shardlfb = new ModelPart(this, 0, 41);
-		shardlfb.setPos(0.0F, 16.0F, 0.0F);
-		shardlfb.addBox(-5.0F, 1.0F, -5.0F, 5, 2, 3, 0.0F);
+	public static MeshDefinition createMesh() {
+		var mesh = new MeshDefinition();
+		var root = mesh.getRoot();
+		root.addOrReplaceChild("platel", CubeListBuilder.create().texOffs(36, 0)
+				.addBox(-3.0F, -3.0F, -8.0F, 6, 6, 2),
+				PartPose.offsetAndRotation(0.0F, 16.0F, 0.0F, 0.0F, Mth.PI / 2, 0.0F));
+		root.addOrReplaceChild("plater", CubeListBuilder.create().texOffs(36, 0)
+				.addBox(-3.0F, -3.0F, -8.0F, 6, 6, 2),
+				PartPose.offsetAndRotation(0.0F, 16.0F, 0.0F, 0.0F, -Mth.PI / 2, 0.0F));
+		root.addOrReplaceChild("platef", CubeListBuilder.create().texOffs(36, 0)
+				.addBox(-3.0F, -3.0F, -8.0F, 6, 6, 2),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		root.addOrReplaceChild("plateb", CubeListBuilder.create().texOffs(36, 0)
+				.addBox(-3.0F, -3.0F, -8.0F, 6, 6, 2),
+				PartPose.offsetAndRotation(0.0F, 16.0F, 0.0F, 0.0F, Mth.PI, 0.0F));
+		root.addOrReplaceChild("shardrft", CubeListBuilder.create().texOffs(16, 32)
+				.addBox(2.0F, -6.0F, -5.0F, 3, 2, 3),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		root.addOrReplaceChild("shardlbt", CubeListBuilder.create()
+				.addBox(-5.0F, -6.0F, 0.0F, 6, 5, 5),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		root.addOrReplaceChild("shardrbt", CubeListBuilder.create().texOffs(22, 9)
+				.addBox(3.0F, -5.0F, 0.0F, 2, 4, 5),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		root.addOrReplaceChild("shardlft", CubeListBuilder.create().texOffs(0, 32)
+				.addBox(-5.0F, -7.0F, -5.0F, 5, 6, 3),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		root.addOrReplaceChild("shardrfb", CubeListBuilder.create().texOffs(16, 37)
+				.addBox(2.0F, -2.0F, -5.0F, 3, 6, 3),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		root.addOrReplaceChild("shardlbb", CubeListBuilder.create().texOffs(0, 10)
+				.addBox(-5.0F, 1.0F, 0.0F, 6, 3, 5),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		root.addOrReplaceChild("shardrbb", CubeListBuilder.create().texOffs(22, 0)
+				.addBox(3.0F, 1.0F, 0.0F, 2, 4, 5),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		root.addOrReplaceChild("shardlfb", CubeListBuilder.create().texOffs(0, 41)
+				.addBox(-5.0F, 1.0F, -5.0F, 5, 2, 3),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		return mesh;
 	}
 
 	@Override
@@ -109,10 +117,5 @@ public class ModelPylonGaia extends Model implements IPylonModel {
 		model.xRot = x;
 		model.yRot = y;
 		model.zRot = z;
-	}
-
-	@Override
-	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
-		throw new UnsupportedOperationException("unimplemented");
 	}
 }

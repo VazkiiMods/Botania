@@ -28,10 +28,7 @@ import net.minecraft.world.level.block.Block;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
-import vazkii.botania.client.model.IPylonModel;
-import vazkii.botania.client.model.ModelPylonGaia;
-import vazkii.botania.client.model.ModelPylonMana;
-import vazkii.botania.client.model.ModelPylonNatura;
+import vazkii.botania.client.model.*;
 import vazkii.botania.common.block.BlockPylon;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TilePylon;
@@ -47,15 +44,19 @@ public class RenderTilePylon implements BlockEntityRenderer<TilePylon> {
 	public static final ResourceLocation NATURA_TEXTURE = new ResourceLocation(LibResources.MODEL_PYLON_NATURA);
 	public static final ResourceLocation GAIA_TEXTURE = new ResourceLocation(LibResources.MODEL_PYLON_GAIA);
 
-	private final ModelPylonMana manaModel = new ModelPylonMana();
-	private final ModelPylonNatura naturaModel = new ModelPylonNatura();
-	private final ModelPylonGaia gaiaModel = new ModelPylonGaia();
+	private final ModelPylonMana manaModel;
+	private final ModelPylonNatura naturaModel;
+	private final ModelPylonGaia gaiaModel;
 
 	// Overrides for when we call this TESR without an actual pylon
 	private static BlockPylon.Variant forceVariant = BlockPylon.Variant.MANA;
 	private static ItemTransforms.TransformType forceTransform = ItemTransforms.TransformType.NONE;
 
-	public RenderTilePylon(BlockEntityRendererProvider.Context ctx) {}
+	public RenderTilePylon(BlockEntityRendererProvider.Context ctx) {
+		manaModel = new ModelPylonMana(ctx.bakeLayer(ModModelLayers.PYLON_MANA));
+		naturaModel = new ModelPylonNatura(ctx.bakeLayer(ModModelLayers.PYLON_NATURA));
+		gaiaModel = new ModelPylonGaia(ctx.bakeLayer(ModModelLayers.PYLON_GAIA));
+	}
 
 	@Override
 	public void render(@Nonnull TilePylon pylon, float pticks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {

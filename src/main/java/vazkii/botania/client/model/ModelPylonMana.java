@@ -11,11 +11,13 @@ package vazkii.botania.client.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
-import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.util.Mth;
 
-public class ModelPylonMana extends Model implements IPylonModel {
+public class ModelPylonMana implements IPylonModel {
 
 	private final ModelPart platef;
 	private final ModelPart plateb;
@@ -27,42 +29,46 @@ public class ModelPylonMana extends Model implements IPylonModel {
 	private final ModelPart shardlb;
 	private final ModelPart shardrb;
 
-	public ModelPylonMana() {
-		super(RenderType::entityTranslucent);
+	public ModelPylonMana(ModelPart root) {
+		platef = root.getChild("platef");
+		plateb = root.getChild("plateb");
+		platel = root.getChild("platel");
+		plater = root.getChild("plater");
 
-		texWidth = 64;
-		texHeight = 64;
+		shardlf = root.getChild("shardlf");
+		shardrf = root.getChild("shardrf");
+		shardlb = root.getChild("shardlb");
+		shardrb = root.getChild("shardrb");
+	}
 
-		//plates
-		platef = new ModelPart(this, 36, 0);
-		platef.setPos(0.0F, 16.0F, 0.0F);
-		platef.addBox(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
-		plateb = new ModelPart(this, 36, 0);
-		plateb.setPos(0.0F, 16.0F, 0.0F);
-		plateb.addBox(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
-		setRotation(plateb, 0.0F, 3.141592653589793F, 0.0F);
-		platel = new ModelPart(this, 36, 0);
-		platel.setPos(0.0F, 16.0F, 0.0F);
-		platel.addBox(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
-		setRotation(platel, 0.0F, 1.5707963267948966F, 0.0F);
-		plater = new ModelPart(this, 36, 0);
-		plater.setPos(0.0F, 16.0F, 0.0F);
-		plater.addBox(-3.0F, -4.0F, -8.0F, 6, 8, 2, 0.0F);
-		setRotation(plater, 0.0F, -1.5707963267948966F, 0.0F);
-
-		//shards
-		shardlf = new ModelPart(this, 0, 21);
-		shardlf.setPos(0.0F, 16.0F, 0.0F);
-		shardlf.addBox(-5.0F, -9.0F, -5.0F, 5, 16, 3, 0.0F);
-		shardrf = new ModelPart(this, 16, 21);
-		shardrf.setPos(0.0F, 16.0F, 0.0F);
-		shardrf.addBox(2.0F, -12.0F, -5.0F, 3, 16, 3, 0.0F);
-		shardlb = new ModelPart(this, 0, 0);
-		shardlb.setPos(0.0F, 16.0F, 0.0F);
-		shardlb.addBox(-5.0F, -10.0F, 0.0F, 6, 16, 5, 0.0F);
-		shardrb = new ModelPart(this, 22, 0);
-		shardrb.setPos(0.0F, 16.0F, 0.0F);
-		shardrb.addBox(3.0F, -11.0F, 0.0F, 2, 16, 5, 0.0F);
+	public static MeshDefinition createMesh() {
+		var mesh = new MeshDefinition();
+		var root = mesh.getRoot();
+		root.addOrReplaceChild("platef", CubeListBuilder.create().texOffs(36, 0)
+				.addBox(-3.0F, -4.0F, -8.0F, 6, 8, 2),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		root.addOrReplaceChild("plateb", CubeListBuilder.create().texOffs(36, 0)
+				.addBox(-3.0F, -4.0F, -8.0F, 6, 8, 2),
+				PartPose.offsetAndRotation(0.0F, 16.0F, 0.0F, 0.0F, Mth.PI, 0.0F));
+		root.addOrReplaceChild("platel", CubeListBuilder.create().texOffs(36, 0)
+				.addBox(-3.0F, -4.0F, -8.0F, 6, 8, 2),
+				PartPose.offsetAndRotation(0.0F, 16.0F, 0.0F, 0.0F, Mth.PI / 2, 0.0F));
+		root.addOrReplaceChild("plater", CubeListBuilder.create().texOffs(36, 0)
+				.addBox(-3.0F, -4.0F, -8.0F, 6, 8, 2),
+				PartPose.offsetAndRotation(0.0F, 16.0F, 0.0F, 0.0F, -Mth.PI / 2, 0.0F));
+		root.addOrReplaceChild("shardlf", CubeListBuilder.create().texOffs(0, 21)
+				.addBox(-5.0F, -9.0F, -5.0F, 5, 16, 3),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		root.addOrReplaceChild("shardrf", CubeListBuilder.create().texOffs(16, 21)
+				.addBox(2.0F, -12.0F, -5.0F, 3, 16, 3),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		root.addOrReplaceChild("shardlb", CubeListBuilder.create()
+				.addBox(-5.0F, -10.0F, 0.0F, 6, 16, 5),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		root.addOrReplaceChild("shardrb", CubeListBuilder.create().texOffs(22, 0)
+				.addBox(3.0F, -11.0F, 0.0F, 2, 16, 5),
+				PartPose.offset(0.0F, 16.0F, 0.0F));
+		return mesh;
 	}
 
 	@Override
@@ -79,16 +85,5 @@ public class ModelPylonMana extends Model implements IPylonModel {
 		plateb.render(ms, buffer, light, overlay);
 		platel.render(ms, buffer, light, overlay);
 		plater.render(ms, buffer, light, overlay);
-	}
-
-	private void setRotation(ModelPart model, float x, float y, float z) {
-		model.xRot = x;
-		model.yRot = y;
-		model.zRot = z;
-	}
-
-	@Override
-	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
-		throw new UnsupportedOperationException("unimplemented");
 	}
 }

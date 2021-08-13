@@ -14,47 +14,52 @@ import com.mojang.math.Vector3f;
 
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.RenderType;
 
 public class ModelHourglass extends Model {
 
-	public ModelPart top;
-	public ModelPart glassT;
-	public ModelPart ring;
-	public ModelPart glassB;
-	public ModelPart bottom;
+	private final ModelPart top;
+	private final ModelPart glassT;
+	private final ModelPart ring;
+	private final ModelPart glassB;
+	private final ModelPart bottom;
 
-	public ModelPart sandT;
-	public ModelPart sandB;
+	private final ModelPart sandT;
+	private final ModelPart sandB;
 
-	public ModelHourglass() {
+	public ModelHourglass(ModelPart root) {
 		super(RenderType::entityTranslucent);
 
-		texWidth = 64;
-		texHeight = 32;
+		top = root.getChild("top");
+		glassT = root.getChild("glass_top");
+		ring = root.getChild("ring");
+		glassB = root.getChild("glass_bottom");
+		bottom = root.getChild("bottom");
+		sandT = root.getChild("sand_top");
+		sandB = root.getChild("sand_bottom");
+	}
 
-		top = new ModelPart(this, 20, 0);
-		top.setPos(0.0F, 0.0F, 0.0F);
-		top.addBox(-3.0F, -6.5F, -3.0F, 6, 1, 6, 0.0F);
-		glassT = new ModelPart(this, 0, 0);
-		glassT.setPos(0.0F, 0.0F, 0.0F);
-		glassT.addBox(-2.5F, -5.5F, -2.5F, 5, 5, 5, 0.0F);
-		ring = new ModelPart(this, 0, 20);
-		ring.setPos(0.0F, 0.0F, 0.0F);
-		ring.addBox(-1.5F, -0.5F, -1.5F, 3, 1, 3, 0.0F);
-		glassB = new ModelPart(this, 0, 10);
-		glassB.setPos(0.0F, 0.0F, 0.0F);
-		glassB.addBox(-2.5F, 0.5F, -2.5F, 5, 5, 5, 0.0F);
-		bottom = new ModelPart(this, 20, 7);
-		bottom.setPos(0.0F, 0.0F, 0.0F);
-		bottom.addBox(-3.0F, 5.5F, -3.0F, 6, 1, 6, 0.0F);
-
-		sandT = new ModelPart(this, 20, 14);
-		sandT.setPos(0.0F, 0.0F, 0.0F);
-		sandT.addBox(0.0F, 0.0F, 0.0F, 4, 4, 4, 0.0F); // -2.0F, -5.0F, -2.0F
-		sandB = new ModelPart(this, 20, 14);
-		sandB.setPos(0.0F, 0.0F, 0.0F);
-		sandB.addBox(0.0F, 0.0F, 0.0F, 4, 4, 4, 0.0F); // -2.0F, 1.0F, -2.05F
+	public static MeshDefinition createMesh() {
+		var mesh = new MeshDefinition();
+		var root = mesh.getRoot();
+		root.addOrReplaceChild("top", CubeListBuilder.create().texOffs(20, 0)
+				.addBox(-3.0F, -6.5F, -3.0F, 6, 1, 6), PartPose.ZERO);
+		root.addOrReplaceChild("glass_top", CubeListBuilder.create()
+				.addBox(-2.5F, -5.5F, -2.5F, 5, 5, 5), PartPose.ZERO);
+		root.addOrReplaceChild("ring", CubeListBuilder.create().texOffs(0, 20)
+				.addBox(-1.5F, -0.5F, -1.5F, 3, 1, 3), PartPose.ZERO);
+		root.addOrReplaceChild("glass_bottom", CubeListBuilder.create().texOffs(0, 10)
+				.addBox(-2.5F, 0.5F, -2.5F, 5, 5, 5), PartPose.ZERO);
+		root.addOrReplaceChild("bottom", CubeListBuilder.create().texOffs(20, 7)
+				.addBox(-3.0F, 5.5F, -3.0F, 6, 1, 6), PartPose.ZERO);
+		root.addOrReplaceChild("sand_top", CubeListBuilder.create().texOffs(20, 14)
+				.addBox(0.0F, 0.0F, 0.0F, 4, 4, 4), PartPose.ZERO);
+		root.addOrReplaceChild("sand_bottom", CubeListBuilder.create().texOffs(20, 14)
+				.addBox(0.0F, 0.0F, 0.0F, 4, 4, 4), PartPose.ZERO);
+		return mesh;
 	}
 
 	@Override
