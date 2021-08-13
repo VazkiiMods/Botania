@@ -14,6 +14,9 @@ import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -22,6 +25,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 
 import javax.annotation.Nullable;
@@ -33,10 +37,21 @@ public class RenderTileCorporeaIndex implements BlockEntityRenderer<TileCorporea
 	private final ModelPart cube;
 
 	public RenderTileCorporeaIndex(BlockEntityRendererProvider.Context ctx) {
-		this.ring = new ModelPart(64, 32, 0, 0);
-		this.ring.addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F);
-		this.cube = new ModelPart(64, 32, 32, 0);
-		this.cube.addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F);
+		ModelPart root = ctx.bakeLayer(ModModelLayers.CORPOREA_INDEX);
+		this.ring = root.getChild("ring");
+		this.cube = root.getChild("cube");
+	}
+
+	public static MeshDefinition createMesh() {
+		var mesh = new MeshDefinition();
+		var root = mesh.getRoot();
+		root.addOrReplaceChild("ring", CubeListBuilder.create()
+				.addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F),
+				PartPose.ZERO);
+		root.addOrReplaceChild("cube", CubeListBuilder.create().texOffs(32, 0)
+				.addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F),
+				PartPose.ZERO);
+		return mesh;
 	}
 
 	@Override

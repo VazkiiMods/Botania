@@ -19,6 +19,7 @@ public class ModModelLayers {
 	public static final ModelLayerLocation BELLOWS = register("bellows");
 	public static final ModelLayerLocation BREWERY = register("brewery");
 	public static final ModelLayerLocation CLOAK = register("cloak");
+	public static final ModelLayerLocation CORPOREA_INDEX = register("corporea_index");
 	public static final ModelLayerLocation HOURGLASS = register("hourglass");
 	public static final ModelLayerLocation PIXIE = register("pixie");
 	public static final ModelLayerLocation PYLON_GAIA = register("pylon_gaia");
@@ -36,5 +37,6 @@ public class ModModelLayers {
 		return ret;
 	}
 
+	// todo call from somewhere
 	public static void init() {}
 }
