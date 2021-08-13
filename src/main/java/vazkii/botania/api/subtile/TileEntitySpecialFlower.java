@@ -28,7 +28,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -49,7 +48,7 @@ import javax.annotation.Nullable;
 /**
  * Common superclass of all magical flower TE's
  */
-public class TileEntitySpecialFlower extends BlockEntity implements TickableBlockEntity, IWandBindable, IFloatingFlowerProvider, RenderAttachmentBlockEntity, BlockEntityClientSerializable {
+public class TileEntitySpecialFlower extends BlockEntity implements IWandBindable, IFloatingFlowerProvider, RenderAttachmentBlockEntity, BlockEntityClientSerializable {
 	public static final ResourceLocation DING_SOUND_EVENT = new ResourceLocation(BotaniaAPI.MODID, "ding");
 	public static final int SLOWDOWN_FACTOR_PODZOL = 5;
 	public static final int SLOWDOWN_FACTOR_MYCEL = 10;
@@ -78,38 +77,37 @@ public class TileEntitySpecialFlower extends BlockEntity implements TickableBloc
 		super(type, pos, state);
 	}
 
-	@Override
-	public final void tick() {
-		if (isFloating != getBlockState().is(ModTags.Blocks.FLOATING_FLOWERS)) {
+	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileEntitySpecialFlower self) {
+		if (self.isFloating != state.is(ModTags.Blocks.FLOATING_FLOWERS)) {
 			Botania.LOGGER.error("Special flower changed floating state, this is not supported!", new Throwable());
-			isFloating = !isFloating;
+			self.isFloating = !self.isFloating;
 		}
 		BlockEntity tileBelow = level.getBlockEntity(worldPosition.below());
 		if (tileBelow instanceof TileRedStringRelay) {
 			BlockPos coords = ((TileRedStringRelay) tileBelow).getBinding();
 			if (coords != null) {
-				positionOverride = coords;
-				tickFlower();
+				self.positionOverride = coords;
+				self.tickFlower();
 
 				return;
 			} else {
-				positionOverride = null;
+				self.positionOverride = null;
 			}
 		} else {
-			positionOverride = null;
+			self.positionOverride = null;
 		}
 
-		boolean special = isOnSpecialSoil();
+		boolean special = self.isOnSpecialSoil();
 		if (special) {
-			this.overgrowth = true;
-			if (isOvergrowthAffected()) {
-				tickFlower();
-				overgrowthBoost = true;
+			self.overgrowth = true;
+			if (self.isOvergrowthAffected()) {
+				self.tickFlower();
+				self.overgrowthBoost = true;
 			}
 		}
-		tickFlower();
-		overgrowth = false;
-		overgrowthBoost = false;
+		self.tickFlower();
+		self.overgrowth = false;
+		self.overgrowthBoost = false;
 	}
 
 	@Nullable
@@ -155,12 +153,12 @@ public class TileEntitySpecialFlower extends BlockEntity implements TickableBloc
 	}
 
 	@Override
-	public final void load(BlockState state, CompoundTag cmp) {
-		super.load(state, cmp);
+	public final void load(CompoundTag cmp) {
+		super.load(cmp);
 		if (cmp.contains(TAG_TICKS_EXISTED)) {
 			ticksExisted = cmp.getInt(TAG_TICKS_EXISTED);
 		}
-		if (state.getBlock() instanceof BlockFloatingFlower) {
+		if (getBlockState().getBlock() instanceof BlockFloatingFlower) {
 			setFloating(true);
 		}
 		readFromPacketNBT(cmp);

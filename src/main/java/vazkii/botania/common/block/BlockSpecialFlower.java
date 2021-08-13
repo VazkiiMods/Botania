@@ -26,6 +26,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -41,15 +43,15 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.Random;
-import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 public class BlockSpecialFlower extends FlowerBlock implements EntityBlock, IWandable, IWandHUD {
 	private static final VoxelShape SHAPE = box(4.8, 0, 4.8, 12.8, 16, 12.8);
-	private final BiFunction<BlockPos, BlockState, ? extends TileEntitySpecialFlower> teProvider;
+	private final Supplier<BlockEntityType<? extends TileEntitySpecialFlower>> blockEntityType;
 
-	protected BlockSpecialFlower(MobEffect stewEffect, int stewDuration, Properties props, BiFunction<BlockPos, BlockState, ? extends TileEntitySpecialFlower> teProvider) {
+	protected BlockSpecialFlower(MobEffect stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends TileEntitySpecialFlower>> blockEntityType) {
 		super(stewEffect, stewDuration, props);
-		this.teProvider = teProvider;
+		this.blockEntityType = blockEntityType;
 	}
 
 	@Nonnull
@@ -73,10 +75,16 @@ public class BlockSpecialFlower extends FlowerBlock implements EntityBlock, IWan
 		return tileentity != null && tileentity.triggerEvent(event, param);
 	}
 
-	@Nonnull
+	@Nullable
 	@Override
 	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
-		return teProvider.apply(pos, state);
+		return blockEntityType.get().create(pos, state);
+	}
+
+	@Nullable
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+		return BlockMod.createTickerHelper(type, blockEntityType.get(), TileEntitySpecialFlower::commonTick);
 	}
 
 	@Override

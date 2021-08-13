@@ -21,6 +21,8 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.subtile.TileEntitySpecialFlower;
@@ -32,14 +34,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.Random;
-import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements IWandable, IWandHUD {
-	private final BiFunction<BlockPos, BlockState, ? extends TileEntitySpecialFlower> teProvider;
+	private final Supplier<BlockEntityType<? extends TileEntitySpecialFlower>> blockEntityType;
 
-	public BlockFloatingSpecialFlower(Properties props, BiFunction<BlockPos, BlockState, ? extends TileEntitySpecialFlower> teProvider) {
+	public BlockFloatingSpecialFlower(Properties props, Supplier<BlockEntityType<? extends TileEntitySpecialFlower>> blockEntityType) {
 		super(DyeColor.WHITE, props);
-		this.teProvider = teProvider;
+		this.blockEntityType = blockEntityType;
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -67,8 +69,14 @@ public class BlockFloatingSpecialFlower extends BlockFloatingFlower implements I
 	@Nonnull
 	@Override
 	public BlockEntity newBlockEntity(@Nonnull BlockPos pos, @Nonnull BlockState state) {
-		TileEntitySpecialFlower te = teProvider.apply(pos, state);
+		TileEntitySpecialFlower te = blockEntityType.get().create(pos, state);
 		te.setFloating(true);
 		return te;
+	}
+
+	@Nullable
+	@Override
+	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> type) {
+		return createTickerHelper(type, blockEntityType.get(), TileEntitySpecialFlower::commonTick);
 	}
 }
