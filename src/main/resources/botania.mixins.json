@@ -69,7 +69,6 @@
     "AccessorModelLayers",
     "AccessorRecipeBookGui",
     "AccessorRecipeBookPage",
-    "AccessorRenderState",
     "AccessorRenderTypeBuffers",
     "AccessorSkullTileEntityRenderer",
     "AccessorWorldRenderer",

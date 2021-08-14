@@ -52,10 +52,13 @@ public final class ItemsRemainingRenderHandler {
 			ms.pushPose();
 			ms.translate(xp, y, 0F);
 			ms.scale(alpha, 1F, 1F);
-			RenderSystem.pushMatrix();
-			RenderSystem.multMatrix(ms.last().pose());
+			PoseStack mvStack = RenderSystem.getModelViewStack();
+			mvStack.pushPose();
+			mvStack.mulPoseMatrix(ms.last().pose());
+			RenderSystem.applyModelViewMatrix();
 			mc.getItemRenderer().renderAndDecorateItem(stack, 0, 0);
-			RenderSystem.popMatrix();
+			mvStack.popPose();
+			RenderSystem.applyModelViewMatrix();
 			ms.popPose();
 
 			Component text = TextComponent.EMPTY;

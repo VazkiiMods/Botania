@@ -45,7 +45,6 @@ import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.tile.RenderTilePylon;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
-import vazkii.botania.mixin.AccessorRenderState;
 
 import javax.annotation.Nullable;
 
@@ -54,8 +53,8 @@ import java.util.List;
 import java.util.OptionalDouble;
 import java.util.Random;
 
-public final class RenderHelper {
-	private static final RenderStateShard.TransparencyStateShard TRANSLUCENT_TRANSPARENCY = AccessorRenderState.getTranslucentTransparency();
+public final class RenderHelper extends RenderType {
+	private static final RenderStateShard.TransparencyStateShard TRANSLUCENT_TRANSPARENCY = RenderStateShard.TRANSLUCENT_TRANSPARENCY;
 	private static final RenderType STAR;
 	public static final RenderType RECTANGLE;
 	public static final RenderType CIRCLE;
@@ -85,23 +84,20 @@ public final class RenderHelper {
 
 	static {
 		// todo 1.16 update to match vanilla where necessary (alternate render targets, etc.)
-		RenderStateShard.TransparencyStateShard lightningTransparency = AccessorRenderState.getLightningTransparency();
 		RenderStateShard.TextureStateShard mipmapBlockAtlasTexture = new RenderStateShard.TextureStateShard(TextureAtlas.LOCATION_BLOCKS, false, true);
 		RenderStateShard.CullStateShard disableCull = new RenderStateShard.CullStateShard(false);
-		RenderStateShard.LayeringStateShard viewOffsetZLayering = AccessorRenderState.getViewOffsetZLayer();
+		RenderStateShard.LayeringStateShard viewOffsetZLayering = RenderStateShard.VIEW_OFFSET_Z_LAYERING;
 		RenderStateShard.WriteMaskStateShard colorMask = new RenderStateShard.WriteMaskStateShard(true, false);
-		RenderStateShard.ShadeModelStateShard smoothShade = new RenderStateShard.ShadeModelStateShard(true);
 		RenderStateShard.LightmapStateShard enableLightmap = new RenderStateShard.LightmapStateShard(true);
 		RenderStateShard.OverlayStateShard enableOverlay = new RenderStateShard.OverlayStateShard(true);
-		RenderStateShard.DiffuseLightingStateShard enableDiffuse = new RenderStateShard.DiffuseLightingStateShard(true);
-		RenderStateShard.AlphaStateShard oneTenthAlpha = new RenderStateShard.AlphaStateShard(0.004F);
 		RenderStateShard.DepthTestStateShard noDepth = new RenderStateShard.DepthTestStateShard("always", GL11.GL_ALWAYS);
-		RenderStateShard.OutputStateShard itemTarget = AccessorRenderState.getItemEntityTarget();
+		RenderStateShard.OutputStateShard itemTarget = RenderStateShard.ITEM_ENTITY_TARGET;
 		boolean useShaders = ShaderHelper.useShaders();
 
-		RenderType.CompositeState glState = RenderType.CompositeState.builder().setShadeModelState(smoothShade)
+		RenderType.CompositeState glState = RenderType.CompositeState.builder()
+				// todo 1.17.setShadeModelState(smoothShade)
 				.setWriteMaskState(colorMask)
-				.setTransparencyState(lightningTransparency)
+				.setTransparencyState(RenderStateShard.LIGHTNING_TRANSPARENCY)
 				.createCompositeState(false);
 		STAR = RenderType.create(LibResources.PREFIX_MOD + "star", DefaultVertexFormat.POSITION_COLOR, GL11.GL_TRIANGLES, 256, false, false, glState);
 
@@ -127,7 +123,7 @@ public final class RenderHelper {
 				.setTextureState(mipmapBlockAtlasTexture)
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setOutputState(itemTarget)
-				.setAlphaState(new RenderStateShard.AlphaStateShard(0.05F))
+				// todo 1.17 .setAlphaState(new RenderStateShard.AlphaStateShard(0.05F))
 				.setLightmapState(enableLightmap).createCompositeState(true);
 		SPARK = RenderType.create(LibResources.PREFIX_MOD + "spark", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, GL11.GL_QUADS, 256, glState);
 		RenderType lightRelay = RenderType.create(LibResources.PREFIX_MOD + "light_relay", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, GL11.GL_QUADS, 64, glState);
@@ -137,8 +133,8 @@ public final class RenderHelper {
 		SPINNING_CUBE = RenderType.create(LibResources.PREFIX_MOD + "spinning_cube", DefaultVertexFormat.NEW_ENTITY, GL11.GL_QUADS, 64, glState);
 
 		glState = RenderType.CompositeState.builder()
-				.setTextureState(new RenderStateShard.TextureStateShard())
-				.setDiffuseLightingState(enableDiffuse)
+				.setTextureState(RenderStateShard.NO_TEXTURE)
+				// todo 1.17 .setDiffuseLightingState(enableDiffuse)
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setOutputState(itemTarget)
 				.createCompositeState(false);
@@ -147,8 +143,8 @@ public final class RenderHelper {
 		glState = RenderType.CompositeState.builder().setTextureState(mipmapBlockAtlasTexture)
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setOutputState(itemTarget)
-				.setDiffuseLightingState(new RenderStateShard.DiffuseLightingStateShard(true))
-				.setAlphaState(oneTenthAlpha)
+				// todo 1.17 .setDiffuseLightingState(new RenderStateShard.DiffuseLightingStateShard(true))
+				// todo 1.17 .setAlphaState(oneTenthAlpha)
 				.setLightmapState(enableLightmap).createCompositeState(true);
 		ICON_OVERLAY = RenderType.create(LibResources.PREFIX_MOD + "icon_overlay", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, GL11.GL_QUADS, 128, glState);
 
@@ -157,8 +153,8 @@ public final class RenderHelper {
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setOutputState(itemTarget)
 				.setCullState(disableCull)
-				.setShadeModelState(smoothShade)
-				.setAlphaState(new RenderStateShard.AlphaStateShard(0.05F))
+				// todo 1.17 .setShadeModelState(smoothShade)
+				// todo 1.17 .setAlphaState(new RenderStateShard.AlphaStateShard(0.05F))
 				.setLightmapState(enableLightmap).createCompositeState(true);
 		RenderType babylonIcon = RenderType.create(LibResources.PREFIX_MOD + "babylon", DefaultVertexFormat.POSITION_COLOR_TEX, GL11.GL_QUADS, 64, glState);
 		BABYLON_ICON = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, babylonIcon) : babylonIcon;
@@ -170,8 +166,8 @@ public final class RenderHelper {
 		RenderStateShard.TextureStateShard haloTexture = new RenderStateShard.TextureStateShard(ItemFlightTiara.textureHalo, false, true);
 		glState = RenderType.CompositeState.builder().setTextureState(haloTexture)
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
-				.setDiffuseLightingState(new RenderStateShard.DiffuseLightingStateShard(true))
-				.setAlphaState(oneTenthAlpha)
+				// todo 1.17 .setDiffuseLightingState(new RenderStateShard.DiffuseLightingStateShard(true))
+				// todo 1.17 .setAlphaState(oneTenthAlpha)
 				.setCullState(disableCull)
 				.createCompositeState(true);
 		RenderType halo = RenderType.create(LibResources.PREFIX_MOD + "halo", DefaultVertexFormat.POSITION_TEX, GL11.GL_QUADS, 64, glState);
@@ -189,6 +185,10 @@ public final class RenderHelper {
 		ASTROLABE_PREVIEW = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ALPHA, cb, astrolabePreview) : astrolabePreview;
 	}
 
+	private RenderHelper(String string, VertexFormat vertexFormat, VertexFormat.Mode mode, int i, boolean bl, boolean bl2, Runnable runnable, Runnable runnable2) {
+		super(string, vertexFormat, mode, i, bl, bl2, runnable, runnable2);
+	}
+
 	private static RenderType getPylonGlowDirect(String name, ResourceLocation texture) {
 		return getPylonGlow(name, texture, true);
 	}
@@ -201,12 +201,12 @@ public final class RenderHelper {
 		RenderType.CompositeState.CompositeStateBuilder glState = RenderType.CompositeState.builder()
 				.setTextureState(new RenderStateShard.TextureStateShard(texture, false, false))
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
-				.setDiffuseLightingState(new RenderStateShard.DiffuseLightingStateShard(true))
-				.setAlphaState(new RenderStateShard.AlphaStateShard(0))
+				// todo 1.17 .setDiffuseLightingState(new RenderStateShard.DiffuseLightingStateShard(true))
+				// todo 1.17 .setAlphaState(new RenderStateShard.AlphaStateShard(0))
 				.setCullState(new RenderStateShard.CullStateShard(false))
 				.setLightmapState(new RenderStateShard.LightmapStateShard(true));
 		if (!direct) {
-			glState = glState.setOutputState(AccessorRenderState.getItemEntityTarget());
+			glState = glState.setOutputState(RenderStateShard.ITEM_ENTITY_TARGET);
 		}
 		RenderType layer = RenderType.create(LibResources.PREFIX_MOD + name, DefaultVertexFormat.NEW_ENTITY, GL11.GL_QUADS, 128, glState.createCompositeState(false));
 		return ShaderHelper.useShaders() ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.PYLON_GLOW, null, layer) : layer;
@@ -336,7 +336,7 @@ public final class RenderHelper {
 	public static void renderItemCustomColor(LivingEntity entity, ItemStack stack, int color, PoseStack ms, MultiBufferSource buffers, int light, int overlay, @Nullable BakedModel model) {
 		ms.pushPose();
 		if (model == null) {
-			model = Minecraft.getInstance().getItemRenderer().getModel(stack, entity.level, entity);
+			model = Minecraft.getInstance().getItemRenderer().getModel(stack, entity.level, entity, entity.getId());
 		}
 		model.getTransforms().getTransform(ItemTransforms.TransformType.NONE).apply(false, ms);
 		ms.translate(-0.5D, -0.5D, -0.5D);
