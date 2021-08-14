@@ -8,6 +8,9 @@
  */
 package vazkii.botania.client.model.armor;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -17,8 +20,8 @@ import net.minecraft.world.entity.decoration.ArmorStand;
 public class ModelArmor extends HumanoidModel<LivingEntity> {
 	protected final EquipmentSlot slot;
 
-	public ModelArmor(EquipmentSlot slot) {
-		super(1);
+	public ModelArmor(ModelPart root, EquipmentSlot slot) {
+		super(root);
 		this.slot = slot;
 	}
 
@@ -60,5 +63,36 @@ public class ModelArmor extends HumanoidModel<LivingEntity> {
 		modelRenderer.xRot = x;
 		modelRenderer.yRot = y;
 		modelRenderer.zRot = z;
+	}
+
+	@Override
+	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
+		setPartVisibility(slot);
+		super.renderToBuffer(ms, buffer, light, overlay, r, g, b, a);
+	}
+
+	// [VanillaCopy] HumanoidArmorLayer
+	// todo 1.17 check if this is necessary
+	private void setPartVisibility(EquipmentSlot slot) {
+		setAllVisible(false);
+		switch (slot) {
+		case HEAD:
+			head.visible = true;
+			hat.visible = true;
+			break;
+		case CHEST:
+			body.visible = true;
+			rightArm.visible = true;
+			leftArm.visible = true;
+			break;
+		case LEGS:
+			body.visible = true;
+			rightLeg.visible = true;
+			leftLeg.visible = true;
+			break;
+		case FEET:
+			rightLeg.visible = true;
+			leftLeg.visible = true;
+		}
 	}
 }
