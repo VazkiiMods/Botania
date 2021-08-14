@@ -12,8 +12,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 
 import vazkii.botania.common.block.ModBlocks;
 
@@ -25,7 +25,11 @@ public class MysticalMushroomFeature extends Feature<MysticalMushroomConfig> {
 	}
 
 	@Override
-	public boolean place(WorldGenLevel world, ChunkGenerator generator, Random rand, BlockPos pos, MysticalMushroomConfig config) {
+	public boolean place(FeaturePlaceContext<MysticalMushroomConfig> ctx) {
+		WorldGenLevel level = ctx.level();
+		Random rand = ctx.random();
+		BlockPos pos = ctx.origin();
+		MysticalMushroomConfig config = ctx.config();
 		boolean any = false;
 		for (int i = 0; i < config.getMushroomPatchSize(); i++) {
 			int x = pos.getX() + rand.nextInt(16) + 8;
@@ -34,8 +38,8 @@ public class MysticalMushroomFeature extends Feature<MysticalMushroomConfig> {
 			BlockPos pos3 = new BlockPos(x, y, z);
 			DyeColor color = DyeColor.byId(rand.nextInt(16));
 			BlockState mushroom = ModBlocks.getMushroom(color).defaultBlockState();
-			if (world.isEmptyBlock(pos3) && mushroom.canSurvive(world, pos3)) {
-				world.setBlock(pos3, mushroom, 2);
+			if (level.isEmptyBlock(pos3) && mushroom.canSurvive(level, pos3)) {
+				level.setBlock(pos3, mushroom, 2);
 				any = true;
 			}
 		}
