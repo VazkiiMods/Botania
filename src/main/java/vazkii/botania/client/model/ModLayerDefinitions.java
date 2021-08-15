@@ -12,6 +12,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 
 import vazkii.botania.client.model.armor.ModelArmorManasteel;
+import vazkii.botania.client.model.armor.ModelArmorManaweave;
 import vazkii.botania.client.render.tile.RenderTileCorporeaIndex;
 
 import java.util.function.BiConsumer;
@@ -28,6 +29,8 @@ public class ModLayerDefinitions {
 		consumer.accept(ModModelLayers.HOURGLASS, LayerDefinition.create(ModelHourglass.createMesh(), 64, 32));
 		consumer.accept(ModModelLayers.MANASTEEL_INNER_ARMOR, LayerDefinition.create(ModelArmorManasteel.createInsideMesh(), 64, 128));
 		consumer.accept(ModModelLayers.MANASTEEL_OUTER_ARMOR, LayerDefinition.create(ModelArmorManasteel.createOutsideMesh(), 64, 128));
+		consumer.accept(ModModelLayers.MANAWEAVE_INNER_ARMOR, LayerDefinition.create(ModelArmorManaweave.createInsideMesh(), 64, 128));
+		consumer.accept(ModModelLayers.MANAWEAVE_OUTER_ARMOR, LayerDefinition.create(ModelArmorManaweave.createOutsideMesh(), 64, 128));
 		consumer.accept(ModModelLayers.PIXIE, LayerDefinition.create(ModelPixie.createMesh(), 32, 32));
 		consumer.accept(ModModelLayers.PYLON_GAIA, LayerDefinition.create(ModelPylonGaia.createMesh(), 64, 64));
 		consumer.accept(ModModelLayers.PYLON_MANA, LayerDefinition.create(ModelPylonMana.createMesh(), 64, 64));

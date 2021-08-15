@@ -23,6 +23,8 @@ public class ModModelLayers {
 	public static final ModelLayerLocation HOURGLASS = register("hourglass");
 	public static final ModelLayerLocation MANASTEEL_INNER_ARMOR = register("manasteel_armor", "inner_armor");
 	public static final ModelLayerLocation MANASTEEL_OUTER_ARMOR = register("manasteel_armor", "outer_armor");
+	public static final ModelLayerLocation MANAWEAVE_INNER_ARMOR = register("manaweave_armor", "inner_armor");
+	public static final ModelLayerLocation MANAWEAVE_OUTER_ARMOR = register("manaweave_armor", "outer_armor");
 	public static final ModelLayerLocation PIXIE = register("pixie");
 	public static final ModelLayerLocation PYLON_GAIA = register("pylon_gaia");
 	public static final ModelLayerLocation PYLON_MANA = register("pylon_mana");
