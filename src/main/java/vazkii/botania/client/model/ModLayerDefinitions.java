@@ -14,6 +14,7 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import vazkii.botania.client.model.armor.ModelArmorElementium;
 import vazkii.botania.client.model.armor.ModelArmorManasteel;
 import vazkii.botania.client.model.armor.ModelArmorManaweave;
+import vazkii.botania.client.model.armor.ModelArmorTerrasteel;
 import vazkii.botania.client.render.tile.RenderTileCorporeaIndex;
 
 import java.util.function.BiConsumer;
@@ -38,6 +39,8 @@ public class ModLayerDefinitions {
 		consumer.accept(ModModelLayers.PYLON_GAIA, LayerDefinition.create(ModelPylonGaia.createMesh(), 64, 64));
 		consumer.accept(ModModelLayers.PYLON_MANA, LayerDefinition.create(ModelPylonMana.createMesh(), 64, 64));
 		consumer.accept(ModModelLayers.PYLON_NATURA, LayerDefinition.create(ModelPylonNatura.createMesh(), 64, 64));
+		consumer.accept(ModModelLayers.TERRASTEEL_INNER_ARMOR, LayerDefinition.create(ModelArmorTerrasteel.createInsideMesh(), 64, 128));
+		consumer.accept(ModModelLayers.TERRASTEEL_OUTER_ARMOR, LayerDefinition.create(ModelArmorTerrasteel.createOutsideMesh(), 64, 128));
 		consumer.accept(ModModelLayers.TERU_TERU_BOZU, LayerDefinition.create(ModelTeruTeruBozu.createMesh(), 64, 32));
 	}
 }

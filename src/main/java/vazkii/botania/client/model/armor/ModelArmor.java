@@ -59,12 +59,6 @@ public class ModelArmor extends HumanoidModel<LivingEntity> {
 		this.hat.copyFrom(this.head);
 	}
 
-	protected void setRotateAngle(ModelPart modelRenderer, float x, float y, float z) {
-		modelRenderer.xRot = x;
-		modelRenderer.yRot = y;
-		modelRenderer.zRot = z;
-	}
-
 	@Override
 	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
 		setPartVisibility(slot);

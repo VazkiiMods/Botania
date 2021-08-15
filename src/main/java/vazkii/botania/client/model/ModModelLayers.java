@@ -31,6 +31,8 @@ public class ModModelLayers {
 	public static final ModelLayerLocation PYLON_GAIA = register("pylon_gaia");
 	public static final ModelLayerLocation PYLON_MANA = register("pylon_mana");
 	public static final ModelLayerLocation PYLON_NATURA = register("pylon_natura");
+	public static final ModelLayerLocation TERRASTEEL_INNER_ARMOR = register("terrasteel_armor", "inner_armor");
+	public static final ModelLayerLocation TERRASTEEL_OUTER_ARMOR = register("terrasteel_armor", "outer_armor");
 	public static final ModelLayerLocation TERU_TERU_BOZU = register("teru_teru_bozu");
 
 	private static ModelLayerLocation register(String name) {
