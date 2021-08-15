@@ -11,6 +11,7 @@ package vazkii.botania.client.model;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 
+import vazkii.botania.client.model.armor.ModelArmorElementium;
 import vazkii.botania.client.model.armor.ModelArmorManasteel;
 import vazkii.botania.client.model.armor.ModelArmorManaweave;
 import vazkii.botania.client.render.tile.RenderTileCorporeaIndex;
@@ -27,6 +28,8 @@ public class ModLayerDefinitions {
 		consumer.accept(ModModelLayers.CLOAK, LayerDefinition.create(ModelCloak.createMesh(), 64, 64));
 		consumer.accept(ModModelLayers.CORPOREA_INDEX, LayerDefinition.create(RenderTileCorporeaIndex.createMesh(), 64, 32));
 		consumer.accept(ModModelLayers.HOURGLASS, LayerDefinition.create(ModelHourglass.createMesh(), 64, 32));
+		consumer.accept(ModModelLayers.ELEMENTIUM_INNER_ARMOR, LayerDefinition.create(ModelArmorElementium.createInsideMesh(), 64, 128));
+		consumer.accept(ModModelLayers.ELEMENTIUM_OUTER_ARMOR, LayerDefinition.create(ModelArmorElementium.createOutsideMesh(), 64, 128));
 		consumer.accept(ModModelLayers.MANASTEEL_INNER_ARMOR, LayerDefinition.create(ModelArmorManasteel.createInsideMesh(), 64, 128));
 		consumer.accept(ModModelLayers.MANASTEEL_OUTER_ARMOR, LayerDefinition.create(ModelArmorManasteel.createOutsideMesh(), 64, 128));
 		consumer.accept(ModModelLayers.MANAWEAVE_INNER_ARMOR, LayerDefinition.create(ModelArmorManaweave.createInsideMesh(), 64, 128));

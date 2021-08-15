@@ -21,6 +21,8 @@ public class ModModelLayers {
 	public static final ModelLayerLocation CLOAK = register("cloak");
 	public static final ModelLayerLocation CORPOREA_INDEX = register("corporea_index");
 	public static final ModelLayerLocation HOURGLASS = register("hourglass");
+	public static final ModelLayerLocation ELEMENTIUM_INNER_ARMOR = register("elementium_armor", "inner_armor");
+	public static final ModelLayerLocation ELEMENTIUM_OUTER_ARMOR = register("elementium_armor", "outer_armor");
 	public static final ModelLayerLocation MANASTEEL_INNER_ARMOR = register("manasteel_armor", "inner_armor");
 	public static final ModelLayerLocation MANASTEEL_OUTER_ARMOR = register("manasteel_armor", "outer_armor");
 	public static final ModelLayerLocation MANAWEAVE_INNER_ARMOR = register("manaweave_armor", "inner_armor");

@@ -8,9 +8,6 @@
  */
 package vazkii.botania.client.model.armor;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -21,93 +18,30 @@ import net.minecraft.world.entity.EquipmentSlot;
 
 public class ModelArmorElementium extends ModelArmor {
 
-	private final ModelPart helmAnchor;
-	private final ModelPart helm;
-	private final ModelPart helmFairy;
-	private final ModelPart helmWing1r;
-	private final ModelPart helmWing2l;
-	private final ModelPart helmWing1l;
-	private final ModelPart helmWing2r;
-
-	private final ModelPart bodyAnchor;
-	private final ModelPart bodyTop;
-	private final ModelPart bodyBottom;
-
-	private final ModelPart armLAnchor;
-	private final ModelPart armL;
-	private final ModelPart armLpauldron;
-	private final ModelPart armLwing1;
-	private final ModelPart armLwing2;
-
-	private final ModelPart armRAnchor;
-	private final ModelPart armR;
-	private final ModelPart armRpauldron;
-	private final ModelPart armRwing1;
-	private final ModelPart armRwing2;
-
-	private final ModelPart pantsAnchor;
-	private final ModelPart belt;
-	private final ModelPart legL;
-	private final ModelPart legR;
-
-	private final ModelPart bootL;
-	private final ModelPart bootLwing1;
-	private final ModelPart bootLwing2;
-	private final ModelPart bootR;
-	private final ModelPart bootRwing1;
-	private final ModelPart bootRwing2;
-
-	public ModelArmorElementium(EquipmentSlot slot) {
-		super(slot);
-
-		this.texWidth = 64;
-		this.texHeight = 128;
-		float s = 0.01F;
-
-		//pants
-		this.pantsAnchor = new ModelPart(this, 0, 0);
-		this.pantsAnchor.setPos(0.0F, 0.0F, 0.0F);
-		this.pantsAnchor.addBox(-1.0F, 0.0F, -1.0F, 2, 2, 2, s);
-		this.belt = new ModelPart(this, 0, 53);
-		this.belt.setPos(0.0F, 0.0F, 0.0F);
-		this.belt.addBox(-4.5F, 8.0F, -3.0F, 9, 5, 6, s);
-		this.legL = new ModelPart(this, 0, 64);
-		this.legL.mirror = true;
-		this.legL.setPos(1.9F, 12.0F, 0.0F);
-		this.legL.addBox(-2.39F, 0.0F, -2.49F, 5, 6, 5, s);
-		this.legR = new ModelPart(this, 0, 64);
-		this.legR.setPos(-1.9F, 12.0F, 0.0F);
-		this.legR.addBox(-2.61F, 0.0F, -2.51F, 5, 6, 5, s);
-
-		//hierarchy
-		this.helmAnchor.addChild(this.helm);
-		this.helm.addChild(this.helmFairy);
-		this.helm.addChild(this.helmWing1l);
-		this.helm.addChild(this.helmWing2l);
-		this.helm.addChild(this.helmWing1r);
-		this.helm.addChild(this.helmWing2r);
-
-		this.bodyAnchor.addChild(this.bodyTop);
-		this.bodyTop.addChild(this.bodyBottom);
-		this.armLAnchor.addChild(this.armL);
-		this.armL.addChild(this.armLpauldron);
-		this.armLpauldron.addChild(this.armLwing1);
-		this.armLpauldron.addChild(this.armLwing2);
-		this.armRAnchor.addChild(this.armR);
-		this.armR.addChild(this.armRpauldron);
-		this.armRpauldron.addChild(this.armRwing1);
-		this.armRpauldron.addChild(this.armRwing2);
-
-		this.pantsAnchor.addChild(this.belt);
-
-		this.bootL.addChild(bootLwing1);
-		this.bootL.addChild(bootLwing2);
-		this.bootR.addChild(bootRwing1);
-		this.bootR.addChild(bootRwing2);
+	public ModelArmorElementium(ModelPart root, EquipmentSlot slot) {
+		super(root, slot);
 	}
 
 	public static MeshDefinition createInsideMesh() {
-
+		var deformation = new CubeDeformation(0.01F);
+		var mesh = new MeshDefinition();
+		var root = mesh.getRoot();
+		root.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.ZERO);
+		root.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
+		root.addOrReplaceChild("left_arm", CubeListBuilder.create(), PartPose.ZERO);
+		root.addOrReplaceChild("right_arm", CubeListBuilder.create(), PartPose.ZERO);
+		var body = root.addOrReplaceChild("body", CubeListBuilder.create()
+				.addBox(-1.0F, 0.0F, -1.0F, 2, 2, 2, deformation), PartPose.ZERO);
+		body.addOrReplaceChild("belt", CubeListBuilder.create().texOffs(0, 53)
+				.addBox(-4.5F, 8.0F, -3.0F, 9, 5, 6, deformation), PartPose.ZERO);
+		root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 64)
+				.mirror()
+				.addBox(-2.39F, 0.0F, -2.49F, 5, 6, 5, deformation),
+				PartPose.offset(1.9F, 12.0F, 0.0F));
+		root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 64)
+				.addBox(-2.61F, 0.0F, -2.51F, 5, 6, 5, deformation),
+				PartPose.offset(-1.9F, 12.0F, 0.0F));
+		return mesh;
 	}
 
 	public static MeshDefinition createOutsideMesh() {
@@ -203,34 +137,5 @@ public class ModelArmorElementium extends ModelArmor {
 
 		root.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
 		return mesh;
-	}
-
-	@Override
-	public void renderToBuffer(PoseStack ms, VertexConsumer buffer, int light, int overlay, float r, float g, float b, float a) {
-
-		helmAnchor.visible = slot == EquipmentSlot.HEAD;
-		bodyAnchor.visible = slot == EquipmentSlot.CHEST;
-		armRAnchor.visible = slot == EquipmentSlot.CHEST;
-		armLAnchor.visible = slot == EquipmentSlot.CHEST;
-		legR.visible = slot == EquipmentSlot.LEGS;
-		legL.visible = slot == EquipmentSlot.LEGS;
-		bootL.visible = slot == EquipmentSlot.FEET;
-		bootR.visible = slot == EquipmentSlot.FEET;
-		hat.visible = false;
-
-		head = helmAnchor;
-		body = bodyAnchor;
-		rightArm = armRAnchor;
-		leftArm = armLAnchor;
-		if (slot == EquipmentSlot.LEGS) {
-			body = pantsAnchor;
-			rightLeg = legR;
-			leftLeg = legL;
-		} else {
-			rightLeg = bootR;
-			leftLeg = bootL;
-		}
-
-		super.renderToBuffer(ms, buffer, light, overlay, r, g, b, a);
 	}
 }
