@@ -12,6 +12,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EquipmentSlot;
 
 public class ModelArmorElementium extends ModelArmor {
@@ -59,91 +64,6 @@ public class ModelArmorElementium extends ModelArmor {
 		this.texHeight = 128;
 		float s = 0.01F;
 
-		//helm
-		this.helmAnchor = new ModelPart(this, 0, 0);
-		this.helmAnchor.setPos(0.0F, 0.0F, 0.0F);
-		this.helmAnchor.addBox(-1.0F, -2.0F, 0.0F, 2, 2, 2, s);
-		this.helm = new ModelPart(this, 0, 0);
-		this.helm.setPos(0.0F, 0.0F, 0.0F);
-		this.helm.addBox(-4.5F, -9.0F, -4.5F, 9, 9, 9, s);
-		this.helmFairy = new ModelPart(this, 36, 11);
-		this.helmFairy.setPos(0.0F, 0.0F, 0.0F);
-		this.helmFairy.addBox(-2.5F, -10.0F, -5.5F, 5, 5, 5, s);
-		this.helmWing1l = new ModelPart(this, 36, 0);
-		this.helmWing1l.mirror = true;
-		this.helmWing1l.setPos(4.5F, -6.0F, -0.5F);
-		this.helmWing1l.addBox(-1.0F, -5.0F, 0.0F, 1, 5, 6, s);
-		this.setRotateAngle(helmWing1l, 0.2617993877991494F, 0.5235987755982988F, 0.2617993877991494F);
-		this.helmWing2l = new ModelPart(this, 50, 0);
-		this.helmWing2l.setPos(4.5F, -6.0F, -0.5F);
-		this.helmWing2l.addBox(-1.0F, 0.0F, 0.0F, 1, 3, 4, s);
-		this.setRotateAngle(helmWing2l, -0.2617993877991494F, 0.2617993877991494F, -0.2617993877991494F);
-		this.helmWing1r = new ModelPart(this, 36, 0);
-		this.helmWing1r.setPos(-4.5F, -6.0F, -0.5F);
-		this.helmWing1r.addBox(0.0F, -5.0F, 0.0F, 1, 5, 6, s);
-		this.setRotateAngle(helmWing1r, 0.2617993877991494F, -0.5235987755982988F, -0.2617993877991494F);
-		this.helmWing2r = new ModelPart(this, 50, 0);
-		this.helmWing2r.mirror = true;
-		this.helmWing2r.setPos(-4.5F, -6.0F, -0.5F);
-		this.helmWing2r.addBox(0.0F, 0.0F, 0.0F, 1, 3, 4, s);
-		this.setRotateAngle(helmWing2r, -0.2617993877991494F, -0.2617993877991494F, 0.2617993877991494F);
-
-		//body
-		this.bodyAnchor = new ModelPart(this, 0, 0);
-		this.bodyAnchor.setPos(0.0F, 0.0F, 0.0F);
-		this.bodyAnchor.addBox(-1.0F, 0.0F, -1.0F, 2, 2, 2, s);
-		this.bodyTop = new ModelPart(this, 0, 19);
-		this.bodyTop.setPos(0.0F, 0.0F, 0.0F);
-		this.bodyTop.addBox(-4.5F, 0.0F, -3.0F, 9, 6, 6, s);
-		this.bodyBottom = new ModelPart(this, 0, 31);
-		this.bodyBottom.setPos(0.0F, 0.0F, 0.0F);
-		this.bodyBottom.addBox(-3.5F, 5.0F, -2.5F, 7, 3, 5, s);
-
-		//armL
-		this.armLAnchor = new ModelPart(this, 0, 0);
-		this.armLAnchor.mirror = true;
-		this.armLAnchor.setPos(4.0F, 2.0F, 0.0F);
-		this.armLAnchor.addBox(0.0F, -1.0F, -1.0F, 2, 2, 2, s);
-		this.armL = new ModelPart(this, 24, 40);
-		this.armL.mirror = true;
-		this.armL.setPos(0.0F, 0.0F, -0.0F);
-		this.armL.addBox(0.5F, 4.5F, -2.49F, 3, 6, 5, s);
-		this.armLpauldron = new ModelPart(this, 0, 40);
-		this.armLpauldron.mirror = true;
-		this.armLpauldron.setPos(0.0F, 0.0F, 0.0F);
-		this.armLpauldron.addBox(-0.5F, -3.0F, -3.0F, 6, 7, 6, s);
-		this.armLwing1 = new ModelPart(this, 40, 35);
-		this.armLwing1.setPos(6.0F, -1.0F, 0.0F);
-		this.armLwing1.addBox(0.0F, -4.0F, 0.0F, 0, 4, 5, s);
-		this.setRotateAngle(armLwing1, 0.2617993877991494F, 0.5235987755982988F, 0.2617993877991494F);
-		this.armLwing2 = new ModelPart(this, 40, 40);
-		this.armLwing2.setPos(6.0F, -1.0F, 0.0F);
-		this.armLwing2.addBox(0.0F, 0.0F, 0.0F, 0, 3, 4, s);
-		this.setRotateAngle(armLwing2, -0.2617993877991494F, 0.2617993877991494F, -0.2617993877991494F);
-
-		//armR
-		this.armRAnchor = new ModelPart(this, 0, 0);
-		this.armRAnchor.mirror = true;
-		this.armRAnchor.setPos(-4.0F, 2.0F, 0.0F);
-		this.armRAnchor.addBox(-2.0F, -1.0F, -1.0F, 2, 2, 2, s);
-		this.armR = new ModelPart(this, 24, 40);
-		this.armR.setPos(0.0F, 0.0F, 0.0F);
-		this.armR.addBox(-3.5F, 4.5F, -2.51F, 3, 6, 5, s);
-		this.armRpauldron = new ModelPart(this, 0, 40);
-		this.armRpauldron.setPos(0.0F, 0.0F, 0.0F);
-		this.armRpauldron.addBox(-5.5F, -3.0F, -3.0F, 6, 7, 6, s);
-		this.setRotateAngle(armRpauldron, 0.0F, 0.0F, 0.0017453292519943296F);
-		this.armRwing1 = new ModelPart(this, 40, 35);
-		this.armRwing1.mirror = true;
-		this.armRwing1.setPos(-6.5F, -1.0F, 0.0F);
-		this.armRwing1.addBox(0.0F, -4.0F, 0.0F, 0, 4, 5, s);
-		this.setRotateAngle(armRwing1, 0.2617993877991494F, -0.5235987755982988F, -0.2617993877991494F);
-		this.armRwing2 = new ModelPart(this, 40, 40);
-		this.armRwing2.mirror = true;
-		this.armRwing2.setPos(-6.5F, -1.0F, 0.0F);
-		this.armRwing2.addBox(0.0F, 0.0F, 0.0F, 0, 3, 4, s);
-		this.setRotateAngle(armRwing2, -0.2617993877991494F, -0.2617993877991494F, 0.2617993877991494F);
-
 		//pants
 		this.pantsAnchor = new ModelPart(this, 0, 0);
 		this.pantsAnchor.setPos(0.0F, 0.0F, 0.0F);
@@ -158,33 +78,6 @@ public class ModelArmorElementium extends ModelArmor {
 		this.legR = new ModelPart(this, 0, 64);
 		this.legR.setPos(-1.9F, 12.0F, 0.0F);
 		this.legR.addBox(-2.61F, 0.0F, -2.51F, 5, 6, 5, s);
-
-		//boots
-		this.bootL = new ModelPart(this, 0, 75);
-		this.bootL.mirror = true;
-		this.bootL.setPos(1.9F, 12.0F, 0.0F);
-		this.bootL.addBox(-2.39F, 8.5F, -2.49F, 5, 5, 5, s);
-		this.bootLwing1 = new ModelPart(this, 40, 40);
-		this.bootLwing1.setPos(2.5F, 8.5F, 0.0F);
-		this.bootLwing1.addBox(0.0F, -3.0F, 0.0F, 0, 3, 4, s);
-		this.setRotateAngle(bootLwing1, 0.2617993877991494F, 0.5235987755982988F, 0.2617993877991494F);
-		this.bootLwing2 = new ModelPart(this, 40, 44);
-		this.bootLwing2.setPos(2.5F, 8.5F, 0.0F);
-		this.bootLwing2.addBox(0.0F, 0.0F, 0.0F, 0, 2, 3, s);
-		this.setRotateAngle(bootLwing2, -0.2617993877991494F, 0.2617993877991494F, -0.2617993877991494F);
-		this.bootR = new ModelPart(this, 0, 75);
-		this.bootR.setPos(-1.9F, 12.0F, 0.0F);
-		this.bootR.addBox(-2.61F, 8.5F, -2.51F, 5, 5, 5, s);
-		this.bootRwing1 = new ModelPart(this, 40, 40);
-		this.bootRwing1.mirror = true;
-		this.bootRwing1.setPos(-2.6F, 8.5F, 0.0F);
-		this.bootRwing1.addBox(0.0F, -3.0F, 0.0F, 0, 3, 4, s);
-		this.setRotateAngle(bootRwing1, 0.2617993877991494F, -0.5235987755982988F, -0.2617993877991494F);
-		this.bootRwing2 = new ModelPart(this, 40, 44);
-		this.bootRwing2.mirror = true;
-		this.bootRwing2.setPos(-2.5F, 8.5F, 0.0F);
-		this.bootRwing2.addBox(0.0F, 0.0F, 0.0F, 0, 2, 3, s);
-		this.setRotateAngle(bootRwing2, -0.2617993877991494F, -0.2617993877991494F, 0.2617993877991494F);
 
 		//hierarchy
 		this.helmAnchor.addChild(this.helm);
@@ -211,6 +104,105 @@ public class ModelArmorElementium extends ModelArmor {
 		this.bootL.addChild(bootLwing2);
 		this.bootR.addChild(bootRwing1);
 		this.bootR.addChild(bootRwing2);
+	}
+
+	public static MeshDefinition createInsideMesh() {
+
+	}
+
+	public static MeshDefinition createOutsideMesh() {
+		var deformation = new CubeDeformation(0.01F);
+		var mesh = new MeshDefinition();
+		var root = mesh.getRoot();
+		var head = root.addOrReplaceChild("head", CubeListBuilder.create()
+				.addBox(-1.0F, -2.0F, 0.0F, 2, 2, 2, deformation), PartPose.ZERO);
+		var helm = head.addOrReplaceChild("helm", CubeListBuilder.create()
+				.addBox(-4.5F, -9.0F, -4.5F, 9, 9, 9, deformation), PartPose.ZERO);
+		helm.addOrReplaceChild("helm_fairy", CubeListBuilder.create().texOffs(36, 11)
+				.addBox(-2.5F, -10.0F, -5.5F, 5, 5, 5, deformation), PartPose.ZERO);
+		helm.addOrReplaceChild("helm_wing_1l", CubeListBuilder.create().texOffs(36, 0)
+				.mirror()
+				.addBox(-1.0F, -5.0F, 0.0F, 1, 5, 6, deformation),
+				PartPose.offsetAndRotation(4.5F, -6.0F, -0.5F, Mth.PI / 12, Mth.PI / 6, Mth.PI / 12));
+		helm.addOrReplaceChild("helm_wing_2l", CubeListBuilder.create().texOffs(50, 0)
+				.addBox(-1.0F, 0.0F, 0.0F, 1, 3, 4, deformation),
+				PartPose.offsetAndRotation(4.5F, -6.0F, -0.5F, -Mth.PI / 12, Mth.PI / 12, -Mth.PI / 12));
+		helm.addOrReplaceChild("helm_wing_1r", CubeListBuilder.create().texOffs(36, 0)
+				.addBox(0.0F, -5.0F, 0.0F, 1, 5, 6, deformation),
+				PartPose.offsetAndRotation(-4.5F, -6.0F, -0.5F, Mth.PI / 12, -Mth.PI / 6, -Mth.PI / 12));
+		helm.addOrReplaceChild("helm_wing_2r", CubeListBuilder.create().texOffs(50, 0)
+				.mirror()
+				.addBox(0.0F, 0.0F, 0.0F, 1, 3, 4, deformation),
+				PartPose.offsetAndRotation(-4.5F, -6.0F, -0.5F, -Mth.PI / 12, -Mth.PI / 12, Mth.PI / 12));
+
+		var body = root.addOrReplaceChild("body", CubeListBuilder.create()
+				.addBox(-1.0F, 0.0F, -1.0F, 2, 2, 2, deformation), PartPose.ZERO);
+		var bodyTop = body.addOrReplaceChild("body_top", CubeListBuilder.create().texOffs(0, 19)
+				.addBox(-4.5F, 0.0F, -3.0F, 9, 6, 6, deformation), PartPose.ZERO);
+		bodyTop.addOrReplaceChild("body_bottom", CubeListBuilder.create().texOffs(0, 31)
+				.addBox(-3.5F, 5.0F, -2.5F, 7, 3, 5, deformation), PartPose.ZERO);
+
+		var leftArm = root.addOrReplaceChild("left_arm", CubeListBuilder.create()
+				.mirror()
+				.addBox(0.0F, -1.0F, -1.0F, 2, 2, 2, deformation),
+				PartPose.offset(4.0F, 2.0F, 0.0F));
+		var armL = leftArm.addOrReplaceChild("left_arm_main", CubeListBuilder.create()
+				.mirror()
+				.addBox(0.5F, 4.5F, -2.49F, 3, 6, 5, deformation), PartPose.ZERO);
+		var armLpauldron = armL.addOrReplaceChild("left_arm_pauldron", CubeListBuilder.create().texOffs(0, 40)
+				.mirror()
+				.addBox(-0.5F, -3.0F, -3.0F, 6, 7, 6, deformation), PartPose.ZERO);
+		armLpauldron.addOrReplaceChild("left_arm_wing_1", CubeListBuilder.create().texOffs(40, 35)
+				.addBox(0.0F, -4.0F, 0.0F, 0, 4, 5, deformation),
+				PartPose.offsetAndRotation(6.0F, -1.0F, 0.0F, Mth.PI / 12, Mth.PI / 6, Mth.PI / 12));
+		armLpauldron.addOrReplaceChild("left_arm_wing_2", CubeListBuilder.create().texOffs(40, 40)
+				.addBox(0.0F, 0.0F, 0.0F, 0, 3, 4, deformation),
+				PartPose.offsetAndRotation(6.0F, -1.0F, 0.0F, -Mth.PI / 12, Mth.PI / 12, -Mth.PI / 12));
+
+		var rightArm = root.addOrReplaceChild("right_arm", CubeListBuilder.create()
+				.mirror()
+				.addBox(-2.0F, -1.0F, -1.0F, 2, 2, 2, deformation),
+				PartPose.offset(-4.0F, 2.0F, 0.0F));
+		var armR = rightArm.addOrReplaceChild("right_arm_main", CubeListBuilder.create().texOffs(24, 40)
+				.addBox(-3.5F, 4.5F, -2.51F, 3, 6, 5, deformation),
+				PartPose.ZERO);
+		var armRpauldron = armR.addOrReplaceChild("right_arm_pauldron", CubeListBuilder.create().texOffs(0, 40)
+				.addBox(-5.5F, -3.0F, -3.0F, 6, 7, 6, deformation), PartPose.ZERO);
+		armRpauldron.addOrReplaceChild("right_arm_wing_1", CubeListBuilder.create().texOffs(40, 35)
+				.mirror()
+				.addBox(0.0F, -4.0F, 0.0F, 0, 4, 5, deformation),
+				PartPose.offsetAndRotation(-6.5F, -1.0F, 0.0F, Mth.PI / 12, -Mth.PI / 6, -Mth.PI / 12));
+		armRpauldron.addOrReplaceChild("right_arm_wing_2", CubeListBuilder.create().texOffs(40, 40)
+				.mirror()
+				.addBox(0.0F, 0.0F, 0.0F, 0, 3, 4, deformation),
+				PartPose.offsetAndRotation(-6.5F, -1.0F, 0.0F, -Mth.PI / 12, -Mth.PI / 12, Mth.PI / 12));
+
+		// boots
+		var bootL = root.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 75)
+				.mirror()
+				.addBox(-2.39F, 8.5F, -2.49F, 5, 5, 5, deformation),
+				PartPose.offset(1.9F, 12.0F, 0.0F));
+		bootL.addOrReplaceChild("left_boot_wing_1", CubeListBuilder.create().texOffs(40, 40)
+				.addBox(0.0F, -3.0F, 0.0F, 0, 3, 4, deformation),
+				PartPose.offsetAndRotation(2.5F, 8.5F, 0.0F, Mth.PI / 12, Mth.PI / 6, Mth.PI / 12));
+		bootL.addOrReplaceChild("left_boot_wing_2", CubeListBuilder.create().texOffs(40, 44)
+				.addBox(0.0F, 0.0F, 0.0F, 0, 2, 3, deformation),
+				PartPose.offsetAndRotation(2.5F, 8.5F, 0.0F, -Mth.PI / 12, Mth.PI / 12, -Mth.PI / 12));
+
+		var bootR = root.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 75)
+				.addBox(-2.61F, 8.5F, -2.51F, 5, 5, 5, deformation),
+				PartPose.offset(-1.9F, 12.0F, 0.0F));
+		bootR.addOrReplaceChild("right_boot_wing_1", CubeListBuilder.create().texOffs(40, 40)
+				.mirror()
+				.addBox(0.0F, -3.0F, 0.0F, 0, 3, 4, deformation),
+				PartPose.offsetAndRotation(-2.6F, 8.5F, 0.0F, Mth.PI / 12, -Mth.PI / 6, -Mth.PI / 12));
+		bootR.addOrReplaceChild("right_boot_wing_2", CubeListBuilder.create().texOffs(40, 44)
+				.mirror()
+				.addBox(0.0F, 0.0F, 0.0F, 0, 2, 3, deformation),
+				PartPose.offsetAndRotation(-2.5F, 8.5F, 0.0F, -Mth.PI / 12, -Mth.PI / 12, Mth.PI / 12));
+
+		root.addOrReplaceChild("hat", CubeListBuilder.create(), PartPose.ZERO);
+		return mesh;
 	}
 
 	@Override
