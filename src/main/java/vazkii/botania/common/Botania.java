@@ -78,7 +78,7 @@ public class Botania implements ModInitializer {
 
 	public static boolean gardenOfGlassLoaded = false;
 
-	public static boolean curiosLoaded = false;
+	public static boolean trinketsLoaded = false;
 
 	public static IProxy proxy = new IProxy() {};
 	public static volatile boolean configLoaded = false;
@@ -88,7 +88,7 @@ public class Botania implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		gardenOfGlassLoaded = FabricLoader.getInstance().isModLoaded(LibMisc.GOG_MOD_ID);
-		curiosLoaded = FabricLoader.getInstance().isModLoaded("curios");
+		trinketsLoaded = FabricLoader.getInstance().isModLoaded("trinkets");
 		ConfigHandler.setup();
 
 		EquipmentHandler.init();
