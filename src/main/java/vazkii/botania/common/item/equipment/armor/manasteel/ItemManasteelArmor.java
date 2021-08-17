@@ -34,6 +34,7 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.TooltipHandler;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.client.model.armor.ModelArmorManasteel;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.ModItems;
@@ -99,7 +100,11 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 
 	@Environment(EnvType.CLIENT)
 	protected HumanoidModel<LivingEntity> provideArmorModelForSlot(EquipmentSlot slot) {
-		return new ModelArmorManasteel(slot);
+		var entityModels = Minecraft.getInstance().getEntityModels();
+		var root = entityModels.bakeLayer(slot == EquipmentSlot.LEGS
+				? ModModelLayers.MANASTEEL_INNER_ARMOR
+				: ModModelLayers.MANASTEEL_OUTER_ARMOR);
+		return new ModelArmorManasteel(root, slot);
 	}
 
 	@Override

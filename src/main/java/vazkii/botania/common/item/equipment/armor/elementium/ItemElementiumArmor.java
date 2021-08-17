@@ -11,6 +11,7 @@ package vazkii.botania.common.item.equipment.armor.elementium;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -23,6 +24,7 @@ import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.client.model.ModModelLayers;
 import vazkii.botania.client.model.armor.ModelArmorElementium;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
@@ -38,7 +40,11 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 	@Override
 	@Environment(EnvType.CLIENT)
 	protected HumanoidModel<LivingEntity> provideArmorModelForSlot(EquipmentSlot slot) {
-		return new ModelArmorElementium(slot);
+		var entityModels = Minecraft.getInstance().getEntityModels();
+		var root = entityModels.bakeLayer(slot == EquipmentSlot.LEGS
+				? ModModelLayers.ELEMENTIUM_INNER_ARMOR
+				: ModModelLayers.ELEMENTIUM_OUTER_ARMOR);
+		return new ModelArmorElementium(root, slot);
 	}
 
 	@Override
