@@ -19,7 +19,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.LivingEntityFeatureRendererRegistrationCallback;
-import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderingRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.client.Camera;
@@ -103,11 +103,9 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.Locale;
 import java.util.SortedMap;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -173,16 +171,19 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	}
 
 	private static void registerArmors() {
-		List<Item> armors = Registry.ITEM.stream()
+		Item[] armors = Registry.ITEM.stream()
 				.filter(i -> i instanceof ItemManasteelArmor
 						&& Registry.ITEM.getKey(i).getNamespace().equals(LibMisc.MOD_ID))
-				.collect(Collectors.toList());
+				.toArray(Item[]::new);
 
-		ArmorRenderingRegistry.ModelProvider p = (entity, stack, slot, original) -> ((ItemManasteelArmor) stack.getItem()).getArmorModel(entity, stack, slot, original);
-		ArmorRenderingRegistry.registerModel(p, armors);
-
-		ArmorRenderingRegistry.TextureProvider t = (entity, stack, slot, secondLayer, suffix, original) -> new ResourceLocation(((ItemManasteelArmor) stack.getItem()).getArmorTexture(stack, slot));
-		ArmorRenderingRegistry.registerTexture(t, armors);
+		ArmorRenderer renderer = (matrices, vertexConsumers, stack, entity, slot, light, contextModel) -> {
+			ItemManasteelArmor armor = (ItemManasteelArmor) stack.getItem();
+			var model = armor.getArmorModel(entity, stack, slot, contextModel);
+			var texture = armor.getArmorTexture(stack, slot);
+			contextModel.copyPropertiesTo(model);
+			ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, model, new ResourceLocation(texture));
+		};
+		ArmorRenderer.register(renderer, armors);
 	}
 
 	private static void registerPropertyGetter(ItemLike item, ResourceLocation id, ItemPropertyFunction propGetter) {
