@@ -29,7 +29,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModModelLayers;
-import vazkii.botania.client.model.armor.ModelArmorManaweave;
+import vazkii.botania.client.model.armor.ModelArmor;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
@@ -50,7 +50,7 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 		var root = entityModels.bakeLayer(slot == EquipmentSlot.LEGS
 				? ModModelLayers.MANAWEAVE_INNER_ARMOR
 				: ModModelLayers.MANAWEAVE_OUTER_ARMOR);
-		return new ModelArmorManaweave(root, slot);
+		return new ModelArmor(root, slot);
 	}
 
 	@Override

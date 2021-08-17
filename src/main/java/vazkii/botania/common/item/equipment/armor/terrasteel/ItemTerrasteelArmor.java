@@ -32,7 +32,7 @@ import net.minecraft.world.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModModelLayers;
-import vazkii.botania.client.model.armor.ModelArmorTerrasteel;
+import vazkii.botania.client.model.armor.ModelArmor;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
@@ -54,7 +54,7 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 		var root = entityModels.bakeLayer(slot == EquipmentSlot.LEGS
 				? ModModelLayers.TERRASTEEL_INNER_ARMOR
 				: ModModelLayers.TERRASTEEL_OUTER_ARMOR);
-		return new ModelArmorTerrasteel(root, slot);
+		return new ModelArmor(root, slot);
 	}
 
 	@Override

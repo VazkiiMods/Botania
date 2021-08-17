@@ -8,19 +8,13 @@
  */
 package vazkii.botania.client.model.armor;
 
-import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.EquipmentSlot;
 
-public class ModelArmorManasteel extends ModelArmor {
-	public ModelArmorManasteel(ModelPart root, EquipmentSlot slot) {
-		super(root, slot);
-	}
-
+public class ModelArmorManasteel {
 	public static MeshDefinition createInsideMesh() {
 		var deformation = new CubeDeformation(0.01F);
 		var mesh = new MeshDefinition();

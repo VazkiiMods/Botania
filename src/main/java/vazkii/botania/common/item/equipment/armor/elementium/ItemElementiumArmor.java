@@ -25,7 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModModelLayers;
-import vazkii.botania.client.model.armor.ModelArmorElementium;
+import vazkii.botania.client.model.armor.ModelArmor;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.armor.manasteel.ItemManasteelArmor;
 
@@ -44,7 +44,7 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 		var root = entityModels.bakeLayer(slot == EquipmentSlot.LEGS
 				? ModModelLayers.ELEMENTIUM_INNER_ARMOR
 				: ModModelLayers.ELEMENTIUM_OUTER_ARMOR);
-		return new ModelArmorElementium(root, slot);
+		return new ModelArmor(root, slot);
 	}
 
 	@Override
