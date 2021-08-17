@@ -31,8 +31,8 @@ import net.minecraft.client.renderer.entity.ItemEntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.client.renderer.item.ItemPropertyFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
@@ -186,7 +186,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		ArmorRenderer.register(renderer, armors);
 	}
 
-	private static void registerPropertyGetter(ItemLike item, ResourceLocation id, ItemPropertyFunction propGetter) {
+	private static void registerPropertyGetter(ItemLike item, ResourceLocation id, ClampedItemPropertyFunction propGetter) {
 		FabricModelPredicateProviderRegistry.register(item.asItem(), id, propGetter);
 	}
 
@@ -194,10 +194,10 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		registerPropertyGetter(ModItems.blackHoleTalisman, prefix("active"),
 				(stack, world, entity, seed) -> ItemNBTHelper.getBoolean(stack, ItemBlackHoleTalisman.TAG_ACTIVE, false) ? 1 : 0);
 		registerPropertyGetter(ModItems.manaBottle, prefix("swigs_taken"),
-				(stack, world, entity, seed) -> ItemBottledMana.SWIGS - ItemBottledMana.getSwigsLeft(stack));
+				(stack, world, entity, seed) -> ItemBottledMana.SWIGS - ItemBottledMana.getSwigsLeft(stack)); // todo 1.17 not clamped
 
 		ResourceLocation vuvuzelaId = prefix("vuvuzela");
-		ItemPropertyFunction isVuvuzela = (stack, world, entity, seed) -> stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0;
+		ClampedItemPropertyFunction isVuvuzela = (stack, world, entity, seed) -> stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0;
 		registerPropertyGetter(ModItems.grassHorn, vuvuzelaId, isVuvuzela);
 		registerPropertyGetter(ModItems.leavesHorn, vuvuzelaId, isVuvuzela);
 		registerPropertyGetter(ModItems.snowHorn, vuvuzelaId, isVuvuzela);
@@ -215,7 +215,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 				(stack, world, entity, seed) -> ItemTwigWand.getBindMode(stack) ? 1 : 0);
 
 		ResourceLocation poolFullId = prefix("full");
-		ItemPropertyFunction poolFull = (stack, world, entity, seed) -> {
+		ClampedItemPropertyFunction poolFull = (stack, world, entity, seed) -> {
 			Block block = ((BlockItem) stack.getItem()).getBlock();
 			boolean renderFull = ((BlockPool) block).variant == BlockPool.Variant.CREATIVE || stack.hasTag() && stack.getTag().getBoolean("RenderFull");
 			return renderFull ? 1F : 0F;
@@ -225,21 +225,21 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		registerPropertyGetter(ModBlocks.creativePool, poolFullId, poolFull);
 		registerPropertyGetter(ModBlocks.fabulousPool, poolFullId, poolFull);
 
-		ItemPropertyFunction brewGetter = (stack, world, entity, seed) -> {
+		ClampedItemPropertyFunction brewGetter = (stack, world, entity, seed) -> {
 			ItemBrewBase item = ((ItemBrewBase) stack.getItem());
-			return item.getSwigs() - item.getSwigsLeft(stack);
+			return item.getSwigs() - item.getSwigsLeft(stack); // todo 1.17 not clamped
 		};
 		registerPropertyGetter(ModItems.brewVial, prefix("swigs_taken"), brewGetter);
 		registerPropertyGetter(ModItems.brewFlask, prefix("swigs_taken"), brewGetter);
 
 		ResourceLocation holidayId = prefix("holiday");
-		ItemPropertyFunction holidayGetter = (stack, worldIn, entityIn, seed) -> ClientProxy.jingleTheBells ? 1 : 0;
+		ClampedItemPropertyFunction holidayGetter = (stack, worldIn, entityIn, seed) -> ClientProxy.jingleTheBells ? 1 : 0;
 		registerPropertyGetter(ModItems.manaweaveHelm, holidayId, holidayGetter);
 		registerPropertyGetter(ModItems.manaweaveChest, holidayId, holidayGetter);
 		registerPropertyGetter(ModItems.manaweaveBoots, holidayId, holidayGetter);
 		registerPropertyGetter(ModItems.manaweaveLegs, holidayId, holidayGetter);
 
-		ItemPropertyFunction ringOnGetter = (stack, worldIn, entityIn, seed) -> ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0;
+		ClampedItemPropertyFunction ringOnGetter = (stack, worldIn, entityIn, seed) -> ItemMagnetRing.getCooldown(stack) <= 0 ? 1 : 0;
 		registerPropertyGetter(ModItems.magnetRing, prefix("active"), ringOnGetter);
 		registerPropertyGetter(ModItems.magnetRingGreater, prefix("active"), ringOnGetter);
 
@@ -258,15 +258,15 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		registerPropertyGetter(ModItems.tornadoRod, prefix("active"),
 				(stack, world, living, seed) -> ItemTornadoRod.isFlying(stack) ? 1 : 0);
 
-		ItemPropertyFunction pulling = ItemProperties.getProperty(Items.BOW, new ResourceLocation("pulling"));
-		ItemPropertyFunction pull = (stack, worldIn, entity, seed) -> {
+		ClampedItemPropertyFunction pulling = (ClampedItemPropertyFunction) ItemProperties.getProperty(Items.BOW, new ResourceLocation("pulling"));
+		ClampedItemPropertyFunction pull = (stack, worldIn, entity, seed) -> {
 			if (entity == null) {
 				return 0.0F;
 			} else {
 				ItemLivingwoodBow item = ((ItemLivingwoodBow) stack.getItem());
 				return entity.getUseItem() != stack
 						? 0.0F
-						: (stack.getUseDuration() - entity.getUseItemRemainingTicks()) * item.chargeVelocityMultiplier() / 20.0F;
+						: (stack.getUseDuration() - entity.getUseItemRemainingTicks()) * item.chargeVelocityMultiplier() / 20.0F; // todo 1.17 make sure this is sufficiently clamped or apply more clamping if needed
 			}
 		};
 		registerPropertyGetter(ModItems.livingwoodBow, new ResourceLocation("pulling"), pulling);
