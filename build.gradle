@@ -80,11 +80,11 @@ dependencies {
     include "me.zeroeightsix:fiber:0.23.0-2"
 
     // Don't include base and entity as curios includes it already
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:3.1.1"
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:3.1.1"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:3.0.0"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:3.0.0"
 
-    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:3.1.1"
-    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:3.1.1"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:3.0.0"
+    include "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-block:3.0.0"
 
     compileOnly "com.demonwav.mcdev:annotations:1.0" // only to shut up compile warnings from CCA's usage of CheckEnv and Env
 
