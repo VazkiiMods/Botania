@@ -21,11 +21,7 @@ import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderStateShard;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -131,7 +127,7 @@ public final class RenderHelper extends RenderType {
 		RenderType lightRelay = makeLayer(LibResources.PREFIX_MOD + "light_relay", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 64, glState);
 		LIGHT_RELAY = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, lightRelay) : lightRelay;
 
-		glState = RenderType.CompositeState.builder().setTextureState(NO_TEXTURE).setDiffuseLightingState(enableDiffuse).createCompositeState(false);
+		glState = RenderType.CompositeState.builder().setTextureState(NO_TEXTURE).createCompositeState(false);
 		SPINNING_CUBE = makeLayer(LibResources.PREFIX_MOD + "spinning_cube", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 64, glState);
 
 		glState = RenderType.CompositeState.builder()
@@ -176,7 +172,7 @@ public final class RenderHelper extends RenderType {
 		HALO = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, halo) : halo;
 
 		// Same as entity_translucent, with no depth test and a shader
-		glState = RenderType.CompositeState.builder().setDepthTestState(new RenderStateShard.DepthTestStateShard("always", GL11.GL_ALWAYS)).setTextureState(new RenderStateShard.TextureStateShard(TextureAtlas.LOCATION_BLOCKS, false, false)).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setDiffuseLightingState(enableDiffuse).setAlphaState(oneTenthAlpha).setCullState(NO_CULL).setLightmapState(LIGHTMAP).setOverlayState(OVERLAY).createCompositeState(true);
+		glState = RenderType.CompositeState.builder().setDepthTestState(new RenderStateShard.DepthTestStateShard("always", GL11.GL_ALWAYS)).setTextureState(new RenderStateShard.TextureStateShard(TextureAtlas.LOCATION_BLOCKS, false, false)).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setCullState(NO_CULL).setLightmapState(LIGHTMAP).setOverlayState(OVERLAY).createCompositeState(true);
 		ShaderCallback cb = shader -> {
 			int alpha = GlStateManager._glGetUniformLocation(shader, "alpha");
 			ShaderHelper.FLOAT_BUF.position(0);
@@ -303,9 +299,7 @@ public final class RenderHelper extends RenderType {
 		int degs = (int) (360 * progress);
 		float a = 0.5F + 0.2F * ((float) Math.cos((double) (ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks) / 10) * 0.5F + 0.5F);
 
-		RenderSystem.disableLighting();
 		RenderSystem.disableTexture();
-		RenderSystem.shadeModel(GL11.GL_SMOOTH);
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		RenderSystem.colorMask(true, true, true, true);
@@ -315,6 +309,7 @@ public final class RenderHelper extends RenderType {
 
 		Matrix4f mat = ms.last().pose();
 		BufferBuilder buf = Tesselator.getInstance().getBuilder();
+		RenderSystem.setShader(GameRenderer::getPositionColorShader);
 		buf.begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION_COLOR);
 		buf.vertex(mat, centerX, centerY, 0).color(0, 0.5F, 0.5F, a).endVertex();
 
@@ -328,7 +323,6 @@ public final class RenderHelper extends RenderType {
 
 		RenderSystem.disableBlend();
 		RenderSystem.enableTexture();
-		RenderSystem.shadeModel(GL11.GL_FLAT);
 		GL11.glDisable(GL11.GL_STENCIL_TEST);
 	}
 
@@ -349,7 +343,7 @@ public final class RenderHelper extends RenderType {
 			VertexConsumer ivertexbuilder = ItemRenderer.getFoilBufferDirect(buffers, rendertype, true, stack.hasFoil());
 			renderBakedItemModel(model, stack, color, light, overlay, ms, ivertexbuilder);
 		} else {
-			BlockEntityWithoutLevelRenderer.instance.renderByItem(stack, ItemTransforms.TransformType.NONE, ms, buffers, light, overlay);
+			// todo 1.17 BlockEntityWithoutLevelRenderer.instance.renderByItem(stack, ItemTransforms.TransformType.NONE, ms, buffers, light, overlay);
 		}
 
 		ms.popPose();

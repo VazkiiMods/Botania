@@ -36,6 +36,7 @@ import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.mixin.AccessorCreeperEntity;
+import vazkii.botania.mixin.AccessorEntity;
 
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 					if (mobs.size() > 1) {
 						if (SubTileHeiseiDream.brainwashEntity(target, mobs)) {
 							target.heal(target.getMaxHealth());
-							target.removed = false;
+							((AccessorEntity) target).unsetRemoved();
 							if (target instanceof Creeper) {
 								((AccessorCreeperEntity) target).setCurrentFuseTime(2);
 							}
