@@ -9,6 +9,7 @@
 package vazkii.botania.client.core.helper;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.preprocessor.GlslPreprocessor;
 import com.mojang.blaze3d.shaders.Effect;
 import com.mojang.blaze3d.shaders.Program;
 import com.mojang.blaze3d.shaders.ProgramManager;
@@ -28,7 +29,6 @@ import org.lwjgl.system.MemoryUtil;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.core.handler.ConfigHandler;
 
 import javax.annotation.Nullable;
 
@@ -129,11 +129,12 @@ public final class ShaderHelper {
 	}
 
 	public static void releaseShader() {
-		ProgramManager.glUseProgram(0);
+		// todo 1.17 ProgramManager.glUseProgram(0);
 	}
 
 	public static boolean useShaders() {
-		return ConfigHandler.CLIENT.useShaders.getValue() && checkIncompatibleMods();
+		return false;
+		// todo 1.17 return ConfigHandler.CLIENT.useShaders.getValue() && checkIncompatibleMods();
 	}
 
 	private static boolean checkIncompatibleMods() {
@@ -151,8 +152,9 @@ public final class ShaderHelper {
 			Program frag = createShader(manager, shader.fragmentShaderPath, Program.Type.FRAGMENT);
 			int progId = ProgramManager.createProgram();
 			ShaderProgram prog = new ShaderProgram(progId, vert, frag);
-			ProgramManager.linkProgram(prog);
-			PROGRAMS.put(shader, prog);
+			// todo 1.17
+			// ProgramManager.linkProgram(prog);
+			// PROGRAMS.put(shader, prog);
 		} catch (IOException ex) {
 			Botania.LOGGER.error("Failed to load program {}", shader.name(), ex);
 		}
@@ -161,7 +163,12 @@ public final class ShaderHelper {
 	private static Program createShader(ResourceManager manager, String filename, Program.Type shaderType) throws IOException {
 		ResourceLocation loc = prefix(filename);
 		try (InputStream is = new BufferedInputStream(manager.getResource(loc).getInputStream())) {
-			return Program.compileShader(shaderType, loc.toString(), is, shaderType.name().toLowerCase(Locale.ROOT));
+			return Program.compileShader(shaderType, loc.toString(), is, shaderType.name().toLowerCase(Locale.ROOT), new GlslPreprocessor() {
+				@Override
+				public String applyImport(boolean bl, String string) {
+					return null;
+				}
+			});
 		}
 	}
 
@@ -194,6 +201,11 @@ public final class ShaderHelper {
 		@Override
 		public Program getFragmentProgram() {
 			return frag;
+		}
+
+		@Override
+		public void attachToProgram() {
+
 		}
 	}
 
