@@ -361,7 +361,6 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 			float anglePer = 360F / amt;
 			level.getRecipeManager().getRecipeFor(ModRecipeTypes.RUNE_TYPE, getItemHandler(), level).ifPresent(recipe -> {
 				RenderSystem.enableBlend();
-				RenderSystem.enableRescaleNormal();
 				RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
 				float progress = (float) mana / (float) manaToGet;

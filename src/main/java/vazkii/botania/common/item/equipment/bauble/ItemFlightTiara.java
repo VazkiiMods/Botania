@@ -529,7 +529,6 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 				trans = (float) last / (float) segTime;
 				RenderSystem.enableBlend();
 				RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-				RenderSystem.disableAlphaTest();
 			}
 
 			RenderSystem.setShaderColor(1F, 1F, 1F, trans);
@@ -546,7 +545,6 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 			GuiComponent.fill(ms, xo, y - 2, xo + width, y - 1, 0xFFFFFFFF);
 		}
 
-		RenderSystem.enableAlphaTest();
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 		mc.getTextureManager().bindForSetup(GuiComponent.GUI_ICONS_LOCATION);
 	}

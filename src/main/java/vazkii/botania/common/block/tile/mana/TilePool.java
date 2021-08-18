@@ -415,7 +415,6 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 		mc.getItemRenderer().renderAndDecorateItem(tablet, x - 20, y);
 		mc.getItemRenderer().renderAndDecorateItem(pool, x + 26, y);
 
-		RenderSystem.disableLighting();
 		RenderSystem.disableBlend();
 	}
 

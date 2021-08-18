@@ -41,12 +41,10 @@ public interface CategoryUtils {
 	 * instead.
 	 */
 	static void drawOverlay(GuiComponent helper, PoseStack matrices, ResourceLocation texture, int x, int y, int u, int v, int width, int height) {
-		RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
 		Minecraft.getInstance().getTextureManager().bindForSetup(texture);
 		helper.blit(matrices, x, y, u, v, width, height);
 		RenderSystem.disableBlend();
-		RenderSystem.disableAlphaTest();
 	}
 
 	/**

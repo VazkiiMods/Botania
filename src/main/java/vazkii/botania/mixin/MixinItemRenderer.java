@@ -41,7 +41,6 @@ public abstract class MixinItemRenderer {
 			}
 			RenderSystem.disableDepthTest();
 			RenderSystem.disableTexture();
-			RenderSystem.disableAlphaTest();
 			RenderSystem.disableBlend();
 
 			Tesselator tessellator = Tesselator.getInstance();
@@ -54,7 +53,6 @@ public abstract class MixinItemRenderer {
 			this.fillRect(bufferBuilder, x + 2, y + 13, durability, 1, color >> 16 & 255, color >> 8 & 255, color & 255, 255);
 
 			RenderSystem.enableBlend();
-			RenderSystem.enableAlphaTest();
 			RenderSystem.enableTexture();
 			RenderSystem.enableDepthTest();
 		}

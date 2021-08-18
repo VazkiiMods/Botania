@@ -563,8 +563,6 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 				mc.font.drawShadow(ms, stackName, x + 20, y + 5, color);
 				mc.getItemRenderer().renderAndDecorateItem(recieverStack, x, y);
 			}
-
-			RenderSystem.disableLighting();
 		}
 
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);

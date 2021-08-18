@@ -17,8 +17,6 @@ import net.minecraft.client.resources.language.I18n;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 
-import org.lwjgl.opengl.GL11;
-
 import vazkii.botania.api.mana.IManaTooltipDisplay;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
@@ -65,8 +63,6 @@ public final class TooltipAdditionDisplayHandler {
 
 		String rank = I18n.get("botania.rank" + level).replaceAll("&", "\u00a7");
 
-		GL11.glPushAttrib(GL11.GL_LIGHTING_BIT);
-		RenderSystem.disableLighting();
 		ms.pushPose();
 		ms.translate(0, 0, 300);
 		font.drawShadow(ms, rank, mouseX, mouseY - 12, 0xFFFFFF);
@@ -75,9 +71,7 @@ public final class TooltipAdditionDisplayHandler {
 			font.drawShadow(ms, rank, mouseX + width - font.width(rank), mouseY - 12, 0xFFFFFF);
 		}
 		ms.popPose();
-		RenderSystem.enableLighting();
 		RenderSystem.enableDepthTest();
-		GL11.glPopAttrib();
 	}
 
 	private static void drawManaBar(PoseStack ms, ItemStack stack, IManaTooltipDisplay display, int mouseX, int mouseY, int width, int height) {

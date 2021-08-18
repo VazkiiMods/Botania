@@ -158,8 +158,9 @@ public class FXSparkle extends TextureSheetParticle {
 		RenderSystem.depthMask(false);
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);
-		RenderSystem.alphaFunc(GL11.GL_GREATER, 0.003921569F);
-		RenderSystem.disableLighting();
+		// todo 1.17 needed?
+		// RenderSystem.alphaFunc(GL11.GL_GREATER, 0.003921569F);
+		// RenderSystem.disableLighting();
 		textureManager.bindForSetup(TextureAtlas.LOCATION_PARTICLES);
 		AbstractTexture tex = textureManager.getTexture(TextureAtlas.LOCATION_PARTICLES);
 		((ExtendedTexture) tex).setFilterSave(true, false);
@@ -169,7 +170,6 @@ public class FXSparkle extends TextureSheetParticle {
 	private static void endRenderCommon() {
 		AbstractTexture tex = Minecraft.getInstance().getTextureManager().getTexture(TextureAtlas.LOCATION_PARTICLES);
 		((ExtendedTexture) tex).restoreLastFilter();
-		RenderSystem.alphaFunc(GL11.GL_GREATER, 0.1F);
 		RenderSystem.disableBlend();
 		RenderSystem.depthMask(true);
 	}

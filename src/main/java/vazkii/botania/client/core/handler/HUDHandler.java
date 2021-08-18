@@ -283,7 +283,6 @@ public final class HUDHandler {
 			mc.getItemRenderer().renderAndDecorateItem(recipe.getResultItem(), x + 26, y);
 			mc.getItemRenderer().renderGuiItemDecorations(mc.font, recipe.getResultItem(), x + 26, y);
 
-			RenderSystem.disableLighting();
 			RenderSystem.disableBlend();
 		}
 		profiler.pop();
@@ -310,7 +309,6 @@ public final class HUDHandler {
 			if (tile.locked) {
 				mc.font.drawShadow(ms, I18n.get("botaniamisc.locked"), w / 2 + 30, h / 2 + 10, 0xFFAA00);
 			}
-			RenderSystem.enableRescaleNormal();
 			mc.getItemRenderer().renderAndDecorateItem(target, w / 2 + 10, h / 2 - 10);
 		}
 
@@ -329,7 +327,6 @@ public final class HUDHandler {
 
 		GuiComponent.fill(ms, x - 6, y - 6, x + l + 6, y + 37, 0x44000000);
 		GuiComponent.fill(ms, x - 4, y - 4, x + l + 4, y + 35, 0x44000000);
-		RenderSystem.enableRescaleNormal();
 		mc.getItemRenderer().renderAndDecorateItem(new ItemStack(ModBlocks.corporeaIndex), x, y + 10);
 
 		mc.font.drawShadow(ms, txt0, x + 20, y, 0xFFFFFF);
@@ -362,7 +359,6 @@ public final class HUDHandler {
 		int x = mc.getWindow().getGuiScaledWidth() / 2 + 55;
 		int y = mc.getWindow().getGuiScaledHeight() / 2 + 12;
 
-		RenderSystem.enableRescaleNormal();
 		mc.getItemRenderer().renderAndDecorateItem(bindDisplay, x, y);
 
 		RenderSystem.disableDepthTest();

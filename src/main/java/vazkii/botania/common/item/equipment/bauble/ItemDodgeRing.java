@@ -132,7 +132,6 @@ public class ItemDodgeRing extends ItemBauble {
 			}
 		}
 
-		RenderSystem.enableAlphaTest();
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
 	}
 }
