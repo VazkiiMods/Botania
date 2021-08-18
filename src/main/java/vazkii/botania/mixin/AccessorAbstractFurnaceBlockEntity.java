@@ -8,6 +8,8 @@
  */
 package vazkii.botania.mixin;
 
+import net.minecraft.core.NonNullList;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -22,7 +24,10 @@ import javax.annotation.Nullable;
 @Mixin(AbstractFurnaceBlockEntity.class)
 public interface AccessorAbstractFurnaceBlockEntity {
 	@Invoker("canBurn")
-	boolean botania_canAcceptRecipeOutput(@Nullable Recipe<?> recipe);
+	boolean botania_canAcceptRecipeOutput(@Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize);
+
+	@Accessor("items")
+	NonNullList<ItemStack> getItems();
 
 	@Accessor
 	RecipeType<? extends AbstractCookingRecipe> getRecipeType();

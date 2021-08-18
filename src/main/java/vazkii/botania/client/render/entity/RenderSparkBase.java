@@ -22,8 +22,8 @@ import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
 import vazkii.botania.client.core.helper.RenderHelper;
+import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.entity.EntitySparkBase;
-import vazkii.botania.mixin.AccessorDyeColor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -60,7 +60,7 @@ public abstract class RenderSparkBase<T extends EntitySparkBase> extends EntityR
 		ms.pushPose();
 		ms.translate(-0.02 + Math.sin(time / 20) * 0.2, 0.24 + Math.cos(time / 20) * 0.2, 0.005);
 		ms.scale(0.2F, 0.2F, 0.2F);
-		int starColor = ((AccessorDyeColor) (Object) tEntity.getNetwork()).getColor() | ((int) (a * 255.0F) << 24);
+		int starColor = ColorHelper.getColorValue(tEntity.getNetwork()) | ((int) (a * 255.0F) << 24);
 		renderIcon(ms, buffer, MiscellaneousIcons.INSTANCE.corporeaIconStar.sprite(), starColor);
 		ms.popPose();
 

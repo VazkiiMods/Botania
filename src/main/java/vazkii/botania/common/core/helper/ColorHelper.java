@@ -13,8 +13,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 
-import vazkii.botania.mixin.AccessorDyeColor;
-
 import javax.annotation.Nullable;
 
 import java.util.Locale;
@@ -45,7 +43,11 @@ public final class ColorHelper {
 	}
 
 	public static int getColorValue(DyeColor color) {
-		return ((AccessorDyeColor) (Object) color).getColor();
+		float[] colors = color.getTextureDiffuseColors();
+		int r = (int) (colors[0] * 255.0F);
+		int g = (int) (colors[0] * 255.0F);
+		int b = (int) (colors[0] * 255.0F);
+		return (r << 16) | (g << 8) | b;
 	}
 
 	private ColorHelper() {}

@@ -22,7 +22,8 @@ import vazkii.botania.mixin.AccessorAbstractFurnaceBlockEntity;
 
 public class ExoflameFurnaceHandler {
 	public static boolean canSmelt(AbstractFurnaceBlockEntity furnace, Recipe<?> recipe) {
-		return ((AccessorAbstractFurnaceBlockEntity) furnace).botania_canAcceptRecipeOutput(recipe);
+		var items = ((AccessorAbstractFurnaceBlockEntity) furnace).getItems();
+		return ((AccessorAbstractFurnaceBlockEntity) furnace).botania_canAcceptRecipeOutput(recipe, items, furnace.getMaxStackSize());
 	}
 
 	public static RecipeType<? extends AbstractCookingRecipe> getRecipeType(AbstractFurnaceBlockEntity furnace) {

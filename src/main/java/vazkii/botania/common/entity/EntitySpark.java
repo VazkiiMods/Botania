@@ -36,11 +36,11 @@ import vazkii.botania.api.mana.spark.ISparkAttachable;
 import vazkii.botania.api.mana.spark.ISparkEntity;
 import vazkii.botania.api.mana.spark.SparkHelper;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
+import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 import vazkii.botania.common.network.PacketSpawnEntity;
-import vazkii.botania.mixin.AccessorDyeColor;
 
 import javax.annotation.Nonnull;
 
@@ -214,7 +214,7 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity, Entity
 
 	private void particlesTowards(Entity e) {
 		PacketBotaniaEffect.sendNearby(this, PacketBotaniaEffect.EffectType.SPARK_MANA_FLOW, getX(), getY(), getZ(),
-				getId(), e.getId(), ((AccessorDyeColor) (Object) getNetwork()).getColor());
+				getId(), e.getId(), ColorHelper.getColorValue(getNetwork()));
 	}
 
 	public static void particleBeam(Player player, Entity e1, Entity e2) {

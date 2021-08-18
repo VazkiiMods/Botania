@@ -26,6 +26,7 @@ import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.api.mana.IManaDiscountArmor;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
+import vazkii.botania.mixin.AccessorDamageSource;
 
 import javax.annotation.Nullable;
 
@@ -119,7 +120,7 @@ public class ItemTerrasteelHelm extends ItemTerrasteelArmor implements IManaDisc
 					entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 1));
 				}
 				if (hasAncientWill(stack, AncientWillType.VERAC)) {
-					source.isBypassArmor();
+					((AccessorDamageSource) source).botania_setBypassArmor();
 				}
 				if (hasAncientWill(stack, AncientWillType.KARIL)) {
 					entity.addEffect(new MobEffectInstance(MobEffects.WITHER, 60, 1));

@@ -10,6 +10,7 @@ package vazkii.botania.mixin;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.server.network.TextFilter;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -25,11 +26,11 @@ public class MixinServerGamePacketListenerImpl {
 	public ServerPlayer player;
 
 	@Inject(
-		at = @At(value = "INVOKE", target = "Lnet/minecraft/server/players/PlayerList;broadcastMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/ChatType;Ljava/util/UUID;)V"),
-		method = "handleChat(Ljava/lang/String;)V", cancellable = true
+		at = @At(value = "INVOKE", target = "Lnet/minecraft/server/players/PlayerList;broadcastMessage(Lnet/minecraft/network/chat/Component;Ljava/util/function/Function;Lnet/minecraft/network/chat/ChatType;Ljava/util/UUID;)V"),
+		method = "handleChat(Lnet/minecraft/server/network/TextFilter$FilteredText;)V", cancellable = true
 	)
-	private void handleCorporeaRequest(String msg, CallbackInfo ci) {
-		if (TileCorporeaIndex.getInputHandler().onChatMessage(player, msg)) {
+	private void handleCorporeaRequest(TextFilter.FilteredText msg, CallbackInfo ci) {
+		if (TileCorporeaIndex.getInputHandler().onChatMessage(player, msg.getRaw())) {
 			ci.cancel();
 		}
 	}
