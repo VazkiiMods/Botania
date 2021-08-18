@@ -30,7 +30,7 @@ import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileMod;
 import vazkii.botania.common.core.handler.ExoflameFurnaceHandler;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.mixin.AccessorAbstractFurnaceTileEntity;
+import vazkii.botania.mixin.AccessorAbstractFurnaceBlockEntity;
 
 public class TileBellows extends TileMod {
 	private static final String TAG_ACTIVE = "active";
@@ -80,7 +80,7 @@ public class TileBellows extends TileMod {
 					AbstractCookingRecipe recipe = p.getFirst();
 					boolean canSmelt = p.getSecond();
 					if (canSmelt) {
-						AccessorAbstractFurnaceTileEntity mFurnace = (AccessorAbstractFurnaceTileEntity) furnace;
+						AccessorAbstractFurnaceBlockEntity mFurnace = (AccessorAbstractFurnaceBlockEntity) furnace;
 						mFurnace.setCookingProgress(Math.min(recipe.getCookingTime() - 1, mFurnace.getCookingProgress() + 20));
 						mFurnace.setLitTime(Math.max(0, mFurnace.getLitTime() - 10));
 					}

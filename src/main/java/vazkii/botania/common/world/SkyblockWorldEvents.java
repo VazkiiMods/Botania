@@ -37,7 +37,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.network.PacketGogWorld;
-import vazkii.botania.mixin.AccessorBlockSoundGroup;
+import vazkii.botania.mixin.AccessorSoundType;
 
 public final class SkyblockWorldEvents {
 
@@ -76,7 +76,7 @@ public final class SkyblockWorldEvents {
 				Tag<Block> tag = world.getTagManager().getOrEmpty(Registry.BLOCK_REGISTRY).getTagOrEmpty(PEBBLE_SOURCES);
 				if (tag.contains(block)) {
 					SoundType st = state.getSoundType();
-					SoundEvent sound = ((AccessorBlockSoundGroup) st).botania_getBreakSound();
+					SoundEvent sound = ((AccessorSoundType) st).botania_getBreakSound();
 					player.playSound(sound, st.getVolume() * 0.4F, st.getPitch() + (float) (Math.random() * 0.2 - 0.1));
 
 					if (world.isClientSide) {

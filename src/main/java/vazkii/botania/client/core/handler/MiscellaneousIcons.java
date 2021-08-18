@@ -28,7 +28,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.mixin.AccessorItemOverrideList;
+import vazkii.botania.mixin.AccessorItemOverrides;
 import vazkii.botania.mixin.AccessorModelBakery;
 
 import java.util.Arrays;
@@ -148,7 +148,7 @@ public class MiscellaneousIcons {
 				new LexiconModel(original));
 
 		// models referenced using json overrides aren't put in the model registry, so just go through all override models and wrap them there
-		List<BakedModel> overrides = ((AccessorItemOverrideList) original.getOverrides()).getModels();
+		List<BakedModel> overrides = ((AccessorItemOverrides) original.getOverrides()).getModels();
 		for (int i = 0; i < overrides.size(); i++) {
 			overrides.set(i, new LexiconModel(overrides.get(i)));
 		}

@@ -48,7 +48,7 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.mixin.AccessorBakedModelManager;
+import vazkii.botania.mixin.AccessorModelManager;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -97,7 +97,7 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 
 	private static BakedModel getModel(String name) {
 		ModelManager bmm = Minecraft.getInstance().getModelManager();
-		Map<ResourceLocation, BakedModel> mm = ((AccessorBakedModelManager) bmm).getBakedRegistry();
+		Map<ResourceLocation, BakedModel> mm = ((AccessorModelManager) bmm).getBakedRegistry();
 		BakedModel missing = bmm.getMissingModel();
 		ResourceLocation location = taterLocation(name);
 		BakedModel model = mm.get(location);

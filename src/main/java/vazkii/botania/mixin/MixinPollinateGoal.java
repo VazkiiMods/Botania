@@ -33,7 +33,7 @@ public class MixinPollinateGoal {
 	/**
 	 * Allows bees to detect special flowers when looking for a block to pollinate.
 	 * 
-	 * @see MixinBeeEntity
+	 * @see MixinBee
 	 */
 	@SuppressWarnings("UnresolvedMixinReference") // MCDev warning
 	@Inject(method = "<init>(Lnet/minecraft/world/entity/animal/Bee;)V", at = @At("TAIL"))

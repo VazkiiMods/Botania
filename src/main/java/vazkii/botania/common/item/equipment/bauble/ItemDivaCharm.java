@@ -35,7 +35,7 @@ import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketBotaniaEffect;
-import vazkii.botania.mixin.AccessorCreeperEntity;
+import vazkii.botania.mixin.AccessorCreeper;
 import vazkii.botania.mixin.AccessorEntity;
 
 import java.util.List;
@@ -66,7 +66,7 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 							target.heal(target.getMaxHealth());
 							((AccessorEntity) target).unsetRemoved();
 							if (target instanceof Creeper) {
-								((AccessorCreeperEntity) target).setCurrentFuseTime(2);
+								((AccessorCreeper) target).setCurrentFuseTime(2);
 							}
 
 							ManaItemHandler.instance().requestManaExact(amulet, player, cost, true);

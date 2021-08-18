@@ -20,7 +20,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.*;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -41,7 +40,7 @@ import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileCacophonium;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.mixin.AccessorMobEntity;
+import vazkii.botania.mixin.AccessorMob;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -68,7 +67,7 @@ public class ItemCacophonium extends Item {
 			} else if (living instanceof Slime) {
 				sound = ((Slime) living).isTiny() ? SoundEvents.SLIME_SQUISH_SMALL : SoundEvents.SLIME_SQUISH;
 			} else {
-				sound = ((AccessorMobEntity) living).botania_getAmbientSound();
+				sound = ((AccessorMob) living).botania_getAmbientSound();
 			}
 
 			if (sound != null) {

@@ -47,7 +47,7 @@ import vazkii.botania.common.lib.LibItemNames;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 import vazkii.botania.mixin.AccessorIngredient;
-import vazkii.botania.mixin.AccessorRecipesProvider;
+import vazkii.botania.mixin.AccessorRecipeProvider;
 
 import javax.annotation.Nullable;
 
@@ -98,7 +98,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 	}
 
 	public static InventoryChangeTrigger.TriggerInstance conditionsFromItem(ItemLike item) {
-		return AccessorRecipesProvider.botania_condition(ItemPredicate.Builder.item().of(item).build());
+		return AccessorRecipeProvider.botania_condition(ItemPredicate.Builder.item().of(item).build());
 	}
 
 	private static InventoryChangeTrigger.TriggerInstance conditionsFromItems(ItemLike... items) {
@@ -107,11 +107,11 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 			preds[i] = ItemPredicate.Builder.item().of(items[i]).build();
 		}
 
-		return AccessorRecipesProvider.botania_condition(preds);
+		return AccessorRecipeProvider.botania_condition(preds);
 	}
 
 	private static InventoryChangeTrigger.TriggerInstance conditionsFromTag(Tag<Item> tag) {
-		return AccessorRecipesProvider.botania_condition(ItemPredicate.Builder.item().of(tag).build());
+		return AccessorRecipeProvider.botania_condition(ItemPredicate.Builder.item().of(tag).build());
 	}
 
 	private void registerMain(Consumer<FinishedRecipe> consumer) {

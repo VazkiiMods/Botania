@@ -29,7 +29,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ServerLevelAccessor;
 
-import vazkii.botania.mixin.AccessorAbstractHorseEntity;
+import vazkii.botania.mixin.AccessorAbstractHorse;
 
 public class ItemVirus extends Item {
 	public ItemVirus(Properties builder) {
@@ -44,7 +44,7 @@ public class ItemVirus extends Item {
 			}
 			AbstractHorse horse = (AbstractHorse) living;
 			if (horse.isTamed()) {
-				SimpleContainer inv = ((AccessorAbstractHorseEntity) horse).getInventory();
+				SimpleContainer inv = ((AccessorAbstractHorse) horse).getInventory();
 				ItemStack saddle = inv.getItem(0);
 
 				// Not all AbstractHorse's have saddles in slot 0
@@ -69,7 +69,7 @@ public class ItemVirus extends Item {
 
 				// Put the saddle back
 				if (!saddle.isEmpty()) {
-					SimpleContainer newInv = ((AccessorAbstractHorseEntity) newHorse).getInventory();
+					SimpleContainer newInv = ((AccessorAbstractHorse) newHorse).getInventory();
 					newInv.setItem(0, saddle);
 				}
 

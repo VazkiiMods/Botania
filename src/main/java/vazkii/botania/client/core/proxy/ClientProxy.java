@@ -93,8 +93,8 @@ import vazkii.botania.common.item.rod.ItemTornadoRod;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.network.PacketHandler;
 import vazkii.botania.common.world.WorldTypeSkyblock;
-import vazkii.botania.mixin.AccessorBiomeGeneratorTypeScreens;
-import vazkii.botania.mixin.AccessorRenderTypeBuffers;
+import vazkii.botania.mixin.AccessorRenderBuffers;
+import vazkii.botania.mixin.AccessorWorldPreset;
 import vazkii.patchouli.api.BookDrawScreenCallback;
 import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.PatchouliAPI;
@@ -161,7 +161,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		registerEntityRenderers();
 
 		if (Botania.gardenOfGlassLoaded) {
-			AccessorBiomeGeneratorTypeScreens.getAllTypes().add(WorldTypeSkyblock.INSTANCE);
+			AccessorWorldPreset.getAllTypes().add(WorldTypeSkyblock.INSTANCE);
 		}
 
 		CORPOREA_REQUEST = new KeyMapping("key.botania_corporea_request", GLFW.GLFW_KEY_C, LibMisc.MOD_NAME);
@@ -341,7 +341,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		ColorHandler.init();
 
 		// Needed to prevent mana pools on carts from X-raying through the cart
-		SortedMap<RenderType, BufferBuilder> layers = ((AccessorRenderTypeBuffers) mc.renderBuffers()).getEntityBuilders();
+		SortedMap<RenderType, BufferBuilder> layers = ((AccessorRenderBuffers) mc.renderBuffers()).getEntityBuilders();
 		layers.put(RenderHelper.MANA_POOL_WATER, new BufferBuilder(RenderHelper.MANA_POOL_WATER.bufferSize()));
 	}
 

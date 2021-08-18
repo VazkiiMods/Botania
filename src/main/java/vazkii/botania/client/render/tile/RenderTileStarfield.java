@@ -11,21 +11,17 @@ package vazkii.botania.client.render.tile;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 
 import vazkii.botania.common.block.tile.TileStarfield;
-import vazkii.botania.mixin.AccessorEndPortalTileEntityRenderer;
 
-import java.util.List;
 import java.util.Random;
 
 // TODO 1.17 needs redo with shaders
 // [VanillaCopy] end portal TESR, relevant edits are commented
 public class RenderTileStarfield implements BlockEntityRenderer<TileStarfield> {
 	private static final Random RANDOM = new Random(31100L);
-	private static final List<RenderType> LAYERS = AccessorEndPortalTileEntityRenderer.getLayers();
 
 	public RenderTileStarfield(BlockEntityRendererProvider.Context ctx) {}
 

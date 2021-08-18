@@ -33,7 +33,7 @@ import net.minecraft.world.level.block.SkullBlock;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
-import vazkii.botania.mixin.AccessorSkullTileEntityRenderer;
+import vazkii.botania.mixin.AccessorSkullBlockRenderer;
 
 import javax.annotation.Nullable;
 
@@ -64,7 +64,7 @@ public class RenderTileGaiaHead extends SkullBlockRenderer {
 			type = SkullBlock.Types.DRAGON;
 		}
 
-		SkullModel genericheadmodel = AccessorSkullTileEntityRenderer.getModels().get(type);
+		SkullModel genericheadmodel = AccessorSkullBlockRenderer.getModels().get(type);
 		ms.pushPose();
 		if (facing == null) {
 			ms.translate(0.5D, 0.0D, 0.5D);
@@ -86,7 +86,7 @@ public class RenderTileGaiaHead extends SkullBlockRenderer {
 		}
 
 		ms.scale(-1.0F, -1.0F, 1.0F);
-		RenderType layer = AccessorSkullTileEntityRenderer.botania_getRenderType(type, profile);
+		RenderType layer = AccessorSkullBlockRenderer.botania_getRenderType(type, profile);
 		if (ShaderHelper.useShaders()) {
 			layer = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.DOPPLEGANGER, RenderDoppleganger.defaultCallback, layer);
 		}

@@ -48,13 +48,13 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 		}
 
 		for (Creeper entity : getLevel().getEntitiesOfClass(Creeper.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE_Y, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE_Y + 1, RANGE + 1)))) {
-			((AccessorCreeperEntity) entity).setCurrentFuseTime(2);
+			((AccessorCreeper) entity).setCurrentFuseTime(2);
 			entity.setTarget(null);
 
 			if (getMana() >= COST) {
 				boolean did = false;
 
-				GoalSelector goalSelector = ((AccessorMobEntity) entity).getGoalSelector();
+				GoalSelector goalSelector = ((AccessorMob) entity).getGoalSelector();
 				Set<WrappedGoal> goals = ((AccessorGoalSelector) goalSelector).getAvailableGoals();
 				boolean hasRunAwayFromPlayerGoal = goals.stream()
 						.anyMatch(g -> g.getGoal() instanceof AvoidEntityGoal && ((AccessorAvoidEntityGoal) g.getGoal()).getClassToFleeFrom() == Player.class);
@@ -63,10 +63,10 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 					did = true;
 				}
 
-				GoalSelector targetSelector = ((AccessorMobEntity) entity).getTargetSelector();
+				GoalSelector targetSelector = ((AccessorMob) entity).getTargetSelector();
 				for (WrappedGoal pg : new ArrayList<>(((AccessorGoalSelector) targetSelector).getAvailableGoals())) {
 					if (pg.getGoal() instanceof NearestAttackableTargetGoal
-							&& ((AccessorNearestAttackableTarget) pg.getGoal()).getTargetClass() == Player.class) {
+							&& ((AccessorNearestAttackableTargetGoal) pg.getGoal()).getTargetClass() == Player.class) {
 						targetSelector.removeGoal(pg.getGoal());
 						did = true;
 					}

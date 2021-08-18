@@ -17,7 +17,7 @@ import net.minecraft.data.HashCache;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 
-import vazkii.botania.mixin.AccessorRecipesProvider;
+import vazkii.botania.mixin.AccessorRecipeProvider;
 
 import java.nio.file.Path;
 import java.util.Set;
@@ -39,10 +39,10 @@ public abstract class BotaniaRecipeProvider implements DataProvider {
 			if (!set.add(recipeJsonProvider.getId())) {
 				throw new IllegalStateException("Duplicate recipe " + recipeJsonProvider.getId());
 			} else {
-				AccessorRecipesProvider.callSaveRecipe(cache, recipeJsonProvider.serializeRecipe(), path.resolve("data/" + recipeJsonProvider.getId().getNamespace() + "/recipes/" + recipeJsonProvider.getId().getPath() + ".json"));
+				AccessorRecipeProvider.callSaveRecipe(cache, recipeJsonProvider.serializeRecipe(), path.resolve("data/" + recipeJsonProvider.getId().getNamespace() + "/recipes/" + recipeJsonProvider.getId().getPath() + ".json"));
 				JsonObject jsonObject = recipeJsonProvider.serializeAdvancement();
 				if (jsonObject != null) {
-					AccessorRecipesProvider.callSaveRecipeAdvancement(cache, jsonObject, path.resolve("data/" + recipeJsonProvider.getId().getNamespace() + "/advancements/" + recipeJsonProvider.getAdvancementId().getPath() + ".json"));
+					AccessorRecipeProvider.callSaveRecipeAdvancement(cache, jsonObject, path.resolve("data/" + recipeJsonProvider.getId().getNamespace() + "/advancements/" + recipeJsonProvider.getAdvancementId().getPath() + ".json"));
 				}
 			}
 		});
