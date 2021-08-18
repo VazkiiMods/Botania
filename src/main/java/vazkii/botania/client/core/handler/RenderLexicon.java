@@ -18,6 +18,7 @@ import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.model.BookModel;
+import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -45,7 +46,7 @@ import java.util.List;
 
 // Hacky way to render 3D lexicon, will be reevaluated in the future.
 public class RenderLexicon {
-	private static final BookModel model = new BookModel();
+	private static BookModel model = null;
 	private static final boolean SHOULD_MISSPELL = Math.random() < 0.004;
 	public static final Material TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(LibResources.MODEL_LEXICA_DEFAULT));
 	public static final Material ELVEN_TEXTURE = new Material(InventoryMenu.BLOCK_ATLAS, new ResourceLocation(LibResources.MODEL_LEXICA_ELVEN));
@@ -67,6 +68,13 @@ public class RenderLexicon {
 
 	private static int quote = -1;
 	private static int misspelling = -1;
+
+	private static BookModel getModel() {
+		if (model == null) {
+			model = new BookModel(Minecraft.getInstance().getEntityModels().bakeLayer(ModelLayers.BOOK));
+		}
+		return model;
+	}
 
 	public static boolean renderHand(float tickDelta, InteractionHand hand, float swingProgress, ItemStack item, float equipProgress, PoseStack matrices, MultiBufferSource vertexConsumers, int light) {
 		Minecraft mc = Minecraft.getInstance();
@@ -141,6 +149,7 @@ public class RenderLexicon {
 
 		float leftPageAngle = Mth.frac(pageFlip + 0.25F) * 1.6F - 0.3F;
 		float rightPageAngle = Mth.frac(pageFlip + 0.75F) * 1.6F - 0.3F;
+		var model = getModel();
 		model.setupAnim(ClientTickHandler.total, Mth.clamp(leftPageAngle, 0.0F, 1.0F), Mth.clamp(rightPageAngle, 0.0F, 1.0F), opening);
 
 		Material mat = ModItems.lexicon.isElvenItem(stack) ? ELVEN_TEXTURE : TEXTURE;

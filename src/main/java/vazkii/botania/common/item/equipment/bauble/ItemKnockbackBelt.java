@@ -15,7 +15,9 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
@@ -53,7 +55,8 @@ public class ItemKnockbackBelt extends ItemBauble {
 		float s = 0.85F;
 		ms.scale(s, s, s);
 		if (model == null) {
-			model = new HumanoidModel<>(1.0F);
+			model = new HumanoidModel<>(Minecraft.getInstance()
+					.getEntityModels().bakeLayer(ModelLayers.PLAYER));
 		}
 
 		VertexConsumer buffer = buffers.getBuffer(model.renderType(texture));
