@@ -8,37 +8,29 @@
  */
 package vazkii.botania.common.compat.rei;
 
-import net.minecraft.resources.ResourceLocation;
-
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.crafting.RecipeElvenTrade;
 
-import java.util.Collections;
-import java.util.List;
 
-import me.shedaniel.rei.api.EntryStack;
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
 
 public class ElvenTradeREIDisplay extends BotaniaRecipeDisplay<RecipeElvenTrade> {
 
 	public ElvenTradeREIDisplay(RecipeElvenTrade recipe) {
 		super(recipe);
-		this.outputs = EntryStack.ofItemStacks(recipe.getOutputs());
+		this.outputs = EntryIngredients.ofItemStacks(recipe.getOutputs());
 	}
 
 	@Override
 	public int getManaCost() {
-		//hardcoded. Sad!
-		return 500;
+		return TileAlfPortal.MANA_COST;
 	}
 
 	@Override
-	public @NotNull List<List<EntryStack>> getResultingEntries() {
-		return Collections.singletonList(this.outputs);
-	}
-
-	@Override
-	public @NotNull ResourceLocation getRecipeCategory() {
-		return RecipeElvenTrade.TYPE_ID;
+	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
+		return BotaniaREICategoryIdentifiers.ELVEN_TRADE;
 	}
 }

@@ -10,7 +10,8 @@ package vazkii.botania.common.compat.rei;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -19,7 +20,6 @@ import org.jetbrains.annotations.NotNull;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
-import vazkii.botania.common.crafting.RecipeRuneAltar;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.ArrayList;
@@ -27,36 +27,40 @@ import java.util.List;
 
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
-import me.shedaniel.rei.api.EntryStack;
-import me.shedaniel.rei.api.RecipeCategory;
-import me.shedaniel.rei.api.widgets.Widgets;
-import me.shedaniel.rei.gui.widget.Widget;
+import me.shedaniel.rei.api.client.gui.Renderer;
+import me.shedaniel.rei.api.client.gui.widgets.Widget;
+import me.shedaniel.rei.api.client.gui.widgets.Widgets;
+import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.entry.EntryStack;
+import me.shedaniel.rei.api.common.util.EntryStacks;
 
 @Environment(EnvType.CLIENT)
-public class RunicAltarREICategory implements RecipeCategory<RunicAltarREIDisplay> {
-	private EntryStack altar = EntryStack.create(new ItemStack(ModBlocks.runeAltar));
+public class RunicAltarREICategory implements DisplayCategory<RunicAltarREIDisplay> {
+	private EntryStack<ItemStack> altar = EntryStacks.of(new ItemStack(ModBlocks.runeAltar));
 	private ResourceLocation PETAL_OVERLAY = ResourceLocationHelper.prefix("textures/gui/petal_overlay.png");
 
 	@Override
-	public @NotNull ResourceLocation getIdentifier() {
-		return RecipeRuneAltar.TYPE_ID;
+	public @NotNull CategoryIdentifier<RunicAltarREIDisplay> getCategoryIdentifier() {
+		return BotaniaREICategoryIdentifiers.RUNE_ALTAR;
 	}
 
 	@Override
-	public @NotNull EntryStack getLogo() {
+	public @NotNull Renderer getIcon() {
 		return altar;
 	}
 
 	@Override
-	public @NotNull String getCategoryName() {
-		return I18n.get("botania.nei.runicAltar");
+	public @NotNull Component getTitle() {
+		return new TranslatableComponent("botania.nei.runicAltar");
 	}
 
 	@Override
 	public @NotNull List<Widget> setupDisplay(RunicAltarREIDisplay display, Rectangle bounds) {
 		List<Widget> widgets = new ArrayList<>();
-		List<List<EntryStack>> inputs = display.getInputEntries();
-		EntryStack output = display.getResultingEntries().get(0).get(0);
+		List<EntryIngredient> inputs = display.getInputEntries();
+		EntryStack<?> output = display.getOutputEntries().get(0).get(0);
 
 		double angleBetweenEach = 360.0 / inputs.size();
 		Point point = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 35), center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 4);
@@ -67,7 +71,7 @@ public class RunicAltarREICategory implements RecipeCategory<RunicAltarREIDispla
 			HUDHandler.renderManaBar(matrices, center.x - 44, center.y + 51, 0x0000FF, 0.75F, display.getManaCost(), TilePool.MAX_MANA / 10);
 		})));
 		widgets.add(Widgets.createSlot(center).entry(altar).disableBackground());
-		for (List<EntryStack> o : inputs) {
+		for (EntryIngredient o : inputs) {
 			widgets.add(Widgets.createSlot(point).entries(o).disableBackground());
 			point = CategoryUtils.rotatePointAbout(point, center, angleBetweenEach);
 		}

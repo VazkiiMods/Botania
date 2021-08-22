@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.compat.rei;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
@@ -16,17 +15,17 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.OrechidOutput;
-import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.Collections;
 import java.util.List;
 
-import me.shedaniel.rei.api.EntryStack;
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
 
 public class OrechidIgnemREIDisplay extends OrechidBaseREIDisplay {
 	public OrechidIgnemREIDisplay(OrechidRecipeWrapper recipe) {
 		super(recipe);
-		this.stone = Collections.singletonList(Collections.singletonList(EntryStack.create(new ItemStack(Blocks.NETHERRACK, 64))));
+		this.stone = Collections.singletonList(EntryIngredients.of(new ItemStack(Blocks.NETHERRACK, 64)));
 	}
 
 	@Override
@@ -35,7 +34,7 @@ public class OrechidIgnemREIDisplay extends OrechidBaseREIDisplay {
 	}
 
 	@Override
-	public @NotNull ResourceLocation getRecipeCategory() {
-		return ResourceLocationHelper.prefix("orechid_ignem");
+	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
+		return BotaniaREICategoryIdentifiers.ORECHID_IGNEM;
 	}
 }

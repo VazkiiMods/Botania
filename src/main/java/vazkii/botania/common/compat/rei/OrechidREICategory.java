@@ -10,9 +10,10 @@ package vazkii.botania.common.compat.rei;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.resources.language.I18n;
-import net.minecraft.core.Registry;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
 import org.jetbrains.annotations.NotNull;
@@ -25,37 +26,40 @@ import java.util.List;
 
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
-import me.shedaniel.rei.api.EntryStack;
-import me.shedaniel.rei.api.RecipeCategory;
-import me.shedaniel.rei.api.widgets.Widgets;
-import me.shedaniel.rei.gui.widget.Widget;
+import me.shedaniel.rei.api.client.gui.Renderer;
+import me.shedaniel.rei.api.client.gui.widgets.Widget;
+import me.shedaniel.rei.api.client.gui.widgets.Widgets;
+import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.entry.EntryStack;
+import me.shedaniel.rei.api.common.util.EntryStacks;
 
 @Environment(EnvType.CLIENT)
-public class OrechidREICategory implements RecipeCategory<OrechidBaseREIDisplay> {
-	private EntryStack orechid;
-	private ResourceLocation ID;
+public class OrechidREICategory implements DisplayCategory<OrechidBaseREIDisplay> {
+	private EntryStack<ItemStack> orechid;
+	private final CategoryIdentifier<? extends OrechidBaseREIDisplay> categoryId;
 	private boolean isIgnem;
 	private ResourceLocation OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
 
-	public OrechidREICategory(Block orechid) {
-		this.orechid = EntryStack.create(orechid);
-		this.ID = Registry.BLOCK.getKey(orechid);
+	public OrechidREICategory(CategoryIdentifier<? extends OrechidBaseREIDisplay> categoryId, Block orechid) {
+		this.categoryId = categoryId;
+		this.orechid = EntryStacks.of(orechid);
 		this.isIgnem = orechid == ModSubtiles.orechidIgnem;
 	}
 
 	@Override
-	public @NotNull ResourceLocation getIdentifier() {
-		return ID;
+	public @NotNull CategoryIdentifier<? extends OrechidBaseREIDisplay> getCategoryIdentifier() {
+		return categoryId;
 	}
 
 	@Override
-	public @NotNull EntryStack getLogo() {
+	public @NotNull Renderer getIcon() {
 		return orechid;
 	}
 
 	@Override
-	public @NotNull String getCategoryName() {
-		return I18n.get(isIgnem ? "botania.nei.orechidIgnem" : "botania.nei.orechid");
+	public @NotNull Component getTitle() {
+		return new TranslatableComponent(isIgnem ? "botania.nei.orechidIgnem" : "botania.nei.orechid");
 	}
 
 	@Override
@@ -67,7 +71,7 @@ public class OrechidREICategory implements RecipeCategory<OrechidBaseREIDisplay>
 		widgets.add(Widgets.createDrawableWidget(((helper, matrices, mouseX, mouseY, delta) -> CategoryUtils.drawOverlay(helper, matrices, OVERLAY, center.x - 24, center.y - 14, 0, 0, 65, 44))));
 		widgets.add(Widgets.createSlot(center).entry(orechid).disableBackground());
 		widgets.add(Widgets.createSlot(new Point(center.x - 31, center.y)).entries(display.getInputEntries().get(0)).disableBackground());
-		widgets.add(Widgets.createSlot(new Point(center.x + 29, center.y)).entries(display.getResultingEntries().get(0)).disableBackground());
+		widgets.add(Widgets.createSlot(new Point(center.x + 29, center.y)).entries(display.getOutputEntries().get(0)).disableBackground());
 		return widgets;
 	}
 

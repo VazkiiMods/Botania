@@ -8,11 +8,12 @@
  */
 package vazkii.botania.common.compat.rei;
 
-import net.minecraft.resources.ResourceLocation;
-
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.crafting.RecipeRuneAltar;
+
+
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
 public class RunicAltarREIDisplay extends BotaniaRecipeDisplay<RecipeRuneAltar> {
 	public RunicAltarREIDisplay(RecipeRuneAltar recipe) {
@@ -25,7 +26,7 @@ public class RunicAltarREIDisplay extends BotaniaRecipeDisplay<RecipeRuneAltar> 
 	}
 
 	@Override
-	public @NotNull ResourceLocation getRecipeCategory() {
-		return RecipeRuneAltar.TYPE_ID;
+	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
+		return BotaniaREICategoryIdentifiers.RUNE_ALTAR;
 	}
 }

@@ -10,7 +10,6 @@ package vazkii.botania.common.compat.rei;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
@@ -19,22 +18,26 @@ import vazkii.botania.common.crafting.RecipePureDaisy;
 
 import java.util.Collections;
 
-import me.shedaniel.rei.api.EntryStack;
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.entry.EntryStack;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
+import me.shedaniel.rei.api.common.util.EntryStacks;
 
 public class PureDaisyREIDisplay extends BotaniaRecipeDisplay<RecipePureDaisy> {
 
 	public PureDaisyREIDisplay(RecipePureDaisy recipe) {
 		super(recipe);
-		ImmutableList.Builder<EntryStack> inputs = ImmutableList.builder();
+		ImmutableList.Builder<EntryStack<?>> inputs = ImmutableList.builder();
 		for (BlockState state : recipe.getInput().getDisplayed()) {
 			if (!state.getFluidState().isEmpty()) {
-				inputs.add(EntryStack.create(state.getFluidState().getType()));
+				inputs.add(EntryStacks.of(state.getFluidState().getType()));
 			} else {
-				inputs.add(EntryStack.create(state.getBlock()));
+				inputs.add(EntryStacks.of(state.getBlock()));
 			}
 		}
-		this.inputs = Collections.singletonList(inputs.build());
-		this.outputs = Collections.singletonList(EntryStack.create(recipe.getOutputState().getBlock()));
+		this.inputs = Collections.singletonList(EntryIngredient.of(inputs.build()));
+		this.outputs = EntryIngredients.of(recipe.getOutputState().getBlock());
 	}
 
 	/*todo implement time-based hints?
@@ -49,7 +52,7 @@ public class PureDaisyREIDisplay extends BotaniaRecipeDisplay<RecipePureDaisy> {
 	}
 
 	@Override
-	public @NotNull ResourceLocation getRecipeCategory() {
-		return RecipePureDaisy.TYPE_ID;
+	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
+		return BotaniaREICategoryIdentifiers.PURE_DAISY;
 	}
 }

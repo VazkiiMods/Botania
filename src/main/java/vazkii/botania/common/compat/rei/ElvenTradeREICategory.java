@@ -20,14 +20,14 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.crafting.RecipeElvenTrade;
 import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.ArrayList;
@@ -35,29 +35,33 @@ import java.util.List;
 
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
-import me.shedaniel.rei.api.EntryStack;
-import me.shedaniel.rei.api.RecipeCategory;
-import me.shedaniel.rei.api.widgets.Widgets;
-import me.shedaniel.rei.gui.widget.Widget;
+import me.shedaniel.rei.api.client.gui.Renderer;
+import me.shedaniel.rei.api.client.gui.widgets.Widget;
+import me.shedaniel.rei.api.client.gui.widgets.Widgets;
+import me.shedaniel.rei.api.client.registry.display.DisplayCategory;
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.entry.EntryStack;
+import me.shedaniel.rei.api.common.util.EntryStacks;
 
 @Environment(EnvType.CLIENT)
-public class ElvenTradeREICategory implements RecipeCategory<ElvenTradeREIDisplay> {
-	private EntryStack gateway = EntryStack.create(new ItemStack(ModBlocks.alfPortal));
+public class ElvenTradeREICategory implements DisplayCategory<ElvenTradeREIDisplay> {
+	private EntryStack<ItemStack> gateway = EntryStacks.of(new ItemStack(ModBlocks.alfPortal));
 	private ResourceLocation TRADE_OVERLAY = ResourceLocationHelper.prefix("textures/gui/elven_trade_overlay.png");
 
 	@Override
-	public @NotNull ResourceLocation getIdentifier() {
-		return RecipeElvenTrade.TYPE_ID;
+	public @NotNull CategoryIdentifier<ElvenTradeREIDisplay> getCategoryIdentifier() {
+		return BotaniaREICategoryIdentifiers.ELVEN_TRADE;
 	}
 
 	@Override
-	public @NotNull EntryStack getLogo() {
+	public @NotNull Renderer getIcon() {
 		return gateway;
 	}
 
 	@Override
-	public @NotNull String getCategoryName() {
-		return I18n.get("botania.nei.elvenTrade");
+	public @NotNull Component getTitle() {
+		return new TranslatableComponent("botania.nei.elvenTrade");
 	}
 
 	@Override
@@ -70,12 +74,12 @@ public class ElvenTradeREICategory implements RecipeCategory<ElvenTradeREIDispla
 			drawPortal(matrices, center);
 		}));
 		int x = center.x - 20;
-		for (List<EntryStack> o : display.getInputEntries()) {
+		for (EntryIngredient o : display.getInputEntries()) {
 			widgets.add(Widgets.createSlot(new Point(x, center.y - 40)).entries(o).disableBackground());
 			x += 18;
 		}
 		x = center.x + 28;
-		for (List<EntryStack> o : display.getResultingEntries()) {
+		for (EntryIngredient o : display.getOutputEntries()) {
 			widgets.add(Widgets.createSlot(new Point(x, center.y)).entries(o).disableBackground());
 			x += 18;
 		}

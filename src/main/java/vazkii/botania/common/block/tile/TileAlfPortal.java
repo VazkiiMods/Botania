@@ -61,6 +61,7 @@ public class TileAlfPortal extends TileMod {
 			'0', ModBlocks.alfPortal
 	));
 
+	public static final int MANA_COST = 500;
 	private static final String TAG_TICKS_OPEN = "ticksOpen";
 	private static final String TAG_TICKS_SINCE_LAST_ITEM = "ticksSinceLastItem";
 	private static final String TAG_STACK_COUNT = "stackCount";
@@ -281,7 +282,7 @@ public class TileAlfPortal extends TileMod {
 			IElvenTradeRecipe recipe = (IElvenTradeRecipe) r;
 			Optional<List<ItemStack>> match = recipe.match(stacksIn);
 			if (match.isPresent()) {
-				if (consumeMana(pylons, 500, false)) {
+				if (consumeMana(pylons, MANA_COST, false)) {
 					List<ItemStack> inputs = match.get();
 					for (ItemStack stack : inputs) {
 						stacksIn.remove(stack);

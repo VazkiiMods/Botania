@@ -10,7 +10,6 @@ package vazkii.botania.common.compat.rei;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import org.jetbrains.annotations.NotNull;
@@ -20,36 +19,32 @@ import vazkii.botania.common.item.ModItems;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-import me.shedaniel.rei.api.EntryStack;
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
 
 @Environment(EnvType.CLIENT)
 public class BreweryREIDisplay extends BotaniaRecipeDisplay<RecipeBrew> {
-	private List<EntryStack> containers = new ArrayList<>();
+	private EntryIngredient containers;
 
 	public BreweryREIDisplay(RecipeBrew recipe) {
 		super(recipe);
 		List<ItemStack> items = Arrays.asList(new ItemStack(ModItems.vial), new ItemStack(ModItems.flask), new ItemStack(ModItems.incenseStick), new ItemStack(ModItems.bloodPendant));
-		List<EntryStack> outputs = new ArrayList<>();
+		this.containers = EntryIngredients.ofItemStacks(items);
+		List<ItemStack> outputs = new ArrayList<>();
 		for (ItemStack stack : items) {
 			ItemStack brewed = recipe.getOutput(stack);
 			if (!brewed.isEmpty()) {
-				containers.add(EntryStack.create(stack));
-				outputs.add(EntryStack.create(brewed));
+				outputs.add(brewed);
 			}
 		}
-		this.outputs = outputs;
+		this.outputs = EntryIngredients.ofItemStacks(outputs);
 	}
 
-	public List<EntryStack> getContainers() {
+	public EntryIngredient getContainers() {
 		return this.containers;
-	}
-
-	@Override
-	public @NotNull List<List<EntryStack>> getResultingEntries() {
-		return Collections.singletonList(this.outputs);
 	}
 
 	@Override
@@ -58,7 +53,7 @@ public class BreweryREIDisplay extends BotaniaRecipeDisplay<RecipeBrew> {
 	}
 
 	@Override
-	public @NotNull ResourceLocation getRecipeCategory() {
-		return RecipeBrew.TYPE_ID;
+	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
+		return BotaniaREICategoryIdentifiers.BREWERY;
 	}
 }

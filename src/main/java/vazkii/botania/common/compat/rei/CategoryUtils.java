@@ -24,8 +24,8 @@ import java.util.Map;
 
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
-import me.shedaniel.rei.gui.widget.Widget;
-import me.shedaniel.rei.impl.Internals;
+import me.shedaniel.rei.api.client.gui.widgets.Widget;
+import me.shedaniel.rei.impl.ClientInternals;
 
 @Environment(EnvType.CLIENT)
 public interface CategoryUtils {
@@ -33,7 +33,7 @@ public interface CategoryUtils {
 	 * method that always returns a "lighter" REI recipe background panel.
 	 */
 	static Widget drawRecipeBackground(Rectangle bounds) {
-		return Internals.getWidgetsProvider().createPanelWidget(bounds).yTextureOffset(0);
+		return ClientInternals.getWidgetsProvider().createPanelWidget(bounds).yTextureOffset(0);
 	}
 
 	/**

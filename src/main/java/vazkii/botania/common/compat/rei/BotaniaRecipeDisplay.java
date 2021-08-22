@@ -20,35 +20,36 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import me.shedaniel.rei.api.EntryStack;
-import me.shedaniel.rei.api.RecipeDisplay;
+import me.shedaniel.rei.api.common.display.Display;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.util.EntryIngredients;
 
 @Environment(EnvType.CLIENT)
-public abstract class BotaniaRecipeDisplay<T extends Recipe<Container>> implements RecipeDisplay {
+public abstract class BotaniaRecipeDisplay<T extends Recipe<Container>> implements Display {
 	protected T recipe;
-	protected List<List<EntryStack>> inputs;
-	protected List<EntryStack> outputs;
+	protected List<EntryIngredient> inputs;
+	protected EntryIngredient outputs;
 
 	public BotaniaRecipeDisplay(T recipe) {
 		this.recipe = recipe;
-		this.inputs = EntryStack.ofIngredients(recipe.getIngredients());
-		this.outputs = Collections.singletonList(EntryStack.create(recipe.getResultItem()));
+		this.inputs = EntryIngredients.ofIngredients(recipe.getIngredients());
+		this.outputs = EntryIngredients.of(recipe.getResultItem());
 	}
 
 	@Override
-	public @NotNull List<List<EntryStack>> getInputEntries() {
+	public @NotNull List<EntryIngredient> getInputEntries() {
 		return this.inputs;
 	}
 
 	abstract public int getManaCost();
 
 	@Override
-	public @NotNull List<List<EntryStack>> getResultingEntries() {
+	public @NotNull List<EntryIngredient> getOutputEntries() {
 		return Collections.singletonList(this.outputs);
 	}
 
 	@Override
-	public @NotNull Optional<ResourceLocation> getRecipeLocation() {
+	public @NotNull Optional<ResourceLocation> getDisplayLocation() {
 		return Optional.ofNullable(this.recipe).map(T::getId);
 	}
 }

@@ -22,13 +22,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import me.shedaniel.rei.api.EntryStack;
-import me.shedaniel.rei.api.RecipeDisplay;
+import me.shedaniel.rei.api.common.display.Display;
+import me.shedaniel.rei.api.common.entry.EntryIngredient;
+import me.shedaniel.rei.api.common.util.EntryStacks;
 
 @Environment(EnvType.CLIENT)
-public abstract class OrechidBaseREIDisplay implements RecipeDisplay {
-	protected List<List<EntryStack>> stone;
-	List<List<EntryStack>> ores;
+public abstract class OrechidBaseREIDisplay implements Display {
+	protected List<EntryIngredient> stone;
+	List<EntryIngredient> ores;
 
 	public OrechidBaseREIDisplay(OrechidRecipeWrapper recipe) {
 		final int myWeight = recipe.entry.getValue();
@@ -46,7 +47,7 @@ public abstract class OrechidBaseREIDisplay implements RecipeDisplay {
 		for (ItemStack stack : stackList) {
 			stack.setCount(amount);
 		}
-		ores = Collections.singletonList(EntryStack.ofItemStacks(stackList));
+		ores = Collections.singletonList(EntryIngredient.of(stackList.stream().map(EntryStacks::of).collect(Collectors.toList())));
 	}
 
 	public static float getTotalOreWeight(List<OrechidOutput> weights, int myWeight) {
@@ -58,12 +59,12 @@ public abstract class OrechidBaseREIDisplay implements RecipeDisplay {
 	protected abstract List<OrechidOutput> getOreWeights();
 
 	@Override
-	public @NotNull List<List<EntryStack>> getInputEntries() {
+	public @NotNull List<EntryIngredient> getInputEntries() {
 		return stone;
 	}
 
 	@Override
-	public @NotNull List<List<EntryStack>> getResultingEntries() {
+	public @NotNull List<EntryIngredient> getOutputEntries() {
 		return ores;
 	}
 }

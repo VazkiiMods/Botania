@@ -10,11 +10,13 @@ package vazkii.botania.common.compat.rei;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.resources.ResourceLocation;
 
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.crafting.RecipePetals;
+
+
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
 @Environment(EnvType.CLIENT)
 public class PetalApothecaryREIDisplay extends BotaniaRecipeDisplay<RecipePetals> {
@@ -28,7 +30,7 @@ public class PetalApothecaryREIDisplay extends BotaniaRecipeDisplay<RecipePetals
 	}
 
 	@Override
-	public @NotNull ResourceLocation getRecipeCategory() {
-		return RecipePetals.TYPE_ID;
+	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
+		return BotaniaREICategoryIdentifiers.PETAL_APOTHECARY;
 	}
 }
