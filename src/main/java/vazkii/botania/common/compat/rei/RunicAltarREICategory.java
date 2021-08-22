@@ -38,8 +38,8 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 
 @Environment(EnvType.CLIENT)
 public class RunicAltarREICategory implements DisplayCategory<RunicAltarREIDisplay> {
-	private EntryStack<ItemStack> altar = EntryStacks.of(new ItemStack(ModBlocks.runeAltar));
-	private ResourceLocation PETAL_OVERLAY = ResourceLocationHelper.prefix("textures/gui/petal_overlay.png");
+	private final EntryStack<ItemStack> altar = EntryStacks.of(new ItemStack(ModBlocks.runeAltar));
+	private final ResourceLocation PETAL_OVERLAY = ResourceLocationHelper.prefix("textures/gui/petal_overlay.png");
 
 	@Override
 	public @NotNull CategoryIdentifier<RunicAltarREIDisplay> getCategoryIdentifier() {

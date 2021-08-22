@@ -36,8 +36,8 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 
 @Environment(EnvType.CLIENT)
 public class BreweryREICategory implements DisplayCategory<BreweryREIDisplay> {
-	private EntryStack<ItemStack> brewery = EntryStacks.of(new ItemStack(ModBlocks.brewery));
-	private ResourceLocation BREWERY_OVERLAY = ResourceLocationHelper.prefix("textures/gui/nei_brewery.png");
+	private final EntryStack<ItemStack> brewery = EntryStacks.of(new ItemStack(ModBlocks.brewery));
+	private final ResourceLocation BREWERY_OVERLAY = ResourceLocationHelper.prefix("textures/gui/nei_brewery.png");
 
 	@Override
 	public @NotNull CategoryIdentifier<BreweryREIDisplay> getCategoryIdentifier() {

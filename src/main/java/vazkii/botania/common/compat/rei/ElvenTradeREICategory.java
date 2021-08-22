@@ -46,8 +46,8 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 
 @Environment(EnvType.CLIENT)
 public class ElvenTradeREICategory implements DisplayCategory<ElvenTradeREIDisplay> {
-	private EntryStack<ItemStack> gateway = EntryStacks.of(new ItemStack(ModBlocks.alfPortal));
-	private ResourceLocation TRADE_OVERLAY = ResourceLocationHelper.prefix("textures/gui/elven_trade_overlay.png");
+	private final EntryStack<ItemStack> gateway = EntryStacks.of(new ItemStack(ModBlocks.alfPortal));
+	private final ResourceLocation TRADE_OVERLAY = ResourceLocationHelper.prefix("textures/gui/elven_trade_overlay.png");
 
 	@Override
 	public @NotNull CategoryIdentifier<ElvenTradeREIDisplay> getCategoryIdentifier() {

@@ -27,7 +27,7 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 
 @Environment(EnvType.CLIENT)
 public class BreweryREIDisplay extends BotaniaRecipeDisplay<RecipeBrew> {
-	private EntryIngredient containers;
+	private final EntryIngredient containers;
 
 	public BreweryREIDisplay(RecipeBrew recipe) {
 		super(recipe);

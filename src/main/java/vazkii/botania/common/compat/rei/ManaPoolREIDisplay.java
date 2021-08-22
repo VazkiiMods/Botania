@@ -25,7 +25,7 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 @Environment(EnvType.CLIENT)
 public class ManaPoolREIDisplay extends BotaniaRecipeDisplay<RecipeManaInfusion> {
 	@Nullable
-	private BlockState catalyst;
+	private final BlockState catalyst;
 
 	public ManaPoolREIDisplay(RecipeManaInfusion recipe) {
 		super(recipe);

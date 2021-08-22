@@ -29,7 +29,7 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 @Environment(EnvType.CLIENT)
 public abstract class OrechidBaseREIDisplay implements Display {
 	protected List<EntryIngredient> stone;
-	List<EntryIngredient> ores;
+	private final List<EntryIngredient> ores;
 
 	public OrechidBaseREIDisplay(OrechidRecipeWrapper recipe) {
 		final int myWeight = recipe.entry.getValue();

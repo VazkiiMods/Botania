@@ -35,8 +35,8 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 
 @Environment(EnvType.CLIENT)
 public class PureDaisyREICategory implements DisplayCategory<PureDaisyREIDisplay> {
-	private EntryStack<ItemStack> daisy = EntryStacks.of(new ItemStack(ModSubtiles.pureDaisy));
-	private ResourceLocation OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
+	private final EntryStack<ItemStack> daisy = EntryStacks.of(new ItemStack(ModSubtiles.pureDaisy));
+	private final ResourceLocation OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
 
 	@Override
 	public @NotNull CategoryIdentifier<PureDaisyREIDisplay> getCategoryIdentifier() {

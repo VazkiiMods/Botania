@@ -40,8 +40,8 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 
 @Environment(EnvType.CLIENT)
 public class ManaPoolREICategory implements DisplayCategory<ManaPoolREIDisplay> {
-	private EntryStack<ItemStack> manaPool = EntryStacks.of(new ItemStack(ModBlocks.manaPool));
-	private ResourceLocation OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
+	private final EntryStack<ItemStack> manaPool = EntryStacks.of(new ItemStack(ModBlocks.manaPool));
+	private final ResourceLocation OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
 
 	@Override
 	public @NotNull CategoryIdentifier<ManaPoolREIDisplay> getCategoryIdentifier() {

@@ -36,10 +36,10 @@ import me.shedaniel.rei.api.common.util.EntryStacks;
 
 @Environment(EnvType.CLIENT)
 public class OrechidREICategory implements DisplayCategory<OrechidBaseREIDisplay> {
-	private EntryStack<ItemStack> orechid;
+	private final EntryStack<ItemStack> orechid;
 	private final CategoryIdentifier<? extends OrechidBaseREIDisplay> categoryId;
-	private boolean isIgnem;
-	private ResourceLocation OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
+	private final boolean isIgnem;
+	private final ResourceLocation OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
 
 	public OrechidREICategory(CategoryIdentifier<? extends OrechidBaseREIDisplay> categoryId, Block orechid) {
 		this.categoryId = categoryId;

@@ -26,7 +26,7 @@ import me.shedaniel.rei.api.common.util.EntryIngredients;
 
 @Environment(EnvType.CLIENT)
 public abstract class BotaniaRecipeDisplay<T extends Recipe<Container>> implements Display {
-	protected T recipe;
+	protected final T recipe;
 	protected List<EntryIngredient> inputs;
 	protected EntryIngredient outputs;
 
