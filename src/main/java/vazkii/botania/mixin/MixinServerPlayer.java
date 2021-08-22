@@ -13,7 +13,6 @@ import com.mojang.datafixers.util.Either;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,7 +22,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.common.Botania;
-import vazkii.botania.common.block.subtile.functional.SubTileDaffomill;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.SleepingHandler;
 import vazkii.botania.common.world.SkyblockWorldEvents;
@@ -38,14 +36,6 @@ public class MixinServerPlayer {
 		if (Botania.gardenOfGlassLoaded) {
 			SkyblockWorldEvents.onPlayerJoin((ServerPlayer) (Object) this);
 		}
-	}
-
-	/**
-	 * Sends any item entity ages to the client when they start being tracked
-	 */
-	@Inject(at = @At("RETURN"), method = "cancelRemoveEntity")
-	private void sendItemAge(Entity entity, CallbackInfo ci) {
-		SubTileDaffomill.onItemTrack((ServerPlayer) (Object) this, entity);
 	}
 
 	@Inject(at = @At("HEAD"), method = "startSleepInBed", cancellable = true)

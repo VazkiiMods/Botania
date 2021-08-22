@@ -49,6 +49,7 @@
     "MixinPollinateGoal",
     "MixinResultSlot",
     "MixinServerGamePacketListenerImpl",
+    "MixinServerEntity",
     "MixinServerLevel",
     "MixinServerPlayer",
     "MixinServerPlayerGameMode",
