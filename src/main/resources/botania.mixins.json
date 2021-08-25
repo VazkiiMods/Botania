@@ -68,7 +68,6 @@
     "AccessorRecipeBookComponent",
     "AccessorRecipeBookPage",
     "AccessorRenderBuffers",
-    "AccessorSkullBlockRenderer",
     "AccessorWorldPreset",
     "MixinAbstractTexture",
     "MixinClientLevelData",

@@ -17,6 +17,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
+import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
@@ -58,6 +59,7 @@ import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.fx.ModParticles;
+import vazkii.botania.client.model.ModLayerDefinitions;
 import vazkii.botania.client.render.entity.RenderBabylonWeapon;
 import vazkii.botania.client.render.entity.RenderCorporeaSpark;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
@@ -159,6 +161,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 
 		registerRenderTypes();
 		registerEntityRenderers();
+		registerEntityModels();
 
 		if (Botania.gardenOfGlassLoaded) {
 			AccessorWorldPreset.getAllTypes().add(WorldTypeSkyblock.INSTANCE);
@@ -335,6 +338,10 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		EntityRendererRegistry.INSTANCE.register(ModEntities.THORN_CHAKRAM, ThrownItemRenderer::new);
 		EntityRendererRegistry.INSTANCE.register(ModEntities.VINE_BALL, ThrownItemRenderer::new);
 		EntityRendererRegistry.INSTANCE.register(ModEntities.ENDER_AIR_BOTTLE, ThrownItemRenderer::new);
+	}
+
+	private static void registerEntityModels() {
+		ModLayerDefinitions.init((loc, def) -> EntityModelLayerRegistry.registerModelLayer(loc, () -> def));
 	}
 
 	private void loadComplete(Minecraft mc) {

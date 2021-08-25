@@ -13,7 +13,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.SkullModel;
+import net.minecraft.client.model.SkullModelBase;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -33,9 +33,10 @@ import net.minecraft.world.level.block.SkullBlock;
 import vazkii.botania.client.core.helper.ShaderHelper;
 import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
 import vazkii.botania.client.render.entity.RenderDoppleganger;
-import vazkii.botania.mixin.AccessorSkullBlockRenderer;
 
 import javax.annotation.Nullable;
+
+import java.util.Map;
 
 public class RenderTileGaiaHead extends SkullBlockRenderer {
 	public RenderTileGaiaHead(BlockEntityRendererProvider.Context ctx) {
@@ -43,7 +44,8 @@ public class RenderTileGaiaHead extends SkullBlockRenderer {
 	}
 
 	// [VanillaCopy] super, but finding the skull type and profile ourselves and calling our own method to get RenderType
-	public static void gaiaRender(@Nullable Direction facing, float rotation, float animationProgress, PoseStack ms, MultiBufferSource buffers, int light) {
+	public static void gaiaRender(@Nullable Direction facing, float rotation, float animationProgress, PoseStack ms,
+			MultiBufferSource buffers, int light, Map<SkullBlock.Type, SkullModelBase> models) {
 		Entity view = Minecraft.getInstance().getCameraEntity();
 		SkullBlock.Type type = SkullBlock.Types.PLAYER;
 		GameProfile profile = null;
@@ -64,7 +66,7 @@ public class RenderTileGaiaHead extends SkullBlockRenderer {
 			type = SkullBlock.Types.DRAGON;
 		}
 
-		SkullModel genericheadmodel = AccessorSkullBlockRenderer.getModels().get(type);
+		SkullModelBase model = models.get(type);
 		ms.pushPose();
 		if (facing == null) {
 			ms.translate(0.5D, 0.0D, 0.5D);
@@ -86,13 +88,13 @@ public class RenderTileGaiaHead extends SkullBlockRenderer {
 		}
 
 		ms.scale(-1.0F, -1.0F, 1.0F);
-		RenderType layer = AccessorSkullBlockRenderer.botania_getRenderType(type, profile);
+		RenderType layer = SkullBlockRenderer.getRenderType(type, profile);
 		if (ShaderHelper.useShaders()) {
 			layer = new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.DOPPLEGANGER, RenderDoppleganger.defaultCallback, layer);
 		}
 		VertexConsumer ivertexbuilder = buffers.getBuffer(layer);
-		genericheadmodel.setupAnim(animationProgress, rotation, 0.0F);
-		genericheadmodel.renderToBuffer(ms, ivertexbuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+		model.setupAnim(animationProgress, rotation, 0.0F);
+		model.renderToBuffer(ms, ivertexbuilder, light, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 		ms.popPose();
 	}
 }

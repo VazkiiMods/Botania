@@ -20,7 +20,6 @@ import vazkii.botania.client.render.tile.RenderTileCorporeaIndex;
 import java.util.function.BiConsumer;
 
 public class ModLayerDefinitions {
-	// todo 1.17-fabric call from a mixin or event
 	public static void init(BiConsumer<ModelLayerLocation, LayerDefinition> consumer) {
 		ModModelLayers.init(); // this would happen from the accesses below anyways, but good to make the lifecycle explicit
 		consumer.accept(ModModelLayers.AVATAR, LayerDefinition.create(ModelAvatar.createMesh(), 32, 32));
