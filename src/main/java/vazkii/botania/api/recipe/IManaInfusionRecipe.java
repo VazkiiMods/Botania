@@ -15,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
 
@@ -62,10 +61,6 @@ public interface IManaInfusionRecipe extends Recipe<Container> {
 	 */
 	@Nullable
 	StateIngredient getRecipeCatalyst();
-
-	@Nullable
-	@Deprecated
-	BlockState getCatalyst();
 
 	/**
 	 * @return How much mana this recipe consumes from the pool.

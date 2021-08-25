@@ -35,7 +35,6 @@ import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.internal.OrechidOutput;
 import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.client.fx.SparkleParticleData;
-import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.handler.ConfigHandler;
@@ -266,8 +265,6 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		return ConfigHandler.COMMON.flowerForceCheck.getValue();
 	}
 
-	private final Map<ResourceLocation, Integer> legacyOreWeights = new ConcurrentHashMap<>();
-	private final Map<ResourceLocation, Integer> legacyNetherOreWeights = new ConcurrentHashMap<>();
 	private final Map<ResourceLocation, Function<DyeColor, Block>> paintableBlocks = new ConcurrentHashMap<>();
 	private final Map<ResourceLocation, IHornHarvestable> hornHarvestableBlocks = new ConcurrentHashMap<>();
 
@@ -279,36 +276,6 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	@Override
 	public List<OrechidOutput> getNetherOrechidWeights() {
 		return Collections.unmodifiableList(netherWeights);
-	}
-
-	@Override
-	public Map<ResourceLocation, Integer> getOreWeights() {
-		return Collections.unmodifiableMap(legacyOreWeights);
-	}
-
-	@Override
-	public Map<ResourceLocation, Integer> getNetherOreWeights() {
-		return Collections.unmodifiableMap(legacyNetherOreWeights);
-	}
-
-	@Override
-	public void registerOreWeight(ResourceLocation tag, int weight) {
-		if (weight <= 0) {
-			Botania.LOGGER.error("Invalid weight {} for ore {}, must be positive!",
-					weight, tag, new IllegalArgumentException("Invalid weight"));
-			return;
-		}
-		legacyOreWeights.put(tag, weight);
-	}
-
-	@Override
-	public void registerNetherOreWeight(ResourceLocation tag, int weight) {
-		if (weight <= 0) {
-			Botania.LOGGER.error("Invalid weight {} for ore {}, must be positive!",
-					weight, tag, new IllegalArgumentException("Invalid weight"));
-			return;
-		}
-		legacyNetherOreWeights.put(tag, weight);
 	}
 
 	@Override

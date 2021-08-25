@@ -29,7 +29,6 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.level.block.Block;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.OrechidOutput;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.Botania;
@@ -46,7 +45,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -141,22 +139,6 @@ public class OrechidResourceListener extends SimplePreparableReloadListener<Orec
 	@Override
 	protected void apply(@Nonnull Data data, @Nonnull ResourceManager manager, @Nonnull ProfilerFiller profiler) {
 		profiler.push("orechidApply");
-		Map<ResourceLocation, Integer> map = BotaniaAPI.instance().getOreWeights();
-		if (!map.isEmpty()) {
-			Botania.LOGGER.warn("{} orechid weights using legacy api found", map.size());
-			for (Map.Entry<ResourceLocation, Integer> entry : map.entrySet()) {
-				data.normal.put(StateIngredientHelper.of(entry.getKey()), (int) entry.getValue());
-			}
-		}
-
-		map = BotaniaAPI.instance().getNetherOreWeights();
-		if (!map.isEmpty()) {
-			Botania.LOGGER.warn("{} nether orechid weights using legacy api found", map.size());
-			for (Map.Entry<ResourceLocation, Integer> entry : map.entrySet()) {
-				data.nether.put(StateIngredientHelper.of(entry.getKey()), (int) entry.getValue());
-			}
-		}
-
 		BotaniaAPIImpl.weights = postprocess(data.normal);
 		BotaniaAPIImpl.netherWeights = postprocess(data.nether);
 		profiler.pop();

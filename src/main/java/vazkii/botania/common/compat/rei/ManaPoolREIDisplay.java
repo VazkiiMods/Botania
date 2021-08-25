@@ -10,30 +10,30 @@ package vazkii.botania.common.compat.rei;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.crafting.RecipeManaInfusion;
 
 import javax.annotation.Nullable;
 
-import java.util.Optional;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
 @Environment(EnvType.CLIENT)
 public class ManaPoolREIDisplay extends BotaniaRecipeDisplay<RecipeManaInfusion> {
 	@Nullable
-	private final BlockState catalyst;
+	private final StateIngredient catalyst;
 
 	public ManaPoolREIDisplay(RecipeManaInfusion recipe) {
 		super(recipe);
-		this.catalyst = recipe.getCatalyst();
+		this.catalyst = recipe.getRecipeCatalyst();
 	}
 
-	public Optional<BlockState> getCatalyst() {
-		return Optional.ofNullable(this.catalyst);
+	@Nullable
+	public StateIngredient getCatalyst() {
+		return this.catalyst;
 	}
 
 	@Override

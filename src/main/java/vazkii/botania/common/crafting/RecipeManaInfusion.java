@@ -76,15 +76,6 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 		return input.test(stack);
 	}
 
-	@Nullable
-	@Override
-	public BlockState getCatalyst() {
-		if (catalyst == null) {
-			return null;
-		}
-		return catalyst.getDisplayed().get(0);
-	}
-
 	@Override
 	public StateIngredient getRecipeCatalyst() {
 		return catalyst;

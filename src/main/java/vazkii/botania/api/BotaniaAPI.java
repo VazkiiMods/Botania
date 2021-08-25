@@ -93,47 +93,6 @@ public interface BotaniaAPI {
 		return Collections.emptyList();
 	}
 
-	/**
-	 * @deprecated Use {@link #getOrechidWeights()}
-	 */
-	@Deprecated
-	default Map<ResourceLocation, Integer> getOreWeights() {
-		return Collections.emptyMap();
-	}
-
-	/**
-	 * @deprecated Use {@link #getNetherOrechidWeights()}
-	 */
-	@Deprecated
-	default Map<ResourceLocation, Integer> getNetherOreWeights() {
-		return Collections.emptyMap();
-	}
-
-	/**
-	 * Register ore to be produced by the Orechid
-	 * 
-	 * @param tag    Block tag ID containing the ores to register
-	 * @param weight Relative weight of this entry
-	 *
-	 * @deprecated Use the orechid weight JSON to provide weights.
-	 */
-	@Deprecated
-	default void registerOreWeight(ResourceLocation tag, int weight) {
-
-	}
-
-	/**
-	 * Register ore to be produced by the Orechid Ignem
-	 * 
-	 * @see #registerOreWeight
-	 *
-	 * @deprecated Use the orechid weight JSON to provide weights.
-	 */
-	@Deprecated
-	default void registerNetherOreWeight(ResourceLocation tag, int weight) {
-
-	}
-
 	default Map<ResourceLocation, Function<DyeColor, Block>> getPaintableBlocks() {
 		return Collections.emptyMap();
 	}

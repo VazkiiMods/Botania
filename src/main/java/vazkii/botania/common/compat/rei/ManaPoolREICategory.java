@@ -14,10 +14,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.client.core.handler.HUDHandler;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.mana.TilePool;
@@ -26,7 +26,7 @@ import vazkii.botania.common.lib.ResourceLocationHelper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
@@ -73,8 +73,13 @@ public class ManaPoolREICategory implements DisplayCategory<ManaPoolREIDisplay> 
 		})));
 
 		widgets.add(Widgets.createSlot(center).entry(renderPool).disableBackground());
-		Optional<BlockState> catalyst = display.getCatalyst();
-		catalyst.ifPresent(blockState -> widgets.add(Widgets.createSlot(new Point(center.x - 49, center.y)).entry(EntryStacks.of(blockState.getBlock())).disableBackground()));
+		StateIngredient catalyst = display.getCatalyst();
+		if (catalyst != null) {
+			List<EntryStack<ItemStack>> entries = catalyst.getDisplayed()
+					.stream().map(state -> EntryStacks.of(state.getBlock()))
+					.collect(Collectors.toList());
+			widgets.add(Widgets.createSlot(new Point(center.x - 49, center.y)).entries(entries).disableBackground());
+		}
 		widgets.add(Widgets.createSlot(new Point(center.x - 31, center.y)).entries(display.getInputEntries().get(0)).disableBackground());
 		widgets.add(Widgets.createSlot(new Point(center.x + 29, center.y)).entries(display.getOutputEntries().get(0)).disableBackground());
 		return widgets;

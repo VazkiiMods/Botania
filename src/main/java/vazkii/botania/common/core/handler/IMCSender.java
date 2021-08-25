@@ -143,11 +143,11 @@ public class IMCSender {
 
 	private static void addOreWeight(String oreTag, int weight) {
 		ResourceLocation tag = new ResourceLocation("c", oreTag + "_ores");
-		BotaniaAPI.instance().registerOreWeight(tag, weight);
+		// todo 1.17 BotaniaAPI.instance().registerOreWeight(tag, weight);
 	}
 
 	private static void addOreWeightNether(String oreTag, int weight) {
 		ResourceLocation tag = new ResourceLocation("c", oreTag + "_ores");
-		BotaniaAPI.instance().registerNetherOreWeight(tag, weight);
+		// todo 1.17 BotaniaAPI.instance().registerNetherOreWeight(tag, weight);
 	}
 }

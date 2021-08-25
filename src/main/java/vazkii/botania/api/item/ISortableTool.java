@@ -37,14 +37,6 @@ public interface ISortableTool {
 	 * @param state The blockstate being broken.
 	 */
 	default int getSortingPriority(ItemStack stack, BlockState state) {
-		return getSortingPriority(stack);
-	}
-
-	/**
-	 * @deprecated Override {@link #getSortingPriority(ItemStack, BlockState)} instead.
-	 */
-	@Deprecated
-	default int getSortingPriority(ItemStack stack) {
 		return 0;
 	}
 

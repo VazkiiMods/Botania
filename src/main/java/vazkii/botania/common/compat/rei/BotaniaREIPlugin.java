@@ -21,7 +21,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.ItemLike;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
@@ -181,7 +180,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 	}
 
 	void registerOrechidRecipes(DisplayRegistry helper, boolean isIgnem) {
-		Map<ResourceLocation, Integer> oreWeights = isIgnem ? BotaniaAPI.instance().getNetherOreWeights() : BotaniaAPI.instance().getOreWeights();
+		Map<ResourceLocation, Integer> oreWeights = Collections.emptyMap(); // todo 1.17-fabric read the new json data, isIgnem ? BotaniaAPI.instance().getNetherOrechidWeights() : BotaniaAPI.instance().getOrechidWeights();
 		List<OrechidRecipeWrapper> orechidRecipes = oreWeights.entrySet().stream()
 				.filter(e -> doesOreExist(e.getKey()))
 				.map(OrechidRecipeWrapper::new)
