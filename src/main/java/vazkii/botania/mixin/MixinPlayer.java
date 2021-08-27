@@ -138,7 +138,7 @@ public abstract class MixinPlayer extends LivingEntity {
 		ItemTravelBelt.updatePlayerStepStatus((Player) (Object) this);
 	}
 
-	@ModifyArg(index = 0, method = "causeFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;causeFallDamage(FF)Z"))
+	@ModifyArg(index = 0, method = "causeFallDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;causeFallDamage(FFLnet/minecraft/world/damagesource/DamageSource;)Z"))
 	private float cushionFall(float originalDist) {
 		return ItemTravelBelt.onPlayerFall((Player) (Object) this, originalDist);
 	}

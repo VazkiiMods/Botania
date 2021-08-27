@@ -24,7 +24,9 @@ import javax.annotation.Nullable;
 @Mixin(AbstractFurnaceBlockEntity.class)
 public interface AccessorAbstractFurnaceBlockEntity {
 	@Invoker("canBurn")
-	boolean botania_canAcceptRecipeOutput(@Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize);
+	static boolean botania_canAcceptRecipeOutput(@Nullable Recipe<?> recipe, NonNullList<ItemStack> items, int maxStackSize) {
+		throw new IllegalStateException();
+	}
 
 	@Accessor("items")
 	NonNullList<ItemStack> getItems();

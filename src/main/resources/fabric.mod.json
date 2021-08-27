@@ -42,9 +42,9 @@
   "depends": {
     "fabricloader": ">=0.8",
     "fabric": ">=0.29",
-    "minecraft": ">=1.16.4",
+    "minecraft": ">=1.17.1",
     "libblockattributes": ">=0.8.4",
-    "curios" : "*",
+    "trinkets" : ">=3",
     "patchouli": "*"
   },
 
