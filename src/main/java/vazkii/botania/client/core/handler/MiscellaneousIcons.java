@@ -19,7 +19,6 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
 import vazkii.botania.client.model.GunModel;
-import vazkii.botania.client.model.LexiconModel;
 import vazkii.botania.client.model.PlatformModel;
 import vazkii.botania.client.model.TinyPotatoModel;
 import vazkii.botania.client.render.tile.RenderTileCorporeaCrystalCube;
@@ -28,11 +27,9 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
 import vazkii.botania.common.item.relic.ItemKingKey;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.mixin.AccessorItemOverrides;
 import vazkii.botania.mixin.AccessorModelBakery;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -141,17 +138,6 @@ public class MiscellaneousIcons {
 		map.put(abstruseName, new PlatformModel(abstruse));
 		map.put(spectralName, new PlatformModel(spectral));
 		map.put(infrangibleName, new PlatformModel(infrangible));
-
-		// Lexicon
-		BakedModel original = map.get(new ModelResourceLocation("botania:lexicon", "inventory"));
-		map.put(new ModelResourceLocation("botania:lexicon", "inventory"),
-				new LexiconModel(original));
-
-		// models referenced using json overrides aren't put in the model registry, so just go through all override models and wrap them there
-		List<BakedModel> overrides = ((AccessorItemOverrides) original.getOverrides()).getModels();
-		for (int i = 0; i < overrides.size(); i++) {
-			overrides.set(i, new LexiconModel(overrides.get(i)));
-		}
 
 		// Mana Blaster
 		ModelResourceLocation key = new ModelResourceLocation("botania:mana_gun", "inventory");

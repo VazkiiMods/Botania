@@ -33,13 +33,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.mana.IManaCollisionGhost;
 import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.tile.TilePlatform;
-import vazkii.botania.common.core.ExtendedShapeContext;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -51,8 +51,12 @@ public class BlockPlatform extends BlockMod implements IWandable, IManaCollision
 
 	public enum Variant {
 		ABSTRUSE(false, (pos, context) -> {
-			Entity e = ExtendedShapeContext.getEntity(context);
-			return (e == null || e.getY() > pos.getY() + 0.9 && !context.isDescending());
+			if (context instanceof EntityCollisionContext econtext) {
+				Entity e = econtext.getEntity().orElse(null);
+				return (e == null || e.getY() > pos.getY() + 0.9 && !context.isDescending());
+			} else {
+				return true;
+			}
 		}),
 		SPECTRAL(false, (pos, context) -> false),
 		INFRANGIBLE(true, (pos, context) -> true);

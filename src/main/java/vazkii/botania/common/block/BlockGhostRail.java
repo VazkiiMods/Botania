@@ -38,7 +38,7 @@ public class BlockGhostRail extends BaseRailBlock {
 
 	@Override
 	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-		builder.add(BlockStateProperties.RAIL_SHAPE_STRAIGHT);
+		builder.add(BlockStateProperties.RAIL_SHAPE_STRAIGHT, WATERLOGGED);
 	}
 
 	private void updateFloating(AbstractMinecart cart) {

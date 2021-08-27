@@ -32,7 +32,7 @@ public class TinyPotatoModel extends DelegatedModel {
 				if (stack.hasCustomHoverName()) {
 					return RenderTileTinyPotato.getModelFromDisplayName(stack.getHoverName());
 				}
-				return model;
+				return originalModel;
 			}
 		};
 	}

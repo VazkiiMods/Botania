@@ -36,6 +36,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -46,7 +47,6 @@ import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.mana.TilePool;
-import vazkii.botania.common.core.ExtendedShapeContext;
 import vazkii.botania.common.entity.EntityManaBurst;
 
 import javax.annotation.Nonnull;
@@ -113,7 +113,10 @@ public class BlockPool extends BlockModWaterloggable implements EntityBlock, IWa
 
 	@Override
 	public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-		if (ExtendedShapeContext.getEntity(context) instanceof EntityManaBurst) {
+		if (context instanceof EntityCollisionContext econtext
+				&& econtext.getEntity()
+						.map(e -> e instanceof EntityManaBurst)
+						.orElse(false)) {
 			// Sometimes the pool's collision box is too thin for bursts shot straight up.
 			return BURST_SHAPE;
 		} else {

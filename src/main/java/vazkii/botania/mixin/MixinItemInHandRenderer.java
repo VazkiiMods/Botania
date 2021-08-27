@@ -10,10 +10,10 @@ package vazkii.botania.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.world.InteractionHand;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,9 +26,10 @@ import vazkii.botania.client.core.handler.RenderLexicon;
 @Mixin(ItemInHandRenderer.class)
 public class MixinItemInHandRenderer {
 
-	@Inject(method = "renderArmWithItem", at = @At("HEAD"), cancellable = true)
-	private void renderFirstPersonItem(AbstractClientPlayer player, float tickDelta, float pitch, InteractionHand hand, float swingProgress, ItemStack item, float equipProgress, PoseStack matrices, MultiBufferSource vertexConsumers, int light, CallbackInfo ci) {
-		if (RenderLexicon.renderHand(tickDelta, hand, swingProgress, item, equipProgress, matrices, vertexConsumers, light)) {
+	@Inject(method = "renderItem", at = @At("HEAD"), cancellable = true)
+	private void renderFirstPersonItem(LivingEntity livingEntity, ItemStack stack, ItemTransforms.TransformType transformType,
+			boolean leftHanded, PoseStack poseStack, MultiBufferSource buffers, int light, CallbackInfo ci) {
+		if (RenderLexicon.renderHand(stack, leftHanded, poseStack, buffers, light)) {
 			ci.cancel();
 		}
 	}

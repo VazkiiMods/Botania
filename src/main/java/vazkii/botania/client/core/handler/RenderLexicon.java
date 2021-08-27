@@ -14,12 +14,10 @@ import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.model.BookModel;
 import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -28,8 +26,6 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 
@@ -39,7 +35,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ItemLexicon;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.LibMisc;
-import vazkii.botania.mixin.AccessorItemInHandRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,16 +71,14 @@ public class RenderLexicon {
 		return model;
 	}
 
-	public static boolean renderHand(float tickDelta, InteractionHand hand, float swingProgress, ItemStack item, float equipProgress, PoseStack matrices, MultiBufferSource vertexConsumers, int light) {
-		Minecraft mc = Minecraft.getInstance();
+	public static boolean renderHand(ItemStack stack, boolean leftHanded, PoseStack ms, MultiBufferSource buffers, int light) {
 		if (!ConfigHandler.CLIENT.lexicon3dModel.getValue()
-				|| mc.options.getCameraType() != CameraType.FIRST_PERSON
-				|| (mc.player != null && mc.player.getItemInHand(hand).isEmpty())
-				|| mc.player.getItemInHand(hand).getItem() != ModItems.lexicon) {
+				|| stack.isEmpty()
+				|| stack.getItem() != ModItems.lexicon) {
 			return false;
 		}
 		try {
-			renderFirstPersonItem(mc.player, tickDelta, hand, swingProgress, item, equipProgress, matrices, vertexConsumers, light);
+			doRender(stack, leftHanded, ms, buffers, light, ClientTickHandler.partialTicks);
 			return true;
 		} catch (Throwable throwable) {
 			Botania.LOGGER.warn("Failed to render lexicon", throwable);
@@ -93,30 +86,7 @@ public class RenderLexicon {
 		}
 	}
 
-	// [VanillaCopy] FirstPersonRenderer, irrelevant branches stripped out
-	private static void renderFirstPersonItem(AbstractClientPlayer player, float partialTicks, InteractionHand hand, float swingProgress, ItemStack stack, float equipProgress, PoseStack ms, MultiBufferSource buffers, int light) {
-		boolean flag = hand == InteractionHand.MAIN_HAND;
-		HumanoidArm handside = flag ? player.getMainArm() : player.getMainArm().getOpposite();
-		ms.pushPose();
-		{
-			boolean flag3 = handside == HumanoidArm.RIGHT;
-			{
-				float f5 = -0.4F * Mth.sin(Mth.sqrt(swingProgress) * (float) Math.PI);
-				float f6 = 0.2F * Mth.sin(Mth.sqrt(swingProgress) * ((float) Math.PI * 2F));
-				float f10 = -0.2F * Mth.sin(swingProgress * (float) Math.PI);
-				int l = flag3 ? 1 : -1;
-				ms.translate((float) l * f5, f6, f10);
-				((AccessorItemInHandRenderer) Minecraft.getInstance().getItemInHandRenderer()).botania_equipOffset(ms, handside, equipProgress);
-				((AccessorItemInHandRenderer) Minecraft.getInstance().getItemInHandRenderer()).botania_swingOffset(ms, handside, swingProgress);
-			}
-
-			doRender(stack, handside, ms, buffers, light, partialTicks);
-		}
-
-		ms.popPose();
-	}
-
-	private static void doRender(ItemStack stack, HumanoidArm side, PoseStack ms, MultiBufferSource buffers, int light, float partialTicks) {
+	private static void doRender(ItemStack stack, boolean leftHanded, PoseStack ms, MultiBufferSource buffers, int light, float partialTicks) {
 		Minecraft mc = Minecraft.getInstance();
 
 		ms.pushPose();
@@ -130,7 +100,7 @@ public class RenderLexicon {
 			}
 		}
 
-		if (side == HumanoidArm.RIGHT) {
+		if (!leftHanded) {
 			ms.translate(0.3F + 0.02F * ticks, 0.125F + 0.01F * ticks, -0.2F - 0.035F * ticks);
 			ms.mulPose(Vector3f.YP.rotationDegrees(180F + ticks * 6));
 		} else {
