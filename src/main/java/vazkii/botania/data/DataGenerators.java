@@ -83,7 +83,7 @@ public class DataGenerators {
 		generator.addProvider(new RuneProvider(generator));
 		generator.addProvider(new TerraPlateProvider(generator));
 		generator.addProvider(new OrechidProvider(generator));
-		// generator.install(new BlockstateProvider(generator, evt.getExistingFileHelper()));
+		generator.addProvider(new BlockstateProvider(generator));
 		generator.addProvider(new FloatingFlowerModelProvider(generator));
 		generator.addProvider(new ItemModelProvider(generator));
 		// generator.install(new TinyPotatoModelProvider(generator, evt.getExistingFileHelper()));

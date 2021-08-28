@@ -8,6 +8,7 @@
     "AccessorAbstractHorse",
     "AccessorAvoidEntityGoal",
     "AccessorBaseSpawner",
+    "AccessorBlockModelGenerators",
     "AccessorBucketItem",
     "AccessorCreeper",
     "AccessorCriteriaTriggers",
