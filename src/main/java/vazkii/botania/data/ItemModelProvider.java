@@ -163,7 +163,7 @@ public class ItemModelProvider implements DataProvider {
 
 	private static void singleGeneratedOverride(Item item, ResourceLocation overrideModel, ResourceLocation predicate, double value, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
 		ModelTemplates.FLAT_ITEM.create(overrideModel, TextureMapping.layer0(overrideModel), consumer);
-		GENERATED_OVERRIDES.upload(ModelLocationUtils.getModelLocation(item),
+		GENERATED_OVERRIDES.create(ModelLocationUtils.getModelLocation(item),
 				TextureMapping.layer0(item),
 				new OverrideHolder()
 						.add(overrideModel, Pair.of(predicate, value)),
@@ -176,7 +176,7 @@ public class ItemModelProvider implements DataProvider {
 
 	private static void singleHandheldOverride(Item item, ResourceLocation overrideModel, ResourceLocation predicate, double value, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
 		ModelTemplates.FLAT_HANDHELD_ITEM.create(overrideModel, TextureMapping.layer0(overrideModel), consumer);
-		HANDHELD_OVERRIDES.upload(ModelLocationUtils.getModelLocation(item),
+		HANDHELD_OVERRIDES.create(ModelLocationUtils.getModelLocation(item),
 				TextureMapping.layer0(item),
 				new OverrideHolder()
 						.add(overrideModel, Pair.of(predicate, value)),
@@ -204,7 +204,7 @@ public class ItemModelProvider implements DataProvider {
 
 			flaskOverrides.add(overrideModel, Pair.of(prefix("swigs_taken"), (double) i));
 		}
-		GENERATED_OVERRIDES_1.upload(ModelLocationUtils.getModelLocation(brewFlask),
+		GENERATED_OVERRIDES_1.create(ModelLocationUtils.getModelLocation(brewFlask),
 				TextureMapping.layer0(flask).put(LAYER1, TextureMapping.getItemTexture(brewFlask, "_0")),
 				flaskOverrides,
 				consumer);
@@ -218,7 +218,7 @@ public class ItemModelProvider implements DataProvider {
 					consumer);
 			vialOverrides.add(overrideModel, Pair.of(prefix("swigs_taken"), (double) i));
 		}
-		GENERATED_OVERRIDES_1.upload(ModelLocationUtils.getModelLocation(brewVial),
+		GENERATED_OVERRIDES_1.create(ModelLocationUtils.getModelLocation(brewVial),
 				TextureMapping.layer0(vial).put(LAYER1, TextureMapping.getItemTexture(brewVial, "_0")),
 				vialOverrides, consumer);
 		items.remove(brewVial);
@@ -229,7 +229,7 @@ public class ItemModelProvider implements DataProvider {
 		ResourceLocation vuvuzela = prefix("item/vuvuzela");
 		ModelTemplates.FLAT_HANDHELD_ITEM.create(vuvuzela, TextureMapping.layer0(vuvuzela), consumer);
 		for (Item i : new Item[] { grassHorn, leavesHorn, snowHorn }) {
-			GENERATED_OVERRIDES.upload(ModelLocationUtils.getModelLocation(i),
+			GENERATED_OVERRIDES.create(ModelLocationUtils.getModelLocation(i),
 					TextureMapping.layer0(i),
 					new OverrideHolder()
 							.add(vuvuzela, Pair.of(prefix("vuvuzela"), 1.0)),
@@ -258,7 +258,7 @@ public class ItemModelProvider implements DataProvider {
 			ModelTemplates.FLAT_ITEM.create(overrideModel, TextureMapping.layer0(overrideModel), consumer);
 			bottleOverrides.add(overrideModel, Pair.of(prefix("swigs_taken"), (double) i));
 		}
-		GENERATED_OVERRIDES.upload(ModelLocationUtils.getModelLocation(manaBottle),
+		GENERATED_OVERRIDES.create(ModelLocationUtils.getModelLocation(manaBottle),
 				TextureMapping.layer0(manaBottle),
 				bottleOverrides,
 				consumer);
@@ -305,7 +305,7 @@ public class ItemModelProvider implements DataProvider {
 				TextureMapping.layer0(tippedModel).put(LAYER1, TextureMapping.getItemTexture(terraPick, "_active")),
 				consumer);
 
-		HANDHELD_OVERRIDES.upload(ModelLocationUtils.getModelLocation(terraPick),
+		HANDHELD_OVERRIDES.create(ModelLocationUtils.getModelLocation(terraPick),
 				TextureMapping.layer0(terraPick),
 				new OverrideHolder()
 						.add(enabledModel, Pair.of(prefix("active"), 1.0))
@@ -324,7 +324,7 @@ public class ItemModelProvider implements DataProvider {
 		HANDHELD_3.create(twigWandBind,
 				twigWandTextures.copyAndUpdate(LAYER3, TextureMapping.getItemTexture(twigWand, "_bind")),
 				consumer);
-		HANDHELD_OVERRIDES_2.upload(ModelLocationUtils.getModelLocation(twigWand),
+		HANDHELD_OVERRIDES_2.create(ModelLocationUtils.getModelLocation(twigWand),
 				twigWandTextures,
 				new OverrideHolder()
 						.add(twigWandBind, Pair.of(prefix("bindmode"), 1.0)),

@@ -35,7 +35,7 @@ public class ModelWithOverrides {
 		this.requiredTextures = requiredTextures;
 	}
 
-	public void upload(ResourceLocation modelId, TextureMapping textures, OverrideHolder overrides, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
+	public void create(ResourceLocation modelId, TextureMapping textures, OverrideHolder overrides, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
 		Map<TextureSlot, ResourceLocation> textureMap = Streams.concat(Arrays.stream(this.requiredTextures), textures.getForced())
 				.collect(ImmutableMap.toImmutableMap(Function.identity(), textures::get));
 		consumer.accept(modelId, () -> {
