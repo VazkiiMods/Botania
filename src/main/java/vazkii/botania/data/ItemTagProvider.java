@@ -8,6 +8,7 @@
  */
 package vazkii.botania.data;
 
+import net.fabricmc.fabric.api.tag.TagRegistry;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -146,6 +147,64 @@ public class ItemTagProvider extends ItemTagsProvider {
 				ModItems.rainbowRod,
 				ModItems.gravityRod,
 				ModItems.missileRod);
+
+		this.generateAccessoryTags();
+	}
+
+	private void generateAccessoryTags() {
+		this.tag(accessory("chest/cape")).add(
+				ModItems.balanceCloak,
+				ModItems.holyCloak,
+				ModItems.invisibilityCloak,
+				ModItems.unholyCloak
+		);
+		this.tag(accessory("chest/necklace")).add(
+				ModItems.bloodPendant,
+				ModItems.cloudPendant,
+				ModItems.divaCharm,
+				ModItems.goddessCharm,
+				ModItems.icePendant,
+				ModItems.lavaPendant,
+				ModItems.superCloudPendant,
+				ModItems.superLavaPendant,
+				ModItems.thirdEye
+		);
+		this.tag(accessory("hand/ring")).add(
+				ModItems.auraRing,
+				ModItems.auraRingGreater,
+				ModItems.dodgeRing,
+				ModItems.lokiRing,
+				ModItems.magnetRing,
+				ModItems.magnetRingGreater,
+				ModItems.manaRing,
+				ModItems.manaRingGreater,
+				ModItems.miningRing,
+				ModItems.odinRing,
+				ModItems.pixieRing,
+				ModItems.reachRing,
+				ModItems.swapRing,
+				ModItems.thorRing,
+				ModItems.waterRing
+		);
+		this.tag(accessory("head/face")).add(
+				ModItems.itemFinder,
+				ModItems.monocle,
+				ModItems.tinyPlanet
+		);
+		this.tag(accessory("head/hat")).add(
+				ModItems.flightTiara
+		);
+		this.tag(accessory("legs/belt")).add(
+				ModItems.knockbackBelt,
+				ModItems.speedUpBelt,
+				ModItems.superTravelBelt,
+				ModItems.travelBelt
+		);
+
+	}
+
+	private static Tag.Named<Item> accessory(String name) {
+		return TagRegistry.create(new ResourceLocation("trinkets", name), ItemTags::getAllTags);
 	}
 
 	@Nonnull
