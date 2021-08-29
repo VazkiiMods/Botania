@@ -66,7 +66,6 @@ public class ModelArmor extends HumanoidModel<LivingEntity> {
 	}
 
 	// [VanillaCopy] HumanoidArmorLayer
-	// todo 1.17 check if this is necessary
 	private void setPartVisibility(EquipmentSlot slot) {
 		setAllVisible(false);
 		switch (slot) {

@@ -63,8 +63,8 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 	private static final double PINGBACK_EXPIRED_SEARCH_DISTANCE = 0.5;
 
 	private static final String TAG_UUID = "uuid";
-	private static final String TAG_UUID_MOST = "uuidMost";
-	private static final String TAG_UUID_LEAST = "uuidLeast";
+	private static final String TAG_UUID_MOST_DEPRECATED = "uuidMost";
+	private static final String TAG_UUID_LEAST_DEPRECATED = "uuidLeast";
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_REQUEST_UPDATE = "requestUpdate";
 	private static final String TAG_ROTATION_X = "rotationX";
@@ -261,11 +261,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 	public void writePacketNBT(CompoundTag cmp) {
 		super.writePacketNBT(cmp);
 
-		UUID identity = getIdentifier();
-		cmp.putLong(TAG_UUID_MOST, identity.getMostSignificantBits());
-		cmp.putLong(TAG_UUID_LEAST, identity.getLeastSignificantBits());
-		// writing this now to future-proof. TODO 1.17 remove manual MOST/LEAST tags and just use this
-		cmp.putUUID(TAG_UUID, identity);
+		cmp.putUUID(TAG_UUID, getIdentifier());
 
 		cmp.putInt(TAG_MANA, mana);
 		cmp.putFloat(TAG_ROTATION_X, rotationX);
@@ -303,9 +299,9 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 
 		if (cmp.hasUUID(TAG_UUID)) {
 			identity = cmp.getUUID(TAG_UUID);
-		} else if (cmp.contains(TAG_UUID_LEAST) && cmp.contains(TAG_UUID_MOST)) { // TODO 1.17 remove this
-			long most = cmp.getLong(TAG_UUID_MOST);
-			long least = cmp.getLong(TAG_UUID_LEAST);
+		} else if (cmp.contains(TAG_UUID_LEAST_DEPRECATED) && cmp.contains(TAG_UUID_MOST_DEPRECATED)) { // legacy world compat
+			long most = cmp.getLong(TAG_UUID_MOST_DEPRECATED);
+			long least = cmp.getLong(TAG_UUID_LEAST_DEPRECATED);
 			if (identity == null || most != identity.getMostSignificantBits() || least != identity.getLeastSignificantBits()) {
 				this.identity = new UUID(most, least);
 			}

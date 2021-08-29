@@ -126,6 +126,4 @@ public abstract class TileExposedSimpleInventory extends TileSimpleInventory imp
 	public boolean canTakeItemThroughFace(int index, @Nonnull ItemStack stack, @Nullable Direction direction) {
 		return true;
 	}
-
-	// todo fabric expose a lba component or something?
 }

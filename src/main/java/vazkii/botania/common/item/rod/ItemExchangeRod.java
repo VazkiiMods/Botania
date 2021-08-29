@@ -21,7 +21,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -69,7 +68,6 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	private static final int RANGE = 3;
 	private static final int COST = 40;
 
-	private static final String TAG_REPLACEMENT_BLOCK = "blockName";
 	private static final String TAG_REPLACEMENT_ITEM = "placedItem";
 	private static final String TAG_TARGET_BLOCK_NAME = "targetBlock";
 	private static final String TAG_SWAPPING = "swapping";
@@ -144,13 +142,6 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean equipped) {
 		if (!canExchange(stack) || !(entity instanceof Player)) {
 			return;
-		}
-
-		// TODO 1.17 remove this - reading legacy replacement block
-		if (stack.hasTag() && stack.getTag().contains(TAG_REPLACEMENT_BLOCK, 10)) {
-			BlockState state = NbtUtils.readBlockState(stack.getTagElement(TAG_REPLACEMENT_BLOCK));
-			setItemToPlace(stack, state.getBlock().asItem());
-			stack.removeTagKey(TAG_REPLACEMENT_BLOCK);
 		}
 
 		Player player = (Player) entity;

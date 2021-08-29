@@ -16,7 +16,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
@@ -90,8 +89,7 @@ public class ItemHolyCloak extends ItemBauble {
 		ms.translate(0F, armor ? -0.07F : -0.01F, 0F);
 
 		if (model == null) {
-			EntityRendererProvider.Context ctx = null; // todo 1.17 get this somewhere
-			model = new ModelCloak(ctx.bakeLayer(ModModelLayers.CLOAK));
+			model = new ModelCloak(Minecraft.getInstance().getEntityModels().bakeLayer(ModModelLayers.CLOAK));
 		}
 
 		Minecraft.getInstance().getTextureManager().bindForSetup(item.getCloakTexture());

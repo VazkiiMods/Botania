@@ -124,7 +124,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 		tag(BlockTags.BEACON_BASE_BLOCKS).add(ModBlocks.manasteelBlock, ModBlocks.terrasteelBlock, ModBlocks.elementiumBlock,
 				ModBlocks.manaDiamondBlock, ModBlocks.dragonstoneBlock);
 
-		// todo 1.16-fabric getOrCreateTagBuilder(Tags.Blocks.DIRT).add(getModBlocks(b -> b instanceof BlockAltGrass));
+		tag(BlockTags.DIRT).add(getModBlocks(b -> b instanceof BlockAltGrass));
 		tag(ModTags.Blocks.BLOCKS_ELEMENTIUM).add(ModBlocks.elementiumBlock);
 		tag(ModTags.Blocks.BLOCKS_MANASTEEL).add(ModBlocks.manasteelBlock);
 		tag(ModTags.Blocks.BLOCKS_QUARTZ).add(

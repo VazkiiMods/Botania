@@ -16,6 +16,7 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTables;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryContainer;
 import net.minecraft.world.level.storage.loot.entries.LootTableReference;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -46,7 +47,7 @@ public final class LootHandler {
 	public static LootPool getInjectPool(String entryName) {
 		return LootPool.lootPool()
 				.add(getInjectEntry(entryName, 1))
-				// todo 1.16-fabric .bonusRolls(0, 1)
+				.setBonusRolls(UniformGenerator.between(0, 1))
 				.build();
 	}
 
