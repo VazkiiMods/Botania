@@ -62,6 +62,6 @@ public class BlockRedStringFertilizer extends BlockRedString implements Bonemeal
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.RED_STRING_COMPARATOR, TileRedStringFertilizer::commonTick);
+		return createTickerHelper(type, ModTiles.RED_STRING_FERTILIZER, TileRedStringFertilizer::commonTick);
 	}
 }

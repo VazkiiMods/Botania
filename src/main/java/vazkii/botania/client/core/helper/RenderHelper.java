@@ -100,22 +100,19 @@ public final class RenderHelper extends RenderType {
 		STAR = makeLayer(LibResources.PREFIX_MOD + "star", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.TRIANGLES, 256, false, false, glState);
 
 		glState = RenderType.CompositeState.builder()
+				.setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setOutputState(ITEM_ENTITY_TARGET)
-				.setCullState(NO_CULL).createCompositeState(false);
+				.setCullState(NO_CULL)
+				.createCompositeState(false);
 		RECTANGLE = makeLayer(LibResources.PREFIX_MOD + "rectangle_highlight", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 256, false, true, glState);
 		CIRCLE = makeLayer(LibResources.PREFIX_MOD + "circle_highlight", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.TRIANGLES, 256, false, false, glState);
 
-		glState = RenderType.CompositeState.builder().setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(1))).setLayeringState(VIEW_OFFSET_Z_LAYERING).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setWriteMaskState(COLOR_WRITE).createCompositeState(false);
-		LINE_1 = makeLayer(LibResources.PREFIX_MOD + "line_1", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 128, glState);
-		glState = RenderType.CompositeState.builder().setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(1))).setLayeringState(VIEW_OFFSET_Z_LAYERING).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setWriteMaskState(COLOR_WRITE).setDepthTestState(NO_DEPTH_TEST).createCompositeState(false);
-		LINE_1_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_1_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 128, glState);
-		glState = RenderType.CompositeState.builder().setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(4))).setLayeringState(VIEW_OFFSET_Z_LAYERING).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setWriteMaskState(COLOR_WRITE).setDepthTestState(NO_DEPTH_TEST).createCompositeState(false);
-		LINE_4_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_4_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 128, glState);
-		glState = RenderType.CompositeState.builder().setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(5))).setLayeringState(VIEW_OFFSET_Z_LAYERING).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setWriteMaskState(COLOR_WRITE).setDepthTestState(NO_DEPTH_TEST).createCompositeState(false);
-		LINE_5_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_5_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 64, glState);
-		glState = RenderType.CompositeState.builder().setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(8))).setLayeringState(VIEW_OFFSET_Z_LAYERING).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setWriteMaskState(COLOR_WRITE).setDepthTestState(NO_DEPTH_TEST).createCompositeState(false);
-		LINE_8_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_8_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 64, glState);
+		LINE_1 = makeLayer(LibResources.PREFIX_MOD + "line_1", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 128, lineState(1, false));
+		LINE_1_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_1_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 128, lineState(1, true));
+		LINE_4_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_4_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 128, lineState(4, true));
+		LINE_5_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_5_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 64, lineState(5, true));
+		LINE_8_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_8_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 64, lineState(8, true));
 
 		glState = RenderType.CompositeState.builder()
 				.setTextureState(RenderStateShard.BLOCK_SHEET_MIPPED)
@@ -209,6 +206,22 @@ public final class RenderHelper extends RenderType {
 		}
 		RenderType layer = makeLayer(LibResources.PREFIX_MOD + name, DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 128, glState.createCompositeState(false));
 		return ShaderHelper.useShaders() ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.PYLON_GLOW, null, layer) : layer;
+	}
+
+	private static CompositeState lineState(double width, boolean noDepth) {
+		// [VanillaCopy] vanilla LINES layer with line width defined (and optionally depth disabled)
+		var builder = RenderType.CompositeState.builder()
+				.setShaderState(RENDERTYPE_LINES_SHADER)
+				.setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(width)))
+				.setLayeringState(VIEW_OFFSET_Z_LAYERING)
+				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+				.setOutputState(ITEM_ENTITY_TARGET)
+				.setWriteMaskState(noDepth ? COLOR_WRITE : COLOR_DEPTH_WRITE)
+				.setCullState(NO_CULL);
+		if (noDepth) {
+			builder = builder.setDepthTestState(NO_DEPTH_TEST);
+		}
+		return builder.createCompositeState(false);
 	}
 
 	public static RenderType getHaloLayer(ResourceLocation texture) {

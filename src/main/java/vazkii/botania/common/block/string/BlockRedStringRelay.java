@@ -42,7 +42,7 @@ public class BlockRedStringRelay extends BlockRedString {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.RED_STRING_COMPARATOR, TileRedStringRelay::commonTick);
+		return createTickerHelper(type, ModTiles.RED_STRING_RELAY, TileRedStringRelay::commonTick);
 	}
 
 }

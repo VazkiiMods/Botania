@@ -63,6 +63,6 @@ public class BlockRedStringDispenser extends BlockRedString {
 	@Nullable
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		return createTickerHelper(type, ModTiles.RED_STRING_COMPARATOR, TileRedStringDispenser::commonTick);
+		return createTickerHelper(type, ModTiles.RED_STRING_DISPENSER, TileRedStringDispenser::commonTick);
 	}
 }
