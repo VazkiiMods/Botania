@@ -11,7 +11,6 @@ package vazkii.botania.client.gui.box;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.network.chat.Component;
@@ -47,7 +46,7 @@ public class GuiBaubleBox extends AbstractContainerScreen<ContainerBaubleBox> {
 	@Override
 	protected void renderBg(PoseStack ms, float partialTicks, int mouseX, int mouseY) {
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-		Minecraft.getInstance().getTextureManager().bindForSetup(texture);
+		RenderSystem.setShaderTexture(0, texture);
 		blit(ms, leftPos, topPos, 0, 0, imageWidth, imageHeight);
 		InventoryScreen.renderEntityInInventory(leftPos + 31, topPos + 75, 30, leftPos + 31 - this.mouseX, topPos + 75 - 50 - this.mouseY, minecraft.player);
 	}

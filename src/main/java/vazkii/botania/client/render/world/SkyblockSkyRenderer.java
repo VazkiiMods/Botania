@@ -63,7 +63,7 @@ public class SkyblockSkyRenderer {
 		RenderSystem.setShaderColor(1F, 1F, 1F, a * 4 * (1F - insideVoid));
 		ms.mulPose(new Vector3f(0.5F, 0.5F, 0F).rotationDegrees(90));
 		for (int p = 0; p < planetTextures.length; p++) {
-			Minecraft.getInstance().getTextureManager().bindForSetup(planetTextures[p]);
+			RenderSystem.setShaderTexture(0, planetTextures[p]);
 			Matrix4f mat = ms.last().pose();
 			tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 			tessellator.getBuilder().vertex(mat, -scale, 100, -scale).uv(0.0F, 0.0F).endVertex();
@@ -98,7 +98,7 @@ public class SkyblockSkyRenderer {
 		ms.popPose();
 
 		// === Rays
-		Minecraft.getInstance().getTextureManager().bindForSetup(textureSkybox);
+		RenderSystem.setShaderTexture(0, textureSkybox);
 
 		scale = 20F;
 		a = lowA;
@@ -165,7 +165,7 @@ public class SkyblockSkyRenderer {
 		// === Rainbow
 		ms.pushPose();
 		GlStateManager._blendFuncSeparate(770, 771, 1, 0);
-		Minecraft.getInstance().getTextureManager().bindForSetup(textureRainbow);
+		RenderSystem.setShaderTexture(0, textureRainbow);
 		scale = 10F;
 		float effCelAng1 = celAng;
 		if (effCelAng1 > 0.25F) {

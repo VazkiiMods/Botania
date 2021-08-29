@@ -292,7 +292,6 @@ public final class RenderHelper extends RenderType {
 		RenderSystem.stencilMask(0xFF);
 		mc.getItemRenderer().renderAndDecorateItem(stack, x, y);
 
-		mc.getTextureManager().bindForSetup(new ResourceLocation(LibResources.GUI_MANA_HUD));
 		int r = 10;
 		int centerX = x + 8;
 		int centerY = y + 8;

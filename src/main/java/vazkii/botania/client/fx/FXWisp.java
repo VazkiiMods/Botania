@@ -111,7 +111,7 @@ public class FXWisp extends TextureSheetParticle {
 		// RenderSystem.alphaFunc(GL11.GL_GREATER, 0.003921569F);
 		// RenderSystem.disableLighting();
 
-		textureManager.bindForSetup(TextureAtlas.LOCATION_PARTICLES);
+		RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_PARTICLES);
 		AbstractTexture tex = textureManager.getTexture(TextureAtlas.LOCATION_PARTICLES);
 		((ExtendedTexture) tex).setFilterSave(true, false);
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.PARTICLE);

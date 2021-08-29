@@ -509,7 +509,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		int v = 0;
 
 		Minecraft mc = Minecraft.getInstance();
-		mc.getTextureManager().bindForSetup(textureHud);
+		RenderSystem.setShaderTexture(0, textureHud);
 		int xo = mc.getWindow().getGuiScaledWidth() / 2 + 10;
 		int x = xo;
 		int y = mc.getWindow().getGuiScaledHeight() - 49;
@@ -546,7 +546,6 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 		}
 
 		RenderSystem.setShaderColor(1F, 1F, 1F, 1F);
-		mc.getTextureManager().bindForSetup(GuiComponent.GUI_ICONS_LOCATION);
 	}
 
 	public static int getVariant(ItemStack stack) {

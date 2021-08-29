@@ -59,7 +59,7 @@ public class LightningHandler {
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
-		render.bindForSetup(outsideResource);
+		RenderSystem.setShaderTexture(0, outsideResource);
 		int counter = 0;
 
 		tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);
@@ -73,7 +73,7 @@ public class LightningHandler {
 		}
 		tessellator.end();
 
-		render.bindForSetup(insideResource);
+		RenderSystem.setShaderTexture(0, insideResource);
 		counter = 0;
 
 		tessellator.getBuilder().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP);

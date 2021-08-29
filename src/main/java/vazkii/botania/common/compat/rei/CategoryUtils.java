@@ -13,7 +13,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -42,7 +41,7 @@ public interface CategoryUtils {
 	 */
 	static void drawOverlay(GuiComponent helper, PoseStack matrices, ResourceLocation texture, int x, int y, int u, int v, int width, int height) {
 		RenderSystem.enableBlend();
-		Minecraft.getInstance().getTextureManager().bindForSetup(texture);
+		RenderSystem.setShaderTexture(0, texture);
 		helper.blit(matrices, x, y, u, v, width, height);
 		RenderSystem.disableBlend();
 	}
