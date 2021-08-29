@@ -21,6 +21,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -48,7 +49,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemManaGun extends Item implements IManaUsingItem, IDurabilityExtension {
+public class ItemManaGun extends Item implements IManaUsingItem {
 
 	private static final String TAG_LENS = "lens";
 	private static final String TAG_CLIP = "clip";
@@ -303,13 +304,18 @@ public class ItemManaGun extends Item implements IManaUsingItem, IDurabilityExte
 	}
 
 	@Override
-	public boolean showDurability(ItemStack stack) {
+	public boolean isBarVisible(@Nonnull ItemStack stack) {
 		return getCooldown(stack) > 0;
 	}
 
 	@Override
-	public double getDurability(ItemStack stack) {
-		return getCooldown(stack) / (double) COOLDOWN;
+	public int getBarWidth(ItemStack stack) {
+		return Math.round(13.0F * (1 - getCooldown(stack) / (float) COOLDOWN));
+	}
+
+	@Override
+	public int getBarColor(ItemStack stack) {
+		return Mth.hsvToRgb((1 - getCooldown(stack) / (float) COOLDOWN) / 3.0F, 1.0F, 1.0F);
 	}
 
 	private int getCooldown(ItemStack stack) {

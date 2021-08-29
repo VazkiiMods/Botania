@@ -15,6 +15,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -36,7 +37,7 @@ import vazkii.botania.common.core.helper.ItemNBTHelper;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, IManaTooltipDisplay, IDurabilityExtension {
+public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, IManaTooltipDisplay {
 
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_MANA_BACKLOG = "manaBacklog";
@@ -49,13 +50,18 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 	}
 
 	@Override
-	public boolean showDurability(ItemStack stack) {
+	public boolean isBarVisible(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public double getDurability(ItemStack stack) {
-		return 1 - getManaFractionForDisplay(stack);
+	public int getBarWidth(ItemStack stack) {
+		return Math.round(13 * getManaFractionForDisplay(stack));
+	}
+
+	@Override
+	public int getBarColor(ItemStack stack) {
+		return Mth.hsvToRgb(getManaFractionForDisplay(stack) / 3.0F, 1.0F, 1.0F);
 	}
 
 	@Override
