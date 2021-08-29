@@ -100,7 +100,7 @@ public final class RenderHelper extends RenderType {
 		STAR = makeLayer(LibResources.PREFIX_MOD + "star", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.TRIANGLES, 256, false, false, glState);
 
 		glState = RenderType.CompositeState.builder()
-				.setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
+				.setShaderState(POSITION_COLOR_SHADER)
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setOutputState(ITEM_ENTITY_TARGET)
 				.setCullState(NO_CULL)

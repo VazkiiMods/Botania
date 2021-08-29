@@ -31,7 +31,7 @@ public abstract class EquipmentHandler {
 	public static EquipmentHandler instance;
 
 	public static void init() {
-		if (Botania.trinketsLoaded) {
+		if (false && Botania.trinketsLoaded) {
 			instance = new TrinketsIntegration();
 			TrinketsIntegration.init();
 		} else {
