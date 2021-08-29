@@ -985,7 +985,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 
 		ShapedRecipeBuilder.shaped(ModItems.cacophonium)
 				.define('N', Items.NOTE_BLOCK)
-				.define('G', Items.GOLD_INGOT)
+				.define('G', Items.COPPER_INGOT)
 				.pattern(" G ")
 				.pattern("GNG")
 				.pattern("GG ")
