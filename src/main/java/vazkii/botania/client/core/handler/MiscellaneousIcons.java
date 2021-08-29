@@ -151,37 +151,35 @@ public class MiscellaneousIcons {
 		BakedModel originalPotato = map.get(tinyPotato);
 		map.put(tinyPotato, new TinyPotatoModel(originalPotato));
 
-		// todo 1.16-fabric remove OrDefault when williewillus/botania-fabric-issues#15 is fixed
-		BakedModel missing = map.get(ModelBakery.MISSING_MODEL_LOCATION);
-		RenderTileCorporeaCrystalCube.cubeModel = map.getOrDefault(prefix("block/corporea_crystal_cube_glass"), missing);
-		RenderTilePump.headModel = map.getOrDefault(prefix("block/pump_head"), missing);
-		elvenSpreaderInside = map.getOrDefault(prefix("block/elven_spreader_inside"), missing);
-		gaiaSpreaderInside = map.getOrDefault(prefix("block/gaia_spreader_inside"), missing);
-		manaSpreaderInside = map.getOrDefault(prefix("block/mana_spreader_inside"), missing);
-		redstoneSpreaderInside = map.getOrDefault(prefix("block/redstone_spreader_inside"), missing);
+		RenderTileCorporeaCrystalCube.cubeModel = map.get(prefix("block/corporea_crystal_cube_glass"));
+		RenderTilePump.headModel = map.get(prefix("block/pump_head"));
+		elvenSpreaderInside = map.get(prefix("block/elven_spreader_inside"));
+		gaiaSpreaderInside = map.get(prefix("block/gaia_spreader_inside"));
+		manaSpreaderInside = map.get(prefix("block/mana_spreader_inside"));
+		redstoneSpreaderInside = map.get(prefix("block/redstone_spreader_inside"));
 
 		// Icons
-		goldfishModel = map.getOrDefault(prefix("icon/goldfish"), missing);
-		phiFlowerModel = map.getOrDefault(prefix("icon/phiflower"), missing);
-		nerfBatModel = map.getOrDefault(prefix("icon/nerfbat"), missing);
-		bloodPendantChain = map.getOrDefault(prefix("icon/blood_pendant_chain"), missing);
-		bloodPendantGem = map.getOrDefault(prefix("icon/blood_pendant_gem"), missing);
+		goldfishModel = map.get(prefix("icon/goldfish"));
+		phiFlowerModel = map.get(prefix("icon/phiflower"));
+		nerfBatModel = map.get(prefix("icon/nerfbat"));
+		bloodPendantChain = map.get(prefix("icon/blood_pendant_chain"));
+		bloodPendantGem = map.get(prefix("icon/blood_pendant_gem"));
 		for (int i = 0; i < ItemKingKey.WEAPON_TYPES; i++) {
-			kingKeyWeaponModels[i] = map.getOrDefault(prefix("icon/gate_weapon_" + i), missing);
+			kingKeyWeaponModels[i] = map.get(prefix("icon/gate_weapon_" + i));
 		}
-		terrasteelHelmWillModel = map.getOrDefault(prefix("icon/will_flame"), missing);
+		terrasteelHelmWillModel = map.get(prefix("icon/will_flame"));
 		for (int i = 0; i < thirdEyeLayers.length; i++) {
-			thirdEyeLayers[i] = map.getOrDefault(prefix("icon/third_eye_" + i), missing);
+			thirdEyeLayers[i] = map.get(prefix("icon/third_eye_" + i));
 		}
-		pyroclastGem = map.getOrDefault(prefix("icon/lava_pendant_gem"), missing);
-		crimsonGem = map.getOrDefault(prefix("icon/super_lava_pendant_gem"), missing);
-		itemFinderGem = map.getOrDefault(prefix("icon/itemfinder_gem"), missing);
+		pyroclastGem = map.get(prefix("icon/lava_pendant_gem"));
+		crimsonGem = map.get(prefix("icon/super_lava_pendant_gem"));
+		itemFinderGem = map.get(prefix("icon/itemfinder_gem"));
 
-		cirrusGem = map.getOrDefault(prefix("icon/cloud_pendant_gem"), missing);
-		nimbusGem = map.getOrDefault(prefix("icon/super_cloud_pendant_gem"), missing);
-		snowflakePendantGem = map.getOrDefault(prefix("icon/ice_pendant_gem"), missing);
+		cirrusGem = map.get(prefix("icon/cloud_pendant_gem"));
+		nimbusGem = map.get(prefix("icon/super_cloud_pendant_gem"));
+		snowflakePendantGem = map.get(prefix("icon/ice_pendant_gem"));
 		for (int i = 0; i < tiaraWingIcons.length; i++) {
-			tiaraWingIcons[i] = map.getOrDefault(prefix("icon/tiara_wing_" + (i + 1)), missing);
+			tiaraWingIcons[i] = map.get(prefix("icon/tiara_wing_" + (i + 1)));
 		}
 	}
 
