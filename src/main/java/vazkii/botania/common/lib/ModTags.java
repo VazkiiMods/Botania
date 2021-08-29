@@ -204,13 +204,7 @@ public class ModTags {
 
 		public static final Tag.Named<Block> LAPIS_BLOCKS = commonTag("lapis_blocks");
 
-		public static final Tag.Named<Block> COAL_ORES = commonTag("coal_ores");
-		public static final Tag.Named<Block> IRON_ORES = commonTag("iron_ores");
-		public static final Tag.Named<Block> GOLD_ORES = commonTag("gold_ores");
-		public static final Tag.Named<Block> LAPIS_ORES = commonTag("lapis_ores");
-		public static final Tag.Named<Block> REDSTONE_ORES = commonTag("redstone_ores");
-		public static final Tag.Named<Block> DIAMOND_ORES = commonTag("diamond_ores");
-		public static final Tag.Named<Block> EMERALD_ORES = commonTag("emerald_ores");
+		public static final Tag.Named<Block> ORES = commonTag("ores");
 		public static final Tag.Named<Block> MUSHROOMS = commonTag("mushrooms");
 
 		private static Tag.Named<Block> tag(String name) {

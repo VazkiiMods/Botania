@@ -30,6 +30,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
 
@@ -69,7 +70,7 @@ public class ItemDiviningRod extends Item implements IManaUsingItem, IAvatarWiel
 			BlockState state = world.getBlockState(pos_);
 
 			Block block = state.getBlock();
-			if (false /* todo 1.16-fabric Tags.Blocks.ORES.contains(block) */) {
+			if (state.is(ModTags.Blocks.ORES)) {
 				Random rand = new Random(Registry.BLOCK.getKey(block).hashCode() ^ seedxor);
 				WispParticleData data = WispParticleData.wisp(0.25F, rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 8, false);
 				world.addParticle(data, pos_.getX() + world.random.nextFloat(),

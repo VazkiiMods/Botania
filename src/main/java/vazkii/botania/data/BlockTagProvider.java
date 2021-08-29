@@ -29,6 +29,7 @@ import javax.annotation.Nonnull;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Predicate;
 
 import static vazkii.botania.common.block.ModSubtiles.*;
@@ -153,8 +154,6 @@ public class BlockTagProvider extends BlockTagsProvider {
 
 		tag(ModTags.Blocks.TERRA_PLATE_BASE).add(ModBlocks.livingrock, ModBlocks.shimmerrock);
 
-		tag(BlockTags.BAMBOO_PLANTABLE_ON).add(ModBlocks.dryGrass, ModBlocks.goldenGrass, ModBlocks.vividGrass,
-				ModBlocks.scorchedGrass, ModBlocks.infusedGrass, ModBlocks.mutatedGrass);
 		tag(BlockTags.CLIMBABLE).add(ModBlocks.solidVines);
 
 		for (DyeColor color : DyeColor.values()) {
@@ -167,13 +166,21 @@ public class BlockTagProvider extends BlockTagsProvider {
 	private void registerCommonTags() {
 		tag(ModTags.Blocks.LAPIS_BLOCKS).add(Blocks.LAPIS_BLOCK);
 
-		tag(ModTags.Blocks.COAL_ORES).add(Blocks.COAL_ORE);
-		tag(ModTags.Blocks.IRON_ORES).add(Blocks.IRON_ORE);
-		tag(ModTags.Blocks.GOLD_ORES).add(Blocks.GOLD_ORE);
-		tag(ModTags.Blocks.LAPIS_ORES).add(Blocks.LAPIS_ORE);
-		tag(ModTags.Blocks.REDSTONE_ORES).add(Blocks.REDSTONE_ORE);
-		tag(ModTags.Blocks.DIAMOND_ORES).add(Blocks.DIAMOND_ORE);
-		tag(ModTags.Blocks.EMERALD_ORES).add(Blocks.EMERALD_ORE);
+		var vanillaTags = List.of(
+				BlockTags.COAL_ORES,
+				BlockTags.IRON_ORES,
+				BlockTags.GOLD_ORES,
+				BlockTags.LAPIS_ORES,
+				BlockTags.REDSTONE_ORES,
+				BlockTags.DIAMOND_ORES,
+				BlockTags.COPPER_ORES,
+				BlockTags.EMERALD_ORES
+		);
+		// We aren't calling vanilla's generation, so need to add dummy calls so that using them below doesn't error out.
+		vanillaTags.forEach(this::tag);
+
+		var oreTag = tag(ModTags.Blocks.ORES);
+		vanillaTags.forEach(oreTag::addTag);
 	}
 
 	@Nonnull
