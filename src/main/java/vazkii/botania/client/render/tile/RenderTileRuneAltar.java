@@ -19,9 +19,11 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
@@ -30,13 +32,17 @@ import vazkii.botania.common.block.tile.TileRuneAltar;
 
 import javax.annotation.Nonnull;
 
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
 public class RenderTileRuneAltar implements BlockEntityRenderer<TileRuneAltar> {
 	private final ModelPart spinningCube;
+	private static final ResourceLocation cubeTex = prefix("textures/block/runic_altar_cube.png");
 
 	public RenderTileRuneAltar(BlockEntityRendererProvider.Context manager) {
 		var mesh = new MeshDefinition();
+		// todo 1.17 this doesn't properly map the full texture onto the cube. Needs more param fiddling.
 		mesh.getRoot().addOrReplaceChild("cube", CubeListBuilder.create().addBox(0, 0, 0, 1, 1, 1), PartPose.ZERO);
-		spinningCube = LayerDefinition.create(mesh, 64, 64).bakeRoot();
+		spinningCube = LayerDefinition.create(mesh, 16, 16).bakeRoot();
 	}
 
 	@Override
@@ -128,7 +134,7 @@ public class RenderTileRuneAltar implements BlockEntityRenderer<TileRuneAltar> {
 					alpha = (float) curIter / (float) iters * 0.4F;
 				}
 
-				VertexConsumer buffer = buffers.getBuffer(curIter < iters ? RenderHelper.SPINNING_CUBE_GHOST : RenderHelper.SPINNING_CUBE);
+				VertexConsumer buffer = buffers.getBuffer(curIter < iters ? RenderType.entityTranslucentCull(cubeTex) : RenderType.entitySolid(cubeTex));
 				spinningCube.render(ms, buffer, 0xF000F0, overlay, 1, 1, 1, alpha);
 
 				ms.popPose();

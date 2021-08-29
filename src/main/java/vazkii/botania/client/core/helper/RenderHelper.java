@@ -61,8 +61,6 @@ public final class RenderHelper extends RenderType {
 	public static final RenderType LINE_8_NO_DEPTH;
 	public static final RenderType SPARK;
 	public static final RenderType LIGHT_RELAY;
-	public static final RenderType SPINNING_CUBE;
-	public static final RenderType SPINNING_CUBE_GHOST;
 	public static final RenderType ICON_OVERLAY;
 	public static final RenderType BABYLON_ICON;
 	public static final RenderType MANA_POOL_WATER;
@@ -93,7 +91,7 @@ public final class RenderHelper extends RenderType {
 		boolean useShaders = ShaderHelper.useShaders();
 
 		RenderType.CompositeState glState = RenderType.CompositeState.builder()
-				// todo 1.17.setShadeModelState(smoothShade)
+				.setShaderState(POSITION_COLOR_SHADER)
 				.setWriteMaskState(COLOR_WRITE)
 				.setTransparencyState(RenderStateShard.LIGHTNING_TRANSPARENCY)
 				.createCompositeState(false);
@@ -123,17 +121,6 @@ public final class RenderHelper extends RenderType {
 		SPARK = makeLayer(LibResources.PREFIX_MOD + "spark", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 256, glState);
 		RenderType lightRelay = makeLayer(LibResources.PREFIX_MOD + "light_relay", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 64, glState);
 		LIGHT_RELAY = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, lightRelay) : lightRelay;
-
-		glState = RenderType.CompositeState.builder().setTextureState(NO_TEXTURE).createCompositeState(false);
-		SPINNING_CUBE = makeLayer(LibResources.PREFIX_MOD + "spinning_cube", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 64, glState);
-
-		glState = RenderType.CompositeState.builder()
-				.setTextureState(RenderStateShard.NO_TEXTURE)
-				// todo 1.17 .setDiffuseLightingState(enableDiffuse)
-				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
-				.setOutputState(ITEM_ENTITY_TARGET)
-				.createCompositeState(false);
-		SPINNING_CUBE_GHOST = makeLayer(LibResources.PREFIX_MOD + "spinning_cube_ghost", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 64, glState);
 
 		glState = RenderType.CompositeState.builder().setTextureState(BLOCK_SHEET_MIPPED)
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
