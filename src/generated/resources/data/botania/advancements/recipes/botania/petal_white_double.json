@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:white_double_flower"
+            "items": [
+              "botania:white_double_flower"
+            ]
           }
         ]
       }
@@ -21,7 +23,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:white_petal"
+            "items": [
+              "botania:white_petal"
+            ]
           }
         ]
       }

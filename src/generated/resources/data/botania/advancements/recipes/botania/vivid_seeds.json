@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:grass_seeds"
+            "items": [
+              "botania:grass_seeds"
+            ]
           }
         ]
       }

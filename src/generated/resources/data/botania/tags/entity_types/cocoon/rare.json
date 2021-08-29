@@ -10,6 +10,10 @@
     "minecraft:llama",
     "minecraft:fox",
     "minecraft:panda",
-    "minecraft:turtle"
+    "minecraft:turtle",
+    {
+      "id": "quark:frog",
+      "required": false
+    }
   ]
 }

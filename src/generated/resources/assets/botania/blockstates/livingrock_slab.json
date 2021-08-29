@@ -1,13 +1,13 @@
 {
   "variants": {
-    "type=top": {
-      "model": "botania:block/livingrock_slab_top"
-    },
     "type=bottom": {
       "model": "botania:block/livingrock_slab"
     },
     "type=double": {
       "model": "botania:block/livingrock"
+    },
+    "type=top": {
+      "model": "botania:block/livingrock_slab_top"
     }
   }
 }

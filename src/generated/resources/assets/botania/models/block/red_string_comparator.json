@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/orientable",
   "textures": {
-    "side": "botania:block/red_string_comparator",
+    "top": "botania:block/red_string_comparator",
     "front": "botania:block/red_string_sender",
-    "top": "botania:block/red_string_comparator"
+    "side": "botania:block/red_string_comparator"
   }
 }

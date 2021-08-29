@@ -1,13 +1,13 @@
 {
   "variants": {
-    "type=top": {
-      "model": "botania:block/metamorphic_taiga_stone_slab_top"
-    },
     "type=bottom": {
       "model": "botania:block/metamorphic_taiga_stone_slab"
     },
     "type=double": {
       "model": "botania:block/metamorphic_taiga_stone"
+    },
+    "type=top": {
+      "model": "botania:block/metamorphic_taiga_stone_slab_top"
     }
   }
 }

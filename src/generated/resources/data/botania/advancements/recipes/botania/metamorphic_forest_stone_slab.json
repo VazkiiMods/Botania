@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:metamorphic_forest_stone"
+            "items": [
+              "botania:metamorphic_forest_stone"
+            ]
           }
         ]
       }
@@ -21,7 +23,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:marimorphosis"
+            "items": [
+              "botania:marimorphosis"
+            ]
           }
         ]
       }

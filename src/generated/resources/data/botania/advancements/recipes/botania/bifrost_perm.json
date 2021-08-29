@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:rainbow_rod"
+            "items": [
+              "botania:rainbow_rod"
+            ]
           }
         ]
       }

@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:light_gray_mystical_flower"
+            "items": [
+              "botania:light_gray_mystical_flower"
+            ]
           }
         ]
       }
@@ -21,7 +23,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:light_gray_petal"
+            "items": [
+              "botania:light_gray_petal"
+            ]
           }
         ]
       }

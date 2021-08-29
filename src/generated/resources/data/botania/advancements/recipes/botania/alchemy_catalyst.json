@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:mana_pearl"
+            "items": [
+              "botania:mana_pearl"
+            ]
           }
         ]
       }
@@ -21,7 +23,9 @@
       "conditions": {
         "items": [
           {
-            "item": "minecraft:brewing_stand"
+            "items": [
+              "minecraft:brewing_stand"
+            ]
           }
         ]
       }

@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:purple_mystical_flower"
+            "items": [
+              "botania:purple_mystical_flower"
+            ]
           }
         ]
       }
@@ -21,7 +23,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:purple_petal"
+            "items": [
+              "botania:purple_petal"
+            ]
           }
         ]
       }

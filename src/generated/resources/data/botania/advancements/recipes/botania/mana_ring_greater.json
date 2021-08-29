@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:terrasteel_ingot"
+            "items": [
+              "botania:terrasteel_ingot"
+            ]
           }
         ]
       }

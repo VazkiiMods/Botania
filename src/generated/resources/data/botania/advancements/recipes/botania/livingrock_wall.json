@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:livingrock"
+            "items": [
+              "botania:livingrock"
+            ]
           }
         ]
       }

@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:tiny_planet"
+            "items": [
+              "botania:tiny_planet"
+            ]
           }
         ]
       }
@@ -21,7 +23,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:mana_pearl"
+            "items": [
+              "botania:mana_pearl"
+            ]
           }
         ]
       }

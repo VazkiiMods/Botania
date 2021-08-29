@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:lavender_quartz_slab"
+            "items": [
+              "botania:lavender_quartz_slab"
+            ]
           }
         ]
       }
@@ -21,7 +23,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:lavender_quartz"
+            "items": [
+              "botania:lavender_quartz"
+            ]
           }
         ]
       }

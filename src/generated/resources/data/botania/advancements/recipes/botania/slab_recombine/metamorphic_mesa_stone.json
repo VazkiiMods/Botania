@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:metamorphic_mesa_stone"
+            "items": [
+              "botania:metamorphic_mesa_stone"
+            ]
           }
         ]
       }

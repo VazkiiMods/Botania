@@ -1,13 +1,13 @@
 {
   "variants": {
-    "type=top": {
-      "model": "botania:block/blue_pavement_slab_top"
-    },
     "type=bottom": {
       "model": "botania:block/blue_pavement_slab"
     },
     "type=double": {
       "model": "botania:block/blue_pavement"
+    },
+    "type=top": {
+      "model": "botania:block/blue_pavement_slab_top"
     }
   }
 }

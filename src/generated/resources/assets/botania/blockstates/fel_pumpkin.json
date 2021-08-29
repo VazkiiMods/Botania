@@ -1,5 +1,9 @@
 {
   "variants": {
+    "facing=east": {
+      "model": "botania:block/fel_pumpkin",
+      "y": 90
+    },
     "facing=north": {
       "model": "botania:block/fel_pumpkin"
     },
@@ -10,10 +14,6 @@
     "facing=west": {
       "model": "botania:block/fel_pumpkin",
       "y": 270
-    },
-    "facing=east": {
-      "model": "botania:block/fel_pumpkin",
-      "y": 90
     }
   }
 }

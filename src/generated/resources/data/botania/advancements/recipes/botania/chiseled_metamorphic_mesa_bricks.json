@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:metamorphic_mesa_bricks_slab"
+            "items": [
+              "botania:metamorphic_mesa_bricks_slab"
+            ]
           }
         ]
       }
@@ -21,7 +23,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:metamorphic_mesa_bricks"
+            "items": [
+              "botania:metamorphic_mesa_bricks"
+            ]
           }
         ]
       }
@@ -31,7 +35,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:marimorphosis"
+            "items": [
+              "botania:marimorphosis"
+            ]
           }
         ]
       }

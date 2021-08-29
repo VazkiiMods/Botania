@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:shulk_me_not"
+            "items": [
+              "botania:shulk_me_not"
+            ]
           }
         ]
       }

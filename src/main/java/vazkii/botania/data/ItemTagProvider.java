@@ -13,6 +13,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
@@ -100,15 +101,12 @@ public class ItemTagProvider extends ItemTagsProvider {
 		this.copy(ModTags.Blocks.LIVINGROCK, ModTags.Items.LIVINGROCK);
 
 		this.tag(ModTags.Items.DISPOSABLE).add(Items.DIRT, Items.SAND, Items.GRAVEL, Items.COBBLESTONE, Items.NETHERRACK);
-		this.tag(ModTags.Items.SEMI_DISPOSABLE).add(Items.ANDESITE, Items.DIORITE, Items.GRANITE);
-		/* todo 1.16-fabric
-			.addOptional(new Identifier("quark", "basalt"))
-			.addOptional(new Identifier("quark", "jasper"))
-			.addOptional(new Identifier("quark", "limestone"))
-			.addOptional(new Identifier("quark", "marble"))
-			.addOptional(new Identifier("quark", "slate"));
-		
-		*/
+		this.tag(ModTags.Items.SEMI_DISPOSABLE).add(Items.ANDESITE, Items.DIORITE, Items.GRANITE)
+				.addOptional(new ResourceLocation("quark", "basalt"))
+				.addOptional(new ResourceLocation("quark", "jasper"))
+				.addOptional(new ResourceLocation("quark", "limestone"))
+				.addOptional(new ResourceLocation("quark", "marble"))
+				.addOptional(new ResourceLocation("quark", "slate"));
 
 		List<Tag.Named<Item>> runes = Arrays.asList(
 				ModTags.Items.RUNES_WATER, ModTags.Items.RUNES_FIRE, ModTags.Items.RUNES_EARTH, ModTags.Items.RUNES_AIR,

@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:mana_pearl"
+            "items": [
+              "botania:mana_pearl"
+            ]
           }
         ]
       }

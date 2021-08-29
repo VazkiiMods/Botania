@@ -1,7 +1,1 @@
-{
-  "parent": "minecraft:block/block",
-  "loader": "botania:floating_flower",
-  "flower": {
-    "parent": "botania:block/shulk_me_not"
-  }
-}
+{"flower":"botania:block/shulk_me_not"}

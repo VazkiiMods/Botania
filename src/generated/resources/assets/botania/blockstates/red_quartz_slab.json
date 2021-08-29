@@ -1,13 +1,13 @@
 {
   "variants": {
-    "type=top": {
-      "model": "botania:block/red_quartz_slab_top"
-    },
     "type=bottom": {
       "model": "botania:block/red_quartz_slab"
     },
     "type=double": {
       "model": "botania:block/red_quartz"
+    },
+    "type=top": {
+      "model": "botania:block/red_quartz_slab_top"
     }
   }
 }

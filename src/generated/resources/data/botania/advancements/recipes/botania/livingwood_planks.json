@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:livingwood"
+            "items": [
+              "botania:livingwood"
+            ]
           }
         ]
       }

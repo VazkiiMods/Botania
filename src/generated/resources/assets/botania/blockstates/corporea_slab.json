@@ -1,13 +1,13 @@
 {
   "variants": {
-    "type=top": {
-      "model": "botania:block/corporea_slab_top"
-    },
     "type=bottom": {
       "model": "botania:block/corporea_slab"
     },
     "type=double": {
       "model": "botania:block/corporea_double_slab"
+    },
+    "type=top": {
+      "model": "botania:block/corporea_slab_top"
     }
   }
 }

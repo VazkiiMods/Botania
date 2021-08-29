@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "side": "botania:block/blaze_quartz_pillar_side",
-    "end": "botania:block/blaze_quartz_pillar_end"
+    "end": "botania:block/blaze_quartz_pillar_end",
+    "side": "botania:block/blaze_quartz_pillar_side"
   }
 }

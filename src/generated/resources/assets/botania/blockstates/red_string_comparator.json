@@ -4,9 +4,9 @@
       "model": "botania:block/red_string_comparator",
       "x": 90
     },
-    "facing=up": {
+    "facing=east": {
       "model": "botania:block/red_string_comparator",
-      "x": 270
+      "y": 90
     },
     "facing=north": {
       "model": "botania:block/red_string_comparator"
@@ -15,13 +15,13 @@
       "model": "botania:block/red_string_comparator",
       "y": 180
     },
+    "facing=up": {
+      "model": "botania:block/red_string_comparator",
+      "x": 270
+    },
     "facing=west": {
       "model": "botania:block/red_string_comparator",
       "y": 270
-    },
-    "facing=east": {
-      "model": "botania:block/red_string_comparator",
-      "y": 90
     }
   }
 }

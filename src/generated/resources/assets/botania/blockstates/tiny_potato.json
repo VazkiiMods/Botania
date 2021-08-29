@@ -1,34 +1,19 @@
 {
   "variants": {
-    "facing=north,waterlogged=false": {
-      "model": "botania:block/tiny_potato"
-    },
-    "facing=south,waterlogged=false": {
-      "model": "botania:block/tiny_potato",
-      "y": 180
-    },
-    "facing=west,waterlogged=false": {
-      "model": "botania:block/tiny_potato",
-      "y": 270
-    },
-    "facing=east,waterlogged=false": {
+    "facing=east": {
       "model": "botania:block/tiny_potato",
       "y": 90
     },
-    "facing=north,waterlogged=true": {
+    "facing=north": {
       "model": "botania:block/tiny_potato"
     },
-    "facing=south,waterlogged=true": {
+    "facing=south": {
       "model": "botania:block/tiny_potato",
       "y": 180
     },
-    "facing=west,waterlogged=true": {
+    "facing=west": {
       "model": "botania:block/tiny_potato",
       "y": 270
-    },
-    "facing=east,waterlogged=true": {
-      "model": "botania:block/tiny_potato",
-      "y": 90
     }
   }
 }

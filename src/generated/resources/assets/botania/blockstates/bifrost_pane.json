@@ -15,10 +15,11 @@
     },
     {
       "when": {
-        "north": "false"
+        "east": "true"
       },
       "apply": {
-        "model": "botania:block/bifrost_pane_noside"
+        "model": "botania:block/bifrost_pane_side",
+        "y": 90
       }
     },
     {
@@ -27,15 +28,6 @@
       },
       "apply": {
         "model": "botania:block/bifrost_pane_side_alt"
-      }
-    },
-    {
-      "when": {
-        "south": "false"
-      },
-      "apply": {
-        "model": "botania:block/bifrost_pane_noside_alt",
-        "y": 90
       }
     },
     {
@@ -49,20 +41,10 @@
     },
     {
       "when": {
-        "west": "false"
+        "north": "false"
       },
       "apply": {
-        "model": "botania:block/bifrost_pane_noside",
-        "y": 270
-      }
-    },
-    {
-      "when": {
-        "east": "true"
-      },
-      "apply": {
-        "model": "botania:block/bifrost_pane_side",
-        "y": 90
+        "model": "botania:block/bifrost_pane_noside"
       }
     },
     {
@@ -71,6 +53,24 @@
       },
       "apply": {
         "model": "botania:block/bifrost_pane_noside_alt"
+      }
+    },
+    {
+      "when": {
+        "south": "false"
+      },
+      "apply": {
+        "model": "botania:block/bifrost_pane_noside_alt",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "west": "false"
+      },
+      "apply": {
+        "model": "botania:block/bifrost_pane_noside",
+        "y": 270
       }
     }
   ]

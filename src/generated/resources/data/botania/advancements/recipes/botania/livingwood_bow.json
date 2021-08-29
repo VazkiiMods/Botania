@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:mana_string"
+            "items": [
+              "botania:mana_string"
+            ]
           }
         ]
       }
@@ -21,7 +23,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:livingwood_twig"
+            "items": [
+              "botania:livingwood_twig"
+            ]
           }
         ]
       }

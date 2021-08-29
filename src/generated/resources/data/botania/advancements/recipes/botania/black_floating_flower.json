@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:black_shiny_flower"
+            "items": [
+              "botania:black_shiny_flower"
+            ]
           }
         ]
       }

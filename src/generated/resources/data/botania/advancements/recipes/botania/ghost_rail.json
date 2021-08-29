@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "minecraft:rail"
+            "items": [
+              "minecraft:rail"
+            ]
           }
         ]
       }
@@ -21,7 +23,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:spectral_platform"
+            "items": [
+              "botania:spectral_platform"
+            ]
           }
         ]
       }

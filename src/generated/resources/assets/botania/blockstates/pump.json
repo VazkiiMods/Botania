@@ -1,34 +1,19 @@
 {
   "variants": {
-    "facing=north,waterlogged=false": {
-      "model": "botania:block/pump"
-    },
-    "facing=south,waterlogged=false": {
-      "model": "botania:block/pump",
-      "y": 180
-    },
-    "facing=west,waterlogged=false": {
-      "model": "botania:block/pump",
-      "y": 270
-    },
-    "facing=east,waterlogged=false": {
+    "facing=east": {
       "model": "botania:block/pump",
       "y": 90
     },
-    "facing=north,waterlogged=true": {
+    "facing=north": {
       "model": "botania:block/pump"
     },
-    "facing=south,waterlogged=true": {
+    "facing=south": {
       "model": "botania:block/pump",
       "y": 180
     },
-    "facing=west,waterlogged=true": {
+    "facing=west": {
       "model": "botania:block/pump",
       "y": 270
-    },
-    "facing=east,waterlogged=true": {
-      "model": "botania:block/pump",
-      "y": 90
     }
   }
 }

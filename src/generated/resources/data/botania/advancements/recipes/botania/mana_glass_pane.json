@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:mana_glass"
+            "items": [
+              "botania:mana_glass"
+            ]
           }
         ]
       }

@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:corporea_spark"
+            "items": [
+              "botania:corporea_spark"
+            ]
           }
         ]
       }

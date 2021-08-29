@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:solegnolia_chibi"
+            "items": [
+              "botania:solegnolia_chibi"
+            ]
           }
         ]
       }

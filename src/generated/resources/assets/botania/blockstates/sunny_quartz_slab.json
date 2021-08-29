@@ -1,13 +1,13 @@
 {
   "variants": {
-    "type=top": {
-      "model": "botania:block/sunny_quartz_slab_top"
-    },
     "type=bottom": {
       "model": "botania:block/sunny_quartz_slab"
     },
     "type=double": {
       "model": "botania:block/sunny_quartz"
+    },
+    "type=top": {
+      "model": "botania:block/sunny_quartz_slab_top"
     }
   }
 }

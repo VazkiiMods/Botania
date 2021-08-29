@@ -1,13 +1,13 @@
 {
   "variants": {
-    "type=top": {
-      "model": "botania:block/dreamwood_planks_slab_top"
-    },
     "type=bottom": {
       "model": "botania:block/dreamwood_planks_slab"
     },
     "type=double": {
       "model": "botania:block/dreamwood_planks"
+    },
+    "type=top": {
+      "model": "botania:block/dreamwood_planks_slab_top"
     }
   }
 }

@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:pixie_dust"
+            "items": [
+              "botania:pixie_dust"
+            ]
           }
         ]
       }
@@ -21,7 +23,9 @@
       "conditions": {
         "items": [
           {
-            "item": "minecraft:skeleton_skull"
+            "items": [
+              "minecraft:skeleton_skull"
+            ]
           }
         ]
       }

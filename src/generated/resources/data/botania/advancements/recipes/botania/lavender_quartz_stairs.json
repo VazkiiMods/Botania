@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:lavender_quartz"
+            "items": [
+              "botania:lavender_quartz"
+            ]
           }
         ]
       }

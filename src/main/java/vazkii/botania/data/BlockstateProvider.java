@@ -89,7 +89,11 @@ public class BlockstateProvider implements DataProvider {
 
 	@Override
 	public void run(HashCache hashCache) throws IOException {
-		registerStatesAndModels();
+		try {
+			registerStatesAndModels();
+		} catch (Exception e) {
+			Botania.LOGGER.error("Error registering states and models", e);
+		}
 
 		var root = generator.getOutputFolder();
 		var gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
@@ -97,13 +101,21 @@ public class BlockstateProvider implements DataProvider {
 		for (var state : blockstates) {
 			ResourceLocation id = Registry.BLOCK.getKey(state.getBlock());
 			var path = root.resolve("assets/" + id.getNamespace() + "/blockstates/" + id.getPath() + ".json");
-			DataProvider.save(gson, hashCache, state.get(), path);
+			try {
+				DataProvider.save(gson, hashCache, state.get(), path);
+			} catch (IOException ex) {
+				Botania.LOGGER.error("Error generating blockstate file for {}", id, ex);
+			}
 		}
 
 		for (var e : models.entrySet()) {
 			var modelId = e.getKey();
 			var path = root.resolve("assets/" + modelId.getNamespace() + "/models/" + modelId.getPath() + ".json");
-			DataProvider.save(gson, hashCache, e.getValue().get(), path);
+			try {
+				DataProvider.save(gson, hashCache, e.getValue().get(), path);
+			} catch (IOException ex) {
+				Botania.LOGGER.error("Error generating model file {}", modelId, ex);
+			}
 		}
 	}
 
@@ -175,7 +187,7 @@ public class BlockstateProvider implements DataProvider {
 				new TextureMapping()
 						.put(TextureSlot.SIDE, corpSlabSide).put(TextureSlot.BOTTOM, corpBlock).put(TextureSlot.TOP, corpBlock),
 				this.modelOutput);
-		blockstates.add(AccessorBlockModelGenerators.makeSlabState(corporeaBlock, corpSlabBottomModel, corpSlabTopModel, corpSlabDoubleModel));
+		blockstates.add(AccessorBlockModelGenerators.makeSlabState(corporeaSlab, corpSlabBottomModel, corpSlabTopModel, corpSlabDoubleModel));
 		remainingBlocks.remove(corporeaSlab);
 
 		stairsBlock(corporeaStairs, corpBlock, corpBlock, corpBlock);

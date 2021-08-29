@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:placeholder"
+            "items": [
+              "botania:placeholder"
+            ]
           }
         ]
       }
@@ -21,7 +23,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:crafty_crate"
+            "items": [
+              "botania:crafty_crate"
+            ]
           }
         ]
       }

@@ -1,8 +1,8 @@
 {
   "parent": "minecraft:block/cube_bottom_top",
   "textures": {
-    "side": "botania:block/turntable_side",
+    "top": "botania:block/turntable_top",
     "bottom": "botania:block/turntable_bottom",
-    "top": "botania:block/turntable_top"
+    "side": "botania:block/turntable_side"
   }
 }

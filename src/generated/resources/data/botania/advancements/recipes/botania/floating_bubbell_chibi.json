@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:bubbell_chibi"
+            "items": [
+              "botania:bubbell_chibi"
+            ]
           }
         ]
       }

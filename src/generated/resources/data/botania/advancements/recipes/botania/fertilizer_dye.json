@@ -11,52 +11,84 @@
       "conditions": {
         "items": [
           {
-            "item": "minecraft:white_dye"
+            "items": [
+              "minecraft:white_dye"
+            ]
           },
           {
-            "item": "minecraft:orange_dye"
+            "items": [
+              "minecraft:orange_dye"
+            ]
           },
           {
-            "item": "minecraft:magenta_dye"
+            "items": [
+              "minecraft:magenta_dye"
+            ]
           },
           {
-            "item": "minecraft:light_blue_dye"
+            "items": [
+              "minecraft:light_blue_dye"
+            ]
           },
           {
-            "item": "minecraft:yellow_dye"
+            "items": [
+              "minecraft:yellow_dye"
+            ]
           },
           {
-            "item": "minecraft:lime_dye"
+            "items": [
+              "minecraft:lime_dye"
+            ]
           },
           {
-            "item": "minecraft:pink_dye"
+            "items": [
+              "minecraft:pink_dye"
+            ]
           },
           {
-            "item": "minecraft:gray_dye"
+            "items": [
+              "minecraft:gray_dye"
+            ]
           },
           {
-            "item": "minecraft:light_gray_dye"
+            "items": [
+              "minecraft:light_gray_dye"
+            ]
           },
           {
-            "item": "minecraft:cyan_dye"
+            "items": [
+              "minecraft:cyan_dye"
+            ]
           },
           {
-            "item": "minecraft:purple_dye"
+            "items": [
+              "minecraft:purple_dye"
+            ]
           },
           {
-            "item": "minecraft:blue_dye"
+            "items": [
+              "minecraft:blue_dye"
+            ]
           },
           {
-            "item": "minecraft:brown_dye"
+            "items": [
+              "minecraft:brown_dye"
+            ]
           },
           {
-            "item": "minecraft:green_dye"
+            "items": [
+              "minecraft:green_dye"
+            ]
           },
           {
-            "item": "minecraft:red_dye"
+            "items": [
+              "minecraft:red_dye"
+            ]
           },
           {
-            "item": "minecraft:black_dye"
+            "items": [
+              "minecraft:black_dye"
+            ]
           }
         ]
       }
