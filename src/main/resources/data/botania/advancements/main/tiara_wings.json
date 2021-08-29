@@ -18,7 +18,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:flight_tiara"
+            "items": [ "botania:flight_tiara" ]
           }
         ]
       }

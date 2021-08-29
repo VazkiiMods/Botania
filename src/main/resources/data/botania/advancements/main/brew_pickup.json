@@ -12,28 +12,18 @@
   },
   "parent": "botania:main/rune_pickup",
   "criteria": {
-    "flask": {
+    "pickup": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "botania:brew_flask"
-          }
-        ]
-      }
-    },
-    "vial": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "botania:brew_vial"
+            "items": [
+              "botania:brew_flask",
+              "botania:brew_vial"
+            ]
           }
         ]
       }
     }
-  },
-  "requirements": [
-    [ "flask", "vial" ]
-  ]
+  }
 }

@@ -12,48 +12,20 @@
   },
   "parent": "botania:main/flower_pickup",
   "criteria": {
-    "default": {
+    "pickup": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "botania:mana_pool"
-          }
-        ]
-      }
-    },
-    "creative": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "botania:creative_pool"
-          }
-        ]
-      }
-    },
-    "diluted": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "botania:diluted_pool"
-          }
-        ]
-      }
-    },
-    "fabulous": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "botania:fabulous_pool"
+            "items": [
+              "botania:mana_pool",
+              "botania:creative_pool",
+              "botania:diluted_pool",
+              "botania:fabulous_pool"
+            ]
           }
         ]
       }
     }
-  },
-  "requirements": [
-    [ "default", "creative", "diluted", "fabulous" ]
-  ]
+  }
 }

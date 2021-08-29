@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:lexicon",
+            "items": [ "botania:lexicon" ],
             "nbt": "{'botania:elven_unlock': 1b}"
           }
         ]

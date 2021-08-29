@@ -12,58 +12,21 @@
   },
   "parent": "botania:main/ender_air_make",
   "criteria": {
-    "crystalcube": {
+    "pickup": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "botania:corporea_crystal_cube"
-          }
-        ]
-      }
-    },
-    "funnel": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "botania:corporea_funnel"
-          }
-        ]
-      }
-    },
-    "index": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "botania:corporea_index"
-          }
-        ]
-      }
-    },
-    "interceptor": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "botania:corporea_interceptor"
-          }
-        ]
-      }
-    },
-    "retainer": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "item": "botania:corporea_retainer"
+            "items": [
+              "botania:corporea_crystal_cube",
+              "botania:corporea_funnel",
+              "botania:corporea_index",
+              "botania:corporea_interceptor",
+              "botania:corporea_retainer"
+            ]
           }
         ]
       }
     }
-  },
-  "requirements": [
-    [ "crystalcube", "funnel", "index", "interceptor", "retainer" ]
-  ]
+  }
 }

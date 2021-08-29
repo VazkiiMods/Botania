@@ -6,7 +6,7 @@
       "conditions": {
         "items": [
           {
-            "item": "botania:runic_altar"
+            "items": [ "botania:runic_altar" ]
           }
         ]
       }
