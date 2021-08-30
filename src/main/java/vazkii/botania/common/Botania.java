@@ -64,6 +64,7 @@ import vazkii.botania.common.block.subtile.generating.SubTileEntropinnyum;
 import vazkii.botania.common.block.subtile.generating.SubTileNarslimmus;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;
+import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
@@ -183,6 +184,7 @@ public class Botania {
 		forgeBus.addListener(LootHandler::lootLoad);
 		forgeBus.addListener(EventPriority.HIGH, ModFeatures::onBiomeLoad);
 		forgeBus.addListener(OrechidResourceListener::registerListener);
+		forgeBus.addListener(TileCraftCrate::registerListener);
 		ModSubtiles.registerRemappers(forgeBus);
 
 		ModLootModifiers.init();
