@@ -181,6 +181,8 @@ public final class RenderHelper extends RenderType {
 	}
 
 	private static RenderType getPylonGlow(String name, ResourceLocation texture, boolean direct) {
+		return RenderType.entityTranslucent(texture);
+		/* todo 1.17
 		RenderType.CompositeState.CompositeStateBuilder glState = RenderType.CompositeState.builder()
 				.setTextureState(new RenderStateShard.TextureStateShard(texture, false, false))
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
@@ -193,6 +195,7 @@ public final class RenderHelper extends RenderType {
 		}
 		RenderType layer = makeLayer(LibResources.PREFIX_MOD + name, DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 128, glState.createCompositeState(false));
 		return ShaderHelper.useShaders() ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.PYLON_GLOW, null, layer) : layer;
+		*/
 	}
 
 	private static CompositeState lineState(double width, boolean noDepth) {

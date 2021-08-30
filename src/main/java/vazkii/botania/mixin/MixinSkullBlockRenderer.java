@@ -16,7 +16,9 @@ import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.SkullBlockRenderer;
+import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.SkullBlock;
 
 import org.spongepowered.asm.mixin.Final;
@@ -39,6 +41,10 @@ public abstract class MixinSkullBlockRenderer {
 	@Final
 	private Map<SkullBlock.Type, SkullModelBase> modelByType;
 
+	@Shadow
+	@Final
+	private static Map<SkullBlock.Type, ResourceLocation> SKIN_BY_TYPE;
+
 	@Inject(
 		method = "createSkullRenderers",
 		at = @At(value = "INVOKE", target = "Lcom/google/common/collect/ImmutableMap$Builder;build()Lcom/google/common/collect/ImmutableMap;"),
@@ -47,6 +53,11 @@ public abstract class MixinSkullBlockRenderer {
 	private static void registerModel(EntityModelSet entityModelSet, CallbackInfoReturnable<Map<SkullBlock.Type, SkullModelBase>> cir,
 			ImmutableMap.Builder<SkullBlock.Type, SkullModelBase> builder) {
 		builder.put(BlockGaiaHead.GAIA_TYPE, new ModelGaiaHead());
+
+		// todo 1.17 placeholder to avoid crash
+		if (!SKIN_BY_TYPE.containsKey(BlockGaiaHead.GAIA_TYPE)) {
+			SKIN_BY_TYPE.put(BlockGaiaHead.GAIA_TYPE, DefaultPlayerSkin.getDefaultSkin());
+		}
 	}
 
 	/**
