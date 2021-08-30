@@ -65,6 +65,11 @@ public class TilePrism extends TileExposedSimpleInventory {
 			public boolean canPlaceItem(int index, ItemStack stack) {
 				return !stack.isEmpty() && stack.getItem() instanceof ILens;
 			}
+
+			@Override
+			public int getMaxStackSize() {
+				return 1;
+			}
 		};
 	}
 

@@ -130,31 +130,31 @@ public final class ModItems {
 	public static final Item elfQuartz = new Item(defaultBuilder());
 	public static final Item sunnyQuartz = new Item(defaultBuilder());
 
-	public static final Item lensNormal = new ItemLens(unstackable(), new Lens(), ItemLens.PROP_NONE);
-	public static final Item lensSpeed = new ItemLens(unstackable(), new LensSpeed(), ItemLens.PROP_NONE);
-	public static final Item lensPower = new ItemLens(unstackable(), new LensPower(), ItemLens.PROP_POWER);
-	public static final Item lensTime = new ItemLens(unstackable(), new LensTime(), ItemLens.PROP_NONE);
-	public static final Item lensEfficiency = new ItemLens(unstackable(), new LensEfficiency(), ItemLens.PROP_NONE);
-	public static final Item lensBounce = new ItemLens(unstackable(), new LensBounce(), ItemLens.PROP_TOUCH);
-	public static final Item lensGravity = new ItemLens(unstackable(), new LensGravity(), ItemLens.PROP_ORIENTATION);
-	public static final Item lensMine = new ItemLens(unstackable(), new LensMine(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensDamage = new ItemLens(unstackable(), new LensDamage(), ItemLens.PROP_DAMAGE);
-	public static final Item lensPhantom = new ItemLens(unstackable(), new LensPhantom(), ItemLens.PROP_TOUCH);
-	public static final Item lensMagnet = new ItemLens(unstackable(), new LensMagnet(), ItemLens.PROP_ORIENTATION);
-	public static final Item lensExplosive = new ItemLens(unstackable(), new LensExplosive(), ItemLens.PROP_DAMAGE | ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensInfluence = new ItemLens(unstackable(), new LensInfluence(), ItemLens.PROP_NONE);
-	public static final Item lensWeight = new ItemLens(unstackable(), new LensWeight(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensPaint = new ItemLens(unstackable(), new LensPaint(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensFire = new ItemLens(unstackable(), new LensFire(), ItemLens.PROP_DAMAGE | ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensPiston = new ItemLens(unstackable(), new LensPiston(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensLight = new ItemLens(unstackable(), new LensLight(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensWarp = new ItemLens(unstackable(), new LensWarp(), ItemLens.PROP_NONE);
-	public static final Item lensRedirect = new ItemLens(unstackable(), new LensRedirect(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
-	public static final Item lensFirework = new ItemLens(unstackable(), new LensFirework(), ItemLens.PROP_TOUCH);
-	public static final Item lensFlare = new ItemLens(unstackable(), new LensFlare(), ItemLens.PROP_CONTROL);
-	public static final Item lensMessenger = new ItemLens(unstackable(), new LensMessenger(), ItemLens.PROP_POWER);
-	public static final Item lensTripwire = new ItemLens(unstackable(), new LensTripwire(), ItemLens.PROP_CONTROL);
-	public static final Item lensStorm = new ItemLens(unstackable().rarity(Rarity.EPIC), new LensStorm(), ItemLens.PROP_NONE);
+	public static final Item lensNormal = new ItemLens(stackTo16(), new Lens(), ItemLens.PROP_NONE);
+	public static final Item lensSpeed = new ItemLens(stackTo16(), new LensSpeed(), ItemLens.PROP_NONE);
+	public static final Item lensPower = new ItemLens(stackTo16(), new LensPower(), ItemLens.PROP_POWER);
+	public static final Item lensTime = new ItemLens(stackTo16(), new LensTime(), ItemLens.PROP_NONE);
+	public static final Item lensEfficiency = new ItemLens(stackTo16(), new LensEfficiency(), ItemLens.PROP_NONE);
+	public static final Item lensBounce = new ItemLens(stackTo16(), new LensBounce(), ItemLens.PROP_TOUCH);
+	public static final Item lensGravity = new ItemLens(stackTo16(), new LensGravity(), ItemLens.PROP_ORIENTATION);
+	public static final Item lensMine = new ItemLens(stackTo16(), new LensMine(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
+	public static final Item lensDamage = new ItemLens(stackTo16(), new LensDamage(), ItemLens.PROP_DAMAGE);
+	public static final Item lensPhantom = new ItemLens(stackTo16(), new LensPhantom(), ItemLens.PROP_TOUCH);
+	public static final Item lensMagnet = new ItemLens(stackTo16(), new LensMagnet(), ItemLens.PROP_ORIENTATION);
+	public static final Item lensExplosive = new ItemLens(stackTo16(), new LensExplosive(), ItemLens.PROP_DAMAGE | ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
+	public static final Item lensInfluence = new ItemLens(stackTo16(), new LensInfluence(), ItemLens.PROP_NONE);
+	public static final Item lensWeight = new ItemLens(stackTo16(), new LensWeight(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
+	public static final Item lensPaint = new ItemLens(stackTo16(), new LensPaint(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
+	public static final Item lensFire = new ItemLens(stackTo16(), new LensFire(), ItemLens.PROP_DAMAGE | ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
+	public static final Item lensPiston = new ItemLens(stackTo16(), new LensPiston(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
+	public static final Item lensLight = new ItemLens(stackTo16(), new LensLight(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
+	public static final Item lensWarp = new ItemLens(stackTo16(), new LensWarp(), ItemLens.PROP_NONE);
+	public static final Item lensRedirect = new ItemLens(stackTo16(), new LensRedirect(), ItemLens.PROP_TOUCH | ItemLens.PROP_INTERACTION);
+	public static final Item lensFirework = new ItemLens(stackTo16(), new LensFirework(), ItemLens.PROP_TOUCH);
+	public static final Item lensFlare = new ItemLens(stackTo16(), new LensFlare(), ItemLens.PROP_CONTROL);
+	public static final Item lensMessenger = new ItemLens(stackTo16(), new LensMessenger(), ItemLens.PROP_POWER);
+	public static final Item lensTripwire = new ItemLens(stackTo16(), new LensTripwire(), ItemLens.PROP_CONTROL);
+	public static final Item lensStorm = new ItemLens(stackTo16().rarity(Rarity.EPIC), new LensStorm(), ItemLens.PROP_NONE);
 
 	public static final Item runeWater = new ItemRune(defaultBuilder());
 	public static final Item runeFire = new ItemRune(defaultBuilder());
@@ -395,6 +395,11 @@ public final class ModItems {
 
 	public static FabricItemSettings defaultBuilder() {
 		return new FabricItemSettings().group(BotaniaCreativeTab.INSTANCE);
+	}
+
+	private static FabricItemSettings stackTo16() {
+		return defaultBuilder().maxCount(16);
+
 	}
 
 	private static FabricItemSettings unstackable() {

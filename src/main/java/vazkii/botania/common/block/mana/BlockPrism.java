@@ -119,11 +119,15 @@ public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IM
 		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
 
 		if (lens.isEmpty() && isHeldItemLens) {
+			ItemStack toInsert;
 			if (!player.getAbilities().instabuild) {
-				player.setItemInHand(hand, ItemStack.EMPTY);
+				toInsert = heldItem.split(1);
+			} else {
+				toInsert = heldItem.copy();
+				toInsert.setCount(1);
 			}
 
-			prism.getItemHandler().setItem(0, heldItem.copy());
+			prism.getItemHandler().setItem(0, toInsert);
 		} else if (!lens.isEmpty()) {
 			player.getInventory().placeItemBackInInventory(lens);
 			prism.getItemHandler().setItem(0, ItemStack.EMPTY);

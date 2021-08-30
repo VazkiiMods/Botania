@@ -68,7 +68,8 @@ public class ManaGunLensRecipe extends CustomRecipe {
 				if (stack.getItem() instanceof ItemManaGun) {
 					gun = stack;
 				} else if (stack.getItem() instanceof ILens) {
-					lens = stack;
+					lens = stack.copy();
+					lens.setCount(1);
 				}
 			}
 		}

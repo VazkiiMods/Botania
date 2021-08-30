@@ -144,11 +144,15 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 		}
 
 		if (lens.isEmpty() && isHeldItemLens) {
+			ItemStack toInsert;
 			if (!player.getAbilities().instabuild) {
-				player.setItemInHand(hand, ItemStack.EMPTY);
+				toInsert = heldItem.split(1);
+			} else {
+				toInsert = heldItem.copy();
+				toInsert.setCount(1);
 			}
 
-			spreader.getItemHandler().setItem(0, heldItem.copy());
+			spreader.getItemHandler().setItem(0, toInsert);
 		} else if (!lens.isEmpty() && !wool) {
 			player.getInventory().placeItemBackInInventory(lens);
 			spreader.getItemHandler().setItem(0, ItemStack.EMPTY);
