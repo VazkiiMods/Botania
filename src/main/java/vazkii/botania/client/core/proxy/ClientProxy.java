@@ -197,7 +197,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		registerPropertyGetter(ModItems.blackHoleTalisman, prefix("active"),
 				(stack, world, entity, seed) -> ItemNBTHelper.getBoolean(stack, ItemBlackHoleTalisman.TAG_ACTIVE, false) ? 1 : 0);
 		registerPropertyGetter(ModItems.manaBottle, prefix("swigs_taken"),
-				(stack, world, entity, seed) -> ItemBottledMana.SWIGS - ItemBottledMana.getSwigsLeft(stack)); // todo 1.17 not clamped
+				(stack, world, entity, seed) -> ItemBottledMana.SWIGS - ItemBottledMana.getSwigsLeft(stack));
 
 		ResourceLocation vuvuzelaId = prefix("vuvuzela");
 		ClampedItemPropertyFunction isVuvuzela = (stack, world, entity, seed) -> stack.getHoverName().getString().toLowerCase(Locale.ROOT).contains("vuvuzela") ? 1 : 0;
@@ -230,7 +230,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 
 		ClampedItemPropertyFunction brewGetter = (stack, world, entity, seed) -> {
 			ItemBrewBase item = ((ItemBrewBase) stack.getItem());
-			return item.getSwigs() - item.getSwigsLeft(stack); // todo 1.17 not clamped
+			return item.getSwigs() - item.getSwigsLeft(stack);
 		};
 		registerPropertyGetter(ModItems.brewVial, prefix("swigs_taken"), brewGetter);
 		registerPropertyGetter(ModItems.brewFlask, prefix("swigs_taken"), brewGetter);
@@ -269,7 +269,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 				ItemLivingwoodBow item = ((ItemLivingwoodBow) stack.getItem());
 				return entity.getUseItem() != stack
 						? 0.0F
-						: (stack.getUseDuration() - entity.getUseItemRemainingTicks()) * item.chargeVelocityMultiplier() / 20.0F; // todo 1.17 make sure this is sufficiently clamped or apply more clamping if needed
+						: (stack.getUseDuration() - entity.getUseItemRemainingTicks()) * item.chargeVelocityMultiplier() / 20.0F;
 			}
 		};
 		registerPropertyGetter(ModItems.livingwoodBow, new ResourceLocation("pulling"), pulling);
