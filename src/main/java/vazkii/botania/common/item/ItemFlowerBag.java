@@ -27,6 +27,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -37,6 +38,8 @@ import vazkii.botania.client.gui.bag.ContainerFlowerBag;
 import vazkii.botania.common.block.BlockModFlower;
 
 import javax.annotation.Nonnull;
+
+import java.util.stream.IntStream;
 
 public class ItemFlowerBag extends Item {
 	public static final int SIZE = 16;
@@ -56,7 +59,7 @@ public class ItemFlowerBag extends Item {
 		return new ItemBackedInventory(stack, SIZE) {
 			@Override
 			public boolean canPlaceItem(int slot, @Nonnull ItemStack stack) {
-				return canPlaceItem(slot, stack);
+				return isValid(slot, stack);
 			}
 		};
 	}
@@ -154,5 +157,15 @@ public class ItemFlowerBag extends Item {
 			return InteractionResult.SUCCESS;
 		}
 		return InteractionResult.PASS;
+	}
+
+	@Override
+	public void onDestroyed(@Nonnull ItemEntity entity) {
+		var container = getInventory(entity.getItem());
+		var stream = IntStream.range(0, container.getContainerSize())
+				.mapToObj(container::getItem)
+				.filter(s -> !s.isEmpty());
+		ItemUtils.onContainerDestroyed(entity, stream);
+		container.clearContent();
 	}
 }

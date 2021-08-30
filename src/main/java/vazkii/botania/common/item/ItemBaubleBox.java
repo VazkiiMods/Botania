@@ -16,17 +16,21 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.level.Level;
 
 import vazkii.botania.client.gui.box.ContainerBaubleBox;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 
 import javax.annotation.Nonnull;
+
+import java.util.stream.IntStream;
 
 public class ItemBaubleBox extends Item {
 	public static final int SIZE = 24;
@@ -68,5 +72,15 @@ public class ItemBaubleBox extends Item {
 			player.openMenu(container);
 		}
 		return InteractionResultHolder.success(player.getItemInHand(hand));
+	}
+
+	@Override
+	public void onDestroyed(@Nonnull ItemEntity entity) {
+		var container = getInventory(entity.getItem());
+		var stream = IntStream.range(0, container.getContainerSize())
+				.mapToObj(container::getItem)
+				.filter(s -> !s.isEmpty());
+		ItemUtils.onContainerDestroyed(entity, stream);
+		container.clearContent();
 	}
 }
