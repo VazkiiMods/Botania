@@ -101,8 +101,9 @@ public class ExoflameFurnaceHandler {
 
 		@Override
 		public void boostCookTime() {
-			int cookTime = ((AccessorAbstractFurnaceTileEntity) furnace).getCookTime();
-			((AccessorAbstractFurnaceTileEntity) furnace).setCookTime(Math.min(currentRecipe.getCookTime() - 1, cookTime + 1));
+			int cookTime = ((AccessorAbstractFurnaceTileEntity) furnace).getCurrentCookTime();
+			int cookTimeTotal = ((AccessorAbstractFurnaceTileEntity) furnace).getCookTimeTotal();
+			((AccessorAbstractFurnaceTileEntity) furnace).setCookTime(Math.min(cookTimeTotal - 1, cookTime + 1));
 		}
 	}
 }
