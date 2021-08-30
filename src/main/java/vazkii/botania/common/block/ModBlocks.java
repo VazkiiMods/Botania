@@ -286,9 +286,9 @@ public final class ModBlocks {
 	public static final Block craftCrate = new BlockCraftyCrate(Properties.from(livingwood));
 	public static final Block forestEye = new BlockForestEye(Properties.create(Material.IRON).hardnessAndResistance(5, 10).sound(SoundType.METAL));
 	public static final Block solidVines = new BlockSolidVines(Properties.create(Material.TALL_PLANTS).hardnessAndResistance(0.2F).sound(SoundType.PLANT).notSolid());
-	public static final Block abstrusePlatform = new BlockPlatform(BlockPlatform.Variant.ABSTRUSE, Properties.create(Material.WOOD).hardnessAndResistance(2, 5).sound(SoundType.WOOD).notSolid().variableOpacity());
+	public static final Block abstrusePlatform = new BlockPlatform(BlockPlatform.Variant.ABSTRUSE, Properties.create(Material.WOOD).hardnessAndResistance(2, 5).sound(SoundType.WOOD).notSolid().variableOpacity().setAllowsSpawn(NO_SPAWN));
 	public static final Block spectralPlatform = new BlockPlatform(BlockPlatform.Variant.SPECTRAL, Properties.from(abstrusePlatform));
-	public static final Block infrangiblePlatform = new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, Properties.create(Material.WOOD).hardnessAndResistance(-1, Float.MAX_VALUE).sound(SoundType.WOOD).notSolid().variableOpacity());
+	public static final Block infrangiblePlatform = new BlockPlatform(BlockPlatform.Variant.INFRANGIBLE, Properties.create(Material.WOOD).hardnessAndResistance(-1, Float.MAX_VALUE).sound(SoundType.WOOD).notSolid().variableOpacity().setAllowsSpawn(NO_SPAWN));
 	public static final Block tinyPotato = new BlockTinyPotato(Properties.create(Material.WOOL).hardnessAndResistance(0.25F));
 	public static final Block enderEye = new BlockEnderEye(Properties.from(manasteelBlock));
 	public static final Block redStringContainer = new BlockRedStringContainer(Properties.from(livingrock));
