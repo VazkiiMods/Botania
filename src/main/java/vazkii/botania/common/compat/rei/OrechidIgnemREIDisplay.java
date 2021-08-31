@@ -13,11 +13,9 @@ import net.minecraft.world.level.block.Blocks;
 
 import org.jetbrains.annotations.NotNull;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.internal.OrechidOutput;
 
 import java.util.Collections;
-import java.util.List;
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryIngredients;

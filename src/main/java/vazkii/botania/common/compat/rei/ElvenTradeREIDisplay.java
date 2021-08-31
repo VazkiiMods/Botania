@@ -12,7 +12,6 @@ import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.common.block.tile.TileAlfPortal;
-import vazkii.botania.common.crafting.RecipeElvenTrade;
 
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;

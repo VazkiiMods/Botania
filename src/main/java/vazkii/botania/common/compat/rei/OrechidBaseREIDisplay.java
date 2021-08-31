@@ -10,13 +10,12 @@ package vazkii.botania.common.compat.rei;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.api.internal.OrechidOutput;
+import vazkii.botania.common.crafting.StateIngredientHelper;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,7 +24,6 @@ import java.util.stream.Collectors;
 import me.shedaniel.rei.api.common.display.Display;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryStacks;
-import vazkii.botania.common.crafting.StateIngredientHelper;
 
 @Environment(EnvType.CLIENT)
 public abstract class OrechidBaseREIDisplay implements Display {
@@ -34,7 +32,7 @@ public abstract class OrechidBaseREIDisplay implements Display {
 
 	public OrechidBaseREIDisplay(OrechidOutput recipe, int totalWeight) {
 		final int myWeight = recipe.getWeight();
-		final int amount =  Math.max(1, Math.round((float) (myWeight * 64) / totalWeight));
+		final int amount = Math.max(1, Math.round((float) (myWeight * 64) / totalWeight));
 
 		List<ItemStack> stackList = StateIngredientHelper.toStackList(recipe.getOutput());
 		for (ItemStack stack : stackList) {

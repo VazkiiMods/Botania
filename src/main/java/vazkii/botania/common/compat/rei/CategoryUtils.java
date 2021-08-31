@@ -15,11 +15,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
-import net.minecraft.world.level.block.Block;
 
-import java.util.Map;
 
 import me.shedaniel.math.Point;
 import me.shedaniel.math.Rectangle;
