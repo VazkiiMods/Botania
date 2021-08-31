@@ -11,6 +11,7 @@ package vazkii.botania.common.item.rod;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -105,17 +106,22 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 		}
 	}
 
-	/* todo 1.16-fabric
 	@Override
-	public boolean showDurabilityBar(ItemStack stack) {
+	public boolean isBarVisible(@Nonnull ItemStack stack) {
 		return getFlyCounter(stack) > 0;
 	}
-	
+
 	@Override
-	public double getDurabilityForDisplay(ItemStack stack) {
-		return getFlyCounter(stack) / (double) MAX_COUNTER;
+	public int getBarWidth(@Nonnull ItemStack stack) {
+		float frac = 1 - (getFlyCounter(stack) / (float) MAX_COUNTER);
+		return Math.round(13 * frac);
 	}
-	*/
+
+	@Override
+	public int getBarColor(@Nonnull ItemStack stack) {
+		float frac = 1 - (getFlyCounter(stack) / (float) MAX_COUNTER);
+		return Mth.hsvToRgb(frac / 3.0F, 1.0F, 1.0F);
+	}
 
 	@Nonnull
 	@Override
