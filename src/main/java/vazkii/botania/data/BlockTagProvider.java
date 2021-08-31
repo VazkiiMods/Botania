@@ -156,6 +156,10 @@ public class BlockTagProvider extends BlockTagsProvider {
 		for (DyeColor color : DyeColor.values()) {
 			this.getOrCreateBuilder(ModTags.Blocks.MUSHROOMS).add(ModBlocks.getMushroom(color));
 		}
+
+		getOrCreateBuilder(BlockTags.makeWrapperTag("buzzier_bees:flower_blacklist"))
+				.addTag(ModTags.Blocks.MYSTICAL_FLOWERS)
+				.addTag(ModTags.Blocks.SPECIAL_FLOWERS);
 	}
 
 	@Nonnull
