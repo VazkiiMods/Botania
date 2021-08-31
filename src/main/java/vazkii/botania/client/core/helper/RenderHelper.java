@@ -108,13 +108,14 @@ public final class RenderHelper extends RenderType {
 		RECTANGLE = makeLayer(LibResources.PREFIX_MOD + "rectangle_highlight", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 256, false, true, glState);
 		CIRCLE = makeLayer(LibResources.PREFIX_MOD + "circle_highlight", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.TRIANGLES, 256, false, false, glState);
 
-		LINE_1 = makeLayer(LibResources.PREFIX_MOD + "line_1", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 128, lineState(1, false));
-		LINE_1_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_1_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 128, lineState(1, true));
-		LINE_4_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_4_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 128, lineState(4, true));
-		LINE_5_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_5_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 64, lineState(5, true));
-		LINE_8_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_8_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 64, lineState(8, true));
+		LINE_1 = makeLayer(LibResources.PREFIX_MOD + "line_1", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 128, lineState(1, false, false));
+		LINE_1_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_1_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 128, lineState(1, true, true));
+		LINE_4_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_4_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 128, lineState(4, true, true));
+		LINE_5_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_5_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 64, lineState(5, true, true));
+		LINE_8_NO_DEPTH = makeLayer(LibResources.PREFIX_MOD + "line_8_no_depth", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.LINES, 64, lineState(8, true, true));
 
 		glState = RenderType.CompositeState.builder()
+				.setShaderState(POSITION_COLOR_TEX_LIGHTMAP_SHADER)
 				.setTextureState(RenderStateShard.BLOCK_SHEET_MIPPED)
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setOutputState(ITEM_ENTITY_TARGET)
@@ -125,15 +126,20 @@ public final class RenderHelper extends RenderType {
 		LIGHT_RELAY = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, lightRelay) : lightRelay;
 
 		glState = RenderType.CompositeState.builder().setTextureState(BLOCK_SHEET_MIPPED)
+				.setShaderState(POSITION_COLOR_TEX_LIGHTMAP_SHADER)
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setOutputState(ITEM_ENTITY_TARGET)
 				// todo 1.17 .setDiffuseLightingState(new RenderStateShard.DiffuseLightingStateShard(true))
 				// todo 1.17 .setAlphaState(oneTenthAlpha)
 				.setLightmapState(LIGHTMAP).createCompositeState(true);
 		ICON_OVERLAY = makeLayer(LibResources.PREFIX_MOD + "icon_overlay", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 128, glState);
+		MANA_POOL_WATER = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.MANA_POOL, null, ICON_OVERLAY) : ICON_OVERLAY;
+		TERRA_PLATE = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.TERRA_PLATE, null, ICON_OVERLAY) : ICON_OVERLAY;
+		ENCHANTER = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ENCHANTER_RUNE, null, ICON_OVERLAY) : ICON_OVERLAY;
 
 		RenderStateShard.TextureStateShard babylonTexture = new RenderStateShard.TextureStateShard(new ResourceLocation(LibResources.MISC_BABYLON), false, true);
 		glState = RenderType.CompositeState.builder().setTextureState(babylonTexture)
+				.setShaderState(POSITION_COLOR_TEX_SHADER)
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setOutputState(ITEM_ENTITY_TARGET)
 				.setCullState(NO_CULL)
@@ -143,12 +149,9 @@ public final class RenderHelper extends RenderType {
 		RenderType babylonIcon = makeLayer(LibResources.PREFIX_MOD + "babylon", DefaultVertexFormat.POSITION_COLOR_TEX, VertexFormat.Mode.QUADS, 64, glState);
 		BABYLON_ICON = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, babylonIcon) : babylonIcon;
 
-		MANA_POOL_WATER = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.MANA_POOL, null, ICON_OVERLAY) : ICON_OVERLAY;
-		TERRA_PLATE = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.TERRA_PLATE, null, ICON_OVERLAY) : ICON_OVERLAY;
-		ENCHANTER = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ENCHANTER_RUNE, null, ICON_OVERLAY) : ICON_OVERLAY;
-
 		RenderStateShard.TextureStateShard haloTexture = new RenderStateShard.TextureStateShard(ItemFlightTiara.textureHalo, false, true);
 		glState = RenderType.CompositeState.builder().setTextureState(haloTexture)
+				.setShaderState(POSITION_TEX_SHADER)
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				// todo 1.17 .setDiffuseLightingState(new RenderStateShard.DiffuseLightingStateShard(true))
 				// todo 1.17 .setAlphaState(oneTenthAlpha)
@@ -209,16 +212,18 @@ public final class RenderHelper extends RenderType {
 		*/
 	}
 
-	private static CompositeState lineState(double width, boolean noDepth) {
+	private static CompositeState lineState(double width, boolean direct, boolean noDepth) {
 		// [VanillaCopy] vanilla LINES layer with line width defined (and optionally depth disabled)
 		var builder = RenderType.CompositeState.builder()
 				.setShaderState(RENDERTYPE_LINES_SHADER)
 				.setLineState(new RenderStateShard.LineStateShard(OptionalDouble.of(width)))
 				.setLayeringState(VIEW_OFFSET_Z_LAYERING)
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
-				.setOutputState(ITEM_ENTITY_TARGET)
 				.setWriteMaskState(noDepth ? COLOR_WRITE : COLOR_DEPTH_WRITE)
 				.setCullState(NO_CULL);
+		if (!direct) {
+			builder = builder.setOutputState(ITEM_ENTITY_TARGET);
+		}
 		if (noDepth) {
 			builder = builder.setDepthTestState(NO_DEPTH_TEST);
 		}
@@ -227,6 +232,7 @@ public final class RenderHelper extends RenderType {
 
 	public static RenderType getHaloLayer(ResourceLocation texture) {
 		RenderType.CompositeState glState = RenderType.CompositeState.builder()
+				.setShaderState(RenderStateShard.POSITION_COLOR_TEX_SHADER)
 				.setTextureState(new RenderStateShard.TextureStateShard(texture, true, false))
 				.setCullState(new RenderStateShard.CullStateShard(false))
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY).createCompositeState(false);
