@@ -55,16 +55,4 @@ public interface CategoryUtils {
 		double newY = Math.sin(rad) * (in.x - about.x) + Math.cos(rad) * (in.y - about.y) + about.y;
 		return new Point((int) newX, (int) newY);
 	}
-
-	static boolean doesOreExist(ResourceLocation tagId) {
-		Tag<Block> tag = BlockTags.getAllTags().getTag(tagId);
-		return tag != null && !tag.getValues().isEmpty();
-	}
-
-	static float getTotalOreWeight(Map<ResourceLocation, Integer> weights, int myWeight) {
-		return (weights.entrySet().stream()
-				.filter(e -> doesOreExist(e.getKey()))
-				.map(Map.Entry::getValue)
-				.reduce(Integer::sum)).orElse(myWeight * 64 * 64);
-	}
 }

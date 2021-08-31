@@ -13,7 +13,6 @@ import com.google.common.collect.ImmutableSet;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -21,6 +20,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.ItemLike;
 
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.internal.OrechidOutput;
 import vazkii.botania.api.item.IAncientWillContainer;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModSubtiles;
@@ -35,7 +36,6 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static vazkii.botania.common.compat.rei.CategoryUtils.doesOreExist;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
@@ -51,7 +51,7 @@ import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCustomDisplay;
 public class BotaniaREIPlugin implements REIClientPlugin {
 	@Override
 	public void registerCategories(CategoryRegistry helper) {
-		helper.add(
+		helper.add(List.of(
 				new BreweryREICategory(),
 				new PureDaisyREICategory(),
 				new RunicAltarREICategory(),
@@ -60,7 +60,7 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 				new ManaPoolREICategory(),
 				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID, ModSubtiles.orechid),
 				new OrechidREICategory(BotaniaREICategoryIdentifiers.ORECHID_IGNEM, ModSubtiles.orechidIgnem)
-		);
+		));
 		Set<ItemLike> apothecaries = ImmutableSet.of(
 				ModBlocks.defaultAltar,
 				ModBlocks.desertAltar,
@@ -108,10 +108,9 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 
 		helper.registerFiller(RecipePetals.class, PetalApothecaryREIDisplay::new);
 		helper.registerFiller(RecipeBrew.class, BreweryREIDisplay::new);
-		// rawtyped predicate due to rei oversight?
-		Predicate<?> pred = (Recipe<?> recipe) -> recipe instanceof RecipeElvenTrade && recipe.getId().getNamespace().equals(LibMisc.MOD_ID) && !recipe.getId().getPath().contains("return");
-		helper.registerFiller(pred, x -> new ElvenTradeREIDisplay((RecipeElvenTrade) x));
-		helper.registerFiller(RecipeElvenTrade.class, ElvenTradeREIDisplay::new);
+		Predicate<? extends RecipeElvenTrade> pred = recipe -> recipe.getId().getNamespace().equals(LibMisc.MOD_ID) && !recipe.getId().getPath().contains("return");
+		helper.registerFiller(RecipeElvenTrade.class, pred, ElvenTradeREIDisplay::new);
+		helper.registerFiller(LexiconElvenTradeRecipe.class, ElvenTradeREIDisplay::new);
 		helper.registerFiller(RecipeManaInfusion.class, ManaPoolREIDisplay::new);
 		registerOrechidRecipes(helper, false);
 		registerOrechidRecipes(helper, true);
@@ -180,17 +179,13 @@ public class BotaniaREIPlugin implements REIClientPlugin {
 	}
 
 	void registerOrechidRecipes(DisplayRegistry helper, boolean isIgnem) {
-		Map<ResourceLocation, Integer> oreWeights = Collections.emptyMap(); // todo 1.17-fabric read the new json data, isIgnem ? BotaniaAPI.instance().getNetherOrechidWeights() : BotaniaAPI.instance().getOrechidWeights();
-		List<OrechidRecipeWrapper> orechidRecipes = oreWeights.entrySet().stream()
-				.filter(e -> doesOreExist(e.getKey()))
-				.map(OrechidRecipeWrapper::new)
-				.sorted()
-				.collect(Collectors.toList());
-		for (OrechidRecipeWrapper recipe : orechidRecipes) {
+		var oreWeights = isIgnem ? BotaniaAPI.instance().getNetherOrechidWeights() : BotaniaAPI.instance().getOrechidWeights();
+		int totalWeight = oreWeights.stream().mapToInt(OrechidOutput::getWeight).sum();
+		for (OrechidOutput recipe : oreWeights) {
 			if (isIgnem) {
-				helper.add(new OrechidIgnemREIDisplay(recipe));
+				helper.add(new OrechidIgnemREIDisplay(recipe, totalWeight));
 			} else {
-				helper.add(new OrechidREIDisplay(recipe));
+				helper.add(new OrechidREIDisplay(recipe, totalWeight));
 			}
 		}
 	}

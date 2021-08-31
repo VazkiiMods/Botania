@@ -64,14 +64,12 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
  * with an additional {@code weight} integer value.</li>
  * </ul>
  * </p>
- *
- * @see vazkii.botania.common.integration.crafttweaker.OrechidManager CraftTweaker Orechid integration
  */
 public class OrechidResourceListener extends SimplePreparableReloadListener<OrechidResourceListener.Data> implements IdentifiableResourceReloadListener {
 	private static final Gson GSON = new Gson();
 
 	public static void registerListener() {
-		ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new OrechidResourceListener());
+		ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(new OrechidResourceListener());
 	}
 
 	@Nonnull

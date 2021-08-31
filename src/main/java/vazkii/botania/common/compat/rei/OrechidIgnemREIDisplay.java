@@ -23,14 +23,9 @@ import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 
 public class OrechidIgnemREIDisplay extends OrechidBaseREIDisplay {
-	public OrechidIgnemREIDisplay(OrechidRecipeWrapper recipe) {
-		super(recipe);
+	public OrechidIgnemREIDisplay(OrechidOutput recipe, int totalWeight) {
+		super(recipe, totalWeight);
 		this.stone = Collections.singletonList(EntryIngredients.of(new ItemStack(Blocks.NETHERRACK, 64)));
-	}
-
-	@Override
-	protected List<OrechidOutput> getOreWeights() {
-		return BotaniaAPI.instance().getNetherOrechidWeights();
 	}
 
 	@Override

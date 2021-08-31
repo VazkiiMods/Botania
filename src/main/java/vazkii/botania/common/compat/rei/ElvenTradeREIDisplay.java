@@ -10,6 +10,7 @@ package vazkii.botania.common.compat.rei;
 
 import org.jetbrains.annotations.NotNull;
 
+import vazkii.botania.api.recipe.IElvenTradeRecipe;
 import vazkii.botania.common.block.tile.TileAlfPortal;
 import vazkii.botania.common.crafting.RecipeElvenTrade;
 
@@ -17,9 +18,9 @@ import vazkii.botania.common.crafting.RecipeElvenTrade;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 
-public class ElvenTradeREIDisplay extends BotaniaRecipeDisplay<RecipeElvenTrade> {
+public class ElvenTradeREIDisplay extends BotaniaRecipeDisplay<IElvenTradeRecipe> {
 
-	public ElvenTradeREIDisplay(RecipeElvenTrade recipe) {
+	public ElvenTradeREIDisplay(IElvenTradeRecipe recipe) {
 		super(recipe);
 		this.outputs = EntryIngredients.ofItemStacks(recipe.getOutputs());
 	}
