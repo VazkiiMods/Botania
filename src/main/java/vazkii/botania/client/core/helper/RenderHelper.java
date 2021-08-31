@@ -24,6 +24,7 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.blockentity.TheEndPortalRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.BakedModel;
@@ -75,6 +76,7 @@ public final class RenderHelper extends RenderType {
 	public static final RenderType GAIA_PYLON_GLOW_DIRECT = getPylonGlowDirect("gaia_pylon_glow_direct", RenderTilePylon.GAIA_TEXTURE);
 
 	public static final RenderType ASTROLABE_PREVIEW;
+	public static final RenderType STARFIELD;
 
 	private static RenderType makeLayer(String name, VertexFormat format, VertexFormat.Mode mode,
 			int bufSize, boolean hasCrumbling, boolean sortOnUpload, CompositeState glState) {
@@ -165,6 +167,15 @@ public final class RenderHelper extends RenderType {
 		};
 		RenderType astrolabePreview = makeLayer(LibResources.PREFIX_MOD + "astrolabe_preview", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, glState);
 		ASTROLABE_PREVIEW = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ALPHA, cb, astrolabePreview) : astrolabePreview;
+
+		// [VanillaCopy] End portal, with own shader
+		glState = RenderType.CompositeState.builder()
+				.setShaderState(new ShaderStateShard(CoreShaders::starfield))
+				.setTextureState(RenderStateShard.MultiTextureStateShard.builder()
+						.add(TheEndPortalRenderer.END_SKY_LOCATION, false, false)
+						.add(TheEndPortalRenderer.END_PORTAL_LOCATION, false, false).build())
+				.createCompositeState(false);
+		STARFIELD = makeLayer(LibResources.PREFIX_MOD + "starfield", DefaultVertexFormat.POSITION, VertexFormat.Mode.QUADS, 256, false, false, glState);
 	}
 
 	private RenderHelper(String string, VertexFormat vertexFormat, VertexFormat.Mode mode, int i, boolean bl, boolean bl2, Runnable runnable, Runnable runnable2) {
