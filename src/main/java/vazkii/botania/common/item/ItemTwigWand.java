@@ -17,6 +17,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -359,15 +360,13 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		list.add(new TranslatableComponent(getModeString(stack)).withStyle(ChatFormatting.GRAY));
 	}
 
-	/* todo 1.16-fabric
 	@Override
-	public Text getHighlightTip(ItemStack stack, Text displayName) {
-		Text mode = new LiteralText(" (")
-				.append(new TranslatableText(getModeString(stack)).formatted(Formatting.DARK_GREEN))
+	public Component getName(@Nonnull ItemStack stack) {
+		Component mode = new TextComponent(" (")
+				.append(new TranslatableComponent(getModeString(stack)).withStyle(ChatFormatting.DARK_GREEN))
 				.append(")");
-		return displayName.shallowCopy().append(mode);
+		return super.getName(stack).plainCopy().append(mode);
 	}
-	*/
 
 	public static ItemStack forColors(int color1, int color2) {
 		ItemStack stack = new ItemStack(ModItems.twigWand);
