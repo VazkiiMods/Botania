@@ -45,8 +45,8 @@ public final class ColorHelper {
 	public static int getColorValue(DyeColor color) {
 		float[] colors = color.getTextureDiffuseColors();
 		int r = (int) (colors[0] * 255.0F);
-		int g = (int) (colors[0] * 255.0F);
-		int b = (int) (colors[0] * 255.0F);
+		int g = (int) (colors[1] * 255.0F);
+		int b = (int) (colors[2] * 255.0F);
 		return (r << 16) | (g << 8) | b;
 	}
 
