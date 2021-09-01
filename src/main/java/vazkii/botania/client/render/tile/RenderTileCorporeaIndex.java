@@ -20,6 +20,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
 
+import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
@@ -44,8 +45,17 @@ public class RenderTileCorporeaIndex extends TileEntityRenderer<TileCorporeaInde
 	public void render(@Nullable TileCorporeaIndex index, float partialTicks, MatrixStack ms, IRenderTypeBuffer buffers, int light, int overlay) {
 		ms.push();
 		ms.translate(0.5, 0, 0.5);
-		float translation = index != null ? (float) ((Math.cos((index.ticksWithCloseby + (index.hasCloseby ? partialTicks : 0)) / 10F) * 0.5 + 0.5) * 0.25) : 0F;
-		float rotation = index != null ? index.ticks * 2 + partialTicks : 0F;
+		
+		float rotation = (ClientTickHandler.ticksInGame + partialTicks) * 2;
+		float translation;
+		if(index == null) { //TEISR
+			ms.scale(1.3f, 1.3f, 1.3f);
+			ms.translate(0, -0.1, 0);
+			translation = 0;
+		} else {
+			translation = (float) ((Math.cos((index.ticksWithCloseby + (index.hasCloseby ? partialTicks : 0)) / 10F) * 0.5 + 0.5) * 0.25);
+		}
+		
 		IVertexBuilder buffer = buffers.getBuffer(LAYER);
 		ms.push();
 		ms.translate(0.0D, -1, 0.0D);
