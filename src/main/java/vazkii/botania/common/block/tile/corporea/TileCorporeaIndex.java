@@ -17,6 +17,8 @@ import net.minecraft.util.Util;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ServerChatEvent;
 
@@ -305,7 +307,14 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		super.onChunkUnloaded();
 		removeIndex(this);
 	}
-
+	
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public AxisAlignedBB getRenderBoundingBox() {
+		//The tile entity renderer can draw pink stars fairly far away from the index itself, this helps it not get culled too early.
+		return new AxisAlignedBB(pos.add(-2, 0, -2), pos.add(3, 1, 3));
+	}
+	
 	@Override
 	public void doCorporeaRequest(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark) {
 		doRequest(request, count, spark);
