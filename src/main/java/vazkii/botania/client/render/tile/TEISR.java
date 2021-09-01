@@ -22,6 +22,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.LazyValue;
 import net.minecraft.util.registry.Registry;
+import vazkii.botania.client.core.handler.ClientTickHandler;
 
 public class TEISR extends ItemStackTileEntityRenderer {
 	private final Block block;
@@ -40,7 +41,7 @@ public class TEISR extends ItemStackTileEntityRenderer {
 		if (stack.getItem() == block.asItem()) {
 			TileEntityRenderer<?> r = TileEntityRendererDispatcher.instance.getRenderer(dummy.getValue());
 			if (r != null) {
-				r.render(null, 0, ms, buffers, light, overlay);
+				r.render(null, ClientTickHandler.partialTicks, ms, buffers, light, overlay);
 			}
 		}
 	}
