@@ -256,7 +256,6 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		});
 	}
 
-	public int ticks = 0;
 	public int ticksWithCloseby = 0;
 	public float closeby = 0F;
 	public boolean hasCloseby;
@@ -281,7 +280,6 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		}
 
 		float step = 0.2F;
-		ticks++;
 		if (hasCloseby) {
 			ticksWithCloseby++;
 			if (closeby < 1F) {
