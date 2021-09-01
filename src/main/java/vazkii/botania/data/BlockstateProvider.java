@@ -249,7 +249,7 @@ public class BlockstateProvider extends BlockStateProvider {
 		particleOnly(remainingBlocks, avatar, prefix("block/livingwood"));
 		particleOnly(remainingBlocks, bellows, prefix("block/livingwood"));
 		particleOnly(remainingBlocks, brewery, prefix("block/livingrock"));
-		particleOnly(remainingBlocks, corporeaIndex, prefix("block/elementium_block"));
+		particleOnly(remainingBlocks, corporeaIndex, prefix("block/corporea_block"));
 		particleOnly(remainingBlocks, lightRelayDetector, prefix("block/detector_light_relay"));
 		simpleBlock(fakeAir, models().getBuilder(Registry.BLOCK.getKey(ModBlocks.fakeAir).getPath()));
 		remainingBlocks.remove(fakeAir);

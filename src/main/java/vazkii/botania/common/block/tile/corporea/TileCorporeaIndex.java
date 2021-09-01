@@ -17,6 +17,8 @@ import net.minecraft.util.Util;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ServerChatEvent;
 
@@ -256,7 +258,6 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		});
 	}
 
-	public int ticks = 0;
 	public int ticksWithCloseby = 0;
 	public float closeby = 0F;
 	public boolean hasCloseby;
@@ -281,7 +282,6 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 		}
 
 		float step = 0.2F;
-		ticks++;
 		if (hasCloseby) {
 			ticksWithCloseby++;
 			if (closeby < 1F) {
@@ -306,6 +306,13 @@ public class TileCorporeaIndex extends TileCorporeaBase implements ICorporeaRequ
 	public void onChunkUnloaded() {
 		super.onChunkUnloaded();
 		removeIndex(this);
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public AxisAlignedBB getRenderBoundingBox() {
+		//The tile entity renderer can draw pink stars fairly far away from the index itself, this helps it not get culled too early.
+		return new AxisAlignedBB(pos.add(-2, 0, -2), pos.add(3, 1, 3));
 	}
 
 	@Override
