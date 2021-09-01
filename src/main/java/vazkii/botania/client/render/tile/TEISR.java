@@ -22,6 +22,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.LazyValue;
 import net.minecraft.util.registry.Registry;
+
 import vazkii.botania.client.core.handler.ClientTickHandler;
 
 public class TEISR extends ItemStackTileEntityRenderer {

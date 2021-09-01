@@ -14,7 +14,6 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 
 import vazkii.botania.common.block.BlockModWaterloggable;
@@ -29,7 +28,7 @@ public class BlockCorporeaIndex extends BlockModWaterloggable implements ITileEn
 	public BlockCorporeaIndex(Properties builder) {
 		super(builder);
 	}
-	
+
 	@Nonnull
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
