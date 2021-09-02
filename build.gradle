@@ -19,7 +19,7 @@ if (System.getenv().RELEASE_MODE == null) {
 group = "vazkii.botania"
 archivesBaseName = "${ext.config.mod_name}"
 
-//compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation" << "-Werror"
+compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation" << "-Werror"
 
 minecraft {
     accessWidener "src/main/resources/botania.accesswidener"
