@@ -8,46 +8,39 @@
  */
 package vazkii.botania.common.block;
 
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.entity.BannerPattern;
+import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPattern;
+import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPatterns;
+import net.minecraft.core.Registry;
 
-import vazkii.botania.common.item.ModItems;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ModBanners {
-
-	public static final Map<Item, BannerPattern> PATTERNS = new LinkedHashMap<>();
+	
+	public static LoomPattern FLOWER, LEXICON, LOGO, SAPLING, TINY_POTATO;
+	public static LoomPattern SPARK_DISPERSIVE, SPARK_DOMINANT, SPARK_RECESSIVE, SPARK_ISOLATED;
+	public static LoomPattern FISH, AXE, HOE, PICKAXE, SHOVEL, SWORD;
 
 	public static void init() {
-		addPattern("flower", "flr", ModItems.livingwoodTwig);
-		addPattern("lexicon", "lex", ModItems.lexicon);
-		addPattern("logo", "lgo", ModItems.terrasteel);
-		addPattern("sapling", "spl", ModItems.dreamwoodTwig);
-		addPattern("tiny_potato", "tpt", ModBlocks.tinyPotato);
+		FLOWER = addPattern("flower", true);
+		LEXICON = addPattern("lexicon", true);
+		LOGO = addPattern("logo", false); //todo terrasteel
+		SAPLING = addPattern("sapling", true);
+		TINY_POTATO = addPattern("tiny_potato", false); //todo tiny potato :)
 
-		addPattern("spark_dispersive", "sds", ModItems.sparkUpgradeDispersive);
-		addPattern("spark_dominant", "sdm", ModItems.sparkUpgradeDominant);
-		addPattern("spark_recessive", "src", ModItems.sparkUpgradeRecessive);
-		addPattern("spark_isolated", "sis", ModItems.sparkUpgradeIsolated);
+		SPARK_DISPERSIVE = addPattern("spark_dispersive", true);
+		SPARK_DOMINANT = addPattern("spark_dominant", true);
+		SPARK_RECESSIVE = addPattern("spark_recessive", true);
+		SPARK_ISOLATED = addPattern("spark_isolated", true);
 
-		addPattern("fish", "fis", Items.COD);
-		addPattern("axe", "axe", Items.IRON_AXE);
-		addPattern("hoe", "hoe", Items.IRON_HOE);
-		addPattern("pickaxe", "pik", Items.IRON_PICKAXE);
-		addPattern("shovel", "shv", Items.IRON_SHOVEL);
-		addPattern("sword", "srd", Items.IRON_SWORD);
+		FISH = addPattern("fish", false); //todo cod
+		AXE = addPattern("axe", false); //todo iron axe
+		HOE = addPattern("hoe", false); //todo iron hoe
+		PICKAXE = addPattern("pickaxe", false); //todo iron pickaxe
+		SHOVEL = addPattern("shovel", false); //todo iron shovel
+		SWORD = addPattern("sword", false); //todo iron sword
 	}
 
-	private static void addPattern(String name, String id, ItemLike craftingItem) {
-		name = "botania_" + name;
-		id = "bt_" + id;
-		/* todo 1.16-fabric
-		BannerPattern pattern = BannerPattern.create(name.toUpperCase(Locale.ROOT), name, id, false);
-		PATTERNS.put(craftingItem.asItem().delegate, pattern);
-		*/
+	private static LoomPattern addPattern(String name, boolean special) {
+		return Registry.register(LoomPatterns.REGISTRY, prefix(name), new LoomPattern(special));
 	}
 }

@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item;
 
+import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPatternItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
@@ -102,7 +103,7 @@ public final class ModItems {
 	public static final Item manaSteel = new Item(defaultBuilder());
 	public static final Item manaPearl = new Item(defaultBuilder());
 	public static final Item manaDiamond = new Item(defaultBuilder());
-	public static final Item livingwoodTwig = new Item(defaultBuilder());
+	public static final Item livingwoodTwig = new LoomPatternItem(ModBanners.FLOWER, defaultBuilder());
 	public static final Item terrasteel = new ItemManaResource(defaultBuilder().rarity(Rarity.UNCOMMON));
 	public static final Item lifeEssence = new Item(defaultBuilder().rarity(Rarity.UNCOMMON));
 	public static final Item redstoneRoot = new Item(defaultBuilder());
@@ -110,7 +111,7 @@ public final class ModItems {
 	public static final Item pixieDust = new ItemElven(defaultBuilder());
 	public static final Item dragonstone = new ItemElven(defaultBuilder());
 	public static final Item redString = new Item(defaultBuilder());
-	public static final Item dreamwoodTwig = new Item(defaultBuilder());
+	public static final Item dreamwoodTwig = new LoomPatternItem(ModBanners.SAPLING, defaultBuilder());
 	public static final Item gaiaIngot = new ItemManaResource(defaultBuilder().rarity(Rarity.RARE));
 	public static final Item enderAirBottle = new ItemEnderAir(defaultBuilder());
 	public static final Item manaString = new Item(defaultBuilder());
@@ -305,10 +306,10 @@ public final class ModItems {
 	public static final Item necroVirus = new ItemVirus(defaultBuilder());
 	public static final Item nullVirus = new ItemVirus(defaultBuilder());
 	public static final Item spark = new ItemSpark(defaultBuilder());
-	public static final Item sparkUpgradeDispersive = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.DISPERSIVE);
-	public static final Item sparkUpgradeDominant = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.DOMINANT);
-	public static final Item sparkUpgradeRecessive = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.RECESSIVE);
-	public static final Item sparkUpgradeIsolated = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.ISOLATED);
+	public static final Item sparkUpgradeDispersive = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.DISPERSIVE, ModBanners.SPARK_DISPERSIVE);
+	public static final Item sparkUpgradeDominant = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.DOMINANT, ModBanners.SPARK_DOMINANT);
+	public static final Item sparkUpgradeRecessive = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.RECESSIVE, ModBanners.SPARK_RECESSIVE);
+	public static final Item sparkUpgradeIsolated = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.ISOLATED, ModBanners.SPARK_ISOLATED);
 	public static final Item corporeaSpark = new ItemCorporeaSpark(defaultBuilder());
 	public static final Item corporeaSparkMaster = new ItemCorporeaSpark(defaultBuilder());
 	public static final Item blackLotus = new ItemBlackLotus(defaultBuilder().rarity(Rarity.RARE));
@@ -701,7 +702,6 @@ public final class ModItems {
 		Registry<RecipeSerializer<?>> r = Registry.RECIPE_SERIALIZER;
 		register(r, "ancient_will_attach", AncientWillRecipe.SERIALIZER);
 		register(r, "armor_upgrade", ArmorUpgradeRecipe.SERIALIZER);
-		register(r, "banner_pattern_apply", BannerRecipe.SERIALIZER);
 		register(r, "black_hole_talisman_extract", BlackHoleTalismanExtractRecipe.SERIALIZER);
 		register(r, "composite_lens", CompositeLensRecipe.SERIALIZER);
 		register(r, "cosmetic_attach", CosmeticAttachRecipe.SERIALIZER);
@@ -723,8 +723,6 @@ public final class ModItems {
 		register(r, "gog_alternation", GogAlternationRecipe.SERIALIZER);
 
 		// todo 1.16-fabric replace with nbtcrafting CraftingHelper.register(prefix("fuzzy_nbt"), FuzzyNBTIngredient.SERIALIZER);
-
-		ModBanners.init();
 	}
 
 	@Environment(EnvType.CLIENT)

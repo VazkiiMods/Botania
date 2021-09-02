@@ -19,7 +19,7 @@ if (System.getenv().RELEASE_MODE == null) {
 group = "vazkii.botania"
 archivesBaseName = "${ext.config.mod_name}"
 
-compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation" << "-Werror"
+//compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation" << "-Werror"
 
 minecraft {
     accessWidener "src/main/resources/botania.accesswidener"
@@ -62,6 +62,9 @@ repositories {
     maven {
         url "https://maven.shedaniel.me/" // for rei
     }
+    maven {
+        url "https://server.bbkr.space/artifactory/libs-release/" // for banner++
+    }
 }
 
 test {
@@ -95,6 +98,9 @@ dependencies {
 
     modImplementation "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
     include "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
+
+    modImplementation 'io.github.fablabsmc:bannerpp:2.0.3+mc.1.17-rc1'
+    include 'io.github.fablabsmc:bannerpp:2.0.3+mc.1.17-rc1'
 
     // modImplementation "de.siphalor:nbtcrafting-1.16:2+"
 

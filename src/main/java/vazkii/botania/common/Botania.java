@@ -34,6 +34,7 @@ import vazkii.botania.api.corporea.CorporeaHelper;
 import vazkii.botania.api.mana.ManaNetworkCallback;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.common.advancements.*;
+import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.ModFluffBlocks;
 import vazkii.botania.common.block.ModSubtiles;
@@ -93,6 +94,7 @@ public class Botania implements ModInitializer {
 
 		EquipmentHandler.init();
 		ModFeatures.registerFeatures();
+		ModBanners.init();
 		ModItems.registerItems();
 		ModItems.registerRecipeSerializers();
 		ModEntities.registerEntities();

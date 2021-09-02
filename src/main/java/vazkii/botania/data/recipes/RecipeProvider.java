@@ -69,7 +69,6 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 	@Override
 	public void registerRecipes(Consumer<FinishedRecipe> consumer) {
 		specialRecipe(consumer, AncientWillRecipe.SERIALIZER);
-		specialRecipe(consumer, BannerRecipe.SERIALIZER);
 		specialRecipe(consumer, BlackHoleTalismanExtractRecipe.SERIALIZER);
 		specialRecipe(consumer, CompositeLensRecipe.SERIALIZER);
 		specialRecipe(consumer, CosmeticAttachRecipe.SERIALIZER);
