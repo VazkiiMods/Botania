@@ -20,8 +20,6 @@ import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
 
-import java.util.UUID;
-
 public final class ItemNBTHelper {
 
 	private static final int[] EMPTY_INT_ARRAY = new int[0];
@@ -73,10 +71,6 @@ public final class ItemNBTHelper {
 
 	public static void setString(ItemStack stack, String tag, String s) {
 		stack.getOrCreateTag().putString(tag, s);
-	}
-
-	public static void setUuid(ItemStack stack, String tag, UUID value) {
-		stack.getOrCreateTag().putUUID(tag, value);
 	}
 
 	public static void setList(ItemStack stack, String tag, ListTag list) {
@@ -140,11 +134,6 @@ public final class ItemNBTHelper {
 
 	public static String getString(ItemStack stack, String tag, String defaultExpected) {
 		return verifyExistance(stack, tag) ? stack.getOrCreateTag().getString(tag) : defaultExpected;
-	}
-
-	@Nullable
-	public static UUID getUuid(ItemStack stack, String tag) {
-		return verifyExistance(stack, tag + "Most") && verifyExistance(stack, tag + "Least") ? stack.getOrCreateTag().getUUID(tag) : null;
 	}
 
 	public static ListTag getList(ItemStack stack, String tag, int objtype, boolean nullifyOnFail) {

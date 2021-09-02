@@ -43,8 +43,7 @@ import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public abstract class ItemBauble extends Item implements ICosmeticAttachable, IPhantomInkable {
 
-	private static final String TAG_BAUBLE_UUID_MOST = "baubleUUIDMost";
-	private static final String TAG_BAUBLE_UUID_LEAST = "baubleUUIDLeast";
+	private static final String TAG_BAUBLE_UUID = "baubleUUID";
 	private static final String TAG_COSMETIC_ITEM = "cosmeticItem";
 	private static final String TAG_PHANTOM_INK = "phantomInk";
 
@@ -85,16 +84,22 @@ public abstract class ItemBauble extends Item implements ICosmeticAttachable, IP
 	}
 
 	public static UUID getBaubleUUID(ItemStack stack) {
-		long most = ItemNBTHelper.getLong(stack, TAG_BAUBLE_UUID_MOST, 0);
-		if (most == 0) {
-			UUID uuid = UUID.randomUUID();
-			ItemNBTHelper.setLong(stack, TAG_BAUBLE_UUID_MOST, uuid.getMostSignificantBits());
-			ItemNBTHelper.setLong(stack, TAG_BAUBLE_UUID_LEAST, uuid.getLeastSignificantBits());
-			return getBaubleUUID(stack);
+		var tag = stack.getOrCreateTag();
+
+		// Legacy handling
+		String tagBaubleUuidMostLegacy = "baubleUUIDMost";
+		String tagBaubleUuidLeastLegacy = "baubleUUIDLeast";
+		if (tag.contains(tagBaubleUuidMostLegacy) && tag.contains(tagBaubleUuidLeastLegacy)) {
+			UUID uuid = new UUID(tag.getLong(tagBaubleUuidMostLegacy), tag.getLong(tagBaubleUuidLeastLegacy));
+			tag.putUUID(TAG_BAUBLE_UUID, uuid);
 		}
 
-		long least = ItemNBTHelper.getLong(stack, TAG_BAUBLE_UUID_LEAST, 0);
-		return new UUID(most, least);
+		if (!tag.hasUUID(TAG_BAUBLE_UUID)) {
+			UUID uuid = UUID.randomUUID();
+			tag.putUUID(TAG_BAUBLE_UUID, uuid);
+		}
+
+		return tag.getUUID(TAG_BAUBLE_UUID);
 	}
 
 	@Override

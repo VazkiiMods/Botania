@@ -63,8 +63,6 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 	private static final double PINGBACK_EXPIRED_SEARCH_DISTANCE = 0.5;
 
 	private static final String TAG_UUID = "uuid";
-	private static final String TAG_UUID_MOST_DEPRECATED = "uuidMost";
-	private static final String TAG_UUID_LEAST_DEPRECATED = "uuidLeast";
 	private static final String TAG_MANA = "mana";
 	private static final String TAG_REQUEST_UPDATE = "requestUpdate";
 	private static final String TAG_ROTATION_X = "rotationX";
@@ -297,11 +295,14 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 	public void readPacketNBT(CompoundTag cmp) {
 		super.readPacketNBT(cmp);
 
+		String tagUuidMostDeprecated = "uuidMost";
+		String tagUuidLeastDeprecated = "uuidLeast";
+
 		if (cmp.hasUUID(TAG_UUID)) {
 			identity = cmp.getUUID(TAG_UUID);
-		} else if (cmp.contains(TAG_UUID_LEAST_DEPRECATED) && cmp.contains(TAG_UUID_MOST_DEPRECATED)) { // legacy world compat
-			long most = cmp.getLong(TAG_UUID_MOST_DEPRECATED);
-			long least = cmp.getLong(TAG_UUID_LEAST_DEPRECATED);
+		} else if (cmp.contains(tagUuidLeastDeprecated) && cmp.contains(tagUuidMostDeprecated)) { // legacy world compat
+			long most = cmp.getLong(tagUuidMostDeprecated);
+			long least = cmp.getLong(tagUuidLeastDeprecated);
 			if (identity == null || most != identity.getMostSignificantBits() || least != identity.getLeastSignificantBits()) {
 				this.identity = new UUID(most, least);
 			}
