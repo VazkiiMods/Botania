@@ -108,32 +108,40 @@ public class TrinketsIntegration extends EquipmentHandler {
 
 		@Override
 		public void tick(ItemStack stack, SlotReference slot, LivingEntity entity) {
-			getItem(stack).onWornTick(stack, entity);
+			if (!stack.isEmpty()) {
+				getItem(stack).onWornTick(stack, entity);
+			}
 		}
 
 		@Override
 		public void onEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-			getItem(stack).onEquipped(stack, entity);
+			if (!stack.isEmpty()) {
+				getItem(stack).onEquipped(stack, entity);
+			}
 		}
 
 		@Override
 		public void onUnequip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-			getItem(stack).onUnequipped(stack, entity);
+			if (!stack.isEmpty()) {
+				getItem(stack).onUnequipped(stack, entity);
+			}
 		}
 
 		@Override
 		public boolean canEquip(ItemStack stack, SlotReference slot, LivingEntity entity) {
-			return getItem(stack).canEquip(stack, entity);
+			if (!stack.isEmpty()) {
+				return getItem(stack).canEquip(stack, entity);
+			}
+			return false;
 		}
 
 		@Override
 		public Multimap<Attribute, AttributeModifier> getModifiers(ItemStack stack, SlotReference slot, LivingEntity entity, UUID uuid) {
-			return getItem(stack).getEquippedAttributeModifiers(stack);
-		}
-
-		@Override
-		public TrinketEnums.DropRule getDropRule(ItemStack stack, SlotReference slot, LivingEntity entity) {
-			return Trinket.super.getDropRule(stack, slot, entity);
+			var ret = Trinket.super.getModifiers(stack, slot, entity, uuid);
+			if (!stack.isEmpty()) {
+				ret.putAll(getItem(stack).getEquippedAttributeModifiers(stack));
+			}
+			return ret;
 		}
 	};
 
