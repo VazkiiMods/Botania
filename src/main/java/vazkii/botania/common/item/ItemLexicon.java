@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item;
 
-import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPatternItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
@@ -37,6 +36,8 @@ import vazkii.patchouli.api.PatchouliAPI;
 import javax.annotation.Nonnull;
 
 import java.util.List;
+
+import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPatternItem;
 
 public class ItemLexicon extends LoomPatternItem implements IElvenItem {
 

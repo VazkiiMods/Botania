@@ -8,14 +8,15 @@
  */
 package vazkii.botania.common.block;
 
-import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPattern;
-import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPatterns;
 import net.minecraft.core.Registry;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
+import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPattern;
+import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPatterns;
+
 public final class ModBanners {
-	
+
 	public static LoomPattern FLOWER, LEXICON, LOGO, SAPLING, TINY_POTATO;
 	public static LoomPattern SPARK_DISPERSIVE, SPARK_DOMINANT, SPARK_RECESSIVE, SPARK_ISOLATED;
 	public static LoomPattern FISH, AXE, HOE, PICKAXE, SHOVEL, SWORD;

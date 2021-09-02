@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item;
 
-import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPatternItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
