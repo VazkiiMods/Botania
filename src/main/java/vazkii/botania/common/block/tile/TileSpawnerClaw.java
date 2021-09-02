@@ -10,9 +10,18 @@ package vazkii.botania.common.block.tile;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.BaseSpawner;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
 import vazkii.botania.api.mana.IManaReceiver;
+import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.mixin.AccessorBaseSpawner;
 
 public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 	private static final String TAG_MANA = "mana";
@@ -24,106 +33,41 @@ public class TileSpawnerClaw extends TileMod implements IManaReceiver {
 		super(ModTiles.SPAWNER_CLAW, pos, state);
 	}
 
-	/* todo 1.17 can this be redone with a mixin instead to eliminate copypasta?
-	@Override
-	public void tick() {
-		BlockEntity tileBelow = level.getBlockEntity(worldPosition.below());
-		if (mana >= 5 && tileBelow instanceof SpawnerBlockEntity) {
-			SpawnerBlockEntity spawner = (SpawnerBlockEntity) tileBelow;
-			BaseSpawner logic = spawner.getSpawner();
-			AccessorAbstractSpawner mLogic = (AccessorAbstractSpawner) logic;
-	
-			// [VanillaCopy] AbstractSpawner.tick, edits noted
-			if (!mLogic.botania_isPlayerInRange()) { // Activate when vanilla is *not* running the spawner
-				Level world = this.getLevel();
-				BlockPos blockpos = logic.getPos();
-				if (world.isClientSide) {
-					// Botania - use own particles
-					if (Math.random() > 0.5) {
-						WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, 0.6F - (float) Math.random() * 0.3F, 0.1F, 0.6F - (float) Math.random() * 0.3F, 2F);
-						world.addParticle(data, getBlockPos().getX() + 0.3 + Math.random() * 0.5, getBlockPos().getY() - 0.3 + Math.random() * 0.25, getBlockPos().getZ() + Math.random(), 0, -(-0.025F - 0.005F * (float) Math.random()), 0);
-					}
-					if (mLogic.getSpawnDelay() > 0) {
-						mLogic.setSpawnDelay(mLogic.getSpawnDelay() - 1);
-					}
-	
-					mLogic.setPrevMobRotation(mLogic.getMobRotation());
-					mLogic.setMobRotation((mLogic.getMobRotation() + (double) (1000.0F / ((float) mLogic.getSpawnDelay() + 200.0F))) % 360.0D);
-				} else {
-					// Botania - consume mana
-					this.mana -= 6;
-	
-					if (mLogic.getSpawnDelay() == -1) {
-						mLogic.botania_updateSpawns();
-					}
-	
-					if (mLogic.getSpawnDelay() > 0) {
-						mLogic.setSpawnDelay(mLogic.getSpawnDelay() - 1);
-						return;
-					}
-	
-					boolean flag = false;
-	
-					for (int i = 0; i < mLogic.getSpawnCount(); ++i) {
-						CompoundTag compoundnbt = mLogic.getSpawnEntry().getTag();
-						Optional<EntityType<?>> optional = EntityType.by(compoundnbt);
-						if (!optional.isPresent()) {
-							mLogic.botania_updateSpawns();
-							return;
-						}
-	
-						ListTag listnbt = compoundnbt.getList("Pos", 6);
-						int j = listnbt.size();
-						double d0 = j >= 1 ? listnbt.getDouble(0) : (double) blockpos.getX() + (world.random.nextDouble() - world.random.nextDouble()) * (double) mLogic.getSpawnRange() + 0.5D;
-						double d1 = j >= 2 ? listnbt.getDouble(1) : (double) (blockpos.getY() + world.random.nextInt(3) - 1);
-						double d2 = j >= 3 ? listnbt.getDouble(2) : (double) blockpos.getZ() + (world.random.nextDouble() - world.random.nextDouble()) * (double) mLogic.getSpawnRange() + 0.5D;
-						if (world.noCollision(optional.get().getAABB(d0, d1, d2))) {
-							ServerLevel serverWorld = (ServerLevel) world;
-							Entity entity = EntityType.loadEntityRecursive(compoundnbt, world, (p_221408_6_) -> {
-								p_221408_6_.moveTo(d0, d1, d2, p_221408_6_.yRot, p_221408_6_.xRot);
-								return p_221408_6_;
-							});
-							if (entity == null) {
-								mLogic.botania_updateSpawns();
-								return;
-							}
-	
-							int k = world.getEntitiesOfClass(entity.getClass(), (new AABB((double) blockpos.getX(), (double) blockpos.getY(), (double) blockpos.getZ(), (double) (blockpos.getX() + 1), (double) (blockpos.getY() + 1), (double) (blockpos.getZ() + 1))).inflate((double) mLogic.getSpawnRange())).size();
-							if (k >= mLogic.getMaxNearbyEntities()) {
-								mLogic.botania_updateSpawns();
-								return;
-							}
-	
-							entity.moveTo(entity.getX(), entity.getY(), entity.getZ(), world.random.nextFloat() * 360.0F, 0.0F);
-							if (entity instanceof Mob) {
-								Mob mobentity = (Mob) entity;
-								if (!mobentity.checkSpawnRules(world, MobSpawnType.SPAWNER) || !mobentity.checkSpawnObstruction(world)) {
-									continue;
+	private static final ThreadLocal<Boolean> IS_NEAR_PLAYER_REC_CALL = ThreadLocal.withInitial(() -> false);
+
+	public static void onSpawnerNearPlayer(BaseSpawner spawner, Level level, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
+		if (!IS_NEAR_PLAYER_REC_CALL.get() && level.getBlockState(pos).is(Blocks.SPAWNER)) {
+			try {
+				IS_NEAR_PLAYER_REC_CALL.set(true);
+
+				// We're injecting into this method, but want to see what the method would have said without us
+				boolean vanillaValue = ((AccessorBaseSpawner) spawner)
+						.botania_isPlayerInRange(level, pos);
+
+				// If vanilla is out of range, then we do our work
+				if (!vanillaValue) {
+					BlockPos up = pos.above();
+					if (level.getBlockState(up).is(ModBlocks.spawnerClaw)) {
+						BlockEntity be = level.getBlockEntity(pos.above());
+						if (be instanceof TileSpawnerClaw claw) {
+							if (claw.mana > 5) {
+								claw.receiveMana(-6);
+								if (level.isClientSide && Math.random() > 0.5) {
+									WispParticleData data = WispParticleData.wisp((float) Math.random() / 3F, 0.6F - (float) Math.random() * 0.3F, 0.1F, 0.6F - (float) Math.random() * 0.3F, 2F);
+									level.addParticle(data, up.getX() + 0.3 + Math.random() * 0.5, up.getY() - 0.3 + Math.random() * 0.25, up.getZ() + Math.random(), 0, -(-0.025F - 0.005F * (float) Math.random()), 0);
 								}
-	
-								if (mLogic.getSpawnEntry().getTag().size() == 1 && mLogic.getSpawnEntry().getTag().contains("id", 8)) {
-									((Mob) entity).finalizeSpawn(serverWorld, world.getCurrentDifficultyAt(entity.blockPosition()), MobSpawnType.SPAWNER, (SpawnGroupData) null, (CompoundTag) null);
-								}
-	
-								serverWorld.tryAddFreshEntityWithPassengers(entity);
-								world.levelEvent(2004, blockpos, 0);
-								if (entity instanceof Mob) {
-									((Mob) entity).spawnAnim();
-								}
-	
-								flag = true;
+
+								// Yes, perform spawner functions using claw's mana
+								cir.setReturnValue(true);
 							}
 						}
-					}
-	
-					if (flag) {
-						mLogic.botania_updateSpawns();
 					}
 				}
+			} finally {
+				IS_NEAR_PLAYER_REC_CALL.set(false);
 			}
 		}
 	}
-	*/
 
 	@Override
 	public void writePacketNBT(CompoundTag cmp) {

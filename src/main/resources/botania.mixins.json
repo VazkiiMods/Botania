@@ -32,6 +32,7 @@
     "AccessorTextureSlot",
     "AccessorWitherEntity",
     "MixinAbstractMinecart",
+    "MixinBaseSpawner",
     "MixinBee",
     "MixinBushBlock",
     "MixinEnderMan",
