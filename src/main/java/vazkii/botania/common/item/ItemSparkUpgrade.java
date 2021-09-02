@@ -10,9 +10,14 @@ package vazkii.botania.common.item;
 
 import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPattern;
 import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPatternItem;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import vazkii.botania.api.mana.spark.SparkUpgradeType;
+
+import java.util.List;
 
 public class ItemSparkUpgrade extends LoomPatternItem {
 	public final SparkUpgradeType type;
@@ -36,5 +41,10 @@ public class ItemSparkUpgrade extends LoomPatternItem {
 			return ItemStack.EMPTY;
 		}
 	}
-
+	
+	@Override
+	public void appendHoverText(ItemStack stack, Level world, List<Component> lines, TooltipFlag ctx) {
+		//no-op
+	}
+	
 }

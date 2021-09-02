@@ -103,7 +103,7 @@ public final class ModItems {
 	public static final Item manaSteel = new Item(defaultBuilder());
 	public static final Item manaPearl = new Item(defaultBuilder());
 	public static final Item manaDiamond = new Item(defaultBuilder());
-	public static final Item livingwoodTwig = new LoomPatternItem(ModBanners.FLOWER, defaultBuilder());
+	public static final Item livingwoodTwig = new ItemTwig(ModBanners.FLOWER, defaultBuilder());
 	public static final Item terrasteel = new ItemManaResource(defaultBuilder().rarity(Rarity.UNCOMMON));
 	public static final Item lifeEssence = new Item(defaultBuilder().rarity(Rarity.UNCOMMON));
 	public static final Item redstoneRoot = new Item(defaultBuilder());
@@ -111,7 +111,7 @@ public final class ModItems {
 	public static final Item pixieDust = new ItemElven(defaultBuilder());
 	public static final Item dragonstone = new ItemElven(defaultBuilder());
 	public static final Item redString = new Item(defaultBuilder());
-	public static final Item dreamwoodTwig = new LoomPatternItem(ModBanners.SAPLING, defaultBuilder());
+	public static final Item dreamwoodTwig = new ItemTwig(ModBanners.SAPLING, defaultBuilder());
 	public static final Item gaiaIngot = new ItemManaResource(defaultBuilder().rarity(Rarity.RARE));
 	public static final Item enderAirBottle = new ItemEnderAir(defaultBuilder());
 	public static final Item manaString = new Item(defaultBuilder());
