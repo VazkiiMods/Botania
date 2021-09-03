@@ -14,7 +14,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
 
-import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPatternItem;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -64,6 +63,8 @@ import java.util.stream.Collectors;
 import static vazkii.botania.common.item.ModItems.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 import static vazkii.botania.data.BlockstateProvider.takeAll;
+
+import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPatternItem;
 
 public class ItemModelProvider implements DataProvider {
 	private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
@@ -158,7 +159,7 @@ public class ItemModelProvider implements DataProvider {
 				exchangeRod, fireRod, glassPick, gravityRod, manasteelAxe, manasteelPick, manasteelShears, manasteelShovel, manasteelHoe,
 				missileRod, obedienceStick, rainbowRod, smeltRod, starSword, terraSword, terraformRod, thunderSword, waterRod,
 				kingKey, skyDirtRod).forEach(i -> ModelTemplates.FLAT_HANDHELD_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(i), consumer));
-		
+
 		takeAll(items, i -> i instanceof LoomPatternItem).forEach(i -> ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(new ResourceLocation("item/creeper_banner_pattern")), consumer));
 
 		takeAll(items, i -> true).forEach(i -> ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(i), TextureMapping.layer0(i), consumer));

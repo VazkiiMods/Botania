@@ -2312,7 +2312,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		cosmeticBauble(consumer, ModItems.tinyPotatoMask, Items.RED_DYE);
 		cosmeticBauble(consumer, ModItems.questgiverMark, Items.BLACK_DYE);
 		cosmeticBauble(consumer, ModItems.thinkingHand, ModBlocks.tinyPotato);
-		
+
 		bannerPattern(consumer, ModItems.flowerBannerPattern, ModItems.livingwoodTwig);
 		bannerPattern(consumer, ModItems.lexiconBannerPattern, ModItems.lexicon);
 		bannerPattern(consumer, ModItems.logoBannerPattern, ModItems.terrasteel);
@@ -2679,7 +2679,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(ModItems.manaString))
 				.save(consumer);
 	}
-	
+
 	private void bannerPattern(Consumer<FinishedRecipe> consumer, ItemLike output, ItemLike input) {
 		ShapelessRecipeBuilder.shapeless(output)
 				.requires(Items.PAPER)

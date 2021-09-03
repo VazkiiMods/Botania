@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item;
 
-import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPatternItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
@@ -22,7 +21,6 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
@@ -76,6 +74,8 @@ import java.util.Locale;
 
 import static vazkii.botania.common.block.ModBlocks.register;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
+
+import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPatternItem;
 
 public final class ModItems {
 	public static final ItemLexicon lexicon = new ItemLexicon(unstackable().rarity(Rarity.UNCOMMON));
@@ -391,7 +391,7 @@ public final class ModItems {
 	public static final Item tinyPotatoMask = new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.TINY_POTATO_MASK, unstackable());
 	public static final Item questgiverMark = new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.QUESTGIVER_MARK, unstackable());
 	public static final Item thinkingHand = new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.THINKING_HAND, unstackable());
-	
+
 	// Banner Patterns
 	public static final Item flowerBannerPattern = new LoomPatternItem(ModBanners.FLOWER, unstackable());
 	public static final Item lexiconBannerPattern = new LoomPatternItem(ModBanners.LEXICON, unstackable());
