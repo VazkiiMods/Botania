@@ -8,12 +8,19 @@
  */
 package vazkii.botania.common.block;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPattern;
 import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPatterns;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeColor;
+
+import java.util.List;
 
 public final class ModBanners {
 
@@ -42,6 +49,31 @@ public final class ModBanners {
 	}
 
 	private static LoomPattern addPattern(String name, boolean special) {
-		return Registry.register(LoomPatterns.REGISTRY, prefix(name), new LoomPattern(special));
+		return Registry.register(LoomPatterns.REGISTRY, prefix(name), new BotaniaLoomPattern(special));
+	}
+	
+	static class BotaniaLoomPattern extends LoomPattern {
+		public BotaniaLoomPattern(boolean special) {
+			super(special);
+		}
+		
+		@Override
+		public ResourceLocation getSpriteId(String type) {
+			ResourceLocation myId = LoomPatterns.REGISTRY.getKey(this);
+			return new ResourceLocation("entity/" + type + "/botania_" + myId.getPath());
+		}
+		
+		@Override
+		public void addPatternLine(List<Component> lines, DyeColor color) {
+			String colorName = color.getName();
+			if (colorName.equals("light_blue")) {
+				colorName = "lightBlue";
+			}
+			else if (colorName.equals("light_gray")) {
+				colorName = "silver";
+			}
+			ResourceLocation id = LoomPatterns.REGISTRY.getKey(this);
+			lines.add(new TranslatableComponent("block.minecraft.banner.botania_" + id.getPath() + "." + colorName).withStyle(ChatFormatting.GRAY));
+		}
 	}
 }
