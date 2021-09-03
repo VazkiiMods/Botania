@@ -11,9 +11,9 @@ package vazkii.botania.common.crafting;
 import com.google.common.base.Preconditions;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 
 import net.minecraft.core.NonNullList;
-import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -121,21 +121,12 @@ public class RecipeManaInfusion implements IManaInfusionRecipe {
 			int mana = GsonHelper.getAsInt(json, "mana");
 			String group = GsonHelper.getAsString(json, "group", "");
 			StateIngredient catalyst = null;
-			if (json.has("catalyst")) { // TODO migrate entirely to state ingredients
+			if (json.has("catalyst")) {
 				JsonElement element = json.get("catalyst");
-				if (element.isJsonPrimitive()) {
-					String s = GsonHelper.getAsString(json, "catalyst");
-					ResourceLocation catalystId = ResourceLocation.tryParse(s);
-					if (catalystId == null) {
-						throw new IllegalArgumentException("Invalid catalyst ID: " + s);
-					}
-					catalyst = StateIngredientHelper.of(Registry.BLOCK.getOptional(catalystId)
-							.orElseThrow(() -> new IllegalArgumentException("Unknown catalyst: " + s)));
-				} else if (!element.getAsJsonObject().has("type")) {
-					catalyst = StateIngredientHelper.of(StateIngredientHelper.readBlockState(GsonHelper.getAsJsonObject(json, "catalyst")));
-				} else {
-					catalyst = StateIngredientHelper.deserialize(element.getAsJsonObject());
+				if (!element.isJsonObject() || !element.getAsJsonObject().has("type")) {
+					throw new JsonParseException("Legacy mana infusion catalyst syntax used");
 				}
+				catalyst = StateIngredientHelper.deserialize(element.getAsJsonObject());
 			}
 
 			return new RecipeManaInfusion(id, output, ing, mana, group, catalyst);
