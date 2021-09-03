@@ -354,12 +354,6 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 		}
 	}
 
-	@Environment(EnvType.CLIENT)
-	@Override
-	public void appendHoverText(ItemStack stack, Level world, List<Component> list, TooltipFlag flags) {
-		list.add(new TranslatableComponent(getModeString(stack)).withStyle(ChatFormatting.GRAY));
-	}
-
 	@Override
 	public Component getName(@Nonnull ItemStack stack) {
 		Component mode = new TextComponent(" (")
