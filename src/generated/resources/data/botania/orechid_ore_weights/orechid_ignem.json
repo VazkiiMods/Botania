@@ -17,112 +17,112 @@
     },
     {
       "type": "tag",
-      "tag": "forge:ores/nether/inferium",
+      "tag": "c:nether_inferium_ores",
       "weight": 10000
     },
     {
       "type": "tag",
-      "tag": "forge:ores/nether/prosperity",
+      "tag": "c:nether_prosperity_ores",
       "weight": 7420
     },
     {
       "type": "tag",
-      "tag": "forge:ores/nether/coal",
+      "tag": "c:nether_coal_ores",
       "weight": 17000
     },
     {
       "type": "tag",
-      "tag": "forge:ores/nether/copper",
+      "tag": "c:nether_copper_ores",
       "weight": 4700
     },
     {
       "type": "tag",
-      "tag": "forge:ores/nether/diamond",
+      "tag": "c:nether_diamond_ores",
       "weight": 175
     },
     {
       "type": "tag",
-      "tag": "forge:ores/nether/iron",
+      "tag": "c:nether_iron_ores",
       "weight": 5790
     },
     {
       "type": "tag",
-      "tag": "forge:ores/nether/lapis",
+      "tag": "c:nether_lapis_ores",
       "weight": 3250
     },
     {
       "type": "tag",
-      "tag": "forge:ores/nether/lead",
+      "tag": "c:nether_lead_ores",
       "weight": 2790
     },
     {
       "type": "tag",
-      "tag": "forge:ores/nether/nickel",
+      "tag": "c:nether_nickel_ores",
       "weight": 1790
     },
     {
       "type": "tag",
-      "tag": "forge:ores/nether/platinum",
+      "tag": "c:nether_platinum_ores",
       "weight": 170
     },
     {
       "type": "tag",
-      "tag": "forge:ores/nether/redstone",
+      "tag": "c:nether_redstone_ores",
       "weight": 5600
     },
     {
       "type": "tag",
-      "tag": "forge:ores/nether/silver",
+      "tag": "c:nether_silver_ores",
       "weight": 1550
     },
     {
       "type": "tag",
-      "tag": "forge:ores/nether/steel",
+      "tag": "c:nether_steel_ores",
       "weight": 1690
     },
     {
       "type": "tag",
-      "tag": "forge:ores/nether/tin",
+      "tag": "c:nether_tin_ores",
       "weight": 3750
     },
     {
       "type": "tag",
-      "tag": "forge:ores/argonite",
+      "tag": "c:argonite_ores",
       "weight": 1000
     },
     {
       "type": "tag",
-      "tag": "forge:ores/ashstone",
+      "tag": "c:ashstone_ores",
       "weight": 1000
     },
     {
       "type": "tag",
-      "tag": "forge:ores/dragonstone",
+      "tag": "c:dragonstone_ores",
       "weight": 175
     },
     {
       "type": "tag",
-      "tag": "forge:ores/fyrite",
+      "tag": "c:fyrite_ores",
       "weight": 1000
     },
     {
       "type": "tag",
-      "tag": "forge:ores/firestone",
+      "tag": "c:firestone_ores",
       "weight": 5
     },
     {
       "type": "tag",
-      "tag": "forge:ores/onyx",
+      "tag": "c:onyx_ores",
       "weight": 500
     },
     {
       "type": "tag",
-      "tag": "forge:ores/ardite",
+      "tag": "c:ardite_ores",
       "weight": 500
     },
     {
       "type": "tag",
-      "tag": "forge:ores/cobalt",
+      "tag": "c:cobalt_ores",
       "weight": 500
     }
   ]

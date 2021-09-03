@@ -172,7 +172,11 @@ public class OrechidProvider implements DataProvider {
 	}
 
 	protected static StateIngredient forOreTag(String oreTag) {
-		return StateIngredientHelper.of(new ResourceLocation("forge", "ores/" + oreTag));
+		// Fabric c: is a flat namespace and doesn't use folders like Forge
+		if (oreTag.contains("nether/")) {
+			oreTag = oreTag.replaceAll("nether/", "nether_");
+		}
+		return StateIngredientHelper.of(new ResourceLocation("c", oreTag + "_ores"));
 	}
 
 	protected static StateIngredient forBlock(Block block) {

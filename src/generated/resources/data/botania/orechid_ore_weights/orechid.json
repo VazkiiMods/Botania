@@ -37,172 +37,172 @@
     },
     {
       "type": "tag",
-      "tag": "forge:ores/aluminium",
+      "tag": "c:aluminium_ores",
       "weight": 13762
     },
     {
       "type": "tag",
-      "tag": "forge:ores/aluminum",
+      "tag": "c:aluminum_ores",
       "weight": 13762
     },
     {
       "type": "tag",
-      "tag": "forge:ores/copper",
+      "tag": "c:copper_ores",
       "weight": 5567
     },
     {
       "type": "tag",
-      "tag": "forge:ores/ferrous",
+      "tag": "c:ferrous_ores",
       "weight": 558
     },
     {
       "type": "tag",
-      "tag": "forge:ores/galena",
+      "tag": "c:galena_ores",
       "weight": 4096
     },
     {
       "type": "tag",
-      "tag": "forge:ores/lead",
+      "tag": "c:lead_ores",
       "weight": 4093
     },
     {
       "type": "tag",
-      "tag": "forge:ores/mithril",
+      "tag": "c:mithril_ores",
       "weight": 6485
     },
     {
       "type": "tag",
-      "tag": "forge:ores/mythril",
+      "tag": "c:mythril_ores",
       "weight": 6485
     },
     {
       "type": "tag",
-      "tag": "forge:ores/nickel",
+      "tag": "c:nickel_ores",
       "weight": 2275
     },
     {
       "type": "tag",
-      "tag": "forge:ores/osmium",
+      "tag": "c:osmium_ores",
       "weight": 6915
     },
     {
       "type": "tag",
-      "tag": "forge:ores/platinum",
+      "tag": "c:platinum_ores",
       "weight": 956
     },
     {
       "type": "tag",
-      "tag": "forge:ores/silver",
+      "tag": "c:silver_ores",
       "weight": 4315
     },
     {
       "type": "tag",
-      "tag": "forge:ores/tin",
+      "tag": "c:tin_ores",
       "weight": 8251
     },
     {
       "type": "tag",
-      "tag": "forge:ores/tungsten",
+      "tag": "c:tungsten_ores",
       "weight": 140
     },
     {
       "type": "tag",
-      "tag": "forge:ores/uranium",
+      "tag": "c:uranium_ores",
       "weight": 230
     },
     {
       "type": "tag",
-      "tag": "forge:ores/zinc",
+      "tag": "c:zinc_ores",
       "weight": 838
     },
     {
       "type": "tag",
-      "tag": "forge:ores/amber",
+      "tag": "c:amber_ores",
       "weight": 902
     },
     {
       "type": "tag",
-      "tag": "forge:ores/ruby",
+      "tag": "c:ruby_ores",
       "weight": 1384
     },
     {
       "type": "tag",
-      "tag": "forge:ores/sapphire",
+      "tag": "c:sapphire_ores",
       "weight": 1287
     },
     {
       "type": "tag",
-      "tag": "forge:ores/topaz",
+      "tag": "c:topaz_ores",
       "weight": 6436
     },
     {
       "type": "tag",
-      "tag": "forge:ores/amethyst",
+      "tag": "c:amethyst_ores",
       "weight": 1307
     },
     {
       "type": "tag",
-      "tag": "forge:ores/malachite",
+      "tag": "c:malachite_ores",
       "weight": 160
     },
     {
       "type": "tag",
-      "tag": "forge:ores/yellorite",
+      "tag": "c:yellorite_ores",
       "weight": 3520
     },
     {
       "type": "tag",
-      "tag": "forge:ores/teslatite",
+      "tag": "c:teslatite_ores",
       "weight": 4312
     },
     {
       "type": "tag",
-      "tag": "forge:ores/dark",
+      "tag": "c:dark_ores",
       "weight": 1350
     },
     {
       "type": "tag",
-      "tag": "forge:ores/apatite",
+      "tag": "c:apatite_ores",
       "weight": 250
     },
     {
       "type": "tag",
-      "tag": "forge:ores/inferium",
+      "tag": "c:inferium_ores",
       "weight": 10000
     },
     {
       "type": "tag",
-      "tag": "forge:ores/prosperity",
+      "tag": "c:prosperity_ores",
       "weight": 7420
     },
     {
       "type": "tag",
-      "tag": "forge:ores/olivine",
+      "tag": "c:olivine_ores",
       "weight": 1100
     },
     {
       "type": "tag",
-      "tag": "forge:ores/sulfur",
+      "tag": "c:sulfur_ores",
       "weight": 1105
     },
     {
       "type": "tag",
-      "tag": "forge:ores/sulphur",
+      "tag": "c:sulphur_ores",
       "weight": 1105
     },
     {
       "type": "tag",
-      "tag": "forge:ores/adamantium",
+      "tag": "c:adamantium_ores",
       "weight": 1469
     },
     {
       "type": "tag",
-      "tag": "forge:ores/bismuth",
+      "tag": "c:bismuth_ores",
       "weight": 2407
     },
     {
       "type": "tag",
-      "tag": "forge:ores/cinnabar",
+      "tag": "c:cinnabar_ores",
       "weight": 2585
     }
   ]
