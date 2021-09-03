@@ -17,7 +17,7 @@
       "trigger": "botania:use_item_success",
       "conditions": {
         "item": {
-          "item": "botania:laputa_shard",
+          "items": [ "botania:laputa_shard" ],
           "nbt": "{\"level\": 19}"
         }
       }

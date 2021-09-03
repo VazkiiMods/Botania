@@ -16,7 +16,7 @@
       "trigger": "botania:use_item_success",
       "conditions": {
         "item": {
-          "item": "botania:lexicon"
+          "items": [ "botania:lexicon" ]
         }
       }
     }

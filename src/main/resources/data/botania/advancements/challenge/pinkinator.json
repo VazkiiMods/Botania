@@ -17,7 +17,7 @@
       "trigger": "botania:use_item_success",
       "conditions": {
         "item": {
-          "item": "botania:pinkinator"
+          "items": [ "botania:pinkinator" ]
         }
       }
     }

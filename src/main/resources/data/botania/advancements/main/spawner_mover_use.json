@@ -16,7 +16,7 @@
       "trigger": "botania:use_item_success",
       "conditions": {
         "item": {
-          "item": "botania:spawner_mover"
+          "items": [ "botania:spawner_mover" ]
         }
       }
     }
