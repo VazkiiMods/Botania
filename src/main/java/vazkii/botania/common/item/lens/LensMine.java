@@ -93,7 +93,7 @@ public class LensMine extends Lens {
 	}
 
 	private static final List<ItemStack> HARVEST_TOOLS = Stream.of(Items.WOODEN_PICKAXE, Items.STONE_PICKAXE,
-					Items.IRON_PICKAXE, Items.DIAMOND_PICKAXE, Items.NETHERITE_PICKAXE)
+			Items.IRON_PICKAXE, Items.DIAMOND_PICKAXE, Items.NETHERITE_PICKAXE)
 			.map(ItemStack::new).toList();
 
 	public static boolean canHarvest(int harvestLevel, BlockState state) {
