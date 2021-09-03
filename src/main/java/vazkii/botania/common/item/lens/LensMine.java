@@ -8,10 +8,12 @@
  */
 package vazkii.botania.common.item.lens;
 
+import net.fabricmc.fabric.api.tool.attribute.v1.ToolManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -27,6 +29,7 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class LensMine extends Lens {
 	@Override
@@ -54,13 +57,12 @@ public class LensMine extends Lens {
 		BlockEntity tile = world.getBlockEntity(collidePos);
 
 		float hardness = state.getDestroySpeed(world, collidePos);
-		int neededHarvestLevel = -1 /* todo 1.16-fabric block.getHarvestLevel(state) */;
 		int mana = burst.getMana();
 
 		BlockPos source = burst.getBurstSourceBlockPos();
 		if (!source.equals(collidePos)
 				&& !(tile instanceof IManaBlock)
-				&& neededHarvestLevel <= harvestLevel
+				&& canHarvest(harvestLevel, state)
 				&& hardness != -1 && hardness < 50F
 				&& (burst.isFake() || mana >= 24)) {
 			if (!burst.hasAlreadyCollidedAt(collidePos)) {
@@ -90,4 +92,11 @@ public class LensMine extends Lens {
 		return dead;
 	}
 
+	private static final List<ItemStack> HARVEST_TOOLS = Stream.of(Items.WOODEN_PICKAXE, Items.STONE_PICKAXE,
+					Items.IRON_PICKAXE, Items.DIAMOND_PICKAXE, Items.NETHERITE_PICKAXE)
+			.map(ItemStack::new).toList();
+
+	public static boolean canHarvest(int harvestLevel, BlockState state) {
+		return !state.requiresCorrectToolForDrops() || ToolManager.handleIsEffectiveOn(state, HARVEST_TOOLS.get(harvestLevel), null);
+	}
 }

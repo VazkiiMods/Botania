@@ -189,8 +189,8 @@ public final class ConfigHandler {
 		public final PropertyMirror<Boolean> relicsEnabled = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Boolean> invertMagnetRing = PropertyMirror.create(BOOLEAN);
 
-		public final PropertyMirror<Integer> harvestLevelWeight = PropertyMirror.create(NATURAL);
-		public final PropertyMirror<Integer> harvestLevelBore = PropertyMirror.create(NATURAL);
+		public final PropertyMirror<Integer> harvestLevelWeight = PropertyMirror.create(NATURAL.withMinimum(0).withMaximum(4));
+		public final PropertyMirror<Integer> harvestLevelBore = PropertyMirror.create(NATURAL.withMinimum(0).withMaximum(4));
 
 		public final PropertyMirror<Boolean> gogSpawnWithLexicon = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Integer> gogIslandScaleMultiplier = PropertyMirror.create(INTEGER);
