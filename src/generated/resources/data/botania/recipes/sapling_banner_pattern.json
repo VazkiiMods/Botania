@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "botania:dreamwood_twig"
+    }
+  ],
+  "result": {
+    "item": "botania:sapling_banner_pattern"
+  }
+}

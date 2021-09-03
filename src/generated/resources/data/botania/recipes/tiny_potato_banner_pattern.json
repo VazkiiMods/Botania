@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "botania:tiny_potato"
+    }
+  ],
+  "result": {
+    "item": "botania:tiny_potato_banner_pattern"
+  }
+}

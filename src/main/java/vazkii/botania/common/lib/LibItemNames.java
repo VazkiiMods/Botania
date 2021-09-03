@@ -249,5 +249,15 @@ public final class LibItemNames {
 	public static final String PEBBLE = "pebble";
 	public static final String MANAWEAVE_CLOTH = "manaweave_cloth";
 	public static final String MANA_POWDER = "mana_powder";
-
+	
+	public static final String FLOWER_BANNER_PATTERN = "flower_banner_pattern";
+	public static final String LEXICON_BANNER_PATTERN = "lexicon_banner_pattern";
+	public static final String LOGO_BANNER_PATTERN = "logo_banner_pattern";
+	public static final String SAPLING_BANNER_PATTERN = "sapling_banner_pattern";
+	public static final String TINY_POTATO_BANNER_PATTERN = "tiny_potato_banner_pattern";
+	public static final String SPARK_DISPERSIVE_BANNER_PATTERN = "spark_dispersive_banner_pattern";
+	public static final String SPARK_DOMINANT_BANNER_PATTERN = "spark_dominant_banner_pattern";
+	public static final String SPARK_RECESSIVE_BANNER_PATTERN = "spark_recessive_banner_pattern";
+	public static final String SPARK_ISOLATED_BANNER_PATTERN = "spark_isolated_banner_pattern";
+	
 }

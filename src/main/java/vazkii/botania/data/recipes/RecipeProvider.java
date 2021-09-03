@@ -2312,6 +2312,16 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		cosmeticBauble(consumer, ModItems.tinyPotatoMask, Items.RED_DYE);
 		cosmeticBauble(consumer, ModItems.questgiverMark, Items.BLACK_DYE);
 		cosmeticBauble(consumer, ModItems.thinkingHand, ModBlocks.tinyPotato);
+		
+		bannerPattern(consumer, ModItems.flowerBannerPattern, ModItems.livingwoodTwig);
+		bannerPattern(consumer, ModItems.lexiconBannerPattern, ModItems.lexicon);
+		bannerPattern(consumer, ModItems.logoBannerPattern, ModItems.terrasteel);
+		bannerPattern(consumer, ModItems.saplingBannerPattern, ModItems.dreamwoodTwig);
+		bannerPattern(consumer, ModItems.tinyPotatoBannerPattern, ModBlocks.tinyPotato);
+		bannerPattern(consumer, ModItems.sparkDispersiveBannerPattern, ModItems.sparkUpgradeDispersive);
+		bannerPattern(consumer, ModItems.sparkDominantBannerPattern, ModItems.sparkUpgradeDominant);
+		bannerPattern(consumer, ModItems.sparkRecessiveBannerPattern, ModItems.sparkUpgradeRecessive);
+		bannerPattern(consumer, ModItems.sparkIsolatedBannerPattern, ModItems.sparkUpgradeIsolated);
 	}
 
 	private void registerSimpleArmorSet(Consumer<FinishedRecipe> consumer, Ingredient item, String variant,
@@ -2667,6 +2677,14 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("PPP")
 				.group("botania:cosmetic_bauble")
 				.unlockedBy("has_item", conditionsFromItem(ModItems.manaString))
+				.save(consumer);
+	}
+	
+	private void bannerPattern(Consumer<FinishedRecipe> consumer, ItemLike output, ItemLike input) {
+		ShapelessRecipeBuilder.shapeless(output)
+				.requires(Items.PAPER)
+				.requires(input)
+				.unlockedBy("has_item", conditionsFromItem(input))
 				.save(consumer);
 	}
 

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "botania:spark_upgrade_isolated"
+    }
+  ],
+  "result": {
+    "item": "botania:spark_isolated_banner_pattern"
+  }
+}

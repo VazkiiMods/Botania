@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item;
 
+import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPatternItem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
@@ -21,6 +22,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
@@ -102,7 +104,7 @@ public final class ModItems {
 	public static final Item manaSteel = new Item(defaultBuilder());
 	public static final Item manaPearl = new Item(defaultBuilder());
 	public static final Item manaDiamond = new Item(defaultBuilder());
-	public static final Item livingwoodTwig = new ItemTwig(ModBanners.FLOWER, defaultBuilder());
+	public static final Item livingwoodTwig = new Item(defaultBuilder());
 	public static final Item terrasteel = new ItemManaResource(defaultBuilder().rarity(Rarity.UNCOMMON));
 	public static final Item lifeEssence = new Item(defaultBuilder().rarity(Rarity.UNCOMMON));
 	public static final Item redstoneRoot = new Item(defaultBuilder());
@@ -110,7 +112,7 @@ public final class ModItems {
 	public static final Item pixieDust = new ItemElven(defaultBuilder());
 	public static final Item dragonstone = new ItemElven(defaultBuilder());
 	public static final Item redString = new Item(defaultBuilder());
-	public static final Item dreamwoodTwig = new ItemTwig(ModBanners.SAPLING, defaultBuilder());
+	public static final Item dreamwoodTwig = new Item(defaultBuilder());
 	public static final Item gaiaIngot = new ItemManaResource(defaultBuilder().rarity(Rarity.RARE));
 	public static final Item enderAirBottle = new ItemEnderAir(defaultBuilder());
 	public static final Item manaString = new Item(defaultBuilder());
@@ -305,10 +307,10 @@ public final class ModItems {
 	public static final Item necroVirus = new ItemVirus(defaultBuilder());
 	public static final Item nullVirus = new ItemVirus(defaultBuilder());
 	public static final Item spark = new ItemSpark(defaultBuilder());
-	public static final Item sparkUpgradeDispersive = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.DISPERSIVE, ModBanners.SPARK_DISPERSIVE);
-	public static final Item sparkUpgradeDominant = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.DOMINANT, ModBanners.SPARK_DOMINANT);
-	public static final Item sparkUpgradeRecessive = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.RECESSIVE, ModBanners.SPARK_RECESSIVE);
-	public static final Item sparkUpgradeIsolated = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.ISOLATED, ModBanners.SPARK_ISOLATED);
+	public static final Item sparkUpgradeDispersive = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.DISPERSIVE);
+	public static final Item sparkUpgradeDominant = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.DOMINANT);
+	public static final Item sparkUpgradeRecessive = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.RECESSIVE);
+	public static final Item sparkUpgradeIsolated = new ItemSparkUpgrade(defaultBuilder(), SparkUpgradeType.ISOLATED);
 	public static final Item corporeaSpark = new ItemCorporeaSpark(defaultBuilder());
 	public static final Item corporeaSparkMaster = new ItemCorporeaSpark(defaultBuilder());
 	public static final Item blackLotus = new ItemBlackLotus(defaultBuilder().rarity(Rarity.RARE));
@@ -389,6 +391,17 @@ public final class ModItems {
 	public static final Item tinyPotatoMask = new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.TINY_POTATO_MASK, unstackable());
 	public static final Item questgiverMark = new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.QUESTGIVER_MARK, unstackable());
 	public static final Item thinkingHand = new ItemBaubleCosmetic(ItemBaubleCosmetic.Variant.THINKING_HAND, unstackable());
+	
+	// Banner Patterns
+	public static final Item flowerBannerPattern = new LoomPatternItem(ModBanners.FLOWER, unstackable());
+	public static final Item lexiconBannerPattern = new LoomPatternItem(ModBanners.LEXICON, unstackable());
+	public static final Item logoBannerPattern = new LoomPatternItem(ModBanners.LOGO, unstackable());
+	public static final Item saplingBannerPattern = new LoomPatternItem(ModBanners.SAPLING, unstackable());
+	public static final Item tinyPotatoBannerPattern = new LoomPatternItem(ModBanners.TINY_POTATO, unstackable());
+	public static final Item sparkDispersiveBannerPattern = new LoomPatternItem(ModBanners.SPARK_DISPERSIVE, unstackable());
+	public static final Item sparkDominantBannerPattern = new LoomPatternItem(ModBanners.SPARK_DOMINANT, unstackable());
+	public static final Item sparkRecessiveBannerPattern = new LoomPatternItem(ModBanners.SPARK_RECESSIVE, unstackable());
+	public static final Item sparkIsolatedBannerPattern = new LoomPatternItem(ModBanners.SPARK_ISOLATED, unstackable());
 
 	public static final MenuType<ContainerFlowerBag> FLOWER_BAG_CONTAINER = ScreenHandlerRegistry.registerExtended(prefix(LibItemNames.FLOWER_BAG), ContainerFlowerBag::fromNetwork);
 	public static final MenuType<ContainerBaubleBox> BAUBLE_BOX_CONTAINER = ScreenHandlerRegistry.registerExtended(prefix(LibItemNames.BAUBLE_BOX), ContainerBaubleBox::fromNetwork);
@@ -695,6 +708,15 @@ public final class ModItems {
 		register(r, LibItemNames.COSMETIC_PREFIX + "tiny_potato_mask", tinyPotatoMask);
 		register(r, LibItemNames.COSMETIC_PREFIX + "questgiver_mark", questgiverMark);
 		register(r, LibItemNames.COSMETIC_PREFIX + "thinking_hand", thinkingHand);
+		register(r, LibItemNames.FLOWER_BANNER_PATTERN, flowerBannerPattern);
+		register(r, LibItemNames.LEXICON_BANNER_PATTERN, lexiconBannerPattern);
+		register(r, LibItemNames.LOGO_BANNER_PATTERN, logoBannerPattern);
+		register(r, LibItemNames.SAPLING_BANNER_PATTERN, saplingBannerPattern);
+		register(r, LibItemNames.TINY_POTATO_BANNER_PATTERN, tinyPotatoBannerPattern);
+		register(r, LibItemNames.SPARK_DISPERSIVE_BANNER_PATTERN, sparkDispersiveBannerPattern);
+		register(r, LibItemNames.SPARK_DOMINANT_BANNER_PATTERN, sparkDominantBannerPattern);
+		register(r, LibItemNames.SPARK_RECESSIVE_BANNER_PATTERN, sparkRecessiveBannerPattern);
+		register(r, LibItemNames.SPARK_ISOLATED_BANNER_PATTERN, sparkIsolatedBannerPattern);
 	}
 
 	public static void registerRecipeSerializers() {

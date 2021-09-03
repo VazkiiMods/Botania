@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "botania:spark_upgrade_dominant"
+    }
+  ],
+  "result": {
+    "item": "botania:spark_dominant_banner_pattern"
+  }
+}

@@ -29,7 +29,6 @@ import net.minecraft.world.phys.BlockHitResult;
 
 import vazkii.botania.api.recipe.IElvenItem;
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
-import vazkii.botania.common.block.ModBanners;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.patchouli.api.PatchouliAPI;
 
@@ -37,14 +36,12 @@ import javax.annotation.Nonnull;
 
 import java.util.List;
 
-import io.github.fablabsmc.fablabs.api.bannerpattern.v1.LoomPatternItem;
-
-public class ItemLexicon extends LoomPatternItem implements IElvenItem {
+public class ItemLexicon extends Item implements IElvenItem {
 
 	public static final String TAG_ELVEN_UNLOCK = "botania:elven_unlock";
 
 	public ItemLexicon(Properties props) {
-		super(ModBanners.LEXICON, props);
+		super(props);
 	}
 
 	public static boolean isOpen() {

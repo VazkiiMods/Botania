@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "botania:terrasteel_ingot"
+    }
+  ],
+  "result": {
+    "item": "botania:logo_banner_pattern"
+  }
+}

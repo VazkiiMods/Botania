@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "botania:lexicon"
+    }
+  ],
+  "result": {
+    "item": "botania:lexicon_banner_pattern"
+  }
+}

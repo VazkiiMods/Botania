@@ -31,21 +31,21 @@ public final class ModBanners {
 	public static void init() {
 		FLOWER = addPattern("flower", true);
 		LEXICON = addPattern("lexicon", true);
-		LOGO = addPattern("logo", false); //todo terrasteel
+		LOGO = addPattern("logo", true);
 		SAPLING = addPattern("sapling", true);
-		TINY_POTATO = addPattern("tiny_potato", false); //todo tiny potato :)
+		TINY_POTATO = addPattern("tiny_potato", true);
 
 		SPARK_DISPERSIVE = addPattern("spark_dispersive", true);
 		SPARK_DOMINANT = addPattern("spark_dominant", true);
 		SPARK_RECESSIVE = addPattern("spark_recessive", true);
 		SPARK_ISOLATED = addPattern("spark_isolated", true);
 
-		FISH = addPattern("fish", false); //todo cod
-		AXE = addPattern("axe", false); //todo iron axe
-		HOE = addPattern("hoe", false); //todo iron hoe
-		PICKAXE = addPattern("pickaxe", false); //todo iron pickaxe
-		SHOVEL = addPattern("shovel", false); //todo iron shovel
-		SWORD = addPattern("sword", false); //todo iron sword
+		FISH = addPattern("fish", false);
+		AXE = addPattern("axe", false);
+		HOE = addPattern("hoe", false);
+		PICKAXE = addPattern("pickaxe", false);
+		SHOVEL = addPattern("shovel", false);
+		SWORD = addPattern("sword", false);
 	}
 
 	private static LoomPattern addPattern(String name, boolean special) {
