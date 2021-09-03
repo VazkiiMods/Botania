@@ -24,6 +24,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.Registry;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Blocks;
 
 import org.apache.logging.log4j.LogManager;
@@ -48,6 +49,7 @@ import vazkii.botania.common.brew.ModPotions;
 import vazkii.botania.common.core.ModStats;
 import vazkii.botania.common.core.command.SkyblockCommand;
 import vazkii.botania.common.core.handler.*;
+import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.core.loot.LootHandler;
 import vazkii.botania.common.core.loot.ModLootModifiers;
 import vazkii.botania.common.core.proxy.IProxy;
@@ -198,6 +200,44 @@ public class Botania implements ModInitializer {
 		ModBlocks.addDispenserBehaviours();
 
 		ModStats.init();
+		registerPaintables();
+	}
+
+	private void registerPaintables() {
+		BotaniaAPI.instance().registerPaintableBlock(Blocks.GLASS, ColorHelper.STAINED_GLASS_MAP);
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.STAINED_GLASS_MAP.apply(color), ColorHelper.STAINED_GLASS_MAP);
+		}
+
+		BotaniaAPI.instance().registerPaintableBlock(Blocks.GLASS_PANE, ColorHelper.STAINED_GLASS_PANE_MAP);
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.STAINED_GLASS_PANE_MAP.apply(color), ColorHelper.STAINED_GLASS_PANE_MAP);
+		}
+
+		BotaniaAPI.instance().registerPaintableBlock(Blocks.TERRACOTTA, ColorHelper.TERRACOTTA_MAP);
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.TERRACOTTA_MAP.apply(color), ColorHelper.TERRACOTTA_MAP);
+		}
+
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.GLAZED_TERRACOTTA_MAP.apply(color), ColorHelper.GLAZED_TERRACOTTA_MAP);
+		}
+
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.WOOL_MAP.apply(color), ColorHelper.WOOL_MAP);
+		}
+
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.CARPET_MAP.apply(color), ColorHelper.CARPET_MAP);
+		}
+
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.CONCRETE_MAP.apply(color), ColorHelper.CONCRETE_MAP);
+		}
+
+		for (DyeColor color : DyeColor.values()) {
+			BotaniaAPI.instance().registerPaintableBlock(ColorHelper.CONCRETE_POWDER_MAP.apply(color), ColorHelper.CONCRETE_POWDER_MAP);
+		}
 	}
 
 	private void serverAboutToStart(MinecraftServer server) {
