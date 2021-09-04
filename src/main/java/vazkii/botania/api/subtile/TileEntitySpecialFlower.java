@@ -323,7 +323,7 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 
 	@Nullable
 	@Override
-	public Object getRenderAttachmentData() {
+	public IFloatingFlower.IslandType getRenderAttachmentData() {
 		if (isFloating()) {
 			return floatingData.getIslandType();
 		}

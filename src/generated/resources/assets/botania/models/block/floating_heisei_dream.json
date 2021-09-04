@@ -1,1 +1,7 @@
-{"flower":"botania:block/heisei_dream"}
+{
+  "parent": "minecraft:block/block",
+  "loader": "botania:floating_flower",
+  "flower": {
+    "parent": "botania:block/heisei_dream"
+  }
+}

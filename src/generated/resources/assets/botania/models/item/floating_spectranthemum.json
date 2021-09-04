@@ -1,3 +1,7 @@
 {
-  "parent": "botania:block/floating_spectranthemum"
+  "parent": "minecraft:block/block",
+  "loader": "botania:floating_flower",
+  "flower": {
+    "parent": "botania:block/spectranthemum"
+  }
 }

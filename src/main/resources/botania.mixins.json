@@ -73,6 +73,7 @@
     "AccessorRenderType",
     "AccessorWorldPreset",
     "MixinAbstractTexture",
+    "MixinBlockModelDeserializer",
     "MixinClientLevelData",
     "MixinDebugScreenOverlay",
     "MixinGameRenderer",

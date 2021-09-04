@@ -17,7 +17,6 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -43,11 +42,6 @@ public class RenderTileFloatingFlower implements BlockEntityRenderer<TileFloatin
 			return;
 		}
 
-		// todo 1.16-fabric IModelData data = tile.getModelData();
-		if (true/* todo 1.16-fabric !data.hasProperty(BotaniaStateProps.FLOATING_DATA)*/) {
-			return;
-		}
-
 		ms.pushPose();
 
 		double worldTime = ClientTickHandler.ticksInGame + t;
@@ -65,8 +59,9 @@ public class RenderTileFloatingFlower implements BlockEntityRenderer<TileFloatin
 		BlockRenderDispatcher brd = Minecraft.getInstance().getBlockRenderer();
 		BlockState state = tile.getBlockState();
 
-		BakedModel ibakedmodel = brd.getBlockModel(state);
-		brd.getModelRenderer().renderModel(ms.last(), buffers.getBuffer(ItemBlockRenderTypes.getRenderType(state, false)), state, ibakedmodel, 1, 1, 1, light, overlay);
+		var buffer = buffers.getBuffer(ItemBlockRenderTypes.getRenderType(state, false));
+		brd.getModelRenderer().tesselateBlock(tile.getLevel(), brd.getBlockModel(state), state, tile.getBlockPos(), ms,
+				buffer, true, new Random(), state.getSeed(tile.getBlockPos()), overlay);
 
 		ms.popPose();
 	}

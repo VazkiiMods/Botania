@@ -8,21 +8,19 @@
  */
 package vazkii.botania.client.model;
 
-import com.google.gson.Gson;
+import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Transformation;
 import com.mojang.math.Vector3f;
 
-import net.fabricmc.fabric.api.client.model.ModelProviderContext;
-import net.fabricmc.fabric.api.client.model.ModelProviderException;
-import net.fabricmc.fabric.api.client.model.ModelResourceProvider;
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.fabricmc.fabric.api.rendering.data.v1.RenderAttachedBlockView;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.BlockModel;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.Material;
@@ -32,11 +30,11 @@ import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.Resource;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
+
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.item.IFloatingFlower;
@@ -44,16 +42,20 @@ import vazkii.botania.api.item.IFloatingFlower;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import java.io.InputStreamReader;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public class FloatingFlowerModel implements UnbakedModel {
+/*
+ * NB Fabric: We extend BlockModel only as an artifact of where we inject our mixin.
+ * Pretty much all of the data of the superclass is ignored.
+ */
+public class FloatingFlowerModel extends BlockModel {
 	private final UnbakedModel unbakedFlower;
 	private final Map<IFloatingFlower.IslandType, UnbakedModel> unbakedIslands = new HashMap<>();
 
 	private FloatingFlowerModel(UnbakedModel flower) {
+		super(null, Collections.emptyList(), Collections.emptyMap(), false, GuiLight.SIDE, ItemTransforms.NO_TRANSFORMS, Collections.emptyList());
 		this.unbakedFlower = flower;
 	}
 
@@ -126,6 +128,11 @@ public class FloatingFlowerModel implements UnbakedModel {
 		}
 
 		@Override
+		public boolean isVanillaAdapter() {
+			return false;
+		}
+
+		@Override
 		public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
 			emit(IFloatingFlower.IslandType.GRASS, context);
 		}
@@ -133,40 +140,20 @@ public class FloatingFlowerModel implements UnbakedModel {
 		@Override
 		public void emitBlockQuads(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<Random> randomSupplier, RenderContext context) {
 			Object data = ((RenderAttachedBlockView) blockView).getBlockEntityRenderAttachment(pos);
-			if (data instanceof IFloatingFlower.IslandType) {
-				emit((IFloatingFlower.IslandType) data, context);
+			if (data instanceof IFloatingFlower.IslandType type) {
+				emit(type, context);
 			}
 		}
 	}
 
-	public enum Loader implements ModelResourceProvider {
-		INSTANCE;
+	public static final String MAGIC_STRING = "botania:floating_flower";
 
-		private static final Gson GSON = new Gson();
-
-		@Nullable
-		@Override
-		public UnbakedModel loadModelResource(ResourceLocation resourceId, ModelProviderContext context) throws ModelProviderException {
-			// blockstate json or child model will specify e.g. "botania:block/floating_daffomill__botania_floating"
-			// which we then load by reading "/assets/botania/models/block/floating_daffomill.json
-			// and looking at specific json entries inside of it
-			String suffix = "__botania_floating";
-			if (resourceId.getPath().endsWith(suffix)) {
-				String realPath = resourceId.getPath().substring(0, resourceId.getPath().length() - suffix.length());
-				ResourceLocation fsId = new ResourceLocation(resourceId.getNamespace(), "models/" + realPath + ".json");
-				try {
-					Resource resource = Minecraft.getInstance().getResourceManager().getResource(fsId);
-					try (InputStreamReader ir = new InputStreamReader(resource.getInputStream())) {
-						JsonObject json = GSON.fromJson(ir, JsonElement.class).getAsJsonObject();
-						String flower = GsonHelper.getAsString(json, "flower");
-						UnbakedModel flowerModel = context.loadModel(new ResourceLocation(flower));
-						return new FloatingFlowerModel(flowerModel);
-					}
-				} catch (Exception ex) {
-					throw new ModelProviderException("Failed to load floating model " + resourceId, ex);
-				}
-			}
-			return null;
+	public static void hookModelLoad(JsonElement jsonElement, JsonDeserializationContext context, CallbackInfoReturnable<BlockModel> cir) {
+		JsonObject json = jsonElement.getAsJsonObject();
+		JsonElement loader = json.get("loader");
+		if (loader != null && loader.isJsonPrimitive() && loader.getAsString().equals(MAGIC_STRING)) {
+			BlockModel flowerModel = context.deserialize(json.getAsJsonObject("flower"), BlockModel.class);
+			cir.setReturnValue(new FloatingFlowerModel(flowerModel));
 		}
 	}
 }

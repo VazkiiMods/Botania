@@ -1,3 +1,7 @@
 {
-  "parent": "botania:block/floating_jaded_amaranthus"
+  "parent": "minecraft:block/block",
+  "loader": "botania:floating_flower",
+  "flower": {
+    "parent": "botania:block/jaded_amaranthus"
+  }
 }
