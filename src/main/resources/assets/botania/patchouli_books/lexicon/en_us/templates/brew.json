@@ -1,0 +1,125 @@
+{
+  "processor": "vazkii.botania.client.patchouli.processor.BrewRecipeProcessor",
+  "components": [
+    {
+      "type": "header",
+      "text": "#heading",
+      "x": -1,
+      "y": -1
+    },
+    {
+      "type": "item",
+      "item": "#vial",
+      "framed": "false",
+      "link_recipe": true,
+      "x": 41,
+      "y": 12
+    },
+    {
+      "type": "item",
+      "item": "#flask",
+      "framed": "false",
+      "link_recipe": true,
+      "x": 59,
+      "y": 12
+    },
+    {
+      "type": "text",
+      "text": "#text",
+      "y": 32
+    },
+    {
+      "type": "item",
+      "guard": "#is_offset",
+      "item": "#input1",
+      "framed": "false",
+      "x": 5,
+      "y": 110
+    },
+    {
+      "type": "item",
+      "guard": "#is_offset->inv",
+      "item": "#input1",
+      "framed": "false",
+      "x": 14,
+      "y": 110
+    },
+    {
+      "type": "item",
+      "guard": "#is_offset",
+      "item": "#input2",
+      "framed": "false",
+      "x": 23,
+      "y": 110
+    },
+    {
+      "type": "item",
+      "guard": "#is_offset->inv",
+      "item": "#input2",
+      "framed": "false",
+      "x": 32,
+      "y": 110
+    },
+    {
+      "type": "item",
+      "guard": "#is_offset",
+      "item": "#input3",
+      "framed": "false",
+      "x": 41,
+      "y": 110
+    },
+    {
+      "type": "item",
+      "guard": "#is_offset->inv",
+      "item": "#input3",
+      "framed": "false",
+      "x": 50,
+      "y": 110
+    },
+    {
+      "type": "item",
+      "guard": "#is_offset",
+      "item": "#input4",
+      "framed": "false",
+      "x": 59,
+      "y": 110
+    },
+    {
+      "type": "item",
+      "guard": "#is_offset->inv",
+      "item": "#input4",
+      "framed": "false",
+      "x": 68,
+      "y": 110
+    },
+    {
+      "type": "item",
+      "guard": "#is_offset",
+      "item": "#input5",
+      "framed": "false",
+      "x": 77,
+      "y": 110
+    },
+    {
+      "type": "item",
+      "guard": "#is_offset->inv",
+      "item": "#input5",
+      "framed": "false",
+      "x": 86,
+      "y": 110
+    },
+    {
+      "type": "item",
+      "guard": "#is_offset",
+      "item": "#input6",
+      "framed": "false",
+      "x": 95,
+      "y": 110
+    },
+    {
+      "type": "text",
+      "text": "#flavor",
+      "y": 130
+    }
+  ]
+}

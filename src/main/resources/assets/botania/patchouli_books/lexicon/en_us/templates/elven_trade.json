@@ -1,0 +1,98 @@
+{
+  "processor": "vazkii.botania.client.patchouli.processor.ElvenTradeProcessor",
+  "components": [
+    {
+      "type": "header",
+      "text": "#heading",
+      "x": -1,
+      "y": -1
+    },
+    {
+      "type": "image",
+      "image": "botania:textures/gui/elven_trade_overlay.png",
+      "x": 4,
+      "y": 18,
+      "width": 73,
+      "height": 77,
+      "u": 19,
+      "v": 18
+    },
+    {
+      "type": "image",
+      "image": "botania:textures/block/alfheim_portal_swirl.png",
+      "x": 7,
+      "y": 36,
+      "width": 48,
+      "height": 48,
+      "u": 0,
+      "v": 0,
+      "texture_width": 48,
+      "texture_height": 768
+    },
+    {
+      "type": "item",
+      "item": "#input1",
+      "framed": "false",
+      "x": 30,
+      "y": 14
+    },
+    {
+      "type": "item",
+      "item": "#input2",
+      "framed": "false",
+      "x": 50,
+      "y": 14
+    },
+    {
+      "type": "item",
+      "item": "#input3",
+      "framed": "false",
+      "x": 70,
+      "y": 14
+    },
+    {
+      "type": "item",
+      "item": "#input4",
+      "framed": "false",
+      "x": 90,
+      "y": 14
+    },
+    {
+      "type": "item",
+      "item": "#output1",
+      "framed": "false",
+      "link_recipe": true,
+      "x": 78,
+      "y": 54
+    },
+    {
+      "type": "item",
+      "item": "#output2",
+      "framed": "false",
+      "link_recipe": true,
+      "x": 98,
+      "y": 54
+    },
+    {
+      "type": "item",
+      "item": "#output3",
+      "framed": "false",
+      "link_recipe": true,
+      "x": 78,
+      "y": 74
+    },
+    {
+      "type": "item",
+      "item": "#output4",
+      "framed": "false",
+      "link_recipe": true,
+      "x": 98,
+      "y": 74
+    },
+    {
+      "type": "text",
+      "text": "#text",
+      "y": 130
+    }
+  ]
+}
