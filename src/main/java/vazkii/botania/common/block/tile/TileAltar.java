@@ -13,6 +13,11 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
@@ -56,17 +61,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-import alexiil.mc.lib.attributes.ItemAttributeList;
-import alexiil.mc.lib.attributes.Simulation;
-import alexiil.mc.lib.attributes.fluid.FluidAttributes;
-import alexiil.mc.lib.attributes.fluid.FluidExtractable;
-import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
-import alexiil.mc.lib.attributes.fluid.filter.ExactFluidFilter;
-import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import alexiil.mc.lib.attributes.misc.Ref;
-import alexiil.mc.lib.attributes.misc.Reference;
-
 public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 
 	private static final Pattern SEED_PATTERN = Pattern.compile("(?:(?:(?:[A-Z-_.:]|^)seed)|(?:(?:[a-z-_.:]|^)Seed))(?:[sA-Z-_.:]|$)");
@@ -103,11 +97,12 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 			return true;
 		}
 
-		boolean hasFluidCapability = FluidAttributes.EXTRACTABLE.getAll(stack).getCount() > 0;
+		// TODO withInitial does not propagate mutations back to `stack` after committing. What's a clean way to do so?
+		var fluidStorage = FluidStorage.ITEM.find(stack, ContainerItemContext.withInitial(stack));
+		boolean hasFluidCapability = fluidStorage != null;
 
 		if (getFluid() == State.EMPTY) {
 			// XXX: special handling for now since fish buckets don't have fluid cap, may need to be changed later
-			// todo fabric: check if LBA gives fish buckets this
 			if (stack.getItem() instanceof MobBucketItem && ((AccessorBucketItem) stack.getItem()).getFluid() == Fluids.WATER) {
 				setFluid(State.WATER);
 				((MobBucketItem) stack.getItem()).checkExtraContent(null, level, stack, getBlockPos().above()); // Spawns the fish
@@ -115,30 +110,22 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 				return true;
 			}
 
-			Reference<ItemStack> ref = new Ref<>(stack);
-			ItemAttributeList<FluidExtractable> extrs = FluidAttributes.EXTRACTABLE.getAll(ref);
-
-			for (int i = 0; i < extrs.getCount(); i++) {
-				FluidExtractable extr = extrs.get(i);
-
-				ExactFluidFilter waterFilt = new ExactFluidFilter(FluidKeys.WATER);
-				FluidVolume waterExtracted = extr.attemptExtraction(waterFilt, FluidAmount.BUCKET, Simulation.SIMULATE);
-				if (waterExtracted.getAmount_F().equals(FluidAmount.BUCKET)) {
-					extr.attemptExtraction(waterFilt, FluidAmount.BUCKET, Simulation.ACTION);
+			try (Transaction txn = Transaction.openOuter()) {
+				long extracted = fluidStorage.extract(FluidVariant.of(Fluids.WATER), FluidConstants.BLOCK, txn);
+				if (extracted == FluidConstants.BLOCK) {
 					setFluid(State.WATER);
-					item.setItem(ref.get());
+					txn.commit();
 					return true;
 				}
+			}
 
-				ExactFluidFilter lavaFilt = new ExactFluidFilter(FluidKeys.LAVA);
-				FluidVolume lavaExtracted = extr.attemptExtraction(lavaFilt, FluidAmount.BUCKET, Simulation.SIMULATE);
-				if (lavaExtracted.getAmount_F().equals(FluidAmount.BUCKET)) {
-					extr.attemptExtraction(lavaFilt, FluidAmount.BUCKET, Simulation.ACTION);
+			try (Transaction txn = Transaction.openOuter()) {
+				long extracted = fluidStorage.extract(FluidVariant.of(Fluids.LAVA), FluidConstants.BLOCK, txn);
+				if (extracted == FluidConstants.BLOCK) {
 					setFluid(State.LAVA);
-					item.setItem(ref.get());
+					txn.commit();
 					return true;
 				}
-
 			}
 
 			return false;

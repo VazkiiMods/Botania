@@ -74,14 +74,12 @@ dependencies {
     mappings loom.officialMojangMappings()
 
     modImplementation "net.fabricmc:fabric-loader:0.11.6"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:0.37.2+1.17"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.40.0+1.17"
 
     compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 
     modImplementation "vazkii.patchouli:Patchouli:1.17.1-55-FABRIC"
     modImplementation "me.shedaniel:RoughlyEnoughItems-fabric:6.0.268-alpha"
-
-    modImplementation "alexiil.mc.lib:libblockattributes-all:0.9.0"
 
     modImplementation "me.zeroeightsix:fiber:0.23.0-2"
     include "me.zeroeightsix:fiber:0.23.0-2"

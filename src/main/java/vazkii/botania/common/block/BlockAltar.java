@@ -8,6 +8,11 @@
  */
 package vazkii.botania.common.block;
 
+import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -50,22 +55,6 @@ import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.rod.ItemWaterRod;
 
 import javax.annotation.Nonnull;
-
-
-import alexiil.mc.lib.attributes.ItemAttributeList;
-import alexiil.mc.lib.attributes.Simulation;
-import alexiil.mc.lib.attributes.fluid.FluidAttributes;
-import alexiil.mc.lib.attributes.fluid.FluidExtractable;
-import alexiil.mc.lib.attributes.fluid.FluidInsertable;
-import alexiil.mc.lib.attributes.fluid.amount.FluidAmount;
-import alexiil.mc.lib.attributes.fluid.filter.ExactFluidFilter;
-import alexiil.mc.lib.attributes.fluid.filter.FluidFilter;
-import alexiil.mc.lib.attributes.fluid.volume.FluidKey;
-import alexiil.mc.lib.attributes.fluid.volume.FluidKeys;
-import alexiil.mc.lib.attributes.fluid.volume.FluidVolume;
-import alexiil.mc.lib.attributes.misc.LimitedConsumer;
-import alexiil.mc.lib.attributes.misc.Ref;
-import alexiil.mc.lib.attributes.misc.Reference;
 
 public class BlockAltar extends BlockMod implements EntityBlock {
 
@@ -131,45 +120,8 @@ public class BlockAltar extends BlockMod implements EntityBlock {
 		} else if (tile.isEmpty() && fluid == State.WATER && stack.isEmpty()) {
 			tile.trySetLastRecipe(player);
 			return InteractionResult.SUCCESS;
-		} else {
-			if (!stack.isEmpty() && fluid != State.EMPTY && isValidFluidContainerToFill(stack, tile.getFluid().asVanilla()) && !Botania.gardenOfGlassLoaded) {
-				if (!player.getAbilities().instabuild) {
-					//support bucket stacks
-					if (stack.getCount() == 1) {
-						player.setItemInHand(hand, fill(tile.getFluid().asVanilla(), stack));
-					} else {
-						player.getInventory().placeItemBackInInventory(new ItemStack(stack.getItem()));
-						stack.shrink(1);
-					}
-				}
-
-				tile.setFluid(State.EMPTY);
-				world.getChunkSource().getLightEngine().checkBlock(pos);
-
-				return InteractionResult.SUCCESS;
-			} else if (!stack.isEmpty() && (isValidFluidContainerToDrain(stack, Fluids.WATER) || stack.getItem() == ModItems.waterRod && ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, false))) {
-				if (tile.getFluid() == State.EMPTY) {
-					if (stack.getItem() == ModItems.waterRod) {
-						ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, true);
-					} else if (!player.getAbilities().instabuild) {
-						player.setItemInHand(hand, drain(Fluids.WATER, stack));
-					}
-
-					tile.setFluid(State.WATER);
-				}
-
-				return InteractionResult.SUCCESS;
-			} else if (!stack.isEmpty() && isValidFluidContainerToDrain(stack, Fluids.LAVA)) {
-				if (tile.getFluid() == State.EMPTY) {
-					if (!player.getAbilities().instabuild) {
-						player.setItemInHand(hand, drain(Fluids.LAVA, stack));
-					}
-
-					tile.setFluid(State.LAVA);
-				}
-
-				return InteractionResult.SUCCESS;
-			}
+		} else if (tryWithdrawFluid(player, hand, tile) || tryDepositFluid(player, hand, tile)) {
+			return InteractionResult.SUCCESS;
 		}
 
 		return InteractionResult.PASS;
@@ -184,76 +136,80 @@ public class BlockAltar extends BlockMod implements EntityBlock {
 		}
 	}
 
-	private boolean isValidFluidContainerToDrain(ItemStack stack, Fluid fluid) {
-		if (stack.isEmpty() || stack.getCount() != 1) {
+	private boolean tryWithdrawFluid(Player player, InteractionHand hand, TileAltar altar) {
+		Fluid fluid = altar.getFluid().asVanilla();
+		if (fluid == Fluids.EMPTY || fluid == Fluids.WATER && Botania.gardenOfGlassLoaded) {
 			return false;
 		}
 
-		Reference<ItemStack> ref = Reference.simulating(() -> stack, LimitedConsumer.fromConsumer($ -> {}));
-		ItemAttributeList<FluidExtractable> extrs = FluidAttributes.EXTRACTABLE.getAll(ref);
-		FluidFilter filt = ExactFluidFilter.of(fluid);
-		FluidAmount left = FluidAmount.BUCKET;
-		for (int i = 0; i < extrs.getCount(); i++) {
-			FluidExtractable ex = extrs.get(i);
-			FluidVolume vol = ex.attemptExtraction(filt, left, Simulation.SIMULATE);
-			left = left.sub(vol.amount());
-			if (left.isZero() || left.isNegative()) {
-				return true;
-			}
-		}
-		return false;
-	}
+		var context = ContainerItemContext.ofPlayerHand(player, hand);
+		var fluidStorage = context.find(FluidStorage.ITEM);
 
-	private ItemStack drain(Fluid fluid, ItemStack stack) {
-		Reference<ItemStack> ref = new Ref<>(stack);
-		ItemAttributeList<FluidExtractable> extrs = FluidAttributes.EXTRACTABLE.getAll(ref);
-		FluidFilter filt = ExactFluidFilter.of(fluid);
-		FluidAmount left = FluidAmount.BUCKET;
-		for (int i = 0; i < extrs.getCount(); i++) {
-			FluidExtractable ex = extrs.get(i);
-			FluidVolume vol = ex.extract(filt, left);
-			left = left.sub(vol.amount());
-			if (left.isZero() || left.isNegative()) {
-				break;
-			}
-		}
-		return ref.get();
-	}
-
-	private boolean isValidFluidContainerToFill(ItemStack stack, Fluid fluid) {
-		if (stack.isEmpty()) {
+		if (fluidStorage == null) {
 			return false;
 		}
-		//support bucket stacks
-		ItemStack container = stack.getCount() > 1 ? new ItemStack(stack.getItem()) : stack;
 
-		Reference<ItemStack> ref = Reference.simulating(() -> container, LimitedConsumer.fromConsumer($ -> {}));
-		ItemAttributeList<FluidInsertable> extrs = FluidAttributes.INSERTABLE.getAll(ref);
-		FluidKey key = FluidKeys.get(fluid);
-		FluidVolume excess = key.withAmount(FluidAmount.BUCKET);
-		for (int i = 0; i < extrs.getCount(); i++) {
-			FluidInsertable ins = extrs.get(i);
-			excess = ins.insert(excess);
-			if (excess.isEmpty()) {
+		try (Transaction txn = Transaction.openOuter()) {
+			long inserted = fluidStorage.insert(FluidVariant.of(fluid), FluidConstants.BUCKET, txn);
+			if (inserted == FluidConstants.BUCKET) {
+				if (!player.getAbilities().instabuild) {
+					// Only perform inventory side effects in survival
+					txn.commit();
+				}
+				altar.setFluid(State.EMPTY);
 				return true;
 			}
 		}
+
 		return false;
 	}
 
-	private ItemStack fill(Fluid fluid, ItemStack stack) {
-		Reference<ItemStack> ref = new Ref<>(stack);
-		ItemAttributeList<FluidInsertable> extrs = FluidAttributes.INSERTABLE.getAll(ref);
-		FluidKey key = FluidKeys.get(fluid);
-		FluidVolume excess = key.withAmount(FluidAmount.BUCKET);
-		for (int i = 0; i < extrs.getCount(); i++) {
-			FluidInsertable ins = extrs.get(i);
-			excess = ins.insert(excess);
-			if (excess.isEmpty()) {
-				break;
+	private boolean tryDepositFluid(Player player, InteractionHand hand, TileAltar altar) {
+		if (altar.getFluid() != State.EMPTY) {
+			return false;
+		}
+
+		ItemStack stack = player.getItemInHand(hand);
+		if (!stack.isEmpty()
+				&& stack.getItem() == ModItems.waterRod
+				&& ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, false)) {
+			ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, true);
+			altar.setFluid(State.WATER);
+			return true;
+		}
+
+		var context = ContainerItemContext.ofPlayerHand(player, hand);
+		var fluidStorage = context.find(FluidStorage.ITEM);
+
+		if (fluidStorage == null) {
+			return false;
+		}
+
+		try (Transaction txn = Transaction.openOuter()) {
+			long extracted = fluidStorage.extract(FluidVariant.of(Fluids.WATER), FluidConstants.BUCKET, txn);
+			if (extracted == FluidConstants.BUCKET) {
+				if (!player.getAbilities().instabuild) {
+					// Only perform inventory side effects in survival
+					txn.commit();
+				}
+				altar.setFluid(State.WATER);
+				return true;
 			}
 		}
-		return ref.get();
+
+		try (Transaction txn = Transaction.openOuter()) {
+			long extracted = fluidStorage.extract(FluidVariant.of(Fluids.LAVA), FluidConstants.BUCKET, txn);
+			if (extracted == FluidConstants.BUCKET) {
+				if (!player.getAbilities().instabuild) {
+					// Only perform inventory side effects in survival
+					txn.commit();
+				}
+				altar.setFluid(State.LAVA);
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	@Nonnull
