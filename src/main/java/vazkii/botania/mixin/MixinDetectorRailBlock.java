@@ -36,7 +36,7 @@ public class MixinDetectorRailBlock {
 	// Target: before the check for container carts
 	@Inject(
 		method = "getAnalogOutputSignal", cancellable = true, at = @At(
-			value = "CONSTANT", ordinal = 0, args = "classValue=net/minecraft/world/entity/vehicle/AbstractMinecart"
+			value = "INVOKE", target = "Lnet/minecraft/world/level/block/DetectorRailBlock;getInteractingMinecartOfType(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Ljava/lang/Class;Ljava/util/function/Predicate;)Ljava/util/List;", ordinal = 1
 		)
 	)
 	private void getManaCartOutputSignal(BlockState state, Level level, BlockPos pos, CallbackInfoReturnable<Integer> cir) {
