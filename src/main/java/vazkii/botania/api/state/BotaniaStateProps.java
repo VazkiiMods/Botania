@@ -22,9 +22,6 @@ import vazkii.botania.api.state.enums.CratePattern;
  */
 public final class BotaniaStateProps {
 
-	// The property for floating flower island type
-	// todo 1.16-fabric public static final ModelProperty<IFloatingFlower> FLOATING_DATA = new ModelProperty<>();
-
 	// BlockAlfPortal
 	public static final EnumProperty<AlfPortalState> ALFPORTAL_STATE = EnumProperty.create("state", AlfPortalState.class);
 

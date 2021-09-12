@@ -33,7 +33,6 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 	private static final int RANGE_MINI = 2;
 	private static final int RANGE_Y_MINI = 1;
 
-	// TODO should this try to match the exact same biome sets as <=1.16.1? is this close enough?
 	private enum Type {
 		FOREST(ModFluffBlocks.biomeStoneForest, Biome.BiomeCategory.FOREST),
 		PLAINS(ModFluffBlocks.biomeStonePlains, Biome.BiomeCategory.PLAINS),

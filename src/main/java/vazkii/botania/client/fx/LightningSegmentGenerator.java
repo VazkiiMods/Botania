@@ -150,7 +150,7 @@ public class LightningSegmentGenerator {
 				lastActiveSegment = lastactivesegment.get(segment.splitNo);
 			}
 
-			/* todo figure out why the culling is so aggressive (?)
+			/*
 			if (segment.segmentNo > lastActiveSegment) {
 				iterator.remove();
 			}
