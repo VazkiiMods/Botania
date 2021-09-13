@@ -128,6 +128,10 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 				return true;
 			}
 
+			if (!hasFluidCapability) {
+				return false;
+			}
+
 			try (Transaction txn = Transaction.openOuter()) {
 				long extracted = fluidStorage.extract(FluidVariant.of(Fluids.WATER), FluidConstants.BLOCK, txn);
 				if (extracted == FluidConstants.BLOCK) {
