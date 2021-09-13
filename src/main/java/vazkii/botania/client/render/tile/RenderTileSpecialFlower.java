@@ -44,7 +44,9 @@ public class RenderTileSpecialFlower<T extends TileEntitySpecialFlower> implemen
 
 	@Override
 	public void render(TileEntitySpecialFlower tile, float partialTicks, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
-		RenderTileFloatingFlower.renderFloatingIsland(tile, partialTicks, ms, buffers, light, overlay);
+		if (tile.isFloating()) {
+			RenderTileFloatingFlower.renderFloatingIsland(tile, partialTicks, ms, buffers, light, overlay);
+		}
 		if (!(Minecraft.getInstance().cameraEntity instanceof LivingEntity)) {
 			return;
 		}
