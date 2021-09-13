@@ -188,6 +188,25 @@ public class ItemTagProvider extends ItemTagsProvider {
 				ModItems.superTravelBelt,
 				ModItems.travelBelt
 		);
+		this.tag(accessory("all")).add(
+				ModItems.blackBowtie, ModItems.blackTie,
+				ModItems.redGlasses, ModItems.puffyScarf,
+				ModItems.engineerGoggles, ModItems.eyepatch,
+				ModItems.wickedEyepatch, ModItems.redRibbons,
+				ModItems.pinkFlowerBud, ModItems.polkaDottedBows,
+				ModItems.blueButterfly, ModItems.catEars,
+				ModItems.witchPin, ModItems.devilTail,
+				ModItems.kamuiEye, ModItems.googlyEyes,
+				ModItems.fourLeafClover, ModItems.clockEye,
+				ModItems.unicornHorn, ModItems.devilHorns,
+				ModItems.hyperPlus, ModItems.botanistEmblem,
+				ModItems.ancientMask, ModItems.eerieMask,
+				ModItems.alienAntenna, ModItems.anaglyphGlasses,
+				ModItems.orangeShades, ModItems.grouchoGlasses,
+				ModItems.thickEyebrows, ModItems.lusitanicShield,
+				ModItems.tinyPotatoMask, ModItems.questgiverMark,
+				ModItems.thinkingHand
+		);
 
 	}
 
