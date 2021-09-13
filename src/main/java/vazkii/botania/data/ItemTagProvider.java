@@ -8,7 +8,7 @@
  */
 package vazkii.botania.data;
 
-import net.fabricmc.fabric.api.tag.TagRegistry;
+import net.fabricmc.fabric.api.tag.TagFactory;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
@@ -192,7 +192,7 @@ public class ItemTagProvider extends ItemTagsProvider {
 	}
 
 	private static Tag.Named<Item> accessory(String name) {
-		return TagRegistry.create(new ResourceLocation("trinkets", name), ItemTags::getAllTags);
+		return TagFactory.ITEM.create(new ResourceLocation("trinkets", name));
 	}
 
 	@Nonnull
