@@ -7,7 +7,7 @@
   ],
   "key": {
     "R": {
-      "tag": "botania:runes/air"
+      "item": "botania:rune_air"
     },
     "S": {
       "item": "botania:livingwood_slab"

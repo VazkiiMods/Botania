@@ -7,7 +7,7 @@
   ],
   "key": {
     "R": {
-      "tag": "botania:livingrock"
+      "item": "botania:livingrock"
     },
     "S": {
       "item": "botania:red_string"

@@ -17,7 +17,7 @@
       "tag": "botania:petals/light_gray"
     },
     {
-      "tag": "botania:runes/air"
+      "item": "botania:rune_air"
     },
     {
       "item": "botania:redstone_root"

@@ -13,10 +13,10 @@
       "tag": "botania:manasteel_ingots"
     },
     "F": {
-      "tag": "botania:runes/fire"
+      "item": "botania:rune_fire"
     },
     "M": {
-      "tag": "botania:runes/summer"
+      "item": "botania:rune_summer"
     }
   },
   "result": {

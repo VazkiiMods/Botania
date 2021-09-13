@@ -29,10 +29,10 @@
       "tag": "botania:petals/white"
     },
     {
-      "tag": "botania:runes/winter"
+      "item": "botania:rune_winter"
     },
     {
-      "tag": "botania:runes/air"
+      "item": "botania:rune_air"
     },
     {
       "item": "botania:pixie_dust"

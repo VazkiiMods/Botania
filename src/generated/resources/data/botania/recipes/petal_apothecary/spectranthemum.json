@@ -20,10 +20,10 @@
       "tag": "botania:petals/cyan"
     },
     {
-      "tag": "botania:runes/envy"
+      "item": "botania:rune_envy"
     },
     {
-      "tag": "botania:runes/water"
+      "item": "botania:rune_water"
     },
     {
       "item": "botania:redstone_root"

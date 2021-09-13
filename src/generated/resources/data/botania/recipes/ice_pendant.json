@@ -7,13 +7,13 @@
   ],
   "key": {
     "R": {
-      "tag": "botania:runes/water"
+      "item": "botania:rune_water"
     },
     "S": {
       "item": "botania:mana_string"
     },
     "W": {
-      "tag": "botania:runes/winter"
+      "item": "botania:rune_winter"
     },
     "M": {
       "tag": "botania:manasteel_ingots"

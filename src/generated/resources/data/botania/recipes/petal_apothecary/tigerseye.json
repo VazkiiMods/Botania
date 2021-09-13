@@ -17,7 +17,7 @@
       "tag": "botania:petals/lime"
     },
     {
-      "tag": "botania:runes/autumn"
+      "item": "botania:rune_autumn"
     }
   ]
 }

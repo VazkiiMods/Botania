@@ -7,13 +7,13 @@
   ],
   "key": {
     "A": {
-      "tag": "botania:runes/autumn"
+      "item": "botania:rune_autumn"
     },
     "R": {
       "item": "botania:dirt_rod"
     },
     "S": {
-      "tag": "botania:runes/spring"
+      "item": "botania:rune_spring"
     },
     "T": {
       "tag": "botania:terrasteel_ingots"
@@ -22,10 +22,10 @@
       "item": "botania:grass_seeds"
     },
     "W": {
-      "tag": "botania:runes/winter"
+      "item": "botania:rune_winter"
     },
     "M": {
-      "tag": "botania:runes/summer"
+      "item": "botania:rune_summer"
     }
   },
   "result": {

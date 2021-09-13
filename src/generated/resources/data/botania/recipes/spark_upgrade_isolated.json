@@ -9,7 +9,7 @@
       "tag": "botania:manasteel_ingots"
     },
     {
-      "tag": "botania:runes/air"
+      "item": "botania:rune_air"
     }
   ],
   "result": {

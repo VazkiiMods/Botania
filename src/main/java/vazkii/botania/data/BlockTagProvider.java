@@ -140,9 +140,6 @@ public class BlockTagProvider extends BlockTagsProvider {
 		);
 		tag(ModTags.Blocks.BLOCKS_TERRASTEEL).add(ModBlocks.terrasteelBlock);
 
-		tag(ModTags.Blocks.LIVINGROCK).add(ModBlocks.livingrock);
-		tag(ModTags.Blocks.LIVINGWOOD).add(ModBlocks.livingwood);
-
 		tag(ModTags.Blocks.CORPOREA_SPARK_OVERRIDE).add(
 				ModBlocks.corporeaBlock, ModBlocks.corporeaBrick, ModBlocks.corporeaBrickSlab, ModBlocks.corporeaBrickStairs,
 				ModBlocks.corporeaBrickWall, ModBlocks.corporeaCrystalCube, ModBlocks.corporeaFunnel, ModBlocks.corporeaIndex,

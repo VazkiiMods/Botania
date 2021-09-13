@@ -10,7 +10,7 @@
       "item": "minecraft:prismarine_crystals"
     },
     "R": {
-      "tag": "botania:runes/water"
+      "item": "botania:rune_water"
     },
     "L": {
       "item": "botania:lens_normal"

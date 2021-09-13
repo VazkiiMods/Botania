@@ -13,10 +13,10 @@
       "item": "botania:livingwood_twig"
     },
     "F": {
-      "tag": "botania:runes/fire"
+      "item": "botania:rune_fire"
     },
     "W": {
-      "tag": "botania:runes/water"
+      "item": "botania:rune_water"
     }
   },
   "result": {

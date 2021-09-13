@@ -10,7 +10,7 @@
       "item": "minecraft:bucket"
     },
     "S": {
-      "tag": "botania:livingrock"
+      "item": "botania:livingrock"
     },
     "I": {
       "tag": "botania:manasteel_ingots"

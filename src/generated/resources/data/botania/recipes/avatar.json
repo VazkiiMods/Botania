@@ -10,7 +10,7 @@
       "tag": "botania:mana_diamond_gems"
     },
     "W": {
-      "tag": "botania:livingwood"
+      "item": "botania:livingwood"
     }
   },
   "result": {

@@ -23,10 +23,10 @@
       "item": "botania:life_essence"
     },
     {
-      "tag": "botania:runes/envy"
+      "item": "botania:rune_envy"
     },
     {
-      "tag": "botania:runes/wrath"
+      "item": "botania:rune_wrath"
     }
   ]
 }

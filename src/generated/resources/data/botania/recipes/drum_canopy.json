@@ -7,7 +7,7 @@
   ],
   "key": {
     "W": {
-      "tag": "botania:livingwood"
+      "item": "botania:livingwood"
     },
     "H": {
       "item": "botania:horn_leaves"

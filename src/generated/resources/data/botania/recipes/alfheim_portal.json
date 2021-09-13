@@ -10,7 +10,7 @@
       "tag": "botania:terrasteel_nuggets"
     },
     "W": {
-      "tag": "botania:livingwood"
+      "item": "botania:livingwood"
     }
   },
   "result": {

@@ -20,13 +20,13 @@
       "tag": "botania:petals/gray"
     },
     {
-      "tag": "botania:runes/sloth"
+      "item": "botania:rune_sloth"
     },
     {
-      "tag": "botania:runes/gluttony"
+      "item": "botania:rune_gluttony"
     },
     {
-      "tag": "botania:runes/envy"
+      "item": "botania:rune_envy"
     },
     {
       "item": "botania:redstone_root"

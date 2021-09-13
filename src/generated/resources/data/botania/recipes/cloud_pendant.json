@@ -13,10 +13,10 @@
       "tag": "botania:manasteel_ingots"
     },
     "F": {
-      "tag": "botania:runes/air"
+      "item": "botania:rune_air"
     },
     "M": {
-      "tag": "botania:runes/autumn"
+      "item": "botania:rune_autumn"
     }
   },
   "result": {

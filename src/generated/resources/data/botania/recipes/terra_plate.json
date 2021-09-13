@@ -7,19 +7,19 @@
   ],
   "key": {
     "0": {
-      "tag": "botania:runes/water"
+      "item": "botania:rune_water"
     },
     "1": {
-      "tag": "botania:runes/fire"
+      "item": "botania:rune_fire"
     },
     "2": {
-      "tag": "botania:runes/earth"
+      "item": "botania:rune_earth"
     },
     "3": {
-      "tag": "botania:runes/air"
+      "item": "botania:rune_air"
     },
     "8": {
-      "tag": "botania:runes/mana"
+      "item": "botania:rune_mana"
     },
     "L": {
       "item": "minecraft:lapis_block"

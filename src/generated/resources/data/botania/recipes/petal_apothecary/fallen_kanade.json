@@ -20,7 +20,7 @@
       "tag": "botania:petals/orange"
     },
     {
-      "tag": "botania:runes/spring"
+      "item": "botania:rune_spring"
     }
   ]
 }

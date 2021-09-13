@@ -6,10 +6,10 @@
   "mana": 8000,
   "ingredients": [
     {
-      "tag": "botania:runes/water"
+      "item": "botania:rune_water"
     },
     {
-      "tag": "botania:runes/fire"
+      "item": "botania:rune_fire"
     },
     {
       "tag": "minecraft:saplings"

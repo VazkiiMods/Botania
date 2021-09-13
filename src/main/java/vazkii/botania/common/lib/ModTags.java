@@ -71,8 +71,6 @@ public class ModTags {
 		public static final Tag.Named<Item> SPECIAL_FLOATING_FLOWERS = tag("special_floating_flowers");
 
 		public static final Tag.Named<Item> LENS = tag("lens");
-		public static final Tag.Named<Item> LIVINGROCK = tag("livingrock");
-		public static final Tag.Named<Item> LIVINGWOOD = tag("livingwood");
 
 		public static final Tag.Named<Item> MAGNET_RING_BLACKLIST = tag("magnet_ring_blacklist");
 		public static final Tag.Named<Item> LOONIUM_BLACKLIST = tag("loonium_blacklist");
@@ -99,23 +97,6 @@ public class ModTags {
 		public static final Tag.Named<Item> PETALS_YELLOW = tag("petals/yellow");
 
 		public static final Tag.Named<Item> RUNES = tag("runes");
-
-		public static final Tag.Named<Item> RUNES_AIR = tag("runes/air");
-		public static final Tag.Named<Item> RUNES_AUTUMN = tag("runes/autumn");
-		public static final Tag.Named<Item> RUNES_EARTH = tag("runes/earth");
-		public static final Tag.Named<Item> RUNES_ENVY = tag("runes/envy");
-		public static final Tag.Named<Item> RUNES_FIRE = tag("runes/fire");
-		public static final Tag.Named<Item> RUNES_GLUTTONY = tag("runes/gluttony");
-		public static final Tag.Named<Item> RUNES_GREED = tag("runes/greed");
-		public static final Tag.Named<Item> RUNES_LUST = tag("runes/lust");
-		public static final Tag.Named<Item> RUNES_MANA = tag("runes/mana");
-		public static final Tag.Named<Item> RUNES_PRIDE = tag("runes/pride");
-		public static final Tag.Named<Item> RUNES_SLOTH = tag("runes/sloth");
-		public static final Tag.Named<Item> RUNES_SPRING = tag("runes/spring");
-		public static final Tag.Named<Item> RUNES_SUMMER = tag("runes/summer");
-		public static final Tag.Named<Item> RUNES_WATER = tag("runes/water");
-		public static final Tag.Named<Item> RUNES_WINTER = tag("runes/winter");
-		public static final Tag.Named<Item> RUNES_WRATH = tag("runes/wrath");
 
 		public static final Tag.Named<Item> BURST_VIEWERS = tag("burst_viewers");
 		public static final Tag.Named<Item> TERRA_PICK_BLACKLIST = tag("terra_pick_blacklist");
@@ -185,9 +166,6 @@ public class ModTags {
 		public static final Tag.Named<Block> SPECIAL_FLOATING_FLOWERS = tag("special_floating_flowers");
 
 		public static final Tag.Named<Block> ENCHANTER_FLOWERS = tag("enchanter_flowers");
-
-		public static final Tag.Named<Block> LIVINGROCK = tag("livingrock");
-		public static final Tag.Named<Block> LIVINGWOOD = tag("livingwood");
 
 		public static final Tag.Named<Block> BLOCKS_ELEMENTIUM = tag("elementium_blocks");
 		public static final Tag.Named<Block> BLOCKS_MANASTEEL = tag("manasteel_blocks");

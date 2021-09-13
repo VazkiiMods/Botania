@@ -20,13 +20,13 @@
       "tag": "botania:petals/green"
     },
     {
-      "tag": "botania:runes/water"
+      "item": "botania:rune_water"
     },
     {
-      "tag": "botania:runes/sloth"
+      "item": "botania:rune_sloth"
     },
     {
-      "tag": "botania:runes/lust"
+      "item": "botania:rune_lust"
     },
     {
       "item": "botania:redstone_root"

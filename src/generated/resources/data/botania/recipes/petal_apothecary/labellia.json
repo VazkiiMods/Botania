@@ -20,7 +20,7 @@
       "tag": "botania:petals/black"
     },
     {
-      "tag": "botania:runes/autumn"
+      "item": "botania:rune_autumn"
     },
     {
       "item": "botania:redstone_root"

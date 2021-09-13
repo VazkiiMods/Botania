@@ -13,7 +13,7 @@
       "tag": "botania:terrasteel_ingots"
     },
     "R": {
-      "tag": "botania:runes/spring"
+      "item": "botania:rune_spring"
     },
     "A": {
       "item": "botania:manasteel_helmet"

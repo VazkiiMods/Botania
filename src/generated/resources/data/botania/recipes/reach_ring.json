@@ -7,7 +7,7 @@
   ],
   "key": {
     "R": {
-      "tag": "botania:runes/pride"
+      "item": "botania:rune_pride"
     },
     "E": {
       "tag": "botania:elementium_ingots"

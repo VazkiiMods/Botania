@@ -7,7 +7,7 @@
   ],
   "key": {
     "R": {
-      "tag": "botania:runes/sloth"
+      "item": "botania:rune_sloth"
     },
     "S": {
       "item": "minecraft:stone"

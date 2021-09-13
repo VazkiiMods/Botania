@@ -20,7 +20,7 @@
       "tag": "botania:petals/green"
     },
     {
-      "tag": "botania:runes/gluttony"
+      "item": "botania:rune_gluttony"
     }
   ]
 }

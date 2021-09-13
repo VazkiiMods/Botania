@@ -12,10 +12,10 @@
       "tag": "botania:mana_diamond_gems"
     },
     {
-      "tag": "botania:runes/summer"
+      "item": "botania:rune_summer"
     },
     {
-      "tag": "botania:runes/air"
+      "item": "botania:rune_air"
     }
   ]
 }

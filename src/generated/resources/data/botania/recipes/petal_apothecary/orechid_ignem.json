@@ -20,10 +20,10 @@
       "tag": "botania:petals/pink"
     },
     {
-      "tag": "botania:runes/pride"
+      "item": "botania:rune_pride"
     },
     {
-      "tag": "botania:runes/greed"
+      "item": "botania:rune_greed"
     },
     {
       "item": "botania:redstone_root"

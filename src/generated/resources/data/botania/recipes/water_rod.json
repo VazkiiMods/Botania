@@ -10,7 +10,7 @@
       "item": "minecraft:potion"
     },
     "R": {
-      "tag": "botania:runes/water"
+      "item": "botania:rune_water"
     },
     "T": {
       "item": "botania:livingwood_twig"

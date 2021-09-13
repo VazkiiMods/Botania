@@ -20,7 +20,7 @@
       "tag": "botania:petals/lime"
     },
     {
-      "tag": "botania:runes/mana"
+      "item": "botania:rune_mana"
     }
   ]
 }

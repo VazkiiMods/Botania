@@ -13,7 +13,7 @@
       "item": "minecraft:stone"
     },
     "L": {
-      "tag": "botania:livingrock"
+      "item": "botania:livingrock"
     }
   },
   "result": {
