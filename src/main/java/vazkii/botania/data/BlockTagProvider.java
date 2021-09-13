@@ -22,6 +22,10 @@ import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.WallBlock;
 
 import vazkii.botania.common.block.*;
+import vazkii.botania.common.block.decor.BlockFloatingFlower;
+import vazkii.botania.common.block.mana.BlockPool;
+import vazkii.botania.common.block.string.BlockRedString;
+import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.common.lib.ModTags;
 
@@ -30,8 +34,10 @@ import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
 
+import static vazkii.botania.common.block.ModBlocks.*;
 import static vazkii.botania.common.block.ModSubtiles.*;
 
 public class BlockTagProvider extends BlockTagsProvider {
@@ -161,6 +167,44 @@ public class BlockTagProvider extends BlockTagsProvider {
 		}
 
 		registerCommonTags();
+		registerMiningTags();
+	}
+
+	private void registerMiningTags() {
+		tag(BlockTags.MINEABLE_WITH_HOE).add(
+				getModBlocks(b -> b == cellBlock
+						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.PETAL_BLOCK_SUFFIX)
+				)
+		);
+		tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
+				getModBlocks(b -> b instanceof BlockFloatingFlower || b instanceof BlockAltGrass)
+		);
+		var pickaxe = Set.of(
+				alchemyCatalyst, conjurationCatalyst,
+				manasteelBlock, elementiumBlock, terrasteelBlock, manaDiamondBlock, dragonstoneBlock,
+				manaGlass, elfGlass, bifrostPerm,
+				ModFluffBlocks.managlassPane, ModFluffBlocks.alfglassPane, ModFluffBlocks.bifrostPane,
+				runeAltar, brewery, terraPlate, spawnerClaw,
+				rfGenerator, prism, pump, sparkChanger, forestEye, enderEye,
+				hourglass, starfield, blazeBlock
+		);
+		tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
+				getModBlocks(b -> pickaxe.contains(b)
+						|| b instanceof BlockAltar
+						|| b instanceof BlockPylon
+						|| b instanceof BlockPool
+						|| b instanceof BlockRedString
+						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.AZULEJO_PREFIX)
+						|| Registry.BLOCK.getKey(b).getPath().contains("corporea")
+						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.PAVEMENT_SUFFIX)
+						|| Registry.BLOCK.getKey(b).getPath().contains("_quartz")
+						|| (Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.METAMORPHIC_PREFIX)
+								&& !(b instanceof WallBlock)) // vanilla includes #wall already
+						|| (Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.LIVING_ROCK)
+								&& !(b instanceof WallBlock)) // vanilla includes #wall already
+						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.SHIMMERROCK)
+				)
+		);
 	}
 
 	private void registerCommonTags() {
@@ -185,8 +229,7 @@ public class BlockTagProvider extends BlockTagsProvider {
 
 	@Nonnull
 	private Block[] getModBlocks(Predicate<Block> predicate) {
-		return registry.stream().filter(BOTANIA_BLOCK)
-				.filter(predicate)
+		return registry.stream().filter(BOTANIA_BLOCK.and(predicate))
 				.sorted(Comparator.comparing(Registry.BLOCK::getKey))
 				.toArray(Block[]::new);
 	}
