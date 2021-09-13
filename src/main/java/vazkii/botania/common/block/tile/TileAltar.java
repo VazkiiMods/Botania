@@ -17,6 +17,7 @@ import net.fabricmc.fabric.api.transfer.v1.context.ContainerItemContext;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
 import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.item.base.SingleStackStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
@@ -76,6 +77,24 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 		super(ModTiles.ALTAR, pos, state);
 	}
 
+	private static class SingleStackEntityStorage extends SingleStackStorage {
+		private final ItemEntity entity;
+
+		private SingleStackEntityStorage(ItemEntity entity) {
+			this.entity = entity;
+		}
+
+		@Override
+		protected ItemStack getStack() {
+			return entity.getItem();
+		}
+
+		@Override
+		protected void setStack(ItemStack stack) {
+			entity.setItem(stack);
+		}
+	}
+
 	public boolean collideEntityItem(ItemEntity item) {
 		ItemStack stack = item.getItem();
 		if (level.isClientSide || stack.isEmpty() || !item.isAlive()) {
@@ -97,8 +116,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 			return true;
 		}
 
-		// TODO withInitial does not propagate mutations back to `stack` after committing. What's a clean way to do so?
-		var fluidStorage = FluidStorage.ITEM.find(stack, ContainerItemContext.withInitial(stack));
+		var fluidStorage = ContainerItemContext.ofSingleSlot(new SingleStackEntityStorage(item)).find(FluidStorage.ITEM);
 		boolean hasFluidCapability = fluidStorage != null;
 
 		if (getFluid() == State.EMPTY) {
