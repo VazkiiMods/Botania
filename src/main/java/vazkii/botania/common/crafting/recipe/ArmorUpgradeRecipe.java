@@ -25,22 +25,15 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nonnull;
 
-public class ArmorUpgradeRecipe implements CraftingRecipe {
-	private final ShapedRecipe compose;
-
+public class ArmorUpgradeRecipe extends ShapedRecipe {
 	public ArmorUpgradeRecipe(ShapedRecipe compose) {
-		this.compose = compose;
-	}
-
-	@Override
-	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level world) {
-		return compose.matches(inv, world);
+		super(compose.getId(), compose.getGroup(), compose.getWidth(), compose.getHeight(), compose.getIngredients(), compose.getResultItem());
 	}
 
 	@Nonnull
 	@Override
 	public ItemStack assemble(@Nonnull CraftingContainer inv) {
-		ItemStack out = compose.assemble(inv);
+		ItemStack out = super.assemble(inv);
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty() && stack.getItem() instanceof ArmorItem && stack.hasTag()) {
@@ -49,29 +42,6 @@ public class ArmorUpgradeRecipe implements CraftingRecipe {
 			}
 		}
 		return out;
-	}
-
-	@Override
-	public boolean canCraftInDimensions(int width, int height) {
-		return compose.canCraftInDimensions(width, height);
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack getResultItem() {
-		return compose.getResultItem();
-	}
-
-	@Nonnull
-	@Override
-	public NonNullList<Ingredient> getIngredients() {
-		return compose.getIngredients();
-	}
-
-	@Nonnull
-	@Override
-	public ResourceLocation getId() {
-		return compose.getId();
 	}
 
 	@Nonnull
@@ -85,17 +55,17 @@ public class ArmorUpgradeRecipe implements CraftingRecipe {
 	private static class Serializer implements RecipeSerializer<ArmorUpgradeRecipe> {
 		@Override
 		public ArmorUpgradeRecipe fromJson(@Nonnull ResourceLocation recipeId, @Nonnull JsonObject json) {
-			return new ArmorUpgradeRecipe(RecipeSerializer.SHAPED_RECIPE.fromJson(recipeId, json));
+			return new ArmorUpgradeRecipe(SHAPED_RECIPE.fromJson(recipeId, json));
 		}
 
 		@Override
 		public ArmorUpgradeRecipe fromNetwork(@Nonnull ResourceLocation recipeId, @Nonnull FriendlyByteBuf buffer) {
-			return new ArmorUpgradeRecipe(RecipeSerializer.SHAPED_RECIPE.fromNetwork(recipeId, buffer));
+			return new ArmorUpgradeRecipe(SHAPED_RECIPE.fromNetwork(recipeId, buffer));
 		}
 
 		@Override
 		public void toNetwork(@Nonnull FriendlyByteBuf buffer, @Nonnull ArmorUpgradeRecipe recipe) {
-			RecipeSerializer.SHAPED_RECIPE.toNetwork(buffer, recipe.compose);
+			SHAPED_RECIPE.toNetwork(buffer, recipe);
 		}
 	};
 }

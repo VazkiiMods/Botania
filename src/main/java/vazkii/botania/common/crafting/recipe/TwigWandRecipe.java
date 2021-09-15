@@ -10,18 +10,14 @@ package vazkii.botania.common.crafting.recipe;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
-import net.minecraft.world.level.Level;
 
 import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.item.ItemTwigWand;
@@ -31,17 +27,11 @@ import vazkii.botania.common.item.material.ItemPetal;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TwigWandRecipe implements CraftingRecipe {
+public class TwigWandRecipe extends ShapedRecipe {
 	public static final RecipeSerializer<TwigWandRecipe> SERIALIZER = new Serializer();
-	private final ShapedRecipe compose;
 
 	public TwigWandRecipe(ShapedRecipe compose) {
-		this.compose = compose;
-	}
-
-	@Override
-	public boolean matches(@Nonnull CraftingContainer inv, @Nonnull Level worldIn) {
-		return compose.matches(inv, worldIn);
+		super(compose.getId(), compose.getGroup(), compose.getWidth(), compose.getHeight(), compose.getIngredients(), compose.getResultItem());
 	}
 
 	@Nonnull
@@ -53,10 +43,10 @@ public class TwigWandRecipe implements CraftingRecipe {
 			Item item = stack.getItem();
 
 			int colorId;
-			if (item instanceof ItemPetal) {
-				colorId = ((ItemPetal) item).color.getId();
-			} else if (item instanceof BlockItem && ((BlockItem) item).getBlock() instanceof BlockModMushroom) {
-				colorId = ((BlockModMushroom) ((BlockItem) item).getBlock()).color.getId();
+			if (item instanceof ItemPetal petal) {
+				colorId = petal.color.getId();
+			} else if (item instanceof BlockItem block && block.getBlock() instanceof BlockModMushroom mushroom) {
+				colorId = mushroom.color.getId();
 			} else {
 				continue;
 			}
@@ -69,45 +59,10 @@ public class TwigWandRecipe implements CraftingRecipe {
 		return ItemTwigWand.forColors(first != -1 ? first : 0, 0);
 	}
 
-	@Override
-	public boolean canCraftInDimensions(int width, int height) {
-		return compose.canCraftInDimensions(width, height);
-	}
-
 	@Nonnull
 	@Override
 	public ItemStack getResultItem() {
 		return new ItemStack(ModItems.twigWand);
-	}
-
-	@Nonnull
-	@Override
-	public ResourceLocation getId() {
-		return compose.getId();
-	}
-
-	@Nonnull
-	@Override
-	public NonNullList<ItemStack> getRemainingItems(CraftingContainer inv) {
-		return compose.getRemainingItems(inv);
-	}
-
-	@Nonnull
-	@Override
-	public NonNullList<Ingredient> getIngredients() {
-		return compose.getIngredients();
-	}
-
-	@Nonnull
-	@Override
-	public String getGroup() {
-		return compose.getGroup();
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack getToastSymbol() {
-		return compose.getToastSymbol();
 	}
 
 	@Nonnull
@@ -131,7 +86,7 @@ public class TwigWandRecipe implements CraftingRecipe {
 
 		@Override
 		public void toNetwork(@Nonnull FriendlyByteBuf buffer, @Nonnull TwigWandRecipe recipe) {
-			SHAPED_RECIPE.toNetwork(buffer, recipe.compose);
+			SHAPED_RECIPE.toNetwork(buffer, recipe);
 		}
 	}
 }
