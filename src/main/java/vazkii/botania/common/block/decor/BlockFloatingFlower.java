@@ -10,6 +10,7 @@ package vazkii.botania.common.block.decor;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -61,6 +62,9 @@ public class BlockFloatingFlower extends BlockModWaterloggable implements Entity
 	@Nonnull
 	@Override
 	public RenderShape getRenderShape(BlockState state) {
+		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER) {
+			return RenderShape.ENTITYBLOCK_ANIMATED;
+		}
 		return ConfigHandler.CLIENT.staticFloaters.getValue() ? RenderShape.MODEL : RenderShape.ENTITYBLOCK_ANIMATED;
 	}
 
