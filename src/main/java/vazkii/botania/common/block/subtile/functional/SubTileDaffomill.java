@@ -26,7 +26,6 @@ import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.network.PacketItemAge;
-import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.List;
 
@@ -67,7 +66,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 				List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, axis);
 				int slowdown = getSlowdownFactor();
 				for (ItemEntity item : items) {
-					if (item.isAlive() && ((AccessorItemEntity) item).getAge() >= slowdown) {
+					if (item.isAlive() && item.getAge() >= slowdown) {
 						item.setDeltaMovement(
 								item.getDeltaMovement().x() + orientation.getStepX() * 0.05,
 								item.getDeltaMovement().y() + orientation.getStepY() * 0.05,
@@ -187,9 +186,9 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 
 	// Send item age to client to prevent client desync when an item is e.g. dropped by a powered open crate
 	public static void onItemTrack(ServerPlayer player, Entity entity) {
-		if (entity instanceof ItemEntity) {
+		if (entity instanceof ItemEntity item) {
 			int entityId = entity.getId();
-			int age = ((AccessorItemEntity) entity).getAge();
+			int age = item.getAge();
 			PacketItemAge.send(player, entityId, age);
 		}
 	}

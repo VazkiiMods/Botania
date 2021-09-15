@@ -30,7 +30,6 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.components.ItemFlagsComponent;
 import vazkii.botania.common.network.PacketBotaniaEffect;
-import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.List;
 
@@ -65,7 +64,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 
 			for (ItemEntity item : items) {
 				ItemFlagsComponent flags = EntityComponents.INTERNAL_ITEM.get(item);
-				int age = ((AccessorItemEntity) item).getAge();
+				int age = item.getAge();
 				if (age < 60 + slowdown || !item.isAlive() || flags.spectranthemumTeleported) {
 					continue;
 				}

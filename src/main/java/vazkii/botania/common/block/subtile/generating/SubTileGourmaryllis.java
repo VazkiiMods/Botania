@@ -25,7 +25,6 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -125,7 +124,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 		for (ItemEntity item : items) {
 			ItemStack stack = item.getItem();
 
-			int age = ((AccessorItemEntity) item).getAge();
+			int age = item.getAge();
 			if (!stack.isEmpty() && stack.getItem().isEdible() && item.isAlive() && age >= slowdown) {
 				if (cooldown <= 0) {
 					streakLength = Math.min(streakLength + 1, processFood(stack));

@@ -36,7 +36,6 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.InventoryHelper;
-import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +75,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 		int slowdown = getSlowdownFactor();
 
 		for (ItemEntity item : items) {
-			int age = ((AccessorItemEntity) item).getAge();
+			int age = item.getAge();
 			if (age < 60 + slowdown || age >= 105 && age < 110 || !item.isAlive() || item.getItem().isEmpty()) {
 				continue;
 			}

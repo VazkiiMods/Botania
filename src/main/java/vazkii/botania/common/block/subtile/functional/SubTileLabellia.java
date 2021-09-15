@@ -27,7 +27,6 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.mixin.AccessorItemEntity;
 
 import java.util.List;
 
@@ -65,7 +64,7 @@ public class SubTileLabellia extends TileEntityFunctionalFlower {
 							x + PICKUP_RANGE + 1, y + 1, z + PICKUP_RANGE + 1),
 					EntitySelector.ENTITY_STILL_ALIVE)) {
 				ItemStack nameTag = nameTagEnt.getItem();
-				int age = ((AccessorItemEntity) nameTagEnt).getAge();
+				int age = nameTagEnt.getAge();
 				if (age < 60 + getSlowdownFactor() || nameTag.isEmpty()) {
 					continue;
 				}
@@ -78,7 +77,7 @@ public class SubTileLabellia extends TileEntityFunctionalFlower {
 
 					List<ItemEntity> nameableItems = level.getEntitiesOfClass(ItemEntity.class, renameArea,
 							i -> {
-								int iAge = ((AccessorItemEntity) i).getAge();
+								int iAge = i.getAge();
 								return i.isAlive() && i != nameTagEnt && iAge >= 60 + getSlowdownFactor() && !name.equals(i.getItem().getHoverName());
 							});
 
