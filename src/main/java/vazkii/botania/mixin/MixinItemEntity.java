@@ -21,16 +21,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.item.ItemFlowerBag;
-import vazkii.botania.common.item.ItemManaTablet;
-import vazkii.botania.common.item.equipment.bauble.ItemManaRing;
-import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
-import vazkii.botania.common.item.relic.ItemRelic;
-import vazkii.botania.common.item.relic.ItemRelicBauble;
+import vazkii.botania.common.item.ModItems;
 
 import java.util.UUID;
 
 @Mixin(ItemEntity.class)
-public abstract class MixinItemEntity {
+public class MixinItemEntity {
 	@Shadow
 	private int pickupDelay;
 
@@ -38,7 +34,7 @@ public abstract class MixinItemEntity {
 	private UUID owner;
 
 	@Shadow
-	public abstract void setUnlimitedLifetime();
+	private int age;
 
 	@Inject(at = @At("HEAD"), method = "playerTouch", cancellable = true)
 	private void onPickup(Player player, CallbackInfo ci) {
@@ -49,13 +45,28 @@ public abstract class MixinItemEntity {
 		}
 	}
 
+	@Inject(
+		method = "tick", at = @At(
+			value = "FIELD", opcode = Opcodes.PUTFIELD, shift = At.Shift.AFTER,
+			target = "Lnet/minecraft/world/entity/item/ItemEntity;age:I"
+		)
+	)
+	private void disableDespawn(CallbackInfo ci) {
+		if (age < 5000 || age > 5100) {
+			// Allow items close to despawn (like fakes spawned by /give) to despawn normally.
+			// Leave wiggle room for mods that might give special appearance for items close to despawn (like 1.12 Quark)
+			return;
+		}
+		Item item = ((ItemEntity) (Object) this).getItem().getItem();
+		if (ModItems.isNoDespawn(item)) {
+			// todo 1.17 this breaks the bobbing animations which uses age
+			age = 0;
+		}
+	}
+
 	@Inject(method = "tick", at = @At("HEAD"))
 	private void onTick(CallbackInfo ci) {
 		ItemEntity self = (ItemEntity) (Object) this;
 		EntityComponents.INTERNAL_ITEM.get(self).tick();
-		Item item = self.getItem().getItem();
-		if (item instanceof ItemManaTablet || item instanceof ItemManaRing || item instanceof ItemTerraPick || item instanceof ItemRelic || item instanceof ItemRelicBauble) {
-			this.setUnlimitedLifetime();
-		}
 	}
 }

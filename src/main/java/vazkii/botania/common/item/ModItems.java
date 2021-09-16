@@ -776,4 +776,9 @@ public final class ModItems {
 		}
 	}
 
+	public static boolean isNoDespawn(Item item) {
+		return item instanceof ItemManaTablet || item instanceof ItemManaRing || item instanceof ItemTerraPick
+				|| item instanceof ItemRelic || item instanceof ItemRelicBauble;
+	}
+
 }
