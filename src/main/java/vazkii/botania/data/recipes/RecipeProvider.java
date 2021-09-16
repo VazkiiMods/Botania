@@ -1593,8 +1593,8 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 					.requires(items[i])
 					.group("botania:flight_tiara_wings")
 					.unlockedBy("has_item", conditionsFromItem(ModItems.flightTiara))
-					.save(WrapperResult.transformJson(consumer, json -> json.getAsJsonObject("result").addProperty("nbt", "{variant:" + tiaraType + "}")
-					), "botania:flighttiara_" + tiaraType);
+					.save(NbtOutputResult.with(consumer, tag -> tag.putInt("variant", tiaraType)),
+							"botania:flighttiara_" + tiaraType);
 		}
 		ShapedRecipeBuilder.shaped(ModItems.pixieRing)
 				.define('D', ModItems.pixieDust)

@@ -1,59 +1,63 @@
 {
-  "type": "botania:petal_apothecary",
-  "output": {
-    "nbt": {
-      "SkullOwner": "Vazkii"
+  "type": "botania:nbt_output_wrapper",
+  "recipe": {
+    "type": "botania:petal_apothecary",
+    "output": {
+      "nbt": {
+        "SkullOwner": "Vazkii"
+      },
+      "item": "minecraft:player_head"
     },
-    "item": "minecraft:player_head"
+    "ingredients": [
+      {
+        "tag": "botania:petals/pink"
+      },
+      {
+        "tag": "botania:petals/pink"
+      },
+      {
+        "tag": "botania:petals/pink"
+      },
+      {
+        "tag": "botania:petals/pink"
+      },
+      {
+        "tag": "botania:petals/pink"
+      },
+      {
+        "tag": "botania:petals/pink"
+      },
+      {
+        "tag": "botania:petals/pink"
+      },
+      {
+        "tag": "botania:petals/pink"
+      },
+      {
+        "tag": "botania:petals/pink"
+      },
+      {
+        "tag": "botania:petals/pink"
+      },
+      {
+        "tag": "botania:petals/pink"
+      },
+      {
+        "tag": "botania:petals/pink"
+      },
+      {
+        "tag": "botania:petals/pink"
+      },
+      {
+        "tag": "botania:petals/pink"
+      },
+      {
+        "tag": "botania:petals/pink"
+      },
+      {
+        "tag": "botania:petals/pink"
+      }
+    ]
   },
-  "ingredients": [
-    {
-      "tag": "botania:petals/pink"
-    },
-    {
-      "tag": "botania:petals/pink"
-    },
-    {
-      "tag": "botania:petals/pink"
-    },
-    {
-      "tag": "botania:petals/pink"
-    },
-    {
-      "tag": "botania:petals/pink"
-    },
-    {
-      "tag": "botania:petals/pink"
-    },
-    {
-      "tag": "botania:petals/pink"
-    },
-    {
-      "tag": "botania:petals/pink"
-    },
-    {
-      "tag": "botania:petals/pink"
-    },
-    {
-      "tag": "botania:petals/pink"
-    },
-    {
-      "tag": "botania:petals/pink"
-    },
-    {
-      "tag": "botania:petals/pink"
-    },
-    {
-      "tag": "botania:petals/pink"
-    },
-    {
-      "tag": "botania:petals/pink"
-    },
-    {
-      "tag": "botania:petals/pink"
-    },
-    {
-      "tag": "botania:petals/pink"
-    }
-  ]
+  "nbt": "{SkullOwner:\"Vazkii\"}"
 }

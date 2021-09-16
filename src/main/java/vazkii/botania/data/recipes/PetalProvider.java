@@ -140,7 +140,7 @@ public class PetalProvider extends BotaniaRecipeProvider {
 		ItemNBTHelper.setString(stack, "SkullOwner", "Vazkii");
 		Ingredient[] inputs = new Ingredient[16];
 		Arrays.fill(inputs, pink);
-		consumer.accept(new FinishedRecipe(idFor(prefix("vazkii_head")), stack, inputs));
+		consumer.accept(new NbtOutputResult(new FinishedRecipe(idFor(prefix("vazkii_head")), stack, inputs), stack.getTag()));
 	}
 
 	private static Ingredient tagIngr(String tag) {

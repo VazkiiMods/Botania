@@ -726,6 +726,7 @@ public final class ModItems {
 		register(r, "terra_pick_tipping", TerraPickTippingRecipe.SERIALIZER);
 		register(r, "twig_wand", TwigWandRecipe.SERIALIZER);
 		register(r, "gog_alternation", GogAlternationRecipe.SERIALIZER);
+		register(r, "nbt_output_wrapper", NbtOutputRecipe.SERIALIZER);
 
 		// todo 1.16-fabric replace with nbtcrafting CraftingHelper.register(prefix("fuzzy_nbt"), FuzzyNBTIngredient.SERIALIZER);
 

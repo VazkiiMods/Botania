@@ -141,7 +141,7 @@ public final class ItemNBTHelper {
 	}
 
 	/**
-	 * Serializes the given stack such that {@link net.minecraft.item.crafting.ShapedRecipe#deserializeItem}
+	 * Serializes the given stack such that {@link net.minecraft.world.item.crafting.ShapedRecipe#itemStackFromJson}
 	 * would be able to read the result back
 	 */
 	public static JsonObject serializeStack(ItemStack stack) {
