@@ -43,6 +43,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ConfigHandler;
+import vazkii.botania.common.core.helper.DelayHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -80,11 +81,9 @@ public class SubTileRannuncarpus extends TileEntityFunctionalFlower {
 
 		if (ticksExisted % 10 == 0) {
 			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos().offset(-PICKUP_RANGE, -PICKUP_RANGE_Y, -PICKUP_RANGE), getEffectivePos().offset(PICKUP_RANGE + 1, PICKUP_RANGE_Y + 1, PICKUP_RANGE + 1)));
-			int slowdown = getSlowdownFactor();
 
 			for (ItemEntity item : items) {
-				int age = item.getAge();
-				if (age < 60 + slowdown || !item.isAlive() || item.getItem().isEmpty()) {
+				if (!DelayHelper.canInteractWith(this, item)) {
 					continue;
 				}
 

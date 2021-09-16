@@ -18,6 +18,7 @@ import net.minecraft.world.phys.AABB;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.core.helper.DelayHelper;
 
 import java.util.List;
 
@@ -37,7 +38,6 @@ public class SubTilePollidisiac extends TileEntityFunctionalFlower {
 
 			List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)));
 			List<Animal> animals = getLevel().getEntitiesOfClass(Animal.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)));
-			int slowdown = getSlowdownFactor();
 
 			for (Animal animal : animals) {
 				if (getMana() < MANA_COST) {
@@ -46,13 +46,12 @@ public class SubTilePollidisiac extends TileEntityFunctionalFlower {
 
 				if (animal.getAge() == 0 && !animal.isInLove()) {
 					for (ItemEntity item : items) {
-						int age = item.getAge();
-						if (age < 60 + slowdown || !item.isAlive()) {
+						if (!DelayHelper.canInteractWith(this, item)) {
 							continue;
 						}
 
 						ItemStack stack = item.getItem();
-						if (!stack.isEmpty() && animal.isFood(stack)) {
+						if (animal.isFood(stack)) {
 							stack.shrink(1);
 
 							addMana(-MANA_COST);

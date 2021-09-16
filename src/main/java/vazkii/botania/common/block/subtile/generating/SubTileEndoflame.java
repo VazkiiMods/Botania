@@ -26,6 +26,7 @@ import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.core.helper.DelayHelper;
 
 public class SubTileEndoflame extends TileEntityGeneratingFlower {
 	private static final String TAG_BURN_TIME = "burnTime";
@@ -58,13 +59,11 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 		if (linkedCollector != null) {
 			if (burnTime == 0) {
 				if (getMana() < getMaxMana()) {
-					int slowdown = getSlowdownFactor();
 
 					for (ItemEntity item : getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)))) {
-						int age = item.getAge();
-						if (age >= 59 + slowdown && item.isAlive()) {
+						if (DelayHelper.canInteractWithImmediate(this, item)) {
 							ItemStack stack = item.getItem();
-							if (stack.isEmpty() || stack.getItem().hasCraftingRemainingItem()) {
+							if (stack.getItem().hasCraftingRemainingItem()) {
 								continue;
 							}
 

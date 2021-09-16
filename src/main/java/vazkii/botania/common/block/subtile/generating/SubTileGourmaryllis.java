@@ -25,6 +25,7 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.core.helper.DelayHelper;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -117,15 +118,12 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 			}
 		}
 
-		int slowdown = getSlowdownFactor();
-
 		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)));
 
 		for (ItemEntity item : items) {
 			ItemStack stack = item.getItem();
 
-			int age = item.getAge();
-			if (!stack.isEmpty() && stack.getItem().isEdible() && item.isAlive() && age >= slowdown) {
+			if (DelayHelper.canInteractWithImmediate(this, item) && stack.getItem().isEdible()) {
 				if (cooldown <= 0) {
 					streakLength = Math.min(streakLength + 1, processFood(stack));
 

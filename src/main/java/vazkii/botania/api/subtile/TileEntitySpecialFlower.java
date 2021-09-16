@@ -24,7 +24,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -50,8 +49,8 @@ import javax.annotation.Nullable;
  */
 public class TileEntitySpecialFlower extends BlockEntity implements IWandBindable, IFloatingFlowerProvider, RenderAttachmentBlockEntity, BlockEntityClientSerializable {
 	public static final ResourceLocation DING_SOUND_EVENT = new ResourceLocation(BotaniaAPI.MODID, "ding");
-	public static final int SLOWDOWN_FACTOR_PODZOL = 5;
-	public static final int SLOWDOWN_FACTOR_MYCEL = 10;
+	public static final int PODZOL_DELAY = 5;
+	public static final int MYCELIUM_DELAY = 10;
 
 	private final IFloatingFlower floatingData = new FloatingFlowerImpl() {
 		@Override
@@ -294,27 +293,24 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 	}
 
 	/**
-	 * Allow for the SubTile to be "slowed down".
-	 * Slowing down is the action that happens when a flower is planted in Podzol or Mycellium.
-	 * Any flowers that pick up items from the ground should have a delay on the time the item
-	 * needs to be on the floor equal to the value of this method..
+	 * Returns the additional delay in ticks that an item must be on the ground before this flower will act on it.
 	 */
-	public int getSlowdownFactor() {
+	public int getModulatedDelay() {
 		if (isFloating()) {
 			IFloatingFlower.IslandType type = floatingData.getIslandType();
 			if (type == IFloatingFlower.IslandType.MYCEL) {
-				return SLOWDOWN_FACTOR_MYCEL;
+				return MYCELIUM_DELAY;
 			} else if (type == IFloatingFlower.IslandType.PODZOL) {
-				return SLOWDOWN_FACTOR_PODZOL;
+				return PODZOL_DELAY;
 			}
 		} else {
-			Block below = level.getBlockState(getBlockPos().below()).getBlock();
-			if (below == Blocks.MYCELIUM) {
-				return SLOWDOWN_FACTOR_MYCEL;
+			BlockState below = level.getBlockState(getBlockPos().below());
+			if (below.is(Blocks.MYCELIUM)) {
+				return MYCELIUM_DELAY;
 			}
 
-			if (below == Blocks.PODZOL) {
-				return SLOWDOWN_FACTOR_PODZOL;
+			if (below.is(Blocks.PODZOL)) {
+				return PODZOL_DELAY;
 			}
 		}
 

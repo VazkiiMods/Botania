@@ -36,6 +36,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityGeneratingFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.helper.ColorHelper;
+import vazkii.botania.common.core.helper.DelayHelper;
 
 import java.util.function.Predicate;
 
@@ -65,8 +66,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 		var sheeps = getLevel().getEntitiesOfClass(Sheep.class, new AABB(getEffectivePos()), Entity::isAlive);
 
 		AABB itemAABB = new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1));
-		int slowdown = getSlowdownFactor();
-		Predicate<ItemEntity> selector = e -> (e.isAlive() && e.getAge() >= slowdown);
+		Predicate<ItemEntity> selector = e -> DelayHelper.canInteractWithImmediate(this, e);
 		var items = getLevel().getEntitiesOfClass(ItemEntity.class, itemAABB, selector);
 
 		for (Entity target : Iterables.concat(sheeps, items)) {

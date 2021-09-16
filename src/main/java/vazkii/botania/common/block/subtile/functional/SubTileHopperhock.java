@@ -35,6 +35,9 @@ import vazkii.botania.api.mana.IManaItem;
 import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.components.EntityComponents;
+import vazkii.botania.common.components.ItemFlagsComponent;
+import vazkii.botania.common.core.helper.DelayHelper;
 import vazkii.botania.common.core.helper.InventoryHelper;
 
 import java.util.ArrayList;
@@ -72,11 +75,16 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 		BlockPos pos = getEffectivePos();
 
 		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1)));
-		int slowdown = getSlowdownFactor();
 
 		for (ItemEntity item : items) {
-			int age = item.getAge();
-			if (age < 60 + slowdown || age >= 105 && age < 110 || !item.isAlive() || item.getItem().isEmpty()) {
+			if (!DelayHelper.canInteractWith(this, item)) {
+				continue;
+			}
+
+			// Hopperhocks additionally don't pick up items that have been newly infused (5 ticks),
+			// to facilitate multiple infusions
+			if (EntityComponents.INTERNAL_ITEM.get(item).getManaInfusionCooldown()
+					> ItemFlagsComponent.INITIAL_MANA_INFUSION_COOLDOWN - 5) {
 				continue;
 			}
 

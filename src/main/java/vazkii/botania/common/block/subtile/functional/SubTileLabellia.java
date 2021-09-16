@@ -27,6 +27,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.core.helper.DelayHelper;
 
 import java.util.List;
 
@@ -63,12 +64,11 @@ public class SubTileLabellia extends TileEntityFunctionalFlower {
 					new AABB(x - PICKUP_RANGE, y, z - PICKUP_RANGE,
 							x + PICKUP_RANGE + 1, y + 1, z + PICKUP_RANGE + 1),
 					EntitySelector.ENTITY_STILL_ALIVE)) {
-				ItemStack nameTag = nameTagEnt.getItem();
-				int age = nameTagEnt.getAge();
-				if (age < 60 + getSlowdownFactor() || nameTag.isEmpty()) {
+				if (!DelayHelper.canInteractWith(this, nameTagEnt)) {
 					continue;
 				}
 
+				ItemStack nameTag = nameTagEnt.getItem();
 				if (nameTag.getItem() == Items.NAME_TAG && nameTag.hasCustomHoverName()) {
 					AABB renameArea = new AABB(x - RENAME_RANGE, y, z - RENAME_RANGE, x + RENAME_RANGE + 1, y + 1, z + RENAME_RANGE + 1);
 					Component name = nameTag.getHoverName();
@@ -76,10 +76,9 @@ public class SubTileLabellia extends TileEntityFunctionalFlower {
 							EntitySelector.ENTITY_STILL_ALIVE.and(e -> !name.equals(e.getCustomName()) && !(e instanceof Player)));
 
 					List<ItemEntity> nameableItems = level.getEntitiesOfClass(ItemEntity.class, renameArea,
-							i -> {
-								int iAge = i.getAge();
-								return i.isAlive() && i != nameTagEnt && iAge >= 60 + getSlowdownFactor() && !name.equals(i.getItem().getHoverName());
-							});
+							i -> DelayHelper.canInteractWith(this, i)
+									&& i != nameTagEnt
+									&& !name.equals(i.getItem().getHoverName()));
 
 					if (!nameableItems.isEmpty() || !nameableEntities.isEmpty()) {
 						for (LivingEntity e : nameableEntities) {
