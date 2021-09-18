@@ -23,7 +23,6 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 
 import vazkii.botania.api.BotaniaAPI;
@@ -31,13 +30,10 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.terrasteel.ItemTerraPick;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.function.Predicate;
 
 public final class ToolCommons {
 
-	public static final List<Material> materialsAxe = Arrays.asList(Material.LEAVES, Material.PLANT, Material.WOOD, Material.NETHER_WOOD, Material.VEGETABLE);
 	private static boolean recCall = false;
 
 	/**

@@ -262,7 +262,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 				// This is a ridiculous function call here.
 				ToolCommons.removeBlockWithDrops(player, truncator, world,
 						cand.coordinates,
-						state -> ToolCommons.materialsAxe.contains(state.getMaterial()));
+						state -> state.is(BlockTags.MINEABLE_WITH_AXE));
 
 				remainingSwaps--;
 
