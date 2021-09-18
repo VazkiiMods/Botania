@@ -162,10 +162,9 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 
 		for (Direction dir : Direction.values()) {
 			BlockEntity tileAt = level.getBlockEntity(worldPosition.relative(dir));
-			if (level.hasChunkAt(worldPosition.relative(dir)) && tileAt instanceof IManaPool) {
-				IManaPool pool = (IManaPool) tileAt;
+			if (level.hasChunkAt(worldPosition.relative(dir)) && tileAt instanceof IManaPool pool) {
 				if (wasInNetwork && (pool != self.receiver || self.getVariant() == BlockSpreader.Variant.REDSTONE)) {
-					if (pool instanceof IKeyLocked && !((IKeyLocked) pool).getOutputKey().equals(self.getInputKey())) {
+					if (pool instanceof IKeyLocked locked && !locked.getOutputKey().equals(self.getInputKey())) {
 						continue;
 					}
 
@@ -345,8 +344,8 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 			int z = cmp.getInt(TAG_FORCE_CLIENT_BINDING_Z);
 			if (y != Integer.MIN_VALUE) {
 				BlockEntity tile = level.getBlockEntity(new BlockPos(x, y, z));
-				if (tile instanceof IManaReceiver) {
-					receiver = (IManaReceiver) tile;
+				if (tile instanceof IManaReceiver r) {
+					receiver = r;
 				} else {
 					receiver = null;
 				}
@@ -446,8 +445,8 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 
 	public BlockSpreader.Variant getVariant() {
 		Block b = getBlockState().getBlock();
-		if (b instanceof BlockSpreader) {
-			return ((BlockSpreader) b).variant;
+		if (b instanceof BlockSpreader spreader) {
+			return spreader.variant;
 		} else {
 			return BlockSpreader.Variant.MANA;
 		}
@@ -488,8 +487,8 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		BurstProperties props = new BurstProperties(variant.burstMana, variant.preLossTicks, variant.lossPerTick, gravity, variant.motionModifier, variant.color);
 
 		ItemStack lens = getItemHandler().getItem(0);
-		if (!lens.isEmpty() && lens.getItem() instanceof ILensEffect) {
-			((ILensEffect) lens.getItem()).apply(lens, props);
+		if (!lens.isEmpty() && lens.getItem() instanceof ILensEffect lensEffect) {
+			lensEffect.apply(lens, props);
 		}
 
 		if (getCurrentMana() >= props.maxMana || fake) {
@@ -520,8 +519,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 	}
 
 	public ILensControl getLensController(ItemStack stack) {
-		if (!stack.isEmpty() && stack.getItem() instanceof ILensControl) {
-			ILensControl control = (ILensControl) stack.getItem();
+		if (!stack.isEmpty() && stack.getItem() instanceof ILensControl control) {
 			if (control.isControlLens(stack)) {
 				return control;
 			}
