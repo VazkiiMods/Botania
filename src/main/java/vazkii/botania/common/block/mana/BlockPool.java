@@ -12,9 +12,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -23,6 +26,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
@@ -77,6 +81,16 @@ public class BlockPool extends BlockModWaterloggable implements EntityBlock, IWa
 	public BlockPool(Variant v, Properties builder) {
 		super(builder);
 		this.variant = v;
+	}
+
+	@Override
+	public void appendHoverText(ItemStack stack, @Nullable BlockGetter world, List<Component> tooltip, TooltipFlag flag) {
+		super.appendHoverText(stack, world, tooltip, flag);
+		if (variant == BlockPool.Variant.CREATIVE) {
+			for (int i = 0; i < 2; i++) {
+				tooltip.add(new TranslatableComponent("botaniamisc.creativePool" + i).withStyle(ChatFormatting.GRAY));
+			}
+		}
 	}
 
 	@Nonnull
