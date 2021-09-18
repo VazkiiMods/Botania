@@ -135,7 +135,7 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 		if (isFloating()) {
 			return false;
 		} else {
-			return level.getBlockState(worldPosition.below()).getBlock() == ModBlocks.enchantedSoil;
+			return level.getBlockState(worldPosition.below()).is(ModBlocks.enchantedSoil);
 		}
 	}
 

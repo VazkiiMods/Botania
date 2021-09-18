@@ -38,7 +38,7 @@ public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.getItem() == ModItems.blackHoleTalisman && !foundTalisman) {
+				if (stack.is(ModItems.blackHoleTalisman) && !foundTalisman) {
 					foundTalisman = true;
 				} else {
 					return false;
@@ -87,7 +87,7 @@ public class BlackHoleTalismanExtractRecipe extends CustomRecipe {
 	@Override
 	public NonNullList<ItemStack> getRemainingItems(@Nonnull CraftingContainer inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
-			if (s.getItem() == ModItems.blackHoleTalisman) {
+			if (s.is(ModItems.blackHoleTalisman)) {
 				int count = ItemBlackHoleTalisman.getBlockCount(s);
 				if (count == 0) {
 					return ItemStack.EMPTY;

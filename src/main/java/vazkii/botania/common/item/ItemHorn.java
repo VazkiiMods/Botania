@@ -71,11 +71,11 @@ public class ItemHorn extends Item {
 
 	public static void breakGrass(Level world, ItemStack stack, BlockPos srcPos) {
 		EnumHornType type = null;
-		if (stack.getItem() == ModItems.grassHorn) {
+		if (stack.is(ModItems.grassHorn)) {
 			type = EnumHornType.WILD;
-		} else if (stack.getItem() == ModItems.leavesHorn) {
+		} else if (stack.is(ModItems.leavesHorn)) {
 			type = EnumHornType.CANOPY;
-		} else if (stack.getItem() == ModItems.snowHorn) {
+		} else if (stack.is(ModItems.snowHorn)) {
 			type = EnumHornType.COVERING;
 		}
 

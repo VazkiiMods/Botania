@@ -195,15 +195,15 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 
 	public BlockPos getNextDestination() {
 		BlockState state = getBlockState();
-		if (state.getBlock() == ModBlocks.lightRelayToggle && state.getValue(BlockStateProperties.POWERED)) {
+		if (state.is(ModBlocks.lightRelayToggle) && state.getValue(BlockStateProperties.POWERED)) {
 			return null;
-		} else if (state.getBlock() == ModBlocks.lightRelayFork) {
+		} else if (state.is(ModBlocks.lightRelayFork)) {
 			BlockPos torchPos = null;
 			for (int i = -2; i < 3; i++) {
 				BlockPos testPos = worldPosition.offset(0, i, 0);
 
 				BlockState testState = level.getBlockState(testPos);
-				if (testState.getBlock() == ModBlocks.animatedTorch) {
+				if (testState.is(ModBlocks.animatedTorch)) {
 					torchPos = testPos;
 					break;
 				}
@@ -302,7 +302,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 				BlockEntity tile = level.getBlockEntity(pos);
 				if (tile instanceof TileLightRelay) {
 					BlockState state = level.getBlockState(pos);
-					if (state.getBlock() == ModBlocks.lightRelayDetector) {
+					if (state.is(ModBlocks.lightRelayDetector)) {
 						level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, true));
 						level.getBlockTicks().scheduleTick(pos, state.getBlock(), 2);
 					}

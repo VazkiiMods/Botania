@@ -38,8 +38,8 @@ public final class PlayerHelper {
 
 	// Checks main hand, then off hand for this item.
 	public static boolean hasHeldItem(Player player, Item item) {
-		return !player.getMainHandItem().isEmpty() && player.getMainHandItem().getItem() == item
-				|| !player.getOffhandItem().isEmpty() && player.getOffhandItem().getItem() == item;
+		return !player.getMainHandItem().isEmpty() && player.getMainHandItem().is(item)
+				|| !player.getOffhandItem().isEmpty() && player.getOffhandItem().is(item);
 	}
 
 	// Checks main hand, then off hand for this item class.
@@ -54,7 +54,7 @@ public final class PlayerHelper {
 	}
 
 	public static ItemStack getFirstHeldItem(LivingEntity living, Item item) {
-		return getFirstHeldItem(living, s -> s.getItem() == item);
+		return getFirstHeldItem(living, s -> s.is(item));
 	}
 
 	public static ItemStack getFirstHeldItem(LivingEntity living, Predicate<ItemStack> pred) {

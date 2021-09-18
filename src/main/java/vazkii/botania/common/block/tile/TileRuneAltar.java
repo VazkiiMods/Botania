@@ -71,11 +71,11 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 	}
 
 	public boolean addItem(@Nullable Player player, ItemStack stack, @Nullable InteractionHand hand) {
-		if (cooldown > 0 || stack.getItem() == ModItems.twigWand || stack.getItem() == ModItems.lexicon) {
+		if (cooldown > 0 || stack.is(ModItems.twigWand) || stack.is(ModItems.lexicon)) {
 			return false;
 		}
 
-		if (stack.getItem() == ModBlocks.livingrock.asItem()) {
+		if (stack.is(ModBlocks.livingrock.asItem())) {
 			if (!level.isClientSide) {
 				ItemStack toSpawn = player != null && player.getAbilities().instabuild ? stack.copy().split(1) : stack.split(1);
 				ItemEntity item = new ItemEntity(level, getBlockPos().getX() + 0.5, getBlockPos().getY() + 1, getBlockPos().getZ() + 0.5, toSpawn);
@@ -158,7 +158,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 		if (self.manaToGet == 0) {
 			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition, worldPosition.offset(1, 1, 1)));
 			for (ItemEntity item : items) {
-				if (item.isAlive() && !item.getItem().isEmpty() && item.getItem().getItem() != ModBlocks.livingrock.asItem()) {
+				if (item.isAlive() && !item.getItem().isEmpty() && !item.getItem().is(ModBlocks.livingrock.asItem())) {
 					ItemStack stack = item.getItem();
 					self.addItem(null, stack, null);
 				}
@@ -253,7 +253,7 @@ public class TileRuneAltar extends TileSimpleInventory implements IManaReceiver 
 			List<ItemEntity> items = level.getEntitiesOfClass(ItemEntity.class, new AABB(worldPosition, worldPosition.offset(1, 1, 1)));
 			ItemEntity livingrock = null;
 			for (ItemEntity item : items) {
-				if (item.isAlive() && !item.getItem().isEmpty() && item.getItem().getItem() == ModBlocks.livingrock.asItem()) {
+				if (item.isAlive() && !item.getItem().isEmpty() && item.getItem().is(ModBlocks.livingrock.asItem())) {
 					livingrock = item;
 					break;
 				}

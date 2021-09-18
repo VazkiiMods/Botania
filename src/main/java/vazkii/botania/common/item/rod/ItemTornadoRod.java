@@ -242,7 +242,7 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 	/* todo 1.16-fabric FAPI#860
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, @Nonnull ItemStack newStack, boolean slotChanged) {
-		return newStack.getItem() != this || isFlying(oldStack) != isFlying(newStack);
+		return !newStack.is(this) || isFlying(oldStack) != isFlying(newStack);
 	}
 	*/
 

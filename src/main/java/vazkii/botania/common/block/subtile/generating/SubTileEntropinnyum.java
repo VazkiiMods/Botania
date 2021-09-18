@@ -57,7 +57,7 @@ public class SubTileEntropinnyum extends TileEntityGeneratingFlower {
 		int slimes = 0;
 		for (BlockPos pos : BlockPos.betweenClosed(x - range, y - range, z - range, x + range + 1, y + range + 1, z + range + 1)) {
 			BlockState state = e.level.getBlockState(pos);
-			if (state.getBlock() == Blocks.MOVING_PISTON) {
+			if (state.is(Blocks.MOVING_PISTON)) {
 				movingPistons++;
 				BlockEntity te = e.level.getBlockEntity(pos);
 				if (te instanceof PistonMovingBlockEntity) {

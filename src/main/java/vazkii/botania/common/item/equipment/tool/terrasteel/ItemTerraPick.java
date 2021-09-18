@@ -281,7 +281,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 	/* todo 1.16-fabric
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack before, @Nonnull ItemStack after, boolean slotChanged) {
-		return after.getItem() != this || isEnabled(before) != isEnabled(after);
+		return !after.is(this) || isEnabled(before) != isEnabled(after);
 	}
 	*/
 

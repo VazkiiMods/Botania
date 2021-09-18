@@ -357,7 +357,7 @@ public final class RenderHelper extends RenderType {
 		model.getTransforms().getTransform(ItemTransforms.TransformType.NONE).apply(false, ms);
 		ms.translate(-0.5D, -0.5D, -0.5D);
 
-		if (!model.isCustomRenderer() && (stack.getItem() != Items.TRIDENT)) {
+		if (!model.isCustomRenderer() && !stack.is(Items.TRIDENT)) {
 			RenderType rendertype = ItemBlockRenderTypes.getRenderType(stack, true);
 			VertexConsumer ivertexbuilder = ItemRenderer.getFoilBufferDirect(buffers, rendertype, true, stack.hasFoil());
 			renderBakedItemModel(model, stack, color, light, overlay, ms, ivertexbuilder);

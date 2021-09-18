@@ -101,7 +101,7 @@ public class TileAltar extends TileSimpleInventory implements IPetalApothecary {
 			return false;
 		}
 
-		if (getBlockState().getBlock() == ModBlocks.defaultAltar && stack.getItem() == Blocks.VINE.asItem()) {
+		if (getBlockState().is(ModBlocks.defaultAltar) && stack.is(Blocks.VINE.asItem())) {
 			CompoundTag tmp = new CompoundTag();
 			writePacketNBT(tmp);
 

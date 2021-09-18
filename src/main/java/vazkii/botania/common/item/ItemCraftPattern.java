@@ -36,7 +36,7 @@ public class ItemCraftPattern extends Item {
 		BlockPos pos = ctx.getClickedPos();
 		BlockState state = world.getBlockState(pos);
 
-		if (state.getBlock() == ModBlocks.craftCrate) {
+		if (state.is(ModBlocks.craftCrate)) {
 			if (pattern != state.getValue(BotaniaStateProps.CRATE_PATTERN)) {
 				world.setBlockAndUpdate(pos, state.setValue(BotaniaStateProps.CRATE_PATTERN, this.pattern));
 				return InteractionResult.SUCCESS;

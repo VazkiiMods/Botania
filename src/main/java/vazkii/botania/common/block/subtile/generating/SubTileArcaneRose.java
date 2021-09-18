@@ -77,7 +77,7 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 		List<ItemEntity> items = getLevel().getEntitiesOfClass(ItemEntity.class, effectBounds, e -> e.isAlive() && !e.getItem().isEmpty());
 		for (ItemEntity entity : items) {
 			ItemStack stack = entity.getItem();
-			if (stack.getItem() == Items.ENCHANTED_BOOK || stack.isEnchanted()) {
+			if (stack.is(Items.ENCHANTED_BOOK) || stack.isEnchanted()) {
 				int xp = getEnchantmentXpValue(stack);
 				if (xp > 0) {
 					ItemStack newStack = removeNonCurses(stack);
@@ -127,7 +127,7 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 		}).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 		EnchantmentHelper.setEnchantments(map, itemstack);
 		itemstack.setRepairCost(0);
-		if (itemstack.getItem() == Items.ENCHANTED_BOOK && map.size() == 0) {
+		if (itemstack.is(Items.ENCHANTED_BOOK) && map.size() == 0) {
 			itemstack = new ItemStack(Items.BOOK);
 			if (stack.hasCustomHoverName()) {
 				itemstack.setHoverName(stack.getHoverName());

@@ -43,7 +43,7 @@ public class CompositeLensRecipe extends CustomRecipe {
 					} else {
 						foundLens = true;
 					}
-				} else if (stack.getItem() == Items.SLIME_BALL) {
+				} else if (stack.is(Items.SLIME_BALL)) {
 					foundSlimeball = true;
 				} else {
 					return false; // Found an invalid item, breaking the recipe

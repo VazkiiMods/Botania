@@ -59,7 +59,7 @@ public class ItemTemperanceStone extends Item {
 		Container inv = player.getInventory();
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (!stack.isEmpty() && stack.getItem() == ModItems.temperanceStone && ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false)) {
+			if (!stack.isEmpty() && stack.is(ModItems.temperanceStone) && ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false)) {
 				return true;
 			}
 		}

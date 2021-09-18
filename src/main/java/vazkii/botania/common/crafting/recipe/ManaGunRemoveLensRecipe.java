@@ -83,7 +83,7 @@ public class ManaGunRemoveLensRecipe extends CustomRecipe {
 	@Override
 	public NonNullList<ItemStack> getRemainingItems(@Nonnull CraftingContainer inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
-			if (s.getItem() == ModItems.manaGun) {
+			if (s.is(ModItems.manaGun)) {
 				ItemStack stack = ItemManaGun.getLens(s);
 				stack.setCount(1);
 				return stack;

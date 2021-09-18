@@ -64,7 +64,7 @@ public class TileCraftCrate extends TileOpenCrate {
 
 	public CratePattern getPattern() {
 		BlockState state = getBlockState();
-		if (state.getBlock() != ModBlocks.craftCrate) {
+		if (!state.is(ModBlocks.craftCrate)) {
 			return CratePattern.NONE;
 		}
 		return state.getValue(BotaniaStateProps.CRATE_PATTERN);
@@ -125,7 +125,7 @@ public class TileCraftCrate extends TileOpenCrate {
 		for (int i = 0; i < craft.getContainerSize(); i++) {
 			ItemStack stack = getItemHandler().getItem(i);
 
-			if (stack.isEmpty() || isLocked(i) || stack.getItem() == ModItems.placeholder) {
+			if (stack.isEmpty() || isLocked(i) || stack.is(ModItems.placeholder)) {
 				continue;
 			}
 
@@ -143,7 +143,7 @@ public class TileCraftCrate extends TileOpenCrate {
 				ItemStack s = remainders.get(i);
 				ItemStack inSlot = handler.getItem(i);
 				if ((inSlot.isEmpty() && s.isEmpty())
-						|| (!inSlot.isEmpty() && inSlot.getItem() == ModItems.placeholder)) {
+						|| (!inSlot.isEmpty() && inSlot.is(ModItems.placeholder))) {
 					continue;
 				}
 				handler.setItem(i, s);

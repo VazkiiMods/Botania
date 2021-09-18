@@ -48,7 +48,7 @@ public class ItemVirus extends Item {
 				ItemStack saddle = inv.getItem(0);
 
 				// Not all AbstractHorse's have saddles in slot 0
-				if (!saddle.isEmpty() && saddle.getItem() != Items.SADDLE) {
+				if (!saddle.isEmpty() && !saddle.is(Items.SADDLE)) {
 					horse.spawnAtLocation(saddle, 0);
 					saddle = ItemStack.EMPTY;
 				}
@@ -61,7 +61,7 @@ public class ItemVirus extends Item {
 
 				horse.discard();
 
-				AbstractHorse newHorse = stack.getItem() == ModItems.necroVirus
+				AbstractHorse newHorse = stack.is(ModItems.necroVirus)
 						? EntityType.ZOMBIE_HORSE.create(player.level)
 						: EntityType.SKELETON_HORSE.create(player.level);
 				newHorse.tameWithName(player);

@@ -238,7 +238,7 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity, Entity
 		ItemStack stack = player.getItemInHand(hand);
 		if (isAlive() && !stack.isEmpty()) {
 			SparkUpgradeType upgrade = getUpgrade();
-			if (stack.getItem() == ModItems.twigWand) {
+			if (stack.is(ModItems.twigWand)) {
 				if (!level.isClientSide) {
 					if (player.isShiftKeyDown()) {
 						if (upgrade != SparkUpgradeType.NONE) {
@@ -263,7 +263,7 @@ public class EntitySpark extends EntitySparkBase implements ISparkEntity, Entity
 					stack.shrink(1);
 				}
 				return InteractionResult.sidedSuccess(level.isClientSide);
-			} else if (stack.getItem() == ModItems.phantomInk) {
+			} else if (stack.is(ModItems.phantomInk)) {
 				if (!level.isClientSide) {
 					setInvisible(true);
 				}

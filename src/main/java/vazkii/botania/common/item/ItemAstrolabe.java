@@ -136,7 +136,7 @@ public class ItemAstrolabe extends Item {
 		List<ItemStack> stacksToCheck = new ArrayList<>();
 		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 			ItemStack stackInSlot = player.getInventory().getItem(i);
-			if (!stackInSlot.isEmpty() && stackInSlot.getItem() == blockToPlace.getItem()) {
+			if (!stackInSlot.isEmpty() && stackInSlot.is(blockToPlace.getItem())) {
 				stackInSlot.shrink(1);
 				return;
 			}
@@ -169,7 +169,7 @@ public class ItemAstrolabe extends Item {
 		List<ItemStack> stacksToCheck = new ArrayList<>();
 		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 			ItemStack stackInSlot = player.getInventory().getItem(i);
-			if (!stackInSlot.isEmpty() && stackInSlot.getItem() == reqStack.getItem()) {
+			if (!stackInSlot.isEmpty() && stackInSlot.is(reqStack.getItem())) {
 				current += stackInSlot.getCount();
 				if (current >= required) {
 					return true;

@@ -76,7 +76,7 @@ public class ItemElementiumShears extends ItemManasteelShears {
 
 	@Override
 	public boolean isValidRepairItem(ItemStack toRepair, @Nonnull ItemStack repairBy) {
-		return repairBy.getItem() == ModItems.elementium || super.isValidRepairItem(toRepair, repairBy);
+		return repairBy.is(ModItems.elementium) || super.isValidRepairItem(toRepair, repairBy);
 	}
 
 	@Override

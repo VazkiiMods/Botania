@@ -38,7 +38,7 @@ public class TEISR implements BuiltinItemRendererRegistry.DynamicItemRenderer {
 
 	@Override
 	public void render(ItemStack stack, ItemTransforms.TransformType mode, PoseStack ms, MultiBufferSource buffers, int light, int overlay) {
-		if (stack.getItem() == block.asItem()) {
+		if (stack.is(block.asItem())) {
 			BlockEntityRenderer<?> r = Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(dummy.get());
 			if (r != null) {
 				r.render(null, 0, ms, buffers, light, overlay);

@@ -60,7 +60,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 
 	public void trySpawnBurst(Player player) {
 		if (!player.getMainHandItem().isEmpty()
-				&& player.getMainHandItem().getItem() == this
+				&& player.getMainHandItem().is(this)
 				&& player.getAttackStrengthScale(0) == 1) {
 			EntityManaBurst burst = getBurst(player, player.getMainHandItem());
 			player.level.addFreshEntity(burst);

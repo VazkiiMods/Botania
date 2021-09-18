@@ -28,7 +28,7 @@ import java.util.function.Predicate;
 
 public class ItemSlingshot extends Item {
 
-	private static final Predicate<ItemStack> AMMO_FUNC = s -> s != null && s.getItem() == ModItems.vineBall;
+	private static final Predicate<ItemStack> AMMO_FUNC = s -> s != null && s.is(ModItems.vineBall);
 
 	public ItemSlingshot(Properties builder) {
 		super(builder);

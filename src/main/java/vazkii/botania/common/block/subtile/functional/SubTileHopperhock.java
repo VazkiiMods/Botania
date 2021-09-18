@@ -203,7 +203,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 				ChestType type = chest.getValue(ChestBlock.TYPE);
 				if (type != ChestType.SINGLE) {
 					BlockPos other = pos.relative(ChestBlock.getConnectedDirection(chest));
-					if (getLevel().getBlockState(other).getBlock() == chest.getBlock()) {
+					if (getLevel().getBlockState(other).is(chest.getBlock())) {
 						filter.addAll(getFilterForInventory(other, false));
 					}
 				}

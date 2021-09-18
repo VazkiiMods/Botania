@@ -162,13 +162,13 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 
 		switch (slot) {
 		case HEAD:
-			return stack.getItem() == ModItems.manasteelHelm;
+			return stack.is(ModItems.manasteelHelm);
 		case CHEST:
-			return stack.getItem() == ModItems.manasteelChest;
+			return stack.is(ModItems.manasteelChest);
 		case LEGS:
-			return stack.getItem() == ModItems.manasteelLegs;
+			return stack.is(ModItems.manasteelLegs);
 		case FEET:
-			return stack.getItem() == ModItems.manasteelBoots;
+			return stack.is(ModItems.manasteelBoots);
 		}
 
 		return false;

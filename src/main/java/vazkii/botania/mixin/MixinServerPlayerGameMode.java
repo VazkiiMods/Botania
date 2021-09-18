@@ -36,13 +36,13 @@ public class MixinServerPlayerGameMode {
 	private void onStartBreak(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
 		ServerPlayer player = this.player;
 		ItemStack stack = player.getMainHandItem();
-		if (stack.getItem() == ModItems.terraAxe) {
+		if (stack.is(ModItems.terraAxe)) {
 			((ItemTerraAxe) ModItems.terraAxe).onBlockStartBreak(stack, pos, player);
-		} else if (stack.getItem() == ModItems.terraPick) {
+		} else if (stack.is(ModItems.terraPick)) {
 			((ItemTerraPick) ModItems.terraPick).onBlockStartBreak(stack, pos, player);
-		} else if (stack.getItem() == ModItems.elementiumShovel) {
+		} else if (stack.is(ModItems.elementiumShovel)) {
 			((ItemElementiumShovel) ModItems.elementiumShovel).onBlockStartBreak(stack, pos, player);
-		} else if (stack.getItem() == ModItems.glassPick) {
+		} else if (stack.is(ModItems.glassPick)) {
 			((ItemGlassPick) ModItems.glassPick).onBlockStartBreak(stack, pos, player);
 		}
 	}

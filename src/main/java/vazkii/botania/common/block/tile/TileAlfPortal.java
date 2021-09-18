@@ -175,7 +175,7 @@ public class TileAlfPortal extends TileMod {
 				return true;
 			}
 		}
-		if (inputStack.getItem() == Items.BREAD) {
+		if (inputStack.is(Items.BREAD)) {
 			//Don't teleport bread. (See also: #2403)
 			explode = true;
 			breadPlayer = entity.getThrower();

@@ -37,7 +37,7 @@ public class ItemEnderAir extends Item {
 	public static InteractionResultHolder<ItemStack> onPlayerInteract(Player player, Level world, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 
-		if (!stack.isEmpty() && stack.getItem() == Items.GLASS_BOTTLE && world.dimension() == Level.END) {
+		if (!stack.isEmpty() && stack.is(Items.GLASS_BOTTLE) && world.dimension() == Level.END) {
 			if (!isClearFromDragonBreath(world, player.getBoundingBox().inflate(3.5D))) {
 				return InteractionResultHolder.pass(stack);
 			}

@@ -157,7 +157,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 		if (count > 0 && !level.isClientSide) {
 			for (ItemEntity entity : items) {
 				ItemStack item = entity.getItem();
-				if (item.getItem() == Items.ENCHANTED_BOOK) {
+				if (item.is(Items.ENCHANTED_BOOK)) {
 					Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(item);
 					if (enchants.size() > 0) {
 						Enchantment enchant = enchants.keySet().iterator().next();
@@ -178,7 +178,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 
 			for (ItemEntity entity : items) {
 				ItemStack item = entity.getItem();
-				if (item.getItem() == Items.ENCHANTED_BOOK) {
+				if (item.is(Items.ENCHANTED_BOOK)) {
 					Map<Enchantment, Integer> enchants = EnchantmentHelper.getEnchantments(item);
 					if (enchants.size() > 0) {
 						Map.Entry<Enchantment, Integer> e = enchants.entrySet().iterator().next();

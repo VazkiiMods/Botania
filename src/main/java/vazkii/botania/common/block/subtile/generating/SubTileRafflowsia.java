@@ -94,7 +94,7 @@ public class SubTileRafflowsia extends TileEntityGeneratingFlower {
 						BlockPos pos = getEffectivePos().offset(i - RANGE, j - RANGE, k - RANGE);
 
 						BlockState state = getLevel().getBlockState(pos);
-						if (state.is(ModTags.Blocks.SPECIAL_FLOWERS) && state.getBlock() != ModSubtiles.rafflowsia) {
+						if (state.is(ModTags.Blocks.SPECIAL_FLOWERS) && !state.is(ModSubtiles.rafflowsia)) {
 							streakLength = Math.min(streakLength + 1, processFlower(state.getBlock()));
 
 							getLevel().destroyBlock(pos, false);

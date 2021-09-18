@@ -34,7 +34,7 @@ public class ItemOvergrowthSeed extends Item {
 		BlockPos pos = ctx.getClickedPos();
 
 		BlockState state = world.getBlockState(pos);
-		if (state.getBlock() == Blocks.GRASS_BLOCK) {
+		if (state.is(Blocks.GRASS_BLOCK)) {
 			if (!world.isClientSide) {
 				world.levelEvent(2001, pos, Block.getId(state));
 				world.setBlockAndUpdate(pos, ModBlocks.enchantedSoil.defaultBlockState());

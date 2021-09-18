@@ -237,7 +237,7 @@ public class EntityDoppleganger extends Mob {
 			BlockPos pos_ = beaconPos.offset(coords);
 
 			BlockState state = world.getBlockState(pos_);
-			if (state.getBlock() != ModBlocks.gaiaPylon) {
+			if (!state.is(ModBlocks.gaiaPylon)) {
 				invalidPylonBlocks.add(pos_);
 			}
 		}

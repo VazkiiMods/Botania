@@ -71,12 +71,12 @@ public class BlockEnchanter extends BlockMod implements EntityBlock, IWandable, 
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		TileEnchanter enchanter = (TileEnchanter) world.getBlockEntity(pos);
 		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.isEmpty() && stack.getItem() == ModItems.twigWand) {
+		if (!stack.isEmpty() && stack.is(ModItems.twigWand)) {
 			return InteractionResult.PASS;
 		}
 
 		boolean stackEnchantable = !stack.isEmpty()
-				&& stack.getItem() != Items.BOOK
+				&& !stack.is(Items.BOOK)
 				&& stack.isEnchantable()
 				&& stack.getCount() == 1;
 
@@ -99,7 +99,7 @@ public class BlockEnchanter extends BlockMod implements EntityBlock, IWandable, 
 
 	@Override
 	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-		if (state.getBlock() != newState.getBlock()) {
+		if (!state.is(newState.getBlock())) {
 			BlockEntity tile = world.getBlockEntity(pos);
 
 			if (tile instanceof TileEnchanter) {

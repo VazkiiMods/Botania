@@ -160,7 +160,7 @@ public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IM
 
 	@Override
 	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-		if (state.getBlock() != newState.getBlock()) {
+		if (!state.is(newState.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
 			if (be instanceof TileSimpleInventory) {
 				Containers.dropContents(world, pos, ((TileSimpleInventory) be).getItemHandler());

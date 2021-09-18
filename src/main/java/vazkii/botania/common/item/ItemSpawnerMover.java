@@ -126,7 +126,7 @@ public class ItemSpawnerMover extends Item {
 		ItemStack stack = ctx.getItemInHand();
 		Player player = ctx.getPlayer();
 
-		if (world.getBlockState(pos).getBlock() == Blocks.SPAWNER) {
+		if (world.getBlockState(pos).is(Blocks.SPAWNER)) {
 			if (!world.isClientSide) {
 				BlockEntity te = world.getBlockEntity(pos);
 				stack.getOrCreateTag().put(TAG_SPAWNER, te.save(new CompoundTag()));

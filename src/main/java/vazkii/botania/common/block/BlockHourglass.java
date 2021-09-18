@@ -80,7 +80,7 @@ public class BlockHourglass extends BlockModWaterloggable implements IManaTrigge
 		TileHourglass hourglass = (TileHourglass) world.getBlockEntity(pos);
 		ItemStack hgStack = hourglass.getItemHandler().getItem(0);
 		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.isEmpty() && stack.getItem() == ModItems.twigWand) {
+		if (!stack.isEmpty() && stack.is(ModItems.twigWand)) {
 			return InteractionResult.PASS;
 		}
 
@@ -123,7 +123,7 @@ public class BlockHourglass extends BlockModWaterloggable implements IManaTrigge
 
 	@Override
 	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-		if (state.getBlock() != newState.getBlock()) {
+		if (!state.is(newState.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
 			if (be instanceof TileSimpleInventory) {
 				Containers.dropContents(world, pos, ((TileSimpleInventory) be).getItemHandler());

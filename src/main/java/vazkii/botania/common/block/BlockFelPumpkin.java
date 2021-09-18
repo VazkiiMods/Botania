@@ -44,7 +44,7 @@ public class BlockFelPumpkin extends BlockMod {
 	public void onPlace(BlockState state, Level world, BlockPos pos, BlockState oldState, boolean isMoving) {
 		super.onPlace(state, world, pos, oldState, isMoving);
 
-		if (!world.isClientSide && world.getBlockState(pos.below()).getBlock() == Blocks.IRON_BARS && world.getBlockState(pos.below(2)).getBlock() == Blocks.IRON_BARS) {
+		if (!world.isClientSide && world.getBlockState(pos.below()).is(Blocks.IRON_BARS) && world.getBlockState(pos.below(2)).is(Blocks.IRON_BARS)) {
 			world.removeBlock(pos, false);
 			world.removeBlock(pos.below(), false);
 			world.removeBlock(pos.below(2), false);

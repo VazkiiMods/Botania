@@ -73,11 +73,11 @@ public class BlockTeruTeruBozu extends BlockModWaterloggable implements EntityBl
 	}
 
 	private boolean isSunflower(ItemStack stack) {
-		return stack.getItem() == Blocks.SUNFLOWER.asItem();
+		return stack.is(Blocks.SUNFLOWER.asItem());
 	}
 
 	private boolean isBlueOrchid(ItemStack stack) {
-		return stack.getItem() == Blocks.BLUE_ORCHID.asItem();
+		return stack.is(Blocks.BLUE_ORCHID.asItem());
 	}
 
 	private boolean removeRain(Level world) {

@@ -176,7 +176,7 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 			}
 
 			BlockState state = world.getBlockState(s.pos());
-			if (state.getBlock() == Blocks.MOVING_PISTON) {
+			if (state.is(Blocks.MOVING_PISTON)) {
 				boolean sticky = PistonType.STICKY == state.getValue(MovingPistonBlock.TYPE);
 				Direction dir = ((PistonMovingBlockEntity) getTeAt(s)).getMovementDirection();
 

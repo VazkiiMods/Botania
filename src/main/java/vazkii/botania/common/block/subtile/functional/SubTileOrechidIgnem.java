@@ -38,7 +38,7 @@ public class SubTileOrechidIgnem extends SubTileOrechid {
 
 	@Override
 	public Predicate<BlockState> getReplaceMatcher() {
-		return state -> state.getBlock() == Blocks.NETHERRACK;
+		return state -> state.is(Blocks.NETHERRACK);
 	}
 
 	@Override

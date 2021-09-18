@@ -214,7 +214,7 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 
 	@Override
 	public boolean shouldPull(ItemStack stack) {
-		return stack.getItem() != ModItems.lensStorm;
+		return !stack.is(ModItems.lensStorm);
 	}
 
 	@Override
@@ -244,7 +244,7 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 
 	@Override
 	public boolean isCombinable(ItemStack stack) {
-		return stack.getItem() != ModItems.lensNormal;
+		return !stack.is(ModItems.lensNormal);
 	}
 
 }

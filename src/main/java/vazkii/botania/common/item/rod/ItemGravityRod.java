@@ -59,7 +59,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 	/* todo fabric
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, @Nonnull ItemStack newStack, boolean slotChanged) {
-		return newStack.getItem() != this;
+		return !newStack.is(this);
 	}
 	*/
 
@@ -210,7 +210,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 
 	private static void leftClick(Player player) {
 		ItemStack stack = player.getMainHandItem();
-		if (!stack.isEmpty() && stack.getItem() == ModItems.gravityRod) {
+		if (!stack.isEmpty() && stack.is(ModItems.gravityRod)) {
 			int targetID = ItemNBTHelper.getInt(stack, TAG_TARGET, -1);
 			ItemNBTHelper.getDouble(stack, TAG_DIST, -1);
 			Entity item;

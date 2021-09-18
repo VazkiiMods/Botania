@@ -75,7 +75,7 @@ public class ItemFlowerBag extends Item {
 				}
 
 				ItemStack bag = player.getInventory().getItem(i);
-				if (!bag.isEmpty() && bag.getItem() == ModItems.flowerBag) {
+				if (!bag.isEmpty() && bag.is(ModItems.flowerBag)) {
 					SimpleContainer bagInv = getInventory(bag);
 					ItemStack existing = bagInv.getItem(color);
 					int newCount = Math.min(existing.getCount() + entityStack.getCount(),

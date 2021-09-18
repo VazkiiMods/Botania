@@ -63,7 +63,7 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 		BlockState state = world.getBlockState(pos);
 		ItemStack stack = ctx.getItemInHand();
 
-		if (state.getBlock() == Blocks.DIRT || state.getBlock() == Blocks.GRASS_BLOCK && type != IslandType.GRASS) {
+		if (state.is(Blocks.DIRT) || state.is(Blocks.GRASS_BLOCK) && type != IslandType.GRASS) {
 			if (!world.isClientSide) {
 				BlockSwapper swapper = addBlockSwapper(world, pos, type);
 				world.setBlockAndUpdate(pos, swapper.stateToSet);

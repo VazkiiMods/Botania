@@ -128,7 +128,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 
 	private InteractionResult onLeftClick(Player player, Level world, InteractionHand hand, BlockPos pos, Direction side) {
 		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.isEmpty() && stack.getItem() == this && canExchange(stack) && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
+		if (!stack.isEmpty() && stack.is(this) && canExchange(stack) && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
 			int cost = exchange(world, player, pos, stack, getItemToPlace(stack));
 			if (cost > 0) {
 				ManaItemHandler.instance().requestManaForTool(stack, player, cost, true);
@@ -205,7 +205,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 
 					// If this block is not our target, ignore it, as we don't need
 					// to consider replacing it
-					if (currentState.getBlock() != toReplace) {
+					if (!currentState.is(toReplace)) {
 						continue;
 					}
 

@@ -171,7 +171,7 @@ public class BlockAltar extends BlockMod implements EntityBlock {
 
 		ItemStack stack = player.getItemInHand(hand);
 		if (!stack.isEmpty()
-				&& stack.getItem() == ModItems.waterRod
+				&& stack.is(ModItems.waterRod)
 				&& ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, false)) {
 			ManaItemHandler.instance().requestManaExact(stack, player, ItemWaterRod.COST, true);
 			altar.setFluid(State.WATER);
@@ -230,7 +230,7 @@ public class BlockAltar extends BlockMod implements EntityBlock {
 
 	@Override
 	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-		if (state.getBlock() != newState.getBlock()) {
+		if (!state.is(newState.getBlock())) {
 			BlockEntity be = world.getBlockEntity(pos);
 			if (be instanceof TileSimpleInventory) {
 				Containers.dropContents(world, pos, ((TileSimpleInventory) be).getItemHandler());

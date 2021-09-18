@@ -138,7 +138,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 		boolean wool = !heldItem.isEmpty() && ColorHelper.isWool(Block.byItem(heldItem.getItem()));
 
 		if (!heldItem.isEmpty()) {
-			if (heldItem.getItem() == ModItems.twigWand) {
+			if (heldItem.is(ModItems.twigWand)) {
 				return InteractionResult.PASS;
 			}
 		}
@@ -177,7 +177,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 
 	@Override
 	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
-		if (state.getBlock() != newState.getBlock()) {
+		if (!state.is(newState.getBlock())) {
 			BlockEntity tile = world.getBlockEntity(pos);
 			if (!(tile instanceof TileSpreader)) {
 				return;

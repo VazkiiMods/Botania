@@ -67,7 +67,7 @@ public class BlockLightRelay extends BlockModWaterloggable implements EntityBloc
 
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		if (player.getItemInHand(hand).getItem() != Items.ENDER_PEARL) {
+		if (!player.getItemInHand(hand).is(Items.ENDER_PEARL)) {
 			BlockEntity te = world.getBlockEntity(pos);
 			if (te instanceof TileLightRelay) {
 				((TileLightRelay) te).mountEntity(player);

@@ -245,7 +245,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	public InteractionResult interact(Player player, InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (isAlive() && !stack.isEmpty()) {
-			if (stack.getItem() == ModItems.twigWand) {
+			if (stack.is(ModItems.twigWand)) {
 				if (!level.isClientSide) {
 					if (player.isShiftKeyDown()) {
 						dropAndKill();
@@ -268,7 +268,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 
 					return InteractionResult.sidedSuccess(level.isClientSide);
 				}
-			} else if (stack.getItem() == ModItems.phantomInk) {
+			} else if (stack.is(ModItems.phantomInk)) {
 				if (!level.isClientSide) {
 					setInvisible(true);
 				}

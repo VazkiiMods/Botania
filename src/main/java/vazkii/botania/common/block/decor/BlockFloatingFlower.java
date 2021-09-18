@@ -89,7 +89,7 @@ public class BlockFloatingFlower extends BlockModWaterloggable implements Entity
 		if (!stack.isEmpty() && te instanceof IFloatingFlowerProvider && ((IFloatingFlowerProvider) te).getFloatingData() != null) {
 			IFloatingFlower flower = ((IFloatingFlowerProvider) te).getFloatingData();
 			IslandType type = null;
-			if (stack.getItem() == Items.SNOWBALL) {
+			if (stack.is(Items.SNOWBALL)) {
 				type = IslandType.SNOW;
 			} else if (stack.getItem() instanceof IFloatingFlowerVariant) {
 				IslandType newType = ((IFloatingFlowerVariant) stack.getItem()).getIslandType(stack);

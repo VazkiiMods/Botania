@@ -108,7 +108,7 @@ public class SubTileOrechid extends TileEntityFunctionalFlower {
 	}
 
 	public Predicate<BlockState> getReplaceMatcher() {
-		return state -> state.getBlock() == Blocks.STONE;
+		return state -> state.is(Blocks.STONE);
 	}
 
 	public int getCost() {

@@ -132,7 +132,7 @@ public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSup
 		for (BlockPos bPos : BlockPos.betweenClosed(pos.offset(-range, -rangeY, -range),
 				pos.offset(range, rangeY, range))) {
 			BlockState state = level.getBlockState(bPos);
-			if (state.getBlock() == Blocks.STONE) {
+			if (state.is(Blocks.STONE)) {
 				possibleCoords.add(bPos.immutable());
 			}
 		}

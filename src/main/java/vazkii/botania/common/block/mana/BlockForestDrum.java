@@ -69,7 +69,7 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 		List<ItemEntity> items = world.getEntitiesOfClass(ItemEntity.class, entity.getBoundingBox());
 		for (ItemEntity item : items) {
 			ItemStack itemstack = item.getItem();
-			if (!itemstack.isEmpty() && itemstack.getItem() == from && !world.isClientSide) {
+			if (!itemstack.isEmpty() && itemstack.is(from) && !world.isClientSide) {
 				while (itemstack.getCount() > 0) {
 					ItemEntity ent = entity.spawnAtLocation(new ItemStack(to), 1.0F);
 					ent.setDeltaMovement(ent.getDeltaMovement().add(

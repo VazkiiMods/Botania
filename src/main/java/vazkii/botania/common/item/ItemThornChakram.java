@@ -37,7 +37,7 @@ public class ItemThornChakram extends Item {
 			copy.setCount(1);
 			EntityThornChakram c = new EntityThornChakram(player, world, copy);
 			c.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
-			if (stack.getItem() == ModItems.flareChakram) {
+			if (stack.is(ModItems.flareChakram)) {
 				c.setFire(true);
 			}
 			world.addFreshEntity(c);

@@ -149,7 +149,7 @@ public final class ColorHandler {
 			}
 
 			int color = brew.getColor(s);
-			double speed = s.getItem() == ModItems.brewFlask || s.getItem() == ModItems.brewVial ? 0.1 : 0.2;
+			double speed = s.is(ModItems.brewFlask) || s.is(ModItems.brewVial) ? 0.1 : 0.2;
 			int add = (int) (Math.sin(ClientTickHandler.ticksInGame * speed) * 24);
 
 			int r = Math.max(0, Math.min(255, (color >> 16 & 0xFF) + add));

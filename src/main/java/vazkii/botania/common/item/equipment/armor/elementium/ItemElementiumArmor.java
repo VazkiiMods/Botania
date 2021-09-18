@@ -77,13 +77,13 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 
 		switch (slot) {
 		case HEAD:
-			return stack.getItem() == ModItems.elementiumHelm;
+			return stack.is(ModItems.elementiumHelm);
 		case CHEST:
-			return stack.getItem() == ModItems.elementiumChest;
+			return stack.is(ModItems.elementiumChest);
 		case LEGS:
-			return stack.getItem() == ModItems.elementiumLegs;
+			return stack.is(ModItems.elementiumLegs);
 		case FEET:
-			return stack.getItem() == ModItems.elementiumBoots;
+			return stack.is(ModItems.elementiumBoots);
 		}
 
 		return false;

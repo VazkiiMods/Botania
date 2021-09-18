@@ -69,7 +69,7 @@ public class SubTileLabellia extends TileEntityFunctionalFlower {
 				}
 
 				ItemStack nameTag = nameTagEnt.getItem();
-				if (nameTag.getItem() == Items.NAME_TAG && nameTag.hasCustomHoverName()) {
+				if (nameTag.is(Items.NAME_TAG) && nameTag.hasCustomHoverName()) {
 					AABB renameArea = new AABB(x - RENAME_RANGE, y, z - RENAME_RANGE, x + RENAME_RANGE + 1, y + 1, z + RENAME_RANGE + 1);
 					Component name = nameTag.getHoverName();
 					List<LivingEntity> nameableEntities = level.getEntitiesOfClass(LivingEntity.class, renameArea,

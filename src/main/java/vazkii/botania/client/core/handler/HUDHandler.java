@@ -146,7 +146,7 @@ public final class HUDHandler {
 			profiler.pop();
 		}
 
-		/*if(equippedStack != null && equippedStack.getItem() == ModItems.flugelEye) {
+		/*if(equippedStack != null && equippedStack.is(ModItems.flugelEye)) {
 			profiler.startSection("flugelEye");
 			ItemFlugelEye.renderHUD(event.getResolution(), mc.player, equippedStack);
 			profiler.endSection();

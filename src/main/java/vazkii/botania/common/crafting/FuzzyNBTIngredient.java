@@ -78,7 +78,7 @@ import java.util.stream.Stream;
 	
 	@Override
 	public boolean test(@Nullable ItemStack input) {
-	if (input == null || stack.getItem() != input.getItem()) {
+	if (input == null || !stack.is(input.getItem())) {
 		return false;
 	}
 	CompoundTag tag = input.getTag();

@@ -46,7 +46,7 @@ public class LensMine extends Lens {
 		Block block = state.getBlock();
 
 		ItemStack composite = ((ItemLens) stack.getItem()).getCompositeLens(stack);
-		boolean warp = !composite.isEmpty() && composite.getItem() == ModItems.lensWarp;
+		boolean warp = !composite.isEmpty() && composite.is(ModItems.lensWarp);
 
 		if (warp && (block == ModBlocks.pistonRelay || block == Blocks.PISTON || block == Blocks.MOVING_PISTON || block == Blocks.PISTON_HEAD)) {
 			return false;

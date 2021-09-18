@@ -50,7 +50,7 @@ public class HeadRecipe extends RecipeRuneAltar {
 					break;
 				}
 
-				if (stack.getItem() == Items.NAME_TAG) {
+				if (stack.is(Items.NAME_TAG)) {
 					String defaultName = new TranslatableComponent(Items.NAME_TAG.getDescriptionId()).getString();
 					if (stack.getHoverName().getString().equals(defaultName)) {
 						return false;
@@ -68,7 +68,7 @@ public class HeadRecipe extends RecipeRuneAltar {
 		ItemStack stack = getResultItem().copy();
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack ingr = inv.getItem(i);
-			if (ingr.getItem() == Items.NAME_TAG) {
+			if (ingr.is(Items.NAME_TAG)) {
 				ItemNBTHelper.setString(stack, "SkullOwner", ingr.getHoverName().getString());
 				break;
 			}

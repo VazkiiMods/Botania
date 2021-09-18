@@ -36,9 +36,9 @@ public class SpellClothRecipe extends CustomRecipe {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
 			if (!stack.isEmpty()) {
-				if (stack.isEnchanted() && !foundEnchanted && stack.getItem() != ModItems.spellCloth) {
+				if (stack.isEnchanted() && !foundEnchanted && !stack.is(ModItems.spellCloth)) {
 					foundEnchanted = true;
-				} else if (stack.getItem() == ModItems.spellCloth && !foundCloth) {
+				} else if (stack.is(ModItems.spellCloth) && !foundCloth) {
 					foundCloth = true;
 				} else {
 					return false; // Found an invalid item, breaking the recipe
@@ -55,7 +55,7 @@ public class SpellClothRecipe extends CustomRecipe {
 		ItemStack stackToDisenchant = ItemStack.EMPTY;
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stack = inv.getItem(i);
-			if (!stack.isEmpty() && stack.isEnchanted() && stack.getItem() != ModItems.spellCloth) {
+			if (!stack.isEmpty() && stack.isEnchanted() && !stack.is(ModItems.spellCloth)) {
 				stackToDisenchant = stack.copy();
 				stackToDisenchant.setCount(1);
 				break;
@@ -86,7 +86,7 @@ public class SpellClothRecipe extends CustomRecipe {
 	@Override
 	public NonNullList<ItemStack> getRemainingItems(@Nonnull CraftingContainer inv) {
 		return RecipeUtils.getRemainingItemsSub(inv, s -> {
-			if (s.getItem() == ModItems.spellCloth) {
+			if (s.is(ModItems.spellCloth)) {
 				ItemStack copy = s.copy();
 				copy.setCount(1);
 				copy.setDamageValue(copy.getDamageValue() + 1);

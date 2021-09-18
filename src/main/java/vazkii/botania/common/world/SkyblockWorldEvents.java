@@ -87,7 +87,7 @@ public final class SkyblockWorldEvents {
 
 					return InteractionResult.SUCCESS;
 				}
-			} else if (!equipped.isEmpty() && equipped.getItem() == Items.BOWL) {
+			} else if (!equipped.isEmpty() && equipped.is(Items.BOWL)) {
 				BlockHitResult rtr = ToolCommons.raytraceFromEntity(player, 4.5F, true);
 				if (rtr.getType() == HitResult.Type.BLOCK) {
 					BlockPos pos = rtr.getBlockPos();

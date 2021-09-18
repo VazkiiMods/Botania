@@ -121,7 +121,7 @@ public class SubTileMarimorphosis extends TileEntityFunctionalFlower {
 		for (BlockPos pos : BlockPos.betweenClosed(getEffectivePos().offset(-range, -rangeY, -range),
 				getEffectivePos().offset(range, rangeY, range))) {
 			BlockState state = getLevel().getBlockState(pos);
-			if (state.getBlock() == Blocks.STONE) {
+			if (state.is(Blocks.STONE)) {
 				possibleCoords.add(pos.immutable());
 			}
 		}

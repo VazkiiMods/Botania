@@ -65,7 +65,7 @@ public class BlockCorporeaCrystalCube extends BlockModWaterloggable implements E
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (!stack.isEmpty()) {
-			if (stack.getItem() == ModItems.twigWand && player.isShiftKeyDown()) {
+			if (stack.is(ModItems.twigWand) && player.isShiftKeyDown()) {
 				return InteractionResult.PASS;
 			}
 			TileCorporeaCrystalCube cube = (TileCorporeaCrystalCube) world.getBlockEntity(pos);

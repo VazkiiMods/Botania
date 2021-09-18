@@ -52,7 +52,7 @@ public class PlatformModel extends ForwardingBakedModel {
 				super.emitBlockQuads(blockView, state, pos, randomSupplier, context);
 			} else {
 				// Some people used this to get an invisible block in the past, accommodate that.
-				if (heldState.getBlock() == ModBlocks.manaGlass) {
+				if (heldState.is(ModBlocks.manaGlass)) {
 					return;
 				}
 

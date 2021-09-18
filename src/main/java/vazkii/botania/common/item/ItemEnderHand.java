@@ -80,7 +80,7 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 
 	@Override
 	public boolean provideBlock(Player player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
-		if (!requestor.isEmpty() && requestor.getItem() == this) {
+		if (!requestor.isEmpty() && requestor.is(this)) {
 			return false;
 		}
 
@@ -102,7 +102,7 @@ public class ItemEnderHand extends Item implements IManaUsingItem, IBlockProvide
 
 	@Override
 	public int getBlockCount(Player player, ItemStack requestor, ItemStack stack, Block block) {
-		if (!requestor.isEmpty() && requestor.getItem() == this) {
+		if (!requestor.isEmpty() && requestor.is(this)) {
 			return 0;
 		}
 
