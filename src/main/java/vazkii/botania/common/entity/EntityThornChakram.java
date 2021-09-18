@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.entity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.EnvironmentInterface;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -43,7 +41,6 @@ import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 
-@EnvironmentInterface(value = EnvType.CLIENT, itf = ItemSupplier.class)
 public class EntityThornChakram extends ThrowableProjectile implements ItemSupplier {
 	private static final EntityDataAccessor<Integer> BOUNCES = SynchedEntityData.defineId(EntityThornChakram.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Boolean> FLARE = SynchedEntityData.defineId(EntityThornChakram.class, EntityDataSerializers.BOOLEAN);

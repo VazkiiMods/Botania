@@ -12,7 +12,6 @@ import com.google.common.collect.ImmutableMap;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.api.EnvironmentInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -42,7 +41,6 @@ import javax.annotation.Nonnull;
 
 import java.util.Map;
 
-@EnvironmentInterface(value = EnvType.CLIENT, itf = ItemSupplier.class)
 public class EntityVineBall extends ThrowableProjectile implements ItemSupplier {
 	private static final EntityDataAccessor<Float> GRAVITY = SynchedEntityData.defineId(EntityVineBall.class, EntityDataSerializers.FLOAT);
 	private static final Map<Direction, BooleanProperty> propMap = ImmutableMap.of(Direction.NORTH, VineBlock.NORTH, Direction.SOUTH, VineBlock.SOUTH,

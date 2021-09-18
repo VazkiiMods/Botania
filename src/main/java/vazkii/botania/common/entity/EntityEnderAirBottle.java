@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.entity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.EnvironmentInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -49,7 +47,6 @@ import java.util.stream.Collectors;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-@EnvironmentInterface(value = EnvType.CLIENT, itf = ItemSupplier.class)
 public class EntityEnderAirBottle extends ThrowableProjectile implements ItemSupplier {
 	private static final ResourceLocation GHAST_LOOT_TABLE = prefix("ghast_ender_air_crying");
 
