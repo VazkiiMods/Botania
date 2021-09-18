@@ -238,9 +238,9 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		tag.putInt(TAG_SPREADER_Z, coords.getZ());
 
 		if (lastCollision != null) {
-			tag.putInt(TAG_LAST_COLLISION_X, coords.getX());
-			tag.putInt(TAG_LAST_COLLISION_Y, coords.getY());
-			tag.putInt(TAG_LAST_COLLISION_Z, coords.getZ());
+			tag.putInt(TAG_LAST_COLLISION_X, lastCollision.getX());
+			tag.putInt(TAG_LAST_COLLISION_Y, lastCollision.getY());
+			tag.putInt(TAG_LAST_COLLISION_Z, lastCollision.getZ());
 		}
 
 		UUID identity = getShooterUUID();
@@ -283,9 +283,9 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		setBurstSourceCoords(new BlockPos(x, y, z));
 
 		if (cmp.contains(TAG_LAST_COLLISION_X)) {
-			x = cmp.getInt(TAG_SPREADER_X);
-			y = cmp.getInt(TAG_SPREADER_Y);
-			z = cmp.getInt(TAG_SPREADER_Z);
+			x = cmp.getInt(TAG_LAST_COLLISION_X);
+			y = cmp.getInt(TAG_LAST_COLLISION_Y);
+			z = cmp.getInt(TAG_LAST_COLLISION_Z);
 			lastCollision = new BlockPos(x, y, z);
 		}
 
