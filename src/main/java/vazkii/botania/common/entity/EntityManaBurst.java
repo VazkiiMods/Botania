@@ -10,6 +10,7 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -59,9 +60,6 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	private static final String TAG_SPREADER_Z = "spreaderZ";
 	private static final String TAG_GRAVITY = "gravity";
 	private static final String TAG_LENS_STACK = "lensStack";
-	private static final String TAG_LAST_MOTION_X = "lastMotionX";
-	private static final String TAG_LAST_MOTION_Y = "lastMotionY";
-	private static final String TAG_LAST_MOTION_Z = "lastMotionZ";
 	private static final String TAG_HAS_SHOOTER = "hasShooter";
 	private static final String TAG_SHOOTER = "shooterUUID";
 	private static final String TAG_LAST_COLLISION_X = "lastCollisionX";
@@ -241,10 +239,6 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		tag.putInt(TAG_SPREADER_Y, coords.getY());
 		tag.putInt(TAG_SPREADER_Z, coords.getZ());
 
-		tag.putDouble(TAG_LAST_MOTION_X, getDeltaMovement().x());
-		tag.putDouble(TAG_LAST_MOTION_Y, getDeltaMovement().y());
-		tag.putDouble(TAG_LAST_MOTION_Z, getDeltaMovement().z());
-
 		if (lastCollision != null) {
 			tag.putInt(TAG_LAST_COLLISION_X, coords.getX());
 			tag.putInt(TAG_LAST_COLLISION_Y, coords.getY());
@@ -297,11 +291,9 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 			lastCollision = new BlockPos(x, y, z);
 		}
 
-		double lastMotionX = cmp.getDouble(TAG_LAST_MOTION_X);
-		double lastMotionY = cmp.getDouble(TAG_LAST_MOTION_Y);
-		double lastMotionZ = cmp.getDouble(TAG_LAST_MOTION_Z);
-
-		setBurstMotion(lastMotionX, lastMotionY, lastMotionZ);
+		// Reread Motion because Entity.load clamps it to +/-10
+		ListTag motion = cmp.getList("Motion", 6);
+		setBurstMotion(motion.getDouble(0), motion.getDouble(1), motion.getDouble(2));
 
 		boolean hasShooter = cmp.getBoolean(TAG_HAS_SHOOTER);
 		if (hasShooter) {
