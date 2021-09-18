@@ -23,7 +23,9 @@ import net.minecraft.world.level.block.WallBlock;
 
 import vazkii.botania.common.block.*;
 import vazkii.botania.common.block.decor.BlockFloatingFlower;
+import vazkii.botania.common.block.mana.BlockForestDrum;
 import vazkii.botania.common.block.mana.BlockPool;
+import vazkii.botania.common.block.mana.BlockSpreader;
 import vazkii.botania.common.block.string.BlockRedString;
 import vazkii.botania.common.lib.LibBlockNames;
 import vazkii.botania.common.lib.LibMisc;
@@ -174,14 +176,16 @@ public class BlockTagProvider extends BlockTagsProvider {
 				)
 		);
 		tag(BlockTags.MINEABLE_WITH_SHOVEL).add(
-				getModBlocks(b -> b instanceof BlockFloatingFlower || b instanceof BlockAltGrass)
+				getModBlocks(b -> b == enchantedSoil
+						|| b instanceof BlockFloatingFlower || b instanceof BlockAltGrass)
 		);
 		var pickaxe = Set.of(
 				alchemyCatalyst, conjurationCatalyst,
 				manasteelBlock, elementiumBlock, terrasteelBlock, manaDiamondBlock, dragonstoneBlock,
 				manaGlass, elfGlass, bifrostPerm,
 				ModFluffBlocks.managlassPane, ModFluffBlocks.alfglassPane, ModFluffBlocks.bifrostPane,
-				runeAltar, brewery, terraPlate, spawnerClaw,
+				runeAltar, brewery, terraPlate, distributor, manaVoid, manaDetector,
+				pistonRelay, tinyPlanet, spawnerClaw,
 				rfGenerator, prism, pump, sparkChanger, forestEye, enderEye,
 				hourglass, starfield, blazeBlock
 		);
@@ -200,6 +204,21 @@ public class BlockTagProvider extends BlockTagsProvider {
 						|| (Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.LIVING_ROCK)
 								&& !(b instanceof WallBlock)) // vanilla includes #wall already
 						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.SHIMMERROCK)
+				)
+		);
+		var axe = Set.of(
+				alfPortal, turntable, manaBomb, bellows, incensePlate,
+				cacophonium, avatar, root, felPumpkin
+		);
+		tag(BlockTags.MINEABLE_WITH_AXE).add(
+				getModBlocks(b -> axe.contains(b)
+						|| b instanceof BlockForestDrum
+						|| b instanceof BlockOpenCrate
+						|| b instanceof BlockPlatform
+						|| b instanceof BlockSpreader
+						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.LIVING_WOOD)
+						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.DREAM_WOOD)
+						|| Registry.BLOCK.getKey(b).getPath().contains(LibBlockNames.SHIMMERWOOD_PLANKS)
 				)
 		);
 	}
