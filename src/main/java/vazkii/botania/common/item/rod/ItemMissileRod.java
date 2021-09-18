@@ -16,6 +16,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -95,8 +96,7 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 	@Nonnull
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
-		player.startUsingItem(hand);
-		return InteractionResultHolder.consume(player.getItemInHand(hand));
+		return ItemUtils.startUsingInstantly(world, player, hand);
 	}
 
 	@Override

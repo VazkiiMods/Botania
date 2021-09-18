@@ -19,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
@@ -65,8 +66,7 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 	@Nonnull
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
-		player.startUsingItem(hand);
-		return InteractionResultHolder.consume(player.getItemInHand(hand));
+		return ItemUtils.startUsingInstantly(world, player, hand);
 	}
 
 	@Override
