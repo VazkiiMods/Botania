@@ -277,7 +277,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 		cmp.putString(TAG_OUTPUT_KEY, outputKey);
 
 		cmp.putInt(TAG_FORCE_CLIENT_BINDING_X, receiver == null ? 0 : receiver.tileEntity().getBlockPos().getX());
-		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Y, receiver == null ? -1 : receiver.tileEntity().getBlockPos().getY());
+		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Y, receiver == null ? Integer.MIN_VALUE : receiver.tileEntity().getBlockPos().getY());
 		cmp.putInt(TAG_FORCE_CLIENT_BINDING_Z, receiver == null ? 0 : receiver.tileEntity().getBlockPos().getZ());
 
 		cmp.putBoolean(TAG_MAPMAKER_OVERRIDE, mapmakerOverride);
@@ -344,7 +344,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 			int x = cmp.getInt(TAG_FORCE_CLIENT_BINDING_X);
 			int y = cmp.getInt(TAG_FORCE_CLIENT_BINDING_Y);
 			int z = cmp.getInt(TAG_FORCE_CLIENT_BINDING_Z);
-			if (y != -1) {
+			if (y != Integer.MIN_VALUE) {
 				BlockEntity tile = level.getBlockEntity(new BlockPos(x, y, z));
 				if (tile instanceof IManaReceiver) {
 					receiver = (IManaReceiver) tile;

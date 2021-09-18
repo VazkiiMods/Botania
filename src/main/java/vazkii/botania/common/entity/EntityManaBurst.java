@@ -136,7 +136,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	public EntityManaBurst(Player player) {
 		super(ModEntities.MANA_BURST, player, player.level);
 
-		setBurstSourceCoords(new BlockPos(0, -1, 0));
+		setBurstSourceCoords(new BlockPos(0, Integer.MIN_VALUE, 0));
 		setRot(player.getYRot() + 180, -player.getXRot());
 
 		float f = 0.4F;

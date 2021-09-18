@@ -45,7 +45,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 
 	public static final String TAG_TELEPORTED = "botania:teleported";
 
-	private BlockPos bindPos = new BlockPos(0, -1, 0);
+	private BlockPos bindPos = new BlockPos(0, Integer.MIN_VALUE, 0);
 
 	public SubTileSpectranthemum(BlockPos pos, BlockState state) {
 		super(ModSubtiles.SPECTRANTHEMUM, pos, state);
@@ -156,7 +156,7 @@ public class SubTileSpectranthemum extends TileEntityFunctionalFlower {
 	@Override
 	@Environment(EnvType.CLIENT)
 	public BlockPos getBinding() {
-		return Minecraft.getInstance().player.isShiftKeyDown() && bindPos.getY() != -1 ? bindPos : super.getBinding();
+		return Minecraft.getInstance().player.isShiftKeyDown() && bindPos.getY() != Integer.MIN_VALUE ? bindPos : super.getBinding();
 	}
 
 }

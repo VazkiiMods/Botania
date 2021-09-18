@@ -61,7 +61,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	private static final String TAG_BIND_Y = "bindY";
 	private static final String TAG_BIND_Z = "bindZ";
 
-	private BlockPos bindPos = new BlockPos(0, -1, 0);
+	private BlockPos bindPos = new BlockPos(0, Integer.MIN_VALUE, 0);
 	private int ticksElapsed = 0;
 
 	public TileLightRelay(BlockPos pos, BlockState state) {

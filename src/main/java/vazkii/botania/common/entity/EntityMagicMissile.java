@@ -47,7 +47,7 @@ public class EntityMagicMissile extends ThrowableProjectile {
 	private static final EntityDataAccessor<Boolean> EVIL = SynchedEntityData.defineId(EntityMagicMissile.class, EntityDataSerializers.BOOLEAN);
 	private static final EntityDataAccessor<Integer> TARGET = SynchedEntityData.defineId(EntityMagicMissile.class, EntityDataSerializers.INT);
 
-	double lockX, lockY = -1, lockZ;
+	double lockX, lockY = Integer.MIN_VALUE, lockZ;
 	int time = 0;
 
 	public EntityMagicMissile(EntityType<EntityMagicMissile> type, Level world) {
@@ -128,7 +128,7 @@ public class EntityMagicMissile extends ThrowableProjectile {
 
 		LivingEntity target = getTargetEntity();
 		if (target != null) {
-			if (lockY == -1) {
+			if (lockY == Integer.MIN_VALUE) {
 				lockX = target.getX();
 				lockY = target.getY();
 				lockZ = target.getZ();

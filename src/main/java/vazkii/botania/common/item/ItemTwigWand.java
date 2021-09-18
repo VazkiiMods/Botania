@@ -74,7 +74,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 	private static final String TAG_BOUND_TILE_Y = "boundTileY";
 	private static final String TAG_BOUND_TILE_Z = "boundTileZ";
 	private static final String TAG_BIND_MODE = "bindMode";
-	private static final BlockPos UNBOUND_POS = new BlockPos(0, -1, 0);
+	private static final BlockPos UNBOUND_POS = new BlockPos(0, Integer.MIN_VALUE, 0);
 
 	public ItemTwigWand(Item.Properties builder) {
 		super(builder);

@@ -279,10 +279,10 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 
 			if (burst.getTicksExisted() == spawnTicks) {
 				int x = ItemNBTHelper.getInt(lens, TAG_X, 0);
-				int y = ItemNBTHelper.getInt(lens, TAG_Y, -1);
+				int y = ItemNBTHelper.getInt(lens, TAG_Y, Integer.MIN_VALUE);
 				int z = ItemNBTHelper.getInt(lens, TAG_Z, 0);
 
-				if (y != -1) {
+				if (y != Integer.MIN_VALUE) {
 					spawnNextBurst(entity.level, new BlockPos(x, y, z), lens);
 				}
 			} else if (burst.getTicksExisted() == placeTicks) {

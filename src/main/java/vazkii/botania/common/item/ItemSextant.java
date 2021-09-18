@@ -83,9 +83,9 @@ public class ItemSextant extends Item {
 		}
 
 		int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
-		int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
+		int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, Integer.MIN_VALUE);
 		int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
-		if (y != -1) {
+		if (y != Integer.MIN_VALUE) {
 			Vector3 source = new Vector3(x, y, z);
 
 			double radius = calculateRadius(stack, living);
@@ -112,10 +112,10 @@ public class ItemSextant extends Item {
 		if (1 < radius && radius <= MAX_RADIUS) {
 			IStateMatcher matcher = PatchouliAPI.get().predicateMatcher(Blocks.COBBLESTONE, s -> !s.isAir());
 			int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
-			int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
+			int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, Integer.MIN_VALUE);
 			int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
 			int iradius = (int) radius + 1;
-			if (y != -1) {
+			if (y != Integer.MIN_VALUE) {
 				Map<BlockPos, IStateMatcher> map = new HashMap<>();
 				for (int i = 0; i < iradius * 2 + 1; i++) {
 					for (int j = 0; j < iradius * 2 + 1; j++) {
@@ -134,7 +134,7 @@ public class ItemSextant extends Item {
 	}
 
 	private void reset(Level world, ItemStack stack) {
-		ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, -1);
+		ItemNBTHelper.setInt(stack, TAG_SOURCE_Y, Integer.MIN_VALUE);
 		if (world.isClientSide) {
 			Botania.proxy.clearSextantMultiblock();
 		}
@@ -164,7 +164,7 @@ public class ItemSextant extends Item {
 
 	private static double calculateRadius(ItemStack stack, LivingEntity living) {
 		int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
-		int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, -1);
+		int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, Integer.MIN_VALUE);
 		int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
 		Vector3 source = new Vector3(x, y, z);
 		WispParticleData data = WispParticleData.wisp(0.2F, 1F, 0F, 0F, 1);

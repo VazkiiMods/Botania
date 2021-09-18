@@ -142,7 +142,7 @@ public class ItemManaMirror extends Item implements IManaItem, ICoordBoundItem, 
 
 		return GlobalPos.CODEC.parse(NbtOps.INSTANCE, ItemNBTHelper.get(stack, TAG_POS))
 				.result()
-				.filter(pos -> pos.pos().getY() != -1)
+				.filter(pos -> pos.pos().getY() != Integer.MIN_VALUE)
 				.orElse(null);
 	}
 
