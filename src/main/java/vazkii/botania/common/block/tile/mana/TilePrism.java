@@ -51,9 +51,7 @@ public class TilePrism extends TileExposedSimpleInventory {
 				burst.setMinManaLoss(properties.ticksBeforeManaLoss);
 				burst.setManaLossPerTick(properties.manaLossPerTick);
 				burst.setGravity(properties.gravity);
-				burst.setBurstMotion(burstEntity.getDeltaMovement().x() * properties.motionModifier,
-						burstEntity.getDeltaMovement().y() * properties.motionModifier,
-						burstEntity.getDeltaMovement().z() * properties.motionModifier);
+				burstEntity.setDeltaMovement(burstEntity.getDeltaMovement().scale(properties.motionModifier));
 			}
 		}
 	}

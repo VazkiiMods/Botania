@@ -126,7 +126,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		double mx = Mth.sin(getYRot() / 180.0F * (float) Math.PI) * Mth.cos(getXRot() / 180.0F * (float) Math.PI) * f / 2D;
 		double mz = -(Mth.cos(getYRot() / 180.0F * (float) Math.PI) * Mth.cos(getXRot() / 180.0F * (float) Math.PI) * f) / 2D;
 		double my = Mth.sin(getXRot() / 180.0F * (float) Math.PI) * f / 2D;
-		setBurstMotion(mx, my, mz);
+		setDeltaMovement(mx, my, mz);
 	}
 
 	public EntityManaBurst(Player player) {
@@ -139,7 +139,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		double mx = Mth.sin(getYRot() / 180.0F * (float) Math.PI) * Mth.cos(getXRot() / 180.0F * (float) Math.PI) * f / 2D;
 		double mz = -(Mth.cos(getYRot() / 180.0F * (float) Math.PI) * Mth.cos(getXRot() / 180.0F * (float) Math.PI) * f) / 2D;
 		double my = Mth.sin(getXRot() / 180.0F * (float) Math.PI) * f / 2D;
-		setBurstMotion(mx, my, mz);
+		setDeltaMovement(mx, my, mz);
 	}
 
 	@Override
@@ -169,8 +169,6 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		}
 
 		particles();
-
-		setBurstMotion(getDeltaMovement().x(), getDeltaMovement().y(), getDeltaMovement().z());
 
 		fullManaLastTick = getMana() == getStartingMana();
 
@@ -293,7 +291,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 
 		// Reread Motion because Entity.load clamps it to +/-10
 		ListTag motion = cmp.getList("Motion", 6);
-		setBurstMotion(motion.getDouble(0), motion.getDouble(1), motion.getDouble(2));
+		setDeltaMovement(motion.getDouble(0), motion.getDouble(1), motion.getDouble(2));
 
 		boolean hasShooter = cmp.getBoolean(TAG_HAS_SHOOTER);
 		if (hasShooter) {
@@ -640,11 +638,6 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		}
 
 		return null;
-	}
-
-	@Override
-	public void setBurstMotion(double x, double y, double z) {
-		this.setDeltaMovement(x, y, z);
 	}
 
 	@Override

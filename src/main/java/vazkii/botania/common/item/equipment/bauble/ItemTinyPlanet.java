@@ -80,7 +80,7 @@ public class ItemTinyPlanet extends ItemBauble {
 			Vec3 currentVec = entity.position();
 			Vec3 moveVector = targetVec.subtract(currentVec);
 
-			burst.setBurstMotion(moveVector.x, moveVector.y, moveVector.z);
+			entity.setDeltaMovement(moveVector);
 
 			burst.setOrbitTime(burst.getOrbitTime() + 1);
 		}

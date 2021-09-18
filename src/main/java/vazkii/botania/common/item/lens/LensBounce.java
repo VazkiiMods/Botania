@@ -32,7 +32,7 @@ public class LensBounce extends Lens {
 				Vec3 normalVector = new Vec3(dir.getStepX(), dir.getStepY(), dir.getStepZ()).normalize();
 				Vec3 movementVec = normalVector.scale(-2 * currentMovementVec.dot(normalVector)).add(currentMovementVec);
 
-				burst.setBurstMotion(movementVec.x, movementVec.y, movementVec.z);
+				entity.setDeltaMovement(movementVec);
 				dead = false;
 			}
 		}

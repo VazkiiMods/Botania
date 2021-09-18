@@ -23,8 +23,6 @@ public interface IManaBurst {
 
 	boolean isFake();
 
-	void setBurstMotion(double x, double y, double z);
-
 	int getColor();
 
 	void setColor(int color);

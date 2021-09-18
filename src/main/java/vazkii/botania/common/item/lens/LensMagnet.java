@@ -75,7 +75,7 @@ public class LensMagnet extends Lens {
 			burst.setMagnetizePos(tile.getBlockPos());
 		}
 
-		burst.setBurstMotion(finalMotionVec.x, finalMotionVec.y, finalMotionVec.z);
+		entity.setDeltaMovement(finalMotionVec);
 	}
 
 }

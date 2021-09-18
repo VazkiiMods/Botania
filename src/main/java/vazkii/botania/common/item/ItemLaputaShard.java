@@ -250,7 +250,7 @@ public class ItemLaputaShard extends Item implements ILensEffect, ITinyPlanetExc
 		burst.setMinManaLoss(0);
 		burst.setManaLossPerTick(0F);
 		burst.setGravity(0F);
-		burst.setBurstMotion(0, 0.5, 0);
+		burst.setDeltaMovement(0, 0.5, 0);
 
 		burst.setSourceLens(stack);
 		return burst;

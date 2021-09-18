@@ -85,8 +85,7 @@ public class ItemTerraSword extends ItemManasteelSword implements ILensEffect {
 		burst.setMinManaLoss(40);
 		burst.setManaLossPerTick(4F);
 		burst.setGravity(0F);
-		burst.setBurstMotion(burst.getDeltaMovement().x() * motionModifier,
-				burst.getDeltaMovement().y() * motionModifier, burst.getDeltaMovement().z() * motionModifier);
+		burst.setDeltaMovement(burst.getDeltaMovement().scale(motionModifier));
 
 		burst.setSourceLens(stack.copy());
 		return burst;

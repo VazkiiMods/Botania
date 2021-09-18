@@ -42,15 +42,13 @@ public class LensInfluence extends Lens {
 					continue;
 				}
 
-				if (movable instanceof IManaBurst) {
-					IManaBurst otherBurst = (IManaBurst) movable;
+				if (movable instanceof IManaBurst otherBurst) {
 					ItemStack lens = otherBurst.getSourceLens();
 					if (!lens.isEmpty() && lens.is(ModItems.lensInfluence)) {
 						continue;
 					}
 
-					((IManaBurst) movable).setBurstMotion(entity.getDeltaMovement().x(),
-							entity.getDeltaMovement().y(), entity.getDeltaMovement().z());
+					movable.setDeltaMovement(entity.getDeltaMovement());
 				} else {
 					movable.setDeltaMovement(entity.getDeltaMovement());
 				}

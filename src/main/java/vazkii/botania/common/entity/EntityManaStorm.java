@@ -80,7 +80,7 @@ public class EntityManaStorm extends Entity {
 		burst.setSourceLens(new ItemStack(ModItems.lensStorm));
 
 		Vec3 motion = new Vec3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().scale(motionModifier);
-		burst.setBurstMotion(motion.x, motion.y, motion.z);
+		burst.setDeltaMovement(motion);
 		level.addFreshEntity(burst);
 	}
 

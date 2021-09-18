@@ -149,9 +149,7 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 			burst.setMinManaLoss(props.ticksBeforeManaLoss);
 			burst.setManaLossPerTick(props.manaLossPerTick);
 			burst.setGravity(props.gravity);
-			burst.setBurstMotion(burst.getDeltaMovement().x() * props.motionModifier,
-					burst.getDeltaMovement().y() * props.motionModifier,
-					burst.getDeltaMovement().z() * props.motionModifier);
+			burst.setDeltaMovement(burst.getDeltaMovement().scale(props.motionModifier));
 
 			return burst;
 		}
