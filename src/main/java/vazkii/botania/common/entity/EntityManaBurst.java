@@ -8,8 +8,6 @@
  */
 package vazkii.botania.common.entity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
@@ -189,13 +187,6 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 				}
 			}
 		}
-	}
-
-	@Override
-	@Environment(EnvType.CLIENT)
-	public void lerpTo(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport) {
-		setPos(x, y, z);
-		setRot(yaw, pitch);
 	}
 
 	@Override
@@ -439,12 +430,12 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 				return;
 			}
 
-			BlockPos coords = getBurstSourceBlockPos();
-			if (tile != null && !tile.getBlockPos().equals(coords)) {
+			BlockPos sourcePos = getBurstSourceBlockPos();
+			if (tile != null && !tile.getBlockPos().equals(sourcePos)) {
 				collidedTile = tile;
 			}
 
-			if (tile == null || !tile.getBlockPos().equals(coords)) {
+			if (tile == null || !tile.getBlockPos().equals(sourcePos)) {
 				if (!fake && !noParticles && !level.isClientSide
 						&& tile instanceof IManaReceiver receiver
 						&& receiver.canReceiveManaFromBursts()) {

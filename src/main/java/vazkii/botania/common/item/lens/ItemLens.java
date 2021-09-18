@@ -233,8 +233,8 @@ public class ItemLens extends Item implements ILensControl, ICompositableLens, I
 	}
 
 	@Override
-	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader, boolean redstone) {
-		getLens(stack).onControlledSpreaderPulse(stack, spreader, redstone);
+	public void onControlledSpreaderPulse(ItemStack stack, IManaSpreader spreader) {
+		getLens(stack).onControlledSpreaderPulse(stack, spreader);
 	}
 
 	@Override

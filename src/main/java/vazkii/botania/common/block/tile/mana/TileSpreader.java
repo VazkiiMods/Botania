@@ -117,7 +117,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 	private IManaReceiver receiver = null;
 	private IManaReceiver receiverLastTick = null;
 
-	private boolean redstoneLastTick = true;
+	private boolean poweredLastTick = true;
 	public boolean canShootBurst = true;
 	public int lastBurstDeathTick = -1;
 	public int burstParticleTick = 0;
@@ -158,7 +158,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 			ManaNetworkCallback.addCollector(self);
 		}
 
-		boolean redstone = false;
+		boolean powered = false;
 
 		for (Direction dir : Direction.values()) {
 			BlockEntity tileAt = level.getBlockEntity(worldPosition.relative(dir));
@@ -178,10 +178,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 				}
 			}
 
-			int redstoneSide = level.getSignal(worldPosition.relative(dir), dir);
-			if (redstoneSide > 0) {
-				redstone = true;
-			}
+			powered = level.hasSignal(worldPosition.relative(dir), dir);
 		}
 
 		if (self.needsNewBurstSimulation()) {
@@ -215,29 +212,29 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 			}
 		}
 
-		boolean shouldShoot = !redstone;
+		boolean shouldShoot = !powered;
 
-		boolean isredstone = self.getVariant() == BlockSpreader.Variant.REDSTONE;
-		if (isredstone) {
-			shouldShoot = redstone && !self.redstoneLastTick;
+		boolean redstoneSpreader = self.getVariant() == BlockSpreader.Variant.REDSTONE;
+		if (redstoneSpreader) {
+			shouldShoot = powered && !self.poweredLastTick;
 		}
 
-		if (shouldShoot && self.receiver != null && self.receiver instanceof IKeyLocked) {
-			shouldShoot = ((IKeyLocked) self.receiver).getInputKey().equals(self.getOutputKey());
+		if (shouldShoot && self.receiver instanceof IKeyLocked locked) {
+			shouldShoot = locked.getInputKey().equals(self.getOutputKey());
 		}
 
 		ItemStack lens = self.getItemHandler().getItem(0);
 		ILensControl control = self.getLensController(lens);
 		if (control != null) {
-			if (isredstone) {
+			if (redstoneSpreader) {
 				if (shouldShoot) {
-					control.onControlledSpreaderPulse(lens, self, redstone);
+					control.onControlledSpreaderPulse(lens, self);
 				}
 			} else {
-				control.onControlledSpreaderTick(lens, self, redstone);
+				control.onControlledSpreaderTick(lens, self, powered);
 			}
 
-			shouldShoot &= control.allowBurstShooting(lens, self, redstone);
+			shouldShoot = shouldShoot && control.allowBurstShooting(lens, self, powered);
 		}
 
 		if (shouldShoot) {
@@ -249,7 +246,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 			VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);
 		}
 
-		self.redstoneLastTick = redstone;
+		self.poweredLastTick = powered;
 		self.receiverLastTick = self.receiver;
 	}
 
