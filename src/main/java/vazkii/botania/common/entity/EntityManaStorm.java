@@ -15,8 +15,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketSpawnEntity;
 
@@ -79,7 +79,7 @@ public class EntityManaStorm extends Entity {
 
 		burst.setSourceLens(new ItemStack(ModItems.lensStorm));
 
-		Vector3 motion = new Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().multiply(motionModifier);
+		Vec3 motion = new Vec3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().scale(motionModifier);
 		burst.setBurstMotion(motion.x, motion.y, motion.z);
 		level.addFreshEntity(burst);
 	}

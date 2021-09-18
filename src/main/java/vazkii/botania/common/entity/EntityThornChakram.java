@@ -97,8 +97,8 @@ public class EntityThornChakram extends ThrowableProjectile implements ItemSuppl
 		if (isReturning()) {
 			Entity thrower = getOwner();
 			if (thrower != null) {
-				Vector3 motion = Vector3.fromEntityCenter(thrower).subtract(Vector3.fromEntityCenter(this)).normalize();
-				setDeltaMovement(motion.toVector3d());
+				Vec3 motion = Vector3.fromEntityCenterVanilla(thrower).subtract(Vector3.fromEntityCenterVanilla(this)).normalize();
+				setDeltaMovement(motion);
 			}
 		}
 
@@ -154,12 +154,12 @@ public class EntityThornChakram extends ThrowableProjectile implements ItemSuppl
 
 			int bounces = getTimesBounced();
 			if (bounces < MAX_BOUNCES) {
-				Vector3 currentMovementVec = new Vector3(getDeltaMovement());
+				Vec3 currentMovementVec = getDeltaMovement();
 				Direction dir = rtr.getDirection();
-				Vector3 normalVector = new Vector3(dir.getStepX(), dir.getStepY(), dir.getStepZ()).normalize();
-				Vector3 movementVec = normalVector.multiply(-2 * currentMovementVec.dotProduct(normalVector)).add(currentMovementVec);
+				Vec3 normalVector = new Vec3(dir.getStepX(), dir.getStepY(), dir.getStepZ()).normalize();
+				Vec3 movementVec = normalVector.scale(-2 * currentMovementVec.dot(normalVector)).add(currentMovementVec);
 
-				setDeltaMovement(movementVec.toVector3d());
+				setDeltaMovement(movementVec);
 				bounced = true;
 
 				if (!level.isClientSide) {

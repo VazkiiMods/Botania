@@ -22,11 +22,11 @@ import net.minecraft.world.entity.projectile.ThrowableProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.ITinyPlanetExcempt;
 import vazkii.botania.common.block.ModBlocks;
-import vazkii.botania.common.core.helper.Vector3;
 
 import java.util.List;
 
@@ -76,9 +76,9 @@ public class ItemTinyPlanet extends ItemBauble {
 			float yTarget = (float) y;
 			float zTarget = (float) (z + Math.sin(angle * 10 * Math.PI / 180F) * radius);
 
-			Vector3 targetVec = new Vector3(xTarget, yTarget, zTarget);
-			Vector3 currentVec = new Vector3(entity.getX(), entity.getY(), entity.getZ());
-			Vector3 moveVector = targetVec.subtract(currentVec);
+			Vec3 targetVec = new Vec3(xTarget, yTarget, zTarget);
+			Vec3 currentVec = entity.position();
+			Vec3 moveVector = targetVec.subtract(currentVec);
 
 			burst.setBurstMotion(moveVector.x, moveVector.y, moveVector.z);
 

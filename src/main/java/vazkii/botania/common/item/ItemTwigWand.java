@@ -56,7 +56,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.network.PacketBotaniaEffect;
 
 import javax.annotation.Nonnull;
@@ -285,24 +284,24 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 
 	public static void doParticleBeamWithOffset(Level world, BlockPos orig, BlockPos end) {
 		Vec3 origOffset = world.getBlockState(orig).getOffset(world, orig);
-		Vector3 vorig = new Vector3(orig.getX() + origOffset.x() + 0.5, orig.getY() + origOffset.y() + 0.5, orig.getZ() + origOffset.z() + 0.5);
+		Vec3 vorig = new Vec3(orig.getX() + origOffset.x() + 0.5, orig.getY() + origOffset.y() + 0.5, orig.getZ() + origOffset.z() + 0.5);
 		Vec3 endOffset = world.getBlockState(end).getOffset(world, end);
-		Vector3 vend = new Vector3(end.getX() + endOffset.x() + 0.5, end.getY() + endOffset.y() + 0.5, end.getZ() + endOffset.z() + 0.5);
+		Vec3 vend = new Vec3(end.getX() + endOffset.x() + 0.5, end.getY() + endOffset.y() + 0.5, end.getZ() + endOffset.z() + 0.5);
 		doParticleBeam(world, vorig, vend);
 	}
 
-	public static void doParticleBeam(Level world, Vector3 orig, Vector3 end) {
+	public static void doParticleBeam(Level world, Vec3 orig, Vec3 end) {
 		if (!world.isClientSide) {
 			return;
 		}
 
-		Vector3 diff = end.subtract(orig);
-		Vector3 movement = diff.normalize().multiply(0.05);
-		int iters = (int) (diff.mag() / movement.mag());
+		Vec3 diff = end.subtract(orig);
+		Vec3 movement = diff.normalize().scale(0.05);
+		int iters = (int) (diff.length() / movement.length());
 		float huePer = 1F / iters;
 		float hueSum = (float) Math.random();
 
-		Vector3 currentPos = orig;
+		Vec3 currentPos = orig;
 		for (int i = 0; i < iters; i++) {
 			float hue = i * huePer + hueSum;
 			int color = Mth.hsvToRgb(Mth.frac(hue), 1F, 1F);

@@ -18,12 +18,12 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.block.tile.string.TileRedString;
 import vazkii.botania.common.core.helper.PlayerHelper;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 
 import java.util.Random;
@@ -59,15 +59,15 @@ public class RenderTileRedString<T extends TileRedString> implements BlockEntity
 		if (bind != null) {
 			ms.pushPose();
 			ms.translate(0.5, 0.5, 0.5);
-			Vector3 vecOrig = new Vector3(bind.getX() - tile.getBlockPos().getX(), bind.getY() - tile.getBlockPos().getY(), bind.getZ() - tile.getBlockPos().getZ());
-			Vector3 vecNorm = vecOrig.normalize();
-			Vector3 vecMag = vecNorm.multiply(0.025);
-			Vector3 vecApply = vecMag;
+			Vec3 vecOrig = new Vec3(bind.getX() - tile.getBlockPos().getX(), bind.getY() - tile.getBlockPos().getY(), bind.getZ() - tile.getBlockPos().getZ());
+			Vec3 vecNorm = vecOrig.normalize();
+			Vec3 vecMag = vecNorm.scale(0.025);
+			Vec3 vecApply = vecMag;
 
-			int stages = (int) (vecOrig.mag() / vecMag.mag());
+			int stages = (int) (vecOrig.length() / vecMag.length());
 
 			double len = (double) -ClientTickHandler.ticksInGame / 100F + new Random(dir.ordinal() ^ tile.getBlockPos().hashCode()).nextInt(10000);
-			double add = vecMag.mag();
+			double add = vecMag.length();
 			double rand = Math.random() - 0.5;
 			VertexConsumer buffer = buffers.getBuffer(RenderHelper.LINE_1);
 			for (int i = 0; i < stages; i++) {

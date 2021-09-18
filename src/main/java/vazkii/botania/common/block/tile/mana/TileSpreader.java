@@ -48,7 +48,6 @@ import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityManaBurst;
 import vazkii.botania.common.entity.EntityManaBurst.PositionProperties;
 import vazkii.botania.common.item.ItemLexicon;
@@ -386,9 +385,9 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 				double z = bpos.getLocation().z - getBlockPos().getZ() - 0.5;
 
 				if (bpos.getDirection() != Direction.DOWN && bpos.getDirection() != Direction.UP) {
-					Vector3 clickVector = new Vector3(x, 0, z);
-					Vector3 relative = new Vector3(-0.5, 0, 0);
-					double angle = Math.acos(clickVector.dotProduct(relative) / (relative.mag() * clickVector.mag())) * 180D / Math.PI;
+					Vec3 clickVector = new Vec3(x, 0, z);
+					Vec3 relative = new Vec3(-0.5, 0, 0);
+					double angle = Math.acos(clickVector.dot(relative) / (relative.length() * clickVector.length())) * 180D / Math.PI;
 
 					rotationX = (float) angle + 180F;
 					if (clickVector.z < 0) {

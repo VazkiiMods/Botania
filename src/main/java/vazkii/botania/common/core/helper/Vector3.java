@@ -51,6 +51,10 @@ public class Vector3 {
 		return new Vector3(e.getX(), e.getY() - e.getMyRidingOffset() + e.getBbHeight() / 2, e.getZ());
 	}
 
+	public static Vec3 fromEntityCenterVanilla(Entity e) {
+		return new Vec3(e.getX(), e.getY() - e.getMyRidingOffset() + e.getBbHeight() / 2, e.getZ());
+	}
+
 	public static Vector3 fromTileEntity(BlockEntity e) {
 		return fromBlockPos(e.getBlockPos());
 	}

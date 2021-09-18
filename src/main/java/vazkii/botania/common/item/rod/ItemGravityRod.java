@@ -21,6 +21,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -170,8 +172,8 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 						}
 					}
 
-					Vector3 target3 = Vector3.fromEntityCenter(player)
-							.add(new Vector3(player.getLookAngle()).multiply(length)).add(0, 0.5, 0);
+					Vec3 target3 = Vector3.fromEntityCenterVanilla(player)
+							.add(player.getLookAngle().scale(length)).add(0, 0.5, 0);
 					if (target instanceof ItemEntity) {
 						target3 = target3.add(0, 0.25, 0);
 					}
@@ -217,12 +219,12 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 				Entity taritem = player.level.getEntity(targetID);
 
 				boolean found = false;
-				Vector3 target = Vector3.fromEntityCenter(player);
+				Vec3 target = Vector3.fromEntityCenterVanilla(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
-					target = target.add(new Vector3(player.getLookAngle()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.level.getEntities(player, target.boxForRange(RANGE), CAN_TARGET);
+					target = target.add(player.getLookAngle().scale(distance)).add(0, 0.5, 0);
+					entities = player.level.getEntities(player, new AABB(target.subtract(RANGE, RANGE, RANGE), target.add(RANGE, RANGE, RANGE)), CAN_TARGET);
 					distance++;
 					if (entities.contains(taritem)) {
 						found = true;
@@ -233,7 +235,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 					item = taritem;
 					ItemNBTHelper.setInt(stack, TAG_TARGET, -1);
 					ItemNBTHelper.setDouble(stack, TAG_DIST, -1);
-					Vector3 moveVector = new Vector3(player.getLookAngle().normalize());
+					Vec3 moveVector = player.getLookAngle().normalize();
 					if (item instanceof ItemEntity) {
 						((ItemEntity) item).setPickUpDelay(20);
 						float mot = IManaProficiencyArmor.hasProficiency(player, stack) ? 2.25F : 1.5F;
@@ -244,7 +246,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 						}
 						item.discard();
 					} else {
-						item.setDeltaMovement(moveVector.multiply(3, 1.5, 3).toVector3d());
+						item.setDeltaMovement(moveVector.multiply(3, 1.5, 3));
 					}
 					ItemNBTHelper.setInt(stack, TAG_TICKS_COOLDOWN, 10);
 				}

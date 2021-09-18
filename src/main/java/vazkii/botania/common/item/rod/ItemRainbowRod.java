@@ -33,7 +33,6 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.tile.TileBifrost;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.material.ItemSelfReturning;
 
 import javax.annotation.Nonnull;
@@ -58,7 +57,7 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem,
 		ItemStack stack = player.getItemInHand(hand);
 		if (!world.isClientSide && ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_COST, false)) {
 			BlockState bifrost = ModBlocks.bifrost.defaultBlockState();
-			Vector3 vector = new Vector3(player.getLookAngle()).normalize();
+			Vec3 vector = player.getLookAngle().normalize();
 
 			double x = player.getX();
 			double y = player.getY() - 1;

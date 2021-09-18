@@ -34,6 +34,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
@@ -86,8 +87,6 @@ public class ItemSextant extends Item {
 		int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, Integer.MIN_VALUE);
 		int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
 		if (y != Integer.MIN_VALUE) {
-			Vector3 source = new Vector3(x, y, z);
-
 			double radius = calculateRadius(stack, living);
 
 			if (count % 10 == 0) {
@@ -96,7 +95,7 @@ public class ItemSextant extends Item {
 					float radian = (float) (i * Math.PI / 180);
 					double xp = x + Math.cos(radian) * radius;
 					double zp = z + Math.sin(radian) * radius;
-					world.addParticle(data, xp + 0.5, source.y + 1, zp + 0.5, 0, - -0.01F, 0);
+					world.addParticle(data, xp + 0.5, y + 1, zp + 0.5, 0, - -0.01F, 0);
 				}
 			}
 		}
@@ -166,17 +165,17 @@ public class ItemSextant extends Item {
 		int x = ItemNBTHelper.getInt(stack, TAG_SOURCE_X, 0);
 		int y = ItemNBTHelper.getInt(stack, TAG_SOURCE_Y, Integer.MIN_VALUE);
 		int z = ItemNBTHelper.getInt(stack, TAG_SOURCE_Z, 0);
-		Vector3 source = new Vector3(x, y, z);
+		Vec3 source = new Vec3(x, y, z);
 		WispParticleData data = WispParticleData.wisp(0.2F, 1F, 0F, 0F, 1);
 		living.level.addParticle(data, source.x + 0.5, source.y + 1, source.z + 0.5, 0, - -0.1F, 0);
 
-		Vector3 centerVec = Vector3.fromEntityCenter(living);
-		Vector3 diffVec = source.subtract(centerVec);
-		Vector3 lookVec = new Vector3(living.getLookAngle());
+		Vec3 centerVec = Vector3.fromEntityCenterVanilla(living);
+		Vec3 diffVec = source.subtract(centerVec);
+		Vec3 lookVec = living.getLookAngle();
 		double mul = diffVec.y / lookVec.y;
-		lookVec = lookVec.multiply(mul).add(centerVec);
+		lookVec = lookVec.scale(mul).add(centerVec);
 
-		lookVec = new Vector3(net.minecraft.util.Mth.floor(lookVec.x),
+		lookVec = new Vec3(net.minecraft.util.Mth.floor(lookVec.x),
 				lookVec.y,
 				net.minecraft.util.Mth.floor(lookVec.z));
 

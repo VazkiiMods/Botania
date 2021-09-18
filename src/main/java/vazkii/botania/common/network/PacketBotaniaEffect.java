@@ -159,15 +159,15 @@ public class PacketBotaniaEffect {
 							return;
 						}
 
-						Vector3 orig = new Vector3(e1.getX(), e1.getY() + 0.25, e1.getZ());
-						Vector3 end = new Vector3(e2.getX(), e2.getY() + 0.25, e2.getZ());
-						Vector3 diff = end.subtract(orig);
-						Vector3 movement = diff.normalize().multiply(0.1);
-						int iters = (int) (diff.mag() / movement.mag());
+						Vec3 orig = new Vec3(e1.getX(), e1.getY() + 0.25, e1.getZ());
+						Vec3 end = new Vec3(e2.getX(), e2.getY() + 0.25, e2.getZ());
+						Vec3 diff = end.subtract(orig);
+						Vec3 movement = diff.normalize().scale(0.1);
+						int iters = (int) (diff.length() / movement.length());
 						float huePer = 1F / iters;
 						float hueSum = (float) Math.random();
 
-						Vector3 currentPos = orig;
+						Vec3 currentPos = orig;
 						for (int i = 0; i < iters; i++) {
 							float hue = i * huePer + hueSum;
 							int color = Mth.hsvToRgb(Mth.frac(hue), 1F, 1F);
@@ -292,8 +292,8 @@ public class PacketBotaniaEffect {
 					}
 					case PARTICLE_BEAM: {
 						ItemTwigWand.doParticleBeam(Minecraft.getInstance().level,
-								new Vector3(x, y, z),
-								new Vector3(args[0] + 0.5, args[1] + 0.5, args[2] + 0.5));
+								new Vec3(x, y, z),
+								new Vec3(args[0] + 0.5, args[1] + 0.5, args[2] + 0.5));
 						break;
 					}
 					case DIVA_EFFECT: {

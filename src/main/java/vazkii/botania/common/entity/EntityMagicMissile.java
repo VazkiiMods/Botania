@@ -32,6 +32,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.helper.Vector3;
@@ -107,12 +108,12 @@ public class EntityMagicMissile extends ThrowableProjectile {
 		}
 
 		boolean evil = isEvil();
-		Vector3 thisVec = Vector3.fromEntityCenter(this);
-		Vector3 oldPos = new Vector3(lastTickPosX, lastTickPosY, lastTickPosZ);
-		Vector3 diff = thisVec.subtract(oldPos);
-		Vector3 step = diff.normalize().multiply(0.05);
-		int steps = (int) (diff.mag() / step.mag());
-		Vector3 particlePos = oldPos;
+		Vec3 thisVec = Vector3.fromEntityCenterVanilla(this);
+		Vec3 oldPos = new Vec3(lastTickPosX, lastTickPosY, lastTickPosZ);
+		Vec3 diff = thisVec.subtract(oldPos);
+		Vec3 step = diff.normalize().scale(0.05);
+		int steps = (int) (diff.length() / step.length());
+		Vec3 particlePos = oldPos;
 
 		SparkleParticleData data = evil ? SparkleParticleData.corrupt(0.8F, 1F, 0.0F, 1F, 2)
 				: SparkleParticleData.sparkle(0.8F, 1F, 0.4F, 1F, 2);
@@ -134,10 +135,10 @@ public class EntityMagicMissile extends ThrowableProjectile {
 				lockZ = target.getZ();
 			}
 
-			Vector3 targetVec = evil ? new Vector3(lockX, lockY, lockZ) : Vector3.fromEntityCenter(target);
-			Vector3 diffVec = targetVec.subtract(thisVec);
-			Vector3 motionVec = diffVec.normalize().multiply(evil ? 0.5 : 0.6);
-			setDeltaMovement(motionVec.toVector3d());
+			Vec3 targetVec = evil ? new Vec3(lockX, lockY, lockZ) : Vector3.fromEntityCenterVanilla(target);
+			Vec3 diffVec = targetVec.subtract(thisVec);
+			Vec3 motionVec = diffVec.normalize().scale(evil ? 0.5 : 0.6);
+			setDeltaMovement(motionVec);
 			if (time < 10) {
 				setDeltaMovement(getDeltaMovement().x(), Math.abs(getDeltaMovement().y()), getDeltaMovement().z());
 			}
@@ -155,7 +156,7 @@ public class EntityMagicMissile extends ThrowableProjectile {
 				discard();
 			}
 
-			if (evil && diffVec.mag() < 1) {
+			if (evil && diffVec.length() < 1) {
 				discard();
 			}
 		}

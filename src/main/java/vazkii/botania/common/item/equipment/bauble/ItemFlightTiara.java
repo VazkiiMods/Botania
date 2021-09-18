@@ -52,7 +52,6 @@ import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.StringObfuscator;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
@@ -252,7 +251,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 			int time = ItemNBTHelper.getInt(stack, TAG_TIME_LEFT, MAX_FLY_TIME);
 			int newTime = time;
-			Vector3 look = new Vector3(p.getLookAngle()).multiply(1, 0, 1).normalize();
+			Vec3 look = p.getLookAngle().multiply(1, 0, 1).normalize();
 
 			if (flying) {
 				if (time > 0 && !p.isSpectator() && !p.isCreative()

@@ -42,9 +42,9 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (!world.isClientSide && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST * 2, false)) {
-			Vector3 playerVec = Vector3.fromEntityCenter(player);
-			Vector3 lookVec = new Vector3(player.getLookAngle()).multiply(3);
-			Vector3 placeVec = playerVec.add(lookVec);
+			Vec3 playerVec = Vector3.fromEntityCenterVanilla(player);
+			Vec3 lookVec = player.getLookAngle().scale(3);
+			Vec3 placeVec = playerVec.add(lookVec);
 
 			int x = Mth.floor(placeVec.x);
 			int y = Mth.floor(placeVec.y) + 1;
