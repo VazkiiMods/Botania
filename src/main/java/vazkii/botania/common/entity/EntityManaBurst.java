@@ -69,6 +69,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	private static final String TAG_ORBIT_TIME = "orbitTime";
 	private static final String TAG_TRIPPED = "tripped";
 	private static final String TAG_MAGNETIZE_POS = "magnetizePos";
+	private static final String TAG_LEFT_SOURCE = "leftSource";
 
 	private static final EntityDataAccessor<Integer> COLOR = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.INT);
 	private static final EntityDataAccessor<Integer> MANA = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.INT);
@@ -78,6 +79,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	private static final EntityDataAccessor<Float> GRAVITY = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.FLOAT);
 	private static final EntityDataAccessor<BlockPos> SOURCE_COORDS = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.BLOCK_POS);
 	private static final EntityDataAccessor<ItemStack> SOURCE_LENS = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.ITEM_STACK);
+	private static final EntityDataAccessor<Boolean> LEFT_SOURCE_POS = SynchedEntityData.defineId(EntityManaBurst.class, EntityDataSerializers.BOOLEAN);
 
 	private float accumulatedManaLoss = 0;
 	private boolean fake = false;
@@ -108,6 +110,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		entityData.define(GRAVITY, 0F);
 		entityData.define(SOURCE_COORDS, BlockPos.ZERO);
 		entityData.define(SOURCE_LENS, ItemStack.EMPTY);
+		entityData.define(LEFT_SOURCE_POS, false);
 	}
 
 	public EntityManaBurst(IManaSpreader spreader, boolean fake) {
@@ -132,7 +135,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	public EntityManaBurst(Player player) {
 		super(ModEntities.MANA_BURST, player, player.level);
 
-		setBurstSourceCoords(new BlockPos(0, Integer.MIN_VALUE, 0));
+		setBurstSourceCoords(NO_SOURCE);
 		setRot(player.getYRot() + 180, -player.getXRot());
 
 		float f = 0.4F;
@@ -145,6 +148,15 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	@Override
 	public void tick() {
 		setTicksExisted(getTicksExisted() + 1);
+		if (!level.isClientSide
+				&& !hasLeftSource()
+				&& !blockPosition().equals(getBurstSourceBlockPos())) {
+			// XXX: Should this check by bounding box instead of simply blockPosition()?
+			// The burst's origin could be in another coord but part of its box still intersecting the source block
+			// Not sure if that will trigger a collision then
+			entityData.set(LEFT_SOURCE_POS, true);
+		}
+
 		super.tick();
 
 		if (!fake && isAlive() && !scanBeam) {
@@ -255,6 +267,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		if (magnetizePos != null) {
 			tag.put(TAG_MAGNETIZE_POS, BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, magnetizePos).get().orThrow());
 		}
+		tag.putBoolean(TAG_LEFT_SOURCE, hasLeftSource());
 	}
 
 	@Override
@@ -309,6 +322,7 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		} else {
 			magnetizePos = null;
 		}
+		entityData.set(LEFT_SOURCE_POS, cmp.getBoolean(TAG_LEFT_SOURCE));
 	}
 
 	public void particles() {
@@ -421,26 +435,26 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 			}
 
 			BlockPos sourcePos = getBurstSourceBlockPos();
-			if (tile != null && !tile.getBlockPos().equals(sourcePos)) {
-				collidedTile = tile;
+			if (!hasLeftSource() && collidePos.equals(sourcePos)) {
+				return;
 			}
 
-			if (tile == null || !tile.getBlockPos().equals(sourcePos)) {
-				if (!fake && !noParticles && !level.isClientSide
-						&& tile instanceof IManaReceiver receiver
-						&& receiver.canReceiveManaFromBursts()) {
-					onReceiverImpact(receiver);
-				}
+			collidedTile = tile;
 
-				if (block instanceof IManaTrigger trigger) {
-					trigger.onBurstCollision(this, level, collidePos);
-				}
+			if (!fake && !noParticles && !level.isClientSide
+					&& tile instanceof IManaReceiver receiver
+					&& receiver.canReceiveManaFromBursts()) {
+				onReceiverImpact(receiver);
+			}
 
-				if (block instanceof IManaCollisionGhost) {
-					return;
-				} else {
-					dead = true;
-				}
+			if (block instanceof IManaTrigger trigger) {
+				trigger.onBurstCollision(this, level, collidePos);
+			}
+
+			if (block instanceof IManaCollisionGhost) {
+				return;
+			} else {
+				dead = true;
 			}
 		}
 
@@ -627,6 +641,11 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		return _ticksExisted;
 	}
 
+	@Override
+	public boolean hasLeftSource() {
+		return entityData.get(LEFT_SOURCE_POS);
+	}
+
 	public void setTicksExisted(int ticks) {
 		_ticksExisted = ticks;
 	}
@@ -754,11 +773,8 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 		public boolean invalid = false;
 
 		public PositionProperties(Entity entity) {
-			int x = Mth.floor(entity.getX());
-			int y = Mth.floor(entity.getY());
-			int z = Mth.floor(entity.getZ());
-			coords = new BlockPos(x, y, z);
-			state = entity.level.getBlockState(coords);
+			coords = entity.blockPosition();
+			state = entity.getFeetBlockState();
 		}
 
 		public boolean coordsEqual(PositionProperties props) {

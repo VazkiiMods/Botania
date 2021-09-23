@@ -27,34 +27,31 @@ public class LensFire extends Lens {
 
 	@Override
 	public boolean collideBurst(IManaBurst burst, HitResult rtr, boolean isManaBlock, boolean dead, ItemStack stack) {
-		BlockPos coords = burst.getBurstSourceBlockPos();
 		Entity entity = burst.entity();
 
 		if (!entity.level.isClientSide && rtr.getType() == HitResult.Type.BLOCK
 				&& !burst.isFake() && !isManaBlock) {
 			BlockHitResult brtr = (BlockHitResult) rtr;
 			BlockPos pos = brtr.getBlockPos();
-			if (!coords.equals(pos)) {
-				Direction dir = brtr.getDirection();
+			Direction dir = brtr.getDirection();
 
-				BlockPos offPos = pos.relative(dir);
+			BlockPos offPos = pos.relative(dir);
 
-				Block blockAt = entity.level.getBlockState(pos).getBlock();
-				BlockState stateAtOffset = entity.level.getBlockState(offPos);
-				Block blockAtOffset = stateAtOffset.getBlock();
+			Block blockAt = entity.level.getBlockState(pos).getBlock();
+			BlockState stateAtOffset = entity.level.getBlockState(offPos);
+			Block blockAtOffset = stateAtOffset.getBlock();
 
-				if (blockAt == Blocks.NETHER_PORTAL) {
-					entity.level.removeBlock(pos, false);
-				}
-				if (blockAtOffset == Blocks.NETHER_PORTAL) {
-					entity.level.removeBlock(offPos, false);
-				} else if (blockAt == ModBlocks.incensePlate) {
-					TileIncensePlate plate = (TileIncensePlate) entity.level.getBlockEntity(pos);
-					plate.ignite();
-					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
-				} else if (stateAtOffset.isAir()) {
-					entity.level.setBlockAndUpdate(offPos, Blocks.FIRE.defaultBlockState());
-				}
+			if (blockAt == Blocks.NETHER_PORTAL) {
+				entity.level.removeBlock(pos, false);
+			}
+			if (blockAtOffset == Blocks.NETHER_PORTAL) {
+				entity.level.removeBlock(offPos, false);
+			} else if (blockAt == ModBlocks.incensePlate) {
+				TileIncensePlate plate = (TileIncensePlate) entity.level.getBlockEntity(pos);
+				plate.ignite();
+				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);
+			} else if (stateAtOffset.isAir()) {
+				entity.level.setBlockAndUpdate(offPos, Blocks.FIRE.defaultBlockState());
 			}
 		}
 

@@ -20,6 +20,7 @@ import java.util.UUID;
  * Interface for the Mana Burst entity. This can safely be casted to EntityThrowable.
  */
 public interface IManaBurst {
+	static BlockPos NO_SOURCE = new BlockPos(0, Integer.MIN_VALUE, 0);
 
 	boolean isFake();
 
@@ -47,6 +48,10 @@ public interface IManaBurst {
 
 	void setGravity(float gravity);
 
+	/**
+	 * The block position of the block entity that spawned this burst.
+	 * If the burst wasn't fired from a block entity, returns {@link #NO_SOURCE}
+	 */
 	BlockPos getBurstSourceBlockPos();
 
 	void setBurstSourceCoords(BlockPos pos);
@@ -94,6 +99,11 @@ public interface IManaBurst {
 	BlockPos getMagnetizedPos();
 
 	void setMagnetizePos(@Nullable BlockPos pos);
+
+	/**
+	 * @return True if the burst has ticked at least once outside of {@link #getBurstSourceBlockPos()}.
+	 */
+	boolean hasLeftSource();
 
 	/**
 	 * @return this Mana Burst as an ThrowableEntity

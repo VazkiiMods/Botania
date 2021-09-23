@@ -23,7 +23,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.IManaBurst;
-import vazkii.botania.api.mana.IManaBlock;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.item.ModItems;
@@ -60,8 +59,7 @@ public class LensMine extends Lens {
 		int mana = burst.getMana();
 
 		BlockPos source = burst.getBurstSourceBlockPos();
-		if (!source.equals(collidePos)
-				&& !(tile instanceof IManaBlock)
+		if (!isManaBlock
 				&& canHarvest(harvestLevel, state)
 				&& hardness != -1 && hardness < 50F
 				&& (burst.isFake() || mana >= 24)) {
@@ -74,8 +72,8 @@ public class LensMine extends Lens {
 						world.levelEvent(2001, collidePos, Block.getId(state));
 					}
 
-					boolean offBounds = source.getY() < 0;
-					boolean doWarp = warp && !offBounds;
+					boolean sourceless = source.equals(IManaBurst.NO_SOURCE);
+					boolean doWarp = warp && !sourceless;
 					BlockPos dropCoord = doWarp ? source : collidePos;
 
 					for (ItemStack stack_ : items) {

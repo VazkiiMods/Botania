@@ -8,14 +8,12 @@
  */
 package vazkii.botania.common.item.lens;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.internal.IManaBurst;
@@ -27,10 +25,7 @@ public class LensFirework extends Lens {
 	public boolean collideBurst(IManaBurst burst, HitResult pos, boolean isManaBlock, boolean dead, ItemStack stack) {
 		Entity entity = burst.entity();
 		if (!entity.level.isClientSide && !burst.isFake()) {
-			BlockPos coords = burst.getBurstSourceBlockPos();
-			if (pos.getType() == HitResult.Type.BLOCK
-					&& !isManaBlock
-					&& !((BlockHitResult) pos).getBlockPos().equals(coords)) {
+			if (pos.getType() == HitResult.Type.BLOCK && !isManaBlock) {
 				ItemStack fireworkStack = generateFirework(burst.getColor());
 
 				FireworkRocketEntity rocket = new FireworkRocketEntity(entity.level, entity.getX(), entity.getY(), entity.getZ(), fireworkStack);
