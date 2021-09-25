@@ -29,9 +29,11 @@ public class ItemManaResource extends Item {
 	public InteractionResult useOn(UseOnContext ctx) {
 		ItemStack stack = ctx.getItemInHand();
 
-		if (this == ModItems.terrasteel || this == ModItems.gaiaIngot) {
-			return EntityDoppleganger.spawn(ctx.getPlayer(), stack, ctx.getLevel(), ctx.getClickedPos(), this == ModItems.gaiaIngot) ? InteractionResult.SUCCESS : InteractionResult.FAIL;
-		} else if (this == ModItems.livingroot) {
+		if (stack.is(ModItems.terrasteel) || stack.is(ModItems.gaiaIngot)) {
+			return EntityDoppleganger.spawn(ctx.getPlayer(), stack, ctx.getLevel(), ctx.getClickedPos(), stack.is(ModItems.gaiaIngot))
+					? InteractionResult.SUCCESS
+					: InteractionResult.FAIL;
+		} else if (stack.is(ModItems.livingroot)) {
 			return Items.BONE_MEAL.useOn(ctx);
 		}
 

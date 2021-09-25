@@ -24,8 +24,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.HitResult;
@@ -131,17 +129,14 @@ public class EntityPoolMinecart extends AbstractMinecart implements EntityPickIn
 		super.moveAlongTrack(pos, state);
 
 		for (Direction dir : Direction.Plane.HORIZONTAL) {
-			BlockPos posP = pos.relative(dir);
-			Block block = level.getBlockState(posP).getBlock();
-			if (block == ModBlocks.pump) {
-				BlockPos posP_ = posP.relative(dir);
-				BlockEntity tile = level.getBlockEntity(posP_);
-				BlockEntity tile_ = level.getBlockEntity(posP);
-				TilePump pump = (TilePump) tile_;
+			BlockPos pumpPos = pos.relative(dir);
+			BlockState pumpState = level.getBlockState(pumpPos);
+			if (pumpState.is(ModBlocks.pump)) {
+				BlockPos poolPos = pumpPos.relative(dir);
+				TilePump pump = (TilePump) level.getBlockEntity(pumpPos);
 
-				if (tile instanceof IManaPool) {
-					IManaPool pool = (IManaPool) tile;
-					Direction pumpDir = level.getBlockState(posP).getValue(BlockStateProperties.HORIZONTAL_FACING);
+				if (level.getBlockEntity(poolPos) instanceof IManaPool pool) {
+					Direction pumpDir = pumpState.getValue(BlockStateProperties.HORIZONTAL_FACING);
 					boolean did = false;
 					boolean can = false;
 

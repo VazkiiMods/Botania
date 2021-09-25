@@ -184,7 +184,7 @@ public class ItemTwigWand extends Item implements ICoordBoundItem {
 			}
 		}
 
-		if (block == Blocks.LAPIS_BLOCK && ConfigHandler.COMMON.enchanterEnabled.getValue() && tryFormEnchanter(ctx)) {
+		if (state.is(Blocks.LAPIS_BLOCK) && ConfigHandler.COMMON.enchanterEnabled.getValue() && tryFormEnchanter(ctx)) {
 			return InteractionResult.SUCCESS;
 		}
 

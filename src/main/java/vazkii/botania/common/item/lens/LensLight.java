@@ -11,7 +11,6 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -30,10 +29,10 @@ public class LensLight extends Lens {
 			BlockHitResult rtr = (BlockHitResult) pos;
 			BlockPos neighborPos = rtr.getBlockPos().relative(rtr.getDirection());
 
-			Block blockAt = entity.level.getBlockState(rtr.getBlockPos()).getBlock();
+			BlockState stateAt = entity.level.getBlockState(rtr.getBlockPos());
 			BlockState neighbor = entity.level.getBlockState(neighborPos);
 
-			if (blockAt == ModBlocks.manaFlame) {
+			if (stateAt.is(ModBlocks.manaFlame)) {
 				entity.level.removeBlock(rtr.getBlockPos(), false);
 			} else if (neighbor.isAir() || neighbor.getMaterial().isReplaceable()) {
 				entity.level.setBlockAndUpdate(neighborPos, ModBlocks.manaFlame.defaultBlockState());

@@ -83,21 +83,21 @@ public class BlockCocoon extends BlockModWaterloggable implements EntityBlock {
 		TileCocoon cocoon = (TileCocoon) world.getBlockEntity(pos);
 		Item item = stack.getItem();
 
-		if (cocoon != null && (item == Items.EMERALD || item == Items.CHORUS_FRUIT || item == ModItems.lifeEssence)) {
+		if (cocoon != null && (stack.is(Items.EMERALD) || stack.is(Items.CHORUS_FRUIT) || stack.is(ModItems.lifeEssence))) {
 			if (!world.isClientSide) {
-				if (item == Items.EMERALD && cocoon.emeraldsGiven < TileCocoon.MAX_EMERALDS) {
+				if (stack.is(Items.EMERALD) && cocoon.emeraldsGiven < TileCocoon.MAX_EMERALDS) {
 					if (!creative) {
 						stack.shrink(1);
 					}
 					cocoon.emeraldsGiven++;
 					((ServerLevel) world).sendParticles(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 1, pos.getZ() + 0.5, 1, 0.1, 0.05, 0.1, 0.5);
-				} else if (item == Items.CHORUS_FRUIT && cocoon.chorusFruitGiven < TileCocoon.MAX_CHORUS_FRUITS) {
+				} else if (stack.is(Items.CHORUS_FRUIT) && cocoon.chorusFruitGiven < TileCocoon.MAX_CHORUS_FRUITS) {
 					if (!creative) {
 						stack.shrink(1);
 					}
 					cocoon.chorusFruitGiven++;
 					((ServerLevel) world).sendParticles(ParticleTypes.PORTAL, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, 32, 0, 0, 0, 0.5);
-				} else if (item == ModItems.lifeEssence && !cocoon.gaiaSpiritGiven) {
+				} else if (stack.is(ModItems.lifeEssence) && !cocoon.gaiaSpiritGiven) {
 					if (!creative) {
 						stack.shrink(1);
 					}

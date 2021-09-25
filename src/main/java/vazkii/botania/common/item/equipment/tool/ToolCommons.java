@@ -124,7 +124,7 @@ public final class ToolCommons {
 		}
 
 		int modifier = 0;
-		if (item == ModItems.terraPick) {
+		if (stack.is(ModItems.terraPick)) {
 			modifier = ItemTerraPick.getLevel(stack);
 		}
 

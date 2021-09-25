@@ -17,7 +17,6 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -189,13 +188,13 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem,
 						continue;
 					}
 					BlockPos pos = new BlockPos(ex, py, ez);
-					Block block = world.getBlockState(pos).getBlock();
-					if (world.getBlockState(pos).isAir()) {
+					BlockState state = world.getBlockState(pos);
+					if (state.isAir()) {
 						world.setBlockAndUpdate(pos, ModBlocks.bifrost.defaultBlockState());
 						TileBifrost tileBifrost = (TileBifrost) world.getBlockEntity(pos);
 						tileBifrost.ticks = 10;
 						tile.receiveMana(-MANA_COST_AVATAR);
-					} else if (block == ModBlocks.bifrost) {
+					} else if (state.is(ModBlocks.bifrost)) {
 						TileBifrost tileBifrost = (TileBifrost) world.getBlockEntity(pos);
 						if (tileBifrost.ticks < 2) {
 							tileBifrost.ticks += 10;

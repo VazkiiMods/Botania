@@ -93,7 +93,7 @@ public class ItemHorn extends Item {
 					? harvestable.canHornHarvest(world, pos, stack, type)
 					: type == EnumHornType.WILD && block instanceof BushBlock && !state.is(ModTags.Blocks.SPECIAL_FLOWERS)
 							|| type == EnumHornType.CANOPY && state.is(BlockTags.LEAVES)
-							|| type == EnumHornType.COVERING && block == Blocks.SNOW) {
+							|| type == EnumHornType.COVERING && state.is(Blocks.SNOW)) {
 				coords.add(pos.immutable());
 			}
 		}

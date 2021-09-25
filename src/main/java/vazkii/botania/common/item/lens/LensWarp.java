@@ -11,7 +11,6 @@ package vazkii.botania.common.item.lens;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
@@ -29,8 +28,7 @@ public class LensWarp extends Lens {
 		}
 
 		BlockPos hit = ((BlockHitResult) pos).getBlockPos();
-		Block block = entity.level.getBlockState(hit).getBlock();
-		if (block == ModBlocks.pistonRelay) {
+		if (entity.level.getBlockState(hit).is(ModBlocks.pistonRelay)) {
 			BlockPistonRelay.WorldData data = BlockPistonRelay.WorldData.get(entity.level);
 			BlockPos dest = data.mapping.get(hit);
 

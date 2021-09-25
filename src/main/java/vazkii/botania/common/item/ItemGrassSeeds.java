@@ -18,7 +18,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -253,7 +252,6 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 		 */
 		public boolean isValidSwapPosition(BlockPos pos) {
 			BlockState state = world.getBlockState(pos);
-			Block block = state.getBlock();
 
 			// Valid blocks to spread to are either dirt or grass, and do not
 			// have blocks which block grass growth.
@@ -262,7 +260,7 @@ public class ItemGrassSeeds extends Item implements IFloatingFlowerVariant {
 			// The major rule is that a block which reduces light
 			// levels by 2 or more blocks grass growth.
 
-			return (block == Blocks.DIRT || block == Blocks.GRASS_BLOCK)
+			return (state.is(Blocks.DIRT) || state.is(Blocks.GRASS_BLOCK))
 					&& world.getBlockState(pos.above()).getLightBlock(world, pos.above()) <= 1;
 		}
 	}

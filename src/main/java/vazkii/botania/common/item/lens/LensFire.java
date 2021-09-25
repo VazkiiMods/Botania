@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -37,16 +36,15 @@ public class LensFire extends Lens {
 
 			BlockPos offPos = pos.relative(dir);
 
-			Block blockAt = entity.level.getBlockState(pos).getBlock();
+			BlockState stateAt = entity.level.getBlockState(pos);
 			BlockState stateAtOffset = entity.level.getBlockState(offPos);
-			Block blockAtOffset = stateAtOffset.getBlock();
 
-			if (blockAt == Blocks.NETHER_PORTAL) {
+			if (stateAt.is(Blocks.NETHER_PORTAL)) {
 				entity.level.removeBlock(pos, false);
 			}
-			if (blockAtOffset == Blocks.NETHER_PORTAL) {
+			if (stateAtOffset.is(Blocks.NETHER_PORTAL)) {
 				entity.level.removeBlock(offPos, false);
-			} else if (blockAt == ModBlocks.incensePlate) {
+			} else if (stateAt.is(ModBlocks.incensePlate)) {
 				TileIncensePlate plate = (TileIncensePlate) entity.level.getBlockEntity(pos);
 				plate.ignite();
 				VanillaPacketDispatcher.dispatchTEToNearbyPlayers(plate);

@@ -24,7 +24,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ComparatorBlock;
 import net.minecraft.world.level.block.RedStoneWireBlock;
@@ -64,19 +63,18 @@ public class ItemMonocle extends ItemBauble implements ICosmeticBauble {
 		}
 		BlockPos pos = ((BlockHitResult) ray).getBlockPos();
 		BlockState state = player.level.getBlockState(pos);
-		Block block = state.getBlock();
 		player.level.getBlockEntity(pos);
 
 		ItemStack dispStack = ItemStack.EMPTY;
 		String text = "";
 
-		if (block == Blocks.REDSTONE_WIRE) {
+		if (state.is(Blocks.REDSTONE_WIRE)) {
 			dispStack = new ItemStack(Items.REDSTONE);
 			text = ChatFormatting.RED + "" + state.getValue(RedStoneWireBlock.POWER);
-		} else if (block == Blocks.REPEATER) {
+		} else if (state.is(Blocks.REPEATER)) {
 			dispStack = new ItemStack(Blocks.REPEATER);
 			text = "" + state.getValue(RepeaterBlock.DELAY);
-		} else if (block == Blocks.COMPARATOR) {
+		} else if (state.is(Blocks.COMPARATOR)) {
 			dispStack = new ItemStack(Blocks.COMPARATOR);
 			text = state.getValue(ComparatorBlock.MODE) == ComparatorMode.SUBTRACT ? "-" : "+";
 		}

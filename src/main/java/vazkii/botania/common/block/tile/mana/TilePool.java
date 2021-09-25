@@ -25,7 +25,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -105,8 +104,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	@Override
 	public boolean isFull() {
-		Block blockBelow = level.getBlockState(worldPosition.below()).getBlock();
-		return blockBelow != ModBlocks.manaVoid && getCurrentMana() >= manaCap;
+		BlockState stateBelow = level.getBlockState(worldPosition.below());
+		return !stateBelow.is(ModBlocks.manaVoid) && getCurrentMana() >= manaCap;
 	}
 
 	@Override
