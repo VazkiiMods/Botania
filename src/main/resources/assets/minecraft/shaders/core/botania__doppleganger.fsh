@@ -35,10 +35,11 @@ void main() {
     color.rgb = mix(overlayColor.rgb, color.rgb, overlayColor.a);
     color *= lightMapColor;
 
-    // Botania - Dim + Noise with grain intensity
+    // Botania - Grayscale + Noise with grain intensity
     float r = rand(texCoord0);
     vec3 offset = BotaniaGrainIntensity * vec3(r, r, r);
-    color = vec4(color.rgb / 50.0 + offset, color.a);
+    float gs = (color.r + color.g + color.b) / 50.0;
+    color = vec4(vec3(gs, gs, gs) + offset, color.a);
 
     fragColor = linear_fog(color, vertexDistance, FogStart, FogEnd, FogColor);
 }
