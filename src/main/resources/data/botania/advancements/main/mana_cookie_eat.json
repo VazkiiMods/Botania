@@ -16,7 +16,9 @@
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
-          "item": "botania:mana_cookie"
+          "items": [
+            "botania:mana_cookie"
+          ]
         }
       }
     }
