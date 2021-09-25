@@ -21,6 +21,7 @@ import java.util.function.Consumer;
 public class CoreShaders {
 	private static ShaderInstance starfieldShaderInstance;
 	private static ShaderInstance doppleganger;
+	private static ShaderInstance manaPool;
 
 	public static void init(ResourceManager resourceManager,
 			List<Pair<ShaderInstance, Consumer<ShaderInstance>>> registrations) throws IOException {
@@ -32,6 +33,10 @@ public class CoreShaders {
 				new ShaderInstance(resourceManager, "botania__doppleganger", DefaultVertexFormat.NEW_ENTITY),
 				inst -> doppleganger = inst)
 		);
+		registrations.add(Pair.of(
+				new ShaderInstance(resourceManager, "botania__mana_pool", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP),
+				inst -> manaPool = inst)
+		);
 	}
 
 	public static ShaderInstance starfield() {
@@ -40,5 +45,9 @@ public class CoreShaders {
 
 	public static ShaderInstance doppleganger() {
 		return doppleganger;
+	}
+
+	public static ShaderInstance manaPool() {
+		return manaPool;
 	}
 }

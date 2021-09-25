@@ -135,7 +135,12 @@ public final class RenderHelper extends RenderType {
 				// todo 1.17 .setAlphaState(oneTenthAlpha)
 				.setLightmapState(LIGHTMAP).createCompositeState(true);
 		ICON_OVERLAY = makeLayer(LibResources.PREFIX_MOD + "icon_overlay", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 128, glState);
-		MANA_POOL_WATER = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.MANA_POOL, null, ICON_OVERLAY) : ICON_OVERLAY;
+		glState = RenderType.CompositeState.builder().setTextureState(BLOCK_SHEET_MIPPED)
+				.setShaderState(new ShaderStateShard(CoreShaders::manaPool))
+				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+				.setOutputState(ITEM_ENTITY_TARGET)
+				.setLightmapState(LIGHTMAP).createCompositeState(false);
+		MANA_POOL_WATER = makeLayer(LibResources.PREFIX_MOD + "mana_pool_water", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 128, glState);
 		TERRA_PLATE = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.TERRA_PLATE, null, ICON_OVERLAY) : ICON_OVERLAY;
 		ENCHANTER = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ENCHANTER_RUNE, null, ICON_OVERLAY) : ICON_OVERLAY;
 
