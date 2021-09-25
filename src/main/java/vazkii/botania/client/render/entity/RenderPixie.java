@@ -8,15 +8,15 @@
  */
 package vazkii.botania.client.render.entity;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
-import vazkii.botania.client.core.helper.ShaderCallback;
-import vazkii.botania.client.core.helper.ShaderHelper;
+import vazkii.botania.client.core.helper.CoreShaders;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.model.ModModelLayers;
@@ -27,22 +27,18 @@ import javax.annotation.Nonnull;
 
 public class RenderPixie extends MobRenderer<EntityPixie, ModelPixie> {
 
-	public static final ShaderCallback SHADER_CALLBACK = shader -> {
-		// Frag Uniforms
-		int disfigurationUniform = GlStateManager._glGetUniformLocation(shader, "disfiguration");
-		ShaderHelper.FLOAT_BUF.position(0);
-		ShaderHelper.FLOAT_BUF.put(0, 0.025F);
-		RenderSystem.glUniform1(disfigurationUniform, ShaderHelper.FLOAT_BUF);
-
-		// Vert Uniforms
-		int grainIntensityUniform = GlStateManager._glGetUniformLocation(shader, "grainIntensity");
-		ShaderHelper.FLOAT_BUF.position(0);
-		ShaderHelper.FLOAT_BUF.put(0, 0.05F);
-		RenderSystem.glUniform1(grainIntensityUniform, ShaderHelper.FLOAT_BUF);
-	};
-
 	public RenderPixie(EntityRendererProvider.Context ctx) {
 		super(ctx, new ModelPixie(ctx.bakeLayer(ModModelLayers.PIXIE)), 0.0F);
+	}
+
+	@Override
+	public void render(EntityPixie mob, float yaw, float partialTicks, PoseStack pos, MultiBufferSource buffers, int light) {
+		ShaderInstance shader = CoreShaders.doppleganger();
+		if (shader != null) {
+			shader.safeGetUniform("BotaniaDisfiguration").set(RenderDoppleganger.DEFAULT_DISFIGURATION);
+			shader.safeGetUniform("BotaniaGrainIntensity").set(RenderDoppleganger.DEFAULT_GRAIN_INTENSITY);
+		}
+		super.render(mob, yaw, partialTicks, pos, buffers, light);
 	}
 
 	@Nonnull

@@ -20,6 +20,7 @@ import java.util.function.Consumer;
 
 public class CoreShaders {
 	private static ShaderInstance starfieldShaderInstance;
+	private static ShaderInstance doppleganger;
 
 	public static void init(ResourceManager resourceManager,
 			List<Pair<ShaderInstance, Consumer<ShaderInstance>>> registrations) throws IOException {
@@ -27,9 +28,17 @@ public class CoreShaders {
 				new ShaderInstance(resourceManager, "botania__rendertype_starfield", DefaultVertexFormat.POSITION),
 				inst -> starfieldShaderInstance = inst)
 		);
+		registrations.add(Pair.of(
+				new ShaderInstance(resourceManager, "botania__doppleganger", DefaultVertexFormat.NEW_ENTITY),
+				inst -> doppleganger = inst)
+		);
 	}
 
 	public static ShaderInstance starfield() {
 		return starfieldShaderInstance;
+	}
+
+	public static ShaderInstance doppleganger() {
+		return doppleganger;
 	}
 }

@@ -19,6 +19,7 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
 
+import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.*;
@@ -50,6 +51,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.OptionalDouble;
 import java.util.Random;
+import java.util.function.Function;
 
 public final class RenderHelper extends RenderType {
 	private static final RenderType STAR;
@@ -237,6 +239,23 @@ public final class RenderHelper extends RenderType {
 				.setCullState(new RenderStateShard.CullStateShard(false))
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY).createCompositeState(false);
 		return makeLayer(LibResources.PREFIX_MOD + "crafting_halo", DefaultVertexFormat.POSITION_COLOR_TEX, VertexFormat.Mode.QUADS, 64, false, true, glState);
+	}
+
+	private static Function<ResourceLocation, RenderType> DOPPLEGANGER = Util.memoize(texture -> {
+		// [VanillaCopy] entity_translucent, with own shader
+		CompositeState glState = RenderType.CompositeState.builder()
+				.setShaderState(new ShaderStateShard(CoreShaders::doppleganger))
+				.setTextureState(new RenderStateShard.TextureStateShard(texture, false, false))
+				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+				.setCullState(NO_CULL)
+				.setLightmapState(LIGHTMAP)
+				.setOverlayState(OVERLAY)
+				.createCompositeState(true);
+		return makeLayer(LibResources.PREFIX_MOD + "doppleganger", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, glState);
+	});
+
+	public static RenderType getDopplegangerLayer(ResourceLocation texture) {
+		return DOPPLEGANGER.apply(texture);
 	}
 
 	public static void drawTexturedModalRect(PoseStack ms, int x, int y, int u, int v, int width, int height) {
