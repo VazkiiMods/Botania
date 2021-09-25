@@ -98,7 +98,7 @@ public class TrinketsIntegration extends EquipmentHandler {
 	@Override
 	protected void registerComponentEvent(Item item) {
 		TrinketsApi.registerTrinket(item, WRAPPER);
-		Botania.proxy.runOnClient(() -> () -> TrinketRendererRegistry.registerRenderer(item, new RenderWrapper()));
+		Botania.runOnClient.accept(() -> () -> TrinketRendererRegistry.registerRenderer(item, new RenderWrapper()));
 	}
 
 	public static final Trinket WRAPPER = new Trinket() {

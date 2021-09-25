@@ -10,6 +10,7 @@ package vazkii.botania.common;
 
 import com.mojang.brigadier.CommandDispatcher;
 
+import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
@@ -74,6 +75,9 @@ import vazkii.patchouli.api.IMultiblock;
 import vazkii.patchouli.api.IStateMatcher;
 import vazkii.patchouli.api.PatchouliAPI;
 
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class Botania implements ModInitializer {
@@ -83,6 +87,7 @@ public class Botania implements ModInitializer {
 	public static boolean trinketsLoaded = false;
 
 	public static IProxy proxy = new IProxy() {};
+	public static Consumer<Supplier<Runnable>> runOnClient = s -> {};
 	public static volatile boolean configLoaded = false;
 
 	public static final Logger LOGGER = LogManager.getLogger(LibMisc.MOD_ID);
@@ -91,6 +96,9 @@ public class Botania implements ModInitializer {
 	public void onInitialize() {
 		gardenOfGlassLoaded = FabricLoader.getInstance().isModLoaded(LibMisc.GOG_MOD_ID);
 		trinketsLoaded = FabricLoader.getInstance().isModLoaded("trinkets");
+		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+			runOnClient = t -> t.get().run();
+		}
 		ConfigHandler.setup();
 
 		EquipmentHandler.init();

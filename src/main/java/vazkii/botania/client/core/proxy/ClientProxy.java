@@ -107,7 +107,6 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Locale;
 import java.util.SortedMap;
-import java.util.function.Supplier;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -425,10 +424,5 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		if (mb != null && mb.getID().equals(ItemSextant.MULTIBLOCK_ID)) {
 			PatchouliAPI.get().clearMultiblock();
 		}
-	}
-
-	@Override
-	public void runOnClient(Supplier<Runnable> thing) {
-		thing.get().run();
 	}
 }

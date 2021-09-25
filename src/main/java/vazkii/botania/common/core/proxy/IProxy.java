@@ -22,8 +22,6 @@ import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.patchouli.api.IMultiblock;
 
-import java.util.function.Supplier;
-
 public interface IProxy {
 	default boolean isTheClientPlayer(LivingEntity entity) {
 		return false;
@@ -74,6 +72,4 @@ public interface IProxy {
 	default void showMultiblock(IMultiblock mb, Component name, BlockPos anchor, Rotation rot) {}
 
 	default void clearSextantMultiblock() {}
-
-	default void runOnClient(Supplier<Runnable> thing) {}
 }

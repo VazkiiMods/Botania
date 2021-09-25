@@ -47,7 +47,7 @@ public class ItemCloudPendant extends ItemBauble {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		Botania.proxy.runOnClient(() -> () -> {
+		Botania.runOnClient.accept(() -> () -> {
 			if (player == Minecraft.getInstance().player) {
 				LocalPlayer playerSp = (LocalPlayer) player;
 
