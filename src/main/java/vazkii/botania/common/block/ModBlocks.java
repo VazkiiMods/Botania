@@ -10,7 +10,6 @@ package vazkii.botania.common.block;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.Position;
 import net.minecraft.core.Registry;
@@ -124,8 +123,7 @@ public final class ModBlocks {
 	public static final Block redBuriedPetals = new BlockBuriedPetals(DyeColor.RED, BlockBehaviour.Properties.copy(whiteBuriedPetals));
 	public static final Block blackBuriedPetals = new BlockBuriedPetals(DyeColor.BLACK, BlockBehaviour.Properties.copy(whiteBuriedPetals));
 
-	public static final BlockBehaviour.Properties FLOATING_PROPS = FabricBlockSettings.copyOf(BlockBehaviour.Properties.of(Material.DIRT).strength(0.5F).sound(SoundType.GRAVEL).lightLevel(s -> 15))
-			.breakByTool(FabricToolTags.SHOVELS);
+	public static final BlockBehaviour.Properties FLOATING_PROPS = FabricBlockSettings.copyOf(BlockBehaviour.Properties.of(Material.DIRT).strength(0.5F).sound(SoundType.GRAVEL).lightLevel(s -> 15));
 	public static final Block whiteFloatingFlower = new BlockFloatingFlower(DyeColor.WHITE, FLOATING_PROPS);
 	public static final Block orangeFloatingFlower = new BlockFloatingFlower(DyeColor.ORANGE, FLOATING_PROPS);
 	public static final Block magentaFloatingFlower = new BlockFloatingFlower(DyeColor.MAGENTA, FLOATING_PROPS);
@@ -352,7 +350,7 @@ public final class ModBlocks {
 	public static final Block gaiaHead = new BlockGaiaHead(BlockBehaviour.Properties.of(Material.DECORATION).strength(1));
 	public static final Block shimmerrock = new BlockMod(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block shimmerwoodPlanks = new BlockMod(BlockBehaviour.Properties.copy(livingwood));
-	public static final Block dryGrass = new BlockAltGrass(BlockAltGrass.Variant.DRY, FabricBlockSettings.copyOf(BlockBehaviour.Properties.of(Material.GRASS).strength(0.6F).randomTicks().sound(SoundType.GRASS)).breakByTool(FabricToolTags.SHOVELS));
+	public static final Block dryGrass = new BlockAltGrass(BlockAltGrass.Variant.DRY, FabricBlockSettings.copyOf(BlockBehaviour.Properties.of(Material.GRASS).strength(0.6F).randomTicks().sound(SoundType.GRASS)));
 	public static final Block goldenGrass = new BlockAltGrass(BlockAltGrass.Variant.GOLDEN, BlockBehaviour.Properties.copy(dryGrass));
 	public static final Block vividGrass = new BlockAltGrass(BlockAltGrass.Variant.VIVID, BlockBehaviour.Properties.copy(dryGrass));
 	public static final Block scorchedGrass = new BlockAltGrass(BlockAltGrass.Variant.SCORCHED, BlockBehaviour.Properties.copy(dryGrass));
