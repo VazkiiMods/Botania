@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block;
 
-import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.Position;
@@ -123,7 +122,7 @@ public final class ModBlocks {
 	public static final Block redBuriedPetals = new BlockBuriedPetals(DyeColor.RED, BlockBehaviour.Properties.copy(whiteBuriedPetals));
 	public static final Block blackBuriedPetals = new BlockBuriedPetals(DyeColor.BLACK, BlockBehaviour.Properties.copy(whiteBuriedPetals));
 
-	public static final BlockBehaviour.Properties FLOATING_PROPS = FabricBlockSettings.copyOf(BlockBehaviour.Properties.of(Material.DIRT).strength(0.5F).sound(SoundType.GRAVEL).lightLevel(s -> 15));
+	public static final BlockBehaviour.Properties FLOATING_PROPS = BlockBehaviour.Properties.of(Material.DIRT).strength(0.5F).sound(SoundType.GRAVEL).lightLevel(s -> 15);
 	public static final Block whiteFloatingFlower = new BlockFloatingFlower(DyeColor.WHITE, FLOATING_PROPS);
 	public static final Block orangeFloatingFlower = new BlockFloatingFlower(DyeColor.ORANGE, FLOATING_PROPS);
 	public static final Block magentaFloatingFlower = new BlockFloatingFlower(DyeColor.MAGENTA, FLOATING_PROPS);
@@ -193,6 +192,7 @@ public final class ModBlocks {
 	public static final Block doubleFlowerBlack = new BlockModDoubleFlower(DyeColor.BLACK, BlockBehaviour.Properties.copy(doubleFlowerWhite));
 
 	public static final Block defaultAltar = new BlockAltar(BlockAltar.Variant.DEFAULT, BlockBehaviour.Properties.of(Material.STONE).strength(3.5F).sound(SoundType.STONE)
+			.requiresCorrectToolForDrops()
 			.lightLevel(s -> s.getValue(BlockAltar.FLUID) == IPetalApothecary.State.LAVA ? 15 : 0));
 	public static final Block forestAltar = new BlockAltar(BlockAltar.Variant.FOREST, BlockBehaviour.Properties.copy(defaultAltar));
 	public static final Block plainsAltar = new BlockAltar(BlockAltar.Variant.PLAINS, BlockBehaviour.Properties.copy(defaultAltar));
@@ -204,7 +204,7 @@ public final class ModBlocks {
 	public static final Block mesaAltar = new BlockAltar(BlockAltar.Variant.MESA, BlockBehaviour.Properties.copy(defaultAltar));
 	public static final Block mossyAltar = new BlockAltar(BlockAltar.Variant.MOSSY, BlockBehaviour.Properties.copy(defaultAltar));
 
-	public static final Block livingrock = new BlockMod(BlockBehaviour.Properties.of(Material.STONE).strength(2, 10).sound(SoundType.STONE));
+	public static final Block livingrock = new BlockMod(BlockBehaviour.Properties.of(Material.STONE).strength(2, 10).sound(SoundType.STONE).requiresCorrectToolForDrops());
 	public static final Block livingrockBrick = new BlockMod(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockBrickChiseled = new BlockMod(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block livingrockBrickCracked = new BlockMod(BlockBehaviour.Properties.copy(livingrock));
@@ -237,7 +237,7 @@ public final class ModBlocks {
 	public static final Block alchemyCatalyst = new BlockAlchemyCatalyst(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block conjurationCatalyst = new BlockConjurationCatalyst(BlockBehaviour.Properties.copy(livingrock));
 
-	public static final Block manasteelBlock = new BlockMod(BlockBehaviour.Properties.of(Material.METAL).strength(3, 10).sound(SoundType.METAL));
+	public static final Block manasteelBlock = new BlockMod(BlockBehaviour.Properties.of(Material.METAL).strength(3, 10).sound(SoundType.METAL).requiresCorrectToolForDrops());
 	public static final Block terrasteelBlock = new BlockMod(BlockBehaviour.Properties.copy(manasteelBlock));
 	public static final Block elementiumBlock = new BlockMod(BlockBehaviour.Properties.copy(manasteelBlock));
 	public static final Block manaDiamondBlock = new BlockMod(BlockBehaviour.Properties.copy(manasteelBlock));
@@ -250,27 +250,27 @@ public final class ModBlocks {
 	public static final Block bifrostPerm = new BlockBifrostPerm(BlockBehaviour.Properties.of(Material.GLASS).strength(0.3F)
 			.lightLevel(s -> 15).sound(SoundType.GLASS).noOcclusion().isViewBlocking(NO_SUFFOCATION).isSuffocating(NO_SUFFOCATION).isValidSpawn(NO_SPAWN));
 
-	public static final Block runeAltar = new BlockRuneAltar(BlockBehaviour.Properties.copy(livingrock));
+	public static final Block runeAltar = new BlockRuneAltar(BlockBehaviour.Properties.copy(livingrock).requiresCorrectToolForDrops());
 	public static final Block enchanter = new BlockEnchanter(BlockBehaviour.Properties.of(Material.STONE).strength(3, 5).lightLevel(s -> 15).sound(SoundType.STONE));
 	public static final Block brewery = new BlockBrewery(BlockBehaviour.Properties.copy(livingrock));
-	public static final Block terraPlate = new BlockTerraPlate(BlockBehaviour.Properties.of(Material.METAL).strength(3, 10).sound(SoundType.METAL));
+	public static final Block terraPlate = new BlockTerraPlate(BlockBehaviour.Properties.of(Material.METAL).strength(3, 10).sound(SoundType.METAL).requiresCorrectToolForDrops());
 	public static final Block alfPortal = new BlockAlfPortal(BlockBehaviour.Properties.of(Material.WOOD).strength(10).sound(SoundType.WOOD)
 			.lightLevel(s -> s.getValue(BotaniaStateProps.ALFPORTAL_STATE) != AlfPortalState.OFF ? 15 : 0));
 
-	public static final Block manaPylon = new BlockPylon(BlockPylon.Variant.MANA, BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).lightLevel(s -> 7));
+	public static final Block manaPylon = new BlockPylon(BlockPylon.Variant.MANA, BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).lightLevel(s -> 7).requiresCorrectToolForDrops());
 	public static final Block naturaPylon = new BlockPylon(BlockPylon.Variant.NATURA, BlockBehaviour.Properties.copy(manaPylon));
 	public static final Block gaiaPylon = new BlockPylon(BlockPylon.Variant.GAIA, BlockBehaviour.Properties.copy(manaPylon));
 
-	public static final Block distributor = new BlockDistributor(BlockBehaviour.Properties.of(Material.STONE).strength(2, 10).sound(SoundType.STONE));
-	public static final Block manaVoid = new BlockManaVoid(BlockBehaviour.Properties.of(Material.STONE).strength(2, 2000).sound(SoundType.STONE));
+	public static final Block distributor = new BlockDistributor(BlockBehaviour.Properties.of(Material.STONE).strength(2, 10).sound(SoundType.STONE).requiresCorrectToolForDrops());
+	public static final Block manaVoid = new BlockManaVoid(BlockBehaviour.Properties.of(Material.STONE).strength(2, 2000).sound(SoundType.STONE).requiresCorrectToolForDrops());
 	public static final Block manaDetector = new BlockManaDetector(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block pistonRelay = new BlockPistonRelay(BlockBehaviour.Properties.of(Material.VEGETABLE).strength(2, 10).sound(SoundType.METAL).isValidSpawn(NO_SPAWN));
 	public static final Block turntable = new BlockTurntable(BlockBehaviour.Properties.copy(livingwood));
-	public static final Block tinyPlanet = new BlockTinyPlanet(BlockBehaviour.Properties.of(Material.STONE).strength(20, 100).sound(SoundType.STONE));
+	public static final Block tinyPlanet = new BlockTinyPlanet(BlockBehaviour.Properties.of(Material.STONE).strength(20, 100).sound(SoundType.STONE).requiresCorrectToolForDrops());
 	public static final Block wildDrum = new BlockForestDrum(BlockForestDrum.Variant.WILD, BlockBehaviour.Properties.copy(livingwood));
 	public static final Block gatheringDrum = new BlockForestDrum(BlockForestDrum.Variant.GATHERING, BlockBehaviour.Properties.copy(livingwood));
 	public static final Block canopyDrum = new BlockForestDrum(BlockForestDrum.Variant.CANOPY, BlockBehaviour.Properties.copy(livingwood));
-	public static final Block spawnerClaw = new BlockSpawnerClaw(BlockBehaviour.Properties.of(Material.METAL).strength(3));
+	public static final Block spawnerClaw = new BlockSpawnerClaw(BlockBehaviour.Properties.of(Material.METAL).strength(3).requiresCorrectToolForDrops());
 	public static final Block rfGenerator = new BlockRFGenerator(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block prism = new BlockPrism(BlockBehaviour.Properties.copy(elfGlass).noCollission());
 	public static final Block pump = new BlockPump(BlockBehaviour.Properties.copy(livingrock));
@@ -280,7 +280,7 @@ public final class ModBlocks {
 
 	public static final Block openCrate = new BlockOpenCrate(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block craftCrate = new BlockCraftyCrate(BlockBehaviour.Properties.copy(livingwood));
-	public static final Block forestEye = new BlockForestEye(BlockBehaviour.Properties.of(Material.METAL).strength(5, 10).sound(SoundType.METAL));
+	public static final Block forestEye = new BlockForestEye(BlockBehaviour.Properties.of(Material.METAL).strength(5, 10).sound(SoundType.METAL).requiresCorrectToolForDrops());
 	public static final Block solidVines = new BlockSolidVines(BlockBehaviour.Properties.of(Material.REPLACEABLE_PLANT).strength(0.2F).sound(SoundType.GRASS).noOcclusion());
 	public static final Block abstrusePlatform = new BlockPlatform(BlockPlatform.Variant.ABSTRUSE, BlockBehaviour.Properties.of(Material.WOOD).strength(2, 5).sound(SoundType.WOOD));
 	public static final Block spectralPlatform = new BlockPlatform(BlockPlatform.Variant.SPECTRAL, BlockBehaviour.Properties.copy(abstrusePlatform));
@@ -294,13 +294,13 @@ public final class ModBlocks {
 	public static final Block redStringRelay = new BlockRedStringRelay(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block redStringInterceptor = new BlockRedStringInterceptor(BlockBehaviour.Properties.copy(livingrock));
 
-	public static final Block corporeaIndex = new BlockCorporeaIndex(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).noOcclusion());
-	public static final Block corporeaFunnel = new BlockCorporeaFunnel(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL));
-	public static final Block corporeaInterceptor = new BlockCorporeaInterceptor(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL));
+	public static final Block corporeaIndex = new BlockCorporeaIndex(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).noOcclusion().requiresCorrectToolForDrops());
+	public static final Block corporeaFunnel = new BlockCorporeaFunnel(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).requiresCorrectToolForDrops());
+	public static final Block corporeaInterceptor = new BlockCorporeaInterceptor(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).requiresCorrectToolForDrops());
 	public static final Block corporeaCrystalCube = new BlockCorporeaCrystalCube(BlockBehaviour.Properties.copy(corporeaInterceptor));
 	public static final Block corporeaRetainer = new BlockCorporeaRetainer(BlockBehaviour.Properties.copy(corporeaInterceptor));
 
-	public static final Block corporeaBlock = new BlockMod(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL));
+	public static final Block corporeaBlock = new BlockMod(BlockBehaviour.Properties.of(Material.METAL).strength(5.5F).sound(SoundType.METAL).requiresCorrectToolForDrops());
 	public static final Block corporeaBrick = new BlockMod(BlockBehaviour.Properties.copy(corporeaBlock));
 	public static final SlabBlock corporeaSlab = new SlabBlock(BlockBehaviour.Properties.copy(corporeaBlock));
 	public static final StairBlock corporeaStairs = new BlockModStairs(corporeaBlock.defaultBlockState(), BlockBehaviour.Properties.copy(corporeaBlock));
@@ -328,7 +328,7 @@ public final class ModBlocks {
 	public static final Block animatedTorch = new BlockAnimatedTorch(BlockBehaviour.Properties.of(Material.DECORATION).lightLevel(s -> 7).noOcclusion());
 	public static final Block starfield = new BlockStarfield(BlockBehaviour.Properties.of(Material.METAL).strength(5, 2000).sound(SoundType.METAL));
 
-	public static final Block azulejo0 = new BlockMod(BlockBehaviour.Properties.of(Material.STONE).strength(2, 5).sound(SoundType.STONE));
+	public static final Block azulejo0 = new BlockMod(BlockBehaviour.Properties.of(Material.STONE).strength(2, 5).sound(SoundType.STONE).requiresCorrectToolForDrops());
 	public static final Block azulejo1 = new BlockMod(BlockBehaviour.Properties.copy(azulejo0));
 	public static final Block azulejo2 = new BlockMod(BlockBehaviour.Properties.copy(azulejo0));
 	public static final Block azulejo3 = new BlockMod(BlockBehaviour.Properties.copy(azulejo0));
@@ -350,7 +350,7 @@ public final class ModBlocks {
 	public static final Block gaiaHead = new BlockGaiaHead(BlockBehaviour.Properties.of(Material.DECORATION).strength(1));
 	public static final Block shimmerrock = new BlockMod(BlockBehaviour.Properties.copy(livingrock));
 	public static final Block shimmerwoodPlanks = new BlockMod(BlockBehaviour.Properties.copy(livingwood));
-	public static final Block dryGrass = new BlockAltGrass(BlockAltGrass.Variant.DRY, FabricBlockSettings.copyOf(BlockBehaviour.Properties.of(Material.GRASS).strength(0.6F).randomTicks().sound(SoundType.GRASS)));
+	public static final Block dryGrass = new BlockAltGrass(BlockAltGrass.Variant.DRY, BlockBehaviour.Properties.of(Material.GRASS).strength(0.6F).randomTicks().sound(SoundType.GRASS));
 	public static final Block goldenGrass = new BlockAltGrass(BlockAltGrass.Variant.GOLDEN, BlockBehaviour.Properties.copy(dryGrass));
 	public static final Block vividGrass = new BlockAltGrass(BlockAltGrass.Variant.VIVID, BlockBehaviour.Properties.copy(dryGrass));
 	public static final Block scorchedGrass = new BlockAltGrass(BlockAltGrass.Variant.SCORCHED, BlockBehaviour.Properties.copy(dryGrass));

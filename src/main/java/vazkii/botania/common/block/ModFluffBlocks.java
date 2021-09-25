@@ -123,7 +123,7 @@ public final class ModFluffBlocks {
 	public static final Block greenPavementStair = new BlockModStairs(whitePavement.defaultBlockState(), BlockBehaviour.Properties.copy(whitePavement));
 	public static final Block greenPavementSlab = new SlabBlock(BlockBehaviour.Properties.copy(whitePavement));
 
-	public static final Block biomeStoneForest = new BlockMod(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 10).sound(SoundType.STONE));
+	public static final Block biomeStoneForest = new BlockMod(BlockBehaviour.Properties.of(Material.STONE).strength(1.5F, 10).sound(SoundType.STONE).requiresCorrectToolForDrops());
 	public static final Block biomeStoneForestSlab = new SlabBlock(BlockBehaviour.Properties.copy(biomeStoneForest));
 	public static final Block biomeStoneForestStairs = new BlockModStairs(biomeStoneForest.defaultBlockState(), BlockBehaviour.Properties.copy(biomeStoneForest));
 	public static final Block biomeCobblestoneForest = new BlockMod(BlockBehaviour.Properties.copy(biomeStoneForest));
