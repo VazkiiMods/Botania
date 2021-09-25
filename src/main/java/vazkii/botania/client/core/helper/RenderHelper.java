@@ -141,7 +141,12 @@ public final class RenderHelper extends RenderType {
 				.setOutputState(ITEM_ENTITY_TARGET)
 				.setLightmapState(LIGHTMAP).createCompositeState(false);
 		MANA_POOL_WATER = makeLayer(LibResources.PREFIX_MOD + "mana_pool_water", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 128, glState);
-		TERRA_PLATE = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.TERRA_PLATE, null, ICON_OVERLAY) : ICON_OVERLAY;
+		glState = RenderType.CompositeState.builder().setTextureState(BLOCK_SHEET_MIPPED)
+				.setShaderState(new ShaderStateShard(CoreShaders::terraPlate))
+				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+				.setOutputState(ITEM_ENTITY_TARGET)
+				.setLightmapState(LIGHTMAP).createCompositeState(false);
+		TERRA_PLATE = makeLayer(LibResources.PREFIX_MOD + "terra_plate_rune", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 128, glState);
 		ENCHANTER = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ENCHANTER_RUNE, null, ICON_OVERLAY) : ICON_OVERLAY;
 
 		RenderStateShard.TextureStateShard babylonTexture = new RenderStateShard.TextureStateShard(new ResourceLocation(LibResources.MISC_BABYLON), false, true);

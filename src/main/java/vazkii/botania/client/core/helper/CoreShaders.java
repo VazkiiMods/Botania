@@ -22,6 +22,7 @@ public class CoreShaders {
 	private static ShaderInstance starfieldShaderInstance;
 	private static ShaderInstance doppleganger;
 	private static ShaderInstance manaPool;
+	private static ShaderInstance terraPlate;
 
 	public static void init(ResourceManager resourceManager,
 			List<Pair<ShaderInstance, Consumer<ShaderInstance>>> registrations) throws IOException {
@@ -37,6 +38,10 @@ public class CoreShaders {
 				new ShaderInstance(resourceManager, "botania__mana_pool", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP),
 				inst -> manaPool = inst)
 		);
+		registrations.add(Pair.of(
+				new ShaderInstance(resourceManager, "botania__terra_plate_rune", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP),
+				inst -> terraPlate = inst)
+		);
 	}
 
 	public static ShaderInstance starfield() {
@@ -49,5 +54,9 @@ public class CoreShaders {
 
 	public static ShaderInstance manaPool() {
 		return manaPool;
+	}
+
+	public static ShaderInstance terraPlate() {
+		return terraPlate;
 	}
 }
