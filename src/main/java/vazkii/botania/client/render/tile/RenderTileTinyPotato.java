@@ -152,7 +152,7 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 			rotY = 270F;
 			break;
 		}
-		ms.mulPose(Vector3f.YP.rotationDegrees(rotY));
+		ms.mulPose(Vector3f.YN.rotationDegrees(rotY));
 
 		float jump = potato.jumpTicks;
 		if (jump > 0) {
