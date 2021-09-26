@@ -8,7 +8,6 @@
  */
 package vazkii.botania.client.core.helper;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -177,16 +176,10 @@ public final class RenderHelper extends RenderType {
 		RenderType halo = makeLayer(LibResources.PREFIX_MOD + "halo", DefaultVertexFormat.POSITION_TEX, VertexFormat.Mode.QUADS, 64, glState);
 		HALO = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, halo) : halo;
 
-		// Same as entity_translucent, with no depth test and a shader
+		// TODO 1.17 needs a wrapper for alpha to 0.4
 		glState = RenderType.CompositeState.builder().setDepthTestState(new RenderStateShard.DepthTestStateShard("always", GL11.GL_ALWAYS)).setTextureState(new RenderStateShard.TextureStateShard(TextureAtlas.LOCATION_BLOCKS, false, false)).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setCullState(NO_CULL).setLightmapState(LIGHTMAP).setOverlayState(OVERLAY).createCompositeState(true);
-		ShaderCallback cb = shader -> {
-			int alpha = GlStateManager._glGetUniformLocation(shader, "alpha");
-			ShaderHelper.FLOAT_BUF.position(0);
-			ShaderHelper.FLOAT_BUF.put(0, 0.4F);
-			RenderSystem.glUniform1(alpha, ShaderHelper.FLOAT_BUF);
-		};
 		RenderType astrolabePreview = makeLayer(LibResources.PREFIX_MOD + "astrolabe_preview", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, glState);
-		ASTROLABE_PREVIEW = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ALPHA, cb, astrolabePreview) : astrolabePreview;
+		ASTROLABE_PREVIEW = astrolabePreview;
 
 		// [VanillaCopy] End portal, with own shader
 		glState = RenderType.CompositeState.builder()

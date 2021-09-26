@@ -88,7 +88,6 @@ public final class LibResources {
 	public static final String SHADER_DOPLLEGANGER_BAR_FRAG = PREFIX_SHADER + "doppleganger_bar.frag";
 	public static final String SHADER_TERRA_PLATE_RUNE_FRAG = PREFIX_SHADER + "terra_plate_rune.frag";
 	public static final String SHADER_FILM_GRAIN_FRAG = PREFIX_SHADER + "film_grain.frag";
-	public static final String SHADER_ALPHA_FRAG = PREFIX_SHADER + "alpha.frag";
 	public static final String SHADER_PASSTHROUGH_VERT = PREFIX_SHADER + "passthrough.vert";
 
 }
