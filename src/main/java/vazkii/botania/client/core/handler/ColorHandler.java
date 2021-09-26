@@ -61,8 +61,8 @@ public final class ColorHandler {
 					int color = ColorHelper.getColorValue(DyeColor.WHITE);
 					if (world != null && pos != null) {
 						BlockEntity te = world.getBlockEntity(pos);
-						if (te instanceof TilePool) {
-							color = ColorHelper.getColorValue(((TilePool) te).color);
+						if (te instanceof TilePool pool) {
+							color = ColorHelper.getColorValue(pool.getColor());
 						}
 					}
 					if (((BlockPool) state.getBlock()).variant == BlockPool.Variant.FABULOUS) {

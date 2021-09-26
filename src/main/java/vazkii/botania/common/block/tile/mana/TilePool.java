@@ -81,7 +81,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	private boolean outputting = false;
 
-	public DyeColor color = DyeColor.WHITE;
+	private DyeColor color = DyeColor.WHITE;
 	private int mana;
 
 	public int manaCap = -1;

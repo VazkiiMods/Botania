@@ -56,7 +56,7 @@ public class RenderTilePool implements BlockEntityRenderer<TilePool> {
 			float time = ClientTickHandler.ticksInGame + ClientTickHandler.partialTicks;
 			time += new Random(pool.getBlockPos().getX() ^ pool.getBlockPos().getY() ^ pool.getBlockPos().getZ()).nextInt(100000);
 			time *= 0.005F;
-			int poolColor = ColorHelper.getColorValue(pool.color);
+			int poolColor = ColorHelper.getColorValue(pool.getColor());
 			int color = vazkii.botania.common.core.helper.MathHelper.multiplyColor(Mth.hsvToRgb(Mth.frac(time), 0.6F, 1F), poolColor);
 
 			int red = (color & 0xFF0000) >> 16;
