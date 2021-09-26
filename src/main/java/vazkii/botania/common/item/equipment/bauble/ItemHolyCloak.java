@@ -99,7 +99,7 @@ public class ItemHolyCloak extends ItemBauble {
 		model.renderToBuffer(ms, buffer, 0xF000F0, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
 	}
 
-	public boolean effectOnDamage(DamageSource src, MutableFloat amount, Player player, ItemStack stack) {
+	protected boolean effectOnDamage(DamageSource src, MutableFloat amount, Player player, ItemStack stack) {
 		if (!src.isMagic()) {
 			amount.setValue(0);
 			player.level.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.holyCloak, SoundSource.PLAYERS, 1F, 1F);

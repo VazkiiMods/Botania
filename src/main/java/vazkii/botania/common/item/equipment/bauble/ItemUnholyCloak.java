@@ -40,7 +40,7 @@ public class ItemUnholyCloak extends ItemHolyCloak {
 	}
 
 	@Override
-	public boolean effectOnDamage(DamageSource src, MutableFloat amount, Player player, ItemStack stack) {
+	protected boolean effectOnDamage(DamageSource src, MutableFloat amount, Player player, ItemStack stack) {
 		if (!src.isBypassArmor()) {
 			int range = 6;
 			@SuppressWarnings("unchecked")
