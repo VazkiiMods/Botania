@@ -21,6 +21,7 @@ import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.core.Direction;
@@ -86,8 +87,6 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 			return Pair.of(ShaderHelper.BotaniaShader.HALO, removeFromFront(name, "hot"));
 		} else if (matches(name, "magic")) {
 			return Pair.of(ShaderHelper.BotaniaShader.ENCHANTER_RUNE, removeFromFront(name, "magic"));
-		} else if (matches(name, "gold")) {
-			return Pair.of(ShaderHelper.BotaniaShader.GOLD, removeFromFront(name, "gold"));
 		} else if (matches(name, "snoop")) {
 			return Pair.of(ShaderHelper.BotaniaShader.TERRA_PLATE, removeFromFront(name, "snoop"));
 		} else {
@@ -132,6 +131,10 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 		Pair<ShaderHelper.BotaniaShader, String> shaderStrippedName = stripShaderName(name);
 		ShaderHelper.BotaniaShader shader = shaderStrippedName.getFirst();
 		name = shaderStrippedName.getSecond();
+		boolean enchanted = matches(name, "enchanted");
+		if (enchanted) {
+			name = removeFromFront(name, "enchanted");
+		}
 		RenderType layer = getRenderLayer(shader);
 		BakedModel model = getModel(name);
 
@@ -170,7 +173,7 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 		if (render) {
 			ms.pushPose();
 			ms.translate(-0.5F, 0, -0.5F);
-			VertexConsumer buffer = buffers.getBuffer(layer);
+			VertexConsumer buffer = ItemRenderer.getFoilBuffer(buffers, layer, true, enchanted);
 
 			renderModel(ms, buffer, light, overlay, model);
 			ms.popPose();
