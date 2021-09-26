@@ -124,7 +124,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 
 	public int pingbackTicks = 0;
 	public double lastPingbackX = 0;
-	public double lastPingbackY = -1;
+	public double lastPingbackY = Integer.MIN_VALUE;
 	public double lastPingbackZ = 0;
 
 	private List<PositionProperties> lastTentativeBurst;
