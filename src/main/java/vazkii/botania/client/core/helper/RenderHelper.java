@@ -147,7 +147,12 @@ public final class RenderHelper extends RenderType {
 				.setOutputState(ITEM_ENTITY_TARGET)
 				.setLightmapState(LIGHTMAP).createCompositeState(false);
 		TERRA_PLATE = makeLayer(LibResources.PREFIX_MOD + "terra_plate_rune", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 128, glState);
-		ENCHANTER = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.ENCHANTER_RUNE, null, ICON_OVERLAY) : ICON_OVERLAY;
+		glState = RenderType.CompositeState.builder().setTextureState(BLOCK_SHEET_MIPPED)
+				.setShaderState(new ShaderStateShard(CoreShaders::enchanter))
+				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+				.setOutputState(ITEM_ENTITY_TARGET)
+				.setLightmapState(LIGHTMAP).createCompositeState(false);
+		ENCHANTER = makeLayer(LibResources.PREFIX_MOD + "enchanter_rune", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 128, glState);
 
 		RenderStateShard.TextureStateShard babylonTexture = new RenderStateShard.TextureStateShard(new ResourceLocation(LibResources.MISC_BABYLON), false, true);
 		glState = RenderType.CompositeState.builder().setTextureState(babylonTexture)
@@ -251,7 +256,7 @@ public final class RenderHelper extends RenderType {
 		return makeLayer(LibResources.PREFIX_MOD + "crafting_halo", DefaultVertexFormat.POSITION_COLOR_TEX, VertexFormat.Mode.QUADS, 64, false, true, glState);
 	}
 
-	private static Function<ResourceLocation, RenderType> DOPPLEGANGER = Util.memoize(texture -> {
+	private static final Function<ResourceLocation, RenderType> DOPPLEGANGER = Util.memoize(texture -> {
 		// [VanillaCopy] entity_translucent, with own shader
 		CompositeState glState = RenderType.CompositeState.builder()
 				.setShaderState(new ShaderStateShard(CoreShaders::doppleganger))
