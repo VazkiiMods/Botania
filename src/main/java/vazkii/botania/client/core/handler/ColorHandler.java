@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.brew.IBrewItem;
 import vazkii.botania.api.mana.BurstProperties;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.BlockPlatform;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.block.decor.BlockPetalBlock;
@@ -190,11 +191,13 @@ public final class ColorHandler {
 		items.register((s, t) -> t == 1 && ItemTerraPick.isEnabled(s) ? Mth.hsvToRgb(0.375F, (float) Math.min(1F, Math.sin(Util.getMillis() / 200D) * 0.5 + 1F), 1F) : -1, ModItems.terraPick);
 
 		ItemColor lensHandler = (s, t) -> t == 0 ? ((ItemLens) s.getItem()).getLensColor(s) : -1;
-		items.register(lensHandler, ModItems.lensNormal, ModItems.lensSpeed, ModItems.lensPower, ModItems.lensTime, ModItems.lensEfficiency, ModItems.lensBounce,
-				ModItems.lensGravity, ModItems.lensMine, ModItems.lensDamage, ModItems.lensPhantom, ModItems.lensMagnet,
-				ModItems.lensExplosive, ModItems.lensWeight, ModItems.lensPaint, ModItems.lensFire, ModItems.lensPiston,
-				ModItems.lensLight, ModItems.lensWarp, ModItems.lensRedirect, ModItems.lensFirework, ModItems.lensFlare,
-				ModItems.lensMessenger, ModItems.lensTripwire, ModItems.lensStorm);
+		items.register(lensHandler, ModItems.lensNormal, ModItems.lensSpeed, ModItems.lensPower, ModItems.lensTime,
+				ModItems.lensEfficiency, ModItems.lensBounce, ModItems.lensGravity, ModItems.lensMine,
+				ModItems.lensDamage, ModItems.lensPhantom, ModItems.lensMagnet, ModItems.lensExplosive,
+				ModItems.lensInfluence, ModItems.lensWeight, ModItems.lensPaint, ModItems.lensFire,
+				ModItems.lensPiston, ModItems.lensLight, ModItems.lensWarp, ModItems.lensRedirect,
+				ModItems.lensFirework, ModItems.lensFlare, ModItems.lensMessenger, ModItems.lensTripwire,
+				ModItems.lensStorm);
 	}
 
 	private ColorHandler() {}
