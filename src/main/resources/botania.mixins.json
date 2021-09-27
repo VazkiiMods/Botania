@@ -6,6 +6,7 @@
   "mixins": [
     "AccessorAbstractFurnaceBlockEntity",
     "AccessorAbstractHorse",
+    "AccessorAdvancementProvider",
     "AccessorAvoidEntityGoal",
     "AccessorBaseSpawner",
     "AccessorBlockModelGenerators",
