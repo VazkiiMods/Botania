@@ -8,9 +8,10 @@
  */
 package vazkii.botania.common.block.tile;
 
+import com.google.common.base.Suppliers;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -22,13 +23,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.stream.IntStream;
 
 /**
  * Version of {@link TileSimpleInventory} where the backing inventory is exposed to automation
  */
 public abstract class TileExposedSimpleInventory extends TileSimpleInventory implements WorldlyContainer {
-	private final LazyLoadedValue<int[]> slots = new LazyLoadedValue<>(() -> IntStream.range(0, getContainerSize()).toArray());
+	private final Supplier<int[]> slots = Suppliers.memoize(() -> IntStream.range(0, getContainerSize()).toArray());
 
 	protected TileExposedSimpleInventory(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);

@@ -39,7 +39,8 @@ public class MixinGameRenderer {
 		method = "reloadShaders",
 		at = @At(
 			value = "INVOKE_ASSIGN",
-			target = "Lcom/google/common/collect/Lists;newArrayListWithCapacity(I)Ljava/util/ArrayList;"
+			target = "Lcom/google/common/collect/Lists;newArrayListWithCapacity(I)Ljava/util/ArrayList;",
+			remap = false
 		),
 		locals = LocalCapture.CAPTURE_FAILHARD
 	)

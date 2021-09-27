@@ -8,8 +8,9 @@
  */
 package vazkii.botania.common.crafting.recipe;
 
+import com.google.common.base.Suppliers;
+
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -27,11 +28,12 @@ import javax.annotation.Nonnull;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class LensDyeingRecipe extends CustomRecipe {
 	public static final SimpleRecipeSerializer<LensDyeingRecipe> SERIALIZER = new SimpleRecipeSerializer<>(LensDyeingRecipe::new);
 
-	private final LazyLoadedValue<List<Ingredient>> dyes = new LazyLoadedValue<>(() -> Arrays.asList(
+	private final Supplier<List<Ingredient>> dyes = Suppliers.memoize(() -> Arrays.asList(
 			Ingredient.of(Items.WHITE_DYE), Ingredient.of(Items.ORANGE_DYE),
 			Ingredient.of(Items.MAGENTA_DYE), Ingredient.of(Items.LIGHT_BLUE_DYE),
 			Ingredient.of(Items.YELLOW_DYE), Ingredient.of(Items.LIME_DYE),

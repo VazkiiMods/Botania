@@ -17,11 +17,11 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.model.ModelLoadingRegistry;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityModelLayerRegistry;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.client.rendereregistry.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.ArmorRenderer;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
 import net.minecraft.client.Camera;
 import net.minecraft.client.KeyMapping;
@@ -318,25 +318,25 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	}
 
 	private static void registerEntityRenderers() {
-		EntityRendererRegistry.INSTANCE.register(ModEntities.MANA_BURST, RenderNoop::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.PLAYER_MOVER, RenderNoop::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.FLAME_RING, RenderNoop::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.MAGIC_LANDMINE, RenderMagicLandmine::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.MAGIC_MISSILE, RenderNoop::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.FALLING_STAR, RenderNoop::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.THROWN_ITEM, ItemEntityRenderer::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.PIXIE, RenderPixie::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.DOPPLEGANGER, RenderDoppleganger::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.SPARK, RenderManaSpark::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.CORPOREA_SPARK, RenderCorporeaSpark::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.POOL_MINECART, RenderPoolMinecart::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.PINK_WITHER, RenderPinkWither::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.MANA_STORM, RenderManaStorm::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.BABYLON_WEAPON, RenderBabylonWeapon::new);
+		EntityRendererRegistry.register(ModEntities.MANA_BURST, RenderNoop::new);
+		EntityRendererRegistry.register(ModEntities.PLAYER_MOVER, RenderNoop::new);
+		EntityRendererRegistry.register(ModEntities.FLAME_RING, RenderNoop::new);
+		EntityRendererRegistry.register(ModEntities.MAGIC_LANDMINE, RenderMagicLandmine::new);
+		EntityRendererRegistry.register(ModEntities.MAGIC_MISSILE, RenderNoop::new);
+		EntityRendererRegistry.register(ModEntities.FALLING_STAR, RenderNoop::new);
+		EntityRendererRegistry.register(ModEntities.THROWN_ITEM, ItemEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntities.PIXIE, RenderPixie::new);
+		EntityRendererRegistry.register(ModEntities.DOPPLEGANGER, RenderDoppleganger::new);
+		EntityRendererRegistry.register(ModEntities.SPARK, RenderManaSpark::new);
+		EntityRendererRegistry.register(ModEntities.CORPOREA_SPARK, RenderCorporeaSpark::new);
+		EntityRendererRegistry.register(ModEntities.POOL_MINECART, RenderPoolMinecart::new);
+		EntityRendererRegistry.register(ModEntities.PINK_WITHER, RenderPinkWither::new);
+		EntityRendererRegistry.register(ModEntities.MANA_STORM, RenderManaStorm::new);
+		EntityRendererRegistry.register(ModEntities.BABYLON_WEAPON, RenderBabylonWeapon::new);
 
-		EntityRendererRegistry.INSTANCE.register(ModEntities.THORN_CHAKRAM, ThrownItemRenderer::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.VINE_BALL, ThrownItemRenderer::new);
-		EntityRendererRegistry.INSTANCE.register(ModEntities.ENDER_AIR_BOTTLE, ThrownItemRenderer::new);
+		EntityRendererRegistry.register(ModEntities.THORN_CHAKRAM, ThrownItemRenderer::new);
+		EntityRendererRegistry.register(ModEntities.VINE_BALL, ThrownItemRenderer::new);
+		EntityRendererRegistry.register(ModEntities.ENDER_AIR_BOTTLE, ThrownItemRenderer::new);
 	}
 
 	private static void registerEntityModels() {

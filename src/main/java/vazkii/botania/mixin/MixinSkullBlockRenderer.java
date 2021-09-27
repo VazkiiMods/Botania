@@ -47,7 +47,7 @@ public abstract class MixinSkullBlockRenderer {
 
 	@Inject(
 		method = "createSkullRenderers",
-		at = @At(value = "INVOKE", target = "Lcom/google/common/collect/ImmutableMap$Builder;build()Lcom/google/common/collect/ImmutableMap;"),
+		at = @At(value = "INVOKE", target = "Lcom/google/common/collect/ImmutableMap$Builder;build()Lcom/google/common/collect/ImmutableMap;", remap = false),
 		locals = LocalCapture.CAPTURE_FAILSOFT
 	)
 	private static void registerModel(EntityModelSet entityModelSet, CallbackInfoReturnable<Map<SkullBlock.Type, SkullModelBase>> cir,

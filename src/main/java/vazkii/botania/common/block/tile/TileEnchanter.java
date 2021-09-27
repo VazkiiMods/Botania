@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.tile;
 
 import com.google.common.base.Predicates;
+import com.google.common.base.Suppliers;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
@@ -59,6 +60,7 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class TileEnchanter extends TileMod implements ISparkAttachable {
@@ -101,12 +103,12 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			}
 	};
 
-	private static final LazyLoadedValue<IStateMatcher> OBSIDIAN_MATCHER = new LazyLoadedValue<>(() -> PatchouliAPI.get().predicateMatcher(
+	private static final Supplier<IStateMatcher> OBSIDIAN_MATCHER = Suppliers.memoize(() -> PatchouliAPI.get().predicateMatcher(
 			Blocks.OBSIDIAN,
 			state -> state.is(Blocks.OBSIDIAN) || state.is(Blocks.CRYING_OBSIDIAN)
 	));
 
-	public static final LazyLoadedValue<IMultiblock> MULTIBLOCK = new LazyLoadedValue<>(() -> PatchouliAPI.get().makeMultiblock(
+	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> PatchouliAPI.get().makeMultiblock(
 			PATTERN,
 			'P', ModBlocks.manaPylon,
 			'L', Blocks.LAPIS_BLOCK,
@@ -115,7 +117,7 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			'F', PatchouliAPI.get().predicateMatcher(ModBlocks.whiteFlower, state -> state.is(ModTags.Blocks.ENCHANTER_FLOWERS))
 	));
 
-	private static final LazyLoadedValue<IMultiblock> FORMED_MULTIBLOCK = new LazyLoadedValue<>(() -> PatchouliAPI.get().makeMultiblock(
+	private static final Supplier<IMultiblock> FORMED_MULTIBLOCK = Suppliers.memoize(() -> PatchouliAPI.get().makeMultiblock(
 			PATTERN,
 			'P', ModBlocks.manaPylon,
 			'L', ModBlocks.enchanter,

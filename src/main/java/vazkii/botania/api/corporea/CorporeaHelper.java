@@ -8,10 +8,11 @@
  */
 package vazkii.botania.api.corporea;
 
+import com.google.common.base.Suppliers;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
@@ -23,11 +24,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public interface CorporeaHelper {
-	LazyLoadedValue<CorporeaHelper> INSTANCE = new LazyLoadedValue<>(() -> {
+	Supplier<CorporeaHelper> INSTANCE = Suppliers.memoize(() -> {
 		try {
-			return (CorporeaHelper) Class.forName("vazkii.botania.common.impl.corporea.CorporeaHelperImpl").newInstance();
+			return (CorporeaHelper) Class.forName("vazkii.botania.common.impl.corporea.CorporeaHelperImpl")
+					.getDeclaredConstructor().newInstance();
 		} catch (ReflectiveOperationException e) {
 			LogManager.getLogger().warn("Unable to find CorporeaHelperImpl, using a dummy");
 			return new CorporeaHelper() {};

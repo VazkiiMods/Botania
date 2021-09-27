@@ -9,11 +9,11 @@
 package vazkii.botania.common.block.tile;
 
 import com.google.common.base.Predicates;
+import com.google.common.base.Suppliers;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
@@ -41,9 +41,10 @@ import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class TileTerraPlate extends TileMod implements ISparkAttachable {
-	public static final LazyLoadedValue<IMultiblock> MULTIBLOCK = new LazyLoadedValue<>(() -> PatchouliAPI.get().makeMultiblock(
+	public static final Supplier<IMultiblock> MULTIBLOCK = Suppliers.memoize(() -> PatchouliAPI.get().makeMultiblock(
 			new String[][] {
 					{
 							"___",

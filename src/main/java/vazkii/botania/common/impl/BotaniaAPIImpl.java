@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.impl;
 
+import com.google.common.base.Suppliers;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -56,7 +58,7 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	public static List<OrechidOutput> weights = new ArrayList<>();
 	public static List<OrechidOutput> netherWeights = new ArrayList<>();
 
-	private static final LazyLoadedValue<Rarity> RELIC_RARITY = new LazyLoadedValue<>(() -> Rarity.EPIC);
+	private static final Supplier<Rarity> RELIC_RARITY = Suppliers.memoize(() -> Rarity.EPIC);
 
 	private enum ArmorMaterial implements net.minecraft.world.item.ArmorMaterial {
 		MANASTEEL("manasteel", 16, new int[] { 2, 5, 6, 2 }, 18, () -> SoundEvents.ARMOR_EQUIP_IRON, () -> ModItems.manaSteel, 0),

@@ -9,13 +9,13 @@
 package vazkii.botania.client.core.handler;
 
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.level.block.entity.BannerPattern;
 
 import vazkii.botania.client.model.GunModel;
@@ -184,7 +184,7 @@ public class MiscellaneousIcons {
 	}
 
 	private static Material mainAtlas(String name) {
-		return new Material(TextureAtlas.LOCATION_BLOCKS, prefix(name));
+		return new Material(InventoryMenu.BLOCK_ATLAS, prefix(name));
 	}
 
 	private MiscellaneousIcons() {}

@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.item.equipment.armor.terrasteel;
 
+import com.google.common.base.Suppliers;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
@@ -20,7 +21,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -40,6 +40,7 @@ import javax.annotation.Nonnull;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 public class ItemTerrasteelArmor extends ItemManasteelArmor {
 
@@ -76,7 +77,7 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 		return ret;
 	}
 
-	private static final LazyLoadedValue<ItemStack[]> armorSet = new LazyLoadedValue<>(() -> new ItemStack[] {
+	private static final Supplier<ItemStack[]> armorSet = Suppliers.memoize(() -> new ItemStack[] {
 			new ItemStack(ModItems.terrasteelHelm),
 			new ItemStack(ModItems.terrasteelChest),
 			new ItemStack(ModItems.terrasteelLegs),
