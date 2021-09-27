@@ -199,7 +199,8 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 	private void renderName(TileTinyPotato potato, String name, PoseStack ms, MultiBufferSource buffers, int light) {
 		Minecraft mc = Minecraft.getInstance();
 		HitResult pos = mc.hitResult;
-		if (!name.isEmpty() && pos != null && pos.getType() == HitResult.Type.BLOCK
+		if (Minecraft.renderNames()
+				&& !name.isEmpty() && pos != null && pos.getType() == HitResult.Type.BLOCK
 				&& potato.getBlockPos().equals(((BlockHitResult) pos).getBlockPos())) {
 			ms.pushPose();
 			ms.translate(0F, -0.6F, 0F);
