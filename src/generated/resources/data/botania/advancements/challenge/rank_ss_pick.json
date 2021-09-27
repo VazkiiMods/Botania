@@ -1,7 +1,9 @@
 {
+  "parent": "botania:challenge/root",
   "display": {
     "icon": {
-      "item": "botania:terra_pick"
+      "item": "botania:terra_pick",
+      "nbt": "{Damage:0}"
     },
     "title": {
       "translate": "advancement.botania:rankSSPick"
@@ -9,13 +11,19 @@
     "description": {
       "translate": "advancement.botania:rankSSPick.desc"
     },
-    "frame": "challenge"
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
   },
-  "parent": "botania:challenge/root",
-  "__comment": "This is triggered by code in Botania. In the future, it may become data-driven",
   "criteria": {
     "code_triggered": {
       "trigger": "minecraft:impossible"
     }
-  }
+  },
+  "requirements": [
+    [
+      "code_triggered"
+    ]
+  ]
 }

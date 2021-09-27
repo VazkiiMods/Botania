@@ -1,4 +1,5 @@
 {
+  "parent": "botania:main/mana_pool_pickup",
   "display": {
     "icon": {
       "item": "botania:manaweave_cloth"
@@ -8,9 +9,12 @@
     },
     "description": {
       "translate": "advancement.botania:manaweaveArmorCraft.desc"
-    }
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
   },
-  "parent": "botania:main/mana_pool_pickup",
   "criteria": {
     "head": {
       "trigger": "minecraft:inventory_changed",
@@ -27,5 +31,10 @@
         ]
       }
     }
-  }
+  },
+  "requirements": [
+    [
+      "head"
+    ]
+  ]
 }

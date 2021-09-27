@@ -1,8 +1,9 @@
 {
+  "parent": "botania:challenge/root",
   "display": {
     "icon": {
       "item": "botania:mana_gun",
-      "nbt": "{\"display\": { \"Name\": \"desu gun\" }}"
+      "nbt": "{display:{Name:\u0027{\"text\":\"desu gun\"}\u0027}}"
     },
     "title": {
       "translate": "advancement.botania:desuGun"
@@ -10,9 +11,11 @@
     "description": {
       "translate": "advancement.botania:desuGun.desc"
     },
-    "frame": "challenge"
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
   },
-  "parent": "botania:challenge/root",
   "criteria": {
     "use_gun": {
       "trigger": "botania:fire_mana_blaster",
@@ -20,5 +23,10 @@
         "desu": true
       }
     }
-  }
+  },
+  "requirements": [
+    [
+      "use_gun"
+    ]
+  ]
 }

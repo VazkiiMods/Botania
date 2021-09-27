@@ -1,4 +1,5 @@
 {
+  "parent": "botania:challenge/loki_ring",
   "display": {
     "icon": {
       "item": "botania:loki_ring"
@@ -9,9 +10,11 @@
     "description": {
       "translate": "advancement.botania:lokiRingMany.desc"
     },
-    "frame": "challenge"
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
   },
-  "parent": "botania:challenge/loki_ring",
   "criteria": {
     "place_blocks": {
       "trigger": "botania:loki_placed_blocks",
@@ -21,5 +24,10 @@
         }
       }
     }
-  }
+  },
+  "requirements": [
+    [
+      "place_blocks"
+    ]
+  ]
 }

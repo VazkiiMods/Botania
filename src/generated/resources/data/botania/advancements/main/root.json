@@ -9,9 +9,11 @@
     "description": {
       "translate": "botania.desc"
     },
-    "background": "botania:textures/block/livingwood.png",
+    "frame": "task",
     "show_toast": false,
-    "announce_to_chat": false
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "botania:textures/block/livingwood.png"
   },
   "criteria": {
     "flower": {
@@ -24,5 +26,10 @@
         ]
       }
     }
-  }
+  },
+  "requirements": [
+    [
+      "flower"
+    ]
+  ]
 }

@@ -6,11 +6,18 @@
       "conditions": {
         "items": [
           {
-            "items": [ "botania:lexicon" ],
-            "nbt": "{'botania:elven_unlock': 1b}"
+            "items": [
+              "botania:lexicon"
+            ],
+            "nbt": "{\"botania:elven_unlock\":1b}"
           }
         ]
       }
     }
-  }
+  },
+  "requirements": [
+    [
+      "lexicon"
+    ]
+  ]
 }

@@ -1,4 +1,5 @@
 {
+  "parent": "botania:main/ender_air_make",
   "display": {
     "icon": {
       "item": "botania:corporea_crystal_cube"
@@ -8,9 +9,12 @@
     },
     "description": {
       "translate": "advancement.botania:corporeaCraft.desc"
-    }
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
   },
-  "parent": "botania:main/ender_air_make",
   "criteria": {
     "pickup": {
       "trigger": "minecraft:inventory_changed",
@@ -28,5 +32,10 @@
         ]
       }
     }
-  }
+  },
+  "requirements": [
+    [
+      "pickup"
+    ]
+  ]
 }

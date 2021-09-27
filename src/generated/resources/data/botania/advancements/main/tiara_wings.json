@@ -1,27 +1,38 @@
 {
+  "parent": "botania:main/gaia_guardian_kill",
   "display": {
     "icon": {
       "item": "botania:flight_tiara",
-      "nbt": "{\"variant\": 1}"
+      "nbt": "{variant:1}"
     },
     "title": {
       "translate": "advancement.botania:tiaraWings"
     },
     "description": {
       "translate": "advancement.botania:tiaraWings.desc"
-    }
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
   },
-  "parent": "botania:main/gaia_guardian_kill",
   "criteria": {
     "tiara": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "items": [ "botania:flight_tiara" ]
+            "items": [
+              "botania:flight_tiara"
+            ]
           }
         ]
       }
     }
-  }
+  },
+  "requirements": [
+    [
+      "tiara"
+    ]
+  ]
 }

@@ -6,10 +6,17 @@
       "conditions": {
         "items": [
           {
-            "items": [ "botania:pure_daisy" ]
+            "items": [
+              "botania:pure_daisy"
+            ]
           }
         ]
       }
     }
-  }
+  },
+  "requirements": [
+    [
+      "lexicon"
+    ]
+  ]
 }

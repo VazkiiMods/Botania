@@ -1,4 +1,5 @@
 {
+  "parent": "botania:challenge/gaia_guardian_hardmode",
   "display": {
     "icon": {
       "item": "botania:infinite_fruit"
@@ -9,17 +10,26 @@
     "description": {
       "translate": "advancement.botania:infiniteFruit.desc"
     },
-    "frame": "challenge"
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
   },
-  "parent": "botania:challenge/gaia_guardian_hardmode",
   "criteria": {
     "fruit": {
       "trigger": "botania:relic_bind",
       "conditions": {
         "relic": {
-          "item": "botania:infinite_fruit"
+          "items": [
+            "botania:infinite_fruit"
+          ]
         }
       }
     }
-  }
+  },
+  "requirements": [
+    [
+      "fruit"
+    ]
+  ]
 }

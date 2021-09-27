@@ -1,4 +1,5 @@
 {
+  "parent": "botania:challenge/root",
   "display": {
     "icon": {
       "item": "botania:corporea_index"
@@ -9,9 +10,11 @@
     "description": {
       "translate": "advancement.botania:superCorporeaRequest.desc"
     },
-    "frame": "challenge"
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
   },
-  "parent": "botania:challenge/root",
   "criteria": {
     "over_fifty_thousand": {
       "trigger": "botania:corporea_index_request",
@@ -21,5 +24,10 @@
         }
       }
     }
-  }
+  },
+  "requirements": [
+    [
+      "over_fifty_thousand"
+    ]
+  ]
 }

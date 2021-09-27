@@ -6,10 +6,17 @@
       "conditions": {
         "items": [
           {
-            "items": [ "botania:runic_altar" ]
+            "items": [
+              "botania:runic_altar"
+            ]
           }
         ]
       }
     }
-  }
+  },
+  "requirements": [
+    [
+      "lexicon"
+    ]
+  ]
 }

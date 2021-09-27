@@ -171,7 +171,7 @@ public class AdvancementProvider extends net.minecraft.data.advancements.Advance
 		Advancement.Builder.advancement()
 				.display(simple(ModBlocks.tinyPotato, "tinyPotatoPet", FrameType.TASK))
 				.parent(manaPoolPickup)
-				.addCriterion("flower", new ImpossibleTrigger.TriggerInstance())
+				.addCriterion("code_triggered", new ImpossibleTrigger.TriggerInstance())
 				.save(consumer, mainId("tiny_potato_pet"));
 
 		// Parent: runes

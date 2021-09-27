@@ -1,4 +1,5 @@
 {
+  "parent": "botania:challenge/gaia_guardian_hardmode",
   "display": {
     "icon": {
       "item": "botania:flugel_eye"
@@ -9,17 +10,26 @@
     "description": {
       "translate": "advancement.botania:flugelEye.desc"
     },
-    "frame": "challenge"
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
   },
-  "parent": "botania:challenge/gaia_guardian_hardmode",
   "criteria": {
     "eye": {
       "trigger": "botania:relic_bind",
       "conditions": {
         "relic": {
-          "item": "botania:flugel_eye"
+          "items": [
+            "botania:flugel_eye"
+          ]
         }
       }
     }
-  }
+  },
+  "requirements": [
+    [
+      "eye"
+    ]
+  ]
 }
