@@ -10,12 +10,7 @@ package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
-import net.minecraft.advancements.critereon.DeserializationContext;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.LocationPredicate;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -68,6 +63,18 @@ public class AlfPortalTrigger extends SimpleCriterionTrigger<AlfPortalTrigger.In
 
 		boolean test(ServerLevel world, BlockPos pos, ItemStack wand) {
 			return this.wand.matches(wand) && this.pos.matches(world, pos.getX(), pos.getY(), pos.getZ());
+		}
+
+		@Override
+		public JsonObject serializeToJson(SerializationContext context) {
+			JsonObject json = super.serializeToJson(context);
+			if (wand != ItemPredicate.ANY) {
+				json.add("wand", wand.serializeToJson());
+			}
+			if (pos != LocationPredicate.ANY) {
+				json.add("location", pos.serializeToJson());
+			}
+			return json;
 		}
 
 		public ItemPredicate getWand() {

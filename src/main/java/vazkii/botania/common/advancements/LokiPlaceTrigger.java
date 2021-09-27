@@ -10,12 +10,7 @@ package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
-import net.minecraft.advancements.critereon.DeserializationContext;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.MinMaxBounds;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -39,7 +34,8 @@ public class LokiPlaceTrigger extends SimpleCriterionTrigger<LokiPlaceTrigger.In
 	@Nonnull
 	@Override
 	public LokiPlaceTrigger.Instance createInstance(@Nonnull JsonObject json, EntityPredicate.Composite playerPred, DeserializationContext conditions) {
-		return new LokiPlaceTrigger.Instance(playerPred, EntityPredicate.fromJson(json.get("player")), ItemPredicate.fromJson(json.get("ring")), MinMaxBounds.Ints.fromJson(json.get("blocks_placed")));
+		return new LokiPlaceTrigger.Instance(playerPred, EntityPredicate.fromJson(json.get("player")),
+				ItemPredicate.fromJson(json.get("ring")), MinMaxBounds.Ints.fromJson(json.get("blocks_placed")));
 	}
 
 	public void trigger(ServerPlayer player, ItemStack ring, int blocksPlaced) {
@@ -66,6 +62,18 @@ public class LokiPlaceTrigger extends SimpleCriterionTrigger<LokiPlaceTrigger.In
 
 		boolean test(ServerPlayer player, ItemStack ring, int blocksPlaced) {
 			return this.player.matches(player, null) && this.ring.matches(ring) && this.blocksPlaced.matches(blocksPlaced);
+		}
+
+		@Override
+		public JsonObject serializeToJson(SerializationContext context) {
+			JsonObject json = super.serializeToJson(context);
+			if (ring != ItemPredicate.ANY) {
+				json.add("ring", ring.serializeToJson());
+			}
+			if (blocksPlaced != MinMaxBounds.Ints.ANY) {
+				json.add("blocks_placed", blocksPlaced.serializeToJson());
+			}
+			return json;
 		}
 
 		public EntityPredicate getPlayer() {

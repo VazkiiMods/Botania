@@ -10,11 +10,7 @@ package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
-import net.minecraft.advancements.critereon.DeserializationContext;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.LocationPredicate;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -66,6 +62,15 @@ public class AlfPortalBreadTrigger extends SimpleCriterionTrigger<AlfPortalBread
 
 		public LocationPredicate getPortal() {
 			return this.portal;
+		}
+
+		@Override
+		public JsonObject serializeToJson(SerializationContext context) {
+			JsonObject json = super.serializeToJson(context);
+			if (portal != LocationPredicate.ANY) {
+				json.add("portal_location", portal.serializeToJson());
+			}
+			return json;
 		}
 	}
 }

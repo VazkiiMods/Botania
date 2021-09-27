@@ -10,12 +10,7 @@ package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
-import net.minecraft.advancements.critereon.DeserializationContext;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.LocationPredicate;
-import net.minecraft.advancements.critereon.MinMaxBounds;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -67,6 +62,18 @@ public class CorporeaRequestTrigger extends SimpleCriterionTrigger<CorporeaReque
 
 		boolean test(ServerLevel world, BlockPos pos, int count) {
 			return this.count.matches(count) && this.indexPos.matches(world, pos.getX(), pos.getY(), pos.getZ());
+		}
+
+		@Override
+		public JsonObject serializeToJson(SerializationContext context) {
+			JsonObject json = super.serializeToJson(context);
+			if (count != MinMaxBounds.Ints.ANY) {
+				json.add("extracted", count.serializeToJson());
+			}
+			if (indexPos != LocationPredicate.ANY) {
+				json.add("location", indexPos.serializeToJson());
+			}
+			return json;
 		}
 
 		public MinMaxBounds.Ints getCount() {

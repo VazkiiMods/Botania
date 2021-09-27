@@ -10,11 +10,7 @@ package vazkii.botania.common.advancements;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
-import net.minecraft.advancements.critereon.DeserializationContext;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -63,6 +59,15 @@ public class RelicBindTrigger extends SimpleCriterionTrigger<RelicBindTrigger.In
 
 		boolean test(ItemStack stack) {
 			return predicate.matches(stack);
+		}
+
+		@Override
+		public JsonObject serializeToJson(SerializationContext context) {
+			JsonObject json = super.serializeToJson(context);
+			if (predicate != ItemPredicate.ANY) {
+				json.add("relic", predicate.serializeToJson());
+			}
+			return json;
 		}
 
 		public ItemPredicate getPredicate() {
