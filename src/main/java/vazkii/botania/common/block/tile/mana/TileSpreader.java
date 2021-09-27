@@ -178,7 +178,7 @@ public class TileSpreader extends TileExposedSimpleInventory implements IManaCol
 				}
 			}
 
-			powered = level.hasSignal(worldPosition.relative(dir), dir);
+			powered = powered || level.hasSignal(worldPosition.relative(dir), dir);
 		}
 
 		if (self.needsNewBurstSimulation()) {
