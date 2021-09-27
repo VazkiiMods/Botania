@@ -24,6 +24,7 @@ public class CoreShaders {
 	private static ShaderInstance manaPool;
 	private static ShaderInstance terraPlate;
 	private static ShaderInstance enchanter;
+	private static ShaderInstance pylon;
 
 	public static void init(ResourceManager resourceManager,
 			List<Pair<ShaderInstance, Consumer<ShaderInstance>>> registrations) throws IOException {
@@ -47,6 +48,10 @@ public class CoreShaders {
 				new ShaderInstance(resourceManager, "botania__enchanter_rune", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP),
 				inst -> enchanter = inst)
 		);
+		registrations.add(Pair.of(
+				new ShaderInstance(resourceManager, "botania__pylon", DefaultVertexFormat.NEW_ENTITY),
+				inst -> pylon = inst)
+		);
 	}
 
 	public static ShaderInstance starfield() {
@@ -67,5 +72,9 @@ public class CoreShaders {
 
 	public static ShaderInstance enchanter() {
 		return enchanter;
+	}
+
+	public static ShaderInstance pylon() {
+		return pylon;
 	}
 }

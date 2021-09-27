@@ -205,21 +205,17 @@ public final class RenderHelper extends RenderType {
 	}
 
 	private static RenderType getPylonGlow(String name, ResourceLocation texture, boolean direct) {
-		return RenderType.entityTranslucent(texture);
-		/* todo 1.17
 		RenderType.CompositeState.CompositeStateBuilder glState = RenderType.CompositeState.builder()
+				.setShaderState(new ShaderStateShard(CoreShaders::pylon))
 				.setTextureState(new RenderStateShard.TextureStateShard(texture, false, false))
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
-				// todo 1.17 .setDiffuseLightingState(new RenderStateShard.DiffuseLightingStateShard(true))
-				// todo 1.17 .setAlphaState(new RenderStateShard.AlphaStateShard(0))
-				.setCullState(new RenderStateShard.CullStateShard(false))
-				.setLightmapState(new RenderStateShard.LightmapStateShard(true));
+				.setCullState(NO_CULL)
+				.setLightmapState(LIGHTMAP)
+				.setOverlayState(OVERLAY);
 		if (!direct) {
 			glState = glState.setOutputState(RenderStateShard.ITEM_ENTITY_TARGET);
 		}
-		RenderType layer = makeLayer(LibResources.PREFIX_MOD + name, DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 128, glState.createCompositeState(false));
-		return ShaderHelper.useShaders() ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.PYLON_GLOW, null, layer) : layer;
-		*/
+		return makeLayer(LibResources.PREFIX_MOD + name, DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 128, glState.createCompositeState(false));
 	}
 
 	private static CompositeState lineState(double width, boolean direct, boolean noDepth) {
