@@ -26,16 +26,17 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fluids.FluidStack;
 
 import vazkii.botania.api.recipe.IPureDaisyRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.block.ModSubtiles;
-import vazkii.botania.common.crafting.StateIngredientHelper;
 
 import javax.annotation.Nonnull;
 
 import java.util.Collections;
+import java.util.List;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
@@ -88,8 +89,8 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 	@Override
 	public void setIngredients(IPureDaisyRecipe recipe, IIngredients iIngredients) {
 		StateIngredient input = recipe.getInput();
-		if (input.getDisplayed().size() > 1) {
-			iIngredients.setInputLists(VanillaTypes.ITEM, Collections.singletonList(StateIngredientHelper.toStackList(input)));
+		if (input.getDisplayedStacks().size() > 1) {
+			iIngredients.setInputLists(VanillaTypes.ITEM, Collections.singletonList(input.getDisplayedStacks()));
 		} else {
 			BlockState state = input.getDisplayed().get(0);
 			Block b = state.getBlock();
@@ -147,5 +148,16 @@ public class PureDaisyRecipeCategory implements IRecipeCategory<IPureDaisyRecipe
 		}
 
 		IGuiIngredientGroup<?> group = outputFluid ? recipeLayout.getFluidStacks() : recipeLayout.getItemStacks();
+		StateIngredient catalyst = recipe.getInput();
+		if (catalyst != null) {
+			List<ITextComponent> description = catalyst.descriptionTooltip();
+			if (!description.isEmpty()) {
+				group.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
+					if (slotIndex == 0) {
+						tooltip.addAll(description);
+					}
+				});
+			}
+		}
 	}
 }

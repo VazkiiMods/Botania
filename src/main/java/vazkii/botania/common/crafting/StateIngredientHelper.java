@@ -18,7 +18,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.NBTDynamicOps;
@@ -40,7 +39,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class StateIngredientHelper {
 	public static StateIngredient of(Block block) {
@@ -155,12 +153,9 @@ public class StateIngredientHelper {
 		return NBTUtil.readBlockState(nbt);
 	}
 
+	@Deprecated
 	@Nonnull
 	public static List<ItemStack> toStackList(StateIngredient input) {
-		return input.getDisplayed().stream()
-				.map(BlockState::getBlock)
-				.filter(b -> b.asItem() != Items.AIR)
-				.map(ItemStack::new)
-				.collect(Collectors.toList());
+		return input.getDisplayedStacks();
 	}
 }
