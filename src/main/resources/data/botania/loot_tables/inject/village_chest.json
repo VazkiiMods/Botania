@@ -1,5 +1,5 @@
 {
-  "__comment": "This table is injected as its own pool into minecraft:chests/village_blacksmith",
+  "__comment": "This table is injected as its own pool into some village chests",
   "pools": [{
     "name": "main",
     "rolls": 1,
