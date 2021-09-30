@@ -123,8 +123,13 @@ public final class RenderHelper extends RenderType {
 				// todo 1.17 .setAlphaState(new RenderStateShard.AlphaStateShard(0.05F))
 				.setLightmapState(LIGHTMAP).createCompositeState(true);
 		SPARK = makeLayer(LibResources.PREFIX_MOD + "spark", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 256, glState);
-		RenderType lightRelay = makeLayer(LibResources.PREFIX_MOD + "light_relay", DefaultVertexFormat.POSITION_COLOR_TEX_LIGHTMAP, VertexFormat.Mode.QUADS, 64, glState);
-		LIGHT_RELAY = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, lightRelay) : lightRelay;
+		glState = RenderType.CompositeState.builder()
+				.setShaderState(new ShaderStateShard(CoreShaders::halo))
+				.setTextureState(RenderStateShard.BLOCK_SHEET_MIPPED)
+				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+				.setOutputState(ITEM_ENTITY_TARGET)
+				.createCompositeState(true);
+		LIGHT_RELAY = makeLayer(LibResources.PREFIX_MOD + "light_relay", DefaultVertexFormat.POSITION_COLOR_TEX, VertexFormat.Mode.QUADS, 64, glState);
 
 		glState = RenderType.CompositeState.builder().setTextureState(BLOCK_SHEET_MIPPED)
 				.setShaderState(POSITION_COLOR_TEX_LIGHTMAP_SHADER)
@@ -155,26 +160,20 @@ public final class RenderHelper extends RenderType {
 
 		RenderStateShard.TextureStateShard babylonTexture = new RenderStateShard.TextureStateShard(new ResourceLocation(LibResources.MISC_BABYLON), false, true);
 		glState = RenderType.CompositeState.builder().setTextureState(babylonTexture)
-				.setShaderState(POSITION_COLOR_TEX_SHADER)
+				.setShaderState(new ShaderStateShard(CoreShaders::halo))
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
 				.setOutputState(ITEM_ENTITY_TARGET)
 				.setCullState(NO_CULL)
-				// todo 1.17 .setShadeModelState(smoothShade)
-				// todo 1.17 .setAlphaState(new RenderStateShard.AlphaStateShard(0.05F))
-				.setLightmapState(LIGHTMAP).createCompositeState(true);
-		RenderType babylonIcon = makeLayer(LibResources.PREFIX_MOD + "babylon", DefaultVertexFormat.POSITION_COLOR_TEX, VertexFormat.Mode.QUADS, 64, glState);
-		BABYLON_ICON = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, babylonIcon) : babylonIcon;
+				.createCompositeState(true);
+		BABYLON_ICON = makeLayer(LibResources.PREFIX_MOD + "babylon", DefaultVertexFormat.POSITION_COLOR_TEX, VertexFormat.Mode.QUADS, 64, glState);
 
 		RenderStateShard.TextureStateShard haloTexture = new RenderStateShard.TextureStateShard(ItemFlightTiara.textureHalo, false, true);
 		glState = RenderType.CompositeState.builder().setTextureState(haloTexture)
-				.setShaderState(POSITION_TEX_SHADER)
+				.setShaderState(new ShaderStateShard(CoreShaders::halo))
 				.setTransparencyState(TRANSLUCENT_TRANSPARENCY)
-				// todo 1.17 .setDiffuseLightingState(new RenderStateShard.DiffuseLightingStateShard(true))
-				// todo 1.17 .setAlphaState(oneTenthAlpha)
 				.setCullState(NO_CULL)
 				.createCompositeState(true);
-		RenderType halo = makeLayer(LibResources.PREFIX_MOD + "halo", DefaultVertexFormat.POSITION_TEX, VertexFormat.Mode.QUADS, 64, glState);
-		HALO = useShaders ? new ShaderWrappedRenderLayer(ShaderHelper.BotaniaShader.HALO, null, halo) : halo;
+		HALO = makeLayer(LibResources.PREFIX_MOD + "halo", DefaultVertexFormat.POSITION_COLOR_TEX, VertexFormat.Mode.QUADS, 64, glState);
 
 		// TODO 1.17 needs a wrapper for alpha to 0.4
 		glState = RenderType.CompositeState.builder().setDepthTestState(new RenderStateShard.DepthTestStateShard("always", GL11.GL_ALWAYS)).setTextureState(new RenderStateShard.TextureStateShard(InventoryMenu.BLOCK_ATLAS, false, false)).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setCullState(NO_CULL).setLightmapState(LIGHTMAP).setOverlayState(OVERLAY).createCompositeState(true);

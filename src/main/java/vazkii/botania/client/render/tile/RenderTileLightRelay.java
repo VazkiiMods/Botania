@@ -98,11 +98,10 @@ public class RenderTileLightRelay implements BlockEntityRenderer<TileLightRelay>
 		float f6 = 0.25F;
 
 		Matrix4f mat = ms.last().pose();
-		int fullbright = 0xF000F0;
-		buffer.vertex(mat, 0.0F - f5, 0.0F - f6, 0.0F).color(1F, 1F, 1F, 1F).uv(f, f3).uv2(fullbright).endVertex();
-		buffer.vertex(mat, f4 - f5, 0.0F - f6, 0.0F).color(1F, 1F, 1F, 1F).uv(f1, f3).uv2(fullbright).endVertex();
-		buffer.vertex(mat, f4 - f5, f4 - f6, 0.0F).color(1F, 1F, 1F, 1F).uv(f1, f2).uv2(fullbright).endVertex();
-		buffer.vertex(mat, 0.0F - f5, f4 - f6, 0.0F).color(1F, 1F, 1F, 1F).uv(f, f2).uv2(fullbright).endVertex();
+		buffer.vertex(mat, 0.0F - f5, 0.0F - f6, 0.0F).color(1F, 1F, 1F, 1F).uv(f, f3).endVertex();
+		buffer.vertex(mat, f4 - f5, 0.0F - f6, 0.0F).color(1F, 1F, 1F, 1F).uv(f1, f3).endVertex();
+		buffer.vertex(mat, f4 - f5, f4 - f6, 0.0F).color(1F, 1F, 1F, 1F).uv(f1, f2).endVertex();
+		buffer.vertex(mat, 0.0F - f5, f4 - f6, 0.0F).color(1F, 1F, 1F, 1F).uv(f, f2).endVertex();
 
 	}
 
