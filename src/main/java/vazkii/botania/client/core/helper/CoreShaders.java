@@ -30,7 +30,7 @@ public class CoreShaders {
 	public static void init(ResourceManager resourceManager,
 			List<Pair<ShaderInstance, Consumer<ShaderInstance>>> registrations) throws IOException {
 		registrations.add(Pair.of(
-				new ShaderInstance(resourceManager, "botania__rendertype_starfield", DefaultVertexFormat.POSITION),
+				new ShaderInstance(resourceManager, "botania__starfield", DefaultVertexFormat.POSITION),
 				inst -> starfieldShaderInstance = inst)
 		);
 		registrations.add(Pair.of(
