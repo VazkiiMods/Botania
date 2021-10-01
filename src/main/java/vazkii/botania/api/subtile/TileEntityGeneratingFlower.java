@@ -198,8 +198,9 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		if (cmp.contains(TAG_COLLECTOR_X)) {
 			collectorCoordinates = new BlockPos(cmp.getInt(TAG_COLLECTOR_X), cmp.getInt(TAG_COLLECTOR_Y), cmp.getInt(TAG_COLLECTOR_Z));
 			//Older versions of the mod sometimes used this to denote an unbound collector.
-			if (collectorCoordinates.getY() == -1)
+			if (collectorCoordinates.getY() == -1) {
 				collectorCoordinates = null;
+			}
 		}
 
 		if (!Objects.equals(this.collectorCoordinates, collectorCoordinates)) {

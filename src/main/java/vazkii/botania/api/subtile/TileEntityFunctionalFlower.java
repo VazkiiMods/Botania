@@ -163,8 +163,9 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		if (cmp.contains(TAG_POOL_X)) {
 			poolCoordinates = new BlockPos(cmp.getInt(TAG_POOL_X), cmp.getInt(TAG_POOL_Y), cmp.getInt(TAG_POOL_Z));
 			//Older versions of the mod sometimes used this to denote an unbound pool.
-			if (poolCoordinates.getY() == -1)
+			if (poolCoordinates.getY() == -1) {
 				poolCoordinates = null;
+			}
 		}
 
 		if (!Objects.equals(this.poolCoordinates, poolCoordinates)) {
