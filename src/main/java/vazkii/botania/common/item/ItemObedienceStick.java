@@ -77,7 +77,7 @@ public class ItemObedienceStick extends Item {
 
 	private static final BiFunction<TileEntitySpecialFlower, TileEntity, Boolean> functionalActuator = (flower, tile) -> {
 		if (flower instanceof TileEntityFunctionalFlower) {
-			((TileEntityFunctionalFlower) flower).linkToForcefully(tile);
+			((TileEntityFunctionalFlower) flower).setBindingForcefully(tile.getPos());
 			return true;
 		}
 		return false;

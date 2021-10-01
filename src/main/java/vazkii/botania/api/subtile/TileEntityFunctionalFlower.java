@@ -52,7 +52,6 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	public int redstoneSignal = 0;
 
 	private @Nullable BlockPos poolCoordinates = null;
-	private @Nullable TileEntity linkedPool = null;
 
 	public TileEntityFunctionalFlower(TileEntityType<?> type) {
 		super(type);
@@ -69,16 +68,10 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		linkPool();
-
-		if (linkedPool != null && isValidBinding()) {
-			IManaPool pool = (IManaPool) linkedPool;
-			int manaInPool = pool.getCurrentMana();
-			int manaMissing = getMaxMana() - mana;
-			int manaToRemove = Math.min(manaMissing, manaInPool);
-			pool.receiveMana(-manaToRemove);
-			addMana(manaToRemove);
+		if (ticksExisted == 1) {
+			bindToNearestPool();
 		}
+		drawManaFromPool();
 
 		redstoneSignal = 0;
 		if (acceptsRedstone()) {
@@ -100,38 +93,60 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		}
 	}
 
-	public void linkPool() {
-		if (ticksExisted == 1) {
-			IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
-			linkedPool = network.getClosestPool(getPos(), getWorld(), LINK_RANGE);
-			if (linkedPool != null) {
-				poolCoordinates = linkedPool.getPos();
-			}
-			markDirty();
-		}
+	public void setBindingForcefully(BlockPos poolCoordinates) {
+		boolean changed = !Objects.equals(this.poolCoordinates, poolCoordinates);
 
-		if (poolCoordinates != null && getWorld().isBlockLoaded(poolCoordinates)) {
-			TileEntity linkedTo = getWorld().getTileEntity(poolCoordinates);
-			if (linkedTo instanceof IManaPool) {
-				linkedPool = linkedTo;
-			}
-		}
+		this.poolCoordinates = poolCoordinates;
 
-		if (linkedPool != null && linkedPool.isRemoved()) {
-			linkedPool = null;
-		}
-	}
-
-	public void linkToForcefully(TileEntity pool) {
-		if (linkedPool != pool) {
-			linkedPool = pool;
+		if (changed) {
 			markDirty();
 			sync();
 		}
 	}
 
-	public int getMana() {
-		return mana;
+	public void bindToNearestPool() {
+		IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
+		TileEntity pool = network.getClosestPool(getPos(), getWorld(), LINK_RANGE);
+		if (pool != null) {
+			setBindingForcefully(pool.getPos());
+		}
+	}
+
+	public @Nullable IManaPool findPoolAt(@Nullable BlockPos pos) {
+		if (world == null || pos == null) {
+			return null;
+		}
+
+		TileEntity tile = world.getTileEntity(pos);
+		return tile instanceof IManaPool && !tile.isRemoved() ? (IManaPool) tile : null;
+	}
+
+	public @Nullable IManaPool findBoundPool() {
+		return findPoolAt(poolCoordinates);
+	}
+
+	public boolean wouldBeValidBinding(@Nullable BlockPos pos) {
+		//Same caveat as in TileEntityGeneratingFlower#wouldBeValidBinding -quat
+		if (world == null || pos == null || !world.isBlockLoaded(pos) || pos.distanceSq(this.pos) > 10 * 10) {
+			return false;
+		} else {
+			return findPoolAt(pos) != null;
+		}
+	}
+
+	public boolean isValidBinding() {
+		return wouldBeValidBinding(poolCoordinates);
+	}
+
+	public void drawManaFromPool() {
+		IManaPool pool = findBoundPool();
+		if (pool != null) {
+			int manaInPool = pool.getCurrentMana();
+			int manaMissing = getMaxMana() - mana;
+			int manaToRemove = Math.min(manaMissing, manaInPool);
+			pool.receiveMana(-manaToRemove);
+			addMana(manaToRemove);
+		}
 	}
 
 	public void addMana(int mana) {
@@ -172,10 +187,6 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 			}
 		}
 
-		if (!Objects.equals(this.poolCoordinates, poolCoordinates)) {
-			linkedPool = null; //Force a refresh of the linked pool
-		}
-
 		this.poolCoordinates = poolCoordinates;
 	}
 
@@ -193,10 +204,8 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 
 	@Override
 	public BlockPos getBinding() {
-		if (linkedPool == null) {
-			return null;
-		}
-		return linkedPool.getPos();
+		//This method is used for Wand of the Forest overlays, so it should return null when the binding isn't valid.
+		return isValidBinding() ? poolCoordinates : null;
 	}
 
 	@Override
@@ -206,27 +215,12 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 
 	@Override
 	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
-		int range = 10;
-		range *= range;
-
-		double dist = pos.distanceSq(getPos());
-		if (range >= dist) {
-			TileEntity tile = player.world.getTileEntity(pos);
-			if (tile instanceof IManaPool) {
-				linkedPool = tile;
-				return true;
-			}
+		if (wouldBeValidBinding(pos)) {
+			setBindingForcefully(pos);
+			return true;
 		}
 
 		return false;
-	}
-
-	public boolean isValidBinding() {
-		return linkedPool != null
-				&& linkedPool.hasWorld()
-				&& !linkedPool.isRemoved()
-				&& getWorld().isBlockLoaded(linkedPool.getPos())
-				&& getWorld().getTileEntity(linkedPool.getPos()) == linkedPool;
 	}
 
 	public ItemStack getHudIcon() {
@@ -241,4 +235,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		BotaniaAPIClient.instance().drawComplexManaHUD(ms, color, getMana(), getMaxMana(), name, getHudIcon(), isValidBinding());
 	}
 
+	public int getMana() {
+		return mana;
+	}
 }
