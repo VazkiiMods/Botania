@@ -300,7 +300,7 @@ public interface BotaniaAPI {
 	 */
 	@Deprecated
 	default boolean shouldForceCheck() {
-		return false;
+		return true;
 	}
 
 	default void registerCorporeaNodeDetector(ICorporeaNodeDetector detector) {
