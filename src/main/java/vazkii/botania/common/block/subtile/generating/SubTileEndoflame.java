@@ -54,30 +54,28 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 			return;
 		}
 
-		if (linkedCollector != null) {
-			if (burnTime == 0) {
-				if (getMana() < getMaxMana()) {
-					int slowdown = getSlowdownFactor();
+		if (burnTime == 0) {
+			if (getMana() < getMaxMana()) {
+				int slowdown = getSlowdownFactor();
 
-					for (ItemEntity item : getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)))) {
-						int age = ((AccessorItemEntity) item).getAge();
-						if (age >= 59 + slowdown && item.isAlive()) {
-							ItemStack stack = item.getItem();
-							if (stack.isEmpty() || stack.getItem().hasContainerItem(stack)) {
-								continue;
-							}
+				for (ItemEntity item : getWorld().getEntitiesWithinAABB(ItemEntity.class, new AxisAlignedBB(getEffectivePos().add(-RANGE, -RANGE, -RANGE), getEffectivePos().add(RANGE + 1, RANGE + 1, RANGE + 1)))) {
+					int age = ((AccessorItemEntity) item).getAge();
+					if (age >= 59 + slowdown && item.isAlive()) {
+						ItemStack stack = item.getItem();
+						if (stack.isEmpty() || stack.getItem().hasContainerItem(stack)) {
+							continue;
+						}
 
-							int burnTime = getBurnTime(stack);
-							if (burnTime > 0 && stack.getCount() > 0) {
-								this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
+						int burnTime = getBurnTime(stack);
+						if (burnTime > 0 && stack.getCount() > 0) {
+							this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
-								stack.shrink(1);
-								getWorld().playSound(null, getEffectivePos(), ModSounds.endoflame, SoundCategory.BLOCKS, 0.2F, 1F);
-								getWorld().addBlockEvent(getPos(), getBlockState().getBlock(), START_BURN_EVENT, item.getEntityId());
-								sync();
+							stack.shrink(1);
+							getWorld().playSound(null, getEffectivePos(), ModSounds.endoflame, SoundCategory.BLOCKS, 0.2F, 1F);
+							getWorld().addBlockEvent(getPos(), getBlockState().getBlock(), START_BURN_EVENT, item.getEntityId());
+							sync();
 
-								return;
-							}
+							return;
 						}
 					}
 				}

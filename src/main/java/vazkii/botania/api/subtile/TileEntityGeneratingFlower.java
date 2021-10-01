@@ -52,9 +52,9 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 	private int mana;
 
-	protected TileEntity linkedCollector = null;
 	public int passiveDecayTicks;
 
+	private @Nullable TileEntity linkedCollector = null;
 	private @Nullable BlockPos collectorCoordinates = null;
 
 	public TileEntityGeneratingFlower(TileEntityType<?> type) {
