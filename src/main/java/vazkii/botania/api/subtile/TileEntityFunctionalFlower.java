@@ -28,10 +28,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.IManaNetwork;
-import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaPool;
 
 import javax.annotation.Nullable;
+
 import java.util.Objects;
 
 /**
@@ -50,7 +50,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	private int mana;
 
 	public int redstoneSignal = 0;
-	
+
 	private @Nullable BlockPos poolCoordinates = null;
 	private @Nullable TileEntity linkedPool = null;
 
@@ -101,19 +101,19 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	}
 
 	public void linkPool() {
-		if(ticksExisted == 1) {
+		if (ticksExisted == 1) {
 			IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
 			linkedPool = network.getClosestPool(getPos(), getWorld(), LINK_RANGE);
 		}
-		
-		if(poolCoordinates != null && getWorld().isBlockLoaded(poolCoordinates)) {
+
+		if (poolCoordinates != null && getWorld().isBlockLoaded(poolCoordinates)) {
 			TileEntity linkedTo = getWorld().getTileEntity(poolCoordinates);
-			if(linkedTo instanceof IManaPool) {
+			if (linkedTo instanceof IManaPool) {
 				linkedPool = linkedTo;
 			}
 		}
-		
-		if(linkedPool != null && linkedPool.isRemoved()) {
+
+		if (linkedPool != null && linkedPool.isRemoved()) {
 			linkedPool = null;
 		}
 	}
@@ -160,16 +160,17 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		mana = cmp.getInt(TAG_MANA);
 
 		BlockPos poolCoordinates = null;
-		if(cmp.contains(TAG_POOL_X)) {
+		if (cmp.contains(TAG_POOL_X)) {
 			poolCoordinates = new BlockPos(cmp.getInt(TAG_POOL_X), cmp.getInt(TAG_POOL_Y), cmp.getInt(TAG_POOL_Z));
 			//Older versions of the mod sometimes used this to denote an unbound pool.
-			if(poolCoordinates.getY() == -1) poolCoordinates = null;
+			if (poolCoordinates.getY() == -1)
+				poolCoordinates = null;
 		}
-		
+
 		if (!Objects.equals(this.poolCoordinates, poolCoordinates)) {
 			linkedPool = null; //Force a refresh of the linked pool
 		}
-		
+
 		this.poolCoordinates = poolCoordinates;
 	}
 

@@ -16,7 +16,6 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -33,6 +32,7 @@ import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
 
 import javax.annotation.Nullable;
+
 import java.util.Objects;
 
 /**
@@ -107,19 +107,19 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	}
 
 	public void linkCollector() {
-		if(ticksExisted == 1) {
+		if (ticksExisted == 1) {
 			IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
 			linkedCollector = network.getClosestCollector(getPos(), getWorld(), LINK_RANGE);
 		}
-		
-		if(collectorCoordinates != null && getWorld().isBlockLoaded(collectorCoordinates)) {
+
+		if (collectorCoordinates != null && getWorld().isBlockLoaded(collectorCoordinates)) {
 			TileEntity linkedTo = getWorld().getTileEntity(collectorCoordinates);
-			if(linkedTo instanceof IManaCollector) {
+			if (linkedTo instanceof IManaCollector) {
 				linkedCollector = linkedTo;
 			}
 		}
-		
-		if(linkedCollector != null && linkedCollector.isRemoved()) {
+
+		if (linkedCollector != null && linkedCollector.isRemoved()) {
 			linkedCollector = null;
 		}
 	}
@@ -195,16 +195,17 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		passiveDecayTicks = cmp.getInt(TAG_PASSIVE_DECAY_TICKS);
 
 		BlockPos collectorCoordinates = null;
-		if(cmp.contains(TAG_COLLECTOR_X)) {
+		if (cmp.contains(TAG_COLLECTOR_X)) {
 			collectorCoordinates = new BlockPos(cmp.getInt(TAG_COLLECTOR_X), cmp.getInt(TAG_COLLECTOR_Y), cmp.getInt(TAG_COLLECTOR_Z));
 			//Older versions of the mod sometimes used this to denote an unbound collector.
-			if(collectorCoordinates.getY() == -1) collectorCoordinates = null;
+			if (collectorCoordinates.getY() == -1)
+				collectorCoordinates = null;
 		}
-		
+
 		if (!Objects.equals(this.collectorCoordinates, collectorCoordinates)) {
 			linkedCollector = null; //Force a refresh of the linked collector
 		}
-		
+
 		this.collectorCoordinates = collectorCoordinates;
 	}
 
