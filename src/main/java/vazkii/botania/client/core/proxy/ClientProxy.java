@@ -148,9 +148,6 @@ public class ClientProxy implements IProxy {
 		);
 		PatchouliAPI.get().setConfigFlag("botania:contest_2021_ongoing", contestOngoing);
 
-		PersistentVariableHelper.init();
-		PersistentVariableHelper.save();
-
 		if (ConfigHandler.CLIENT.enableSeasonalFeatures.get()) {
 			LocalDateTime now = LocalDateTime.now();
 			if (now.getMonth() == Month.DECEMBER && now.getDayOfMonth() >= 16 || now.getMonth() == Month.JANUARY && now.getDayOfMonth() <= 2) {
