@@ -123,39 +123,38 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
 			TileEntity collector = network.getClosestCollector(getPos(), getWorld(), LINK_RANGE);
 			if (collector != null) {
+				//assumption: findCollectorAt would accept this collector
 				setBindingForcefully(collector.getPos());
 			}
 		}
 	}
 
-	public @Nullable IManaCollector findBoundCollector() {
-		if (world == null || collectorCoordinates == null) {
+	public @Nullable IManaCollector findCollectorAt(@Nullable BlockPos pos) {
+		if (world == null || pos == null) {
 			return null;
 		}
-		
-		TileEntity tile = world.getTileEntity(collectorCoordinates);
+
+		TileEntity tile = world.getTileEntity(pos);
 		return tile instanceof IManaCollector && !tile.isRemoved() ? (IManaCollector) tile : null;
+	}
+
+	public @Nullable IManaCollector findBoundCollector() {
+		return findCollectorAt(collectorCoordinates);
 	}
 
 	public boolean wouldBeValidBinding(@Nullable BlockPos pos) {
 		//Not sure about !isBlockLoaded forcing a "false". It's more like an indeterminate result?
 		//Still, I think it's okay for these use-cases; just remember that !isValidBinding doesn't mean
 		//that you should set collectorCoordinates to `null`.
-		if (pos == null || !world.isBlockLoaded(pos) || pos.distanceSq(this.pos) > 6 * 6) {
+		if (world == null || pos == null || !world.isBlockLoaded(pos) || pos.distanceSq(this.pos) > 6 * 6) {
 			return false;
+		} else {
+			return findCollectorAt(pos) != null;
 		}
-
-		TileEntity tile = world.getTileEntity(pos);
-		return tile instanceof IManaCollector && !tile.isRemoved();
 	}
 
 	public boolean isValidBinding() {
 		return wouldBeValidBinding(collectorCoordinates);
-	}
-
-	public void addMana(int mana) {
-		this.mana = Math.min(getMaxMana(), this.getMana() + mana);
-		markDirty();
 	}
 
 	public void emptyManaIntoCollector() {
@@ -166,6 +165,11 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 			collector.receiveMana(manaval);
 			sync();
 		}
+	}
+
+	public void addMana(int mana) {
+		this.mana = Math.min(getMaxMana(), this.getMana() + mana);
+		markDirty();
 	}
 
 	public boolean isPassiveFlower() {
