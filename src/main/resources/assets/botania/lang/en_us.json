@@ -2882,8 +2882,8 @@
 
   "botania.entry.corporeaInterceptor": "Corporea Interceptor",
   "botania.tagline.corporeaInterceptor": "Catch unfulfillable requests",
-  "botania.page.corporeaInterceptor0": "The $(item)Corporea Interceptor$(0) does exactly as its name suggests: it intercepts unfulfillable Corporea requests for specific items. (items in $(item)Item Frames$(0) attached to the block designate which items it'll recognize).",
-  "botania.page.corporeaInterceptor1": "When a request is made for an item that the network can't provide, but that the Interceptor recognizes, the Interceptor will trigger and emit a short redstone pulse. This can be used to do all sorts of things: for example, craft the requisite item with a $(l:devices/craft_crate)$(item)Crafty Crate$(0)$(/l), or light up a lamp indicating that the resource is out.",
+  "botania.page.corporeaInterceptor0": "The $(item)Corporea Interceptor$(0) does exactly as its name suggests: it intercepts unfulfillable Corporea requests. Items in $(item)Item Frames$(0) attached to the block will filter the requests it'll intercept. If there are none, or they are all empty, it will intercept any unfulfilled request.",
+  "botania.page.corporeaInterceptor1": "When a request is made for an item that the network can't provide, but that matches the Interceptor's filter, the Interceptor will trigger and emit a short redstone pulse. This can be used to do all sorts of things: for example, craft the requisite item with a $(l:devices/craft_crate)$(item)Crafty Crate$(0)$(/l), or light up a lamp indicating that the resource is out.",
   "botania.page.corporeaInterceptor2": "So many automation prospects",
 
   "botania.entry.corporeaCrystalCube": "Corporea Crystal Cube",

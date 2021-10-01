@@ -36,30 +36,33 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 	@Override
 	public void interceptRequestLast(ICorporeaRequestMatcher request, int count, ICorporeaSpark spark, ICorporeaSpark source, List<ItemStack> stacks, List<ICorporeaNode> nodes, boolean doit) {
 		List<ItemStack> filter = getFilter();
+
+		boolean filterMatch = false;
 		for (ItemStack stack : filter) {
 			if (request.test(stack)) {
-				int missing = count;
-				for (ItemStack stack_ : stacks) {
-					missing -= stack_.getCount();
-				}
-
-				if (missing > 0 && !getBlockState().get(BlockStateProperties.POWERED)) {
-					world.setBlockState(getPos(), getBlockState().with(BlockStateProperties.POWERED, true));
-					world.getPendingBlockTicks().scheduleTick(getPos(), getBlockState().getBlock(), 2);
-
-					BlockPos requestorPos = source.getSparkNode().getPos();
-					for (Direction dir : Direction.values()) {
-						TileEntity tile = world.getTileEntity(pos.offset(dir));
-						if (tile instanceof TileCorporeaRetainer) {
-							((TileCorporeaRetainer) tile).remember(requestorPos, request, count, missing);
-						}
-					}
-
-					return;
-				}
+				filterMatch = true;
 			}
 		}
 
+		if (filterMatch || filter.isEmpty()) {
+			int missing = count;
+			for (ItemStack stack : stacks) {
+				missing -= stack.getCount();
+			}
+
+			if (missing > 0 && !getBlockState().get(BlockStateProperties.POWERED)) {
+				world.setBlockState(getPos(), getBlockState().with(BlockStateProperties.POWERED, true));
+				world.getPendingBlockTicks().scheduleTick(getPos(), getBlockState().getBlock(), 2);
+
+				BlockPos requestorPos = source.getSparkNode().getPos();
+				for (Direction dir : Direction.values()) {
+					TileEntity tile = world.getTileEntity(pos.offset(dir));
+					if (tile instanceof TileCorporeaRetainer) {
+						((TileCorporeaRetainer) tile).remember(requestorPos, request, count, missing);
+					}
+				}
+			}
+		}
 	}
 
 	private List<ItemStack> getFilter() {
@@ -70,7 +73,10 @@ public class TileCorporeaInterceptor extends TileCorporeaBase implements ICorpor
 			for (ItemFrameEntity frame : frames) {
 				Direction orientation = frame.getHorizontalFacing();
 				if (orientation == dir) {
-					filter.add(frame.getDisplayedItem());
+					ItemStack stack = frame.getDisplayedItem();
+					if (!stack.isEmpty()) {
+						filter.add(stack);
+					}
 				}
 			}
 		}
