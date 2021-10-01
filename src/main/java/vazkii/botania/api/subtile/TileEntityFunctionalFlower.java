@@ -127,7 +127,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 
 	public boolean wouldBeValidBinding(@Nullable BlockPos pos) {
 		//Same caveat as in TileEntityGeneratingFlower#wouldBeValidBinding -quat
-		if (world == null || pos == null || !world.isBlockLoaded(pos) || pos.distanceSq(this.pos) > LINK_RANGE * LINK_RANGE) {
+		if (world == null || pos == null || !world.isBlockLoaded(pos) || vazkii.botania.common.core.helper.MathHelper.distanceSq(this.pos, pos) > LINK_RANGE * LINK_RANGE) {
 			return false;
 		} else {
 			return findPoolAt(pos) != null;

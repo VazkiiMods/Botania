@@ -9,6 +9,7 @@
 package vazkii.botania.common.core.helper;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 
 public final class MathHelper {
@@ -48,6 +49,14 @@ public final class MathHelper {
 		int g = (int) (g1 * (g2 / 255.0F));
 		int b = (int) (b1 * (b2 / 255.0F));
 		return c1 & ~0xFFFFFF | r << 16 | g << 8 | b;
+	}
+
+	public static int distanceSq(BlockPos a, BlockPos b) {
+		//Vanilla's BlockPos#distanceSq offsets one parameter by (0.5, 0.5, 0.5) making things get all off-center and weird.
+		int dx = a.getX() - b.getX();
+		int dy = a.getY() - b.getY();
+		int dz = a.getZ() - b.getZ();
+		return dx * dx + dy * dy + dz * dz;
 	}
 
 }

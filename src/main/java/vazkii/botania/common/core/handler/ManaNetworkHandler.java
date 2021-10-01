@@ -16,6 +16,7 @@ import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.ManaNetworkEvent;
 import vazkii.botania.api.mana.ManaNetworkEvent.Action;
 import vazkii.botania.api.mana.ManaNetworkEvent.ManaBlockType;
+import vazkii.botania.common.core.helper.MathHelper;
 
 import javax.annotation.Nullable;
 
@@ -79,7 +80,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
 		for (TileEntity te : tiles) {
 			if (!te.isRemoved()) {
-				double distance = te.getPos().distanceSq(pos);
+				double distance = MathHelper.distanceSq(pos, te.getPos());
 				if (distance <= limit * limit && distance < minDist) {
 					minDist = distance;
 					closest = te;

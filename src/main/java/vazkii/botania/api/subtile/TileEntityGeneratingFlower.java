@@ -30,6 +30,7 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
+import vazkii.botania.common.core.helper.MathHelper;
 
 import javax.annotation.Nullable;
 
@@ -146,7 +147,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		//Not sure about !isBlockLoaded forcing a "false". It's more like an indeterminate result?
 		//Still, I think it's okay for these use-cases; just remember that !isValidBinding doesn't mean
 		//that you should set collectorCoordinates to `null`.
-		if (world == null || pos == null || !world.isBlockLoaded(pos) || pos.distanceSq(this.pos) > LINK_RANGE * LINK_RANGE) {
+		if (world == null || pos == null || !world.isBlockLoaded(pos) || MathHelper.distanceSq(this.pos, pos) > LINK_RANGE * LINK_RANGE) {
 			return false;
 		} else {
 			return findCollectorAt(pos) != null;
