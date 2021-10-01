@@ -110,6 +110,10 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		if (ticksExisted == 1) {
 			IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
 			linkedCollector = network.getClosestCollector(getPos(), getWorld(), LINK_RANGE);
+			if (linkedCollector != null) {
+				collectorCoordinates = linkedCollector.getPos();
+			}
+			markDirty();
 		}
 
 		if (collectorCoordinates != null && getWorld().isBlockLoaded(collectorCoordinates)) {

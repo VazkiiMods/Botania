@@ -104,6 +104,10 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		if (ticksExisted == 1) {
 			IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
 			linkedPool = network.getClosestPool(getPos(), getWorld(), LINK_RANGE);
+			if (linkedPool != null) {
+				poolCoordinates = linkedPool.getPos();
+			}
+			markDirty();
 		}
 
 		if (poolCoordinates != null && getWorld().isBlockLoaded(poolCoordinates)) {
