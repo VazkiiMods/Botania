@@ -158,9 +158,12 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 		if (wool && spreader.paddingColor == null) {
 			Block block = Block.getBlockFromItem(heldItem.getItem());
 			spreader.paddingColor = ColorHelper.getWoolColor(block);
-			heldItem.shrink(1);
-			if (heldItem.isEmpty()) {
-				player.setHeldItem(hand, ItemStack.EMPTY);
+			
+			if (!player.abilities.isCreativeMode) {
+				heldItem.shrink(1);
+				if (heldItem.isEmpty()) {
+					player.setHeldItem(hand, ItemStack.EMPTY);
+				}
 			}
 			
 			return ActionResultType.SUCCESS;
