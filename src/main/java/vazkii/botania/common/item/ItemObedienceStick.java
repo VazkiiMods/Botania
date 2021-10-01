@@ -69,7 +69,7 @@ public class ItemObedienceStick extends Item {
 
 	private static final BiFunction<TileEntitySpecialFlower, TileEntity, Boolean> generatingActuator = (flower, tile) -> {
 		if (flower instanceof TileEntityGeneratingFlower) {
-			((TileEntityGeneratingFlower) flower).linkToForcefully(tile);
+			((TileEntityGeneratingFlower) flower).setBindingForcefully(tile.getPos());
 			return true;
 		}
 		return false;

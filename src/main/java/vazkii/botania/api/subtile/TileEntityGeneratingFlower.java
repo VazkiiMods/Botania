@@ -54,7 +54,6 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 	public int passiveDecayTicks;
 
-	private @Nullable TileEntity linkedCollector = null;
 	private @Nullable BlockPos collectorCoordinates = null;
 
 	public TileEntityGeneratingFlower(TileEntityType<?> type) {
@@ -65,7 +64,9 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		linkCollector();
+		if (ticksExisted == 1) {
+			bindToNearestCollector();
+		}
 
 		if (!getWorld().isRemote && canGeneratePassively()) {
 			int delay = getDelayBetweenPassiveGeneration();
@@ -106,34 +107,50 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		}
 	}
 
-	public void linkCollector() {
-		if (ticksExisted == 1) {
-			IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
-			linkedCollector = network.getClosestCollector(getPos(), getWorld(), LINK_RANGE);
-			if (linkedCollector != null) {
-				collectorCoordinates = linkedCollector.getPos();
-			}
-			markDirty();
-		}
+	public void setBindingForcefully(BlockPos collectorCoordinates) {
+		boolean changed = !Objects.equals(this.collectorCoordinates, collectorCoordinates);
 
-		if (collectorCoordinates != null && getWorld().isBlockLoaded(collectorCoordinates)) {
-			TileEntity linkedTo = getWorld().getTileEntity(collectorCoordinates);
-			if (linkedTo instanceof IManaCollector) {
-				linkedCollector = linkedTo;
-			}
-		}
+		this.collectorCoordinates = collectorCoordinates;
 
-		if (linkedCollector != null && linkedCollector.isRemoved()) {
-			linkedCollector = null;
-		}
-	}
-
-	public void linkToForcefully(TileEntity collector) {
-		if (linkedCollector != collector) {
-			linkedCollector = collector;
+		if (changed) {
 			markDirty();
 			sync();
 		}
+	}
+
+	private void bindToNearestCollector() {
+		if (ticksExisted == 1) {
+			IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
+			TileEntity collector = network.getClosestCollector(getPos(), getWorld(), LINK_RANGE);
+			if (collector != null) {
+				setBindingForcefully(collector.getPos());
+			}
+		}
+	}
+
+	public @Nullable IManaCollector findBoundCollector() {
+		if (world == null || collectorCoordinates == null) {
+			return null;
+		}
+		
+		TileEntity tile = world.getTileEntity(collectorCoordinates);
+		return tile instanceof IManaCollector && !tile.isRemoved() ? (IManaCollector) tile : null;
+	}
+
+	public boolean wouldBeValidBinding(@Nullable BlockPos pos) {
+		//Not sure about !isBlockLoaded forcing a "false". It's more like an indeterminate result?
+		//Still, I think it's okay for these use-cases; just remember that !isValidBinding doesn't mean
+		//that you should set collectorCoordinates to `null`.
+		if (pos == null || !world.isBlockLoaded(pos) || pos.distanceSq(this.pos) > 6 * 6) {
+			return false;
+		}
+
+		TileEntity tile = world.getTileEntity(pos);
+		return tile instanceof IManaCollector && !tile.isRemoved();
+	}
+
+	public boolean isValidBinding() {
+		return wouldBeValidBinding(collectorCoordinates);
 	}
 
 	public void addMana(int mana) {
@@ -142,14 +159,12 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	}
 
 	public void emptyManaIntoCollector() {
-		if (isValidBinding()) {
-			IManaCollector collector = (IManaCollector) linkedCollector;
-			if (!collector.isFull() && getMana() > 0) {
-				int manaval = Math.min(getMana(), collector.getMaxMana() - collector.getCurrentMana());
-				addMana(-manaval);
-				collector.receiveMana(manaval);
-				sync();
-			}
+		IManaCollector collector = findBoundCollector();
+		if (collector != null && !collector.isFull() && getMana() > 0) {
+			int manaval = Math.min(getMana(), collector.getMaxMana() - collector.getCurrentMana());
+			addMana(-manaval);
+			collector.receiveMana(manaval);
+			sync();
 		}
 	}
 
@@ -206,11 +221,6 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 				collectorCoordinates = null;
 			}
 		}
-
-		if (!Objects.equals(this.collectorCoordinates, collectorCoordinates)) {
-			linkedCollector = null; //Force a refresh of the linked collector
-		}
-
 		this.collectorCoordinates = collectorCoordinates;
 	}
 
@@ -230,10 +240,8 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 	@Override
 	public BlockPos getBinding() {
-		if (linkedCollector == null) {
-			return null;
-		}
-		return linkedCollector.getPos();
+		//This method is used for Wand of the Forest overlays, so it should return null when the binding isn't valid.
+		return isValidBinding() ? collectorCoordinates : null;
 	}
 
 	@Override
@@ -243,24 +251,12 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 	@Override
 	public boolean bindTo(PlayerEntity player, ItemStack wand, BlockPos pos, Direction side) {
-		int range = 6;
-		range *= range;
-
-		double dist = pos.distanceSq(getPos());
-		if (range >= dist) {
-			TileEntity tile = player.world.getTileEntity(pos);
-			if (tile instanceof IManaCollector) {
-				linkedCollector = tile;
-				sync();
-				return true;
-			}
+		if (wouldBeValidBinding(pos)) {
+			setBindingForcefully(pos);
+			return true;
 		}
 
 		return false;
-	}
-
-	public boolean isValidBinding() {
-		return linkedCollector != null && !linkedCollector.isRemoved() && getWorld().getTileEntity(linkedCollector.getPos()) == linkedCollector;
 	}
 
 	public ItemStack getHudIcon() {
