@@ -28,8 +28,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.IManaNetwork;
+import vazkii.botania.api.mana.IManaCollector;
 import vazkii.botania.api.mana.IManaPool;
 
+import javax.annotation.Nullable;
 import java.util.Objects;
 
 /**
@@ -49,10 +51,9 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 
 	public int redstoneSignal = 0;
 
-	int sizeLastCheck = -1;
 	TileEntity linkedPool = null;
 
-	BlockPos cachedPoolCoordinates = null;
+	private @Nullable BlockPos poolCoordinates = null;
 
 	public TileEntityFunctionalFlower(TileEntityType<?> type) {
 		super(type);
@@ -101,39 +102,21 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	}
 
 	public void linkPool() {
-		boolean needsNew = false;
-		if (linkedPool == null) {
-			needsNew = true;
-
-			if (cachedPoolCoordinates != null) {
-				needsNew = false;
-				if (getWorld().isBlockLoaded(cachedPoolCoordinates)) {
-					needsNew = true;
-					TileEntity tileAt = getWorld().getTileEntity(cachedPoolCoordinates);
-					if (tileAt instanceof IManaPool && !tileAt.isRemoved()) {
-						linkedPool = tileAt;
-						needsNew = false;
-					}
-					cachedPoolCoordinates = null;
-				}
-			}
-		} else {
-			TileEntity tileAt = getWorld().getTileEntity(linkedPool.getPos());
-			if (tileAt instanceof IManaPool) {
-				linkedPool = tileAt;
-			}
-		}
-
-		if (needsNew && ticksExisted == 1) { // Only for new flowers
+		if(ticksExisted == 1) {
 			IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
-			int size = network.getAllPoolsInWorld(getWorld()).size();
-			if (BotaniaAPI.instance().shouldForceCheck() || size != sizeLastCheck) {
-				linkedPool = network.getClosestPool(getPos(), getWorld(), LINK_RANGE);
-				sizeLastCheck = size;
+			linkedPool = network.getClosestPool(getPos(), getWorld(), LINK_RANGE);
+		}
+		
+		if(poolCoordinates != null && getWorld().isBlockLoaded(poolCoordinates)) {
+			TileEntity linkedTo = getWorld().getTileEntity(poolCoordinates);
+			if(linkedTo instanceof IManaPool) {
+				linkedPool = linkedTo;
 			}
 		}
-
-		markDirty();
+		
+		if(linkedPool != null && linkedPool.isRemoved()) {
+			linkedPool = null;
+		}
 	}
 
 	public void linkToForcefully(TileEntity pool) {
@@ -177,15 +160,18 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		super.readFromPacketNBT(cmp);
 		mana = cmp.getInt(TAG_MANA);
 
-		int x = cmp.getInt(TAG_POOL_X);
-		int y = cmp.getInt(TAG_POOL_Y);
-		int z = cmp.getInt(TAG_POOL_Z);
-
-		BlockPos old = cachedPoolCoordinates;
-		cachedPoolCoordinates = y < 0 ? null : new BlockPos(x, y, z);
-		if (!Objects.equals(old, cachedPoolCoordinates)) {
+		BlockPos poolCoordinates = null;
+		if(cmp.contains(TAG_POOL_X)) {
+			poolCoordinates = new BlockPos(cmp.getInt(TAG_POOL_X), cmp.getInt(TAG_POOL_Y), cmp.getInt(TAG_POOL_Z));
+			//Older versions of the mod sometimes used this to denote an unbound pool.
+			if(poolCoordinates.getY() == -1) poolCoordinates = null;
+		}
+		
+		if (!Objects.equals(this.poolCoordinates, poolCoordinates)) {
 			linkedPool = null; //Force a refresh of the linked pool
 		}
+		
+		this.poolCoordinates = poolCoordinates;
 	}
 
 	@Override
@@ -193,18 +179,10 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_MANA, mana);
 
-		if (cachedPoolCoordinates != null) {
-			cmp.putInt(TAG_POOL_X, cachedPoolCoordinates.getX());
-			cmp.putInt(TAG_POOL_Y, cachedPoolCoordinates.getY());
-			cmp.putInt(TAG_POOL_Z, cachedPoolCoordinates.getZ());
-		} else {
-			int x = linkedPool == null ? 0 : linkedPool.getPos().getX();
-			int y = linkedPool == null ? -1 : linkedPool.getPos().getY();
-			int z = linkedPool == null ? 0 : linkedPool.getPos().getZ();
-
-			cmp.putInt(TAG_POOL_X, x);
-			cmp.putInt(TAG_POOL_Y, y);
-			cmp.putInt(TAG_POOL_Z, z);
+		if (poolCoordinates != null) {
+			cmp.putInt(TAG_POOL_X, poolCoordinates.getX());
+			cmp.putInt(TAG_POOL_Y, poolCoordinates.getY());
+			cmp.putInt(TAG_POOL_Z, poolCoordinates.getZ());
 		}
 	}
 

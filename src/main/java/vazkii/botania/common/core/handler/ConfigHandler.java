@@ -125,7 +125,6 @@ public final class ConfigHandler {
 		public final ForgeConfigSpec.BooleanValue chargingAnimationEnabled;
 		public final ForgeConfigSpec.BooleanValue silentSpreaders;
 		public final ForgeConfigSpec.IntValue spreaderTraceTime;
-		public final ForgeConfigSpec.BooleanValue flowerForceCheck;
 		public final ForgeConfigSpec.BooleanValue enderPickpocketEnabled;
 
 		public final ForgeConfigSpec.BooleanValue enchanterEnabled;
@@ -177,9 +176,6 @@ public final class ConfigHandler {
 			chargingAnimationEnabled = builder
 					.comment("Set this to false to disable the animation when an item is charging on top of a mana pool")
 					.define("chargeAnimation", true);
-			flowerForceCheck = builder
-					.comment("Turn this off ONLY IF you're on an extremely large world with an exaggerated count of Mana Spreaders/Mana Pools and are experiencing TPS lag. This toggles whether flowers are strict with their checking for connecting to pools/spreaders or just check whenever possible.")
-					.define("flowerBindingForceCheck", true);
 			enderPickpocketEnabled = builder
 					.comment("Set to false to disable the ability for the Hand of Ender to pickpocket other players' ender chests")
 					.define("enderPickpocket", true);

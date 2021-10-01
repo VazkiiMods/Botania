@@ -256,11 +256,6 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 		world.addParticle(data, x, y, z, 0, 0, 0);
 	}
 
-	@Override
-	public boolean shouldForceCheck() {
-		return ConfigHandler.COMMON.flowerForceCheck.get();
-	}
-
 	private final Map<ResourceLocation, Integer> legacyOreWeights = new ConcurrentHashMap<>();
 	private final Map<ResourceLocation, Integer> legacyNetherOreWeights = new ConcurrentHashMap<>();
 	private final Map<ResourceLocation, Function<DyeColor, Block>> paintableBlocks = new ConcurrentHashMap<>();

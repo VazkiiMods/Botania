@@ -16,6 +16,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
@@ -31,6 +32,7 @@ import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
 
+import javax.annotation.Nullable;
 import java.util.Objects;
 
 /**
@@ -50,11 +52,10 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 	private int mana;
 
-	int sizeLastCheck = -1;
 	protected TileEntity linkedCollector = null;
 	public int passiveDecayTicks;
 
-	private BlockPos cachedCollectorCoordinates = null;
+	private @Nullable BlockPos collectorCoordinates = null;
 
 	public TileEntityGeneratingFlower(TileEntityType<?> type) {
 		super(type);
@@ -106,36 +107,20 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	}
 
 	public void linkCollector() {
-		boolean needsNew = false;
-		if (linkedCollector == null) {
-			needsNew = true;
-
-			if (cachedCollectorCoordinates != null) {
-				needsNew = false;
-				if (getWorld().isBlockLoaded(cachedCollectorCoordinates)) {
-					needsNew = true;
-					TileEntity tileAt = getWorld().getTileEntity(cachedCollectorCoordinates);
-					if (tileAt instanceof IManaCollector && !tileAt.isRemoved()) {
-						linkedCollector = tileAt;
-						needsNew = false;
-					}
-					cachedCollectorCoordinates = null;
-				}
-			}
-		} else {
-			TileEntity tileAt = getWorld().getTileEntity(linkedCollector.getPos());
-			if (tileAt instanceof IManaCollector) {
-				linkedCollector = tileAt;
+		if(ticksExisted == 1) {
+			IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
+			linkedCollector = network.getClosestCollector(getPos(), getWorld(), LINK_RANGE);
+		}
+		
+		if(collectorCoordinates != null && getWorld().isBlockLoaded(collectorCoordinates)) {
+			TileEntity linkedTo = getWorld().getTileEntity(collectorCoordinates);
+			if(linkedTo instanceof IManaCollector) {
+				linkedCollector = linkedTo;
 			}
 		}
-
-		if (needsNew && ticksExisted == 1) { // New flowers only
-			IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
-			int size = network.getAllCollectorsInWorld(getWorld()).size();
-			if (BotaniaAPI.instance().shouldForceCheck() || size != sizeLastCheck) {
-				linkedCollector = network.getClosestCollector(getPos(), getWorld(), LINK_RANGE);
-				sizeLastCheck = size;
-			}
+		
+		if(linkedCollector != null && linkedCollector.isRemoved()) {
+			linkedCollector = null;
 		}
 	}
 
@@ -209,15 +194,18 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		mana = cmp.getInt(TAG_MANA);
 		passiveDecayTicks = cmp.getInt(TAG_PASSIVE_DECAY_TICKS);
 
-		int x = cmp.getInt(TAG_COLLECTOR_X);
-		int y = cmp.getInt(TAG_COLLECTOR_Y);
-		int z = cmp.getInt(TAG_COLLECTOR_Z);
-
-		BlockPos old = cachedCollectorCoordinates;
-		cachedCollectorCoordinates = y < 0 ? null : new BlockPos(x, y, z);
-		if (!Objects.equals(old, cachedCollectorCoordinates)) {
+		BlockPos collectorCoordinates = null;
+		if(cmp.contains(TAG_COLLECTOR_X)) {
+			collectorCoordinates = new BlockPos(cmp.getInt(TAG_COLLECTOR_X), cmp.getInt(TAG_COLLECTOR_Y), cmp.getInt(TAG_COLLECTOR_Z));
+			//Older versions of the mod sometimes used this to denote an unbound collector.
+			if(collectorCoordinates.getY() == -1) collectorCoordinates = null;
+		}
+		
+		if (!Objects.equals(this.collectorCoordinates, collectorCoordinates)) {
 			linkedCollector = null; //Force a refresh of the linked collector
 		}
+		
+		this.collectorCoordinates = collectorCoordinates;
 	}
 
 	@Override
@@ -227,18 +215,10 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
 		cmp.putInt(TAG_PASSIVE_DECAY_TICKS, passiveDecayTicks);
 
-		if (cachedCollectorCoordinates != null) {
-			cmp.putInt(TAG_COLLECTOR_X, cachedCollectorCoordinates.getX());
-			cmp.putInt(TAG_COLLECTOR_Y, cachedCollectorCoordinates.getY());
-			cmp.putInt(TAG_COLLECTOR_Z, cachedCollectorCoordinates.getZ());
-		} else {
-			int x = linkedCollector == null ? 0 : linkedCollector.getPos().getX();
-			int y = linkedCollector == null ? -1 : linkedCollector.getPos().getY();
-			int z = linkedCollector == null ? 0 : linkedCollector.getPos().getZ();
-
-			cmp.putInt(TAG_COLLECTOR_X, x);
-			cmp.putInt(TAG_COLLECTOR_Y, y);
-			cmp.putInt(TAG_COLLECTOR_Z, z);
+		if (collectorCoordinates != null) {
+			cmp.putInt(TAG_COLLECTOR_X, collectorCoordinates.getX());
+			cmp.putInt(TAG_COLLECTOR_Y, collectorCoordinates.getY());
+			cmp.putInt(TAG_COLLECTOR_Z, collectorCoordinates.getZ());
 		}
 	}
 
