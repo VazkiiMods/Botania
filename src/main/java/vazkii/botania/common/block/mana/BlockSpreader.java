@@ -167,7 +167,7 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 			}
 			
 			return ActionResultType.SUCCESS;
-		} else if (heldItem.isEmpty() && spreader.paddingColor != null && lens.isEmpty()) {
+		} else if (wool || heldItem.isEmpty() && spreader.paddingColor != null && lens.isEmpty()) {
 			ItemStack pad = new ItemStack(ColorHelper.WOOL_MAP.apply(spreader.paddingColor));
 			player.inventory.placeItemBackInInventory(player.world, pad);
 			spreader.paddingColor = null;
