@@ -50,10 +50,9 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	private int mana;
 
 	public int redstoneSignal = 0;
-
-	TileEntity linkedPool = null;
-
+	
 	private @Nullable BlockPos poolCoordinates = null;
+	private @Nullable TileEntity linkedPool = null;
 
 	public TileEntityFunctionalFlower(TileEntityType<?> type) {
 		super(type);
