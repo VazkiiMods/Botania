@@ -144,37 +144,37 @@ public class BlockSpreader extends BlockModWaterloggable implements ITileEntityP
 			}
 
 			spreader.getItemHandler().setInventorySlotContents(0, heldItem.copy());
-			
+
 			return ActionResultType.SUCCESS;
 		} else if (!lens.isEmpty() && !wool) {
 			player.inventory.placeItemBackInInventory(player.world, lens);
 			spreader.getItemHandler().setInventorySlotContents(0, ItemStack.EMPTY);
-			
+
 			return ActionResultType.SUCCESS;
 		}
 
 		if (wool && spreader.paddingColor == null) {
 			Block block = Block.getBlockFromItem(heldItem.getItem());
 			spreader.paddingColor = ColorHelper.getWoolColor(block);
-			
+
 			if (!player.abilities.isCreativeMode) {
 				heldItem.shrink(1);
 				if (heldItem.isEmpty()) {
 					player.setHeldItem(hand, ItemStack.EMPTY);
 				}
 			}
-			
+
 			world.playSound(player, pos, SoundEvents.BLOCK_WOOL_PLACE, SoundCategory.BLOCKS, 1f, 1f);
-			
+
 			return ActionResultType.SUCCESS;
 		} else if (wool || heldItem.isEmpty() && spreader.paddingColor != null && lens.isEmpty()) {
 			ItemStack pad = new ItemStack(ColorHelper.WOOL_MAP.apply(spreader.paddingColor));
 			player.inventory.placeItemBackInInventory(player.world, pad);
 			spreader.paddingColor = null;
 			spreader.markDirty();
-			
+
 			world.playSound(player, pos, SoundEvents.BLOCK_WOOL_BREAK, SoundCategory.BLOCKS, 1f, 1f);
-			
+
 			return ActionResultType.SUCCESS;
 		}
 
