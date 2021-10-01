@@ -146,7 +146,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		//Not sure about !isBlockLoaded forcing a "false". It's more like an indeterminate result?
 		//Still, I think it's okay for these use-cases; just remember that !isValidBinding doesn't mean
 		//that you should set collectorCoordinates to `null`.
-		if (world == null || pos == null || !world.isBlockLoaded(pos) || pos.distanceSq(this.pos) > 6 * 6) {
+		if (world == null || pos == null || !world.isBlockLoaded(pos) || pos.distanceSq(this.pos) > LINK_RANGE * LINK_RANGE) {
 			return false;
 		} else {
 			return findCollectorAt(pos) != null;
