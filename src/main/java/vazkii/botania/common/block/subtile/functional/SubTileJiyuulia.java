@@ -15,7 +15,7 @@ import vazkii.botania.common.block.ModSubtiles;
 
 public class SubTileJiyuulia extends SubTileTangleberrie {
 	private static final double RANGE = 8;
-	private static final double RANGE_MINI = 2;
+	private static final double RANGE_MINI = 3;
 
 	public SubTileJiyuulia(TileEntityType<?> type) {
 		super(type);
