@@ -42,6 +42,7 @@ import vazkii.botania.common.block.ModSubtiles;
 import vazkii.botania.common.block.string.BlockRedStringInterceptor;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;
+import vazkii.botania.common.block.tile.TileCraftCrate;
 import vazkii.botania.common.block.tile.TileEnchanter;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
@@ -135,6 +136,7 @@ public class Botania implements ModInitializer {
 		LootTableLoadingCallback.EVENT.register(LootHandler::lootLoad);
 		ServerPlayConnectionEvents.DISCONNECT.register(ItemFlightTiara::playerLoggedOut);
 		OrechidResourceListener.registerListener();
+		TileCraftCrate.registerListener();
 
 		ModLootModifiers.init();
 		ModCriteriaTriggers.init();

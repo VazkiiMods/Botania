@@ -49,8 +49,6 @@ import vazkii.botania.common.lib.ResourceLocationHelper;
 import vazkii.botania.mixin.AccessorIngredient;
 import vazkii.botania.mixin.AccessorRecipeProvider;
 
-import javax.annotation.Nullable;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -58,8 +56,6 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class RecipeProvider extends BotaniaRecipeProvider {
 	public RecipeProvider(DataGenerator generator) {
@@ -112,6 +108,11 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 
 	private static InventoryChangeTrigger.TriggerInstance conditionsFromTag(Tag<Item> tag) {
 		return AccessorRecipeProvider.botania_condition(ItemPredicate.Builder.item().of(tag).build());
+	}
+
+	/** Addons: override this to return your modid */
+	protected ResourceLocation prefix(String path) {
+		return ResourceLocationHelper.prefix(path);
 	}
 
 	private void registerMain(Consumer<FinishedRecipe> consumer) {
@@ -2315,7 +2316,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		cosmeticBauble(consumer, ModItems.thinkingHand, ModBlocks.tinyPotato);
 	}
 
-	private void registerSimpleArmorSet(Consumer<FinishedRecipe> consumer, Ingredient item, String variant,
+	protected void registerSimpleArmorSet(Consumer<FinishedRecipe> consumer, Ingredient item, String variant,
 			CriterionTriggerInstance criterion) {
 		Item helmet = Registry.ITEM.getOptional(prefix(variant + "_helmet")).get();
 		Item chestplate = Registry.ITEM.getOptional(prefix(variant + "_chestplate")).get();
@@ -2349,7 +2350,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 	}
 
-	private void registerToolSetRecipes(Consumer<FinishedRecipe> consumer, Ingredient item, Ingredient stick,
+	protected void registerToolSetRecipes(Consumer<FinishedRecipe> consumer, Ingredient item, Ingredient stick,
 			CriterionTriggerInstance criterion, ItemLike sword, ItemLike pickaxe,
 			ItemLike axe, ItemLike hoe, ItemLike shovel, ItemLike shears) {
 		ShapedRecipeBuilder.shaped(pickaxe)
@@ -2401,7 +2402,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 
 	}
 
-	private void registerTerrasteelUpgradeRecipe(Consumer<FinishedRecipe> consumer, ItemLike output,
+	protected void registerTerrasteelUpgradeRecipe(Consumer<FinishedRecipe> consumer, ItemLike output,
 			ItemLike upgradedInput, ItemLike runeInput) {
 		ShapedRecipeBuilder.shaped(output)
 				.define('T', ModItems.livingwoodTwig)
@@ -2416,7 +2417,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(WrapperResult.ofType(ArmorUpgradeRecipe.SERIALIZER, consumer));
 	}
 
-	private void registerRedStringBlock(Consumer<FinishedRecipe> consumer, ItemLike output, Ingredient input, CriterionTriggerInstance criterion) {
+	protected void registerRedStringBlock(Consumer<FinishedRecipe> consumer, ItemLike output, Ingredient input, CriterionTriggerInstance criterion) {
 		ShapedRecipeBuilder.shaped(output)
 				.define('R', ModBlocks.livingrock)
 				.define('S', ModItems.redString)
@@ -2429,7 +2430,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 	}
 
-	private void createFloatingFlowerRecipe(Consumer<FinishedRecipe> consumer, ItemLike input) {
+	protected void createFloatingFlowerRecipe(Consumer<FinishedRecipe> consumer, ItemLike input) {
 		ResourceLocation inputName = Registry.ITEM.getKey(input.asItem());
 		Item output = Registry.ITEM.getOptional(new ResourceLocation(inputName.getNamespace(), "floating_" + inputName.getPath())).get();
 		ShapelessRecipeBuilder.shapeless(output)
@@ -2439,28 +2440,28 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 	}
 
-	private void deconstruct(Consumer<FinishedRecipe> consumer, ItemLike output, ItemLike input, String name) {
+	protected void deconstruct(Consumer<FinishedRecipe> consumer, ItemLike output, ItemLike input, String name) {
 		ShapelessRecipeBuilder.shapeless(output, 9)
 				.unlockedBy("has_item", conditionsFromItem(output))
 				.requires(input)
 				.save(consumer, prefix("conversions/" + name));
 	}
 
-	private void deconstruct(Consumer<FinishedRecipe> consumer, ItemLike output, Tag<Item> input, String name) {
+	protected void deconstruct(Consumer<FinishedRecipe> consumer, ItemLike output, Tag<Item> input, String name) {
 		ShapelessRecipeBuilder.shapeless(output, 9)
 				.unlockedBy("has_item", conditionsFromItem(output))
 				.requires(input)
 				.save(consumer, prefix("conversions/" + name));
 	}
 
-	private void deconstructPetalBlock(Consumer<FinishedRecipe> consumer, ItemLike output, ItemLike input) {
+	protected void deconstructPetalBlock(Consumer<FinishedRecipe> consumer, ItemLike output, ItemLike input) {
 		ShapelessRecipeBuilder.shapeless(output, 9)
 				.unlockedBy("has_item", conditionsFromItem(output))
 				.requires(input).group("botania:petal_block_deconstruct")
 				.save(consumer, prefix("conversions/" + Registry.ITEM.getKey(input.asItem()).getPath() + "_deconstruct"));
 	}
 
-	private void recombineSlab(Consumer<FinishedRecipe> consumer, ItemLike fullBlock, ItemLike slab) {
+	protected void recombineSlab(Consumer<FinishedRecipe> consumer, ItemLike fullBlock, ItemLike slab) {
 		ShapedRecipeBuilder.shaped(fullBlock)
 				.define('Q', slab)
 				.pattern("Q")
@@ -2469,7 +2470,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer, prefix("slab_recombine/" + Registry.ITEM.getKey(fullBlock.asItem()).getPath()));
 	}
 
-	private void registerForQuartz(Consumer<FinishedRecipe> consumer, String variant, ItemLike baseItem) {
+	protected void registerForQuartz(Consumer<FinishedRecipe> consumer, String variant, ItemLike baseItem) {
 		Block base = Registry.BLOCK.getOptional(prefix(variant)).get();
 		Block slab = Registry.BLOCK.getOptional(prefix(variant + LibBlockNames.SLAB_SUFFIX)).get();
 		Block stairs = Registry.BLOCK.getOptional(prefix(variant + LibBlockNames.STAIR_SUFFIX)).get();
@@ -2488,7 +2489,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		chiseled(chiseled, slab).unlockedBy("has_base_item", conditionsFromItem(base)).save(consumer);
 	}
 
-	private void registerForWood(Consumer<FinishedRecipe> consumer, String variant) {
+	protected void registerForWood(Consumer<FinishedRecipe> consumer, String variant) {
 		Block base = Registry.BLOCK.getOptional(prefix(variant)).get();
 		Block planks = Registry.BLOCK.getOptional(prefix(variant + "_planks")).get();
 		Block slab = Registry.BLOCK.getOptional(prefix(variant + LibBlockNames.SLAB_SUFFIX)).get();
@@ -2506,7 +2507,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 		fenceGate(fenceGate, planks).save(consumer);
 	}
 
-	private void registerForPavement(Consumer<FinishedRecipe> consumer, String color, @Nullable Item mainInput) {
+	private void registerForPavement(Consumer<FinishedRecipe> consumer, String color, Item mainInput) {
 		String baseName = color + LibBlockNames.PAVEMENT_SUFFIX;
 		Block base = Registry.BLOCK.getOptional(prefix(baseName)).get();
 		Block stair = Registry.BLOCK.getOptional(prefix(baseName + LibBlockNames.STAIR_SUFFIX)).get();
@@ -2575,7 +2576,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromTag(input));
 	}
 
-	private ShapedRecipeBuilder compression(ItemLike output, ItemLike input) {
+	protected ShapedRecipeBuilder compression(ItemLike output, ItemLike input) {
 		return ShapedRecipeBuilder.shaped(output)
 				.define('I', input)
 				.pattern("III")
@@ -2584,7 +2585,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(input));
 	}
 
-	private ShapedRecipeBuilder brick(ItemLike output, ItemLike input) {
+	protected ShapedRecipeBuilder brick(ItemLike output, ItemLike input) {
 		return ShapedRecipeBuilder.shaped(output, 4)
 				.unlockedBy("has_item", conditionsFromItem(input))
 				.define('Q', input)
@@ -2592,7 +2593,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("QQ");
 	}
 
-	private ShapedRecipeBuilder stairs(ItemLike output, ItemLike input) {
+	protected ShapedRecipeBuilder stairs(ItemLike output, ItemLike input) {
 		return ShapedRecipeBuilder.shaped(output, 4)
 				.unlockedBy("has_item", conditionsFromItem(input))
 				.define('Q', input)
@@ -2601,14 +2602,14 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("QQQ");
 	}
 
-	private ShapedRecipeBuilder slabShape(ItemLike output, ItemLike input) {
+	protected ShapedRecipeBuilder slabShape(ItemLike output, ItemLike input) {
 		return ShapedRecipeBuilder.shaped(output, 6)
 				.unlockedBy("has_item", conditionsFromItem(input))
 				.define('Q', input)
 				.pattern("QQQ");
 	}
 
-	private ShapedRecipeBuilder pillar(ItemLike output, ItemLike input) {
+	protected ShapedRecipeBuilder pillar(ItemLike output, ItemLike input) {
 		return ShapedRecipeBuilder.shaped(output, 2)
 				.unlockedBy("has_item", conditionsFromItem(input))
 				.define('Q', input)
@@ -2616,7 +2617,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("Q");
 	}
 
-	private ShapedRecipeBuilder chiseled(ItemLike output, ItemLike input) {
+	protected ShapedRecipeBuilder chiseled(ItemLike output, ItemLike input) {
 		return ShapedRecipeBuilder.shaped(output)
 				.unlockedBy("has_item", conditionsFromItem(input))
 				.define('Q', input)
@@ -2624,7 +2625,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("Q");
 	}
 
-	private ShapedRecipeBuilder wallShape(ItemLike output, ItemLike input, int amount) {
+	protected ShapedRecipeBuilder wallShape(ItemLike output, ItemLike input, int amount) {
 		return ShapedRecipeBuilder.shaped(output, amount)
 				.unlockedBy("has_item", conditionsFromItem(input))
 				.define('B', input)
@@ -2632,7 +2633,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("BBB");
 	}
 
-	private ShapedRecipeBuilder fence(ItemLike output, ItemLike input) {
+	protected ShapedRecipeBuilder fence(ItemLike output, ItemLike input) {
 		return ShapedRecipeBuilder.shaped(output, 3)
 				.unlockedBy("has_item", conditionsFromItem(input))
 				.define('B', input)
@@ -2641,7 +2642,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("BSB");
 	}
 
-	private ShapedRecipeBuilder fenceGate(ItemLike output, ItemLike input) {
+	protected ShapedRecipeBuilder fenceGate(ItemLike output, ItemLike input) {
 		return ShapedRecipeBuilder.shaped(output, 3)
 				.unlockedBy("has_item", conditionsFromItem(input))
 				.define('B', input)
@@ -2650,7 +2651,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SBS");
 	}
 
-	private ShapedRecipeBuilder ringShape(ItemLike output, ItemLike input) {
+	protected ShapedRecipeBuilder ringShape(ItemLike output, ItemLike input) {
 		return ShapedRecipeBuilder.shaped(output, 4)
 				.define('W', input)
 				.pattern(" W ")
@@ -2659,7 +2660,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromItem(input));
 	}
 
-	private void cosmeticBauble(Consumer<FinishedRecipe> consumer, ItemLike output, ItemLike input) {
+	protected void cosmeticBauble(Consumer<FinishedRecipe> consumer, ItemLike output, ItemLike input) {
 		ShapedRecipeBuilder.shaped(output)
 				.define('P', input)
 				.define('S', ModItems.manaString)
@@ -2671,7 +2672,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.save(consumer);
 	}
 
-	private void specialRecipe(Consumer<FinishedRecipe> consumer, SimpleRecipeSerializer<?> serializer) {
+	protected void specialRecipe(Consumer<FinishedRecipe> consumer, SimpleRecipeSerializer<?> serializer) {
 		ResourceLocation name = Registry.RECIPE_SERIALIZER.getKey(serializer);
 		SpecialRecipeBuilder.special(serializer).save(consumer, prefix("dynamic/" + name.getPath()).toString());
 	}

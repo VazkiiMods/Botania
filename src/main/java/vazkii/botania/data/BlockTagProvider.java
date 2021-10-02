@@ -8,9 +8,11 @@
  */
 package vazkii.botania.data;
 
+import net.fabricmc.fabric.impl.tag.extension.TagDelegate;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
@@ -164,6 +166,10 @@ public class BlockTagProvider extends BlockTagsProvider {
 		for (DyeColor color : DyeColor.values()) {
 			this.tag(ModTags.Blocks.MUSHROOMS).add(ModBlocks.getMushroom(color));
 		}
+
+		tag(new TagDelegate<>(new ResourceLocation("buzzier_bees:flower_blacklist"), BlockTags::getAllTags))
+				.addTag(ModTags.Blocks.MYSTICAL_FLOWERS)
+				.addTag(ModTags.Blocks.SPECIAL_FLOWERS);
 
 		registerCommonTags();
 		registerMiningTags();

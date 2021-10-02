@@ -33,6 +33,7 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
+import static vazkii.botania.common.lib.ModTags.Items.*;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class PetalProvider extends BotaniaRecipeProvider {
@@ -143,19 +144,19 @@ public class PetalProvider extends BotaniaRecipeProvider {
 		consumer.accept(new NbtOutputResult(new FinishedRecipe(idFor(prefix("vazkii_head")), stack, inputs), stack.getTag()));
 	}
 
-	private static Ingredient tagIngr(String tag) {
+	protected static Ingredient tagIngr(String tag) {
 		return Ingredient.of(new TagDelegate<>(prefix(tag), ItemTags::getAllTags));
 	}
 
-	private static FinishedRecipe make(ItemLike item, Ingredient... ingredients) {
+	protected static FinishedRecipe make(ItemLike item, Ingredient... ingredients) {
 		return new FinishedRecipe(idFor(Registry.ITEM.getKey(item.asItem())), new ItemStack(item), ingredients);
 	}
 
-	private static ResourceLocation idFor(ResourceLocation name) {
+	protected static ResourceLocation idFor(ResourceLocation name) {
 		return new ResourceLocation(name.getNamespace(), "petal_apothecary/" + name.getPath());
 	}
 
-	private static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
+	protected static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
 		private final ResourceLocation id;
 		private final ItemStack output;
 		private final Ingredient[] inputs;

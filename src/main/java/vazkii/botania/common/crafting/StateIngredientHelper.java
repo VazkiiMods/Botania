@@ -23,7 +23,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -39,7 +38,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class StateIngredientHelper {
 	public static StateIngredient of(Block block) {
@@ -155,12 +153,9 @@ public class StateIngredientHelper {
 		return NbtUtils.readBlockState(nbt);
 	}
 
+	@Deprecated
 	@Nonnull
 	public static List<ItemStack> toStackList(StateIngredient input) {
-		return input.getDisplayed().stream()
-				.map(BlockState::getBlock)
-				.filter(b -> b.asItem() != Items.AIR)
-				.map(ItemStack::new)
-				.collect(Collectors.toList());
+		return input.getDisplayedStacks();
 	}
 }

@@ -74,7 +74,7 @@ public class ElvenTradeProvider extends BotaniaRecipeProvider {
 		return "Botania elven trade recipes";
 	}
 
-	private static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
+	protected static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
 		private final ResourceLocation id;
 		private final List<Ingredient> inputs;
 		private final List<ItemStack> outputs;
@@ -83,7 +83,7 @@ public class ElvenTradeProvider extends BotaniaRecipeProvider {
 			this(id, Arrays.asList(inputs), Collections.singletonList(output));
 		}
 
-		private FinishedRecipe(ResourceLocation id, List<Ingredient> inputs, List<ItemStack> outputs) {
+		protected FinishedRecipe(ResourceLocation id, List<Ingredient> inputs, List<ItemStack> outputs) {
 			this.id = id;
 			this.inputs = inputs;
 			this.outputs = outputs;

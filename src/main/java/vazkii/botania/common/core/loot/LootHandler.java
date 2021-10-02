@@ -35,8 +35,12 @@ public final class LootHandler {
 			case "simple_dungeon":
 			case "spawn_bonus_chest":
 			case "stronghold_corridor":
-			case "village_blacksmith":
 				supplier.withPool(getInjectPool(file));
+				break;
+			case "village/village_temple":
+			case "village/village_toolsmith":
+			case "village/village_weaponsmith":
+				supplier.withPool(getInjectPool("village_chest"));
 				break;
 			default:
 				break;

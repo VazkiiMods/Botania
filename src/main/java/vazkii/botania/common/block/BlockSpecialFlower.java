@@ -48,7 +48,7 @@ public class BlockSpecialFlower extends FlowerBlock implements EntityBlock, IWan
 	private static final VoxelShape SHAPE = box(4.8, 0, 4.8, 12.8, 16, 12.8);
 	private final Supplier<BlockEntityType<? extends TileEntitySpecialFlower>> blockEntityType;
 
-	protected BlockSpecialFlower(MobEffect stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends TileEntitySpecialFlower>> blockEntityType) {
+	public BlockSpecialFlower(MobEffect stewEffect, int stewDuration, Properties props, Supplier<BlockEntityType<? extends TileEntitySpecialFlower>> blockEntityType) {
 		super(stewEffect, stewDuration, props);
 		this.blockEntityType = blockEntityType;
 	}

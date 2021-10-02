@@ -31,6 +31,8 @@ import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaPool;
 
+import java.util.Objects;
+
 /**
  * The basic class for a Functional Flower.
  */
@@ -136,8 +138,11 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	}
 
 	public void linkToForcefully(BlockEntity pool) {
-		linkedPool = pool;
-		setChanged();
+		if (linkedPool != pool) {
+			linkedPool = pool;
+			setChanged();
+			sync();
+		}
 	}
 
 	public int getMana() {
@@ -177,7 +182,11 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		int y = cmp.getInt(TAG_POOL_Y);
 		int z = cmp.getInt(TAG_POOL_Z);
 
+		BlockPos old = cachedPoolCoordinates;
 		cachedPoolCoordinates = y < 0 ? null : new BlockPos(x, y, z);
+		if (!Objects.equals(old, cachedPoolCoordinates)) {
+			linkedPool = null; //Force a refresh of the linked pool
+		}
 	}
 
 	@Override

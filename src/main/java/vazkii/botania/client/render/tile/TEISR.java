@@ -24,6 +24,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
+import vazkii.botania.client.core.handler.ClientTickHandler;
+
 import java.util.function.Supplier;
 
 public class TEISR implements BuiltinItemRendererRegistry.DynamicItemRenderer {
@@ -43,7 +45,7 @@ public class TEISR implements BuiltinItemRendererRegistry.DynamicItemRenderer {
 		if (stack.is(block.asItem())) {
 			BlockEntityRenderer<?> r = Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(dummy.get());
 			if (r != null) {
-				r.render(null, 0, ms, buffers, light, overlay);
+				r.render(null, ClientTickHandler.partialTicks, ms, buffers, light, overlay);
 			}
 		}
 	}

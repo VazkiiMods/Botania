@@ -3,7 +3,7 @@
 	"textures": {
 		"cloth": "botania:block/corporea_crystal_cube_cloth",
 		"base": "botania:block/corporea_crystal_cube_base",
-		"particle": "botania:block/corporea_crystal_cube_base"
+		"particle": "botania:block/corporea_crystal_cube_cloth"
 	},
 	"elements": [ 	 
 		{

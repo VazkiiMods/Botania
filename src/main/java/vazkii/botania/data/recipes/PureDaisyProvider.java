@@ -57,7 +57,7 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 		return prefix("pure_daisy/" + path);
 	}
 
-	private static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
+	protected static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
 		public static final int DEFAULT_TIME = 150;
 
 		private final ResourceLocation id;
@@ -65,11 +65,11 @@ public class PureDaisyProvider extends BotaniaRecipeProvider {
 		private final BlockState outputState;
 		private final int time;
 
-		private FinishedRecipe(ResourceLocation id, StateIngredient input, BlockState state) {
+		public FinishedRecipe(ResourceLocation id, StateIngredient input, BlockState state) {
 			this(id, input, state, DEFAULT_TIME);
 		}
 
-		private FinishedRecipe(ResourceLocation id, StateIngredient input, BlockState state, int time) {
+		public FinishedRecipe(ResourceLocation id, StateIngredient input, BlockState state, int time) {
 			Preconditions.checkArgument(time >= 0, "Time must be nonnegative");
 			this.id = id;
 			this.input = input;

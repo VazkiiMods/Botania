@@ -20,7 +20,7 @@ if (System.getenv().RELEASE_MODE == null) {
 group = "vazkii.botania"
 archivesBaseName = "${ext.config.mod_name}"
 
-compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation"// << "-Werror" TODO reenable when Gradle fixes wrapping annotation processor
+compileJava.options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial"// << "-Werror" TODO reenable when Gradle fixes wrapping annotation processor
 
 loom {
     accessWidenerPath = file("src/main/resources/botania.accesswidener")

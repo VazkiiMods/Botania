@@ -11,11 +11,14 @@ package vazkii.botania.api.recipe;
 import com.google.gson.JsonObject;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
@@ -33,6 +36,13 @@ public interface StateIngredient extends Predicate<BlockState> {
 	JsonObject serialize();
 
 	void write(FriendlyByteBuf buffer);
+
+	List<ItemStack> getDisplayedStacks();
+
+	/** A description tooltip to display in areas like JEI recipes. */
+	default List<Component> descriptionTooltip() {
+		return Collections.emptyList();
+	}
 
 	List<BlockState> getDisplayed();
 

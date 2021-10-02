@@ -54,7 +54,7 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	private static final EntityDataAccessor<Boolean> MASTER = SynchedEntityData.defineId(EntityCorporeaSpark.class, EntityDataSerializers.BOOLEAN);
 
 	private ICorporeaSpark master;
-	private List<ICorporeaSpark> connections = new ArrayList<>();
+	private List<ICorporeaSpark> connections = new SparkArrayList<>();
 	private List<ICorporeaSpark> relatives = new ArrayList<>();
 	private boolean firstTick = true;
 
@@ -144,14 +144,14 @@ public class EntityCorporeaSpark extends EntitySparkBase implements ICorporeaSpa
 	}
 
 	private void restartNetwork() {
-		connections = new ArrayList<>();
+		connections = new SparkArrayList<>();
 		relatives = new ArrayList<>();
 
 		if (master != null) {
 			ICorporeaSpark oldMaster = master;
 			master = null;
 
-			oldMaster.registerConnections(oldMaster, this, new ArrayList<>());
+			oldMaster.registerConnections(oldMaster, this, new SparkArrayList<>());
 		}
 	}
 

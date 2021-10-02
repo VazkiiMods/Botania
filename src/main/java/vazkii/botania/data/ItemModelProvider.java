@@ -333,7 +333,7 @@ public class ItemModelProvider implements DataProvider {
 		items.remove(twigWand);
 	}
 
-	private static void registerItemBlocks(Set<BlockItem> itemBlocks, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
+	private void registerItemBlocks(Set<BlockItem> itemBlocks, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
 		// Manually written
 		itemBlocks.remove(ModBlocks.corporeaCrystalCube.asItem());
 
@@ -474,7 +474,7 @@ public class ItemModelProvider implements DataProvider {
 					"    }";
 	private static final JsonElement BUILTIN_ENTITY_DISPLAY = GSON.fromJson(BUILTIN_ENTITY_DISPLAY_STR, JsonElement.class);
 
-	private static void builtinEntity(Item i, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
+	protected void builtinEntity(Item i, BiConsumer<ResourceLocation, Supplier<JsonElement>> consumer) {
 		consumer.accept(ModelLocationUtils.getModelLocation(i), () -> {
 			JsonObject json = new JsonObject();
 			json.addProperty("parent", "minecraft:builtin/entity");

@@ -103,8 +103,6 @@ import vazkii.patchouli.api.PatchouliAPI;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 import java.util.Locale;
 import java.util.SortedMap;
 
@@ -137,16 +135,6 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		BookDrawScreenCallback.EVENT.register(KonamiHandler::renderBook);
 		HudRenderCallback.EVENT.register(HUDHandler::onDrawScreenPost);
 		ClientTickEvents.END_CLIENT_TICK.register(ClientTickHandler::clientTickEnd);
-
-		boolean contestOngoing = ZonedDateTime.now().isBefore(
-				ZonedDateTime.of(
-						LocalDateTime.of(2021, Month.JULY, 11, 23, 0), // Stop showing 1 hour before contest ends
-						ZoneOffset.UTC
-				)
-		);
-		PatchouliAPI.get().setConfigFlag("botania:contest_2021_ongoing", contestOngoing);
-		PersistentVariableHelper.init();
-		PersistentVariableHelper.save();
 
 		if (ConfigHandler.CLIENT.enableSeasonalFeatures.getValue()) {
 			LocalDateTime now = LocalDateTime.now();

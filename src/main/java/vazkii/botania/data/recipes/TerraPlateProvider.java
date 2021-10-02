@@ -49,13 +49,13 @@ public class TerraPlateProvider extends BotaniaRecipeProvider {
 		return prefix("terra_plate/" + s);
 	}
 
-	private static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
+	protected static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
 		private final ResourceLocation id;
 		private final int mana;
 		private final ItemStack output;
 		private final Ingredient[] inputs;
 
-		private FinishedRecipe(ResourceLocation id, int mana, ItemStack output, Ingredient... inputs) {
+		public FinishedRecipe(ResourceLocation id, int mana, ItemStack output, Ingredient... inputs) {
 			this.id = id;
 			this.mana = mana;
 			this.output = output;

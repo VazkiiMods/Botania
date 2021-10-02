@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.corporea;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.RenderShape;
@@ -17,6 +18,8 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -28,8 +31,16 @@ import vazkii.botania.common.block.tile.corporea.TileCorporeaIndex;
 import javax.annotation.Nonnull;
 
 public class BlockCorporeaIndex extends BlockModWaterloggable implements EntityBlock {
+	private static final VoxelShape SHAPE = box(2, 2, 2, 14, 14, 14);
+
 	public BlockCorporeaIndex(BlockBehaviour.Properties builder) {
 		super(builder);
+	}
+
+	@Nonnull
+	@Override
+	public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
+		return SHAPE;
 	}
 
 	@Nonnull

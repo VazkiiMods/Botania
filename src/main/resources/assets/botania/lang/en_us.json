@@ -438,9 +438,6 @@
   "botania.challengelevel.hard": "Hard",
   "botania.challengelevel.lunatic": "Lunatic",
 
-  "botania.challenge.contest_2021": "Summer 2021 Contest",
-  "botania.challenge.contest_2021.desc": "All Botania lovers are invited to participate in the Summer 2021 Botania Build Contest! Show off your best Botania contraptions and win exciting prizes, maybe even a featured spot on the Botania website!",
-
   "botania.challenge.flowerFarm": "Flower Farm",
   "botania.challenge.flowerFarm.desc": "Create an automated farm of all 16 colors of Botania flowers. Bonus points if the flowers are sorted.",
   "botania.challenge.recordFarm": "Record Farm",
@@ -2278,7 +2275,7 @@
 
   "botania.entry.turntable": "Spreader Turntable",
   "botania.tagline.turntable": "Spin spreaders around",
-  "botania.page.turntable0": "The $(item)Spreader Turntable$(0), as its name implies, continually rotates a $(l:mana/spreader)$(item)Mana Spreaders$(0)$(/l) placed upon it. Placing a spreader on a turntable will set it spinning; a redstone signal pauses its spin.$(p)To change the speed of a turntable, right-click it with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l); sneak-right clicking it will change its direction.",
+  "botania.page.turntable0": "The $(item)Spreader Turntable$(0), as its name implies, continually rotates a $(l:mana/spreader)$(item)Mana Spreader$(0)$(/l) placed upon it. Placing a spreader on a turntable will set it spinning; a redstone signal pauses its spin.$(p)To change the speed of a turntable, right-click it with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l); sneak-right clicking it will change its direction.",
   "botania.page.turntable2": "Similarly, a $(item)Dispenser$(0) with a $(l:basics/wand)$(item)Wand of the Forest$(0)$(/l) from the side will change the speed, and one from the bottom will change the direction.",
   "botania.page.turntable1": "You spin me right round",
 

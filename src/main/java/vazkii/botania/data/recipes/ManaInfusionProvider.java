@@ -173,7 +173,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		consumer.accept(FinishedRecipe.conjuration(id("grass"), new ItemStack(Blocks.GRASS, 2), ingr(Blocks.GRASS), 800));
 	}
 
-	private static void cycle(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer, int cost, String group, ItemLike... items) {
+	protected void cycle(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer, int cost, String group, ItemLike... items) {
 		for (int i = 0; i < items.length; i++) {
 			Ingredient in = ingr(items[i]);
 			ItemStack out = new ItemStack(i == items.length - 1 ? items[0] : items[i + 1]);
@@ -182,19 +182,19 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		}
 	}
 
-	private static FinishedRecipe mini(ItemLike mini, ItemLike full) {
+	protected FinishedRecipe mini(ItemLike mini, ItemLike full) {
 		return FinishedRecipe.alchemy(id(Registry.ITEM.getKey(mini.asItem()).getPath()), new ItemStack(mini), ingr(full), 2500, "botania:flower_shrinking");
 	}
 
-	private static ResourceLocation id(String s) {
+	protected ResourceLocation id(String s) {
 		return prefix("mana_infusion/" + s);
 	}
 
-	private static Ingredient ingr(ItemLike i) {
+	protected static Ingredient ingr(ItemLike i) {
 		return Ingredient.of(i);
 	}
 
-	private static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
+	protected static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
 		private static final StateIngredient CONJURATION = StateIngredientHelper.of(ModBlocks.conjurationCatalyst);
 		private static final StateIngredient ALCHEMY = StateIngredientHelper.of(ModBlocks.alchemyCatalyst);
 

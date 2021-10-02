@@ -149,15 +149,15 @@ public class BlockLootProvider implements DataProvider {
 		}
 	}
 
-	private static Path getPath(Path root, ResourceLocation id) {
+	protected static Path getPath(Path root, ResourceLocation id) {
 		return root.resolve("data/" + id.getNamespace() + "/loot_tables/blocks/" + id.getPath() + ".json");
 	}
 
-	private static LootTable.Builder empty(Block b) {
+	protected static LootTable.Builder empty(Block b) {
 		return LootTable.lootTable();
 	}
 
-	private static LootTable.Builder genCopyNbt(Block b, String... tags) {
+	protected static LootTable.Builder genCopyNbt(Block b, String... tags) {
 		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(b);
 		CopyNbtFunction.Builder func = CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY);
 		for (String tag : tags) {
@@ -169,7 +169,7 @@ public class BlockLootProvider implements DataProvider {
 		return LootTable.lootTable().withPool(pool);
 	}
 
-	private static LootTable.Builder genCellBlock(Block b) {
+	protected static LootTable.Builder genCellBlock(Block b) {
 		ItemPredicate.Builder silkPred = ItemPredicate.Builder.item()
 				.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1)));
 		LootPoolEntryContainer.Builder<?> silk = LootItem.lootTableItem(b)
@@ -177,7 +177,7 @@ public class BlockLootProvider implements DataProvider {
 		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(silk));
 	}
 
-	private static LootTable.Builder genTinyPotato(Block b) {
+	protected static LootTable.Builder genTinyPotato(Block b) {
 		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(b)
 				.apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY));
 		LootPool.Builder pool = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry)
@@ -185,13 +185,13 @@ public class BlockLootProvider implements DataProvider {
 		return LootTable.lootTable().withPool(pool);
 	}
 
-	private static LootTable.Builder genMetamorphicStone(Block b) {
+	protected static LootTable.Builder genMetamorphicStone(Block b) {
 		String cobbleName = Registry.BLOCK.getKey(b).getPath().replaceAll("_stone", "_cobblestone");
 		Block cobble = Registry.BLOCK.getOptional(prefix(cobbleName)).get();
 		return genSilkDrop(b, cobble);
 	}
 
-	private static LootTable.Builder genSilkDrop(ItemLike silkDrop, ItemLike normalDrop) {
+	protected static LootTable.Builder genSilkDrop(ItemLike silkDrop, ItemLike normalDrop) {
 		LootPoolEntryContainer.Builder<?> cobbleDrop = LootItem.lootTableItem(normalDrop).when(ExplosionCondition.survivesExplosion());
 		LootPoolEntryContainer.Builder<?> stoneDrop = LootItem.lootTableItem(silkDrop).when(SILK_TOUCH);
 
@@ -200,19 +200,19 @@ public class BlockLootProvider implements DataProvider {
 						.add(stoneDrop.otherwise(cobbleDrop)));
 	}
 
-	private static LootTable.Builder genSolidVine(Block b) {
+	protected static LootTable.Builder genSolidVine(Block b) {
 		LootPoolEntryContainer.Builder<?> entry = LootTableReference.lootTableReference(new ResourceLocation("blocks/vine"));
 		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry));
 	}
 
-	private static LootTable.Builder genRoot(Block b) {
+	protected static LootTable.Builder genRoot(Block b) {
 		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(ModItems.livingroot)
 				.apply(SetItemCountFunction.setCount(UniformGenerator.between(2, 4)))
 				.apply(ApplyExplosionDecay.explosionDecay());
 		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry));
 	}
 
-	private static LootTable.Builder genSlab(Block b) {
+	protected static LootTable.Builder genSlab(Block b) {
 		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(b)
 				.apply(SetItemCountFunction.setCount(ConstantValue.exactly(2))
 						.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(b).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(SlabBlock.TYPE, SlabType.DOUBLE))))
@@ -220,7 +220,7 @@ public class BlockLootProvider implements DataProvider {
 		return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry));
 	}
 
-	private static LootTable.Builder genDoubleFlower(Block b) {
+	protected static LootTable.Builder genDoubleFlower(Block b) {
 		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(b)
 				.when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(b).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)))
 				.when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(FabricToolTags.SHEARS)));
@@ -229,7 +229,7 @@ public class BlockLootProvider implements DataProvider {
 		return LootTable.lootTable().withPool(pool);
 	}
 
-	private static LootTable.Builder genAltGrass(Block b) {
+	protected static LootTable.Builder genAltGrass(Block b) {
 		LootPoolEntryContainer.Builder<?> silk = LootItem.lootTableItem(b)
 				.when(SILK_TOUCH);
 		LootPoolEntryContainer.Builder<?> dirt = LootItem.lootTableItem(Blocks.DIRT)
@@ -239,7 +239,7 @@ public class BlockLootProvider implements DataProvider {
 		return LootTable.lootTable().withPool(pool);
 	}
 
-	private static LootTable.Builder genRegular(Block b) {
+	protected static LootTable.Builder genRegular(Block b) {
 		LootPoolEntryContainer.Builder<?> entry = LootItem.lootTableItem(b);
 		LootPool.Builder pool = LootPool.lootPool().setRolls(ConstantValue.exactly(1)).add(entry)
 				.when(ExplosionCondition.survivesExplosion());

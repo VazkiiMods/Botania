@@ -16,6 +16,8 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -152,27 +154,42 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 				toInsert.setCount(1);
 			}
 
-			spreader.getItemHandler().setItem(0, toInsert);
+			spreader.getItemHandler().setItem(0, heldItem.copy());
+
+			return InteractionResult.SUCCESS;
 		} else if (!lens.isEmpty() && !wool) {
 			player.getInventory().placeItemBackInInventory(lens);
 			spreader.getItemHandler().setItem(0, ItemStack.EMPTY);
+
+			return InteractionResult.SUCCESS;
 		}
 
 		if (wool && spreader.paddingColor == null) {
 			Block block = Block.byItem(heldItem.getItem());
 			spreader.paddingColor = ColorHelper.getWoolColor(block);
-			heldItem.shrink(1);
-			if (heldItem.isEmpty()) {
-				player.setItemInHand(hand, ItemStack.EMPTY);
+
+			if (!player.getAbilities().instabuild) {
+				heldItem.shrink(1);
+				if (heldItem.isEmpty()) {
+					player.setItemInHand(hand, ItemStack.EMPTY);
+				}
 			}
-		} else if (heldItem.isEmpty() && spreader.paddingColor != null && lens.isEmpty()) {
+
+			world.playSound(player, pos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 1f, 1f);
+
+			return InteractionResult.SUCCESS;
+		} else if (wool || heldItem.isEmpty() && spreader.paddingColor != null && lens.isEmpty()) {
 			ItemStack pad = new ItemStack(ColorHelper.WOOL_MAP.apply(spreader.paddingColor));
 			player.getInventory().placeItemBackInInventory(pad);
 			spreader.paddingColor = null;
 			spreader.setChanged();
+
+			world.playSound(player, pos, SoundEvents.WOOD_BREAK, SoundSource.BLOCKS, 1f, 1f);
+
+			return InteractionResult.SUCCESS;
 		}
 
-		return InteractionResult.SUCCESS;
+		return InteractionResult.PASS;
 	}
 
 	@Override

@@ -95,13 +95,13 @@ public class RuneProvider extends BotaniaRecipeProvider {
 		return prefix("runic_altar/" + s);
 	}
 
-	private static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
+	protected static class FinishedRecipe implements net.minecraft.data.recipes.FinishedRecipe {
 		private final ResourceLocation id;
 		private final ItemStack output;
 		private final int mana;
 		private final Ingredient[] inputs;
 
-		private FinishedRecipe(ResourceLocation id, ItemStack output, int mana, Ingredient... inputs) {
+		protected FinishedRecipe(ResourceLocation id, ItemStack output, int mana, Ingredient... inputs) {
 			this.id = id;
 			this.output = output;
 			this.mana = mana;

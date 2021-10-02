@@ -12,6 +12,8 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -50,6 +52,14 @@ public class StateIngredientBlock implements StateIngredient {
 	public void write(FriendlyByteBuf buffer) {
 		buffer.writeVarInt(1);
 		buffer.writeVarInt(Registry.BLOCK.getId(block));
+	}
+
+	@Override
+	public List<ItemStack> getDisplayedStacks() {
+		if (block.asItem() == Items.AIR) {
+			return Collections.emptyList();
+		}
+		return Collections.singletonList(new ItemStack(block));
 	}
 
 	@Override

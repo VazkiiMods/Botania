@@ -35,8 +35,6 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
-
 public class StonecuttingProvider extends BotaniaRecipeProvider {
 	public StonecuttingProvider(DataGenerator generator) {
 		super(generator);
@@ -90,11 +88,11 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 				.map(Optional::get)
 				.collect(Collectors.toList());
 		for (Item azulejo : allAzulejos) {
-			consumer.accept(azulejoStonecutting(allAzulejos, azulejo));
+			consumer.accept(anyToAnyStonecutting(allAzulejos, azulejo));
 		}
 	}
 
-	private static void registerForQuartz(String variant, Consumer<FinishedRecipe> consumer) {
+	private void registerForQuartz(String variant, Consumer<FinishedRecipe> consumer) {
 		Block base = Registry.BLOCK.getOptional(prefix(variant)).get();
 		Block slab = Registry.BLOCK.getOptional(prefix(variant + LibBlockNames.SLAB_SUFFIX)).get();
 		Block stairs = Registry.BLOCK.getOptional(prefix(variant + LibBlockNames.STAIR_SUFFIX)).get();
@@ -106,7 +104,7 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 		consumer.accept(stonecutting(base, pillar));
 	}
 
-	private static void registerForPavement(String color, Consumer<FinishedRecipe> consumer) {
+	private void registerForPavement(String color, Consumer<FinishedRecipe> consumer) {
 		Block base = Registry.BLOCK.getOptional(prefix(color + LibBlockNames.PAVEMENT_SUFFIX)).get();
 		Block slab = Registry.BLOCK.getOptional(prefix(color + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.SLAB_SUFFIX)).get();
 		Block stair = Registry.BLOCK.getOptional(prefix(color + LibBlockNames.PAVEMENT_SUFFIX + LibBlockNames.STAIR_SUFFIX)).get();
@@ -114,7 +112,7 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 		consumer.accept(stonecutting(base, stair));
 	}
 
-	private static void registerForMetamorphic(String variant, Consumer<FinishedRecipe> consumer) {
+	private void registerForMetamorphic(String variant, Consumer<FinishedRecipe> consumer) {
 		Block base = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone")).get();
 		Block slab = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.SLAB_SUFFIX)).get();
 		Block stair = Registry.BLOCK.getOptional(prefix(LibBlockNames.METAMORPHIC_PREFIX + variant + "_stone" + LibBlockNames.STAIR_SUFFIX)).get();
@@ -152,23 +150,27 @@ public class StonecuttingProvider extends BotaniaRecipeProvider {
 		return "Botania stonecutting recipes";
 	}
 
-	private static ResourceLocation idFor(ItemLike a, ItemLike b) {
+	protected ResourceLocation idFor(ItemLike a, ItemLike b) {
 		ResourceLocation aId = Registry.ITEM.getKey(a.asItem());
 		ResourceLocation bId = Registry.ITEM.getKey(b.asItem());
 		return prefix("stonecutting/" + aId.getPath() + "_to_" + bId.getPath());
 	}
 
-	private static FinishedRecipe stonecutting(ItemLike input, ItemLike output) {
+	protected FinishedRecipe stonecutting(ItemLike input, ItemLike output) {
 		return stonecutting(input, output, 1);
 	}
 
-	private static FinishedRecipe stonecutting(ItemLike input, ItemLike output, int count) {
+	protected FinishedRecipe stonecutting(ItemLike input, ItemLike output, int count) {
 		return new Result(idFor(input, output), RecipeSerializer.STONECUTTER, Ingredient.of(input), output.asItem(), count);
 	}
 
-	private static FinishedRecipe azulejoStonecutting(List<? extends ItemLike> inputs, ItemLike output) {
+	protected FinishedRecipe anyToAnyStonecutting(List<? extends ItemLike> inputs, ItemLike output) {
 		Ingredient input = Ingredient.of(inputs.stream().filter(obj -> output != obj).toArray(ItemLike[]::new));
 		return new Result(prefix("stonecutting/" + Registry.ITEM.getKey(output.asItem()).getPath()), RecipeSerializer.STONECUTTER, input, output.asItem(), 1);
+	}
+
+	protected ResourceLocation prefix(String path) {
+		return ResourceLocationHelper.prefix(path);
 	}
 
 	// Wrapper without advancements

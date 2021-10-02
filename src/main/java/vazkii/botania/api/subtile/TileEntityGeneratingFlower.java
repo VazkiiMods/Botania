@@ -32,6 +32,8 @@ import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
 
+import java.util.Objects;
+
 /**
  * The basic class for a Generating Flower.
  */
@@ -53,7 +55,7 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	protected BlockEntity linkedCollector = null;
 	public int passiveDecayTicks;
 
-	BlockPos cachedCollectorCoordinates = null;
+	private BlockPos cachedCollectorCoordinates = null;
 
 	public TileEntityGeneratingFlower(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -139,7 +141,11 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	}
 
 	public void linkToForcefully(BlockEntity collector) {
-		linkedCollector = collector;
+		if (linkedCollector != collector) {
+			linkedCollector = collector;
+			setChanged();
+			sync();
+		}
 	}
 
 	public void addMana(int mana) {
@@ -208,7 +214,11 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		int y = cmp.getInt(TAG_COLLECTOR_Y);
 		int z = cmp.getInt(TAG_COLLECTOR_Z);
 
+		BlockPos old = cachedCollectorCoordinates;
 		cachedCollectorCoordinates = y < 0 ? null : new BlockPos(x, y, z);
+		if (!Objects.equals(old, cachedCollectorCoordinates)) {
+			linkedCollector = null; //Force a refresh of the linked collector
+		}
 	}
 
 	@Override

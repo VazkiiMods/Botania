@@ -318,6 +318,7 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark, Enti
 			ISparkAttachable atile = spark.getAttachedTile();
 
 			if (spark == this
+					|| !((Entity) spark).isAlive()
 					|| spark.areIncomingTransfersDone()
 					|| getNetwork() != spark.getNetwork()
 					|| atile == null

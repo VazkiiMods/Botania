@@ -15,6 +15,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.SerializationTags;
 import net.minecraft.tags.Tag;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -61,6 +63,14 @@ public class StateIngredientTag extends StateIngredientBlocks {
 		object.addProperty("type", "tag");
 		object.addProperty("tag", tag.toString());
 		return object;
+	}
+
+	@Override
+	public List<ItemStack> getDisplayedStacks() {
+		return resolve().getValues().stream()
+				.filter(b -> b.asItem() != Items.AIR)
+				.map(ItemStack::new)
+				.collect(Collectors.toList());
 	}
 
 	@Nonnull

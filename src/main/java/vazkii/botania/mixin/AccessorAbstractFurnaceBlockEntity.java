@@ -44,5 +44,8 @@ public interface AccessorAbstractFurnaceBlockEntity {
 	int getCookingProgress();
 
 	@Accessor
+	int getCookingTotalTime();
+
+	@Accessor
 	void setCookingProgress(int cookTime);
 }
