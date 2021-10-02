@@ -128,7 +128,9 @@ public class ModSubtiles {
 	public static final Block hopperhockChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileHopperhock.Mini::new);
 
 	public static final Block tangleberrie = new BlockSpecialFlower(ModPotions.bloodthrst, 120, FLOWER_PROPS, SubTileTangleberrie::new);
+	public static final Block tangleberrieChibi = new BlockSpecialFlower(ModPotions.bloodthrst, 120, FLOWER_PROPS, SubTileTangleberrie.Mini::new);
 	public static final Block tangleberrieFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileTangleberrie::new);
+	public static final Block tangleberrieChibiFloating = new BlockFloatingSpecialFlower(FLOATING_PROPS, SubTileTangleberrie.Mini::new);
 
 	public static final Block jiyuulia = new BlockSpecialFlower(ModPotions.emptiness, 120, FLOWER_PROPS, SubTileJiyuulia::new);
 	public static final Block jiyuuliaChibi = new BlockSpecialFlower(ModPotions.emptiness, 120, FLOWER_PROPS, SubTileJiyuulia.Mini::new);
@@ -217,6 +219,7 @@ public class ModSubtiles {
 	public static final TileEntityType<SubTileHopperhock> HOPPERHOCK = TileEntityType.Builder.create(SubTileHopperhock::new, hopperhock, hopperhockFloating).build(null);
 	public static final TileEntityType<SubTileHopperhock.Mini> HOPPERHOCK_CHIBI = TileEntityType.Builder.create(SubTileHopperhock.Mini::new, hopperhockChibi, hopperhockChibiFloating).build(null);
 	public static final TileEntityType<SubTileTangleberrie> TANGLEBERRIE = TileEntityType.Builder.create(SubTileTangleberrie::new, tangleberrie, tangleberrieFloating).build(null);
+	public static final TileEntityType<SubTileTangleberrie.Mini> TANGLEBERRIE_CHIBI = TileEntityType.Builder.create(SubTileTangleberrie.Mini::new, tangleberrieChibi, tangleberrieChibiFloating).build(null);
 	public static final TileEntityType<SubTileJiyuulia> JIYUULIA = TileEntityType.Builder.create(SubTileJiyuulia::new, jiyuulia, jiyuuliaFloating).build(null);
 	public static final TileEntityType<SubTileJiyuulia.Mini> JIYUULIA_CHIBI = TileEntityType.Builder.create(SubTileJiyuulia.Mini::new, jiyuuliaChibi, jiyuuliaChibiFloating).build(null);
 	public static final TileEntityType<SubTileRannuncarpus> RANNUNCARPUS = TileEntityType.Builder.create(SubTileRannuncarpus::new, rannuncarpus, rannuncarpusFloating).build(null);
@@ -338,7 +341,9 @@ public class ModSubtiles {
 		register(r, chibi(floating(LibBlockNames.SUBTILE_HOPPERHOCK)), hopperhockChibiFloating);
 
 		register(r, LibBlockNames.SUBTILE_TANGLEBERRIE, tangleberrie);
+		register(r, chibi(LibBlockNames.SUBTILE_TANGLEBERRIE), tangleberrieChibi);
 		register(r, floating(LibBlockNames.SUBTILE_TANGLEBERRIE), tangleberrieFloating);
+		register(r, chibi(floating(LibBlockNames.SUBTILE_TANGLEBERRIE)), tangleberrieChibiFloating);
 
 		register(r, LibBlockNames.SUBTILE_JIYUULIA, jiyuulia);
 		register(r, chibi(LibBlockNames.SUBTILE_JIYUULIA), jiyuuliaChibi);
@@ -487,7 +492,9 @@ public class ModSubtiles {
 		register(r, getId(hopperhockChibiFloating), new ItemBlockSpecialFlower(hopperhockChibiFloating, props));
 
 		register(r, getId(tangleberrie), new ItemBlockSpecialFlower(tangleberrie, props));
+		register(r, getId(tangleberrieChibi), new ItemBlockSpecialFlower(tangleberrieChibi, props));
 		register(r, getId(tangleberrieFloating), new ItemBlockSpecialFlower(tangleberrieFloating, props));
+		register(r, getId(tangleberrieChibiFloating), new ItemBlockSpecialFlower(tangleberrieChibiFloating, props));
 
 		register(r, getId(jiyuulia), new ItemBlockSpecialFlower(jiyuulia, props));
 		register(r, getId(jiyuuliaChibi), new ItemBlockSpecialFlower(jiyuuliaChibi, props));
@@ -579,6 +586,7 @@ public class ModSubtiles {
 		register(r, getId(hopperhock), HOPPERHOCK);
 		register(r, getId(hopperhockChibi), HOPPERHOCK_CHIBI);
 		register(r, getId(tangleberrie), TANGLEBERRIE);
+		register(r, getId(tangleberrieChibi), TANGLEBERRIE_CHIBI);
 		register(r, getId(jiyuulia), JIYUULIA);
 		register(r, getId(jiyuuliaChibi), JIYUULIA_CHIBI);
 		register(r, getId(rannuncarpus), RANNUNCARPUS);

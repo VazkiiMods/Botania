@@ -111,7 +111,9 @@ public final class ModelHandler {
 		ClientRegistry.bindTileEntityRenderer(ModSubtiles.HOPPERHOCK, RenderTileSpecialFlower::new);
 		ClientRegistry.bindTileEntityRenderer(ModSubtiles.HOPPERHOCK_CHIBI, RenderTileSpecialFlower::new);
 		ClientRegistry.bindTileEntityRenderer(ModSubtiles.TANGLEBERRIE, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.TANGLEBERRIE_CHIBI, RenderTileSpecialFlower::new);
 		ClientRegistry.bindTileEntityRenderer(ModSubtiles.JIYUULIA, RenderTileSpecialFlower::new);
+		ClientRegistry.bindTileEntityRenderer(ModSubtiles.JIYUULIA_CHIBI, RenderTileSpecialFlower::new);
 		ClientRegistry.bindTileEntityRenderer(ModSubtiles.RANNUNCARPUS, RenderTileSpecialFlower::new);
 		ClientRegistry.bindTileEntityRenderer(ModSubtiles.RANNUNCARPUS_CHIBI, RenderTileSpecialFlower::new);
 		ClientRegistry.bindTileEntityRenderer(ModSubtiles.HYACIDUS, RenderTileSpecialFlower::new);

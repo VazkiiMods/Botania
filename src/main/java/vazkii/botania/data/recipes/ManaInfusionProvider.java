@@ -147,6 +147,8 @@ public class ManaInfusionProvider extends RecipeProvider {
 		consumer.accept(mini(ModSubtiles.bellethornChibi, ModSubtiles.bellethorn));
 		consumer.accept(mini(ModSubtiles.bubbellChibi, ModSubtiles.bubbell));
 		consumer.accept(mini(ModSubtiles.hopperhockChibi, ModSubtiles.hopperhock));
+		consumer.accept(mini(ModSubtiles.jiyuuliaChibi, ModSubtiles.jiyuulia));
+		consumer.accept(mini(ModSubtiles.tangleberrieChibi, ModSubtiles.tangleberrie));
 		consumer.accept(mini(ModSubtiles.marimorphosisChibi, ModSubtiles.marimorphosis));
 		consumer.accept(mini(ModSubtiles.rannuncarpusChibi, ModSubtiles.rannuncarpus));
 		consumer.accept(mini(ModSubtiles.solegnoliaChibi, ModSubtiles.solegnolia));

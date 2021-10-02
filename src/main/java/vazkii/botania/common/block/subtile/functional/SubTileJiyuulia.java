@@ -14,10 +14,10 @@ import net.minecraft.tileentity.TileEntityType;
 import vazkii.botania.common.block.ModSubtiles;
 
 public class SubTileJiyuulia extends SubTileTangleberrie {
-	private static final int RANGE = 8;
-	private static final int RANGE_MINI = 2;
+	private static final double RANGE = 8;
+	private static final double RANGE_MINI = 2;
 
-	protected SubTileJiyuulia(TileEntityType<?> type) {
+	public SubTileJiyuulia(TileEntityType<?> type) {
 		super(type);
 	}
 
