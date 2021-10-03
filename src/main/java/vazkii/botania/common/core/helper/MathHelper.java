@@ -8,6 +8,7 @@
  */
 package vazkii.botania.common.core.helper;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
@@ -50,4 +51,12 @@ public final class MathHelper {
 		return c1 & ~0xFFFFFF | r << 16 | g << 8 | b;
 	}
 
+	public static int distSqr(BlockPos a, BlockPos b) {
+		//Vec3i#distSqr, while convenient, offsets the second argument by (0.5, 0.5, 0.5).
+		//It also returns a double, which is unneeded; the squared distance between two integer coordinates is an integer.
+		int dx = a.getX() - b.getX();
+		int dy = a.getY() - b.getY();
+		int dz = a.getZ() - b.getZ();
+		return dx * dx + dy * dy + dz * dz;
+	}
 }
