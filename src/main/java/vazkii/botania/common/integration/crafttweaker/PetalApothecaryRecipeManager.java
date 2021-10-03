@@ -13,7 +13,13 @@ import com.blamejared.crafttweaker.api.annotations.ZenRegister;
 import com.blamejared.crafttweaker.api.item.IIngredient;
 import com.blamejared.crafttweaker.api.item.IItemStack;
 import com.blamejared.crafttweaker.api.managers.IRecipeManager;
+import com.blamejared.crafttweaker.api.recipes.IRecipeHandler;
+import com.blamejared.crafttweaker.api.recipes.IReplacementRule;
+import com.blamejared.crafttweaker.api.recipes.ReplacementHandlerHelper;
+import com.blamejared.crafttweaker.api.util.StringUtils;
 import com.blamejared.crafttweaker.impl.actions.recipes.ActionAddRecipe;
+import com.blamejared.crafttweaker.impl.item.MCItemStackMutable;
+import com.blamejared.crafttweaker_annotations.annotations.Document;
 
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
@@ -26,13 +32,19 @@ import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.RecipePetals;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.StringJoiner;
+import java.util.function.Function;
 
 /**
  * @docParam this <recipetype:botania:petal_apothecary>
  */
+@Document("mods/Botania/PetalApothecary")
 @ZenRegister
+@IRecipeHandler.For(RecipePetals.class)
 @ZenCodeType.Name("mods.botania.PetalApothecary")
-public class PetalApothecaryRecipeManager implements IRecipeManager {
+public class PetalApothecaryRecipeManager implements IRecipeManager, IRecipeHandler<RecipePetals> {
 
 	/**
 	 * Adds the specified petal apothecary recipe.
@@ -60,5 +72,25 @@ public class PetalApothecaryRecipeManager implements IRecipeManager {
 	@Override
 	public IRecipeType<IPetalRecipe> getRecipeType() {
 		return ModRecipeTypes.PETAL_TYPE;
+	}
+
+	@Override
+	public String dumpToCommandString(IRecipeManager manager, RecipePetals recipe) {
+		StringJoiner s = new StringJoiner(", ", manager.getCommandString() + ".addRecipe(", ");");
+
+		s.add(StringUtils.quoteAndEscape(recipe.getId()));
+		s.add(new MCItemStackMutable(recipe.getRecipeOutput()).getCommandString());
+		recipe.getIngredients().stream()
+				.map(IIngredient::fromIngredient)
+				.map(IIngredient::getCommandString)
+				.forEach(s::add);
+		return s.toString();
+	}
+
+	@Override
+	public Optional<Function<ResourceLocation, RecipePetals>> replaceIngredients(IRecipeManager manager, RecipePetals recipe, List<IReplacementRule> rules) {
+		return ReplacementHandlerHelper.replaceNonNullIngredientList(recipe.getIngredients(),
+				Ingredient.class, recipe, rules,
+				ingr -> id -> new RecipePetals(id, recipe.getRecipeOutput(), ingr.toArray(new Ingredient[0])));
 	}
 }
