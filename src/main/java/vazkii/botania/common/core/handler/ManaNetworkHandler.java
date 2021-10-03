@@ -74,13 +74,14 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
 	@Nullable
 	private BlockEntity getClosest(Set<BlockEntity> tiles, BlockPos pos, int limit) {
-		double minDist = Double.MAX_VALUE;
+		long minDist = Long.MAX_VALUE;
+		long limitSquared = (long) limit * limit;
 		BlockEntity closest = null;
 
 		for (BlockEntity te : tiles) {
 			if (!te.isRemoved()) {
-				double distance = MathHelper.distSqr(te.getBlockPos(), pos);
-				if (distance <= limit * limit && distance < minDist) {
+				long distance = MathHelper.distSqr(te.getBlockPos(), pos);
+				if (distance <= limitSquared && distance < minDist) {
 					minDist = distance;
 					closest = te;
 				}
