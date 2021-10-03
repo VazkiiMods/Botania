@@ -60,7 +60,7 @@ public class TileEntitySpecialFlower extends BlockEntity implements IWandBindabl
 		}
 	};
 
-	public int ticksExisted = 0;
+	protected int ticksExisted = 0;
 
 	/** true if this flower is working on Enchanted Soil **/
 	public boolean overgrowth = false;

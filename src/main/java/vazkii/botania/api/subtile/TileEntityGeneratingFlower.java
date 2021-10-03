@@ -15,11 +15,9 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -31,43 +29,31 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
-import vazkii.botania.common.core.helper.MathHelper;
-
-import javax.annotation.Nullable;
-
-import java.util.Objects;
 
 /**
  * The basic class for a Generating Flower.
  */
-public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
+public class TileEntityGeneratingFlower extends TileEntityBindableSpecialFlower<IManaCollector> {
 	private static final ResourceLocation SPREADER_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_spreader");
 
 	public static final int LINK_RANGE = 6;
-
 	private static final String TAG_MANA = "mana";
-
-	private static final String TAG_COLLECTOR_X = "collectorX";
-	private static final String TAG_COLLECTOR_Y = "collectorY";
-	private static final String TAG_COLLECTOR_Z = "collectorZ";
 	public static final String TAG_PASSIVE_DECAY_TICKS = "passiveDecayTicks";
 
 	private int mana;
-
-	public int passiveDecayTicks;
-
-	private @Nullable BlockPos bindingPos = null;
+	@Deprecated
+	public int passiveDecayTicks; //TODO remove passive flowers.
 
 	public TileEntityGeneratingFlower(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-		super(type, pos, state);
+		super(type, pos, state, IManaCollector.class);
 	}
 
 	@Override
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (ticksExisted == 1) {
-			bindToNearestCollector();
+		if (!getLevel().isClientSide && ticksExisted == 1) {
+			bindToNearest();
 		}
 
 		if (!getLevel().isClientSide && canGeneratePassively()) {
@@ -109,58 +95,28 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		}
 	}
 
-	public void bindToNearestCollector() {
+	@Override
+	public int getBindingRange() {
+		return LINK_RANGE;
+	}
+
+	@Override
+	public void bindToNearest() {
 		IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
 		BlockEntity closestCollector = network.getClosestCollector(getBlockPos(), getLevel(), LINK_RANGE);
 		if (closestCollector != null) {
-			setBindingForcefully(closestCollector.getBlockPos());
+			setBindingPos(closestCollector.getBlockPos());
 		}
 	}
 
 	public void emptyManaIntoCollector() {
-		IManaCollector collector = findBoundCollector();
+		IManaCollector collector = findBoundTile();
 		if (collector != null && !collector.isFull() && getMana() > 0) {
 			int manaval = Math.min(getMana(), collector.getMaxMana() - collector.getCurrentMana());
 			addMana(-manaval);
 			collector.receiveMana(manaval);
 			sync();
 		}
-	}
-
-	public void setBindingForcefully(BlockPos bindingPos) {
-		boolean changed = !Objects.equals(this.bindingPos, bindingPos);
-
-		this.bindingPos = bindingPos;
-
-		if (changed) {
-			setChanged();
-			sync();
-		}
-	}
-
-	public @Nullable IManaCollector findCollectorAt(@Nullable BlockPos pos) {
-		if (level == null || pos == null) {
-			return null;
-		}
-
-		BlockEntity be = level.getBlockEntity(pos);
-		return be instanceof IManaCollector && !be.isRemoved() ? (IManaCollector) be : null;
-	}
-
-	public @Nullable IManaCollector findBoundCollector() {
-		return findCollectorAt(bindingPos);
-	}
-
-	public boolean wouldBeValidBinding(@Nullable BlockPos pos) {
-		if (level == null || pos == null || !level.isLoaded(pos) || MathHelper.distSqr(getBlockPos(), pos) > LINK_RANGE * LINK_RANGE) {
-			return false;
-		} else {
-			return findCollectorAt(pos) != null;
-		}
-	}
-
-	public boolean isValidBinding() {
-		return wouldBeValidBinding(bindingPos);
 	}
 
 	public void addMana(int mana) {
@@ -188,21 +144,6 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		return 1;
 	}
 
-	@Override
-	public boolean onWanded(Player player, ItemStack wand) {
-		if (player == null) {
-			return false;
-		}
-
-		if (!player.level.isClientSide) {
-			sync();
-		}
-
-		Registry.SOUND_EVENT.getOptional(DING_SOUND_EVENT).ifPresent(evt -> player.playSound(evt, 0.1F, 1F));
-
-		return super.onWanded(player, wand);
-	}
-
 	public int getMaxMana() {
 		return 20;
 	}
@@ -216,48 +157,13 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		super.readFromPacketNBT(cmp);
 		mana = cmp.getInt(TAG_MANA);
 		passiveDecayTicks = cmp.getInt(TAG_PASSIVE_DECAY_TICKS);
-
-		int x = cmp.getInt(TAG_COLLECTOR_X);
-		int y = cmp.getInt(TAG_COLLECTOR_Y);
-		int z = cmp.getInt(TAG_COLLECTOR_Z);
-
-		//Older versions of the mod (1.16, early 1.17) sometimes used a blockpos with y == -1 to mean "unbound".
-		bindingPos = y < 0 ? null : new BlockPos(x, y, z);
 	}
 
 	@Override
 	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_MANA, getMana());
-		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
 		cmp.putInt(TAG_PASSIVE_DECAY_TICKS, passiveDecayTicks);
-
-		if (bindingPos != null) {
-			cmp.putInt(TAG_COLLECTOR_X, bindingPos.getX());
-			cmp.putInt(TAG_COLLECTOR_Y, bindingPos.getY());
-			cmp.putInt(TAG_COLLECTOR_Z, bindingPos.getZ());
-		}
-	}
-
-	@Override
-	public BlockPos getBinding() {
-		//Used for Wand of the Forest rendering, so this should return null when the binding is not valid.
-		return isValidBinding() ? bindingPos : null;
-	}
-
-	@Override
-	public boolean canSelect(Player player, ItemStack wand, BlockPos pos, Direction side) {
-		return true;
-	}
-
-	@Override
-	public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
-		if (wouldBeValidBinding(pos)) {
-			setBindingForcefully(pos);
-			return true;
-		}
-
-		return false;
 	}
 
 	public ItemStack getHudIcon() {

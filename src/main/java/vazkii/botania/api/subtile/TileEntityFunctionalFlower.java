@@ -20,7 +20,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -30,33 +29,21 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaPool;
-import vazkii.botania.common.core.helper.MathHelper;
-
-import javax.annotation.Nullable;
-
-import java.util.Objects;
 
 /**
  * The basic class for a Functional Flower.
  */
-public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
+public class TileEntityFunctionalFlower extends TileEntityBindableSpecialFlower<IManaPool> {
 	private static final ResourceLocation POOL_ID = new ResourceLocation(BotaniaAPI.MODID, "mana_pool");
-	public static final int LINK_RANGE = 10;
 
+	public static final int LINK_RANGE = 10;
 	private static final String TAG_MANA = "mana";
 
-	private static final String TAG_POOL_X = "poolX";
-	private static final String TAG_POOL_Y = "poolY";
-	private static final String TAG_POOL_Z = "poolZ";
-
 	private int mana;
-
 	public int redstoneSignal = 0;
 
-	private @Nullable BlockPos bindingPos = null;
-
 	public TileEntityFunctionalFlower(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-		super(type, pos, state);
+		super(type, pos, state, IManaPool.class);
 	}
 
 	/**
@@ -70,8 +57,8 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (ticksExisted == 1) {
-			bindToNearestPool();
+		if (!getLevel().isClientSide && ticksExisted == 1) {
+			bindToNearest();
 		}
 
 		drawManaFromPool();
@@ -96,16 +83,22 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		}
 	}
 
-	public void bindToNearestPool() {
+	@Override
+	public int getBindingRange() {
+		return LINK_RANGE;
+	}
+
+	@Override
+	public void bindToNearest() {
 		IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
 		BlockEntity closestPool = network.getClosestPool(getBlockPos(), getLevel(), LINK_RANGE);
 		if (closestPool instanceof IManaPool) {
-			setBindingForcefully(closestPool.getBlockPos());
+			setBindingPos(closestPool.getBlockPos());
 		}
 	}
 
 	public void drawManaFromPool() {
-		IManaPool pool = findBoundPool();
+		IManaPool pool = findBoundTile();
 		if (pool != null) {
 			int manaInPool = pool.getCurrentMana();
 			int manaMissing = getMaxMana() - mana;
@@ -115,42 +108,6 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		}
 	}
 
-	public void setBindingForcefully(BlockPos bindingPos) {
-		boolean changed = !Objects.equals(this.bindingPos, bindingPos);
-
-		this.bindingPos = bindingPos;
-
-		if (changed) {
-			setChanged();
-			sync();
-		}
-	}
-
-	public @Nullable IManaPool findPoolAt(@Nullable BlockPos pos) {
-		if (level == null || pos == null) {
-			return null;
-		}
-
-		BlockEntity be = level.getBlockEntity(pos);
-		return be instanceof IManaPool && !be.isRemoved() ? (IManaPool) be : null;
-	}
-
-	public @Nullable IManaPool findBoundPool() {
-		return findPoolAt(bindingPos);
-	}
-
-	public boolean wouldBeValidBinding(@Nullable BlockPos pos) {
-		if (level == null || pos == null || !level.isLoaded(pos) || MathHelper.distSqr(getBlockPos(), pos) > LINK_RANGE * LINK_RANGE) {
-			return false;
-		} else {
-			return findPoolAt(pos) != null;
-		}
-	}
-
-	public boolean isValidBinding() {
-		return wouldBeValidBinding(bindingPos);
-	}
-
 	public int getMana() {
 		return mana;
 	}
@@ -158,17 +115,6 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	public void addMana(int mana) {
 		this.mana = Mth.clamp(this.mana + mana, 0, getMaxMana());
 		setChanged();
-	}
-
-	@Override
-	public boolean onWanded(Player player, ItemStack wand) {
-		if (player == null) {
-			return false;
-		}
-
-		Registry.SOUND_EVENT.getOptional(DING_SOUND_EVENT).ifPresent(evt -> player.playSound(evt, 0.1F, 1F));
-
-		return super.onWanded(player, wand);
 	}
 
 	public int getMaxMana() {
@@ -183,45 +129,12 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	public void readFromPacketNBT(CompoundTag cmp) {
 		super.readFromPacketNBT(cmp);
 		mana = cmp.getInt(TAG_MANA);
-
-		int x = cmp.getInt(TAG_POOL_X);
-		int y = cmp.getInt(TAG_POOL_Y);
-		int z = cmp.getInt(TAG_POOL_Z);
-
-		//Older versions of the mod (1.16, early 1.17) sometimes used a blockpos with y == -1 to mean "unbound".
-		bindingPos = y < 0 ? null : new BlockPos(x, y, z);
 	}
 
 	@Override
 	public void writeToPacketNBT(CompoundTag cmp) {
 		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_MANA, mana);
-
-		if (bindingPos != null) {
-			cmp.putInt(TAG_POOL_X, bindingPos.getX());
-			cmp.putInt(TAG_POOL_Y, bindingPos.getY());
-			cmp.putInt(TAG_POOL_Z, bindingPos.getZ());
-		}
-	}
-
-	@Override
-	public BlockPos getBinding() {
-		return isValidBinding() ? bindingPos : null;
-	}
-
-	@Override
-	public boolean canSelect(Player player, ItemStack wand, BlockPos pos, Direction side) {
-		return true;
-	}
-
-	@Override
-	public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
-		if (wouldBeValidBinding(pos)) {
-			setBindingForcefully(pos);
-			return true;
-		}
-
-		return false;
 	}
 
 	public ItemStack getHudIcon() {
