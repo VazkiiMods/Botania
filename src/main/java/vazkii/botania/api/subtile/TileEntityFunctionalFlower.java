@@ -57,10 +57,6 @@ public class TileEntityFunctionalFlower extends TileEntityBindableSpecialFlower<
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getLevel().isClientSide && ticksExisted == 1) {
-			bindToNearest();
-		}
-
 		drawManaFromPool();
 
 		redstoneSignal = 0;

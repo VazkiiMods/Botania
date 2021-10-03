@@ -52,10 +52,6 @@ public class TileEntityGeneratingFlower extends TileEntityBindableSpecialFlower<
 	public void tickFlower() {
 		super.tickFlower();
 
-		if (!getLevel().isClientSide && ticksExisted == 1) {
-			bindToNearest();
-		}
-
 		if (!getLevel().isClientSide && canGeneratePassively()) {
 			int delay = getDelayBetweenPassiveGeneration();
 			if (delay > 0 && ticksExisted % delay == 0) {

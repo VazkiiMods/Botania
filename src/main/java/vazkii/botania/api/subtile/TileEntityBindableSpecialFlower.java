@@ -13,8 +13,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -44,7 +46,14 @@ public abstract class TileEntityBindableSpecialFlower<T> extends TileEntitySpeci
 
 	public abstract int getBindingRange();
 	public abstract void bindToNearest();
-
+	
+	@Override
+	public void onBlockPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
+		if(!world.isClientSide) {
+			bindToNearest();
+		}
+	}
+	
 	public @Nullable BlockPos getBindingPos() {
 		return bindingPos;
 	}
