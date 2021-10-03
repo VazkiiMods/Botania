@@ -120,7 +120,7 @@ test {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${mc_version}-36.0.46"
+    minecraft "net.minecraftforge:forge:${mc_version}-36.1.58"
 
     compileOnly fg.deobf("vazkii.autoreglib:AutoRegLib:1.6-46.85")
     compileOnly fg.deobf("vazkii.quark:Quark:r2.4-276.1408")
@@ -134,7 +134,7 @@ dependencies {
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.4-4.0.3.5:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.4-4.0.3.5")
 
-    compileOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-1.16.5:7.1.0.314")
+    compileOnly fg.deobf("com.blamejared.crafttweaker:CraftTweaker-1.16.5:7.1.2.448")
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'
@@ -143,8 +143,8 @@ dependencies {
         annotationProcessor 'org.spongepowered:mixin:0.8.2:processor'
 
 //  CT docs generation
-//        annotationProcessor "com.blamejared.crafttweaker:CraftTweaker-1.16.5:7.1.0.314"
-//        annotationProcessor "com.blamejared.crafttweaker:Crafttweaker_Annotation_Processors-1.16.5:1.0.0.314"
+//        annotationProcessor "com.blamejared.crafttweaker:CraftTweaker-1.16.5:7.1.2.448"
+//        annotationProcessor "com.blamejared.crafttweaker:Crafttweaker_Annotation_Processors-1.16.5:1.0.0.448"
 //        annotationProcessor "org.reflections:reflections:0.9.10" // CT dep
     }
 }
