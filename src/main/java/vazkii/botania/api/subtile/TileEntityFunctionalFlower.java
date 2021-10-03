@@ -30,6 +30,9 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaPool;
+import vazkii.botania.common.core.helper.MathHelper;
+
+import javax.annotation.Nullable;
 
 import java.util.Objects;
 
@@ -50,10 +53,7 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 
 	public int redstoneSignal = 0;
 
-	int sizeLastCheck = -1;
-	BlockEntity linkedPool = null;
-
-	BlockPos cachedPoolCoordinates = null;
+	private @Nullable BlockPos bindingPos = null;
 
 	public TileEntityFunctionalFlower(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -70,16 +70,11 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		linkPool();
-
-		if (linkedPool != null && isValidBinding()) {
-			IManaPool pool = (IManaPool) linkedPool;
-			int manaInPool = pool.getCurrentMana();
-			int manaMissing = getMaxMana() - mana;
-			int manaToRemove = Math.min(manaMissing, manaInPool);
-			pool.receiveMana(-manaToRemove);
-			addMana(manaToRemove);
+		if (ticksExisted == 1) {
+			bindToNearestPool();
 		}
+
+		drawManaFromPool();
 
 		redstoneSignal = 0;
 		if (acceptsRedstone()) {
@@ -101,48 +96,59 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		}
 	}
 
-	public void linkPool() {
-		boolean needsNew = false;
-		if (linkedPool == null) {
-			needsNew = true;
-
-			if (cachedPoolCoordinates != null) {
-				needsNew = false;
-				if (getLevel().hasChunkAt(cachedPoolCoordinates)) {
-					needsNew = true;
-					BlockEntity tileAt = getLevel().getBlockEntity(cachedPoolCoordinates);
-					if (tileAt instanceof IManaPool && !tileAt.isRemoved()) {
-						linkedPool = tileAt;
-						needsNew = false;
-					}
-					cachedPoolCoordinates = null;
-				}
-			}
-		} else {
-			BlockEntity tileAt = getLevel().getBlockEntity(linkedPool.getBlockPos());
-			if (tileAt instanceof IManaPool) {
-				linkedPool = tileAt;
-			}
+	public void bindToNearestPool() {
+		IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
+		BlockEntity closestPool = network.getClosestPool(getBlockPos(), getLevel(), LINK_RANGE);
+		if (closestPool instanceof IManaPool) {
+			setBindingForcefully(closestPool.getBlockPos());
 		}
-
-		if (needsNew && ticksExisted == 1) { // Only for new flowers
-			IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
-			int size = network.getAllPoolsInWorld(getLevel()).size();
-			if (BotaniaAPI.instance().shouldForceCheck() || size != sizeLastCheck) {
-				linkedPool = network.getClosestPool(getBlockPos(), getLevel(), LINK_RANGE);
-				sizeLastCheck = size;
-			}
-		}
-
-		setChanged();
 	}
 
-	public void linkToForcefully(BlockEntity pool) {
-		if (linkedPool != pool) {
-			linkedPool = pool;
+	public void drawManaFromPool() {
+		IManaPool pool = findBoundPool();
+		if (pool != null) {
+			int manaInPool = pool.getCurrentMana();
+			int manaMissing = getMaxMana() - mana;
+			int manaToRemove = Math.min(manaMissing, manaInPool);
+			pool.receiveMana(-manaToRemove);
+			addMana(manaToRemove);
+		}
+	}
+
+	public void setBindingForcefully(BlockPos bindingPos) {
+		boolean changed = !Objects.equals(this.bindingPos, bindingPos);
+
+		this.bindingPos = bindingPos;
+
+		if (changed) {
 			setChanged();
 			sync();
 		}
+	}
+
+	public @Nullable IManaPool findPoolAt(@Nullable BlockPos pos) {
+		if (level == null || pos == null) {
+			return null;
+		}
+
+		BlockEntity be = level.getBlockEntity(pos);
+		return be instanceof IManaPool && !be.isRemoved() ? (IManaPool) be : null;
+	}
+
+	public @Nullable IManaPool findBoundPool() {
+		return findPoolAt(bindingPos);
+	}
+
+	public boolean wouldBeValidBinding(@Nullable BlockPos pos) {
+		if (level == null || pos == null || !level.isLoaded(pos) || MathHelper.distSqr(getBlockPos(), pos) > LINK_RANGE * LINK_RANGE) {
+			return false;
+		} else {
+			return findPoolAt(pos) != null;
+		}
+	}
+
+	public boolean isValidBinding() {
+		return wouldBeValidBinding(bindingPos);
 	}
 
 	public int getMana() {
@@ -182,11 +188,8 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		int y = cmp.getInt(TAG_POOL_Y);
 		int z = cmp.getInt(TAG_POOL_Z);
 
-		BlockPos old = cachedPoolCoordinates;
-		cachedPoolCoordinates = y < 0 ? null : new BlockPos(x, y, z);
-		if (!Objects.equals(old, cachedPoolCoordinates)) {
-			linkedPool = null; //Force a refresh of the linked pool
-		}
+		//Older versions of the mod (1.16, early 1.17) sometimes used a blockpos with y == -1 to mean "unbound".
+		bindingPos = y < 0 ? null : new BlockPos(x, y, z);
 	}
 
 	@Override
@@ -194,27 +197,16 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		super.writeToPacketNBT(cmp);
 		cmp.putInt(TAG_MANA, mana);
 
-		if (cachedPoolCoordinates != null) {
-			cmp.putInt(TAG_POOL_X, cachedPoolCoordinates.getX());
-			cmp.putInt(TAG_POOL_Y, cachedPoolCoordinates.getY());
-			cmp.putInt(TAG_POOL_Z, cachedPoolCoordinates.getZ());
-		} else {
-			int x = linkedPool == null ? 0 : linkedPool.getBlockPos().getX();
-			int y = linkedPool == null ? -1 : linkedPool.getBlockPos().getY();
-			int z = linkedPool == null ? 0 : linkedPool.getBlockPos().getZ();
-
-			cmp.putInt(TAG_POOL_X, x);
-			cmp.putInt(TAG_POOL_Y, y);
-			cmp.putInt(TAG_POOL_Z, z);
+		if (bindingPos != null) {
+			cmp.putInt(TAG_POOL_X, bindingPos.getX());
+			cmp.putInt(TAG_POOL_Y, bindingPos.getY());
+			cmp.putInt(TAG_POOL_Z, bindingPos.getZ());
 		}
 	}
 
 	@Override
 	public BlockPos getBinding() {
-		if (linkedPool == null) {
-			return null;
-		}
-		return linkedPool.getBlockPos();
+		return isValidBinding() ? bindingPos : null;
 	}
 
 	@Override
@@ -224,27 +216,12 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 
 	@Override
 	public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
-		int range = 10;
-		range *= range;
-
-		double dist = pos.distSqr(getBlockPos());
-		if (range >= dist) {
-			BlockEntity tile = player.level.getBlockEntity(pos);
-			if (tile instanceof IManaPool) {
-				linkedPool = tile;
-				return true;
-			}
+		if (wouldBeValidBinding(pos)) {
+			setBindingForcefully(pos);
+			return true;
 		}
 
 		return false;
-	}
-
-	public boolean isValidBinding() {
-		return linkedPool != null
-				&& linkedPool.hasLevel()
-				&& !linkedPool.isRemoved()
-				&& getLevel().hasChunkAt(linkedPool.getBlockPos())
-				&& getLevel().getBlockEntity(linkedPool.getBlockPos()) == linkedPool;
 	}
 
 	public ItemStack getHudIcon() {
@@ -258,5 +235,4 @@ public class TileEntityFunctionalFlower extends TileEntitySpecialFlower {
 		int color = getColor();
 		BotaniaAPIClient.instance().drawComplexManaHUD(ms, color, getMana(), getMaxMana(), name, getHudIcon(), isValidBinding());
 	}
-
 }

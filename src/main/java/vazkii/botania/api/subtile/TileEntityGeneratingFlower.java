@@ -31,6 +31,9 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.BotaniaAPIClient;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.IManaCollector;
+import vazkii.botania.common.core.helper.MathHelper;
+
+import javax.annotation.Nullable;
 
 import java.util.Objects;
 
@@ -51,11 +54,9 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 	private int mana;
 
-	int sizeLastCheck = -1;
-	private BlockEntity linkedCollector = null;
 	public int passiveDecayTicks;
 
-	private BlockPos cachedCollectorCoordinates = null;
+	private @Nullable BlockPos bindingPos = null;
 
 	public TileEntityGeneratingFlower(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -65,7 +66,9 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	public void tickFlower() {
 		super.tickFlower();
 
-		linkCollector();
+		if (ticksExisted == 1) {
+			bindToNearestCollector();
+		}
 
 		if (!getLevel().isClientSide && canGeneratePassively()) {
 			int delay = getDelayBetweenPassiveGeneration();
@@ -106,46 +109,58 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		}
 	}
 
-	public void linkCollector() {
-		boolean needsNew = false;
-		if (linkedCollector == null) {
-			needsNew = true;
-
-			if (cachedCollectorCoordinates != null) {
-				needsNew = false;
-				if (getLevel().hasChunkAt(cachedCollectorCoordinates)) {
-					needsNew = true;
-					BlockEntity tileAt = getLevel().getBlockEntity(cachedCollectorCoordinates);
-					if (tileAt instanceof IManaCollector && !tileAt.isRemoved()) {
-						linkedCollector = tileAt;
-						needsNew = false;
-					}
-					cachedCollectorCoordinates = null;
-				}
-			}
-		} else {
-			BlockEntity tileAt = getLevel().getBlockEntity(linkedCollector.getBlockPos());
-			if (tileAt instanceof IManaCollector) {
-				linkedCollector = tileAt;
-			}
-		}
-
-		if (needsNew && ticksExisted == 1) { // New flowers only
-			IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
-			int size = network.getAllCollectorsInWorld(getLevel()).size();
-			if (BotaniaAPI.instance().shouldForceCheck() || size != sizeLastCheck) {
-				linkedCollector = network.getClosestCollector(getBlockPos(), getLevel(), LINK_RANGE);
-				sizeLastCheck = size;
-			}
+	public void bindToNearestCollector() {
+		IManaNetwork network = BotaniaAPI.instance().getManaNetworkInstance();
+		BlockEntity closestCollector = network.getClosestCollector(getBlockPos(), getLevel(), LINK_RANGE);
+		if (closestCollector != null) {
+			setBindingForcefully(closestCollector.getBlockPos());
 		}
 	}
 
-	public void linkToForcefully(BlockEntity collector) {
-		if (linkedCollector != collector) {
-			linkedCollector = collector;
+	public void emptyManaIntoCollector() {
+		IManaCollector collector = findBoundCollector();
+		if (collector != null && !collector.isFull() && getMana() > 0) {
+			int manaval = Math.min(getMana(), collector.getMaxMana() - collector.getCurrentMana());
+			addMana(-manaval);
+			collector.receiveMana(manaval);
+			sync();
+		}
+	}
+
+	public void setBindingForcefully(BlockPos bindingPos) {
+		boolean changed = !Objects.equals(this.bindingPos, bindingPos);
+
+		this.bindingPos = bindingPos;
+
+		if (changed) {
 			setChanged();
 			sync();
 		}
+	}
+
+	public @Nullable IManaCollector findCollectorAt(@Nullable BlockPos pos) {
+		if (level == null || pos == null) {
+			return null;
+		}
+
+		BlockEntity be = level.getBlockEntity(pos);
+		return be instanceof IManaCollector && !be.isRemoved() ? (IManaCollector) be : null;
+	}
+
+	public @Nullable IManaCollector findBoundCollector() {
+		return findCollectorAt(bindingPos);
+	}
+
+	public boolean wouldBeValidBinding(@Nullable BlockPos pos) {
+		if (level == null || pos == null || !level.isLoaded(pos) || MathHelper.distSqr(getBlockPos(), pos) > LINK_RANGE * LINK_RANGE) {
+			return false;
+		} else {
+			return findCollectorAt(pos) != null;
+		}
+	}
+
+	public boolean isValidBinding() {
+		return wouldBeValidBinding(bindingPos);
 	}
 
 	public void addMana(int mana) {
@@ -153,16 +168,8 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		setChanged();
 	}
 
-	public void emptyManaIntoCollector() {
-		if (isValidBinding()) {
-			IManaCollector collector = (IManaCollector) linkedCollector;
-			if (!collector.isFull() && getMana() > 0) {
-				int manaval = Math.min(getMana(), collector.getMaxMana() - collector.getCurrentMana());
-				addMana(-manaval);
-				collector.receiveMana(manaval);
-				sync();
-			}
-		}
+	public int getMana() {
+		return mana;
 	}
 
 	public boolean isPassiveFlower() {
@@ -214,11 +221,8 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		int y = cmp.getInt(TAG_COLLECTOR_Y);
 		int z = cmp.getInt(TAG_COLLECTOR_Z);
 
-		BlockPos old = cachedCollectorCoordinates;
-		cachedCollectorCoordinates = y < 0 ? null : new BlockPos(x, y, z);
-		if (!Objects.equals(old, cachedCollectorCoordinates)) {
-			linkedCollector = null; //Force a refresh of the linked collector
-		}
+		//Older versions of the mod (1.16, early 1.17) sometimes used a blockpos with y == -1 to mean "unbound".
+		bindingPos = y < 0 ? null : new BlockPos(x, y, z);
 	}
 
 	@Override
@@ -228,27 +232,17 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 		cmp.putInt(TAG_TICKS_EXISTED, ticksExisted);
 		cmp.putInt(TAG_PASSIVE_DECAY_TICKS, passiveDecayTicks);
 
-		if (cachedCollectorCoordinates != null) {
-			cmp.putInt(TAG_COLLECTOR_X, cachedCollectorCoordinates.getX());
-			cmp.putInt(TAG_COLLECTOR_Y, cachedCollectorCoordinates.getY());
-			cmp.putInt(TAG_COLLECTOR_Z, cachedCollectorCoordinates.getZ());
-		} else {
-			int x = linkedCollector == null ? 0 : linkedCollector.getBlockPos().getX();
-			int y = linkedCollector == null ? -1 : linkedCollector.getBlockPos().getY();
-			int z = linkedCollector == null ? 0 : linkedCollector.getBlockPos().getZ();
-
-			cmp.putInt(TAG_COLLECTOR_X, x);
-			cmp.putInt(TAG_COLLECTOR_Y, y);
-			cmp.putInt(TAG_COLLECTOR_Z, z);
+		if (bindingPos != null) {
+			cmp.putInt(TAG_COLLECTOR_X, bindingPos.getX());
+			cmp.putInt(TAG_COLLECTOR_Y, bindingPos.getY());
+			cmp.putInt(TAG_COLLECTOR_Z, bindingPos.getZ());
 		}
 	}
 
 	@Override
 	public BlockPos getBinding() {
-		if (linkedCollector == null) {
-			return null;
-		}
-		return linkedCollector.getBlockPos();
+		//Used for Wand of the Forest rendering, so this should return null when the binding is not valid.
+		return isValidBinding() ? bindingPos : null;
 	}
 
 	@Override
@@ -258,24 +252,12 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 
 	@Override
 	public boolean bindTo(Player player, ItemStack wand, BlockPos pos, Direction side) {
-		int range = 6;
-		range *= range;
-
-		double dist = pos.distSqr(getBlockPos());
-		if (range >= dist) {
-			BlockEntity tile = player.level.getBlockEntity(pos);
-			if (tile instanceof IManaCollector) {
-				linkedCollector = tile;
-				sync();
-				return true;
-			}
+		if (wouldBeValidBinding(pos)) {
+			setBindingForcefully(pos);
+			return true;
 		}
 
 		return false;
-	}
-
-	public boolean isValidBinding() {
-		return linkedCollector != null && !linkedCollector.isRemoved() && getLevel().getBlockEntity(linkedCollector.getBlockPos()) == linkedCollector;
 	}
 
 	public ItemStack getHudIcon() {
@@ -293,9 +275,5 @@ public class TileEntityGeneratingFlower extends TileEntitySpecialFlower {
 	@Override
 	public boolean isOvergrowthAffected() {
 		return !isPassiveFlower();
-	}
-
-	public int getMana() {
-		return mana;
 	}
 }
