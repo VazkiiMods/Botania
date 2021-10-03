@@ -55,6 +55,10 @@ public abstract class TileEntityBindableSpecialFlower<T> extends TileEntitySpeci
 		//Here is the only place that the binding is actually cleared if it's invalid. Might be worth changing.
 		if (bindingPos == null || !isValidBinding()) {
 			bindToNearest();
+
+			if (!isValidBinding()) {
+				bindingPos = null;
+			}
 		}
 	}
 
