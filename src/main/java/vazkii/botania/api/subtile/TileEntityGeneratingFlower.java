@@ -41,8 +41,7 @@ public class TileEntityGeneratingFlower extends TileEntityBindableSpecialFlower<
 	public static final String TAG_PASSIVE_DECAY_TICKS = "passiveDecayTicks";
 
 	private int mana;
-	@Deprecated
-	public int passiveDecayTicks; //TODO remove passive flowers.
+	public int passiveDecayTicks;
 
 	public TileEntityGeneratingFlower(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state, IManaCollector.class);
