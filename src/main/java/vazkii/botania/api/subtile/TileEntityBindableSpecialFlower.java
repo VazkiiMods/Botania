@@ -46,12 +46,12 @@ public abstract class TileEntityBindableSpecialFlower<T> extends TileEntitySpeci
 
 	public abstract int getBindingRange();
 	public abstract void bindToNearest();
-	
+
 	@Override
 	public void onBlockPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
 		bindToNearest();
 	}
-	
+
 	public @Nullable BlockPos getBindingPos() {
 		return bindingPos;
 	}
