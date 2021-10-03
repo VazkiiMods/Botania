@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import vazkii.botania.api.internal.IManaNetwork;
 import vazkii.botania.api.mana.ManaNetworkCallback.Action;
 import vazkii.botania.api.mana.ManaNetworkCallback.ManaBlockType;
+import vazkii.botania.common.core.helper.MathHelper;
 
 import javax.annotation.Nullable;
 
@@ -78,7 +79,7 @@ public final class ManaNetworkHandler implements IManaNetwork {
 
 		for (BlockEntity te : tiles) {
 			if (!te.isRemoved()) {
-				double distance = te.getBlockPos().distSqr(pos);
+				double distance = MathHelper.distSqr(te.getBlockPos(), pos);
 				if (distance <= limit * limit && distance < minDist) {
 					minDist = distance;
 					closest = te;
