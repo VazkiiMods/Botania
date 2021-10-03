@@ -49,7 +49,13 @@ public abstract class TileEntityBindableSpecialFlower<T> extends TileEntitySpeci
 
 	@Override
 	public void onBlockPlacedBy(Level world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack stack) {
-		bindToNearest();
+		//The flower might already have a binding, even on first placement, due to ctrl-pickblock or something.
+		//It would be nice to retain that binding, but only if it is valid, so you can't use ctrl-pick to place
+		//flowers with wacky out-of-range binding positions.
+		//Here is the only place that the binding is actually cleared if it's invalid. Might be worth changing.
+		if (bindingPos == null || !isValidBinding()) {
+			bindToNearest();
+		}
 	}
 
 	public @Nullable BlockPos getBindingPos() {
