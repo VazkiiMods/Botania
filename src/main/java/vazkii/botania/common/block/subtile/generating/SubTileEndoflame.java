@@ -56,28 +56,26 @@ public class SubTileEndoflame extends TileEntityGeneratingFlower {
 			return;
 		}
 
-		if (linkedCollector != null) {
-			if (burnTime == 0) {
-				if (getMana() < getMaxMana()) {
+		if (burnTime == 0) {
+			if (getMana() < getMaxMana()) {
 
-					for (ItemEntity item : getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)))) {
-						if (DelayHelper.canInteractWithImmediate(this, item)) {
-							ItemStack stack = item.getItem();
-							if (stack.getItem().hasCraftingRemainingItem()) {
-								continue;
-							}
+				for (ItemEntity item : getLevel().getEntitiesOfClass(ItemEntity.class, new AABB(getEffectivePos().offset(-RANGE, -RANGE, -RANGE), getEffectivePos().offset(RANGE + 1, RANGE + 1, RANGE + 1)))) {
+					if (DelayHelper.canInteractWithImmediate(this, item)) {
+						ItemStack stack = item.getItem();
+						if (stack.getItem().hasCraftingRemainingItem()) {
+							continue;
+						}
 
-							int burnTime = getBurnTime(stack);
-							if (burnTime > 0 && stack.getCount() > 0) {
-								this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
+						int burnTime = getBurnTime(stack);
+						if (burnTime > 0 && stack.getCount() > 0) {
+							this.burnTime = Math.min(FUEL_CAP, burnTime) / 2;
 
-								stack.shrink(1);
-								getLevel().playSound(null, getEffectivePos(), ModSounds.endoflame, SoundSource.BLOCKS, 0.2F, 1F);
-								getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), START_BURN_EVENT, item.getId());
-								sync();
+							stack.shrink(1);
+							getLevel().playSound(null, getEffectivePos(), ModSounds.endoflame, SoundSource.BLOCKS, 0.2F, 1F);
+							getLevel().blockEvent(getBlockPos(), getBlockState().getBlock(), START_BURN_EVENT, item.getId());
+							sync();
 
-								return;
-							}
+							return;
 						}
 					}
 				}
