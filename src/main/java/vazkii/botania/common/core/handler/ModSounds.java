@@ -95,6 +95,8 @@ public final class ModSounds {
 	public static final SoundEvent babylonAttack = makeSoundEvent("babylon_attack");
 	public static final SoundEvent babylonSpawn = makeSoundEvent("babylon_spawn");
 	public static final SoundEvent gaiaTrap = makeSoundEvent("gaia_trap");
+	public static final SoundEvent gaiaTeleport = makeSoundEvent("gaia_teleport");
+	public static final SoundEvent gaiaSummon = makeSoundEvent("gaia_summon");
 
 	//misc
 	public static final SoundEvent ding = makeSoundEvent("ding");

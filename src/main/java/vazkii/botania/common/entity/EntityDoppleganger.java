@@ -78,6 +78,7 @@ import vazkii.botania.common.Botania;
 import vazkii.botania.common.advancements.DopplegangerNoArmorTrigger;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
+import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
@@ -222,7 +223,7 @@ public class EntityDoppleganger extends Mob {
 				e.getAttribute(Attributes.ARMOR).setBaseValue(15);
 			}
 
-			e.playSound(SoundEvents.ENDER_DRAGON_GROWL, 10F, 0.1F);
+			e.playSound(ModSounds.gaiaSummon, 1F, 1F);
 			e.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(e.blockPosition()), MobSpawnType.EVENT, null, null);
 			world.addFreshEntity(e);
 		}
@@ -252,7 +253,7 @@ public class EntityDoppleganger extends Mob {
 
 		for (int x = -range; x <= range; x++) {
 			for (int z = -range; z <= range; z++) {
-				if (Math.abs(x) == 4 && Math.abs(z) == 4 || vazkii.botania.common.core.helper.MathHelper.pointDistancePlane(x, z, 0, 0) > ARENA_RANGE) {
+				if (Math.abs(x) == 4 && Math.abs(z) == 4 || MathHelper.pointDistancePlane(x, z, 0, 0) > ARENA_RANGE) {
 					continue; // Ignore pylons and out of circle
 				}
 
@@ -635,7 +636,7 @@ public class EntityDoppleganger extends Mob {
 	}
 
 	private void keepInsideArena(Player player) {
-		if (vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(player.getX(), player.getY(), player.getZ(), source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5) >= ARENA_RANGE) {
+		if (MathHelper.pointDistanceSpace(player.getX(), player.getY(), player.getZ(), source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5) >= ARENA_RANGE) {
 			Vector3 sourceVector = new Vector3(source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5);
 			Vector3 playerVector = Vector3.fromEntityCenter(player);
 			Vector3 motion = sourceVector.subtract(playerVector).normalize();
@@ -892,7 +893,7 @@ public class EntityDoppleganger extends Mob {
 			newZ = source.getZ() + (random.nextDouble() - .5) * ARENA_RANGE;
 			tries++;
 			//ensure it's inside the arena ring, and not just its bounding square
-		} while (tries < 50 && vazkii.botania.common.core.helper.MathHelper.pointDistanceSpace(newX, newY, newZ, source.getX(), source.getY(), source.getZ()) > 12);
+		} while (tries < 50 && MathHelper.pointDistanceSpace(newX, newY, newZ, source.getX(), source.getY(), source.getZ()) > 12);
 
 		if (tries == 50) {
 			//failsafe: teleport to the beacon
@@ -911,8 +912,8 @@ public class EntityDoppleganger extends Mob {
 		teleportTo(newX, newY, newZ);
 
 		//play sound
-		level.playSound(null, oldX, oldY, oldZ, SoundEvents.ENDERMAN_TELEPORT, this.getSoundSource(), 1.0F, 1.0F);
-		this.playSound(SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F);
+		level.playSound(null, oldX, oldY, oldZ, ModSounds.gaiaTeleport, this.getSoundSource(), 1F, 1F);
+		this.playSound(ModSounds.gaiaTeleport, 1F, 1F);
 
 		Random random = getRandom();
 

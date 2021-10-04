@@ -623,5 +623,25 @@
 			}
 		],
 		"subtitle": "botania.subtitle.shulkMeNot"
+	},
+	"gaia_teleport": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.enderman.teleport"
+			}
+		],
+		"subtitle": "botania.subtitle.gaiaTeleport"
+	},
+	"gaia_summon": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.ender_dragon.growl",
+				"volume": 10,
+				"pitch": 0.1
+			}
+		],
+		"subtitle": "botania.subtitle.gaiaSummon"
 	}
 }
