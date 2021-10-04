@@ -89,6 +89,42 @@
 		"sounds": ["botania:equipbauble"],
 		"subtitle": "botania.subtitle.equipBauble"
 	},
+	"equip_elementium": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:item.armor.equip_iron"
+			}
+		],
+		"subtitle": "botania.subtitle.equipElementium"
+	},
+	"equip_manasteel": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:item.armor.equip_iron"
+			}
+		],
+		"subtitle": "botania.subtitle.equipManasteel"
+	},
+	"equip_manaweave": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:item.armor.equip_leather"
+			}
+		],
+		"subtitle": "botania.subtitle.equipManaweave"
+	},
+	"equip_terrasteel": {
+	"sounds": [
+		{
+			"type": "event",
+			"name": "minecraft:item.armor.equip_diamond"
+		}
+	],
+	"subtitle": "botania.subtitle.equipTerrasteel"
+},
 	"gaia_trap": {
 		"sounds": ["botania:gaiatrap"],
 		"subtitle": "botania.subtitle.gaiaTrap"

@@ -35,6 +35,10 @@ public final class ModSounds {
 	public static final SoundEvent enchanterEnchant = makeSoundEvent("enchanter_enchant");
 	public static final SoundEvent endoflame = makeSoundEvent("endoflame");
 	public static final SoundEvent equipBauble = makeSoundEvent("equip_bauble");
+	public static final SoundEvent equipElementium = makeSoundEvent("equip_elementium");
+	public static final SoundEvent equipManasteel = makeSoundEvent("equip_manasteel");
+	public static final SoundEvent equipManaweave = makeSoundEvent("equip_manaweave");
+	public static final SoundEvent equipTerrasteel = makeSoundEvent("equip_terrasteel");
 	public static final SoundEvent gaiaTrap = makeSoundEvent("gaia_trap");
 	public static final SoundEvent holyCloak = makeSoundEvent("holy_cloak");
 	public static final SoundEvent labellia = makeSoundEvent("labellia");

@@ -42,6 +42,7 @@ import vazkii.botania.common.brew.ModBrews;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.integration.corporea.CorporeaNodeDetectors;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.relic.ItemLokiRing;
@@ -61,10 +62,10 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	private static final Supplier<Rarity> RELIC_RARITY = Suppliers.memoize(() -> Rarity.EPIC);
 
 	private enum ArmorMaterial implements net.minecraft.world.item.ArmorMaterial {
-		MANASTEEL("manasteel", 16, new int[] { 2, 5, 6, 2 }, 18, () -> SoundEvents.ARMOR_EQUIP_IRON, () -> ModItems.manaSteel, 0),
-		MANAWEAVE("manaweave", 5, new int[] { 1, 2, 2, 1 }, 18, () -> SoundEvents.ARMOR_EQUIP_LEATHER, () -> ModItems.manaweaveCloth, 0),
-		ELEMENTIUM("elementium", 18, new int[] { 2, 5, 6, 2 }, 18, () -> SoundEvents.ARMOR_EQUIP_IRON, () -> ModItems.elementium, 0),
-		TERRASTEEL("terrasteel", 34, new int[] { 3, 6, 8, 3 }, 26, () -> SoundEvents.ARMOR_EQUIP_DIAMOND, () -> ModItems.terrasteel, 3);
+		MANASTEEL("manasteel", 16, new int[] { 2, 5, 6, 2 }, 18, () -> ModSounds.equipManasteel, () -> ModItems.manaSteel, 0),
+		MANAWEAVE("manaweave", 5, new int[] { 1, 2, 2, 1 }, 18, () -> ModSounds.equipManaweave, () -> ModItems.manaweaveCloth, 0),
+		ELEMENTIUM("elementium", 18, new int[] { 2, 5, 6, 2 }, 18, () -> ModSounds.equipElementium, () -> ModItems.elementium, 0),
+		TERRASTEEL("terrasteel", 34, new int[] { 3, 6, 8, 3 }, 26, () -> ModSounds.equipTerrasteel, () -> ModItems.terrasteel, 3);
 
 		private final String name;
 		private final int durabilityMultiplier;
