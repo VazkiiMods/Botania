@@ -43,6 +43,7 @@ public final class ModSounds {
 	public static final SoundEvent equipTerrasteel = makeSoundEvent("equip_terrasteel");
 	public static final SoundEvent gaiaTrap = makeSoundEvent("gaia_trap");
 	public static final SoundEvent holyCloak = makeSoundEvent("holy_cloak");
+	public static final SoundEvent hornDoot = makeSoundEvent("horn_doot");
 	public static final SoundEvent labellia = makeSoundEvent("labellia");
 	public static final SoundEvent laputaStart = makeSoundEvent("laputa_start");
 	public static final SoundEvent lexiconOpen = makeSoundEvent("lexicon_open");

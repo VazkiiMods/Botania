@@ -151,6 +151,15 @@
 		"sounds": ["botania:holycloak"],
 		"subtitle": "botania.subtitle.holyCloak"
 	},
+	"horn_doot": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:block.note_block.bass"
+			}
+		],
+		"subtitle": "botania.subtitle.hornDoot"
+	},
 	"labellia": {
 		"sounds": [
 			{

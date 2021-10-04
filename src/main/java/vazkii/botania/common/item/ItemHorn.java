@@ -9,7 +9,6 @@
 package vazkii.botania.common.item;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
@@ -29,6 +28,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.api.item.IHornHarvestable.EnumHornType;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
@@ -65,7 +65,7 @@ public class ItemHorn extends Item {
 			if (time != getUseDuration(stack) && time % 5 == 0) {
 				breakGrass(world, stack, player.blockPosition());
 			}
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.NOTE_BLOCK_BASS, SoundSource.BLOCKS, 1F, 0.001F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.hornDoot, SoundSource.BLOCKS, 1F, 0.001F);
 		}
 	}
 
