@@ -45,6 +45,7 @@ public final class ModSounds {
 	public static final SoundEvent equipTerrasteel = makeSoundEvent("equip_terrasteel");
 	public static final SoundEvent fireRod = makeSoundEvent("fire_rod");
 	public static final SoundEvent flareChakramThrow = makeSoundEvent("flare_chakram_throw");
+	public static final SoundEvent flugelEyeBind = makeSoundEvent("flugel_eye_bind");
 	public static final SoundEvent flugelEyeTeleport = makeSoundEvent("flugel_eye_teleport");
 	public static final SoundEvent gaiaTrap = makeSoundEvent("gaia_trap");
 	public static final SoundEvent holyCloak = makeSoundEvent("holy_cloak");
