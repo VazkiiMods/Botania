@@ -36,7 +36,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.*;
@@ -471,7 +470,7 @@ public class EntityDoppleganger extends Mob {
 			}
 		}
 
-		playSound(SoundEvents.GENERIC_EXPLODE, 20F, (1F + (level.random.nextFloat() - level.random.nextFloat()) * 0.2F) * 0.7F);
+		playSound(ModSounds.gaiaDeath, 1F, (1F + (level.random.nextFloat() - level.random.nextFloat()) * 0.2F) * 0.7F);
 		level.addParticle(ParticleTypes.EXPLOSION_EMITTER, getX(), getY(), getZ(), 1D, 0D, 0D);
 	}
 

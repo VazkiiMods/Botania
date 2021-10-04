@@ -270,6 +270,16 @@
 		],
 		"subtitle": "botania.subtitle.flugelEyeTeleport"
 	},
+	"gaia_death": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.generic.explode",
+				"volume": 20
+			}
+		],
+		"subtitle": "botania.subtitle.gaiaDeath"
+	},
 	"gaia_summon": {
 		"sounds": [
 			{
