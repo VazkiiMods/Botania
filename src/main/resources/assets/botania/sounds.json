@@ -285,6 +285,32 @@
 		"sounds": ["botania:runealtarstart"],
 		"subtitle": "botania.subtitle.runeAltarStart"
 	},
+	"smelt_rod": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:item.flintandsteel.use"
+			}
+		],
+		"subtitle": "botania.subtitle.smeltRod"
+	},
+	"smelt_rod_extra_no_subtitle": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:block.fire.ambient"
+			}
+		]
+	},
+	"smelt_rod_simmer": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:item.flintandsteel.use"
+			}
+		],
+		"subtitle": "botania.subtitle.smeltRodSimmer"
+	},
 	"spreader_cover": {
 		"sounds": [
 			{

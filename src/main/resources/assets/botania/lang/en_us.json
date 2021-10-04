@@ -3384,6 +3384,8 @@
 	"botania.subtitle.redStringInterceptorClick": "Red Stringed Interceptor clicks",
   "botania.subtitle.runeAltarCraft": "Runic Altar finishes",
   "botania.subtitle.runeAltarStart": "Runic Altar starts",
+	"botania.subtitle.smeltRod": "Rod of the Molten Core cooks",
+	"botania.subtitle.smeltRodSimmer": "Rod of the Molten Core simmers",
 	"botania.subtitle.spreaderCover": "Spreader is covered",
   "botania.subtitle.spreaderFire": "Spreader shoots mana",
 	"botania.subtitle.spreaderUncover": "Spreader is uncovered",

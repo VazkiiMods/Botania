@@ -64,6 +64,9 @@ public final class ModSounds {
 	public static final SoundEvent redStringInterceptorClick = makeSoundEvent("red_string_interceptor_click");
 	public static final SoundEvent runeAltarCraft = makeSoundEvent("rune_altar_craft");
 	public static final SoundEvent runeAltarStart = makeSoundEvent("rune_altar_start");
+	public static final SoundEvent smeltRod = makeSoundEvent("smelt_rod");
+	public static final SoundEvent smeltRod2 = makeSoundEvent("smelt_rod_extra_no_subtitle");
+	public static final SoundEvent smeltRodSimmer = makeSoundEvent("smelt_rod_simmer");
 	public static final SoundEvent spreaderCover = makeSoundEvent("spreader_cover");
 	public static final SoundEvent spreaderFire = makeSoundEvent("spreader_fire");
 	public static final SoundEvent spreaderUncover = makeSoundEvent("spreader_uncover");
