@@ -3370,6 +3370,8 @@
   "botania.subtitle.lexiconPage": "Lexica Botania page turns",
   "botania.subtitle.lightRelay": "Luminizer whooshes",
   "botania.subtitle.manaBlaster": "Mana Blaster fires",
+	"botania.subtitle.manaBlasterCycle": "Mana Blaster cycles clip",
+	"botania.subtitle.manaBlasterMisfire": "Mana Blaster misfires",
   "botania.subtitle.manaPoolCraft": "Mana Pool infuses",
   "botania.subtitle.missile": "Magic Missile fires",
   "botania.subtitle.orechid": "Stone transforms into ore",

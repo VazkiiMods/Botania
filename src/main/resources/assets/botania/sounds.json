@@ -189,6 +189,24 @@
 		"sounds": ["botania:manablaster"],
 		"subtitle": "botania.subtitle.manaBlaster"
 	},
+	"mana_blaster_cycle": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:block.stone_button.click_on"
+			}
+		],
+		"subtitle": "botania.subtitle.manaBlasterCycle"
+	},
+	"mana_blaster_misfire": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:block.lever.click"
+			}
+		],
+		"subtitle": "botania.subtitle.manaBlasterMisfire"
+	},
 	"mana_pool_craft": {
 		"sounds": ["botania:manapoolcraft"],
 		"subtitle": "botania.subtitle.manaPoolCraft"

@@ -50,6 +50,8 @@ public final class ModSounds {
 	public static final SoundEvent lexiconPage = makeSoundEvent("lexicon_page");
 	public static final SoundEvent lightRelay = makeSoundEvent("light_relay");
 	public static final SoundEvent manaBlaster = makeSoundEvent("mana_blaster");
+	public static final SoundEvent manaBlasterCycle = makeSoundEvent("mana_blaster_cycle");
+	public static final SoundEvent manaBlasterMisfire = makeSoundEvent("mana_blaster_misfire");
 	public static final SoundEvent manaPoolCraft = makeSoundEvent("mana_pool_craft");
 	public static final SoundEvent missile = makeSoundEvent("missile");
 	public static final SoundEvent orechid = makeSoundEvent("orechid");
