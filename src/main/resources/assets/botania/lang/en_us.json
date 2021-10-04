@@ -3339,6 +3339,7 @@
   "botania.subtitle.airRod": "Rod of the Skies whooshes",
   "botania.subtitle.altarCraft": "Petal Apothecary finishes",
   "botania.subtitle.arcane_rose_disenchant": "Rosa Arcana disenchants",
+	"botania.subtitle.arcaneRoseAbsorb": "Experience dissolves",
 	"botania.subtitle.astrolabeConfigure": "Worldshaper's Astrolabe clinks",
   "botania.subtitle.babylonAttack": "Key of King's Law unleashed",
   "botania.subtitle.babylonSpawn": "Key of King's Law activated",
@@ -3403,6 +3404,10 @@
 	"botania.subtitle.vineBallThrow": "Vine Ball flies",
 	"botania.subtitle.virusInfect": "Virus infests",
 	"botania.subtitle.worldSeedTeleport": "World Seed teleports",
+	"botania.subtitle.tigerseyePacify": "Tigerseye petrifies",
+	"botania.subtitle.entropinnyumAngry": "Entropinnyum is unsatisfied",
+	"botania.subtitle.entropinnyumHappy": "Entropinnyum sizzles",
+	"botania.subtitle.gourmaryllisBurp": "Gourmaryllis burps",
 	
   "botania.subtitle.way": "O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA O-oooooooooo AAAAE-A-A-I-A-U-JO-oooooooooooo AAE-O-A-A-U-U-A-E-eee-ee-eee AAAAE-A-E-I-E-A-JO-ooo-oo-oo-oo EEEEO-A-AAA-AAAA"
 }

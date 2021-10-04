@@ -107,10 +107,10 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 				digestingMana = 0;
 
 				float burpPitch = (float) Math.pow(2.0, (streakLength == 0 ? -lastFoodCount : streakLength) / 12.0);
-				getLevel().playSound(null, getEffectivePos(), SoundEvents.PLAYER_BURP, SoundSource.BLOCKS, 1, burpPitch);
+				getLevel().playSound(null, getEffectivePos(), SoundEvents.PLAYER_BURP, SoundSource.BLOCKS, 1F, burpPitch);
 				sync();
 			} else if (cooldown % munchInterval == 0) {
-				getLevel().playSound(null, getEffectivePos(), SoundEvents.GENERIC_EAT, SoundSource.BLOCKS, 0.5f, 1);
+				getLevel().playSound(null, getEffectivePos(), SoundEvents.GENERIC_EAT, SoundSource.BLOCKS, 0.5F, 1F);
 
 				Vec3 offset = getLevel().getBlockState(getEffectivePos()).getOffset(getLevel(), getEffectivePos()).add(0.4, 0.6, 0.4);
 

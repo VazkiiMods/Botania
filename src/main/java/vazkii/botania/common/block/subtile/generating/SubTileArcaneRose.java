@@ -9,7 +9,6 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -35,7 +34,6 @@ import java.util.stream.Collectors;
 public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 	private static final int MANA_PER_XP = 50;
 	private static final int MANA_PER_XP_ORB = 35;
-	private static final int MANA_PER_XP_DISENCHANT = 40;
 	private static final int RANGE = 1;
 
 	public SubTileArcaneRose(BlockPos pos, BlockState state) {
@@ -65,10 +63,10 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 		List<ExperienceOrb> orbs = getLevel().getEntitiesOfClass(ExperienceOrb.class, effectBounds);
 		for (ExperienceOrb orb : orbs) {
 			if (orb.isAlive()) {
-				addMana(orb.getValue() * 35);
+				addMana(orb.getValue() * MANA_PER_XP_ORB);
 				orb.discard();
 				float pitch = (level.random.nextFloat() - level.random.nextFloat()) * 0.35F + 0.9F;
-				level.playSound(null, getEffectivePos(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 0.07F, pitch);
+				level.playSound(null, getEffectivePos(), ModSounds.arcaneRoseAbsorb, SoundSource.BLOCKS, 1F, pitch);
 				sync();
 				return;
 			}

@@ -79,11 +79,15 @@ public final class ModSounds {
 
 	//flowers
 	public static final SoundEvent agricarnation = makeSoundEvent("agricarnation");
+	public static final SoundEvent arcaneRoseAbsorb = makeSoundEvent("arcane_rose_absorb");
 	public static final SoundEvent arcaneRoseDisenchant = makeSoundEvent("arcane_rose_disenchant");
 	public static final SoundEvent endoflame = makeSoundEvent("endoflame");
+	public static final SoundEvent entropinnyumAngry = makeSoundEvent("entropinnyum_angry");
+	public static final SoundEvent entropinnyumHappy = makeSoundEvent("entropinnyum_happy");
 	public static final SoundEvent labellia = makeSoundEvent("labellia");
 	public static final SoundEvent orechid = makeSoundEvent("orechid");
 	public static final SoundEvent thermalily = makeSoundEvent("thermalily");
+	public static final SoundEvent tigerseyePacify = makeSoundEvent("tigerseye_pacify");
 
 	//entities
 	public static final SoundEvent babylonAttack = makeSoundEvent("babylon_attack");

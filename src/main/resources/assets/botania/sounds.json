@@ -564,5 +564,44 @@
 	"way": {
 		"sounds": ["botania:way"],
 		"subtitle": "botania.subtitle.way"
+	},
+	"tigerseye_pacify": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.creeper.hurt"
+			}
+		],
+		"subtitle": "botania.subtitle.tigerseyePacify"
+	},
+	"arcane_rose_absorb": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.experience_orb.pickup",
+				"volume": 0.07
+			}
+		],
+		"subtitle": "botania.subtitle.arcaneRoseAbsorb"
+	},
+	"entropinnyum_angry": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.generic.extinguish_fire",
+				"volume": 0.2
+			}
+		],
+		"subtitle": "botania.subtitle.entropinnyumAngry"
+	},
+	"entropinnyum_happy": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.generic.explode",
+				"volume": 0.2
+			}
+		],
+		"subtitle": "botania.subtitle.entropinnyumHappy"
 	}
 }
