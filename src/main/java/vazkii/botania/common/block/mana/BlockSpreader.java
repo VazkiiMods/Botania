@@ -154,7 +154,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 				toInsert.setCount(1);
 			}
 
-			spreader.getItemHandler().setItem(0, heldItem.copy());
+			spreader.getItemHandler().setItem(0, toInsert);
 
 			return InteractionResult.SUCCESS;
 		} else if (!lens.isEmpty() && !wool) {
