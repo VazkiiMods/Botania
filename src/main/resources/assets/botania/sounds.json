@@ -574,16 +574,6 @@
 		],
 		"subtitle": "botania.subtitle.tigerseyePacify"
 	},
-	"arcane_rose_absorb": {
-		"sounds": [
-			{
-				"type": "event",
-				"name": "minecraft:entity.experience_orb.pickup",
-				"volume": 0.07
-			}
-		],
-		"subtitle": "botania.subtitle.arcaneRoseAbsorb"
-	},
 	"entropinnyum_angry": {
 		"sounds": [
 			{

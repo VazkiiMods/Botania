@@ -79,7 +79,6 @@ public final class ModSounds {
 
 	//flowers
 	public static final SoundEvent agricarnation = makeSoundEvent("agricarnation");
-	public static final SoundEvent arcaneRoseAbsorb = makeSoundEvent("arcane_rose_absorb");
 	public static final SoundEvent arcaneRoseDisenchant = makeSoundEvent("arcane_rose_disenchant");
 	public static final SoundEvent endoflame = makeSoundEvent("endoflame");
 	public static final SoundEvent entropinnyumAngry = makeSoundEvent("entropinnyum_angry");

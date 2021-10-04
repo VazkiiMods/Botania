@@ -9,6 +9,7 @@
 package vazkii.botania.common.block.subtile.generating;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -66,7 +67,8 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 				addMana(orb.getValue() * MANA_PER_XP_ORB);
 				orb.discard();
 				float pitch = (level.random.nextFloat() - level.random.nextFloat()) * 0.35F + 0.9F;
-				level.playSound(null, getEffectivePos(), ModSounds.arcaneRoseAbsorb, SoundSource.BLOCKS, 1F, pitch);
+				//Usage of vanilla sound event: Subtitle is "Experience gained", and this is about gaining experience anyways.
+				level.playSound(null, getEffectivePos(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 0.07F, pitch);
 				sync();
 				return;
 			}
