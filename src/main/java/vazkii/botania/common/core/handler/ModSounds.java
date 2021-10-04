@@ -27,6 +27,7 @@ public final class ModSounds {
 	public static final SoundEvent blackHoleTalismanConfigure = makeSoundEvent("black_hole_talisman_configure");
 	public static final SoundEvent blackLotus = makeSoundEvent("black_lotus");
 	public static final SoundEvent dash = makeSoundEvent("dash");
+	public static final SoundEvent diceOfFate = makeSoundEvent("dice_of_fate");
 	public static final SoundEvent ding = makeSoundEvent("ding");
 	public static final SoundEvent divaCharm = makeSoundEvent("diva_charm");
 	public static final SoundEvent divinationRod = makeSoundEvent("divination_rod");

@@ -62,6 +62,15 @@
 		"sounds": ["botania:dash"],
 		"subtitle": "botania.subtitle.dash"
 	},
+	"dice_of_fate": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.arrow.shoot"
+			}
+		],
+		"subtitle": "botania.subtitle.diceOfFate"
+	},
 	"ding": {
 		"sounds": ["botania:ding"],
 		"subtitle": "botania.subtitle.ding"
