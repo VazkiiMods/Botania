@@ -33,6 +33,7 @@ import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.ModTags;
 
 import javax.annotation.Nonnull;
@@ -127,9 +128,7 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 			}
 
 			if (!blocks.isEmpty()) {
-				for (int i = 0; i < 10; i++) {
-					world.playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.SAND_STEP, SoundSource.BLOCKS, 1F, 0.4F);
-				}
+				world.playSound(player, player.getX(), player.getY(), player.getZ(), ModSounds.terraformRod, SoundSource.BLOCKS, 1F, 0.4F);
 				SparkleParticleData data = SparkleParticleData.sparkle(2F, 0.35F, 0.2F, 0.05F, 5);
 				for (int i = 0; i < 120; i++) {
 					world.addParticle(data, startCenter.getX() - range + range * 2 * Math.random(), startCenter.getY() + 2 + (Math.random() - 0.5) * 2, startCenter.getZ() - range + range * 2 * Math.random(), 0, 0, 0);
