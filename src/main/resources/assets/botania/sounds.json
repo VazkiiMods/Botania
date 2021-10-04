@@ -344,9 +344,14 @@
 		],
 		"subtitle": "botania.subtitle.virusInfects"
 	},
-	"way": {
-		"sounds": ["botania:way"],
-		"subtitle": "botania.subtitle.way"
+	"world_seed_teleport": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.enderman.teleport"
+			}
+		],
+		"subtitle": "botania.subtitle.worldSeedTeleport"
 	},
 	"music.gaia1": {
 		"sounds": [
@@ -363,5 +368,9 @@
 				"stream": true
 			}
 		]
+	},
+	"way": {
+		"sounds": ["botania:way"],
+		"subtitle": "botania.subtitle.way"
 	}
 }

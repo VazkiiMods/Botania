@@ -75,10 +75,11 @@ public final class ModSounds {
 	public static final SoundEvent unholyCloak = makeSoundEvent("unholy_cloak");
 	public static final SoundEvent vineBallThrow = makeSoundEvent("vine_ball_throw");
 	public static final SoundEvent virusInfects = makeSoundEvent("virus_infects");
-	public static final SoundEvent way = makeSoundEvent("way");
+	public static final SoundEvent worldSeedTeleport = makeSoundEvent("world_seed_teleport");
 
 	public static final SoundEvent gaiaMusic1 = makeSoundEvent("music.gaia1");
 	public static final SoundEvent gaiaMusic2 = makeSoundEvent("music.gaia2");
+	public static final SoundEvent way = makeSoundEvent("way");
 
 	private static SoundEvent makeSoundEvent(String name) {
 		ResourceLocation loc = prefix(name);
