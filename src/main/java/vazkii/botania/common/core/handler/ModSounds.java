@@ -19,9 +19,9 @@ public final class ModSounds {
 	public static final SoundEvent altarCraft = makeSoundEvent("altar_craft");
 	public static final SoundEvent bellows = makeSoundEvent("bellows");
 	public static final SoundEvent drum = makeSoundEvent("drum");
+	public static final SoundEvent enchanterEnchant = makeSoundEvent("enchanter_enchant");
 	public static final SoundEvent enchanterFade = makeSoundEvent("enchanter_fade");
 	public static final SoundEvent enchanterForm = makeSoundEvent("enchanter_form");
-	public static final SoundEvent enchanterEnchant = makeSoundEvent("enchanter_enchant");
 	public static final SoundEvent hornDoot = makeSoundEvent("horn_doot");
 	public static final SoundEvent lightRelay = makeSoundEvent("light_relay");
 	public static final SoundEvent manaPoolCraft = makeSoundEvent("mana_pool_craft");
@@ -69,8 +69,8 @@ public final class ModSounds {
 	public static final SoundEvent starcaller = makeSoundEvent("starcaller");
 	public static final SoundEvent temperanceStoneConfigure = makeSoundEvent("temperance_stone_configure");
 	public static final SoundEvent terraBlade = makeSoundEvent("terrablade");
-	public static final SoundEvent terraformRod = makeSoundEvent("terraform_rod");
 	public static final SoundEvent terraPickMode = makeSoundEvent("terra_pick_mode");
+	public static final SoundEvent terraformRod = makeSoundEvent("terraform_rod");
 	public static final SoundEvent thornChakramThrow = makeSoundEvent("thorn_chakram_throw");
 	public static final SoundEvent unholyCloak = makeSoundEvent("unholy_cloak");
 	public static final SoundEvent vineBallThrow = makeSoundEvent("vine_ball_throw");
@@ -94,9 +94,9 @@ public final class ModSounds {
 	//entities
 	public static final SoundEvent babylonAttack = makeSoundEvent("babylon_attack");
 	public static final SoundEvent babylonSpawn = makeSoundEvent("babylon_spawn");
-	public static final SoundEvent gaiaTrap = makeSoundEvent("gaia_trap");
-	public static final SoundEvent gaiaTeleport = makeSoundEvent("gaia_teleport");
 	public static final SoundEvent gaiaSummon = makeSoundEvent("gaia_summon");
+	public static final SoundEvent gaiaTeleport = makeSoundEvent("gaia_teleport");
+	public static final SoundEvent gaiaTrap = makeSoundEvent("gaia_trap");
 
 	//misc
 	public static final SoundEvent ding = makeSoundEvent("ding");

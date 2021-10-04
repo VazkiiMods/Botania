@@ -129,6 +129,10 @@
 		],
 		"subtitle": "botania.subtitle.drum"
 	},
+	"enchanter_enchant": {
+		"sounds": ["botania:enchanterenchant"],
+		"subtitle": "botania.subtitle.enchanterEnchant"
+	},
 	"enchanter_fade": {
 		"sounds": [
 			{
@@ -149,10 +153,6 @@
 		],
 		"subtitle": "botania.subtitle.enchanterForm"
 	},
-	"enchanter_enchant": {
-		"sounds": ["botania:enchanterenchant"],
-		"subtitle": "botania.subtitle.enchanterEnchant"
-	},
 	"ender_air_throw": {
 		"sounds": [
 			{
@@ -171,6 +171,26 @@
 			}
 		],
 		"subtitle": "botania.subtitle.endoflame"
+	},
+	"entropinnyum_angry": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.generic.extinguish_fire",
+				"volume": 0.2
+			}
+		],
+		"subtitle": "botania.subtitle.entropinnyumAngry"
+	},
+	"entropinnyum_happy": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.generic.explode",
+				"volume": 0.2
+			}
+		],
+		"subtitle": "botania.subtitle.entropinnyumHappy"
 	},
 	"equip_bauble": {
 		"sounds": ["botania:equipbauble"],
@@ -249,6 +269,26 @@
 			}
 		],
 		"subtitle": "botania.subtitle.flugelEyeTeleport"
+	},
+	"gaia_summon": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.ender_dragon.growl",
+				"volume": 10,
+				"pitch": 0.1
+			}
+		],
+		"subtitle": "botania.subtitle.gaiaSummon"
+	},
+	"gaia_teleport": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.enderman.teleport"
+			}
+		],
+		"subtitle": "botania.subtitle.gaiaTeleport"
 	},
 	"gaia_trap": {
 		"sounds": [
@@ -349,6 +389,42 @@
 		],
 		"subtitle": "botania.subtitle.missile"
 	},
+	"music.gaia1": {
+		"sounds": [
+			{
+				"name": "botania:music/endureemptiness",
+				"stream": true
+			}
+		]
+	},
+	"music.gaia2": {
+		"sounds": [
+			{
+				"name": "botania:music/fightforquiescence",
+				"stream": true
+			}
+		]
+	},
+	"narslimmus_eat_big": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.slime.squish",
+				"pitch": 0.02
+			}
+		],
+		"subtitle": "botania.subtitle.narslimmusEat"
+	},
+	"narslimmus_eat_small": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.slime.squish_small",
+				"pitch": 0.02
+			}
+		],
+		"subtitle": "botania.subtitle.narslimmusEat"
+	},
 	"orechid": {
 		"sounds": [
 			{
@@ -390,6 +466,16 @@
 	"rune_altar_start": {
 		"sounds": ["botania:runealtarstart"],
 		"subtitle": "botania.subtitle.runeAltarStart"
+	},
+	"shulk_me_not": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.shulker.death",
+				"pitch": 0.1
+			}
+		],
+		"subtitle": "botania.subtitle.shulkMeNot"
 	},
 	"smelt_rod": {
 		"sounds": [
@@ -461,6 +547,16 @@
 		],
 		"subtitle": "botania.subtitle.temperanceStoneConfigure"
 	},
+	"terra_pick_mode": {
+		"sounds": [
+			{
+				"name": "botania:terrapickmode",
+				"volume": 0.5,
+				"pitch": 0.4
+			}
+		],
+		"subtitle": "botania.subtitle.terraPickMode"
+	},
 	"terrablade": {
 		"sounds": [
 			{
@@ -479,16 +575,6 @@
 			}
 		],
 		"subtitle": "botania.subtitle.terraformRod"
-	},
-	"terra_pick_mode": {
-		"sounds": [
-			{
-				"name": "botania:terrapickmode",
-				"volume": 0.5,
-				"pitch": 0.4
-			}
-		],
-		"subtitle": "botania.subtitle.terraPickMode"
 	},
 	"terrasteel_craft": {
 		"sounds": ["botania:terrasteelcraft"],
@@ -513,6 +599,15 @@
 		],
 		"subtitle": "botania.subtitle.thornChakramThrow"
 	},
+	"tigerseye_pacify": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.creeper.hurt"
+			}
+		],
+		"subtitle": "botania.subtitle.tigerseyePacify"
+	},
 	"unholy_cloak": {
 		"sounds": ["botania:unholycloak"],
 		"subtitle": "botania.subtitle.unholyCloak"
@@ -536,6 +631,10 @@
 		],
 		"subtitle": "botania.subtitle.virusInfect"
 	},
+	"way": {
+		"sounds": ["botania:way"],
+		"subtitle": "botania.subtitle.way"
+	},
 	"world_seed_teleport": {
 		"sounds": [
 			{
@@ -544,104 +643,5 @@
 			}
 		],
 		"subtitle": "botania.subtitle.worldSeedTeleport"
-	},
-	"music.gaia1": {
-		"sounds": [
-			{
-				"name": "botania:music/endureemptiness",
-				"stream": true
-			}
-		]
-	},
-	"music.gaia2": {
-		"sounds": [
-			{
-				"name": "botania:music/fightforquiescence",
-				"stream": true
-			}
-		]
-	},
-	"way": {
-		"sounds": ["botania:way"],
-		"subtitle": "botania.subtitle.way"
-	},
-	"tigerseye_pacify": {
-		"sounds": [
-			{
-				"type": "event",
-				"name": "minecraft:entity.creeper.hurt"
-			}
-		],
-		"subtitle": "botania.subtitle.tigerseyePacify"
-	},
-	"entropinnyum_angry": {
-		"sounds": [
-			{
-				"type": "event",
-				"name": "minecraft:entity.generic.extinguish_fire",
-				"volume": 0.2
-			}
-		],
-		"subtitle": "botania.subtitle.entropinnyumAngry"
-	},
-	"entropinnyum_happy": {
-		"sounds": [
-			{
-				"type": "event",
-				"name": "minecraft:entity.generic.explode",
-				"volume": 0.2
-			}
-		],
-		"subtitle": "botania.subtitle.entropinnyumHappy"
-	},
-	"narslimmus_eat_big": {
-		"sounds": [
-			{
-				"type": "event",
-				"name": "minecraft:entity.slime.squish",
-				"pitch": 0.02
-			}
-		],
-		"subtitle": "botania.subtitle.narslimmusEat"
-	},
-	"narslimmus_eat_small": {
-		"sounds": [
-			{
-				"type": "event",
-				"name": "minecraft:entity.slime.squish_small",
-				"pitch": 0.02
-			}
-		],
-		"subtitle": "botania.subtitle.narslimmusEat"
-	},
-	"shulk_me_not": {
-		"sounds": [
-			{
-				"type": "event",
-				"name": "minecraft:entity.shulker.death",
-				"pitch": 0.1
-			}
-		],
-		"subtitle": "botania.subtitle.shulkMeNot"
-	},
-	"gaia_teleport": {
-		"sounds": [
-			{
-				"type": "event",
-				"name": "minecraft:entity.enderman.teleport"
-			}
-		],
-		"subtitle": "botania.subtitle.gaiaTeleport"
-	},
-	"gaia_summon": {
-		"sounds": [
-			{
-				"type": "event",
-				"name": "minecraft:entity.ender_dragon.growl",
-				"volume": 10,
-				"pitch": 0.1
-			}
-		],
-		"subtitle": "botania.subtitle.gaiaSummon"
 	}
 }
