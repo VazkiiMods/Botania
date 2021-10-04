@@ -35,6 +35,7 @@ public final class ModSounds {
 	public static final SoundEvent enchanterFade = makeSoundEvent("enchanter_fade");
 	public static final SoundEvent enchanterForm = makeSoundEvent("enchanter_form");
 	public static final SoundEvent enchanterEnchant = makeSoundEvent("enchanter_enchant");
+	public static final SoundEvent enderAirThrow = makeSoundEvent("ender_air_throw");
 	public static final SoundEvent endoflame = makeSoundEvent("endoflame");
 	public static final SoundEvent equipBauble = makeSoundEvent("equip_bauble");
 	public static final SoundEvent equipElementium = makeSoundEvent("equip_elementium");

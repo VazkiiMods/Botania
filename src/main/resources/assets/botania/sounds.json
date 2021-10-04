@@ -99,6 +99,15 @@
 		"sounds": ["botania:enchanterenchant"],
 		"subtitle": "botania.subtitle.enchanterEnchant"
 	},
+	"ender_air_throw": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.arrow.shoot"
+			}
+		],
+		"subtitle": "botania.subtitle.enderAirThrow"
+	},
 	"endoflame": {
 		"sounds": ["botania:endoflame"],
 		"subtitle": "botania.subtitle.endoflame"
