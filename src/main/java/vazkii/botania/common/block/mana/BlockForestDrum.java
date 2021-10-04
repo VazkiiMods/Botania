@@ -33,6 +33,7 @@ import vazkii.botania.api.internal.IManaBurst;
 import vazkii.botania.api.mana.IManaTrigger;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.ModBlocks;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemHorn;
 import vazkii.botania.common.item.ModItems;
 
@@ -131,7 +132,7 @@ public class BlockForestDrum extends BlockModWaterloggable implements IManaTrigg
 		}
 
 		for (int i = 0; i < 10; i++) {
-			world.playSound(null, pos, SoundEvents.NOTE_BLOCK_BASEDRUM, SoundSource.BLOCKS, 1F, 1F);
+			world.playSound(null, pos, ModSounds.drum, SoundSource.BLOCKS, 1F, 1F);
 		}
 	}
 }

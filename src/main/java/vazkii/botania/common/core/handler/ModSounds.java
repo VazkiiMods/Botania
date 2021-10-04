@@ -29,6 +29,7 @@ public final class ModSounds {
 	public static final SoundEvent divaCharm = makeSoundEvent("diva_charm");
 	public static final SoundEvent divinationRod = makeSoundEvent("divination_rod");
 	public static final SoundEvent doit = makeSoundEvent("doit");
+	public static final SoundEvent drum = makeSoundEvent("drum");
 	public static final SoundEvent enchanterFade = makeSoundEvent("enchanter_fade");
 	public static final SoundEvent enchanterForm = makeSoundEvent("enchanter_form");
 	public static final SoundEvent enchanterEnchant = makeSoundEvent("enchanter_enchant");
@@ -48,7 +49,9 @@ public final class ModSounds {
 	public static final SoundEvent potionCreate = makeSoundEvent("potion_create");
 	public static final SoundEvent runeAltarCraft = makeSoundEvent("rune_altar_craft");
 	public static final SoundEvent runeAltarStart = makeSoundEvent("rune_altar_start");
+	public static final SoundEvent spreaderCover = makeSoundEvent("spreader_cover");
 	public static final SoundEvent spreaderFire = makeSoundEvent("spreader_fire");
+	public static final SoundEvent spreaderUncover = makeSoundEvent("spreader_uncover");
 	public static final SoundEvent starcaller = makeSoundEvent("starcaller");
 	public static final SoundEvent terraBlade = makeSoundEvent("terrablade");
 	public static final SoundEvent terraformRod = makeSoundEvent("terraform_rod");

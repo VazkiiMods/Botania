@@ -60,6 +60,15 @@
 		"sounds": ["botania:doit"],
 		"subtitle": "botania.subtitle.doit"
 	},
+	"drum": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:block.note_block.basedrum"
+			}
+		],
+		"subtitle": "botania.subtitle.drum"
+	},
 	"enchanter_fade": {
 		"sounds": ["botania:enchanterblock"],
 		"subtitle": "botania.subtitle.enchanterFade"
@@ -141,9 +150,27 @@
 		"sounds": ["botania:runealtarstart"],
 		"subtitle": "botania.subtitle.runeAltarStart"
 	},
+	"spreader_cover": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:block.wool.place"
+			}
+		],
+		"subtitle": "botania.subtitle.spreaderCover"
+	},
 	"spreader_fire": {
 		"sounds": ["botania:spreaderfire"],
 		"subtitle": "botania.subtitle.spreaderFire"
+	},
+	"spreader_uncover": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:block.wool.break"
+			}
+		],
+		"subtitle": "botania.subtitle.spreaderUncover"
 	},
 	"starcaller": {
 		"sounds": ["botania:starcaller"],

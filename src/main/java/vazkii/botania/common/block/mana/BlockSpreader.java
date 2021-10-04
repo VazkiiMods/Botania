@@ -45,6 +45,7 @@ import vazkii.botania.api.wand.IWireframeAABBProvider;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.item.ModItems;
 
@@ -175,7 +176,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 				}
 			}
 
-			world.playSound(player, pos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 1f, 1f);
+			world.playSound(player, pos, ModSounds.spreaderCover, SoundSource.BLOCKS, 1f, 1f);
 
 			return InteractionResult.SUCCESS;
 		} else if (wool || heldItem.isEmpty() && spreader.paddingColor != null && lens.isEmpty()) {
@@ -184,7 +185,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 			spreader.paddingColor = null;
 			spreader.setChanged();
 
-			world.playSound(player, pos, SoundEvents.WOOD_BREAK, SoundSource.BLOCKS, 1f, 1f);
+			world.playSound(player, pos, ModSounds.spreaderUncover, SoundSource.BLOCKS, 1f, 1f);
 
 			return InteractionResult.SUCCESS;
 		}
