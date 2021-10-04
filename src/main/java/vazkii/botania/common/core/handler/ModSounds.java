@@ -70,6 +70,7 @@ public final class ModSounds {
 	public static final SoundEvent terrasteelCraft = makeSoundEvent("terrasteel_craft");
 	public static final SoundEvent thermalily = makeSoundEvent("thermalily");
 	public static final SoundEvent unholyCloak = makeSoundEvent("unholy_cloak");
+	public static final SoundEvent vineBallFire = makeSoundEvent("vine_ball_fire");
 	public static final SoundEvent way = makeSoundEvent("way");
 
 	public static final SoundEvent gaiaMusic1 = makeSoundEvent("music.gaia1");

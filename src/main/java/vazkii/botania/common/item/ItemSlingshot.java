@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.item;
 
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -20,6 +19,7 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
 import vazkii.botania.common.entity.EntityVineBall;
 
@@ -55,7 +55,7 @@ public class ItemSlingshot extends Item {
 			ball.shootFromRotation(living, living.getXRot(), living.getYRot(), 0F, 1.5F, 1F);
 			ball.setDeltaMovement(ball.getDeltaMovement().scale(1.6));
 			world.addFreshEntity(ball);
-			world.playSound(null, living.getX(), living.getY(), living.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.NEUTRAL, 0.5F, 0.4F / (living.getRandom().nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, living.getX(), living.getY(), living.getZ(), ModSounds.vineBallFire, SoundSource.NEUTRAL, 0.5F, 0.4F / (living.getRandom().nextFloat() * 0.4F + 0.8F));
 		}
 	}
 

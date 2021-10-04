@@ -299,6 +299,15 @@
 		"sounds": ["botania:unholycloak"],
 		"subtitle": "botania.subtitle.unholyCloak"
 	},
+	"vine_ball_fire": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.arrow.shoot"
+			}
+		],
+		"subtitle": "botania.subtitle.vineBallFire"
+	},
 	"way": {
 		"sounds": ["botania:way"],
 		"subtitle": "botania.subtitle.way"
