@@ -397,14 +397,14 @@
 		],
 		"subtitle": "botania.subtitle.vineBallThrow"
 	},
-	"virus_infects": {
+	"virus_infect": {
 		"sounds": [
 			{
 				"type": "event",
 				"name": "minecraft:entity.zombie_villager.cure"
 			}
 		],
-		"subtitle": "botania.subtitle.virusInfects"
+		"subtitle": "botania.subtitle.virusInfect"
 	},
 	"world_seed_teleport": {
 		"sounds": [
