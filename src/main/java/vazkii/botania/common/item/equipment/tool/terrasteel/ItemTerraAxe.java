@@ -97,7 +97,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 	@Override
 	public void breakOtherBlock(Player player, ItemStack stack, BlockPos pos, BlockPos originPos, Direction side) {
 		if (shouldBreak(player) && !tickingSwappers) {
-			addBlockSwapper(player.level, player, stack, pos, 32, true);
+			addBlockSwapper(player.level, player, stack, pos, BLOCK_RANGE, true);
 		}
 	}
 
@@ -262,7 +262,7 @@ public class ItemTerraAxe extends ItemManasteelAxe implements ISequentialBreaker
 				// This is a ridiculous function call here.
 				ToolCommons.removeBlockWithDrops(player, truncator, world,
 						cand.coordinates,
-						state -> state.is(BlockTags.MINEABLE_WITH_AXE));
+						state -> state.is(BlockTags.MINEABLE_WITH_AXE) || state.is(BlockTags.LEAVES));
 
 				remainingSwaps--;
 
