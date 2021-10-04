@@ -9,7 +9,6 @@
 package vazkii.botania.common.block.tile.string;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -20,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import vazkii.botania.common.block.tile.ModTiles;
+import vazkii.botania.common.core.handler.ModSounds;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -77,7 +77,7 @@ public class TileRedStringInterceptor extends TileRedString {
 		interceptors.removeAll(remove);
 		if (did) {
 			player.swing(hand);
-			world.playSound(null, pos, SoundEvents.DISPENSER_DISPENSE, SoundSource.BLOCKS, 0.3F, 0.6F);
+			world.playSound(null, pos, ModSounds.redStringInterceptorClick, SoundSource.BLOCKS, 0.3F, 0.6F);
 			return InteractionResult.SUCCESS;
 		}
 		return InteractionResult.PASS;

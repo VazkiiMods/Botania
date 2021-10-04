@@ -142,6 +142,15 @@
 		"sounds": ["botania:potioncreate"],
 		"subtitle": "botania.subtitle.potionCreate"
 	},
+	"red_string_interceptor_click": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:block.dispenser.dispense"
+			}
+		],
+		"subtitle": "botania.subtitle.redStringInterceptorClick"
+	},
 	"rune_altar_craft": {
 		"sounds": ["botania:runealtarcraft"],
 		"subtitle": "botania.subtitle.runeAltarCraft"

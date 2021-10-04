@@ -47,6 +47,7 @@ public final class ModSounds {
 	public static final SoundEvent missile = makeSoundEvent("missile");
 	public static final SoundEvent orechid = makeSoundEvent("orechid");
 	public static final SoundEvent potionCreate = makeSoundEvent("potion_create");
+	public static final SoundEvent redStringInterceptorClick = makeSoundEvent("red_string_interceptor_click");
 	public static final SoundEvent runeAltarCraft = makeSoundEvent("rune_altar_craft");
 	public static final SoundEvent runeAltarStart = makeSoundEvent("rune_altar_start");
 	public static final SoundEvent spreaderCover = makeSoundEvent("spreader_cover");
