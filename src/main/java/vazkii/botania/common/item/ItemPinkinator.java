@@ -15,7 +15,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.MobSpawnType;
@@ -29,6 +28,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.common.advancements.UseItemSuccessTrigger;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntityPinkWither;
 import vazkii.botania.common.entity.ModEntities;
 
@@ -61,7 +61,7 @@ public class ItemPinkinator extends Item {
 				pink.finalizeSpawn((ServerLevelAccessor) world, world.getCurrentDifficultyAt(pink.blockPosition()), MobSpawnType.CONVERSION, null, null);
 				world.addFreshEntity(pink);
 				pink.spawnAnim();
-				pink.playSound(SoundEvents.GENERIC_EXPLODE, 4F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
+				pink.playSound(ModSounds.pinkinator, 4F, (1F + (world.random.nextFloat() - world.random.nextFloat()) * 0.2F) * 0.7F);
 				UseItemSuccessTrigger.INSTANCE.trigger((ServerPlayer) player, stack, (ServerLevel) world, player.getX(), player.getY(), player.getZ());
 				stack.shrink(1);
 				return InteractionResultHolder.success(stack);

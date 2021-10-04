@@ -60,6 +60,7 @@ public final class ModSounds {
 	public static final SoundEvent manaPoolCraft = makeSoundEvent("mana_pool_craft");
 	public static final SoundEvent missile = makeSoundEvent("missile");
 	public static final SoundEvent orechid = makeSoundEvent("orechid");
+	public static final SoundEvent pinkinator = makeSoundEvent("pinkinator");
 	public static final SoundEvent potionCreate = makeSoundEvent("potion_create");
 	public static final SoundEvent redStringInterceptorClick = makeSoundEvent("red_string_interceptor_click");
 	public static final SoundEvent runeAltarCraft = makeSoundEvent("rune_altar_craft");

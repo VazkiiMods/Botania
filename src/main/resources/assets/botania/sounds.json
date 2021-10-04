@@ -264,6 +264,15 @@
 		"sounds": ["botania:orechid"],
 		"subtitle": "botania.subtitle.orechid"
 	},
+	"pinkinator": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.generic.explode"
+			}
+		],
+		"subtitle": "botania.subtitle.pinkinator"
+	},
 	"potion_create": {
 		"sounds": ["botania:potioncreate"],
 		"subtitle": "botania.subtitle.potionCreate"
