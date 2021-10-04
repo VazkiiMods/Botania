@@ -65,7 +65,7 @@ public class ItemHorn extends Item {
 			if (time != getUseDuration(stack) && time % 5 == 0) {
 				breakGrass(world, stack, player.blockPosition());
 			}
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.hornDoot, SoundSource.BLOCKS, 1F, 0.001F);
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.hornDoot, SoundSource.BLOCKS, 1F, 1F);
 		}
 	}
 

@@ -63,7 +63,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 		ItemStack stack = player.getItemInHand(hand);
 		if (getBlock(stack) != null && player.isShiftKeyDown()) {
 			ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, !ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false));
-			player.playSound(ModSounds.blackHoleTalismanConfigure, 0.3F, 0.1F);
+			player.playSound(ModSounds.blackHoleTalismanConfigure, 1F, 1F);
 			return InteractionResultHolder.success(stack);
 		}
 

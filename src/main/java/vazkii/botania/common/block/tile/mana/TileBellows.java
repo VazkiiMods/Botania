@@ -70,7 +70,7 @@ public class TileBellows extends TileMod {
 
 		if (self.movePos < max && self.active && self.moving >= 0F) {
 			if (self.moving == 0F) {
-				level.playSound(null, worldPosition, ModSounds.bellows, SoundSource.BLOCKS, 0.1F, 3F);
+				level.playSound(null, worldPosition, ModSounds.bellows, SoundSource.BLOCKS, 1F, 1F);
 			}
 
 			if (tile instanceof AbstractFurnaceBlockEntity) {

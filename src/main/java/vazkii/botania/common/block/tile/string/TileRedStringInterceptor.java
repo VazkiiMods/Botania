@@ -77,7 +77,7 @@ public class TileRedStringInterceptor extends TileRedString {
 		interceptors.removeAll(remove);
 		if (did) {
 			player.swing(hand);
-			world.playSound(null, pos, ModSounds.redStringInterceptorClick, SoundSource.BLOCKS, 0.3F, 0.6F);
+			world.playSound(null, pos, ModSounds.redStringInterceptorClick, SoundSource.BLOCKS, 1F, 1F);
 			return InteractionResult.SUCCESS;
 		}
 		return InteractionResult.PASS;

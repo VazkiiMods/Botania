@@ -56,7 +56,7 @@ public class ItemBlackLotus extends Item implements IManaDissolvable {
 			PacketBotaniaEffect.sendNearby(item, PacketBotaniaEffect.EffectType.BLACK_LOTUS_DISSOLVE, pos.getX(), pos.getY() + 0.5, pos.getZ());
 		}
 
-		item.playSound(ModSounds.blackLotus, 0.5F, t2 ? 0.1F : 1F);
+		item.playSound(ModSounds.blackLotus, 1F, t2 ? 0.1F : 1F);
 	}
 
 	@Environment(EnvType.CLIENT)

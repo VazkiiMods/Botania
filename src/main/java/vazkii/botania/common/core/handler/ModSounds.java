@@ -38,7 +38,7 @@ public final class ModSounds {
 	public static final SoundEvent enchanterEnchant = makeSoundEvent("enchanter_enchant");
 	public static final SoundEvent enderAirThrow = makeSoundEvent("ender_air_throw");
 	public static final SoundEvent endoflame = makeSoundEvent("endoflame");
-	public static final SoundEvent equipBauble = makeSoundEvent("equip_bauble");
+	//public static final SoundEvent equipBauble = makeSoundEvent("equip_bauble");
 	public static final SoundEvent equipElementium = makeSoundEvent("equip_elementium");
 	public static final SoundEvent equipManasteel = makeSoundEvent("equip_manasteel");
 	public static final SoundEvent equipManaweave = makeSoundEvent("equip_manaweave");
@@ -53,7 +53,7 @@ public final class ModSounds {
 	public static final SoundEvent labellia = makeSoundEvent("labellia");
 	public static final SoundEvent laputaStart = makeSoundEvent("laputa_start");
 	public static final SoundEvent lexiconOpen = makeSoundEvent("lexicon_open");
-	public static final SoundEvent lexiconPage = makeSoundEvent("lexicon_page");
+	//public static final SoundEvent lexiconPage = makeSoundEvent("lexicon_page");
 	public static final SoundEvent lightRelay = makeSoundEvent("light_relay");
 	public static final SoundEvent manaBlaster = makeSoundEvent("mana_blaster");
 	public static final SoundEvent manaBlasterCycle = makeSoundEvent("mana_blaster_cycle");

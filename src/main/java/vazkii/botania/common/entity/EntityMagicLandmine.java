@@ -52,7 +52,7 @@ public class EntityMagicLandmine extends Entity {
 		}
 
 		if (tickCount >= 55) {
-			level.playSound(null, getX(), getY(), getZ(), ModSounds.gaiaTrap, SoundSource.NEUTRAL, 0.3F, 1F);
+			level.playSound(null, getX(), getY(), getZ(), ModSounds.gaiaTrap, SoundSource.NEUTRAL, 1F, 1F);
 
 			float m = 0.35F;
 			g = 0.4F;

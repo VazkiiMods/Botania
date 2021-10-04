@@ -46,7 +46,7 @@ public class ItemThornChakram extends Item {
 			}
 
 			world.addFreshEntity(c);
-			world.playSound(null, player.getX(), player.getY(), player.getZ(), sound, SoundSource.PLAYERS, 0.5F, 0.4F / (player.getRandom().nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, player.getX(), player.getY(), player.getZ(), sound, SoundSource.PLAYERS, 1F, 0.4F / (player.getRandom().nextFloat() * 0.4F + 0.8F));
 			stack.shrink(1);
 		}
 

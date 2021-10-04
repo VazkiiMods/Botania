@@ -65,7 +65,7 @@ public class ItemStarSword extends ItemManasteelSword {
 					}
 
 					stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(InteractionHand.MAIN_HAND));
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.starcaller, SoundSource.PLAYERS, 0.4F, 1.4F);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.starcaller, SoundSource.PLAYERS, 1F, 1F);
 				}
 			}
 		}

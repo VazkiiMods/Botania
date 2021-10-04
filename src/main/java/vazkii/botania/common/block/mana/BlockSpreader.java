@@ -175,7 +175,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 				}
 			}
 
-			world.playSound(player, pos, ModSounds.spreaderCover, SoundSource.BLOCKS, 1f, 1f);
+			world.playSound(player, pos, ModSounds.spreaderCover, SoundSource.BLOCKS, 1F, 1F);
 
 			return InteractionResult.SUCCESS;
 		} else if (wool || heldItem.isEmpty() && spreader.paddingColor != null && lens.isEmpty()) {
@@ -184,7 +184,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 			spreader.paddingColor = null;
 			spreader.setChanged();
 
-			world.playSound(player, pos, ModSounds.spreaderUncover, SoundSource.BLOCKS, 1f, 1f);
+			world.playSound(player, pos, ModSounds.spreaderUncover, SoundSource.BLOCKS, 1F, 1F);
 
 			return InteractionResult.SUCCESS;
 		}

@@ -1,10 +1,21 @@
 {
 	"agricarnation": {
-		"sounds": ["botania:agricarnation"],
+		"sounds": [
+			{
+				"name": "botania:agricarnation",
+				"volume": 0.01
+			}
+		],
 		"subtitle": "botania.subtitle.agricarnation"
 	},
 	"air_rod": {
-		"sounds": ["botania:airrod"],
+		"sounds": [
+			{
+				"name": "botania:airrod",
+				"volume": 0.1,
+				"pitch": 0.25
+			}
+		],
 		"subtitle": "botania.subtitle.airRod"
 	},
 	"altar_craft": {
@@ -15,7 +26,8 @@
 		"sounds": [
 			{
 				"type": "event",
-				"name": "minecraft:block.grindstone.use"
+				"name": "minecraft:block.grindstone.use",
+				"volume": 0.3
 			}
 		],
 		"subtitle": "botania.subtitle.arcane_rose_disenchant"
@@ -24,7 +36,8 @@
 		"sounds": [
 			{
 				"type": "event",
-				"name": "minecraft:entity.experience_orb.pickup"
+				"name": "minecraft:entity.experience_orb.pickup",
+				"volume": 0.5
 			}
 		],
 		"subtitle": "botania.subtitle.astrolabeConfigure"
@@ -38,24 +51,43 @@
 		"subtitle": "botania.subtitle.babylonSpawn"
 	},
 	"bellows": {
-		"sounds": ["botania:bellows"],
+		"sounds": [
+			{
+				"name": "botania:bellows",
+				"volume": 0.1,
+				"pitch": 3
+			}
+		],
 		"subtitle": "botania.subtitle.bellows"
 	},
 	"bifrost_rod": {
-		"sounds": ["botania:bifrostrod"],
+		"sounds": [
+			{
+				"name": "botania:bifrostrod",
+				"volume": 0.5,
+				"pitch": 0.25
+			}
+		],
 		"subtitle": "botania.subtitle.bifrostRod"
 	},
 	"black_hole_talisman_configure": {
 		"sounds": [
 			{
 				"type": "event",
-				"name": "minecraft:entity.experience_orb.pickup"
+				"name": "minecraft:entity.experience_orb.pickup",
+				"volume": 0.3,
+				"pitch": 0.1
 			}
 		],
 		"subtitle": "botania.subtitle.blackHoleTalismanConfigure"
 	},
 	"black_lotus": {
-		"sounds": ["botania:blacklotus"],
+		"sounds": [
+			{
+				"name": "botania:blacklotus",
+				"volume": 0.5
+			}
+		],
 		"subtitle": "botania.subtitle.blackLotus"
 	},
 	"dash": {
@@ -66,7 +98,8 @@
 		"sounds": [
 			{
 				"type": "event",
-				"name": "minecraft:entity.arrow.shoot"
+				"name": "minecraft:entity.arrow.shoot",
+				"volume": 0.5
 			}
 		],
 		"subtitle": "botania.subtitle.diceOfFate"
@@ -97,11 +130,23 @@
 		"subtitle": "botania.subtitle.drum"
 	},
 	"enchanter_fade": {
-		"sounds": ["botania:enchanterblock"],
+		"sounds": [
+			{
+				"name": "botania:enchanterblock",
+				"volume": 0.5,
+				"pitch": 10
+			}
+		],
 		"subtitle": "botania.subtitle.enchanterFade"
 	},
 	"enchanter_form": {
-		"sounds": ["botania:enchanterblock"],
+		"sounds": [
+			{
+				"name": "botania:enchanterblock",
+				"volume": 0.5,
+				"pitch": 0.6
+			}
+		],
 		"subtitle": "botania.subtitle.enchanterForm"
 	},
 	"enchanter_enchant": {
@@ -112,13 +157,19 @@
 		"sounds": [
 			{
 				"type": "event",
-				"name": "minecraft:entity.arrow.shoot"
+				"name": "minecraft:entity.arrow.shoot",
+				"volume": 0.5
 			}
 		],
 		"subtitle": "botania.subtitle.enderAirThrow"
 	},
 	"endoflame": {
-		"sounds": ["botania:endoflame"],
+		"sounds": [
+			{
+				"name": "botania:endoflame",
+				"volume": 0.2
+			}
+		],
 		"subtitle": "botania.subtitle.endoflame"
 	},
 	"equip_bauble": {
@@ -174,7 +225,8 @@
 		"sounds": [
 			{
 				"type": "event",
-				"name": "minecraft:entity.arrow.shoot"
+				"name": "minecraft:entity.arrow.shoot",
+				"volume": 0.5
 			}
 		],
 		"subtitle": "botania.subtitle.flareChakramThrow"
@@ -199,7 +251,12 @@
 		"subtitle": "botania.subtitle.flugelEyeTeleport"
 	},
 	"gaia_trap": {
-		"sounds": ["botania:gaiatrap"],
+		"sounds": [
+			{
+				"name": "botania:gaiatrap",
+				"volume": 0.3
+			}
+		],
 		"subtitle": "botania.subtitle.gaiaTrap"
 	},
 	"holy_cloak": {
@@ -210,7 +267,8 @@
 		"sounds": [
 			{
 				"type": "event",
-				"name": "minecraft:block.note_block.bass"
+				"name": "minecraft:block.note_block.bass",
+				"pitch": 0.001
 			}
 		],
 		"subtitle": "botania.subtitle.hornDoot"
@@ -237,11 +295,21 @@
 		"subtitle": "botania.subtitle.lexiconPage"
 	},
 	"light_relay": {
-		"sounds": ["botania:lightrelay"],
+		"sounds": [
+			{
+				"name": "botania:lightrelay",
+				"volume": 0.2
+			}
+		],
 		"subtitle": "botania.subtitle.lightRelay"
 	},
 	"mana_blaster": {
-		"sounds": ["botania:manablaster"],
+		"sounds": [
+			{
+				"name": "botania:manablaster",
+				"volume": 0.6
+			}
+		],
 		"subtitle": "botania.subtitle.manaBlaster"
 	},
 	"mana_blaster_cycle": {
@@ -263,22 +331,39 @@
 		"subtitle": "botania.subtitle.manaBlasterMisfire"
 	},
 	"mana_pool_craft": {
-		"sounds": ["botania:manapoolcraft"],
+		"sounds": [
+			{
+				"name": "botania:manapoolcraft",
+				"volume": 0.4,
+				"pitch": 4
+			}
+		],
 		"subtitle": "botania.subtitle.manaPoolCraft"
 	},
 	"missile": {
-		"sounds": ["botania:missile"],
+		"sounds": [
+			{
+				"name": "botania:missile",
+				"volume": 0.6
+			}
+		],
 		"subtitle": "botania.subtitle.missile"
 	},
 	"orechid": {
-		"sounds": ["botania:orechid"],
+		"sounds": [
+			{
+				"name": "botania:orechid",
+				"volume": 2
+			}
+		],
 		"subtitle": "botania.subtitle.orechid"
 	},
 	"pinkinator": {
 		"sounds": [
 			{
 				"type": "event",
-				"name": "minecraft:entity.generic.explode"
+				"name": "minecraft:entity.generic.explode",
+				"volume": 4
 			}
 		],
 		"subtitle": "botania.subtitle.pinkinator"
@@ -291,7 +376,9 @@
 		"sounds": [
 			{
 				"type": "event",
-				"name": "minecraft:block.dispenser.dispense"
+				"name": "minecraft:block.dispenser.dispense",
+				"volume": 0.3,
+				"pitch": 0.6
 			}
 		],
 		"subtitle": "botania.subtitle.redStringInterceptorClick"
@@ -308,7 +395,8 @@
 		"sounds": [
 			{
 				"type": "event",
-				"name": "minecraft:item.flintandsteel.use"
+				"name": "minecraft:item.flintandsteel.use",
+				"volume": 0.6
 			}
 		],
 		"subtitle": "botania.subtitle.smeltRod"
@@ -353,28 +441,53 @@
 		"subtitle": "botania.subtitle.spreaderUncover"
 	},
 	"starcaller": {
-		"sounds": ["botania:starcaller"],
+		"sounds": [
+			{
+				"name": "botania:starcaller",
+				"volume": 0.4,
+				"pitch": 1.4
+			}
+		],
 		"subtitle": "botania.subtitle.starcaller"
 	},
 	"temperance_stone_configure": {
 		"sounds": [
 			{
 				"type": "event",
-				"name": "minecraft:entity.experience_orb.pickup"
+				"name": "minecraft:entity.experience_orb.pickup",
+				"volume": 0.3,
+				"pitch": 0.1
 			}
 		],
 		"subtitle": "botania.subtitle.temperanceStoneConfigure"
 	},
 	"terrablade": {
-		"sounds": ["botania:terrablade"],
+		"sounds": [
+			{
+				"name": "botania:terrablade",
+				"volume": 0.4,
+				"pitch": 1.4
+			}
+		],
 		"subtitle": "botania.subtitle.terraBlade"
 	},
 	"terraform_rod": {
-		"sounds": ["botania:terraformrod"],
+		"sounds": [
+			{
+				"name": "botania:terraformrod",
+				"pitch": 0.4
+			}
+		],
 		"subtitle": "botania.subtitle.terraformRod"
 	},
 	"terra_pick_mode": {
-		"sounds": ["botania:terrapickmode"],
+		"sounds": [
+			{
+				"name": "botania:terrapickmode",
+				"volume": 0.5,
+				"pitch": 0.4
+			}
+		],
 		"subtitle": "botania.subtitle.terraPickMode"
 	},
 	"terrasteel_craft": {
@@ -382,14 +495,20 @@
 		"subtitle": "botania.subtitle.terrasteelCraft"
 	},
 	"thermalily": {
-		"sounds": ["botania:thermalily"],
+		"sounds": [
+			{
+				"name": "botania:thermalily",
+				"volume": 0.2
+			}
+		],
 		"subtitle": "botania.subtitle.thermalily"
 	},
 	"thorn_chakram_throw": {
 		"sounds": [
 			{
 				"type": "event",
-				"name": "minecraft:entity.arrow.shoot"
+				"name": "minecraft:entity.arrow.shoot",
+				"volume": 0.5
 			}
 		],
 		"subtitle": "botania.subtitle.thornChakramThrow"
@@ -402,7 +521,8 @@
 		"sounds": [
 			{
 				"type": "event",
-				"name": "minecraft:entity.arrow.shoot"
+				"name": "minecraft:entity.arrow.shoot",
+				"volume": 0.5
 			}
 		],
 		"subtitle": "botania.subtitle.vineBallThrow"

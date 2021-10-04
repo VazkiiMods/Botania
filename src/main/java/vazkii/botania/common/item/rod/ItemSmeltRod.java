@@ -102,7 +102,7 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 								if (data.progress <= 0) {
 									if (!world.isClientSide) {
 										world.setBlockAndUpdate(pos.getBlockPos(), Block.byItem(result.getItem()).defaultBlockState());
-										world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.smeltRod, SoundSource.PLAYERS, 0.6F, 1F);
+										world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.smeltRod, SoundSource.PLAYERS, 1F, 1F);
 										world.playSound(null, p.getX(), p.getY(), p.getZ(), ModSounds.smeltRod2, SoundSource.PLAYERS, 1F, 1F);
 
 										ManaItemHandler.instance().requestManaExactForTool(stack, p, COST_PER_TICK, true);

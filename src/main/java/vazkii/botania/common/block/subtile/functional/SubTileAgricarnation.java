@@ -77,7 +77,7 @@ public class SubTileAgricarnation extends TileEntityFunctionalFlower {
 					if (ConfigHandler.COMMON.blockBreakParticles.getValue()) {
 						getLevel().levelEvent(2005, pos, 6 + getLevel().random.nextInt(4));
 					}
-					getLevel().playSound(null, x, y, z, ModSounds.agricarnation, SoundSource.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);
+					getLevel().playSound(null, x, y, z, ModSounds.agricarnation, SoundSource.BLOCKS, 1F, 0.5F + (float) Math.random() * 0.5F);
 
 					break;
 				}

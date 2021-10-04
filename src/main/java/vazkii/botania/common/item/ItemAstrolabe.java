@@ -84,7 +84,7 @@ public class ItemAstrolabe extends Item {
 	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, @Nonnull InteractionHand hand) {
 		ItemStack stack = playerIn.getItemInHand(hand);
 		if (playerIn.isShiftKeyDown()) {
-			playerIn.playSound(ModSounds.astrolabeConfigure, 0.5F, 1F);
+			playerIn.playSound(ModSounds.astrolabeConfigure, 1F, 1F);
 			if (!worldIn.isClientSide) {
 				int size = getSize(stack);
 				int newSize = size == 11 ? 3 : size + 2;

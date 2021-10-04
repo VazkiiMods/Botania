@@ -88,7 +88,7 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 					newEntity.setDeltaMovement(entity.getDeltaMovement());
 					level.addFreshEntity(newEntity);
 
-					level.playSound(null, getEffectivePos(), ModSounds.arcaneRoseDisenchant, SoundSource.BLOCKS, 0.3F, this.level.random.nextFloat() * 0.1F + 0.9F);
+					level.playSound(null, getEffectivePos(), ModSounds.arcaneRoseDisenchant, SoundSource.BLOCKS, 1F, this.level.random.nextFloat() * 0.1F + 0.9F);
 					while (xp > 0) {
 						int i = ExperienceOrb.getExperienceValue(xp);
 						xp -= i;

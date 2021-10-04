@@ -876,7 +876,7 @@ public class EntityDoppleganger extends Mob {
 		EntityMagicMissile missile = new EntityMagicMissile(this, true);
 		missile.setPos(getX() + (Math.random() - 0.5 * 0.1), getY() + 2.4 + (Math.random() - 0.5 * 0.1), getZ() + (Math.random() - 0.5 * 0.1));
 		if (missile.findTarget()) {
-			playSound(ModSounds.missile, 0.6F, 0.8F + (float) Math.random() * 0.2F);
+			playSound(ModSounds.missile, 1F, 0.8F + (float) Math.random() * 0.2F);
 			level.addFreshEntity(missile);
 		}
 	}

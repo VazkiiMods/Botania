@@ -85,7 +85,7 @@ public class ItemManaGun extends Item implements IManaUsingItem {
 			EntityManaBurst burst = getBurst(player, stack, true, hand);
 			if (burst != null && ManaItemHandler.instance().requestManaExact(stack, player, burst.getMana(), true)) {
 				if (!world.isClientSide) {
-					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.manaBlaster, SoundSource.PLAYERS, 0.6F, 1);
+					world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.manaBlaster, SoundSource.PLAYERS, 1F, 1);
 					world.addFreshEntity(burst);
 					ManaGunTrigger.INSTANCE.trigger((ServerPlayer) player, stack);
 					setCooldown(stack, effCd);
