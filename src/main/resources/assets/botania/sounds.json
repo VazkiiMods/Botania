@@ -161,6 +161,15 @@
 		],
 		"subtitle": "botania.subtitle.equipTerrasteel"
 	},
+	"fire_rod": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.blaze.ambient"
+			}
+		],
+		"subtitle": "botania.subtitle.fireRod"
+	},
 	"flare_chakram_throw": {
 		"sounds": [
 			{
