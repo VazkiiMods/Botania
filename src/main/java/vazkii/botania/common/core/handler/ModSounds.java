@@ -74,6 +74,7 @@ public final class ModSounds {
 	public static final SoundEvent thornChakramThrow = makeSoundEvent("thorn_chakram_throw");
 	public static final SoundEvent unholyCloak = makeSoundEvent("unholy_cloak");
 	public static final SoundEvent vineBallThrow = makeSoundEvent("vine_ball_throw");
+	public static final SoundEvent virusInfects = makeSoundEvent("virus_infects");
 	public static final SoundEvent way = makeSoundEvent("way");
 
 	public static final SoundEvent gaiaMusic1 = makeSoundEvent("music.gaia1");

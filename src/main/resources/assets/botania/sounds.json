@@ -335,6 +335,15 @@
 		],
 		"subtitle": "botania.subtitle.vineBallThrow"
 	},
+	"virus_infects": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.zombie_villager.cure"
+			}
+		],
+		"subtitle": "botania.subtitle.virusInfects"
+	},
 	"way": {
 		"sounds": ["botania:way"],
 		"subtitle": "botania.subtitle.way"
