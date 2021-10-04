@@ -15,14 +15,16 @@ import net.minecraft.sounds.SoundEvent;
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public final class ModSounds {
-	public static final SoundEvent airRod = makeSoundEvent("air_rod");
 	public static final SoundEvent agricarnation = makeSoundEvent("agricarnation");
+	public static final SoundEvent airRod = makeSoundEvent("air_rod");
 	public static final SoundEvent altarCraft = makeSoundEvent("altar_craft");
 	public static final SoundEvent arcaneRoseDisenchant = makeSoundEvent("arcane_rose_disenchant");
+	public static final SoundEvent astrolabeConfigure = makeSoundEvent("astrolabe_configure");
 	public static final SoundEvent babylonAttack = makeSoundEvent("babylon_attack");
 	public static final SoundEvent babylonSpawn = makeSoundEvent("babylon_spawn");
 	public static final SoundEvent bellows = makeSoundEvent("bellows");
 	public static final SoundEvent bifrostRod = makeSoundEvent("bifrost_rod");
+	public static final SoundEvent blackHoleTalismanConfigure = makeSoundEvent("black_hole_talisman_configure");
 	public static final SoundEvent blackLotus = makeSoundEvent("black_lotus");
 	public static final SoundEvent dash = makeSoundEvent("dash");
 	public static final SoundEvent ding = makeSoundEvent("ding");
@@ -58,6 +60,7 @@ public final class ModSounds {
 	public static final SoundEvent spreaderFire = makeSoundEvent("spreader_fire");
 	public static final SoundEvent spreaderUncover = makeSoundEvent("spreader_uncover");
 	public static final SoundEvent starcaller = makeSoundEvent("starcaller");
+	public static final SoundEvent temperanceStoneConfigure = makeSoundEvent("temperance_stone_configure");
 	public static final SoundEvent terraBlade = makeSoundEvent("terrablade");
 	public static final SoundEvent terraformRod = makeSoundEvent("terraform_rod");
 	public static final SoundEvent terraPickMode = makeSoundEvent("terra_pick_mode");

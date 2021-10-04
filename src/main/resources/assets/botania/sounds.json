@@ -1,11 +1,11 @@
 {
-	"air_rod": {
-		"sounds": ["botania:airrod"],
-		"subtitle": "botania.subtitle.airRod"
-	},
 	"agricarnation": {
 		"sounds": ["botania:agricarnation"],
 		"subtitle": "botania.subtitle.agricarnation"
+	},
+	"air_rod": {
+		"sounds": ["botania:airrod"],
+		"subtitle": "botania.subtitle.airRod"
 	},
 	"altar_craft": {
 		"sounds": ["botania:altarcraft"],
@@ -19,6 +19,15 @@
 			}
 		],
 		"subtitle": "botania.subtitle.arcane_rose_disenchant"
+	},
+	"astrolabe_configure": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.experience_orb.pickup"
+			}
+		],
+		"subtitle": "botania.subtitle.astrolabeConfigure"
 	},
 	"babylon_attack": {
 		"sounds": ["botania:babylonattack"],
@@ -35,6 +44,15 @@
 	"bifrost_rod": {
 		"sounds": ["botania:bifrostrod"],
 		"subtitle": "botania.subtitle.bifrostRod"
+	},
+	"black_hole_talisman_configure": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.experience_orb.pickup"
+			}
+		],
+		"subtitle": "botania.subtitle.blackHoleTalismanConfigure"
 	},
 	"black_lotus": {
 		"sounds": ["botania:blacklotus"],
@@ -220,6 +238,15 @@
 	"starcaller": {
 		"sounds": ["botania:starcaller"],
 		"subtitle": "botania.subtitle.starcaller"
+	},
+	"temperance_stone_configure": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.experience_orb.pickup"
+			}
+		],
+		"subtitle": "botania.subtitle.temperanceStoneConfigure"
 	},
 	"terrablade": {
 		"sounds": ["botania:terrablade"],
