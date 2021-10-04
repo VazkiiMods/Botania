@@ -125,6 +125,7 @@ public class SubTileHydroangeas extends TileEntityGeneratingFlower {
 	}
 
 	public void playSound() {
+		//Usage of vanilla sound event: Subtitle is "Sipping", generic sounds are meant to be reused.
 		getLevel().playSound(null, getEffectivePos(), SoundEvents.GENERIC_DRINK, SoundSource.BLOCKS, 0.01F, 0.5F + (float) Math.random() * 0.5F);
 	}
 

@@ -593,5 +593,35 @@
 			}
 		],
 		"subtitle": "botania.subtitle.entropinnyumHappy"
+	},
+	"narslimmus_eat_big": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.slime.squish",
+				"pitch": 0.02
+			}
+		],
+		"subtitle": "botania.subtitle.narslimmusEat"
+	},
+	"narslimmus_eat_small": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.slime.squish_small",
+				"pitch": 0.02
+			}
+		],
+		"subtitle": "botania.subtitle.narslimmusEat"
+	},
+	"shulk_me_not": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.shulker.death",
+				"pitch": 0.1
+			}
+		],
+		"subtitle": "botania.subtitle.shulkMeNot"
 	}
 }

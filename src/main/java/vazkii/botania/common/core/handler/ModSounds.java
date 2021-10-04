@@ -84,7 +84,10 @@ public final class ModSounds {
 	public static final SoundEvent entropinnyumAngry = makeSoundEvent("entropinnyum_angry");
 	public static final SoundEvent entropinnyumHappy = makeSoundEvent("entropinnyum_happy");
 	public static final SoundEvent labellia = makeSoundEvent("labellia");
+	public static final SoundEvent narslimmusEatBig = makeSoundEvent("narslimmus_eat_big");
+	public static final SoundEvent narslimmusEatSmall = makeSoundEvent("narslimmus_eat_small");
 	public static final SoundEvent orechid = makeSoundEvent("orechid");
+	public static final SoundEvent shulkMeNot = makeSoundEvent("shulk_me_not");
 	public static final SoundEvent thermalily = makeSoundEvent("thermalily");
 	public static final SoundEvent tigerseyePacify = makeSoundEvent("tigerseye_pacify");
 
