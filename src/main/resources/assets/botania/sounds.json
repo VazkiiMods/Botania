@@ -135,14 +135,23 @@
 		"subtitle": "botania.subtitle.equipManaweave"
 	},
 	"equip_terrasteel": {
-	"sounds": [
-		{
-			"type": "event",
-			"name": "minecraft:item.armor.equip_diamond"
-		}
-	],
-	"subtitle": "botania.subtitle.equipTerrasteel"
-},
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:item.armor.equip_diamond"
+			}
+		],
+		"subtitle": "botania.subtitle.equipTerrasteel"
+	},
+	"flare_chakram_fire": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.arrow.shoot"
+			}
+		],
+		"subtitle": "botania.subtitle.flareChakramFire"
+	},
 	"gaia_trap": {
 		"sounds": ["botania:gaiatrap"],
 		"subtitle": "botania.subtitle.gaiaTrap"
@@ -294,6 +303,15 @@
 	"thermalily": {
 		"sounds": ["botania:thermalily"],
 		"subtitle": "botania.subtitle.thermalily"
+	},
+	"thorn_chakram_fire": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.arrow.shoot"
+			}
+		],
+		"subtitle": "botania.subtitle.thornChakramFire"
 	},
 	"unholy_cloak": {
 		"sounds": ["botania:unholycloak"],

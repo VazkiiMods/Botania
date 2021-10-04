@@ -41,6 +41,7 @@ public final class ModSounds {
 	public static final SoundEvent equipManasteel = makeSoundEvent("equip_manasteel");
 	public static final SoundEvent equipManaweave = makeSoundEvent("equip_manaweave");
 	public static final SoundEvent equipTerrasteel = makeSoundEvent("equip_terrasteel");
+	public static final SoundEvent flareChakramFire = makeSoundEvent("flare_chakram_fire");
 	public static final SoundEvent gaiaTrap = makeSoundEvent("gaia_trap");
 	public static final SoundEvent holyCloak = makeSoundEvent("holy_cloak");
 	public static final SoundEvent hornDoot = makeSoundEvent("horn_doot");
@@ -69,6 +70,7 @@ public final class ModSounds {
 	public static final SoundEvent terraPickMode = makeSoundEvent("terra_pick_mode");
 	public static final SoundEvent terrasteelCraft = makeSoundEvent("terrasteel_craft");
 	public static final SoundEvent thermalily = makeSoundEvent("thermalily");
+	public static final SoundEvent thornChakramFire = makeSoundEvent("thornChakramFire");
 	public static final SoundEvent unholyCloak = makeSoundEvent("unholy_cloak");
 	public static final SoundEvent vineBallFire = makeSoundEvent("vine_ball_fire");
 	public static final SoundEvent way = makeSoundEvent("way");
