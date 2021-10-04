@@ -39,10 +39,10 @@ public class ItemThornChakram extends Item {
 			EntityThornChakram c = new EntityThornChakram(player, world, copy);
 			c.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
 
-			SoundEvent sound = ModSounds.thornChakramFire;
+			SoundEvent sound = ModSounds.thornChakramThrow;
 			if (stack.is(ModItems.flareChakram)) {
 				c.setFire(true);
-				sound = ModSounds.flareChakramFire;
+				sound = ModSounds.flareChakramThrow;
 			}
 
 			world.addFreshEntity(c);

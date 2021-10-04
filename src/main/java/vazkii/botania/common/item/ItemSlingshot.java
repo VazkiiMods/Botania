@@ -55,7 +55,7 @@ public class ItemSlingshot extends Item {
 			ball.shootFromRotation(living, living.getXRot(), living.getYRot(), 0F, 1.5F, 1F);
 			ball.setDeltaMovement(ball.getDeltaMovement().scale(1.6));
 			world.addFreshEntity(ball);
-			world.playSound(null, living.getX(), living.getY(), living.getZ(), ModSounds.vineBallFire, SoundSource.NEUTRAL, 0.5F, 0.4F / (living.getRandom().nextFloat() * 0.4F + 0.8F));
+			world.playSound(null, living.getX(), living.getY(), living.getZ(), ModSounds.vineBallThrow, SoundSource.NEUTRAL, 0.5F, 0.4F / (living.getRandom().nextFloat() * 0.4F + 0.8F));
 		}
 	}
 

@@ -143,14 +143,14 @@
 		],
 		"subtitle": "botania.subtitle.equipTerrasteel"
 	},
-	"flare_chakram_fire": {
+	"flare_chakram_throw": {
 		"sounds": [
 			{
 				"type": "event",
 				"name": "minecraft:entity.arrow.shoot"
 			}
 		],
-		"subtitle": "botania.subtitle.flareChakramFire"
+		"subtitle": "botania.subtitle.flareChakramThrow"
 	},
 	"gaia_trap": {
 		"sounds": ["botania:gaiatrap"],
@@ -304,27 +304,27 @@
 		"sounds": ["botania:thermalily"],
 		"subtitle": "botania.subtitle.thermalily"
 	},
-	"thorn_chakram_fire": {
+	"thorn_chakram_throw": {
 		"sounds": [
 			{
 				"type": "event",
 				"name": "minecraft:entity.arrow.shoot"
 			}
 		],
-		"subtitle": "botania.subtitle.thornChakramFire"
+		"subtitle": "botania.subtitle.thornChakramThrow"
 	},
 	"unholy_cloak": {
 		"sounds": ["botania:unholycloak"],
 		"subtitle": "botania.subtitle.unholyCloak"
 	},
-	"vine_ball_fire": {
+	"vine_ball_throw": {
 		"sounds": [
 			{
 				"type": "event",
 				"name": "minecraft:entity.arrow.shoot"
 			}
 		],
-		"subtitle": "botania.subtitle.vineBallFire"
+		"subtitle": "botania.subtitle.vineBallThrow"
 	},
 	"way": {
 		"sounds": ["botania:way"],
