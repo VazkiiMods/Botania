@@ -38,6 +38,7 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.api.wand.ICoordBoundItem;
 import vazkii.botania.client.fx.WispParticleData;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
 import vazkii.botania.common.network.PacketBotaniaEffect;
@@ -78,7 +79,7 @@ public class ItemFlugelEye extends ItemRelic implements ICoordBoundItem, IManaUs
 				ItemStack stack = ctx.getItemInHand();
 				Tag nbt = BlockPos.CODEC.encodeStart(NbtOps.INSTANCE, pos).get().orThrow();
 				ItemNBTHelper.set(stack, TAG_TARGET_PREFIX + world.dimension().location().toString(), nbt);
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1F, 5F);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.flugelEyeTeleport, SoundSource.PLAYERS, 1F, 5F);
 			}
 
 			return InteractionResult.SUCCESS;

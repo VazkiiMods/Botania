@@ -161,6 +161,15 @@
 		],
 		"subtitle": "botania.subtitle.flareChakramThrow"
 	},
+	"flugel_eye_teleport": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "minecraft:entity.enderman.teleport"
+			}
+		],
+		"subtitle": "botania.subtitle.flugelEyeTeleport"
+	},
 	"gaia_trap": {
 		"sounds": ["botania:gaiatrap"],
 		"subtitle": "botania.subtitle.gaiaTrap"
