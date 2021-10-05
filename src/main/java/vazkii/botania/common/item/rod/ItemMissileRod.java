@@ -84,7 +84,7 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 		missile.setPos(x, y, z);
 		if (missile.findTarget()) {
 			if (!world.isClientSide) {
-				missile.playSound(ModSounds.missile, 1F, 0.8F + (float) Math.random() * 0.2F);
+				missile.playSound(world.random.nextInt(100) == 0 ? ModSounds.missileFunny : ModSounds.missile, 1F, 0.8F + (float) Math.random() * 0.2F);
 				world.addFreshEntity(missile);
 			}
 

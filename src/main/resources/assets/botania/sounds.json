@@ -399,6 +399,15 @@
 		],
 		"subtitle": "botania.subtitle.missile"
 	},
+	"missile_funny": {
+		"sounds": [
+			{
+				"type": "event",
+				"name": "botania:missile"
+			}
+		],
+		"subtitle": "botania.subtitle.missileFunny"
+	},
 	"music.gaia1": {
 		"sounds": [
 			{

@@ -62,6 +62,7 @@ public final class ModSounds {
 	public static final SoundEvent manaBlasterCycle = makeSoundEvent("mana_blaster_cycle");
 	public static final SoundEvent manaBlasterMisfire = makeSoundEvent("mana_blaster_misfire");
 	public static final SoundEvent missile = makeSoundEvent("missile");
+	public static final SoundEvent missileFunny = makeSoundEvent("missile_funny"); //pew pew
 	public static final SoundEvent pinkinator = makeSoundEvent("pinkinator");
 	public static final SoundEvent smeltRod = makeSoundEvent("smelt_rod");
 	public static final SoundEvent smeltRod2 = makeSoundEvent("smelt_rod_extra_no_subtitle");
