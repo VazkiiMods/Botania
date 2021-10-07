@@ -241,7 +241,6 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		ItemStack placeStack = removeFromInventory(player, rod, replacement, false);
 		if (!placeStack.isEmpty()) {
 			BlockState stateAt = world.getBlockState(pos);
-			Block blockAt = stateAt.getBlock();
 			if (!stateAt.isAir() && stateAt.getDestroyProgress(player, world, pos) > 0
 					&& stateAt.getBlock().asItem() != replacement) {
 				float hardness = stateAt.getDestroySpeed(world, pos);
