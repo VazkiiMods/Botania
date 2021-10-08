@@ -13,10 +13,10 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-public class Vector3 {
+public class VecHelper {
 	public static final Vec3 ONE = new Vec3(1, 1, 1);
 
-	private Vector3() {}
+	private VecHelper() {}
 
 	public static Vec3 fromEntityCenter(Entity e) {
 		return new Vec3(e.getX(), e.getY() - e.getMyRidingOffset() + e.getBbHeight() / 2, e.getZ());

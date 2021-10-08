@@ -27,7 +27,7 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.helper.PlayerHelper;
-import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.core.helper.VecHelper;
 
 import javax.annotation.Nonnull;
 
@@ -42,7 +42,7 @@ public class ItemSkyDirtRod extends ItemDirtRod {
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		if (!world.isClientSide && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST * 2, false)) {
-			Vec3 playerVec = Vector3.fromEntityCenter(player);
+			Vec3 playerVec = VecHelper.fromEntityCenter(player);
 			Vec3 lookVec = player.getLookAngle().scale(3);
 			Vec3 placeVec = playerVec.add(lookVec);
 

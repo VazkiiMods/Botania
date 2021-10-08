@@ -78,7 +78,7 @@ import vazkii.botania.common.advancements.DopplegangerNoArmorTrigger;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
 import vazkii.botania.common.network.PacketBotaniaEffect;
@@ -414,8 +414,8 @@ public class EntityDoppleganger extends Mob {
 
 		Entity attacker = source.getDirectEntity();
 		if (attacker != null) {
-			Vec3 thisVector = Vector3.fromEntityCenter(this);
-			Vec3 playerVector = Vector3.fromEntityCenter(attacker);
+			Vec3 thisVector = VecHelper.fromEntityCenter(this);
+			Vec3 playerVector = VecHelper.fromEntityCenter(attacker);
 			Vec3 motionVector = thisVector.subtract(playerVector).normalize().scale(0.75);
 
 			if (getHealth() > 0) {
@@ -556,7 +556,7 @@ public class EntityDoppleganger extends Mob {
 		}
 
 		if (getInvulTime() > 10) {
-			Vec3 pos = Vector3.fromEntityCenter(this).subtract(0, 0.2, 0);
+			Vec3 pos = VecHelper.fromEntityCenter(this).subtract(0, 0.2, 0);
 			for (BlockPos arr : PYLON_LOCATIONS) {
 				Vec3 pylonPos = new Vec3(source.getX() + arr.getX(), source.getY() + arr.getY(), source.getZ() + arr.getZ());
 				double worldTime = tickCount;
@@ -637,7 +637,7 @@ public class EntityDoppleganger extends Mob {
 	private void keepInsideArena(Player player) {
 		if (MathHelper.pointDistanceSpace(player.getX(), player.getY(), player.getZ(), source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5) >= ARENA_RANGE) {
 			Vec3 sourceVector = new Vec3(source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5);
-			Vec3 playerVector = Vector3.fromEntityCenter(player);
+			Vec3 playerVector = VecHelper.fromEntityCenter(player);
 			Vec3 motion = sourceVector.subtract(playerVector).normalize();
 
 			player.setDeltaMovement(motion.x, 0.2, motion.z);

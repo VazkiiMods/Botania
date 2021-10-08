@@ -34,7 +34,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.item.ModItems;
 
 import javax.annotation.Nonnull;
@@ -86,7 +86,7 @@ public class EntityThornChakram extends ThrowableProjectile implements ItemSuppl
 		if (isReturning()) {
 			Entity thrower = getOwner();
 			if (thrower != null) {
-				Vec3 motion = Vector3.fromEntityCenter(thrower).subtract(Vector3.fromEntityCenter(this)).normalize();
+				Vec3 motion = VecHelper.fromEntityCenter(thrower).subtract(VecHelper.fromEntityCenter(this)).normalize();
 				setDeltaMovement(motion);
 			}
 		}

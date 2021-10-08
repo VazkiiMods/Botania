@@ -34,7 +34,7 @@ import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.tile.TileTerraPlate;
 import vazkii.botania.common.core.helper.ColorHelper;
-import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.item.ItemTwigWand;
 
@@ -191,8 +191,8 @@ public class PacketBotaniaEffect {
 						}
 
 						double rc = 0.45;
-						Vec3 thisVec = Vector3.fromEntityCenter(e1).add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
-						Vec3 receiverVec = Vector3.fromEntityCenter(e2).add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
+						Vec3 thisVec = VecHelper.fromEntityCenter(e1).add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
+						Vec3 receiverVec = VecHelper.fromEntityCenter(e2).add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
 
 						Vec3 motion = receiverVec.subtract(thisVec).scale(0.04F);
 						int color = args[2];
@@ -316,7 +316,7 @@ public class PacketBotaniaEffect {
 						Entity target = Minecraft.getInstance().level.getEntity(args[0]);
 						if (target != null) {
 							Vec3 lookVec3 = target.getLookAngle();
-							Vec3 centerVector = Vector3.fromEntityCenter(target).add(lookVec3.x * 3, 1.3, lookVec3.z * 3);
+							Vec3 centerVector = VecHelper.fromEntityCenter(target).add(lookVec3.x * 3, 1.3, lookVec3.z * 3);
 							float m = 0.1F;
 							for (int i = 0; i < 4; i++) {
 								WispParticleData data = WispParticleData.wisp(0.2F + 0.2F * (float) Math.random(), 1F, 0F, 1F);

@@ -30,7 +30,7 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.entity.EntityThrownItem;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.lib.ModTags;
@@ -118,12 +118,12 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 				Entity taritem = player.level.getEntity(targetID);
 
 				boolean found = false;
-				Vec3 targetVec = Vector3.fromEntityCenter(player);
+				Vec3 targetVec = VecHelper.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
 					targetVec = targetVec.add(player.getLookAngle().scale(distance)).add(0, 0.5, 0);
-					entities = player.level.getEntities(player, Vector3.boxForRange(targetVec, RANGE), CAN_TARGET);
+					entities = player.level.getEntities(player, VecHelper.boxForRange(targetVec, RANGE), CAN_TARGET);
 					distance++;
 					if (entities.contains(taritem)) {
 						found = true;
@@ -136,12 +136,12 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 			}
 
 			if (target == null) {
-				Vec3 targetVec = Vector3.fromEntityCenter(player);
+				Vec3 targetVec = VecHelper.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
 					targetVec = targetVec.add(player.getLookAngle().scale(distance)).add(0, 0.5, 0);
-					entities = player.level.getEntities(player, Vector3.boxForRange(targetVec, RANGE), CAN_TARGET);
+					entities = player.level.getEntities(player, VecHelper.boxForRange(targetVec, RANGE), CAN_TARGET);
 					distance++;
 				}
 
@@ -172,7 +172,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 						}
 					}
 
-					Vec3 target3 = Vector3.fromEntityCenter(player)
+					Vec3 target3 = VecHelper.fromEntityCenter(player)
 							.add(player.getLookAngle().scale(length)).add(0, 0.5, 0);
 					if (target instanceof ItemEntity) {
 						target3 = target3.add(0, 0.25, 0);
@@ -219,7 +219,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 				Entity taritem = player.level.getEntity(targetID);
 
 				boolean found = false;
-				Vec3 target = Vector3.fromEntityCenter(player);
+				Vec3 target = VecHelper.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {

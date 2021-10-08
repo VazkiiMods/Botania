@@ -30,7 +30,7 @@ import net.minecraft.world.phys.Vec3;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
-import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.relic.ItemKingKey;
@@ -125,7 +125,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 					playerLook = Vec3.atCenterOf(rtr.getBlockPos());
 				}
 
-				Vec3 thisVec = Vector3.fromEntityCenter(this);
+				Vec3 thisVec = VecHelper.fromEntityCenter(this);
 
 				mot = playerLook.subtract(thisVec.x, thisVec.y, thisVec.z).normalize().scale(2);
 				level.playSound(null, getX(), getY(), getZ(), ModSounds.babylonAttack, SoundSource.PLAYERS, 2F, 0.1F + level.random.nextFloat() * 3F);

@@ -24,7 +24,7 @@ import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.entity.EntityBabylonWeapon;
 
 import javax.annotation.Nonnull;
@@ -78,14 +78,14 @@ public class ItemKingKey extends ItemRelic implements IManaUsingItem {
 			int div = spawned / 5;
 			int mod = spawned % 5;
 
-			Vec3 pl = look.add(Vector3.fromEntityCenter(living)).add(0, 1.6, div * 0.1);
+			Vec3 pl = look.add(VecHelper.fromEntityCenter(living)).add(0, 1.6, div * 0.1);
 
 			Random rand = world.random;
 			Vec3 axis = look.normalize().cross(new Vec3(-1, 0, -1)).normalize();
 
 			double rot = mod * Math.PI / 4 - Math.PI / 2;
 
-			Vec3 axis1 = Vector3.rotate(axis.scale(div * 3.5 + 5), rot, look);
+			Vec3 axis1 = VecHelper.rotate(axis.scale(div * 3.5 + 5), rot, look);
 			if (axis1.y < 0) {
 				axis1 = axis1.multiply(1, -1, 1);
 			}

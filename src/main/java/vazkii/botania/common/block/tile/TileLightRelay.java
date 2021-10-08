@@ -44,7 +44,7 @@ import vazkii.botania.common.block.BlockLightRelay;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
-import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.entity.ModEntities;
 
 import javax.annotation.Nonnull;
@@ -108,8 +108,8 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 				for (int i = start; i < start + count; i++) {
 					mul = Math.min(maxMul, mul + mulPer);
 					double rad = radPer * (i + self.ticksElapsed * 0.4);
-					Vec3 intermediate = vecMag.cross(Vector3.ONE).scale(mul);
-					Vec3 vecRot = Vector3.rotate(intermediate, rad, vecMag).add(vecTip);
+					Vec3 intermediate = vecMag.cross(VecHelper.ONE).scale(mul);
+					Vec3 vecRot = VecHelper.rotate(intermediate, rad, vecMag).add(vecTip);
 					level.addParticle(data, vecRot.x, vecRot.y, vecRot.z, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z);
 					vecTip = vecTip.add(vecMag);
 				}
