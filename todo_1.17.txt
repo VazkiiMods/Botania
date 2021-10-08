@@ -4,4 +4,3 @@ Pending 1.17 gameplay changes:
 - Spark traversal rewrite?
 - new pure daisy recipes
 - antioxidizing flower? or some way to reverse oxidation (pure daisy?)
-- refine "left owner" detection for mana bursts
