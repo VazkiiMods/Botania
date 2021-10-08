@@ -10,7 +10,6 @@ package vazkii.botania.common.entity;
 
 import net.fabricmc.fabric.api.entity.EntityPickInteractionAware;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -38,7 +37,6 @@ import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.item.ItemSparkUpgrade;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.network.PacketBotaniaEffect;
-import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 
@@ -279,12 +277,6 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark, Enti
 		}
 
 		return InteractionResult.PASS;
-	}
-
-	@Nonnull
-	@Override
-	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnEntity.make(this);
 	}
 
 	@Override
