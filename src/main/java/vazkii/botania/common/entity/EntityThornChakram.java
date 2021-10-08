@@ -86,7 +86,7 @@ public class EntityThornChakram extends ThrowableProjectile implements ItemSuppl
 		if (isReturning()) {
 			Entity thrower = getOwner();
 			if (thrower != null) {
-				Vec3 motion = Vector3.fromEntityCenterVanilla(thrower).subtract(Vector3.fromEntityCenterVanilla(this)).normalize();
+				Vec3 motion = Vector3.fromEntityCenter(thrower).subtract(Vector3.fromEntityCenter(this)).normalize();
 				setDeltaMovement(motion);
 			}
 		}

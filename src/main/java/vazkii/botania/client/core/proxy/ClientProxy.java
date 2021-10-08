@@ -51,6 +51,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.TallFlowerBlock;
+import net.minecraft.world.phys.Vec3;
 
 import org.lwjgl.glfw.GLFW;
 
@@ -77,7 +78,6 @@ import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.ModEntities;
@@ -368,7 +368,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	}
 
 	@Override
-	public void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
+	public void lightningFX(Vec3 vectorStart, Vec3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
 		// todo 1.17 import Mekanism's lightning bolts
 	}
 

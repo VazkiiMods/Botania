@@ -90,15 +90,15 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 
 		BlockPos nextDest = self.getNextDestination();
 		if (nextDest != null && nextDest.getY() > -1 && self.isValidBinding()) {
-			Vector3 vec = self.getMovementVector();
+			Vec3 vec = self.getMovementVector();
 			if (vec != null) {
 				double dist = 0.1;
-				int size = (int) (vec.mag() / dist);
+				int size = (int) (vec.length() / dist);
 				int count = 10;
 				int start = self.ticksElapsed % size;
 
-				Vector3 vecMag = vec.normalize().multiply(dist);
-				Vector3 vecTip = vecMag.multiply(start).add(worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5);
+				Vec3 vecMag = vec.normalize().scale(dist);
+				Vec3 vecTip = vecMag.scale(start).add(worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5);
 
 				double radPer = Math.PI / 16.0;
 				float mul = 0.5F;
@@ -108,7 +108,8 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 				for (int i = start; i < start + count; i++) {
 					mul = Math.min(maxMul, mul + mulPer);
 					double rad = radPer * (i + self.ticksElapsed * 0.4);
-					Vector3 vecRot = vecMag.crossProduct(Vector3.ONE).multiply(mul).rotate(rad, vecMag).add(vecTip);
+					Vec3 intermediate = vecMag.cross(Vector3.ONE).scale(mul);
+					Vec3 vecRot = Vector3.rotate(intermediate, rad, vecMag).add(vecTip);
 					level.addParticle(data, vecRot.x, vecRot.y, vecRot.z, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z);
 					vecTip = vecTip.add(vecMag);
 				}
@@ -179,13 +180,13 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		return null;
 	}
 
-	public Vector3 getMovementVector() {
+	public Vec3 getMovementVector() {
 		BlockPos dest = getNextDestination();
 		if (dest == null) {
 			return null;
 		}
 
-		return new Vector3(dest.getX() - worldPosition.getX(), dest.getY() - worldPosition.getY(), dest.getZ() - worldPosition.getZ());
+		return new Vec3(dest.getX() - worldPosition.getX(), dest.getY() - worldPosition.getY(), dest.getZ() - worldPosition.getZ());
 	}
 
 	@Override

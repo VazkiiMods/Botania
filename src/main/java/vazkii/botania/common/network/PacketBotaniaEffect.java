@@ -191,10 +191,10 @@ public class PacketBotaniaEffect {
 						}
 
 						double rc = 0.45;
-						Vector3 thisVec = Vector3.fromEntityCenter(e1).add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
-						Vector3 receiverVec = Vector3.fromEntityCenter(e2).add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
+						Vec3 thisVec = Vector3.fromEntityCenter(e1).add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
+						Vec3 receiverVec = Vector3.fromEntityCenter(e2).add((Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc, (Math.random() - 0.5) * rc);
 
-						Vector3 motion = receiverVec.subtract(thisVec).multiply(0.04F);
+						Vec3 motion = receiverVec.subtract(thisVec).scale(0.04F);
 						int color = args[2];
 						float r = ((color >> 16) & 0xFF) / 255.0F;
 						float g = ((color >> 8) & 0xFF) / 255.0F;
@@ -316,7 +316,7 @@ public class PacketBotaniaEffect {
 						Entity target = Minecraft.getInstance().level.getEntity(args[0]);
 						if (target != null) {
 							Vec3 lookVec3 = target.getLookAngle();
-							Vector3 centerVector = Vector3.fromEntityCenter(target).add(lookVec3.x * 3, 1.3, lookVec3.z * 3);
+							Vec3 centerVector = Vector3.fromEntityCenter(target).add(lookVec3.x * 3, 1.3, lookVec3.z * 3);
 							float m = 0.1F;
 							for (int i = 0; i < 4; i++) {
 								WispParticleData data = WispParticleData.wisp(0.2F + 0.2F * (float) Math.random(), 1F, 0F, 1F);

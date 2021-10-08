@@ -169,7 +169,7 @@ public class ItemSextant extends Item {
 		WispParticleData data = WispParticleData.wisp(0.2F, 1F, 0F, 0F, 1);
 		living.level.addParticle(data, source.x + 0.5, source.y + 1, source.z + 0.5, 0, - -0.1F, 0);
 
-		Vec3 centerVec = Vector3.fromEntityCenterVanilla(living);
+		Vec3 centerVec = Vector3.fromEntityCenter(living);
 		Vec3 diffVec = source.subtract(centerVec);
 		Vec3 lookVec = living.getLookAngle();
 		double mul = diffVec.y / lookVec.y;

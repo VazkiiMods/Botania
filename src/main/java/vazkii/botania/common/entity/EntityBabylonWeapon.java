@@ -125,7 +125,7 @@ public class EntityBabylonWeapon extends EntityThrowableCopy {
 					playerLook = Vec3.atCenterOf(rtr.getBlockPos());
 				}
 
-				Vector3 thisVec = Vector3.fromEntityCenter(this);
+				Vec3 thisVec = Vector3.fromEntityCenter(this);
 
 				mot = playerLook.subtract(thisVec.x, thisVec.y, thisVec.z).normalize().scale(2);
 				level.playSound(null, getX(), getY(), getZ(), ModSounds.babylonAttack, SoundSource.PLAYERS, 2F, 0.1F + level.random.nextFloat() * 3F);

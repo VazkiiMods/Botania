@@ -28,6 +28,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 import org.lwjgl.opengl.GL11;
 
@@ -51,7 +52,6 @@ import vazkii.botania.common.components.EntityComponents;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.handler.ManaNetworkHandler;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.item.ItemManaTablet;
 import vazkii.botania.common.item.ModItems;
@@ -224,8 +224,8 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 			if (level.isClientSide) {
 				if (ConfigHandler.COMMON.chargingAnimationEnabled.getValue()) {
 					boolean outputting = param == 1;
-					Vector3 itemVec = Vector3.fromBlockPos(worldPosition).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
-					Vector3 tileVec = Vector3.fromBlockPos(worldPosition).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
+					Vec3 itemVec = Vec3.atLowerCornerOf(worldPosition).add(0.5, 0.5 + Math.random() * 0.3, 0.5);
+					Vec3 tileVec = Vec3.atLowerCornerOf(worldPosition).add(0.2 + Math.random() * 0.6, 0, 0.2 + Math.random() * 0.6);
 					Botania.proxy.lightningFX(outputting ? tileVec : itemVec,
 							outputting ? itemVec : tileVec, 80, level.random.nextLong(), 0x4400799c, 0x4400C6FF);
 				}

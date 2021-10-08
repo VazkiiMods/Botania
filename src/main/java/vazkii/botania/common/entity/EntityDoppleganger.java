@@ -414,9 +414,9 @@ public class EntityDoppleganger extends Mob {
 
 		Entity attacker = source.getDirectEntity();
 		if (attacker != null) {
-			Vector3 thisVector = Vector3.fromEntityCenter(this);
-			Vector3 playerVector = Vector3.fromEntityCenter(attacker);
-			Vector3 motionVector = thisVector.subtract(playerVector).normalize().multiply(0.75);
+			Vec3 thisVector = Vector3.fromEntityCenter(this);
+			Vec3 playerVector = Vector3.fromEntityCenter(attacker);
+			Vec3 motionVector = thisVector.subtract(playerVector).normalize().scale(0.75);
 
 			if (getHealth() > 0) {
 				setDeltaMovement(-motionVector.x, 0.5, -motionVector.z);
@@ -556,9 +556,9 @@ public class EntityDoppleganger extends Mob {
 		}
 
 		if (getInvulTime() > 10) {
-			Vector3 pos = Vector3.fromEntityCenter(this).subtract(new Vector3(0, 0.2, 0));
+			Vec3 pos = Vector3.fromEntityCenter(this).subtract(0, 0.2, 0);
 			for (BlockPos arr : PYLON_LOCATIONS) {
-				Vector3 pylonPos = new Vector3(source.getX() + arr.getX(), source.getY() + arr.getY(), source.getZ() + arr.getZ());
+				Vec3 pylonPos = new Vec3(source.getX() + arr.getX(), source.getY() + arr.getY(), source.getZ() + arr.getZ());
 				double worldTime = tickCount;
 				worldTime /= 5;
 
@@ -566,8 +566,8 @@ public class EntityDoppleganger extends Mob {
 				double xp = pylonPos.x + 0.5 + Math.cos(worldTime) * rad;
 				double zp = pylonPos.z + 0.5 + Math.sin(worldTime) * rad;
 
-				Vector3 partPos = new Vector3(xp, pylonPos.y, zp);
-				Vector3 mot = pos.subtract(partPos).multiply(0.04);
+				Vec3 partPos = new Vec3(xp, pylonPos.y, zp);
+				Vec3 mot = pos.subtract(partPos).scale(0.04);
 
 				float r = 0.7F + (float) Math.random() * 0.3F;
 				float g = (float) Math.random() * 0.3F;
@@ -636,9 +636,9 @@ public class EntityDoppleganger extends Mob {
 
 	private void keepInsideArena(Player player) {
 		if (MathHelper.pointDistanceSpace(player.getX(), player.getY(), player.getZ(), source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5) >= ARENA_RANGE) {
-			Vector3 sourceVector = new Vector3(source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5);
-			Vector3 playerVector = Vector3.fromEntityCenter(player);
-			Vector3 motion = sourceVector.subtract(playerVector).normalize();
+			Vec3 sourceVector = new Vec3(source.getX() + 0.5, source.getY() + 0.5, source.getZ() + 0.5);
+			Vec3 playerVector = Vector3.fromEntityCenter(player);
+			Vec3 motion = sourceVector.subtract(playerVector).normalize();
 
 			player.setDeltaMovement(motion.x, 0.2, motion.z);
 			player.hurtMarked = true;

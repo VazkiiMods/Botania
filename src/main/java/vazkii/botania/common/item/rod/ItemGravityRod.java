@@ -118,12 +118,12 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 				Entity taritem = player.level.getEntity(targetID);
 
 				boolean found = false;
-				Vector3 targetVec = Vector3.fromEntityCenter(player);
+				Vec3 targetVec = Vector3.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
-					targetVec = targetVec.add(new Vector3(player.getLookAngle()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.level.getEntities(player, targetVec.boxForRange(RANGE), CAN_TARGET);
+					targetVec = targetVec.add(player.getLookAngle().scale(distance)).add(0, 0.5, 0);
+					entities = player.level.getEntities(player, Vector3.boxForRange(targetVec, RANGE), CAN_TARGET);
 					distance++;
 					if (entities.contains(taritem)) {
 						found = true;
@@ -136,12 +136,12 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 			}
 
 			if (target == null) {
-				Vector3 targetVec = Vector3.fromEntityCenter(player);
+				Vec3 targetVec = Vector3.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
-					targetVec = targetVec.add(new Vector3(player.getLookAngle()).multiply(distance)).add(0, 0.5, 0);
-					entities = player.level.getEntities(player, targetVec.boxForRange(RANGE), CAN_TARGET);
+					targetVec = targetVec.add(player.getLookAngle().scale(distance)).add(0, 0.5, 0);
+					entities = player.level.getEntities(player, Vector3.boxForRange(targetVec, RANGE), CAN_TARGET);
 					distance++;
 				}
 
@@ -172,7 +172,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 						}
 					}
 
-					Vec3 target3 = Vector3.fromEntityCenterVanilla(player)
+					Vec3 target3 = Vector3.fromEntityCenter(player)
 							.add(player.getLookAngle().scale(length)).add(0, 0.5, 0);
 					if (target instanceof ItemEntity) {
 						target3 = target3.add(0, 0.25, 0);
@@ -219,7 +219,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 				Entity taritem = player.level.getEntity(targetID);
 
 				boolean found = false;
-				Vec3 target = Vector3.fromEntityCenterVanilla(player);
+				Vec3 target = Vector3.fromEntityCenter(player);
 				List<Entity> entities = new ArrayList<>();
 				int distance = 1;
 				while (entities.size() == 0 && distance < 25) {
