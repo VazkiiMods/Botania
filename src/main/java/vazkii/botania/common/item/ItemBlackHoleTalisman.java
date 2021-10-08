@@ -19,7 +19,6 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.*;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
@@ -40,6 +39,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.core.helper.PlayerHelper;
 
@@ -63,7 +63,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 		ItemStack stack = player.getItemInHand(hand);
 		if (getBlock(stack) != null && player.isShiftKeyDown()) {
 			ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, !ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false));
-			player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 0.3F, 0.1F);
+			player.playSound(ModSounds.blackHoleTalismanConfigure, 1F, 1F);
 			return InteractionResultHolder.success(stack);
 		}
 

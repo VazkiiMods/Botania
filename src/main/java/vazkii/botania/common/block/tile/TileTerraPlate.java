@@ -101,7 +101,7 @@ public class TileTerraPlate extends TileMod implements ISparkAttachable {
 					ItemEntity item = new ItemEntity(level, worldPosition.getX() + 0.5, worldPosition.getY() + 0.2, worldPosition.getZ() + 0.5, recipe.assemble(inv));
 					item.setDeltaMovement(Vec3.ZERO);
 					level.addFreshEntity(item);
-					level.playSound(null, item.getX(), item.getY(), item.getZ(), ModSounds.terrasteelCraft, SoundSource.BLOCKS, 1, 1);
+					level.playSound(null, item.getX(), item.getY(), item.getZ(), ModSounds.terrasteelCraft, SoundSource.BLOCKS, 1F, 1F);
 					self.mana = 0;
 					level.updateNeighbourForOutputSignal(worldPosition, state.getBlock());
 					VanillaPacketDispatcher.dispatchTEToNearbyPlayers(self);

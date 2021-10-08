@@ -35,7 +35,6 @@ import java.util.stream.Collectors;
 public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 	private static final int MANA_PER_XP = 50;
 	private static final int MANA_PER_XP_ORB = 35;
-	private static final int MANA_PER_XP_DISENCHANT = 40;
 	private static final int RANGE = 1;
 
 	public SubTileArcaneRose(BlockPos pos, BlockState state) {
@@ -65,9 +64,10 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 		List<ExperienceOrb> orbs = getLevel().getEntitiesOfClass(ExperienceOrb.class, effectBounds);
 		for (ExperienceOrb orb : orbs) {
 			if (orb.isAlive()) {
-				addMana(orb.getValue() * 35);
+				addMana(orb.getValue() * MANA_PER_XP_ORB);
 				orb.discard();
 				float pitch = (level.random.nextFloat() - level.random.nextFloat()) * 0.35F + 0.9F;
+				//Usage of vanilla sound event: Subtitle is "Experience gained", and this is about gaining experience anyways.
 				level.playSound(null, getEffectivePos(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.BLOCKS, 0.07F, pitch);
 				sync();
 				return;
@@ -88,7 +88,7 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 					newEntity.setDeltaMovement(entity.getDeltaMovement());
 					level.addFreshEntity(newEntity);
 
-					level.playSound(null, getEffectivePos(), ModSounds.arcaneRoseDisenchant, SoundSource.BLOCKS, 0.3F, this.level.random.nextFloat() * 0.1F + 0.9F);
+					level.playSound(null, getEffectivePos(), ModSounds.arcaneRoseDisenchant, SoundSource.BLOCKS, 1F, this.level.random.nextFloat() * 0.1F + 0.9F);
 					while (xp > 0) {
 						int i = ExperienceOrb.getExperienceValue(xp);
 						xp -= i;

@@ -98,8 +98,7 @@ public class SubTileLabellia extends TileEntityFunctionalFlower {
 						}
 						addMana(-COST);
 						nameTag.shrink(1);
-						level.playSound(null, x + 0.5, y + 0.5, z + 0.5, ModSounds.labellia,
-								SoundSource.BLOCKS, 1, 1);
+						level.playSound(null, x + 0.5, y + 0.5, z + 0.5, ModSounds.labellia, SoundSource.BLOCKS, 1F, 1F);
 						break;
 					}
 				}

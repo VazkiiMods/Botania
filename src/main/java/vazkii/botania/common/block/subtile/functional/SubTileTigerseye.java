@@ -9,7 +9,6 @@
 package vazkii.botania.common.block.subtile.functional;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
@@ -24,6 +23,7 @@ import vazkii.botania.api.subtile.RadiusDescriptor;
 import vazkii.botania.api.subtile.TileEntityFunctionalFlower;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.ModSubtiles;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.mixin.*;
 
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ public class SubTileTigerseye extends TileEntityFunctionalFlower {
 				}
 
 				if (did) {
-					entity.playSound(SoundEvents.CREEPER_HURT, 1.0F, (level.random.nextFloat() - level.random.nextFloat()) * 0.2F + 1.0F);
+					entity.playSound(ModSounds.tigerseyePacify, 1.0F, (level.random.nextFloat() - level.random.nextFloat()) * 0.2F + 1.0F);
 					level.blockEvent(getBlockPos(), getBlockState().getBlock(), SUCCESS_EVENT, entity.getId());
 					addMana(-COST);
 					sync();

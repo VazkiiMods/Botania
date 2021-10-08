@@ -17,7 +17,6 @@ import net.minecraft.core.Direction.Axis;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.*;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -37,6 +36,7 @@ import net.minecraft.world.phys.HitResult;
 import vazkii.botania.api.item.IBlockProvider;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.core.handler.ItemsRemainingRenderHandler;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 import vazkii.botania.common.item.rod.ItemExchangeRod;
@@ -84,7 +84,7 @@ public class ItemAstrolabe extends Item {
 	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, @Nonnull InteractionHand hand) {
 		ItemStack stack = playerIn.getItemInHand(hand);
 		if (playerIn.isShiftKeyDown()) {
-			playerIn.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP, 0.5F, 1F);
+			playerIn.playSound(ModSounds.astrolabeConfigure, 1F, 1F);
 			if (!worldIn.isClientSide) {
 				int size = getSize(stack);
 				int newSize = size == 11 ? 3 : size + 2;

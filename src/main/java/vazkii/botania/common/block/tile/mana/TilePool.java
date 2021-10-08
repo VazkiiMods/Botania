@@ -197,7 +197,7 @@ public class TilePool extends TileMod implements IManaPool, IKeyLocked, ISparkAt
 
 	private void craftingFanciness() {
 		if (soundTicks == 0) {
-			level.playSound(null, worldPosition, ModSounds.manaPoolCraft, SoundSource.BLOCKS, 0.4F, 4F);
+			level.playSound(null, worldPosition, ModSounds.manaPoolCraft, SoundSource.BLOCKS, 1F, 1F);
 			soundTicks = 6;
 		}
 
