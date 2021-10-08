@@ -25,7 +25,7 @@ public class ModelArmor extends HumanoidModel<LivingEntity> {
 		this.slot = slot;
 	}
 
-	// [VanillaCopy] ArmorStandArmorModel.setRotationAngles because armor stands are dumb
+	// [VanillaCopy] ArmorStandArmorModel.setupAnim because armor stands are dumb
 	// This fixes the armor "breathing" and helmets always facing south on armor stands
 	@Override
 	public void setupAnim(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {

@@ -87,7 +87,7 @@ public class TileBellows extends TileMod {
 
 					if (furnace instanceof FurnaceBlockEntity
 							&& furnace.hasLevel() && furnace.getBlockState().getValue(FurnaceBlock.LIT)) {
-						// [VanillaCopy] BlockFurnace
+						// [VanillaCopy] FurnaceBlock
 						double d0 = (double) worldPosition.getX() + 0.5D;
 						double d1 = (double) worldPosition.getY();
 						double d2 = (double) worldPosition.getZ() + 0.5D;

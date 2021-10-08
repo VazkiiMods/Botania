@@ -371,7 +371,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			cmp.putInt(TAG_EXIT_Z, exit.getZ());
 		}
 
-		// [VanillaCopy] PigEntity logic to select a dismount location
+		// [VanillaCopy] Pig logic to select a dismount location
 		@Override
 		public Vec3 getDismountLocationForPassenger(LivingEntity living) {
 			Direction direction = living.getDirection();

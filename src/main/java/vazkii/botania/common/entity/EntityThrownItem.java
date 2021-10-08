@@ -61,7 +61,7 @@ public class EntityThrownItem extends ItemEntity {
 	public void tick() {
 		super.tick();
 
-		// [VanillaCopy] derivative from ThrowableEntity
+		// [VanillaCopy] derivative from ThrowableProjectile
 		int pickupDelay = ((AccessorItemEntity) this).getPickupDelay();
 		Predicate<Entity> filter = e -> !e.isSpectator() && e.isAlive() && e.isPickable() && (!(e instanceof Player) || pickupDelay == 0);
 		HitResult hitResult = ProjectileUtil.getHitResult(this, filter);

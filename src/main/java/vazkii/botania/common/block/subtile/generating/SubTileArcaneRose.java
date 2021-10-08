@@ -100,7 +100,7 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 		}
 	}
 
-	// [VanillaCopy] GrindstoneContainer
+	// [VanillaCopy] GrindstoneMenu
 	private static int getEnchantmentXpValue(ItemStack stack) {
 		int ret = 0;
 		Map<Enchantment, Integer> map = EnchantmentHelper.getEnchantments(stack);
@@ -116,7 +116,7 @@ public class SubTileArcaneRose extends TileEntityGeneratingFlower {
 		return ret;
 	}
 
-	// [VanillaCopy] GrindstoneContainer, no damage and count setting
+	// [VanillaCopy] GrindstoneMenu, no damage and count setting
 	private static ItemStack removeNonCurses(ItemStack stack) {
 		ItemStack itemstack = stack.copy();
 		itemstack.removeTagKey("Enchantments");

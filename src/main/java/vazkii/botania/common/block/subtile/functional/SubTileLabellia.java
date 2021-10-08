@@ -82,10 +82,10 @@ public class SubTileLabellia extends TileEntityFunctionalFlower {
 
 					if (!nameableItems.isEmpty() || !nameableEntities.isEmpty()) {
 						for (LivingEntity e : nameableEntities) {
-							// [VanillaCopy] from net.minecraft.item.NameTagItem
+							// [VanillaCopy] from NameTagItem
 							e.setCustomName(name);
-							if (e instanceof Mob) {
-								((Mob) e).setPersistenceRequired();
+							if (e instanceof Mob mob) {
+								mob.setPersistenceRequired();
 							}
 						}
 						for (ItemEntity i : nameableItems) {
