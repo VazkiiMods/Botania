@@ -57,7 +57,6 @@ import org.lwjgl.glfw.GLFW;
 import vazkii.botania.client.core.handler.*;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.client.model.ModLayerDefinitions;
 import vazkii.botania.client.render.entity.RenderBabylonWeapon;
@@ -370,7 +369,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 
 	@Override
 	public void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
-		Minecraft.getInstance().particleEngine.add(new FXLightning(Minecraft.getInstance().level, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner));
+		// todo 1.17 import Mekanism's lightning bolts
 	}
 
 	@Override

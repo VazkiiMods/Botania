@@ -23,7 +23,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import vazkii.botania.client.fx.FXLightning;
 import vazkii.botania.client.fx.FXSparkle;
 import vazkii.botania.client.fx.FXWisp;
 
@@ -41,7 +40,6 @@ public class MixinParticleEngine {
 		RENDER_ORDER = ImmutableList.<ParticleRenderType>builder().addAll(RENDER_ORDER)
 				.add(FXWisp.NORMAL_RENDER, FXWisp.DIW_RENDER)
 				.add(FXSparkle.NORMAL_RENDER, FXSparkle.CORRUPT_RENDER)
-				.add(FXLightning.RENDER)
 				.build();
 	}
 }
