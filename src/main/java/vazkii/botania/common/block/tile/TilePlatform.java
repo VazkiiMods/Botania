@@ -107,18 +107,9 @@ public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity
 
 	@Override
 	public Object getRenderAttachmentData() {
-		return new PlatformData(getBlockPos(), camoState);
+		return new PlatformData(getBlockPos().immutable(), camoState);
 	}
 
-	public static class PlatformData {
-		public final BlockPos pos;
-
-		@Nullable
-		public final BlockState state;
-
-		public PlatformData(BlockPos pos, @Nullable BlockState state) {
-			this.pos = pos.immutable();
-			this.state = state;
-		}
+	public record PlatformData(BlockPos pos, @Nullable BlockState state) {
 	}
 }

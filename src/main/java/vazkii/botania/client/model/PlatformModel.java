@@ -44,8 +44,8 @@ public class PlatformModel extends ForwardingBakedModel {
 
 		Object data = ((RenderAttachedBlockView) blockView).getBlockEntityRenderAttachment(pos);
 		if (data instanceof TilePlatform.PlatformData) {
-			BlockPos heldPos = ((TilePlatform.PlatformData) data).pos;
-			BlockState heldState = ((TilePlatform.PlatformData) data).state;
+			BlockPos heldPos = ((TilePlatform.PlatformData) data).pos();
+			BlockState heldState = ((TilePlatform.PlatformData) data).state();
 
 			if (heldState == null) {
 				// No camo
