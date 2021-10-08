@@ -81,7 +81,7 @@ public class ItemItemFinder extends ItemBauble {
 	}
 
 	protected void tickClient(ItemStack stack, Player player) {
-		if (!Botania.proxy.isTheClientPlayer(player)) {
+		if (player != Botania.proxy.getClientPlayer()) {
 			return;
 		}
 

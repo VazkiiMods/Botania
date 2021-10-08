@@ -348,11 +348,6 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	}
 
 	@Override
-	public boolean isTheClientPlayer(LivingEntity entity) {
-		return entity == Minecraft.getInstance().player;
-	}
-
-	@Override
 	public Player getClientPlayer() {
 		return Minecraft.getInstance().player;
 	}

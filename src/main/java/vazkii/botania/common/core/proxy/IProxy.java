@@ -13,7 +13,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Rotation;
@@ -23,10 +22,6 @@ import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.patchouli.api.IMultiblock;
 
 public interface IProxy {
-	default boolean isTheClientPlayer(LivingEntity entity) {
-		return false;
-	}
-
 	default Player getClientPlayer() {
 		return null;
 	}
