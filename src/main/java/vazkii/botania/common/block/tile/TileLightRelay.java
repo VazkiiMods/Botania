@@ -60,9 +60,11 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	private static final String TAG_BIND_X = "bindX";
 	private static final String TAG_BIND_Y = "bindY";
 	private static final String TAG_BIND_Z = "bindZ";
+	private static final String TAG_NO_PARTICLE = "noParticle";
 
 	private BlockPos bindPos = new BlockPos(0, Integer.MIN_VALUE, 0);
 	private int ticksElapsed = 0;
+	private boolean noParticle = false;
 
 	public TileLightRelay(BlockPos pos, BlockState state) {
 		super(ModTiles.LIGHT_RELAY, pos, state);
@@ -89,7 +91,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		self.ticksElapsed++;
 
 		BlockPos nextDest = self.getNextDestination();
-		if (nextDest != null && nextDest.getY() > -1 && self.isValidBinding()) {
+		if (self.isNoParticle() && nextDest != null && nextDest.getY() > -1 && self.isValidBinding()) {
 			Vec3 vec = self.getMovementVector();
 			if (vec != null) {
 				double dist = 0.1;
@@ -180,6 +182,14 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		return null;
 	}
 
+	public void setNoParticle() {
+		noParticle = true;
+	}
+
+	public boolean isNoParticle() {
+		return noParticle;
+	}
+
 	public Vec3 getMovementVector() {
 		BlockPos dest = getNextDestination();
 		if (dest == null) {
@@ -250,6 +260,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 				cmp.getInt(TAG_BIND_Y),
 				cmp.getInt(TAG_BIND_Z)
 		);
+		noParticle = cmp.getBoolean(TAG_NO_PARTICLE);
 	}
 
 	@Override
@@ -257,6 +268,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		cmp.putInt(TAG_BIND_X, bindPos.getX());
 		cmp.putInt(TAG_BIND_Y, bindPos.getY());
 		cmp.putInt(TAG_BIND_Z, bindPos.getZ());
+		cmp.putBoolean(TAG_NO_PARTICLE, noParticle);
 	}
 
 	public static class EntityPlayerMover extends Entity {
