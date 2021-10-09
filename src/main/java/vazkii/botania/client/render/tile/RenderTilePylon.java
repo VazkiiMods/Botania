@@ -49,7 +49,7 @@ public class RenderTilePylon implements BlockEntityRenderer<TilePylon> {
 	private final ModelPylonNatura naturaModel;
 	private final ModelPylonGaia gaiaModel;
 
-	// Overrides for when we call this TESR without an actual pylon
+	// Overrides for when we call this without an actual pylon
 	private static BlockPylon.Variant forceVariant = BlockPylon.Variant.MANA;
 	private static ItemTransforms.TransformType forceTransform = ItemTransforms.TransformType.NONE;
 

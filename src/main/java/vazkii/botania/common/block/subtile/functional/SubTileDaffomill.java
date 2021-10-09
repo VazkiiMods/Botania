@@ -40,7 +40,7 @@ public class SubTileDaffomill extends TileEntityFunctionalFlower {
 	private Direction orientation = Direction.NORTH;
 
 	// On some occasions the client's redstone state is not the same as the server (eg. comparators,
-	// which can return 0 power on the client as their TE state is often not synced at all)
+	// which can return 0 power on the client as their block entity state is often not synced at all)
 	private boolean redstonePowered;
 
 	public SubTileDaffomill(BlockPos pos, BlockState state) {

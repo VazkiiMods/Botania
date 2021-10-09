@@ -62,7 +62,7 @@ public class RenderTileCorporeaIndex implements BlockEntityRenderer<TileCorporea
 
 		float rotation = (ClientTickHandler.ticksInGame + partialTicks) * 2;
 		float translation;
-		if (index == null) { //TEISR
+		if (index == null) { // Item render
 			ms.scale(1.3f, 1.3f, 1.3f);
 			ms.translate(0, -0.1, 0);
 			translation = 0;

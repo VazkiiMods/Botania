@@ -141,7 +141,7 @@ public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityB
 
 	@Override
 	public void destroy(LevelAccessor world, BlockPos pos, BlockState state) {
-		// TE is already gone so best we can do is just notify everyone
+		// Block entity is already gone so best we can do is just notify everyone
 		world.blockUpdated(pos, this);
 		super.destroy(world, pos, state);
 	}

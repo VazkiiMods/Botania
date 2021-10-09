@@ -10,8 +10,8 @@ package vazkii.botania.api.mana;
 
 /**
  * A TileEntity that will only send a few packets rather than one per every entity collision.
- * markDispatchable marks that this TE needs to send a packet. Further handling is to be done
- * in the TE itself.
+ * markDispatchable marks that this block entity needs to send a packet. Further handling is to be done
+ * in the block entity itself.
  */
 public interface IThrottledPacket {
 
