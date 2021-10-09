@@ -78,6 +78,7 @@ public final class RenderHelper extends RenderType {
 
 	public static final RenderType ASTROLABE_PREVIEW;
 	public static final RenderType STARFIELD;
+	public static final RenderType LIGHTNING;
 
 	private static RenderType makeLayer(String name, VertexFormat format, VertexFormat.Mode mode,
 			int bufSize, boolean hasCrumbling, boolean sortOnUpload, CompositeState glState) {
@@ -188,6 +189,11 @@ public final class RenderHelper extends RenderType {
 						.add(TheEndPortalRenderer.END_PORTAL_LOCATION, false, false).build())
 				.createCompositeState(false);
 		STARFIELD = makeLayer(LibResources.PREFIX_MOD + "starfield", DefaultVertexFormat.POSITION, VertexFormat.Mode.QUADS, 256, false, false, glState);
+		glState = RenderType.CompositeState.builder()
+				.setShaderState(POSITION_COLOR_SHADER)
+				.setTransparencyState(LIGHTNING_TRANSPARENCY)
+				.createCompositeState(false);
+		LIGHTNING = makeLayer(LibResources.PREFIX_MOD + "lightning", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 256, false, true, glState);
 	}
 
 	private RenderHelper(String string, VertexFormat vertexFormat, VertexFormat.Mode mode, int i, boolean bl, boolean bl2, Runnable runnable, Runnable runnable2) {

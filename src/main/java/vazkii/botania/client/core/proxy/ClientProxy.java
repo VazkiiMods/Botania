@@ -362,7 +362,7 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 
 	@Override
 	public void lightningFX(Vec3 vectorStart, Vec3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
-		// todo 1.17 import Mekanism's lightning bolts
+		// todo wip BoltRenderer.INSTANCE.update(new Object(), new BoltEffect(vectorStart, vectorEnd), ClientTickHandler.partialTicks);
 	}
 
 	@Override

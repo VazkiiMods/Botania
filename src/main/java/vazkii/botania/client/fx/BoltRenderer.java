@@ -22,8 +22,11 @@ import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.world.phys.Vec3;
 
 import org.apache.commons.lang3.tuple.Pair;
+
+import vazkii.botania.client.core.helper.RenderHelper;
 
 import java.util.Iterator;
 import java.util.List;
@@ -33,6 +36,7 @@ import java.util.Set;
 
 public class BoltRenderer {
 
+	public static final BoltRenderer INSTANCE = new BoltRenderer();
 	/** Amount of times per tick we refresh. 3 implies 60 Hz. */
 	private static final float REFRESH_TIME = 3F;
 	/** We will keep track of an owner's render data for 100 ticks after there are no bolts remaining. */
@@ -45,14 +49,19 @@ public class BoltRenderer {
 
 	private final Map<Object, BoltOwnerData> boltOwners = new Object2ObjectOpenHashMap<>();
 
-	public boolean hasBoltsToRender() {
-		synchronized (boltOwners) {
-			return boltOwners.values().stream().anyMatch(data -> !data.bolts.isEmpty());
-		}
+	public static void onWorldRenderLast(float partialTicks, PoseStack ps) {
+		ps.pushPose();
+		// here we translate based on the inverse position of the client viewing camera to get back to 0, 0, 0
+		Vec3 camVec = BoltRenderer.INSTANCE.minecraft.gameRenderer.getMainCamera().getPosition();
+		ps.translate(-camVec.x, -camVec.y, -camVec.z);
+		MultiBufferSource.BufferSource buffers = BoltRenderer.INSTANCE.minecraft.renderBuffers().bufferSource();
+		BoltRenderer.INSTANCE.render(partialTicks, ps, buffers);
+		buffers.endBatch(RenderHelper.LIGHTNING);
+		ps.popPose();
 	}
 
-	public void render(float partialTicks, PoseStack matrixStack, MultiBufferSource bufferIn) {
-		VertexConsumer buffer = null; // todo bufferIn.getBuffer(MekanismRenderType.MEK_LIGHTNING);
+	public void render(float partialTicks, PoseStack matrixStack, MultiBufferSource buffers) {
+		VertexConsumer buffer = buffers.getBuffer(RenderHelper.LIGHTNING);
 		Matrix4f matrix = matrixStack.last().pose();
 		Timestamp timestamp = new Timestamp(minecraft.level.getGameTime(), partialTicks);
 		boolean refresh = timestamp.isPassed(refreshTimestamp, (1 / REFRESH_TIME));
