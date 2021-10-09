@@ -76,7 +76,7 @@ public final class RenderHelper extends RenderType {
 	public static final RenderType NATURA_PYLON_GLOW_DIRECT = getPylonGlowDirect("natura_pylon_glow_direct", RenderTilePylon.NATURA_TEXTURE);
 	public static final RenderType GAIA_PYLON_GLOW_DIRECT = getPylonGlowDirect("gaia_pylon_glow_direct", RenderTilePylon.GAIA_TEXTURE);
 
-	public static final RenderType ASTROLABE_PREVIEW;
+	public static final RenderType ASTROLABE_PREVIEW = new AstrolabeLayer();
 	public static final RenderType STARFIELD;
 	public static final RenderType LIGHTNING;
 
@@ -175,11 +175,6 @@ public final class RenderHelper extends RenderType {
 				.setCullState(NO_CULL)
 				.createCompositeState(true);
 		HALO = makeLayer(LibResources.PREFIX_MOD + "halo", DefaultVertexFormat.POSITION_COLOR_TEX, VertexFormat.Mode.QUADS, 64, glState);
-
-		// TODO 1.17 needs a wrapper for alpha to 0.4
-		glState = RenderType.CompositeState.builder().setDepthTestState(new RenderStateShard.DepthTestStateShard("always", GL11.GL_ALWAYS)).setTextureState(new RenderStateShard.TextureStateShard(InventoryMenu.BLOCK_ATLAS, false, false)).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setCullState(NO_CULL).setLightmapState(LIGHTMAP).setOverlayState(OVERLAY).createCompositeState(true);
-		RenderType astrolabePreview = makeLayer(LibResources.PREFIX_MOD + "astrolabe_preview", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true, glState);
-		ASTROLABE_PREVIEW = astrolabePreview;
 
 		// [VanillaCopy] End portal, with own shader
 		glState = RenderType.CompositeState.builder()
@@ -428,5 +423,18 @@ public final class RenderHelper extends RenderType {
 			// todo 1.16-fabric buffer.addVertexData(matrixstack$entry, bakedquad, f, f1, f2, alpha, light, overlay, true);
 		}
 
+	}
+
+	private static class AstrolabeLayer extends RenderType {
+		public AstrolabeLayer() {
+			super(LibResources.PREFIX_MOD + "astrolabe", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, true,
+					() -> {
+						Sheets.translucentCullBlockSheet().setupRenderState();
+						RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.4F);
+					}, () -> {
+						Sheets.translucentCullBlockSheet().clearRenderState();
+						RenderType.entityTranslucent(InventoryMenu.BLOCK_ATLAS).clearRenderState();
+					});
+		}
 	}
 }
