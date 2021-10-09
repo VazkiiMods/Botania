@@ -17,7 +17,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix4f;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 
 import net.minecraft.client.Minecraft;
@@ -29,8 +28,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import vazkii.botania.client.core.helper.RenderHelper;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -47,7 +46,7 @@ public class BoltRenderer {
 	private final Random random = new Random();
 	private final Minecraft minecraft = Minecraft.getInstance();
 
-	private final Map<Object, BoltOwnerData> boltOwners = new Object2ObjectOpenHashMap<>();
+	private final List<BoltOwnerData> boltOwners = new LinkedList<>();
 
 	public static void onWorldRenderLast(float partialTicks, PoseStack ps) {
 		ps.pushPose();
@@ -68,39 +67,35 @@ public class BoltRenderer {
 		if (refresh) {
 			refreshTimestamp = timestamp;
 		}
-		synchronized (boltOwners) {
-			for (Iterator<Map.Entry<Object, BoltOwnerData>> iter = boltOwners.entrySet().iterator(); iter.hasNext();) {
-				Map.Entry<Object, BoltOwnerData> entry = iter.next();
-				BoltOwnerData data = entry.getValue();
-				// tick our bolts based on the refresh rate, removing if they're now finished
-				if (refresh) {
-					data.bolts.removeIf(bolt -> bolt.tick(timestamp));
-				}
-				if (data.bolts.isEmpty() && data.lastBolt != null && data.lastBolt.getSpawnFunction().isConsecutive()) {
-					data.addBolt(new BoltInstance(data.lastBolt, timestamp), timestamp);
-				}
-				data.bolts.forEach(bolt -> bolt.render(matrix, buffer, timestamp));
+		for (Iterator<BoltOwnerData> iter = boltOwners.iterator(); iter.hasNext();) {
+			BoltOwnerData data = iter.next();
+			// tick our bolts based on the refresh rate, removing if they're now finished
+			if (refresh) {
+				data.bolts.removeIf(bolt -> bolt.tick(timestamp));
+			}
+			if (data.bolts.isEmpty() && data.lastBolt != null && data.lastBolt.getSpawnFunction().isConsecutive()) {
+				data.addBolt(new BoltInstance(data.lastBolt, timestamp), timestamp);
+			}
+			data.bolts.forEach(bolt -> bolt.render(matrix, buffer, timestamp));
 
-				if (data.bolts.isEmpty() && timestamp.isPassed(data.lastUpdateTimestamp, MAX_OWNER_TRACK_TIME)) {
-					iter.remove();
-				}
+			if (data.bolts.isEmpty() && timestamp.isPassed(data.lastUpdateTimestamp, MAX_OWNER_TRACK_TIME)) {
+				iter.remove();
 			}
 		}
 	}
 
-	public void update(Object owner, BoltEffect newBoltData, float partialTicks) {
+	public void add(BoltEffect newBoltData, float partialTicks) {
 		if (minecraft.level == null) {
 			return;
 		}
-		synchronized (boltOwners) {
-			BoltOwnerData data = boltOwners.computeIfAbsent(owner, o -> new BoltOwnerData());
-			data.lastBolt = newBoltData;
-			Timestamp timestamp = new Timestamp(minecraft.level.getGameTime(), partialTicks);
-			if ((!data.lastBolt.getSpawnFunction().isConsecutive() || data.bolts.isEmpty()) && timestamp.isPassed(data.lastBoltTimestamp, data.lastBoltDelay)) {
-				data.addBolt(new BoltInstance(newBoltData, timestamp), timestamp);
-			}
-			data.lastUpdateTimestamp = timestamp;
+		var data = new BoltOwnerData();
+		data.lastBolt = newBoltData;
+		Timestamp timestamp = new Timestamp(minecraft.level.getGameTime(), partialTicks);
+		if ((!data.lastBolt.getSpawnFunction().isConsecutive() || data.bolts.isEmpty()) && timestamp.isPassed(data.lastBoltTimestamp, data.lastBoltDelay)) {
+			data.addBolt(new BoltInstance(newBoltData, timestamp), timestamp);
 		}
+		data.lastUpdateTimestamp = timestamp;
+		boltOwners.add(data);
 	}
 
 	public class BoltOwnerData {
