@@ -21,10 +21,13 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
@@ -36,6 +39,7 @@ import net.minecraft.world.level.block.entity.HopperBlockEntity;
 
 import vazkii.botania.client.gui.bag.ContainerFlowerBag;
 import vazkii.botania.common.block.BlockModFlower;
+import vazkii.botania.common.core.helper.InventoryHelper;
 
 import javax.annotation.Nonnull;
 
@@ -167,5 +171,26 @@ public class ItemFlowerBag extends Item {
 				.filter(s -> !s.isEmpty());
 		ItemUtils.onContainerDestroyed(entity, stream);
 		container.clearContent();
+	}
+
+	@Override
+	public boolean overrideStackedOnOther(
+			@Nonnull ItemStack bag, @Nonnull Slot slot,
+			@Nonnull ClickAction clickAction, @Nonnull Player player) {
+		return InventoryHelper.overrideStackedOnOther(
+				ItemFlowerBag::getInventory,
+				player.containerMenu instanceof ContainerFlowerBag,
+				bag, slot, clickAction, player);
+	}
+
+	@Override
+	public boolean overrideOtherStackedOnMe(
+			@Nonnull ItemStack bag, @Nonnull ItemStack toInsert,
+			@Nonnull Slot slot, @Nonnull ClickAction clickAction,
+			@Nonnull Player player, @Nonnull SlotAccess cursorAccess) {
+		return InventoryHelper.overrideOtherStackedOnMe(
+				ItemFlowerBag::getInventory,
+				player.containerMenu instanceof ContainerFlowerBag,
+				bag, toInsert, clickAction, cursorAccess);
 	}
 }
