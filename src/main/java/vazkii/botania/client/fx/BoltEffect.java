@@ -19,9 +19,11 @@ import net.minecraft.world.phys.Vec3;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nullable;
+
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Random;
@@ -46,7 +48,11 @@ public class BoltEffect {
 	private FadeFunction fadeFunction = FadeFunction.fade(0.5F);
 
 	public BoltEffect(Vec3 start, Vec3 end) {
-		this(BoltRenderInfo.DEFAULT, start, end, (int) (Math.sqrt(start.distanceTo(end) * 100)));
+		this(BoltRenderInfo.DEFAULT, start, end);
+	}
+
+	public BoltEffect(BoltRenderInfo info, Vec3 start, Vec3 end) {
+		this(info, start, end, (int) (Math.sqrt(start.distanceTo(end) * 100)));
 	}
 
 	public BoltEffect(BoltRenderInfo info, Vec3 start, Vec3 end, int segments) {
@@ -137,12 +143,12 @@ public class BoltEffect {
 		Vec3 diff = end.subtract(start);
 		float totalDistance = (float) diff.length();
 		for (int i = 0; i < count; i++) {
-			Queue<BoltInstructions> drawQueue = new LinkedList<>();
-			drawQueue.add(new BoltInstructions(start, 0, new Vec3(0, 0, 0), null, false));
+			Queue<BoltInstructions> drawQueue = new ArrayDeque<>();
+			drawQueue.add(new BoltInstructions(start, 0, Vec3.ZERO, null, false));
 			while (!drawQueue.isEmpty()) {
 				BoltInstructions data = drawQueue.poll();
-				Vec3 perpendicularDist = data.perpendicularDist;
-				float progress = data.progress + (1F / segments) * (1 - renderInfo.parallelNoise + random.nextFloat() * renderInfo.parallelNoise * 2);
+				Vec3 perpendicularDist = data.perpendicularDist();
+				float progress = data.progress() + (1F / segments) * (1 - renderInfo.parallelNoise + random.nextFloat() * renderInfo.parallelNoise * 2);
 				Vec3 segmentEnd;
 				float segmentDiffScale = renderInfo.spreadFunction.getMaxSpread(progress);
 				if (progress >= 1 && segmentDiffScale <= 0) {
@@ -156,12 +162,12 @@ public class BoltEffect {
 					segmentEnd = start.add(diff.scale(progress)).add(perpendicularDist);
 				}
 				float boltSize = size * (0.5F + (1 - progress) * 0.5F);
-				Pair<BoltQuads, QuadCache> quadData = createQuads(data.cache, data.start, segmentEnd, boltSize);
+				Pair<BoltQuads, QuadCache> quadData = createQuads(data.cache(), data.start(), segmentEnd, boltSize);
 				quads.add(quadData.getLeft());
 
 				if (progress >= 1) {
 					break; // break if we've reached the defined end point
-				} else if (!data.isBranch) {
+				} else if (!data.isBranch()) {
 					// continue the bolt if this is the primary (non-branch) segment
 					drawQueue.add(new BoltInstructions(segmentEnd, progress, perpendicularDist, quadData.getRight(), false));
 				} else if (random.nextFloat() < renderInfo.branchContinuationFactor) {
@@ -183,15 +189,17 @@ public class BoltEffect {
 		return vec.cross(newVec).normalize();
 	}
 
-	private Pair<BoltQuads, QuadCache> createQuads(QuadCache cache, Vec3 startPos, Vec3 end, float size) {
+	private Pair<BoltQuads, QuadCache> createQuads(@Nullable QuadCache cache, Vec3 startPos, Vec3 end, float size) {
 		Vec3 diff = end.subtract(startPos);
 		Vec3 rightAdd = diff.cross(new Vec3(0.5, 0.5, 0.5)).normalize().scale(size);
-		Vec3 backAdd = diff.cross(rightAdd).normalize().scale(size), rightAddSplit = rightAdd.scale(0.5F);
+		Vec3 backAdd = diff.cross(rightAdd).normalize().scale(size);
+		Vec3 rightAddSplit = rightAdd.scale(0.5F);
 
-		Vec3 start = cache != null ? cache.prevEnd : startPos;
-		Vec3 startRight = cache != null ? cache.prevEndRight : start.add(rightAdd);
-		Vec3 startBack = cache != null ? cache.prevEndBack : start.add(rightAddSplit).add(backAdd);
-		Vec3 endRight = end.add(rightAdd), endBack = end.add(rightAddSplit).add(backAdd);
+		Vec3 start = cache != null ? cache.prevEnd() : startPos;
+		Vec3 startRight = cache != null ? cache.prevEndRight() : start.add(rightAdd);
+		Vec3 startBack = cache != null ? cache.prevEndBack() : start.add(rightAddSplit).add(backAdd);
+		Vec3 endRight = end.add(rightAdd);
+		Vec3 endBack = end.add(rightAddSplit).add(backAdd);
 
 		BoltQuads quads = new BoltQuads();
 		quads.addQuad(start, end, endRight, startRight);
@@ -203,32 +211,12 @@ public class BoltEffect {
 		return Pair.of(quads, new QuadCache(end, endRight, endBack));
 	}
 
-	private static class QuadCache {
-
-		private final Vec3 prevEnd, prevEndRight, prevEndBack;
-
-		private QuadCache(Vec3 prevEnd, Vec3 prevEndRight, Vec3 prevEndBack) {
-			this.prevEnd = prevEnd;
-			this.prevEndRight = prevEndRight;
-			this.prevEndBack = prevEndBack;
-		}
+	private record QuadCache(Vec3 prevEnd, Vec3 prevEndRight, Vec3 prevEndBack) {
 	}
 
-	protected static class BoltInstructions {
-
-		private final Vec3 start;
-		private final Vec3 perpendicularDist;
-		private final QuadCache cache;
-		private final float progress;
-		private final boolean isBranch;
-
-		private BoltInstructions(Vec3 start, float progress, Vec3 perpendicularDist, QuadCache cache, boolean isBranch) {
-			this.start = start;
-			this.perpendicularDist = perpendicularDist;
-			this.progress = progress;
-			this.cache = cache;
-			this.isBranch = isBranch;
-		}
+	private record BoltInstructions(Vec3 start, float progress,
+			Vec3 perpendicularDist,
+			@Nullable QuadCache cache, boolean isBranch) {
 	}
 
 	public static class BoltQuads {
@@ -392,62 +380,132 @@ public class BoltEffect {
 
 	public static class BoltRenderInfo {
 
-		public static final BoltRenderInfo DEFAULT = new BoltRenderInfo();
-		public static final BoltRenderInfo ELECTRICITY = electricity();
+		public static final BoltRenderInfo DEFAULT = defaultConfig();
 
 		/** How much variance is allowed in segment lengths (parallel to straight line). */
-		private float parallelNoise = 0.1F;
+		private final float parallelNoise;
 		/**
 		 * How much variance is allowed perpendicular to the straight line vector. Scaled by distance and spread
 		 * function.
 		 */
-		private float spreadFactor = 0.1F;
+		private final float spreadFactor;
 
 		/** The chance of creating an additional branch after a certain segment. */
-		private float branchInitiationFactor = 0.0F;
+		private final float branchInitiationFactor;
 		/** The chance of a branch continuing (post-initiation). */
-		private float branchContinuationFactor = 0.0F;
+		private final float branchContinuationFactor;
 
-		private Vector4f color = new Vector4f(0.45F, 0.45F, 0.5F, 0.8F);
+		private final Vector4f color;
 
-		private RandomFunction randomFunction = RandomFunction.GAUSSIAN;
-		private SpreadFunction spreadFunction = SpreadFunction.SINE;
-		private SegmentSpreader segmentSpreader = SegmentSpreader.NO_MEMORY;
+		private final RandomFunction randomFunction;
+		private final SpreadFunction spreadFunction;
+		private final SegmentSpreader segmentSpreader;
 
-		public static BoltRenderInfo electricity() {
-			return new BoltRenderInfo().color(new Vector4f(0.54F, 0.91F, 1F, 0.8F)).noise(0.2F, 0.2F).branching(0.1F, 0.6F).spreader(SegmentSpreader.memory(0.9F));
+		private BoltRenderInfo(
+				float parallelNoise,
+				float spreadFactor,
+				float branchInitiationFactor,
+				float branchContinuationFactor,
+				Vector4f color,
+				RandomFunction randomFunction,
+				SpreadFunction spreadFunction,
+				SegmentSpreader segmentSpreader) {
+			this.parallelNoise = parallelNoise;
+			this.spreadFactor = spreadFactor;
+			this.branchInitiationFactor = branchInitiationFactor;
+			this.branchContinuationFactor = branchContinuationFactor;
+			this.color = color;
+			this.randomFunction = randomFunction;
+			this.spreadFunction = spreadFunction;
+			this.segmentSpreader = segmentSpreader;
+		}
+
+		private static BoltRenderInfo defaultConfig() {
+			return new BoltRenderInfo(
+					0.1F, 0.1F, 0.0F, 0.0F,
+					new Vector4f(0.0F, 0.7764F, 1F, 0.8F),
+					RandomFunction.GAUSSIAN,
+					SpreadFunction.SINE,
+					SegmentSpreader.NO_MEMORY
+			);
 		}
 
 		public BoltRenderInfo noise(float parallelNoise, float spreadFactor) {
-			this.parallelNoise = parallelNoise;
-			this.spreadFactor = spreadFactor;
-			return this;
+			return new BoltRenderInfo(
+					parallelNoise,
+					spreadFactor,
+					this.branchInitiationFactor,
+					this.branchContinuationFactor,
+					this.color,
+					this.randomFunction,
+					this.spreadFunction,
+					this.segmentSpreader
+			);
 		}
 
 		public BoltRenderInfo branching(float branchInitiationFactor, float branchContinuationFactor) {
-			this.branchInitiationFactor = branchInitiationFactor;
-			this.branchContinuationFactor = branchContinuationFactor;
-			return this;
+			return new BoltRenderInfo(
+					this.parallelNoise,
+					this.spreadFactor,
+					branchInitiationFactor,
+					branchContinuationFactor,
+					this.color,
+					this.randomFunction,
+					this.spreadFunction,
+					this.segmentSpreader
+			);
 		}
 
 		public BoltRenderInfo spreader(SegmentSpreader segmentSpreader) {
-			this.segmentSpreader = segmentSpreader;
-			return this;
+			return new BoltRenderInfo(
+					this.parallelNoise,
+					this.spreadFactor,
+					this.branchInitiationFactor,
+					this.branchContinuationFactor,
+					this.color,
+					this.randomFunction,
+					this.spreadFunction,
+					segmentSpreader
+			);
 		}
 
 		public BoltRenderInfo randomFunction(RandomFunction randomFunction) {
-			this.randomFunction = randomFunction;
-			return this;
+			return new BoltRenderInfo(
+					this.parallelNoise,
+					this.spreadFactor,
+					this.branchInitiationFactor,
+					this.branchContinuationFactor,
+					this.color,
+					randomFunction,
+					this.spreadFunction,
+					this.segmentSpreader
+			);
 		}
 
 		public BoltRenderInfo spreadFunction(SpreadFunction spreadFunction) {
-			this.spreadFunction = spreadFunction;
-			return this;
+			return new BoltRenderInfo(
+					this.parallelNoise,
+					this.spreadFactor,
+					this.branchInitiationFactor,
+					this.branchContinuationFactor,
+					this.color,
+					this.randomFunction,
+					spreadFunction,
+					this.segmentSpreader
+			);
 		}
 
 		public BoltRenderInfo color(Vector4f color) {
-			this.color = color;
-			return this;
+			return new BoltRenderInfo(
+					this.parallelNoise,
+					this.spreadFactor,
+					this.branchInitiationFactor,
+					this.branchContinuationFactor,
+					color,
+					this.randomFunction,
+					this.spreadFunction,
+					this.segmentSpreader
+			);
 		}
 	}
 }

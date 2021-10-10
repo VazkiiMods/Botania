@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+// todo(williewillus) integrate this properly into the particle system
 public class BoltRenderer {
 
 	public static final BoltRenderer INSTANCE = new BoltRenderer();
@@ -41,7 +42,7 @@ public class BoltRenderer {
 	/** We will keep track of an owner's render data for 100 ticks after there are no bolts remaining. */
 	private static final double MAX_OWNER_TRACK_TIME = 100;
 
-	private Timestamp refreshTimestamp = new Timestamp();
+	private Timestamp refreshTimestamp = Timestamp.ZERO;
 
 	private final Random random = new Random();
 	private final Minecraft minecraft = Minecraft.getInstance();
@@ -67,19 +68,24 @@ public class BoltRenderer {
 		if (refresh) {
 			refreshTimestamp = timestamp;
 		}
-		for (Iterator<BoltOwnerData> iter = boltOwners.iterator(); iter.hasNext();) {
-			BoltOwnerData data = iter.next();
-			// tick our bolts based on the refresh rate, removing if they're now finished
-			if (refresh) {
-				data.bolts.removeIf(bolt -> bolt.tick(timestamp));
-			}
-			if (data.bolts.isEmpty() && data.lastBolt != null && data.lastBolt.getSpawnFunction().isConsecutive()) {
-				data.addBolt(new BoltInstance(data.lastBolt, timestamp), timestamp);
-			}
-			data.bolts.forEach(bolt -> bolt.render(matrix, buffer, timestamp));
 
-			if (data.bolts.isEmpty() && timestamp.isPassed(data.lastUpdateTimestamp, MAX_OWNER_TRACK_TIME)) {
-				iter.remove();
+		// todo XXX there is NO reason this should be needed as we always call add on the same thread as render and there is no reentrancy from render to add
+		// figure out why we get Comodification errors
+		synchronized (boltOwners) {
+			for (Iterator<BoltOwnerData> iter = boltOwners.iterator(); iter.hasNext();) {
+				BoltOwnerData data = iter.next();
+				// tick our bolts based on the refresh rate, removing if they're now finished
+				if (refresh) {
+					data.bolts.removeIf(bolt -> bolt.tick(timestamp));
+				}
+				if (data.bolts.isEmpty() && data.lastBolt != null && data.lastBolt.getSpawnFunction().isConsecutive()) {
+					data.addBolt(new BoltInstance(data.lastBolt, timestamp), timestamp);
+				}
+				data.bolts.forEach(bolt -> bolt.render(matrix, buffer, timestamp));
+
+				if (data.bolts.isEmpty() && timestamp.isPassed(data.lastUpdateTimestamp, MAX_OWNER_TRACK_TIME)) {
+					iter.remove();
+				}
 			}
 		}
 	}
@@ -95,15 +101,19 @@ public class BoltRenderer {
 			data.addBolt(new BoltInstance(newBoltData, timestamp), timestamp);
 		}
 		data.lastUpdateTimestamp = timestamp;
-		boltOwners.add(data);
+		// todo XXX there is NO reason this should be needed as we always call add on the same thread as render and there is no reentrancy from render to add
+		// figure out why we get Comodification errors
+		synchronized (boltOwners) {
+			boltOwners.add(data);
+		}
 	}
 
 	public class BoltOwnerData {
 
 		private final Set<BoltInstance> bolts = new ObjectOpenHashSet<>();
 		private BoltEffect lastBolt;
-		private Timestamp lastBoltTimestamp = new Timestamp();
-		private Timestamp lastUpdateTimestamp = new Timestamp();
+		private Timestamp lastBoltTimestamp = Timestamp.ZERO;
+		private Timestamp lastUpdateTimestamp = Timestamp.ZERO;
 		private double lastBoltDelay;
 
 		private void addBolt(BoltInstance instance, Timestamp timestamp) {
@@ -113,7 +123,7 @@ public class BoltRenderer {
 		}
 	}
 
-	public static class BoltInstance {
+	private static class BoltInstance {
 
 		private final BoltEffect bolt;
 		private final List<BoltEffect.BoltQuads> renderQuads;
@@ -140,14 +150,11 @@ public class BoltRenderer {
 		}
 	}
 
-	public static class Timestamp {
+	private static class Timestamp {
 
+		public static final Timestamp ZERO = new Timestamp(0, 0);
 		private final long ticks;
 		private final float partial;
-
-		public Timestamp() {
-			this(0, 0);
-		}
 
 		public Timestamp(long ticks, float partial) {
 			this.ticks = ticks;

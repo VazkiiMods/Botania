@@ -51,7 +51,7 @@ public class ItemThunderSword extends ItemManasteelSword {
 			LivingEntity lightningSource = entity;
 			int hops = entity.level.isThundering() ? 10 : 4;
 			for (int i = 0; i < hops; i++) {
-				List<Entity> entities = entity.level.getEntities(lightningSource, new AABB(lightningSource.getX() - range, lightningSource.getY() - range, lightningSource.getZ() - range, lightningSource.getX() + range, lightningSource.getY() + range, lightningSource.getZ() + range), selector::test);
+				List<Entity> entities = entity.level.getEntities(lightningSource, new AABB(lightningSource.getX() - range, lightningSource.getY() - range, lightningSource.getZ() - range, lightningSource.getX() + range, lightningSource.getY() + range, lightningSource.getZ() + range), selector);
 				if (entities.isEmpty()) {
 					break;
 				}
