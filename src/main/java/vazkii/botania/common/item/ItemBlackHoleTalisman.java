@@ -25,7 +25,10 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickAction;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -33,6 +36,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.HopperBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -194,7 +198,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 		return cand;
 	}
 
-	private boolean setBlock(ItemStack stack, Block block) {
+	private static boolean setBlock(ItemStack stack, Block block) {
 		if (block.asItem() != Items.AIR && (getBlock(stack) == null || getBlockCount(stack) == 0)) {
 			ItemNBTHelper.setString(stack, TAG_BLOCK_NAME, Registry.BLOCK.getKey(block).toString());
 			return true;
@@ -202,7 +206,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 		return false;
 	}
 
-	private void add(ItemStack stack, int count) {
+	private static void add(ItemStack stack, int count) {
 		int current = getBlockCount(stack);
 		setCount(stack, current + count);
 	}
@@ -276,4 +280,49 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 		return 0;
 	}
 
+	@Override
+	public boolean overrideStackedOnOther(@Nonnull ItemStack talisman, @Nonnull Slot slot,
+			@Nonnull ClickAction clickAction, @Nonnull Player player) {
+		if (clickAction == ClickAction.SECONDARY) {
+			ItemStack toInsert = slot.getItem();
+			Block blockToInsert = Block.byItem(toInsert.getItem());
+			if (blockToInsert != Blocks.AIR) {
+				Block existingBlock = getBlock(talisman);
+				if (existingBlock == null || existingBlock == blockToInsert) {
+					ItemStack taken = slot.safeTake(toInsert.getCount(), Integer.MAX_VALUE, player);
+					if (existingBlock == null) {
+						setBlock(talisman, blockToInsert);
+						setCount(talisman, taken.getCount());
+					} else {
+						add(talisman, taken.getCount());
+					}
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean overrideOtherStackedOnMe(
+			@Nonnull ItemStack talisman, @Nonnull ItemStack toInsert, @Nonnull Slot slot,
+			@Nonnull ClickAction clickAction, @Nonnull Player player, @Nonnull SlotAccess cursorAccess) {
+		if (clickAction == ClickAction.SECONDARY) {
+			Block blockToInsert = Block.byItem(toInsert.getItem());
+			if (blockToInsert != Blocks.AIR) {
+				Block existingBlock = getBlock(talisman);
+				if (existingBlock == null || existingBlock == blockToInsert) {
+					if (existingBlock == null) {
+						setBlock(talisman, blockToInsert);
+						setCount(talisman, toInsert.getCount());
+					} else {
+						add(talisman, toInsert.getCount());
+					}
+					cursorAccess.set(ItemStack.EMPTY);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
