@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.core.proxy;
 
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.chat.Component;
@@ -18,6 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.phys.Vec3;
 
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.patchouli.api.IMultiblock;
 
@@ -31,9 +31,9 @@ public interface IProxy {
 	}
 
 	default long getWorldElapsedTicks() {
-		Object game = FabricLoader.getInstance().getGameInstance();
-		if (game instanceof MinecraftServer) {
-			return ((MinecraftServer) game).getLevel(Level.OVERWORLD).getGameTime();
+		MinecraftServer server = Botania.currentServer;
+		if (server != null) {
+			return server.getLevel(Level.OVERWORLD).getGameTime();
 		}
 		return 0;
 	}
