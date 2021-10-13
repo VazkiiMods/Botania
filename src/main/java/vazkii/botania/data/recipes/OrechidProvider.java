@@ -8,175 +8,103 @@
  */
 package vazkii.botania.data.recipes;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
-
+import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.biome.Biome.BiomeCategory;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
+import org.jetbrains.annotations.Nullable;
+
+import vazkii.botania.api.recipe.IOrechidRecipe;
 import vazkii.botania.api.recipe.StateIngredient;
-import vazkii.botania.common.Botania;
+import vazkii.botania.common.block.ModFluffBlocks;
+import vazkii.botania.common.crafting.ModRecipeTypes;
 import vazkii.botania.common.crafting.StateIngredientHelper;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
-public class OrechidProvider implements DataProvider {
-	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-
-	private final DataGenerator generator;
+public class OrechidProvider extends BotaniaRecipeProvider {
 
 	public OrechidProvider(DataGenerator generator) {
-		this.generator = generator;
+		super(generator);
 	}
 
 	@Override
-	public void run(HashCache cache) throws IOException {
-		registerMaps((Object2IntMap<StateIngredient> map, String loc) -> {
-			try {
-				DataProvider.save(GSON, cache, convertMapToJson(map), getPath(generator.getOutputFolder(), prefix(loc)));
-			} catch (IOException e) {
-				Botania.LOGGER.error("Exception writing file", e);
-			}
-		});
+	public void run(HashCache hashCache) {
+		super.run(hashCache);
 	}
 
-	protected void registerMaps(BiConsumer<Object2IntMap<StateIngredient>, String> consumer) {
-		consumer.accept(orechidMap(), "orechid");
-		consumer.accept(netherOrechidMap(), "orechid_ignem");
+	// TODO: We had an enormous amount of ores defined for mod compat.
+	//       The old data needs to be completely revised.
+	@Override
+	void registerRecipes(Consumer<net.minecraft.data.recipes.FinishedRecipe> consumer) {
+		consumer.accept(stone(Blocks.COAL_ORE, 67415));
+		consumer.accept(stone(Blocks.IRON_ORE, 29371));
+		consumer.accept(stone(Blocks.REDSTONE_ORE, 7654));
+		consumer.accept(stone(Blocks.COPPER_ORE, 7000));
+		consumer.accept(stone(Blocks.GOLD_ORE, 2647));
+		consumer.accept(stone(Blocks.EMERALD_ORE, 1239));
+		consumer.accept(stone(Blocks.LAPIS_ORE, 1079));
+		consumer.accept(stone(Blocks.DIAMOND_ORE, 883));
+
+		consumer.accept(deepslate(Blocks.DEEPSLATE_COAL_ORE, 67415));
+		consumer.accept(deepslate(Blocks.DEEPSLATE_IRON_ORE, 29371));
+		consumer.accept(deepslate(Blocks.DEEPSLATE_REDSTONE_ORE, 7654));
+		consumer.accept(deepslate(Blocks.DEEPSLATE_COPPER_ORE, 7000));
+		consumer.accept(deepslate(Blocks.DEEPSLATE_GOLD_ORE, 2647));
+		consumer.accept(deepslate(Blocks.DEEPSLATE_EMERALD_ORE, 1239));
+		consumer.accept(deepslate(Blocks.DEEPSLATE_LAPIS_ORE, 1079));
+		consumer.accept(deepslate(Blocks.DEEPSLATE_DIAMOND_ORE, 883));
+
+		consumer.accept(netherrack(Blocks.NETHER_QUARTZ_ORE, 19600));
+		consumer.accept(netherrack(Blocks.NETHER_GOLD_ORE, 3635));
+		consumer.accept(netherrack(Blocks.ANCIENT_DEBRIS, 148));
+
+		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneForest, BiomeCategory.FOREST));
+		consumer.accept(biomeStone(ModFluffBlocks.biomeStonePlains, BiomeCategory.PLAINS));
+		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneMountain, BiomeCategory.EXTREME_HILLS));
+		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneFungal, BiomeCategory.MUSHROOM));
+		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneSwamp, BiomeCategory.SWAMP));
+		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneDesert, BiomeCategory.DESERT, BiomeCategory.BEACH));
+		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneTaiga, BiomeCategory.ICY, BiomeCategory.TAIGA));
+		consumer.accept(biomeStone(ModFluffBlocks.biomeStoneMesa, BiomeCategory.MESA));
 	}
 
-	protected JsonObject convertMapToJson(Object2IntMap<StateIngredient> map) {
-		JsonObject o = new JsonObject();
-		JsonArray weights = map.object2IntEntrySet().stream().map(entry -> {
-			JsonObject serialized = entry.getKey().serialize();
-			serialized.addProperty("weight", entry.getIntValue());
-			return serialized;
-		}).collect(JsonArray::new, JsonArray::add, JsonArray::addAll);
-		o.add("values", weights);
-		return o;
+	protected ResourceLocation orechidId(Block b) {
+		return prefix("orechid/" + Registry.BLOCK.getKey(b).getPath());
 	}
 
-	protected Object2IntMap<StateIngredient> orechidMap() {
-		Object2IntMap<StateIngredient> map = new Object2IntArrayMap<>();
-
-		map.put(forBlock(Blocks.COAL_ORE), 67415);
-		map.put(forBlock(Blocks.IRON_ORE), 29371);
-		map.put(forBlock(Blocks.REDSTONE_ORE), 7654);
-		map.put(forBlock(Blocks.GOLD_ORE), 2647);
-		map.put(forBlock(Blocks.EMERALD_ORE), 1239);
-		map.put(forBlock(Blocks.LAPIS_ORE), 1079);
-		map.put(forBlock(Blocks.DIAMOND_ORE), 883);
-		// Common Metals
-		map.put(forOreTag("aluminium"), 13762);
-		map.put(forOreTag("aluminum"), 13762);
-		map.put(forOreTag("copper"), 5567);
-		map.put(forOreTag("ferrous"), 558);
-		map.put(forOreTag("galena"), 4096);
-		map.put(forOreTag("lead"), 4093);
-		map.put(forOreTag("mithril"), 6485);
-		map.put(forOreTag("mythril"), 6485);
-		map.put(forOreTag("nickel"), 2275);
-		map.put(forOreTag("osmium"), 6915);
-		map.put(forOreTag("platinum"), 956);
-		map.put(forOreTag("silver"), 4315);
-		map.put(forOreTag("tin"), 8251);
-		map.put(forOreTag("tungsten"), 140);
-		map.put(forOreTag("uranium"), 230);
-		map.put(forOreTag("zinc"), 838);
-		// Common Gems
-		map.put(forOreTag("amber"), 902);
-		map.put(forOreTag("ruby"), 1384);
-		map.put(forOreTag("sapphire"), 1287);
-		map.put(forOreTag("topaz"), 6436);
-		map.put(forOreTag("amethyst"), 1307);
-		map.put(forOreTag("malachite"), 160);
-		// Extreme Reactors
-		map.put(forOreTag("yellorite"), 3520);
-		// Blue Power
-		map.put(forOreTag("teslatite"), 4312);
-		// EvilCraft
-		map.put(forOreTag("dark"), 1350);
-		// Forestry
-		map.put(forOreTag("apatite"), 250);
-		// Mystical Agriculture
-		map.put(forOreTag("inferium"), 10000);
-		map.put(forOreTag("prosperity"), 7420);
-		// Project RED
-		map.put(forOreTag("olivine"), 1100);
-		// Railcraft
-		map.put(forOreTag("sulfur"), 1105);
-		map.put(forOreTag("sulphur"), 1105);
-		// Simple Ores 2
-		map.put(forOreTag("adamantium"), 1469);
-		// Silent Mechanisms
-		map.put(forOreTag("bismuth"), 2407);
-		// Thaumcraft
-		map.put(forOreTag("cinnabar"), 2585);
-
-		return map;
+	protected ResourceLocation ignemId(Block b) {
+		return prefix("orechid_ignem/" + Registry.BLOCK.getKey(b).getPath());
 	}
 
-	protected Object2IntMap<StateIngredient> netherOrechidMap() {
-		Object2IntMap<StateIngredient> map = new Object2IntArrayMap<>();
-		// Vanilla
-		map.put(forBlock(Blocks.NETHER_QUARTZ_ORE), 19600);
-		map.put(forBlock(Blocks.NETHER_GOLD_ORE), 3635);
-		map.put(forBlock(Blocks.ANCIENT_DEBRIS), 148);
-		// Mystical Agriculture
-		map.put(forOreTag("nether/inferium"), 10000);
-		map.put(forOreTag("nether/prosperity"), 7420);
-		// Nether Ores
-		map.put(forOreTag("nether/coal"), 17000);
-		map.put(forOreTag("nether/copper"), 4700);
-		map.put(forOreTag("nether/diamond"), 175);
-		map.put(forOreTag("nether/iron"), 5790);
-		map.put(forOreTag("nether/lapis"), 3250);
-		map.put(forOreTag("nether/lead"), 2790);
-		map.put(forOreTag("nether/nickel"), 1790);
-		map.put(forOreTag("nether/platinum"), 170);
-		map.put(forOreTag("nether/redstone"), 5600);
-		map.put(forOreTag("nether/silver"), 1550);
-		map.put(forOreTag("nether/steel"), 1690);
-		map.put(forOreTag("nether/tin"), 3750);
-		// Netherrocks
-		map.put(forOreTag("argonite"), 1000);
-		map.put(forOreTag("ashstone"), 1000);
-		map.put(forOreTag("dragonstone"), 175);
-		map.put(forOreTag("fyrite"), 1000);
-		// Railcraft
-		map.put(forOreTag("firestone"), 5);
-		// Simple Ores 2
-		map.put(forOreTag("onyx"), 500);
-		// Tinkers Construct
-		map.put(forOreTag("ardite"), 500);
-		map.put(forOreTag("cobalt"), 500);
-
-		return map;
+	protected ResourceLocation marimorphosisId(Block b) {
+		return prefix("marimorphosis/" + Registry.BLOCK.getKey(b).getPath());
 	}
 
-	private static Path getPath(Path root, ResourceLocation id) {
-		return root.resolve("data/" + id.getNamespace() + "/orechid_ore_weights/" + id.getPath() + ".json");
+	protected Result stone(Block output, int weight) {
+		return new Result(ModRecipeTypes.ORECHID_SERIALIZER, orechidId(output), Blocks.STONE, forBlock(output), weight);
 	}
 
-	protected static StateIngredient forOreTag(String oreTag) {
-		// Fabric c: is a flat namespace and doesn't use folders like Forge
-		if (oreTag.contains("nether/")) {
-			oreTag = oreTag.replaceAll("nether/", "nether_");
-		}
-		return StateIngredientHelper.of(new ResourceLocation("c", oreTag + "_ores"));
+	protected Result deepslate(Block output, int weight) {
+		return new Result(ModRecipeTypes.ORECHID_SERIALIZER, orechidId(output), Blocks.DEEPSLATE, forBlock(output), weight);
+	}
+
+	protected Result netherrack(Block output, int weight) {
+		return new Result(ModRecipeTypes.ORECHID_IGNEM_SERIALIZER, ignemId(output), Blocks.NETHERRACK, forBlock(output), weight);
+	}
+
+	protected Result biomeStone(Block output, BiomeCategory... biomes) {
+		return new BiomeResult(ModRecipeTypes.MARIMORPHOSIS_SERIALIZER, marimorphosisId(output), Blocks.STONE, forBlock(output), 1, 11, biomes);
 	}
 
 	protected static StateIngredient forBlock(Block block) {
@@ -187,4 +115,73 @@ public class OrechidProvider implements DataProvider {
 	public String getName() {
 		return "Botania Orechid weight data";
 	}
+
+	protected static class Result implements net.minecraft.data.recipes.FinishedRecipe {
+		private final RecipeSerializer<? extends IOrechidRecipe> type;
+		private final ResourceLocation id;
+		private final Block input;
+		private final StateIngredient output;
+		private final int weight;
+
+		public Result(RecipeSerializer<? extends IOrechidRecipe> type, ResourceLocation id, Block input, StateIngredient output, int weight) {
+			this.type = type;
+			this.id = id;
+			this.input = input;
+			this.output = output;
+			this.weight = weight;
+		}
+
+		@Override
+		public void serializeRecipeData(JsonObject json) {
+			json.addProperty("input", Registry.BLOCK.getKey(input).toString());
+			json.add("output", output.serialize());
+			json.addProperty("weight", weight);
+		}
+
+		@Override
+		public ResourceLocation getId() {
+			return id;
+		}
+
+		@Override
+		public RecipeSerializer<?> getType() {
+			return type;
+		}
+
+		@Nullable
+		@Override
+		public JsonObject serializeAdvancement() {
+			return null;
+		}
+
+		@Nullable
+		@Override
+		public ResourceLocation getAdvancementId() {
+			return null;
+		}
+	}
+
+	protected static class BiomeResult extends Result {
+		private final int bonusWeight;
+		private final BiomeCategory[] categories;
+
+		public BiomeResult(RecipeSerializer<? extends IOrechidRecipe> type, ResourceLocation id, Block input,
+				StateIngredient output, int weight, int bonusWeight, BiomeCategory... categories) {
+			super(type, id, input, output, weight);
+			this.bonusWeight = bonusWeight;
+			this.categories = categories;
+		}
+
+		@Override
+		public void serializeRecipeData(JsonObject json) {
+			super.serializeRecipeData(json);
+			var biomes = new JsonArray();
+			for (BiomeCategory category : categories) {
+				biomes.add(category.getSerializedName());
+			}
+			json.add("biomes", biomes);
+			json.addProperty("biome_bonus", bonusWeight);
+		}
+	}
+
 }

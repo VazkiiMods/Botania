@@ -1,0 +1,14 @@
+{
+  "type": "botania:marimorphosis",
+  "input": "minecraft:stone",
+  "output": {
+    "type": "block",
+    "block": "botania:metamorphic_taiga_stone"
+  },
+  "weight": 1,
+  "biomes": [
+    "icy",
+    "taiga"
+  ],
+  "biome_bonus": 11
+}

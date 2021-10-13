@@ -137,7 +137,7 @@ public class Botania implements ModInitializer {
 		ManaNetworkCallback.EVENT.register(ManaNetworkHandler.instance::onNetworkEvent);
 		LootTableLoadingCallback.EVENT.register(LootHandler::lootLoad);
 		ServerPlayConnectionEvents.DISCONNECT.register(ItemFlightTiara::playerLoggedOut);
-		OrechidResourceListener.registerListener();
+		OrechidManager.registerListener();
 		TileCraftCrate.registerListener();
 
 		ModLootModifiers.init();

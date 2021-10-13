@@ -10,6 +10,7 @@ package vazkii.botania.common.compat.rei;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -35,20 +36,20 @@ import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 
 @Environment(EnvType.CLIENT)
-public class OrechidREICategory implements DisplayCategory<OrechidBaseREIDisplay> {
+public class OrechidREICategory implements DisplayCategory<OrechidBaseREIDisplay<?>> {
 	private final EntryStack<ItemStack> orechid;
-	private final CategoryIdentifier<? extends OrechidBaseREIDisplay> categoryId;
-	private final boolean isIgnem;
+	private final CategoryIdentifier<? extends OrechidBaseREIDisplay<?>> categoryId;
+	private final String langKey;
 	private final ResourceLocation OVERLAY = ResourceLocationHelper.prefix("textures/gui/pure_daisy_overlay.png");
 
-	public OrechidREICategory(CategoryIdentifier<? extends OrechidBaseREIDisplay> categoryId, Block orechid) {
+	public OrechidREICategory(CategoryIdentifier<? extends OrechidBaseREIDisplay<?>> categoryId, Block orechid) {
 		this.categoryId = categoryId;
 		this.orechid = EntryStacks.of(orechid);
-		this.isIgnem = orechid == ModSubtiles.orechidIgnem;
+		this.langKey = "botania.nei." + (orechid == ModSubtiles.orechidIgnem ? "orechidIgnem" : Registry.BLOCK.getKey(orechid).getPath());
 	}
 
 	@Override
-	public @NotNull CategoryIdentifier<? extends OrechidBaseREIDisplay> getCategoryIdentifier() {
+	public @NotNull CategoryIdentifier<? extends OrechidBaseREIDisplay<?>> getCategoryIdentifier() {
 		return categoryId;
 	}
 
@@ -59,11 +60,11 @@ public class OrechidREICategory implements DisplayCategory<OrechidBaseREIDisplay
 
 	@Override
 	public @NotNull Component getTitle() {
-		return new TranslatableComponent(isIgnem ? "botania.nei.orechidIgnem" : "botania.nei.orechid");
+		return new TranslatableComponent(langKey);
 	}
 
 	@Override
-	public @NotNull List<Widget> setupDisplay(OrechidBaseREIDisplay display, Rectangle bounds) {
+	public @NotNull List<Widget> setupDisplay(OrechidBaseREIDisplay<?> display, Rectangle bounds) {
 		List<Widget> widgets = new ArrayList<>();
 		Point center = new Point(bounds.getCenterX() - 8, bounds.getCenterY() - 16);
 

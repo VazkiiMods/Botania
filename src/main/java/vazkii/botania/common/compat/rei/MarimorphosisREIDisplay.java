@@ -8,21 +8,18 @@
  */
 package vazkii.botania.common.compat.rei;
 
-import org.jetbrains.annotations.NotNull;
-
-import vazkii.botania.common.crafting.RecipeOrechid;
+import vazkii.botania.common.crafting.RecipeMarimorphosis;
 
 
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
-public class OrechidREIDisplay extends OrechidBaseREIDisplay<RecipeOrechid> {
-
-	public OrechidREIDisplay(RecipeOrechid recipe) {
+public class MarimorphosisREIDisplay extends OrechidBaseREIDisplay<RecipeMarimorphosis> {
+	public MarimorphosisREIDisplay(RecipeMarimorphosis recipe) {
 		super(recipe);
 	}
 
 	@Override
-	public @NotNull CategoryIdentifier<?> getCategoryIdentifier() {
-		return BotaniaREICategoryIdentifiers.ORECHID;
+	public CategoryIdentifier<?> getCategoryIdentifier() {
+		return BotaniaREICategoryIdentifiers.MARIMORPHOSIS;
 	}
 }

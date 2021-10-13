@@ -194,7 +194,6 @@ public final class ConfigHandler {
 
 		public final PropertyMirror<Boolean> gogSpawnWithLexicon = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<Integer> gogIslandScaleMultiplier = PropertyMirror.create(INTEGER);
-		public final PropertyMirror<List<String>> orechidPriorityMods = PropertyMirror.create(ConfigTypes.makeList(STRING));
 		public final PropertyMirror<Boolean> worldgenEnabled = PropertyMirror.create(BOOLEAN);
 		public final PropertyMirror<List<String>> rannuncarpusItemBlacklist = PropertyMirror.create(ConfigTypes.makeList(STRING));
 		public final PropertyMirror<List<String>> rannuncarpusModBlacklist = PropertyMirror.create(ConfigTypes.makeList(STRING));
@@ -272,13 +271,6 @@ public final class ConfigHandler {
 							"By default, the scale is 8, putting each island on points separated by 2048 blocks.\n" +
 							"Values below 4 (1024 block spacing) are not recommended due to Nether portal collisions.")
 					.finishValue(gogIslandScaleMultiplier::mirror)
-
-					.beginValue("orechidPriorityMods", ConfigTypes.makeList(STRING), Collections.emptyList())
-					.withComment("List of modids to prioritize when choosing a random ore from the tag.\n" +
-							"By default, the chosen ore is randomly picked from all ores in the ore's tag.\n" +
-							"Ores from mods present on this list will be picked over mods listed lower or not listed at all.\n" +
-							"Applying changes at runtime requires /reload afterwards.")
-					.finishValue(orechidPriorityMods::mirror)
 
 					.beginValue("rannuncarpusItemBlackList", ConfigTypes.makeList(STRING), Collections.emptyList())
 					.withComment("List of item registry names that will be ignored by rannuncarpuses when placing blocks.")

@@ -15,7 +15,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.*;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -33,7 +32,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.internal.IManaNetwork;
-import vazkii.botania.api.internal.OrechidOutput;
 import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
@@ -55,8 +53,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class BotaniaAPIImpl implements BotaniaAPI {
-	public static List<OrechidOutput> weights = new ArrayList<>();
-	public static List<OrechidOutput> netherWeights = new ArrayList<>();
 
 	private static final Supplier<Rarity> RELIC_RARITY = Suppliers.memoize(() -> Rarity.EPIC);
 
@@ -269,16 +265,6 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 
 	private final Map<ResourceLocation, Function<DyeColor, Block>> paintableBlocks = new ConcurrentHashMap<>();
 	private final Map<ResourceLocation, IHornHarvestable> hornHarvestableBlocks = new ConcurrentHashMap<>();
-
-	@Override
-	public List<OrechidOutput> getOrechidWeights() {
-		return Collections.unmodifiableList(weights);
-	}
-
-	@Override
-	public List<OrechidOutput> getNetherOrechidWeights() {
-		return Collections.unmodifiableList(netherWeights);
-	}
 
 	@Override
 	public Map<ResourceLocation, Function<DyeColor, Block>> getPaintableBlocks() {
