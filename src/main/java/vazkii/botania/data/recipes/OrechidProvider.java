@@ -119,6 +119,7 @@ public class OrechidProvider implements IDataProvider {
 		// Railcraft
 		map.put(forOreTag("sulfur"), 1105);
 		map.put(forOreTag("sulphur"), 1105);
+		map.put(forOreTag("niter"), 1105);
 		// Simple Ores 2
 		map.put(forOreTag("adamantium"), 1469);
 		// Silent Mechanisms
