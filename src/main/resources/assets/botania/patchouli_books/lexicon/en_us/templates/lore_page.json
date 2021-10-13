@@ -1,7 +1,7 @@
 {
   "components": [
     {
-      "type": "image",
+      "type": "patchouli:image",
       "image": "botania:textures/gui/paper_left.png",
       "guard": "#left_side->exists",
       "x": -5,
@@ -12,7 +12,7 @@
       "v": 9
     },
     {
-      "type": "image",
+      "type": "patchouli:image",
       "image": "botania:textures/gui/paper.png",
       "guard": "#right_side->exists",
       "x": -5,
@@ -23,7 +23,7 @@
       "v": 9
     },
     {
-      "type": "image",
+      "type": "patchouli:image",
       "image": "botania:textures/gui/entries/elven_garde_left.png",
       "guard": "#elven_garde->exists",
       "x": -5,
@@ -34,7 +34,7 @@
       "v": 9
     },
     {
-      "type": "text",
+      "type": "patchouli:text",
       "text": "#text",
       "y": -4
     }

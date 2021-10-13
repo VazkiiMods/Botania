@@ -2,7 +2,7 @@
   "processor": "vazkii.botania.client.patchouli.processor.PetalApothecaryProcessor",
   "components": [
     {
-      "type": "image",
+      "type": "patchouli:image",
       "image": "botania:textures/gui/petal_overlay.png",
       "x": 0,
       "y": 8,
@@ -12,13 +12,13 @@
       "v": 8
     },
     {
-      "type": "header",
+      "type": "patchouli:header",
       "text": "#heading",
       "x": -1,
       "y": -1
     },
     {
-      "type": "custom",
+      "type": "patchouli:custom",
       "class": "vazkii.botania.client.patchouli.component.RotatingRecipeComponent",
       "x": -1,
       "y": 21,
@@ -26,7 +26,7 @@
       "recipe_name": "#recipe"
     },
     {
-      "type": "item",
+      "type": "patchouli:item",
       "item": "#output",
       "framed": "false",
       "link_recipe": true,
@@ -34,21 +34,21 @@
       "y": 18
     },
     {
-      "type": "item",
+      "type": "patchouli:item",
       "item": "botania:apothecary_default",
       "framed": "false",
       "x": 49,
       "y": 53
     },
     {
-      "type": "text",
+      "type": "patchouli:text",
       "text": "botaniamisc.shiftToStopSpin",
       "color": "-67000000",
       "x": 13,
       "y": 110
     },
     {
-      "type": "text",
+      "type": "patchouli:text",
       "text": "#text",
       "y": 126
     }
