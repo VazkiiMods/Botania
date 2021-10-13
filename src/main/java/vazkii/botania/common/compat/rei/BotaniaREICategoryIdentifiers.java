@@ -8,10 +8,9 @@
  */
 package vazkii.botania.common.compat.rei;
 
-import vazkii.botania.common.crafting.*;
-
-
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+
+import vazkii.botania.common.crafting.*;
 
 public class BotaniaREICategoryIdentifiers {
 	public static final CategoryIdentifier<BreweryREIDisplay> BREWERY = CategoryIdentifier.of(RecipeBrew.TYPE_ID);

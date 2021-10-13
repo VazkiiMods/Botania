@@ -11,6 +11,8 @@ package vazkii.botania.common.item.equipment.bauble;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 
+import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -33,8 +35,6 @@ import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.core.handler.EquipmentHandler;
 
 import java.util.UUID;
-
-import dev.emi.stepheightentityattribute.StepHeightEntityAttributeMain;
 
 public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 

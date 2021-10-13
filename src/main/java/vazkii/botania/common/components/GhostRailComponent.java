@@ -8,12 +8,11 @@
  */
 package vazkii.botania.common.components;
 
+import dev.onyxstudios.cca.api.v3.component.Component;
+
 import net.minecraft.nbt.CompoundTag;
 
 import vazkii.botania.common.block.BlockGhostRail;
-
-
-import dev.onyxstudios.cca.api.v3.component.Component;
 
 public class GhostRailComponent implements Component {
 	public int floatTicks = 0;

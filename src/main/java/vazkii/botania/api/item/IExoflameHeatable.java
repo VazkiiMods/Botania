@@ -8,13 +8,12 @@
  */
 package vazkii.botania.api.item;
 
+import dev.onyxstudios.cca.api.v3.component.ComponentV3;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 
 import vazkii.botania.api.BotaniaAPI;
-
-
-import dev.onyxstudios.cca.api.v3.component.ComponentV3;
 
 /**
  * A Block Entity that has this component can be heated by an Exoflame flower.

@@ -8,10 +8,9 @@
  */
 package vazkii.botania.common.compat.rei;
 
-import vazkii.botania.common.crafting.RecipeMarimorphosis;
-
-
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+
+import vazkii.botania.common.crafting.RecipeMarimorphosis;
 
 public class MarimorphosisREIDisplay extends OrechidBaseREIDisplay<RecipeMarimorphosis> {
 	public MarimorphosisREIDisplay(RecipeMarimorphosis recipe) {

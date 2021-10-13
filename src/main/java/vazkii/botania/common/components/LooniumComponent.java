@@ -8,11 +8,10 @@
  */
 package vazkii.botania.common.components;
 
+import dev.onyxstudios.cca.api.v3.component.Component;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
-
-
-import dev.onyxstudios.cca.api.v3.component.Component;
 
 public class LooniumComponent implements Component {
 	private ItemStack toDrop = ItemStack.EMPTY;
