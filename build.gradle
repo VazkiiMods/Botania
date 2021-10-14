@@ -58,9 +58,6 @@ repositories {
         url "https://jitpack.io" // for step height eam
     }
     maven {
-        url "https://maven.siphalor.de" // for nbt crafting
-    }
-    maven {
         url "https://maven.shedaniel.me/" // for rei
     }
 }
@@ -100,8 +97,6 @@ dependencies {
 
     modImplementation "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
     include "com.github.emilyploszaj:step-height-entity-attribute:v1.0.1"
-
-    // modImplementation "de.siphalor:nbtcrafting-1.16:2+"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.1'

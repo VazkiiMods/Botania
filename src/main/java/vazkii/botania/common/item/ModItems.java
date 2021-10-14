@@ -711,6 +711,7 @@ public final class ModItems {
 		register(r, "composite_lens", CompositeLensRecipe.SERIALIZER);
 		register(r, "cosmetic_attach", CosmeticAttachRecipe.SERIALIZER);
 		register(r, "cosmetic_remove", CosmeticRemoveRecipe.SERIALIZER);
+		register(r, "gog_alternation", GogAlternationRecipe.SERIALIZER);
 		register(r, "keep_ivy", KeepIvyRecipe.SERIALIZER);
 		register(r, "laputa_shard_upgrade", LaputaShardUpgradeRecipe.SERIALIZER);
 		register(r, "lens_dye", LensDyeingRecipe.SERIALIZER);
@@ -720,15 +721,13 @@ public final class ModItems {
 		register(r, "mana_upgrade", ManaUpgradeRecipe.SERIALIZER);
 		register(r, "mana_upgrade_shapeless", ShapelessManaUpgradeRecipe.SERIALIZER);
 		register(r, "merge_vial", MergeVialRecipe.SERIALIZER);
+		register(r, "nbt_output_wrapper", NbtOutputRecipe.SERIALIZER);
 		register(r, "phantom_ink_apply", PhantomInkRecipe.SERIALIZER);
 		register(r, "spell_cloth_apply", SpellClothRecipe.SERIALIZER);
 		register(r, "split_lens", SplitLensRecipe.SERIALIZER);
 		register(r, "terra_pick_tipping", TerraPickTippingRecipe.SERIALIZER);
 		register(r, "twig_wand", TwigWandRecipe.SERIALIZER);
-		register(r, "gog_alternation", GogAlternationRecipe.SERIALIZER);
-		register(r, "nbt_output_wrapper", NbtOutputRecipe.SERIALIZER);
-
-		// todo 1.16-fabric replace with nbtcrafting CraftingHelper.register(prefix("fuzzy_nbt"), FuzzyNBTIngredient.SERIALIZER);
+		register(r, "water_bottle_matching_shaped", WaterBottleMatchingRecipe.SERIALIZER);
 
 		ModBanners.init();
 	}

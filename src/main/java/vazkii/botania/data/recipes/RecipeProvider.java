@@ -1230,7 +1230,6 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.unlockedBy("has_item", conditionsFromTag(ModTags.Items.INGOTS_TERRASTEEL))
 				.save(consumer);
 
-		// todo 1.16-fabric fuzzynbt for water bottle
 		ShapedRecipeBuilder.shaped(ModItems.waterRod)
 				.define('B', Ingredient.of(PotionUtils.setPotion(new ItemStack(Items.POTION), Potions.WATER)))
 				.define('R', ModItems.runeWater)
@@ -1239,7 +1238,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern(" T ")
 				.pattern("R  ")
 				.unlockedBy("has_item", conditionsFromItem(ModItems.runeWater))
-				.save(consumer);
+				.save(WrapperResult.ofType(WaterBottleMatchingRecipe.SERIALIZER, consumer));
 
 		ShapedRecipeBuilder.shaped(ModItems.rainbowRod)
 				.define('P', ModItems.pixieDust)
