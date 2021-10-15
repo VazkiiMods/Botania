@@ -36,6 +36,9 @@ public final class ModFluffBlocks {
 	public static final Block livingwoodWall = new WallBlock(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block livingwoodFence = new FenceBlock(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block livingwoodFenceGate = new FenceGateBlock(BlockBehaviour.Properties.copy(livingwood));
+	public static final Block livingwoodStrippedStairs = new BlockModStairs(livingwoodStripped.defaultBlockState(), BlockBehaviour.Properties.copy(livingwood));
+	public static final Block livingwoodStrippedSlab = new SlabBlock(BlockBehaviour.Properties.copy(livingwood));
+	public static final Block livingwoodStrippedWall = new WallBlock(BlockBehaviour.Properties.copy(livingwood));
 	public static final Block livingwoodPlankStairs = new BlockModStairs(livingwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.copy(livingwoodPlanks));
 	public static final Block livingwoodPlankSlab = new SlabBlock(BlockBehaviour.Properties.copy(livingwoodPlanks));
 
@@ -54,6 +57,9 @@ public final class ModFluffBlocks {
 	public static final Block dreamwoodWall = new WallBlock(BlockBehaviour.Properties.copy(dreamwood));
 	public static final Block dreamwoodFence = new FenceBlock(BlockBehaviour.Properties.copy(dreamwood));
 	public static final Block dreamwoodFenceGate = new FenceGateBlock(BlockBehaviour.Properties.copy(dreamwood));
+	public static final Block dreamwoodStrippedStairs = new BlockModStairs(dreamwoodStripped.defaultBlockState(), BlockBehaviour.Properties.copy(dreamwood));
+	public static final Block dreamwoodStrippedSlab = new SlabBlock(BlockBehaviour.Properties.copy(dreamwood));
+	public static final Block dreamwoodStrippedWall = new WallBlock(BlockBehaviour.Properties.copy(dreamwood));
 	public static final Block dreamwoodPlankStairs = new BlockModStairs(dreamwoodPlanks.defaultBlockState(), BlockBehaviour.Properties.copy(dreamwoodPlanks));
 	public static final Block dreamwoodPlankSlab = new SlabBlock(BlockBehaviour.Properties.copy(dreamwoodPlanks));
 
@@ -245,6 +251,9 @@ public final class ModFluffBlocks {
 		register(r, LibBlockNames.LIVING_WOOD + WALL_SUFFIX, livingwoodWall);
 		register(r, LibBlockNames.LIVING_WOOD + FENCE_SUFFIX, livingwoodFence);
 		register(r, LibBlockNames.LIVING_WOOD + FENCE_GATE_SUFFIX, livingwoodFenceGate);
+		register(r, LibBlockNames.LIVING_WOOD_STRIPPED + STAIR_SUFFIX, livingwoodStrippedStairs);
+		register(r, LibBlockNames.LIVING_WOOD_STRIPPED + SLAB_SUFFIX, livingwoodStrippedSlab);
+		register(r, LibBlockNames.LIVING_WOOD_STRIPPED + WALL_SUFFIX, livingwoodStrippedWall);
 
 		register(r, LibBlockNames.LIVING_WOOD_PLANKS + STAIR_SUFFIX, livingwoodPlankStairs);
 		register(r, LibBlockNames.LIVING_WOOD_PLANKS + SLAB_SUFFIX, livingwoodPlankSlab);
@@ -266,6 +275,9 @@ public final class ModFluffBlocks {
 		register(r, LibBlockNames.DREAM_WOOD + WALL_SUFFIX, dreamwoodWall);
 		register(r, LibBlockNames.DREAM_WOOD + FENCE_SUFFIX, dreamwoodFence);
 		register(r, LibBlockNames.DREAM_WOOD + FENCE_GATE_SUFFIX, dreamwoodFenceGate);
+		register(r, LibBlockNames.DREAM_WOOD_STRIPPED + STAIR_SUFFIX, dreamwoodStrippedStairs);
+		register(r, LibBlockNames.DREAM_WOOD_STRIPPED + SLAB_SUFFIX, dreamwoodStrippedSlab);
+		register(r, LibBlockNames.DREAM_WOOD_STRIPPED + WALL_SUFFIX, dreamwoodStrippedWall);
 
 		register(r, LibBlockNames.DREAM_WOOD_PLANKS + STAIR_SUFFIX, dreamwoodPlankStairs);
 		register(r, LibBlockNames.DREAM_WOOD_PLANKS + SLAB_SUFFIX, dreamwoodPlankSlab);
@@ -461,6 +473,10 @@ public final class ModFluffBlocks {
 		register(r, Registry.BLOCK.getKey(livingwoodFence), new BlockItem(livingwoodFence, props));
 		register(r, Registry.BLOCK.getKey(livingwoodFenceGate), new BlockItem(livingwoodFenceGate, props));
 
+		register(r, Registry.BLOCK.getKey(livingwoodStrippedStairs), new BlockItem(livingwoodStrippedStairs, props));
+		register(r, Registry.BLOCK.getKey(livingwoodStrippedSlab), new BlockItem(livingwoodStrippedSlab, props));
+		register(r, Registry.BLOCK.getKey(livingwoodStrippedWall), new BlockItem(livingwoodStrippedWall, props));
+
 		register(r, Registry.BLOCK.getKey(livingwoodPlankStairs), new BlockItem(livingwoodPlankStairs, props));
 		register(r, Registry.BLOCK.getKey(livingwoodPlankSlab), new BlockItem(livingwoodPlankSlab, props));
 
@@ -481,6 +497,9 @@ public final class ModFluffBlocks {
 		register(r, Registry.BLOCK.getKey(dreamwoodWall), new BlockItem(dreamwoodWall, props));
 		register(r, Registry.BLOCK.getKey(dreamwoodFence), new BlockItem(dreamwoodFence, props));
 		register(r, Registry.BLOCK.getKey(dreamwoodFenceGate), new BlockItem(dreamwoodFenceGate, props));
+		register(r, Registry.BLOCK.getKey(dreamwoodStrippedStairs), new BlockItem(dreamwoodStrippedStairs, props));
+		register(r, Registry.BLOCK.getKey(dreamwoodStrippedSlab), new BlockItem(dreamwoodStrippedSlab, props));
+		register(r, Registry.BLOCK.getKey(dreamwoodStrippedWall), new BlockItem(dreamwoodStrippedWall, props));
 
 		register(r, Registry.BLOCK.getKey(dreamwoodPlankStairs), new BlockItem(dreamwoodPlankStairs, props));
 		register(r, Registry.BLOCK.getKey(dreamwoodPlankSlab), new BlockItem(dreamwoodPlankSlab, props));
