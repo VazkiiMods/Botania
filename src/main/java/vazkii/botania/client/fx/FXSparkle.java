@@ -155,6 +155,8 @@ public class FXSparkle extends TextureSheetParticle {
 	}
 
 	private static void beginRenderCommon(BufferBuilder buffer, TextureManager textureManager) {
+		Minecraft.getInstance().gameRenderer.lightTexture().turnOnLightLayer();
+		RenderSystem.enableDepthTest();
 		RenderSystem.depthMask(false);
 		RenderSystem.enableBlend();
 		RenderSystem.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE);

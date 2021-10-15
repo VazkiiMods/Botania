@@ -37,14 +37,9 @@ public class MixinParticleEngine {
 
 	@Inject(at = @At("RETURN"), method = "<init>")
 	private void addTypes(ClientLevel world, TextureManager textureManager, CallbackInfo ci) {
-		var builder = ImmutableList.<ParticleRenderType>builder();
-		for (var type : RENDER_ORDER) {
-			if (type == ParticleRenderType.CUSTOM) {
-				builder.add(FXWisp.NORMAL_RENDER, FXWisp.DIW_RENDER)
-						.add(FXSparkle.NORMAL_RENDER, FXSparkle.CORRUPT_RENDER);
-			}
-			builder.add(type);
-		}
-		RENDER_ORDER = builder.build();
+		RENDER_ORDER = ImmutableList.<ParticleRenderType>builder().addAll(RENDER_ORDER)
+				.add(FXWisp.NORMAL_RENDER, FXWisp.DIW_RENDER)
+				.add(FXSparkle.NORMAL_RENDER, FXSparkle.CORRUPT_RENDER)
+				.build();
 	}
 }
