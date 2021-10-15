@@ -191,43 +191,43 @@ public class TileAlfPortal extends TileMod {
 
 		// Pick one of the inner positions
 		switch (level.random.nextInt(9)) {
-		default:
-		case 0:
+		case 0 -> {
 			dh = 0;
 			dy = 1;
-			break;
-		case 1:
+		}
+		case 1 -> {
 			dh = 0;
 			dy = 2;
-			break;
-		case 2:
+		}
+		case 2 -> {
 			dh = 0;
 			dy = 3;
-			break;
-		case 3:
+		}
+		case 3 -> {
 			dh = -1;
 			dy = 1;
-			break;
-		case 4:
+		}
+		case 4 -> {
 			dh = -1;
 			dy = 2;
-			break;
-		case 5:
+		}
+		case 5 -> {
 			dh = -1;
 			dy = 3;
-			break;
-		case 6:
+		}
+		case 6 -> {
 			dh = 1;
 			dy = 1;
-			break;
-		case 7:
+		}
+		case 7 -> {
 			dh = 1;
 			dy = 2;
-			break;
-		case 8:
+		}
+		case 8 -> {
 			dh = 1;
 			dy = 3;
-			break;
+		}
+		default -> throw new AssertionError();
 		}
 		double dx = state == AlfPortalState.ON_X ? 0 : dh;
 		double dz = state == AlfPortalState.ON_Z ? 0 : dh;
@@ -352,15 +352,10 @@ public class TileAlfPortal extends TileMod {
 		}
 
 		lightPylons();
-		switch (rot) {
-		default:
-		case NONE:
-		case CLOCKWISE_180:
-			return AlfPortalState.ON_Z;
-		case CLOCKWISE_90:
-		case COUNTERCLOCKWISE_90:
-			return AlfPortalState.ON_X;
-		}
+		return switch (rot) {
+		case NONE, CLOCKWISE_180 -> AlfPortalState.ON_Z;
+		case CLOCKWISE_90, COUNTERCLOCKWISE_90 -> AlfPortalState.ON_X;
+		};
 	}
 
 	public List<BlockPos> locatePylons() {

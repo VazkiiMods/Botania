@@ -107,7 +107,7 @@ public class PacketBotaniaEffect {
 					Minecraft mc = Minecraft.getInstance();
 					Level world = mc.level;
 					switch (type) {
-					case PAINT_LENS: {
+					case PAINT_LENS -> {
 						DyeColor placeColor = DyeColor.byId(args[0]);
 						int hex = ColorHelper.getColorValue(placeColor);
 						int r = (hex & 0xFF0000) >> 16;
@@ -118,9 +118,8 @@ public class PacketBotaniaEffect {
 							SparkleParticleData data = SparkleParticleData.sparkle(0.6F + (float) Math.random() * 0.5F, r / 255F, g / 255F, b / 255F, 5);
 							world.addParticle(data, pos.getX() + (float) Math.random(), pos.getY() + (float) Math.random(), pos.getZ() + (float) Math.random(), 0, 0, 0);
 						}
-						break;
 					}
-					case ARENA_INDICATOR: {
+					case ARENA_INDICATOR -> {
 						SparkleParticleData data = SparkleParticleData.sparkle(5F, 1, 0, 1, 120);
 						for (int i = 0; i < 360; i += 8) {
 							float rad = i * (float) Math.PI / 180F;
@@ -129,9 +128,8 @@ public class PacketBotaniaEffect {
 							double wz = z + 0.5 - Math.sin(rad) * EntityDoppleganger.ARENA_RANGE;
 							Botania.proxy.addParticleForceNear(world, data, wx, wy, wz, 0, 0, 0);
 						}
-						break;
 					}
-					case ITEM_SMOKE: {
+					case ITEM_SMOKE -> {
 						Entity item = world.getEntity(args[0]);
 						if (item == null) {
 							return;
@@ -149,9 +147,8 @@ public class PacketBotaniaEffect {
 									x + item.level.random.nextFloat() * item.getBbWidth() * 2.0F - item.getBbWidth() - d0 * d3, y + item.level.random.nextFloat() * item.getBbHeight() - d1 * d3,
 									z + item.level.random.nextFloat() * item.getBbWidth() * 2.0F - item.getBbWidth() - d2 * d3, d0, d1, d2);
 						}
-						break;
 					}
-					case SPARK_NET_INDICATOR: {
+					case SPARK_NET_INDICATOR -> {
 						Entity e1 = world.getEntity(args[0]);
 						Entity e2 = world.getEntity(args[1]);
 
@@ -180,9 +177,8 @@ public class PacketBotaniaEffect {
 							currentPos = currentPos.add(movement);
 						}
 
-						break;
 					}
-					case SPARK_MANA_FLOW: {
+					case SPARK_MANA_FLOW -> {
 						Entity e1 = world.getEntity(args[0]);
 						Entity e2 = world.getEntity(args[1]);
 
@@ -208,9 +204,8 @@ public class PacketBotaniaEffect {
 
 						WispParticleData data = WispParticleData.wisp(size, r, g, b).withNoClip(true);
 						world.addAlwaysVisibleParticle(data, thisVec.x, thisVec.y, thisVec.z, motion.x, motion.y, motion.z);
-						break;
 					}
-					case ENCHANTER_DESTROY: {
+					case ENCHANTER_DESTROY -> {
 						for (int i = 0; i < 50; i++) {
 							float red = (float) Math.random();
 							float green = (float) Math.random();
@@ -218,9 +213,8 @@ public class PacketBotaniaEffect {
 							WispParticleData data = WispParticleData.wisp((float) Math.random() * 0.15F + 0.15F, red, green, blue);
 							world.addParticle(data, x, y, z, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F, (float) (Math.random() - 0.5F) * 0.25F);
 						}
-						break;
 					}
-					case BLACK_LOTUS_DISSOLVE: {
+					case BLACK_LOTUS_DISSOLVE -> {
 						for (int i = 0; i < 50; i++) {
 							float r = (float) Math.random() * 0.35F;
 							float g = 0F;
@@ -236,9 +230,8 @@ public class PacketBotaniaEffect {
 							world.addParticle(data, x, y, z, mx, my, mz);
 						}
 
-						break;
 					}
-					case TERRA_PLATE: {
+					case TERRA_PLATE -> {
 						BlockEntity te = world.getBlockEntity(new BlockPos(x, y, z));
 						if (te instanceof TileTerraPlate) {
 							float percentage = Float.intBitsToFloat(args[0]);
@@ -275,9 +268,8 @@ public class PacketBotaniaEffect {
 								}
 							}
 						}
-						break;
 					}
-					case FLUGEL_EFFECT: {
+					case FLUGEL_EFFECT -> {
 						Entity entity = world.getEntity(args[0]);
 						if (entity != null) {
 							for (int i = 0; i < 15; i++) {
@@ -288,15 +280,13 @@ public class PacketBotaniaEffect {
 								world.addParticle(data, x, y, z, 0, -(-0.3F + (float) Math.random() * 0.2F), 0);
 							}
 						}
-						break;
 					}
-					case PARTICLE_BEAM: {
+					case PARTICLE_BEAM -> {
 						ItemTwigWand.doParticleBeam(Minecraft.getInstance().level,
 								new Vec3(x, y, z),
 								new Vec3(args[0] + 0.5, args[1] + 0.5, args[2] + 0.5));
-						break;
 					}
-					case DIVA_EFFECT: {
+					case DIVA_EFFECT -> {
 						Entity target = Minecraft.getInstance().level.getEntity(args[0]);
 						if (target == null) {
 							break;
@@ -310,9 +300,8 @@ public class PacketBotaniaEffect {
 						for (int i = 0; i < 50; i++) {
 							world.addParticle(data, x + Math.random() * target.getBbWidth(), y + Math.random() * target.getBbHeight(), z + Math.random() * target.getBbWidth(), 0, 0, 0);
 						}
-						break;
 					}
-					case HALO_CRAFT: {
+					case HALO_CRAFT -> {
 						Entity target = Minecraft.getInstance().level.getEntity(args[0]);
 						if (target != null) {
 							Vec3 lookVec3 = target.getLookAngle();
@@ -324,9 +313,8 @@ public class PacketBotaniaEffect {
 							}
 						}
 
-						break;
 					}
-					case AVATAR_TORNADO_JUMP: {
+					case AVATAR_TORNADO_JUMP -> {
 						Entity p = world.getEntity(args[0]);
 						if (p != null) {
 							for (int i = 0; i < 20; i++) {
@@ -340,9 +328,8 @@ public class PacketBotaniaEffect {
 								}
 							}
 						}
-						break;
 					}
-					case AVATAR_TORNADO_BOOST: {
+					case AVATAR_TORNADO_BOOST -> {
 						Entity p = world.getEntity(args[0]);
 						if (p != null) {
 							Vec3 lookDir = p.getLookAngle();

@@ -100,18 +100,14 @@ public class ItemTerrasteelArmor extends ItemManasteelArmor {
 			return false;
 		}
 
-		switch (slot) {
-		case HEAD:
-			return stack.is(ModItems.terrasteelHelm);
-		case CHEST:
-			return stack.is(ModItems.terrasteelChest);
-		case LEGS:
-			return stack.is(ModItems.terrasteelLegs);
-		case FEET:
-			return stack.is(ModItems.terrasteelBoots);
-		}
+		return switch (slot) {
+		case HEAD -> stack.is(ModItems.terrasteelHelm);
+		case CHEST -> stack.is(ModItems.terrasteelChest);
+		case LEGS -> stack.is(ModItems.terrasteelLegs);
+		case FEET -> stack.is(ModItems.terrasteelBoots);
+		default -> false;
+		};
 
-		return false;
 	}
 
 	@Override

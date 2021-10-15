@@ -77,18 +77,14 @@ public abstract class ItemElementiumArmor extends ItemManasteelArmor {
 			return false;
 		}
 
-		switch (slot) {
-		case HEAD:
-			return stack.is(ModItems.elementiumHelm);
-		case CHEST:
-			return stack.is(ModItems.elementiumChest);
-		case LEGS:
-			return stack.is(ModItems.elementiumLegs);
-		case FEET:
-			return stack.is(ModItems.elementiumBoots);
-		}
+		return switch (slot) {
+		case HEAD -> stack.is(ModItems.elementiumHelm);
+		case CHEST -> stack.is(ModItems.elementiumChest);
+		case LEGS -> stack.is(ModItems.elementiumLegs);
+		case FEET -> stack.is(ModItems.elementiumBoots);
+		default -> false;
+		};
 
-		return false;
 	}
 
 	@Override

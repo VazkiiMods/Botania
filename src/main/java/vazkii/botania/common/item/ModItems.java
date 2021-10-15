@@ -739,41 +739,24 @@ public final class ModItems {
 	}
 
 	public static Item getPetal(DyeColor color) {
-		switch (color) {
-		default:
-		case WHITE:
-			return whitePetal;
-		case ORANGE:
-			return orangePetal;
-		case MAGENTA:
-			return magentaPetal;
-		case LIGHT_BLUE:
-			return lightBluePetal;
-		case YELLOW:
-			return yellowPetal;
-		case LIME:
-			return limePetal;
-		case PINK:
-			return pinkPetal;
-		case GRAY:
-			return grayPetal;
-		case LIGHT_GRAY:
-			return lightGrayPetal;
-		case CYAN:
-			return cyanPetal;
-		case PURPLE:
-			return purplePetal;
-		case BLUE:
-			return bluePetal;
-		case BROWN:
-			return brownPetal;
-		case GREEN:
-			return greenPetal;
-		case RED:
-			return redPetal;
-		case BLACK:
-			return blackPetal;
-		}
+		return switch (color) {
+		case WHITE -> whitePetal;
+		case ORANGE -> orangePetal;
+		case MAGENTA -> magentaPetal;
+		case LIGHT_BLUE -> lightBluePetal;
+		case YELLOW -> yellowPetal;
+		case LIME -> limePetal;
+		case PINK -> pinkPetal;
+		case GRAY -> grayPetal;
+		case LIGHT_GRAY -> lightGrayPetal;
+		case CYAN -> cyanPetal;
+		case PURPLE -> purplePetal;
+		case BLUE -> bluePetal;
+		case BROWN -> brownPetal;
+		case GREEN -> greenPetal;
+		case RED -> redPetal;
+		case BLACK -> blackPetal;
+		};
 	}
 
 	public static boolean isNoDespawn(Item item) {

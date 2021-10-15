@@ -90,7 +90,7 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark, Enti
 		Collection<IManaSpark> transfers = getTransfers();
 
 		switch (upgrade) {
-		case DISPERSIVE: {
+		case DISPERSIVE -> {
 			List<Player> players = SparkHelper.getEntitiesAround(Player.class, level, getX(), getY() + (getBbHeight() / 2.0), getZ());
 
 			Map<Player, Map<ItemStack, Integer>> receivingPlayers = new HashMap<>();
@@ -146,9 +146,8 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark, Enti
 				particlesTowards(player);
 			}
 
-			break;
 		}
-		case DOMINANT: {
+		case DOMINANT -> {
 			List<IManaSpark> validSparks = SparkHelper.getSparksAround(level, getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork())
 					.filter(s -> {
 						SparkUpgradeType otherUpgrade = s.getUpgrade();
@@ -159,9 +158,8 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark, Enti
 				validSparks.get(level.random.nextInt(validSparks.size())).registerTransfer(this);
 			}
 
-			break;
 		}
-		case RECESSIVE: {
+		case RECESSIVE -> {
 			SparkHelper.getSparksAround(level, getX(), getY() + (getBbHeight() / 2), getZ(), getNetwork())
 					.filter(s -> {
 						SparkUpgradeType otherUpgrade = s.getUpgrade();
@@ -171,11 +169,8 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark, Enti
 								&& otherUpgrade != SparkUpgradeType.ISOLATED;
 					})
 					.forEach(transfers::add);
-			break;
 		}
-		case NONE:
-		default:
-			break;
+		default -> {}
 		}
 
 		if (!transfers.isEmpty()) {

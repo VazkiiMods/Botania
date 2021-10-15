@@ -134,7 +134,7 @@ public class EntityThornChakram extends ThrowableProjectile implements ItemSuppl
 		}
 
 		switch (pos.getType()) {
-		case BLOCK: {
+		case BLOCK -> {
 			BlockHitResult rtr = (BlockHitResult) pos;
 			Block block = level.getBlockState(rtr.getBlockPos()).getBlock();
 			if (block instanceof BushBlock || block instanceof LeavesBlock) {
@@ -155,10 +155,8 @@ public class EntityThornChakram extends ThrowableProjectile implements ItemSuppl
 					setTimesBounced(getTimesBounced() + 1);
 				}
 			}
-
-			break;
 		}
-		case ENTITY: {
+		case ENTITY -> {
 			EntityHitResult rtr = (EntityHitResult) pos;
 			if (!level.isClientSide && rtr.getEntity() instanceof LivingEntity && rtr.getEntity() != getOwner()) {
 				Entity thrower = getOwner();
@@ -175,11 +173,8 @@ public class EntityThornChakram extends ThrowableProjectile implements ItemSuppl
 					((LivingEntity) rtr.getEntity()).addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0));
 				}
 			}
-
-			break;
 		}
-		default:
-			break;
+		default -> {}
 		}
 	}
 

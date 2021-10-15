@@ -101,41 +101,24 @@ public class ModTags {
 		public static final Tag.Named<Item> RODS = tag("rods");
 
 		public static Tag.Named<Item> getPetalTag(DyeColor color) {
-			switch (color) {
-			default:
-			case WHITE:
-				return PETALS_WHITE;
-			case ORANGE:
-				return PETALS_ORANGE;
-			case MAGENTA:
-				return PETALS_MAGENTA;
-			case LIGHT_BLUE:
-				return PETALS_LIGHT_BLUE;
-			case YELLOW:
-				return PETALS_YELLOW;
-			case LIME:
-				return PETALS_LIME;
-			case PINK:
-				return PETALS_PINK;
-			case GRAY:
-				return PETALS_GRAY;
-			case LIGHT_GRAY:
-				return PETALS_LIGHT_GRAY;
-			case CYAN:
-				return PETALS_CYAN;
-			case PURPLE:
-				return PETALS_PURPLE;
-			case BLUE:
-				return PETALS_BLUE;
-			case BROWN:
-				return PETALS_BROWN;
-			case GREEN:
-				return PETALS_GREEN;
-			case RED:
-				return PETALS_RED;
-			case BLACK:
-				return PETALS_BLACK;
-			}
+			return switch (color) {
+			case WHITE -> PETALS_WHITE;
+			case ORANGE -> PETALS_ORANGE;
+			case MAGENTA -> PETALS_MAGENTA;
+			case LIGHT_BLUE -> PETALS_LIGHT_BLUE;
+			case YELLOW -> PETALS_YELLOW;
+			case LIME -> PETALS_LIME;
+			case PINK -> PETALS_PINK;
+			case GRAY -> PETALS_GRAY;
+			case LIGHT_GRAY -> PETALS_LIGHT_GRAY;
+			case CYAN -> PETALS_CYAN;
+			case PURPLE -> PETALS_PURPLE;
+			case BLUE -> PETALS_BLUE;
+			case BROWN -> PETALS_BROWN;
+			case GREEN -> PETALS_GREEN;
+			case RED -> PETALS_RED;
+			case BLACK -> PETALS_BLACK;
+			};
 		}
 
 		private static Tag.Named<Item> tag(String name) {

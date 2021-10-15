@@ -56,7 +56,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.monster.WitherSkeleton;
-import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -645,23 +644,20 @@ public class EntityDoppleganger extends Mob {
 	private void spawnMobs(List<Player> players) {
 		for (int pl = 0; pl < playerCount; pl++) {
 			for (int i = 0; i < 3 + level.random.nextInt(2); i++) {
-				Mob entity = null;
-				switch (level.random.nextInt(3)) {
-				case 0: {
-					entity = new Zombie(level);
+				Mob entity = switch (level.random.nextInt(3)) {
+				case 0 -> {
 					if (level.random.nextInt(hardMode ? 3 : 12) == 0) {
-						entity = EntityType.WITCH.create(level);
+						yield EntityType.WITCH.create(level);
 					}
-					break;
+					yield EntityType.ZOMBIE.create(level);
 				}
-				case 1: {
-					entity = EntityType.SKELETON.create(level);
+				case 1 -> {
 					if (level.random.nextInt(8) == 0) {
-						entity = EntityType.WITHER_SKELETON.create(level);
+						yield EntityType.WITHER_SKELETON.create(level);
 					}
-					break;
+					yield EntityType.SKELETON.create(level);
 				}
-				case 2: {
+				case 2 -> {
 					if (!players.isEmpty()) {
 						for (int j = 0; j < 1 + level.random.nextInt(hardMode ? 8 : 5); j++) {
 							EntityPixie pixie = new EntityPixie(level);
@@ -672,9 +668,10 @@ public class EntityDoppleganger extends Mob {
 							level.addFreshEntity(pixie);
 						}
 					}
-					break;
+					yield null;
 				}
-				}
+				default -> null;
+				};
 
 				if (entity != null) {
 					if (!entity.fireImmune()) {

@@ -94,18 +94,14 @@ public class ItemManaweaveArmor extends ItemManasteelArmor {
 			return false;
 		}
 
-		switch (slot) {
-		case HEAD:
-			return stack.is(ModItems.manaweaveHelm);
-		case CHEST:
-			return stack.is(ModItems.manaweaveChest);
-		case LEGS:
-			return stack.is(ModItems.manaweaveLegs);
-		case FEET:
-			return stack.is(ModItems.manaweaveBoots);
-		}
+		return switch (slot) {
+		case HEAD -> stack.is(ModItems.manaweaveHelm);
+		case CHEST -> stack.is(ModItems.manaweaveChest);
+		case LEGS -> stack.is(ModItems.manaweaveLegs);
+		case FEET -> stack.is(ModItems.manaweaveBoots);
+		default -> false;
+		};
 
-		return false;
 	}
 
 	@Override

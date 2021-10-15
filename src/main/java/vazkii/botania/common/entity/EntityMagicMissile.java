@@ -229,23 +229,18 @@ public class EntityMagicMissile extends ThrowableProjectile {
 	@Override
 	protected void onHit(@Nonnull HitResult pos) {
 		switch (pos.getType()) {
-		case BLOCK: {
+		case BLOCK -> {
 			Block block = level.getBlockState(((BlockHitResult) pos).getBlockPos()).getBlock();
 			if (!(block instanceof BushBlock) && !(block instanceof LeavesBlock)) {
 				discard();
 			}
-			break;
 		}
-		case ENTITY: {
+		case ENTITY -> {
 			if (((EntityHitResult) pos).getEntity() == getTargetEntity()) {
 				discard();
 			}
-			break;
 		}
-		default: {
-			discard();
-			break;
-		}
+		default -> discard();
 		}
 	}
 

@@ -68,23 +68,24 @@ public class ModelArmor extends HumanoidModel<LivingEntity> {
 	private void setPartVisibility(EquipmentSlot slot) {
 		setAllVisible(false);
 		switch (slot) {
-		case HEAD:
+		case HEAD -> {
 			head.visible = true;
 			hat.visible = true;
-			break;
-		case CHEST:
+		}
+		case CHEST -> {
 			body.visible = true;
 			rightArm.visible = true;
 			leftArm.visible = true;
-			break;
-		case LEGS:
+		}
+		case LEGS -> {
 			body.visible = true;
 			rightLeg.visible = true;
 			leftLeg.visible = true;
-			break;
-		case FEET:
+		}
+		case FEET -> {
 			rightLeg.visible = true;
 			leftLeg.visible = true;
+		}
 		}
 	}
 }
