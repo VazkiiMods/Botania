@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "botania:stripped_glimmering_dreamwood_log"
+          "name": "botania:glimmering_stripped_dreamwood"
         }
       ],
       "conditions": [

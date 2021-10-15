@@ -506,10 +506,10 @@ public final class ModBlocks {
 		register(r, LibBlockNames.LIVING_WOOD_LOG, livingwoodLog);
 		register(r, LibBlockNames.LIVING_WOOD_LOG_STRIPPED, livingwoodLogStripped);
 		register(r, LibBlockNames.LIVING_WOOD_LOG_GLIMMERING, livingwoodLogGlimmering);
-		register(r, LibBlockNames.LIVING_WOOD_LOG_STRIPPED_GLIMMERING, livingwoodLogStrippedGlimmering);
+		register(r, LibBlockNames.LIVING_WOOD_LOG_GLIMMERING_STRIPPED, livingwoodLogStrippedGlimmering);
 		register(r, LibBlockNames.LIVING_WOOD, livingwood);
 		register(r, LibBlockNames.LIVING_WOOD_STRIPPED, livingwoodStripped);
-		register(r, LibBlockNames.LIVING_WOOD_STRIPPED_GLIMMERING, livingwoodStrippedGlimmering);
+		register(r, LibBlockNames.LIVING_WOOD_GLIMMERING_STRIPPED, livingwoodStrippedGlimmering);
 		register(r, LibBlockNames.LIVING_WOOD_PLANKS, livingwoodPlanks);
 		register(r, LibBlockNames.LIVING_WOOD_PLANKS_MOSSY, livingwoodPlanksMossy);
 		register(r, LibBlockNames.LIVING_WOOD_FRAMED, livingwoodFramed);
@@ -518,10 +518,10 @@ public final class ModBlocks {
 		register(r, LibBlockNames.DREAM_WOOD_LOG, dreamwoodLog);
 		register(r, LibBlockNames.DREAM_WOOD_LOG_GLIMMERING, dreamwoodLogGlimmering);
 		register(r, LibBlockNames.DREAM_WOOD_LOG_STRIPPED, dreamwoodLogStripped);
-		register(r, LibBlockNames.DREAM_WOOD_LOG_STRIPPED_GLIMMERING, dreamwoodLogStrippedGlimmering);
+		register(r, LibBlockNames.DREAM_WOOD_LOG_GLIMMERING_STRIPPED, dreamwoodLogStrippedGlimmering);
 		register(r, LibBlockNames.DREAM_WOOD, dreamwood);
 		register(r, LibBlockNames.DREAM_WOOD_STRIPPED, dreamwoodStripped);
-		register(r, LibBlockNames.DREAM_WOOD_STRIPPED_GLIMMERING, dreamwoodStrippedGlimmering);
+		register(r, LibBlockNames.DREAM_WOOD_GLIMMERING_STRIPPED, dreamwoodStrippedGlimmering);
 		register(r, LibBlockNames.DREAM_WOOD_PLANKS, dreamwoodPlanks);
 		register(r, LibBlockNames.DREAM_WOOD_PLANKS_MOSSY, dreamwoodPlanksMossy);
 		register(r, LibBlockNames.DREAM_WOOD_FRAMED, dreamwoodFramed);

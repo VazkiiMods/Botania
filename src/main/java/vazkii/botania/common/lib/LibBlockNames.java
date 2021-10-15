@@ -25,7 +25,7 @@ public final class LibBlockNames {
 	public static final String LIVING_WOOD_LOG = "livingwood_log";
 	public static final String LIVING_WOOD_LOG_STRIPPED = "stripped_livingwood_log";
 	public static final String LIVING_WOOD_LOG_GLIMMERING = "glimmering_livingwood_log";
-	public static final String LIVING_WOOD_LOG_STRIPPED_GLIMMERING = "stripped_glimmering_livingwood_log";
+	public static final String LIVING_WOOD_LOG_GLIMMERING_STRIPPED = "glimmering_stripped_livingwood_log";
 	public static final String LIVING_WOOD = "livingwood";
 	public static final String LIVING_WOOD_PLANKS = "livingwood_planks";
 	public static final String LIVING_WOOD_PLANKS_MOSSY = "mossy_livingwood_planks";
@@ -33,7 +33,7 @@ public final class LibBlockNames {
 	public static final String LIVING_WOOD_PATTERN_FRAMED = "pattern_framed_livingwood";
 	public static final String LIVING_WOOD_GLIMMERING = "glimmering_livingwood";
 	public static final String LIVING_WOOD_STRIPPED = "stripped_livingwood";
-	public static final String LIVING_WOOD_STRIPPED_GLIMMERING = "stripped_glimmering_livingwood";
+	public static final String LIVING_WOOD_GLIMMERING_STRIPPED = "glimmering_stripped_livingwood";
 	public static final String SPREADER = "mana_spreader";
 	public static final String SPREADER_REDSTONE = "redstone_spreader";
 	public static final String SPREADER_ELVEN = "elven_spreader";
@@ -74,7 +74,7 @@ public final class LibBlockNames {
 	public static final String DREAM_WOOD_LOG = "dreamwood_log";
 	public static final String DREAM_WOOD_LOG_STRIPPED = "stripped_dreamwood_log";
 	public static final String DREAM_WOOD_LOG_GLIMMERING = "glimmering_dreamwood_log";
-	public static final String DREAM_WOOD_LOG_STRIPPED_GLIMMERING = "stripped_glimmering_dreamwood_log";
+	public static final String DREAM_WOOD_LOG_GLIMMERING_STRIPPED = "glimmering_stripped_dreamwood_log";
 	public static final String DREAM_WOOD = "dreamwood";
 	public static final String DREAM_WOOD_PLANKS = "dreamwood_planks";
 	public static final String DREAM_WOOD_PLANKS_MOSSY = "mossy_dreamwood_planks";
@@ -82,7 +82,7 @@ public final class LibBlockNames {
 	public static final String DREAM_WOOD_PATTERN_FRAMED = "pattern_framed_dreamwood";
 	public static final String DREAM_WOOD_GLIMMERING = "glimmering_dreamwood";
 	public static final String DREAM_WOOD_STRIPPED = "stripped_dreamwood";
-	public static final String DREAM_WOOD_STRIPPED_GLIMMERING = "stripped_glimmering_dreamwood";
+	public static final String DREAM_WOOD_GLIMMERING_STRIPPED = "glimmering_stripped_dreamwood";
 	public static final String CONJURATION_CATALYST = "conjuration_catalyst";
 	public static final String BIFROST = "bifrost";
 	public static final String SOLID_VINE = "solid_vine";
