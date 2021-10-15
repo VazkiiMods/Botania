@@ -239,8 +239,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		if (player instanceof Player) {
-			Player p = (Player) player;
+		if (player instanceof Player p) {
 			boolean flying = p.getAbilities().flying;
 
 			boolean wasSprting = ItemNBTHelper.getBoolean(stack, TAG_IS_SPRINTING, false);

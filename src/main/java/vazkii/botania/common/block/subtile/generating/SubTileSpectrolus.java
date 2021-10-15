@@ -70,8 +70,7 @@ public class SubTileSpectrolus extends TileEntityGeneratingFlower {
 		var items = getLevel().getEntitiesOfClass(ItemEntity.class, itemAABB, selector);
 
 		for (Entity target : Iterables.concat(sheeps, items)) {
-			if (target instanceof Sheep) {
-				Sheep sheep = (Sheep) target;
+			if (target instanceof Sheep sheep) {
 				if (!sheep.isSheared() && sheep.getColor() == nextColor) {
 					addManaAndCycle(sheep.isBaby() ? BABY_SHEEP_GEN : SHEEP_GEN);
 					float pitch = sheep.isBaby() ? (level.random.nextFloat() - level.random.nextFloat()) * 0.2F + 1.5F : (level.random.nextFloat() - level.random.nextFloat()) * 0.2F + 1.0F;

@@ -59,8 +59,7 @@ public class ItemCacophonium extends Item {
 
 	@Override
 	public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity, InteractionHand hand) {
-		if (entity instanceof Mob) {
-			Mob living = (Mob) entity;
+		if (entity instanceof Mob living) {
 			SoundEvent sound = null;
 
 			if (living instanceof Creeper) {

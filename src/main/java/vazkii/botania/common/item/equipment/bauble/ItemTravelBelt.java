@@ -130,8 +130,7 @@ public class ItemTravelBelt extends ItemBauble implements IManaUsingItem {
 	public void onNotMovingTick(ItemStack stack, Player player) {}
 
 	public static void onPlayerJump(LivingEntity living) {
-		if (living instanceof Player) {
-			Player player = (Player) living;
+		if (living instanceof Player player) {
 			ItemStack belt = EquipmentHandler.findOrEmpty(s -> s.getItem() instanceof ItemTravelBelt, player);
 
 			if (!belt.isEmpty() && ManaItemHandler.instance().requestManaExact(belt, player, COST, false)) {

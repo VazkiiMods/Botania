@@ -90,8 +90,7 @@ public final class BoundTileRenderer {
 		for (int i = 0; i < inv.getContainerSize(); i++) {
 			ItemStack stackInSlot = inv.getItem(i);
 
-			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider) {
-				IWireframeCoordinateListProvider provider = (IWireframeCoordinateListProvider) stackInSlot.getItem();
+			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IWireframeCoordinateListProvider provider) {
 				List<BlockPos> coordsList = provider.getWireframesToDraw(player, stackInSlot);
 				for (BlockPos coords : coordsList) {
 					renderBlockOutlineAt(ms, LINE_BUFFERS, coords, color);

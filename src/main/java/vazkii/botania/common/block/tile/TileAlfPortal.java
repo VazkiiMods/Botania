@@ -278,10 +278,9 @@ public class TileAlfPortal extends TileMod {
 	private void resolveRecipes() {
 		List<BlockPos> pylons = locatePylons();
 		for (Recipe<?> r : ModRecipeTypes.getRecipes(level, ModRecipeTypes.ELVEN_TRADE_TYPE).values()) {
-			if (!(r instanceof IElvenTradeRecipe)) {
+			if (!(r instanceof IElvenTradeRecipe recipe)) {
 				continue;
 			}
-			IElvenTradeRecipe recipe = (IElvenTradeRecipe) r;
 			Optional<List<ItemStack>> match = recipe.match(stacksIn);
 			if (match.isPresent()) {
 				if (consumeMana(pylons, MANA_COST, false)) {
@@ -384,8 +383,7 @@ public class TileAlfPortal extends TileMod {
 		List<BlockPos> pylons = locatePylons();
 		for (BlockPos pos : pylons) {
 			BlockEntity tile = level.getBlockEntity(pos);
-			if (tile instanceof TilePylon) {
-				TilePylon pylon = (TilePylon) tile;
+			if (tile instanceof TilePylon pylon) {
 				pylon.activated = true;
 				pylon.centerPos = getBlockPos();
 			}
@@ -410,16 +408,13 @@ public class TileAlfPortal extends TileMod {
 
 		for (BlockPos pos : pylons) {
 			BlockEntity tile = level.getBlockEntity(pos);
-			if (tile instanceof TilePylon) {
-				TilePylon pylon = (TilePylon) tile;
+			if (tile instanceof TilePylon pylon) {
 				pylon.activated = true;
 				pylon.centerPos = getBlockPos();
 			}
 
 			tile = level.getBlockEntity(pos.below());
-			if (tile instanceof TilePool) {
-				TilePool pool = (TilePool) tile;
-
+			if (tile instanceof TilePool pool) {
 				if (pool.getCurrentMana() < costPer) {
 					closeNow = closeNow || close;
 					return false;

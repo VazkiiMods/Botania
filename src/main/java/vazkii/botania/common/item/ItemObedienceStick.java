@@ -53,8 +53,7 @@ public class ItemObedienceStick extends Item {
 				}
 
 				BlockEntity tile = world.getBlockEntity(iterPos);
-				if (tile instanceof TileEntitySpecialFlower) {
-					TileEntitySpecialFlower subtile = ((TileEntitySpecialFlower) tile);
+				if (tile instanceof TileEntitySpecialFlower subtile) {
 					if (act.apply(subtile, tileAt)) {
 						ItemTwigWand.doParticleBeamWithOffset(world, iterPos, pos);
 					}

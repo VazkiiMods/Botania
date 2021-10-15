@@ -109,8 +109,7 @@ public class BlockSpecialFlower extends FlowerBlock implements EntityBlock, IWan
 
 	public static void redstoneParticlesIfPowered(BlockState state, Level world, BlockPos pos, Random rand) {
 		BlockEntity te = world.getBlockEntity(pos);
-		if (te instanceof TileEntityFunctionalFlower && rand.nextBoolean()) {
-			TileEntityFunctionalFlower flower = (TileEntityFunctionalFlower) te;
+		if (te instanceof TileEntityFunctionalFlower flower && rand.nextBoolean()) {
 			if (flower.acceptsRedstone() && flower.redstoneSignal > 0) {
 				VoxelShape shape = state.getShape(world, pos);
 				if (!shape.isEmpty()) {

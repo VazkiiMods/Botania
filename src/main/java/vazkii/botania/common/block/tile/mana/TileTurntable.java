@@ -41,8 +41,7 @@ public class TileTurntable extends TileMod {
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileTurntable self) {
 		if (!level.hasNeighborSignal(worldPosition)) {
 			BlockEntity tile = level.getBlockEntity(worldPosition.above());
-			if (tile instanceof TileSpreader) {
-				TileSpreader spreader = (TileSpreader) tile;
+			if (tile instanceof TileSpreader spreader) {
 				spreader.rotationX += self.speed * (self.backwards ? -1 : 1);
 				if (spreader.rotationX >= 360F) {
 					spreader.rotationX -= 360F;

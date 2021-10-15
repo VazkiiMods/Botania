@@ -50,8 +50,7 @@ public class SubTileHeiseiDream extends TileEntityFunctionalFlower {
 
 		if (mobs.size() > 1 && getMana() >= COST) {
 			for (Enemy mob : mobs) {
-				if (mob instanceof Mob) {
-					Mob entity = (Mob) mob;
+				if (mob instanceof Mob entity) {
 					if (brainwashEntity(entity, mobs)) {
 						addMana(-COST);
 						sync();

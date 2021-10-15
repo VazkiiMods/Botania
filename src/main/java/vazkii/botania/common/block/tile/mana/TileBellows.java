@@ -52,8 +52,7 @@ public class TileBellows extends TileMod {
 	public static void commonTick(Level level, BlockPos worldPosition, BlockState state, TileBellows self) {
 		boolean disable = true;
 		BlockEntity tile = self.getLinkedTile();
-		if (!self.active && tile instanceof TilePool) {
-			TilePool pool = (TilePool) tile;
+		if (!self.active && tile instanceof TilePool pool) {
 			boolean transfer = pool.isDoingTransfer;
 			if (transfer) {
 				if (pool.ticksDoingTransfer > 0) {
@@ -73,8 +72,7 @@ public class TileBellows extends TileMod {
 				level.playSound(null, worldPosition, ModSounds.bellows, SoundSource.BLOCKS, 1F, 1F);
 			}
 
-			if (tile instanceof AbstractFurnaceBlockEntity) {
-				AbstractFurnaceBlockEntity furnace = (AbstractFurnaceBlockEntity) tile;
+			if (tile instanceof AbstractFurnaceBlockEntity furnace) {
 				Pair<AbstractCookingRecipe, Boolean> p = canSmelt(furnace);
 				if (p != null) {
 					AbstractCookingRecipe recipe = p.getFirst();

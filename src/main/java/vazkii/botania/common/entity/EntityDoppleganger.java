@@ -382,8 +382,7 @@ public class EntityDoppleganger extends Mob {
 	@Override
 	public boolean hurt(@Nonnull DamageSource source, float amount) {
 		Entity e = source.getEntity();
-		if (e instanceof Player && isTruePlayer(e) && getInvulTime() == 0) {
-			Player player = (Player) e;
+		if (e instanceof Player player && isTruePlayer(e) && getInvulTime() == 0) {
 
 			if (!playersWhoAttacked.contains(player.getUUID())) {
 				playersWhoAttacked.add(player.getUUID());
@@ -398,11 +397,9 @@ public class EntityDoppleganger extends Mob {
 	private static final Pattern FAKE_PLAYER_PATTERN = Pattern.compile("^(?:\\[.*]|ComputerCraft)$");
 
 	public static boolean isTruePlayer(Entity e) {
-		if (!(e instanceof Player)) {
+		if (!(e instanceof Player player)) {
 			return false;
 		}
-
-		Player player = (Player) e;
 
 		String name = player.getName().getString();
 		return !FAKE_PLAYER_PATTERN.matcher(name).matches();

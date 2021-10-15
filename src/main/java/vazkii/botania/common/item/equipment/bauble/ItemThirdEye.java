@@ -45,10 +45,9 @@ public class ItemThirdEye extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity living) {
-		if (!(living instanceof Player)) {
+		if (!(living instanceof Player eplayer)) {
 			return;
 		}
-		Player eplayer = (Player) living;
 
 		double range = 24;
 		AABB aabb = new AABB(living.getX(), living.getY(), living.getZ(), living.getX(), living.getY(), living.getZ()).inflate(range);

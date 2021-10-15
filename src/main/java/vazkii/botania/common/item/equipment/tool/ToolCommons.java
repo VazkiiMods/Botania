@@ -40,11 +40,10 @@ public final class ToolCommons {
 	 * Consumes as much mana as possible, returning the amount of damage that couldn't be paid with mana
 	 */
 	public static int damageItemIfPossible(ItemStack stack, int amount, LivingEntity entity, int manaPerDamage) {
-		if (!(entity instanceof Player)) {
+		if (!(entity instanceof Player player)) {
 			return amount;
 		}
 
-		Player player = (Player) entity;
 		while (amount > 0) {
 			if (ManaItemHandler.instance().requestManaExactForTool(stack, player, manaPerDamage, true)) {
 				amount--;
@@ -106,11 +105,10 @@ public final class ToolCommons {
 		}
 
 		Item item = stack.getItem();
-		if (!(item instanceof DiggerItem)) {
+		if (!(item instanceof DiggerItem tool)) {
 			return 0;
 		}
 
-		DiggerItem tool = (DiggerItem) item;
 		Tier material = tool.getTier();
 		int materialLevel = 0;
 		if (material == BotaniaAPI.instance().getManasteelItemTier()) {

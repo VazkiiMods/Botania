@@ -145,7 +145,7 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 	public static void breakOnAllCursors(Player player, ItemStack stack, BlockPos pos, Direction side) {
 		Item item = stack.getItem();
 		ItemStack lokiRing = getLokiRing(player);
-		if (lokiRing.isEmpty() || player.level.isClientSide || !(item instanceof ISequentialBreaker)) {
+		if (lokiRing.isEmpty() || player.level.isClientSide || !(item instanceof ISequentialBreaker breaker)) {
 			return;
 		}
 
@@ -155,7 +155,6 @@ public class ItemLokiRing extends ItemRelicBauble implements IWireframeCoordinat
 		recCall = true;
 
 		List<BlockPos> cursors = getCursorList(lokiRing);
-		ISequentialBreaker breaker = (ISequentialBreaker) item;
 
 		try {
 			for (BlockPos offset : cursors) {

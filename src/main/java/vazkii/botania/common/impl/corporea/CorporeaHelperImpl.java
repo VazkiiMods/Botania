@@ -120,8 +120,7 @@ public class CorporeaHelperImpl implements CorporeaHelper {
 			ICorporeaSpark invSpark = node.getSpark();
 
 			BlockEntity te = node.getWorld().getBlockEntity(node.getPos());
-			if (te instanceof ICorporeaInterceptor) {
-				ICorporeaInterceptor interceptor = (ICorporeaInterceptor) te;
+			if (te instanceof ICorporeaInterceptor interceptor) {
 				interceptor.interceptRequest(matcher, itemCount, invSpark, spark, stacks, nodes, doit);
 				interceptors.put(interceptor, invSpark);
 			}

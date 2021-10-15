@@ -75,8 +75,7 @@ public class SubTileShulkMeNot extends TileEntityGeneratingFlower {
 	}
 
 	private void particles(Level world, BlockPos pos, Entity entity) {
-		if (world instanceof ServerLevel) {
-			ServerLevel ws = (ServerLevel) world;
+		if (world instanceof ServerLevel ws) {
 			ws.sendParticles(ParticleTypes.EXPLOSION,
 					entity.getX() + entity.getBbWidth() / 2,
 					entity.getY() + entity.getBbHeight() / 2,

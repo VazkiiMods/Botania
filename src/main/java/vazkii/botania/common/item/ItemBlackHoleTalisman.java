@@ -127,8 +127,7 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 	@Override
 	public void inventoryTick(ItemStack itemstack, Level world, Entity entity, int slot, boolean selected) {
 		Block block = getBlock(itemstack);
-		if (!entity.level.isClientSide && ItemNBTHelper.getBoolean(itemstack, TAG_ACTIVE, false) && block != null && entity instanceof Player) {
-			Player player = (Player) entity;
+		if (!entity.level.isClientSide && ItemNBTHelper.getBoolean(itemstack, TAG_ACTIVE, false) && block != null && entity instanceof Player player) {
 
 			int highest = -1;
 			int[] counts = new int[player.getInventory().getContainerSize() - player.getInventory().armor.size()];

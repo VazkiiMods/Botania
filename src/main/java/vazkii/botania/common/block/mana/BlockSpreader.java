@@ -129,11 +129,10 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		BlockEntity tile = world.getBlockEntity(pos);
-		if (!(tile instanceof TileSpreader)) {
+		if (!(tile instanceof TileSpreader spreader)) {
 			return InteractionResult.PASS;
 		}
 
-		TileSpreader spreader = (TileSpreader) tile;
 		ItemStack lens = spreader.getItemHandler().getItem(0);
 		ItemStack heldItem = player.getItemInHand(hand);
 		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
@@ -196,11 +195,9 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity tile = world.getBlockEntity(pos);
-			if (!(tile instanceof TileSpreader)) {
+			if (!(tile instanceof TileSpreader inv)) {
 				return;
 			}
-
-			TileSpreader inv = (TileSpreader) tile;
 
 			if (inv.paddingColor != null) {
 				ItemStack padding = new ItemStack(ColorHelper.WOOL_MAP.apply(inv.paddingColor));

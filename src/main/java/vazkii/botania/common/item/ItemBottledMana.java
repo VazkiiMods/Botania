@@ -100,8 +100,7 @@ public class ItemBottledMana extends Item {
 			break;
 		}
 		case 7: { // All your inventory is belong to us
-			if (!living.level.isClientSide && living instanceof Player) {
-				Player player = (Player) living;
+			if (!living.level.isClientSide && living instanceof Player player) {
 				for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 					ItemStack stackAt = player.getInventory().getItem(i);
 					if (stackAt != stack) {
@@ -127,8 +126,7 @@ public class ItemBottledMana extends Item {
 			for (int i = 256; i > 0; i--) {
 				BlockState state = living.level.getBlockState(new BlockPos(x, i, z));
 				if (!state.isAir()) {
-					if (living instanceof ServerPlayer) {
-						ServerPlayer mp = (ServerPlayer) living;
+					if (living instanceof ServerPlayer mp) {
 						mp.connection.teleport(living.getX(), i, living.getZ(), living.getYRot(), living.getXRot());
 					}
 					break;

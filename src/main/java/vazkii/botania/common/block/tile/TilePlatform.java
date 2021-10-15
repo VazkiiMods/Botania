@@ -68,8 +68,7 @@ public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity
 		for (Direction dir : Direction.values()) {
 			BlockPos pos = tile.getBlockPos().relative(dir);
 			BlockEntity tileAt = level.getBlockEntity(pos);
-			if (tileAt instanceof TilePlatform) {
-				TilePlatform platform = (TilePlatform) tileAt;
+			if (tileAt instanceof TilePlatform platform) {
 				if (empty == (platform.getCamoState() != null)) {
 					swapSelfAndPass(platform, empty);
 				}

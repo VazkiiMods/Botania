@@ -313,14 +313,13 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			if (!level.isClientSide && pos.equals(exitPos)) {
 				boolean done = true;
 				BlockEntity tile = level.getBlockEntity(pos);
-				if (tile instanceof TileLightRelay) {
+				if (tile instanceof TileLightRelay relay) {
 					BlockState state = level.getBlockState(pos);
 					if (state.is(ModBlocks.lightRelayDetector)) {
 						level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, true));
 						level.getBlockTicks().scheduleTick(pos, state.getBlock(), 2);
 					}
 
-					TileLightRelay relay = (TileLightRelay) tile;
 					BlockPos bind = relay.getNextDestination();
 					if (bind != null && relay.isValidBinding()) {
 						setExit(bind);

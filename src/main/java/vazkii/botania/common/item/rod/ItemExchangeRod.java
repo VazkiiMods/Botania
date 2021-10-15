@@ -161,11 +161,9 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity entity, int slot, boolean equipped) {
-		if (!canExchange(stack) || !(entity instanceof Player)) {
+		if (!canExchange(stack) || !(entity instanceof Player player)) {
 			return;
 		}
-
-		Player player = (Player) entity;
 
 		int extraRange = ItemNBTHelper.getInt(stack, TAG_EXTRA_RANGE, 1);
 		int extraRangeNew = IManaProficiencyArmor.hasProficiency(player, stack) ? 3 : 1;
@@ -378,8 +376,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 				count += invStack.getCount();
 			}
 
-			if (item instanceof IBlockProvider && requested instanceof BlockItem) {
-				IBlockProvider prov = (IBlockProvider) item;
+			if (item instanceof IBlockProvider prov && requested instanceof BlockItem) {
 				int provCount = prov.getBlockCount(player, stack, invStack, ((BlockItem) requested).getBlock());
 				if (provCount == -1) {
 					return -1;

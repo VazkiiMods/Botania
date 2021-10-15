@@ -107,11 +107,10 @@ public class EntityManaSpark extends EntitySparkBase implements IManaSpark, Enti
 				}
 
 				for (ItemStack stack : stacks) {
-					if (stack.isEmpty() || !(stack.getItem() instanceof IManaItem)) {
+					if (stack.isEmpty() || !(stack.getItem() instanceof IManaItem manaItem)) {
 						continue;
 					}
 
-					IManaItem manaItem = (IManaItem) stack.getItem();
 					if (manaItem.canReceiveManaFromItem(stack, input)) {
 						Map<ItemStack, Integer> receivingStacks;
 						boolean add = false;

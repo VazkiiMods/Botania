@@ -61,8 +61,7 @@ public class ItemTornadoRod extends Item implements IManaUsingItem, IAvatarWield
 
 	@Override
 	public void inventoryTick(ItemStack stack, Level world, Entity ent, int slot, boolean active) {
-		if (ent instanceof Player) {
-			Player player = (Player) ent;
+		if (ent instanceof Player player) {
 			boolean damaged = getFlyCounter(stack) > 0;
 			boolean held = player.getMainHandItem() == stack || player.getOffhandItem() == stack;
 

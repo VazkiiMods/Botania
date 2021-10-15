@@ -71,10 +71,9 @@ public class ItemSmeltRod extends Item implements IManaUsingItem {
 
 	@Override
 	public void onUseTick(Level world, LivingEntity living, ItemStack stack, int time) {
-		if (!(living instanceof Player)) {
+		if (!(living instanceof Player p)) {
 			return;
 		}
-		Player p = (Player) living;
 		Container dummyInv = new SimpleContainer(1);
 
 		if (!ManaItemHandler.instance().requestManaExactForTool(stack, p, COST_PER_TICK, false)) {

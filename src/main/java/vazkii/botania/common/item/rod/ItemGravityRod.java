@@ -89,10 +89,9 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 	}
 
 	public static void onEntitySwing(LivingEntity entity) {
-		if (!(entity instanceof Player)) {
+		if (!(entity instanceof Player player)) {
 			return;
 		}
-		Player player = (Player) entity;
 		leftClick(player);
 	}
 
@@ -164,8 +163,7 @@ public class ItemGravityRod extends Item implements IManaUsingItem {
 						((ItemEntity) target).setPickUpDelay(5);
 					}
 
-					if (target instanceof LivingEntity) {
-						LivingEntity targetEntity = (LivingEntity) target;
+					if (target instanceof LivingEntity targetEntity) {
 						targetEntity.fallDistance = 0.0F;
 						if (targetEntity.getEffect(MobEffects.MOVEMENT_SLOWDOWN) == null) {
 							targetEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 2, 3, true, true));

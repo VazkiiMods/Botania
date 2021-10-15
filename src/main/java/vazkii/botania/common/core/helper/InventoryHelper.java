@@ -35,8 +35,7 @@ public class InventoryHelper {
 	public static ItemStack simulateTransfer(Container to, ItemStack stack, @Nullable Direction side) {
 		stack = stack.copy();
 
-		if (to instanceof WorldlyContainer && side != null) {
-			WorldlyContainer sidedInventory = (WorldlyContainer) to;
+		if (to instanceof WorldlyContainer sidedInventory && side != null) {
 			int[] is = sidedInventory.getSlotsForFace(side);
 
 			for (int i = 0; i < is.length && !stack.isEmpty(); ++i) {

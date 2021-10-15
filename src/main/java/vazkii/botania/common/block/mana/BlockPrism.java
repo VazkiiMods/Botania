@@ -109,11 +109,10 @@ public class BlockPrism extends BlockModWaterloggable implements EntityBlock, IM
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		BlockEntity tile = world.getBlockEntity(pos);
-		if (!(tile instanceof TilePrism)) {
+		if (!(tile instanceof TilePrism prism)) {
 			return InteractionResult.PASS;
 		}
 
-		TilePrism prism = (TilePrism) tile;
 		ItemStack lens = prism.getItemHandler().getItem(0);
 		ItemStack heldItem = player.getItemInHand(hand);
 		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;

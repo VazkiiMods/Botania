@@ -47,11 +47,10 @@ public class RenderTileSpecialFlower<T extends TileEntitySpecialFlower> implemen
 		if (tile.isFloating()) {
 			RenderTileFloatingFlower.renderFloatingIsland(tile, partialTicks, ms, buffers, light, overlay);
 		}
-		if (!(Minecraft.getInstance().cameraEntity instanceof LivingEntity)) {
+		if (!(Minecraft.getInstance().cameraEntity instanceof LivingEntity view)) {
 			return;
 		}
 
-		LivingEntity view = (LivingEntity) Minecraft.getInstance().cameraEntity;
 		if (!ItemMonocle.hasMonocle(view)) {
 			return;
 		}

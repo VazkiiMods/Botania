@@ -130,11 +130,10 @@ public class ItemDice extends ItemRelic {
 	}
 
 	private boolean hasRelicAlready(Player player, int relic) {
-		if (relic < 0 || relic > 6 || !(player instanceof ServerPlayer)) {
+		if (relic < 0 || relic > 6 || !(player instanceof ServerPlayer mpPlayer)) {
 			return true;
 		}
 
-		ServerPlayer mpPlayer = (ServerPlayer) player;
 		Item item = getRelics()[relic];
 		ResourceLocation advId = ((IRelic) item).getAdvancement();
 
