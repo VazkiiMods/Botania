@@ -15,6 +15,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -23,6 +24,7 @@ import net.minecraft.nbt.DoubleTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
@@ -127,15 +129,34 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	}
 
 	private InteractionResult onLeftClick(Player player, Level world, InteractionHand hand, BlockPos pos, Direction side) {
+		if (player.isSpectator()) {
+			return InteractionResult.PASS;
+		}
+
 		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.isEmpty() && stack.is(this) && canExchange(stack) && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
-			int cost = exchange(world, player, pos, stack, getItemToPlace(stack));
-			if (cost > 0) {
-				ManaItemHandler.instance().requestManaForTool(stack, player, cost, true);
+		if (!stack.isEmpty() && stack.getItem() == this) {
+			// Returning SUCCESS or FAIL from this callback prevents vanilla from sending the C2S packet for block
+			// breaking. Returning PASS does a bunch of things we don't want, like creative block breaking and action
+			// acknowledgements, so send a packet directly to trigger this event on the server.
+			if (world.isClientSide()) {
+				if (!(player instanceof LocalPlayer localPlayer)) {
+					return InteractionResult.PASS; // impossible
+				}
+				localPlayer.connection.send(new ServerboundPlayerActionPacket(ServerboundPlayerActionPacket.Action.START_DESTROY_BLOCK, pos, side));
 				return InteractionResult.SUCCESS;
 			}
+
+			if (canExchange(stack) && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, false)) {
+				int exchange = exchange(world, player, pos, stack, getItemToPlace(stack));
+				if (exchange > 0) {
+					ManaItemHandler.instance().requestManaExactForTool(stack, player, exchange, true);
+				}
+			}
+			// Always return SUCCESS with rod in hand to prevent any vanilla block breaking, esp. on second packet
+			return InteractionResult.SUCCESS;
 		}
 		return InteractionResult.PASS;
+
 	}
 
 	@Override
@@ -384,11 +405,11 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	}
 
 	private void setItemToPlace(ItemStack stack, Item item) {
-		ItemNBTHelper.setString(stack, TAG_REPLACEMENT_ITEM, Registry.ITEM.getResourceKey(item).toString());
+		ItemNBTHelper.setString(stack, TAG_REPLACEMENT_ITEM, Registry.ITEM.getKey(item).toString());
 	}
 
 	private Item getItemToPlace(ItemStack stack) {
-		return Registry.ITEM.get(new ResourceLocation(ItemNBTHelper.getString(stack, TAG_REPLACEMENT_ITEM, "air")));
+		return Registry.ITEM.get(ResourceLocation.tryParse(ItemNBTHelper.getString(stack, TAG_REPLACEMENT_ITEM, "air")));
 	}
 
 	private void setHitPos(ItemStack stack, Vec3 vec) {
