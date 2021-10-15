@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "botania:block/stripped_livingwood_slab"
+    },
+    "type=double": {
+      "model": "botania:block/stripped_livingwood"
+    },
+    "type=top": {
+      "model": "botania:block/stripped_livingwood_slab_top"
+    }
+  }
+}

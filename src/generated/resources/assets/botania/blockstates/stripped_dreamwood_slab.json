@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "botania:block/stripped_dreamwood_slab"
+    },
+    "type=double": {
+      "model": "botania:block/stripped_dreamwood"
+    },
+    "type=top": {
+      "model": "botania:block/stripped_dreamwood_slab_top"
+    }
+  }
+}

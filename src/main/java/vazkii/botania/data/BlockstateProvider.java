@@ -11,6 +11,7 @@ package vazkii.botania.data;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 
+import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -62,6 +63,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static net.minecraft.data.models.model.ModelLocationUtils.getModelLocation;
 import static net.minecraft.data.models.model.TextureMapping.getBlockTexture;
@@ -291,6 +293,51 @@ public class BlockstateProvider implements DataProvider {
 				this.modelOutput
 		));
 		remainingBlocks.remove(turntable);
+
+		ResourceLocation[] topTexs = new ResourceLocation[6];
+		ResourceLocation[] sideTexs = new ResourceLocation[6];
+		ResourceLocation[] topStrippedTexs = new ResourceLocation[6];
+		ResourceLocation[] sideStrippedTexs = new ResourceLocation[6];
+
+		for (int i = 0; i < 6; i++) {
+			int index = i + 1;
+			sideTexs[i] = getBlockTexture(dreamwoodLog, "/" + index);
+			topTexs[i] = getBlockTexture(dreamwoodLog, "_top");
+			sideStrippedTexs[i] = getBlockTexture(dreamwoodLogStripped, "/" + index);
+			topStrippedTexs[i] = getBlockTexture(dreamwoodLogStripped, "_top");
+		}
+
+		logWithVariants(remainingBlocks, dreamwoodLog, topTexs, sideTexs);
+		logWithVariants(remainingBlocks, dreamwood, sideTexs, sideTexs);
+		logWithVariants(remainingBlocks, dreamwoodLogStripped, topStrippedTexs, sideStrippedTexs);
+		logWithVariants(remainingBlocks, dreamwoodStripped, sideStrippedTexs, sideStrippedTexs);
+
+		log(remainingBlocks, livingwoodLog, getBlockTexture(livingwoodLog, "_top"), getBlockTexture(livingwoodLog));
+		log(remainingBlocks, livingwood, getBlockTexture(livingwoodLog), getBlockTexture(livingwoodLog));
+		log(remainingBlocks, livingwoodLogStripped, getBlockTexture(livingwoodLogStripped, "_top"), getBlockTexture(livingwoodLogStripped));
+		log(remainingBlocks, livingwoodStripped, getBlockTexture(livingwoodLogStripped), getBlockTexture(livingwoodLogStripped));
+
+		//dreamwood_log/1.png
+		//dreamwood_log/2.png
+		//dreamwood_log/3.png
+		//dreamwood_log/4.png
+		//dreamwood_log/5.png
+		//dreamwood_log/6.png
+		//stripped_dreamwood_log/1.png
+		//stripped_dreamwood_log/2.png
+		//stripped_dreamwood_log/3.png
+		//stripped_dreamwood_log/4.png
+		//stripped_dreamwood_log/5.png
+		//stripped_dreamwood_log/6.png
+		//
+		//dreamwood_log_top.png
+		//dreamwood_planks.png
+		//livingwood_log.png
+		//livingwood_log_top.png
+		//livingwood_planks.png
+		//stripped_dreamwood_log_top.png
+		//stripped_livingwood_log.png
+		//stripped_livingwood_log_top.png
 
 		wallBlock(ModFluffBlocks.dreamwoodWall, getBlockTexture(dreamwood));
 		wallBlock(ModFluffBlocks.livingrockWall, getBlockTexture(livingrock));
@@ -631,6 +678,43 @@ public class BlockstateProvider implements DataProvider {
 
 	private void singleVariantBlockState(Block b, ResourceLocation model) {
 		this.blockstates.add(MultiVariantGenerator.multiVariant(b, Variant.variant().with(VariantProperties.MODEL, model)));
+	}
+
+	protected void log(Set<Block> blocks, Block block, ResourceLocation top, ResourceLocation side) {
+		ResourceLocation modelId = getModelLocation(block);
+		ResourceLocation topModel = ModelTemplates.CUBE_COLUMN.create(modelId, TextureMapping.column(side, top), this.modelOutput);
+		ResourceLocation sideModel = ModelTemplates.CUBE_COLUMN_HORIZONTAL.create(modelId, TextureMapping.column(side, top), this.modelOutput);
+		logWithModels(blocks, block, new ResourceLocation[] { topModel }, new ResourceLocation[] { sideModel });
+	}
+
+	protected void logWithVariants(Set<Block> blocks, Block block, ResourceLocation[] topTextures, ResourceLocation[] sideTextures) {
+		int length = topTextures.length;
+		if (length != sideTextures.length) {
+			throw new IllegalArgumentException("Arrays must have equal length");
+		}
+		ResourceLocation[] topModels = new ResourceLocation[length];
+		ResourceLocation[] sideModels = new ResourceLocation[length];
+		for (int i = 0; i < length; i++) {
+			ResourceLocation modelId = getModelLocation(block, "_" + (i + 1));
+			topModels[i] = ModelTemplates.CUBE_COLUMN.create(modelId, TextureMapping.column(sideTextures[i], topTextures[i]), this.modelOutput);
+			sideModels[i] = ModelTemplates.CUBE_COLUMN_HORIZONTAL.create(modelId, TextureMapping.column(sideTextures[i], topTextures[i]), this.modelOutput);
+		}
+		logWithModels(blocks, block, topModels, sideModels);
+	}
+
+	private void logWithModels(Set<Block> blocks, Block block, ResourceLocation[] topModels, ResourceLocation[] sideModels) {
+		this.blockstates.add(MultiVariantGenerator.multiVariant(block).with(
+				PropertyDispatch.property(BlockStateProperties.AXIS)
+						.select(Direction.Axis.Y, Stream.of(topModels).map(rl -> Variant.variant().with(VariantProperties.MODEL, rl)).toList())
+						.select(Direction.Axis.Z, Stream.of(sideModels).map(rl -> Variant.variant()
+								.with(VariantProperties.MODEL, rl)
+								.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)).toList())
+						.select(Direction.Axis.X, Stream.of(sideModels).map(rl -> Variant.variant()
+								.with(VariantProperties.MODEL, rl)
+								.with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
+								.with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)).toList()
+						)));
+		blocks.remove(block);
 	}
 
 	// ? extends T technically not correct, but is more convenient in ItemModelProvider

@@ -5,6 +5,9 @@
     "tag": "minecraft:logs"
   },
   "output": {
-    "name": "botania:livingwood"
+    "name": "botania:livingwood",
+    "properties": {
+      "axis": "y"
+    }
   }
 }
