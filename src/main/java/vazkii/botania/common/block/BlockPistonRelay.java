@@ -9,7 +9,6 @@
 package vazkii.botania.common.block;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
@@ -36,6 +35,7 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.saveddata.SavedData;
 
 import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.item.ItemTwigWand;
 import vazkii.botania.common.item.lens.LensPiston;
@@ -85,9 +85,8 @@ public class BlockPistonRelay extends BlockMod implements IWandable {
 	}
 
 	private BlockEntity getTeAt(GlobalPos key) {
-		Object game = FabricLoader.getInstance().getGameInstance();
-		if (game instanceof MinecraftServer) {
-			MinecraftServer server = (MinecraftServer) game;
+		MinecraftServer server = Botania.currentServer;
+		if (server != null) {
 			Level world = server.getLevel(key.dimension());
 			if (world != null) {
 				return world.getBlockEntity(key.pos());

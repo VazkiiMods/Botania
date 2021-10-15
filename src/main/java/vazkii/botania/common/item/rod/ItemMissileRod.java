@@ -58,10 +58,9 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 
 	@Override
 	public void onUseTick(Level world, LivingEntity living, ItemStack stack, int count) {
-		if (!(living instanceof Player)) {
+		if (!(living instanceof Player player)) {
 			return;
 		}
-		Player player = (Player) living;
 
 		if (count != getUseDuration(stack) && count % (IManaProficiencyArmor.hasProficiency(player, stack) ? 1 : 2) == 0 && ManaItemHandler.instance().requestManaExactForTool(stack, player, COST_PER, false)) {
 			if (!world.isClientSide && spawnMissile(world, player, player.getX() + (Math.random() - 0.5 * 0.1), player.getY() + 2.4 + (Math.random() - 0.5 * 0.1), player.getZ() + (Math.random() - 0.5 * 0.1))) {
@@ -84,7 +83,7 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 		missile.setPos(x, y, z);
 		if (missile.findTarget()) {
 			if (!world.isClientSide) {
-				missile.playSound(ModSounds.missile, 0.6F, 0.8F + (float) Math.random() * 0.2F);
+				missile.playSound(world.random.nextInt(100) == 0 ? ModSounds.missileFunny : ModSounds.missile, 1F, 0.8F + (float) Math.random() * 0.2F);
 				world.addFreshEntity(missile);
 			}
 

@@ -105,7 +105,7 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem,
 			}
 
 			if (placedAny) {
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.bifrostRod, SoundSource.PLAYERS, 0.5F, 0.25F);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.bifrostRod, SoundSource.PLAYERS, 1F, 1F);
 				ManaItemHandler.instance().requestManaExactForTool(stack, player, MANA_COST, false);
 				player.getCooldowns().addCooldown(this, player.isCreative() ? 10 : TIME);
 			}
@@ -157,19 +157,11 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem,
 
 		AABB axis = null;
 		switch (world.getBlockState(tePos).getValue(BlockStateProperties.HORIZONTAL_FACING)) {
-		case NORTH:
-			axis = new AABB(tePos.offset(-w, -h, -l), tePos.offset(w + 1, h, 0));
-			break;
-		case SOUTH:
-			axis = new AABB(tePos.offset(-w, -h, 1), tePos.offset(w + 1, h, l + 1));
-			break;
-		case WEST:
-			axis = new AABB(tePos.offset(-l, -h, -w), tePos.offset(0, h, w + 1));
-			break;
-		case EAST:
-			axis = new AABB(tePos.offset(1, -h, -w), tePos.offset(l + 1, h, w + 1));
-			break;
-		default:
+		case NORTH -> axis = new AABB(tePos.offset(-w, -h, -l), tePos.offset(w + 1, h, 0));
+		case SOUTH -> axis = new AABB(tePos.offset(-w, -h, 1), tePos.offset(w + 1, h, l + 1));
+		case WEST -> axis = new AABB(tePos.offset(-l, -h, -w), tePos.offset(0, h, w + 1));
+		case EAST -> axis = new AABB(tePos.offset(1, -h, -w), tePos.offset(l + 1, h, w + 1));
+		default -> {}
 		}
 
 		List<Player> players = world.getEntitiesOfClass(Player.class, axis);

@@ -2,7 +2,7 @@
   "processor": "vazkii.botania.client.patchouli.processor.ManaInfusionProcessor",
   "components": [
     {
-      "type": "image",
+      "type": "patchouli:image",
       "image": "botania:textures/gui/mana_infusion_overlay.png",
       "x": 1,
       "y": 16,
@@ -12,14 +12,14 @@
       "v": 28
     },
     {
-      "type": "text",
+      "type": "patchouli:text",
       "text": "#drop",
       "color": "77000000",
       "x": 27,
       "y": 17
     },
     {
-      "type": "tooltip",
+      "type": "patchouli:tooltip",
       "tooltip": [
         "#dropTip0",
         "#dropTip1"
@@ -30,27 +30,27 @@
       "height": 10
     },
     {
-      "type": "header",
+      "type": "patchouli:header",
       "text": "#heading",
       "x": -1,
       "y": -1
     },
     {
-      "type": "item",
+      "type": "patchouli:item",
       "item": "#input",
       "framed": "false",
       "x": 20,
       "y": 41
     },
     {
-      "type": "item",
+      "type": "patchouli:item",
       "item": "#catalyst",
       "framed": "false",
       "x": 20,
       "y": 65
     },
     {
-      "type": "item",
+      "type": "patchouli:item",
       "item": {
         "item": "botania:mana_pool",
         "nbt": {
@@ -62,7 +62,7 @@
       "y": 41
     },
     {
-      "type": "item",
+      "type": "patchouli:item",
       "item": "#output",
       "framed": "false",
       "link_recipe": true,
@@ -70,14 +70,14 @@
       "y": 41
     },
     {
-      "type": "custom",
+      "type": "patchouli:custom",
       "class": "vazkii.botania.client.patchouli.component.ManaComponent",
       "x": -1,
       "y": 90,
       "mana": "#mana"
     },
     {
-      "type": "text",
+      "type": "patchouli:text",
       "text": "#text",
       "y": 130
     }

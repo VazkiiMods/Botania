@@ -16,7 +16,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -45,6 +44,7 @@ import vazkii.botania.api.wand.IWireframeAABBProvider;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.mana.TileSpreader;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ColorHelper;
 import vazkii.botania.common.item.ModItems;
 
@@ -129,11 +129,10 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		BlockEntity tile = world.getBlockEntity(pos);
-		if (!(tile instanceof TileSpreader)) {
+		if (!(tile instanceof TileSpreader spreader)) {
 			return InteractionResult.PASS;
 		}
 
-		TileSpreader spreader = (TileSpreader) tile;
 		ItemStack lens = spreader.getItemHandler().getItem(0);
 		ItemStack heldItem = player.getItemInHand(hand);
 		boolean isHeldItemLens = !heldItem.isEmpty() && heldItem.getItem() instanceof ILens;
@@ -175,7 +174,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 				}
 			}
 
-			world.playSound(player, pos, SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 1f, 1f);
+			world.playSound(player, pos, ModSounds.spreaderCover, SoundSource.BLOCKS, 1F, 1F);
 
 			return InteractionResult.SUCCESS;
 		} else if (wool || heldItem.isEmpty() && spreader.paddingColor != null && lens.isEmpty()) {
@@ -184,7 +183,7 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 			spreader.paddingColor = null;
 			spreader.setChanged();
 
-			world.playSound(player, pos, SoundEvents.WOOD_BREAK, SoundSource.BLOCKS, 1f, 1f);
+			world.playSound(player, pos, ModSounds.spreaderUncover, SoundSource.BLOCKS, 1F, 1F);
 
 			return InteractionResult.SUCCESS;
 		}
@@ -196,11 +195,9 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 	public void onRemove(@Nonnull BlockState state, @Nonnull Level world, @Nonnull BlockPos pos, @Nonnull BlockState newState, boolean isMoving) {
 		if (!state.is(newState.getBlock())) {
 			BlockEntity tile = world.getBlockEntity(pos);
-			if (!(tile instanceof TileSpreader)) {
+			if (!(tile instanceof TileSpreader inv)) {
 				return;
 			}
-
-			TileSpreader inv = (TileSpreader) tile;
 
 			if (inv.paddingColor != null) {
 				ItemStack padding = new ItemStack(ColorHelper.WOOL_MAP.apply(inv.paddingColor));

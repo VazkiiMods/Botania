@@ -149,8 +149,7 @@ public class GunModel implements BakedModel {
 
 			Function<Material, TextureAtlasSprite> textureGetter = ((AccessorModelBakery) bakery).getSpriteAtlasManager()::getSprite;
 			BakedModel lensBaked;
-			if (lensUnbaked instanceof BlockModel && ((BlockModel) lensUnbaked).getRootModel() == net.minecraft.client.resources.model.ModelBakery.GENERATION_MARKER) {
-				BlockModel bm = (BlockModel) lensUnbaked;
+			if (lensUnbaked instanceof BlockModel bm && ((BlockModel) lensUnbaked).getRootModel() == net.minecraft.client.resources.model.ModelBakery.GENERATION_MARKER) {
 				lensBaked = new ItemModelGenerator()
 						.generateBlockModel(textureGetter, bm)
 						.bake(bakery, bm, textureGetter, transform, name, false);

@@ -38,7 +38,7 @@ import java.util.Random;
 
 public class RenderTilePool implements BlockEntityRenderer<TilePool> {
 
-	// Overrides for when we call this TESR from a cart
+	// Overrides for when we call this renderer from a cart
 	public static int cartMana = -1;
 	private final BlockRenderDispatcher blockRenderDispatcher;
 

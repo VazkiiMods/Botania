@@ -68,8 +68,7 @@ public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity
 		for (Direction dir : Direction.values()) {
 			BlockPos pos = tile.getBlockPos().relative(dir);
 			BlockEntity tileAt = level.getBlockEntity(pos);
-			if (tileAt instanceof TilePlatform) {
-				TilePlatform platform = (TilePlatform) tileAt;
+			if (tileAt instanceof TilePlatform platform) {
 				if (empty == (platform.getCamoState() != null)) {
 					swapSelfAndPass(platform, empty);
 				}
@@ -107,18 +106,9 @@ public class TilePlatform extends TileMod implements RenderAttachmentBlockEntity
 
 	@Override
 	public Object getRenderAttachmentData() {
-		return new PlatformData(getBlockPos(), camoState);
+		return new PlatformData(getBlockPos().immutable(), camoState);
 	}
 
-	public static class PlatformData {
-		public final BlockPos pos;
-
-		@Nullable
-		public final BlockState state;
-
-		public PlatformData(BlockPos pos, @Nullable BlockState state) {
-			this.pos = pos.immutable();
-			this.state = state;
-		}
+	public record PlatformData(BlockPos pos, @Nullable BlockState state) {
 	}
 }

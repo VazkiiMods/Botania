@@ -60,8 +60,7 @@ public class ItemLivingwoodBow extends BowItem implements IManaUsingItem {
 	// [VanillaCopy] super
 	@Override
 	public void releaseUsing(@Nonnull ItemStack stack, @Nonnull Level worldIn, LivingEntity entityLiving, int timeLeft) {
-		if (entityLiving instanceof Player) {
-			Player playerentity = (Player) entityLiving;
+		if (entityLiving instanceof Player playerentity) {
 			boolean flag = canFire(stack, playerentity); // Botania - custom check
 			ItemStack itemstack = playerentity.getProjectile(stack);
 

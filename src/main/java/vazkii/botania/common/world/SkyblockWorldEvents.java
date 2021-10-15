@@ -114,8 +114,7 @@ public final class SkyblockWorldEvents {
 		BlockPos pos = islandPos.getCenter();
 		createSkyblock(player.level, pos);
 
-		if (player instanceof ServerPlayer) {
-			ServerPlayer pmp = (ServerPlayer) player;
+		if (player instanceof ServerPlayer pmp) {
 			pmp.teleportTo(pos.getX() + 0.5, pos.getY() + 1.6, pos.getZ() + 0.5);
 			pmp.setRespawnPosition(pmp.level.dimension(), pos, 0, true, false);
 			if (ConfigHandler.COMMON.gogSpawnWithLexicon.getValue()) {

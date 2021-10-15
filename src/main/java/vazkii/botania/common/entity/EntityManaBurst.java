@@ -12,7 +12,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -41,7 +40,6 @@ import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -728,12 +726,6 @@ public class EntityManaBurst extends ThrowableProjectile implements IManaBurst {
 	@Override
 	public void setMagnetizePos(@Nullable BlockPos pos) {
 		this.magnetizePos = pos;
-	}
-
-	@Nonnull
-	@Override
-	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnEntity.make(this);
 	}
 
 	protected boolean shouldDoFakeParticles() {

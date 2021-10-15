@@ -102,8 +102,7 @@ public class BlockEnchanter extends BlockMod implements EntityBlock, IWandable, 
 		if (!state.is(newState.getBlock())) {
 			BlockEntity tile = world.getBlockEntity(pos);
 
-			if (tile instanceof TileEnchanter) {
-				TileEnchanter enchanter = (TileEnchanter) tile;
+			if (tile instanceof TileEnchanter enchanter) {
 
 				if (!enchanter.itemToEnchant.isEmpty()) {
 					world.addFreshEntity(new ItemEntity(world, pos.getX(), pos.getY(), pos.getZ(), enchanter.itemToEnchant));

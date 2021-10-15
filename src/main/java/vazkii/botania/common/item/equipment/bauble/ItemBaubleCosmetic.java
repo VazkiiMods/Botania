@@ -81,208 +81,199 @@ public class ItemBaubleCosmetic extends ItemBauble implements ICosmeticBauble {
 		if (variant.isHead) {
 			bipedModel.head.translateAndRotate(ms);
 			switch (variant) {
-			case RED_GLASSES:
-			case ENGINEER_GOGGLES:
-			case ANAGLYPH_GLASSES:
+			case RED_GLASSES, ENGINEER_GOGGLES, ANAGLYPH_GLASSES -> {
 				ms.translate(0, -0.225, -0.3);
 				ms.scale(0.7F, -0.7F, -0.7F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case EYEPATCH:
+			}
+			case EYEPATCH -> {
 				ms.translate(0.125, -0.225, -0.3);
 				ms.mulPose(Vector3f.YP.rotationDegrees(180F));
 				ms.scale(0.3F, -0.3F, -0.3F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case WICKED_EYEPATCH:
+			}
+			case WICKED_EYEPATCH -> {
 				ms.translate(-0.125, -0.225, -0.3);
 				ms.scale(0.3F, -0.3F, -0.3F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case RED_RIBBONS:
+			}
+			case RED_RIBBONS -> {
 				ms.translate(0, -0.65, 0.2);
 				ms.mulPose(Vector3f.YP.rotationDegrees(180F));
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case PINK_FLOWER_BUD:
+			}
+			case PINK_FLOWER_BUD -> {
 				ms.translate(0.275, -0.6, 0);
 				ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case POLKA_DOTTED_BOWS:
+			}
+			case POLKA_DOTTED_BOWS -> {
 				ms.pushPose();
 				ms.translate(0.275, -0.4, 0);
 				ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				ms.popPose();
-
 				ms.translate(-0.275, -0.4, 0);
 				ms.mulPose(Vector3f.YP.rotationDegrees(90F));
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case BLUE_BUTTERFLY:
+			}
+			case BLUE_BUTTERFLY -> {
 				ms.pushPose();
 				ms.translate(0.275, -0.4, 0);
 				ms.mulPose(Vector3f.YP.rotationDegrees(45F));
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				ms.popPose();
-
 				ms.translate(0.275, -0.4, 0);
 				ms.mulPose(Vector3f.YP.rotationDegrees(-45F));
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case CAT_EARS:
+			}
+			case CAT_EARS -> {
 				ms.translate(0F, -0.5F, -0.175F);
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case GOOGLY_EYES:
+			}
+			case GOOGLY_EYES -> {
 				ms.translate(0, -0.225, -0.3);
 				ms.scale(0.9F, -0.9F, -0.9F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case CLOCK_EYE:
+			}
+			case CLOCK_EYE -> {
 				ms.translate(0.1, -0.225, -0.3F);
 				ms.scale(0.4F, -0.4F, -0.4F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case UNICORN_HORN:
+			}
+			case UNICORN_HORN -> {
 				ms.translate(0, -0.7, -0.3);
 				ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
 				ms.scale(0.6F, -0.6F, -0.6F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case DEVIL_HORNS:
+			}
+			case DEVIL_HORNS -> {
 				ms.translate(0F, -0.4F, -0.175F);
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case HYPER_PLUS:
+			}
+			case HYPER_PLUS -> {
 				ms.translate(-0.15F, -0.45F, -0.3F);
 				ms.scale(0.2F, -0.2F, -0.2F);
 				renderItem(stack, ms, buffers, light);
 				ms.translate(1.45F, 0F, 0F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case ANCIENT_MASK:
+			}
+			case ANCIENT_MASK -> {
 				ms.translate(0, -0.3, -0.3);
 				ms.scale(0.7F, -0.7F, -0.7F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case EERIE_MASK:
+			}
+			case EERIE_MASK -> {
 				ms.translate(0, -0.25, -0.3);
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case ALIEN_ANTENNA:
+			}
+			case ALIEN_ANTENNA -> {
 				ms.translate(0, -0.65, 0.2);
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case ORANGE_SHADES:
+			}
+			case ORANGE_SHADES -> {
 				ms.translate(0, -0.3, -0.3);
 				ms.scale(0.7F, -0.7F, -0.7F);
 				int color = 0xFFFFFF | (178 << 24);
 				RenderHelper.renderItemCustomColor(player, stack, color, ms, buffers, light, OverlayTexture.NO_OVERLAY);
-				break;
-			case GROUCHO_GLASSES:
+			}
+			case GROUCHO_GLASSES -> {
 				ms.translate(0, -0.1, -0.3);
 				ms.scale(0.75F, -0.75F, -0.75F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case THICK_EYEBROWS:
+			}
+			case THICK_EYEBROWS -> {
 				ms.pushPose();
 				ms.translate(-0.1, -0.3, -0.3);
 				ms.scale(0.3F, -0.3F, -0.3F);
 				renderItem(stack, ms, buffers, light);
 				ms.popPose();
-
 				ms.translate(0.1, -0.3, -0.3);
 				ms.mulPose(Vector3f.YP.rotationDegrees(180F));
 				ms.scale(0.3F, -0.3F, -0.3F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case TINY_POTATO_MASK:
+			}
+			case TINY_POTATO_MASK -> {
 				ms.translate(0, -0.3, -0.3);
 				ms.scale(0.6F, -0.6F, -0.6F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case QUESTGIVER_MARK:
+			}
+			case QUESTGIVER_MARK -> {
 				ms.translate(0, -0.8, -0.2);
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case THINKING_HAND:
+			}
+			case THINKING_HAND -> {
 				ms.translate(-0.1, 0, -0.3);
 				ms.mulPose(Vector3f.ZP.rotationDegrees(-15F));
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			default:
-				break;
+			}
+			default -> {}
 			}
 		} else { // body cosmetics
 			bipedModel.body.translateAndRotate(ms);
 			switch (variant) {
-			case BLACK_BOWTIE:
+			case BLACK_BOWTIE -> {
 				ms.translate(0, 0.1, -0.13);
 				ms.scale(0.6F, -0.6F, -0.6F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case BLACK_TIE:
-			case PUFFY_SCARF:
+			}
+			case BLACK_TIE, PUFFY_SCARF -> {
 				ms.translate(0, 0.25, -0.15);
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case WITCH_PIN:
+			}
+			case WITCH_PIN -> {
 				ms.translate(-0.1, 0.15, -0.15);
 				ms.scale(0.2F, -0.2F, -0.2F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case DEVIL_TAIL:
+			}
+			case DEVIL_TAIL -> {
 				ms.translate(0, 0.55, 0.2);
 				ms.mulPose(Vector3f.YP.rotationDegrees(-90F));
 				ms.scale(0.6F, -0.6F, -0.6F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case KAMUI_EYE: // DON'T LOSE YOUR WAAAAAAAAY
+			}
+			case KAMUI_EYE -> { // DON'T LOSE YOUR WAAAAAAAAY
 				ms.pushPose();
 				ms.translate(0.4, 0.1, -0.2);
 				ms.scale(0.5F, -0.5F, -0.5F);
 				renderItem(stack, ms, buffers, light);
 				ms.popPose();
-
 				ms.translate(-0.4, 0.1, -0.2);
 				ms.mulPose(Vector3f.YP.rotationDegrees(180F));
 				ms.scale(0.5F, -0.5F, -0.5F);
 				RenderHelper.renderItemCustomColor(player, stack, 0xFF00004C, ms, buffers, light, OverlayTexture.NO_OVERLAY);
-				break;
-			case FOUR_LEAF_CLOVER:
+			}
+			case FOUR_LEAF_CLOVER -> {
 				ms.translate(0.1, 0.1, -0.13);
 				ms.scale(0.3F, -0.3F, -0.3F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case BOTANIST_EMBLEM:
+			}
+			case BOTANIST_EMBLEM -> {
 				ms.translate(0F, 0.375, -0.13);
 				ms.scale(0.3F, -0.3F, -0.3F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			case LUSITANIC_SHIELD:
+			}
+			case LUSITANIC_SHIELD -> {
 				ms.translate(0F, 0.35, 0.13);
 				ms.mulPose(Vector3f.ZP.rotationDegrees(8F));
 				ms.mulPose(Vector3f.YP.rotationDegrees(180F));
 				ms.scale(0.6F, -0.6F, -0.6F);
 				renderItem(stack, ms, buffers, light);
-				break;
-			default:
-				break;
+			}
+			default -> {}
 			}
 		}
 	}

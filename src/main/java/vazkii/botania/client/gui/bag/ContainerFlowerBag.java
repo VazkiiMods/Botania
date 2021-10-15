@@ -19,6 +19,7 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 
+import vazkii.botania.client.gui.SlotLocked;
 import vazkii.botania.common.block.BlockModFlower;
 import vazkii.botania.common.item.ItemFlowerBag;
 import vazkii.botania.common.item.ModItems;
@@ -65,7 +66,11 @@ public class ContainerFlowerBag extends AbstractContainerMenu {
 		}
 
 		for (i = 0; i < 9; ++i) {
-			addSlot(new Slot(playerInv, i, 8 + i * 18, 142));
+			if (playerInv.getItem(i) == bag) {
+				addSlot(new SlotLocked(playerInv, i, 8 + i * 18, 142));
+			} else {
+				addSlot(new Slot(playerInv, i, 8 + i * 18, 142));
+			}
 		}
 
 	}

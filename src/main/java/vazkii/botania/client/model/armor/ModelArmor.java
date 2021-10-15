@@ -25,16 +25,15 @@ public class ModelArmor extends HumanoidModel<LivingEntity> {
 		this.slot = slot;
 	}
 
-	// [VanillaCopy] ArmorStandArmorModel.setRotationAngles because armor stands are dumb
+	// [VanillaCopy] ArmorStandArmorModel.setupAnim because armor stands are dumb
 	// This fixes the armor "breathing" and helmets always facing south on armor stands
 	@Override
 	public void setupAnim(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-		if (!(entity instanceof ArmorStand)) {
+		if (!(entity instanceof ArmorStand entityIn)) {
 			super.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 			return;
 		}
 
-		ArmorStand entityIn = (ArmorStand) entity;
 		this.head.xRot = ((float) Math.PI / 180F) * entityIn.getHeadPose().getX();
 		this.head.yRot = ((float) Math.PI / 180F) * entityIn.getHeadPose().getY();
 		this.head.zRot = ((float) Math.PI / 180F) * entityIn.getHeadPose().getZ();
@@ -69,23 +68,24 @@ public class ModelArmor extends HumanoidModel<LivingEntity> {
 	private void setPartVisibility(EquipmentSlot slot) {
 		setAllVisible(false);
 		switch (slot) {
-		case HEAD:
+		case HEAD -> {
 			head.visible = true;
 			hat.visible = true;
-			break;
-		case CHEST:
+		}
+		case CHEST -> {
 			body.visible = true;
 			rightArm.visible = true;
 			leftArm.visible = true;
-			break;
-		case LEGS:
+		}
+		case LEGS -> {
 			body.visible = true;
 			rightLeg.visible = true;
 			leftLeg.visible = true;
-			break;
-		case FEET:
+		}
+		case FEET -> {
 			rightLeg.visible = true;
 			leftLeg.visible = true;
+		}
 		}
 	}
 }

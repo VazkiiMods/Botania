@@ -51,8 +51,7 @@ public class BlockTeruTeruBozu extends BlockModWaterloggable implements EntityBl
 
 	@Override
 	public void entityInside(BlockState state, Level world, BlockPos pos, Entity e) {
-		if (!world.isClientSide && e instanceof ItemEntity) {
-			ItemEntity item = (ItemEntity) e;
+		if (!world.isClientSide && e instanceof ItemEntity item) {
 			ItemStack stack = item.getItem();
 			if (isSunflower(stack) && removeRain(world) || isBlueOrchid(stack) && startRain(world)) {
 				stack.shrink(1);

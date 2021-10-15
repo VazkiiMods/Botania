@@ -130,50 +130,42 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 						int variant = getVariant(tiara);
 						switch (variant) {
-						case 2: {
+						case 2 -> {
 							r = 0.1F;
 							g = 0.1F;
 							b = 0.1F;
-							break;
 						}
-						case 3: {
+						case 3 -> {
 							r = 0F;
 							g = 0.6F;
-							break;
 						}
-						case 4: {
+						case 4 -> {
 							g = 0.3F;
 							b = 0.3F;
-							break;
 						}
-						case 5: {
+						case 5 -> {
 							r = 0.6F;
 							g = 0F;
 							b = 0.6F;
-							break;
 						}
-						case 6: {
+						case 6 -> {
 							r = 0.4F;
 							g = 0F;
 							b = 0F;
-							break;
 						}
-						case 7: {
+						case 7 -> {
 							r = 0.2F;
 							g = 0.6F;
 							b = 0.2F;
-							break;
 						}
-						case 8: {
+						case 8 -> {
 							r = 0.85F;
 							g = 0.85F;
 							b = 0F;
-							break;
 						}
-						case 9: {
+						case 9 -> {
 							r = 0F;
 							b = 0F;
-							break;
 						}
 						}
 
@@ -239,8 +231,7 @@ public class ItemFlightTiara extends ItemBauble implements IManaUsingItem {
 
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
-		if (player instanceof Player) {
-			Player p = (Player) player;
+		if (player instanceof Player p) {
 			boolean flying = p.getAbilities().flying;
 
 			boolean wasSprting = ItemNBTHelper.getBoolean(stack, TAG_IS_SPRINTING, false);

@@ -81,7 +81,7 @@ public class ItemItemFinder extends ItemBauble {
 	}
 
 	protected void tickClient(ItemStack stack, Player player) {
-		if (!Botania.proxy.isTheClientPlayer(player)) {
+		if (player != Botania.proxy.getClientPlayer()) {
 			return;
 		}
 
@@ -126,21 +126,18 @@ public class ItemItemFinder extends ItemBauble {
 				if (e == player) {
 					continue;
 				}
-				if (e instanceof ItemEntity) {
-					ItemEntity item = (ItemEntity) e;
+				if (e instanceof ItemEntity item) {
 					ItemStack istack = item.getItem();
 					if (player.isShiftKeyDown() || istack.sameItem(pstack) && ItemStack.tagMatches(istack, pstack)) {
 						entIdBuilder.add(item.getId());
 					}
-				} else if (e instanceof Player) {
-					Player targetPlayer = (Player) e;
+				} else if (e instanceof Player targetPlayer) {
 					Container binv = BotaniaAPI.instance().getAccessoriesInventory(targetPlayer);
 					if (scanInventory(targetPlayer.getInventory(), pstack) || scanInventory(binv, pstack)) {
 						entIdBuilder.add(targetPlayer.getId());
 					}
 
-				} else if (e instanceof Merchant) {
-					Merchant villager = (Merchant) e;
+				} else if (e instanceof Merchant villager) {
 					for (MerchantOffer offer : villager.getOffers()) {
 						if (equalStacks(pstack, offer.getBaseCostA())
 								|| equalStacks(pstack, offer.getCostB())
@@ -148,8 +145,7 @@ public class ItemItemFinder extends ItemBauble {
 							entIdBuilder.add(e.getId());
 						}
 					}
-				} else if (e instanceof Container) {
-					Container inv = (Container) e;
+				} else if (e instanceof Container inv) {
 					if (scanInventory(inv, pstack)) {
 						entIdBuilder.add(e.getId());
 					}
@@ -162,8 +158,7 @@ public class ItemItemFinder extends ItemBauble {
 				for (BlockPos pos_ : BlockPos.betweenClosed(pos.offset(-range, -range, -range), pos.offset(range + 1, range + 1, range + 1))) {
 					BlockEntity tile = player.level.getBlockEntity(pos_);
 					if (tile != null) {
-						if (tile instanceof Container) {
-							Container inv = (Container) tile;
+						if (tile instanceof Container inv) {
 							if (scanInventory(inv, pstack)) {
 								blockPosBuilder.add(LongTag.valueOf(pos_.asLong()));
 							}

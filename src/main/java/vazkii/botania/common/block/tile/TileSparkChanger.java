@@ -39,8 +39,7 @@ public class TileSparkChanger extends TileExposedSimpleInventory {
 		List<ISparkAttachable> attachables = new ArrayList<>();
 		for (Direction dir : Direction.Plane.HORIZONTAL) {
 			BlockEntity tile = level.getBlockEntity(worldPosition.relative(dir));
-			if (tile instanceof ISparkAttachable) {
-				ISparkAttachable attach = (ISparkAttachable) tile;
+			if (tile instanceof ISparkAttachable attach) {
 				IManaSpark spark = attach.getAttachedSpark();
 				if (spark != null) {
 					SparkUpgradeType upg = spark.getUpgrade();

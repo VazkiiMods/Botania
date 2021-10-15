@@ -73,8 +73,7 @@ public class CompositeLensRecipe extends CustomRecipe {
 			}
 		}
 
-		if (lens.getItem() instanceof ICompositableLens) {
-			ICompositableLens lensItem = (ICompositableLens) lens.getItem();
+		if (lens.getItem() instanceof ICompositableLens lensItem) {
 			if (secondLens.isEmpty() || !lensItem.canCombineLenses(lens, secondLens) || !lensItem.getCompositeLens(lens).isEmpty() || !lensItem.getCompositeLens(secondLens).isEmpty()) {
 				return ItemStack.EMPTY;
 			}

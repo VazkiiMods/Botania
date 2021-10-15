@@ -112,7 +112,7 @@ public class ItemTerraPick extends ItemManasteelPick implements IManaItem, ISequ
 		if (level != 0) {
 			setEnabled(stack, !isEnabled(stack));
 			if (!world.isClientSide) {
-				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraPickMode, SoundSource.PLAYERS, 0.5F, 0.4F);
+				world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.terraPickMode, SoundSource.PLAYERS, 1F, 1F);
 			}
 		}
 

@@ -22,18 +22,13 @@ public class ItemSparkUpgrade extends Item {
 	}
 
 	public static ItemStack getByType(SparkUpgradeType type) {
-		switch (type) {
-		case DOMINANT:
-			return new ItemStack(ModItems.sparkUpgradeDominant);
-		case RECESSIVE:
-			return new ItemStack(ModItems.sparkUpgradeRecessive);
-		case DISPERSIVE:
-			return new ItemStack(ModItems.sparkUpgradeDispersive);
-		case ISOLATED:
-			return new ItemStack(ModItems.sparkUpgradeIsolated);
-		default:
-			return ItemStack.EMPTY;
-		}
+		return switch (type) {
+		case DOMINANT -> new ItemStack(ModItems.sparkUpgradeDominant);
+		case RECESSIVE -> new ItemStack(ModItems.sparkUpgradeRecessive);
+		case DISPERSIVE -> new ItemStack(ModItems.sparkUpgradeDispersive);
+		case ISOLATED -> new ItemStack(ModItems.sparkUpgradeIsolated);
+		default -> ItemStack.EMPTY;
+		};
 	}
 
 }

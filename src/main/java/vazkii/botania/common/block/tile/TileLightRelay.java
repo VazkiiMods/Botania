@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -43,9 +44,8 @@ import vazkii.botania.common.block.BlockLightRelay;
 import vazkii.botania.common.block.ModBlocks;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.PlayerHelper;
-import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.entity.ModEntities;
-import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 
@@ -60,9 +60,11 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 	private static final String TAG_BIND_X = "bindX";
 	private static final String TAG_BIND_Y = "bindY";
 	private static final String TAG_BIND_Z = "bindZ";
+	private static final String TAG_NO_PARTICLE = "noParticle";
 
 	private BlockPos bindPos = new BlockPos(0, Integer.MIN_VALUE, 0);
 	private int ticksElapsed = 0;
+	private boolean noParticle = false;
 
 	public TileLightRelay(BlockPos pos, BlockState state) {
 		super(ModTiles.LIGHT_RELAY, pos, state);
@@ -78,7 +80,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		level.addFreshEntity(mover);
 		e.startRiding(mover);
 		if (!(e instanceof ItemEntity)) {
-			mover.playSound(ModSounds.lightRelay, 0.2F, (float) Math.random() * 0.3F + 0.7F);
+			mover.playSound(ModSounds.lightRelay, 1F, (float) Math.random() * 0.3F + 0.7F);
 		}
 		if (e instanceof ServerPlayer) {
 			PlayerHelper.grantCriterion((ServerPlayer) e, prefix("main/luminizer_ride"), "code_triggered");
@@ -89,16 +91,16 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		self.ticksElapsed++;
 
 		BlockPos nextDest = self.getNextDestination();
-		if (nextDest != null && nextDest.getY() > -1 && self.isValidBinding()) {
-			Vector3 vec = self.getMovementVector();
+		if (self.isNoParticle() && nextDest != null && nextDest.getY() > -1 && self.isValidBinding()) {
+			Vec3 vec = self.getMovementVector();
 			if (vec != null) {
 				double dist = 0.1;
-				int size = (int) (vec.mag() / dist);
+				int size = (int) (vec.length() / dist);
 				int count = 10;
 				int start = self.ticksElapsed % size;
 
-				Vector3 vecMag = vec.normalize().multiply(dist);
-				Vector3 vecTip = vecMag.multiply(start).add(worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5);
+				Vec3 vecMag = vec.normalize().scale(dist);
+				Vec3 vecTip = vecMag.scale(start).add(worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5);
 
 				double radPer = Math.PI / 16.0;
 				float mul = 0.5F;
@@ -108,7 +110,8 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 				for (int i = start; i < start + count; i++) {
 					mul = Math.min(maxMul, mul + mulPer);
 					double rad = radPer * (i + self.ticksElapsed * 0.4);
-					Vector3 vecRot = vecMag.crossProduct(Vector3.ONE).multiply(mul).rotate(rad, vecMag).add(vecTip);
+					Vec3 intermediate = vecMag.cross(VecHelper.ONE).scale(mul);
+					Vec3 vecRot = VecHelper.rotate(intermediate, rad, vecMag).add(vecTip);
 					level.addParticle(data, vecRot.x, vecRot.y, vecRot.z, (float) -vecMag.x, (float) -vecMag.y, (float) -vecMag.z);
 					vecTip = vecTip.add(vecMag);
 				}
@@ -179,13 +182,21 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		return null;
 	}
 
-	public Vector3 getMovementVector() {
+	public void setNoParticle() {
+		noParticle = true;
+	}
+
+	public boolean isNoParticle() {
+		return noParticle;
+	}
+
+	public Vec3 getMovementVector() {
 		BlockPos dest = getNextDestination();
 		if (dest == null) {
 			return null;
 		}
 
-		return new Vector3(dest.getX() - worldPosition.getX(), dest.getY() - worldPosition.getY(), dest.getZ() - worldPosition.getZ());
+		return new Vec3(dest.getX() - worldPosition.getX(), dest.getY() - worldPosition.getY(), dest.getZ() - worldPosition.getZ());
 	}
 
 	@Override
@@ -249,6 +260,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 				cmp.getInt(TAG_BIND_Y),
 				cmp.getInt(TAG_BIND_Z)
 		);
+		noParticle = cmp.getBoolean(TAG_NO_PARTICLE);
 	}
 
 	@Override
@@ -256,6 +268,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		cmp.putInt(TAG_BIND_X, bindPos.getX());
 		cmp.putInt(TAG_BIND_Y, bindPos.getY());
 		cmp.putInt(TAG_BIND_Z, bindPos.getZ());
+		cmp.putBoolean(TAG_NO_PARTICLE, noParticle);
 	}
 
 	public static class EntityPlayerMover extends Entity {
@@ -291,7 +304,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 
 			boolean isItem = getVehicle() instanceof ItemEntity;
 			if (!isItem && tickCount % 30 == 0) {
-				playSound(ModSounds.lightRelay, 0.05F, (float) Math.random() * 0.3F + 0.7F);
+				playSound(ModSounds.lightRelay, 0.25F, (float) Math.random() * 0.3F + 0.7F);
 			}
 
 			BlockPos pos = blockPosition();
@@ -300,14 +313,13 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			if (!level.isClientSide && pos.equals(exitPos)) {
 				boolean done = true;
 				BlockEntity tile = level.getBlockEntity(pos);
-				if (tile instanceof TileLightRelay) {
+				if (tile instanceof TileLightRelay relay) {
 					BlockState state = level.getBlockState(pos);
 					if (state.is(ModBlocks.lightRelayDetector)) {
 						level.setBlockAndUpdate(pos, state.setValue(BlockStateProperties.POWERED, true));
 						level.getBlockTicks().scheduleTick(pos, state.getBlock(), 2);
 					}
 
-					TileLightRelay relay = (TileLightRelay) tile;
 					BlockPos bind = relay.getNextDestination();
 					if (bind != null && relay.isValidBinding()) {
 						setExit(bind);
@@ -371,7 +383,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 			cmp.putInt(TAG_EXIT_Z, exit.getZ());
 		}
 
-		// [VanillaCopy] PigEntity logic to select a dismount location
+		// [VanillaCopy] Pig logic to select a dismount location
 		@Override
 		public Vec3 getDismountLocationForPassenger(LivingEntity living) {
 			Direction direction = living.getDirection();
@@ -401,7 +413,7 @@ public class TileLightRelay extends TileMod implements IWandBindable {
 		@Nonnull
 		@Override
 		public Packet<?> getAddEntityPacket() {
-			return PacketSpawnEntity.make(this);
+			return new ClientboundAddEntityPacket(this);
 		}
 
 		public BlockPos getExitPos() {

@@ -41,9 +41,8 @@ public class LensPaint extends Lens {
 		if (!entity.level.isClientSide && !burst.isFake() && storedColor > -1 && storedColor < 17) {
 			if (pos.getType() == HitResult.Type.ENTITY) {
 				Entity collidedWith = ((EntityHitResult) pos).getEntity();
-				if (collidedWith instanceof Sheep) {
+				if (collidedWith instanceof Sheep sheep) {
 					int r = 20;
-					Sheep sheep = (Sheep) collidedWith;
 					DyeColor sheepColor = sheep.getColor();
 					List<Sheep> sheepList = entity.level.getEntitiesOfClass(Sheep.class,
 							new AABB(sheep.getX() - r, sheep.getY() - r, sheep.getZ() - r,

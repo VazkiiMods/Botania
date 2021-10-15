@@ -12,7 +12,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
@@ -23,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
 
 import javax.annotation.Nonnull;
@@ -41,7 +41,7 @@ public class ItemTemperanceStone extends Item {
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
 		ItemStack stack = player.getItemInHand(hand);
 		ItemNBTHelper.setBoolean(stack, TAG_ACTIVE, !ItemNBTHelper.getBoolean(stack, TAG_ACTIVE, false));
-		world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundSource.NEUTRAL, 0.3F, 0.1F);
+		world.playSound(null, player.getX(), player.getY(), player.getZ(), ModSounds.temperanceStoneConfigure, SoundSource.NEUTRAL, 1F, 1F);
 		return InteractionResultHolder.success(stack);
 	}
 

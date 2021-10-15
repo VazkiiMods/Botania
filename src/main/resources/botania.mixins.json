@@ -49,7 +49,6 @@
     "MixinNaturalSpawner",
     "MixinPiglinAi",
     "MixinPlayer",
-    "MixinPlayerList",
     "MixinPollinateGoal",
     "MixinResultSlot",
     "MixinServerEntity",

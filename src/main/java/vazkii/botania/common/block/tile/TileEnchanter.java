@@ -265,17 +265,13 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			level.setBlockAndUpdate(worldPosition, Blocks.LAPIS_BLOCK.defaultBlockState());
 			PacketBotaniaEffect.sendNearby(level, worldPosition, PacketBotaniaEffect.EffectType.ENCHANTER_DESTROY,
 					worldPosition.getX() + 0.5, worldPosition.getY() + 0.5, worldPosition.getZ() + 0.5);
-			level.playSound(null, worldPosition, ModSounds.enchanterFade, SoundSource.BLOCKS, 0.5F, 10F);
+			level.playSound(null, worldPosition, ModSounds.enchanterFade, SoundSource.BLOCKS, 1F, 1F);
 		}
 
 		switch (self.stage) {
-		case GATHER_ENCHANTS:
-			self.gatherEnchants();
-			break;
-		case GATHER_MANA:
-			self.gatherMana(axis);
-			break;
-		case DO_ENCHANT: { // Enchant
+		case GATHER_ENCHANTS -> self.gatherEnchants();
+		case GATHER_MANA -> self.gatherMana(axis);
+		case DO_ENCHANT -> { // Enchant
 			if (self.stageTicks >= 100) {
 				for (EnchantmentInstance data : self.enchants) {
 					if (EnchantmentHelper.getItemEnchantmentLevel(data.enchantment, self.itemToEnchant) == 0) {
@@ -290,40 +286,29 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 				level.blockEvent(worldPosition, ModBlocks.enchanter, CRAFT_EFFECT_EVENT, 0);
 				self.advanceStage();
 			}
-			break;
 		}
-		case RESET: { // Reset
+		case RESET -> { // Reset
 			if (self.stageTicks >= 20) {
 				self.advanceStage();
 			}
 
-			break;
 		}
-		default:
-			break;
+		default -> {}
 		}
 	}
 
 	private void advanceStage() {
 		switch (stage) {
-		case IDLE:
-			stage = State.GATHER_ENCHANTS;
-			break;
-		case GATHER_ENCHANTS:
-			stage = State.GATHER_MANA;
-			break;
-		case GATHER_MANA:
-			stage = State.DO_ENCHANT;
-			break;
-		case DO_ENCHANT: {
+		case IDLE -> stage = State.GATHER_ENCHANTS;
+		case GATHER_ENCHANTS -> stage = State.GATHER_MANA;
+		case GATHER_MANA -> stage = State.DO_ENCHANT;
+		case DO_ENCHANT -> {
 			stage = State.RESET;
 			stage3EndTicks = stageTicks;
-			break;
 		}
-		case RESET: {
+		case RESET -> {
 			stage = State.IDLE;
 			stage3EndTicks = 0;
-			break;
 		}
 		}
 
@@ -455,15 +440,10 @@ public class TileEnchanter extends TileMod implements ISparkAttachable {
 			return null;
 		}
 
-		switch (rot) {
-		default:
-		case NONE:
-		case CLOCKWISE_180:
-			return Direction.Axis.Z;
-		case CLOCKWISE_90:
-		case COUNTERCLOCKWISE_90:
-			return Direction.Axis.X;
-		}
+		return switch (rot) {
+		case NONE, CLOCKWISE_180 -> Direction.Axis.Z;
+		case CLOCKWISE_90, COUNTERCLOCKWISE_90 -> Direction.Axis.X;
+		};
 	}
 
 	@Override

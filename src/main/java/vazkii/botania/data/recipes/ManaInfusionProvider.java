@@ -132,6 +132,8 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		consumer.accept(FinishedRecipe.alchemy(id("diorite_to_granite"), new ItemStack(Blocks.GRANITE), ingr(Blocks.DIORITE), 200));
 		consumer.accept(FinishedRecipe.alchemy(id("granite_to_andesite"), new ItemStack(Blocks.ANDESITE), ingr(Blocks.GRANITE), 200));
 
+		cycle(consumer, 200, "botania:117_stone_cycle", Blocks.TUFF, Blocks.CALCITE, Blocks.DEEPSLATE);
+
 		cycle(consumer, 500, "botania:shrub_cycle", Blocks.FERN, Blocks.DEAD_BUSH, Blocks.GRASS);
 
 		// NB: No wither rose is intentional
@@ -141,7 +143,7 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 
 		consumer.accept(FinishedRecipe.alchemy(id("chorus_fruit_to_flower"), new ItemStack(Blocks.CHORUS_FLOWER), ingr(Items.POPPED_CHORUS_FRUIT), 10000));
 
-		cycle(consumer, 240, "botania:berry_cycle", Items.APPLE, Items.SWEET_BERRIES);
+		cycle(consumer, 240, "botania:berry_cycle", Items.APPLE, Items.SWEET_BERRIES, Items.GLOW_BERRIES);
 
 		consumer.accept(mini(ModSubtiles.agricarnationChibi, ModSubtiles.agricarnation));
 		consumer.accept(mini(ModSubtiles.clayconiaChibi, ModSubtiles.clayconia));
@@ -169,6 +171,8 @@ public class ManaInfusionProvider extends BotaniaRecipeProvider {
 		consumer.accept(FinishedRecipe.conjuration(id("jungle_leaves_dupe"), new ItemStack(Blocks.JUNGLE_LEAVES, 2), ingr(Blocks.JUNGLE_LEAVES), 2000));
 		consumer.accept(FinishedRecipe.conjuration(id("acacia_leaves_dupe"), new ItemStack(Blocks.ACACIA_LEAVES, 2), ingr(Blocks.ACACIA_LEAVES), 2000));
 		consumer.accept(FinishedRecipe.conjuration(id("dark_oak_leaves_dupe"), new ItemStack(Blocks.DARK_OAK_LEAVES, 2), ingr(Blocks.DARK_OAK_LEAVES), 2000));
+		consumer.accept(FinishedRecipe.conjuration(id("azalea_leaves_dupe"), new ItemStack(Blocks.AZALEA_LEAVES, 2), ingr(Blocks.AZALEA_LEAVES), 2000));
+		consumer.accept(FinishedRecipe.conjuration(id("flowering_azalea_leaves_dupe"), new ItemStack(Blocks.FLOWERING_AZALEA_LEAVES, 2), ingr(Blocks.FLOWERING_AZALEA_LEAVES), 2000));
 
 		consumer.accept(FinishedRecipe.conjuration(id("grass"), new ItemStack(Blocks.GRASS, 2), ingr(Blocks.GRASS), 800));
 	}

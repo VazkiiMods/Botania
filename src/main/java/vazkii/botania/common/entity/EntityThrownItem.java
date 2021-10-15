@@ -9,7 +9,6 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -25,7 +24,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import vazkii.botania.common.network.PacketSpawnEntity;
 import vazkii.botania.mixin.AccessorItemEntity;
 
 import javax.annotation.Nonnull;
@@ -51,17 +49,11 @@ public class EntityThrownItem extends ItemEntity {
 		return ModEntities.THROWN_ITEM;
 	}
 
-	@Nonnull
-	@Override
-	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnEntity.make(this);
-	}
-
 	@Override
 	public void tick() {
 		super.tick();
 
-		// [VanillaCopy] derivative from ThrowableEntity
+		// [VanillaCopy] derivative from ThrowableProjectile
 		int pickupDelay = ((AccessorItemEntity) this).getPickupDelay();
 		Predicate<Entity> filter = e -> !e.isSpectator() && e.isAlive() && e.isPickable() && (!(e instanceof Player) || pickupDelay == 0);
 		HitResult hitResult = ProjectileUtil.getHitResult(this, filter);

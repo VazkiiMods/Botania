@@ -49,37 +49,58 @@ public class ModRecipeTypes {
 	public static final RecipeType<ITerraPlateRecipe> TERRA_PLATE_TYPE = new RecipeType<>();
 	public static final RecipeSerializer<RecipeTerraPlate> TERRA_PLATE_SERIALIZER = new RecipeTerraPlate.Serializer();
 
+	public static final RecipeType<IOrechidRecipe> ORECHID_TYPE = new RecipeType<>();
+	public static final RecipeSerializer<RecipeOrechid> ORECHID_SERIALIZER = new RecipeOrechid.Serializer();
+
+	public static final RecipeType<IOrechidRecipe> ORECHID_IGNEM_TYPE = new RecipeType<>();
+	public static final RecipeSerializer<RecipeOrechidIgnem> ORECHID_IGNEM_SERIALIZER = new RecipeOrechidIgnem.Serializer();
+
+	public static final RecipeType<IOrechidRecipe> MARIMORPHOSIS_TYPE = new RecipeType<>();
+	public static final RecipeSerializer<RecipeMarimorphosis> MARIMORPHOSIS_SERIALIZER = new RecipeMarimorphosis.Serializer();
+
 	public static void registerRecipeTypes() {
-		ResourceLocation id = prefix("elven_trade");
+		ResourceLocation id = IElvenTradeRecipe.TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, ELVEN_TRADE_TYPE);
 		Registry<RecipeSerializer<?>> r = Registry.RECIPE_SERIALIZER;
 		register(r, id, ELVEN_TRADE_SERIALIZER);
 		register(r, prefix("elven_trade_lexicon"), LEXICON_ELVEN_TRADE_SERIALIZER);
 
-		id = prefix("mana_infusion");
+		id = IManaInfusionRecipe.TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, MANA_INFUSION_TYPE);
 		register(r, id, MANA_INFUSION_SERIALIZER);
 
-		id = prefix("pure_daisy");
+		id = IPureDaisyRecipe.TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, PURE_DAISY_TYPE);
 		register(r, id, PURE_DAISY_SERIALIZER);
 
-		id = prefix("brew");
+		id = IBrewRecipe.TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, BREW_TYPE);
 		register(r, id, BREW_SERIALIZER);
 
-		id = prefix("petal_apothecary");
+		id = IPetalRecipe.TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, PETAL_TYPE);
 		register(r, id, PETAL_SERIALIZER);
 
-		id = prefix("runic_altar");
+		id = IRuneAltarRecipe.TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, RUNE_TYPE);
 		register(r, id, RUNE_SERIALIZER);
 		register(r, prefix("runic_altar_head"), RUNE_HEAD_SERIALIZER);
 
-		id = prefix("terra_plate");
+		id = ITerraPlateRecipe.TYPE_ID;
 		Registry.register(Registry.RECIPE_TYPE, id, TERRA_PLATE_TYPE);
 		register(r, id, TERRA_PLATE_SERIALIZER);
+
+		id = IOrechidRecipe.TYPE_ID;
+		Registry.register(Registry.RECIPE_TYPE, id, ORECHID_TYPE);
+		register(r, id, ORECHID_SERIALIZER);
+
+		id = IOrechidRecipe.IGNEM_TYPE_ID;
+		Registry.register(Registry.RECIPE_TYPE, id, ORECHID_IGNEM_TYPE);
+		register(r, id, ORECHID_IGNEM_SERIALIZER);
+
+		id = IOrechidRecipe.MARIMORPHOSIS_TYPE_ID;
+		Registry.register(Registry.RECIPE_TYPE, id, MARIMORPHOSIS_TYPE);
+		register(r, id, MARIMORPHOSIS_SERIALIZER);
 	}
 
 	private static class RecipeType<T extends Recipe<?>> implements net.minecraft.world.item.crafting.RecipeType<T> {

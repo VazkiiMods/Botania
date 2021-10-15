@@ -51,13 +51,15 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.TallFlowerBlock;
+import net.minecraft.world.phys.Vec3;
 
 import org.lwjgl.glfw.GLFW;
 
 import vazkii.botania.client.core.handler.*;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.client.fx.FXLightning;
+import vazkii.botania.client.fx.BoltEffect;
+import vazkii.botania.client.fx.BoltRenderer;
 import vazkii.botania.client.fx.ModParticles;
 import vazkii.botania.client.model.ModLayerDefinitions;
 import vazkii.botania.client.render.entity.RenderBabylonWeapon;
@@ -78,7 +80,6 @@ import vazkii.botania.common.block.decor.BlockModMushroom;
 import vazkii.botania.common.block.mana.BlockPool;
 import vazkii.botania.common.core.handler.ConfigHandler;
 import vazkii.botania.common.core.helper.ItemNBTHelper;
-import vazkii.botania.common.core.helper.Vector3;
 import vazkii.botania.common.core.proxy.IProxy;
 import vazkii.botania.common.entity.EntityDoppleganger;
 import vazkii.botania.common.entity.ModEntities;
@@ -290,11 +291,9 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.prism, RenderType.translucent());
 
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.starfield, RenderType.cutoutMipped());
-		/* todo 1.16-fabric
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.abstrusePlatform, t -> true);
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.infrangiblePlatform, t -> true);
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.spectralPlatform, t -> true);
-		*/
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.abstrusePlatform, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.infrangiblePlatform, RenderType.translucent());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.spectralPlatform, RenderType.translucent());
 
 		Registry.BLOCK.stream().filter(b -> Registry.BLOCK.getKey(b).getNamespace().equals(LibMisc.MOD_ID))
 				.forEach(b -> {
@@ -349,11 +348,6 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	}
 
 	@Override
-	public boolean isTheClientPlayer(LivingEntity entity) {
-		return entity == Minecraft.getInstance().player;
-	}
-
-	@Override
 	public Player getClientPlayer() {
 		return Minecraft.getInstance().player;
 	}
@@ -369,8 +363,9 @@ public class ClientProxy implements IProxy, ClientModInitializer {
 	}
 
 	@Override
-	public void lightningFX(Vector3 vectorStart, Vector3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
-		Minecraft.getInstance().particleEngine.add(new FXLightning(Minecraft.getInstance().level, vectorStart, vectorEnd, ticksPerMeter, seed, colorOuter, colorInner));
+	public void lightningFX(Vec3 vectorStart, Vec3 vectorEnd, float ticksPerMeter, long seed, int colorOuter, int colorInner) {
+		// todo wip, params are ignored
+		BoltRenderer.INSTANCE.add(new BoltEffect(vectorStart, vectorEnd).size(0.08F), ClientTickHandler.partialTicks);
 	}
 
 	@Override

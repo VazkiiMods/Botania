@@ -162,18 +162,14 @@ public class ItemManasteelArmor extends ArmorItem implements IManaUsingItem, IPh
 			return false;
 		}
 
-		switch (slot) {
-		case HEAD:
-			return stack.is(ModItems.manasteelHelm);
-		case CHEST:
-			return stack.is(ModItems.manasteelChest);
-		case LEGS:
-			return stack.is(ModItems.manasteelLegs);
-		case FEET:
-			return stack.is(ModItems.manasteelBoots);
-		}
+		return switch (slot) {
+		case HEAD -> stack.is(ModItems.manasteelHelm);
+		case CHEST -> stack.is(ModItems.manasteelChest);
+		case LEGS -> stack.is(ModItems.manasteelLegs);
+		case FEET -> stack.is(ModItems.manasteelBoots);
+		default -> false;
+		};
 
-		return false;
 	}
 
 	private int getSetPiecesEquipped(Player player) {

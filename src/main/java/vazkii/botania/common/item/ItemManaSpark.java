@@ -35,8 +35,7 @@ public class ItemManaSpark extends Item {
 
 	public static boolean attachSpark(Level world, BlockPos pos, ItemStack stack) {
 		BlockEntity tile = world.getBlockEntity(pos);
-		if (tile instanceof ISparkAttachable) {
-			ISparkAttachable attach = (ISparkAttachable) tile;
+		if (tile instanceof ISparkAttachable attach) {
 			if (attach.canAttachSpark(stack) && attach.getAttachedSpark() == null) {
 				if (!world.isClientSide) {
 					stack.shrink(1);

@@ -82,10 +82,10 @@ public class SubTileLabellia extends TileEntityFunctionalFlower {
 
 					if (!nameableItems.isEmpty() || !nameableEntities.isEmpty()) {
 						for (LivingEntity e : nameableEntities) {
-							// [VanillaCopy] from net.minecraft.item.NameTagItem
+							// [VanillaCopy] from NameTagItem
 							e.setCustomName(name);
-							if (e instanceof Mob) {
-								((Mob) e).setPersistenceRequired();
+							if (e instanceof Mob mob) {
+								mob.setPersistenceRequired();
 							}
 						}
 						for (ItemEntity i : nameableItems) {
@@ -98,8 +98,7 @@ public class SubTileLabellia extends TileEntityFunctionalFlower {
 						}
 						addMana(-COST);
 						nameTag.shrink(1);
-						level.playSound(null, x + 0.5, y + 0.5, z + 0.5, ModSounds.labellia,
-								SoundSource.BLOCKS, 1, 1);
+						level.playSound(null, x + 0.5, y + 0.5, z + 0.5, ModSounds.labellia, SoundSource.BLOCKS, 1F, 1F);
 						break;
 					}
 				}

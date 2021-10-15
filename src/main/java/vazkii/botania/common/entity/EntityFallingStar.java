@@ -9,7 +9,6 @@
 package vazkii.botania.common.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -25,7 +24,6 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.core.handler.ConfigHandler;
-import vazkii.botania.common.network.PacketSpawnEntity;
 
 import java.util.List;
 
@@ -40,11 +38,6 @@ public class EntityFallingStar extends EntityThrowableCopy {
 
 	@Override
 	protected void defineSynchedData() {}
-
-	@Override
-	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnEntity.make(this);
-	}
 
 	@Override
 	public void tick() {

@@ -10,7 +10,6 @@ package vazkii.botania.common.item.rod;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -26,6 +25,7 @@ import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
 import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.client.lib.LibResources;
+import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.entity.EntityFlameRing;
 import vazkii.botania.common.entity.ModEntities;
 
@@ -60,7 +60,7 @@ public class ItemFireRod extends Item implements IManaUsingItem, IAvatarWieldabl
 			}
 			ManaItemHandler.instance().requestManaExactForTool(stack, player, COST, true);
 
-			ctx.getLevel().playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.BLAZE_AMBIENT, player != null ? SoundSource.PLAYERS : SoundSource.BLOCKS, 1F, 1F);
+			ctx.getLevel().playSound(null, pos.getX(), pos.getY(), pos.getZ(), ModSounds.fireRod, player != null ? SoundSource.PLAYERS : SoundSource.BLOCKS, 1F, 1F);
 		}
 
 		return InteractionResult.SUCCESS;

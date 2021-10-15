@@ -8,6 +8,8 @@
  */
 package vazkii.botania.common.compat.rei;
 
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
@@ -17,9 +19,6 @@ import vazkii.botania.api.recipe.StateIngredient;
 import vazkii.botania.common.crafting.RecipeManaInfusion;
 
 import javax.annotation.Nullable;
-
-
-import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
 @Environment(EnvType.CLIENT)
 public class ManaPoolREIDisplay extends BotaniaRecipeDisplay<RecipeManaInfusion> {

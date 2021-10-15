@@ -8,11 +8,10 @@
  */
 package vazkii.botania.common.components;
 
+import dev.onyxstudios.cca.api.v3.component.Component;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.monster.Slime;
-
-
-import dev.onyxstudios.cca.api.v3.component.Component;
 
 public class NarslimmusComponent implements Component {
 	public static final String TAG_WORLD_SPAWNED = "botania:world_spawned";

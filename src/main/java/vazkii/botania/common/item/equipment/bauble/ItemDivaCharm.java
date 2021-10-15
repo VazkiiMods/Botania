@@ -47,11 +47,10 @@ public class ItemDivaCharm extends ItemBauble implements IManaUsingItem {
 	}
 
 	public static void onEntityDamaged(Player player, Entity entity) {
-		if (entity instanceof Mob
+		if (entity instanceof Mob target
 				&& !entity.level.isClientSide
 				&& entity.canChangeDimensions()
 				&& Math.random() < 0.6F) {
-			Mob target = (Mob) entity;
 			ItemStack amulet = EquipmentHandler.findOrEmpty(ModItems.divaCharm, player);
 
 			if (!amulet.isEmpty()) {

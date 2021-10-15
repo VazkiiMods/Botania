@@ -20,14 +20,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.recipe.StateIngredient;
-
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.List;
 import java.util.Random;
-import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 public class StateIngredientTag extends StateIngredientBlocks {
@@ -82,19 +78,6 @@ public class StateIngredientTag extends StateIngredientBlocks {
 	@Override
 	public List<BlockState> getDisplayed() {
 		return resolve().getValues().stream().map(Block::defaultBlockState).collect(Collectors.toList());
-	}
-
-	@Nullable
-	@Override
-	public StateIngredient resolveAndFilter(UnaryOperator<List<Block>> operator) {
-		if (resolve().getValues().isEmpty()) {
-			return null;
-		}
-		List<Block> list = operator.apply(getBlocks());
-		if (list != null) {
-			return list.isEmpty() ? null : StateIngredientHelper.of(list);
-		}
-		return this;
 	}
 
 	public ResourceLocation getTagId() {

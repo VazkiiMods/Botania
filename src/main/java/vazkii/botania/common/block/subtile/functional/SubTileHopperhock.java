@@ -127,7 +127,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 			if (invToPutItemIn != null && item.isAlive()) {
 				SubTileSpectranthemum.spawnExplosionParticles(item, 3);
 				HopperBlockEntity.addItem(null, invToPutItemIn, stack.split(amountToPutIn), direction);
-				item.setItem(stack); // Just in case someone subclasses EntityItem and changes something important.
+				item.setItem(stack); // Just in case someone subclasses ItemEntity and changes something important.
 				pulledAny = true;
 			}
 		}
@@ -175,8 +175,7 @@ public class SubTileHopperhock extends TileEntityFunctionalFlower {
 			return false;
 		}
 
-		if (item instanceof IManaItem) {
-			IManaItem manaItem = (IManaItem) item;
+		if (item instanceof IManaItem manaItem) {
 			return getFullness(manaItem, stack) == getFullness(manaItem, filter);
 		} else {
 			return ItemStack.tagMatches(filter, stack);

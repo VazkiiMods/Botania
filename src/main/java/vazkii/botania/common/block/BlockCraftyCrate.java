@@ -91,8 +91,7 @@ public class BlockCraftyCrate extends BlockOpenCrate implements IWandHUD, IWanda
 	@Override
 	public void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos) {
 		BlockEntity tile = world.getBlockEntity(pos);
-		if (tile instanceof TileCraftCrate) {
-			TileCraftCrate craft = (TileCraftCrate) tile;
+		if (tile instanceof TileCraftCrate craft) {
 
 			int width = 52;
 			int height = 52;

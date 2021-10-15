@@ -11,7 +11,6 @@ package vazkii.botania.common.entity;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -35,9 +34,8 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import vazkii.botania.common.core.helper.Vector3;
+import vazkii.botania.common.core.helper.VecHelper;
 import vazkii.botania.common.item.ModItems;
-import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 
@@ -65,12 +63,6 @@ public class EntityThornChakram extends ThrowableProjectile implements ItemSuppl
 		entityData.define(RETURN_TO, -1);
 	}
 
-	@Nonnull
-	@Override
-	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnEntity.make(this);
-	}
-
 	@Override
 	public boolean ignoreExplosion() {
 		return true;
@@ -94,7 +86,7 @@ public class EntityThornChakram extends ThrowableProjectile implements ItemSuppl
 		if (isReturning()) {
 			Entity thrower = getOwner();
 			if (thrower != null) {
-				Vec3 motion = Vector3.fromEntityCenterVanilla(thrower).subtract(Vector3.fromEntityCenterVanilla(this)).normalize();
+				Vec3 motion = VecHelper.fromEntityCenter(thrower).subtract(VecHelper.fromEntityCenter(this)).normalize();
 				setDeltaMovement(motion);
 			}
 		}
@@ -142,7 +134,7 @@ public class EntityThornChakram extends ThrowableProjectile implements ItemSuppl
 		}
 
 		switch (pos.getType()) {
-		case BLOCK: {
+		case BLOCK -> {
 			BlockHitResult rtr = (BlockHitResult) pos;
 			Block block = level.getBlockState(rtr.getBlockPos()).getBlock();
 			if (block instanceof BushBlock || block instanceof LeavesBlock) {
@@ -163,10 +155,8 @@ public class EntityThornChakram extends ThrowableProjectile implements ItemSuppl
 					setTimesBounced(getTimesBounced() + 1);
 				}
 			}
-
-			break;
 		}
-		case ENTITY: {
+		case ENTITY -> {
 			EntityHitResult rtr = (EntityHitResult) pos;
 			if (!level.isClientSide && rtr.getEntity() instanceof LivingEntity && rtr.getEntity() != getOwner()) {
 				Entity thrower = getOwner();
@@ -183,11 +173,8 @@ public class EntityThornChakram extends ThrowableProjectile implements ItemSuppl
 					((LivingEntity) rtr.getEntity()).addEffect(new MobEffectInstance(MobEffects.POISON, 60, 0));
 				}
 			}
-
-			break;
 		}
-		default:
-			break;
+		default -> {}
 		}
 	}
 

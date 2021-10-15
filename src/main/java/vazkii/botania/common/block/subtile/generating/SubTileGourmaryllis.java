@@ -107,10 +107,12 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 				digestingMana = 0;
 
 				float burpPitch = (float) Math.pow(2.0, (streakLength == 0 ? -lastFoodCount : streakLength) / 12.0);
-				getLevel().playSound(null, getEffectivePos(), SoundEvents.PLAYER_BURP, SoundSource.BLOCKS, 1, burpPitch);
+				//Usage of vanilla sound event: Subtitle is just "Burp", at least in English, and not specific to players.
+				getLevel().playSound(null, getEffectivePos(), SoundEvents.PLAYER_BURP, SoundSource.BLOCKS, 1F, burpPitch);
 				sync();
 			} else if (cooldown % munchInterval == 0) {
-				getLevel().playSound(null, getEffectivePos(), SoundEvents.GENERIC_EAT, SoundSource.BLOCKS, 0.5f, 1);
+				//Usage of vanilla sound event: Subtitle is "Eating", generic sounds are meant to be reused.
+				getLevel().playSound(null, getEffectivePos(), SoundEvents.GENERIC_EAT, SoundSource.BLOCKS, 0.5F, 1F);
 
 				Vec3 offset = getLevel().getBlockState(getEffectivePos()).getOffset(getLevel(), getEffectivePos()).add(0.4, 0.6, 0.4);
 
@@ -131,6 +133,7 @@ public class SubTileGourmaryllis extends TileEntityGeneratingFlower {
 					digestingMana = val * val * 70;
 					digestingMana *= getMultiplierForStreak(streakLength);
 					cooldown = val * 10;
+					//Usage of vanilla sound event: Subtitle is "Eating", generic sounds are meant to be reused.
 					item.playSound(SoundEvents.GENERIC_EAT, 0.2F, 0.6F);
 					sync();
 					((ServerLevel) getLevel()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, stack), item.getX(), item.getY(), item.getZ(), 20, 0.1D, 0.1D, 0.1D, 0.05D);

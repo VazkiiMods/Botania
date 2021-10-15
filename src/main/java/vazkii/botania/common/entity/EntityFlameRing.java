@@ -10,6 +10,7 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -21,7 +22,6 @@ import net.minecraft.world.phys.AABB;
 
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.helper.MathHelper;
-import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 
@@ -110,6 +110,6 @@ public class EntityFlameRing extends Entity {
 	@Nonnull
 	@Override
 	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnEntity.make(this);
+		return new ClientboundAddEntityPacket(this);
 	}
 }

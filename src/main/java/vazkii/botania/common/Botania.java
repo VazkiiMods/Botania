@@ -90,6 +90,7 @@ public class Botania implements ModInitializer {
 	public static IProxy proxy = new IProxy() {};
 	public static Consumer<Supplier<Runnable>> runOnClient = s -> {};
 	public static volatile boolean configLoaded = false;
+	public static MinecraftServer currentServer;
 
 	public static final Logger LOGGER = LogManager.getLogger(LibMisc.MOD_ID);
 
@@ -123,6 +124,7 @@ public class Botania implements ModInitializer {
 		PixieHandler.registerAttribute();
 
 		commonSetup();
+		ServerLifecycleEvents.SERVER_STARTING.register(this::serverStarting);
 		ServerLifecycleEvents.SERVER_STARTED.register(this::serverAboutToStart);
 		CommandRegistrationCallback.EVENT.register(this::registerCommands);
 		ServerLifecycleEvents.SERVER_STOPPING.register(this::serverStopping);
@@ -135,7 +137,7 @@ public class Botania implements ModInitializer {
 		ManaNetworkCallback.EVENT.register(ManaNetworkHandler.instance::onNetworkEvent);
 		LootTableLoadingCallback.EVENT.register(LootHandler::lootLoad);
 		ServerPlayConnectionEvents.DISCONNECT.register(ItemFlightTiara::playerLoggedOut);
-		OrechidResourceListener.registerListener();
+		OrechidManager.registerListener();
 		TileCraftCrate.registerListener();
 
 		ModLootModifiers.init();
@@ -250,6 +252,10 @@ public class Botania implements ModInitializer {
 		}
 	}
 
+	private void serverStarting(MinecraftServer server) {
+		currentServer = server;
+	}
+
 	private void serverAboutToStart(MinecraftServer server) {
 		if (BotaniaAPI.instance().getClass() != BotaniaAPIImpl.class) {
 			String clname = BotaniaAPI.instance().getClass().getName();
@@ -274,6 +280,7 @@ public class Botania implements ModInitializer {
 	private void serverStopping(MinecraftServer server) {
 		ManaNetworkHandler.instance.clear();
 		TileCorporeaIndex.clearIndexCache();
+		currentServer = null;
 	}
 
 }

@@ -33,15 +33,11 @@ public interface IPetalApothecary {
 		}
 
 		public Fluid asVanilla() {
-			switch (this) {
-			default:
-			case EMPTY:
-				return Fluids.EMPTY;
-			case WATER:
-				return Fluids.WATER;
-			case LAVA:
-				return Fluids.LAVA;
-			}
+			return switch (this) {
+			case EMPTY -> Fluids.EMPTY;
+			case WATER -> Fluids.WATER;
+			case LAVA -> Fluids.LAVA;
+			};
 		}
 	}
 

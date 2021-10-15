@@ -8,12 +8,11 @@
  */
 package vazkii.botania.common.compat.rei;
 
+import me.shedaniel.rei.api.common.category.CategoryIdentifier;
+
 import org.jetbrains.annotations.NotNull;
 
 import vazkii.botania.common.crafting.RecipeRuneAltar;
-
-
-import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 
 public class RunicAltarREIDisplay extends BotaniaRecipeDisplay<RecipeRuneAltar> {
 	public RunicAltarREIDisplay(RecipeRuneAltar recipe) {

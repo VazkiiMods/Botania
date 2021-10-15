@@ -8,6 +8,12 @@
  */
 package vazkii.botania.common.components;
 
+import dev.onyxstudios.cca.api.v3.component.ComponentKey;
+import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
+import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
+import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
+import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
+
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.monster.CaveSpider;
@@ -23,12 +29,6 @@ import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 
 import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
-
-import dev.onyxstudios.cca.api.v3.component.ComponentKey;
-import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
-import dev.onyxstudios.cca.api.v3.entity.EntityComponentFactoryRegistry;
-import dev.onyxstudios.cca.api.v3.entity.EntityComponentInitializer;
-import dev.onyxstudios.cca.api.v3.entity.RespawnCopyStrategy;
 
 public class EntityComponents implements EntityComponentInitializer {
 	public static final ComponentKey<LooniumComponent> LOONIUM_DROP = ComponentRegistryV3.INSTANCE.getOrCreate(prefix("loonium_drop"), LooniumComponent.class);

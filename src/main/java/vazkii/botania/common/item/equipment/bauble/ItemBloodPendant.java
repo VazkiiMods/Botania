@@ -96,8 +96,7 @@ public class ItemBloodPendant extends ItemBauble implements IBrewContainer, IBre
 	@Override
 	public void onWornTick(ItemStack stack, LivingEntity player) {
 		Brew brew = ((IBrewItem) stack.getItem()).getBrew(stack);
-		if (brew != ModBrews.fallbackBrew && player instanceof Player && !player.level.isClientSide) {
-			Player eplayer = (Player) player;
+		if (brew != ModBrews.fallbackBrew && player instanceof Player eplayer && !player.level.isClientSide) {
 			MobEffectInstance effect = brew.getPotionEffects(stack).get(0);
 			float cost = (float) brew.getManaCost(stack) / effect.getDuration() / (1 + effect.getAmplifier()) * 2.5F;
 			boolean doRand = cost < 1;

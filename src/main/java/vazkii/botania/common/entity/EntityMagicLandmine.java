@@ -10,6 +10,7 @@ package vazkii.botania.common.entity;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundAddEntityPacket;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -22,7 +23,6 @@ import net.minecraft.world.phys.Vec3;
 
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.core.handler.ModSounds;
-import vazkii.botania.common.network.PacketSpawnEntity;
 
 import javax.annotation.Nonnull;
 
@@ -52,7 +52,7 @@ public class EntityMagicLandmine extends Entity {
 		}
 
 		if (tickCount >= 55) {
-			level.playSound(null, getX(), getY(), getZ(), ModSounds.gaiaTrap, SoundSource.NEUTRAL, 0.3F, 1F);
+			level.playSound(null, getX(), getY(), getZ(), ModSounds.gaiaTrap, SoundSource.NEUTRAL, 1F, 1F);
 
 			float m = 0.35F;
 			g = 0.4F;
@@ -88,6 +88,6 @@ public class EntityMagicLandmine extends Entity {
 	@Nonnull
 	@Override
 	public Packet<?> getAddEntityPacket() {
-		return PacketSpawnEntity.make(this);
+		return new ClientboundAddEntityPacket(this);
 	}
 }

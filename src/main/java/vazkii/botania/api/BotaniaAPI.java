@@ -37,13 +37,11 @@ import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.internal.DummyManaNetwork;
 import vazkii.botania.api.internal.IManaNetwork;
-import vazkii.botania.api.internal.OrechidOutput;
 import vazkii.botania.api.item.IHornHarvestable;
 
 import javax.annotation.Nonnull;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -81,20 +79,6 @@ public interface BotaniaAPI {
 	 */
 	default Registry<Brew> getBrewRegistry() {
 		return null;
-	}
-
-	/**
-	 * Get an unmodifiable list of outputs for the orechid.
-	 */
-	default List<OrechidOutput> getOrechidWeights() {
-		return Collections.emptyList();
-	}
-
-	/**
-	 * Get an unmodifiable list of outputs for the orechid ignem.
-	 */
-	default List<OrechidOutput> getNetherOrechidWeights() {
-		return Collections.emptyList();
 	}
 
 	default Map<ResourceLocation, Function<DyeColor, Block>> getPaintableBlocks() {
