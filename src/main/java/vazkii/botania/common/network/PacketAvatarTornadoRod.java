@@ -35,16 +35,18 @@ public class PacketAvatarTornadoRod {
 		}
 	}
 
-	public static void handle(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
-		boolean elytra = buf.readBoolean();
-		client.execute(() -> {
-			Player player = Minecraft.getInstance().player;
-			Level world = Minecraft.getInstance().level;
-			if (elytra) {
-				ItemTornadoRod.doAvatarElytraBoost(player, world);
-			} else {
-				ItemTornadoRod.doAvatarJump(player, world);
-			}
-		});
+	public static class Handler {
+		public static void handle(Minecraft client, ClientPacketListener handler, FriendlyByteBuf buf, PacketSender responseSender) {
+			boolean elytra = buf.readBoolean();
+			client.execute(() -> {
+				Player player = Minecraft.getInstance().player;
+				Level world = Minecraft.getInstance().level;
+				if (elytra) {
+					ItemTornadoRod.doAvatarElytraBoost(player, world);
+				} else {
+					ItemTornadoRod.doAvatarJump(player, world);
+				}
+			});
+		}
 	}
 }
