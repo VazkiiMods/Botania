@@ -134,7 +134,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 		}
 
 		ItemStack stack = player.getItemInHand(hand);
-		if (!stack.isEmpty() && stack.getItem() == this) {
+		if (!stack.isEmpty() && stack.is(this)) {
 			// Returning SUCCESS or FAIL from this callback prevents vanilla from sending the C2S packet for block
 			// breaking. Returning PASS does a bunch of things we don't want, like creative block breaking and action
 			// acknowledgements, so send a packet directly to trigger this event on the server.
