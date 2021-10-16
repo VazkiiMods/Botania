@@ -210,6 +210,7 @@ public class Botania implements ModInitializer {
 		PatchouliAPI.get().registerMultiblock(prefix("gaia_ritual"), mb);
 
 		ModBlocks.addDispenserBehaviours();
+		ModBlocks.addAxeStripping();
 
 		ModStats.init();
 		registerPaintables();

@@ -9,6 +9,7 @@
 package vazkii.botania.common.block;
 
 import net.fabricmc.fabric.api.registry.FuelRegistry;
+import net.fabricmc.fabric.api.registry.StrippableBlockRegistry;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.Position;
 import net.minecraft.core.Registry;
@@ -954,6 +955,17 @@ public final class ModBlocks {
 		});
 
 		SeedBehaviours.init();
+	}
+
+	public static void addAxeStripping() {
+		StrippableBlockRegistry.register(livingwoodLog, livingwoodLogStripped);
+		StrippableBlockRegistry.register(livingwoodLogGlimmering, livingwoodLogStrippedGlimmering);
+		StrippableBlockRegistry.register(livingwood, livingwoodStripped);
+		StrippableBlockRegistry.register(livingwoodGlimmering, livingwoodStrippedGlimmering);
+		StrippableBlockRegistry.register(dreamwoodLog, dreamwoodLogStripped);
+		StrippableBlockRegistry.register(dreamwoodLogGlimmering, dreamwoodLogStrippedGlimmering);
+		StrippableBlockRegistry.register(dreamwood, dreamwoodStripped);
+		StrippableBlockRegistry.register(dreamwoodGlimmering, dreamwoodStrippedGlimmering);
 	}
 
 	public static Block getFlower(DyeColor color) {
