@@ -6,17 +6,23 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.item;
+package vazkii.botania.api.block;
 
+import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
+import vazkii.botania.api.BotaniaAPI;
+
 /**
- * This interface handles uprooting by the various horns in Botania.
- * Implementations can be registered via BotaniaAPI#registerHornHarvestableBlock
+ * Blocks with this capability can express custom logic when being
+ * harvested by Botania horns.
  */
 public interface IHornHarvestable {
+	BlockApiLookup<IHornHarvestable, Unit> API = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "horn_harvestable"), IHornHarvestable.class, Unit.class);
 
 	/**
 	 * Returns true if this block can be uprooted.

@@ -80,13 +80,7 @@ public final class LibResources {
 	public static final String MISC_RAINBOW = PREFIX_MISC + "rainbow.png";
 	public static final String MISC_PLANET = PREFIX_MISC + "planet";
 
-	public static final String SHADER_PYLON_GLOW_FRAG = PREFIX_SHADER + "pylon_glow.frag";
-	public static final String SHADER_ENCHANTER_RUNE_FRAG = PREFIX_SHADER + "enchanter_rune.frag";
-	public static final String SHADER_DOPLLEGANGER_VERT = PREFIX_SHADER + "doppleganger.vert";
-	public static final String SHADER_DOPLLEGANGER_FRAG = PREFIX_SHADER + "doppleganger.frag";
-	public static final String SHADER_HALO_FRAG = PREFIX_SHADER + "halo.frag";
 	public static final String SHADER_DOPLLEGANGER_BAR_FRAG = PREFIX_SHADER + "doppleganger_bar.frag";
-	public static final String SHADER_TERRA_PLATE_RUNE_FRAG = PREFIX_SHADER + "terra_plate_rune.frag";
 	public static final String SHADER_FILM_GRAIN_FRAG = PREFIX_SHADER + "film_grain.frag";
 	public static final String SHADER_PASSTHROUGH_VERT = PREFIX_SHADER + "passthrough.vert";
 

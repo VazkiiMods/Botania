@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 
 import vazkii.botania.api.BotaniaAPIClient;
-import vazkii.botania.api.item.IFloatingFlower;
+import vazkii.botania.api.block.IFloatingFlower;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.client.render.tile.*;
 import vazkii.botania.common.block.ModBlocks;

@@ -25,7 +25,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Blocks;
 
-import vazkii.botania.api.item.IPetalApothecary;
+import vazkii.botania.api.block.IPetalApothecary;
 import vazkii.botania.client.core.handler.ClientTickHandler;
 import vazkii.botania.common.block.tile.TileAltar;
 

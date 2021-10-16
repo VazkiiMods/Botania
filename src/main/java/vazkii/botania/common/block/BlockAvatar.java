@@ -81,7 +81,7 @@ public class BlockAvatar extends BlockModWaterloggable implements EntityBlock {
 			avatar.getItemHandler().setItem(0, ItemStack.EMPTY);
 			player.getInventory().placeItemBackInInventory(stackOnAvatar);
 			return InteractionResult.SUCCESS;
-		} else if (!stackOnPlayer.isEmpty() && stackOnPlayer.getItem() instanceof IAvatarWieldable) {
+		} else if (!stackOnPlayer.isEmpty() && IAvatarWieldable.API.find(stackOnPlayer, Unit.INSTANCE) != null) {
 			avatar.getItemHandler().setItem(0, stackOnPlayer.split(1));
 			return InteractionResult.SUCCESS;
 		}

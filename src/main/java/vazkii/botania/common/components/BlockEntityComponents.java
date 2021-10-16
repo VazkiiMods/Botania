@@ -15,7 +15,7 @@ import dev.onyxstudios.cca.api.v3.component.ComponentRegistryV3;
 
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 
-import vazkii.botania.api.item.IExoflameHeatable;
+import vazkii.botania.api.block.IExoflameHeatable;
 import vazkii.botania.common.core.handler.ExoflameFurnaceHandler;
 
 public class BlockEntityComponents implements BlockComponentInitializer {

@@ -32,7 +32,6 @@ import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.internal.IManaNetwork;
-import vazkii.botania.api.item.IHornHarvestable;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.subtile.functional.SubTileSolegnolia;
 import vazkii.botania.common.brew.ModBrews;
@@ -264,7 +263,6 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	}
 
 	private final Map<ResourceLocation, Function<DyeColor, Block>> paintableBlocks = new ConcurrentHashMap<>();
-	private final Map<ResourceLocation, IHornHarvestable> hornHarvestableBlocks = new ConcurrentHashMap<>();
 
 	@Override
 	public Map<ResourceLocation, Function<DyeColor, Block>> getPaintableBlocks() {
@@ -274,20 +272,6 @@ public class BotaniaAPIImpl implements BotaniaAPI {
 	@Override
 	public void registerPaintableBlock(ResourceLocation block, Function<DyeColor, Block> transformer) {
 		paintableBlocks.put(block, transformer);
-	}
-
-	@Override
-	public Optional<IHornHarvestable> getHornHarvestable(Block block) {
-		if (block instanceof IHornHarvestable) {
-			// callers of this method on blocks which still implement the interface should still receive the instance
-			return Optional.of((IHornHarvestable) block);
-		}
-		return Optional.ofNullable(hornHarvestableBlocks.getOrDefault(Registry.BLOCK.getKey(block), null));
-	}
-
-	@Override
-	public void registerHornHarvestableBlock(ResourceLocation block, IHornHarvestable harvestable) {
-		hornHarvestableBlocks.put(block, harvestable);
 	}
 
 	@Override

@@ -19,7 +19,6 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.*;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -52,13 +51,14 @@ import javax.annotation.Nullable;
 
 import java.util.List;
 
-public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
+public class ItemBlackHoleTalisman extends Item {
 	public static final String TAG_ACTIVE = "active";
 	private static final String TAG_BLOCK_NAME = "blockName";
 	private static final String TAG_BLOCK_COUNT = "blockCount";
 
 	public ItemBlackHoleTalisman(Properties props) {
 		super(props);
+		IBlockProvider.API.registerForItems((stack, c) -> new BlockProvider(stack), this);
 	}
 
 	@Nonnull
@@ -254,29 +254,37 @@ public class ItemBlackHoleTalisman extends Item implements IBlockProvider {
 		return ItemNBTHelper.getInt(stack, TAG_BLOCK_COUNT, 0);
 	}
 
-	@Override
-	public boolean provideBlock(Player player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
-		Block stored = getBlock(stack);
-		if (stored == block) {
-			int count = getBlockCount(stack);
-			if (count > 0) {
-				if (doit) {
-					setCount(stack, count - 1);
+	protected static class BlockProvider implements IBlockProvider {
+		private final ItemStack stack;
+
+		protected BlockProvider(ItemStack stack) {
+			this.stack = stack;
+		}
+
+		@Override
+		public boolean provideBlock(Player player, ItemStack requestor, Block block, boolean doit) {
+			Block stored = getBlock(stack);
+			if (stored == block) {
+				int count = ItemBlackHoleTalisman.getBlockCount(stack);
+				if (count > 0) {
+					if (doit) {
+						setCount(stack, count - 1);
+					}
+					return true;
 				}
-				return true;
 			}
+
+			return false;
 		}
 
-		return false;
-	}
-
-	@Override
-	public int getBlockCount(Player player, ItemStack requestor, ItemStack stack, Block block) {
-		Block stored = getBlock(stack);
-		if (stored == block) {
-			return getBlockCount(stack);
+		@Override
+		public int getBlockCount(Player player, ItemStack requestor, Block block) {
+			Block stored = getBlock(stack);
+			if (stored == block) {
+				return ItemBlackHoleTalisman.getBlockCount(stack);
+			}
+			return 0;
 		}
-		return 0;
 	}
 
 	@Override

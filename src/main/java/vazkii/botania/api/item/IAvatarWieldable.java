@@ -8,22 +8,27 @@
  */
 package vazkii.botania.api.item;
 
+import net.fabricmc.fabric.api.lookup.v1.item.ItemApiLookup;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.util.Unit;
+
+import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.block.IAvatarTile;
 
 /**
- * An Item that implements this can be wielded by an Avatar.
+ * An Item that has this capability this can be wielded by an Avatar.
  */
 public interface IAvatarWieldable {
+	ItemApiLookup<IAvatarWieldable, Unit> API = ItemApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "avatar_wieldable"), IAvatarWieldable.class, Unit.class);
 
 	/**
 	 * Called on update of the avatar tile.
 	 */
-	void onAvatarUpdate(IAvatarTile tile, ItemStack stack);
+	void onAvatarUpdate(IAvatarTile tile);
 
 	/**
 	 * Gets the overlay resource to render on top of the avatar tile.
 	 */
-	ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack);
+	ResourceLocation getOverlayResource(IAvatarTile tile);
 
 }

@@ -133,7 +133,7 @@ public class ItemAstrolabe extends Item {
 			return;
 		}
 
-		List<ItemStack> stacksToCheck = new ArrayList<>();
+		List<IBlockProvider> providers = new ArrayList<>();
 		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 			ItemStack stackInSlot = player.getInventory().getItem(i);
 			if (!stackInSlot.isEmpty() && stackInSlot.is(blockToPlace.getItem())) {
@@ -141,16 +141,17 @@ public class ItemAstrolabe extends Item {
 				return;
 			}
 
-			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IBlockProvider) {
-				stacksToCheck.add(stackInSlot);
+			if (!stackInSlot.isEmpty()) {
+				var provider = IBlockProvider.API.find(stackInSlot, Unit.INSTANCE);
+				if (provider != null) {
+					providers.add(provider);
+				}
 			}
 		}
 
-		for (ItemStack providerStack : stacksToCheck) {
-			IBlockProvider prov = (IBlockProvider) providerStack.getItem();
-
-			if (prov.provideBlock(player, requestor, providerStack, block, false)) {
-				prov.provideBlock(player, requestor, providerStack, block, true);
+		for (IBlockProvider prov : providers) {
+			if (prov.provideBlock(player, requestor, block, false)) {
+				prov.provideBlock(player, requestor, block, true);
 				return;
 			}
 		}
@@ -166,7 +167,7 @@ public class ItemAstrolabe extends Item {
 
 		int required = blocks.size();
 		int current = 0;
-		List<ItemStack> stacksToCheck = new ArrayList<>();
+		List<IBlockProvider> providersToCheck = new ArrayList<>();
 		for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
 			ItemStack stackInSlot = player.getInventory().getItem(i);
 			if (!stackInSlot.isEmpty() && stackInSlot.is(reqStack.getItem())) {
@@ -175,14 +176,16 @@ public class ItemAstrolabe extends Item {
 					return true;
 				}
 			}
-			if (!stackInSlot.isEmpty() && stackInSlot.getItem() instanceof IBlockProvider) {
-				stacksToCheck.add(stackInSlot);
+			if (!stackInSlot.isEmpty()) {
+				var provider = IBlockProvider.API.find(stackInSlot, Unit.INSTANCE);
+				if (provider != null) {
+					providersToCheck.add(provider);
+				}
 			}
 		}
 
-		for (ItemStack providerStack : stacksToCheck) {
-			IBlockProvider prov = (IBlockProvider) providerStack.getItem();
-			int count = prov.getBlockCount(player, stack, providerStack, block);
+		for (IBlockProvider prov : providersToCheck) {
+			int count = prov.getBlockCount(player, stack, block);
 			if (count == -1) {
 				return true;
 			}

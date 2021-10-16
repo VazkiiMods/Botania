@@ -413,12 +413,7 @@ public class RecipeProvider extends BotaniaRecipeProvider {
 				.pattern("SRS")
 				.unlockedBy("has_item", conditionsFromItem(Items.REDSTONE_BLOCK))
 				.unlockedBy("has_alt_item", conditionsFromTag(ModTags.Items.INGOTS_MANASTEEL))
-				.save(/* todo 1.16-fabricWrapperResult.transformJson(consumer, json -> {
-							JsonArray array = new JsonArray();
-							array.add(FluxfieldCondition.SERIALIZER.getJson(new FluxfieldCondition(true)));
-							json.add("conditions", array);
-							}
-							)*/ consumer);
+				.save(consumer);
 		ShapedRecipeBuilder.shaped(ModBlocks.brewery)
 				.define('A', ModItems.runeMana)
 				.define('R', ModBlocks.livingrock)

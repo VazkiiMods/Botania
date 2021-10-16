@@ -21,7 +21,7 @@ import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
-import vazkii.botania.api.item.IAvatarTile;
+import vazkii.botania.api.block.IAvatarTile;
 import vazkii.botania.api.item.IAvatarWieldable;
 import vazkii.botania.api.item.IManaProficiencyArmor;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -34,7 +34,7 @@ import vazkii.botania.common.entity.ModEntities;
 
 import javax.annotation.Nonnull;
 
-public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWieldable {
+public class ItemMissileRod extends Item implements IManaUsingItem {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_MISSILE);
 
@@ -43,6 +43,7 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 
 	public ItemMissileRod(Properties props) {
 		super(props);
+		IAvatarWieldable.API.registerForItems((stack, c) -> new AvatarBehavior(), this);
 	}
 
 	@Nonnull
@@ -72,7 +73,7 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 		}
 	}
 
-	public boolean spawnMissile(Level world, LivingEntity thrower, double x, double y, double z) {
+	public static boolean spawnMissile(Level world, LivingEntity thrower, double x, double y, double z) {
 		EntityMagicMissile missile;
 		if (thrower != null) {
 			missile = new EntityMagicMissile(thrower, false);
@@ -103,24 +104,26 @@ public class ItemMissileRod extends Item implements IManaUsingItem, IAvatarWield
 		return true;
 	}
 
-	@Override
-	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
-		BlockEntity te = tile.tileEntity();
-		Level world = te.getLevel();
-		BlockPos pos = te.getBlockPos();
-		if (tile.getCurrentMana() >= COST_AVATAR && tile.getElapsedFunctionalTicks() % 3 == 0 && tile.isEnabled()) {
-			if (spawnMissile(world, null, pos.getX() + 0.5 + (Math.random() - 0.5 * 0.1), pos.getY() + 2.5 + (Math.random() - 0.5 * 0.1), pos.getZ() + (Math.random() - 0.5 * 0.1))) {
-				if (!world.isClientSide) {
-					tile.receiveMana(-COST_AVATAR);
+	protected static class AvatarBehavior implements IAvatarWieldable {
+		@Override
+		public void onAvatarUpdate(IAvatarTile tile) {
+			BlockEntity te = tile.tileEntity();
+			Level world = te.getLevel();
+			BlockPos pos = te.getBlockPos();
+			if (tile.getCurrentMana() >= COST_AVATAR && tile.getElapsedFunctionalTicks() % 3 == 0 && tile.isEnabled()) {
+				if (spawnMissile(world, null, pos.getX() + 0.5 + (Math.random() - 0.5 * 0.1), pos.getY() + 2.5 + (Math.random() - 0.5 * 0.1), pos.getZ() + (Math.random() - 0.5 * 0.1))) {
+					if (!world.isClientSide) {
+						tile.receiveMana(-COST_AVATAR);
+					}
+					SparkleParticleData data = SparkleParticleData.sparkle(6F, 1F, 0.4F, 1F, 6);
+					world.addParticle(data, pos.getX() + 0.5, pos.getY() + 2.5, pos.getZ() + 0.5, 0, 0, 0);
 				}
-				SparkleParticleData data = SparkleParticleData.sparkle(6F, 1F, 0.4F, 1F, 6);
-				world.addParticle(data, pos.getX() + 0.5, pos.getY() + 2.5, pos.getZ() + 0.5, 0, 0, 0);
 			}
 		}
-	}
 
-	@Override
-	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
-		return avatarOverlay;
+		@Override
+		public ResourceLocation getOverlayResource(IAvatarTile tile) {
+			return avatarOverlay;
+		}
 	}
 }

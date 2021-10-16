@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Unit;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
@@ -68,8 +69,8 @@ public class RenderTileAvatar implements BlockEntityRenderer<TileAvatar> {
 						light, overlay, ms, buffers, 0);
 				ms.popPose();
 
-				IAvatarWieldable wieldable = (IAvatarWieldable) stack.getItem();
-				buffer = buffers.getBuffer(RenderType.entityTranslucent(wieldable.getOverlayResource(avatar, stack)));
+				IAvatarWieldable wieldable = IAvatarWieldable.API.find(stack, Unit.INSTANCE);
+				buffer = buffers.getBuffer(RenderType.entityTranslucent(wieldable.getOverlayResource(avatar)));
 				s = 1.01F;
 
 				ms.pushPose();
