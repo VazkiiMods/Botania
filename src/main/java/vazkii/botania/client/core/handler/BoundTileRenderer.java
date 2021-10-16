@@ -110,20 +110,15 @@ public final class BoundTileRenderer {
 		double renderPosZ = Minecraft.getInstance().getEntityRenderDispatcher().camera.getPosition().z();
 
 		ms.pushPose();
-		ms.translate(pos.getX() - renderPosX, pos.getY() - renderPosY, pos.getZ() - renderPosZ + 1);
+		ms.translate(pos.getX() - renderPosX, pos.getY() - renderPosY, pos.getZ() - renderPosZ);
 
 		Level world = Minecraft.getInstance().level;
 		BlockState state = world.getBlockState(pos);
-		List<AABB> list = state.getShape(world, pos)
-				.toAabbs().stream()
-				.map(b -> b.move(pos)).toList();
+		List<AABB> list = state.getShape(world, pos).toAabbs();
 
 		if (!list.isEmpty()) {
-			ms.scale(1F, 1F, 1F);
-
 			VertexConsumer buffer = buffers.getBuffer(thick ? RenderHelper.LINE_5_NO_DEPTH : RenderHelper.LINE_1_NO_DEPTH);
 			for (AABB axis : list) {
-				axis = axis.move(-pos.getX(), -pos.getY(), -(pos.getZ() + 1));
 				renderBlockOutline(ms.last().pose(), buffer, axis, color);
 			}
 
@@ -131,7 +126,6 @@ public final class BoundTileRenderer {
 			int alpha = 64;
 			color = (color & ~0xff000000) | (alpha << 24);
 			for (AABB axis : list) {
-				axis = axis.move(-pos.getX(), -pos.getY(), -(pos.getZ() + 1));
 				renderBlockOutline(ms.last().pose(), buffer, axis, color);
 			}
 		}
