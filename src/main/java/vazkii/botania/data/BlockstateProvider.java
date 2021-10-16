@@ -298,6 +298,10 @@ public class BlockstateProvider implements DataProvider {
 		ResourceLocation[] sideTexs = new ResourceLocation[6];
 		ResourceLocation[] topStrippedTexs = new ResourceLocation[6];
 		ResourceLocation[] sideStrippedTexs = new ResourceLocation[6];
+		ResourceLocation[] topGlimmeringTexs = new ResourceLocation[6];
+		ResourceLocation[] sideGlimmeringTexs = new ResourceLocation[6];
+		ResourceLocation[] topGlimmeringStrippedTexs = new ResourceLocation[6];
+		ResourceLocation[] sideGlimmeringStrippedTexs = new ResourceLocation[6];
 
 		for (int i = 0; i < 6; i++) {
 			int index = i + 1;
@@ -305,17 +309,27 @@ public class BlockstateProvider implements DataProvider {
 			topTexs[i] = getBlockTexture(dreamwoodLog, "_top");
 			sideStrippedTexs[i] = getBlockTexture(dreamwoodLogStripped, "/" + index);
 			topStrippedTexs[i] = getBlockTexture(dreamwoodLogStripped, "_top");
+			sideGlimmeringTexs[i] = getBlockTexture(dreamwoodLogGlimmering, "/" + index);
+			sideGlimmeringStrippedTexs[i] = getBlockTexture(dreamwoodLogStrippedGlimmering, "/" + index);
 		}
 
 		logWithVariants(remainingBlocks, dreamwoodLog, topTexs, sideTexs);
 		logWithVariants(remainingBlocks, dreamwood, sideTexs, sideTexs);
 		logWithVariants(remainingBlocks, dreamwoodLogStripped, topStrippedTexs, sideStrippedTexs);
 		logWithVariants(remainingBlocks, dreamwoodStripped, sideStrippedTexs, sideStrippedTexs);
+		logWithVariants(remainingBlocks, dreamwoodLogGlimmering, topTexs, sideGlimmeringTexs);
+		logWithVariants(remainingBlocks, dreamwoodGlimmering, sideGlimmeringTexs, sideGlimmeringTexs);
+		logWithVariants(remainingBlocks, dreamwoodLogStrippedGlimmering, topStrippedTexs, sideGlimmeringStrippedTexs);
+		logWithVariants(remainingBlocks, dreamwoodStrippedGlimmering, sideGlimmeringStrippedTexs, sideGlimmeringStrippedTexs);
 
 		log(remainingBlocks, livingwoodLog, getBlockTexture(livingwoodLog, "_top"), getBlockTexture(livingwoodLog));
 		log(remainingBlocks, livingwood, getBlockTexture(livingwoodLog), getBlockTexture(livingwoodLog));
 		log(remainingBlocks, livingwoodLogStripped, getBlockTexture(livingwoodLogStripped, "_top"), getBlockTexture(livingwoodLogStripped));
 		log(remainingBlocks, livingwoodStripped, getBlockTexture(livingwoodLogStripped), getBlockTexture(livingwoodLogStripped));
+		log(remainingBlocks, livingwoodLogGlimmering, getBlockTexture(livingwoodLog, "_top"), getBlockTexture(livingwoodLogGlimmering));
+		log(remainingBlocks, livingwoodGlimmering, getBlockTexture(livingwoodLogGlimmering), getBlockTexture(livingwoodLogGlimmering));
+		log(remainingBlocks, livingwoodLogStrippedGlimmering, getBlockTexture(livingwoodLogStripped, "_top"), getBlockTexture(livingwoodLogStrippedGlimmering));
+		log(remainingBlocks, livingwoodStrippedGlimmering, getBlockTexture(livingwoodLogStrippedGlimmering), getBlockTexture(livingwoodLogStripped));
 
 		//dreamwood_log/1.png
 		//dreamwood_log/2.png
@@ -329,14 +343,28 @@ public class BlockstateProvider implements DataProvider {
 		//stripped_dreamwood_log/4.png
 		//stripped_dreamwood_log/5.png
 		//stripped_dreamwood_log/6.png
+		//glimmering_dreamwood_log/1.png
+		//glimmering_dreamwood_log/2.png
+		//glimmering_dreamwood_log/3.png
+		//glimmering_dreamwood_log/4.png
+		//glimmering_dreamwood_log/5.png
+		//glimmering_dreamwood_log/6.png
+		//glimmering_stripped_dreamwood_log/1.png
+		//glimmering_stripped_dreamwood_log/2.png
+		//glimmering_stripped_dreamwood_log/3.png
+		//glimmering_stripped_dreamwood_log/4.png
+		//glimmering_stripped_dreamwood_log/5.png
+		//glimmering_stripped_dreamwood_log/6.png
 		//
 		//dreamwood_log_top.png
 		//dreamwood_planks.png
 		//livingwood_log.png
+		//glimmering_livingwood_log.png
 		//livingwood_log_top.png
 		//livingwood_planks.png
 		//stripped_dreamwood_log_top.png
 		//stripped_livingwood_log.png
+		//glimmering_stripped_livingwood_log.png
 		//stripped_livingwood_log_top.png
 
 		wallBlock(ModFluffBlocks.dreamwoodWall, getBlockTexture(dreamwood));

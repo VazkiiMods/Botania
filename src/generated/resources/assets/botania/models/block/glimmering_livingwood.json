@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "minecraft:block/cube_column_horizontal",
   "textures": {
-    "all": "botania:block/glimmering_livingwood"
+    "end": "botania:block/glimmering_livingwood_log",
+    "side": "botania:block/glimmering_livingwood_log"
   }
 }

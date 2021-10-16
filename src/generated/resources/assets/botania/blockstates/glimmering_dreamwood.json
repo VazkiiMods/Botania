@@ -1,7 +1,82 @@
 {
   "variants": {
-    "": {
-      "model": "botania:block/glimmering_dreamwood"
-    }
+    "axis=x": [
+      {
+        "model": "botania:block/glimmering_dreamwood_1",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "botania:block/glimmering_dreamwood_2",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "botania:block/glimmering_dreamwood_3",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "botania:block/glimmering_dreamwood_4",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "botania:block/glimmering_dreamwood_5",
+        "x": 90,
+        "y": 90
+      },
+      {
+        "model": "botania:block/glimmering_dreamwood_6",
+        "x": 90,
+        "y": 90
+      }
+    ],
+    "axis=y": [
+      {
+        "model": "botania:block/glimmering_dreamwood_1"
+      },
+      {
+        "model": "botania:block/glimmering_dreamwood_2"
+      },
+      {
+        "model": "botania:block/glimmering_dreamwood_3"
+      },
+      {
+        "model": "botania:block/glimmering_dreamwood_4"
+      },
+      {
+        "model": "botania:block/glimmering_dreamwood_5"
+      },
+      {
+        "model": "botania:block/glimmering_dreamwood_6"
+      }
+    ],
+    "axis=z": [
+      {
+        "model": "botania:block/glimmering_dreamwood_1",
+        "x": 90
+      },
+      {
+        "model": "botania:block/glimmering_dreamwood_2",
+        "x": 90
+      },
+      {
+        "model": "botania:block/glimmering_dreamwood_3",
+        "x": 90
+      },
+      {
+        "model": "botania:block/glimmering_dreamwood_4",
+        "x": 90
+      },
+      {
+        "model": "botania:block/glimmering_dreamwood_5",
+        "x": 90
+      },
+      {
+        "model": "botania:block/glimmering_dreamwood_6",
+        "x": 90
+      }
+    ]
   }
 }
