@@ -38,7 +38,7 @@ import javax.annotation.Nonnull;
 
 import java.util.List;
 
-public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem, IAvatarWieldable {
+public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_RAINBOW);
 
@@ -48,6 +48,7 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem,
 
 	public ItemRainbowRod(Properties props) {
 		super(props);
+		IAvatarWieldable.API.registerForItems((stack, c) -> new AvatarBehavior(), this);
 	}
 
 	@Nonnull
@@ -140,70 +141,72 @@ public class ItemRainbowRod extends ItemSelfReturning implements IManaUsingItem,
 		return true;
 	}
 
-	@Override
-	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
-		BlockEntity te = tile.tileEntity();
-		Level world = te.getLevel();
+	protected static class AvatarBehavior implements IAvatarWieldable {
+		@Override
+		public void onAvatarUpdate(IAvatarTile tile) {
+			BlockEntity te = tile.tileEntity();
+			Level world = te.getLevel();
 
-		if (world.isClientSide || tile.getCurrentMana() < MANA_COST_AVATAR * 25
-				|| !tile.isEnabled() || world.isOutsideBuildHeight(te.getBlockPos().getY() - 1)) {
-			return;
-		}
+			if (world.isClientSide || tile.getCurrentMana() < MANA_COST_AVATAR * 25
+					|| !tile.isEnabled() || world.isOutsideBuildHeight(te.getBlockPos().getY() - 1)) {
+				return;
+			}
 
-		BlockPos tePos = te.getBlockPos();
-		int w = 1;
-		int h = 1;
-		int l = 20;
+			BlockPos tePos = te.getBlockPos();
+			int w = 1;
+			int h = 1;
+			int l = 20;
 
-		AABB axis = null;
-		switch (world.getBlockState(tePos).getValue(BlockStateProperties.HORIZONTAL_FACING)) {
-		case NORTH -> axis = new AABB(tePos.offset(-w, -h, -l), tePos.offset(w + 1, h, 0));
-		case SOUTH -> axis = new AABB(tePos.offset(-w, -h, 1), tePos.offset(w + 1, h, l + 1));
-		case WEST -> axis = new AABB(tePos.offset(-l, -h, -w), tePos.offset(0, h, w + 1));
-		case EAST -> axis = new AABB(tePos.offset(1, -h, -w), tePos.offset(l + 1, h, w + 1));
-		default -> {}
-		}
+			AABB axis = null;
+			switch (world.getBlockState(tePos).getValue(BlockStateProperties.HORIZONTAL_FACING)) {
+			case NORTH -> axis = new AABB(tePos.offset(-w, -h, -l), tePos.offset(w + 1, h, 0));
+			case SOUTH -> axis = new AABB(tePos.offset(-w, -h, 1), tePos.offset(w + 1, h, l + 1));
+			case WEST -> axis = new AABB(tePos.offset(-l, -h, -w), tePos.offset(0, h, w + 1));
+			case EAST -> axis = new AABB(tePos.offset(1, -h, -w), tePos.offset(l + 1, h, w + 1));
+			default -> {}
+			}
 
-		List<Player> players = world.getEntitiesOfClass(Player.class, axis);
-		for (Player p : players) {
-			int px = Mth.floor(p.getX());
-			int py = Mth.floor(p.getY()) - 1;
-			int pz = Mth.floor(p.getZ());
-			int dist = 5;
-			int diff = dist / 2;
+			List<Player> players = world.getEntitiesOfClass(Player.class, axis);
+			for (Player p : players) {
+				int px = Mth.floor(p.getX());
+				int py = Mth.floor(p.getY()) - 1;
+				int pz = Mth.floor(p.getZ());
+				int dist = 5;
+				int diff = dist / 2;
 
-			for (int i = 0; i < dist; i++) {
-				for (int j = 0; j < dist; j++) {
-					int ex = px + i - diff;
-					int ez = pz + j - diff;
+				for (int i = 0; i < dist; i++) {
+					for (int j = 0; j < dist; j++) {
+						int ex = px + i - diff;
+						int ez = pz + j - diff;
 
-					if (!axis.contains(new Vec3(ex + 0.5, py + 1, ez + 0.5))) {
-						continue;
-					}
-					BlockPos pos = new BlockPos(ex, py, ez);
-					BlockState state = world.getBlockState(pos);
-					if (state.isAir()) {
-						if (world.setBlockAndUpdate(pos, ModBlocks.bifrost.defaultBlockState())) {
-							TileBifrost tileBifrost = (TileBifrost) world.getBlockEntity(pos);
-							tileBifrost.ticks = 10;
-							tile.receiveMana(-MANA_COST_AVATAR);
+						if (!axis.contains(new Vec3(ex + 0.5, py + 1, ez + 0.5))) {
+							continue;
 						}
-					} else if (state.is(ModBlocks.bifrost)) {
-						TileBifrost tileBifrost = (TileBifrost) world.getBlockEntity(pos);
-						if (tileBifrost.ticks < 2) {
-							tileBifrost.ticks += 10;
-							tile.receiveMana(-MANA_COST_AVATAR);
+						BlockPos pos = new BlockPos(ex, py, ez);
+						BlockState state = world.getBlockState(pos);
+						if (state.isAir()) {
+							if (world.setBlockAndUpdate(pos, ModBlocks.bifrost.defaultBlockState())) {
+								TileBifrost tileBifrost = (TileBifrost) world.getBlockEntity(pos);
+								tileBifrost.ticks = 10;
+								tile.receiveMana(-MANA_COST_AVATAR);
+							}
+						} else if (state.is(ModBlocks.bifrost)) {
+							TileBifrost tileBifrost = (TileBifrost) world.getBlockEntity(pos);
+							if (tileBifrost.ticks < 2) {
+								tileBifrost.ticks += 10;
+								tile.receiveMana(-MANA_COST_AVATAR);
+							}
 						}
 					}
 				}
 			}
+
 		}
 
-	}
-
-	@Override
-	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
-		return avatarOverlay;
+		@Override
+		public ResourceLocation getOverlayResource(IAvatarTile tile) {
+			return avatarOverlay;
+		}
 	}
 
 }

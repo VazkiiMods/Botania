@@ -13,6 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.util.Unit;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
@@ -48,8 +49,11 @@ public class TileAvatar extends TileSimpleInventory implements IAvatarTile {
 		self.enabled = !level.hasNeighborSignal(worldPosition);
 
 		ItemStack stack = self.getItemHandler().getItem(0);
-		if (!stack.isEmpty() && stack.getItem() instanceof IAvatarWieldable wieldable) {
-			wieldable.onAvatarUpdate(self, stack);
+		if (!stack.isEmpty()) {
+			var wieldable = IAvatarWieldable.API.find(stack, Unit.INSTANCE);
+			if (wieldable != null) {
+				wieldable.onAvatarUpdate(self);
+			}
 		}
 
 		if (self.enabled) {

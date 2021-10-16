@@ -31,7 +31,7 @@ import vazkii.botania.common.entity.ModEntities;
 
 import javax.annotation.Nonnull;
 
-public class ItemFireRod extends Item implements IManaUsingItem, IAvatarWieldable {
+public class ItemFireRod extends Item implements IManaUsingItem {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_FIRE);
 
@@ -40,6 +40,7 @@ public class ItemFireRod extends Item implements IManaUsingItem, IAvatarWieldabl
 
 	public ItemFireRod(Properties props) {
 		super(props);
+		IAvatarWieldable.API.registerForItems((stack, c) -> new AvatarBehavior(), this);
 	}
 
 	@Nonnull
@@ -71,22 +72,24 @@ public class ItemFireRod extends Item implements IManaUsingItem, IAvatarWieldabl
 		return true;
 	}
 
-	@Override
-	public void onAvatarUpdate(IAvatarTile tile, ItemStack stack) {
-		BlockEntity te = tile.tileEntity();
-		Level world = te.getLevel();
+	protected static class AvatarBehavior implements IAvatarWieldable {
+		@Override
+		public void onAvatarUpdate(IAvatarTile tile) {
+			BlockEntity te = tile.tileEntity();
+			Level world = te.getLevel();
 
-		if (!world.isClientSide && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 300 == 0 && tile.isEnabled()) {
-			EntityFlameRing entity = ModEntities.FLAME_RING.create(world);
-			entity.setPos(te.getBlockPos().getX() + 0.5, te.getBlockPos().getY(), te.getBlockPos().getZ() + 0.5);
-			world.addFreshEntity(entity);
-			tile.receiveMana(-COST);
+			if (!world.isClientSide && tile.getCurrentMana() >= COST && tile.getElapsedFunctionalTicks() % 300 == 0 && tile.isEnabled()) {
+				EntityFlameRing entity = ModEntities.FLAME_RING.create(world);
+				entity.setPos(te.getBlockPos().getX() + 0.5, te.getBlockPos().getY(), te.getBlockPos().getZ() + 0.5);
+				world.addFreshEntity(entity);
+				tile.receiveMana(-COST);
+			}
 		}
-	}
 
-	@Override
-	public ResourceLocation getOverlayResource(IAvatarTile tile, ItemStack stack) {
-		return avatarOverlay;
+		@Override
+		public ResourceLocation getOverlayResource(IAvatarTile tile) {
+			return avatarOverlay;
+		}
 	}
 
 }
