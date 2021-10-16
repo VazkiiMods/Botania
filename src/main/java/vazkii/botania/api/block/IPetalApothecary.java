@@ -9,6 +9,7 @@
 package vazkii.botania.api.block;
 
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 
@@ -17,8 +18,7 @@ import javax.annotation.Nonnull;
 import java.util.Locale;
 
 /**
- * Base Interface for the Petal Apothecary block. Can
- * be safely casted to TileEntity.
+ * Base Interface for the Petal Apothecary block entity
  */
 public interface IPetalApothecary {
 	enum State implements StringRepresentable {
@@ -50,4 +50,8 @@ public interface IPetalApothecary {
 	 * Get the contained fluid.
 	 */
 	State getFluid();
+
+	default BlockEntity blockEntity() {
+		return (BlockEntity) this;
+	}
 }
