@@ -9,15 +9,22 @@
 package vazkii.botania.api.item;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
+
+import vazkii.botania.api.block.ITileBound;
+
+import javax.annotation.Nullable;
 
 /**
- * Have a block implement this class to make it do something when an adjacent
- * Hovering Hourglass turns.
+ * The item equivalent of ITileBound, renders when the
+ * item is in hand.
+ * 
+ * @see ITileBound
  */
-public interface IHourglassTrigger {
+public interface ICoordBoundItem {
 
-	void onTriggeredByHourglass(Level world, BlockPos pos, BlockEntity hourglass);
+	@Nullable
+	BlockPos getBinding(Level world, ItemStack stack);
 
 }

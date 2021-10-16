@@ -10,7 +10,7 @@ package vazkii.botania.common.item;
 
 import net.minecraft.world.item.ItemStack;
 
-import vazkii.botania.api.item.IFloatingFlower.IslandType;
+import vazkii.botania.api.block.IFloatingFlower.IslandType;
 
 public interface IFloatingFlowerVariant {
 	IslandType getIslandType(ItemStack stack);

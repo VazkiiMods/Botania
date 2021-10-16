@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Unit;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.block.IAvatarTile;
 
 /**
  * An Item that has this capability this can be wielded by an Avatar.

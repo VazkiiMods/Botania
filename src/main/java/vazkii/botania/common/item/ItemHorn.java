@@ -26,8 +26,8 @@ import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
-import vazkii.botania.api.item.IHornHarvestable;
-import vazkii.botania.api.item.IHornHarvestable.EnumHornType;
+import vazkii.botania.api.block.IHornHarvestable;
+import vazkii.botania.api.block.IHornHarvestable.EnumHornType;
 import vazkii.botania.common.core.handler.ModSounds;
 import vazkii.botania.common.lib.ModTags;
 

@@ -41,11 +41,11 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
+import vazkii.botania.api.block.ITileBound;
+import vazkii.botania.api.block.IWandBindable;
+import vazkii.botania.api.block.IWandable;
+import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.state.BotaniaStateProps;
-import vazkii.botania.api.wand.ICoordBoundItem;
-import vazkii.botania.api.wand.ITileBound;
-import vazkii.botania.api.wand.IWandBindable;
-import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.client.fx.WispParticleData;
 import vazkii.botania.common.Botania;

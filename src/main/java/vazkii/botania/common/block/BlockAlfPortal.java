@@ -25,9 +25,9 @@ import net.minecraft.world.level.block.state.StateDefinition;
 
 import org.jetbrains.annotations.Nullable;
 
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.api.state.BotaniaStateProps;
 import vazkii.botania.api.state.enums.AlfPortalState;
-import vazkii.botania.api.wand.IWandable;
 import vazkii.botania.common.advancements.AlfPortalTrigger;
 import vazkii.botania.common.block.tile.ModTiles;
 import vazkii.botania.common.block.tile.TileAlfPortal;

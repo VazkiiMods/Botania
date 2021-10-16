@@ -28,10 +28,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
+import vazkii.botania.api.block.IFloatingFlower;
+import vazkii.botania.api.block.IFloatingFlower.IslandType;
+import vazkii.botania.api.block.IFloatingFlowerProvider;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.item.IFloatingFlower;
-import vazkii.botania.api.item.IFloatingFlower.IslandType;
-import vazkii.botania.api.item.IFloatingFlowerProvider;
 import vazkii.botania.client.fx.SparkleParticleData;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.TileFloatingFlower;

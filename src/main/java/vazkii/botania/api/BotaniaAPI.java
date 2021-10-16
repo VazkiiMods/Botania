@@ -16,7 +16,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.*;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
@@ -33,11 +32,11 @@ import net.minecraft.world.level.block.Block;
 
 import org.apache.logging.log4j.LogManager;
 
+import vazkii.botania.api.block.IHornHarvestable;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.internal.DummyManaNetwork;
 import vazkii.botania.api.internal.IManaNetwork;
-import vazkii.botania.api.item.IHornHarvestable;
 
 import javax.annotation.Nonnull;
 

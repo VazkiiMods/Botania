@@ -31,9 +31,9 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.block.IWireframeAABBProvider;
+import vazkii.botania.api.item.ICoordBoundItem;
 import vazkii.botania.api.item.IWireframeCoordinateListProvider;
-import vazkii.botania.api.wand.ICoordBoundItem;
-import vazkii.botania.api.wand.IWireframeAABBProvider;
 import vazkii.botania.client.core.helper.RenderHelper;
 import vazkii.botania.common.core.handler.ConfigHandler;
 

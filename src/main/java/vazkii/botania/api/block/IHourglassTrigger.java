@@ -6,23 +6,18 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.wand;
+package vazkii.botania.api.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-
-import javax.annotation.Nullable;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 /**
- * The item equivalent of ITileBound, renders when the
- * item is in hand.
- * 
- * @see ITileBound
+ * Have a block implement this class to make it do something when an adjacent
+ * Hovering Hourglass turns.
  */
-public interface ICoordBoundItem {
+public interface IHourglassTrigger {
 
-	@Nullable
-	BlockPos getBinding(Level world, ItemStack stack);
+	void onTriggeredByHourglass(Level world, BlockPos pos, BlockEntity hourglass);
 
 }

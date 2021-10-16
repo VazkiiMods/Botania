@@ -6,7 +6,7 @@
  * Botania is Open Source and distributed under the
  * Botania License: http://botaniamod.net/license.php
  */
-package vazkii.botania.api.item;
+package vazkii.botania.api.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;

@@ -12,7 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import vazkii.botania.api.item.IHornHarvestable;
+import vazkii.botania.api.block.IHornHarvestable;
 
 public class DefaultHornHarvestable implements IHornHarvestable {
 	public static final IHornHarvestable INSTANCE = new DefaultHornHarvestable();

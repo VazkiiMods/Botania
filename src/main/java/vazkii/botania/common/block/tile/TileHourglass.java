@@ -25,8 +25,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import vazkii.botania.api.block.IHourglassTrigger;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
-import vazkii.botania.api.item.IHourglassTrigger;
 import vazkii.botania.common.item.ModItems;
 
 public class TileHourglass extends TileExposedSimpleInventory {

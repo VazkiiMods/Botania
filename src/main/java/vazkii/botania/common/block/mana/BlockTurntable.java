@@ -26,8 +26,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import org.jetbrains.annotations.Nullable;
 
-import vazkii.botania.api.wand.IWandHUD;
-import vazkii.botania.api.wand.IWandable;
+import vazkii.botania.api.block.IWandHUD;
+import vazkii.botania.api.block.IWandable;
 import vazkii.botania.common.block.BlockMod;
 import vazkii.botania.common.block.BlockOpenCrate;
 import vazkii.botania.common.block.tile.ModTiles;
