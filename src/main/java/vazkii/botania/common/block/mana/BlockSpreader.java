@@ -8,7 +8,6 @@
  */
 package vazkii.botania.common.block.mana;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.fabricmc.api.EnvType;
@@ -33,13 +32,11 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import vazkii.botania.api.block.IWandHUD;
 import vazkii.botania.api.block.IWandable;
-import vazkii.botania.api.block.IWireframeAABBProvider;
 import vazkii.botania.api.mana.ILens;
 import vazkii.botania.common.block.BlockModWaterloggable;
 import vazkii.botania.common.block.tile.ModTiles;
@@ -51,10 +48,8 @@ import vazkii.botania.common.item.ModItems;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import java.util.List;
-
-public class BlockSpreader extends BlockModWaterloggable implements EntityBlock, IWandable, IWandHUD, IWireframeAABBProvider {
-	private static final VoxelShape RENDER_SHAPE = box(1, 1, 1, 15, 15, 15);
+public class BlockSpreader extends BlockModWaterloggable implements EntityBlock, IWandable, IWandHUD {
+	public static final VoxelShape RENDER_SHAPE = box(1, 1, 1, 15, 15, 15);
 
 	public enum Variant {
 		MANA(160, 1000, 0x20FF20, 0x00FF00, 60, 4f, 1f),
@@ -232,10 +227,5 @@ public class BlockSpreader extends BlockModWaterloggable implements EntityBlock,
 	@Override
 	public void renderHUD(PoseStack ms, Minecraft mc, Level world, BlockPos pos) {
 		((TileSpreader) world.getBlockEntity(pos)).renderHUD(ms, mc);
-	}
-
-	@Override
-	public List<AABB> getWireframeAABB(Level world, BlockPos pos) {
-		return ImmutableList.of(new AABB(pos).deflate(1.0 / 16.0));
 	}
 }

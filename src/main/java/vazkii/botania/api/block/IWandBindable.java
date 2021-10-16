@@ -15,8 +15,7 @@ import net.minecraft.world.item.ItemStack;
 
 /**
  * A TileEntity that implements this can be bound to another block
- * via the Wand of the Forest. Also see IWireframeAABBProvider to change
- * the displayed bounding box.
+ * via the Wand of the Forest.
  */
 public interface IWandBindable extends ITileBound {
 
