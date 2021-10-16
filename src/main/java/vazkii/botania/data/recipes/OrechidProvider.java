@@ -113,7 +113,7 @@ public class OrechidProvider extends BotaniaRecipeProvider {
 
 	@Override
 	public String getName() {
-		return "Botania Orechid weight data";
+		return "Botania Orechid and Marimorphosis weight data";
 	}
 
 	protected static class Result implements net.minecraft.data.recipes.FinishedRecipe {
