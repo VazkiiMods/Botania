@@ -40,11 +40,12 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProvider {
+public class ItemTerraformRod extends Item implements IManaUsingItem {
 	private static final int COST_PER = 55;
 
 	public ItemTerraformRod(Properties props) {
 		super(props);
+		IBlockProvider.API.registerForItems((stack, c) -> new BlockProvider(), this);
 	}
 
 	@Nonnull
@@ -152,20 +153,22 @@ public class ItemTerraformRod extends Item implements IManaUsingItem, IBlockProv
 		return true;
 	}
 
-	@Override
-	public boolean provideBlock(Player player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
-		if (block == Blocks.DIRT) {
-			return (doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, ItemDirtRod.COST, true)) ||
-					(!doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, ItemDirtRod.COST, false));
+	protected static class BlockProvider implements IBlockProvider {
+		@Override
+		public boolean provideBlock(Player player, ItemStack requestor, Block block, boolean doit) {
+			if (block == Blocks.DIRT) {
+				return (doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, ItemDirtRod.COST, true)) ||
+						(!doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, ItemDirtRod.COST, false));
+			}
+			return false;
 		}
-		return false;
-	}
 
-	@Override
-	public int getBlockCount(Player player, ItemStack requestor, ItemStack stack, Block block) {
-		if (block == Blocks.DIRT) {
-			return ManaItemHandler.instance().getInvocationCountForTool(requestor, player, ItemDirtRod.COST);
+		@Override
+		public int getBlockCount(Player player, ItemStack requestor, Block block) {
+			if (block == Blocks.DIRT) {
+				return ManaItemHandler.instance().getInvocationCountForTool(requestor, player, ItemDirtRod.COST);
+			}
+			return 0;
 		}
-		return 0;
 	}
 }

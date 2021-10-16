@@ -35,7 +35,7 @@ import vazkii.botania.common.core.helper.PlayerHelper;
 
 import javax.annotation.Nonnull;
 
-public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider, IAvatarWieldable {
+public class ItemDirtRod extends Item implements IManaUsingItem, IAvatarWieldable {
 
 	private static final ResourceLocation avatarOverlay = new ResourceLocation(LibResources.MODEL_AVATAR_DIRT);
 
@@ -43,6 +43,7 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 
 	public ItemDirtRod(Properties props) {
 		super(props);
+		IBlockProvider.API.registerForItems((stack, c) -> new BlockProvider(stack), this);
 	}
 
 	@Nonnull
@@ -86,21 +87,29 @@ public class ItemDirtRod extends Item implements IManaUsingItem, IBlockProvider,
 		return true;
 	}
 
-	@Override
-	public boolean provideBlock(Player player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
-		if (block == Blocks.DIRT) {
-			return (doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, true)) ||
-					(!doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, false));
-		}
-		return false;
-	}
+	protected static class BlockProvider implements IBlockProvider {
+		private final ItemStack stack;
 
-	@Override
-	public int getBlockCount(Player player, ItemStack requestor, ItemStack stack, Block block) {
-		if (block == Blocks.DIRT) {
-			return ManaItemHandler.instance().getInvocationCountForTool(requestor, player, COST);
+		protected BlockProvider(ItemStack stack) {
+			this.stack = stack;
 		}
-		return 0;
+
+		@Override
+		public boolean provideBlock(Player player, ItemStack requestor, Block block, boolean doit) {
+			if (block == Blocks.DIRT) {
+				return (doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, true)) ||
+						(!doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, false));
+			}
+			return false;
+		}
+
+		@Override
+		public int getBlockCount(Player player, ItemStack requestor, Block block) {
+			if (block == Blocks.DIRT) {
+				return ManaItemHandler.instance().getInvocationCountForTool(requestor, player, COST);
+			}
+			return 0;
+		}
 	}
 
 	@Override

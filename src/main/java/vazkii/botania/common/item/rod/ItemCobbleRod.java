@@ -22,12 +22,13 @@ import vazkii.botania.api.mana.ManaItemHandler;
 
 import javax.annotation.Nonnull;
 
-public class ItemCobbleRod extends Item implements IManaUsingItem, IBlockProvider {
+public class ItemCobbleRod extends Item implements IManaUsingItem {
 
 	static final int COST = 150;
 
 	public ItemCobbleRod(Properties props) {
 		super(props);
+		IBlockProvider.API.registerForItems((stack, c) -> new BlockProvider(), this);
 	}
 
 	@Nonnull
@@ -41,21 +42,23 @@ public class ItemCobbleRod extends Item implements IManaUsingItem, IBlockProvide
 		return true;
 	}
 
-	@Override
-	public boolean provideBlock(Player player, ItemStack requestor, ItemStack stack, Block block, boolean doit) {
-		if (block == Blocks.COBBLESTONE) {
-			return (doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, true)) ||
-					(!doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, false));
+	protected static class BlockProvider implements IBlockProvider {
+		@Override
+		public boolean provideBlock(Player player, ItemStack requestor, Block block, boolean doit) {
+			if (block == Blocks.COBBLESTONE) {
+				return (doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, true)) ||
+						(!doit && ManaItemHandler.instance().requestManaExactForTool(requestor, player, COST, false));
+			}
+			return false;
 		}
-		return false;
-	}
 
-	@Override
-	public int getBlockCount(Player player, ItemStack requestor, ItemStack stack, Block block) {
-		if (block == Blocks.COBBLESTONE) {
-			return ManaItemHandler.instance().getInvocationCountForTool(requestor, player, COST);
+		@Override
+		public int getBlockCount(Player player, ItemStack requestor, Block block) {
+			if (block == Blocks.COBBLESTONE) {
+				return ManaItemHandler.instance().getInvocationCountForTool(requestor, player, COST);
+			}
+			return 0;
 		}
-		return 0;
 	}
 
 }

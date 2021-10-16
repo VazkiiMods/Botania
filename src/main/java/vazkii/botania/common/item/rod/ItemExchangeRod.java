@@ -28,6 +28,7 @@ import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Unit;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -292,7 +293,7 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 	}
 
 	public static ItemStack removeFromInventory(Player player, Container inv, ItemStack tool, Item requested, boolean doit) {
-		List<ItemStack> providers = new ArrayList<>();
+		List<IBlockProvider> providers = new ArrayList<>();
 		for (int i = inv.getContainerSize() - 1; i >= 0; i--) {
 			ItemStack invStack = inv.getItem(i);
 			if (invStack.isEmpty()) {
@@ -311,16 +312,16 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 				return ret;
 			}
 
-			if (item instanceof IBlockProvider) {
-				providers.add(invStack);
+			var provider = IBlockProvider.API.find(invStack, Unit.INSTANCE);
+			if (provider != null) {
+				providers.add(provider);
 			}
 		}
 
 		if (requested instanceof BlockItem) {
 			Block block = ((BlockItem) requested).getBlock();
-			for (ItemStack provStack : providers) {
-				IBlockProvider prov = (IBlockProvider) provStack.getItem();
-				if (prov.provideBlock(player, tool, provStack, block, doit)) {
+			for (IBlockProvider prov : providers) {
+				if (prov.provideBlock(player, tool, block, doit)) {
 					return new ItemStack(requested);
 				}
 			}
@@ -376,8 +377,9 @@ public class ItemExchangeRod extends Item implements IManaUsingItem, IWireframeC
 				count += invStack.getCount();
 			}
 
-			if (item instanceof IBlockProvider prov && requested instanceof BlockItem) {
-				int provCount = prov.getBlockCount(player, stack, invStack, ((BlockItem) requested).getBlock());
+			var prov = IBlockProvider.API.find(invStack, Unit.INSTANCE);
+			if (prov != null && requested instanceof BlockItem) {
+				int provCount = prov.getBlockCount(player, stack, ((BlockItem) requested).getBlock());
 				if (provCount == -1) {
 					return -1;
 				}
