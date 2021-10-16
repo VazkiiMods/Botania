@@ -10,7 +10,6 @@ package vazkii.botania.client.render.tile;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
@@ -39,8 +38,6 @@ import net.minecraft.world.phys.HitResult;
 
 import vazkii.botania.api.item.TinyPotatoRenderCallback;
 import vazkii.botania.client.core.handler.MiscellaneousIcons;
-import vazkii.botania.client.core.helper.ShaderHelper;
-import vazkii.botania.client.core.helper.ShaderWrappedRenderLayer;
 import vazkii.botania.client.core.proxy.ClientProxy;
 import vazkii.botania.client.lib.LibResources;
 import vazkii.botania.common.block.tile.TileTinyPotato;
@@ -48,15 +45,15 @@ import vazkii.botania.common.core.handler.ContributorList;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.block.ItemBlockTinyPotato;
 import vazkii.botania.common.item.equipment.bauble.ItemFlightTiara;
-import vazkii.botania.common.lib.LibMisc;
 import vazkii.botania.mixin.AccessorModelManager;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
+
+import static vazkii.botania.common.lib.ResourceLocationHelper.prefix;
 
 public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato> {
 	public static final String DEFAULT = "default";
@@ -77,21 +74,11 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 	}
 
 	public static BakedModel getModelFromDisplayName(Component displayName) {
-		return getModel(stripShaderName(displayName.getString().trim().toLowerCase(Locale.ROOT)).getSecond());
-	}
-
-	private static Pair<ShaderHelper.BotaniaShader, String> stripShaderName(String name) {
-		if (matches(name, "gaia")) {
-			return Pair.of(ShaderHelper.BotaniaShader.DOPPLEGANGER, removeFromFront(name, "gaia"));
-		} else if (matches(name, "hot")) {
-			return Pair.of(ShaderHelper.BotaniaShader.HALO, removeFromFront(name, "hot"));
-		} else if (matches(name, "magic")) {
-			return Pair.of(ShaderHelper.BotaniaShader.ENCHANTER_RUNE, removeFromFront(name, "magic"));
-		} else if (matches(name, "snoop")) {
-			return Pair.of(ShaderHelper.BotaniaShader.TERRA_PLATE, removeFromFront(name, "snoop"));
-		} else {
-			return Pair.of(null, name);
+		var name = displayName.getString().trim().toLowerCase(Locale.ROOT);
+		if (matches(name, "enchanted")) {
+			name = removeFromFront(name, "enchanted");
 		}
+		return getModel(name);
 	}
 
 	private static BakedModel getModel(String name) {
@@ -111,16 +98,11 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 	}
 
 	private static ResourceLocation taterLocation(String name) {
-		return new ResourceLocation(LibMisc.MOD_ID, LibResources.PREFIX_TINY_POTATO + "/" + normalizeName(name));
+		return prefix(LibResources.PREFIX_TINY_POTATO + "/" + normalizeName(name));
 	}
 
 	private static String normalizeName(String name) {
 		return ESCAPED.matcher(name).replaceAll("_");
-	}
-
-	private static RenderType getRenderLayer(@Nullable ShaderHelper.BotaniaShader shader) {
-		RenderType base = Sheets.translucentCullBlockSheet();
-		return shader == null || !ShaderHelper.useShaders() ? base : new ShaderWrappedRenderLayer(shader, null, base);
 	}
 
 	@Override
@@ -128,14 +110,11 @@ public class RenderTileTinyPotato implements BlockEntityRenderer<TileTinyPotato>
 		ms.pushPose();
 
 		String name = potato.name.getString().toLowerCase(Locale.ROOT).trim();
-		Pair<ShaderHelper.BotaniaShader, String> shaderStrippedName = stripShaderName(name);
-		ShaderHelper.BotaniaShader shader = shaderStrippedName.getFirst();
-		name = shaderStrippedName.getSecond();
 		boolean enchanted = matches(name, "enchanted");
 		if (enchanted) {
 			name = removeFromFront(name, "enchanted");
 		}
-		RenderType layer = getRenderLayer(shader);
+		RenderType layer = Sheets.translucentCullBlockSheet();
 		BakedModel model = getModel(name);
 
 		ms.translate(0.5F, 0F, 0.5F);
