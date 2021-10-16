@@ -8,16 +8,21 @@
  */
 package vazkii.botania.api.block;
 
+import net.fabricmc.fabric.api.lookup.v1.block.BlockApiLookup;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Unit;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import vazkii.botania.api.BotaniaAPI;
 
 /**
- * Have a block implement this class to make it do something when an adjacent
- * Hovering Hourglass turns.
+ * A block with this capability will receive a custom callback when a Hovering
+ * Hourglass adjacent to the block turns.
  */
 public interface IHourglassTrigger {
+	BlockApiLookup<IHourglassTrigger, Unit> API = BlockApiLookup.get(new ResourceLocation(BotaniaAPI.MODID, "hourglass_trigger"), IHourglassTrigger.class, Unit.class);
 
-	void onTriggeredByHourglass(Level world, BlockPos pos, BlockEntity hourglass);
+	void onTriggeredByHourglass(BlockEntity hourglass);
 
 }

@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 
 /**
  * Block Entity implementing this may conditionally return {@link IFloatingFlower}.
- * This is exposed for public reading, but do not implement it on anything.
+ * This is exposed for public reading, do not implement it on anything yourself.
  */
 public interface IFloatingFlowerProvider {
 	@Nullable

@@ -44,7 +44,7 @@ import vazkii.botania.common.block.tile.TileAnimatedTorch;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityBlock, IWandable, IManaTrigger, IHourglassTrigger, IWandHUD {
+public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityBlock, IWandable, IManaTrigger, IWandHUD {
 
 	private static final VoxelShape SHAPE = box(0, 0, 0, 16, 4, 16);
 
@@ -72,11 +72,6 @@ public class BlockAnimatedTorch extends BlockModWaterloggable implements EntityB
 		if (!burst.isFake()) {
 			((TileAnimatedTorch) world.getBlockEntity(pos)).toggle();
 		}
-	}
-
-	@Override
-	public void onTriggeredByHourglass(Level world, BlockPos pos, BlockEntity hourglass) {
-		((TileAnimatedTorch) world.getBlockEntity(pos)).toggle();
 	}
 
 	@Override

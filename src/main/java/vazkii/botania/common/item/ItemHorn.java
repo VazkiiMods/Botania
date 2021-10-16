@@ -11,6 +11,7 @@ package vazkii.botania.common.item;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Unit;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,9 +24,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.block.IHornHarvestable;
 import vazkii.botania.api.block.IHornHarvestable.EnumHornType;
 import vazkii.botania.common.core.handler.ModSounds;
@@ -86,8 +87,9 @@ public class ItemHorn extends Item {
 		for (BlockPos pos : BlockPos.betweenClosed(srcPos.offset(-range, -rangeY, -range),
 				srcPos.offset(range, rangeY, range))) {
 			BlockState state = world.getBlockState(pos);
-			Block block = world.getBlockState(pos).getBlock();
-			IHornHarvestable harvestable = BotaniaAPI.instance().getHornHarvestable(block).orElse(null);
+			Block block = state.getBlock();
+			BlockEntity be = world.getBlockEntity(pos);
+			IHornHarvestable harvestable = IHornHarvestable.API.find(world, pos, state, be, Unit.INSTANCE);
 
 			if (harvestable != null
 					? harvestable.canHornHarvest(world, pos, stack, type)
@@ -104,8 +106,8 @@ public class ItemHorn extends Item {
 		for (int i = 0; i < count; i++) {
 			BlockPos currCoords = coords.get(i);
 			BlockState state = world.getBlockState(currCoords);
-			Block block = state.getBlock();
-			IHornHarvestable harvestable = BotaniaAPI.instance().getHornHarvestable(block).orElse(null);
+			BlockEntity be = world.getBlockEntity(currCoords);
+			IHornHarvestable harvestable = IHornHarvestable.API.find(world, currCoords, state, be, Unit.INSTANCE);
 
 			if (harvestable != null && harvestable.hasSpecialHornHarvest(world, currCoords, stack, type)) {
 				harvestable.harvestByHorn(world, currCoords, stack, type);

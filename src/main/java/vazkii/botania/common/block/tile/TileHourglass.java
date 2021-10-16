@@ -18,6 +18,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.StringUtil;
+import net.minecraft.util.Unit;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -74,9 +75,10 @@ public class TileHourglass extends TileExposedSimpleInventory {
 
 				for (Direction facing : Direction.values()) {
 					BlockPos pos = worldPosition.relative(facing);
-					BlockState neighbor = level.getBlockState(pos);
-					if (neighbor.getBlock() instanceof IHourglassTrigger) {
-						((IHourglassTrigger) neighbor.getBlock()).onTriggeredByHourglass(level, pos, self);
+					var trigger = IHourglassTrigger.API.find(level, pos,
+							level.getBlockState(pos), level.getBlockEntity(pos), Unit.INSTANCE);
+					if (trigger != null) {
+						trigger.onTriggeredByHourglass(self);
 					}
 				}
 			}

@@ -32,7 +32,6 @@ import net.minecraft.world.level.block.Block;
 
 import org.apache.logging.log4j.LogManager;
 
-import vazkii.botania.api.block.IHornHarvestable;
 import vazkii.botania.api.brew.Brew;
 import vazkii.botania.api.corporea.ICorporeaNodeDetector;
 import vazkii.botania.api.internal.DummyManaNetwork;
@@ -42,7 +41,6 @@ import javax.annotation.Nonnull;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -96,20 +94,6 @@ public interface BotaniaAPI {
 	 * @param transformer Function from color to a new block
 	 */
 	default void registerPaintableBlock(ResourceLocation blockId, Function<DyeColor, Block> transformer) {
-
-	}
-
-	default Optional<IHornHarvestable> getHornHarvestable(Block block) {
-		return Optional.empty();
-	}
-
-	/**
-	 * Make Botania recognize a Block as IHornHarvestable without explicitly implementing the interface
-	 *
-	 * @param blockId     The block ID
-	 * @param harvestable The harvestable
-	 */
-	default void registerHornHarvestableBlock(ResourceLocation blockId, IHornHarvestable harvestable) {
 
 	}
 
