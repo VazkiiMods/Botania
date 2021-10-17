@@ -30,10 +30,10 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 import vazkii.botania.api.BotaniaAPI;
+import vazkii.botania.api.block.FloatingFlowerImpl;
 import vazkii.botania.api.block.IFloatingFlower;
 import vazkii.botania.api.block.IFloatingFlowerProvider;
 import vazkii.botania.api.block.IWandBindable;
-import vazkii.botania.api.capability.FloatingFlowerImpl;
 import vazkii.botania.api.internal.VanillaPacketDispatcher;
 import vazkii.botania.common.Botania;
 import vazkii.botania.common.block.ModBlocks;
