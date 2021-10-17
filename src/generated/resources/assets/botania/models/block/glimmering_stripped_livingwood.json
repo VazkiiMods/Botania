@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cube_column",
   "textures": {
     "end": "botania:block/glimmering_stripped_livingwood_log",
-    "side": "botania:block/stripped_livingwood_log"
+    "side": "botania:block/glimmering_stripped_livingwood_log"
   }
 }
